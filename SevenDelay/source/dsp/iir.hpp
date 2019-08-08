@@ -136,7 +136,7 @@ public:
 
   void setCutoff(Sample hz)
   {
-    cutoff = hz;
+    cutoff = hz > 0.0 ? hz : 0.0;
     setCoefficient();
   }
 
@@ -272,7 +272,7 @@ public:
 
   void setCutoff(Sample hz)
   {
-    f0 = hz;
+    f0 = hz > 0.0 ? hz : 0.0;
     setCoefficient();
   }
 
