@@ -27,9 +27,6 @@
 #include "pluginterfaces/vst/ivstparameterchanges.h"
 #include "pluginterfaces/vst/ivstprocesscontext.h"
 
-#include <cmath>
-#define M_PI 3.14159265358979323846
-
 namespace Steinberg {
 namespace SevenDelay {
 
@@ -65,39 +62,15 @@ tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 {
   LinearSmoother<float>::setSampleRate(setup.sampleRate);
 
-  delay[0] = std::make_shared<DelayTypeName>(setup.sampleRate, 1.0f, maxDelayTime);
-  delay[1] = std::make_shared<DelayTypeName>(setup.sampleRate, 1.0f, maxDelayTime);
-  filter[0] = std::make_shared<FilterTypeName>(
-    setup.sampleRate, SomeDSP::SVFType::allpass, maxToneFrequency, 0.9, -3.0);
-  filter[1] = std::make_shared<FilterTypeName>(
-    setup.sampleRate, SomeDSP::SVFType::allpass, maxToneFrequency, 0.9, -3.0);
-
-  delayOut[0] = 0.0f;
-  delayOut[1] = 0.0f;
-  lfoPhase = param.lfoInitialPhase;
-  lfoPhaseTick = 2.0 * M_PI / setup.sampleRate;
+  dsp.setup(setup.sampleRate);
 
   return AudioEffect::setupProcessing(setup);
 }
 
 tresult PLUGIN_API PlugProcessor::setActive(TBool state)
 {
-  if (state) {
-  } else {
-    delay[0]->reset();
-    delay[1]->reset();
-    filter[0]->reset();
-    filter[1]->reset();
-    delayOut[0] = 0.0f;
-    delayOut[1] = 0.0f;
-    lfoPhase = param.lfoInitialPhase;
-  }
+  if (!state) dsp.reset();
   return AudioEffect::setActive(state);
-}
-
-float clamp(float value, float min, float max)
-{
-  return (value < min) ? min : (value > max) ? max : value;
 }
 
 tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
@@ -114,61 +87,61 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
         continue;
       switch (queue->getParameterId()) {
         case ParameterID::bypass:
-          param.bypass = value > 0.5f;
+          dsp.param.bypass = value > 0.5f;
           break;
         case ParameterID::time:
-          param.time = value;
+          dsp.param.time = value;
           break;
         case ParameterID::feedback:
-          param.feedback = value;
+          dsp.param.feedback = value;
           break;
         case ParameterID::offset:
-          param.offset = value;
+          dsp.param.offset = value;
           break;
         case ParameterID::wetMix:
-          param.wetMix = value;
+          dsp.param.wetMix = value;
           break;
         case ParameterID::dryMix:
-          param.dryMix = value;
+          dsp.param.dryMix = value;
           break;
         case ParameterID::tempoSync:
-          param.tempoSync = value > 0.5;
+          dsp.param.tempoSync = value > 0.5;
           break;
         case ParameterID::negativeFeedback:
-          param.negativeFeedback = value > 0.5;
+          dsp.param.negativeFeedback = value > 0.5;
           break;
         case ParameterID::lfoAmount:
-          param.lfoAmount = value;
+          dsp.param.lfoAmount = value;
           break;
         case ParameterID::lfoFrequency:
-          param.lfoFrequency = value;
+          dsp.param.lfoFrequency = value;
           break;
         case ParameterID::lfoShape:
-          param.lfoShape = value;
+          dsp.param.lfoShape = value;
           break;
         case ParameterID::lfoInitialPhase:
-          param.lfoInitialPhase = value;
+          dsp.param.lfoInitialPhase = value;
           break;
         case ParameterID::lfoHold:
-          param.lfoHold = value > 0.5;
+          dsp.param.lfoHold = value > 0.5;
           break;
         case ParameterID::smoothness:
-          param.smoothness = value;
+          dsp.param.smoothness = value;
           break;
         case ParameterID::inSpread:
-          param.inSpread = value;
+          dsp.param.inSpread = value;
           break;
         case ParameterID::inPan:
-          param.inPan = value;
+          dsp.param.inPan = value;
           break;
         case ParameterID::outSpread:
-          param.outSpread = value;
+          dsp.param.outSpread = value;
           break;
         case ParameterID::outPan:
-          param.outPan = value;
+          dsp.param.outPan = value;
           break;
         case ParameterID::tone:
-          param.tone = value;
+          dsp.param.tone = value;
           break;
 
           // Add parameter here.
@@ -178,62 +151,15 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 
   if (data.processContext == nullptr) return kResultOk;
 
-  auto smoothness = GlobalParameter::scaleSmoothness.map(param.smoothness);
-  LinearSmoother<float>::setTime(smoothness);
-
   uint64_t state = data.processContext->state;
   if (
     (lastState & Vst::ProcessContext::kPlaying) == 0
     && (state & Vst::ProcessContext::kPlaying) != 0) {
-    // Reset phase and random seed here.
-    lfoPhase = param.lfoInitialPhase;
+    dsp.startup();
   }
   lastState = state;
 
-  // This won't work if sync is on and tempo < 15. Up to 8 sec or 8/16 beat.
-  // 15.0 is come from (60 sec per minute) * (4 beat) / (16 beat).
-  Vst::ParamValue time = GlobalParameter::scaleTime.map(param.time);
-  if (param.tempoSync) {
-    if (time < 1.0) {
-      time *= 15.0 / data.processContext->tempo;
-    } else {
-      time = floor(2.0 * time) * 7.5 / data.processContext->tempo;
-    }
-  }
-
-  Vst::ParamValue offset = GlobalParameter::scaleOffset.map(param.offset);
-  if (offset < 0.0) {
-    interpTime[0].push(time * (1.0 + offset));
-    interpTime[1].push(time);
-  } else if (offset > 0.0) {
-    interpTime[0].push(time);
-    interpTime[1].push(time * (1.0 - offset));
-  } else {
-    interpTime[0].push(time);
-    interpTime[1].push(time);
-  }
-
-  interpWetMix.push(param.wetMix);
-  interpDryMix.push(param.dryMix);
-  interpFeedback.push(param.negativeFeedback ? -param.feedback : param.feedback);
-  interpLfoAmount.push(GlobalParameter::scaleLfoAmount.map(param.lfoAmount));
-  interpLfoFrequency.push(GlobalParameter::scaleLfoFrequency.map(param.lfoFrequency));
-  interpLfoShape.push(GlobalParameter::scaleLfoShape.map(param.lfoShape));
-
-  float inPan = 2 * param.inPan;
-  float panInL = clamp(inPan + param.inSpread - 1.0, 0.0, 1.0);
-  float panInR = clamp(inPan - param.inSpread, 0.0, 1.0);
-  interpPanIn[0].push(panInL);
-  interpPanIn[1].push(panInR);
-
-  float outPan = 2 * param.outPan;
-  float panOutL = clamp(outPan + param.outSpread - 1.0, 0.0, 1.0);
-  float panOutR = clamp(outPan - param.outSpread, 0.0, 1.0);
-  interpPanOut[0].push(panOutL);
-  interpPanOut[1].push(panOutR);
-
-  interpTone.push(GlobalParameter::scaleTone.map(param.tone));
-  interpToneMix.push(GlobalParameter::scaleToneMix.map(param.tone));
+  dsp.setParameters(data.processContext->tempo);
 
   if (data.numInputs == 0) return kResultOk;
   if (data.numOutputs == 0) return kResultOk;
@@ -242,56 +168,17 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   if (data.outputs[0].numChannels != 2) return kResultOk;
   if (data.symbolicSampleSize == Vst::kSample64) return kResultOk;
 
-  if (param.bypass)
+  if (dsp.param.bypass) {
     processBypass(data);
-  else
-    processAudio(data);
+  } else {
+    float *in0 = data.inputs[0].channelBuffers32[0];
+    float *in1 = data.inputs[0].channelBuffers32[1];
+    float *out0 = data.outputs[0].channelBuffers32[0];
+    float *out1 = data.outputs[0].channelBuffers32[1];
+    dsp.process((size_t)data.numSamples, in0, in1, out0, out1);
+  }
 
   return kResultOk;
-}
-
-void PlugProcessor::processAudio(Vst::ProcessData &data)
-{
-  float *in0 = data.inputs[0].channelBuffers32[0];
-  float *in1 = data.inputs[0].channelBuffers32[1];
-  float *out0 = data.outputs[0].channelBuffers32[0];
-  float *out1 = data.outputs[0].channelBuffers32[1];
-
-  for (int32_t i = 0; i < data.numSamples; ++i) {
-    auto sign = (M_PI < lfoPhase) - (lfoPhase < M_PI);
-    float lfo = sign * powf(abs(sin(lfoPhase)), interpLfoShape.process());
-    lfo = interpLfoAmount.process() * (lfo + 1.0f);
-
-    delay[0]->setTime(interpTime[0].process() + lfo);
-    delay[1]->setTime(interpTime[1].process() + lfo);
-
-    const float feedback = interpFeedback.process();
-    const float inL = in0[i] + feedback * delayOut[0];
-    const float inR = in1[i] + feedback * delayOut[1];
-    delayOut[0] = delay[0]->process(inL + interpPanIn[0].process() * (inR - inL));
-    delayOut[1] = delay[1]->process(inL + interpPanIn[1].process() * (inR - inL));
-
-    const float tone = interpTone.process();
-    const float toneMix = interpToneMix.process();
-    filter[0]->setCutoff(tone);
-    filter[1]->setCutoff(tone);
-    const float filterOutL = filter[0]->process(delayOut[0]);
-    const float filterOutR = filter[1]->process(delayOut[1]);
-    delayOut[0] = filterOutL + toneMix * (delayOut[0] - filterOutL);
-    delayOut[1] = filterOutR + toneMix * (delayOut[1] - filterOutR);
-
-    const float wet = interpWetMix.process();
-    const float dry = interpDryMix.process();
-    const float outL = wet * delayOut[0];
-    const float outR = wet * delayOut[1];
-    out0[i] = dry * in0[i] + outL + interpPanOut[0].process() * (outR - outL);
-    out1[i] = dry * in1[i] + outL + interpPanOut[1].process() * (outR - outL);
-
-    if (!param.lfoHold) {
-      lfoPhase += interpLfoFrequency.process() * lfoPhaseTick;
-      if (lfoPhase > 2.0 * M_PI) lfoPhase -= M_PI;
-    }
-  }
 }
 
 void PlugProcessor::processBypass(Vst::ProcessData &data)
@@ -306,12 +193,12 @@ void PlugProcessor::processBypass(Vst::ProcessData &data)
 tresult PLUGIN_API PlugProcessor::setState(IBStream *state)
 {
   if (!state) return kResultFalse;
-  return param.setState(state);
+  return dsp.param.setState(state);
 }
 
 tresult PLUGIN_API PlugProcessor::getState(IBStream *state)
 {
-  return param.getState(state);
+  return dsp.param.getState(state);
 }
 
 } // namespace SevenDelay

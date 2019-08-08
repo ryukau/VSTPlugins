@@ -8,6 +8,8 @@ set(plug_sources
     source/plugprocessor.hpp
     source/plugprocessor.cpp
     source/version.hpp
+    source/dsp/dspcore.hpp
+    source/dsp/dspcore.cpp
     source/gui/plugeditor.hpp
     source/gui/plugeditor.cpp
     source/gui/waveview.hpp

@@ -23,22 +23,10 @@
 
 #include "public.sdk/source/vst/vstaudioeffect.h"
 
-#include "dsp/delay.hpp"
-#include "dsp/iir.hpp"
-#include "dsp/smoother.hpp"
-#include "parameter.hpp"
-
-#include <array>
-#include <cmath>
+#include "dsp/dspcore.hpp"
 
 namespace Steinberg {
 namespace SevenDelay {
-
-// Lagrange delay is very slow at debug build. If that's the case use linear delay.
-// using DelayTypeName = Delay<float>;
-using DelayTypeName = DelayLagrange<float, 7>;
-
-using FilterTypeName = SomeDSP::SVF<float>;
 
 class PlugProcessor : public Vst::AudioEffect {
 public:
@@ -63,31 +51,11 @@ public:
     return (Vst::IAudioProcessor *)new PlugProcessor();
   }
 
-  void processAudio(Vst::ProcessData &data);
   void processBypass(Vst::ProcessData &data);
 
 protected:
   uint64_t lastState = 0;
-
-  GlobalParameter param;
-
-  std::array<LinearSmoother<float>, 2> interpTime{};
-  LinearSmoother<float> interpWetMix;
-  LinearSmoother<float> interpDryMix;
-  LinearSmoother<float> interpFeedback;
-  LinearSmoother<float> interpLfoAmount;
-  LinearSmoother<float> interpLfoFrequency;
-  LinearSmoother<float> interpLfoShape;
-  std::array<LinearSmoother<float>, 2> interpPanIn{};
-  std::array<LinearSmoother<float>, 2> interpPanOut{};
-  LinearSmoother<float> interpTone;
-  LinearSmoother<float> interpToneMix;
-
-  double lfoPhase;
-  double lfoPhaseTick;
-  std::array<float, 2> delayOut{};
-  std::array<std::shared_ptr<DelayTypeName>, 2> delay;
-  std::array<std::shared_ptr<FilterTypeName>, 2> filter;
+  DSPCore dsp;
 };
 
 } // namespace SevenDelay
