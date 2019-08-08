@@ -40,6 +40,7 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
     CRect(viewRect.left, viewRect.top, viewRect.right, viewRect.bottom), this);
   if (frame == nullptr) return false;
   frame->setBackgroundColor(colorWhite);
+  frame->registerMouseObserver(this);
   frame->open(parent);
 
   using ID = SevenDelay::ParameterID;
@@ -113,6 +114,31 @@ void PlugEditor::valueChanged(CControl *pControl)
     some->phase = getPlainValue(tag);
     some->setDirty(true);
   }
+}
+
+CMouseEventResult
+PlugEditor::onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &buttons)
+{
+  if (!buttons.isRightButton()) return kMouseEventNotHandled;
+
+  auto componentHandler = controller->getComponentHandler();
+  if (componentHandler == nullptr) return kMouseEventNotHandled;
+
+  FUnknownPtr<IComponentHandler3> handler(componentHandler);
+  if (handler == nullptr) return kMouseEventNotHandled;
+
+  auto control = dynamic_cast<CControl *>(frame->getViewAt(where));
+  if (control == nullptr) return kMouseEventNotHandled;
+
+  // Context menu will not popup when the control has negative tag.
+  ParamID id = control->getTag();
+  if (id < 1 || id >= LONG_MAX) return kMouseEventNotHandled;
+
+  IContextMenu *menu = handler->createContextMenu(this, &id);
+  if (menu == nullptr) return kMouseEventNotHandled;
+  menu->popup(where.x, where.y);
+  menu->release();
+  return kMouseEventHandled;
 }
 
 void PlugEditor::addPluginNameLabel(

@@ -17,6 +17,7 @@
 
 #pragma once
 
+#include "pluginterfaces/vst/ivstcontextmenu.h"
 #include "pluginterfaces/vst/ivstplugview.h"
 #include "public.sdk/source/vst/vstguieditor.h"
 
@@ -25,13 +26,23 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-class PlugEditor : public VSTGUIEditor, public IControlListener {
+class PlugEditor : public VSTGUIEditor, public IControlListener, public IMouseObserver {
 public:
   PlugEditor(void *controller);
 
   bool PLUGIN_API open(void *parent, const PlatformType &platformType = kDefaultNative);
   void PLUGIN_API close();
   void valueChanged(CControl *pControl);
+
+  void onMouseEntered(CView *view, CFrame *frame) override {}
+  void onMouseExited(CView *view, CFrame *frame) override {}
+  CMouseEventResult
+  onMouseMoved(CFrame *frame, const CPoint &where, const CButtonState &buttons) override
+  {
+    return kMouseEventNotHandled;
+  }
+  CMouseEventResult
+  onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &buttons) override;
 
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
