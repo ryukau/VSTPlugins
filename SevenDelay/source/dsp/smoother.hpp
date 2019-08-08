@@ -32,10 +32,13 @@ public:
     timeInSamples = time * sampleRate;
   }
 
-  void push(Sample newTarget)
+  void push(Sample target)
   {
-    target = newTarget;
-    ramp = (target - current) / timeInSamples;
+    this->target = target;
+    if (timeInSamples > 1.0)
+      ramp = (target - current) / timeInSamples;
+    else
+      ramp = target - current;
   }
 
   Sample process()
