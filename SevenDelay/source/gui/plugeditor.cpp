@@ -36,6 +36,8 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
 {
   if (frame) return false;
 
+  setIdleRate(1000 / 60);
+
   frame = new CFrame(
     CRect(viewRect.left, viewRect.top, viewRect.right, viewRect.bottom), this);
   if (frame == nullptr) return false;
@@ -136,6 +138,7 @@ PlugEditor::onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &
 
   IContextMenu *menu = handler->createContextMenu(this, &id);
   if (menu == nullptr) return kMouseEventNotHandled;
+
   menu->popup(where.x, where.y);
   menu->release();
   return kMouseEventHandled;
