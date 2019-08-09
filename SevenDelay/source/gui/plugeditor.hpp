@@ -106,8 +106,8 @@ protected:
   CColor colorGreen{19, 193, 54, 255};
   CColor colorFaintGray{237, 237, 237, 255};
 
-  const CRect WaveViewSize = {760.0, 330.0, 940.0, 390.0};
-  const CPoint WaveViewPos = {WaveViewSize.left + 1.0, WaveViewSize.top + 1.0};
+  const CRect WaveViewSize{760.0, 330.0, 940.0, 390.0};
+  const CPoint WaveViewPos{WaveViewSize.left + 1.0, WaveViewSize.top + 1.0};
 
   ParamValue getPlainValue(ParamID tag);
 };

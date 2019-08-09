@@ -109,8 +109,7 @@ void PlugEditor::valueChanged(CControl *pControl)
     if (some == nullptr) return;
     some->shape = getPlainValue(tag);
     some->setDirty(true);
-  }
-  if (tag == SevenDelay::ParameterID::lfoInitialPhase) {
+  } else if (tag == SevenDelay::ParameterID::lfoInitialPhase) {
     auto some = dynamic_cast<WaveView *>(frame->getViewAt(WaveViewPos));
     if (some == nullptr) return;
     some->phase = getPlainValue(tag);
