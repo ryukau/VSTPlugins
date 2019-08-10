@@ -38,12 +38,12 @@ PlugProcessor::PlugProcessor()
 tresult PLUGIN_API PlugProcessor::initialize(FUnknown *context)
 {
   tresult result = AudioEffect::initialize(context);
-  if (result != kResultTrue) return kResultFalse;
+  if (result != kResultTrue) return result;
 
   addAudioInput(STR16("StereoInput"), Vst::SpeakerArr::kStereo);
   addAudioOutput(STR16("StereoOutput"), Vst::SpeakerArr::kStereo);
 
-  return kResultTrue;
+  return result;
 }
 
 tresult PLUGIN_API PlugProcessor::setBusArrangements(
