@@ -60,16 +60,17 @@ tresult PLUGIN_API PlugProcessor::setBusArrangements(
 
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 {
-  LinearSmoother<float>::setSampleRate(setup.sampleRate);
-
-  dsp.setup(setup.sampleRate);
-
   return AudioEffect::setupProcessing(setup);
 }
 
 tresult PLUGIN_API PlugProcessor::setActive(TBool state)
 {
-  if (!state) dsp.reset();
+  if (state) {
+    dsp.setup(processSetup.sampleRate);
+  } else {
+    dsp.free();
+    lastState = 0;
+  }
   return AudioEffect::setActive(state);
 }
 

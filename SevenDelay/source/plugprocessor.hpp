@@ -54,7 +54,7 @@ public:
   void processBypass(Vst::ProcessData &data);
 
 protected:
-  uint64_t lastState = 0;
+  uint32_t lastState = 0;
   DSPCore dsp;
 };
 

@@ -27,6 +27,8 @@ float clamp(float value, float min, float max)
 
 void DSPCore::setup(double sampleRate)
 {
+  LinearSmoother<float>::setSampleRate(sampleRate);
+
   for (size_t i = 0; i < delay.size(); ++i)
     delay[i] = std::make_unique<DelayTypeName>(sampleRate, 1.0f, maxDelayTime);
 
@@ -39,7 +41,15 @@ void DSPCore::setup(double sampleRate)
   startup();
 }
 
-void DSPCore::reset()
+void DSPCore::free()
+{
+  delay[0].reset();
+  delay[1].reset();
+  filter[0].reset();
+  filter[1].reset();
+}
+
+void DSPCore::panic()
 {
   delay[0]->reset();
   delay[1]->reset();
@@ -130,11 +140,11 @@ void DSPCore::process(
     float filterOutR = filter[1]->process(delayOut[1]);
     if (!isfinite(filterOutL)) {
       filterOutL = 0.0f;
-      filter[0].reset();
+      filter[0]->reset();
     }
     if (!isfinite(filterOutR)) {
       filterOutR = 0.0f;
-      filter[1].reset();
+      filter[1]->reset();
     }
     delayOut[0] = filterOutL + toneMix * (delayOut[0] - filterOutL);
     delayOut[1] = filterOutR + toneMix * (delayOut[1] - filterOutR);

@@ -40,14 +40,11 @@ public:
   GlobalParameter param;
 
   void setup(double sampleRate);
+  void free(); // Release memory.
 
-  void reset();
-
-  // Reset phase, random seed etc.
-  void startup();
-
-  // tempo is beat per minutes.
-  void setParameters(double tempo);
+  void panic();                     // Stop sounds.
+  void startup();                   // Reset phase, random seed etc.
+  void setParameters(double tempo); // tempo is beat per minutes.
 
   void process(const size_t length, float *in0, float *in1, float *out0, float *out1);
 
