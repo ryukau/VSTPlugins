@@ -141,4 +141,58 @@ struct GlobalParameter {
 };
 
 } // namespace SevenDelay
+
+namespace Vst {
+
+template <typename ParameterScale>
+class ScaledParameter : public Parameter {
+public:
+  ScaledParameter(
+    const TChar *title,
+    ParamID tag,
+    ParameterScale &scale,
+    ParamValue defaultValue = 0.0,
+    const TChar *units = nullptr,
+    int32 flags = ParameterInfo::kCanAutomate,
+    UnitID unitID = kRootUnitId)
+    : Parameter(title, tag, units, defaultValue, 0, flags, unitID), scale(scale)
+  {
+    precision = 16;
+  }
+
+  virtual void toString(ParamValue normalized, String128 string) const SMTG_OVERRIDE
+  {
+    UString128 wrapper;
+    wrapper.printFloat(toPlain(normalized), precision);
+    wrapper.copyTo(string, 128);
+  }
+
+  virtual bool fromString(const TChar *string, ParamValue &normalized) const SMTG_OVERRIDE
+  {
+    UString wrapper((TChar *)string, strlen16(string));
+    if (wrapper.scanFloat(normalized)) {
+      normalized = toNormalized(normalized);
+      return true;
+    }
+    return false;
+  }
+
+  virtual ParamValue toPlain(ParamValue normalized) const SMTG_OVERRIDE
+  {
+    return scale.map(normalized);
+  }
+
+  virtual ParamValue toNormalized(ParamValue plain) const SMTG_OVERRIDE
+  {
+    return scale.invmap(plain);
+  }
+
+  OBJ_METHODS(ScaledParameter, Parameter)
+
+protected:
+  ParameterScale &scale;
+  ParamValue multiplier;
+};
+
+} // namespace Vst
 } // namespace Steinberg

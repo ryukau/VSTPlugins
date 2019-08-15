@@ -30,8 +30,7 @@
 namespace Steinberg {
 namespace SevenDelay {
 
-// Lagrange delay is very slow at debug build. If that's the case use Delay instead of
-// DelayLagrange.
+// Lagrange delay is very slow at debug build. If that's the case set Order to 1.
 using DelayTypeName = DelayLagrange<float, 7>;
 using FilterTypeName = SomeDSP::SVF<float>;
 
