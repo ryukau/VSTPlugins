@@ -42,7 +42,7 @@ public:
   void setup(double sampleRate);
   void free(); // Release memory.
 
-  void panic();                     // Stop sounds.
+  void reset();                     // Stop sounds.
   void startup();                   // Reset phase, random seed etc.
   void setParameters(double tempo); // tempo is beat per minutes.
 

@@ -49,7 +49,7 @@ void DSPCore::free()
   filter[1].reset();
 }
 
-void DSPCore::panic()
+void DSPCore::reset()
 {
   delay[0]->reset();
   delay[1]->reset();
