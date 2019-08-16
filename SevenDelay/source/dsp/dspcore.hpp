@@ -33,6 +33,7 @@ namespace SevenDelay {
 // Lagrange delay is very slow at debug build. If that's the case set Order to 1.
 using DelayTypeName = DelayLagrange<float, 7>;
 using FilterTypeName = SomeDSP::SVF<float>;
+using DCKillerTypeName = SomeDSP::BiquadHighPass<float>;
 
 class DSPCore {
 public:
@@ -61,12 +62,15 @@ protected:
   std::array<LinearSmoother<float>, 2> interpPanOut{};
   LinearSmoother<float> interpTone;
   LinearSmoother<float> interpToneMix;
+  LinearSmoother<float> interpDCKill;
+  LinearSmoother<float> interpDCKillMix;
 
   double lfoPhase;
   double lfoPhaseTick;
   std::array<float, 2> delayOut{};
   std::array<std::unique_ptr<DelayTypeName>, 2> delay;
   std::array<std::unique_ptr<FilterTypeName>, 2> filter;
+  std::array<std::unique_ptr<DCKillerTypeName>, 2> dcKiller;
 };
 
 } // namespace SevenDelay

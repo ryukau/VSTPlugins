@@ -20,6 +20,8 @@
 namespace Steinberg {
 namespace SevenDelay {
 
+constexpr size_t channel = 2;
+
 float clamp(float value, float min, float max)
 {
   return (value < min) ? min : (value > max) ? max : value;
@@ -33,8 +35,10 @@ void DSPCore::setup(double sampleRate)
     delay[i] = std::make_unique<DelayTypeName>(sampleRate, 1.0f, maxDelayTime);
 
   for (size_t i = 0; i < filter.size(); ++i)
-    filter[i] = std::make_unique<FilterTypeName>(
-      sampleRate, SomeDSP::SVFType::allpass, maxToneFrequency, 0.9, -3.0);
+    filter[i] = std::make_unique<FilterTypeName>(sampleRate, maxToneFrequency, 0.9);
+
+  for (size_t i = 0; i < dcKiller.size(); ++i)
+    dcKiller[i] = std::make_unique<DCKillerTypeName>(sampleRate, minDCKillFrequency, 0.1);
 
   lfoPhaseTick = 2.0 * pi / sampleRate;
 
@@ -43,18 +47,20 @@ void DSPCore::setup(double sampleRate)
 
 void DSPCore::free()
 {
-  delay[0].reset();
-  delay[1].reset();
-  filter[0].reset();
-  filter[1].reset();
+  for (size_t i = 0; i < channel; ++i) {
+    delay[i].reset();
+    filter[i].reset();
+    dcKiller[i].reset();
+  }
 }
 
 void DSPCore::reset()
 {
-  delay[0]->reset();
-  delay[1]->reset();
-  filter[0]->reset();
-  filter[1]->reset();
+  for (size_t i = 0; i < channel; ++i) {
+    delay[i]->reset();
+    filter[i]->reset();
+    dcKiller[i]->reset();
+  }
   startup();
 }
 
@@ -113,6 +119,9 @@ void DSPCore::setParameters(double tempo)
 
   interpTone.push(GlobalParameter::scaleTone.map(param.tone));
   interpToneMix.push(GlobalParameter::scaleToneMix.map(param.tone));
+
+  interpDCKill.push(GlobalParameter::scaleDCKill.map(param.dckill));
+  interpDCKillMix.push(GlobalParameter::scaleDCKillMix.reverseMap(param.dckill));
 }
 
 void DSPCore::process(
@@ -133,21 +142,23 @@ void DSPCore::process(
     delayOut[1] = delay[1]->process(inL + interpPanIn[1].process() * (inR - inL));
 
     const float tone = interpTone.process();
-    const float toneMix = interpToneMix.process();
     filter[0]->setCutoff(tone);
     filter[1]->setCutoff(tone);
     float filterOutL = filter[0]->process(delayOut[0]);
     float filterOutR = filter[1]->process(delayOut[1]);
-    if (!isfinite(filterOutL)) {
-      filterOutL = 0.0f;
-      filter[0]->reset();
-    }
-    if (!isfinite(filterOutR)) {
-      filterOutR = 0.0f;
-      filter[1]->reset();
-    }
+    const float toneMix = interpToneMix.process();
     delayOut[0] = filterOutL + toneMix * (delayOut[0] - filterOutL);
     delayOut[1] = filterOutR + toneMix * (delayOut[1] - filterOutR);
+
+    const float dckill = interpDCKill.process();
+    dcKiller[0]->setCutoff(dckill);
+    dcKiller[1]->setCutoff(dckill);
+    filterOutL = dcKiller[0]->process(delayOut[0]);
+    filterOutR = dcKiller[1]->process(delayOut[1]);
+    const float dckillMix = interpDCKillMix.process();
+    // dckillmix == 1 -> delayout
+    delayOut[0] = filterOutL + dckillMix * (delayOut[0] - filterOutL);
+    delayOut[1] = filterOutR + dckillMix * (delayOut[1] - filterOutR);
 
     const float wet = interpWetMix.process();
     const float dry = interpDryMix.process();

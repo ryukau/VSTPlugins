@@ -80,7 +80,8 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   addVSlider(750.0, 50.0, colorBlue, "Shape", ID::lfoShape);
   addVSlider(850.0, 50.0, colorBlue, "Phase", ID::lfoInitialPhase);
 
-  addButton(660.0, 340.0, 80.0, "Hold", ID::lfoHold, CTextButton::kOnOffStyle);
+  addButton(655.0, 325.0, 85.0, "Hold", ID::lfoHold, CTextButton::kOnOffStyle);
+  addKnob(630.0, 360.0, colorBlue, "DC Kill", ID::dckill, "DC Kill");
   addWaveView(WaveViewSize);
 
   // Misc.
@@ -256,7 +257,7 @@ void PlugEditor::addButton(
   CCoord left, CCoord top, CCoord width, UTF8String title, ParamID tag, int32_t style)
 {
   auto right = left + width;
-  auto bottom = top + 40.0;
+  auto bottom = top + 30.0;
 
   auto button = new CTextButton(
     CRect(left, top, right, bottom), this, tag, title, (CTextButton::Style)style);

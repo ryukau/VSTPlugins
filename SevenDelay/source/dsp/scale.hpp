@@ -23,8 +23,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-// scale() maps [0, 1] to [min, max].
-// invScale() maps [min, max] to [0, 1].
+// Maps a value in [0, 1] to [min, max].
 // min /= max.
 template <class T>
 class LinearScale {
@@ -38,12 +37,12 @@ public:
   {
     this->min = min;
     this->max = max;
-    scaleFactor = (max - min);
+    scale = max - min;
   }
 
   T map(T input) const
   {
-    T value = input * scaleFactor + min;
+    T value = input * scale + min;
     if (value < min) return min;
     if (value > max) return max;
     return value;
@@ -51,14 +50,14 @@ public:
 
   T invmap(T input) const
   {
-    T value = (input - min) / scaleFactor;
+    T value = (input - min) / scale;
     if (value < 0.0) return 0.0;
     if (value > 1.0) return 1.0;
     return value;
   }
 
 protected:
-  T scaleFactor;
+  T scale;
   T min;
   T max;
 };
@@ -78,7 +77,7 @@ public:
     this->max = max;
     this->power = power;
     powerInv = 1.0 / power;
-    scaleFactor = (max - min);
+    scale = max - min;
   }
 
   T map(T input) const
@@ -87,28 +86,28 @@ public:
     if (input > 1) return max;
     T value = input <= 0.5 ? 0.5 * pow(2.0 * input, power)
                            : 1.0 - 0.5 * pow(2.0 - 2.0 * input, power);
-    return value * scaleFactor + min;
+    return value * scale + min;
   }
 
   T invmap(T input) const
   {
     if (input < min) return 0.0;
     if (input > max) return 1.0;
-    T value = (input - min) / scaleFactor;
+    T value = (input - min) / scale;
     return input <= 0.5 ? 0.5 * pow(2.0 * value, powerInv)
                         : 1.0 - 0.5 * pow(2.0 - 2.0 * value, powerInv);
   }
 
 protected:
-  T scaleFactor;
+  T scale;
   T min;
   T max;
   T power;
   T powerInv;
 };
 
-// scale(inValue) == outValue.
-// min /= max, inValue > 0.
+// map(inValue) == outValue.
+// min > max, inValue > 0, outValue > min.
 template <class T>
 class LogScale {
 public:
@@ -121,14 +120,23 @@ public:
   {
     this->min = min;
     this->max = max;
-    scaleFactor = (max - min);
-    expo = log((outValue - min) / scaleFactor) / log(inValue);
+
+    scale = abs(max - min);
+    expo = log(abs(outValue - min) / scale) / log(inValue);
     expoInv = 1.0 / expo;
   }
 
   T map(T input) const
   {
-    T value = pow(input, expo) * scaleFactor + min;
+    T value = pow(input, expo) * scale + min;
+    if (value < min) return min;
+    if (value > max) return max;
+    return value;
+  }
+
+  T reverseMap(T input) const
+  {
+    T value = pow(1.0 - input, expo) * scale + min;
     if (value < min) return min;
     if (value > max) return max;
     return value;
@@ -136,14 +144,14 @@ public:
 
   T invmap(T input) const
   {
-    T value = pow((input - min) / scaleFactor, expoInv);
+    T value = pow((input - min) / scale, expoInv);
     if (value < 0.0) return 0.0;
     if (value > 1.0) return 1.0;
     return value;
   }
 
 protected:
-  T scaleFactor;
+  T scale;
   T expo;
   T expoInv;
   T min;

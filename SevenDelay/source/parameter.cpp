@@ -37,6 +37,9 @@ LinearScale<Vst::ParamValue> GlobalParameter::scaleLfoInitialPhase(0.0, 2.0 * M_
 LogScale<Vst::ParamValue> GlobalParameter::scaleSmoothness(0.0, 1.0, 0.3, 0.04);
 LogScale<Vst::ParamValue> GlobalParameter::scaleTone(90.0, maxToneFrequency, 0.5, 1000.0);
 LogScale<Vst::ParamValue> GlobalParameter::scaleToneMix(0.0, 1.0, 0.9, 0.05);
+LogScale<Vst::ParamValue>
+  GlobalParameter::scaleDCKill(minDCKillFrequency, 120.0, 0.5, 20.0);
+LogScale<Vst::ParamValue> GlobalParameter::scaleDCKillMix(0.0, 1.0, 0.9, 0.05);
 
 } // namespace SevenDelay
 } // namespace Steinberg

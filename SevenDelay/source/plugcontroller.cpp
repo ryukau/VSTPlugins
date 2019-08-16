@@ -222,6 +222,15 @@ tresult PLUGIN_API PlugController::initialize(FUnknown *context)
     Vst::ParameterInfo::kCanAutomate,
     Vst::kRootUnitId));
 
+  parameters.addParameter(new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(
+    USTRING("DC Kill"),
+    ParameterID::dckill,
+    GlobalParameter::scaleDCKill,
+    param.dckill,
+    nullptr,
+    Vst::ParameterInfo::kCanAutomate,
+    Vst::kRootUnitId));
+
   // Add parameter here.
 
   return kResultTrue;
@@ -253,6 +262,7 @@ tresult PLUGIN_API PlugController::setComponentState(IBStream *state)
   setParamNormalized(ParameterID::outSpread, param.outSpread);
   setParamNormalized(ParameterID::outPan, param.outPan);
   setParamNormalized(ParameterID::tone, param.tone);
+  setParamNormalized(ParameterID::dckill, param.dckill);
 
   // Add parameter here.
 

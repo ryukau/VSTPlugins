@@ -144,6 +144,9 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
         case ParameterID::tone:
           dsp.param.tone = value;
           break;
+        case ParameterID::dckill:
+          dsp.param.dckill = value;
+          break;
 
           // Add parameter here.
       }

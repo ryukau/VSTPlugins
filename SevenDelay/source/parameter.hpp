@@ -27,6 +27,7 @@ namespace SevenDelay {
 
 constexpr Vst::ParamValue maxDelayTime = 8.0;
 constexpr Vst::ParamValue maxToneFrequency = 20000.0;
+constexpr Vst::ParamValue minDCKillFrequency = 1.0;
 
 enum ParameterID : Vst::ParamID {
   bypass,
@@ -48,6 +49,7 @@ enum ParameterID : Vst::ParamID {
   outSpread,
   outPan,
   tone,
+  dckill,
 };
 
 struct GlobalParameter {
@@ -70,6 +72,7 @@ struct GlobalParameter {
   Vst::ParamValue outSpread = 0.0;
   Vst::ParamValue outPan = 0.5;
   Vst::ParamValue tone = 1.0;
+  Vst::ParamValue dckill = 0.0;
 
   static LogScale<Vst::ParamValue> scaleTime;
   static SPolyScale<Vst::ParamValue> scaleOffset;
@@ -80,6 +83,8 @@ struct GlobalParameter {
   static LogScale<Vst::ParamValue> scaleSmoothness;
   static LogScale<Vst::ParamValue> scaleTone;
   static LogScale<Vst::ParamValue> scaleToneMix; // internal
+  static LogScale<Vst::ParamValue> scaleDCKill;
+  static LogScale<Vst::ParamValue> scaleDCKillMix; // internal
 
   tresult setState(IBStream *stream)
   {
@@ -104,6 +109,7 @@ struct GlobalParameter {
     if (!s.readDouble(outSpread)) return kResultFalse;
     if (!s.readDouble(outPan)) return kResultFalse;
     if (!s.readDouble(tone)) return kResultFalse;
+    if (!s.readDouble(dckill)) return kResultFalse;
 
     // Add parameter here.
 
@@ -133,6 +139,7 @@ struct GlobalParameter {
     if (!s.writeDouble(outSpread)) return kResultFalse;
     if (!s.writeDouble(outPan)) return kResultFalse;
     if (!s.writeDouble(tone)) return kResultFalse;
+    if (!s.writeDouble(dckill)) return kResultFalse;
 
     // Add parameter here.
 
