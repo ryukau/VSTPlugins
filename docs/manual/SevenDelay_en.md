@@ -12,6 +12,8 @@ SevenDelay uses DejaVu fonts. You can download DejaVu fonts from their official 
 ## Caution
 When the value of `smooth` is near zero and change the value of `tone` too fast, SevenDelay may output very loud click noise. This is caused by the filter which becomes unstable when cutoff frequency moves too fast. Recommendation is not to set `smooth` parameter too low unless you have some specific purpose.
 
+When the value of `time` is set to minimum and the value of `feedback` is set to maximum, SevenDelay outputs direct current (DC). To remove DC, Set `DC kill` to be greater than 1.0.
+
 ## Parameters
 ### Delay
 #### Time
@@ -64,6 +66,11 @@ signalR = incomingL + panR * (incomingR - incomingL)
 SFV allpass filter frequency. Range is 90.0 to 20000.0.
 
 If `tone` is 20000.0, filter will be bypassed.
+
+#### DC Kill
+Cutoff frequency of biquad highpass filter. Range is 1.0 to 120.0.
+
+`DC kill` removes direct current from delay feedback when the value is set to be greater than 1.0.
 
 ### LFO
 #### Amount
