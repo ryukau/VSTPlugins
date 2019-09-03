@@ -5,7 +5,7 @@
 SevenDelay (セブンディレイ) は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。
 
 ## フォント
-SevenDelay は DejaVu フォントを利用しています。 DejaVu フォントは次のページからダウンロードできます。
+SevenDelay は DejaVu フォントを利用しています。 DejaVu フォントは別途インストールが必要です。次のページからダウンロードできます。
 
 - [DejaVu Fonts](https://dejavu-fonts.github.io/)
 
