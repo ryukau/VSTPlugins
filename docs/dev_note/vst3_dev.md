@@ -168,7 +168,7 @@ cmake -G"Visual Studio 16 2019" -DSMTG_MYPLUGINS_SRC_PATH="../../my_plugins" ..
 cmake --build .
 ```
 
-これでデバッグビルドが始まります。コードを変更したときは `build` ディレクトリに入って `cmake --build .` だけでリビルドできます。
+これでデバッグビルドが始まります。コードを変更したときは `build` ディレクトリに入って `cmake --build .` でリビルドできます。
 
 ビルドのコンフィグを変更するときは `cmake-gui` が使えます。
 
