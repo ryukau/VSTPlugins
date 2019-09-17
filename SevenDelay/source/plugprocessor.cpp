@@ -30,10 +30,7 @@
 namespace Steinberg {
 namespace SevenDelay {
 
-PlugProcessor::PlugProcessor()
-{
-  setControllerClass(ControllerUID);
-}
+PlugProcessor::PlugProcessor() { setControllerClass(ControllerUID); }
 
 tresult PLUGIN_API PlugProcessor::initialize(FUnknown *context)
 {
@@ -111,8 +108,8 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
         case ParameterID::negativeFeedback:
           dsp.param.negativeFeedback = value > 0.5;
           break;
-        case ParameterID::lfoAmount:
-          dsp.param.lfoAmount = value;
+        case ParameterID::lfoTimeAmount:
+          dsp.param.lfoTimeAmount = value;
           break;
         case ParameterID::lfoFrequency:
           dsp.param.lfoFrequency = value;
@@ -146,6 +143,9 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
           break;
         case ParameterID::dckill:
           dsp.param.dckill = value;
+          break;
+        case ParameterID::lfoToneAmount:
+          dsp.param.lfoToneAmount = value;
           break;
 
           // Add parameter here.

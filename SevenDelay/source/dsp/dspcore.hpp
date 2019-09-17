@@ -55,7 +55,8 @@ protected:
   LinearSmoother<float> interpWetMix;
   LinearSmoother<float> interpDryMix;
   LinearSmoother<float> interpFeedback;
-  LinearSmoother<float> interpLfoAmount;
+  LinearSmoother<float> interpLfoTimeAmount;
+  LinearSmoother<float> interpLfoToneAmount;
   LinearSmoother<float> interpLfoFrequency;
   LinearSmoother<float> interpLfoShape;
   std::array<LinearSmoother<float>, 2> interpPanIn{};

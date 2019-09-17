@@ -30,7 +30,8 @@ namespace SevenDelay {
 
 LogScale<Vst::ParamValue> GlobalParameter::scaleTime(0.0001, maxDelayTime, 0.5, 1.0);
 SPolyScale<Vst::ParamValue> GlobalParameter::scaleOffset(-1.0, 1.0, 0.8);
-LogScale<Vst::ParamValue> GlobalParameter::scaleLfoAmount(0, 1.0, 0.5, 0.1);
+LogScale<Vst::ParamValue> GlobalParameter::scaleLfoTimeAmount(0, 1.0, 0.5, 0.1);
+LogScale<Vst::ParamValue> GlobalParameter::scaleLfoToneAmount(0, 0.5, 0.5, 0.1);
 LogScale<Vst::ParamValue> GlobalParameter::scaleLfoFrequency(0.01, 100.0, 0.5, 1.0);
 LogScale<Vst::ParamValue> GlobalParameter::scaleLfoShape(0.01, 10.0, 0.5, 1.0);
 LinearScale<Vst::ParamValue> GlobalParameter::scaleLfoInitialPhase(0.0, 2.0 * M_PI);

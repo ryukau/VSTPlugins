@@ -35,7 +35,7 @@ void WaveView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
-  const double borderWidth = 2.0;
+  const double borderWidth = 1.0;
   const double halfBorderWidth = borderWidth / 2.0;
 
   // Background.
@@ -45,7 +45,7 @@ void WaveView::draw(CDrawContext *pContext)
   pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilled);
 
   // Waveform.
-  pContext->setLineWidth(2.0);
+  pContext->setLineWidth(1.0);
   pContext->setLineStyle(lineStyle);
   pContext->setFrameColor(CColor(19, 193, 54, 255));
   const size_t size = (size_t)(width + 1.0);
@@ -57,8 +57,7 @@ void WaveView::draw(CDrawContext *pContext)
   // Always draw border at last. Otherwise, inner object will be drawn over border.
   const auto borderColor = CColor(0, 0, 0, 255);
   pContext->setFrameColor(borderColor);
-  pContext->drawRect(
-    CRect(halfBorderWidth, halfBorderWidth, width, height), kDrawStroked);
+  pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawStroked);
 
   setDirty(false);
 }

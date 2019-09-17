@@ -61,6 +61,7 @@ public:
     CColor valueColor,
     UTF8String name,
     ParamID tag,
+    float defaultValue,
     UTF8StringPtr tooltip = "",
     bool drawFromCenter = false);
 
@@ -82,22 +83,31 @@ public:
   void addOptionMenu(
     CCoord left, CCoord top, ParamID tag, const std::vector<UTF8String> &items);
 
+  enum class LabelPosition {
+    top,
+    left,
+    bottom,
+    right,
+  };
+
   void addKnob(
     CCoord left,
     CCoord top,
-    CColor valueColor,
+    CCoord width,
+    CColor highlightColor,
     UTF8String name,
     ParamID tag,
-    UTF8StringPtr tooltip = "",
-    bool drawFromCenter = false);
+    float defaultValue,
+    LabelPosition labelPosition = LabelPosition::bottom,
+    UTF8StringPtr tooltip = "");
 
 protected:
-  ViewRect viewRect{0, 0, 970, 400};
+  ViewRect viewRect{0, 0, 960, 330};
 
-  UTF8String fontName{"DejaVu Sans Mono"};
-  CCoord fontSize = 18.0;
+  UTF8String fontName{"Arial"};
+  CCoord fontSize = 12.0;
 
-  CCoord frameWidth = 2.0;
+  CCoord frameWidth = 1.0;
 
   CColor colorBlack{0, 0, 0, 255};
   CColor colorWhite{255, 255, 255, 255};
@@ -106,7 +116,7 @@ protected:
   CColor colorGreen{19, 193, 54, 255};
   CColor colorFaintGray{237, 237, 237, 255};
 
-  const CRect WaveViewSize{760.0, 330.0, 940.0, 390.0};
+  const CRect WaveViewSize{760.0, 170.0, 940.0, 280.0};
   const CPoint WaveViewPos{WaveViewSize.left + 1.0, WaveViewSize.top + 1.0};
 
   ParamValue getPlainValue(ParamID tag);

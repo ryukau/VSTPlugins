@@ -101,7 +101,8 @@ void DSPCore::setParameters(double tempo)
   interpWetMix.push(param.wetMix);
   interpDryMix.push(param.dryMix);
   interpFeedback.push(param.negativeFeedback ? -param.feedback : param.feedback);
-  interpLfoAmount.push(GlobalParameter::scaleLfoAmount.map(param.lfoAmount));
+  interpLfoTimeAmount.push(GlobalParameter::scaleLfoTimeAmount.map(param.lfoTimeAmount));
+  interpLfoToneAmount.push(GlobalParameter::scaleLfoToneAmount.map(param.lfoToneAmount));
   interpLfoFrequency.push(GlobalParameter::scaleLfoFrequency.map(param.lfoFrequency));
   interpLfoShape.push(GlobalParameter::scaleLfoShape.map(param.lfoShape));
 
@@ -129,11 +130,11 @@ void DSPCore::process(
 {
   for (int32_t i = 0; i < length; ++i) {
     auto sign = (pi < lfoPhase) - (lfoPhase < pi);
-    float lfo = sign * powf(abs(sin(lfoPhase)), interpLfoShape.process());
-    lfo = interpLfoAmount.process() * (lfo + 1.0f);
+    const float lfo = 1.0f + sign * powf(abs(sin(lfoPhase)), interpLfoShape.process());
+    const float lfoTime = interpLfoTimeAmount.process() * lfo;
 
-    delay[0]->setTime(interpTime[0].process() + lfo);
-    delay[1]->setTime(interpTime[1].process() + lfo);
+    delay[0]->setTime(interpTime[0].process() + lfoTime);
+    delay[1]->setTime(interpTime[1].process() + lfoTime);
 
     const float feedback = interpFeedback.process();
     const float inL = in0[i] + feedback * delayOut[0];
@@ -141,12 +142,14 @@ void DSPCore::process(
     delayOut[0] = delay[0]->process(inL + interpPanIn[0].process() * (inR - inL));
     delayOut[1] = delay[1]->process(inL + interpPanIn[1].process() * (inR - inL));
 
-    const float tone = interpTone.process();
+    const float lfoTone = 1.0f - interpLfoToneAmount.process() * lfo;
+    float tone = interpTone.process() * lfoTone;
+    if (tone < 20.0f) tone = 20.0f;
     filter[0]->setCutoff(tone);
     filter[1]->setCutoff(tone);
     float filterOutL = filter[0]->process(delayOut[0]);
     float filterOutR = filter[1]->process(delayOut[1]);
-    const float toneMix = interpToneMix.process();
+    const float toneMix = interpToneMix.process() * lfoTone;
     delayOut[0] = filterOutL + toneMix * (delayOut[0] - filterOutL);
     delayOut[1] = filterOutR + toneMix * (delayOut[1] - filterOutR);
 

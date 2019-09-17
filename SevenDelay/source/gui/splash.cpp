@@ -49,14 +49,17 @@ void CreditView::draw(CDrawContext *pContext)
   pContext->setFont(new CFontDesc(fontName, fontSize));
   pContext->setFontColor(CColor(0, 0, 0, 255));
   pContext->drawString(
-    UTF8String("© 2019 Takamitsu Endo").getPlatformString(), CPoint(20.0, 90.0));
+    UTF8String("© 2019 Takamitsu Endo (ryukau@gmail.com)").getPlatformString(),
+    CPoint(20.0, 90.0));
+
   pContext->drawString(
-    UTF8String("This program is licensed under GPLv3.").getPlatformString(),
-    CPoint(20.0, 120.0));
+    UTF8String("Shift + Drag: Fine Adjustment").getPlatformString(), CPoint(20.0, 150.0));
   pContext->drawString(
-    UTF8String("Have a nice day! 🍻").getPlatformString(), CPoint(20.0, 180.0));
+    UTF8String("Ctrl + Click: Reset to Default").getPlatformString(),
+    CPoint(20.0, 180.0));
+
   pContext->drawString(
-    UTF8String("Contact: ryukau@gmail.com").getPlatformString(), CPoint(20.0, 210.0));
+    UTF8String("Have a nice day! 🍻").getPlatformString(), CPoint(20.0, 240.0));
 
   // Border.
   const auto borderColor = CColor(0, 0, 0, 255);

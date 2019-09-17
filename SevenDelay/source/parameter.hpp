@@ -17,6 +17,8 @@
 
 #pragma once
 
+#include <unordered_map>
+
 #include "base/source/fstreamer.h"
 #include "pluginterfaces/vst/vsttypes.h"
 
@@ -38,7 +40,7 @@ enum ParameterID : Vst::ParamID {
   dryMix,
   tempoSync,
   negativeFeedback,
-  lfoAmount,
+  lfoTimeAmount,
   lfoFrequency,
   lfoShape,
   lfoInitialPhase,
@@ -50,6 +52,7 @@ enum ParameterID : Vst::ParamID {
   outPan,
   tone,
   dckill,
+  lfoToneAmount,
 };
 
 struct GlobalParameter {
@@ -61,7 +64,8 @@ struct GlobalParameter {
   Vst::ParamValue dryMix = 1.0;
   bool tempoSync = false;
   bool negativeFeedback = false;
-  Vst::ParamValue lfoAmount = 0.0;
+  Vst::ParamValue lfoTimeAmount = 0.0;
+  Vst::ParamValue lfoToneAmount = 0.0;
   Vst::ParamValue lfoFrequency = 0.5;
   Vst::ParamValue lfoShape = 0.5;
   Vst::ParamValue lfoInitialPhase = 0.0;
@@ -76,7 +80,8 @@ struct GlobalParameter {
 
   static LogScale<Vst::ParamValue> scaleTime;
   static SPolyScale<Vst::ParamValue> scaleOffset;
-  static LogScale<Vst::ParamValue> scaleLfoAmount;
+  static LogScale<Vst::ParamValue> scaleLfoTimeAmount;
+  static LogScale<Vst::ParamValue> scaleLfoToneAmount;
   static LogScale<Vst::ParamValue> scaleLfoFrequency;
   static LogScale<Vst::ParamValue> scaleLfoShape;
   static LinearScale<Vst::ParamValue> scaleLfoInitialPhase;
@@ -98,7 +103,7 @@ struct GlobalParameter {
     if (!s.readDouble(dryMix)) return kResultFalse;
     if (!s.readBool(tempoSync)) return kResultFalse;
     if (!s.readBool(negativeFeedback)) return kResultFalse;
-    if (!s.readDouble(lfoAmount)) return kResultFalse;
+    if (!s.readDouble(lfoTimeAmount)) return kResultFalse;
     if (!s.readDouble(lfoFrequency)) return kResultFalse;
     if (!s.readDouble(lfoShape)) return kResultFalse;
     if (!s.readDouble(lfoInitialPhase)) return kResultFalse;
@@ -110,6 +115,7 @@ struct GlobalParameter {
     if (!s.readDouble(outPan)) return kResultFalse;
     if (!s.readDouble(tone)) return kResultFalse;
     if (!s.readDouble(dckill)) return kResultFalse;
+    if (!s.readDouble(lfoToneAmount)) return kResultFalse;
 
     // Add parameter here.
 
@@ -128,7 +134,7 @@ struct GlobalParameter {
     if (!s.writeDouble(dryMix)) return kResultFalse;
     if (!s.writeBool(tempoSync)) return kResultFalse;
     if (!s.writeBool(negativeFeedback)) return kResultFalse;
-    if (!s.writeDouble(lfoAmount)) return kResultFalse;
+    if (!s.writeDouble(lfoTimeAmount)) return kResultFalse;
     if (!s.writeDouble(lfoFrequency)) return kResultFalse;
     if (!s.writeDouble(lfoShape)) return kResultFalse;
     if (!s.writeDouble(lfoInitialPhase)) return kResultFalse;
@@ -140,6 +146,7 @@ struct GlobalParameter {
     if (!s.writeDouble(outPan)) return kResultFalse;
     if (!s.writeDouble(tone)) return kResultFalse;
     if (!s.writeDouble(dckill)) return kResultFalse;
+    if (!s.writeDouble(lfoToneAmount)) return kResultFalse;
 
     // Add parameter here.
 
@@ -151,8 +158,7 @@ struct GlobalParameter {
 
 namespace Vst {
 
-template <typename ParameterScale>
-class ScaledParameter : public Parameter {
+template<typename ParameterScale> class ScaledParameter : public Parameter {
 public:
   ScaledParameter(
     const TChar *title,

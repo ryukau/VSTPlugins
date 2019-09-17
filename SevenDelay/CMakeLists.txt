@@ -14,6 +14,8 @@ set(plug_sources
     source/gui/plugeditor.cpp
     source/gui/waveview.hpp
     source/gui/waveview.cpp
+    source/gui/knob.hpp
+    source/gui/knob.cpp
     source/gui/splash.hpp
     source/gui/splash.cpp
 )

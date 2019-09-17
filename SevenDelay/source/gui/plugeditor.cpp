@@ -18,6 +18,7 @@
 #include "vstgui4/vstgui/lib/platform/iplatformfont.h"
 
 #include "../parameter.hpp"
+#include "knob.hpp"
 #include "plugeditor.hpp"
 #include "splash.hpp"
 #include "waveview.hpp"
@@ -27,10 +28,7 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-PlugEditor::PlugEditor(void *controller) : VSTGUIEditor(controller)
-{
-  setRect(viewRect);
-}
+PlugEditor::PlugEditor(void *controller) : VSTGUIEditor(controller) { setRect(viewRect); }
 
 bool PlugEditor::open(void *parent, const PlatformType &platformType)
 {
@@ -46,47 +44,66 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   frame->open(parent);
 
   using ID = SevenDelay::ParameterID;
+  SevenDelay::GlobalParameter param;
 
-  // Plugin name.
-  addPluginNameLabel(30.0, 340.0, 170.0, "SevenDelay");
-  addSplashScreen(
-    CRect(30.0, 340.0, 190.0, 380.0),
-    CRect(
-      viewRect.left + 200.0,
-      viewRect.top + 20.0,
-      viewRect.right - 200.0,
-      viewRect.bottom - 20.0));
+  const auto normalWidth = 80.0;
+  const auto normalHeight = normalWidth + 40.0;
+  const auto smallWidth = 40.0;
+  const auto smallHeight = 50.0;
+  const auto interval = 100.0;
+
+  // clang-format off
 
   // Delay.
-  addGroupLabel(30.0, 10.0, 480.0, "Delay");
-  addVSlider(20.0, 50.0, colorBlue, "Time", ID::time);
-  addVSlider(120.0, 50.0, colorBlue, "Feedback", ID::feedback);
-  addVSlider(220.0, 50.0, colorBlue, "Stereo", ID::offset, "L/R Stereo Offset", true);
-  addVSlider(320.0, 50.0, colorBlue, "Wet", ID::wetMix);
-  addVSlider(420.0, 50.0, colorGreen, "Dry", ID::dryMix);
+  const auto delayTop1 = 50.0;
+  const auto delayLeft = 20.0;
+  addGroupLabel(delayLeft, 10.0, 480.0, "Delay");
+  addKnob(delayLeft, delayTop1, normalWidth, colorBlue, "Time", ID::time, param.time);
+  addKnob(1.0 * interval + delayLeft, delayTop1, normalWidth, colorBlue, "Feedback", ID::feedback, param.feedback);
+  addKnob(2.0 * interval + delayLeft, delayTop1, normalWidth, colorBlue, "Stereo", ID::offset, param.offset, LabelPosition::bottom, "L/R Stereo Offset");
+  addKnob(3.0 * interval + delayLeft, delayTop1, normalWidth, colorBlue, "Wet", ID::wetMix, param.wetMix);
+  addKnob(4.0 * interval + delayLeft, delayTop1, normalWidth, colorGreen, "Dry", ID::dryMix, param.dryMix);
 
-  addCheckbox(220.0, 330.0, "Sync", ID::tempoSync);
-  addCheckbox(220.0, 360.0, "Negative", ID::negativeFeedback);
+  const auto delayTop2 = delayTop1 + normalHeight;
+  const auto delayTop3 = delayTop2 + smallHeight;
+  const auto delayTop4 = delayTop3 + smallHeight;
+  addCheckbox(delayLeft + 10.0, delayTop2, "Sync", ID::tempoSync);
+  addCheckbox(delayLeft + 10.0, delayTop3, "Negative", ID::negativeFeedback);
 
-  addKnob(340.0, 330.0, colorBlue, "InS", ID::inSpread, "Input Stereo Spread");
-  addKnob(340.0, 360.0, colorBlue, "InP", ID::inPan, "Input Pan", true);
-  addKnob(430.0, 330.0, colorBlue, "OutS", ID::outSpread, "Output Stereo Spread");
-  addKnob(430.0, 360.0, colorBlue, "OutP", ID::outPan, "Output Pan", true);
+  addKnob(1.0 * interval + delayLeft, delayTop2, smallWidth, colorBlue, "Input Spread", ID::inSpread, param.inSpread, LabelPosition::right, "Input Stereo Spread");
+  addKnob(1.0 * interval + delayLeft, delayTop3, smallWidth, colorBlue, "Output Spread", ID::outSpread, param.outSpread, LabelPosition::right, "Output Stereo Spread");
+  addKnob(2.4 * interval + delayLeft, delayTop2, smallWidth, colorBlue, "Input Pan", ID::inPan, param.inPan, LabelPosition::right, "Input Pan");
+  addKnob(2.4 * interval + delayLeft, delayTop3, smallWidth, colorBlue, "Output Pan", ID::outPan, param.outPan, LabelPosition::right, "Output Pan");
+
+  addKnob(3.8 * interval + delayLeft, delayTop2, smallWidth, colorBlue, "Allpass", ID::tone, param.tone, LabelPosition::right, "Delay Allpass");
+  addKnob(3.8 * interval + delayLeft, delayTop3, smallWidth, colorBlue, "DC Kill", ID::dckill, param.dckill, LabelPosition::right, "DC Kill");
+  addKnob(3.8 * interval + delayLeft, delayTop4,  smallWidth, colorBlue, "Smooth", ID::smoothness, param.smoothness, LabelPosition::right, "Automation Smoothness");
+
+  // Plugin name.
+  const auto nameLeft = delayLeft + interval;
+  const auto nameTop = viewRect.bottom - 50.0;
+  const auto nameWidth = 180.0;
+  addPluginNameLabel(nameLeft, nameTop, nameWidth, "SevenDelay");
+  addSplashScreen(
+    CRect(nameLeft, nameTop, nameLeft + nameWidth, nameTop + 40.0),
+    CRect(viewRect.left + 200.0, viewRect.top + 20.0, viewRect.right - 200.0, viewRect.bottom - 20.0));
 
   // LFO.
-  addGroupLabel(560.0, 10.0, 380.0, "LFO");
-  addVSlider(550.0, 50.0, colorBlue, "Amount", ID::lfoAmount);
-  addVSlider(650.0, 50.0, colorBlue, "Freq", ID::lfoFrequency);
-  addVSlider(750.0, 50.0, colorBlue, "Shape", ID::lfoShape);
-  addVSlider(850.0, 50.0, colorBlue, "Phase", ID::lfoInitialPhase);
+  // 750 - 520 = 230 / 3 = 66 + 10
+  const auto lfoTop1 = 50.0;
+  const auto lfoLeft1 = 520.0;
+  addGroupLabel(520.0, 10.0, 420.0, "LFO");
+  addVSlider(lfoLeft1, 50.0, colorBlue, "To Time", ID::lfoTimeAmount, param.lfoTimeAmount);
+  addVSlider(lfoLeft1 + 75.0, 50.0, colorBlue, "To Allpass", ID::lfoToneAmount, param.lfoToneAmount);
+  addVSlider(lfoLeft1 + 150.0, 50.0, colorGreen, "Frequency", ID::lfoFrequency, param.lfoFrequency);
+  const auto lfoLeft2 = lfoLeft1 + 230.0;
+  addKnob(lfoLeft2, 50.0, normalWidth, colorBlue, "Shape", ID::lfoShape, param.lfoShape);
+  addKnob(interval + lfoLeft2, 50.0, normalWidth, colorBlue, "Phase", ID::lfoInitialPhase, param.lfoInitialPhase);
 
-  addButton(655.0, 325.0, 85.0, "Hold", ID::lfoHold, CTextButton::kOnOffStyle);
-  addKnob(630.0, 360.0, colorBlue, "DC Kill", ID::dckill, "DC Kill");
+  addButton(WaveViewSize.left, WaveViewSize.bottom + 10.0, WaveViewSize.right - WaveViewSize.left, "LFO Hold", ID::lfoHold, CTextButton::kOnOffStyle);
   addWaveView(WaveViewSize);
 
-  // Misc.
-  addKnob(530.0, 330.0, colorBlue, "Smooth", ID::smoothness, "Automation Smoothness");
-  addKnob(530.0, 360.0, colorBlue, "Tone", ID::tone, "Delay Tone");
+  // clang-format on
 
   return true;
 }
@@ -215,17 +232,17 @@ void PlugEditor::addVSlider(
   CColor valueColor,
   UTF8String name,
   ParamID tag,
+  float defaultValue,
   UTF8StringPtr tooltip,
   bool drawFromCenter)
 {
   // width, height = 100, 270.
 
-  auto sLeft = left + 10.0;
-  auto right = sLeft + 80.0;
+  auto right = left + 70.0;
   auto bottom = top + 230.0;
 
   auto slider = new CSlider(
-    CRect(sLeft, top, right, bottom), this, tag, top, bottom, nullptr, nullptr);
+    CRect(left, top, right, bottom), this, tag, top, bottom, nullptr, nullptr);
   slider->setSliderMode(CSliderMode::FreeClick);
   slider->setStyle(CSlider::kBottom | CSlider::kVertical);
   slider->setDrawStyle(
@@ -236,12 +253,13 @@ void PlugEditor::addVSlider(
   slider->setBackColor(colorWhite);
   slider->setValueColor(valueColor);
   slider->setValueNormalized(controller->getParamNormalized(tag));
+  slider->setDefaultValue(defaultValue);
   slider->setTooltipText(tooltip);
   frame->addView(slider);
 
   top = bottom + 10.0;
   bottom = top + 30.0;
-  right = left + 100.0;
+  right = left + 70.0;
 
   auto label = new CTextLabel(CRect(left, top, right, bottom), UTF8String(name));
   label->setFont(new CFontDesc(fontName, fontSize, CTxtFace::kNormalFace));
@@ -318,49 +336,46 @@ void PlugEditor::addOptionMenu(
 void PlugEditor::addKnob(
   CCoord left,
   CCoord top,
-  CColor valueColor,
+  CCoord width,
+  CColor highlightColor,
   UTF8String name,
   ParamID tag,
-  UTF8StringPtr tooltip,
-  bool drawFromCenter)
+  float defaultValue,
+  LabelPosition labelPosition,
+  UTF8StringPtr tooltip)
 {
-  // width, height = 150, 30.
+  auto bottom = top + width;
+  auto right = left + width;
 
-  auto bottom = top + 30.0;
-  auto right = left + 30.0;
-
-  const CCoord slitWidth = 4.0;
-  auto knob = new CKnob(
-    CRect(left, top, right, bottom),
-    this,
-    tag,
-    nullptr,
-    nullptr,
-    CPoint(0, 0),
-    CKnob::kHandleCircleDrawing | CKnob::kCoronaDrawing | CKnob::kCoronaOutline
-      | (drawFromCenter ? CKnob::kCoronaFromCenter : 0));
-  knob->setColorHandle(valueColor);
-  knob->setCoronaColor(valueColor);
-  knob->setColorShadowHandle(colorFaintGray);
-  knob->setHandleLineWidth(slitWidth);
-  knob->setCoronaInset(slitWidth);
-  knob->setInsetValue(slitWidth);
+  auto knob = new Knob(CRect(left, top, right, bottom), this, tag);
+  knob->setSlitWidth(8.0);
+  knob->setHighlightColor(highlightColor);
   knob->setValueNormalized(controller->getParamNormalized(tag));
+  knob->setDefaultValue(defaultValue);
   knob->setTooltipText(tooltip);
   frame->addView(knob);
 
-  left = right + 10.0;
-  right = left + 100.0;
+  switch (labelPosition) {
+    default:
+    case LabelPosition::bottom:
+      top = bottom;
+      bottom = top + 30.0;
+      break;
+
+    case LabelPosition::right:
+      left = right + 10.0;
+      right = left + 100.0;
+      break;
+  }
 
   auto label = new CTextLabel(CRect(left, top, right, bottom), UTF8String(name));
   label->setFont(new CFontDesc(fontName, fontSize, CTxtFace::kNormalFace));
   label->setStyle(CParamDisplay::Style::kNoFrame);
   label->setTextTruncateMode(CTextLabel::kTruncateNone);
-  label->setHoriAlign(CHoriTxtAlign::kLeftText);
   label->setFontColor(colorBlack);
   label->setBackColor(colorWhite);
   label->setTooltipText(tooltip);
-  label->sizeToFit();
+  if (labelPosition == LabelPosition::right) label->sizeToFit();
   frame->addView(label);
 }
 

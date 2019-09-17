@@ -42,9 +42,9 @@ public:
   CLASS_METHODS(CreditView, CControl)
 
 private:
-  UTF8String fontName{"DejaVu Sans Mono"};
-  CCoord fontSize = 18.0;
-  CCoord fontSizeTitle = 24.0;
+  UTF8String fontName{"Arial"};
+  CCoord fontSize = 12.0;
+  CCoord fontSizeTitle = 18.0;
 };
 
 } // namespace Vst

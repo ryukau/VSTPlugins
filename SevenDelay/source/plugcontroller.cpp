@@ -119,10 +119,10 @@ tresult PLUGIN_API PlugController::initialize(FUnknown *context)
     USTRING("Negative"));
 
   parameters.addParameter(new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(
-    USTRING("LFO Amount"),
-    ParameterID::lfoAmount,
-    GlobalParameter::scaleLfoAmount,
-    param.lfoAmount,
+    USTRING("LFO to Time"),
+    ParameterID::lfoTimeAmount,
+    GlobalParameter::scaleLfoTimeAmount,
+    param.lfoTimeAmount,
     nullptr,
     Vst::ParameterInfo::kCanAutomate,
     Vst::kRootUnitId));
@@ -231,6 +231,15 @@ tresult PLUGIN_API PlugController::initialize(FUnknown *context)
     Vst::ParameterInfo::kCanAutomate,
     Vst::kRootUnitId));
 
+  parameters.addParameter(new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(
+    USTRING("LFO to Tone"),
+    ParameterID::lfoToneAmount,
+    GlobalParameter::scaleLfoToneAmount,
+    param.lfoToneAmount,
+    nullptr,
+    Vst::ParameterInfo::kCanAutomate,
+    Vst::kRootUnitId));
+
   // Add parameter here.
 
   return kResultTrue;
@@ -251,7 +260,7 @@ tresult PLUGIN_API PlugController::setComponentState(IBStream *state)
   setParamNormalized(ParameterID::dryMix, param.dryMix);
   setParamNormalized(ParameterID::tempoSync, param.tempoSync);
   setParamNormalized(ParameterID::negativeFeedback, param.negativeFeedback);
-  setParamNormalized(ParameterID::lfoAmount, param.lfoAmount);
+  setParamNormalized(ParameterID::lfoTimeAmount, param.lfoTimeAmount);
   setParamNormalized(ParameterID::lfoFrequency, param.lfoFrequency);
   setParamNormalized(ParameterID::lfoShape, param.lfoShape);
   setParamNormalized(ParameterID::lfoInitialPhase, param.lfoInitialPhase);
@@ -263,6 +272,7 @@ tresult PLUGIN_API PlugController::setComponentState(IBStream *state)
   setParamNormalized(ParameterID::outPan, param.outPan);
   setParamNormalized(ParameterID::tone, param.tone);
   setParamNormalized(ParameterID::dckill, param.dckill);
+  setParamNormalized(ParameterID::lfoToneAmount, param.lfoToneAmount);
 
   // Add parameter here.
 
