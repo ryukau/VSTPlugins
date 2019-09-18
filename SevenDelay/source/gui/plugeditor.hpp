@@ -46,7 +46,6 @@ public:
 
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
-  void addPluginNameLabel(CCoord left, CCoord top, CCoord width, UTF8String name);
   void addGroupLabel(CCoord left, CCoord top, CCoord width, UTF8String name);
   void addLabel(
     CCoord left, CCoord top, CCoord width, UTF8String name, CFontDesc *font = nullptr);

@@ -22,38 +22,19 @@ namespace SomeDSP {
 constexpr double pi = 3.14159265358979323846;
 constexpr double twopi = 6.28318530717958647692;
 
-inline double somesin(double x)
-{
-  return ::sin(x);
-}
+inline double somesin(double x) { return ::sin(x); }
 
-inline float somesin(float x)
-{
-  return ::sinf(x);
-}
+inline float somesin(float x) { return ::sinf(x); }
 
-inline double somecos(double x)
-{
-  return ::cos(x);
-}
+inline double somecos(double x) { return ::cos(x); }
 
-inline float somecos(float x)
-{
-  return ::cosf(x);
-}
+inline float somecos(float x) { return ::cosf(x); }
 
-inline double sometan(double x)
-{
-  return ::tan(x);
-}
+inline double sometan(double x) { return ::tan(x); }
 
-inline float sometan(float x)
-{
-  return ::tanf(x);
-}
+inline float sometan(float x) { return ::tanf(x); }
 
-template <typename Sample>
-class SVF {
+template<typename Sample> class SVF {
 public:
   SVF(Sample sampleRate, Sample cutoff, Sample resonance)
     : sampleRate(sampleRate), cutoff(cutoff), resonance(resonance)
@@ -78,7 +59,7 @@ public:
   // value is (0, 1].
   void setQ(Sample value)
   {
-    q = value < 1e-5 ? 1e-5 : value;
+    resonance = value < 1e-5 ? 1e-5 : value;
     setCoefficient();
   }
 
@@ -130,8 +111,7 @@ protected:
 };
 
 // http://www.musicdsp.org/files/Audio-EQ-Cookbook.txt
-template <typename Sample>
-class BiquadHighPass {
+template<typename Sample> class BiquadHighPass {
 public:
   BiquadHighPass(Sample sampleRate, Sample cutoff, Sample q)
     : fs(sampleRate), f0(cutoff), q(q)

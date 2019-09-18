@@ -19,49 +19,22 @@
 
 #include "vstgui/vstgui.h"
 
-namespace Steinberg {
-namespace Vst {
+namespace VSTGUI {
 
-using namespace VSTGUI;
-
-class CreditView : public CControl {
+class TextButton : public CTextButton {
 public:
-  CreditView(const CRect &size, IControlListener *listener) : CControl(size, listener) {}
-
-  void draw(CDrawContext *pContext) override;
-
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
-  {
-    if (buttons.isLeftButton()) {
-      valueChanged();
-      return kMouseDownEventHandledButDontNeedMovedOrUpEvents;
-    }
-    return kMouseEventNotHandled;
-  }
-
-  CLASS_METHODS(CreditView, CControl)
-
-private:
-  UTF8String fontName{"Arial"};
-  CCoord fontSize = 12.0;
-  CCoord fontSizeTitle = 18.0;
-};
-
-class SplashLabel : public CSplashScreen {
-public:
-  SplashLabel(
+  TextButton(
     const CRect &size,
-    IControlListener *listener,
-    int32_t tag,
-    CView *splashView,
-    UTF8StringPtr txt = nullptr)
-    : CSplashScreen(size, listener, tag, splashView), txt(txt)
+    IControlListener *listener = nullptr,
+    int32_t tag = -1,
+    UTF8StringPtr title = nullptr,
+    Style style = kKickStyle)
+    : CTextButton(size, listener, tag, title, style)
   {
+    setFrameColor(frameColor);
   }
 
-  CLASS_METHODS(SplashLabel, CSplashScreen);
-
-  void draw(CDrawContext *pContext) override;
+  CLASS_METHODS(TextButton, CTextButton);
 
   CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;
   CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override;
@@ -73,19 +46,47 @@ public:
   void setHighlightWidth(float width);
 
 protected:
-  UTF8StringPtr txt = nullptr;
-
-  UTF8String fontName = "Arial";
-  double fontSize = 24.0;
-  CColor fontColor = CColor(0, 0, 0, 255);
-
   CColor frameColor = CColor(0, 0, 0, 255);
   CColor highlightColor = CColor(0, 0, 0, 255);
   float frameWidth = 1.0f;
   float highlightFrameWidth = 2.0f;
-
-  bool isMouseEntered = false;
 };
 
-} // namespace Vst
-} // namespace Steinberg
+CMouseEventResult TextButton::onMouseEntered(CPoint &where, const CButtonState &buttons)
+{
+  setFrameWidth(highlightFrameWidth);
+  setFrameColor(highlightColor);
+  return kMouseEventHandled;
+}
+
+CMouseEventResult TextButton::onMouseExited(CPoint &where, const CButtonState &buttons)
+{
+  setFrameWidth(frameWidth);
+  setFrameColor(frameColor);
+  return kMouseEventHandled;
+}
+
+CMouseEventResult TextButton::onMouseCancel()
+{
+  setFrameWidth(frameWidth);
+  setFrameColor(frameColor);
+  return CTextButton::onMouseCancel();
+}
+
+void TextButton::setDefaultFrameColor(CColor color)
+{
+  frameColor = color;
+  setFrameColor(frameColor);
+}
+
+void TextButton::setHighlightColor(CColor color) { highlightColor = color; }
+
+void TextButton::setDefaultFrameWidth(float width)
+{
+  frameWidth = width;
+  setFrameWidth(frameWidth);
+}
+
+void TextButton::setHighlightWidth(float width) { highlightFrameWidth = width; }
+
+} // namespace VSTGUI

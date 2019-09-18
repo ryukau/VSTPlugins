@@ -138,14 +138,17 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
         case ParameterID::outPan:
           dsp.param.outPan = value;
           break;
-        case ParameterID::tone:
-          dsp.param.tone = value;
+        case ParameterID::toneCutoff:
+          dsp.param.toneCutoff = value;
           break;
         case ParameterID::dckill:
           dsp.param.dckill = value;
           break;
         case ParameterID::lfoToneAmount:
           dsp.param.lfoToneAmount = value;
+          break;
+        case ParameterID::toneQ:
+          dsp.param.toneQ = value;
           break;
 
           // Add parameter here.

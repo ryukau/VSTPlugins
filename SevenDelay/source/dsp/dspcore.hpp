@@ -61,7 +61,8 @@ protected:
   LinearSmoother<float> interpLfoShape;
   std::array<LinearSmoother<float>, 2> interpPanIn{};
   std::array<LinearSmoother<float>, 2> interpPanOut{};
-  LinearSmoother<float> interpTone;
+  LinearSmoother<float> interpToneCutoff;
+  LinearSmoother<float> interpToneQ;
   LinearSmoother<float> interpToneMix;
   LinearSmoother<float> interpDCKill;
   LinearSmoother<float> interpDCKillMix;

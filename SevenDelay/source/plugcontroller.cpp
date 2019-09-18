@@ -214,10 +214,19 @@ tresult PLUGIN_API PlugController::initialize(FUnknown *context)
     USTRING("outPan"));
 
   parameters.addParameter(new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(
-    USTRING("Tone"),
-    ParameterID::tone,
-    GlobalParameter::scaleTone,
-    param.tone,
+    USTRING("Allpass Cutoff"),
+    ParameterID::toneCutoff,
+    GlobalParameter::scaleToneCutoff,
+    param.toneCutoff,
+    nullptr,
+    Vst::ParameterInfo::kCanAutomate,
+    Vst::kRootUnitId));
+
+  parameters.addParameter(new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(
+    USTRING("Allpass Q"),
+    ParameterID::toneQ,
+    GlobalParameter::scaleToneQ,
+    param.toneQ,
     nullptr,
     Vst::ParameterInfo::kCanAutomate,
     Vst::kRootUnitId));
@@ -270,9 +279,10 @@ tresult PLUGIN_API PlugController::setComponentState(IBStream *state)
   setParamNormalized(ParameterID::inPan, param.inPan);
   setParamNormalized(ParameterID::outSpread, param.outSpread);
   setParamNormalized(ParameterID::outPan, param.outPan);
-  setParamNormalized(ParameterID::tone, param.tone);
+  setParamNormalized(ParameterID::toneCutoff, param.toneCutoff);
   setParamNormalized(ParameterID::dckill, param.dckill);
   setParamNormalized(ParameterID::lfoToneAmount, param.lfoToneAmount);
+  setParamNormalized(ParameterID::toneQ, param.toneQ);
 
   // Add parameter here.
 

@@ -18,9 +18,12 @@
 #include "vstgui4/vstgui/lib/platform/iplatformfont.h"
 
 #include "../parameter.hpp"
+#include "checkbox.hpp"
 #include "knob.hpp"
 #include "plugeditor.hpp"
+#include "slider.hpp"
 #include "splash.hpp"
+#include "textbutton.hpp"
 #include "waveview.hpp"
 
 namespace Steinberg {
@@ -70,20 +73,20 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   addCheckbox(delayLeft + 10.0, delayTop2, "Sync", ID::tempoSync);
   addCheckbox(delayLeft + 10.0, delayTop3, "Negative", ID::negativeFeedback);
 
-  addKnob(1.0 * interval + delayLeft, delayTop2, smallWidth, colorBlue, "Input Spread", ID::inSpread, param.inSpread, LabelPosition::right, "Input Stereo Spread");
-  addKnob(1.0 * interval + delayLeft, delayTop3, smallWidth, colorBlue, "Output Spread", ID::outSpread, param.outSpread, LabelPosition::right, "Output Stereo Spread");
-  addKnob(2.4 * interval + delayLeft, delayTop2, smallWidth, colorBlue, "Input Pan", ID::inPan, param.inPan, LabelPosition::right, "Input Pan");
-  addKnob(2.4 * interval + delayLeft, delayTop3, smallWidth, colorBlue, "Output Pan", ID::outPan, param.outPan, LabelPosition::right, "Output Pan");
+  addKnob(1.0 * interval + delayLeft, delayTop2, smallWidth, colorBlue, "In Spread", ID::inSpread, param.inSpread, LabelPosition::right, "Input Stereo Spread");
+  addKnob(1.0 * interval + delayLeft, delayTop3, smallWidth, colorBlue, "Out Spread", ID::outSpread, param.outSpread, LabelPosition::right, "Output Stereo Spread");
+  addKnob(2.3 * interval + delayLeft, delayTop2, smallWidth, colorBlue, "In Pan", ID::inPan, param.inPan, LabelPosition::right, "Input Pan");
+  addKnob(2.3 * interval + delayLeft, delayTop3, smallWidth, colorBlue, "Out Pan", ID::outPan, param.outPan, LabelPosition::right, "Output Pan");
+  addKnob(2.3 * interval + delayLeft, delayTop4, smallWidth, colorBlue, "DC Kill", ID::dckill, param.dckill, LabelPosition::right, "DC Kill");
 
-  addKnob(3.8 * interval + delayLeft, delayTop2, smallWidth, colorBlue, "Allpass", ID::tone, param.tone, LabelPosition::right, "Delay Allpass");
-  addKnob(3.8 * interval + delayLeft, delayTop3, smallWidth, colorBlue, "DC Kill", ID::dckill, param.dckill, LabelPosition::right, "DC Kill");
-  addKnob(3.8 * interval + delayLeft, delayTop4,  smallWidth, colorBlue, "Smooth", ID::smoothness, param.smoothness, LabelPosition::right, "Automation Smoothness");
+  addKnob(3.6 * interval + delayLeft, delayTop2, smallWidth, colorBlue, "Allpass Cut", ID::toneCutoff, param.toneCutoff, LabelPosition::right, "Allpass Cutoff");
+  addKnob(3.6 * interval + delayLeft, delayTop3, smallWidth, colorBlue, "Allpass Q", ID::toneQ, param.toneQ, LabelPosition::right, "Allpass Q");
+  addKnob(3.6 * interval + delayLeft, delayTop4,  smallWidth, colorBlue, "Smooth", ID::smoothness, param.smoothness, LabelPosition::right, "Automation Smoothness");
 
   // Plugin name.
-  const auto nameLeft = delayLeft + interval;
+  const auto nameLeft = delayLeft;
   const auto nameTop = viewRect.bottom - 50.0;
   const auto nameWidth = 180.0;
-  addPluginNameLabel(nameLeft, nameTop, nameWidth, "SevenDelay");
   addSplashScreen(
     CRect(nameLeft, nameTop, nameLeft + nameWidth, nameTop + 40.0),
     CRect(viewRect.left + 200.0, viewRect.top + 20.0, viewRect.right - 200.0, viewRect.bottom - 20.0));
@@ -161,23 +164,6 @@ PlugEditor::onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &
   return kMouseEventHandled;
 }
 
-void PlugEditor::addPluginNameLabel(
-  CCoord left, CCoord top, CCoord width, UTF8String name)
-{
-  auto bottom = top + 40.0;
-
-  auto label = new CTextLabel(CRect(left, top, left + width, bottom), UTF8String(name));
-  label->setFont(
-    new CFontDesc(fontName, 24.0, CTxtFace::kBoldFace | CTxtFace::kItalicFace));
-  label->setStyle(0);
-  label->setFrameWidth(1.0);
-  label->setFrameColor(colorBlack);
-  label->setTextTruncateMode(CTextLabel::kTruncateNone);
-  label->setFontColor(colorBlack);
-  label->setBackColor(colorWhite);
-  frame->addView(label);
-}
-
 void PlugEditor::addLabel(
   CCoord left, CCoord top, CCoord width, UTF8String name, CFontDesc *font)
 {
@@ -221,7 +207,8 @@ void PlugEditor::addWaveView(const CRect &size)
 void PlugEditor::addSplashScreen(CRect &buttonRect, CRect splashRect)
 {
   auto credit = new CreditView(splashRect, nullptr);
-  auto splash = new CSplashScreen(buttonRect, this, -666, credit);
+  auto splash = new SplashLabel(buttonRect, this, -666, credit, "SevenDelay");
+  splash->setHighlightColor(colorOrange);
   credit->setListener(splash);
   frame->addView(splash);
 }
@@ -241,17 +228,18 @@ void PlugEditor::addVSlider(
   auto right = left + 70.0;
   auto bottom = top + 230.0;
 
-  auto slider = new CSlider(
+  auto slider = new Slider(
     CRect(left, top, right, bottom), this, tag, top, bottom, nullptr, nullptr);
   slider->setSliderMode(CSliderMode::FreeClick);
   slider->setStyle(CSlider::kBottom | CSlider::kVertical);
   slider->setDrawStyle(
     CSlider::kDrawBack | CSlider::kDrawFrame | CSlider::kDrawValue
     | (drawFromCenter ? CSlider::kDrawValueFromCenter | CSlider::kDrawInverted : 0));
-  slider->setFrameWidth(frameWidth);
-  slider->setFrameColor(colorBlack);
   slider->setBackColor(colorWhite);
   slider->setValueColor(valueColor);
+  slider->setHighlightColor(valueColor);
+  slider->setDefaultFrameColor(colorBlack);
+  slider->setHighlightWidth(3.0);
   slider->setValueNormalized(controller->getParamNormalized(tag));
   slider->setDefaultValue(defaultValue);
   slider->setTooltipText(tooltip);
@@ -277,14 +265,14 @@ void PlugEditor::addButton(
   auto right = left + width;
   auto bottom = top + 30.0;
 
-  auto button = new CTextButton(
+  auto button = new TextButton(
     CRect(left, top, right, bottom), this, tag, title, (CTextButton::Style)style);
   button->setFont(new CFontDesc(fontName, fontSize, CTxtFace::kNormalFace));
   button->setTextColor(colorBlack);
   button->setTextColorHighlighted(colorBlack);
   button->setGradient(CGradient::create(0.0, 1.0, colorWhite, colorWhite));
   button->setGradientHighlighted(CGradient::create(0.0, 1.0, colorOrange, colorOrange));
-  button->setFrameColor(colorBlack);
+  button->setHighlightColor(colorOrange);
   button->setFrameColorHighlighted(colorBlack);
   button->setFrameWidth(1.0);
   button->setRoundRadius(0.0);
@@ -299,7 +287,7 @@ void PlugEditor::addCheckbox(
   auto bottom = top + 30.0;
 
   auto checkbox
-    = new CCheckBox(CRect(left, top, right, bottom), this, tag, title, nullptr, style);
+    = new CheckBox(CRect(left, top, right, bottom), this, tag, title, nullptr, style);
   checkbox->setFont(new CFontDesc(fontName, fontSize, CTxtFace::kNormalFace));
   checkbox->setFontColor(colorBlack);
   checkbox->setBoxFrameColor(colorBlack);

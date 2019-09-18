@@ -30,13 +30,15 @@ namespace SevenDelay {
 
 LogScale<Vst::ParamValue> GlobalParameter::scaleTime(0.0001, maxDelayTime, 0.5, 1.0);
 SPolyScale<Vst::ParamValue> GlobalParameter::scaleOffset(-1.0, 1.0, 0.8);
-LogScale<Vst::ParamValue> GlobalParameter::scaleLfoTimeAmount(0, 1.0, 0.5, 0.1);
+LogScale<Vst::ParamValue> GlobalParameter::scaleLfoTimeAmount(0, 1.0, 0.5, 0.07);
 LogScale<Vst::ParamValue> GlobalParameter::scaleLfoToneAmount(0, 0.5, 0.5, 0.1);
 LogScale<Vst::ParamValue> GlobalParameter::scaleLfoFrequency(0.01, 100.0, 0.5, 1.0);
 LogScale<Vst::ParamValue> GlobalParameter::scaleLfoShape(0.01, 10.0, 0.5, 1.0);
 LinearScale<Vst::ParamValue> GlobalParameter::scaleLfoInitialPhase(0.0, 2.0 * M_PI);
 LogScale<Vst::ParamValue> GlobalParameter::scaleSmoothness(0.0, 1.0, 0.3, 0.04);
-LogScale<Vst::ParamValue> GlobalParameter::scaleTone(90.0, maxToneFrequency, 0.5, 1000.0);
+LogScale<Vst::ParamValue>
+  GlobalParameter::scaleToneCutoff(90.0, maxToneFrequency, 0.5, 1000.0);
+LogScale<Vst::ParamValue> GlobalParameter::scaleToneQ(1e-5, 1.0, 0.5, 0.1);
 LogScale<Vst::ParamValue> GlobalParameter::scaleToneMix(0.0, 1.0, 0.9, 0.05);
 LogScale<Vst::ParamValue>
   GlobalParameter::scaleDCKill(minDCKillFrequency, 120.0, 0.5, 20.0);

@@ -118,8 +118,9 @@ void DSPCore::setParameters(double tempo)
   interpPanOut[0].push(panOutL);
   interpPanOut[1].push(panOutR);
 
-  interpTone.push(GlobalParameter::scaleTone.map(param.tone));
-  interpToneMix.push(GlobalParameter::scaleToneMix.map(param.tone));
+  interpToneCutoff.push(GlobalParameter::scaleToneCutoff.map(param.toneCutoff));
+  interpToneQ.push(GlobalParameter::scaleToneQ.map(param.toneQ));
+  interpToneMix.push(GlobalParameter::scaleToneMix.map(param.toneCutoff));
 
   interpDCKill.push(GlobalParameter::scaleDCKill.map(param.dckill));
   interpDCKillMix.push(GlobalParameter::scaleDCKillMix.reverseMap(param.dckill));
@@ -143,10 +144,13 @@ void DSPCore::process(
     delayOut[1] = delay[1]->process(inL + interpPanIn[1].process() * (inR - inL));
 
     const float lfoTone = 1.0f - interpLfoToneAmount.process() * lfo;
-    float tone = interpTone.process() * lfoTone;
-    if (tone < 20.0f) tone = 20.0f;
-    filter[0]->setCutoff(tone);
-    filter[1]->setCutoff(tone);
+    float toneCutoff = interpToneCutoff.process() * lfoTone;
+    if (toneCutoff < 20.0f) toneCutoff = 20.0f;
+    const float toneQ = interpToneQ.process();
+    filter[0]->setCutoff(toneCutoff);
+    filter[0]->setQ(toneQ);
+    filter[1]->setCutoff(toneCutoff);
+    filter[1]->setQ(toneQ);
     float filterOutL = filter[0]->process(delayOut[0]);
     float filterOutR = filter[1]->process(delayOut[1]);
     const float toneMix = interpToneMix.process() * lfoTone;

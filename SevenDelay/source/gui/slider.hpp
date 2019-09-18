@@ -19,49 +19,26 @@
 
 #include "vstgui/vstgui.h"
 
-namespace Steinberg {
-namespace Vst {
+namespace VSTGUI {
 
-using namespace VSTGUI;
-
-class CreditView : public CControl {
+class Slider : public CSlider {
 public:
-  CreditView(const CRect &size, IControlListener *listener) : CControl(size, listener) {}
-
-  void draw(CDrawContext *pContext) override;
-
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
-  {
-    if (buttons.isLeftButton()) {
-      valueChanged();
-      return kMouseDownEventHandledButDontNeedMovedOrUpEvents;
-    }
-    return kMouseEventNotHandled;
-  }
-
-  CLASS_METHODS(CreditView, CControl)
-
-private:
-  UTF8String fontName{"Arial"};
-  CCoord fontSize = 12.0;
-  CCoord fontSizeTitle = 18.0;
-};
-
-class SplashLabel : public CSplashScreen {
-public:
-  SplashLabel(
+  Slider(
     const CRect &size,
     IControlListener *listener,
     int32_t tag,
-    CView *splashView,
-    UTF8StringPtr txt = nullptr)
-    : CSplashScreen(size, listener, tag, splashView), txt(txt)
+    int32_t iMinPos,
+    int32_t iMaxPos,
+    CBitmap *handle,
+    CBitmap *background,
+    const CPoint &offset = CPoint(0, 0),
+    const int32_t style = kLeft | kHorizontal)
+    : CSlider(size, listener, tag, iMinPos, iMaxPos, handle, background, offset, style)
   {
+    setFrameColor(frameColor);
   }
 
-  CLASS_METHODS(SplashLabel, CSplashScreen);
-
-  void draw(CDrawContext *pContext) override;
+  CLASS_METHODS(Slider, CSlider);
 
   CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;
   CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override;
@@ -73,19 +50,47 @@ public:
   void setHighlightWidth(float width);
 
 protected:
-  UTF8StringPtr txt = nullptr;
-
-  UTF8String fontName = "Arial";
-  double fontSize = 24.0;
-  CColor fontColor = CColor(0, 0, 0, 255);
-
-  CColor frameColor = CColor(0, 0, 0, 255);
+  CColor frameColor = CColor(0xee, 0xee, 0xee, 255);
   CColor highlightColor = CColor(0, 0, 0, 255);
   float frameWidth = 1.0f;
   float highlightFrameWidth = 2.0f;
-
-  bool isMouseEntered = false;
 };
 
-} // namespace Vst
-} // namespace Steinberg
+CMouseEventResult Slider::onMouseEntered(CPoint &where, const CButtonState &buttons)
+{
+  setFrameWidth(highlightFrameWidth);
+  setFrameColor(highlightColor);
+  return kMouseEventHandled;
+}
+
+CMouseEventResult Slider::onMouseExited(CPoint &where, const CButtonState &buttons)
+{
+  setFrameWidth(frameWidth);
+  setFrameColor(frameColor);
+  return kMouseEventHandled;
+}
+
+CMouseEventResult Slider::onMouseCancel()
+{
+  setFrameWidth(frameWidth);
+  setFrameColor(frameColor);
+  return CSlider::onMouseCancel();
+}
+
+void Slider::setDefaultFrameColor(CColor color)
+{
+  frameColor = color;
+  setFrameColor(frameColor);
+}
+
+void Slider::setHighlightColor(CColor color) { highlightColor = color; }
+
+void Slider::setDefaultFrameWidth(float width)
+{
+  frameWidth = width;
+  setFrameWidth(frameWidth);
+}
+
+void Slider::setHighlightWidth(float width) { highlightFrameWidth = width; }
+
+} // namespace VSTGUI

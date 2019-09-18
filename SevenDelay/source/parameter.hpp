@@ -50,9 +50,10 @@ enum ParameterID : Vst::ParamID {
   inPan,
   outSpread,
   outPan,
-  tone,
+  toneCutoff,
   dckill,
   lfoToneAmount,
+  toneQ,
 };
 
 struct GlobalParameter {
@@ -75,7 +76,8 @@ struct GlobalParameter {
   Vst::ParamValue inPan = 0.5;    // 0.0: left, 0.5: center, 1.0 right.
   Vst::ParamValue outSpread = 0.0;
   Vst::ParamValue outPan = 0.5;
-  Vst::ParamValue tone = 1.0;
+  Vst::ParamValue toneCutoff = 1.0;
+  Vst::ParamValue toneQ = 0.9;
   Vst::ParamValue dckill = 0.0;
 
   static LogScale<Vst::ParamValue> scaleTime;
@@ -86,7 +88,8 @@ struct GlobalParameter {
   static LogScale<Vst::ParamValue> scaleLfoShape;
   static LinearScale<Vst::ParamValue> scaleLfoInitialPhase;
   static LogScale<Vst::ParamValue> scaleSmoothness;
-  static LogScale<Vst::ParamValue> scaleTone;
+  static LogScale<Vst::ParamValue> scaleToneCutoff;
+  static LogScale<Vst::ParamValue> scaleToneQ;
   static LogScale<Vst::ParamValue> scaleToneMix; // internal
   static LogScale<Vst::ParamValue> scaleDCKill;
   static LogScale<Vst::ParamValue> scaleDCKillMix; // internal
@@ -113,9 +116,10 @@ struct GlobalParameter {
     if (!s.readDouble(inPan)) return kResultFalse;
     if (!s.readDouble(outSpread)) return kResultFalse;
     if (!s.readDouble(outPan)) return kResultFalse;
-    if (!s.readDouble(tone)) return kResultFalse;
+    if (!s.readDouble(toneCutoff)) return kResultFalse;
     if (!s.readDouble(dckill)) return kResultFalse;
     if (!s.readDouble(lfoToneAmount)) return kResultFalse;
+    if (!s.readDouble(toneQ)) return kResultFalse;
 
     // Add parameter here.
 
@@ -144,9 +148,10 @@ struct GlobalParameter {
     if (!s.writeDouble(inPan)) return kResultFalse;
     if (!s.writeDouble(outSpread)) return kResultFalse;
     if (!s.writeDouble(outPan)) return kResultFalse;
-    if (!s.writeDouble(tone)) return kResultFalse;
+    if (!s.writeDouble(toneCutoff)) return kResultFalse;
     if (!s.writeDouble(dckill)) return kResultFalse;
     if (!s.writeDouble(lfoToneAmount)) return kResultFalse;
+    if (!s.writeDouble(toneQ)) return kResultFalse;
 
     // Add parameter here.
 

@@ -40,8 +40,7 @@ void CreditView::draw(CDrawContext *pContext)
   pContext->setFillColor(bgColor);
   pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilled);
 
-  pContext->setFont(
-    new CFontDesc(fontName, fontSizeTitle, CTxtFace::kBoldFace | CTxtFace::kItalicFace));
+  pContext->setFont(new CFontDesc(fontName, fontSizeTitle, CTxtFace::kBoldFace));
   pContext->setFontColor(CColor(0, 0, 0, 255));
   pContext->drawString(
     UTF8String("SevenDelay " VERSION_STR).getPlatformString(), CPoint(20.0, 50.0));
@@ -74,6 +73,59 @@ void CreditView::draw(CDrawContext *pContext)
 
   setDirty(false);
 }
+
+void SplashLabel::draw(CDrawContext *pContext)
+{
+  pContext->setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));
+  CDrawContext::Transform t(
+    *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
+
+  const auto width = getWidth();
+  const auto height = getHeight();
+
+  pContext->setFont(new CFontDesc(fontName, fontSize, CTxtFace::kBoldFace));
+  pContext->setFontColor(fontColor);
+  pContext->drawString(txt, CRect(0.0, 0.0, width, height), kCenterText, true);
+
+  const double borderWidth = isMouseEntered ? highlightFrameWidth : frameWidth;
+  const double halfBorderWidth = int(borderWidth / 2.0);
+  pContext->setFrameColor(isMouseEntered ? highlightColor : frameColor);
+  pContext->setLineWidth(borderWidth);
+  pContext->drawRect(
+    CRect(
+      halfBorderWidth,
+      halfBorderWidth,
+      width - halfBorderWidth,
+      height - halfBorderWidth),
+    kDrawStroked);
+
+  setDirty(false);
+}
+
+CMouseEventResult SplashLabel::onMouseEntered(CPoint &where, const CButtonState &buttons)
+{
+  isMouseEntered = true;
+  invalid();
+  return kMouseEventHandled;
+}
+
+CMouseEventResult SplashLabel::onMouseExited(CPoint &where, const CButtonState &buttons)
+{
+  isMouseEntered = false;
+  invalid();
+  return kMouseEventHandled;
+}
+
+CMouseEventResult SplashLabel::onMouseCancel()
+{
+  isMouseEntered = false;
+  return CSplashScreen::onMouseCancel();
+}
+
+void SplashLabel::setDefaultFrameColor(CColor color) { frameColor = color; }
+void SplashLabel::setHighlightColor(CColor color) { highlightColor = color; }
+void SplashLabel::setDefaultFrameWidth(float width) { frameWidth = width; }
+void SplashLabel::setHighlightWidth(float width) { highlightFrameWidth = width; }
 
 } // namespace Vst
 } // namespace Steinberg
