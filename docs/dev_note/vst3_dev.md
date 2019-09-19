@@ -1,5 +1,3 @@
-<!-- 何かあれば issue を作ってもらえれば対応します。特に DAW ごとの問題やワークアラウンドについては追加情報を歓迎します。 -->
-
 # VST3 の開発
 VST3の開発についてまとめました。使ったバージョンは VST3 SDK 3.6.13 と VSTGUI 4.8 です。
 
@@ -25,11 +23,13 @@ GitHub のリポジトリからクローンすることもできます。
 |public.sdk|BSD 3-Clause License|
 |vstgui4|BSD 3-Clause License|
 
+Steinberg にメールを送信して確認したところ、 Proprietary Steinberg VST3 License あるいは GPLv3 のどちらを選択するかに関わらず `VST3_License_Agreement.pdf` に署名して Steinberg に送信する必要があります。
+
+また、これも選択したライセンスに関わらず VST compatible logo の表示が義務付けられています。 VST compatible logo は `doc/artwork` に入っています。また VST compatible logo の正しい表示方法が `VST3_Usage_Guidelines.pdf` に書いてあります。
+
 ソースコードを公開するときは GPLv3 で配布することができます。利用したライブラリのライセンスはバイナリの配布時に同梱する必要があります。ユーザマニュアルやGUIのクレジット画面でも利用したライセンスを参照できるようにすることが推奨されています。
 
 ソースコードを公開しないときは Proprietary Steinberg VST3 License と BSD 3-Clause License に従って配布することになります。 Proprietary Steinberg VST3 License の詳細は `VST3_License_Agreement.pdf` に書いてあります。
-
-選択したライセンスに関わらず VST compatible logo の表示が義務付けられています。 VST compatible logo は `doc/artwork` に入っています。また VST compatible logo の正しい表示方法が `VST3_Usage_Guidelines.pdf` に書いてあります。
 
 - [VST 3 SDK Licensing FAQ - sdk.steinberg.net](https://sdk.steinberg.net/viewtopic.php?f=4&t=286&sid=5da7b39b81a3259e03063b18bce97010)
 - [The GNU General Public License v3.0 - GNU Project - Free Software Foundation](https://www.gnu.org/licenses/gpl-3.0.en.html)

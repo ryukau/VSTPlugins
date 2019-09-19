@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<title>index</title>
+<style>
+code { white-space: pre-wrap; }
+span.smallcaps { font-variant: small-caps; }
+span.underline { text-decoration: underline; }
+div.column { display: inline-block; vertical-align: top; width: 50%; }
+</style>
+<link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+<details>
+<summary translate="yes">Table of Contents</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#uhhyou-plugins">Uhhyou Plugins</a><ul>
+<li><a href="#sevendelay">SevenDelay</a></li>
+</ul></li>
+<li><a href="#開発ノート">開発ノート</a></li>
+</ul>
+</nav>
+</details>
+<h1 id="uhhyou-plugins">Uhhyou Plugins</h1>
+<p>マニュアルの分かりにくい箇所や誤字脱字があれば <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を投げるか <code>ryukau@gmail.com</code> にメールを送信してもらえれば対応します。お気軽にお問い合わせください。</p>
+<p>If you found some part of manual is not clear and/or found typo, please file issue at <a href="https://github.com/ryukau/VSTPlugins">GitHub repository</a> or send email to <code>ryukau@gmail.com</code>. Note that I’m not native in English and it’s most likely that the manual contains some weird sentences. I’d like to fix it, so feel free to report those issues.</p>
+<h2 id="sevendelay">SevenDelay</h2>
+<p><img src="manual/SevenDelay/img/sevendelay.png" /></p>
+<p>ステレオディレイです。分数ディレイに7次のラグランジュ補間を使って7倍のオーバーサンプリングをしています。オートメーションなどでディレイ時間を積極的に動かして音を作る用途に向いています。</p>
+<ul>
+<li><a href="manual/SevenDelay/SevenDelay_ja.html">SevenDelay のマニュアル (日本語)</a></li>
+</ul>
+<p>SevenDelay is a stereo delay using 7th order lagurange interpolated fractional delay. Also 7 times oversampled. Suitable for making sound with actively changing delay time by hand or DAW automation.</p>
+<ul>
+<li><a href="manual/SevenDelay/SevenDelay_en.html">SevenDelay Manual (English)</a></li>
+</ul>
+<h1 id="開発ノート">開発ノート</h1>
+<p>VST3 の開発中に分かりにくかったことをまとめました。あまり整理されていません。何かあれば issue を作ってもらえれば対応します。 DAW ごとの問題やワークアラウンドについては追加情報を歓迎します。</p>
+<ul>
+<li><a href="dev_note/vst3_dev.html">VST3 の開発 (日本語)</a></li>
+</ul>
+</body>
+
+</html>

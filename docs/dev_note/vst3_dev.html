@@ -138,7 +138,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </nav>
 </details>
-<!-- 何かあれば issue を作ってもらえれば対応します。特に DAW ごとの問題やワークアラウンドについては追加情報を歓迎します。 -->
 <h1 id="vst3-の開発">VST3 の開発</h1>
 <p>VST3の開発についてまとめました。使ったバージョンは VST3 SDK 3.6.13 と VSTGUI 4.8 です。</p>
 <p>この文章では <code>my_plugins</code> から始まるパスは開発中のプラグイン内のパスを表しています。それ以外のパスは特に断りがないときは <code>VST3_SDK</code> 以下の部分だけを書いています。</p>
@@ -186,9 +185,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
+<p>Steinberg にメールを送信して確認したところ、 Proprietary Steinberg VST3 License あるいは GPLv3 のどちらを選択するかに関わらず <code>VST3_License_Agreement.pdf</code> に署名して Steinberg に送信する必要があります。</p>
+<p>また、これも選択したライセンスに関わらず VST compatible logo の表示が義務付けられています。 VST compatible logo は <code>doc/artwork</code> に入っています。また VST compatible logo の正しい表示方法が <code>VST3_Usage_Guidelines.pdf</code> に書いてあります。</p>
 <p>ソースコードを公開するときは GPLv3 で配布することができます。利用したライブラリのライセンスはバイナリの配布時に同梱する必要があります。ユーザマニュアルやGUIのクレジット画面でも利用したライセンスを参照できるようにすることが推奨されています。</p>
 <p>ソースコードを公開しないときは Proprietary Steinberg VST3 License と BSD 3-Clause License に従って配布することになります。 Proprietary Steinberg VST3 License の詳細は <code>VST3_License_Agreement.pdf</code> に書いてあります。</p>
-<p>選択したライセンスに関わらず VST compatible logo の表示が義務付けられています。 VST compatible logo は <code>doc/artwork</code> に入っています。また VST compatible logo の正しい表示方法が <code>VST3_Usage_Guidelines.pdf</code> に書いてあります。</p>
 <ul>
 <li><a href="https://sdk.steinberg.net/viewtopic.php?f=4&amp;t=286&amp;sid=5da7b39b81a3259e03063b18bce97010">VST 3 SDK Licensing FAQ - sdk.steinberg.net</a></li>
 <li><a href="https://www.gnu.org/licenses/gpl-3.0.en.html">The GNU General Public License v3.0 - GNU Project - Free Software Foundation</a></li>
