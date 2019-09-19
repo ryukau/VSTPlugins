@@ -21,8 +21,7 @@
 #include <stdlib.h>
 #include <vector>
 
-template <typename Sample, unsigned char Order>
-class FractionalDelayLagrange {
+template<typename Sample, unsigned char Order> class FractionalDelayLagrange {
 public:
   void reset()
   {
@@ -65,8 +64,7 @@ private:
   std::array<Sample, Order> diff{};
 };
 
-template <typename Sample, unsigned char Order>
-class DelayLagrange {
+template<typename Sample, unsigned char Order> class DelayLagrange {
 public:
   DelayLagrange(Sample sampleRate, Sample time, Sample maxTime)
   {
@@ -113,7 +111,7 @@ public:
     }
 
     rptr += overSample;
-    while (rptr >= buf.size()) rptr -= (int32_t)buf.size();
+    while (rptr >= (int32_t)buf.size()) rptr -= (int32_t)buf.size();
     int32_t i0 = rptr - 1;
     while (i0 < 0) i0 += (int32_t)buf.size();
     int32_t i1 = rptr - 2;
@@ -123,7 +121,7 @@ public:
   }
 
 private:
-  static const uint8_t overSample = Order;
+  static const size_t overSample = Order;
   static const size_t fix = (overSample * (Order - 1)) / 2;
   Sample sampleRate = 44100.0;
   Sample rFraction = 0.0;

@@ -129,7 +129,7 @@ void DSPCore::setParameters(double tempo)
 void DSPCore::process(
   const size_t length, float *in0, float *in1, float *out0, float *out1)
 {
-  for (int32_t i = 0; i < length; ++i) {
+  for (size_t i = 0; i < length; ++i) {
     auto sign = (pi < lfoPhase) - (lfoPhase < pi);
     const float lfo = 1.0f + sign * powf(abs(sin(lfoPhase)), interpLfoShape.process());
     const float lfoTime = interpLfoTimeAmount.process() * lfo;
