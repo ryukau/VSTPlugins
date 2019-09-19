@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SevenDelay_en</title>
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="../../css/style.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="sevendelay">SevenDelay</h1>
+<p><img src="img/sevendelay.png" /></p>
+<p>SevenDelay is a stereo delay with 7th order lagrange interpolated fractional delay and 7x oversampling.</p>
+<h2 id="controls">Controls</h2>
+<p>Knob and slider can do:</p>
+<ul>
+<li>Ctrl + Left Click: Reset value.</li>
+<li>Shift + Left Drag: Fine adjustment.</li>
+</ul>
+<h2 id="caution">Caution</h2>
+<p>When the value of <code>Smooth</code> is near zero and change the value of <code>Allpass Cut</code> too fast, SevenDelay may output very loud click noise. This is caused by the filter which becomes unstable when cutoff frequency moves too fast. Recommendation is not to set <code>Smooth</code> parameter too low unless you have some specific purpose.</p>
+<p>When the value of <code>Time</code> is set to minimum and the value of <code>Feedback</code> is set to maximum, SevenDelay outputs direct current (DC). To remove DC, Set <code>DC Kill</code> to be greater than 1.0.</p>
+<h2 id="parameters">Parameters</h2>
+<h3 id="delay">Delay</h3>
+<h4 id="time">Time</h4>
+<p>Delay time. Range is 0.0001 to 8.0.</p>
+<ul>
+<li>If <code>Sync</code> is on and <code>Time</code> is less than 1.0, then delay time is set to <code>Time / 16</code> beats.</li>
+<li>If <code>Sync</code> is on and <code>Time</code> is greater or equal to 1.0, then delay time is set to <code>floor(2 * Time) / 32</code> beats.</li>
+<li>Otherwise, delay time is set to <code>Time</code> seconds.</li>
+</ul>
+<h4 id="feedback">Feedback</h4>
+<p>Delay feedback. Range is 0.0 to 1.0.</p>
+<h4 id="stereo">Stereo</h4>
+<p>L/R stereo offset. Range is -1.0 to 1.0.</p>
+<ul>
+<li>If <code>Stereo</code> is less than 0.0, then left channel delay time is modified to <code>timeL * (1.0 + Stereo)</code>.</li>
+<li>Otherwise, right channel delay time is modified to <code>timeR * (1.0 + Stereo)</code>.</li>
+</ul>
+<h4 id="wet">Wet</h4>
+<p>Output volume of delayed signal. Range is 0.0 to 1.0.</p>
+<h4 id="dry">Dry</h4>
+<p>Output volume of input signal. Range is 0.0 to 1.0.</p>
+<h4 id="sync">Sync</h4>
+<p>Toggle tempo sync.</p>
+<h4 id="negative">Negative</h4>
+<p>Toggle negative feedback. This may be useful when delay time is very short.</p>
+<h4 id="insinp-and-outsoutp">InS/InP and OutS/OutP</h4>
+<p>Input spread, input pan, output spread and output pan. Range is 0.0 to 1.0.</p>
+<p><code>In/Out Spread</code> controls stereo spread. <code>In/Out Pan</code> controls stereo panning. (<code>*</code> means wildcard. In this case, <code>In</code> or <code>Out</code>.)</p>
+<p>These parameter can be used for inverse panning, ping-pong delay etc.</p>
+<ul>
+<li>For inverse panning, set <code>[InSpread, InPan, OutSpread, OutPan]</code> to <code>[0.0, 0.5, 1.0, 0.5]</code>.</li>
+<li>For ping-pong delay, set <code>[InSpread, InPan, OutSpread, OutPan]</code> to <code>[1.0, 0.5, 0.0, 0.5]</code>.</li>
+</ul>
+<pre><code>panL = clamp(2 * pan + spread - 1.0, 0.0, 1.0)
+panR = clamp(2 * pan - spread, 0.0, 1.0)
+
+signalL = incomingL + panL * (incomingR - incomingL)
+signalR = incomingL + panR * (incomingR - incomingL)</code></pre>
+<h4 id="allpass-cut">Allpass Cut</h4>
+<p>SFV allpass filter frequency. Range is 90.0 to 20000.0.</p>
+<p>If <code>Allpass Cut</code> is 20000.0, filter will be bypassed.</p>
+<h4 id="allpass-q">Allpass Q</h4>
+<p>SFV allpass filter resonance. Range is 0.00001 to 1.0.</p>
+<h4 id="dc-kill">DC Kill</h4>
+<p>Cutoff frequency of biquad highpass filter. Range is 1.0 to 120.0.</p>
+<p><code>DC Kill</code> removes direct current from delay feedback when the value is set to be greater than 1.0.</p>
+<h4 id="smooth">Smooth</h4>
+<p>Parameter smoothing. Range is 0.0 to 1.0. Unit is seconds.</p>
+<p>Some parameter may produce noise when the value is changed too fast. Increasing <code>Smooth</code> reduces those noise.</p>
+<h3 id="lfo">LFO</h3>
+<h4 id="to-time">To Time</h4>
+<p>LFO modulation amount to delay time. Range is 0.0 to 1.0.</p>
+<h4 id="to-allpass">To Allpass</h4>
+<p>LFO modulation amount to allpass cutoff frequency. Range is 0.0 to 1.0.</p>
+<h4 id="freq">Freq</h4>
+<p>LFO frequency. Range is 0.01 to 100.0.</p>
+<h4 id="shape">Shape</h4>
+<p>LFO waveform shape. Range is 0.01 to 10.0.</p>
+<pre><code>sign = 1 if (phase &gt; π),
+      -1 if (phase &lt; π),
+       0 if (phase == π)
+lfo = sign * abs(sin(phase))^shape</code></pre>
+<h4 id="phase">Phase</h4>
+<p>LFO initial phase. Range is 0.0 to 2π.</p>
+<p>LFO phase is reset to <code>Phase</code> for each time host starts playing.</p>
+<h4 id="hold">Hold</h4>
+<p>Toggle LFO phase hold. This may be useful for live performance.</p>
+<h2 id="license">License</h2>
+<p>SevenDelay is licensed under GPLv3. Complete licenses are linked below.</p>
+<ul>
+<li>https://github.com/ryukau/VSTPlugins/tree/master/License</li>
+</ul>
+<p>If the link above doesn’t work, please send email to <code>ryukau@gmail.com</code>.</p>
+<h2 id="vst-compatible-logo">VST compatible logo</h2>
+<p>This section is to fullfill the obligation to display the VST compatible logo.</p>
+<p><img src="img/VST_Compatible_Logo_Steinberg_with_TM.svg" alt="The VST compatible logo. VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries." width="240"></p>
+</body>
+</html>

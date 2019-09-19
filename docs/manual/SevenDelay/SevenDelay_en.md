@@ -2,7 +2,7 @@
 
 ![](img/sevendelay.png)
 
-SevenDelay is a stereo delay with order 7 lagrange interpolated fractional delay and 7x oversampling.
+SevenDelay is a stereo delay with 7th order lagrange interpolated fractional delay and 7x oversampling.
 
 ## Controls
 Knob and slider can do:
