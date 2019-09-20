@@ -19,7 +19,13 @@ SevenDelay is a stereo delay using 7th order lagurange interpolated fractional d
 # 開発ノート
 VST3 の開発中に分かりにくかったことをまとめました。あまり整理されていません。何かあれば issue を作ってもらえれば対応します。 DAW ごとの問題やワークアラウンドについては追加情報を歓迎します。
 
-- [VST3 の開発 (日本語)](dev_note/vst3_dev.html)
+- [VST3 の開発](dev_note/vst3_dev.html)
+
+こちらはアルゴリズムなどについてまとめたノートです。もともとは波のシミュレーションについて調べていました。
+
+- [波ノート](https://ryukau.github.io/filter_notes/index.html)
+
+If you are interested in those articles and would like read it in English, contact me via GitHub issue or email. I'll translate it on demand. Contact link/information is at the top of this page.
 
 # ブログ
-- TODO リンク
+- [Uhhyou (ブログ)](https://ryukau.blogspot.com/)

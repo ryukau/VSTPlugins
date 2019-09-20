@@ -2,10 +2,9 @@ import subprocess
 import os
 from pathlib import Path
 
-css_path = Path("style.css")
+css_path = Path("style.css").resolve().as_uri()
 template_path = str(Path("template.html").resolve().as_uri())
 for md in Path(".").glob("**/*.md"):
-    relative_css_path = os.path.relpath(css_path, md.parent).replace('\\', '/')
     subprocess.run([
         "pandoc",
         "-s",
@@ -14,7 +13,8 @@ for md in Path(".").glob("**/*.md"):
         "--metadata",
         f"title={md.stem}",
         f"--template={template_path}",
-        f"--css={relative_css_path}",
+        f"-H",
+        css_path,
         "-o",
         f"{md.with_suffix('')}.html",
         str(md),
