@@ -86,7 +86,7 @@ public:
     s2 = yLP + v2;
 
     Sample output = input - 2.0 * twoR * yBP;
-    if (isfinite(output)) return output;
+    if (std::isfinite(output)) return output;
 
     reset();
     return 0.0;

@@ -52,7 +52,7 @@ public:
 
   void addWaveView(const CRect &size);
 
-  void addSplashScreen(CRect &buttonRect, CRect splashRect);
+  void addSplashScreen(CRect buttonRect, CRect splashRect);
 
   void addVSlider(
     CCoord left,
