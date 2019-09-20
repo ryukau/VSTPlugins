@@ -1,8 +1,32 @@
 # SevenDelay
-
 ![](img/sevendelay.png)
 
 SevenDelay (セブンディレイ) は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。
+
+- [SevenDelay 0.1.0 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.0/SevenDelay.zip) <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="60px"
+  style="display: inline-block; vertical-align: middle;">
+
+パッケージには次のビルドが含まれています。
+
+- Windows 64bit
+- Windows 32bit
+- Linux 64bit (動作未確認)
+
+Mac は持っていないのでビルドできません。もし使いたいという方がいれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作るか、 `ryukau@gmail.com` までメールを送っていただければビルド方法などについて対応します。
+
+Linux で使える VST3 に対応した DAW を持っていないので動作確認ができていません。問題があるときは報告していただければ対応します。また、問題なく動作したときも、ご利用の DAW の名前と共に報告していただければ助かります。
+
+## インストール
+`SevenDelay.vst3` を OS ごとに決められたディレクトリに配置してください。
+
+Windows では `/Program Files/Common Files/VST3/` に配置します。
+
+Linux では `$HOME/.vst3/` に配置します。
+
+DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。
 
 ## 操作
 つまみとスライダーでは次の操作ができます。
@@ -118,7 +142,5 @@ SevenDelay のライセンスは GPLv3 です。 GPLv3 の詳細と、利用し�
 
 リンクが切れているときは `ryukau@gmail.com` にメールを送ってください。
 
-## VST compatible logo
-この節は VST compatible logo の表示義務を満たすために設けられています。
-
-<img src="img/VST_Compatible_Logo_Steinberg_with_TM.svg" alt="The VST compatible logo. VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries." width="240">
+### VST® について
+VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.

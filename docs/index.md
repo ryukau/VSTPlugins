@@ -1,14 +1,28 @@
 # Uhhyou Plugins
+[VST®](#vst_logo) 3 プラグインを公開しています。
+
 マニュアルの分かりにくい箇所や誤字脱字があれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を投げるか `ryukau@gmail.com` にメールを送信してもらえれば対応します。お気軽にお問い合わせください。
+
+This page is publishing [VST®](#vst_logo) 3 plugins.
 
 If you found some part of manual is not clear and/or found typo, please file issue at [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`. Note that I'm not native in English and it's most likely that the manual contains some weird sentences. I'd like to fix it, so feel free to report those issues.
 
 ## SevenDelay
 ![](manual/SevenDelay/img/sevendelay.png)
 
-- TODO ダウンロードリンク
+- [Download SevenDelay 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.0/SevenDelay.zip) <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="60px"
+  style="display: inline-block; vertical-align: middle;">
 
-ステレオディレイです。分数ディレイに7次のラグランジュ補間を使って7倍のオーバーサンプリングをしています。オートメーションなどでディレイ時間を積極的に動かして音を作る用途に向いています。
+パッケージには次のビルドが含まれています。
+
+- Windows 64bit
+- Windows 32bit
+- Linux 64bit (動作未確認 | Not tested)
+
+SevenDelayはステレオディレイです。分数ディレイに7次のラグランジュ補間を使って7倍のオーバーサンプリングをしています。オートメーションなどでディレイ時間を積極的に動かして音を作る用途に向いています。
 
 - [SevenDelay のマニュアル (日本語)](manual/SevenDelay/SevenDelay_ja.html)
 
@@ -29,3 +43,7 @@ If you are interested in those articles and would like read it in English, conta
 
 # ブログ
 - [Uhhyou (ブログ)](https://ryukau.blogspot.com/)
+
+# VST について
+<a name="vst_logo"></a>
+VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.

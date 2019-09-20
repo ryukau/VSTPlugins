@@ -148,6 +148,7 @@ footer {
 <nav id="TOC" role="doc-toc">
 <ul>
 <li><a href="#sevendelay">SevenDelay</a><ul>
+<li><a href="#インストール">インストール</a></li>
 <li><a href="#操作">操作</a></li>
 <li><a href="#注意">注意</a></li>
 <li><a href="#パラメータ">パラメータ</a><ul>
@@ -174,8 +175,9 @@ footer {
 <li><a href="#hold">Hold</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#ライセンス">ライセンス</a></li>
-<li><a href="#vst-compatible-logo">VST compatible logo</a></li>
+<li><a href="#ライセンス">ライセンス</a><ul>
+<li><a href="#vst-について">VST® について</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -183,6 +185,26 @@ footer {
 <h1 id="sevendelay">SevenDelay</h1>
 <p><img src="img/sevendelay.png" /></p>
 <p>SevenDelay (セブンディレイ) は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.0/SevenDelay.zip">SevenDelay 0.1.0 をダウンロード - VST® 3 (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="60px"
+style="display: inline-block; vertical-align: middle;"></li>
+</ul>
+<p>パッケージには次のビルドが含まれています。</p>
+<ul>
+<li>Windows 64bit</li>
+<li>Windows 32bit</li>
+<li>Linux 64bit (動作未確認)</li>
+</ul>
+<p>Mac は持っていないのでビルドできません。もし使いたいという方がいれば <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければビルド方法などについて対応します。</p>
+<p>Linux で使える VST3 に対応した DAW を持っていないので動作確認ができていません。問題があるときは報告していただければ対応します。また、問題なく動作したときも、ご利用の DAW の名前と共に報告していただければ助かります。</p>
+<h2 id="インストール">インストール</h2>
+<p><code>SevenDelay.vst3</code> を OS ごとに決められたディレクトリに配置してください。</p>
+<p>Windows では <code>/Program Files/Common Files/VST3/</code> に配置します。</p>
+<p>Linux では <code>$HOME/.vst3/</code> に配置します。</p>
+<p>DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。</p>
 <h2 id="操作">操作</h2>
 <p>つまみとスライダーでは次の操作ができます。</p>
 <ul>
@@ -266,9 +288,8 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 <li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
 </ul>
 <p>リンクが切れているときは <code>ryukau@gmail.com</code> にメールを送ってください。</p>
-<h2 id="vst-compatible-logo">VST compatible logo</h2>
-<p>この節は VST compatible logo の表示義務を満たすために設けられています。</p>
-<p><img src="img/VST_Compatible_Logo_Steinberg_with_TM.svg" alt="The VST compatible logo. VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries." width="240"></p>
+<h3 id="vst-について">VST® について</h3>
+<p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
 </body>
 
 </html>

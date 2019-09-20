@@ -1,8 +1,31 @@
 # SevenDelay
-
 ![](img/sevendelay.png)
 
 SevenDelay is a stereo delay with 7th order lagrange interpolated fractional delay and 7x oversampling.
+
+- [Download SevenDelay 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.0/SevenDelay.zip) <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="60px"
+  style="display: inline-block; vertical-align: middle;">
+
+The package including following builds:
+
+- Windows 64bit
+- Windows 32bit
+- Linux 64bit (Not tested)
+
+I don't have Mac so there's no Mac build. If you'd like to use SevenDelay on Mac, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`. I'll provide build instruction.
+
+Linux build isn't tested because I don't have DAW runs on Linux that is compatible to VST3. So if you use Linux build, please report that it works nicely or not.
+
+## Installation
+Place `SevenDelay.vst3` directory to:
+
+- `/Program Files/Common Files/VST3/` for Windows.
+- `$HOME/.vst3/` for Linux.
+
+DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.
 
 ## Controls
 Knob and slider can do:
@@ -116,7 +139,5 @@ SevenDelay is licensed under GPLv3. Complete licenses are linked below.
 
 If the link above doesn't work, please send email to `ryukau@gmail.com`.
 
-## VST compatible logo
-This section is to fullfill the obligation to display the VST compatible logo.
-
-<img src="img/VST_Compatible_Logo_Steinberg_with_TM.svg" alt="The VST compatible logo. VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries." width="240">
+### About VST
+VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.
