@@ -114,7 +114,7 @@ LFO の位相のホールドの切り替え。ライブ演奏などで役に立�
 ## ライセンス
 SevenDelay のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。
 
-- https://github.com/ryukau/VSTPlugins/tree/master/License
+- [https://github.com/ryukau/VSTPlugins/tree/master/License](https://github.com/ryukau/VSTPlugins/tree/master/License)
 
 リンクが切れているときは `ryukau@gmail.com` にメールを送ってください。
 

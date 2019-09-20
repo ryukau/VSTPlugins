@@ -112,7 +112,7 @@ Toggle LFO phase hold. This may be useful for live performance.
 ## License
 SevenDelay is licensed under GPLv3. Complete licenses are linked below.
 
-- https://github.com/ryukau/VSTPlugins/tree/master/License
+- [https://github.com/ryukau/VSTPlugins/tree/master/License](https://github.com/ryukau/VSTPlugins/tree/master/License)
 
 If the link above doesn't work, please send email to `ryukau@gmail.com`.
 
