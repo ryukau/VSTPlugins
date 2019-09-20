@@ -26,6 +26,7 @@
 #include "smoother.hpp"
 
 #include <array>
+#include <memory>
 
 namespace Steinberg {
 namespace SevenDelay {

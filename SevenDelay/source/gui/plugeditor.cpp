@@ -204,7 +204,7 @@ void PlugEditor::addWaveView(const CRect &size)
   frame->addView(view);
 }
 
-void PlugEditor::addSplashScreen(CRect &buttonRect, CRect splashRect)
+void PlugEditor::addSplashScreen(CRect buttonRect, CRect splashRect)
 {
   auto credit = new CreditView(splashRect, nullptr);
   auto splash = new SplashLabel(buttonRect, this, -666, credit, "SevenDelay");
