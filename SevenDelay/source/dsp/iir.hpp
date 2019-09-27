@@ -43,11 +43,11 @@ public:
 
   void setCoefficient()
   {
-    Sample omega_c = sometan(pi * cutoff / sampleRate);
-    g = omega_c / (1 + omega_c);
+    Sample omega_c = sometan(Sample(pi) * cutoff / sampleRate);
+    g = omega_c / (Sample(1.0) + omega_c);
     twoR = 2 * resonance;
     g1 = twoR + g;
-    d = 1 / (1 + 2 * resonance + g * g);
+    d = Sample(1.0) / (Sample(1.0) + Sample(2.0) * resonance + g * g);
   }
 
   void setCutoff(Sample hz)
@@ -59,7 +59,7 @@ public:
   // value is (0, 1].
   void setQ(Sample value)
   {
-    resonance = value < 1e-5 ? 1e-5 : value;
+    resonance = value < Sample(1e-5) ? Sample(1e-5) : value;
     setCoefficient();
   }
 
@@ -85,7 +85,7 @@ public:
     yLP = v2 + s2;
     s2 = yLP + v2;
 
-    Sample output = input - 2.0 * twoR * yBP;
+    Sample output = input - Sample(2.0) * twoR * yBP;
     if (std::isfinite(output)) return output;
 
     reset();
@@ -135,23 +135,23 @@ public:
   // value is (0, 1].
   void setQ(Sample value)
   {
-    q = value < 1e-5 ? 1e-5 : value;
+    q = value < Sample(1e-5) ? Sample(1e-5) : value;
     setCoefficient();
   }
 
   void setCoefficient()
   {
-    Sample w0 = twopi * f0 / fs;
+    Sample w0 = Sample(twopi) * f0 / fs;
     Sample cos_w0 = somecos(w0);
     Sample sin_w0 = somesin(w0);
 
-    Sample alpha = sin_w0 / (2.0 * q);
-    b0 = (1.0 + cos_w0) / 2.0;
-    b1 = -(1.0 + cos_w0);
-    b2 = (1.0 + cos_w0) / 2.0;
-    a0 = 1.0 + alpha;
-    a1 = -2.0 * cos_w0;
-    a2 = 1.0 - alpha;
+    Sample alpha = sin_w0 / (Sample(2.0) * q);
+    b0 = (Sample(1.0) + cos_w0) / Sample(2.0);
+    b1 = -(Sample(1.0) + cos_w0);
+    b2 = (Sample(1.0) + cos_w0) / Sample(2.0);
+    a0 = Sample(1.0) + alpha;
+    a1 = -Sample(2.0) * cos_w0;
+    a2 = Sample(1.0) - alpha;
 
     b0 /= a0;
     b1 /= a0;
