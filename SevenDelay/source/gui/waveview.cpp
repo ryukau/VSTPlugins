@@ -64,10 +64,10 @@ void WaveView::draw(CDrawContext *pContext)
 
 double WaveView::lfo(double phase)
 {
-  phase = this->phase + phase * 2 * M_PI;
-  if (phase > 2 * M_PI) phase -= 2 * M_PI;
+  phase = this->phase + phase * 2.0 * M_PI;
+  if (phase > 2.0 * M_PI) phase -= 2.0 * M_PI;
   auto sign = (M_PI < phase) - (phase < M_PI);
-  auto wave = amount * sign * pow(abs(sin(phase)), shape);
+  auto wave = amount * sign * pow(fabs(sin(phase)), shape);
   return (wave + 1.0) * 0.5;
 }
 

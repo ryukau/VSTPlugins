@@ -685,7 +685,7 @@ double WaveView::lfo(double phase)
   phase = this->phase + phase * twopi;
   if (phase > twopi) phase -= twopi;
   auto sign = (pi < phase) - (phase < pi);
-  auto wave = gain * sign * pow(abs(sin(phase)), shape);
+  auto wave = gain * sign * pow(fabs(sin(phase)), shape);
   return (wave + 1.0) * 0.5;
 }
 
@@ -1057,7 +1057,7 @@ double WaveView::lfo(double phase)
   phase = this->phase + phase * 2 * pi;
   if (phase > 2 * pi) phase -= 2 * pi;
   auto sign = (pi < phase) - (phase < pi);
-  auto wave = amount * sign * pow(abs(sin(phase)), shape);
+  auto wave = amount * sign * pow(fabs(sin(phase)), shape);
   return (wave + 1.0) * 0.5;
 }
 

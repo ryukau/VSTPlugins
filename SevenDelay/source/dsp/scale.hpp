@@ -25,13 +25,9 @@
 
 // Maps a value in [0, 1] to [min, max].
 // min /= max.
-template <class T>
-class LinearScale {
+template<class T> class LinearScale {
 public:
-  LinearScale(T min, T max)
-  {
-    set(min, max);
-  }
+  LinearScale(T min, T max) { set(min, max); }
 
   void set(T min, T max)
   {
@@ -63,13 +59,9 @@ protected:
 };
 
 // min /= max. power > 0.
-template <class T>
-class SPolyScale {
+template<class T> class SPolyScale {
 public:
-  SPolyScale(T min, T max, T power = 2.0)
-  {
-    set(min, max, power);
-  }
+  SPolyScale(T min, T max, T power = 2.0) { set(min, max, power); }
 
   void set(T min, T max, T power)
   {
@@ -108,8 +100,7 @@ protected:
 
 // map(inValue) == outValue.
 // min > max, inValue > 0, outValue > min.
-template <class T>
-class LogScale {
+template<class T> class LogScale {
 public:
   LogScale(T min, T max, T inValue = 0.5, T outValue = 0.1)
   {
@@ -121,8 +112,8 @@ public:
     this->min = min;
     this->max = max;
 
-    scale = abs(max - min);
-    expo = log(abs(outValue - min) / scale) / log(inValue);
+    scale = fabs(max - min);
+    expo = log(fabs(outValue - min) / scale) / log(inValue);
     expoInv = 1.0 / expo;
   }
 
