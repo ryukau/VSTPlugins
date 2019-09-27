@@ -131,8 +131,8 @@ void DSPCore::process(
 {
   for (size_t i = 0; i < length; ++i) {
     auto sign = (pi < lfoPhase) - (lfoPhase < pi);
-    const float lfo = 1.0f + sign * powf(fabsf(sin(lfoPhase)), interpLfoShape.process());
-    const float lfoTime = interpLfoTimeAmount.process() * lfo;
+    const float lfo = sign * powf(fabsf(sin(lfoPhase)), interpLfoShape.process());
+    const float lfoTime = interpLfoTimeAmount.process() * (1.0f + lfo);
 
     delay[0]->setTime(interpTime[0].process() + lfoTime);
     delay[1]->setTime(interpTime[1].process() + lfoTime);
@@ -143,8 +143,8 @@ void DSPCore::process(
     delayOut[0] = delay[0]->process(inL + interpPanIn[0].process() * (inR - inL));
     delayOut[1] = delay[1]->process(inL + interpPanIn[1].process() * (inR - inL));
 
-    const float lfoTone = 1.0f - interpLfoToneAmount.process() * lfo;
-    float toneCutoff = interpToneCutoff.process() * lfoTone;
+    const float lfoTone = interpLfoToneAmount.process() * (0.5f * lfo + 0.5f);
+    float toneCutoff = interpToneCutoff.process() * lfoTone * lfoTone;
     if (toneCutoff < 20.0f) toneCutoff = 20.0f;
     const float toneQ = interpToneQ.process();
     filter[0]->setCutoff(toneCutoff);
