@@ -160,7 +160,7 @@ footer {
 <li><a href="#dry">Dry</a></li>
 <li><a href="#sync">Sync</a></li>
 <li><a href="#negative">Negative</a></li>
-<li><a href="#insinp-and-outsoutp">InS/InP and OutS/OutP</a></li>
+<li><a href="#inout-spreadpan">In/Out Spread/Pan</a></li>
 <li><a href="#allpass-cut">Allpass Cut</a></li>
 <li><a href="#allpass-q">Allpass Q</a></li>
 <li><a href="#dc-kill">DC Kill</a></li>
@@ -241,9 +241,9 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>Toggle tempo sync.</p>
 <h4 id="negative">Negative</h4>
 <p>Toggle negative feedback. This may be useful when delay time is very short.</p>
-<h4 id="insinp-and-outsoutp">InS/InP and OutS/OutP</h4>
-<p>Input spread, input pan, output spread and output pan. Range is 0.0 to 1.0.</p>
-<p><code>In/Out Spread</code> controls stereo spread. <code>In/Out Pan</code> controls stereo panning. (<code>*</code> means wildcard. In this case, <code>In</code> or <code>Out</code>.)</p>
+<h4 id="inout-spreadpan">In/Out Spread/Pan</h4>
+<p>Panning controls. Range is 0.0 to 1.0.</p>
+<p><code>In/Out Spread</code> controls stereo spread. <code>In/Out Pan</code> controls stereo panning.</p>
 <p>These parameter can be used for inverse panning, ping-pong delay etc.</p>
 <ul>
 <li>For inverse panning, set <code>[InSpread, InPan, OutSpread, OutPan]</code> to <code>[0.0, 0.5, 1.0, 0.5]</code>.</li>
@@ -255,7 +255,7 @@ panR = clamp(2 * pan - spread, 0.0, 1.0)
 signalL = incomingL + panL * (incomingR - incomingL)
 signalR = incomingL + panR * (incomingR - incomingL)</code></pre>
 <h4 id="allpass-cut">Allpass Cut</h4>
-<p>SFV allpass filter frequency. Range is 90.0 to 20000.0.</p>
+<p>SFV allpass filter cutoff frequency. Range is 90.0 to 20000.0.</p>
 <p>If <code>Allpass Cut</code> is 20000.0, filter will be bypassed.</p>
 <h4 id="allpass-q">Allpass Q</h4>
 <p>SFV allpass filter resonance. Range is 0.00001 to 1.0.</p>

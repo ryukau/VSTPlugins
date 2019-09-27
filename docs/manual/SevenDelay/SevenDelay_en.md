@@ -68,10 +68,10 @@ Toggle tempo sync.
 #### Negative
 Toggle negative feedback. This may be useful when delay time is very short.
 
-#### InS/InP and OutS/OutP
-Input spread, input pan, output spread and output pan. Range is 0.0 to 1.0.
+#### In/Out Spread/Pan
+Panning controls. Range is 0.0 to 1.0.
 
-`In/Out Spread` controls stereo spread. `In/Out Pan` controls stereo panning. (`*` means wildcard. In this case, `In` or `Out`.)
+`In/Out Spread` controls stereo spread. `In/Out Pan` controls stereo panning.
 
 These parameter can be used for inverse panning, ping-pong delay etc.
 
@@ -87,7 +87,7 @@ signalR = incomingL + panR * (incomingR - incomingL)
 ```
 
 #### Allpass Cut
-SFV allpass filter frequency. Range is 90.0 to 20000.0.
+SFV allpass filter cutoff frequency. Range is 90.0 to 20000.0.
 
 If `Allpass Cut` is 20000.0, filter will be bypassed.
 

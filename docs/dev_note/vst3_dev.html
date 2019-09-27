@@ -801,7 +801,7 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb32-48"><a href="#cb32-48"></a>  phase = <span class="kw">this</span>-&gt;phase + phase * twopi;</span>
 <span id="cb32-49"><a href="#cb32-49"></a>  <span class="cf">if</span> (phase &gt; twopi) phase -= twopi;</span>
 <span id="cb32-50"><a href="#cb32-50"></a>  <span class="kw">auto</span> sign = (pi &lt; phase) - (phase &lt; pi);</span>
-<span id="cb32-51"><a href="#cb32-51"></a>  <span class="kw">auto</span> wave = gain * sign * pow(abs(sin(phase)), shape);</span>
+<span id="cb32-51"><a href="#cb32-51"></a>  <span class="kw">auto</span> wave = gain * sign * pow(fabs(sin(phase)), shape);</span>
 <span id="cb32-52"><a href="#cb32-52"></a>  <span class="cf">return</span> (wave + <span class="fl">1.0</span>) * <span class="fl">0.5</span>;</span>
 <span id="cb32-53"><a href="#cb32-53"></a>}</span>
 <span id="cb32-54"><a href="#cb32-54"></a></span>
@@ -1145,7 +1145,7 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb39-53"><a href="#cb39-53"></a>  phase = <span class="kw">this</span>-&gt;phase + phase * <span class="dv">2</span> * pi;</span>
 <span id="cb39-54"><a href="#cb39-54"></a>  <span class="cf">if</span> (phase &gt; <span class="dv">2</span> * pi) phase -= <span class="dv">2</span> * pi;</span>
 <span id="cb39-55"><a href="#cb39-55"></a>  <span class="kw">auto</span> sign = (pi &lt; phase) - (phase &lt; pi);</span>
-<span id="cb39-56"><a href="#cb39-56"></a>  <span class="kw">auto</span> wave = amount * sign * pow(abs(sin(phase)), shape);</span>
+<span id="cb39-56"><a href="#cb39-56"></a>  <span class="kw">auto</span> wave = amount * sign * pow(fabs(sin(phase)), shape);</span>
 <span id="cb39-57"><a href="#cb39-57"></a>  <span class="cf">return</span> (wave + <span class="fl">1.0</span>) * <span class="fl">0.5</span>;</span>
 <span id="cb39-58"><a href="#cb39-58"></a>}</span>
 <span id="cb39-59"><a href="#cb39-59"></a></span>
