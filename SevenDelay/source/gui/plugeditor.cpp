@@ -19,6 +19,7 @@
 
 #include "../parameter.hpp"
 #include "checkbox.hpp"
+#include "guistyle.hpp"
 #include "knob.hpp"
 #include "plugeditor.hpp"
 #include "slider.hpp"
@@ -138,8 +139,8 @@ void PlugEditor::valueChanged(CControl *pControl)
   }
 }
 
-CMouseEventResult
-PlugEditor::onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &buttons)
+CMouseEventResult PlugEditor::onMouseDown(
+  CFrame *frame, const CPoint &where, const CButtonState &buttons)
 {
   if (!buttons.isRightButton()) return kMouseEventNotHandled;
 
@@ -170,7 +171,8 @@ void PlugEditor::addLabel(
   auto bottom = top + 20.0;
 
   auto label = new CTextLabel(CRect(left, top, left + width, bottom), UTF8String(name));
-  if (font == nullptr) font = new CFontDesc(fontName, fontSize, CTxtFace::kNormalFace);
+  if (font == nullptr)
+    font = new CFontDesc(Style::fontName(), fontSize, CTxtFace::kNormalFace);
   label->setFont(font);
   label->setStyle(CTextLabel::kNoFrame);
   label->setFrameColor(colorBlack);
@@ -186,7 +188,7 @@ void PlugEditor::addGroupLabel(CCoord left, CCoord top, CCoord width, UTF8String
   auto bottom = top + 30.0;
 
   auto label = new CTextLabel(CRect(left, top, left + width, bottom), UTF8String(name));
-  label->setFont(new CFontDesc(fontName, fontSize, CTxtFace::kNormalFace));
+  label->setFont(new CFontDesc(Style::fontName(), fontSize, CTxtFace::kNormalFace));
   label->setStyle(0);
   label->setFrameWidth(frameWidth);
   label->setFrameColor(colorBlack);
@@ -213,8 +215,7 @@ void PlugEditor::addSplashScreen(CRect buttonRect, CRect splashRect)
   frame->addView(splash);
 }
 
-void PlugEditor::addVSlider(
-  CCoord left,
+void PlugEditor::addVSlider(CCoord left,
   CCoord top,
   CColor valueColor,
   UTF8String name,
@@ -232,8 +233,7 @@ void PlugEditor::addVSlider(
     CRect(left, top, right, bottom), this, tag, top, bottom, nullptr, nullptr);
   slider->setSliderMode(CSliderMode::FreeClick);
   slider->setStyle(CSlider::kBottom | CSlider::kVertical);
-  slider->setDrawStyle(
-    CSlider::kDrawBack | CSlider::kDrawFrame | CSlider::kDrawValue
+  slider->setDrawStyle(CSlider::kDrawBack | CSlider::kDrawFrame | CSlider::kDrawValue
     | (drawFromCenter ? CSlider::kDrawValueFromCenter | CSlider::kDrawInverted : 0));
   slider->setBackColor(colorWhite);
   slider->setValueColor(valueColor);
@@ -250,7 +250,7 @@ void PlugEditor::addVSlider(
   right = left + 70.0;
 
   auto label = new CTextLabel(CRect(left, top, right, bottom), UTF8String(name));
-  label->setFont(new CFontDesc(fontName, fontSize, CTxtFace::kNormalFace));
+  label->setFont(new CFontDesc(Style::fontName(), fontSize, CTxtFace::kNormalFace));
   label->setStyle(CParamDisplay::Style::kNoFrame);
   label->setTextTruncateMode(CTextLabel::kTruncateNone);
   label->setFontColor(colorBlack);
@@ -267,7 +267,7 @@ void PlugEditor::addButton(
 
   auto button = new TextButton(
     CRect(left, top, right, bottom), this, tag, title, (CTextButton::Style)style);
-  button->setFont(new CFontDesc(fontName, fontSize, CTxtFace::kNormalFace));
+  button->setFont(new CFontDesc(Style::fontName(), fontSize, CTxtFace::kNormalFace));
   button->setTextColor(colorBlack);
   button->setTextColorHighlighted(colorBlack);
   button->setGradient(CGradient::create(0.0, 1.0, colorWhite, colorWhite));
@@ -288,7 +288,7 @@ void PlugEditor::addCheckbox(
 
   auto checkbox
     = new CheckBox(CRect(left, top, right, bottom), this, tag, title, nullptr, style);
-  checkbox->setFont(new CFontDesc(fontName, fontSize, CTxtFace::kNormalFace));
+  checkbox->setFont(new CFontDesc(Style::fontName(), fontSize, CTxtFace::kNormalFace));
   checkbox->setFontColor(colorBlack);
   checkbox->setBoxFrameColor(colorBlack);
   checkbox->setBoxFillColor(colorWhite);
@@ -304,15 +304,10 @@ void PlugEditor::addOptionMenu(
   auto right = left + 100.0;
   auto bottom = top + 40.0;
 
-  auto menu = new COptionMenu(
-    CRect(left, top, right, bottom),
-    this,
-    tag,
-    nullptr,
-    nullptr,
-    COptionMenu::kCheckStyle);
+  auto menu = new COptionMenu(CRect(left, top, right, bottom), this, tag, nullptr,
+    nullptr, COptionMenu::kCheckStyle);
   for (const auto &item : items) menu->addEntry(item);
-  menu->setFont(new CFontDesc(fontName, fontSize, CTxtFace::kNormalFace));
+  menu->setFont(new CFontDesc(Style::fontName(), fontSize, CTxtFace::kNormalFace));
   menu->setFontColor(colorBlack);
   menu->setBackColor(colorWhite);
   menu->setFrameColor(colorBlack);
@@ -321,8 +316,7 @@ void PlugEditor::addOptionMenu(
   frame->addView(menu);
 }
 
-void PlugEditor::addKnob(
-  CCoord left,
+void PlugEditor::addKnob(CCoord left,
   CCoord top,
   CCoord width,
   CColor highlightColor,
@@ -357,7 +351,7 @@ void PlugEditor::addKnob(
   }
 
   auto label = new CTextLabel(CRect(left, top, right, bottom), UTF8String(name));
-  label->setFont(new CFontDesc(fontName, fontSize, CTxtFace::kNormalFace));
+  label->setFont(new CFontDesc(Style::fontName(), fontSize, CTxtFace::kNormalFace));
   label->setStyle(CParamDisplay::Style::kNoFrame);
   label->setTextTruncateMode(CTextLabel::kTruncateNone);
   label->setFontColor(colorBlack);

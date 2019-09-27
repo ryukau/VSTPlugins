@@ -42,15 +42,13 @@ public:
   CLASS_METHODS(CreditView, CControl)
 
 private:
-  UTF8String fontName{"Arial"};
   CCoord fontSize = 12.0;
   CCoord fontSizeTitle = 18.0;
 };
 
 class SplashLabel : public CSplashScreen {
 public:
-  SplashLabel(
-    const CRect &size,
+  SplashLabel(const CRect &size,
     IControlListener *listener,
     int32_t tag,
     CView *splashView,
@@ -75,7 +73,6 @@ public:
 protected:
   UTF8StringPtr txt = nullptr;
 
-  UTF8String fontName = "Arial";
   double fontSize = 24.0;
   CColor fontColor = CColor(0, 0, 0, 255);
 
