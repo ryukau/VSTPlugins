@@ -29,7 +29,7 @@ namespace SevenDelay {
 
 constexpr Vst::ParamValue maxDelayTime = 8.0;
 constexpr Vst::ParamValue maxToneFrequency = 20000.0;
-constexpr Vst::ParamValue minDCKillFrequency = 1.0;
+constexpr Vst::ParamValue minDCKillFrequency = 5.0;
 
 enum ParameterID : Vst::ParamID {
   bypass,
@@ -165,8 +165,7 @@ namespace Vst {
 
 template<typename ParameterScale> class ScaledParameter : public Parameter {
 public:
-  ScaledParameter(
-    const TChar *title,
+  ScaledParameter(const TChar *title,
     ParamID tag,
     ParameterScale &scale,
     ParamValue defaultValue = 0.0,
