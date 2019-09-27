@@ -40,214 +40,97 @@ tresult PLUGIN_API PlugController::initialize(FUnknown *context)
 
   GlobalParameter param;
 
-  parameters.addParameter(
-    USTRING("Bypass"),
-    nullptr,
-    1,
-    param.bypass,
-    Vst::ParameterInfo::kCanAutomate | Vst::ParameterInfo::kIsBypass,
-    ParameterID::bypass,
-    Vst::kRootUnitId,
-    USTRING("Bypass"));
+  parameters.addParameter(USTRING("Bypass"), nullptr, 1, param.bypass,
+    Vst::ParameterInfo::kCanAutomate | Vst::ParameterInfo::kIsBypass, ParameterID::bypass,
+    Vst::kRootUnitId, USTRING("Bypass"));
 
   parameters.addParameter(new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(
-    USTRING("Time"),
-    ParameterID::time,
-    GlobalParameter::scaleTime,
-    param.time,
-    nullptr,
-    Vst::ParameterInfo::kCanAutomate,
-    Vst::kRootUnitId));
+    USTRING("Time"), ParameterID::time, GlobalParameter::scaleTime, param.time, nullptr,
+    Vst::ParameterInfo::kCanAutomate, Vst::kRootUnitId));
 
-  parameters.addParameter(
-    USTRING("Feedback"),
-    nullptr,
-    0,
-    param.feedback,
-    Vst::ParameterInfo::kCanAutomate,
-    ParameterID::feedback,
-    Vst::kRootUnitId,
+  parameters.addParameter(USTRING("Feedback"), nullptr, 0, param.feedback,
+    Vst::ParameterInfo::kCanAutomate, ParameterID::feedback, Vst::kRootUnitId,
     USTRING("Feedback"));
 
   parameters.addParameter(new Vst::ScaledParameter<SPolyScale<Vst::ParamValue>>(
-    USTRING("Stereo"),
-    ParameterID::offset,
-    GlobalParameter::scaleOffset,
-    param.offset,
-    nullptr,
-    Vst::ParameterInfo::kCanAutomate,
-    Vst::kRootUnitId));
+    USTRING("Stereo"), ParameterID::offset, GlobalParameter::scaleOffset, param.offset,
+    nullptr, Vst::ParameterInfo::kCanAutomate, Vst::kRootUnitId));
 
-  parameters.addParameter(
-    USTRING("WetMix"),
-    nullptr,
-    0,
-    param.wetMix,
-    Vst::ParameterInfo::kCanAutomate,
-    ParameterID::wetMix,
-    Vst::kRootUnitId,
+  parameters.addParameter(USTRING("WetMix"), nullptr, 0, param.wetMix,
+    Vst::ParameterInfo::kCanAutomate, ParameterID::wetMix, Vst::kRootUnitId,
     USTRING("Wet"));
 
-  parameters.addParameter(
-    USTRING("DryMix"),
-    nullptr,
-    0,
-    param.dryMix,
-    Vst::ParameterInfo::kCanAutomate,
-    ParameterID::dryMix,
-    Vst::kRootUnitId,
+  parameters.addParameter(USTRING("DryMix"), nullptr, 0, param.dryMix,
+    Vst::ParameterInfo::kCanAutomate, ParameterID::dryMix, Vst::kRootUnitId,
     USTRING("Dry"));
 
-  parameters.addParameter(
-    USTRING("TempoSync"),
-    nullptr,
-    1,
-    param.tempoSync,
-    Vst::ParameterInfo::kCanAutomate,
-    ParameterID::tempoSync,
-    Vst::kRootUnitId,
+  parameters.addParameter(USTRING("TempoSync"), nullptr, 1, param.tempoSync,
+    Vst::ParameterInfo::kCanAutomate, ParameterID::tempoSync, Vst::kRootUnitId,
     USTRING("Sync"));
 
-  parameters.addParameter(
-    USTRING("NegativeFeedback"),
-    nullptr,
-    1,
-    param.negativeFeedback,
-    Vst::ParameterInfo::kCanAutomate,
-    ParameterID::negativeFeedback,
-    Vst::kRootUnitId,
+  parameters.addParameter(USTRING("NegativeFeedback"), nullptr, 1, param.negativeFeedback,
+    Vst::ParameterInfo::kCanAutomate, ParameterID::negativeFeedback, Vst::kRootUnitId,
     USTRING("Negative"));
 
-  parameters.addParameter(new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(
-    USTRING("LFO to Time"),
-    ParameterID::lfoTimeAmount,
-    GlobalParameter::scaleLfoTimeAmount,
-    param.lfoTimeAmount,
-    nullptr,
-    Vst::ParameterInfo::kCanAutomate,
-    Vst::kRootUnitId));
-
-  parameters.addParameter(new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(
-    USTRING("LFO Frequency"),
-    ParameterID::lfoFrequency,
-    GlobalParameter::scaleLfoFrequency,
-    param.lfoFrequency,
-    nullptr,
-    Vst::ParameterInfo::kCanAutomate,
-    Vst::kRootUnitId));
-
-  parameters.addParameter(new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(
-    USTRING("LFO Shape"),
-    ParameterID::lfoShape,
-    GlobalParameter::scaleLfoShape,
-    param.lfoShape,
-    nullptr,
-    Vst::ParameterInfo::kCanAutomate,
-    Vst::kRootUnitId));
-
-  parameters.addParameter(new Vst::ScaledParameter<LinearScale<Vst::ParamValue>>(
-    USTRING("LFO Initial Phase"),
-    ParameterID::lfoInitialPhase,
-    GlobalParameter::scaleLfoInitialPhase,
-    param.lfoInitialPhase,
-    nullptr,
-    Vst::ParameterInfo::kCanAutomate,
-    Vst::kRootUnitId));
+  parameters.addParameter(
+    new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(USTRING("LFO to Time"),
+      ParameterID::lfoTimeAmount, GlobalParameter::scaleLfoTimeAmount,
+      param.lfoTimeAmount, nullptr, Vst::ParameterInfo::kCanAutomate, Vst::kRootUnitId));
 
   parameters.addParameter(
-    USTRING("LFO Phase Hold"),
-    nullptr,
-    1,
-    param.lfoHold,
-    Vst::ParameterInfo::kCanAutomate,
-    ParameterID::lfoHold,
-    Vst::kRootUnitId,
+    new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(USTRING("LFO Frequency"),
+      ParameterID::lfoFrequency, GlobalParameter::scaleLfoFrequency, param.lfoFrequency,
+      nullptr, Vst::ParameterInfo::kCanAutomate, Vst::kRootUnitId));
+
+  parameters.addParameter(new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(
+    USTRING("LFO Shape"), ParameterID::lfoShape, GlobalParameter::scaleLfoShape,
+    param.lfoShape, nullptr, Vst::ParameterInfo::kCanAutomate, Vst::kRootUnitId));
+
+  parameters.addParameter(new Vst::ScaledParameter<LinearScale<Vst::ParamValue>>(
+    USTRING("LFO Initial Phase"), ParameterID::lfoInitialPhase,
+    GlobalParameter::scaleLfoInitialPhase, param.lfoInitialPhase, nullptr,
+    Vst::ParameterInfo::kCanAutomate, Vst::kRootUnitId));
+
+  parameters.addParameter(USTRING("LFO Phase Hold"), nullptr, 1, param.lfoHold,
+    Vst::ParameterInfo::kCanAutomate, ParameterID::lfoHold, Vst::kRootUnitId,
     USTRING("Hold"));
 
   parameters.addParameter(new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(
-    USTRING("Smoothness"),
-    ParameterID::smoothness,
-    GlobalParameter::scaleSmoothness,
-    param.smoothness,
-    nullptr,
-    Vst::ParameterInfo::kCanAutomate,
-    Vst::kRootUnitId));
+    USTRING("Smoothness"), ParameterID::smoothness, GlobalParameter::scaleSmoothness,
+    param.smoothness, nullptr, Vst::ParameterInfo::kCanAutomate, Vst::kRootUnitId));
 
-  parameters.addParameter(
-    USTRING("Input Stereo Spread"),
-    nullptr,
-    0,
-    param.inSpread,
-    Vst::ParameterInfo::kCanAutomate,
-    ParameterID::inSpread,
-    Vst::kRootUnitId,
+  parameters.addParameter(USTRING("Input Stereo Spread"), nullptr, 0, param.inSpread,
+    Vst::ParameterInfo::kCanAutomate, ParameterID::inSpread, Vst::kRootUnitId,
     USTRING("inSpread"));
 
-  parameters.addParameter(
-    USTRING("Input Pan"),
-    nullptr,
-    0,
-    param.inPan,
-    Vst::ParameterInfo::kCanAutomate,
-    ParameterID::inPan,
-    Vst::kRootUnitId,
+  parameters.addParameter(USTRING("Input Pan"), nullptr, 0, param.inPan,
+    Vst::ParameterInfo::kCanAutomate, ParameterID::inPan, Vst::kRootUnitId,
     USTRING("inPan"));
 
-  parameters.addParameter(
-    USTRING("Output Stereo Spread"),
-    nullptr,
-    0,
-    param.outSpread,
-    Vst::ParameterInfo::kCanAutomate,
-    ParameterID::outSpread,
-    Vst::kRootUnitId,
+  parameters.addParameter(USTRING("Output Stereo Spread"), nullptr, 0, param.outSpread,
+    Vst::ParameterInfo::kCanAutomate, ParameterID::outSpread, Vst::kRootUnitId,
     USTRING("outSpread"));
 
-  parameters.addParameter(
-    USTRING("Output Pan"),
-    nullptr,
-    0,
-    param.outPan,
-    Vst::ParameterInfo::kCanAutomate,
-    ParameterID::outPan,
-    Vst::kRootUnitId,
+  parameters.addParameter(USTRING("Output Pan"), nullptr, 0, param.outPan,
+    Vst::ParameterInfo::kCanAutomate, ParameterID::outPan, Vst::kRootUnitId,
     USTRING("outPan"));
 
   parameters.addParameter(new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(
-    USTRING("Allpass Cutoff"),
-    ParameterID::toneCutoff,
-    GlobalParameter::scaleToneCutoff,
-    param.toneCutoff,
-    nullptr,
-    Vst::ParameterInfo::kCanAutomate,
-    Vst::kRootUnitId));
+    USTRING("Allpass Cutoff"), ParameterID::toneCutoff, GlobalParameter::scaleToneCutoff,
+    param.toneCutoff, nullptr, Vst::ParameterInfo::kCanAutomate, Vst::kRootUnitId));
 
   parameters.addParameter(new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(
-    USTRING("Allpass Q"),
-    ParameterID::toneQ,
-    GlobalParameter::scaleToneQ,
-    param.toneQ,
-    nullptr,
-    Vst::ParameterInfo::kCanAutomate,
-    Vst::kRootUnitId));
+    USTRING("Allpass Q"), ParameterID::toneQ, GlobalParameter::scaleToneQ, param.toneQ,
+    nullptr, Vst::ParameterInfo::kCanAutomate, Vst::kRootUnitId));
 
   parameters.addParameter(new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(
-    USTRING("DC Kill"),
-    ParameterID::dckill,
-    GlobalParameter::scaleDCKill,
-    param.dckill,
-    nullptr,
-    Vst::ParameterInfo::kCanAutomate,
-    Vst::kRootUnitId));
+    USTRING("DC Kill"), ParameterID::dckill, GlobalParameter::scaleDCKill, param.dckill,
+    nullptr, Vst::ParameterInfo::kCanAutomate, Vst::kRootUnitId));
 
-  parameters.addParameter(new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(
-    USTRING("LFO to Tone"),
-    ParameterID::lfoToneAmount,
-    GlobalParameter::scaleLfoToneAmount,
-    param.lfoToneAmount,
-    nullptr,
-    Vst::ParameterInfo::kCanAutomate,
-    Vst::kRootUnitId));
+  parameters.addParameter(
+    new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(USTRING("LFO to Tone"),
+      ParameterID::lfoToneAmount, GlobalParameter::scaleLfoToneAmount,
+      param.lfoToneAmount, nullptr, Vst::ParameterInfo::kCanAutomate, Vst::kRootUnitId));
 
   // Add parameter here.
 
@@ -291,7 +174,10 @@ tresult PLUGIN_API PlugController::setComponentState(IBStream *state)
 
 IPlugView *PLUGIN_API PlugController::createView(const char *name)
 {
+  // Disabling GUI for Linux build.
+#ifndef LINUX
   if (name && strcmp(name, "editor") == 0) return new Vst::PlugEditor(this);
+#endif
   return 0;
 }
 
