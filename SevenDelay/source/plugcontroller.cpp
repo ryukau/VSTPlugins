@@ -128,7 +128,7 @@ tresult PLUGIN_API PlugController::initialize(FUnknown *context)
     nullptr, Vst::ParameterInfo::kCanAutomate, Vst::kRootUnitId));
 
   parameters.addParameter(
-    new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(USTRING("LFO to Tone"),
+    new Vst::ScaledParameter<LogScale<Vst::ParamValue>>(USTRING("LFO to Allpass"),
       ParameterID::lfoToneAmount, GlobalParameter::scaleLfoToneAmount,
       param.lfoToneAmount, nullptr, Vst::ParameterInfo::kCanAutomate, Vst::kRootUnitId));
 
