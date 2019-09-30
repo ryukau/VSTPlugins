@@ -3,9 +3,13 @@
 
 マニュアルの分かりにくい箇所や誤字脱字があれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を投げるか `ryukau@gmail.com` にメールを送信してもらえれば対応します。お気軽にお問い合わせください。
 
+Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。
+
 This page is publishing [VST®](#vst_logo) 3 plugins.
 
 If you found some part of manual is not clear and/or found typo, please file issue at [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`. Note that I'm not native in English and it's most likely that the manual contains some weird sentences. I'd like to fix it, so feel free to report those issues.
+
+Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
 
 ## SevenDelay
 ![](manual/SevenDelay/img/sevendelay.png)
@@ -20,7 +24,7 @@ If you found some part of manual is not clear and/or found typo, please file iss
 
 - Windows 64bit
 - Windows 32bit
-- Linux 64bit (動作未確認 | Not tested)
+- Linux 64bit
 
 SevenDelayはステレオディレイです。分数ディレイに7次のラグランジュ補間を使って7倍のオーバーサンプリングをしています。オートメーションなどでディレイ時間を積極的に動かして音を作る用途に向いています。
 

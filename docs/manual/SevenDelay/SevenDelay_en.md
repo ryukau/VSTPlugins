@@ -13,11 +13,11 @@ The package including following builds:
 
 - Windows 64bit
 - Windows 32bit
-- Linux 64bit (Not tested)
+- Linux 64bit
 
 I don't have Mac so there's no Mac build. If you'd like to use SevenDelay on Mac, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`. I'll provide build instruction.
 
-Linux build isn't tested because I don't have DAW runs on Linux that is compatible to VST3. So if you use Linux build, please report that it works nicely or not.
+Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
 
 ## Installation
 Place `SevenDelay.vst3` directory to:
@@ -26,6 +26,19 @@ Place `SevenDelay.vst3` directory to:
 - `$HOME/.vst3/` for Linux.
 
 DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.
+
+### Linux Specific
+On Ubuntu 18.0.4, those packages are required.
+
+```bash
+sudo apt install libxcb-cursor0  libxkbcommon-x11-0
+```
+
+If DAW doesn't recognize the plugin, take a look at `Package Requirements` section of the link below and make sure all the VST3 related package is installed.
+
+- [VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html)
+
+REAPER 5.983 on Linux may not recognize SevenDelay. A workaround is to delete a file `~/.config/REAPER/reaper-vstplugins64.ini` and restart REAPER.
 
 ## Controls
 Knob and slider can do:
@@ -131,6 +144,14 @@ LFO phase is reset to `Phase` for each time host starts playing.
 
 #### Hold
 Toggle LFO phase hold. This may be useful for live performance.
+
+## Change Log
+- 0.1.1
+  - Disabled GUI for Linux build. This is a makeshift change while tracking down a bug related to VSTGUI.
+  - Changed tuning of `To Allpass` of LFO.
+  - Changed minimal value of `DC Kill` to 5.0 Hz.
+- 0.1.0
+  - Initial release.
 
 ## License
 SevenDelay is licensed under GPLv3. Complete licenses are linked below.

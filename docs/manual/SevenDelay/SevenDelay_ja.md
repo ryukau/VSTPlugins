@@ -13,20 +13,32 @@ SevenDelay (セブンディレイ) は7次のラグランジュ補間による�
 
 - Windows 64bit
 - Windows 32bit
-- Linux 64bit (動作未確認)
+- Linux 64bit
 
 Mac は持っていないのでビルドできません。もし使いたいという方がいれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作るか、 `ryukau@gmail.com` までメールを送っていただければビルド方法などについて対応します。
 
-Linux で使える VST3 に対応した DAW を持っていないので動作確認ができていません。問題があるときは報告していただければ対応します。また、問題なく動作したときも、ご利用の DAW の名前と共に報告していただければ助かります。
+Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。
 
 ## インストール
 `SevenDelay.vst3` を OS ごとに決められたディレクトリに配置してください。
 
-Windows では `/Program Files/Common Files/VST3/` に配置します。
-
-Linux では `$HOME/.vst3/` に配置します。
+- Windows では `/Program Files/Common Files/VST3/` に配置します。
+- Linux では `$HOME/.vst3/` に配置します。
 
 DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。
+
+### Linux
+Ubuntu 18.0.4 では次のパッケージのインストールが必要です。
+
+```bash
+sudo apt install libxcb-cursor0  libxkbcommon-x11-0
+```
+
+もし DAW がプラグインを認識しないときは、下のリンクの `Package Requirements` を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。
+
+- [VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html)
+
+REAPER 5.983 の Linux 版が SevenDelay を認識しないときは `~/.config/REAPER/reaper-vstplugins64.ini` を削除して REAPER を再起動してみてください。
 
 ## 操作
 つまみとスライダーでは次の操作ができます。
@@ -98,9 +110,9 @@ SVF オールパスフィルタのレゾナンス。範囲は 0.00001 から 1.0
 値が大きいほどレゾナンスが強くなります。
 
 #### DC Kill
-ハイパスフィルタのカットオフ周波数。範囲は 1.0 から 120.0 です。
+ハイパスフィルタのカットオフ周波数。範囲は 5.0 から 120.0 です。
 
-`DC Kill` を 1.0 より大きく設定すればディレイのフィードバックから直流信号を取り除くことができます。
+`DC Kill` を 5.0 より大きく設定すればディレイのフィードバックから直流信号を取り除くことができます。
 
 #### Smooth
 パラメータ平滑化の度合い。範囲は 0.0 から 1.0 で、単位は秒です。
@@ -134,6 +146,14 @@ LFO の位相はホストが演奏を開始するたびに `Phase` の値にリ�
 
 #### Hold
 LFO の位相のホールドの切り替え。ライブ演奏などで役に立つかもしれません。
+
+## チェンジログ
+- 0.1.1
+  - Linux ビルドの GUI を無効化。VSTGUI に関するバグが治るまでの応急処置。
+  - LFO の `To Allpass` のチューニングを変更。
+  - `DC Kill` の最小値を 5.0 Hz に変更。
+- 0.1.0
+  - 初期リリース
 
 ## ライセンス
 SevenDelay のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。
