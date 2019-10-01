@@ -1,7 +1,7 @@
 # SevenDelay
 ![](img/sevendelay.png)
 
-SevenDelay (セブンディレイ) は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。
+<ruby>SevenDelay<rt>セブンディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。
 
 - [SevenDelay 0.1.1 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.1/SevenDelay0.1.1.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
