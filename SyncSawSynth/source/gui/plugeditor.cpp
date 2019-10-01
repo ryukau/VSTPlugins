@@ -179,8 +179,8 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   // Plugin name.
   const auto splashTop = filterTop2 + knobY + 2.0 * margin;
   const auto splashLeft = modLeft + 2.0 * knobX;
-  addSplashScreen(
-    CRect(splashLeft, splashTop, splashLeft + 4.0 * knobX, splashTop + 40.0),
+  addSplashScreen(CRect(splashLeft + 0.25 * knobX, splashTop, splashLeft + 3.75 * knobX,
+                    splashTop + 40.0),
     CRect(viewRect.left + 20.0, viewRect.top + 20.0, viewRect.right - 20.0,
       viewRect.bottom - 20.0));
 
