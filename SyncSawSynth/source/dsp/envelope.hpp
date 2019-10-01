@@ -119,7 +119,6 @@ public:
       case State::attack:
         value *= alpha;
         if (value >= Sample(1.0)) {
-          value = Sample(1.0);
           state = State::decay;
           alpha = somepow<Sample>(threshold, Sample(1.0) / (decayTime * sampleRate));
         }
