@@ -1,5 +1,2 @@
 add_subdirectory(SevenDelay)
-# add_subdirectory(SyncSawSynth)
-# add_subdirectory(Test)
-# add_subdirectory(TemplateSynth)
-# add_subdirectory(TemplateFX)
+add_subdirectory(SyncSawSynth)
