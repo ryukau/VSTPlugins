@@ -171,7 +171,7 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
     ID::filterResonanceAmount, param.filterResonanceAmount);
 
   const auto filterTop3 = filterTop2 + knobY;
-  addKnob(filterLeft, filterTop3, knobWidth, colorBlue, "Key-Cut", ID::filterKeyToCutoff,
+  addKnob(filterLeft, filterTop3, knobWidth, colorBlue, "Key->Cut", ID::filterKeyToCutoff,
     param.filterKeyToCutoff);
   addKnob(filterLeft + 1.0 * knobX, filterTop3, knobWidth, colorBlue, "Key->Feed",
     ID::filterKeyToFeedback, param.filterKeyToFeedback);
