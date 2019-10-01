@@ -9,7 +9,7 @@ SevenDelay is a stereo delay with 7th order lagrange interpolated fractional del
   width="60px"
   style="display: inline-block; vertical-align: middle;">
 
-The package including following builds:
+The package includes following builds:
 
 - Windows 64bit
 - Windows 32bit
