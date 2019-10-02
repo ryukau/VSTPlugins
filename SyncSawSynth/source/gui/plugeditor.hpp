@@ -126,7 +126,7 @@ protected:
   const double knobY = knobHeight + labelY;
 
   ViewRect viewRect{
-    0, 0, long(10.0 * knobX + 50.0), long(20.0 + 3.0 * labelY + 6.0 * knobY)};
+    0, 0, int32(10.0 * knobX + 50.0), int32(20.0 + 3.0 * labelY + 6.0 * knobY)};
 
   CCoord fontSize = 12.0;
 
