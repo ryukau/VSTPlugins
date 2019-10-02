@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<title>SyncSawSynth_ja</title>
+<style>
+code { white-space: pre-wrap; }
+span.smallcaps { font-variant: small-caps; }
+span.underline { text-decoration: underline; }
+div.column { display: inline-block; vertical-align: top; width: 50%; }
+</style>
+<style>
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style>
+body {
+  max-width: 704px;
+  margin: auto;
+  padding: 32px 8px;
+}
+
+img {
+  max-width: 100%;
+}
+
+video {
+  max-width: 100%;
+}
+
+kbd {
+  border-style: solid;
+  border-width: 1px 2px 2px 1px;
+  border-radius: 2px;
+  padding: 2px;
+  margin: 2px;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  background-color: #163eac;
+  color: #ffffff;
+  padding-left: 8px;
+}
+
+h2 {
+  border-left: solid 32px #163eac;
+  padding-left: 24px;
+}
+
+h3 {
+  border-left: solid 20px #163eac;
+  padding-left: 16px;
+}
+
+h4, h5, h6 {
+  border-left: solid 8px #163eac;
+  padding-left: 8px;
+}
+
+table {
+  border-spacing: 0px;
+  border-collapse: separate;
+  border: 1px solid #dddddd;
+}
+
+tr.header {
+  border: 1px solid black;
+}
+
+tr.odd {
+  background: #eeeeee;
+}
+
+tr.even {
+  background: #ffffff;
+}
+
+th {
+  height: 2em;
+  font-weight: normal;
+  padding-left: 0.35em;
+  padding-right: 0.35em;
+  border-bottom: 3px solid #dddddd;
+  border-left: 1px solid #dddddd;
+}
+
+td {
+  height: 1.5em;
+  padding-left: 0.35em;
+  padding-right: 0.35em;
+  border-bottom: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+}
+
+audio {
+  vertical-align: middle;
+}
+
+label {
+  vertical-align: middle;
+}
+
+code {
+  color: #163eac;
+}
+
+pre {
+  border: 4px solid #eeeeee;
+}
+
+li {
+  margin: 8px;
+}
+
+details {
+  padding: 8px;
+  border: solid 4px #163eac;
+}
+
+summary {
+  text-align: center;
+}
+
+summary:hover {
+  background-color: #eeeeee;
+}
+
+header {
+  border-bottom: 1px gray solid;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
+
+footer {
+  border-top: 1px gray solid;
+  padding: 0.5em;
+  margin-top: 1em;
+}
+</style>
+</head>
+
+<body>
+<details>
+<summary translate="yes">Table of Contents</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#syncsawsynth">SyncSawSynth</a><ul>
+<li><a href="#インストール">インストール</a><ul>
+<li><a href="#linux">Linux</a></li>
+</ul></li>
+<li><a href="#操作">操作</a></li>
+<li><a href="#注意">注意</a></li>
+<li><a href="#用語について">用語について</a></li>
+<li><a href="#パラメータ">パラメータ</a><ul>
+<li><a href="#osc">Osc</a><ul>
+<li><a href="#gain">Gain</a></li>
+<li><a href="#semi">Semi</a></li>
+<li><a href="#cent">Cent</a></li>
+<li><a href="#sync-と-synctype">Sync と SyncType</a></li>
+<li><a href="#osctype">OscType</a></li>
+<li><a href="#phase">Phase</a></li>
+</ul></li>
+<li><a href="#modulation">Modulation</a><ul>
+<li><a href="#osc1-sync1">Osc1-&gt;Sync1</a></li>
+<li><a href="#osc1-freq2">Osc1-&gt;Freq2</a></li>
+<li><a href="#osc2-sync1">Osc2-&gt;Sync1</a></li>
+<li><a href="#attack">Attack</a></li>
+<li><a href="#curve">Curve</a></li>
+<li><a href="#to-freq1-ad-エンベロープ">To Freq1 (AD エンベロープ)</a></li>
+<li><a href="#to-sync1-ad-エンベロープ">To Sync1 (AD エンベロープ)</a></li>
+<li><a href="#to-freq2-ad-エンベロープ">To Freq2 (AD エンベロープ)</a></li>
+<li><a href="#to-sync2-ad-エンベロープ">To Sync2 (AD エンベロープ)</a></li>
+<li><a href="#lfo">LFO</a></li>
+<li><a href="#noisemix">NoiseMix</a></li>
+<li><a href="#to-freq1-lfoノイズ">To Freq1 (LFO/ノイズ)</a></li>
+<li><a href="#to-sync1-lfoノイズ">To Sync1 (LFO/ノイズ)</a></li>
+<li><a href="#to-freq2-lfoノイズ">To Freq2 (LFO/ノイズ)</a></li>
+<li><a href="#to-sync2-lfoノイズ">To Sync2 (LFO/ノイズ)</a></li>
+</ul></li>
+<li><a href="#gain-1">Gain</a><ul>
+<li><a href="#gain-2">Gain</a></li>
+<li><a href="#a">A</a></li>
+<li><a href="#d">D</a></li>
+<li><a href="#s">S</a></li>
+<li><a href="#r">R</a></li>
+<li><a href="#curve-1">Curve</a></li>
+</ul></li>
+<li><a href="#filter">Filter</a><ul>
+<li><a href="#cut">Cut</a></li>
+<li><a href="#res">Res</a></li>
+<li><a href="#feed">Feed</a></li>
+<li><a href="#sat">Sat</a></li>
+<li><a href="#dirty-buffer">Dirty Buffer</a></li>
+<li><a href="#filtertype">FilterType</a></li>
+<li><a href="#shapertype">ShaperType</a></li>
+<li><a href="#a-1">A</a></li>
+<li><a href="#d-1">D</a></li>
+<li><a href="#s-1">S</a></li>
+<li><a href="#r-1">R</a></li>
+<li><a href="#to-cut">To Cut</a></li>
+<li><a href="#to-res">To Res</a></li>
+<li><a href="#key-cut">Key-&gt;Cut</a></li>
+<li><a href="#key-feed">Key-&gt;Feed</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#チェンジログ">チェンジログ</a></li>
+<li><a href="#ライセンス">ライセンス</a><ul>
+<li><a href="#vst-について">VST® について</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+</details>
+<h1 id="syncsawsynth">SyncSawSynth</h1>
+<p><img src="img/syncsawsynth.png" /></p>
+<p><ruby>SyncSawSynth<rt>シンクソウシンセ</rt></ruby>は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.0/SyncSawSynth0.1.0.zip">SyncSawSynth 0.1.0 をダウンロード - VST® 3 (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="60px"
+style="display: inline-block; vertical-align: middle;"></li>
+</ul>
+<p>パッケージには次のビルドが含まれています。</p>
+<ul>
+<li>Windows 64bit</li>
+<li>Windows 32bit</li>
+<li>Linux 64bit</li>
+</ul>
+<p>Mac は持っていないのでビルドできません。もし使いたいという方がいれば <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければビルド方法などについて対応します。</p>
+<p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。</p>
+<h2 id="インストール">インストール</h2>
+<p><code>SyncSawSynth.vst3</code> を OS ごとに決められたディレクトリに配置してください。</p>
+<ul>
+<li>Windows では <code>/Program Files/Common Files/VST3/</code> に配置します。</li>
+<li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
+</ul>
+<p>DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。</p>
+<h3 id="linux">Linux</h3>
+<p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+<p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。</p>
+<ul>
+<li><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html">VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins</a></li>
+</ul>
+<p>REAPER 5.983 の Linux 版が SyncSawSynth を認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
+<h2 id="操作">操作</h2>
+<p>つまみとスライダーでは次の操作ができます。</p>
+<ul>
+<li>Ctrl + 左クリック : 値のリセット。</li>
+<li>Shift + 左ドラッグ : 細かい値の変更。</li>
+</ul>
+<p>操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。</p>
+<h2 id="注意">注意</h2>
+<p>アタックの長さによって音量エンベロープのピーク値が変わります。音量エンベロープのアタックが小さいとき、ピークは通常より少し高くなることがあります。</p>
+<p>Dirty Filter にチェックを入れるとノートオンによってプチノイズが出ることがあります。</p>
+<h2 id="用語について">用語について</h2>
+<p>SyncSawSynth のオシレータは内部に 2 つのオシレータを持っています。 1 つは波形生成のために使われ、もう 1 つはハードシンクをトリガするために使われています。ハードシンクに関する用語として、波形生成のためのオシレータのことをスレーブ、トリガに使われるオシレータのことをマスタと呼んでいます。</p>
+<h2 id="パラメータ">パラメータ</h2>
+<h3 id="osc">Osc</h3>
+<h4 id="gain">Gain</h4>
+<p>オシレータの音量。範囲は 0.0 から 1.0 。</p>
+<h4 id="semi">Semi</h4>
+<p>オシレータのピッチ。範囲は -24.0 から 24.0 。単位は半音。</p>
+<p>値は <code>floor</code> 関数で整数に丸められます。例えば 6.3 なら 6 、 -11.5 なら -12 になります。</p>
+<h4 id="cent">Cent</h4>
+<p>オシレータのピッチ。範囲は -100.0 から 100.0 。単位はセント。</p>
+<h4 id="sync-と-synctype">Sync と SyncType</h4>
+<p><code>Sync</code> の値は <code>SyncType</code> の値によって意味が変わります。 <code>Sync</code> の値の範囲は 0.01 から 16.0 です。</p>
+<p><code>SyncType</code> は次の4つから選択できます。</p>
+<ul>
+<li><code>Off</code></li>
+<li><code>Ratio</code></li>
+<li><code>Fixed-Master</code></li>
+<li><code>Fixed-Slave</code></li>
+</ul>
+<p><code>Off</code> を選ぶとマスタ周波数を 0 Hz にすることでハードシンクを無効にします。ただし <code>Modulation</code> の <code>Osc*-&gt;Sync1</code> が 0 より大きいときはマスタ位相が動くのでハードシンクがかかることがあります。 <code>SyncType</code> が <code>Off</code> のときは、 <code>Sync</code> の値は使われません。</p>
+<p><code>Ratio</code> を選ぶと音程をマスタ周波数に使います。スレーブ周波数はマスタ周波数に <code>Sync</code> の値をかけ合わせた値になります。</p>
+<p><code>Fixed-Master</code> を選ぶと音程をスレーブ周波数に使います。マスタ周波数は <code>Sync</code> の値のみによって決まります。</p>
+<p><code>Fixed-Slave</code> を選ぶと音程をマスタ周波数に使います。スレーブ周波数は <code>Sync</code> の値のみによって決まります。</p>
+<p><code>Fixed-Master</code> と <code>Fixed-Slave</code> で使われる <code>Sync</code> の値を周波数に変換する式は次の通りです。</p>
+<pre><code>frequency = 2 * Sync^3</code></pre>
+<h4 id="osctype">OscType</h4>
+<p>オシレータの波形。</p>
+<p>0 から 10 次までの PTR 鋸歯波オシレータとサイン波が選べます。</p>
+<h4 id="phase">Phase</h4>
+<p>オシレータの位相。範囲は 0.0 から 1.0 。</p>
+<p><code>Lock</code> にチェックを入れるとノートオンのたびに位相がリセットされます。</p>
+<p><code>Osc2</code> の <code>Invert</code> にチェックを入れると、 <code>Osc2</code> の出力の正負の符号を変えることで位相を反転します。</p>
+<h3 id="modulation">Modulation</h3>
+<h4 id="osc1-sync1">Osc1-&gt;Sync1</h4>
+<p><code>Osc1</code> の出力による <code>Osc1</code> のマスタ周波数の変調。範囲は 0.0 から 1.0 。</p>
+<h4 id="osc1-freq2">Osc1-&gt;Freq2</h4>
+<p><code>Osc1</code> の出力による <code>Osc2</code> のスレーブ周波数の変調。範囲は 0.0 から 1.0 。</p>
+<h4 id="osc2-sync1">Osc2-&gt;Sync1</h4>
+<p><code>Osc2</code> の出力による <code>Osc1</code> のマスタ周波数の変調。範囲は 0.0 から 1.0 。</p>
+<h4 id="attack">Attack</h4>
+<p>変調用の AD エンベロープのアタック。範囲は 0.0 から 4.0 。単位は秒。</p>
+<p>AD エンベロープの式です。</p>
+<pre><code>env(t) := t^a * exp(-b * t)
+
+t: 時間。
+a, b: 適当な定数。</code></pre>
+<h4 id="curve">Curve</h4>
+<p>変調用の AD エンベロープの特性。範囲は 1.0 から 96.0 。</p>
+<p><code>Curve</code> の値に応じてディケイの長さが決まります。</p>
+<h4 id="to-freq1-ad-エンベロープ">To Freq1 (AD エンベロープ)</h4>
+<p>AD エンベロープによる <code>Osc1</code> のスレーブ周波数の変調。範囲は 0.0 から 16.0 。</p>
+<h4 id="to-sync1-ad-エンベロープ">To Sync1 (AD エンベロープ)</h4>
+<p>AD エンベロープによる <code>Osc1</code> のマスタ周波数の変調。範囲は 0.0 から 16.0 。</p>
+<h4 id="to-freq2-ad-エンベロープ">To Freq2 (AD エンベロープ)</h4>
+<p>AD エンベロープによる <code>Osc２</code> のスレーブ周波数の変調。範囲は 0.0 から 16.0 。</p>
+<h4 id="to-sync2-ad-エンベロープ">To Sync2 (AD エンベロープ)</h4>
+<p>AD エンベロープによる <code>Osc２</code> のマスタ周波数の変調。範囲は 0.0 から 16.0 。</p>
+<h4 id="lfo">LFO</h4>
+<p>LFO の周波数。範囲は 0.01 から 20.0 。単位は Hz 。</p>
+<h4 id="noisemix">NoiseMix</h4>
+<p>LFO とピンクノイズのミックスの比率。範囲は 0.0 から 1.0 。</p>
+<p>値が 0.0 のときに LFO のみ、 1.0 のときにピンクノイズのみになります。</p>
+<p>ピンクノイズによる変調はスパイクを生じることがあるので注意してください。スパイクを避けるには <code>To Sync/Freq</code> の値を 1.0 より小さく設定してください。スパイクは0dBを超えないようにクリップされています。</p>
+<h4 id="to-freq1-lfoノイズ">To Freq1 (LFO/ノイズ)</h4>
+<p>LFO/ノイズによる <code>Osc1</code> のスレーブ周波数の変調。範囲は 0.0 から 16.0 。</p>
+<h4 id="to-sync1-lfoノイズ">To Sync1 (LFO/ノイズ)</h4>
+<p>LFO/ノイズによる <code>Osc1</code> のマスタ周波数の変調。範囲は 0.0 から 16.0 。</p>
+<h4 id="to-freq2-lfoノイズ">To Freq2 (LFO/ノイズ)</h4>
+<p>LFO/ノイズによる <code>Osc２</code> のスレーブ周波数の変調。範囲は 0.0 から 16.0 。</p>
+<h4 id="to-sync2-lfoノイズ">To Sync2 (LFO/ノイズ)</h4>
+<p>LFO/ノイズによる <code>Osc２</code> のマスタ周波数の変調。範囲は 0.0 から 16.0 。</p>
+<h3 id="gain-1">Gain</h3>
+<h4 id="gain-2">Gain</h4>
+<p>シンセサイザの出力音量。範囲は 0.0 から 1.0 。</p>
+<h4 id="a">A</h4>
+<p>音量エンベロープのアタックの長さ。範囲は 0.0001 から 16.0 。単位は秒。</p>
+<h4 id="d">D</h4>
+<p>音量エンベロープのディケイの長さ。範囲は 0.0001 から 16.0 。単位は秒。</p>
+<h4 id="s">S</h4>
+<p>音量エンベロープのサステインの大きさ。範囲は 0.0 から 1.0 。</p>
+<h4 id="r">R</h4>
+<p>音量エンベロープのリリースの長さ。範囲は 0.0001 から 16.0 。単位は秒。</p>
+<h4 id="curve-1">Curve</h4>
+<p>音量エンベロープの特性。範囲は 0.0 から 1.0 。</p>
+<p>素の音量エンベロープと tanh によって飽和させたエンベロープとを線形補間しています。</p>
+<pre><code>gainEnv(t) := expEnv(t) * (tanh(3 * Curve * expEnv(t)) - expEnv(t))</code></pre>
+<h3 id="filter">Filter</h3>
+<h4 id="cut">Cut</h4>
+<p>フィルタのカットオフ周波数。範囲は 20.0 から 20000.0 。単位は Hz 。</p>
+<h4 id="res">Res</h4>
+<p>2 次フィルタのレゾナンス。範囲は 0.001 から 1.0 。</p>
+<p>値を最小にすると音量がかなり小さくなります。</p>
+<h4 id="feed">Feed</h4>
+<p>フィルタセクションのフィードバック。範囲は 0.0 から 1.0 。</p>
+<p>直列につないだ 4 つの 2 次フィルタの出力を 1 つ目のフィルタにフィードバックしています。</p>
+<h4 id="sat">Sat</h4>
+<p>フィルタのサチュレーション。範囲は 0.01 から 8.0 。</p>
+<p>フィードバックと入力を足し合わせた値をウェーブシェーパに入力するときにかけ合わせる値です。</p>
+<pre><code>filterIn = shaper(Sat * (input - Feed * filterOut))</code></pre>
+<h4 id="dirty-buffer">Dirty Buffer</h4>
+<p>チェックを外すとノートオンのたびにフィルタのバッファをクリアします。</p>
+<p>チェックを入れている間はノートオンのたびに音の始まりにプチノイズが乗ることがあります。</p>
+<h4 id="filtertype">FilterType</h4>
+<p>フィルタの種類。</p>
+<ul>
+<li><code>LP</code> : ローパス</li>
+<li><code>HP</code> : ハイパス</li>
+<li><code>BP</code> : バンドパス</li>
+<li><code>Notch</code> : ノッチ (バンドストップ)</li>
+<li><code>Bypass</code> : フィルタの迂回</li>
+</ul>
+<h4 id="shapertype">ShaperType</h4>
+<p>フィルタのサチュレーションに使うウェーブシェーパの種類。</p>
+<pre><code>HardClip(x) := clamp(x, -1.0, 1.0)
+Tanh(x)     := tanh(x)
+ShaperA(x)  := sin(2 * pi * x) / (1 + 10 * x * x)
+ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
+<h4 id="a-1">A</h4>
+<p>フィルタエンベロープのアタックの長さ。範囲は 0.0001 から 16.0 。単位は秒。</p>
+<h4 id="d-1">D</h4>
+<p>フィルタエンベロープのディケイの長さ。範囲は 0.0001 から 16.0 。単位は秒。</p>
+<h4 id="s-1">S</h4>
+<p>フィルタエンベロープのサステインの大きさ。範囲は 0.0 から 1.0 。</p>
+<h4 id="r-1">R</h4>
+<p>フィルタエンベロープのリリースの長さ。範囲は 0.0001 から 16.0 。単位は秒。</p>
+<h4 id="to-cut">To Cut</h4>
+<p>フィルタエンベロープによるカットオフ周波数の変調。範囲は -1.0 から 1.0 。</p>
+<h4 id="to-res">To Res</h4>
+<p>フィルタエンベロープによるレゾナンスの変調。範囲は 0.0 から 1.0 。</p>
+<h4 id="key-cut">Key-&gt;Cut</h4>
+<p>ノートの MIDI ノート番号によるカットオフ周波数の変調。範囲は -1.0 から 1.0 。</p>
+<h4 id="key-feed">Key-&gt;Feed</h4>
+<p>ノートの MIDI ノート番号によるフィードバックの変調。範囲は -1.0 から 1.0 。</p>
+<h2 id="チェンジログ">チェンジログ</h2>
+<ul>
+<li>0.1.0
+<ul>
+<li>初期リリース</li>
+</ul></li>
+</ul>
+<h2 id="ライセンス">ライセンス</h2>
+<p>SyncSawSynth のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+</ul>
+<p>リンクが切れているときは <code>ryukau@gmail.com</code> にメールを送ってください。</p>
+<h3 id="vst-について">VST® について</h3>
+<p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
+</body>
+
+</html>

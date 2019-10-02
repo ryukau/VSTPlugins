@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<title>SyncSawSynth_en</title>
+<style>
+code { white-space: pre-wrap; }
+span.smallcaps { font-variant: small-caps; }
+span.underline { text-decoration: underline; }
+div.column { display: inline-block; vertical-align: top; width: 50%; }
+</style>
+<style>
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style>
+body {
+  max-width: 704px;
+  margin: auto;
+  padding: 32px 8px;
+}
+
+img {
+  max-width: 100%;
+}
+
+video {
+  max-width: 100%;
+}
+
+kbd {
+  border-style: solid;
+  border-width: 1px 2px 2px 1px;
+  border-radius: 2px;
+  padding: 2px;
+  margin: 2px;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  background-color: #163eac;
+  color: #ffffff;
+  padding-left: 8px;
+}
+
+h2 {
+  border-left: solid 32px #163eac;
+  padding-left: 24px;
+}
+
+h3 {
+  border-left: solid 20px #163eac;
+  padding-left: 16px;
+}
+
+h4, h5, h6 {
+  border-left: solid 8px #163eac;
+  padding-left: 8px;
+}
+
+table {
+  border-spacing: 0px;
+  border-collapse: separate;
+  border: 1px solid #dddddd;
+}
+
+tr.header {
+  border: 1px solid black;
+}
+
+tr.odd {
+  background: #eeeeee;
+}
+
+tr.even {
+  background: #ffffff;
+}
+
+th {
+  height: 2em;
+  font-weight: normal;
+  padding-left: 0.35em;
+  padding-right: 0.35em;
+  border-bottom: 3px solid #dddddd;
+  border-left: 1px solid #dddddd;
+}
+
+td {
+  height: 1.5em;
+  padding-left: 0.35em;
+  padding-right: 0.35em;
+  border-bottom: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+}
+
+audio {
+  vertical-align: middle;
+}
+
+label {
+  vertical-align: middle;
+}
+
+code {
+  color: #163eac;
+}
+
+pre {
+  border: 4px solid #eeeeee;
+}
+
+li {
+  margin: 8px;
+}
+
+details {
+  padding: 8px;
+  border: solid 4px #163eac;
+}
+
+summary {
+  text-align: center;
+}
+
+summary:hover {
+  background-color: #eeeeee;
+}
+
+header {
+  border-bottom: 1px gray solid;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
+
+footer {
+  border-top: 1px gray solid;
+  padding: 0.5em;
+  margin-top: 1em;
+}
+</style>
+</head>
+
+<body>
+<details>
+<summary translate="yes">Table of Contents</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#syncsawsynth">SyncSawSynth</a><ul>
+<li><a href="#installation">Installation</a><ul>
+<li><a href="#linux-specific">Linux Specific</a></li>
+</ul></li>
+<li><a href="#controls">Controls</a></li>
+<li><a href="#caution">Caution</a></li>
+<li><a href="#terms">Terms</a></li>
+<li><a href="#parameters">Parameters</a><ul>
+<li><a href="#osc">Osc</a><ul>
+<li><a href="#gain">Gain</a></li>
+<li><a href="#semi">Semi</a></li>
+<li><a href="#cent">Cent</a></li>
+<li><a href="#sync-と-synctype">Sync と SyncType</a></li>
+<li><a href="#osctype">OscType</a></li>
+<li><a href="#phase">Phase</a></li>
+</ul></li>
+<li><a href="#modulation">Modulation</a><ul>
+<li><a href="#osc1-sync1">Osc1-&gt;Sync1</a></li>
+<li><a href="#osc1-freq2">Osc1-&gt;Freq2</a></li>
+<li><a href="#osc2-sync1">Osc2-&gt;Sync1</a></li>
+<li><a href="#attack">Attack</a></li>
+<li><a href="#curve">Curve</a></li>
+<li><a href="#to-freq1-ad-エンベロープ">To Freq1 (AD エンベロープ)</a></li>
+<li><a href="#to-sync1-ad-エンベロープ">To Sync1 (AD エンベロープ)</a></li>
+<li><a href="#to-freq2-ad-エンベロープ">To Freq2 (AD エンベロープ)</a></li>
+<li><a href="#to-sync2-ad-エンベロープ">To Sync2 (AD エンベロープ)</a></li>
+<li><a href="#lfo">LFO</a></li>
+<li><a href="#noisemix">NoiseMix</a></li>
+<li><a href="#to-freq1-lfoノイズ">To Freq1 (LFO/ノイズ)</a></li>
+<li><a href="#to-sync1-lfoノイズ">To Sync1 (LFO/ノイズ)</a></li>
+<li><a href="#to-freq2-lfoノイズ">To Freq2 (LFO/ノイズ)</a></li>
+<li><a href="#to-sync2-lfoノイズ">To Sync2 (LFO/ノイズ)</a></li>
+</ul></li>
+<li><a href="#gain-1">Gain</a><ul>
+<li><a href="#gain-2">Gain</a></li>
+<li><a href="#a">A</a></li>
+<li><a href="#d">D</a></li>
+<li><a href="#s">S</a></li>
+<li><a href="#r">R</a></li>
+<li><a href="#curve-1">Curve</a></li>
+</ul></li>
+<li><a href="#filter">Filter</a><ul>
+<li><a href="#cut">Cut</a></li>
+<li><a href="#res">Res</a></li>
+<li><a href="#feed">Feed</a></li>
+<li><a href="#sat">Sat</a></li>
+<li><a href="#dirty-buffer">Dirty Buffer</a></li>
+<li><a href="#filtertype">FilterType</a></li>
+<li><a href="#shapertype">ShaperType</a></li>
+<li><a href="#a-1">A</a></li>
+<li><a href="#d-1">D</a></li>
+<li><a href="#s-1">S</a></li>
+<li><a href="#r-1">R</a></li>
+<li><a href="#to-cut">To Cut</a></li>
+<li><a href="#to-res">To Res</a></li>
+<li><a href="#key-cut">Key-&gt;Cut</a></li>
+<li><a href="#key-feed">Key-&gt;Feed</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#change-log">Change Log</a></li>
+<li><a href="#license">License</a><ul>
+<li><a href="#about-vst">About VST</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+</details>
+<h1 id="syncsawsynth">SyncSawSynth</h1>
+<p><img src="img/syncsawsynth.png" /></p>
+<p>SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR sawtooth oscillator. Just a basic synthesizer but very easy to make a noise similar to low battery sound of some toys.</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.0/SyncSawSynth0.1.0.zip">Download SyncSawSynth 0.1.0 - VST® 3 (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="60px"
+style="display: inline-block; vertical-align: middle;"></li>
+</ul>
+<p>The package includes following builds:</p>
+<ul>
+<li>Windows 64bit</li>
+<li>Windows 32bit</li>
+<li>Linux 64bit</li>
+</ul>
+<p>I don’t have Mac so there’s no Mac build. If you’d like to use SyncSawSynth on Mac, please file a issue to <a href="https://github.com/ryukau/VSTPlugins">GitHub repository</a> or send email to <code>ryukau@gmail.com</code>. I’ll provide build instruction.</p>
+<p>Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.</p>
+<h2 id="installation">Installation</h2>
+<p>Place <code>SyncSawSynth.vst3</code> directory to:</p>
+<ul>
+<li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
+<li><code>$HOME/.vst3/</code> for Linux.</li>
+</ul>
+<p>DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.</p>
+<h3 id="linux-specific">Linux Specific</h3>
+<p>On Ubuntu 18.0.4, those packages are required.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+<p>If DAW doesn’t recognize the plugin, take a look at <code>Package Requirements</code> section of the link below and make sure all the VST3 related package is installed.</p>
+<ul>
+<li><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html">VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins</a></li>
+</ul>
+<p>REAPER 5.983 on Linux may not recognize SyncSawSynth. A workaround is to delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and restart REAPER.</p>
+<h2 id="controls">Controls</h2>
+<p>Knob and slider can do:</p>
+<ul>
+<li>Ctrl + Left Click: Reset value.</li>
+<li>Shift + Left Drag: Fine adjustment.</li>
+</ul>
+<p>Right clicking on controllable object popups a context menu provided by DAW.</p>
+<h2 id="caution">Caution</h2>
+<p>The peak value of gain envelope is determined by the length of attack. When gain envelope attack is small, the peak may be a bit higher than usual.</p>
+<p>When turning <code>Dirty Filter</code> on, a glitch may pops at the timing of note on.</p>
+<h2 id="terms">Terms</h2>
+<p>An oscillator of SyncSawSynth internally have 2 separate oscillators. One is for generating waveform, and other is to trigger hardsync. In term of hardsync, waveform generator is called slave and oscillator used to trigger is called master.</p>
+<h2 id="parameters">Parameters</h2>
+<h3 id="osc">Osc</h3>
+<h4 id="gain">Gain</h4>
+<p>Oscillator gain. Range is 0.0 to 1.0.</p>
+<h4 id="semi">Semi</h4>
+<p>Oscillator pitch. Range is -24.0 to 24.0. Unit is semitone.</p>
+<p>The value will be floored. For example 6.3 becomes to 6 and -11.5 becomes to -12.</p>
+<h4 id="cent">Cent</h4>
+<p>Oscillator pitch. Range is -100.0 to 100.0. Unit is cent.</p>
+<h4 id="sync-と-synctype">Sync と SyncType</h4>
+<p>Meaning of the value of <code>Sync</code> will be changed by <code>SyncType</code>. Range of <code>Sync</code> is 0.01 to 16.0.</p>
+<p><code>SyncType</code> has 4 options.</p>
+<ul>
+<li><code>Off</code></li>
+<li><code>Ratio</code></li>
+<li><code>Fixed-Master</code></li>
+<li><code>Fixed-Slave</code></li>
+</ul>
+<p>Option <code>Off</code> turns off hardsync by setting master frequency to 0 Hz. However, if the value of <code>Osc*-&gt;Sync1</code> is greater than 0, phase of master will be moved and possibly triggers hardsync. When <code>SyncType</code> is <code>Off</code>, the value of <code>Sync</code> won’t be used.</p>
+<p>Option <code>Ratio</code> sets note frequency to master frequency. Slave frequency will be the value of <code>Sync</code> multiplied by master frequency.</p>
+<p>Option <code>Fixed-Master</code> sets note frequency to slave frequency. Master frequency will be only determined by the value of <code>Sync</code>.</p>
+<p>Option <code>Fixed-Slave</code> sets note frequency to master frequency. Slave frequency will be only determined by the value of <code>Sync</code>.</p>
+<p>Below is equation of conversion of the value <code>Sync</code> to freqeuncy used for <code>Fixed-Master</code> and <code>Fixed-Slave</code>.</p>
+<pre><code>frequency = 2 * Sync^3</code></pre>
+<h4 id="osctype">OscType</h4>
+<p>Oscillator waveform.</p>
+<p>0 to 10th order PTR sawtooth oscillator and sine wave are available.</p>
+<h4 id="phase">Phase</h4>
+<p>Oscillator phase. Range is 0.0 to 1.0.</p>
+<p>If <code>Lock</code> is checked, phase will be reset for each note on.</p>
+<p>If <code>Invert</code> on <code>Osc2</code> is checked, phase will be inverted by changing sign of the output of <code>Osc2</code>.</p>
+<h3 id="modulation">Modulation</h3>
+<h4 id="osc1-sync1">Osc1-&gt;Sync1</h4>
+<p>Modulation from <code>Osc1</code> output to <code>Osc1</code> master frequency. Range is 0.0 to 1.0.</p>
+<h4 id="osc1-freq2">Osc1-&gt;Freq2</h4>
+<p>Modulation from <code>Osc1</code> output to <code>Osc2</code> slave frequency. Range is 0.0 to 1.0.</p>
+<h4 id="osc2-sync1">Osc2-&gt;Sync1</h4>
+<p>Modulation from <code>Osc2</code> output to <code>Osc1</code> master frequency. Range is 0.0 to 1.0.</p>
+<h4 id="attack">Attack</h4>
+<p>Attack of modulation AD envelope. Range is 0.0 to 4.0. Unit is seconds.</p>
+<p>Equation of AD envelope.</p>
+<pre><code>env(t) := t^a * exp(-b * t)
+
+t: time.
+a, b: some constants.</code></pre>
+<h4 id="curve">Curve</h4>
+<p>Curve of modulation AD envelope. Range is 1.0 to 96.0.</p>
+<p>The length of decay is depends on the value of Curve.</p>
+<h4 id="to-freq1-ad-エンベロープ">To Freq1 (AD エンベロープ)</h4>
+<p>Modulation from AD envelope to <code>Osc1</code> slave frequency. Range is 0.0 to 16.0.</p>
+<h4 id="to-sync1-ad-エンベロープ">To Sync1 (AD エンベロープ)</h4>
+<p>Modulation from AD envelope to <code>Osc1</code> master frequency. Range is 0.0 to 16.0.</p>
+<h4 id="to-freq2-ad-エンベロープ">To Freq2 (AD エンベロープ)</h4>
+<p>Modulation from AD envelope to <code>Osc２</code> slave frequency. Range is 0.0 to 16.0.</p>
+<h4 id="to-sync2-ad-エンベロープ">To Sync2 (AD エンベロープ)</h4>
+<p>Modulation from AD envelope to <code>Osc２</code> master frequency. Range is 0.0 to 16.0.</p>
+<h4 id="lfo">LFO</h4>
+<p>LFO Frequency. Range is 0.01 to 20.0. Unit is Hz.</p>
+<h4 id="noisemix">NoiseMix</h4>
+<p>Ratio of LFO and pink noise. Range is 0.0 to 1.0.</p>
+<p>If the value is 0.0, the output becomes LFO only. If the value is 1.0, the output becomes pink noise only.</p>
+<p>Note that modulation of pink noise causes some nasty spikes. To avoid spikes, set the value of <code>To Freq/Sync</code> to lower than 1.0. Spike is clipped to avoid exceeding 0dB.</p>
+<h4 id="to-freq1-lfoノイズ">To Freq1 (LFO/ノイズ)</h4>
+<p>Modulation from LFO/Noise to <code>Osc1</code> slave frequency. Range is 0.0 to 16.0.</p>
+<h4 id="to-sync1-lfoノイズ">To Sync1 (LFO/ノイズ)</h4>
+<p>Modulation from LFO/Noise to <code>Osc1</code> master frequency. Range is 0.0 to 16.0.</p>
+<h4 id="to-freq2-lfoノイズ">To Freq2 (LFO/ノイズ)</h4>
+<p>Modulation from LFO/Noise to <code>Osc２</code> slave frequency. Range is 0.0 to 16.0.</p>
+<h4 id="to-sync2-lfoノイズ">To Sync2 (LFO/ノイズ)</h4>
+<p>Modulation from LFO/Noise to <code>Osc２</code> master frequency. Range is 0.0 to 16.0.</p>
+<h3 id="gain-1">Gain</h3>
+<h4 id="gain-2">Gain</h4>
+<p>Gain of the synthesizer output. Range is 0.0 to 1.0.</p>
+<h4 id="a">A</h4>
+<p>Length of gain envelope attack. Range is 0.0001 to 16.0. Unit is seconds.</p>
+<h4 id="d">D</h4>
+<p>Length of gain envelope decay. Range is 0.0001 to 16.0. Unit is seconds.</p>
+<h4 id="s">S</h4>
+<p>Value of gain envelope sustain. Range is 0.0 to 1.0.</p>
+<h4 id="r">R</h4>
+<p>Length of gain envelope release. Range is 0.0001 to 16.0. Unit is seconds.</p>
+<h4 id="curve-1">Curve</h4>
+<p>Curve of gain envelope. Range is 0.0 to 1.0.</p>
+<p>This curve is linear interpolation between direct output and saturated output.</p>
+<pre><code>gainEnv(t) := expEnv(t) * (tanh(3 * Curve * expEnv(t)) - expEnv(t))</code></pre>
+<h3 id="filter">Filter</h3>
+<h4 id="cut">Cut</h4>
+<p>Filter cutoff frequency. Range is 20.0 to 20000.0. Unit is Hz.</p>
+<h4 id="res">Res</h4>
+<p>Biquad filter resonance. Range is 0.001 to 1.0.</p>
+<p>When the value is set to minimum, the output volume will be very small.</p>
+<h4 id="feed">Feed</h4>
+<p>Feedback of serial filter section. Range is 0.0 to 1.0.</p>
+<p>Internally, 4 biquad filters are serially connected. Feedback send the last output of the filter to first biquad filter in serial section.</p>
+<h4 id="sat">Sat</h4>
+<p>Saturation of filter. Range is 0.01 to 8.0.</p>
+<p>This value is multiplied to the sum of input signal and feedback before going into wave shaper.</p>
+<pre><code>filterIn = shaper(Sat * (input - Feed * filterOut))</code></pre>
+<h4 id="dirty-buffer">Dirty Buffer</h4>
+<p>If <code>Dirty Buffer</code> is not checked, the buffer of filter will be cleared for each note on.</p>
+<p>Note that while <code>Dirty Filter</code> is turned on, sometimes a glitch pops up at note on.</p>
+<h4 id="filtertype">FilterType</h4>
+<p>Type of filter.</p>
+<ul>
+<li><code>LP</code> : Low-pass</li>
+<li><code>HP</code> : High-pass</li>
+<li><code>BP</code> : Band-pass</li>
+<li><code>Notch</code> : Also called as band-stop</li>
+<li><code>Bypass</code></li>
+</ul>
+<h4 id="shapertype">ShaperType</h4>
+<p>Type of wave shaper used for filter saturation.</p>
+<pre><code>HardClip(x) := clamp(x, -1.0, 1.0)
+Tanh(x)     := tanh(x)
+ShaperA(x)  := sin(2 * pi * x) / (1 + 10 * x * x)
+ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
+<h4 id="a-1">A</h4>
+<p>Lenght of filter envelope attack. Range is 0.0001 to 16.0 。単位は.</p>
+<h4 id="d-1">D</h4>
+<p>Lenght of filter envelope decay. Range is 0.0001 to 16.0 。単位は.</p>
+<h4 id="s-1">S</h4>
+<p>Value of filter envelope sustain. Range is 0.0 to 1.0.</p>
+<h4 id="r-1">R</h4>
+<p>Lenght of filter envelope release. Range is 0.0001 to 16.0 。単位は.</p>
+<h4 id="to-cut">To Cut</h4>
+<p>Modulation from filter envelope to cutoff frequency. Range is -1.0 to 1.0.</p>
+<h4 id="to-res">To Res</h4>
+<p>Modulation from filter envelope to resonance. Range is 0.0 to 1.0.</p>
+<h4 id="key-cut">Key-&gt;Cut</h4>
+<p>Modulation from MIDI note number to cutoff frequency. Range is -1.0 to 1.0.</p>
+<h4 id="key-feed">Key-&gt;Feed</h4>
+<p>Modulation from MIDI note number to feedback. Range is -1.0 to 1.0.</p>
+<h2 id="change-log">Change Log</h2>
+<ul>
+<li>0.1.0
+<ul>
+<li>Initial release.</li>
+</ul></li>
+</ul>
+<h2 id="license">License</h2>
+<p>SyncSawSynth is licensed under GPLv3. Complete licenses are linked below.</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+</ul>
+<p>If the link above doesn’t work, please send email to <code>ryukau@gmail.com</code>.</p>
+<h3 id="about-vst">About VST</h3>
+<p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
+</body>
+
+</html>

@@ -11,6 +11,29 @@ If you found some part of manual is not clear and/or found typo, please file iss
 
 Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
 
+## SyncSawSynth
+![](manual/SyncSawSynth/img/syncsawsynth.png)
+
+- [Download SevenDelay 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.0/SyncSawSynth0.1.0.zip) <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="60px"
+  style="display: inline-block; vertical-align: middle;">
+
+パッケージには次のビルドが含まれています。
+
+- Windows 64bit
+- Windows 32bit
+- Linux 64bit
+
+SyncSawSynthは10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。
+
+- [SyncSawSynth のマニュアル (日本語)](manual/SyncSawSynth/SyncSawSynth_ja.html)
+
+SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR sawtooth oscillator. Just a basic synthesizer but very easy to make a noise similar to low battery sound of some toys.
+
+- [SyncSawSynth Manual (English)](manual/SyncSawSynth/SyncSawSynth_en.html)
+
 ## SevenDelay
 ![](manual/SevenDelay/img/sevendelay.png)
 
