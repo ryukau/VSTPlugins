@@ -125,7 +125,8 @@ protected:
   const double knobX = 60.0; // With margin.
   const double knobY = knobHeight + labelY;
 
-  ViewRect viewRect{0, 0, 10.0 * knobX + 50.0, 20.0 + 3.0 * labelY + 6.0 * knobY};
+  ViewRect viewRect{
+    0, 0, long(10.0 * knobX + 50.0), long(20.0 + 3.0 * labelY + 6.0 * knobY)};
 
   CCoord fontSize = 12.0;
 
