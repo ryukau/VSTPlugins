@@ -224,7 +224,7 @@ footer {
 <li><a href="#gain">Gain</a></li>
 <li><a href="#semi">Semi</a></li>
 <li><a href="#cent">Cent</a></li>
-<li><a href="#sync-と-synctype">Sync と SyncType</a></li>
+<li><a href="#sync-and-synctype">Sync and SyncType</a></li>
 <li><a href="#osctype">OscType</a></li>
 <li><a href="#phase">Phase</a></li>
 </ul></li>
@@ -234,16 +234,16 @@ footer {
 <li><a href="#osc2-sync1">Osc2-&gt;Sync1</a></li>
 <li><a href="#attack">Attack</a></li>
 <li><a href="#curve">Curve</a></li>
-<li><a href="#to-freq1-ad-エンベロープ">To Freq1 (AD エンベロープ)</a></li>
-<li><a href="#to-sync1-ad-エンベロープ">To Sync1 (AD エンベロープ)</a></li>
-<li><a href="#to-freq2-ad-エンベロープ">To Freq2 (AD エンベロープ)</a></li>
-<li><a href="#to-sync2-ad-エンベロープ">To Sync2 (AD エンベロープ)</a></li>
+<li><a href="#to-freq1-ad-envelope">To Freq1 (AD Envelope)</a></li>
+<li><a href="#to-sync1-ad-envelope">To Sync1 (AD Envelope)</a></li>
+<li><a href="#to-freq2-ad-envelope">To Freq2 (AD Envelope)</a></li>
+<li><a href="#to-sync2-ad-envelope">To Sync2 (AD Envelope)</a></li>
 <li><a href="#lfo">LFO</a></li>
 <li><a href="#noisemix">NoiseMix</a></li>
-<li><a href="#to-freq1-lfoノイズ">To Freq1 (LFO/ノイズ)</a></li>
-<li><a href="#to-sync1-lfoノイズ">To Sync1 (LFO/ノイズ)</a></li>
-<li><a href="#to-freq2-lfoノイズ">To Freq2 (LFO/ノイズ)</a></li>
-<li><a href="#to-sync2-lfoノイズ">To Sync2 (LFO/ノイズ)</a></li>
+<li><a href="#to-freq1-lfonoise">To Freq1 (LFO/Noise)</a></li>
+<li><a href="#to-sync1-lfonoise">To Sync1 (LFO/Noise)</a></li>
+<li><a href="#to-freq2-lfonoise">To Freq2 (LFO/Noise)</a></li>
+<li><a href="#to-sync2-lfonoise">To Sync2 (LFO/Noise)</a></li>
 </ul></li>
 <li><a href="#gain-1">Gain</a><ul>
 <li><a href="#gain-2">Gain</a></li>
@@ -333,7 +333,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>The value will be floored. For example 6.3 becomes to 6 and -11.5 becomes to -12.</p>
 <h4 id="cent">Cent</h4>
 <p>Oscillator pitch. Range is -100.0 to 100.0. Unit is cent.</p>
-<h4 id="sync-と-synctype">Sync と SyncType</h4>
+<h4 id="sync-and-synctype">Sync and SyncType</h4>
 <p>Meaning of the value of <code>Sync</code> will be changed by <code>SyncType</code>. Range of <code>Sync</code> is 0.01 to 16.0.</p>
 <p><code>SyncType</code> has 4 options.</p>
 <ul>
@@ -372,13 +372,13 @@ a, b: some constants.</code></pre>
 <h4 id="curve">Curve</h4>
 <p>Curve of modulation AD envelope. Range is 1.0 to 96.0.</p>
 <p>The length of decay is depends on the value of Curve.</p>
-<h4 id="to-freq1-ad-エンベロープ">To Freq1 (AD エンベロープ)</h4>
+<h4 id="to-freq1-ad-envelope">To Freq1 (AD Envelope)</h4>
 <p>Modulation from AD envelope to <code>Osc1</code> slave frequency. Range is 0.0 to 16.0.</p>
-<h4 id="to-sync1-ad-エンベロープ">To Sync1 (AD エンベロープ)</h4>
+<h4 id="to-sync1-ad-envelope">To Sync1 (AD Envelope)</h4>
 <p>Modulation from AD envelope to <code>Osc1</code> master frequency. Range is 0.0 to 16.0.</p>
-<h4 id="to-freq2-ad-エンベロープ">To Freq2 (AD エンベロープ)</h4>
+<h4 id="to-freq2-ad-envelope">To Freq2 (AD Envelope)</h4>
 <p>Modulation from AD envelope to <code>Osc２</code> slave frequency. Range is 0.0 to 16.0.</p>
-<h4 id="to-sync2-ad-エンベロープ">To Sync2 (AD エンベロープ)</h4>
+<h4 id="to-sync2-ad-envelope">To Sync2 (AD Envelope)</h4>
 <p>Modulation from AD envelope to <code>Osc２</code> master frequency. Range is 0.0 to 16.0.</p>
 <h4 id="lfo">LFO</h4>
 <p>LFO Frequency. Range is 0.01 to 20.0. Unit is Hz.</p>
@@ -386,13 +386,13 @@ a, b: some constants.</code></pre>
 <p>Ratio of LFO and pink noise. Range is 0.0 to 1.0.</p>
 <p>If the value is 0.0, the output becomes LFO only. If the value is 1.0, the output becomes pink noise only.</p>
 <p>Note that modulation of pink noise causes some nasty spikes. To avoid spikes, set the value of <code>To Freq/Sync</code> to lower than 1.0. Spike is clipped to avoid exceeding 0dB.</p>
-<h4 id="to-freq1-lfoノイズ">To Freq1 (LFO/ノイズ)</h4>
+<h4 id="to-freq1-lfonoise">To Freq1 (LFO/Noise)</h4>
 <p>Modulation from LFO/Noise to <code>Osc1</code> slave frequency. Range is 0.0 to 16.0.</p>
-<h4 id="to-sync1-lfoノイズ">To Sync1 (LFO/ノイズ)</h4>
+<h4 id="to-sync1-lfonoise">To Sync1 (LFO/Noise)</h4>
 <p>Modulation from LFO/Noise to <code>Osc1</code> master frequency. Range is 0.0 to 16.0.</p>
-<h4 id="to-freq2-lfoノイズ">To Freq2 (LFO/ノイズ)</h4>
+<h4 id="to-freq2-lfonoise">To Freq2 (LFO/Noise)</h4>
 <p>Modulation from LFO/Noise to <code>Osc２</code> slave frequency. Range is 0.0 to 16.0.</p>
-<h4 id="to-sync2-lfoノイズ">To Sync2 (LFO/ノイズ)</h4>
+<h4 id="to-sync2-lfonoise">To Sync2 (LFO/Noise)</h4>
 <p>Modulation from LFO/Noise to <code>Osc２</code> master frequency. Range is 0.0 to 16.0.</p>
 <h3 id="gain-1">Gain</h3>
 <h4 id="gain-2">Gain</h4>

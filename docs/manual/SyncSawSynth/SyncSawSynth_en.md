@@ -69,7 +69,7 @@ The value will be floored. For example 6.3 becomes to 6 and -11.5 becomes to -12
 #### Cent
 Oscillator pitch. Range is -100.0 to 100.0. Unit is cent.
 
-#### Sync と SyncType
+#### Sync and SyncType
 Meaning of the value of `Sync` will be changed by `SyncType`. Range of `Sync` is 0.01 to 16.0.
 
 `SyncType` has 4 options.
@@ -132,16 +132,16 @@ Curve of modulation AD envelope. Range is 1.0 to 96.0.
 
 The length of decay is depends on the value of Curve.
 
-#### To Freq1 (AD エンベロープ)
+#### To Freq1 (AD Envelope)
 Modulation from AD envelope to `Osc1` slave frequency. Range is 0.0 to 16.0.
 
-#### To Sync1 (AD エンベロープ)
+#### To Sync1 (AD Envelope)
 Modulation from AD envelope to `Osc1` master frequency. Range is 0.0 to 16.0.
 
-#### To Freq2 (AD エンベロープ)
+#### To Freq2 (AD Envelope)
 Modulation from AD envelope to `Osc２` slave frequency. Range is 0.0 to 16.0.
 
-#### To Sync2 (AD エンベロープ)
+#### To Sync2 (AD Envelope)
 Modulation from AD envelope to `Osc２` master frequency. Range is 0.0 to 16.0.
 
 #### LFO
@@ -154,16 +154,16 @@ If the value is 0.0, the output becomes LFO only. If the value is 1.0, the outpu
 
 Note that modulation of pink noise causes some nasty spikes. To avoid spikes, set the value of `To Freq/Sync` to lower than 1.0. Spike is clipped to avoid exceeding 0dB.
 
-#### To Freq1 (LFO/ノイズ)
+#### To Freq1 (LFO/Noise)
 Modulation from LFO/Noise to `Osc1` slave frequency. Range is 0.0 to 16.0.
 
-#### To Sync1 (LFO/ノイズ)
+#### To Sync1 (LFO/Noise)
 Modulation from LFO/Noise to `Osc1` master frequency. Range is 0.0 to 16.0.
 
-#### To Freq2 (LFO/ノイズ)
+#### To Freq2 (LFO/Noise)
 Modulation from LFO/Noise to `Osc２` slave frequency. Range is 0.0 to 16.0.
 
-#### To Sync2 (LFO/ノイズ)
+#### To Sync2 (LFO/Noise)
 Modulation from LFO/Noise to `Osc２` master frequency. Range is 0.0 to 16.0.
 
 ### Gain
