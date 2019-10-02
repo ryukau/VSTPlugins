@@ -14,7 +14,7 @@ Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.98
 ## SyncSawSynth
 ![](manual/SyncSawSynth/img/syncsawsynth.png)
 
-- [Download SevenDelay 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.0/SyncSawSynth0.1.0.zip) <img
+- [Download SyncSawSynth 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.0/SyncSawSynth0.1.0.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -37,7 +37,7 @@ SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR saw
 ## SevenDelay
 ![](manual/SevenDelay/img/sevendelay.png)
 
-- [Download SevenDelay 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.0/SevenDelay.zip) <img
+- [Download SevenDelay 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.1/SevenDelay0.1.1.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
