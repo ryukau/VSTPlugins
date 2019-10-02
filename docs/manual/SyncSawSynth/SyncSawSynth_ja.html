@@ -343,7 +343,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><code>Fixed-Slave</code></li>
 </ul>
 <p><code>Off</code> を選ぶとマスタ周波数を 0 Hz にすることでハードシンクを無効にします。ただし <code>Modulation</code> の <code>Osc*-&gt;Sync1</code> が 0 より大きいときはマスタ位相が動くのでハードシンクがかかることがあります。 <code>SyncType</code> が <code>Off</code> のときは、 <code>Sync</code> の値は使われません。</p>
-<p><code>Ratio</code> を選ぶと音程をマスタ周波数に使います。スレーブ周波数はマスタ周波数に <code>Sync</code> の値をかけ合わせた値になります。</p>
+<p><code>Ratio</code> を選ぶと音程をマスタ周波数に使います。スレーブ周波数はマスタ周波数に <code>Sync</code> の値をかけ合わせた値になります。また <code>Ratio</code> のときだけ <code>To Freq/Sync</code> の変調先が入れ替わります。</p>
 <p><code>Fixed-Master</code> を選ぶと音程をスレーブ周波数に使います。マスタ周波数は <code>Sync</code> の値のみによって決まります。</p>
 <p><code>Fixed-Slave</code> を選ぶと音程をマスタ周波数に使います。スレーブ周波数は <code>Sync</code> の値のみによって決まります。</p>
 <p><code>Fixed-Master</code> と <code>Fixed-Slave</code> で使われる <code>Sync</code> の値を周波数に変換する式は次の通りです。</p>

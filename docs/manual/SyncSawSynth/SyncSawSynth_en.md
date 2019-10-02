@@ -81,7 +81,7 @@ Meaning of the value of `Sync` will be changed by `SyncType`. Range of `Sync` is
 
 Option `Off` turns off hardsync by setting master frequency to 0 Hz. However, if the value of `Osc*->Sync1` is greater than 0, phase of master will be moved and possibly triggers hardsync. When `SyncType` is `Off`, the value of `Sync` won't be used.
 
-Option `Ratio` sets note frequency to master frequency. Slave frequency will be the value of `Sync` multiplied by master frequency.
+Option `Ratio` sets note frequency to master frequency. Slave frequency will be the value of `Sync` multiplied by master frequency. Also the destinations of modulation from `To Freq/Sync` will be swapped.
 
 Option `Fixed-Master` sets note frequency to slave frequency. Master frequency will be only determined by the value of `Sync`.
 

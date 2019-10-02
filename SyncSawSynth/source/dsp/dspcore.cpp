@@ -141,11 +141,11 @@ template<typename Sample> Sample Note<Sample>::process(NoteProcessInfo<Sample> &
     case 1: { // Ratio
       saw1.setOscFreq(frequency
         * (1.0f + info.modEnvelopeToSync1 * modEnv * modEnv
-          + info.modLFOToFreq1 * info.modLFO)
+          + info.modLFOToSync1 * info.modLFO)
         * info.osc1Pitch * info.osc1Sync);
       saw1.setSyncFreq(frequency
         * (1.0f + info.modEnvelopeToFreq1 * modEnv * modEnv
-          + info.modLFOToSync1 * info.modLFO)
+          + info.modLFOToFreq1 * info.modLFO)
         * info.osc1Pitch);
     } break;
     case 2: // Fixed-Master
@@ -179,11 +179,11 @@ template<typename Sample> Sample Note<Sample>::process(NoteProcessInfo<Sample> &
     case 1: // Ratio
       saw2.setOscFreq(frequency
         * (1.0f + info.modEnvelopeToSync2 * modEnv * modEnv
-          + info.modLFOToFreq2 * info.modLFO)
+          + info.modLFOToSync2 * info.modLFO)
         * info.osc2Pitch * info.osc2Sync);
       saw2.setSyncFreq(frequency
         * (1.0f + info.modEnvelopeToFreq2 * modEnv * modEnv
-          + info.modLFOToSync2 * info.modLFO)
+          + info.modLFOToFreq2 * info.modLFO)
         * info.osc2Pitch);
       break;
     case 2: // Fixed-Master

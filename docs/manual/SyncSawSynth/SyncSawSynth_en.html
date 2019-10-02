@@ -343,7 +343,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><code>Fixed-Slave</code></li>
 </ul>
 <p>Option <code>Off</code> turns off hardsync by setting master frequency to 0 Hz. However, if the value of <code>Osc*-&gt;Sync1</code> is greater than 0, phase of master will be moved and possibly triggers hardsync. When <code>SyncType</code> is <code>Off</code>, the value of <code>Sync</code> won’t be used.</p>
-<p>Option <code>Ratio</code> sets note frequency to master frequency. Slave frequency will be the value of <code>Sync</code> multiplied by master frequency.</p>
+<p>Option <code>Ratio</code> sets note frequency to master frequency. Slave frequency will be the value of <code>Sync</code> multiplied by master frequency. Also the destinations of modulation from <code>To Freq/Sync</code> will be swapped.</p>
 <p>Option <code>Fixed-Master</code> sets note frequency to slave frequency. Master frequency will be only determined by the value of <code>Sync</code>.</p>
 <p>Option <code>Fixed-Slave</code> sets note frequency to master frequency. Slave frequency will be only determined by the value of <code>Sync</code>.</p>
 <p>Below is equation of conversion of the value <code>Sync</code> to freqeuncy used for <code>Fixed-Master</code> and <code>Fixed-Slave</code>.</p>
