@@ -36,7 +36,7 @@ LogScale<Vst::ParamValue> GlobalParameter::scaleGain(0.0, 4.0, 0.75, 1.0);
 
 LogScale<Vst::ParamValue> GlobalParameter::scaleEnvelopeA(0.0001, 16.0, 0.5, 1.0);
 LogScale<Vst::ParamValue> GlobalParameter::scaleEnvelopeD(0.0001, 16.0, 0.5, 1.0);
-LogScale<Vst::ParamValue> GlobalParameter::scaleEnvelopeS(0.0, 1.0, 0.5, 0.3);
+LogScale<Vst::ParamValue> GlobalParameter::scaleEnvelopeS(0.0, 0.9995, 0.5, 0.3);
 LogScale<Vst::ParamValue> GlobalParameter::scaleEnvelopeR(0.001, 16.0, 0.5, 2.0);
 
 LogScale<Vst::ParamValue> GlobalParameter::scaleFilterCutoff(20.0, 20000.0, 0.5, 800.0);
