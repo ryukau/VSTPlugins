@@ -18,6 +18,7 @@
 #pragma once
 
 #include "constants.hpp"
+#include "smoother.hpp"
 #include "somemath.hpp"
 
 namespace SomeDSP {
@@ -74,8 +75,9 @@ public:
 
     this->decayTime = (decayTime < sampleLength) ? sampleLength : decayTime;
 
-    sustain = std::max<Sample>(0.0, std::min<Sample>(sustainLevel, Sample(1.0)));
-    decayRange = Sample(1.0) - sustain;
+    sustainLevel = std::max<Sample>(0.0, std::min<Sample>(sustainLevel, Sample(1.0)));
+    sustain.push(sustainLevel);
+    decayRange = Sample(1.0) - sustainLevel;
 
     declickLength = int32_t(declickTime * sampleRate);
 
@@ -103,7 +105,8 @@ public:
 
   void release()
   {
-    releaseRange = (state == State::decay) ? value * decayRange + sustain : value;
+    releaseRange = (state == State::decay) ? value * decayRange + sustain.getValue()
+                                           : sustain.getValue();
     value = Sample(1.0);
     alpha = releaseAlpha;
     state = State::release;
@@ -114,6 +117,8 @@ public:
 
   Sample process()
   {
+    sustain.process();
+
     Sample output;
     switch (state) {
       case State::attack:
@@ -127,14 +132,13 @@ public:
 
       case State::decay:
         value *= alpha;
-        output = value * decayRange + sustain;
-        if (output > sustain + threshold) break;
-        value = sustain;
+        output = value * decayRange + sustain.getValue();
+        if (output > sustain.getValue() + threshold) break;
         state = State::sustain;
         break;
 
       case State::sustain:
-        return sustain;
+        return sustain.getValue();
 
       case State::release:
         value *= alpha;
@@ -180,7 +184,7 @@ protected:
   Sample alpha;
   Sample value;
   Sample threshold = 1e-5;
-  Sample sustain;
+  LinearSmoother<Sample> sustain;
 };
 
 template<typename Sample> class LinearEnvelope {
