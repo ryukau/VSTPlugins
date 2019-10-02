@@ -337,7 +337,7 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
     lfoPhase += 2.0 * float(pi) * interpModLFOFrequency.process() / sampleRate;
     if (lfoPhase >= float(pi)) lfoPhase -= float(pi);
     lfoValue = sinf(lfoPhase);
-    const float noiseSig = clamp(noise.process(), -1.0f, 1.0f);
+    const float noiseSig = clamp(noise.process(), -1.0f, 1.0f) / 16.0f;
     noteInfo.modLFO = clamp(
       lfoValue + interpModLFONoiseMix.process() * (noiseSig - lfoValue), -1.0f, 1.0f);
 
