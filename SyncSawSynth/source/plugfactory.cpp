@@ -29,12 +29,11 @@
 
 // Subcategory for this Plug-in (to be changed if needed, see PlugType in
 // ivstaudioprocessor.h)
-#define stringSubCategory Steinberg::Vst::PlugType::kFxInstrument
+#define stringSubCategory Steinberg::Vst::PlugType::kInstrumentSynth
 
 BEGIN_FACTORY_DEF(stringCompanyName, stringCompanyWeb, stringCompanyEmail)
 
-DEF_CLASS2(
-  INLINE_UID_FROM_FUID(Steinberg::Synth::ProcessorUID),
+DEF_CLASS2(INLINE_UID_FROM_FUID(Steinberg::Synth::ProcessorUID),
   PClassInfo::kManyInstances, // cardinality
   kVstAudioEffectClass,       // the component category (do not changed this)
   stringPluginName,           // here the Plug-in name (to be changed)
@@ -48,8 +47,7 @@ DEF_CLASS2(
                                                    // this component should be
                                                    // instantiated
 
-DEF_CLASS2(
-  INLINE_UID_FROM_FUID(Steinberg::Synth::ControllerUID),
+DEF_CLASS2(INLINE_UID_FROM_FUID(Steinberg::Synth::ControllerUID),
   PClassInfo::kManyInstances,   // cardinality
   kVstComponentControllerClass, // the Controller category (do not changed this)
   stringPluginName
