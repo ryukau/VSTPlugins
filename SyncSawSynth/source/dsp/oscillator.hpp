@@ -119,6 +119,7 @@ public:
       }
     }
     ptr();
+    if (!isfinite(lastSig)) lastSig = 0.0;
     return lastSig;
   }
 
@@ -601,6 +602,394 @@ protected:
         - (float(125000) * h * n * n * n) / float(189)
         + (float(156250) * h * n * n) / float(63) - (float(3125000) * h * n) / float(567)
         + float(2) * T * n + (float(3125000) * h) / float(567) - float(10) * T - float(1);
+    return 0.0; // Just in case.
+  }
+
+  double ptrSaw6Double(double phi, double T, double h = 1.0)
+  {
+    double n = phi / T;
+    if (n >= double(5)) return double(2) * T * n - double(6) * T - double(1);
+    if (n < double(1))
+      return -(h * n * n * n * n * n * n) / double(360) + double(2) * T * n
+        + double(2) * h - double(6) * T - double(1);
+    if (n < double(2))
+      return (h * n * n * n * n * n * n) / double(72)
+        - (h * n * n * n * n * n) / double(10) + (h * n * n * n * n) / double(4)
+        - (h * n * n * n) / double(3) + (h * n * n) / double(4) - (h * n) / double(10)
+        + double(2) * T * n + (double(121) * h) / double(60) - double(6) * T - double(1);
+    if (n < double(3))
+      return -(h * n * n * n * n * n * n) / double(36)
+        + (double(2) * h * n * n * n * n * n) / double(5)
+        - (double(9) * h * n * n * n * n) / double(4)
+        + (double(19) * h * n * n * n) / double(3) - (double(39) * h * n * n) / double(4)
+        + (double(79) * h * n) / double(10) + double(2) * T * n
+        - (double(13) * h) / double(20) - double(6) * T - double(1);
+    if (n < double(4))
+      return (h * n * n * n * n * n * n) / double(36)
+        - (double(3) * h * n * n * n * n * n) / double(5)
+        + (double(21) * h * n * n * n * n) / double(4)
+        - (double(71) * h * n * n * n) / double(3) + (double(231) * h * n * n) / double(4)
+        - (double(731) * h * n) / double(10) + double(2) * T * n
+        + (double(797) * h) / double(20) - double(6) * T - double(1);
+    if (n < double(5))
+      return -(h * n * n * n * n * n * n) / double(72)
+        + (double(2) * h * n * n * n * n * n) / double(5)
+        - (double(19) * h * n * n * n * n) / double(4)
+        + (double(89) * h * n * n * n) / double(3) - (double(409) * h * n * n) / double(4)
+        + (double(1829) * h * n) / double(10) + double(2) * T * n
+        - (double(7849) * h) / double(60) - double(6) * T - double(1);
+    if (n < double(6))
+      return (h * n * n * n * n * n * n) / double(360)
+        - (h * n * n * n * n * n) / double(10)
+        + (double(3) * h * n * n * n * n) / double(2) - double(12) * h * n * n * n
+        + double(54) * h * n * n - (double(648) * h * n) / double(5) + double(2) * T * n
+        + (double(648) * h) / double(5) - double(6) * T - double(1);
+    return 0.0; // Just in case.
+  }
+
+  double ptrSaw7Double(double phi, double T, double h = 1.0)
+  {
+    double n = phi / T;
+    if (n >= double(6)) return double(2) * T * n - double(7) * T - double(1);
+    if (n < double(1))
+      return -(h * n * n * n * n * n * n * n) / double(2520) + double(2) * T * n
+        + double(2) * h - double(7) * T - double(1);
+    if (n < double(2))
+      return (h * n * n * n * n * n * n * n) / double(420)
+        - (double(7) * h * n * n * n * n * n * n) / double(360)
+        + (double(7) * h * n * n * n * n * n) / double(120)
+        - (double(7) * h * n * n * n * n) / double(72)
+        + (double(7) * h * n * n * n) / double(72) - (double(7) * h * n * n) / double(120)
+        + (double(7) * h * n) / double(360) + double(2) * T * n
+        + (double(719) * h) / double(360) - double(7) * T - double(1);
+    if (n < double(3))
+      return -(h * n * n * n * n * n * n * n) / double(168)
+        + (double(7) * h * n * n * n * n * n * n) / double(72)
+        - (double(77) * h * n * n * n * n * n) / double(120)
+        + (double(161) * h * n * n * n * n) / double(72)
+        - (double(329) * h * n * n * n) / double(72)
+        + (double(133) * h * n * n) / double(24) - (double(1337) * h * n) / double(360)
+        + double(2) * T * n + (double(1103) * h) / double(360) - double(7) * T
+        - double(1);
+    if (n < double(4))
+      return (h * n * n * n * n * n * n * n) / double(126)
+        - (double(7) * h * n * n * n * n * n * n) / double(36)
+        + (double(119) * h * n * n * n * n * n) / double(60)
+        - (double(98) * h * n * n * n * n) / double(9)
+        + (double(1253) * h * n * n * n) / double(36)
+        - (double(196) * h * n * n) / double(3) + (double(12089) * h * n) / double(180)
+        + double(2) * T * n - (double(1229) * h) / double(45) - double(7) * T - double(1);
+    if (n < double(5))
+      return -(h * n * n * n * n * n * n * n) / double(168)
+        + (double(7) * h * n * n * n * n * n * n) / double(36)
+        - (double(161) * h * n * n * n * n * n) / double(60)
+        + (double(182) * h * n * n * n * n) / double(9)
+        - (double(3227) * h * n * n * n) / double(36)
+        + (double(700) * h * n * n) / double(3) - (double(59591) * h * n) / double(180)
+        + double(2) * T * n + (double(9011) * h) / double(45) - double(7) * T - double(1);
+    if (n < double(6))
+      return (h * n * n * n * n * n * n * n) / double(420)
+        - (double(7) * h * n * n * n * n * n * n) / double(72)
+        + (double(203) * h * n * n * n * n * n) / double(120)
+        - (double(1169) * h * n * n * n * n) / double(72)
+        + (double(6671) * h * n * n * n) / double(72)
+        - (double(7525) * h * n * n) / double(24) + (double(208943) * h * n) / double(360)
+        + double(2) * T * n - (double(162287) * h) / double(360) - double(7) * T
+        - double(1);
+    if (n < double(7))
+      return -(h * n * n * n * n * n * n * n) / double(2520)
+        + (double(7) * h * n * n * n * n * n * n) / double(360)
+        - (double(49) * h * n * n * n * n * n) / double(120)
+        + (double(343) * h * n * n * n * n) / double(72)
+        - (double(2401) * h * n * n * n) / double(72)
+        + (double(16807) * h * n * n) / double(120)
+        - (double(117649) * h * n) / double(360) + double(2) * T * n
+        + (double(117649) * h) / double(360) - double(7) * T - double(1);
+    return 0.0; // Just in case.
+  }
+
+  double ptrSaw8Double(double phi, double T, double h = 1.0)
+  {
+    double n = phi / T;
+    if (n >= double(7)) return double(2) * T * n - double(8) * T - double(1);
+    if (n < double(1))
+      return -(h * n * n * n * n * n * n * n * n) / double(20160) + double(2) * T * n
+        + double(2) * h - double(8) * T - double(1);
+    if (n < double(2))
+      return (h * n * n * n * n * n * n * n * n) / double(2880)
+        - (h * n * n * n * n * n * n * n) / double(315)
+        + (h * n * n * n * n * n * n) / double(90) - (h * n * n * n * n * n) / double(45)
+        + (h * n * n * n * n) / double(36) - (h * n * n * n) / double(45)
+        + (h * n * n) / double(90) - (h * n) / double(315) + double(2) * T * n
+        + (double(5041) * h) / double(2520) - double(8) * T - double(1);
+    if (n < double(3))
+      return -(h * n * n * n * n * n * n * n * n) / double(960)
+        + (double(2) * h * n * n * n * n * n * n * n) / double(105)
+        - (double(13) * h * n * n * n * n * n * n) / double(90)
+        + (double(3) * h * n * n * n * n * n) / double(5)
+        - (double(55) * h * n * n * n * n) / double(36)
+        + (double(37) * h * n * n * n) / double(15)
+        - (double(223) * h * n * n) / double(90) + (double(149) * h * n) / double(105)
+        + double(2) * T * n + (double(829) * h) / double(504) - double(8) * T - double(1);
+    if (n < double(4))
+      return (h * n * n * n * n * n * n * n * n) / double(576)
+        - (h * n * n * n * n * n * n * n) / double(21)
+        + (double(5) * h * n * n * n * n * n * n) / double(9)
+        - (double(18) * h * n * n * n * n * n) / double(5)
+        + (double(128) * h * n * n * n * n) / double(9)
+        - (double(106) * h * n * n * n) / double(3)
+        + (double(488) * h * n * n) / double(9) - (double(4954) * h * n) / double(105)
+        + double(2) * T * n + (double(6259) * h) / double(315) - double(8) * T
+        - double(1);
+    if (n < double(5))
+      return -(h * n * n * n * n * n * n * n * n) / double(576)
+        + (double(4) * h * n * n * n * n * n * n * n) / double(63)
+        - h * n * n * n * n * n * n + (double(398) * h * n * n * n * n * n) / double(45)
+        - double(48) * h * n * n * n * n + (double(1474) * h * n * n * n) / double(9)
+        - double(344) * h * n * n + (double(128498) * h * n) / double(315)
+        + double(2) * T * n - (double(7269) * h) / double(35) - double(8) * T - double(1);
+    if (n < double(6))
+      return (h * n * n * n * n * n * n * n * n) / double(960)
+        - (h * n * n * n * n * n * n * n) / double(21)
+        + (double(17) * h * n * n * n * n * n * n) / double(18)
+        - (double(53) * h * n * n * n * n * n) / double(5)
+        + (double(2647) * h * n * n * n * n) / double(36)
+        - (double(967) * h * n * n * n) / double(3)
+        + (double(15683) * h * n * n) / double(18)
+        - (double(139459) * h * n) / double(105) + double(2) * T * n
+        + (double(2211007) * h) / double(2520) - double(8) * T - double(1);
+    if (n < double(7))
+      return -(h * n * n * n * n * n * n * n * n) / double(2880)
+        + (double(2) * h * n * n * n * n * n * n * n) / double(105)
+        - (double(41) * h * n * n * n * n * n * n) / double(90)
+        + (double(31) * h * n * n * n * n * n) / double(5)
+        - (double(1889) * h * n * n * n * n) / double(36)
+        + (double(4237) * h * n * n * n) / double(15)
+        - (double(84881) * h * n * n) / double(90)
+        + (double(187133) * h * n) / double(105) + double(2) * T * n
+        - (double(3667649) * h) / double(2520) - double(8) * T - double(1);
+    if (n < double(8))
+      return (h * n * n * n * n * n * n * n * n) / double(20160)
+        - (h * n * n * n * n * n * n * n) / double(315)
+        + (double(4) * h * n * n * n * n * n * n) / double(45)
+        - (double(64) * h * n * n * n * n * n) / double(45)
+        + (double(128) * h * n * n * n * n) / double(9)
+        - (double(4096) * h * n * n * n) / double(45)
+        + (double(16384) * h * n * n) / double(45)
+        - (double(262144) * h * n) / double(315) + double(2) * T * n
+        + (double(262144) * h) / double(315) - double(8) * T - double(1);
+    return 0.0; // Just in case.
+  }
+
+  double ptrSaw9Double(double phi, double T, double h = 1.0)
+  {
+    double n = phi / T;
+    if (n >= double(8)) return double(2) * T * n - double(9) * T - double(1);
+    if (n < double(1))
+      return -(h * n * n * n * n * n * n * n * n * n) / double(181440) + double(2) * T * n
+        + double(2) * h - double(9) * T - double(1);
+    if (n < double(2))
+      return (h * n * n * n * n * n * n * n * n * n) / double(22680)
+        - (h * n * n * n * n * n * n * n * n) / double(2240)
+        + (h * n * n * n * n * n * n * n) / double(560)
+        - (h * n * n * n * n * n * n) / double(240)
+        + (h * n * n * n * n * n) / double(160) - (h * n * n * n * n) / double(160)
+        + (h * n * n * n) / double(240) - (h * n * n) / double(560)
+        + (h * n) / double(2240) + double(2) * T * n + (double(40319) * h) / double(20160)
+        - double(9) * T - double(1);
+    if (n < double(3))
+      return -(h * n * n * n * n * n * n * n * n * n) / double(6480)
+        + (h * n * n * n * n * n * n * n * n) / double(320)
+        - (double(3) * h * n * n * n * n * n * n * n) / double(112)
+        + (double(31) * h * n * n * n * n * n * n) / double(240)
+        - (double(63) * h * n * n * n * n * n) / double(160)
+        + (double(127) * h * n * n * n * n) / double(160)
+        - (double(17) * h * n * n * n) / double(16)
+        + (double(73) * h * n * n) / double(80) - (double(1023) * h * n) / double(2240)
+        + double(2) * T * n + (double(42367) * h) / double(20160) - double(9) * T
+        - double(1);
+    if (n < double(4))
+      return (h * n * n * n * n * n * n * n * n * n) / double(3240)
+        - (double(3) * h * n * n * n * n * n * n * n * n) / double(320)
+        + (double(69) * h * n * n * n * n * n * n * n) / double(560)
+        - (double(221) * h * n * n * n * n * n * n) / double(240)
+        + (double(693) * h * n * n * n * n * n) / double(160)
+        - (double(2141) * h * n * n * n * n) / double(160)
+        + (double(2183) * h * n * n * n) / double(80)
+        - (double(2843) * h * n * n) / double(80) + (double(60213) * h * n) / double(2240)
+        + double(2) * T * n - (double(141341) * h) / double(20160) - double(9) * T
+        - double(1);
+    if (n < double(5))
+      return -(h * n * n * n * n * n * n * n * n * n) / double(2592)
+        + (h * n * n * n * n * n * n * n * n) / double(64)
+        - (double(31) * h * n * n * n * n * n * n * n) / double(112)
+        + (double(45) * h * n * n * n * n * n * n) / double(16)
+        - (double(2891) * h * n * n * n * n * n) / double(160)
+        + (double(2439) * h * n * n * n * n) / double(32)
+        - (double(10159) * h * n * n * n) / double(48)
+        + (double(5985) * h * n * n) / double(16)
+        - (double(857291) * h * n) / double(2240) + double(2) * T * n
+        + (double(78415) * h) / double(448) - double(9) * T - double(1);
+    if (n < double(6))
+      return (h * n * n * n * n * n * n * n * n * n) / double(3240)
+        - (h * n * n * n * n * n * n * n * n) / double(64)
+        + (double(39) * h * n * n * n * n * n * n * n) / double(112)
+        - (double(215) * h * n * n * n * n * n * n) / double(48)
+        + (double(5859) * h * n * n * n * n * n) / double(160)
+        - (double(6311) * h * n * n * n * n) / double(32)
+        + (double(11197) * h * n * n * n) / double(16)
+        - (double(25265) * h * n * n) / double(16)
+        + (double(4611459) * h * n) / double(2240) + double(2) * T * n
+        - (double(4763015) * h) / double(4032) - double(9) * T - double(1);
+    if (n < double(7))
+      return -(h * n * n * n * n * n * n * n * n * n) / double(6480)
+        + (double(3) * h * n * n * n * n * n * n * n * n) / double(320)
+        - (double(141) * h * n * n * n * n * n * n * n) / double(560)
+        + (double(941) * h * n * n * n * n * n * n) / double(240)
+        - (double(6237) * h * n * n * n * n * n) / double(160)
+        + (double(41021) * h * n * n * n * n) / double(160)
+        - (double(89167) * h * n * n * n) / double(80)
+        + (double(246923) * h * n * n) / double(80)
+        - (double(11064957) * h * n) / double(2240) + double(2) * T * n
+        + (double(70243421) * h) / double(20160) - double(9) * T - double(1);
+    if (n < double(8))
+      return (h * n * n * n * n * n * n * n * n * n) / double(22680)
+        - (h * n * n * n * n * n * n * n * n) / double(320)
+        + (double(11) * h * n * n * n * n * n * n * n) / double(112)
+        - (double(431) * h * n * n * n * n * n * n) / double(240)
+        + (double(3367) * h * n * n * n * n * n) / double(160)
+        - (double(26207) * h * n * n * n * n) / double(160)
+        + (double(40619) * h * n * n * n) / double(48)
+        - (double(223673) * h * n * n) / double(80)
+        + (double(11994247) * h * n) / double(2240) + double(2) * T * n
+        - (double(91171007) * h) / double(20160) - double(9) * T - double(1);
+    if (n < double(9))
+      return -(h * n * n * n * n * n * n * n * n * n) / double(181440)
+        + (h * n * n * n * n * n * n * n * n) / double(2240)
+        - (double(9) * h * n * n * n * n * n * n * n) / double(560)
+        + (double(27) * h * n * n * n * n * n * n) / double(80)
+        - (double(729) * h * n * n * n * n * n) / double(160)
+        + (double(6561) * h * n * n * n * n) / double(160)
+        - (double(19683) * h * n * n * n) / double(80)
+        + (double(531441) * h * n * n) / double(560)
+        - (double(4782969) * h * n) / double(2240) + double(2) * T * n
+        + (double(4782969) * h) / double(2240) - double(9) * T - double(1);
+    return 0.0; // Just in case.
+  }
+
+  double ptrSaw10Double(double phi, double T, double h = 1.0)
+  {
+    double n = phi / T;
+    if (n >= double(9)) return double(2) * T * n - double(10) * T - double(1);
+    if (n < double(1))
+      return -(h * n * n * n * n * n * n * n * n * n * n) / double(1814400)
+        + double(2) * T * n + double(2) * h - double(10) * T - double(1);
+    if (n < double(2))
+      return (h * n * n * n * n * n * n * n * n * n * n) / double(201600)
+        - (h * n * n * n * n * n * n * n * n * n) / double(18144)
+        + (h * n * n * n * n * n * n * n * n) / double(4032)
+        - (h * n * n * n * n * n * n * n) / double(1512)
+        + (h * n * n * n * n * n * n) / double(864)
+        - (h * n * n * n * n * n) / double(720) + (h * n * n * n * n) / double(864)
+        - (h * n * n * n) / double(1512) + (h * n * n) / double(4032)
+        - (h * n) / double(18144) + double(2) * T * n
+        + (double(362881) * h) / double(181440) - double(10) * T - double(1);
+    if (n < double(3))
+      return -(h * n * n * n * n * n * n * n * n * n * n) / double(50400)
+        + (h * n * n * n * n * n * n * n * n * n) / double(2268)
+        - (double(17) * h * n * n * n * n * n * n * n * n) / double(4032)
+        + (double(5) * h * n * n * n * n * n * n * n) / double(216)
+        - (double(71) * h * n * n * n * n * n * n) / double(864)
+        + (double(143) * h * n * n * n * n * n) / double(720)
+        - (double(287) * h * n * n * n * n) / double(864)
+        + (double(575) * h * n * n * n) / double(1512)
+        - (double(1151) * h * n * n) / double(4032) + (double(329) * h * n) / double(2592)
+        + double(2) * T * n + (double(358273) * h) / double(181440) - double(10) * T
+        - double(1);
+    if (n < double(4))
+      return (h * n * n * n * n * n * n * n * n * n * n) / double(21600)
+        - (h * n * n * n * n * n * n * n * n * n) / double(648)
+        + (double(13) * h * n * n * n * n * n * n * n * n) / double(576)
+        - (double(289) * h * n * n * n * n * n * n * n) / double(1512)
+        + (double(901) * h * n * n * n * n * n * n) / double(864)
+        - (double(2773) * h * n * n * n * n * n) / double(720)
+        + (double(8461) * h * n * n * n * n) / double(864)
+        - (double(3667) * h * n * n * n) / double(216)
+        + (double(11083) * h * n * n) / double(576)
+        - (double(233893) * h * n) / double(18144) + double(2) * T * n
+        + (double(1066861) * h) / double(181440) - double(10) * T - double(1);
+    if (n < double(5))
+      return -(h * n * n * n * n * n * n * n * n * n * n) / double(14400)
+        + (h * n * n * n * n * n * n * n * n * n) / double(324)
+        - (double(35) * h * n * n * n * n * n * n * n * n) / double(576)
+        + (double(1055) * h * n * n * n * n * n * n * n) / double(1512)
+        - (double(4475) * h * n * n * n * n * n * n) / double(864)
+        + (double(18731) * h * n * n * n * n * n) / double(720)
+        - (double(77555) * h * n * n * n * n) / double(864)
+        + (double(45485) * h * n * n * n) / double(216)
+        - (double(185525) * h * n * n) / double(576)
+        + (double(5271131) * h * n) / double(18144) + double(2) * T * n
+        - (double(4190647) * h) / double(36288) - double(10) * T - double(1);
+    if (n < double(6))
+      return (h * n * n * n * n * n * n * n * n * n * n) / double(14400)
+        - (double(5) * h * n * n * n * n * n * n * n * n * n) / double(1296)
+        + (double(55) * h * n * n * n * n * n * n * n * n) / double(576)
+        - (double(2095) * h * n * n * n * n * n * n * n) / double(1512)
+        + (double(11275) * h * n * n * n * n * n * n) / double(864)
+        - (double(60019) * h * n * n * n * n * n) / double(720)
+        + (double(316195) * h * n * n * n * n) / double(864)
+        - (double(235765) * h * n * n * n) / double(216)
+        + (double(1220725) * h * n * n) / double(576)
+        - (double(43947619) * h * n) / double(18144) + double(2) * T * n
+        + (double(45028103) * h) / double(36288) - double(10) * T - double(1);
+    if (n < double(7))
+      return -(h * n * n * n * n * n * n * n * n * n * n) / double(21600)
+        + (h * n * n * n * n * n * n * n * n * n) / double(324)
+        - (double(53) * h * n * n * n * n * n * n * n * n) / double(576)
+        + (double(2441) * h * n * n * n * n * n * n * n) / double(1512)
+        - (double(15941) * h * n * n * n * n * n * n) / double(864)
+        + (double(103277) * h * n * n * n * n * n) / double(720)
+        - (double(663581) * h * n * n * n * n) / double(864)
+        + (double(604043) * h * n * n * n) / double(216)
+        - (double(3818123) * h * n * n) / double(576)
+        + (double(167683997) * h * n) / double(18144) + double(2) * T * n
+        - (double(1044649181) * h) / double(181440) - double(10) * T - double(1);
+    if (n < double(8))
+      return (h * n * n * n * n * n * n * n * n * n * n) / double(50400)
+        - (h * n * n * n * n * n * n * n * n * n) / double(648)
+        + (double(31) * h * n * n * n * n * n * n * n * n) / double(576)
+        - (double(1675) * h * n * n * n * n * n * n * n) / double(1512)
+        + (double(12871) * h * n * n * n * n * n * n) / double(864)
+        - (double(98407) * h * n * n * n * n * n) / double(720)
+        + (double(748207) * h * n * n * n * n) / double(864)
+        - (double(807745) * h * n * n * n) / double(216)
+        + (double(6064393) * h * n * n) / double(576)
+        - (double(316559287) * h * n) / double(18144) + double(2) * T * n
+        + (double(2345053807) * h) / double(181440) - double(10) * T - double(1);
+    if (n < double(9))
+      return -(h * n * n * n * n * n * n * n * n * n * n) / double(201600)
+        + (h * n * n * n * n * n * n * n * n * n) / double(2268)
+        - (double(71) * h * n * n * n * n * n * n * n * n) / double(4032)
+        + (double(629) * h * n * n * n * n * n * n * n) / double(1512)
+        - (double(5561) * h * n * n * n * n * n * n) / double(864)
+        + (double(49049) * h * n * n * n * n * n) / double(720)
+        - (double(431441) * h * n * n * n * n) / double(864)
+        + (double(3782969) * h * n * n * n) / double(1512)
+        - (double(33046721) * h * n * n) / double(4032)
+        + (double(287420489) * h * n) / double(18144) + double(2) * T * n
+        - (double(2486784401) * h) / double(181440) - double(10) * T - double(1);
+    if (n < double(10))
+      return (h * n * n * n * n * n * n * n * n * n * n) / double(1814400)
+        - (h * n * n * n * n * n * n * n * n * n) / double(18144)
+        + (double(5) * h * n * n * n * n * n * n * n * n) / double(2016)
+        - (double(25) * h * n * n * n * n * n * n * n) / double(378)
+        + (double(125) * h * n * n * n * n * n * n) / double(108)
+        - (double(125) * h * n * n * n * n * n) / double(9)
+        + (double(3125) * h * n * n * n * n) / double(27)
+        - (double(125000) * h * n * n * n) / double(189)
+        + (double(156250) * h * n * n) / double(63)
+        - (double(3125000) * h * n) / double(567) + double(2) * T * n
+        + (double(3125000) * h) / double(567) - double(10) * T - double(1);
     return 0.0; // Just in case.
   }
 };
