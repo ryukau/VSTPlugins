@@ -105,8 +105,20 @@ public:
 
   void release()
   {
-    releaseRange = (state == State::decay) ? value * decayRange + sustain.getValue()
-                                           : sustain.getValue();
+    switch (state) {
+      case State::attack:
+        releaseRange = value;
+        break;
+
+      case State::decay:
+        releaseRange = value * decayRange + sustain.getValue();
+        break;
+
+      default:
+        releaseRange = sustain.getValue();
+        break;
+    }
+
     value = Sample(1.0);
     alpha = releaseAlpha;
     state = State::release;
