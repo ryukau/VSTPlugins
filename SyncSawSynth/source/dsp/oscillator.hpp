@@ -91,6 +91,26 @@ public:
       case 11:
         lastSig = -somesin<Sample>(oscPhase * Sample(2.0) * Sample(pi));
         break;
+
+      case 12:
+        lastSig = ptrSaw6Double(oscPhase, oscTick, height);
+        break;
+
+      case 13:
+        lastSig = ptrSaw7Double(oscPhase, oscTick, height);
+        break;
+
+      case 14:
+        lastSig = ptrSaw8Double(oscPhase, oscTick, height);
+        break;
+
+      case 15:
+        lastSig = ptrSaw9Double(oscPhase, oscTick, height);
+        break;
+
+      case 16:
+        lastSig = ptrSaw10Double(oscPhase, oscTick, height);
+        break;
     }
   }
 

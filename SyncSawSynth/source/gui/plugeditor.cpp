@@ -226,8 +226,10 @@ void PlugEditor::addOscillatorSection(UTF8String label,
   addOptionMenu(left, oscTop4, oscMenuWidth, tagSyncType, syncOptions);
 
   auto oscTop5 = oscTop4 + labelY - margin;
-  std::vector<UTF8String> ptrOrderOptions = {"Order 0", "Order 1", "Order 2", "Order 3",
-    "Order 4", "Order 5", "Order 6", "Order 7", "Order 8", "Order 9", "Order 10", "Sin"};
+  std::vector<UTF8String> ptrOrderOptions
+    = {"Order 0", "Order 1", "Order 2", "Order 3", "Order 4", "Order 5", "Order 6",
+      "Order 7", "Order 8", "Order 9", "Order 10", "Sin", "Order 6 double",
+      "Order 7 double", "Order 8 double", "Order 9 double", "Order 10 double"};
   addOptionMenu(left, oscTop5, oscMenuWidth, tagPTROrder, ptrOrderOptions);
 
   auto oscTop6 = oscTop5 + labelY;

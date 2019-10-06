@@ -104,7 +104,7 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
           dsp.param.osc1SyncType = toDiscrete(value, 3.0);
           break;
         case ParameterID::osc1PTROrder:
-          dsp.param.osc1PTROrder = toDiscrete(value, 11.0);
+          dsp.param.osc1PTROrder = toDiscrete(value, 16.0);
           break;
         case ParameterID::osc1Phase:
           dsp.param.osc1Phase = value;
@@ -129,7 +129,7 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
           dsp.param.osc2SyncType = toDiscrete(value, 3.0);
           break;
         case ParameterID::osc2PTROrder:
-          dsp.param.osc2PTROrder = toDiscrete(value, 11.0);
+          dsp.param.osc2PTROrder = toDiscrete(value, 16.0);
           break;
         case ParameterID::osc2Phase:
           dsp.param.osc2Phase = value;

@@ -61,7 +61,7 @@ tresult PLUGIN_API PlugController::initialize(FUnknown *context)
   parameters.addParameter(USTRING("Osc1SyncType"), nullptr, 3, param.osc1SyncType,
     Vst::ParameterInfo::kCanAutomate, ParameterID::osc1SyncType, Vst::kRootUnitId,
     USTRING("Osc1SyncType"));
-  parameters.addParameter(USTRING("Osc1PTROrder"), nullptr, 11, param.osc1PTROrder / 11.0,
+  parameters.addParameter(USTRING("Osc1PTROrder"), nullptr, 16, param.osc1PTROrder / 16.0,
     Vst::ParameterInfo::kCanAutomate, ParameterID::osc1PTROrder, Vst::kRootUnitId,
     USTRING("Osc1PTROrder"));
   parameters.addParameter(USTRING("Osc1Phase"), nullptr, 0, param.osc1Phase,
@@ -86,7 +86,7 @@ tresult PLUGIN_API PlugController::initialize(FUnknown *context)
   parameters.addParameter(USTRING("Osc2SyncType"), nullptr, 3, param.osc2SyncType,
     Vst::ParameterInfo::kCanAutomate, ParameterID::osc2SyncType, Vst::kRootUnitId,
     USTRING("Osc2SyncType"));
-  parameters.addParameter(USTRING("Osc2PTROrder"), nullptr, 11, param.osc2PTROrder / 11.0,
+  parameters.addParameter(USTRING("Osc2PTROrder"), nullptr, 16, param.osc2PTROrder / 16.0,
     Vst::ParameterInfo::kCanAutomate, ParameterID::osc2PTROrder, Vst::kRootUnitId,
     USTRING("Osc2PTROrder"));
   parameters.addParameter(USTRING("Osc2Phase"), nullptr, 0, param.osc2Phase,
@@ -246,7 +246,7 @@ tresult PLUGIN_API PlugController::setComponentState(IBStream *state)
   setParamNormalized(ParameterID::osc1Cent, param.osc1Cent);
   setParamNormalized(ParameterID::osc1Sync, param.osc1Sync);
   setParamNormalized(ParameterID::osc1SyncType, param.osc1SyncType / 3.0);
-  setParamNormalized(ParameterID::osc1PTROrder, param.osc1PTROrder / 11.0);
+  setParamNormalized(ParameterID::osc1PTROrder, param.osc1PTROrder / 16.0);
   setParamNormalized(ParameterID::osc1Phase, param.osc1Phase);
   setParamNormalized(ParameterID::osc1PhaseLock, param.osc1PhaseLock);
 
@@ -255,7 +255,7 @@ tresult PLUGIN_API PlugController::setComponentState(IBStream *state)
   setParamNormalized(ParameterID::osc2Cent, param.osc2Cent);
   setParamNormalized(ParameterID::osc2Sync, param.osc2Sync);
   setParamNormalized(ParameterID::osc2SyncType, param.osc2SyncType / 3.0);
-  setParamNormalized(ParameterID::osc2PTROrder, param.osc2PTROrder / 11.0);
+  setParamNormalized(ParameterID::osc2PTROrder, param.osc2PTROrder / 16.0);
   setParamNormalized(ParameterID::osc2Phase, param.osc2Phase);
   setParamNormalized(ParameterID::osc2PhaseLock, param.osc2PhaseLock);
   setParamNormalized(ParameterID::osc2Invert, param.osc2Invert);
