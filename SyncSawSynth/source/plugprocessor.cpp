@@ -253,6 +253,10 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
           dsp.param.modLFOToSync2 = value;
           break;
 
+        case ParameterID::pitchBend:
+          dsp.param.pitchBend = value;
+          break;
+
           // Add parameter here.
       }
     }

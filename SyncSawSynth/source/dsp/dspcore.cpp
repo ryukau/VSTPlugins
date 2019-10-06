@@ -30,11 +30,12 @@ inline float midiNoteToFrequency(float pitch, float tuning)
   return 440.0f * powf(2.0f, ((pitch - 69.0f) * 100.0f + tuning) / 1200.0f);
 }
 
-float paramToPitch(float paramSemi, float paramCent)
+float paramToPitch(float paramSemi, float paramCent, float paramPitchBend)
 {
   const auto semi = GlobalParameter::scaleSemi.map(paramSemi);
   const auto cent = GlobalParameter::scaleCent.map(paramCent);
-  return powf(2.0f, (100.0f * floorf(semi) + cent) / 1200.0f);
+  const auto bend = (paramPitchBend - 0.5f) * 400.0f;
+  return powf(2.0f, (100.0f * floorf(semi) + cent + bend) / 1200.0f);
 }
 
 inline float tuneFixedFreq(float value, float mod)
@@ -259,12 +260,12 @@ void DSPCore::setParameters(double tempo)
   interpMasterGain.push(GlobalParameter::scaleGain.map(param.gain));
 
   interpOsc1Gain.push(GlobalParameter::scaleOscGain.map(param.osc1Gain));
-  interpOsc1Pitch.push(paramToPitch(param.osc1Semi, param.osc1Cent));
+  interpOsc1Pitch.push(paramToPitch(param.osc1Semi, param.osc1Cent, param.pitchBend));
   interpOsc1Sync.push(GlobalParameter::scaleSync.map(param.osc1Sync));
 
   interpOsc2Gain.push((param.osc2Invert ? -1.0f : 1.0f)
     * GlobalParameter::scaleOscGain.map(param.osc2Gain));
-  interpOsc2Pitch.push(paramToPitch(param.osc2Semi, param.osc2Cent));
+  interpOsc2Pitch.push(paramToPitch(param.osc2Semi, param.osc2Cent, param.pitchBend));
   interpOsc2Sync.push(GlobalParameter::scaleSync.map(param.osc2Sync));
 
   interpFMOsc1ToSync1.push(GlobalParameter::scaleFMToSync.map(param.fmOsc1ToSync1));
@@ -371,6 +372,8 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
     const float masterGain = interpMasterGain.process();
     out0[i] = masterGain * sample;
     out1[i] = masterGain * sample;
+    // out0[i] = param.pitchBend;
+    // out1[i] = param.pitchBend;
   }
 }
 

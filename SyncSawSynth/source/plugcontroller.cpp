@@ -227,6 +227,10 @@ tresult PLUGIN_API PlugController::initialize(FUnknown *context)
     USTRING("LFO to Sync2"), ParameterID::modLFOToSync2, GlobalParameter::scaleModToSync,
     param.modLFOToSync2, nullptr, Vst::ParameterInfo::kCanAutomate, Vst::kRootUnitId));
 
+  parameters.addParameter(USTRING("PitchBend"), nullptr, 0, param.pitchBend,
+    Vst::ParameterInfo::kCanAutomate, ParameterID::pitchBend, Vst::kRootUnitId,
+    USTRING("PitchBend"));
+
   // Add parameter here.
 
   return kResultOk;
@@ -300,6 +304,8 @@ tresult PLUGIN_API PlugController::setComponentState(IBStream *state)
   setParamNormalized(ParameterID::modLFOToFreq2, param.modLFOToFreq2);
   setParamNormalized(ParameterID::modLFOToSync2, param.modLFOToSync2);
 
+  setParamNormalized(ParameterID::pitchBend, param.pitchBend);
+
   // Add parameter here.
 
   return kResultOk;
@@ -312,6 +318,10 @@ tresult PLUGIN_API PlugController::getMidiControllerAssignment(
     case Vst::kCtrlExpression:
     case Vst::kCtrlVolume:
       id = ParameterID::gain;
+      return kResultOk;
+
+    case Vst::kPitchBend:
+      id = ParameterID::pitchBend;
       return kResultOk;
   }
   return kResultFalse;

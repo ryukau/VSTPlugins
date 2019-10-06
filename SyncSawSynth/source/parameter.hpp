@@ -89,6 +89,8 @@ enum ParameterID : Vst::ParamID {
   modLFOToSync1,
   modLFOToFreq2,
   modLFOToSync2,
+
+  pitchBend,
 };
 
 struct GlobalParameter {
@@ -152,6 +154,8 @@ struct GlobalParameter {
   Vst::ParamValue modLFOToSync1 = 0.0;
   Vst::ParamValue modLFOToFreq2 = 0.0;
   Vst::ParamValue modLFOToSync2 = 0.0;
+
+  Vst::ParamValue pitchBend = 0.5;
 
   static LogScale<Vst::ParamValue> scaleOscGain;
   static LinearScale<Vst::ParamValue> scaleSemi;
@@ -246,6 +250,8 @@ struct GlobalParameter {
     if (!s.readDouble(modLFOToFreq2)) return kResultFalse;
     if (!s.readDouble(modLFOToSync2)) return kResultFalse;
 
+    if (!s.readDouble(pitchBend)) return kResultFalse;
+
     // Add parameter here.
 
     return kResultOk;
@@ -315,6 +321,8 @@ struct GlobalParameter {
     if (!s.writeDouble(modLFOToSync1)) return kResultFalse;
     if (!s.writeDouble(modLFOToFreq2)) return kResultFalse;
     if (!s.writeDouble(modLFOToSync2)) return kResultFalse;
+
+    if (!s.writeDouble(pitchBend)) return kResultFalse;
 
     // Add parameter here.
 
