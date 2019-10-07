@@ -3,7 +3,7 @@
 
 <ruby>SyncSawSynth<rt>シンクソウシンセ</rt></ruby>は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。
 
-- [SyncSawSynth 0.1.0 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.0/SyncSawSynth0.1.0.zip) <img
+- [SyncSawSynth 0.1.1 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.1/SyncSawSynth0.1.1.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -263,6 +263,10 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))
 ノートの MIDI ノート番号によるフィードバックの変調。範囲は -1.0 から 1.0 。
 
 ## チェンジログ
+- 0.1.1
+  - ピッチベンドに対応。
+  - double 型の PTR を追加。
+  - 音量エンベロープをアタック中にリリースすると、リリースがサステインの大きさから始まるバグを修正。
 - 0.1.0
   - 初期リリース
 
