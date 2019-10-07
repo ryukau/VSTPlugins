@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with SyncSawSynth.  If not, see <https://www.gnu.org/licenses/>.
 
+#include <xmmintrin.h>
+
 #include "dspcore.hpp"
 
 namespace Steinberg {
@@ -372,8 +374,6 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
     const float masterGain = interpMasterGain.process();
     out0[i] = masterGain * sample;
     out1[i] = masterGain * sample;
-    // out0[i] = param.pitchBend;
-    // out1[i] = param.pitchBend;
   }
 }
 
