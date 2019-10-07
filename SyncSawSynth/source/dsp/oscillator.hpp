@@ -139,7 +139,7 @@ public:
       }
     }
     ptr();
-    if (!isfinite(lastSig)) lastSig = 0.0;
+    if (!std::isfinite(lastSig)) lastSig = 0.0;
     return lastSig;
   }
 
