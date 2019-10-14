@@ -243,7 +243,9 @@ void DSPCore::setup(double sampleRate)
   LinearSmoother<float>::setSampleRate(sampleRate);
   LinearSmoother<float>::setTime(0.04f);
 
-  for (auto &note : notes) note = std::make_unique<Note<float>>(sampleRate);
+  for (auto &note : notes) {
+    for (auto &nt : note) nt = std::make_unique<Note<float>>(sampleRate);
+  }
 
   // 2 msec + 1 sample transition time.
   transitionBuffer.resize(1 + int(sampleRate * 0.005), 0.0);
@@ -310,12 +312,17 @@ void DSPCore::setParameters(double tempo)
 
 void DSPCore::process(const size_t length, float *out0, float *out1)
 {
-  for (size_t j = 0; j < notes.size(); ++j) {
-    if (notes[j]->state == NoteState::rest) continue;
-    notes[j]->gainEnvelope.set(GlobalParameter::scaleEnvelopeA.map(param.gainA),
-      GlobalParameter::scaleEnvelopeD.map(param.gainD),
-      GlobalParameter::scaleEnvelopeS.map(param.gainS),
-      GlobalParameter::scaleEnvelopeR.map(param.gainR));
+  const float gainA = GlobalParameter::scaleEnvelopeA.map(param.gainA);
+  const float gainD = GlobalParameter::scaleEnvelopeD.map(param.gainD);
+  const float gainS = GlobalParameter::scaleEnvelopeS.map(param.gainS);
+  const float gainR = GlobalParameter::scaleEnvelopeR.map(param.gainR);
+  for (auto &note : notes) {
+    if (note[0]->state == NoteState::rest) continue;
+    note[0]->gainEnvelope.set(gainA, gainD, gainS, gainR);
+    if (param.unison) {
+      if (note[1]->state == NoteState::rest) continue;
+      note[1]->gainEnvelope.set(gainA, gainD, gainS, gainR);
+    }
   }
 
   noteInfo.osc1SyncType = param.osc1SyncType;
@@ -359,9 +366,13 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
     noteInfo.filterKeyToFeedback = interpFilterKeyToFeedback.process();
 
     float sample = 0.0f;
-    for (size_t j = 0; j < notes.size(); ++j) {
-      if (notes[j]->state == NoteState::rest) continue;
-      sample += notes[j]->process(noteInfo);
+    for (auto &note : notes) {
+      if (note[0]->state == NoteState::rest) continue;
+      sample += note[0]->process(noteInfo);
+      if (param.unison) {
+        if (note[1]->state == NoteState::rest) continue;
+        sample += note[1]->process(noteInfo);
+      }
     }
 
     if (isTransitioning) {
@@ -383,10 +394,10 @@ void DSPCore::noteOn(int32_t noteId, int16 pitch, float tuning, float velocity)
   size_t mostSilent = 0;
   float gain = 1.0f;
   for (; i < notes.size(); ++i) {
-    if (notes[i]->id == noteId) break;
-    if (notes[i]->state == NoteState::rest) break;
-    if (!notes[i]->gainEnvelope.isAttacking() && notes[i]->gain < gain) {
-      gain = notes[i]->gain;
+    if (notes[i][0]->id == noteId) break;
+    if (notes[i][0]->state == NoteState::rest) break;
+    if (!notes[i][0]->gainEnvelope.isAttacking() && notes[i][0]->gain < gain) {
+      gain = notes[i][0]->gain;
       mostSilent = i;
     }
   }
@@ -432,31 +443,43 @@ void DSPCore::noteOn(int32_t noteId, int16 pitch, float tuning, float velocity)
     if (mptStop >= transitionBuffer.size()) mptStop += transitionBuffer.size();
 
     for (size_t j = 0; j < transitionBuffer.size(); ++j) {
-      if (notes[i]->state == NoteState::rest) {
+      if (notes[i][0]->state == NoteState::rest) {
         mptStop = mptIndex + j;
         if (mptStop >= transitionBuffer.size()) mptStop -= transitionBuffer.size();
         break;
       }
 
+      float sample = notes[i][0]->process(noteInfo);
+      if (param.unison && notes[i][1]->state != NoteState::rest) {
+        sample += notes[i][1]->process(noteInfo);
+      }
       transitionBuffer[(mptIndex + j) % transitionBuffer.size()]
-        += notes[i]->process(noteInfo)
-        * (0.5 + 0.5 * cosf(pi * (float)j / transitionBuffer.size()));
+        += sample * (0.5 + 0.5 * cosf(pi * (float)j / transitionBuffer.size()));
     }
   }
 
-  notes[i]->setup(
-    noteId, float(pitch) / 127.0f, midiNoteToFrequency(pitch, tuning), velocity, param);
+  const auto normalizedKey = float(pitch) / 127.0f;
+  const auto frequency = midiNoteToFrequency(pitch, tuning);
+  notes[i][0]->setup(noteId, normalizedKey, frequency, velocity, param);
+  if (param.unison) {
+    notes[i][1]->setup(noteId, normalizedKey, frequency, velocity, param);
+    notes[i][1]->saw1.addPhase(0.1777);
+    notes[i][1]->saw2.addPhase(0.6883f);
+  } else {
+    notes[i][1]->release();
+  }
 }
 
 void DSPCore::noteOff(int32_t noteId, int16 pitch)
 {
   size_t i = 0;
   for (; i < notes.size(); ++i) {
-    if (notes[i]->id == noteId) break;
+    if (notes[i][0]->id == noteId) break;
   }
   if (i >= notes.size()) return;
 
-  notes[i]->release();
+  notes[i][0]->release();
+  notes[i][1]->release();
 }
 
 } // namespace Synth

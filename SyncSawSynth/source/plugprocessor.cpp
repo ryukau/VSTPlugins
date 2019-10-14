@@ -257,6 +257,10 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
           dsp.param.pitchBend = value;
           break;
 
+        case ParameterID::unison:
+          dsp.param.unison = value > 0.5f;
+          break;
+
           // Add parameter here.
       }
     }

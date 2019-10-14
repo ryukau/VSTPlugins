@@ -91,6 +91,8 @@ enum ParameterID : Vst::ParamID {
   modLFOToSync2,
 
   pitchBend,
+
+  unison,
 };
 
 struct GlobalParameter {
@@ -156,6 +158,8 @@ struct GlobalParameter {
   Vst::ParamValue modLFOToSync2 = 0.0;
 
   Vst::ParamValue pitchBend = 0.5;
+
+  bool unison = false;
 
   static LogScale<Vst::ParamValue> scaleOscGain;
   static LinearScale<Vst::ParamValue> scaleSemi;
@@ -252,6 +256,8 @@ struct GlobalParameter {
 
     if (!s.readDouble(pitchBend)) return kResultFalse;
 
+    if (!s.readBool(unison)) return kResultFalse;
+
     // Add parameter here.
 
     return kResultOk;
@@ -323,6 +329,8 @@ struct GlobalParameter {
     if (!s.writeDouble(modLFOToSync2)) return kResultFalse;
 
     if (!s.writeDouble(pitchBend)) return kResultFalse;
+
+    if (!s.writeBool(unison)) return kResultFalse;
 
     // Add parameter here.
 

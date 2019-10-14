@@ -64,6 +64,8 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
     param.osc2Gain, param.osc2Semi, param.osc2Cent, param.osc2Sync, param.osc2Phase);
 
   const auto oscTop2 = 4.0 * labelY + 2.0 * knobY + 2.0 * knobHeight - margin;
+  addCheckbox(oscLeft2 - knobX / 2.0,
+    oscTop + labelY + (knobHeight - labelHeight) / 2.0 + margin, "Unison", ID::unison);
   addCheckbox(oscLeft2 + margin + knobX,
     oscTop2 + labelY + (knobHeight - labelHeight) / 2.0 - 10.0, "Invert", ID::osc2Invert);
 

@@ -168,7 +168,7 @@ protected:
   LinearSmoother<float> interpFilterKeyToCutoff;
   LinearSmoother<float> interpFilterKeyToFeedback;
 
-  std::array<std::unique_ptr<Note<float>>, 32> notes;
+  std::array<std::array<std::unique_ptr<Note<float>>, 2>, 32> notes;
 
   // Transition happens when synth is playing all notes and user send a new note on.
   // transitionBuffer is used to store a release of a note to reduce pop noise.

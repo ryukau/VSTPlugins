@@ -114,6 +114,9 @@ public:
         releaseRange = value * decayRange + sustain.getValue();
         break;
 
+      case State::terminated:
+        return;
+
       default:
         releaseRange = sustain.getValue();
         break;
@@ -229,6 +232,7 @@ public:
 
   void release()
   {
+    if (state == State::terminated) return;
     state = State::release;
     releaseRange = value;
   }

@@ -231,6 +231,10 @@ tresult PLUGIN_API PlugController::initialize(FUnknown *context)
     Vst::ParameterInfo::kCanAutomate, ParameterID::pitchBend, Vst::kRootUnitId,
     USTRING("PitchBend"));
 
+  parameters.addParameter(USTRING("Unison"), nullptr, 1, param.unison,
+    Vst::ParameterInfo::kCanAutomate, ParameterID::unison, Vst::kRootUnitId,
+    USTRING("Unison"));
+
   // Add parameter here.
 
   return kResultOk;
@@ -305,6 +309,8 @@ tresult PLUGIN_API PlugController::setComponentState(IBStream *state)
   setParamNormalized(ParameterID::modLFOToSync2, param.modLFOToSync2);
 
   setParamNormalized(ParameterID::pitchBend, param.pitchBend);
+
+  setParamNormalized(ParameterID::unison, param.unison);
 
   // Add parameter here.
 
