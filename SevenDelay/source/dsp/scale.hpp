@@ -24,20 +24,10 @@
 
 namespace SomeDSP {
 
-template<typename T> class BoolScale {
-public:
-  BoolScale() {}
-  bool map(T input) const { return input > T(0.5); }
-  bool reverseMap(T input) const { return input <= T(0.5); }
-  T invmap(bool input) const { return T(input); }
-  T getMin() { return T(false); }
-  T getMax() { return T(true); }
-};
-
 // If there are elements of 0, 1, 2, then max is 2.
-template<typename T> class IndexScale {
+template<typename T> class IntScale {
 public:
-  IndexScale(uint32_t max) : max(max) {}
+  IntScale(uint32_t max) : max(max) {}
   uint32_t map(T input) const { return uint32_t(std::min<T>(max, input * (max + 1))); }
   uint32_t reverseMap(T input) const { return map(T(1.0) - input); }
   T invmap(uint32_t input) const { return input / T(max); }

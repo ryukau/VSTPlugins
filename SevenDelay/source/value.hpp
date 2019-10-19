@@ -26,6 +26,8 @@
 #include "pluginterfaces/vst/vsttypes.h"
 #include "public.sdk/source/vst/vstparameters.h"
 
+#include "dsp/scale.hpp"
+
 namespace Steinberg {
 namespace Vst {
 
@@ -81,10 +83,12 @@ protected:
 } // namespace Vst
 
 struct ValueInterface {
-  virtual double getRaw() const = 0;
+  virtual double getFloat() const = 0;
+  virtual uint32_t getInt() const = 0;
   virtual double getNormalized() = 0;
   virtual double getDefaultNormalized() = 0;
-  virtual void setFromRaw(double value) = 0;
+  virtual void setFromInt(uint32_t value) = 0;
+  virtual void setFromFloat(double value) = 0;
   virtual void setFromNormalized(double value) = 0;
 
   virtual tresult setState(IBStreamer &streamer) = 0;
@@ -93,85 +97,146 @@ struct ValueInterface {
   virtual Vst::ParamID getId() = 0;
 };
 
-template<typename Scale, typename ValueType>
-struct InternalValue : public ValueInterface {
+struct IntValue : public ValueInterface {
   double defaultNormalized;
-  double raw;
-  Scale &scale;
+  uint32_t raw;
+  SomeDSP::IntScale<double> scale;
 
-  Vst::ParamID id;
   const char *name;
   const char *unit = nullptr;
   int32 parameterFlags;
+  Vst::ParamID id;
 
-  InternalValue(
+  IntValue(
     double defaultNormalized,
-    Scale &scale,
-    Vst::ParamID id,
+    uint32_t rawMax,
     const char *name,
-    int32 parameterFlags)
+    int32 parameterFlags,
+    Vst::ParamID id)
     : defaultNormalized(defaultNormalized)
-    , raw(scale.map(defaultNormalized))
-    , scale(scale)
+    , raw(defaultNormalized > 0.5)
+    , scale(rawMax)
     , id(id)
     , name(name)
     , parameterFlags(parameterFlags)
   {
   }
 
-  inline double getRaw() const override { return raw; }
+  inline uint32_t getInt() const override { return raw; }
+  inline double getFloat() const override { return raw; }
   double getNormalized() override { return scale.invmap(raw); }
   inline double getDefaultNormalized() override { return defaultNormalized; }
 
-  void setFromRaw(double value) override
+  void setFromInt(uint32_t value)
   {
-    value = value < scale.getMin() ? scale.getMin()
-                                   : value > scale.getMax() ? scale.getMax() : value;
-    raw = value;
+    raw = value < scale.getMin() ? scale.getMin()
+                                 : value > scale.getMax() ? scale.getMax() : value;
+  }
+
+  void setFromFloat(double valueFloat) override
+  {
+    uint32_t value = uint32_t(valueFloat);
+    raw = value < scale.getMin() ? scale.getMin()
+                                 : value > scale.getMax() ? scale.getMax() : value;
   }
 
   void setFromNormalized(double value) override
   {
-    value = value < 0.0 ? 0.0 : value > 1.0 ? 1.0 : value;
-    raw = scale.map(value);
+    raw = scale.map(value < 0.0 ? 0.0 : value > 1.0 ? 1.0 : value);
   }
 
   tresult setState(IBStreamer &streamer)
   {
-    if constexpr (std::is_same<double, ValueType>::value) {
-      double value;
-      if (!streamer.readDouble(value)) return kResultFalse;
-      setFromNormalized(value);
-    } else if constexpr (std::is_same<bool, ValueType>::value) {
-      bool value;
-      if (!streamer.readBool(value)) return kResultFalse;
-      setFromNormalized(value);
-    }
+    uint32 value;
+    if (!streamer.readInt32u(value)) return kResultFalse;
+    setFromInt(value);
     return kResultOk;
   }
 
   tresult getState(IBStreamer &streamer)
   {
-    if constexpr (std::is_same<double, ValueType>::value) {
-      if (!streamer.writeDouble(getNormalized())) return kResultFalse;
-    } else if constexpr (std::is_same<bool, ValueType>::value) {
-      if (!streamer.writeBool(getNormalized())) return kResultFalse;
-    }
+    if (!streamer.writeInt32u(raw)) return kResultFalse;
     return kResultOk;
   }
 
   tresult addParameter(Vst::ParameterContainer &parameters)
   {
-    if constexpr (std::is_same<double, ValueType>::value) {
-      auto par = parameters.addParameter(new Vst::ScaledParameter<Scale>(
-        USTRING(name), id, scale, defaultNormalized, USTRING(unit), parameterFlags));
-      if (par == nullptr) return kResultFalse;
-    } else if constexpr (std::is_same<bool, ValueType>::value) {
-      auto par = parameters.addParameter(
-        USTRING(name), USTRING(unit), 1, defaultNormalized, parameterFlags, id);
-      if (par == nullptr) return kResultFalse;
-    }
+    auto par = parameters.addParameter(
+      USTRING(name), USTRING(unit), scale.getMax(), defaultNormalized, parameterFlags,
+      id);
+    return par == nullptr ? kResultFalse : kResultOk;
+  }
+
+  Vst::ParamID getId() { return id; }
+};
+
+template<typename Scale> struct FloatValue : public ValueInterface {
+  double defaultNormalized;
+  double raw;
+  Scale &scale;
+
+  const char *name;
+  const char *unit = nullptr;
+  int32 parameterFlags;
+  Vst::ParamID id;
+
+  FloatValue(
+    double defaultNormalized,
+    Scale &scale,
+    const char *name,
+    int32 parameterFlags,
+    Vst::ParamID id)
+    : defaultNormalized(defaultNormalized)
+    , raw(scale.map(defaultNormalized))
+    , scale(scale)
+    , name(name)
+    , parameterFlags(parameterFlags)
+    , id(id)
+  {
+  }
+
+  inline uint32_t getInt() const override { return uint32_t(raw); }
+  inline double getFloat() const override { return raw; }
+  double getNormalized() override { return scale.invmap(raw); }
+  inline double getDefaultNormalized() override { return defaultNormalized; }
+
+  void setFromInt(uint32_t value)
+  {
+    raw = value < scale.getMin() ? scale.getMin()
+                                 : value > scale.getMax() ? scale.getMax() : value;
+  }
+
+  void setFromFloat(double value) override
+  {
+    raw = value < scale.getMin() ? scale.getMin()
+                                 : value > scale.getMax() ? scale.getMax() : value;
+  }
+
+  void setFromNormalized(double value) override
+  {
+    raw = scale.map(value < 0.0 ? 0.0 : value > 1.0 ? 1.0 : value);
+  }
+
+  tresult setState(IBStreamer &streamer)
+  {
+    double normalized;
+    if (!streamer.readDouble(normalized)) return kResultFalse;
+    setFromNormalized(normalized);
     return kResultOk;
+  }
+
+  tresult getState(IBStreamer &streamer)
+  {
+    if (!streamer.writeDouble(getNormalized())) return kResultFalse;
+    return kResultOk;
+  }
+
+  tresult addParameter(Vst::ParameterContainer &parameters)
+  {
+    auto par = parameters.addParameter(new Vst::ScaledParameter<Scale>(
+      USTRING(name), id, scale, defaultNormalized, USTRING(unit), parameterFlags));
+    if (par == nullptr) return kResultFalse;
+    return par == nullptr ? kResultFalse : kResultOk;
   }
 
   Vst::ParamID getId() { return id; }

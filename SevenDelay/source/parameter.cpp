@@ -30,7 +30,6 @@ namespace SevenDelay {
 
 using namespace SomeDSP;
 
-BoolScale<Vst::ParamValue> Scales::boolScale{};
 LinearScale<Vst::ParamValue> Scales::defaultScale(0.0, 1.0);
 
 LogScale<Vst::ParamValue> Scales::time(0.0001, maxDelayTime, 0.5, 1.0);

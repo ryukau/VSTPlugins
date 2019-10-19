@@ -106,7 +106,7 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   if (data.outputs[0].numChannels != 2) return kResultOk;
   if (data.symbolicSampleSize == Vst::kSample64) return kResultOk;
 
-  if (dsp.param.value[ParameterID::bypass]->getRaw() > 0.5) {
+  if (dsp.param.value[ParameterID::bypass]->getInt()) {
     processBypass(data);
   } else {
     float *in0 = data.inputs[0].channelBuffers32[0];
