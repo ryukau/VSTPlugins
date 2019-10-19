@@ -48,7 +48,8 @@ inline float tuneFixedFreq(float value, float mod)
 }
 
 template<typename Sample>
-void Note<Sample>::setup(int32_t noteId,
+void Note<Sample>::setup(
+  int32_t noteId,
   Sample normalizedKey,
   Sample frequency,
   Sample velocity,
@@ -72,19 +73,19 @@ void Note<Sample>::setup(int32_t noteId,
   switch (param.filterType) {
     default:
     case 0:
-      filter.setType(BiquadType::lowpass);
+      filter.type = BiquadType::lowpass;
       break;
 
     case 1:
-      filter.setType(BiquadType::highpass);
+      filter.type = BiquadType::highpass;
       break;
 
     case 2:
-      filter.setType(BiquadType::bandpass);
+      filter.type = BiquadType::bandpass;
       break;
 
     case 3:
-      filter.setType(BiquadType::notch);
+      filter.type = BiquadType::notch;
       break;
   }
   switch (param.filterShaper) {
@@ -106,15 +107,18 @@ void Note<Sample>::setup(int32_t noteId,
       break;
   }
 
-  gainEnvelope.reset(GlobalParameter::scaleEnvelopeA.map(param.gainA),
+  gainEnvelope.reset(
+    GlobalParameter::scaleEnvelopeA.map(param.gainA),
     GlobalParameter::scaleEnvelopeD.map(param.gainD),
     GlobalParameter::scaleEnvelopeS.map(param.gainS),
     GlobalParameter::scaleEnvelopeR.map(param.gainR));
-  filterEnvelope.reset(GlobalParameter::scaleEnvelopeA.map(param.filterA),
+  filterEnvelope.reset(
+    GlobalParameter::scaleEnvelopeA.map(param.filterA),
     GlobalParameter::scaleEnvelopeD.map(param.filterD),
     GlobalParameter::scaleEnvelopeS.map(param.filterS),
     GlobalParameter::scaleEnvelopeR.map(param.filterR));
-  modEnvelope.reset(GlobalParameter::scaleModEnvelopeA.map(param.modEnvelopeA),
+  modEnvelope.reset(
+    GlobalParameter::scaleModEnvelopeA.map(param.modEnvelopeA),
     GlobalParameter::scaleModEnvelopeCurve.map(param.modEnvelopeCurve));
 }
 
@@ -135,36 +139,38 @@ template<typename Sample> Sample Note<Sample>::process(NoteProcessInfo<Sample> &
   switch (info.osc1SyncType) {
     default:
     case 0: // Off
-      saw1.setOscFreq(frequency
-        * (1.0f + info.modEnvelopeToFreq1 * modEnv * modEnv
-          + info.modLFOToFreq1 * info.modLFO)
+      saw1.setOscFreq(
+        frequency
+        * (1.0f + info.modEnvelopeToFreq1 * modEnv * modEnv + info.modLFOToFreq1 * info.modLFO)
         * info.osc1Pitch);
       saw1.setSyncFreq(0.0f);
       break;
     case 1: { // Ratio
-      saw1.setOscFreq(frequency
-        * (1.0f + info.modEnvelopeToSync1 * modEnv * modEnv
-          + info.modLFOToSync1 * info.modLFO)
+      saw1.setOscFreq(
+        frequency
+        * (1.0f + info.modEnvelopeToSync1 * modEnv * modEnv + info.modLFOToSync1 * info.modLFO)
         * info.osc1Pitch * info.osc1Sync);
-      saw1.setSyncFreq(frequency
-        * (1.0f + info.modEnvelopeToFreq1 * modEnv * modEnv
-          + info.modLFOToFreq1 * info.modLFO)
+      saw1.setSyncFreq(
+        frequency
+        * (1.0f + info.modEnvelopeToFreq1 * modEnv * modEnv + info.modLFOToFreq1 * info.modLFO)
         * info.osc1Pitch);
     } break;
     case 2: // Fixed-Master
-      saw1.setOscFreq(frequency
-        * (1.0f + info.modEnvelopeToFreq1 * modEnv * modEnv
-          + info.modLFOToFreq1 * info.modLFO)
+      saw1.setOscFreq(
+        frequency
+        * (1.0f + info.modEnvelopeToFreq1 * modEnv * modEnv + info.modLFOToFreq1 * info.modLFO)
         * info.osc1Pitch);
-      saw1.setSyncFreq(tuneFixedFreq(info.osc1Sync,
+      saw1.setSyncFreq(tuneFixedFreq(
+        info.osc1Sync,
         info.modEnvelopeToSync1 + 0.5f + 0.5f * info.modEnvelopeToSync1 * info.modLFO));
       break;
     case 3: // Fixed-Slave
-      saw1.setOscFreq(tuneFixedFreq(info.osc1Sync,
+      saw1.setOscFreq(tuneFixedFreq(
+        info.osc1Sync,
         info.modEnvelopeToFreq1 + 0.5f + 0.5f * info.modEnvelopeToFreq1 * info.modLFO));
-      saw1.setSyncFreq(frequency
-        * (1.0f + info.modEnvelopeToSync1 * modEnv * modEnv
-          + info.modLFOToSync1 * info.modLFO)
+      saw1.setSyncFreq(
+        frequency
+        * (1.0f + info.modEnvelopeToSync1 * modEnv * modEnv + info.modLFOToSync1 * info.modLFO)
         * info.osc1Pitch);
       break;
   }
@@ -173,36 +179,38 @@ template<typename Sample> Sample Note<Sample>::process(NoteProcessInfo<Sample> &
   switch (info.osc2SyncType) {
     default:
     case 0: // Off
-      saw2.setOscFreq(frequency
-        * (1.0f + info.modEnvelopeToFreq2 * modEnv * modEnv
-          + info.modLFOToFreq2 * info.modLFO)
+      saw2.setOscFreq(
+        frequency
+        * (1.0f + info.modEnvelopeToFreq2 * modEnv * modEnv + info.modLFOToFreq2 * info.modLFO)
         * info.osc2Pitch);
       saw2.setSyncFreq(0.0f);
       break;
     case 1: // Ratio
-      saw2.setOscFreq(frequency
-        * (1.0f + info.modEnvelopeToSync2 * modEnv * modEnv
-          + info.modLFOToSync2 * info.modLFO)
+      saw2.setOscFreq(
+        frequency
+        * (1.0f + info.modEnvelopeToSync2 * modEnv * modEnv + info.modLFOToSync2 * info.modLFO)
         * info.osc2Pitch * info.osc2Sync);
-      saw2.setSyncFreq(frequency
-        * (1.0f + info.modEnvelopeToFreq2 * modEnv * modEnv
-          + info.modLFOToFreq2 * info.modLFO)
+      saw2.setSyncFreq(
+        frequency
+        * (1.0f + info.modEnvelopeToFreq2 * modEnv * modEnv + info.modLFOToFreq2 * info.modLFO)
         * info.osc2Pitch);
       break;
     case 2: // Fixed-Master
-      saw2.setOscFreq(frequency
-        * (1.0f + info.modEnvelopeToFreq2 * modEnv * modEnv
-          + info.modLFOToFreq2 * info.modLFO)
+      saw2.setOscFreq(
+        frequency
+        * (1.0f + info.modEnvelopeToFreq2 * modEnv * modEnv + info.modLFOToFreq2 * info.modLFO)
         * info.osc2Pitch);
-      saw2.setSyncFreq(tuneFixedFreq(info.osc2Sync,
+      saw2.setSyncFreq(tuneFixedFreq(
+        info.osc2Sync,
         info.modEnvelopeToSync2 + 0.5f + 0.5f * info.modEnvelopeToSync2 * info.modLFO));
       break;
     case 3: // Fixed-Slave
-      saw2.setOscFreq(tuneFixedFreq(info.osc2Sync,
+      saw2.setOscFreq(tuneFixedFreq(
+        info.osc2Sync,
         info.modEnvelopeToFreq2 + 0.5f + 0.5f * info.modEnvelopeToFreq2 * info.modLFO));
-      saw2.setSyncFreq(frequency
-        * (1.0f + info.modEnvelopeToSync2 * modEnv * modEnv
-          + info.modLFOToSync2 * info.modLFO)
+      saw2.setSyncFreq(
+        frequency
+        * (1.0f + info.modEnvelopeToSync2 * modEnv * modEnv + info.modLFOToSync2 * info.modLFO)
         * info.osc2Pitch);
       break;
   }
@@ -217,16 +225,18 @@ template<typename Sample> Sample Note<Sample>::process(NoteProcessInfo<Sample> &
   if (gainEnvelope.isTerminated()) rest();
   gain = velocity
     * (gainEnv
-      + info.gainEnvelopeCurve
-        * (tanhf(3.0f * info.gainEnvelopeCurve * gainEnv) - gainEnv));
+       + info.gainEnvelopeCurve
+         * (juce::dsp::FastMathApproximations::tanh<float>(3.0f * info.gainEnvelopeCurve * gainEnv) - gainEnv));
 
   if (bypassFilter) return gain * (info.osc1Gain * outSaw1 + info.osc2Gain * outSaw2);
 
   const auto filterEnv = filterEnvelope.process();
-  const auto cutoff = info.filterCutoff
-    * powf(2.0f,
-      8.0f
-        * (info.filterCutoffAmount * filterEnv + info.filterKeyToCutoff * normalizedKey));
+  const auto cutoff
+    = info.filterCutoff
+    * powf(
+        2.0f,
+        8.0f
+          * (info.filterCutoffAmount * filterEnv + info.filterKeyToCutoff * normalizedKey));
   const auto resonance
     = info.filterResonance + info.filterResonanceAmount * filterEnv * filterEnv;
   filter.setCutoffQ(clamp(cutoff, 20.0f, 20000.0f), clamp(resonance, 0.0f, 1.0f));
@@ -267,7 +277,8 @@ void DSPCore::setParameters(double tempo)
   interpOsc1Pitch.push(paramToPitch(param.osc1Semi, param.osc1Cent, param.pitchBend));
   interpOsc1Sync.push(GlobalParameter::scaleSync.map(param.osc1Sync));
 
-  interpOsc2Gain.push((param.osc2Invert ? -1.0f : 1.0f)
+  interpOsc2Gain.push(
+    (param.osc2Invert ? -1.0f : 1.0f)
     * GlobalParameter::scaleOscGain.map(param.osc2Gain));
   interpOsc2Pitch.push(paramToPitch(param.osc2Semi, param.osc2Cent, param.pitchBend));
   interpOsc2Sync.push(GlobalParameter::scaleSync.map(param.osc2Sync));
