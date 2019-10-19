@@ -47,27 +47,41 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   frame->registerMouseObserver(this);
   frame->open(parent);
 
-  using ID = Synth::ParameterID;
+  using ID = Synth::ParameterID::ID;
   Synth::GlobalParameter param;
 
   // Oscillators.
   const auto oscWidth = 2.0 * knobWidth + 4.0 * margin;
   const auto oscTop = 10.0;
   const auto oscLeft1 = 10.0;
-  addOscillatorSection("Osc1", oscLeft1, oscTop, ID::osc1Gain, ID::osc1Semi, ID::osc1Cent,
-    ID::osc1Sync, ID::osc1SyncType, ID::osc1PTROrder, ID::osc1Phase, ID::osc1PhaseLock,
-    param.osc1Gain, param.osc1Semi, param.osc1Cent, param.osc1Sync, param.osc1Phase);
+  addOscillatorSection(
+    "Osc1", oscLeft1, oscTop, ID::osc1Gain, ID::osc1Semi, ID::osc1Cent, ID::osc1Sync,
+    ID::osc1SyncType, ID::osc1PTROrder, ID::osc1Phase, ID::osc1PhaseLock,
+    param.value[ID::osc1Gain]->getDefaultNormalized(),
+    param.value[ID::osc1Semi]->getDefaultNormalized(),
+    param.value[ID::osc1Cent]->getDefaultNormalized(),
+    param.value[ID::osc1Sync]->getDefaultNormalized(),
+    param.value[ID::osc1Phase]->getDefaultNormalized());
 
   const auto oscLeft2 = oscLeft1 + oscWidth + 10.0;
-  addOscillatorSection("Osc2", oscLeft2, oscTop, ID::osc2Gain, ID::osc2Semi, ID::osc2Cent,
-    ID::osc2Sync, ID::osc2SyncType, ID::osc2PTROrder, ID::osc2Phase, ID::osc2PhaseLock,
-    param.osc2Gain, param.osc2Semi, param.osc2Cent, param.osc2Sync, param.osc2Phase);
+  addOscillatorSection(
+    "Osc2", oscLeft2, oscTop, ID::osc2Gain, ID::osc2Semi, ID::osc2Cent, ID::osc2Sync,
+    ID::osc2SyncType, ID::osc2PTROrder, ID::osc2Phase, ID::osc2PhaseLock,
+    param.value[ID::osc2Gain]->getDefaultNormalized(),
+    param.value[ID::osc2Semi]->getDefaultNormalized(),
+    param.value[ID::osc2Cent]->getDefaultNormalized(),
+    param.value[ID::osc2Sync]->getDefaultNormalized(),
+    param.value[ID::osc2Phase]->getDefaultNormalized());
+
+  std::vector<UTF8String> nVoiceOptions
+    = {"Mono", "2 Voices", "4 Voices", "8 Voices", "16 Voices", "32 Voices"};
+  addOptionMenu(oscLeft2 - knobX / 2.0, oscTop + labelY, 60.0, ID::nVoice, nVoiceOptions);
+  addCheckbox(oscLeft2 - knobX / 2.0, oscTop + 2.0 * labelY, "Unison", ID::unison);
 
   const auto oscTop2 = 4.0 * labelY + 2.0 * knobY + 2.0 * knobHeight - margin;
-  addCheckbox(oscLeft2 - knobX / 2.0,
-    oscTop + labelY + (knobHeight - labelHeight) / 2.0 + margin, "Unison", ID::unison);
-  addCheckbox(oscLeft2 + margin + knobX,
-    oscTop2 + labelY + (knobHeight - labelHeight) / 2.0 - 10.0, "Invert", ID::osc2Invert);
+  addCheckbox(
+    oscLeft2 + margin + knobX, oscTop2 + labelY + (knobHeight - labelHeight) / 2.0 - 10.0,
+    "Invert", ID::osc2Invert);
 
   // Cross modulation.
   const auto crossTop = oscTop2 + knobY;
@@ -76,12 +90,17 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
 
   const auto crossTop2 = crossTop + labelY;
   const auto crossKnobLeft = margin + crossLeft;
-  addKnob(crossKnobLeft, crossTop2, 1.5 * knobWidth, colorBlue, "Osc1->Sync1",
-    ID::fmOsc1ToSync1, param.fmOsc1ToSync1);
-  addKnob(crossKnobLeft + 1.5 * knobWidth + 10.0, crossTop2, 1.5 * knobWidth, colorBlue,
-    "Osc1->Freq2", ID::fmOsc1ToFreq2, param.fmOsc1ToFreq2);
-  addKnob(crossKnobLeft + 3.0 * knobWidth + 20.0, crossTop2, 1.5 * knobWidth, colorBlue,
-    "Osc2->Sync1", ID::fmOsc2ToSync1, param.fmOsc2ToSync1);
+  addKnob(
+    crossKnobLeft, crossTop2, 1.5 * knobWidth, colorBlue, "Osc1->Sync1",
+    ID::fmOsc1ToSync1, param.value[ID::fmOsc1ToSync1]->getDefaultNormalized());
+  addKnob(
+    crossKnobLeft + 1.5 * knobWidth + 10.0, crossTop2, 1.5 * knobWidth, colorBlue,
+    "Osc1->Freq2", ID::fmOsc1ToFreq2,
+    param.value[ID::fmOsc1ToFreq2]->getDefaultNormalized());
+  addKnob(
+    crossKnobLeft + 3.0 * knobWidth + 20.0, crossTop2, 1.5 * knobWidth, colorBlue,
+    "Osc2->Sync1", ID::fmOsc2ToSync1,
+    param.value[ID::fmOsc2ToSync1]->getDefaultNormalized());
 
   // Modulation envelope and LFO.
   const auto modTop = oscTop;
@@ -89,32 +108,44 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   addGroupLabel(modLeft, modTop, 6.0 * knobX, "Modulation");
 
   const auto modTop1 = modTop + labelY;
-  addKnob(modLeft, modTop1, knobWidth, colorBlue, "Attack", ID::modEnvelopeA,
-    param.modEnvelopeA);
-  addKnob(modLeft + 1.0 * knobX, modTop1, knobWidth, colorBlue, "Curve",
-    ID::modEnvelopeCurve, param.modEnvelopeCurve);
-  addKnob(modLeft + 2.0 * knobX, modTop1, knobWidth, colorBlue, "To Freq1",
-    ID::modEnvelopeToFreq1, param.modEnvelopeToFreq1);
-  addKnob(modLeft + 3.0 * knobX, modTop1, knobWidth, colorBlue, "To Sync1",
-    ID::modEnvelopeToSync1, param.modEnvelopeToSync1);
-  addKnob(modLeft + 4.0 * knobX, modTop1, knobWidth, colorBlue, "To Freq2",
-    ID::modEnvelopeToFreq2, param.modEnvelopeToFreq2);
-  addKnob(modLeft + 5.0 * knobX, modTop1, knobWidth, colorBlue, "To Sync2",
-    ID::modEnvelopeToSync2, param.modEnvelopeToSync2);
+  addKnob(
+    modLeft, modTop1, knobWidth, colorBlue, "Attack", ID::modEnvelopeA,
+    param.value[ID::modEnvelopeA]->getDefaultNormalized());
+  addKnob(
+    modLeft + 1.0 * knobX, modTop1, knobWidth, colorBlue, "Curve", ID::modEnvelopeCurve,
+    param.value[ID::modEnvelopeCurve]->getDefaultNormalized());
+  addKnob(
+    modLeft + 2.0 * knobX, modTop1, knobWidth, colorBlue, "To Freq1",
+    ID::modEnvelopeToFreq1, param.value[ID::modEnvelopeToFreq1]->getDefaultNormalized());
+  addKnob(
+    modLeft + 3.0 * knobX, modTop1, knobWidth, colorBlue, "To Sync1",
+    ID::modEnvelopeToSync1, param.value[ID::modEnvelopeToSync1]->getDefaultNormalized());
+  addKnob(
+    modLeft + 4.0 * knobX, modTop1, knobWidth, colorBlue, "To Freq2",
+    ID::modEnvelopeToFreq2, param.value[ID::modEnvelopeToFreq2]->getDefaultNormalized());
+  addKnob(
+    modLeft + 5.0 * knobX, modTop1, knobWidth, colorBlue, "To Sync2",
+    ID::modEnvelopeToSync2, param.value[ID::modEnvelopeToSync2]->getDefaultNormalized());
 
   const auto modTop2 = modTop1 + knobY;
-  addKnob(modLeft, modTop2, knobWidth, colorBlue, "LFO", ID::modLFOFrequency,
-    param.modLFOFrequency);
-  addKnob(modLeft + 1.0 * knobX, modTop2, knobWidth, colorBlue, "NoiseMix",
-    ID::modLFONoiseMix, param.modLFONoiseMix);
-  addKnob(modLeft + 2.0 * knobX, modTop2, knobWidth, colorBlue, "To Freq1",
-    ID::modLFOToFreq1, param.modLFOToFreq1);
-  addKnob(modLeft + 3.0 * knobX, modTop2, knobWidth, colorBlue, "To Sync1",
-    ID::modLFOToSync1, param.modLFOToSync1);
-  addKnob(modLeft + 4.0 * knobX, modTop2, knobWidth, colorBlue, "To Freq2",
-    ID::modLFOToFreq2, param.modLFOToFreq2);
-  addKnob(modLeft + 5.0 * knobX, modTop2, knobWidth, colorBlue, "To Sync2",
-    ID::modLFOToSync2, param.modLFOToSync2);
+  addKnob(
+    modLeft, modTop2, knobWidth, colorBlue, "LFO", ID::modLFOFrequency,
+    param.value[ID::modLFOFrequency]->getDefaultNormalized());
+  addKnob(
+    modLeft + 1.0 * knobX, modTop2, knobWidth, colorBlue, "NoiseMix", ID::modLFONoiseMix,
+    param.value[ID::modLFONoiseMix]->getDefaultNormalized());
+  addKnob(
+    modLeft + 2.0 * knobX, modTop2, knobWidth, colorBlue, "To Freq1", ID::modLFOToFreq1,
+    param.value[ID::modLFOToFreq1]->getDefaultNormalized());
+  addKnob(
+    modLeft + 3.0 * knobX, modTop2, knobWidth, colorBlue, "To Sync1", ID::modLFOToSync1,
+    param.value[ID::modLFOToSync1]->getDefaultNormalized());
+  addKnob(
+    modLeft + 4.0 * knobX, modTop2, knobWidth, colorBlue, "To Freq2", ID::modLFOToFreq2,
+    param.value[ID::modLFOToFreq2]->getDefaultNormalized());
+  addKnob(
+    modLeft + 5.0 * knobX, modTop2, knobWidth, colorBlue, "To Sync2", ID::modLFOToSync2,
+    param.value[ID::modLFOToSync2]->getDefaultNormalized());
 
   // Gain.
   const auto gainTop = modTop2 + knobY + margin;
@@ -122,17 +153,24 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   addGroupLabel(gainLeft, gainTop, 6.0 * knobX, "Gain");
 
   const auto gainKnobTop = gainTop + labelY;
-  addKnob(gainLeft, gainKnobTop, knobWidth, colorBlue, "Gain", ID::gain, param.gain);
-  addKnob(gainLeft + 1.0 * knobX, gainKnobTop, knobWidth, colorBlue, "A", ID::gainA,
-    param.gainA);
-  addKnob(gainLeft + 2.0 * knobX, gainKnobTop, knobWidth, colorBlue, "D", ID::gainD,
-    param.gainD);
-  addKnob(gainLeft + 3.0 * knobX, gainKnobTop, knobWidth, colorBlue, "S", ID::gainS,
-    param.gainS);
-  addKnob(gainLeft + 4.0 * knobX, gainKnobTop, knobWidth, colorBlue, "R", ID::gainR,
-    param.gainR);
-  addKnob(gainLeft + 5.0 * knobX, gainKnobTop, knobWidth, colorBlue, "Curve",
-    ID::gainEnvelopeCurve, param.gainEnvelopeCurve);
+  addKnob(
+    gainLeft, gainKnobTop, knobWidth, colorBlue, "Gain", ID::gain,
+    param.value[ID::gain]->getDefaultNormalized());
+  addKnob(
+    gainLeft + 1.0 * knobX, gainKnobTop, knobWidth, colorBlue, "A", ID::gainA,
+    param.value[ID::gainA]->getDefaultNormalized());
+  addKnob(
+    gainLeft + 2.0 * knobX, gainKnobTop, knobWidth, colorBlue, "D", ID::gainD,
+    param.value[ID::gainD]->getDefaultNormalized());
+  addKnob(
+    gainLeft + 3.0 * knobX, gainKnobTop, knobWidth, colorBlue, "S", ID::gainS,
+    param.value[ID::gainS]->getDefaultNormalized());
+  addKnob(
+    gainLeft + 4.0 * knobX, gainKnobTop, knobWidth, colorBlue, "R", ID::gainR,
+    param.value[ID::gainR]->getDefaultNormalized());
+  addKnob(
+    gainLeft + 5.0 * knobX, gainKnobTop, knobWidth, colorBlue, "Curve",
+    ID::gainEnvelopeCurve, param.value[ID::gainEnvelopeCurve]->getDefaultNormalized());
 
   // Filter.
   const auto filterTop = gainKnobTop + knobY + margin;
@@ -141,55 +179,75 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   addCheckbox(filterLeft + 4.0 * knobX, filterTop, "Dirty Buffer", ID::filterDirty);
 
   const auto filterTop1 = filterTop + labelY;
-  addKnob(filterLeft, filterTop1, knobWidth, colorBlue, "Cut", ID::filterCutoff,
-    param.filterCutoff);
-  addKnob(filterLeft + 1.0 * knobX, filterTop1, knobWidth, colorBlue, "Res",
-    ID::filterResonance, param.filterResonance);
-  addKnob(filterLeft + 2.0 * knobX, filterTop1, knobWidth, colorBlue, "Feed",
-    ID::filterFeedback, param.filterFeedback);
-  addKnob(filterLeft + 3.0 * knobX, filterTop1, knobWidth, colorBlue, "Sat",
-    ID::filterSaturation, param.filterSaturation);
+  addKnob(
+    filterLeft, filterTop1, knobWidth, colorBlue, "Cut", ID::filterCutoff,
+    param.value[ID::filterCutoff]->getDefaultNormalized());
+  addKnob(
+    filterLeft + 1.0 * knobX, filterTop1, knobWidth, colorBlue, "Res",
+    ID::filterResonance, param.value[ID::filterResonance]->getDefaultNormalized());
+  addKnob(
+    filterLeft + 2.0 * knobX, filterTop1, knobWidth, colorBlue, "Feed",
+    ID::filterFeedback, param.value[ID::filterFeedback]->getDefaultNormalized());
+  addKnob(
+    filterLeft + 3.0 * knobX, filterTop1, knobWidth, colorBlue, "Sat",
+    ID::filterSaturation, param.value[ID::filterSaturation]->getDefaultNormalized());
 
   const auto filterMenuWidth = 100.0;
   std::vector<UTF8String> filterTypeOptions = {"LP", "HP", "BP", "Notch", "Bypass"};
-  addOptionMenu(filterLeft + 4.0 * knobX, filterTop1, filterMenuWidth, ID::filterType,
+  addOptionMenu(
+    filterLeft + 4.0 * knobX, filterTop1, filterMenuWidth, ID::filterType,
     filterTypeOptions);
   std::vector<UTF8String> filterShaperOptions
     = {"HardClip", "Tanh", "ShaperA", "ShaperB"};
-  addOptionMenu(filterLeft + 4.0 * knobX, filterTop1 + labelY, filterMenuWidth,
-    ID::filterShaper, filterShaperOptions);
+  addOptionMenu(
+    filterLeft + 4.0 * knobX, filterTop1 + labelY, filterMenuWidth, ID::filterShaper,
+    filterShaperOptions);
 
   const auto filterTop2 = filterTop1 + knobY;
-  addKnob(filterLeft, filterTop2, knobWidth, colorBlue, "A", ID::filterA, param.filterA);
-  addKnob(filterLeft + 1.0 * knobX, filterTop2, knobWidth, colorBlue, "D", ID::filterD,
-    param.filterD);
-  addKnob(filterLeft + 2.0 * knobX, filterTop2, knobWidth, colorBlue, "S", ID::filterS,
-    param.filterS);
-  addKnob(filterLeft + 3.0 * knobX, filterTop2, knobWidth, colorBlue, "R", ID::filterR,
-    param.filterR);
-  addKnob(filterLeft + 4.0 * knobX, filterTop2, knobWidth, colorBlue, "To Cut",
-    ID::filterCutoffAmount, param.filterCutoffAmount);
-  addKnob(filterLeft + 5.0 * knobX, filterTop2, knobWidth, colorBlue, "To Res",
-    ID::filterResonanceAmount, param.filterResonanceAmount);
+  addKnob(
+    filterLeft, filterTop2, knobWidth, colorBlue, "A", ID::filterA,
+    param.value[ID::filterA]->getDefaultNormalized());
+  addKnob(
+    filterLeft + 1.0 * knobX, filterTop2, knobWidth, colorBlue, "D", ID::filterD,
+    param.value[ID::filterD]->getDefaultNormalized());
+  addKnob(
+    filterLeft + 2.0 * knobX, filterTop2, knobWidth, colorBlue, "S", ID::filterS,
+    param.value[ID::filterS]->getDefaultNormalized());
+  addKnob(
+    filterLeft + 3.0 * knobX, filterTop2, knobWidth, colorBlue, "R", ID::filterR,
+    param.value[ID::filterR]->getDefaultNormalized());
+  addKnob(
+    filterLeft + 4.0 * knobX, filterTop2, knobWidth, colorBlue, "To Cut",
+    ID::filterCutoffAmount, param.value[ID::filterCutoffAmount]->getDefaultNormalized());
+  addKnob(
+    filterLeft + 5.0 * knobX, filterTop2, knobWidth, colorBlue, "To Res",
+    ID::filterResonanceAmount,
+    param.value[ID::filterResonanceAmount]->getDefaultNormalized());
 
   const auto filterTop3 = filterTop2 + knobY;
-  addKnob(filterLeft, filterTop3, knobWidth, colorBlue, "Key->Cut", ID::filterKeyToCutoff,
-    param.filterKeyToCutoff);
-  addKnob(filterLeft + 1.0 * knobX, filterTop3, knobWidth, colorBlue, "Key->Feed",
-    ID::filterKeyToFeedback, param.filterKeyToFeedback);
+  addKnob(
+    filterLeft, filterTop3, knobWidth, colorBlue, "Key->Cut", ID::filterKeyToCutoff,
+    param.value[ID::filterKeyToCutoff]->getDefaultNormalized());
+  addKnob(
+    filterLeft + 1.0 * knobX, filterTop3, knobWidth, colorBlue, "Key->Feed",
+    ID::filterKeyToFeedback,
+    param.value[ID::filterKeyToFeedback]->getDefaultNormalized());
 
   // Plugin name.
   const auto splashTop = filterTop2 + knobY + 2.0 * margin;
   const auto splashLeft = modLeft + 2.0 * knobX;
-  addSplashScreen(CRect(splashLeft + 0.25 * knobX, splashTop, splashLeft + 3.75 * knobX,
-                    splashTop + 40.0),
-    CRect(viewRect.left + 20.0, viewRect.top + 20.0, viewRect.right - 20.0,
+  addSplashScreen(
+    CRect(
+      splashLeft + 0.25 * knobX, splashTop, splashLeft + 3.75 * knobX, splashTop + 40.0),
+    CRect(
+      viewRect.left + 20.0, viewRect.top + 20.0, viewRect.right - 20.0,
       viewRect.bottom - 20.0));
 
   return true;
 }
 
-void PlugEditor::addOscillatorSection(UTF8String label,
+void PlugEditor::addOscillatorSection(
+  UTF8String label,
   double left,
   double top,
   ParamID tagGain,
@@ -220,8 +278,9 @@ void PlugEditor::addOscillatorSection(UTF8String label,
   auto oscTop3 = oscTop2 + knobY;
   auto syncKnobSize = 2.0 * knobHeight;
   auto oscMenuWidth = 2.0 * knobX;
-  addKnob(left + (oscMenuWidth - syncKnobSize) / 2.0, oscTop3, syncKnobSize, colorBlue,
-    "Sync", tagSync, defaultSync);
+  addKnob(
+    left + (oscMenuWidth - syncKnobSize) / 2.0, oscTop3, syncKnobSize, colorBlue, "Sync",
+    tagSync, defaultSync);
 
   auto oscTop4 = oscTop3 + syncKnobSize + labelY - 10.0;
   std::vector<UTF8String> syncOptions = {"Off", "Ratio", "Fixed-Master", "Fixed-Slave"};
@@ -229,9 +288,11 @@ void PlugEditor::addOscillatorSection(UTF8String label,
 
   auto oscTop5 = oscTop4 + labelY - margin;
   std::vector<UTF8String> ptrOrderOptions
-    = {"Order 0", "Order 1", "Order 2", "Order 3", "Order 4", "Order 5", "Order 6",
-      "Order 7", "Order 8", "Order 9", "Order 10", "Sin", "Order 6 double",
-      "Order 7 double", "Order 8 double", "Order 9 double", "Order 10 double"};
+    = {"Order 0",        "Order 1",        "Order 2",        "Order 3",
+       "Order 4",        "Order 5",        "Order 6",        "Order 7",
+       "Order 8",        "Order 9",        "Order 10",       "Sin",
+       "Order 6 double", "Order 7 double", "Order 8 double", "Order 9 double",
+       "Order 10 double"};
   addOptionMenu(left, oscTop5, oscMenuWidth, tagPTROrder, ptrOrderOptions);
 
   auto oscTop6 = oscTop5 + labelY;
@@ -255,8 +316,8 @@ void PlugEditor::valueChanged(CControl *pControl)
   controller->performEdit(tag, value);
 }
 
-CMouseEventResult PlugEditor::onMouseDown(
-  CFrame *frame, const CPoint &where, const CButtonState &buttons)
+CMouseEventResult
+PlugEditor::onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &buttons)
 {
   if (!buttons.isRightButton()) return kMouseEventNotHandled;
 
@@ -322,7 +383,8 @@ void PlugEditor::addSplashScreen(CRect buttonRect, CRect splashRect)
   frame->addView(splash);
 }
 
-void PlugEditor::addVSlider(CCoord left,
+void PlugEditor::addVSlider(
+  CCoord left,
   CCoord top,
   CColor valueColor,
   UTF8String name,
@@ -340,7 +402,8 @@ void PlugEditor::addVSlider(CCoord left,
     CRect(left, top, right, bottom), this, tag, top, bottom, nullptr, nullptr);
   slider->setSliderMode(CSliderMode::FreeClick);
   slider->setStyle(CSlider::kBottom | CSlider::kVertical);
-  slider->setDrawStyle(CSlider::kDrawBack | CSlider::kDrawFrame | CSlider::kDrawValue
+  slider->setDrawStyle(
+    CSlider::kDrawBack | CSlider::kDrawFrame | CSlider::kDrawValue
     | (drawFromCenter ? CSlider::kDrawValueFromCenter | CSlider::kDrawInverted : 0));
   slider->setBackColor(colorWhite);
   slider->setValueColor(valueColor);
@@ -405,7 +468,8 @@ void PlugEditor::addCheckbox(
   frame->addView(checkbox);
 }
 
-void PlugEditor::addOptionMenu(CCoord left,
+void PlugEditor::addOptionMenu(
+  CCoord left,
   CCoord top,
   CCoord width,
   ParamID tag,
@@ -414,7 +478,8 @@ void PlugEditor::addOptionMenu(CCoord left,
   auto right = left + width;
   auto bottom = top + 20.0;
 
-  auto menu = new OptionMenu(CRect(left, top, right, bottom), this, tag, nullptr, nullptr,
+  auto menu = new OptionMenu(
+    CRect(left, top, right, bottom), this, tag, nullptr, nullptr,
     COptionMenu::kCheckStyle);
   for (const auto &item : items) menu->addEntry(item);
   menu->setFont(new CFontDesc(Style::fontName(), fontSize, CTxtFace::kNormalFace));
@@ -427,7 +492,8 @@ void PlugEditor::addOptionMenu(CCoord left,
   frame->addView(menu);
 }
 
-void PlugEditor::addKnob(CCoord left,
+void PlugEditor::addKnob(
+  CCoord left,
   CCoord top,
   CCoord width,
   CColor highlightColor,

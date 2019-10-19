@@ -17,170 +17,206 @@
 
 #pragma once
 
+#include <algorithm>
+
 #include "constants.hpp"
 #include "somemath.hpp"
 
 namespace SomeDSP {
 
+// If there are elements of 0, 1, 2, then max is 2.
+template<typename T> class IntScale {
+public:
+  IntScale(uint32_t max) : max(max) {}
+  uint32_t map(T input) const { return uint32_t(std::min<T>(max, input * (max + 1))); }
+  uint32_t reverseMap(T input) const { return map(T(1.0) - input); }
+  T invmap(uint32_t input) const { return input / T(max); }
+  T getMin() { return T(0); }
+  T getMax() { return T(max); }
+
+protected:
+  const uint32_t max;
+};
+
 // Maps a value in [0, 1] to [min, max].
 // min < max.
-template<typename Sample> class LinearScale {
+template<typename T> class LinearScale {
 public:
-  LinearScale(Sample min, Sample max) { set(min, max); }
+  LinearScale(T min, T max) { set(min, max); }
 
-  void set(Sample min, Sample max)
+  void set(T min, T max)
   {
     this->min = min;
     this->max = max;
     scale = (max - min);
   }
 
-  Sample map(Sample input) const
+  T map(T input) const
   {
-    Sample value = input * scale + min;
+    T value = input * scale + min;
     if (value < min) return min;
     if (value > max) return max;
     return value;
   }
 
-  Sample invmap(Sample input) const
+  T reverseMap(T input) const { return map(T(1.0) - input); }
+
+  T invmap(T input) const
   {
-    Sample value = (input - min) / scale;
-    if (value < 0.0) return 0.0;
-    if (value > 1.0) return 1.0;
+    T value = (input - min) / scale;
+    if (value < T(0.0)) return T(0.0);
+    if (value > T(1.0)) return T(1.0);
     return value;
   }
 
+  T getMin() { return min; }
+  T getMax() { return max; }
+
 protected:
-  Sample scale;
-  Sample min;
-  Sample max;
+  T scale;
+  T min;
+  T max;
 };
 
 // min < max. power > 0.
-template<typename Sample> class SPolyScale {
+template<typename T> class SPolyScale {
 public:
-  SPolyScale(Sample min, Sample max, Sample power = 2.0) { set(min, max, power); }
+  SPolyScale(T min, T max, T power = T(2.0)) { set(min, max, power); }
 
-  void set(Sample min, Sample max, Sample power)
+  void set(T min, T max, T power)
   {
     this->min = min;
     this->max = max;
     this->power = power;
-    powerInv = 1.0 / power;
+    powerInv = T(1.0) / power;
     scale = (max - min);
   }
 
-  Sample map(Sample input) const
+  T map(T input) const
   {
-    if (input < 0.0) return min;
-    if (input > 1) return max;
-    Sample value = input <= 0.5 ? 0.5 * somepow<Sample>(2.0 * input, power)
-                                : 1.0 - 0.5 * somepow<Sample>(2.0 - 2.0 * input, power);
+    if (input < T(0.0)) return min;
+    if (input > T(1.0)) return max;
+    T value = input <= T(0.5)
+      ? T(0.5) * somepow<T>(T(2.0) * input, power)
+      : T(1.0) - T(0.5) * somepow<T>(T(2.0) - T(2.0) * input, power);
     return value * scale + min;
   }
 
-  Sample invmap(Sample input) const
+  T reverseMap(T input) const { return map(T(1.0) - input); }
+
+  T invmap(T input) const
   {
-    if (input < min) return 0.0;
-    if (input > max) return 1.0;
-    Sample value = (input - min) / scale;
-    return input <= 0.5 ? 0.5 * somepow<Sample>(2.0 * value, powerInv)
-                        : 1.0 - 0.5 * somepow<Sample>(2.0 - 2.0 * value, powerInv);
+    if (input < min) return T(0.0);
+    if (input > max) return T(1.0);
+    T value = (input - min) / scale;
+    return input <= T(0.5)
+      ? T(0.5) * somepow<T>(T(2.0) * value, powerInv)
+      : T(1.0) - T(0.5) * somepow<T>(T(2.0) - T(2.0) * value, powerInv);
   }
 
+  T getMin() { return min; }
+  T getMax() { return max; }
+
 protected:
-  Sample scale;
-  Sample min;
-  Sample max;
-  Sample power;
-  Sample powerInv;
+  T scale;
+  T min;
+  T max;
+  T power;
+  T powerInv;
 };
 
 // Based on superellipse. min < max. power > 0.
-template<typename Sample> class EllipticScale {
+template<typename T> class EllipticScale {
 public:
-  EllipticScale(Sample min, Sample max, Sample power = 2) { set(min, max, power); }
+  EllipticScale(T min, T max, T power = T(2.0)) { set(min, max, power); }
 
-  void set(Sample min, Sample max, Sample power)
+  void set(T min, T max, T power)
   {
     this->min = min;
     this->max = max;
     this->power = power;
-    powerInv = 1.0 / power;
+    powerInv = T(1.0) / power;
     scale = (max - min);
   }
 
-  Sample map(Sample value) const
+  T map(T value) const
   {
-    if (value < 0.0) return min;
-    if (value > 1) return max;
-    value = value <= 0.5
-      ? 0.5 * (1.0 - somepow<Sample>(somecos<Sample>(value * pi), power))
-      : 0.5 + 0.5 * somepow<Sample>(somecos<Sample>((1.0 - value) * pi), power);
+    if (value < T(0.0)) return min;
+    if (value > T(1.0)) return max;
+    value = value <= T(0.5)
+      ? T(0.5) * (T(1.0) - somepow<T>(somecos<T>(value * T(pi)), power))
+      : T(0.5) + T(0.5) * somepow<T>(somecos<T>((T(1.0) - value) * T(pi)), power);
     return value * scale + min;
   }
 
-  Sample invmap(Sample value) const
+  T reverseMap(T input) const { return map(T(T(1.0)) - input); }
+
+  T invmap(T value) const
   {
-    if (value < min) return 0.0;
-    if (value > max) return 1.0;
+    if (value < min) return T(0.0);
+    if (value > max) return T(1.0);
     value = (value - min) / scale;
-    return value <= 0.5
-      ? someacos<Sample>(somepow<Sample>(1.0 - value * 2.0, powerInv)) / pi
-      : 1.0 - someacos<Sample>(somepow<Sample>(2.0 * value - 1.0, powerInv)) / pi;
+    return value <= T(0.5)
+      ? someacos<T>(somepow<T>(T(1.0) - value * T(2.0), powerInv)) / T(pi)
+      : T(1.0) - someacos<T>(somepow<T>(T(2.0) * value - T(1.0), powerInv)) / T(pi);
   }
 
+  T getMin() { return min; }
+  T getMax() { return max; }
+
 protected:
-  Sample scale;
-  Sample min;
-  Sample max;
-  Sample power;
-  Sample powerInv;
+  T scale;
+  T min;
+  T max;
+  T power;
+  T powerInv;
 };
 
 // map(inValue) == outValue.
 // min < max, inValue > 0, outValue > min.
-template<typename Sample> class LogScale {
+template<typename T> class LogScale {
 public:
-  LogScale(Sample min, Sample max, Sample inValue = 0.5, Sample outValue = 0.1)
+  LogScale(T min, T max, T inValue = T(0.5), T outValue = T(0.1))
   {
     set(min, max, inValue, outValue);
   }
 
-  void set(Sample min, Sample max, Sample inValue, Sample outValue)
+  void set(T min, T max, T inValue, T outValue)
   {
     this->min = min;
     this->max = max;
     scale = max - min;
-    expo = somelog<Sample>((outValue - min) / scale) / somelog<Sample>(inValue);
-    expoInv = 1.0 / expo;
+    expo = somelog<T>((outValue - min) / scale) / somelog<T>(inValue);
+    expoInv = T(1.0) / expo;
   }
 
-  Sample map(Sample input) const
+  T map(T input) const
   {
-    Sample value = somepow<Sample>(input, expo) * scale + min;
-    if (value < min) return min;
-    if (value > max) return max;
+    if (input < T(0.0)) return min;
+    if (input > T(1.0)) return max;
+    T value = pow(input, expo) * scale + min;
     return value;
   }
 
-  Sample reverseMap(Sample input) const { return map(1.0 - input); }
+  T reverseMap(T input) const { return map(T(1.0) - input); }
 
-  Sample invmap(Sample input) const
+  T invmap(T input) const
   {
-    Sample value = somepow<Sample>((input - min) / scale, expoInv);
-    if (value < 0.0) return 0.0;
-    if (value > 1.0) return 1.0;
+    if (input < min) return T(0.0);
+    if (input > max) return T(1.0);
+    T value = pow((input - min) / scale, expoInv);
     return value;
   }
+
+  T getMin() { return min; }
+  T getMax() { return max; }
 
 protected:
-  Sample scale;
-  Sample expo;
-  Sample expoInv;
-  Sample min;
-  Sample max;
+  T scale;
+  T expo;
+  T expoInv;
+  T min;
+  T max;
 };
 
 } // namespace SomeDSP

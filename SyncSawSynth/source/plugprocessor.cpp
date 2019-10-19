@@ -44,7 +44,8 @@ tresult PLUGIN_API PlugProcessor::initialize(FUnknown *context)
   return result;
 }
 
-tresult PLUGIN_API PlugProcessor::setBusArrangements(Vst::SpeakerArrangement *inputs,
+tresult PLUGIN_API PlugProcessor::setBusArrangements(
+  Vst::SpeakerArrangement *inputs,
   int32 numIns,
   Vst::SpeakerArrangement *outputs,
   int32 numOuts)
@@ -83,199 +84,21 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
       int32 sampleOffset;
       if (queue->getPoint(queue->getPointCount() - 1, sampleOffset, value) != kResultTrue)
         continue;
-      switch (queue->getParameterId()) {
-        case ParameterID::bypass:
-          dsp.param.bypass = value > 0.5f;
-          break;
-
-        case ParameterID::osc1Gain:
-          dsp.param.osc1Gain = value;
-          break;
-        case ParameterID::osc1Semi:
-          dsp.param.osc1Semi = value;
-          break;
-        case ParameterID::osc1Cent:
-          dsp.param.osc1Cent = value;
-          break;
-        case ParameterID::osc1Sync:
-          dsp.param.osc1Sync = value;
-          break;
-        case ParameterID::osc1SyncType:
-          dsp.param.osc1SyncType = toDiscrete(value, 3.0);
-          break;
-        case ParameterID::osc1PTROrder:
-          dsp.param.osc1PTROrder = toDiscrete(value, 16.0);
-          break;
-        case ParameterID::osc1Phase:
-          dsp.param.osc1Phase = value;
-          break;
-        case ParameterID::osc1PhaseLock:
-          dsp.param.osc1PhaseLock = value > 0.5f;
-          break;
-
-        case ParameterID::osc2Gain:
-          dsp.param.osc2Gain = value;
-          break;
-        case ParameterID::osc2Semi:
-          dsp.param.osc2Semi = value;
-          break;
-        case ParameterID::osc2Cent:
-          dsp.param.osc2Cent = value;
-          break;
-        case ParameterID::osc2Sync:
-          dsp.param.osc2Sync = value;
-          break;
-        case ParameterID::osc2SyncType:
-          dsp.param.osc2SyncType = toDiscrete(value, 3.0);
-          break;
-        case ParameterID::osc2PTROrder:
-          dsp.param.osc2PTROrder = toDiscrete(value, 16.0);
-          break;
-        case ParameterID::osc2Phase:
-          dsp.param.osc2Phase = value;
-          break;
-        case ParameterID::osc2PhaseLock:
-          dsp.param.osc2PhaseLock = value > 0.5f;
-          break;
-        case ParameterID::osc2Invert:
-          dsp.param.osc2Invert = value > 0.5f;
-          break;
-
-        case ParameterID::fmOsc1ToSync1:
-          dsp.param.fmOsc1ToSync1 = value;
-          break;
-        case ParameterID::fmOsc1ToFreq2:
-          dsp.param.fmOsc1ToFreq2 = value;
-          break;
-        case ParameterID::fmOsc2ToSync1:
-          dsp.param.fmOsc2ToSync1 = value;
-          break;
-
-        case ParameterID::gain:
-          dsp.param.gain = value;
-          break;
-        case ParameterID::gainA:
-          dsp.param.gainA = value;
-          break;
-        case ParameterID::gainD:
-          dsp.param.gainD = value;
-          break;
-        case ParameterID::gainS:
-          dsp.param.gainS = value;
-          break;
-        case ParameterID::gainR:
-          dsp.param.gainR = value;
-          break;
-        case ParameterID::gainEnvelopeCurve:
-          dsp.param.gainEnvelopeCurve = value;
-          break;
-
-        case ParameterID::filterCutoff:
-          dsp.param.filterCutoff = value;
-          break;
-        case ParameterID::filterResonance:
-          dsp.param.filterResonance = value;
-          break;
-        case ParameterID::filterFeedback:
-          dsp.param.filterFeedback = value;
-          break;
-        case ParameterID::filterSaturation:
-          dsp.param.filterSaturation = value;
-          break;
-        case ParameterID::filterDirty:
-          dsp.param.filterDirty = value > 0.5f;
-          break;
-        case ParameterID::filterType:
-          dsp.param.filterType = toDiscrete(value, 4.0);
-          break;
-        case ParameterID::filterShaper:
-          dsp.param.filterShaper = toDiscrete(value, 3.0);
-          break;
-        case ParameterID::filterA:
-          dsp.param.filterA = value;
-          break;
-        case ParameterID::filterD:
-          dsp.param.filterD = value;
-          break;
-        case ParameterID::filterS:
-          dsp.param.filterS = value;
-          break;
-        case ParameterID::filterR:
-          dsp.param.filterR = value;
-          break;
-        case ParameterID::filterCutoffAmount:
-          dsp.param.filterCutoffAmount = value;
-          break;
-        case ParameterID::filterResonanceAmount:
-          dsp.param.filterResonanceAmount = value;
-          break;
-        case ParameterID::filterKeyToCutoff:
-          dsp.param.filterKeyToCutoff = value;
-          break;
-        case ParameterID::filterKeyToFeedback:
-          dsp.param.filterKeyToFeedback = value;
-          break;
-
-        case ParameterID::modEnvelopeA:
-          dsp.param.modEnvelopeA = value;
-          break;
-        case ParameterID::modEnvelopeCurve:
-          dsp.param.modEnvelopeCurve = value;
-          break;
-        case ParameterID::modEnvelopeToFreq1:
-          dsp.param.modEnvelopeToFreq1 = value;
-          break;
-        case ParameterID::modEnvelopeToSync1:
-          dsp.param.modEnvelopeToSync1 = value;
-          break;
-        case ParameterID::modEnvelopeToFreq2:
-          dsp.param.modEnvelopeToFreq2 = value;
-          break;
-        case ParameterID::modEnvelopeToSync2:
-          dsp.param.modEnvelopeToSync2 = value;
-          break;
-        case ParameterID::modLFOFrequency:
-          dsp.param.modLFOFrequency = value;
-          break;
-        case ParameterID::modLFONoiseMix:
-          dsp.param.modLFONoiseMix = value;
-          break;
-        case ParameterID::modLFOToFreq1:
-          dsp.param.modLFOToFreq1 = value;
-          break;
-        case ParameterID::modLFOToSync1:
-          dsp.param.modLFOToSync1 = value;
-          break;
-        case ParameterID::modLFOToFreq2:
-          dsp.param.modLFOToFreq2 = value;
-          break;
-        case ParameterID::modLFOToSync2:
-          dsp.param.modLFOToSync2 = value;
-          break;
-
-        case ParameterID::pitchBend:
-          dsp.param.pitchBend = value;
-          break;
-
-        case ParameterID::unison:
-          dsp.param.unison = value > 0.5f;
-          break;
-
-          // Add parameter here.
-      }
+      dsp.param.value[queue->getParameterId()]->setFromNormalized(value);
     }
   }
 
   if (data.processContext == nullptr) return kResultOk;
 
   uint64_t state = data.processContext->state;
-  if ((lastState & Vst::ProcessContext::kPlaying) == 0
+  if (
+    (lastState & Vst::ProcessContext::kPlaying) == 0
     && (state & Vst::ProcessContext::kPlaying) != 0) {
     dsp.startup();
   }
   lastState = state;
 
-  dsp.setParameters(data.processContext->tempo);
+  dsp.setParameters();
 
   if (data.numOutputs == 0) return kResultOk;
   if (data.numSamples <= 0) return kResultOk;
@@ -288,19 +111,20 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
     if (data.inputEvents->getEvent(index, event) != kResultOk) continue;
     switch (event.type) {
       case Vst::Event::kNoteOnEvent:
-        dsp.noteOn(event.noteOn.noteId, event.noteOn.pitch, event.noteOn.tuning,
+        dsp.noteOn(
+          event.noteOn.noteId, event.noteOn.pitch, event.noteOn.tuning,
           event.noteOn.velocity);
         break;
 
       case Vst::Event::kNoteOffEvent:
-        dsp.noteOff(event.noteOff.noteId, event.noteOff.pitch);
+        dsp.noteOff(event.noteOff.noteId);
         break;
 
         // Add other event type here.
     }
   }
 
-  if (dsp.param.bypass) {
+  if (dsp.param.value[ParameterID::bypass]->getInt()) {
     processBypass(data);
   } else {
     float *out0 = data.outputs[0].channelBuffers32[0];

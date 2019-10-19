@@ -15,12 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with SyncSawSynth.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <xmmintrin.h>
-
 #include "dspcore.hpp"
-
-namespace Steinberg {
-namespace Synth {
+#include <iostream>
 
 inline float clamp(float value, float min, float max)
 {
@@ -32,12 +28,9 @@ inline float midiNoteToFrequency(float pitch, float tuning)
   return 440.0f * powf(2.0f, ((pitch - 69.0f) * 100.0f + tuning) / 1200.0f);
 }
 
-float paramToPitch(float paramSemi, float paramCent, float paramPitchBend)
+float paramToPitch(float semi, float cent, float bend)
 {
-  const auto semi = GlobalParameter::scaleSemi.map(paramSemi);
-  const auto cent = GlobalParameter::scaleCent.map(paramCent);
-  const auto bend = (paramPitchBend - 0.5f) * 400.0f;
-  return powf(2.0f, (100.0f * floorf(semi) + cent + bend) / 1200.0f);
+  return powf(2.0f, (100.0f * floorf(semi) + cent + (bend - 0.5f) * 400.0f) / 1200.0f);
 }
 
 inline float tuneFixedFreq(float value, float mod)
@@ -53,7 +46,7 @@ void Note<Sample>::setup(
   Sample normalizedKey,
   Sample frequency,
   Sample velocity,
-  GlobalParameter &param)
+  Steinberg::Synth::GlobalParameter &param)
 {
   state = NoteState::active;
   id = noteId;
@@ -61,69 +54,74 @@ void Note<Sample>::setup(
   this->frequency = frequency;
   this->velocity = velocity;
 
-  if (param.osc1PhaseLock) saw1.setPhase(param.osc1Phase);
-  if (param.osc2PhaseLock) saw2.setPhase(param.osc2Phase);
+  if (param.value[ParameterID::osc1PhaseLock]->getInt())
+    saw1.setPhase(param.value[ParameterID::osc1Phase]->getFloat());
+  if (param.value[ParameterID::osc2PhaseLock]->getInt())
+    saw2.setPhase(param.value[ParameterID::osc2Phase]->getFloat());
 
-  if (!param.filterDirty) {
+  if (!param.value[ParameterID::filterDirty]->getInt()) {
     oscBuffer.fill(0.0f);
     filter.clear();
   }
 
-  bypassFilter = param.filterType == 4;
-  switch (param.filterType) {
-    default:
-    case 0:
-      filter.type = BiquadType::lowpass;
-      break;
+  bypassFilter = param.value[ParameterID::filterType]->getInt() == 4;
+  if (!bypassFilter) {
+    switch (param.value[ParameterID::filterType]->getInt()) {
+      default:
+      case 0:
+        filter.type = BiquadType::lowpass;
+        break;
 
-    case 1:
-      filter.type = BiquadType::highpass;
-      break;
+      case 1:
+        filter.type = BiquadType::highpass;
+        break;
 
-    case 2:
-      filter.type = BiquadType::bandpass;
-      break;
+      case 2:
+        filter.type = BiquadType::bandpass;
+        break;
 
-    case 3:
-      filter.type = BiquadType::notch;
-      break;
-  }
-  switch (param.filterShaper) {
-    default:
-    case 0:
-      filter.shaper = ShaperType::hardclip;
-      break;
+      case 3:
+        filter.type = BiquadType::notch;
+        break;
+    }
+    switch (param.value[ParameterID::filterShaper]->getInt()) {
+      default:
+      case 0:
+        filter.shaper = ShaperType::hardclip;
+        break;
 
-    case 1:
-      filter.shaper = ShaperType::tanh;
-      break;
+      case 1:
+        filter.shaper = ShaperType::tanh;
+        break;
 
-    case 2:
-      filter.shaper = ShaperType::sinRunge;
-      break;
+      case 2:
+        filter.shaper = ShaperType::sinRunge;
+        break;
 
-    case 3:
-      filter.shaper = ShaperType::cubicExpDecayAbs;
-      break;
+      case 3:
+        filter.shaper = ShaperType::cubicExpDecayAbs;
+        break;
+    }
   }
 
   gainEnvelope.reset(
-    GlobalParameter::scaleEnvelopeA.map(param.gainA),
-    GlobalParameter::scaleEnvelopeD.map(param.gainD),
-    GlobalParameter::scaleEnvelopeS.map(param.gainS),
-    GlobalParameter::scaleEnvelopeR.map(param.gainR));
+    param.value[ParameterID::gainA]->getFloat(),
+    param.value[ParameterID::gainD]->getFloat(),
+    param.value[ParameterID::gainS]->getFloat(),
+    param.value[ParameterID::gainR]->getFloat());
   filterEnvelope.reset(
-    GlobalParameter::scaleEnvelopeA.map(param.filterA),
-    GlobalParameter::scaleEnvelopeD.map(param.filterD),
-    GlobalParameter::scaleEnvelopeS.map(param.filterS),
-    GlobalParameter::scaleEnvelopeR.map(param.filterR));
+    param.value[ParameterID::filterA]->getFloat(),
+    param.value[ParameterID::filterD]->getFloat(),
+    param.value[ParameterID::filterS]->getFloat(),
+    param.value[ParameterID::filterR]->getFloat());
   modEnvelope.reset(
-    GlobalParameter::scaleModEnvelopeA.map(param.modEnvelopeA),
-    GlobalParameter::scaleModEnvelopeCurve.map(param.modEnvelopeCurve));
+    param.value[ParameterID::modEnvelopeA]->getFloat(),
+    param.value[ParameterID::modEnvelopeCurve]->getFloat());
 }
 
 template<typename Sample> void Note<Sample>::release()
 {
+  if (state == NoteState::rest) return;
   state = NoteState::release;
   gainEnvelope.release();
   filterEnvelope.release();
@@ -133,6 +131,8 @@ template<typename Sample> void Note<Sample>::rest() { state = NoteState::rest; }
 
 template<typename Sample> Sample Note<Sample>::process(NoteProcessInfo<Sample> &info)
 {
+  if (state == NoteState::rest) return 0;
+
   const float modEnv = modEnvelope.process();
 
   saw1.setOrder(info.osc1PTROrder);
@@ -215,9 +215,10 @@ template<typename Sample> Sample Note<Sample>::process(NoteProcessInfo<Sample> &
       break;
   }
 
-  const auto outSaw1 = saw1.process(
-    0.0f, info.fmOsc1ToSync1 * oscBuffer[0] + info.fmOsc2ToSync1 * oscBuffer[1]);
-  const auto outSaw2 = saw2.process(info.fmOsc1ToFreq2 * oscBuffer[0], 0.0f);
+  auto toSync1 = info.fmOsc1ToSync1 * oscBuffer[0] + info.fmOsc2ToSync1 * oscBuffer[1];
+  auto outSaw1 = saw1.process(0.0f, toSync1);
+  auto toFreq2 = info.fmOsc1ToFreq2 * oscBuffer[0];
+  auto outSaw2 = saw2.process(toFreq2, 0.0f);
   oscBuffer[0] = outSaw1;
   oscBuffer[1] = outSaw2;
 
@@ -226,20 +227,18 @@ template<typename Sample> Sample Note<Sample>::process(NoteProcessInfo<Sample> &
   gain = velocity
     * (gainEnv
        + info.gainEnvelopeCurve
-         * (juce::dsp::FastMathApproximations::tanh<float>(3.0f * info.gainEnvelopeCurve * gainEnv) - gainEnv));
+         * (juce::dsp::FastMathApproximations::tanh(3.0f * info.gainEnvelopeCurve * gainEnv) - gainEnv));
 
   if (bypassFilter) return gain * (info.osc1Gain * outSaw1 + info.osc2Gain * outSaw2);
 
-  const auto filterEnv = filterEnvelope.process();
-  const auto cutoff
-    = info.filterCutoff
-    * powf(
+  filterEnv = filterEnvelope.process();
+  filter.setCutoffQ(
+    info.filterCutoff
+      * powf(
         2.0f,
-        8.0f
-          * (info.filterCutoffAmount * filterEnv + info.filterKeyToCutoff * normalizedKey));
-  const auto resonance
-    = info.filterResonance + info.filterResonanceAmount * filterEnv * filterEnv;
-  filter.setCutoffQ(clamp(cutoff, 20.0f, 20000.0f), clamp(resonance, 0.0f, 1.0f));
+        8.0f * info.filterCutoffAmount * filterEnv
+          + info.filterKeyToCutoff * normalizedKey),
+    info.filterResonance + info.filterResonanceAmount * filterEnv * filterEnv);
   filter.feedback = clamp(
     info.filterFeedback + 2.0f * info.filterKeyToFeedback * normalizedKey, 0.0f, 1.0f);
   filter.saturation = info.filterSaturation;
@@ -265,81 +264,116 @@ void DSPCore::setup(double sampleRate)
 
 void DSPCore::free() {}
 
-void DSPCore::reset() { startup(); }
+void DSPCore::reset()
+{
+  for (auto &note : notes) {
+    for (auto &nt : note) nt->rest();
+  }
+  startup();
+}
 
 void DSPCore::startup() { lfoPhase = 0.0f; }
 
-void DSPCore::setParameters(double tempo)
+void DSPCore::setParameters()
 {
-  interpMasterGain.push(GlobalParameter::scaleGain.map(param.gain));
+  interpMasterGain.push(param.value[ParameterID::gain]->getFloat());
 
-  interpOsc1Gain.push(GlobalParameter::scaleOscGain.map(param.osc1Gain));
-  interpOsc1Pitch.push(paramToPitch(param.osc1Semi, param.osc1Cent, param.pitchBend));
-  interpOsc1Sync.push(GlobalParameter::scaleSync.map(param.osc1Sync));
+  interpOsc1Gain.push(param.value[ParameterID::osc1Gain]->getFloat());
+  interpOsc1Pitch.push(paramToPitch(
+    param.value[ParameterID::osc1Semi]->getFloat(),
+    param.value[ParameterID::osc1Cent]->getFloat(),
+    param.value[ParameterID::pitchBend]->getFloat()));
+  interpOsc1Sync.push(param.value[ParameterID::osc1Sync]->getFloat());
 
   interpOsc2Gain.push(
-    (param.osc2Invert ? -1.0f : 1.0f)
-    * GlobalParameter::scaleOscGain.map(param.osc2Gain));
-  interpOsc2Pitch.push(paramToPitch(param.osc2Semi, param.osc2Cent, param.pitchBend));
-  interpOsc2Sync.push(GlobalParameter::scaleSync.map(param.osc2Sync));
+    (param.value[ParameterID::osc2Invert]->getInt() ? -1.0f : 1.0f)
+    * param.value[ParameterID::osc2Gain]->getFloat());
+  interpOsc2Pitch.push(paramToPitch(
+    param.value[ParameterID::osc2Semi]->getFloat(),
+    param.value[ParameterID::osc2Cent]->getFloat(),
+    param.value[ParameterID::pitchBend]->getFloat()));
+  interpOsc2Sync.push(param.value[ParameterID::osc2Sync]->getFloat());
 
-  interpFMOsc1ToSync1.push(GlobalParameter::scaleFMToSync.map(param.fmOsc1ToSync1));
-  interpFMOsc1ToFreq2.push(GlobalParameter::scaleFMToFreq.map(param.fmOsc1ToFreq2));
-  interpFMOsc2ToSync1.push(GlobalParameter::scaleFMToSync.map(param.fmOsc2ToSync1));
+  interpFMOsc1ToSync1.push(param.value[ParameterID::fmOsc1ToSync1]->getFloat());
+  interpFMOsc1ToFreq2.push(param.value[ParameterID::fmOsc1ToFreq2]->getFloat());
+  interpFMOsc2ToSync1.push(param.value[ParameterID::fmOsc2ToSync1]->getFloat());
 
-  interpModEnvelopeToFreq1.push(
-    GlobalParameter::scaleModToFreq.map(param.modEnvelopeToFreq1));
-  interpModEnvelopeToSync1.push(
-    GlobalParameter::scaleModToSync.map(param.modEnvelopeToSync1));
-  interpModEnvelopeToFreq2.push(
-    GlobalParameter::scaleModToFreq.map(param.modEnvelopeToFreq2));
-  interpModEnvelopeToSync2.push(
-    GlobalParameter::scaleModToSync.map(param.modEnvelopeToSync2));
-  interpModLFOFrequency.push(
-    GlobalParameter::scaleModLFOFrequency.map(param.modLFOFrequency));
-  interpModLFONoiseMix.push(param.modLFONoiseMix);
-  interpModLFOToFreq1.push(GlobalParameter::scaleModToFreq.map(param.modLFOToFreq1));
-  interpModLFOToSync1.push(GlobalParameter::scaleModToSync.map(param.modLFOToSync1));
-  interpModLFOToFreq2.push(GlobalParameter::scaleModToFreq.map(param.modLFOToFreq2));
-  interpModLFOToSync2.push(GlobalParameter::scaleModToSync.map(param.modLFOToSync2));
+  interpModEnvelopeToFreq1.push(param.value[ParameterID::modEnvelopeToFreq1]->getFloat());
+  interpModEnvelopeToSync1.push(param.value[ParameterID::modEnvelopeToSync1]->getFloat());
+  interpModEnvelopeToFreq2.push(param.value[ParameterID::modEnvelopeToFreq2]->getFloat());
+  interpModEnvelopeToSync2.push(param.value[ParameterID::modEnvelopeToSync2]->getFloat());
+  interpModLFOFrequency.push(param.value[ParameterID::modLFOFrequency]->getFloat());
+  interpModLFONoiseMix.push(param.value[ParameterID::modLFONoiseMix]->getFloat());
+  interpModLFOToFreq1.push(param.value[ParameterID::modLFOToFreq1]->getFloat());
+  interpModLFOToSync1.push(param.value[ParameterID::modLFOToSync1]->getFloat());
+  interpModLFOToFreq2.push(param.value[ParameterID::modLFOToFreq2]->getFloat());
+  interpModLFOToSync2.push(param.value[ParameterID::modLFOToSync2]->getFloat());
 
-  interpGainEnvelopeCurve.push(param.gainEnvelopeCurve);
+  interpGainEnvelopeCurve.push(param.value[ParameterID::gainEnvelopeCurve]->getFloat());
 
-  interpFilterCutoff.push(GlobalParameter::scaleFilterCutoff.map(param.filterCutoff));
-  interpFilterResonance.push(
-    GlobalParameter::scaleFilterResonance.map(param.filterResonance));
-  interpFilterFeedback.push(
-    GlobalParameter::scaleFilterFeedback.map(param.filterFeedback));
-  interpFilterSaturation.push(
-    GlobalParameter::scaleFilterSaturation.map(param.filterSaturation));
-  interpFilterCutoffAmount.push(
-    GlobalParameter::scaleFilterCutoffAmount.map(param.filterCutoffAmount));
-  interpFilterResonanceAmount.push(param.filterResonanceAmount);
-  interpFilterKeyToCutoff.push(
-    GlobalParameter::scaleFilterKeyMod.map(param.filterKeyToCutoff));
+  interpFilterCutoff.push(param.value[ParameterID::filterCutoff]->getFloat());
+  interpFilterResonance.push(param.value[ParameterID::filterResonance]->getFloat());
+  interpFilterFeedback.push(param.value[ParameterID::filterFeedback]->getFloat());
+  interpFilterSaturation.push(param.value[ParameterID::filterSaturation]->getFloat());
+  interpFilterCutoffAmount.push(param.value[ParameterID::filterCutoffAmount]->getFloat());
+  interpFilterResonanceAmount.push(
+    param.value[ParameterID::filterResonanceAmount]->getFloat());
+  interpFilterKeyToCutoff.push(param.value[ParameterID::filterKeyToCutoff]->getFloat());
   interpFilterKeyToFeedback.push(
-    GlobalParameter::scaleFilterKeyMod.map(param.filterKeyToFeedback));
+    param.value[ParameterID::filterKeyToFeedback]->getFloat());
+
+  switch (param.value[ParameterID::nVoice]->getInt()) {
+    case 0:
+      nVoice = 1;
+      break;
+
+    case 1:
+      nVoice = 2;
+      break;
+
+    case 2:
+      nVoice = 4;
+      break;
+
+    case 3:
+      nVoice = 8;
+      break;
+
+    case 4:
+      nVoice = 16;
+      break;
+
+    default:
+    case 5:
+      nVoice = 32;
+      break;
+  }
 }
 
 void DSPCore::process(const size_t length, float *out0, float *out1)
 {
-  const float gainA = GlobalParameter::scaleEnvelopeA.map(param.gainA);
-  const float gainD = GlobalParameter::scaleEnvelopeD.map(param.gainD);
-  const float gainS = GlobalParameter::scaleEnvelopeS.map(param.gainS);
-  const float gainR = GlobalParameter::scaleEnvelopeR.map(param.gainR);
+  bool unison = param.value[ParameterID::unison]->getFloat();
   for (auto &note : notes) {
     if (note[0]->state == NoteState::rest) continue;
-    note[0]->gainEnvelope.set(gainA, gainD, gainS, gainR);
-    if (param.unison) {
+    note[0]->gainEnvelope.set(
+      param.value[ParameterID::gainA]->getFloat(),
+      param.value[ParameterID::gainD]->getFloat(),
+      param.value[ParameterID::gainS]->getFloat(),
+      param.value[ParameterID::gainR]->getFloat());
+    if (unison) {
       if (note[1]->state == NoteState::rest) continue;
-      note[1]->gainEnvelope.set(gainA, gainD, gainS, gainR);
+      note[1]->gainEnvelope.set(
+        param.value[ParameterID::gainA]->getFloat(),
+        param.value[ParameterID::gainD]->getFloat(),
+        param.value[ParameterID::gainS]->getFloat(),
+        param.value[ParameterID::gainR]->getFloat());
     }
   }
 
-  noteInfo.osc1SyncType = param.osc1SyncType;
-  noteInfo.osc1PTROrder = param.osc1PTROrder;
-  noteInfo.osc2SyncType = param.osc2SyncType;
-  noteInfo.osc2PTROrder = param.osc2PTROrder;
+  noteInfo.osc1SyncType = param.value[ParameterID::osc1SyncType]->getInt();
+  noteInfo.osc1PTROrder = param.value[ParameterID::osc1PTROrder]->getInt();
+  noteInfo.osc2SyncType = param.value[ParameterID::osc2SyncType]->getInt();
+  noteInfo.osc2PTROrder = param.value[ParameterID::osc2PTROrder]->getInt();
   for (size_t i = 0; i < length; ++i) {
     noteInfo.osc1Gain = interpOsc1Gain.process();
     noteInfo.osc1Pitch = interpOsc1Pitch.process();
@@ -358,6 +392,7 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
     lfoPhase += 2.0 * float(pi) * interpModLFOFrequency.process() / sampleRate;
     if (lfoPhase >= float(pi)) lfoPhase -= float(pi);
     lfoValue = sinf(lfoPhase);
+    // lfoValue = (lfoValue + 1.0f) * 0.5f;
     const float noiseSig = clamp(noise.process(), -1.0f, 1.0f) / 16.0f;
     noteInfo.modLFO = clamp(
       lfoValue + interpModLFONoiseMix.process() * (noiseSig - lfoValue), -1.0f, 1.0f);
@@ -380,7 +415,7 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
     for (auto &note : notes) {
       if (note[0]->state == NoteState::rest) continue;
       sample += note[0]->process(noteInfo);
-      if (param.unison) {
+      if (unison) {
         if (note[1]->state == NoteState::rest) continue;
         sample += note[1]->process(noteInfo);
       }
@@ -399,12 +434,12 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
   }
 }
 
-void DSPCore::noteOn(int32_t noteId, int16 pitch, float tuning, float velocity)
+void DSPCore::noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity)
 {
   size_t i = 0;
   size_t mostSilent = 0;
   float gain = 1.0f;
-  for (; i < notes.size(); ++i) {
+  for (; i < nVoice; ++i) {
     if (notes[i][0]->id == noteId) break;
     if (notes[i][0]->state == NoteState::rest) break;
     if (!notes[i][0]->gainEnvelope.isAttacking() && notes[i][0]->gain < gain) {
@@ -412,7 +447,7 @@ void DSPCore::noteOn(int32_t noteId, int16 pitch, float tuning, float velocity)
       mostSilent = i;
     }
   }
-  if (i >= notes.size()) {
+  if (i >= nVoice) {
     isTransitioning = true;
 
     i = mostSilent;
@@ -420,13 +455,13 @@ void DSPCore::noteOn(int32_t noteId, int16 pitch, float tuning, float velocity)
     noteInfo.osc1Gain = interpOsc1Gain.getValue();
     noteInfo.osc1Pitch = interpOsc1Pitch.getValue();
     noteInfo.osc1Sync = interpOsc1Sync.getValue();
-    noteInfo.osc1SyncType = param.osc1SyncType;
-    noteInfo.osc1PTROrder = param.osc1PTROrder;
+    noteInfo.osc1SyncType = param.value[ParameterID::osc1SyncType]->getInt();
+    noteInfo.osc1PTROrder = param.value[ParameterID::osc1PTROrder]->getInt();
     noteInfo.osc2Gain = interpOsc2Gain.getValue();
     noteInfo.osc2Pitch = interpOsc2Pitch.getValue();
     noteInfo.osc2Sync = interpOsc2Sync.getValue();
-    noteInfo.osc2SyncType = param.osc2SyncType;
-    noteInfo.osc2PTROrder = param.osc2PTROrder;
+    noteInfo.osc2SyncType = param.value[ParameterID::osc2SyncType]->getInt();
+    noteInfo.osc2PTROrder = param.value[ParameterID::osc2PTROrder]->getInt();
     noteInfo.fmOsc1ToSync1 = interpFMOsc1ToSync1.getValue();
     noteInfo.fmOsc1ToFreq2 = interpFMOsc1ToFreq2.getValue();
     noteInfo.fmOsc2ToSync1 = interpFMOsc2ToSync1.getValue();
@@ -461,7 +496,9 @@ void DSPCore::noteOn(int32_t noteId, int16 pitch, float tuning, float velocity)
       }
 
       float sample = notes[i][0]->process(noteInfo);
-      if (param.unison && notes[i][1]->state != NoteState::rest) {
+      if (
+        param.value[ParameterID::unison]->getFloat()
+        && notes[i][1]->state != NoteState::rest) {
         sample += notes[i][1]->process(noteInfo);
       }
       transitionBuffer[(mptIndex + j) % transitionBuffer.size()]
@@ -469,10 +506,10 @@ void DSPCore::noteOn(int32_t noteId, int16 pitch, float tuning, float velocity)
     }
   }
 
-  const auto normalizedKey = float(pitch) / 127.0f;
-  const auto frequency = midiNoteToFrequency(pitch, tuning);
+  auto normalizedKey = float(pitch) / 127.0f;
+  auto frequency = midiNoteToFrequency(pitch, tuning);
   notes[i][0]->setup(noteId, normalizedKey, frequency, velocity, param);
-  if (param.unison) {
+  if (param.value[ParameterID::unison]->getFloat()) {
     notes[i][1]->setup(noteId, normalizedKey, frequency, velocity, param);
     notes[i][1]->saw1.addPhase(0.1777);
     notes[i][1]->saw2.addPhase(0.6883f);
@@ -481,7 +518,7 @@ void DSPCore::noteOn(int32_t noteId, int16 pitch, float tuning, float velocity)
   }
 }
 
-void DSPCore::noteOff(int32_t noteId, int16 pitch)
+void DSPCore::noteOff(int32_t noteId)
 {
   size_t i = 0;
   for (; i < notes.size(); ++i) {
@@ -492,6 +529,3 @@ void DSPCore::noteOff(int32_t noteId, int16 pitch)
   notes[i][0]->release();
   notes[i][1]->release();
 }
-
-} // namespace Synth
-} // namespace Steinberg

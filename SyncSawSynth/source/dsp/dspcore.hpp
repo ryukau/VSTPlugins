@@ -29,10 +29,8 @@
 #include <cmath>
 #include <memory>
 
-namespace Steinberg {
-namespace Synth {
-
 using namespace SomeDSP;
+using namespace Steinberg::Synth;
 
 template<typename Sample> struct NoteProcessInfo {
   Sample osc1Gain;
@@ -86,6 +84,8 @@ public:
   Sample frequency = 0.0;
   bool bypassFilter = false;
 
+  Sample filterEnv = 0.0;
+
   PTRSyncSaw<Sample> saw1;
   PTRSyncSaw<Sample> saw2;
   std::array<float, 2> oscBuffer = {0.0, 0.0};
@@ -119,18 +119,19 @@ public:
 
 class DSPCore {
 public:
+  static const size_t maxVoice = 32;
   GlobalParameter param;
 
   void setup(double sampleRate);
-  void free();                      // Release memory.
-  void reset();                     // Stop sounds.
-  void startup();                   // Reset phase, random seed etc.
-  void setParameters(double tempo); // tempo is beat per minutes.
+  void free();    // Release memory.
+  void reset();   // Stop sounds.
+  void startup(); // Reset phase, random seed etc.
+  void setParameters();
   void process(const size_t length, float *out0, float *out1);
-  void noteOn(int32_t noteId, int16 pitch, float tuning, float velocity);
-  void noteOff(int32_t noteId, int16 pitch);
+  void noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity);
+  void noteOff(int32_t noteId);
 
-protected:
+private:
   float sampleRate = 44100.0f;
   float lfoPhase = 0.0f;
   float lfoValue = 0.0f;
@@ -169,15 +170,13 @@ protected:
   LinearSmoother<float> interpFilterKeyToCutoff;
   LinearSmoother<float> interpFilterKeyToFeedback;
 
-  std::array<std::array<std::unique_ptr<Note<float>>, 2>, 32> notes;
+  size_t nVoice = 32;
+  std::array<std::array<std::unique_ptr<Note<float>>, 2>, maxVoice> notes;
 
   // Transition happens when synth is playing all notes and user send a new note on.
   // transitionBuffer is used to store a release of a note to reduce pop noise.
-  std::vector<float> transitionBuffer;
+  std::vector<float> transitionBuffer{};
   bool isTransitioning = false;
   size_t mptIndex = 0; // mpt for Max Poly Transition.
   size_t mptStop = 0;
 };
-
-} // namespace Synth
-} // namespace Steinberg
