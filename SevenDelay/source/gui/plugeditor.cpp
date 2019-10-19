@@ -47,7 +47,7 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   frame->registerMouseObserver(this);
   frame->open(parent);
 
-  using ID = SevenDelay::ParameterID;
+  using ID = SevenDelay::ParameterID::ID;
   SevenDelay::GlobalParameter param;
 
   const auto normalWidth = 80.0;
@@ -56,17 +56,26 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   const auto smallHeight = 50.0;
   const auto interval = 100.0;
 
-  // clang-format off
-
   // Delay.
   const auto delayTop1 = 50.0;
   const auto delayLeft = 20.0;
   addGroupLabel(delayLeft, 10.0, 480.0, "Delay");
-  addKnob(delayLeft, delayTop1, normalWidth, colorBlue, "Time", ID::time, param.time);
-  addKnob(1.0 * interval + delayLeft, delayTop1, normalWidth, colorBlue, "Feedback", ID::feedback, param.feedback);
-  addKnob(2.0 * interval + delayLeft, delayTop1, normalWidth, colorBlue, "Stereo", ID::offset, param.offset, LabelPosition::bottom, "L/R Stereo Offset");
-  addKnob(3.0 * interval + delayLeft, delayTop1, normalWidth, colorBlue, "Wet", ID::wetMix, param.wetMix);
-  addKnob(4.0 * interval + delayLeft, delayTop1, normalWidth, colorGreen, "Dry", ID::dryMix, param.dryMix);
+  addKnob(
+    delayLeft, delayTop1, normalWidth, colorBlue, "Time", ID::time,
+    param.value[ID::time]->getDefaultNormalized());
+  addKnob(
+    1.0 * interval + delayLeft, delayTop1, normalWidth, colorBlue, "Feedback",
+    ID::feedback, param.value[ID::feedback]->getDefaultNormalized());
+  addKnob(
+    2.0 * interval + delayLeft, delayTop1, normalWidth, colorBlue, "Stereo", ID::offset,
+    param.value[ID::offset]->getDefaultNormalized(), LabelPosition::bottom,
+    "L/R Stereo Offset");
+  addKnob(
+    3.0 * interval + delayLeft, delayTop1, normalWidth, colorBlue, "Wet", ID::wetMix,
+    param.value[ID::wetMix]->getDefaultNormalized());
+  addKnob(
+    4.0 * interval + delayLeft, delayTop1, normalWidth, colorGreen, "Dry", ID::dryMix,
+    param.value[ID::dryMix]->getDefaultNormalized());
 
   const auto delayTop2 = delayTop1 + normalHeight;
   const auto delayTop3 = delayTop2 + smallHeight;
@@ -74,15 +83,35 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   addCheckbox(delayLeft + 10.0, delayTop2, "Sync", ID::tempoSync);
   addCheckbox(delayLeft + 10.0, delayTop3, "Negative", ID::negativeFeedback);
 
-  addKnob(1.0 * interval + delayLeft, delayTop2, smallWidth, colorBlue, "In Spread", ID::inSpread, param.inSpread, LabelPosition::right, "Input Stereo Spread");
-  addKnob(1.0 * interval + delayLeft, delayTop3, smallWidth, colorBlue, "Out Spread", ID::outSpread, param.outSpread, LabelPosition::right, "Output Stereo Spread");
-  addKnob(2.3 * interval + delayLeft, delayTop2, smallWidth, colorBlue, "In Pan", ID::inPan, param.inPan, LabelPosition::right, "Input Pan");
-  addKnob(2.3 * interval + delayLeft, delayTop3, smallWidth, colorBlue, "Out Pan", ID::outPan, param.outPan, LabelPosition::right, "Output Pan");
-  addKnob(2.3 * interval + delayLeft, delayTop4, smallWidth, colorBlue, "DC Kill", ID::dckill, param.dckill, LabelPosition::right, "DC Kill");
+  addKnob(
+    1.0 * interval + delayLeft, delayTop2, smallWidth, colorBlue, "In Spread",
+    ID::inSpread, param.value[ID::inSpread]->getDefaultNormalized(), LabelPosition::right,
+    "Input Stereo Spread");
+  addKnob(
+    1.0 * interval + delayLeft, delayTop3, smallWidth, colorBlue, "Out Spread",
+    ID::outSpread, param.value[ID::outSpread]->getDefaultNormalized(),
+    LabelPosition::right, "Output Stereo Spread");
+  addKnob(
+    2.3 * interval + delayLeft, delayTop2, smallWidth, colorBlue, "In Pan", ID::inPan,
+    param.value[ID::inPan]->getDefaultNormalized(), LabelPosition::right, "Input Pan");
+  addKnob(
+    2.3 * interval + delayLeft, delayTop3, smallWidth, colorBlue, "Out Pan", ID::outPan,
+    param.value[ID::outPan]->getDefaultNormalized(), LabelPosition::right, "Output Pan");
+  addKnob(
+    2.3 * interval + delayLeft, delayTop4, smallWidth, colorBlue, "DC Kill", ID::dckill,
+    param.value[ID::dckill]->getDefaultNormalized(), LabelPosition::right, "DC Kill");
 
-  addKnob(3.6 * interval + delayLeft, delayTop2, smallWidth, colorBlue, "Allpass Cut", ID::toneCutoff, param.toneCutoff, LabelPosition::right, "Allpass Cutoff");
-  addKnob(3.6 * interval + delayLeft, delayTop3, smallWidth, colorBlue, "Allpass Q", ID::toneQ, param.toneQ, LabelPosition::right, "Allpass Q");
-  addKnob(3.6 * interval + delayLeft, delayTop4,  smallWidth, colorBlue, "Smooth", ID::smoothness, param.smoothness, LabelPosition::right, "Automation Smoothness");
+  addKnob(
+    3.6 * interval + delayLeft, delayTop2, smallWidth, colorBlue, "Allpass Cut",
+    ID::toneCutoff, param.value[ID::toneCutoff]->getDefaultNormalized(),
+    LabelPosition::right, "Allpass Cutoff");
+  addKnob(
+    3.6 * interval + delayLeft, delayTop3, smallWidth, colorBlue, "Allpass Q", ID::toneQ,
+    param.value[ID::toneQ]->getDefaultNormalized(), LabelPosition::right, "Allpass Q");
+  addKnob(
+    3.6 * interval + delayLeft, delayTop4, smallWidth, colorBlue, "Smooth",
+    ID::smoothness, param.value[ID::smoothness]->getDefaultNormalized(),
+    LabelPosition::right, "Automation Smoothness");
 
   // Plugin name.
   const auto nameLeft = delayLeft;
@@ -90,24 +119,36 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   const auto nameWidth = 180.0;
   addSplashScreen(
     CRect(nameLeft, nameTop, nameLeft + nameWidth, nameTop + 40.0),
-    CRect(viewRect.left + 200.0, viewRect.top + 20.0, viewRect.right - 200.0, viewRect.bottom - 20.0));
+    CRect(
+      viewRect.left + 200.0, viewRect.top + 20.0, viewRect.right - 200.0,
+      viewRect.bottom - 20.0));
 
   // LFO.
   // 750 - 520 = 230 / 3 = 66 + 10
   const auto lfoTop1 = 50.0;
   const auto lfoLeft1 = 520.0;
   addGroupLabel(520.0, 10.0, 420.0, "LFO");
-  addVSlider(lfoLeft1, 50.0, colorBlue, "To Time", ID::lfoTimeAmount, param.lfoTimeAmount);
-  addVSlider(lfoLeft1 + 75.0, 50.0, colorBlue, "To Allpass", ID::lfoToneAmount, param.lfoToneAmount);
-  addVSlider(lfoLeft1 + 150.0, 50.0, colorGreen, "Frequency", ID::lfoFrequency, param.lfoFrequency);
+  addVSlider(
+    lfoLeft1, 50.0, colorBlue, "To Time", ID::lfoTimeAmount,
+    param.value[ID::lfoTimeAmount]->getDefaultNormalized());
+  addVSlider(
+    lfoLeft1 + 75.0, 50.0, colorBlue, "To Allpass", ID::lfoToneAmount,
+    param.value[ID::lfoToneAmount]->getDefaultNormalized());
+  addVSlider(
+    lfoLeft1 + 150.0, 50.0, colorGreen, "Frequency", ID::lfoFrequency,
+    param.value[ID::lfoFrequency]->getDefaultNormalized());
   const auto lfoLeft2 = lfoLeft1 + 230.0;
-  addKnob(lfoLeft2, 50.0, normalWidth, colorBlue, "Shape", ID::lfoShape, param.lfoShape);
-  addKnob(interval + lfoLeft2, 50.0, normalWidth, colorBlue, "Phase", ID::lfoInitialPhase, param.lfoInitialPhase);
+  addKnob(
+    lfoLeft2, 50.0, normalWidth, colorBlue, "Shape", ID::lfoShape,
+    param.value[ID::lfoShape]->getDefaultNormalized());
+  addKnob(
+    interval + lfoLeft2, 50.0, normalWidth, colorBlue, "Phase", ID::lfoInitialPhase,
+    param.value[ID::lfoInitialPhase]->getDefaultNormalized());
 
-  addButton(WaveViewSize.left, WaveViewSize.bottom + 10.0, WaveViewSize.right - WaveViewSize.left, "LFO Hold", ID::lfoHold, CTextButton::kOnOffStyle);
+  addButton(
+    WaveViewSize.left, WaveViewSize.bottom + 10.0, WaveViewSize.right - WaveViewSize.left,
+    "LFO Hold", ID::lfoHold, CTextButton::kOnOffStyle);
   addWaveView(WaveViewSize);
-
-  // clang-format on
 
   return true;
 }
@@ -139,8 +180,8 @@ void PlugEditor::valueChanged(CControl *pControl)
   }
 }
 
-CMouseEventResult PlugEditor::onMouseDown(
-  CFrame *frame, const CPoint &where, const CButtonState &buttons)
+CMouseEventResult
+PlugEditor::onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &buttons)
 {
   if (!buttons.isRightButton()) return kMouseEventNotHandled;
 
@@ -215,7 +256,8 @@ void PlugEditor::addSplashScreen(CRect buttonRect, CRect splashRect)
   frame->addView(splash);
 }
 
-void PlugEditor::addVSlider(CCoord left,
+void PlugEditor::addVSlider(
+  CCoord left,
   CCoord top,
   CColor valueColor,
   UTF8String name,
@@ -233,7 +275,8 @@ void PlugEditor::addVSlider(CCoord left,
     CRect(left, top, right, bottom), this, tag, top, bottom, nullptr, nullptr);
   slider->setSliderMode(CSliderMode::FreeClick);
   slider->setStyle(CSlider::kBottom | CSlider::kVertical);
-  slider->setDrawStyle(CSlider::kDrawBack | CSlider::kDrawFrame | CSlider::kDrawValue
+  slider->setDrawStyle(
+    CSlider::kDrawBack | CSlider::kDrawFrame | CSlider::kDrawValue
     | (drawFromCenter ? CSlider::kDrawValueFromCenter | CSlider::kDrawInverted : 0));
   slider->setBackColor(colorWhite);
   slider->setValueColor(valueColor);
@@ -304,8 +347,9 @@ void PlugEditor::addOptionMenu(
   auto right = left + 100.0;
   auto bottom = top + 40.0;
 
-  auto menu = new COptionMenu(CRect(left, top, right, bottom), this, tag, nullptr,
-    nullptr, COptionMenu::kCheckStyle);
+  auto menu = new COptionMenu(
+    CRect(left, top, right, bottom), this, tag, nullptr, nullptr,
+    COptionMenu::kCheckStyle);
   for (const auto &item : items) menu->addEntry(item);
   menu->setFont(new CFontDesc(Style::fontName(), fontSize, CTxtFace::kNormalFace));
   menu->setFontColor(colorBlack);
@@ -316,7 +360,8 @@ void PlugEditor::addOptionMenu(
   frame->addView(menu);
 }
 
-void PlugEditor::addKnob(CCoord left,
+void PlugEditor::addKnob(
+  CCoord left,
   CCoord top,
   CCoord width,
   CColor highlightColor,

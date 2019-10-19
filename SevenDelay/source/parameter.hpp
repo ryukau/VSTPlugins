@@ -17,12 +17,11 @@
 
 #pragma once
 
-#include <unordered_map>
-
-#include "base/source/fstreamer.h"
-#include "pluginterfaces/vst/vsttypes.h"
+#include <memory>
+#include <vector>
 
 #include "dsp/scale.hpp"
+#include "value.hpp"
 
 namespace Steinberg {
 namespace SevenDelay {
@@ -31,7 +30,8 @@ constexpr Vst::ParamValue maxDelayTime = 8.0;
 constexpr Vst::ParamValue maxToneFrequency = 20000.0;
 constexpr Vst::ParamValue minDCKillFrequency = 5.0;
 
-enum ParameterID : Vst::ParamID {
+namespace ParameterID {
+enum ID : Vst::ParamID {
   bypass,
   time,
   feedback,
@@ -54,162 +54,131 @@ enum ParameterID : Vst::ParamID {
   dckill,
   lfoToneAmount,
   toneQ,
+  ID_ENUM_LENGTH,
+};
+} // namespace ParameterID
+
+struct Scales {
+  static SomeDSP::BoolScale<double> boolScale;
+  static SomeDSP::LinearScale<double> defaultScale;
+  static SomeDSP::LogScale<double> time;
+  static SomeDSP::SPolyScale<double> offset;
+  static SomeDSP::LogScale<double> lfoTimeAmount;
+  static SomeDSP::LogScale<double> lfoToneAmount;
+  static SomeDSP::LogScale<double> lfoFrequency;
+  static SomeDSP::LogScale<double> lfoShape;
+  static SomeDSP::LinearScale<double> lfoInitialPhase;
+  static SomeDSP::LogScale<double> smoothness;
+  static SomeDSP::LogScale<double> toneCutoff;
+  static SomeDSP::LogScale<double> toneQ;
+  static SomeDSP::LogScale<double> toneMix; // internal
+  static SomeDSP::LogScale<double> dckill;
+  static SomeDSP::LogScale<double> dckillMix; // internal
 };
 
 struct GlobalParameter {
-  bool bypass = false;
-  Vst::ParamValue time = 0.5;
-  Vst::ParamValue feedback = 0.625;
-  Vst::ParamValue offset = 0.5;
-  Vst::ParamValue wetMix = 0.75;
-  Vst::ParamValue dryMix = 1.0;
-  bool tempoSync = false;
-  bool negativeFeedback = false;
-  Vst::ParamValue lfoTimeAmount = 0.0;
-  Vst::ParamValue lfoToneAmount = 0.0;
-  Vst::ParamValue lfoFrequency = 0.5;
-  Vst::ParamValue lfoShape = 0.5;
-  Vst::ParamValue lfoInitialPhase = 0.0;
-  bool lfoHold = false;
-  Vst::ParamValue smoothness = 0.3;
-  Vst::ParamValue inSpread = 0.0; // 0.0: normal, 0.5: mono, 1.0: inverse.
-  Vst::ParamValue inPan = 0.5;    // 0.0: left, 0.5: center, 1.0 right.
-  Vst::ParamValue outSpread = 0.0;
-  Vst::ParamValue outPan = 0.5;
-  Vst::ParamValue toneCutoff = 1.0;
-  Vst::ParamValue toneQ = 0.9;
-  Vst::ParamValue dckill = 0.0;
+  std::vector<std::unique_ptr<ValueInterface>> value;
 
-  static LogScale<Vst::ParamValue> scaleTime;
-  static SPolyScale<Vst::ParamValue> scaleOffset;
-  static LogScale<Vst::ParamValue> scaleLfoTimeAmount;
-  static LogScale<Vst::ParamValue> scaleLfoToneAmount;
-  static LogScale<Vst::ParamValue> scaleLfoFrequency;
-  static LogScale<Vst::ParamValue> scaleLfoShape;
-  static LinearScale<Vst::ParamValue> scaleLfoInitialPhase;
-  static LogScale<Vst::ParamValue> scaleSmoothness;
-  static LogScale<Vst::ParamValue> scaleToneCutoff;
-  static LogScale<Vst::ParamValue> scaleToneQ;
-  static LogScale<Vst::ParamValue> scaleToneMix; // internal
-  static LogScale<Vst::ParamValue> scaleDCKill;
-  static LogScale<Vst::ParamValue> scaleDCKillMix; // internal
+  GlobalParameter()
+  {
+    value.resize(ParameterID::ID_ENUM_LENGTH);
+
+    using ID = ParameterID::ID;
+    using ValueBool = InternalValue<SomeDSP::BoolScale<double>, bool>;
+    using ValueLinear = InternalValue<SomeDSP::LinearScale<double>, double>;
+    using ValueLog = InternalValue<SomeDSP::LogScale<double>, double>;
+    using ValueSPoly = InternalValue<SomeDSP::SPolyScale<double>, double>;
+
+    value[ParameterID::bypass] = std::make_unique<ValueBool>(
+      0.0, Scales::boolScale, ParameterID::bypass, "Bypass",
+      Vst::ParameterInfo::kCanAutomate | Vst::ParameterInfo::kIsBypass);
+    value[ParameterID::time] = std::make_unique<ValueLog>(
+      0.5, Scales::time, ParameterID::time, "Time", Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::feedback] = std::make_unique<ValueLinear>(
+      0.625, Scales::defaultScale, ParameterID::feedback, "Feedback",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::offset] = std::make_unique<ValueSPoly>(
+      0.5, Scales::offset, ParameterID::offset, "Stereo",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::wetMix] = std::make_unique<ValueLinear>(
+      0.75, Scales::defaultScale, ParameterID::wetMix, "WetMix",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::dryMix] = std::make_unique<ValueLinear>(
+      1.0, Scales::defaultScale, ParameterID::dryMix, "DryMix",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::tempoSync] = std::make_unique<ValueBool>(
+      0.0, Scales::boolScale, ParameterID::tempoSync, "TempoSync",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::negativeFeedback] = std::make_unique<ValueBool>(
+      0.0, Scales::boolScale, ParameterID::negativeFeedback, "NegativeFeedback",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::lfoTimeAmount] = std::make_unique<ValueLog>(
+      0.0, Scales::lfoTimeAmount, ParameterID::lfoTimeAmount, "LFO to Time",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::lfoFrequency] = std::make_unique<ValueLog>(
+      0.5, Scales::lfoFrequency, ParameterID::lfoFrequency, "LFO Frequency",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::lfoShape] = std::make_unique<ValueLog>(
+      0.5, Scales::lfoShape, ParameterID::lfoShape, "LFO Shape",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::lfoInitialPhase] = std::make_unique<ValueLinear>(
+      0.0, Scales::lfoInitialPhase, ParameterID::lfoInitialPhase, "LFO Initial Phase",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::lfoHold] = std::make_unique<ValueBool>(
+      0.0, Scales::boolScale, ParameterID::lfoHold, "LFO Phase Hold",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::smoothness] = std::make_unique<ValueLog>(
+      0.3, Scales::smoothness, ParameterID::smoothness, "Smoothness",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::inSpread] = std::make_unique<ValueLinear>(
+      0.0, Scales::defaultScale, ParameterID::inSpread, "Input Stereo Spread",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::inPan] = std::make_unique<ValueLinear>(
+      0.5, Scales::defaultScale, ParameterID::inPan, "Input Pan",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::outSpread] = std::make_unique<ValueLinear>(
+      0.0, Scales::defaultScale, ParameterID::outSpread, "Output Stereo Spread",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::outPan] = std::make_unique<ValueLinear>(
+      0.5, Scales::defaultScale, ParameterID::outPan, "Output Pan",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::toneCutoff] = std::make_unique<ValueLog>(
+      1.0, Scales::toneCutoff, ParameterID::toneCutoff, "Allpass Cutoff",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::dckill] = std::make_unique<ValueLog>(
+      0.0, Scales::dckill, ParameterID::dckill, "DC Kill",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::lfoToneAmount] = std::make_unique<ValueLog>(
+      0.0, Scales::lfoToneAmount, ParameterID::lfoToneAmount, "LFO to Allpass",
+      Vst::ParameterInfo::kCanAutomate);
+    value[ParameterID::toneQ] = std::make_unique<ValueLog>(
+      0.9, Scales::toneQ, ParameterID::toneQ, "Allpass Q",
+      Vst::ParameterInfo::kCanAutomate);
+  }
 
   tresult setState(IBStream *stream)
   {
-    IBStreamer s(stream, kLittleEndian);
-
-    if (!s.readBool(bypass)) return kResultFalse;
-    if (!s.readDouble(time)) return kResultFalse;
-    if (!s.readDouble(feedback)) return kResultFalse;
-    if (!s.readDouble(offset)) return kResultFalse;
-    if (!s.readDouble(wetMix)) return kResultFalse;
-    if (!s.readDouble(dryMix)) return kResultFalse;
-    if (!s.readBool(tempoSync)) return kResultFalse;
-    if (!s.readBool(negativeFeedback)) return kResultFalse;
-    if (!s.readDouble(lfoTimeAmount)) return kResultFalse;
-    if (!s.readDouble(lfoFrequency)) return kResultFalse;
-    if (!s.readDouble(lfoShape)) return kResultFalse;
-    if (!s.readDouble(lfoInitialPhase)) return kResultFalse;
-    if (!s.readBool(lfoHold)) return kResultFalse;
-    if (!s.readDouble(smoothness)) return kResultFalse;
-    if (!s.readDouble(inSpread)) return kResultFalse;
-    if (!s.readDouble(inPan)) return kResultFalse;
-    if (!s.readDouble(outSpread)) return kResultFalse;
-    if (!s.readDouble(outPan)) return kResultFalse;
-    if (!s.readDouble(toneCutoff)) return kResultFalse;
-    if (!s.readDouble(dckill)) return kResultFalse;
-    if (!s.readDouble(lfoToneAmount)) return kResultFalse;
-    if (!s.readDouble(toneQ)) return kResultFalse;
-
-    // Add parameter here.
-
+    IBStreamer streamer(stream, kLittleEndian);
+    for (auto &val : value)
+      if (val->setState(streamer)) return kResultFalse;
     return kResultOk;
   }
 
   tresult getState(IBStream *stream)
   {
-    IBStreamer s(stream, kLittleEndian);
+    IBStreamer streamer(stream, kLittleEndian);
+    for (auto &val : value)
+      if (val->getState(streamer)) return kResultFalse;
+    return kResultOk;
+  }
 
-    if (!s.writeBool(bypass)) return kResultFalse;
-    if (!s.writeDouble(time)) return kResultFalse;
-    if (!s.writeDouble(feedback)) return kResultFalse;
-    if (!s.writeDouble(offset)) return kResultFalse;
-    if (!s.writeDouble(wetMix)) return kResultFalse;
-    if (!s.writeDouble(dryMix)) return kResultFalse;
-    if (!s.writeBool(tempoSync)) return kResultFalse;
-    if (!s.writeBool(negativeFeedback)) return kResultFalse;
-    if (!s.writeDouble(lfoTimeAmount)) return kResultFalse;
-    if (!s.writeDouble(lfoFrequency)) return kResultFalse;
-    if (!s.writeDouble(lfoShape)) return kResultFalse;
-    if (!s.writeDouble(lfoInitialPhase)) return kResultFalse;
-    if (!s.writeBool(lfoHold)) return kResultFalse;
-    if (!s.writeDouble(smoothness)) return kResultFalse;
-    if (!s.writeDouble(inSpread)) return kResultFalse;
-    if (!s.writeDouble(inPan)) return kResultFalse;
-    if (!s.writeDouble(outSpread)) return kResultFalse;
-    if (!s.writeDouble(outPan)) return kResultFalse;
-    if (!s.writeDouble(toneCutoff)) return kResultFalse;
-    if (!s.writeDouble(dckill)) return kResultFalse;
-    if (!s.writeDouble(lfoToneAmount)) return kResultFalse;
-    if (!s.writeDouble(toneQ)) return kResultFalse;
-
-    // Add parameter here.
-
+  tresult addParameter(Vst::ParameterContainer &parameters)
+  {
+    for (auto &val : value)
+      if (val->addParameter(parameters)) return kResultFalse;
     return kResultOk;
   }
 };
 
 } // namespace SevenDelay
-
-namespace Vst {
-
-template<typename ParameterScale> class ScaledParameter : public Parameter {
-public:
-  ScaledParameter(const TChar *title,
-    ParamID tag,
-    ParameterScale &scale,
-    ParamValue defaultValue = 0.0,
-    const TChar *units = nullptr,
-    int32 flags = ParameterInfo::kCanAutomate,
-    UnitID unitID = kRootUnitId)
-    : Parameter(title, tag, units, defaultValue, 0, flags, unitID), scale(scale)
-  {
-    precision = 16;
-  }
-
-  virtual void toString(ParamValue normalized, String128 string) const SMTG_OVERRIDE
-  {
-    UString128 wrapper;
-    wrapper.printFloat(toPlain(normalized), precision);
-    wrapper.copyTo(string, 128);
-  }
-
-  virtual bool fromString(const TChar *string, ParamValue &normalized) const SMTG_OVERRIDE
-  {
-    UString wrapper((TChar *)string, strlen16(string));
-    if (wrapper.scanFloat(normalized)) {
-      normalized = toNormalized(normalized);
-      return true;
-    }
-    return false;
-  }
-
-  virtual ParamValue toPlain(ParamValue normalized) const SMTG_OVERRIDE
-  {
-    return scale.map(normalized);
-  }
-
-  virtual ParamValue toNormalized(ParamValue plain) const SMTG_OVERRIDE
-  {
-    return scale.invmap(plain);
-  }
-
-  OBJ_METHODS(ScaledParameter, Parameter)
-
-protected:
-  ParameterScale &scale;
-  ParamValue multiplier;
-};
-
-} // namespace Vst
 } // namespace Steinberg

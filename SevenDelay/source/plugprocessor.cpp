@@ -83,76 +83,7 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
       int32 sampleOffset;
       if (queue->getPoint(queue->getPointCount() - 1, sampleOffset, value) != kResultTrue)
         continue;
-      switch (queue->getParameterId()) {
-        case ParameterID::bypass:
-          dsp.param.bypass = value > 0.5f;
-          break;
-        case ParameterID::time:
-          dsp.param.time = value;
-          break;
-        case ParameterID::feedback:
-          dsp.param.feedback = value;
-          break;
-        case ParameterID::offset:
-          dsp.param.offset = value;
-          break;
-        case ParameterID::wetMix:
-          dsp.param.wetMix = value;
-          break;
-        case ParameterID::dryMix:
-          dsp.param.dryMix = value;
-          break;
-        case ParameterID::tempoSync:
-          dsp.param.tempoSync = value > 0.5;
-          break;
-        case ParameterID::negativeFeedback:
-          dsp.param.negativeFeedback = value > 0.5;
-          break;
-        case ParameterID::lfoTimeAmount:
-          dsp.param.lfoTimeAmount = value;
-          break;
-        case ParameterID::lfoFrequency:
-          dsp.param.lfoFrequency = value;
-          break;
-        case ParameterID::lfoShape:
-          dsp.param.lfoShape = value;
-          break;
-        case ParameterID::lfoInitialPhase:
-          dsp.param.lfoInitialPhase = value;
-          break;
-        case ParameterID::lfoHold:
-          dsp.param.lfoHold = value > 0.5;
-          break;
-        case ParameterID::smoothness:
-          dsp.param.smoothness = value;
-          break;
-        case ParameterID::inSpread:
-          dsp.param.inSpread = value;
-          break;
-        case ParameterID::inPan:
-          dsp.param.inPan = value;
-          break;
-        case ParameterID::outSpread:
-          dsp.param.outSpread = value;
-          break;
-        case ParameterID::outPan:
-          dsp.param.outPan = value;
-          break;
-        case ParameterID::toneCutoff:
-          dsp.param.toneCutoff = value;
-          break;
-        case ParameterID::dckill:
-          dsp.param.dckill = value;
-          break;
-        case ParameterID::lfoToneAmount:
-          dsp.param.lfoToneAmount = value;
-          break;
-        case ParameterID::toneQ:
-          dsp.param.toneQ = value;
-          break;
-
-          // Add parameter here.
-      }
+      dsp.param.value[queue->getParameterId()]->setFromNormalized(value);
     }
   }
 
@@ -175,7 +106,7 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   if (data.outputs[0].numChannels != 2) return kResultOk;
   if (data.symbolicSampleSize == Vst::kSample64) return kResultOk;
 
-  if (dsp.param.bypass) {
+  if (dsp.param.value[ParameterID::bypass]->getRaw() > 0.5) {
     processBypass(data);
   } else {
     float *in0 = data.inputs[0].channelBuffers32[0];

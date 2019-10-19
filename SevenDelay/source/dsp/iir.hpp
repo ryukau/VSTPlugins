@@ -15,24 +15,13 @@
 // You should have received a copy of the GNU General Public License
 // along with SevenDelay.  If not, see <https://www.gnu.org/licenses/>.
 
+#pragma once
+
 #include <cmath>
 
+#include "constants.hpp"
+
 namespace SomeDSP {
-
-constexpr double pi = 3.14159265358979323846;
-constexpr double twopi = 6.28318530717958647692;
-
-inline double somesin(double x) { return ::sin(x); }
-
-inline float somesin(float x) { return ::sinf(x); }
-
-inline double somecos(double x) { return ::cos(x); }
-
-inline float somecos(float x) { return ::cosf(x); }
-
-inline double sometan(double x) { return ::tan(x); }
-
-inline float sometan(float x) { return ::tanf(x); }
 
 template<typename Sample> class SVF {
 public:
