@@ -3,7 +3,7 @@
 
 <ruby>SyncSawSynth<rt>シンクソウシンセ</rt></ruby>は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。
 
-- [SyncSawSynth 0.1.1 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.1/SyncSawSynth0.1.1.zip) <img
+- [SyncSawSynth 0.1.3 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.3/SyncSawSynth0.1.3.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -52,6 +52,8 @@ REAPER 5.983 の Linux 版が SyncSawSynth を認識しないときは `~/.confi
 アタックの長さによって音量エンベロープのピーク値が変わります。音量エンベロープのアタックが小さいとき、ピークは通常より少し高くなることがあります。
 
 Dirty Filter にチェックを入れるとノートオンによってプチノイズが出ることがあります。
+
+パラメータの組み合わせによっては直流信号が乗るときがあります。ディストーションなどをかけると面白い音になることがあるので、直流は切っていません。安全のためには SyncSawSynth の後にハイパスフィルタを通すことが望ましいです。またオシロスコープで出力を監視することをお勧めします。
 
 ## 用語について
 SyncSawSynth のオシレータは内部に 2 つのオシレータを持っています。 1 つは波形生成のために使われ、もう 1 つはハードシンクをトリガするために使われています。ハードシンクに関する用語として、波形生成のためのオシレータのことをスレーブ、トリガに使われるオシレータのことをマスタと呼んでいます。
@@ -104,6 +106,12 @@ frequency = 2 * Sync^3
 `Lock` にチェックを入れるとノートオンのたびに位相がリセットされます。
 
 `Osc2` の `Invert` にチェックを入れると、 `Osc2` の出力の正負の符号を変えることで位相を反転します。
+
+#### Unison
+チェックを入れるとノートごとに位相の異なる同じ高さの音を重ねます。CPU負荷も2倍になります。
+
+#### Number of Voice
+最大同時発音数。この値を減らすとCPU負荷を減らすことができます。
 
 ### Modulation
 #### Osc1->Sync1
@@ -263,6 +271,12 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))
 ノートの MIDI ノート番号によるフィードバックの変調。範囲は -1.0 から 1.0 。
 
 ## チェンジログ
+- 0.1.3
+  - ユニゾンパラメータを追加。
+  - 最大同時発音数パラメータを追加。
+  - 内部のパラメータ構造を変更。
+  - UI の見た目を変更。
+  - フィルタと数学関数の高速化。
 - 0.1.1
   - ピッチベンドに対応。
   - double 型の PTR を追加。

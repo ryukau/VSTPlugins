@@ -3,7 +3,7 @@
 
 SevenDelay is a stereo delay with 7th order lagrange interpolated fractional delay and 7x oversampling.
 
-- [Download SevenDelay 0.1.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.1/SevenDelay0.1.1.zip) <img
+- [Download SevenDelay 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.2/SevenDelay0.1.2.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -146,6 +146,9 @@ LFO phase is reset to `Phase` for each time host starts playing.
 Toggle LFO phase hold. This may be useful for live performance.
 
 ## Change Log
+- 0.1.2
+  - Changed internal parameter structure.
+  - Changed UI looks.
 - 0.1.1
   - Disabled GUI for Linux build. This is a makeshift change while tracking down a bug related to VSTGUI.
   - Changed tuning of `To Allpass` of LFO.

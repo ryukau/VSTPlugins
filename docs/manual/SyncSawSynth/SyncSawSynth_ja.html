@@ -227,6 +227,8 @@ footer {
 <li><a href="#sync-と-synctype">Sync と SyncType</a></li>
 <li><a href="#osctype">OscType</a></li>
 <li><a href="#phase">Phase</a></li>
+<li><a href="#unison">Unison</a></li>
+<li><a href="#number-of-voice">Number of Voice</a></li>
 </ul></li>
 <li><a href="#modulation">Modulation</a><ul>
 <li><a href="#osc1-sync1">Osc1-&gt;Sync1</a></li>
@@ -283,7 +285,7 @@ footer {
 <p><img src="img/syncsawsynth.png" /></p>
 <p><ruby>SyncSawSynth<rt>シンクソウシンセ</rt></ruby>は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.1/SyncSawSynth0.1.1.zip">SyncSawSynth 0.1.1 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.3/SyncSawSynth0.1.3.zip">SyncSawSynth 0.1.3 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -322,6 +324,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <h2 id="注意">注意</h2>
 <p>アタックの長さによって音量エンベロープのピーク値が変わります。音量エンベロープのアタックが小さいとき、ピークは通常より少し高くなることがあります。</p>
 <p>Dirty Filter にチェックを入れるとノートオンによってプチノイズが出ることがあります。</p>
+<p>パラメータの組み合わせによっては直流信号が乗るときがあります。ディストーションなどをかけると面白い音になることがあるので、直流は切っていません。安全のためには SyncSawSynth の後にハイパスフィルタを通すことが望ましいです。またオシロスコープで出力を監視することをお勧めします。</p>
 <h2 id="用語について">用語について</h2>
 <p>SyncSawSynth のオシレータは内部に 2 つのオシレータを持っています。 1 つは波形生成のために使われ、もう 1 つはハードシンクをトリガするために使われています。ハードシンクに関する用語として、波形生成のためのオシレータのことをスレーブ、トリガに使われるオシレータのことをマスタと呼んでいます。</p>
 <h2 id="パラメータ">パラメータ</h2>
@@ -355,6 +358,10 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>オシレータの位相。範囲は 0.0 から 1.0 。</p>
 <p><code>Lock</code> にチェックを入れるとノートオンのたびに位相がリセットされます。</p>
 <p><code>Osc2</code> の <code>Invert</code> にチェックを入れると、 <code>Osc2</code> の出力の正負の符号を変えることで位相を反転します。</p>
+<h4 id="unison">Unison</h4>
+<p>チェックを入れるとノートごとに位相の異なる同じ高さの音を重ねます。CPU負荷も2倍になります。</p>
+<h4 id="number-of-voice">Number of Voice</h4>
+<p>最大同時発音数。この値を減らすとCPU負荷を減らすことができます。</p>
 <h3 id="modulation">Modulation</h3>
 <h4 id="osc1-sync1">Osc1-&gt;Sync1</h4>
 <p><code>Osc1</code> の出力による <code>Osc1</code> のマスタ周波数の変調。範囲は 0.0 から 1.0 。</p>
@@ -458,6 +465,14 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
 <p>ノートの MIDI ノート番号によるフィードバックの変調。範囲は -1.0 から 1.0 。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.3
+<ul>
+<li>ユニゾンパラメータを追加。</li>
+<li>最大同時発音数パラメータを追加。</li>
+<li>内部のパラメータ構造を変更。</li>
+<li>UI の見た目を変更。</li>
+<li>フィルタと数学関数の高速化。</li>
+</ul></li>
 <li>0.1.1
 <ul>
 <li>ピッチベンドに対応。</li>

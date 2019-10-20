@@ -3,7 +3,7 @@
 
 SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR sawtooth oscillator. Just a basic synthesizer but very easy to make a noise similar to low battery sound of some toys.
 
-- [Download SyncSawSynth 0.1.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.1/SyncSawSynth0.1.1.zip) <img
+- [Download SyncSawSynth 0.1.3 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.3/SyncSawSynth0.1.3.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -52,6 +52,8 @@ Right clicking on controllable object popups a context menu provided by DAW.
 The peak value of gain envelope is determined by the length of attack. When gain envelope attack is small, the peak may be a bit higher than usual.
 
 When turning `Dirty Filter` on, a glitch may pops at the timing of note on.
+
+Some parameter configuration leads to massive DC offset. To be stay safe, it's better to insert high-pass filter after SyncSawSynth. Monitoring output with oscilloscope is recommended.
 
 ## Terms
 An oscillator of SyncSawSynth internally have 2 separate oscillators. One is for generating waveform, and other is to trigger hardsync. In term of hardsync, waveform generator is called slave and oscillator used to trigger is called master.
@@ -104,6 +106,12 @@ Oscillator phase. Range is 0.0 to 1.0.
 If `Lock` is checked, phase will be reset for each note on.
 
 If `Invert` on `Osc2` is checked, phase will be inverted by changing sign of the output of `Osc2`.
+
+#### Unison
+When checked, add same tone with different phase for each note. CPU load will also be doubled.
+
+#### Number of Voice
+Maximum polyphony. Lowering the number of this option reduces CPU load.
 
 ### Modulation
 #### Osc1->Sync1
@@ -263,6 +271,12 @@ Modulation from MIDI note number to cutoff frequency. Range is -1.0 to 1.0.
 Modulation from MIDI note number to feedback. Range is -1.0 to 1.0.
 
 ## Change Log
+- 0.1.3
+  - Added unison parameter.
+  - Added number of voice parameter.
+  - Changed internal parameter structure.
+  - Changed UI looks.
+  - Made filter and math function faster.
 - 0.1.1
   - Added pitchbend support.
   - Added double precision PTR options.
