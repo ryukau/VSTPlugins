@@ -41,12 +41,12 @@ void CreditView::draw(CDrawContext *pContext)
   pContext->setFillColor(bgColor);
   pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilled);
 
-  pContext->setFont(new CFontDesc(Style::fontName(), fontSizeTitle, CTxtFace::kBoldFace));
+  pContext->setFont(fontIDTitle.get());
   pContext->setFontColor(CColor(0, 0, 0, 255));
   pContext->drawString(
     UTF8String("SyncSawSynth " VERSION_STR).getPlatformString(), CPoint(20.0, 50.0));
 
-  pContext->setFont(new CFontDesc(Style::fontName(), fontSize));
+  pContext->setFont(fontIDText.get());
   pContext->setFontColor(CColor(0, 0, 0, 255));
   pContext->drawString(
     UTF8String("© 2019 Takamitsu Endo (ryukau@gmail.com)").getPlatformString(),
@@ -54,7 +54,8 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->drawString(
     UTF8String("Shift + Drag: Fine Adjustment").getPlatformString(), CPoint(20.0, 150.0));
-  pContext->drawString(UTF8String("Ctrl + Click: Reset to Default").getPlatformString(),
+  pContext->drawString(
+    UTF8String("Ctrl + Click: Reset to Default").getPlatformString(),
     CPoint(20.0, 180.0));
 
   pContext->drawString(
@@ -63,8 +64,10 @@ void CreditView::draw(CDrawContext *pContext)
   // Border.
   const auto borderColor = CColor(0, 0, 0, 255);
   pContext->setFrameColor(borderColor);
-  pContext->drawRect(CRect(halfBorderWidth, halfBorderWidth, width - halfBorderWidth,
-                       height - halfBorderWidth),
+  pContext->drawRect(
+    CRect(
+      halfBorderWidth, halfBorderWidth, width - halfBorderWidth,
+      height - halfBorderWidth),
     kDrawStroked);
 
   setDirty(false);
@@ -79,7 +82,7 @@ void SplashLabel::draw(CDrawContext *pContext)
   const auto width = getWidth();
   const auto height = getHeight();
 
-  pContext->setFont(new CFontDesc(Style::fontName(), fontSize, CTxtFace::kBoldFace));
+  pContext->setFont(fontID.get());
   pContext->setFontColor(fontColor);
   pContext->drawString(txt, CRect(0.0, 0.0, width, height), kCenterText, true);
 
@@ -87,8 +90,10 @@ void SplashLabel::draw(CDrawContext *pContext)
   const double halfBorderWidth = int(borderWidth / 2.0);
   pContext->setFrameColor(isMouseEntered ? highlightColor : frameColor);
   pContext->setLineWidth(borderWidth);
-  pContext->drawRect(CRect(halfBorderWidth, halfBorderWidth, width - halfBorderWidth,
-                       height - halfBorderWidth),
+  pContext->drawRect(
+    CRect(
+      halfBorderWidth, halfBorderWidth, width - halfBorderWidth,
+      height - halfBorderWidth),
     kDrawStroked);
 
   setDirty(false);
