@@ -36,13 +36,13 @@ public:
 
   void onMouseEntered(CView *view, CFrame *frame) override {}
   void onMouseExited(CView *view, CFrame *frame) override {}
-  CMouseEventResult onMouseMoved(
-    CFrame *frame, const CPoint &where, const CButtonState &buttons) override
+  CMouseEventResult
+  onMouseMoved(CFrame *frame, const CPoint &where, const CButtonState &buttons) override
   {
     return kMouseEventNotHandled;
   }
-  CMouseEventResult onMouseDown(
-    CFrame *frame, const CPoint &where, const CButtonState &buttons) override;
+  CMouseEventResult
+  onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &buttons) override;
 
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
@@ -54,7 +54,8 @@ public:
 
   void addSplashScreen(CRect buttonRect, CRect splashRect);
 
-  void addVSlider(CCoord left,
+  void addVSlider(
+    CCoord left,
     CCoord top,
     CColor valueColor,
     UTF8String name,
@@ -63,14 +64,16 @@ public:
     UTF8StringPtr tooltip = "",
     bool drawFromCenter = false);
 
-  void addButton(CCoord left,
+  void addButton(
+    CCoord left,
     CCoord top,
     CCoord width,
     UTF8String title,
     ParamID tag,
     int32_t style = CTextButton::kKickStyle);
 
-  void addCheckbox(CCoord left,
+  void addCheckbox(
+    CCoord left,
     CCoord top,
     UTF8String title,
     ParamID tag,
@@ -86,7 +89,8 @@ public:
     right,
   };
 
-  void addKnob(CCoord left,
+  void addKnob(
+    CCoord left,
     CCoord top,
     CCoord width,
     CColor highlightColor,
@@ -99,7 +103,7 @@ public:
 protected:
   ViewRect viewRect{0, 0, 960, 330};
 
-  CCoord fontSize = 12.0;
+  CCoord fontSize = 14.0;
 
   CCoord frameWidth = 1.0;
 

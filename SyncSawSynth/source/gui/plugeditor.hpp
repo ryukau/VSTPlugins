@@ -36,13 +36,13 @@ public:
 
   void onMouseEntered(CView *view, CFrame *frame) override {}
   void onMouseExited(CView *view, CFrame *frame) override {}
-  CMouseEventResult onMouseMoved(
-    CFrame *frame, const CPoint &where, const CButtonState &buttons) override
+  CMouseEventResult
+  onMouseMoved(CFrame *frame, const CPoint &where, const CButtonState &buttons) override
   {
     return kMouseEventNotHandled;
   }
-  CMouseEventResult onMouseDown(
-    CFrame *frame, const CPoint &where, const CButtonState &buttons) override;
+  CMouseEventResult
+  onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &buttons) override;
 
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
@@ -54,7 +54,8 @@ public:
 
   void addSplashScreen(CRect buttonRect, CRect splashRect);
 
-  void addVSlider(CCoord left,
+  void addVSlider(
+    CCoord left,
     CCoord top,
     CColor valueColor,
     UTF8String name,
@@ -63,20 +64,23 @@ public:
     UTF8StringPtr tooltip = "",
     bool drawFromCenter = false);
 
-  void addButton(CCoord left,
+  void addButton(
+    CCoord left,
     CCoord top,
     CCoord width,
     UTF8String title,
     ParamID tag,
     int32_t style = CTextButton::kKickStyle);
 
-  void addCheckbox(CCoord left,
+  void addCheckbox(
+    CCoord left,
     CCoord top,
     UTF8String title,
     ParamID tag,
     int32_t style = CCheckBox::Styles::kAutoSizeToFit);
 
-  void addOptionMenu(CCoord left,
+  void addOptionMenu(
+    CCoord left,
     CCoord top,
     CCoord width,
     ParamID tag,
@@ -89,7 +93,8 @@ public:
     right,
   };
 
-  void addKnob(CCoord left,
+  void addKnob(
+    CCoord left,
     CCoord top,
     CCoord width,
     CColor highlightColor,
@@ -99,7 +104,8 @@ public:
     LabelPosition labelPosition = LabelPosition::bottom,
     UTF8StringPtr tooltip = "");
 
-  void addOscillatorSection(UTF8String label,
+  void addOscillatorSection(
+    UTF8String label,
     double left,
     double top,
     ParamID tagGain,
@@ -125,8 +131,8 @@ protected:
   const double knobX = 60.0; // With margin.
   const double knobY = knobHeight + labelY;
 
-  ViewRect viewRect{
-    0, 0, int32(10.0 * knobX + 50.0), int32(20.0 + 3.0 * labelY + 6.0 * knobY)};
+  ViewRect viewRect{0, 0, int32(10.0 * knobX + 50.0),
+                    int32(20.0 + 3.0 * labelY + 6.0 * knobY)};
 
   CCoord fontSize = 12.0;
 

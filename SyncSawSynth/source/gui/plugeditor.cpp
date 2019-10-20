@@ -19,6 +19,7 @@
 
 #include "../parameter.hpp"
 #include "checkbox.hpp"
+#include "grouplabel.hpp"
 #include "guistyle.hpp"
 #include "knob.hpp"
 #include "optionmenu.hpp"
@@ -363,14 +364,9 @@ void PlugEditor::addGroupLabel(CCoord left, CCoord top, CCoord width, UTF8String
 {
   auto bottom = top + labelHeight;
 
-  auto label = new CTextLabel(CRect(left, top, left + width, bottom), UTF8String(name));
-  label->setFont(new CFontDesc(Style::fontName(), fontSize, CTxtFace::kNormalFace));
-  label->setStyle(0);
-  label->setFrameWidth(frameWidth);
-  label->setFrameColor(colorBlack);
-  label->setTextTruncateMode(CTextLabel::kTruncateNone);
-  label->setFontColor(colorBlack);
-  label->setBackColor(colorWhite);
+  auto label
+    = new GroupLabel(CRect(left, top, left + width, bottom), this, UTF8String(name));
+  label->setFont(new CFontDesc(Style::fontName(), 14.0, CTxtFace::kBoldFace));
   frame->addView(label);
 }
 

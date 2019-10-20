@@ -19,6 +19,7 @@
 
 #include "../parameter.hpp"
 #include "checkbox.hpp"
+#include "grouplabel.hpp"
 #include "guistyle.hpp"
 #include "knob.hpp"
 #include "plugeditor.hpp"
@@ -228,14 +229,9 @@ void PlugEditor::addGroupLabel(CCoord left, CCoord top, CCoord width, UTF8String
 {
   auto bottom = top + 30.0;
 
-  auto label = new CTextLabel(CRect(left, top, left + width, bottom), UTF8String(name));
-  label->setFont(new CFontDesc(Style::fontName(), fontSize, CTxtFace::kNormalFace));
-  label->setStyle(0);
-  label->setFrameWidth(frameWidth);
-  label->setFrameColor(colorBlack);
-  label->setTextTruncateMode(CTextLabel::kTruncateNone);
-  label->setFontColor(colorBlack);
-  label->setBackColor(colorWhite);
+  auto label
+    = new GroupLabel(CRect(left, top, left + width, bottom), this, UTF8String(name));
+  label->setFont(new CFontDesc(Style::fontName(), 14.0, CTxtFace::kBoldFace));
   frame->addView(label);
 }
 
@@ -310,7 +306,7 @@ void PlugEditor::addButton(
 
   auto button = new TextButton(
     CRect(left, top, right, bottom), this, tag, title, (CTextButton::Style)style);
-  button->setFont(new CFontDesc(Style::fontName(), fontSize, CTxtFace::kNormalFace));
+  button->setFont(new CFontDesc(Style::fontName(), 14.0, CTxtFace::kBoldFace));
   button->setTextColor(colorBlack);
   button->setTextColorHighlighted(colorBlack);
   button->setGradient(CGradient::create(0.0, 1.0, colorWhite, colorWhite));
