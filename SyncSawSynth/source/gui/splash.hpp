@@ -17,8 +17,6 @@
 
 #pragma once
 
-#include <memory>
-
 #include "vstgui/vstgui.h"
 
 #include "guistyle.hpp"
@@ -32,9 +30,14 @@ class CreditView : public CControl {
 public:
   CreditView(const CRect &size, IControlListener *listener) : CControl(size, listener)
   {
-    fontIDTitle = std::make_shared<CFontDesc>(
-      Style::fontName(), fontSizeTitle, CTxtFace::kBoldFace);
-    fontIDText = std::make_shared<CFontDesc>(Style::fontName(), fontSize);
+    fontIDTitle = new CFontDesc(Style::fontName(), fontSizeTitle, CTxtFace::kBoldFace);
+    fontIDText = new CFontDesc(Style::fontName(), fontSize);
+  }
+
+  ~CreditView()
+  {
+    if (fontIDTitle) fontIDTitle->forget();
+    if (fontIDText) fontIDText->forget();
   }
 
   void draw(CDrawContext *pContext) override;
@@ -54,8 +57,8 @@ private:
   CCoord fontSize = 12.0;
   CCoord fontSizeTitle = 18.0;
 
-  std::shared_ptr<CFontDesc> fontIDTitle;
-  std::shared_ptr<CFontDesc> fontIDText;
+  CFontRef fontIDTitle = nullptr;
+  CFontRef fontIDText = nullptr;
 };
 
 class SplashLabel : public CSplashScreen {
@@ -68,8 +71,12 @@ public:
     UTF8StringPtr txt = nullptr)
     : CSplashScreen(size, listener, tag, splashView), txt(txt)
   {
-    fontID
-      = std::make_shared<CFontDesc>(Style::fontName(), fontSize, CTxtFace::kBoldFace);
+    fontID = new CFontDesc(Style::fontName(), fontSize, CTxtFace::kBoldFace);
+  }
+
+  ~SplashLabel()
+  {
+    if (fontID) fontID->forget();
   }
 
   CLASS_METHODS(SplashLabel, CSplashScreen);
@@ -88,7 +95,7 @@ public:
 protected:
   UTF8StringPtr txt = nullptr;
 
-  std::shared_ptr<CFontDesc> fontID;
+  CFontRef fontID = nullptr;
   double fontSize = 24.0;
   CColor fontColor = CColor(0, 0, 0, 255);
 

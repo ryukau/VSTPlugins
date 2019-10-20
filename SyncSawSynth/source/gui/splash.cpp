@@ -41,12 +41,12 @@ void CreditView::draw(CDrawContext *pContext)
   pContext->setFillColor(bgColor);
   pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilled);
 
-  pContext->setFont(fontIDTitle.get());
+  pContext->setFont(fontIDTitle);
   pContext->setFontColor(CColor(0, 0, 0, 255));
   pContext->drawString(
     UTF8String("SyncSawSynth " VERSION_STR).getPlatformString(), CPoint(20.0, 50.0));
 
-  pContext->setFont(fontIDText.get());
+  pContext->setFont(fontIDText);
   pContext->setFontColor(CColor(0, 0, 0, 255));
   pContext->drawString(
     UTF8String("© 2019 Takamitsu Endo (ryukau@gmail.com)").getPlatformString(),
@@ -82,7 +82,7 @@ void SplashLabel::draw(CDrawContext *pContext)
   const auto width = getWidth();
   const auto height = getHeight();
 
-  pContext->setFont(fontID.get());
+  pContext->setFont(fontID);
   pContext->setFontColor(fontColor);
   pContext->drawString(txt, CRect(0.0, 0.0, width, height), kCenterText, true);
 
