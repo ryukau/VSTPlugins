@@ -35,7 +35,8 @@ template<typename Sample> class ExpADSREnvelope {
 public:
   // attackTime, decayTime, releaseTime and declickTime are in seconds.
   // sustainLevel in [0, 1]. 0.0 < threshold < 1.0.
-  ExpADSREnvelope(Sample sampleRate,
+  ExpADSREnvelope(
+    Sample sampleRate,
     Sample attackTime,
     Sample decayTime,
     Sample sustainLevel,
@@ -47,7 +48,8 @@ public:
     reset(attackTime, decayTime, sustainLevel, releaseTime, declickTime, threshold);
   }
 
-  void reset(Sample attackTime,
+  void reset(
+    Sample attackTime,
     Sample decayTime,
     Sample sustainLevel,
     Sample releaseTime,
@@ -60,7 +62,8 @@ public:
   }
 
   // This method is slow.
-  void set(Sample attackTime,
+  void set(
+    Sample attackTime,
     Sample decayTime,
     Sample sustainLevel,
     Sample releaseTime,
@@ -77,7 +80,6 @@ public:
 
     sustainLevel = std::max<Sample>(0.0, std::min<Sample>(sustainLevel, Sample(1.0)));
     sustain.push(sustainLevel);
-    decayRange = Sample(1.0) - sustainLevel;
 
     declickLength = int32_t(declickTime * sampleRate);
 
@@ -111,7 +113,7 @@ public:
         break;
 
       case State::decay:
-        releaseRange = value * decayRange + sustain.getValue();
+        releaseRange = value - value * sustain.getValue() + sustain.getValue();
         break;
 
       case State::terminated:
@@ -147,7 +149,7 @@ public:
 
       case State::decay:
         value *= alpha;
-        output = value * decayRange + sustain.getValue();
+        output = value - value * sustain.getValue() + sustain.getValue();
         if (output > sustain.getValue() + threshold) break;
         state = State::sustain;
         break;
@@ -193,7 +195,6 @@ protected:
   State state = State::attack;
   Sample sampleRate;
   Sample decayTime;
-  Sample decayRange = 1.0;
   Sample releaseAlpha;
   Sample releaseRange = 1.0;
   Sample alpha;
@@ -204,7 +205,8 @@ protected:
 
 template<typename Sample> class LinearEnvelope {
 public:
-  LinearEnvelope(Sample sampleRate,
+  LinearEnvelope(
+    Sample sampleRate,
     Sample attackTime,
     Sample decayTime,
     Sample sustainLevel,
