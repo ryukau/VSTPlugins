@@ -102,6 +102,9 @@ public:
       case State::release:
         alpha = releaseAlpha;
         break;
+
+      default:
+        break;
     }
   }
 
@@ -141,6 +144,7 @@ public:
       case State::attack:
         value *= alpha;
         if (value >= Sample(1.0)) {
+          value = Sample(1.0);
           state = State::decay;
           alpha = somepow<Sample>(threshold, Sample(1.0) / (decayTime * sampleRate));
         }
@@ -176,11 +180,15 @@ public:
         value = 0.0;
         state = State::terminated;
         return value;
+
+      default:
+        output = 0;
+        break;
     }
 
     if (state != State::declickOut && declickCounter < declickLength) {
       declickCounter += 1;
-      return output * cosinterp<Sample>(declickCounter / (Sample)declickLength);
+      output *= cosinterp<Sample>(declickCounter / (Sample)declickLength);
     }
 
     return output;
@@ -270,6 +278,9 @@ public:
           value = 0.0;
         }
         return value;
+
+      default:
+        break;
     }
     return 0.0;
   }
