@@ -28,17 +28,21 @@ public:
   {
     this->length = length > maxLength ? maxLength : length;
 
-    auto ratio = Sample(44100.0) / sampleRate;
-
-    this->damping = damping;
+    this->damping = somepow<Sample>(damping, 44100.0f / sampleRate);
 
     this->pulsePosition = size_t(pulsePosition * this->length);
 
     size_t pw = size_t(pulseWidth * this->length);
     this->pulseWidth = pw < 4 ? 4 : pw;
 
-    alpha = Sample(0.5) * ratio * ratio;
-    beta = Sample(2.0) - Sample(2.0) * alpha;
+    // alpha = 0.5 when sampleRate = 44100.0
+    // 0.5 = A^2 * dt^2
+    // sqrt(0.5) / dt = A
+    // A = 31183.409050326747
+    // A = 972405000
+
+    alpha = 972405000 / (sampleRate * sampleRate);
+    beta = 2 - 2 * alpha;
   }
 
   void step()
