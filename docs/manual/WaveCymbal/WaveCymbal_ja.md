@@ -1,0 +1,146 @@
+# WaveCymbal
+![](img/syncsawsynth.png)
+
+<ruby>WaveCymbal<rt>ウェイブシンバル</rt></ruby>は banded wave-guide という手法を用いてシンバルの音が鳴るはずだったシンセサイザです。実際のところはシンバルというよりも、アスファルトの上でトタン板や紐につないだ空き缶を引きずったときのような音が出ます。
+
+- [WaveCymbal 0.1.0 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/WaveCymbal0.1.0/WaveCymbal0.1.0.zip) <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="60px"
+  style="display: inline-block; vertical-align: middle;">
+
+パッケージには次のビルドが含まれています。
+
+- Windows 64bit
+- Windows 32bit
+- Linux 64bit
+
+Mac は持っていないのでビルドできません。もし使いたいという方がいれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作るか、 `ryukau@gmail.com` までメールを送っていただければビルド方法などについて対応します。
+
+Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。
+
+## インストール
+`WaveCymbal.vst3` を OS ごとに決められたディレクトリに配置してください。
+
+- Windows では `/Program Files/Common Files/VST3/` に配置します。
+- Linux では `$HOME/.vst3/` に配置します。
+
+DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。
+
+### Linux
+Ubuntu 18.0.4 では次のパッケージのインストールが必要です。
+
+```bash
+sudo apt install libxcb-cursor0  libxkbcommon-x11-0
+```
+
+もし DAW がプラグインを認識しないときは、下のリンクの `Package Requirements` を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。
+
+- [VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html)
+
+REAPER 5.983 の Linux 版が WaveCymbal を認識しないときは `~/.config/REAPER/reaper-vstplugins64.ini` を削除して REAPER を再起動してみてください。
+
+## 操作
+つまみとスライダーでは次の操作ができます。
+
+- Ctrl + 左クリック : 値のリセット。
+- Shift + 左ドラッグ : 細かい値の変更。
+
+操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。
+
+## 注意
+マウスカーソルを合わせたときに赤くハイライトされるパラメータは音量を大きく変えることができます。これらのパラメータは Shift + 左ドラッグを使ってゆっくりと変更することを推奨します。また突然の音割れを防ぐために、WaveCymbaの後には必ずリミッタをインサートすることを推奨します。
+
+## パラメータ
+### Gain
+出力音量です。
+
+### Excitation
+インパルスをトーンに変えるショートディレイです。
+
+#### Feedback
+エキサイタのショートディレイのフィードバックです。
+
+#### Time
+エキサイタのショートディレイのディレイ時間です。この値が大きくなると音量がとても大きくなるので注意してください。
+
+### Objects
+#### nCymbal
+シンバルの枚数を表現するはずだった値です。シンバルとは程遠い何らかのシミュレーションのオブジェクトが増えます。
+
+#### nString
+シンバル1枚あたりのシミュレーションの解像度を表現するはずだった値です。 Karplus-Strong アルゴリズムによる弦の数を変更できます。
+
+### Wave
+1次元の波のシミュレーションです。
+
+#### Damping
+波のダンピングを変更します。この値が大きくなると音量がとても大きくなるので注意してください。
+
+#### PulsePosition
+オシレータの出力が波を起こす位置です。
+
+#### PulseWidth
+オシレータの出力によって起こされる波の幅です。
+
+### Collision
+シンバルを衝突させてハイハットのような音になるはずでした。オンにすると軽い金属が擦れるようなノイズが出ます。 `nCymbal` が 1 のときは効果がありません。
+
+#### Distance
+シンバルの間隔です。左に回すほど間隔が狭くなるので、衝突の可能性が増えます。
+
+### Random
+#### Seed
+乱数のシード値です。 `Retrigger` にチェックを入れることで音を固定できます。
+
+#### Amount
+乱数の影響を調整します。この値が小さくなると音量がとても大きくなることがあるので注意してください。
+
+### String
+#### MinHz
+Karplus-Strong アルゴリズムによる弦の周波数の範囲の下限です。
+
+#### MaxHz
+Karplus-Strong アルゴリズムによる弦の周波数の範囲の上限です。
+
+#### Decay
+Karplus-Strong アルゴリズムによる弦の減衰の速さを調整します。左に回すほど減衰が遅くなります。
+
+#### Q
+バンドパスフィルタの Q 値（レゾナンス）です。右に回すほど Q が大きくなります。
+
+### Oscillator
+#### Retrigger
+チェックが入っているときはノートオンのたびに乱数シードをリセットします。
+
+#### OscType
+オシレータの種類です。
+
+- `Off` : ノートオンに反応しなくなります。エフェクトとして使うときに利用できます。
+- `Impulse` : ノートオンでインパルスを出力します。ばちで叩いたときのような音を想定しています。
+- `Sustain` : ノートに応じた高さのインパルス列を出力します。バイオリンの弓のようなもので擦ったときのような音を想定しています。
+- `Velvet Noise` : ノートに応じた密度のベルベットノイズを出力します。 `Sustain` よりも不均一にシンバルを擦ったときのような音を想定しています。
+- `Brown Noise` : ノートに応じた明るさのブラウンノイズを出力します。`Velvet Noise` よりも不均一に擦ったときのような音を想定しています。
+
+#### Bandpass Cutoff Distribution
+バンドパスフィルタのカットオフ周波数の分布を変更します。
+
+- `Log` : 低域寄りの比較的自然な音になります。
+- `Linear` : 高域寄りのとげとげしい音になります。
+
+### Smoothness
+`Gain`, `Excitation.Time`, `Random.Amount`, `Bandpass.MinCutoff`, `Bandpass.MaxCutoff` を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。 `OscType.Sustain` のスライドの長さも `Smoothness` で調整できます。
+
+## チェンジログ
+- 0.1.0
+  - 初期リリース
+
+## ライセンス
+WaveCymbal のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。
+
+- [https://github.com/ryukau/VSTPlugins/tree/master/License](https://github.com/ryukau/VSTPlugins/tree/master/License)
+
+リンクが切れているときは `ryukau@gmail.com` にメールを送ってください。
+
+### VST® について
+VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.

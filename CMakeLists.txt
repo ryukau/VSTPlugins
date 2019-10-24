@@ -1,2 +1,3 @@
 add_subdirectory(SevenDelay)
 add_subdirectory(SyncSawSynth)
+add_subdirectory(WaveCymbal)
