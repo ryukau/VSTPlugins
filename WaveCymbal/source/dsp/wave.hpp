@@ -28,7 +28,11 @@ public:
   {
     this->length = length > maxLength ? maxLength : length;
 
+<<<<<<< HEAD
     this->damping = somepow<Sample>(damping, 44100.0f / sampleRate);
+=======
+    this->damping = damping;
+>>>>>>> 41ec8bfe8f55e6348e2dfbe7727851de8560fd28
 
     this->pulsePosition = size_t(pulsePosition * this->length);
 
