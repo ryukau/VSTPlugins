@@ -36,7 +36,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Run script
-      run: ./ci_macOS.sh
+      run: ci/ci_macOS.sh
     - name: Upload
       uses: actions/upload-artifact@v1
       with:
