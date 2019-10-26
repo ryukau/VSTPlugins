@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Run ci.sh
-      run: ./ci.sh
+      run: ci/ci_ubuntu_latest.sh
     - name: Upload
       uses: actions/upload-artifact@v1
       with:
