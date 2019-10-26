@@ -19,6 +19,7 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v1
-      path: VSTPlugins
+      with:
+        path: VSTPlugins
     - name: Run script
       run: ci/ci_windows-latest.ps1
