@@ -1,4 +1,7 @@
-Set-Location $HOME
-Get-Location
-Set-Location $GITHUB_WORKSPACE
-Get-Location
+echo "home"
+cd $HOME
+pwd
+
+echo "workspace"
+cd $GITHUB_WORKSPACE
+pwd
