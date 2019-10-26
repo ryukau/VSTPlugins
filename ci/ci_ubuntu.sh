@@ -21,4 +21,4 @@ cmake -DCMAKE_BUILD_TYPE=Release \
 cmake --build .
 
 # No idea how to set $HOME as path of actions/upload-artifact@v1.
-mv "$HOME"/vst3sdk/build/VST3/Release "$GITHUB_WORKSPACE"/vst_ubuntu_latest
+mv "$HOME"/vst3sdk/build/VST3/Release "$GITHUB_WORKSPACE"/vst_ubuntu
