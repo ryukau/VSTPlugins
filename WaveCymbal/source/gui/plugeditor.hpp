@@ -151,8 +151,8 @@ protected:
   const float sliderY = sliderHeight + labelY;
   const float checkboxWidth = 80.0f;
 
-  ViewRect viewRect{0, 0, uint32_t(2 * 20 + sliderX + 7 * knobX + 10 * margin),
-                    uint32_t(2 * 15 + 2 * knobY + 2 * labelHeight + 55)};
+  ViewRect viewRect{0, 0, int32(2 * 20 + sliderX + 7 * knobX + 10 * margin),
+                    int32(2 * 15 + 2 * knobY + 2 * labelHeight + 55)};
 
   CCoord fontSize = 12.0;
 
