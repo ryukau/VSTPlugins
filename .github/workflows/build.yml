@@ -4,22 +4,41 @@ name: CI
 on: [push]
 
 jobs:
-  # build-ubuntu:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v1
-  #   - name: Run script
-  #     run: ci/ci_ubuntu_latest.sh
-  #   - name: Upload
-  #     uses: actions/upload-artifact@v1
-  #     with:
-  #       name: vst_ubuntu_latest
-  #       path: vst_ubuntu_latest
+  build-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run script
+      run: ci/ci_ubuntu.sh
+    - name: Upload
+      uses: actions/upload-artifact@v1
+      with:
+        name: vst_ubuntu
+        path: vst_ubuntu
+
   build-windows:
-    runs-on: windows-latest
+    # VST3 SDK fails to build on VS2019.
+    runs-on: windows-2016
     steps:
     - uses: actions/checkout@v1
       with:
         path: VSTPlugins
     - name: Run script
-      run: ci/ci_windows-latest.ps1
+      run: ci/ci_windows.ps1
+    - name: Upload
+      uses: actions/upload-artifact@v1
+      with:
+        name: vst_windows
+        path: vst_windows
+
+  build-macOS:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run script
+      run: ./ci_macOS.sh
+    - name: Upload
+      uses: actions/upload-artifact@v1
+      with:
+        name: vst_macOS
+        path: vst_macOS
