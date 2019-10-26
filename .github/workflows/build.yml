@@ -4,14 +4,20 @@ name: CI
 on: [push]
 
 jobs:
-  build-ubuntu:
-    runs-on: ubuntu-latest
+  # build-ubuntu:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v1
+  #   - name: Run script
+  #     run: ci/ci_ubuntu_latest.sh
+  #   - name: Upload
+  #     uses: actions/upload-artifact@v1
+  #     with:
+  #       name: vst_ubuntu_latest
+  #       path: vst_ubuntu_latest
+  build-windows:
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Run ci.sh
-      run: ci/ci_ubuntu_latest.sh
-    - name: Upload
-      uses: actions/upload-artifact@v1
-      with:
-        name: vst_ubuntu_latest
-        path: vst_ubuntu_latest
+    - name: Run script
+      run: ci/ci_windows-latest.ps1
