@@ -68,4 +68,90 @@ protected:
   CPoint mapValueToSlit(double normalized, double length);
 };
 
+template<typename Scale> class NumberKnob : public Knob {
+public:
+  NumberKnob(
+    const CRect &size,
+    IControlListener *listener,
+    int32_t tag,
+    Scale &scale,
+    int32_t offset = 0)
+    : Knob(size, listener, tag), scale(scale), offset(offset)
+  {
+  }
+
+  ~NumberKnob()
+  {
+    if (fontID) fontID->forget();
+  }
+
+  void draw(CDrawContext *pContext) override
+  {
+    const auto width = getWidth();
+    const auto height = getHeight();
+    const auto center = CPoint(width / 2.0, height / 2.0);
+
+    pContext->setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));
+    CDrawContext::Transform t(
+      *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft() + center));
+
+    // Background.
+    const double borderWidth = 2.0;
+    pContext->setLineWidth(borderWidth);
+    pContext->setFillColor(backgroundColor);
+    pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilled);
+
+    // Slit.
+    auto radius = center.x > center.y ? center.y : center.x;
+    pContext->setFrameColor(isMouseEntered ? highlightColor : slitColor);
+    pContext->setLineStyle(lineStyle);
+    pContext->setLineWidth(halfSlitWidth * 2.0);
+    pContext->drawArc(
+      CRect(
+        halfSlitWidth - radius, halfSlitWidth - radius, radius - halfSlitWidth,
+        radius - halfSlitWidth),
+      (float)(90.0 + slitNotchHalf), (float)(90.0 - slitNotchHalf));
+
+    // Tick for default value. Sharing color and style with slit.
+    auto tipLength = halfSlitWidth - radius;
+    pContext->setLineWidth(halfSlitWidth / 2.0);
+    pContext->drawLine(
+      mapValueToSlit(defaultValue / getRange(), tipLength * defaultTickLength),
+      mapValueToSlit(defaultValue / getRange(), tipLength));
+
+    // Text.
+    pContext->setFont(fontID);
+    pContext->setFontColor(tipColor);
+    UTF8String text
+      = std::to_string(int32_t(floor(scale.map(getValueNormalized()))) + offset).c_str();
+    const auto textWidth = pContext->getStringWidth(text);
+    const auto textLeft = -textWidth * 0.5;
+    const auto textRight = textWidth * 0.5;
+    const auto textTop = -fontID->getSize() * 0.5;
+    const auto textBottom = fontID->getSize() * 0.5;
+    pContext->drawString(
+      text.getPlatformString(), CRect(textLeft, textTop, textRight, textBottom));
+
+    // Tip.
+    auto tip = mapValueToSlit(getValueNormalized(), tipLength);
+    pContext->setFillColor(tipColor);
+    pContext->drawEllipse(
+      CRect(
+        tip.x - halfSlitWidth, tip.y - halfSlitWidth, tip.x + halfSlitWidth,
+        tip.y + halfSlitWidth),
+      kDrawFilled);
+
+    setDirty(false);
+  }
+
+  CLASS_METHODS(Knob, CControl);
+
+  void setFont(CFontRef fontID) { this->fontID = fontID; }
+
+protected:
+  Scale &scale;
+  int32_t offset;
+  CFontRef fontID = nullptr;
+};
+
 } // namespace VSTGUI

@@ -273,7 +273,9 @@ void PlugEditor::addOscillatorSection(
 
   auto oscTop2 = top + knobY;
   auto knobLeft = margin + left;
-  addKnob(knobLeft, oscTop2, knobWidth, colorBlue, "Semi", tagSemi, defaultSemi);
+  addNumberKnob(
+    knobLeft, oscTop2, knobWidth, colorBlue, "Semi", tagSemi, Synth::Scales::semi, 0,
+    defaultSemi);
   addKnob(knobLeft + knobX, oscTop2, knobWidth, colorBlue, "Cent", tagCent, defaultCent);
 
   auto oscTop3 = oscTop2 + knobY;
@@ -496,8 +498,7 @@ void PlugEditor::addKnob(
   UTF8String name,
   ParamID tag,
   float defaultValue,
-  LabelPosition labelPosition,
-  UTF8StringPtr tooltip)
+  LabelPosition labelPosition)
 {
   auto bottom = top + width - 10.0;
   auto right = left + width;
@@ -507,14 +508,54 @@ void PlugEditor::addKnob(
   knob->setHighlightColor(highlightColor);
   knob->setValueNormalized(controller->getParamNormalized(tag));
   knob->setDefaultValue(defaultValue);
-  knob->setTooltipText(tooltip);
   frame->addView(knob);
 
+  addKnobLabel(left, top, right, bottom, name, labelPosition);
+}
+
+template<typename Scale>
+void PlugEditor::addNumberKnob(
+  CCoord left,
+  CCoord top,
+  CCoord width,
+  CColor highlightColor,
+  UTF8String name,
+  ParamID tag,
+  Scale &scale,
+  uint32_t offset,
+  float defaultValue,
+  LabelPosition labelPosition)
+{
+  auto bottom = top + width - 10.0;
+  auto right = left + width;
+
+  auto knob = new NumberKnob<Scale>(
+    CRect(left + 5.0, top, right - 5.0, bottom), this, tag, scale, offset);
+  knob->setFont(new CFontDesc(Style::fontName(), fontSize, CTxtFace::kNormalFace));
+  knob->setSlitWidth(8.0);
+  knob->setHighlightColor(highlightColor);
+  knob->setValueNormalized(controller->getParamNormalized(tag));
+  knob->setDefaultValue(defaultValue);
+  frame->addView(knob);
+
+  addKnobLabel(left, top, right, bottom, name, labelPosition);
+}
+
+void PlugEditor::addKnobLabel(
+  float left,
+  float top,
+  float right,
+  float bottom,
+  UTF8String name,
+  LabelPosition labelPosition)
+{
   switch (labelPosition) {
     default:
     case LabelPosition::bottom:
       top = bottom;
       bottom = top + 30.0;
+      left -= 10.0;
+      right += 10.0;
       break;
 
     case LabelPosition::right:
@@ -529,8 +570,7 @@ void PlugEditor::addKnob(
   label->setStyle(CParamDisplay::Style::kNoFrame);
   label->setTextTruncateMode(CTextLabel::kTruncateNone);
   label->setFontColor(colorBlack);
-  label->setBackColor(colorWhite);
-  label->setTooltipText(tooltip);
+  label->setBackColor(CColor{0, 0, 0, 0});
   if (labelPosition == LabelPosition::right) label->sizeToFit();
   frame->addView(label);
 }

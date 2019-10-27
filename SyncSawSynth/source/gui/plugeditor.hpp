@@ -101,8 +101,28 @@ public:
     UTF8String name,
     ParamID tag,
     float defaultValue,
-    LabelPosition labelPosition = LabelPosition::bottom,
-    UTF8StringPtr tooltip = "");
+    LabelPosition labelPosition = LabelPosition::bottom);
+
+  template<typename Scale>
+  void addNumberKnob(
+    CCoord left,
+    CCoord top,
+    CCoord width,
+    CColor highlightColor,
+    UTF8String name,
+    ParamID tag,
+    Scale &scale,
+    uint32_t offset,
+    float defaultValue,
+    LabelPosition labelPosition = LabelPosition::bottom);
+
+  void addKnobLabel(
+    float left,
+    float top,
+    float right,
+    float bottom,
+    UTF8String name,
+    LabelPosition labelPosition);
 
   void addOscillatorSection(
     UTF8String label,
