@@ -12,10 +12,10 @@ SevenDelay is a stereo delay with 7th order lagrange interpolated fractional del
 The package includes following builds:
 
 - Windows 64bit
-- Windows 32bit
 - Linux 64bit
+- MacOS 64bit
 
-I don't have Mac so there's no Mac build. If you'd like to use SevenDelay on Mac, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`. I'll provide build instruction.
+MacOS build isn't tested because I don't have Mac. If you found a bug, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`.
 
 Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
 
@@ -24,6 +24,7 @@ Place `SevenDelay.vst3` directory to:
 
 - `/Program Files/Common Files/VST3/` for Windows.
 - `$HOME/.vst3/` for Linux.
+- `/Users/$USERNAME/Library/Audio/Plug-ins/VST3/` for MacOS.
 
 DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.
 

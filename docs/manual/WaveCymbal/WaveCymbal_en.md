@@ -1,7 +1,7 @@
 # WaveCymbal
-![](img/syncsawsynth.png)
+![](img/wavecymbal.png)
 
-WaveCymbal is likely a cymbal synthesizer which using banded wave-guide model. Sound is more like dragging rusty tin plate on asphalt rather than cymbal.
+WaveCymbal is an attempt to make a cymbal synthesizer with banded wave-guide model. The result is more like dragging bunch of empty cans or thin metal plate on asphalt rather than cymbal.
 
 - [Download WaveCymbal 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/WaveCymbal0.1.0/WaveCymbal0.1.0.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
@@ -12,10 +12,10 @@ WaveCymbal is likely a cymbal synthesizer which using banded wave-guide model. S
 The package includes following builds:
 
 - Windows 64bit
-- Windows 32bit
 - Linux 64bit
+- MacOS 64bit
 
-I don't have Mac so there's no Mac build. If you'd like to use WaveCymbal on Mac, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`. I'll provide build instruction.
+MacOS build isn't tested because I don't have Mac. If you found a bug, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`.
 
 Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
 
@@ -24,6 +24,7 @@ Place `WaveCymbal.vst3` directory to:
 
 - `/Program Files/Common Files/VST3/` for Windows.
 - `$HOME/.vst3/` for Linux.
+- `/Users/$USERNAME/Library/Audio/Plug-ins/VST3/` for MacOS.
 
 DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.
 

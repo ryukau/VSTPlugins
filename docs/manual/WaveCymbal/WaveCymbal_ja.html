@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<title>SevenDelay_ja</title>
+<title>WaveCymbal_ja</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -212,35 +212,46 @@ footer {
 <summary translate="yes">Table of Contents</summary>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#sevendelay">SevenDelay</a><ul>
+<li><a href="#wavecymbal">WaveCymbal</a><ul>
 <li><a href="#インストール">インストール</a><ul>
 <li><a href="#linux">Linux</a></li>
 </ul></li>
 <li><a href="#操作">操作</a></li>
 <li><a href="#注意">注意</a></li>
 <li><a href="#パラメータ">パラメータ</a><ul>
-<li><a href="#delay">Delay</a><ul>
-<li><a href="#time">Time</a></li>
+<li><a href="#gain">Gain</a></li>
+<li><a href="#excitation">Excitation</a><ul>
 <li><a href="#feedback">Feedback</a></li>
-<li><a href="#stereo">Stereo</a></li>
-<li><a href="#wet">Wet</a></li>
-<li><a href="#dry">Dry</a></li>
-<li><a href="#sync">Sync</a></li>
-<li><a href="#negative">Negative</a></li>
-<li><a href="#spreadpan">Spread/Pan</a></li>
-<li><a href="#allpass-cut">Allpass Cut</a></li>
-<li><a href="#allpass-q">Allpass Q</a></li>
-<li><a href="#dc-kill">DC Kill</a></li>
-<li><a href="#smooth">Smooth</a></li>
+<li><a href="#time">Time</a></li>
 </ul></li>
-<li><a href="#lfo">LFO</a><ul>
-<li><a href="#to-time">To Time</a></li>
-<li><a href="#to-allpass">To Allpass</a></li>
-<li><a href="#frequency">Frequency</a></li>
-<li><a href="#shape">Shape</a></li>
-<li><a href="#phase">Phase</a></li>
-<li><a href="#hold">Hold</a></li>
+<li><a href="#objects">Objects</a><ul>
+<li><a href="#ncymbal">nCymbal</a></li>
+<li><a href="#nstring">nString</a></li>
 </ul></li>
+<li><a href="#wave">Wave</a><ul>
+<li><a href="#damping">Damping</a></li>
+<li><a href="#pulseposition">PulsePosition</a></li>
+<li><a href="#pulsewidth">PulseWidth</a></li>
+</ul></li>
+<li><a href="#collision">Collision</a><ul>
+<li><a href="#distance">Distance</a></li>
+</ul></li>
+<li><a href="#random">Random</a><ul>
+<li><a href="#seed">Seed</a></li>
+<li><a href="#amount">Amount</a></li>
+</ul></li>
+<li><a href="#string">String</a><ul>
+<li><a href="#minhz">MinHz</a></li>
+<li><a href="#maxhz">MaxHz</a></li>
+<li><a href="#decay">Decay</a></li>
+<li><a href="#q">Q</a></li>
+</ul></li>
+<li><a href="#oscillator">Oscillator</a><ul>
+<li><a href="#retrigger">Retrigger</a></li>
+<li><a href="#osctype">OscType</a></li>
+<li><a href="#bandpass-cutoff-distribution">Bandpass Cutoff Distribution</a></li>
+</ul></li>
+<li><a href="#smoothness">Smoothness</a></li>
 </ul></li>
 <li><a href="#チェンジログ">チェンジログ</a></li>
 <li><a href="#ライセンス">ライセンス</a><ul>
@@ -250,11 +261,11 @@ footer {
 </ul>
 </nav>
 </details>
-<h1 id="sevendelay">SevenDelay</h1>
-<p><img src="img/sevendelay.png" /></p>
-<p><ruby>SevenDelay<rt>セブンディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。</p>
+<h1 id="wavecymbal">WaveCymbal</h1>
+<p><img src="img/wavecymbal.png" /></p>
+<p><ruby>WaveCymbal<rt>ウェイブシンバル</rt></ruby>は banded wave-guide という手法を用いてシンバルの音が鳴るはずだったシンセサイザです。実際のところはシンバルというよりも、アスファルトの上でトタン板や紐につないだ空き缶を引きずったときのような音が出ます。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.2/SevenDelay0.1.2.zip">SevenDelay 0.1.2 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/WaveCymbal0.1.0/WaveCymbal0.1.0.zip">WaveCymbal 0.1.0 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -269,7 +280,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>Mac を持っていないので、 MacOS ビルドはテストできていません。もしバグを見つけたときは <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければ対応します。</p>
 <p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。</p>
 <h2 id="インストール">インストール</h2>
-<p><code>SevenDelay.vst3</code> を OS ごとに決められたディレクトリに配置してください。</p>
+<p><code>WaveCymbal.vst3</code> を OS ごとに決められたディレクトリに配置してください。</p>
 <ul>
 <li>Windows では <code>/Program Files/Common Files/VST3/</code> に配置します。</li>
 <li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
@@ -283,104 +294,85 @@ style="display: inline-block; vertical-align: middle;"></li>
 <ul>
 <li><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html">VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins</a></li>
 </ul>
-<p>REAPER 5.983 の Linux 版が SevenDelay を認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
+<p>REAPER 5.983 の Linux 版が WaveCymbal を認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
 <h2 id="操作">操作</h2>
 <p>つまみとスライダーでは次の操作ができます。</p>
 <ul>
 <li>Ctrl + 左クリック : 値のリセット。</li>
 <li>Shift + 左ドラッグ : 細かい値の変更。</li>
 </ul>
+<p>操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。</p>
 <h2 id="注意">注意</h2>
-<p><code>Smooth</code> の値が 0 に近く、 <code>Allpass Cut</code> の値を速く動かしすぎたときに、非常に大きな音量のクリックノイズが出力されることがあります。これは <code>Allpass Cut</code> で使われているフィルタのカットオフ周波数が、速く、大きく、動きすぎると出力が発散する場合があることが原因です。特別な目的がない限り、<code>Smooth</code> パラメータを低く設定しすぎないことを推奨します。</p>
-<p><code>Time</code> の値が最小かつ <code>Feedback</code> の値が最大に設定されると直流信号が出ることがあります。 <code>DC Kill</code> を 1.0 より大きな値に設定することで直流信号を除去できます。</p>
+<p>マウスカーソルを合わせたときに赤くハイライトされるパラメータは音量を大きく変えることができます。これらのパラメータは Shift + 左ドラッグを使ってゆっくりと変更することを推奨します。また突然の音割れを防ぐために、WaveCymbaの後には必ずリミッタをインサートすることを推奨します。</p>
 <h2 id="パラメータ">パラメータ</h2>
-<h3 id="delay">Delay</h3>
-<h4 id="time">Time</h4>
-<p>ディレイ時間。範囲は 0.0001 から 8.0 です。</p>
-<ul>
-<li>もし <code>Sync</code> が有効で <code>Time</code> が 1.0 より小さいときは、ディレイ時間が <code>Time / 16</code> 拍に設定されます。</li>
-<li>もし <code>Sync</code> が有効で <code>Time</code> が 1.0 以上のときは、ディレイ時間が <code>floor(2 * Time) / 32</code> 拍に設定されます。</li>
-<li>それ以外のときは、ディレイ時間が <code>time</code> 秒に設定されます。</li>
-</ul>
+<h3 id="gain">Gain</h3>
+<p>出力音量です。</p>
+<h3 id="excitation">Excitation</h3>
+<p>インパルスをトーンに変えるショートディレイです。</p>
 <h4 id="feedback">Feedback</h4>
-<p>ディレイのフィードバック。範囲は 0.0 から 1.0 です。</p>
-<h4 id="stereo">Stereo</h4>
-<p>左右のディレイ時間のオフセット。範囲は -1.0 から 1.0 です。</p>
+<p>エキサイタのショートディレイのフィードバックです。</p>
+<h4 id="time">Time</h4>
+<p>エキサイタのショートディレイのディレイ時間です。この値が大きくなると音量がとても大きくなるので注意してください。</p>
+<h3 id="objects">Objects</h3>
+<h4 id="ncymbal">nCymbal</h4>
+<p>シンバルの枚数を表現するはずだった値です。シンバルとは程遠い何らかのシミュレーションのオブジェクトが増えます。</p>
+<h4 id="nstring">nString</h4>
+<p>シンバル1枚あたりのシミュレーションの解像度を表現するはずだった値です。 Karplus-Strong アルゴリズムによる弦の数を変更できます。</p>
+<h3 id="wave">Wave</h3>
+<p>1次元の波のシミュレーションです。</p>
+<h4 id="damping">Damping</h4>
+<p>波のダンピングを変更します。この値が大きくなると音量がとても大きくなるので注意してください。</p>
+<h4 id="pulseposition">PulsePosition</h4>
+<p>オシレータの出力が波を起こす位置です。</p>
+<h4 id="pulsewidth">PulseWidth</h4>
+<p>オシレータの出力によって起こされる波の幅です。</p>
+<h3 id="collision">Collision</h3>
+<p>シンバルを衝突させてハイハットのような音になるはずでした。オンにすると軽い金属が擦れるようなノイズが出ます。 <code>nCymbal</code> が 1 のときは効果がありません。</p>
+<h4 id="distance">Distance</h4>
+<p>シンバルの間隔です。左に回すほど間隔が狭くなるので、衝突の可能性が増えます。</p>
+<h3 id="random">Random</h3>
+<h4 id="seed">Seed</h4>
+<p>乱数のシード値です。 <code>Retrigger</code> にチェックを入れることで音を固定できます。</p>
+<h4 id="amount">Amount</h4>
+<p>乱数の影響を調整します。この値が小さくなると音量がとても大きくなることがあるので注意してください。</p>
+<h3 id="string">String</h3>
+<h4 id="minhz">MinHz</h4>
+<p>Karplus-Strong アルゴリズムによる弦の周波数の範囲の下限です。</p>
+<h4 id="maxhz">MaxHz</h4>
+<p>Karplus-Strong アルゴリズムによる弦の周波数の範囲の上限です。</p>
+<h4 id="decay">Decay</h4>
+<p>Karplus-Strong アルゴリズムによる弦の減衰の速さを調整します。左に回すほど減衰が遅くなります。</p>
+<h4 id="q">Q</h4>
+<p>バンドパスフィルタの Q 値（レゾナンス）です。右に回すほど Q が大きくなります。</p>
+<h3 id="oscillator">Oscillator</h3>
+<h4 id="retrigger">Retrigger</h4>
+<p>チェックが入っているときはノートオンのたびに乱数シードをリセットします。</p>
+<h4 id="osctype">OscType</h4>
+<p>オシレータの種類です。</p>
 <ul>
-<li>もし <code>Stereo</code> が 0.0 より小さいときは、左チャンネルのディレイ時間が <code>timeL * (1.0 + Stereo)</code> に変更されます。</li>
-<li>それ以外のときは、右チャンネルのディレイ時間が <code>timeR * (1.0 + Stereo)</code> に変更されます。</li>
+<li><code>Off</code> : ノートオンに反応しなくなります。エフェクトとして使うときに利用できます。</li>
+<li><code>Impulse</code> : ノートオンでインパルスを出力します。ばちで叩いたときのような音を想定しています。</li>
+<li><code>Sustain</code> : ノートに応じた高さのインパルス列を出力します。バイオリンの弓のようなもので擦ったときのような音を想定しています。</li>
+<li><code>Velvet Noise</code> : ノートに応じた密度のベルベットノイズを出力します。 <code>Sustain</code> よりも不均一にシンバルを擦ったときのような音を想定しています。</li>
+<li><code>Brown Noise</code> : ノートに応じた明るさのブラウンノイズを出力します。<code>Velvet Noise</code> よりも不均一に擦ったときのような音を想定しています。</li>
 </ul>
-<h4 id="wet">Wet</h4>
-<p>ディレイ信号の出力音量。範囲は 0.0 から 1.0 。</p>
-<h4 id="dry">Dry</h4>
-<p>入力信号の出力音量。範囲は 0.0 から 1.0 。</p>
-<h4 id="sync">Sync</h4>
-<p>テンポシンクの切り替え。</p>
-<h4 id="negative">Negative</h4>
-<p>負のフィードバックの切り替え。ディレイ時間がとても短いときに役立つかもしれません。</p>
-<h4 id="spreadpan">Spread/Pan</h4>
-<p>入力の広がり (In Spread) 、入力のパン (In Pan) 、出力の広がり (Out Spread) 、出力のパン (Out Pan) 。範囲は 0.0 から 1.0 です。</p>
-<p><code>In Spread</code> 、 <code>Out Spread</code> はステレオの広がりを制御します。 <code>In Pan</code> 、 <code>Out Pan</code> はステレオのパンニングを制御します。</p>
-<p>これらのパラメータはパンニングの逆転やピンポンディレイを作るときに使えます。</p>
+<h4 id="bandpass-cutoff-distribution">Bandpass Cutoff Distribution</h4>
+<p>バンドパスフィルタのカットオフ周波数の分布を変更します。</p>
 <ul>
-<li>パンニングの逆転を行うには <code>[InSpread, InPan, OutSpread, OutPan]</code> を <code>[0.0, 0.5, 1.0, 0.5]</code> に設定します。</li>
-<li>ピンポンディレイにするには <code>[InSpread, InPan, OutSpread, OutPan]</code> を <code>[1.0, 0.5, 0.0, 0.5]</code> に設定します。</li>
+<li><code>Log</code> : 低域寄りの比較的自然な音になります。</li>
+<li><code>Linear</code> : 高域寄りのとげとげしい音になります。</li>
 </ul>
-<pre><code>panL = clamp(2 * pan + spread - 1.0, 0.0, 1.0)
-panR = clamp(2 * pan - spread, 0.0, 1.0)
-
-signalL = incomingL + panL * (incomingR - incomingL)
-signalR = incomingL + panR * (incomingR - incomingL)</code></pre>
-<h4 id="allpass-cut">Allpass Cut</h4>
-<p>SVF オールパスフィルタのカットオフ周波素。範囲は 90.0 から 20000.0 です。</p>
-<p><code>tone</code> が 20000.0 のとき、フィルタはバイパスされます。</p>
-<h4 id="allpass-q">Allpass Q</h4>
-<p>SVF オールパスフィルタのレゾナンス。範囲は 0.00001 から 1.0 です。</p>
-<p>値が大きいほどレゾナンスが強くなります。</p>
-<h4 id="dc-kill">DC Kill</h4>
-<p>ハイパスフィルタのカットオフ周波数。範囲は 5.0 から 120.0 です。</p>
-<p><code>DC Kill</code> を 5.0 より大きく設定すればディレイのフィードバックから直流信号を取り除くことができます。</p>
-<h4 id="smooth">Smooth</h4>
-<p>パラメータ平滑化の度合い。範囲は 0.0 から 1.0 で、単位は秒です。</p>
-<p>パラメータによっては値が急激に変化するとノイズが出ることがあります。 <code>Smooth</code> の値を大きめにすることで、値の変化を緩やかにしてノイズを減らすことができます。</p>
-<h3 id="lfo">LFO</h3>
-<h4 id="to-time">To Time</h4>
-<p>LFO によるディレイ時間の変調量。範囲は 0.0 から 1.0 です。</p>
-<h4 id="to-allpass">To Allpass</h4>
-<p>LFO によるオールパスフィルタのカットオフ周波数の変調量。範囲は 0.0 から 1.0 です。</p>
-<h4 id="frequency">Frequency</h4>
-<p>LFO の周波数。範囲は 0.01 から 100.0 。</p>
-<h4 id="shape">Shape</h4>
-<p>LFO の波形。範囲は 0.01 から 10.0 。</p>
-<pre><code>sign = 1 if (phase &gt; π),
-      -1 if (phase &lt; π),
-       0 if (phase == π)
-lfo = sign * abs(sin(phase))^shape</code></pre>
-<h4 id="phase">Phase</h4>
-<p>LFO の位相の初期値。範囲は 0.0 から 2π 。</p>
-<p>LFO の位相はホストが演奏を開始するたびに <code>Phase</code> の値にリセットされます。</p>
-<h4 id="hold">Hold</h4>
-<p>LFO の位相のホールドの切り替え。ライブ演奏などで役に立つかもしれません。</p>
+<h3 id="smoothness">Smoothness</h3>
+<p><code>Gain</code>, <code>Excitation.Time</code>, <code>Random.Amount</code>, <code>Bandpass.MinCutoff</code>, <code>Bandpass.MaxCutoff</code> を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。 <code>OscType.Sustain</code> のスライドの長さも <code>Smoothness</code> で調整できます。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
-<li>0.1.2
-<ul>
-<li>内部のパラメータの構造を変更。</li>
-<li>UI の見た目を変更。</li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>Linux ビルドの GUI を無効化。VSTGUI に関するバグが治るまでの応急処置。</li>
-<li>LFO の <code>To Allpass</code> のチューニングを変更。</li>
-<li><code>DC Kill</code> の最小値を 5.0 Hz に変更。</li>
-</ul></li>
 <li>0.1.0
 <ul>
 <li>初期リリース</li>
 </ul></li>
 </ul>
 <h2 id="ライセンス">ライセンス</h2>
-<p>SevenDelay のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
+<p>WaveCymbal のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
 <ul>
 <li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
 </ul>

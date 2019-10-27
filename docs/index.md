@@ -1,30 +1,59 @@
 # Uhhyou Plugins
 [VST®](#vst_logo) 3 プラグインを公開しています。
 
-マニュアルの分かりにくい箇所や誤字脱字があれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を投げるか `ryukau@gmail.com` にメールを送信してもらえれば対応します。お気軽にお問い合わせください。
-
-Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。
+何かあれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を投げるか `ryukau@gmail.com` にメールを送信してもらえれば対応します。お気軽にお問い合わせください。
 
 This page is publishing [VST®](#vst_logo) 3 plugins.
 
 If you found some part of manual is not clear and/or found typo, please file issue at [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`. Note that I'm not native in English and it's most likely that the manual contains some weird sentences. I'd like to fix it, so feel free to report those issues.
 
-Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
+# LV2 Plugins
+For Linux, LV2 version is available.
 
-## SyncSawSynth
-![](manual/SyncSawSynth/img/syncsawsynth.png)
+- [GitHub - ryukau/LV2Plugins](https://github.com/ryukau/LV2Plugins)
 
-- [Download SyncSawSynth 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.1/SyncSawSynth0.1.1.zip) <img
-  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
-  alt="VST compatible logo."
-  width="60px"
-  style="display: inline-block; vertical-align: middle;">
-
+# パッケージについて | About Packages
 パッケージには次のビルドが含まれています。
 
 - Windows 64bit
 - Windows 32bit
 - Linux 64bit
+
+ダウンロードリンクは各プラグインのマニュアルと [GitHub のリリースページ](https://github.com/ryukau/VSTPlugins/releases)に掲載しています。
+
+Windows ビルドは FL Studio でテストしています。
+
+Mac を持っていないので、 MacOS ビルドはテストできていません。もしバグを見つけたときは [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に報告をお願いします。
+
+Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。
+
+A package contains following builds:
+
+- Windows 64bit
+- Windows 32bit
+- Linux 64bit
+
+Download link is available at plugin manual page or [GitHub releases page](https://github.com/ryukau/VSTPlugins/releases).
+
+Windows build is tested on FL Studio.
+
+MacOS build isn't tested because I don't have Mac. If you found a bug, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins).
+
+Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
+
+## WaveCymbal
+![](manual/WaveCymbal/img/wavecymbal.png)
+
+WaveCymbal は banded wave-guide という物理モデリングの手法でシンバルの音を作ろうとしたプラグインです。シンバルというよりも、薄い金属板をアスファルトの上で引きずったときのような音が出ます。シンセサイザ、エフェクトのどちらとしても使えます。
+
+- [WaveCymbal のマニュアル (日本語)](manual/WaveCymbal/WaveCymbal_ja.html)
+
+WaveCymbal is an attempt to make cymbal sound with banded wave-guide which is a method for physical modeling. It sounds more like dragging thin metal plate on asphalt rather than cymbal. WaveCymbal can be used as both synthesizer/FX.
+
+- [WaveCymbal Manual (English)](manual/WaveCymbal/WaveCymbal_en.html)
+
+## SyncSawSynth
+![](manual/SyncSawSynth/img/syncsawsynth.png)
 
 SyncSawSynthは10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。
 
@@ -36,18 +65,6 @@ SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR saw
 
 ## SevenDelay
 ![](manual/SevenDelay/img/sevendelay.png)
-
-- [Download SevenDelay 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.1/SevenDelay0.1.1.zip) <img
-  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
-  alt="VST compatible logo."
-  width="60px"
-  style="display: inline-block; vertical-align: middle;">
-
-パッケージには次のビルドが含まれています。
-
-- Windows 64bit
-- Windows 32bit
-- Linux 64bit
 
 SevenDelayはステレオディレイです。分数ディレイに7次のラグランジュ補間を使って7倍のオーバーサンプリングをしています。オートメーションなどでディレイ時間を積極的に動かして音を作る用途に向いています。
 

@@ -12,10 +12,10 @@
 パッケージには次のビルドが含まれています。
 
 - Windows 64bit
-- Windows 32bit
 - Linux 64bit
+- MacOS 64bit
 
-Mac は持っていないのでビルドできません。もし使いたいという方がいれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作るか、 `ryukau@gmail.com` までメールを送っていただければビルド方法などについて対応します。
+Mac を持っていないので、 MacOS ビルドはテストできていません。もしバグを見つけたときは [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作るか、 `ryukau@gmail.com` までメールを送っていただければ対応します。
 
 Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。
 
@@ -24,6 +24,7 @@ Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0
 
 - Windows では `/Program Files/Common Files/VST3/` に配置します。
 - Linux では `$HOME/.vst3/` に配置します。
+- MacOS では `/Users/$USERNAME/Library/Audio/Plug-ins/VST3/` に配置します。
 
 DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。
 

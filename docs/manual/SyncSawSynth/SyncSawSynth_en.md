@@ -3,7 +3,7 @@
 
 SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR sawtooth oscillator. Just a basic synthesizer but very easy to make a noise similar to low battery sound of some toys.
 
-- [Download SyncSawSynth 0.1.3 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.3/SyncSawSynth0.1.3.zip) <img
+- [Download SyncSawSynth 0.1.4 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.4/SyncSawSynth0.1.4.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -12,10 +12,10 @@ SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR saw
 The package includes following builds:
 
 - Windows 64bit
-- Windows 32bit
 - Linux 64bit
+- MacOS 64bit
 
-I don't have Mac so there's no Mac build. If you'd like to use SyncSawSynth on Mac, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`. I'll provide build instruction.
+MacOS build isn't tested because I don't have Mac. If you found a bug, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`.
 
 Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
 
@@ -24,6 +24,7 @@ Place `SyncSawSynth.vst3` directory to:
 
 - `/Program Files/Common Files/VST3/` for Windows.
 - `$HOME/.vst3/` for Linux.
+- `/Users/$USERNAME/Library/Audio/Plug-ins/VST3/` for MacOS.
 
 DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.
 
@@ -271,6 +272,8 @@ Modulation from MIDI note number to cutoff frequency. Range is -1.0 to 1.0.
 Modulation from MIDI note number to feedback. Range is -1.0 to 1.0.
 
 ## Change Log
+- 0.1.4
+  - Changed semitone control to NumberKnob.
 - 0.1.3
   - Added unison parameter.
   - Added number of voice parameter.

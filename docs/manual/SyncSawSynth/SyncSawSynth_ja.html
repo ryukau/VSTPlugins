@@ -285,7 +285,7 @@ footer {
 <p><img src="img/syncsawsynth.png" /></p>
 <p><ruby>SyncSawSynth<rt>シンクソウシンセ</rt></ruby>は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.3/SyncSawSynth0.1.3.zip">SyncSawSynth 0.1.3 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.4/SyncSawSynth0.1.4.zip">SyncSawSynth 0.1.4 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -294,16 +294,17 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>パッケージには次のビルドが含まれています。</p>
 <ul>
 <li>Windows 64bit</li>
-<li>Windows 32bit</li>
 <li>Linux 64bit</li>
+<li>MacOS 64bit</li>
 </ul>
-<p>Mac は持っていないのでビルドできません。もし使いたいという方がいれば <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければビルド方法などについて対応します。</p>
+<p>Mac を持っていないので、 MacOS ビルドはテストできていません。もしバグを見つけたときは <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければ対応します。</p>
 <p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。</p>
 <h2 id="インストール">インストール</h2>
 <p><code>SyncSawSynth.vst3</code> を OS ごとに決められたディレクトリに配置してください。</p>
 <ul>
 <li>Windows では <code>/Program Files/Common Files/VST3/</code> に配置します。</li>
 <li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
+<li>MacOS では <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> に配置します。</li>
 </ul>
 <p>DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。</p>
 <h3 id="linux">Linux</h3>
@@ -465,6 +466,10 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
 <p>ノートの MIDI ノート番号によるフィードバックの変調。範囲は -1.0 から 1.0 。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.4
+<ul>
+<li>semi コントロールのノブが番号を表示するように変更。</li>
+</ul></li>
 <li>0.1.3
 <ul>
 <li>ユニゾンパラメータを追加。</li>

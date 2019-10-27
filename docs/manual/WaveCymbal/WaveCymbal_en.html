@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<title>SevenDelay_en</title>
+<title>WaveCymbal_en</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -212,35 +212,46 @@ footer {
 <summary translate="yes">Table of Contents</summary>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#sevendelay">SevenDelay</a><ul>
+<li><a href="#wavecymbal">WaveCymbal</a><ul>
 <li><a href="#installation">Installation</a><ul>
 <li><a href="#linux-specific">Linux Specific</a></li>
 </ul></li>
 <li><a href="#controls">Controls</a></li>
 <li><a href="#caution">Caution</a></li>
 <li><a href="#parameters">Parameters</a><ul>
-<li><a href="#delay">Delay</a><ul>
-<li><a href="#time">Time</a></li>
+<li><a href="#gain">Gain</a></li>
+<li><a href="#excitation">Excitation</a><ul>
 <li><a href="#feedback">Feedback</a></li>
-<li><a href="#stereo">Stereo</a></li>
-<li><a href="#wet">Wet</a></li>
-<li><a href="#dry">Dry</a></li>
-<li><a href="#sync">Sync</a></li>
-<li><a href="#negative">Negative</a></li>
-<li><a href="#inout-spreadpan">In/Out Spread/Pan</a></li>
-<li><a href="#allpass-cut">Allpass Cut</a></li>
-<li><a href="#allpass-q">Allpass Q</a></li>
-<li><a href="#dc-kill">DC Kill</a></li>
-<li><a href="#smooth">Smooth</a></li>
+<li><a href="#time">Time</a></li>
 </ul></li>
-<li><a href="#lfo">LFO</a><ul>
-<li><a href="#to-time">To Time</a></li>
-<li><a href="#to-allpass">To Allpass</a></li>
-<li><a href="#freq">Freq</a></li>
-<li><a href="#shape">Shape</a></li>
-<li><a href="#phase">Phase</a></li>
-<li><a href="#hold">Hold</a></li>
+<li><a href="#objects">Objects</a><ul>
+<li><a href="#ncymbal">nCymbal</a></li>
+<li><a href="#nstring">nString</a></li>
 </ul></li>
+<li><a href="#wave">Wave</a><ul>
+<li><a href="#damping">Damping</a></li>
+<li><a href="#pulseposition">PulsePosition</a></li>
+<li><a href="#pulsewidth">PulseWidth</a></li>
+</ul></li>
+<li><a href="#collision">Collision</a><ul>
+<li><a href="#distance">Distance</a></li>
+</ul></li>
+<li><a href="#random">Random</a><ul>
+<li><a href="#seed">Seed</a></li>
+<li><a href="#amount">Amount</a></li>
+</ul></li>
+<li><a href="#string">String</a><ul>
+<li><a href="#minhz">MinHz</a></li>
+<li><a href="#maxhz">MaxHz</a></li>
+<li><a href="#decay">Decay</a></li>
+<li><a href="#q">Q</a></li>
+</ul></li>
+<li><a href="#oscillator">Oscillator</a><ul>
+<li><a href="#retrigger">Retrigger</a></li>
+<li><a href="#osctype">OscType</a></li>
+<li><a href="#bandpass-cutoff-distribution">Bandpass Cutoff Distribution</a></li>
+</ul></li>
+<li><a href="#smoothness">Smoothness</a></li>
 </ul></li>
 <li><a href="#change-log">Change Log</a></li>
 <li><a href="#license">License</a><ul>
@@ -250,11 +261,11 @@ footer {
 </ul>
 </nav>
 </details>
-<h1 id="sevendelay">SevenDelay</h1>
-<p><img src="img/sevendelay.png" /></p>
-<p>SevenDelay is a stereo delay with 7th order lagrange interpolated fractional delay and 7x oversampling.</p>
+<h1 id="wavecymbal">WaveCymbal</h1>
+<p><img src="img/wavecymbal.png" /></p>
+<p>WaveCymbal is an attempt to make a cymbal synthesizer with banded wave-guide model. The result is more like dragging bunch of empty cans or thin metal plate on asphalt rather than cymbal.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.2/SevenDelay0.1.2.zip">Download SevenDelay 0.1.2 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/WaveCymbal0.1.0/WaveCymbal0.1.0.zip">Download WaveCymbal 0.1.0 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -269,7 +280,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>MacOS build isn’t tested because I don’t have Mac. If you found a bug, please file a issue to <a href="https://github.com/ryukau/VSTPlugins">GitHub repository</a> or send email to <code>ryukau@gmail.com</code>.</p>
 <p>Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.</p>
 <h2 id="installation">Installation</h2>
-<p>Place <code>SevenDelay.vst3</code> directory to:</p>
+<p>Place <code>WaveCymbal.vst3</code> directory to:</p>
 <ul>
 <li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
 <li><code>$HOME/.vst3/</code> for Linux.</li>
@@ -283,103 +294,83 @@ style="display: inline-block; vertical-align: middle;"></li>
 <ul>
 <li><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html">VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins</a></li>
 </ul>
-<p>REAPER 5.983 on Linux may not recognize SevenDelay. A workaround is to delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and restart REAPER.</p>
+<p>REAPER 5.983 on Linux may not recognize WaveCymbal. A workaround is to delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and restart REAPER.</p>
 <h2 id="controls">Controls</h2>
 <p>Knob and slider can do:</p>
 <ul>
 <li>Ctrl + Left Click: Reset value.</li>
 <li>Shift + Left Drag: Fine adjustment.</li>
 </ul>
+<p>Right clicking on controllable object popups a context menu provided by DAW.</p>
 <h2 id="caution">Caution</h2>
-<p>When the value of <code>Smooth</code> is near zero and change the value of <code>Allpass Cut</code> too fast, SevenDelay may output very loud click noise. This is caused by the filter which becomes unstable when cutoff frequency moves too fast. Recommendation is not to set <code>Smooth</code> parameter too low unless you have some specific purpose.</p>
-<p>When the value of <code>Time</code> is set to minimum and the value of <code>Feedback</code> is set to maximum, SevenDelay outputs direct current (DC). To remove DC, Set <code>DC Kill</code> to be greater than 1.0.</p>
+<p>Parameters that turns red when pointing can drastically change output gain. Changing those parameters with Shift + Left Drag is recommended. To prevent sudden clipping, always insert limiter after WaveCymbal.</p>
 <h2 id="parameters">Parameters</h2>
-<h3 id="delay">Delay</h3>
-<h4 id="time">Time</h4>
-<p>Delay time. Range is 0.0001 to 8.0.</p>
-<ul>
-<li>If <code>Sync</code> is on and <code>Time</code> is less than 1.0, then delay time is set to <code>Time / 16</code> beats.</li>
-<li>If <code>Sync</code> is on and <code>Time</code> is greater or equal to 1.0, then delay time is set to <code>floor(2 * Time) / 32</code> beats.</li>
-<li>Otherwise, delay time is set to <code>Time</code> seconds.</li>
-</ul>
+<h3 id="gain">Gain</h3>
+<p>Output gain.</p>
+<h3 id="excitation">Excitation</h3>
+<p>Short delays that turns impulse to tone.</p>
 <h4 id="feedback">Feedback</h4>
-<p>Delay feedback. Range is 0.0 to 1.0.</p>
-<h4 id="stereo">Stereo</h4>
-<p>L/R stereo offset. Range is -1.0 to 1.0.</p>
+<p>Feedback of excitor delays.</p>
+<h4 id="time">Time</h4>
+<p>Delay time of excitor delays. Beware that when the value of this parameter is high, output will be loud.</p>
+<h3 id="objects">Objects</h3>
+<h4 id="ncymbal">nCymbal</h4>
+<p>Number of cymbal-ish objects.</p>
+<h4 id="nstring">nString</h4>
+<p>Number of Karplus-Strong string per cymbal object.</p>
+<h3 id="wave">Wave</h3>
+<h4 id="damping">Damping</h4>
+<p>Damping of 1D wave simulation. Beware that when the value of this parameter is high, output will be loud.</p>
+<h4 id="pulseposition">PulsePosition</h4>
+<p>Position where oscillator input causes wave.</p>
+<h4 id="pulsewidth">PulseWidth</h4>
+<p>Width of wave caused by oscillator input.</p>
+<h3 id="collision">Collision</h3>
+<p>When turns on, it sounds like a rubbing on surface of thin light metal plate. When <code>nCymbal</code> is 1, this doesn’t change output sound.</p>
+<h4 id="distance">Distance</h4>
+<p>Distance between cymbals. Collision will more likely to occur when turning this knob to left.</p>
+<h3 id="random">Random</h3>
+<h4 id="seed">Seed</h4>
+<p>Random seed. Output will be the same for each note while checking <code>Retrigger</code>.</p>
+<h4 id="amount">Amount</h4>
+<p>Amount of random number effects to delay time and band-pass cutoff. Beware that when the value of this parameter is low, output may be loud.</p>
+<h3 id="string">String</h3>
+<h4 id="minhz">MinHz</h4>
+<p>Lower bound of Karplus-Strong string frequency.</p>
+<h4 id="maxhz">MaxHz</h4>
+<p>Upper bound of Karplus-Strong string frequency.</p>
+<h4 id="decay">Decay</h4>
+<p>Decay of Karplus-Strong string. Decay time will be longer when turning this knob to left.</p>
+<h4 id="q">Q</h4>
+<p>Band-pass filter Q.</p>
+<h3 id="oscillator">Oscillator</h3>
+<h4 id="retrigger">Retrigger</h4>
+<p>When checking, each note on resets random seed.</p>
+<h4 id="osctype">OscType</h4>
+<p>Oscillator type.</p>
 <ul>
-<li>If <code>Stereo</code> is less than 0.0, then left channel delay time is modified to <code>timeL * (1.0 + Stereo)</code>.</li>
-<li>Otherwise, right channel delay time is modified to <code>timeR * (1.0 + Stereo)</code>.</li>
+<li><code>Off</code> : Stop making noise for each note on. This option will be used when using WaveCymbal as FX.</li>
+<li><code>Impulse</code> : Outputs impulse for each note on. Simulates hit of cymbal with stick.</li>
+<li><code>Sustain</code> : Outputs impulse train with pitch of note. Simulates drawing of bow on surface of cymbal.</li>
+<li><code>Velvet Noise</code> : Outputs velvet noise of a density respect to pitch of note. Simulates less uniform drawing than <code>Sustain</code>.</li>
+<li><code>Brown Noise</code> : Outputs brown noise of a brightness respect to pitch of note. Kind of like dragging cymbal on asphalt.</li>
 </ul>
-<h4 id="wet">Wet</h4>
-<p>Output volume of delayed signal. Range is 0.0 to 1.0.</p>
-<h4 id="dry">Dry</h4>
-<p>Output volume of input signal. Range is 0.0 to 1.0.</p>
-<h4 id="sync">Sync</h4>
-<p>Toggle tempo sync.</p>
-<h4 id="negative">Negative</h4>
-<p>Toggle negative feedback. This may be useful when delay time is very short.</p>
-<h4 id="inout-spreadpan">In/Out Spread/Pan</h4>
-<p>Panning controls. Range is 0.0 to 1.0.</p>
-<p><code>In/Out Spread</code> controls stereo spread. <code>In/Out Pan</code> controls stereo panning.</p>
-<p>These parameter can be used for inverse panning, ping-pong delay etc.</p>
+<h4 id="bandpass-cutoff-distribution">Bandpass Cutoff Distribution</h4>
 <ul>
-<li>For inverse panning, set <code>[InSpread, InPan, OutSpread, OutPan]</code> to <code>[0.0, 0.5, 1.0, 0.5]</code>.</li>
-<li>For ping-pong delay, set <code>[InSpread, InPan, OutSpread, OutPan]</code> to <code>[1.0, 0.5, 0.0, 0.5]</code>.</li>
+<li><code>Log</code> : Sound becomes relatively natural.</li>
+<li><code>Linear</code> : Leans sound to higher frequency.</li>
 </ul>
-<pre><code>panL = clamp(2 * pan + spread - 1.0, 0.0, 1.0)
-panR = clamp(2 * pan - spread, 0.0, 1.0)
-
-signalL = incomingL + panL * (incomingR - incomingL)
-signalR = incomingL + panR * (incomingR - incomingL)</code></pre>
-<h4 id="allpass-cut">Allpass Cut</h4>
-<p>SFV allpass filter cutoff frequency. Range is 90.0 to 20000.0.</p>
-<p>If <code>Allpass Cut</code> is 20000.0, filter will be bypassed.</p>
-<h4 id="allpass-q">Allpass Q</h4>
-<p>SFV allpass filter resonance. Range is 0.00001 to 1.0.</p>
-<h4 id="dc-kill">DC Kill</h4>
-<p>Cutoff frequency of biquad highpass filter. Range is 1.0 to 120.0.</p>
-<p><code>DC Kill</code> removes direct current from delay feedback when the value is set to be greater than 1.0.</p>
-<h4 id="smooth">Smooth</h4>
-<p>Parameter smoothing. Range is 0.0 to 1.0. Unit is seconds.</p>
-<p>Some parameter may produce noise when the value is changed too fast. Increasing <code>Smooth</code> reduces those noise.</p>
-<h3 id="lfo">LFO</h3>
-<h4 id="to-time">To Time</h4>
-<p>LFO modulation amount to delay time. Range is 0.0 to 1.0.</p>
-<h4 id="to-allpass">To Allpass</h4>
-<p>LFO modulation amount to allpass cutoff frequency. Range is 0.0 to 1.0.</p>
-<h4 id="freq">Freq</h4>
-<p>LFO frequency. Range is 0.01 to 100.0.</p>
-<h4 id="shape">Shape</h4>
-<p>LFO waveform shape. Range is 0.01 to 10.0.</p>
-<pre><code>sign = 1 if (phase &gt; π),
-      -1 if (phase &lt; π),
-       0 if (phase == π)
-lfo = sign * abs(sin(phase))^shape</code></pre>
-<h4 id="phase">Phase</h4>
-<p>LFO initial phase. Range is 0.0 to 2π.</p>
-<p>LFO phase is reset to <code>Phase</code> for each time host starts playing.</p>
-<h4 id="hold">Hold</h4>
-<p>Toggle LFO phase hold. This may be useful for live performance.</p>
+<h3 id="smoothness">Smoothness</h3>
+<p>Transition time from previous value to current value in seconds. <code>Gain</code>, <code>Excitation.Time</code>, <code>Random.Amount</code>, <code>Bandpass.MinCutoff</code>, <code>Bandpass.MaxCutoff</code> will be affected. Slide effect of <code>OscType.Sustain</code> can be tuned by <code>Smoothness</code>.</p>
 <h2 id="change-log">Change Log</h2>
 <ul>
-<li>0.1.2
-<ul>
-<li>Changed internal parameter structure.</li>
-<li>Changed UI looks.</li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>Disabled GUI for Linux build. This is a makeshift change while tracking down a bug related to VSTGUI.</li>
-<li>Changed tuning of <code>To Allpass</code> of LFO.</li>
-<li>Changed minimal value of <code>DC Kill</code> to 5.0 Hz.</li>
-</ul></li>
 <li>0.1.0
 <ul>
 <li>Initial release.</li>
 </ul></li>
 </ul>
 <h2 id="license">License</h2>
-<p>SevenDelay is licensed under GPLv3. Complete licenses are linked below.</p>
+<p>WaveCymbal is licensed under GPLv3. Complete licenses are linked below.</p>
 <ul>
 <li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
 </ul>
