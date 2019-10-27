@@ -122,7 +122,7 @@ public:
     UTF8String name,
     ParamID tag,
     Scale &scale,
-    uint32_t offset,
+    int32_t offset,
     float defaultValue,
     LabelPosition labelPosition = LabelPosition::bottom);
 

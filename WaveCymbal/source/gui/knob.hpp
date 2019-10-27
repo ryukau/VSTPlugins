@@ -75,7 +75,7 @@ public:
     IControlListener *listener,
     int32_t tag,
     Scale &scale,
-    uint32_t offset = 0)
+    int32_t offset = 0)
     : Knob(size, listener, tag), scale(scale), offset(offset)
   {
   }
@@ -150,7 +150,7 @@ public:
 
 protected:
   Scale &scale;
-  uint32_t offset;
+  int32_t offset;
   CFontRef fontID = nullptr;
 };
 
