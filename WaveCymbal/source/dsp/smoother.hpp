@@ -17,8 +17,6 @@
 
 #pragma once
 
-#include <array>
-
 namespace SomeDSP {
 
 template<typename Sample> class LinearSmoother {
@@ -29,11 +27,8 @@ public:
     setTime(time);
   }
 
-  static void setTime(Sample seconds)
-  {
-    timeInSamples = seconds * sampleRate;
-    if (timeInSamples < 1.0) timeInSamples = 1.0;
-  }
+  static void setTime(Sample seconds) { timeInSamples = seconds * sampleRate; }
+  static void setBufferSize(Sample _bufferSize) { bufferSize = _bufferSize; }
 
   void push(Sample newTarget)
   {
@@ -57,6 +52,7 @@ public:
 protected:
   static Sample sampleRate;
   static Sample timeInSamples;
+  static Sample bufferSize;
   Sample value = 1.0;
   Sample target = 1.0;
   Sample ramp = 0.0;
@@ -64,5 +60,6 @@ protected:
 
 template<typename Sample> Sample LinearSmoother<Sample>::sampleRate = 44100.0;
 template<typename Sample> Sample LinearSmoother<Sample>::timeInSamples = 0.0;
+template<typename Sample> Sample LinearSmoother<Sample>::bufferSize = 44100.0;
 
 } // namespace SomeDSP

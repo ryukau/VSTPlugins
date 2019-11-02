@@ -114,6 +114,8 @@ void DSPCore::setParameters()
 void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
+  LinearSmoother<float>::setBufferSize(length);
+
   const bool excitation = param.value[ParameterID::excitation]->getInt();
   const bool collision = param.value[ParameterID::collision]->getInt();
   const uint32_t oscType = param.value[ParameterID::oscType]->getInt();

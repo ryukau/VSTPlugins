@@ -352,6 +352,8 @@ void DSPCore::setParameters()
 
 void DSPCore::process(const size_t length, float *out0, float *out1)
 {
+  LinearSmoother<float>::setBufferSize(length);
+
   bool unison = param.value[ParameterID::unison]->getFloat();
   for (auto &note : notes) {
     if (note[0]->state == NoteState::rest) continue;

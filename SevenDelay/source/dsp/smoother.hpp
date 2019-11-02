@@ -17,8 +17,7 @@
 
 #pragma once
 
-template <typename Sample>
-class LinearSmoother {
+template<typename Sample> class LinearSmoother {
 public:
   static void setSampleRate(Sample _sampleRate, Sample time = 0.04)
   {
@@ -26,40 +25,43 @@ public:
     setTime(time);
   }
 
-  // set time in seconds.
-  static void setTime(Sample time)
+  static void setTime(Sample seconds) { timeInSamples = seconds * sampleRate; }
+  static void setBufferSize(Sample _bufferSize) { bufferSize = _bufferSize; }
+
+  void reset(Sample value)
   {
-    timeInSamples = time * sampleRate;
+    this->value = target = value;
+    ramp = 0;
   }
 
   void push(Sample target)
   {
     this->target = target;
-    if (timeInSamples > 1.0)
-      ramp = (target - current) / timeInSamples;
+    if (timeInSamples < bufferSize)
+      value = target;
     else
-      ramp = target - current;
+      ramp = (target - value) / timeInSamples;
   }
 
   Sample process()
   {
-    if (current == target) return current;
-    current += ramp;
+    if (value == target) return value;
+    value += ramp;
 
-    auto diff = current - target;
+    auto diff = value - target;
     if (diff < 0) diff = -diff;
-    if (diff < 1e-5) current = target;
-    return current;
+    if (diff < 1e-5) value = target;
+    return value;
   }
 
   static Sample sampleRate;
   static Sample timeInSamples;
-  Sample current = 1.0;
+  static Sample bufferSize;
+  Sample value = 1.0;
   Sample target = 1.0;
   Sample ramp = 0.0;
 };
 
-template <typename Sample>
-Sample LinearSmoother<Sample>::sampleRate = 44100.0;
-template <typename Sample>
-Sample LinearSmoother<Sample>::timeInSamples = 0.0;
+template<typename Sample> Sample LinearSmoother<Sample>::sampleRate = 44100.0;
+template<typename Sample> Sample LinearSmoother<Sample>::timeInSamples = 0.0;
+template<typename Sample> Sample LinearSmoother<Sample>::bufferSize = 44100.0;

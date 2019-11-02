@@ -39,27 +39,18 @@ public:
     d = Sample(1.0) / (Sample(1.0) + Sample(2.0) * resonance + g * g);
   }
 
-  void setCutoff(Sample hz)
+  // q in (0, 1].
+  void setCutoffQ(Sample hz, Sample q)
   {
     cutoff = hz > 0.0 ? hz : 0.0;
-    setCoefficient();
-  }
-
-  // value is (0, 1].
-  void setQ(Sample value)
-  {
-    resonance = value < Sample(1e-5) ? Sample(1e-5) : value;
+    resonance = q < Sample(1e-5) ? Sample(1e-5) : q;
     setCoefficient();
   }
 
   void reset()
   {
-    yLP = 0.0;
-    yBP = 0.0;
-    yHP = 0.0;
-
-    s1 = 0.0;
-    s2 = 0.0;
+    yLP = yBP = yHP = 0.0;
+    s1 = s2 = 0.0;
   }
 
   Sample process(Sample input)

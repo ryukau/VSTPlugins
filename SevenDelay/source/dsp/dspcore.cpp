@@ -137,6 +137,8 @@ void DSPCore::setParameters(double tempo)
 void DSPCore::process(
   const size_t length, float *in0, float *in1, float *out0, float *out1)
 {
+  LinearSmoother<float>::setBufferSize(length);
+
   for (size_t i = 0; i < length; ++i) {
     auto sign = (pi < lfoPhase) - (lfoPhase < pi);
     const float lfo = sign * powf(fabsf(sin(lfoPhase)), interpLfoShape.process());
@@ -155,13 +157,11 @@ void DSPCore::process(
     float toneCutoff = interpToneCutoff.process() * lfoTone * lfoTone;
     if (toneCutoff < 20.0f) toneCutoff = 20.0f;
     const float toneQ = interpToneQ.process();
-    filter[0]->setCutoff(toneCutoff);
-    filter[0]->setQ(toneQ);
-    filter[1]->setCutoff(toneCutoff);
-    filter[1]->setQ(toneQ);
+    filter[0]->setCutoffQ(toneCutoff, toneQ);
+    filter[1]->setCutoffQ(toneCutoff, toneQ);
     float filterOutL = filter[0]->process(delayOut[0]);
     float filterOutR = filter[1]->process(delayOut[1]);
-    const float toneMix = interpToneMix.process() * lfoTone;
+    const float toneMix = interpToneMix.process();
     delayOut[0] = filterOutL + toneMix * (delayOut[0] - filterOutL);
     delayOut[1] = filterOutR + toneMix * (delayOut[1] - filterOutR);
 
@@ -182,9 +182,9 @@ void DSPCore::process(
     out0[i] = dry * in0[i] + outL + interpPanOut[0].process() * (outR - outL);
     out1[i] = dry * in1[i] + outL + interpPanOut[1].process() * (outR - outL);
 
-    if (param.value[ParameterID::lfoHold]->getInt()) {
+    if (!param.value[ParameterID::lfoHold]->getInt()) {
       lfoPhase += interpLfoFrequency.process() * lfoPhaseTick;
-      if (lfoPhase > 2.0 * pi) lfoPhase -= pi;
+      if (lfoPhase > 2.0f * pi) lfoPhase -= 2.0f * pi;
     }
   }
 }
