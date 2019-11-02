@@ -3,7 +3,7 @@
 
 WaveCymbal is an attempt to make a cymbal synthesizer with banded wave-guide model. The result is more like dragging bunch of empty cans or thin metal plate on asphalt rather than cymbal.
 
-- [Download WaveCymbal 0.1.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/WaveCymbal0.1.1/WaveCymbal0.1.1.zip) <img
+- [Download WaveCymbal 0.1.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/FDNCymbal0.1.0/WaveCymbal0.1.1.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"

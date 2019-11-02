@@ -3,7 +3,7 @@
 
 SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR sawtooth oscillator. Just a basic synthesizer but very easy to make a noise similar to low battery sound of some toys.
 
-- [Download SyncSawSynth 0.1.5 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.5/SyncSawSynth0.1.5.zip) <img
+- [Download SyncSawSynth 0.1.5 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/FDNCymbal0.1.0/SyncSawSynth0.1.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"

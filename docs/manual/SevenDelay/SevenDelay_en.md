@@ -3,7 +3,7 @@
 
 SevenDelay is a stereo delay with 7th order lagrange interpolated fractional delay and 7x oversampling.
 
-- [Download SevenDelay 0.1.3 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.3/SevenDelay0.1.3.zip) <img
+- [Download SevenDelay 0.1.3 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/FDNCymbal0.1.0/SevenDelay0.1.3.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
