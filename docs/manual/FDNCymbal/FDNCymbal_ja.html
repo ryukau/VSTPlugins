@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<title>FDNCymbal_ja</title>
+<style>
+code { white-space: pre-wrap; }
+span.smallcaps { font-variant: small-caps; }
+span.underline { text-decoration: underline; }
+div.column { display: inline-block; vertical-align: top; width: 50%; }
+</style>
+<style>
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style>
+body {
+  max-width: 704px;
+  margin: auto;
+  padding: 32px 8px;
+}
+
+img {
+  max-width: 100%;
+}
+
+video {
+  max-width: 100%;
+}
+
+kbd {
+  border-style: solid;
+  border-width: 1px 2px 2px 1px;
+  border-radius: 2px;
+  padding: 2px;
+  margin: 2px;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  background-color: #163eac;
+  color: #ffffff;
+  padding-left: 8px;
+}
+
+h2 {
+  border-left: solid 32px #163eac;
+  padding-left: 24px;
+}
+
+h3 {
+  border-left: solid 20px #163eac;
+  padding-left: 16px;
+}
+
+h4, h5, h6 {
+  border-left: solid 8px #163eac;
+  padding-left: 8px;
+}
+
+table {
+  border-spacing: 0px;
+  border-collapse: separate;
+  border: 1px solid #dddddd;
+}
+
+tr.header {
+  border: 1px solid black;
+}
+
+tr.odd {
+  background: #eeeeee;
+}
+
+tr.even {
+  background: #ffffff;
+}
+
+th {
+  height: 2em;
+  font-weight: normal;
+  padding-left: 0.35em;
+  padding-right: 0.35em;
+  border-bottom: 3px solid #dddddd;
+  border-left: 1px solid #dddddd;
+}
+
+td {
+  height: 1.5em;
+  padding-left: 0.35em;
+  padding-right: 0.35em;
+  border-bottom: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+}
+
+audio {
+  vertical-align: middle;
+}
+
+label {
+  vertical-align: middle;
+}
+
+code {
+  color: #163eac;
+}
+
+pre {
+  border: 4px solid #eeeeee;
+}
+
+li {
+  margin: 8px;
+}
+
+details {
+  padding: 8px;
+  border: solid 4px #163eac;
+}
+
+summary {
+  text-align: center;
+}
+
+summary:hover {
+  background-color: #eeeeee;
+}
+
+header {
+  border-bottom: 1px gray solid;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
+
+footer {
+  border-top: 1px gray solid;
+  padding: 0.5em;
+  margin-top: 1em;
+}
+</style>
+</head>
+
+<body>
+<details>
+<summary translate="yes">Table of Contents</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#fdncymbal">FDNCymbal</a><ul>
+<li><a href="#インストール">インストール</a><ul>
+<li><a href="#linux">Linux</a></li>
+</ul></li>
+<li><a href="#操作">操作</a></li>
+<li><a href="#注意">注意</a></li>
+<li><a href="#パラメータ">パラメータ</a><ul>
+<li><a href="#gain">Gain</a></li>
+<li><a href="#smooth">Smooth</a></li>
+<li><a href="#stick">Stick</a><ul>
+<li><a href="#decay">Decay</a></li>
+<li><a href="#tonemix">ToneMix</a></li>
+</ul></li>
+<li><a href="#random">Random</a><ul>
+<li><a href="#seed">Seed</a></li>
+<li><a href="#retrigger.time">Retrigger.Time</a></li>
+<li><a href="#retrigger.stick">Retrigger.Stick</a></li>
+<li><a href="#retrigger.tremolo">Retrigger.Tremolo</a></li>
+</ul></li>
+<li><a href="#fdn">FDN</a><ul>
+<li><a href="#time">Time</a></li>
+<li><a href="#feedback">Feedback</a></li>
+<li><a href="#cascademix">CascadeMix</a></li>
+</ul></li>
+<li><a href="#allpass">Allpass</a><ul>
+<li><a href="#mix">Mix</a></li>
+</ul></li>
+<li><a href="#stage-1-と-stage-2">Stage 1 と Stage 2</a><ul>
+<li><a href="#time-1">Time</a></li>
+<li><a href="#feedback-1">Feedback</a></li>
+<li><a href="#hp-cutoff">HP Cutoff</a></li>
+<li><a href="#tanh">Tanh</a></li>
+</ul></li>
+<li><a href="#tremolo">Tremolo</a><ul>
+<li><a href="#mix-1">Mix</a></li>
+<li><a href="#depth">Depth</a></li>
+<li><a href="#frequency">Frequency</a></li>
+<li><a href="#delaytime">DelayTime</a></li>
+</ul></li>
+<li><a href="#random-tremolo">Random (Tremolo)</a><ul>
+<li><a href="#depth-1">Depth</a></li>
+<li><a href="#freq">Freq</a></li>
+<li><a href="#time-2">Time</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#チェンジログ">チェンジログ</a></li>
+<li><a href="#ライセンス">ライセンス</a><ul>
+<li><a href="#vst-について">VST® について</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+</details>
+<h1 id="fdncymbal">FDNCymbal</h1>
+<p><img src="img/fdncymbal.png" /></p>
+<p><ruby>FDNCymbal<rt>エフディーエヌシンバル</rt></ruby> はシンバルのような音を合成するシンセサイザです。エフェクトとして使うこともできます。名前とは裏腹に金属的な質感は FDN (feedback delay network) ではなく Schroeder allpass section によって得られています。 <code>FDN.Time</code> の値を小さくすることで、わりとナイスなばちの衝突音が合成できます。シンバルの揺れをシミュレートするためにトレモロもついています。</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/FDNCymbal0.1.0/FDNCymbal0.1.0.zip">FDNCymbal 0.1.0 をダウンロード - VST® 3 (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="60px"
+style="display: inline-block; vertical-align: middle;"></li>
+</ul>
+<p>パッケージには次のビルドが含まれています。</p>
+<ul>
+<li>Windows 64bit</li>
+<li>Linux 64bit</li>
+<li>macOS 64bit</li>
+</ul>
+<p>Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければ対応します。</p>
+<p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。</p>
+<h2 id="インストール">インストール</h2>
+<p><code>FDNCymbal.vst3</code> を OS ごとに決められたディレクトリに配置してください。</p>
+<ul>
+<li>Windows では <code>/Program Files/Common Files/VST3/</code> に配置します。</li>
+<li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
+<li>macOS では <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> に配置します。</li>
+</ul>
+<p>DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。</p>
+<h3 id="linux">Linux</h3>
+<p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+<p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。</p>
+<ul>
+<li><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html">VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins</a></li>
+</ul>
+<p>REAPER 5.983 の Linux 版が FDNCymbal を認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
+<h2 id="操作">操作</h2>
+<p>つまみとスライダーでは次の操作ができます。</p>
+<ul>
+<li>Ctrl + 左クリック : 値のリセット。</li>
+<li>Shift + 左ドラッグ : 細かい値の変更。</li>
+</ul>
+<h2 id="注意">注意</h2>
+<p><code>FDN.Feedback</code> の値が 0 でないときは信号が発散することがあります。発散したときは <code>FDN.Feedback</code> を一番左まで回してください。</p>
+<p><code>HP Cutoff</code> の値を短時間に大きく変更すると直流が乗ることがあります。直流が乗ったときは、いったん <code>HP Cutoff</code> を上げてから <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> でゆっくりと下げなおしてください。</p>
+<h2 id="パラメータ">パラメータ</h2>
+<h3 id="gain">Gain</h3>
+<p>出力音量です。</p>
+<h3 id="smooth">Smooth</h3>
+<p>次のパラメータを変更したときに、変更前の値から変更後の値へと移行する秒数です。</p>
+<ul>
+<li><code>Gain</code></li>
+<li><code>FDN.Time</code></li>
+<li><code>FDN.Feedback</code></li>
+<li><code>FDN.CascadeMix</code></li>
+<li><code>Allpass.Mix</code></li>
+<li><code>Allpass.Stage1.Time</code></li>
+<li><code>Allpass.Stage1.Feedback</code></li>
+<li><code>Allpass.Stage2.Time</code></li>
+<li><code>Allpass.Stage2.Feedback</code></li>
+<li><code>Tremolo.Mix</code></li>
+<li><code>Tremolo.Depth</code></li>
+<li><code>Tremolo.Frequency</code></li>
+<li><code>Tremolo.DelayTime</code></li>
+</ul>
+<h3 id="stick">Stick</h3>
+<p><code>Stick</code> がオンのとき、ノートオンのたびにばちでシンバルを叩きます。ノートの高さでノイズの密度とトーンの高さが変わります。</p>
+<h4 id="decay">Decay</h4>
+<p>ばちオシレータの減衰時間です。</p>
+<h4 id="tonemix">ToneMix</h4>
+<p>ばちオシレータが出力するトーンの音量です。</p>
+<h3 id="random">Random</h3>
+<h4 id="seed">Seed</h4>
+<p>乱数のシード値です。</p>
+<h4 id="retrigger.time">Retrigger.Time</h4>
+<p>チェックを外すと、次の 3 つのパラメータでコントロールされる内部的なディレイ時間がノートオンのたびに変わります。</p>
+<ul>
+<li><code>FDN.Time</code></li>
+<li><code>Allpass.Stage1.Time</code></li>
+<li><code>Allpass.Stage2.Time</code></li>
+</ul>
+<h4 id="retrigger.stick">Retrigger.Stick</h4>
+<p>チェックを外すと、ノートオンのたびにばちオシレータの音が変わります。</p>
+<h4 id="retrigger.tremolo">Retrigger.Tremolo</h4>
+<p>チェックを外すと、トレモロのパラメータがノートオンのたびに変わります。</p>
+<h3 id="fdn">FDN</h3>
+<p>オンのときはFDN (feedback delay network) セクションを信号が通過します。</p>
+<h4 id="time">Time</h4>
+<p>FDN のディレイ時間を調整します。内部的なディレイ時間はノブで設定した値をもとにランダマイズされます。</p>
+<h4 id="feedback">Feedback</h4>
+<p>FDN セクションのフィードバックです。この値が 0 でないときは信号が発散することがあるので注意してください。</p>
+<h4 id="cascademix">CascadeMix</h4>
+<p>直列につないだ複数の FDN の出力のミックスを調整します。</p>
+<h3 id="allpass">Allpass</h3>
+<h4 id="mix">Mix</h4>
+<p>Schroeder allpass section のミックスを調整します。</p>
+<h3 id="stage-1-と-stage-2">Stage 1 と Stage 2</h3>
+<p>2 つの Schroeder allpass section が直列につながっています。 Stage 2 では 4 つの Schroeder allpass section が並列接続されています。</p>
+<h4 id="time-1">Time</h4>
+<p>Schroeder allpass section のディレイ時間の最大値です。ディレイ時間は内部的にランダマイズされます。</p>
+<h4 id="feedback-1">Feedback</h4>
+<p>Schroeder allpass section のフィードバックです。</p>
+<h4 id="hp-cutoff">HP Cutoff</h4>
+<p>Schroeder allpass section の出力にかかるハイパスフィルタのカットオフ周波数です。</p>
+<h4 id="tanh">Tanh</h4>
+<p>チェックを入れると Stage 1 のフィードバックにサチュレーションがかかります。</p>
+<h3 id="tremolo">Tremolo</h3>
+<h4 id="mix-1">Mix</h4>
+<p>トレモロのミックスを調整します。</p>
+<h4 id="depth">Depth</h4>
+<p><code>Depth</code> が大きいほどトレモロによる音量の変化が大きくなります。</p>
+<h4 id="frequency">Frequency</h4>
+<p>トレモロに使われる LFO の周波数です。</p>
+<h4 id="delaytime">DelayTime</h4>
+<p>LFO によって変化するディレイ時間の最大値です。シンバルの揺れによって生じるドップラー効果を表現しています。</p>
+<h3 id="random-tremolo">Random (Tremolo)</h3>
+<h4 id="depth-1">Depth</h4>
+<p>ノートオンのたびに <code>Tremolo.Depth</code> をランダマイズする度合いです。</p>
+<h4 id="freq">Freq</h4>
+<p>ノートオンのたびに <code>Tremolo.Frequency</code> をランダマイズする度合いです。</p>
+<h4 id="time-2">Time</h4>
+<p>ノートオンのたびに <code>Tremolo.DelayTime</code> をランダマイズする度合いです。</p>
+<h2 id="チェンジログ">チェンジログ</h2>
+<ul>
+<li>0.1.0
+<ul>
+<li>初期リリース</li>
+</ul></li>
+</ul>
+<h2 id="ライセンス">ライセンス</h2>
+<p>FDNCymbal のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+</ul>
+<p>リンクが切れているときは <code>ryukau@gmail.com</code> にメールを送ってください。</p>
+<h3 id="vst-について">VST® について</h3>
+<p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
+</body>
+
+</html>
