@@ -48,7 +48,7 @@ FDNCymbal は WaveCymbal に続いてシンバルのような音を作ろうと�
 
 - [FDNCymbal のマニュアル (日本語)](manual/FDNCymbal/FDNCymbal_ja.html)
 
-FDNCymbal is another attempt to make cymbal sound. This time FDN (Feedback Delay Network) and Schroeder allpass are used. Most of metalic tone comes from Schroeder allpass rather than FDN. Tremolo is added to simulate wobbling of cymbal.
+FDNCymbal is another attempt to make cymbal sound. This time FDN (Feedback Delay Network) and Schroeder allpass are used. Most of metallic tone comes from Schroeder allpass rather than FDN. Tremolo is added to simulate wobbling of cymbal.
 
 - [FDNCymbal Manual (English)](manual/FDNCymbal/FDNCymbal_en.html)
 
