@@ -41,6 +41,17 @@ macOS build isn't tested because I don't have Mac. If you found a bug, please fi
 
 Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
 
+## FDNCymbal
+![](manual/FDNCymbal/img/fdncymbal.png)
+
+FDNCymbal は WaveCymbal に続いてシンバルのような音を作ろうとしたプラグインです。今回は FDN (Feedback Delay Network) と Schroeder allpass を使っています。名前とは裏腹に、金属的な質感はほとんど Schroeder allpass によって加えられています。シンバルの揺れをシミュレートするためにトレモロもついています。
+
+- [FDNCymbal のマニュアル (日本語)](manual/FDNCymbal/FDNCymbal_ja.html)
+
+FDNCymbal is another attempt to make cymbal sound. This time FDN (Feedback Delay Network) and Schroeder allpass are used. Most of metalic tone comes from Schroeder allpass rather than FDN. Tremolo is added to simulate wobbling of cymbal.
+
+- [FDNCymbal Manual (English)](manual/FDNCymbal/FDNCymbal_en.html)
+
 ## WaveCymbal
 ![](manual/WaveCymbal/img/wavecymbal.png)
 
