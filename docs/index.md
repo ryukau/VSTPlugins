@@ -16,28 +16,28 @@ For Linux, LV2 version is available.
 パッケージには次のビルドが含まれています。
 
 - Windows 64bit
-- Windows 32bit
 - Linux 64bit
+- macOS 64bit
 
 ダウンロードリンクは各プラグインのマニュアルと [GitHub のリリースページ](https://github.com/ryukau/VSTPlugins/releases)に掲載しています。
 
 Windows ビルドは FL Studio でテストしています。
 
-Mac を持っていないので、 MacOS ビルドはテストできていません。もしバグを見つけたときは [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に報告をお願いします。
+Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に報告をお願いします。
 
 Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。
 
 A package contains following builds:
 
 - Windows 64bit
-- Windows 32bit
 - Linux 64bit
+- macOS 64bit
 
 Download link is available at plugin manual page or [GitHub releases page](https://github.com/ryukau/VSTPlugins/releases).
 
 Windows build is tested on FL Studio.
 
-MacOS build isn't tested because I don't have Mac. If you found a bug, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins).
+macOS build isn't tested because I don't have Mac. If you found a bug, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins).
 
 Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
 
