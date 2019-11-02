@@ -254,7 +254,7 @@ footer {
 <p><img src="img/sevendelay.png" /></p>
 <p>SevenDelay is a stereo delay with 7th order lagrange interpolated fractional delay and 7x oversampling.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.2/SevenDelay0.1.2.zip">Download SevenDelay 0.1.2 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.3/SevenDelay0.1.3.zip">Download SevenDelay 0.1.3 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -264,16 +264,16 @@ style="display: inline-block; vertical-align: middle;"></li>
 <ul>
 <li>Windows 64bit</li>
 <li>Linux 64bit</li>
-<li>MacOS 64bit</li>
+<li>macOS 64bit</li>
 </ul>
-<p>MacOS build isn’t tested because I don’t have Mac. If you found a bug, please file a issue to <a href="https://github.com/ryukau/VSTPlugins">GitHub repository</a> or send email to <code>ryukau@gmail.com</code>.</p>
+<p>macOS build isn’t tested because I don’t have Mac. If you found a bug, please file a issue to <a href="https://github.com/ryukau/VSTPlugins">GitHub repository</a> or send email to <code>ryukau@gmail.com</code>.</p>
 <p>Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.</p>
 <h2 id="installation">Installation</h2>
 <p>Place <code>SevenDelay.vst3</code> directory to:</p>
 <ul>
 <li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
 <li><code>$HOME/.vst3/</code> for Linux.</li>
-<li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for MacOS.</li>
+<li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for macOS.</li>
 </ul>
 <p>DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.</p>
 <h3 id="linux-specific">Linux Specific</h3>
@@ -362,6 +362,12 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 <p>Toggle LFO phase hold. This may be useful for live performance.</p>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.3
+<ul>
+<li>Fixed smoothing algorithm to prevent blow up.</li>
+<li>Fixed a bug that LFO Hold on/off was inverted.</li>
+<li>Removed a modulation from LFO to allpass mixing.</li>
+</ul></li>
 <li>0.1.2
 <ul>
 <li>Changed internal parameter structure.</li>

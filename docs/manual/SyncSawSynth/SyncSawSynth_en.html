@@ -285,7 +285,7 @@ footer {
 <p><img src="img/syncsawsynth.png" /></p>
 <p>SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR sawtooth oscillator. Just a basic synthesizer but very easy to make a noise similar to low battery sound of some toys.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.4/SyncSawSynth0.1.4.zip">Download SyncSawSynth 0.1.4 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.5/SyncSawSynth0.1.5.zip">Download SyncSawSynth 0.1.5 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -295,16 +295,16 @@ style="display: inline-block; vertical-align: middle;"></li>
 <ul>
 <li>Windows 64bit</li>
 <li>Linux 64bit</li>
-<li>MacOS 64bit</li>
+<li>macOS 64bit</li>
 </ul>
-<p>MacOS build isn’t tested because I don’t have Mac. If you found a bug, please file a issue to <a href="https://github.com/ryukau/VSTPlugins">GitHub repository</a> or send email to <code>ryukau@gmail.com</code>.</p>
+<p>macOS build isn’t tested because I don’t have Mac. If you found a bug, please file a issue to <a href="https://github.com/ryukau/VSTPlugins">GitHub repository</a> or send email to <code>ryukau@gmail.com</code>.</p>
 <p>Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.</p>
 <h2 id="installation">Installation</h2>
 <p>Place <code>SyncSawSynth.vst3</code> directory to:</p>
 <ul>
 <li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
 <li><code>$HOME/.vst3/</code> for Linux.</li>
-<li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for MacOS.</li>
+<li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for macOS.</li>
 </ul>
 <p>DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.</p>
 <h3 id="linux-specific">Linux Specific</h3>
@@ -466,6 +466,10 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
 <p>Modulation from MIDI note number to feedback. Range is -1.0 to 1.0.</p>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.5
+<ul>
+<li>Fixed smoothing algorithm to prevent blow up.</li>
+</ul></li>
 <li>0.1.4
 <ul>
 <li>Changed semitone control to NumberKnob.</li>

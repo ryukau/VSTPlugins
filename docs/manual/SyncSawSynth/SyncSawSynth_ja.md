@@ -3,7 +3,7 @@
 
 <ruby>SyncSawSynth<rt>シンクソウシンセ</rt></ruby>は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。
 
-- [SyncSawSynth 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.4/SyncSawSynth0.1.4.zip) <img
+- [SyncSawSynth 0.1.5 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SyncSawSynth0.1.5/SyncSawSynth0.1.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -13,9 +13,9 @@
 
 - Windows 64bit
 - Linux 64bit
-- MacOS 64bit
+- macOS 64bit
 
-Mac を持っていないので、 MacOS ビルドはテストできていません。もしバグを見つけたときは [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作るか、 `ryukau@gmail.com` までメールを送っていただければ対応します。
+Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作るか、 `ryukau@gmail.com` までメールを送っていただければ対応します。
 
 Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。
 
@@ -24,7 +24,7 @@ Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0
 
 - Windows では `/Program Files/Common Files/VST3/` に配置します。
 - Linux では `$HOME/.vst3/` に配置します。
-- MacOS では `/Users/$USERNAME/Library/Audio/Plug-ins/VST3/` に配置します。
+- macOS では `/Users/$USERNAME/Library/Audio/Plug-ins/VST3/` に配置します。
 
 DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。
 
@@ -272,6 +272,8 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))
 ノートの MIDI ノート番号によるフィードバックの変調。範囲は -1.0 から 1.0 。
 
 ## チェンジログ
+- 0.1.5
+  - スムーシングのアルゴリズムの値が決められた範囲を超えるバグを修正。
 - 0.1.4
   - semi コントロールのノブが番号を表示するように変更。
 - 0.1.3

@@ -3,7 +3,7 @@
 
 WaveCymbal is an attempt to make a cymbal synthesizer with banded wave-guide model. The result is more like dragging bunch of empty cans or thin metal plate on asphalt rather than cymbal.
 
-- [Download WaveCymbal 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/WaveCymbal0.1.0/WaveCymbal0.1.0.zip) <img
+- [Download WaveCymbal 0.1.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/WaveCymbal0.1.1/WaveCymbal0.1.1.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -13,9 +13,9 @@ The package includes following builds:
 
 - Windows 64bit
 - Linux 64bit
-- MacOS 64bit
+- macOS 64bit
 
-MacOS build isn't tested because I don't have Mac. If you found a bug, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`.
+macOS build isn't tested because I don't have Mac. If you found a bug, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`.
 
 Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
 
@@ -24,7 +24,7 @@ Place `WaveCymbal.vst3` directory to:
 
 - `/Program Files/Common Files/VST3/` for Windows.
 - `$HOME/.vst3/` for Linux.
-- `/Users/$USERNAME/Library/Audio/Plug-ins/VST3/` for MacOS.
+- `/Users/$USERNAME/Library/Audio/Plug-ins/VST3/` for macOS.
 
 DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.
 
@@ -129,6 +129,8 @@ Oscillator type.
 Transition time from previous value to current value in seconds. `Gain`, `Excitation.Time`, `Random.Amount`, `Bandpass.MinCutoff`, `Bandpass.MaxCutoff` will be affected. Slide effect of `OscType.Sustain` can be tuned by `Smoothness`.
 
 ## Change Log
+- 0.1.1
+  - Fixed smoothing algorithm to prevent blow up.
 - 0.1.0
   - Initial release.
 

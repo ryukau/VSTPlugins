@@ -265,7 +265,7 @@ footer {
 <p><img src="img/wavecymbal.png" /></p>
 <p><ruby>WaveCymbal<rt>ウェイブシンバル</rt></ruby>は banded wave-guide という手法を用いてシンバルの音が鳴るはずだったシンセサイザです。実際のところはシンバルというよりも、アスファルトの上でトタン板や紐につないだ空き缶を引きずったときのような音が出ます。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/WaveCymbal0.1.0/WaveCymbal0.1.0.zip">WaveCymbal 0.1.0 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/WaveCymbal0.1.1/WaveCymbal0.1.1.zip">WaveCymbal 0.1.1 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -275,16 +275,16 @@ style="display: inline-block; vertical-align: middle;"></li>
 <ul>
 <li>Windows 64bit</li>
 <li>Linux 64bit</li>
-<li>MacOS 64bit</li>
+<li>macOS 64bit</li>
 </ul>
-<p>Mac を持っていないので、 MacOS ビルドはテストできていません。もしバグを見つけたときは <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければ対応します。</p>
+<p>Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければ対応します。</p>
 <p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。</p>
 <h2 id="インストール">インストール</h2>
 <p><code>WaveCymbal.vst3</code> を OS ごとに決められたディレクトリに配置してください。</p>
 <ul>
 <li>Windows では <code>/Program Files/Common Files/VST3/</code> に配置します。</li>
 <li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
-<li>MacOS では <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> に配置します。</li>
+<li>macOS では <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> に配置します。</li>
 </ul>
 <p>DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。</p>
 <h3 id="linux">Linux</h3>
@@ -366,6 +366,10 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p><code>Gain</code>, <code>Excitation.Time</code>, <code>Random.Amount</code>, <code>Bandpass.MinCutoff</code>, <code>Bandpass.MaxCutoff</code> を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。 <code>OscType.Sustain</code> のスライドの長さも <code>Smoothness</code> で調整できます。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.1
+<ul>
+<li>スムーシングのアルゴリズムの値が決められた範囲を超えるバグを修正。</li>
+</ul></li>
 <li>0.1.0
 <ul>
 <li>初期リリース</li>

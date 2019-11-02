@@ -3,7 +3,7 @@
 
 <ruby>WaveCymbal<rt>ウェイブシンバル</rt></ruby>は banded wave-guide という手法を用いてシンバルの音が鳴るはずだったシンセサイザです。実際のところはシンバルというよりも、アスファルトの上でトタン板や紐につないだ空き缶を引きずったときのような音が出ます。
 
-- [WaveCymbal 0.1.0 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/WaveCymbal0.1.0/WaveCymbal0.1.0.zip) <img
+- [WaveCymbal 0.1.1 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/WaveCymbal0.1.1/WaveCymbal0.1.1.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -13,9 +13,9 @@
 
 - Windows 64bit
 - Linux 64bit
-- MacOS 64bit
+- macOS 64bit
 
-Mac を持っていないので、 MacOS ビルドはテストできていません。もしバグを見つけたときは [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作るか、 `ryukau@gmail.com` までメールを送っていただければ対応します。
+Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作るか、 `ryukau@gmail.com` までメールを送っていただければ対応します。
 
 Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。
 
@@ -24,7 +24,7 @@ Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0
 
 - Windows では `/Program Files/Common Files/VST3/` に配置します。
 - Linux では `$HOME/.vst3/` に配置します。
-- MacOS では `/Users/$USERNAME/Library/Audio/Plug-ins/VST3/` に配置します。
+- macOS では `/Users/$USERNAME/Library/Audio/Plug-ins/VST3/` に配置します。
 
 DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。
 
@@ -133,6 +133,8 @@ Karplus-Strong アルゴリズムによる弦の減衰の速さを調整しま�
 `Gain`, `Excitation.Time`, `Random.Amount`, `Bandpass.MinCutoff`, `Bandpass.MaxCutoff` を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。 `OscType.Sustain` のスライドの長さも `Smoothness` で調整できます。
 
 ## チェンジログ
+- 0.1.1
+  - スムーシングのアルゴリズムの値が決められた範囲を超えるバグを修正。
 - 0.1.0
   - 初期リリース
 
