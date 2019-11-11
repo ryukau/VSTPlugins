@@ -25,6 +25,7 @@
 #include <array>
 #include <cmath>
 #include <memory>
+#include <vector>
 
 using namespace SomeDSP;
 using namespace Steinberg::Synth;
@@ -49,6 +50,50 @@ public:
     const size_t length, const float *in0, const float *in1, float *out0, float *out1);
   void noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity);
   void noteOff(int32_t noteId);
+
+  struct MidiNote {
+    bool isNoteOn;
+    uint32_t frame;
+    int32_t id;
+    int16_t pitch;
+    float tuning;
+    float velocity;
+  };
+
+  std::vector<MidiNote> midiNotes;
+
+  void pushMidiNote(
+    bool isNoteOn,
+    uint32_t frame,
+    int32_t noteId,
+    int16_t pitch,
+    float tuning,
+    float velocity)
+  {
+    MidiNote note;
+    note.isNoteOn = isNoteOn;
+    note.frame = frame;
+    note.id = noteId;
+    note.pitch = pitch;
+    note.tuning = tuning;
+    note.velocity = velocity;
+    midiNotes.push_back(note);
+  }
+
+  void processMidiNote(size_t frame)
+  {
+    while (true) {
+      auto it = std::find_if(midiNotes.begin(), midiNotes.end(), [&](const MidiNote &nt) {
+        return nt.frame == frame;
+      });
+      if (it == std::end(midiNotes)) return;
+      if (it->isNoteOn)
+        noteOn(it->id, it->pitch, it->tuning, it->velocity);
+      else
+        noteOff(it->id);
+      midiNotes.erase(it);
+    }
+  }
 
 private:
   void setSystem();

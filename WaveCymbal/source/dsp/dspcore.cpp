@@ -122,6 +122,8 @@ void DSPCore::process(
 
   float sample;
   for (size_t i = 0; i < length; ++i) {
+    processMidiNote(i);
+
     const float pitch = interpPitch.process();
     switch (oscType) {
       case 0: // Off

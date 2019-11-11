@@ -147,6 +147,8 @@ void DSPCore::process(
   const bool enableFDN = param.value[ParameterID::fdn]->getInt();
   const bool allpass1Saturation = param.value[ParameterID::allpass1Saturation]->getInt();
   for (size_t i = 0; i < length; ++i) {
+    processMidiNote(i);
+
     float sample = pulsar.process();
     if (in0 != nullptr) sample += in0[i];
     if (in1 != nullptr) sample += in1[i];

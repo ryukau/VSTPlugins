@@ -114,13 +114,13 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
     if (data.inputEvents->getEvent(index, event) != kResultOk) continue;
     switch (event.type) {
       case Vst::Event::kNoteOnEvent:
-        dsp.noteOn(
-          event.noteOn.noteId, event.noteOn.pitch, event.noteOn.tuning,
-          event.noteOn.velocity);
+        dsp.pushMidiNote(
+          true, event.sampleOffset, event.noteOn.noteId, event.noteOn.pitch,
+          event.noteOn.tuning, event.noteOn.velocity);
         break;
 
       case Vst::Event::kNoteOffEvent:
-        dsp.noteOff(event.noteOff.noteId);
+        dsp.pushMidiNote(false, event.sampleOffset, event.noteOff.noteId, 0, 0, 0);
         break;
 
         // Add other event type here.
