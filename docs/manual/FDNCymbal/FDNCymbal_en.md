@@ -3,7 +3,7 @@
 
 FDNCymbal is a cymbal sound synthesizer. It can also be used as an effect. Unlike the name, most of metallic texture comes from Schroeder allpass section rather than FDN (feedback delay network). FDN section makes nice impact sound when `FDN.Time` is short. Tremolo is added to simulate wobbling of cymbal.
 
-- [Download FDNCymbal 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/FDNCymbal0.1.0/FDNCymbal0.1.0.zip) <img
+- [Download FDNCymbal 0.1.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/MidiNoteTriggerFix/FDNCymbal0.1.1.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -154,6 +154,9 @@ Amount of randomization to `Tremolo.Frequency` for each note on.
 Amount of randomization to `Tremolo.DelayTime` for each note on.
 
 ## Change Log
+- 0.1.1
+  - Fixed note on/off event to be triggered at exact timing.
+  - Fixed a bug that `Allpass.Stage1.Feedback` was disabled.
 - 0.1.0
   - Initial release.
 

@@ -3,7 +3,7 @@
 
 <ruby>WaveCymbal<rt>ウェイブシンバル</rt></ruby>は banded wave-guide という手法を用いてシンバルの音が鳴るはずだったシンセサイザです。実際のところはシンバルというよりも、アスファルトの上でトタン板や紐につないだ空き缶を引きずったときのような音が出ます。
 
-- [WaveCymbal 0.1.1 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/FDNCymbal0.1.0/WaveCymbal0.1.1.zip) <img
+- [WaveCymbal 0.1.2 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/MidiNoteTriggerFix/WaveCymbal0.1.2.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -133,6 +133,8 @@ Karplus-Strong アルゴリズムによる弦の減衰の速さを調整しま�
 `Gain`, `Excitation.Time`, `Random.Amount`, `Bandpass.MinCutoff`, `Bandpass.MaxCutoff` を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。 `OscType.Sustain` のスライドの長さも `Smoothness` で調整できます。
 
 ## チェンジログ
+- 0.1.2
+  - ノートオン・オフが正確なタイミングでトリガされるように修正。
 - 0.1.1
   - スムーシングのアルゴリズムの値が決められた範囲を超えるバグを修正。
 - 0.1.0

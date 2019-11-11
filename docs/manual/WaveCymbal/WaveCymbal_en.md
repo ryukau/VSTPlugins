@@ -3,7 +3,7 @@
 
 WaveCymbal is an attempt to make a cymbal synthesizer with banded wave-guide model. The result is more like dragging bunch of empty cans or thin metal plate on asphalt rather than cymbal.
 
-- [Download WaveCymbal 0.1.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/FDNCymbal0.1.0/WaveCymbal0.1.1.zip) <img
+- [Download WaveCymbal 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/MidiNoteTriggerFix/WaveCymbal0.1.2.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -129,6 +129,8 @@ Oscillator type.
 Transition time from previous value to current value in seconds. `Gain`, `Excitation.Time`, `Random.Amount`, `Bandpass.MinCutoff`, `Bandpass.MaxCutoff` will be affected. Slide effect of `OscType.Sustain` can be tuned by `Smoothness`.
 
 ## Change Log
+- 0.1.2
+  - Fixed note on/off event to be triggered at exact timing.
 - 0.1.1
   - Fixed smoothing algorithm to prevent blow up.
 - 0.1.0

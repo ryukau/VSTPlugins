@@ -3,7 +3,7 @@
 
 <ruby>FDNCymbal<rt>エフディーエヌシンバル</rt></ruby> はシンバルのような音を合成するシンセサイザです。エフェクトとして使うこともできます。名前とは裏腹に金属的な質感は FDN (feedback delay network) ではなく Schroeder allpass section によって得られています。 `FDN.Time` の値を小さくすることで、わりとナイスなばちの衝突音が合成できます。シンバルの揺れをシミュレートするためにトレモロもついています。
 
-- [FDNCymbal 0.1.0 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/FDNCymbal0.1.0/FDNCymbal0.1.0.zip) <img
+- [FDNCymbal 0.1.1 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/MidiNoteTriggerFix/FDNCymbal0.1.1.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -154,6 +154,9 @@ LFO によって変化するディレイ時間の最大値です。シンバル�
 ノートオンのたびに `Tremolo.DelayTime` をランダマイズする度合いです。
 
 ## チェンジログ
+- 0.1.1
+  - ノートオン・オフが正確なタイミングでトリガされるように修正。
+  - `Allpass.Stage1.Feedback` が無効になっていたバグを修正。
 - 0.1.0
   - 初期リリース
 
