@@ -176,11 +176,11 @@ void DSPCore::process(
     serialAP1Sig = allpass1Saturation
       ? juce::dsp::FastMathApproximations::tanh(serialAP1Sig)
       : serialAP1Sig;
-    serialAP1Sig = serialAP1->process(sample + serialAP1Sig);
+    serialAP1Sig
+      = serialAP1->process(sample + interpAllpass1Feedback.process() * serialAP1Sig);
     float apOut = serialAP1Highpass->process(serialAP1Sig);
 
-    const float allpass2Feedback = interpAllpass2Feedback.process();
-    serialAP2Sig = apOut + allpass2Feedback * serialAP2Sig;
+    serialAP2Sig = apOut + interpAllpass2Feedback.process() * serialAP2Sig;
     float sum = 0.0f;
     for (auto &ap : serialAP2) sum += ap->process(serialAP2Sig);
     serialAP2Sig = sum / serialAP2.size();
