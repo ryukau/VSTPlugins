@@ -1,4 +1,5 @@
 add_subdirectory(FDNCymbal)
 add_subdirectory(SevenDelay)
 add_subdirectory(SyncSawSynth)
+add_subdirectory(TrapezoidSynth)
 add_subdirectory(WaveCymbal)
