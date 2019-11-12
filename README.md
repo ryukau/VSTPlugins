@@ -3,5 +3,7 @@
 
 - [Uhhyou Plugins (Documentation)](https://ryukau.github.io/VSTPlugins/)
 
+Packaged plugins are available at [Releases · ryukau/VSTPlugins](https://github.com/ryukau/VSTPlugins/releases).
+
 # Build Instruction for Linux
 See [build_instruction.md](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md) for building plugin on Linux.

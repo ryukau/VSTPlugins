@@ -41,6 +41,17 @@ macOS build isn't tested because I don't have Mac. If you found a bug, please fi
 
 Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
 
+## TrapezoidSynth
+![](manual/TrapezoidSynth/img/trapezoidsynth.png)
+
+TrapezoidSynth は 4 つの PTR ランプ関数を継ぎ接ぎした台形オシレータを使ったモノフォニックシンセサイザです。継ぎ接ぎしたのが仇をなしてピッチが高くなるとノイズが乗る欠点があったので8倍にオーバーサンプリングしました。結果としてやたら重たくなっています。
+
+- [TrapezoidSynth のマニュアル (日本語)](manual/TrapezoidSynth/TrapezoidSynth_ja.html)
+
+TrapezoidSynth is a monophonic synthesizer equipped with trapezoid oscillator which is a piecewise function of 4 PTR ramp function. For being piecewise, it has a drawback that increase noise when playing higher tone. Therefore 8 times oversampled and hogging up more CPU.
+
+- [TrapezoidSynth Manual (English)](manual/TrapezoidSynth/TrapezoidSynth_en.html)
+
 ## FDNCymbal
 ![](manual/FDNCymbal/img/fdncymbal.png)
 

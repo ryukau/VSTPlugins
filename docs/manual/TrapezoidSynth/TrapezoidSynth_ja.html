@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<title>TrapezoidSynth_ja</title>
+<style>
+code { white-space: pre-wrap; }
+span.smallcaps { font-variant: small-caps; }
+span.underline { text-decoration: underline; }
+div.column { display: inline-block; vertical-align: top; width: 50%; }
+</style>
+<style>
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style>
+body {
+  max-width: 704px;
+  margin: auto;
+  padding: 32px 8px;
+}
+
+img {
+  max-width: 100%;
+}
+
+video {
+  max-width: 100%;
+}
+
+kbd {
+  border-style: solid;
+  border-width: 1px 2px 2px 1px;
+  border-radius: 2px;
+  padding: 2px;
+  margin: 2px;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  background-color: #163eac;
+  color: #ffffff;
+  padding-left: 8px;
+}
+
+h2 {
+  border-left: solid 32px #163eac;
+  padding-left: 24px;
+}
+
+h3 {
+  border-left: solid 20px #163eac;
+  padding-left: 16px;
+}
+
+h4, h5, h6 {
+  border-left: solid 8px #163eac;
+  padding-left: 8px;
+}
+
+table {
+  border-spacing: 0px;
+  border-collapse: separate;
+  border: 1px solid #dddddd;
+}
+
+tr.header {
+  border: 1px solid black;
+}
+
+tr.odd {
+  background: #eeeeee;
+}
+
+tr.even {
+  background: #ffffff;
+}
+
+th {
+  height: 2em;
+  font-weight: normal;
+  padding-left: 0.35em;
+  padding-right: 0.35em;
+  border-bottom: 3px solid #dddddd;
+  border-left: 1px solid #dddddd;
+}
+
+td {
+  height: 1.5em;
+  padding-left: 0.35em;
+  padding-right: 0.35em;
+  border-bottom: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+}
+
+audio {
+  vertical-align: middle;
+}
+
+label {
+  vertical-align: middle;
+}
+
+code {
+  color: #163eac;
+}
+
+pre {
+  border: 4px solid #eeeeee;
+}
+
+li {
+  margin: 8px;
+}
+
+details {
+  padding: 8px;
+  border: solid 4px #163eac;
+}
+
+summary {
+  text-align: center;
+}
+
+summary:hover {
+  background-color: #eeeeee;
+}
+
+header {
+  border-bottom: 1px gray solid;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
+
+footer {
+  border-top: 1px gray solid;
+  padding: 0.5em;
+  margin-top: 1em;
+}
+</style>
+</head>
+
+<body>
+<details>
+<summary translate="yes">Table of Contents</summary>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#trapezoidsynth">TrapezoidSynth</a><ul>
+<li><a href="#インストール">インストール</a><ul>
+<li><a href="#linux">Linux</a></li>
+</ul></li>
+<li><a href="#操作">操作</a></li>
+<li><a href="#注意">注意</a></li>
+<li><a href="#パラメータ">パラメータ</a><ul>
+<li><a href="#oscillator-共通">Oscillator 共通</a><ul>
+<li><a href="#semi">Semi</a></li>
+<li><a href="#cent">Cent</a></li>
+<li><a href="#slope">Slope</a></li>
+<li><a href="#pw">PW</a></li>
+</ul></li>
+<li><a href="#oscillator-1">Oscillator 1</a><ul>
+<li><a href="#drift">Drift</a></li>
+<li><a href="#feedback">Feedback</a></li>
+</ul></li>
+<li><a href="#oscillator-2">Oscillator 2</a><ul>
+<li><a href="#overtone">Overtone</a></li>
+<li><a href="#pm">PM</a></li>
+</ul></li>
+<li><a href="#envelope-共通">Envelope 共通</a><ul>
+<li><a href="#retrigger">Retrigger</a></li>
+<li><a href="#a">A</a></li>
+<li><a href="#d">D</a></li>
+<li><a href="#s">S</a></li>
+<li><a href="#r">R</a></li>
+<li><a href="#curve">Curve</a></li>
+</ul></li>
+<li><a href="#gain-envelope">Gain Envelope</a><ul>
+<li><a href="#gain">Gain</a></li>
+</ul></li>
+<li><a href="#filter">Filter</a><ul>
+<li><a href="#order">Order</a></li>
+<li><a href="#cut">Cut</a></li>
+<li><a href="#res">Res</a></li>
+<li><a href="#sat">Sat</a></li>
+<li><a href="#envcut">Env&gt;Cut</a></li>
+<li><a href="#keycut">Key&gt;Cut</a></li>
+<li><a href="#oscmix">+OscMix</a></li>
+</ul></li>
+<li><a href="#filter-envelope">Filter Envelope</a><ul>
+<li><a href="#octave">&gt;Octave</a></li>
+</ul></li>
+<li><a href="#misc">Misc</a><ul>
+<li><a href="#oscmix-1">OscMix</a></li>
+<li><a href="#octave-1">Octave</a></li>
+<li><a href="#smooth">Smooth</a></li>
+</ul></li>
+<li><a href="#mod-共通">Mod 共通</a><ul>
+<li><a href="#retrigger-1">Retrigger</a></li>
+<li><a href="#attack">Attack</a></li>
+<li><a href="#curve-1">Curve</a></li>
+</ul></li>
+<li><a href="#mod-1">Mod 1</a><ul>
+<li><a href="#pm-1">&gt;PM</a></li>
+</ul></li>
+<li><a href="#mod-2">Mod 2</a><ul>
+<li><a href="#feedback-1">&gt;Feedback</a></li>
+<li><a href="#lfo">&gt;LFO</a></li>
+<li><a href="#slope2">&gt;Slope2</a></li>
+<li><a href="#shifter1">&gt;Shifter1</a></li>
+</ul></li>
+<li><a href="#shifter-共通">Shifter 共通</a><ul>
+<li><a href="#semi-1">Semi</a></li>
+<li><a href="#cent-1">Cent</a></li>
+<li><a href="#gain-1">Gain</a></li>
+</ul></li>
+<li><a href="#lfo-1">LFO</a><ul>
+<li><a href="#lfotype">LFOType</a></li>
+<li><a href="#tempo">Tempo</a></li>
+<li><a href="#freq">Freq</a></li>
+<li><a href="#shape">Shape</a></li>
+<li><a href="#pitch">&gt;Pitch</a></li>
+<li><a href="#slope1">&gt;Slope1</a></li>
+<li><a href="#pw1">&gt;PW1</a></li>
+<li><a href="#pw1-1">&gt;PW1</a></li>
+</ul></li>
+<li><a href="#slide">Slide</a><ul>
+<li><a href="#slidetype">SlideType</a></li>
+<li><a href="#time">Time</a></li>
+<li><a href="#offset">Offset</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#チェンジログ">チェンジログ</a></li>
+<li><a href="#ライセンス">ライセンス</a><ul>
+<li><a href="#vst-について">VST® について</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+</details>
+<h1 id="trapezoidsynth">TrapezoidSynth</h1>
+<p><img src="img/trapezoidsynth.png" /></p>
+<p><ruby>TrapezoidSynth<rt>トラピゾイドシンセ</rt></ruby>は台形オシレータを使ったモノフォニックシンセサイザです。台形オシレータは PTR (Polynomial Transition Regions) という手法に基づいて作ったのですが、ピッチが高くなると逆にノイズが増える欠点があるので 8 倍のオーバーサンプリングをしています。コードを作るために 2 つの AM ピッチシフタを搭載しています。</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/TrapezoidSynth0.1.0/TrapezoidSynth0.1.0.zip">TrapezoidSynth 0.1.0 をダウンロード - VST® 3 (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="60px"
+style="display: inline-block; vertical-align: middle;"></li>
+</ul>
+<p>パッケージには次のビルドが含まれています。</p>
+<ul>
+<li>Windows 64bit</li>
+<li>Linux 64bit</li>
+<li>macOS 64bit</li>
+</ul>
+<p>Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければ対応します。</p>
+<p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。</p>
+<h2 id="インストール">インストール</h2>
+<p><code>TrapezoidSynth.vst3</code> を OS ごとに決められたディレクトリに配置してください。</p>
+<ul>
+<li>Windows では <code>/Program Files/Common Files/VST3/</code> に配置します。</li>
+<li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
+<li>macOS では <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> に配置します。</li>
+</ul>
+<p>DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。</p>
+<h3 id="linux">Linux</h3>
+<p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</a></code></pre></div>
+<p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。</p>
+<ul>
+<li><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html">VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins</a></li>
+</ul>
+<p>REAPER 5.983 の Linux 版が TrapezoidSynth を認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
+<h2 id="操作">操作</h2>
+<p>つまみとスライダーでは次の操作ができます。</p>
+<ul>
+<li>Ctrl + 左クリック : 値のリセット。</li>
+<li>Shift + 左ドラッグ : 細かい値の変更。</li>
+</ul>
+<p>操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。</p>
+<h2 id="注意">注意</h2>
+<p><code>SlideType</code> を <code>Reset to 0</code> にすると極端に低い周波数が出るので、ハイパスフィルタをかけることを推奨します。</p>
+<h2 id="パラメータ">パラメータ</h2>
+<h3 id="oscillator-共通">Oscillator 共通</h3>
+<h4 id="semi">Semi</h4>
+<p>ピッチを半音単位で変更します。</p>
+<h4 id="cent">Cent</h4>
+<p>ピッチをセント単位で変更します。 100 セント = 1 半音です。</p>
+<h4 id="slope">Slope</h4>
+<p>台形の両端の傾きです。</p>
+<h4 id="pw">PW</h4>
+<p>台形の上辺の長さです。 Pulse Width の略です。</p>
+<h3 id="oscillator-1">Oscillator 1</h3>
+<h4 id="drift">Drift</h4>
+<p>ホワイトノイズでピッチを変調します。</p>
+<h4 id="feedback">Feedback</h4>
+<p>Oscillator 1 の位相をフィードバックで変調します。</p>
+<pre><code>osc1Phase += Feedback * (osc1 + OscMix * (osc2 - osc1))</code></pre>
+<h3 id="oscillator-2">Oscillator 2</h3>
+<h4 id="overtone">Overtone</h4>
+<p>周波数を <code>Overtone</code> 倍にします。</p>
+<h4 id="pm">PM</h4>
+<p>Oscillator 1 の位相を Oscillator 2 の出力で変調します。</p>
+<h3 id="envelope-共通">Envelope 共通</h3>
+<h4 id="retrigger">Retrigger</h4>
+<p>チェックを入れると鍵盤が押されるたびにエンベロープをリセットします。チェックが外れているときは、同時に押している鍵盤の数が 0 から 1 以上になったときだけエンベロープをリセットします。</p>
+<h4 id="a">A</h4>
+<p>アタック時間の秒数です。アタックは音が最大音量に到達するまでのエンベロープの区間です。</p>
+<h4 id="d">D</h4>
+<p>ディケイ時間の秒数です。ディケイはアタックが終わった後にエンベロープが減衰する区間です。</p>
+<h4 id="s">S</h4>
+<p>サステインの大きさです。サステインはディケイが終わったのエンベロープの出力の大きさです。</p>
+<h4 id="r">R</h4>
+<p>リリース時間の秒数です。エンベロープは、鍵盤から指を離した時点（ノートオフ）からリリース状態に移行して、出力が 0 になるまで減衰します。</p>
+<h4 id="curve">Curve</h4>
+<p>エンベロープの特性を変更します。</p>
+<h3 id="gain-envelope">Gain Envelope</h3>
+<h4 id="gain">Gain</h4>
+<p>出力音量です。</p>
+<h3 id="filter">Filter</h3>
+<h4 id="order">Order</h4>
+<p>フィルタの次数です。 TrapezoidSynth では 1 次フィルタを 8 個直列につないでいます。 <code>Order</code> の値によってフィルタから信号を取り出す位置を変更しています。</p>
+<h4 id="cut">Cut</h4>
+<p>カットオフ周波数です。</p>
+<h4 id="res">Res</h4>
+<p>レゾナンスの強さです。</p>
+<h4 id="sat">Sat</h4>
+<p>フィルタのサチュレーションの強さです。</p>
+<pre><code>filterInput = tanh(Sat * (input + Res * filterOutput))</code></pre>
+<h4 id="envcut">Env&gt;Cut</h4>
+<p>Filter Envelope による <code>Cut</code> の変調量です。</p>
+<h4 id="keycut">Key&gt;Cut</h4>
+<p>鍵盤の高さによる <code>Cut</code> の変調量です。</p>
+<h4 id="oscmix">+OscMix</h4>
+<p>Oscillator 1 と Oscillator 2 をミックスした信号による <code>Cut</code> の変調量です。</p>
+<h3 id="filter-envelope">Filter Envelope</h3>
+<h4 id="octave">&gt;Octave</h4>
+<p>Filter Envelope の出力を使ってピッチをオクターブ単位で変調する量です。</p>
+<h3 id="misc">Misc</h3>
+<h4 id="oscmix-1">OscMix</h4>
+<p>Osillator 1 と Oscillator 2 の比率です。左いっぱいに回すと Oscillator 1 の音だけになります。</p>
+<h4 id="octave-1">Octave</h4>
+<p>ピッチをオクターブ単位で変更します。</p>
+<h4 id="smooth">Smooth</h4>
+<p>パラメータを変更したときに変更前の値から変更後の値に移行する秒数です。次のパラメータに影響します。</p>
+<ul>
+<li><code>Drift</code></li>
+<li><code>Slope</code></li>
+<li><code>PW</code> （同名のパラメータすべて）</li>
+<li><code>Feedback</code> （同名のパラメータすべて）</li>
+<li><code>PM</code></li>
+<li><code>Gain</code> （同名のパラメータすべて）</li>
+<li><code>Cut</code></li>
+<li><code>Res</code></li>
+<li><code>Sat</code></li>
+<li><code>Env&gt;Cut</code></li>
+<li><code>Key&gt;Cut</code></li>
+<li><code>+OscMix</code></li>
+<li><code>OscMix</code></li>
+<li><code>&gt;PM</code></li>
+<li><code>&gt;Feedback</code></li>
+<li><code>&gt;LFO</code></li>
+<li><code>&gt;Slope2</code></li>
+<li><code>&gt;Shifter1</code></li>
+<li><code>Shifter1.Semi</code></li>
+<li><code>Shifter1.Cent</code></li>
+<li><code>Shifter2.Semi</code></li>
+<li><code>Shifter2.Cent</code></li>
+<li><code>Freq</code></li>
+<li><code>Shape</code></li>
+<li><code>&gt;Pitch1</code></li>
+<li><code>&gt;Slope1</code></li>
+<li><code>&gt;PW1</code></li>
+<li><code>&gt;Cut</code></li>
+</ul>
+<h3 id="mod-共通">Mod 共通</h3>
+<h4 id="retrigger-1">Retrigger</h4>
+<p>チェックを入れると鍵盤が押されるたびにエンベロープをリセットします。チェックが外れているときは、同時に押している鍵盤の数が 0 から 1 以上になったときだけエンベロープをリセットします。</p>
+<h4 id="attack">Attack</h4>
+<p>モジュレーションエンベロープのアタック時間の秒数です。</p>
+<h4 id="curve-1">Curve</h4>
+<p>モジュレーションエンベロープの特性です。</p>
+<h3 id="mod-1">Mod 1</h3>
+<h4 id="pm-1">&gt;PM</h4>
+<p><code>Oscillator2.PM</code> をモジュレーションエンベロープ 1 で変調します。</p>
+<h3 id="mod-2">Mod 2</h3>
+<h4 id="feedback-1">&gt;Feedback</h4>
+<p><code>Oscillator1.Feedback</code> をモジュレーションエンベロープ 2 で変調します。</p>
+<h4 id="lfo">&gt;LFO</h4>
+<p><code>LFO.Freq</code> をモジュレーションエンベロープ 2 で変調します。</p>
+<h4 id="slope2">&gt;Slope2</h4>
+<p><code>Oscillator2.Slope</code> をモジュレーションエンベロープ 2 で変調します。</p>
+<h4 id="shifter1">&gt;Shifter1</h4>
+<p>Shifter 1 のピッチをモジュレーションエンベロープ 2 で変調します。</p>
+<h3 id="shifter-共通">Shifter 共通</h3>
+<h4 id="semi-1">Semi</h4>
+<p>半音単位でピッチシフトの量を変更します。</p>
+<h4 id="cent-1">Cent</h4>
+<p>セント単位でピッチシフトの量を変更します。</p>
+<h4 id="gain-1">Gain</h4>
+<p>ピッチシフトした信号を足し合わせる大きさです。</p>
+<h3 id="lfo-1">LFO</h3>
+<h4 id="lfotype">LFOType</h4>
+<p>LFO の波形の種類を次の 4 つから選択できます。</p>
+<ul>
+<li><code>Sin</code> : サイン波です。 出力は <code>Shape</code> 乗されます。</li>
+<li><code>Saw</code> : 鋸歯波です。 <code>Shape</code> によって三角波にもできます。</li>
+<li><code>Pulse</code> : 矩形波です。 <code>Shape</code> によってデューティ比を変更できます。</li>
+<li><code>Noise</code> : ブラウンノイズです。 <code>Shape</code> によってステップあたりの移動量を変更できます。</li>
+</ul>
+<h4 id="tempo">Tempo</h4>
+<p>LFO の周波数をテンポシンクします。</p>
+<h4 id="freq">Freq</h4>
+<p>LFO の周波数です。</p>
+<h4 id="shape">Shape</h4>
+<p>LFO の波形を変更します。</p>
+<h4 id="pitch">&gt;Pitch</h4>
+<p>LFO による Oscillator 1 のピッチの変調量です。</p>
+<h4 id="slope1">&gt;Slope1</h4>
+<p>LFO による <code>Oscillator1.Slope</code> の変調量です。</p>
+<h4 id="pw1">&gt;PW1</h4>
+<p>LFO による <code>Oscillator1.PW</code> の変調量です。</p>
+<h4 id="pw1-1">&gt;PW1</h4>
+<p>LFO による <code>Filter.Cut</code> の変調量です。</p>
+<h3 id="slide">Slide</h3>
+<h4 id="slidetype">SlideType</h4>
+<p>ピッチスライドの種類を変更できます。</p>
+<ul>
+<li><code>Always</code> : 常に最後に演奏されたノートのピッチからスライドします。</li>
+<li><code>Sustain</code> : 2 つ以上の鍵盤が同時に押されたときだけスライドします。</li>
+<li><code>Reset to 0</code> : 同時に押している鍵盤の数が 0 から 1 、あるいは 1 から 0 になるときは 0 Hz にスライドします。それ以外の場合は他の 2 つと同じようにスライドします。</li>
+</ul>
+<h4 id="time">Time</h4>
+<p>ピッチスライドにかかる時間です。</p>
+<h4 id="offset">Offset</h4>
+<p>Oscillator 1 のスライド時間に対する Oscillator 2 のスライド時間の比率です。</p>
+<h2 id="チェンジログ">チェンジログ</h2>
+<ul>
+<li>0.1.0
+<ul>
+<li>初期リリース</li>
+</ul></li>
+</ul>
+<h2 id="ライセンス">ライセンス</h2>
+<p>TrapezoidSynth のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+</ul>
+<p>リンクが切れているときは <code>ryukau@gmail.com</code> にメールを送ってください。</p>
+<h3 id="vst-について">VST® について</h3>
+<p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
+</body>
+
+</html>
