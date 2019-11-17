@@ -32,7 +32,7 @@ jobs:
         path: vst_windows
 
   build-macOS:
-    runs-on: macos-10.14
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v1
     - name: Run script
