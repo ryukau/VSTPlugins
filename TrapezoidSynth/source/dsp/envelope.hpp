@@ -31,7 +31,7 @@ public:
 
     this->power = power;
 
-    if constexpr (type == EnvelopeCurveType::attack)
+    if (type == EnvelopeCurveType::attack)
       counter = 0;
     else
       counter = length;
@@ -39,7 +39,7 @@ public:
 
   bool isTerminated()
   {
-    if constexpr (type == EnvelopeCurveType::attack)
+    if (type == EnvelopeCurveType::attack)
       return counter >= length;
     else
       return counter <= 0;
@@ -47,7 +47,7 @@ public:
 
   Sample process()
   {
-    if constexpr (type == EnvelopeCurveType::attack) {
+    if (type == EnvelopeCurveType::attack) {
       if (counter >= length) return 1.0;
       return somepow<Sample>((Sample)(++counter) / length, power);
     } else {
@@ -79,7 +79,7 @@ public:
   {
     set(sampleRate, seconds, curve);
 
-    if constexpr (type == EnvelopeCurveType::attack)
+    if (type == EnvelopeCurveType::attack)
       phase = 0;
     else
       phase = tableSize - 1;
@@ -96,7 +96,7 @@ public:
 
   bool isTerminated()
   {
-    if constexpr (type == EnvelopeCurveType::attack)
+    if (type == EnvelopeCurveType::attack)
       return phase >= tableSize - 1;
     else
       return phase <= 0;
@@ -113,7 +113,7 @@ public:
 
   Sample process()
   {
-    if constexpr (type == EnvelopeCurveType::attack) {
+    if (type == EnvelopeCurveType::attack) {
       if (phase >= tableSize - 1) return 1;
       auto output = at(phase);
       phase += tick;
