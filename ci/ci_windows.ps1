@@ -2,6 +2,8 @@
 # Build script for GitHub Actions.
 #
 
+$erroractionpreference = "stop"
+
 $workspace = (Get-Item -Path ".\").FullName
 cd $HOME
 

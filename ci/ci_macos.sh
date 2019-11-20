@@ -3,6 +3,8 @@
 # Build script for GitHub Actions.
 #
 
+set -e
+
 cd "$HOME" || exit
 git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
 cd vst3sdk || exit
