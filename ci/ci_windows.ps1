@@ -11,9 +11,9 @@ git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
 cd vst3sdk
 
 mkdir build
-cd build
-# cmake -G"Visual Studio 15 2017 Win64" `
-cmake -G"Visual Studio 16 2019" `
+cd Build
+# cmake -G"Visual Studio 16 2019" `
+cmake -G"Visual Studio 15 2017 Win64" `
   -DSMTG_MYPLUGINS_SRC_PATH="$workspace" `
   -DSMTG_ADD_VST3_HOSTING_SAMPLES=FALSE `
   -DSMTG_ADD_VST3_PLUGINS_SAMPLES=FALSE `
