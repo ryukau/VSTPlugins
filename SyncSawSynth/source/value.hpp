@@ -125,7 +125,7 @@ struct IntValue : public ValueInterface {
   double getNormalized() override { return scale.invmap(raw); }
   inline double getDefaultNormalized() override { return defaultNormalized; }
 
-  void setFromInt(uint32_t value)
+  void setFromInt(uint32_t value) override
   {
     raw = value < scale.getMin() ? scale.getMin()
                                  : value > scale.getMax() ? scale.getMax() : value;
@@ -143,7 +143,7 @@ struct IntValue : public ValueInterface {
     raw = scale.map(value < 0.0 ? 0.0 : value > 1.0 ? 1.0 : value);
   }
 
-  tresult setState(IBStreamer &streamer)
+  tresult setState(IBStreamer &streamer) override
   {
     uint32 value;
     if (!streamer.readInt32u(value)) return kResultFalse;
@@ -151,13 +151,13 @@ struct IntValue : public ValueInterface {
     return kResultOk;
   }
 
-  tresult getState(IBStreamer &streamer)
+  tresult getState(IBStreamer &streamer) override
   {
     if (!streamer.writeInt32u(raw)) return kResultFalse;
     return kResultOk;
   }
 
-  tresult addParameter(Vst::ParameterContainer &parameters)
+  tresult addParameter(Vst::ParameterContainer &parameters) override
   {
     auto par = parameters.addParameter(
       USTRING(name), USTRING(unit), scale.getMax(), defaultNormalized, parameterFlags,
@@ -165,7 +165,7 @@ struct IntValue : public ValueInterface {
     return par == nullptr ? kResultFalse : kResultOk;
   }
 
-  Vst::ParamID getId() { return id; }
+  Vst::ParamID getId() override { return id; }
 };
 
 template<typename Scale> struct FloatValue : public ValueInterface {
@@ -198,7 +198,7 @@ template<typename Scale> struct FloatValue : public ValueInterface {
   double getNormalized() override { return scale.invmap(raw); }
   inline double getDefaultNormalized() override { return defaultNormalized; }
 
-  void setFromInt(uint32_t value)
+  void setFromInt(uint32_t value) override
   {
     raw = value < scale.getMin() ? scale.getMin()
                                  : value > scale.getMax() ? scale.getMax() : value;
@@ -215,7 +215,7 @@ template<typename Scale> struct FloatValue : public ValueInterface {
     raw = scale.map(value < 0.0 ? 0.0 : value > 1.0 ? 1.0 : value);
   }
 
-  tresult setState(IBStreamer &streamer)
+  tresult setState(IBStreamer &streamer) override
   {
     double normalized;
     if (!streamer.readDouble(normalized)) return kResultFalse;
@@ -223,13 +223,13 @@ template<typename Scale> struct FloatValue : public ValueInterface {
     return kResultOk;
   }
 
-  tresult getState(IBStreamer &streamer)
+  tresult getState(IBStreamer &streamer) override
   {
     if (!streamer.writeDouble(getNormalized())) return kResultFalse;
     return kResultOk;
   }
 
-  tresult addParameter(Vst::ParameterContainer &parameters)
+  tresult addParameter(Vst::ParameterContainer &parameters) override
   {
     auto par = parameters.addParameter(new Vst::ScaledParameter<Scale>(
       USTRING(name), id, scale, defaultNormalized, USTRING(unit), parameterFlags));
@@ -237,7 +237,7 @@ template<typename Scale> struct FloatValue : public ValueInterface {
     return par == nullptr ? kResultFalse : kResultOk;
   }
 
-  Vst::ParamID getId() { return id; }
+  Vst::ParamID getId() override { return id; }
 };
 
 } // namespace Steinberg
