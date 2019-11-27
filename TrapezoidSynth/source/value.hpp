@@ -81,6 +81,8 @@ protected:
 } // namespace Vst
 
 struct ValueInterface {
+  virtual ~ValueInterface() {}
+
   virtual double getFloat() const = 0;
   virtual uint32_t getInt() const = 0;
   virtual double getNormalized() = 0;
