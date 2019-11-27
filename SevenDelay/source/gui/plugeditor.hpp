@@ -30,9 +30,10 @@ class PlugEditor : public VSTGUIEditor, public IControlListener, public IMouseOb
 public:
   PlugEditor(void *controller);
 
-  bool PLUGIN_API open(void *parent, const PlatformType &platformType = kDefaultNative);
-  void PLUGIN_API close();
-  void valueChanged(CControl *pControl);
+  bool PLUGIN_API
+  open(void *parent, const PlatformType &platformType = kDefaultNative) override;
+  void PLUGIN_API close() override;
+  void valueChanged(CControl *pControl) override;
 
   void onMouseEntered(CView *view, CFrame *frame) override {}
   void onMouseExited(CView *view, CFrame *frame) override {}
