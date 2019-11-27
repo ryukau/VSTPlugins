@@ -18,7 +18,11 @@ jobs:
 
   build-windows:
     # VST3 SDK fails to build on VS2019.
-    runs-on: windows-latest
+    # https://github.com/steinbergmedia/vst3sdk/issues/39
+    #
+    # Windows Server 2016 (will be removed Dec. 3, 2019)
+    # https://help.github.com/en/actions/automating-your-workflow-with-github-actions/software-installed-on-github-hosted-runners
+    runs-on: windows-2016
     steps:
     - uses: actions/checkout@v1
       with:
