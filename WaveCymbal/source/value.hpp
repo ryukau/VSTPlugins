@@ -114,9 +114,9 @@ struct IntValue : public ValueInterface {
     : scale(scale)
     , defaultNormalized(scale.invmap(defaultRaw))
     , raw(defaultRaw <= scale.getMax() ? defaultRaw : 0)
-    , id(id)
     , name(name)
     , parameterFlags(parameterFlags)
+    , id(id)
   {
   }
 
