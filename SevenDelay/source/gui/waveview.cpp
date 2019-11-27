@@ -36,7 +36,6 @@ void WaveView::draw(CDrawContext *pContext)
   const auto width = getWidth();
   const auto height = getHeight();
   const double borderWidth = 1.0;
-  const double halfBorderWidth = borderWidth / 2.0;
 
   // Background.
   const auto bgColor = CColor(255, 255, 255, 255);

@@ -190,7 +190,7 @@ void TpzMono<Sample>::noteOn(
       break;
   }
 
-  normalizedKey = normalizedKey;
+  this->normalizedKey = normalizedKey;
   if (
     param.value[ParameterID::gainEnvRetrigger]->getInt() || gainEnvelope.isTerminated()
     || gainEnvelope.isReleasing()) {

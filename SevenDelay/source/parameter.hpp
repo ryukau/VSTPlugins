@@ -81,7 +81,6 @@ struct GlobalParameter {
   {
     value.resize(ParameterID::ID_ENUM_LENGTH);
 
-    using ID = ParameterID::ID;
     using ValueBool = IntValue;
     using ValueLinear = FloatValue<SomeDSP::LinearScale<double>>;
     using ValueLog = FloatValue<SomeDSP::LogScale<double>>;

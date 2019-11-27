@@ -126,7 +126,6 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
 
   // LFO.
   // 750 - 520 = 230 / 3 = 66 + 10
-  const auto lfoTop1 = 50.0;
   const auto lfoLeft1 = 520.0;
   addGroupLabel(520.0, 10.0, 420.0, "LFO");
   addVSlider(

@@ -141,7 +141,7 @@ void DSPCore::process(
 
   for (size_t i = 0; i < length; ++i) {
     auto sign = (pi < lfoPhase) - (lfoPhase < pi);
-    const float lfo = sign * powf(fabsf(sin(lfoPhase)), interpLfoShape.process());
+    const float lfo = sign * powf(fabsf(float(sin(lfoPhase))), interpLfoShape.process());
     const float lfoTime = interpLfoTimeAmount.process() * (1.0f + lfo);
 
     delay[0]->setTime(interpTime[0].process() + lfoTime);
