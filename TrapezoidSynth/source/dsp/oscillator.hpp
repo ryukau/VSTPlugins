@@ -137,42 +137,48 @@ public:
 
 protected:
   // tick must be greater than 0.
-  static float ptrTpz5(float phi, float tick, float slope, float pw)
+  static float ptrTpz5(float phase, float tick, float slope, float pw)
   {
     uint32_t order = 5;
     if (order > float(0.25) / tick) order = int(float(0.25) / tick);
 
-    if (slope > float(0.5) / tick / order) slope = float(0.5) / tick / order;
+    const float ptrLen = order * tick;
 
-    if (pw > float(1) - float(2) / slope)
-      pw = std::max<float>(float(0), float(1) - float(2) / slope);
+    const float maxSlope = float(0.25) / ptrLen;
+    if (slope > maxSlope) {
+      slope = maxSlope;
+    } else {
+      const float minSlope = float(1);
+      if (slope < minSlope) slope = minSlope;
+    }
 
-    const float fix = order * tick;
-    if (slope < float(1) + float(2) * fix) slope = float(1) + float(2) * fix;
+    const float maxPw = float(1) - float(1) / slope;
+    if (pw > maxPw) pw = std::max<float>(float(0), maxPw);
 
-    const float dc = fix + pw + float(1) / (float(2) * slope);
+    const float y = float(1) - float(2) * slope * ptrLen;
+    const float dc = (y * y + pw * slope * y) / (float(2) * y + slope - float(1));
     if (order == 5)
-      return branch<PTRTrapezoidOsc::ptrRamp5>(slope, pw, fix, phi, tick) - dc;
+      return branch<PTRTrapezoidOsc::ptrRamp5>(slope, pw, y, phase, tick) - dc;
     else if (order == 4)
-      return branch<PTRTrapezoidOsc::ptrRamp4>(slope, pw, fix, phi, tick) - dc;
+      return branch<PTRTrapezoidOsc::ptrRamp4>(slope, pw, y, phase, tick) - dc;
     else if (order == 3)
-      return branch<PTRTrapezoidOsc::ptrRamp3>(slope, pw, fix, phi, tick) - dc;
-    return branch<PTRTrapezoidOsc::ptrRamp2>(slope, pw, fix, phi, tick) - dc;
+      return branch<PTRTrapezoidOsc::ptrRamp3>(slope, pw, y, phase, tick) - dc;
+    return branch<PTRTrapezoidOsc::ptrRamp2>(slope, pw, y, phase, tick) - dc;
   }
 
   template<float (*ptrfunc)(float, float)>
-  static float branch(float slope, float pw, float fix, float phi, float tick)
+  static float branch(float slope, float pw, float y, float phase, float tick)
   {
-    if (phi <= float(0.25) / slope)
-      return slope * ptrfunc(phi, tick);
-    else if (phi <= float(0.5) / slope + fix)
-      return float(1) - slope * ptrfunc(float(0.5) / slope + fix - phi, tick);
-    else if (phi <= float(0.5) / slope + pw + fix)
-      return float(1);
-    else if (phi <= float(0.75) / slope + pw + fix)
-      return float(1) - slope * ptrfunc(phi - float(0.5) / slope - pw - fix, tick);
-    else if (phi <= float(1) / slope + pw + float(2) * fix)
-      return slope * ptrfunc(float(1) / slope + pw + float(2) * fix - phi, tick);
+    if (phase <= float(0.25) / slope)
+      return slope * ptrfunc(phase, tick);
+    else if (phase <= float(0.5) / slope)
+      return y - slope * ptrfunc(float(0.5) / slope - phase, tick);
+    else if (phase <= float(0.5) / slope + pw)
+      return y;
+    else if (phase <= float(0.75) / slope + pw)
+      return y - slope * ptrfunc(phase - float(0.5) / slope - pw, tick);
+    else if (phase <= float(1) / slope + pw)
+      return slope * ptrfunc(float(1) / slope + pw + -phase, tick);
     return float(0);
   }
 
