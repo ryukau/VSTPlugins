@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="dcterms.date" content="2019-09-27" />
 <title>vst3_dev</title>
 <style>
 code { white-space: pre-wrap; }
@@ -178,15 +179,6 @@ li {
   margin: 8px;
 }
 
-details {
-  padding: 8px;
-  border: solid 4px #163eac;
-}
-
-summary {
-  text-align: center;
-}
-
 summary:hover {
   background-color: #eeeeee;
 }
@@ -206,63 +198,69 @@ footer {
 </head>
 
 <body>
-<details>
-<summary translate="yes">Table of Contents</summary>
-<nav id="TOC" role="doc-toc">
-<ul>
-<li><a href="#vst3-の開発">VST3 の開発</a><ul>
-<li><a href="#ライセンス">ライセンス</a></li>
-<li><a href="#リソース">リソース</a></li>
-<li><a href="#プラグインホストについて">プラグインホストについて</a><ul>
-<li><a href="#fl-studio-20.5-での不具合">FL Studio 20.5 での不具合</a></li>
-<li><a href="#reaper-5.980-での不具合">Reaper 5.980 での不具合</a></li>
-</ul></li>
-<li><a href="#開発環境の構築">開発環境の構築</a><ul>
-<li><a href="#開発用ソフトウェアのインストール">開発用ソフトウェアのインストール</a></li>
-<li><a href="#ripgrep">ripgrep</a></li>
-<li><a href="#ビルド">ビルド</a><ul>
-<li><a href="#リリースビルド">リリースビルド</a></li>
-<li><a href="#bit-x86-ビルド">32bit (x86) ビルド</a></li>
-<li><a href="#デプロイ">デプロイ</a></li>
-<li><a href="#サンプルプロジェクトのビルドを無効にする">サンプルプロジェクトのビルドを無効にする</a></li>
-<li><a href="#コンパイラオプションの変更">コンパイラオプションの変更</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#vst3-プラグインの大まかな仕組み">VST3 プラグインの大まかな仕組み</a></li>
-<li><a href="#デバッグ">デバッグ</a><ul>
-<li><a href="#ブレークポイント">ブレークポイント</a></li>
-<li><a href="#プリント">プリント</a></li>
-</ul></li>
-<li><a href="#helloworld-プラグインを何とかする">helloworld プラグインを何とかする</a><ul>
-<li><a href="#ファイルの配置の変更">ファイルの配置の変更</a></li>
-<li><a href="#名前やfuidの設定">名前やFUIDの設定</a></li>
-<li><a href="#音を出す">音を出す</a></li>
-<li><a href="#パラメータの追加">パラメータの追加</a><ul>
-<li><a href="#vst3-のパラメータ">VST3 のパラメータ</a></li>
-<li><a href="#パラメータ用のヘッダとソースの作成">パラメータ用のヘッダとソースの作成</a></li>
-</ul></li>
-<li><a href="#hello-gui">Hello GUI</a></li>
-<li><a href="#リファクタリング">リファクタリング</a></li>
-</ul></li>
-<li><a href="#gui">GUI</a><ul>
-<li><a href="#vst3-inline-ui-editor-を使った-gui-の作成">VST3 inline UI editor を使った GUI の作成</a><ul>
-<li><a href="#オプションメニュー-コンボボックス-の追加">オプションメニュー (コンボボックス) の追加</a></li>
-<li><a href="#ワークアラウンド">ワークアラウンド</a></li>
-<li><a href="#カスタムビューの追加">カスタムビューの追加</a></li>
-<li><a href="#パラメータの連動">パラメータの連動</a></li>
-</ul></li>
-<li><a href="#コードでgui">コードでGUI</a><ul>
-<li><a href="#リフレッシュレートの設定">リフレッシュレートの設定</a></li>
-<li><a href="#カスタムビューの実装と関連するコントロールの表示の変更">カスタムビューの実装と関連するコントロールの表示の変更</a></li>
-<li><a href="#スプラッシュスクリーンの追加">スプラッシュスクリーンの追加</a></li>
-<li><a href="#ホストが提供するコンテキストメニューの追加">ホストが提供するコンテキストメニューの追加</a></li>
-<li><a href="#コンテキストメニューにズーム機能を追加">コンテキストメニューにズーム機能を追加</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-</details>
+<header>
+    <p><a href="../index.html">Back to Index</a></p>
+      <p>
+  Update: 2019-09-27
+  </p>
+      <details>
+  <summary translate="yes">Table of Contents</summary>
+  <nav id="TOC" role="doc-toc">
+  <ul>
+  <li><a href="#vst3-の開発">VST3 の開発</a><ul>
+  <li><a href="#ライセンス">ライセンス</a></li>
+  <li><a href="#リソース">リソース</a></li>
+  <li><a href="#プラグインホストについて">プラグインホストについて</a><ul>
+  <li><a href="#fl-studio-20.5-での不具合">FL Studio 20.5 での不具合</a></li>
+  <li><a href="#reaper-5.980-での不具合">Reaper 5.980 での不具合</a></li>
+  </ul></li>
+  <li><a href="#開発環境の構築">開発環境の構築</a><ul>
+  <li><a href="#開発用ソフトウェアのインストール">開発用ソフトウェアのインストール</a></li>
+  <li><a href="#ripgrep">ripgrep</a></li>
+  <li><a href="#ビルド">ビルド</a><ul>
+  <li><a href="#リリースビルド">リリースビルド</a></li>
+  <li><a href="#bit-x86-ビルド">32bit (x86) ビルド</a></li>
+  <li><a href="#デプロイ">デプロイ</a></li>
+  <li><a href="#サンプルプロジェクトのビルドを無効にする">サンプルプロジェクトのビルドを無効にする</a></li>
+  <li><a href="#コンパイラオプションの変更">コンパイラオプションの変更</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#vst3-プラグインの大まかな仕組み">VST3 プラグインの大まかな仕組み</a></li>
+  <li><a href="#デバッグ">デバッグ</a><ul>
+  <li><a href="#ブレークポイント">ブレークポイント</a></li>
+  <li><a href="#プリント">プリント</a></li>
+  </ul></li>
+  <li><a href="#helloworld-プラグインを何とかする">helloworld プラグインを何とかする</a><ul>
+  <li><a href="#ファイルの配置の変更">ファイルの配置の変更</a></li>
+  <li><a href="#名前やfuidの設定">名前やFUIDの設定</a></li>
+  <li><a href="#音を出す">音を出す</a></li>
+  <li><a href="#パラメータの追加">パラメータの追加</a><ul>
+  <li><a href="#vst3-のパラメータ">VST3 のパラメータ</a></li>
+  <li><a href="#パラメータ用のヘッダとソースの作成">パラメータ用のヘッダとソースの作成</a></li>
+  </ul></li>
+  <li><a href="#hello-gui">Hello GUI</a></li>
+  <li><a href="#リファクタリング">リファクタリング</a></li>
+  </ul></li>
+  <li><a href="#gui">GUI</a><ul>
+  <li><a href="#vst3-inline-ui-editor-を使った-gui-の作成">VST3 inline UI editor を使った GUI の作成</a><ul>
+  <li><a href="#オプションメニュー-コンボボックス-の追加">オプションメニュー (コンボボックス) の追加</a></li>
+  <li><a href="#ワークアラウンド">ワークアラウンド</a></li>
+  <li><a href="#カスタムビューの追加">カスタムビューの追加</a></li>
+  <li><a href="#パラメータの連動">パラメータの連動</a></li>
+  </ul></li>
+  <li><a href="#コードでgui">コードでGUI</a><ul>
+  <li><a href="#リフレッシュレートの設定">リフレッシュレートの設定</a></li>
+  <li><a href="#カスタムビューの実装と関連するコントロールの表示の変更">カスタムビューの実装と関連するコントロールの表示の変更</a></li>
+  <li><a href="#スプラッシュスクリーンの追加">スプラッシュスクリーンの追加</a></li>
+  <li><a href="#ホストが提供するコンテキストメニューの追加">ホストが提供するコンテキストメニューの追加</a></li>
+  <li><a href="#コンテキストメニューにズーム機能を追加">コンテキストメニューにズーム機能を追加</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+  </nav>
+  </details>
+  </header>
 <h1 id="vst3-の開発">VST3 の開発</h1>
 <p>VST3の開発についてまとめました。使ったバージョンは VST3 SDK 3.6.13 と VSTGUI 4.8 です。</p>
 <p>この文章では <code>my_plugins</code> から始まるパスは開発中のプラグイン内のパスを表しています。それ以外のパスは特に断りがないときは <code>VST3_SDK</code> 以下の部分だけを書いています。</p>
@@ -1506,6 +1504,10 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <a class="sourceLine" id="cb55-76" title="76">}</a></code></pre></div>
 <p>コメントにも書いていますが、 <code>kIsGroupStart</code> と <code>kIsGroupEnd</code> を設定してもメニューが入れ子になりません。</p>
 <p>どこを右クリックしてもメニューが開くようにするには <code>COptionMenu</code> でメニューを作っておいて、コントロール上で右クリックされているときは <code>IContextMenu</code> に変換する、そうでなければ <code>COptionMenu</code> をそのままポップアップする、という処理が考えられます。 <code>vstgui4/vstgui/plugin-bindings/vst3editor.*</code> に実装例があります。</p>
+
+<footer>
+    <p><a href="../index.html">Back to Index</a></p>
+  </footer>
 </body>
 
 </html>

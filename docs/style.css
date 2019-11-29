@@ -101,15 +101,6 @@ li {
   margin: 8px;
 }
 
-details {
-  padding: 8px;
-  border: solid 4px #163eac;
-}
-
-summary {
-  text-align: center;
-}
-
 summary:hover {
   background-color: #eeeeee;
 }

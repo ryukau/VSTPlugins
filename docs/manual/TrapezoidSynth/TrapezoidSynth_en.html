@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="dcterms.date" content="2019-11-12" />
 <title>TrapezoidSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -178,15 +179,6 @@ li {
   margin: 8px;
 }
 
-details {
-  padding: 8px;
-  border: solid 4px #163eac;
-}
-
-summary {
-  text-align: center;
-}
-
 summary:hover {
   background-color: #eeeeee;
 }
@@ -206,102 +198,108 @@ footer {
 </head>
 
 <body>
-<details>
-<summary translate="yes">Table of Contents</summary>
-<nav id="TOC" role="doc-toc">
-<ul>
-<li><a href="#trapezoidsynth">TrapezoidSynth</a><ul>
-<li><a href="#installation">Installation</a><ul>
-<li><a href="#linux-specific">Linux Specific</a></li>
-</ul></li>
-<li><a href="#controls">Controls</a></li>
-<li><a href="#caution">Caution</a></li>
-<li><a href="#parameters">Parameters</a><ul>
-<li><a href="#oscillator-common">Oscillator Common</a><ul>
-<li><a href="#semi">Semi</a></li>
-<li><a href="#cent">Cent</a></li>
-<li><a href="#slope">Slope</a></li>
-<li><a href="#pw">PW</a></li>
-</ul></li>
-<li><a href="#oscillator-1">Oscillator 1</a><ul>
-<li><a href="#drift">Drift</a></li>
-<li><a href="#feedback">Feedback</a></li>
-</ul></li>
-<li><a href="#oscillator-2">Oscillator 2</a><ul>
-<li><a href="#overtone">Overtone</a></li>
-<li><a href="#pm">PM</a></li>
-</ul></li>
-<li><a href="#envelope-common">Envelope Common</a><ul>
-<li><a href="#retrigger">Retrigger</a></li>
-<li><a href="#a">A</a></li>
-<li><a href="#d">D</a></li>
-<li><a href="#s">S</a></li>
-<li><a href="#r">R</a></li>
-<li><a href="#curve">Curve</a></li>
-</ul></li>
-<li><a href="#gain-envelope">Gain Envelope</a><ul>
-<li><a href="#gain">Gain</a></li>
-</ul></li>
-<li><a href="#filter">Filter</a><ul>
-<li><a href="#order">Order</a></li>
-<li><a href="#cut">Cut</a></li>
-<li><a href="#res">Res</a></li>
-<li><a href="#sat">Sat</a></li>
-<li><a href="#envcut">Env&gt;Cut</a></li>
-<li><a href="#keycut">Key&gt;Cut</a></li>
-<li><a href="#oscmix">+OscMix</a></li>
-</ul></li>
-<li><a href="#filter-envelope">Filter Envelope</a><ul>
-<li><a href="#octave">&gt;Octave</a></li>
-</ul></li>
-<li><a href="#misc">Misc</a><ul>
-<li><a href="#oscmix-1">OscMix</a></li>
-<li><a href="#octave-1">Octave</a></li>
-<li><a href="#smooth">Smooth</a></li>
-</ul></li>
-<li><a href="#mod-common">Mod Common</a><ul>
-<li><a href="#retrigger-1">Retrigger</a></li>
-<li><a href="#attack">Attack</a></li>
-<li><a href="#curve-1">Curve</a></li>
-</ul></li>
-<li><a href="#mod-1">Mod 1</a><ul>
-<li><a href="#pm-1">&gt;PM</a></li>
-</ul></li>
-<li><a href="#mod-2">Mod 2</a><ul>
-<li><a href="#feedback-1">&gt;Feedback</a></li>
-<li><a href="#lfo">&gt;LFO</a></li>
-<li><a href="#slope2">&gt;Slope2</a></li>
-<li><a href="#shifter1">&gt;Shifter1</a></li>
-</ul></li>
-<li><a href="#shifter-common">Shifter Common</a><ul>
-<li><a href="#semi-1">Semi</a></li>
-<li><a href="#cent-1">Cent</a></li>
-<li><a href="#gain-1">Gain</a></li>
-</ul></li>
-<li><a href="#lfo-1">LFO</a><ul>
-<li><a href="#lfotype">LFOType</a></li>
-<li><a href="#tempo">Tempo</a></li>
-<li><a href="#freq">Freq</a></li>
-<li><a href="#shape">Shape</a></li>
-<li><a href="#pitch">&gt;Pitch</a></li>
-<li><a href="#slope1">&gt;Slope1</a></li>
-<li><a href="#pw1">&gt;PW1</a></li>
-<li><a href="#pw1-1">&gt;PW1</a></li>
-</ul></li>
-<li><a href="#slide">Slide</a><ul>
-<li><a href="#slidetype">SlideType</a></li>
-<li><a href="#time">Time</a></li>
-<li><a href="#offset">Offset</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#change-log">Change Log</a></li>
-<li><a href="#license">License</a><ul>
-<li><a href="#about-vst">About VST</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-</details>
+<header>
+    <p><a href="../../index.html">Back to Index</a></p>
+      <p>
+  Update: 2019-11-12
+  </p>
+      <details>
+  <summary translate="yes">Table of Contents</summary>
+  <nav id="TOC" role="doc-toc">
+  <ul>
+  <li><a href="#trapezoidsynth">TrapezoidSynth</a><ul>
+  <li><a href="#installation">Installation</a><ul>
+  <li><a href="#linux-specific">Linux Specific</a></li>
+  </ul></li>
+  <li><a href="#controls">Controls</a></li>
+  <li><a href="#caution">Caution</a></li>
+  <li><a href="#parameters">Parameters</a><ul>
+  <li><a href="#oscillator-common">Oscillator Common</a><ul>
+  <li><a href="#semi">Semi</a></li>
+  <li><a href="#cent">Cent</a></li>
+  <li><a href="#slope">Slope</a></li>
+  <li><a href="#pw">PW</a></li>
+  </ul></li>
+  <li><a href="#oscillator-1">Oscillator 1</a><ul>
+  <li><a href="#drift">Drift</a></li>
+  <li><a href="#feedback">Feedback</a></li>
+  </ul></li>
+  <li><a href="#oscillator-2">Oscillator 2</a><ul>
+  <li><a href="#overtone">Overtone</a></li>
+  <li><a href="#pm">PM</a></li>
+  </ul></li>
+  <li><a href="#envelope-common">Envelope Common</a><ul>
+  <li><a href="#retrigger">Retrigger</a></li>
+  <li><a href="#a">A</a></li>
+  <li><a href="#d">D</a></li>
+  <li><a href="#s">S</a></li>
+  <li><a href="#r">R</a></li>
+  <li><a href="#curve">Curve</a></li>
+  </ul></li>
+  <li><a href="#gain-envelope">Gain Envelope</a><ul>
+  <li><a href="#gain">Gain</a></li>
+  </ul></li>
+  <li><a href="#filter">Filter</a><ul>
+  <li><a href="#order">Order</a></li>
+  <li><a href="#cut">Cut</a></li>
+  <li><a href="#res">Res</a></li>
+  <li><a href="#sat">Sat</a></li>
+  <li><a href="#envcut">Env&gt;Cut</a></li>
+  <li><a href="#keycut">Key&gt;Cut</a></li>
+  <li><a href="#oscmix">+OscMix</a></li>
+  </ul></li>
+  <li><a href="#filter-envelope">Filter Envelope</a><ul>
+  <li><a href="#octave">&gt;Octave</a></li>
+  </ul></li>
+  <li><a href="#misc">Misc</a><ul>
+  <li><a href="#oscmix-1">OscMix</a></li>
+  <li><a href="#octave-1">Octave</a></li>
+  <li><a href="#smooth">Smooth</a></li>
+  </ul></li>
+  <li><a href="#mod-common">Mod Common</a><ul>
+  <li><a href="#retrigger-1">Retrigger</a></li>
+  <li><a href="#attack">Attack</a></li>
+  <li><a href="#curve-1">Curve</a></li>
+  </ul></li>
+  <li><a href="#mod-1">Mod 1</a><ul>
+  <li><a href="#pm-1">&gt;PM</a></li>
+  </ul></li>
+  <li><a href="#mod-2">Mod 2</a><ul>
+  <li><a href="#feedback-1">&gt;Feedback</a></li>
+  <li><a href="#lfo">&gt;LFO</a></li>
+  <li><a href="#slope2">&gt;Slope2</a></li>
+  <li><a href="#shifter1">&gt;Shifter1</a></li>
+  </ul></li>
+  <li><a href="#shifter-common">Shifter Common</a><ul>
+  <li><a href="#semi-1">Semi</a></li>
+  <li><a href="#cent-1">Cent</a></li>
+  <li><a href="#gain-1">Gain</a></li>
+  </ul></li>
+  <li><a href="#lfo-1">LFO</a><ul>
+  <li><a href="#lfotype">LFOType</a></li>
+  <li><a href="#tempo">Tempo</a></li>
+  <li><a href="#freq">Freq</a></li>
+  <li><a href="#shape">Shape</a></li>
+  <li><a href="#pitch">&gt;Pitch</a></li>
+  <li><a href="#slope1">&gt;Slope1</a></li>
+  <li><a href="#pw1">&gt;PW1</a></li>
+  <li><a href="#pw1-1">&gt;PW1</a></li>
+  </ul></li>
+  <li><a href="#slide">Slide</a><ul>
+  <li><a href="#slidetype">SlideType</a></li>
+  <li><a href="#time">Time</a></li>
+  <li><a href="#offset">Offset</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#change-log">Change Log</a></li>
+  <li><a href="#license">License</a><ul>
+  <li><a href="#about-vst">About VST</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+  </nav>
+  </details>
+  </header>
 <h1 id="trapezoidsynth">TrapezoidSynth</h1>
 <p><img src="img/trapezoidsynth.png" /></p>
 <p>TrapezoidSynth is a monophonic synthesizer equipped with 2 trapezoid oscillator. Trapezoid oscillator is based on PTR (Polynomial Transition Regions) and it has a drawback that increasing noise at high frequency. Therefore 8 times oversampled. 2 pitch shifters are added to make some chord.</p>
@@ -514,6 +512,10 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>If the link above doesn’t work, please send email to <code>ryukau@gmail.com</code>.</p>
 <h3 id="about-vst">About VST</h3>
 <p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
+
+<footer>
+    <p><a href="../../index.html">Back to Index</a></p>
+  </footer>
 </body>
 
 </html>

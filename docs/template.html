@@ -44,15 +44,31 @@ $endfor$
 $for(include-before)$
 $include-before$
 $endfor$
-$if(toc)$
-<details>
-<summary translate="yes">Table of Contents</summary>
-<nav id="$idprefix$TOC" role="doc-toc">
-$table-of-contents$
-</nav>
-</details>
-$endif$
+<header>
+  $if(index-relative-path)$
+  <p><a href="$index-relative-path$">Back to Index</a></p>
+  $endif$
+  $if(date-meta)$
+  <p>
+  Update: $date-meta$
+  </p>
+  $endif$
+  $if(toc)$
+  <details>
+  <summary translate="yes">Table of Contents</summary>
+  <nav id="$idprefix$TOC" role="doc-toc">
+  $table-of-contents$
+  </nav>
+  </details>
+  $endif$
+</header>
 $body$
+
+<footer>
+  $if(index-relative-path)$
+  <p><a href="$index-relative-path$">Back to Index</a></p>
+  $endif$
+</footer>
 $for(include-after)$
 $include-after$
 $endfor$

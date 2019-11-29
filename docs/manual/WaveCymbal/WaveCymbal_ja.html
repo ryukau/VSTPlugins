@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="dcterms.date" content="2019-11-11" />
 <title>WaveCymbal_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -178,15 +179,6 @@ li {
   margin: 8px;
 }
 
-details {
-  padding: 8px;
-  border: solid 4px #163eac;
-}
-
-summary {
-  text-align: center;
-}
-
 summary:hover {
   background-color: #eeeeee;
 }
@@ -206,59 +198,65 @@ footer {
 </head>
 
 <body>
-<details>
-<summary translate="yes">Table of Contents</summary>
-<nav id="TOC" role="doc-toc">
-<ul>
-<li><a href="#wavecymbal">WaveCymbal</a><ul>
-<li><a href="#インストール">インストール</a><ul>
-<li><a href="#linux">Linux</a></li>
-</ul></li>
-<li><a href="#操作">操作</a></li>
-<li><a href="#注意">注意</a></li>
-<li><a href="#パラメータ">パラメータ</a><ul>
-<li><a href="#gain">Gain</a></li>
-<li><a href="#excitation">Excitation</a><ul>
-<li><a href="#feedback">Feedback</a></li>
-<li><a href="#time">Time</a></li>
-</ul></li>
-<li><a href="#objects">Objects</a><ul>
-<li><a href="#ncymbal">nCymbal</a></li>
-<li><a href="#nstring">nString</a></li>
-</ul></li>
-<li><a href="#wave">Wave</a><ul>
-<li><a href="#damping">Damping</a></li>
-<li><a href="#pulseposition">PulsePosition</a></li>
-<li><a href="#pulsewidth">PulseWidth</a></li>
-</ul></li>
-<li><a href="#collision">Collision</a><ul>
-<li><a href="#distance">Distance</a></li>
-</ul></li>
-<li><a href="#random">Random</a><ul>
-<li><a href="#seed">Seed</a></li>
-<li><a href="#amount">Amount</a></li>
-</ul></li>
-<li><a href="#string">String</a><ul>
-<li><a href="#minhz">MinHz</a></li>
-<li><a href="#maxhz">MaxHz</a></li>
-<li><a href="#decay">Decay</a></li>
-<li><a href="#q">Q</a></li>
-</ul></li>
-<li><a href="#oscillator">Oscillator</a><ul>
-<li><a href="#retrigger">Retrigger</a></li>
-<li><a href="#osctype">OscType</a></li>
-<li><a href="#bandpass-cutoff-distribution">Bandpass Cutoff Distribution</a></li>
-</ul></li>
-<li><a href="#smoothness">Smoothness</a></li>
-</ul></li>
-<li><a href="#チェンジログ">チェンジログ</a></li>
-<li><a href="#ライセンス">ライセンス</a><ul>
-<li><a href="#vst-について">VST® について</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-</details>
+<header>
+    <p><a href="../../index.html">Back to Index</a></p>
+      <p>
+  Update: 2019-11-11
+  </p>
+      <details>
+  <summary translate="yes">Table of Contents</summary>
+  <nav id="TOC" role="doc-toc">
+  <ul>
+  <li><a href="#wavecymbal">WaveCymbal</a><ul>
+  <li><a href="#インストール">インストール</a><ul>
+  <li><a href="#linux">Linux</a></li>
+  </ul></li>
+  <li><a href="#操作">操作</a></li>
+  <li><a href="#注意">注意</a></li>
+  <li><a href="#パラメータ">パラメータ</a><ul>
+  <li><a href="#gain">Gain</a></li>
+  <li><a href="#excitation">Excitation</a><ul>
+  <li><a href="#feedback">Feedback</a></li>
+  <li><a href="#time">Time</a></li>
+  </ul></li>
+  <li><a href="#objects">Objects</a><ul>
+  <li><a href="#ncymbal">nCymbal</a></li>
+  <li><a href="#nstring">nString</a></li>
+  </ul></li>
+  <li><a href="#wave">Wave</a><ul>
+  <li><a href="#damping">Damping</a></li>
+  <li><a href="#pulseposition">PulsePosition</a></li>
+  <li><a href="#pulsewidth">PulseWidth</a></li>
+  </ul></li>
+  <li><a href="#collision">Collision</a><ul>
+  <li><a href="#distance">Distance</a></li>
+  </ul></li>
+  <li><a href="#random">Random</a><ul>
+  <li><a href="#seed">Seed</a></li>
+  <li><a href="#amount">Amount</a></li>
+  </ul></li>
+  <li><a href="#string">String</a><ul>
+  <li><a href="#minhz">MinHz</a></li>
+  <li><a href="#maxhz">MaxHz</a></li>
+  <li><a href="#decay">Decay</a></li>
+  <li><a href="#q">Q</a></li>
+  </ul></li>
+  <li><a href="#oscillator">Oscillator</a><ul>
+  <li><a href="#retrigger">Retrigger</a></li>
+  <li><a href="#osctype">OscType</a></li>
+  <li><a href="#bandpass-cutoff-distribution">Bandpass Cutoff Distribution</a></li>
+  </ul></li>
+  <li><a href="#smoothness">Smoothness</a></li>
+  </ul></li>
+  <li><a href="#チェンジログ">チェンジログ</a></li>
+  <li><a href="#ライセンス">ライセンス</a><ul>
+  <li><a href="#vst-について">VST® について</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+  </nav>
+  </details>
+  </header>
 <h1 id="wavecymbal">WaveCymbal</h1>
 <p><img src="img/wavecymbal.png" /></p>
 <p><ruby>WaveCymbal<rt>ウェイブシンバル</rt></ruby>は banded wave-guide という手法を用いてシンバルの音が鳴るはずだったシンセサイザです。実際のところはシンバルというよりも、アスファルトの上でトタン板や紐につないだ空き缶を引きずったときのような音が出ます。</p>
@@ -385,6 +383,10 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>リンクが切れているときは <code>ryukau@gmail.com</code> にメールを送ってください。</p>
 <h3 id="vst-について">VST® について</h3>
 <p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
+
+<footer>
+    <p><a href="../../index.html">Back to Index</a></p>
+  </footer>
 </body>
 
 </html>

@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="dcterms.date" content="2019-11-11" />
 <title>SyncSawSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -178,15 +179,6 @@ li {
   margin: 8px;
 }
 
-details {
-  padding: 8px;
-  border: solid 4px #163eac;
-}
-
-summary {
-  text-align: center;
-}
-
 summary:hover {
   background-color: #eeeeee;
 }
@@ -206,79 +198,85 @@ footer {
 </head>
 
 <body>
-<details>
-<summary translate="yes">Table of Contents</summary>
-<nav id="TOC" role="doc-toc">
-<ul>
-<li><a href="#syncsawsynth">SyncSawSynth</a><ul>
-<li><a href="#インストール">インストール</a><ul>
-<li><a href="#linux">Linux</a></li>
-</ul></li>
-<li><a href="#操作">操作</a></li>
-<li><a href="#注意">注意</a></li>
-<li><a href="#用語について">用語について</a></li>
-<li><a href="#パラメータ">パラメータ</a><ul>
-<li><a href="#osc">Osc</a><ul>
-<li><a href="#gain">Gain</a></li>
-<li><a href="#semi">Semi</a></li>
-<li><a href="#cent">Cent</a></li>
-<li><a href="#sync-と-synctype">Sync と SyncType</a></li>
-<li><a href="#osctype">OscType</a></li>
-<li><a href="#phase">Phase</a></li>
-<li><a href="#unison">Unison</a></li>
-<li><a href="#number-of-voice">Number of Voice</a></li>
-</ul></li>
-<li><a href="#modulation">Modulation</a><ul>
-<li><a href="#osc1-sync1">Osc1-&gt;Sync1</a></li>
-<li><a href="#osc1-freq2">Osc1-&gt;Freq2</a></li>
-<li><a href="#osc2-sync1">Osc2-&gt;Sync1</a></li>
-<li><a href="#attack">Attack</a></li>
-<li><a href="#curve">Curve</a></li>
-<li><a href="#to-freq1-ad-エンベロープ">To Freq1 (AD エンベロープ)</a></li>
-<li><a href="#to-sync1-ad-エンベロープ">To Sync1 (AD エンベロープ)</a></li>
-<li><a href="#to-freq2-ad-エンベロープ">To Freq2 (AD エンベロープ)</a></li>
-<li><a href="#to-sync2-ad-エンベロープ">To Sync2 (AD エンベロープ)</a></li>
-<li><a href="#lfo">LFO</a></li>
-<li><a href="#noisemix">NoiseMix</a></li>
-<li><a href="#to-freq1-lfoノイズ">To Freq1 (LFO/ノイズ)</a></li>
-<li><a href="#to-sync1-lfoノイズ">To Sync1 (LFO/ノイズ)</a></li>
-<li><a href="#to-freq2-lfoノイズ">To Freq2 (LFO/ノイズ)</a></li>
-<li><a href="#to-sync2-lfoノイズ">To Sync2 (LFO/ノイズ)</a></li>
-</ul></li>
-<li><a href="#gain-1">Gain</a><ul>
-<li><a href="#gain-2">Gain</a></li>
-<li><a href="#a">A</a></li>
-<li><a href="#d">D</a></li>
-<li><a href="#s">S</a></li>
-<li><a href="#r">R</a></li>
-<li><a href="#curve-1">Curve</a></li>
-</ul></li>
-<li><a href="#filter">Filter</a><ul>
-<li><a href="#cut">Cut</a></li>
-<li><a href="#res">Res</a></li>
-<li><a href="#feed">Feed</a></li>
-<li><a href="#sat">Sat</a></li>
-<li><a href="#dirty-buffer">Dirty Buffer</a></li>
-<li><a href="#filtertype">FilterType</a></li>
-<li><a href="#shapertype">ShaperType</a></li>
-<li><a href="#a-1">A</a></li>
-<li><a href="#d-1">D</a></li>
-<li><a href="#s-1">S</a></li>
-<li><a href="#r-1">R</a></li>
-<li><a href="#to-cut">To Cut</a></li>
-<li><a href="#to-res">To Res</a></li>
-<li><a href="#key-cut">Key-&gt;Cut</a></li>
-<li><a href="#key-feed">Key-&gt;Feed</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#チェンジログ">チェンジログ</a></li>
-<li><a href="#ライセンス">ライセンス</a><ul>
-<li><a href="#vst-について">VST® について</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-</details>
+<header>
+    <p><a href="../../index.html">Back to Index</a></p>
+      <p>
+  Update: 2019-11-11
+  </p>
+      <details>
+  <summary translate="yes">Table of Contents</summary>
+  <nav id="TOC" role="doc-toc">
+  <ul>
+  <li><a href="#syncsawsynth">SyncSawSynth</a><ul>
+  <li><a href="#インストール">インストール</a><ul>
+  <li><a href="#linux">Linux</a></li>
+  </ul></li>
+  <li><a href="#操作">操作</a></li>
+  <li><a href="#注意">注意</a></li>
+  <li><a href="#用語について">用語について</a></li>
+  <li><a href="#パラメータ">パラメータ</a><ul>
+  <li><a href="#osc">Osc</a><ul>
+  <li><a href="#gain">Gain</a></li>
+  <li><a href="#semi">Semi</a></li>
+  <li><a href="#cent">Cent</a></li>
+  <li><a href="#sync-と-synctype">Sync と SyncType</a></li>
+  <li><a href="#osctype">OscType</a></li>
+  <li><a href="#phase">Phase</a></li>
+  <li><a href="#unison">Unison</a></li>
+  <li><a href="#number-of-voice">Number of Voice</a></li>
+  </ul></li>
+  <li><a href="#modulation">Modulation</a><ul>
+  <li><a href="#osc1-sync1">Osc1-&gt;Sync1</a></li>
+  <li><a href="#osc1-freq2">Osc1-&gt;Freq2</a></li>
+  <li><a href="#osc2-sync1">Osc2-&gt;Sync1</a></li>
+  <li><a href="#attack">Attack</a></li>
+  <li><a href="#curve">Curve</a></li>
+  <li><a href="#to-freq1-ad-エンベロープ">To Freq1 (AD エンベロープ)</a></li>
+  <li><a href="#to-sync1-ad-エンベロープ">To Sync1 (AD エンベロープ)</a></li>
+  <li><a href="#to-freq2-ad-エンベロープ">To Freq2 (AD エンベロープ)</a></li>
+  <li><a href="#to-sync2-ad-エンベロープ">To Sync2 (AD エンベロープ)</a></li>
+  <li><a href="#lfo">LFO</a></li>
+  <li><a href="#noisemix">NoiseMix</a></li>
+  <li><a href="#to-freq1-lfoノイズ">To Freq1 (LFO/ノイズ)</a></li>
+  <li><a href="#to-sync1-lfoノイズ">To Sync1 (LFO/ノイズ)</a></li>
+  <li><a href="#to-freq2-lfoノイズ">To Freq2 (LFO/ノイズ)</a></li>
+  <li><a href="#to-sync2-lfoノイズ">To Sync2 (LFO/ノイズ)</a></li>
+  </ul></li>
+  <li><a href="#gain-1">Gain</a><ul>
+  <li><a href="#gain-2">Gain</a></li>
+  <li><a href="#a">A</a></li>
+  <li><a href="#d">D</a></li>
+  <li><a href="#s">S</a></li>
+  <li><a href="#r">R</a></li>
+  <li><a href="#curve-1">Curve</a></li>
+  </ul></li>
+  <li><a href="#filter">Filter</a><ul>
+  <li><a href="#cut">Cut</a></li>
+  <li><a href="#res">Res</a></li>
+  <li><a href="#feed">Feed</a></li>
+  <li><a href="#sat">Sat</a></li>
+  <li><a href="#dirty-buffer">Dirty Buffer</a></li>
+  <li><a href="#filtertype">FilterType</a></li>
+  <li><a href="#shapertype">ShaperType</a></li>
+  <li><a href="#a-1">A</a></li>
+  <li><a href="#d-1">D</a></li>
+  <li><a href="#s-1">S</a></li>
+  <li><a href="#r-1">R</a></li>
+  <li><a href="#to-cut">To Cut</a></li>
+  <li><a href="#to-res">To Res</a></li>
+  <li><a href="#key-cut">Key-&gt;Cut</a></li>
+  <li><a href="#key-feed">Key-&gt;Feed</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#チェンジログ">チェンジログ</a></li>
+  <li><a href="#ライセンス">ライセンス</a><ul>
+  <li><a href="#vst-について">VST® について</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+  </nav>
+  </details>
+  </header>
 <h1 id="syncsawsynth">SyncSawSynth</h1>
 <p><img src="img/syncsawsynth.png" /></p>
 <p><ruby>SyncSawSynth<rt>シンクソウシンセ</rt></ruby>は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。</p>
@@ -503,6 +501,10 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
 <p>リンクが切れているときは <code>ryukau@gmail.com</code> にメールを送ってください。</p>
 <h3 id="vst-について">VST® について</h3>
 <p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
+
+<footer>
+    <p><a href="../../index.html">Back to Index</a></p>
+  </footer>
 </body>
 
 </html>

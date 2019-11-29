@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="dcterms.date" content="2019-11-11" />
 <title>FDNCymbal_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -178,15 +179,6 @@ li {
   margin: 8px;
 }
 
-details {
-  padding: 8px;
-  border: solid 4px #163eac;
-}
-
-summary {
-  text-align: center;
-}
-
 summary:hover {
   background-color: #eeeeee;
 }
@@ -206,63 +198,69 @@ footer {
 </head>
 
 <body>
-<details>
-<summary translate="yes">Table of Contents</summary>
-<nav id="TOC" role="doc-toc">
-<ul>
-<li><a href="#fdncymbal">FDNCymbal</a><ul>
-<li><a href="#installation">Installation</a><ul>
-<li><a href="#linux-specific">Linux Specific</a></li>
-</ul></li>
-<li><a href="#controls">Controls</a></li>
-<li><a href="#caution">Caution</a></li>
-<li><a href="#parameters">Parameters</a><ul>
-<li><a href="#gain">Gain</a></li>
-<li><a href="#smooth">Smooth</a></li>
-<li><a href="#stick">Stick</a><ul>
-<li><a href="#decay">Decay</a></li>
-<li><a href="#tonemix">ToneMix</a></li>
-</ul></li>
-<li><a href="#random">Random</a><ul>
-<li><a href="#seed">Seed</a></li>
-<li><a href="#retrigger.time">Retrigger.Time</a></li>
-<li><a href="#retrigger.stick">Retrigger.Stick</a></li>
-<li><a href="#retrigger.tremolo">Retrigger.Tremolo</a></li>
-</ul></li>
-<li><a href="#fdn">FDN</a><ul>
-<li><a href="#time">Time</a></li>
-<li><a href="#feedback">Feedback</a></li>
-<li><a href="#cascademix">CascadeMix</a></li>
-</ul></li>
-<li><a href="#allpass">Allpass</a><ul>
-<li><a href="#mix">Mix</a></li>
-</ul></li>
-<li><a href="#stage-1-and-stage-2">Stage 1 and Stage 2</a><ul>
-<li><a href="#time-1">Time</a></li>
-<li><a href="#feedback-1">Feedback</a></li>
-<li><a href="#hp-cutoff">HP Cutoff</a></li>
-<li><a href="#tanh">Tanh</a></li>
-</ul></li>
-<li><a href="#tremolo">Tremolo</a><ul>
-<li><a href="#mix-1">Mix</a></li>
-<li><a href="#depth">Depth</a></li>
-<li><a href="#frequency">Frequency</a></li>
-<li><a href="#delaytime">DelayTime</a></li>
-</ul></li>
-<li><a href="#random-tremolo">Random (Tremolo)</a><ul>
-<li><a href="#depth-1">Depth</a></li>
-<li><a href="#freq">Freq</a></li>
-<li><a href="#time-2">Time</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#change-log">Change Log</a></li>
-<li><a href="#license">License</a><ul>
-<li><a href="#about-vst">About VST</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-</details>
+<header>
+    <p><a href="../../index.html">Back to Index</a></p>
+      <p>
+  Update: 2019-11-11
+  </p>
+      <details>
+  <summary translate="yes">Table of Contents</summary>
+  <nav id="TOC" role="doc-toc">
+  <ul>
+  <li><a href="#fdncymbal">FDNCymbal</a><ul>
+  <li><a href="#installation">Installation</a><ul>
+  <li><a href="#linux-specific">Linux Specific</a></li>
+  </ul></li>
+  <li><a href="#controls">Controls</a></li>
+  <li><a href="#caution">Caution</a></li>
+  <li><a href="#parameters">Parameters</a><ul>
+  <li><a href="#gain">Gain</a></li>
+  <li><a href="#smooth">Smooth</a></li>
+  <li><a href="#stick">Stick</a><ul>
+  <li><a href="#decay">Decay</a></li>
+  <li><a href="#tonemix">ToneMix</a></li>
+  </ul></li>
+  <li><a href="#random">Random</a><ul>
+  <li><a href="#seed">Seed</a></li>
+  <li><a href="#retrigger.time">Retrigger.Time</a></li>
+  <li><a href="#retrigger.stick">Retrigger.Stick</a></li>
+  <li><a href="#retrigger.tremolo">Retrigger.Tremolo</a></li>
+  </ul></li>
+  <li><a href="#fdn">FDN</a><ul>
+  <li><a href="#time">Time</a></li>
+  <li><a href="#feedback">Feedback</a></li>
+  <li><a href="#cascademix">CascadeMix</a></li>
+  </ul></li>
+  <li><a href="#allpass">Allpass</a><ul>
+  <li><a href="#mix">Mix</a></li>
+  </ul></li>
+  <li><a href="#stage-1-and-stage-2">Stage 1 and Stage 2</a><ul>
+  <li><a href="#time-1">Time</a></li>
+  <li><a href="#feedback-1">Feedback</a></li>
+  <li><a href="#hp-cutoff">HP Cutoff</a></li>
+  <li><a href="#tanh">Tanh</a></li>
+  </ul></li>
+  <li><a href="#tremolo">Tremolo</a><ul>
+  <li><a href="#mix-1">Mix</a></li>
+  <li><a href="#depth">Depth</a></li>
+  <li><a href="#frequency">Frequency</a></li>
+  <li><a href="#delaytime">DelayTime</a></li>
+  </ul></li>
+  <li><a href="#random-tremolo">Random (Tremolo)</a><ul>
+  <li><a href="#depth-1">Depth</a></li>
+  <li><a href="#freq">Freq</a></li>
+  <li><a href="#time-2">Time</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#change-log">Change Log</a></li>
+  <li><a href="#license">License</a><ul>
+  <li><a href="#about-vst">About VST</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+  </nav>
+  </details>
+  </header>
 <h1 id="fdncymbal">FDNCymbal</h1>
 <p><img src="img/fdncymbal.png" /></p>
 <p>FDNCymbal is a cymbal sound synthesizer. It can also be used as an effect. Unlike the name, most of metallic texture comes from Schroeder allpass section rather than FDN (feedback delay network). FDN section makes nice impact sound when <code>FDN.Time</code> is short. Tremolo is added to simulate wobbling of cymbal.</p>
@@ -403,6 +401,10 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>If the link above doesn’t work, please send email to <code>ryukau@gmail.com</code>.</p>
 <h3 id="about-vst">About VST</h3>
 <p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
+
+<footer>
+    <p><a href="../../index.html">Back to Index</a></p>
+  </footer>
 </body>
 
 </html>
