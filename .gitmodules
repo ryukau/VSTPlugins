@@ -1,0 +1,3 @@
+[submodule "lib/vcl"]
+	path = lib/vcl
+	url = https://github.com/vectorclass/version2.git
