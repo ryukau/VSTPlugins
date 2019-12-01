@@ -258,6 +258,8 @@ Time of pitch sliding.
 Oscillator 2 slide time with respect to Oscillator 1 slide time.
 
 ## Change Log
+- 0.1.1
+  - Fixed mistake in oscillator implementation.
 - 0.1.0
   - Initial release.
 
