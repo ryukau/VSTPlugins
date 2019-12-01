@@ -5,7 +5,7 @@ from pathlib import Path
 
 def get_last_modified(md):
     result = subprocess.run(
-        ["git", "log", "-1", '--date=format:%F', '--format="%cd"', "--", md],
+        ["git", "log", "-1", '--date=format:%Y-%m-%d', '--format="%cd"', "--", str(md)],
         stdout=subprocess.PIPE,
         encoding="utf-8",
     )
@@ -30,6 +30,8 @@ for md in Path(".").glob("**/*.md"):
 
     last_modified = get_last_modified(md)
 
+    print(css_path)
+
     subprocess.run([
         "pandoc",
         "-s",
@@ -43,7 +45,7 @@ for md in Path(".").glob("**/*.md"):
         f"index-relative-path={index_relpath}",
         f"--template={str(template_path)}",
         f"-H",
-        css_path,
+        str(css_path),
         "-o",
         f"{md.with_suffix('')}.html",
         str(md),
