@@ -310,7 +310,7 @@ template<typename Sample> Sample TpzMono<Sample>::getOctave(GlobalParameter &par
       + filterEnvelope.getValue()
         * param.value[ParameterID::filterEnvToOctave]->getFloat()));
   if (index < 0) index = 0;
-  if (size_t(index) >= octaveTable.size()) index = octaveTable.size() - 1;
+  if (size_t(index) >= octaveTable.size()) index = int32_t(octaveTable.size()) - 1;
   return octaveTable[index];
 }
 
@@ -374,7 +374,7 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
   LinearSmoother<float>::setBufferSize(length);
 
   float sample = 1.0;
-  for (size_t i = 0; i < length; ++i) {
+  for (uint32_t i = 0; i < length; ++i) {
     processMidiNote(i);
 
     sample = tpz1.process(length);
