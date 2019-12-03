@@ -553,6 +553,39 @@ smtg_add_vst3_resource(${target} "resource/plug.uidesc")
 ### リファクタリング
 - TODO
 
+## ポインタの扱いについて
+vst3sdk では生ポインタを扱う場面が出てきますが、参照カウンタが使えるので use after free を防ぐことができます。
+
+`new` したインスタンスを生ポインタに格納した後は `remember()` で参照カウントを増やします。また、メモリリークを防ぐためにクラスのデストラクタで必ず `forget()` を呼んで参照カウントを減らします。以下は私が実際に書いて動いた適当な例です。
+
+```cpp
+class PlugController : public Vst::EditController, public Vst::IMidiMapping {
+public:
+  Steinberg::Vst::PlugEditor *editor = nullptr;
+
+  ~PlugController()
+  {
+    if (editor) editor->forget();
+  }
+
+  // ...
+};
+
+IPlugView *PLUGIN_API PlugController::createView(const char *name)
+{
+  // オートメーションなどでホストから変更されたパラメータを GUI に伝えるためにエディタクラスのポインタを持っておく。
+  if (name && strcmp(name, "editor") == 0) {
+    if (editor != nullptr) editor->forget();
+    editor = new Vst::PlugEditor(this);
+    editor->remember();
+    return editor;
+  }
+  return 0;
+}
+```
+
+CMake では C++14 のフラグを立てていながらスマートポインタを使っていないのが疑問でしたが、 Wikipedia によると [VST 3 がリリースされたのは 2008 年](https://en.wikipedia.org/wiki/Virtual_Studio_Technology#History)なので C++11 が使えなかったのだろうと思います。
+
 ## GUI
 主にカスタムビューの作成についてまとめています。
 
@@ -945,6 +978,18 @@ IController *PlugController::createSubController(
 `VSTGUIEditor` を使った GUI の作成についてはうつぼかずらさんによる[C++でVST作り](http://vstcpp.wpblog.jp/)が参考になります。ここではC++でVST作りで紹介されていない内容について扱っています。
 
 - [C++でVST作り](http://vstcpp.wpblog.jp/)
+
+#### ホストのオートメーションに応じて表示を更新
+ホストがオートメーションによってパラメータを変更したときは `EditController.setParamNormalized()` に変更された値が渡されます。 `setParamNormalized()` をオーバーライドして GUI に値を渡すことができます。
+
+1. `VSTGUIEditor` を継承したエディタクラスに ID と値を受け取って `CControl` などの要素を更新するメソッドを作る。
+2. `EditController` を継承したコントローラクラスにエディタクラスのポインタを持たせる。
+3. `setParamNormalized()` をオーバーライドしてエディタクラスのポインタから GUI に値を渡す。
+
+- TODO 実装の追加
+
+- [VST 3 Interfaces: Parameters and Automation](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/vst3Automation.html#vst3automationPlayback)
+- [Clarification of parameter handling in VST 3 - sdk.steinberg.net](https://sdk.steinberg.net/viewtopic.php?f=4&t=714)
 
 #### リフレッシュレートの設定
 `VSTGUIEditor` の `setIdleRate` でリフレッシュレートを変更できます。指定する値の単位は ms (ミリ秒) で、デフォルト値は 100ms (10Hz) です。カスタムビューの更新が遅く感じるときなどに変更してみてください。
