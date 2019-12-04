@@ -66,16 +66,16 @@ private:
 
 template<typename Sample, unsigned char Order> class DelayLagrange {
 public:
-  DelayLagrange(Sample sampleRate, Sample time, Sample maxTime)
+  void setup(Sample sampleRate, Sample time, Sample maxTime)
   {
     this->sampleRate = overSample * sampleRate;
 
     auto size = (size_t)(maxTime * this->sampleRate);
     if (size >= INT32_MAX)
       size = INT32_MAX;
-    else if (size < 0)
-      size = 0;
-    buf.resize(size + 1, 0.0);
+    else if (size == 0)
+      size += 1;
+    buf.resize(size, 0.0);
 
     setTime(time);
   }
@@ -125,7 +125,7 @@ private:
   static const size_t fix = (overSample * (Order - 1)) / 2;
   Sample sampleRate = 44100.0;
   Sample rFraction = 0.0;
-  std::vector<Sample> buf;
+  std::vector<Sample> buf{1};
   int32_t wptr = 0;
   int32_t rptr = 0;
   FractionalDelayLagrange<Sample, Order> wInterp;

@@ -71,9 +71,9 @@ protected:
   double lfoPhase;
   double lfoPhaseTick;
   std::array<float, 2> delayOut{};
-  std::array<std::unique_ptr<DelayTypeName>, 2> delay;
-  std::array<std::unique_ptr<FilterTypeName>, 2> filter;
-  std::array<std::unique_ptr<DCKillerTypeName>, 2> dcKiller;
+  std::array<DelayTypeName, 2> delay;
+  std::array<FilterTypeName, 2> filter;
+  std::array<DCKillerTypeName, 2> dcKiller;
 };
 
 } // namespace SevenDelay

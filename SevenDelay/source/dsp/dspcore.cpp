@@ -32,34 +32,25 @@ void DSPCore::setup(double sampleRate)
   LinearSmoother<float>::setSampleRate(sampleRate);
 
   for (size_t i = 0; i < delay.size(); ++i)
-    delay[i] = std::make_unique<DelayTypeName>(sampleRate, 1.0f, maxDelayTime);
+    delay[i].setup(sampleRate, 1.0f, maxDelayTime);
 
-  for (size_t i = 0; i < filter.size(); ++i)
-    filter[i] = std::make_unique<FilterTypeName>(sampleRate, maxToneFrequency, 0.9);
+  for (size_t i = 0; i < filter.size(); ++i) filter[i].setup(sampleRate);
 
-  for (size_t i = 0; i < dcKiller.size(); ++i)
-    dcKiller[i] = std::make_unique<DCKillerTypeName>(sampleRate, minDCKillFrequency, 0.1);
+  for (size_t i = 0; i < dcKiller.size(); ++i) dcKiller[i].setup(sampleRate, 0.1);
 
   lfoPhaseTick = 2.0 * pi / sampleRate;
 
   startup();
 }
 
-void DSPCore::free()
+void DSPCore::free() {}
+
+void DSPCore::reset()
 {
   for (size_t i = 0; i < channel; ++i) {
     delay[i].reset();
     filter[i].reset();
     dcKiller[i].reset();
-  }
-}
-
-void DSPCore::reset()
-{
-  for (size_t i = 0; i < channel; ++i) {
-    delay[i]->reset();
-    filter[i]->reset();
-    dcKiller[i]->reset();
   }
   startup();
 }
@@ -139,37 +130,38 @@ void DSPCore::process(
 {
   LinearSmoother<float>::setBufferSize(length);
 
+  const bool lfoHold = !param.value[ParameterID::lfoHold]->getInt();
   for (size_t i = 0; i < length; ++i) {
     auto sign = (pi < lfoPhase) - (lfoPhase < pi);
     const float lfo = sign * powf(fabsf(float(sin(lfoPhase))), interpLfoShape.process());
     const float lfoTime = interpLfoTimeAmount.process() * (1.0f + lfo);
 
-    delay[0]->setTime(interpTime[0].process() + lfoTime);
-    delay[1]->setTime(interpTime[1].process() + lfoTime);
+    delay[0].setTime(interpTime[0].process() + lfoTime);
+    delay[1].setTime(interpTime[1].process() + lfoTime);
 
     const float feedback = interpFeedback.process();
     const float inL = in0[i] + feedback * delayOut[0];
     const float inR = in1[i] + feedback * delayOut[1];
-    delayOut[0] = delay[0]->process(inL + interpPanIn[0].process() * (inR - inL));
-    delayOut[1] = delay[1]->process(inL + interpPanIn[1].process() * (inR - inL));
+    delayOut[0] = delay[0].process(inL + interpPanIn[0].process() * (inR - inL));
+    delayOut[1] = delay[1].process(inL + interpPanIn[1].process() * (inR - inL));
 
     const float lfoTone = interpLfoToneAmount.process() * (0.5f * lfo + 0.5f);
     float toneCutoff = interpToneCutoff.process() * lfoTone * lfoTone;
     if (toneCutoff < 20.0f) toneCutoff = 20.0f;
     const float toneQ = interpToneQ.process();
-    filter[0]->setCutoffQ(toneCutoff, toneQ);
-    filter[1]->setCutoffQ(toneCutoff, toneQ);
-    float filterOutL = filter[0]->process(delayOut[0]);
-    float filterOutR = filter[1]->process(delayOut[1]);
+    filter[0].setCutoffQ(toneCutoff, toneQ);
+    filter[1].setCutoffQ(toneCutoff, toneQ);
+    float filterOutL = filter[0].process(delayOut[0]);
+    float filterOutR = filter[1].process(delayOut[1]);
     const float toneMix = interpToneMix.process();
     delayOut[0] = filterOutL + toneMix * (delayOut[0] - filterOutL);
     delayOut[1] = filterOutR + toneMix * (delayOut[1] - filterOutR);
 
     const float dckill = interpDCKill.process();
-    dcKiller[0]->setCutoff(dckill);
-    dcKiller[1]->setCutoff(dckill);
-    filterOutL = dcKiller[0]->process(delayOut[0]);
-    filterOutR = dcKiller[1]->process(delayOut[1]);
+    dcKiller[0].setCutoff(dckill);
+    dcKiller[1].setCutoff(dckill);
+    filterOutL = dcKiller[0].process(delayOut[0]);
+    filterOutR = dcKiller[1].process(delayOut[1]);
     const float dckillMix = interpDCKillMix.process();
     // dckillmix == 1 -> delayout
     delayOut[0] = filterOutL + dckillMix * (delayOut[0] - filterOutL);
@@ -182,7 +174,7 @@ void DSPCore::process(
     out0[i] = dry * in0[i] + outL + interpPanOut[0].process() * (outR - outL);
     out1[i] = dry * in1[i] + outL + interpPanOut[1].process() * (outR - outL);
 
-    if (!param.value[ParameterID::lfoHold]->getInt()) {
+    if (lfoHold) {
       lfoPhase += interpLfoFrequency.process() * lfoPhaseTick;
       if (lfoPhase > 2.0f * pi) lfoPhase -= 2.0f * pi;
     }
