@@ -16,7 +16,7 @@ public:
     this->sampleRate = 2 * sampleRate;
 
     auto size = size_t(this->sampleRate * maxTime);
-    buf.resize(size >= INT32_MAX ? INT32_MAX : size + 1, 0.0);
+    buf.resize(size >= INT32_MAX ? INT32_MAX : size + 1);
 
     setTime(time);
     reset();
@@ -78,7 +78,7 @@ protected:
   Sample w1 = 0.0;
   size_t wptr = 0;
   size_t rptr = 0;
-  std::vector<Sample> buf;
+  std::vector<Sample> buf{2};
 };
 
 template<typename Sample, size_t matrixSize> class FeedbackDelayNetwork {

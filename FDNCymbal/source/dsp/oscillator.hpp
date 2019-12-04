@@ -21,8 +21,8 @@ namespace SomeDSP {
 
 template<typename Sample> class Pulsar {
 public:
-  Sample sampleRate;
-  Sample tick;
+  Sample sampleRate = 44100;
+  Sample tick = 0;
   Sample phase = 0;
   Sample buffer = 0;
 
@@ -56,7 +56,7 @@ public:
 // Numerical Recipes In C p.284. Normalized to [0, 1).
 template<typename Sample> class Random {
 public:
-  uint32_t seed;
+  uint32_t seed = 0;
 
   Random(uint32_t seed) : seed(seed) {}
 
@@ -87,7 +87,7 @@ public:
     return Sample(2) * someround<Sample>(rng.process()) - Sample(1);
   }
 
-  Sample sampleRate;
+  Sample sampleRate = 44100;
 
   Sample phase = 0;
   Sample tick = 0;
@@ -122,10 +122,10 @@ public:
   }
 
 protected:
-  Sample sampleRate;
-  Sample u1;
-  Sample u0;
-  Sample k;
+  Sample sampleRate = 44100;
+  Sample u1 = 0;
+  Sample u0 = 0;
+  Sample k = 0;
 };
 
 } // namespace SomeDSP

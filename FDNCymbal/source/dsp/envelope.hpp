@@ -86,13 +86,13 @@ protected:
         threshold, Sample(1.0) / (decayTime * sampleRate - declickLength));
   }
 
-  int32_t declickLength;
+  int32_t declickLength = 0;
   int32_t declickCounter = 0;
   Sample declickOffset = 0;
 
-  Sample sampleRate;
+  Sample sampleRate = 44100;
   Sample alpha = Sample(0);
-  Sample threshold;
+  Sample threshold = 1e-5;
   Sample value = Sample(1);
   Sample output = Sample(0);
 };

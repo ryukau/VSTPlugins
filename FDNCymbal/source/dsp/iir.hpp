@@ -74,9 +74,9 @@ public:
   }
 
 protected:
-  Sample sampleRate;
-  Sample cutoff;
-  Sample resonance;
+  Sample sampleRate = 44100;
+  Sample cutoff = 100;
+  Sample resonance = 0.5;
 
   Sample yLP = 0.0;
   Sample yBP = 0.0;

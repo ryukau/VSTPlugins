@@ -32,6 +32,12 @@ class PlugEditor : public VSTGUIEditor, public IControlListener, public IMouseOb
 public:
   PlugEditor(void *controller);
 
+  ~PlugEditor()
+  {
+    for (auto &ctrl : controlMap)
+      if (ctrl.second) ctrl.second->forget();
+  }
+
   bool PLUGIN_API
   open(void *parent, const PlatformType &platformType = kDefaultNative) override;
   void PLUGIN_API close() override;
