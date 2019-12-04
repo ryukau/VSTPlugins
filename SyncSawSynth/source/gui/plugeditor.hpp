@@ -21,6 +21,8 @@
 #include "pluginterfaces/vst/ivstplugview.h"
 #include "public.sdk/source/vst/vstguieditor.h"
 
+#include <unordered_map>
+
 namespace Steinberg {
 namespace Vst {
 
@@ -30,10 +32,17 @@ class PlugEditor : public VSTGUIEditor, public IControlListener, public IMouseOb
 public:
   PlugEditor(void *controller);
 
+  ~PlugEditor()
+  {
+    for (auto &ctrl : controlMap)
+      if (ctrl.second) ctrl.second->forget();
+  }
+
   bool PLUGIN_API
   open(void *parent, const PlatformType &platformType = kDefaultNative) override;
   void PLUGIN_API close() override;
   void valueChanged(CControl *pControl) override;
+  void updateUI(Vst::ParamID id, ParamValue normalized);
 
   void onMouseEntered(CView *view, CFrame *frame) override {}
   void onMouseExited(CView *view, CFrame *frame) override {}
@@ -144,6 +153,16 @@ public:
     float defaultPhase);
 
 protected:
+  void addToControlMap(Vst::ParamID id, CControl *control)
+  {
+    auto iter = controlMap.find(id);
+    if (iter != controlMap.end()) iter->second->forget();
+    control->remember();
+    controlMap.insert({id, control});
+  }
+
+  std::unordered_map<Vst::ParamID, CControl *> controlMap;
+
   const double margin = 5.0;
   const double labelHeight = 20.0;
   const double labelY = 30.0;

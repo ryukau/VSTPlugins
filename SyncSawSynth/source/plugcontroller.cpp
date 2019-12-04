@@ -56,6 +56,31 @@ tresult PLUGIN_API PlugController::setComponentState(IBStream *state)
   return kResultOk;
 }
 
+IPlugView *PLUGIN_API PlugController::createView(const char *name)
+{
+#ifndef LINUX
+  if (name && strcmp(name, "editor") == 0) {
+    if (editor) editor->forget();
+    editor = new Vst::PlugEditor(this);
+    editor->remember();
+    return editor;
+  }
+#endif
+  return 0;
+}
+
+tresult PLUGIN_API
+PlugController::setParamNormalized(Vst::ParamID id, Vst::ParamValue normalized)
+{
+  Vst::Parameter *parameter = getParameterObject(id);
+  if (parameter) {
+    parameter->setNormalized(normalized);
+    if (editor != nullptr) editor->updateUI(id, normalized);
+    return kResultTrue;
+  }
+  return kResultFalse;
+}
+
 tresult PLUGIN_API PlugController::getMidiControllerAssignment(
   int32 busIndex, int16 channel, Vst::CtrlNumber midiControllerNumber, Vst::ParamID &id)
 {
@@ -70,14 +95,6 @@ tresult PLUGIN_API PlugController::getMidiControllerAssignment(
       return kResultOk;
   }
   return kResultFalse;
-}
-
-IPlugView *PLUGIN_API PlugController::createView(const char *name)
-{
-#ifndef LINUX
-  if (name && strcmp(name, "editor") == 0) return new Vst::PlugEditor(this);
-#endif
-  return 0;
 }
 
 } // namespace Synth

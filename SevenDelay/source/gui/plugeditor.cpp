@@ -180,6 +180,14 @@ void PlugEditor::valueChanged(CControl *pControl)
   }
 }
 
+void PlugEditor::updateUI(Vst::ParamID id, ParamValue normalized)
+{
+  auto iter = controlMap.find(id);
+  if (iter == controlMap.end()) return;
+  iter->second->setValueNormalized(normalized);
+  iter->second->invalid();
+}
+
 CMouseEventResult
 PlugEditor::onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &buttons)
 {
@@ -282,6 +290,7 @@ void PlugEditor::addVSlider(
   slider->setDefaultValue(defaultValue);
   slider->setTooltipText(tooltip);
   frame->addView(slider);
+  addToControlMap(tag, slider);
 
   top = bottom + 10.0;
   bottom = top + 30.0;
@@ -316,6 +325,7 @@ void PlugEditor::addButton(
   button->setRoundRadius(0.0);
   button->setValueNormalized(controller->getParamNormalized(tag));
   frame->addView(button);
+  addToControlMap(tag, button);
 }
 
 void PlugEditor::addCheckbox(
@@ -334,6 +344,7 @@ void PlugEditor::addCheckbox(
   checkbox->sizeToFit();
   checkbox->setValueNormalized(controller->getParamNormalized(tag));
   frame->addView(checkbox);
+  addToControlMap(tag, checkbox);
 }
 
 void PlugEditor::addOptionMenu(
@@ -353,6 +364,7 @@ void PlugEditor::addOptionMenu(
   menu->sizeToFit();
   menu->setValueNormalized(controller->getParamNormalized(tag));
   frame->addView(menu);
+  addToControlMap(tag, menu);
 }
 
 void PlugEditor::addKnob(
@@ -376,6 +388,7 @@ void PlugEditor::addKnob(
   knob->setDefaultValue(defaultValue);
   knob->setTooltipText(tooltip);
   frame->addView(knob);
+  addToControlMap(tag, knob);
 
   switch (labelPosition) {
     default:

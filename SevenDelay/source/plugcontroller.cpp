@@ -48,11 +48,27 @@ tresult PLUGIN_API PlugController::setComponentState(IBStream *state)
 
 IPlugView *PLUGIN_API PlugController::createView(const char *name)
 {
-  // Disabling GUI for Linux build.
 #ifndef LINUX
-  if (name && strcmp(name, "editor") == 0) return new Vst::PlugEditor(this);
+  if (name && strcmp(name, "editor") == 0) {
+    if (editor) editor->forget();
+    editor = new Vst::PlugEditor(this);
+    editor->remember();
+    return editor;
+  }
 #endif
   return 0;
+}
+
+tresult PLUGIN_API
+PlugController::setParamNormalized(Vst::ParamID id, Vst::ParamValue normalized)
+{
+  Vst::Parameter *parameter = getParameterObject(id);
+  if (parameter) {
+    parameter->setNormalized(normalized);
+    if (editor != nullptr) editor->updateUI(id, normalized);
+    return kResultTrue;
+  }
+  return kResultFalse;
 }
 
 } // namespace SevenDelay

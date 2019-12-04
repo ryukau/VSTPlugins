@@ -27,8 +27,6 @@
 
 #include "gui/plugeditor.hpp"
 
-#include <memory>
-
 namespace Steinberg {
 namespace Synth {
 
