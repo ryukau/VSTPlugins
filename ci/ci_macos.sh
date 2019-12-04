@@ -9,10 +9,6 @@ cd "$HOME" || exit
 git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
 cd vst3sdk || exit
 
-# Band-aid solution to fix build failure.
-sed '79s/10\.10/10.14/' cmake/modules/Global.cmake > cmake/modules/Global.cmake_tmp
-mv cmake/modules/Global.cmake_tmp cmake/modules/Global.cmake
-
 mkdir build
 cd build || exit
 cmake -GXcode \
