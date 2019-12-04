@@ -2,7 +2,7 @@
 # Build script for GitHub Actions.
 #
 
-$erroractionpreference = "stop"
+$ErrorActionPreference = "Stop"
 
 $workspace = (Get-Item -Path ".\").FullName
 cd $HOME
@@ -12,13 +12,15 @@ cd vst3sdk
 
 mkdir build
 cd Build
-# cmake -G"Visual Studio 16 2019" `
-cmake -G"Visual Studio 15 2017 Win64" `
+cmake -G"Visual Studio 16 2019" `
   -DSMTG_MYPLUGINS_SRC_PATH="$workspace" `
   -DSMTG_ADD_VST3_HOSTING_SAMPLES=FALSE `
   -DSMTG_ADD_VST3_PLUGINS_SAMPLES=FALSE `
   ..
 cmake --build . --config Release
+
+# https://gitlab.com/gitlab-org/gitlab-runner/issues/3194#note_196458158
+if (!$?) { Exit $LASTEXITCODE }
 
 $plugin_dir = "$HOME\vst3sdk\build\VST3\Release"
 foreach ($dir in $plugin_dir) {
