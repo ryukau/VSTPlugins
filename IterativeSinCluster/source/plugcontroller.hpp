@@ -26,7 +26,6 @@
 #include "vstgui/plugin-bindings/vst3editor.h"
 
 #include "gui/plugeditor.hpp"
-#include "parameter.hpp"
 
 #include <memory>
 
