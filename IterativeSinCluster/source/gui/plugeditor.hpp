@@ -35,6 +35,14 @@ class PlugEditor : public VSTGUIEditor, public IControlListener, public IMouseOb
 public:
   PlugEditor(void *controller);
 
+  ~PlugEditor()
+  {
+    if (overtoneControl) overtoneControl->forget();
+
+    for (auto &ctrl : controlMap)
+      if (ctrl.second) ctrl.second->forget();
+  }
+
   bool PLUGIN_API
   open(void *parent, const PlatformType &platformType = kDefaultNative) override;
   void PLUGIN_API close() override;
@@ -161,6 +169,14 @@ public:
 
 protected:
   Synth::GlobalParameter param;
+
+  void addToControlMap(Vst::ParamID id, CControl *control)
+  {
+    auto iter = controlMap.find(id);
+    if (iter != controlMap.end()) iter->second->forget();
+    control->remember();
+    controlMap.insert({id, control});
+  }
 
   std::unordered_map<Vst::ParamID, CControl *> controlMap;
   ArrayControl *overtoneControl = nullptr;

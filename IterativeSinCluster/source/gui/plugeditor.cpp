@@ -348,6 +348,7 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   barBox->setBorderColor(colorBlack);
   barBox->setValueColor(colorBlue);
   frame->addView(barBox);
+  if (overtoneControl != nullptr) overtoneControl->forget();
   overtoneControl = barBox;
   overtoneControl->remember();
 
@@ -509,7 +510,7 @@ void PlugEditor::addVSlider(
   slider->setDefaultValue(param.value[tag]->getDefaultNormalized());
   slider->setTooltipText(tooltip);
   frame->addView(slider);
-  controlMap.insert({tag, slider});
+  addToControlMap(tag, slider);
 
   top = bottom + margin;
   bottom = top + labelHeight;
@@ -543,7 +544,7 @@ void PlugEditor::addButton(
   button->setRoundRadius(0.0);
   button->setValueNormalized(controller->getParamNormalized(tag));
   frame->addView(button);
-  controlMap.insert({tag, button});
+  addToControlMap(tag, button);
 }
 
 void PlugEditor::addCheckbox(
@@ -562,7 +563,7 @@ void PlugEditor::addCheckbox(
   checkbox->sizeToFit();
   checkbox->setValueNormalized(controller->getParamNormalized(tag));
   frame->addView(checkbox);
-  controlMap.insert({tag, checkbox});
+  addToControlMap(tag, checkbox);
 }
 
 void PlugEditor::addOptionMenu(
@@ -587,7 +588,7 @@ void PlugEditor::addOptionMenu(
   menu->sizeToFit();
   menu->setValueNormalized(controller->getParamNormalized(tag));
   frame->addView(menu);
-  controlMap.insert({tag, menu});
+  addToControlMap(tag, menu);
 }
 
 void PlugEditor::addKnob(
@@ -608,7 +609,7 @@ void PlugEditor::addKnob(
   knob->setValueNormalized(controller->getParamNormalized(tag));
   knob->setDefaultValue(param.value[tag]->getDefaultNormalized());
   frame->addView(knob);
-  controlMap.insert({tag, knob});
+  addToControlMap(tag, knob);
 
   addKnobLabel(left, top, right, bottom, name, labelPosition);
 }
@@ -631,7 +632,7 @@ void PlugEditor::addRotaryKnob(
   knob->setValueNormalized(controller->getParamNormalized(tag));
   knob->setDefaultValue(param.value[tag]->getDefaultNormalized());
   frame->addView(knob);
-  controlMap.insert({tag, knob});
+  addToControlMap(tag, knob);
 
   addKnobLabel(left, top, right, bottom, name, labelPosition);
 }
@@ -659,7 +660,7 @@ void PlugEditor::addNumberKnob(
   knob->setValueNormalized(controller->getParamNormalized(tag));
   knob->setDefaultValue(param.value[tag]->getDefaultNormalized());
   frame->addView(knob);
-  controlMap.insert({tag, knob});
+  addToControlMap(tag, knob);
 
   addKnobLabel(left, top, right, bottom, name, labelPosition);
 }
@@ -720,7 +721,7 @@ void PlugEditor::addTextKnob(
   knob->setDefaultValue(param.value[tag]->getDefaultNormalized());
   knob->setPrecision(precision);
   frame->addView(knob);
-  controlMap.insert({tag, knob});
+  addToControlMap(tag, knob);
 }
 
 ParamValue PlugEditor::getPlainValue(ParamID tag)
