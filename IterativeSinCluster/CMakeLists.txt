@@ -11,13 +11,15 @@ set(plug_sources
 
 set(target IterativeSinCluster)
 
-if (MSVC)
+if(MSVC)
     add_definitions(/std:c++17 /arch:AVX2)
-elseif (APPLE)
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14")
-    add_definitions(-std=c++17 -O3 -mavx2 -mfma)
-else ()
-    add_definitions(-std=c++1z -O3 -mavx2 -mfma)
+elseif(UNIX)
+    if(APPLE)
+        set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14")
+        add_definitions(-std=c++17 -O3 -mavx2 -mfma -Wno-shadow)
+    else()
+        add_definitions(-std=c++1z -O3 -mavx2 -mfma)
+    endif()
 endif()
 
 smtg_add_vst3plugin(${target} ${plug_sources})
