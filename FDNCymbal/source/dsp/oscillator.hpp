@@ -69,9 +69,10 @@ public:
 
 template<typename Sample> class VelvetNoise {
 public:
-  VelvetNoise(Sample sampleRate, Sample density, uint32_t seed)
-    : sampleRate(sampleRate), rng(seed)
+  void setup(Sample sampleRate, Sample density, uint32_t seed)
   {
+    this->sampleRate = sampleRate;
+    rng.seed = seed;
     setDensity(density);
   }
 
@@ -90,7 +91,7 @@ public:
 
   Sample phase = 0;
   Sample tick = 0;
-  Random<Sample> rng;
+  Random<Sample> rng{0};
 };
 
 // Mostly uniform gain range.
@@ -98,8 +99,9 @@ public:
 // - float  : freq > 8Hz. Huge bump around 1Hz.
 template<typename Sample> class BiquadOsc {
 public:
-  BiquadOsc(Sample sampleRate, Sample frequency) : sampleRate(sampleRate)
+  void setup(Sample sampleRate, Sample frequency)
   {
+    this->sampleRate = sampleRate;
     setFrequency(frequency);
   }
 

@@ -94,10 +94,7 @@ protected:
 // http://www.musicdsp.org/files/Audio-EQ-Cookbook.txt
 template<typename Sample> class BiquadHighPass {
 public:
-  BiquadHighPass(Sample sampleRate, Sample cutoff, Sample q)
-    : fs(sampleRate), f0(cutoff), q(q)
-  {
-  }
+  void setup(Sample sampleRate) { fs = sampleRate; }
 
   void reset()
   {
@@ -110,7 +107,7 @@ public:
   // q in (0, 1].
   void setCutoffQ(Sample cutoffHz, Sample q)
   {
-    f0 = cutoffHz > 0.0 ? cutoffHz : 0.0;
+    f0 = cutoffHz >= Sample(1.0) ? cutoffHz : Sample(1.0);
     this->q = q < Sample(1e-5) ? Sample(1e-5) : q;
 
     Sample w0 = Sample(twopi) * f0 / fs;
@@ -148,9 +145,9 @@ public:
   }
 
 protected:
-  Sample fs;
-  Sample f0;
-  Sample q;
+  Sample fs = 44100;
+  Sample f0 = 100;
+  Sample q = 0.1;
 
   Sample b0 = 0.0;
   Sample b1 = 0.0;

@@ -21,6 +21,8 @@
 #include "pluginterfaces/vst/ivstplugview.h"
 #include "public.sdk/source/vst/vstguieditor.h"
 
+#include <unordered_map>
+
 namespace Steinberg {
 namespace Vst {
 
@@ -34,6 +36,7 @@ public:
   open(void *parent, const PlatformType &platformType = kDefaultNative) override;
   void PLUGIN_API close() override;
   void valueChanged(CControl *pControl) override;
+  void updateUI(Vst::ParamID id, ParamValue normalized);
 
   void onMouseEntered(CView *view, CFrame *frame) override {}
   void onMouseExited(CView *view, CFrame *frame) override {}
@@ -136,6 +139,16 @@ public:
     LabelPosition labelPosition);
 
 protected:
+  std::unordered_map<Vst::ParamID, CControl *> controlMap;
+
+  void addToControlMap(Vst::ParamID id, CControl *control)
+  {
+    auto iter = controlMap.find(id);
+    if (iter != controlMap.end()) iter->second->forget();
+    control->remember();
+    controlMap.insert({id, control});
+  }
+
   const float uiTextSize = 14.0f;
   const float midTextSize = 16.0f;
   const float pluginNameTextSize = 28.0f;

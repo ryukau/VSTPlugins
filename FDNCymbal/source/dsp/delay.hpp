@@ -11,7 +11,7 @@ namespace SomeDSP {
 // 2x oversampled, linear interpolated delay.
 template<typename Sample> class Delay {
 public:
-  Delay(double sampleRate, Sample time, Sample maxTime)
+  void setup(double sampleRate, Sample time, Sample maxTime)
   {
     this->sampleRate = 2 * sampleRate;
 
@@ -84,26 +84,24 @@ protected:
 template<typename Sample, size_t matrixSize> class FeedbackDelayNetwork {
 public:
   Sample sampleRate;
-  std::array<std::unique_ptr<Delay<Sample>>, matrixSize> delay;
+  std::array<Delay<Sample>, matrixSize> delay;
   std::array<LinearSmoother<Sample>, matrixSize> delayTime;
   std::array<Sample, matrixSize> gain{};
   std::array<Sample, matrixSize> buffer{};
   std::array<Sample, matrixSize> delayOut{};
   std::array<std::array<Sample, matrixSize>, matrixSize> matrix;
 
-  FeedbackDelayNetwork(Sample sampleRate, Sample maxTime = 0.5) : sampleRate(sampleRate)
+  void setup(Sample sampleRate, Sample maxTime = 0.5)
   {
-    for (auto &dly : delay)
-      dly = std::make_unique<Delay<Sample>>(sampleRate, maxTime, maxTime);
-
+    this->sampleRate = sampleRate;
+    for (auto &dly : delay) dly.setup(sampleRate, maxTime, maxTime);
     for (auto dlyTime : delayTime) dlyTime.reset(maxTime);
-
     reset();
   }
 
   void reset()
   {
-    for (auto &dly : delay) dly->reset();
+    for (auto &dly : delay) dly.reset();
 
     gain.fill(1);
     buffer.fill(0);
@@ -128,8 +126,8 @@ public:
     }
 
     for (size_t i = 0; i < matrixSize; ++i) {
-      delay[i]->setTime(delayTime[i].process());
-      delayOut[i] = delay[i]->process(gain[i] * (buffer[i] + input));
+      delay[i].setTime(delayTime[i].process());
+      delayOut[i] = delay[i].process(gain[i] * (buffer[i] + input));
     }
 
     return std::accumulate(delayOut.begin(), delayOut.end(), Sample(0));
@@ -145,12 +143,12 @@ template<typename Sample> class LongAllpass {
 public:
   Sample gain = 1;
   Sample buffer = 0;
-  std::unique_ptr<Delay<Sample>> delay;
+  Delay<Sample> delay;
   LinearSmoother<Sample> delayTime;
 
-  LongAllpass(Sample sampleRate, Sample maxTime)
+  void setup(Sample sampleRate, Sample maxTime)
   {
-    delay = std::make_unique<Delay<Sample>>(sampleRate, maxTime, maxTime);
+    delay.setup(sampleRate, maxTime, maxTime);
     delayTime.reset(maxTime);
   }
 
@@ -163,38 +161,37 @@ public:
   void reset()
   {
     buffer = 0;
-    delay->reset();
+    delay.reset();
   }
 
   Sample process(Sample input)
   {
-    delay->setTime(delayTime.process());
+    delay.setTime(delayTime.process());
 
     input += gain * buffer;
     auto output = buffer - gain * input;
-    buffer = delay->process(input);
+    buffer = delay.process(input);
     return output;
   }
 };
 
 template<typename Sample, size_t nAllpass> class SerialAllpass {
 public:
-  std::array<std::unique_ptr<LongAllpass<Sample>>, nAllpass> allpass;
+  std::array<LongAllpass<Sample>, nAllpass> allpass;
 
-  SerialAllpass(Sample sampleRate, Sample maxTime)
+  void setup(Sample sampleRate, Sample maxTime)
   {
-    for (auto &ap : allpass)
-      ap = std::make_unique<LongAllpass<Sample>>(sampleRate, maxTime);
+    for (auto &ap : allpass) ap.setup(sampleRate, maxTime);
   }
 
   void reset()
   {
-    for (auto &ap : allpass) ap->reset();
+    for (auto &ap : allpass) ap.reset();
   }
 
   Sample process(Sample input)
   {
-    for (auto &ap : allpass) input = ap->process(input);
+    for (auto &ap : allpass) input = ap.process(input);
     return input;
   }
 };

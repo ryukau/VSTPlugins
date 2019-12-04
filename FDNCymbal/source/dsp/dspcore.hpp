@@ -115,22 +115,22 @@ private:
   Random<float> rngTremolo{0};
   Pulsar<float> pulsar{44100.0f, 0.0f};
 
-  std::unique_ptr<ExpDecay<float>> stickEnvelope;
-  std::array<std::unique_ptr<BiquadOsc<float>>, 16> stickOscillator;
-  std::unique_ptr<VelvetNoise<float>> velvet;
+  ExpDecay<float> stickEnvelope;
+  std::array<BiquadOsc<float>, 16> stickOscillator;
+  VelvetNoise<float> velvet;
 
   float fdnSig = 0.0f;
-  std::array<std::unique_ptr<FeedbackDelayNetwork<float, fdnMatrixSize>>, 8> fdnCascade;
+  std::array<FeedbackDelayNetwork<float, fdnMatrixSize>, 8> fdnCascade;
 
   float serialAP1Sig = 0.0f;
-  std::unique_ptr<SerialAllpass<float, nAP1>> serialAP1;
-  std::unique_ptr<BiquadHighPass<double>> serialAP1Highpass;
+  SerialAllpass<float, nAP1> serialAP1;
+  BiquadHighPass<double> serialAP1Highpass;
 
   float serialAP2Sig = 0.0f;
-  std::array<std::unique_ptr<SerialAllpass<float, nAP2>>, 4> serialAP2;
-  std::unique_ptr<BiquadHighPass<double>> serialAP2Highpass;
+  std::array<SerialAllpass<float, nAP2>, 4> serialAP2;
+  BiquadHighPass<double> serialAP2Highpass;
 
-  std::unique_ptr<Delay<float>> tremoloDelay;
+  Delay<float> tremoloDelay;
   float tremoloPhase = 0.0f;
   float randomTremoloDepth = 0.0f;
   float randomTremoloFrequency = 0.0f;

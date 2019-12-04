@@ -35,15 +35,16 @@ template<typename Sample> class ExpDecay {
 public:
   bool isTerminated = true;
 
-  ExpDecay(
+  void setup(
     Sample sampleRate,
     Sample decayTime = 1.0,
     Sample declickTime = 0.001,
     Sample threshold = 1e-5)
-    : declickLength(declickTime * sampleRate)
-    , sampleRate(sampleRate)
-    , threshold(threshold)
   {
+    declickLength = declickTime * sampleRate;
+    this->sampleRate = sampleRate;
+    this->threshold = threshold;
+
     setDecayTime(decayTime);
   }
 
