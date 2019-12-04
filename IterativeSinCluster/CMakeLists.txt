@@ -11,20 +11,14 @@ set(plug_sources
 
 set(target IterativeSinCluster)
 
+set(CMAKE_CXX_STANDARD 17)
 if(MSVC)
-    add_definitions(/std:c++17 /arch:AVX2)
-else()
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14")
-    add_definitions(-std=c++1z -O3 -mavx2 -mfma -Wno-shadow)
-endif()
-
-if(MSVC)
-    message("-------- Windows?")
+    add_definitions(/arch:AVX2)
 elseif(UNIX)
     if(APPLE)
-        message("-------- macOS?")
+        add_compile_options(-O3 -mavx2 -mfma -Wno-shadow)
     else()
-        message("-------- LINUX?")
+        add_compile_options(-O3 -mavx2 -mfma)
     endif()
 endif()
 
