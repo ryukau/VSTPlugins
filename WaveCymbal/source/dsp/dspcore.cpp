@@ -36,7 +36,7 @@ void DSPCore::setSystem()
     param.value[ParameterID::pickCombFeedback]->getFloat(),
     param.value[ParameterID::randomAmount]->getFloat());
 
-  cymbal->set(
+  cymbal.set(
     1 + param.value[ParameterID::nCymbal]->getInt(),
     1 + param.value[ParameterID::stack]->getInt(),
     param.value[ParameterID::minFrequency]->getFloat(),
@@ -65,7 +65,7 @@ void DSPCore::setup(double sampleRate)
   velvetNoise.sampleRate = sampleRate;
 
   excitor.setup(sampleRate);
-  cymbal = std::make_unique<WaveHat<float>>(sampleRate);
+  cymbal.setup(sampleRate);
   setSystem();
 
   startup();
@@ -94,7 +94,7 @@ void DSPCore::setParameters()
       rnd.seed = param.value[ParameterID::seed]->getInt();
 
     excitor.trigger(rnd);
-    cymbal->trigger(rnd);
+    cymbal.trigger(rnd);
   }
 
   setSystem();
@@ -150,7 +150,7 @@ void DSPCore::process(
     }
 
     if (excitation) sample = excitor.process(sample);
-    sample = cymbal->process(sample, collision);
+    sample = cymbal.process(sample, collision);
 
     const float masterGain = interpMasterGain.process();
     out0[i] = masterGain * sample;

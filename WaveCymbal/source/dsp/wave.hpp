@@ -12,14 +12,14 @@ public:
   size_t length = 1;
 
   // damping ~= [0, 1). Blow up at large number.
-  Wave1D(
+  void setup(
     Sample sampleRate,
     size_t length,
     Sample damping,
     Sample pulsePosition,
     Sample pulseWidth)
-    : sampleRate(sampleRate)
   {
+    this->sampleRate = sampleRate;
     set(length, damping, pulsePosition, pulseWidth);
     reset();
   }
@@ -106,14 +106,14 @@ public:
   }
 
 protected:
-  Sample sampleRate;
-  Sample damping;
+  Sample sampleRate = 44100;
+  Sample damping = 0.9;
 
-  Sample alpha;
-  Sample beta;
+  Sample alpha = 0;
+  Sample beta = 0;
 
-  size_t pulseWidth;
-  size_t pulsePosition;
+  size_t pulseWidth = 0;
+  size_t pulsePosition = 0;
 
   std::array<Sample, maxLength> wave0{};
   std::array<Sample, maxLength> wave1{};

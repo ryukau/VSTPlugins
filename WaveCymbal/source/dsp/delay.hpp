@@ -7,7 +7,7 @@ namespace SomeDSP {
 // 2x oversampled, linear interpolated delay.
 template<typename Sample> class Delay {
 public:
-  Delay(double sampleRate, Sample time, Sample maxTime)
+  void setup(double sampleRate, Sample time, Sample maxTime)
   {
     this->sampleRate = 2 * sampleRate;
 
@@ -67,7 +67,7 @@ protected:
   Sample w1 = 0.0;
   size_t wptr = 0;
   size_t rptr = 0;
-  std::vector<Sample> buf;
+  std::vector<Sample> buf{2};
 };
 
 } // namespace SomeDSP

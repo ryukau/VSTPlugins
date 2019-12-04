@@ -109,7 +109,7 @@ private:
 
   Random<float> rnd{0};
   Excitor<float> excitor;
-  std::unique_ptr<WaveHat<float>> cymbal;
+  WaveHat<float> cymbal;
 
   // debug
   bool trigger = false;

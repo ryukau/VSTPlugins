@@ -35,6 +35,9 @@ namespace SomeDSP {
 //
 template<typename Sample> class OneZeroLP {
 public:
+  Sample z1 = 0;
+  Sample b1 = 0;
+
   OneZeroLP(Sample b1) { this->b1 = b1; }
 
   void reset() { z1 = 0; }
@@ -45,16 +48,16 @@ public:
     z1 = input;
     return output;
   }
-
-protected:
-  Sample z1 = 0;
-  Sample b1;
 };
 
 // https://en.wikipedia.org/wiki/High-pass_filter
 // alpha is smoothing factor.
 template<typename Sample> class RCHP {
 public:
+  Sample alpha = 0;
+  Sample y = 0;
+  Sample z1 = 0;
+
   RCHP(Sample alpha)
   {
     this->alpha = alpha;
@@ -74,19 +77,14 @@ public:
     z1 = input;
     return y;
   }
-
-protected:
-  Sample alpha;
-  Sample y = 0;
-  Sample z1 = 0;
 };
 
 // Karplus-Strong algorithm. Min 10hz.
 template<typename Sample> class KSString {
 public:
-  KSString(Sample sampleRate, Sample frequency, Sample decay)
-    : lowpass(0.5), highpass(0.5), delay(sampleRate, Sample(1.0) / frequency, Sample(0.1))
+  void setup(Sample sampleRate, Sample frequency, Sample decay)
   {
+    delay.setup(sampleRate, Sample(1.0) / frequency, Sample(0.1));
     set(frequency, decay);
   }
 
@@ -117,18 +115,18 @@ public:
 
 protected:
   Sample feedback = 0;
-  Sample decay;
-  OneZeroLP<Sample> lowpass;
-  RCHP<Sample> highpass;
+  Sample decay = 0;
+  OneZeroLP<Sample> lowpass{0.5};
+  RCHP<Sample> highpass{0.5};
   LinearSmoother<Sample> interpDelayTime;
   Delay<Sample> delay;
 };
 
 template<typename Sample> class BiquadBandpass {
 public:
-  Sample fs;
-  Sample f0;
-  Sample q;
+  Sample fs = 44100;
+  Sample f0 = 100;
+  Sample q = 0.5;
 
   Sample b0 = 0.0;
   Sample b1 = 0.0;
@@ -142,10 +140,7 @@ public:
   Sample y1 = 0.0;
   Sample y2 = 0.0;
 
-  BiquadBandpass(Sample sampleRate, Sample cutoff, Sample q)
-    : fs(sampleRate), f0(cutoff), q(q)
-  {
-  }
+  void setup(Sample sampleRate) { fs = sampleRate; }
 
   void reset()
   {
@@ -204,7 +199,7 @@ public:
 // Numerical Recipes In C p.284. Normalized to [0, 1).
 template<typename Sample> class Random {
 public:
-  uint32_t seed;
+  uint32_t seed = 0;
 
   Random(uint32_t seed) : seed(seed) {}
 
@@ -222,20 +217,17 @@ public:
   size_t stack = 24;
   Wave1D<Sample, maxStack> wave1d;
 
-  std::array<Sample, maxStack> stringRnd;
-  std::array<std::unique_ptr<KSString<Sample>>, maxStack> string;
+  std::array<Sample, maxStack> stringRnd{};
+  std::array<KSString<Sample>, maxStack> string;
 
-  std::array<Sample, maxStack> bandpassRnd;
-  std::array<std::unique_ptr<BiquadBandpass<Sample>>, maxStack> bandpass;
+  std::array<Sample, maxStack> bandpassRnd{};
+  std::array<BiquadBandpass<Sample>, maxStack> bandpass;
 
-  WaveString(Sample sampleRate) : wave1d(sampleRate, maxStack, 0.5, 0.5, 0.1)
+  void setup(Sample sampleRate)
   {
-    for (auto &str : string)
-      str = std::make_unique<KSString<Sample>>(sampleRate, Sample(100.0), Sample(0.5));
-
-    for (auto &bp : bandpass)
-      bp = std::make_unique<BiquadBandpass<Sample>>(sampleRate, Sample(100.0), 0.5);
-
+    wave1d.setup(sampleRate, maxStack, 0.5, 0.5, 0.1);
+    for (auto &str : string) str.setup(sampleRate, Sample(100.0), Sample(0.5));
+    for (auto &bp : bandpass) bp.setup(sampleRate);
     stringRnd.fill(1);
     bandpassRnd.fill(1);
   }
@@ -265,11 +257,11 @@ public:
     Sample low = 20;
     Sample high = 20;
     for (size_t i = 0; i < this->stack; ++i) {
-      string[i]->set(
+      string[i].set(
         (Sample(1.0) - randomAmount * stringRnd[i]) * maxFrequency + minFrequency, decay);
 
       high = getCrossoverFrequency(20, 20000, i + 1, this->stack, crossoverType);
-      bandpass[i]->setCutoffQ(
+      bandpass[i].setCutoffQ(
         low + (high - low) * (Sample(1.0) - randomAmount * bandpassRnd[i]), bandpassQ);
       low = high;
     }
@@ -278,8 +270,8 @@ public:
   void reset()
   {
     wave1d.reset();
-    for (auto &str : string) str->reset();
-    for (auto &bp : bandpass) bp->reset();
+    for (auto &str : string) str.reset();
+    for (auto &bp : bandpass) bp.reset();
   }
 
   Sample getCrossoverFrequency(
@@ -297,7 +289,7 @@ public:
     Sample output = 0;
     Sample denom = stack * 1024;
     for (size_t i = 0; i < stack; ++i) {
-      const auto rendered = string[i]->process(bandpass[i]->process(wave1d[i]));
+      const auto rendered = string[i].process(bandpass[i].process(wave1d[i]));
       wave1d[i] += rendered / denom;
       output += rendered;
     }
@@ -310,19 +302,18 @@ public:
   static const size_t maxStack = 64;
   static const size_t maxCymbal = 4;
 
-  size_t nCymbal;
-  Sample distance;
-  std::array<std::unique_ptr<WaveString<Sample, maxStack>>, maxCymbal> string;
+  size_t nCymbal = 0;
+  Sample distance = 100;
+  std::array<WaveString<Sample, maxStack>, maxCymbal> string;
 
-  WaveHat(Sample sampleRate)
+  void setup(Sample sampleRate)
   {
-    for (auto &str : string)
-      str = std::make_unique<WaveString<Sample, maxStack>>(sampleRate);
+    for (auto &str : string) str.setup(sampleRate);
   }
 
   void trigger(Random<Sample> &rnd)
   {
-    for (size_t i = 0; i < nCymbal; ++i) string[i]->trigger(rnd);
+    for (size_t i = 0; i < nCymbal; ++i) string[i].trigger(rnd);
   }
 
   void set(
@@ -343,7 +334,7 @@ public:
     this->distance = distance;
 
     for (size_t i = 0; i < nCymbal; ++i) {
-      string[i]->set(
+      string[i].set(
         stack, minFrequency, maxFrequency, damping, pulsePosition, pulseWidth, decay,
         bandpassQ, crossoverType, randomAmount);
     }
@@ -351,7 +342,7 @@ public:
 
   void reset()
   {
-    for (auto &str : string) str->reset();
+    for (auto &str : string) str.reset();
   }
 
   void collide(Wave1D<Sample, maxStack> &w1, Wave1D<Sample, maxStack> &w2)
@@ -365,11 +356,11 @@ public:
   Sample process(Sample input, bool collision = true)
   {
     Sample output = 0;
-    for (size_t i = 0; i < nCymbal; ++i) output += string[i]->process(input);
+    for (size_t i = 0; i < nCymbal; ++i) output += string[i].process(input);
 
     if (collision) {
       size_t end = nCymbal - 1;
-      for (size_t i = 0; i < end; ++i) collide(string[i]->wave1d, string[i + 1]->wave1d);
+      for (size_t i = 0; i < end; ++i) collide(string[i].wave1d, string[i + 1].wave1d);
     }
 
     return output / nCymbal;
@@ -378,9 +369,11 @@ public:
 
 template<typename Sample> class Comb {
 public:
-  Comb(Sample sampleRate, Sample time, Sample gain, Sample feedback)
-    : gain(gain), feedback(feedback), delay(sampleRate, time, 0.4)
+  void setup(Sample sampleRate, Sample time, Sample gain, Sample feedback)
   {
+    this->gain = gain;
+    this->feedback = feedback;
+    delay.setup(sampleRate, time, 0.4);
   }
 
   // random is in [0, 1].
@@ -410,8 +403,8 @@ public:
 protected:
   Sample random = 0;
   Sample buf = 0;
-  Sample gain;
-  Sample feedback;
+  Sample gain = 0;
+  Sample feedback = 0;
   LinearSmoother<Sample> interpDelayTime;
   Delay<Sample> delay;
 };
@@ -423,34 +416,33 @@ public:
   void setup(Sample sampleRate)
   {
     for (auto &cmb : comb)
-      cmb = std::make_unique<Comb<Sample>>(
-        sampleRate, Sample(0.002), -Sample(1.0), Sample(1.0));
+      cmb.setup(sampleRate, Sample(0.002), -Sample(1.0), Sample(1.0));
   }
 
   void trigger(Random<Sample> &rnd)
   {
-    for (auto &cmb : comb) cmb->trigger(rnd.process());
+    for (auto &cmb : comb) cmb.trigger(rnd.process());
   }
 
   void set(Sample pickCombTime, Sample pickCombFB, Sample randomAmount)
   {
-    for (auto &cmb : comb) cmb->set(pickCombTime, -Sample(1.0), pickCombFB, randomAmount);
+    for (auto &cmb : comb) cmb.set(pickCombTime, -Sample(1.0), pickCombFB, randomAmount);
   }
 
   Sample process(Sample input)
   {
-    for (auto &cmb : comb) input = cmb->process(input);
+    for (auto &cmb : comb) input = cmb.process(input);
     return input;
   }
 
 protected:
-  std::array<std::unique_ptr<Comb<Sample>>, 8> comb;
+  std::array<Comb<Sample>, 8> comb;
 };
 
 template<typename Sample> class Pulsar {
 public:
-  Sample sampleRate;
-  Sample tick;
+  Sample sampleRate = 44100;
+  Sample tick = 0;
   Sample phase = 0;
 
   Pulsar(Sample sampleRate, Sample frequency)
@@ -496,11 +488,11 @@ public:
     return Sample(2) * someround<Sample>(rng.process()) - Sample(1);
   }
 
-  Sample sampleRate;
+  Sample sampleRate = 44100;
 
   Sample phase = 0;
   Sample tick = 0;
-  Random<Sample> rng;
+  Random<Sample> rng{0};
 };
 
 // This class outputs direct current.
