@@ -84,7 +84,8 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
       int32 sampleOffset;
       if (queue->getPoint(queue->getPointCount() - 1, sampleOffset, value) != kResultTrue)
         continue;
-      dsp.param.value[queue->getParameterId()]->setFromNormalized(value);
+      size_t id = queue->getParameterId();
+      if (id < dsp.param.value.size()) dsp.param.value[id]->setFromNormalized(value);
     }
   }
 
