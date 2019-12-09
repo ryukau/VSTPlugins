@@ -266,19 +266,19 @@ struct GlobalParameter {
     value[ID::semi0]
       = std::make_unique<IntValue>(0, Scales::oscSemi, "semi0", Info::kCanAutomate);
     value[ID::semi1]
-      = std::make_unique<IntValue>(5, Scales::oscSemi, "semi1", Info::kCanAutomate);
+      = std::make_unique<IntValue>(0, Scales::oscSemi, "semi1", Info::kCanAutomate);
     value[ID::semi2]
-      = std::make_unique<IntValue>(10, Scales::oscSemi, "semi2", Info::kCanAutomate);
+      = std::make_unique<IntValue>(0, Scales::oscSemi, "semi2", Info::kCanAutomate);
     value[ID::semi3]
-      = std::make_unique<IntValue>(15, Scales::oscSemi, "semi3", Info::kCanAutomate);
+      = std::make_unique<IntValue>(0, Scales::oscSemi, "semi3", Info::kCanAutomate);
     value[ID::semi4]
-      = std::make_unique<IntValue>(20, Scales::oscSemi, "semi4", Info::kCanAutomate);
+      = std::make_unique<IntValue>(0, Scales::oscSemi, "semi4", Info::kCanAutomate);
     value[ID::semi5]
-      = std::make_unique<IntValue>(25, Scales::oscSemi, "semi5", Info::kCanAutomate);
+      = std::make_unique<IntValue>(0, Scales::oscSemi, "semi5", Info::kCanAutomate);
     value[ID::semi6]
-      = std::make_unique<IntValue>(30, Scales::oscSemi, "semi6", Info::kCanAutomate);
+      = std::make_unique<IntValue>(0, Scales::oscSemi, "semi6", Info::kCanAutomate);
     value[ID::semi7]
-      = std::make_unique<IntValue>(35, Scales::oscSemi, "semi7", Info::kCanAutomate);
+      = std::make_unique<IntValue>(0, Scales::oscSemi, "semi7", Info::kCanAutomate);
 
     value[ID::milli0]
       = std::make_unique<IntValue>(0, Scales::oscMilli, "milli0", Info::kCanAutomate);
