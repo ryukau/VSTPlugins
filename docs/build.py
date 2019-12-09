@@ -30,8 +30,6 @@ for md in Path(".").glob("**/*.md"):
 
     last_modified = get_last_modified(md)
 
-    print(css_path)
-
     subprocess.run([
         "pandoc",
         "-s",
