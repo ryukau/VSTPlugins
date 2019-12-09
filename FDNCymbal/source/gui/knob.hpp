@@ -49,7 +49,7 @@ public:
 protected:
   CColor backgroundColor = CColor(255, 255, 255, 255);
   CColor highlightColor = CColor(0x33, 0xee, 0xee, 0xff);
-  CColor slitColor = CColor(0xee, 0xee, 0xee, 0xff);
+  CColor slitColor = CColor(0xdd, 0xdd, 0xdd, 0xff);
   CColor tipColor = CColor(0, 0, 0, 255);
 
   const CLineStyle lineStyle{CLineStyle::kLineCapRound, CLineStyle::kLineJoinRound};
