@@ -81,6 +81,7 @@ public:
     bool isDecibel = false)
     : Knob(size, listener, tag), scale(scale), isDecibel(isDecibel)
   {
+    setWantsFocus(true);
     sensitivity = 0.002f;
     lowSensitivity = sensitivity / 10.0f;
   }
@@ -137,6 +138,16 @@ public:
       if (isDirty()) invalid();
     }
     return kMouseEventNotHandled;
+  }
+
+  int32_t onKeyDown(VstKeyCode &keyCode) override
+  {
+    if (keyCode.character != 't') return -1;
+    value = value > getMin() ? getMin() : getMax();
+    bounceValue();
+    valueChanged();
+    invalid();
+    return 1;
   }
 
   void setForegroundColor(CColor color) { foregroundColor = color; }
