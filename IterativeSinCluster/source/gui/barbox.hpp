@@ -166,10 +166,11 @@ CMouseEventResult BarBox::onMouseExited(CPoint &where, const CButtonState &butto
 CMouseEventResult BarBox::onMouseDown(CPoint &where, const CButtonState &buttons)
 {
   if (buttons.isLeftButton() || buttons.isMiddleButton()) {
+    auto view = getViewSize();
+    mousePosition = where - CPoint(view.left, view.top);
+    setValueFromPosition(mousePosition, buttons);
     return kMouseEventHandled;
   } else if (buttons.isRightButton()) {
-    // TODO: Add host context menu handling.
-
     auto componentHandler = editor->getController()->getComponentHandler();
     if (componentHandler == nullptr) return kMouseEventNotHandled;
 
