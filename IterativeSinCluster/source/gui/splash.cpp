@@ -44,7 +44,8 @@ void CreditView::draw(CDrawContext *pContext)
   pContext->setFont(fontIDTitle);
   pContext->setFontColor(CColor(0, 0, 0, 255));
   pContext->drawString(
-    UTF8String("IterativeSinCluster " VERSION_STR).getPlatformString(), CPoint(20.0, 50.0));
+    UTF8String("IterativeSinCluster " VERSION_STR).getPlatformString(),
+    CPoint(20.0, 50.0));
 
   pContext->setFont(fontIDText);
   pContext->setFontColor(CColor(0, 0, 0, 255));
@@ -52,14 +53,35 @@ void CreditView::draw(CDrawContext *pContext)
     UTF8String("© 2019 Takamitsu Endo (ryukau@gmail.com)").getPlatformString(),
     CPoint(20.0, 90.0));
 
+  pContext->drawString(UTF8String("- Knob -").getPlatformString(), CPoint(20.0, 150.0));
   pContext->drawString(
-    UTF8String("Shift + Drag: Fine Adjustment").getPlatformString(), CPoint(20.0, 150.0));
-  pContext->drawString(
-    UTF8String("Ctrl + Click: Reset to Default").getPlatformString(),
+    UTF8String("Shift + Left Drag: Fine Adjustment").getPlatformString(),
     CPoint(20.0, 180.0));
+  pContext->drawString(
+    UTF8String("Ctrl + Left Click: Reset to Default").getPlatformString(),
+    CPoint(20.0, 210.0));
+
+  pContext->drawString(UTF8String("- Number -").getPlatformString(), CPoint(20.0, 270.0));
+  pContext->drawString(
+    UTF8String("Shares same controls with knob, and:").getPlatformString(),
+    CPoint(20.0, 300.0));
+  pContext->drawString(
+    UTF8String("Middle Click: Flip Minimum and Maximum").getPlatformString(),
+    CPoint(20.0, 330.0));
 
   pContext->drawString(
-    UTF8String("Have a nice day! 🍻").getPlatformString(), CPoint(20.0, 240.0));
+    UTF8String("- Overtone -").getPlatformString(), CPoint(380.0, 150.0));
+  pContext->drawString(
+    UTF8String("Ctrl + Left Drag: Reset to Default").getPlatformString(),
+    CPoint(380.0, 180.0));
+  pContext->drawString(
+    UTF8String("Middle Drag: Set to Minimum").getPlatformString(), CPoint(380.0, 210.0));
+  pContext->drawString(
+    UTF8String("Ctrl + Middle Drag: Set to Maximum").getPlatformString(),
+    CPoint(380.0, 240.0));
+
+  pContext->drawString(
+    UTF8String("Have a nice day!").getPlatformString(), CPoint(380.0, 300.0));
 
   // Border.
   const auto borderColor = CColor(0, 0, 0, 255);
