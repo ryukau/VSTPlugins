@@ -21,6 +21,8 @@
 #include "pluginterfaces/vst/ivstplugview.h"
 #include "public.sdk/source/vst/vstguieditor.h"
 
+#include "waveview.hpp"
+
 #include <unordered_map>
 
 namespace Steinberg {
@@ -36,6 +38,8 @@ public:
   {
     for (auto &ctrl : controlMap)
       if (ctrl.second) ctrl.second->forget();
+
+    if (waveView) waveView->forget();
   }
 
   bool PLUGIN_API
@@ -43,6 +47,7 @@ public:
   void PLUGIN_API close() override;
   void valueChanged(CControl *pControl) override;
   void updateUI(Vst::ParamID id, ParamValue normalized);
+  void refreshWaveView(Vst::ParamID id);
 
   void onMouseEntered(CView *view, CFrame *frame) override {}
   void onMouseExited(CView *view, CFrame *frame) override {}
@@ -120,6 +125,7 @@ protected:
   }
 
   std::unordered_map<Vst::ParamID, CControl *> controlMap;
+  WaveView *waveView = nullptr;
 
   ViewRect viewRect{0, 0, 960, 330};
 

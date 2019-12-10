@@ -26,7 +26,6 @@
 #include "slider.hpp"
 #include "splash.hpp"
 #include "textbutton.hpp"
-#include "waveview.hpp"
 
 namespace Steinberg {
 namespace Vst {
@@ -167,17 +166,7 @@ void PlugEditor::valueChanged(CControl *pControl)
   controller->setParamNormalized(tag, value);
   controller->performEdit(tag, value);
 
-  if (tag == SevenDelay::ParameterID::lfoShape) {
-    auto some = dynamic_cast<WaveView *>(frame->getViewAt(WaveViewPos));
-    if (some == nullptr) return;
-    some->shape = getPlainValue(tag);
-    some->setDirty(true);
-  } else if (tag == SevenDelay::ParameterID::lfoInitialPhase) {
-    auto some = dynamic_cast<WaveView *>(frame->getViewAt(WaveViewPos));
-    if (some == nullptr) return;
-    some->phase = getPlainValue(tag);
-    some->setDirty(true);
-  }
+  refreshWaveView(tag);
 }
 
 void PlugEditor::updateUI(Vst::ParamID id, ParamValue normalized)
@@ -186,6 +175,21 @@ void PlugEditor::updateUI(Vst::ParamID id, ParamValue normalized)
   if (iter == controlMap.end()) return;
   iter->second->setValueNormalized(normalized);
   iter->second->invalid();
+
+  refreshWaveView(id);
+}
+
+void PlugEditor::refreshWaveView(ParamID id)
+{
+  if (id == SevenDelay::ParameterID::lfoShape) {
+    if (waveView == nullptr) return;
+    waveView->shape = getPlainValue(id);
+    waveView->setDirty(true);
+  } else if (id == SevenDelay::ParameterID::lfoInitialPhase) {
+    if (waveView == nullptr) return;
+    waveView->phase = getPlainValue(id);
+    waveView->setDirty(true);
+  }
 }
 
 CMouseEventResult
@@ -248,6 +252,10 @@ void PlugEditor::addWaveView(const CRect &size)
   view->shape = getPlainValue(SevenDelay::ParameterID::lfoShape);
   view->phase = getPlainValue(SevenDelay::ParameterID::lfoInitialPhase);
   frame->addView(view);
+
+  if (waveView) waveView->forget();
+  waveView = view;
+  waveView->remember();
 }
 
 void PlugEditor::addSplashScreen(CRect buttonRect, CRect splashRect)
