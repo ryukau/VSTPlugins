@@ -23,6 +23,8 @@
 #include "gui/plugeditor.hpp"
 #include "parameter.hpp"
 
+#include <algorithm>
+
 namespace Steinberg {
 namespace SevenDelay {
 
@@ -50,13 +52,21 @@ IPlugView *PLUGIN_API PlugController::createView(const char *name)
 {
 #ifndef LINUX
   if (name && strcmp(name, "editor") == 0) {
-    if (editor) editor->forget();
-    editor = new Vst::PlugEditor(this);
-    editor->remember();
-    return editor;
+    auto plugEditor = new Vst::PlugEditor(this);
+    plugEditor->remember();
+    editor.push_back(plugEditor);
+    return plugEditor;
   }
 #endif
   return 0;
+}
+
+void PlugController::editorDestroyed(Vst::EditorView *editorView)
+{
+  auto iter = std::find(editor.begin(), editor.end(), editorView);
+  if (iter == editor.end()) return;
+  (*iter)->forget();
+  editor.erase(iter);
 }
 
 tresult PLUGIN_API
@@ -65,7 +75,7 @@ PlugController::setParamNormalized(Vst::ParamID id, Vst::ParamValue normalized)
   Vst::Parameter *parameter = getParameterObject(id);
   if (parameter) {
     parameter->setNormalized(normalized);
-    if (editor != nullptr) editor->updateUI(id, normalized);
+    for (auto &edi : editor) edi->updateUI(id, normalized);
     return kResultTrue;
   }
   return kResultFalse;

@@ -26,16 +26,18 @@
 
 #include "gui/plugeditor.hpp"
 
+#include <vector>
+
 namespace Steinberg {
 namespace SevenDelay {
 
 class PlugController : public Vst::EditController {
 public:
-  Steinberg::Vst::PlugEditor *editor = nullptr;
+  std::vector<Vst::PlugEditor *> editor;
 
   ~PlugController()
   {
-    if (editor) editor->forget();
+    for (auto &edi : editor) edi->forget();
   }
 
   static FUnknown *createInstance(void *)
@@ -46,6 +48,7 @@ public:
   tresult PLUGIN_API initialize(FUnknown *context) SMTG_OVERRIDE;
   tresult PLUGIN_API setComponentState(IBStream *state) SMTG_OVERRIDE;
   IPlugView *PLUGIN_API createView(const char *name) SMTG_OVERRIDE;
+  void editorDestroyed(Vst::EditorView *editorView) SMTG_OVERRIDE;
   tresult PLUGIN_API setParamNormalized(Vst::ParamID id, Vst::ParamValue normalized)
     SMTG_OVERRIDE;
 
