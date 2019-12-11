@@ -50,6 +50,12 @@ Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.98
 
 IterativeSinCluster はノート 1 つあたりで 512 のサイン波を計算する加算合成シンセサイザです。このページで配布しているバイナリを利用するには AVX2 をサポートしている CPU が必要です。
 
+- [IterativeSinCluster のマニュアル (日本語)](manual/IterativeSinCluster/IterativeSinCluster_ja.html)
+
+IterativeSinCluster is an additive synthesizer. This synth computes 512 sine waves for each note to make tone cluster. Requires CPU that support AVX2 instructions.
+
+- [IterativeSinCluster Manual (English)](manual/IterativeSinCluster/IterativeSinCluster_en.html)
+
 ## TrapezoidSynth
 ![](manual/TrapezoidSynth/img/trapezoidsynth.png)
 
