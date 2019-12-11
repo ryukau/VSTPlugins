@@ -8,6 +8,10 @@ This page is publishing [VST®](#vst_logo) 3 plugins.
 If you found some part of manual is not clear and/or found typo, please file issue at [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`. Note that I'm not native in English and it's most likely that the manual contains some weird sentences. I'd like to fix it, so feel free to report those issues.
 
 # LV2 Plugins
+Linux 向けに LV2 版のプラグインもあります。
+
+- [GitHub - ryukau/LV2Plugins](https://github.com/ryukau/LV2Plugins)
+
 For Linux, LV2 version is available.
 
 - [GitHub - ryukau/LV2Plugins](https://github.com/ryukau/LV2Plugins)
@@ -40,6 +44,11 @@ Windows build is tested on FL Studio.
 macOS build isn't tested because I don't have Mac. If you found a bug, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins).
 
 Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
+
+## IterativeSinCluster
+![](manual/IterativeSinCluster/img/iterativesincluster.png)
+
+IterativeSinCluster はノート 1 つあたりで 512 のサイン波を計算する加算合成シンセサイザです。このページで配布しているバイナリを利用するには AVX2 をサポートしている CPU が必要です。
 
 ## TrapezoidSynth
 ![](manual/TrapezoidSynth/img/trapezoidsynth.png)

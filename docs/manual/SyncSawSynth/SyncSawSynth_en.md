@@ -3,7 +3,7 @@
 
 SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR sawtooth oscillator. Just a basic synthesizer but very easy to make a noise similar to low battery sound of some toys.
 
-- [Download SyncSawSynth 0.1.6 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/MidiNoteTriggerFix/SyncSawSynth0.1.6.zip) <img
+- [Download SyncSawSynth 0.1.7 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SyncSawSynth0.1.7.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -272,6 +272,10 @@ Modulation from MIDI note number to cutoff frequency. Range is -1.0 to 1.0.
 Modulation from MIDI note number to feedback. Range is -1.0 to 1.0.
 
 ## Change Log
+- 0.1.7
+  - Added support for synchronization between multiple GUI instances.
+  - Fixed a bug that opening splash screen causes crash.
+  - Fixed GUI to follow host automation.
 - 0.1.6
   - Fixed note on/off event to be triggered at exact timing.
 - 0.1.5

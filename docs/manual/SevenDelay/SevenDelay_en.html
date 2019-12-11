@@ -252,7 +252,7 @@ footer {
 <p><img src="img/sevendelay.png" /></p>
 <p>SevenDelay is a stereo delay with 7th order lagrange interpolated fractional delay and 7x oversampling.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/FDNCymbal0.1.0/SevenDelay0.1.3.zip">Download SevenDelay 0.1.3 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SevenDelay0.1.4.zip">Download SevenDelay 0.1.4 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -360,6 +360,13 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 <p>Toggle LFO phase hold. This may be useful for live performance.</p>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.4
+<ul>
+<li>Added support for synchronization between multiple GUI instances.</li>
+<li>Fixed a bug that opening splash screen causes crash.</li>
+<li>Fixed a bug that crash plugin when reloading.</li>
+<li>Fixed GUI to follow host automation.</li>
+</ul></li>
 <li>0.1.3
 <ul>
 <li>Fixed smoothing algorithm to prevent blow up.</li>

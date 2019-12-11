@@ -258,6 +258,10 @@ Time of pitch sliding.
 Oscillator 2 slide time with respect to Oscillator 1 slide time.
 
 ## Change Log
+- 0.1.2
+  - Added support for synchronization between multiple GUI instances.
+  - Fixed a bug that opening splash screen causes crash.
+  - Fixed GUI to follow host automation.
 - 0.1.1
   - Fixed mistake in oscillator implementation.
 - 0.1.0

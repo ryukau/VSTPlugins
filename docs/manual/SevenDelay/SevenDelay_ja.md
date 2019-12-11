@@ -3,7 +3,7 @@
 
 <ruby>SevenDelay<rt>セブンディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。
 
-- [SevenDelay 0.1.3 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/FDNCymbal0.1.0/SevenDelay0.1.3.zip) <img
+- [SevenDelay 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SevenDelay0.1.4.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -149,6 +149,11 @@ LFO の位相はホストが演奏を開始するたびに `Phase` の値にリ�
 LFO の位相のホールドの切り替え。ライブ演奏などで役に立つかもしれません。
 
 ## チェンジログ
+- 0.1.4
+  - 複数の GUI インスタンス間で表示を同期するように変更。
+  - スプラッシュスクリーンを開くとクラッシュするバグを修正。
+  - リロード時にクラッシュするバグを修正。
+  - GUI がホストのオートメーションに応じて更新されるように修正。
 - 0.1.3
   - スムーシングのアルゴリズムの値が決められた範囲を超えるバグを修正。
   - LFO Hold のオン・オフが逆転していたバグを修正。

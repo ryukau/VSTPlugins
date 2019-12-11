@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2019-09-27" />
+<meta name="dcterms.date" content="2019-12-03" />
 <title>vst3_dev</title>
 <style>
 code { white-space: pre-wrap; }
@@ -203,7 +203,7 @@ footer {
 <header>
     <p><a href="..\index.html">Back to Index</a></p>
       <p>
-  Update: 2019-09-27
+  Update: 2019-12-03
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -243,6 +243,7 @@ footer {
   <li><a href="#hello-gui">Hello GUI</a></li>
   <li><a href="#リファクタリング">リファクタリング</a></li>
   </ul></li>
+  <li><a href="#ポインタの扱いについて">ポインタの扱いについて</a></li>
   <li><a href="#gui">GUI</a><ul>
   <li><a href="#vst3-inline-ui-editor-を使った-gui-の作成">VST3 inline UI editor を使った GUI の作成</a><ul>
   <li><a href="#オプションメニュー-コンボボックス-の追加">オプションメニュー (コンボボックス) の追加</a></li>
@@ -251,6 +252,7 @@ footer {
   <li><a href="#パラメータの連動">パラメータの連動</a></li>
   </ul></li>
   <li><a href="#コードでgui">コードでGUI</a><ul>
+  <li><a href="#ホストのオートメーションに応じて表示を更新">ホストのオートメーションに応じて表示を更新</a></li>
   <li><a href="#リフレッシュレートの設定">リフレッシュレートの設定</a></li>
   <li><a href="#カスタムビューの実装と関連するコントロールの表示の変更">カスタムビューの実装と関連するコントロールの表示の変更</a></li>
   <li><a href="#スプラッシュスクリーンの追加">スプラッシュスクリーンの追加</a></li>
@@ -684,25 +686,52 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <ul>
 <li>TODO</li>
 </ul>
+<h2 id="ポインタの扱いについて">ポインタの扱いについて</h2>
+<p>vst3sdk では生ポインタを扱う場面が出てきますが、参照カウンタが使えるので use after free を防ぐことができます。</p>
+<p><code>new</code> したインスタンスを生ポインタに格納した後は <code>remember()</code> で参照カウントを増やします。また、メモリリークを防ぐためにクラスのデストラクタで必ず <code>forget()</code> を呼んで参照カウントを減らします。以下は私が実際に書いて動いた適当な例です。</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">class</span> PlugController : <span class="kw">public</span> Vst::EditController, <span class="kw">public</span> Vst::IMidiMapping {</span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="kw">public</span>:</span>
+<span id="cb30-3"><a href="#cb30-3"></a>  Steinberg::Vst::PlugEditor *editor = <span class="kw">nullptr</span>;</span>
+<span id="cb30-4"><a href="#cb30-4"></a></span>
+<span id="cb30-5"><a href="#cb30-5"></a>  ~PlugController()</span>
+<span id="cb30-6"><a href="#cb30-6"></a>  {</span>
+<span id="cb30-7"><a href="#cb30-7"></a>    <span class="cf">if</span> (editor) editor-&gt;forget();</span>
+<span id="cb30-8"><a href="#cb30-8"></a>  }</span>
+<span id="cb30-9"><a href="#cb30-9"></a></span>
+<span id="cb30-10"><a href="#cb30-10"></a>  <span class="co">// ...</span></span>
+<span id="cb30-11"><a href="#cb30-11"></a>};</span>
+<span id="cb30-12"><a href="#cb30-12"></a></span>
+<span id="cb30-13"><a href="#cb30-13"></a>IPlugView *PLUGIN_API PlugController::createView(<span class="at">const</span> <span class="dt">char</span> *name)</span>
+<span id="cb30-14"><a href="#cb30-14"></a>{</span>
+<span id="cb30-15"><a href="#cb30-15"></a>  <span class="co">// オートメーションなどでホストから変更されたパラメータを GUI に伝えるためにエディタクラスのポインタを持っておく。</span></span>
+<span id="cb30-16"><a href="#cb30-16"></a>  <span class="cf">if</span> (name &amp;&amp; strcmp(name, <span class="st">&quot;editor&quot;</span>) == <span class="dv">0</span>) {</span>
+<span id="cb30-17"><a href="#cb30-17"></a>    <span class="cf">if</span> (editor != <span class="kw">nullptr</span>) editor-&gt;forget();</span>
+<span id="cb30-18"><a href="#cb30-18"></a>    editor = <span class="kw">new</span> Vst::PlugEditor(<span class="kw">this</span>);</span>
+<span id="cb30-19"><a href="#cb30-19"></a>    editor-&gt;remember();</span>
+<span id="cb30-20"><a href="#cb30-20"></a>    <span class="cf">return</span> editor;</span>
+<span id="cb30-21"><a href="#cb30-21"></a>  }</span>
+<span id="cb30-22"><a href="#cb30-22"></a>  <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb30-23"><a href="#cb30-23"></a>}</span></code></pre></div>
+<p>CMake では C++14 のフラグを立てていながらスマートポインタを使っていないのが疑問でしたが、 Wikipedia によると <a href="https://en.wikipedia.org/wiki/Virtual_Studio_Technology#History">VST 3 がリリースされたのは 2008 年</a>なので C++11 が使えなかったのだろうと思います。</p>
 <h2 id="gui">GUI</h2>
 <p>主にカスタムビューの作成についてまとめています。</p>
 <h3 id="vst3-inline-ui-editor-を使った-gui-の作成">VST3 inline UI editor を使った GUI の作成</h3>
 <h4 id="オプションメニュー-コンボボックス-の追加">オプションメニュー (コンボボックス) の追加</h4>
 <p>オプションメニューのアイテムは <code>StringListParameter</code> を使うことで設定できます。</p>
 <p>オプションメニューとリンクするパラメータを <code>SomeFX/source/plugcontroller.cpp</code> の <code>initialize</code> に追加します。</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb30-1"><a href="#cb30-1"></a><span class="pp">#include </span><span class="im">&quot;public.sdk/source/vst/vstparameters.h&quot;</span></span>
-<span id="cb30-2"><a href="#cb30-2"></a></span>
-<span id="cb30-3"><a href="#cb30-3"></a><span class="co">// ...</span></span>
-<span id="cb30-4"><a href="#cb30-4"></a></span>
-<span id="cb30-5"><a href="#cb30-5"></a>tresult PLUGIN_API PlugController::initialize(FUnknown *context)</span>
-<span id="cb30-6"><a href="#cb30-6"></a>{</span>
-<span id="cb30-7"><a href="#cb30-7"></a>  <span class="co">// ...</span></span>
-<span id="cb30-8"><a href="#cb30-8"></a></span>
-<span id="cb30-9"><a href="#cb30-9"></a>  <span class="kw">auto</span> parameterType = <span class="kw">new</span> Vst::StringListParameter(USTRING(<span class="st">&quot;Type&quot;</span>), ParameterID::type);</span>
-<span id="cb30-10"><a href="#cb30-10"></a>  parameterType-&gt;appendString(USTRING(<span class="st">&quot;uhhyou&quot;</span>));</span>
-<span id="cb30-11"><a href="#cb30-11"></a>  parameterType-&gt;appendString(USTRING(<span class="st">&quot;yey&quot;</span>));</span>
-<span id="cb30-12"><a href="#cb30-12"></a>  parameters.addParameter(parameterType);</span>
-<span id="cb30-13"><a href="#cb30-13"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb31-1"><a href="#cb31-1"></a><span class="pp">#include </span><span class="im">&quot;public.sdk/source/vst/vstparameters.h&quot;</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a></span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="co">// ...</span></span>
+<span id="cb31-4"><a href="#cb31-4"></a></span>
+<span id="cb31-5"><a href="#cb31-5"></a>tresult PLUGIN_API PlugController::initialize(FUnknown *context)</span>
+<span id="cb31-6"><a href="#cb31-6"></a>{</span>
+<span id="cb31-7"><a href="#cb31-7"></a>  <span class="co">// ...</span></span>
+<span id="cb31-8"><a href="#cb31-8"></a></span>
+<span id="cb31-9"><a href="#cb31-9"></a>  <span class="kw">auto</span> parameterType = <span class="kw">new</span> Vst::StringListParameter(USTRING(<span class="st">&quot;Type&quot;</span>), ParameterID::type);</span>
+<span id="cb31-10"><a href="#cb31-10"></a>  parameterType-&gt;appendString(USTRING(<span class="st">&quot;uhhyou&quot;</span>));</span>
+<span id="cb31-11"><a href="#cb31-11"></a>  parameterType-&gt;appendString(USTRING(<span class="st">&quot;yey&quot;</span>));</span>
+<span id="cb31-12"><a href="#cb31-12"></a>  parameters.addParameter(parameterType);</span>
+<span id="cb31-13"><a href="#cb31-13"></a>}</span></code></pre></div>
 <p>あとは UI エディタで <code>StringListParameter</code> として追加したパラメータのIDをオプションメニューの control-tag として指定すれば設定完了です。</p>
 <ul>
 <li><code>public.sdk/samples/vst/note_expression_synth/source/note_expression_synth_controller.cpp</code></li>
@@ -722,245 +751,245 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <li><code>SomeFX/source/gui/waveviewcreator.cpp</code></li>
 </ul>
 <p><code>SomeFX/source/gui/waveview.hpp</code> の内容です。</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb31-1"><a href="#cb31-1"></a><span class="pp">#pragma once</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a></span>
-<span id="cb31-3"><a href="#cb31-3"></a><span class="pp">#include </span><span class="im">&quot;vstgui4/vstgui/vstgui.h&quot;</span></span>
-<span id="cb31-4"><a href="#cb31-4"></a></span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="kw">namespace</span> VSTGUI {</span>
-<span id="cb31-6"><a href="#cb31-6"></a></span>
-<span id="cb31-7"><a href="#cb31-7"></a><span class="kw">class</span> WaveView : <span class="kw">public</span> CControl {</span>
-<span id="cb31-8"><a href="#cb31-8"></a><span class="kw">public</span>:</span>
-<span id="cb31-9"><a href="#cb31-9"></a>  WaveView(<span class="at">const</span> CRect &amp;size);</span>
-<span id="cb31-10"><a href="#cb31-10"></a></span>
-<span id="cb31-11"><a href="#cb31-11"></a>  <span class="dt">void</span> draw(CDrawContext *pContext) <span class="kw">override</span>;</span>
-<span id="cb31-12"><a href="#cb31-12"></a></span>
-<span id="cb31-13"><a href="#cb31-13"></a>  CLASS_METHODS(WaveView, CControl);</span>
-<span id="cb31-14"><a href="#cb31-14"></a></span>
-<span id="cb31-15"><a href="#cb31-15"></a>  <span class="dt">double</span> lfo(<span class="dt">double</span> phase);</span>
-<span id="cb31-16"><a href="#cb31-16"></a></span>
-<span id="cb31-17"><a href="#cb31-17"></a>  <span class="dt">double</span> gain = <span class="fl">0.9</span>;</span>
-<span id="cb31-18"><a href="#cb31-18"></a>  <span class="dt">double</span> shape = <span class="fl">0.0</span>;</span>
-<span id="cb31-19"><a href="#cb31-19"></a>  <span class="dt">double</span> phase = <span class="fl">0.0</span>;</span>
-<span id="cb31-20"><a href="#cb31-20"></a></span>
-<span id="cb31-21"><a href="#cb31-21"></a><span class="kw">protected</span>:</span>
-<span id="cb31-22"><a href="#cb31-22"></a>  CLineStyle lineStyle{CLineStyle::kLineCapRound, CLineStyle::kLineJoinRound};</span>
-<span id="cb31-23"><a href="#cb31-23"></a>  CDrawContext::PointList points;</span>
-<span id="cb31-24"><a href="#cb31-24"></a>};</span>
-<span id="cb31-25"><a href="#cb31-25"></a></span>
-<span id="cb31-26"><a href="#cb31-26"></a>} <span class="co">// namespace VSTGUI</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb32-1"><a href="#cb32-1"></a><span class="pp">#pragma once</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a></span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="pp">#include </span><span class="im">&quot;vstgui4/vstgui/vstgui.h&quot;</span></span>
+<span id="cb32-4"><a href="#cb32-4"></a></span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="kw">namespace</span> VSTGUI {</span>
+<span id="cb32-6"><a href="#cb32-6"></a></span>
+<span id="cb32-7"><a href="#cb32-7"></a><span class="kw">class</span> WaveView : <span class="kw">public</span> CControl {</span>
+<span id="cb32-8"><a href="#cb32-8"></a><span class="kw">public</span>:</span>
+<span id="cb32-9"><a href="#cb32-9"></a>  WaveView(<span class="at">const</span> CRect &amp;size);</span>
+<span id="cb32-10"><a href="#cb32-10"></a></span>
+<span id="cb32-11"><a href="#cb32-11"></a>  <span class="dt">void</span> draw(CDrawContext *pContext) <span class="kw">override</span>;</span>
+<span id="cb32-12"><a href="#cb32-12"></a></span>
+<span id="cb32-13"><a href="#cb32-13"></a>  CLASS_METHODS(WaveView, CControl);</span>
+<span id="cb32-14"><a href="#cb32-14"></a></span>
+<span id="cb32-15"><a href="#cb32-15"></a>  <span class="dt">double</span> lfo(<span class="dt">double</span> phase);</span>
+<span id="cb32-16"><a href="#cb32-16"></a></span>
+<span id="cb32-17"><a href="#cb32-17"></a>  <span class="dt">double</span> gain = <span class="fl">0.9</span>;</span>
+<span id="cb32-18"><a href="#cb32-18"></a>  <span class="dt">double</span> shape = <span class="fl">0.0</span>;</span>
+<span id="cb32-19"><a href="#cb32-19"></a>  <span class="dt">double</span> phase = <span class="fl">0.0</span>;</span>
+<span id="cb32-20"><a href="#cb32-20"></a></span>
+<span id="cb32-21"><a href="#cb32-21"></a><span class="kw">protected</span>:</span>
+<span id="cb32-22"><a href="#cb32-22"></a>  CLineStyle lineStyle{CLineStyle::kLineCapRound, CLineStyle::kLineJoinRound};</span>
+<span id="cb32-23"><a href="#cb32-23"></a>  CDrawContext::PointList points;</span>
+<span id="cb32-24"><a href="#cb32-24"></a>};</span>
+<span id="cb32-25"><a href="#cb32-25"></a></span>
+<span id="cb32-26"><a href="#cb32-26"></a>} <span class="co">// namespace VSTGUI</span></span></code></pre></div>
 <p><code>SomeFX/source/gui/waveview.cpp</code> の内容です。</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb32-1"><a href="#cb32-1"></a><span class="pp">#include </span><span class="im">&quot;waveview.hpp&quot;</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a><span class="pp">#include </span><span class="im">&lt;cmath&gt;</span></span>
-<span id="cb32-3"><a href="#cb32-3"></a></span>
-<span id="cb32-4"><a href="#cb32-4"></a><span class="kw">namespace</span> VSTGUI {</span>
-<span id="cb32-5"><a href="#cb32-5"></a></span>
-<span id="cb32-6"><a href="#cb32-6"></a>WaveView::WaveView(<span class="at">const</span> CRect &amp;size) : CControl(size) {}</span>
-<span id="cb32-7"><a href="#cb32-7"></a></span>
-<span id="cb32-8"><a href="#cb32-8"></a><span class="dt">void</span> WaveView::draw(CDrawContext *pContext)</span>
-<span id="cb32-9"><a href="#cb32-9"></a>{</span>
-<span id="cb32-10"><a href="#cb32-10"></a>  pContext-&gt;setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));</span>
-<span id="cb32-11"><a href="#cb32-11"></a>  CDrawContext::Transform t(</span>
-<span id="cb32-12"><a href="#cb32-12"></a>    *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));</span>
-<span id="cb32-13"><a href="#cb32-13"></a></span>
-<span id="cb32-14"><a href="#cb32-14"></a>  <span class="at">const</span> <span class="kw">auto</span> width = getWidth();</span>
-<span id="cb32-15"><a href="#cb32-15"></a>  <span class="at">const</span> <span class="kw">auto</span> height = getHeight();</span>
-<span id="cb32-16"><a href="#cb32-16"></a>  <span class="at">const</span> <span class="dt">double</span> borderWidth = <span class="fl">2.0</span>;</span>
-<span id="cb32-17"><a href="#cb32-17"></a>  <span class="at">const</span> <span class="dt">double</span> halfBorderWidth = borderWidth / <span class="fl">2.0</span>;</span>
-<span id="cb32-18"><a href="#cb32-18"></a></span>
-<span id="cb32-19"><a href="#cb32-19"></a>  <span class="co">// Background.</span></span>
-<span id="cb32-20"><a href="#cb32-20"></a>  <span class="at">const</span> <span class="kw">auto</span> bgColor = CColor(<span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>);</span>
-<span id="cb32-21"><a href="#cb32-21"></a>  pContext-&gt;setLineWidth(borderWidth);</span>
-<span id="cb32-22"><a href="#cb32-22"></a>  pContext-&gt;setFillColor(bgColor);</span>
-<span id="cb32-23"><a href="#cb32-23"></a>  pContext-&gt;drawRect(CRect(<span class="fl">0.0</span>, <span class="fl">0.0</span>, width, height), kDrawFilled);</span>
-<span id="cb32-24"><a href="#cb32-24"></a></span>
-<span id="cb32-25"><a href="#cb32-25"></a>  <span class="co">// Waveform.</span></span>
-<span id="cb32-26"><a href="#cb32-26"></a>  pContext-&gt;setLineWidth(<span class="fl">2.0</span>);</span>
-<span id="cb32-27"><a href="#cb32-27"></a>  pContext-&gt;setLineStyle(lineStyle);</span>
-<span id="cb32-28"><a href="#cb32-28"></a>  pContext-&gt;setFrameColor(CColor(<span class="dv">19</span>, <span class="dv">193</span>, <span class="dv">54</span>, <span class="dv">255</span>));</span>
-<span id="cb32-29"><a href="#cb32-29"></a>  <span class="at">const</span> <span class="dt">size_t</span> size = (<span class="dt">size_t</span>)(width + <span class="fl">1.0</span>);</span>
-<span id="cb32-30"><a href="#cb32-30"></a>  <span class="cf">if</span> (points.size() != size) points.resize(size);</span>
-<span id="cb32-31"><a href="#cb32-31"></a>  <span class="cf">for</span> (<span class="dt">size_t</span> x = <span class="dv">0</span>; x &lt; points.size(); ++x)</span>
-<span id="cb32-32"><a href="#cb32-32"></a>    points[x] = CPoint((CCoord)x, height * lfo(x / width));</span>
-<span id="cb32-33"><a href="#cb32-33"></a>  pContext-&gt;drawPolygon(points);</span>
-<span id="cb32-34"><a href="#cb32-34"></a></span>
-<span id="cb32-35"><a href="#cb32-35"></a>  <span class="co">// Always draw border at last. Otherwise, inner object will be drawn over border.</span></span>
-<span id="cb32-36"><a href="#cb32-36"></a>  <span class="at">const</span> <span class="kw">auto</span> borderColor = CColor(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">255</span>);</span>
-<span id="cb32-37"><a href="#cb32-37"></a>  pContext-&gt;setFrameColor(borderColor);</span>
-<span id="cb32-38"><a href="#cb32-38"></a>  pContext-&gt;drawRect(</span>
-<span id="cb32-39"><a href="#cb32-39"></a>    CRect(halfBorderWidth, halfBorderWidth, width, height), kDrawStroked);</span>
-<span id="cb32-40"><a href="#cb32-40"></a></span>
-<span id="cb32-41"><a href="#cb32-41"></a>  setDirty(<span class="kw">false</span>);</span>
-<span id="cb32-42"><a href="#cb32-42"></a>}</span>
-<span id="cb32-43"><a href="#cb32-43"></a></span>
-<span id="cb32-44"><a href="#cb32-44"></a><span class="dt">double</span> WaveView::lfo(<span class="dt">double</span> phase)</span>
-<span id="cb32-45"><a href="#cb32-45"></a>{</span>
-<span id="cb32-46"><a href="#cb32-46"></a>  <span class="at">const</span> <span class="dt">double</span> twopi = <span class="fl">6.283185307179586</span>;</span>
-<span id="cb32-47"><a href="#cb32-47"></a></span>
-<span id="cb32-48"><a href="#cb32-48"></a>  phase = <span class="kw">this</span>-&gt;phase + phase * twopi;</span>
-<span id="cb32-49"><a href="#cb32-49"></a>  <span class="cf">if</span> (phase &gt; twopi) phase -= twopi;</span>
-<span id="cb32-50"><a href="#cb32-50"></a>  <span class="kw">auto</span> sign = (pi &lt; phase) - (phase &lt; pi);</span>
-<span id="cb32-51"><a href="#cb32-51"></a>  <span class="kw">auto</span> wave = gain * sign * pow(fabs(sin(phase)), shape);</span>
-<span id="cb32-52"><a href="#cb32-52"></a>  <span class="cf">return</span> (wave + <span class="fl">1.0</span>) * <span class="fl">0.5</span>;</span>
-<span id="cb32-53"><a href="#cb32-53"></a>}</span>
-<span id="cb32-54"><a href="#cb32-54"></a></span>
-<span id="cb32-55"><a href="#cb32-55"></a>} <span class="co">// namespace VSTGUI</span></span></code></pre></div>
-<p><code>SomeFX/source/gui/waveviewcreator.cpp</code> の内容です。</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb33-1"><a href="#cb33-1"></a><span class="pp">#pragma once</span></span>
-<span id="cb33-2"><a href="#cb33-2"></a></span>
-<span id="cb33-3"><a href="#cb33-3"></a><span class="pp">#include </span><span class="im">&quot;waveview.hpp&quot;</span></span>
-<span id="cb33-4"><a href="#cb33-4"></a></span>
-<span id="cb33-5"><a href="#cb33-5"></a><span class="pp">#include </span><span class="im">&quot;vstgui4/vstgui/uidescription/detail/uiviewcreatorattributes.h&quot;</span></span>
-<span id="cb33-6"><a href="#cb33-6"></a><span class="pp">#include </span><span class="im">&quot;vstgui4/vstgui/uidescription/iviewcreator.h&quot;</span></span>
-<span id="cb33-7"><a href="#cb33-7"></a><span class="pp">#include </span><span class="im">&quot;vstgui4/vstgui/uidescription/uiattributes.h&quot;</span></span>
-<span id="cb33-8"><a href="#cb33-8"></a><span class="pp">#include </span><span class="im">&quot;vstgui4/vstgui/uidescription/uiviewfactory.h&quot;</span></span>
-<span id="cb33-9"><a href="#cb33-9"></a><span class="pp">#include </span><span class="im">&quot;vstgui4/vstgui/vstgui.h&quot;</span></span>
-<span id="cb33-10"><a href="#cb33-10"></a></span>
-<span id="cb33-11"><a href="#cb33-11"></a><span class="kw">namespace</span> VSTGUI {</span>
-<span id="cb33-12"><a href="#cb33-12"></a><span class="kw">namespace</span> UIViewCreator {</span>
+<div class="sourceCode" id="cb33"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb33-1"><a href="#cb33-1"></a><span class="pp">#include </span><span class="im">&quot;waveview.hpp&quot;</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a><span class="pp">#include </span><span class="im">&lt;cmath&gt;</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a></span>
+<span id="cb33-4"><a href="#cb33-4"></a><span class="kw">namespace</span> VSTGUI {</span>
+<span id="cb33-5"><a href="#cb33-5"></a></span>
+<span id="cb33-6"><a href="#cb33-6"></a>WaveView::WaveView(<span class="at">const</span> CRect &amp;size) : CControl(size) {}</span>
+<span id="cb33-7"><a href="#cb33-7"></a></span>
+<span id="cb33-8"><a href="#cb33-8"></a><span class="dt">void</span> WaveView::draw(CDrawContext *pContext)</span>
+<span id="cb33-9"><a href="#cb33-9"></a>{</span>
+<span id="cb33-10"><a href="#cb33-10"></a>  pContext-&gt;setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));</span>
+<span id="cb33-11"><a href="#cb33-11"></a>  CDrawContext::Transform t(</span>
+<span id="cb33-12"><a href="#cb33-12"></a>    *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));</span>
 <span id="cb33-13"><a href="#cb33-13"></a></span>
-<span id="cb33-14"><a href="#cb33-14"></a><span class="kw">class</span> WaveViewCreator : <span class="kw">public</span> ViewCreatorAdapter {</span>
-<span id="cb33-15"><a href="#cb33-15"></a><span class="kw">public</span>:</span>
-<span id="cb33-16"><a href="#cb33-16"></a>  WaveViewCreator()</span>
-<span id="cb33-17"><a href="#cb33-17"></a>  {</span>
-<span id="cb33-18"><a href="#cb33-18"></a>    UIViewFactory::registerViewCreator(*<span class="kw">this</span>);</span>
-<span id="cb33-19"><a href="#cb33-19"></a>  }</span>
-<span id="cb33-20"><a href="#cb33-20"></a></span>
-<span id="cb33-21"><a href="#cb33-21"></a>  IdStringPtr getViewName() <span class="at">const</span></span>
-<span id="cb33-22"><a href="#cb33-22"></a>  {</span>
-<span id="cb33-23"><a href="#cb33-23"></a>    <span class="cf">return</span> <span class="st">&quot;WaveView&quot;</span>; <span class="co">// カスタムビューの名前。</span></span>
-<span id="cb33-24"><a href="#cb33-24"></a>  }</span>
-<span id="cb33-25"><a href="#cb33-25"></a></span>
-<span id="cb33-26"><a href="#cb33-26"></a>  IdStringPtr getBaseViewName() <span class="at">const</span></span>
-<span id="cb33-27"><a href="#cb33-27"></a>  {</span>
-<span id="cb33-28"><a href="#cb33-28"></a>    <span class="cf">return</span> <span class="st">&quot;CControl&quot;</span>; <span class="co">// カスタムビューの親クラスの名前。</span></span>
-<span id="cb33-29"><a href="#cb33-29"></a>  }</span>
-<span id="cb33-30"><a href="#cb33-30"></a></span>
-<span id="cb33-31"><a href="#cb33-31"></a>  CView *create(<span class="at">const</span> UIAttributes &amp;attributes, <span class="at">const</span> IUIDescription *description) <span class="at">const</span></span>
-<span id="cb33-32"><a href="#cb33-32"></a>  {</span>
-<span id="cb33-33"><a href="#cb33-33"></a>    <span class="co">// UI エディタの右下からドラッグ &amp; ドロップしたときに作成されるインスタンスを設定。</span></span>
-<span id="cb33-34"><a href="#cb33-34"></a>    <span class="cf">return</span> <span class="kw">new</span> WaveView(CRect(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">50</span>));</span>
-<span id="cb33-35"><a href="#cb33-35"></a>  }</span>
-<span id="cb33-36"><a href="#cb33-36"></a></span>
-<span id="cb33-37"><a href="#cb33-37"></a>  <span class="dt">bool</span> apply(</span>
-<span id="cb33-38"><a href="#cb33-38"></a>    CView *view, <span class="at">const</span> UIAttributes &amp;attributes, <span class="at">const</span> IUIDescription *description) <span class="at">const</span></span>
-<span id="cb33-39"><a href="#cb33-39"></a>  {</span>
-<span id="cb33-40"><a href="#cb33-40"></a>    <span class="co">// uidesc から読み込んだパラメータを適用。</span></span>
-<span id="cb33-41"><a href="#cb33-41"></a>    <span class="co">// ここでは位置、大きさ、 sub-controller だけを設定。</span></span>
-<span id="cb33-42"><a href="#cb33-42"></a>    <span class="co">// vstgui4/vstgui/uidescription/uiviewcreator.cpp の CViewCreator からコピーしてきた。</span></span>
+<span id="cb33-14"><a href="#cb33-14"></a>  <span class="at">const</span> <span class="kw">auto</span> width = getWidth();</span>
+<span id="cb33-15"><a href="#cb33-15"></a>  <span class="at">const</span> <span class="kw">auto</span> height = getHeight();</span>
+<span id="cb33-16"><a href="#cb33-16"></a>  <span class="at">const</span> <span class="dt">double</span> borderWidth = <span class="fl">2.0</span>;</span>
+<span id="cb33-17"><a href="#cb33-17"></a>  <span class="at">const</span> <span class="dt">double</span> halfBorderWidth = borderWidth / <span class="fl">2.0</span>;</span>
+<span id="cb33-18"><a href="#cb33-18"></a></span>
+<span id="cb33-19"><a href="#cb33-19"></a>  <span class="co">// Background.</span></span>
+<span id="cb33-20"><a href="#cb33-20"></a>  <span class="at">const</span> <span class="kw">auto</span> bgColor = CColor(<span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>);</span>
+<span id="cb33-21"><a href="#cb33-21"></a>  pContext-&gt;setLineWidth(borderWidth);</span>
+<span id="cb33-22"><a href="#cb33-22"></a>  pContext-&gt;setFillColor(bgColor);</span>
+<span id="cb33-23"><a href="#cb33-23"></a>  pContext-&gt;drawRect(CRect(<span class="fl">0.0</span>, <span class="fl">0.0</span>, width, height), kDrawFilled);</span>
+<span id="cb33-24"><a href="#cb33-24"></a></span>
+<span id="cb33-25"><a href="#cb33-25"></a>  <span class="co">// Waveform.</span></span>
+<span id="cb33-26"><a href="#cb33-26"></a>  pContext-&gt;setLineWidth(<span class="fl">2.0</span>);</span>
+<span id="cb33-27"><a href="#cb33-27"></a>  pContext-&gt;setLineStyle(lineStyle);</span>
+<span id="cb33-28"><a href="#cb33-28"></a>  pContext-&gt;setFrameColor(CColor(<span class="dv">19</span>, <span class="dv">193</span>, <span class="dv">54</span>, <span class="dv">255</span>));</span>
+<span id="cb33-29"><a href="#cb33-29"></a>  <span class="at">const</span> <span class="dt">size_t</span> size = (<span class="dt">size_t</span>)(width + <span class="fl">1.0</span>);</span>
+<span id="cb33-30"><a href="#cb33-30"></a>  <span class="cf">if</span> (points.size() != size) points.resize(size);</span>
+<span id="cb33-31"><a href="#cb33-31"></a>  <span class="cf">for</span> (<span class="dt">size_t</span> x = <span class="dv">0</span>; x &lt; points.size(); ++x)</span>
+<span id="cb33-32"><a href="#cb33-32"></a>    points[x] = CPoint((CCoord)x, height * lfo(x / width));</span>
+<span id="cb33-33"><a href="#cb33-33"></a>  pContext-&gt;drawPolygon(points);</span>
+<span id="cb33-34"><a href="#cb33-34"></a></span>
+<span id="cb33-35"><a href="#cb33-35"></a>  <span class="co">// Always draw border at last. Otherwise, inner object will be drawn over border.</span></span>
+<span id="cb33-36"><a href="#cb33-36"></a>  <span class="at">const</span> <span class="kw">auto</span> borderColor = CColor(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">255</span>);</span>
+<span id="cb33-37"><a href="#cb33-37"></a>  pContext-&gt;setFrameColor(borderColor);</span>
+<span id="cb33-38"><a href="#cb33-38"></a>  pContext-&gt;drawRect(</span>
+<span id="cb33-39"><a href="#cb33-39"></a>    CRect(halfBorderWidth, halfBorderWidth, width, height), kDrawStroked);</span>
+<span id="cb33-40"><a href="#cb33-40"></a></span>
+<span id="cb33-41"><a href="#cb33-41"></a>  setDirty(<span class="kw">false</span>);</span>
+<span id="cb33-42"><a href="#cb33-42"></a>}</span>
 <span id="cb33-43"><a href="#cb33-43"></a></span>
-<span id="cb33-44"><a href="#cb33-44"></a>    <span class="kw">auto</span> waveView = <span class="kw">dynamic_cast</span>&lt;WaveView *&gt;(view);</span>
-<span id="cb33-45"><a href="#cb33-45"></a>    <span class="cf">if</span> (waveView == <span class="dv">0</span>) <span class="cf">return</span> <span class="kw">false</span>;</span>
-<span id="cb33-46"><a href="#cb33-46"></a></span>
-<span id="cb33-47"><a href="#cb33-47"></a>    CPoint point;</span>
-<span id="cb33-48"><a href="#cb33-48"></a>    CRect size;</span>
-<span id="cb33-49"><a href="#cb33-49"></a>    <span class="cf">if</span> (attributes.getPointAttribute(kAttrOrigin, point)) {</span>
-<span id="cb33-50"><a href="#cb33-50"></a>      <span class="kw">auto</span> viewSize = waveView-&gt;getViewSize();</span>
-<span id="cb33-51"><a href="#cb33-51"></a>      size.setTopLeft(point);</span>
-<span id="cb33-52"><a href="#cb33-52"></a>      size.setWidth(viewSize.getWidth());</span>
-<span id="cb33-53"><a href="#cb33-53"></a>      size.setHeight(viewSize.getHeight());</span>
-<span id="cb33-54"><a href="#cb33-54"></a>      waveView-&gt;setViewSize(size, <span class="kw">false</span>);</span>
-<span id="cb33-55"><a href="#cb33-55"></a>      waveView-&gt;setMouseableArea(size);</span>
-<span id="cb33-56"><a href="#cb33-56"></a>    }</span>
-<span id="cb33-57"><a href="#cb33-57"></a>    <span class="cf">if</span> (attributes.getPointAttribute(kAttrSize, point)) {</span>
-<span id="cb33-58"><a href="#cb33-58"></a>      size = waveView-&gt;getViewSize();</span>
-<span id="cb33-59"><a href="#cb33-59"></a>      size.setSize(point);</span>
-<span id="cb33-60"><a href="#cb33-60"></a>      waveView-&gt;setViewSize(size, <span class="kw">false</span>);</span>
-<span id="cb33-61"><a href="#cb33-61"></a>      waveView-&gt;setMouseableArea(size);</span>
-<span id="cb33-62"><a href="#cb33-62"></a>    }</span>
-<span id="cb33-63"><a href="#cb33-63"></a></span>
-<span id="cb33-64"><a href="#cb33-64"></a>    <span class="at">const</span> <span class="kw">auto</span> subControllerAttr = attributes.getAttributeValue(kAttrSubController);</span>
-<span id="cb33-65"><a href="#cb33-65"></a>    <span class="cf">if</span> (subControllerAttr) {</span>
-<span id="cb33-66"><a href="#cb33-66"></a>      view-&gt;setAttribute(</span>
-<span id="cb33-67"><a href="#cb33-67"></a>        <span class="ch">&#39;u</span><span class="er">isc</span><span class="ch">&#39;</span>,</span>
-<span id="cb33-68"><a href="#cb33-68"></a>        <span class="kw">static_cast</span>&lt;<span class="dt">uint32_t</span>&gt;(subControllerAttr-&gt;size() + <span class="dv">1</span>),</span>
-<span id="cb33-69"><a href="#cb33-69"></a>        subControllerAttr-&gt;c_str());</span>
-<span id="cb33-70"><a href="#cb33-70"></a>    }</span>
-<span id="cb33-71"><a href="#cb33-71"></a></span>
-<span id="cb33-72"><a href="#cb33-72"></a>    <span class="cf">return</span> <span class="kw">true</span>;</span>
-<span id="cb33-73"><a href="#cb33-73"></a>  }</span>
-<span id="cb33-74"><a href="#cb33-74"></a></span>
-<span id="cb33-75"><a href="#cb33-75"></a>  <span class="dt">bool</span> getAttributeNames(<span class="bu">std::</span>list&lt;<span class="bu">std::</span>string&gt; &amp;attributeNames) <span class="at">const</span></span>
-<span id="cb33-76"><a href="#cb33-76"></a>  {</span>
-<span id="cb33-77"><a href="#cb33-77"></a>    <span class="co">// uidesc に書き込まれる属性の名前を設定。</span></span>
-<span id="cb33-78"><a href="#cb33-78"></a>    <span class="co">// kAttr* は vstgui4\vstgui\uidescription\detail\uiviewcreatorattributes.h を参照。</span></span>
-<span id="cb33-79"><a href="#cb33-79"></a></span>
-<span id="cb33-80"><a href="#cb33-80"></a>    attributeNames.emplace_back(kAttrOrigin);</span>
-<span id="cb33-81"><a href="#cb33-81"></a>    attributeNames.emplace_back(kAttrSize);</span>
-<span id="cb33-82"><a href="#cb33-82"></a>    attributeNames.emplace_back(kAttrSubController);</span>
-<span id="cb33-83"><a href="#cb33-83"></a>    <span class="cf">return</span> <span class="kw">true</span>;</span>
-<span id="cb33-84"><a href="#cb33-84"></a>  }</span>
-<span id="cb33-85"><a href="#cb33-85"></a></span>
-<span id="cb33-86"><a href="#cb33-86"></a>  IViewCreator::AttrType getAttributeType(<span class="at">const</span> <span class="bu">std::</span>string &amp;attributeName) <span class="at">const</span></span>
-<span id="cb33-87"><a href="#cb33-87"></a>  {</span>
-<span id="cb33-88"><a href="#cb33-88"></a>    <span class="co">// uidesc の属性を C++ で受け取るときの型を設定。</span></span>
-<span id="cb33-89"><a href="#cb33-89"></a></span>
-<span id="cb33-90"><a href="#cb33-90"></a>    <span class="cf">if</span> (attributeName == kAttrOrigin)</span>
-<span id="cb33-91"><a href="#cb33-91"></a>      <span class="cf">return</span> kPointType;</span>
-<span id="cb33-92"><a href="#cb33-92"></a>    <span class="cf">else</span> <span class="cf">if</span> (attributeName == kAttrSize)</span>
-<span id="cb33-93"><a href="#cb33-93"></a>      <span class="cf">return</span> kPointType;</span>
-<span id="cb33-94"><a href="#cb33-94"></a>    <span class="cf">else</span> <span class="cf">if</span> (attributeName == kAttrSubController)</span>
-<span id="cb33-95"><a href="#cb33-95"></a>      <span class="cf">return</span> kStringType;</span>
-<span id="cb33-96"><a href="#cb33-96"></a>    <span class="cf">return</span> kUnknownType;</span>
-<span id="cb33-97"><a href="#cb33-97"></a>  }</span>
-<span id="cb33-98"><a href="#cb33-98"></a></span>
-<span id="cb33-99"><a href="#cb33-99"></a>  <span class="dt">bool</span> getAttributeValue(</span>
-<span id="cb33-100"><a href="#cb33-100"></a>    CView *view,</span>
-<span id="cb33-101"><a href="#cb33-101"></a>    <span class="at">const</span> <span class="bu">std::</span>string &amp;attributeName,</span>
-<span id="cb33-102"><a href="#cb33-102"></a>    <span class="bu">std::</span>string &amp;stringValue,</span>
-<span id="cb33-103"><a href="#cb33-103"></a>    <span class="at">const</span> IUIDescription *desc) <span class="at">const</span></span>
-<span id="cb33-104"><a href="#cb33-104"></a>  {</span>
-<span id="cb33-105"><a href="#cb33-105"></a>    <span class="co">// UI エディタで設定された属性を uidesc に書き込む文字列に変換。</span></span>
-<span id="cb33-106"><a href="#cb33-106"></a></span>
-<span id="cb33-107"><a href="#cb33-107"></a>    <span class="cf">if</span> (attributeName == kAttrOrigin) {</span>
-<span id="cb33-108"><a href="#cb33-108"></a>      stringValue = UIAttributes::pointToString(view-&gt;getViewSize().getTopLeft());</span>
-<span id="cb33-109"><a href="#cb33-109"></a>      <span class="cf">return</span> <span class="kw">true</span>;</span>
-<span id="cb33-110"><a href="#cb33-110"></a>    } <span class="cf">else</span> <span class="cf">if</span> (attributeName == kAttrSize) {</span>
-<span id="cb33-111"><a href="#cb33-111"></a>      stringValue = UIAttributes::pointToString(view-&gt;getViewSize().getSize());</span>
-<span id="cb33-112"><a href="#cb33-112"></a>      <span class="cf">return</span> <span class="kw">true</span>;</span>
-<span id="cb33-113"><a href="#cb33-113"></a>    } <span class="cf">else</span> <span class="cf">if</span> (attributeName == kAttrSubController) {</span>
-<span id="cb33-114"><a href="#cb33-114"></a>      <span class="cf">return</span> getViewAttributeString(view, <span class="ch">&#39;u</span><span class="er">isc</span><span class="ch">&#39;</span>, stringValue);</span>
-<span id="cb33-115"><a href="#cb33-115"></a>    }</span>
-<span id="cb33-116"><a href="#cb33-116"></a>    <span class="cf">return</span> <span class="kw">false</span>;</span>
-<span id="cb33-117"><a href="#cb33-117"></a>  }</span>
-<span id="cb33-118"><a href="#cb33-118"></a></span>
-<span id="cb33-119"><a href="#cb33-119"></a><span class="kw">protected</span>:</span>
-<span id="cb33-120"><a href="#cb33-120"></a>  <span class="at">static</span> <span class="dt">bool</span></span>
-<span id="cb33-121"><a href="#cb33-121"></a>  getViewAttributeString(CView *view, <span class="at">const</span> CViewAttributeID attrID, <span class="bu">std::</span>string &amp;value)</span>
-<span id="cb33-122"><a href="#cb33-122"></a>  {</span>
-<span id="cb33-123"><a href="#cb33-123"></a>    <span class="dt">uint32_t</span> attrSize = <span class="dv">0</span>;</span>
-<span id="cb33-124"><a href="#cb33-124"></a>    <span class="cf">if</span> (view-&gt;getAttributeSize(attrID, attrSize)) {</span>
-<span id="cb33-125"><a href="#cb33-125"></a>      <span class="dt">char</span> *cstr = <span class="kw">new</span> <span class="dt">char</span>[attrSize + <span class="dv">1</span>];</span>
-<span id="cb33-126"><a href="#cb33-126"></a>      <span class="cf">if</span> (view-&gt;getAttribute(attrID, attrSize, cstr, attrSize))</span>
-<span id="cb33-127"><a href="#cb33-127"></a>        value = cstr;</span>
-<span id="cb33-128"><a href="#cb33-128"></a>      <span class="cf">else</span></span>
-<span id="cb33-129"><a href="#cb33-129"></a>        value = <span class="st">&quot;&quot;</span>;</span>
-<span id="cb33-130"><a href="#cb33-130"></a>      <span class="kw">delete</span>[] cstr;</span>
-<span id="cb33-131"><a href="#cb33-131"></a>      <span class="cf">return</span> <span class="kw">true</span>;</span>
-<span id="cb33-132"><a href="#cb33-132"></a>    }</span>
-<span id="cb33-133"><a href="#cb33-133"></a>    <span class="cf">return</span> <span class="kw">false</span>;</span>
-<span id="cb33-134"><a href="#cb33-134"></a>  }</span>
-<span id="cb33-135"><a href="#cb33-135"></a>};</span>
-<span id="cb33-136"><a href="#cb33-136"></a></span>
-<span id="cb33-137"><a href="#cb33-137"></a>WaveViewCreator __gWaveViewCreator;</span>
-<span id="cb33-138"><a href="#cb33-138"></a></span>
-<span id="cb33-139"><a href="#cb33-139"></a>} <span class="co">// namespace UIViewCreator</span></span>
-<span id="cb33-140"><a href="#cb33-140"></a>} <span class="co">// namespace VSTGUI</span></span></code></pre></div>
-<div class="sourceCode" id="cb34"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb34-1"><a href="#cb34-1"></a></span>
-<span id="cb34-2"><a href="#cb34-2"></a>`<span class="fu">SomeFX/CMakeLists.txt` にファイルを追加します。</span></span>
-<span id="cb34-3"><a href="#cb34-3"></a></span>
-<span id="cb34-4"><a href="#cb34-4"></a><span class="fu">```cmake</span></span>
-<span id="cb34-5"><a href="#cb34-5"></a><span class="fu">set</span>(plug_sources</span>
-<span id="cb34-6"><a href="#cb34-6"></a>    source/plugcontroller.hpp</span>
-<span id="cb34-7"><a href="#cb34-7"></a>    source/plugids.hpp</span>
-<span id="cb34-8"><a href="#cb34-8"></a>    source/plugprocessor.hpp</span>
-<span id="cb34-9"><a href="#cb34-9"></a>    source/version.hpp</span>
-<span id="cb34-10"><a href="#cb34-10"></a>    source/plugfactory.cpp</span>
-<span id="cb34-11"><a href="#cb34-11"></a>    source/plugcontroller.cpp</span>
-<span id="cb34-12"><a href="#cb34-12"></a>    source/plugprocessor.cpp</span>
-<span id="cb34-13"><a href="#cb34-13"></a>    source/gui/waveview.hpp        <span class="co"># 追加</span></span>
-<span id="cb34-14"><a href="#cb34-14"></a>    source/gui/waveview.cpp        <span class="co"># 追加</span></span>
-<span id="cb34-15"><a href="#cb34-15"></a>    source/gui/waveviewcreator.cpp <span class="co"># 追加</span></span>
-<span id="cb34-16"><a href="#cb34-16"></a>)</span></code></pre></div>
+<span id="cb33-44"><a href="#cb33-44"></a><span class="dt">double</span> WaveView::lfo(<span class="dt">double</span> phase)</span>
+<span id="cb33-45"><a href="#cb33-45"></a>{</span>
+<span id="cb33-46"><a href="#cb33-46"></a>  <span class="at">const</span> <span class="dt">double</span> twopi = <span class="fl">6.283185307179586</span>;</span>
+<span id="cb33-47"><a href="#cb33-47"></a></span>
+<span id="cb33-48"><a href="#cb33-48"></a>  phase = <span class="kw">this</span>-&gt;phase + phase * twopi;</span>
+<span id="cb33-49"><a href="#cb33-49"></a>  <span class="cf">if</span> (phase &gt; twopi) phase -= twopi;</span>
+<span id="cb33-50"><a href="#cb33-50"></a>  <span class="kw">auto</span> sign = (pi &lt; phase) - (phase &lt; pi);</span>
+<span id="cb33-51"><a href="#cb33-51"></a>  <span class="kw">auto</span> wave = gain * sign * pow(fabs(sin(phase)), shape);</span>
+<span id="cb33-52"><a href="#cb33-52"></a>  <span class="cf">return</span> (wave + <span class="fl">1.0</span>) * <span class="fl">0.5</span>;</span>
+<span id="cb33-53"><a href="#cb33-53"></a>}</span>
+<span id="cb33-54"><a href="#cb33-54"></a></span>
+<span id="cb33-55"><a href="#cb33-55"></a>} <span class="co">// namespace VSTGUI</span></span></code></pre></div>
+<p><code>SomeFX/source/gui/waveviewcreator.cpp</code> の内容です。</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb34-1"><a href="#cb34-1"></a><span class="pp">#pragma once</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a></span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="pp">#include </span><span class="im">&quot;waveview.hpp&quot;</span></span>
+<span id="cb34-4"><a href="#cb34-4"></a></span>
+<span id="cb34-5"><a href="#cb34-5"></a><span class="pp">#include </span><span class="im">&quot;vstgui4/vstgui/uidescription/detail/uiviewcreatorattributes.h&quot;</span></span>
+<span id="cb34-6"><a href="#cb34-6"></a><span class="pp">#include </span><span class="im">&quot;vstgui4/vstgui/uidescription/iviewcreator.h&quot;</span></span>
+<span id="cb34-7"><a href="#cb34-7"></a><span class="pp">#include </span><span class="im">&quot;vstgui4/vstgui/uidescription/uiattributes.h&quot;</span></span>
+<span id="cb34-8"><a href="#cb34-8"></a><span class="pp">#include </span><span class="im">&quot;vstgui4/vstgui/uidescription/uiviewfactory.h&quot;</span></span>
+<span id="cb34-9"><a href="#cb34-9"></a><span class="pp">#include </span><span class="im">&quot;vstgui4/vstgui/vstgui.h&quot;</span></span>
+<span id="cb34-10"><a href="#cb34-10"></a></span>
+<span id="cb34-11"><a href="#cb34-11"></a><span class="kw">namespace</span> VSTGUI {</span>
+<span id="cb34-12"><a href="#cb34-12"></a><span class="kw">namespace</span> UIViewCreator {</span>
+<span id="cb34-13"><a href="#cb34-13"></a></span>
+<span id="cb34-14"><a href="#cb34-14"></a><span class="kw">class</span> WaveViewCreator : <span class="kw">public</span> ViewCreatorAdapter {</span>
+<span id="cb34-15"><a href="#cb34-15"></a><span class="kw">public</span>:</span>
+<span id="cb34-16"><a href="#cb34-16"></a>  WaveViewCreator()</span>
+<span id="cb34-17"><a href="#cb34-17"></a>  {</span>
+<span id="cb34-18"><a href="#cb34-18"></a>    UIViewFactory::registerViewCreator(*<span class="kw">this</span>);</span>
+<span id="cb34-19"><a href="#cb34-19"></a>  }</span>
+<span id="cb34-20"><a href="#cb34-20"></a></span>
+<span id="cb34-21"><a href="#cb34-21"></a>  IdStringPtr getViewName() <span class="at">const</span></span>
+<span id="cb34-22"><a href="#cb34-22"></a>  {</span>
+<span id="cb34-23"><a href="#cb34-23"></a>    <span class="cf">return</span> <span class="st">&quot;WaveView&quot;</span>; <span class="co">// カスタムビューの名前。</span></span>
+<span id="cb34-24"><a href="#cb34-24"></a>  }</span>
+<span id="cb34-25"><a href="#cb34-25"></a></span>
+<span id="cb34-26"><a href="#cb34-26"></a>  IdStringPtr getBaseViewName() <span class="at">const</span></span>
+<span id="cb34-27"><a href="#cb34-27"></a>  {</span>
+<span id="cb34-28"><a href="#cb34-28"></a>    <span class="cf">return</span> <span class="st">&quot;CControl&quot;</span>; <span class="co">// カスタムビューの親クラスの名前。</span></span>
+<span id="cb34-29"><a href="#cb34-29"></a>  }</span>
+<span id="cb34-30"><a href="#cb34-30"></a></span>
+<span id="cb34-31"><a href="#cb34-31"></a>  CView *create(<span class="at">const</span> UIAttributes &amp;attributes, <span class="at">const</span> IUIDescription *description) <span class="at">const</span></span>
+<span id="cb34-32"><a href="#cb34-32"></a>  {</span>
+<span id="cb34-33"><a href="#cb34-33"></a>    <span class="co">// UI エディタの右下からドラッグ &amp; ドロップしたときに作成されるインスタンスを設定。</span></span>
+<span id="cb34-34"><a href="#cb34-34"></a>    <span class="cf">return</span> <span class="kw">new</span> WaveView(CRect(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">50</span>));</span>
+<span id="cb34-35"><a href="#cb34-35"></a>  }</span>
+<span id="cb34-36"><a href="#cb34-36"></a></span>
+<span id="cb34-37"><a href="#cb34-37"></a>  <span class="dt">bool</span> apply(</span>
+<span id="cb34-38"><a href="#cb34-38"></a>    CView *view, <span class="at">const</span> UIAttributes &amp;attributes, <span class="at">const</span> IUIDescription *description) <span class="at">const</span></span>
+<span id="cb34-39"><a href="#cb34-39"></a>  {</span>
+<span id="cb34-40"><a href="#cb34-40"></a>    <span class="co">// uidesc から読み込んだパラメータを適用。</span></span>
+<span id="cb34-41"><a href="#cb34-41"></a>    <span class="co">// ここでは位置、大きさ、 sub-controller だけを設定。</span></span>
+<span id="cb34-42"><a href="#cb34-42"></a>    <span class="co">// vstgui4/vstgui/uidescription/uiviewcreator.cpp の CViewCreator からコピーしてきた。</span></span>
+<span id="cb34-43"><a href="#cb34-43"></a></span>
+<span id="cb34-44"><a href="#cb34-44"></a>    <span class="kw">auto</span> waveView = <span class="kw">dynamic_cast</span>&lt;WaveView *&gt;(view);</span>
+<span id="cb34-45"><a href="#cb34-45"></a>    <span class="cf">if</span> (waveView == <span class="dv">0</span>) <span class="cf">return</span> <span class="kw">false</span>;</span>
+<span id="cb34-46"><a href="#cb34-46"></a></span>
+<span id="cb34-47"><a href="#cb34-47"></a>    CPoint point;</span>
+<span id="cb34-48"><a href="#cb34-48"></a>    CRect size;</span>
+<span id="cb34-49"><a href="#cb34-49"></a>    <span class="cf">if</span> (attributes.getPointAttribute(kAttrOrigin, point)) {</span>
+<span id="cb34-50"><a href="#cb34-50"></a>      <span class="kw">auto</span> viewSize = waveView-&gt;getViewSize();</span>
+<span id="cb34-51"><a href="#cb34-51"></a>      size.setTopLeft(point);</span>
+<span id="cb34-52"><a href="#cb34-52"></a>      size.setWidth(viewSize.getWidth());</span>
+<span id="cb34-53"><a href="#cb34-53"></a>      size.setHeight(viewSize.getHeight());</span>
+<span id="cb34-54"><a href="#cb34-54"></a>      waveView-&gt;setViewSize(size, <span class="kw">false</span>);</span>
+<span id="cb34-55"><a href="#cb34-55"></a>      waveView-&gt;setMouseableArea(size);</span>
+<span id="cb34-56"><a href="#cb34-56"></a>    }</span>
+<span id="cb34-57"><a href="#cb34-57"></a>    <span class="cf">if</span> (attributes.getPointAttribute(kAttrSize, point)) {</span>
+<span id="cb34-58"><a href="#cb34-58"></a>      size = waveView-&gt;getViewSize();</span>
+<span id="cb34-59"><a href="#cb34-59"></a>      size.setSize(point);</span>
+<span id="cb34-60"><a href="#cb34-60"></a>      waveView-&gt;setViewSize(size, <span class="kw">false</span>);</span>
+<span id="cb34-61"><a href="#cb34-61"></a>      waveView-&gt;setMouseableArea(size);</span>
+<span id="cb34-62"><a href="#cb34-62"></a>    }</span>
+<span id="cb34-63"><a href="#cb34-63"></a></span>
+<span id="cb34-64"><a href="#cb34-64"></a>    <span class="at">const</span> <span class="kw">auto</span> subControllerAttr = attributes.getAttributeValue(kAttrSubController);</span>
+<span id="cb34-65"><a href="#cb34-65"></a>    <span class="cf">if</span> (subControllerAttr) {</span>
+<span id="cb34-66"><a href="#cb34-66"></a>      view-&gt;setAttribute(</span>
+<span id="cb34-67"><a href="#cb34-67"></a>        <span class="ch">&#39;u</span><span class="er">isc</span><span class="ch">&#39;</span>,</span>
+<span id="cb34-68"><a href="#cb34-68"></a>        <span class="kw">static_cast</span>&lt;<span class="dt">uint32_t</span>&gt;(subControllerAttr-&gt;size() + <span class="dv">1</span>),</span>
+<span id="cb34-69"><a href="#cb34-69"></a>        subControllerAttr-&gt;c_str());</span>
+<span id="cb34-70"><a href="#cb34-70"></a>    }</span>
+<span id="cb34-71"><a href="#cb34-71"></a></span>
+<span id="cb34-72"><a href="#cb34-72"></a>    <span class="cf">return</span> <span class="kw">true</span>;</span>
+<span id="cb34-73"><a href="#cb34-73"></a>  }</span>
+<span id="cb34-74"><a href="#cb34-74"></a></span>
+<span id="cb34-75"><a href="#cb34-75"></a>  <span class="dt">bool</span> getAttributeNames(<span class="bu">std::</span>list&lt;<span class="bu">std::</span>string&gt; &amp;attributeNames) <span class="at">const</span></span>
+<span id="cb34-76"><a href="#cb34-76"></a>  {</span>
+<span id="cb34-77"><a href="#cb34-77"></a>    <span class="co">// uidesc に書き込まれる属性の名前を設定。</span></span>
+<span id="cb34-78"><a href="#cb34-78"></a>    <span class="co">// kAttr* は vstgui4\vstgui\uidescription\detail\uiviewcreatorattributes.h を参照。</span></span>
+<span id="cb34-79"><a href="#cb34-79"></a></span>
+<span id="cb34-80"><a href="#cb34-80"></a>    attributeNames.emplace_back(kAttrOrigin);</span>
+<span id="cb34-81"><a href="#cb34-81"></a>    attributeNames.emplace_back(kAttrSize);</span>
+<span id="cb34-82"><a href="#cb34-82"></a>    attributeNames.emplace_back(kAttrSubController);</span>
+<span id="cb34-83"><a href="#cb34-83"></a>    <span class="cf">return</span> <span class="kw">true</span>;</span>
+<span id="cb34-84"><a href="#cb34-84"></a>  }</span>
+<span id="cb34-85"><a href="#cb34-85"></a></span>
+<span id="cb34-86"><a href="#cb34-86"></a>  IViewCreator::AttrType getAttributeType(<span class="at">const</span> <span class="bu">std::</span>string &amp;attributeName) <span class="at">const</span></span>
+<span id="cb34-87"><a href="#cb34-87"></a>  {</span>
+<span id="cb34-88"><a href="#cb34-88"></a>    <span class="co">// uidesc の属性を C++ で受け取るときの型を設定。</span></span>
+<span id="cb34-89"><a href="#cb34-89"></a></span>
+<span id="cb34-90"><a href="#cb34-90"></a>    <span class="cf">if</span> (attributeName == kAttrOrigin)</span>
+<span id="cb34-91"><a href="#cb34-91"></a>      <span class="cf">return</span> kPointType;</span>
+<span id="cb34-92"><a href="#cb34-92"></a>    <span class="cf">else</span> <span class="cf">if</span> (attributeName == kAttrSize)</span>
+<span id="cb34-93"><a href="#cb34-93"></a>      <span class="cf">return</span> kPointType;</span>
+<span id="cb34-94"><a href="#cb34-94"></a>    <span class="cf">else</span> <span class="cf">if</span> (attributeName == kAttrSubController)</span>
+<span id="cb34-95"><a href="#cb34-95"></a>      <span class="cf">return</span> kStringType;</span>
+<span id="cb34-96"><a href="#cb34-96"></a>    <span class="cf">return</span> kUnknownType;</span>
+<span id="cb34-97"><a href="#cb34-97"></a>  }</span>
+<span id="cb34-98"><a href="#cb34-98"></a></span>
+<span id="cb34-99"><a href="#cb34-99"></a>  <span class="dt">bool</span> getAttributeValue(</span>
+<span id="cb34-100"><a href="#cb34-100"></a>    CView *view,</span>
+<span id="cb34-101"><a href="#cb34-101"></a>    <span class="at">const</span> <span class="bu">std::</span>string &amp;attributeName,</span>
+<span id="cb34-102"><a href="#cb34-102"></a>    <span class="bu">std::</span>string &amp;stringValue,</span>
+<span id="cb34-103"><a href="#cb34-103"></a>    <span class="at">const</span> IUIDescription *desc) <span class="at">const</span></span>
+<span id="cb34-104"><a href="#cb34-104"></a>  {</span>
+<span id="cb34-105"><a href="#cb34-105"></a>    <span class="co">// UI エディタで設定された属性を uidesc に書き込む文字列に変換。</span></span>
+<span id="cb34-106"><a href="#cb34-106"></a></span>
+<span id="cb34-107"><a href="#cb34-107"></a>    <span class="cf">if</span> (attributeName == kAttrOrigin) {</span>
+<span id="cb34-108"><a href="#cb34-108"></a>      stringValue = UIAttributes::pointToString(view-&gt;getViewSize().getTopLeft());</span>
+<span id="cb34-109"><a href="#cb34-109"></a>      <span class="cf">return</span> <span class="kw">true</span>;</span>
+<span id="cb34-110"><a href="#cb34-110"></a>    } <span class="cf">else</span> <span class="cf">if</span> (attributeName == kAttrSize) {</span>
+<span id="cb34-111"><a href="#cb34-111"></a>      stringValue = UIAttributes::pointToString(view-&gt;getViewSize().getSize());</span>
+<span id="cb34-112"><a href="#cb34-112"></a>      <span class="cf">return</span> <span class="kw">true</span>;</span>
+<span id="cb34-113"><a href="#cb34-113"></a>    } <span class="cf">else</span> <span class="cf">if</span> (attributeName == kAttrSubController) {</span>
+<span id="cb34-114"><a href="#cb34-114"></a>      <span class="cf">return</span> getViewAttributeString(view, <span class="ch">&#39;u</span><span class="er">isc</span><span class="ch">&#39;</span>, stringValue);</span>
+<span id="cb34-115"><a href="#cb34-115"></a>    }</span>
+<span id="cb34-116"><a href="#cb34-116"></a>    <span class="cf">return</span> <span class="kw">false</span>;</span>
+<span id="cb34-117"><a href="#cb34-117"></a>  }</span>
+<span id="cb34-118"><a href="#cb34-118"></a></span>
+<span id="cb34-119"><a href="#cb34-119"></a><span class="kw">protected</span>:</span>
+<span id="cb34-120"><a href="#cb34-120"></a>  <span class="at">static</span> <span class="dt">bool</span></span>
+<span id="cb34-121"><a href="#cb34-121"></a>  getViewAttributeString(CView *view, <span class="at">const</span> CViewAttributeID attrID, <span class="bu">std::</span>string &amp;value)</span>
+<span id="cb34-122"><a href="#cb34-122"></a>  {</span>
+<span id="cb34-123"><a href="#cb34-123"></a>    <span class="dt">uint32_t</span> attrSize = <span class="dv">0</span>;</span>
+<span id="cb34-124"><a href="#cb34-124"></a>    <span class="cf">if</span> (view-&gt;getAttributeSize(attrID, attrSize)) {</span>
+<span id="cb34-125"><a href="#cb34-125"></a>      <span class="dt">char</span> *cstr = <span class="kw">new</span> <span class="dt">char</span>[attrSize + <span class="dv">1</span>];</span>
+<span id="cb34-126"><a href="#cb34-126"></a>      <span class="cf">if</span> (view-&gt;getAttribute(attrID, attrSize, cstr, attrSize))</span>
+<span id="cb34-127"><a href="#cb34-127"></a>        value = cstr;</span>
+<span id="cb34-128"><a href="#cb34-128"></a>      <span class="cf">else</span></span>
+<span id="cb34-129"><a href="#cb34-129"></a>        value = <span class="st">&quot;&quot;</span>;</span>
+<span id="cb34-130"><a href="#cb34-130"></a>      <span class="kw">delete</span>[] cstr;</span>
+<span id="cb34-131"><a href="#cb34-131"></a>      <span class="cf">return</span> <span class="kw">true</span>;</span>
+<span id="cb34-132"><a href="#cb34-132"></a>    }</span>
+<span id="cb34-133"><a href="#cb34-133"></a>    <span class="cf">return</span> <span class="kw">false</span>;</span>
+<span id="cb34-134"><a href="#cb34-134"></a>  }</span>
+<span id="cb34-135"><a href="#cb34-135"></a>};</span>
+<span id="cb34-136"><a href="#cb34-136"></a></span>
+<span id="cb34-137"><a href="#cb34-137"></a>WaveViewCreator __gWaveViewCreator;</span>
+<span id="cb34-138"><a href="#cb34-138"></a></span>
+<span id="cb34-139"><a href="#cb34-139"></a>} <span class="co">// namespace UIViewCreator</span></span>
+<span id="cb34-140"><a href="#cb34-140"></a>} <span class="co">// namespace VSTGUI</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb35-1"><a href="#cb35-1"></a></span>
+<span id="cb35-2"><a href="#cb35-2"></a>`<span class="fu">SomeFX/CMakeLists.txt` にファイルを追加します。</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a></span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="fu">```cmake</span></span>
+<span id="cb35-5"><a href="#cb35-5"></a><span class="fu">set</span>(plug_sources</span>
+<span id="cb35-6"><a href="#cb35-6"></a>    source/plugcontroller.hpp</span>
+<span id="cb35-7"><a href="#cb35-7"></a>    source/plugids.hpp</span>
+<span id="cb35-8"><a href="#cb35-8"></a>    source/plugprocessor.hpp</span>
+<span id="cb35-9"><a href="#cb35-9"></a>    source/version.hpp</span>
+<span id="cb35-10"><a href="#cb35-10"></a>    source/plugfactory.cpp</span>
+<span id="cb35-11"><a href="#cb35-11"></a>    source/plugcontroller.cpp</span>
+<span id="cb35-12"><a href="#cb35-12"></a>    source/plugprocessor.cpp</span>
+<span id="cb35-13"><a href="#cb35-13"></a>    source/gui/waveview.hpp        <span class="co"># 追加</span></span>
+<span id="cb35-14"><a href="#cb35-14"></a>    source/gui/waveview.cpp        <span class="co"># 追加</span></span>
+<span id="cb35-15"><a href="#cb35-15"></a>    source/gui/waveviewcreator.cpp <span class="co"># 追加</span></span>
+<span id="cb35-16"><a href="#cb35-16"></a>)</span></code></pre></div>
 <ul>
 <li><code>vstgui4/vstgui/Documentation/html/md_page_create_your_own_ui_view.html</code></li>
 <li><code>vstgui4/vstgui/Documentation/html/class_v_s_t_g_u_i_1_1_i_view_creator.html</code></li>
@@ -974,63 +1003,63 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <p>ここに書いてある内容は手持ちの DAW では動かなかったので検証できていません。同じ仕組みを使っている noteexpressionsynth のキーボード UI もうまく動いていなかったので、 DAW 側で実装されていない可能性が高いと判断して掲載しています。</p>
 <p>UI エディタで、パラメータを受け取る側のビューの sub-controller に適当な文字列を設定します。ここでは <code>WaveViewController</code> としています。</p>
 <p>コントロールクラスに <code>VST3EditorDelegate</code> を継承させて <code>createSubController</code> を実装します。 <code>SomeFX/source/plugcontroller.hpp</code> でメソッドを追加します。</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">class</span> PlugController : <span class="kw">public</span> Vst::EditController, <span class="kw">public</span> VSTGUI::VST3EditorDelegate {</span>
-<span id="cb35-2"><a href="#cb35-2"></a><span class="kw">public</span>:</span>
-<span id="cb35-3"><a href="#cb35-3"></a>  <span class="co">// ...</span></span>
-<span id="cb35-4"><a href="#cb35-4"></a></span>
-<span id="cb35-5"><a href="#cb35-5"></a>  VSTGUI::IController *createSubController(</span>
-<span id="cb35-6"><a href="#cb35-6"></a>    VSTGUI::UTF8StringPtr name,</span>
-<span id="cb35-7"><a href="#cb35-7"></a>    <span class="at">const</span> VSTGUI::IUIDescription *description,</span>
-<span id="cb35-8"><a href="#cb35-8"></a>    VSTGUI::VST3Editor *editor) SMTG_OVERRIDE;</span>
-<span id="cb35-9"><a href="#cb35-9"></a>};</span></code></pre></div>
-<p><code>SomeFX/source/plugcontroller.cpp</code> に実装を追加します。</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">class</span> WaveViewController : <span class="kw">public</span> DelegationController {</span>
+<div class="sourceCode" id="cb36"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">class</span> PlugController : <span class="kw">public</span> Vst::EditController, <span class="kw">public</span> VSTGUI::VST3EditorDelegate {</span>
 <span id="cb36-2"><a href="#cb36-2"></a><span class="kw">public</span>:</span>
-<span id="cb36-3"><a href="#cb36-3"></a>  WaveViewController(IController *controller) : DelegationController(controller) {}</span>
+<span id="cb36-3"><a href="#cb36-3"></a>  <span class="co">// ...</span></span>
 <span id="cb36-4"><a href="#cb36-4"></a></span>
-<span id="cb36-5"><a href="#cb36-5"></a>  ~WaveViewController()</span>
-<span id="cb36-6"><a href="#cb36-6"></a>  {</span>
-<span id="cb36-7"><a href="#cb36-7"></a>    <span class="cf">if</span> (waveview != <span class="kw">nullptr</span>) waveview-&gt;forget();</span>
-<span id="cb36-8"><a href="#cb36-8"></a>  }</span>
-<span id="cb36-9"><a href="#cb36-9"></a></span>
-<span id="cb36-10"><a href="#cb36-10"></a>  CView *</span>
-<span id="cb36-11"><a href="#cb36-11"></a>  verifyView(CView *view, <span class="at">const</span> UIAttributes &amp;attributes, IUIDescription *description)</span>
-<span id="cb36-12"><a href="#cb36-12"></a>  {</span>
-<span id="cb36-13"><a href="#cb36-13"></a>    <span class="kw">auto</span> control = <span class="kw">dynamic_cast</span>&lt;WaveView *&gt;(view);</span>
-<span id="cb36-14"><a href="#cb36-14"></a>    <span class="cf">if</span> (control != <span class="kw">nullptr</span>) { <span class="co">// 必要に応じてタグのチェックを追加する。</span></span>
-<span id="cb36-15"><a href="#cb36-15"></a>      waveview = control;</span>
-<span id="cb36-16"><a href="#cb36-16"></a>      waveview-&gt;remember();</span>
-<span id="cb36-17"><a href="#cb36-17"></a>    }</span>
-<span id="cb36-18"><a href="#cb36-18"></a>    <span class="cf">return</span> controller-&gt;verifyView(view, attributes, description);</span>
-<span id="cb36-19"><a href="#cb36-19"></a>  }</span>
-<span id="cb36-20"><a href="#cb36-20"></a></span>
-<span id="cb36-21"><a href="#cb36-21"></a>  <span class="dt">void</span> valueChanged(CControl *pControl) <span class="kw">override</span></span>
-<span id="cb36-22"><a href="#cb36-22"></a>  {</span>
-<span id="cb36-23"><a href="#cb36-23"></a>    <span class="co">// 多分 DAW がこのメソッドの呼び出しを実装していない。</span></span>
-<span id="cb36-24"><a href="#cb36-24"></a>    <span class="co">// Reaper 5.980 と FL Studio 20.5 では動かなかった。</span></span>
-<span id="cb36-25"><a href="#cb36-25"></a></span>
-<span id="cb36-26"><a href="#cb36-26"></a>    Vst::ParamID tag = pControl-&gt;getTag();</span>
-<span id="cb36-27"><a href="#cb36-27"></a></span>
-<span id="cb36-28"><a href="#cb36-28"></a>    <span class="cf">if</span> (waveview == <span class="kw">nullptr</span>) <span class="cf">return</span>;</span>
-<span id="cb36-29"><a href="#cb36-29"></a></span>
-<span id="cb36-30"><a href="#cb36-30"></a>    <span class="cf">if</span> (tag == ParameterID::volume) {</span>
-<span id="cb36-31"><a href="#cb36-31"></a>      waveview-&gt;gain = pControl-&gt;getValueNormalized();</span>
-<span id="cb36-32"><a href="#cb36-32"></a>      waveview-&gt;setDirty(<span class="kw">true</span>);</span>
-<span id="cb36-33"><a href="#cb36-33"></a>    }</span>
-<span id="cb36-34"><a href="#cb36-34"></a>  }</span>
-<span id="cb36-35"><a href="#cb36-35"></a></span>
-<span id="cb36-36"><a href="#cb36-36"></a><span class="kw">protected</span>:</span>
-<span id="cb36-37"><a href="#cb36-37"></a>  WaveView *waveview = <span class="kw">nullptr</span>;</span>
-<span id="cb36-38"><a href="#cb36-38"></a>};</span>
-<span id="cb36-39"><a href="#cb36-39"></a></span>
-<span id="cb36-40"><a href="#cb36-40"></a>IController *PlugController::createSubController(</span>
-<span id="cb36-41"><a href="#cb36-41"></a>  UTF8StringPtr name, <span class="at">const</span> IUIDescription *description, VST3Editor *editor)</span>
-<span id="cb36-42"><a href="#cb36-42"></a>{</span>
-<span id="cb36-43"><a href="#cb36-43"></a>  <span class="cf">if</span> (name == <span class="st">&quot;WaveViewController&quot;</span>) {</span>
-<span id="cb36-44"><a href="#cb36-44"></a>    <span class="cf">return</span> <span class="kw">new</span> WaveViewController(editor);</span>
-<span id="cb36-45"><a href="#cb36-45"></a>  }</span>
-<span id="cb36-46"><a href="#cb36-46"></a>  <span class="cf">return</span> <span class="kw">nullptr</span>;</span>
-<span id="cb36-47"><a href="#cb36-47"></a>}</span></code></pre></div>
+<span id="cb36-5"><a href="#cb36-5"></a>  VSTGUI::IController *createSubController(</span>
+<span id="cb36-6"><a href="#cb36-6"></a>    VSTGUI::UTF8StringPtr name,</span>
+<span id="cb36-7"><a href="#cb36-7"></a>    <span class="at">const</span> VSTGUI::IUIDescription *description,</span>
+<span id="cb36-8"><a href="#cb36-8"></a>    VSTGUI::VST3Editor *editor) SMTG_OVERRIDE;</span>
+<span id="cb36-9"><a href="#cb36-9"></a>};</span></code></pre></div>
+<p><code>SomeFX/source/plugcontroller.cpp</code> に実装を追加します。</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">class</span> WaveViewController : <span class="kw">public</span> DelegationController {</span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="kw">public</span>:</span>
+<span id="cb37-3"><a href="#cb37-3"></a>  WaveViewController(IController *controller) : DelegationController(controller) {}</span>
+<span id="cb37-4"><a href="#cb37-4"></a></span>
+<span id="cb37-5"><a href="#cb37-5"></a>  ~WaveViewController()</span>
+<span id="cb37-6"><a href="#cb37-6"></a>  {</span>
+<span id="cb37-7"><a href="#cb37-7"></a>    <span class="cf">if</span> (waveview != <span class="kw">nullptr</span>) waveview-&gt;forget();</span>
+<span id="cb37-8"><a href="#cb37-8"></a>  }</span>
+<span id="cb37-9"><a href="#cb37-9"></a></span>
+<span id="cb37-10"><a href="#cb37-10"></a>  CView *</span>
+<span id="cb37-11"><a href="#cb37-11"></a>  verifyView(CView *view, <span class="at">const</span> UIAttributes &amp;attributes, IUIDescription *description)</span>
+<span id="cb37-12"><a href="#cb37-12"></a>  {</span>
+<span id="cb37-13"><a href="#cb37-13"></a>    <span class="kw">auto</span> control = <span class="kw">dynamic_cast</span>&lt;WaveView *&gt;(view);</span>
+<span id="cb37-14"><a href="#cb37-14"></a>    <span class="cf">if</span> (control != <span class="kw">nullptr</span>) { <span class="co">// 必要に応じてタグのチェックを追加する。</span></span>
+<span id="cb37-15"><a href="#cb37-15"></a>      waveview = control;</span>
+<span id="cb37-16"><a href="#cb37-16"></a>      waveview-&gt;remember();</span>
+<span id="cb37-17"><a href="#cb37-17"></a>    }</span>
+<span id="cb37-18"><a href="#cb37-18"></a>    <span class="cf">return</span> controller-&gt;verifyView(view, attributes, description);</span>
+<span id="cb37-19"><a href="#cb37-19"></a>  }</span>
+<span id="cb37-20"><a href="#cb37-20"></a></span>
+<span id="cb37-21"><a href="#cb37-21"></a>  <span class="dt">void</span> valueChanged(CControl *pControl) <span class="kw">override</span></span>
+<span id="cb37-22"><a href="#cb37-22"></a>  {</span>
+<span id="cb37-23"><a href="#cb37-23"></a>    <span class="co">// 多分 DAW がこのメソッドの呼び出しを実装していない。</span></span>
+<span id="cb37-24"><a href="#cb37-24"></a>    <span class="co">// Reaper 5.980 と FL Studio 20.5 では動かなかった。</span></span>
+<span id="cb37-25"><a href="#cb37-25"></a></span>
+<span id="cb37-26"><a href="#cb37-26"></a>    Vst::ParamID tag = pControl-&gt;getTag();</span>
+<span id="cb37-27"><a href="#cb37-27"></a></span>
+<span id="cb37-28"><a href="#cb37-28"></a>    <span class="cf">if</span> (waveview == <span class="kw">nullptr</span>) <span class="cf">return</span>;</span>
+<span id="cb37-29"><a href="#cb37-29"></a></span>
+<span id="cb37-30"><a href="#cb37-30"></a>    <span class="cf">if</span> (tag == ParameterID::volume) {</span>
+<span id="cb37-31"><a href="#cb37-31"></a>      waveview-&gt;gain = pControl-&gt;getValueNormalized();</span>
+<span id="cb37-32"><a href="#cb37-32"></a>      waveview-&gt;setDirty(<span class="kw">true</span>);</span>
+<span id="cb37-33"><a href="#cb37-33"></a>    }</span>
+<span id="cb37-34"><a href="#cb37-34"></a>  }</span>
+<span id="cb37-35"><a href="#cb37-35"></a></span>
+<span id="cb37-36"><a href="#cb37-36"></a><span class="kw">protected</span>:</span>
+<span id="cb37-37"><a href="#cb37-37"></a>  WaveView *waveview = <span class="kw">nullptr</span>;</span>
+<span id="cb37-38"><a href="#cb37-38"></a>};</span>
+<span id="cb37-39"><a href="#cb37-39"></a></span>
+<span id="cb37-40"><a href="#cb37-40"></a>IController *PlugController::createSubController(</span>
+<span id="cb37-41"><a href="#cb37-41"></a>  UTF8StringPtr name, <span class="at">const</span> IUIDescription *description, VST3Editor *editor)</span>
+<span id="cb37-42"><a href="#cb37-42"></a>{</span>
+<span id="cb37-43"><a href="#cb37-43"></a>  <span class="cf">if</span> (name == <span class="st">&quot;WaveViewController&quot;</span>) {</span>
+<span id="cb37-44"><a href="#cb37-44"></a>    <span class="cf">return</span> <span class="kw">new</span> WaveViewController(editor);</span>
+<span id="cb37-45"><a href="#cb37-45"></a>  }</span>
+<span id="cb37-46"><a href="#cb37-46"></a>  <span class="cf">return</span> <span class="kw">nullptr</span>;</span>
+<span id="cb37-47"><a href="#cb37-47"></a>}</span></code></pre></div>
 <p>これで動くはずですが、コメントで書いたように <code>DelegationController</code> の <code>valueChanged</code> がホストから呼び出されていないようです。ドキュメンテーションの <code>vstgui4/vstgui/Documentation/html/page_uidescription_editor.html</code> では <code>DelegationController</code> の <code>notify</code> を使っていますが、 <code>CControl::kMessageValueChanged</code> は VSTGUI 4.8 で廃止されたので動きません。</p>
 <ul>
 <li><code>vstgui4/vstgui/Documentation/html/page_uidescription_editor.html</code></li>
@@ -1042,14 +1071,26 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <ul>
 <li><a href="http://vstcpp.wpblog.jp/">C++でVST作り</a></li>
 </ul>
+<h4 id="ホストのオートメーションに応じて表示を更新">ホストのオートメーションに応じて表示を更新</h4>
+<p>ホストがオートメーションによってパラメータを変更したときは <code>EditController.setParamNormalized()</code> に変更された値が渡されます。 <code>setParamNormalized()</code> をオーバーライドして GUI に値を渡すことができます。</p>
+<ol type="1">
+<li><code>VSTGUIEditor</code> を継承したエディタクラスに ID と値を受け取って <code>CControl</code> などの要素を更新するメソッドを作る。</li>
+<li><code>EditController</code> を継承したコントローラクラスにエディタクラスのポインタを持たせる。</li>
+<li><code>setParamNormalized()</code> をオーバーライドしてエディタクラスのポインタから GUI に値を渡す。</li>
+</ol>
+<ul>
+<li><p>TODO 実装の追加</p></li>
+<li><p><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/vst3Automation.html#vst3automationPlayback">VST 3 Interfaces: Parameters and Automation</a></p></li>
+<li><p><a href="https://sdk.steinberg.net/viewtopic.php?f=4&amp;t=714">Clarification of parameter handling in VST 3 - sdk.steinberg.net</a></p></li>
+</ul>
 <h4 id="リフレッシュレートの設定">リフレッシュレートの設定</h4>
 <p><code>VSTGUIEditor</code> の <code>setIdleRate</code> でリフレッシュレートを変更できます。指定する値の単位は ms (ミリ秒) で、デフォルト値は 100ms (10Hz) です。カスタムビューの更新が遅く感じるときなどに変更してみてください。</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb37-1"><a href="#cb37-1"></a><span class="dt">bool</span> PlugEditor::open(<span class="dt">void</span> *parent, <span class="at">const</span> PlatformType &amp;platformType)</span>
-<span id="cb37-2"><a href="#cb37-2"></a>{</span>
-<span id="cb37-3"><a href="#cb37-3"></a>  setIdleRate(<span class="dv">1000</span> / <span class="dv">60</span>);</span>
-<span id="cb37-4"><a href="#cb37-4"></a></span>
-<span id="cb37-5"><a href="#cb37-5"></a>  <span class="co">// ...</span></span>
-<span id="cb37-6"><a href="#cb37-6"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb38-1"><a href="#cb38-1"></a><span class="dt">bool</span> PlugEditor::open(<span class="dt">void</span> *parent, <span class="at">const</span> PlatformType &amp;platformType)</span>
+<span id="cb38-2"><a href="#cb38-2"></a>{</span>
+<span id="cb38-3"><a href="#cb38-3"></a>  setIdleRate(<span class="dv">1000</span> / <span class="dv">60</span>);</span>
+<span id="cb38-4"><a href="#cb38-4"></a></span>
+<span id="cb38-5"><a href="#cb38-5"></a>  <span class="co">// ...</span></span>
+<span id="cb38-6"><a href="#cb38-6"></a>}</span></code></pre></div>
 <ul>
 <li><code>public.sdk/source/vst/vstguieditor.cpp</code></li>
 <li><code>vstgui4/vstgui/lib/cvstguitimer.h</code></li>
@@ -1058,331 +1099,331 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <p>あるコントロールの値を変更したときに、連動して別のコントロールの値や表示を変更したい時があります。ここでは例としてコントロールの値に応じてカスタムビューで波形を表示するようにします。</p>
 <p>カスタムビューは <code>CView</code> を継承したクラスならどれを継承しても作ることができます。例えばスライダーの見た目を変更したいなら <code>CSlider</code> を継承する、テキストを表示するカスタムビューを作りたいときは <code>CParamDisplay</code> を継承するといった形で実装の手間を減らせるときがあります。継承して使えるクラスを探すときは <code>vstgui4/vstgui/lib</code> と <code>vstgui4/vstgui/lib/controls</code> を覗いてみてください。</p>
 <p>ここでは波形を表示するだけなので <code>CControl</code> を継承して <code>draw</code> をオーバーライドしただけの <code>WaveView</code> というカスタムビューを作ります。 <code>waveview.hpp</code> の内容です。</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb38-1"><a href="#cb38-1"></a><span class="pp">#pragma once</span></span>
-<span id="cb38-2"><a href="#cb38-2"></a></span>
-<span id="cb38-3"><a href="#cb38-3"></a><span class="pp">#include </span><span class="im">&quot;vstgui/vstgui.h&quot;</span></span>
-<span id="cb38-4"><a href="#cb38-4"></a></span>
-<span id="cb38-5"><a href="#cb38-5"></a><span class="kw">namespace</span> VSTGUI {</span>
-<span id="cb38-6"><a href="#cb38-6"></a></span>
-<span id="cb38-7"><a href="#cb38-7"></a><span class="kw">class</span> WaveView : <span class="kw">public</span> CControl {</span>
-<span id="cb38-8"><a href="#cb38-8"></a><span class="kw">public</span>:</span>
-<span id="cb38-9"><a href="#cb38-9"></a>  WaveView(<span class="at">const</span> CRect &amp;size);</span>
-<span id="cb38-10"><a href="#cb38-10"></a></span>
-<span id="cb38-11"><a href="#cb38-11"></a>  <span class="dt">void</span> draw(CDrawContext *pContext) <span class="kw">override</span>;</span>
-<span id="cb38-12"><a href="#cb38-12"></a></span>
-<span id="cb38-13"><a href="#cb38-13"></a>  CLASS_METHODS(WaveView, CControl);</span>
-<span id="cb38-14"><a href="#cb38-14"></a></span>
-<span id="cb38-15"><a href="#cb38-15"></a>  <span class="dt">double</span> lfo(<span class="dt">double</span> phase);</span>
-<span id="cb38-16"><a href="#cb38-16"></a></span>
-<span id="cb38-17"><a href="#cb38-17"></a>  <span class="dt">double</span> amount = <span class="fl">0.9</span>;</span>
-<span id="cb38-18"><a href="#cb38-18"></a>  <span class="dt">double</span> shape = <span class="fl">0.0</span>;</span>
-<span id="cb38-19"><a href="#cb38-19"></a>  <span class="dt">double</span> phase = <span class="fl">0.0</span>;</span>
-<span id="cb38-20"><a href="#cb38-20"></a></span>
-<span id="cb38-21"><a href="#cb38-21"></a><span class="kw">protected</span>:</span>
-<span id="cb38-22"><a href="#cb38-22"></a>  CLineStyle lineStyle{CLineStyle::kLineCapRound, CLineStyle::kLineJoinRound};</span>
-<span id="cb38-23"><a href="#cb38-23"></a>  CDrawContext::PointList points;</span>
-<span id="cb38-24"><a href="#cb38-24"></a>};</span>
-<span id="cb38-25"><a href="#cb38-25"></a></span>
-<span id="cb38-26"><a href="#cb38-26"></a>} <span class="co">// namespace VSTGUI</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb39-1"><a href="#cb39-1"></a><span class="pp">#pragma once</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a></span>
+<span id="cb39-3"><a href="#cb39-3"></a><span class="pp">#include </span><span class="im">&quot;vstgui/vstgui.h&quot;</span></span>
+<span id="cb39-4"><a href="#cb39-4"></a></span>
+<span id="cb39-5"><a href="#cb39-5"></a><span class="kw">namespace</span> VSTGUI {</span>
+<span id="cb39-6"><a href="#cb39-6"></a></span>
+<span id="cb39-7"><a href="#cb39-7"></a><span class="kw">class</span> WaveView : <span class="kw">public</span> CControl {</span>
+<span id="cb39-8"><a href="#cb39-8"></a><span class="kw">public</span>:</span>
+<span id="cb39-9"><a href="#cb39-9"></a>  WaveView(<span class="at">const</span> CRect &amp;size);</span>
+<span id="cb39-10"><a href="#cb39-10"></a></span>
+<span id="cb39-11"><a href="#cb39-11"></a>  <span class="dt">void</span> draw(CDrawContext *pContext) <span class="kw">override</span>;</span>
+<span id="cb39-12"><a href="#cb39-12"></a></span>
+<span id="cb39-13"><a href="#cb39-13"></a>  CLASS_METHODS(WaveView, CControl);</span>
+<span id="cb39-14"><a href="#cb39-14"></a></span>
+<span id="cb39-15"><a href="#cb39-15"></a>  <span class="dt">double</span> lfo(<span class="dt">double</span> phase);</span>
+<span id="cb39-16"><a href="#cb39-16"></a></span>
+<span id="cb39-17"><a href="#cb39-17"></a>  <span class="dt">double</span> amount = <span class="fl">0.9</span>;</span>
+<span id="cb39-18"><a href="#cb39-18"></a>  <span class="dt">double</span> shape = <span class="fl">0.0</span>;</span>
+<span id="cb39-19"><a href="#cb39-19"></a>  <span class="dt">double</span> phase = <span class="fl">0.0</span>;</span>
+<span id="cb39-20"><a href="#cb39-20"></a></span>
+<span id="cb39-21"><a href="#cb39-21"></a><span class="kw">protected</span>:</span>
+<span id="cb39-22"><a href="#cb39-22"></a>  CLineStyle lineStyle{CLineStyle::kLineCapRound, CLineStyle::kLineJoinRound};</span>
+<span id="cb39-23"><a href="#cb39-23"></a>  CDrawContext::PointList points;</span>
+<span id="cb39-24"><a href="#cb39-24"></a>};</span>
+<span id="cb39-25"><a href="#cb39-25"></a></span>
+<span id="cb39-26"><a href="#cb39-26"></a>} <span class="co">// namespace VSTGUI</span></span></code></pre></div>
 <p><code>waveview.cpp</code> の内容です。ここでは描画する波形が簡単なので <code>WaveView::lfo</code> として GUI 側で実装しています。コードがより複雑になるときは GUI 側に波形を生成するコードを書かずに、プロセッサクラスから信号処理の部分をヘッダにまとめてインクルードすることをお勧めします。</p>
 <ul>
 <li>TODO</li>
 </ul>
-<div class="sourceCode" id="cb39"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb39-1"><a href="#cb39-1"></a><span class="pp">#include </span><span class="im">&quot;waveview.hpp&quot;</span></span>
-<span id="cb39-2"><a href="#cb39-2"></a></span>
-<span id="cb39-3"><a href="#cb39-3"></a><span class="pp">#include </span><span class="im">&lt;cmath&gt;</span></span>
-<span id="cb39-4"><a href="#cb39-4"></a></span>
-<span id="cb39-5"><a href="#cb39-5"></a><span class="kw">namespace</span> VSTGUI {</span>
-<span id="cb39-6"><a href="#cb39-6"></a></span>
-<span id="cb39-7"><a href="#cb39-7"></a>WaveView::WaveView(<span class="at">const</span> CRect &amp;size) : CControl(size) {}</span>
-<span id="cb39-8"><a href="#cb39-8"></a></span>
-<span id="cb39-9"><a href="#cb39-9"></a><span class="dt">void</span> WaveView::draw(CDrawContext *pContext)</span>
-<span id="cb39-10"><a href="#cb39-10"></a>{</span>
-<span id="cb39-11"><a href="#cb39-11"></a>  <span class="co">// アンチエイリアスを有効にする。</span></span>
-<span id="cb39-12"><a href="#cb39-12"></a>  pContext-&gt;setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));</span>
-<span id="cb39-13"><a href="#cb39-13"></a></span>
-<span id="cb39-14"><a href="#cb39-14"></a>  <span class="co">// 座標変換して (x, y) = (0, 0) がビューの左上となるようにする。</span></span>
-<span id="cb39-15"><a href="#cb39-15"></a>  <span class="co">// 座標変換しないときの (0, 0) はプラグインウィンドウの左上になる。</span></span>
-<span id="cb39-16"><a href="#cb39-16"></a>  CDrawContext::Transform t(</span>
-<span id="cb39-17"><a href="#cb39-17"></a>    *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));</span>
-<span id="cb39-18"><a href="#cb39-18"></a></span>
-<span id="cb39-19"><a href="#cb39-19"></a>  <span class="at">const</span> <span class="kw">auto</span> width = getWidth();</span>
-<span id="cb39-20"><a href="#cb39-20"></a>  <span class="at">const</span> <span class="kw">auto</span> height = getHeight();</span>
-<span id="cb39-21"><a href="#cb39-21"></a>  <span class="at">const</span> <span class="dt">double</span> borderWidth = <span class="fl">2.0</span>;</span>
-<span id="cb39-22"><a href="#cb39-22"></a>  <span class="at">const</span> <span class="dt">double</span> halfBorderWidth = borderWidth / <span class="fl">2.0</span>;</span>
-<span id="cb39-23"><a href="#cb39-23"></a></span>
-<span id="cb39-24"><a href="#cb39-24"></a>  <span class="co">// Background.</span></span>
-<span id="cb39-25"><a href="#cb39-25"></a>  <span class="at">const</span> <span class="kw">auto</span> bgColor = CColor(<span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>);</span>
-<span id="cb39-26"><a href="#cb39-26"></a>  pContext-&gt;setLineWidth(borderWidth);</span>
-<span id="cb39-27"><a href="#cb39-27"></a>  pContext-&gt;setFillColor(bgColor);</span>
-<span id="cb39-28"><a href="#cb39-28"></a>  pContext-&gt;drawRect(CRect(<span class="fl">0.0</span>, <span class="fl">0.0</span>, width, height), kDrawFilled);</span>
-<span id="cb39-29"><a href="#cb39-29"></a></span>
-<span id="cb39-30"><a href="#cb39-30"></a>  <span class="co">// Waveform.</span></span>
-<span id="cb39-31"><a href="#cb39-31"></a>  pContext-&gt;setLineWidth(<span class="fl">2.0</span>);</span>
-<span id="cb39-32"><a href="#cb39-32"></a>  pContext-&gt;setLineStyle(lineStyle);</span>
-<span id="cb39-33"><a href="#cb39-33"></a>  pContext-&gt;setFrameColor(CColor(<span class="dv">19</span>, <span class="dv">193</span>, <span class="dv">54</span>, <span class="dv">255</span>));</span>
-<span id="cb39-34"><a href="#cb39-34"></a>  <span class="at">const</span> <span class="dt">size_t</span> size = (<span class="dt">size_t</span>)(width + <span class="fl">1.0</span>);</span>
-<span id="cb39-35"><a href="#cb39-35"></a>  <span class="cf">if</span> (points.size() != size) points.resize(size);</span>
-<span id="cb39-36"><a href="#cb39-36"></a>  <span class="cf">for</span> (<span class="dt">size_t</span> x = <span class="dv">0</span>; x &lt; points.size(); ++x)</span>
-<span id="cb39-37"><a href="#cb39-37"></a>    points[x] = CPoint((CCoord)x, height * lfo(x / width));</span>
-<span id="cb39-38"><a href="#cb39-38"></a>  pContext-&gt;drawPolygon(points);</span>
-<span id="cb39-39"><a href="#cb39-39"></a></span>
-<span id="cb39-40"><a href="#cb39-40"></a>  <span class="co">// Always draw border at last. Otherwise, inner object will be drawn over border.</span></span>
-<span id="cb39-41"><a href="#cb39-41"></a>  <span class="at">const</span> <span class="kw">auto</span> borderColor = CColor(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">255</span>);</span>
-<span id="cb39-42"><a href="#cb39-42"></a>  pContext-&gt;setFrameColor(borderColor);</span>
-<span id="cb39-43"><a href="#cb39-43"></a>  pContext-&gt;drawRect(</span>
-<span id="cb39-44"><a href="#cb39-44"></a>    CRect(halfBorderWidth, halfBorderWidth, width, height), kDrawStroked);</span>
-<span id="cb39-45"><a href="#cb39-45"></a></span>
-<span id="cb39-46"><a href="#cb39-46"></a>  setDirty(<span class="kw">false</span>);</span>
-<span id="cb39-47"><a href="#cb39-47"></a>}</span>
-<span id="cb39-48"><a href="#cb39-48"></a></span>
-<span id="cb39-49"><a href="#cb39-49"></a><span class="dt">double</span> WaveView::lfo(<span class="dt">double</span> phase)</span>
-<span id="cb39-50"><a href="#cb39-50"></a>{</span>
-<span id="cb39-51"><a href="#cb39-51"></a>  <span class="at">const</span> <span class="dt">double</span> pi = <span class="fl">3.14159265358979323846</span>;</span>
-<span id="cb39-52"><a href="#cb39-52"></a></span>
-<span id="cb39-53"><a href="#cb39-53"></a>  phase = <span class="kw">this</span>-&gt;phase + phase * <span class="dv">2</span> * pi;</span>
-<span id="cb39-54"><a href="#cb39-54"></a>  <span class="cf">if</span> (phase &gt; <span class="dv">2</span> * pi) phase -= <span class="dv">2</span> * pi;</span>
-<span id="cb39-55"><a href="#cb39-55"></a>  <span class="kw">auto</span> sign = (pi &lt; phase) - (phase &lt; pi);</span>
-<span id="cb39-56"><a href="#cb39-56"></a>  <span class="kw">auto</span> wave = amount * sign * pow(fabs(sin(phase)), shape);</span>
-<span id="cb39-57"><a href="#cb39-57"></a>  <span class="cf">return</span> (wave + <span class="fl">1.0</span>) * <span class="fl">0.5</span>;</span>
-<span id="cb39-58"><a href="#cb39-58"></a>}</span>
-<span id="cb39-59"><a href="#cb39-59"></a></span>
-<span id="cb39-60"><a href="#cb39-60"></a>} <span class="co">// namespace VSTGUI</span></span></code></pre></div>
-<p>エディタクラスに関数を追加します。</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb40-1"><a href="#cb40-1"></a><span class="kw">class</span> PlugEditor : <span class="kw">public</span> VSTGUIEditor, <span class="kw">public</span> IControlListener {</span>
-<span id="cb40-2"><a href="#cb40-2"></a><span class="co">// ...</span></span>
-<span id="cb40-3"><a href="#cb40-3"></a></span>
-<span id="cb40-4"><a href="#cb40-4"></a>  <span class="dt">void</span> addWaveView(<span class="at">const</span> CRect &amp;size);</span>
-<span id="cb40-5"><a href="#cb40-5"></a></span>
-<span id="cb40-6"><a href="#cb40-6"></a><span class="kw">protected</span>:</span>
-<span id="cb40-7"><a href="#cb40-7"></a>  ParamValue getPlainValue(ParamID tag);</span>
+<div class="sourceCode" id="cb40"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb40-1"><a href="#cb40-1"></a><span class="pp">#include </span><span class="im">&quot;waveview.hpp&quot;</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a></span>
+<span id="cb40-3"><a href="#cb40-3"></a><span class="pp">#include </span><span class="im">&lt;cmath&gt;</span></span>
+<span id="cb40-4"><a href="#cb40-4"></a></span>
+<span id="cb40-5"><a href="#cb40-5"></a><span class="kw">namespace</span> VSTGUI {</span>
+<span id="cb40-6"><a href="#cb40-6"></a></span>
+<span id="cb40-7"><a href="#cb40-7"></a>WaveView::WaveView(<span class="at">const</span> CRect &amp;size) : CControl(size) {}</span>
 <span id="cb40-8"><a href="#cb40-8"></a></span>
-<span id="cb40-9"><a href="#cb40-9"></a>  <span class="at">const</span> CRect WaveViewSize{<span class="fl">100.0</span>, <span class="fl">100.0</span>, <span class="fl">200.0</span>, <span class="fl">200.0</span>};</span>
-<span id="cb40-10"><a href="#cb40-10"></a></span>
-<span id="cb40-11"><a href="#cb40-11"></a>  <span class="co">// getViewAt が反応するように 1 ピクセル内側を指定する。</span></span>
-<span id="cb40-12"><a href="#cb40-12"></a>  <span class="at">const</span> CPoint WaveViewPos{WaveViewSize.left + <span class="fl">1.0</span>, WaveViewSize.top + <span class="fl">1.0</span>};</span>
+<span id="cb40-9"><a href="#cb40-9"></a><span class="dt">void</span> WaveView::draw(CDrawContext *pContext)</span>
+<span id="cb40-10"><a href="#cb40-10"></a>{</span>
+<span id="cb40-11"><a href="#cb40-11"></a>  <span class="co">// アンチエイリアスを有効にする。</span></span>
+<span id="cb40-12"><a href="#cb40-12"></a>  pContext-&gt;setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));</span>
 <span id="cb40-13"><a href="#cb40-13"></a></span>
-<span id="cb40-14"><a href="#cb40-14"></a><span class="co">// ...</span></span>
-<span id="cb40-15"><a href="#cb40-15"></a>};</span></code></pre></div>
-<p><code>addWaveView</code> の実装です。 <code>parameter.hpp</code> で定義したパラメータIDを使ってコントローラから初期値を取得しています。</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb41-1"><a href="#cb41-1"></a><span class="pp">#include </span><span class="im">&quot;parameter.hpp&quot;</span></span>
-<span id="cb41-2"><a href="#cb41-2"></a></span>
-<span id="cb41-3"><a href="#cb41-3"></a><span class="dt">void</span> PlugEditor::addWaveView(<span class="at">const</span> CRect &amp;size)</span>
-<span id="cb41-4"><a href="#cb41-4"></a>{</span>
-<span id="cb41-5"><a href="#cb41-5"></a>  <span class="kw">auto</span> view = <span class="kw">new</span> WaveView(size);</span>
-<span id="cb41-6"><a href="#cb41-6"></a>  view-&gt;shape = getPlainValue(SomePlugin::ParameterID::lfoShape);</span>
-<span id="cb41-7"><a href="#cb41-7"></a>  view-&gt;phase = getPlainValue(SomePlugin::ParameterID::lfoInitialPhase);</span>
-<span id="cb41-8"><a href="#cb41-8"></a>  frame-&gt;addView(view);</span>
-<span id="cb41-9"><a href="#cb41-9"></a>}</span>
+<span id="cb40-14"><a href="#cb40-14"></a>  <span class="co">// 座標変換して (x, y) = (0, 0) がビューの左上となるようにする。</span></span>
+<span id="cb40-15"><a href="#cb40-15"></a>  <span class="co">// 座標変換しないときの (0, 0) はプラグインウィンドウの左上になる。</span></span>
+<span id="cb40-16"><a href="#cb40-16"></a>  CDrawContext::Transform t(</span>
+<span id="cb40-17"><a href="#cb40-17"></a>    *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));</span>
+<span id="cb40-18"><a href="#cb40-18"></a></span>
+<span id="cb40-19"><a href="#cb40-19"></a>  <span class="at">const</span> <span class="kw">auto</span> width = getWidth();</span>
+<span id="cb40-20"><a href="#cb40-20"></a>  <span class="at">const</span> <span class="kw">auto</span> height = getHeight();</span>
+<span id="cb40-21"><a href="#cb40-21"></a>  <span class="at">const</span> <span class="dt">double</span> borderWidth = <span class="fl">2.0</span>;</span>
+<span id="cb40-22"><a href="#cb40-22"></a>  <span class="at">const</span> <span class="dt">double</span> halfBorderWidth = borderWidth / <span class="fl">2.0</span>;</span>
+<span id="cb40-23"><a href="#cb40-23"></a></span>
+<span id="cb40-24"><a href="#cb40-24"></a>  <span class="co">// Background.</span></span>
+<span id="cb40-25"><a href="#cb40-25"></a>  <span class="at">const</span> <span class="kw">auto</span> bgColor = CColor(<span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>);</span>
+<span id="cb40-26"><a href="#cb40-26"></a>  pContext-&gt;setLineWidth(borderWidth);</span>
+<span id="cb40-27"><a href="#cb40-27"></a>  pContext-&gt;setFillColor(bgColor);</span>
+<span id="cb40-28"><a href="#cb40-28"></a>  pContext-&gt;drawRect(CRect(<span class="fl">0.0</span>, <span class="fl">0.0</span>, width, height), kDrawFilled);</span>
+<span id="cb40-29"><a href="#cb40-29"></a></span>
+<span id="cb40-30"><a href="#cb40-30"></a>  <span class="co">// Waveform.</span></span>
+<span id="cb40-31"><a href="#cb40-31"></a>  pContext-&gt;setLineWidth(<span class="fl">2.0</span>);</span>
+<span id="cb40-32"><a href="#cb40-32"></a>  pContext-&gt;setLineStyle(lineStyle);</span>
+<span id="cb40-33"><a href="#cb40-33"></a>  pContext-&gt;setFrameColor(CColor(<span class="dv">19</span>, <span class="dv">193</span>, <span class="dv">54</span>, <span class="dv">255</span>));</span>
+<span id="cb40-34"><a href="#cb40-34"></a>  <span class="at">const</span> <span class="dt">size_t</span> size = (<span class="dt">size_t</span>)(width + <span class="fl">1.0</span>);</span>
+<span id="cb40-35"><a href="#cb40-35"></a>  <span class="cf">if</span> (points.size() != size) points.resize(size);</span>
+<span id="cb40-36"><a href="#cb40-36"></a>  <span class="cf">for</span> (<span class="dt">size_t</span> x = <span class="dv">0</span>; x &lt; points.size(); ++x)</span>
+<span id="cb40-37"><a href="#cb40-37"></a>    points[x] = CPoint((CCoord)x, height * lfo(x / width));</span>
+<span id="cb40-38"><a href="#cb40-38"></a>  pContext-&gt;drawPolygon(points);</span>
+<span id="cb40-39"><a href="#cb40-39"></a></span>
+<span id="cb40-40"><a href="#cb40-40"></a>  <span class="co">// Always draw border at last. Otherwise, inner object will be drawn over border.</span></span>
+<span id="cb40-41"><a href="#cb40-41"></a>  <span class="at">const</span> <span class="kw">auto</span> borderColor = CColor(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">255</span>);</span>
+<span id="cb40-42"><a href="#cb40-42"></a>  pContext-&gt;setFrameColor(borderColor);</span>
+<span id="cb40-43"><a href="#cb40-43"></a>  pContext-&gt;drawRect(</span>
+<span id="cb40-44"><a href="#cb40-44"></a>    CRect(halfBorderWidth, halfBorderWidth, width, height), kDrawStroked);</span>
+<span id="cb40-45"><a href="#cb40-45"></a></span>
+<span id="cb40-46"><a href="#cb40-46"></a>  setDirty(<span class="kw">false</span>);</span>
+<span id="cb40-47"><a href="#cb40-47"></a>}</span>
+<span id="cb40-48"><a href="#cb40-48"></a></span>
+<span id="cb40-49"><a href="#cb40-49"></a><span class="dt">double</span> WaveView::lfo(<span class="dt">double</span> phase)</span>
+<span id="cb40-50"><a href="#cb40-50"></a>{</span>
+<span id="cb40-51"><a href="#cb40-51"></a>  <span class="at">const</span> <span class="dt">double</span> pi = <span class="fl">3.14159265358979323846</span>;</span>
+<span id="cb40-52"><a href="#cb40-52"></a></span>
+<span id="cb40-53"><a href="#cb40-53"></a>  phase = <span class="kw">this</span>-&gt;phase + phase * <span class="dv">2</span> * pi;</span>
+<span id="cb40-54"><a href="#cb40-54"></a>  <span class="cf">if</span> (phase &gt; <span class="dv">2</span> * pi) phase -= <span class="dv">2</span> * pi;</span>
+<span id="cb40-55"><a href="#cb40-55"></a>  <span class="kw">auto</span> sign = (pi &lt; phase) - (phase &lt; pi);</span>
+<span id="cb40-56"><a href="#cb40-56"></a>  <span class="kw">auto</span> wave = amount * sign * pow(fabs(sin(phase)), shape);</span>
+<span id="cb40-57"><a href="#cb40-57"></a>  <span class="cf">return</span> (wave + <span class="fl">1.0</span>) * <span class="fl">0.5</span>;</span>
+<span id="cb40-58"><a href="#cb40-58"></a>}</span>
+<span id="cb40-59"><a href="#cb40-59"></a></span>
+<span id="cb40-60"><a href="#cb40-60"></a>} <span class="co">// namespace VSTGUI</span></span></code></pre></div>
+<p>エディタクラスに関数を追加します。</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb41-1"><a href="#cb41-1"></a><span class="kw">class</span> PlugEditor : <span class="kw">public</span> VSTGUIEditor, <span class="kw">public</span> IControlListener {</span>
+<span id="cb41-2"><a href="#cb41-2"></a><span class="co">// ...</span></span>
+<span id="cb41-3"><a href="#cb41-3"></a></span>
+<span id="cb41-4"><a href="#cb41-4"></a>  <span class="dt">void</span> addWaveView(<span class="at">const</span> CRect &amp;size);</span>
+<span id="cb41-5"><a href="#cb41-5"></a></span>
+<span id="cb41-6"><a href="#cb41-6"></a><span class="kw">protected</span>:</span>
+<span id="cb41-7"><a href="#cb41-7"></a>  ParamValue getPlainValue(ParamID tag);</span>
+<span id="cb41-8"><a href="#cb41-8"></a></span>
+<span id="cb41-9"><a href="#cb41-9"></a>  <span class="at">const</span> CRect WaveViewSize{<span class="fl">100.0</span>, <span class="fl">100.0</span>, <span class="fl">200.0</span>, <span class="fl">200.0</span>};</span>
 <span id="cb41-10"><a href="#cb41-10"></a></span>
-<span id="cb41-11"><a href="#cb41-11"></a>ParamValue PlugEditor::getPlainValue(ParamID tag)</span>
-<span id="cb41-12"><a href="#cb41-12"></a>{</span>
-<span id="cb41-13"><a href="#cb41-13"></a>  <span class="kw">auto</span> normalized = controller-&gt;getParamNormalized(tag);</span>
-<span id="cb41-14"><a href="#cb41-14"></a>  <span class="cf">return</span> controller-&gt;normalizedParamToPlain(tag, normalized);</span>
+<span id="cb41-11"><a href="#cb41-11"></a>  <span class="co">// getViewAt が反応するように 1 ピクセル内側を指定する。</span></span>
+<span id="cb41-12"><a href="#cb41-12"></a>  <span class="at">const</span> CPoint WaveViewPos{WaveViewSize.left + <span class="fl">1.0</span>, WaveViewSize.top + <span class="fl">1.0</span>};</span>
+<span id="cb41-13"><a href="#cb41-13"></a></span>
+<span id="cb41-14"><a href="#cb41-14"></a><span class="co">// ...</span></span>
 <span id="cb41-15"><a href="#cb41-15"></a>};</span></code></pre></div>
+<p><code>addWaveView</code> の実装です。 <code>parameter.hpp</code> で定義したパラメータIDを使ってコントローラから初期値を取得しています。</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb42-1"><a href="#cb42-1"></a><span class="pp">#include </span><span class="im">&quot;parameter.hpp&quot;</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a></span>
+<span id="cb42-3"><a href="#cb42-3"></a><span class="dt">void</span> PlugEditor::addWaveView(<span class="at">const</span> CRect &amp;size)</span>
+<span id="cb42-4"><a href="#cb42-4"></a>{</span>
+<span id="cb42-5"><a href="#cb42-5"></a>  <span class="kw">auto</span> view = <span class="kw">new</span> WaveView(size);</span>
+<span id="cb42-6"><a href="#cb42-6"></a>  view-&gt;shape = getPlainValue(SomePlugin::ParameterID::lfoShape);</span>
+<span id="cb42-7"><a href="#cb42-7"></a>  view-&gt;phase = getPlainValue(SomePlugin::ParameterID::lfoInitialPhase);</span>
+<span id="cb42-8"><a href="#cb42-8"></a>  frame-&gt;addView(view);</span>
+<span id="cb42-9"><a href="#cb42-9"></a>}</span>
+<span id="cb42-10"><a href="#cb42-10"></a></span>
+<span id="cb42-11"><a href="#cb42-11"></a>ParamValue PlugEditor::getPlainValue(ParamID tag)</span>
+<span id="cb42-12"><a href="#cb42-12"></a>{</span>
+<span id="cb42-13"><a href="#cb42-13"></a>  <span class="kw">auto</span> normalized = controller-&gt;getParamNormalized(tag);</span>
+<span id="cb42-14"><a href="#cb42-14"></a>  <span class="cf">return</span> controller-&gt;normalizedParamToPlain(tag, normalized);</span>
+<span id="cb42-15"><a href="#cb42-15"></a>};</span></code></pre></div>
 <p><code>open</code> で <code>WaveView</code> を作成します。</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb42-1"><a href="#cb42-1"></a><span class="dt">bool</span> PlugEditor::open(<span class="dt">void</span> *parent, <span class="at">const</span> PlatformType &amp;platformType)</span>
-<span id="cb42-2"><a href="#cb42-2"></a>{</span>
-<span id="cb42-3"><a href="#cb42-3"></a>  <span class="co">// ...</span></span>
-<span id="cb42-4"><a href="#cb42-4"></a></span>
-<span id="cb42-5"><a href="#cb42-5"></a>  addWaveView(WaveViewSize);</span>
-<span id="cb42-6"><a href="#cb42-6"></a></span>
-<span id="cb42-7"><a href="#cb42-7"></a>  <span class="co">// ...</span></span>
-<span id="cb42-8"><a href="#cb42-8"></a>}</span></code></pre></div>
-<p>エディタクラスの <code>valueChanged</code> で関連するコントロールの変更を検知して <code>WaveView</code> を更新します。ここでは <code>VSTGUIEditor::open</code> で作成したコントロールを取得するために <code>getViewAt</code> を使っています。 <code>getViewAt</code> に渡している <code>WaveViewPos</code> はエディタクラスのメンバとして定義した <code>WaveView</code> の位置です。</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb43-1"><a href="#cb43-1"></a><span class="dt">void</span> PlugEditor::valueChanged(CControl *pControl)</span>
+<div class="sourceCode" id="cb43"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb43-1"><a href="#cb43-1"></a><span class="dt">bool</span> PlugEditor::open(<span class="dt">void</span> *parent, <span class="at">const</span> PlatformType &amp;platformType)</span>
 <span id="cb43-2"><a href="#cb43-2"></a>{</span>
-<span id="cb43-3"><a href="#cb43-3"></a>  ParamID tag = pControl-&gt;getTag();</span>
-<span id="cb43-4"><a href="#cb43-4"></a>  ParamValue value = pControl-&gt;getValueNormalized();</span>
-<span id="cb43-5"><a href="#cb43-5"></a>  controller-&gt;setParamNormalized(tag, value);</span>
-<span id="cb43-6"><a href="#cb43-6"></a>  controller-&gt;performEdit(tag, value);</span>
-<span id="cb43-7"><a href="#cb43-7"></a></span>
-<span id="cb43-8"><a href="#cb43-8"></a>  <span class="cf">if</span> (tag == SevenDelay::ParameterID::lfoShape) {</span>
-<span id="cb43-9"><a href="#cb43-9"></a>    <span class="kw">auto</span> some = <span class="kw">dynamic_cast</span>&lt;WaveView *&gt;(frame-&gt;getViewAt(WaveViewPos));</span>
-<span id="cb43-10"><a href="#cb43-10"></a>    <span class="cf">if</span> (some == <span class="kw">nullptr</span>) <span class="cf">return</span>;</span>
-<span id="cb43-11"><a href="#cb43-11"></a>    some-&gt;shape = getPlainValue(tag);</span>
-<span id="cb43-12"><a href="#cb43-12"></a>    some-&gt;setDirty(<span class="kw">true</span>);</span>
-<span id="cb43-13"><a href="#cb43-13"></a>  } <span class="cf">else</span> <span class="cf">if</span> (tag == SevenDelay::ParameterID::lfoInitialPhase) {</span>
-<span id="cb43-14"><a href="#cb43-14"></a>    <span class="kw">auto</span> some = <span class="kw">dynamic_cast</span>&lt;WaveView *&gt;(frame-&gt;getViewAt(WaveViewPos));</span>
-<span id="cb43-15"><a href="#cb43-15"></a>    <span class="cf">if</span> (some == <span class="kw">nullptr</span>) <span class="cf">return</span>;</span>
-<span id="cb43-16"><a href="#cb43-16"></a>    some-&gt;phase = getPlainValue(tag);</span>
-<span id="cb43-17"><a href="#cb43-17"></a>    some-&gt;setDirty(<span class="kw">true</span>);</span>
-<span id="cb43-18"><a href="#cb43-18"></a>  }</span>
-<span id="cb43-19"><a href="#cb43-19"></a>}</span></code></pre></div>
+<span id="cb43-3"><a href="#cb43-3"></a>  <span class="co">// ...</span></span>
+<span id="cb43-4"><a href="#cb43-4"></a></span>
+<span id="cb43-5"><a href="#cb43-5"></a>  addWaveView(WaveViewSize);</span>
+<span id="cb43-6"><a href="#cb43-6"></a></span>
+<span id="cb43-7"><a href="#cb43-7"></a>  <span class="co">// ...</span></span>
+<span id="cb43-8"><a href="#cb43-8"></a>}</span></code></pre></div>
+<p>エディタクラスの <code>valueChanged</code> で関連するコントロールの変更を検知して <code>WaveView</code> を更新します。ここでは <code>VSTGUIEditor::open</code> で作成したコントロールを取得するために <code>getViewAt</code> を使っています。 <code>getViewAt</code> に渡している <code>WaveViewPos</code> はエディタクラスのメンバとして定義した <code>WaveView</code> の位置です。</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb44-1"><a href="#cb44-1"></a><span class="dt">void</span> PlugEditor::valueChanged(CControl *pControl)</span>
+<span id="cb44-2"><a href="#cb44-2"></a>{</span>
+<span id="cb44-3"><a href="#cb44-3"></a>  ParamID tag = pControl-&gt;getTag();</span>
+<span id="cb44-4"><a href="#cb44-4"></a>  ParamValue value = pControl-&gt;getValueNormalized();</span>
+<span id="cb44-5"><a href="#cb44-5"></a>  controller-&gt;setParamNormalized(tag, value);</span>
+<span id="cb44-6"><a href="#cb44-6"></a>  controller-&gt;performEdit(tag, value);</span>
+<span id="cb44-7"><a href="#cb44-7"></a></span>
+<span id="cb44-8"><a href="#cb44-8"></a>  <span class="cf">if</span> (tag == SevenDelay::ParameterID::lfoShape) {</span>
+<span id="cb44-9"><a href="#cb44-9"></a>    <span class="kw">auto</span> some = <span class="kw">dynamic_cast</span>&lt;WaveView *&gt;(frame-&gt;getViewAt(WaveViewPos));</span>
+<span id="cb44-10"><a href="#cb44-10"></a>    <span class="cf">if</span> (some == <span class="kw">nullptr</span>) <span class="cf">return</span>;</span>
+<span id="cb44-11"><a href="#cb44-11"></a>    some-&gt;shape = getPlainValue(tag);</span>
+<span id="cb44-12"><a href="#cb44-12"></a>    some-&gt;setDirty(<span class="kw">true</span>);</span>
+<span id="cb44-13"><a href="#cb44-13"></a>  } <span class="cf">else</span> <span class="cf">if</span> (tag == SevenDelay::ParameterID::lfoInitialPhase) {</span>
+<span id="cb44-14"><a href="#cb44-14"></a>    <span class="kw">auto</span> some = <span class="kw">dynamic_cast</span>&lt;WaveView *&gt;(frame-&gt;getViewAt(WaveViewPos));</span>
+<span id="cb44-15"><a href="#cb44-15"></a>    <span class="cf">if</span> (some == <span class="kw">nullptr</span>) <span class="cf">return</span>;</span>
+<span id="cb44-16"><a href="#cb44-16"></a>    some-&gt;phase = getPlainValue(tag);</span>
+<span id="cb44-17"><a href="#cb44-17"></a>    some-&gt;setDirty(<span class="kw">true</span>);</span>
+<span id="cb44-18"><a href="#cb44-18"></a>  }</span>
+<span id="cb44-19"><a href="#cb44-19"></a>}</span></code></pre></div>
 <p>コントロールを取得する別の方法としては <code>frame-&gt;getView</code> があります。引数の <code>index</code> がどういう値なのかドキュメンテーションに書いていなかったのでここでは使っていません。興味のある方は <code>vstgui4/vstgui/lib/cviewcontainer.*</code> を読んでみてください。</p>
 <h4 id="スプラッシュスクリーンの追加">スプラッシュスクリーンの追加</h4>
 <p><code>CSplashScreen</code> でスプラッシュスクリーンを作成できます。</p>
 <p>エディタクラスにスプラッシュスクリーンを追加する関数を作ります。</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw">class</span> PlugEditor : <span class="kw">public</span> VSTGUIEditor, <span class="kw">public</span> IControlListener {</span>
-<span id="cb44-2"><a href="#cb44-2"></a>  <span class="co">// ...</span></span>
-<span id="cb44-3"><a href="#cb44-3"></a></span>
-<span id="cb44-4"><a href="#cb44-4"></a>  <span class="dt">void</span> addSplashScreen(CRect &amp;buttonRect, CRect splashRect);</span>
-<span id="cb44-5"><a href="#cb44-5"></a></span>
-<span id="cb44-6"><a href="#cb44-6"></a>  <span class="co">// ...</span></span>
-<span id="cb44-7"><a href="#cb44-7"></a>};</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb45-1"><a href="#cb45-1"></a><span class="kw">class</span> PlugEditor : <span class="kw">public</span> VSTGUIEditor, <span class="kw">public</span> IControlListener {</span>
+<span id="cb45-2"><a href="#cb45-2"></a>  <span class="co">// ...</span></span>
+<span id="cb45-3"><a href="#cb45-3"></a></span>
+<span id="cb45-4"><a href="#cb45-4"></a>  <span class="dt">void</span> addSplashScreen(CRect &amp;buttonRect, CRect splashRect);</span>
+<span id="cb45-5"><a href="#cb45-5"></a></span>
+<span id="cb45-6"><a href="#cb45-6"></a>  <span class="co">// ...</span></span>
+<span id="cb45-7"><a href="#cb45-7"></a>};</span></code></pre></div>
 <p><code>addSplashScreen</code> の実装です。ここではスプラッシュスクリーンとしてカスタムビューの <code>CreditView</code> が表示されるようにしています。開いたスプラッシュスクリーンをクリックしたときに閉じるようにするにはカスタムビュー側の <code>setListener</code> に <code>CSplashScreen</code> を渡しておく必要があります。 <code>setListener</code> は <code>CControl</code> で実装されています。</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb45-1"><a href="#cb45-1"></a><span class="dt">void</span> PlugEditor::addSplashScreen(CRect &amp;buttonRect, CRect splashRect)</span>
-<span id="cb45-2"><a href="#cb45-2"></a>{</span>
-<span id="cb45-3"><a href="#cb45-3"></a>  <span class="kw">auto</span> credit = <span class="kw">new</span> CreditView(splashRect, <span class="kw">nullptr</span>);</span>
-<span id="cb45-4"><a href="#cb45-4"></a>  <span class="kw">auto</span> splash = <span class="kw">new</span> CSplashScreen(buttonRect, <span class="kw">this</span>, -<span class="dv">666</span>, credit);</span>
-<span id="cb45-5"><a href="#cb45-5"></a>  credit-&gt;setListener(splash);</span>
-<span id="cb45-6"><a href="#cb45-6"></a>  frame-&gt;addView(splash);</span>
-<span id="cb45-7"><a href="#cb45-7"></a>}</span></code></pre></div>
-<p><code>open</code> でスプラッシュスクリーンを追加します。</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb46-1"><a href="#cb46-1"></a><span class="dt">bool</span> PlugEditor::open(<span class="dt">void</span> *parent, <span class="at">const</span> PlatformType &amp;platformType)</span>
+<div class="sourceCode" id="cb46"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb46-1"><a href="#cb46-1"></a><span class="dt">void</span> PlugEditor::addSplashScreen(CRect &amp;buttonRect, CRect splashRect)</span>
 <span id="cb46-2"><a href="#cb46-2"></a>{</span>
-<span id="cb46-3"><a href="#cb46-3"></a>  <span class="co">// ...</span></span>
-<span id="cb46-4"><a href="#cb46-4"></a></span>
-<span id="cb46-5"><a href="#cb46-5"></a>  <span class="co">// viewRect はウィンドウの大きさ。</span></span>
-<span id="cb46-6"><a href="#cb46-6"></a>  addSplashScreen(</span>
-<span id="cb46-7"><a href="#cb46-7"></a>    CRect(<span class="fl">30.0</span>, <span class="fl">340.0</span>, <span class="fl">190.0</span>, <span class="fl">380.0</span>),</span>
-<span id="cb46-8"><a href="#cb46-8"></a>    CRect(</span>
-<span id="cb46-9"><a href="#cb46-9"></a>      viewRect.left + <span class="fl">200.0</span>,</span>
-<span id="cb46-10"><a href="#cb46-10"></a>      viewRect.top + <span class="fl">20.0</span>,</span>
-<span id="cb46-11"><a href="#cb46-11"></a>      viewRect.right - <span class="fl">200.0</span>,</span>
-<span id="cb46-12"><a href="#cb46-12"></a>      viewRect.bottom - <span class="fl">20.0</span>));</span>
-<span id="cb46-13"><a href="#cb46-13"></a></span>
-<span id="cb46-14"><a href="#cb46-14"></a>  <span class="co">// ...</span></span>
-<span id="cb46-15"><a href="#cb46-15"></a>}</span></code></pre></div>
-<p><code>source/gui/splash.hpp</code> を作って <code>CreditView</code> を実装します。</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb47-1"><a href="#cb47-1"></a><span class="pp">#pragma once</span></span>
-<span id="cb47-2"><a href="#cb47-2"></a></span>
-<span id="cb47-3"><a href="#cb47-3"></a><span class="pp">#include </span><span class="im">&quot;vstgui/vstgui.h&quot;</span></span>
+<span id="cb46-3"><a href="#cb46-3"></a>  <span class="kw">auto</span> credit = <span class="kw">new</span> CreditView(splashRect, <span class="kw">nullptr</span>);</span>
+<span id="cb46-4"><a href="#cb46-4"></a>  <span class="kw">auto</span> splash = <span class="kw">new</span> CSplashScreen(buttonRect, <span class="kw">this</span>, -<span class="dv">666</span>, credit);</span>
+<span id="cb46-5"><a href="#cb46-5"></a>  credit-&gt;setListener(splash);</span>
+<span id="cb46-6"><a href="#cb46-6"></a>  frame-&gt;addView(splash);</span>
+<span id="cb46-7"><a href="#cb46-7"></a>}</span></code></pre></div>
+<p><code>open</code> でスプラッシュスクリーンを追加します。</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb47-1"><a href="#cb47-1"></a><span class="dt">bool</span> PlugEditor::open(<span class="dt">void</span> *parent, <span class="at">const</span> PlatformType &amp;platformType)</span>
+<span id="cb47-2"><a href="#cb47-2"></a>{</span>
+<span id="cb47-3"><a href="#cb47-3"></a>  <span class="co">// ...</span></span>
 <span id="cb47-4"><a href="#cb47-4"></a></span>
-<span id="cb47-5"><a href="#cb47-5"></a><span class="kw">namespace</span> Steinberg {</span>
-<span id="cb47-6"><a href="#cb47-6"></a><span class="kw">namespace</span> Vst {</span>
-<span id="cb47-7"><a href="#cb47-7"></a></span>
-<span id="cb47-8"><a href="#cb47-8"></a><span class="kw">using</span> <span class="kw">namespace</span> VSTGUI;</span>
-<span id="cb47-9"><a href="#cb47-9"></a></span>
-<span id="cb47-10"><a href="#cb47-10"></a><span class="kw">class</span> CreditView : <span class="kw">public</span> CControl {</span>
-<span id="cb47-11"><a href="#cb47-11"></a><span class="kw">public</span>:</span>
-<span id="cb47-12"><a href="#cb47-12"></a>  CreditView(<span class="at">const</span> CRect &amp;size, IControlListener *listener) : CControl(size, listener) {}</span>
+<span id="cb47-5"><a href="#cb47-5"></a>  <span class="co">// viewRect はウィンドウの大きさ。</span></span>
+<span id="cb47-6"><a href="#cb47-6"></a>  addSplashScreen(</span>
+<span id="cb47-7"><a href="#cb47-7"></a>    CRect(<span class="fl">30.0</span>, <span class="fl">340.0</span>, <span class="fl">190.0</span>, <span class="fl">380.0</span>),</span>
+<span id="cb47-8"><a href="#cb47-8"></a>    CRect(</span>
+<span id="cb47-9"><a href="#cb47-9"></a>      viewRect.left + <span class="fl">200.0</span>,</span>
+<span id="cb47-10"><a href="#cb47-10"></a>      viewRect.top + <span class="fl">20.0</span>,</span>
+<span id="cb47-11"><a href="#cb47-11"></a>      viewRect.right - <span class="fl">200.0</span>,</span>
+<span id="cb47-12"><a href="#cb47-12"></a>      viewRect.bottom - <span class="fl">20.0</span>));</span>
 <span id="cb47-13"><a href="#cb47-13"></a></span>
-<span id="cb47-14"><a href="#cb47-14"></a>  <span class="dt">void</span> draw(CDrawContext *pContext) <span class="kw">override</span>;</span>
-<span id="cb47-15"><a href="#cb47-15"></a></span>
-<span id="cb47-16"><a href="#cb47-16"></a>  CMouseEventResult onMouseDown(CPoint &amp;where, <span class="at">const</span> CButtonState &amp;buttons) <span class="kw">override</span></span>
-<span id="cb47-17"><a href="#cb47-17"></a>  {</span>
-<span id="cb47-18"><a href="#cb47-18"></a>    <span class="cf">if</span> (buttons.isLeftButton()) {</span>
-<span id="cb47-19"><a href="#cb47-19"></a>      valueChanged();</span>
-<span id="cb47-20"><a href="#cb47-20"></a>      <span class="cf">return</span> kMouseDownEventHandledButDontNeedMovedOrUpEvents;</span>
-<span id="cb47-21"><a href="#cb47-21"></a>    }</span>
-<span id="cb47-22"><a href="#cb47-22"></a>    <span class="cf">return</span> kMouseEventNotHandled;</span>
-<span id="cb47-23"><a href="#cb47-23"></a>  }</span>
-<span id="cb47-24"><a href="#cb47-24"></a></span>
-<span id="cb47-25"><a href="#cb47-25"></a>  CLASS_METHODS(CreditView, CControl)</span>
-<span id="cb47-26"><a href="#cb47-26"></a></span>
-<span id="cb47-27"><a href="#cb47-27"></a><span class="kw">private</span>:</span>
-<span id="cb47-28"><a href="#cb47-28"></a>  UTF8String fontName{<span class="st">&quot;DejaVu Sans Mono&quot;</span>};</span>
-<span id="cb47-29"><a href="#cb47-29"></a>  CCoord fontSize = <span class="fl">18.0</span>;</span>
-<span id="cb47-30"><a href="#cb47-30"></a>  CCoord fontSizeTitle = <span class="fl">24.0</span>;</span>
-<span id="cb47-31"><a href="#cb47-31"></a>};</span>
-<span id="cb47-32"><a href="#cb47-32"></a></span>
-<span id="cb47-33"><a href="#cb47-33"></a>} <span class="co">// namespace Vst</span></span>
-<span id="cb47-34"><a href="#cb47-34"></a>} <span class="co">// namespace Steinberg</span></span></code></pre></div>
-<p><code>source/gui/splash.cpp</code> を作ります。</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb48-1"><a href="#cb48-1"></a><span class="pp">#include </span><span class="im">&quot;splash.hpp&quot;</span></span>
+<span id="cb47-14"><a href="#cb47-14"></a>  <span class="co">// ...</span></span>
+<span id="cb47-15"><a href="#cb47-15"></a>}</span></code></pre></div>
+<p><code>source/gui/splash.hpp</code> を作って <code>CreditView</code> を実装します。</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb48-1"><a href="#cb48-1"></a><span class="pp">#pragma once</span></span>
 <span id="cb48-2"><a href="#cb48-2"></a></span>
-<span id="cb48-3"><a href="#cb48-3"></a><span class="kw">namespace</span> Steinberg {</span>
-<span id="cb48-4"><a href="#cb48-4"></a><span class="kw">namespace</span> Vst {</span>
-<span id="cb48-5"><a href="#cb48-5"></a></span>
-<span id="cb48-6"><a href="#cb48-6"></a><span class="kw">using</span> <span class="kw">namespace</span> VSTGUI;</span>
+<span id="cb48-3"><a href="#cb48-3"></a><span class="pp">#include </span><span class="im">&quot;vstgui/vstgui.h&quot;</span></span>
+<span id="cb48-4"><a href="#cb48-4"></a></span>
+<span id="cb48-5"><a href="#cb48-5"></a><span class="kw">namespace</span> Steinberg {</span>
+<span id="cb48-6"><a href="#cb48-6"></a><span class="kw">namespace</span> Vst {</span>
 <span id="cb48-7"><a href="#cb48-7"></a></span>
-<span id="cb48-8"><a href="#cb48-8"></a><span class="dt">void</span> CreditView::draw(CDrawContext *pContext)</span>
-<span id="cb48-9"><a href="#cb48-9"></a>{</span>
-<span id="cb48-10"><a href="#cb48-10"></a>  pContext-&gt;setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));</span>
-<span id="cb48-11"><a href="#cb48-11"></a>  CDrawContext::Transform t(</span>
-<span id="cb48-12"><a href="#cb48-12"></a>    *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));</span>
+<span id="cb48-8"><a href="#cb48-8"></a><span class="kw">using</span> <span class="kw">namespace</span> VSTGUI;</span>
+<span id="cb48-9"><a href="#cb48-9"></a></span>
+<span id="cb48-10"><a href="#cb48-10"></a><span class="kw">class</span> CreditView : <span class="kw">public</span> CControl {</span>
+<span id="cb48-11"><a href="#cb48-11"></a><span class="kw">public</span>:</span>
+<span id="cb48-12"><a href="#cb48-12"></a>  CreditView(<span class="at">const</span> CRect &amp;size, IControlListener *listener) : CControl(size, listener) {}</span>
 <span id="cb48-13"><a href="#cb48-13"></a></span>
-<span id="cb48-14"><a href="#cb48-14"></a>  <span class="at">const</span> <span class="kw">auto</span> width = getWidth();</span>
-<span id="cb48-15"><a href="#cb48-15"></a>  <span class="at">const</span> <span class="kw">auto</span> height = getHeight();</span>
-<span id="cb48-16"><a href="#cb48-16"></a>  <span class="at">const</span> <span class="dt">double</span> borderWidth = <span class="fl">8.0</span>;</span>
-<span id="cb48-17"><a href="#cb48-17"></a>  <span class="at">const</span> <span class="dt">double</span> halfBorderWidth = borderWidth / <span class="fl">2.0</span>;</span>
-<span id="cb48-18"><a href="#cb48-18"></a></span>
-<span id="cb48-19"><a href="#cb48-19"></a>  <span class="co">// Background.</span></span>
-<span id="cb48-20"><a href="#cb48-20"></a>  <span class="at">const</span> <span class="kw">auto</span> bgColor = CColor(<span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>);</span>
-<span id="cb48-21"><a href="#cb48-21"></a>  pContext-&gt;setLineWidth(borderWidth);</span>
-<span id="cb48-22"><a href="#cb48-22"></a>  pContext-&gt;setFillColor(bgColor);</span>
-<span id="cb48-23"><a href="#cb48-23"></a>  pContext-&gt;drawRect(CRect(<span class="fl">0.0</span>, <span class="fl">0.0</span>, width, height), kDrawFilled);</span>
+<span id="cb48-14"><a href="#cb48-14"></a>  <span class="dt">void</span> draw(CDrawContext *pContext) <span class="kw">override</span>;</span>
+<span id="cb48-15"><a href="#cb48-15"></a></span>
+<span id="cb48-16"><a href="#cb48-16"></a>  CMouseEventResult onMouseDown(CPoint &amp;where, <span class="at">const</span> CButtonState &amp;buttons) <span class="kw">override</span></span>
+<span id="cb48-17"><a href="#cb48-17"></a>  {</span>
+<span id="cb48-18"><a href="#cb48-18"></a>    <span class="cf">if</span> (buttons.isLeftButton()) {</span>
+<span id="cb48-19"><a href="#cb48-19"></a>      valueChanged();</span>
+<span id="cb48-20"><a href="#cb48-20"></a>      <span class="cf">return</span> kMouseDownEventHandledButDontNeedMovedOrUpEvents;</span>
+<span id="cb48-21"><a href="#cb48-21"></a>    }</span>
+<span id="cb48-22"><a href="#cb48-22"></a>    <span class="cf">return</span> kMouseEventNotHandled;</span>
+<span id="cb48-23"><a href="#cb48-23"></a>  }</span>
 <span id="cb48-24"><a href="#cb48-24"></a></span>
-<span id="cb48-25"><a href="#cb48-25"></a>  pContext-&gt;setFont(</span>
-<span id="cb48-26"><a href="#cb48-26"></a>    <span class="kw">new</span> CFontDesc(fontName, fontSizeTitle, CTxtFace::kBoldFace | CTxtFace::kItalicFace));</span>
-<span id="cb48-27"><a href="#cb48-27"></a>  pContext-&gt;setFontColor(CColor(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">255</span>));</span>
-<span id="cb48-28"><a href="#cb48-28"></a>  pContext-&gt;drawString(</span>
-<span id="cb48-29"><a href="#cb48-29"></a>    UTF8String(<span class="st">&quot;🐸🍻🐨🍻🐰&quot;</span>).getPlatformString(), CPoint(<span class="fl">20.0</span>, <span class="fl">50.0</span>));</span>
-<span id="cb48-30"><a href="#cb48-30"></a></span>
-<span id="cb48-31"><a href="#cb48-31"></a>  <span class="co">// Border.</span></span>
-<span id="cb48-32"><a href="#cb48-32"></a>  <span class="at">const</span> <span class="kw">auto</span> borderColor = CColor(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">255</span>);</span>
-<span id="cb48-33"><a href="#cb48-33"></a>  pContext-&gt;setFrameColor(borderColor);</span>
-<span id="cb48-34"><a href="#cb48-34"></a>  pContext-&gt;drawRect(</span>
-<span id="cb48-35"><a href="#cb48-35"></a>    CRect(</span>
-<span id="cb48-36"><a href="#cb48-36"></a>      halfBorderWidth,</span>
-<span id="cb48-37"><a href="#cb48-37"></a>      halfBorderWidth,</span>
-<span id="cb48-38"><a href="#cb48-38"></a>      width - halfBorderWidth,</span>
-<span id="cb48-39"><a href="#cb48-39"></a>      height - halfBorderWidth),</span>
-<span id="cb48-40"><a href="#cb48-40"></a>    kDrawStroked);</span>
-<span id="cb48-41"><a href="#cb48-41"></a></span>
-<span id="cb48-42"><a href="#cb48-42"></a>  setDirty(<span class="kw">false</span>);</span>
-<span id="cb48-43"><a href="#cb48-43"></a>}</span>
-<span id="cb48-44"><a href="#cb48-44"></a></span>
-<span id="cb48-45"><a href="#cb48-45"></a>} <span class="co">// namespace Vst</span></span>
-<span id="cb48-46"><a href="#cb48-46"></a>} <span class="co">// namespace Steinberg</span></span></code></pre></div>
+<span id="cb48-25"><a href="#cb48-25"></a>  CLASS_METHODS(CreditView, CControl)</span>
+<span id="cb48-26"><a href="#cb48-26"></a></span>
+<span id="cb48-27"><a href="#cb48-27"></a><span class="kw">private</span>:</span>
+<span id="cb48-28"><a href="#cb48-28"></a>  UTF8String fontName{<span class="st">&quot;DejaVu Sans Mono&quot;</span>};</span>
+<span id="cb48-29"><a href="#cb48-29"></a>  CCoord fontSize = <span class="fl">18.0</span>;</span>
+<span id="cb48-30"><a href="#cb48-30"></a>  CCoord fontSizeTitle = <span class="fl">24.0</span>;</span>
+<span id="cb48-31"><a href="#cb48-31"></a>};</span>
+<span id="cb48-32"><a href="#cb48-32"></a></span>
+<span id="cb48-33"><a href="#cb48-33"></a>} <span class="co">// namespace Vst</span></span>
+<span id="cb48-34"><a href="#cb48-34"></a>} <span class="co">// namespace Steinberg</span></span></code></pre></div>
+<p><code>source/gui/splash.cpp</code> を作ります。</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb49-1"><a href="#cb49-1"></a><span class="pp">#include </span><span class="im">&quot;splash.hpp&quot;</span></span>
+<span id="cb49-2"><a href="#cb49-2"></a></span>
+<span id="cb49-3"><a href="#cb49-3"></a><span class="kw">namespace</span> Steinberg {</span>
+<span id="cb49-4"><a href="#cb49-4"></a><span class="kw">namespace</span> Vst {</span>
+<span id="cb49-5"><a href="#cb49-5"></a></span>
+<span id="cb49-6"><a href="#cb49-6"></a><span class="kw">using</span> <span class="kw">namespace</span> VSTGUI;</span>
+<span id="cb49-7"><a href="#cb49-7"></a></span>
+<span id="cb49-8"><a href="#cb49-8"></a><span class="dt">void</span> CreditView::draw(CDrawContext *pContext)</span>
+<span id="cb49-9"><a href="#cb49-9"></a>{</span>
+<span id="cb49-10"><a href="#cb49-10"></a>  pContext-&gt;setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));</span>
+<span id="cb49-11"><a href="#cb49-11"></a>  CDrawContext::Transform t(</span>
+<span id="cb49-12"><a href="#cb49-12"></a>    *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));</span>
+<span id="cb49-13"><a href="#cb49-13"></a></span>
+<span id="cb49-14"><a href="#cb49-14"></a>  <span class="at">const</span> <span class="kw">auto</span> width = getWidth();</span>
+<span id="cb49-15"><a href="#cb49-15"></a>  <span class="at">const</span> <span class="kw">auto</span> height = getHeight();</span>
+<span id="cb49-16"><a href="#cb49-16"></a>  <span class="at">const</span> <span class="dt">double</span> borderWidth = <span class="fl">8.0</span>;</span>
+<span id="cb49-17"><a href="#cb49-17"></a>  <span class="at">const</span> <span class="dt">double</span> halfBorderWidth = borderWidth / <span class="fl">2.0</span>;</span>
+<span id="cb49-18"><a href="#cb49-18"></a></span>
+<span id="cb49-19"><a href="#cb49-19"></a>  <span class="co">// Background.</span></span>
+<span id="cb49-20"><a href="#cb49-20"></a>  <span class="at">const</span> <span class="kw">auto</span> bgColor = CColor(<span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>);</span>
+<span id="cb49-21"><a href="#cb49-21"></a>  pContext-&gt;setLineWidth(borderWidth);</span>
+<span id="cb49-22"><a href="#cb49-22"></a>  pContext-&gt;setFillColor(bgColor);</span>
+<span id="cb49-23"><a href="#cb49-23"></a>  pContext-&gt;drawRect(CRect(<span class="fl">0.0</span>, <span class="fl">0.0</span>, width, height), kDrawFilled);</span>
+<span id="cb49-24"><a href="#cb49-24"></a></span>
+<span id="cb49-25"><a href="#cb49-25"></a>  pContext-&gt;setFont(</span>
+<span id="cb49-26"><a href="#cb49-26"></a>    <span class="kw">new</span> CFontDesc(fontName, fontSizeTitle, CTxtFace::kBoldFace | CTxtFace::kItalicFace));</span>
+<span id="cb49-27"><a href="#cb49-27"></a>  pContext-&gt;setFontColor(CColor(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">255</span>));</span>
+<span id="cb49-28"><a href="#cb49-28"></a>  pContext-&gt;drawString(</span>
+<span id="cb49-29"><a href="#cb49-29"></a>    UTF8String(<span class="st">&quot;🐸🍻🐨🍻🐰&quot;</span>).getPlatformString(), CPoint(<span class="fl">20.0</span>, <span class="fl">50.0</span>));</span>
+<span id="cb49-30"><a href="#cb49-30"></a></span>
+<span id="cb49-31"><a href="#cb49-31"></a>  <span class="co">// Border.</span></span>
+<span id="cb49-32"><a href="#cb49-32"></a>  <span class="at">const</span> <span class="kw">auto</span> borderColor = CColor(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">255</span>);</span>
+<span id="cb49-33"><a href="#cb49-33"></a>  pContext-&gt;setFrameColor(borderColor);</span>
+<span id="cb49-34"><a href="#cb49-34"></a>  pContext-&gt;drawRect(</span>
+<span id="cb49-35"><a href="#cb49-35"></a>    CRect(</span>
+<span id="cb49-36"><a href="#cb49-36"></a>      halfBorderWidth,</span>
+<span id="cb49-37"><a href="#cb49-37"></a>      halfBorderWidth,</span>
+<span id="cb49-38"><a href="#cb49-38"></a>      width - halfBorderWidth,</span>
+<span id="cb49-39"><a href="#cb49-39"></a>      height - halfBorderWidth),</span>
+<span id="cb49-40"><a href="#cb49-40"></a>    kDrawStroked);</span>
+<span id="cb49-41"><a href="#cb49-41"></a></span>
+<span id="cb49-42"><a href="#cb49-42"></a>  setDirty(<span class="kw">false</span>);</span>
+<span id="cb49-43"><a href="#cb49-43"></a>}</span>
+<span id="cb49-44"><a href="#cb49-44"></a></span>
+<span id="cb49-45"><a href="#cb49-45"></a>} <span class="co">// namespace Vst</span></span>
+<span id="cb49-46"><a href="#cb49-46"></a>} <span class="co">// namespace Steinberg</span></span></code></pre></div>
 <p><code>SomeFX/CMakeLists.txt</code> にファイルを追加します。</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb49-1"><a href="#cb49-1"></a><span class="kw">set</span>(plug_sources</span>
-<span id="cb49-2"><a href="#cb49-2"></a>    //...</span>
-<span id="cb49-3"><a href="#cb49-3"></a>    source/gui/splash.hpp <span class="co"># 追加</span></span>
-<span id="cb49-4"><a href="#cb49-4"></a>    source/gui/splash.cpp <span class="co"># 追加</span></span>
-<span id="cb49-5"><a href="#cb49-5"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb50-1"><a href="#cb50-1"></a><span class="kw">set</span>(plug_sources</span>
+<span id="cb50-2"><a href="#cb50-2"></a>    //...</span>
+<span id="cb50-3"><a href="#cb50-3"></a>    source/gui/splash.hpp <span class="co"># 追加</span></span>
+<span id="cb50-4"><a href="#cb50-4"></a>    source/gui/splash.cpp <span class="co"># 追加</span></span>
+<span id="cb50-5"><a href="#cb50-5"></a>)</span></code></pre></div>
 <h4 id="ホストが提供するコンテキストメニューの追加">ホストが提供するコンテキストメニューの追加</h4>
 <p>エディタクラスに <code>IMouseObserver</code> を継承させます。</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb50-1"><a href="#cb50-1"></a><span class="kw">class</span> PlugEditor : <span class="kw">public</span> VSTGUIEditor, <span class="kw">public</span> IControlListener, <span class="kw">public</span> IMouseObserver {</span>
-<span id="cb50-2"><a href="#cb50-2"></a><span class="co">// ...</span></span>
-<span id="cb50-3"><a href="#cb50-3"></a></span>
-<span id="cb50-4"><a href="#cb50-4"></a>  <span class="co">// IMouseObserver の実装。</span></span>
-<span id="cb50-5"><a href="#cb50-5"></a>  <span class="dt">void</span> onMouseEntered(CView *view, CFrame *frame) <span class="kw">override</span> {}</span>
-<span id="cb50-6"><a href="#cb50-6"></a>  <span class="dt">void</span> onMouseExited(CView *view, CFrame *frame) <span class="kw">override</span> {}</span>
-<span id="cb50-7"><a href="#cb50-7"></a>  CMouseEventResult</span>
-<span id="cb50-8"><a href="#cb50-8"></a>  onMouseMoved(CFrame *frame, <span class="at">const</span> CPoint &amp;where, <span class="at">const</span> CButtonState &amp;buttons) <span class="kw">override</span></span>
-<span id="cb50-9"><a href="#cb50-9"></a>  {</span>
-<span id="cb50-10"><a href="#cb50-10"></a>    <span class="cf">return</span> kMouseEventNotHandled;</span>
-<span id="cb50-11"><a href="#cb50-11"></a>  }</span>
-<span id="cb50-12"><a href="#cb50-12"></a>  CMouseEventResult</span>
-<span id="cb50-13"><a href="#cb50-13"></a>  onMouseDown(CFrame *frame, <span class="at">const</span> CPoint &amp;where, <span class="at">const</span> CButtonState &amp;buttons) <span class="kw">override</span>;</span>
-<span id="cb50-14"><a href="#cb50-14"></a></span>
-<span id="cb50-15"><a href="#cb50-15"></a><span class="co">// ...</span></span>
-<span id="cb50-16"><a href="#cb50-16"></a>};</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb51-1"><a href="#cb51-1"></a><span class="kw">class</span> PlugEditor : <span class="kw">public</span> VSTGUIEditor, <span class="kw">public</span> IControlListener, <span class="kw">public</span> IMouseObserver {</span>
+<span id="cb51-2"><a href="#cb51-2"></a><span class="co">// ...</span></span>
+<span id="cb51-3"><a href="#cb51-3"></a></span>
+<span id="cb51-4"><a href="#cb51-4"></a>  <span class="co">// IMouseObserver の実装。</span></span>
+<span id="cb51-5"><a href="#cb51-5"></a>  <span class="dt">void</span> onMouseEntered(CView *view, CFrame *frame) <span class="kw">override</span> {}</span>
+<span id="cb51-6"><a href="#cb51-6"></a>  <span class="dt">void</span> onMouseExited(CView *view, CFrame *frame) <span class="kw">override</span> {}</span>
+<span id="cb51-7"><a href="#cb51-7"></a>  CMouseEventResult</span>
+<span id="cb51-8"><a href="#cb51-8"></a>  onMouseMoved(CFrame *frame, <span class="at">const</span> CPoint &amp;where, <span class="at">const</span> CButtonState &amp;buttons) <span class="kw">override</span></span>
+<span id="cb51-9"><a href="#cb51-9"></a>  {</span>
+<span id="cb51-10"><a href="#cb51-10"></a>    <span class="cf">return</span> kMouseEventNotHandled;</span>
+<span id="cb51-11"><a href="#cb51-11"></a>  }</span>
+<span id="cb51-12"><a href="#cb51-12"></a>  CMouseEventResult</span>
+<span id="cb51-13"><a href="#cb51-13"></a>  onMouseDown(CFrame *frame, <span class="at">const</span> CPoint &amp;where, <span class="at">const</span> CButtonState &amp;buttons) <span class="kw">override</span>;</span>
+<span id="cb51-14"><a href="#cb51-14"></a></span>
+<span id="cb51-15"><a href="#cb51-15"></a><span class="co">// ...</span></span>
+<span id="cb51-16"><a href="#cb51-16"></a>};</span></code></pre></div>
 <p>エディタクラスの <code>open</code> メソッド内で <code>frame</code> からマウスイベントを伝えるように指定します。</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb51-1"><a href="#cb51-1"></a><span class="dt">bool</span> PlugEditor::open(<span class="dt">void</span> *parent, <span class="at">const</span> PlatformType &amp;platformType)</span>
-<span id="cb51-2"><a href="#cb51-2"></a>{</span>
-<span id="cb51-3"><a href="#cb51-3"></a>  <span class="co">// ...</span></span>
-<span id="cb51-4"><a href="#cb51-4"></a></span>
-<span id="cb51-5"><a href="#cb51-5"></a>  frame-&gt;registerMouseObserver(<span class="kw">this</span>);</span>
-<span id="cb51-6"><a href="#cb51-6"></a></span>
-<span id="cb51-7"><a href="#cb51-7"></a>  <span class="co">// ...</span></span>
-<span id="cb51-8"><a href="#cb51-8"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb52-1"><a href="#cb52-1"></a><span class="dt">bool</span> PlugEditor::open(<span class="dt">void</span> *parent, <span class="at">const</span> PlatformType &amp;platformType)</span>
+<span id="cb52-2"><a href="#cb52-2"></a>{</span>
+<span id="cb52-3"><a href="#cb52-3"></a>  <span class="co">// ...</span></span>
+<span id="cb52-4"><a href="#cb52-4"></a></span>
+<span id="cb52-5"><a href="#cb52-5"></a>  frame-&gt;registerMouseObserver(<span class="kw">this</span>);</span>
+<span id="cb52-6"><a href="#cb52-6"></a></span>
+<span id="cb52-7"><a href="#cb52-7"></a>  <span class="co">// ...</span></span>
+<span id="cb52-8"><a href="#cb52-8"></a>}</span></code></pre></div>
 <p><code>onMouseDown</code> を実装します。</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb52-1"><a href="#cb52-1"></a>CMouseEventResult</span>
-<span id="cb52-2"><a href="#cb52-2"></a>PlugEditor::onMouseDown(CFrame *frame, <span class="at">const</span> CPoint &amp;where, <span class="at">const</span> CButtonState &amp;buttons)</span>
-<span id="cb52-3"><a href="#cb52-3"></a>{</span>
-<span id="cb52-4"><a href="#cb52-4"></a>  <span class="cf">if</span> (!buttons.isRightButton()) <span class="cf">return</span> kMouseEventNotHandled;</span>
-<span id="cb52-5"><a href="#cb52-5"></a></span>
-<span id="cb52-6"><a href="#cb52-6"></a>  <span class="kw">auto</span> componentHandler = controller-&gt;getComponentHandler();</span>
-<span id="cb52-7"><a href="#cb52-7"></a>  <span class="cf">if</span> (componentHandler == <span class="kw">nullptr</span>) <span class="cf">return</span> kMouseEventNotHandled;</span>
-<span id="cb52-8"><a href="#cb52-8"></a></span>
-<span id="cb52-9"><a href="#cb52-9"></a>  FUnknownPtr&lt;IComponentHandler3&gt; handler(componentHandler);</span>
-<span id="cb52-10"><a href="#cb52-10"></a>  <span class="cf">if</span> (handler == <span class="kw">nullptr</span>) <span class="cf">return</span> kMouseEventNotHandled;</span>
-<span id="cb52-11"><a href="#cb52-11"></a></span>
-<span id="cb52-12"><a href="#cb52-12"></a>  <span class="kw">auto</span> control = <span class="kw">dynamic_cast</span>&lt;CControl *&gt;(frame-&gt;getViewAt(where));</span>
-<span id="cb52-13"><a href="#cb52-13"></a>  <span class="cf">if</span> (control == <span class="kw">nullptr</span>) <span class="cf">return</span> kMouseEventNotHandled;</span>
-<span id="cb52-14"><a href="#cb52-14"></a></span>
-<span id="cb52-15"><a href="#cb52-15"></a>  ParamID id = control-&gt;getTag();</span>
-<span id="cb52-16"><a href="#cb52-16"></a>  <span class="cf">if</span> (id &lt; <span class="dv">1</span> || id &gt;= LONG_MAX) <span class="cf">return</span> kMouseEventNotHandled;</span>
-<span id="cb52-17"><a href="#cb52-17"></a></span>
-<span id="cb52-18"><a href="#cb52-18"></a>  IContextMenu *menu = handler-&gt;createContextMenu(<span class="kw">this</span>, &amp;id);</span>
-<span id="cb52-19"><a href="#cb52-19"></a>  <span class="cf">if</span> (menu == <span class="kw">nullptr</span>) <span class="cf">return</span> kMouseEventNotHandled;</span>
-<span id="cb52-20"><a href="#cb52-20"></a>  menu-&gt;popup(where.x, where.y);</span>
-<span id="cb52-21"><a href="#cb52-21"></a>  menu-&gt;release();</span>
-<span id="cb52-22"><a href="#cb52-22"></a>  <span class="cf">return</span> kMouseEventHandled;</span>
-<span id="cb52-23"><a href="#cb52-23"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb53-1"><a href="#cb53-1"></a>CMouseEventResult</span>
+<span id="cb53-2"><a href="#cb53-2"></a>PlugEditor::onMouseDown(CFrame *frame, <span class="at">const</span> CPoint &amp;where, <span class="at">const</span> CButtonState &amp;buttons)</span>
+<span id="cb53-3"><a href="#cb53-3"></a>{</span>
+<span id="cb53-4"><a href="#cb53-4"></a>  <span class="cf">if</span> (!buttons.isRightButton()) <span class="cf">return</span> kMouseEventNotHandled;</span>
+<span id="cb53-5"><a href="#cb53-5"></a></span>
+<span id="cb53-6"><a href="#cb53-6"></a>  <span class="kw">auto</span> componentHandler = controller-&gt;getComponentHandler();</span>
+<span id="cb53-7"><a href="#cb53-7"></a>  <span class="cf">if</span> (componentHandler == <span class="kw">nullptr</span>) <span class="cf">return</span> kMouseEventNotHandled;</span>
+<span id="cb53-8"><a href="#cb53-8"></a></span>
+<span id="cb53-9"><a href="#cb53-9"></a>  FUnknownPtr&lt;IComponentHandler3&gt; handler(componentHandler);</span>
+<span id="cb53-10"><a href="#cb53-10"></a>  <span class="cf">if</span> (handler == <span class="kw">nullptr</span>) <span class="cf">return</span> kMouseEventNotHandled;</span>
+<span id="cb53-11"><a href="#cb53-11"></a></span>
+<span id="cb53-12"><a href="#cb53-12"></a>  <span class="kw">auto</span> control = <span class="kw">dynamic_cast</span>&lt;CControl *&gt;(frame-&gt;getViewAt(where));</span>
+<span id="cb53-13"><a href="#cb53-13"></a>  <span class="cf">if</span> (control == <span class="kw">nullptr</span>) <span class="cf">return</span> kMouseEventNotHandled;</span>
+<span id="cb53-14"><a href="#cb53-14"></a></span>
+<span id="cb53-15"><a href="#cb53-15"></a>  ParamID id = control-&gt;getTag();</span>
+<span id="cb53-16"><a href="#cb53-16"></a>  <span class="cf">if</span> (id &lt; <span class="dv">1</span> || id &gt;= LONG_MAX) <span class="cf">return</span> kMouseEventNotHandled;</span>
+<span id="cb53-17"><a href="#cb53-17"></a></span>
+<span id="cb53-18"><a href="#cb53-18"></a>  IContextMenu *menu = handler-&gt;createContextMenu(<span class="kw">this</span>, &amp;id);</span>
+<span id="cb53-19"><a href="#cb53-19"></a>  <span class="cf">if</span> (menu == <span class="kw">nullptr</span>) <span class="cf">return</span> kMouseEventNotHandled;</span>
+<span id="cb53-20"><a href="#cb53-20"></a>  menu-&gt;popup(where.x, where.y);</span>
+<span id="cb53-21"><a href="#cb53-21"></a>  menu-&gt;release();</span>
+<span id="cb53-22"><a href="#cb53-22"></a>  <span class="cf">return</span> kMouseEventHandled;</span>
+<span id="cb53-23"><a href="#cb53-23"></a>}</span></code></pre></div>
 <p>0 あるいは負の tag が指定されたコントロールではコンテキストメニューを表示したくないので、 <code>id</code> の条件を <code>id &lt; 1 || id &gt;= LONG_MAX</code> としています。 <code>LONG_MAX</code> を使っているのは <code>ParamID</code> が <code>unsigned long</code> の typedef だからです。</p>
 <p>コンテキストメニューが開かないときは <code>kMouseEventNotHandled</code> を返して、他のコントロールにマウスイベントが伝わるようにしています。</p>
 <h4 id="コンテキストメニューにズーム機能を追加">コンテキストメニューにズーム機能を追加</h4>
@@ -1395,117 +1436,117 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <hr />
 <p>ズーム機能は GUI を任意の倍率で拡大する機能です。 VSTGUI4 で高解像度ディスプレイへ対応するときに使えます。</p>
 <p>まずはエディタクラスに <code>CommandMenuItemTargetAdapter</code> を継承させて、ユーザがコンテキストメニューのアイテムを選択したときに通知されるようにします。</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb53-1"><a href="#cb53-1"></a><span class="kw">class</span> PlugEditor : <span class="kw">public</span> VSTGUIEditor,</span>
-<span id="cb53-2"><a href="#cb53-2"></a>                   <span class="kw">public</span> IControlListener,</span>
-<span id="cb53-3"><a href="#cb53-3"></a>                   <span class="kw">public</span> IMouseObserver,</span>
-<span id="cb53-4"><a href="#cb53-4"></a>                   <span class="kw">public</span> CommandMenuItemTargetAdapter {</span>
-<span id="cb53-5"><a href="#cb53-5"></a><span class="co">// ...</span></span>
-<span id="cb53-6"><a href="#cb53-6"></a></span>
-<span id="cb53-7"><a href="#cb53-7"></a>  <span class="co">// CommandMenuItemTargetAdapter の実装。</span></span>
-<span id="cb53-8"><a href="#cb53-8"></a>  <span class="dt">bool</span> validateCommandMenuItem(CCommandMenuItem *item) <span class="kw">override</span></span>
-<span id="cb53-9"><a href="#cb53-9"></a>  {</span>
-<span id="cb53-10"><a href="#cb53-10"></a>    <span class="cf">return</span> <span class="kw">false</span>;</span>
-<span id="cb53-11"><a href="#cb53-11"></a>  };</span>
-<span id="cb53-12"><a href="#cb53-12"></a>  <span class="dt">bool</span> onCommandMenuItemSelected(CCommandMenuItem *item) <span class="kw">override</span>;</span>
-<span id="cb53-13"><a href="#cb53-13"></a></span>
-<span id="cb53-14"><a href="#cb53-14"></a><span class="co">// ...</span></span>
-<span id="cb53-15"><a href="#cb53-15"></a>};</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb54-1"><a href="#cb54-1"></a><span class="kw">class</span> PlugEditor : <span class="kw">public</span> VSTGUIEditor,</span>
+<span id="cb54-2"><a href="#cb54-2"></a>                   <span class="kw">public</span> IControlListener,</span>
+<span id="cb54-3"><a href="#cb54-3"></a>                   <span class="kw">public</span> IMouseObserver,</span>
+<span id="cb54-4"><a href="#cb54-4"></a>                   <span class="kw">public</span> CommandMenuItemTargetAdapter {</span>
+<span id="cb54-5"><a href="#cb54-5"></a><span class="co">// ...</span></span>
+<span id="cb54-6"><a href="#cb54-6"></a></span>
+<span id="cb54-7"><a href="#cb54-7"></a>  <span class="co">// CommandMenuItemTargetAdapter の実装。</span></span>
+<span id="cb54-8"><a href="#cb54-8"></a>  <span class="dt">bool</span> validateCommandMenuItem(CCommandMenuItem *item) <span class="kw">override</span></span>
+<span id="cb54-9"><a href="#cb54-9"></a>  {</span>
+<span id="cb54-10"><a href="#cb54-10"></a>    <span class="cf">return</span> <span class="kw">false</span>;</span>
+<span id="cb54-11"><a href="#cb54-11"></a>  };</span>
+<span id="cb54-12"><a href="#cb54-12"></a>  <span class="dt">bool</span> onCommandMenuItemSelected(CCommandMenuItem *item) <span class="kw">override</span>;</span>
+<span id="cb54-13"><a href="#cb54-13"></a></span>
+<span id="cb54-14"><a href="#cb54-14"></a><span class="co">// ...</span></span>
+<span id="cb54-15"><a href="#cb54-15"></a>};</span></code></pre></div>
 <p><code>onCommandMenuItemSelected</code> の実装です。 2 つのメニューアイテムを用意して、 1.0 倍と 2.0 倍を切り替えられるようにしています。倍率の切り替えには <code>CFrame</code> の <code>setZoom</code> を使います。</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb54-1"><a href="#cb54-1"></a><span class="dt">bool</span> PlugEditor::onCommandMenuItemSelected(CCommandMenuItem *item)</span>
-<span id="cb54-2"><a href="#cb54-2"></a>{</span>
-<span id="cb54-3"><a href="#cb54-3"></a>  <span class="cf">if</span> (item-&gt;getCommandCategory() != <span class="st">&quot;Scale&quot;</span>) <span class="cf">return</span> <span class="kw">false</span>;</span>
-<span id="cb54-4"><a href="#cb54-4"></a>  <span class="cf">if</span> (frame == <span class="kw">nullptr</span>) <span class="cf">return</span> <span class="kw">true</span>;</span>
-<span id="cb54-5"><a href="#cb54-5"></a></span>
-<span id="cb54-6"><a href="#cb54-6"></a>  <span class="cf">switch</span> (item-&gt;getTag()) {</span>
-<span id="cb54-7"><a href="#cb54-7"></a>    <span class="cf">case</span> <span class="dv">0</span>: {</span>
-<span id="cb54-8"><a href="#cb54-8"></a>      frame-&gt;setZoom(<span class="fl">1.0</span>);</span>
-<span id="cb54-9"><a href="#cb54-9"></a>    } <span class="cf">break</span>;</span>
-<span id="cb54-10"><a href="#cb54-10"></a></span>
-<span id="cb54-11"><a href="#cb54-11"></a>    <span class="cf">case</span> <span class="dv">1</span>: {</span>
-<span id="cb54-12"><a href="#cb54-12"></a>      frame-&gt;setZoom(<span class="fl">2.0</span>);</span>
-<span id="cb54-13"><a href="#cb54-13"></a>    } <span class="cf">break</span>;</span>
-<span id="cb54-14"><a href="#cb54-14"></a>  }</span>
-<span id="cb54-15"><a href="#cb54-15"></a></span>
-<span id="cb54-16"><a href="#cb54-16"></a>  <span class="cf">return</span> <span class="kw">true</span>;</span>
-<span id="cb54-17"><a href="#cb54-17"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb55-1"><a href="#cb55-1"></a><span class="dt">bool</span> PlugEditor::onCommandMenuItemSelected(CCommandMenuItem *item)</span>
+<span id="cb55-2"><a href="#cb55-2"></a>{</span>
+<span id="cb55-3"><a href="#cb55-3"></a>  <span class="cf">if</span> (item-&gt;getCommandCategory() != <span class="st">&quot;Scale&quot;</span>) <span class="cf">return</span> <span class="kw">false</span>;</span>
+<span id="cb55-4"><a href="#cb55-4"></a>  <span class="cf">if</span> (frame == <span class="kw">nullptr</span>) <span class="cf">return</span> <span class="kw">true</span>;</span>
+<span id="cb55-5"><a href="#cb55-5"></a></span>
+<span id="cb55-6"><a href="#cb55-6"></a>  <span class="cf">switch</span> (item-&gt;getTag()) {</span>
+<span id="cb55-7"><a href="#cb55-7"></a>    <span class="cf">case</span> <span class="dv">0</span>: {</span>
+<span id="cb55-8"><a href="#cb55-8"></a>      frame-&gt;setZoom(<span class="fl">1.0</span>);</span>
+<span id="cb55-9"><a href="#cb55-9"></a>    } <span class="cf">break</span>;</span>
+<span id="cb55-10"><a href="#cb55-10"></a></span>
+<span id="cb55-11"><a href="#cb55-11"></a>    <span class="cf">case</span> <span class="dv">1</span>: {</span>
+<span id="cb55-12"><a href="#cb55-12"></a>      frame-&gt;setZoom(<span class="fl">2.0</span>);</span>
+<span id="cb55-13"><a href="#cb55-13"></a>    } <span class="cf">break</span>;</span>
+<span id="cb55-14"><a href="#cb55-14"></a>  }</span>
+<span id="cb55-15"><a href="#cb55-15"></a></span>
+<span id="cb55-16"><a href="#cb55-16"></a>  <span class="cf">return</span> <span class="kw">true</span>;</span>
+<span id="cb55-17"><a href="#cb55-17"></a>}</span></code></pre></div>
 <p><code>onMouseDown</code> を変更してマウスが右クリックされたときに表示されるコンテキストメニューにズームを行うアイテムを追加します。</p>
 <p>アイテムが選択されると <code>ContextMenuTarget</code> の <code>executeMenuItem</code> が呼び出されます。さらに <code>item-&gt;execute()</code> から <code>CommandMenuItemTargetAdapter</code> の <code>onCommandMenuItemSelected</code> が呼び出されます。</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb55-1"><a href="#cb55-1"></a><span class="kw">class</span> ContextMenuTarget : <span class="kw">public</span> IContextMenuTarget, <span class="kw">public</span> FObject {</span>
-<span id="cb55-2"><a href="#cb55-2"></a><span class="kw">public</span>:</span>
-<span id="cb55-3"><a href="#cb55-3"></a>  ContextMenuTarget(CCommandMenuItem *item) : item(item)</span>
-<span id="cb55-4"><a href="#cb55-4"></a>  {</span>
-<span id="cb55-5"><a href="#cb55-5"></a>    item-&gt;remember();</span>
-<span id="cb55-6"><a href="#cb55-6"></a>  }</span>
-<span id="cb55-7"><a href="#cb55-7"></a></span>
-<span id="cb55-8"><a href="#cb55-8"></a>  ~ContextMenuTarget() <span class="kw">override</span></span>
-<span id="cb55-9"><a href="#cb55-9"></a>  {</span>
-<span id="cb55-10"><a href="#cb55-10"></a>    item-&gt;forget();</span>
-<span id="cb55-11"><a href="#cb55-11"></a>  }</span>
-<span id="cb55-12"><a href="#cb55-12"></a></span>
-<span id="cb55-13"><a href="#cb55-13"></a>  Steinberg::tresult PLUGIN_API executeMenuItem(Steinberg::int32 tag) <span class="kw">override</span></span>
-<span id="cb55-14"><a href="#cb55-14"></a>  {</span>
-<span id="cb55-15"><a href="#cb55-15"></a>    item-&gt;execute();</span>
-<span id="cb55-16"><a href="#cb55-16"></a>    <span class="cf">return</span> Steinberg::kResultTrue;</span>
-<span id="cb55-17"><a href="#cb55-17"></a>  }</span>
-<span id="cb55-18"><a href="#cb55-18"></a></span>
-<span id="cb55-19"><a href="#cb55-19"></a>  OBJ_METHODS(ContextMenuTarget, Steinberg::FObject)</span>
-<span id="cb55-20"><a href="#cb55-20"></a>  FUNKNOWN_METHODS(Steinberg::Vst::IContextMenuTarget, Steinberg::FObject)</span>
-<span id="cb55-21"><a href="#cb55-21"></a><span class="kw">protected</span>:</span>
-<span id="cb55-22"><a href="#cb55-22"></a>  CCommandMenuItem *item;</span>
-<span id="cb55-23"><a href="#cb55-23"></a>};</span>
-<span id="cb55-24"><a href="#cb55-24"></a></span>
-<span id="cb55-25"><a href="#cb55-25"></a>CMouseEventResult</span>
-<span id="cb55-26"><a href="#cb55-26"></a>PlugEditor::onMouseDown(CFrame *frame, <span class="at">const</span> CPoint &amp;where, <span class="at">const</span> CButtonState &amp;buttons)</span>
-<span id="cb55-27"><a href="#cb55-27"></a>{</span>
-<span id="cb55-28"><a href="#cb55-28"></a>  <span class="cf">if</span> (!buttons.isRightButton()) <span class="cf">return</span> kMouseEventNotHandled;</span>
-<span id="cb55-29"><a href="#cb55-29"></a></span>
-<span id="cb55-30"><a href="#cb55-30"></a>  <span class="kw">auto</span> componentHandler = controller-&gt;getComponentHandler();</span>
-<span id="cb55-31"><a href="#cb55-31"></a>  <span class="cf">if</span> (componentHandler == <span class="kw">nullptr</span>) <span class="cf">return</span> kMouseEventNotHandled;</span>
-<span id="cb55-32"><a href="#cb55-32"></a></span>
-<span id="cb55-33"><a href="#cb55-33"></a>  FUnknownPtr&lt;IComponentHandler3&gt; handler(componentHandler);</span>
-<span id="cb55-34"><a href="#cb55-34"></a>  <span class="cf">if</span> (handler == <span class="kw">nullptr</span>) <span class="cf">return</span> kMouseEventNotHandled;</span>
-<span id="cb55-35"><a href="#cb55-35"></a></span>
-<span id="cb55-36"><a href="#cb55-36"></a>  <span class="kw">auto</span> control = <span class="kw">dynamic_cast</span>&lt;CControl *&gt;(frame-&gt;getViewAt(where));</span>
-<span id="cb55-37"><a href="#cb55-37"></a>  <span class="cf">if</span> (control == <span class="kw">nullptr</span>) <span class="cf">return</span> kMouseEventNotHandled;</span>
-<span id="cb55-38"><a href="#cb55-38"></a></span>
-<span id="cb55-39"><a href="#cb55-39"></a>  ParamID id = control-&gt;getTag();</span>
-<span id="cb55-40"><a href="#cb55-40"></a>  <span class="cf">if</span> (id &lt; <span class="dv">1</span> || id &gt;= LONG_MAX) <span class="cf">return</span> kMouseEventNotHandled;</span>
-<span id="cb55-41"><a href="#cb55-41"></a></span>
-<span id="cb55-42"><a href="#cb55-42"></a>  <span class="kw">auto</span> contextMenu = handler-&gt;createContextMenu(<span class="kw">this</span>, &amp;id);</span>
-<span id="cb55-43"><a href="#cb55-43"></a>  <span class="cf">if</span> (contextMenu == <span class="kw">nullptr</span>) <span class="cf">return</span> kMouseEventNotHandled;</span>
-<span id="cb55-44"><a href="#cb55-44"></a></span>
-<span id="cb55-45"><a href="#cb55-45"></a>  <span class="co">// ここからメニューの追加。</span></span>
-<span id="cb55-46"><a href="#cb55-46"></a></span>
-<span id="cb55-47"><a href="#cb55-47"></a>  <span class="co">// kIsGroupStart を設定してもメニューが入れ子にならない。</span></span>
-<span id="cb55-48"><a href="#cb55-48"></a>  IContextMenu::Item groupItem{};</span>
-<span id="cb55-49"><a href="#cb55-49"></a>  UString128(<span class="st">&quot;Scale&quot;</span>).copyTo(groupItem.name, <span class="dv">128</span>);</span>
-<span id="cb55-50"><a href="#cb55-50"></a>  groupItem.flags = IContextMenu::Item::kIsGroupStart;</span>
-<span id="cb55-51"><a href="#cb55-51"></a>  contextMenu-&gt;addItem(groupItem, <span class="kw">nullptr</span>);</span>
-<span id="cb55-52"><a href="#cb55-52"></a></span>
-<span id="cb55-53"><a href="#cb55-53"></a>  <span class="bu">std::</span>array&lt;<span class="dt">double</span>, <span class="dv">2</span>&gt; scales = {<span class="fl">1.0</span>, <span class="fl">2.0</span>};</span>
-<span id="cb55-54"><a href="#cb55-54"></a>  <span class="cf">for</span> (<span class="dt">size_t</span> index = <span class="dv">0</span>; index &lt; scales.size(); ++index) {</span>
-<span id="cb55-55"><a href="#cb55-55"></a>    IContextMenu::Item item{};</span>
-<span id="cb55-56"><a href="#cb55-56"></a>    UString128(<span class="bu">std::</span>to_string(scales[index]).c_str()).copyTo(item.name, <span class="dv">128</span>);</span>
-<span id="cb55-57"><a href="#cb55-57"></a>    item.flags = <span class="dv">0</span>;</span>
-<span id="cb55-58"><a href="#cb55-58"></a>    item.tag = (<span class="dt">int32_t</span>)index;</span>
-<span id="cb55-59"><a href="#cb55-59"></a></span>
-<span id="cb55-60"><a href="#cb55-60"></a>    <span class="co">// 注意: VSTGUI 4.8 では CCommandMenuItem::Desc に渡した tag が</span></span>
-<span id="cb55-61"><a href="#cb55-61"></a>    <span class="co">// CCommandMenuItem に渡されずに無視される。</span></span>
-<span id="cb55-62"><a href="#cb55-62"></a>    <span class="kw">auto</span> command = <span class="kw">new</span> CCommandMenuItem({<span class="kw">nullptr</span>, item.tag, <span class="kw">this</span>, <span class="st">&quot;Scale&quot;</span>, <span class="kw">nullptr</span>});</span>
-<span id="cb55-63"><a href="#cb55-63"></a>    command-&gt;setTag(item.tag);</span>
-<span id="cb55-64"><a href="#cb55-64"></a>    contextMenu-&gt;addItem(item, <span class="kw">new</span> ContextMenuTarget(command));</span>
-<span id="cb55-65"><a href="#cb55-65"></a>  }</span>
-<span id="cb55-66"><a href="#cb55-66"></a></span>
-<span id="cb55-67"><a href="#cb55-67"></a>  <span class="co">// kIsGroupEnd を設定してもメニューが入れ子にならない。</span></span>
-<span id="cb55-68"><a href="#cb55-68"></a>  groupItem.flags = IContextMenu::Item::kIsGroupEnd;</span>
-<span id="cb55-69"><a href="#cb55-69"></a>  contextMenu-&gt;addItem(groupItem, <span class="kw">nullptr</span>);</span>
-<span id="cb55-70"><a href="#cb55-70"></a></span>
-<span id="cb55-71"><a href="#cb55-71"></a>  <span class="co">// ここまでメニューの追加。</span></span>
-<span id="cb55-72"><a href="#cb55-72"></a></span>
-<span id="cb55-73"><a href="#cb55-73"></a>  contextMenu-&gt;popup(where.x, where.y);</span>
-<span id="cb55-74"><a href="#cb55-74"></a>  contextMenu-&gt;release();</span>
-<span id="cb55-75"><a href="#cb55-75"></a>  <span class="cf">return</span> kMouseEventHandled;</span>
-<span id="cb55-76"><a href="#cb55-76"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb56-1"><a href="#cb56-1"></a><span class="kw">class</span> ContextMenuTarget : <span class="kw">public</span> IContextMenuTarget, <span class="kw">public</span> FObject {</span>
+<span id="cb56-2"><a href="#cb56-2"></a><span class="kw">public</span>:</span>
+<span id="cb56-3"><a href="#cb56-3"></a>  ContextMenuTarget(CCommandMenuItem *item) : item(item)</span>
+<span id="cb56-4"><a href="#cb56-4"></a>  {</span>
+<span id="cb56-5"><a href="#cb56-5"></a>    item-&gt;remember();</span>
+<span id="cb56-6"><a href="#cb56-6"></a>  }</span>
+<span id="cb56-7"><a href="#cb56-7"></a></span>
+<span id="cb56-8"><a href="#cb56-8"></a>  ~ContextMenuTarget() <span class="kw">override</span></span>
+<span id="cb56-9"><a href="#cb56-9"></a>  {</span>
+<span id="cb56-10"><a href="#cb56-10"></a>    item-&gt;forget();</span>
+<span id="cb56-11"><a href="#cb56-11"></a>  }</span>
+<span id="cb56-12"><a href="#cb56-12"></a></span>
+<span id="cb56-13"><a href="#cb56-13"></a>  Steinberg::tresult PLUGIN_API executeMenuItem(Steinberg::int32 tag) <span class="kw">override</span></span>
+<span id="cb56-14"><a href="#cb56-14"></a>  {</span>
+<span id="cb56-15"><a href="#cb56-15"></a>    item-&gt;execute();</span>
+<span id="cb56-16"><a href="#cb56-16"></a>    <span class="cf">return</span> Steinberg::kResultTrue;</span>
+<span id="cb56-17"><a href="#cb56-17"></a>  }</span>
+<span id="cb56-18"><a href="#cb56-18"></a></span>
+<span id="cb56-19"><a href="#cb56-19"></a>  OBJ_METHODS(ContextMenuTarget, Steinberg::FObject)</span>
+<span id="cb56-20"><a href="#cb56-20"></a>  FUNKNOWN_METHODS(Steinberg::Vst::IContextMenuTarget, Steinberg::FObject)</span>
+<span id="cb56-21"><a href="#cb56-21"></a><span class="kw">protected</span>:</span>
+<span id="cb56-22"><a href="#cb56-22"></a>  CCommandMenuItem *item;</span>
+<span id="cb56-23"><a href="#cb56-23"></a>};</span>
+<span id="cb56-24"><a href="#cb56-24"></a></span>
+<span id="cb56-25"><a href="#cb56-25"></a>CMouseEventResult</span>
+<span id="cb56-26"><a href="#cb56-26"></a>PlugEditor::onMouseDown(CFrame *frame, <span class="at">const</span> CPoint &amp;where, <span class="at">const</span> CButtonState &amp;buttons)</span>
+<span id="cb56-27"><a href="#cb56-27"></a>{</span>
+<span id="cb56-28"><a href="#cb56-28"></a>  <span class="cf">if</span> (!buttons.isRightButton()) <span class="cf">return</span> kMouseEventNotHandled;</span>
+<span id="cb56-29"><a href="#cb56-29"></a></span>
+<span id="cb56-30"><a href="#cb56-30"></a>  <span class="kw">auto</span> componentHandler = controller-&gt;getComponentHandler();</span>
+<span id="cb56-31"><a href="#cb56-31"></a>  <span class="cf">if</span> (componentHandler == <span class="kw">nullptr</span>) <span class="cf">return</span> kMouseEventNotHandled;</span>
+<span id="cb56-32"><a href="#cb56-32"></a></span>
+<span id="cb56-33"><a href="#cb56-33"></a>  FUnknownPtr&lt;IComponentHandler3&gt; handler(componentHandler);</span>
+<span id="cb56-34"><a href="#cb56-34"></a>  <span class="cf">if</span> (handler == <span class="kw">nullptr</span>) <span class="cf">return</span> kMouseEventNotHandled;</span>
+<span id="cb56-35"><a href="#cb56-35"></a></span>
+<span id="cb56-36"><a href="#cb56-36"></a>  <span class="kw">auto</span> control = <span class="kw">dynamic_cast</span>&lt;CControl *&gt;(frame-&gt;getViewAt(where));</span>
+<span id="cb56-37"><a href="#cb56-37"></a>  <span class="cf">if</span> (control == <span class="kw">nullptr</span>) <span class="cf">return</span> kMouseEventNotHandled;</span>
+<span id="cb56-38"><a href="#cb56-38"></a></span>
+<span id="cb56-39"><a href="#cb56-39"></a>  ParamID id = control-&gt;getTag();</span>
+<span id="cb56-40"><a href="#cb56-40"></a>  <span class="cf">if</span> (id &lt; <span class="dv">1</span> || id &gt;= LONG_MAX) <span class="cf">return</span> kMouseEventNotHandled;</span>
+<span id="cb56-41"><a href="#cb56-41"></a></span>
+<span id="cb56-42"><a href="#cb56-42"></a>  <span class="kw">auto</span> contextMenu = handler-&gt;createContextMenu(<span class="kw">this</span>, &amp;id);</span>
+<span id="cb56-43"><a href="#cb56-43"></a>  <span class="cf">if</span> (contextMenu == <span class="kw">nullptr</span>) <span class="cf">return</span> kMouseEventNotHandled;</span>
+<span id="cb56-44"><a href="#cb56-44"></a></span>
+<span id="cb56-45"><a href="#cb56-45"></a>  <span class="co">// ここからメニューの追加。</span></span>
+<span id="cb56-46"><a href="#cb56-46"></a></span>
+<span id="cb56-47"><a href="#cb56-47"></a>  <span class="co">// kIsGroupStart を設定してもメニューが入れ子にならない。</span></span>
+<span id="cb56-48"><a href="#cb56-48"></a>  IContextMenu::Item groupItem{};</span>
+<span id="cb56-49"><a href="#cb56-49"></a>  UString128(<span class="st">&quot;Scale&quot;</span>).copyTo(groupItem.name, <span class="dv">128</span>);</span>
+<span id="cb56-50"><a href="#cb56-50"></a>  groupItem.flags = IContextMenu::Item::kIsGroupStart;</span>
+<span id="cb56-51"><a href="#cb56-51"></a>  contextMenu-&gt;addItem(groupItem, <span class="kw">nullptr</span>);</span>
+<span id="cb56-52"><a href="#cb56-52"></a></span>
+<span id="cb56-53"><a href="#cb56-53"></a>  <span class="bu">std::</span>array&lt;<span class="dt">double</span>, <span class="dv">2</span>&gt; scales = {<span class="fl">1.0</span>, <span class="fl">2.0</span>};</span>
+<span id="cb56-54"><a href="#cb56-54"></a>  <span class="cf">for</span> (<span class="dt">size_t</span> index = <span class="dv">0</span>; index &lt; scales.size(); ++index) {</span>
+<span id="cb56-55"><a href="#cb56-55"></a>    IContextMenu::Item item{};</span>
+<span id="cb56-56"><a href="#cb56-56"></a>    UString128(<span class="bu">std::</span>to_string(scales[index]).c_str()).copyTo(item.name, <span class="dv">128</span>);</span>
+<span id="cb56-57"><a href="#cb56-57"></a>    item.flags = <span class="dv">0</span>;</span>
+<span id="cb56-58"><a href="#cb56-58"></a>    item.tag = (<span class="dt">int32_t</span>)index;</span>
+<span id="cb56-59"><a href="#cb56-59"></a></span>
+<span id="cb56-60"><a href="#cb56-60"></a>    <span class="co">// 注意: VSTGUI 4.8 では CCommandMenuItem::Desc に渡した tag が</span></span>
+<span id="cb56-61"><a href="#cb56-61"></a>    <span class="co">// CCommandMenuItem に渡されずに無視される。</span></span>
+<span id="cb56-62"><a href="#cb56-62"></a>    <span class="kw">auto</span> command = <span class="kw">new</span> CCommandMenuItem({<span class="kw">nullptr</span>, item.tag, <span class="kw">this</span>, <span class="st">&quot;Scale&quot;</span>, <span class="kw">nullptr</span>});</span>
+<span id="cb56-63"><a href="#cb56-63"></a>    command-&gt;setTag(item.tag);</span>
+<span id="cb56-64"><a href="#cb56-64"></a>    contextMenu-&gt;addItem(item, <span class="kw">new</span> ContextMenuTarget(command));</span>
+<span id="cb56-65"><a href="#cb56-65"></a>  }</span>
+<span id="cb56-66"><a href="#cb56-66"></a></span>
+<span id="cb56-67"><a href="#cb56-67"></a>  <span class="co">// kIsGroupEnd を設定してもメニューが入れ子にならない。</span></span>
+<span id="cb56-68"><a href="#cb56-68"></a>  groupItem.flags = IContextMenu::Item::kIsGroupEnd;</span>
+<span id="cb56-69"><a href="#cb56-69"></a>  contextMenu-&gt;addItem(groupItem, <span class="kw">nullptr</span>);</span>
+<span id="cb56-70"><a href="#cb56-70"></a></span>
+<span id="cb56-71"><a href="#cb56-71"></a>  <span class="co">// ここまでメニューの追加。</span></span>
+<span id="cb56-72"><a href="#cb56-72"></a></span>
+<span id="cb56-73"><a href="#cb56-73"></a>  contextMenu-&gt;popup(where.x, where.y);</span>
+<span id="cb56-74"><a href="#cb56-74"></a>  contextMenu-&gt;release();</span>
+<span id="cb56-75"><a href="#cb56-75"></a>  <span class="cf">return</span> kMouseEventHandled;</span>
+<span id="cb56-76"><a href="#cb56-76"></a>}</span></code></pre></div>
 <p>コメントにも書いていますが、 <code>kIsGroupStart</code> と <code>kIsGroupEnd</code> を設定してもメニューが入れ子になりません。</p>
 <p>どこを右クリックしてもメニューが開くようにするには <code>COptionMenu</code> でメニューを作っておいて、コントロール上で右クリックされているときは <code>IContextMenu</code> に変換する、そうでなければ <code>COptionMenu</code> をそのままポップアップする、という処理が考えられます。 <code>vstgui4/vstgui/plugin-bindings/vst3editor.*</code> に実装例があります。</p>
 

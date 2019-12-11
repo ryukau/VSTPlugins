@@ -146,6 +146,7 @@ footer {
   <li><a href="#uhhyou-plugins">Uhhyou Plugins</a></li>
   <li><a href="#lv2-plugins">LV2 Plugins</a></li>
   <li><a href="#パッケージについて-about-packages">パッケージについて | About Packages</a><ul>
+  <li><a href="#iterativesincluster">IterativeSinCluster</a></li>
   <li><a href="#trapezoidsynth">TrapezoidSynth</a></li>
   <li><a href="#fdncymbal">FDNCymbal</a></li>
   <li><a href="#wavecymbal">WaveCymbal</a></li>
@@ -165,6 +166,10 @@ footer {
 <p>This page is publishing <a href="#vst_logo">VST®</a> 3 plugins.</p>
 <p>If you found some part of manual is not clear and/or found typo, please file issue at <a href="https://github.com/ryukau/VSTPlugins">GitHub repository</a> or send email to <code>ryukau@gmail.com</code>. Note that I’m not native in English and it’s most likely that the manual contains some weird sentences. I’d like to fix it, so feel free to report those issues.</p>
 <h1 id="lv2-plugins">LV2 Plugins</h1>
+<p>Linux 向けに LV2 版のプラグインもあります。</p>
+<ul>
+<li><a href="https://github.com/ryukau/LV2Plugins">GitHub - ryukau/LV2Plugins</a></li>
+</ul>
 <p>For Linux, LV2 version is available.</p>
 <ul>
 <li><a href="https://github.com/ryukau/LV2Plugins">GitHub - ryukau/LV2Plugins</a></li>
@@ -190,6 +195,9 @@ footer {
 <p>Windows build is tested on FL Studio.</p>
 <p>macOS build isn’t tested because I don’t have Mac. If you found a bug, please file a issue to <a href="https://github.com/ryukau/VSTPlugins">GitHub repository</a>.</p>
 <p>Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.</p>
+<h2 id="iterativesincluster">IterativeSinCluster</h2>
+<p><img src="manual/IterativeSinCluster/img/iterativesincluster.png" /></p>
+<p>IterativeSinCluster はノート 1 つあたりで 512 のサイン波を計算する加算合成シンセサイザです。このページで配布しているバイナリを利用するには AVX2 をサポートしている CPU が必要です。</p>
 <h2 id="trapezoidsynth">TrapezoidSynth</h2>
 <p><img src="manual/TrapezoidSynth/img/trapezoidsynth.png" /></p>
 <p>TrapezoidSynth は 4 つの PTR ランプ関数を継ぎ接ぎした台形オシレータを使ったモノフォニックシンセサイザです。継ぎ接ぎしたのが仇をなしてピッチが高くなるとノイズが乗る欠点があったので8倍にオーバーサンプリングしました。結果としてやたら重たくなっています。</p>
