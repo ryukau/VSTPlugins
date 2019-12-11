@@ -45,6 +45,28 @@ macOS build isn't tested because I don't have Mac. If you found a bug, please fi
 
 Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
 
+## プリセット | Presets
+全てのプラグインのプリセットがまとめて入っています。
+
+- [プリセットをダウンロード (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/UhhyouVST3Preset.zip)
+
+解凍すると出てくるディレクトリ `Uhhyou` を次のディレクトリに配置してください。
+
+- Windows : `/Users/$USERNAME/Documents/VST3 Presets`
+- Linux : `$HOME/.vst3/presets`
+- macOS : `/Users/$USERNAME/Library/Audio/Presets`
+
+All plugin presets are included in the zip file.
+
+- [Download Presets (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/UhhyouVST3Preset.zip)
+
+After extracting, move `Uhhyou` directory to following path.
+
+- Windows : `/Users/$USERNAME/Documents/VST3 Presets`
+- Linux : `$HOME/.vst3/presets`
+- macOS : `/Users/$USERNAME/Library/Audio/Presets`
+
+
 ## IterativeSinCluster
 ![](manual/IterativeSinCluster/img/iterativesincluster.png)
 
