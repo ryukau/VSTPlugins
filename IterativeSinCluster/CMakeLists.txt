@@ -40,7 +40,7 @@ set(plug_sources
 smtg_add_vst3plugin(${target} ${plug_sources})
 if(APPLE)
   target_compile_options(${target} -mmacosx-version-min=10.14)
-else()
+endif()
 set_target_properties(${target} PROPERTIES ${SDK_IDE_MYPLUGINS_FOLDER})
 target_include_directories(${target} PUBLIC ${VSTGUI_ROOT}/vstgui4)
 target_link_libraries(${target} PRIVATE
