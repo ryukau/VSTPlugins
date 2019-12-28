@@ -4,34 +4,34 @@ name: CI
 on: [push]
 
 jobs:
-  build-ubuntu:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-      with:
-        submodules: recursive
-    - name: Run script
-      run: ci/ci_ubuntu.sh
-    - name: Upload
-      uses: actions/upload-artifact@v1
-      with:
-        name: vst_ubuntu
-        path: vst_ubuntu
+  # build-ubuntu:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v1
+  #     with:
+  #       submodules: recursive
+  #   - name: Run script
+  #     run: ci/ci_ubuntu.sh
+  #   - name: Upload
+  #     uses: actions/upload-artifact@v1
+  #     with:
+  #       name: vst_ubuntu
+  #       path: vst_ubuntu
 
-  build-windows:
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v1
-      with:
-        path: VSTPlugins
-        submodules: recursive
-    - name: Run script
-      run: ci/ci_windows.ps1
-    - name: Upload
-      uses: actions/upload-artifact@v1
-      with:
-        name: vst_windows
-        path: vst_windows
+  # build-windows:
+  #   runs-on: windows-latest
+  #   steps:
+  #   - uses: actions/checkout@v1
+  #     with:
+  #       path: VSTPlugins
+  #       submodules: recursive
+  #   - name: Run script
+  #     run: ci/ci_windows.ps1
+  #   - name: Upload
+  #     uses: actions/upload-artifact@v1
+  #     with:
+  #       name: vst_windows
+  #       path: vst_windows
 
   build-macOS:
     runs-on: macos-latest
