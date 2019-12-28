@@ -16,8 +16,21 @@
 // along with IterativeSinCluster.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "dspcore.hpp"
-
 #include "../../../lib/juce_FastMathApproximations.h"
+#include "../../../lib/vcl/vectorclass.h"
+
+#if INSTRSET >= 10
+#define NOTE_NAME Note_AVX512
+#define DSPCORE_NAME DSPCore_AVX512
+#elif INSTRSET >= 8
+#define NOTE_NAME Note_AVX2
+#define DSPCORE_NAME DSPCore_AVX2
+#elif INSTRSET >= 7
+#define NOTE_NAME Note_AVX
+#define DSPCORE_NAME DSPCore_AVX
+#else
+#error Unsupported instruction set
+#endif
 
 inline float clamp(float value, float min, float max)
 {
@@ -29,25 +42,22 @@ inline float midiNoteToFrequency(float pitch, float tuning)
   return 440.0f * powf(2.0f, ((pitch - 69.0f) * 100.0f + tuning) / 1200.0f);
 }
 
-inline float paramToPitch(float semi, float cent, float bend)
-{
-  return powf(2.0f, (100.0f * floorf(semi) + cent + (bend - 0.5f) * 400.0f) / 1200.0f);
-}
-
+// Using fmod because if equalTemperament == 1, this returns 2^121 which is too large.
 inline float semiToPitch(float semi, float equalTemperament)
 {
-  return powf(2.0f, semi / equalTemperament);
+  return fmodf(powf(2.0f, semi / equalTemperament), 2048);
 }
 
 inline float paramMilliToPitch(float semi, float milli, float equalTemperament)
 {
-  return powf(2.0f, (1000.0f * floorf(semi) + milli) / (equalTemperament * 1000.0f));
+  return fmodf(
+    powf(2.0f, (1000.0f * floorf(semi) + milli) / (equalTemperament * 1000.0f)), 2048);
 }
 
 // https://en.wikipedia.org/wiki/Cent_(music)#Piecewise_linear_approximation
 inline float centApprox(float cent) { return 1.0f + 0.0005946f * cent; }
 
-template<typename Sample> void Note<Sample>::setup(Sample sampleRate)
+template<typename Sample> void NOTE_NAME<Sample>::setup(Sample sampleRate)
 {
   this->sampleRate = sampleRate;
 
@@ -58,7 +68,7 @@ template<typename Sample> void Note<Sample>::setup(Sample sampleRate)
 }
 
 template<typename Sample>
-void Note<Sample>::noteOn(
+void NOTE_NAME<Sample>::noteOn(
   int32_t noteId,
   Sample normalizedKey,
   Sample frequency,
@@ -96,109 +106,60 @@ void Note<Sample>::noteOn(
 
   const auto enableAliasing = param.value[ID::aliasing]->getInt();
 
-#ifdef __AVX2__
-
-  Vec8f columnPitch;
-  Vec8f columnGain;
+  std::array<float, nPitch> notePitch;
+  std::array<float, nPitch> noteGain;
   for (size_t i = 0; i < nPitch; ++i) {
-    columnPitch.insert(
-      int(i),
-      paramMilliToPitch(
-        semiSign * param.value[ID::semi0 + i]->getFloat(),
-        param.value[ID::milli0 + i]->getFloat(), eqTemp));
-    columnGain.insert(int(i), param.value[ID::gain0 + i]->getFloat());
+    notePitch[i] = paramMilliToPitch(
+      semiSign * param.value[ID::semi0 + i]->getFloat(),
+      param.value[ID::milli0 + i]->getFloat(), eqTemp);
+    noteGain[i] = param.value[ID::gain0 + i]->getFloat();
   }
 
-  std::array<Sample, nOvertone> overtoneGain;
-  for (size_t i = 0; i < overtoneGain.size(); ++i)
-    overtoneGain[i] = param.value[ID::overtone1 + i]->getFloat();
+  Vec16f overtonePitch;
+  Vec16f overtoneGain;
+  for (int i = 0; i < nOvertone; ++i) {
+    overtonePitch.insert(i, float(i + 1));
+    overtoneGain.insert(i, float(param.value[ID::overtone1 + i]->getFloat()));
+  }
 
   for (size_t chord = 0; chord < nChord; ++chord) {
-    auto chordFreq = frequency
+    float chordFreq = frequency
       * paramMilliToPitch(
-                       semiSign * param.value[ID::chordSemi0 + chord]->getFloat(),
-                       param.value[ID::chordMilli0 + chord]->getFloat(), eqTemp);
-    auto chordGain = param.value[ID::chordGain0 + chord]->getFloat();
-
-    for (size_t overtone = 0; overtone < nOvertone; ++overtone) {
-      auto ot = overtone + 1;
-      auto rndPt = randFreqAmt
-        * Vec8f(rng.process(), rng.process(), rng.process(), rng.process(), rng.process(),
-                rng.process(), rng.process(), rng.process());
-      auto modPt = pitchMultiply * (rndPt + ot + rndPt * ot);
+                        semiSign * param.value[ID::chordSemi0 + chord]->getFloat(),
+                        param.value[ID::chordMilli0 + chord]->getFloat(), eqTemp);
+    float chordGain = param.value[ID::chordGain0 + chord]->getFloat();
+    for (size_t pitch = 0; pitch < nPitch; ++pitch) {
+      // Equation to calculate a sine wave frquency.
+      // freq = noteFreq * (overtone + 1) * (pitch + 1)
+      //      = noteFreq * (1 + pitch + overtone + pitch * overtone);
+      Vec16f rndPt = randFreqAmt
+        * Vec16f(rng.process(), rng.process(), rng.process(), rng.process(),
+                 rng.process(), rng.process(), rng.process(), rng.process(),
+                 rng.process(), rng.process(), rng.process(), rng.process(),
+                 rng.process(), rng.process(), rng.process(), rng.process());
+      Vec16f modPt = pitchMultiply * (rndPt + overtonePitch + rndPt * overtonePitch);
       if (pitchModulo != 1) // Modulo operation. modf isn't available in vcl.
         modPt = modPt - pitchModulo * floor(modPt / pitchModulo);
 
-      auto oscFreq = chordFreq * columnPitch * (1 + modPt);
-      oscillator[chord].frequency[overtone] = oscFreq;
+      Vec16f oscFreq = chordFreq * notePitch[pitch] * (1.0f + modPt);
+      oscillator[chord].frequency[pitch] = oscFreq;
 
-      Vec8f shelving(1.0f);
+      Vec16f shelving(1.0f);
       shelving = select(oscFreq <= lowShelfFreq, shelving * lowShelfGain, shelving);
       shelving = select(oscFreq >= highShelfFreq, shelving * highShelfGain, shelving);
-      auto rndGn = Vec8f(
+      Vec16f rndGn(
         rng.process(), rng.process(), rng.process(), rng.process(), rng.process(),
-        rng.process(), rng.process(), rng.process());
+        rng.process(), rng.process(), rng.process(), rng.process(), rng.process(),
+        rng.process(), rng.process(), rng.process(), rng.process(), rng.process(),
+        rng.process());
 
-      Vec8f oscGain(columnGain);
+      Vec16f oscGain(overtoneGain);
       if (!enableAliasing) oscGain = select(oscFreq >= nyquist, 0.0f, oscGain);
 
-      oscillator[chord].gain[overtone] = oscGain * chordGain * overtoneGain[overtone]
-        * shelving * (Sample(1) + randGainAmt * rndGn);
+      oscillator[chord].gain[pitch]
+        = oscGain * chordGain * noteGain[pitch] * shelving * (1.0f + randGainAmt * rndGn);
     }
   }
-
-#else
-
-  std::array<Sample, nPitch> columnPitch;
-  std::array<Sample, nPitch> columnGain;
-  for (size_t i = 0; i < nPitch; ++i) {
-    columnPitch[i] = paramMilliToPitch(
-      semiSign * param.value[ID::semi0 + i]->getFloat(),
-      param.value[ID::milli0 + i]->getFloat(), eqTemp);
-    columnGain[i] = param.value[ID::gain0 + i]->getFloat();
-  }
-
-  std::array<Sample, nOvertone> overtoneGain;
-  for (size_t i = 0; i < overtoneGain.size(); ++i)
-    overtoneGain[i] = param.value[ID::overtone1 + i]->getFloat();
-
-  for (size_t chord = 0; chord < nChord; ++chord) {
-    auto chordFreq = frequency
-      * paramMilliToPitch(
-                       semiSign * param.value[ID::chordSemi0 + chord]->getFloat(),
-                       param.value[ID::chordMilli0 + chord]->getFloat(), eqTemp);
-    auto chordGain = param.value[ID::chordGain0 + chord]->getFloat();
-    for (size_t pitch = 0; pitch < nPitch; ++pitch) {
-      auto pitchFreq = chordFreq * columnPitch[pitch];
-      for (size_t overtone = 0; overtone < nOvertone; ++overtone) {
-        // Equation to calculate a sine wave frquency.
-        // freq = noteFreq * (overtone + 1) * (pitch + 1)
-        //      = noteFreq * (1 + pitch + overtone + pitch * overtone);
-
-        auto ot = overtone + 1;
-        auto rnd = randFreqAmt * rng.process();
-        auto modPt = pitchMultiply * (rnd + ot + rnd * ot);
-        if (pitchModulo != 1) modPt = somefmod<Sample>(modPt, pitchModulo);
-        auto freq = pitchFreq * (1 + modPt);
-
-        const size_t index = nOvertone * pitch + overtone;
-        oscillator[chord].frequency[index] = freq;
-
-        if (!enableAliasing && freq >= nyquist) {
-          oscillator[chord].gain[index] = 0;
-        } else {
-          Sample shelving = Sample(1);
-          if (freq <= lowShelfFreq) shelving *= lowShelfGain;
-          if (freq >= highShelfFreq) shelving *= highShelfGain;
-          const auto oscGain = chordGain * columnGain[pitch] * overtoneGain[overtone]
-            * shelving * (Sample(1) + randGainAmt * rng.process());
-          oscillator[chord].gain[index] = oscGain;
-        }
-      }
-    }
-  }
-
-#endif
 
   for (auto &osc : oscillator) osc.setup(sampleRate);
 
@@ -207,21 +168,21 @@ void Note<Sample>::noteOn(
 
   gainEnvelope.reset(
     param.value[ID::gainA]->getFloat(), param.value[ID::gainD]->getFloat(),
-    param.value[ID::gainS]->getFloat(), param.value[ID::gainR]->getFloat(),
-    this->frequency, param.value[ID::gainEnvelopeCurve]->getFloat());
+    param.value[ID::gainS]->getFloat(), param.value[ID::gainR]->getFloat(), frequency,
+    param.value[ID::gainEnvelopeCurve]->getFloat());
   gainEnvCurve = param.value[ID::gainEnvelopeCurve]->getFloat();
 }
 
-template<typename Sample> void Note<Sample>::release()
+template<typename Sample> void NOTE_NAME<Sample>::release()
 {
   if (state == NoteState::rest) return;
   state = NoteState::release;
   gainEnvelope.release();
 }
 
-template<typename Sample> void Note<Sample>::rest() { state = NoteState::rest; }
+template<typename Sample> void NOTE_NAME<Sample>::rest() { state = NoteState::rest; }
 
-template<typename Sample> std::array<Sample, 2> Note<Sample>::process()
+template<typename Sample> std::array<Sample, 2> NOTE_NAME<Sample>::process()
 {
   if (state == NoteState::rest) return {0, 0};
 
@@ -245,7 +206,7 @@ template<typename Sample> std::array<Sample, 2> Note<Sample>::process()
   return out;
 }
 
-void DSPCore::setup(double sampleRate)
+void DSPCORE_NAME::setup(double sampleRate)
 {
   this->sampleRate = sampleRate;
 
@@ -265,9 +226,7 @@ void DSPCore::setup(double sampleRate)
   startup();
 }
 
-void DSPCore::free() {}
-
-void DSPCore::reset()
+void DSPCORE_NAME::reset()
 {
   for (auto &note : notes) note.rest();
   lastNoteFreq = 1.0f;
@@ -277,9 +236,9 @@ void DSPCore::reset()
   startup();
 }
 
-void DSPCore::startup() { rng.seed = param.value[ParameterID::seed]->getInt(); }
+void DSPCORE_NAME::startup() { rng.seed = param.value[ParameterID::seed]->getInt(); }
 
-void DSPCore::setParameters()
+void DSPCORE_NAME::setParameters()
 {
   using ID = ParameterID::ID;
 
@@ -314,7 +273,7 @@ void DSPCore::setParameters()
   }
 }
 
-void DSPCore::process(const size_t length, float *out0, float *out1)
+void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
 {
   LinearSmoother<float>::setBufferSize(length);
 
@@ -357,7 +316,7 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
   }
 }
 
-void DSPCore::noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity)
+void DSPCORE_NAME::noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity)
 {
   size_t noteIdx = 0;
   size_t mostSilent = 0;
@@ -403,7 +362,7 @@ void DSPCore::noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity
   notes[noteIdx].noteOn(noteId, normalizedKey, lastNoteFreq, velocity, param, rng);
 }
 
-void DSPCore::noteOff(int32_t noteId)
+void DSPCORE_NAME::noteOff(int32_t noteId)
 {
   size_t i = 0;
   for (; i < notes.size(); ++i) {

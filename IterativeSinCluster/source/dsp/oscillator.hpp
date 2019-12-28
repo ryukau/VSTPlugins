@@ -18,38 +18,22 @@
 #pragma once
 
 #include <array>
-#include <iostream>
 
 #include "constants.hpp"
 #include "somemath.hpp"
 
-#ifdef __AVX2__
 #include "../../../lib/vcl/vectorclass.h"
 #include "../../../lib/vcl/vectormath_trig.h"
-#endif
 
 namespace SomeDSP {
 
-#ifdef __AVX2__
-
-template<size_t size> struct BiquadOscAVX2 {
+template<size_t size> struct alignas(64) BiquadOsc {
 public:
-  std::array<Vec8f, size> frequency;
-  std::array<Vec8f, size> gain;
-  std::array<Vec8f, size> u1;
-  std::array<Vec8f, size> u0;
-  std::array<Vec8f, size> k;
-
-  BiquadOscAVX2()
-  {
-    for (size_t i = 0; i < size; ++i) {
-      frequency[i] = 0;
-      gain[i] = 0;
-      u1[i] = 0;
-      u0[i] = 0;
-      k[i] = 0;
-    }
-  }
+  std::array<Vec16f, size> frequency;
+  std::array<Vec16f, size> gain;
+  std::array<Vec16f, size> u1;
+  std::array<Vec16f, size> u0;
+  std::array<Vec16f, size> k;
 
   void setup(float sampleRate)
   {
@@ -73,43 +57,5 @@ public:
     return sum / (8 * size);
   }
 };
-
-#else
-
-// Mostly uniform gain range.
-// - double : freq > 0.25Hz.
-// - float  : freq > 8Hz. Huge bump around 1Hz.
-template<typename Sample, size_t size> struct BiquadOscN {
-  std::array<Sample, size> frequency{};
-  std::array<Sample, size> gain{};
-  std::array<Sample, size> u1{};
-  std::array<Sample, size> u0{};
-  std::array<Sample, size> k{};
-
-  void setup(Sample sampleRate)
-  {
-    u1.fill(0);
-    for (size_t i = 0; i < size; ++i) {
-      auto omega = Sample(twopi) * frequency[i] / sampleRate;
-      u0[i] = -sin(omega);
-      k[i] = 2 * cos(omega);
-    }
-  }
-
-  Sample process()
-  {
-    Sample sum = 0;
-    Sample out;
-    for (size_t i = 0; i < size; ++i) {
-      out = k[i] * u1[i] - u0[i];
-      u0[i] = u1[i];
-      u1[i] = out;
-      sum += gain[i] * out;
-    }
-    return sum / size;
-  }
-};
-
-#endif
 
 } // namespace SomeDSP
