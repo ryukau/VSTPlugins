@@ -109,7 +109,7 @@ public:
     if (input < min) return T(0.0);
     if (input > max) return T(1.0);
     T value = (input - min) / scale;
-    return input <= T(0.5)
+    return value <= T(0.5)
       ? T(0.5) * somepow<T>(T(2.0) * value, powerInv)
       : T(1.0) - T(0.5) * somepow<T>(T(2.0) - T(2.0) * value, powerInv);
   }
