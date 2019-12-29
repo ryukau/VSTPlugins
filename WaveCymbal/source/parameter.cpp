@@ -28,7 +28,7 @@ LinearScale<double> Scales::defaultScale(0.0, 1.0);
 
 IntScale<double> Scales::seed(16777215); // 2^24 - 1
 LogScale<double> Scales::randomAmount(0.0, 1.0, 0.5, 0.1);
-IntScale<double> Scales::nCymbal(3);
+LinearScale<double> Scales::nCymbal(1.0, 3.0);
 LogScale<double> Scales::decay(0.0, 16.0, 0.5, 4.0);
 LogScale<double> Scales::damping(0.0, 0.999, 0.5, 0.9);
 LogScale<double> Scales::minFrequency(0.0, 1000.0, 0.5, 100.0);
