@@ -83,7 +83,7 @@ protected:
 
 template<typename Sample, size_t matrixSize> class FeedbackDelayNetwork {
 public:
-  Sample sampleRate;
+  Sample sampleRate = 44100;
   std::array<Delay<Sample>, matrixSize> delay;
   std::array<LinearSmoother<Sample>, matrixSize> delayTime;
   std::array<Sample, matrixSize> gain{};
@@ -103,18 +103,11 @@ public:
   {
     for (auto &dly : delay) dly.reset();
 
-    gain.fill(1);
+    gain.fill(0);
     buffer.fill(0);
     delayOut.fill(0);
 
-    for (size_t i = 0; i < matrixSize; ++i) {
-      for (size_t j = 0; j < matrixSize; ++j) {
-        if (i == j)
-          matrix[i][j] = 1;
-        else
-          matrix[i][j] = 0;
-      }
-    }
+    for (size_t i = 0; i < matrixSize; ++i) matrix[i].fill(0);
   }
 
   Sample process(Sample input)

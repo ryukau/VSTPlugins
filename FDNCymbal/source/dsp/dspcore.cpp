@@ -160,8 +160,9 @@ void DSPCore::process(
       fdnSig = fdnCascade[0].process(
         juce::dsp::FastMathApproximations::tanh<float>(sample + fdnFeedback * fdnSig));
       const float fdnCascadeMix = interpFDNCascadeMix.process();
-      for (size_t j = 1; j < fdnCascade.size(); ++j)
-        fdnSig = fdnSig + fdnCascadeMix * (fdnCascade[j].process(fdnSig * 2.0f) - fdnSig);
+      for (size_t j = 1; j < fdnCascade.size(); ++j) {
+        fdnSig += fdnCascadeMix * (fdnCascade[j].process(fdnSig * 2.0f) - fdnSig);
+      }
       sample = fdnSig * 1024.0;
     }
 
@@ -233,6 +234,7 @@ void DSPCore::noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity
   if (param.value[ParameterID::retriggerTime]->getInt())
     rng.seed = param.value[ParameterID::seed]->getInt();
 
+  const float fdnTime = param.value[ParameterID::fdnTime]->getFloat();
   for (size_t n = 0; n < fdnCascade.size(); ++n) {
     float diagMod = float(n + 1) / fdnCascade.size();
     float delayTimeMod = somepow<float>(diagMod * 2.0f, 0.8f);
@@ -245,8 +247,7 @@ void DSPCore::noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity
       }
       fdnCascade[n].gain[i] = (rng.process() < 0.5f ? 1.0f : -1.0f)
         * (0.1f + rng.process()) * 2.0f / fdnMatrixSize;
-      fdnCascade[n].delayTime[i].push(
-        rng.process() * delayTimeMod * param.value[ParameterID::fdnTime]->getFloat());
+      fdnCascade[n].delayTime[i].push(rng.process() * delayTimeMod * fdnTime);
     }
   }
 
