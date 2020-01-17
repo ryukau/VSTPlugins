@@ -60,6 +60,13 @@ Knob and slider can do:
 - Ctrl + Left Click: Reset value.
 - Shift + Left Drag: Fine adjustment.
 
+## Block Diagram
+If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Image" on right click menu to scale.
+
+Diagram only shows overview. It's not exact implementation.
+
+![](img/iterativesincluster.svg)
+
 ## Parameters
 ### Gain
 #### Boost, Gain

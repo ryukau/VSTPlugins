@@ -63,6 +63,13 @@ Right clicking on controllable object popups a context menu provided by DAW.
 ## Caution
 Parameters that turns red when pointing can drastically change output gain. Changing those parameters with Shift + Left Drag is recommended. To prevent sudden clipping, always insert limiter after WaveCymbal.
 
+## Block Diagram
+If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Image" on right click menu to scale.
+
+Diagram only shows overview. It's not exact implementation.
+
+![](img/wavecymbal.svg)
+
 ## Parameters
 ### Gain
 Output gain.

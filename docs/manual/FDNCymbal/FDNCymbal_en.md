@@ -63,6 +63,13 @@ When `FDN.Feedback` is non zero, it may possibly blow up. If that happens, turn 
 
 When `HP Cutoff` is moving fast, it may output massive DC. To avoid this, use Shift + Mouse Left Drag or turn up Smooth.
 
+## Block Diagram
+If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Image" on right click menu to scale.
+
+Diagram only shows overview. It's not exact implementation.
+
+![](img/fdncymbal.svg)
+
 ## Parameters
 ### Gain
 Output gain.

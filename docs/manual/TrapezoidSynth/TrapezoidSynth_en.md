@@ -63,6 +63,13 @@ Right clicking on controllable object popups a context menu provided by DAW.
 ## Caution
 It is recommended to insert high-pass when setting `SlideType` to `Reset to 0`.
 
+## Block Diagram
+If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Image" on right click menu to scale.
+
+Diagram only shows overview. It's not exact implementation.
+
+![](img/trapezoidsynth.svg)
+
 ## Parameters
 ### Oscillator Common
 #### Semi

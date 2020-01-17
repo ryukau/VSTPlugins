@@ -89,6 +89,13 @@ Overtone controls (`Attack`, `Decay`, `Gain`, `Saturation`) have some keyboard s
 | <kbd>1</kbd>                            | Decrease Odd                            |
 | <kbd>2</kbd>-<kbd>9</kbd>               | Decrease 2n-9n                          |
 
+## Block Diagram
+If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Image" on right click menu to scale.
+
+Diagram only shows overview. It's not exact implementation.
+
+![](img/envelopedsine.svg)
+
 ## Parameters
 ### Overtone
 4 big controls on top right.

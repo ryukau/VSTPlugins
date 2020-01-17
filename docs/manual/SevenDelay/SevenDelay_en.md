@@ -63,6 +63,13 @@ When the value of `Smooth` is near zero and change the value of `Allpass Cut` to
 
 When the value of `Time` is set to minimum and the value of `Feedback` is set to maximum, SevenDelay outputs direct current (DC). To remove DC, Set `DC Kill` to be greater than 1.0.
 
+## Block Diagram
+If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Image" on right click menu to scale.
+
+Diagram only shows overview. It's not exact implementation.
+
+![](img/sevendelay.svg)
+
 ## Parameters
 ### Delay
 #### Time

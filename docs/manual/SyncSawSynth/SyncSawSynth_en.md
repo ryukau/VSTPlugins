@@ -70,6 +70,13 @@ Some parameter configuration leads to massive DC offset. To be stay safe, it's b
 ## Terms
 An oscillator of SyncSawSynth internally have 2 separate oscillators. One is for generating waveform, and other is to trigger hardsync. In term of hardsync, waveform generator is called slave and oscillator used to trigger is called master.
 
+## Block Diagram
+If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Image" on right click menu to scale.
+
+Diagram only shows overview. It's not exact implementation.
+
+![](img/syncsawsynth.svg)
+
 ## Parameters
 ### Osc
 #### Gain
