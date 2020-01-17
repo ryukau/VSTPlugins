@@ -1,27 +1,7 @@
 # Build Instruction
-**Note: Currently, these instruction is not tested.**
+**Note: Currently, these instructions are not tested.**
 
-Building this repository requires C++17 compatible compiler and CPU with AVX2 support in default.
-
-Some plugin uses [vector class library](https://github.com/vectorclass/version2) (vcl) to write AVX2 code, and vcl version 2 requires C++17 support.
-
-If you'd like to build without C++17 and/or AVX2 instructions, change `IterativeSinCluster/CMakeLists.txt`. Code path without AVX2 is available.
-
-In `IterativeSinCluster/CMakeLists.txt`, there is following lines. Delete lines that suits your requirement.
-
-```cmake
-set(CMAKE_CXX_STANDARD 17) # Delete this line to disable C++17.
-if(MSVC)
-    add_definitions(/arch:AVX2) # Delete this line to disable AVX2 support on windows.
-elseif(UNIX)
-    if(APPLE)
-        # macOS build doesn't explicitly use AVX2 instructions. Just -O3 provided by vst3sdk.
-    else()
-        # Delete next line to disable AVX2 support on Linux.
-        add_compile_options(-O3 -mavx2 -mfma)
-    endif()
-endif()
-```
+Building this repository requires C++17 compatible compiler and CPU with AVX or later instruction set support. Some plugins use [vector class library](https://github.com/vectorclass/version2) (vcl) to write SIMD code, and vcl version 2 requires C++17 support.
 
 ## Linux
 Install required packages. See `Package Requirements` section of the link below.
