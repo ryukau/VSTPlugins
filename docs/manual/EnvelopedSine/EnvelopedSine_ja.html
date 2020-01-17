@@ -6,7 +6,7 @@
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <meta name="dcterms.date" content="2020-01-17" />
-<title>IterativeSinCluster_ja</title>
+<title>EnvelopedSine_ja</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -207,7 +207,7 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#iterativesincluster">IterativeSinCluster</a><ul>
+  <li><a href="#envelopedsine">EnvelopedSine</a><ul>
   <li><a href="#インストール">インストール</a><ul>
   <li><a href="#プラグイン">プラグイン</a></li>
   <li><a href="#プリセット">プリセット</a></li>
@@ -216,38 +216,48 @@ footer {
   <li><a href="#操作">操作</a></li>
   <li><a href="#ブロック線図">ブロック線図</a></li>
   <li><a href="#パラメータ">パラメータ</a><ul>
-  <li><a href="#gain">Gain</a><ul>
-  <li><a href="#boost-gain">Boost, Gain</a></li>
-  <li><a href="#adsr">ADSR</a></li>
-  <li><a href="#curve">Curve</a></li>
+  <li><a href="#overtone">Overtone</a><ul>
+  <li><a href="#attack-decay">Attack, Decay</a></li>
+  <li><a href="#gain">Gain</a></li>
+  <li><a href="#saturation">Saturation</a></li>
   </ul></li>
-  <li><a href="#shelving">Shelving</a></li>
+  <li><a href="#gain-1">Gain</a><ul>
+  <li><a href="#boost-gain">Boost, Gain</a></li>
+  </ul></li>
   <li><a href="#pitch">Pitch</a><ul>
   <li><a href="#add-aliasing">Add Aliasing</a></li>
-  <li><a href="#reverse-semi">Reverse Semi</a></li>
   <li><a href="#octave">Octave</a></li>
-  <li><a href="#et">ET</a></li>
   <li><a href="#multiply-modulo">Multiply, Modulo</a></li>
+  <li><a href="#expand">Expand</a></li>
+  <li><a href="#shift">Shift</a></li>
   </ul></li>
-  <li><a href="#smooth">Smooth</a></li>
-  <li><a href="#nvoice">nVoice</a></li>
   <li><a href="#random">Random</a><ul>
   <li><a href="#retrigger">Retrigger</a></li>
   <li><a href="#seed">Seed</a></li>
-  <li><a href="#to-gain">To Gain</a></li>
+  <li><a href="#to-gain-to-attack-to-decay-to-sat.">To Gain, To Attack, To Decay, To Sat.</a></li>
   <li><a href="#to-pitch">To Pitch</a></li>
+  <li><a href="#to-phase">To Phase</a></li>
   </ul></li>
-  <li><a href="#note-chord-overtone">Note, Chord, Overtone</a></li>
-  <li><a href="#chorus">Chorus</a><ul>
+  <li><a href="#misc.">Misc.</a><ul>
+  <li><a href="#smooth">Smooth</a></li>
+  <li><a href="#nvoices">nVoices</a></li>
+  <li><a href="#unison">Unison</a></li>
+  </ul></li>
+  <li><a href="#modifier">Modifier</a><ul>
+  <li><a href="#attack-decay-1">Attack<em>, Decay</em></a></li>
+  <li><a href="#declick">Declick</a></li>
+  <li><a href="#gain-2">Gain^</a></li>
+  <li><a href="#sat.-mix">Sat. Mix</a></li>
+  </ul></li>
+  <li><a href="#phaser">Phaser</a><ul>
+  <li><a href="#nstages">nStages</a></li>
   <li><a href="#mix">Mix</a></li>
   <li><a href="#freq">Freq</a></li>
-  <li><a href="#depth">Depth</a></li>
-  <li><a href="#range">Range</a></li>
-  <li><a href="#time">Time</a></li>
-  <li><a href="#phase">Phase</a></li>
-  <li><a href="#offset">Offset</a></li>
   <li><a href="#feedback">Feedback</a></li>
-  <li><a href="#key-follow">Key Follow</a></li>
+  <li><a href="#range">Range</a></li>
+  <li><a href="#min">Min</a></li>
+  <li><a href="#offset">Offset</a></li>
+  <li><a href="#phase">Phase</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#チェンジログ">チェンジログ</a><ul>
@@ -261,18 +271,18 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="iterativesincluster">IterativeSinCluster</h1>
-<p><img src="img/iterativesincluster.png" /></p>
-<p><ruby>IterativeSinCluster<rt>イテレイティブ サイン クラスタ</rt></ruby>はノート 1 つあたり 512 のサイン波を計算する加算合成シンセサイザです。一体、何を考えていたのか iterative sin という言葉を名前に使っていますが、アルゴリズムの種類を表す正しい言葉は recursive sine です。</p>
+<h1 id="envelopedsine">EnvelopedSine</h1>
+<p><img src="img/envelopedsine.png" /></p>
+<p><ruby>EnvelopedSine<rt>エンベロープド サイン</rt></ruby>はノート 1 つあたり 64 のサイン波を計算する加算合成シンセサイザです。各サイン波に AD エンベロープとサチュレータがついているので IterativeSinCluster よりもパーカッシブな音が得意です。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/IterativeSinCluster0.1.1.zip">IterativeSinCluster 0.1.1 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/EnvelopedSine0.1.0.zip">EnvelopedSine 0.1.0 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbalPresets.zip">プリセットをダウンロード (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/EnvelopedSinePresets.zip">プリセットをダウンロード (github.com)</a></li>
 </ul>
-<p>IterativeSinCluster を使うには CPU が AVX 以降の SIMD 命令セットをサポートしている必要があります。</p>
+<p>EnvelopedSine を使うには CPU が AVX 以降の SIMD 命令セットをサポートしている必要があります。</p>
 <p>パッケージには次のビルドが含まれています。</p>
 <ul>
 <li>Windows 64bit</li>
@@ -307,144 +317,203 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <p>REAPER 5.983 の Linux 版がプラグインを認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
 <h2 id="操作">操作</h2>
+<p>操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。</p>
 <p>つまみとスライダーでは次の操作ができます。</p>
 <ul>
 <li>Ctrl + 左クリック : 値のリセット。</li>
 <li>Shift + 左ドラッグ : 細かい値の変更。</li>
 </ul>
-<p><code>Gain</code> 、 <code>Semi</code> などで使われている数値スライダーでは、上記に加えて次の操作ができます。</p>
+<p><code>Octave</code> 、 <code>Seed</code> などで使われている数値スライダーでは、上記に加えて次の操作ができます。</p>
 <ul>
 <li>ホイールクリック : 最小値、最大値の切り替え。</li>
 </ul>
-<p><code>Overtone</code> では次の操作ができます。</p>
-<ul>
-<li>Ctrl + 左ドラッグ : 値のリセット。</li>
-<li>ホイールドラッグ : 値を最小値に設定。</li>
-<li>Ctrl + ホイールドラッグ : 値を最大値に設定。</li>
-</ul>
-<p>操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。</p>
+<p>倍音のコントロール <code>Attack</code> 、 <code>Decay</code> 、 <code>Gain</code> 、 <code>Saturation</code> ではショートカットが使えます。ショートカットはコントロールを左クリックして、フォーカスしたときだけ有効になります。左下にあるプラグインのタイトルをクリックするとショートカットの一覧を見ることができます。</p>
+<table>
+<thead>
+<tr class="header">
+<th>入力</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><kbd>Ctrl</kbd> + <kbd>Left Click</kbd></td>
+<td>デフォルト値にリセット</td>
+</tr>
+<tr class="even">
+<td><kbd>Mouse Middle Drag</kbd></td>
+<td>直線の描画</td>
+</tr>
+<tr class="odd">
+<td><kbd>a</kbd></td>
+<td>昇順にソート</td>
+</tr>
+<tr class="even">
+<td><kbd>d</kbd></td>
+<td>降順にソート</td>
+</tr>
+<tr class="odd">
+<td><kbd>f</kbd></td>
+<td>ローパスフィルタ</td>
+</tr>
+<tr class="even">
+<td><kbd>F</kbd></td>
+<td>ハイパスフィルタ</td>
+</tr>
+<tr class="odd">
+<td><kbd>i</kbd></td>
+<td>値の反転 (最小値を保存)</td>
+</tr>
+<tr class="even">
+<td><kbd>I</kbd></td>
+<td>値の反転 (最小値を 0 に設定)</td>
+</tr>
+<tr class="odd">
+<td><kbd>n</kbd></td>
+<td>最大値を 1 に正規化 (最小値もスケーリング)</td>
+</tr>
+<tr class="even">
+<td><kbd>N</kbd></td>
+<td>最大値を 1 に正規化 (最小値を 0 に設定)</td>
+</tr>
+<tr class="odd">
+<td><kbd>h</kbd></td>
+<td>高域の強調</td>
+</tr>
+<tr class="even">
+<td><kbd>l</kbd></td>
+<td>低域の強調</td>
+</tr>
+<tr class="odd">
+<td><kbd>p</kbd></td>
+<td>ランダムに並べ替え</td>
+</tr>
+<tr class="even">
+<td><kbd>r</kbd></td>
+<td>ランダマイズ</td>
+</tr>
+<tr class="odd">
+<td><kbd>R</kbd></td>
+<td>まばらなランダマイズ</td>
+</tr>
+<tr class="even">
+<td><kbd>s</kbd></td>
+<td>少しだけランダマイズ</td>
+</tr>
+<tr class="odd">
+<td><kbd>,</kbd> (Comma)</td>
+<td>左に回転</td>
+</tr>
+<tr class="even">
+<td><kbd>.</kbd> (Period)</td>
+<td>右に回転</td>
+</tr>
+<tr class="odd">
+<td><kbd>1</kbd></td>
+<td>奇数インデックスの値を低減</td>
+</tr>
+<tr class="even">
+<td><kbd>2</kbd>-<kbd>9</kbd></td>
+<td>インデックスが 2n-9n の値を低減</td>
+</tr>
+</tbody>
+</table>
 <h2 id="ブロック線図">ブロック線図</h2>
-<p><img src="img/iterativesincluster.svg" /></p>
+<p><img src="img/envelopedsine.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
-<h3 id="gain">Gain</h3>
+<h3 id="overtone">Overtone</h3>
+<p>右上にある 4 つの大きなコントロールです。</p>
+<h4 id="attack-decay">Attack, Decay</h4>
+<p>各オシレータの音量エンベロープのアタックとディケイです。</p>
+<h4 id="gain">Gain</h4>
+<p>各オシレータの音量です。</p>
+<h4 id="saturation">Saturation</h4>
+<p>各オシレータのサチュレーションの大きさです。</p>
+<h3 id="gain-1">Gain</h3>
 <h4 id="boost-gain">Boost, Gain</h4>
 <p>どちらも音量を調整します。出力のピーク値は <code>Boost * Gain</code> となります。</p>
-<p><code>Note</code> 、 <code>Chord</code> 、 <code>Overtone</code> のゲインを調整すると音がかなり小さくなることがあります。そんなときに <code>Boost</code> が使えます。</p>
-<h4 id="adsr">ADSR</h4>
-<p>音量エンベロープのパラメータです。</p>
-<ul>
-<li><code>A</code> (Attack) : 鍵盤を押した瞬間から最大音量になるまでのアタック時間。</li>
-<li><code>D</code> (Decay) : 最大音量からサステイン音量になるまでのディケイ時間。</li>
-<li><code>S</code> (Sustain) : アタックとディケイが終わった後に鍵盤を押し続けているときのサステイン音量。</li>
-<li><code>R</code> (Release) : 鍵盤から指を離したあとに音量が 0 になるまでのリリース時間。</li>
-</ul>
-<h4 id="curve">Curve</h4>
-<p>音量エンベロープのアタックの曲線を変更するパラメータ。</p>
-<h3 id="shelving">Shelving</h3>
-<p><code>Low</code> と <code>High</code> の 2 つのシェルビングができます。</p>
-<p>カットオフ周波数はノートの音程を基準として、 <code>Semi</code> で指定した半音単位で相対的に決まります。例えば音程が C4 、 <code>Semi</code> が 12.000 のときは カットオフ周波数は <code>C4 + 12 半音 = C5</code> になります。</p>
-<p>変更する音量は <code>Gain</code> で調整できます。</p>
-<ul>
-<li><code>Low</code> シェルビングは <code>Semi</code> で指定したカットオフ周波数<strong>以下</strong>のサイン波の音量を変更します。</li>
-<li><code>High</code> シェルビングは <code>Semi</code> で指定したカットオフ周波数<strong>以上</strong>のサイン波の音量を変更します。</li>
-</ul>
 <h3 id="pitch">Pitch</h3>
 <h4 id="add-aliasing">Add Aliasing</h4>
 <p>チェックを入れると、ナイキスト周波数より高い周波数が指定されたサイン波もレンダリングします。</p>
 <p>ナイキスト周波数とは、ざっくりいえば録音したデータが再現可能な最高周波数のことです。音を生成するときはナイキスト周波数以上の値を指定することができますが、折り返し（エイリアシング）と呼ばれる現象によって計算結果は予期しない周波数になってしまいます。 <code>Add Aliasing</code> は、こうしたエイリアシングノイズを足し合わせるオプションです。</p>
-<h4 id="reverse-semi">Reverse Semi</h4>
-<p>チェックを入れると、 <code>Semi</code> の符号を逆転させます。たとえば <code>7.000</code> は <code>-7.000</code> として処理されます。</p>
 <h4 id="octave">Octave</h4>
 <p>ノートのオクターブです。</p>
-<h4 id="et">ET</h4>
-<p>平均律の値です。この値によって <code>Semi</code> と <code>Milli</code> の調律を変更できます。例えば <code>ET</code> が 12 なら 12 平均律になります。 <code>ET</code> は Equal Temperament の略です。</p>
-<p>ホスト側から送られてくるノートの調律を変更するわけではないので注意してください。</p>
 <h4 id="multiply-modulo">Multiply, Modulo</h4>
 <p>サイン波の周波数を変更します。</p>
-<p>計算式は <code>ノートの周波数 * (1 + fmod(Multiply * pitch, Modulo))</code> のようになっています。 <code>pitch</code> は <code>Note</code> 、 <code>Chord</code> 、 <code>Overtone</code> で指定した値から計算されるピッチです。 <code>fmod(a, b)</code> は <code>a</code> を <code>b</code> で割った余りを計算する関数です。</p>
-<h3 id="smooth">Smooth</h3>
+<p>計算式は <code>ノートの周波数 * (1 + fmod(Multiply * pitch, Modulo))</code> のようになっています。 <code>pitch</code> はノートの音程と倍音のインデックスから計算される係数です。 <code>fmod(a, b)</code> は <code>a</code> を <code>b</code> で割った余りを計算する関数です。</p>
+<h4 id="expand">Expand</h4>
+<p>倍音コントロールのインデックスを拡大・縮小するスケーリング係数です。</p>
+<p><img src="img/envelopedsine_expand.svg" /></p>
+<h4 id="shift">Shift</h4>
+<p>倍音コントロールのインデックスを右シフトする量です。</p>
+<p><img src="img/envelopedsine_shift.svg" /></p>
+<h3 id="random">Random</h3>
+<p>ランダマイズに関するパラメータです。 <code>Unison</code> にチェックを入れた状態で使うと効果的です。</p>
+<h4 id="retrigger">Retrigger</h4>
+<p>チェックを入れると、ノートオンごとに乱数列をリセットします。</p>
+<h4 id="seed">Seed</h4>
+<p>乱数のシード値です。この値を変えると生成される乱数が変わります。</p>
+<h4 id="to-gain-to-attack-to-decay-to-sat.">To Gain, To Attack, To Decay, To Sat.</h4>
+<p>倍音コントロールの値をランダマイズします。ランダマイズの式は <code>value * random</code> です。 <code>random</code> の値の範囲は <code>[0.0, 1.0)</code> です。</p>
+<h4 id="to-pitch">To Pitch</h4>
+<p>ピッチをランダマイズします。</p>
+<h4 id="to-phase">To Phase</h4>
+<p>位相をランダマイズします。</p>
+<h3 id="misc.">Misc.</h3>
+<h4 id="smooth">Smooth</h4>
 <p>特定の値を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。</p>
 <p><code>Smooth</code> と関連するパラメータのリストです。 <code>*</code> はワイルドカードです。</p>
 <ul>
 <li><code>Gain</code> セクションの全て</li>
-<li><code>Chord.Pan</code></li>
-<li><code>Chorus</code> の <code>Key Follow</code> 以外</li>
+<li><code>Phaser</code> セクションの <code>nStages</code> 以外</li>
 </ul>
-<p>他のパラメータはノートオンのタイミングで指定されていた値をノートの発音が終わるまで続けて使います。</p>
-<h3 id="nvoice">nVoice</h3>
+<p>他のパラメータはノートオンのタイミングで指定されていた値を、ノートの発音が終わるまで使い続けます。</p>
+<h4 id="nvoices">nVoices</h4>
 <p>最大同時発音数です。</p>
-<h3 id="random">Random</h3>
-<h4 id="retrigger">Retrigger</h4>
-<p>チェックを入れると、ノートオンごとに乱数シードをリセットします。</p>
-<h4 id="seed">Seed</h4>
-<p>乱数のシード値です。この値を変えると生成される乱数が変わります。</p>
-<h4 id="to-gain">To Gain</h4>
-<p>ノートオンごとに各サイン波の音量をランダマイズする度合いです。</p>
-<h4 id="to-pitch">To Pitch</h4>
-<p>ノートオンごとに各サイン波の周波数をランダマイズする度合いです。</p>
-<h3 id="note-chord-overtone">Note, Chord, Overtone</h3>
-<p>サイン波のピッチと音量を指定します。</p>
-<p>1つの <code>Note</code> あたり 16 の <code>Overtone</code> が発音されます。8つの <code>Note</code> で 1 つの <code>Chord</code> になります。そして 4 つの <code>Chord</code> が使えます。</p>
-<p><code>Note</code> と <code>Chord</code> に共通のパラメータです。</p>
-<ul>
-<li><code>Gain</code> : サイン波の音量。</li>
-<li><code>Semi</code> : ノートの基本周波数からの距離。単位は半音。</li>
-<li><code>Milli</code> : ノートの基本周波数からの距離。単位は 1 / 1000 半音。 1 / 10 セント。</li>
-</ul>
-<p><code>Overtone</code> は左端が基本周波数（第1倍音）の音量で、右に一つ進むごとに第2倍音、第3倍音、 … 、第16倍音の音量を表しています。</p>
-<p>サイン波の周波数の計算式は次のようになっています。</p>
-<pre><code>function toneToPitch(semi, milli):
-  return 2 ^ (1000 * semi + milli) / (ET * 1000)
-
-for each Chord:
-  chordPitch = toneToPitch(Chord.semi, Chord.milli)
-  for each Note:
-    notePitch = toneToPitch(Note.semi, Note.milli)
-    for each Overtone:
-      frequency = midiNoteFrequency
-        * (1 + mod(Multiply * Overtone * notePitch * chordPitch, Modulo))</code></pre>
-<h3 id="chorus">Chorus</h3>
+<h4 id="unison">Unison</h4>
+<p>チェックを入れるとユニゾンを有効にします。</p>
+<p>ユニゾンが有効になると 1 つのノートについて左右のチャンネルに 1 つずつボイスを配置します。 <code>Random.To Phase</code> や <code>Random.To Pitch</code> と組み合わせることで広がりのある音を作ることができます。</p>
+<h3 id="modifier">Modifier</h3>
+<h4 id="attack-decay-1">Attack<em>, Decay</em></h4>
+<p>倍音コントロールの <code>Attack</code> と <code>Decay</code> にかけ合わせる値です。まとめて長さを変えたいときに使えます。</p>
+<h4 id="declick">Declick</h4>
+<p>チェックを入れると、倍音コントロールの <code>Attack</code> あるいは <code>Decay</code> の値が 0 のときに生じるプチノイズを低減します。各オシレータのピッチに応じた値を足し合わせます。</p>
+<h4 id="gain-2">Gain^</h4>
+<p>倍音コントロールの <code>Gain</code> を累乗する値です。 1 つのオシレータの最終的なゲインは次の式で計算されます。</p>
+<pre><code>Gain.Boost * Gain.Gain * pow(Overtone.Gain, Modifier.Gain^)</code></pre>
+<h4 id="sat.-mix">Sat. Mix</h4>
+<p>サチュレーションの Dry : Wet の信号比です。右いっぱいにすると Dry : Wet = 0 : 1 になります。</p>
+<h3 id="phaser">Phaser</h3>
+<h4 id="nstages">nStages</h4>
+<p>オールパスフィルタの数です。</p>
 <h4 id="mix">Mix</h4>
-<p>Dry/Wet の比率を調整します。</p>
+<p>フェイザの Dry : Wet の信号比です。右いっぱいにすると Dry : Wet = 0 : 1 になります。</p>
 <h4 id="freq">Freq</h4>
-<p>コーラスの LFO の周波数です。中央から右に回すと正、左に回すと負の周波数を指定できます。</p>
-<h4 id="depth">Depth</h4>
-<p>左右の広がりを調整します。</p>
-<h4 id="range">Range</h4>
-<p>LFO によってディレイ時間を変調する度合いです。 3 つのディレイが用意されています。</p>
-<h4 id="time">Time</h4>
-<p>ディレイ時間です。</p>
-<h4 id="phase">Phase</h4>
-<p>LFO の位相です。</p>
-<h4 id="offset">Offset</h4>
-<p>ディレイの間での位相差です。</p>
+<p>LFO の周波数です。</p>
 <h4 id="feedback">Feedback</h4>
-<p>ディレイのフィードバックです。</p>
-<h4 id="key-follow">Key Follow</h4>
-<p>チェックを入れると、ディレイ時間をノートの音程に応じて変更します。</p>
+<p>フィードバックの大きさです。 12 時にするとフィードバックなし、左に回すと負のフィードバック、右に回すと正のフィードバックとなります。</p>
+<h4 id="range">Range</h4>
+<p>LFO によって変更するオールパスフィルタの特性の幅です。</p>
+<h4 id="min">Min</h4>
+<p>LFO によって変調するオールパスフィルタの特性の最小値です。</p>
+<h4 id="offset">Offset</h4>
+<p>左右の LFO の位相差です。</p>
+<h4 id="phase">Phase</h4>
+<p>LFO の位相です。オートメーションで音を作りたいときに使えます。 <code>Freq</code> を左いっぱいに回すことで LFO の周波数を 0 にできます。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
-<li>0.1.1
-<ul>
-<li>macOS ビルドの修正。</li>
-<li>AVX, AVX512 命令セットのコードパスを追加。</li>
-<li>Ableton Live 10.1.6 で特定のノブが揺れ戻るバグを修正。</li>
-</ul></li>
 <li>0.1.0
 <ul>
 <li>初期リリース</li>
 </ul></li>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/IterativeSinCluster0.1.0.zip">IterativeSinCluster 0.1.0 - VST 3 (github.com)</a></li>
-</ul>
+<p>旧バージョンはありません。</p>
 <h2 id="ライセンス">ライセンス</h2>
-<p>IterativeSinCluster のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
+<p>IterativeSinCluster のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。リンクが切れているときは <code>ryukau@gmail.com</code> にメールを送ってください。</p>
 <ul>
 <li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
 </ul>
-<p>リンクが切れているときは <code>ryukau@gmail.com</code> にメールを送ってください。</p>
 <h3 id="vst-について">VST® について</h3>
 <p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
 

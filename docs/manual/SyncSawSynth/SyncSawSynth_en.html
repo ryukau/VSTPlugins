@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2019-12-11" />
+<meta name="dcterms.date" content="2020-01-17" />
 <title>SyncSawSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -201,7 +201,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2019-12-11
+  Update: 2020-01-17
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -209,6 +209,8 @@ footer {
   <ul>
   <li><a href="#syncsawsynth">SyncSawSynth</a><ul>
   <li><a href="#installation">Installation</a><ul>
+  <li><a href="#plugin">Plugin</a></li>
+  <li><a href="#presets">Presets</a></li>
   <li><a href="#linux-specific">Linux Specific</a></li>
   </ul></li>
   <li><a href="#controls">Controls</a></li>
@@ -286,6 +288,7 @@ src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SyncSawSynthPresets.zip">Download Presets (github.com)</a></li>
 </ul>
 <p>The package includes following builds:</p>
 <ul>
@@ -296,13 +299,22 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>macOS build isn’t tested because I don’t have Mac. If you found a bug, please file a issue to <a href="https://github.com/ryukau/VSTPlugins">GitHub repository</a> or send email to <code>ryukau@gmail.com</code>.</p>
 <p>Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.</p>
 <h2 id="installation">Installation</h2>
-<p>Place <code>SyncSawSynth.vst3</code> directory to:</p>
+<h3 id="plugin">Plugin</h3>
+<p>Place <code>*.vst3</code> directory to:</p>
 <ul>
 <li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
 <li><code>$HOME/.vst3/</code> for Linux.</li>
 <li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for macOS.</li>
 </ul>
 <p>DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.</p>
+<h3 id="presets">Presets</h3>
+<p>Extract preset zip, then place preset directory to the OS specific path:</p>
+<ul>
+<li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
+<li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
+<li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
+</ul>
+<p>Preset directory name must be the same as the plugin. Make <code>Uhhyou</code> directory if it does not exist.</p>
 <h3 id="linux-specific">Linux Specific</h3>
 <p>On Ubuntu 18.0.4, those packages are required.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</a></code></pre></div>
@@ -310,7 +322,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <ul>
 <li><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html">VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins</a></li>
 </ul>
-<p>REAPER 5.983 on Linux may not recognize SyncSawSynth. A workaround is to delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and restart REAPER.</p>
+<p>REAPER 5.983 on Linux may not recognize the plugin. A workaround is to delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and restart REAPER.</p>
 <h2 id="controls">Controls</h2>
 <p>Knob and slider can do:</p>
 <ul>

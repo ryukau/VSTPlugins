@@ -16,27 +16,6 @@ For Linux, LV2 version is available.
 
 - [GitHub - ryukau/LV2Plugins](https://github.com/ryukau/LV2Plugins)
 
-## プリセット | Presets
-全てのプラグインのプリセットがまとめて入っています。
-
-- [プリセットをダウンロード (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/UhhyouVST3Preset.zip)
-
-解凍すると出てくるディレクトリ `Uhhyou` を次のディレクトリに配置してください。
-
-- Windows : `/Users/$USERNAME/Documents/VST3 Presets`
-- Linux : `$HOME/.vst3/presets`
-- macOS : `/Users/$USERNAME/Library/Audio/Presets`
-
-All plugin presets are included in the zip file.
-
-- [Download Presets (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/UhhyouVST3Preset.zip)
-
-After extracting, move `Uhhyou` directory to following path.
-
-- Windows : `/Users/$USERNAME/Documents/VST3 Presets`
-- Linux : `$HOME/.vst3/presets`
-- macOS : `/Users/$USERNAME/Library/Audio/Presets`
-
 ## EnvelopedSine
 ![](manual/EnvelopedSine/img/envelopedsine.png)
 

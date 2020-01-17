@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2019-12-11" />
+<meta name="dcterms.date" content="2020-01-17" />
 <title>WaveCymbal_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -201,7 +201,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2019-12-11
+  Update: 2020-01-17
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -209,10 +209,13 @@ footer {
   <ul>
   <li><a href="#wavecymbal">WaveCymbal</a><ul>
   <li><a href="#インストール">インストール</a><ul>
+  <li><a href="#プラグイン">プラグイン</a></li>
+  <li><a href="#プリセット">プリセット</a></li>
   <li><a href="#linux">Linux</a></li>
   </ul></li>
   <li><a href="#操作">操作</a></li>
   <li><a href="#注意">注意</a></li>
+  <li><a href="#ブロック線図">ブロック線図</a></li>
   <li><a href="#パラメータ">パラメータ</a><ul>
   <li><a href="#gain">Gain</a></li>
   <li><a href="#excitation">Excitation</a><ul>
@@ -248,7 +251,9 @@ footer {
   </ul></li>
   <li><a href="#smoothness">Smoothness</a></li>
   </ul></li>
-  <li><a href="#チェンジログ">チェンジログ</a></li>
+  <li><a href="#チェンジログ">チェンジログ</a><ul>
+  <li><a href="#旧バージョン">旧バージョン</a></li>
+  </ul></li>
   <li><a href="#ライセンス">ライセンス</a><ul>
   <li><a href="#vst-について">VST® について</a></li>
   </ul></li>
@@ -261,11 +266,12 @@ footer {
 <p><img src="img/wavecymbal.png" /></p>
 <p><ruby>WaveCymbal<rt>ウェイブシンバル</rt></ruby>は banded wave-guide という手法を用いてシンバルの音が鳴るはずだったシンセサイザです。実際のところはシンバルというよりも、アスファルトの上でトタン板や紐につないだ空き缶を引きずったときのような音が出ます。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/WaveCymbal0.1.3.zip">WaveCymbal 0.1.3 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/WaveCymbal0.1.4.zip">WaveCymbal 0.1.4 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/WaveCymbalPresets.zip">プリセットをダウンロード (github.com)</a></li>
 </ul>
 <p>パッケージには次のビルドが含まれています。</p>
 <ul>
@@ -276,13 +282,22 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければ対応します。</p>
 <p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。</p>
 <h2 id="インストール">インストール</h2>
-<p><code>WaveCymbal.vst3</code> を OS ごとに決められたディレクトリに配置してください。</p>
+<h3 id="プラグイン">プラグイン</h3>
+<p>名前が <code>.vst3</code> で終わるディレクトリを OS ごとに決められた位置に配置してください。</p>
 <ul>
 <li>Windows では <code>/Program Files/Common Files/VST3/</code> に配置します。</li>
 <li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
 <li>macOS では <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> に配置します。</li>
 </ul>
 <p>DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。</p>
+<h3 id="プリセット">プリセット</h3>
+<p>解凍して出てきたディレクトリを OS ごとに決められた位置に配置すると使えるようになります。</p>
+<ul>
+<li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
+<li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
+<li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
+</ul>
+<p>プリセットディレクトリの名前はプラグインと同じである必要があります。 <code>Uhhyou</code> ディレクトリが無いときは作成してください。</p>
 <h3 id="linux">Linux</h3>
 <p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</a></code></pre></div>
@@ -290,7 +305,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <ul>
 <li><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html">VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins</a></li>
 </ul>
-<p>REAPER 5.983 の Linux 版が WaveCymbal を認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
+<p>REAPER 5.983 の Linux 版がプラグインを認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
 <h2 id="操作">操作</h2>
 <p>つまみとスライダーでは次の操作ができます。</p>
 <ul>
@@ -300,6 +315,8 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。</p>
 <h2 id="注意">注意</h2>
 <p>マウスカーソルを合わせたときに赤くハイライトされるパラメータは音量を大きく変えることができます。これらのパラメータは Shift + 左ドラッグを使ってゆっくりと変更することを推奨します。また突然の音割れを防ぐために、WaveCymbaの後には必ずリミッタをインサートすることを推奨します。</p>
+<h2 id="ブロック線図">ブロック線図</h2>
+<p><img src="img/wavecymbal.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
 <h3 id="gain">Gain</h3>
 <p>出力音量です。</p>
@@ -362,6 +379,10 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p><code>Gain</code>, <code>Excitation.Time</code>, <code>Random.Amount</code>, <code>Bandpass.MinCutoff</code>, <code>Bandpass.MaxCutoff</code> を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。 <code>OscType.Sustain</code> のスライドの長さも <code>Smoothness</code> で調整できます。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.4
+<ul>
+<li>Ableton Live 10.1.6 で特定のノブが揺れ戻るバグを修正。</li>
+</ul></li>
 <li>0.1.3
 <ul>
 <li>複数の GUI インスタンス間で表示を同期するように変更。</li>
@@ -381,6 +402,10 @@ style="display: inline-block; vertical-align: middle;"></li>
 <ul>
 <li>初期リリース</li>
 </ul></li>
+</ul>
+<h3 id="旧バージョン">旧バージョン</h3>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/WaveCymbal0.1.3.zip">WaveCymbal 0.1.3 - VST 3 (github.com)</a></li>
 </ul>
 <h2 id="ライセンス">ライセンス</h2>
 <p>WaveCymbal のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>

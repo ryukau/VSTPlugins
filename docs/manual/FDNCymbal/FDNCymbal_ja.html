@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2019-12-11" />
+<meta name="dcterms.date" content="2020-01-17" />
 <title>FDNCymbal_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -201,7 +201,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2019-12-11
+  Update: 2020-01-17
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -209,10 +209,13 @@ footer {
   <ul>
   <li><a href="#fdncymbal">FDNCymbal</a><ul>
   <li><a href="#インストール">インストール</a><ul>
+  <li><a href="#プラグイン">プラグイン</a></li>
+  <li><a href="#プリセット">プリセット</a></li>
   <li><a href="#linux">Linux</a></li>
   </ul></li>
   <li><a href="#操作">操作</a></li>
   <li><a href="#注意">注意</a></li>
+  <li><a href="#ブロック線図">ブロック線図</a></li>
   <li><a href="#パラメータ">パラメータ</a><ul>
   <li><a href="#gain">Gain</a></li>
   <li><a href="#smooth">Smooth</a></li>
@@ -252,7 +255,9 @@ footer {
   <li><a href="#time-2">Time</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#チェンジログ">チェンジログ</a></li>
+  <li><a href="#チェンジログ">チェンジログ</a><ul>
+  <li><a href="#旧バージョン">旧バージョン</a></li>
+  </ul></li>
   <li><a href="#ライセンス">ライセンス</a><ul>
   <li><a href="#vst-について">VST® について</a></li>
   </ul></li>
@@ -265,11 +270,12 @@ footer {
 <p><img src="img/fdncymbal.png" /></p>
 <p><ruby>FDNCymbal<rt>エフディーエヌシンバル</rt></ruby> はシンバルのような音を合成するシンセサイザです。エフェクトとして使うこともできます。名前とは裏腹に金属的な質感は FDN (feedback delay network) ではなく Schroeder allpass section によって得られています。 <code>FDN.Time</code> の値を小さくすることで、わりとナイスなばちの衝突音が合成できます。シンバルの揺れをシミュレートするためにトレモロもついています。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/FDNCymbal0.1.2.zip">FDNCymbal 0.1.2 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbal0.1.3.zip">FDNCymbal 0.1.3 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbalPresets.zip">プリセットをダウンロード (github.com)</a></li>
 </ul>
 <p>パッケージには次のビルドが含まれています。</p>
 <ul>
@@ -280,13 +286,22 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければ対応します。</p>
 <p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。</p>
 <h2 id="インストール">インストール</h2>
-<p><code>FDNCymbal.vst3</code> を OS ごとに決められたディレクトリに配置してください。</p>
+<h3 id="プラグイン">プラグイン</h3>
+<p>名前が <code>.vst3</code> で終わるディレクトリを OS ごとに決められた位置に配置してください。</p>
 <ul>
 <li>Windows では <code>/Program Files/Common Files/VST3/</code> に配置します。</li>
 <li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
 <li>macOS では <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> に配置します。</li>
 </ul>
 <p>DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。</p>
+<h3 id="プリセット">プリセット</h3>
+<p>解凍して出てきたディレクトリを OS ごとに決められた位置に配置すると使えるようになります。</p>
+<ul>
+<li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
+<li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
+<li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
+</ul>
+<p>プリセットディレクトリの名前はプラグインと同じである必要があります。 <code>Uhhyou</code> ディレクトリが無いときは作成してください。</p>
 <h3 id="linux">Linux</h3>
 <p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</a></code></pre></div>
@@ -294,7 +309,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <ul>
 <li><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html">VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins</a></li>
 </ul>
-<p>REAPER 5.983 の Linux 版が FDNCymbal を認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
+<p>REAPER 5.983 の Linux 版がプラグインを認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
 <h2 id="操作">操作</h2>
 <p>つまみとスライダーでは次の操作ができます。</p>
 <ul>
@@ -304,6 +319,8 @@ style="display: inline-block; vertical-align: middle;"></li>
 <h2 id="注意">注意</h2>
 <p><code>FDN.Feedback</code> の値が 0 でないときは信号が発散することがあります。発散したときは <code>FDN.Feedback</code> を一番左まで回してください。</p>
 <p><code>HP Cutoff</code> の値を短時間に大きく変更すると直流が乗ることがあります。直流が乗ったときは、いったん <code>HP Cutoff</code> を上げてから <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> でゆっくりと下げなおしてください。</p>
+<h2 id="ブロック線図">ブロック線図</h2>
+<p><img src="img/fdncymbal.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
 <h3 id="gain">Gain</h3>
 <p>出力音量です。</p>
@@ -383,6 +400,10 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>ノートオンのたびに <code>Tremolo.DelayTime</code> をランダマイズする度合いです。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.3
+<ul>
+<li>Steinberg のホストで音が止まるバグを修正。</li>
+</ul></li>
 <li>0.1.2
 <ul>
 <li>複数の GUI インスタンス間で表示を同期するように変更。</li>
@@ -399,6 +420,10 @@ style="display: inline-block; vertical-align: middle;"></li>
 <ul>
 <li>初期リリース</li>
 </ul></li>
+</ul>
+<h3 id="旧バージョン">旧バージョン</h3>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/FDNCymbal0.1.2.zip">FDNCymbal 0.1.2 - VST 3 (github.com)</a></li>
 </ul>
 <h2 id="ライセンス">ライセンス</h2>
 <p>FDNCymbal のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>

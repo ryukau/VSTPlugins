@@ -6,7 +6,7 @@
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <meta name="dcterms.date" content="2020-01-17" />
-<title>IterativeSinCluster_en</title>
+<title>EnvelopedSine_en</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -207,7 +207,7 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#iterativesincluster">IterativeSinCluster</a><ul>
+  <li><a href="#envelopedsine">EnvelopedSine</a><ul>
   <li><a href="#installation">Installation</a><ul>
   <li><a href="#plugin">Plugin</a></li>
   <li><a href="#presets">Presets</a></li>
@@ -215,38 +215,48 @@ footer {
   </ul></li>
   <li><a href="#controls">Controls</a></li>
   <li><a href="#parameters">Parameters</a><ul>
-  <li><a href="#gain">Gain</a><ul>
-  <li><a href="#boost-gain">Boost, Gain</a></li>
-  <li><a href="#adsr">ADSR</a></li>
-  <li><a href="#curve">Curve</a></li>
+  <li><a href="#overtone">Overtone</a><ul>
+  <li><a href="#attack-decay">Attack, Decay</a></li>
+  <li><a href="#gain">Gain</a></li>
+  <li><a href="#saturation">Saturation</a></li>
   </ul></li>
-  <li><a href="#shelving">Shelving</a></li>
+  <li><a href="#gain-1">Gain</a><ul>
+  <li><a href="#boost-gain">Boost, Gain</a></li>
+  </ul></li>
   <li><a href="#pitch">Pitch</a><ul>
   <li><a href="#add-aliasing">Add Aliasing</a></li>
-  <li><a href="#reverse-semi">Reverse Semi</a></li>
   <li><a href="#octave">Octave</a></li>
-  <li><a href="#et">ET</a></li>
   <li><a href="#multiply-modulo">Multiply, Modulo</a></li>
+  <li><a href="#expand">Expand</a></li>
+  <li><a href="#shift">Shift</a></li>
   </ul></li>
-  <li><a href="#smooth">Smooth</a></li>
-  <li><a href="#nvoice">nVoice</a></li>
   <li><a href="#random">Random</a><ul>
   <li><a href="#retrigger">Retrigger</a></li>
   <li><a href="#seed">Seed</a></li>
-  <li><a href="#to-gain">To Gain</a></li>
+  <li><a href="#to-gain-to-attack-to-decay-to-sat.">To Gain, To Attack, To Decay, To Sat.</a></li>
   <li><a href="#to-pitch">To Pitch</a></li>
+  <li><a href="#to-phase">To Phase</a></li>
   </ul></li>
-  <li><a href="#note-chord-overtone">Note, Chord, Overtone</a></li>
-  <li><a href="#chorus">Chorus</a><ul>
+  <li><a href="#misc.">Misc.</a><ul>
+  <li><a href="#smooth">Smooth</a></li>
+  <li><a href="#nvoices">nVoices</a></li>
+  <li><a href="#unison">Unison</a></li>
+  </ul></li>
+  <li><a href="#modifier">Modifier</a><ul>
+  <li><a href="#attack-decay-1">Attack<em>, Decay</em></a></li>
+  <li><a href="#declick">Declick</a></li>
+  <li><a href="#gain-2">Gain^</a></li>
+  <li><a href="#sat.-mix">Sat. Mix</a></li>
+  </ul></li>
+  <li><a href="#phaser">Phaser</a><ul>
+  <li><a href="#nstages">nStages</a></li>
   <li><a href="#mix">Mix</a></li>
   <li><a href="#freq">Freq</a></li>
-  <li><a href="#depth">Depth</a></li>
-  <li><a href="#range">Range</a></li>
-  <li><a href="#time">Time</a></li>
-  <li><a href="#phase">Phase</a></li>
-  <li><a href="#offset">Offset</a></li>
   <li><a href="#feedback">Feedback</a></li>
-  <li><a href="#key-follow">Key Follow</a></li>
+  <li><a href="#range">Range</a></li>
+  <li><a href="#min">Min</a></li>
+  <li><a href="#offset">Offset</a></li>
+  <li><a href="#phase">Phase</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#change-log">Change Log</a><ul>
@@ -260,18 +270,18 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="iterativesincluster">IterativeSinCluster</h1>
-<p><img src="img/iterativesincluster.png" /></p>
-<p>IterativeSinCluster is an additive synthesizer. This synth computes 512 sine waves for each note to make tone cluster. I somehow thought “iterative sin” is a valid term. Correct term is “recursive sine”.</p>
+<h1 id="envelopedsine">EnvelopedSine</h1>
+<p><img src="img/envelopedsine.png" /></p>
+<p>EnvelopedSine is an additive synthesizer that computes 64 sine waves for each note. Difference to IterativeSinCluster is that this synth has AD envelope and saturator for each oscillator. EnvelopedSine is better suited for percussive sounds.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/IterativeSinCluster0.1.1.zip">Download IterativeSinCluster 0.1.1 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/EnvelopedSine0.1.0.zip">Download EnvelopedSine 0.1.0 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbalPresets.zip">Download Presets (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/EnvelopedSinePresets.zip">Download Presets (github.com)</a></li>
 </ul>
-<p>IterativeSinCluster requires CPU which supports AVX or later SIMD instructions.</p>
+<p>EnvelopedSine requires CPU which supports AVX or later SIMD instructions.</p>
 <p>The package includes following builds:</p>
 <ul>
 <li>Windows 64bit</li>
@@ -311,118 +321,190 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li>Ctrl + Left Click: Reset value.</li>
 <li>Shift + Left Drag: Fine adjustment.</li>
 </ul>
+<p><code>Octave</code> 、 <code>Seed</code> などで使われている数値スライダーでは、上記に加えて次の操作ができます。</p>
+<ul>
+<li>ホイールクリック : 最小値、最大値の切り替え。</li>
+</ul>
+<p>Overtone controls (<code>Attack</code>, <code>Decay</code>, <code>Gain</code>, <code>Saturation</code>) have some keyboard shortcuts. Shortcuts are only enabled after left clicking overtone control. Cheat sheet can be popped up by clicking plugin title on bottom left.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Input</th>
+<th>Control</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><kbd>Ctrl</kbd> + <kbd>Left Click</kbd></td>
+<td>Reset to Default</td>
+</tr>
+<tr class="even">
+<td><kbd>Right Drag</kbd></td>
+<td>Draw Line</td>
+</tr>
+<tr class="odd">
+<td><kbd>a</kbd></td>
+<td>Sort Ascending Order</td>
+</tr>
+<tr class="even">
+<td><kbd>d</kbd></td>
+<td>Sort Descending Order</td>
+</tr>
+<tr class="odd">
+<td><kbd>f</kbd></td>
+<td>Low-pass Filter</td>
+</tr>
+<tr class="even">
+<td><kbd>F</kbd></td>
+<td>High-pass Filter</td>
+</tr>
+<tr class="odd">
+<td><kbd>i</kbd></td>
+<td>Invert Value (Preserve current minimum)</td>
+</tr>
+<tr class="even">
+<td><kbd>I</kbd></td>
+<td>Invert Value (Minimum to 0)</td>
+</tr>
+<tr class="odd">
+<td><kbd>n</kbd></td>
+<td>Normalize (Preserve current minimum)</td>
+</tr>
+<tr class="even">
+<td><kbd>N</kbd></td>
+<td>Normalize (Minimum to 0)</td>
+</tr>
+<tr class="odd">
+<td><kbd>h</kbd></td>
+<td>Emphasize High</td>
+</tr>
+<tr class="even">
+<td><kbd>l</kbd></td>
+<td>Emphasize Low</td>
+</tr>
+<tr class="odd">
+<td><kbd>p</kbd></td>
+<td>Permute</td>
+</tr>
+<tr class="even">
+<td><kbd>r</kbd></td>
+<td>Randomize</td>
+</tr>
+<tr class="odd">
+<td><kbd>R</kbd></td>
+<td>Sparse Randomize</td>
+</tr>
+<tr class="even">
+<td><kbd>s</kbd></td>
+<td>Subtle Randomize</td>
+</tr>
+<tr class="odd">
+<td><kbd>,</kbd> (Comma)</td>
+<td>Rotate Back</td>
+</tr>
+<tr class="even">
+<td><kbd>.</kbd> (Period)</td>
+<td>Rotate Forward</td>
+</tr>
+<tr class="odd">
+<td><kbd>1</kbd></td>
+<td>Decrease Odd</td>
+</tr>
+<tr class="even">
+<td><kbd>2</kbd>-<kbd>9</kbd></td>
+<td>Decrease 2n-9n</td>
+</tr>
+</tbody>
+</table>
 <h2 id="parameters">Parameters</h2>
-<h3 id="gain">Gain</h3>
+<h3 id="overtone">Overtone</h3>
+<p>4 big controls on top right.</p>
+<h4 id="attack-decay">Attack, Decay</h4>
+<p>Gain envelope attack and decay for each oscillator.</p>
+<h4 id="gain">Gain</h4>
+<p>Gain for each oscillator.</p>
+<h4 id="saturation">Saturation</h4>
+<p>Saturation gain for each oscillator.</p>
+<h3 id="gain-1">Gain</h3>
 <h4 id="boost-gain">Boost, Gain</h4>
 <p>Both controls output gain. Peak value of output will be <code>Boost * Gain</code>.</p>
-<p>It’s possible that output gain becomes too small while changing gain of <code>Note</code>, <code>Chord</code>, <code>Overtone</code>. <code>Boost</code> can be useful in this situation.</p>
-<h4 id="adsr">ADSR</h4>
-<p>Parameters for gain envelope.</p>
-<ul>
-<li><code>A</code> : Attack time which is the length from note-on to reaching peak value.</li>
-<li><code>D</code> : Decay time which is the length from peak value to reaching sustain level.</li>
-<li><code>S</code> : Sustain level which is the gain after decay.</li>
-<li><code>R</code> : Release time which is the length from note-off to the gain reaching to 0.</li>
-</ul>
-<h4 id="curve">Curve</h4>
-<p>Change attack curve of gain envelope.</p>
-<h3 id="shelving">Shelving</h3>
-<p>Cutoff freqeuncy can be changed by <code>Semi</code>, which is relative to a note frequency. For example, if the note is C4 and <code>Semi</code> is 12.000, cutoff frequency is set to <code>C4 + 12 semitone = C5</code>.</p>
-<ul>
-<li><code>Low</code> shelving changes <code>Gain</code> of sine waves <strong>less than or equal to</strong> the cutoff frequency specified by <code>Semi</code>.</li>
-<li><code>High</code> shelving changes <code>Gain</code> of sine waves <strong>greater than or equal to</strong> the cutoff frequency specified by <code>Semi</code>.</li>
-</ul>
 <h3 id="pitch">Pitch</h3>
 <h4 id="add-aliasing">Add Aliasing</h4>
 <p>When checked, the synth enables rendering of sine waves over nyquist frequency.</p>
 <p>Roughly speaking, nyquist frequency is the highest frequency that can be reconstructed from recorded digital signal. When generating sound, it’s possible to set value that is higher than nyquist frequency. However, the result may contain unexpected frequency due to a phenomenon called aliasing. <code>Add Aliasing</code> is option to add those aliasing noise.</p>
-<h4 id="reverse-semi">Reverse Semi</h4>
-<p>When checked, negate sign of <code>Semi</code>. For example, 7.000 becomes -7.000.</p>
 <h4 id="octave">Octave</h4>
 <p>Note octave.</p>
-<h4 id="et">ET</h4>
-<p><code>ET</code> stands for equal temperament. This parameter can be used to change tuning of <code>Semi</code> and <code>Milli</code>.</p>
-<p>Note that this parameter is not to change tuning of notes sent from plugin host. Only affect to internal parameters.</p>
 <h4 id="multiply-modulo">Multiply, Modulo</h4>
 <p>Change sine wave frequency.</p>
-<p>Equation is <code>noteFrequency * (1 + fmod(Multiply * pitch, Modulo))</code>. <code>pitch</code> is calculated from <code>Note</code>, <code>Chord</code> and <code>Overtone</code>. <code>fmod(a, b)</code> is a function that returns reminder of <code>a / b</code>.</p>
-<h3 id="smooth">Smooth</h3>
-<p>Time length to change some parameter value to current one. Unit is in second.</p>
-<p>List of parameters related to <code>Smooth</code>. <code>*</code> represents wild card.</p>
-<ul>
-<li>All parameters in <code>Gain</code> section.</li>
-<li><code>Chord.Pan</code></li>
-<li>All parameters in <code>Chorus</code> section, except <code>Key Follow</code>.</li>
-</ul>
-<p>Other parameter uses the value obtained from the timing of note-on for entire duration of a note.</p>
-<h3 id="nvoice">nVoice</h3>
-<p>Maximum polyphony. Lowering the number of this option reduces CPU load.</p>
+<p>Equation is <code>noteFrequency * (1 + fmod(Multiply * pitch, Modulo))</code>. <code>pitch</code> is calculated from note pitch and overtone index. <code>fmod(a, b)</code> is a function that returns reminder of <code>a / b</code>.</p>
+<h4 id="expand">Expand</h4>
+<p>Scaling factor for overtone controls.</p>
+<p><img src="img/envelopedsine_expand.svg" /></p>
+<h4 id="shift">Shift</h4>
+<p>Amount of right shift to overtone controls.</p>
+<p><img src="img/envelopedsine_shift.svg" /></p>
 <h3 id="random">Random</h3>
+<p>Randomize parameters. These are more effective when used with <code>Unison</code>.</p>
 <h4 id="retrigger">Retrigger</h4>
 <p>When checked, reset random seed for each note-on.</p>
 <h4 id="seed">Seed</h4>
 <p>Random seed. This value change random number sequence.</p>
-<h4 id="to-gain">To Gain</h4>
-<p>Amount of randomization to sine wave gain. Randomization is done for each note-on.</p>
+<h4 id="to-gain-to-attack-to-decay-to-sat.">To Gain, To Attack, To Decay, To Sat.</h4>
+<p>Amount of randomization to overtone controls. Equation is <code>value * random</code>. Range of <code>random</code> is <code>[0.0, 1.0)</code>.</p>
 <h4 id="to-pitch">To Pitch</h4>
-<p>Amount of randomization to sine wave pitch. Randomization is done for each note-on.</p>
-<h3 id="note-chord-overtone">Note, Chord, Overtone</h3>
-<p>Change sine wave gain and pitch.</p>
-<p>1 <code>Note</code> have 16 <code>Overtone</code>. 1 <code>Chord</code> consists of 8 <code>Note</code>. 4 <code>Chord</code> are available to use.</p>
-<p>Common parameters for <code>Note</code> and <code>Chord</code>.</p>
+<p>Amount of randomization to pitch.</p>
+<h4 id="to-phase">To Phase</h4>
+<p>Amount of randomization to phase.</p>
+<h3 id="misc.">Misc.</h3>
+<h4 id="smooth">Smooth</h4>
+<p>Time length to change some parameter value to current one. Unit is in second.</p>
+<p>List of parameters related to <code>Smooth</code>. <code>*</code> represents wild card.</p>
 <ul>
-<li><code>Gain</code> : Sine wave gain.</li>
-<li><code>Semi</code> : Distance from note frequency. Unit is semitone.</li>
-<li><code>Milli</code> : Distance from note frequency. Unit is 1 / 1000 semitone, or 1 / 10 cent.</li>
+<li>All parameters in <code>Gain</code> section.</li>
+<li>All parameters in <code>Phaser</code> section, except <code>nStages</code>.</li>
 </ul>
-<p>Leftmost of <code>Overtone</code> is gain of fundamental frequency (1st overtone) of a note. For each bar from left represents 1st, 2nd, 3rd, … , 16th overtone gain.</p>
-<p>Below is the summary of calculation of sine wave frequency.</p>
-<pre><code>function toneToPitch(semi, milli):
-  return 2 ^ (1000 * semi + milli) / (ET * 1000)
-
-for each Chord:
-  chordPitch = toneToPitch(Chord.semi, Chord.milli)
-  for each Note:
-    notePitch = toneToPitch(Note.semi, Note.milli)
-    for each Overtone:
-      frequency = midiNoteFrequency
-        * (1 + mod(Multiply * Overtone * notePitch * chordPitch, Modulo))</code></pre>
-<h3 id="chorus">Chorus</h3>
+<p>Other parameter uses the value obtained from the timing of note-on for entire duration of a note.</p>
+<h4 id="nvoices">nVoices</h4>
+<p>Maximum polyphony. Lowering the number of this option reduces CPU load.</p>
+<h4 id="unison">Unison</h4>
+<p>When checked, unison is enabled.</p>
+<p>When unison is enabled, 1 note uses 2 voices. 1 voice is placed on left and other is placed on right. Combining <code>Unison</code> with <code>Random.To Phase</code>, <code>Random.To Pitch</code>, etc. can be used to make sound with stereo spread.</p>
+<h3 id="modifier">Modifier</h3>
+<h4 id="attack-decay-1">Attack<em>, Decay</em></h4>
+<p>Multiplier for <code>Attack</code>/<code>Decay</code> in overtone control section.</p>
+<h4 id="declick">Declick</h4>
+<p>When checked, it reduces click noise that occurs when the value of <code>Attack</code> and/or <code>Decay</code> is 0.</p>
+<h4 id="gain-2">Gain^</h4>
+<p>Exponent to <code>Gain</code> in overtone control. Following is the equation of gain of an oscillator.</p>
+<pre><code>Gain.Boost * Gain.Gain * pow(Overtone.Gain, Modifier.Gain^)</code></pre>
+<h4 id="sat.-mix">Sat. Mix</h4>
+<p>Mixing ratio of dry/wet signal of saturation. <code>Dry : Wet</code> becomes <code>0 : 1</code> when turned the knob to rightmost.</p>
+<h3 id="phaser">Phaser</h3>
+<h4 id="nstages">nStages</h4>
+<p>Number of all-pass filter.</p>
 <h4 id="mix">Mix</h4>
-<p>Change Dry/Wet mix ratio.</p>
+<p>Mixing ratio of dry/wet signal of phaser. <code>Dry : Wet</code> becomes <code>0 : 1</code> when turned the knob to rightmost.</p>
 <h4 id="freq">Freq</h4>
-<p>Chorus LFO frequency.</p>
-<h4 id="depth">Depth</h4>
-<p>Change stereo spread.</p>
-<h4 id="range">Range</h4>
-<p>Amount of modulation from LFO to delay time. There are three delays in this chorus.</p>
-<h4 id="time">Time</h4>
-<p>Delay time.</p>
-<h4 id="phase">Phase</h4>
-<p>LFO phase.</p>
-<h4 id="offset">Offset</h4>
-<p>Phase difference between delays.</p>
+<p>LFO frequency.</p>
 <h4 id="feedback">Feedback</h4>
-<p>Feedback of delay.</p>
-<h4 id="key-follow">Key Follow</h4>
-<p>When checked, change delay time relative to note frequency.</p>
+<p>Amount of feedback. Feedback is disabled when the knob is pointing to 12 o’clock. It becomes negative feedback when turned to left and positive feedback when turned to right.</p>
+<h4 id="range">Range</h4>
+<p>Range of all-pass filter modulation by LFO.</p>
+<h4 id="min">Min</h4>
+<p>Minimum value of all-pass filter modulation by LFO.</p>
+<h4 id="offset">Offset</h4>
+<p>LFO phase offset.</p>
+<h4 id="phase">Phase</h4>
+<p>LFO phase. This can be used to make sound with automation. Turning <code>Freq</code> to leftmost sets LFO frequency to 0.</p>
 <h2 id="change-log">Change Log</h2>
 <ul>
-<li>0.1.1
-<ul>
-<li>Fixed macOS build.</li>
-<li>Added code paths for AVX and AVX512 instructions.</li>
-<li>Fixed wobbling knob bug.</li>
-</ul></li>
 <li>0.1.0
 <ul>
 <li>Initial release.</li>
 </ul></li>
 </ul>
 <h3 id="old-versions">Old Versions</h3>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/IterativeSinCluster0.1.0.zip">Download IterativeSinCluster 0.1.0 - VST® 3 (github.com)</a></li>
-</ul>
+<p>Not available.</p>
 <h2 id="license">License</h2>
 <p>IterativeSinCluster is licensed under GPLv3. Complete licenses are linked below.</p>
 <ul>

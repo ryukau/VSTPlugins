@@ -8,6 +8,7 @@ SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR saw
   alt="VST compatible logo."
   width="60px"
   style="display: inline-block; vertical-align: middle;">
+- [Download Presets (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SyncSawSynthPresets.zip)
 
 The package includes following builds:
 
@@ -20,6 +21,7 @@ macOS build isn't tested because I don't have Mac. If you found a bug, please fi
 Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
 
 ## Installation
+### Plugin
 Place `*.vst3` directory to:
 
 - `/Program Files/Common Files/VST3/` for Windows.
@@ -27,6 +29,15 @@ Place `*.vst3` directory to:
 - `/Users/$USERNAME/Library/Audio/Plug-ins/VST3/` for macOS.
 
 DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.
+
+### Presets
+Extract preset zip, then place preset directory to the OS specific path:
+
+- Windows : `/Users/$USERNAME/Documents/VST3 Presets/Uhhyou`
+- Linux : `$HOME/.vst3/presets/Uhhyou`
+- macOS : `/Users/$USERNAME/Library/Audio/Presets/Uhhyou`
+
+Preset directory name must be the same as the plugin. Make `Uhhyou` directory if it does not exist.
 
 ### Linux Specific
 On Ubuntu 18.0.4, those packages are required.
