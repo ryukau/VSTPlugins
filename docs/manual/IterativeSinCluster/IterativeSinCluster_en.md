@@ -1,13 +1,15 @@
 # IterativeSinCluster
 ![](img/iterativesincluster.png)
 
-IterativeSinCluster is an additive synthesizer. This synth computes 512 sine waves for each note to make tone cluster.
+IterativeSinCluster is an additive synthesizer. This synth computes 512 sine waves for each note to make tone cluster. I somehow thought "iterative sin" is a valid term. Correct term is "recursive sine".
 
-- [Download IterativeSinCluster 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/IterativeSinCluster0.1.0.zip) <img
+- [Download IterativeSinCluster 0.1.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/IterativeSinCluster0.1.1.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
   style="display: inline-block; vertical-align: middle;">
+
+IterativeSinCluster requires CPU which supports AVX or later SIMD instructions.
 
 The package includes following builds:
 
@@ -15,14 +17,12 @@ The package includes following builds:
 - Linux 64bit
 - macOS 64bit
 
-IterativeSinCluster requires CPU to support AVX2 instructions.
-
 macOS build isn't tested because I don't have Mac. If you found a bug, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`.
 
 Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
 
 ## Installation
-Place `IterativeSinCluster.vst3` directory to:
+Place `*.vst3` directory to:
 
 - `/Program Files/Common Files/VST3/` for Windows.
 - `$HOME/.vst3/` for Linux.
@@ -41,7 +41,7 @@ If DAW doesn't recognize the plugin, take a look at `Package Requirements` secti
 
 - [VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html)
 
-REAPER 5.983 on Linux may not recognize IterativeSinCluster. A workaround is to delete a file `~/.config/REAPER/reaper-vstplugins64.ini` and restart REAPER.
+REAPER 5.983 on Linux may not recognize the plugin. A workaround is to delete a file `~/.config/REAPER/reaper-vstplugins64.ini` and restart REAPER.
 
 ## Controls
 Knob and slider can do:
@@ -70,8 +70,8 @@ Change attack curve of gain envelope.
 ### Shelving
 Cutoff freqeuncy can be changed by `Semi`, which is relative to a note frequency. For example, if the note is C4 and `Semi` is 12.000, cutoff frequency is set to `C4 + 12 semitone = C5`.
 
-- `Low` shelving changes `Gain` of sine waves **less than or equal to** cutoff frequency specified by `Semi`.
-- `High` shelving changes `Gain` of sine waves **greater than or equal to** cutoff frequency specified by `Semi`.
+- `Low` shelving changes `Gain` of sine waves **less than or equal to** the cutoff frequency specified by `Semi`.
+- `High` shelving changes `Gain` of sine waves **greater than or equal to** the cutoff frequency specified by `Semi`.
 
 ### Pitch
 #### Add Aliasing
@@ -179,8 +179,15 @@ Feedback of delay.
 When checked, change delay time relative to note frequency.
 
 ## Change Log
+- 0.1.1
+  - Fixed macOS build.
+  - Added code paths for AVX and AVX512 instructions.
+  - Fixed wobbling knob bug.
 - 0.1.0
   - Initial release.
+
+### Old Versions
+- [Download IterativeSinCluster 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/IterativeSinCluster0.1.0.zip)
 
 ## License
 IterativeSinCluster is licensed under GPLv3. Complete licenses are linked below.

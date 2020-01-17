@@ -3,7 +3,7 @@
 
 <ruby>WaveCymbal<rt>ウェイブシンバル</rt></ruby>は banded wave-guide という手法を用いてシンバルの音が鳴るはずだったシンセサイザです。実際のところはシンバルというよりも、アスファルトの上でトタン板や紐につないだ空き缶を引きずったときのような音が出ます。
 
-- [WaveCymbal 0.1.3 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/WaveCymbal0.1.3.zip) <img
+- [WaveCymbal 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/WaveCymbal0.1.4.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -20,7 +20,7 @@ Mac を持っていないので、 macOS ビルドはテストできていませ
 Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。
 
 ## インストール
-`WaveCymbal.vst3` を OS ごとに決められたディレクトリに配置してください。
+名前が `.vst3` で終わるディレクトリを OS ごとに決められた位置に配置してください。
 
 - Windows では `/Program Files/Common Files/VST3/` に配置します。
 - Linux では `$HOME/.vst3/` に配置します。
@@ -39,7 +39,7 @@ sudo apt install libxcb-cursor0  libxkbcommon-x11-0
 
 - [VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html)
 
-REAPER 5.983 の Linux 版が WaveCymbal を認識しないときは `~/.config/REAPER/reaper-vstplugins64.ini` を削除して REAPER を再起動してみてください。
+REAPER 5.983 の Linux 版がプラグインを認識しないときは `~/.config/REAPER/reaper-vstplugins64.ini` を削除して REAPER を再起動してみてください。
 
 ## 操作
 つまみとスライダーでは次の操作ができます。
@@ -51,6 +51,9 @@ REAPER 5.983 の Linux 版が WaveCymbal を認識しないときは `~/.config/
 
 ## 注意
 マウスカーソルを合わせたときに赤くハイライトされるパラメータは音量を大きく変えることができます。これらのパラメータは Shift + 左ドラッグを使ってゆっくりと変更することを推奨します。また突然の音割れを防ぐために、WaveCymbaの後には必ずリミッタをインサートすることを推奨します。
+
+## ブロック線図
+![](img/wavecymbal.svg)
 
 ## パラメータ
 ### Gain
@@ -133,6 +136,8 @@ Karplus-Strong アルゴリズムによる弦の減衰の速さを調整しま�
 `Gain`, `Excitation.Time`, `Random.Amount`, `Bandpass.MinCutoff`, `Bandpass.MaxCutoff` を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。 `OscType.Sustain` のスライドの長さも `Smoothness` で調整できます。
 
 ## チェンジログ
+- 0.1.4
+  - Ableton Live 10.1.6 で特定のノブが揺れ戻るバグを修正。
 - 0.1.3
   - 複数の GUI インスタンス間で表示を同期するように変更。
   - スプラッシュスクリーンを開くとクラッシュするバグを修正。
@@ -144,6 +149,9 @@ Karplus-Strong アルゴリズムによる弦の減衰の速さを調整しま�
   - スムーシングのアルゴリズムの値が決められた範囲を超えるバグを修正。
 - 0.1.0
   - 初期リリース
+
+### 旧バージョン
+- [WaveCymbal 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/WaveCymbal0.1.3.zip)
 
 ## ライセンス
 WaveCymbal のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。

@@ -3,7 +3,7 @@
 
 FDNCymbal is a cymbal sound synthesizer. It can also be used as an effect. Unlike the name, most of metallic texture comes from Schroeder allpass section rather than FDN (feedback delay network). FDN section makes nice impact sound when `FDN.Time` is short. Tremolo is added to simulate wobbling of cymbal.
 
-- [Download FDNCymbal 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/FDNCymbal0.1.2.zip) <img
+- [Download FDNCymbal 0.1.3 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbal0.1.3.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -20,7 +20,7 @@ macOS build isn't tested because I don't have Mac. If you found a bug, please fi
 Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
 
 ## Installation
-Place `FDNCymbal.vst3` directory to:
+Place `*.vst3` directory to:
 
 - `/Program Files/Common Files/VST3/` for Windows.
 - `$HOME/.vst3/` for Linux.
@@ -39,7 +39,7 @@ If DAW doesn't recognize the plugin, take a look at `Package Requirements` secti
 
 - [VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html)
 
-REAPER 5.983 on Linux may not recognize SevenDelay. A workaround is to delete a file `~/.config/REAPER/reaper-vstplugins64.ini` and restart REAPER.
+REAPER 5.983 on Linux may not recognize the plugin. A workaround is to delete a file `~/.config/REAPER/reaper-vstplugins64.ini` and restart REAPER.
 
 ## Controls
 Knob and slider can do:
@@ -154,6 +154,8 @@ Amount of randomization to `Tremolo.Frequency` for each note on.
 Amount of randomization to `Tremolo.DelayTime` for each note on.
 
 ## Change Log
+- 0.1.3
+  - Fixed a bug that sound stops on Steinberg host.
 - 0.1.2
   - Added support for synchronization between multiple GUI instances.
   - Fixed a bug that opening splash screen causes crash.
@@ -164,6 +166,9 @@ Amount of randomization to `Tremolo.DelayTime` for each note on.
   - Fixed a bug that `Allpass.Stage1.Feedback` was disabled.
 - 0.1.0
   - Initial release.
+
+### Old Versions
+- [Download FDNCymbal 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/FDNCymbal0.1.2.zip)
 
 ## License
 SevenDelay is licensed under GPLv3. Complete licenses are linked below.

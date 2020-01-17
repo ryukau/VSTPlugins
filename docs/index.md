@@ -16,35 +16,6 @@ For Linux, LV2 version is available.
 
 - [GitHub - ryukau/LV2Plugins](https://github.com/ryukau/LV2Plugins)
 
-# パッケージについて | About Packages
-パッケージには次のビルドが含まれています。
-
-- Windows 64bit
-- Linux 64bit
-- macOS 64bit
-
-ダウンロードリンクは各プラグインのマニュアルと [GitHub のリリースページ](https://github.com/ryukau/VSTPlugins/releases)に掲載しています。
-
-Windows ビルドは FL Studio でテストしています。
-
-Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に報告をお願いします。
-
-Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。
-
-A package contains following builds:
-
-- Windows 64bit
-- Linux 64bit
-- macOS 64bit
-
-Download link is available at plugin manual page or [GitHub releases page](https://github.com/ryukau/VSTPlugins/releases).
-
-Windows build is tested on FL Studio.
-
-macOS build isn't tested because I don't have Mac. If you found a bug, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins).
-
-Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
-
 ## プリセット | Presets
 全てのプラグインのプリセットがまとめて入っています。
 
@@ -66,6 +37,16 @@ After extracting, move `Uhhyou` directory to following path.
 - Linux : `$HOME/.vst3/presets`
 - macOS : `/Users/$USERNAME/Library/Audio/Presets`
 
+## EnvelopedSine
+![](manual/EnvelopedSine/img/envelopedsine.png)
+
+EnvelopedSineはノート 1 つあたり 64 のサイン波を計算する加算合成シンセサイザです。各サイン波に AD エンベロープとサチュレータがついているので IterativeSinCluster よりもパーカッシブな音が得意です。
+
+- [EnvelopedSine のマニュアル (日本語)](manual/EnvelopedSine/EnvelopedSine_ja.html)
+
+EnvelopedSine is an additive synthesizer that computes 64 sine waves for each note. Difference to IterativeSinCluster is that this synth has AD envelope and saturator for each oscillator. EnvelopedSine is better suited for percussive sounds.
+
+- [EnvelopedSine Manual (English)](manual/EnvelopedSine/EnvelopedSine_en.html)
 
 ## IterativeSinCluster
 ![](manual/IterativeSinCluster/img/iterativesincluster.png)
