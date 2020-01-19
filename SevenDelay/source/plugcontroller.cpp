@@ -50,14 +50,12 @@ tresult PLUGIN_API PlugController::setComponentState(IBStream *state)
 
 IPlugView *PLUGIN_API PlugController::createView(const char *name)
 {
-#ifndef LINUX
   if (name && strcmp(name, "editor") == 0) {
     auto plugEditor = new Vst::PlugEditor(this);
     plugEditor->remember();
     editor.push_back(plugEditor);
     return plugEditor;
   }
-#endif
   return 0;
 }
 

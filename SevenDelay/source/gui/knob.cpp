@@ -47,8 +47,10 @@ void Knob::draw(CDrawContext *pContext)
   pContext->setFrameColor(isMouseEntered ? highlightColor : slitColor);
   pContext->setLineStyle(lineStyle);
   pContext->setLineWidth(halfSlitWidth * 2.0);
-  pContext->drawArc(CRect(halfSlitWidth - radius, halfSlitWidth - radius,
-                      radius - halfSlitWidth, radius - halfSlitWidth),
+  pContext->drawArc(
+    CRect(
+      halfSlitWidth - radius, halfSlitWidth - radius, radius - halfSlitWidth,
+      radius - halfSlitWidth),
     (float)(90.0 + slitNotchHalf), (float)(90.0 - slitNotchHalf));
 
   // Tick for default value. Sharing color and style with slit.
@@ -65,8 +67,10 @@ void Knob::draw(CDrawContext *pContext)
 
   // Tip.
   pContext->setFillColor(tipColor);
-  pContext->drawEllipse(CRect(tip.x - halfSlitWidth, tip.y - halfSlitWidth,
-                          tip.x + halfSlitWidth, tip.y + halfSlitWidth),
+  pContext->drawEllipse(
+    CRect(
+      tip.x - halfSlitWidth, tip.y - halfSlitWidth, tip.x + halfSlitWidth,
+      tip.y + halfSlitWidth),
     kDrawFilled);
 
   setDirty(false);

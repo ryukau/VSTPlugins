@@ -17,12 +17,14 @@
 
 #include "vstgui4/vstgui/lib/platform/iplatformfont.h"
 
+#include "plugeditor.hpp"
+#include "x11runloop.hpp"
+
 #include "checkbox.hpp"
 #include "grouplabel.hpp"
 #include "guistyle.hpp"
 #include "knob.hpp"
 #include "optionmenu.hpp"
-#include "plugeditor.hpp"
 #include "slider.hpp"
 #include "splash.hpp"
 #include "textbutton.hpp"
@@ -45,7 +47,14 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   if (frame == nullptr) return false;
   frame->setBackgroundColor(colorWhite);
   frame->registerMouseObserver(this);
-  frame->open(parent);
+
+  IPlatformFrameConfig *config = nullptr;
+#if LINUX
+  X11::FrameConfig x11config;
+  x11config.runLoop = VSTGUI::owned(new RunLoop(plugFrame));
+  config = &x11config;
+#endif
+  frame->open(parent, platformType, config);
 
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
