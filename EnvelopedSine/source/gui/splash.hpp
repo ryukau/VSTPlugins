@@ -54,6 +54,8 @@ public:
   CLASS_METHODS(CreditView, CControl)
 
 private:
+  inline IPlatformString *conv(const char *text);
+
   CCoord fontSize = 12.0;
   CCoord fontSizeTitle = 18.0;
 

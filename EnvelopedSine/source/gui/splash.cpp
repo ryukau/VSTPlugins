@@ -43,45 +43,71 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->setFont(fontIDTitle);
   pContext->setFontColor(CColor(0, 0, 0, 255));
-  pContext->drawString(
-    UTF8String("EnvelopedSine " VERSION_STR).getPlatformString(),
-    CPoint(20.0, 50.0));
+  pContext->drawString(conv("EnvelopedSine " VERSION_STR), CPoint(20.0, 50.0));
 
   pContext->setFont(fontIDText);
   pContext->setFontColor(CColor(0, 0, 0, 255));
   pContext->drawString(
-    UTF8String("© 2019 Takamitsu Endo (ryukau@gmail.com)").getPlatformString(),
-    CPoint(20.0, 90.0));
+    conv("© 2019-2020 Takamitsu Endo (ryukau@gmail.com)"), CPoint(20.0, 90.0));
 
-  pContext->drawString(UTF8String("- Knob -").getPlatformString(), CPoint(20.0, 150.0));
+  pContext->drawString(conv("- Knob -"), CPoint(20.0f, 150.0f));
+  pContext->drawString(conv("Shift + Left Drag: Fine Adjustment"), CPoint(20.0f, 180.0f));
   pContext->drawString(
-    UTF8String("Shift + Left Drag: Fine Adjustment").getPlatformString(),
-    CPoint(20.0, 180.0));
-  pContext->drawString(
-    UTF8String("Ctrl + Left Click: Reset to Default").getPlatformString(),
-    CPoint(20.0, 210.0));
+    conv("Ctrl + Left Click: Reset to Default"), CPoint(20.0f, 210.0f));
 
-  pContext->drawString(UTF8String("- Number -").getPlatformString(), CPoint(20.0, 270.0));
+  pContext->drawString(conv("- Number -"), CPoint(20.0f, 270.0f));
   pContext->drawString(
-    UTF8String("Shares same controls with knob, and:").getPlatformString(),
-    CPoint(20.0, 300.0));
+    conv("Shares same controls with knob, and:"), CPoint(20.0f, 300.0f));
   pContext->drawString(
-    UTF8String("Middle Click: Flip Minimum and Maximum").getPlatformString(),
-    CPoint(20.0, 330.0));
+    conv("Right Click: Flip Minimum and Maximum"), CPoint(20.0f, 330.0f));
 
-  pContext->drawString(
-    UTF8String("- Overtone -").getPlatformString(), CPoint(380.0, 150.0));
-  pContext->drawString(
-    UTF8String("Ctrl + Left Drag: Reset to Default").getPlatformString(),
-    CPoint(380.0, 180.0));
-  pContext->drawString(
-    UTF8String("Middle Drag: Set to Minimum").getPlatformString(), CPoint(380.0, 210.0));
-  pContext->drawString(
-    UTF8String("Ctrl + Middle Drag: Set to Maximum").getPlatformString(),
-    CPoint(380.0, 240.0));
+  pContext->drawString(conv("- Overtone -"), CPoint(280.0f, 150.0f));
 
-  pContext->drawString(
-    UTF8String("Have a nice day!").getPlatformString(), CPoint(380.0, 300.0));
+  pContext->drawString(conv("Ctrl + Left Click"), CPoint(280.0f, 180.0f));
+  pContext->drawString(conv("Right Drag"), CPoint(280.0f, 210.0f));
+  pContext->drawString(conv("A"), CPoint(280.0f, 240.0f));
+  pContext->drawString(conv("D"), CPoint(280.0f, 270.0f));
+  pContext->drawString(conv("F"), CPoint(280.0f, 300.0f));
+  pContext->drawString(conv("Shift + F"), CPoint(280.0f, 330.0f));
+  pContext->drawString(conv("I"), CPoint(280.0f, 360.0f));
+  pContext->drawString(conv("Shift + I"), CPoint(280.0f, 390.0f));
+  pContext->drawString(conv("N"), CPoint(280.0f, 420.0f));
+  pContext->drawString(conv("Shift + N"), CPoint(280.0f, 450.0f));
+
+  pContext->drawString(conv("| Reset to Default"), CPoint(380.0f, 180.0f));
+  pContext->drawString(conv("| Draw Line"), CPoint(380.0f, 210.0f));
+  pContext->drawString(conv("| Sort Ascending Order"), CPoint(380.0f, 240.0f));
+  pContext->drawString(conv("| Sort Decending Order"), CPoint(380.0f, 270.0f));
+  pContext->drawString(conv("| Low-pass Filter"), CPoint(380.0f, 300.0f));
+  pContext->drawString(conv("| High-pass Filter"), CPoint(380.0f, 330.0f));
+  pContext->drawString(conv("| Invert Value"), CPoint(380.0f, 360.0f));
+  pContext->drawString(conv("| Invert Value (Minimum to 0)"), CPoint(380.0f, 390.0f));
+  pContext->drawString(conv("| Normalize"), CPoint(380.0f, 420.0f));
+  pContext->drawString(conv("| Normalize (Minimum to 0)"), CPoint(380.0f, 450.0f));
+
+  pContext->drawString(conv("H"), CPoint(600.0f, 180.0f));
+  pContext->drawString(conv("L"), CPoint(600.0f, 210.0f));
+  pContext->drawString(conv("P"), CPoint(600.0f, 240.0f));
+  pContext->drawString(conv("R"), CPoint(600.0f, 270.0f));
+  pContext->drawString(conv("Shift + R"), CPoint(600.0f, 300.0f));
+  pContext->drawString(conv("S"), CPoint(600.0f, 330.0f));
+  pContext->drawString(conv(", (Comma)"), CPoint(600.0f, 360.0f));
+  pContext->drawString(conv(". (Period)"), CPoint(600.0f, 390.0f));
+  pContext->drawString(conv("1"), CPoint(600.0f, 420.0f));
+  pContext->drawString(conv("2-9"), CPoint(600.0f, 450.0f));
+
+  pContext->drawString(conv("| Emphasize High"), CPoint(680.0f, 180.0f));
+  pContext->drawString(conv("| Emphasize Low"), CPoint(680.0f, 210.0f));
+  pContext->drawString(conv("| Permute"), CPoint(680.0f, 240.0f));
+  pContext->drawString(conv("| Randomize"), CPoint(680.0f, 270.0f));
+  pContext->drawString(conv("| Sparse Randomize"), CPoint(680.0f, 300.0f));
+  pContext->drawString(conv("| Subtle Randomize"), CPoint(680.0f, 330.0f));
+  pContext->drawString(conv("| Rotate Back"), CPoint(680.0f, 360.0f));
+  pContext->drawString(conv("| Rotate Forward"), CPoint(680.0f, 390.0f));
+  pContext->drawString(conv("| Decrease Odd"), CPoint(680.0f, 420.0f));
+  pContext->drawString(conv("| Decrease 2n-9n"), CPoint(680.0f, 450.0f));
+
+  pContext->drawString(conv("Have a nice day!"), CPoint(740.0f, 510.0f));
 
   // Border.
   const auto borderColor = CColor(0, 0, 0, 255);
@@ -93,6 +119,11 @@ void CreditView::draw(CDrawContext *pContext)
     kDrawStroked);
 
   setDirty(false);
+}
+
+inline IPlatformString *CreditView::conv(const char *text)
+{
+  return UTF8String(text).getPlatformString();
 }
 
 void SplashLabel::draw(CDrawContext *pContext)
