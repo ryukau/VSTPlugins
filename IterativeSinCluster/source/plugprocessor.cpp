@@ -57,7 +57,6 @@ tresult PLUGIN_API PlugProcessor::initialize(FUnknown *context)
   tresult result = AudioEffect::initialize(context);
   if (result != kResultTrue) return result;
 
-  addAudioInput(STR16("StereoInput"), Vst::SpeakerArr::kStereo);
   addAudioOutput(STR16("StereoOutput"), Vst::SpeakerArr::kStereo);
   addEventInput(STR16("EventInput"), 1);
 
@@ -120,10 +119,8 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 
   dsp->setParameters();
 
-  if (data.numInputs == 0) return kResultOk;
   if (data.numOutputs == 0) return kResultOk;
   if (data.numSamples <= 0) return kResultOk;
-  if (data.inputs[0].numChannels != 2) return kResultOk;
   if (data.outputs[0].numChannels != 2) return kResultOk;
   if (data.symbolicSampleSize == Vst::kSample64) return kResultOk;
 
