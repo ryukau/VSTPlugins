@@ -63,6 +63,11 @@ When `FDN.Feedback` is non zero, it may possibly blow up. If that happens, turn 
 
 When `HP Cutoff` is moving fast, it may output massive DC. To avoid this, use Shift + Mouse Left Drag or turn up Smooth.
 
+## Use as Effect
+FDNCymbal can be use as effect, but it's not intuitive.
+
+When loaded, FDNCymbal is muted to prevent unexpected blow up at initialization. Therefore user must send MIDI note-on to FDNCymbal. Note that output volume could be changed by velocity. `Seed` and parameters under `FDN` section are only refreshed when FDNCymbal receives a new note.
+
 ## Block Diagram
 If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Image" on right click menu to scale.
 
@@ -172,6 +177,8 @@ Amount of randomization to `Tremolo.Frequency` for each note on.
 Amount of randomization to `Tremolo.DelayTime` for each note on.
 
 ## Change Log
+- 0.1.4
+  - Enabled Linux GUI.
 - 0.1.3
   - Fixed a bug that sound stops on Steinberg host.
 - 0.1.2
