@@ -1,7 +1,7 @@
-# VST3 の開発
-VST3の開発についてまとめました。使ったバージョンは VST3 SDK 3.6.13 と VSTGUI 4.8 です。
+# VST 3 の開発
+VST 3 の開発についてまとめました。何かあれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作ってもらえれば対応します。
 
-この文章では `my_plugins` から始まるパスは開発中のプラグイン内のパスを表しています。それ以外のパスは特に断りがないときは `VST3_SDK` 以下の部分だけを書いています。
+初版を書いたときは VST 3 SDK 3.6.13 と VSTGUI 4.8 を使っていました。現在のバージョンは VST 3 SDK 3.6.14 と VSTGUI 4.9 です。
 
 最新版の SDK は Steinberg のページからダウンロードできます。
 
@@ -11,25 +11,27 @@ GitHub のリポジトリからクローンすることもできます。
 
 - [GitHub - steinbergmedia/vst3sdk: VST 3 Plug-In SDK](https://github.com/steinbergmedia/vst3sdk)
 
+この文章では Steinberg のページからダウンロードできる SDK を使います。 GitHub のリポジトリには helloworld や VST3PluginTestHost が含まれていないからです。 `my_plugins` から始まるパスは開発中のプラグイン内のパスを表しています。それ以外のパスは特に断りがないときは `VST3_SDK` 以下の部分だけを書いています。
+
 ## ライセンス
 `VST3_SDK` 以下の各ディレクトリのライセンスです。
 
-|ディレクトリ|ライセンス|
-|--|--|
-|base|BSD 3-Clause License|
-|cmake|Proprietary Steinberg VST3 License あるいは GPLv3|
-|doc|Proprietary Steinberg VST3 License あるいは GPLv3|
-|pluginterfaces|Proprietary Steinberg VST3 License あるいは GPLv3|
-|public.sdk|BSD 3-Clause License|
-|vstgui4|BSD 3-Clause License|
+| ディレクトリ   | ライセンス                                         |
+| -------------- | -------------------------------------------------- |
+| base           | BSD 3-Clause License                               |
+| cmake          | Proprietary Steinberg VST 3 License あるいは GPLv3 |
+| doc            | Proprietary Steinberg VST 3 License あるいは GPLv3 |
+| pluginterfaces | Proprietary Steinberg VST 3 License あるいは GPLv3 |
+| public.sdk     | BSD 3-Clause License                               |
+| vstgui4        | BSD 3-Clause License                               |
 
-Steinberg にメールを送信して確認したところ、 Proprietary Steinberg VST3 License あるいは GPLv3 のどちらを選択するかに関わらず `VST3_License_Agreement.pdf` に署名して Steinberg に送信する必要があります。
+Steinberg にメールを送信して確認したところ、 Proprietary Steinberg VST 3 License あるいは GPLv3 のどちらを選択するかに関わらず `VST3_License_Agreement.pdf` に署名して Steinberg に送信する必要があります。
 
-また、これも選択したライセンスに関わらず VST compatible logo の表示が義務付けられています。 VST compatible logo は `doc/artwork` に入っています。また VST compatible logo の正しい表示方法が `VST3_Usage_Guidelines.pdf` に書いてあります。
+選択したライセンスに関わらず VST compatible logo の表示が義務付けられています。 VST compatible logo は `doc/artwork` に入っています。また VST compatible logo の正しい表示方法が `VST3_Usage_Guidelines.pdf` に書いてあります。
 
-ソースコードを公開するときは GPLv3 で配布することができます。利用したライブラリのライセンスはバイナリの配布時に同梱する必要があります。ユーザマニュアルやGUIのクレジット画面でも利用したライセンスを参照できるようにすることが推奨されています。
+ソースコードを公開するときは GPLv3 で配布することができます。利用したライブラリのライセンスはバイナリの配布時に同梱する必要があります。ユーザマニュアルや GUI のクレジット画面でも利用したライセンスを参照できるようにすることが推奨されています。
 
-ソースコードを公開しないときは Proprietary Steinberg VST3 License と BSD 3-Clause License に従って配布することになります。 Proprietary Steinberg VST3 License の詳細は `VST3_License_Agreement.pdf` に書いてあります。
+ソースコードを公開しないときは Proprietary Steinberg VST 3 License と BSD 3-Clause License に従って配布することになります。 Proprietary Steinberg VST 3 License の詳細は `VST3_License_Agreement.pdf` に書いてあります。
 
 - [VST 3 SDK Licensing FAQ - sdk.steinberg.net](https://sdk.steinberg.net/viewtopic.php?f=4&t=286&sid=5da7b39b81a3259e03063b18bce97010)
 - [The GNU General Public License v3.0 - GNU Project - Free Software Foundation](https://www.gnu.org/licenses/gpl-3.0.en.html)
@@ -37,13 +39,15 @@ Steinberg にメールを送信して確認したところ、 Proprietary Steinb
 - [binaries - BSD 3-Clause: where to place license for binary installation? - Open Source Stack Exchange](https://opensource.stackexchange.com/questions/7575/bsd-3-clause-where-to-place-license-for-binary-installation)
 
 ## リソース
-VST3 SDK の主な学習リソースは同梱されているサンプルプラグインのコードになります。サンプルプラグインは `public.sdk/samples/vst` に入っています。とりあえず `again` と `note_expression_synth` を押さえておけば何とかなります。
+VST 3 SDK の主な学習リソースは同梱されているサンプルプラグインのコードになります。サンプルプラグインは `public.sdk/samples/vst` に入っています。とりあえず `again` と `note_expression_synth` を押さえておけば何とかなります。
 
-VST3 SDK に付属してくるドキュメンテーションはダウンロードしたディレクトリの `doc/index.html` から開けます。次のリンクは GitHub でホストされているドキュメンテーションです。
+VST 3 SDK に付属してくるドキュメンテーションはダウンロードしたディレクトリの `doc/index.html` から開けます。次のリンクは GitHub でホストされているドキュメンテーションです。
 
 - [Steinberg Plug-in Interfaces Documentation](https://steinbergmedia.github.io/vst3_doc/)
 
-VSTGUI4 のドキュメンテーションが404なので、この文章ではドキュメンテーションを参照するときには `VST3_SDK` からのパスを書いています。
+VSTGUI4 のドキュメンテーションが 404 ですが、次のリンクが使えます。
+
+- [VSTGUI: Main Page](https://steinbergmedia.github.io/vst3_doc/vstgui/html/)
 
 ドキュメンテーション内をまとめて検索する方法が提供されていません。検索窓からクラスなどを探すときはトップページからのリンク先ごとに検索結果が異なるので注意してください。
 
@@ -56,25 +60,32 @@ VSTGUI4 のドキュメンテーションが404なので、この文章ではド
 - [C++でVST作り](http://vstcpp.wpblog.jp/)
 
 ## プラグインホストについて
-VST3 はホストによっては実装が中途半端なようです。 FL Studio 20.5 と Reaper 5.980 で動作確認をしているときにいくつか不具合を見つけたのでまとめておきます。
+VST 3 はホストによっては実装が中途半端なようです。ここではホストごとの特徴的な挙動や不具合をまとめています。
 
-### FL Studio 20.5 での不具合
-- GUI のない VST3 プラグインは何も表示されない。
-- VST3 プラグインのウィンドウを開いてから別のウィンドウを選択すると、プラグインのウィンドウが真っ黒になる。
+### VST3PluginTestHost
+- プラグイン起動直後に `Vst::AudioEffect` の `process` が `setActive` よりも先に呼ばれることがある。
 
-あと不具合というより仕様ですが、プラグインの GUI ウィンドウの大きさを変更できないので VST3Editor の UI エディタで編集をするときにワークアラウンドが必要です。
+### FL Studio 20.6
+- GUI のない VST 3 プラグインは何も表示されない。
+- VST 3 プラグインのウィンドウを開いてから別のウィンドウを選択すると、プラグインのウィンドウが真っ黒になる。
+
+不具合というより仕様ですが、プラグインの GUI ウィンドウの大きさを変更できないので VST3Editor の UI エディタで編集をするときにワークアラウンドが必要です。
 
 - TODO ワークアラウンドへの参照。
 
-### Reaper 5.980 での不具合
+### Reaper 5.980
 - VST3Editor の UI エディタを開こうとするとクラッシュする。
 
-## 開発環境の構築
-VST3 SDK を編集してビルドできるように開発環境を構築します。
+### Live 10.1.6
+- Note ID をサポートしていない。
 
-ここでは Windows 10 で CMake + VS Code + PowerShell を使っています。 Visual Studio の IDE は使っていません。
+## 開発環境の構築
+VST 3 SDK を編集してビルドできるように開発環境を構築します。
+
+ここでは CMake + VS Code + PowerShell を使っています。 Visual Studio や Qt Creater などの IDE は使っていません。
 
 ### 開発用ソフトウェアのインストール
+#### Windows 10
 次のソフトウェアをインストールします。
 
 - [Visual Studio Community 2019](https://visualstudio.microsoft.com/vs/community/)
@@ -83,6 +94,20 @@ VST3 SDK を編集してビルドできるように開発環境を構築しま�
 
 Visual Studio Community 2019 のインストール時には「C++ によるデスクトップ開発」にチェックが入っていることを確認して、あとはデフォルトにしておきました。
 
+#### Linux
+次のリンクに VST 3 SDK のビルドに必要なパッケージが書いてあります。
+
+- [Steinberg Plug-in Interfaces Documentation](https://steinbergmedia.github.io/vst3_doc/)
+
+Ubuntu か Mint なら上のドキュメンテーションのコマンドをコピペで動きます。
+
+バグレポートをしていただいた方からの情報によると Debian buster でもドキュメンテーションのコマンドでビルド環境が整うようです。ただし `libxcb-util` のバージョンが Ubuntu とは異なるため、バイナリの互換性はないようです。
+
+- [VST3 GUI does not display in Linux · Issue #3 · ryukau/VSTPlugins · GitHub](https://github.com/ryukau/VSTPlugins/issues/3)
+
+Fedora 31 でもビルドできることを確認しました。パッケージの名前が一部異なります。パッケージを探すときは [rpmfind.net](https://rpmfind.net/linux/RPM/index.html) が使えます。
+
+#### VS Code のエクステンション
 次の VS Code のエクステンションをインストールしました。
 
 - C/C++ (by Microsoft)
@@ -97,7 +122,7 @@ XML のプラグインは GUI が記述された uidesc というファイルが
 
 Bookmarks はパラメータ追加で複数のファイルを行ったり来たりするときに便利です。
 
-### ripgrep
+#### ripgrep
 ドキュメンテーションなどの検索ツールとして [ripgrep](https://github.com/BurntSushi/ripgrep) をインストールしました。まず [Rust](https://www.rust-lang.org/) をインストールしてから PowerShell で次のコマンドを実行します。
 
 ```powershell
@@ -128,9 +153,14 @@ rg -g "!*.html" -g "!*.js" "EditController"
 rg -h
 ```
 
-### ビルド
-`doc/vstinterfaces/cmakeUse.html` と `doc/vstinterfaces/addownplugs.html` に CMake でのビルド方法が書いてあります。
+## ビルド
+ビルド方法はドキュメンテーションと vst3sdk リポジトリの README.md に書いてあります。
 
+- [GitHub - steinbergmedia/vst3sdk: VST 3 Plug-In SDK](https://github.com/steinbergmedia/vst3sdk)
+- [VST 3 Interfaces: How to use cmake for Building VST 3 Plug-ins](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/cmakeUse.html)
+- [VST 3 Interfaces: How to add/create your own VST 3 Plug-ins](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/addownplugs.html)
+
+### Windows 10
 `my_plugins/helloworld` にテンプレートが入っているのでコピーして適当に名前を付けることでプロジェクトを作成します。 `my_plugins` は `VST3_SDK` の1階層上のディレクトリに入っています。
 
 プロジェクト作成後のディレクトリ構造の例です。関係ないディレクトリは省略しています。
@@ -159,7 +189,7 @@ add_subdirectory(helloworld_with_VSTGUI)
 add_subdirectory(SomeFX)
 ```
 
-`VST3_SDK` で次のコマンドを実行します。 cmake のオプションで `SMTG_MYPLUGINS_SRC_PATH` を指定することでプロジェクトのパスを追加できます。
+PowerShell を開いて `VST3_SDK` で次のコマンドを実行します。 cmake のオプションで `SMTG_MYPLUGINS_SRC_PATH` を指定することでプロジェクトのパスを追加できます。
 
 ```powershell
 mkdir build
@@ -168,7 +198,7 @@ cmake -G"Visual Studio 16 2019" -DSMTG_MYPLUGINS_SRC_PATH="../../my_plugins" ..
 cmake --build .
 ```
 
-これでデバッグビルドが始まります。コードを変更したときは `build` ディレクトリに入って `cmake --build .` でリビルドできます。
+これでデバッグビルドが始まります。コードを変更したときは `build` ディレクトリに移動して `cmake --build .` でリビルドできます。
 
 ビルドのコンフィグを変更するときは `cmake-gui` が使えます。
 
@@ -199,18 +229,14 @@ cmake --build .
 - [Visual Studio 16 2019 — CMake 3.15.0-rc4 Documentation](https://cmake.org/cmake/help/v3.15/generator/Visual%20Studio%2016%202019.html)
 
 #### デプロイ
-VST3 プラグインのデバッグビルドは `build\VST3\Debug` 、リリースビルドは `build\VST3\Release` に配置されます。ビルドされたプラグインは `*.vst3` という名前のディレクトリにパッケージされています。
+VST 3 プラグインのデバッグビルドは `build\VST3\Debug` 、リリースビルドは `build\VST3\Release` に配置されます。ビルドされたプラグインは `*.vst3` という名前のディレクトリにパッケージされています。
 
-VST3 プラグインは OS ごとにインストールする場所が決まっています。詳細は `doc/vstinterfaces/vst3loc.html` に書いてあります。
+VST 3 プラグインは OS ごとにインストールする場所が決まっています。詳細は [VST 3 Interfaces: VST 3 Locations / Format](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/vst3loc.html) に書いてあります。 Windows 10 では `C:\Program Files\Common Files\VST3` に配置すれば使えるようになります。
 
-Windows では `C:\Program Files\Common Files\VST3` に配置すれば使えるようになります。
-
-PowerShell で関数を作って任意のプラグインをコマンド一つでデプロイできるようにします。
-
-`$PROFILE` を開きます。 `$PROFILE` は bash の `.bashrc` に相当します。
+PowerShell で関数を作って任意のプラグインをコマンド一つでデプロイできるようにします。 `$PROFILE` を開きます。 `$PROFILE` は bash の `.bashrc` に相当します。
 
 ```powershell
-code $PROFILE # VS Code で開く。パスの通ったエディタが無いときは notepad が使える。
+code $PROFILE
 ```
 
 次のコードを `$PROFILE` に追加します。
@@ -219,7 +245,6 @@ code $PROFILE # VS Code で開く。パスの通ったエディタが無いと�
 function cpvst($name, [switch] $release) {
   $target_dir = if ($release) { "Release" } else { "Debug" }
   $vst_path = ".\VST3\$target_dir\$name.vst3"
-  attrib.exe -S $vst_path /D # FL Studio 20.5 にプラグインを読み込ませるために必要。
   Copy-Item $vst_path -Destination "C:\Program Files\Common Files\VST3" -Force -Recurse
 }
 ```
@@ -239,6 +264,21 @@ cpvst helloworld      # build/VST3/Debug/helloworld.vst3 をデプロイ。
 cpvst SomeFX -release # build/VST3/Release/SomeFX.vst3 をデプロイ。
 ```
 
+### Linux
+Windows 10 の手順とほとんど同じですが `cmake` に渡す引数が変わります。
+
+```bash
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Debug -DSMTG_MYPLUGINS_SRC_PATH="../../my_plugins" ..
+cmake --build .
+```
+
+リリースビルドのときは `-DCMAKE_BUILD_TYPE=Debug` を `-DCMAKE_BUILD_TYPE=Release` に変えます。
+
+`cmake` でビルドするとデプロイを自動的に行ってくれます。 `VST3_SDK/build/VST3/Debug/` あるいは `VST3_SDK/build/VST3/Release/` 内のディレクトリが `~/.vst3` にリンクされます。
+
+### CMake のオプション
 #### サンプルプロジェクトのビルドを無効にする
 サンプルプロジェクトのビルドを無効にするときは `SMTG_ADD_VST3_HOSTING_SAMPLES` と `SMTG_ADD_VST3_PLUGINS_SAMPLES` に `FALSE` を指定します。
 
@@ -252,7 +292,44 @@ cmake -G"Visual Studio 16 2019" `
 ```
 
 #### コンパイラオプションの変更
-`cmake/modules/PlatformToolset.cmake` でコンパイラオプションを指定できます。
+プラグインのコンパイラオプションを指定するときは `my_plugins/SomePlugin/CMakeLists.txt` に `target_compile_options` を追加します。次の例では AVX2 を有効にするオプションを指定しています。
+
+```cmake
+# C++17 を有効化。
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# ...
+
+smtg_add_vst3plugin(${target} ${plug_sources})
+if(MSVC) # Windows, MSVC
+  target_compile_options(${target} PRIVATE /O2 /fp:fast /arch:AVX2)
+elseif(UNIX)
+  if(APPLE) # macOS, clang
+    target_compile_options(${target} PRIVATE -O3 -fPIC -fno-aligned-allocation -mfma -mavx2)
+  else() # Linux
+    target_compile_options(${target} PRIVATE -O3 -fPIC -mfma -mavx2)
+  endif()
+endif()
+```
+
+VST 3 SDK のコンパイラオプションは [`cmake/modules/PlatformToolset.cmake`](https://github.com/steinbergmedia/vst3_cmake/blob/master/modules/PlatformToolset.cmake) で指定されています。
+
+## テスト
+ビルドを終えたらプラグインの動作をテストします。
+
+### 自動テスト
+VST 3 SDK はプラグインのビルドのたびに自動でいくつかのテストを行ってくれます。 API の使い方を間違えているなどの明らかなミスは、このテストで捉えられます。
+
+### VST3PluginTestHost
+GUI とプラグイン情報のチェックには VST3PluginTestHost が使えます。
+
+VST3PluginTestHost のインストーラは `VST_SDK/VST3_SDK/bin` 以下のディレクトリに入っています。 Linux 版は無いようです。 GitHub のリポジトリには VST3PluginTestHost が含まれていないようなので注意してください。
+
+簡易なシーケンサがついていますが MIDI キーボードがあれば演奏することができます。 wav を読み込んでエフェクタに音を送ることができますが、モノラルになってしまいます。音のレンダリングができないので、チューニングなどの細かい確認をするには向いていません。
+
+### REAPER
+音をレンダリングして確認したいときは [REAPER](https://www.reaper.fm/) が使えます。 Linux でも動きます。
 
 ## VST3 プラグインの大まかな仕組み
 VST3 プラグインは大きく次の3つの部品に分けることができます。
@@ -1401,6 +1478,152 @@ PlugEditor::onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &
 0 あるいは負の tag が指定されたコントロールではコンテキストメニューを表示したくないので、 `id` の条件を `id < 1 || id >= LONG_MAX` としています。 `LONG_MAX` を使っているのは `ParamID` が `unsigned long` の typedef だからです。
 
 コンテキストメニューが開かないときは `kMouseEventNotHandled` を返して、他のコントロールにマウスイベントが伝わるようにしています。
+
+#### Linux で VSTGUI を利用
+`RunLoop` クラスを `VST3Editor` のコードからコピーして `x11runloop.hpp` というヘッダにします。
+
+```cpp
+#pragma once
+
+#if LINUX
+
+#include "base/source/fobject.h"
+#include "vstgui/lib/vstguibase.h"
+
+#include "pluginterfaces/gui/iplugview.h"
+#include "vstgui/lib/platform/linux/x11frame.h"
+
+namespace Steinberg {
+namespace Vst {
+
+using namespace VSTGUI;
+
+// Map Steinberg Vst Interface to VSTGUI Interface
+class RunLoop : public X11::IRunLoop, public AtomicReferenceCounted {
+public:
+  struct EventHandler : Steinberg::Linux::IEventHandler, public Steinberg::FObject {
+    X11::IEventHandler *handler{nullptr};
+
+    void PLUGIN_API onFDIsSet(Steinberg::Linux::FileDescriptor) override
+    {
+      if (handler) handler->onEvent();
+    }
+    DELEGATE_REFCOUNT(Steinberg::FObject)
+    DEFINE_INTERFACES
+    DEF_INTERFACE(Steinberg::Linux::IEventHandler)
+    END_DEFINE_INTERFACES(Steinberg::FObject)
+  };
+  struct TimerHandler : Steinberg::Linux::ITimerHandler, public Steinberg::FObject {
+    X11::ITimerHandler *handler{nullptr};
+
+    void PLUGIN_API onTimer() final
+    {
+      if (handler) handler->onTimer();
+    }
+    DELEGATE_REFCOUNT(Steinberg::FObject)
+    DEFINE_INTERFACES
+    DEF_INTERFACE(Steinberg::Linux::ITimerHandler)
+    END_DEFINE_INTERFACES(Steinberg::FObject)
+  };
+
+  bool registerEventHandler(int fd, X11::IEventHandler *handler) final
+  {
+    if (!runLoop) return false;
+
+    auto smtgHandler = Steinberg::owned(new EventHandler());
+    smtgHandler->handler = handler;
+    if (runLoop->registerEventHandler(smtgHandler, fd) == Steinberg::kResultTrue) {
+      eventHandlers.push_back(smtgHandler);
+      return true;
+    }
+    return false;
+  }
+  bool unregisterEventHandler(X11::IEventHandler *handler) final
+  {
+    if (!runLoop) return false;
+
+    for (auto it = eventHandlers.begin(), end = eventHandlers.end(); it != end; ++it) {
+      if ((*it)->handler == handler) {
+        runLoop->unregisterEventHandler((*it));
+        eventHandlers.erase(it);
+        return true;
+      }
+    }
+    return false;
+  }
+  bool registerTimer(uint64_t interval, X11::ITimerHandler *handler) final
+  {
+    if (!runLoop) return false;
+
+    auto smtgHandler = Steinberg::owned(new TimerHandler());
+    smtgHandler->handler = handler;
+    if (runLoop->registerTimer(smtgHandler, interval) == Steinberg::kResultTrue) {
+      timerHandlers.push_back(smtgHandler);
+      return true;
+    }
+    return false;
+  }
+  bool unregisterTimer(X11::ITimerHandler *handler) final
+  {
+    if (!runLoop) return false;
+
+    for (auto it = timerHandlers.begin(), end = timerHandlers.end(); it != end; ++it) {
+      if ((*it)->handler == handler) {
+        runLoop->unregisterTimer((*it));
+        timerHandlers.erase(it);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  RunLoop(Steinberg::FUnknown *runLoop) : runLoop(runLoop) {}
+
+private:
+  using EventHandlers = std::vector<Steinberg::IPtr<EventHandler>>;
+  using TimerHandlers = std::vector<Steinberg::IPtr<TimerHandler>>;
+  EventHandlers eventHandlers;
+  TimerHandlers timerHandlers;
+  Steinberg::FUnknownPtr<Steinberg::Linux::IRunLoop> runLoop;
+};
+
+} // namespace Vst
+} // namespace Steinberg
+
+#endif
+```
+
+`PlugEditor` のコードに `x11runloop.hpp` をインクルードします。また CFrame の初期化が変わります。
+
+```cpp
+//...
+
+#include "x11runloop.hpp"
+
+// ...
+
+bool PlugEditor::open(void *parent, const PlatformType &platformType)
+{
+  if (frame) return false;
+
+  frame = new CFrame(
+    CRect(viewRect.left, viewRect.top, viewRect.right, viewRect.bottom), this);
+  if (frame == nullptr) return false;
+  frame->setBackgroundColor(CColor(0xff, 0x00, 0x00, 0xff));
+  frame->registerMouseObserver(this);
+
+  // Linux で VSTGUI を使うには frame::open に platformType と config を渡す。
+  IPlatformFrameConfig *config = nullptr;
+#if LINUX
+  X11::FrameConfig x11config;
+  x11config.runLoop = VSTGUI::owned(new RunLoop(plugFrame));
+  config = &x11config;
+#endif
+  frame->open(parent, platformType, config);
+
+  // ...
+}
+```
 
 #### コンテキストメニューにズーム機能を追加
 この項の内容は実装をあきらめたので中途半端です。次の問題が解決されていないので注意してください。
