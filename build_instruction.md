@@ -1,6 +1,4 @@
 # Build Instruction
-**Note: Currently, these instructions are not tested.**
-
 Building this repository requires C++17 compatible compiler and CPU with AVX or later instruction set support. Some plugins use [vector class library](https://github.com/vectorclass/version2) (vcl) to write SIMD code, and vcl version 2 requires C++17 support.
 
 ## Linux
@@ -16,6 +14,9 @@ cd ~/code/vst
 
 git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
 git clone --recursive https://github.com/ryukau/VSTPlugins.git
+
+# Patch vst3sdk. See: https://github.com/ryukau/VSTPlugins/issues/3
+cp VSTPlugins/ci/linux_patch/cairocontext.cpp vst3sdk/vstgui4/vstgui/lib/platform/linux/cairocontext.cpp
 
 mkdir vst3sdk/build
 cd vst3sdk/build
