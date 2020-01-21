@@ -3,7 +3,7 @@
 
 TrapezoidSynth is a monophonic synthesizer equipped with 2 trapezoid oscillator. Trapezoid oscillator is based on PTR (Polynomial Transition Regions) and it has a drawback that increasing noise at high frequency. Therefore 8 times oversampled. 2 pitch shifters are added to make some chord.
 
-- [Download TrapezoidSynth 0.1.3 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/TrapezoidSynth0.1.3.zip) <img
+- [Download TrapezoidSynth 0.1.4 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/TrapezoidSynth0.1.4.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -18,7 +18,7 @@ The package includes following builds:
 
 macOS build isn't tested because I don't have Mac. If you found a bug, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`.
 
-Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
+Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.1.2 and Reaper 6.03. Bitwig 3.1.2 seems to have a bug that occasionally blackouts GUI.
 
 ## Installation
 ### Plugin
@@ -50,7 +50,7 @@ If DAW doesn't recognize the plugin, take a look at `Package Requirements` secti
 
 - [VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html)
 
-REAPER 5.983 on Linux may not recognize the plugin. A workaround is to delete a file `~/.config/REAPER/reaper-vstplugins64.ini` and restart REAPER.
+REAPER on Linux may not recognize the plugin. A workaround is to delete a file `~/.config/REAPER/reaper-vstplugins64.ini` and restart REAPER.
 
 ## Controls
 Knob and slider can do:
@@ -276,6 +276,9 @@ Time of pitch sliding.
 Oscillator 2 slide time with respect to Oscillator 1 slide time.
 
 ## Change Log
+- 0.1.4
+  - Enabled GUI for Linux build.
+  - Fixed plugin type from `kFxInstrument` to `kInstrumentSynth`.
 - 0.1.3
   - Fixed wobbling knob bug.
 - 0.1.2
@@ -288,7 +291,8 @@ Oscillator 2 slide time with respect to Oscillator 1 slide time.
   - Initial release.
 
 ### Old Versions
-- [Download TrapezoidSynth 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/TrapezoidSynth0.1.2.zip)
+- [TrapezoidSynth 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/TrapezoidSynth0.1.3.zip)
+- [TrapezoidSynth 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/TrapezoidSynth0.1.2.zip)
 
 ## License
 TrapezoidSynth is licensed under GPLv3. Complete licenses are linked below.

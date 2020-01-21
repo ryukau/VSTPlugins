@@ -3,7 +3,7 @@
 
 EnvelopedSine is an additive synthesizer that computes 64 sine waves for each note. Difference to IterativeSinCluster is that this synth has AD envelope and saturator for each oscillator. EnvelopedSine is better suited for percussive sounds.
 
-- [Download EnvelopedSine 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/EnvelopedSine0.1.0.zip) <img
+- [Download EnvelopedSine 0.1.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/EnvelopedSine0.1.1.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -20,7 +20,7 @@ The package includes following builds:
 
 macOS build isn't tested because I don't have Mac. If you found a bug, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`.
 
-Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.0.3 and Reaper 5.983. Both seems to have problem to display GUI, therefore GUI is currently disabled for Linux build.
+Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.1.2 and Reaper 6.03. Bitwig 3.1.2 seems to have a bug that occasionally blackouts GUI.
 
 ## Installation
 ### Plugin
@@ -52,17 +52,17 @@ If DAW doesn't recognize the plugin, take a look at `Package Requirements` secti
 
 - [VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html)
 
-REAPER 5.983 on Linux may not recognize the plugin. A workaround is to delete a file `~/.config/REAPER/reaper-vstplugins64.ini` and restart REAPER.
+REAPER on Linux may not recognize the plugin. A workaround is to delete a file `~/.config/REAPER/reaper-vstplugins64.ini` and restart REAPER.
 
 ## Controls
 Knob and slider can do:
 
-- Ctrl + Left Click: Reset value.
-- Shift + Left Drag: Fine adjustment.
+- <kbd>Ctrl</kbd> + <kdb>Left Click</kbd>: Reset value.
+- <kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.
 
-`Octave` 、 `Seed` などで使われている数値スライダーでは、上記に加えて次の操作ができます。
+There is an additional control for number sliders used for `Octave`, `Seed` etc.
 
-- ホイールクリック : 最小値、最大値の切り替え。
+- <kbd>Middle Click</kbd> : Flip minimum and maximum.
 
 Overtone controls (`Attack`, `Decay`, `Gain`, `Saturation`) have some keyboard shortcuts. Shortcuts are only enabled after left clicking overtone control. Cheat sheet can be popped up by clicking plugin title on bottom left.
 
@@ -217,11 +217,14 @@ LFO phase offset.
 LFO phase. This can be used to make sound with automation. Turning `Freq` to leftmost sets LFO frequency to 0.
 
 ## Change Log
+- 0.1.1
+  - Enabled GUI for Linux build.
+  - Added shortcut cheat sheet to splash screen.
 - 0.1.0
   - Initial release.
 
 ### Old Versions
-Not available.
+- [EnvelopedSine 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/EnvelopedSine0.1.0.zip)
 
 ## License
 IterativeSinCluster is licensed under GPLv3. Complete licenses are linked below.

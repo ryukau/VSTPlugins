@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-01-17" />
+<meta name="dcterms.date" content="2020-01-20" />
 <title>FDNCymbal_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -14,9 +14,9 @@ span.underline { text-decoration: underline; }
 div.column { display: inline-block; vertical-align: top; width: 50%; }
 </style>
 <style>
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -26,16 +26,14 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -44,9 +42,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -201,9 +199,9 @@ footer {
 
 <body>
 <header>
-    <p><a href="..\..\index.html">Back to Index</a></p>
+    <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-01-17
+  Update: 2020-01-20
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -217,6 +215,7 @@ footer {
   </ul></li>
   <li><a href="#操作">操作</a></li>
   <li><a href="#注意">注意</a></li>
+  <li><a href="#エフェクトとしての利用">エフェクトとしての利用</a></li>
   <li><a href="#ブロック線図">ブロック線図</a></li>
   <li><a href="#パラメータ">パラメータ</a><ul>
   <li><a href="#gain">Gain</a></li>
@@ -272,7 +271,7 @@ footer {
 <p><img src="img/fdncymbal.png" /></p>
 <p><ruby>FDNCymbal<rt>エフディーエヌシンバル</rt></ruby> はシンバルのような音を合成するシンセサイザです。エフェクトとして使うこともできます。名前とは裏腹に金属的な質感は FDN (feedback delay network) ではなく Schroeder allpass section によって得られています。 <code>FDN.Time</code> の値を小さくすることで、わりとナイスなばちの衝突音が合成できます。シンバルの揺れをシミュレートするためにトレモロもついています。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbal0.1.3.zip">FDNCymbal 0.1.3 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/FDNCymbal0.1.4.zip">FDNCymbal 0.1.4 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -286,7 +285,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li>macOS 64bit</li>
 </ul>
 <p>Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければ対応します。</p>
-<p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.0.3 と REAPER 5.983 で動作確認を行っています。どちらも GUI の表示に問題があったので、今のところ Linux ビルドでは GUI を無効にしています。</p>
+<p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.1.2 と REAPER 6.03 で動作確認を行いました。 Bitwig 3.1.2 では GUI が真っ黒になるバグがあるようです。</p>
 <h2 id="インストール">インストール</h2>
 <h3 id="プラグイン">プラグイン</h3>
 <p>名前が <code>.vst3</code> で終わるディレクトリを OS ごとに決められた位置に配置してください。</p>
@@ -306,12 +305,12 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>プリセットディレクトリの名前はプラグインと同じである必要があります。 <code>Uhhyou</code> ディレクトリが無いときは作成してください。</p>
 <h3 id="linux">Linux</h3>
 <p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</a></code></pre></div>
 <p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。</p>
 <ul>
 <li><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html">VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins</a></li>
 </ul>
-<p>REAPER 5.983 の Linux 版がプラグインを認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
+<p>REAPER の Linux 版がプラグインを認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
 <h2 id="操作">操作</h2>
 <p>つまみとスライダーでは次の操作ができます。</p>
 <ul>
@@ -321,6 +320,9 @@ style="display: inline-block; vertical-align: middle;"></li>
 <h2 id="注意">注意</h2>
 <p><code>FDN.Feedback</code> の値が 0 でないときは信号が発散することがあります。発散したときは <code>FDN.Feedback</code> を一番左まで回してください。</p>
 <p><code>HP Cutoff</code> の値を短時間に大きく変更すると直流が乗ることがあります。直流が乗ったときは、いったん <code>HP Cutoff</code> を上げてから <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> でゆっくりと下げなおしてください。</p>
+<h2 id="エフェクトとしての利用">エフェクトとしての利用</h2>
+<p>FDNCymbal はエフェクトとして使うこともできますが、直感的でない設定が必要となっています。</p>
+<p>ロード直後の FDNCymbal は初期化時に音が止まることを防ぐためにミュートされています。有効化するためには FDNCymbal に MIDI ノートオンを送る必要があります。ベロシティによって出力音量が変わるので注意してください。また <code>Seed</code> と <code>FDN</code> セクションの値を変更したときは新しいノートオンを送るまで更新されません。</p>
 <h2 id="ブロック線図">ブロック線図</h2>
 <p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> + <kbd>マウスホイール</kbd> や、右クリックから「画像だけを表示」などで拡大できます。</p>
 <p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
@@ -404,6 +406,10 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>ノートオンのたびに <code>Tremolo.DelayTime</code> をランダマイズする度合いです。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.4
+<ul>
+<li>Linux ビルドの GUI を有効化。</li>
+</ul></li>
 <li>0.1.3
 <ul>
 <li>Steinberg のホストで音が止まるバグを修正。</li>
@@ -422,11 +428,12 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul></li>
 <li>0.1.0
 <ul>
-<li>初期リリース</li>
+<li>初期リリース。</li>
 </ul></li>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbal0.1.3.zip">FDNCymbal 0.1.3 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/FDNCymbal0.1.2.zip">FDNCymbal 0.1.2 - VST 3 (github.com)</a></li>
 </ul>
 <h2 id="ライセンス">ライセンス</h2>
@@ -439,7 +446,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
 
 <footer>
-    <p><a href="..\..\index.html">Back to Index</a></p>
+    <p><a href="../../index.html">Back to Index</a></p>
   </footer>
 </body>
 
