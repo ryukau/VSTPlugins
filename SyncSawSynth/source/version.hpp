@@ -52,5 +52,5 @@
 #define stringCompanyWeb ""
 #define stringCompanyEmail "ryukau@gmail.com"
 
-#define stringLegalCopyright "Copyright 2019 Takamitsu Endo"
+#define stringLegalCopyright "Copyright 2019-2020 Takamitsu Endo"
 #define stringLegalTrademarks "VST is a trademark of Steinberg Media Technologies GmbH"
