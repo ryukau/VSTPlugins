@@ -1,4 +1,4 @@
-// (c) 2019 Takamitsu Endo
+// (c) 2019-2020 Takamitsu Endo
 //
 // This file is part of WaveCymbal.
 //
@@ -71,10 +71,9 @@ void DSPCore::setup(double sampleRate)
   startup();
 }
 
-void DSPCore::free() {}
-
 void DSPCore::reset()
 {
+  excitor.reset();
   cymbal.reset();
   startup();
 }

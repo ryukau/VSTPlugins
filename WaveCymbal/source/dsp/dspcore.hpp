@@ -1,4 +1,4 @@
-// (c) 2019 Takamitsu Endo
+// (c) 2019-2020 Takamitsu Endo
 //
 // This file is part of WaveCymbal.
 //
@@ -42,7 +42,6 @@ public:
   GlobalParameter param;
 
   void setup(double sampleRate);
-  void free();    // Release memory.
   void reset();   // Stop sounds.
   void startup(); // Reset phase, random seed etc.
   void setParameters();

@@ -43,8 +43,6 @@ void DSPCore::setup(double sampleRate)
   startup();
 }
 
-void DSPCore::free() {}
-
 void DSPCore::reset()
 {
   for (size_t i = 0; i < channel; ++i) {

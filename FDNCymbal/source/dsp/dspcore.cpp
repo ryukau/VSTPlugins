@@ -71,8 +71,6 @@ void DSPCore::setup(double sampleRate)
   startup();
 }
 
-void DSPCore::free() {}
-
 void DSPCore::reset()
 {
   serialAP1Sig = 0.0f;
