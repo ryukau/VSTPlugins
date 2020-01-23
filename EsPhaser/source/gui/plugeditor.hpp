@@ -184,23 +184,23 @@ protected:
   std::unordered_map<Vst::ParamID, CControl *> controlMap;
   std::vector<ArrayControl *> arrayControls;
 
-  float uiTextSize = 14.0f;
-  float midTextSize = 16.0f;
-  float pluginNameTextSize = 14.0f;
-  float margin = 5.0f;
-  float labelHeight = 20.0f;
-  float labelY = 30.0f;
-  float knobWidth = 50.0f;
-  float knobHeight = 40.0f;
-  float knobX = 60.0f; // With margin.
-  float knobY = knobHeight + labelY;
-  float barboxWidth = 12.0f * knobX;
-  float barboxHeight = 2.0f * knobY;
-  float barboxY = barboxHeight + 2.0f * margin;
-  float checkboxWidth = 60.0f;
-  float splashHeight = labelHeight;
-  uint32_t defaultWidth = uint32_t(40 + 9.0f * knobX + labelY);
-  uint32_t defaultHeight = uint32_t(40 + labelHeight + knobY);
+  const float uiTextSize = 14.0f;
+  const float midTextSize = 16.0f;
+  const float pluginNameTextSize = 14.0f;
+  const float margin = 5.0f;
+  const float labelHeight = 20.0f;
+  const float labelY = 30.0f;
+  const float knobWidth = 50.0f;
+  const float knobHeight = 40.0f;
+  const float knobX = 60.0f; // With margin.
+  const float knobY = knobHeight + labelY;
+  const float barboxWidth = 12.0f * knobX;
+  const float barboxHeight = 2.0f * knobY;
+  const float barboxY = barboxHeight + 2.0f * margin;
+  const float checkboxWidth = 60.0f;
+  const float splashHeight = labelHeight;
+  const uint32_t defaultWidth = uint32_t(40 + 9.0f * knobX + labelY);
+  const uint32_t defaultHeight = uint32_t(40 + labelHeight + knobY);
 
   ViewRect viewRect{0, 0, defaultWidth, defaultHeight};
 
