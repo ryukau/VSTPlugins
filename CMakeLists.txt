@@ -1,4 +1,5 @@
 add_subdirectory(EnvelopedSine)
+add_subdirectory(EsPhaser)
 add_subdirectory(FDNCymbal)
 add_subdirectory(IterativeSinCluster)
 add_subdirectory(SevenDelay)
