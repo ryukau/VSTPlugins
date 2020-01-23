@@ -199,8 +199,8 @@ protected:
   float barboxY = barboxHeight + 2.0f * margin;
   float checkboxWidth = 60.0f;
   float splashHeight = labelHeight;
-  uint32_t defaultWidth = uint32_t(40 + 9.0f * knobX + labelY);
-  uint32_t defaultHeight = uint32_t(40 + labelHeight + knobY);
+  int32 defaultWidth = int32(40 + 9.0f * knobX + labelY);
+  int32 defaultHeight = int32(40 + labelHeight + knobY);
 
   ViewRect viewRect{0, 0, defaultWidth, defaultHeight};
 
