@@ -58,6 +58,8 @@ tresult PLUGIN_API PlugProcessor::setBusArrangements(
 
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 {
+  bypassFadeLength = int64_t(0.04 * setup.sampleRate); // 0.04 seconds fade-out.
+  bypassCounter = bypassFadeLength;
   return AudioEffect::setupProcessing(setup);
 }
 
@@ -99,32 +101,50 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   }
   lastState = state;
 
-  dsp.setParameters(data.processContext->tempo);
-
   if (data.numOutputs == 0) return kResultOk;
   if (data.numSamples <= 0) return kResultOk;
   if (data.outputs[0].numChannels != 2) return kResultOk;
   if (data.symbolicSampleSize == Vst::kSample64) return kResultOk;
 
+  dsp.setParameters(data.processContext->tempo);
   if (data.inputEvents != nullptr) handleEvent(data);
-
-  if (dsp.param.value[ParameterID::bypass]->getInt()) {
-    processBypass(data);
-  } else {
-    float *out0 = data.outputs[0].channelBuffers32[0];
-    float *out1 = data.outputs[0].channelBuffers32[1];
-    dsp.process((size_t)data.numSamples, out0, out1);
-  }
+  processSignal(data);
 
   return kResultOk;
 }
 
-void PlugProcessor::processBypass(Vst::ProcessData &data)
+void PlugProcessor::processSignal(Vst::ProcessData &data)
 {
-  float **in = data.inputs[0].channelBuffers32;
-  float **out = data.outputs[0].channelBuffers32;
-  for (int32_t ch = 0; ch < data.inputs[0].numChannels; ch++) {
-    if (in[ch] != out[ch]) memcpy(out[ch], in[ch], data.numSamples * sizeof(float));
+  float *out0 = data.outputs[0].channelBuffers32[0];
+  float *out1 = data.outputs[0].channelBuffers32[1];
+  size_t length = (size_t)data.numSamples;
+  if (dsp.param.value[ParameterID::bypass]->getInt()) {
+    if (bypassCounter > 0) { // Fade-out.
+      dsp.process(length, out0, out1);
+      for (size_t i = 0; i < length; ++i) {
+        bypassCounter -= 1;
+        if (bypassCounter < 0) bypassCounter = 0;
+        const auto gain = float(bypassCounter) / bypassFadeLength;
+        out0[i] *= gain;
+        out1[i] *= gain;
+      }
+    } else { // Bypass.
+      memset(out0, 0.0f, data.numSamples * sizeof(float));
+      memset(out1, 0.0f, data.numSamples * sizeof(float));
+    }
+  } else {
+    if (bypassCounter < bypassFadeLength) { // Fade-in.
+      dsp.process(length, out0, out1);
+      for (size_t i = 0; i < length; ++i) {
+        bypassCounter += 1;
+        if (bypassCounter > bypassFadeLength) bypassCounter = bypassFadeLength;
+        const auto gain = float(bypassCounter) / bypassFadeLength;
+        out0[i] *= gain;
+        out1[i] *= gain;
+      }
+    } else { // Main processing.
+      dsp.process(length, out0, out1);
+    }
   }
 }
 

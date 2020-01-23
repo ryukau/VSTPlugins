@@ -55,11 +55,6 @@ public:
   void handleEvent(Vst::ProcessData &data);
 
 protected:
-  inline int32 toDiscrete(Vst::ParamValue normalized, int32 stepCount)
-  {
-    return int32(std::min<double>(stepCount, normalized * (stepCount + 1.0)));
-  }
-
   uint64_t lastState = 0;
   DSPCore dsp;
 };

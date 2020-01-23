@@ -53,14 +53,12 @@ public:
     return (Vst::IAudioProcessor *)new PlugProcessor();
   }
 
-  void processBypass(Vst::ProcessData &data);
+  void processSignal(Vst::ProcessData &data);
   void handleEvent(Vst::ProcessData &data);
 
 protected:
-  inline int32 toDiscrete(Vst::ParamValue normalized, int32 stepCount)
-  {
-    return int32(std::min<double>(stepCount, normalized * (stepCount + 1.0)));
-  }
+  int64_t bypassCounter = 0;
+  int64_t bypassFadeLength = 1;
 
   uint64_t lastState = 0;
   std::unique_ptr<DSPInterface> dsp;
