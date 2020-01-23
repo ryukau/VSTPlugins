@@ -54,6 +54,7 @@ public:
   }
 
   void processBypass(Vst::ProcessData &data);
+  void handleEvent(Vst::ProcessData &data);
 
 protected:
   inline int32 toDiscrete(Vst::ParamValue normalized, int32 stepCount)
