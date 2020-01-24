@@ -3,7 +3,7 @@
 
 <ruby>FDNCymbal<rt>エフディーエヌシンバル</rt></ruby> はシンバルのような音を合成するシンセサイザです。エフェクトとして使うこともできます。名前とは裏腹に金属的な質感は FDN (feedback delay network) ではなく Schroeder allpass section によって得られています。 `FDN.Time` の値を小さくすることで、わりとナイスなばちの衝突音が合成できます。シンバルの揺れをシミュレートするためにトレモロもついています。
 
-- [FDNCymbal 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/FDNCymbal0.1.4.zip) <img
+- [FDNCymbal 0.1.5 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/FDNCymbal0.1.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -177,6 +177,9 @@ LFO によって変化するディレイ時間の最大値です。シンバル�
 ノートオンのたびに `Tremolo.DelayTime` をランダマイズする度合いです。
 
 ## チェンジログ
+- 0.1.5
+  - 非アクティブ化で音が止まるように修正。
+  - PreSonus Studio One 4.6.1 で出力にノイズが乗るバグを修正。
 - 0.1.4
   - Linux ビルドの GUI を有効化。
 - 0.1.3
@@ -193,6 +196,7 @@ LFO によって変化するディレイ時間の最大値です。シンバル�
   - 初期リリース。
 
 ### 旧バージョン
+- [FDNCymbal 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/FDNCymbal0.1.4.zip)
 - [FDNCymbal 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbal0.1.3.zip)
 - [FDNCymbal 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/FDNCymbal0.1.2.zip)
 

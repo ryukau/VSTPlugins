@@ -3,7 +3,7 @@
 
 FDNCymbal is a cymbal sound synthesizer. It can also be used as an effect. Unlike the name, most of metallic texture comes from Schroeder allpass section rather than FDN (feedback delay network). FDN section makes nice impact sound when `FDN.Time` is short. Tremolo is added to simulate wobbling of cymbal.
 
-- [Download FDNCymbal 0.1.4 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/FDNCymbal0.1.4.zip) <img
+- [Download FDNCymbal 0.1.5 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/FDNCymbal0.1.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -177,6 +177,9 @@ Amount of randomization to `Tremolo.Frequency` for each note on.
 Amount of randomization to `Tremolo.DelayTime` for each note on.
 
 ## Change Log
+- 0.1.5
+  - Fixed to stop sounds when deactivated.
+  - Fixed a bug that was causing noise on PreSonus Studio One 4.6.1.
 - 0.1.4
   - Enabled GUI for Linux build.
 - 0.1.3
@@ -193,11 +196,12 @@ Amount of randomization to `Tremolo.DelayTime` for each note on.
   - Initial release.
 
 ### Old Versions
+- [FDNCymbal 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/FDNCymbal0.1.4.zip)
 - [FDNCymbal 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbal0.1.3.zip)
 - [Download FDNCymbal 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/FDNCymbal0.1.2.zip)
 
 ## License
-SevenDelay is licensed under GPLv3. Complete licenses are linked below.
+FDNCymbal is licensed under GPLv3. Complete licenses are linked below.
 
 - [https://github.com/ryukau/VSTPlugins/tree/master/License](https://github.com/ryukau/VSTPlugins/tree/master/License)
 

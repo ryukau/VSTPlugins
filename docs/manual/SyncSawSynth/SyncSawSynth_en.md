@@ -3,7 +3,7 @@
 
 SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR sawtooth oscillator. Just a basic synthesizer but very easy to make a noise similar to low battery sound of some toys.
 
-- [Download SyncSawSynth 0.1.8 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SyncSawSynth0.1.8.zip) <img
+- [Download SyncSawSynth 0.1.9 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SyncSawSynth0.1.9.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -290,6 +290,8 @@ Modulation from MIDI note number to cutoff frequency. Range is -1.0 to 1.0.
 Modulation from MIDI note number to feedback. Range is -1.0 to 1.0.
 
 ## Change Log
+- 0.1.9
+  - Fixed a bug that was causing noise on PreSonus Studio One 4.6.1.
 - 0.1.8
   - Enabled GUI for Linux build.
 - 0.1.7
@@ -314,8 +316,9 @@ Modulation from MIDI note number to feedback. Range is -1.0 to 1.0.
   - Fix a bug that releasing gain envelope while attacking jumps the output value of gain envelope to sustain level.
 - 0.1.0
   - Initial release.
-  -
+
 ### Old Versions
+- [SyncSawSynth 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SyncSawSynth0.1.8.zip)
 - [SyncSawSynth 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SyncSawSynth0.1.7.zip)
 
 ## License

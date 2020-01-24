@@ -3,7 +3,7 @@
 
 EnvelopedSine is an additive synthesizer that computes 64 sine waves for each note. Difference to IterativeSinCluster is that this synth has AD envelope and saturator for each oscillator. EnvelopedSine is better suited for percussive sounds.
 
-- [Download EnvelopedSine 0.1.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/EnvelopedSine0.1.1.zip) <img
+- [Download EnvelopedSine 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EnvelopedSine0.1.2.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -217,6 +217,8 @@ LFO phase offset.
 LFO phase. This can be used to make sound with automation. Turning `Freq` to leftmost sets LFO frequency to 0.
 
 ## Change Log
+- 0.1.2
+  - Fixed a bug that was causing noise on PreSonus Studio One 4.6.1.
 - 0.1.1
   - Enabled GUI for Linux build.
   - Added shortcut cheat sheet to splash screen.
@@ -224,10 +226,11 @@ LFO phase. This can be used to make sound with automation. Turning `Freq` to lef
   - Initial release.
 
 ### Old Versions
+- [EnvelopedSine 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/EnvelopedSine0.1.1.zip)
 - [EnvelopedSine 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/EnvelopedSine0.1.0.zip)
 
 ## License
-IterativeSinCluster is licensed under GPLv3. Complete licenses are linked below.
+EnvelopedSine is licensed under GPLv3. Complete licenses are linked below.
 
 - [https://github.com/ryukau/VSTPlugins/tree/master/License](https://github.com/ryukau/VSTPlugins/tree/master/License)
 

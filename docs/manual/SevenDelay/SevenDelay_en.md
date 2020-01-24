@@ -3,7 +3,7 @@
 
 SevenDelay is a stereo delay with 7th order lagrange interpolated fractional delay and 7x oversampling.
 
-- [Download SevenDelay 0.1.6 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip) <img
+- [Download SevenDelay 0.1.7 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -165,6 +165,8 @@ LFO phase is reset to `Phase` for each time host starts playing.
 Toggle LFO phase hold. This may be useful for live performance.
 
 ## Change Log
+- 0.1.7
+  - Fixed to stop sounds when deactivated.
 - 0.1.6
   - Enabled GUI for Linux build.
 - 0.1.5
@@ -189,6 +191,7 @@ Toggle LFO phase hold. This may be useful for live performance.
   - Initial release.
 
 ### Old Versions
+- [SevenDelay 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip)
 - [SevenDelay 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelay0.1.5.zip)
 - [Download SevenDelay 0.1.4 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SevenDelay0.1.4.zip)
 

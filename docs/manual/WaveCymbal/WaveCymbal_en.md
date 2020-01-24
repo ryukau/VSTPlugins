@@ -3,7 +3,7 @@
 
 WaveCymbal is an attempt to make a cymbal synthesizer with banded wave-guide model. The result is more like dragging bunch of empty cans or thin metal plate on asphalt rather than cymbal.
 
-- [Download WaveCymbal 0.1.5 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/WaveCymbal0.1.5.zip) <img
+- [Download WaveCymbal 0.1.6 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/WaveCymbal0.1.6.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -147,6 +147,9 @@ Oscillator type.
 Transition time from previous value to current value in seconds. `Gain`, `Excitation.Time`, `Random.Amount`, `Bandpass.MinCutoff`, `Bandpass.MaxCutoff` will be affected. Slide effect of `OscType.Sustain` can be tuned by `Smoothness`.
 
 ## Change Log
+- 0.1.6
+  - Fixed to stop sounds when deactivated.
+  - Fixed a bug that was causing noise on PreSonus Studio One 4.6.1.
 - 0.1.5
   - Enabled GUI for Linux build.
   - Fixed broken presets.
@@ -165,6 +168,7 @@ Transition time from previous value to current value in seconds. `Gain`, `Excita
   - Initial release.
 
 ### Old Versions
+- [WaveCymbal 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/WaveCymbal0.1.5.zip)
 - [WaveCymbal 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/WaveCymbal0.1.4.zip)
 - [WaveCymbal 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/WaveCymbal0.1.3.zip)
 

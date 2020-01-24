@@ -3,7 +3,7 @@
 
 <ruby>SevenDelay<rt>セブンディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。
 
-- [SevenDelay 0.1.6 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip) <img
+- [SevenDelay 0.1.7 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -167,6 +167,8 @@ LFO の位相はホストが演奏を開始するたびに `Phase` の値にリ�
 LFO の位相のホールドの切り替え。ライブ演奏などで役に立つかもしれません。
 
 ## チェンジログ
+- 0.1.7
+  - 非アクティブ化で音が止まるように修正。
 - 0.1.6
   - Linux ビルドの GUI を有効化。
 - 0.1.5
@@ -191,6 +193,7 @@ LFO の位相のホールドの切り替え。ライブ演奏などで役に立�
   - 初期リリース。
 
 ### 旧バージョン
+- [SevenDelay 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip)
 - [SevenDelay 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelay0.1.5.zip)
 - [SevenDelay 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SevenDelay0.1.4.zip)
 

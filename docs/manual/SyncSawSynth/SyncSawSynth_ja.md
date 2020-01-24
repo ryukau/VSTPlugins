@@ -3,7 +3,7 @@
 
 <ruby>SyncSawSynth<rt>シンクソウシンセ</rt></ruby>は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。
 
-- [SyncSawSynth 0.1.8 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SyncSawSynth0.1.8.zip) <img
+- [SyncSawSynth 0.1.9 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SyncSawSynth0.1.9.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -289,6 +289,8 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))
 ノートの MIDI ノート番号によるフィードバックの変調。範囲は -1.0 から 1.0 。
 
 ## チェンジログ
+- 0.1.9
+  - PreSonus Studio One 4.6.1 で出力にノイズが乗るバグを修正。
 - 0.1.8
   - Linux ビルドの GUI を有効化。
 - 0.1.7
@@ -315,6 +317,7 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))
   - 初期リリース。
 
 ### 旧バージョン
+- [SyncSawSynth 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SyncSawSynth0.1.8.zip)
 - [SyncSawSynth 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SyncSawSynth0.1.7.zip)
 
 ## ライセンス
