@@ -6,7 +6,7 @@
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <meta name="dcterms.date" content="2020-01-24" />
-<title>SevenDelay_ja</title>
+<title>EsPhaser_ja</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -207,7 +207,7 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#sevendelay">SevenDelay</a><ul>
+  <li><a href="#esphaser">EsPhaser</a><ul>
   <li><a href="#インストール">インストール</a><ul>
   <li><a href="#プラグイン">プラグイン</a></li>
   <li><a href="#プリセット">プリセット</a></li>
@@ -217,28 +217,17 @@ footer {
   <li><a href="#注意">注意</a></li>
   <li><a href="#ブロック線図">ブロック線図</a></li>
   <li><a href="#パラメータ">パラメータ</a><ul>
-  <li><a href="#delay">Delay</a><ul>
-  <li><a href="#time">Time</a></li>
+  <li><a href="#mix">Mix</a></li>
+  <li><a href="#freq">Freq</a></li>
+  <li><a href="#spread">Spread</a></li>
   <li><a href="#feedback">Feedback</a></li>
-  <li><a href="#stereo">Stereo</a></li>
-  <li><a href="#wet">Wet</a></li>
-  <li><a href="#dry">Dry</a></li>
-  <li><a href="#sync">Sync</a></li>
-  <li><a href="#negative">Negative</a></li>
-  <li><a href="#spreadpan">Spread/Pan</a></li>
-  <li><a href="#allpass-cut">Allpass Cut</a></li>
-  <li><a href="#allpass-q">Allpass Q</a></li>
-  <li><a href="#dc-kill">DC Kill</a></li>
-  <li><a href="#smooth">Smooth</a></li>
-  </ul></li>
-  <li><a href="#lfo">LFO</a><ul>
-  <li><a href="#to-time">To Time</a></li>
-  <li><a href="#to-allpass">To Allpass</a></li>
-  <li><a href="#frequency">Frequency</a></li>
-  <li><a href="#shape">Shape</a></li>
+  <li><a href="#range">Range</a></li>
+  <li><a href="#min">Min</a></li>
+  <li><a href="#cas.-offset">Cas. Offset</a></li>
+  <li><a href="#lr-offset">L/R Offset</a></li>
   <li><a href="#phase">Phase</a></li>
-  <li><a href="#hold">Hold</a></li>
-  </ul></li>
+  <li><a href="#stage">Stage</a></li>
+  <li><a href="#smooth">Smooth</a></li>
   </ul></li>
   <li><a href="#チェンジログ">チェンジログ</a><ul>
   <li><a href="#旧バージョン">旧バージョン</a></li>
@@ -251,17 +240,18 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="sevendelay">SevenDelay</h1>
-<p><img src="img/sevendelay.png" /></p>
-<p><ruby>SevenDelay<rt>セブンディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。</p>
+<h1 id="esphaser">EsPhaser</h1>
+<p><img src="img/esphaser.png" /></p>
+<p><ruby>EsPhaser<rt>エス フェイザ</rt></ruby> は最大 4096 の 2 次 Thiran オールパスフィルタを直列につなぐことができるフェイザです。 EnvelopedSine のフェイザと同じアルゴリズムを使っています。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip">SevenDelay 0.1.7 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EsPhaser0.1.0.zip">EsPhaser 0.1.0 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelayPresets.zip">プリセットをダウンロード (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EsPhaserPresets.zip">プリセットをダウンロード (github.com)</a></li>
 </ul>
+<p>EsPhaser の利用には AVX 以降の SIMD 命令セットをサポートする CPU が必要です。</p>
 <p>パッケージには次のビルドが含まれています。</p>
 <ul>
 <li>Windows 64bit</li>
@@ -296,137 +286,57 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <p>REAPER の Linux 版がプラグインを認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
 <h2 id="操作">操作</h2>
-<p>つまみとスライダーでは次の操作ができます。</p>
+<p>つまみと数値スライダでは次の操作ができます。</p>
 <ul>
-<li>Ctrl + 左クリック : 値のリセット。</li>
-<li>Shift + 左ドラッグ : 細かい値の変更。</li>
+<li><kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。</li>
+<li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
 </ul>
 <h2 id="注意">注意</h2>
-<p><code>Smooth</code> の値が 0 に近く、 <code>Allpass Cut</code> の値を速く動かしすぎたときに、非常に大きな音量のクリックノイズが出力されることがあります。これは <code>Allpass Cut</code> で使われているフィルタのカットオフ周波数が、速く、大きく、動きすぎると出力が発散する場合があることが原因です。特別な目的がない限り、<code>Smooth</code> パラメータを低く設定しすぎないことを推奨します。</p>
-<p><code>Time</code> の値が最小かつ <code>Feedback</code> の値が最大に設定されると直流信号が出ることがあります。 <code>DC Kill</code> を 1.0 より大きな値に設定することで直流信号を除去できます。</p>
+<p>サンプリング周波数によって出力が変わります。</p>
+<p><code>Stage</code> を最大にすると CPU 消費がとても大きくなります。</p>
+<p><code>Smooth</code> の値が小さいときに <code>Cas. Offset</code> を変更すると、大きな音が出ることがあります。 <code>Cas. Offset</code> を変更するときは <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> の利用と、 EsPhaser のあとにリミッタをインサートすることを推奨します。</p>
 <h2 id="ブロック線図">ブロック線図</h2>
 <p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> + <kbd>マウスホイール</kbd> や、右クリックから「画像だけを表示」などで拡大できます。</p>
 <p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
-<p><img src="img/sevendelay.svg" /></p>
+<p><img src="img/esphaser.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
-<h3 id="delay">Delay</h3>
-<h4 id="time">Time</h4>
-<p>ディレイ時間。範囲は 0.0001 から 8.0 です。</p>
-<ul>
-<li>もし <code>Sync</code> が有効で <code>Time</code> が 1.0 より小さいときは、ディレイ時間が <code>Time / 16</code> 拍に設定されます。</li>
-<li>もし <code>Sync</code> が有効で <code>Time</code> が 1.0 以上のときは、ディレイ時間が <code>floor(2 * Time) / 32</code> 拍に設定されます。</li>
-<li>それ以外のときは、ディレイ時間が <code>time</code> 秒に設定されます。</li>
-</ul>
+<h4 id="mix">Mix</h4>
+<p>Dry : Wet の信号比です。右いっぱいにすると Dry : Wet = 0 : 1 になります。</p>
+<h4 id="freq">Freq</h4>
+<p>LFO の周波数です。</p>
+<h4 id="spread">Spread</h4>
+<p>16 個の LFO の間で周波数をずらす量です。</p>
+<p>1 サンプル当たりの LFO の位相の進み <code>deltaPhase</code> は次の式で計算されます。</p>
+<pre><code>deltaPhase = 2 * pi * Freq / ((1 + LfoIndex * Spread) * sampleRate)</code></pre>
 <h4 id="feedback">Feedback</h4>
-<p>ディレイのフィードバック。範囲は 0.0 から 1.0 です。</p>
-<h4 id="stereo">Stereo</h4>
-<p>左右のディレイ時間のオフセット。範囲は -1.0 から 1.0 です。</p>
-<ul>
-<li>もし <code>Stereo</code> が 0.0 より小さいときは、左チャンネルのディレイ時間が <code>timeL * (1.0 + Stereo)</code> に変更されます。</li>
-<li>それ以外のときは、右チャンネルのディレイ時間が <code>timeR * (1.0 + Stereo)</code> に変更されます。</li>
-</ul>
-<h4 id="wet">Wet</h4>
-<p>ディレイ信号の出力音量。範囲は 0.0 から 1.0 。</p>
-<h4 id="dry">Dry</h4>
-<p>入力信号の出力音量。範囲は 0.0 から 1.0 。</p>
-<h4 id="sync">Sync</h4>
-<p>テンポシンクの切り替え。</p>
-<h4 id="negative">Negative</h4>
-<p>負のフィードバックの切り替え。ディレイ時間がとても短いときに役立つかもしれません。</p>
-<h4 id="spreadpan">Spread/Pan</h4>
-<p>入力の広がり (In Spread) 、入力のパン (In Pan) 、出力の広がり (Out Spread) 、出力のパン (Out Pan) 。範囲は 0.0 から 1.0 です。</p>
-<p><code>In Spread</code> 、 <code>Out Spread</code> はステレオの広がりを制御します。 <code>In Pan</code> 、 <code>Out Pan</code> はステレオのパンニングを制御します。</p>
-<p>これらのパラメータはパンニングの逆転やピンポンディレイを作るときに使えます。</p>
-<ul>
-<li>パンニングの逆転を行うには <code>[InSpread, InPan, OutSpread, OutPan]</code> を <code>[0.0, 0.5, 1.0, 0.5]</code> に設定します。</li>
-<li>ピンポンディレイにするには <code>[InSpread, InPan, OutSpread, OutPan]</code> を <code>[1.0, 0.5, 0.0, 0.5]</code> に設定します。</li>
-</ul>
-<pre><code>panL = clamp(2 * pan + spread - 1.0, 0.0, 1.0)
-panR = clamp(2 * pan - spread, 0.0, 1.0)
-
-signalL = incomingL + panL * (incomingR - incomingL)
-signalR = incomingL + panR * (incomingR - incomingL)</code></pre>
-<h4 id="allpass-cut">Allpass Cut</h4>
-<p>SVF オールパスフィルタのカットオフ周波素。範囲は 90.0 から 20000.0 です。</p>
-<p><code>tone</code> が 20000.0 のとき、フィルタはバイパスされます。</p>
-<h4 id="allpass-q">Allpass Q</h4>
-<p>SVF オールパスフィルタのレゾナンス。範囲は 0.00001 から 1.0 です。</p>
-<p>値が大きいほどレゾナンスが強くなります。</p>
-<h4 id="dc-kill">DC Kill</h4>
-<p>ハイパスフィルタのカットオフ周波数。範囲は 5.0 から 120.0 です。</p>
-<p><code>DC Kill</code> を 5.0 より大きく設定すればディレイのフィードバックから直流信号を取り除くことができます。</p>
-<h4 id="smooth">Smooth</h4>
-<p>パラメータ平滑化の度合い。範囲は 0.0 から 1.0 で、単位は秒です。</p>
-<p>パラメータによっては値が急激に変化するとノイズが出ることがあります。 <code>Smooth</code> の値を大きめにすることで、値の変化を緩やかにしてノイズを減らすことができます。</p>
-<h3 id="lfo">LFO</h3>
-<h4 id="to-time">To Time</h4>
-<p>LFO によるディレイ時間の変調量。範囲は 0.0 から 1.0 です。</p>
-<h4 id="to-allpass">To Allpass</h4>
-<p>LFO によるオールパスフィルタのカットオフ周波数の変調量。範囲は 0.0 から 1.0 です。</p>
-<h4 id="frequency">Frequency</h4>
-<p>LFO の周波数。範囲は 0.01 から 100.0 。</p>
-<h4 id="shape">Shape</h4>
-<p>LFO の波形。範囲は 0.01 から 10.0 。</p>
-<pre><code>sign = 1 if (phase &gt; π),
-      -1 if (phase &lt; π),
-       0 if (phase == π)
-lfo = sign * abs(sin(phase))^shape</code></pre>
+<p>フィードバックの大きさです。 12 時にするとフィードバックなし、左に回すと負のフィードバック、右に回すと正のフィードバックとなります。</p>
+<h4 id="range">Range</h4>
+<p>LFO によって変更するオールパスフィルタの特性の幅です。</p>
+<h4 id="min">Min</h4>
+<p>LFO によって変調するオールパスフィルタの特性の最小値です。</p>
+<h4 id="cas.-offset">Cas. Offset</h4>
+<p>16 個の LFO の間で位相をずらす量です。</p>
+<h4 id="lr-offset">L/R Offset</h4>
+<p>左右の LFO の位相差です。</p>
 <h4 id="phase">Phase</h4>
-<p>LFO の位相の初期値。範囲は 0.0 から 2π 。</p>
-<p>LFO の位相はホストが演奏を開始するたびに <code>Phase</code> の値にリセットされます。</p>
-<h4 id="hold">Hold</h4>
-<p>LFO の位相のホールドの切り替え。ライブ演奏などで役に立つかもしれません。</p>
+<p>LFO の位相です。オートメーションで音を作りたいときに使えます。 <code>Freq</code> を左いっぱいに回すことで LFO の周波数を 0 にできます。</p>
+<p>最終的な LFO の位相は次の式で計算されます。</p>
+<pre><code>LfoPhaseOffset = Phase + (L/R Offset) + LfoIndex * (Cas. Offset)</code></pre>
+<h4 id="stage">Stage</h4>
+<p>オールパスフィルタを直列につなぐ個数です。 <code>Stage</code> の値に比例して CPU 消費が増えるので注意してください。</p>
+<h4 id="smooth">Smooth</h4>
+<p>パラメータを変更したときに、変更前の値から変更後の値へと移行する秒数です。 <code>Stage</code> 以外のパラメータに有効です。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
-<li>0.1.7
-<ul>
-<li>非アクティブ化で音が止まるように修正。</li>
-</ul></li>
-<li>0.1.6
-<ul>
-<li>Linux ビルドの GUI を有効化。</li>
-</ul></li>
-<li>0.1.5
-<ul>
-<li>Ableton Live 10.1.6 で特定のノブが揺れ戻るバグを修正。</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li>複数の GUI インスタンス間で表示を同期するように変更。</li>
-<li>スプラッシュスクリーンを開くとクラッシュするバグを修正。</li>
-<li>リロード時にクラッシュするバグを修正。</li>
-<li>GUI がホストのオートメーションに応じて更新されるように修正。</li>
-</ul></li>
-<li>0.1.3
-<ul>
-<li>スムーシングのアルゴリズムの値が決められた範囲を超えるバグを修正。</li>
-<li>LFO Hold のオン・オフが逆転していたバグを修正。</li>
-<li>オールパスのミキシングにかかっていた LFO による変調を除去。</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>内部のパラメータの構造を変更。</li>
-<li>UI の見た目を変更。</li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>Linux ビルドの GUI を無効化。VSTGUI に関するバグが治るまでの応急処置。</li>
-<li>LFO の <code>To Allpass</code> のチューニングを変更。</li>
-<li><code>DC Kill</code> の最小値を 5.0 Hz に変更。</li>
-</ul></li>
 <li>0.1.0
 <ul>
 <li>初期リリース。</li>
 </ul></li>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip">SevenDelay 0.1.6 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelay0.1.5.zip">SevenDelay 0.1.5 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SevenDelay0.1.4.zip">SevenDelay 0.1.4 - VST 3 (github.com)</a></li>
-</ul>
+<p>現在、旧バージョンはありません。</p>
 <h2 id="ライセンス">ライセンス</h2>
-<p>SevenDelay のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
+<p>EsPhaser のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
 <ul>
 <li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
 </ul>

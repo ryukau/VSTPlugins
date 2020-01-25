@@ -6,7 +6,7 @@
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <meta name="dcterms.date" content="2020-01-24" />
-<title>SevenDelay_en</title>
+<title>EsPhaser_en</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -207,7 +207,7 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#sevendelay">SevenDelay</a><ul>
+  <li><a href="#esphaser">EsPhaser</a><ul>
   <li><a href="#installation">Installation</a><ul>
   <li><a href="#plugin">Plugin</a></li>
   <li><a href="#presets">Presets</a></li>
@@ -217,28 +217,16 @@ footer {
   <li><a href="#caution">Caution</a></li>
   <li><a href="#block-diagram">Block Diagram</a></li>
   <li><a href="#parameters">Parameters</a><ul>
-  <li><a href="#delay">Delay</a><ul>
-  <li><a href="#time">Time</a></li>
-  <li><a href="#feedback">Feedback</a></li>
-  <li><a href="#stereo">Stereo</a></li>
-  <li><a href="#wet">Wet</a></li>
-  <li><a href="#dry">Dry</a></li>
-  <li><a href="#sync">Sync</a></li>
-  <li><a href="#negative">Negative</a></li>
-  <li><a href="#inout-spreadpan">In/Out Spread/Pan</a></li>
-  <li><a href="#allpass-cut">Allpass Cut</a></li>
-  <li><a href="#allpass-q">Allpass Q</a></li>
-  <li><a href="#dc-kill">DC Kill</a></li>
-  <li><a href="#smooth">Smooth</a></li>
-  </ul></li>
-  <li><a href="#lfo">LFO</a><ul>
-  <li><a href="#to-time">To Time</a></li>
-  <li><a href="#to-allpass">To Allpass</a></li>
+  <li><a href="#stages">Stages</a></li>
+  <li><a href="#mix">Mix</a></li>
   <li><a href="#freq">Freq</a></li>
-  <li><a href="#shape">Shape</a></li>
+  <li><a href="#spread">Spread</a></li>
+  <li><a href="#feedback">Feedback</a></li>
+  <li><a href="#range">Range</a></li>
+  <li><a href="#min">Min</a></li>
+  <li><a href="#cas.-offset">Cas. Offset</a></li>
+  <li><a href="#lr-offset">L/R Offset</a></li>
   <li><a href="#phase">Phase</a></li>
-  <li><a href="#hold">Hold</a></li>
-  </ul></li>
   </ul></li>
   <li><a href="#change-log">Change Log</a><ul>
   <li><a href="#old-versions">Old Versions</a></li>
@@ -251,17 +239,18 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="sevendelay">SevenDelay</h1>
-<p><img src="img/sevendelay.png" /></p>
-<p>SevenDelay is a stereo delay with 7th order lagrange interpolated fractional delay and 7x oversampling.</p>
+<h1 id="esphaser">EsPhaser</h1>
+<p><img src="img/esphaser.png" /></p>
+<p>EsPhaser is a phaser with up to 4096 stages of order 2 Thiran all-pass filters. This is the same phaser used in EnvelopedSine.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip">Download SevenDelay 0.1.7 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EsPhaser0.1.0.zip">Download EsPhaser 0.1.0 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelayPresets.zip">Download Presets (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EsPhaserPresets.zip">Download Presets (github.com)</a></li>
 </ul>
+<p>EsPhaser requires CPU which supports AVX or later SIMD instructions.</p>
 <p>The package includes following builds:</p>
 <ul>
 <li>Windows 64bit</li>
@@ -296,136 +285,55 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <p>REAPER on Linux may not recognize the plugin. A workaround is to delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and restart REAPER.</p>
 <h2 id="controls">Controls</h2>
-<p>Knob and slider can do:</p>
+<p>Knob and number slider can do:</p>
 <ul>
-<li>Ctrl + Left Click: Reset value.</li>
-<li>Shift + Left Drag: Fine adjustment.</li>
+<li><kbd>Ctrl</kbd> + <kdb>Left Click</kbd>: Reset value.</li>
+<li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
 </ul>
 <h2 id="caution">Caution</h2>
-<p>When the value of <code>Smooth</code> is near zero and change the value of <code>Allpass Cut</code> too fast, SevenDelay may output very loud click noise. This is caused by the filter which becomes unstable when cutoff frequency moves too fast. Recommendation is not to set <code>Smooth</code> parameter too low unless you have some specific purpose.</p>
-<p>When the value of <code>Time</code> is set to minimum and the value of <code>Feedback</code> is set to maximum, SevenDelay outputs direct current (DC). To remove DC, Set <code>DC Kill</code> to be greater than 1.0.</p>
+<p>When stage is set to 4096, it will be CPU intensive.</p>
+<p>Output varies in different sample rate.</p>
+<p>Output may be loud when changing Cas. Offset. Use <kbd>Shift</kbd> + <kbd>Left Drag</kbd> to slowly change the value, or insert limiter to prevent hard clipping.</p>
 <h2 id="block-diagram">Block Diagram</h2>
 <p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or “View Image” on right click menu to scale.</p>
 <p>Diagram only shows overview. It’s not exact implementation.</p>
-<p><img src="img/sevendelay.svg" /></p>
+<p><img src="img/esphaser.svg" /></p>
 <h2 id="parameters">Parameters</h2>
-<h3 id="delay">Delay</h3>
-<h4 id="time">Time</h4>
-<p>Delay time. Range is 0.0001 to 8.0.</p>
-<ul>
-<li>If <code>Sync</code> is on and <code>Time</code> is less than 1.0, then delay time is set to <code>Time / 16</code> beats.</li>
-<li>If <code>Sync</code> is on and <code>Time</code> is greater or equal to 1.0, then delay time is set to <code>floor(2 * Time) / 32</code> beats.</li>
-<li>Otherwise, delay time is set to <code>Time</code> seconds.</li>
-</ul>
-<h4 id="feedback">Feedback</h4>
-<p>Delay feedback. Range is 0.0 to 1.0.</p>
-<h4 id="stereo">Stereo</h4>
-<p>L/R stereo offset. Range is -1.0 to 1.0.</p>
-<ul>
-<li>If <code>Stereo</code> is less than 0.0, then left channel delay time is modified to <code>timeL * (1.0 + Stereo)</code>.</li>
-<li>Otherwise, right channel delay time is modified to <code>timeR * (1.0 + Stereo)</code>.</li>
-</ul>
-<h4 id="wet">Wet</h4>
-<p>Output volume of delayed signal. Range is 0.0 to 1.0.</p>
-<h4 id="dry">Dry</h4>
-<p>Output volume of input signal. Range is 0.0 to 1.0.</p>
-<h4 id="sync">Sync</h4>
-<p>Toggle tempo sync.</p>
-<h4 id="negative">Negative</h4>
-<p>Toggle negative feedback. This may be useful when delay time is very short.</p>
-<h4 id="inout-spreadpan">In/Out Spread/Pan</h4>
-<p>Panning controls. Range is 0.0 to 1.0.</p>
-<p><code>In/Out Spread</code> controls stereo spread. <code>In/Out Pan</code> controls stereo panning.</p>
-<p>These parameter can be used for inverse panning, ping-pong delay etc.</p>
-<ul>
-<li>For inverse panning, set <code>[InSpread, InPan, OutSpread, OutPan]</code> to <code>[0.0, 0.5, 1.0, 0.5]</code>.</li>
-<li>For ping-pong delay, set <code>[InSpread, InPan, OutSpread, OutPan]</code> to <code>[1.0, 0.5, 0.0, 0.5]</code>.</li>
-</ul>
-<pre><code>panL = clamp(2 * pan + spread - 1.0, 0.0, 1.0)
-panR = clamp(2 * pan - spread, 0.0, 1.0)
-
-signalL = incomingL + panL * (incomingR - incomingL)
-signalR = incomingL + panR * (incomingR - incomingL)</code></pre>
-<h4 id="allpass-cut">Allpass Cut</h4>
-<p>SFV allpass filter cutoff frequency. Range is 90.0 to 20000.0.</p>
-<p>If <code>Allpass Cut</code> is 20000.0, filter will be bypassed.</p>
-<h4 id="allpass-q">Allpass Q</h4>
-<p>SFV allpass filter resonance. Range is 0.00001 to 1.0.</p>
-<h4 id="dc-kill">DC Kill</h4>
-<p>Cutoff frequency of biquad highpass filter. Range is 1.0 to 120.0.</p>
-<p><code>DC Kill</code> removes direct current from delay feedback when the value is set to be greater than 1.0.</p>
-<h4 id="smooth">Smooth</h4>
-<p>Parameter smoothing. Range is 0.0 to 1.0. Unit is seconds.</p>
-<p>Some parameter may produce noise when the value is changed too fast. Increasing <code>Smooth</code> reduces those noise.</p>
-<h3 id="lfo">LFO</h3>
-<h4 id="to-time">To Time</h4>
-<p>LFO modulation amount to delay time. Range is 0.0 to 1.0.</p>
-<h4 id="to-allpass">To Allpass</h4>
-<p>LFO modulation amount to allpass cutoff frequency. Range is 0.0 to 1.0.</p>
+<h4 id="stages">Stages</h4>
+<p>Number of all-pass filter.</p>
+<h4 id="mix">Mix</h4>
+<p>Mixing ratio of dry/wet signal of phaser. <code>Dry : Wet</code> becomes <code>0 : 1</code> when turned the knob to rightmost.</p>
 <h4 id="freq">Freq</h4>
-<p>LFO frequency. Range is 0.01 to 100.0.</p>
-<h4 id="shape">Shape</h4>
-<p>LFO waveform shape. Range is 0.01 to 10.0.</p>
-<pre><code>sign = 1 if (phase &gt; π),
-      -1 if (phase &lt; π),
-       0 if (phase == π)
-lfo = sign * abs(sin(phase))^shape</code></pre>
+<p>LFO frequency.</p>
+<h4 id="spread">Spread</h4>
+<p>Spread frequency between LFOs.</p>
+<p>Equation for difference of LFO phase in 1 sample:</p>
+<pre><code>deltaPhase = 2 * pi * Freq / ((1 + LfoIndex * Spread) * sampleRate)</code></pre>
+<h4 id="feedback">Feedback</h4>
+<p>Amount of feedback. Feedback is disabled when the knob is pointing to 12 o’clock. It becomes negative feedback when turned to left and positive feedback when turned to right.</p>
+<h4 id="range">Range</h4>
+<p>Range of all-pass filter modulation by LFO.</p>
+<h4 id="min">Min</h4>
+<p>Minimum value of all-pass filter modulation by LFO.</p>
+<h4 id="cas.-offset">Cas. Offset</h4>
+<p>Phase offset between 16 LFO.</p>
+<h4 id="lr-offset">L/R Offset</h4>
+<p>LFO phase offset between L/R channels.</p>
 <h4 id="phase">Phase</h4>
-<p>LFO initial phase. Range is 0.0 to 2π.</p>
-<p>LFO phase is reset to <code>Phase</code> for each time host starts playing.</p>
-<h4 id="hold">Hold</h4>
-<p>Toggle LFO phase hold. This may be useful for live performance.</p>
+<p>LFO phase. This can be used to make sound with automation. Turning <code>Freq</code> to leftmost sets LFO frequency to 0.</p>
+<p>Equation for phase offset:</p>
+<pre><code>LfoPhaseOffset = Phase + (L/R Offset) + LfoIndex * (Cas. Offset)</code></pre>
 <h2 id="change-log">Change Log</h2>
 <ul>
-<li>0.1.7
-<ul>
-<li>Fixed to stop sounds when deactivated.</li>
-</ul></li>
-<li>0.1.6
-<ul>
-<li>Enabled GUI for Linux build.</li>
-</ul></li>
-<li>0.1.5
-<ul>
-<li>Fixed wobbling knob bug.</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li>Added support for synchronization between multiple GUI instances.</li>
-<li>Fixed a bug that opening splash screen causes crash.</li>
-<li>Fixed a bug that crash plugin when reloading.</li>
-<li>Fixed GUI to follow host automation.</li>
-</ul></li>
-<li>0.1.3
-<ul>
-<li>Fixed smoothing algorithm to prevent blow up.</li>
-<li>Fixed a bug that LFO Hold on/off was inverted.</li>
-<li>Removed a modulation from LFO to allpass mixing.</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>Changed internal parameter structure.</li>
-<li>Changed UI looks.</li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>Disabled GUI for Linux build. This is a makeshift change while tracking down a bug related to VSTGUI.</li>
-<li>Changed tuning of <code>To Allpass</code> of LFO.</li>
-<li>Changed minimal value of <code>DC Kill</code> to 5.0 Hz.</li>
-</ul></li>
 <li>0.1.0
 <ul>
 <li>Initial release.</li>
 </ul></li>
 </ul>
 <h3 id="old-versions">Old Versions</h3>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip">SevenDelay 0.1.6 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelay0.1.5.zip">SevenDelay 0.1.5 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SevenDelay0.1.4.zip">Download SevenDelay 0.1.4 - VST® 3 (github.com)</a></li>
-</ul>
+<p>N/A.</p>
 <h2 id="license">License</h2>
-<p>SevenDelay is licensed under GPLv3. Complete licenses are linked below.</p>
+<p>EsPhaser is licensed under GPLv3. Complete licenses are linked below.</p>
 <ul>
 <li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
 </ul>
