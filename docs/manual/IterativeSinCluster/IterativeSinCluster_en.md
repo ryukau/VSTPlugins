@@ -8,7 +8,7 @@ IterativeSinCluster is an additive synthesizer. This synth computes 512 sine wav
   alt="VST compatible logo."
   width="60px"
   style="display: inline-block; vertical-align: middle;">
-- [Download Presets (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbalPresets.zip)
+- [Download Presets (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/IterativeSinClusterPresets.zip)
 
 IterativeSinCluster requires CPU which supports AVX or later SIMD instructions.
 

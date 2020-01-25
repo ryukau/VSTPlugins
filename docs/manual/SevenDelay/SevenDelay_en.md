@@ -8,7 +8,7 @@ SevenDelay is a stereo delay with 7th order lagrange interpolated fractional del
   alt="VST compatible logo."
   width="60px"
   style="display: inline-block; vertical-align: middle;">
-- [Download Presets (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelayPresets.zip)
+- [Download Presets (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelayPresets.zip)
 
 The package includes following builds:
 
