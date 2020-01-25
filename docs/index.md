@@ -16,6 +16,17 @@ For Linux, LV2 version is available.
 
 - [GitHub - ryukau/LV2Plugins](https://github.com/ryukau/LV2Plugins)
 
+## EsPhaser
+![](manual/EsPhaser/img/esphaser.png)
+
+EsPhaser は最大 4096 の 2 次 Thiran オールパスフィルタを直列につなぐことができるフェイザです。 EnvelopedSine のフェイザと同じアルゴリズムを使っています。
+
+- [EsPhaser のマニュアル (日本語)](manual/EsPhaser/EsPhaser_ja.html)
+
+EsPhaser is a phaser with up to 4096 stages of order 2 Thiran all-pass filters. This is the same phaser used in EnvelopedSine.
+
+- [EsPhaser Manual (English)](manual/EsPhaser/EsPhaser_en.html)
+
 ## EnvelopedSine
 ![](manual/EnvelopedSine/img/envelopedsine.png)
 
