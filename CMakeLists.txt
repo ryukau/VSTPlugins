@@ -1,3 +1,4 @@
+add_subdirectory(CubicPadSynth)
 add_subdirectory(EnvelopedSine)
 add_subdirectory(EsPhaser)
 add_subdirectory(FDNCymbal)
