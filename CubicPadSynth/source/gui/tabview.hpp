@@ -115,7 +115,7 @@ TabView::~TabView()
   if (tabFontID) tabFontID->forget();
   for (auto &tab : widgets) {
     for (auto &wdgt : tab) {
-      // if (wdgt != nullptr) wdgt->forget();
+      if (wdgt != nullptr) wdgt->forget();
     }
   }
 }
