@@ -39,9 +39,14 @@ namespace Synth {
 PlugProcessor::PlugProcessor()
 {
   auto iset = instrset_detect();
+
+#ifndef _WIN32
+  // FFTW3 doesn't support AVX512 on Windows.
   if (iset >= 10) {
     dsp = std::make_unique<DSPCore_AVX512>();
-  } else if (iset >= 8) {
+  } else
+#endif
+    if (iset >= 8) {
     dsp = std::make_unique<DSPCore_AVX2>();
   } else if (iset >= 7) {
     dsp = std::make_unique<DSPCore_AVX>();

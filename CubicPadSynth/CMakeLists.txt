@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.10)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -10,55 +10,49 @@ set(dspcore_avx "${target}_dspcore_avx")
 set(dspcore_avx2 "${target}_dspcore_avx2")
 set(dspcore_avx512 "${target}_dspcore_avx512")
 
-# From: https://gitlab.kitware.com/cmake/cmake/issues/16931
-add_library(fftw3 OBJECT IMPORTED)
+add_library(${dspcore_avx} OBJECT source/dsp/dspcore.cpp)
+add_library(${dspcore_avx2} OBJECT source/dsp/dspcore.cpp)
+if(NOT MSVC)
+  # AVX512 is disabled for MSVC because FFTW3 has no support for AVX512.
+  add_library(${dspcore_avx512} OBJECT source/dsp/dspcore.cpp)
+endif()
+
 if(MSVC)
-  get_filename_component(fftw3_path ../lib/fftw3/windows/libfftw3f-3.lib ABSOLUTE)
+  set(dsp_msvc_flag
+    $<$<CONFIG:Debug>:>
+    $<$<CONFIG:Release>:/O2 /fp:fast>)
+  target_compile_options(${dspcore_avx} PRIVATE ${dsp_msvc_flag} /arch:AVX)
+  target_compile_options(${dspcore_avx2} PRIVATE ${dsp_msvc_flag} /arch:AVX2)
+  # target_compile_options(${dspcore_avx512} PRIVATE ${dsp_msvc_flag} /arch:AVX512)
+elseif(UNIX)
+  if(APPLE)
+    set(dsp_apple_clang_flag
+      $<$<CONFIG:Debug>:-g -fPIC -fno-aligned-allocation>
+      $<$<CONFIG:Release>:-O3 -fPIC -fno-aligned-allocation>)
+    target_compile_options(${dspcore_avx} PRIVATE ${dsp_apple_clang_flag} -mavx)
+    target_compile_options(${dspcore_avx2} PRIVATE ${dsp_apple_clang_flag} -mavx2 -mfma)
+    target_compile_options(${dspcore_avx512} PRIVATE ${dsp_apple_clang_flag} -mavx512f -mfma -mavx512vl -mavx512bw -mavx512dq)
+  else()
+    set(dsp_linux_gcc_flag
+      $<$<CONFIG:Debug>:-g -fPIC>
+      $<$<CONFIG:Release>:-O3 -fPIC>)
+    target_compile_options(${dspcore_avx} PRIVATE ${dsp_linux_gcc_flag} -mavx)
+    target_compile_options(${dspcore_avx2} PRIVATE ${dsp_linux_gcc_flag} -mavx2 -mfma)
+    target_compile_options(${dspcore_avx512} PRIVATE ${dsp_linux_gcc_flag} -mavx512f -mfma -mavx512vl -mavx512bw -mavx512dq)
+  endif()
+endif()
+
+# FFTW3
+add_library(fftw3 STATIC IMPORTED)
+if(MSVC)
+  get_filename_component(fftw3_path ../lib/fftw3/windows/fftw3f.lib ABSOLUTE)
 elseif(UNIX)
   if(APPLE)
   else()
     get_filename_component(fftw3_path ../lib/fftw3/linux/libfftw3f.a ABSOLUTE)
-    set_property(TARGET fftw3 PROPERTY IMPORTED_OBJECTS ${fftw3_path})
   endif()
 endif()
-
-# SIMD compilation.
-# add_library(${dspcore_avx} OBJECT
-#   source/dsp/dspcore.cpp
-#   $<TARGET_OBJECTS:fftw3>)
-# add_library(${dspcore_avx2} OBJECT
-#   source/dsp/dspcore.cpp
-#   $<TARGET_OBJECTS:fftw3>)
-# add_library(${dspcore_avx512} OBJECT
-#   source/dsp/dspcore.cpp
-#   $<TARGET_OBJECTS:fftw3>)
-
-add_library(${dspcore_avx} OBJECT source/dsp/dspcore.cpp)
-add_library(${dspcore_avx2} OBJECT source/dsp/dspcore.cpp)
-add_library(${dspcore_avx512} OBJECT source/dsp/dspcore.cpp)
-
-# TODO: Add debug options.
-if(MSVC)
-  get_filename_component(fftw3_path ../lib/fftw3/windows/libfftw3f-3.lib ABSOLUTE)
-  target_compile_options(${dspcore_avx} PRIVATE /O2 /fp:fast /arch:AVX)
-  target_compile_options(${dspcore_avx2} PRIVATE /O2 /fp:fast /arch:AVX2)
-  target_compile_options(${dspcore_avx512} PRIVATE /O2 /fp:fast /arch:AVX512)
-elseif(UNIX)
-  if(APPLE)
-    target_compile_options(${dspcore_avx} PRIVATE -O3 -fPIC -fno-aligned-allocation -mavx)
-    target_compile_options(${dspcore_avx2} PRIVATE -O3 -fPIC -fno-aligned-allocation -mavx2 -mfma)
-    target_compile_options(${dspcore_avx512} PRIVATE -O3 -fPIC -fno-aligned-allocation -mavx512f -mfma -mavx512vl -mavx512bw -mavx512dq)
-  else()
-    get_filename_component(fftw3_path ../lib/fftw3/linux/libfftw3f.lib ABSOLUTE)
-    target_compile_options(${dspcore_avx} PRIVATE -O3 -fPIC -mavx)
-    target_compile_options(${dspcore_avx2} PRIVATE -O3 -fPIC -mavx2 -mfma)
-    target_compile_options(${dspcore_avx512} PRIVATE -O3 -fPIC -mavx512f -mfma -mavx512vl -mavx512bw -mavx512dq)
-  endif()
-endif()
-
-# target_link_libraries(${dspcore_avx} fftw3)
-# target_link_libraries(${dspcore_avx2} fftw3)
-# target_link_libraries(${dspcore_avx512} fftw3)
+set_property(TARGET fftw3 PROPERTY IMPORTED_LOCATION ${fftw3_path})
 
 # VST 3 settings.
 set(plug_sources
@@ -79,7 +73,7 @@ target_include_directories(${target} PUBLIC ${VSTGUI_ROOT}/vstgui4)
 target_link_libraries(${target} PRIVATE
   ${dspcore_avx}
   ${dspcore_avx2}
-  ${dspcore_avx512}
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:${dspcore_avx512}>
   fftw3
   base
   sdk
