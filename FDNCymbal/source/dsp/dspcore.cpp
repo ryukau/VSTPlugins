@@ -219,10 +219,14 @@ void DSPCore::noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity
     pulsar.phase = 1.0f;
 
     stickEnvelope.reset(param.value[ParameterID::stickDecay]->getFloat());
+    const auto upperBound = 0.95f * sampleRate / 2.0f;
     auto oscFreq = info.frequency;
+    while (oscFreq >= upperBound) oscFreq *= 0.5f;
     for (auto &osc : stickOscillator) {
+      if (oscFreq < 20.0f) oscFreq += 20.0f;
       osc.setFrequency(oscFreq);
       oscFreq *= 1.0f + rngStick.process();
+      if (oscFreq > upperBound) oscFreq = info.frequency * (1.0f + rngStick.process());
     }
 
     velvet.setDensity(sampleRate * 0.004f * (pitch + 1) / 32.0f);
