@@ -110,7 +110,7 @@ protected:
   CColor splitterColor{0xff, 0xff, 0xff};
   CColor valueColor{0xdd, 0xdd, 0xdd};
   CColor borderColor{0, 0, 0};
-  CColor nameColor{0, 0, 0, 0x33};
+  CColor nameColor{0, 0, 0, 0x88};
 
   CFontRef indexFontID = nullptr;
   CFontRef nameFontID = nullptr;
@@ -184,7 +184,7 @@ void BarBox::draw(CDrawContext *pContext)
 
       // Index text.
       pContext->setFont(nameFontID);
-      pContext->setFontColor(CColor(0, 0, 0, 0x88));
+      pContext->setFontColor(nameColor);
       std::ostringstream os;
       os << "#" << std::to_string(index + 1) << ": " << std::to_string(value[index]);
       std::string indexText(os.str());
@@ -199,7 +199,7 @@ void BarBox::draw(CDrawContext *pContext)
 
   // Center line.
   if (drawCenterLine) {
-    pContext->setFrameColor(CColor(0, 0, 0, 0x88));
+    pContext->setFrameColor(nameColor);
     pContext->setLineWidth(1.0f);
     pContext->drawLine(CPoint(0, height / 2), CPoint(width, height / 2));
   }
