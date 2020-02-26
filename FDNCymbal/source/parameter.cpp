@@ -36,7 +36,7 @@ LogScale<double> Scales::allpassHighpassCutoff(1.0, 40.0, 0.5, 10.0);
 LogScale<double> Scales::tremoloFrequency(0.1, 20, 0.5, 4.0);
 LogScale<double> Scales::tremoloDelayTime(0.00003, 0.001, 0.5, 0.0001);
 LogScale<double> Scales::stickDecay(0.01, 4.0, 0.5, 0.1);
-LogScale<double> Scales::stickToneMix(0.0, 0.002, 0.5, 0.0001);
+LogScale<double> Scales::stickToneMix(0.0, 0.02, 0.5, 0.001);
 
 LogScale<double> Scales::smoothness(0.0, 0.5, 0.2, 0.02);
 
