@@ -30,6 +30,8 @@ class CreditView : public CControl {
 public:
   CreditView(const CRect &size, IControlListener *listener) : CControl(size, listener)
   {
+    setVisible(false);
+
     fontIDTitle = new CFontDesc(Style::fontName(), fontSizeTitle, CTxtFace::kBoldFace);
     fontIDText = new CFontDesc(Style::fontName(), fontSize);
   }
@@ -45,7 +47,7 @@ public:
   CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
   {
     if (buttons.isLeftButton()) {
-      valueChanged();
+      setVisible(false);
       return kMouseDownEventHandledButDontNeedMovedOrUpEvents;
     }
     return kMouseEventNotHandled;
@@ -61,28 +63,31 @@ private:
   CFontRef fontIDText = nullptr;
 };
 
-class SplashLabel : public CSplashScreen {
+class SplashLabel : public CControl {
 public:
   SplashLabel(
     const CRect &size,
     IControlListener *listener,
     int32_t tag,
-    CView *splashView,
+    CControl *splashView,
     UTF8StringPtr txt = nullptr)
-    : CSplashScreen(size, listener, tag, splashView), txt(txt)
+    : CControl(size, listener, tag), splashView(splashView), txt(txt)
   {
+    if (splashView != nullptr) splashView->remember();
     fontID = new CFontDesc(Style::fontName(), fontSize, CTxtFace::kBoldFace);
   }
 
   ~SplashLabel()
   {
+    if (splashView != nullptr) splashView->forget();
     if (fontID) fontID->forget();
   }
 
-  CLASS_METHODS(SplashLabel, CSplashScreen);
+  CLASS_METHODS(SplashLabel, CControl);
 
   void draw(CDrawContext *pContext) override;
 
+  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override;
   CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;
   CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override;
   CMouseEventResult onMouseCancel() override;
@@ -93,6 +98,7 @@ public:
   void setHighlightWidth(float width);
 
 protected:
+  CControl *splashView = nullptr;
   UTF8StringPtr txt = nullptr;
 
   CFontRef fontID = nullptr;

@@ -152,6 +152,12 @@ void SplashLabel::draw(CDrawContext *pContext)
   setDirty(false);
 }
 
+CMouseEventResult SplashLabel::onMouseDown(CPoint &where, const CButtonState &buttons)
+{
+  splashView->setVisible(true);
+  return kMouseEventHandled;
+}
+
 CMouseEventResult SplashLabel::onMouseEntered(CPoint &where, const CButtonState &buttons)
 {
   isMouseEntered = true;
@@ -169,7 +175,7 @@ CMouseEventResult SplashLabel::onMouseExited(CPoint &where, const CButtonState &
 CMouseEventResult SplashLabel::onMouseCancel()
 {
   isMouseEntered = false;
-  return CSplashScreen::onMouseCancel();
+  return kMouseEventHandled;
 }
 
 void SplashLabel::setDefaultFrameColor(CColor color) { frameColor = color; }

@@ -122,16 +122,6 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
     ID::smoothness, param.value[ID::smoothness]->getDefaultNormalized(),
     LabelPosition::right, "Automation Smoothness");
 
-  // Plugin name.
-  const auto nameLeft = delayLeft;
-  const auto nameTop = viewRect.bottom - 50.0;
-  const auto nameWidth = 180.0;
-  addSplashScreen(
-    CRect(nameLeft, nameTop, nameLeft + nameWidth, nameTop + 40.0),
-    CRect(
-      viewRect.left + 200.0, viewRect.top + 20.0, viewRect.right - 200.0,
-      viewRect.bottom - 20.0));
-
   // LFO.
   // 750 - 520 = 230 / 3 = 66 + 10
   const auto lfoLeft1 = 520.0;
@@ -157,6 +147,16 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
     WaveViewSize.left, WaveViewSize.bottom + 10.0, WaveViewSize.right - WaveViewSize.left,
     "LFO Hold", ID::lfoHold, CTextButton::kOnOffStyle);
   addWaveView(WaveViewSize);
+
+  // Plugin name.
+  const auto nameLeft = delayLeft;
+  const auto nameTop = viewRect.bottom - 50.0;
+  const auto nameWidth = 180.0;
+  addSplashScreen(
+    CRect(nameLeft, nameTop, nameLeft + nameWidth, nameTop + 40.0),
+    CRect(
+      viewRect.left + 200.0, viewRect.top + 20.0, viewRect.right - 200.0,
+      viewRect.bottom - 20.0));
 
   return true;
 }
@@ -269,11 +269,11 @@ void PlugEditor::addWaveView(const CRect &size)
 
 void PlugEditor::addSplashScreen(CRect buttonRect, CRect splashRect)
 {
-  auto credit = new CreditView(splashRect, nullptr);
-  auto splash = new SplashLabel(buttonRect, this, -666, credit, "SevenDelay");
+  auto credit = new CreditView(splashRect, this);
+  auto splash = new SplashLabel(buttonRect, this, 0, credit, "SevenDelay");
   splash->setHighlightColor(colorOrange);
-  credit->setListener(splash);
   frame->addView(splash);
+  frame->addView(credit);
 }
 
 void PlugEditor::addVSlider(

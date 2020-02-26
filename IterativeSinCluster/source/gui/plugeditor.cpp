@@ -482,13 +482,13 @@ void PlugEditor::addSplashScreen(
 {
   auto credit = new CreditView(
     CRect(splashLeft, splashTop, splashLeft + splashWidth, splashTop + splashHeight),
-    nullptr);
+    this);
   auto splash = new SplashLabel(
     CRect(buttonLeft, buttonTop, buttonLeft + buttonWidth, buttonTop + buttonHeight),
-    this, -666, credit, pluginName);
+    this, 0, credit, pluginName);
   splash->setHighlightColor(colorOrange);
-  credit->setListener(splash);
   frame->addView(splash);
+  frame->addView(credit);
 }
 
 void PlugEditor::addVSlider(

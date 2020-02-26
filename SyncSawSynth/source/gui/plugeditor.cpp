@@ -391,11 +391,11 @@ void PlugEditor::addGroupLabel(CCoord left, CCoord top, CCoord width, UTF8String
 
 void PlugEditor::addSplashScreen(CRect buttonRect, CRect splashRect)
 {
-  auto credit = new CreditView(splashRect, nullptr);
-  auto splash = new SplashLabel(buttonRect, this, -666, credit, "SyncSawSynth");
+  auto credit = new CreditView(splashRect, this);
+  auto splash = new SplashLabel(buttonRect, this, 0, credit, "SyncSawSynth");
   splash->setHighlightColor(colorOrange);
-  credit->setListener(splash);
   frame->addView(splash);
+  frame->addView(credit);
 }
 
 void PlugEditor::addVSlider(
