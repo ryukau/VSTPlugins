@@ -17,15 +17,7 @@
 
 #pragma once
 
-#ifdef __linux__
-#include "../../../lib/fftw3/linux/fftw3.h"
-#elif _WIN32
-#include "../../../lib/fftw3/windows/fftw3.h"
-#elif __APPLE__
-#include "../../../lib/fftw3/macOS/fftw3.h"
-#else
-#error Unsupported platform
-#endif
+#include "../../../lib/fftw3/fftw3.h"
 
 #include "../../../lib/vcl/vectorclass.h"
 

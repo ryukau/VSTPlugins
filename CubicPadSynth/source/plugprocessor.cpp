@@ -40,8 +40,8 @@ PlugProcessor::PlugProcessor()
 {
   auto iset = instrset_detect();
 
-#ifndef _WIN32
-  // FFTW3 doesn't support AVX512 on Windows.
+#ifdef __linux__
+  // I couldn't build FFTW3 with AVX512 on Windows and macOS.
   if (iset >= 10) {
     dsp = std::make_unique<DSPCore_AVX512>();
   } else

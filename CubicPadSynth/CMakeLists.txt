@@ -8,12 +8,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(target CubicPadSynth)
 set(dspcore_avx "${target}_dspcore_avx")
 set(dspcore_avx2 "${target}_dspcore_avx2")
-set(dspcore_avx512 "${target}_dspcore_avx512")
 
 add_library(${dspcore_avx} OBJECT source/dsp/dspcore.cpp)
 add_library(${dspcore_avx2} OBJECT source/dsp/dspcore.cpp)
-if(NOT MSVC)
-  # AVX512 is disabled for MSVC because FFTW3 has no support for AVX512.
+
+if(UNIX AND NOT APPLE) # Linux.
+  # I couldn't build FFTW3 with AVX512 on Windows and macOS.
+  set(dspcore_avx512 "${target}_dspcore_avx512")
   add_library(${dspcore_avx512} OBJECT source/dsp/dspcore.cpp)
 endif()
 
@@ -31,7 +32,7 @@ elseif(UNIX)
       $<$<CONFIG:Release>:-O3 -fPIC -fno-aligned-allocation>)
     target_compile_options(${dspcore_avx} PRIVATE ${dsp_apple_clang_flag} -mavx)
     target_compile_options(${dspcore_avx2} PRIVATE ${dsp_apple_clang_flag} -mavx2 -mfma)
-    target_compile_options(${dspcore_avx512} PRIVATE ${dsp_apple_clang_flag} -mavx512f -mfma -mavx512vl -mavx512bw -mavx512dq)
+    # target_compile_options(${dspcore_avx512} PRIVATE ${dsp_apple_clang_flag} -mavx512f -mfma -mavx512vl -mavx512bw -mavx512dq)
   else()
     set(dsp_linux_gcc_flag
       $<$<CONFIG:Debug>:-g -fPIC>
@@ -48,6 +49,7 @@ if(MSVC)
   get_filename_component(fftw3_path ../lib/fftw3/windows/fftw3f.lib ABSOLUTE)
 elseif(UNIX)
   if(APPLE)
+    get_filename_component(fftw3_path ../lib/fftw3/macOS/libfftw3f.a ABSOLUTE)
   else()
     get_filename_component(fftw3_path ../lib/fftw3/linux/libfftw3f.a ABSOLUTE)
   endif()
@@ -73,7 +75,7 @@ target_include_directories(${target} PUBLIC ${VSTGUI_ROOT}/vstgui4)
 target_link_libraries(${target} PRIVATE
   ${dspcore_avx}
   ${dspcore_avx2}
-  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:${dspcore_avx512}>
+  ${dspcore_avx512}
   fftw3
   base
   sdk
