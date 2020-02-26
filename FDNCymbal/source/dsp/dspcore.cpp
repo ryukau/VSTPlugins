@@ -111,6 +111,10 @@ void DSPCore::setParameters()
   }
   interpMasterGain.push(velocity * param.value[ID::gain]->getFloat());
 
+  interpStickToneMix.push(param.value[ID::stickToneMix]->getFloat());
+  interpStickPulseMix.push(param.value[ID::stickPulseMix]->getFloat());
+  interpStickVelvetMix.push(param.value[ID::stickVelvetMix]->getFloat());
+
   interpFDNFeedback.push(param.value[ID::fdnFeedback]->getFloat());
   interpFDNCascadeMix.push(param.value[ID::fdnCascadeMix]->getFloat());
 
@@ -124,8 +128,6 @@ void DSPCore::setParameters()
     randomTremoloFrequency * param.value[ID::tremoloFrequency]->getFloat());
   interpTremoloDelayTime.push(
     randomTremoloDelayTime * param.value[ID::tremoloDelayTime]->getFloat());
-
-  interpStickToneMix.push(param.value[ID::stickToneMix]->getFloat());
 
   serialAP1Highpass.setCutoffQ(
     param.value[ID::allpass1HighpassCutoff]->getFloat(), highpassQ);
@@ -149,17 +151,21 @@ void DSPCore::process(
   for (size_t i = 0; i < length; ++i) {
     processMidiNote(i);
 
-    float sample = pulsar.process();
+    float sample = 0.0f;
     if (in0 != nullptr) sample += in0[i];
     if (in1 != nullptr) sample += in1[i];
 
     const float pitch = interpPitch.process();
     if (!stickEnvelope.isTerminated) {
+      const float toneMix = interpStickToneMix.process();
+      const float pulseMix = interpStickPulseMix.process();
+      const float velvetMix = interpStickVelvetMix.process();
+      const float stickEnv = stickEnvelope.process();
       float stickTone = 0.0f;
       for (auto &osc : stickOscillator) stickTone += osc.process();
       velvet.setDensity(pitch);
-      sample += (interpStickToneMix.process() * stickTone + velvet.process())
-        * stickEnvelope.process();
+      sample += pulseMix * pulsar.process()
+        + stickEnv * (toneMix * stickTone + velvetMix * velvet.process());
     }
 
     // FDN.

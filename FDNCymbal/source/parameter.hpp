@@ -55,6 +55,8 @@ enum ID {
   stick,
   stickDecay,
   stickToneMix,
+  stickPulseMix,
+  stickVelvetMix,
 
   smoothness,
 
@@ -169,6 +171,11 @@ struct GlobalParameter {
       0.5, Scales::stickDecay, "stickDecay", Info::kCanAutomate, ID::stickDecay);
     value[ID::stickToneMix] = std::make_unique<LogValue>(
       0.5, Scales::stickToneMix, "stickToneMix", Info::kCanAutomate, ID::stickToneMix);
+    value[ID::stickPulseMix] = std::make_unique<LinearValue>(
+      1.0, Scales::defaultScale, "stickPulseMix", Info::kCanAutomate, ID::stickPulseMix);
+    value[ID::stickVelvetMix] = std::make_unique<LinearValue>(
+      1.0, Scales::defaultScale, "stickVelvetMix", Info::kCanAutomate,
+      ID::stickVelvetMix);
 
     value[ID::smoothness] = std::make_unique<LogValue>(
       0.1, Scales::smoothness, "smoothness", Info::kCanAutomate, ID::smoothness);

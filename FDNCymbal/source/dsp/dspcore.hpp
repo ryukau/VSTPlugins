@@ -135,16 +135,18 @@ private:
   float randomTremoloFrequency = 0.0f;
   float randomTremoloDelayTime = 0.0f;
 
+  LinearSmoother<float> interpPitch;
+  LinearSmoother<float> interpStickToneMix;
+  LinearSmoother<float> interpStickPulseMix;
+  LinearSmoother<float> interpStickVelvetMix;
   LinearSmoother<float> interpFDNFeedback;
   LinearSmoother<float> interpFDNCascadeMix;
   LinearSmoother<float> interpAllpassMix;
   LinearSmoother<float> interpAllpass1Feedback;
   LinearSmoother<float> interpAllpass2Feedback;
-  LinearSmoother<float> interpPitch;
   LinearSmoother<float> interpTremoloMix;
   LinearSmoother<float> interpTremoloDepth;
   LinearSmoother<float> interpTremoloFrequency;
   LinearSmoother<float> interpTremoloDelayTime;
-  LinearSmoother<float> interpStickToneMix;
   LinearSmoother<float> interpMasterGain;
 };

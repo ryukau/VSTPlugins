@@ -64,6 +64,7 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   // Gain.
   const auto left0 = 20.0f;
   const auto top0 = 20.0f;
+  const auto smallKnobWidth = 50.0f;
 
   addVSlider(
     left0, top0, colorBlue, "Gain", ID::gain,
@@ -75,11 +76,20 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
 
   const auto topStick = top0 + labelHeight + margin;
   addKnob(
-    leftStick, topStick, knobWidth, colorBlue, "Decay", ID::stickDecay,
-    param.value[ID::stickDecay]->getDefaultNormalized());
+    leftStick, topStick, smallKnobWidth, colorBlue, " Pulse", ID::stickPulseMix,
+    param.value[ID::stickPulseMix]->getDefaultNormalized(), LabelPosition::right);
   addKnob(
-    leftStick + knobX, topStick, knobWidth, colorBlue, "ToneMix", ID::stickToneMix,
-    param.value[ID::stickToneMix]->getDefaultNormalized());
+    leftStick, topStick + smallKnobWidth, smallKnobWidth, colorBlue, " Velvet",
+    ID::stickVelvetMix, param.value[ID::stickVelvetMix]->getDefaultNormalized(),
+    LabelPosition::right);
+  addKnob(
+    leftStick + knobX + margin, topStick, smallKnobWidth, colorBlue, " Tone",
+    ID::stickToneMix, param.value[ID::stickToneMix]->getDefaultNormalized(),
+    LabelPosition::right);
+  addKnob(
+    leftStick + knobX + margin, topStick + smallKnobWidth, smallKnobWidth, colorBlue,
+    " Decay", ID::stickDecay, param.value[ID::stickDecay]->getDefaultNormalized(),
+    LabelPosition::right);
 
   // Random.
   const auto leftRandom = leftStick + 2.0f * knobX + 2.0f * margin;
