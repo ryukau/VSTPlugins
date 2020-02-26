@@ -97,32 +97,40 @@ void DSPCore::startup()
 
 void DSPCore::setParameters()
 {
-  LinearSmoother<float>::setTime(param.value[ParameterID::smoothness]->getFloat());
+  using ID = ParameterID::ID;
 
-  if (!noteStack.empty()) velocity = noteStack.back().velocity;
-  interpMasterGain.push(velocity * param.value[ParameterID::gain]->getFloat());
+  LinearSmoother<float>::setTime(param.value[ID::smoothness]->getFloat());
 
-  interpFDNFeedback.push(param.value[ParameterID::fdnFeedback]->getFloat());
-  interpFDNCascadeMix.push(param.value[ParameterID::fdnCascadeMix]->getFloat());
+  if (!noteStack.empty()) {
+    velocity = noteStack.back().velocity;
+    const auto freq
+      = noteStack.back().frequency * paramToPitch(param.value[ID::pitchBend]->getFloat());
+    interpPitch.push(freq);
+  } else {
+    interpPitch.push(0.0f);
+  }
+  interpMasterGain.push(velocity * param.value[ID::gain]->getFloat());
 
-  interpAllpassMix.push(param.value[ParameterID::allpassMix]->getFloat());
-  interpAllpass1Feedback.push(param.value[ParameterID::allpass1Feedback]->getFloat());
-  interpAllpass2Feedback.push(param.value[ParameterID::allpass2Feedback]->getFloat());
+  interpFDNFeedback.push(param.value[ID::fdnFeedback]->getFloat());
+  interpFDNCascadeMix.push(param.value[ID::fdnCascadeMix]->getFloat());
 
-  interpTremoloMix.push(param.value[ParameterID::tremoloMix]->getFloat());
-  interpTremoloDepth.push(
-    randomTremoloDepth * param.value[ParameterID::tremoloDepth]->getFloat());
+  interpAllpassMix.push(param.value[ID::allpassMix]->getFloat());
+  interpAllpass1Feedback.push(param.value[ID::allpass1Feedback]->getFloat());
+  interpAllpass2Feedback.push(param.value[ID::allpass2Feedback]->getFloat());
+
+  interpTremoloMix.push(param.value[ID::tremoloMix]->getFloat());
+  interpTremoloDepth.push(randomTremoloDepth * param.value[ID::tremoloDepth]->getFloat());
   interpTremoloFrequency.push(
-    randomTremoloFrequency * param.value[ParameterID::tremoloFrequency]->getFloat());
+    randomTremoloFrequency * param.value[ID::tremoloFrequency]->getFloat());
   interpTremoloDelayTime.push(
-    randomTremoloDelayTime * param.value[ParameterID::tremoloDelayTime]->getFloat());
+    randomTremoloDelayTime * param.value[ID::tremoloDelayTime]->getFloat());
 
-  interpStickToneMix.push(param.value[ParameterID::stickToneMix]->getFloat());
+  interpStickToneMix.push(param.value[ID::stickToneMix]->getFloat());
 
   serialAP1Highpass.setCutoffQ(
-    param.value[ParameterID::allpass1HighpassCutoff]->getFloat(), highpassQ);
+    param.value[ID::allpass1HighpassCutoff]->getFloat(), highpassQ);
   serialAP2Highpass.setCutoffQ(
-    param.value[ParameterID::allpass2HighpassCutoff]->getFloat(), highpassQ);
+    param.value[ID::allpass2HighpassCutoff]->getFloat(), highpassQ);
 }
 
 void DSPCore::process(
@@ -145,9 +153,11 @@ void DSPCore::process(
     if (in0 != nullptr) sample += in0[i];
     if (in1 != nullptr) sample += in1[i];
 
+    const float pitch = interpPitch.process();
     if (!stickEnvelope.isTerminated) {
       float stickTone = 0.0f;
       for (auto &osc : stickOscillator) stickTone += osc.process();
+      velvet.setDensity(pitch);
       sample += (interpStickToneMix.process() * stickTone + velvet.process())
         * stickEnvelope.process();
     }
