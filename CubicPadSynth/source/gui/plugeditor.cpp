@@ -753,7 +753,9 @@ BarBox *PlugEditor::addBarBox(
   std::vector<double> value(id.size());
   for (size_t i = 0; i < value.size(); ++i)
     value[i] = controller->getParamNormalized(id[i]);
-  std::vector<double> defaultValue(value);
+  std::vector<double> defaultValue(id.size());
+  for (size_t i = 0; i < value.size(); ++i)
+    defaultValue[i] = param.value[id[i]]->getDefaultNormalized();
 
   auto barBox = new BarBox(
     CRect(left, top, left + width, top + height), this, id, value, defaultValue);
