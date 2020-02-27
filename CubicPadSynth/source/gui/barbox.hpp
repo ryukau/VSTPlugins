@@ -312,15 +312,17 @@ int32_t BarBox::onKeyDown(VstKeyCode &key)
   } else if (key.character == 'R') {
     sparseRandomize(index);
   } else if (key.character == 's') { // Sort descending order.
-    std::sort(value.begin(), value.end(), std::greater<>());
+    std::sort(value.begin() + index, value.end(), std::greater<>());
   } else if (key.character == 'S') { // Sort ascending order.
-    std::sort(value.begin(), value.end());
+    std::sort(value.begin() + index, value.end());
   } else if (key.character == 't') { // subTle randomize.
     randomize(index, 0.02);
   } else if (key.character == ',') { // Rotate back.
-    std::rotate(value.begin(), value.begin() + 1, value.end());
+    if (index == value.size() - 1) index = 0;
+    std::rotate(value.begin() + index, value.begin() + index + 1, value.end());
   } else if (key.character == '.') { // Rotate forward.
-    std::rotate(value.rbegin(), value.rbegin() + 1, value.rend());
+    size_t rIndex = index == 0 ? 0 : value.size() - 1 - index;
+    std::rotate(value.rbegin() + rIndex, value.rbegin() + rIndex + 1, value.rend());
   } else if (key.character == '1') { // Decrease.
     multiplySkip(index, 1);
   } else if (key.character == '2') { // Decrease 2n.
