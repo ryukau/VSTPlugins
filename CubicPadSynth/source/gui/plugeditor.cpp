@@ -613,7 +613,7 @@ Right Click|Flip Minimum and Maximum)";
 Ctrl + Left Click|Reset to Default
 Right Drag|Draw Line
 D|Reset to Default
-Shift + D|Toggle Min/Max
+Shift + D|Toggle Min/Mid/Max
 E|Emphasize Low
 Shift + E|Emphasize High
 F|Low-pass Filter
@@ -814,11 +814,16 @@ PlugEditor::addGroupLabel(CCoord left, CCoord top, CCoord width, UTF8String name
 VGroupLabel *
 PlugEditor::addGroupVerticalLabel(CCoord left, CCoord top, CCoord width, UTF8String name)
 {
+  return nullptr;
+
+  // VSTGUI 4.9 can't draw roteted text.
+  /*
   auto label = new VGroupLabel(
     CRect(left, top, left + labelHeight, top + width), this, UTF8String(name));
   label->setFont(new CFontDesc(PlugEditorStyle::fontName(), 14.0, CTxtFace::kBoldFace));
   frame->addView(label);
   return label;
+  */
 };
 
 std::tuple<Slider *, CTextLabel *> PlugEditor::addVSlider(
