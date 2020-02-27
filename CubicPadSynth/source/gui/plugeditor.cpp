@@ -315,16 +315,20 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
     tabMain,
     addLabel(
       lfoLeft1 + margin, lfoKnobTop + margin + 0.5f * labelHeight, knobWidth, "Tempo"));
-  tabview->addWidget(
-    tabMain,
-    addTextKnob(
-      lfoLeft1 + knobX, lfoKnobTop + margin, knobWidth, colorBlue, ID::lfoTempoNumerator,
-      Scales::lfoTempoNumerator, false, 0, 1));
-  tabview->addWidget(
-    tabMain,
-    addTextKnob(
-      lfoLeft1 + knobX, lfoKnobTop + labelHeight + 1.0f + margin, knobWidth, colorBlue,
-      ID::lfoTempoDenominator, Scales::lfoTempoDenominator, false, 0, 1));
+
+  auto knobLfoTempoNumerator = addTextKnob(
+    lfoLeft1 + knobX, lfoKnobTop + margin, knobWidth, colorBlue, ID::lfoTempoNumerator,
+    Scales::lfoTempoNumerator, false, 0, 1);
+  knobLfoTempoNumerator->sensitivity = 0.001;
+  knobLfoTempoNumerator->lowSensitivity = 0.00025;
+  tabview->addWidget(tabMain, knobLfoTempoNumerator);
+
+  auto knobLfoTempoDenominator = addTextKnob(
+    lfoLeft1 + knobX, lfoKnobTop + labelHeight + 1.0f + margin, knobWidth, colorBlue,
+    ID::lfoTempoDenominator, Scales::lfoTempoDenominator, false, 0, 1);
+  knobLfoTempoDenominator->sensitivity = 0.001;
+  knobLfoTempoNumerator->lowSensitivity = 0.00025;
+  tabview->addWidget(tabMain, knobLfoTempoDenominator);
 
   tabview->addWidget(
     tabMain,
@@ -437,6 +441,7 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
       tablePitchLeft0, tablePitchTop + 4.0f * labelY, checkboxWidth, "Random",
       ID::overtonePitchRandom));
 
+  // WaveTable spectrum.
   const auto tableSpectrumTop = tablePitchTop + 5.0f * labelY;
   const auto tableSpectrumLeft0 = tablePitchLeft0;
   const auto tableSpectrumLeft1 = tablePitchLeft1;
@@ -459,18 +464,18 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   auto knobSpectrumShift = addTextKnob(
     tableSpectrumLeft1, tableSpectrumTop + 2.0f * labelY, knobX, colorBlue,
     ID::spectrumShift, Scales::spectrumShift, false, 0, -spectrumSize);
-  knobSpectrumShift->sensitivity = 0.25f / spectrumSize;
-  knobSpectrumShift->lowSensitivity = knobSpectrumShift->sensitivity / 4.0f;
+  knobSpectrumShift->lowSensitivity = 0.08f / spectrumSize;
   tabview->addWidget(tabPadSynth, knobSpectrumShift);
 
   tabview->addWidget(
     tabPadSynth,
     addLabel(tableSpectrumLeft0, tableSpectrumTop + 3.0 * labelY, knobX, "Comb"));
-  tabview->addWidget(
-    tabPadSynth,
-    addTextKnob(
-      tableSpectrumLeft1, tableSpectrumTop + 3.0 * labelY, knobX, colorBlue,
-      ID::profileComb, Scales::profileComb));
+  auto knobProfileComb = addTextKnob(
+    tableSpectrumLeft1, tableSpectrumTop + 3.0 * labelY, knobX, colorBlue,
+    ID::profileComb, Scales::profileComb);
+  knobProfileComb->sensitivity = 0.002;
+  knobProfileComb->lowSensitivity = 0.0002;
+  tabview->addWidget(tabPadSynth, knobProfileComb);
 
   tabview->addWidget(
     tabPadSynth,
@@ -487,6 +492,7 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
       tableSpectrumLeft0, tableSpectrumTop + 5.0f * labelY, checkboxWidth, "Invert",
       ID::spectrumInvert));
 
+  // WaveTable phase.
   const auto tablePhaseTop = tableSpectrumTop + 6.0f * labelY;
   const auto tablePhaseLeft0 = tablePitchLeft0;
   tabview->addWidget(
@@ -506,11 +512,12 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
 
   tabview->addWidget(
     tabPadSynth, addLabel(tableRandomLeft0, tableRandomTop + labelY, knobX, "Seed"));
-  tabview->addWidget(
-    tabPadSynth,
-    addTextKnob(
-      tableRandomLeft1, tableRandomTop + labelY, knobX, colorBlue, ID::padSynthSeed,
-      Scales::seed));
+
+  auto knobSeed = addTextKnob(
+    tableRandomLeft1, tableRandomTop + labelY, knobX, colorBlue, ID::padSynthSeed,
+    Scales::seed);
+  knobSeed->lowSensitivity = 0.1f / Scales::seed.getMax();
+  tabview->addWidget(tabPadSynth, knobSeed);
 
   // Wavetable modifier.
   const auto tableModifierTop = tableRandomTop + 2.0f * labelY;
@@ -593,7 +600,7 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
       "Phase"));
 
   auto textKnobControl = R"(- Knob -
-Shift + Left Drag|Fine Adjustment
+Shift + Left Drag|Fine Tuning
 Ctrl + Left Click|Reset to Default)";
   tabview->addWidget(
     tabInfo,
@@ -647,13 +654,13 @@ Press following button to apply changes.
   tabview->addWidget(
     tabInfo,
     addTextView(
-      tabInfoLeft1, tabInsideTop0, 400.0f, 400.0f, textRefreshNotice, fontSize));
+      tabInfoLeft1, tabInsideTop0, 400.0f, 200.0f, textRefreshNotice, fontSize));
 
   const auto tabInfoBottom = tabInsideTop0 + tabHeight - labelY;
   std::stringstream ssPluginName;
-  ssPluginName << "CubicPadSynth " << VERSION_STR;
+  ssPluginName << "\nCubicPadSynth " << VERSION_STR;
   auto pluginNameTextView = addTextView(
-    tabInfoLeft1, tabInfoBottom - 140.0f, 400.0f, 400.0f, ssPluginName.str(), 36.0f);
+    tabInfoLeft1, tabInfoBottom - 160.0f, 400.0f, 400.0f, ssPluginName.str(), 36.0f);
   tabview->addWidget(tabInfo, pluginNameTextView);
 
   tabview->addWidget(
