@@ -529,7 +529,7 @@ void DSPCORE_NAME::refreshTable()
 {
   using ID = ParameterID::ID;
 
-  for (auto &note : notes) note.rest();
+  reset();
 
   const float tableBaseFreq = param.value[ID::tableBaseFrequency]->getFloat();
   const float pitchMultiplier = param.value[ID::overtonePitchMultiply]->getFloat();
@@ -561,6 +561,8 @@ void DSPCORE_NAME::refreshTable()
 void DSPCORE_NAME::refreshLfo()
 {
   using ID = ParameterID::ID;
+
+  reset();
 
   std::vector<float> table(nLFOWavetable);
   for (size_t idx = 0; idx < nLFOWavetable; ++idx)

@@ -97,6 +97,7 @@ public:
   void terminate()
   {
     value = 0;
+    out = 0;
     state = stateTerminated;
   }
 

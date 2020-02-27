@@ -93,6 +93,7 @@ tresult PLUGIN_API PlugProcessor::setActive(TBool state)
   if (state) {
     dsp->setup(processSetup.sampleRate);
   } else {
+    dsp->reset();
     lastState = 0;
   }
   return AudioEffect::setActive(state);
