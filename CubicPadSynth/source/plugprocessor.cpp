@@ -215,10 +215,16 @@ tresult PLUGIN_API PlugProcessor::getState(IBStream *state)
 
 tresult PlugProcessor::receiveText(const char8 *text)
 {
-  if (std::strcmp(text, "padsynth") == 0)
+  if (std::strcmp(text, "padsynth") == 0) {
     dsp->refreshTable();
-  else if (std::strcmp(text, "lfo") == 0)
+  } else if (std::strcmp(text, "lfo") == 0) {
     dsp->refreshLfo();
+  } else {
+    // This else condition is band-aid solution.
+    // FL Studio 20.6.2 sends empty text to this method.
+    dsp->refreshTable();
+    dsp->refreshLfo();
+  }
   return kResultOk;
 }
 
