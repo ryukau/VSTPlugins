@@ -146,13 +146,9 @@ void BarBox::draw(CDrawContext *pContext)
   for (size_t i = 0; i < value.size(); ++i) {
     auto sliderHeight = value[i] * height;
     auto left = i * sliderWidth;
-    auto right = left + sliderWidth;
+    auto right = left + (sliderWidth >= 4.0 ? sliderWidth - defaultBorderWidth : 1.0);
     auto top = height - sliderHeight;
-    if (sliderWidth >= 4.0) {
-      pContext->drawRect(CRect(left, top, right, height), kDrawFilled);
-    } else {
-      pContext->drawLine(CPoint(left, top), CPoint(left, height));
-    }
+    pContext->drawRect(CRect(left, top, right, height), kDrawFilled);
     if (drawCenterLine) {
       pContext->drawString(
         UTF8String(std::to_string(i + 1).c_str()),
