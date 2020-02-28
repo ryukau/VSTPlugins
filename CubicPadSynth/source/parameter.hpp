@@ -336,7 +336,7 @@ struct GlobalParameter {
     value[ID::nVoice]
       = std::make_unique<IntValue>(1, Scales::nVoice, "nVoice", Info::kCanAutomate);
     value[ID::voicePool]
-      = std::make_unique<IntValue>(1, Scales::boolScale, "voicePool", Info::kCanAutomate);
+      = std::make_unique<IntValue>(0, Scales::boolScale, "voicePool", Info::kCanAutomate);
     value[ID::smoothness] = std::make_unique<LogValue>(
       0.1, Scales::smoothness, "smoothness", Info::kCanAutomate);
 

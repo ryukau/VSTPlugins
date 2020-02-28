@@ -21,6 +21,7 @@
 
 #include "../../../lib/vcl/vectorclass.h"
 #include "../../../lib/vcl/vectormath_exp.h"
+#include "../../../lib/vcl/vectormath_hyp.h"
 
 #include <algorithm>
 #include <cmath>
@@ -33,17 +34,18 @@ public:
   {
     this->sampleRate = sampleRate;
     sus.reset(sustainLevel);
+    declickInRamp = 0.01f * sampleRate;
   }
 
   float adaptTime(float seconds, float noteFreq)
   {
-    const float cycle = float(1) / noteFreq;
+    const float cycle = float(4) / noteFreq;
     return seconds >= cycle ? seconds : cycle > float(0.1) ? float(0.1) : cycle;
   }
 
   Vec16f adaptTime(Vec16f seconds, Vec16f noteFreq)
   {
-    Vec16f cycle = 1.0f / noteFreq;
+    Vec16f cycle = float(4) / noteFreq;
     return select(seconds >= cycle, seconds, cycle);
   }
 
@@ -54,20 +56,14 @@ public:
 
   Vec16f secondToMultiplier(Vec16f seconds)
   {
-    return pow(Vec16f(threshold), 1.0f / (seconds * sampleRate));
+    return pow(Vec16f(threshold), float(1) / (seconds * sampleRate));
   }
 
-  void reset(
-    int index,
-    float attackTime,
-    float decayTime,
-    float sustainLevel,
-    float releaseTime,
-    float noteFreq)
+  void reset(int index)
   {
     state.insert(index, stateAttack);
-    value.insert(index, float(1) - value[index]);
-    set(attackTime, decayTime, sustainLevel, releaseTime, noteFreq);
+    value.insert(index, float(1));
+    declickIn.insert(index, 0);
   }
 
   void set(
@@ -104,6 +100,7 @@ public:
   bool isAttacking(int index) { return state[index] == stateAttack; }
   bool isReleasing(int index) { return state[index] == stateRelease; }
   bool isTerminated(int index) { return state[index] == stateTerminated; }
+  float extract(int index) { return out[index]; }
 
   Vec16f process()
   {
@@ -111,23 +108,26 @@ public:
 
     Vec16ib valueRefresh(value <= threshold);
     state = select(valueRefresh, state + 1, state);
-    value = select(valueRefresh, 1.0f, value);
+    value = select(valueRefresh, float(1), value);
 
     Vec16ib stateAtk(state == stateAttack);
     Vec16ib stateDec(state == stateDecay);
-    Vec16ib stateRel(state == stateRelease);
 
     value = select(stateAtk, value * atk, value);
     value = select(stateDec, value * dec, value);
     value = select(state == stateSustain, sus.getValue(), value);
-    value = select(stateRel, value * rel, value);
+    value = select(state == stateRelease, value * rel, value);
     value = select(state >= stateTerminated, threshold, value);
 
     out = value;
     out = select(stateAtk, float(1) - out, out);
     out = select(stateDec, (float(1) - sus.getValue()) * out + sus.getValue(), out);
     out -= threshold;
-    return out;
+    // return out;
+
+    declickIn += declickInRamp;
+    declickIn = select(declickIn > float(1), float(1), declickIn);
+    return declickIn * out;
   }
 
 protected:
@@ -143,6 +143,8 @@ protected:
 
   float sampleRate = 44100;
   LinearSmoother<float> sus;
+  Vec16f declickInRamp = 1;
+  Vec16f declickIn = 1;
   Vec16f atk = 1;
   Vec16f dec = 1;
   Vec16f rel = 1;
@@ -196,7 +198,7 @@ public:
   {
     sus.push(std::max<float>(float(0.0), std::min<float>(sustainLevel, float(1.0))));
     atk = secondToDelta(adaptTime(attackTime, noteFreq));
-    dec = secondToDelta(decayTime);
+    dec = secondToDelta(adaptTime(decayTime, noteFreq));
     rel = secondToDelta(adaptTime(releaseTime, noteFreq));
   }
 

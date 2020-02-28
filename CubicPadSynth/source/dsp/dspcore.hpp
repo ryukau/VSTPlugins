@@ -81,9 +81,13 @@ struct NoteProcessInfo {
     LinearADSREnvelope16 lowpassEnvelope;                                                \
                                                                                          \
     Vec16f notePitch = 0;                                                                \
+    Vec16f pitch = 0;                                                                    \
+    Vec16f lowpassPitch = 0;                                                             \
     Vec16f notePan = 0.5f;                                                               \
     Vec16f frequency = 1;                                                                \
     Vec16f gain = 0;                                                                     \
+    Vec16f gain0 = 0;                                                                    \
+    Vec16f gain1 = 0;                                                                    \
     Vec16f velocity = 0;                                                                 \
                                                                                          \
     bool isActive = false;                                                               \
@@ -107,7 +111,6 @@ PROCESSING_UNIT_CLASS(AVX)
     int vecIndex = 0;                                                                    \
     int arrayIndex = 0;                                                                  \
     int32_t id = -1;                                                                     \
-    float pan = 0.5;                                                                     \
                                                                                          \
     void setup(float sampleRate);                                                        \
     void noteOn(                                                                         \
@@ -241,6 +244,12 @@ public:
                                                                                          \
     NoteProcessInfo info;                                                                \
     LinearSmoother<float> interpMasterGain;                                              \
+                                                                                         \
+    std::vector<std::array<float, 2>> transitionBuffer{};                                \
+    bool isTransitioning = false;                                                        \
+    size_t trIndex = 0;                                                                  \
+    size_t trStop = 0;                                                                   \
+    TableOsc<tableSize> trOsc;                                                           \
   };
 
 DSPCORE_CLASS(AVX512)
