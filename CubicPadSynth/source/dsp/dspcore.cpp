@@ -455,17 +455,6 @@ void DSPCORE_NAME::noteOn(int32_t identifier, int16_t pitch, float tuning, float
     HIGH_ON_MID:
       size_t panIdx = unisonPan.size() / 2;
       size_t sign = 1;
-      for (size_t idx = 0; idx < unisonPan.size(); ++idx) {
-        panIdx += sign * idx;
-        unisonPan[idx] = panRange * panIdx + panOffset;
-        sign *= -1;
-      }
-    } break;
-
-    case unisonPanHighOnSide: {
-    HIGH_ON_SIDE:
-      size_t panIdx = unisonPan.size() / 2;
-      size_t sign = 1;
       size_t inc = 0;
       size_t dec = unisonPan.size() - 1;
       while (inc < unisonPan.size()) {
@@ -473,6 +462,17 @@ void DSPCORE_NAME::noteOn(int32_t identifier, int16_t pitch, float tuning, float
         unisonPan[dec] = panRange * panIdx + panOffset;
         sign *= -1;
         ++inc, --dec;
+      }
+    } break;
+
+    case unisonPanHighOnSide: {
+    HIGH_ON_SIDE:
+      size_t panIdx = unisonPan.size() / 2;
+      size_t sign = 1;
+      for (size_t idx = 0; idx < unisonPan.size(); ++idx) {
+        panIdx += sign * idx;
+        unisonPan[idx] = panRange * panIdx + panOffset;
+        sign *= -1;
       }
     } break;
 
