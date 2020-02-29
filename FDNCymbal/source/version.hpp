@@ -40,7 +40,7 @@
 
 #define VERSION_STR MAJOR_VERSION_STR "." SUB_VERSION_STR "." RELEASE_NUMBER_STR
 
-#define stringPluginName "FDNCymbal"
+#define stringPluginName "FDNCymbal0.2"
 
 #define stringOriginalFilename "FDNCymbal.vst3"
 #if SMTG_PLATFORM_64
