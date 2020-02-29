@@ -3,7 +3,7 @@
 
 FDNCymbal is a cymbal sound synthesizer. It can also be used as an effect. Unlike the name, most of metallic texture comes from Schroeder allpass section rather than FDN (feedback delay network). FDN section makes nice impact sound when `FDN.Time` is short. Tremolo is added to simulate wobbling of cymbal.
 
-- [Download FDNCymbal 0.1.5 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/FDNCymbal0.1.5.zip) <img
+- [Download FDNCymbal 0.2.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/FDNCymbal0.2.0.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -39,6 +39,11 @@ Extract preset zip, then place preset directory to the OS specific path:
 
 Preset directory name must be the same as the plugin. Make `Uhhyou` directory if it does not exist.
 
+### Windows Specific
+If DAW doesn't recognize the plugin, try installing C++ redistributable (`vc_redist.x64.exe`). Installer can be found in the link below.
+
+- [The latest supported Visual C++ downloads](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
+
 ### Linux Specific
 On Ubuntu 18.0.4, those packages are required.
 
@@ -59,6 +64,8 @@ Knob and slider can do:
 - Shift + Left Drag: Fine adjustment.
 
 ## Caution
+There's no compatibility between version 0.1.x and 0.2.x.
+
 When `FDN.Feedback` is non zero, it may possibly blow up. If that happens, turn `FDN.Feedback` to leftmost.
 
 When `HP Cutoff` is moving fast, it may output massive DC. To avoid this, use Shift + Mouse Left Drag or turn up Smooth.
@@ -99,11 +106,19 @@ Time in seconds to move the value of parameters from previous one to changed one
 ### Stick
 When `Stick` is on, each note on triggers stick oscillator. Noise density and pitch of tone are related to the pitch of note.
 
+#### Pulse
+Gain of impulse of stick oscillator.
+
+#### Tone
+Gain of sine wave tone of stick oscillator.
+
+#### Velvet
+Gain of velvet noise of stick oscillator.
+
+Velvet noise is a noise algorithm which output different height of impulses with randomized interval.
+
 #### Decay
 Decay time of stick oscillator.
-
-#### ToneMix
-Gain of tone of stick oscillator.
 
 ### Random
 #### Seed
@@ -177,6 +192,13 @@ Amount of randomization to `Tremolo.Frequency` for each note on.
 Amount of randomization to `Tremolo.DelayTime` for each note on.
 
 ## Change Log
+- 0.2.0
+  - Changed display method for pop-up which shows up by clicking plugin title.
+  - Added `Pulse` parameter to control pulse gain.
+  - Added `Velvet` parameter to control velvet noise gain.
+  - Changed `ToneMix` to `Tone`. Value range is increased from [0, 0.002] to [0, 0.02].
+  - Changed algorithm to allocate sine frequency.
+  - Fixed velvet noise oscillator to randomize interval.
 - 0.1.5
   - Fixed to stop sounds when deactivated.
   - Fixed a bug that was causing noise on PreSonus Studio One 4.6.1.
@@ -196,6 +218,7 @@ Amount of randomization to `Tremolo.DelayTime` for each note on.
   - Initial release.
 
 ### Old Versions
+- [FDNCymbal 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/FDNCymbal0.1.5.zip)
 - [FDNCymbal 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/FDNCymbal0.1.4.zip)
 - [FDNCymbal 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbal0.1.3.zip)
 - [Download FDNCymbal 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/FDNCymbal0.1.2.zip)

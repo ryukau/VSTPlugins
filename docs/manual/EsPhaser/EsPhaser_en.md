@@ -3,7 +3,7 @@
 
 EsPhaser is a phaser with up to 4096 stages of order 2 Thiran all-pass filters. This is the same phaser used in EnvelopedSine.
 
-- [Download EsPhaser 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EsPhaser0.1.0.zip) <img
+- [Download EsPhaser 0.1.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/EsPhaser0.1.1.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -40,6 +40,11 @@ Extract preset zip, then place preset directory to the OS specific path:
 - macOS : `/Users/$USERNAME/Library/Audio/Presets/Uhhyou`
 
 Preset directory name must be the same as the plugin. Make `Uhhyou` directory if it does not exist.
+
+### Windows Specific
+If DAW doesn't recognize the plugin, try installing C++ redistributable (`vc_redist.x64.exe`). Installer can be found in the link below.
+
+- [The latest supported Visual C++ downloads](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 
 ### Linux Specific
 On Ubuntu 18.0.4, those packages are required.
@@ -118,11 +123,13 @@ LfoPhaseOffset = Phase + (L/R Offset) + LfoIndex * (Cas. Offset)
 ```
 
 ## Change Log
+- 0.1.1
+  - Changed display method for pop-up which shows up by clicking plugin title.
 - 0.1.0
   - Initial release.
 
 ### Old Versions
-N/A.
+- [EsPhaser 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EsPhaser0.1.0.zip)
 
 ## License
 EsPhaser is licensed under GPLv3. Complete licenses are linked below.

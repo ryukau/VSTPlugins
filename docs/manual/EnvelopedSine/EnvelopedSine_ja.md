@@ -3,7 +3,7 @@
 
 <ruby>EnvelopedSine<rt>エンベロープド サイン</rt></ruby>はノート 1 つあたり 64 のサイン波を計算する加算合成シンセサイザです。各サイン波に AD エンベロープとサチュレータがついているので IterativeSinCluster よりもパーカッシブな音が得意です。
 
-- [EnvelopedSine 0.1.2 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EnvelopedSine0.1.2.zip) <img
+- [EnvelopedSine 0.1.3 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/EnvelopedSine0.1.3.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -40,6 +40,11 @@ DAW によっては上記とは別に VST3 をインストールできるディ�
 - macOS : `/Users/$USERNAME/Library/Audio/Presets/Uhhyou`
 
 プリセットディレクトリの名前はプラグインと同じである必要があります。 `Uhhyou` ディレクトリが無いときは作成してください。
+
+### Windows
+プラグインが DAW に認識されないときは C++ redistributable をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は `vc_redist.x64.exe` です。
+
+- [The latest supported Visual C++ downloads](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 
 ### Linux
 Ubuntu 18.0.4 では次のパッケージのインストールが必要です。
@@ -184,7 +189,7 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 チェックを入れると、倍音コントロールの `Attack` あるいは `Decay` の値が 0 のときに生じるプチノイズを低減します。各オシレータのピッチに応じた値を足し合わせます。
 
 #### Gain^
-倍音コントロールの `Gain` を累乗する値です。 1 つのオシレータの最終的なゲインは次の式で計算されます。
+倍音コントロールの `Gain` をべき乗する値です。 1 つのオシレータの最終的なゲインは次の式で計算されます。
 
 ```
 Gain.Boost * Gain.Gain * pow(Overtone.Gain, Modifier.Gain^)
@@ -219,6 +224,8 @@ LFO によって変調するオールパスフィルタの特性の最小値で�
 LFO の位相です。オートメーションで音を作りたいときに使えます。 `Freq` を左いっぱいに回すことで LFO の周波数を 0 にできます。
 
 ## チェンジログ
+- 0.1.3
+  - プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。
 - 0.1.2
   - PreSonus Studio One 4.6.1 で出力にノイズが乗るバグを修正。
 - 0.1.1
@@ -228,6 +235,7 @@ LFO の位相です。オートメーションで音を作りたいときに使�
   - 初期リリース。
 
 ### 旧バージョン
+- [EnvelopedSine 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EnvelopedSine0.1.2.zip)
 - [EnvelopedSine 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/EnvelopedSine0.1.1.zip)
 - [EnvelopedSine 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/EnvelopedSine0.1.0.zip)
 

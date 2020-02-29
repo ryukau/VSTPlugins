@@ -3,7 +3,7 @@
 
 <ruby>FDNCymbal<rt>エフディーエヌシンバル</rt></ruby> はシンバルのような音を合成するシンセサイザです。エフェクトとして使うこともできます。名前とは裏腹に金属的な質感は FDN (feedback delay network) ではなく Schroeder allpass section によって得られています。 `FDN.Time` の値を小さくすることで、わりとナイスなばちの衝突音が合成できます。シンバルの揺れをシミュレートするためにトレモロもついています。
 
-- [FDNCymbal 0.1.5 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/FDNCymbal0.1.5.zip) <img
+- [FDNCymbal 0.2.0 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/FDNCymbal0.2.0.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -39,6 +39,11 @@ DAW によっては上記とは別に VST3 をインストールできるディ�
 
 プリセットディレクトリの名前はプラグインと同じである必要があります。 `Uhhyou` ディレクトリが無いときは作成してください。
 
+### Windows
+プラグインが DAW に認識されないときは C++ redistributable をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は `vc_redist.x64.exe` です。
+
+- [The latest supported Visual C++ downloads](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
+
 ### Linux
 Ubuntu 18.0.4 では次のパッケージのインストールが必要です。
 
@@ -59,6 +64,8 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 - Shift + 左ドラッグ : 細かい値の変更。
 
 ## 注意
+バージョン 0.1.x と 0.2.x は互換性がありません。
+
 `FDN.Feedback` の値が 0 でないときは信号が発散することがあります。発散したときは `FDN.Feedback` を一番左まで回してください。
 
 `HP Cutoff` の値を短時間に大きく変更すると直流が乗ることがあります。直流が乗ったときは、いったん `HP Cutoff` を上げてから <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> でゆっくりと下げなおしてください。
@@ -99,11 +106,19 @@ FDNCymbal はエフェクトとして使うこともできますが、直感的�
 ### Stick
 `Stick` がオンのとき、ノートオンのたびにばちでシンバルを叩きます。ノートの高さでノイズの密度とトーンの高さが変わります。
 
+#### Pulse
+ばちオシレータが出力するインパルスの音量です。
+
+#### Tone
+ばちオシレータが出力するサイン波によるトーンの音量です。
+
+#### Velvet
+ばちオシレータが出力するベルベットノイズの音量です。
+
+ベルベットノイズはランダムな間隔で異なる高さのインパルスが出力されるノイズのアルゴリズムです。
+
 #### Decay
 ばちオシレータの減衰時間です。
-
-#### ToneMix
-ばちオシレータが出力するトーンの音量です。
 
 ### Random
 #### Seed
@@ -177,6 +192,13 @@ LFO によって変化するディレイ時間の最大値です。シンバル�
 ノートオンのたびに `Tremolo.DelayTime` をランダマイズする度合いです。
 
 ## チェンジログ
+- 0.2.0
+  - プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。
+  - `Pulse` パラメータの追加。
+  - `Velvet` パラメータの追加。
+  - `ToneMix` の名前を `Tone` に変更。値の範囲も [0, 0.002] から [0, 0.02] に変更。
+  - サイン波の周波数を割り当てるアルゴリズムを変更。
+  - ベルベットノイズオシレータのインパルスの間隔がランダムで無かったバグを修正。
 - 0.1.5
   - 非アクティブ化で音が止まるように修正。
   - PreSonus Studio One 4.6.1 で出力にノイズが乗るバグを修正。
@@ -196,6 +218,7 @@ LFO によって変化するディレイ時間の最大値です。シンバル�
   - 初期リリース。
 
 ### 旧バージョン
+- [FDNCymbal 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/FDNCymbal0.1.5.zip)
 - [FDNCymbal 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/FDNCymbal0.1.4.zip)
 - [FDNCymbal 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbal0.1.3.zip)
 - [FDNCymbal 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/FDNCymbal0.1.2.zip)

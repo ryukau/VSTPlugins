@@ -3,7 +3,7 @@
 
 <ruby>SyncSawSynth<rt>シンクソウシンセ</rt></ruby>は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。
 
-- [SyncSawSynth 0.1.9 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SyncSawSynth0.1.9.zip) <img
+- [SyncSawSynth 0.1.10 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/SyncSawSynth0.1.10.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -38,6 +38,11 @@ DAW によっては上記とは別に VST3 をインストールできるディ�
 - macOS : `/Users/$USERNAME/Library/Audio/Presets/Uhhyou`
 
 プリセットディレクトリの名前はプラグインと同じである必要があります。 `Uhhyou` ディレクトリが無いときは作成してください。
+
+### Windows
+プラグインが DAW に認識されないときは C++ redistributable をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は `vc_redist.x64.exe` です。
+
+- [The latest supported Visual C++ downloads](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 
 ### Linux
 Ubuntu 18.0.4 では次のパッケージのインストールが必要です。
@@ -289,6 +294,8 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))
 ノートの MIDI ノート番号によるフィードバックの変調。範囲は -1.0 から 1.0 。
 
 ## チェンジログ
+- 0.1.10
+  - プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。
 - 0.1.9
   - PreSonus Studio One 4.6.1 で出力にノイズが乗るバグを修正。
 - 0.1.8
@@ -317,6 +324,7 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))
   - 初期リリース。
 
 ### 旧バージョン
+- [SyncSawSynth 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SyncSawSynth0.1.9.zip)
 - [SyncSawSynth 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SyncSawSynth0.1.8.zip)
 - [SyncSawSynth 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SyncSawSynth0.1.7.zip)
 

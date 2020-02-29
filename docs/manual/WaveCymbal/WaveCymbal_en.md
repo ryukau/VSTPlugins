@@ -3,7 +3,7 @@
 
 WaveCymbal is an attempt to make a cymbal synthesizer with banded wave-guide model. The result is more like dragging bunch of empty cans or thin metal plate on asphalt rather than cymbal.
 
-- [Download WaveCymbal 0.1.6 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/WaveCymbal0.1.6.zip) <img
+- [Download WaveCymbal 0.1.7 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/WaveCymbal0.1.7.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -38,6 +38,11 @@ Extract preset zip, then place preset directory to the OS specific path:
 - macOS : `/Users/$USERNAME/Library/Audio/Presets/Uhhyou`
 
 Preset directory name must be the same as the plugin. Make `Uhhyou` directory if it does not exist.
+
+### Windows Specific
+If DAW doesn't recognize the plugin, try installing C++ redistributable (`vc_redist.x64.exe`). Installer can be found in the link below.
+
+- [The latest supported Visual C++ downloads](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 
 ### Linux Specific
 On Ubuntu 18.0.4, those packages are required.
@@ -147,6 +152,8 @@ Oscillator type.
 Transition time from previous value to current value in seconds. `Gain`, `Excitation.Time`, `Random.Amount`, `Bandpass.MinCutoff`, `Bandpass.MaxCutoff` will be affected. Slide effect of `OscType.Sustain` can be tuned by `Smoothness`.
 
 ## Change Log
+- 0.1.7
+  - Changed display method for pop-up which shows up by clicking plugin title.
 - 0.1.6
   - Fixed to stop sounds when deactivated.
   - Fixed a bug that was causing noise on PreSonus Studio One 4.6.1.
@@ -168,6 +175,7 @@ Transition time from previous value to current value in seconds. `Gain`, `Excita
   - Initial release.
 
 ### Old Versions
+- [WaveCymbal 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/WaveCymbal0.1.6.zip)
 - [WaveCymbal 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/WaveCymbal0.1.5.zip)
 - [WaveCymbal 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/WaveCymbal0.1.4.zip)
 - [WaveCymbal 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/WaveCymbal0.1.3.zip)

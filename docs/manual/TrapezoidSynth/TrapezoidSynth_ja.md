@@ -3,7 +3,7 @@
 
 <ruby>TrapezoidSynth<rt>トラピゾイドシンセ</rt></ruby>は台形オシレータを使ったモノフォニックシンセサイザです。台形オシレータは PTR (Polynomial Transition Regions) という手法に基づいて作ったのですが、ピッチが高くなると逆にノイズが増える欠点があるので 8 倍のオーバーサンプリングをしています。コードを作るために 2 つの AM ピッチシフタを搭載しています。
 
-- [TrapezoidSynth 0.1.5 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/TrapezoidSynth0.1.5.zip) <img
+- [TrapezoidSynth 0.1.6 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/TrapezoidSynth0.1.6.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -38,6 +38,11 @@ DAW によっては上記とは別に VST3 をインストールできるディ�
 - macOS : `/Users/$USERNAME/Library/Audio/Presets/Uhhyou`
 
 プリセットディレクトリの名前はプラグインと同じである必要があります。 `Uhhyou` ディレクトリが無いときは作成してください。
+
+### Windows
+プラグインが DAW に認識されないときは C++ redistributable をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は `vc_redist.x64.exe` です。
+
+- [The latest supported Visual C++ downloads](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 
 ### Linux
 Ubuntu 18.0.4 では次のパッケージのインストールが必要です。
@@ -276,6 +281,8 @@ LFO による `Filter.Cut` の変調量です。
 Oscillator 1 のスライド時間に対する Oscillator 2 のスライド時間の比率です。
 
 ## チェンジログ
+- 0.1.6
+  - プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。
 - 0.1.5
   - PreSonus Studio One 4.6.1 で出力にノイズが乗るバグを修正。
 - 0.1.4
@@ -293,6 +300,7 @@ Oscillator 1 のスライド時間に対する Oscillator 2 のスライド時�
   - 初期リリース。
 
 ### 旧バージョン
+- [TrapezoidSynth 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/TrapezoidSynth0.1.5.zip)
 - [TrapezoidSynth 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/TrapezoidSynth0.1.4.zip)
 - [TrapezoidSynth 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/TrapezoidSynth0.1.3.zip)
 - [TrapezoidSynth 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/TrapezoidSynth0.1.2.zip)

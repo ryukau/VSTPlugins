@@ -3,7 +3,7 @@
 
 <ruby>SevenDelay<rt>セブンディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。
 
-- [SevenDelay 0.1.7 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip) <img
+- [SevenDelay 0.1.8 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/SevenDelay0.1.8.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -38,6 +38,11 @@ DAW によっては上記とは別に VST3 をインストールできるディ�
 - macOS : `/Users/$USERNAME/Library/Audio/Presets/Uhhyou`
 
 プリセットディレクトリの名前はプラグインと同じである必要があります。 `Uhhyou` ディレクトリが無いときは作成してください。
+
+### Windows
+プラグインが DAW に認識されないときは C++ redistributable をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は `vc_redist.x64.exe` です。
+
+- [The latest supported Visual C++ downloads](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 
 ### Linux
 Ubuntu 18.0.4 では次のパッケージのインストールが必要です。
@@ -167,6 +172,8 @@ LFO の位相はホストが演奏を開始するたびに `Phase` の値にリ�
 LFO の位相のホールドの切り替え。ライブ演奏などで役に立つかもしれません。
 
 ## チェンジログ
+- 0.1.8
+  - プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。
 - 0.1.7
   - 非アクティブ化で音が止まるように修正。
 - 0.1.6
@@ -193,6 +200,7 @@ LFO の位相のホールドの切り替え。ライブ演奏などで役に立�
   - 初期リリース。
 
 ### 旧バージョン
+- [SevenDelay 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip)
 - [SevenDelay 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip)
 - [SevenDelay 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelay0.1.5.zip)
 - [SevenDelay 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SevenDelay0.1.4.zip)

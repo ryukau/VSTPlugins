@@ -3,7 +3,7 @@
 
 SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR sawtooth oscillator. Just a basic synthesizer but very easy to make a noise similar to low battery sound of some toys.
 
-- [Download SyncSawSynth 0.1.9 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SyncSawSynth0.1.9.zip) <img
+- [Download SyncSawSynth 0.1.10 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/SyncSawSynth0.1.10.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -38,6 +38,11 @@ Extract preset zip, then place preset directory to the OS specific path:
 - macOS : `/Users/$USERNAME/Library/Audio/Presets/Uhhyou`
 
 Preset directory name must be the same as the plugin. Make `Uhhyou` directory if it does not exist.
+
+### Windows Specific
+If DAW doesn't recognize the plugin, try installing C++ redistributable (`vc_redist.x64.exe`). Installer can be found in the link below.
+
+- [The latest supported Visual C++ downloads](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 
 ### Linux Specific
 On Ubuntu 18.0.4, those packages are required.
@@ -290,6 +295,8 @@ Modulation from MIDI note number to cutoff frequency. Range is -1.0 to 1.0.
 Modulation from MIDI note number to feedback. Range is -1.0 to 1.0.
 
 ## Change Log
+- 0.1.10
+  - Changed display method for pop-up which shows up by clicking plugin title.
 - 0.1.9
   - Fixed a bug that was causing noise on PreSonus Studio One 4.6.1.
 - 0.1.8
@@ -318,6 +325,7 @@ Modulation from MIDI note number to feedback. Range is -1.0 to 1.0.
   - Initial release.
 
 ### Old Versions
+- [SyncSawSynth 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SyncSawSynth0.1.9.zip)
 - [SyncSawSynth 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SyncSawSynth0.1.8.zip)
 - [SyncSawSynth 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SyncSawSynth0.1.7.zip)
 

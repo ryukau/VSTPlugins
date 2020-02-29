@@ -3,7 +3,7 @@
 
 IterativeSinCluster is an additive synthesizer. This synth computes 512 sine waves for each note to make tone cluster. I somehow thought "iterative sin" is a valid term. Correct term is "recursive sine".
 
-- [Download IterativeSinCluster 0.1.3 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/IterativeSinCluster0.1.3.zip) <img
+- [Download IterativeSinCluster 0.1.4 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/IterativeSinCluster0.1.4.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -40,6 +40,11 @@ Extract preset zip, then place preset directory to the OS specific path:
 - macOS : `/Users/$USERNAME/Library/Audio/Presets/Uhhyou`
 
 Preset directory name must be the same as the plugin. Make `Uhhyou` directory if it does not exist.
+
+### Windows Specific
+If DAW doesn't recognize the plugin, try installing C++ redistributable (`vc_redist.x64.exe`). Installer can be found in the link below.
+
+- [The latest supported Visual C++ downloads](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 
 ### Linux Specific
 On Ubuntu 18.0.4, those packages are required.
@@ -197,6 +202,8 @@ Feedback of delay.
 When checked, change delay time relative to note frequency.
 
 ## Change Log
+- 0.1.4
+  - Changed display method for pop-up which shows up by clicking plugin title.
 - 0.1.3
   - Fixed a bug that was causing noise on PreSonus Studio One 4.6.1.
 - 0.1.2
@@ -209,6 +216,7 @@ When checked, change delay time relative to note frequency.
   - Initial release.
 
 ### Old Versions
+- [IterativeSinCluster 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/IterativeSinCluster0.1.3.zip
 - [IterativeSinCluster 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/IterativeSinCluster0.1.2.zip)
 - [IterativeSinCluster 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/IterativeSinCluster0.1.1.zip)
 - [IterativeSinCluster 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/IterativeSinCluster0.1.0.zip)

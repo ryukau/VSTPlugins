@@ -3,7 +3,7 @@
 
 EnvelopedSine is an additive synthesizer that computes 64 sine waves for each note. Difference to IterativeSinCluster is that this synth has AD envelope and saturator for each oscillator. EnvelopedSine is better suited for percussive sounds.
 
-- [Download EnvelopedSine 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EnvelopedSine0.1.2.zip) <img
+- [Download EnvelopedSine 0.1.3 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/EnvelopedSine0.1.3.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -40,6 +40,11 @@ Extract preset zip, then place preset directory to the OS specific path:
 - macOS : `/Users/$USERNAME/Library/Audio/Presets/Uhhyou`
 
 Preset directory name must be the same as the plugin. Make `Uhhyou` directory if it does not exist.
+
+### Windows Specific
+If DAW doesn't recognize the plugin, try installing C++ redistributable (`vc_redist.x64.exe`). Installer can be found in the link below.
+
+- [The latest supported Visual C++ downloads](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 
 ### Linux Specific
 On Ubuntu 18.0.4, those packages are required.
@@ -217,6 +222,8 @@ LFO phase offset.
 LFO phase. This can be used to make sound with automation. Turning `Freq` to leftmost sets LFO frequency to 0.
 
 ## Change Log
+- 0.1.3
+  - Changed display method for pop-up which shows up by clicking plugin title.
 - 0.1.2
   - Fixed a bug that was causing noise on PreSonus Studio One 4.6.1.
 - 0.1.1
@@ -226,6 +233,7 @@ LFO phase. This can be used to make sound with automation. Turning `Freq` to lef
   - Initial release.
 
 ### Old Versions
+- [EnvelopedSine 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EnvelopedSine0.1.2.zip)
 - [EnvelopedSine 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/EnvelopedSine0.1.1.zip)
 - [EnvelopedSine 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/EnvelopedSine0.1.0.zip)
 
