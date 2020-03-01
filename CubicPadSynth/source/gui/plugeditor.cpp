@@ -76,7 +76,7 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   const auto tabTop0 = top0;
   const auto tabLeft0 = left0;
 
-  std::vector<std::string> tabs = {"Main", "WaveTable", "Information"};
+  std::vector<std::string> tabs = {"Main", "Wavetable", "Information"};
   const auto tabWidth = defaultWidth - 40.0f;
   const auto tabHeight = labelY + 4.0f * barboxY + 9.0f * margin;
   auto tabview = new TabView(
