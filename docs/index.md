@@ -16,6 +16,17 @@ For Linux, LV2 version is available.
 
 - [GitHub - ryukau/LV2Plugins](https://github.com/ryukau/LV2Plugins)
 
+## CubicPadSynth
+![](manual/CubicPadSynth/img/cubicpadsynth.png)
+
+CubicPadSynth は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています。
+
+- [CubicPadSynth のマニュアル (日本語)](manual/CubicPadSynth/CubicPadSynth_ja.html)
+
+CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm is used to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.
+
+- [CubicPadSynth Manual (English)](manual/CubicPadSynth/CubicPadSynth_en.html)
+
 ## EsPhaser
 ![](manual/EsPhaser/img/esphaser.png)
 

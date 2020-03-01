@@ -1,7 +1,7 @@
 # CubicPadSynth
 ![](img/cubicpadsynth.png)
 
-<ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby>は PADsynth アルゴリズムによってウェーブテーブルを生成するシンセサイザです。ウェーブテーブルの補間にはキュービック補間を用いています。
+<ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby> は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています
 
 - [CubicPadSynth 0.1.0 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/CubicPadSynth0.1.0.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
