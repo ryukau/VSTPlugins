@@ -70,9 +70,6 @@ struct NoteProcessInfo {
 
 #define PROCESSING_UNIT_CLASS(INSTRSET)                                                  \
   struct ProcessingUnit_##INSTRSET {                                                     \
-    static WaveTable<tableSize, nOvertone> waveTable;                                    \
-    static LfoWaveTable<lfoTableSize> lfoWaveTable;                                      \
-                                                                                         \
     TableOsc16<tableSize> osc;                                                           \
     LfoTableOsc16<lfoTableSize> lfo;                                                     \
     PController16 lfoSmoother;                                                           \
@@ -93,7 +90,11 @@ struct NoteProcessInfo {
     bool isActive = false;                                                               \
                                                                                          \
     void setParameters(float sampleRate, NoteProcessInfo &info, GlobalParameter &param); \
-    std::array<float, 2> process(float sampleRate, NoteProcessInfo &info);               \
+    std::array<float, 2> process(                                                        \
+      float sampleRate,                                                                  \
+      WaveTable<tableSize, nOvertone> &wavetable,                                        \
+      LfoWaveTable<lfoTableSize> &lfoWaveTable,                                          \
+      NoteProcessInfo &info);                                                            \
     void reset();                                                                        \
   };
 
@@ -233,6 +234,8 @@ public:
     std::array<float, nOvertone> otPhase{};                                              \
     std::array<float, nOvertone> otBandWidth{};                                          \
                                                                                          \
+    WaveTable<tableSize, nOvertone> wavetable;                                           \
+    LfoWaveTable<lfoTableSize> lfoWavetable;                                             \
     std::array<ProcessingUnit_##INSTRSET, nUnit> units;                                  \
                                                                                          \
     size_t nVoice = 32;                                                                  \
