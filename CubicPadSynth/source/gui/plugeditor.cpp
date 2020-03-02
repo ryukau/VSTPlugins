@@ -922,6 +922,20 @@ MessageButton *PlugEditor::addStateButton(
   return button;
 }
 
+KickButton *PlugEditor::addKickButton(
+  CCoord left, CCoord top, CCoord width, std::string title, ParamID tag)
+{
+  auto right = left + width;
+  auto bottom = top + 2.0 * labelHeight;
+
+  auto button = new KickButton(
+    CRect(left, top, right, bottom), this, tag, title,
+    new CFontDesc(PlugEditorStyle::fontName(), fontSize, CTxtFace::kNormalFace));
+  button->setHighlightColor(colorRed);
+  frame->addView(button);
+  return button;
+}
+
 CheckBox *PlugEditor::addCheckbox(
   CCoord left, CCoord top, CCoord width, UTF8String title, ParamID tag, int32_t style)
 {

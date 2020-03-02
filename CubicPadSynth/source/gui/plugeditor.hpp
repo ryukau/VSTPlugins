@@ -33,6 +33,7 @@ class GroupLabel;
 class VGroupLabel;
 class Slider;
 class TextButton;
+class KickButton;
 class MessageButton;
 class CheckBox;
 class OptionMenu;
@@ -119,6 +120,9 @@ public:
     std::string title,
     std::string message,
     std::string attribute);
+
+  KickButton *
+  addKickButton(CCoord left, CCoord top, CCoord width, std::string title, ParamID tag);
 
   CheckBox *addCheckbox(
     CCoord left,
