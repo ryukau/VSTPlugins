@@ -193,7 +193,7 @@ struct GlobalParameter {
     std::string pitchLabel("pitch");
     std::string phaseLabel("phase");
     for (size_t idx = 0; idx < nOvertone; ++idx) {
-      auto indexStr = std::to_string(idx);
+      auto indexStr = std::to_string(idx + 1);
       value[ID::overtoneGain0 + idx] = std::make_unique<DecibelValue>(
         Scales::overtoneGain.invmap(1.0 / (idx + 1)), Scales::overtoneGain,
         (gainLabel + indexStr).c_str(), Info::kCanAutomate);
@@ -208,7 +208,7 @@ struct GlobalParameter {
 
     std::string lfoWavetableLabel("lfoWavetable");
     for (size_t idx = 0; idx < nLFOWavetable; ++idx) {
-      auto indexStr = std::to_string(idx);
+      auto indexStr = std::to_string(idx + 1);
       value[ID::lfoWavetable0 + idx] = std::make_unique<LinearValue>(
         Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * idx / double(nLFOWavetable))),
         Scales::lfoWavetable, (lfoWavetableLabel + indexStr).c_str(), Info::kCanAutomate);
