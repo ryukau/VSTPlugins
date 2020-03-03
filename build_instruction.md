@@ -22,7 +22,7 @@ mkdir vst3sdk/build
 cd vst3sdk/build
 
 cmake -DCMAKE_BUILD_TYPE=Release -DSMTG_MYPLUGINS_SRC_PATH="../../VSTPlugins" -DSMTG_ADD_VST3_HOSTING_SAMPLES=FALSE -DSMTG_ADD_VST3_PLUGINS_SAMPLES=FALSE ..
-cmake --build .
+cmake --build . -j
 ```
 
 After finishing the command, you can find a link to the plugin in `$HOME/.vst3`. The link is pointing to the plugin directory in `~/code/VST_SDK/VST3_SDK/build/VST3/Release/`.
@@ -49,7 +49,7 @@ mkdir vst3sdk/build
 cd vst3sdk/build
 
 cmake -G"Visual Studio 16 2019" -A x64 -DSMTG_MYPLUGINS_SRC_PATH="../../VSTPlugins" -DSMTG_ADD_VST3_HOSTING_SAMPLES=FALSE -DSMTG_ADD_VST3_PLUGINS_SAMPLES=FALSE ..
-cmake --build . --config Release
+cmake --build . -j --config Release
 ```
 
 Plugins are built into `~/code/vst3sdk/build/VST3/Release`. To install plugins, copy them to `/c/Program Files/Common Files/VST3` in Git Bash path, or `C:\Program Files\Common Files\VST3` in Windows path.
@@ -78,7 +78,7 @@ mkdir vst3sdk/build
 cd vst3sdk/build
 
 cmake -GXcode -DSMTG_MYPLUGINS_SRC_PATH="../../VSTPlugins" -DSMTG_ADD_VST3_HOSTING_SAMPLES=FALSE -DSMTG_ADD_VST3_PLUGINS_SAMPLES=FALSE ..
-cmake --build . --config Release
+cmake --build . -j --config Release
 ```
 
 Plugins are built into `~/code/vst3sdk/build/VST3/Release`. To install plugins, copy them to `/Users/$USERNAME/Library/Audio/Plug-ins/VST3/`.
