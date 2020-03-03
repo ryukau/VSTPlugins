@@ -17,14 +17,13 @@
 
 #pragma once
 
-#include "constants.hpp"
-
-#include <array>
-
+#include "../../../common/dsp/constants.hpp"
 #include "../../../lib/juce_FastMathApproximations.h"
 #include "../../../lib/vcl/vectorclass.h"
 #include "../../../lib/vcl/vectormath_exp.h"
 #include "../../../lib/vcl/vectormath_trig.h"
+
+#include <array>
 
 namespace SomeDSP {
 

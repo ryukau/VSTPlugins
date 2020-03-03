@@ -33,13 +33,21 @@ endif()
 # VST 3 settings.
 set(plug_sources
   ../lib/vcl/instrset_detect.cpp
+  ../common/gui/barbox.cpp
+  ../common/gui/button.cpp
+  ../common/gui/checkbox.cpp
+  ../common/gui/knob.cpp
+  ../common/gui/optionmenu.cpp
+  ../common/gui/rotaryknob.cpp
+  ../common/gui/slider.cpp
+  ../common/gui/splash.cpp
+  source/gui/splashdraw.cpp
+  ../common/gui/tabview.cpp
+  ../common/gui/plugeditor.cpp
   source/parameter.cpp
-  source/plugcontroller.cpp
   source/plugfactory.cpp
   source/plugprocessor.cpp
-  source/gui/knob.cpp
-  source/gui/plugeditor.cpp
-  source/gui/splash.cpp)
+  source/editor.cpp)
 
 smtg_add_vst3plugin(${target} ${plug_sources})
 if(APPLE)

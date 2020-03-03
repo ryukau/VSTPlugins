@@ -1,5 +1,5 @@
 add_subdirectory(CubicPadSynth)
-# add_subdirectory(EnvelopedSine)
+add_subdirectory(EnvelopedSine)
 # add_subdirectory(EsPhaser)
 # add_subdirectory(FDNCymbal)
 # add_subdirectory(IterativeSinCluster)

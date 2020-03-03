@@ -17,11 +17,11 @@
 
 #pragma once
 
-#include <array>
-#include <cmath>
-
 #include "../../../lib/juce_FastMathApproximations.h"
 #include "../../../lib/vcl/vectorclass.h"
+
+#include <array>
+#include <cmath>
 
 namespace SomeDSP {
 

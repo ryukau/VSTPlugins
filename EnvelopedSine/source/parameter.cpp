@@ -16,7 +16,7 @@
 // along with EnvelopedSine.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "parameter.hpp"
-#include "dsp/constants.hpp"
+#include "../../common/dsp/constants.hpp"
 
 namespace Steinberg {
 namespace Synth {
