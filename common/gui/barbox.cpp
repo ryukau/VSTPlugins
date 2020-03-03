@@ -30,21 +30,13 @@ void BarBox::draw(CDrawContext *pContext)
 
   // Value bar and Text.
   pContext->setFillColor(valueColor);
-  pContext->setFrameColor(valueColor);
   pContext->setLineWidth(1.0f);
-  pContext->setFont(indexFontID);
-  pContext->setFontColor(borderColor);
   for (size_t i = 0; i < value.size(); ++i) {
     auto sliderHeight = value[i] * height;
     auto left = i * sliderWidth;
     auto right = left + (sliderWidth >= 4.0 ? sliderWidth - defaultBorderWidth : 1.0);
     auto top = height - sliderHeight;
     pContext->drawRect(CRect(left, top, right, height), kDrawFilled);
-    if (drawCenterLine) {
-      pContext->drawString(
-        UTF8String(std::to_string(i + 1).c_str()),
-        CRect(left, height - 16, right, height - 4), kCenterText);
-    }
   }
 
   // Splitter.
@@ -54,6 +46,20 @@ void BarBox::draw(CDrawContext *pContext)
     for (size_t i = 0; i < value.size(); ++i) {
       auto x = i * sliderWidth;
       pContext->drawLine(CPoint(x, 0), CPoint(x, height));
+    }
+  }
+
+  // Bar index.
+  pContext->setFrameColor(valueColor);
+  pContext->setFont(indexFontID);
+  pContext->setFontColor(borderColor);
+  if (sliderWidth >= 10.0) {
+    for (size_t i = 0; i < value.size(); ++i) {
+      auto left = i * sliderWidth;
+      auto right = left + (sliderWidth >= 4.0 ? sliderWidth - defaultBorderWidth : 1.0);
+      pContext->drawString(
+        UTF8String(std::to_string(i + 1).c_str()),
+        CRect(left, height - 16, right, height - 4), kCenterText);
     }
   }
 
