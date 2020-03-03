@@ -22,6 +22,7 @@
 #pragma once
 
 #include "pluginterfaces/base/fplatform.h"
+#include "pluginterfaces/vst/ivstaudioprocessor.h"
 
 #define MAJOR_VERSION_STR "0"
 #define MAJOR_VERSION_INT 0
@@ -41,6 +42,7 @@
 #define VERSION_STR MAJOR_VERSION_STR "." SUB_VERSION_STR "." RELEASE_NUMBER_STR
 
 #define stringPluginName "CubicPadSynth"
+#define stringSubCategory Steinberg::Vst::PlugType::kInstrumentSynth
 
 #define stringOriginalFilename "CubicPadSynth.vst3"
 #if SMTG_PLATFORM_64

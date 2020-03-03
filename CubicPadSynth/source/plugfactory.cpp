@@ -19,7 +19,6 @@
 // You should have received a copy of the GNU General Public License
 // along with CubicPadSynth.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "pluginterfaces/vst/ivstaudioprocessor.h"
 #include "public.sdk/source/main/pluginfactory.h"
 
 #include "../../common/plugcontroller.hpp"
@@ -28,9 +27,6 @@
 #include "parameter.hpp"
 #include "plugprocessor.hpp"
 #include "version.hpp"
-
-// Subcategory for this Plug-in (see PlugType in ivstaudioprocessor.h)
-#define stringSubCategory Steinberg::Vst::PlugType::kInstrumentSynth
 
 BEGIN_FACTORY_DEF(stringCompanyName, stringCompanyWeb, stringCompanyEmail)
 
