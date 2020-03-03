@@ -173,7 +173,25 @@ public:
     ParamID tag,
     Scale &scale,
     int32_t offset,
-    LabelPosition labelPosition = LabelPosition::bottom);
+    LabelPosition labelPosition = LabelPosition::bottom)
+  {
+    auto bottom = top + width - 10.0;
+    auto right = left + width;
+
+    auto knob = new NumberKnob<Scale>(
+      CRect(left + 5.0, top, right - 5.0, bottom), this, tag, scale, offset);
+    knob->setFont(
+      new CFontDesc(PlugEditorStyle::fontName(), fontSize, CTxtFace::kNormalFace));
+    knob->setSlitWidth(8.0);
+    knob->setHighlightColor(highlightColor);
+    knob->setValueNormalized(controller->getParamNormalized(tag));
+    knob->setDefaultValue(param->getDefaultNormalized(tag));
+    frame->addView(knob);
+    addToControlMap(tag, knob);
+
+    auto label = addKnobLabel(left, top, right, bottom, name, labelPosition);
+    return std::make_tuple(knob, label);
+  }
 
   CTextLabel *addKnobLabel(
     CCoord left,

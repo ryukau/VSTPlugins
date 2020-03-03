@@ -440,36 +440,6 @@ std::tuple<RotaryKnob *, CTextLabel *> PlugEditor::addRotaryKnob(
   return std::make_tuple(knob, label);
 }
 
-template<typename Scale>
-std::tuple<NumberKnob<Scale> *, CTextLabel *> PlugEditor::addNumberKnob(
-  CCoord left,
-  CCoord top,
-  CCoord width,
-  CColor highlightColor,
-  UTF8String name,
-  ParamID tag,
-  Scale &scale,
-  int32_t offset,
-  LabelPosition labelPosition)
-{
-  auto bottom = top + width - 10.0;
-  auto right = left + width;
-
-  auto knob = new NumberKnob<Scale>(
-    CRect(left + 5.0, top, right - 5.0, bottom), this, tag, scale, offset);
-  knob->setFont(
-    new CFontDesc(PlugEditorStyle::fontName(), fontSize, CTxtFace::kNormalFace));
-  knob->setSlitWidth(8.0);
-  knob->setHighlightColor(highlightColor);
-  knob->setValueNormalized(controller->getParamNormalized(tag));
-  knob->setDefaultValue(param->getDefaultNormalized(tag));
-  frame->addView(knob);
-  addToControlMap(tag, knob);
-
-  auto label = addKnobLabel(left, top, right, bottom, name, labelPosition);
-  return std::make_tuple(knob, label);
-}
-
 CTextLabel *PlugEditor::addKnobLabel(
   CCoord left,
   CCoord top,
@@ -505,36 +475,6 @@ CTextLabel *PlugEditor::addKnobLabel(
   frame->addView(label);
   return label;
 }
-
-// template<typename Scale>
-// TextKnob<Scale> *PlugEditor::addTextKnob(
-//   CCoord left,
-//   CCoord top,
-//   CCoord width,
-//   CColor highlightColor,
-//   ParamID tag,
-//   Scale &scale,
-//   bool isDecibel,
-//   uint32_t precision,
-//   int32_t offset)
-// {
-//   auto bottom = top + labelHeight;
-//   auto right = left + width;
-
-//   auto knob
-//     = new TextKnob<Scale>(CRect(left, top, right, bottom), this, tag, scale,
-//     isDecibel);
-//   knob->setFont(
-//     new CFontDesc(PlugEditorStyle::fontName(), fontSize, CTxtFace::kNormalFace));
-//   knob->setHighlightColor(highlightColor);
-//   knob->setValueNormalized(controller->getParamNormalized(tag));
-//   knob->setDefaultValue(param->getDefaultNormalized(tag));
-//   knob->setPrecision(precision);
-//   knob->offset = offset;
-//   frame->addView(knob);
-//   addToControlMap(tag, knob);
-//   return knob;
-// }
 
 TextView *PlugEditor::addTextView(
   CCoord left, CCoord top, CCoord width, CCoord height, std::string text, CCoord textSize)
