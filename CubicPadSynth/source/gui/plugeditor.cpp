@@ -464,6 +464,7 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
   auto knobSpectrumShift = addTextKnob(
     tableSpectrumLeft1, tableSpectrumTop + 2.0f * labelY, knobX, colorBlue,
     ID::spectrumShift, Scales::spectrumShift, false, 0, -spectrumSize);
+  knobSpectrumShift->sensitivity = 1.0f / spectrumSize;
   knobSpectrumShift->lowSensitivity = 0.08f / spectrumSize;
   tabview->addWidget(tabPadSynth, knobSpectrumShift);
 
@@ -647,7 +648,7 @@ T|Subtle Randomize
 
   const auto tabInfoLeft1 = tabInsideLeft0 + tabWidth / 2.0f;
 
-  auto textRefreshNotice = R"(Wavetables won't refresh automatically.
+  auto textRefreshNotice = R"(Wavetables do not refresh automatically.
 Press following button to apply changes.
 - `Refresh LFO` at center-left in Main tab.
 - `Refresh Table` at bottom-left in WaveTable tab.)";
