@@ -137,7 +137,7 @@ public:
   void push(Sample newTarget) override
   {
     this->target = newTarget;
-    if (this->timeInSamples < this->bufferSize) {
+    if (SmootherCommon<Sample>::timeInSamples < SmootherCommon<Sample>::bufferSize) {
       this->value = this->target;
       return;
     }
@@ -147,17 +147,17 @@ public:
     if (dist1 < 0) {
       auto dist2 = this->target + max - this->value;
       if (somefabs<Sample>(dist1) > dist2) {
-        this->ramp = dist2 / this->timeInSamples;
+        this->ramp = dist2 / SmootherCommon<Sample>::timeInSamples;
         return;
       }
     } else {
       auto dist2 = this->target - max - this->value;
       if (dist1 > somefabs<Sample>(dist2)) {
-        this->ramp = dist2 / this->timeInSamples;
+        this->ramp = dist2 / SmootherCommon<Sample>::timeInSamples;
         return;
       }
     }
-    this->ramp = dist1 / this->timeInSamples;
+    this->ramp = dist1 / SmootherCommon<Sample>::timeInSamples;
   }
 
   Sample process() override
