@@ -21,8 +21,6 @@
 #include <string>
 #include <vector>
 
-#include <iostream>
-
 #include "../../common/parameterInterface.hpp"
 #include "../../common/value.hpp"
 
