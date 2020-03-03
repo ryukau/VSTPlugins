@@ -48,30 +48,4 @@ protected:
   float highlightFrameWidth = 2.0f;
 };
 
-CMouseEventResult CheckBox::onMouseEntered(CPoint &where, const CButtonState &buttons)
-{
-  setFrameWidth(highlightFrameWidth);
-  return kMouseEventHandled;
-}
-
-CMouseEventResult CheckBox::onMouseExited(CPoint &where, const CButtonState &buttons)
-{
-  setFrameWidth(frameWidth);
-  return kMouseEventHandled;
-}
-
-CMouseEventResult CheckBox::onMouseCancel()
-{
-  setFrameWidth(frameWidth);
-  return CCheckBox::onMouseCancel();
-}
-
-void CheckBox::setDefaultFrameWidth(float width)
-{
-  frameWidth = width;
-  setFrameWidth(frameWidth);
-}
-
-void CheckBox::setHighlightWidth(float width) { highlightFrameWidth = width; }
-
 } // namespace VSTGUI

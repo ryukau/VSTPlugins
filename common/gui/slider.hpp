@@ -21,19 +21,24 @@
 
 namespace VSTGUI {
 
-class OptionMenu : public COptionMenu {
+class Slider : public CSlider {
 public:
-  OptionMenu(const CRect &size,
+  Slider(
+    const CRect &size,
     IControlListener *listener,
     int32_t tag,
-    CBitmap *background = nullptr,
-    CBitmap *bgWhenClick = nullptr,
-    const int32_t style = 0)
-    : COptionMenu(size, listener, tag, background, bgWhenClick, style)
+    int32_t iMinPos,
+    int32_t iMaxPos,
+    CBitmap *handle,
+    CBitmap *background,
+    const CPoint &offset = CPoint(0, 0),
+    const int32_t style = kLeft | kHorizontal)
+    : CSlider(size, listener, tag, iMinPos, iMaxPos, handle, background, offset, style)
   {
+    setFrameColor(frameColor);
   }
 
-  CLASS_METHODS(OptionMenu, COptionMenu);
+  CLASS_METHODS(Slider, CSlider);
 
   CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;
   CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override;
@@ -50,42 +55,5 @@ protected:
   float frameWidth = 1.0f;
   float highlightFrameWidth = 2.0f;
 };
-
-CMouseEventResult OptionMenu::onMouseEntered(CPoint &where, const CButtonState &buttons)
-{
-  setFrameWidth(highlightFrameWidth);
-  setFrameColor(highlightColor);
-  return kMouseEventHandled;
-}
-
-CMouseEventResult OptionMenu::onMouseExited(CPoint &where, const CButtonState &buttons)
-{
-  setFrameWidth(frameWidth);
-  setFrameColor(frameColor);
-  return kMouseEventHandled;
-}
-
-CMouseEventResult OptionMenu::onMouseCancel()
-{
-  setFrameWidth(frameWidth);
-  setFrameColor(frameColor);
-  return COptionMenu::onMouseCancel();
-}
-
-void OptionMenu::setDefaultFrameColor(CColor color)
-{
-  frameColor = color;
-  setFrameColor(frameColor);
-}
-
-void OptionMenu::setHighlightColor(CColor color) { highlightColor = color; }
-
-void OptionMenu::setDefaultFrameWidth(float width)
-{
-  frameWidth = width;
-  setFrameWidth(frameWidth);
-}
-
-void OptionMenu::setHighlightWidth(float width) { highlightFrameWidth = width; }
 
 } // namespace VSTGUI

@@ -21,20 +21,20 @@
 
 namespace VSTGUI {
 
-class TextButton : public CTextButton {
+class OptionMenu : public COptionMenu {
 public:
-  TextButton(
+  OptionMenu(
     const CRect &size,
-    IControlListener *listener = nullptr,
-    int32_t tag = -1,
-    UTF8StringPtr title = nullptr,
-    Style style = kKickStyle)
-    : CTextButton(size, listener, tag, title, style)
+    IControlListener *listener,
+    int32_t tag,
+    CBitmap *background = nullptr,
+    CBitmap *bgWhenClick = nullptr,
+    const int32_t style = 0)
+    : COptionMenu(size, listener, tag, background, bgWhenClick, style)
   {
-    setFrameColor(frameColor);
   }
 
-  CLASS_METHODS(TextButton, CTextButton);
+  CLASS_METHODS(OptionMenu, COptionMenu);
 
   CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;
   CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override;
@@ -46,47 +46,10 @@ public:
   void setHighlightWidth(float width);
 
 protected:
-  CColor frameColor = CColor(0, 0, 0, 255);
+  CColor frameColor = CColor(0xee, 0xee, 0xee, 255);
   CColor highlightColor = CColor(0, 0, 0, 255);
   float frameWidth = 1.0f;
   float highlightFrameWidth = 2.0f;
 };
-
-CMouseEventResult TextButton::onMouseEntered(CPoint &where, const CButtonState &buttons)
-{
-  setFrameWidth(highlightFrameWidth);
-  setFrameColor(highlightColor);
-  return kMouseEventHandled;
-}
-
-CMouseEventResult TextButton::onMouseExited(CPoint &where, const CButtonState &buttons)
-{
-  setFrameWidth(frameWidth);
-  setFrameColor(frameColor);
-  return kMouseEventHandled;
-}
-
-CMouseEventResult TextButton::onMouseCancel()
-{
-  setFrameWidth(frameWidth);
-  setFrameColor(frameColor);
-  return CTextButton::onMouseCancel();
-}
-
-void TextButton::setDefaultFrameColor(CColor color)
-{
-  frameColor = color;
-  setFrameColor(frameColor);
-}
-
-void TextButton::setHighlightColor(CColor color) { highlightColor = color; }
-
-void TextButton::setDefaultFrameWidth(float width)
-{
-  frameWidth = width;
-  setFrameWidth(frameWidth);
-}
-
-void TextButton::setHighlightWidth(float width) { highlightFrameWidth = width; }
 
 } // namespace VSTGUI

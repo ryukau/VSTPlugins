@@ -59,12 +59,20 @@ set_property(TARGET fftw3 PROPERTY IMPORTED_LOCATION ${fftw3_path})
 # VST 3 settings.
 set(plug_sources
   ../lib/vcl/instrset_detect.cpp
+  ../common/gui/barbox.cpp
+  ../common/gui/button.cpp
+  ../common/gui/checkbox.cpp
+  ../common/gui/knob.cpp
+  ../common/gui/optionmenu.cpp
+  ../common/gui/plugeditor.cpp
+  ../common/gui/rotaryknob.cpp
+  ../common/gui/slider.cpp
+  ../common/gui/tabview.cpp
   source/parameter.cpp
-  source/plugcontroller.cpp
+  # source/plugcontroller.cpp
   source/plugfactory.cpp
   source/plugprocessor.cpp
-  source/gui/knob.cpp
-  source/gui/plugeditor.cpp)
+  source/editor.cpp)
 
 smtg_add_vst3plugin(${target} ${plug_sources})
 if(APPLE)

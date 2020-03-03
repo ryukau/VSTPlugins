@@ -23,9 +23,10 @@
 
 #include <iostream>
 
-#include "dsp/constants.hpp"
-#include "dsp/scale.hpp"
-#include "value.hpp"
+#include "../../common/dsp/constants.hpp"
+#include "../../common/dsp/scale.hpp"
+#include "../../common/parameterInterface.hpp"
+#include "../../common/value.hpp"
 
 constexpr int32_t nOvertone = 360;
 constexpr int32_t nLFOWavetable = 64;
@@ -172,7 +173,7 @@ struct Scales {
   static SomeDSP::LogScale<double> smoothness;
 };
 
-struct GlobalParameter {
+struct GlobalParameter : public ParameterInterface {
   std::vector<std::unique_ptr<ValueInterface>> value;
 
   GlobalParameter()
@@ -367,6 +368,12 @@ struct GlobalParameter {
     for (auto &val : value)
       if (val->addParameter(parameters)) return kResultFalse;
     return kResultOk;
+  }
+
+  double getDefaultNormalized(int32_t tag)
+  {
+    if (size_t(abs(tag)) >= value.size()) return 0.0;
+    return value[tag]->getDefaultNormalized();
   }
 };
 

@@ -21,29 +21,24 @@
 #include "pluginterfaces/vst/ivstplugview.h"
 #include "public.sdk/source/vst/vstguieditor.h"
 
-#include "../parameter.hpp"
+#include "../parameterInterface.hpp"
 #include "arraycontrol.hpp"
 
+#include "barbox.hpp"
+#include "button.hpp"
+#include "checkbox.hpp"
+#include "grouplabel.hpp"
+#include "guistyle.hpp"
+#include "knob.hpp"
+#include "optionmenu.hpp"
+#include "rotaryknob.hpp"
+#include "slider.hpp"
+#include "tabview.hpp"
+#include "textview.hpp"
+
+#include <memory>
 #include <tuple>
 #include <unordered_map>
-
-namespace VSTGUI {
-class BarBox;
-class GroupLabel;
-class VGroupLabel;
-class Slider;
-class TextButton;
-class KickButton;
-class MessageButton;
-class CheckBox;
-class OptionMenu;
-class Knob;
-class RotaryKnob;
-template<typename Scale> class TextKnob;
-template<typename Scale> class NumberKnob;
-class TextView;
-class TextTableView;
-} // namespace VSTGUI
 
 namespace Steinberg {
 namespace Vst {
@@ -53,20 +48,13 @@ using namespace VSTGUI;
 class PlugEditor : public VSTGUIEditor, public IControlListener, public IMouseObserver {
 public:
   PlugEditor(void *controller);
-
-  ~PlugEditor()
-  {
-    for (auto &ctrl : controlMap)
-      if (ctrl.second) ctrl.second->forget();
-
-    for (auto &ctrl : arrayControls)
-      if (ctrl) ctrl->forget();
-  }
+  ~PlugEditor();
 
   bool PLUGIN_API
   open(void *parent, const PlatformType &platformType = kDefaultNative) override;
   void PLUGIN_API close() override;
   void valueChanged(CControl *pControl) override;
+  void valueChanged(ParamID id, ParamValue normalized);
   void updateUI(Vst::ParamID id, ParamValue normalized);
 
   void onMouseEntered(CView *view, CFrame *frame) override {}
@@ -193,7 +181,24 @@ public:
     Scale &scale,
     bool isDecibel = false,
     uint32_t precision = 0,
-    int32_t offset = 0);
+    int32_t offset = 0)
+  {
+    auto bottom = top + labelHeight;
+    auto right = left + width;
+
+    auto knob
+      = new TextKnob<Scale>(CRect(left, top, right, bottom), this, tag, scale, isDecibel);
+    knob->setFont(
+      new CFontDesc(PlugEditorStyle::fontName(), fontSize, CTxtFace::kNormalFace));
+    knob->setHighlightColor(highlightColor);
+    knob->setValueNormalized(controller->getParamNormalized(tag));
+    knob->setDefaultValue(param->getDefaultNormalized(tag));
+    knob->setPrecision(precision);
+    knob->offset = offset;
+    frame->addView(knob);
+    addToControlMap(tag, knob);
+    return knob;
+  }
 
   TextView *addTextView(
     CCoord left,
@@ -213,15 +218,10 @@ public:
     CCoord textSize);
 
 protected:
-  Synth::GlobalParameter param;
+  void addToControlMap(Vst::ParamID id, CControl *control);
+  virtual bool prepareUI() = 0;
 
-  void addToControlMap(Vst::ParamID id, CControl *control)
-  {
-    auto iter = controlMap.find(id);
-    if (iter != controlMap.end()) iter->second->forget();
-    control->remember();
-    controlMap.insert({id, control});
-  }
+  std::unique_ptr<ParameterInterface> param;
 
   std::unordered_map<Vst::ParamID, CControl *> controlMap;
   std::vector<ArrayControl *> arrayControls;
@@ -236,13 +236,17 @@ protected:
   float knobHeight = 40.0f;
   float knobX = 60.0f; // With margin.
   float knobY = knobHeight + labelY;
+  float sliderWidth = 70.0f;
+  float sliderHeight = 2.0f * (knobHeight + labelY) + 67.5f;
+  float sliderX = 80.0f;
+  float sliderY = sliderHeight + labelY;
   float barboxWidth = 12.0f * knobX;
   float barboxHeight = 2.0f * knobY;
   float barboxY = barboxHeight + 2.0f * margin;
   float checkboxWidth = 60.0f;
   float splashHeight = 40.0f;
-  int32 defaultWidth = int32(barboxWidth + labelY + 2 * knobX + 12 * margin + 40);
-  int32 defaultHeight = int32(40 + labelY + 4 * barboxY + 9 * margin);
+  int32 defaultWidth = int32(512);
+  int32 defaultHeight = int32(512);
 
   ViewRect viewRect{0, 0, defaultWidth, defaultHeight};
 
@@ -257,8 +261,6 @@ protected:
   CColor colorRed{252, 128, 128, 255};
   CColor colorGreen{19, 193, 54, 255};
   CColor colorFaintGray{237, 237, 237, 255};
-
-  ParamValue getPlainValue(ParamID tag);
 };
 
 } // namespace Vst

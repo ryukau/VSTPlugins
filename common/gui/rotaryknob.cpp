@@ -15,20 +15,17 @@
 // You should have received a copy of the GNU General Public License
 // along with CubicPadSynth.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <string>
-
-#include "knob.hpp"
+#include "rotaryknob.hpp"
 
 namespace VSTGUI {
 
-CPoint Knob::mapValueToSlit(double normalized, double length)
+CPoint RotaryKnob::mapValueToSlit(double normalized, double length)
 {
-  auto radian
-    = (2.0 * normalized - 1.0) * Constants::pi * (180.0 - slitNotchHalf) / 180.0;
+  auto radian = 2.0 * normalized * Constants::pi;
   return CPoint(-sin(radian) * length, cos(radian) * length);
 }
 
-void Knob::draw(CDrawContext *pContext)
+void RotaryKnob::draw(CDrawContext *pContext)
 {
   const auto width = getWidth();
   const auto height = getHeight();
@@ -49,11 +46,11 @@ void Knob::draw(CDrawContext *pContext)
   pContext->setFrameColor(isMouseEntered ? highlightColor : slitColor);
   pContext->setLineStyle(lineStyle);
   pContext->setLineWidth(halfSlitWidth * 2.0);
-  pContext->drawArc(
+  pContext->drawEllipse(
     CRect(
-      halfSlitWidth - radius, halfSlitWidth - radius, radius - halfSlitWidth,
-      radius - halfSlitWidth),
-    (float)(90.0 + slitNotchHalf), (float)(90.0 - slitNotchHalf));
+      halfSlitWidth - center.x, halfSlitWidth - center.y, center.x - halfSlitWidth,
+      center.y - halfSlitWidth),
+    kDrawStroked);
 
   // Tick for default value. Sharing color and style with slit.
   auto tipLength = halfSlitWidth - radius;
@@ -78,21 +75,21 @@ void Knob::draw(CDrawContext *pContext)
   setDirty(false);
 }
 
-CMouseEventResult Knob::onMouseEntered(CPoint &where, const CButtonState &buttons)
+CMouseEventResult RotaryKnob::onMouseEntered(CPoint &where, const CButtonState &buttons)
 {
   isMouseEntered = true;
   invalid();
   return kMouseEventHandled;
 }
 
-CMouseEventResult Knob::onMouseExited(CPoint &where, const CButtonState &buttons)
+CMouseEventResult RotaryKnob::onMouseExited(CPoint &where, const CButtonState &buttons)
 {
   isMouseEntered = false;
   invalid();
   return kMouseEventHandled;
 }
 
-CMouseEventResult Knob::onMouseDown(CPoint &where, const CButtonState &buttons)
+CMouseEventResult RotaryKnob::onMouseDown(CPoint &where, const CButtonState &buttons)
 {
   if (!buttons.isLeftButton()) return kMouseEventNotHandled;
 
@@ -107,19 +104,20 @@ CMouseEventResult Knob::onMouseDown(CPoint &where, const CButtonState &buttons)
   return kMouseEventHandled;
 }
 
-CMouseEventResult Knob::onMouseUp(CPoint &where, const CButtonState &buttons)
+CMouseEventResult RotaryKnob::onMouseUp(CPoint &where, const CButtonState &buttons)
 {
   if (isMouseDown) endEdit();
   isMouseDown = false;
   return kMouseEventHandled;
 }
 
-CMouseEventResult Knob::onMouseMoved(CPoint &where, const CButtonState &buttons)
+CMouseEventResult RotaryKnob::onMouseMoved(CPoint &where, const CButtonState &buttons)
 {
   if (!isMouseDown) return kMouseEventNotHandled;
 
   auto sensi = (buttons & kShift) ? lowSensitivity : sensitivity;
   value += (float)((anchorPoint.y - where.y) * sensi);
+  value = value > 1.0 || value < 0.0 ? value - floor(value) : value;
   bounceValue();
 
   if (value != getOldValue()) valueChanged();
@@ -129,7 +127,7 @@ CMouseEventResult Knob::onMouseMoved(CPoint &where, const CButtonState &buttons)
   return kMouseEventHandled;
 }
 
-CMouseEventResult Knob::onMouseCancel()
+CMouseEventResult RotaryKnob::onMouseCancel()
 {
   if (isMouseDown) {
     if (isDirty()) {
@@ -143,7 +141,7 @@ CMouseEventResult Knob::onMouseCancel()
   return kMouseEventHandled;
 }
 
-bool Knob::onWheel(
+bool RotaryKnob::onWheel(
   const CPoint &where,
   const CMouseWheelAxis &axis,
   const float &distance,
@@ -152,7 +150,8 @@ bool Knob::onWheel(
   if (isEditing() || axis != kMouseWheelAxisY || distance == 0.0f) return false;
 
   beginEdit();
-  value += distance * sensitivity * 0.5f;
+  value += distance * float(sensitivity) * 0.5f;
+  value -= floor(value);
   bounceValue();
   valueChanged();
   endEdit();
@@ -160,11 +159,11 @@ bool Knob::onWheel(
   return true;
 }
 
-void Knob::setSlitWidth(double width) { halfSlitWidth = width / 2.0; }
-void Knob::setDefaultTickLength(double length) { defaultTickLength = length; }
-void Knob::setBackgroundColor(CColor color) { backgroundColor = color; }
-void Knob::setSlitColor(CColor color) { slitColor = color; }
-void Knob::setHighlightColor(CColor color) { highlightColor = color; }
-void Knob::setTipColor(CColor color) { tipColor = color; }
+void RotaryKnob::setSlitWidth(double width) { halfSlitWidth = width / 2.0; }
+void RotaryKnob::setDefaultTickLength(double length) { defaultTickLength = length; }
+void RotaryKnob::setBackgroundColor(CColor color) { backgroundColor = color; }
+void RotaryKnob::setSlitColor(CColor color) { slitColor = color; }
+void RotaryKnob::setHighlightColor(CColor color) { highlightColor = color; }
+void RotaryKnob::setTipColor(CColor color) { tipColor = color; }
 
 } // namespace VSTGUI

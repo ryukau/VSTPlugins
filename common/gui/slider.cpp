@@ -15,46 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with CubicPadSynth.  If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
-
-#include "vstgui/vstgui.h"
+#include "slider.hpp"
 
 namespace VSTGUI {
-
-class Slider : public CSlider {
-public:
-  Slider(
-    const CRect &size,
-    IControlListener *listener,
-    int32_t tag,
-    int32_t iMinPos,
-    int32_t iMaxPos,
-    CBitmap *handle,
-    CBitmap *background,
-    const CPoint &offset = CPoint(0, 0),
-    const int32_t style = kLeft | kHorizontal)
-    : CSlider(size, listener, tag, iMinPos, iMaxPos, handle, background, offset, style)
-  {
-    setFrameColor(frameColor);
-  }
-
-  CLASS_METHODS(Slider, CSlider);
-
-  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseCancel() override;
-
-  void setDefaultFrameColor(CColor color);
-  void setHighlightColor(CColor color);
-  void setDefaultFrameWidth(float width);
-  void setHighlightWidth(float width);
-
-protected:
-  CColor frameColor = CColor(0xee, 0xee, 0xee, 255);
-  CColor highlightColor = CColor(0, 0, 0, 255);
-  float frameWidth = 1.0f;
-  float highlightFrameWidth = 2.0f;
-};
 
 CMouseEventResult Slider::onMouseEntered(CPoint &where, const CButtonState &buttons)
 {

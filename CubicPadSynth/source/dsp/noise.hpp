@@ -19,8 +19,6 @@
 
 #include "../../../lib/vcl/vectorclass.h"
 
-#include "somemath.hpp"
-
 #include <cstdint>
 
 namespace SomeDSP {

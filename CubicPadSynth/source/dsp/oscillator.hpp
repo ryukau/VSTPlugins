@@ -17,12 +17,9 @@
 
 #pragma once
 
+#include "../../../common/dsp/constants.hpp"
 #include "../../../lib/fftw3/fftw3.h"
-
 #include "../../../lib/vcl/vectorclass.h"
-
-#include "constants.hpp"
-#include "somemath.hpp"
 
 #include <algorithm>
 #include <array>

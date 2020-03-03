@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include "../../../lib/vcl/vectorclass.h"
+#include "../../lib/vcl/vectorclass.h"
 
 #include "somemath.hpp"
 

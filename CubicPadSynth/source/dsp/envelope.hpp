@@ -17,8 +17,7 @@
 
 #pragma once
 
-#include "smoother.hpp"
-
+#include "../../../common/dsp/smoother.hpp"
 #include "../../../lib/vcl/vectorclass.h"
 #include "../../../lib/vcl/vectormath_exp.h"
 #include "../../../lib/vcl/vectormath_hyp.h"

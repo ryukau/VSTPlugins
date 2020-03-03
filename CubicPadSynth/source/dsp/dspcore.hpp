@@ -17,15 +17,14 @@
 
 #pragma once
 
+#include "../../../common/dsp/constants.hpp"
+#include "../../../common/dsp/smoother.hpp"
+#include "../../../lib/vcl/vectorclass.h"
+#include "../../../lib/vcl/vectormath_exp.h"
 #include "../parameter.hpp"
-#include "constants.hpp"
 #include "envelope.hpp"
 #include "noise.hpp"
 #include "oscillator.hpp"
-#include "smoother.hpp"
-
-#include "../../../lib/vcl/vectorclass.h"
-#include "../../../lib/vcl/vectormath_exp.h"
 
 #include <array>
 #include <cmath>
