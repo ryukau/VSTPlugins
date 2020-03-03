@@ -36,8 +36,8 @@ void DSPCORE_NAME::setup(double sampleRate)
 {
   this->sampleRate = sampleRate;
 
-  LinearSmoother<float>::setSampleRate(sampleRate);
-  LinearSmoother<float>::setTime(0.04f);
+  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setTime(0.04f);
 
   interpPhase.setRange(float(twopi));
 
@@ -63,7 +63,7 @@ void DSPCORE_NAME::setParameters(float tempo)
 {
   using ID = ParameterID::ID;
 
-  LinearSmoother<float>::setTime(param.value[ID::smoothness]->getFloat());
+  SmootherCommon<float>::setTime(param.value[ID::smoothness]->getFloat());
 
   interpMix.push(param.value[ID::mix]->getFloat());
   interpFrequency.push(param.value[ID::frequency]->getFloat() * twopi / sampleRate);
@@ -86,7 +86,7 @@ void DSPCORE_NAME::setParameters(float tempo)
 void DSPCORE_NAME::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
-  LinearSmoother<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(length);
 
   for (size_t i = 0; i < length; ++i) {
     const auto freq = interpFrequency.process();

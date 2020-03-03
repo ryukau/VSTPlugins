@@ -17,10 +17,10 @@
 
 #pragma once
 
+#include "../../../common/dsp/constants.hpp"
+#include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
-#include "constants.hpp"
 #include "phaser.hpp"
-#include "smoother.hpp"
 
 #include "../../../lib/vcl/vectorclass.h"
 

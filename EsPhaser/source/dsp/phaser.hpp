@@ -17,8 +17,7 @@
 
 #pragma once
 
-#include "smoother.hpp"
-
+#include "../../../common/dsp/smoother.hpp"
 #include "../../../lib/juce_FastMathApproximations.h"
 #include "../../../lib/vcl/vectorclass.h"
 #include "../../../lib/vcl/vectormath_trig.h"
