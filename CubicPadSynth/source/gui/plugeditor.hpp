@@ -67,7 +67,6 @@ public:
   open(void *parent, const PlatformType &platformType = kDefaultNative) override;
   void PLUGIN_API close() override;
   void valueChanged(CControl *pControl) override;
-  void valueChanged(ParamID id, ParamValue normalized);
   void updateUI(Vst::ParamID id, ParamValue normalized);
 
   void onMouseEntered(CView *view, CFrame *frame) override {}

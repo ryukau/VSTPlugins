@@ -22,7 +22,6 @@
 #include "vstgui/vstgui.h"
 
 #include "arraycontrol.hpp"
-#include "plugeditor.hpp"
 
 #include <algorithm>
 #include <random>
@@ -31,26 +30,25 @@ namespace VSTGUI {
 
 class BarBox : public ArrayControl {
 public:
-  Steinberg::Vst::PlugEditor *editor = nullptr;
+  Steinberg::IPlugView *editor = nullptr;
   bool drawCenterLine = false;
 
   BarBox(
+    Steinberg::Vst::EditController *controller,
     const CRect &size,
-    Steinberg::Vst::PlugEditor *editor,
+    Steinberg::IPlugView *editor,
     std::vector<Steinberg::Vst::ParamID> id,
     std::vector<double> value,
     std::vector<double> defaultValue)
-    : ArrayControl(size, id, value, defaultValue)
+    : ArrayControl(controller, size, id, value, defaultValue)
     , editor(editor)
     , sliderWidth((size.right - size.left) / value.size())
   {
     setWantsFocus(true);
-    editor->remember();
   }
 
   ~BarBox()
   {
-    if (editor) editor->forget();
     if (indexFontID) indexFontID->forget();
     if (nameFontID) nameFontID->forget();
   }
@@ -71,20 +69,6 @@ public:
     const float &distance,
     const CButtonState &buttons) override;
   int32_t onKeyDown(VstKeyCode &key) override;
-
-  void valueChangedAt(size_t index)
-  {
-    if (!getFrame() || editor == nullptr) return;
-    getFrame()->beginEdit(id[index]);
-    editor->valueChanged(id[index], value[index]);
-    getFrame()->endEdit(id[index]);
-  }
-
-  void valueChanged()
-  {
-    if (id.size() != value.size()) return;
-    for (size_t i = 0; i < id.size(); ++i) valueChangedAt(i);
-  }
 
   void setIndexFont(CFontRef fontID) { indexFontID = fontID; }
   void setNameFont(CFontRef fontID) { nameFontID = fontID; }
@@ -225,7 +209,7 @@ CMouseEventResult BarBox::onMouseExited(CPoint &where, const CButtonState &butto
 CMouseEventResult BarBox::onMouseDown(CPoint &where, const CButtonState &buttons)
 {
   if (buttons.isRightButton()) {
-    auto componentHandler = editor->getController()->getComponentHandler();
+    auto componentHandler = controller->getComponentHandler();
     if (componentHandler == nullptr) return kMouseEventNotHandled;
 
     using namespace Steinberg;
@@ -279,7 +263,7 @@ CMouseEventResult BarBox::onMouseMoved(CPoint &where, const CButtonState &button
 CMouseEventResult BarBox::onMouseCancel()
 {
   if (isDirty()) {
-    valueChanged();
+    updateValue();
     invalid();
   }
   return kMouseEventHandled;
@@ -297,7 +281,7 @@ bool BarBox::onWheel(
   if (index >= value.size()) return false;
 
   setValueAt(index, value[index] + distance * 0.01f);
-  valueChangedAt(index);
+  updateValueAt(index);
   invalid();
   return true;
 }
@@ -367,7 +351,7 @@ int32_t BarBox::onKeyDown(VstKeyCode &key)
     return -1;
   }
   invalid();
-  valueChanged();
+  updateValue();
   return 1;
 }
 
@@ -465,7 +449,7 @@ void BarBox::setValueFromPosition(CPoint &position, const CButtonState &buttons)
     setValueAt(index, defaultValue[index]);
   else
     setValueAt(index, 1.0 - double(position.y) / getHeight());
-  valueChangedAt(index);
+  updateValueAt(index);
   invalid();
 }
 
@@ -483,7 +467,7 @@ void BarBox::setValueFromLine(CPoint p0, CPoint p1)
   if (left == right) {
     // p0 and p1 are in a same bar.
     setValueAt(left, 1.0f - (p0y + p1y) * 0.5f / getHeight());
-    valueChangedAt(left);
+    updateValueAt(left);
     invalid();
     return;
   }
@@ -510,7 +494,7 @@ void BarBox::setValueFromLine(CPoint p0, CPoint p1)
     y += yInc;
   }
 
-  valueChanged();
+  updateValue();
   invalid();
 }
 

@@ -18,18 +18,31 @@
 #pragma once
 
 #include "pluginterfaces/vst/vsttypes.h"
+#include "public.sdk/source/vst/vsteditcontroller.h"
 #include "vstgui/vstgui.h"
 
 namespace VSTGUI {
 
 struct ArrayControl : public CControl {
+public:
   ArrayControl(
+    Steinberg::Vst::EditController *controller,
     const CRect &size,
     std::vector<Steinberg::Vst::ParamID> id,
     std::vector<double> value,
     std::vector<double> defaultValue)
-    : CControl(size, nullptr, -1), id(id), value(value), defaultValue(defaultValue)
+    : CControl(size, nullptr, -1)
+    , controller(controller)
+    , id(id)
+    , value(value)
+    , defaultValue(defaultValue)
   {
+    if (controller != nullptr) controller->addRef();
+  }
+
+  ~ArrayControl()
+  {
+    if (controller != nullptr) controller->release();
   }
 
   void setValueAt(size_t index, double normalized)
@@ -38,8 +51,19 @@ struct ArrayControl : public CControl {
       value[index] = normalized < 0.0 ? 0.0 : normalized > 1.0 ? 1.0 : normalized;
   }
 
-  void updateValueAt(size_t index) {}
+  void updateValue()
+  {
+    if (id.size() != value.size()) return;
+    for (size_t i = 0; i < id.size(); ++i) updateValueAt(i);
+  }
 
+  void updateValueAt(size_t index)
+  {
+    controller->setParamNormalized(id[index], value[index]);
+    controller->performEdit(id[index], value[index]);
+  }
+
+  Steinberg::Vst::EditController *controller = nullptr;
   std::vector<Steinberg::Vst::ParamID> id;
   std::vector<double> value;
   std::vector<double> defaultValue;

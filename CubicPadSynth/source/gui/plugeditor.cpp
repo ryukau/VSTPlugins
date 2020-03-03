@@ -691,12 +691,6 @@ void PlugEditor::valueChanged(CControl *pControl)
   controller->performEdit(tag, value);
 }
 
-void PlugEditor::valueChanged(ParamID id, ParamValue normalized)
-{
-  controller->setParamNormalized(id, normalized);
-  controller->performEdit(id, normalized);
-}
-
 void PlugEditor::updateUI(Vst::ParamID id, ParamValue normalized)
 {
   auto iter = controlMap.find(id);
@@ -766,7 +760,8 @@ BarBox *PlugEditor::addBarBox(
     defaultValue[i] = param.value[id[i]]->getDefaultNormalized();
 
   auto barBox = new BarBox(
-    CRect(left, top, left + width, top + height), this, id, value, defaultValue);
+    getController(), CRect(left, top, left + width, top + height), this, id, value,
+    defaultValue);
   barBox->setIndexFont(
     new CFontDesc(PlugEditorStyle::fontName(), 10.0, CTxtFace::kBoldFace));
   barBox->setNameFont(
@@ -824,7 +819,7 @@ PlugEditor::addGroupVerticalLabel(CCoord left, CCoord top, CCoord width, UTF8Str
 {
   return nullptr;
 
-  // VSTGUI 4.9 can't draw roteted text.
+  // VSTGUI 4.9 can't draw rotated text.
   /*
   auto label = new VGroupLabel(
     CRect(left, top, left + labelHeight, top + width), this, UTF8String(name));
