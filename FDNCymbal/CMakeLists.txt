@@ -1,13 +1,27 @@
+cmake_minimum_required(VERSION 3.10)
+
+set(CMAKE_VERBOSE_MAKEFILE OFF)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
 set(plug_sources
     source/parameter.cpp
-    source/plugcontroller.cpp
-    source/plugfactory.cpp
-    source/plugprocessor.cpp
+    ../common/gui/barbox.cpp
+    ../common/gui/button.cpp
+    ../common/gui/checkbox.cpp
+    ../common/gui/knob.cpp
+    ../common/gui/optionmenu.cpp
+    ../common/gui/rotaryknob.cpp
+    ../common/gui/slider.cpp
+    ../common/gui/splash.cpp
+    source/gui/splashdraw.cpp
+    ../common/gui/tabview.cpp
+    ../common/gui/plugeditor.cpp
+    source/editor.cpp
     source/dsp/dspcore.cpp
-    source/gui/knob.cpp
-    source/gui/plugeditor.cpp
-    source/gui/splash.cpp
-)
+    source/plugprocessor.cpp
+    source/plugfactory.cpp)
 
 set(target FDNCymbal)
 

@@ -19,8 +19,8 @@
 
 #include <cmath>
 
-#include "constants.hpp"
-#include "somemath.hpp"
+#include "../../../common/dsp/constants.hpp"
+#include "../../../common/dsp/somemath.hpp"
 
 namespace SomeDSP {
 

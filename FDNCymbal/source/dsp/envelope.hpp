@@ -17,9 +17,9 @@
 
 #pragma once
 
-#include "constants.hpp"
-#include "smoother.hpp"
-#include "somemath.hpp"
+#include "../../../common/dsp/constants.hpp"
+#include "../../../common/dsp/smoother.hpp"
+#include "../../../common/dsp/somemath.hpp"
 
 #include <algorithm>
 

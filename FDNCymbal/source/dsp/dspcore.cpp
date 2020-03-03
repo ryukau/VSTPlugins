@@ -34,8 +34,8 @@ void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = sampleRate;
 
-  LinearSmoother<float>::setSampleRate(sampleRate);
-  LinearSmoother<float>::setTime(0.01f);
+  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setTime(0.01f);
 
   noteStack.reserve(128);
   noteStack.resize(0);
@@ -99,7 +99,7 @@ void DSPCore::setParameters()
 {
   using ID = ParameterID::ID;
 
-  LinearSmoother<float>::setTime(param.value[ID::smoothness]->getFloat());
+  SmootherCommon<float>::setTime(param.value[ID::smoothness]->getFloat());
 
   if (!noteStack.empty()) {
     velocity = noteStack.back().velocity;
@@ -138,7 +138,7 @@ void DSPCore::setParameters()
 void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
-  LinearSmoother<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(length);
 
   for (auto &fdn : fdnCascade)
     for (auto &time : fdn.delayTime) time.refresh();

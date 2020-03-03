@@ -17,13 +17,13 @@
 
 #pragma once
 
+#include "../../../common/dsp/constants.hpp"
+#include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
-#include "constants.hpp"
 #include "delay.hpp"
 #include "envelope.hpp"
 #include "iir.hpp"
 #include "oscillator.hpp"
-#include "smoother.hpp"
 
 #include <array>
 #include <cmath>
