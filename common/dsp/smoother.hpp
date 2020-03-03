@@ -58,6 +58,7 @@ public:
 
   virtual inline Sample getValue() { return value; }
   virtual void reset(Sample value) { this->value = value; }
+  virtual void refresh() { push(target); }
 
   virtual Sample process()
   {
