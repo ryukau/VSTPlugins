@@ -75,6 +75,56 @@ protected:
   Sample ramp = 0.0;
 };
 
+template<typename Sample> class LinearSmootherLocal {
+public:
+  void setSampleRate(Sample _sampleRate, Sample time = 0.04)
+  {
+    sampleRate = _sampleRate;
+    setTime(time);
+  }
+
+  void setTime(Sample seconds) { timeInSamples = seconds * sampleRate; }
+  void setBufferSize(Sample bufferSize) { this->bufferSize = bufferSize; }
+
+  void reset(Sample value)
+  {
+    this->value = target = value;
+    ramp = 0;
+  }
+
+  void refresh() { push(target); }
+
+  void push(Sample newTarget)
+  {
+    target = newTarget;
+    if (timeInSamples < bufferSize)
+      value = target;
+    else
+      ramp = (target - value) / timeInSamples;
+  }
+
+  inline Sample getValue() { return value; }
+
+  Sample process()
+  {
+    if (value == target) return value;
+    value += ramp;
+
+    auto diff = value - target;
+    if (diff < 0) diff = -diff;
+    if (diff < 1e-5) value = target;
+    return value;
+  }
+
+protected:
+  Sample sampleRate = 44100;
+  Sample timeInSamples = -1;
+  Sample bufferSize = 0;
+  Sample value = 1.0;
+  Sample target = 1.0;
+  Sample ramp = 0.0;
+};
+
 class alignas(64) LinearSmoother16 {
 public:
   void push(
