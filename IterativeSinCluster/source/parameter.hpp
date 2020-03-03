@@ -20,7 +20,8 @@
 #include <memory>
 #include <vector>
 
-#include "value.hpp"
+#include "../../common/parameterInterface.hpp"
+#include "../../common/value.hpp"
 
 namespace Steinberg {
 namespace Synth {
@@ -179,7 +180,7 @@ struct Scales {
   static SomeDSP::LogScale<double> smoothness;
 };
 
-struct GlobalParameter {
+struct GlobalParameter : public ParameterInterface {
   std::vector<std::unique_ptr<ValueInterface>> value;
 
   GlobalParameter()
@@ -438,6 +439,12 @@ struct GlobalParameter {
     for (auto &val : value)
       if (val->addParameter(parameters)) return kResultFalse;
     return kResultOk;
+  }
+
+  double getDefaultNormalized(int32_t tag)
+  {
+    if (size_t(abs(tag)) >= value.size()) return 0.0;
+    return value[tag]->getDefaultNormalized();
   }
 };
 

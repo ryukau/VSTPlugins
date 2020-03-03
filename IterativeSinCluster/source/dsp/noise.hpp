@@ -17,9 +17,9 @@
 
 #pragma once
 
-#include <cstdint>
+#include "../../../common/dsp/somemath.hpp"
 
-#include "somemath.hpp"
+#include <cstdint>
 
 namespace SomeDSP {
 
