@@ -29,7 +29,7 @@
 // Modified by Takamitsu Endo, 2020.
 //
 // RunLoop class is copied from `vstgui4/vstgui/plugin-bindings/vst3editor.cpp`.
-// Only used in Linux build.
+// Used only in Linux build.
 //
 
 #pragma once
