@@ -67,9 +67,10 @@ set(plug_sources
   ../common/gui/plugeditor.cpp
   ../common/gui/rotaryknob.cpp
   ../common/gui/slider.cpp
+  ../common/gui/splash.cpp
+  ../common/gui/splashdrawempty.cpp
   ../common/gui/tabview.cpp
   source/parameter.cpp
-  # source/plugcontroller.cpp
   source/plugfactory.cpp
   source/plugprocessor.cpp
   source/editor.cpp)
