@@ -143,6 +143,23 @@ CMouseEventResult Knob::onMouseCancel()
   return kMouseEventHandled;
 }
 
+bool Knob::onWheel(
+  const CPoint &where,
+  const CMouseWheelAxis &axis,
+  const float &distance,
+  const CButtonState &buttons)
+{
+  if (isEditing() || axis != kMouseWheelAxisY || distance == 0.0f) return false;
+
+  beginEdit();
+  value += distance * sensitivity * 0.5f;
+  bounceValue();
+  valueChanged();
+  endEdit();
+  invalid();
+  return true;
+}
+
 void Knob::setSlitWidth(double width) { halfSlitWidth = width / 2.0; }
 void Knob::setDefaultTickLength(double length) { defaultTickLength = length; }
 void Knob::setBackgroundColor(CColor color) { backgroundColor = color; }

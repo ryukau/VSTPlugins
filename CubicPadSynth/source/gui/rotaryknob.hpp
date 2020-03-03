@@ -39,6 +39,11 @@ public:
   CMouseEventResult onMouseUp(CPoint &where, const CButtonState &buttons) override;
   CMouseEventResult onMouseMoved(CPoint &where, const CButtonState &buttons) override;
   CMouseEventResult onMouseCancel() override;
+  bool onWheel(
+    const CPoint &where,
+    const CMouseWheelAxis &axis,
+    const float &distance,
+    const CButtonState &buttons) override;
 
   void setSlitWidth(double width);
   void setDefaultTickLength(double length);
@@ -189,6 +194,24 @@ CMouseEventResult RotaryKnob::onMouseCancel()
   isMouseDown = false;
   isMouseEntered = false;
   return kMouseEventHandled;
+}
+
+bool RotaryKnob::onWheel(
+  const CPoint &where,
+  const CMouseWheelAxis &axis,
+  const float &distance,
+  const CButtonState &buttons)
+{
+  if (isEditing() || axis != kMouseWheelAxisY || distance == 0.0f) return false;
+
+  beginEdit();
+  value += distance * sensitivity * 0.5f;
+  value -= floor(value);
+  bounceValue();
+  valueChanged();
+  endEdit();
+  invalid();
+  return true;
 }
 
 void RotaryKnob::setSlitWidth(double width) { halfSlitWidth = width / 2.0; }

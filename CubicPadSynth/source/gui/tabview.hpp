@@ -75,6 +75,12 @@ public:
   CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override;
   CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override;
   CMouseEventResult onMouseMoved(CPoint &where, const CButtonState &buttons) override;
+  bool onWheel(
+    const CPoint &where,
+    const CMouseWheelAxis &axis,
+    const float &distance,
+    const CButtonState &buttons) override;
+
   CLASS_METHODS(TabView, CView);
 
 protected:
@@ -89,6 +95,7 @@ protected:
   CFontRef tabFontID = nullptr;
 
   bool isMouseEntered = false;
+  CPoint mousePosition;
 };
 
 TabView::TabView(
@@ -199,7 +206,7 @@ CMouseEventResult TabView::onMouseEntered(CPoint &where, const CButtonState &but
 {
   isMouseEntered = true;
   return kMouseEventHandled;
-};
+}
 
 CMouseEventResult TabView::onMouseExited(CPoint &where, const CButtonState &buttons)
 {
@@ -207,7 +214,7 @@ CMouseEventResult TabView::onMouseExited(CPoint &where, const CButtonState &butt
   for (auto &tab : tabs) tab.isMouseEntered = false;
   invalid();
   return kMouseEventHandled;
-};
+}
 
 CMouseEventResult TabView::onMouseDown(CPoint &where, const CButtonState &buttons)
 {
@@ -224,10 +231,13 @@ CMouseEventResult TabView::onMouseDown(CPoint &where, const CButtonState &button
   refreshTab();
   invalid();
   return kMouseEventHandled;
-};
+}
 
 CMouseEventResult TabView::onMouseMoved(CPoint &where, const CButtonState &buttons)
 {
+  // auto view = getViewSize();
+  // mousePosition = where - CPoint(view.left, view.top);
+  // mousePosition = where;
   if (!isMouseEntered) return kMouseEventNotHandled;
   auto view = getViewSize();
   auto mouseX = where.x - view.left;
@@ -235,13 +245,32 @@ CMouseEventResult TabView::onMouseMoved(CPoint &where, const CButtonState &butto
   for (auto &tab : tabs) tab.isMouseEntered = tab.hitTest(mouseX, mouseY);
   invalid();
   return kMouseEventHandled;
-};
+}
+
+bool TabView::onWheel(
+  const CPoint &where,
+  const CMouseWheelAxis &axis,
+  const float &distance,
+  const CButtonState &buttons)
+{
+  if (distance == 0.0f || !isInTabArea(where)) return false;
+  if (distance > 0.0f) {
+    activeTabIndex -= 1;
+    if (activeTabIndex >= tabs.size()) activeTabIndex += tabs.size();
+  } else {
+    activeTabIndex += 1;
+    if (activeTabIndex >= tabs.size()) activeTabIndex -= tabs.size();
+  }
+  refreshTab();
+  invalid();
+  return true;
+}
 
 bool TabView::isInTabArea(const CPoint &pos)
 {
   auto view = getViewSize();
   return view.left <= pos.x && pos.x <= view.right && view.top <= pos.y
-    && pos.y <= view.bottom;
+    && pos.y <= view.top + tabHeight;
 }
 
 } // namespace VSTGUI

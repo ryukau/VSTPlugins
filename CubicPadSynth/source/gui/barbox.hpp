@@ -65,6 +65,11 @@ public:
   CMouseEventResult onMouseUp(CPoint &where, const CButtonState &buttons) override;
   CMouseEventResult onMouseMoved(CPoint &where, const CButtonState &buttons) override;
   CMouseEventResult onMouseCancel() override;
+  bool onWheel(
+    const CPoint &where,
+    const CMouseWheelAxis &axis,
+    const float &distance,
+    const CButtonState &buttons) override;
   int32_t onKeyDown(VstKeyCode &key) override;
 
   void valueChangedAt(size_t index)
@@ -278,6 +283,23 @@ CMouseEventResult BarBox::onMouseCancel()
     invalid();
   }
   return kMouseEventHandled;
+}
+
+bool BarBox::onWheel(
+  const CPoint &where,
+  const CMouseWheelAxis &axis,
+  const float &distance,
+  const CButtonState &buttons)
+{
+  if (isEditing() || axis != kMouseWheelAxisY || distance == 0.0f) return false;
+
+  size_t index = calcIndex(mousePosition);
+  if (index >= value.size()) return false;
+
+  setValueAt(index, value[index] + distance * 0.01f);
+  valueChangedAt(index);
+  invalid();
+  return true;
 }
 
 int32_t BarBox::onKeyDown(VstKeyCode &key)

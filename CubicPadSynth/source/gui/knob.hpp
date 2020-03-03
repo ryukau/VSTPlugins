@@ -44,6 +44,11 @@ public:
   CMouseEventResult onMouseUp(CPoint &where, const CButtonState &buttons) override;
   CMouseEventResult onMouseMoved(CPoint &where, const CButtonState &buttons) override;
   CMouseEventResult onMouseCancel() override;
+  bool onWheel(
+    const CPoint &where,
+    const CMouseWheelAxis &axis,
+    const float &distance,
+    const CButtonState &buttons) override;
 
   void setSlitWidth(double width);
   void setDefaultTickLength(double length);
