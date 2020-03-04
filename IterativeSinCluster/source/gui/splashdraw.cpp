@@ -42,42 +42,25 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->setFont(fontIDTitle);
   pContext->setFontColor(CColor(0, 0, 0, 255));
-  pContext->drawString(
-    UTF8String("IterativeSinCluster " VERSION_STR).getPlatformString(),
-    CPoint(20.0, 50.0));
+  pContext->drawString(("IterativeSinCluster " VERSION_STR), CPoint(20.0, 50.0));
 
   pContext->setFont(fontIDText);
   pContext->setFontColor(CColor(0, 0, 0, 255));
-  pContext->drawString(
-    UTF8String("© 2019 Takamitsu Endo (ryukau@gmail.com)").getPlatformString(),
-    CPoint(20.0, 90.0));
+  pContext->drawString(("© 2019 Takamitsu Endo (ryukau@gmail.com)"), CPoint(20.0, 90.0));
 
-  pContext->drawString(UTF8String("- Knob -").getPlatformString(), CPoint(20.0, 150.0));
-  pContext->drawString(
-    UTF8String("Shift + Left Drag: Fine Adjustment").getPlatformString(),
-    CPoint(20.0, 180.0));
-  pContext->drawString(
-    UTF8String("Ctrl + Left Click: Reset to Default").getPlatformString(),
-    CPoint(20.0, 210.0));
+  pContext->drawString(("- Knob -"), CPoint(20.0, 150.0));
+  pContext->drawString(("Shift + Left Drag: Fine Adjustment"), CPoint(20.0, 180.0));
+  pContext->drawString(("Ctrl + Left Click: Reset to Default"), CPoint(20.0, 210.0));
 
-  pContext->drawString(UTF8String("- Number -").getPlatformString(), CPoint(20.0, 270.0));
-  pContext->drawString(
-    UTF8String("Shares same controls with knob, and:").getPlatformString(),
-    CPoint(20.0, 300.0));
-  pContext->drawString(
-    UTF8String("Middle Click: Flip Minimum and Maximum").getPlatformString(),
-    CPoint(20.0, 330.0));
+  pContext->drawString(("- Number -"), CPoint(20.0, 270.0));
+  pContext->drawString(("Shares same controls with knob, and:"), CPoint(20.0, 300.0));
+  pContext->drawString(("Middle Click: Flip Minimum and Maximum"), CPoint(20.0, 330.0));
 
-  pContext->drawString(
-    UTF8String("- Overtone -").getPlatformString(), CPoint(380.0, 150.0));
-  pContext->drawString(
-    UTF8String("Ctrl + Left Drag: Reset to Default").getPlatformString(),
-    CPoint(380.0, 180.0));
-  pContext->drawString(
-    UTF8String("Middle Drag: Draw Line").getPlatformString(), CPoint(380.0, 210.0));
+  pContext->drawString(("- Overtone -"), CPoint(380.0, 150.0));
+  pContext->drawString(("Ctrl + Left Drag: Reset to Default"), CPoint(380.0, 180.0));
+  pContext->drawString(("Middle Drag: Draw Line"), CPoint(380.0, 210.0));
 
-  pContext->drawString(
-    UTF8String("Have a nice day!").getPlatformString(), CPoint(380.0, 300.0));
+  pContext->drawString(("Have a nice day!"), CPoint(380.0, 300.0));
 
   // Border.
   const auto borderColor = CColor(0, 0, 0, 255);
@@ -89,11 +72,6 @@ void CreditView::draw(CDrawContext *pContext)
     kDrawStroked);
 
   setDirty(false);
-}
-
-inline IPlatformString *CreditView::conv(const char *text)
-{
-  return UTF8String(text).getPlatformString();
 }
 
 } // namespace Vst

@@ -42,23 +42,16 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->setFont(fontIDTitle);
   pContext->setFontColor(CColor(0, 0, 0, 255));
-  pContext->drawString(
-    UTF8String("WaveCymbal " VERSION_STR).getPlatformString(), CPoint(20.0, 50.0));
+  pContext->drawString(("WaveCymbal " VERSION_STR), CPoint(20.0, 50.0));
 
   pContext->setFont(fontIDText);
   pContext->setFontColor(CColor(0, 0, 0, 255));
-  pContext->drawString(
-    UTF8String("© 2019 Takamitsu Endo (ryukau@gmail.com)").getPlatformString(),
-    CPoint(20.0, 90.0));
+  pContext->drawString(("© 2019 Takamitsu Endo (ryukau@gmail.com)"), CPoint(20.0, 90.0));
 
-  pContext->drawString(
-    UTF8String("Shift + Drag: Fine Adjustment").getPlatformString(), CPoint(20.0, 150.0));
-  pContext->drawString(
-    UTF8String("Ctrl + Click: Reset to Default").getPlatformString(),
-    CPoint(20.0, 180.0));
+  pContext->drawString(("Shift + Drag: Fine Adjustment"), CPoint(20.0, 150.0));
+  pContext->drawString(("Ctrl + Click: Reset to Default"), CPoint(20.0, 180.0));
 
-  pContext->drawString(
-    UTF8String("Have a nice day!").getPlatformString(), CPoint(20.0, 240.0));
+  pContext->drawString(("Have a nice day!"), CPoint(20.0, 240.0));
 
   // Border.
   const auto borderColor = CColor(0, 0, 0, 255);
@@ -70,11 +63,6 @@ void CreditView::draw(CDrawContext *pContext)
     kDrawStroked);
 
   setDirty(false);
-}
-
-inline IPlatformString *CreditView::conv(const char *text)
-{
-  return UTF8String(text).getPlatformString();
 }
 
 } // namespace Vst
