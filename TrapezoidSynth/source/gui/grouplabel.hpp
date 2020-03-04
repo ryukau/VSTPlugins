@@ -17,20 +17,19 @@
 
 #pragma once
 
+#include "../../../common/gui/guistyle.hpp"
 #include "vstgui/vstgui.h"
-
-#include "guistyle.hpp"
 
 namespace VSTGUI {
 
-class GroupLabel : public CControl {
+class GroupLabelTpz : public CControl {
 public:
-  GroupLabel(const CRect &size, IControlListener *listener, UTF8StringPtr text)
+  GroupLabelTpz(const CRect &size, IControlListener *listener, UTF8StringPtr text)
     : CControl(size, listener), text(text)
   {
   }
 
-  ~GroupLabel()
+  ~GroupLabelTpz()
   {
     if (fontID) fontID->forget();
   }
@@ -65,7 +64,7 @@ public:
     setDirty(false);
   }
 
-  CLASS_METHODS(GroupLabel, CControl);
+  CLASS_METHODS(GroupLabelTpz, CControl);
 
   void setForegroundColor(CColor color) { foregroundColor = color; }
   void setBackgroundColor(CColor color) { backgroundColor = color; }

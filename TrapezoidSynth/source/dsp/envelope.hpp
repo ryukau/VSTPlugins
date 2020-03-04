@@ -1,12 +1,31 @@
 #pragma once
 
-#include "constants.hpp"
-#include "smoother.hpp"
-#include "somemath.hpp"
+#include "../../../common/dsp/constants.hpp"
+#include "../../../common/dsp/somemath.hpp"
 
 #include <algorithm>
 
 namespace SomeDSP {
+
+// PID controller without I and D.
+template<typename Sample> class PControllerTpz {
+public:
+  Sample sampleRate = 44100;
+
+  PControllerTpz(Sample kp) : kp(kp) {}
+
+  void reset() { value = 0; }
+
+  Sample process(Sample input)
+  {
+    value += kp * (input - value) / sampleRate;
+    return value;
+  }
+
+private:
+  Sample kp;
+  Sample value = 0;
+};
 
 // t in [0, 1].
 template<typename Sample> inline Sample cosinterp(Sample t)
@@ -257,7 +276,7 @@ protected:
   Decay dec{44100, 1, 1};
   Release rel{44100, 1, 1};
 
-  PController<Sample> smoother{2048};
+  PControllerTpz<Sample> smoother{2048};
 
   State state = State::terminated;
   Sample value = 0;

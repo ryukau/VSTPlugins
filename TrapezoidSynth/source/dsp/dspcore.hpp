@@ -17,12 +17,12 @@
 
 #pragma once
 
+#include "../../../common/dsp/constants.hpp"
+#include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
-#include "constants.hpp"
 #include "envelope.hpp"
 #include "iir.hpp"
 #include "oscillator.hpp"
-#include "smoother.hpp"
 
 #include <array>
 #include <cmath>
@@ -132,11 +132,7 @@ public:
   static const size_t maxVoice = 32;
   GlobalParameter param;
 
-  DSPCore()
-  {
-    param.validate();
-    midiNotes.reserve(128);
-  }
+  DSPCore() { midiNotes.reserve(128); }
 
   void setup(double sampleRate);
   void free();    // Release memory.

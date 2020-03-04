@@ -19,10 +19,10 @@
 
 #include <algorithm>
 
+#include "../../../common/dsp/constants.hpp"
+#include "../../../common/dsp/somemath.hpp"
 #include "../../../lib/juce_FastMathApproximations.h"
-#include "constants.hpp"
 #include "noise.hpp"
-#include "somemath.hpp"
 
 namespace SomeDSP {
 

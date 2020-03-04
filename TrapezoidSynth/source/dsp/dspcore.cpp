@@ -336,8 +336,8 @@ void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = sampleRate;
 
-  LinearSmoother<float>::setSampleRate(sampleRate);
-  LinearSmoother<float>::setTime(0.01f);
+  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setTime(0.01f);
 
   noteStack.reserve(128);
   noteStack.resize(0);
@@ -362,7 +362,7 @@ void DSPCore::startup() { tpz1.startup(); }
 
 void DSPCore::setParameters(double tempo)
 {
-  LinearSmoother<float>::setTime(param.value[ParameterID::smoothness]->getFloat());
+  SmootherCommon<float>::setTime(param.value[ParameterID::smoothness]->getFloat());
 
   interpMasterGain.push(velocity * param.value[ParameterID::gain]->getFloat());
 
@@ -371,7 +371,7 @@ void DSPCore::setParameters(double tempo)
 
 void DSPCore::process(const size_t length, float *out0, float *out1)
 {
-  LinearSmoother<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(length);
 
   float sample = 1.0;
   for (uint32_t i = 0; i < length; ++i) {

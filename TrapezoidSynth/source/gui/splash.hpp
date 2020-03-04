@@ -17,55 +17,17 @@
 
 #pragma once
 
+#include "../../../common/gui/guistyle.hpp"
 #include "vstgui/vstgui.h"
-
-#include "guistyle.hpp"
 
 namespace Steinberg {
 namespace Vst {
 
 using namespace VSTGUI;
 
-class CreditView : public CControl {
+class SplashLabelTpz : public CControl {
 public:
-  CreditView(const CRect &size, IControlListener *listener) : CControl(size, listener)
-  {
-    setVisible(false);
-
-    fontIDTitle = new CFontDesc(Style::fontName(), fontSizeTitle, CTxtFace::kBoldFace);
-    fontIDText = new CFontDesc(Style::fontName(), fontSize);
-  }
-
-  ~CreditView()
-  {
-    if (fontIDTitle) fontIDTitle->forget();
-    if (fontIDText) fontIDText->forget();
-  }
-
-  void draw(CDrawContext *pContext) override;
-
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
-  {
-    if (buttons.isLeftButton()) {
-      setVisible(false);
-      return kMouseDownEventHandledButDontNeedMovedOrUpEvents;
-    }
-    return kMouseEventNotHandled;
-  }
-
-  CLASS_METHODS(CreditView, CControl)
-
-private:
-  CCoord fontSize = 12.0;
-  CCoord fontSizeTitle = 18.0;
-
-  CFontRef fontIDTitle = nullptr;
-  CFontRef fontIDText = nullptr;
-};
-
-class SplashLabel : public CControl {
-public:
-  SplashLabel(
+  SplashLabelTpz(
     const CRect &size,
     IControlListener *listener,
     int32_t tag,
@@ -74,16 +36,16 @@ public:
     : CControl(size, listener, tag), splashView(splashView), txt(txt)
   {
     if (splashView != nullptr) splashView->remember();
-    fontID = new CFontDesc(Style::fontName(), fontSize, CTxtFace::kBoldFace);
+    fontID = new CFontDesc(PlugEditorStyle::fontName(), fontSize, CTxtFace::kBoldFace);
   }
 
-  ~SplashLabel()
+  ~SplashLabelTpz()
   {
     if (splashView != nullptr) splashView->forget();
     if (fontID) fontID->forget();
   }
 
-  CLASS_METHODS(SplashLabel, CControl);
+  CLASS_METHODS(SplashLabelTpz, CControl);
 
   void draw(CDrawContext *pContext) override;
 
