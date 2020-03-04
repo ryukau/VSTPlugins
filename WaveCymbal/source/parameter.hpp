@@ -20,7 +20,8 @@
 #include <memory>
 #include <vector>
 
-#include "value.hpp"
+#include "../../common/parameterInterface.hpp"
+#include "../../common/value.hpp"
 
 namespace Steinberg {
 namespace Synth {
@@ -79,7 +80,7 @@ struct Scales {
   static SomeDSP::LogScale<double> gain;
 };
 
-struct GlobalParameter {
+struct GlobalParameter : public ParameterInterface {
   std::vector<std::unique_ptr<ValueInterface>> value;
 
   GlobalParameter()
@@ -92,54 +93,55 @@ struct GlobalParameter {
     using LogValue = FloatValue<SomeDSP::LogScale<double>>;
 
     value[ID::bypass] = std::make_unique<IntValue>(
-      0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass, ID::bypass);
+      0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
-    value[ID::seed] = std::make_unique<IntValue>(
-      6583421, Scales::seed, "seed", Info::kCanAutomate, ID::seed);
+    value[ID::seed]
+      = std::make_unique<IntValue>(6583421, Scales::seed, "seed", Info::kCanAutomate);
     value[ID::randomAmount] = std::make_unique<LogValue>(
-      1.0, Scales::randomAmount, "randomAmount", Info::kCanAutomate, ID::randomAmount);
+      1.0, Scales::randomAmount, "randomAmount", Info::kCanAutomate);
     value[ID::nCymbal] = std::make_unique<LinearValue>(
-      1.0, Scales::nCymbal, "nCymbal", Info::kCanAutomate, ID::nCymbal);
-    value[ID::stack] = std::make_unique<IntValue>(
-      24, Scales::stack, "stack", Info::kCanAutomate, ID::stack);
-    value[ID::decay] = std::make_unique<LogValue>(
-      0.5, Scales::decay, "decay", Info::kCanAutomate, ID::decay);
-    value[ID::distance] = std::make_unique<LogValue>(
-      0.5, Scales::distance, "distance", Info::kCanAutomate, ID::distance);
+      1.0, Scales::nCymbal, "nCymbal", Info::kCanAutomate);
+    value[ID::stack]
+      = std::make_unique<IntValue>(24, Scales::stack, "stack", Info::kCanAutomate);
+    value[ID::decay]
+      = std::make_unique<LogValue>(0.5, Scales::decay, "decay", Info::kCanAutomate);
+    value[ID::distance]
+      = std::make_unique<LogValue>(0.5, Scales::distance, "distance", Info::kCanAutomate);
     value[ID::minFrequency] = std::make_unique<LogValue>(
-      0.5, Scales::minFrequency, "minFrequency", Info::kCanAutomate, ID::minFrequency);
+      0.5, Scales::minFrequency, "minFrequency", Info::kCanAutomate);
     value[ID::maxFrequency] = std::make_unique<LogValue>(
-      0.5, Scales::maxFrequency, "maxFrequency", Info::kCanAutomate, ID::maxFrequency);
+      0.5, Scales::maxFrequency, "maxFrequency", Info::kCanAutomate);
     value[ID::bandpassQ] = std::make_unique<LinearValue>(
-      0.5, Scales::bandpassQ, "bandpassQ", Info::kCanAutomate, ID::bandpassQ);
-    value[ID::damping] = std::make_unique<LogValue>(
-      0.5, Scales::damping, "damping", Info::kCanAutomate, ID::damping);
+      0.5, Scales::bandpassQ, "bandpassQ", Info::kCanAutomate);
+    value[ID::damping]
+      = std::make_unique<LogValue>(0.5, Scales::damping, "damping", Info::kCanAutomate);
     value[ID::pulsePosition] = std::make_unique<LinearValue>(
-      0.5, Scales::defaultScale, "pulsePosition", Info::kCanAutomate, ID::pulsePosition);
+      0.5, Scales::defaultScale, "pulsePosition", Info::kCanAutomate);
     value[ID::pulseWidth] = std::make_unique<LinearValue>(
-      0.5, Scales::defaultScale, "pulseWidth", Info::kCanAutomate, ID::pulseWidth);
+      0.5, Scales::defaultScale, "pulseWidth", Info::kCanAutomate);
     value[ID::pickCombFeedback] = std::make_unique<LogValue>(
-      0.5, Scales::pickCombFeedback, "pickCombFeedback", Info::kCanAutomate,
-      ID::pickCombFeedback);
+      0.5, Scales::pickCombFeedback, "pickCombFeedback", Info::kCanAutomate);
     value[ID::pickCombTime] = std::make_unique<LogValue>(
-      0.25, Scales::pickCombTime, "pickCombTime", Info::kCanAutomate, ID::pickCombTime);
-    value[ID::retrigger] = std::make_unique<IntValue>(
-      0, Scales::boolScale, "retrigger", Info::kCanAutomate, ID::retrigger);
-    value[ID::cutoffMap] = std::make_unique<IntValue>(
-      0, Scales::boolScale, "cutoffMap", Info::kCanAutomate, ID::cutoffMap);
+      0.25, Scales::pickCombTime, "pickCombTime", Info::kCanAutomate);
+    value[ID::retrigger]
+      = std::make_unique<IntValue>(0, Scales::boolScale, "retrigger", Info::kCanAutomate);
+    value[ID::cutoffMap]
+      = std::make_unique<IntValue>(0, Scales::boolScale, "cutoffMap", Info::kCanAutomate);
     value[ID::excitation] = std::make_unique<IntValue>(
-      1, Scales::boolScale, "excitation", Info::kCanAutomate, ID::excitation);
-    value[ID::collision] = std::make_unique<IntValue>(
-      1, Scales::boolScale, "collision", Info::kCanAutomate, ID::collision);
-    value[ID::oscType] = std::make_unique<IntValue>(
-      2, Scales::oscType, "oscType", Info::kCanAutomate, ID::oscType);
+      1, Scales::boolScale, "excitation", Info::kCanAutomate);
+    value[ID::collision]
+      = std::make_unique<IntValue>(1, Scales::boolScale, "collision", Info::kCanAutomate);
+    value[ID::oscType]
+      = std::make_unique<IntValue>(2, Scales::oscType, "oscType", Info::kCanAutomate);
     value[ID::smoothness] = std::make_unique<LogValue>(
-      0.7, Scales::smoothness, "smoothness", Info::kCanAutomate, ID::smoothness);
+      0.7, Scales::smoothness, "smoothness", Info::kCanAutomate);
 
-    value[ID::gain] = std::make_unique<LogValue>(
-      0.4, Scales::gain, "gain", Info::kCanAutomate, ID::gain);
+    value[ID::gain]
+      = std::make_unique<LogValue>(0.4, Scales::gain, "gain", Info::kCanAutomate);
     value[ID::pitchBend] = std::make_unique<LinearValue>(
-      0.5, Scales::defaultScale, "pitchBend", Info::kCanAutomate, ID::pitchBend);
+      0.5, Scales::defaultScale, "pitchBend", Info::kCanAutomate);
+
+    for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }
 
   tresult setState(IBStream *stream)
@@ -163,6 +165,12 @@ struct GlobalParameter {
     for (auto &val : value)
       if (val->addParameter(parameters)) return kResultFalse;
     return kResultOk;
+  }
+
+  double getDefaultNormalized(int32_t tag)
+  {
+    if (size_t(abs(tag)) >= value.size()) return 0.0;
+    return value[tag]->getDefaultNormalized();
   }
 };
 

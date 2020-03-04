@@ -20,10 +20,10 @@
 #include <array>
 #include <memory>
 
+#include "../../../common/dsp/smoother.hpp"
+#include "../../../common/dsp/somemath.hpp"
 #include "../../../lib/juce_FastMathApproximations.h"
 #include "delay.hpp"
-#include "smoother.hpp"
-#include "somemath.hpp"
 #include "wave.hpp"
 
 namespace SomeDSP {

@@ -2,8 +2,8 @@
 
 #include <array>
 
+#include "../../../common/dsp/constants.hpp"
 #include "../../../lib/juce_FastMathApproximations.h"
-#include "constants.hpp"
 
 namespace SomeDSP {
 

@@ -17,10 +17,10 @@
 
 #pragma once
 
+#include "../../../common/dsp/constants.hpp"
+#include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
-#include "constants.hpp"
 #include "ksstring.hpp"
-#include "smoother.hpp"
 
 #include <array>
 #include <cmath>
