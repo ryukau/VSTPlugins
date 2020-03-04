@@ -18,7 +18,7 @@
 #include "dspcore.hpp"
 
 namespace Steinberg {
-namespace SevenDelay {
+namespace Synth {
 
 constexpr size_t channel = 2;
 
@@ -29,7 +29,7 @@ float clamp(float value, float min, float max)
 
 void DSPCore::setup(double sampleRate)
 {
-  LinearSmoother<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(sampleRate);
 
   for (size_t i = 0; i < delay.size(); ++i)
     delay[i].setup(sampleRate, 1.0f, maxDelayTime);
@@ -62,12 +62,11 @@ void DSPCore::startup()
 
 void DSPCore::setParameters(double tempo)
 {
-  auto smoothness = param.value[ParameterID::smoothness]->getFloat();
-  LinearSmoother<float>::setTime(smoothness);
+  SmootherCommon<float>::setTime(param.value[ParameterID::smoothness]->getFloat());
 
   // This won't work if sync is on and tempo < 15. Up to 8 sec or 8/16 beat.
   // 15.0 is come from (60 sec per minute) * (4 beat) / (16 beat).
-  Vst::ParamValue time = param.value[ParameterID::time]->getFloat();
+  auto time = param.value[ParameterID::time]->getFloat();
   if (param.value[ParameterID::tempoSync]->getInt()) {
     if (time < 1.0)
       time *= 15.0 / tempo;
@@ -75,7 +74,7 @@ void DSPCore::setParameters(double tempo)
       time = floor(2.0 * time) * 7.5 / tempo;
   }
 
-  Vst::ParamValue offset = param.value[ParameterID::offset]->getFloat();
+  auto offset = param.value[ParameterID::offset]->getFloat();
   if (offset < 0.0) {
     interpTime[0].push(time * (1.0 + offset));
     interpTime[1].push(time);
@@ -126,7 +125,7 @@ void DSPCore::setParameters(double tempo)
 void DSPCore::process(
   const size_t length, float *in0, float *in1, float *out0, float *out1)
 {
-  LinearSmoother<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(length);
 
   const bool lfoHold = !param.value[ParameterID::lfoHold]->getInt();
   for (size_t i = 0; i < length; ++i) {
@@ -179,5 +178,5 @@ void DSPCore::process(
   }
 }
 
-} // namespace SevenDelay
+} // namespace Synth
 } // namespace Steinberg

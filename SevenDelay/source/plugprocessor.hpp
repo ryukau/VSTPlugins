@@ -26,7 +26,7 @@
 #include "dsp/dspcore.hpp"
 
 namespace Steinberg {
-namespace SevenDelay {
+namespace Synth {
 
 class PlugProcessor : public Vst::AudioEffect {
 public:
@@ -58,5 +58,5 @@ protected:
   DSPCore dsp;
 };
 
-} // namespace SevenDelay
+} // namespace Synth
 } // namespace Steinberg

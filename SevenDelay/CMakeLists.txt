@@ -1,24 +1,26 @@
+cmake_minimum_required(VERSION 3.10)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(plug_sources
-    source/parameter.hpp
     source/parameter.cpp
-    source/plugcontroller.hpp
-    source/plugcontroller.cpp
-    source/plugfactory.cpp
-    source/plugprocessor.hpp
-    source/plugprocessor.cpp
-    source/version.hpp
-    source/dsp/dspcore.hpp
-    source/dsp/dspcore.cpp
-    source/gui/plugeditor.hpp
-    source/gui/plugeditor.cpp
-    source/gui/waveview.hpp
+    ../common/gui/barbox.cpp
+    ../common/gui/button.cpp
+    ../common/gui/checkbox.cpp
+    ../common/gui/knob.cpp
+    ../common/gui/optionmenu.cpp
+    ../common/gui/rotaryknob.cpp
+    ../common/gui/slider.cpp
+    ../common/gui/splash.cpp
+    source/gui/splashdraw.cpp
+    ../common/gui/tabview.cpp
     source/gui/waveview.cpp
-    source/gui/knob.hpp
-    source/gui/knob.cpp
-    source/gui/splash.hpp
-    source/gui/splash.cpp
-)
+    ../common/gui/plugeditor.cpp
+    source/dsp/dspcore.cpp
+    source/plugprocessor.cpp
+    source/editor.cpp
+    source/plugfactory.cpp)
 
 set(target SevenDelay)
 

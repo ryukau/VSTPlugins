@@ -20,10 +20,11 @@
 #include <memory>
 #include <vector>
 
-#include "value.hpp"
+#include "../../common/parameterInterface.hpp"
+#include "../../common/value.hpp"
 
 namespace Steinberg {
-namespace SevenDelay {
+namespace Synth {
 
 constexpr Vst::ParamValue maxDelayTime = 8.0;
 constexpr Vst::ParamValue maxToneFrequency = 20000.0;
@@ -58,7 +59,9 @@ enum ID : Vst::ParamID {
 } // namespace ParameterID
 
 struct Scales {
+  static SomeDSP::IntScale<double> boolScale;
   static SomeDSP::LinearScale<double> defaultScale;
+
   static SomeDSP::LogScale<double> time;
   static SomeDSP::SPolyScale<double> offset;
   static SomeDSP::LogScale<double> lfoTimeAmount;
@@ -74,81 +77,65 @@ struct Scales {
   static SomeDSP::LogScale<double> dckillMix; // internal
 };
 
-struct GlobalParameter {
+struct GlobalParameter : public ParameterInterface {
   std::vector<std::unique_ptr<ValueInterface>> value;
 
   GlobalParameter()
   {
     value.resize(ParameterID::ID_ENUM_LENGTH);
 
-    using ValueBool = IntValue;
-    using ValueLinear = FloatValue<SomeDSP::LinearScale<double>>;
-    using ValueLog = FloatValue<SomeDSP::LogScale<double>>;
-    using ValueSPoly = FloatValue<SomeDSP::SPolyScale<double>>;
+    using Info = Vst::ParameterInfo;
+    using ID = ParameterID::ID;
+    using LinearValue = FloatValue<SomeDSP::LinearScale<double>>;
+    using LogValue = FloatValue<SomeDSP::LogScale<double>>;
+    using SPolyValue = FloatValue<SomeDSP::SPolyScale<double>>;
 
-    value[ParameterID::bypass] = std::make_unique<ValueBool>(
-      0.0, 1, "Bypass", Vst::ParameterInfo::kCanAutomate | Vst::ParameterInfo::kIsBypass,
-      ParameterID::bypass);
-    value[ParameterID::time] = std::make_unique<ValueLog>(
-      0.5, Scales::time, "Time", Vst::ParameterInfo::kCanAutomate, ParameterID::time);
-    value[ParameterID::feedback] = std::make_unique<ValueLinear>(
-      0.625, Scales::defaultScale, "Feedback", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::feedback);
-    value[ParameterID::offset] = std::make_unique<ValueSPoly>(
-      0.5, Scales::offset, "Stereo", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::offset);
-    value[ParameterID::wetMix] = std::make_unique<ValueLinear>(
-      0.75, Scales::defaultScale, "WetMix", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::wetMix);
-    value[ParameterID::dryMix] = std::make_unique<ValueLinear>(
-      1.0, Scales::defaultScale, "DryMix", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::dryMix);
-    value[ParameterID::tempoSync] = std::make_unique<ValueBool>(
-      0.0, 1, "TempoSync", Vst::ParameterInfo::kCanAutomate, ParameterID::tempoSync);
-    value[ParameterID::negativeFeedback] = std::make_unique<ValueBool>(
-      0.0, 1, "NegativeFeedback", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::negativeFeedback);
-    value[ParameterID::lfoTimeAmount] = std::make_unique<ValueLog>(
-      0.0, Scales::lfoTimeAmount, "LFO to Time", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::lfoTimeAmount);
-    value[ParameterID::lfoFrequency] = std::make_unique<ValueLog>(
-      0.5, Scales::lfoFrequency, "LFO Frequency", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::lfoFrequency);
-    value[ParameterID::lfoShape] = std::make_unique<ValueLog>(
-      0.5, Scales::lfoShape, "LFO Shape", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::lfoShape);
-    value[ParameterID::lfoInitialPhase] = std::make_unique<ValueLinear>(
-      0.0, Scales::lfoInitialPhase, "LFO Initial Phase", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::lfoInitialPhase);
-    value[ParameterID::lfoHold] = std::make_unique<ValueBool>(
-      0.0, 1, "LFO Phase Hold", Vst::ParameterInfo::kCanAutomate, ParameterID::lfoHold);
-    value[ParameterID::smoothness] = std::make_unique<ValueLog>(
-      0.3, Scales::smoothness, "Smoothness", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::smoothness);
-    value[ParameterID::inSpread] = std::make_unique<ValueLinear>(
-      0.0, Scales::defaultScale, "Input Stereo Spread", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::inSpread);
-    value[ParameterID::inPan] = std::make_unique<ValueLinear>(
-      0.5, Scales::defaultScale, "Input Pan", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::inPan);
-    value[ParameterID::outSpread] = std::make_unique<ValueLinear>(
-      0.0, Scales::defaultScale, "Output Stereo Spread", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::outSpread);
-    value[ParameterID::outPan] = std::make_unique<ValueLinear>(
-      0.5, Scales::defaultScale, "Output Pan", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::outPan);
-    value[ParameterID::toneCutoff] = std::make_unique<ValueLog>(
-      1.0, Scales::toneCutoff, "Allpass Cutoff", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::toneCutoff);
-    value[ParameterID::dckill] = std::make_unique<ValueLog>(
-      0.0, Scales::dckill, "DC Kill", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::dckill);
-    value[ParameterID::lfoToneAmount] = std::make_unique<ValueLog>(
-      0.0, Scales::lfoToneAmount, "LFO to Allpass", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::lfoToneAmount);
-    value[ParameterID::toneQ] = std::make_unique<ValueLog>(
-      0.9, Scales::toneQ, "Allpass Q", Vst::ParameterInfo::kCanAutomate,
-      ParameterID::toneQ);
+    value[ID::bypass] = std::make_unique<IntValue>(
+      0.0, Scales::boolScale, "Bypass", Info::kCanAutomate | Info::kIsBypass);
+    value[ID::time]
+      = std::make_unique<LogValue>(0.5, Scales::time, "Time", Info::kCanAutomate);
+    value[ID::feedback] = std::make_unique<LinearValue>(
+      0.625, Scales::defaultScale, "Feedback", Info::kCanAutomate);
+    value[ID::offset]
+      = std::make_unique<SPolyValue>(0.5, Scales::offset, "Stereo", Info::kCanAutomate);
+    value[ID::wetMix] = std::make_unique<LinearValue>(
+      0.75, Scales::defaultScale, "WetMix", Info::kCanAutomate);
+    value[ID::dryMix] = std::make_unique<LinearValue>(
+      1.0, Scales::defaultScale, "DryMix", Info::kCanAutomate);
+    value[ID::tempoSync] = std::make_unique<IntValue>(
+      0.0, Scales::boolScale, "TempoSync", Info::kCanAutomate);
+    value[ID::negativeFeedback] = std::make_unique<IntValue>(
+      0.0, Scales::boolScale, "NegativeFeedback", Info::kCanAutomate);
+    value[ID::lfoTimeAmount] = std::make_unique<LogValue>(
+      0.0, Scales::lfoTimeAmount, "LFO to Time", Info::kCanAutomate);
+    value[ID::lfoFrequency] = std::make_unique<LogValue>(
+      0.5, Scales::lfoFrequency, "LFO Frequency", Info::kCanAutomate);
+    value[ID::lfoShape] = std::make_unique<LogValue>(
+      0.5, Scales::lfoShape, "LFO Shape", Info::kCanAutomate);
+    value[ID::lfoInitialPhase] = std::make_unique<LinearValue>(
+      0.0, Scales::lfoInitialPhase, "LFO Initial Phase", Info::kCanAutomate);
+    value[ID::lfoHold] = std::make_unique<IntValue>(
+      0.0, Scales::boolScale, "LFO Phase Hold", Info::kCanAutomate);
+    value[ID::smoothness] = std::make_unique<LogValue>(
+      0.3, Scales::smoothness, "Smoothness", Info::kCanAutomate);
+    value[ID::inSpread] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "Input Stereo Spread", Info::kCanAutomate);
+    value[ID::inPan] = std::make_unique<LinearValue>(
+      0.5, Scales::defaultScale, "Input Pan", Info::kCanAutomate);
+    value[ID::outSpread] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "Output Stereo Spread", Info::kCanAutomate);
+    value[ID::outPan] = std::make_unique<LinearValue>(
+      0.5, Scales::defaultScale, "Output Pan", Info::kCanAutomate);
+    value[ID::toneCutoff] = std::make_unique<LogValue>(
+      1.0, Scales::toneCutoff, "Allpass Cutoff", Info::kCanAutomate);
+    value[ID::dckill]
+      = std::make_unique<LogValue>(0.0, Scales::dckill, "DC Kill", Info::kCanAutomate);
+    value[ID::lfoToneAmount] = std::make_unique<LogValue>(
+      0.0, Scales::lfoToneAmount, "LFO to Allpass", Info::kCanAutomate);
+    value[ID::toneQ]
+      = std::make_unique<LogValue>(0.9, Scales::toneQ, "Allpass Q", Info::kCanAutomate);
+
+    for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }
 
   tresult setState(IBStream *stream)
@@ -173,7 +160,13 @@ struct GlobalParameter {
       if (val->addParameter(parameters)) return kResultFalse;
     return kResultOk;
   }
+
+  double getDefaultNormalized(int32_t tag)
+  {
+    if (size_t(abs(tag)) >= value.size()) return 0.0;
+    return value[tag]->getDefaultNormalized();
+  }
 };
 
-} // namespace SevenDelay
+} // namespace Synth
 } // namespace Steinberg

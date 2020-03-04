@@ -54,15 +54,15 @@ public:
   bool PLUGIN_API
   open(void *parent, const PlatformType &platformType = kDefaultNative) override;
   void PLUGIN_API close() override;
-  void valueChanged(CControl *pControl) override;
-  void valueChanged(ParamID id, ParamValue normalized);
-  void updateUI(Vst::ParamID id, ParamValue normalized);
+  virtual void valueChanged(CControl *pControl) override;
+  virtual void valueChanged(ParamID id, ParamValue normalized);
+  virtual void updateUI(Vst::ParamID id, ParamValue normalized);
 
-  void onMouseEntered(CView *view, CFrame *frame) override {}
-  void onMouseExited(CView *view, CFrame *frame) override {}
-  CMouseEventResult
+  virtual void onMouseEntered(CView *view, CFrame *frame) override {}
+  virtual void onMouseExited(CView *view, CFrame *frame) override {}
+  virtual CMouseEventResult
   onMouseMoved(CFrame *frame, const CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult
+  virtual CMouseEventResult
   onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &buttons) override;
 
   DELEGATE_REFCOUNT(VSTGUIEditor);
@@ -76,7 +76,8 @@ public:
     float splashTop,
     float splashWidth,
     float splashHeight,
-    const char *pluginName);
+    const char *pluginName,
+    float buttonFontSize = 18.0);
 
   BarBox *addBarBox(
     CCoord left,

@@ -28,7 +28,7 @@
 #include "pluginterfaces/vst/ivstprocesscontext.h"
 
 namespace Steinberg {
-namespace SevenDelay {
+namespace Synth {
 
 PlugProcessor::PlugProcessor() { setControllerClass(ControllerUID); }
 
@@ -140,5 +140,5 @@ tresult PLUGIN_API PlugProcessor::getState(IBStream *state)
   return dsp.param.getState(state);
 }
 
-} // namespace SevenDelay
+} // namespace Synth
 } // namespace Steinberg

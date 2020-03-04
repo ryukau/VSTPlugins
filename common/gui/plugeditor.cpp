@@ -140,14 +140,15 @@ void PlugEditor::addSplashScreen(
   float splashTop,
   float splashWidth,
   float splashHeight,
-  const char *pluginName)
+  const char *pluginName,
+  float buttonFontSize)
 {
   auto credit = new CreditView(
     CRect(splashLeft, splashTop, splashLeft + splashWidth, splashTop + splashHeight),
     this);
   auto splash = new SplashLabel(
     CRect(buttonLeft, buttonTop, buttonLeft + buttonWidth, buttonTop + buttonHeight),
-    this, 0, credit, pluginName);
+    this, 0, credit, pluginName, buttonFontSize);
   splash->setHighlightColor(colorOrange);
   frame->addView(splash);
   frame->addView(credit);

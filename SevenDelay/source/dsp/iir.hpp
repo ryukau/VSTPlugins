@@ -17,9 +17,9 @@
 
 #pragma once
 
-#include <cmath>
+#include "../../../common/dsp/constants.hpp"
 
-#include "constants.hpp"
+#include <cmath>
 
 namespace SomeDSP {
 

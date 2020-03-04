@@ -20,16 +20,18 @@
 #include "pluginterfaces/vst/ivstprocesscontext.h"
 #include "public.sdk/source/vst/vstaudioeffect.h"
 
+#include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
 #include "delay.hpp"
 #include "iir.hpp"
-#include "smoother.hpp"
 
 #include <array>
 #include <memory>
 
 namespace Steinberg {
-namespace SevenDelay {
+namespace Synth {
+
+using namespace SomeDSP;
 
 // Lagrange delay is very slow at debug build. If that's the case set Order to 1.
 using DelayTypeName = DelayLagrange<float, 7>;
@@ -74,5 +76,5 @@ protected:
   std::array<DCKillerTypeName, 2> dcKiller;
 };
 
-} // namespace SevenDelay
+} // namespace Synth
 } // namespace Steinberg

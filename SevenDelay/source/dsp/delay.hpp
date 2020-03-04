@@ -18,7 +18,6 @@
 #pragma once
 
 #include <algorithm>
-#include <stdlib.h>
 #include <vector>
 
 template<typename Sample, unsigned char Order> class FractionalDelayLagrange {

@@ -15,21 +15,15 @@
 // You should have received a copy of the GNU General Public License
 // along with SevenDelay.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "pluginterfaces/vst/vsttypes.h"
-
-#ifndef _USE_MATH_DEFINES
-#define _USE_MATH_DEFINES
-#endif
-
-#include <cmath>
-
 #include "parameter.hpp"
+#include "../../common/dsp/constants.hpp"
 
 namespace Steinberg {
-namespace SevenDelay {
+namespace Synth {
 
 using namespace SomeDSP;
 
+IntScale<double> Scales::boolScale(1);
 LinearScale<Vst::ParamValue> Scales::defaultScale(0.0, 1.0);
 
 LogScale<Vst::ParamValue> Scales::time(0.0001, maxDelayTime, 0.5, 1.0);
@@ -38,7 +32,7 @@ LogScale<Vst::ParamValue> Scales::lfoTimeAmount(0, 1.0, 0.5, 0.07);
 LogScale<Vst::ParamValue> Scales::lfoToneAmount(0, 0.5, 0.5, 0.1);
 LogScale<Vst::ParamValue> Scales::lfoFrequency(0.01, 100.0, 0.5, 1.0);
 LogScale<Vst::ParamValue> Scales::lfoShape(0.01, 10.0, 0.5, 1.0);
-LinearScale<Vst::ParamValue> Scales::lfoInitialPhase(0.0, 2.0 * M_PI);
+LinearScale<Vst::ParamValue> Scales::lfoInitialPhase(0.0, 2.0 * pi);
 LogScale<Vst::ParamValue> Scales::smoothness(0.0, 1.0, 0.3, 0.04);
 LogScale<Vst::ParamValue> Scales::toneCutoff(90.0, maxToneFrequency, 0.5, 1000.0);
 LogScale<Vst::ParamValue> Scales::toneQ(1e-5, 1.0, 0.5, 0.1);
@@ -46,5 +40,5 @@ LogScale<Vst::ParamValue> Scales::toneMix(0.0, 1.0, 0.9, 0.05);
 LogScale<Vst::ParamValue> Scales::dckill(minDCKillFrequency, 120.0, 0.5, 20.0);
 LogScale<Vst::ParamValue> Scales::dckillMix(0.0, 1.0, 0.9, 0.05);
 
-} // namespace SevenDelay
+} // namespace Synth
 } // namespace Steinberg
