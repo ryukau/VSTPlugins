@@ -16,7 +16,6 @@
 // along with SyncSawSynth.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "dspcore.hpp"
-#include <iostream>
 
 inline float clamp(float value, float min, float max)
 {
@@ -249,8 +248,8 @@ void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = sampleRate;
 
-  LinearSmoother<float>::setSampleRate(sampleRate);
-  LinearSmoother<float>::setTime(0.04f);
+  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setTime(0.04f);
 
   for (auto &note : notes) {
     for (auto &nt : note) nt = std::make_unique<Note<float>>(sampleRate);
@@ -352,7 +351,7 @@ void DSPCore::setParameters()
 
 void DSPCore::process(const size_t length, float *out0, float *out1)
 {
-  LinearSmoother<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(length);
 
   bool unison = param.value[ParameterID::unison]->getFloat();
   for (auto &note : notes) {

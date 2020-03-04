@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include "somemath.hpp"
+#include "../../../common/dsp/somemath.hpp"
 
 namespace SomeDSP {
 

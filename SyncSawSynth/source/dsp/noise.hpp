@@ -19,8 +19,6 @@
 
 #include <cstdint>
 
-#include "somemath.hpp"
-
 namespace SomeDSP {
 
 // Numerical Recipes In C p.284.

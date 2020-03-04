@@ -17,12 +17,12 @@
 
 #pragma once
 
+#include "../../../common/dsp/constants.hpp"
+#include "../../../common/dsp/somemath.hpp"
+#include "../../../lib/juce_FastMathApproximations.h"
+
 #include <array>
 #include <memory>
-
-#include "../../../lib/juce_FastMathApproximations.h"
-#include "constants.hpp"
-#include "somemath.hpp"
 
 namespace SomeDSP {
 
