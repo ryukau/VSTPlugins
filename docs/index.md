@@ -23,7 +23,7 @@ CubicPadSynth は PADsynth アルゴリズムを使ってオシレータのウ�
 
 - [CubicPadSynth のマニュアル (日本語)](manual/CubicPadSynth/CubicPadSynth_ja.html)
 
-CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm is used to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.
+CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.
 
 - [CubicPadSynth Manual (English)](manual/CubicPadSynth/CubicPadSynth_en.html)
 
