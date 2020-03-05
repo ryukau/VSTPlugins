@@ -75,23 +75,25 @@ Overtone controls (`Attack`, `Decay`, `Gain`, `Saturation`) have some keyboard s
 | --------------------------------------- | --------------------------------------- |
 | <kbd>Ctrl</kbd> + <kbd>Left Click</kbd> | Reset to Default                        |
 | <kbd>Right Drag</kbd>                   | Draw Line                               |
-| <kbd>a</kbd>                            | Sort Ascending Order                    |
-| <kbd>d</kbd>                            | Sort Descending Order                   |
+| <kbd>d</kbd>                            | Reset Everything to Default             |
+| <kbd>D</kbd>                            | Toggle Min/Mid/Max                      |
+| <kbd>e</kbd>                            | Emphasize Low                           |
+| <kbd>E</kbd>                            | Emphasize High                          |
 | <kbd>f</kbd>                            | Low-pass Filter                         |
 | <kbd>F</kbd>                            | High-pass Filter                        |
 | <kbd>i</kbd>                            | Invert Value (Preserve current minimum) |
 | <kbd>I</kbd>                            | Invert Value (Minimum to 0)             |
 | <kbd>n</kbd>                            | Normalize (Preserve current minimum)    |
 | <kbd>N</kbd>                            | Normalize (Minimum to 0)                |
-| <kbd>h</kbd>                            | Emphasize High                          |
-| <kbd>l</kbd>                            | Emphasize Low                           |
 | <kbd>p</kbd>                            | Permute                                 |
 | <kbd>r</kbd>                            | Randomize                               |
 | <kbd>R</kbd>                            | Sparse Randomize                        |
-| <kbd>s</kbd>                            | Subtle Randomize                        |
+| <kbd>s</kbd>                            | Sort Descending Order                   |
+| <kbd>S</kbd>                            | Sort Ascending Order                    |
+| <kbd>t</kbd>                            | Subtle Randomize                        |
 | <kbd>,</kbd> (Comma)                    | Rotate Back                             |
 | <kbd>.</kbd> (Period)                   | Rotate Forward                          |
-| <kbd>1</kbd>                            | Decrease Odd                            |
+| <kbd>1</kbd>                            | Decrease                                |
 | <kbd>2</kbd>-<kbd>9</kbd>               | Decrease 2n-9n                          |
 
 ## Block Diagram

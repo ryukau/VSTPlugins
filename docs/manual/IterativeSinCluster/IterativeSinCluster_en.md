@@ -62,8 +62,17 @@ REAPER on Linux may not recognize the plugin. A workaround is to delete a file `
 ## Controls
 Knob and slider can do:
 
-- Ctrl + Left Click: Reset value.
-- Shift + Left Drag: Fine adjustment.
+- <kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.
+- <kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.
+
+Additionally, number sliders use in `Gain`, `Semi` etc. can do:
+
+- <kbd>Wheel Click</kbd>: Toggle Min/Max.
+
+`Overtone` has following controls:
+
+- <kbd>Ctrl</kbd> + <kbd>Left Drag</kbd>: Reset to Default
+- <kbd>Mouse Wheel Drag</kbd>: Draw Line
 
 ## Block Diagram
 If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Image" on right click menu to scale.
