@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-01-24" />
+<meta name="dcterms.date" content="2020-02-29" />
 <title>FDNCymbal_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -201,7 +201,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-01-24
+  Update: 2020-02-29
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -211,6 +211,7 @@ footer {
   <li><a href="#インストール">インストール</a><ul>
   <li><a href="#プラグイン">プラグイン</a></li>
   <li><a href="#プリセット">プリセット</a></li>
+  <li><a href="#windows">Windows</a></li>
   <li><a href="#linux">Linux</a></li>
   </ul></li>
   <li><a href="#操作">操作</a></li>
@@ -221,8 +222,10 @@ footer {
   <li><a href="#gain">Gain</a></li>
   <li><a href="#smooth">Smooth</a></li>
   <li><a href="#stick">Stick</a><ul>
+  <li><a href="#pulse">Pulse</a></li>
+  <li><a href="#tone">Tone</a></li>
+  <li><a href="#velvet">Velvet</a></li>
   <li><a href="#decay">Decay</a></li>
-  <li><a href="#tonemix">ToneMix</a></li>
   </ul></li>
   <li><a href="#random">Random</a><ul>
   <li><a href="#seed">Seed</a></li>
@@ -271,7 +274,7 @@ footer {
 <p><img src="img/fdncymbal.png" /></p>
 <p><ruby>FDNCymbal<rt>エフディーエヌシンバル</rt></ruby> はシンバルのような音を合成するシンセサイザです。エフェクトとして使うこともできます。名前とは裏腹に金属的な質感は FDN (feedback delay network) ではなく Schroeder allpass section によって得られています。 <code>FDN.Time</code> の値を小さくすることで、わりとナイスなばちの衝突音が合成できます。シンバルの揺れをシミュレートするためにトレモロもついています。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/FDNCymbal0.1.5.zip">FDNCymbal 0.1.5 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/FDNCymbal0.2.0.zip">FDNCymbal 0.2.0 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -303,6 +306,11 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
 </ul>
 <p>プリセットディレクトリの名前はプラグインと同じである必要があります。 <code>Uhhyou</code> ディレクトリが無いときは作成してください。</p>
+<h3 id="windows">Windows</h3>
+<p>プラグインが DAW に認識されないときは C++ redistributable をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は <code>vc_redist.x64.exe</code> です。</p>
+<ul>
+<li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest supported Visual C++ downloads</a></li>
+</ul>
 <h3 id="linux">Linux</h3>
 <p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</a></code></pre></div>
@@ -318,6 +326,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li>Shift + 左ドラッグ : 細かい値の変更。</li>
 </ul>
 <h2 id="注意">注意</h2>
+<p>バージョン 0.1.x と 0.2.x は互換性がありません。</p>
 <p><code>FDN.Feedback</code> の値が 0 でないときは信号が発散することがあります。発散したときは <code>FDN.Feedback</code> を一番左まで回してください。</p>
 <p><code>HP Cutoff</code> の値を短時間に大きく変更すると直流が乗ることがあります。直流が乗ったときは、いったん <code>HP Cutoff</code> を上げてから <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> でゆっくりと下げなおしてください。</p>
 <h2 id="エフェクトとしての利用">エフェクトとしての利用</h2>
@@ -349,10 +358,15 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <h3 id="stick">Stick</h3>
 <p><code>Stick</code> がオンのとき、ノートオンのたびにばちでシンバルを叩きます。ノートの高さでノイズの密度とトーンの高さが変わります。</p>
+<h4 id="pulse">Pulse</h4>
+<p>ばちオシレータが出力するインパルスの音量です。</p>
+<h4 id="tone">Tone</h4>
+<p>ばちオシレータが出力するサイン波によるトーンの音量です。</p>
+<h4 id="velvet">Velvet</h4>
+<p>ばちオシレータが出力するベルベットノイズの音量です。</p>
+<p>ベルベットノイズはランダムな間隔で異なる高さのインパルスが出力されるノイズのアルゴリズムです。</p>
 <h4 id="decay">Decay</h4>
 <p>ばちオシレータの減衰時間です。</p>
-<h4 id="tonemix">ToneMix</h4>
-<p>ばちオシレータが出力するトーンの音量です。</p>
 <h3 id="random">Random</h3>
 <h4 id="seed">Seed</h4>
 <p>乱数のシード値です。</p>
@@ -406,6 +420,15 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>ノートオンのたびに <code>Tremolo.DelayTime</code> をランダマイズする度合いです。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.2.0
+<ul>
+<li>プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。</li>
+<li><code>Pulse</code> パラメータの追加。</li>
+<li><code>Velvet</code> パラメータの追加。</li>
+<li><code>ToneMix</code> の名前を <code>Tone</code> に変更。値の範囲も [0, 0.002] から [0, 0.02] に変更。</li>
+<li>サイン波の周波数を割り当てるアルゴリズムを変更。</li>
+<li>ベルベットノイズオシレータのインパルスの間隔がランダムで無かったバグを修正。</li>
+</ul></li>
 <li>0.1.5
 <ul>
 <li>非アクティブ化で音が止まるように修正。</li>
@@ -438,6 +461,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/FDNCymbal0.1.5.zip">FDNCymbal 0.1.5 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/FDNCymbal0.1.4.zip">FDNCymbal 0.1.4 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbal0.1.3.zip">FDNCymbal 0.1.3 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/FDNCymbal0.1.2.zip">FDNCymbal 0.1.2 - VST 3 (github.com)</a></li>

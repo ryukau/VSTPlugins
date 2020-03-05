@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-01-24" />
+<meta name="dcterms.date" content="2020-02-29" />
 <title>SevenDelay_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -201,7 +201,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-01-24
+  Update: 2020-02-29
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -211,6 +211,7 @@ footer {
   <li><a href="#インストール">インストール</a><ul>
   <li><a href="#プラグイン">プラグイン</a></li>
   <li><a href="#プリセット">プリセット</a></li>
+  <li><a href="#windows">Windows</a></li>
   <li><a href="#linux">Linux</a></li>
   </ul></li>
   <li><a href="#操作">操作</a></li>
@@ -255,7 +256,7 @@ footer {
 <p><img src="img/sevendelay.png" /></p>
 <p><ruby>SevenDelay<rt>セブンディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip">SevenDelay 0.1.7 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/SevenDelay0.1.8.zip">SevenDelay 0.1.8 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -287,6 +288,11 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
 </ul>
 <p>プリセットディレクトリの名前はプラグインと同じである必要があります。 <code>Uhhyou</code> ディレクトリが無いときは作成してください。</p>
+<h3 id="windows">Windows</h3>
+<p>プラグインが DAW に認識されないときは C++ redistributable をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は <code>vc_redist.x64.exe</code> です。</p>
+<ul>
+<li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest supported Visual C++ downloads</a></li>
+</ul>
 <h3 id="linux">Linux</h3>
 <p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</a></code></pre></div>
@@ -378,6 +384,10 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 <p>LFO の位相のホールドの切り替え。ライブ演奏などで役に立つかもしれません。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.8
+<ul>
+<li>プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。</li>
+</ul></li>
 <li>0.1.7
 <ul>
 <li>非アクティブ化で音が止まるように修正。</li>
@@ -421,6 +431,7 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip">SevenDelay 0.1.7 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip">SevenDelay 0.1.6 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelay0.1.5.zip">SevenDelay 0.1.5 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SevenDelay0.1.4.zip">SevenDelay 0.1.4 - VST 3 (github.com)</a></li>

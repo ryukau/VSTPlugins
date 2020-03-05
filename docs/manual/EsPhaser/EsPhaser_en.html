@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-01-24" />
+<meta name="dcterms.date" content="2020-02-29" />
 <title>EsPhaser_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -201,7 +201,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-01-24
+  Update: 2020-02-29
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -211,6 +211,7 @@ footer {
   <li><a href="#installation">Installation</a><ul>
   <li><a href="#plugin">Plugin</a></li>
   <li><a href="#presets">Presets</a></li>
+  <li><a href="#windows-specific">Windows Specific</a></li>
   <li><a href="#linux-specific">Linux Specific</a></li>
   </ul></li>
   <li><a href="#controls">Controls</a></li>
@@ -243,7 +244,7 @@ footer {
 <p><img src="img/esphaser.png" /></p>
 <p>EsPhaser is a phaser with up to 4096 stages of order 2 Thiran all-pass filters. This is the same phaser used in EnvelopedSine.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EsPhaser0.1.0.zip">Download EsPhaser 0.1.0 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/EsPhaser0.1.1.zip">Download EsPhaser 0.1.1 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -276,6 +277,11 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
 </ul>
 <p>Preset directory name must be the same as the plugin. Make <code>Uhhyou</code> directory if it does not exist.</p>
+<h3 id="windows-specific">Windows Specific</h3>
+<p>If DAW doesn’t recognize the plugin, try installing C++ redistributable (<code>vc_redist.x64.exe</code>). Installer can be found in the link below.</p>
+<ul>
+<li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest supported Visual C++ downloads</a></li>
+</ul>
 <h3 id="linux-specific">Linux Specific</h3>
 <p>On Ubuntu 18.0.4, those packages are required.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</a></code></pre></div>
@@ -325,13 +331,19 @@ style="display: inline-block; vertical-align: middle;"></li>
 <pre><code>LfoPhaseOffset = Phase + (L/R Offset) + LfoIndex * (Cas. Offset)</code></pre>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.1
+<ul>
+<li>Changed display method for pop-up which shows up by clicking plugin title.</li>
+</ul></li>
 <li>0.1.0
 <ul>
 <li>Initial release.</li>
 </ul></li>
 </ul>
 <h3 id="old-versions">Old Versions</h3>
-<p>N/A.</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EsPhaser0.1.0.zip">EsPhaser 0.1.0 - VST 3 (github.com)</a></li>
+</ul>
 <h2 id="license">License</h2>
 <p>EsPhaser is licensed under GPLv3. Complete licenses are linked below.</p>
 <ul>

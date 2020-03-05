@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-01-24" />
+<meta name="dcterms.date" content="2020-02-29" />
 <title>SyncSawSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -201,7 +201,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-01-24
+  Update: 2020-02-29
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -211,6 +211,7 @@ footer {
   <li><a href="#インストール">インストール</a><ul>
   <li><a href="#プラグイン">プラグイン</a></li>
   <li><a href="#プリセット">プリセット</a></li>
+  <li><a href="#windows">Windows</a></li>
   <li><a href="#linux">Linux</a></li>
   </ul></li>
   <li><a href="#操作">操作</a></li>
@@ -286,7 +287,7 @@ footer {
 <p><img src="img/syncsawsynth.png" /></p>
 <p><ruby>SyncSawSynth<rt>シンクソウシンセ</rt></ruby>は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SyncSawSynth0.1.9.zip">SyncSawSynth 0.1.9 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/SyncSawSynth0.1.10.zip">SyncSawSynth 0.1.10 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -318,6 +319,11 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
 </ul>
 <p>プリセットディレクトリの名前はプラグインと同じである必要があります。 <code>Uhhyou</code> ディレクトリが無いときは作成してください。</p>
+<h3 id="windows">Windows</h3>
+<p>プラグインが DAW に認識されないときは C++ redistributable をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は <code>vc_redist.x64.exe</code> です。</p>
+<ul>
+<li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest supported Visual C++ downloads</a></li>
+</ul>
 <h3 id="linux">Linux</h3>
 <p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</a></code></pre></div>
@@ -480,6 +486,10 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
 <p>ノートの MIDI ノート番号によるフィードバックの変調。範囲は -1.0 から 1.0 。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.10
+<ul>
+<li>プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。</li>
+</ul></li>
 <li>0.1.9
 <ul>
 <li>PreSonus Studio One 4.6.1 で出力にノイズが乗るバグを修正。</li>
@@ -527,6 +537,7 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SyncSawSynth0.1.9.zip">SyncSawSynth 0.1.9 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SyncSawSynth0.1.8.zip">SyncSawSynth 0.1.8 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SyncSawSynth0.1.7.zip">SyncSawSynth 0.1.7 - VST 3 (github.com)</a></li>
 </ul>

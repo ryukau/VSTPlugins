@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-01-24" />
+<meta name="dcterms.date" content="2020-02-29" />
 <title>FDNCymbal_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -201,7 +201,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-01-24
+  Update: 2020-02-29
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -211,6 +211,7 @@ footer {
   <li><a href="#installation">Installation</a><ul>
   <li><a href="#plugin">Plugin</a></li>
   <li><a href="#presets">Presets</a></li>
+  <li><a href="#windows-specific">Windows Specific</a></li>
   <li><a href="#linux-specific">Linux Specific</a></li>
   </ul></li>
   <li><a href="#controls">Controls</a></li>
@@ -221,8 +222,10 @@ footer {
   <li><a href="#gain">Gain</a></li>
   <li><a href="#smooth">Smooth</a></li>
   <li><a href="#stick">Stick</a><ul>
+  <li><a href="#pulse">Pulse</a></li>
+  <li><a href="#tone">Tone</a></li>
+  <li><a href="#velvet">Velvet</a></li>
   <li><a href="#decay">Decay</a></li>
-  <li><a href="#tonemix">ToneMix</a></li>
   </ul></li>
   <li><a href="#random">Random</a><ul>
   <li><a href="#seed">Seed</a></li>
@@ -271,7 +274,7 @@ footer {
 <p><img src="img/fdncymbal.png" /></p>
 <p>FDNCymbal is a cymbal sound synthesizer. It can also be used as an effect. Unlike the name, most of metallic texture comes from Schroeder allpass section rather than FDN (feedback delay network). FDN section makes nice impact sound when <code>FDN.Time</code> is short. Tremolo is added to simulate wobbling of cymbal.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/FDNCymbal0.1.5.zip">Download FDNCymbal 0.1.5 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/FDNCymbal0.2.0.zip">Download FDNCymbal 0.2.0 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -303,6 +306,11 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
 </ul>
 <p>Preset directory name must be the same as the plugin. Make <code>Uhhyou</code> directory if it does not exist.</p>
+<h3 id="windows-specific">Windows Specific</h3>
+<p>If DAW doesn’t recognize the plugin, try installing C++ redistributable (<code>vc_redist.x64.exe</code>). Installer can be found in the link below.</p>
+<ul>
+<li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest supported Visual C++ downloads</a></li>
+</ul>
 <h3 id="linux-specific">Linux Specific</h3>
 <p>On Ubuntu 18.0.4, those packages are required.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</a></code></pre></div>
@@ -318,6 +326,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li>Shift + Left Drag: Fine adjustment.</li>
 </ul>
 <h2 id="caution">Caution</h2>
+<p>There’s no compatibility between version 0.1.x and 0.2.x.</p>
 <p>When <code>FDN.Feedback</code> is non zero, it may possibly blow up. If that happens, turn <code>FDN.Feedback</code> to leftmost.</p>
 <p>When <code>HP Cutoff</code> is moving fast, it may output massive DC. To avoid this, use Shift + Mouse Left Drag or turn up Smooth.</p>
 <h2 id="use-as-effect">Use as Effect</h2>
@@ -349,10 +358,15 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <h3 id="stick">Stick</h3>
 <p>When <code>Stick</code> is on, each note on triggers stick oscillator. Noise density and pitch of tone are related to the pitch of note.</p>
+<h4 id="pulse">Pulse</h4>
+<p>Gain of impulse of stick oscillator.</p>
+<h4 id="tone">Tone</h4>
+<p>Gain of sine wave tone of stick oscillator.</p>
+<h4 id="velvet">Velvet</h4>
+<p>Gain of velvet noise of stick oscillator.</p>
+<p>Velvet noise is a noise algorithm which output different height of impulses with randomized interval.</p>
 <h4 id="decay">Decay</h4>
 <p>Decay time of stick oscillator.</p>
-<h4 id="tonemix">ToneMix</h4>
-<p>Gain of tone of stick oscillator.</p>
 <h3 id="random">Random</h3>
 <h4 id="seed">Seed</h4>
 <p>Value of random seed.</p>
@@ -406,6 +420,15 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>Amount of randomization to <code>Tremolo.DelayTime</code> for each note on.</p>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.2.0
+<ul>
+<li>Changed display method for pop-up which shows up by clicking plugin title.</li>
+<li>Added <code>Pulse</code> parameter to control pulse gain.</li>
+<li>Added <code>Velvet</code> parameter to control velvet noise gain.</li>
+<li>Changed <code>ToneMix</code> to <code>Tone</code>. Value range is increased from [0, 0.002] to [0, 0.02].</li>
+<li>Changed algorithm to allocate sine frequency.</li>
+<li>Fixed velvet noise oscillator to randomize interval.</li>
+</ul></li>
 <li>0.1.5
 <ul>
 <li>Fixed to stop sounds when deactivated.</li>
@@ -438,6 +461,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <h3 id="old-versions">Old Versions</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/FDNCymbal0.1.5.zip">FDNCymbal 0.1.5 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/FDNCymbal0.1.4.zip">FDNCymbal 0.1.4 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbal0.1.3.zip">FDNCymbal 0.1.3 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/FDNCymbal0.1.2.zip">Download FDNCymbal 0.1.2 - VST® 3 (github.com)</a></li>
