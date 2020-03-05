@@ -8,7 +8,6 @@ FDNCymbal is a cymbal sound synthesizer. It can also be used as an effect. Unlik
   alt="VST compatible logo."
   width="60px"
   style="display: inline-block; vertical-align: middle;">
-- [Download Presets (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbalPresets.zip)
 
 The package includes following builds:
 
@@ -222,6 +221,10 @@ Amount of randomization to `Tremolo.DelayTime` for each note on.
 - [FDNCymbal 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/FDNCymbal0.1.4.zip)
 - [FDNCymbal 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbal0.1.3.zip)
 - [Download FDNCymbal 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/FDNCymbal0.1.2.zip)
+
+Presets for old versions.
+
+- [Download Presets for 0.1.* (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbalPresets.zip)
 
 ## License
 FDNCymbal is licensed under GPLv3. Complete licenses are linked below.
