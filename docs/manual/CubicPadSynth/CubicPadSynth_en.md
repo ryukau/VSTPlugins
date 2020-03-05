@@ -1,7 +1,7 @@
 # CubicPadSynth
 ![](img/cubicpadsynth.png)
 
-CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm is used to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.
+CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.
 
 - [Download CubicPadSynth 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/CubicPadSynth0.1.0.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
