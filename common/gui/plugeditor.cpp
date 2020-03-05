@@ -251,8 +251,8 @@ std::tuple<Slider *, CTextLabel *> PlugEditor::addVSlider(
   UTF8StringPtr tooltip,
   bool drawFromCenter)
 {
-  auto right = left + 70.0f;
-  auto bottom = top + 230.0f;
+  auto right = left + sliderWidth;
+  auto bottom = top + sliderHeight;
 
   auto slider = new Slider(
     CRect(left, top, right, bottom), this, tag, top, bottom, nullptr, nullptr);
