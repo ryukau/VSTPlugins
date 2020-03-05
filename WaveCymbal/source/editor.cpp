@@ -1,19 +1,19 @@
 // (c) 2020 Takamitsu Endo
 //
-// This file is part of CubicPadSynth.
+// This file is part of WaveCymbal.
 //
-// CubicPadSynth is free software: you can redistribute it and/or modify
+// WaveCymbal is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// CubicPadSynth is distributed in the hope that it will be useful,
+// WaveCymbal is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with CubicPadSynth.  If not, see <https://www.gnu.org/licenses/>.
+// along with WaveCymbal.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "editor.hpp"
 #include "version.hpp"
@@ -160,7 +160,7 @@ bool Editor::prepareUI()
   const auto splashWidth = 3.0f * knobX;
   addSplashScreen(
     viewRect.right - 20.0f - splashWidth, top2 + 2.0 * margin, splashWidth, 40.0f, 100.0f,
-    20.0f, viewRect.right - 200.0f, viewRect.bottom - 40.0f, "WaveCymbal");
+    20.0f, viewRect.right - 200.0f, viewRect.bottom - 40.0f, "WaveCymbal", 24.0);
 
   return true;
 }

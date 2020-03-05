@@ -1,19 +1,19 @@
 // (c) 2020 Takamitsu Endo
 //
-// This file is part of CubicPadSynth.
+// This file is part of SyncSawSynth.
 //
-// CubicPadSynth is free software: you can redistribute it and/or modify
+// SyncSawSynth is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// CubicPadSynth is distributed in the hope that it will be useful,
+// SyncSawSynth is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with CubicPadSynth.  If not, see <https://www.gnu.org/licenses/>.
+// along with SyncSawSynth.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "editor.hpp"
 #include "version.hpp"
@@ -246,7 +246,7 @@ bool Editor::prepareUI()
   const auto splashLeft = modLeft + 2.0 * knobX;
   addSplashScreen(
     splashLeft + 0.25 * knobX, splashTop, 3.75 * knobX, 40.0, 20.0, 20.0,
-    viewRect.right - 40.0, viewRect.bottom - 40.0, "SyncSawSynth");
+    viewRect.right - 40.0, viewRect.bottom - 40.0, "SyncSawSynth", 24.0);
 
   return true;
 }
