@@ -32,7 +32,6 @@ target_link_libraries(${target} PRIVATE base sdk vstgui_support)
 smtg_add_vst3_snapshot(${target} "resource/CD3D8D67AE6E4322B39DDDC0CA4C35A1_snapshot.png")
 
 if(SMTG_MAC)
-  set_target_properties(${target} PROPERTIES XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "")
   smtg_set_bundle(${target} INFOPLIST "${CMAKE_CURRENT_LIST_DIR}/resource/Info.plist" PREPROCESS)
 elseif(SMTG_WIN)
   target_sources(${target} PRIVATE resource/plug.rc)
