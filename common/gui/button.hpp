@@ -20,6 +20,8 @@
 #include "public.sdk/source/vst/vsteditcontroller.h"
 #include "vstgui/vstgui.h"
 
+#include "guistyle.hpp"
+
 #include <sstream>
 #include <string>
 
@@ -92,7 +94,7 @@ public:
     pContext->setFont(fontID);
     pContext->setFontColor(colorFore);
     pContext->drawString(
-      UTF8String(label.c_str()), CRect(0, 0, getWidth(), getHeight()), kCenterText);
+      conv(label.c_str()), CRect(0, 0, getWidth(), getHeight()), kCenterText);
   }
 
   CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;
@@ -166,7 +168,7 @@ public:
     pContext->setFont(fontID);
     pContext->setFontColor(colorFore);
     pContext->drawString(
-      UTF8String(label.c_str()), CRect(0, 0, getWidth(), getHeight()), kCenterText);
+      conv(label.c_str()), CRect(0, 0, getWidth(), getHeight()), kCenterText);
   }
 
   CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;

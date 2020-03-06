@@ -37,7 +37,7 @@ void SplashLabelTpz::draw(CDrawContext *pContext)
   const auto textOffsetTop = 6.0;
   const auto textOffsetLeft = 3.0;
   pContext->drawString(
-    txt, CRect(textOffsetLeft, textOffsetTop, width, height), kCenterText, true);
+    conv(txt), CRect(textOffsetLeft, textOffsetTop, width, height), kCenterText, true);
 
   const double borderWidth = isMouseEntered ? highlightFrameWidth : frameWidth;
   const double halfBorderWidth = int(borderWidth / 2.0);

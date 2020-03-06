@@ -21,6 +21,8 @@
 
 namespace VSTGUI {
 
+inline auto conv(const char *str) { return UTF8String(str).getPlatformString(); }
+
 struct PlugEditorStyle {
   inline static UTF8String fontName()
   {

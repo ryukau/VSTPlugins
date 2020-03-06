@@ -42,26 +42,27 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->setFont(fontIDTitle);
   pContext->setFontColor(CColor(0, 0, 0, 255));
-  pContext->drawString(("IterativeSinCluster " VERSION_STR), CPoint(20.0, 50.0));
+  pContext->drawString(conv("IterativeSinCluster " VERSION_STR), CPoint(20.0, 50.0));
 
   pContext->setFont(fontIDText);
   pContext->setFontColor(CColor(0, 0, 0, 255));
   pContext->drawString(
-    ("© 2019-2020 Takamitsu Endo (ryukau@gmail.com)"), CPoint(20.0, 90.0));
+    conv("© 2019-2020 Takamitsu Endo (ryukau@gmail.com)"), CPoint(20.0, 90.0));
 
-  pContext->drawString(("- Knob -"), CPoint(20.0, 150.0));
-  pContext->drawString(("Shift + Left Drag: Fine Adjustment"), CPoint(20.0, 180.0));
-  pContext->drawString(("Ctrl + Left Click: Reset to Default"), CPoint(20.0, 210.0));
+  pContext->drawString(conv("- Knob -"), CPoint(20.0, 150.0));
+  pContext->drawString(conv("Shift + Left Drag: Fine Adjustment"), CPoint(20.0, 180.0));
+  pContext->drawString(conv("Ctrl + Left Click: Reset to Default"), CPoint(20.0, 210.0));
 
-  pContext->drawString(("- Number -"), CPoint(20.0, 270.0));
-  pContext->drawString(("Shares same controls with knob, and:"), CPoint(20.0, 300.0));
-  pContext->drawString(("Middle Click: Flip Minimum and Maximum"), CPoint(20.0, 330.0));
+  pContext->drawString(conv("- Number -"), CPoint(20.0, 270.0));
+  pContext->drawString(conv("Shares same controls with knob, and:"), CPoint(20.0, 300.0));
+  pContext->drawString(
+    conv("Middle Click: Flip Minimum and Maximum"), CPoint(20.0, 330.0));
 
-  pContext->drawString(("- Overtone -"), CPoint(380.0, 150.0));
-  pContext->drawString(("Ctrl + Left Drag: Reset to Default"), CPoint(380.0, 180.0));
-  pContext->drawString(("Middle Drag: Draw Line"), CPoint(380.0, 210.0));
+  pContext->drawString(conv("- Overtone -"), CPoint(380.0, 150.0));
+  pContext->drawString(conv("Ctrl + Left Drag: Reset to Default"), CPoint(380.0, 180.0));
+  pContext->drawString(conv("Middle Drag: Draw Line"), CPoint(380.0, 210.0));
 
-  pContext->drawString(("Have a nice day!"), CPoint(380.0, 300.0));
+  pContext->drawString(conv("Have a nice day!"), CPoint(380.0, 300.0));
 
   // Border.
   const auto borderColor = CColor(0, 0, 0, 255);

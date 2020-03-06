@@ -42,17 +42,17 @@ void CreditView::draw(CDrawContext *pContext)
   const auto textLeft = 160.0;
   pContext->setFont(fontIDTitle);
   pContext->setFontColor(CColor(0, 0, 0, 255));
-  pContext->drawString(("TrapezoidSynth " VERSION_STR), CPoint(textLeft, 50.0));
+  pContext->drawString(conv("TrapezoidSynth " VERSION_STR), CPoint(textLeft, 50.0));
 
   pContext->setFont(fontIDText);
   pContext->setFontColor(CColor(0, 0, 0, 255));
   pContext->drawString(
-    ("© 2019-2020 Takamitsu Endo (ryukau@gmail.com)"), CPoint(textLeft, 90.0));
+    conv("© 2019-2020 Takamitsu Endo (ryukau@gmail.com)"), CPoint(textLeft, 90.0));
 
-  pContext->drawString(("Shift + Drag: Fine Adjustment"), CPoint(textLeft, 150.0));
-  pContext->drawString(("Ctrl + Click: Reset to Default"), CPoint(textLeft, 180.0));
+  pContext->drawString(conv("Shift + Drag: Fine Adjustment"), CPoint(textLeft, 150.0));
+  pContext->drawString(conv("Ctrl + Click: Reset to Default"), CPoint(textLeft, 180.0));
 
-  pContext->drawString(("⏢ Have a nice day! ⏢"), CPoint(textLeft, 240.0));
+  pContext->drawString(conv("⏢ Have a nice day! ⏢"), CPoint(textLeft, 240.0));
 
   // Border.
   const auto borderColor = CColor(0, 0, 0, 255);

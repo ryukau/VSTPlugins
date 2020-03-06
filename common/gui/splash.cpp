@@ -23,11 +23,6 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-inline IPlatformString *CreditView::conv(const char *text)
-{
-  return UTF8String(text).getPlatformString();
-}
-
 CMouseEventResult CreditView::onMouseDown(CPoint &where, const CButtonState &buttons)
 {
   if (buttons.isLeftButton()) {
@@ -48,7 +43,7 @@ void SplashLabel::draw(CDrawContext *pContext)
 
   pContext->setFont(fontID);
   pContext->setFontColor(fontColor);
-  pContext->drawString(txt, CRect(0.0, 0.0, width, height), kCenterText, true);
+  pContext->drawString(conv(txt), CRect(0.0, 0.0, width, height), kCenterText, true);
 
   const double borderWidth = isMouseEntered ? highlightFrameWidth : frameWidth;
   const double halfBorderWidth = int(borderWidth / 2.0);

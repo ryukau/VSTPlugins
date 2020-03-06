@@ -16,6 +16,7 @@
 // along with Uhhyou Plugins.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "barbox.hpp"
+#include "guistyle.hpp"
 
 namespace VSTGUI {
 
@@ -58,8 +59,8 @@ void BarBox::draw(CDrawContext *pContext)
       auto left = i * sliderWidth;
       auto right = left + (sliderWidth >= 4.0 ? sliderWidth - defaultBorderWidth : 1.0);
       pContext->drawString(
-        UTF8String(std::to_string(i + 1).c_str()),
-        CRect(left, height - 16, right, height - 4), kCenterText);
+        conv(std::to_string(i + 1).c_str()), CRect(left, height - 16, right, height - 4),
+        kCenterText);
     }
   }
 
@@ -81,13 +82,13 @@ void BarBox::draw(CDrawContext *pContext)
       std::ostringstream os;
       os << "#" << std::to_string(index + 1) << ": " << std::to_string(value[index]);
       std::string indexText(os.str());
-      pContext->drawString(UTF8String(indexText.c_str()), CRect(0, 0, width, height));
+      pContext->drawString(conv(indexText.c_str()), CRect(0, 0, width, height));
     }
   } else {
     // Title.
     pContext->setFont(nameFontID);
     pContext->setFontColor(nameColor);
-    pContext->drawString(UTF8String(name.c_str()), CRect(0, 0, width, height));
+    pContext->drawString(conv(name.c_str()), CRect(0, 0, width, height));
   }
 
   // Center line.

@@ -61,7 +61,7 @@ public:
     pContext->setFontColor(textColor);
     for (size_t idx = 0; idx < str.size(); ++idx) {
       pContext->drawString(
-        UTF8String(str[idx].c_str()),
+        conv(str[idx].c_str()),
         CRect(0, idx * lineHeight, getWidth(), (idx + 1) * lineHeight), kLeftText);
     }
   }
@@ -129,7 +129,7 @@ public:
         const CCoord left = col * cellWidth;
         const CCoord top = row * lineHeight;
         const CRect rect = CRect(left, top, left + cellWidth, top + lineHeight);
-        pContext->drawString(UTF8String(table[row][col].c_str()), rect, kLeftText);
+        pContext->drawString(conv(table[row][col].c_str()), rect, kLeftText);
       }
     }
   }

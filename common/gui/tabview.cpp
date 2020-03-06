@@ -16,6 +16,7 @@
 // along with Uhhyou Plugins.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "tabview.hpp"
+#include "guistyle.hpp"
 
 namespace VSTGUI {
 
@@ -94,7 +95,7 @@ void TabView::draw(CDrawContext *pContext)
 
     pContext->setFillColor(colorFore);
     pContext->drawString(
-      UTF8String(tab.name.c_str()), CRect(tab.left, tab.top, tab.right, tab.bottom),
+      conv(tab.name.c_str()), CRect(tab.left, tab.top, tab.right, tab.bottom),
       kCenterText);
   }
 
@@ -119,7 +120,7 @@ void TabView::draw(CDrawContext *pContext)
 
   pContext->setFillColor(colorFore);
   pContext->drawString(
-    UTF8String(activeTab.name.c_str()),
+    conv(activeTab.name.c_str()),
     CRect(activeTab.left, activeTab.top, activeTab.right, activeTab.bottom), kCenterText);
 }
 
