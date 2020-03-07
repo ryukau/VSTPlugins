@@ -3,7 +3,7 @@
 
 <ruby>EnvelopedSine<rt>エンベロープド サイン</rt></ruby>はノート 1 つあたり 64 のサイン波を計算する加算合成シンセサイザです。各サイン波に AD エンベロープとサチュレータがついているので IterativeSinCluster よりもパーカッシブな音が得意です。
 
-- [EnvelopedSine 0.1.3 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/EnvelopedSine0.1.3.zip) <img
+- [EnvelopedSine 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/EnvelopedSine0.1.4.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -226,6 +226,8 @@ LFO によって変調するオールパスフィルタの特性の最小値で�
 LFO の位相です。オートメーションで音を作りたいときに使えます。 `Freq` を左いっぱいに回すことで LFO の周波数を 0 にできます。
 
 ## チェンジログ
+- 0.1.4
+  - 文字列の描画でクラッシュするバグを修正。
 - 0.1.3
   - プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。
 - 0.1.2

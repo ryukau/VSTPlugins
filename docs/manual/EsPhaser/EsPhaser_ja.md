@@ -3,7 +3,7 @@
 
 <ruby>EsPhaser<rt>エス フェイザ</rt></ruby> は最大 4096 の 2 次 Thiran オールパスフィルタを直列につなぐことができるフェイザです。 EnvelopedSine のフェイザと同じアルゴリズムを使っています。
 
-- [EsPhaser 0.1.1 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/EsPhaser0.1.1.zip) <img
+- [EsPhaser 0.1.2 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/EsPhaser0.1.2.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -126,6 +126,8 @@ LfoPhaseOffset = Phase + (L/R Offset) + LfoIndex * (Cas. Offset)
 パラメータを変更したときに、変更前の値から変更後の値へと移行する秒数です。 `Stage` 以外のパラメータに有効です。
 
 ## チェンジログ
+- 0.1.2
+  - 文字列の描画でクラッシュするバグを修正。
 - 0.1.1
   - プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。
 - 0.1.0

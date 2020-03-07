@@ -3,7 +3,7 @@
 
 SevenDelay is a stereo delay with 7th order lagrange interpolated fractional delay and 7x oversampling.
 
-- [Download SevenDelay 0.1.8 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/SevenDelay0.1.8.zip) <img
+- [Download SevenDelay 0.1.9 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SevenDelay0.1.9.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -170,6 +170,8 @@ LFO phase is reset to `Phase` for each time host starts playing.
 Toggle LFO phase hold. This may be useful for live performance.
 
 ## Change Log
+- 0.1.9
+  - Fixed a bug that cause crash when drawing string.
 - 0.1.8
   - Changed display method for pop-up which shows up by clicking plugin title.
 - 0.1.7

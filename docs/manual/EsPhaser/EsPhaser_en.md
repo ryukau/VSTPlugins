@@ -3,7 +3,7 @@
 
 EsPhaser is a phaser with up to 4096 stages of order 2 Thiran all-pass filters. This is the same phaser used in EnvelopedSine.
 
-- [Download EsPhaser 0.1.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/EsPhaser0.1.1.zip) <img
+- [Download EsPhaser 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/EsPhaser0.1.2.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -123,6 +123,8 @@ LfoPhaseOffset = Phase + (L/R Offset) + LfoIndex * (Cas. Offset)
 ```
 
 ## Change Log
+- 0.1.2
+  - Fixed a bug that cause crash when drawing string.
 - 0.1.1
   - Changed display method for pop-up which shows up by clicking plugin title.
 - 0.1.0

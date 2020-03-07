@@ -3,7 +3,7 @@
 
 IterativeSinCluster is an additive synthesizer. This synth computes 512 sine waves for each note to make tone cluster. I somehow thought "iterative sin" is a valid term. Correct term is "recursive sine".
 
-- [Download IterativeSinCluster 0.1.4 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/IterativeSinCluster0.1.4.zip) <img
+- [Download IterativeSinCluster 0.1.5 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/IterativeSinCluster0.1.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -211,6 +211,8 @@ Feedback of delay.
 When checked, change delay time relative to note frequency.
 
 ## Change Log
+- 0.1.5
+  - Fixed a bug that cause crash when drawing string.
 - 0.1.4
   - Changed display method for pop-up which shows up by clicking plugin title.
 - 0.1.3
