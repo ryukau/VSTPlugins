@@ -94,7 +94,7 @@ public:
     pContext->setFont(fontID);
     pContext->setFontColor(colorFore);
     pContext->drawString(
-      conv(label.c_str()), CRect(0, 0, getWidth(), getHeight()), kCenterText);
+      label.c_str(), CRect(0, 0, getWidth(), getHeight()), kCenterText);
   }
 
   CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;
@@ -168,7 +168,7 @@ public:
     pContext->setFont(fontID);
     pContext->setFontColor(colorFore);
     pContext->drawString(
-      conv(label.c_str()), CRect(0, 0, getWidth(), getHeight()), kCenterText);
+      label.c_str(), CRect(0, 0, getWidth(), getHeight()), kCenterText);
   }
 
   CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;

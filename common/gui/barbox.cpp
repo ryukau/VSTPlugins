@@ -55,12 +55,11 @@ void BarBox::draw(CDrawContext *pContext)
   pContext->setFont(indexFontID);
   pContext->setFontColor(borderColor);
   if (sliderWidth >= 10.0) {
-    for (size_t i = 0; i < value.size(); ++i) {
+    for (size_t i = 0; i < barIndices.size(); ++i) {
       auto left = i * sliderWidth;
       auto right = left + (sliderWidth >= 4.0 ? sliderWidth - defaultBorderWidth : 1.0);
       pContext->drawString(
-        conv(std::to_string(i + 1).c_str()), CRect(left, height - 16, right, height - 4),
-        kCenterText);
+        barIndices[i].c_str(), CRect(left, height - 16, right, height - 4), kCenterText);
     }
   }
 
@@ -81,14 +80,14 @@ void BarBox::draw(CDrawContext *pContext)
       pContext->setFontColor(nameColor);
       std::ostringstream os;
       os << "#" << std::to_string(index + 1) << ": " << std::to_string(value[index]);
-      std::string indexText(os.str());
-      pContext->drawString(conv(indexText.c_str()), CRect(0, 0, width, height));
+      indexText = os.str();
+      pContext->drawString(indexText.c_str(), CRect(0, 0, width, height));
     }
   } else {
     // Title.
     pContext->setFont(nameFontID);
     pContext->setFontColor(nameColor);
-    pContext->drawString(conv(name.c_str()), CRect(0, 0, width, height));
+    pContext->drawString(name.c_str(), CRect(0, 0, width, height));
   }
 
   // Center line.
@@ -118,7 +117,7 @@ CMouseEventResult BarBox::onMouseExited(CPoint &where, const CButtonState &butto
 CMouseEventResult BarBox::onMouseDown(CPoint &where, const CButtonState &buttons)
 {
   if (buttons.isRightButton()) {
-    auto componentHandler = controller->getComponentHandler();
+    auto componentHandler = editor->getController()->getComponentHandler();
     if (componentHandler == nullptr) return kMouseEventNotHandled;
 
     using namespace Steinberg;

@@ -30,27 +30,24 @@ namespace VSTGUI {
 
 class BarBox : public ArrayControl {
 public:
-  Steinberg::IPlugView *editor = nullptr;
   bool drawCenterLine = false;
 
   BarBox(
-    Steinberg::Vst::EditController *controller,
+    Steinberg::Vst::VSTGUIEditor *editor,
     const CRect &size,
-    Steinberg::IPlugView *editor,
     std::vector<Steinberg::Vst::ParamID> id,
     std::vector<double> value,
     std::vector<double> defaultValue)
-    : ArrayControl(controller, size, id, value, defaultValue)
-    , editor(editor)
+    : ArrayControl(editor, size, id, value, defaultValue)
     , sliderWidth((size.right - size.left) / value.size())
   {
     setWantsFocus(true);
-    // editor->remember();
+
+    for (size_t i = 0; i < id.size(); ++i) barIndices.push_back(std::to_string(i + 1));
   }
 
   ~BarBox()
   {
-    // if (editor) editor->forget();
     if (indexFontID) indexFontID->forget();
     if (nameFontID) nameFontID->forget();
   }
@@ -117,6 +114,8 @@ protected:
   CCoord sliderWidth;
 
   std::string name;
+  std::string indexText;
+  std::vector<std::string> barIndices;
 };
 
 } // namespace VSTGUI

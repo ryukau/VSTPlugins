@@ -21,11 +21,13 @@
 
 #include "guistyle.hpp"
 
+#include <string>
+
 namespace VSTGUI {
 
 class GroupLabel : public CControl {
 public:
-  GroupLabel(const CRect &size, IControlListener *listener, UTF8StringPtr text)
+  GroupLabel(const CRect &size, IControlListener *listener, std::string text)
     : CControl(size, listener), text(text)
   {
   }
@@ -51,10 +53,10 @@ public:
     // Text.
     pContext->setFont(fontID);
     pContext->setFontColor(foregroundColor);
-    const auto textWidth = pContext->getStringWidth(text);
+    const auto textWidth = pContext->getStringWidth(text.c_str());
     const auto textLeft = (width - textWidth) * 0.5;
     const auto textRight = (width + textWidth) * 0.5;
-    pContext->drawString(text.getPlatformString(), CRect(textLeft, 0, textRight, height));
+    pContext->drawString(text.c_str(), CRect(textLeft, 0, textRight, height));
 
     // Border.
     pContext->setFrameColor(foregroundColor);
@@ -71,7 +73,7 @@ public:
 
   void setForegroundColor(CColor color) { foregroundColor = color; }
   void setBackgroundColor(CColor color) { backgroundColor = color; }
-  void setText(UTF8String text) { this->text = text; }
+  void setText(std::string text) { this->text = text; }
   void setFont(CFontRef fontID) { this->fontID = fontID; }
 
 protected:
@@ -80,7 +82,7 @@ protected:
   CColor backgroundColor = CColor(255, 255, 255, 255);
 
   double fontSize = 14.0;
-  UTF8String text;
+  std::string text;
   CFontRef fontID = nullptr;
 
   double lineWidth = 2.0;
@@ -112,10 +114,10 @@ public:
     // Text.
     pContext->setFont(fontID);
     pContext->setFontColor(foregroundColor);
-    const auto textWidth = pContext->getStringWidth(text);
+    const auto textWidth = pContext->getStringWidth(text.c_str());
     const auto textLeft = (height - textWidth) * 0.5;
     const auto textRight = (height + textWidth) * 0.5;
-    pContext->drawString(text.getPlatformString(), CRect(textLeft, 0, textRight, width));
+    pContext->drawString(text.c_str(), CRect(textLeft, 0, textRight, width));
 
     setDirty(false);
   }

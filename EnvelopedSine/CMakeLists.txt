@@ -34,17 +34,7 @@ endif()
 set(plug_sources
   ../lib/vcl/instrset_detect.cpp
   source/parameter.cpp
-  ../common/gui/barbox.cpp
-  ../common/gui/button.cpp
-  ../common/gui/checkbox.cpp
-  ../common/gui/knob.cpp
-  ../common/gui/optionmenu.cpp
-  ../common/gui/rotaryknob.cpp
-  ../common/gui/slider.cpp
-  ../common/gui/splash.cpp
   source/gui/splashdraw.cpp
-  ../common/gui/tabview.cpp
-  ../common/gui/plugeditor.cpp
   source/plugprocessor.cpp
   source/editor.cpp
   source/plugfactory.cpp)
@@ -55,10 +45,12 @@ if(APPLE)
 endif()
 set_target_properties(${target} PROPERTIES ${SDK_IDE_MYPLUGINS_FOLDER})
 target_include_directories(${target} PUBLIC ${VSTGUI_ROOT}/vstgui4)
+include_directories(../common)
 target_link_libraries(${target} PRIVATE
   ${dspcore_avx}
   ${dspcore_avx2}
   ${dspcore_avx512}
+  UhhyouCommon
   base
   sdk
   vstgui_support)

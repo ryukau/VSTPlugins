@@ -36,7 +36,7 @@ protected:
   bool prepareUI() override;
 
   void addGroupLabelTpz(
-    CCoord left, CCoord top, CCoord width, CCoord lineMargin, UTF8String name);
+    CCoord left, CCoord top, CCoord width, CCoord lineMargin, std::string name);
 
   void addSplashScreenTpz(
     float buttonLeft,

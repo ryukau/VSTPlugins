@@ -32,8 +32,8 @@ public:
     IControlListener *listener,
     int32_t tag,
     CControl *splashView,
-    UTF8StringPtr txt = nullptr)
-    : CControl(size, listener, tag), splashView(splashView), txt(txt)
+    std::string label = "")
+    : CControl(size, listener, tag), splashView(splashView), label(label)
   {
     if (splashView != nullptr) splashView->remember();
     fontID = new CFontDesc(PlugEditorStyle::fontName(), fontSize, CTxtFace::kBoldFace);
@@ -61,7 +61,7 @@ public:
 
 protected:
   CControl *splashView = nullptr;
-  UTF8StringPtr txt = nullptr;
+  std::string label;
 
   CFontRef fontID = nullptr;
   double fontSize = 18.0;

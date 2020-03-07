@@ -57,13 +57,12 @@ Editor::Editor(void *controller) : PlugEditor(controller)
 }
 
 void Editor::addGroupLabelTpz(
-  CCoord left, CCoord top, CCoord width, CCoord lineMargin, UTF8String name)
+  CCoord left, CCoord top, CCoord width, CCoord lineMargin, std::string name)
 {
   top -= margin;
   auto bottom = top + labelHeight;
 
-  auto label
-    = new GroupLabelTpz(CRect(left, top, left + width, bottom), this, UTF8String(name));
+  auto label = new GroupLabelTpz(CRect(left, top, left + width, bottom), this, name);
   label->setFont(new CFontDesc(PlugEditorStyle::fontName(), 14.0, CTxtFace::kBoldFace));
   label->setMargin(lineMargin);
   frame->addView(label);

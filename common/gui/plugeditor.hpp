@@ -91,10 +91,10 @@ public:
   CTextLabel *addLabel(
     CCoord left, CCoord top, CCoord width, UTF8String name, CFontDesc *font = nullptr);
 
-  GroupLabel *addGroupLabel(CCoord left, CCoord top, CCoord width, UTF8String name);
+  GroupLabel *addGroupLabel(CCoord left, CCoord top, CCoord width, std::string name);
 
   VGroupLabel *
-  addGroupVerticalLabel(CCoord left, CCoord top, CCoord width, UTF8String name);
+  addGroupVerticalLabel(CCoord left, CCoord top, CCoord width, std::string name);
 
   std::tuple<Slider *, CTextLabel *> addVSlider(
     CCoord left,

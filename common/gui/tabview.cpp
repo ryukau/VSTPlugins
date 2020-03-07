@@ -95,8 +95,7 @@ void TabView::draw(CDrawContext *pContext)
 
     pContext->setFillColor(colorFore);
     pContext->drawString(
-      conv(tab.name.c_str()), CRect(tab.left, tab.top, tab.right, tab.bottom),
-      kCenterText);
+      tab.name.c_str(), CRect(tab.left, tab.top, tab.right, tab.bottom), kCenterText);
   }
 
   // Active tab.
@@ -120,7 +119,7 @@ void TabView::draw(CDrawContext *pContext)
 
   pContext->setFillColor(colorFore);
   pContext->drawString(
-    conv(activeTab.name.c_str()),
+    activeTab.name.c_str(),
     CRect(activeTab.left, activeTab.top, activeTab.right, activeTab.bottom), kCenterText);
 }
 
@@ -145,7 +144,7 @@ CMouseEventResult TabView::onMouseDown(CPoint &where, const CButtonState &button
   auto mouseX = where.x - view.left;
   auto mouseY = where.y - view.top;
   for (size_t idx = 0; idx < tabs.size(); ++idx) {
-    if (tabs[idx].hitTest(mouseX, mouseY)) {
+    if (tabs[idx].hitTest(float(mouseX), float(mouseY))) {
       activeTabIndex = idx;
       break;
     }
@@ -164,7 +163,7 @@ CMouseEventResult TabView::onMouseMoved(CPoint &where, const CButtonState &butto
   auto view = getViewSize();
   auto mouseX = where.x - view.left;
   auto mouseY = where.y - view.top;
-  for (auto &tab : tabs) tab.isMouseEntered = tab.hitTest(mouseX, mouseY);
+  for (auto &tab : tabs) tab.isMouseEntered = tab.hitTest(float(mouseX), float(mouseY));
   invalid();
   return kMouseEventHandled;
 }

@@ -18,7 +18,7 @@
 #pragma once
 
 #include "pluginterfaces/vst/vsttypes.h"
-#include "public.sdk/source/vst/vsteditcontroller.h"
+#include "public.sdk/source/vst/vstguieditor.h"
 #include "vstgui/vstgui.h"
 
 namespace VSTGUI {
@@ -26,29 +26,29 @@ namespace VSTGUI {
 struct ArrayControl : public CControl {
 public:
   ArrayControl(
-    Steinberg::Vst::EditController *controller,
+    Steinberg::Vst::VSTGUIEditor *editor,
     const CRect &size,
     std::vector<Steinberg::Vst::ParamID> id,
     std::vector<double> value,
     std::vector<double> defaultValue)
     : CControl(size, nullptr, -1)
-    , controller(controller)
+    , editor(editor)
     , id(id)
     , value(value)
     , defaultValue(defaultValue)
   {
-    if (controller != nullptr) controller->addRef();
+    if (editor != nullptr) editor->addRef();
   }
 
   ~ArrayControl()
   {
-    if (controller != nullptr) controller->release();
+    if (editor != nullptr) editor->release();
   }
 
   void setValueAt(size_t index, double normalized)
   {
-    if (index < value.size())
-      value[index] = normalized < 0.0 ? 0.0 : normalized > 1.0 ? 1.0 : normalized;
+    if (index >= value.size()) return;
+    value[index] = normalized < 0.0 ? 0.0 : normalized > 1.0 ? 1.0 : normalized;
   }
 
   void updateValue()
@@ -59,11 +59,17 @@ public:
 
   void updateValueAt(size_t index)
   {
-    controller->setParamNormalized(id[index], value[index]);
-    controller->performEdit(id[index], value[index]);
+    if (index >= id.size() || !getFrame() || editor == nullptr) return;
+    getFrame()->beginEdit(id[index]);
+    auto controller = editor->getController();
+    if (controller != nullptr) {
+      controller->setParamNormalized(id[index], value[index]);
+      controller->performEdit(id[index], value[index]);
+    }
+    getFrame()->endEdit(id[index]);
   }
 
-  Steinberg::Vst::EditController *controller = nullptr;
+  Steinberg::Vst::VSTGUIEditor *editor = nullptr;
   std::vector<Steinberg::Vst::ParamID> id;
   std::vector<double> value;
   std::vector<double> defaultValue;

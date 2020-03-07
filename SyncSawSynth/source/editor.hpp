@@ -34,7 +34,7 @@ protected:
   bool prepareUI() override;
 
   void addOscillatorSection(
-    UTF8String label,
+    std::string label,
     double left,
     double top,
     ParamID tagGain,

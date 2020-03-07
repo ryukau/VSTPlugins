@@ -42,71 +42,68 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->setFont(fontIDTitle);
   pContext->setFontColor(CColor(0, 0, 0, 255));
-  pContext->drawString(conv("EnvelopedSine " VERSION_STR), CPoint(20.0, 50.0));
+  pContext->drawString("EnvelopedSine " VERSION_STR, CPoint(20.0, 50.0));
 
   pContext->setFont(fontIDText);
   pContext->setFontColor(CColor(0, 0, 0, 255));
   pContext->drawString(
-    conv("© 2019-2020 Takamitsu Endo (ryukau@gmail.com)"), CPoint(20.0, 90.0));
+    "© 2019-2020 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0, 90.0));
 
-  pContext->drawString(conv("- Knob -"), CPoint(20.0f, 150.0f));
-  pContext->drawString(conv("Shift + Left Drag: Fine Adjustment"), CPoint(20.0f, 180.0f));
-  pContext->drawString(
-    conv("Ctrl + Left Click: Reset to Default"), CPoint(20.0f, 210.0f));
+  pContext->drawString("- Knob -", CPoint(20.0f, 150.0f));
+  pContext->drawString("Shift + Left Drag: Fine Adjustment", CPoint(20.0f, 180.0f));
+  pContext->drawString("Ctrl + Left Click: Reset to Default", CPoint(20.0f, 210.0f));
 
-  pContext->drawString(conv("- Number -"), CPoint(20.0f, 270.0f));
-  pContext->drawString(
-    conv("Shares same controls with knob, and:"), CPoint(20.0f, 300.0f));
-  pContext->drawString(
-    conv("Right Click: Flip Minimum and Maximum"), CPoint(20.0f, 330.0f));
+  pContext->drawString("- Number -", CPoint(20.0f, 270.0f));
+  pContext->drawString("Shares same controls with knob, and:", CPoint(20.0f, 300.0f));
+  pContext->drawString("Right Click: Flip Minimum and Maximum", CPoint(20.0f, 330.0f));
 
-  pContext->drawString(conv("- Overtone -"), CPoint(280.0f, 150.0f));
+  pContext->drawString("- Overtone -", CPoint(280.0f, 150.0f));
 
-  pContext->drawString(conv("Ctrl + Left Click"), CPoint(280.0f, 180.0f));
-  pContext->drawString(conv("Right Drag"), CPoint(280.0f, 210.0f));
-  pContext->drawString(conv("A"), CPoint(280.0f, 240.0f));
-  pContext->drawString(conv("D"), CPoint(280.0f, 270.0f));
-  pContext->drawString(conv("F"), CPoint(280.0f, 300.0f));
-  pContext->drawString(conv("Shift + F"), CPoint(280.0f, 330.0f));
-  pContext->drawString(conv("I"), CPoint(280.0f, 360.0f));
-  pContext->drawString(conv("Shift + I"), CPoint(280.0f, 390.0f));
-  pContext->drawString(conv("N"), CPoint(280.0f, 420.0f));
-  pContext->drawString(conv("Shift + N"), CPoint(280.0f, 450.0f));
+  pContext->drawString("Ctrl + Left Click", CPoint(280.0f, 180.0f));
+  pContext->drawString("Right Drag", CPoint(280.0f, 210.0f));
+  pContext->drawString("A", CPoint(280.0f, 240.0f));
+  pContext->drawString("D", CPoint(280.0f, 270.0f));
+  pContext->drawString("F", CPoint(280.0f, 300.0f));
+  pContext->drawString("Shift + F", CPoint(280.0f, 330.0f));
+  pContext->drawString("I", CPoint(280.0f, 360.0f));
+  pContext->drawString("Shift + I", CPoint(280.0f, 390.0f));
+  pContext->drawString("N", CPoint(280.0f, 420.0f));
+  pContext->drawString("Shift + N", CPoint(280.0f, 450.0f));
 
-  pContext->drawString(conv("| Reset to Default"), CPoint(380.0f, 180.0f));
-  pContext->drawString(conv("| Draw Line"), CPoint(380.0f, 210.0f));
-  pContext->drawString(conv("| Sort Ascending Order"), CPoint(380.0f, 240.0f));
-  pContext->drawString(conv("| Sort Decending Order"), CPoint(380.0f, 270.0f));
-  pContext->drawString(conv("| Low-pass Filter"), CPoint(380.0f, 300.0f));
-  pContext->drawString(conv("| High-pass Filter"), CPoint(380.0f, 330.0f));
-  pContext->drawString(conv("| Invert Value"), CPoint(380.0f, 360.0f));
-  pContext->drawString(conv("| Invert Value (Minimum to 0)"), CPoint(380.0f, 390.0f));
-  pContext->drawString(conv("| Normalize"), CPoint(380.0f, 420.0f));
-  pContext->drawString(conv("| Normalize (Minimum to 0)"), CPoint(380.0f, 450.0f));
+  pContext->drawString("| Reset to Default", CPoint(380.0f, 180.0f));
+  pContext->drawString("| Draw Line", CPoint(380.0f, 210.0f));
+  pContext->drawString("| Sort Ascending Order", CPoint(380.0f, 240.0f));
+  pContext->drawString("| Sort Decending Order", CPoint(380.0f, 270.0f));
+  pContext->drawString("| Low-pass Filter", CPoint(380.0f, 300.0f));
+  pContext->drawString("| High-pass Filter", CPoint(380.0f, 330.0f));
+  pContext->drawString("| Invert Value", CPoint(380.0f, 360.0f));
+  pContext->drawString("| Invert Value (Minimum to 0)", CPoint(380.0f, 390.0f));
+  pContext->drawString("| Normalize", CPoint(380.0f, 420.0f));
+  pContext->drawString("| Normalize (Minimum to 0)", CPoint(380.0f, 450.0f));
 
-  pContext->drawString(conv("H"), CPoint(600.0f, 180.0f));
-  pContext->drawString(conv("L"), CPoint(600.0f, 210.0f));
-  pContext->drawString(conv("P"), CPoint(600.0f, 240.0f));
-  pContext->drawString(conv("R"), CPoint(600.0f, 270.0f));
-  pContext->drawString(conv("Shift + R"), CPoint(600.0f, 300.0f));
-  pContext->drawString(conv("S"), CPoint(600.0f, 330.0f));
-  pContext->drawString(conv(", (Comma)"), CPoint(600.0f, 360.0f));
-  pContext->drawString(conv(". (Period)"), CPoint(600.0f, 390.0f));
-  pContext->drawString(conv("1"), CPoint(600.0f, 420.0f));
-  pContext->drawString(conv("2-9"), CPoint(600.0f, 450.0f));
+  pContext->drawString("H", CPoint(600.0f, 180.0f));
+  pContext->drawString("L", CPoint(600.0f, 210.0f));
+  pContext->drawString("P", CPoint(600.0f, 240.0f));
+  pContext->drawString("R", CPoint(600.0f, 270.0f));
+  pContext->drawString("Shift + R", CPoint(600.0f, 300.0f));
+  pContext->drawString("S", CPoint(600.0f, 330.0f));
+  pContext->drawString(", (Comma)", CPoint(600.0f, 360.0f));
+  pContext->drawString(". (Period)", CPoint(600.0f, 390.0f));
+  pContext->drawString("1", CPoint(600.0f, 420.0f));
+  pContext->drawString("2-9", CPoint(600.0f, 450.0f));
 
-  pContext->drawString(conv("| Emphasize High"), CPoint(680.0f, 180.0f));
-  pContext->drawString(conv("| Emphasize Low"), CPoint(680.0f, 210.0f));
-  pContext->drawString(conv("| Permute"), CPoint(680.0f, 240.0f));
-  pContext->drawString(conv("| Randomize"), CPoint(680.0f, 270.0f));
-  pContext->drawString(conv("| Sparse Randomize"), CPoint(680.0f, 300.0f));
-  pContext->drawString(conv("| Subtle Randomize"), CPoint(680.0f, 330.0f));
-  pContext->drawString(conv("| Rotate Back"), CPoint(680.0f, 360.0f));
-  pContext->drawString(conv("| Rotate Forward"), CPoint(680.0f, 390.0f));
-  pContext->drawString(conv("| Decrease Odd"), CPoint(680.0f, 420.0f));
-  pContext->drawString(conv("| Decrease 2n-9n"), CPoint(680.0f, 450.0f));
+  pContext->drawString("| Emphasize High", CPoint(680.0f, 180.0f));
+  pContext->drawString("| Emphasize Low", CPoint(680.0f, 210.0f));
+  pContext->drawString("| Permute", CPoint(680.0f, 240.0f));
+  pContext->drawString("| Randomize", CPoint(680.0f, 270.0f));
+  pContext->drawString("| Sparse Randomize", CPoint(680.0f, 300.0f));
+  pContext->drawString("| Subtle Randomize", CPoint(680.0f, 330.0f));
+  pContext->drawString("| Rotate Back", CPoint(680.0f, 360.0f));
+  pContext->drawString("| Rotate Forward", CPoint(680.0f, 390.0f));
+  pContext->drawString("| Decrease Odd", CPoint(680.0f, 420.0f));
+  pContext->drawString("| Decrease 2n-9n", CPoint(680.0f, 450.0f));
 
-  pContext->drawString(conv("Have a nice day!"), CPoint(740.0f, 510.0f));
+  pContext->drawString("Have a nice day!", CPoint(740.0f, 510.0f));
 
   // Border.
   const auto borderColor = CColor(0, 0, 0, 255);

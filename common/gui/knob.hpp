@@ -121,9 +121,8 @@ public:
     std::ostringstream os;
     os.precision(precision);
     os << std::fixed << displayValue + offset;
-    std::string txt(os.str());
-    pContext->drawString(
-      UTF8String(txt.c_str()).getPlatformString(), CRect(0, 0, width, height));
+    textStr = os.str();
+    pContext->drawString(textStr.c_str(), CRect(0, 0, width, height));
 
     setDirty(false);
   }
@@ -170,6 +169,9 @@ protected:
   CFontRef fontID = nullptr;
   Scale &scale;
   const bool isDecibel;
+
+private:
+  std::string textStr;
 };
 
 template<typename Scale> class NumberKnob : public Knob {
@@ -226,15 +228,15 @@ public:
     // Text.
     pContext->setFont(fontID);
     pContext->setFontColor(tipColor);
-    UTF8String text
+    numberStr
       = std::to_string(int32_t(floor(scale.map(getValueNormalized()))) + offset).c_str();
-    const auto textWidth = pContext->getStringWidth(text);
+    const auto textWidth = pContext->getStringWidth(numberStr.c_str());
     const auto textLeft = -textWidth * 0.5;
     const auto textRight = textWidth * 0.5;
     const auto textTop = -fontID->getSize() * 0.5;
     const auto textBottom = fontID->getSize() * 0.5;
     pContext->drawString(
-      text.getPlatformString(), CRect(textLeft, textTop, textRight, textBottom));
+      numberStr.c_str(), CRect(textLeft, textTop, textRight, textBottom));
 
     // Tip.
     auto tip = mapValueToSlit(getValueNormalized(), tipLength);
@@ -256,6 +258,9 @@ protected:
   Scale &scale;
   int32_t offset;
   CFontRef fontID = nullptr;
+
+private:
+  std::string numberStr;
 };
 
 } // namespace VSTGUI

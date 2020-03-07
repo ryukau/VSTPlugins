@@ -43,7 +43,7 @@ void SplashLabel::draw(CDrawContext *pContext)
 
   pContext->setFont(fontID);
   pContext->setFontColor(fontColor);
-  pContext->drawString(conv(txt), CRect(0.0, 0.0, width, height), kCenterText, true);
+  pContext->drawString(label.c_str(), CRect(0.0, 0.0, width, height), kCenterText, true);
 
   const double borderWidth = isMouseEntered ? highlightFrameWidth : frameWidth;
   const double halfBorderWidth = int(borderWidth / 2.0);

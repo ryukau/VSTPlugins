@@ -46,7 +46,7 @@ Editor::Editor(void *controller) : PlugEditor(controller)
 }
 
 void Editor::addOscillatorSection(
-  UTF8String label,
+  std::string label,
   double left,
   double top,
   ParamID tagGain,

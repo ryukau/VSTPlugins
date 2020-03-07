@@ -21,6 +21,8 @@
 
 #include "guistyle.hpp"
 
+#include <string>
+
 namespace Steinberg {
 namespace Vst {
 
@@ -62,9 +64,12 @@ public:
     IControlListener *listener,
     int32_t tag,
     CControl *splashView,
-    UTF8StringPtr txt = nullptr,
+    std::string label = "",
     double fontSize = 18.0)
-    : CControl(size, listener, tag), splashView(splashView), txt(txt), fontSize(fontSize)
+    : CControl(size, listener, tag)
+    , splashView(splashView)
+    , label(label)
+    , fontSize(fontSize)
   {
     if (splashView != nullptr) splashView->remember();
     fontID = new CFontDesc(PlugEditorStyle::fontName(), fontSize, CTxtFace::kBoldFace);
@@ -92,7 +97,7 @@ public:
 
 protected:
   CControl *splashView = nullptr;
-  UTF8StringPtr txt = nullptr;
+  std::string label;
 
   CFontRef fontID = nullptr;
   double fontSize = 18.0;

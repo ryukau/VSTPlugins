@@ -173,8 +173,7 @@ BarBox *PlugEditor::addBarBox(
     defaultValue[i] = param->getDefaultNormalized(id[i]);
 
   auto barBox = new BarBox(
-    getController(), CRect(left, top, left + width, top + height), this, id, value,
-    defaultValue);
+    this, CRect(left, top, left + width, top + height), id, value, defaultValue);
   barBox->setIndexFont(
     new CFontDesc(PlugEditorStyle::fontName(), 10.0, CTxtFace::kBoldFace));
   barBox->setNameFont(
@@ -216,26 +215,25 @@ CTextLabel *PlugEditor::addLabel(
 }
 
 GroupLabel *
-PlugEditor::addGroupLabel(CCoord left, CCoord top, CCoord width, UTF8String name)
+PlugEditor::addGroupLabel(CCoord left, CCoord top, CCoord width, std::string name)
 {
   auto bottom = top + labelHeight;
 
-  auto label
-    = new GroupLabel(CRect(left, top, left + width, bottom), this, UTF8String(name));
+  auto label = new GroupLabel(CRect(left, top, left + width, bottom), this, name);
   label->setFont(new CFontDesc(PlugEditorStyle::fontName(), 14.0, CTxtFace::kBoldFace));
   frame->addView(label);
   return label;
 }
 
 VGroupLabel *
-PlugEditor::addGroupVerticalLabel(CCoord left, CCoord top, CCoord width, UTF8String name)
+PlugEditor::addGroupVerticalLabel(CCoord left, CCoord top, CCoord width, std::string name)
 {
   return nullptr;
 
   // VSTGUI 4.9 can't draw roteted text.
   /*
   auto label = new VGroupLabel(
-    CRect(left, top, left + labelHeight, top + width), this, UTF8String(name));
+    CRect(left, top, left + labelHeight, top + width), this, name);
   label->setFont(new CFontDesc(PlugEditorStyle::fontName(), 14.0, CTxtFace::kBoldFace));
   frame->addView(label);
   return label;
