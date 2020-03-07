@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-02-29" />
+<meta name="dcterms.date" content="2020-03-07" />
 <title>SyncSawSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -201,7 +201,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-02-29
+  Update: 2020-03-07
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -287,7 +287,7 @@ footer {
 <p><img src="img/syncsawsynth.png" /></p>
 <p><ruby>SyncSawSynth<rt>シンクソウシンセ</rt></ruby>は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/SyncSawSynth0.1.10.zip">SyncSawSynth 0.1.10 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SyncSawSynth0.1.11.zip">SyncSawSynth 0.1.11 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -486,6 +486,10 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
 <p>ノートの MIDI ノート番号によるフィードバックの変調。範囲は -1.0 から 1.0 。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.11
+<ul>
+<li>文字列の描画でクラッシュするバグを修正。</li>
+</ul></li>
 <li>0.1.10
 <ul>
 <li>プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。</li>

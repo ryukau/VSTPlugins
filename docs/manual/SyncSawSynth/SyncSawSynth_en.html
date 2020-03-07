@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-02-29" />
+<meta name="dcterms.date" content="2020-03-07" />
 <title>SyncSawSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -201,7 +201,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-02-29
+  Update: 2020-03-07
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -287,7 +287,7 @@ footer {
 <p><img src="img/syncsawsynth.png" /></p>
 <p>SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR sawtooth oscillator. Just a basic synthesizer but very easy to make a noise similar to low battery sound of some toys.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/SyncSawSynth0.1.10.zip">Download SyncSawSynth 0.1.10 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SyncSawSynth0.1.11.zip">Download SyncSawSynth 0.1.11 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -487,6 +487,10 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
 <p>Modulation from MIDI note number to feedback. Range is -1.0 to 1.0.</p>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.11
+<ul>
+<li>Fixed a bug that cause crash when drawing string.</li>
+</ul></li>
 <li>0.1.10
 <ul>
 <li>Changed display method for pop-up which shows up by clicking plugin title.</li>

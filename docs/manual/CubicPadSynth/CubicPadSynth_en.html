@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-03-05" />
+<meta name="dcterms.date" content="2020-03-07" />
 <title>CubicPadSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -201,7 +201,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-03-05
+  Update: 2020-03-07
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -255,7 +255,7 @@ footer {
 <p><img src="img/cubicpadsynth.png" /></p>
 <p>CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/CubicPadSynth0.1.0.zip">Download CubicPadSynth 0.1.0 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip">Download CubicPadSynth 0.1.1 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -639,6 +639,10 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
 <p>Note that refreshing wavetable stops sound. It also interrupts MIDI notes.</p>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.1
+<ul>
+<li>Fixed a bug that cause crash when drawing string.</li>
+</ul></li>
 <li>0.1.0
 <ul>
 <li>Initial release.</li>
