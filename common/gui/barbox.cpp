@@ -196,6 +196,8 @@ bool BarBox::onWheel(
 
 int32_t BarBox::onKeyDown(VstKeyCode &key)
 {
+  if (!isMouseEntered) return 1;
+
   size_t index = calcIndex(mousePosition);
   if (key.character == 'd') { // reset to Default.
     value = defaultValue;
