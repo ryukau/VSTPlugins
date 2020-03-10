@@ -256,6 +256,12 @@ void DSPCORE_NAME::setParameters(float tempo)
 
   nVoice = 16 * (param.value[ID::nVoice]->getInt() + 1);
   if (nVoice > notes.size()) nVoice = notes.size();
+
+  if (!isLFORefreshed && param.value[ID::refreshLFO]->getInt()) refreshLfo();
+  isLFORefreshed = param.value[ID::refreshLFO]->getInt();
+
+  if (!isTableRefeshed && param.value[ID::refreshTable]->getInt()) refreshTable();
+  isTableRefeshed = param.value[ID::refreshTable]->getInt();
 }
 
 std::array<float, 2> PROCESSING_UNIT_NAME::process(

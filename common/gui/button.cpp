@@ -65,6 +65,10 @@ CMouseEventResult KickButton::onMouseEntered(CPoint &where, const CButtonState &
 
 CMouseEventResult KickButton::onMouseExited(CPoint &where, const CButtonState &buttons)
 {
+  if (value == 1.0f) {
+    value = 0.0f;
+    valueChanged();
+  }
   isPressed = false;
   isMouseEntered = false;
   invalid();
@@ -75,6 +79,8 @@ CMouseEventResult KickButton::onMouseDown(CPoint &where, const CButtonState &but
 {
   if (!buttons.isLeftButton()) return kMouseEventNotHandled;
   isPressed = true;
+  value = 1.0f;
+  valueChanged();
   invalid();
   return kMouseEventHandled;
 }
@@ -82,11 +88,9 @@ CMouseEventResult KickButton::onMouseDown(CPoint &where, const CButtonState &but
 CMouseEventResult KickButton::onMouseUp(CPoint &where, const CButtonState &buttons)
 {
   if (isPressed) {
-    value = 1;
-    valueChanged();
-    value = 0;
-
     isPressed = false;
+    value = 0.0f;
+    valueChanged();
     invalid();
   }
   return kMouseEventHandled;
@@ -94,8 +98,12 @@ CMouseEventResult KickButton::onMouseUp(CPoint &where, const CButtonState &butto
 
 CMouseEventResult KickButton::onMouseCancel()
 {
-  value = 0;
-  isPressed = false;
+  if (isPressed) {
+    isPressed = false;
+    value = 0;
+    valueChanged();
+    invalid();
+  }
   isMouseEntered = false;
   return kMouseEventHandled;
 }

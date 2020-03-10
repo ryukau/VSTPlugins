@@ -286,8 +286,8 @@ bool Editor::prepareUI()
 
   tabview->addWidget(
     tabMain,
-    addStateButton(
-      lfoLeft, lfoKnobTop + 2.0f * margin, 2.0f * knobX, "Refresh LFO", "lfo", "N/A"));
+    addKickButton(
+      lfoLeft, lfoKnobTop + 2.0f * margin, 2.0f * knobX, "Refresh LFO", ID::refreshLFO));
 
   std::vector<UTF8String> lfoWavetableTypeOptions{"Step", "Linear", "Cubic"};
   tabview->addWidget(
@@ -534,8 +534,8 @@ bool Editor::prepareUI()
   const auto refreshLeft = tabInsideLeft0;
   tabview->addWidget(
     tabPadSynth,
-    addStateButton(
-      refreshLeft, refreshTop, 2.0f * knobX, "Refresh Table", "padsynth", "N/A"));
+    addKickButton(
+      refreshLeft, refreshTop, 2.0f * knobX, "Refresh Table", ID::refreshTable));
 
   // Overtone Gain.
   const auto otGainTop = tabInsideTop0;

@@ -233,6 +233,8 @@ public:
     std::array<float, nOvertone> otPhase{};                                              \
     std::array<float, nOvertone> otBandWidth{};                                          \
                                                                                          \
+    bool isTableRefeshed = false;                                                        \
+    bool isLFORefreshed = false;                                                         \
     WaveTable<tableSize, nOvertone> wavetable;                                           \
     LfoWaveTable<lfoTableSize> lfoWavetable;                                             \
     std::array<ProcessingUnit_##INSTRSET, nUnit> units;                                  \
