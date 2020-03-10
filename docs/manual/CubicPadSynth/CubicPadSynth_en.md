@@ -3,12 +3,12 @@
 
 CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.
 
-- [Download CubicPadSynth 0.1.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip) <img
+- [Download CubicPadSynth 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynth0.1.2.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
   style="display: inline-block; vertical-align: middle;">
-- [Download Presets (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/CubicPadSynthPresets.zip)
+- [Download Presets (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynthPresets.zip)
 
 CubicPadSynth requires CPU which supports AVX or later SIMD instructions.
 
@@ -62,14 +62,14 @@ REAPER on Linux may not recognize the plugin. A workaround is to delete a file `
 ## Controls
 Knob and slider can do:
 
-- <kbd>Ctrl</kbd> + <kdb>Left Click</kbd>: Reset value.
+- <kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.
 - <kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.
 
 There is an additional control for number sliders used for `Octave`, `Seed` etc.
 
 - <kbd>Middle Click</kbd> : Flip minimum and maximum.
 
-Control with many blue vertical bars (BarBox) have some keyboard shortcuts. `LFO Wave` on Main tab and `Gain`, `Width`, `Pitch`, `Phase` on Wavetable tab are using BarBox. Shortcuts are only enabled after left clicking overtone control. Cheat sheet is available on Infomation tab.
+Control with many blue vertical bars (BarBox) have some keyboard shortcuts. `LFO Wave` on Main tab and `Gain`, `Width`, `Pitch`, `Phase` on Wavetable tab are using BarBox. Shortcuts are enabled after left clicking BarBox and mouse cursor is on the inside of BarBox. Cheat sheet is available on Infomation tab.
 
 | Input                                   | Control                                 |
 | --------------------------------------- | --------------------------------------- |
@@ -232,16 +232,16 @@ This parameter makes no effect when `Reset` in Phase section is checked.
 
 `Spread Type` provides options to assign panpot values according to voice pitch.
 
-- Alternate L-R: Alternates `Ascend L -> R` and `Ascend R -> L`.
-- Alternate M-S: Alternates `HighOnMid` and `HighOnSide`.
-- Ascend L -> R: Ascend pitch from left to right.
-- Ascend R -> L: Ascend pitch from right to left.
-- HighOnMid: Ascend pitch from side to mid.
-- HighOnSide: Ascend pitch from mid to side.
-- Random: Randomize pan. May be biased.
-- RotateL: Rotate to left for each note-on.
-- RotateR: Rotate to right for each note-on.
-- Shuffle: Randomly assign pan which is evenly ordered.
+- `Alternate L-R`: Alternates `Ascend L -> R` and `Ascend R -> L`.
+- `Alternate M-S`: Alternates `HighOnMid` and `HighOnSide`.
+- `Ascend L -> R`: Ascend pitch from left to right.
+- `Ascend R -> L`: Ascend pitch from right to left.
+- `HighOnMid`: Ascend pitch from side to mid.
+- `HighOnSide`: Ascend pitch from mid to side.
+- `Random`: Randomize pan. May be biased.
+- `RotateL`: Rotate to left for each note-on.
+- `RotateR`: Rotate to right for each note-on.
+- `Shuffle`: Randomly assign pan which is evenly ordered.
 
 #### LFO
 ##### Refresh LFO
@@ -376,7 +376,7 @@ shapedProfile = powf(profile, shape);
 ```
 
 ##### Invert
-Invert spectrum to make the maximum of absolute value to 0 and 0 to the maximum of absolute value. Signs are preserved. Phases aren't considered.
+Invert spectrum to make the maximum of absolute value to 0, and 0 to the max-abs value. Signs are preserved. Phases aren't considered.
 
 ```
 maxRe = max(abs(spectrumRe))
@@ -414,12 +414,16 @@ Refresh PADsynth wavetable based on current configuration of Wavetable tab. Auto
 Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
 
 ## Change Log
+- 0.1.2
+  - Changed `Refresh Table` and `Refresh LFO` from VST message to parameter. This enables automation and midi mapping.
+  - Changed BarBox shortcuts to be disabled when mouse cursor is on the outside of BarBox.
 - 0.1.1
   - Fixed a bug that cause crash when drawing string.
 - 0.1.0
   - Initial release.
 
 ### Old Versions
+- [CubicPadSynth 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip)
 
 ## License
 CubicPadSynth is licensed under GPLv3. Complete licenses are linked below.

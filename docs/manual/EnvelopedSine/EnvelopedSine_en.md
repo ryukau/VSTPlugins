@@ -3,7 +3,7 @@
 
 EnvelopedSine is an additive synthesizer that computes 64 sine waves for each note. Difference to IterativeSinCluster is that this synth has AD envelope and saturator for each oscillator. EnvelopedSine is better suited for percussive sounds.
 
-- [Download EnvelopedSine 0.1.4 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/EnvelopedSine0.1.4.zip) <img
+- [Download EnvelopedSine 0.1.5 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/EnvelopedSine0.1.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -69,7 +69,7 @@ There is an additional control for number sliders used for `Octave`, `Seed` etc.
 
 - <kbd>Middle Click</kbd> : Flip minimum and maximum.
 
-Overtone controls (`Attack`, `Decay`, `Gain`, `Saturation`) have some keyboard shortcuts. Shortcuts are only enabled after left clicking overtone control. Cheat sheet can be popped up by clicking plugin title on bottom left.
+Control with many blue vertical bars (BarBox) have some keyboard shortcuts. BarBox is used by `Attack`, `Decay`, `Gain` and `Saturation`. Shortcuts are only enabled after left clicking overtone control. Cheat sheet can be popped up by clicking plugin title on bottom left.
 
 | Input                                   | Control                                 |
 | --------------------------------------- | --------------------------------------- |
@@ -224,6 +224,8 @@ LFO phase offset.
 LFO phase. This can be used to make sound with automation. Turning `Freq` to leftmost sets LFO frequency to 0.
 
 ## Change Log
+- 0.1.5
+  - Changed BarBox shortcuts to be disabled when mouse cursor is on the outside of BarBox.
 - 0.1.4
   - Fixed a bug that cause crash when drawing string.
 - 0.1.3
@@ -237,6 +239,7 @@ LFO phase. This can be used to make sound with automation. Turning `Freq` to lef
   - Initial release.
 
 ### Old Versions
+- [EnvelopedSine 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/EnvelopedSine0.1.4.zip)
 - [EnvelopedSine 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EnvelopedSine0.1.2.zip)
 - [EnvelopedSine 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/EnvelopedSine0.1.1.zip)
 - [EnvelopedSine 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/EnvelopedSine0.1.0.zip)

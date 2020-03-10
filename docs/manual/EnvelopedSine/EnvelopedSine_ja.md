@@ -3,7 +3,7 @@
 
 <ruby>EnvelopedSine<rt>エンベロープド サイン</rt></ruby>はノート 1 つあたり 64 のサイン波を計算する加算合成シンセサイザです。各サイン波に AD エンベロープとサチュレータがついているので IterativeSinCluster よりもパーカッシブな音が得意です。
 
-- [EnvelopedSine 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/EnvelopedSine0.1.4.zip) <img
+- [EnvelopedSine 0.1.5 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/EnvelopedSine0.1.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -71,7 +71,7 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 
 - ホイールクリック : 最小値、最大値の切り替え。
 
-倍音のコントロール `Attack` 、 `Decay` 、 `Gain` 、 `Saturation` ではショートカットが使えます。ショートカットはコントロールを左クリックして、フォーカスしたときだけ有効になります。左下にあるプラグインのタイトルをクリックするとショートカットの一覧を見ることができます。
+`Attack` 、 `Decay` 、 `Gain` 、 `Saturation` を操作する、青い縦棒が並んだインターフェイス (BarBox) ではショートカットが使えます。ショートカットは BarBox を左クリックしてフォーカスした上で、マウスカーソルが BarBox の領域内にあるときだけ有効になります。左下にあるプラグインのタイトルをクリックするとショートカットの一覧を見ることができます。
 
 | 入力                                    | 操作                                       |
 | --------------------------------------- | ------------------------------------------ |
@@ -226,6 +226,8 @@ LFO によって変調するオールパスフィルタの特性の最小値で�
 LFO の位相です。オートメーションで音を作りたいときに使えます。 `Freq` を左いっぱいに回すことで LFO の周波数を 0 にできます。
 
 ## チェンジログ
+- 0.1.5
+  - BarBox にフォーカスした後、マウスカーソルを領域外に動かしている間はショートカットが無効になるように変更。
 - 0.1.4
   - 文字列の描画でクラッシュするバグを修正。
 - 0.1.3
@@ -239,6 +241,7 @@ LFO の位相です。オートメーションで音を作りたいときに使�
   - 初期リリース。
 
 ### 旧バージョン
+- [EnvelopedSine 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/EnvelopedSine0.1.4.zip)
 - [EnvelopedSine 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EnvelopedSine0.1.2.zip)
 - [EnvelopedSine 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/EnvelopedSine0.1.1.zip)
 - [EnvelopedSine 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/EnvelopedSine0.1.0.zip)

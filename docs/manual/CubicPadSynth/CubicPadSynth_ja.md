@@ -3,12 +3,12 @@
 
 <ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby> は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています
 
-- [CubicPadSynth 0.1.1 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip) <img
+- [CubicPadSynth 0.1.2 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynth0.1.2.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
   style="display: inline-block; vertical-align: middle;">
-- [プリセットをダウンロード (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/CubicPadSynthPresets.zip)
+- [プリセットをダウンロード (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynthPresets.zip)
 
 CubicPadSynth を使うには CPU が AVX 以降の SIMD 命令セットをサポートしている必要があります。
 
@@ -71,7 +71,7 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 
 - ホイールクリック : 最小値、最大値の切り替え。
 
-Wavetable タブの `Gain`, `Width`, `Pitch`, `Phase` と Main タブの `LFO Wave` で使われている青い縦棒が並んだコントロール (BarBox) ではショートカットが使えます。ショートカットはコントロールを左クリックして、フォーカスしたときだけ有効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。 Information タブを開くとショートカットの一覧を見ることができます。
+Wavetable タブの `Gain`, `Width`, `Pitch`, `Phase` と Main タブの `LFO Wave` で使われている青い縦棒が並んだコントロール (BarBox) ではショートカットが使えます。ショートカットは BarBox を左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを BarBox の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。 Information タブを開くとショートカットの一覧を見ることができます。
 
 | 入力                                    | 操作                                       |
 | --------------------------------------- | ------------------------------------------ |
@@ -236,16 +236,16 @@ Phase セクションの `Reset` にチェックが入っていないとき、�
 
 `Spread Type` でボイスのピッチに応じたパンの割り当て方を選択できます。
 
-- Alternate L-R: `Ascend L -> R` と `Ascend R -> L` を交互に変更。
-- Alternate M-S: `HighOnMid` と `HighOnSide` を交互に変更。
-- Ascend L -> R: 左から右に向かってピッチが上昇。
-- Ascend R -> L: 右から左に向かってピッチが上昇。
-- HighOnMid: 端から中央に向かってピッチが上昇。
-- HighOnSide: 中央から端に向かってピッチが上昇。
-- Random: ランダムに生成したパンを割り当て。偏ることがあります。
-- RotateL: ノートオンごとに割り当てを左に回転。
-- RotateR: ノートオンごとに割り当てを右に回転。
-- Shuffle: 均一に並べたパンをランダムに割り当て。
+- `Alternate L-R`: `Ascend L -> R` と `Ascend R -> L` を交互に変更。
+- `Alternate M-S`: `HighOnMid` と `HighOnSide` を交互に変更。
+- `Ascend L -> R`: 左から右に向かってピッチが上昇。
+- `Ascend R -> L`: 右から左に向かってピッチが上昇。
+- `HighOnMid`: 端から中央に向かってピッチが上昇。
+- `HighOnSide`: 中央から端に向かってピッチが上昇。
+- `Random`: ランダムに生成したパンを割り当て。偏ることがあります。
+- `RotateL`: ノートオンごとに割り当てを左に回転。
+- `RotateR`: ノートオンごとに割り当てを右に回転。
+- `Shuffle`: 均一に並べたパンをランダムに割り当て。
 
 #### LFO
 ##### Refresh LFO
@@ -410,13 +410,16 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm
 ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。
 
 ## チェンジログ
+- 0.1.2
+  - オートメーションと MIDI マッピングを利用できるように `Refresh Table` と `Refresh LFO` を VST のメッセージからパラメータへと変更。
+  - BarBox にフォーカスした後、マウスカーソルが領域外にあるときはショートカットが無効になるように変更。
 - 0.1.1
   - 文字列の描画でクラッシュするバグを修正。
 - 0.1.0
   - 初期リリース。
 
 ### 旧バージョン
-現在、旧バージョンはありません。
+- [CubicPadSynth 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip)
 
 ## ライセンス
 CubicPadSynth のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。リンクが切れているときは `ryukau@gmail.com` にメールを送ってください。

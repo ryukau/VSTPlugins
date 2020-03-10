@@ -8,6 +8,7 @@
   alt="VST compatible logo."
   width="60px"
   style="display: inline-block; vertical-align: middle;">
+- [プリセットをダウンロード (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/FDNCymbalPresets.zip)
 
 パッケージには次のビルドが含まれています。
 
@@ -226,7 +227,7 @@ LFO によって変化するディレイ時間の最大値です。シンバル�
 
 旧バージョン向けのプリセットです。
 
-- [0.1.* 用のプリセットをダウンロード (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbalPresets.zip)
+- [バージョン 0.1.* 用のプリセット (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbalPresets.zip)
 
 ## ライセンス
 FDNCymbal のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。
