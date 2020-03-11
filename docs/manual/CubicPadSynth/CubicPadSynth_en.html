@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-03-07" />
+<meta name="dcterms.date" content="2020-03-10" />
 <title>CubicPadSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -201,7 +201,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-03-07
+  Update: 2020-03-10
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -255,12 +255,12 @@ footer {
 <p><img src="img/cubicpadsynth.png" /></p>
 <p>CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip">Download CubicPadSynth 0.1.1 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynth0.1.2.zip">Download CubicPadSynth 0.1.2 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/CubicPadSynthPresets.zip">Download Presets (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynthPresets.zip">Download Presets (github.com)</a></li>
 </ul>
 <p>CubicPadSynth requires CPU which supports AVX or later SIMD instructions.</p>
 <p>The package includes following builds:</p>
@@ -304,14 +304,14 @@ style="display: inline-block; vertical-align: middle;"></li>
 <h2 id="controls">Controls</h2>
 <p>Knob and slider can do:</p>
 <ul>
-<li><kbd>Ctrl</kbd> + <kdb>Left Click</kbd>: Reset value.</li>
+<li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
 <li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
 </ul>
 <p>There is an additional control for number sliders used for <code>Octave</code>, <code>Seed</code> etc.</p>
 <ul>
 <li><kbd>Middle Click</kbd> : Flip minimum and maximum.</li>
 </ul>
-<p>Control with many blue vertical bars (BarBox) have some keyboard shortcuts. <code>LFO Wave</code> on Main tab and <code>Gain</code>, <code>Width</code>, <code>Pitch</code>, <code>Phase</code> on Wavetable tab are using BarBox. Shortcuts are only enabled after left clicking overtone control. Cheat sheet is available on Infomation tab.</p>
+<p>Control with many blue vertical bars (BarBox) have some keyboard shortcuts. <code>LFO Wave</code> on Main tab and <code>Gain</code>, <code>Width</code>, <code>Pitch</code>, <code>Phase</code> on Wavetable tab are using BarBox. Shortcuts are enabled after left clicking BarBox and mouse cursor is on the inside of BarBox. Cheat sheet is available on Infomation tab.</p>
 <table>
 <thead>
 <tr class="header">
@@ -503,16 +503,16 @@ detune = pitch * (1 + random * unisonIndex * Detune)</code></pre>
 <p><code>Spread</code> is an amount of stereo spread for a unison.</p>
 <p><code>Spread Type</code> provides options to assign panpot values according to voice pitch.</p>
 <ul>
-<li>Alternate L-R: Alternates <code>Ascend L -&gt; R</code> and <code>Ascend R -&gt; L</code>.</li>
-<li>Alternate M-S: Alternates <code>HighOnMid</code> and <code>HighOnSide</code>.</li>
-<li>Ascend L -&gt; R: Ascend pitch from left to right.</li>
-<li>Ascend R -&gt; L: Ascend pitch from right to left.</li>
-<li>HighOnMid: Ascend pitch from side to mid.</li>
-<li>HighOnSide: Ascend pitch from mid to side.</li>
-<li>Random: Randomize pan. May be biased.</li>
-<li>RotateL: Rotate to left for each note-on.</li>
-<li>RotateR: Rotate to right for each note-on.</li>
-<li>Shuffle: Randomly assign pan which is evenly ordered.</li>
+<li><code>Alternate L-R</code>: Alternates <code>Ascend L -&gt; R</code> and <code>Ascend R -&gt; L</code>.</li>
+<li><code>Alternate M-S</code>: Alternates <code>HighOnMid</code> and <code>HighOnSide</code>.</li>
+<li><code>Ascend L -&gt; R</code>: Ascend pitch from left to right.</li>
+<li><code>Ascend R -&gt; L</code>: Ascend pitch from right to left.</li>
+<li><code>HighOnMid</code>: Ascend pitch from side to mid.</li>
+<li><code>HighOnSide</code>: Ascend pitch from mid to side.</li>
+<li><code>Random</code>: Randomize pan. May be biased.</li>
+<li><code>RotateL</code>: Rotate to left for each note-on.</li>
+<li><code>RotateR</code>: Rotate to right for each note-on.</li>
+<li><code>Shuffle</code>: Randomly assign pan which is evenly ordered.</li>
 </ul>
 <h4 id="lfo">LFO</h4>
 <h5 id="refresh-lfo">Refresh LFO</h5>
@@ -617,7 +617,7 @@ lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)<
 <p>Changes profile shapes by using the value of <code>Shape</code> as an exponent.</p>
 <pre><code>shapedProfile = powf(profile, shape);</code></pre>
 <h5 id="invert">Invert</h5>
-<p>Invert spectrum to make the maximum of absolute value to 0 and 0 to the maximum of absolute value. Signs are preserved. Phases aren’t considered.</p>
+<p>Invert spectrum to make the maximum of absolute value to 0, and 0 to the max-abs value. Signs are preserved. Phases aren’t considered.</p>
 <pre><code>maxRe = max(abs(spectrumRe))
 maxIm = max(abs(spectrumIm))
 invertedSpectrumRe = spectrumRe - sgn(spectrumRe) * maxRe
@@ -639,6 +639,11 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
 <p>Note that refreshing wavetable stops sound. It also interrupts MIDI notes.</p>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.2
+<ul>
+<li>Changed <code>Refresh Table</code> and <code>Refresh LFO</code> from VST message to parameter. This enables automation and midi mapping.</li>
+<li>Changed BarBox shortcuts to be disabled when mouse cursor is on the outside of BarBox.</li>
+</ul></li>
 <li>0.1.1
 <ul>
 <li>Fixed a bug that cause crash when drawing string.</li>
@@ -649,6 +654,9 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
 </ul></li>
 </ul>
 <h3 id="old-versions">Old Versions</h3>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip">CubicPadSynth 0.1.1 - VST 3 (github.com)</a></li>
+</ul>
 <h2 id="license">License</h2>
 <p>CubicPadSynth is licensed under GPLv3. Complete licenses are linked below.</p>
 <ul>
