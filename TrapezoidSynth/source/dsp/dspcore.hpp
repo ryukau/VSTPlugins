@@ -119,7 +119,7 @@ public:
   noteOn(bool wasResting, Sample frequency, Sample normalizedKey, GlobalParameter &param);
   void noteOff(Sample frequency);
   void release(bool resetPitch);
-  Sample process(const size_t bufferSize);
+  Sample process(const size_t bufferSize, const size_t bufferIndex);
 
 private:
   Sample getOctave(GlobalParameter &param);

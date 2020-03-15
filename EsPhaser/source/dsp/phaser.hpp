@@ -27,6 +27,60 @@
 
 namespace SomeDSP {
 
+// Old implementation of LinearSmoother in `common/smoother.hpp`.
+// EsPhaser relies on buggy behavior of this old smoother.
+// It's not tested that if it works with sample-rate lower than 44100 Hz.
+template<typename Sample> class LinearSmootherRampLocal {
+public:
+  void setSampleRate(Sample sampleRate, Sample time = 0.04)
+  {
+    this->sampleRate = sampleRate;
+    if (sampleRate < Sample(44100)) epsilon *= Sample(44100) / sampleRate;
+    setTime(time);
+  }
+
+  void setTime(Sample seconds) { timeInSamples = seconds * sampleRate; }
+  void setBufferSize(Sample bufferSize) { this->bufferSize = bufferSize; }
+
+  void reset(Sample value)
+  {
+    this->value = target = value;
+    ramp = 0;
+  }
+
+  void refresh() { push(target); }
+
+  void push(Sample newTarget)
+  {
+    target = newTarget;
+    if (timeInSamples < bufferSize)
+      value = target;
+    else
+      ramp = (target - value) / timeInSamples;
+  }
+
+  inline Sample getValue() { return value; }
+
+  Sample process()
+  {
+    if (value == target) return value;
+    value += ramp;
+
+    if (somefabs<Sample>(value - target) < epsilon) // This condition is sketchy.
+      value = target;
+    return value;
+  }
+
+protected:
+  Sample sampleRate = 44100;
+  Sample timeInSamples = -1;
+  Sample bufferSize = 0;
+  Sample value = 1.0;
+  Sample target = 1.0;
+  Sample ramp = 0.0;
+  Sample epsilon = 1e-5;
+};
+
 struct alignas(64) ThiranAllpass2x16 {
   Vec16f x0 = 0.0f;
   Vec16f x1 = 0.0f;
@@ -76,7 +130,7 @@ struct alignas(64) Thiran2Phaser {
   std::array<int, 2> stage{15, 15};
   std::array<int, 2> index{};
   int arrayStop = 255;
-  LinearSmootherLocal<float> interpStage;
+  LinearSmootherRampLocal<float> interpStage;
 
   // Convert UI value to DSP value. Used to set offset outside of main processing loop.
   static float getLfoMin(float range, float min) { return min + range - 0.99f; }
@@ -109,14 +163,12 @@ struct alignas(64) Thiran2Phaser {
   void reset()
   {
     for (auto &ap : allpass) ap.reset();
-    phase = 0;
     buffer = 0;
   }
 
   // tick = frequency / sampleRate.
   // Stable only if (lfoRange - lfoMin) <= 0.99f.
   float process(
-    const size_t bufferSize,
     float input,
     float freqSpread,
     float cascadeOffset,
@@ -126,8 +178,6 @@ struct alignas(64) Thiran2Phaser {
     float lfoRange,
     float lfoMin)
   {
-    interpStage.setBufferSize(bufferSize);
-
     Vec16f tck;
     Vec16f offset;
     for (int i = 0; i < 16; ++i) {

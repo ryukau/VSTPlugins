@@ -87,8 +87,11 @@ void DSPCORE_NAME::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
   SmootherCommon<float>::setBufferSize(length);
+  phaser[0].interpStage.setBufferSize(length);
+  phaser[1].interpStage.setBufferSize(length);
 
   for (size_t i = 0; i < length; ++i) {
+    SmootherCommon<float>::setBufferIndex(i);
     const auto freq = interpFrequency.process();
     const auto spread = interpFreqSpread.process();
     const auto feedback = interpFeedback.process();
@@ -98,10 +101,10 @@ void DSPCORE_NAME::process(
     const auto stereo = interpStereoOffset.process();
     const auto cascade = interpCascadeOffset.process();
 
-    const auto phaser0 = phaser[0].process(
-      length, in0[i], spread, cascade, phase, freq, feedback, range, min);
+    const auto phaser0
+      = phaser[0].process(in0[i], spread, cascade, phase, freq, feedback, range, min);
     const auto phaser1 = phaser[1].process(
-      length, in0[i], spread, cascade, phase + stereo, freq, feedback, range, min);
+      in0[i], spread, cascade, phase + stereo, freq, feedback, range, min);
 
     const auto mix = interpMix.process();
     out0[i] = in0[i] + mix * (phaser0 - in0[i]);

@@ -129,6 +129,8 @@ void DSPCore::process(
 
   const bool lfoHold = !param.value[ParameterID::lfoHold]->getInt();
   for (size_t i = 0; i < length; ++i) {
+    SmootherCommon<float>::setBufferIndex(i);
+
     auto sign = (pi < lfoPhase) - (lfoPhase < pi);
     const float lfo = sign * powf(fabsf(float(sin(lfoPhase))), interpLfoShape.process());
     const float lfoTime = interpLfoTimeAmount.process() * (1.0f + lfo);

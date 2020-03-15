@@ -149,6 +149,7 @@ void DSPCore::process(
   const bool enableFDN = param.value[ParameterID::fdn]->getInt();
   const bool allpass1Saturation = param.value[ParameterID::allpass1Saturation]->getInt();
   for (size_t i = 0; i < length; ++i) {
+    SmootherCommon<float>::setBufferIndex(i);
     processMidiNote(i);
 
     float sample = 0.0f;
