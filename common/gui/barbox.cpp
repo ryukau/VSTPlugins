@@ -199,38 +199,39 @@ int32_t BarBox::onKeyDown(VstKeyCode &key)
   if (!isMouseEntered) return 1;
 
   size_t index = calcIndex(mousePosition);
-  if (key.character == 'd') { // reset to Default.
-    value = defaultValue;
-  } else if (key.character == 'D') { // Alternative default. (toggle min/max)
+  bool shift = key.modifier == MODIFIER_SHIFT;
+  if (key.character == 'd' && shift) { // Alternative default. (toggle min/max)
     std::fill(
       value.begin() + index, value.end(),
       value[index] == 0 ? 0.5 : value[index] == 0.5 ? 1.0 : 0.0);
+  } else if (key.character == 'd') { // reset to Default.
+    value = defaultValue;
+  } else if (key.character == 'e' && shift) {
+    emphasizeHigh(index);
   } else if (key.character == 'e') {
     emphasizeLow(index);
-  } else if (key.character == 'E') {
-    emphasizeHigh(index);
+  } else if (key.character == 'f' && shift) {
+    highpass(index);
   } else if (key.character == 'f') {
     averageLowpass(index);
-  } else if (key.character == 'F') {
-    highpass(index);
+  } else if (key.character == 'i' && shift) {
+    invert(index, false);
   } else if (key.character == 'i') {
     invert(index, true);
-  } else if (key.character == 'I') {
-    invert(index, false);
+  } else if (key.character == 'n' && shift) {
+    normalize(index, false);
   } else if (key.character == 'n') {
     normalize(index, true);
-  } else if (key.character == 'N') {
-    normalize(index, false);
   } else if (key.character == 'p') { // Permute.
     permute(index);
+  } else if (key.character == 'r' && shift) {
+    sparseRandomize(index);
   } else if (key.character == 'r') {
     randomize(index, 1.0);
-  } else if (key.character == 'R') {
-    sparseRandomize(index);
+  } else if (key.character == 's' && shift) { // Sort ascending order.
+    std::sort(value.begin() + index, value.end());
   } else if (key.character == 's') { // Sort descending order.
     std::sort(value.begin() + index, value.end(), std::greater<>());
-  } else if (key.character == 'S') { // Sort ascending order.
-    std::sort(value.begin() + index, value.end());
   } else if (key.character == 't') { // subTle randomize.
     randomize(index, 0.02);
   } else if (key.character == ',') { // Rotate back.
@@ -328,8 +329,9 @@ void BarBox::invert(size_t start, bool preserveMin)
 
 void BarBox::normalize(size_t start, bool preserveMin) noexcept
 {
-  auto min = preserveMin ? 0.0 : *(std::min_element(value.begin(), value.end()));
-  auto mul = 1.0 / (*(std::max_element(value.begin(), value.end())) - min);
+  auto begin = start < value.size() ? value.begin() + start : value.begin();
+  auto min = preserveMin ? 0.0 : *(std::min_element(begin, value.end()));
+  auto mul = 1.0 / (*(std::max_element(begin, value.end())) - min);
   if (!std::isfinite(mul)) return;
   for (size_t i = start; i < value.size(); ++i) setValueAt(i, (value[i] - min) * mul);
 }
