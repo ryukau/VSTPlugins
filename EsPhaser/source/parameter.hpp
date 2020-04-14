@@ -77,8 +77,8 @@ struct GlobalParameter : public ParameterInterface {
     using LogValue = FloatValue<SomeDSP::LogScale<double>>;
     using DecibelValue = FloatValue<SomeDSP::DecibelScale<double>>;
 
-    value[ID::bypass]
-      = std::make_unique<IntValue>(0, Scales::boolScale, "bypass", Info::kCanAutomate);
+    value[ID::bypass] = std::make_unique<IntValue>(
+      0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     value[ID::mix] = std::make_unique<LinearValue>(
       0.5, Scales::defaultScale, "mix", Info::kCanAutomate);
