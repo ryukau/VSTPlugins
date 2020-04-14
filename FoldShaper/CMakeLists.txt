@@ -55,7 +55,7 @@ target_link_libraries(${target} PRIVATE
   sdk
   vstgui_support)
 
-smtg_add_vst3_snapshot(${target} "resource/77E2CA3A7DAE459493555B97B33EBAEA_snapshot.png")
+# smtg_add_vst3_snapshot(${target} "resource/A4768485385E4EECA2063A1E9160A26C_snapshot.png")
 
 if(SMTG_MAC)
   smtg_set_bundle(${target} INFOPLIST "${CMAKE_CURRENT_LIST_DIR}/resource/Info.plist" PREPROCESS)
