@@ -18,6 +18,7 @@
 #pragma once
 
 namespace SomeDSP {
+constexpr double halfpi = 1.57079632679489661923;
 constexpr double pi = 3.14159265358979323846;
 constexpr double twopi = 6.28318530717958647692;
 } // namespace SomeDSP

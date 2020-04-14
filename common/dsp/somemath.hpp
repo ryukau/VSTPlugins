@@ -61,6 +61,10 @@ template<typename T> T somelog(T x);
 template<> inline double somelog<double>(double x) { return ::log(x); }
 template<> inline float somelog<float>(float x) { return ::logf(x); }
 
+template<typename T> T somelog2(T x);
+template<> inline double somelog2<double>(double x) { return ::log2(x); }
+template<> inline float somelog2<float>(float x) { return ::log2f(x); }
+
 template<typename T> T somelog10(T x);
 template<> inline double somelog10<double>(double x) { return ::log10(x); }
 template<> inline float somelog10<float>(float x) { return ::log10f(x); }
@@ -88,5 +92,15 @@ template<> inline float someround<float>(float x) { return ::roundf(x); }
 template<typename T> T somefabs(T x);
 template<> inline double somefabs<double>(double x) { return ::fabs(x); }
 template<> inline float somefabs<float>(float x) { return ::fabsf(x); }
+
+template<typename T> T somecopysign(T x, T y);
+template<> inline double somecopysign<double>(double x, double y)
+{
+  return ::copysign(x, y);
+}
+template<> inline float somecopysign<float>(float x, float y)
+{
+  return ::copysignf(x, y);
+}
 
 } // namespace SomeDSP
