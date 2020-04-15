@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-03-07" />
+<meta name="dcterms.date" content="2020-03-10" />
 <title>CubicPadSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -201,7 +201,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-03-07
+  Update: 2020-03-10
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -255,12 +255,12 @@ footer {
 <p><img src="img/cubicpadsynth.png" /></p>
 <p><ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby> は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip">CubicPadSynth 0.1.1 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynth0.1.2.zip">CubicPadSynth 0.1.2 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CubicPadSynth0.1.0/CubicPadSynthPresets.zip">プリセットをダウンロード (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynthPresets.zip">プリセットをダウンロード (github.com)</a></li>
 </ul>
 <p>CubicPadSynth を使うには CPU が AVX 以降の SIMD 命令セットをサポートしている必要があります。</p>
 <p>パッケージには次のビルドが含まれています。</p>
@@ -312,7 +312,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <ul>
 <li>ホイールクリック : 最小値、最大値の切り替え。</li>
 </ul>
-<p>Wavetable タブの <code>Gain</code>, <code>Width</code>, <code>Pitch</code>, <code>Phase</code> と Main タブの <code>LFO Wave</code> で使われている青い縦棒が並んだコントロール (BarBox) ではショートカットが使えます。ショートカットはコントロールを左クリックして、フォーカスしたときだけ有効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。 Information タブを開くとショートカットの一覧を見ることができます。</p>
+<p>Wavetable タブの <code>Gain</code>, <code>Width</code>, <code>Pitch</code>, <code>Phase</code> と Main タブの <code>LFO Wave</code> で使われている青い縦棒が並んだコントロール (BarBox) ではショートカットが使えます。ショートカットは BarBox を左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを BarBox の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。 Information タブを開くとショートカットの一覧を見ることができます。</p>
 <table>
 <thead>
 <tr class="header">
@@ -508,16 +508,16 @@ detune = pitch * (1 + random * unisonIndex * Detune)</code></pre>
 <p><code>Spread</code> はユニゾンの左右の広がりの量です。</p>
 <p><code>Spread Type</code> でボイスのピッチに応じたパンの割り当て方を選択できます。</p>
 <ul>
-<li>Alternate L-R: <code>Ascend L -&gt; R</code> と <code>Ascend R -&gt; L</code> を交互に変更。</li>
-<li>Alternate M-S: <code>HighOnMid</code> と <code>HighOnSide</code> を交互に変更。</li>
-<li>Ascend L -&gt; R: 左から右に向かってピッチが上昇。</li>
-<li>Ascend R -&gt; L: 右から左に向かってピッチが上昇。</li>
-<li>HighOnMid: 端から中央に向かってピッチが上昇。</li>
-<li>HighOnSide: 中央から端に向かってピッチが上昇。</li>
-<li>Random: ランダムに生成したパンを割り当て。偏ることがあります。</li>
-<li>RotateL: ノートオンごとに割り当てを左に回転。</li>
-<li>RotateR: ノートオンごとに割り当てを右に回転。</li>
-<li>Shuffle: 均一に並べたパンをランダムに割り当て。</li>
+<li><code>Alternate L-R</code>: <code>Ascend L -&gt; R</code> と <code>Ascend R -&gt; L</code> を交互に変更。</li>
+<li><code>Alternate M-S</code>: <code>HighOnMid</code> と <code>HighOnSide</code> を交互に変更。</li>
+<li><code>Ascend L -&gt; R</code>: 左から右に向かってピッチが上昇。</li>
+<li><code>Ascend R -&gt; L</code>: 右から左に向かってピッチが上昇。</li>
+<li><code>HighOnMid</code>: 端から中央に向かってピッチが上昇。</li>
+<li><code>HighOnSide</code>: 中央から端に向かってピッチが上昇。</li>
+<li><code>Random</code>: ランダムに生成したパンを割り当て。偏ることがあります。</li>
+<li><code>RotateL</code>: ノートオンごとに割り当てを左に回転。</li>
+<li><code>RotateR</code>: ノートオンごとに割り当てを右に回転。</li>
+<li><code>Shuffle</code>: 均一に並べたパンをランダムに割り当て。</li>
 </ul>
 <h4 id="lfo">LFO</h4>
 <h5 id="refresh-lfo">Refresh LFO</h5>
@@ -642,6 +642,11 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
 <p>ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.2
+<ul>
+<li>オートメーションと MIDI マッピングを利用できるように <code>Refresh Table</code> と <code>Refresh LFO</code> を VST のメッセージからパラメータへと変更。</li>
+<li>BarBox にフォーカスした後、マウスカーソルが領域外にあるときはショートカットが無効になるように変更。</li>
+</ul></li>
 <li>0.1.1
 <ul>
 <li>文字列の描画でクラッシュするバグを修正。</li>
@@ -652,7 +657,9 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
 </ul></li>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
-<p>現在、旧バージョンはありません。</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip">CubicPadSynth 0.1.1 - VST 3 (github.com)</a></li>
+</ul>
 <h2 id="ライセンス">ライセンス</h2>
 <p>CubicPadSynth のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。リンクが切れているときは <code>ryukau@gmail.com</code> にメールを送ってください。</p>
 <ul>

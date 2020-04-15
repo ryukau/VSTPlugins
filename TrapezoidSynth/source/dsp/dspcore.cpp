@@ -237,7 +237,8 @@ template<typename Sample> void TpzMono<Sample>::release(bool resetPitch)
   filterEnvelope.release();
 }
 
-template<typename Sample> Sample TpzMono<Sample>::process(const size_t bufferSize)
+template<typename Sample>
+Sample TpzMono<Sample>::process(const size_t bufferSize, const size_t bufferIndex)
 {
   if (gainEnvelope.isTerminated()) return 0;
 
@@ -261,10 +262,10 @@ template<typename Sample> Sample TpzMono<Sample>::process(const size_t bufferSiz
   filter.feedback = interpFilterFeedback.process();
   filter.saturation = interpFilterSaturation.process();
 
-  const auto octave = interpOctave.process();
+  const auto octave = interpOctave.process(bufferIndex);
   tpzOsc1.setFreq(
     octave
-    * interpOsc1Pitch.process()
+    * interpOsc1Pitch.process(bufferIndex)
     * (1.0f
       + lfoSig * interpLFOToPitch.process()
       + interpPitchDrift.process() * rngPitchDrift.process()));
@@ -272,7 +273,7 @@ template<typename Sample> Sample TpzMono<Sample>::process(const size_t bufferSiz
   tpzOsc1.setPulseWidth(
     interpOsc1PulseWidth.process() + lfoSig * interpLFOToPulseWidth.process());
 
-  const auto osc2Freq = octave * interpOsc2Pitch.process();
+  const auto osc2Freq = octave * interpOsc2Pitch.process(bufferIndex);
   tpzOsc2.setFreq(osc2Freq);
   tpzOsc2.setSlope(
     interpOsc2Slope.process() + +modEnv2Sig * interpModEnv2ToOsc2Slope.process());
@@ -375,9 +376,10 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
 
   float sample = 1.0;
   for (uint32_t i = 0; i < length; ++i) {
+    SmootherCommon<float>::setBufferIndex(i);
     processMidiNote(i);
 
-    sample = tpz1.process(length);
+    sample = tpz1.process(length, i);
     const float masterGain = interpMasterGain.process();
     out0[i] = masterGain * sample;
     out1[i] = masterGain * sample;

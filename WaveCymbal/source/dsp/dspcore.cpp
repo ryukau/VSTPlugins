@@ -121,6 +121,7 @@ void DSPCore::process(
 
   float sample;
   for (size_t i = 0; i < length; ++i) {
+    SmootherCommon<float>::setBufferIndex(i);
     processMidiNote(i);
 
     const float pitch = interpPitch.process();

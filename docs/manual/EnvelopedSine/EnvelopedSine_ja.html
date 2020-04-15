@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-03-07" />
+<meta name="dcterms.date" content="2020-03-10" />
 <title>EnvelopedSine_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -201,7 +201,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-03-07
+  Update: 2020-03-10
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -276,7 +276,7 @@ footer {
 <p><img src="img/envelopedsine.png" /></p>
 <p><ruby>EnvelopedSine<rt>エンベロープド サイン</rt></ruby>はノート 1 つあたり 64 のサイン波を計算する加算合成シンセサイザです。各サイン波に AD エンベロープとサチュレータがついているので IterativeSinCluster よりもパーカッシブな音が得意です。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/EnvelopedSine0.1.4.zip">EnvelopedSine 0.1.4 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/EnvelopedSine0.1.5.zip">EnvelopedSine 0.1.5 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -333,7 +333,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <ul>
 <li>ホイールクリック : 最小値、最大値の切り替え。</li>
 </ul>
-<p>倍音のコントロール <code>Attack</code> 、 <code>Decay</code> 、 <code>Gain</code> 、 <code>Saturation</code> ではショートカットが使えます。ショートカットはコントロールを左クリックして、フォーカスしたときだけ有効になります。左下にあるプラグインのタイトルをクリックするとショートカットの一覧を見ることができます。</p>
+<p><code>Attack</code> 、 <code>Decay</code> 、 <code>Gain</code> 、 <code>Saturation</code> を操作する、青い縦棒が並んだインターフェイス (BarBox) ではショートカットが使えます。ショートカットは BarBox を左クリックしてフォーカスした上で、マウスカーソルが BarBox の領域内にあるときだけ有効になります。左下にあるプラグインのタイトルをクリックするとショートカットの一覧を見ることができます。</p>
 <table>
 <thead>
 <tr class="header">
@@ -518,6 +518,10 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>LFO の位相です。オートメーションで音を作りたいときに使えます。 <code>Freq</code> を左いっぱいに回すことで LFO の周波数を 0 にできます。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.5
+<ul>
+<li>BarBox にフォーカスした後、マウスカーソルを領域外に動かしている間はショートカットが無効になるように変更。</li>
+</ul></li>
 <li>0.1.4
 <ul>
 <li>文字列の描画でクラッシュするバグを修正。</li>
@@ -542,6 +546,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/EnvelopedSine0.1.4.zip">EnvelopedSine 0.1.4 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EnvelopedSine0.1.2.zip">EnvelopedSine 0.1.2 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/EnvelopedSine0.1.1.zip">EnvelopedSine 0.1.1 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/EnvelopedSine0.1.0.zip">EnvelopedSine 0.1.0 - VST 3 (github.com)</a></li>

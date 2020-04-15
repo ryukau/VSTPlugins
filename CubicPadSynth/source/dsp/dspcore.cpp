@@ -318,6 +318,7 @@ void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
 
   std::array<float, 2> frame{};
   for (uint32_t i = 0; i < length; ++i) {
+    SmootherCommon<float>::setBufferIndex(i);
     processMidiNote(i);
 
     info.masterPitch.process();
