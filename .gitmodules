@@ -1,3 +1,7 @@
 [submodule "lib/vcl"]
 	path = lib/vcl
 	url = https://github.com/vectorclass/version2.git
+[submodule "lib/pocketfft"]
+	path = lib/pocketfft
+	url = https://gitlab.mpcdf.mpg.de/mtr/pocketfft.git
+	branch = cpp
