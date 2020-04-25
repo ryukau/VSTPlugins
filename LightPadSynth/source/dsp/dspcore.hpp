@@ -128,7 +128,7 @@ struct NoteProcessInfo {
       float pan,                                                                         \
       float phase,                                                                       \
       float sampleRate,                                                                  \
-      WaveTable<tableSize> &wavetable,                                                   \
+      Wavetable<tableSize> &wavetable,                                                   \
       NoteProcessInfo &info,                                                             \
       GlobalParameter &param);                                                           \
     void release();                                                                      \
@@ -239,7 +239,7 @@ public:
                                                                                          \
     std::vector<PeakInfo<float>> peakInfos;                                              \
                                                                                          \
-    WaveTable<tableSize> wavetable;                                                      \
+    Wavetable<tableSize> wavetable;                                                      \
     LfoWavetable<lfoTableSize> lfoWavetable;                                             \
                                                                                          \
     size_t nVoice = 32;                                                                  \

@@ -106,13 +106,13 @@ which will be padded as following:
 tablePadded = [11, 22, 33, 44, 11].
 ```
  */
-template<size_t tableSize> struct WaveTable {
+template<size_t tableSize> struct Wavetable {
   std::vector<std::complex<float>> spectrum;
   std::vector<std::complex<float>> tmpSpec;
   float tableBaseFreq = 20.0f;
   PocketFFT<float> fft;
 
-  WaveTable()
+  Wavetable()
   {
     size_t spectrumSize = tableSize / 2 + 1;
     spectrum.resize(spectrumSize);

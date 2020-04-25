@@ -108,6 +108,7 @@ enum ID {
 
   nVoice,
   smoothness,
+  seed,
 
   pitchBend,
 
@@ -329,6 +330,8 @@ struct GlobalParameter : public ParameterInterface {
       = std::make_unique<IntValue>(1, Scales::nVoice, "nVoice", Info::kCanAutomate);
     value[ID::smoothness] = std::make_unique<LogValue>(
       0.1, Scales::smoothness, "smoothness", Info::kCanAutomate);
+    value[ID::seed]
+      = std::make_unique<IntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
 
     value[ID::pitchBend] = std::make_unique<LinearValue>(
       0.5, Scales::defaultScale, "pitchBend", Info::kCanAutomate);

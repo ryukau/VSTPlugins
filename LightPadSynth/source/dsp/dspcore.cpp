@@ -81,7 +81,7 @@ void NOTE_NAME::noteOn(
   float pan,
   float phase,
   float sampleRate,
-  WaveTable<tableSize> &wavetable,
+  Wavetable<tableSize> &wavetable,
   NoteProcessInfo &info,
   GlobalParameter &param)
 {
@@ -198,10 +198,7 @@ void DSPCORE_NAME::reset()
   startup();
 }
 
-void DSPCORE_NAME::startup()
-{
-  info.rng.seed(0); // TODO: provide seed.
-}
+void DSPCORE_NAME::startup() { info.rng.seed(param.value[ParameterID::seed]->getInt()); }
 
 void DSPCORE_NAME::setParameters(float tempo)
 {
