@@ -502,9 +502,13 @@ void DSPCORE_NAME::refreshTable()
     peakInfos[idx].phase = param.value[ID::overtonePhase0 + idx]->getFloat();
   }
 
-  size_t bufferSize = param.value[ID::tableBufferSize]->getInt();
-  if (bufferSize >= 12) bufferSize = 11;
-  wavetable.resize(1024 << bufferSize);
+  ///
+  /// buffer size parameter is disabled due to build fail on macOS.
+  ///
+  // size_t bufferSize = param.value[ID::tableBufferSize]->getInt();
+  // if (bufferSize >= 12) bufferSize = 11;
+  // wavetable.resize(1024 << bufferSize);
+  wavetable.resize(tableSize);
 
   wavetable.padsynth(
     sampleRate, tableBaseFreq, peakInfos, param.value[ID::padSynthSeed]->getInt(),
