@@ -115,14 +115,14 @@ struct Wavetable {
   std::vector<std::complex<float>> tmpSpec;
   std::vector<std::vector<float>> table;
   float tableBaseFreq = 20.0f;
-  size_t tableSize = initialTableSize;
+  static const size_t tableSize = initialTableSize;
   PocketFFT<float> fft;
 
   Wavetable() { resize(initialTableSize); }
 
-  void resize(size_t tableSize)
+  void resize(size_t /* tableSize */)
   {
-    this->tableSize = tableSize;
+    // this->tableSize = tableSize;
 
     size_t spectrumSize = tableSize / 2 + 1;
     spectrum.resize(spectrumSize);
