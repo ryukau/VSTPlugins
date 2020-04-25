@@ -9,9 +9,6 @@ cd "$HOME" || exit
 git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
 cd vst3sdk || exit
 
-# Patch vst3sdk.
-cp "$GITHUB_WORKSPACE"/ci/macOS_patch/Global.cmake cmake/modules/Global.cmake
-
 mkdir build
 cd build || exit
 cmake -GXcode \
