@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
+set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15")
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -43,19 +44,6 @@ elseif(UNIX)
   endif()
 endif()
 
-# FFTW3
-add_library(fftw3 STATIC IMPORTED)
-if(MSVC)
-  get_filename_component(fftw3_path ../lib/fftw3/windows/fftw3f.lib ABSOLUTE)
-elseif(UNIX)
-  if(APPLE)
-    get_filename_component(fftw3_path ../lib/fftw3/macOS/libfftw3f.a ABSOLUTE)
-  else()
-    get_filename_component(fftw3_path ../lib/fftw3/linux/libfftw3f.a ABSOLUTE)
-  endif()
-endif()
-set_property(TARGET fftw3 PROPERTY IMPORTED_LOCATION ${fftw3_path})
-
 # VST 3 settings.
 set(plug_sources
   ../lib/vcl/instrset_detect.cpp
@@ -77,7 +65,6 @@ target_link_libraries(${target} PRIVATE
   ${dspcore_avx2}
   ${dspcore_avx512}
   UhhyouCommon
-  fftw3
   base
   sdk
   vstgui_support)
