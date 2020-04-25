@@ -61,7 +61,7 @@ public:
     rFraction = timeInSample - Sample(timeInt);
 
     rptr = wptr - timeInt;
-    if (rptr < 0) rptr += buf.size();
+    if (rptr < 0) rptr += int(buf.size());
   }
 
   Sample process(Sample input, Sample feedback)
@@ -71,22 +71,22 @@ public:
     // Write to buffer.
     buf[wptr] = input - Sample(0.5) * (input - w1);
     ++wptr;
-    if (wptr >= buf.size()) wptr -= buf.size();
+    if (wptr >= int(buf.size())) wptr -= int(buf.size());
 
     buf[wptr] = input;
     ++wptr;
-    if (wptr >= buf.size()) wptr -= buf.size();
+    if (wptr >= int(buf.size())) wptr -= int(buf.size());
 
     w1 = input;
 
     // Read from buffer.
     const size_t i1 = rptr;
     ++rptr;
-    if (rptr >= buf.size()) rptr -= buf.size();
+    if (rptr >= int(buf.size())) rptr -= int(buf.size());
 
     const size_t i0 = rptr;
     ++rptr;
-    if (rptr >= buf.size()) rptr -= buf.size();
+    if (rptr >= int(buf.size())) rptr -= int(buf.size());
 
     return r1 = buf[i0] - rFraction * (buf[i0] - buf[i1]);
   }

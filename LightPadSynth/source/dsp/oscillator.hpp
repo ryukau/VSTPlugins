@@ -66,7 +66,7 @@ public:
 
     size_t tmpR = sizeof(T);
     size_t tmpC = sizeof(std::complex<T>);
-    for (int i = shape.size() - 1; i >= 0; --i) {
+    for (int i = int(shape.size()) - 1; i >= 0; --i) {
       strideR[i] = tmpR;
       tmpR *= shape[i];
       strideC[i] = tmpC;
@@ -160,7 +160,7 @@ template<size_t tableSize> struct Wavetable {
 
       int32_t center = int32_t(freqIdx * spectrum.size());
       int32_t start = std::max<int32_t>(center - profileHalf, 0);
-      int32_t end = std::min<int32_t>(center + profileHalf, spectrum.size());
+      int32_t end = std::min<int32_t>(center + profileHalf, int32_t(spectrum.size()));
 
       std::uniform_real_distribution<float> distPhase(0.0f, peak.phase);
       auto phase = distPhase(rng);
