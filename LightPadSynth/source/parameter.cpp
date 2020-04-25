@@ -49,7 +49,7 @@ LogScale<double> Scales::envelopeS(0.0001, 0.9995, 0.5, 0.3);
 LogScale<double> Scales::envelopeR(0.001, 16.0, 0.5, 2.0);
 
 LogScale<double> Scales::filterCutoff(0.0, 22000.0, 0.5, 400.0);
-LinearScale<double> Scales::filterResonance(0.0, 0.999);
+LinearScale<double> Scales::filterResonance(0.0, 0.995);
 
 LinearScale<double> Scales::delayFeedback(-1.0, 1.0);
 IntScale<double> Scales::delayDetuneSemi(240);
