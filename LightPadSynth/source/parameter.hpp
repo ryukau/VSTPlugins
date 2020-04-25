@@ -269,7 +269,7 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::filterAmount] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "filterAmount", Info::kCanAutomate);
     value[ID::filterKeyFollow] = std::make_unique<LinearValue>(
-      1.0, Scales::defaultScale, "filterKeyFollow", Info::kCanAutomate);
+      0.0, Scales::defaultScale, "filterKeyFollow", Info::kCanAutomate);
 
     value[ID::delayMix] = std::make_unique<LinearValue>(
       0.5, Scales::defaultScale, "delayMix", Info::kCanAutomate);
