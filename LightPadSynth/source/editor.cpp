@@ -443,7 +443,7 @@ bool Editor::prepareUI()
       tablePitchLeft1, tablePitchTop + 3.0f * labelY, knobX, colorBlue,
       ID::overtonePitchModulo, Scales::overtonePitchModulo, false, 4));
 
-  const auto tableSpectrumTop = tablePitchTop + 5.0f * labelY;
+  const auto tableSpectrumTop = tablePitchTop + 4.0f * labelY;
   const auto tableSpectrumLeft0 = tablePitchLeft0;
   const auto tableSpectrumLeft1 = tablePitchLeft1;
   tabview->addWidget(
@@ -461,13 +461,12 @@ bool Editor::prepareUI()
 
   tabview->addWidget(
     tabPadSynth,
-    addLabel(tableSpectrumLeft0, tableSpectrumTop + 2.0f * labelY, knobX, "Shift"));
-  auto knobSpectrumShift = addTextKnob(
+    addLabel(tableSpectrumLeft0, tableSpectrumTop + 2.0f * labelY, knobX, "Rotate"));
+  auto knobSpectrumRotate = addTextKnob(
     tableSpectrumLeft1, tableSpectrumTop + 2.0f * labelY, knobX, colorBlue,
-    ID::spectrumShift, Scales::spectrumShift, false, 0, -spectrumSize);
-  knobSpectrumShift->sensitivity = 1.0f / spectrumSize;
-  knobSpectrumShift->lowSensitivity = 0.08f / spectrumSize;
-  tabview->addWidget(tabPadSynth, knobSpectrumShift);
+    ID::spectrumRotate, Scales::defaultScale, false, 6);
+  knobSpectrumRotate->lowSensitivity = 1.0f / spectrumSize;
+  tabview->addWidget(tabPadSynth, knobSpectrumRotate);
 
   tabview->addWidget(
     tabPadSynth,
@@ -488,7 +487,7 @@ bool Editor::prepareUI()
       tableSpectrumLeft1, tableSpectrumTop + 4.0 * labelY, knobX, colorBlue,
       ID::profileShape, Scales::profileShape, false, 4, 0));
 
-  const auto tablePhaseTop = tableSpectrumTop + 6.0f * labelY;
+  const auto tablePhaseTop = tableSpectrumTop + 5.0f * labelY;
   const auto tablePhaseLeft0 = tablePitchLeft0;
   tabview->addWidget(
     tabPadSynth, addGroupLabel(tablePhaseLeft0, tablePhaseTop, 2.0f * knobX, "Phase"));
@@ -513,8 +512,25 @@ bool Editor::prepareUI()
       tableRandomLeft1, tableRandomTop + labelY, knobX, colorBlue, ID::padSynthSeed,
       Scales::seed));
 
+  // Wavetable buffer size.
+  const auto tableBufferTop = tableRandomTop + 2.0f * labelY;
+  const auto tableBufferLeft0 = tablePitchLeft0;
+  const auto tableBufferLeft1 = tablePitchLeft1;
+  tabview->addWidget(
+    tabPadSynth,
+    addGroupLabel(tableBufferLeft0, tableBufferTop, 2.0f * knobX, "BufferSize"));
+
+  std::vector<UTF8String> bufferSizeItems{
+    "2^10", "2^11", "2^12",           "2^13",           "2^14",           "2^15",
+    "2^16", "2^17", "2^18 (128 MiB)", "2^19 (256 MiB)", "2^20 (512 MiB)", "2^21 (1 GiB)"};
+  tabview->addWidget(
+    tabPadSynth,
+    addOptionMenu(
+      tableRandomLeft0, tableBufferTop + labelY, 2.0f * knobX, ID::tableBufferSize,
+      bufferSizeItems));
+
   // Wavetable modifier.
-  const auto tableModifierTop = tableRandomTop + 2.0f * labelY;
+  const auto tableModifierTop = tableBufferTop + 2.0f * labelY;
   const auto tableModifierLeft0 = tablePitchLeft0;
   const auto tableModifierLeft1 = tablePitchLeft1;
   tabview->addWidget(
@@ -650,11 +666,20 @@ Press following button to apply changes.
     addTextView(
       tabInfoLeft1, tabInsideTop0, 400.0f, 400.0f, textRefreshNotice, fontSize));
 
+  auto textBufferSizeNotice = R"(Be careful changing BufferSize.
+Max 1 GiB of memory will be allocated.
+Small buffer size makes some configs to be quiet.)";
+  tabview->addWidget(
+    tabInfo,
+    addTextView(
+      tabInfoLeft1, tabInsideTop0 + 100.0f, 400.0f, 400.0f, textBufferSizeNotice,
+      fontSize));
+
   const auto tabInfoBottom = tabInsideTop0 + tabHeight - labelY;
   std::stringstream ssPluginName;
   ssPluginName << "\nLightPadSynth " << VERSION_STR;
   auto pluginNameTextView = addTextView(
-    tabInfoLeft1, tabInfoBottom - 140.0f, 400.0f, 400.0f, ssPluginName.str(), 36.0f);
+    tabInfoLeft1, tabInfoBottom - 160.0f, 400.0f, 400.0f, ssPluginName.str(), 36.0f);
   tabview->addWidget(tabInfo, pluginNameTextView);
 
   tabview->addWidget(

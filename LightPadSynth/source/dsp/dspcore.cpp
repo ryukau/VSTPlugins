@@ -81,7 +81,7 @@ void NOTE_NAME::noteOn(
   float pan,
   float phase,
   float sampleRate,
-  Wavetable<tableSize> &wavetable,
+  Wavetable &wavetable,
   NoteProcessInfo &info,
   GlobalParameter &param)
 {
@@ -98,14 +98,16 @@ void NOTE_NAME::noteOn(
     notePitch + info.masterPitch.getValue(), info.equalTemperament.getValue(),
     info.pitchA4Hz.getValue());
 
-  wavetable.refreshTable(noteFreq, osc.table);
-  osc.setFrequency(noteFreq, wavetable.tableBaseFreq);
+  // wavetable.refreshTable(noteFreq, osc.table);
+  osc.setFrequency(notePitch, noteFreq, wavetable.tableBaseFreq, wavetable.tableSize);
 
   if (param.value[ID::oscPhaseReset]->getInt()) {
     std::uniform_real_distribution<float> dist(0.0f, 1.0f);
     const auto phaseRnd
       = param.value[ID::oscPhaseRandom]->getInt() ? dist(info.rng) : 1.0f;
-    osc.setPhase(phase + phaseRnd * param.value[ID::oscInitialPhase]->getFloat());
+    osc.setPhase(
+      phase + phaseRnd * param.value[ID::oscInitialPhase]->getFloat(),
+      wavetable.tableSize);
   }
 
   filter.reset();
@@ -139,12 +141,13 @@ bool NOTE_NAME::isAttacking() { return gainEnvelope.isAttacking(); }
 
 float NOTE_NAME::getGain() { return gain; }
 
-std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
+std::array<float, 2>
+NOTE_NAME::process(float sampleRate, Wavetable &wavetable, NoteProcessInfo &info)
 {
   gain = velocity * gainEnvelope.process();
   if (gainEnvelope.isTerminated()) state = NoteState::rest;
 
-  const auto oscOut = osc.process();
+  const auto oscOut = osc.process(wavetable.table, wavetable.tableSize);
 
   const auto cutAmt = info.filterAmount.getValue();
   const auto cutoff = std::clamp(
@@ -255,7 +258,7 @@ void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
 
     for (auto &note : notes) {
       if (note.state == NoteState::rest) continue;
-      auto sig = note.process(sampleRate, info);
+      auto sig = note.process(sampleRate, wavetable, info);
       frame[0] += sig[0];
       frame[1] += sig[1];
     }
@@ -458,7 +461,7 @@ void DSPCORE_NAME::fillTransitionBuffer(size_t noteIndex)
       break;
     }
 
-    auto oscOut = note.process(sampleRate, info);
+    auto oscOut = note.process(sampleRate, wavetable, info);
     auto idx = (trIndex + bufIdx) % transitionBuffer.size();
     auto interp = 1.0f - float(bufIdx) / transitionBuffer.size();
 
@@ -499,10 +502,14 @@ void DSPCORE_NAME::refreshTable()
     peakInfos[idx].phase = param.value[ID::overtonePhase0 + idx]->getFloat();
   }
 
+  size_t bufferSize = param.value[ID::tableBufferSize]->getInt();
+  if (bufferSize >= 12) bufferSize = 11;
+  wavetable.resize(1024 << bufferSize);
+
   wavetable.padsynth(
     sampleRate, tableBaseFreq, peakInfos, param.value[ID::padSynthSeed]->getInt(),
     param.value[ID::spectrumExpand]->getFloat(),
-    int32_t(param.value[ID::spectrumShift]->getInt()) - spectrumSize,
+    param.value[ID::spectrumRotate]->getFloat(),
     param.value[ID::profileComb]->getInt() + 1, param.value[ID::profileShape]->getFloat(),
     param.value[ID::uniformPhaseProfile]->getInt());
 }

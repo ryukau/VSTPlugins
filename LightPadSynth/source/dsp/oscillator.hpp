@@ -26,6 +26,7 @@
 #include <algorithm>
 #include <cstring>
 #include <deque>
+#include <numeric>
 #include <random>
 #include <vector>
 
@@ -92,6 +93,8 @@ public:
   }
 };
 
+constexpr size_t initialTableSize = 262144;
+
 /**
 Last element of table is padded for linear interpolation.
 For example, consider following table:
@@ -104,19 +107,29 @@ which will be padded as following:
 
 ```
 tablePadded = [11, 22, 33, 44, 11].
+                               ^ This element is padded.
 ```
  */
-template<size_t tableSize> struct Wavetable {
+struct Wavetable {
   std::vector<std::complex<float>> spectrum;
   std::vector<std::complex<float>> tmpSpec;
+  std::vector<std::vector<float>> table;
   float tableBaseFreq = 20.0f;
+  size_t tableSize = initialTableSize;
   PocketFFT<float> fft;
 
-  Wavetable()
+  Wavetable() { resize(initialTableSize); }
+
+  void resize(size_t tableSize)
   {
+    this->tableSize = tableSize;
+
     size_t spectrumSize = tableSize / 2 + 1;
     spectrum.resize(spectrumSize);
     tmpSpec.resize(spectrumSize);
+
+    table.resize(128); // Resize to max MIDI note number.
+    for (auto &tbl : table) tbl.resize(tableSize + 1);
 
     pocketfft::shape_t shape{tableSize};
     fft.setShape(shape);
@@ -137,7 +150,7 @@ template<size_t tableSize> struct Wavetable {
     std::vector<PeakInfo<float>> &peakInfos,
     uint32_t seed,
     float expand,
-    int32_t shift,
+    float rotate,
     uint32_t profileSkip, // 1 or greater.
     float profileShape,
     bool uniformPhaseProfile)
@@ -146,7 +159,7 @@ template<size_t tableSize> struct Wavetable {
 
     this->tableBaseFreq = tableBaseFreq;
 
-    for (int32_t bin = 1; bin < spectrum.size(); ++bin) spectrum[bin] = 0.0f;
+    for (size_t bin = 1; bin < spectrum.size(); ++bin) spectrum[bin] = 0.0f;
 
     std::minstd_rand rng(seed);
     for (const auto &peak : peakInfos) {
@@ -172,23 +185,20 @@ template<size_t tableSize> struct Wavetable {
       }
     }
 
-    if (expand != 1.0f || shift != 0) {
-      auto sa = abs(shift);
-      if (sa >= spectrum.size()) {
+    if (expand != 1.0f || rotate != 0) {
+      size_t rot = size_t(fabs(rotate) * spectrum.size());
+      if (rot < spectrum.size()) {
+        std::rotate_copy(
+          spectrum.begin(), spectrum.begin() + rot, spectrum.end(), tmpSpec.begin());
+      } else {
         tmpSpec = spectrum;
-      } else if (shift >= 0) {
-        std::fill_n(tmpSpec.begin(), shift, 0);
-        std::copy(tmpSpec.begin() + shift, tmpSpec.end(), spectrum.begin());
-      } else { // shift < 0
-        std::copy(tmpSpec.begin(), tmpSpec.end() - sa, spectrum.begin() + sa);
-        std::fill(tmpSpec.end() - sa, tmpSpec.end(), 0);
       }
 
       size_t bin = 1;
       for (; bin < spectrum.size(); ++bin) {
         float tmpIdx = (bin - 1) / expand;
         int32_t low = int32_t(tmpIdx) + 1;
-        if (low >= spectrum.size()) break;
+        if (low >= int32_t(spectrum.size())) break;
         size_t high = low + 1;
         float frac = tmpIdx - floorf(tmpIdx);
         spectrum[bin] = tmpSpec[low] + frac * (tmpSpec[high] - tmpSpec[low]);
@@ -207,6 +217,9 @@ template<size_t tableSize> struct Wavetable {
       sum = 0.5f * sum / tableSize;
       for (auto &bin : spectrum) bin /= sum;
     }
+
+    for (int i = 0; i < int(table.size()); ++i)
+      refreshTable(440.0 * pow(2.0, (i - 69) / 12.0), table[i]);
   }
 
   void refreshTable(float frequency, std::vector<float> &table)
@@ -224,31 +237,37 @@ template<size_t tableSize> struct Wavetable {
   }
 };
 
-template<size_t tableSize> struct TableOsc {
-  std::vector<float> table;
+struct TableOsc {
   float phase = 0;
   float tick = 0;
+  size_t tableIndex = 0;
 
-  TableOsc() { table.resize(tableSize + 1); }
-
-  void setFrequency(float frequency, float tableBaseFreq)
+  void
+  setFrequency(float notePitch, float frequency, float tableBaseFreq, size_t tableSize)
   {
+    tableIndex = size_t(notePitch);
+
     tick = frequency / tableBaseFreq;
     if (tick >= tableSize) tick = 0;
   }
 
   // Input phase is normalized in [0, 1], member phase is in [0, tableSize].
-  void setPhase(float phase) { this->phase = (phase - floorf(phase)) * tableSize; }
+  void setPhase(float phase, size_t tableSize)
+  {
+    this->phase = (phase - floorf(phase)) * tableSize;
+  }
 
   void reset() { phase = 0; }
 
-  float process()
+  float process(std::vector<std::vector<float>> &table, size_t tableSize)
   {
+    const auto &tbl = table[tableIndex];
+
     phase += tick;
     if (phase >= tableSize) phase -= tableSize;
 
     size_t x0 = phase;
-    return table[x0] + (phase - floorf(phase)) * (table[x0 + 1] - table[x0]);
+    return tbl[x0] + (phase - floorf(phase)) * (tbl[x0 + 1] - tbl[x0]);
   }
 };
 
