@@ -244,7 +244,7 @@ public:
   }
 
   void setP(Sample p) { kp = std::clamp<Sample>(p, Sample(0), Sample(1)); };
-  void reset() { value = 0; }
+  void reset(Sample value = 0) { this->value = value; }
   Sample process(Sample input) { return value += kp * (input - value); }
 
 private:
