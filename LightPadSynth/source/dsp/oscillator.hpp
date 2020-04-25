@@ -18,12 +18,13 @@
 #pragma once
 
 #define POCKETFFT_NO_MULTITHREADING
-#include "../../../lib/pocketfft/pocketfft_hdronly.h"
+#include "../../../lib/AudioFFT/AudioFFT.h"
 
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/somemath.hpp"
 
 #include <algorithm>
+#include <complex>
 #include <cstring>
 #include <deque>
 #include <numeric>
@@ -50,49 +51,6 @@ template<typename Sample> struct PeakInfo {
   Sample bandWidth = 1;
 };
 
-template<typename T> class PocketFFT {
-public:
-  pocketfft::shape_t shape;
-  pocketfft::stride_t strideR;
-  pocketfft::stride_t strideC;
-  pocketfft::shape_t axes;
-  size_t ndata = 1;
-
-  void setShape(pocketfft::shape_t shape)
-  {
-    this->shape = shape;
-
-    strideR.resize(shape.size());
-    strideC.resize(shape.size());
-
-    size_t tmpR = sizeof(T);
-    size_t tmpC = sizeof(std::complex<T>);
-    for (int i = int(shape.size()) - 1; i >= 0; --i) {
-      strideR[i] = tmpR;
-      tmpR *= shape[i];
-      strideC[i] = tmpC;
-      tmpC *= shape[i];
-    }
-
-    ndata = 1;
-    for (const auto &shp : shape) ndata *= shp;
-
-    axes.resize(shape.size());
-    std::iota(axes.begin(), axes.end(), 0);
-  }
-
-  void r2c(const T *data_in, std::complex<T> *data_out, bool forward = true, T scale = 1)
-  {
-    pocketfft::r2c(shape, strideR, strideC, axes, forward, data_in, data_out, scale);
-  }
-
-  void c2r(const std::complex<T> *data_in, T *data_out, bool forward = false, T scale = 1)
-  {
-    pocketfft::c2r(
-      shape, strideC, strideR, axes, forward, data_in, data_out, scale / ndata);
-  }
-};
-
 constexpr size_t initialTableSize = 262144;
 
 /**
@@ -111,28 +69,29 @@ tablePadded = [11, 22, 33, 44, 11].
 ```
  */
 struct Wavetable {
-  std::vector<std::complex<float>> spectrum;
-  std::vector<std::complex<float>> tmpSpec;
+  std::vector<float> spectrumRe;
+  std::vector<float> spectrumIm;
+  std::vector<float> tmpSpecRe;
+  std::vector<float> tmpSpecIm;
   std::vector<std::vector<float>> table;
   float tableBaseFreq = 20.0f;
   static const size_t tableSize = initialTableSize;
-  PocketFFT<float> fft;
+  audiofft::AudioFFT fft;
 
   Wavetable() { resize(initialTableSize); }
 
-  void resize(size_t /* tableSize */)
+  void resize(size_t tableSize)
   {
-    // this->tableSize = tableSize;
-
     size_t spectrumSize = tableSize / 2 + 1;
-    spectrum.resize(spectrumSize);
-    tmpSpec.resize(spectrumSize);
+    spectrumRe.resize(spectrumSize);
+    spectrumIm.resize(spectrumSize);
+    tmpSpecRe.resize(spectrumSize);
+    tmpSpecIm.resize(spectrumSize);
 
     table.resize(128); // Resize to max MIDI note number.
     for (auto &tbl : table) tbl.resize(tableSize + 1);
 
-    pocketfft::shape_t shape{tableSize};
-    fft.setShape(shape);
+    fft.init(tableSize);
   }
 
   size_t getTableSize() { return tableSize; }
@@ -159,7 +118,10 @@ struct Wavetable {
 
     this->tableBaseFreq = tableBaseFreq;
 
-    for (size_t bin = 1; bin < spectrum.size(); ++bin) spectrum[bin] = 0.0f;
+    for (size_t bin = 1; bin < spectrumRe.size(); ++bin) {
+      spectrumRe[bin] = 0.0f;
+      spectrumIm[bin] = 0.0f;
+    }
 
     std::minstd_rand rng(seed);
     for (const auto &peak : peakInfos) {
@@ -167,55 +129,72 @@ struct Wavetable {
       float bandIdx = bandHz / (2.0f * sampleRate);
 
       float sigma = sqrtf(bandIdx * bandIdx / float(twopi));
-      int32_t profileHalf = std::max<int32_t>(1, int32_t(spectrum.size() * 5 * sigma));
+      int32_t profileHalf = std::max<int32_t>(1, int32_t(spectrumRe.size() * 5 * sigma));
 
       float freqIdx = peak.frequency * 2.0f / sampleRate;
 
-      int32_t center = int32_t(freqIdx * spectrum.size());
+      int32_t center = int32_t(freqIdx * spectrumRe.size());
       int32_t start = std::max<int32_t>(center - profileHalf, 0);
-      int32_t end = std::min<int32_t>(center + profileHalf, int32_t(spectrum.size()));
+      int32_t end = std::min<int32_t>(center + profileHalf, int32_t(spectrumRe.size()));
 
       std::uniform_real_distribution<float> distPhase(0.0f, peak.phase);
       auto phase = distPhase(rng);
       for (int32_t bin = start; bin < end; bin += profileSkip) {
         auto radius = peak.gain
-          * profile(bin / float(spectrum.size()) - freqIdx, bandIdx, profileShape);
+          * profile(bin / float(spectrumRe.size()) - freqIdx, bandIdx, profileShape);
         if (!uniformPhaseProfile) phase = distPhase(rng);
-        spectrum[bin] += std::complex<float>(radius * cosf(phase), radius * sinf(phase));
+        spectrumRe[bin] += radius * cosf(phase);
+        spectrumIm[bin] += radius * sinf(phase);
       }
     }
 
     if (expand != 1.0f || rotate != 0) {
-      size_t rot = size_t(fabs(rotate) * spectrum.size());
-      if (rot < spectrum.size()) {
+      size_t rot = size_t(fabs(rotate) * spectrumRe.size());
+      if (rot < spectrumRe.size()) {
         std::rotate_copy(
-          spectrum.begin(), spectrum.begin() + rot, spectrum.end(), tmpSpec.begin());
+          spectrumRe.begin(), spectrumRe.begin() + rot, spectrumRe.end(),
+          tmpSpecRe.begin());
+        std::rotate_copy(
+          spectrumIm.begin(), spectrumIm.begin() + rot, spectrumIm.end(),
+          tmpSpecIm.begin());
       } else {
-        tmpSpec = spectrum;
+        tmpSpecRe = spectrumRe;
+        tmpSpecIm = spectrumIm;
       }
 
       size_t bin = 1;
-      for (; bin < spectrum.size(); ++bin) {
+      for (; bin < tmpSpecRe.size(); ++bin) {
         float tmpIdx = (bin - 1) / expand;
         int32_t low = int32_t(tmpIdx) + 1;
-        if (low >= int32_t(spectrum.size())) break;
+        if (low >= int32_t(tmpSpecRe.size())) break;
         size_t high = low + 1;
         float frac = tmpIdx - floorf(tmpIdx);
-        spectrum[bin] = tmpSpec[low] + frac * (tmpSpec[high] - tmpSpec[low]);
+        spectrumRe[bin] = tmpSpecRe[low] + frac * (tmpSpecRe[high] - tmpSpecRe[low]);
+        spectrumIm[bin] = tmpSpecIm[low] + frac * (tmpSpecIm[high] - tmpSpecIm[low]);
       }
 
-      if (bin < spectrum.size()) std::fill(spectrum.begin() + bin, spectrum.end(), 0);
+      if (bin < spectrumRe.size()) {
+        std::fill(spectrumRe.begin() + bin, spectrumRe.end(), 0);
+        std::fill(spectrumIm.begin() + bin, spectrumIm.end(), 0);
+      }
     }
 
     // Remove DC offset.
-    spectrum[0] = 0.0f;
+    spectrumRe[0] = 0.0f;
+    spectrumIm[0] = 0.0f;
 
     // Normalize spectrum. Reference: https://dsp.stackexchange.com/a/3470
     float sum = 0;
-    for (const auto &bin : spectrum) sum += abs(bin);
+    for (size_t i = 0; i < spectrumRe.size(); ++i)
+      sum += sqrtf(spectrumRe[i] * spectrumRe[i] + spectrumIm[i] * spectrumIm[i]);
+
     if (sum != 0) {
       sum = 0.5f * sum / tableSize;
-      for (auto &bin : spectrum) bin /= sum;
+      for (size_t i = 0; i < spectrumRe.size(); ++i) {
+        auto value = std::complex<float>(spectrumRe[i], spectrumIm[i]) / sum;
+        spectrumRe[i] = value.real();
+        spectrumIm[i] = value.imag();
+      }
     }
 
     for (int i = 0; i < int(table.size()); ++i)
@@ -224,13 +203,15 @@ struct Wavetable {
 
   void refreshTable(float frequency, std::vector<float> &table)
   {
-    size_t bandIdx = size_t(spectrum.size() * tableBaseFreq / frequency);
-    bandIdx = std::clamp<size_t>(bandIdx, 1, spectrum.size());
+    size_t bandIdx = size_t(spectrumRe.size() * tableBaseFreq / frequency);
+    bandIdx = std::clamp<size_t>(bandIdx, 1, spectrumRe.size());
 
-    std::copy_n(spectrum.begin(), bandIdx, tmpSpec.begin());
-    std::fill(tmpSpec.begin() + bandIdx, tmpSpec.end(), 0);
+    std::copy_n(spectrumRe.begin(), bandIdx, tmpSpecRe.begin());
+    std::copy_n(spectrumIm.begin(), bandIdx, tmpSpecIm.begin());
+    std::fill(tmpSpecRe.begin() + bandIdx, tmpSpecRe.end(), 0);
+    std::fill(tmpSpecIm.begin() + bandIdx, tmpSpecIm.end(), 0);
 
-    fft.c2r(tmpSpec.data(), table.data());
+    fft.ifft(table.data(), tmpSpecRe.data(), tmpSpecIm.data());
 
     // Fill padded elements.
     table[table.size() - 1] = table[0];

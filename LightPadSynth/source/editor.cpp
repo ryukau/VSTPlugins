@@ -512,26 +512,22 @@ bool Editor::prepareUI()
       tableRandomLeft1, tableRandomTop + labelY, knobX, colorBlue, ID::padSynthSeed,
       Scales::seed));
 
-  /// Wavetable buffer size.
-  ///
-  /// buffer size parameter is disabled due to build fail on macOS.
-  ///
+  // Wavetable buffer size.
   const auto tableBufferTop = tableRandomTop + 2.0f * labelY;
-  // const auto tableBufferLeft0 = tablePitchLeft0;
-  // const auto tableBufferLeft1 = tablePitchLeft1;
-  // tabview->addWidget(
-  //   tabPadSynth,
-  //   addGroupLabel(tableBufferLeft0, tableBufferTop, 2.0f * knobX, "BufferSize"));
+  const auto tableBufferLeft0 = tablePitchLeft0;
+  const auto tableBufferLeft1 = tablePitchLeft1;
+  tabview->addWidget(
+    tabPadSynth,
+    addGroupLabel(tableBufferLeft0, tableBufferTop, 2.0f * knobX, "BufferSize"));
 
-  // std::vector<UTF8String> bufferSizeItems{
-  //   "2^10", "2^11", "2^12",           "2^13",           "2^14",           "2^15",
-  //   "2^16", "2^17", "2^18 (128 MiB)", "2^19 (256 MiB)", "2^20 (512 MiB)", "2^21 (1
-  //   GiB)"};
-  // tabview->addWidget(
-  //   tabPadSynth,
-  //   addOptionMenu(
-  //     tableRandomLeft0, tableBufferTop + labelY, 2.0f * knobX, ID::tableBufferSize,
-  //     bufferSizeItems));
+  std::vector<UTF8String> bufferSizeItems{
+    "2^10", "2^11", "2^12",           "2^13",           "2^14",           "2^15",
+    "2^16", "2^17", "2^18 (128 MiB)", "2^19 (256 MiB)", "2^20 (512 MiB)", "2^21 (1 GiB)"};
+  tabview->addWidget(
+    tabPadSynth,
+    addOptionMenu(
+      tableRandomLeft0, tableBufferTop + labelY, 2.0f * knobX, ID::tableBufferSize,
+      bufferSizeItems));
 
   // Wavetable modifier.
   const auto tableModifierTop = tableBufferTop + 2.0f * labelY;
