@@ -241,6 +241,19 @@ void DSPCORE_NAME::setParameters(float tempo)
 
   nVoice = 16 * (param.value[ID::nVoice]->getInt() + 1);
   if (nVoice > notes.size()) nVoice = notes.size();
+
+  for (auto &note : notes) {
+    if (note.state == NoteState::rest) continue;
+    note.gainEnvelope.set(
+      sampleRate, param.value[ID::gainA]->getFloat(), param.value[ID::gainD]->getFloat(),
+      param.value[ID::gainS]->getFloat(), param.value[ID::gainR]->getFloat(),
+      param.value[ID::gainCurve]->getFloat(), note.noteFreq);
+    note.filterEnvelope.set(
+      sampleRate, param.value[ID::filterA]->getFloat(),
+      param.value[ID::filterD]->getFloat(), param.value[ID::filterS]->getFloat(),
+      param.value[ID::filterR]->getFloat(), note.noteFreq);
+    note.delayGate.atk.set(sampleRate, param.value[ID::delayAttack]->getFloat());
+  }
 }
 
 void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
