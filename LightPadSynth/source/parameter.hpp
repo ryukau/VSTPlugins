@@ -130,7 +130,7 @@ struct Scales {
   static SomeDSP::IntScale<double> tableBufferSize;
   static SomeDSP::LogScale<double> overtoneGainPower;
   static SomeDSP::LogScale<double> overtoneWidthMultiply;
-  static SomeDSP::LinearScale<double> overtonePitchMultiply;
+  static SomeDSP::LogScale<double> overtonePitchMultiply;
   static SomeDSP::LinearScale<double> overtonePitchModulo;
   static SomeDSP::LogScale<double> spectrumExpand;
   static SomeDSP::IntScale<double> profileComb;
@@ -223,7 +223,7 @@ struct GlobalParameter : public ParameterInterface {
       0.5, Scales::overtoneGainPower, "overtoneGainPower", Info::kCanAutomate);
     value[ID::overtoneWidthMultiply] = std::make_unique<LogValue>(
       0.5, Scales::overtoneWidthMultiply, "overtoneWidthMultiply", Info::kCanAutomate);
-    value[ID::overtonePitchMultiply] = std::make_unique<LinearValue>(
+    value[ID::overtonePitchMultiply] = std::make_unique<LogValue>(
       Scales::overtonePitchMultiply.invmap(1.0), Scales::overtonePitchMultiply,
       "overtonePitchMultiply", Info::kCanAutomate);
     value[ID::overtonePitchModulo] = std::make_unique<LinearValue>(

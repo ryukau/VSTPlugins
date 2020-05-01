@@ -35,7 +35,7 @@ LogScale<double> Scales::tableBaseFrequency(0.1, 100.0, 0.5, 2.5);
 IntScale<double> Scales::tableBufferSize(11); // Max 1024 * 2^11
 LogScale<double> Scales::overtoneGainPower(0.2, 10.0, 0.5, 1.0);
 LogScale<double> Scales::overtoneWidthMultiply(0.05, 12.0, 0.5, 1.0);
-LinearScale<double> Scales::overtonePitchMultiply(0.0001, 16.0);
+LogScale<double> Scales::overtonePitchMultiply(0.0001, 2.0, 0.75, 1.0);
 LinearScale<double> Scales::overtonePitchModulo(0.0, 136.0);
 LogScale<double> Scales::spectrumExpand(0.03125, 32.0, 0.5, 1.0);
 IntScale<double> Scales::profileComb(255);
