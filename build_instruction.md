@@ -27,6 +27,21 @@ cmake --build . -j
 
 After finishing the command, you can find a link to the plugin in `$HOME/.vst3`. The link is pointing to the plugin directory in `~/code/VST_SDK/VST3_SDK/build/VST3/Release/`.
 
+### Required Package for Fedora 32
+**WIP**: Some required packages may missing. If it doesn't work, please open issue.
+
+`git`, `gcc-c++`, and `cmake` is also needed if you haven't installed developping environment.
+
+```bash
+dnf install              \
+  sqlite-devel           \
+  gtkmm30-devel          \
+  xcb-util-devel         \
+  xcb-util-cursor-devel  \
+  xcb-util-keysyms-devel \
+  libxkbcommon-x11-devel \
+```
+
 ## Windows
 Install following applications.
 
