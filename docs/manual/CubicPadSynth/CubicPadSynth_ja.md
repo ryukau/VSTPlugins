@@ -3,7 +3,7 @@
 
 <ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby> は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています
 
-- [CubicPadSynth 0.1.2 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynth0.1.2.zip) <img
+- [CubicPadSynth 0.1.3 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -249,7 +249,7 @@ Phase セクションの `Reset` にチェックが入っていないとき、�
 
 #### LFO
 ##### Refresh LFO
-現在の `LFO Wave` のパラメータに基づいて LFO のウェーブテーブルを更新します。このパラメータはオートメーションできません。
+現在の `LFO Wave` のパラメータに基づいて LFO のウェーブテーブルを更新します。
 
 ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。
 
@@ -405,11 +405,13 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm
 倍音コントロールの `Width` にかけ合わせる値です。
 
 #### Refresh Table
-現在の Wavetable タブのパラメータに基づいてオシレータのウェーブテーブルを更新します。このパラメータはオートメーションできません。
+現在の Wavetable タブのパラメータに基づいてオシレータのウェーブテーブルを更新します。
 
 ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。
 
 ## チェンジログ
+- 0.1.3
+  - BarBox のショートカットが効かないバグを修正。
 - 0.1.2
   - オートメーションと MIDI マッピングを利用できるように `Refresh Table` と `Refresh LFO` を VST のメッセージからパラメータへと変更。
   - BarBox にフォーカスした後、マウスカーソルが領域外にあるときはショートカットが無効になるように変更。
@@ -419,6 +421,7 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm
   - 初期リリース。
 
 ### 旧バージョン
+- [CubicPadSynth 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynth0.1.2.zip)
 - [CubicPadSynth 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip)
 
 ## ライセンス
