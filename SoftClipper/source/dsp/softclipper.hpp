@@ -65,22 +65,7 @@ public:
   Sample process16(Sample x0)
   {
     Sample diff = x0 - x1;
-    lowpass.push(process(x1));
-    lowpass.push(process(x1 + Sample(0.0625) * diff));
-    lowpass.push(process(x1 + Sample(0.1250) * diff));
-    lowpass.push(process(x1 + Sample(0.1875) * diff));
-    lowpass.push(process(x1 + Sample(0.2500) * diff));
-    lowpass.push(process(x1 + Sample(0.3125) * diff));
-    lowpass.push(process(x1 + Sample(0.3750) * diff));
-    lowpass.push(process(x1 + Sample(0.4375) * diff));
-    lowpass.push(process(x1 + Sample(0.5000) * diff));
-    lowpass.push(process(x1 + Sample(0.5625) * diff));
-    lowpass.push(process(x1 + Sample(0.6250) * diff));
-    lowpass.push(process(x1 + Sample(0.6875) * diff));
-    lowpass.push(process(x1 + Sample(0.7500) * diff));
-    lowpass.push(process(x1 + Sample(0.8125) * diff));
-    lowpass.push(process(x1 + Sample(0.8750) * diff));
-    lowpass.push(process(x1 + Sample(0.9375) * diff));
+    for (int i = 0; i < 16; ++i) lowpass.push(process(x1 + i / Sample(16) * diff));
     x1 = x0;
     if (std::isfinite(lowpass.output())) return lowpass.output();
 
