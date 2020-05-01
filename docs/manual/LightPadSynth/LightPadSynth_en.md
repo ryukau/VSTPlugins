@@ -1,5 +1,5 @@
 # LightPadSynth
-![](img/cubicpadsynth.png)
+![](img/lightpadsynth.png)
 
 LightPadSynth is a lightweight version of CubicPadSynth. For efficiency, interpolation is changed to linear. Also pitch modulation is omitted. Instead, a delay is added for each voice.
 

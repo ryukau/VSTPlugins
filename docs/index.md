@@ -16,6 +16,17 @@ For Linux, LV2 version is available.
 
 - [GitHub - ryukau/LV2Plugins](https://github.com/ryukau/LV2Plugins)
 
+## LightPadSynth
+![](manual/LightPadSynth/img/lightpadsynth.png)
+
+LightPadSynth はピッチ変調を無くして補間を線形補完に変えた CubicPadSynth の軽量版です。ピッチ変調ができなくなった代わりに、各ボイスにディレイを追加しています。
+
+- [LightPadSynth のマニュアル (日本語)](manual/LightPadSynth/LightPadSynth_ja.html)
+
+LightPadSynth is a lightweight version of CubicPadSynth. For efficiency, interpolation is changed to linear. Also pitch modulation is omitted. Instead, a delay is added for each voice.
+
+- [LightPadSynth Manual (English)](manual/LightPadSynth/LightPadSynth_en.html)
+
 ## CubicPadSynth
 ![](manual/CubicPadSynth/img/cubicpadsynth.png)
 

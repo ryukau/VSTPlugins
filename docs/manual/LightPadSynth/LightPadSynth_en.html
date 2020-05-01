@@ -6,7 +6,7 @@
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <meta name="dcterms.date" content="2020-05-01" />
-<title>CubicPadSynth_en</title>
+<title>LightPadSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -208,7 +208,7 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#cubicpadsynth">CubicPadSynth</a><ul>
+  <li><a href="#lightpadsynth">LightPadSynth</a><ul>
   <li><a href="#installation">Installation</a><ul>
   <li><a href="#plugin">Plugin</a></li>
   <li><a href="#presets">Presets</a></li>
@@ -218,25 +218,25 @@ footer {
   <li><a href="#controls">Controls</a></li>
   <li><a href="#caution">Caution</a></li>
   <li><a href="#wavetable-specification">Wavetable Specification</a></li>
-  <li><a href="#padsynth-algorithm-overview">PADsynth Algorithm Overview</a></li>
   <li><a href="#block-diagram">Block Diagram</a></li>
   <li><a href="#parameters">Parameters</a><ul>
   <li><a href="#main-tab">Main Tab</a><ul>
-  <li><a href="#tuning">Tuning</a></li>
   <li><a href="#gain">Gain</a></li>
   <li><a href="#lowpass">Lowpass</a></li>
-  <li><a href="#pitch">Pitch</a></li>
+  <li><a href="#tuning">Tuning</a></li>
   <li><a href="#unison">Unison</a></li>
-  <li><a href="#lfo">LFO</a></li>
   <li><a href="#phase-1">Phase</a></li>
   <li><a href="#misc.">Misc.</a></li>
+  <li><a href="#delay">Delay</a></li>
+  <li><a href="#lfo">LFO</a></li>
   </ul></li>
   <li><a href="#wavetable-tab">Wavetable Tab</a><ul>
   <li><a href="#overtone-controls">Overtone Controls</a></li>
-  <li><a href="#pitch-2">Pitch</a></li>
+  <li><a href="#pitch-1">Pitch</a></li>
   <li><a href="#spectrum">Spectrum</a></li>
   <li><a href="#phase-4">Phase</a></li>
-  <li><a href="#random-2">Random</a></li>
+  <li><a href="#random-1">Random</a></li>
+  <li><a href="#buffersize">BufferSize</a></li>
   <li><a href="#modifier">Modifier</a></li>
   <li><a href="#refresh-table">Refresh Table</a></li>
   </ul></li>
@@ -252,18 +252,18 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="cubicpadsynth">CubicPadSynth</h1>
-<p><img src="img/cubicpadsynth.png" /></p>
-<p>CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.</p>
+<h1 id="lightpadsynth">LightPadSynth</h1>
+<p><img src="img/lightpadsynth.png" /></p>
+<p>LightPadSynth is a lightweight version of CubicPadSynth. For efficiency, interpolation is changed to linear. Also pitch modulation is omitted. Instead, a delay is added for each voice.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip">Download CubicPadSynth 0.1.3 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynth0.1.0.zip">Download LightPadSynth 0.1.0 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynthPresets.zip">Download Presets (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynthPresets.zip">Download Presets (github.com)</a></li>
 </ul>
-<p>CubicPadSynth requires CPU which supports AVX or later SIMD instructions.</p>
+<p>LightPadSynth requires CPU which supports AVX or later SIMD instructions.</p>
 <p>The package includes following builds:</p>
 <ul>
 <li>Windows 64bit</li>
@@ -414,42 +414,15 @@ style="display: inline-block; vertical-align: middle;"></li>
 <h2 id="caution">Caution</h2>
 <p>Pressing <code>Refresh LFO</code> or <code>Refresh Table</code> button stop sound. They also stop all midi notes.</p>
 <h2 id="wavetable-specification">Wavetable Specification</h2>
-<p>Length of a wavetable is <code>2^18</code> samples.</p>
-<p>136 band-limited wavetables are generated for each MIDI note. Pitch bending is supported as high as 21100 Hz. 21100 Hz is derived from MIDI note number 136. Frequency of MIDI note number 137 is higher then 22050 Hz. That’s why 136 is selected.</p>
-<p>When fundamental frequency of a note is lower than 8.18 Hz, some overtones on high frequency may lost. However, cubic interpolation may cause noise which makes those frequency not to be 0.</p>
-<pre><code>noteToFreq(note) := 440 * Math.pow(2, (note - 69) / 12)
-noteToFreq(0) = 8.175798915643707
-noteToFreq(136) = 21096.16364242367
-noteToFreq(137) = 22350.606811712252</code></pre>
-<p>Wavetable is represented as 2D array with size of <code>136 * 2^18</code>. Bicubic interpolation is used to get the value from the table. Coordinate on time/band-limit axis is determined by phase and frequency of oscillator.</p>
-<p>The size of wavetable is large for a synthesizer. <a href="https://alsa.opensrc.org/Xruns">Xrun</a> may occur if memory is slow. It may also consume more resources for higher notes because access pattern becomes close to random.</p>
-<ul>
-<li><a href="https://alsa.opensrc.org/Xruns">Alsa Opensrc Org - Independent ALSA and linux audio support site</a></li>
-<li><a href="https://unix.stackexchange.com/questions/199498/what-are-xruns">linux - What are XRuns? - Unix &amp; Linux Stack Exchange</a></li>
-</ul>
-<h2 id="padsynth-algorithm-overview">PADsynth Algorithm Overview</h2>
-<p>CubicPadSynth uses PADsynth algorithm, which is originated from <a href="https://zynaddsubfx.sourceforge.io/">ZynAddSubFX</a>. <a href="http://yoshimi.sourceforge.net/">Yoshimi</a> is also using PADsynth algorithm.</p>
-<p>Passing phase randomized spectrum to IDFT (inverse discrete fourier transform) generates a cyclic waveform which is smooth when connecting an end to another end. PADsynth is utilizing this property.</p>
-<p>“Profile” function is used to synthesize spectrum. CubicPadSynth uses normal distribution curve for profile, which is same as original PADsynth algorithm. Center frequency of profile can be set arbitrary. In default, CubicPadSynth uses fundamental frequency set by <code>Base Freq.</code> and its overtones.</p>
-<p><img src="img/padsynth.svg" /></p>
-<ul>
-<li><a href="https://zynaddsubfx.sourceforge.io/doc/PADsynth/PADsynth.htm">PADsynth algorithm</a></li>
-</ul>
+<p>128 wavetables are generated. The number 128 comes from MIDI note number range. The indices of wavetables correspond to MIDI note numbers.</p>
+<p>When tuning is not exact, an index will be truncated to semitones. For example, if MIDI note number is 60 and tuning is -20 cents, index becomes <code>floor(60 - 0.20) = 59</code>. Thus, 59th wavetable will be used.</p>
 <h2 id="block-diagram">Block Diagram</h2>
 <p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or “View Image” on right click menu to scale.</p>
 <p>Diagram only shows overview. It’s not exact implementation.</p>
-<p><img src="img/cubicpadsynth.svg" /></p>
+<p><img src="img/lightpadsynth.svg" /></p>
 <h2 id="parameters">Parameters</h2>
 <h3 id="main-tab">Main Tab</h3>
-<p><img src="img/cubicpadsynth.png" /></p>
-<h4 id="tuning">Tuning</h4>
-<h5 id="octave-semi-milli">Octave, Semi, Milli</h5>
-<p>Changes master pitch.</p>
-<p><code>Milli</code> is 1/1000 of semitone or 1/10 cent.</p>
-<h5 id="et-a4-hz">ET, A4 [Hz]</h5>
-<p>Changes tuning.</p>
-<p><code>ET</code> stands for equal temperature. Note that when <code>ET</code> is less than 12, some notes becomes silent due to frequency becomes too high or too low.</p>
-<p><code>A4 [Hz]</code> is frequency of note A4.</p>
+<p><img src="img/lightpadsynth.png" /></p>
 <h4 id="gain">Gain</h4>
 <h5 id="a-d-s-r">A, D, S, R</h5>
 <p>Gain envelope parameters.</p>
@@ -462,30 +435,23 @@ noteToFreq(137) = 22350.606811712252</code></pre>
 <h5 id="gain-1">Gain</h5>
 <p>Master output gain.</p>
 <h4 id="lowpass">Lowpass</h4>
-<p>This is a psuedo low-pass filter. It shifts to wavetable which contains less overtone to get low-passed output.</p>
-<p>Equation to get cutoff frequency is following.</p>
-<pre><code>cut = Cutoff * 128
-keyFollowRange = Cutoff * (nTable - pitch)
-lowpassPitch = (cut + KeyFollow * (keyFollowRange - cut)) - lowpassEnvelope * Amount;
-if (lowpassPitch &lt; 0) lowpassPitch = 0
-
-noteToFreq(note) := 440 * Math.pow(2, (note - 69) / 12)
-range  = noteToFreq(nTable)
-lpFreq = noteToFreq(midiNote + lowpassPitch)
-ntFreq = noteToFreq(midiNote)
-cutoffFrequency = (1 + (range - lpFreq) / range) * ntFreq</code></pre>
-<p>128 used to calculate <code>lpCut</code> is an arbitrary value which came from MIDI note number range + 1. <code>nTable</code> is set to 136.</p>
+<p>Naive 3-pole low-pass filter.</p>
 <h5 id="cutoff">Cutoff</h5>
-<p>Changes filter cutoff frequency.</p>
+<p>Cutoff frequency of the filter.</p>
+<h5 id="resonance">Resonance</h5>
+<p>Resonance of the filter. Be careful when turning to right, output will be loud.</p>
 <h5 id="keyfollow">KeyFollow</h5>
-<p>When set to right-most, cutoff frequency is set to make the number of overtone to be almost same regardless of pitch of note. When set to left-most, it only use the value of <code>Cutoff</code>.</p>
+<p>When set to right-most, cutoff frequency is set to the frequency of a note. When set to left-most, it only use the value of <code>Cutoff</code>.</p>
 <h5 id="a-d-s-r-amount">A, D, S, R, Amount</h5>
 <p>Filter envelope parameters. <code>Amount</code> changes the amount of modulation to cutoff.</p>
-<h4 id="pitch">Pitch</h4>
-<h5 id="a-d-s-r-amount-1">A, D, S, R, Amount</h5>
-<p>Pitch envelope parameters.</p>
-<h5 id="negative">Negative</h5>
-<p>Changes the sign of pitch envelope output.</p>
+<h4 id="tuning">Tuning</h4>
+<h5 id="octave-semi-milli">Octave, Semi, Milli</h5>
+<p>Changes master pitch.</p>
+<p><code>Milli</code> is 1/1000 of semitone or 1/10 cent.</p>
+<h5 id="et-a4-hz">ET, A4 [Hz]</h5>
+<p>Changes tuning.</p>
+<p><code>ET</code> stands for equal temperature. Note that when <code>ET</code> is less than 12, some notes becomes silent due to frequency becomes too high or too low.</p>
+<p><code>A4 [Hz]</code> is frequency of note A4.</p>
 <h4 id="unison">Unison</h4>
 <h5 id="nunison">nUnison</h5>
 <p>Number of voices used by unison.</p>
@@ -515,26 +481,6 @@ detune = pitch * (1 + random * unisonIndex * Detune)</code></pre>
 <li><code>RotateR</code>: Rotate to right for each note-on.</li>
 <li><code>Shuffle</code>: Randomly assign pan which is evenly ordered.</li>
 </ul>
-<h4 id="lfo">LFO</h4>
-<h5 id="refresh-lfo">Refresh LFO</h5>
-<p>Refresh LFO wavetable based on current value of <code>LFO Wave</code>.</p>
-<p>Note that refreshing wavetable stops sound. It also interrupts MIDI notes.</p>
-<h5 id="interpolation">Interpolation</h5>
-<p>Type of LFO wavetable interpolation.</p>
-<p><img src="img/interpolation_type.png" /></p>
-<h5 id="tempo-multiply">Tempo, Multiply</h5>
-<p>Sets LFO frequency according to current tempo. Lower numeral represents the length of note. Upper numeral is the number of notes.</p>
-<p>Value of <code>Multiply</code> is multiplied to the frequency calculated from <code>Tempo</code>.</p>
-<pre><code>// (60 seconds) * (4 beat) = 240
-lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)</code></pre>
-<h5 id="retrigger">Retrigger</h5>
-<p>When checked, resets LFO phase for each note-on.</p>
-<h5 id="amount">Amount</h5>
-<p>LFO frequency modulation amount.</p>
-<h5 id="lowpass-1">Lowpass</h5>
-<p>Changes cutoff freequency of low-pass filter for LFO.</p>
-<h5 id="lfo-wave">LFO Wave</h5>
-<p>LFO waveform.</p>
 <h4 id="phase-1">Phase</h4>
 <h5 id="phase-2">Phase</h5>
 <p>Initial phase of oscillator.</p>
@@ -550,23 +496,25 @@ lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)<
 <li>All parameters in Tuning section.</li>
 <li>Gain
 <ul>
-<li><code>S</code></li>
 <li><code>Gain</code></li>
+<li><code>S</code></li>
 </ul></li>
 <li>Lowpass
 <ul>
 <li><code>Cutoff</code></li>
+<li><code>S</code></li>
+<li><code>Amount</code></li>
 <li><code>KeyFollow</code></li>
-<li><code>S</code></li>
-<li><code>Amount</code></li>
 </ul></li>
-<li>Pitch
+<li>Delay
 <ul>
-<li><code>S</code></li>
-<li><code>Amount</code></li>
-<li><code>Negative</code></li>
+<li><code>Mix</code></li>
+<li><code>Feedback</code></li>
+<li><code>Attack</code></li>
+<li><code>Semi</code></li>
+<li><code>Milli</code></li>
 </ul></li>
-<li>LFO
+<li>Delay LFO
 <ul>
 <li><code>Tempo</code></li>
 <li><code>Multiply</code></li>
@@ -578,22 +526,51 @@ lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)<
 <li><code>Phase</code></li>
 </ul></li>
 </ul>
-<h5 id="nvoice">nVoice</h5>
+<h5 id="poly">Poly</h5>
 <p>Maximum polyphony. Lowering the number of this option reduces CPU load.</p>
-<h5 id="pool">Pool</h5>
-<p>When checked, most quiet note is released when the number of active voice is close to maximum polyphony. This can be used to reduce pop noise which occurs on note-on.</p>
+<h5 id="seed">Seed</h5>
+<p>Random seed. This value change random number sequence.</p>
+<p>LightPadSynth has 2 random number generaters. One is used in <code>Main</code> tab and the other is in <code>Wavetable</code> tab.</p>
+<h4 id="delay">Delay</h4>
+<h5 id="mix">Mix</h5>
+<p>Mixing ratio of filter output and delay output.</p>
+<h5 id="feedback">Feedback</h5>
+<p>Feedback of a delay. Positive feedback when turning right. Negative feedback when turning left.</p>
+<h5 id="attack">Attack</h5>
+<p>Attack time of gate between filter output and delay.</p>
+<h5 id="semi-milli">Semi, Milli</h5>
+<p>Delay time relative to note frequency. Following equation is used.</p>
+<pre><code>delayTime = 1 / (noteFreq * pow(2, (semi + 0.001 * milli) / 12))</code></pre>
+<h4 id="lfo">LFO</h4>
+<h5 id="tempo-multiply">Tempo, Multiply</h5>
+<p>Sets LFO frequency according to current tempo. Lower numeral represents the length of note. Upper numeral is the number of notes.</p>
+<p>Value of <code>Multiply</code> is multiplied to the frequency calculated from <code>Tempo</code>.</p>
+<pre><code>// (60 seconds) * (4 beat) = 240
+lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)</code></pre>
+<h5 id="amount">Amount</h5>
+<p>LFO frequency modulation amount.</p>
+<h5 id="lowpass-1">Lowpass</h5>
+<p>Changes cutoff freequency of low-pass filter for LFO.</p>
+<h5 id="interpolation">Interpolation</h5>
+<p>Type of LFO wavetable interpolation.</p>
+<p><img src="img/interpolation_type.png" /></p>
+<h5 id="refresh-lfo">Refresh LFO</h5>
+<p>Refresh LFO wavetable based on current value of <code>LFO Wave</code>.</p>
+<p>Note that refreshing wavetable stops sound. It also interrupts MIDI notes.</p>
+<h5 id="lfo-wave">LFO Wave</h5>
+<p>LFO waveform.</p>
 <h3 id="wavetable-tab">Wavetable Tab</h3>
-<p><img src="img/cubicpadsynth_wavetable_tab.png" /></p>
+<p><img src="img/lightpadsynth_wavetable_tab.png" /></p>
 <h4 id="overtone-controls">Overtone Controls</h4>
 <h5 id="gain-2">Gain</h5>
 <p>Gain of profile.</p>
 <h5 id="width">Width</h5>
 <p>Width of profile.</p>
-<h5 id="pitch-1">Pitch</h5>
+<h5 id="pitch">Pitch</h5>
 <p>This value is multiplied to profile center frequency.</p>
 <h5 id="phase-3">Phase</h5>
 <p>Range of randomization for the phase of profile.</p>
-<h4 id="pitch-2">Pitch</h4>
+<h4 id="pitch-1">Pitch</h4>
 <h5 id="base-freq.">Base Freq.</h5>
 <p>Fundamental frequency of wavetable. Note that if this value is small, master pitch becomes out of tune.</p>
 <h5 id="multiply-modulo">Multiply, Modulo</h5>
@@ -602,8 +579,6 @@ lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)<
   BaseFreq * profileIndex * overtonePitch * Multiply,
   440 * pow(2, (Modulo - 69) / 12)
 )</code></pre>
-<h5 id="random-1">Random</h5>
-<p>When checked, randomize profile center frequency. Ignores values of <code>Pitch</code> in overtone control.</p>
 <h4 id="spectrum">Spectrum</h4>
 <h5 id="expand">Expand</h5>
 <p>Scaling factor to shrink/expand the spectrum along to frequency axis.</p>
@@ -617,18 +592,17 @@ lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)<
 <h5 id="shape">Shape</h5>
 <p>Changes profile shapes by using the value of <code>Shape</code> as an exponent.</p>
 <pre><code>shapedProfile = powf(profile, shape);</code></pre>
-<h5 id="invert">Invert</h5>
-<p>Invert spectrum to make the maximum of absolute value to 0, and 0 to the max-abs value. Signs are preserved. Phases aren’t considered.</p>
-<pre><code>maxRe = max(abs(spectrumRe))
-maxIm = max(abs(spectrumIm))
-invertedSpectrumRe = spectrumRe - sgn(spectrumRe) * maxRe
-invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
 <h4 id="phase-4">Phase</h4>
 <h5 id="uniformphase">UniformPhase</h5>
 <p>When checked, phase of a profile becomes an uniform value.</p>
-<h4 id="random-2">Random</h4>
-<h5 id="seed">Seed</h5>
+<h4 id="random-1">Random</h4>
+<h5 id="seed-1">Seed</h5>
 <p>Random seed. This value change random number sequence.</p>
+<p>LightPadSynth has 2 random number generaters. One is used in <code>Main</code> tab and the other is in <code>Wavetable</code> tab.</p>
+<h4 id="buffersize">BufferSize</h4>
+<p>Size of a wavetable. The power of 2 values can be selected from <code>2^10</code> to <code>2^21</code>.</p>
+<p>The value inside parentheses indicates number of bytes in a sum of all wavetables. A number of bytes is calculated with following equation.</p>
+<pre><code>bytes = 4 * 128 * BufferSize</code></pre>
 <h4 id="modifier">Modifier</h4>
 <h5 id="gain-3">Gain^</h5>
 <p>Exponent for <code>Gain</code> in overtone control.</p>
@@ -640,31 +614,15 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
 <p>Note that refreshing wavetable stops sound. It also interrupts MIDI notes.</p>
 <h2 id="change-log">Change Log</h2>
 <ul>
-<li>0.1.3
-<ul>
-<li>Fixed a bug that some shortcuts are disabled for BarBox.</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>Changed <code>Refresh Table</code> and <code>Refresh LFO</code> from VST message to parameter. This enables automation and midi mapping.</li>
-<li>Changed BarBox shortcuts to be disabled when mouse cursor is on the outside of BarBox.</li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>Fixed a bug that cause crash when drawing string.</li>
-</ul></li>
 <li>0.1.0
 <ul>
 <li>Initial release.</li>
 </ul></li>
 </ul>
 <h3 id="old-versions">Old Versions</h3>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynth0.1.2.zip">CubicPadSynth 0.1.2 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip">CubicPadSynth 0.1.1 - VST 3 (github.com)</a></li>
-</ul>
+<p>N/A.</p>
 <h2 id="license">License</h2>
-<p>CubicPadSynth is licensed under GPLv3. Complete licenses are linked below.</p>
+<p>LightPadSynth is licensed under GPLv3. Complete licenses are linked below.</p>
 <ul>
 <li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
 </ul>
