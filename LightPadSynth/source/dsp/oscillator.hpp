@@ -52,6 +52,7 @@ template<typename Sample> struct PeakInfo {
 };
 
 constexpr size_t initialTableSize = 262144;
+constexpr size_t maxMidiNoteNumber = 128;
 
 /**
 Last element of table is padded for linear interpolation.
@@ -88,7 +89,7 @@ struct Wavetable {
     tmpSpecRe.resize(spectrumSize);
     tmpSpecIm.resize(spectrumSize);
 
-    table.resize(128); // Resize to max MIDI note number.
+    table.resize(maxMidiNoteNumber);
     for (auto &tbl : table) tbl.resize(tableSize + 1);
 
     fft.init(tableSize);
@@ -227,9 +228,10 @@ struct TableOsc {
   setFrequency(float notePitch, float frequency, float tableBaseFreq, size_t tableSize)
   {
     tableIndex = size_t(notePitch);
+    if (tableIndex >= maxMidiNoteNumber) tableIndex = maxMidiNoteNumber - 1;
 
     tick = frequency / tableBaseFreq;
-    if (tick >= tableSize) tick = 0;
+    if (tick >= tableSize || tick < 0.0f) tick = 0;
   }
 
   // Input phase is normalized in [0, 1], member phase is in [0, tableSize].
