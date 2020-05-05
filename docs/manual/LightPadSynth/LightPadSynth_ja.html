@@ -6,7 +6,7 @@
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <meta name="dcterms.date" content="2020-05-01" />
-<title>CubicPadSynth_ja</title>
+<title>LightPadSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -208,7 +208,7 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#cubicpadsynth">CubicPadSynth</a><ul>
+  <li><a href="#lightpadsynth">LightPadSynth</a><ul>
   <li><a href="#インストール">インストール</a><ul>
   <li><a href="#プラグイン">プラグイン</a></li>
   <li><a href="#プリセット">プリセット</a></li>
@@ -218,25 +218,25 @@ footer {
   <li><a href="#操作">操作</a></li>
   <li><a href="#注意">注意</a></li>
   <li><a href="#ウェーブテーブルの仕様">ウェーブテーブルの仕様</a></li>
-  <li><a href="#padsynth-アルゴリズムの概要">PADsynth アルゴリズムの概要</a></li>
   <li><a href="#ブロック線図">ブロック線図</a></li>
   <li><a href="#パラメータ">パラメータ</a><ul>
   <li><a href="#main-タブ">Main タブ</a><ul>
-  <li><a href="#tuning">Tuning</a></li>
   <li><a href="#gain">Gain</a></li>
   <li><a href="#lowpass">Lowpass</a></li>
-  <li><a href="#pitch">Pitch</a></li>
+  <li><a href="#tuning">Tuning</a></li>
   <li><a href="#unison">Unison</a></li>
-  <li><a href="#lfo">LFO</a></li>
   <li><a href="#phase-1">Phase</a></li>
   <li><a href="#misc.">Misc.</a></li>
+  <li><a href="#delay">Delay</a></li>
+  <li><a href="#lfo">LFO</a></li>
   </ul></li>
   <li><a href="#wavetable-タブ">Wavetable タブ</a><ul>
   <li><a href="#倍音コントロール">倍音コントロール</a></li>
-  <li><a href="#pitch-2">Pitch</a></li>
+  <li><a href="#pitch-1">Pitch</a></li>
   <li><a href="#spectrum">Spectrum</a></li>
   <li><a href="#phase-4">Phase</a></li>
-  <li><a href="#random-2">Random</a></li>
+  <li><a href="#random-1">Random</a></li>
+  <li><a href="#buffersize">BufferSize</a></li>
   <li><a href="#modifier">Modifier</a></li>
   <li><a href="#refresh-table">Refresh Table</a></li>
   </ul></li>
@@ -252,18 +252,18 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="cubicpadsynth">CubicPadSynth</h1>
-<p><img src="img/cubicpadsynth.png" /></p>
-<p><ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby> は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています</p>
+<h1 id="lightpadsynth">LightPadSynth</h1>
+<p><img src="img/lightpadsynth.png" /></p>
+<p><ruby>LightPadSynth<rt>ライト パッド シンセ</rt></ruby> はピッチ変調を無くして補間を線形補完に変えた CubicPadSynth の軽量版です。ピッチ変調ができなくなった代わりに、各ボイスにディレイを追加しています。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip">CubicPadSynth 0.1.3 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynth0.1.0.zip">LightPadSynth 0.1.0 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynthPresets.zip">プリセットをダウンロード (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynthPresets.zip">プリセットをダウンロード (github.com)</a></li>
 </ul>
-<p>CubicPadSynth を使うには CPU が AVX 以降の SIMD 命令セットをサポートしている必要があります。</p>
+<p>LightPadSynth を使うには CPU が AVX 以降の SIMD 命令セットをサポートしている必要があります。</p>
 <p>パッケージには次のビルドが含まれています。</p>
 <ul>
 <li>Windows 64bit</li>
@@ -415,46 +415,16 @@ style="display: inline-block; vertical-align: middle;"></li>
 <h2 id="注意">注意</h2>
 <p><code>Refresh LFO</code> あるいは <code>Refresh Table</code> ボタンを押すと音が止まります。発音中のノートも全て停止します。</p>
 <h2 id="ウェーブテーブルの仕様">ウェーブテーブルの仕様</h2>
-<p>1 つのウェーブテーブルの長さは <code>2^18</code> サンプルです。</p>
-<p>各 MIDI ノートと 20000Hz までのピッチベンドができるように帯域制限された 136 のウェーブテーブルが生成されます。約 21100 Hz より音程が高くなると完全な無音になります。 21100 は MIDI ノート番号 136 から求められた値です。 MIDI ノート番号 137 の周波数は 22050 Hz よりも高いので、サンプリング周波数が 44100 Hz のときにエイリアシングが起こります。したがって一つ小さい 136 を使っています。</p>
-<p>音程の基本周波数が 8.18 Hz (MIDI ノート番号 0) より低くなると高域の周波数成分が失われた音になります。ただし、キュービック補間によって生じるノイズによって、周波数成分の値が完全に 0 にはならないことがあります。</p>
-<pre><code>noteToFreq(note) := 440 * pow(2, (note - 69) / 12)
-noteToFreq(0) = 8.175798915643707
-noteToFreq(136) = 21096.16364242367
-noteToFreq(137) = 22350.606811712252</code></pre>
-<p>ウェーブテーブルは <code>136 * 2^18</code> の 2 次元配列として表現されています。オシレータの位相と周波数から求められるテーブル上の座標についてバイキュービック補間で値を求めています。</p>
-<p>ウェーブテーブルが大きめなので、メモリが遅いとフレーム落ち (<a href="https://alsa.opensrc.org/Xruns">xrun</a>) の可能性が高まります。音程が高くなるほどアクセスパターンがランダムに近くなるので、環境によっては重くなります。</p>
-<ul>
-<li><a href="https://alsa.opensrc.org/Xruns">Alsa Opensrc Org - Independent ALSA and linux audio support site</a></li>
-<li><a href="https://unix.stackexchange.com/questions/199498/what-are-xruns">linux - What are XRuns? - Unix &amp; Linux Stack Exchange</a></li>
-</ul>
-<h2 id="padsynth-アルゴリズムの概要">PADsynth アルゴリズムの概要</h2>
-<p>CubicPadSynth は <a href="https://zynaddsubfx.sourceforge.io/">ZynAddSubFX</a> や <a href="http://yoshimi.sourceforge.net/">Yoshimi</a> で使われている PADsynth アルゴリズムでウェーブテーブルを合成しています。</p>
-<p>適当に位相をランダマイズした周波数成分を逆 DFT すると一方の端ともう一方の端が滑らかにつながった周期的な波形になります。PADsynth アルゴリズムはこの性質を使って滑らかにループするウェーブテーブルを合成します。</p>
-<p>周波数成分の合成ではプロファイルと呼ばれている適当な関数をスペクトラム上に並べます。 CubicPadSynth のプロファイルはオリジナルの PADsynth アルゴリズムと同じ正規分布曲線を使っています。プロファイルの中心となる周波数は任意に決めることができます。 CubicPadSynth ではデフォルトで <code>Base Freq.</code> で指定した基本周波数とその倍音にあたる周波数を使います。</p>
-<p><img src="img/padsynth.svg" /></p>
-<ul>
-<li><a href="https://zynaddsubfx.sourceforge.io/doc/PADsynth/PADsynth.htm">PADsynth algorithm</a></li>
-</ul>
+<p>各 MIDI ノートに対応する 128 の帯域制限されたウェーブテーブルが生成されます。 128 という数字は MIDI ノート番号の値の範囲から来ています。</p>
+<p>チューニングがずれているときは、セント値を切り捨てたインデックスのウェーブテーブルが使われます。例えば MIDI ノート番号が 60 、チューニングが -20 セントのときは <code>floor(60 - 0.20)</code> よりインデックス 59 のウェーブテーブルが使われます。</p>
+<p>言い換えれば、チューニングがずれているときはナイキスト周波数より少し低い周波数で帯域制限されることがあります。</p>
 <h2 id="ブロック線図">ブロック線図</h2>
 <p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> + <kbd>マウスホイール</kbd> や、右クリックから「画像だけを表示」などで拡大できます。</p>
 <p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
-<p><img src="img/cubicpadsynth.svg" /></p>
+<p><img src="img/lightpadsynth.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
 <h3 id="main-タブ">Main タブ</h3>
-<p><img src="img/cubicpadsynth.png" /></p>
-<h4 id="tuning">Tuning</h4>
-<h5 id="octave-semi-milli">Octave, Semi, Milli</h5>
-<p>全体の音の高さを変更します。</p>
-<ul>
-<li><code>Octave</code>: オクターブ</li>
-<li><code>Semi</code>: 半音</li>
-<li><code>Milli</code>: 半音の 1 / 1000 。 1 / 10 セント。</li>
-</ul>
-<h5 id="et-a4-hz">ET, A4 [Hz]</h5>
-<p>音律を変更します。</p>
-<p><code>ET</code> は Equal Temperature (平均律) の略です。 <code>ET</code> が 12 のときは 12 平均律となります。 <code>ET</code> を 12 よりも小さくすると無音になる範囲が増えるので注意してください。</p>
-<p><code>A4 [Hz]</code> は、音程 A4 の周波数です。</p>
+<p><img src="img/lightpadsynth.png" /></p>
 <h4 id="gain">Gain</h4>
 <h5 id="a-d-s-r">A, D, S, R</h5>
 <p>音量エンベロープのパラメータです。</p>
@@ -467,30 +437,27 @@ noteToFreq(137) = 22350.606811712252</code></pre>
 <h5 id="gain-1">Gain</h5>
 <p>音量を変更します。</p>
 <h4 id="lowpass">Lowpass</h4>
-<p>現在の音程よりも倍音の少ないウェーブテーブルを使うことで疑似的にローパスフィルタを再現しています。</p>
-<p>カットオフ周波数の計算式は次のようになっています。</p>
-<pre><code>cut = Cutoff * 128
-keyFollowRange = Cutoff * (nTable - pitch)
-lowpassPitch = (cut + KeyFollow * (keyFollowRange - cut)) - lowpassEnvelope * Amount;
-if (lowpassPitch &lt; 0) lowpassPitch = 0
-
-noteToFreq(note) := 440 * Math.pow(2, (note - 69) / 12)
-range  = noteToFreq(nTable)
-lpFreq = noteToFreq(midiNote + lowpassPitch)
-ntFreq = noteToFreq(midiNote)
-cutoffFrequency = (1 + (range - lpFreq) / range) * ntFreq</code></pre>
-<p><code>lpCut</code> の計算に使っている 128 は MIDI ノート番号の範囲 + 1 から適当に決めた値です。また <code>nTable = 136</code> です。</p>
+<p>素朴な 3-pole ローパスフィルタです。</p>
 <h5 id="cutoff">Cutoff</h5>
-<p>フィルタのカットオフ周波数を変更します。</p>
+<p>フィルタのカットオフ周波数です。</p>
+<h5 id="resonance">Resonance</h5>
+<p>フィルタのレゾナンスです。最大にすると音量が大きくなるので注意してください。</p>
 <h5 id="keyfollow">KeyFollow</h5>
-<p>右いっぱいに回すと音程に関わらず倍音の数がだいたい等しくなるようにカットオフ周波数を調節します。左いっぱいに回すと音程に関わらず <code>Cutoff</code> で設定されたカットオフ周波数を使います。</p>
+<p>右いっぱいに回すと、カットオフ周波数がノートの音程と同じになります。左いっぱいに回すと音程に関わらず <code>Cutoff</code> で設定されたカットオフ周波数を使います。</p>
 <h5 id="a-d-s-r-amount">A, D, S, R, Amount</h5>
 <p>フィルタのカットオフ周波数を変調するエンベロープのパラメータです。 <code>Amount</code> は <code>Cutoff</code> への変調量です。</p>
-<h4 id="pitch">Pitch</h4>
-<h5 id="a-d-s-r-amount-1">A, D, S, R, Amount</h5>
-<p>ノートごとにピッチを変調するエンベロープのパラメータです。</p>
-<h5 id="negative">Negative</h5>
-<p>エンベロープの符号を反転します。</p>
+<h4 id="tuning">Tuning</h4>
+<h5 id="octave-semi-milli">Octave, Semi, Milli</h5>
+<p>全体の音の高さを変更します。</p>
+<ul>
+<li><code>Octave</code>: オクターブ</li>
+<li><code>Semi</code>: 半音</li>
+<li><code>Milli</code>: 半音の 1 / 1000 。 1 / 10 セント。</li>
+</ul>
+<h5 id="et-a4-hz">ET, A4 [Hz]</h5>
+<p>音律を変更します。</p>
+<p><code>ET</code> は Equal Temperature (平均律) の略です。 <code>ET</code> が 12 のときは 12 平均律となります。 <code>ET</code> を 12 よりも小さくすると無音になる範囲が増えるので注意してください。</p>
+<p><code>A4 [Hz]</code> は、音程 A4 の周波数です。</p>
 <h4 id="unison">Unison</h4>
 <h5 id="nunison">nUnison</h5>
 <p>ユニゾンに使うボイスの数です。</p>
@@ -520,26 +487,6 @@ detune = pitch * (1 + random * unisonIndex * Detune)</code></pre>
 <li><code>RotateR</code>: ノートオンごとに割り当てを右に回転。</li>
 <li><code>Shuffle</code>: 均一に並べたパンをランダムに割り当て。</li>
 </ul>
-<h4 id="lfo">LFO</h4>
-<h5 id="refresh-lfo">Refresh LFO</h5>
-<p>現在の <code>LFO Wave</code> のパラメータに基づいて LFO のウェーブテーブルを更新します。</p>
-<p>ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。</p>
-<h5 id="interpolation">Interpolation</h5>
-<p>LFO のウェーブテーブルの補間の種類です。</p>
-<p><img src="img/interpolation_type.png" /></p>
-<h5 id="tempo-multiply">Tempo, Multiply</h5>
-<p>LFO の周波数をテンポに応じた形で指定します。 <code>Tempo</code> の下の数字が音符の長さ、上の数字が音符の数です。例えば上が 6 、下が 8 なら 8 分音符の 6 個分の長さが LFO の 1 周期になります (6 / 8 拍子)。</p>
-<p><code>Multiply</code> は <code>Tempo</code> から計算された周波数に掛け合わされる値です。</p>
-<pre><code>// (60 秒) * (4 拍子) = 240 。
-lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)</code></pre>
-<h5 id="retrigger">Retrigger</h5>
-<p>チェックを入れると、ノートオンごとに LFO の位相をリセットします。</p>
-<h5 id="amount">Amount</h5>
-<p>LFO でピッチを変調する量です。</p>
-<h5 id="lowpass-1">Lowpass</h5>
-<p>LFO にかけるローパスフィルタのカットオフ周波数を変更します。</p>
-<h5 id="lfo-wave">LFO Wave</h5>
-<p>LFO の波形です。</p>
 <h4 id="phase-1">Phase</h4>
 <h5 id="phase-2">Phase</h5>
 <p>オシレータの初期位相です。</p>
@@ -555,23 +502,25 @@ lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)<
 <li>Tuning セクションの全て</li>
 <li>Gain
 <ul>
-<li><code>S</code></li>
 <li><code>Gain</code></li>
+<li><code>S</code></li>
 </ul></li>
 <li>Lowpass
 <ul>
 <li><code>Cutoff</code></li>
+<li><code>S</code></li>
+<li><code>Amount</code></li>
 <li><code>KeyFollow</code></li>
-<li><code>S</code></li>
-<li><code>Amount</code></li>
 </ul></li>
-<li>Pitch
+<li>Delay
 <ul>
-<li><code>S</code></li>
-<li><code>Amount</code></li>
-<li><code>Negative</code></li>
+<li><code>Mix</code></li>
+<li><code>Feedback</code></li>
+<li><code>Attack</code></li>
+<li><code>Semi</code></li>
+<li><code>Milli</code></li>
 </ul></li>
-<li>LFO
+<li>Delay LFO
 <ul>
 <li><code>Tempo</code></li>
 <li><code>Multiply</code></li>
@@ -583,22 +532,51 @@ lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)<
 <li><code>Phase</code></li>
 </ul></li>
 </ul>
-<h5 id="nvoice">nVoice</h5>
-<p>最大同時発音数です。</p>
-<h5 id="pool">Pool</h5>
-<p>チェックを入れると、現在の発音数が同時最大発音数に近づいたときに、音量の最も小さいボイスをリリースします。ノートオン時に生じるプチノイズの低減に使えます。</p>
+<h5 id="poly">Poly</h5>
+<p>最大同時発音数です。値を小さくすると CPU 消費が減ります。</p>
+<h5 id="seed">Seed</h5>
+<p>乱数のシード値です。この値を変えると生成される乱数が変わります。</p>
+<p><code>Main</code> タブと <code>Wavetable</code> タブでは異なる乱数列が使われています。</p>
+<h4 id="delay">Delay</h4>
+<h5 id="mix">Mix</h5>
+<p>フィルタ出力とディレイ出力を混ぜる比率です。</p>
+<h5 id="feedback">Feedback</h5>
+<p>ディレイのフィードバックです。右に回すと正のフィードバック、左に回すと負のフィードバックがかかります。</p>
+<h5 id="attack">Attack</h5>
+<p>フィルタからの出力をディレイに入力するときに掛け合わされるゲートのアタック時間です。</p>
+<h5 id="semi-milli">Semi, Milli</h5>
+<p>ノートの周波数から相対的に決められるディレイ時間です。次の式で計算されます。</p>
+<pre><code>delayTime = 1 / (noteFreq * pow(2, (semi + 0.001 * milli) / 12))</code></pre>
+<h4 id="lfo">LFO</h4>
+<h5 id="tempo-multiply">Tempo, Multiply</h5>
+<p>LFO の周波数をテンポに応じた形で指定します。 <code>Tempo</code> の下の数字が音符の長さ、上の数字が音符の数です。例えば上が 6 、下が 8 なら 8 分音符の 6 個分の長さが LFO の 1 周期になります (6 / 8 拍子)。</p>
+<p><code>Multiply</code> は <code>Tempo</code> から計算された周波数に掛け合わされる値です。</p>
+<pre><code>// (60 秒) * (4 拍子) = 240 。
+lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)</code></pre>
+<h5 id="amount">Amount</h5>
+<p>LFO でピッチを変調する量です。</p>
+<h5 id="lowpass-1">Lowpass</h5>
+<p>LFO にかけるローパスフィルタのカットオフ周波数を変更します。</p>
+<h5 id="interpolation">Interpolation</h5>
+<p>LFO のウェーブテーブルの補間の種類です。</p>
+<p><img src="img/interpolation_type.png" /></p>
+<h5 id="refresh-lfo">Refresh LFO</h5>
+<p>現在の <code>LFO Wave</code> のパラメータに基づいて LFO のウェーブテーブルを更新します。</p>
+<p>ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。</p>
+<h5 id="lfo-wave">LFO Wave</h5>
+<p>LFO の波形です。</p>
 <h3 id="wavetable-タブ">Wavetable タブ</h3>
-<p><img src="img/cubicpadsynth_wavetable_tab.png" /></p>
+<p><img src="img/lightpadsynth_wavetable_tab.png" /></p>
 <h4 id="倍音コントロール">倍音コントロール</h4>
 <h5 id="gain-2">Gain</h5>
 <p>プロファイルの高さです。</p>
 <h5 id="width">Width</h5>
 <p>プロファイルの幅です。</p>
-<h5 id="pitch-1">Pitch</h5>
+<h5 id="pitch">Pitch</h5>
 <p>プロファイルの周波数にかけ合わせる値です。</p>
 <h5 id="phase-3">Phase</h5>
 <p>プロファイルの位相をランダマイズする量です。</p>
-<h4 id="pitch-2">Pitch</h4>
+<h4 id="pitch-1">Pitch</h4>
 <h5 id="base-freq.">Base Freq.</h5>
 <p>ウェーブテーブルのレンダリング時の基本周波数です。この値が小さいとマスターピッチのチューニングが狂うことがあるので注意してください。</p>
 <h5 id="multiply-modulo">Multiply, Modulo</h5>
@@ -607,8 +585,6 @@ lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)<
   BaseFreq * profileIndex * overtonePitch * Multiply,
   440 * pow(2, (Modulo - 69) / 12)
 )</code></pre>
-<h5 id="random-1">Random</h5>
-<p>チェックを入れると、倍音コントロールの <code>Pitch</code> で指定された値を無視して、プロファイルの周波数をランダマイズします。</p>
 <h4 id="spectrum">Spectrum</h4>
 <h5 id="expand">Expand</h5>
 <p>スペクトラムを周波数軸に沿って拡大・縮小するスケーリング係数です。</p>
@@ -622,18 +598,17 @@ lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)<
 <h5 id="shape">Shape</h5>
 <p><code>Shape</code> の値を指数として、プロファイルの形をべき乗によって変更します。</p>
 <pre><code>shapedProfile = powf(profile, shape);</code></pre>
-<h5 id="invert">Invert</h5>
-<p>スペクトラムの絶対値の最大値が 0 、 0 が絶対値の最大値になるように反転します。符号は保持されます。位相は考慮していません。</p>
-<pre><code>maxRe = max(abs(spectrumRe))
-maxIm = max(abs(spectrumIm))
-invertedSpectrumRe = spectrumRe - sgn(spectrumRe) * maxRe
-invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
 <h4 id="phase-4">Phase</h4>
 <h5 id="uniformphase">UniformPhase</h5>
 <p>チェックを入れると、プロファイル内での位相を均一にします。</p>
-<h4 id="random-2">Random</h4>
-<h5 id="seed">Seed</h5>
+<h4 id="random-1">Random</h4>
+<h5 id="seed-1">Seed</h5>
 <p>乱数のシード値です。この値を変えると生成される乱数が変わります。</p>
+<p><code>Main</code> タブと <code>Wavetable</code> タブでは異なる乱数列が使われています。</p>
+<h4 id="buffersize">BufferSize</h4>
+<p>1 つのウェーブテーブルの大きさです。 <code>2^10</code> から <code>2^21</code> の範囲の 2 のべき乗の値を選択できます。</p>
+<p><code>()</code> で表示された値は全てのウェーブテーブルを合わせたバイト数です。バイト数は次の式で計算できます。</p>
+<pre><code>bytes = 4 * 128 * BufferSize</code></pre>
 <h4 id="modifier">Modifier</h4>
 <h5 id="gain-3">Gain^</h5>
 <p>倍音コントロールの <code>Gain</code> をべき乗する値です。</p>
@@ -643,31 +618,15 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
 <p>ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
-<li>0.1.3
-<ul>
-<li>BarBox のショートカットが効かないバグを修正。</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>オートメーションと MIDI マッピングを利用できるように <code>Refresh Table</code> と <code>Refresh LFO</code> を VST のメッセージからパラメータへと変更。</li>
-<li>BarBox にフォーカスした後、マウスカーソルが領域外にあるときはショートカットが無効になるように変更。</li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>文字列の描画でクラッシュするバグを修正。</li>
-</ul></li>
 <li>0.1.0
 <ul>
 <li>初期リリース。</li>
 </ul></li>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynth0.1.2.zip">CubicPadSynth 0.1.2 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip">CubicPadSynth 0.1.1 - VST 3 (github.com)</a></li>
-</ul>
+<p>旧バージョンはありません。</p>
 <h2 id="ライセンス">ライセンス</h2>
-<p>CubicPadSynth のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。リンクが切れているときは <code>ryukau@gmail.com</code> にメールを送ってください。</p>
+<p>LightPadSynth のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。リンクが切れているときは <code>ryukau@gmail.com</code> にメールを送ってください。</p>
 <ul>
 <li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
 </ul>
