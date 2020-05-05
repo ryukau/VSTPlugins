@@ -254,6 +254,12 @@ void DSPCORE_NAME::setParameters(float tempo)
       param.value[ID::filterR]->getFloat(), note.noteFreq);
     note.delayGate.atk.set(sampleRate, param.value[ID::delayAttack]->getFloat());
   }
+
+  if (!isLFORefreshed && param.value[ID::refreshLFO]->getInt()) refreshLfo();
+  isLFORefreshed = param.value[ID::refreshLFO]->getInt();
+
+  if (!isTableRefeshed && param.value[ID::refreshTable]->getInt()) refreshTable();
+  isTableRefeshed = param.value[ID::refreshTable]->getInt();
 }
 
 void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)

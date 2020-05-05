@@ -3,7 +3,7 @@
 
 <ruby>LightPadSynth<rt>ライト パッド シンセ</rt></ruby> はピッチ変調を無くして補間を線形補完に変えた CubicPadSynth の軽量版です。ピッチ変調ができなくなった代わりに、各ボイスにディレイを追加しています。
 
-- [LightPadSynth 0.1.0 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynth0.1.0.zip) <img
+- [LightPadSynth 0.1.1 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.1/LightPadSynth0.1.1.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -380,11 +380,13 @@ bytes = 4 * 128 * BufferSize
 ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。
 
 ## チェンジログ
+- 0.1.1
+  - Refresh LFO ボタンと Refresh Table ボタンをメッセージからパラメータに修正。
 - 0.1.0
   - 初期リリース。
 
 ### 旧バージョン
-旧バージョンはありません。
+- [LightPadSynth 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynth0.1.0.zip)
 
 ## ライセンス
 LightPadSynth のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。リンクが切れているときは `ryukau@gmail.com` にメールを送ってください。

@@ -3,7 +3,7 @@
 
 LightPadSynth is a lightweight version of CubicPadSynth. For efficiency, interpolation is changed to linear. Also pitch modulation is omitted. Instead, a delay is added for each voice.
 
-- [Download LightPadSynth 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynth0.1.0.zip) <img
+- [Download LightPadSynth 0.1.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.1/LightPadSynth0.1.1.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -382,11 +382,13 @@ Refresh PADsynth wavetable based on current configuration of Wavetable tab.
 Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
 
 ## Change Log
+- 0.1.1
+  - Fixed Refresh LFO button and Refresh Table button from VST message to VST parameter.
 - 0.1.0
   - Initial release.
 
 ### Old Versions
-N/A.
+- [LightPadSynth 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynth0.1.0.zip)
 
 ## License
 LightPadSynth is licensed under GPLv3. Complete licenses are linked below.
