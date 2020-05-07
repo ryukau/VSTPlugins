@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" >
 
 <head>
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-03-05" />
+<meta name="dcterms.date" content="2020-05-01" />
 <title>index</title>
 <style>
 code { white-space: pre-wrap; }
@@ -28,12 +28,18 @@ video {
   max-width: 100%;
 }
 
+details.list > summary {
+  line-height: 3em;
+}
+
 kbd {
+  font-family: inherit;
   border-style: solid;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 2px;
+  padding: 4px;
   margin: 2px;
+  line-height: calc(1em + 16px);
 }
 
 a {
@@ -47,53 +53,82 @@ h1 {
 }
 
 h2 {
-  border-left: solid 32px #163eac;
+  border-left: solid 32px #2851c2;
   padding-left: 24px;
 }
 
 h3 {
-  border-left: solid 20px #163eac;
+  border-left: solid 20px #4d74dd;
   padding-left: 16px;
 }
 
-h4, h5, h6 {
-  border-left: solid 8px #163eac;
+h4 {
+  border-left: solid 12px #6a88da;
   padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
 }
 
 table {
   border-spacing: 0px;
   border-collapse: separate;
-  border: 1px solid #dddddd;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
 }
 
-tr.header {
-  border: 1px solid black;
-}
-
-tr.odd {
+tr:nth-child(odd) {
   background: #eeeeee;
 }
 
-tr.even {
+tr:nth-child(even) {
   background: #ffffff;
 }
 
 th {
   height: 2em;
-  font-weight: normal;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 3px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
 }
 
 td {
   height: 1.5em;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
 }
 
 audio {
@@ -104,12 +139,27 @@ label {
   vertical-align: middle;
 }
 
-code {
-  color: #163eac;
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
 }
 
-pre {
-  border: 4px solid #eeeeee;
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
 }
 
 li {
@@ -137,14 +187,15 @@ footer {
 <body>
 <header>
       <p>
-  Update: 2020-03-05
+  Update: 2020-05-01
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
   <li><a href="#uhhyou-plugins">Uhhyou Plugins</a></li>
-  <li><a href="#lv2-plugins">LV2 Plugins</a><ul>
+  <li><a href="#lv2-plugins">LV2 Plugins</a></li>
+  <li><a href="#プラグイン一覧-plugin-list">プラグイン一覧 | Plugin List</a><ul>
   <li><a href="#lightpadsynth">LightPadSynth</a></li>
   <li><a href="#cubicpadsynth">CubicPadSynth</a></li>
   <li><a href="#esphaser">EsPhaser</a></li>
@@ -176,6 +227,19 @@ footer {
 <p>For Linux, LV2 version is available.</p>
 <ul>
 <li><a href="https://github.com/ryukau/LV2Plugins">GitHub - ryukau/LV2Plugins</a></li>
+</ul>
+<h1 id="プラグイン一覧-plugin-list">プラグイン一覧 | Plugin List</h1>
+<ul>
+<li><p><a href="#cubicpadsynth">CubicPadSynth</a></p></li>
+<li><p><a href="#envelopedsine">EnvelopedSine</a></p></li>
+<li><p><a href="#esphaser">EsPhaser</a></p></li>
+<li><p><a href="#fdncymbal">FDNCymbal</a></p></li>
+<li><p><a href="#iterativesincluster">IterativeSinCluster</a></p></li>
+<li><p><a href="#lightpadsynth">LightPadSynth</a></p></li>
+<li><p><a href="#sevendelay">SevenDelay</a></p></li>
+<li><p><a href="#syncsawsynth">SyncSawSynth</a></p></li>
+<li><p><a href="#trapezoidsynth">TrapezoidSynth</a></p></li>
+<li><p><a href="#wavecymbal">WaveCymbal</a></p></li>
 </ul>
 <h2 id="lightpadsynth">LightPadSynth</h2>
 <p><img src="manual/LightPadSynth/img/lightpadsynth.png" /></p>

@@ -1,3 +1,7 @@
+---
+lang: en
+...
+
 # SevenDelay
 ![](img/sevendelay.png)
 
@@ -77,98 +81,116 @@ Diagram only shows overview. It's not exact implementation.
 
 ## Parameters
 ### Delay
-#### Time
-Delay time. Range is 0.0001 to 8.0.
+Time
 
-- If `Sync` is on and `Time` is less than 1.0, then delay time is set to `Time / 16` beats.
-- If `Sync` is on and `Time` is greater or equal to 1.0, then delay time is set to `floor(2 * Time) / 32` beats.
-- Otherwise, delay time is set to `Time` seconds.
+:   Delay time. Range is 0.0001 to 8.0.
+    
+    - If `Sync` is on and `Time` is less than 1.0, then delay time is set to `Time / 16` beats.
+    - If `Sync` is on and `Time` is greater or equal to 1.0, then delay time is set to `floor(2 * Time) / 32` beats.
+    - Otherwise, delay time is set to `Time` seconds.
+    
+Feedback
 
-#### Feedback
-Delay feedback. Range is 0.0 to 1.0.
+:   Delay feedback. Range is 0.0 to 1.0.
+    
+Stereo
 
-#### Stereo
-L/R stereo offset. Range is -1.0 to 1.0.
+:   L/R stereo offset. Range is -1.0 to 1.0.
+    
+    - If `Stereo` is less than 0.0, then left channel delay time is modified to `timeL * (1.0 + Stereo)`.
+    - Otherwise, right channel delay time is modified to `timeR * (1.0 + Stereo)`.
+    
+Wet
 
-- If `Stereo` is less than 0.0, then left channel delay time is modified to `timeL * (1.0 + Stereo)`.
-- Otherwise, right channel delay time is modified to `timeR * (1.0 + Stereo)`.
+:   Output volume of delayed signal. Range is 0.0 to 1.0.
+    
+Dry
 
-#### Wet
-Output volume of delayed signal. Range is 0.0 to 1.0.
+:   Output volume of input signal. Range is 0.0 to 1.0.
+    
+Sync
 
-#### Dry
-Output volume of input signal. Range is 0.0 to 1.0.
+:   Toggle tempo sync.
+    
+Negative
 
-#### Sync
-Toggle tempo sync.
+:   Toggle negative feedback. This may be useful when delay time is very short.
+    
+In/Out Spread/Pan
 
-#### Negative
-Toggle negative feedback. This may be useful when delay time is very short.
+:   Panning controls. Range is 0.0 to 1.0.
+    
+    `In/Out Spread` controls stereo spread. `In/Out Pan` controls stereo panning.
+    
+    These parameter can be used for inverse panning, ping-pong delay etc.
+    
+    - For inverse panning, set `[InSpread, InPan, OutSpread, OutPan]` to `[0.0, 0.5, 1.0, 0.5]`.
+    - For ping-pong delay, set `[InSpread, InPan, OutSpread, OutPan]` to `[1.0, 0.5, 0.0, 0.5]`.
+    
+    ```
+    panL = clamp(2 * pan + spread - 1.0, 0.0, 1.0)
+    panR = clamp(2 * pan - spread, 0.0, 1.0)
+    
+    signalL = incomingL + panL * (incomingR - incomingL)
+    signalR = incomingL + panR * (incomingR - incomingL)
+    ```
+    
+Allpass Cut
 
-#### In/Out Spread/Pan
-Panning controls. Range is 0.0 to 1.0.
+:   SFV allpass filter cutoff frequency. Range is 90.0 to 20000.0.
+    
+    If `Allpass Cut` is 20000.0, filter will be bypassed.
+    
+Allpass Q
 
-`In/Out Spread` controls stereo spread. `In/Out Pan` controls stereo panning.
+:   SFV allpass filter resonance. Range is 0.00001 to 1.0.
+    
+DC Kill
 
-These parameter can be used for inverse panning, ping-pong delay etc.
+:   Cutoff frequency of biquad highpass filter. Range is 1.0 to 120.0.
+    
+    `DC Kill` removes direct current from delay feedback when the value is set to be greater than 1.0.
+    
+Smooth
 
-- For inverse panning, set `[InSpread, InPan, OutSpread, OutPan]` to `[0.0, 0.5, 1.0, 0.5]`.
-- For ping-pong delay, set `[InSpread, InPan, OutSpread, OutPan]` to `[1.0, 0.5, 0.0, 0.5]`.
-
-```
-panL = clamp(2 * pan + spread - 1.0, 0.0, 1.0)
-panR = clamp(2 * pan - spread, 0.0, 1.0)
-
-signalL = incomingL + panL * (incomingR - incomingL)
-signalR = incomingL + panR * (incomingR - incomingL)
-```
-
-#### Allpass Cut
-SFV allpass filter cutoff frequency. Range is 90.0 to 20000.0.
-
-If `Allpass Cut` is 20000.0, filter will be bypassed.
-
-#### Allpass Q
-SFV allpass filter resonance. Range is 0.00001 to 1.0.
-
-#### DC Kill
-Cutoff frequency of biquad highpass filter. Range is 1.0 to 120.0.
-
-`DC Kill` removes direct current from delay feedback when the value is set to be greater than 1.0.
-
-#### Smooth
-Parameter smoothing. Range is 0.0 to 1.0. Unit is seconds.
-
-Some parameter may produce noise when the value is changed too fast. Increasing `Smooth` reduces those noise.
-
+:   Parameter smoothing. Range is 0.0 to 1.0. Unit is seconds.
+    
+    Some parameter may produce noise when the value is changed too fast. Increasing `Smooth` reduces those noise.
+    
 ### LFO
-#### To Time
-LFO modulation amount to delay time. Range is 0.0 to 1.0.
+To Time
 
-#### To Allpass
-LFO modulation amount to allpass cutoff frequency. Range is 0.0 to 1.0.
+:   LFO modulation amount to delay time. Range is 0.0 to 1.0.
+    
+To Allpass
 
-#### Freq
-LFO frequency. Range is 0.01 to 100.0.
+:   LFO modulation amount to allpass cutoff frequency. Range is 0.0 to 1.0.
+    
+Freq
 
-#### Shape
-LFO waveform shape. Range is 0.01 to 10.0.
+:   LFO frequency. Range is 0.01 to 100.0.
+    
+Shape
 
-```
-sign = 1 if (phase > π),
-      -1 if (phase < π),
-       0 if (phase == π)
-lfo = sign * abs(sin(phase))^shape
-```
+:   LFO waveform shape. Range is 0.01 to 10.0.
+    
+    ```
+    sign = 1 if (phase > π),
+          -1 if (phase < π),
+           0 if (phase == π)
+    lfo = sign * abs(sin(phase))^shape
+    ```
+    
+Phase
 
-#### Phase
-LFO initial phase. Range is 0.0 to 2π.
+:   LFO initial phase. Range is 0.0 to 2π.
+    
+    LFO phase is reset to `Phase` for each time host starts playing.
+    
+Hold
 
-LFO phase is reset to `Phase` for each time host starts playing.
-
-#### Hold
-Toggle LFO phase hold. This may be useful for live performance.
-
+:   Toggle LFO phase hold. This may be useful for live performance.
+    
 ## Change Log
 - 0.1.9
   - Fixed a bug that cause crash when drawing string.

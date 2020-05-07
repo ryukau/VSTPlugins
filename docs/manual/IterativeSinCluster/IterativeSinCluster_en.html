@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
 
 <head>
 <meta charset="utf-8" />
@@ -92,12 +92,18 @@ video {
   max-width: 100%;
 }
 
+details.list > summary {
+  line-height: 3em;
+}
+
 kbd {
+  font-family: inherit;
   border-style: solid;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 2px;
+  padding: 4px;
   margin: 2px;
+  line-height: calc(1em + 16px);
 }
 
 a {
@@ -111,53 +117,82 @@ h1 {
 }
 
 h2 {
-  border-left: solid 32px #163eac;
+  border-left: solid 32px #2851c2;
   padding-left: 24px;
 }
 
 h3 {
-  border-left: solid 20px #163eac;
+  border-left: solid 20px #4d74dd;
   padding-left: 16px;
 }
 
-h4, h5, h6 {
-  border-left: solid 8px #163eac;
+h4 {
+  border-left: solid 12px #6a88da;
   padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
 }
 
 table {
   border-spacing: 0px;
   border-collapse: separate;
-  border: 1px solid #dddddd;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
 }
 
-tr.header {
-  border: 1px solid black;
-}
-
-tr.odd {
+tr:nth-child(odd) {
   background: #eeeeee;
 }
 
-tr.even {
+tr:nth-child(even) {
   background: #ffffff;
 }
 
 th {
   height: 2em;
-  font-weight: normal;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 3px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
 }
 
 td {
   height: 1.5em;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
 }
 
 audio {
@@ -168,12 +203,27 @@ label {
   vertical-align: middle;
 }
 
-code {
-  color: #163eac;
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
 }
 
-pre {
-  border: 4px solid #eeeeee;
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
 }
 
 li {
@@ -218,39 +268,14 @@ footer {
   <li><a href="#controls">Controls</a></li>
   <li><a href="#block-diagram">Block Diagram</a></li>
   <li><a href="#parameters">Parameters</a><ul>
-  <li><a href="#gain">Gain</a><ul>
-  <li><a href="#boost-gain">Boost, Gain</a></li>
-  <li><a href="#adsr">ADSR</a></li>
-  <li><a href="#curve">Curve</a></li>
-  </ul></li>
+  <li><a href="#gain">Gain</a></li>
   <li><a href="#shelving">Shelving</a></li>
-  <li><a href="#pitch">Pitch</a><ul>
-  <li><a href="#add-aliasing">Add Aliasing</a></li>
-  <li><a href="#reverse-semi">Reverse Semi</a></li>
-  <li><a href="#octave">Octave</a></li>
-  <li><a href="#et">ET</a></li>
-  <li><a href="#multiply-modulo">Multiply, Modulo</a></li>
-  </ul></li>
+  <li><a href="#pitch">Pitch</a></li>
   <li><a href="#smooth">Smooth</a></li>
   <li><a href="#nvoice">nVoice</a></li>
-  <li><a href="#random">Random</a><ul>
-  <li><a href="#retrigger">Retrigger</a></li>
-  <li><a href="#seed">Seed</a></li>
-  <li><a href="#to-gain">To Gain</a></li>
-  <li><a href="#to-pitch">To Pitch</a></li>
-  </ul></li>
+  <li><a href="#random">Random</a></li>
   <li><a href="#note-chord-overtone">Note, Chord, Overtone</a></li>
-  <li><a href="#chorus">Chorus</a><ul>
-  <li><a href="#mix">Mix</a></li>
-  <li><a href="#freq">Freq</a></li>
-  <li><a href="#depth">Depth</a></li>
-  <li><a href="#range">Range</a></li>
-  <li><a href="#time">Time</a></li>
-  <li><a href="#phase">Phase</a></li>
-  <li><a href="#offset">Offset</a></li>
-  <li><a href="#feedback">Feedback</a></li>
-  <li><a href="#key-follow">Key Follow</a></li>
-  </ul></li>
+  <li><a href="#chorus">Chorus</a></li>
   </ul></li>
   <li><a href="#change-log">Change Log</a><ul>
   <li><a href="#old-versions">Old Versions</a></li>
@@ -334,19 +359,24 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p><img src="img/iterativesincluster.svg" /></p>
 <h2 id="parameters">Parameters</h2>
 <h3 id="gain">Gain</h3>
-<h4 id="boost-gain">Boost, Gain</h4>
-<p>Both controls output gain. Peak value of output will be <code>Boost * Gain</code>.</p>
+<dl>
+<dt>Boost, Gain</dt>
+<dd><p>Both controls output gain. Peak value of output will be <code>Boost * Gain</code>.</p>
 <p>It’s possible that output gain becomes too small while changing gain of <code>Note</code>, <code>Chord</code>, <code>Overtone</code>. <code>Boost</code> can be useful in this situation.</p>
-<h4 id="adsr">ADSR</h4>
-<p>Parameters for gain envelope.</p>
+</dd>
+<dt>ADSR</dt>
+<dd><p>Parameters for gain envelope.</p>
 <ul>
 <li><code>A</code> : Attack time which is the length from note-on to reaching peak value.</li>
 <li><code>D</code> : Decay time which is the length from peak value to reaching sustain level.</li>
 <li><code>S</code> : Sustain level which is the gain after decay.</li>
 <li><code>R</code> : Release time which is the length from note-off to the gain reaching to 0.</li>
 </ul>
-<h4 id="curve">Curve</h4>
-<p>Change attack curve of gain envelope.</p>
+</dd>
+<dt>Curve</dt>
+<dd><p>Change attack curve of gain envelope.</p>
+</dd>
+</dl>
 <h3 id="shelving">Shelving</h3>
 <p>Cutoff freqeuncy can be changed by <code>Semi</code>, which is relative to a note frequency. For example, if the note is C4 and <code>Semi</code> is 12.000, cutoff frequency is set to <code>C4 + 12 semitone = C5</code>.</p>
 <ul>
@@ -354,19 +384,26 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><code>High</code> shelving changes <code>Gain</code> of sine waves <strong>greater than or equal to</strong> the cutoff frequency specified by <code>Semi</code>.</li>
 </ul>
 <h3 id="pitch">Pitch</h3>
-<h4 id="add-aliasing">Add Aliasing</h4>
-<p>When checked, the synth enables rendering of sine waves over nyquist frequency.</p>
+<dl>
+<dt>Add Aliasing</dt>
+<dd><p>When checked, the synth enables rendering of sine waves over nyquist frequency.</p>
 <p>Roughly speaking, nyquist frequency is the highest frequency that can be reconstructed from recorded digital signal. When generating sound, it’s possible to set value that is higher than nyquist frequency. However, the result may contain unexpected frequency due to a phenomenon called aliasing. <code>Add Aliasing</code> is option to add those aliasing noise.</p>
-<h4 id="reverse-semi">Reverse Semi</h4>
-<p>When checked, negate sign of <code>Semi</code>. For example, 7.000 becomes -7.000.</p>
-<h4 id="octave">Octave</h4>
-<p>Note octave.</p>
-<h4 id="et">ET</h4>
-<p><code>ET</code> stands for equal temperament. This parameter can be used to change tuning of <code>Semi</code> and <code>Milli</code>.</p>
+</dd>
+<dt>Reverse Semi</dt>
+<dd><p>When checked, negate sign of <code>Semi</code>. For example, 7.000 becomes -7.000.</p>
+</dd>
+<dt>Octave</dt>
+<dd><p>Note octave.</p>
+</dd>
+<dt>ET</dt>
+<dd><p><code>ET</code> stands for equal temperament. This parameter can be used to change tuning of <code>Semi</code> and <code>Milli</code>.</p>
 <p>Note that this parameter is not to change tuning of notes sent from plugin host. Only affect to internal parameters.</p>
-<h4 id="multiply-modulo">Multiply, Modulo</h4>
-<p>Change sine wave frequency.</p>
+</dd>
+<dt>Multiply, Modulo</dt>
+<dd><p>Change sine wave frequency.</p>
 <p>Equation is <code>noteFrequency * (1 + fmod(Multiply * pitch, Modulo))</code>. <code>pitch</code> is calculated from <code>Note</code>, <code>Chord</code> and <code>Overtone</code>. <code>fmod(a, b)</code> is a function that returns reminder of <code>a / b</code>.</p>
+</dd>
+</dl>
 <h3 id="smooth">Smooth</h3>
 <p>Time length to change some parameter value to current one. Unit is in second.</p>
 <p>List of parameters related to <code>Smooth</code>. <code>*</code> represents wild card.</p>
@@ -379,14 +416,20 @@ style="display: inline-block; vertical-align: middle;"></li>
 <h3 id="nvoice">nVoice</h3>
 <p>Maximum polyphony. Lowering the number of this option reduces CPU load.</p>
 <h3 id="random">Random</h3>
-<h4 id="retrigger">Retrigger</h4>
-<p>When checked, reset random seed for each note-on.</p>
-<h4 id="seed">Seed</h4>
-<p>Random seed. This value change random number sequence.</p>
-<h4 id="to-gain">To Gain</h4>
-<p>Amount of randomization to sine wave gain. Randomization is done for each note-on.</p>
-<h4 id="to-pitch">To Pitch</h4>
-<p>Amount of randomization to sine wave pitch. Randomization is done for each note-on.</p>
+<dl>
+<dt>Retrigger</dt>
+<dd><p>When checked, reset random seed for each note-on.</p>
+</dd>
+<dt>Seed</dt>
+<dd><p>Random seed. This value change random number sequence.</p>
+</dd>
+<dt>To Gain</dt>
+<dd><p>Amount of randomization to sine wave gain. Randomization is done for each note-on.</p>
+</dd>
+<dt>To Pitch</dt>
+<dd><p>Amount of randomization to sine wave pitch. Randomization is done for each note-on.</p>
+</dd>
+</dl>
 <h3 id="note-chord-overtone">Note, Chord, Overtone</h3>
 <p>Change sine wave gain and pitch.</p>
 <p>1 <code>Note</code> have 16 <code>Overtone</code>. 1 <code>Chord</code> consists of 8 <code>Note</code>. 4 <code>Chord</code> are available to use.</p>
@@ -409,24 +452,35 @@ for each Chord:
       frequency = midiNoteFrequency
         * (1 + mod(Multiply * Overtone * notePitch * chordPitch, Modulo))</code></pre>
 <h3 id="chorus">Chorus</h3>
-<h4 id="mix">Mix</h4>
-<p>Change Dry/Wet mix ratio.</p>
-<h4 id="freq">Freq</h4>
-<p>Chorus LFO frequency.</p>
-<h4 id="depth">Depth</h4>
-<p>Change stereo spread.</p>
-<h4 id="range">Range</h4>
-<p>Amount of modulation from LFO to delay time. There are three delays in this chorus.</p>
-<h4 id="time">Time</h4>
-<p>Delay time.</p>
-<h4 id="phase">Phase</h4>
-<p>LFO phase.</p>
-<h4 id="offset">Offset</h4>
-<p>Phase difference between delays.</p>
-<h4 id="feedback">Feedback</h4>
-<p>Feedback of delay.</p>
-<h4 id="key-follow">Key Follow</h4>
-<p>When checked, change delay time relative to note frequency.</p>
+<dl>
+<dt>Mix</dt>
+<dd><p>Change Dry/Wet mix ratio.</p>
+</dd>
+<dt>Freq</dt>
+<dd><p>Chorus LFO frequency.</p>
+</dd>
+<dt>Depth</dt>
+<dd><p>Change stereo spread.</p>
+</dd>
+<dt>Range</dt>
+<dd><p>Amount of modulation from LFO to delay time. There are three delays in this chorus.</p>
+</dd>
+<dt>Time</dt>
+<dd><p>Delay time.</p>
+</dd>
+<dt>Phase</dt>
+<dd><p>LFO phase.</p>
+</dd>
+<dt>Offset</dt>
+<dd><p>Phase difference between delays.</p>
+</dd>
+<dt>Feedback</dt>
+<dd><p>Feedback of delay.</p>
+</dd>
+<dt>Key Follow</dt>
+<dd><p>When checked, change delay time relative to note frequency.</p>
+</dd>
+</dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
 <li>0.1.6

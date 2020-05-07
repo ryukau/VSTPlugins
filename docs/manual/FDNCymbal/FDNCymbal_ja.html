@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" >
 
 <head>
 <meta charset="utf-8" />
@@ -92,12 +92,18 @@ video {
   max-width: 100%;
 }
 
+details.list > summary {
+  line-height: 3em;
+}
+
 kbd {
+  font-family: inherit;
   border-style: solid;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 2px;
+  padding: 4px;
   margin: 2px;
+  line-height: calc(1em + 16px);
 }
 
 a {
@@ -111,53 +117,82 @@ h1 {
 }
 
 h2 {
-  border-left: solid 32px #163eac;
+  border-left: solid 32px #2851c2;
   padding-left: 24px;
 }
 
 h3 {
-  border-left: solid 20px #163eac;
+  border-left: solid 20px #4d74dd;
   padding-left: 16px;
 }
 
-h4, h5, h6 {
-  border-left: solid 8px #163eac;
+h4 {
+  border-left: solid 12px #6a88da;
   padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
 }
 
 table {
   border-spacing: 0px;
   border-collapse: separate;
-  border: 1px solid #dddddd;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
 }
 
-tr.header {
-  border: 1px solid black;
-}
-
-tr.odd {
+tr:nth-child(odd) {
   background: #eeeeee;
 }
 
-tr.even {
+tr:nth-child(even) {
   background: #ffffff;
 }
 
 th {
   height: 2em;
-  font-weight: normal;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 3px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
 }
 
 td {
   height: 1.5em;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
 }
 
 audio {
@@ -168,12 +203,27 @@ label {
   vertical-align: middle;
 }
 
-code {
-  color: #163eac;
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
 }
 
-pre {
-  border: 4px solid #eeeeee;
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
 }
 
 li {
@@ -222,43 +272,13 @@ footer {
   <li><a href="#パラメータ">パラメータ</a><ul>
   <li><a href="#gain">Gain</a></li>
   <li><a href="#smooth">Smooth</a></li>
-  <li><a href="#stick">Stick</a><ul>
-  <li><a href="#pulse">Pulse</a></li>
-  <li><a href="#tone">Tone</a></li>
-  <li><a href="#velvet">Velvet</a></li>
-  <li><a href="#decay">Decay</a></li>
-  </ul></li>
-  <li><a href="#random">Random</a><ul>
-  <li><a href="#seed">Seed</a></li>
-  <li><a href="#retrigger.time">Retrigger.Time</a></li>
-  <li><a href="#retrigger.stick">Retrigger.Stick</a></li>
-  <li><a href="#retrigger.tremolo">Retrigger.Tremolo</a></li>
-  </ul></li>
-  <li><a href="#fdn">FDN</a><ul>
-  <li><a href="#time">Time</a></li>
-  <li><a href="#feedback">Feedback</a></li>
-  <li><a href="#cascademix">CascadeMix</a></li>
-  </ul></li>
-  <li><a href="#allpass">Allpass</a><ul>
-  <li><a href="#mix">Mix</a></li>
-  </ul></li>
-  <li><a href="#stage-1-と-stage-2">Stage 1 と Stage 2</a><ul>
-  <li><a href="#time-1">Time</a></li>
-  <li><a href="#feedback-1">Feedback</a></li>
-  <li><a href="#hp-cutoff">HP Cutoff</a></li>
-  <li><a href="#tanh">Tanh</a></li>
-  </ul></li>
-  <li><a href="#tremolo">Tremolo</a><ul>
-  <li><a href="#mix-1">Mix</a></li>
-  <li><a href="#depth">Depth</a></li>
-  <li><a href="#frequency">Frequency</a></li>
-  <li><a href="#delaytime">DelayTime</a></li>
-  </ul></li>
-  <li><a href="#random-tremolo">Random (Tremolo)</a><ul>
-  <li><a href="#depth-1">Depth</a></li>
-  <li><a href="#freq">Freq</a></li>
-  <li><a href="#time-2">Time</a></li>
-  </ul></li>
+  <li><a href="#stick">Stick</a></li>
+  <li><a href="#random">Random</a></li>
+  <li><a href="#fdn">FDN</a></li>
+  <li><a href="#allpass">Allpass</a></li>
+  <li><a href="#stage-1-と-stage-2">Stage 1 と Stage 2</a></li>
+  <li><a href="#tremolo">Tremolo</a></li>
+  <li><a href="#random-tremolo">Random (Tremolo)</a></li>
   </ul></li>
   <li><a href="#チェンジログ">チェンジログ</a><ul>
   <li><a href="#旧バージョン">旧バージョン</a></li>
@@ -359,66 +379,103 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <h3 id="stick">Stick</h3>
 <p><code>Stick</code> がオンのとき、ノートオンのたびにばちでシンバルを叩きます。ノートの高さでノイズの密度とトーンの高さが変わります。</p>
-<h4 id="pulse">Pulse</h4>
-<p>ばちオシレータが出力するインパルスの音量です。</p>
-<h4 id="tone">Tone</h4>
-<p>ばちオシレータが出力するサイン波によるトーンの音量です。</p>
-<h4 id="velvet">Velvet</h4>
-<p>ばちオシレータが出力するベルベットノイズの音量です。</p>
+<dl>
+<dt>Pulse</dt>
+<dd><p>ばちオシレータが出力するインパルスの音量です。</p>
+</dd>
+<dt>Tone</dt>
+<dd><p>ばちオシレータが出力するサイン波によるトーンの音量です。</p>
+</dd>
+<dt>Velvet</dt>
+<dd><p>ばちオシレータが出力するベルベットノイズの音量です。</p>
 <p>ベルベットノイズはランダムな間隔で異なる高さのインパルスが出力されるノイズのアルゴリズムです。</p>
-<h4 id="decay">Decay</h4>
-<p>ばちオシレータの減衰時間です。</p>
+</dd>
+<dt>Decay</dt>
+<dd><p>ばちオシレータの減衰時間です。</p>
+</dd>
+</dl>
 <h3 id="random">Random</h3>
-<h4 id="seed">Seed</h4>
-<p>乱数のシード値です。</p>
-<h4 id="retrigger.time">Retrigger.Time</h4>
-<p>チェックを外すと、次の 3 つのパラメータでコントロールされる内部的なディレイ時間がノートオンのたびに変わります。</p>
+<dl>
+<dt>Seed</dt>
+<dd><p>乱数のシード値です。</p>
+</dd>
+<dt>Retrigger.Time</dt>
+<dd><p>チェックを外すと、次の 3 つのパラメータでコントロールされる内部的なディレイ時間がノートオンのたびに変わります。</p>
 <ul>
 <li><code>FDN.Time</code></li>
 <li><code>Allpass.Stage1.Time</code></li>
 <li><code>Allpass.Stage2.Time</code></li>
 </ul>
-<h4 id="retrigger.stick">Retrigger.Stick</h4>
-<p>チェックを外すと、ノートオンのたびにばちオシレータの音が変わります。</p>
-<h4 id="retrigger.tremolo">Retrigger.Tremolo</h4>
-<p>チェックを外すと、トレモロのパラメータがノートオンのたびに変わります。</p>
+</dd>
+<dt>Retrigger.Stick</dt>
+<dd><p>チェックを外すと、ノートオンのたびにばちオシレータの音が変わります。</p>
+</dd>
+<dt>Retrigger.Tremolo</dt>
+<dd><p>チェックを外すと、トレモロのパラメータがノートオンのたびに変わります。</p>
+</dd>
+</dl>
 <h3 id="fdn">FDN</h3>
 <p>オンのときはFDN (feedback delay network) セクションを信号が通過します。</p>
-<h4 id="time">Time</h4>
-<p>FDN のディレイ時間を調整します。内部的なディレイ時間はノブで設定した値をもとにランダマイズされます。</p>
-<h4 id="feedback">Feedback</h4>
-<p>FDN セクションのフィードバックです。この値が 0 でないときは信号が発散することがあるので注意してください。</p>
-<h4 id="cascademix">CascadeMix</h4>
-<p>直列につないだ複数の FDN の出力のミックスを調整します。</p>
+<dl>
+<dt>Time</dt>
+<dd><p>FDN のディレイ時間を調整します。内部的なディレイ時間はノブで設定した値をもとにランダマイズされます。</p>
+</dd>
+<dt>Feedback</dt>
+<dd><p>FDN セクションのフィードバックです。この値が 0 でないときは信号が発散することがあるので注意してください。</p>
+</dd>
+<dt>CascadeMix</dt>
+<dd><p>直列につないだ複数の FDN の出力のミックスを調整します。</p>
+</dd>
+</dl>
 <h3 id="allpass">Allpass</h3>
-<h4 id="mix">Mix</h4>
-<p>Schroeder allpass section のミックスを調整します。</p>
+<dl>
+<dt>Mix</dt>
+<dd><p>Schroeder allpass section のミックスを調整します。</p>
+</dd>
+</dl>
 <h3 id="stage-1-と-stage-2">Stage 1 と Stage 2</h3>
 <p>2 つの Schroeder allpass section が直列につながっています。 Stage 2 では 4 つの Schroeder allpass section が並列接続されています。</p>
-<h4 id="time-1">Time</h4>
-<p>Schroeder allpass section のディレイ時間の最大値です。ディレイ時間は内部的にランダマイズされます。</p>
-<h4 id="feedback-1">Feedback</h4>
-<p>Schroeder allpass section のフィードバックです。</p>
-<h4 id="hp-cutoff">HP Cutoff</h4>
-<p>Schroeder allpass section の出力にかかるハイパスフィルタのカットオフ周波数です。</p>
-<h4 id="tanh">Tanh</h4>
-<p>チェックを入れると Stage 1 のフィードバックにサチュレーションがかかります。</p>
+<dl>
+<dt>Time</dt>
+<dd><p>Schroeder allpass section のディレイ時間の最大値です。ディレイ時間は内部的にランダマイズされます。</p>
+</dd>
+<dt>Feedback</dt>
+<dd><p>Schroeder allpass section のフィードバックです。</p>
+</dd>
+<dt>HP Cutoff</dt>
+<dd><p>Schroeder allpass section の出力にかかるハイパスフィルタのカットオフ周波数です。</p>
+</dd>
+<dt>Tanh</dt>
+<dd><p>チェックを入れると Stage 1 のフィードバックにサチュレーションがかかります。</p>
+</dd>
+</dl>
 <h3 id="tremolo">Tremolo</h3>
-<h4 id="mix-1">Mix</h4>
-<p>トレモロのミックスを調整します。</p>
-<h4 id="depth">Depth</h4>
-<p><code>Depth</code> が大きいほどトレモロによる音量の変化が大きくなります。</p>
-<h4 id="frequency">Frequency</h4>
-<p>トレモロに使われる LFO の周波数です。</p>
-<h4 id="delaytime">DelayTime</h4>
-<p>LFO によって変化するディレイ時間の最大値です。シンバルの揺れによって生じるドップラー効果を表現しています。</p>
+<dl>
+<dt>Mix</dt>
+<dd><p>トレモロのミックスを調整します。</p>
+</dd>
+<dt>Depth</dt>
+<dd><p><code>Depth</code> が大きいほどトレモロによる音量の変化が大きくなります。</p>
+</dd>
+<dt>Frequency</dt>
+<dd><p>トレモロに使われる LFO の周波数です。</p>
+</dd>
+<dt>DelayTime</dt>
+<dd><p>LFO によって変化するディレイ時間の最大値です。シンバルの揺れによって生じるドップラー効果を表現しています。</p>
+</dd>
+</dl>
 <h3 id="random-tremolo">Random (Tremolo)</h3>
-<h4 id="depth-1">Depth</h4>
-<p>ノートオンのたびに <code>Tremolo.Depth</code> をランダマイズする度合いです。</p>
-<h4 id="freq">Freq</h4>
-<p>ノートオンのたびに <code>Tremolo.Frequency</code> をランダマイズする度合いです。</p>
-<h4 id="time-2">Time</h4>
-<p>ノートオンのたびに <code>Tremolo.DelayTime</code> をランダマイズする度合いです。</p>
+<dl>
+<dt>Depth</dt>
+<dd><p>ノートオンのたびに <code>Tremolo.Depth</code> をランダマイズする度合いです。</p>
+</dd>
+<dt>Freq</dt>
+<dd><p>ノートオンのたびに <code>Tremolo.Frequency</code> をランダマイズする度合いです。</p>
+</dd>
+<dt>Time</dt>
+<dd><p>ノートオンのたびに <code>Tremolo.DelayTime</code> をランダマイズする度合いです。</p>
+</dd>
+</dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
 <li>0.2.1

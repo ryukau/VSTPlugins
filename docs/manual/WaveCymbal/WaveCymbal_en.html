@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
 
 <head>
 <meta charset="utf-8" />
@@ -92,12 +92,18 @@ video {
   max-width: 100%;
 }
 
+details.list > summary {
+  line-height: 3em;
+}
+
 kbd {
+  font-family: inherit;
   border-style: solid;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 2px;
+  padding: 4px;
   margin: 2px;
+  line-height: calc(1em + 16px);
 }
 
 a {
@@ -111,53 +117,82 @@ h1 {
 }
 
 h2 {
-  border-left: solid 32px #163eac;
+  border-left: solid 32px #2851c2;
   padding-left: 24px;
 }
 
 h3 {
-  border-left: solid 20px #163eac;
+  border-left: solid 20px #4d74dd;
   padding-left: 16px;
 }
 
-h4, h5, h6 {
-  border-left: solid 8px #163eac;
+h4 {
+  border-left: solid 12px #6a88da;
   padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
 }
 
 table {
   border-spacing: 0px;
   border-collapse: separate;
-  border: 1px solid #dddddd;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
 }
 
-tr.header {
-  border: 1px solid black;
-}
-
-tr.odd {
+tr:nth-child(odd) {
   background: #eeeeee;
 }
 
-tr.even {
+tr:nth-child(even) {
   background: #ffffff;
 }
 
 th {
   height: 2em;
-  font-weight: normal;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 3px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
 }
 
 td {
   height: 1.5em;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
 }
 
 audio {
@@ -168,12 +203,27 @@ label {
   vertical-align: middle;
 }
 
-code {
-  color: #163eac;
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
 }
 
-pre {
-  border: 4px solid #eeeeee;
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
 }
 
 li {
@@ -220,37 +270,13 @@ footer {
   <li><a href="#block-diagram">Block Diagram</a></li>
   <li><a href="#parameters">Parameters</a><ul>
   <li><a href="#gain">Gain</a></li>
-  <li><a href="#excitation">Excitation</a><ul>
-  <li><a href="#feedback">Feedback</a></li>
-  <li><a href="#time">Time</a></li>
-  </ul></li>
-  <li><a href="#objects">Objects</a><ul>
-  <li><a href="#ncymbal">nCymbal</a></li>
-  <li><a href="#nstring">nString</a></li>
-  </ul></li>
-  <li><a href="#wave">Wave</a><ul>
-  <li><a href="#damping">Damping</a></li>
-  <li><a href="#pulseposition">PulsePosition</a></li>
-  <li><a href="#pulsewidth">PulseWidth</a></li>
-  </ul></li>
-  <li><a href="#collision">Collision</a><ul>
-  <li><a href="#distance">Distance</a></li>
-  </ul></li>
-  <li><a href="#random">Random</a><ul>
-  <li><a href="#seed">Seed</a></li>
-  <li><a href="#amount">Amount</a></li>
-  </ul></li>
-  <li><a href="#string">String</a><ul>
-  <li><a href="#minhz">MinHz</a></li>
-  <li><a href="#maxhz">MaxHz</a></li>
-  <li><a href="#decay">Decay</a></li>
-  <li><a href="#q">Q</a></li>
-  </ul></li>
-  <li><a href="#oscillator">Oscillator</a><ul>
-  <li><a href="#retrigger">Retrigger</a></li>
-  <li><a href="#osctype">OscType</a></li>
-  <li><a href="#bandpass-cutoff-distribution">Bandpass Cutoff Distribution</a></li>
-  </ul></li>
+  <li><a href="#excitation">Excitation</a></li>
+  <li><a href="#objects">Objects</a></li>
+  <li><a href="#wave">Wave</a></li>
+  <li><a href="#collision">Collision</a></li>
+  <li><a href="#random">Random</a></li>
+  <li><a href="#string">String</a></li>
+  <li><a href="#oscillator">Oscillator</a></li>
   <li><a href="#smoothness">Smoothness</a></li>
   </ul></li>
   <li><a href="#change-log">Change Log</a><ul>
@@ -331,45 +357,73 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>Output gain.</p>
 <h3 id="excitation">Excitation</h3>
 <p>Short delays that turns impulse to tone.</p>
-<h4 id="feedback">Feedback</h4>
-<p>Feedback of excitor delays.</p>
-<h4 id="time">Time</h4>
-<p>Delay time of excitor delays. Beware that when the value of this parameter is high, output will be loud.</p>
+<dl>
+<dt>Feedback</dt>
+<dd><p>Feedback of excitor delays.</p>
+</dd>
+<dt>Time</dt>
+<dd><p>Delay time of excitor delays. Beware that when the value of this parameter is high, output will be loud.</p>
+</dd>
+</dl>
 <h3 id="objects">Objects</h3>
-<h4 id="ncymbal">nCymbal</h4>
-<p>Number of cymbal-ish objects.</p>
-<h4 id="nstring">nString</h4>
-<p>Number of Karplus-Strong string per cymbal object.</p>
+<dl>
+<dt>nCymbal</dt>
+<dd><p>Number of cymbal-ish objects.</p>
+</dd>
+<dt>nString</dt>
+<dd><p>Number of Karplus-Strong string per cymbal object.</p>
+</dd>
+</dl>
 <h3 id="wave">Wave</h3>
-<h4 id="damping">Damping</h4>
-<p>Damping of 1D wave simulation. Beware that when the value of this parameter is high, output will be loud.</p>
-<h4 id="pulseposition">PulsePosition</h4>
-<p>Position where oscillator input causes wave.</p>
-<h4 id="pulsewidth">PulseWidth</h4>
-<p>Width of wave caused by oscillator input.</p>
+<dl>
+<dt>Damping</dt>
+<dd><p>Damping of 1D wave simulation. Beware that when the value of this parameter is high, output will be loud.</p>
+</dd>
+<dt>PulsePosition</dt>
+<dd><p>Position where oscillator input causes wave.</p>
+</dd>
+<dt>PulseWidth</dt>
+<dd><p>Width of wave caused by oscillator input.</p>
+</dd>
+</dl>
 <h3 id="collision">Collision</h3>
 <p>When turns on, it sounds like a rubbing on surface of thin light metal plate. When <code>nCymbal</code> is 1, this doesn’t change output sound.</p>
-<h4 id="distance">Distance</h4>
-<p>Distance between cymbals. Collision will more likely to occur when turning this knob to left.</p>
+<dl>
+<dt>Distance</dt>
+<dd><p>Distance between cymbals. Collision will more likely to occur when turning this knob to left.</p>
+</dd>
+</dl>
 <h3 id="random">Random</h3>
-<h4 id="seed">Seed</h4>
-<p>Random seed. Output will be the same for each note while checking <code>Retrigger</code>.</p>
-<h4 id="amount">Amount</h4>
-<p>Amount of random number effects to delay time and band-pass cutoff. Beware that when the value of this parameter is low, output may be loud.</p>
+<dl>
+<dt>Seed</dt>
+<dd><p>Random seed. Output will be the same for each note while checking <code>Retrigger</code>.</p>
+</dd>
+<dt>Amount</dt>
+<dd><p>Amount of random number effects to delay time and band-pass cutoff. Beware that when the value of this parameter is low, output may be loud.</p>
+</dd>
+</dl>
 <h3 id="string">String</h3>
-<h4 id="minhz">MinHz</h4>
-<p>Lower bound of Karplus-Strong string frequency.</p>
-<h4 id="maxhz">MaxHz</h4>
-<p>Upper bound of Karplus-Strong string frequency.</p>
-<h4 id="decay">Decay</h4>
-<p>Decay of Karplus-Strong string. Decay time will be longer when turning this knob to left.</p>
-<h4 id="q">Q</h4>
-<p>Band-pass filter Q.</p>
+<dl>
+<dt>MinHz</dt>
+<dd><p>Lower bound of Karplus-Strong string frequency.</p>
+</dd>
+<dt>MaxHz</dt>
+<dd><p>Upper bound of Karplus-Strong string frequency.</p>
+</dd>
+<dt>Decay</dt>
+<dd><p>Decay of Karplus-Strong string. Decay time will be longer when turning this knob to left.</p>
+</dd>
+<dt>Q</dt>
+<dd><p>Band-pass filter Q.</p>
+</dd>
+</dl>
 <h3 id="oscillator">Oscillator</h3>
-<h4 id="retrigger">Retrigger</h4>
-<p>When checking, each note on resets random seed.</p>
-<h4 id="osctype">OscType</h4>
-<p>Oscillator type.</p>
+<dl>
+<dt>Retrigger</dt>
+<dd><p>When checking, each note on resets random seed.</p>
+</dd>
+<dt>OscType</dt>
+<dd><p>Oscillator type.</p>
 <ul>
 <li><code>Off</code> : Stop making noise for each note on. This option will be used when using WaveCymbal as FX.</li>
 <li><code>Impulse</code> : Outputs impulse for each note on. Simulates hit of cymbal with stick.</li>
@@ -377,11 +431,14 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><code>Velvet Noise</code> : Outputs velvet noise of a density respect to pitch of note. Simulates less uniform drawing than <code>Sustain</code>.</li>
 <li><code>Brown Noise</code> : Outputs brown noise of a brightness respect to pitch of note. Kind of like dragging cymbal on asphalt.</li>
 </ul>
-<h4 id="bandpass-cutoff-distribution">Bandpass Cutoff Distribution</h4>
-<ul>
+</dd>
+<dt>Bandpass Cutoff Distribution</dt>
+<dd><ul>
 <li><code>Log</code> : Sound becomes relatively natural.</li>
 <li><code>Linear</code> : Leans sound to higher frequency.</li>
 </ul>
+</dd>
+</dl>
 <h3 id="smoothness">Smoothness</h3>
 <p>Transition time from previous value to current value in seconds. <code>Gain</code>, <code>Excitation.Time</code>, <code>Random.Amount</code>, <code>Bandpass.MinCutoff</code>, <code>Bandpass.MaxCutoff</code> will be affected. Slide effect of <code>OscType.Sustain</code> can be tuned by <code>Smoothness</code>.</p>
 <h2 id="change-log">Change Log</h2>

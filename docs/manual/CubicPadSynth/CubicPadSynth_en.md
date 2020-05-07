@@ -1,9 +1,13 @@
+---
+lang: en
+...
+
 # CubicPadSynth
 ![](img/cubicpadsynth.png)
 
 CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.
 
-- [Download CubicPadSynth 0.1.3 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip) <img
+- [Download CubicPadSynth 0.1.4 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/CubicPadSynth0.1.4.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -143,29 +147,33 @@ Diagram only shows overview. It's not exact implementation.
 ![](img/cubicpadsynth.png)
 
 #### Tuning
-##### Octave, Semi, Milli
-Changes master pitch.
+Octave, Semi, Milli
 
-`Milli` is 1/1000 of semitone or 1/10 cent.
+:   Changes master pitch.
 
-##### ET, A4 [Hz]
-Changes tuning.
+    `Milli` is 1/1000 of semitone or 1/10 cent.
 
-`ET` stands for equal temperature. Note that when `ET` is less than 12, some notes becomes silent due to frequency becomes too high or too low.
+ET, A4 [Hz]
 
-`A4 [Hz]` is frequency of note A4.
+:   Changes tuning.
+
+    `ET` stands for equal temperature. Note that when `ET` is less than 12, some notes becomes silent due to frequency becomes too high or too low.
+
+    `A4 [Hz]` is frequency of note A4.
 
 #### Gain
-##### A, D, S, R
-Gain envelope parameters.
+A, D, S, R
 
-- `A` : Attack time which is the length from note-on to reaching peak value.
-- `D` : Decay time which is the length from peak value to reaching sustain level.
-- `S` : Sustain level which is the gain after decay.
-- `R` : Release time which is the length from note-off to the gain reaching to 0.
+:   Gain envelope parameters.
 
-##### Gain
-Master output gain.
+    - `A` : Attack time which is the length from note-on to reaching peak value.
+    - `D` : Decay time which is the length from peak value to reaching sustain level.
+    - `S` : Sustain level which is the gain after decay.
+    - `R` : Release time which is the length from note-off to the gain reaching to 0.
+
+Gain
+
+:   Master output gain.
 
 #### Lowpass
 This is a psuedo low-pass filter. It shifts to wavetable which contains less overtone to get low-passed output.
@@ -187,226 +195,265 @@ cutoffFrequency = (1 + (range - lpFreq) / range) * ntFreq
 
 128 used to calculate `lpCut` is an arbitrary value which came from MIDI note number range + 1. `nTable` is set to 136.
 
-##### Cutoff
-Changes filter cutoff frequency.
+Cutoff
 
-##### KeyFollow
-When set to right-most, cutoff frequency is set to make the number of overtone to be almost same regardless of pitch of note. When set to left-most, it only use the value of `Cutoff`.
+:   Changes filter cutoff frequency.
 
-##### A, D, S, R, Amount
-Filter envelope parameters. `Amount` changes the amount of modulation to cutoff.
+KeyFollow
+
+:   When set to right-most, cutoff frequency is set to make the number of overtone to be almost same regardless of pitch of note. When set to left-most, it only use the value of `Cutoff`.
+
+A, D, S, R, Amount
+
+:   Filter envelope parameters. `Amount` changes the amount of modulation to cutoff.
 
 #### Pitch
-##### A, D, S, R, Amount
-Pitch envelope parameters.
+A, D, S, R, Amount
 
-##### Negative
-Changes the sign of pitch envelope output.
+:   Pitch envelope parameters.
+
+Negative
+
+:   Changes the sign of pitch envelope output.
 
 #### Unison
-##### nUnison
-Number of voices used by unison.
+nUnison
 
-To avoid interruption of release, increase the number of `nVoice` in Misc. section. Note that increasing `nVoice` consumes more resources.
+:   Number of voices used by unison.
 
-##### Detune, Random Detune
-`Detune` is the difference of pitch between voices used in a unison.
+    To avoid interruption of release, increase the number of `nVoice` in Misc. section. Note that increasing `nVoice` consumes more resources.
 
-When `Random Detune` is checked, amount of detune changes for each note-on.
+Detune, Random Detune
 
-```
-random = RandomDetune ? rand() : 1
-detune = pitch * (1 + random * unisonIndex * Detune)
-```
+:   `Detune` is the difference of pitch between voices used in a unison.
 
-##### GainRnd
-Amount of randomization of gain for voices used in a unison.
+    When `Random Detune` is checked, amount of detune changes for each note-on.
 
-##### Phase
-Amount of randomization of phase for voices used in a unison.
+    ```
+    random = RandomDetune ? rand() : 1
+    detune = pitch * (1 + random * unisonIndex * Detune)
+    ```
 
-This parameter makes no effect when `Reset` in Phase section is checked.
+GainRnd
 
-##### Spread, Spread Type
-`Spread` is an amount of stereo spread for a unison.
+:   Amount of randomization of gain for voices used in a unison.
 
-`Spread Type` provides options to assign panpot values according to voice pitch.
+Phase
 
-- `Alternate L-R`: Alternates `Ascend L -> R` and `Ascend R -> L`.
-- `Alternate M-S`: Alternates `HighOnMid` and `HighOnSide`.
-- `Ascend L -> R`: Ascend pitch from left to right.
-- `Ascend R -> L`: Ascend pitch from right to left.
-- `HighOnMid`: Ascend pitch from side to mid.
-- `HighOnSide`: Ascend pitch from mid to side.
-- `Random`: Randomize pan. May be biased.
-- `RotateL`: Rotate to left for each note-on.
-- `RotateR`: Rotate to right for each note-on.
-- `Shuffle`: Randomly assign pan which is evenly ordered.
+:   Amount of randomization of phase for voices used in a unison.
+
+    This parameter makes no effect when `Reset` in Phase section is checked.
+
+Spread, Spread Type
+
+:   `Spread` is an amount of stereo spread for a unison.
+
+    `Spread Type` provides options to assign panpot values according to voice pitch.
+
+    - `Alternate L-R`: Alternates `Ascend L -> R` and `Ascend R -> L`.
+    - `Alternate M-S`: Alternates `HighOnMid` and `HighOnSide`.
+    - `Ascend L -> R`: Ascend pitch from left to right.
+    - `Ascend R -> L`: Ascend pitch from right to left.
+    - `HighOnMid`: Ascend pitch from side to mid.
+    - `HighOnSide`: Ascend pitch from mid to side.
+    - `Random`: Randomize pan. May be biased.
+    - `RotateL`: Rotate to left for each note-on.
+    - `RotateR`: Rotate to right for each note-on.
+    - `Shuffle`: Randomly assign pan which is evenly ordered.
 
 #### LFO
-##### Refresh LFO
-Refresh LFO wavetable based on current value of `LFO Wave`.
+Refresh LFO
 
-Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
+:   Refresh LFO wavetable based on current value of `LFO Wave`.
 
-##### Interpolation
-Type of LFO wavetable interpolation.
+    Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
 
-![](img/interpolation_type.png)
+Interpolation
 
-##### Tempo, Multiply
-Sets LFO frequency according to current tempo. Lower numeral represents the length of note. Upper numeral is the number of notes.
+:   Type of LFO wavetable interpolation.
 
-Value of `Multiply` is multiplied to the frequency calculated from `Tempo`.
+    ![](img/interpolation_type.png)
 
-```
-// (60 seconds) * (4 beat) = 240
-lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)
-```
+Tempo, Multiply
 
-##### Retrigger
-When checked, resets LFO phase for each note-on.
+:   Sets LFO frequency according to current tempo. Lower numeral represents the length of note. Upper numeral is the number of notes.
 
-##### Amount
-LFO frequency modulation amount.
+    Value of `Multiply` is multiplied to the frequency calculated from `Tempo`.
 
-##### Lowpass
-Changes cutoff freequency of low-pass filter for LFO.
+    ```
+    // (60 seconds) * (4 beat) = 240
+    lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)
+    ```
 
-##### LFO Wave
-LFO waveform.
+Retrigger
+
+:   When checked, resets LFO phase for each note-on.
+
+Amount
+
+:   LFO frequency modulation amount.
+
+Lowpass
+
+:   Changes cutoff freequency of low-pass filter for LFO.
+
+LFO Wave
+
+:   LFO waveform.
 
 #### Phase
-##### Phase
-Initial phase of oscillator.
+Phase
 
-##### Reset
-When checked, resets oscillator phase to the value set by `Phase`.
+:   Initial phase of oscillator.
 
-##### Random
-When checked, randomize phase for each note-on. In this case, value of `Phase` becomes range of randomization.
+Reset
+
+:   When checked, resets oscillator phase to the value set by `Phase`.
+
+Random
+
+:   When checked, randomize phase for each note-on. In this case, value of `Phase` becomes range of randomization.
 
 #### Misc.
-##### Smooth
-Time length to change some parameter value to current one. Unit is in second.
+Smooth
 
-List of parameters related to `Smooth`. `*` represents wild card.
+:   Time length to change some parameter value to current one. Unit is in second.
 
-- All parameters in Tuning section.
-- Gain
-  - `S`
-  - `Gain`
-- Lowpass
-  - `Cutoff`
-  - `KeyFollow`
-  - `S`
-  - `Amount`
-- Pitch
-  - `S`
-  - `Amount`
-  - `Negative`
-- LFO
-  - `Tempo`
-  - `Multiply`
-  - `Amount`
-  - `Lowpass`
-- Phase
-  - `Phase`
+    List of parameters related to `Smooth`. `*` represents wild card.
 
-##### nVoice
-Maximum polyphony. Lowering the number of this option reduces CPU load.
+    - All parameters in Tuning section.
+    - Gain
+      - `S`
+      - `Gain`
+    - Lowpass
+      - `Cutoff`
+      - `KeyFollow`
+      - `S`
+      - `Amount`
+    - Pitch
+      - `S`
+      - `Amount`
+      - `Negative`
+    - LFO
+      - `Tempo`
+      - `Multiply`
+      - `Amount`
+      - `Lowpass`
+    - Phase
+      - `Phase`
 
-##### Pool
-When checked, most quiet note is released when the number of active voice is close to maximum polyphony. This can be used to reduce pop noise which occurs on note-on.
+nVoice
+
+:   Maximum polyphony. Lowering the number of this option reduces CPU load.
+
+Pool
+
+:   When checked, most quiet note is released when the number of active voice is close to maximum polyphony. This can be used to reduce pop noise which occurs on note-on.
 
 ### Wavetable Tab
 ![](img/cubicpadsynth_wavetable_tab.png)
 
 #### Overtone Controls
-##### Gain
-Gain of profile.
+Gain
 
-##### Width
-Width of profile.
+:   Gain of profile.
 
-##### Pitch
-This value is multiplied to profile center frequency.
+Width
 
-##### Phase
-Range of randomization for the phase of profile.
+:   Width of profile.
+
+Pitch
+
+:   This value is multiplied to profile center frequency.
+
+Phase
+
+:   Range of randomization for the phase of profile.
 
 #### Pitch
-##### Base Freq.
-Fundamental frequency of wavetable. Note that if this value is small, master pitch becomes out of tune.
+Base Freq.
 
-##### Multiply, Modulo
-Changes profile center frequency.
+:   Fundamental frequency of wavetable. Note that if this value is small, master pitch becomes out of tune.
 
-```
-profileCenterFrequency = mod(
-  BaseFreq * profileIndex * overtonePitch * Multiply,
-  440 * pow(2, (Modulo - 69) / 12)
-)
-```
+Multiply, Modulo
 
-##### Random
-When checked, randomize profile center frequency. Ignores values of `Pitch` in overtone control.
+:   Changes profile center frequency.
+
+    ```
+    profileCenterFrequency = mod(
+      BaseFreq * profileIndex * overtonePitch * Multiply,
+      440 * pow(2, (Modulo - 69) / 12)
+    )
+    ```
+
+Random
+
+:   When checked, randomize profile center frequency. Ignores values of `Pitch` in overtone control.
 
 #### Spectrum
-##### Expand
-Scaling factor to shrink/expand the spectrum along to frequency axis.
+Expand
 
-![](img/expand.svg)
+:   Scaling factor to shrink/expand the spectrum along to frequency axis.
 
-##### Shift
-Shift spectrum along to frequency axis.
+    ![](img/expand.svg)
 
-![](img/shift.svg)
+Shift
 
-##### Comb
-When this value is higher than 1, it changes the shape of profile like a comb. The value specifies interval between peaks.
+:   Shift spectrum along to frequency axis.
 
-![](img/comb.png)
+    ![](img/shift.svg)
 
-##### Shape
-Changes profile shapes by using the value of `Shape` as an exponent.
+Comb
 
-```
-shapedProfile = powf(profile, shape);
-```
+:   When this value is higher than 1, it changes the shape of profile like a comb. The value specifies interval between peaks.
 
-##### Invert
-Invert spectrum to make the maximum of absolute value to 0, and 0 to the max-abs value. Signs are preserved. Phases aren't considered.
+    ![](img/comb.png)
 
-```
-maxRe = max(abs(spectrumRe))
-maxIm = max(abs(spectrumIm))
-invertedSpectrumRe = spectrumRe - sgn(spectrumRe) * maxRe
-invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm
-```
+Shape
+
+:   Changes profile shapes by using the value of `Shape` as an exponent.
+
+    ```
+    shapedProfile = powf(profile, shape);
+    ```
+
+Invert
+
+:   Invert spectrum to make the maximum of absolute value to 0, and 0 to the max-abs value. Signs are preserved. Phases aren't considered.
+
+    ```
+    maxRe = max(abs(spectrumRe))
+    maxIm = max(abs(spectrumIm))
+    invertedSpectrumRe = spectrumRe - sgn(spectrumRe) * maxRe
+    invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm
+    ```
 
 #### Phase
-##### UniformPhase
-When checked, phase of a profile becomes an uniform value.
+UniformPhase
+
+:   When checked, phase of a profile becomes an uniform value.
 
 #### Random
-##### Seed
-Random seed. This value change random number sequence.
+Seed
+
+:   Random seed. This value change random number sequence.
 
 #### Modifier
-##### Gain^
-Exponent for `Gain` in overtone control.
+Gain^
 
-```
-profileGain = pow(Gain, Gain^)
-```
+:   Exponent for `Gain` in overtone control.
 
-##### Width*
-Multiplier for `Width` in overtone control.
+    ```
+    profileGain = pow(Gain, Gain^)
+    ```
 
-```
-profileWidth = Width * (Width*)
-```
+Width\*
+
+:   Multiplier for `Width` in overtone control.
+
+    ```
+    profileWidth = Width * (Width*)
+    ```
 
 #### Refresh Table
 Refresh PADsynth wavetable based on current configuration of Wavetable tab.
@@ -414,6 +461,8 @@ Refresh PADsynth wavetable based on current configuration of Wavetable tab.
 Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
 
 ## Change Log
+- 0.1.4
+  - Fixed a bug that refreshing wavetable before parameters are loaded at launch.
 - 0.1.3
   - Fixed a bug that some shortcuts are disabled for BarBox.
 - 0.1.2
@@ -425,6 +474,7 @@ Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
   - Initial release.
 
 ### Old Versions
+- [CubicPadSynth 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip)
 - [CubicPadSynth 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynth0.1.2.zip)
 - [CubicPadSynth 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip)
 

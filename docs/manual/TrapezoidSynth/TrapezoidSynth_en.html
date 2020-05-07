@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
 
 <head>
 <meta charset="utf-8" />
@@ -92,12 +92,18 @@ video {
   max-width: 100%;
 }
 
+details.list > summary {
+  line-height: 3em;
+}
+
 kbd {
+  font-family: inherit;
   border-style: solid;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 2px;
+  padding: 4px;
   margin: 2px;
+  line-height: calc(1em + 16px);
 }
 
 a {
@@ -111,53 +117,82 @@ h1 {
 }
 
 h2 {
-  border-left: solid 32px #163eac;
+  border-left: solid 32px #2851c2;
   padding-left: 24px;
 }
 
 h3 {
-  border-left: solid 20px #163eac;
+  border-left: solid 20px #4d74dd;
   padding-left: 16px;
 }
 
-h4, h5, h6 {
-  border-left: solid 8px #163eac;
+h4 {
+  border-left: solid 12px #6a88da;
   padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
 }
 
 table {
   border-spacing: 0px;
   border-collapse: separate;
-  border: 1px solid #dddddd;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
 }
 
-tr.header {
-  border: 1px solid black;
-}
-
-tr.odd {
+tr:nth-child(odd) {
   background: #eeeeee;
 }
 
-tr.even {
+tr:nth-child(even) {
   background: #ffffff;
 }
 
 th {
   height: 2em;
-  font-weight: normal;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 3px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
 }
 
 td {
   height: 1.5em;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
 }
 
 audio {
@@ -168,12 +203,27 @@ label {
   vertical-align: middle;
 }
 
-code {
-  color: #163eac;
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
 }
 
-pre {
-  border: 4px solid #eeeeee;
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
 }
 
 li {
@@ -219,82 +269,20 @@ footer {
   <li><a href="#caution">Caution</a></li>
   <li><a href="#block-diagram">Block Diagram</a></li>
   <li><a href="#parameters">Parameters</a><ul>
-  <li><a href="#oscillator-common">Oscillator Common</a><ul>
-  <li><a href="#semi">Semi</a></li>
-  <li><a href="#cent">Cent</a></li>
-  <li><a href="#slope">Slope</a></li>
-  <li><a href="#pw">PW</a></li>
-  </ul></li>
-  <li><a href="#oscillator-1">Oscillator 1</a><ul>
-  <li><a href="#drift">Drift</a></li>
-  <li><a href="#feedback">Feedback</a></li>
-  </ul></li>
-  <li><a href="#oscillator-2">Oscillator 2</a><ul>
-  <li><a href="#overtone">Overtone</a></li>
-  <li><a href="#pm">PM</a></li>
-  </ul></li>
-  <li><a href="#envelope-common">Envelope Common</a><ul>
-  <li><a href="#retrigger">Retrigger</a></li>
-  <li><a href="#a">A</a></li>
-  <li><a href="#d">D</a></li>
-  <li><a href="#s">S</a></li>
-  <li><a href="#r">R</a></li>
-  <li><a href="#curve">Curve</a></li>
-  </ul></li>
-  <li><a href="#gain-envelope">Gain Envelope</a><ul>
-  <li><a href="#gain">Gain</a></li>
-  </ul></li>
-  <li><a href="#filter">Filter</a><ul>
-  <li><a href="#order">Order</a></li>
-  <li><a href="#cut">Cut</a></li>
-  <li><a href="#res">Res</a></li>
-  <li><a href="#sat">Sat</a></li>
-  <li><a href="#envcut">Env&gt;Cut</a></li>
-  <li><a href="#keycut">Key&gt;Cut</a></li>
-  <li><a href="#oscmix">+OscMix</a></li>
-  </ul></li>
-  <li><a href="#filter-envelope">Filter Envelope</a><ul>
-  <li><a href="#octave">&gt;Octave</a></li>
-  </ul></li>
-  <li><a href="#misc">Misc</a><ul>
-  <li><a href="#oscmix-1">OscMix</a></li>
-  <li><a href="#octave-1">Octave</a></li>
-  <li><a href="#smooth">Smooth</a></li>
-  </ul></li>
-  <li><a href="#mod-common">Mod Common</a><ul>
-  <li><a href="#retrigger-1">Retrigger</a></li>
-  <li><a href="#attack">Attack</a></li>
-  <li><a href="#curve-1">Curve</a></li>
-  </ul></li>
-  <li><a href="#mod-1">Mod 1</a><ul>
-  <li><a href="#pm-1">&gt;PM</a></li>
-  </ul></li>
-  <li><a href="#mod-2">Mod 2</a><ul>
-  <li><a href="#feedback-1">&gt;Feedback</a></li>
-  <li><a href="#lfo">&gt;LFO</a></li>
-  <li><a href="#slope2">&gt;Slope2</a></li>
-  <li><a href="#shifter1">&gt;Shifter1</a></li>
-  </ul></li>
-  <li><a href="#shifter-common">Shifter Common</a><ul>
-  <li><a href="#semi-1">Semi</a></li>
-  <li><a href="#cent-1">Cent</a></li>
-  <li><a href="#gain-1">Gain</a></li>
-  </ul></li>
-  <li><a href="#lfo-1">LFO</a><ul>
-  <li><a href="#lfotype">LFOType</a></li>
-  <li><a href="#tempo">Tempo</a></li>
-  <li><a href="#freq">Freq</a></li>
-  <li><a href="#shape">Shape</a></li>
-  <li><a href="#pitch">&gt;Pitch</a></li>
-  <li><a href="#slope1">&gt;Slope1</a></li>
-  <li><a href="#pw1">&gt;PW1</a></li>
-  <li><a href="#pw1-1">&gt;PW1</a></li>
-  </ul></li>
-  <li><a href="#slide">Slide</a><ul>
-  <li><a href="#slidetype">SlideType</a></li>
-  <li><a href="#time">Time</a></li>
-  <li><a href="#offset">Offset</a></li>
-  </ul></li>
+  <li><a href="#oscillator-common">Oscillator Common</a></li>
+  <li><a href="#oscillator-1">Oscillator 1</a></li>
+  <li><a href="#oscillator-2">Oscillator 2</a></li>
+  <li><a href="#envelope-common">Envelope Common</a></li>
+  <li><a href="#gain-envelope">Gain Envelope</a></li>
+  <li><a href="#filter">Filter</a></li>
+  <li><a href="#filter-envelope">Filter Envelope</a></li>
+  <li><a href="#misc">Misc</a></li>
+  <li><a href="#mod-common">Mod Common</a></li>
+  <li><a href="#mod-1">Mod 1</a></li>
+  <li><a href="#mod-2">Mod 2</a></li>
+  <li><a href="#shifter-common">Shifter Common</a></li>
+  <li><a href="#lfo">LFO</a></li>
+  <li><a href="#slide">Slide</a></li>
   </ul></li>
   <li><a href="#change-log">Change Log</a><ul>
   <li><a href="#old-versions">Old Versions</a></li>
@@ -371,67 +359,107 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p><img src="img/trapezoidsynth.svg" /></p>
 <h2 id="parameters">Parameters</h2>
 <h3 id="oscillator-common">Oscillator Common</h3>
-<h4 id="semi">Semi</h4>
-<p>Change oscillator pitch in semitone.</p>
-<h4 id="cent">Cent</h4>
-<p>Change oscillator pitch in cent. 100 cent = 1 semitone.</p>
-<h4 id="slope">Slope</h4>
-<p>Change left and right side of slope of trapezoid.</p>
-<h4 id="pw">PW</h4>
-<p>Pulse width. Change length of upper side of trapezoid.</p>
+<dl>
+<dt>Semi</dt>
+<dd><p>Change oscillator pitch in semitone.</p>
+</dd>
+<dt>Cent</dt>
+<dd><p>Change oscillator pitch in cent. 100 cent = 1 semitone.</p>
+</dd>
+<dt>Slope</dt>
+<dd><p>Change left and right side of slope of trapezoid.</p>
+</dd>
+<dt>PW</dt>
+<dd><p>Pulse width. Change length of upper side of trapezoid.</p>
+</dd>
+</dl>
 <h3 id="oscillator-1">Oscillator 1</h3>
-<h4 id="drift">Drift</h4>
-<p>Modulate pitch with white noise.</p>
-<h4 id="feedback">Feedback</h4>
-<p>Modulate phase of Oscillator 1 with feedback signal.</p>
+<dl>
+<dt>Drift</dt>
+<dd><p>Modulate pitch with white noise.</p>
+</dd>
+<dt>Feedback</dt>
+<dd><p>Modulate phase of Oscillator 1 with feedback signal.</p>
 <pre><code>osc1Phase += Feedback * (osc1 + OscMix * (osc2 - osc1))</code></pre>
+</dd>
+</dl>
 <h3 id="oscillator-2">Oscillator 2</h3>
-<h4 id="overtone">Overtone</h4>
-<p>Multiply the frequency of oscillator by number of <code>Overtone</code>.</p>
-<h4 id="pm">PM</h4>
-<p>Modulate Osillator 1 phase with Oscillator 2 output.</p>
+<dl>
+<dt>Overtone</dt>
+<dd><p>Multiply the frequency of oscillator by number of <code>Overtone</code>.</p>
+</dd>
+<dt>PM</dt>
+<dd><p>Modulate Osillator 1 phase with Oscillator 2 output.</p>
+</dd>
+</dl>
 <h3 id="envelope-common">Envelope Common</h3>
-<h4 id="retrigger">Retrigger</h4>
-<p>When checked, reset envelope for each note on. When not checked, reset envelope only if the number of pressed key is changed from 0 to 1 or more.</p>
-<h4 id="a">A</h4>
-<p>Attack time in seconds.</p>
-<h4 id="d">D</h4>
-<p>Decay time in seconds.</p>
-<h4 id="s">S</h4>
-<p>Sustain level.</p>
-<h4 id="r">R</h4>
-<p>Release time in seconds.</p>
-<h4 id="curve">Curve</h4>
-<p>Change envelope curve.</p>
+<dl>
+<dt>Retrigger</dt>
+<dd><p>When checked, reset envelope for each note on. When not checked, reset envelope only if the number of pressed key is changed from 0 to 1 or more.</p>
+</dd>
+<dt>A</dt>
+<dd><p>Attack time in seconds.</p>
+</dd>
+<dt>D</dt>
+<dd><p>Decay time in seconds.</p>
+</dd>
+<dt>S</dt>
+<dd><p>Sustain level.</p>
+</dd>
+<dt>R</dt>
+<dd><p>Release time in seconds.</p>
+</dd>
+<dt>Curve</dt>
+<dd><p>Change envelope curve.</p>
+</dd>
+</dl>
 <h3 id="gain-envelope">Gain Envelope</h3>
-<h4 id="gain">Gain</h4>
-<p>Master output gain.</p>
+<dl>
+<dt>Gain</dt>
+<dd><p>Master output gain.</p>
+</dd>
+</dl>
 <h3 id="filter">Filter</h3>
-<h4 id="order">Order</h4>
-<p>TrapezoidSynth is using 8 of serially connected first order filter. <code>Order</code> changes where to get the signal from the filter.</p>
-<h4 id="cut">Cut</h4>
-<p>Cutoff frequency in Hz.</p>
-<h4 id="res">Res</h4>
-<p>Resonance.</p>
-<h4 id="sat">Sat</h4>
-<p>Filter saturation.</p>
+<dl>
+<dt>Order</dt>
+<dd><p>TrapezoidSynth is using 8 of serially connected first order filter. <code>Order</code> changes where to get the signal from the filter.</p>
+</dd>
+<dt>Cut</dt>
+<dd><p>Cutoff frequency in Hz.</p>
+</dd>
+<dt>Res</dt>
+<dd><p>Resonance.</p>
+</dd>
+<dt>Sat</dt>
+<dd><p>Filter saturation.</p>
 <pre><code>filterInput = tanh(Sat * (input + Res * filterOutput))</code></pre>
-<h4 id="envcut">Env&gt;Cut</h4>
-<p>Modulation amount from Filter Envelope to <code>Cut</code>.</p>
-<h4 id="keycut">Key&gt;Cut</h4>
-<p>Modulation amount from note pitch to <code>Cut</code>.</p>
-<h4 id="oscmix">+OscMix</h4>
-<p>Modulation amount from mixed signal of Oscillator 1 and Oscillator 2 to <code>Cut</code>.</p>
+</dd>
+<dt>Env&gt;Cut</dt>
+<dd><p>Modulation amount from Filter Envelope to <code>Cut</code>.</p>
+</dd>
+<dt>Key&gt;Cut</dt>
+<dd><p>Modulation amount from note pitch to <code>Cut</code>.</p>
+</dd>
+<dt>+OscMix</dt>
+<dd><p>Modulation amount from mixed signal of Oscillator 1 and Oscillator 2 to <code>Cut</code>.</p>
+</dd>
+</dl>
 <h3 id="filter-envelope">Filter Envelope</h3>
-<h4 id="octave">&gt;Octave</h4>
-<p>Modulation amount from Filter Envelope to pitch in octave.</p>
+<dl>
+<dt>&gt;Octave</dt>
+<dd><p>Modulation amount from Filter Envelope to pitch in octave.</p>
+</dd>
+</dl>
 <h3 id="misc">Misc</h3>
-<h4 id="oscmix-1">OscMix</h4>
-<p>Ratio of Oscillator 1 and Oscillator 2. When turned to left-most, output becomes only the signal from Oscillator 1.</p>
-<h4 id="octave-1">Octave</h4>
-<p>Change pitch in octave.</p>
-<h4 id="smooth">Smooth</h4>
-<p>Interpolation time in seconds from previous value to current value. Following parameters are affected by <code>Smooth</code>.</p>
+<dl>
+<dt>OscMix</dt>
+<dd><p>Ratio of Oscillator 1 and Oscillator 2. When turned to left-most, output becomes only the signal from Oscillator 1.</p>
+</dd>
+<dt>Octave</dt>
+<dd><p>Change pitch in octave.</p>
+</dd>
+<dt>Smooth</dt>
+<dd><p>Interpolation time in seconds from previous value to current value. Following parameters are affected by <code>Smooth</code>.</p>
 <ul>
 <li><code>Drift</code></li>
 <li><code>Slope</code></li>
@@ -462,67 +490,103 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><code>&gt;PW1</code></li>
 <li><code>&gt;Cut</code></li>
 </ul>
+</dd>
+</dl>
 <h3 id="mod-common">Mod Common</h3>
-<h4 id="retrigger-1">Retrigger</h4>
-<p>When checked, reset envelope for each note on. When not checked, reset envelope only if the number of pressed key is changed from 0 to 1 or more.</p>
-<h4 id="attack">Attack</h4>
-<p>Modulation envelope attack time in seconds.</p>
-<h4 id="curve-1">Curve</h4>
-<p>Modulation envelope curve.</p>
+<dl>
+<dt>Retrigger</dt>
+<dd><p>When checked, reset envelope for each note on. When not checked, reset envelope only if the number of pressed key is changed from 0 to 1 or more.</p>
+</dd>
+<dt>Attack</dt>
+<dd><p>Modulation envelope attack time in seconds.</p>
+</dd>
+<dt>Curve</dt>
+<dd><p>Modulation envelope curve.</p>
+</dd>
+</dl>
 <h3 id="mod-1">Mod 1</h3>
-<h4 id="pm-1">&gt;PM</h4>
-<p>Modulation amount from modulation envelope 1 to <code>Oscillator2.PM</code>.</p>
+<dl>
+<dt>&gt;PM</dt>
+<dd><p>Modulation amount from modulation envelope 1 to <code>Oscillator2.PM</code>.</p>
+</dd>
+</dl>
 <h3 id="mod-2">Mod 2</h3>
-<h4 id="feedback-1">&gt;Feedback</h4>
-<p>Modulation amount from modulation envelope 2 to <code>Oscillator1.Feedback</code>.</p>
-<h4 id="lfo">&gt;LFO</h4>
-<p>Modulation amount from modulation envelope 2 to <code>LFO.Freq</code>.</p>
-<h4 id="slope2">&gt;Slope2</h4>
-<p>Modulation amount from modulation envelope 2 to <code>Oscillator2.Slope</code>.</p>
-<h4 id="shifter1">&gt;Shifter1</h4>
-<p>Modulation amount from modulation envelope 2 to Shifter 1 pitch.</p>
+<dl>
+<dt>&gt;Feedback</dt>
+<dd><p>Modulation amount from modulation envelope 2 to <code>Oscillator1.Feedback</code>.</p>
+</dd>
+<dt>&gt;LFO</dt>
+<dd><p>Modulation amount from modulation envelope 2 to <code>LFO.Freq</code>.</p>
+</dd>
+<dt>&gt;Slope2</dt>
+<dd><p>Modulation amount from modulation envelope 2 to <code>Oscillator2.Slope</code>.</p>
+</dd>
+<dt>&gt;Shifter1</dt>
+<dd><p>Modulation amount from modulation envelope 2 to Shifter 1 pitch.</p>
+</dd>
+</dl>
 <h3 id="shifter-common">Shifter Common</h3>
-<h4 id="semi-1">Semi</h4>
-<p>Change amount of pitch shift in semitone.</p>
-<h4 id="cent-1">Cent</h4>
-<p>Change amount of pitch shift pitch in cent. 100 cent = 1 semitone.</p>
-<h4 id="gain-1">Gain</h4>
-<p>Output gain of pitch shifter.</p>
-<h3 id="lfo-1">LFO</h3>
-<h4 id="lfotype">LFOType</h4>
-<p>4 waveforms are available for LFO.</p>
+<dl>
+<dt>Semi</dt>
+<dd><p>Change amount of pitch shift in semitone.</p>
+</dd>
+<dt>Cent</dt>
+<dd><p>Change amount of pitch shift pitch in cent. 100 cent = 1 semitone.</p>
+</dd>
+<dt>Gain</dt>
+<dd><p>Output gain of pitch shifter.</p>
+</dd>
+</dl>
+<h3 id="lfo">LFO</h3>
+<dl>
+<dt>LFOType</dt>
+<dd><p>4 waveforms are available for LFO.</p>
 <ul>
 <li><code>Sin</code> : Sine wave. Output will be power of the value of <code>Shape</code>.</li>
 <li><code>Saw</code> : Sawtooth wave. Can be turned into triangle with <code>Shape</code>.</li>
 <li><code>Pulse</code> : Pulse wave. Duty ratio can be controlled by <code>Shape</code>.</li>
 <li><code>Noise</code> : Brown noise. Wandering of noise can be changed by <code>Shape</code>.</li>
 </ul>
-<h4 id="tempo">Tempo</h4>
-<p>Synchronize LFO frequency to tempo.</p>
-<h4 id="freq">Freq</h4>
-<p>LFO frequency.</p>
-<h4 id="shape">Shape</h4>
-<p>Change LFO wave shape.</p>
-<h4 id="pitch">&gt;Pitch</h4>
-<p>Modulation amount from LFO to Oscillator 1 pitch.</p>
-<h4 id="slope1">&gt;Slope1</h4>
-<p>Modulation amount from LFO to <code>Oscillator1.Slope</code>.</p>
-<h4 id="pw1">&gt;PW1</h4>
-<p>Modulation amount from LFO to <code>Oscillator1.PW</code>.</p>
-<h4 id="pw1-1">&gt;PW1</h4>
-<p>Modulation amount from LFO to <code>Filter.Cut</code>.</p>
+</dd>
+<dt>Tempo</dt>
+<dd><p>Synchronize LFO frequency to tempo.</p>
+</dd>
+<dt>Freq</dt>
+<dd><p>LFO frequency.</p>
+</dd>
+<dt>Shape</dt>
+<dd><p>Change LFO wave shape.</p>
+</dd>
+<dt>&gt;Pitch</dt>
+<dd><p>Modulation amount from LFO to Oscillator 1 pitch.</p>
+</dd>
+<dt>&gt;Slope1</dt>
+<dd><p>Modulation amount from LFO to <code>Oscillator1.Slope</code>.</p>
+</dd>
+<dt>&gt;PW1</dt>
+<dd><p>Modulation amount from LFO to <code>Oscillator1.PW</code>.</p>
+</dd>
+<dt>&gt;PW1</dt>
+<dd><p>Modulation amount from LFO to <code>Filter.Cut</code>.</p>
+</dd>
+</dl>
 <h3 id="slide">Slide</h3>
-<h4 id="slidetype">SlideType</h4>
-<p>3 type of pitch slide is available.</p>
+<dl>
+<dt>SlideType</dt>
+<dd><p>3 type of pitch slide is available.</p>
 <ul>
 <li><code>Always</code> : Always slide from the pitch of last note.</li>
 <li><code>Sustain</code> : Only slide when 2 or more keys are pressed.</li>
 <li><code>Reset to 0</code> : When number of pressed key is changed from 0 to 1, or 1 to 0, pitch will be slide to 0 Hz. Otherwise, slide behaves same as other 2 options.</li>
 </ul>
-<h4 id="time">Time</h4>
-<p>Time of pitch sliding.</p>
-<h4 id="offset">Offset</h4>
-<p>Oscillator 2 slide time with respect to Oscillator 1 slide time.</p>
+</dd>
+<dt>Time</dt>
+<dd><p>Time of pitch sliding.</p>
+</dd>
+<dt>Offset</dt>
+<dd><p>Oscillator 2 slide time with respect to Oscillator 1 slide time.</p>
+</dd>
+</dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
 <li>0.1.7

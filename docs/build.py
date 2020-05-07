@@ -10,7 +10,7 @@ def get_last_modified(md):
         encoding="utf-8",
     )
     if len(result.stdout) > 0:
-        return result.stdout.rstrip()[1:-1]  # remove double quotation (").
+        return result.stdout.rstrip()[1:-1] # remove double quotation (").
 
     # if there are no commits yet, get it from system.
     epoch = Path(md).stat().st_mtime
@@ -24,6 +24,11 @@ if os == "nt":
     template_path = template_path.as_uri()
 
 for md in Path(".").glob("**/*.md"):
+    if md.stem == "README":
+        continue
+
+    print(f"Processing {md}")
+
     index_relpath = os.path.relpath(str(index_path), str(md.parent.resolve()))
     if index_relpath == "index.html":
         index_relpath = ""
@@ -32,7 +37,7 @@ for md in Path(".").glob("**/*.md"):
 
     subprocess.run([
         "pandoc",
-        "-s",
+        "--standalone",
         "--toc",
         "--toc-depth=4",
         "--metadata",
@@ -42,9 +47,7 @@ for md in Path(".").glob("**/*.md"):
         "--metadata",
         f"index-relative-path={index_relpath}",
         f"--template={str(template_path)}",
-        f"-H",
-        str(css_path),
-        "-o",
-        f"{md.with_suffix('')}.html",
+        f"--include-in-header={str(css_path)}",
+        f"--output={md.with_suffix('')}.html",
         str(md),
     ])

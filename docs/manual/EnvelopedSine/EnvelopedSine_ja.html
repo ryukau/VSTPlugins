@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" >
 
 <head>
 <meta charset="utf-8" />
@@ -92,12 +92,18 @@ video {
   max-width: 100%;
 }
 
+details.list > summary {
+  line-height: 3em;
+}
+
 kbd {
+  font-family: inherit;
   border-style: solid;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 2px;
+  padding: 4px;
   margin: 2px;
+  line-height: calc(1em + 16px);
 }
 
 a {
@@ -111,53 +117,82 @@ h1 {
 }
 
 h2 {
-  border-left: solid 32px #163eac;
+  border-left: solid 32px #2851c2;
   padding-left: 24px;
 }
 
 h3 {
-  border-left: solid 20px #163eac;
+  border-left: solid 20px #4d74dd;
   padding-left: 16px;
 }
 
-h4, h5, h6 {
-  border-left: solid 8px #163eac;
+h4 {
+  border-left: solid 12px #6a88da;
   padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
 }
 
 table {
   border-spacing: 0px;
   border-collapse: separate;
-  border: 1px solid #dddddd;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
 }
 
-tr.header {
-  border: 1px solid black;
-}
-
-tr.odd {
+tr:nth-child(odd) {
   background: #eeeeee;
 }
 
-tr.even {
+tr:nth-child(even) {
   background: #ffffff;
 }
 
 th {
   height: 2em;
-  font-weight: normal;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 3px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
 }
 
 td {
   height: 1.5em;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
 }
 
 audio {
@@ -168,12 +203,27 @@ label {
   vertical-align: middle;
 }
 
-code {
-  color: #163eac;
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
 }
 
-pre {
-  border: 4px solid #eeeeee;
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
 }
 
 li {
@@ -218,49 +268,13 @@ footer {
   <li><a href="#操作">操作</a></li>
   <li><a href="#ブロック線図">ブロック線図</a></li>
   <li><a href="#パラメータ">パラメータ</a><ul>
-  <li><a href="#overtone">Overtone</a><ul>
-  <li><a href="#attack-decay">Attack, Decay</a></li>
+  <li><a href="#overtone">Overtone</a></li>
   <li><a href="#gain">Gain</a></li>
-  <li><a href="#saturation">Saturation</a></li>
-  </ul></li>
-  <li><a href="#gain-1">Gain</a><ul>
-  <li><a href="#boost-gain">Boost, Gain</a></li>
-  </ul></li>
-  <li><a href="#pitch">Pitch</a><ul>
-  <li><a href="#add-aliasing">Add Aliasing</a></li>
-  <li><a href="#octave">Octave</a></li>
-  <li><a href="#multiply-modulo">Multiply, Modulo</a></li>
-  <li><a href="#expand">Expand</a></li>
-  <li><a href="#shift">Shift</a></li>
-  </ul></li>
-  <li><a href="#random">Random</a><ul>
-  <li><a href="#retrigger">Retrigger</a></li>
-  <li><a href="#seed">Seed</a></li>
-  <li><a href="#to-gain-to-attack-to-decay-to-sat.">To Gain, To Attack, To Decay, To Sat.</a></li>
-  <li><a href="#to-pitch">To Pitch</a></li>
-  <li><a href="#to-phase">To Phase</a></li>
-  </ul></li>
-  <li><a href="#misc.">Misc.</a><ul>
-  <li><a href="#smooth">Smooth</a></li>
-  <li><a href="#nvoices">nVoices</a></li>
-  <li><a href="#unison">Unison</a></li>
-  </ul></li>
-  <li><a href="#modifier">Modifier</a><ul>
-  <li><a href="#attack-decay-1">Attack<em>, Decay</em></a></li>
-  <li><a href="#declick">Declick</a></li>
-  <li><a href="#gain-2">Gain^</a></li>
-  <li><a href="#sat.-mix">Sat. Mix</a></li>
-  </ul></li>
-  <li><a href="#phaser">Phaser</a><ul>
-  <li><a href="#nstages">nStages</a></li>
-  <li><a href="#mix">Mix</a></li>
-  <li><a href="#freq">Freq</a></li>
-  <li><a href="#feedback">Feedback</a></li>
-  <li><a href="#range">Range</a></li>
-  <li><a href="#min">Min</a></li>
-  <li><a href="#offset">Offset</a></li>
-  <li><a href="#phase">Phase</a></li>
-  </ul></li>
+  <li><a href="#pitch">Pitch</a></li>
+  <li><a href="#random">Random</a></li>
+  <li><a href="#misc.">Misc.</a></li>
+  <li><a href="#modifier">Modifier</a></li>
+  <li><a href="#phaser">Phaser</a></li>
   </ul></li>
   <li><a href="#チェンジログ">チェンジログ</a><ul>
   <li><a href="#旧バージョン">旧バージョン</a></li>
@@ -440,83 +454,126 @@ style="display: inline-block; vertical-align: middle;"></li>
 <h2 id="パラメータ">パラメータ</h2>
 <h3 id="overtone">Overtone</h3>
 <p>右上にある 4 つの大きなコントロールです。</p>
-<h4 id="attack-decay">Attack, Decay</h4>
-<p>各オシレータの音量エンベロープのアタックとディケイです。</p>
-<h4 id="gain">Gain</h4>
-<p>各オシレータの音量です。</p>
-<h4 id="saturation">Saturation</h4>
-<p>各オシレータのサチュレーションの大きさです。</p>
-<h3 id="gain-1">Gain</h3>
-<h4 id="boost-gain">Boost, Gain</h4>
-<p>どちらも音量を調整します。出力のピーク値は <code>Boost * Gain</code> となります。</p>
+<dl>
+<dt>Attack, Decay</dt>
+<dd><p>各オシレータの音量エンベロープのアタックとディケイです。</p>
+</dd>
+<dt>Gain</dt>
+<dd><p>各オシレータの音量です。</p>
+</dd>
+<dt>Saturation</dt>
+<dd><p>各オシレータのサチュレーションの大きさです。</p>
+</dd>
+</dl>
+<h3 id="gain">Gain</h3>
+<dl>
+<dt>Boost, Gain</dt>
+<dd><p>どちらも音量を調整します。出力のピーク値は <code>Boost * Gain</code> となります。</p>
+</dd>
+</dl>
 <h3 id="pitch">Pitch</h3>
-<h4 id="add-aliasing">Add Aliasing</h4>
-<p>チェックを入れると、ナイキスト周波数より高い周波数が指定されたサイン波もレンダリングします。</p>
+<dl>
+<dt>Add Aliasing</dt>
+<dd><p>チェックを入れると、ナイキスト周波数より高い周波数が指定されたサイン波もレンダリングします。</p>
 <p>ナイキスト周波数とは、ざっくりいえば録音したデータが再現可能な最高周波数のことです。音を生成するときはナイキスト周波数以上の値を指定することができますが、折り返し（エイリアシング）と呼ばれる現象によって計算結果は予期しない周波数になってしまいます。 <code>Add Aliasing</code> は、こうしたエイリアシングノイズを足し合わせるオプションです。</p>
-<h4 id="octave">Octave</h4>
-<p>ノートのオクターブです。</p>
-<h4 id="multiply-modulo">Multiply, Modulo</h4>
-<p>サイン波の周波数を変更します。</p>
+</dd>
+<dt>Octave</dt>
+<dd><p>ノートのオクターブです。</p>
+</dd>
+<dt>Multiply, Modulo</dt>
+<dd><p>サイン波の周波数を変更します。</p>
 <p>計算式は <code>ノートの周波数 * (1 + fmod(Multiply * pitch, Modulo))</code> のようになっています。 <code>pitch</code> はノートの音程と倍音のインデックスから計算される係数です。 <code>fmod(a, b)</code> は <code>a</code> を <code>b</code> で割った余りを計算する関数です。</p>
-<h4 id="expand">Expand</h4>
-<p>倍音コントロールのインデックスを拡大・縮小するスケーリング係数です。</p>
+</dd>
+<dt>Expand</dt>
+<dd><p>倍音コントロールのインデックスを拡大・縮小するスケーリング係数です。</p>
 <p><img src="img/envelopedsine_expand.svg" /></p>
-<h4 id="shift">Shift</h4>
-<p>倍音コントロールのインデックスを右シフトする量です。</p>
+</dd>
+<dt>Shift</dt>
+<dd><p>倍音コントロールのインデックスを右シフトする量です。</p>
 <p><img src="img/envelopedsine_shift.svg" /></p>
+</dd>
+</dl>
 <h3 id="random">Random</h3>
 <p>ランダマイズに関するパラメータです。 <code>Unison</code> にチェックを入れた状態で使うと効果的です。</p>
-<h4 id="retrigger">Retrigger</h4>
-<p>チェックを入れると、ノートオンごとに乱数列をリセットします。</p>
-<h4 id="seed">Seed</h4>
-<p>乱数のシード値です。この値を変えると生成される乱数が変わります。</p>
-<h4 id="to-gain-to-attack-to-decay-to-sat.">To Gain, To Attack, To Decay, To Sat.</h4>
-<p>倍音コントロールの値をランダマイズします。ランダマイズの式は <code>value * random</code> です。 <code>random</code> の値の範囲は <code>[0.0, 1.0)</code> です。</p>
-<h4 id="to-pitch">To Pitch</h4>
-<p>ピッチをランダマイズします。</p>
-<h4 id="to-phase">To Phase</h4>
-<p>位相をランダマイズします。</p>
+<dl>
+<dt>Retrigger</dt>
+<dd><p>チェックを入れると、ノートオンごとに乱数列をリセットします。</p>
+</dd>
+<dt>Seed</dt>
+<dd><p>乱数のシード値です。この値を変えると生成される乱数が変わります。</p>
+</dd>
+<dt>To Gain, To Attack, To Decay, To Sat.</dt>
+<dd><p>倍音コントロールの値をランダマイズします。ランダマイズの式は <code>value * random</code> です。 <code>random</code> の値の範囲は <code>[0.0, 1.0)</code> です。</p>
+</dd>
+<dt>To Pitch</dt>
+<dd><p>ピッチをランダマイズします。</p>
+</dd>
+<dt>To Phase</dt>
+<dd><p>位相をランダマイズします。</p>
+</dd>
+</dl>
 <h3 id="misc.">Misc.</h3>
-<h4 id="smooth">Smooth</h4>
-<p>特定の値を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。</p>
+<dl>
+<dt>Smooth</dt>
+<dd><p>特定の値を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。</p>
 <p><code>Smooth</code> と関連するパラメータのリストです。 <code>*</code> はワイルドカードです。</p>
 <ul>
 <li><code>Gain</code> セクションの全て</li>
 <li><code>Phaser</code> セクションの <code>nStages</code> 以外</li>
 </ul>
 <p>他のパラメータはノートオンのタイミングで指定されていた値を、ノートの発音が終わるまで使い続けます。</p>
-<h4 id="nvoices">nVoices</h4>
-<p>最大同時発音数です。</p>
-<h4 id="unison">Unison</h4>
-<p>チェックを入れるとユニゾンを有効にします。</p>
+</dd>
+<dt>nVoices</dt>
+<dd><p>最大同時発音数です。</p>
+</dd>
+<dt>Unison</dt>
+<dd><p>チェックを入れるとユニゾンを有効にします。</p>
 <p>ユニゾンが有効になると 1 つのノートについて左右のチャンネルに 1 つずつボイスを配置します。 <code>Random.To Phase</code> や <code>Random.To Pitch</code> と組み合わせることで広がりのある音を作ることができます。</p>
+</dd>
+</dl>
 <h3 id="modifier">Modifier</h3>
-<h4 id="attack-decay-1">Attack<em>, Decay</em></h4>
-<p>倍音コントロールの <code>Attack</code> と <code>Decay</code> にかけ合わせる値です。まとめて長さを変えたいときに使えます。</p>
-<h4 id="declick">Declick</h4>
-<p>チェックを入れると、倍音コントロールの <code>Attack</code> あるいは <code>Decay</code> の値が 0 のときに生じるプチノイズを低減します。各オシレータのピッチに応じた値を足し合わせます。</p>
-<h4 id="gain-2">Gain^</h4>
-<p>倍音コントロールの <code>Gain</code> をべき乗する値です。 1 つのオシレータの最終的なゲインは次の式で計算されます。</p>
+<dl>
+<dt>Attack*, Decay*</dt>
+<dd><p>倍音コントロールの <code>Attack</code> と <code>Decay</code> にかけ合わせる値です。まとめて長さを変えたいときに使えます。</p>
+</dd>
+<dt>Declick</dt>
+<dd><p>チェックを入れると、倍音コントロールの <code>Attack</code> あるいは <code>Decay</code> の値が 0 のときに生じるプチノイズを低減します。各オシレータのピッチに応じた値を足し合わせます。</p>
+</dd>
+<dt>Gain^</dt>
+<dd><p>倍音コントロールの <code>Gain</code> をべき乗する値です。 1 つのオシレータの最終的なゲインは次の式で計算されます。</p>
 <pre><code>Gain.Boost * Gain.Gain * pow(Overtone.Gain, Modifier.Gain^)</code></pre>
-<h4 id="sat.-mix">Sat. Mix</h4>
-<p>サチュレーションの Dry : Wet の信号比です。右いっぱいにすると Dry : Wet = 0 : 1 になります。</p>
+</dd>
+<dt>Sat. Mix</dt>
+<dd><p>サチュレーションの Dry : Wet の信号比です。右いっぱいにすると Dry : Wet = 0 : 1 になります。</p>
+</dd>
+</dl>
 <h3 id="phaser">Phaser</h3>
-<h4 id="nstages">nStages</h4>
-<p>オールパスフィルタの数です。</p>
-<h4 id="mix">Mix</h4>
-<p>フェイザの Dry : Wet の信号比です。右いっぱいにすると Dry : Wet = 0 : 1 になります。</p>
-<h4 id="freq">Freq</h4>
-<p>LFO の周波数です。</p>
-<h4 id="feedback">Feedback</h4>
-<p>フィードバックの大きさです。 12 時にするとフィードバックなし、左に回すと負のフィードバック、右に回すと正のフィードバックとなります。</p>
-<h4 id="range">Range</h4>
-<p>LFO によって変更するオールパスフィルタの特性の幅です。</p>
-<h4 id="min">Min</h4>
-<p>LFO によって変調するオールパスフィルタの特性の最小値です。</p>
-<h4 id="offset">Offset</h4>
-<p>左右の LFO の位相差です。</p>
-<h4 id="phase">Phase</h4>
-<p>LFO の位相です。オートメーションで音を作りたいときに使えます。 <code>Freq</code> を左いっぱいに回すことで LFO の周波数を 0 にできます。</p>
+<dl>
+<dt>nStages</dt>
+<dd><p>オールパスフィルタの数です。</p>
+</dd>
+<dt>Mix</dt>
+<dd><p>フェイザの Dry : Wet の信号比です。右いっぱいにすると Dry : Wet = 0 : 1 になります。</p>
+</dd>
+<dt>Freq</dt>
+<dd><p>LFO の周波数です。</p>
+</dd>
+<dt>Feedback</dt>
+<dd><p>フィードバックの大きさです。 12 時にするとフィードバックなし、左に回すと負のフィードバック、右に回すと正のフィードバックとなります。</p>
+</dd>
+<dt>Range</dt>
+<dd><p>LFO によって変更するオールパスフィルタの特性の幅です。</p>
+</dd>
+<dt>Min</dt>
+<dd><p>LFO によって変調するオールパスフィルタの特性の最小値です。</p>
+</dd>
+<dt>Offset</dt>
+<dd><p>左右の LFO の位相差です。</p>
+</dd>
+<dt>Phase</dt>
+<dd><p>LFO の位相です。オートメーションで音を作りたいときに使えます。 <code>Freq</code> を左いっぱいに回すことで LFO の周波数を 0 にできます。</p>
+</dd>
+</dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
 <li>0.1.5

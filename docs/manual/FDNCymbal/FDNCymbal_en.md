@@ -1,3 +1,7 @@
+---
+lang: en
+...
+
 # FDNCymbal
 ![](img/fdncymbal.png)
 
@@ -106,91 +110,114 @@ Time in seconds to move the value of parameters from previous one to changed one
 ### Stick
 When `Stick` is on, each note on triggers stick oscillator. Noise density and pitch of tone are related to the pitch of note.
 
-#### Pulse
-Gain of impulse of stick oscillator.
+Pulse
 
-#### Tone
-Gain of sine wave tone of stick oscillator.
+:   Gain of impulse of stick oscillator.
+    
+Tone
 
-#### Velvet
-Gain of velvet noise of stick oscillator.
+:   Gain of sine wave tone of stick oscillator.
+    
+Velvet
 
-Velvet noise is a noise algorithm which output different height of impulses with randomized interval.
+:   Gain of velvet noise of stick oscillator.
+    
+    Velvet noise is a noise algorithm which output different height of impulses with randomized interval.
+    
+Decay
 
-#### Decay
-Decay time of stick oscillator.
-
+:   Decay time of stick oscillator.
+    
 ### Random
-#### Seed
-Value of random seed.
+Seed
 
-#### Retrigger.Time
-When not checked, internal delay time controlled by following 3 parameters will be changed for each note on.
+:   Value of random seed.
+    
+Retrigger.Time
 
-- `FDN.Time`
-- `Allpass.Stage1.Time`
-- `Allpass.Stage2.Time`
+:   When not checked, internal delay time controlled by following 3 parameters will be changed for each note on.
+    
+    - `FDN.Time`
+    - `Allpass.Stage1.Time`
+    - `Allpass.Stage2.Time`
+    
+Retrigger.Stick
 
-#### Retrigger.Stick
-When not checked, stick oscillator output varies for each note.
+:   When not checked, stick oscillator output varies for each note.
+    
+Retrigger.Tremolo
 
-#### Retrigger.Tremolo
-When not checked, tremolo parameters will be changed for each note on.
-
+:   When not checked, tremolo parameters will be changed for each note on.
+    
 ### FDN
 When turned on, the signal go through FDN section.
 
-#### Time
-FDN delay time. Internal delay time will be randomized with respect to this value.
+Time
 
-#### Feedback
-FDN section feedback. Beware that if this value is non zero, it's possible to blow up.
+:   FDN delay time. Internal delay time will be randomized with respect to this value.
+    
+Feedback
 
-#### CascadeMix
-Controls mixing of Cascaded FDN.
+:   FDN section feedback. Beware that if this value is non zero, it's possible to blow up.
+    
+CascadeMix
 
+:   Controls mixing of Cascaded FDN.
+    
 ### Allpass
-#### Mix
-Mixing ratio of Schroeder allpass section.
+Mix
 
+:   Mixing ratio of Schroeder allpass section.
+    
 ### Stage 1 and Stage 2
 Stage 1 is serially connected 8 Schroeder allpass. On stage 2, there are 4 Schroeder allpass section connected in parallel. For each section has serially connected 8 Schroeder allpass.
 
-#### Time
-Max delay time of Schroeder allpass section. Internally, delay time will be randomized.
+Time
 
-#### Feedback
-Feedback of Schroeder allpass section.
+:   Max delay time of Schroeder allpass section. Internally, delay time will be randomized.
+    
+Feedback
 
-#### HP Cutoff
-Cutoff frequency of high-pass filter to the output of Schroeder allpass section.
+:   Feedback of Schroeder allpass section.
+    
+HP Cutoff
 
-#### Tanh
-When checked, stage 1 feedback go through tanh saturator.
+:   Cutoff frequency of high-pass filter to the output of Schroeder allpass section.
+    
+Tanh
 
+:   When checked, stage 1 feedback go through tanh saturator.
+    
 ### Tremolo
-#### Mix
-Mixing ratio of tremolo effect.
+Mix
 
-#### Depth
-Maximum change of amplitude with tremolo.
+:   Mixing ratio of tremolo effect.
+    
+Depth
 
-#### Frequency
-Tremolo LFO frequency.
+:   Maximum change of amplitude with tremolo.
+    
+Frequency
 
-#### DelayTime
-Maximum delay time. Delay time is modulated by LFO. This delay simulates doppler effect.
+:   Tremolo LFO frequency.
+    
+DelayTime
 
+:   Maximum delay time. Delay time is modulated by LFO. This delay simulates doppler effect.
+    
 ### Random (Tremolo)
-#### Depth
-Amount of randomization to `Tremolo.Depth` for each note on.
+Depth
 
-#### Freq
-Amount of randomization to `Tremolo.Frequency` for each note on.
+:   Amount of randomization to `Tremolo.Depth` for each note on.
+    
+Freq
 
-#### Time
-Amount of randomization to `Tremolo.DelayTime` for each note on.
+:   Amount of randomization to `Tremolo.Frequency` for each note on.
+    
+Time
 
+:   Amount of randomization to `Tremolo.DelayTime` for each note on.
+    
 ## Change Log
 - 0.2.1
   - Fixed a bug that cause crash when drawing string.

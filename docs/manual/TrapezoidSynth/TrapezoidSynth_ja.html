@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" >
 
 <head>
 <meta charset="utf-8" />
@@ -92,12 +92,18 @@ video {
   max-width: 100%;
 }
 
+details.list > summary {
+  line-height: 3em;
+}
+
 kbd {
+  font-family: inherit;
   border-style: solid;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 2px;
+  padding: 4px;
   margin: 2px;
+  line-height: calc(1em + 16px);
 }
 
 a {
@@ -111,53 +117,82 @@ h1 {
 }
 
 h2 {
-  border-left: solid 32px #163eac;
+  border-left: solid 32px #2851c2;
   padding-left: 24px;
 }
 
 h3 {
-  border-left: solid 20px #163eac;
+  border-left: solid 20px #4d74dd;
   padding-left: 16px;
 }
 
-h4, h5, h6 {
-  border-left: solid 8px #163eac;
+h4 {
+  border-left: solid 12px #6a88da;
   padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
 }
 
 table {
   border-spacing: 0px;
   border-collapse: separate;
-  border: 1px solid #dddddd;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
 }
 
-tr.header {
-  border: 1px solid black;
-}
-
-tr.odd {
+tr:nth-child(odd) {
   background: #eeeeee;
 }
 
-tr.even {
+tr:nth-child(even) {
   background: #ffffff;
 }
 
 th {
   height: 2em;
-  font-weight: normal;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 3px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
 }
 
 td {
   height: 1.5em;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
 }
 
 audio {
@@ -168,12 +203,27 @@ label {
   vertical-align: middle;
 }
 
-code {
-  color: #163eac;
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
 }
 
-pre {
-  border: 4px solid #eeeeee;
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
 }
 
 li {
@@ -219,82 +269,20 @@ footer {
   <li><a href="#注意">注意</a></li>
   <li><a href="#ブロック線図">ブロック線図</a></li>
   <li><a href="#パラメータ">パラメータ</a><ul>
-  <li><a href="#oscillator-共通">Oscillator 共通</a><ul>
-  <li><a href="#semi">Semi</a></li>
-  <li><a href="#cent">Cent</a></li>
-  <li><a href="#slope">Slope</a></li>
-  <li><a href="#pw">PW</a></li>
-  </ul></li>
-  <li><a href="#oscillator-1">Oscillator 1</a><ul>
-  <li><a href="#drift">Drift</a></li>
-  <li><a href="#feedback">Feedback</a></li>
-  </ul></li>
-  <li><a href="#oscillator-2">Oscillator 2</a><ul>
-  <li><a href="#overtone">Overtone</a></li>
-  <li><a href="#pm">PM</a></li>
-  </ul></li>
-  <li><a href="#envelope-共通">Envelope 共通</a><ul>
-  <li><a href="#retrigger">Retrigger</a></li>
-  <li><a href="#a">A</a></li>
-  <li><a href="#d">D</a></li>
-  <li><a href="#s">S</a></li>
-  <li><a href="#r">R</a></li>
-  <li><a href="#curve">Curve</a></li>
-  </ul></li>
-  <li><a href="#gain-envelope">Gain Envelope</a><ul>
-  <li><a href="#gain">Gain</a></li>
-  </ul></li>
-  <li><a href="#filter">Filter</a><ul>
-  <li><a href="#order">Order</a></li>
-  <li><a href="#cut">Cut</a></li>
-  <li><a href="#res">Res</a></li>
-  <li><a href="#sat">Sat</a></li>
-  <li><a href="#envcut">Env&gt;Cut</a></li>
-  <li><a href="#keycut">Key&gt;Cut</a></li>
-  <li><a href="#oscmix">+OscMix</a></li>
-  </ul></li>
-  <li><a href="#filter-envelope">Filter Envelope</a><ul>
-  <li><a href="#octave">&gt;Octave</a></li>
-  </ul></li>
-  <li><a href="#misc">Misc</a><ul>
-  <li><a href="#oscmix-1">OscMix</a></li>
-  <li><a href="#octave-1">Octave</a></li>
-  <li><a href="#smooth">Smooth</a></li>
-  </ul></li>
-  <li><a href="#mod-共通">Mod 共通</a><ul>
-  <li><a href="#retrigger-1">Retrigger</a></li>
-  <li><a href="#attack">Attack</a></li>
-  <li><a href="#curve-1">Curve</a></li>
-  </ul></li>
-  <li><a href="#mod-1">Mod 1</a><ul>
-  <li><a href="#pm-1">&gt;PM</a></li>
-  </ul></li>
-  <li><a href="#mod-2">Mod 2</a><ul>
-  <li><a href="#feedback-1">&gt;Feedback</a></li>
-  <li><a href="#lfo">&gt;LFO</a></li>
-  <li><a href="#slope2">&gt;Slope2</a></li>
-  <li><a href="#shifter1">&gt;Shifter1</a></li>
-  </ul></li>
-  <li><a href="#shifter-共通">Shifter 共通</a><ul>
-  <li><a href="#semi-1">Semi</a></li>
-  <li><a href="#cent-1">Cent</a></li>
-  <li><a href="#gain-1">Gain</a></li>
-  </ul></li>
-  <li><a href="#lfo-1">LFO</a><ul>
-  <li><a href="#lfotype">LFOType</a></li>
-  <li><a href="#tempo">Tempo</a></li>
-  <li><a href="#freq">Freq</a></li>
-  <li><a href="#shape">Shape</a></li>
-  <li><a href="#pitch">&gt;Pitch</a></li>
-  <li><a href="#slope1">&gt;Slope1</a></li>
-  <li><a href="#pw1">&gt;PW1</a></li>
-  <li><a href="#pw1-1">&gt;PW1</a></li>
-  </ul></li>
-  <li><a href="#slide">Slide</a><ul>
-  <li><a href="#slidetype">SlideType</a></li>
-  <li><a href="#time">Time</a></li>
-  <li><a href="#offset">Offset</a></li>
-  </ul></li>
+  <li><a href="#oscillator-共通">Oscillator 共通</a></li>
+  <li><a href="#oscillator-1">Oscillator 1</a></li>
+  <li><a href="#oscillator-2">Oscillator 2</a></li>
+  <li><a href="#envelope-共通">Envelope 共通</a></li>
+  <li><a href="#gain-envelope">Gain Envelope</a></li>
+  <li><a href="#filter">Filter</a></li>
+  <li><a href="#filter-envelope">Filter Envelope</a></li>
+  <li><a href="#misc">Misc</a></li>
+  <li><a href="#mod-共通">Mod 共通</a></li>
+  <li><a href="#mod-1">Mod 1</a></li>
+  <li><a href="#mod-2">Mod 2</a></li>
+  <li><a href="#shifter-共通">Shifter 共通</a></li>
+  <li><a href="#lfo">LFO</a></li>
+  <li><a href="#slide">Slide</a></li>
   </ul></li>
   <li><a href="#チェンジログ">チェンジログ</a><ul>
   <li><a href="#旧バージョン">旧バージョン</a></li>
@@ -371,67 +359,107 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p><img src="img/trapezoidsynth.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
 <h3 id="oscillator-共通">Oscillator 共通</h3>
-<h4 id="semi">Semi</h4>
-<p>ピッチを半音単位で変更します。</p>
-<h4 id="cent">Cent</h4>
-<p>ピッチをセント単位で変更します。 100 セント = 1 半音です。</p>
-<h4 id="slope">Slope</h4>
-<p>台形の両端の傾きです。</p>
-<h4 id="pw">PW</h4>
-<p>台形の上辺の長さです。 Pulse Width の略です。</p>
+<dl>
+<dt>Semi</dt>
+<dd><p>ピッチを半音単位で変更します。</p>
+</dd>
+<dt>Cent</dt>
+<dd><p>ピッチをセント単位で変更します。 100 セント = 1 半音です。</p>
+</dd>
+<dt>Slope</dt>
+<dd><p>台形の両端の傾きです。</p>
+</dd>
+<dt>PW</dt>
+<dd><p>台形の上辺の長さです。 Pulse Width の略です。</p>
+</dd>
+</dl>
 <h3 id="oscillator-1">Oscillator 1</h3>
-<h4 id="drift">Drift</h4>
-<p>ホワイトノイズでピッチを変調します。</p>
-<h4 id="feedback">Feedback</h4>
-<p>Oscillator 1 の位相をフィードバックで変調します。</p>
+<dl>
+<dt>Drift</dt>
+<dd><p>ホワイトノイズでピッチを変調します。</p>
+</dd>
+<dt>Feedback</dt>
+<dd><p>Oscillator 1 の位相をフィードバックで変調します。</p>
 <pre><code>osc1Phase += Feedback * (osc1 + OscMix * (osc2 - osc1))</code></pre>
+</dd>
+</dl>
 <h3 id="oscillator-2">Oscillator 2</h3>
-<h4 id="overtone">Overtone</h4>
-<p>周波数を <code>Overtone</code> 倍にします。</p>
-<h4 id="pm">PM</h4>
-<p>Oscillator 1 の位相を Oscillator 2 の出力で変調します。</p>
+<dl>
+<dt>Overtone</dt>
+<dd><p>周波数を <code>Overtone</code> 倍にします。</p>
+</dd>
+<dt>PM</dt>
+<dd><p>Oscillator 1 の位相を Oscillator 2 の出力で変調します。</p>
+</dd>
+</dl>
 <h3 id="envelope-共通">Envelope 共通</h3>
-<h4 id="retrigger">Retrigger</h4>
-<p>チェックを入れると鍵盤が押されるたびにエンベロープをリセットします。チェックが外れているときは、同時に押している鍵盤の数が 0 から 1 以上になったときだけエンベロープをリセットします。</p>
-<h4 id="a">A</h4>
-<p>アタック時間の秒数です。アタックは音が最大音量に到達するまでのエンベロープの区間です。</p>
-<h4 id="d">D</h4>
-<p>ディケイ時間の秒数です。ディケイはアタックが終わった後にエンベロープが減衰する区間です。</p>
-<h4 id="s">S</h4>
-<p>サステインの大きさです。サステインはディケイが終わったのエンベロープの出力の大きさです。</p>
-<h4 id="r">R</h4>
-<p>リリース時間の秒数です。エンベロープは、鍵盤から指を離した時点（ノートオフ）からリリース状態に移行して、出力が 0 になるまで減衰します。</p>
-<h4 id="curve">Curve</h4>
-<p>エンベロープの特性を変更します。</p>
+<dl>
+<dt>Retrigger</dt>
+<dd><p>チェックを入れると鍵盤が押されるたびにエンベロープをリセットします。チェックが外れているときは、同時に押している鍵盤の数が 0 から 1 以上になったときだけエンベロープをリセットします。</p>
+</dd>
+<dt>A</dt>
+<dd><p>アタック時間の秒数です。アタックは音が最大音量に到達するまでのエンベロープの区間です。</p>
+</dd>
+<dt>D</dt>
+<dd><p>ディケイ時間の秒数です。ディケイはアタックが終わった後にエンベロープが減衰する区間です。</p>
+</dd>
+<dt>S</dt>
+<dd><p>サステインの大きさです。サステインはディケイが終わったのエンベロープの出力の大きさです。</p>
+</dd>
+<dt>R</dt>
+<dd><p>リリース時間の秒数です。エンベロープは、鍵盤から指を離した時点（ノートオフ）からリリース状態に移行して、出力が 0 になるまで減衰します。</p>
+</dd>
+<dt>Curve</dt>
+<dd><p>エンベロープの特性を変更します。</p>
+</dd>
+</dl>
 <h3 id="gain-envelope">Gain Envelope</h3>
-<h4 id="gain">Gain</h4>
-<p>出力音量です。</p>
+<dl>
+<dt>Gain</dt>
+<dd><p>出力音量です。</p>
+</dd>
+</dl>
 <h3 id="filter">Filter</h3>
-<h4 id="order">Order</h4>
-<p>フィルタの次数です。 TrapezoidSynth では 1 次フィルタを 8 個直列につないでいます。 <code>Order</code> の値によってフィルタから信号を取り出す位置を変更しています。</p>
-<h4 id="cut">Cut</h4>
-<p>カットオフ周波数です。</p>
-<h4 id="res">Res</h4>
-<p>レゾナンスの強さです。</p>
-<h4 id="sat">Sat</h4>
-<p>フィルタのサチュレーションの強さです。</p>
+<dl>
+<dt>Order</dt>
+<dd><p>フィルタの次数です。 TrapezoidSynth では 1 次フィルタを 8 個直列につないでいます。 <code>Order</code> の値によってフィルタから信号を取り出す位置を変更しています。</p>
+</dd>
+<dt>Cut</dt>
+<dd><p>カットオフ周波数です。</p>
+</dd>
+<dt>Res</dt>
+<dd><p>レゾナンスの強さです。</p>
+</dd>
+<dt>Sat</dt>
+<dd><p>フィルタのサチュレーションの強さです。</p>
 <pre><code>filterInput = tanh(Sat * (input + Res * filterOutput))</code></pre>
-<h4 id="envcut">Env&gt;Cut</h4>
-<p>Filter Envelope による <code>Cut</code> の変調量です。</p>
-<h4 id="keycut">Key&gt;Cut</h4>
-<p>鍵盤の高さによる <code>Cut</code> の変調量です。</p>
-<h4 id="oscmix">+OscMix</h4>
-<p>Oscillator 1 と Oscillator 2 をミックスした信号による <code>Cut</code> の変調量です。</p>
+</dd>
+<dt>Env&gt;Cut</dt>
+<dd><p>Filter Envelope による <code>Cut</code> の変調量です。</p>
+</dd>
+<dt>Key&gt;Cut</dt>
+<dd><p>鍵盤の高さによる <code>Cut</code> の変調量です。</p>
+</dd>
+<dt>+OscMix</dt>
+<dd><p>Oscillator 1 と Oscillator 2 をミックスした信号による <code>Cut</code> の変調量です。</p>
+</dd>
+</dl>
 <h3 id="filter-envelope">Filter Envelope</h3>
-<h4 id="octave">&gt;Octave</h4>
-<p>Filter Envelope の出力を使ってピッチをオクターブ単位で変調する量です。</p>
+<dl>
+<dt>&gt;Octave</dt>
+<dd><p>Filter Envelope の出力を使ってピッチをオクターブ単位で変調する量です。</p>
+</dd>
+</dl>
 <h3 id="misc">Misc</h3>
-<h4 id="oscmix-1">OscMix</h4>
-<p>Osillator 1 と Oscillator 2 の比率です。左いっぱいに回すと Oscillator 1 の音だけになります。</p>
-<h4 id="octave-1">Octave</h4>
-<p>ピッチをオクターブ単位で変更します。</p>
-<h4 id="smooth">Smooth</h4>
-<p>パラメータを変更したときに変更前の値から変更後の値に移行する秒数です。次のパラメータに影響します。</p>
+<dl>
+<dt>OscMix</dt>
+<dd><p>Osillator 1 と Oscillator 2 の比率です。左いっぱいに回すと Oscillator 1 の音だけになります。</p>
+</dd>
+<dt>Octave</dt>
+<dd><p>ピッチをオクターブ単位で変更します。</p>
+</dd>
+<dt>Smooth</dt>
+<dd><p>パラメータを変更したときに変更前の値から変更後の値に移行する秒数です。次のパラメータに影響します。</p>
 <ul>
 <li><code>Drift</code></li>
 <li><code>Slope</code></li>
@@ -462,67 +490,103 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><code>&gt;PW1</code></li>
 <li><code>&gt;Cut</code></li>
 </ul>
+</dd>
+</dl>
 <h3 id="mod-共通">Mod 共通</h3>
-<h4 id="retrigger-1">Retrigger</h4>
-<p>チェックを入れると鍵盤が押されるたびにエンベロープをリセットします。チェックが外れているときは、同時に押している鍵盤の数が 0 から 1 以上になったときだけエンベロープをリセットします。</p>
-<h4 id="attack">Attack</h4>
-<p>モジュレーションエンベロープのアタック時間の秒数です。</p>
-<h4 id="curve-1">Curve</h4>
-<p>モジュレーションエンベロープの特性です。</p>
+<dl>
+<dt>Retrigger</dt>
+<dd><p>チェックを入れると鍵盤が押されるたびにエンベロープをリセットします。チェックが外れているときは、同時に押している鍵盤の数が 0 から 1 以上になったときだけエンベロープをリセットします。</p>
+</dd>
+<dt>Attack</dt>
+<dd><p>モジュレーションエンベロープのアタック時間の秒数です。</p>
+</dd>
+<dt>Curve</dt>
+<dd><p>モジュレーションエンベロープの特性です。</p>
+</dd>
+</dl>
 <h3 id="mod-1">Mod 1</h3>
-<h4 id="pm-1">&gt;PM</h4>
-<p><code>Oscillator2.PM</code> をモジュレーションエンベロープ 1 で変調します。</p>
+<dl>
+<dt>&gt;PM</dt>
+<dd><p><code>Oscillator2.PM</code> をモジュレーションエンベロープ 1 で変調します。</p>
+</dd>
+</dl>
 <h3 id="mod-2">Mod 2</h3>
-<h4 id="feedback-1">&gt;Feedback</h4>
-<p><code>Oscillator1.Feedback</code> をモジュレーションエンベロープ 2 で変調します。</p>
-<h4 id="lfo">&gt;LFO</h4>
-<p><code>LFO.Freq</code> をモジュレーションエンベロープ 2 で変調します。</p>
-<h4 id="slope2">&gt;Slope2</h4>
-<p><code>Oscillator2.Slope</code> をモジュレーションエンベロープ 2 で変調します。</p>
-<h4 id="shifter1">&gt;Shifter1</h4>
-<p>Shifter 1 のピッチをモジュレーションエンベロープ 2 で変調します。</p>
+<dl>
+<dt>&gt;Feedback</dt>
+<dd><p><code>Oscillator1.Feedback</code> をモジュレーションエンベロープ 2 で変調します。</p>
+</dd>
+<dt>&gt;LFO</dt>
+<dd><p><code>LFO.Freq</code> をモジュレーションエンベロープ 2 で変調します。</p>
+</dd>
+<dt>&gt;Slope2</dt>
+<dd><p><code>Oscillator2.Slope</code> をモジュレーションエンベロープ 2 で変調します。</p>
+</dd>
+<dt>&gt;Shifter1</dt>
+<dd><p>Shifter 1 のピッチをモジュレーションエンベロープ 2 で変調します。</p>
+</dd>
+</dl>
 <h3 id="shifter-共通">Shifter 共通</h3>
-<h4 id="semi-1">Semi</h4>
-<p>半音単位でピッチシフトの量を変更します。</p>
-<h4 id="cent-1">Cent</h4>
-<p>セント単位でピッチシフトの量を変更します。</p>
-<h4 id="gain-1">Gain</h4>
-<p>ピッチシフトした信号を足し合わせる大きさです。</p>
-<h3 id="lfo-1">LFO</h3>
-<h4 id="lfotype">LFOType</h4>
-<p>LFO の波形の種類を次の 4 つから選択できます。</p>
+<dl>
+<dt>Semi</dt>
+<dd><p>半音単位でピッチシフトの量を変更します。</p>
+</dd>
+<dt>Cent</dt>
+<dd><p>セント単位でピッチシフトの量を変更します。</p>
+</dd>
+<dt>Gain</dt>
+<dd><p>ピッチシフトした信号を足し合わせる大きさです。</p>
+</dd>
+</dl>
+<h3 id="lfo">LFO</h3>
+<dl>
+<dt>LFOType</dt>
+<dd><p>LFO の波形の種類を次の 4 つから選択できます。</p>
 <ul>
 <li><code>Sin</code> : サイン波です。 出力は <code>Shape</code> 乗されます。</li>
 <li><code>Saw</code> : 鋸歯波です。 <code>Shape</code> によって三角波にもできます。</li>
 <li><code>Pulse</code> : 矩形波です。 <code>Shape</code> によってデューティ比を変更できます。</li>
 <li><code>Noise</code> : ブラウンノイズです。 <code>Shape</code> によってステップあたりの移動量を変更できます。</li>
 </ul>
-<h4 id="tempo">Tempo</h4>
-<p>LFO の周波数をテンポシンクします。</p>
-<h4 id="freq">Freq</h4>
-<p>LFO の周波数です。</p>
-<h4 id="shape">Shape</h4>
-<p>LFO の波形を変更します。</p>
-<h4 id="pitch">&gt;Pitch</h4>
-<p>LFO による Oscillator 1 のピッチの変調量です。</p>
-<h4 id="slope1">&gt;Slope1</h4>
-<p>LFO による <code>Oscillator1.Slope</code> の変調量です。</p>
-<h4 id="pw1">&gt;PW1</h4>
-<p>LFO による <code>Oscillator1.PW</code> の変調量です。</p>
-<h4 id="pw1-1">&gt;PW1</h4>
-<p>LFO による <code>Filter.Cut</code> の変調量です。</p>
+</dd>
+<dt>Tempo</dt>
+<dd><p>LFO の周波数をテンポシンクします。</p>
+</dd>
+<dt>Freq</dt>
+<dd><p>LFO の周波数です。</p>
+</dd>
+<dt>Shape</dt>
+<dd><p>LFO の波形を変更します。</p>
+</dd>
+<dt>&gt;Pitch</dt>
+<dd><p>LFO による Oscillator 1 のピッチの変調量です。</p>
+</dd>
+<dt>&gt;Slope1</dt>
+<dd><p>LFO による <code>Oscillator1.Slope</code> の変調量です。</p>
+</dd>
+<dt>&gt;PW1</dt>
+<dd><p>LFO による <code>Oscillator1.PW</code> の変調量です。</p>
+</dd>
+<dt>&gt;PW1</dt>
+<dd><p>LFO による <code>Filter.Cut</code> の変調量です。</p>
+</dd>
+</dl>
 <h3 id="slide">Slide</h3>
-<h4 id="slidetype">SlideType</h4>
-<p>ピッチスライドの種類を変更できます。</p>
+<dl>
+<dt>SlideType</dt>
+<dd><p>ピッチスライドの種類を変更できます。</p>
 <ul>
 <li><code>Always</code> : 常に最後に演奏されたノートのピッチからスライドします。</li>
 <li><code>Sustain</code> : 2 つ以上の鍵盤が同時に押されたときだけスライドします。</li>
 <li><code>Reset to 0</code> : 同時に押している鍵盤の数が 0 から 1 、あるいは 1 から 0 になるときは 0 Hz にスライドします。それ以外の場合は他の 2 つと同じようにスライドします。</li>
 </ul>
-<h4 id="time">Time</h4>
-<p>ピッチスライドにかかる時間です。</p>
-<h4 id="offset">Offset</h4>
-<p>Oscillator 1 のスライド時間に対する Oscillator 2 のスライド時間の比率です。</p>
+</dd>
+<dt>Time</dt>
+<dd><p>ピッチスライドにかかる時間です。</p>
+</dd>
+<dt>Offset</dt>
+<dd><p>Oscillator 1 のスライド時間に対する Oscillator 2 のスライド時間の比率です。</p>
+</dd>
+</dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
 <li>0.1.7

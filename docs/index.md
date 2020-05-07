@@ -1,3 +1,7 @@
+---
+lang: ja
+...
+
 # Uhhyou Plugins
 [VST®](#vst_logo) 3 プラグインを公開しています。
 
@@ -15,6 +19,28 @@ Linux 向けに LV2 版のプラグインもあります。
 For Linux, LV2 version is available.
 
 - [GitHub - ryukau/LV2Plugins](https://github.com/ryukau/LV2Plugins)
+
+# プラグイン一覧 | Plugin List
+
+- [CubicPadSynth](#cubicpadsynth)
+
+- [EnvelopedSine](#envelopedsine)
+
+- [EsPhaser](#esphaser)
+
+- [FDNCymbal](#fdncymbal)
+
+- [IterativeSinCluster](#iterativesincluster)
+
+- [LightPadSynth](#lightpadsynth)
+
+- [SevenDelay](#sevendelay)
+
+- [SyncSawSynth](#syncsawsynth)
+
+- [TrapezoidSynth](#trapezoidsynth)
+
+- [WaveCymbal](#wavecymbal)
 
 ## LightPadSynth
 ![](manual/LightPadSynth/img/lightpadsynth.png)

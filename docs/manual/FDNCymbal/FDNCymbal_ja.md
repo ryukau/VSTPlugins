@@ -1,3 +1,7 @@
+---
+lang: ja
+...
+
 # FDNCymbal
 ![](img/fdncymbal.png)
 
@@ -106,91 +110,114 @@ FDNCymbal はエフェクトとして使うこともできますが、直感的�
 ### Stick
 `Stick` がオンのとき、ノートオンのたびにばちでシンバルを叩きます。ノートの高さでノイズの密度とトーンの高さが変わります。
 
-#### Pulse
-ばちオシレータが出力するインパルスの音量です。
+Pulse
 
-#### Tone
-ばちオシレータが出力するサイン波によるトーンの音量です。
+:   ばちオシレータが出力するインパルスの音量です。
+    
+Tone
 
-#### Velvet
-ばちオシレータが出力するベルベットノイズの音量です。
+:   ばちオシレータが出力するサイン波によるトーンの音量です。
+    
+Velvet
 
-ベルベットノイズはランダムな間隔で異なる高さのインパルスが出力されるノイズのアルゴリズムです。
+:   ばちオシレータが出力するベルベットノイズの音量です。
+    
+    ベルベットノイズはランダムな間隔で異なる高さのインパルスが出力されるノイズのアルゴリズムです。
+    
+Decay
 
-#### Decay
-ばちオシレータの減衰時間です。
-
+:   ばちオシレータの減衰時間です。
+    
 ### Random
-#### Seed
-乱数のシード値です。
+Seed
 
-#### Retrigger.Time
-チェックを外すと、次の 3 つのパラメータでコントロールされる内部的なディレイ時間がノートオンのたびに変わります。
+:   乱数のシード値です。
+    
+Retrigger.Time
 
-- `FDN.Time`
-- `Allpass.Stage1.Time`
-- `Allpass.Stage2.Time`
+:   チェックを外すと、次の 3 つのパラメータでコントロールされる内部的なディレイ時間がノートオンのたびに変わります。
+    
+    - `FDN.Time`
+    - `Allpass.Stage1.Time`
+    - `Allpass.Stage2.Time`
+    
+Retrigger.Stick
 
-#### Retrigger.Stick
-チェックを外すと、ノートオンのたびにばちオシレータの音が変わります。
+:   チェックを外すと、ノートオンのたびにばちオシレータの音が変わります。
+    
+Retrigger.Tremolo
 
-#### Retrigger.Tremolo
-チェックを外すと、トレモロのパラメータがノートオンのたびに変わります。
-
+:   チェックを外すと、トレモロのパラメータがノートオンのたびに変わります。
+    
 ### FDN
 オンのときはFDN (feedback delay network) セクションを信号が通過します。
 
-#### Time
-FDN のディレイ時間を調整します。内部的なディレイ時間はノブで設定した値をもとにランダマイズされます。
+Time
 
-#### Feedback
-FDN セクションのフィードバックです。この値が 0 でないときは信号が発散することがあるので注意してください。
+:   FDN のディレイ時間を調整します。内部的なディレイ時間はノブで設定した値をもとにランダマイズされます。
+    
+Feedback
 
-#### CascadeMix
-直列につないだ複数の FDN の出力のミックスを調整します。
+:   FDN セクションのフィードバックです。この値が 0 でないときは信号が発散することがあるので注意してください。
+    
+CascadeMix
 
+:   直列につないだ複数の FDN の出力のミックスを調整します。
+    
 ### Allpass
-#### Mix
-Schroeder allpass section のミックスを調整します。
+Mix
 
+:   Schroeder allpass section のミックスを調整します。
+    
 ### Stage 1 と Stage 2
 2 つの Schroeder allpass section が直列につながっています。 Stage 2 では 4 つの Schroeder allpass section が並列接続されています。
 
-#### Time
-Schroeder allpass section のディレイ時間の最大値です。ディレイ時間は内部的にランダマイズされます。
+Time
 
-#### Feedback
-Schroeder allpass section のフィードバックです。
+:   Schroeder allpass section のディレイ時間の最大値です。ディレイ時間は内部的にランダマイズされます。
+    
+Feedback
 
-#### HP Cutoff
-Schroeder allpass section の出力にかかるハイパスフィルタのカットオフ周波数です。
+:   Schroeder allpass section のフィードバックです。
+    
+HP Cutoff
 
-#### Tanh
-チェックを入れると Stage 1 のフィードバックにサチュレーションがかかります。
+:   Schroeder allpass section の出力にかかるハイパスフィルタのカットオフ周波数です。
+    
+Tanh
 
+:   チェックを入れると Stage 1 のフィードバックにサチュレーションがかかります。
+    
 ### Tremolo
-#### Mix
-トレモロのミックスを調整します。
+Mix
 
-#### Depth
-`Depth` が大きいほどトレモロによる音量の変化が大きくなります。
+:   トレモロのミックスを調整します。
+    
+Depth
 
-#### Frequency
-トレモロに使われる LFO の周波数です。
+:   `Depth` が大きいほどトレモロによる音量の変化が大きくなります。
+    
+Frequency
 
-#### DelayTime
-LFO によって変化するディレイ時間の最大値です。シンバルの揺れによって生じるドップラー効果を表現しています。
+:   トレモロに使われる LFO の周波数です。
+    
+DelayTime
 
+:   LFO によって変化するディレイ時間の最大値です。シンバルの揺れによって生じるドップラー効果を表現しています。
+    
 ### Random (Tremolo)
-#### Depth
-ノートオンのたびに `Tremolo.Depth` をランダマイズする度合いです。
+Depth
 
-#### Freq
-ノートオンのたびに `Tremolo.Frequency` をランダマイズする度合いです。
+:   ノートオンのたびに `Tremolo.Depth` をランダマイズする度合いです。
+    
+Freq
 
-#### Time
-ノートオンのたびに `Tremolo.DelayTime` をランダマイズする度合いです。
+:   ノートオンのたびに `Tremolo.Frequency` をランダマイズする度合いです。
+    
+Time
 
+:   ノートオンのたびに `Tremolo.DelayTime` をランダマイズする度合いです。
+    
 ## チェンジログ
 - 0.2.1
   - 文字列の描画でクラッシュするバグを修正。

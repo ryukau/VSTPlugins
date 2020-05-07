@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
 
 <head>
 <meta charset="utf-8" />
@@ -92,12 +92,18 @@ video {
   max-width: 100%;
 }
 
+details.list > summary {
+  line-height: 3em;
+}
+
 kbd {
+  font-family: inherit;
   border-style: solid;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 2px;
+  padding: 4px;
   margin: 2px;
+  line-height: calc(1em + 16px);
 }
 
 a {
@@ -111,53 +117,82 @@ h1 {
 }
 
 h2 {
-  border-left: solid 32px #163eac;
+  border-left: solid 32px #2851c2;
   padding-left: 24px;
 }
 
 h3 {
-  border-left: solid 20px #163eac;
+  border-left: solid 20px #4d74dd;
   padding-left: 16px;
 }
 
-h4, h5, h6 {
-  border-left: solid 8px #163eac;
+h4 {
+  border-left: solid 12px #6a88da;
   padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
 }
 
 table {
   border-spacing: 0px;
   border-collapse: separate;
-  border: 1px solid #dddddd;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
 }
 
-tr.header {
-  border: 1px solid black;
-}
-
-tr.odd {
+tr:nth-child(odd) {
   background: #eeeeee;
 }
 
-tr.even {
+tr:nth-child(even) {
   background: #ffffff;
 }
 
 th {
   height: 2em;
-  font-weight: normal;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 3px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
 }
 
 td {
   height: 1.5em;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
 }
 
 audio {
@@ -168,12 +203,27 @@ label {
   vertical-align: middle;
 }
 
-code {
-  color: #163eac;
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
 }
 
-pre {
-  border: 4px solid #eeeeee;
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
 }
 
 li {
@@ -222,43 +272,13 @@ footer {
   <li><a href="#parameters">Parameters</a><ul>
   <li><a href="#gain">Gain</a></li>
   <li><a href="#smooth">Smooth</a></li>
-  <li><a href="#stick">Stick</a><ul>
-  <li><a href="#pulse">Pulse</a></li>
-  <li><a href="#tone">Tone</a></li>
-  <li><a href="#velvet">Velvet</a></li>
-  <li><a href="#decay">Decay</a></li>
-  </ul></li>
-  <li><a href="#random">Random</a><ul>
-  <li><a href="#seed">Seed</a></li>
-  <li><a href="#retrigger.time">Retrigger.Time</a></li>
-  <li><a href="#retrigger.stick">Retrigger.Stick</a></li>
-  <li><a href="#retrigger.tremolo">Retrigger.Tremolo</a></li>
-  </ul></li>
-  <li><a href="#fdn">FDN</a><ul>
-  <li><a href="#time">Time</a></li>
-  <li><a href="#feedback">Feedback</a></li>
-  <li><a href="#cascademix">CascadeMix</a></li>
-  </ul></li>
-  <li><a href="#allpass">Allpass</a><ul>
-  <li><a href="#mix">Mix</a></li>
-  </ul></li>
-  <li><a href="#stage-1-and-stage-2">Stage 1 and Stage 2</a><ul>
-  <li><a href="#time-1">Time</a></li>
-  <li><a href="#feedback-1">Feedback</a></li>
-  <li><a href="#hp-cutoff">HP Cutoff</a></li>
-  <li><a href="#tanh">Tanh</a></li>
-  </ul></li>
-  <li><a href="#tremolo">Tremolo</a><ul>
-  <li><a href="#mix-1">Mix</a></li>
-  <li><a href="#depth">Depth</a></li>
-  <li><a href="#frequency">Frequency</a></li>
-  <li><a href="#delaytime">DelayTime</a></li>
-  </ul></li>
-  <li><a href="#random-tremolo">Random (Tremolo)</a><ul>
-  <li><a href="#depth-1">Depth</a></li>
-  <li><a href="#freq">Freq</a></li>
-  <li><a href="#time-2">Time</a></li>
-  </ul></li>
+  <li><a href="#stick">Stick</a></li>
+  <li><a href="#random">Random</a></li>
+  <li><a href="#fdn">FDN</a></li>
+  <li><a href="#allpass">Allpass</a></li>
+  <li><a href="#stage-1-and-stage-2">Stage 1 and Stage 2</a></li>
+  <li><a href="#tremolo">Tremolo</a></li>
+  <li><a href="#random-tremolo">Random (Tremolo)</a></li>
   </ul></li>
   <li><a href="#change-log">Change Log</a><ul>
   <li><a href="#old-versions">Old Versions</a></li>
@@ -359,66 +379,103 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <h3 id="stick">Stick</h3>
 <p>When <code>Stick</code> is on, each note on triggers stick oscillator. Noise density and pitch of tone are related to the pitch of note.</p>
-<h4 id="pulse">Pulse</h4>
-<p>Gain of impulse of stick oscillator.</p>
-<h4 id="tone">Tone</h4>
-<p>Gain of sine wave tone of stick oscillator.</p>
-<h4 id="velvet">Velvet</h4>
-<p>Gain of velvet noise of stick oscillator.</p>
+<dl>
+<dt>Pulse</dt>
+<dd><p>Gain of impulse of stick oscillator.</p>
+</dd>
+<dt>Tone</dt>
+<dd><p>Gain of sine wave tone of stick oscillator.</p>
+</dd>
+<dt>Velvet</dt>
+<dd><p>Gain of velvet noise of stick oscillator.</p>
 <p>Velvet noise is a noise algorithm which output different height of impulses with randomized interval.</p>
-<h4 id="decay">Decay</h4>
-<p>Decay time of stick oscillator.</p>
+</dd>
+<dt>Decay</dt>
+<dd><p>Decay time of stick oscillator.</p>
+</dd>
+</dl>
 <h3 id="random">Random</h3>
-<h4 id="seed">Seed</h4>
-<p>Value of random seed.</p>
-<h4 id="retrigger.time">Retrigger.Time</h4>
-<p>When not checked, internal delay time controlled by following 3 parameters will be changed for each note on.</p>
+<dl>
+<dt>Seed</dt>
+<dd><p>Value of random seed.</p>
+</dd>
+<dt>Retrigger.Time</dt>
+<dd><p>When not checked, internal delay time controlled by following 3 parameters will be changed for each note on.</p>
 <ul>
 <li><code>FDN.Time</code></li>
 <li><code>Allpass.Stage1.Time</code></li>
 <li><code>Allpass.Stage2.Time</code></li>
 </ul>
-<h4 id="retrigger.stick">Retrigger.Stick</h4>
-<p>When not checked, stick oscillator output varies for each note.</p>
-<h4 id="retrigger.tremolo">Retrigger.Tremolo</h4>
-<p>When not checked, tremolo parameters will be changed for each note on.</p>
+</dd>
+<dt>Retrigger.Stick</dt>
+<dd><p>When not checked, stick oscillator output varies for each note.</p>
+</dd>
+<dt>Retrigger.Tremolo</dt>
+<dd><p>When not checked, tremolo parameters will be changed for each note on.</p>
+</dd>
+</dl>
 <h3 id="fdn">FDN</h3>
 <p>When turned on, the signal go through FDN section.</p>
-<h4 id="time">Time</h4>
-<p>FDN delay time. Internal delay time will be randomized with respect to this value.</p>
-<h4 id="feedback">Feedback</h4>
-<p>FDN section feedback. Beware that if this value is non zero, it’s possible to blow up.</p>
-<h4 id="cascademix">CascadeMix</h4>
-<p>Controls mixing of Cascaded FDN.</p>
+<dl>
+<dt>Time</dt>
+<dd><p>FDN delay time. Internal delay time will be randomized with respect to this value.</p>
+</dd>
+<dt>Feedback</dt>
+<dd><p>FDN section feedback. Beware that if this value is non zero, it’s possible to blow up.</p>
+</dd>
+<dt>CascadeMix</dt>
+<dd><p>Controls mixing of Cascaded FDN.</p>
+</dd>
+</dl>
 <h3 id="allpass">Allpass</h3>
-<h4 id="mix">Mix</h4>
-<p>Mixing ratio of Schroeder allpass section.</p>
+<dl>
+<dt>Mix</dt>
+<dd><p>Mixing ratio of Schroeder allpass section.</p>
+</dd>
+</dl>
 <h3 id="stage-1-and-stage-2">Stage 1 and Stage 2</h3>
 <p>Stage 1 is serially connected 8 Schroeder allpass. On stage 2, there are 4 Schroeder allpass section connected in parallel. For each section has serially connected 8 Schroeder allpass.</p>
-<h4 id="time-1">Time</h4>
-<p>Max delay time of Schroeder allpass section. Internally, delay time will be randomized.</p>
-<h4 id="feedback-1">Feedback</h4>
-<p>Feedback of Schroeder allpass section.</p>
-<h4 id="hp-cutoff">HP Cutoff</h4>
-<p>Cutoff frequency of high-pass filter to the output of Schroeder allpass section.</p>
-<h4 id="tanh">Tanh</h4>
-<p>When checked, stage 1 feedback go through tanh saturator.</p>
+<dl>
+<dt>Time</dt>
+<dd><p>Max delay time of Schroeder allpass section. Internally, delay time will be randomized.</p>
+</dd>
+<dt>Feedback</dt>
+<dd><p>Feedback of Schroeder allpass section.</p>
+</dd>
+<dt>HP Cutoff</dt>
+<dd><p>Cutoff frequency of high-pass filter to the output of Schroeder allpass section.</p>
+</dd>
+<dt>Tanh</dt>
+<dd><p>When checked, stage 1 feedback go through tanh saturator.</p>
+</dd>
+</dl>
 <h3 id="tremolo">Tremolo</h3>
-<h4 id="mix-1">Mix</h4>
-<p>Mixing ratio of tremolo effect.</p>
-<h4 id="depth">Depth</h4>
-<p>Maximum change of amplitude with tremolo.</p>
-<h4 id="frequency">Frequency</h4>
-<p>Tremolo LFO frequency.</p>
-<h4 id="delaytime">DelayTime</h4>
-<p>Maximum delay time. Delay time is modulated by LFO. This delay simulates doppler effect.</p>
+<dl>
+<dt>Mix</dt>
+<dd><p>Mixing ratio of tremolo effect.</p>
+</dd>
+<dt>Depth</dt>
+<dd><p>Maximum change of amplitude with tremolo.</p>
+</dd>
+<dt>Frequency</dt>
+<dd><p>Tremolo LFO frequency.</p>
+</dd>
+<dt>DelayTime</dt>
+<dd><p>Maximum delay time. Delay time is modulated by LFO. This delay simulates doppler effect.</p>
+</dd>
+</dl>
 <h3 id="random-tremolo">Random (Tremolo)</h3>
-<h4 id="depth-1">Depth</h4>
-<p>Amount of randomization to <code>Tremolo.Depth</code> for each note on.</p>
-<h4 id="freq">Freq</h4>
-<p>Amount of randomization to <code>Tremolo.Frequency</code> for each note on.</p>
-<h4 id="time-2">Time</h4>
-<p>Amount of randomization to <code>Tremolo.DelayTime</code> for each note on.</p>
+<dl>
+<dt>Depth</dt>
+<dd><p>Amount of randomization to <code>Tremolo.Depth</code> for each note on.</p>
+</dd>
+<dt>Freq</dt>
+<dd><p>Amount of randomization to <code>Tremolo.Frequency</code> for each note on.</p>
+</dd>
+<dt>Time</dt>
+<dd><p>Amount of randomization to <code>Tremolo.DelayTime</code> for each note on.</p>
+</dd>
+</dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
 <li>0.2.1

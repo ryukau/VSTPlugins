@@ -1,3 +1,7 @@
+---
+lang: en
+...
+
 # EnvelopedSine
 ![](img/envelopedsine.png)
 
@@ -107,121 +111,150 @@ Diagram only shows overview. It's not exact implementation.
 ### Overtone
 4 big controls on top right.
 
-#### Attack, Decay
-Gain envelope attack and decay for each oscillator.
+Attack, Decay
 
-#### Gain
-Gain for each oscillator.
+:   Gain envelope attack and decay for each oscillator.
 
-#### Saturation
-Saturation gain for each oscillator.
+Gain
+
+:   Gain for each oscillator.
+
+Saturation
+
+:   Saturation gain for each oscillator.
 
 ### Gain
-#### Boost, Gain
-Both controls output gain. Peak value of output will be `Boost * Gain`.
+Boost, Gain
+
+:   Both controls output gain. Peak value of output will be `Boost * Gain`.
 
 ### Pitch
-#### Add Aliasing
-When checked, the synth enables rendering of sine waves over nyquist frequency.
+Add Aliasing
 
-Roughly speaking, nyquist frequency is the highest frequency that can be reconstructed from recorded digital signal. When generating sound, it's possible to set value that is higher than nyquist frequency. However, the result may contain unexpected frequency due to a phenomenon called aliasing. `Add Aliasing` is option to add those aliasing noise.
+:   When checked, the synth enables rendering of sine waves over nyquist frequency.
 
-#### Octave
-Note octave.
+    Roughly speaking, nyquist frequency is the highest frequency that can be reconstructed from recorded digital signal. When generating sound, it's possible to set value that is higher than nyquist frequency. However, the result may contain unexpected frequency due to a phenomenon called aliasing. `Add Aliasing` is option to add those aliasing noise.
 
-#### Multiply, Modulo
-Change sine wave frequency.
+Octave
 
-Equation is `noteFrequency * (1 + fmod(Multiply * pitch, Modulo))`. `pitch` is calculated from note pitch and overtone index. `fmod(a, b)` is a function that returns reminder of `a / b`.
+:   Note octave.
 
-#### Expand
-Scaling factor for overtone controls.
+Multiply, Modulo
 
-![](img/envelopedsine_expand.svg)
+:   Change sine wave frequency.
 
-#### Shift
-Amount of right shift to overtone controls.
+    Equation is `noteFrequency * (1 + fmod(Multiply * pitch, Modulo))`. `pitch` is calculated from note pitch and overtone index. `fmod(a, b)` is a function that returns reminder of `a / b`.
 
-![](img/envelopedsine_shift.svg)
+Expand
+
+:   Scaling factor for overtone controls.
+
+    ![](img/envelopedsine_expand.svg)
+
+Shift
+
+:   Amount of right shift to overtone controls.
+
+    ![](img/envelopedsine_shift.svg)
 
 ### Random
 Randomize parameters. These are more effective when used with `Unison`.
 
-#### Retrigger
-When checked, reset random seed for each note-on.
+Retrigger
 
-#### Seed
-Random seed. This value change random number sequence.
+:   When checked, reset random seed for each note-on.
 
-#### To Gain, To Attack, To Decay, To Sat.
-Amount of randomization to overtone controls. Equation is `value * random`. Range of `random` is `[0.0, 1.0)`.
+Seed
 
-#### To Pitch
-Amount of randomization to pitch.
+:   Random seed. This value change random number sequence.
 
-#### To Phase
-Amount of randomization to phase.
+To Gain, To Attack, To Decay, To Sat.
+
+:   Amount of randomization to overtone controls. Equation is `value * random`. Range of `random` is `[0.0, 1.0)`.
+
+To Pitch
+
+:   Amount of randomization to pitch.
+
+To Phase
+
+:   Amount of randomization to phase.
 
 ### Misc.
-#### Smooth
-Time length to change some parameter value to current one. Unit is in second.
+Smooth
 
-List of parameters related to `Smooth`. `*` represents wild card.
+:   Time length to change some parameter value to current one. Unit is in second.
 
-- All parameters in `Gain` section.
-- All parameters in `Phaser` section, except `nStages`.
+    List of parameters related to `Smooth`. `*` represents wild card.
 
-Other parameter uses the value obtained from the timing of note-on for entire duration of a note.
+    - All parameters in `Gain` section.
+    - All parameters in `Phaser` section, except `nStages`.
 
-#### nVoices
-Maximum polyphony. Lowering the number of this option reduces CPU load.
+    Other parameter uses the value obtained from the timing of note-on for entire duration of a note.
 
-#### Unison
-When checked, unison is enabled.
+nVoices
 
-When unison is enabled, 1 note uses 2 voices. 1 voice is placed on left and other is placed on right. Combining `Unison` with `Random.To Phase`, `Random.To Pitch`, etc. can be used to make sound with stereo spread.
+:   Maximum polyphony. Lowering the number of this option reduces CPU load.
+
+Unison
+
+:   When checked, unison is enabled.
+
+    When unison is enabled, 1 note uses 2 voices. 1 voice is placed on left and other is placed on right. Combining `Unison` with `Random.To Phase`, `Random.To Pitch`, etc. can be used to make sound with stereo spread.
 
 ### Modifier
-#### Attack*, Decay*
-Multiplier for `Attack`/`Decay` in overtone control section.
+Attack\*, Decay\*
 
-#### Declick
-When checked, it reduces click noise that occurs when the value of `Attack` and/or `Decay` is 0.
+:   Multiplier for `Attack`/`Decay` in overtone control section.
 
-#### Gain^
-Exponent to `Gain` in overtone control. Following is the equation of gain of an oscillator.
+Declick
 
-```
-Gain.Boost * Gain.Gain * pow(Overtone.Gain, Modifier.Gain^)
-```
+:   When checked, it reduces click noise that occurs when the value of `Attack` and/or `Decay` is 0.
 
-#### Sat. Mix
-Mixing ratio of dry/wet signal of saturation. `Dry : Wet` becomes `0 : 1` when turned the knob to rightmost.
+Gain^
+
+:   Exponent to `Gain` in overtone control. Following is the equation of gain of an oscillator.
+
+    ```
+    Gain.Boost * Gain.Gain * pow(Overtone.Gain, Modifier.Gain^)
+    ```
+
+Sat. Mix
+
+:   Mixing ratio of dry/wet signal of saturation. `Dry : Wet` becomes `0 : 1` when turned the knob to rightmost.
 
 ### Phaser
-#### nStages
-Number of all-pass filter.
+nStages
 
-#### Mix
-Mixing ratio of dry/wet signal of phaser. `Dry : Wet` becomes `0 : 1` when turned the knob to rightmost.
+:   Number of all-pass filter.
 
-#### Freq
-LFO frequency.
+Mix
 
-#### Feedback
-Amount of feedback. Feedback is disabled when the knob is pointing to 12 o'clock. It becomes negative feedback when turned to left and positive feedback when turned to right.
+:   Mixing ratio of dry/wet signal of phaser. `Dry : Wet` becomes `0 : 1` when turned the knob to rightmost.
 
-#### Range
-Range of all-pass filter modulation by LFO.
+Freq
 
-#### Min
-Minimum value of all-pass filter modulation by LFO.
+:   LFO frequency.
 
-#### Offset
-LFO phase offset.
+Feedback
 
-#### Phase
-LFO phase. This can be used to make sound with automation. Turning `Freq` to leftmost sets LFO frequency to 0.
+:   Amount of feedback. Feedback is disabled when the knob is pointing to 12 o'clock. It becomes negative feedback when turned to left and positive feedback when turned to right.
+
+Range
+
+:   Range of all-pass filter modulation by LFO.
+
+Min
+
+:   Minimum value of all-pass filter modulation by LFO.
+
+Offset
+
+:   LFO phase offset.
+
+Phase
+
+:   LFO phase. This can be used to make sound with automation. Turning `Freq` to leftmost sets LFO frequency to 0.
 
 ## Change Log
 - 0.1.5

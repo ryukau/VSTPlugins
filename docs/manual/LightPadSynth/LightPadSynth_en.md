@@ -1,9 +1,13 @@
+---
+lang: en
+...
+
 # LightPadSynth
 ![](img/lightpadsynth.png)
 
 LightPadSynth is a lightweight version of CubicPadSynth. For efficiency, interpolation is changed to linear. Also pitch modulation is omitted. Instead, a delay is added for each voice.
 
-- [Download LightPadSynth 0.1.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.1/LightPadSynth0.1.1.zip) <img
+- [Download LightPadSynth 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/LightPadSynth0.1.2.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -72,7 +76,7 @@ There is an additional control for number sliders used for `Octave`, `Seed` etc.
 Control with many blue vertical bars (BarBox) have some keyboard shortcuts. `LFO Wave` on Main tab and `Gain`, `Width`, `Pitch`, `Phase` on Wavetable tab are using BarBox. Shortcuts are enabled after left clicking BarBox and mouse cursor is on the inside of BarBox. Cheat sheet is available on Infomation tab.
 
 | Input                                   | Control                                 |
-| --------------------------------------- | --------------------------------------- |
+| :-------------------------------------- | :-------------------------------------- |
 | <kbd>Ctrl</kbd> + <kbd>Left Click</kbd> | Reset to Default                        |
 | <kbd>Right Drag</kbd>                   | Draw Line                               |
 | <kbd>d</kbd>                            | Reset Everything to Default             |
@@ -116,241 +120,282 @@ Diagram only shows overview. It's not exact implementation.
 ![](img/lightpadsynth.png)
 
 #### Gain
-##### A, D, S, R
-Gain envelope parameters.
+A, D, S, R
 
-- `A` : Attack time which is the length from note-on to reaching peak value.
-- `D` : Decay time which is the length from peak value to reaching sustain level.
-- `S` : Sustain level which is the gain after decay.
-- `R` : Release time which is the length from note-off to the gain reaching to 0.
+:   Gain envelope parameters.
 
-##### Gain
-Master output gain.
+    - `A` : Attack time which is the length from note-on to reaching peak value.
+    - `D` : Decay time which is the length from peak value to reaching sustain level.
+    - `S` : Sustain level which is the gain after decay.
+    - `R` : Release time which is the length from note-off to the gain reaching to 0.
+
+Gain
+
+:   Master output gain.
 
 #### Lowpass
 Naive 3-pole low-pass filter.
 
-##### Cutoff
-Cutoff frequency of the filter.
+Cutoff
 
-##### Resonance
-Resonance of the filter. Be careful when turning to right, output will be loud.
+:   Cutoff frequency of the filter.
 
-##### KeyFollow
-When set to right-most, cutoff frequency is set to the frequency of a note. When set to left-most, it only use the value of `Cutoff`.
+Resonance
 
-##### A, D, S, R, Amount
-Filter envelope parameters. `Amount` changes the amount of modulation to cutoff.
+:   Resonance of the filter. Be careful when turning to right, output will be loud.
+
+KeyFollow
+
+:   When set to right-most, cutoff frequency is set to the frequency of a note. When set to left-most, it only use the value of `Cutoff`.
+
+A, D, S, R, Amount
+
+:   Filter envelope parameters. `Amount` changes the amount of modulation to cutoff.
 
 #### Tuning
-##### Octave, Semi, Milli
-Changes master pitch.
+Octave, Semi, Milli
 
-`Milli` is 1/1000 of semitone or 1/10 cent.
+:   Changes master pitch.
 
-##### ET, A4 [Hz]
-Changes tuning.
+    `Milli` is 1/1000 of semitone or 1/10 cent.
 
-`ET` stands for equal temperature. Note that when `ET` is less than 12, some notes becomes silent due to frequency becomes too high or too low.
+ET, A4 [Hz]
 
-`A4 [Hz]` is frequency of note A4.
+:   Changes tuning.
+
+    `ET` stands for equal temperature. Note that when `ET` is less than 12, some notes becomes silent due to frequency becomes too high or too low.
+
+    `A4 [Hz]` is frequency of note A4.
 
 #### Unison
-##### nUnison
-Number of voices used by unison.
+nUnison
 
-To avoid interruption of release, increase the number of `nVoice` in Misc. section. Note that increasing `nVoice` consumes more resources.
+:   Number of voices used by unison.
 
-##### Detune, Random Detune
-`Detune` is the difference of pitch between voices used in a unison.
+    To avoid interruption of release, increase the number of `nVoice` in Misc. section. Note that increasing `nVoice` consumes more resources.
 
-When `Random Detune` is checked, amount of detune changes for each note-on.
+Detune, Random Detune
 
-```
-random = RandomDetune ? rand() : 1
-detune = pitch * (1 + random * unisonIndex * Detune)
-```
+:   `Detune` is the difference of pitch between voices used in a unison.
 
-##### GainRnd
-Amount of randomization of gain for voices used in a unison.
+    When `Random Detune` is checked, amount of detune changes for each note-on.
 
-##### Phase
-Amount of randomization of phase for voices used in a unison.
+    ```
+    random = RandomDetune ? rand() : 1
+    detune = pitch * (1 + random * unisonIndex * Detune)
+    ```
 
-This parameter makes no effect when `Reset` in Phase section is checked.
+GainRnd
 
-##### Spread, Spread Type
-`Spread` is an amount of stereo spread for a unison.
+:   Amount of randomization of gain for voices used in a unison.
 
-`Spread Type` provides options to assign panpot values according to voice pitch.
+Phase
 
-- `Alternate L-R`: Alternates `Ascend L -> R` and `Ascend R -> L`.
-- `Alternate M-S`: Alternates `HighOnMid` and `HighOnSide`.
-- `Ascend L -> R`: Ascend pitch from left to right.
-- `Ascend R -> L`: Ascend pitch from right to left.
-- `HighOnMid`: Ascend pitch from side to mid.
-- `HighOnSide`: Ascend pitch from mid to side.
-- `Random`: Randomize pan. May be biased.
-- `RotateL`: Rotate to left for each note-on.
-- `RotateR`: Rotate to right for each note-on.
-- `Shuffle`: Randomly assign pan which is evenly ordered.
+:   Amount of randomization of phase for voices used in a unison.
+
+    This parameter makes no effect when `Reset` in Phase section is checked.
+
+Spread, Spread Type
+
+:   `Spread` is an amount of stereo spread for a unison.
+
+    `Spread Type` provides options to assign panpot values according to voice pitch.
+
+    - `Alternate L-R`: Alternates `Ascend L -> R` and `Ascend R -> L`.
+    - `Alternate M-S`: Alternates `HighOnMid` and `HighOnSide`.
+    - `Ascend L -> R`: Ascend pitch from left to right.
+    - `Ascend R -> L`: Ascend pitch from right to left.
+    - `HighOnMid`: Ascend pitch from side to mid.
+    - `HighOnSide`: Ascend pitch from mid to side.
+    - `Random`: Randomize pan. May be biased.
+    - `RotateL`: Rotate to left for each note-on.
+    - `RotateR`: Rotate to right for each note-on.
+    - `Shuffle`: Randomly assign pan which is evenly ordered.
 
 #### Phase
-##### Phase
-Initial phase of oscillator.
+Phase
 
-##### Reset
-When checked, resets oscillator phase to the value set by `Phase`.
+:   Initial phase of oscillator.
 
-##### Random
-When checked, randomize phase for each note-on. In this case, value of `Phase` becomes range of randomization.
+Reset
+
+:   When checked, resets oscillator phase to the value set by `Phase`.
+
+Random
+
+:   When checked, randomize phase for each note-on. In this case, value of `Phase` becomes range of randomization.
 
 #### Misc.
-##### Smooth
-Time length to change some parameter value to current one. Unit is in second.
+Smooth
 
-List of parameters related to `Smooth`. `*` represents wild card.
+:   Time length to change some parameter value to current one. Unit is in second.
 
-- All parameters in Tuning section.
-- Gain
-  - `Gain`
-  - `S`
-- Lowpass
-  - `Cutoff`
-  - `S`
-  - `Amount`
-  - `KeyFollow`
-- Delay
-  - `Mix`
-  - `Feedback`
-  - `Attack`
-  - `Semi`
-  - `Milli`
-- Delay LFO
-  - `Tempo`
-  - `Multiply`
-  - `Amount`
-  - `Lowpass`
-- Phase
-  - `Phase`
+    List of parameters related to `Smooth`. `*` represents wild card.
 
-##### Poly
-Maximum polyphony. Lowering the number of this option reduces CPU load.
+    - All parameters in Tuning section.
+    - Gain
+      - `Gain`
+      - `S`
+    - Lowpass
+      - `Cutoff`
+      - `S`
+      - `Amount`
+      - `KeyFollow`
+    - Delay
+      - `Mix`
+      - `Feedback`
+      - `Attack`
+      - `Semi`
+      - `Milli`
+    - Delay LFO
+      - `Tempo`
+      - `Multiply`
+      - `Amount`
+      - `Lowpass`
+    - Phase
+      - `Phase`
 
-##### Seed
-Random seed. This value change random number sequence.
+Poly
 
-LightPadSynth has 2 random number generaters. One is used in `Main` tab and the other is in `Wavetable` tab.
+:   Maximum polyphony. Lowering the number of this option reduces CPU load.
+
+Seed
+
+:   Random seed. This value change random number sequence.
+
+    LightPadSynth has 2 random number generaters. One is used in `Main` tab and the other is in `Wavetable` tab.
 
 #### Delay
-##### Mix
-Mixing ratio of filter output and delay output.
+Mix
 
-##### Feedback
-Feedback of a delay. Positive feedback when turning right. Negative feedback when turning left.
+:   Mixing ratio of filter output and delay output.
 
-##### Attack
-Attack time of gate between filter output and delay.
+Feedback
 
-##### Semi, Milli
-Delay time relative to note frequency. Following equation is used.
+:   Feedback of a delay. Positive feedback when turning right. Negative feedback when turning left.
 
-```
-delayTime = 1 / (noteFreq * pow(2, (semi + 0.001 * milli) / 12))
-```
+Attack
+
+:   Attack time of gate between filter output and delay.
+
+Semi, Milli
+
+:   Delay time relative to note frequency. Following equation is used.
+
+    ```
+    delayTime = 1 / (noteFreq * pow(2, (semi + 0.001 * milli) / 12))
+    ```
 
 #### LFO
-##### Tempo, Multiply
-Sets LFO frequency according to current tempo. Lower numeral represents the length of note. Upper numeral is the number of notes.
+Tempo, Multiply
 
-Value of `Multiply` is multiplied to the frequency calculated from `Tempo`.
+:   Sets LFO frequency according to current tempo. Lower numeral represents the length of note. Upper numeral is the number of notes.
 
-```
-// (60 seconds) * (4 beat) = 240
-lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)
-```
+    Value of `Multiply` is multiplied to the frequency calculated from `Tempo`.
 
-##### Amount
-LFO frequency modulation amount.
+    ```
+    // (60 seconds) * (4 beat) = 240
+    lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)
+    ```
 
-##### Lowpass
-Changes cutoff freequency of low-pass filter for LFO.
+Amount
 
-##### Interpolation
-Type of LFO wavetable interpolation.
+:   LFO frequency modulation amount.
 
-![](img/interpolation_type.png)
+Lowpass
 
-##### Refresh LFO
-Refresh LFO wavetable based on current value of `LFO Wave`.
+:   Changes cutoff freequency of low-pass filter for LFO.
 
-Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
+Interpolation
 
-##### LFO Wave
-LFO waveform.
+:   Type of LFO wavetable interpolation.
+
+    ![](img/interpolation_type.png)
+
+Refresh LFO
+
+:   Refresh LFO wavetable based on current value of `LFO Wave`.
+
+    Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
+
+LFO Wave
+
+:   LFO waveform.
 
 ### Wavetable Tab
 ![](img/lightpadsynth_wavetable_tab.png)
 
 #### Overtone Controls
-##### Gain
-Gain of profile.
+Gain
 
-##### Width
-Width of profile.
+:   Gain of profile.
 
-##### Pitch
-This value is multiplied to profile center frequency.
+Width
 
-##### Phase
-Range of randomization for the phase of profile.
+:   Width of profile.
+
+Pitch
+
+:   This value is multiplied to profile center frequency.
+
+Phase
+
+:   Range of randomization for the phase of profile.
 
 #### Pitch
-##### Base Freq.
-Fundamental frequency of wavetable. Note that if this value is small, master pitch becomes out of tune.
+Base Freq.
 
-##### Multiply, Modulo
-Changes profile center frequency.
+:   Fundamental frequency of wavetable. Note that if this value is small, master pitch becomes out of tune.
 
-```
-profileCenterFrequency = mod(
-  BaseFreq * profileIndex * overtonePitch * Multiply,
-  440 * pow(2, (Modulo - 69) / 12)
-)
-```
+Multiply, Modulo
+
+:   Changes profile center frequency.
+
+    ```
+    profileCenterFrequency = mod(
+      BaseFreq * profileIndex * overtonePitch * Multiply,
+      440 * pow(2, (Modulo - 69) / 12)
+    )
+    ```
 
 #### Spectrum
-##### Expand
-Scaling factor to shrink/expand the spectrum along to frequency axis.
+Expand
 
-![](img/expand.svg)
+:   Scaling factor to shrink/expand the spectrum along to frequency axis.
 
-##### Shift
-Shift spectrum along to frequency axis.
+    ![](img/expand.svg)
 
-![](img/shift.svg)
+Shift
 
-##### Comb
-When this value is higher than 1, it changes the shape of profile like a comb. The value specifies interval between peaks.
+:   Shift spectrum along to frequency axis.
 
-![](img/comb.png)
+    ![](img/shift.svg)
 
-##### Shape
-Changes profile shapes by using the value of `Shape` as an exponent.
+Comb
 
-```
-shapedProfile = powf(profile, shape);
-```
+:   When this value is higher than 1, it changes the shape of profile like a comb. The value specifies interval between peaks.
+
+    ![](img/comb.png)
+
+Shape
+
+:   Changes profile shapes by using the value of `Shape` as an exponent.
+
+    ```
+    shapedProfile = powf(profile, shape);
+    ```
 
 #### Phase
-##### UniformPhase
-When checked, phase of a profile becomes an uniform value.
+UniformPhase
+
+:   When checked, phase of a profile becomes an uniform value.
 
 #### Random
-##### Seed
-Random seed. This value change random number sequence.
+Seed
 
-LightPadSynth has 2 random number generaters. One is used in `Main` tab and the other is in `Wavetable` tab.
+:   Random seed. This value change random number sequence.
+
+    LightPadSynth has 2 random number generaters. One is used in `Main` tab and the other is in `Wavetable` tab.
 
 #### BufferSize
 Size of a wavetable. The power of 2 values can be selected from `2^10` to `2^21`.
@@ -362,19 +407,21 @@ bytes = 4 * 128 * BufferSize
 ```
 
 #### Modifier
-##### Gain^
-Exponent for `Gain` in overtone control.
+Gain^
 
-```
-profileGain = pow(Gain, Gain^)
-```
+:   Exponent for `Gain` in overtone control.
 
-##### Width*
-Multiplier for `Width` in overtone control.
+    ```
+    profileGain = pow(Gain, Gain^)
+    ```
 
-```
-profileWidth = Width * (Width*)
-```
+Width*
+
+:   Multiplier for `Width` in overtone control.
+
+    ```
+    profileWidth = Width * (Width*)
+    ```
 
 #### Refresh Table
 Refresh PADsynth wavetable based on current configuration of Wavetable tab.
@@ -382,12 +429,15 @@ Refresh PADsynth wavetable based on current configuration of Wavetable tab.
 Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
 
 ## Change Log
+- 0.1.2
+  - Fixed a bug that refreshing wavetable before parameters are loaded at launch.
 - 0.1.1
   - Fixed Refresh LFO button and Refresh Table button from VST message to VST parameter.
 - 0.1.0
   - Initial release.
 
 ### Old Versions
+- [LightPadSynth 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.1/LightPadSynth0.1.1.zip)
 - [LightPadSynth 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynth0.1.0.zip)
 
 ## License

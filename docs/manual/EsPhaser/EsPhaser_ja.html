@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" >
 
 <head>
 <meta charset="utf-8" />
@@ -92,12 +92,18 @@ video {
   max-width: 100%;
 }
 
+details.list > summary {
+  line-height: 3em;
+}
+
 kbd {
+  font-family: inherit;
   border-style: solid;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 2px;
+  padding: 4px;
   margin: 2px;
+  line-height: calc(1em + 16px);
 }
 
 a {
@@ -111,53 +117,82 @@ h1 {
 }
 
 h2 {
-  border-left: solid 32px #163eac;
+  border-left: solid 32px #2851c2;
   padding-left: 24px;
 }
 
 h3 {
-  border-left: solid 20px #163eac;
+  border-left: solid 20px #4d74dd;
   padding-left: 16px;
 }
 
-h4, h5, h6 {
-  border-left: solid 8px #163eac;
+h4 {
+  border-left: solid 12px #6a88da;
   padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
 }
 
 table {
   border-spacing: 0px;
   border-collapse: separate;
-  border: 1px solid #dddddd;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
 }
 
-tr.header {
-  border: 1px solid black;
-}
-
-tr.odd {
+tr:nth-child(odd) {
   background: #eeeeee;
 }
 
-tr.even {
+tr:nth-child(even) {
   background: #ffffff;
 }
 
 th {
   height: 2em;
-  font-weight: normal;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 3px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
 }
 
 td {
   height: 1.5em;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
 }
 
 audio {
@@ -168,12 +203,27 @@ label {
   vertical-align: middle;
 }
 
-code {
-  color: #163eac;
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
 }
 
-pre {
-  border: 4px solid #eeeeee;
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
 }
 
 li {
@@ -218,19 +268,7 @@ footer {
   <li><a href="#操作">操作</a></li>
   <li><a href="#注意">注意</a></li>
   <li><a href="#ブロック線図">ブロック線図</a></li>
-  <li><a href="#パラメータ">パラメータ</a><ul>
-  <li><a href="#mix">Mix</a></li>
-  <li><a href="#freq">Freq</a></li>
-  <li><a href="#spread">Spread</a></li>
-  <li><a href="#feedback">Feedback</a></li>
-  <li><a href="#range">Range</a></li>
-  <li><a href="#min">Min</a></li>
-  <li><a href="#cas.-offset">Cas. Offset</a></li>
-  <li><a href="#lr-offset">L/R Offset</a></li>
-  <li><a href="#phase">Phase</a></li>
-  <li><a href="#stage">Stage</a></li>
-  <li><a href="#smooth">Smooth</a></li>
-  </ul></li>
+  <li><a href="#パラメータ">パラメータ</a></li>
   <li><a href="#チェンジログ">チェンジログ</a><ul>
   <li><a href="#旧バージョン">旧バージョン</a></li>
   </ul></li>
@@ -307,32 +345,45 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
 <p><img src="img/esphaser.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
-<h4 id="mix">Mix</h4>
-<p>Dry : Wet の信号比です。右いっぱいにすると Dry : Wet = 0 : 1 になります。</p>
-<h4 id="freq">Freq</h4>
-<p>LFO の周波数です。</p>
-<h4 id="spread">Spread</h4>
-<p>16 個の LFO の間で周波数をずらす量です。</p>
+<dl>
+<dt>Mix</dt>
+<dd><p>Dry : Wet の信号比です。右いっぱいにすると Dry : Wet = 0 : 1 になります。</p>
+</dd>
+<dt>Freq</dt>
+<dd><p>LFO の周波数です。</p>
+</dd>
+<dt>Spread</dt>
+<dd><p>16 個の LFO の間で周波数をずらす量です。</p>
 <p>1 サンプル当たりの LFO の位相の進み <code>deltaPhase</code> は次の式で計算されます。</p>
 <pre><code>deltaPhase = 2 * pi * Freq / ((1 + LfoIndex * Spread) * sampleRate)</code></pre>
-<h4 id="feedback">Feedback</h4>
-<p>フィードバックの大きさです。 12 時にするとフィードバックなし、左に回すと負のフィードバック、右に回すと正のフィードバックとなります。</p>
-<h4 id="range">Range</h4>
-<p>LFO によって変更するオールパスフィルタの特性の幅です。</p>
-<h4 id="min">Min</h4>
-<p>LFO によって変調するオールパスフィルタの特性の最小値です。</p>
-<h4 id="cas.-offset">Cas. Offset</h4>
-<p>16 個の LFO の間で位相をずらす量です。</p>
-<h4 id="lr-offset">L/R Offset</h4>
-<p>左右の LFO の位相差です。</p>
-<h4 id="phase">Phase</h4>
-<p>LFO の位相です。オートメーションで音を作りたいときに使えます。 <code>Freq</code> を左いっぱいに回すことで LFO の周波数を 0 にできます。</p>
+</dd>
+<dt>Feedback</dt>
+<dd><p>フィードバックの大きさです。 12 時にするとフィードバックなし、左に回すと負のフィードバック、右に回すと正のフィードバックとなります。</p>
+</dd>
+<dt>Range</dt>
+<dd><p>LFO によって変更するオールパスフィルタの特性の幅です。</p>
+</dd>
+<dt>Min</dt>
+<dd><p>LFO によって変調するオールパスフィルタの特性の最小値です。</p>
+</dd>
+<dt>Cas. Offset</dt>
+<dd><p>16 個の LFO の間で位相をずらす量です。</p>
+</dd>
+<dt>L/R Offset</dt>
+<dd><p>左右の LFO の位相差です。</p>
+</dd>
+<dt>Phase</dt>
+<dd><p>LFO の位相です。オートメーションで音を作りたいときに使えます。 <code>Freq</code> を左いっぱいに回すことで LFO の周波数を 0 にできます。</p>
 <p>最終的な LFO の位相は次の式で計算されます。</p>
 <pre><code>LfoPhaseOffset = Phase + (L/R Offset) + LfoIndex * (Cas. Offset)</code></pre>
-<h4 id="stage">Stage</h4>
-<p>オールパスフィルタを直列につなぐ個数です。 <code>Stage</code> の値に比例して CPU 消費が増えるので注意してください。</p>
-<h4 id="smooth">Smooth</h4>
-<p>パラメータを変更したときに、変更前の値から変更後の値へと移行する秒数です。 <code>Stage</code> 以外のパラメータに有効です。</p>
+</dd>
+<dt>Stage</dt>
+<dd><p>オールパスフィルタを直列につなぐ個数です。 <code>Stage</code> の値に比例して CPU 消費が増えるので注意してください。</p>
+</dd>
+<dt>Smooth</dt>
+<dd><p>パラメータを変更したときに、変更前の値から変更後の値へと移行する秒数です。 <code>Stage</code> 以外のパラメータに有効です。</p>
+</dd>
+</dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
 <li>0.1.2

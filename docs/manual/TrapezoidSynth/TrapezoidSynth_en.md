@@ -1,3 +1,7 @@
+---
+lang: en
+...
+
 # TrapezoidSynth
 ![](img/trapezoidsynth.png)
 
@@ -77,208 +81,256 @@ Diagram only shows overview. It's not exact implementation.
 
 ## Parameters
 ### Oscillator Common
-#### Semi
-Change oscillator pitch in semitone.
+Semi
 
-#### Cent
-Change oscillator pitch in cent. 100 cent = 1 semitone.
+:   Change oscillator pitch in semitone.
 
-#### Slope
-Change left and right side of slope of trapezoid.
+Cent
 
-#### PW
-Pulse width. Change length of upper side of trapezoid.
+:   Change oscillator pitch in cent. 100 cent = 1 semitone.
+
+Slope
+
+:   Change left and right side of slope of trapezoid.
+
+PW
+
+:   Pulse width. Change length of upper side of trapezoid.
 
 ### Oscillator 1
-#### Drift
-Modulate pitch with white noise.
+Drift
 
-#### Feedback
-Modulate phase of Oscillator 1 with feedback signal.
+:   Modulate pitch with white noise.
 
-```
-osc1Phase += Feedback * (osc1 + OscMix * (osc2 - osc1))
-```
+Feedback
+
+:   Modulate phase of Oscillator 1 with feedback signal.
+
+    ```
+    osc1Phase += Feedback * (osc1 + OscMix * (osc2 - osc1))
+    ```
 
 ### Oscillator 2
-#### Overtone
-Multiply the frequency of oscillator by number of `Overtone`.
+Overtone
 
-#### PM
-Modulate Osillator 1 phase with Oscillator 2 output.
+:   Multiply the frequency of oscillator by number of `Overtone`.
+
+PM
+
+:   Modulate Osillator 1 phase with Oscillator 2 output.
 
 ### Envelope Common
-#### Retrigger
-When checked, reset envelope for each note on. When not checked, reset envelope only if the number of pressed key is changed from 0 to 1 or more.
+Retrigger
 
-#### A
-Attack time in seconds.
+:   When checked, reset envelope for each note on. When not checked, reset envelope only if the number of pressed key is changed from 0 to 1 or more.
 
-#### D
-Decay time in seconds.
+A
 
-#### S
-Sustain level.
+:   Attack time in seconds.
 
-#### R
-Release time in seconds.
+D
 
-#### Curve
-Change envelope curve.
+:   Decay time in seconds.
+
+S
+
+:   Sustain level.
+
+R
+
+:   Release time in seconds.
+
+Curve
+
+:   Change envelope curve.
 
 ### Gain Envelope
-#### Gain
-Master output gain.
+Gain
+
+:   Master output gain.
 
 ### Filter
-#### Order
-TrapezoidSynth is using 8 of serially connected first order filter. `Order` changes where to get the signal from the filter.
+Order
 
-#### Cut
-Cutoff frequency in Hz.
+:   TrapezoidSynth is using 8 of serially connected first order filter. `Order` changes where to get the signal from the filter.
 
-#### Res
-Resonance.
+Cut
 
-#### Sat
-Filter saturation.
+:   Cutoff frequency in Hz.
 
-```
-filterInput = tanh(Sat * (input + Res * filterOutput))
-```
+Res
 
-#### Env>Cut
-Modulation amount from Filter Envelope to `Cut`.
+:   Resonance.
 
-#### Key>Cut
-Modulation amount from note pitch to `Cut`.
+Sat
 
-#### +OscMix
-Modulation amount from mixed signal of Oscillator 1 and Oscillator 2 to `Cut`.
+:   Filter saturation.
+
+    ```
+    filterInput = tanh(Sat * (input + Res * filterOutput))
+    ```
+
+Env>Cut
+
+:   Modulation amount from Filter Envelope to `Cut`.
+
+Key>Cut
+
+:   Modulation amount from note pitch to `Cut`.
+
++OscMix
+
+:   Modulation amount from mixed signal of Oscillator 1 and Oscillator 2 to `Cut`.
 
 ### Filter Envelope
-#### >Octave
-Modulation amount from Filter Envelope to pitch in octave.
+\>Octave
+
+:   Modulation amount from Filter Envelope to pitch in octave.
 
 ### Misc
-#### OscMix
-Ratio of Oscillator 1 and Oscillator 2. When turned to left-most, output becomes only the signal from Oscillator 1.
+OscMix
 
-#### Octave
-Change pitch in octave.
+:   Ratio of Oscillator 1 and Oscillator 2. When turned to left-most, output becomes only the signal from Oscillator 1.
 
-#### Smooth
-Interpolation time in seconds from previous value to current value. Following parameters are affected by `Smooth`.
+Octave
 
-- `Drift`
-- `Slope`
-- `PW` (for all parameter with identical name)
-- `Feedback` (for all parameter with identical name)
-- `PM`
-- `Gain` (for all parameter with identical name)
-- `Cut`
-- `Res`
-- `Sat`
-- `Env>Cut`
-- `Key>Cut`
-- `+OscMix`
-- `OscMix`
-- `>PM`
-- `>Feedback`
-- `>LFO`
-- `>Slope2`
-- `>Shifter1`
-- `Shifter1.Semi`
-- `Shifter1.Cent`
-- `Shifter2.Semi`
-- `Shifter2.Cent`
-- `Freq`
-- `Shape`
-- `>Pitch1`
-- `>Slope1`
-- `>PW1`
-- `>Cut`
+:   Change pitch in octave.
+
+Smooth
+
+:   Interpolation time in seconds from previous value to current value. Following parameters are affected by `Smooth`.
+
+    - `Drift`
+    - `Slope`
+    - `PW` (for all parameter with identical name)
+    - `Feedback` (for all parameter with identical name)
+    - `PM`
+    - `Gain` (for all parameter with identical name)
+    - `Cut`
+    - `Res`
+    - `Sat`
+    - `Env>Cut`
+    - `Key>Cut`
+    - `+OscMix`
+    - `OscMix`
+    - `>PM`
+    - `>Feedback`
+    - `>LFO`
+    - `>Slope2`
+    - `>Shifter1`
+    - `Shifter1.Semi`
+    - `Shifter1.Cent`
+    - `Shifter2.Semi`
+    - `Shifter2.Cent`
+    - `Freq`
+    - `Shape`
+    - `>Pitch1`
+    - `>Slope1`
+    - `>PW1`
+    - `>Cut`
 
 ### Mod Common
-#### Retrigger
-When checked, reset envelope for each note on. When not checked, reset envelope only if the number of pressed key is changed from 0 to 1 or more.
+Retrigger
 
-#### Attack
-Modulation envelope attack time in seconds.
+:   When checked, reset envelope for each note on. When not checked, reset envelope only if the number of pressed key is changed from 0 to 1 or more.
 
-#### Curve
-Modulation envelope curve.
+Attack
+
+:   Modulation envelope attack time in seconds.
+
+Curve
+
+:   Modulation envelope curve.
 
 ### Mod 1
-#### >PM
-Modulation amount from modulation envelope 1 to `Oscillator2.PM`.
+\>PM
+
+:   Modulation amount from modulation envelope 1 to `Oscillator2.PM`.
 
 ### Mod 2
-#### >Feedback
-Modulation amount from modulation envelope 2 to `Oscillator1.Feedback`.
+\>Feedback
 
-#### >LFO
-Modulation amount from modulation envelope 2 to `LFO.Freq`.
+:   Modulation amount from modulation envelope 2 to `Oscillator1.Feedback`.
 
-#### >Slope2
-Modulation amount from modulation envelope 2 to `Oscillator2.Slope`.
+\>LFO
 
-#### >Shifter1
-Modulation amount from modulation envelope 2 to Shifter 1 pitch.
+:   Modulation amount from modulation envelope 2 to `LFO.Freq`.
+
+\>Slope2
+
+:   Modulation amount from modulation envelope 2 to `Oscillator2.Slope`.
+
+\>Shifter1
+
+:   Modulation amount from modulation envelope 2 to Shifter 1 pitch.
 
 ### Shifter Common
-#### Semi
-Change amount of pitch shift in semitone.
+Semi
 
-#### Cent
-Change amount of pitch shift pitch in cent. 100 cent = 1 semitone.
+:   Change amount of pitch shift in semitone.
 
-#### Gain
-Output gain of pitch shifter.
+Cent
+
+:   Change amount of pitch shift pitch in cent. 100 cent = 1 semitone.
+
+Gain
+
+:   Output gain of pitch shifter.
 
 ### LFO
-#### LFOType
-4 waveforms are available for LFO.
+LFOType
 
-- `Sin` : Sine wave. Output will be power of the value of `Shape`.
-- `Saw` : Sawtooth wave. Can be turned into triangle with `Shape`.
-- `Pulse` : Pulse wave. Duty ratio can be controlled by `Shape`.
-- `Noise` : Brown noise. Wandering of noise can be changed by `Shape`.
+:   4 waveforms are available for LFO.
 
-#### Tempo
-Synchronize LFO frequency to tempo.
+    - `Sin` : Sine wave. Output will be power of the value of `Shape`.
+    - `Saw` : Sawtooth wave. Can be turned into triangle with `Shape`.
+    - `Pulse` : Pulse wave. Duty ratio can be controlled by `Shape`.
+    - `Noise` : Brown noise. Wandering of noise can be changed by `Shape`.
 
-#### Freq
-LFO frequency.
+Tempo
 
-#### Shape
-Change LFO wave shape.
+:   Synchronize LFO frequency to tempo.
 
-#### >Pitch
-Modulation amount from LFO to Oscillator 1 pitch.
+Freq
 
-#### >Slope1
-Modulation amount from LFO to `Oscillator1.Slope`.
+:   LFO frequency.
 
-#### >PW1
-Modulation amount from LFO to `Oscillator1.PW`.
+Shape
 
-#### >PW1
-Modulation amount from LFO to `Filter.Cut`.
+:   Change LFO wave shape.
+
+\>Pitch
+
+:   Modulation amount from LFO to Oscillator 1 pitch.
+
+\>Slope1
+
+:   Modulation amount from LFO to `Oscillator1.Slope`.
+
+\>PW1
+
+:   Modulation amount from LFO to `Oscillator1.PW`.
+
+\>PW1
+
+:   Modulation amount from LFO to `Filter.Cut`.
 
 ### Slide
-#### SlideType
-3 type of pitch slide is available.
+SlideType
 
-- `Always` : Always slide from the pitch of last note.
-- `Sustain` : Only slide when 2 or more keys are pressed.
-- `Reset to 0` : When number of pressed key is changed from 0 to 1, or 1 to 0, pitch will be slide to 0 Hz. Otherwise, slide behaves same as other 2 options.
+:   3 type of pitch slide is available.
 
-#### Time
-Time of pitch sliding.
+    - `Always` : Always slide from the pitch of last note.
+    - `Sustain` : Only slide when 2 or more keys are pressed.
+    - `Reset to 0` : When number of pressed key is changed from 0 to 1, or 1 to 0, pitch will be slide to 0 Hz. Otherwise, slide behaves same as other 2 options.
 
-#### Offset
-Oscillator 2 slide time with respect to Oscillator 1 slide time.
+Time
+
+:   Time of pitch sliding.
+
+Offset
+
+:   Oscillator 2 slide time with respect to Oscillator 1 slide time.
 
 ## Change Log
 - 0.1.7

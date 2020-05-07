@@ -1,3 +1,7 @@
+---
+lang: en
+...
+
 # WaveCymbal
 ![](img/wavecymbal.png)
 
@@ -82,72 +86,89 @@ Output gain.
 ### Excitation
 Short delays that turns impulse to tone.
 
-#### Feedback
-Feedback of excitor delays.
+Feedback
 
-#### Time
-Delay time of excitor delays. Beware that when the value of this parameter is high, output will be loud.
+:   Feedback of excitor delays.
+    
+Time
 
+:   Delay time of excitor delays. Beware that when the value of this parameter is high, output will be loud.
+    
 ### Objects
-#### nCymbal
-Number of cymbal-ish objects.
+nCymbal
 
-#### nString
-Number of Karplus-Strong string per cymbal object.
+:   Number of cymbal-ish objects.
+    
+nString
 
+:   Number of Karplus-Strong string per cymbal object.
+    
 ### Wave
-#### Damping
-Damping of 1D wave simulation. Beware that when the value of this parameter is high, output will be loud.
+Damping
 
-#### PulsePosition
-Position where oscillator input causes wave.
+:   Damping of 1D wave simulation. Beware that when the value of this parameter is high, output will be loud.
+    
+PulsePosition
 
-#### PulseWidth
-Width of wave caused by oscillator input.
+:   Position where oscillator input causes wave.
+    
+PulseWidth
 
+:   Width of wave caused by oscillator input.
+    
 ### Collision
 When turns on, it sounds like a rubbing on surface of thin light metal plate. When `nCymbal` is 1, this doesn't change output sound.
 
-#### Distance
-Distance between cymbals. Collision will more likely to occur when turning this knob to left.
+Distance
 
+:   Distance between cymbals. Collision will more likely to occur when turning this knob to left.
+    
 ### Random
-#### Seed
-Random seed. Output will be the same for each note while checking `Retrigger`.
+Seed
 
-#### Amount
-Amount of random number effects to delay time and band-pass cutoff. Beware that when the value of this parameter is low, output may be loud.
+:   Random seed. Output will be the same for each note while checking `Retrigger`.
+    
+Amount
 
+:   Amount of random number effects to delay time and band-pass cutoff. Beware that when the value of this parameter is low, output may be loud.
+    
 ### String
-#### MinHz
-Lower bound of Karplus-Strong string frequency.
+MinHz
 
-#### MaxHz
-Upper bound of Karplus-Strong string frequency.
+:   Lower bound of Karplus-Strong string frequency.
+    
+MaxHz
 
-#### Decay
-Decay of Karplus-Strong string. Decay time will be longer when turning this knob to left.
+:   Upper bound of Karplus-Strong string frequency.
+    
+Decay
 
-#### Q
-Band-pass filter Q.
+:   Decay of Karplus-Strong string. Decay time will be longer when turning this knob to left.
+    
+Q
 
+:   Band-pass filter Q.
+    
 ### Oscillator
-#### Retrigger
-When checking, each note on resets random seed.
+Retrigger
 
-#### OscType
-Oscillator type.
+:   When checking, each note on resets random seed.
+    
+OscType
 
-- `Off` : Stop making noise for each note on. This option will be used when using WaveCymbal as FX.
-- `Impulse` : Outputs impulse for each note on. Simulates hit of cymbal with stick.
-- `Sustain` : Outputs impulse train with pitch of note. Simulates drawing of bow on surface of cymbal.
-- `Velvet Noise` : Outputs velvet noise of a density respect to pitch of note. Simulates less uniform drawing than `Sustain`.
-- `Brown Noise` : Outputs brown noise of a brightness respect to pitch of note. Kind of like dragging cymbal on asphalt.
+:   Oscillator type.
+    
+    - `Off` : Stop making noise for each note on. This option will be used when using WaveCymbal as FX.
+    - `Impulse` : Outputs impulse for each note on. Simulates hit of cymbal with stick.
+    - `Sustain` : Outputs impulse train with pitch of note. Simulates drawing of bow on surface of cymbal.
+    - `Velvet Noise` : Outputs velvet noise of a density respect to pitch of note. Simulates less uniform drawing than `Sustain`.
+    - `Brown Noise` : Outputs brown noise of a brightness respect to pitch of note. Kind of like dragging cymbal on asphalt.
+    
+Bandpass Cutoff Distribution
 
-#### Bandpass Cutoff Distribution
-- `Log` : Sound becomes relatively natural.
-- `Linear` : Leans sound to higher frequency.
-
+:   - `Log` : Sound becomes relatively natural.
+    - `Linear` : Leans sound to higher frequency.
+    
 ### Smoothness
 Transition time from previous value to current value in seconds. `Gain`, `Excitation.Time`, `Random.Amount`, `Bandpass.MinCutoff`, `Bandpass.MaxCutoff` will be affected. Slide effect of `OscType.Sustain` can be tuned by `Smoothness`.
 

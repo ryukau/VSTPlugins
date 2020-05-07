@@ -1,3 +1,7 @@
+---
+lang: en
+...
+
 # IterativeSinCluster
 ![](img/iterativesincluster.png)
 
@@ -83,22 +87,25 @@ Diagram only shows overview. It's not exact implementation.
 
 ## Parameters
 ### Gain
-#### Boost, Gain
-Both controls output gain. Peak value of output will be `Boost * Gain`.
+Boost, Gain
 
-It's possible that output gain becomes too small while changing gain of `Note`, `Chord`, `Overtone`. `Boost` can be useful in this situation.
+:   Both controls output gain. Peak value of output will be `Boost * Gain`.
+    
+    It's possible that output gain becomes too small while changing gain of `Note`, `Chord`, `Overtone`. `Boost` can be useful in this situation.
+    
+ADSR
 
-#### ADSR
-Parameters for gain envelope.
+:   Parameters for gain envelope.
+    
+    - `A` : Attack time which is the length from note-on to reaching peak value.
+    - `D` : Decay time which is the length from peak value to reaching sustain level.
+    - `S` : Sustain level which is the gain after decay.
+    - `R` : Release time which is the length from note-off to the gain reaching to 0.
+    
+Curve
 
-- `A` : Attack time which is the length from note-on to reaching peak value.
-- `D` : Decay time which is the length from peak value to reaching sustain level.
-- `S` : Sustain level which is the gain after decay.
-- `R` : Release time which is the length from note-off to the gain reaching to 0.
-
-#### Curve
-Change attack curve of gain envelope.
-
+:   Change attack curve of gain envelope.
+    
 ### Shelving
 Cutoff freqeuncy can be changed by `Semi`, which is relative to a note frequency. For example, if the note is C4 and `Semi` is 12.000, cutoff frequency is set to `C4 + 12 semitone = C5`.
 
@@ -106,27 +113,32 @@ Cutoff freqeuncy can be changed by `Semi`, which is relative to a note frequency
 - `High` shelving changes `Gain` of sine waves **greater than or equal to** the cutoff frequency specified by `Semi`.
 
 ### Pitch
-#### Add Aliasing
-When checked, the synth enables rendering of sine waves over nyquist frequency.
+Add Aliasing
 
-Roughly speaking, nyquist frequency is the highest frequency that can be reconstructed from recorded digital signal. When generating sound, it's possible to set value that is higher than nyquist frequency. However, the result may contain unexpected frequency due to a phenomenon called aliasing. `Add Aliasing` is option to add those aliasing noise.
+:   When checked, the synth enables rendering of sine waves over nyquist frequency.
+    
+    Roughly speaking, nyquist frequency is the highest frequency that can be reconstructed from recorded digital signal. When generating sound, it's possible to set value that is higher than nyquist frequency. However, the result may contain unexpected frequency due to a phenomenon called aliasing. `Add Aliasing` is option to add those aliasing noise.
+    
+Reverse Semi
 
-#### Reverse Semi
-When checked, negate sign of `Semi`. For example, 7.000 becomes -7.000.
+:   When checked, negate sign of `Semi`. For example, 7.000 becomes -7.000.
+    
+Octave
 
-#### Octave
-Note octave.
+:   Note octave.
+    
+ET
 
-#### ET
-`ET` stands for equal temperament. This parameter can be used to change tuning of `Semi` and `Milli`.
+:   `ET` stands for equal temperament. This parameter can be used to change tuning of `Semi` and `Milli`.
+    
+    Note that this parameter is not to change tuning of notes sent from plugin host. Only affect to internal parameters.
+    
+Multiply, Modulo
 
-Note that this parameter is not to change tuning of notes sent from plugin host. Only affect to internal parameters.
-
-#### Multiply, Modulo
-Change sine wave frequency.
-
-Equation is `noteFrequency * (1 + fmod(Multiply * pitch, Modulo))`. `pitch` is calculated from `Note`, `Chord` and `Overtone`. `fmod(a, b)` is a function that returns reminder of `a / b`.
-
+:   Change sine wave frequency.
+    
+    Equation is `noteFrequency * (1 + fmod(Multiply * pitch, Modulo))`. `pitch` is calculated from `Note`, `Chord` and `Overtone`. `fmod(a, b)` is a function that returns reminder of `a / b`.
+    
 ### Smooth
 Time length to change some parameter value to current one. Unit is in second.
 
@@ -142,18 +154,22 @@ Other parameter uses the value obtained from the timing of note-on for entire du
 Maximum polyphony. Lowering the number of this option reduces CPU load.
 
 ### Random
-#### Retrigger
-When checked, reset random seed for each note-on.
+Retrigger
 
-#### Seed
-Random seed. This value change random number sequence.
+:   When checked, reset random seed for each note-on.
+    
+Seed
 
-#### To Gain
-Amount of randomization to sine wave gain. Randomization is done for each note-on.
+:   Random seed. This value change random number sequence.
+    
+To Gain
 
-#### To Pitch
-Amount of randomization to sine wave pitch. Randomization is done for each note-on.
+:   Amount of randomization to sine wave gain. Randomization is done for each note-on.
+    
+To Pitch
 
+:   Amount of randomization to sine wave pitch. Randomization is done for each note-on.
+    
 ### Note, Chord, Overtone
 Change sine wave gain and pitch.
 
@@ -183,33 +199,42 @@ for each Chord:
 ```
 
 ### Chorus
-#### Mix
-Change Dry/Wet mix ratio.
+Mix
 
-#### Freq
-Chorus LFO frequency.
+:   Change Dry/Wet mix ratio.
+    
+Freq
 
-#### Depth
-Change stereo spread.
+:   Chorus LFO frequency.
+    
+Depth
 
-#### Range
-Amount of modulation from LFO to delay time. There are three delays in this chorus.
+:   Change stereo spread.
+    
+Range
 
-#### Time
-Delay time.
+:   Amount of modulation from LFO to delay time. There are three delays in this chorus.
+    
+Time
 
-#### Phase
-LFO phase.
+:   Delay time.
+    
+Phase
 
-#### Offset
-Phase difference between delays.
+:   LFO phase.
+    
+Offset
 
-#### Feedback
-Feedback of delay.
+:   Phase difference between delays.
+    
+Feedback
 
-#### Key Follow
-When checked, change delay time relative to note frequency.
+:   Feedback of delay.
+    
+Key Follow
 
+:   When checked, change delay time relative to note frequency.
+    
 ## Change Log
 - 0.1.6
   - Changed BarBox shortcuts to be disabled when mouse cursor is on the outside of BarBox.

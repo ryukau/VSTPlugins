@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
 
 <head>
 <meta charset="utf-8" />
@@ -92,12 +92,18 @@ video {
   max-width: 100%;
 }
 
+details.list > summary {
+  line-height: 3em;
+}
+
 kbd {
+  font-family: inherit;
   border-style: solid;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 2px;
+  padding: 4px;
   margin: 2px;
+  line-height: calc(1em + 16px);
 }
 
 a {
@@ -111,53 +117,82 @@ h1 {
 }
 
 h2 {
-  border-left: solid 32px #163eac;
+  border-left: solid 32px #2851c2;
   padding-left: 24px;
 }
 
 h3 {
-  border-left: solid 20px #163eac;
+  border-left: solid 20px #4d74dd;
   padding-left: 16px;
 }
 
-h4, h5, h6 {
-  border-left: solid 8px #163eac;
+h4 {
+  border-left: solid 12px #6a88da;
   padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
 }
 
 table {
   border-spacing: 0px;
   border-collapse: separate;
-  border: 1px solid #dddddd;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
 }
 
-tr.header {
-  border: 1px solid black;
-}
-
-tr.odd {
+tr:nth-child(odd) {
   background: #eeeeee;
 }
 
-tr.even {
+tr:nth-child(even) {
   background: #ffffff;
 }
 
 th {
   height: 2em;
-  font-weight: normal;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 3px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
 }
 
 td {
   height: 1.5em;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
 }
 
 audio {
@@ -168,12 +203,27 @@ label {
   vertical-align: middle;
 }
 
-code {
-  color: #163eac;
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
 }
 
-pre {
-  border: 4px solid #eeeeee;
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
 }
 
 li {
@@ -220,58 +270,10 @@ footer {
   <li><a href="#terms">Terms</a></li>
   <li><a href="#block-diagram">Block Diagram</a></li>
   <li><a href="#parameters">Parameters</a><ul>
-  <li><a href="#osc">Osc</a><ul>
+  <li><a href="#osc">Osc</a></li>
+  <li><a href="#modulation">Modulation</a></li>
   <li><a href="#gain">Gain</a></li>
-  <li><a href="#semi">Semi</a></li>
-  <li><a href="#cent">Cent</a></li>
-  <li><a href="#sync-and-synctype">Sync and SyncType</a></li>
-  <li><a href="#osctype">OscType</a></li>
-  <li><a href="#phase">Phase</a></li>
-  <li><a href="#unison">Unison</a></li>
-  <li><a href="#number-of-voice">Number of Voice</a></li>
-  </ul></li>
-  <li><a href="#modulation">Modulation</a><ul>
-  <li><a href="#osc1-sync1">Osc1-&gt;Sync1</a></li>
-  <li><a href="#osc1-freq2">Osc1-&gt;Freq2</a></li>
-  <li><a href="#osc2-sync1">Osc2-&gt;Sync1</a></li>
-  <li><a href="#attack">Attack</a></li>
-  <li><a href="#curve">Curve</a></li>
-  <li><a href="#to-freq1-ad-envelope">To Freq1 (AD Envelope)</a></li>
-  <li><a href="#to-sync1-ad-envelope">To Sync1 (AD Envelope)</a></li>
-  <li><a href="#to-freq2-ad-envelope">To Freq2 (AD Envelope)</a></li>
-  <li><a href="#to-sync2-ad-envelope">To Sync2 (AD Envelope)</a></li>
-  <li><a href="#lfo">LFO</a></li>
-  <li><a href="#noisemix">NoiseMix</a></li>
-  <li><a href="#to-freq1-lfonoise">To Freq1 (LFO/Noise)</a></li>
-  <li><a href="#to-sync1-lfonoise">To Sync1 (LFO/Noise)</a></li>
-  <li><a href="#to-freq2-lfonoise">To Freq2 (LFO/Noise)</a></li>
-  <li><a href="#to-sync2-lfonoise">To Sync2 (LFO/Noise)</a></li>
-  </ul></li>
-  <li><a href="#gain-1">Gain</a><ul>
-  <li><a href="#gain-2">Gain</a></li>
-  <li><a href="#a">A</a></li>
-  <li><a href="#d">D</a></li>
-  <li><a href="#s">S</a></li>
-  <li><a href="#r">R</a></li>
-  <li><a href="#curve-1">Curve</a></li>
-  </ul></li>
-  <li><a href="#filter">Filter</a><ul>
-  <li><a href="#cut">Cut</a></li>
-  <li><a href="#res">Res</a></li>
-  <li><a href="#feed">Feed</a></li>
-  <li><a href="#sat">Sat</a></li>
-  <li><a href="#dirty-buffer">Dirty Buffer</a></li>
-  <li><a href="#filtertype">FilterType</a></li>
-  <li><a href="#shapertype">ShaperType</a></li>
-  <li><a href="#a-1">A</a></li>
-  <li><a href="#d-1">D</a></li>
-  <li><a href="#s-1">S</a></li>
-  <li><a href="#r-1">R</a></li>
-  <li><a href="#to-cut">To Cut</a></li>
-  <li><a href="#to-res">To Res</a></li>
-  <li><a href="#key-cut">Key-&gt;Cut</a></li>
-  <li><a href="#key-feed">Key-&gt;Feed</a></li>
-  </ul></li>
+  <li><a href="#filter">Filter</a></li>
   </ul></li>
   <li><a href="#change-log">Change Log</a><ul>
   <li><a href="#old-versions">Old Versions</a></li>
@@ -352,15 +354,19 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p><img src="img/syncsawsynth.svg" /></p>
 <h2 id="parameters">Parameters</h2>
 <h3 id="osc">Osc</h3>
-<h4 id="gain">Gain</h4>
-<p>Oscillator gain. Range is 0.0 to 1.0.</p>
-<h4 id="semi">Semi</h4>
-<p>Oscillator pitch. Range is -24.0 to 24.0. Unit is semitone.</p>
+<dl>
+<dt>Gain</dt>
+<dd><p>Oscillator gain. Range is 0.0 to 1.0.</p>
+</dd>
+<dt>Semi</dt>
+<dd><p>Oscillator pitch. Range is -24.0 to 24.0. Unit is semitone.</p>
 <p>The value will be floored. For example 6.3 becomes to 6 and -11.5 becomes to -12.</p>
-<h4 id="cent">Cent</h4>
-<p>Oscillator pitch. Range is -100.0 to 100.0. Unit is cent.</p>
-<h4 id="sync-and-synctype">Sync and SyncType</h4>
-<p>Meaning of the value of <code>Sync</code> will be changed by <code>SyncType</code>. Range of <code>Sync</code> is 0.01 to 16.0.</p>
+</dd>
+<dt>Cent</dt>
+<dd><p>Oscillator pitch. Range is -100.0 to 100.0. Unit is cent.</p>
+</dd>
+<dt>Sync and SyncType</dt>
+<dd><p>Meaning of the value of <code>Sync</code> will be changed by <code>SyncType</code>. Range of <code>Sync</code> is 0.01 to 16.0.</p>
 <p><code>SyncType</code> has 4 options.</p>
 <ul>
 <li><code>Off</code></li>
@@ -374,89 +380,126 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>Option <code>Fixed-Slave</code> sets note frequency to master frequency. Slave frequency will be only determined by the value of <code>Sync</code>.</p>
 <p>Below is equation of conversion of the value <code>Sync</code> to freqeuncy used for <code>Fixed-Master</code> and <code>Fixed-Slave</code>.</p>
 <pre><code>frequency = 2 * Sync^3</code></pre>
-<h4 id="osctype">OscType</h4>
-<p>Oscillator waveform.</p>
+</dd>
+<dt>OscType</dt>
+<dd><p>Oscillator waveform.</p>
 <p>0 to 10th order PTR sawtooth oscillator and sine wave are available.</p>
-<h4 id="phase">Phase</h4>
-<p>Oscillator phase. Range is 0.0 to 1.0.</p>
+</dd>
+<dt>Phase</dt>
+<dd><p>Oscillator phase. Range is 0.0 to 1.0.</p>
 <p>If <code>Lock</code> is checked, phase will be reset for each note on.</p>
 <p>If <code>Invert</code> on <code>Osc2</code> is checked, phase will be inverted by changing sign of the output of <code>Osc2</code>.</p>
-<h4 id="unison">Unison</h4>
-<p>When checked, add same tone with different phase for each note. CPU load will also be doubled.</p>
-<h4 id="number-of-voice">Number of Voice</h4>
-<p>Maximum polyphony. Lowering the number of this option reduces CPU load.</p>
+</dd>
+<dt>Unison</dt>
+<dd><p>When checked, add same tone with different phase for each note. CPU load will also be doubled.</p>
+</dd>
+<dt>Number of Voice</dt>
+<dd><p>Maximum polyphony. Lowering the number of this option reduces CPU load.</p>
+</dd>
+</dl>
 <h3 id="modulation">Modulation</h3>
-<h4 id="osc1-sync1">Osc1-&gt;Sync1</h4>
-<p>Modulation from <code>Osc1</code> output to <code>Osc1</code> master frequency. Range is 0.0 to 1.0.</p>
-<h4 id="osc1-freq2">Osc1-&gt;Freq2</h4>
-<p>Modulation from <code>Osc1</code> output to <code>Osc2</code> slave frequency. Range is 0.0 to 1.0.</p>
-<h4 id="osc2-sync1">Osc2-&gt;Sync1</h4>
-<p>Modulation from <code>Osc2</code> output to <code>Osc1</code> master frequency. Range is 0.0 to 1.0.</p>
-<h4 id="attack">Attack</h4>
-<p>Attack of modulation AD envelope. Range is 0.0 to 4.0. Unit is seconds.</p>
+<dl>
+<dt>Osc1-&gt;Sync1</dt>
+<dd><p>Modulation from <code>Osc1</code> output to <code>Osc1</code> master frequency. Range is 0.0 to 1.0.</p>
+</dd>
+<dt>Osc1-&gt;Freq2</dt>
+<dd><p>Modulation from <code>Osc1</code> output to <code>Osc2</code> slave frequency. Range is 0.0 to 1.0.</p>
+</dd>
+<dt>Osc2-&gt;Sync1</dt>
+<dd><p>Modulation from <code>Osc2</code> output to <code>Osc1</code> master frequency. Range is 0.0 to 1.0.</p>
+</dd>
+<dt>Attack</dt>
+<dd><p>Attack of modulation AD envelope. Range is 0.0 to 4.0. Unit is seconds.</p>
 <p>Equation of AD envelope.</p>
 <pre><code>env(t) := t^a * exp(-b * t)
 
 t: time.
 a, b: some constants.</code></pre>
-<h4 id="curve">Curve</h4>
-<p>Curve of modulation AD envelope. Range is 1.0 to 96.0.</p>
+</dd>
+<dt>Curve</dt>
+<dd><p>Curve of modulation AD envelope. Range is 1.0 to 96.0.</p>
 <p>The length of decay is depends on the value of Curve.</p>
-<h4 id="to-freq1-ad-envelope">To Freq1 (AD Envelope)</h4>
-<p>Modulation from AD envelope to <code>Osc1</code> slave frequency. Range is 0.0 to 16.0.</p>
-<h4 id="to-sync1-ad-envelope">To Sync1 (AD Envelope)</h4>
-<p>Modulation from AD envelope to <code>Osc1</code> master frequency. Range is 0.0 to 16.0.</p>
-<h4 id="to-freq2-ad-envelope">To Freq2 (AD Envelope)</h4>
-<p>Modulation from AD envelope to <code>Osc２</code> slave frequency. Range is 0.0 to 16.0.</p>
-<h4 id="to-sync2-ad-envelope">To Sync2 (AD Envelope)</h4>
-<p>Modulation from AD envelope to <code>Osc２</code> master frequency. Range is 0.0 to 16.0.</p>
-<h4 id="lfo">LFO</h4>
-<p>LFO Frequency. Range is 0.01 to 20.0. Unit is Hz.</p>
-<h4 id="noisemix">NoiseMix</h4>
-<p>Ratio of LFO and pink noise. Range is 0.0 to 1.0.</p>
+</dd>
+<dt>To Freq1 (AD Envelope)</dt>
+<dd><p>Modulation from AD envelope to <code>Osc1</code> slave frequency. Range is 0.0 to 16.0.</p>
+</dd>
+<dt>To Sync1 (AD Envelope)</dt>
+<dd><p>Modulation from AD envelope to <code>Osc1</code> master frequency. Range is 0.0 to 16.0.</p>
+</dd>
+<dt>To Freq2 (AD Envelope)</dt>
+<dd><p>Modulation from AD envelope to <code>Osc２</code> slave frequency. Range is 0.0 to 16.0.</p>
+</dd>
+<dt>To Sync2 (AD Envelope)</dt>
+<dd><p>Modulation from AD envelope to <code>Osc２</code> master frequency. Range is 0.0 to 16.0.</p>
+</dd>
+<dt>LFO</dt>
+<dd><p>LFO Frequency. Range is 0.01 to 20.0. Unit is Hz.</p>
+</dd>
+<dt>NoiseMix</dt>
+<dd><p>Ratio of LFO and pink noise. Range is 0.0 to 1.0.</p>
 <p>If the value is 0.0, the output becomes LFO only. If the value is 1.0, the output becomes pink noise only.</p>
 <p>Note that modulation of pink noise causes some nasty spikes. To avoid spikes, set the value of <code>To Freq/Sync</code> to lower than 1.0. Spike is clipped to avoid exceeding 0dB.</p>
-<h4 id="to-freq1-lfonoise">To Freq1 (LFO/Noise)</h4>
-<p>Modulation from LFO/Noise to <code>Osc1</code> slave frequency. Range is 0.0 to 16.0.</p>
-<h4 id="to-sync1-lfonoise">To Sync1 (LFO/Noise)</h4>
-<p>Modulation from LFO/Noise to <code>Osc1</code> master frequency. Range is 0.0 to 16.0.</p>
-<h4 id="to-freq2-lfonoise">To Freq2 (LFO/Noise)</h4>
-<p>Modulation from LFO/Noise to <code>Osc２</code> slave frequency. Range is 0.0 to 16.0.</p>
-<h4 id="to-sync2-lfonoise">To Sync2 (LFO/Noise)</h4>
-<p>Modulation from LFO/Noise to <code>Osc２</code> master frequency. Range is 0.0 to 16.0.</p>
-<h3 id="gain-1">Gain</h3>
-<h4 id="gain-2">Gain</h4>
-<p>Gain of the synthesizer output. Range is 0.0 to 1.0.</p>
-<h4 id="a">A</h4>
-<p>Length of gain envelope attack. Range is 0.0001 to 16.0. Unit is seconds.</p>
-<h4 id="d">D</h4>
-<p>Length of gain envelope decay. Range is 0.0001 to 16.0. Unit is seconds.</p>
-<h4 id="s">S</h4>
-<p>Value of gain envelope sustain. Range is 0.0 to 1.0.</p>
-<h4 id="r">R</h4>
-<p>Length of gain envelope release. Range is 0.0001 to 16.0. Unit is seconds.</p>
-<h4 id="curve-1">Curve</h4>
-<p>Curve of gain envelope. Range is 0.0 to 1.0.</p>
+</dd>
+<dt>To Freq1 (LFO/Noise)</dt>
+<dd><p>Modulation from LFO/Noise to <code>Osc1</code> slave frequency. Range is 0.0 to 16.0.</p>
+</dd>
+<dt>To Sync1 (LFO/Noise)</dt>
+<dd><p>Modulation from LFO/Noise to <code>Osc1</code> master frequency. Range is 0.0 to 16.0.</p>
+</dd>
+<dt>To Freq2 (LFO/Noise)</dt>
+<dd><p>Modulation from LFO/Noise to <code>Osc２</code> slave frequency. Range is 0.0 to 16.0.</p>
+</dd>
+<dt>To Sync2 (LFO/Noise)</dt>
+<dd><p>Modulation from LFO/Noise to <code>Osc２</code> master frequency. Range is 0.0 to 16.0.</p>
+</dd>
+</dl>
+<h3 id="gain">Gain</h3>
+<dl>
+<dt>Gain</dt>
+<dd><p>Gain of the synthesizer output. Range is 0.0 to 1.0.</p>
+</dd>
+<dt>A</dt>
+<dd><p>Length of gain envelope attack. Range is 0.0001 to 16.0. Unit is seconds.</p>
+</dd>
+<dt>D</dt>
+<dd><p>Length of gain envelope decay. Range is 0.0001 to 16.0. Unit is seconds.</p>
+</dd>
+<dt>S</dt>
+<dd><p>Value of gain envelope sustain. Range is 0.0 to 1.0.</p>
+</dd>
+<dt>R</dt>
+<dd><p>Length of gain envelope release. Range is 0.0001 to 16.0. Unit is seconds.</p>
+</dd>
+<dt>Curve</dt>
+<dd><p>Curve of gain envelope. Range is 0.0 to 1.0.</p>
 <p>This curve is linear interpolation between direct output and saturated output.</p>
 <pre><code>gainEnv(t) := expEnv(t) * (tanh(3 * Curve * expEnv(t)) - expEnv(t))</code></pre>
+</dd>
+</dl>
 <h3 id="filter">Filter</h3>
-<h4 id="cut">Cut</h4>
-<p>Filter cutoff frequency. Range is 20.0 to 20000.0. Unit is Hz.</p>
-<h4 id="res">Res</h4>
-<p>Biquad filter resonance. Range is 0.001 to 1.0.</p>
+<dl>
+<dt>Cut</dt>
+<dd><p>Filter cutoff frequency. Range is 20.0 to 20000.0. Unit is Hz.</p>
+</dd>
+<dt>Res</dt>
+<dd><p>Biquad filter resonance. Range is 0.001 to 1.0.</p>
 <p>When the value is set to minimum, the output volume will be very small.</p>
-<h4 id="feed">Feed</h4>
-<p>Feedback of serial filter section. Range is 0.0 to 1.0.</p>
+</dd>
+<dt>Feed</dt>
+<dd><p>Feedback of serial filter section. Range is 0.0 to 1.0.</p>
 <p>Internally, 4 biquad filters are serially connected. Feedback send the last output of the filter to first biquad filter in serial section.</p>
-<h4 id="sat">Sat</h4>
-<p>Saturation of filter. Range is 0.01 to 8.0.</p>
+</dd>
+<dt>Sat</dt>
+<dd><p>Saturation of filter. Range is 0.01 to 8.0.</p>
 <p>This value is multiplied to the sum of input signal and feedback before going into wave shaper.</p>
 <pre><code>filterIn = shaper(Sat * (input - Feed * filterOut))</code></pre>
-<h4 id="dirty-buffer">Dirty Buffer</h4>
-<p>If <code>Dirty Buffer</code> is not checked, the buffer of filter will be cleared for each note on.</p>
+</dd>
+<dt>Dirty Buffer</dt>
+<dd><p>If <code>Dirty Buffer</code> is not checked, the buffer of filter will be cleared for each note on.</p>
 <p>Note that while <code>Dirty Filter</code> is turned on, sometimes a glitch pops up at note on.</p>
-<h4 id="filtertype">FilterType</h4>
-<p>Type of filter.</p>
+</dd>
+<dt>FilterType</dt>
+<dd><p>Type of filter.</p>
 <ul>
 <li><code>LP</code> : Low-pass</li>
 <li><code>HP</code> : High-pass</li>
@@ -464,28 +507,39 @@ a, b: some constants.</code></pre>
 <li><code>Notch</code> : Also called as band-stop</li>
 <li><code>Bypass</code></li>
 </ul>
-<h4 id="shapertype">ShaperType</h4>
-<p>Type of wave shaper used for filter saturation.</p>
+</dd>
+<dt>ShaperType</dt>
+<dd><p>Type of wave shaper used for filter saturation.</p>
 <pre><code>HardClip(x) := clamp(x, -1.0, 1.0)
 Tanh(x)     := tanh(x)
 ShaperA(x)  := sin(2 * pi * x) / (1 + 10 * x * x)
 ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
-<h4 id="a-1">A</h4>
-<p>Lenght of filter envelope attack. Range is 0.0001 to 16.0 。単位は.</p>
-<h4 id="d-1">D</h4>
-<p>Lenght of filter envelope decay. Range is 0.0001 to 16.0 。単位は.</p>
-<h4 id="s-1">S</h4>
-<p>Value of filter envelope sustain. Range is 0.0 to 1.0.</p>
-<h4 id="r-1">R</h4>
-<p>Lenght of filter envelope release. Range is 0.0001 to 16.0 。単位は.</p>
-<h4 id="to-cut">To Cut</h4>
-<p>Modulation from filter envelope to cutoff frequency. Range is -1.0 to 1.0.</p>
-<h4 id="to-res">To Res</h4>
-<p>Modulation from filter envelope to resonance. Range is 0.0 to 1.0.</p>
-<h4 id="key-cut">Key-&gt;Cut</h4>
-<p>Modulation from MIDI note number to cutoff frequency. Range is -1.0 to 1.0.</p>
-<h4 id="key-feed">Key-&gt;Feed</h4>
-<p>Modulation from MIDI note number to feedback. Range is -1.0 to 1.0.</p>
+</dd>
+<dt>A</dt>
+<dd><p>Lenght of filter envelope attack. Range is 0.0001 to 16.0 。単位は.</p>
+</dd>
+<dt>D</dt>
+<dd><p>Lenght of filter envelope decay. Range is 0.0001 to 16.0 。単位は.</p>
+</dd>
+<dt>S</dt>
+<dd><p>Value of filter envelope sustain. Range is 0.0 to 1.0.</p>
+</dd>
+<dt>R</dt>
+<dd><p>Lenght of filter envelope release. Range is 0.0001 to 16.0 。単位は.</p>
+</dd>
+<dt>To Cut</dt>
+<dd><p>Modulation from filter envelope to cutoff frequency. Range is -1.0 to 1.0.</p>
+</dd>
+<dt>To Res</dt>
+<dd><p>Modulation from filter envelope to resonance. Range is 0.0 to 1.0.</p>
+</dd>
+<dt>Key-&gt;Cut</dt>
+<dd><p>Modulation from MIDI note number to cutoff frequency. Range is -1.0 to 1.0.</p>
+</dd>
+<dt>Key-&gt;Feed</dt>
+<dd><p>Modulation from MIDI note number to feedback. Range is -1.0 to 1.0.</p>
+</dd>
+</dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
 <li>0.1.11

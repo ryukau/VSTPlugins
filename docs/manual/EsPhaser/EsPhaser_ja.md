@@ -1,3 +1,7 @@
+---
+lang: ja
+...
+
 # EsPhaser
 ![](img/esphaser.png)
 
@@ -80,51 +84,62 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 ![](img/esphaser.svg)
 
 ## パラメータ
-#### Mix
-Dry : Wet の信号比です。右いっぱいにすると Dry : Wet = 0 : 1 になります。
+Mix
 
-#### Freq
-LFO の周波数です。
+:   Dry : Wet の信号比です。右いっぱいにすると Dry : Wet = 0 : 1 になります。
+    
+Freq
 
-#### Spread
-16 個の LFO の間で周波数をずらす量です。
+:   LFO の周波数です。
+    
+Spread
 
-1 サンプル当たりの LFO の位相の進み `deltaPhase` は次の式で計算されます。
+:   16 個の LFO の間で周波数をずらす量です。
+    
+    1 サンプル当たりの LFO の位相の進み `deltaPhase` は次の式で計算されます。
+    
+    ```
+    deltaPhase = 2 * pi * Freq / ((1 + LfoIndex * Spread) * sampleRate)
+    ```
+    
+Feedback
 
-```
-deltaPhase = 2 * pi * Freq / ((1 + LfoIndex * Spread) * sampleRate)
-```
+:   フィードバックの大きさです。 12 時にするとフィードバックなし、左に回すと負のフィードバック、右に回すと正のフィードバックとなります。
+    
+Range
 
-#### Feedback
-フィードバックの大きさです。 12 時にするとフィードバックなし、左に回すと負のフィードバック、右に回すと正のフィードバックとなります。
+:   LFO によって変更するオールパスフィルタの特性の幅です。
+    
+Min
 
-#### Range
-LFO によって変更するオールパスフィルタの特性の幅です。
+:   LFO によって変調するオールパスフィルタの特性の最小値です。
+    
+Cas. Offset
 
-#### Min
-LFO によって変調するオールパスフィルタの特性の最小値です。
+:   16 個の LFO の間で位相をずらす量です。
+    
+L/R Offset
 
-#### Cas. Offset
-16 個の LFO の間で位相をずらす量です。
+:   左右の LFO の位相差です。
+    
+Phase
 
-#### L/R Offset
-左右の LFO の位相差です。
+:   LFO の位相です。オートメーションで音を作りたいときに使えます。 `Freq` を左いっぱいに回すことで LFO の周波数を 0 にできます。
+    
+    最終的な LFO の位相は次の式で計算されます。
+    
+    ```
+    LfoPhaseOffset = Phase + (L/R Offset) + LfoIndex * (Cas. Offset)
+    ```
+    
+Stage
 
-#### Phase
-LFO の位相です。オートメーションで音を作りたいときに使えます。 `Freq` を左いっぱいに回すことで LFO の周波数を 0 にできます。
+:   オールパスフィルタを直列につなぐ個数です。 `Stage` の値に比例して CPU 消費が増えるので注意してください。
+    
+Smooth
 
-最終的な LFO の位相は次の式で計算されます。
-
-```
-LfoPhaseOffset = Phase + (L/R Offset) + LfoIndex * (Cas. Offset)
-```
-
-#### Stage
-オールパスフィルタを直列につなぐ個数です。 `Stage` の値に比例して CPU 消費が増えるので注意してください。
-
-#### Smooth
-パラメータを変更したときに、変更前の値から変更後の値へと移行する秒数です。 `Stage` 以外のパラメータに有効です。
-
+:   パラメータを変更したときに、変更前の値から変更後の値へと移行する秒数です。 `Stage` 以外のパラメータに有効です。
+    
 ## チェンジログ
 - 0.1.2
   - 文字列の描画でクラッシュするバグを修正。

@@ -1,9 +1,13 @@
+---
+lang: ja
+...
+
 # LightPadSynth
 ![](img/lightpadsynth.png)
 
 <ruby>LightPadSynth<rt>ライト パッド シンセ</rt></ruby> はピッチ変調を無くして補間を線形補完に変えた CubicPadSynth の軽量版です。ピッチ変調ができなくなった代わりに、各ボイスにディレイを追加しています。
 
-- [LightPadSynth 0.1.1 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.1/LightPadSynth0.1.1.zip) <img
+- [LightPadSynth 0.1.2 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/LightPadSynth0.1.2.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -74,7 +78,7 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 Wavetable タブの `Gain`, `Width`, `Pitch`, `Phase` と Main タブの `LFO Wave` で使われている青い縦棒が並んだコントロール (BarBox) ではショートカットが使えます。ショートカットは BarBox を左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを BarBox の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。 Information タブを開くとショートカットの一覧を見ることができます。
 
 | 入力                                    | 操作                                       |
-| --------------------------------------- | ------------------------------------------ |
+| :-------------------------------------- | :----------------------------------------- |
 | <kbd>Ctrl</kbd> + <kbd>Left Click</kbd> | デフォルト値にリセット                     |
 | <kbd>Mouse Middle Drag</kbd>            | 直線の描画                                 |
 | <kbd>d</kbd>                            | すべての値をデフォルト値にリセット         |
@@ -120,243 +124,284 @@ Wavetable タブの `Gain`, `Width`, `Pitch`, `Phase` と Main タブの `LFO Wa
 ![](img/lightpadsynth.png)
 
 #### Gain
-##### A, D, S, R
-音量エンベロープのパラメータです。
+A, D, S, R
 
-- `A` (Attack) : 鍵盤を押した瞬間から最大音量になるまでのアタック時間。
-- `D` (Decay) : 最大音量からサステイン音量になるまでのディケイ時間。
-- `S` (Sustain) : アタックとディケイが終わった後に鍵盤を押し続けているときのサステイン音量。
-- `R` (Release) : 鍵盤から指を離したあとに音量が 0 になるまでのリリース時間。
+:   音量エンベロープのパラメータです。
 
-##### Gain
-音量を変更します。
+    - `A` (Attack) : 鍵盤を押した瞬間から最大音量になるまでのアタック時間。
+    - `D` (Decay) : 最大音量からサステイン音量になるまでのディケイ時間。
+    - `S` (Sustain) : アタックとディケイが終わった後に鍵盤を押し続けているときのサステイン音量。
+    - `R` (Release) : 鍵盤から指を離したあとに音量が 0 になるまでのリリース時間。
+
+Gain
+
+:   音量を変更します。
 
 #### Lowpass
 素朴な 3-pole ローパスフィルタです。
 
-##### Cutoff
-フィルタのカットオフ周波数です。
+Cutoff
 
-##### Resonance
-フィルタのレゾナンスです。最大にすると音量が大きくなるので注意してください。
+:   フィルタのカットオフ周波数です。
 
-##### KeyFollow
-右いっぱいに回すと、カットオフ周波数がノートの音程と同じになります。左いっぱいに回すと音程に関わらず `Cutoff` で設定されたカットオフ周波数を使います。
+Resonance
 
-##### A, D, S, R, Amount
-フィルタのカットオフ周波数を変調するエンベロープのパラメータです。 `Amount` は `Cutoff` への変調量です。
+:   フィルタのレゾナンスです。最大にすると音量が大きくなるので注意してください。
+
+KeyFollow
+
+:   右いっぱいに回すと、カットオフ周波数がノートの音程と同じになります。左いっぱいに回すと音程に関わらず `Cutoff` で設定されたカットオフ周波数を使います。
+
+A, D, S, R, Amount
+
+:   フィルタのカットオフ周波数を変調するエンベロープのパラメータです。 `Amount` は `Cutoff` への変調量です。
 
 #### Tuning
-##### Octave, Semi, Milli
-全体の音の高さを変更します。
+Octave, Semi, Milli
 
-- `Octave`: オクターブ
-- `Semi`: 半音
-- `Milli`: 半音の 1 / 1000 。 1 / 10 セント。
+:   全体の音の高さを変更します。
 
-##### ET, A4 [Hz]
-音律を変更します。
+    - `Octave`: オクターブ
+    - `Semi`: 半音
+    - `Milli`: 半音の 1 / 1000 。 1 / 10 セント。
 
-`ET` は Equal Temperature (平均律) の略です。 `ET` が 12 のときは 12 平均律となります。 `ET` を 12 よりも小さくすると無音になる範囲が増えるので注意してください。
+ET, A4 [Hz]
 
-`A4 [Hz]` は、音程 A4 の周波数です。
+:   音律を変更します。
+
+    `ET` は Equal Temperature (平均律) の略です。 `ET` が 12 のときは 12 平均律となります。 `ET` を 12 よりも小さくすると無音になる範囲が増えるので注意してください。
+
+    `A4 [Hz]` は、音程 A4 の周波数です。
 
 #### Unison
-##### nUnison
-ユニゾンに使うボイスの数です。
+nUnison
 
-`Misc.` の `nVoice` を増やすことで `nUnison` が大きいときに起こるリリースの途切れを減らすことができますが、引き換えに動作が重くなります。
+:   ユニゾンに使うボイスの数です。
 
-##### Detune, Random Detune
-`Detune` はユニゾンに使われているボイスのピッチをずらす量です。
+    `Misc.` の `nVoice` を増やすことで `nUnison` が大きいときに起こるリリースの途切れを減らすことができますが、引き換えに動作が重くなります。
 
-`Random Detune` のチェックを入れると、ピッチがずれる量がノートオンごとにランダムに変わるようになります。
+Detune, Random Detune
 
-```
-random = RandomDetune ? rand() : 1
-detune = pitch * (1 + random * unisonIndex * Detune)
-```
+:   `Detune` はユニゾンに使われているボイスのピッチをずらす量です。
 
-##### GainRnd
-ユニゾンに使われているボイスの音量をランダムに変更する量です。
+    `Random Detune` のチェックを入れると、ピッチがずれる量がノートオンごとにランダムに変わるようになります。
 
-##### Phase
-ユニゾンに使われているボイスの位相をランダムに変更する量です。
+    ```
+    random = RandomDetune ? rand() : 1
+    detune = pitch * (1 + random * unisonIndex * Detune)
+    ```
 
-Phase セクションの `Reset` にチェックが入っていないとき、この値は無視されます。
+GainRnd
 
-##### Spread, Spread Type
-`Spread` はユニゾンの左右の広がりの量です。
+:   ユニゾンに使われているボイスの音量をランダムに変更する量です。
 
-`Spread Type` でボイスのピッチに応じたパンの割り当て方を選択できます。
+Phase
 
-- `Alternate L-R`: `Ascend L -> R` と `Ascend R -> L` を交互に変更。
-- `Alternate M-S`: `HighOnMid` と `HighOnSide` を交互に変更。
-- `Ascend L -> R`: 左から右に向かってピッチが上昇。
-- `Ascend R -> L`: 右から左に向かってピッチが上昇。
-- `HighOnMid`: 端から中央に向かってピッチが上昇。
-- `HighOnSide`: 中央から端に向かってピッチが上昇。
-- `Random`: ランダムに生成したパンを割り当て。偏ることがあります。
-- `RotateL`: ノートオンごとに割り当てを左に回転。
-- `RotateR`: ノートオンごとに割り当てを右に回転。
-- `Shuffle`: 均一に並べたパンをランダムに割り当て。
+:   ユニゾンに使われているボイスの位相をランダムに変更する量です。
+
+    Phase セクションの `Reset` にチェックが入っていないとき、この値は無視されます。
+
+Spread, Spread Type
+
+:   `Spread` はユニゾンの左右の広がりの量です。
+
+    `Spread Type` でボイスのピッチに応じたパンの割り当て方を選択できます。
+
+    - `Alternate L-R`: `Ascend L -> R` と `Ascend R -> L` を交互に変更。
+    - `Alternate M-S`: `HighOnMid` と `HighOnSide` を交互に変更。
+    - `Ascend L -> R`: 左から右に向かってピッチが上昇。
+    - `Ascend R -> L`: 右から左に向かってピッチが上昇。
+    - `HighOnMid`: 端から中央に向かってピッチが上昇。
+    - `HighOnSide`: 中央から端に向かってピッチが上昇。
+    - `Random`: ランダムに生成したパンを割り当て。偏ることがあります。
+    - `RotateL`: ノートオンごとに割り当てを左に回転。
+    - `RotateR`: ノートオンごとに割り当てを右に回転。
+    - `Shuffle`: 均一に並べたパンをランダムに割り当て。
 
 #### Phase
-##### Phase
-オシレータの初期位相です。
+Phase
 
-##### Reset
-チェックを入れると、ノートオンのたびにオシレータの位相を `Phase` で指定した値にリセットします。
+:   オシレータの初期位相です。
 
-##### Random
-チェックを入れると、ノートオンごとに位相をランダマイズします。 `Phase` で指定した値がランダマイズの範囲になります。
+Reset
+
+:   チェックを入れると、ノートオンのたびにオシレータの位相を `Phase` で指定した値にリセットします。
+
+Random
+
+:   チェックを入れると、ノートオンごとに位相をランダマイズします。 `Phase` で指定した値がランダマイズの範囲になります。
 
 #### Misc.
-##### Smooth
-特定の値を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。
+Smooth
 
-`Smooth` と関連するパラメータのリストです。 `*` はワイルドカードです。
+:   特定の値を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。
 
-- Tuning セクションの全て
-- Gain
-  - `Gain`
-  - `S`
-- Lowpass
-  - `Cutoff`
-  - `S`
-  - `Amount`
-  - `KeyFollow`
-- Delay
-  - `Mix`
-  - `Feedback`
-  - `Attack`
-  - `Semi`
-  - `Milli`
-- Delay LFO
-  - `Tempo`
-  - `Multiply`
-  - `Amount`
-  - `Lowpass`
-- Phase
-  - `Phase`
+    `Smooth` と関連するパラメータのリストです。 `*` はワイルドカードです。
 
-##### Poly
-最大同時発音数です。値を小さくすると CPU 消費が減ります。
+    - Tuning セクションの全て
+    - Gain
+      - `Gain`
+      - `S`
+    - Lowpass
+      - `Cutoff`
+      - `S`
+      - `Amount`
+      - `KeyFollow`
+    - Delay
+      - `Mix`
+      - `Feedback`
+      - `Attack`
+      - `Semi`
+      - `Milli`
+    - Delay LFO
+      - `Tempo`
+      - `Multiply`
+      - `Amount`
+      - `Lowpass`
+    - Phase
+      - `Phase`
 
-##### Seed
-乱数のシード値です。この値を変えると生成される乱数が変わります。
+Poly
 
-`Main` タブと `Wavetable` タブでは異なる乱数列が使われています。
+:   最大同時発音数です。値を小さくすると CPU 消費が減ります。
+
+Seed
+
+:   乱数のシード値です。この値を変えると生成される乱数が変わります。
+
+    `Main` タブと `Wavetable` タブでは異なる乱数列が使われています。
 
 #### Delay
-##### Mix
-フィルタ出力とディレイ出力を混ぜる比率です。
+Mix
 
-##### Feedback
-ディレイのフィードバックです。右に回すと正のフィードバック、左に回すと負のフィードバックがかかります。
+:   フィルタ出力とディレイ出力を混ぜる比率です。
 
-##### Attack
-フィルタからの出力をディレイに入力するときに掛け合わされるゲートのアタック時間です。
+Feedback
 
-##### Semi, Milli
-ノートの周波数から相対的に決められるディレイ時間です。次の式で計算されます。
+:   ディレイのフィードバックです。右に回すと正のフィードバック、左に回すと負のフィードバックがかかります。
 
-```
-delayTime = 1 / (noteFreq * pow(2, (semi + 0.001 * milli) / 12))
-```
+Attack
+
+:   フィルタからの出力をディレイに入力するときに掛け合わされるゲートのアタック時間です。
+
+Semi, Milli
+
+:   ノートの周波数から相対的に決められるディレイ時間です。次の式で計算されます。
+
+    ```
+    delayTime = 1 / (noteFreq * pow(2, (semi + 0.001 * milli) / 12))
+    ```
 
 #### LFO
-##### Tempo, Multiply
-LFO の周波数をテンポに応じた形で指定します。 `Tempo` の下の数字が音符の長さ、上の数字が音符の数です。例えば上が 6 、下が 8 なら 8 分音符の 6 個分の長さが LFO の 1 周期になります (6 / 8 拍子)。
+Tempo, Multiply
 
-`Multiply` は `Tempo` から計算された周波数に掛け合わされる値です。
+:   LFO の周波数をテンポに応じた形で指定します。 `Tempo` の下の数字が音符の長さ、上の数字が音符の数です。例えば上が 6 、下が 8 なら 8 分音符の 6 個分の長さが LFO の 1 周期になります (6 / 8 拍子)。
 
-```
-// (60 秒) * (4 拍子) = 240 。
-lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)
-```
+    `Multiply` は `Tempo` から計算された周波数に掛け合わされる値です。
 
-##### Amount
-LFO でピッチを変調する量です。
+    ```
+    // (60 秒) * (4 拍子) = 240 。
+    lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)
+    ```
 
-##### Lowpass
-LFO にかけるローパスフィルタのカットオフ周波数を変更します。
+Amount
 
-##### Interpolation
-LFO のウェーブテーブルの補間の種類です。
+:   LFO でピッチを変調する量です。
 
-![](img/interpolation_type.png)
+Lowpass
 
-##### Refresh LFO
-現在の `LFO Wave` のパラメータに基づいて LFO のウェーブテーブルを更新します。
+:   LFO にかけるローパスフィルタのカットオフ周波数を変更します。
 
-ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。
+Interpolation
 
-##### LFO Wave
-LFO の波形です。
+:   LFO のウェーブテーブルの補間の種類です。
+
+    ![](img/interpolation_type.png)
+
+Refresh LFO
+
+:   現在の `LFO Wave` のパラメータに基づいて LFO のウェーブテーブルを更新します。
+
+    ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。
+
+LFO Wave
+
+:   LFO の波形です。
 
 ### Wavetable タブ
 ![](img/lightpadsynth_wavetable_tab.png)
 
 #### 倍音コントロール
-##### Gain
-プロファイルの高さです。
+Gain
 
-##### Width
-プロファイルの幅です。
+:   プロファイルの高さです。
 
-##### Pitch
-プロファイルの周波数にかけ合わせる値です。
+Width
 
-##### Phase
-プロファイルの位相をランダマイズする量です。
+:   プロファイルの幅です。
+
+Pitch
+
+:   プロファイルの周波数にかけ合わせる値です。
+
+Phase
+
+:   プロファイルの位相をランダマイズする量です。
 
 #### Pitch
-##### Base Freq.
-ウェーブテーブルのレンダリング時の基本周波数です。この値が小さいとマスターピッチのチューニングが狂うことがあるので注意してください。
+Base Freq.
 
-##### Multiply, Modulo
-プロファイルの周波数を変更します。
+:   ウェーブテーブルのレンダリング時の基本周波数です。この値が小さいとマスターピッチのチューニングが狂うことがあるので注意してください。
 
-```
-profileFrequency = mod(
-  BaseFreq * profileIndex * overtonePitch * Multiply,
-  440 * pow(2, (Modulo - 69) / 12)
-)
-```
+Multiply, Modulo
+
+:   プロファイルの周波数を変更します。
+
+    ```
+    profileFrequency = mod(
+      BaseFreq * profileIndex * overtonePitch * Multiply,
+      440 * pow(2, (Modulo - 69) / 12)
+    )
+    ```
 
 #### Spectrum
-##### Expand
-スペクトラムを周波数軸に沿って拡大・縮小するスケーリング係数です。
+Expand
 
-![](img/expand.svg)
+:   スペクトラムを周波数軸に沿って拡大・縮小するスケーリング係数です。
 
-##### Shift
-スペクトラムを左右にシフトする量です。
+    ![](img/expand.svg)
 
-![](img/shift.svg)
+Shift
 
-##### Comb
-`Comb` の値が 1 以上のとき、プロファイルをくし状に変形します。値はくしのすき間の間隔です。
+:   スペクトラムを左右にシフトする量です。
 
-![](img/comb.png)
+    ![](img/shift.svg)
 
-##### Shape
-`Shape` の値を指数として、プロファイルの形をべき乗によって変更します。
+Comb
 
-```
-shapedProfile = powf(profile, shape);
-```
+:   `Comb` の値が 1 以上のとき、プロファイルをくし状に変形します。値はくしのすき間の間隔です。
+
+    ![](img/comb.png)
+
+Shape
+
+:   `Shape` の値を指数として、プロファイルの形をべき乗によって変更します。
+
+    ```
+    shapedProfile = powf(profile, shape);
+    ```
 
 #### Phase
-##### UniformPhase
-チェックを入れると、プロファイル内での位相を均一にします。
+UniformPhase
+
+:   チェックを入れると、プロファイル内での位相を均一にします。
 
 #### Random
-##### Seed
-乱数のシード値です。この値を変えると生成される乱数が変わります。
+Seed
 
-`Main` タブと `Wavetable` タブでは異なる乱数列が使われています。
+:   乱数のシード値です。この値を変えると生成される乱数が変わります。
+
+    `Main` タブと `Wavetable` タブでは異なる乱数列が使われています。
 
 #### BufferSize
 1 つのウェーブテーブルの大きさです。 `2^10` から `2^21` の範囲の 2 のべき乗の値を選択できます。
@@ -368,11 +413,21 @@ bytes = 4 * 128 * BufferSize
 ```
 
 #### Modifier
-##### Gain^
-倍音コントロールの `Gain` をべき乗する値です。
+Gain^
 
-##### Width*
-倍音コントロールの `Width` にかけ合わせる値です。
+:   倍音コントロールの `Gain` をべき乗する値です。
+
+    ```
+    profileGain = pow(Gain, Gain^)
+    ```
+
+Width\*
+
+:   倍音コントロールの `Width` にかけ合わせる値です。
+
+    ```
+    profileWidth = Width * (Width*)
+    ```
 
 #### Refresh Table
 現在の Wavetable タブのパラメータに基づいてオシレータのウェーブテーブルを更新します。
@@ -380,12 +435,15 @@ bytes = 4 * 128 * BufferSize
 ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。
 
 ## チェンジログ
+- 0.1.2
+  - 起動時にパラメータがロードされる前にウェーブテーブルが更新されるバグを修正。
 - 0.1.1
   - Refresh LFO ボタンと Refresh Table ボタンをメッセージからパラメータに修正。
 - 0.1.0
   - 初期リリース。
 
 ### 旧バージョン
+- [LightPadSynth 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.1/LightPadSynth0.1.1.zip)
 - [LightPadSynth 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynth0.1.0.zip)
 
 ## ライセンス

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" >
 
 <head>
 <meta charset="utf-8" />
@@ -92,12 +92,18 @@ video {
   max-width: 100%;
 }
 
+details.list > summary {
+  line-height: 3em;
+}
+
 kbd {
+  font-family: inherit;
   border-style: solid;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 2px;
+  padding: 4px;
   margin: 2px;
+  line-height: calc(1em + 16px);
 }
 
 a {
@@ -111,53 +117,82 @@ h1 {
 }
 
 h2 {
-  border-left: solid 32px #163eac;
+  border-left: solid 32px #2851c2;
   padding-left: 24px;
 }
 
 h3 {
-  border-left: solid 20px #163eac;
+  border-left: solid 20px #4d74dd;
   padding-left: 16px;
 }
 
-h4, h5, h6 {
-  border-left: solid 8px #163eac;
+h4 {
+  border-left: solid 12px #6a88da;
   padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
 }
 
 table {
   border-spacing: 0px;
   border-collapse: separate;
-  border: 1px solid #dddddd;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
 }
 
-tr.header {
-  border: 1px solid black;
-}
-
-tr.odd {
+tr:nth-child(odd) {
   background: #eeeeee;
 }
 
-tr.even {
+tr:nth-child(even) {
   background: #ffffff;
 }
 
 th {
   height: 2em;
-  font-weight: normal;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 3px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
 }
 
 td {
   height: 1.5em;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
 }
 
 audio {
@@ -168,12 +203,27 @@ label {
   vertical-align: middle;
 }
 
-code {
-  color: #163eac;
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
 }
 
-pre {
-  border: 4px solid #eeeeee;
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
 }
 
 li {
@@ -219,28 +269,8 @@ footer {
   <li><a href="#注意">注意</a></li>
   <li><a href="#ブロック線図">ブロック線図</a></li>
   <li><a href="#パラメータ">パラメータ</a><ul>
-  <li><a href="#delay">Delay</a><ul>
-  <li><a href="#time">Time</a></li>
-  <li><a href="#feedback">Feedback</a></li>
-  <li><a href="#stereo">Stereo</a></li>
-  <li><a href="#wet">Wet</a></li>
-  <li><a href="#dry">Dry</a></li>
-  <li><a href="#sync">Sync</a></li>
-  <li><a href="#negative">Negative</a></li>
-  <li><a href="#spreadpan">Spread/Pan</a></li>
-  <li><a href="#allpass-cut">Allpass Cut</a></li>
-  <li><a href="#allpass-q">Allpass Q</a></li>
-  <li><a href="#dc-kill">DC Kill</a></li>
-  <li><a href="#smooth">Smooth</a></li>
-  </ul></li>
-  <li><a href="#lfo">LFO</a><ul>
-  <li><a href="#to-time">To Time</a></li>
-  <li><a href="#to-allpass">To Allpass</a></li>
-  <li><a href="#frequency">Frequency</a></li>
-  <li><a href="#shape">Shape</a></li>
-  <li><a href="#phase">Phase</a></li>
-  <li><a href="#hold">Hold</a></li>
-  </ul></li>
+  <li><a href="#delay">Delay</a></li>
+  <li><a href="#lfo">LFO</a></li>
   </ul></li>
   <li><a href="#チェンジログ">チェンジログ</a><ul>
   <li><a href="#旧バージョン">旧バージョン</a></li>
@@ -317,31 +347,39 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p><img src="img/sevendelay.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
 <h3 id="delay">Delay</h3>
-<h4 id="time">Time</h4>
-<p>ディレイ時間。範囲は 0.0001 から 8.0 です。</p>
+<dl>
+<dt>Time</dt>
+<dd><p>ディレイ時間。範囲は 0.0001 から 8.0 です。</p>
 <ul>
 <li>もし <code>Sync</code> が有効で <code>Time</code> が 1.0 より小さいときは、ディレイ時間が <code>Time / 16</code> 拍に設定されます。</li>
 <li>もし <code>Sync</code> が有効で <code>Time</code> が 1.0 以上のときは、ディレイ時間が <code>floor(2 * Time) / 32</code> 拍に設定されます。</li>
 <li>それ以外のときは、ディレイ時間が <code>time</code> 秒に設定されます。</li>
 </ul>
-<h4 id="feedback">Feedback</h4>
-<p>ディレイのフィードバック。範囲は 0.0 から 1.0 です。</p>
-<h4 id="stereo">Stereo</h4>
-<p>左右のディレイ時間のオフセット。範囲は -1.0 から 1.0 です。</p>
+</dd>
+<dt>Feedback</dt>
+<dd><p>ディレイのフィードバック。範囲は 0.0 から 1.0 です。</p>
+</dd>
+<dt>Stereo</dt>
+<dd><p>左右のディレイ時間のオフセット。範囲は -1.0 から 1.0 です。</p>
 <ul>
 <li>もし <code>Stereo</code> が 0.0 より小さいときは、左チャンネルのディレイ時間が <code>timeL * (1.0 + Stereo)</code> に変更されます。</li>
 <li>それ以外のときは、右チャンネルのディレイ時間が <code>timeR * (1.0 + Stereo)</code> に変更されます。</li>
 </ul>
-<h4 id="wet">Wet</h4>
-<p>ディレイ信号の出力音量。範囲は 0.0 から 1.0 。</p>
-<h4 id="dry">Dry</h4>
-<p>入力信号の出力音量。範囲は 0.0 から 1.0 。</p>
-<h4 id="sync">Sync</h4>
-<p>テンポシンクの切り替え。</p>
-<h4 id="negative">Negative</h4>
-<p>負のフィードバックの切り替え。ディレイ時間がとても短いときに役立つかもしれません。</p>
-<h4 id="spreadpan">Spread/Pan</h4>
-<p>入力の広がり (In Spread) 、入力のパン (In Pan) 、出力の広がり (Out Spread) 、出力のパン (Out Pan) 。範囲は 0.0 から 1.0 です。</p>
+</dd>
+<dt>Wet</dt>
+<dd><p>ディレイ信号の出力音量。範囲は 0.0 から 1.0 。</p>
+</dd>
+<dt>Dry</dt>
+<dd><p>入力信号の出力音量。範囲は 0.0 から 1.0 。</p>
+</dd>
+<dt>Sync</dt>
+<dd><p>テンポシンクの切り替え。</p>
+</dd>
+<dt>Negative</dt>
+<dd><p>負のフィードバックの切り替え。ディレイ時間がとても短いときに役立つかもしれません。</p>
+</dd>
+<dt>Spread/Pan</dt>
+<dd><p>入力の広がり (In Spread) 、入力のパン (In Pan) 、出力の広がり (Out Spread) 、出力のパン (Out Pan) 。範囲は 0.0 から 1.0 です。</p>
 <p><code>In Spread</code> 、 <code>Out Spread</code> はステレオの広がりを制御します。 <code>In Pan</code> 、 <code>Out Pan</code> はステレオのパンニングを制御します。</p>
 <p>これらのパラメータはパンニングの逆転やピンポンディレイを作るときに使えます。</p>
 <ul>
@@ -353,36 +391,50 @@ panR = clamp(2 * pan - spread, 0.0, 1.0)
 
 signalL = incomingL + panL * (incomingR - incomingL)
 signalR = incomingL + panR * (incomingR - incomingL)</code></pre>
-<h4 id="allpass-cut">Allpass Cut</h4>
-<p>SVF オールパスフィルタのカットオフ周波素。範囲は 90.0 から 20000.0 です。</p>
+</dd>
+<dt>Allpass Cut</dt>
+<dd><p>SVF オールパスフィルタのカットオフ周波素。範囲は 90.0 から 20000.0 です。</p>
 <p><code>tone</code> が 20000.0 のとき、フィルタはバイパスされます。</p>
-<h4 id="allpass-q">Allpass Q</h4>
-<p>SVF オールパスフィルタのレゾナンス。範囲は 0.00001 から 1.0 です。</p>
+</dd>
+<dt>Allpass Q</dt>
+<dd><p>SVF オールパスフィルタのレゾナンス。範囲は 0.00001 から 1.0 です。</p>
 <p>値が大きいほどレゾナンスが強くなります。</p>
-<h4 id="dc-kill">DC Kill</h4>
-<p>ハイパスフィルタのカットオフ周波数。範囲は 5.0 から 120.0 です。</p>
+</dd>
+<dt>DC Kill</dt>
+<dd><p>ハイパスフィルタのカットオフ周波数。範囲は 5.0 から 120.0 です。</p>
 <p><code>DC Kill</code> を 5.0 より大きく設定すればディレイのフィードバックから直流信号を取り除くことができます。</p>
-<h4 id="smooth">Smooth</h4>
-<p>パラメータ平滑化の度合い。範囲は 0.0 から 1.0 で、単位は秒です。</p>
+</dd>
+<dt>Smooth</dt>
+<dd><p>パラメータ平滑化の度合い。範囲は 0.0 から 1.0 で、単位は秒です。</p>
 <p>パラメータによっては値が急激に変化するとノイズが出ることがあります。 <code>Smooth</code> の値を大きめにすることで、値の変化を緩やかにしてノイズを減らすことができます。</p>
+</dd>
+</dl>
 <h3 id="lfo">LFO</h3>
-<h4 id="to-time">To Time</h4>
-<p>LFO によるディレイ時間の変調量。範囲は 0.0 から 1.0 です。</p>
-<h4 id="to-allpass">To Allpass</h4>
-<p>LFO によるオールパスフィルタのカットオフ周波数の変調量。範囲は 0.0 から 1.0 です。</p>
-<h4 id="frequency">Frequency</h4>
-<p>LFO の周波数。範囲は 0.01 から 100.0 。</p>
-<h4 id="shape">Shape</h4>
-<p>LFO の波形。範囲は 0.01 から 10.0 。</p>
+<dl>
+<dt>To Time</dt>
+<dd><p>LFO によるディレイ時間の変調量。範囲は 0.0 から 1.0 です。</p>
+</dd>
+<dt>To Allpass</dt>
+<dd><p>LFO によるオールパスフィルタのカットオフ周波数の変調量。範囲は 0.0 から 1.0 です。</p>
+</dd>
+<dt>Frequency</dt>
+<dd><p>LFO の周波数。範囲は 0.01 から 100.0 。</p>
+</dd>
+<dt>Shape</dt>
+<dd><p>LFO の波形。範囲は 0.01 から 10.0 。</p>
 <pre><code>sign = 1 if (phase &gt; π),
       -1 if (phase &lt; π),
        0 if (phase == π)
 lfo = sign * abs(sin(phase))^shape</code></pre>
-<h4 id="phase">Phase</h4>
-<p>LFO の位相の初期値。範囲は 0.0 から 2π 。</p>
+</dd>
+<dt>Phase</dt>
+<dd><p>LFO の位相の初期値。範囲は 0.0 から 2π 。</p>
 <p>LFO の位相はホストが演奏を開始するたびに <code>Phase</code> の値にリセットされます。</p>
-<h4 id="hold">Hold</h4>
-<p>LFO の位相のホールドの切り替え。ライブ演奏などで役に立つかもしれません。</p>
+</dd>
+<dt>Hold</dt>
+<dd><p>LFO の位相のホールドの切り替え。ライブ演奏などで役に立つかもしれません。</p>
+</dd>
+</dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
 <li>0.1.9

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" >
 
 <head>
 <meta charset="utf-8" />
@@ -92,12 +92,18 @@ video {
   max-width: 100%;
 }
 
+details.list > summary {
+  line-height: 3em;
+}
+
 kbd {
+  font-family: inherit;
   border-style: solid;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 2px;
+  padding: 4px;
   margin: 2px;
+  line-height: calc(1em + 16px);
 }
 
 a {
@@ -111,53 +117,82 @@ h1 {
 }
 
 h2 {
-  border-left: solid 32px #163eac;
+  border-left: solid 32px #2851c2;
   padding-left: 24px;
 }
 
 h3 {
-  border-left: solid 20px #163eac;
+  border-left: solid 20px #4d74dd;
   padding-left: 16px;
 }
 
-h4, h5, h6 {
-  border-left: solid 8px #163eac;
+h4 {
+  border-left: solid 12px #6a88da;
   padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
 }
 
 table {
   border-spacing: 0px;
   border-collapse: separate;
-  border: 1px solid #dddddd;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
 }
 
-tr.header {
-  border: 1px solid black;
-}
-
-tr.odd {
+tr:nth-child(odd) {
   background: #eeeeee;
 }
 
-tr.even {
+tr:nth-child(even) {
   background: #ffffff;
 }
 
 th {
   height: 2em;
-  font-weight: normal;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 3px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
 }
 
 td {
   height: 1.5em;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
 }
 
 audio {
@@ -168,12 +203,27 @@ label {
   vertical-align: middle;
 }
 
-code {
-  color: #163eac;
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
 }
 
-pre {
-  border: 4px solid #eeeeee;
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
 }
 
 li {
@@ -218,39 +268,14 @@ footer {
   <li><a href="#操作">操作</a></li>
   <li><a href="#ブロック線図">ブロック線図</a></li>
   <li><a href="#パラメータ">パラメータ</a><ul>
-  <li><a href="#gain">Gain</a><ul>
-  <li><a href="#boost-gain">Boost, Gain</a></li>
-  <li><a href="#adsr">ADSR</a></li>
-  <li><a href="#curve">Curve</a></li>
-  </ul></li>
+  <li><a href="#gain">Gain</a></li>
   <li><a href="#shelving">Shelving</a></li>
-  <li><a href="#pitch">Pitch</a><ul>
-  <li><a href="#add-aliasing">Add Aliasing</a></li>
-  <li><a href="#reverse-semi">Reverse Semi</a></li>
-  <li><a href="#octave">Octave</a></li>
-  <li><a href="#et">ET</a></li>
-  <li><a href="#multiply-modulo">Multiply, Modulo</a></li>
-  </ul></li>
+  <li><a href="#pitch">Pitch</a></li>
   <li><a href="#smooth">Smooth</a></li>
   <li><a href="#nvoice">nVoice</a></li>
-  <li><a href="#random">Random</a><ul>
-  <li><a href="#retrigger">Retrigger</a></li>
-  <li><a href="#seed">Seed</a></li>
-  <li><a href="#to-gain">To Gain</a></li>
-  <li><a href="#to-pitch">To Pitch</a></li>
-  </ul></li>
+  <li><a href="#random">Random</a></li>
   <li><a href="#note-chord-overtone">Note, Chord, Overtone</a></li>
-  <li><a href="#chorus">Chorus</a><ul>
-  <li><a href="#mix">Mix</a></li>
-  <li><a href="#freq">Freq</a></li>
-  <li><a href="#depth">Depth</a></li>
-  <li><a href="#range">Range</a></li>
-  <li><a href="#time">Time</a></li>
-  <li><a href="#phase">Phase</a></li>
-  <li><a href="#offset">Offset</a></li>
-  <li><a href="#feedback">Feedback</a></li>
-  <li><a href="#key-follow">Key Follow</a></li>
-  </ul></li>
+  <li><a href="#chorus">Chorus</a></li>
   </ul></li>
   <li><a href="#チェンジログ">チェンジログ</a><ul>
   <li><a href="#旧バージョン">旧バージョン</a></li>
@@ -335,19 +360,24 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p><img src="img/iterativesincluster.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
 <h3 id="gain">Gain</h3>
-<h4 id="boost-gain">Boost, Gain</h4>
-<p>どちらも音量を調整します。出力のピーク値は <code>Boost * Gain</code> となります。</p>
+<dl>
+<dt>Boost, Gain</dt>
+<dd><p>どちらも音量を調整します。出力のピーク値は <code>Boost * Gain</code> となります。</p>
 <p><code>Note</code> 、 <code>Chord</code> 、 <code>Overtone</code> のゲインを調整すると音がかなり小さくなることがあります。そんなときに <code>Boost</code> が使えます。</p>
-<h4 id="adsr">ADSR</h4>
-<p>音量エンベロープのパラメータです。</p>
+</dd>
+<dt>ADSR</dt>
+<dd><p>音量エンベロープのパラメータです。</p>
 <ul>
 <li><code>A</code> (Attack) : 鍵盤を押した瞬間から最大音量になるまでのアタック時間。</li>
 <li><code>D</code> (Decay) : 最大音量からサステイン音量になるまでのディケイ時間。</li>
 <li><code>S</code> (Sustain) : アタックとディケイが終わった後に鍵盤を押し続けているときのサステイン音量。</li>
 <li><code>R</code> (Release) : 鍵盤から指を離したあとに音量が 0 になるまでのリリース時間。</li>
 </ul>
-<h4 id="curve">Curve</h4>
-<p>音量エンベロープのアタックの曲線を変更するパラメータ。</p>
+</dd>
+<dt>Curve</dt>
+<dd><p>音量エンベロープのアタックの曲線を変更するパラメータ。</p>
+</dd>
+</dl>
 <h3 id="shelving">Shelving</h3>
 <p><code>Low</code> と <code>High</code> の 2 つのシェルビングができます。</p>
 <p>カットオフ周波数はノートの音程を基準として、 <code>Semi</code> で指定した半音単位で相対的に決まります。例えば音程が C4 、 <code>Semi</code> が 12.000 のときは カットオフ周波数は <code>C4 + 12 半音 = C5</code> になります。</p>
@@ -357,19 +387,26 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><code>High</code> シェルビングは <code>Semi</code> で指定したカットオフ周波数<strong>以上</strong>のサイン波の音量を変更します。</li>
 </ul>
 <h3 id="pitch">Pitch</h3>
-<h4 id="add-aliasing">Add Aliasing</h4>
-<p>チェックを入れると、ナイキスト周波数より高い周波数が指定されたサイン波もレンダリングします。</p>
+<dl>
+<dt>Add Aliasing</dt>
+<dd><p>チェックを入れると、ナイキスト周波数より高い周波数が指定されたサイン波もレンダリングします。</p>
 <p>ナイキスト周波数とは、ざっくりいえば録音したデータが再現可能な最高周波数のことです。音を生成するときはナイキスト周波数以上の値を指定することができますが、折り返し（エイリアシング）と呼ばれる現象によって計算結果は予期しない周波数になってしまいます。 <code>Add Aliasing</code> は、こうしたエイリアシングノイズを足し合わせるオプションです。</p>
-<h4 id="reverse-semi">Reverse Semi</h4>
-<p>チェックを入れると、 <code>Semi</code> の符号を逆転させます。たとえば <code>7.000</code> は <code>-7.000</code> として処理されます。</p>
-<h4 id="octave">Octave</h4>
-<p>ノートのオクターブです。</p>
-<h4 id="et">ET</h4>
-<p>平均律の値です。この値によって <code>Semi</code> と <code>Milli</code> の調律を変更できます。例えば <code>ET</code> が 12 なら 12 平均律になります。 <code>ET</code> は Equal Temperament の略です。</p>
+</dd>
+<dt>Reverse Semi</dt>
+<dd><p>チェックを入れると、 <code>Semi</code> の符号を逆転させます。たとえば <code>7.000</code> は <code>-7.000</code> として処理されます。</p>
+</dd>
+<dt>Octave</dt>
+<dd><p>ノートのオクターブです。</p>
+</dd>
+<dt>ET</dt>
+<dd><p>平均律の値です。この値によって <code>Semi</code> と <code>Milli</code> の調律を変更できます。例えば <code>ET</code> が 12 なら 12 平均律になります。 <code>ET</code> は Equal Temperament の略です。</p>
 <p>ホスト側から送られてくるノートの調律を変更するわけではないので注意してください。</p>
-<h4 id="multiply-modulo">Multiply, Modulo</h4>
-<p>サイン波の周波数を変更します。</p>
+</dd>
+<dt>Multiply, Modulo</dt>
+<dd><p>サイン波の周波数を変更します。</p>
 <p>計算式は <code>ノートの周波数 * (1 + fmod(Multiply * pitch, Modulo))</code> のようになっています。 <code>pitch</code> は <code>Note</code> 、 <code>Chord</code> 、 <code>Overtone</code> で指定した値から計算されるピッチです。 <code>fmod(a, b)</code> は <code>a</code> を <code>b</code> で割った余りを計算する関数です。</p>
+</dd>
+</dl>
 <h3 id="smooth">Smooth</h3>
 <p>特定の値を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。</p>
 <p><code>Smooth</code> と関連するパラメータのリストです。 <code>*</code> はワイルドカードです。</p>
@@ -382,14 +419,20 @@ style="display: inline-block; vertical-align: middle;"></li>
 <h3 id="nvoice">nVoice</h3>
 <p>最大同時発音数です。</p>
 <h3 id="random">Random</h3>
-<h4 id="retrigger">Retrigger</h4>
-<p>チェックを入れると、ノートオンごとに乱数シードをリセットします。</p>
-<h4 id="seed">Seed</h4>
-<p>乱数のシード値です。この値を変えると生成される乱数が変わります。</p>
-<h4 id="to-gain">To Gain</h4>
-<p>ノートオンごとに各サイン波の音量をランダマイズする度合いです。</p>
-<h4 id="to-pitch">To Pitch</h4>
-<p>ノートオンごとに各サイン波の周波数をランダマイズする度合いです。</p>
+<dl>
+<dt>Retrigger</dt>
+<dd><p>チェックを入れると、ノートオンごとに乱数シードをリセットします。</p>
+</dd>
+<dt>Seed</dt>
+<dd><p>乱数のシード値です。この値を変えると生成される乱数が変わります。</p>
+</dd>
+<dt>To Gain</dt>
+<dd><p>ノートオンごとに各サイン波の音量をランダマイズする度合いです。</p>
+</dd>
+<dt>To Pitch</dt>
+<dd><p>ノートオンごとに各サイン波の周波数をランダマイズする度合いです。</p>
+</dd>
+</dl>
 <h3 id="note-chord-overtone">Note, Chord, Overtone</h3>
 <p>サイン波のピッチと音量を指定します。</p>
 <p>1つの <code>Note</code> あたり 16 の <code>Overtone</code> が発音されます。8つの <code>Note</code> で 1 つの <code>Chord</code> になります。そして 4 つの <code>Chord</code> が使えます。</p>
@@ -412,24 +455,35 @@ for each Chord:
       frequency = midiNoteFrequency
         * (1 + mod(Multiply * Overtone * notePitch * chordPitch, Modulo))</code></pre>
 <h3 id="chorus">Chorus</h3>
-<h4 id="mix">Mix</h4>
-<p>Dry/Wet の比率を調整します。</p>
-<h4 id="freq">Freq</h4>
-<p>コーラスの LFO の周波数です。中央から右に回すと正、左に回すと負の周波数を指定できます。</p>
-<h4 id="depth">Depth</h4>
-<p>左右の広がりを調整します。</p>
-<h4 id="range">Range</h4>
-<p>LFO によってディレイ時間を変調する度合いです。 3 つのディレイが用意されています。</p>
-<h4 id="time">Time</h4>
-<p>ディレイ時間です。</p>
-<h4 id="phase">Phase</h4>
-<p>LFO の位相です。</p>
-<h4 id="offset">Offset</h4>
-<p>ディレイの間での位相差です。</p>
-<h4 id="feedback">Feedback</h4>
-<p>ディレイのフィードバックです。</p>
-<h4 id="key-follow">Key Follow</h4>
-<p>チェックを入れると、ディレイ時間をノートの音程に応じて変更します。</p>
+<dl>
+<dt>Mix</dt>
+<dd><p>Dry/Wet の比率を調整します。</p>
+</dd>
+<dt>Freq</dt>
+<dd><p>コーラスの LFO の周波数です。中央から右に回すと正、左に回すと負の周波数を指定できます。</p>
+</dd>
+<dt>Depth</dt>
+<dd><p>左右の広がりを調整します。</p>
+</dd>
+<dt>Range</dt>
+<dd><p>LFO によってディレイ時間を変調する度合いです。 3 つのディレイが用意されています。</p>
+</dd>
+<dt>Time</dt>
+<dd><p>ディレイ時間です。</p>
+</dd>
+<dt>Phase</dt>
+<dd><p>LFO の位相です。</p>
+</dd>
+<dt>Offset</dt>
+<dd><p>ディレイの間での位相差です。</p>
+</dd>
+<dt>Feedback</dt>
+<dd><p>ディレイのフィードバックです。</p>
+</dd>
+<dt>Key Follow</dt>
+<dd><p>チェックを入れると、ディレイ時間をノートの音程に応じて変更します。</p>
+</dd>
+</dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
 <li>0.1.6

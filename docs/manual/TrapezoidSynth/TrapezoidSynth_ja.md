@@ -1,3 +1,7 @@
+---
+lang: ja
+...
+
 # TrapezoidSynth
 ![](img/trapezoidsynth.png)
 
@@ -77,208 +81,256 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 
 ## パラメータ
 ### Oscillator 共通
-#### Semi
-ピッチを半音単位で変更します。
+Semi
 
-#### Cent
-ピッチをセント単位で変更します。 100 セント = 1 半音です。
+:   ピッチを半音単位で変更します。
 
-#### Slope
-台形の両端の傾きです。
+Cent
 
-#### PW
-台形の上辺の長さです。 Pulse Width の略です。
+:   ピッチをセント単位で変更します。 100 セント = 1 半音です。
+
+Slope
+
+:   台形の両端の傾きです。
+
+PW
+
+:   台形の上辺の長さです。 Pulse Width の略です。
 
 ### Oscillator 1
-#### Drift
-ホワイトノイズでピッチを変調します。
+Drift
 
-#### Feedback
-Oscillator 1 の位相をフィードバックで変調します。
+:   ホワイトノイズでピッチを変調します。
 
-```
-osc1Phase += Feedback * (osc1 + OscMix * (osc2 - osc1))
-```
+Feedback
+
+:   Oscillator 1 の位相をフィードバックで変調します。
+
+    ```
+    osc1Phase += Feedback * (osc1 + OscMix * (osc2 - osc1))
+    ```
 
 ### Oscillator 2
-#### Overtone
-周波数を `Overtone` 倍にします。
+Overtone
 
-#### PM
-Oscillator 1 の位相を Oscillator 2 の出力で変調します。
+:   周波数を `Overtone` 倍にします。
+
+PM
+
+:   Oscillator 1 の位相を Oscillator 2 の出力で変調します。
 
 ### Envelope 共通
-#### Retrigger
-チェックを入れると鍵盤が押されるたびにエンベロープをリセットします。チェックが外れているときは、同時に押している鍵盤の数が 0 から 1 以上になったときだけエンベロープをリセットします。
+Retrigger
 
-#### A
-アタック時間の秒数です。アタックは音が最大音量に到達するまでのエンベロープの区間です。
+:   チェックを入れると鍵盤が押されるたびにエンベロープをリセットします。チェックが外れているときは、同時に押している鍵盤の数が 0 から 1 以上になったときだけエンベロープをリセットします。
 
-#### D
-ディケイ時間の秒数です。ディケイはアタックが終わった後にエンベロープが減衰する区間です。
+A
 
-#### S
-サステインの大きさです。サステインはディケイが終わったのエンベロープの出力の大きさです。
+:   アタック時間の秒数です。アタックは音が最大音量に到達するまでのエンベロープの区間です。
 
-#### R
-リリース時間の秒数です。エンベロープは、鍵盤から指を離した時点（ノートオフ）からリリース状態に移行して、出力が 0 になるまで減衰します。
+D
 
-#### Curve
-エンベロープの特性を変更します。
+:   ディケイ時間の秒数です。ディケイはアタックが終わった後にエンベロープが減衰する区間です。
+
+S
+
+:   サステインの大きさです。サステインはディケイが終わったのエンベロープの出力の大きさです。
+
+R
+
+:   リリース時間の秒数です。エンベロープは、鍵盤から指を離した時点（ノートオフ）からリリース状態に移行して、出力が 0 になるまで減衰します。
+
+Curve
+
+:   エンベロープの特性を変更します。
 
 ### Gain Envelope
-#### Gain
-出力音量です。
+Gain
+
+:   出力音量です。
 
 ### Filter
-#### Order
-フィルタの次数です。 TrapezoidSynth では 1 次フィルタを 8 個直列につないでいます。 `Order` の値によってフィルタから信号を取り出す位置を変更しています。
+Order
 
-#### Cut
-カットオフ周波数です。
+:   フィルタの次数です。 TrapezoidSynth では 1 次フィルタを 8 個直列につないでいます。 `Order` の値によってフィルタから信号を取り出す位置を変更しています。
 
-#### Res
-レゾナンスの強さです。
+Cut
 
-#### Sat
-フィルタのサチュレーションの強さです。
+:   カットオフ周波数です。
 
-```
-filterInput = tanh(Sat * (input + Res * filterOutput))
-```
+Res
 
-#### Env>Cut
-Filter Envelope による `Cut` の変調量です。
+:   レゾナンスの強さです。
 
-#### Key>Cut
-鍵盤の高さによる `Cut` の変調量です。
+Sat
 
-#### +OscMix
-Oscillator 1 と Oscillator 2 をミックスした信号による `Cut` の変調量です。
+:   フィルタのサチュレーションの強さです。
+
+    ```
+    filterInput = tanh(Sat * (input + Res * filterOutput))
+    ```
+
+Env>Cut
+
+:   Filter Envelope による `Cut` の変調量です。
+
+Key>Cut
+
+:   鍵盤の高さによる `Cut` の変調量です。
+
++OscMix
+
+:   Oscillator 1 と Oscillator 2 をミックスした信号による `Cut` の変調量です。
 
 ### Filter Envelope
-#### >Octave
-Filter Envelope の出力を使ってピッチをオクターブ単位で変調する量です。
+\>Octave
+
+:   Filter Envelope の出力を使ってピッチをオクターブ単位で変調する量です。
 
 ### Misc
-#### OscMix
-Osillator 1 と Oscillator 2 の比率です。左いっぱいに回すと Oscillator 1 の音だけになります。
+OscMix
 
-#### Octave
-ピッチをオクターブ単位で変更します。
+:   Osillator 1 と Oscillator 2 の比率です。左いっぱいに回すと Oscillator 1 の音だけになります。
 
-#### Smooth
-パラメータを変更したときに変更前の値から変更後の値に移行する秒数です。次のパラメータに影響します。
+Octave
 
-- `Drift`
-- `Slope`
-- `PW` （同名のパラメータすべて）
-- `Feedback` （同名のパラメータすべて）
-- `PM`
-- `Gain` （同名のパラメータすべて）
-- `Cut`
-- `Res`
-- `Sat`
-- `Env>Cut`
-- `Key>Cut`
-- `+OscMix`
-- `OscMix`
-- `>PM`
-- `>Feedback`
-- `>LFO`
-- `>Slope2`
-- `>Shifter1`
-- `Shifter1.Semi`
-- `Shifter1.Cent`
-- `Shifter2.Semi`
-- `Shifter2.Cent`
-- `Freq`
-- `Shape`
-- `>Pitch1`
-- `>Slope1`
-- `>PW1`
-- `>Cut`
+:   ピッチをオクターブ単位で変更します。
+
+Smooth
+
+:   パラメータを変更したときに変更前の値から変更後の値に移行する秒数です。次のパラメータに影響します。
+
+    - `Drift`
+    - `Slope`
+    - `PW` （同名のパラメータすべて）
+    - `Feedback` （同名のパラメータすべて）
+    - `PM`
+    - `Gain` （同名のパラメータすべて）
+    - `Cut`
+    - `Res`
+    - `Sat`
+    - `Env>Cut`
+    - `Key>Cut`
+    - `+OscMix`
+    - `OscMix`
+    - `>PM`
+    - `>Feedback`
+    - `>LFO`
+    - `>Slope2`
+    - `>Shifter1`
+    - `Shifter1.Semi`
+    - `Shifter1.Cent`
+    - `Shifter2.Semi`
+    - `Shifter2.Cent`
+    - `Freq`
+    - `Shape`
+    - `>Pitch1`
+    - `>Slope1`
+    - `>PW1`
+    - `>Cut`
 
 ### Mod 共通
-#### Retrigger
-チェックを入れると鍵盤が押されるたびにエンベロープをリセットします。チェックが外れているときは、同時に押している鍵盤の数が 0 から 1 以上になったときだけエンベロープをリセットします。
+Retrigger
 
-#### Attack
-モジュレーションエンベロープのアタック時間の秒数です。
+:   チェックを入れると鍵盤が押されるたびにエンベロープをリセットします。チェックが外れているときは、同時に押している鍵盤の数が 0 から 1 以上になったときだけエンベロープをリセットします。
 
-#### Curve
-モジュレーションエンベロープの特性です。
+Attack
+
+:   モジュレーションエンベロープのアタック時間の秒数です。
+
+Curve
+
+:   モジュレーションエンベロープの特性です。
 
 ### Mod 1
-#### >PM
-`Oscillator2.PM` をモジュレーションエンベロープ 1 で変調します。
+\>PM
+
+:   `Oscillator2.PM` をモジュレーションエンベロープ 1 で変調します。
 
 ### Mod 2
-#### >Feedback
-`Oscillator1.Feedback` をモジュレーションエンベロープ 2 で変調します。
+\>Feedback
 
-#### >LFO
-`LFO.Freq` をモジュレーションエンベロープ 2 で変調します。
+:   `Oscillator1.Feedback` をモジュレーションエンベロープ 2 で変調します。
 
-#### >Slope2
-`Oscillator2.Slope` をモジュレーションエンベロープ 2 で変調します。
+\>LFO
 
-#### >Shifter1
-Shifter 1 のピッチをモジュレーションエンベロープ 2 で変調します。
+:   `LFO.Freq` をモジュレーションエンベロープ 2 で変調します。
+
+\>Slope2
+
+:   `Oscillator2.Slope` をモジュレーションエンベロープ 2 で変調します。
+
+\>Shifter1
+
+:   Shifter 1 のピッチをモジュレーションエンベロープ 2 で変調します。
 
 ### Shifter 共通
-#### Semi
-半音単位でピッチシフトの量を変更します。
+Semi
 
-#### Cent
-セント単位でピッチシフトの量を変更します。
+:   半音単位でピッチシフトの量を変更します。
 
-#### Gain
-ピッチシフトした信号を足し合わせる大きさです。
+Cent
+
+:   セント単位でピッチシフトの量を変更します。
+
+Gain
+
+:   ピッチシフトした信号を足し合わせる大きさです。
 
 ### LFO
-#### LFOType
-LFO の波形の種類を次の 4 つから選択できます。
+LFOType
 
-- `Sin` : サイン波です。 出力は `Shape` 乗されます。
-- `Saw` : 鋸歯波です。 `Shape` によって三角波にもできます。
-- `Pulse` : 矩形波です。 `Shape` によってデューティ比を変更できます。
-- `Noise` : ブラウンノイズです。 `Shape` によってステップあたりの移動量を変更できます。
+:   LFO の波形の種類を次の 4 つから選択できます。
 
-#### Tempo
-LFO の周波数をテンポシンクします。
+    - `Sin` : サイン波です。 出力は `Shape` 乗されます。
+    - `Saw` : 鋸歯波です。 `Shape` によって三角波にもできます。
+    - `Pulse` : 矩形波です。 `Shape` によってデューティ比を変更できます。
+    - `Noise` : ブラウンノイズです。 `Shape` によってステップあたりの移動量を変更できます。
 
-#### Freq
-LFO の周波数です。
+Tempo
 
-#### Shape
-LFO の波形を変更します。
+:   LFO の周波数をテンポシンクします。
 
-#### >Pitch
-LFO による Oscillator 1 のピッチの変調量です。
+Freq
 
-#### >Slope1
-LFO による `Oscillator1.Slope` の変調量です。
+:   LFO の周波数です。
 
-#### >PW1
-LFO による `Oscillator1.PW` の変調量です。
+Shape
 
-#### >PW1
-LFO による `Filter.Cut` の変調量です。
+:   LFO の波形を変更します。
+
+\>Pitch
+
+:   LFO による Oscillator 1 のピッチの変調量です。
+
+\>Slope1
+
+:   LFO による `Oscillator1.Slope` の変調量です。
+
+\>PW1
+
+:   LFO による `Oscillator1.PW` の変調量です。
+
+\>PW1
+
+:   LFO による `Filter.Cut` の変調量です。
 
 ### Slide
-#### SlideType
-ピッチスライドの種類を変更できます。
+SlideType
 
-- `Always` : 常に最後に演奏されたノートのピッチからスライドします。
-- `Sustain` : 2 つ以上の鍵盤が同時に押されたときだけスライドします。
-- `Reset to 0` : 同時に押している鍵盤の数が 0 から 1 、あるいは 1 から 0 になるときは 0 Hz にスライドします。それ以外の場合は他の 2 つと同じようにスライドします。
+:   ピッチスライドの種類を変更できます。
 
-#### Time
-ピッチスライドにかかる時間です。
+    - `Always` : 常に最後に演奏されたノートのピッチからスライドします。
+    - `Sustain` : 2 つ以上の鍵盤が同時に押されたときだけスライドします。
+    - `Reset to 0` : 同時に押している鍵盤の数が 0 から 1 、あるいは 1 から 0 になるときは 0 Hz にスライドします。それ以外の場合は他の 2 つと同じようにスライドします。
 
-#### Offset
-Oscillator 1 のスライド時間に対する Oscillator 2 のスライド時間の比率です。
+Time
+
+:   ピッチスライドにかかる時間です。
+
+Offset
+
+:   Oscillator 1 のスライド時間に対する Oscillator 2 のスライド時間の比率です。
 
 ## チェンジログ
 - 0.1.7

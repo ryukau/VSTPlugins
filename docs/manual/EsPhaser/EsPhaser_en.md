@@ -1,3 +1,7 @@
+---
+lang: en
+...
+
 # EsPhaser
 ![](img/esphaser.png)
 
@@ -80,48 +84,58 @@ Diagram only shows overview. It's not exact implementation.
 ![](img/esphaser.svg)
 
 ## Parameters
-#### Stages
-Number of all-pass filter.
+Stages
 
-#### Mix
-Mixing ratio of dry/wet signal of phaser. `Dry : Wet` becomes `0 : 1` when turned the knob to rightmost.
+:   Number of all-pass filter.
+    
+Mix
 
-#### Freq
-LFO frequency.
+:   Mixing ratio of dry/wet signal of phaser. `Dry : Wet` becomes `0 : 1` when turned the knob to rightmost.
+    
+Freq
 
-#### Spread
-Spread frequency between LFOs.
+:   LFO frequency.
+    
+Spread
 
-Equation for difference of LFO phase in 1 sample:
+:   Spread frequency between LFOs.
+    
+    Equation for difference of LFO phase in 1 sample:
+    
+    ```
+    deltaPhase = 2 * pi * Freq / ((1 + LfoIndex * Spread) * sampleRate)
+    ```
+    
+Feedback
 
-```
-deltaPhase = 2 * pi * Freq / ((1 + LfoIndex * Spread) * sampleRate)
-```
+:   Amount of feedback. Feedback is disabled when the knob is pointing to 12 o'clock. It becomes negative feedback when turned to left and positive feedback when turned to right.
+    
+Range
 
-#### Feedback
-Amount of feedback. Feedback is disabled when the knob is pointing to 12 o'clock. It becomes negative feedback when turned to left and positive feedback when turned to right.
+:   Range of all-pass filter modulation by LFO.
+    
+Min
 
-#### Range
-Range of all-pass filter modulation by LFO.
+:   Minimum value of all-pass filter modulation by LFO.
+    
+Cas. Offset
 
-#### Min
-Minimum value of all-pass filter modulation by LFO.
+:   Phase offset between 16 LFO.
+    
+L/R Offset
 
-#### Cas. Offset
-Phase offset between 16 LFO.
+:   LFO phase offset between L/R channels.
+    
+Phase
 
-#### L/R Offset
-LFO phase offset between L/R channels.
-
-#### Phase
-LFO phase. This can be used to make sound with automation. Turning `Freq` to leftmost sets LFO frequency to 0.
-
-Equation for phase offset:
-
-```
-LfoPhaseOffset = Phase + (L/R Offset) + LfoIndex * (Cas. Offset)
-```
-
+:   LFO phase. This can be used to make sound with automation. Turning `Freq` to leftmost sets LFO frequency to 0.
+    
+    Equation for phase offset:
+    
+    ```
+    LfoPhaseOffset = Phase + (L/R Offset) + LfoIndex * (Cas. Offset)
+    ```
+    
 ## Change Log
 - 0.1.2
   - Fixed a bug that cause crash when drawing string.
