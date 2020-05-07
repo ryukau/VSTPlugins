@@ -169,8 +169,7 @@ void DSPCORE_NAME::setup(double sampleRate)
   transitionBuffer.resize(1 + size_t(sampleRate * 0.01), {0.0f, 0.0f});
 
   startup();
-  refreshTable();
-  refreshLfo();
+  prepareRefresh = true;
 }
 
 void PROCESSING_UNIT_NAME::reset()
@@ -257,11 +256,15 @@ void DSPCORE_NAME::setParameters(float tempo)
   nVoice = 16 * (param.value[ID::nVoice]->getInt() + 1);
   if (nVoice > notes.size()) nVoice = notes.size();
 
-  if (!isLFORefreshed && param.value[ID::refreshLFO]->getInt()) refreshLfo();
+  if (prepareRefresh || (!isLFORefreshed && param.value[ID::refreshLFO]->getInt()))
+    refreshLfo();
   isLFORefreshed = param.value[ID::refreshLFO]->getInt();
 
-  if (!isTableRefeshed && param.value[ID::refreshTable]->getInt()) refreshTable();
+  if (prepareRefresh || (!isTableRefeshed && param.value[ID::refreshTable]->getInt()))
+    refreshTable();
   isTableRefeshed = param.value[ID::refreshTable]->getInt();
+
+  prepareRefresh = false;
 }
 
 std::array<float, 2> PROCESSING_UNIT_NAME::process(

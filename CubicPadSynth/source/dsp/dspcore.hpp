@@ -233,6 +233,7 @@ public:
     std::array<float, nOvertone> otPhase{};                                              \
     std::array<float, nOvertone> otBandWidth{};                                          \
                                                                                          \
+    bool prepareRefresh = true;                                                          \
     bool isTableRefeshed = false;                                                        \
     bool isLFORefreshed = false;                                                         \
     WaveTable<tableSize, nOvertone> wavetable;                                           \

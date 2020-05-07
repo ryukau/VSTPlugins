@@ -190,8 +190,7 @@ void DSPCORE_NAME::setup(double sampleRate)
   transitionBuffer.resize(1 + size_t(sampleRate * 0.01), {0.0f, 0.0f});
 
   startup();
-  refreshTable();
-  refreshLfo();
+  prepareRefresh = true;
 }
 
 void DSPCORE_NAME::reset()
@@ -255,11 +254,15 @@ void DSPCORE_NAME::setParameters(float tempo)
     note.delayGate.atk.set(sampleRate, param.value[ID::delayAttack]->getFloat());
   }
 
-  if (!isLFORefreshed && param.value[ID::refreshLFO]->getInt()) refreshLfo();
+  if (prepareRefresh || (!isLFORefreshed && param.value[ID::refreshLFO]->getInt()))
+    refreshLfo();
   isLFORefreshed = param.value[ID::refreshLFO]->getInt();
 
-  if (!isTableRefeshed && param.value[ID::refreshTable]->getInt()) refreshTable();
+  if (prepareRefresh || (!isTableRefeshed && param.value[ID::refreshTable]->getInt()))
+    refreshTable();
   isTableRefeshed = param.value[ID::refreshTable]->getInt();
+
+  prepareRefresh = false;
 }
 
 void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
