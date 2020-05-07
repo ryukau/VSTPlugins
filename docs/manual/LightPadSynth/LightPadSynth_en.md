@@ -431,13 +431,13 @@ Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
 ## Change Log
 - 0.1.2
   - Fixed a bug that refreshing wavetable before parameters are loaded at launch.
+  - Fixed off by one error in LFO wavetable with cubic interpolation.
 - 0.1.1
   - Fixed Refresh LFO button and Refresh Table button from VST message to VST parameter.
 - 0.1.0
   - Initial release.
 
 ### Old Versions
-- [LightPadSynth 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.1/LightPadSynth0.1.1.zip)
 - [LightPadSynth 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynth0.1.0.zip)
 
 ## License

@@ -463,6 +463,7 @@ Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
 ## Change Log
 - 0.1.4
   - Fixed a bug that refreshing wavetable before parameters are loaded at launch.
+  - Fixed off by one error in LFO wavetable with cubic interpolation.
 - 0.1.3
   - Fixed a bug that some shortcuts are disabled for BarBox.
 - 0.1.2

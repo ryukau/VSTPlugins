@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" >
 
 <head>
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-05-01" />
+<meta name="dcterms.date" content="2020-05-07" />
 <title>CubicPadSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -92,12 +92,18 @@ video {
   max-width: 100%;
 }
 
+details.list > summary {
+  line-height: 3em;
+}
+
 kbd {
+  font-family: inherit;
   border-style: solid;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 2px;
+  padding: 4px;
   margin: 2px;
+  line-height: calc(1em + 16px);
 }
 
 a {
@@ -111,53 +117,82 @@ h1 {
 }
 
 h2 {
-  border-left: solid 32px #163eac;
+  border-left: solid 32px #2851c2;
   padding-left: 24px;
 }
 
 h3 {
-  border-left: solid 20px #163eac;
+  border-left: solid 20px #4d74dd;
   padding-left: 16px;
 }
 
-h4, h5, h6 {
-  border-left: solid 8px #163eac;
+h4 {
+  border-left: solid 12px #6a88da;
   padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
 }
 
 table {
   border-spacing: 0px;
   border-collapse: separate;
-  border: 1px solid #dddddd;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
 }
 
-tr.header {
-  border: 1px solid black;
-}
-
-tr.odd {
+tr:nth-child(odd) {
   background: #eeeeee;
 }
 
-tr.even {
+tr:nth-child(even) {
   background: #ffffff;
 }
 
 th {
   height: 2em;
-  font-weight: normal;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 3px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
 }
 
 td {
   height: 1.5em;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
 }
 
 audio {
@@ -168,12 +203,27 @@ label {
   vertical-align: middle;
 }
 
-code {
-  color: #163eac;
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
 }
 
-pre {
-  border: 4px solid #eeeeee;
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
 }
 
 li {
@@ -202,7 +252,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-05-01
+  Update: 2020-05-07
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -228,15 +278,15 @@ footer {
   <li><a href="#pitch">Pitch</a></li>
   <li><a href="#unison">Unison</a></li>
   <li><a href="#lfo">LFO</a></li>
-  <li><a href="#phase-1">Phase</a></li>
+  <li><a href="#phase">Phase</a></li>
   <li><a href="#misc.">Misc.</a></li>
   </ul></li>
   <li><a href="#wavetable-タブ">Wavetable タブ</a><ul>
   <li><a href="#倍音コントロール">倍音コントロール</a></li>
-  <li><a href="#pitch-2">Pitch</a></li>
+  <li><a href="#pitch-1">Pitch</a></li>
   <li><a href="#spectrum">Spectrum</a></li>
-  <li><a href="#phase-4">Phase</a></li>
-  <li><a href="#random-2">Random</a></li>
+  <li><a href="#phase-1">Phase</a></li>
+  <li><a href="#random">Random</a></li>
   <li><a href="#modifier">Modifier</a></li>
   <li><a href="#refresh-table">Refresh Table</a></li>
   </ul></li>
@@ -256,7 +306,7 @@ footer {
 <p><img src="img/cubicpadsynth.png" /></p>
 <p><ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby> は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip">CubicPadSynth 0.1.3 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/CubicPadSynth0.1.4.zip">CubicPadSynth 0.1.4 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -444,28 +494,36 @@ noteToFreq(137) = 22350.606811712252</code></pre>
 <h3 id="main-タブ">Main タブ</h3>
 <p><img src="img/cubicpadsynth.png" /></p>
 <h4 id="tuning">Tuning</h4>
-<h5 id="octave-semi-milli">Octave, Semi, Milli</h5>
-<p>全体の音の高さを変更します。</p>
+<dl>
+<dt>Octave, Semi, Milli</dt>
+<dd><p>全体の音の高さを変更します。</p>
 <ul>
 <li><code>Octave</code>: オクターブ</li>
 <li><code>Semi</code>: 半音</li>
 <li><code>Milli</code>: 半音の 1 / 1000 。 1 / 10 セント。</li>
 </ul>
-<h5 id="et-a4-hz">ET, A4 [Hz]</h5>
-<p>音律を変更します。</p>
+</dd>
+<dt>ET, A4 [Hz]</dt>
+<dd><p>音律を変更します。</p>
 <p><code>ET</code> は Equal Temperature (平均律) の略です。 <code>ET</code> が 12 のときは 12 平均律となります。 <code>ET</code> を 12 よりも小さくすると無音になる範囲が増えるので注意してください。</p>
 <p><code>A4 [Hz]</code> は、音程 A4 の周波数です。</p>
+</dd>
+</dl>
 <h4 id="gain">Gain</h4>
-<h5 id="a-d-s-r">A, D, S, R</h5>
-<p>音量エンベロープのパラメータです。</p>
+<dl>
+<dt>A, D, S, R</dt>
+<dd><p>音量エンベロープのパラメータです。</p>
 <ul>
 <li><code>A</code> (Attack) : 鍵盤を押した瞬間から最大音量になるまでのアタック時間。</li>
 <li><code>D</code> (Decay) : 最大音量からサステイン音量になるまでのディケイ時間。</li>
 <li><code>S</code> (Sustain) : アタックとディケイが終わった後に鍵盤を押し続けているときのサステイン音量。</li>
 <li><code>R</code> (Release) : 鍵盤から指を離したあとに音量が 0 になるまでのリリース時間。</li>
 </ul>
-<h5 id="gain-1">Gain</h5>
-<p>音量を変更します。</p>
+</dd>
+<dt>Gain</dt>
+<dd><p>音量を変更します。</p>
+</dd>
+</dl>
 <h4 id="lowpass">Lowpass</h4>
 <p>現在の音程よりも倍音の少ないウェーブテーブルを使うことで疑似的にローパスフィルタを再現しています。</p>
 <p>カットオフ周波数の計算式は次のようになっています。</p>
@@ -480,33 +538,47 @@ lpFreq = noteToFreq(midiNote + lowpassPitch)
 ntFreq = noteToFreq(midiNote)
 cutoffFrequency = (1 + (range - lpFreq) / range) * ntFreq</code></pre>
 <p><code>lpCut</code> の計算に使っている 128 は MIDI ノート番号の範囲 + 1 から適当に決めた値です。また <code>nTable = 136</code> です。</p>
-<h5 id="cutoff">Cutoff</h5>
-<p>フィルタのカットオフ周波数を変更します。</p>
-<h5 id="keyfollow">KeyFollow</h5>
-<p>右いっぱいに回すと音程に関わらず倍音の数がだいたい等しくなるようにカットオフ周波数を調節します。左いっぱいに回すと音程に関わらず <code>Cutoff</code> で設定されたカットオフ周波数を使います。</p>
-<h5 id="a-d-s-r-amount">A, D, S, R, Amount</h5>
-<p>フィルタのカットオフ周波数を変調するエンベロープのパラメータです。 <code>Amount</code> は <code>Cutoff</code> への変調量です。</p>
+<dl>
+<dt>Cutoff</dt>
+<dd><p>フィルタのカットオフ周波数を変更します。</p>
+</dd>
+<dt>KeyFollow</dt>
+<dd><p>右いっぱいに回すと音程に関わらず倍音の数がだいたい等しくなるようにカットオフ周波数を調節します。左いっぱいに回すと音程に関わらず <code>Cutoff</code> で設定されたカットオフ周波数を使います。</p>
+</dd>
+<dt>A, D, S, R, Amount</dt>
+<dd><p>フィルタのカットオフ周波数を変調するエンベロープのパラメータです。 <code>Amount</code> は <code>Cutoff</code> への変調量です。</p>
+</dd>
+</dl>
 <h4 id="pitch">Pitch</h4>
-<h5 id="a-d-s-r-amount-1">A, D, S, R, Amount</h5>
-<p>ノートごとにピッチを変調するエンベロープのパラメータです。</p>
-<h5 id="negative">Negative</h5>
-<p>エンベロープの符号を反転します。</p>
+<dl>
+<dt>A, D, S, R, Amount</dt>
+<dd><p>ノートごとにピッチを変調するエンベロープのパラメータです。</p>
+</dd>
+<dt>Negative</dt>
+<dd><p>エンベロープの符号を反転します。</p>
+</dd>
+</dl>
 <h4 id="unison">Unison</h4>
-<h5 id="nunison">nUnison</h5>
-<p>ユニゾンに使うボイスの数です。</p>
+<dl>
+<dt>nUnison</dt>
+<dd><p>ユニゾンに使うボイスの数です。</p>
 <p><code>Misc.</code> の <code>nVoice</code> を増やすことで <code>nUnison</code> が大きいときに起こるリリースの途切れを減らすことができますが、引き換えに動作が重くなります。</p>
-<h5 id="detune-random-detune">Detune, Random Detune</h5>
-<p><code>Detune</code> はユニゾンに使われているボイスのピッチをずらす量です。</p>
+</dd>
+<dt>Detune, Random Detune</dt>
+<dd><p><code>Detune</code> はユニゾンに使われているボイスのピッチをずらす量です。</p>
 <p><code>Random Detune</code> のチェックを入れると、ピッチがずれる量がノートオンごとにランダムに変わるようになります。</p>
 <pre><code>random = RandomDetune ? rand() : 1
 detune = pitch * (1 + random * unisonIndex * Detune)</code></pre>
-<h5 id="gainrnd">GainRnd</h5>
-<p>ユニゾンに使われているボイスの音量をランダムに変更する量です。</p>
-<h5 id="phase">Phase</h5>
-<p>ユニゾンに使われているボイスの位相をランダムに変更する量です。</p>
+</dd>
+<dt>GainRnd</dt>
+<dd><p>ユニゾンに使われているボイスの音量をランダムに変更する量です。</p>
+</dd>
+<dt>Phase</dt>
+<dd><p>ユニゾンに使われているボイスの位相をランダムに変更する量です。</p>
 <p>Phase セクションの <code>Reset</code> にチェックが入っていないとき、この値は無視されます。</p>
-<h5 id="spread-spread-type">Spread, Spread Type</h5>
-<p><code>Spread</code> はユニゾンの左右の広がりの量です。</p>
+</dd>
+<dt>Spread, Spread Type</dt>
+<dd><p><code>Spread</code> はユニゾンの左右の広がりの量です。</p>
 <p><code>Spread Type</code> でボイスのピッチに応じたパンの割り当て方を選択できます。</p>
 <ul>
 <li><code>Alternate L-R</code>: <code>Ascend L -&gt; R</code> と <code>Ascend R -&gt; L</code> を交互に変更。</li>
@@ -520,36 +592,53 @@ detune = pitch * (1 + random * unisonIndex * Detune)</code></pre>
 <li><code>RotateR</code>: ノートオンごとに割り当てを右に回転。</li>
 <li><code>Shuffle</code>: 均一に並べたパンをランダムに割り当て。</li>
 </ul>
+</dd>
+</dl>
 <h4 id="lfo">LFO</h4>
-<h5 id="refresh-lfo">Refresh LFO</h5>
-<p>現在の <code>LFO Wave</code> のパラメータに基づいて LFO のウェーブテーブルを更新します。</p>
+<dl>
+<dt>Refresh LFO</dt>
+<dd><p>現在の <code>LFO Wave</code> のパラメータに基づいて LFO のウェーブテーブルを更新します。</p>
 <p>ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。</p>
-<h5 id="interpolation">Interpolation</h5>
-<p>LFO のウェーブテーブルの補間の種類です。</p>
+</dd>
+<dt>Interpolation</dt>
+<dd><p>LFO のウェーブテーブルの補間の種類です。</p>
 <p><img src="img/interpolation_type.png" /></p>
-<h5 id="tempo-multiply">Tempo, Multiply</h5>
-<p>LFO の周波数をテンポに応じた形で指定します。 <code>Tempo</code> の下の数字が音符の長さ、上の数字が音符の数です。例えば上が 6 、下が 8 なら 8 分音符の 6 個分の長さが LFO の 1 周期になります (6 / 8 拍子)。</p>
+</dd>
+<dt>Tempo, Multiply</dt>
+<dd><p>LFO の周波数をテンポに応じた形で指定します。 <code>Tempo</code> の下の数字が音符の長さ、上の数字が音符の数です。例えば上が 6 、下が 8 なら 8 分音符の 6 個分の長さが LFO の 1 周期になります (6 / 8 拍子)。</p>
 <p><code>Multiply</code> は <code>Tempo</code> から計算された周波数に掛け合わされる値です。</p>
 <pre><code>// (60 秒) * (4 拍子) = 240 。
 lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)</code></pre>
-<h5 id="retrigger">Retrigger</h5>
-<p>チェックを入れると、ノートオンごとに LFO の位相をリセットします。</p>
-<h5 id="amount">Amount</h5>
-<p>LFO でピッチを変調する量です。</p>
-<h5 id="lowpass-1">Lowpass</h5>
-<p>LFO にかけるローパスフィルタのカットオフ周波数を変更します。</p>
-<h5 id="lfo-wave">LFO Wave</h5>
-<p>LFO の波形です。</p>
-<h4 id="phase-1">Phase</h4>
-<h5 id="phase-2">Phase</h5>
-<p>オシレータの初期位相です。</p>
-<h5 id="reset">Reset</h5>
-<p>チェックを入れると、ノートオンのたびにオシレータの位相を <code>Phase</code> で指定した値にリセットします。</p>
-<h5 id="random">Random</h5>
-<p>チェックを入れると、ノートオンごとに位相をランダマイズします。 <code>Phase</code> で指定した値がランダマイズの範囲になります。</p>
+</dd>
+<dt>Retrigger</dt>
+<dd><p>チェックを入れると、ノートオンごとに LFO の位相をリセットします。</p>
+</dd>
+<dt>Amount</dt>
+<dd><p>LFO でピッチを変調する量です。</p>
+</dd>
+<dt>Lowpass</dt>
+<dd><p>LFO にかけるローパスフィルタのカットオフ周波数を変更します。</p>
+</dd>
+<dt>LFO Wave</dt>
+<dd><p>LFO の波形です。</p>
+</dd>
+</dl>
+<h4 id="phase">Phase</h4>
+<dl>
+<dt>Phase</dt>
+<dd><p>オシレータの初期位相です。</p>
+</dd>
+<dt>Reset</dt>
+<dd><p>チェックを入れると、ノートオンのたびにオシレータの位相を <code>Phase</code> で指定した値にリセットします。</p>
+</dd>
+<dt>Random</dt>
+<dd><p>チェックを入れると、ノートオンごとに位相をランダマイズします。 <code>Phase</code> で指定した値がランダマイズの範囲になります。</p>
+</dd>
+</dl>
 <h4 id="misc.">Misc.</h4>
-<h5 id="smooth">Smooth</h5>
-<p>特定の値を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。</p>
+<dl>
+<dt>Smooth</dt>
+<dd><p>特定の値を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。</p>
 <p><code>Smooth</code> と関連するパラメータのリストです。 <code>*</code> はワイルドカードです。</p>
 <ul>
 <li>Tuning セクションの全て</li>
@@ -583,66 +672,106 @@ lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)<
 <li><code>Phase</code></li>
 </ul></li>
 </ul>
-<h5 id="nvoice">nVoice</h5>
-<p>最大同時発音数です。</p>
-<h5 id="pool">Pool</h5>
-<p>チェックを入れると、現在の発音数が同時最大発音数に近づいたときに、音量の最も小さいボイスをリリースします。ノートオン時に生じるプチノイズの低減に使えます。</p>
+</dd>
+<dt>nVoice</dt>
+<dd><p>最大同時発音数です。</p>
+</dd>
+<dt>Pool</dt>
+<dd><p>チェックを入れると、現在の発音数が同時最大発音数に近づいたときに、音量の最も小さいボイスをリリースします。ノートオン時に生じるプチノイズの低減に使えます。</p>
+</dd>
+</dl>
 <h3 id="wavetable-タブ">Wavetable タブ</h3>
 <p><img src="img/cubicpadsynth_wavetable_tab.png" /></p>
 <h4 id="倍音コントロール">倍音コントロール</h4>
-<h5 id="gain-2">Gain</h5>
-<p>プロファイルの高さです。</p>
-<h5 id="width">Width</h5>
-<p>プロファイルの幅です。</p>
-<h5 id="pitch-1">Pitch</h5>
-<p>プロファイルの周波数にかけ合わせる値です。</p>
-<h5 id="phase-3">Phase</h5>
-<p>プロファイルの位相をランダマイズする量です。</p>
-<h4 id="pitch-2">Pitch</h4>
-<h5 id="base-freq.">Base Freq.</h5>
-<p>ウェーブテーブルのレンダリング時の基本周波数です。この値が小さいとマスターピッチのチューニングが狂うことがあるので注意してください。</p>
-<h5 id="multiply-modulo">Multiply, Modulo</h5>
-<p>プロファイルの周波数を変更します。</p>
+<dl>
+<dt>Gain</dt>
+<dd><p>プロファイルの高さです。</p>
+</dd>
+<dt>Width</dt>
+<dd><p>プロファイルの幅です。</p>
+</dd>
+<dt>Pitch</dt>
+<dd><p>プロファイルの周波数にかけ合わせる値です。</p>
+</dd>
+<dt>Phase</dt>
+<dd><p>プロファイルの位相をランダマイズする量です。</p>
+</dd>
+</dl>
+<h4 id="pitch-1">Pitch</h4>
+<dl>
+<dt>Base Freq.</dt>
+<dd><p>ウェーブテーブルのレンダリング時の基本周波数です。この値が小さいとマスターピッチのチューニングが狂うことがあるので注意してください。</p>
+</dd>
+<dt>Multiply, Modulo</dt>
+<dd><p>プロファイルの周波数を変更します。</p>
 <pre><code>profileFrequency = mod(
   BaseFreq * profileIndex * overtonePitch * Multiply,
   440 * pow(2, (Modulo - 69) / 12)
 )</code></pre>
-<h5 id="random-1">Random</h5>
-<p>チェックを入れると、倍音コントロールの <code>Pitch</code> で指定された値を無視して、プロファイルの周波数をランダマイズします。</p>
+</dd>
+<dt>Random</dt>
+<dd><p>チェックを入れると、倍音コントロールの <code>Pitch</code> で指定された値を無視して、プロファイルの周波数をランダマイズします。</p>
+</dd>
+</dl>
 <h4 id="spectrum">Spectrum</h4>
-<h5 id="expand">Expand</h5>
-<p>スペクトラムを周波数軸に沿って拡大・縮小するスケーリング係数です。</p>
+<dl>
+<dt>Expand</dt>
+<dd><p>スペクトラムを周波数軸に沿って拡大・縮小するスケーリング係数です。</p>
 <p><img src="img/expand.svg" /></p>
-<h5 id="shift">Shift</h5>
-<p>スペクトラムを左右にシフトする量です。</p>
+</dd>
+<dt>Shift</dt>
+<dd><p>スペクトラムを左右にシフトする量です。</p>
 <p><img src="img/shift.svg" /></p>
-<h5 id="comb">Comb</h5>
-<p><code>Comb</code> の値が 1 以上のとき、プロファイルをくし状に変形します。値はくしのすき間の間隔です。</p>
+</dd>
+<dt>Comb</dt>
+<dd><p><code>Comb</code> の値が 1 以上のとき、プロファイルをくし状に変形します。値はくしのすき間の間隔です。</p>
 <p><img src="img/comb.png" /></p>
-<h5 id="shape">Shape</h5>
-<p><code>Shape</code> の値を指数として、プロファイルの形をべき乗によって変更します。</p>
+</dd>
+<dt>Shape</dt>
+<dd><p><code>Shape</code> の値を指数として、プロファイルの形をべき乗によって変更します。</p>
 <pre><code>shapedProfile = powf(profile, shape);</code></pre>
-<h5 id="invert">Invert</h5>
-<p>スペクトラムの絶対値の最大値が 0 、 0 が絶対値の最大値になるように反転します。符号は保持されます。位相は考慮していません。</p>
+</dd>
+<dt>Invert</dt>
+<dd><p>スペクトラムの絶対値の最大値が 0 、 0 が絶対値の最大値になるように反転します。符号は保持されます。位相は考慮していません。</p>
 <pre><code>maxRe = max(abs(spectrumRe))
 maxIm = max(abs(spectrumIm))
 invertedSpectrumRe = spectrumRe - sgn(spectrumRe) * maxRe
 invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
-<h4 id="phase-4">Phase</h4>
-<h5 id="uniformphase">UniformPhase</h5>
-<p>チェックを入れると、プロファイル内での位相を均一にします。</p>
-<h4 id="random-2">Random</h4>
-<h5 id="seed">Seed</h5>
-<p>乱数のシード値です。この値を変えると生成される乱数が変わります。</p>
+</dd>
+</dl>
+<h4 id="phase-1">Phase</h4>
+<dl>
+<dt>UniformPhase</dt>
+<dd><p>チェックを入れると、プロファイル内での位相を均一にします。</p>
+</dd>
+</dl>
+<h4 id="random">Random</h4>
+<dl>
+<dt>Seed</dt>
+<dd><p>乱数のシード値です。この値を変えると生成される乱数が変わります。</p>
+</dd>
+</dl>
 <h4 id="modifier">Modifier</h4>
-<h5 id="gain-3">Gain^</h5>
-<p>倍音コントロールの <code>Gain</code> をべき乗する値です。</p>
-<h5 id="width-倍音コントロールの-width-にかけ合わせる値です">Width* 倍音コントロールの <code>Width</code> にかけ合わせる値です。</h5>
+<dl>
+<dt>Gain^</dt>
+<dd><p>倍音コントロールの <code>Gain</code> をべき乗する値です。</p>
+<pre><code>profileGain = pow(Gain, Gain^)</code></pre>
+</dd>
+<dt>Width*</dt>
+<dd><p>倍音コントロールの <code>Width</code> にかけ合わせる値です。</p>
+<pre><code>profileWidth = Width * (Width*)</code></pre>
+</dd>
+</dl>
 <h4 id="refresh-table">Refresh Table</h4>
 <p>現在の Wavetable タブのパラメータに基づいてオシレータのウェーブテーブルを更新します。</p>
 <p>ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.4
+<ul>
+<li>起動時にパラメータがロードされる前にウェーブテーブルが更新されるバグを修正。</li>
+<li>LFO ウェーブテーブルの補間が Cubic のときにインデックスが 1 つずれていたバグを修正。</li>
+</ul></li>
 <li>0.1.3
 <ul>
 <li>BarBox のショートカットが効かないバグを修正。</li>
@@ -663,6 +792,7 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip">CubicPadSynth 0.1.3 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynth0.1.2.zip">CubicPadSynth 0.1.2 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip">CubicPadSynth 0.1.1 - VST 3 (github.com)</a></li>
 </ul>

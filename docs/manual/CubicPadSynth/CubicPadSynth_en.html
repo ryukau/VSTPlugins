@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
 
 <head>
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-05-01" />
+<meta name="dcterms.date" content="2020-05-07" />
 <title>CubicPadSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -92,12 +92,18 @@ video {
   max-width: 100%;
 }
 
+details.list > summary {
+  line-height: 3em;
+}
+
 kbd {
+  font-family: inherit;
   border-style: solid;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 2px;
+  padding: 4px;
   margin: 2px;
+  line-height: calc(1em + 16px);
 }
 
 a {
@@ -111,53 +117,82 @@ h1 {
 }
 
 h2 {
-  border-left: solid 32px #163eac;
+  border-left: solid 32px #2851c2;
   padding-left: 24px;
 }
 
 h3 {
-  border-left: solid 20px #163eac;
+  border-left: solid 20px #4d74dd;
   padding-left: 16px;
 }
 
-h4, h5, h6 {
-  border-left: solid 8px #163eac;
+h4 {
+  border-left: solid 12px #6a88da;
   padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
 }
 
 table {
   border-spacing: 0px;
   border-collapse: separate;
-  border: 1px solid #dddddd;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
 }
 
-tr.header {
-  border: 1px solid black;
-}
-
-tr.odd {
+tr:nth-child(odd) {
   background: #eeeeee;
 }
 
-tr.even {
+tr:nth-child(even) {
   background: #ffffff;
 }
 
 th {
   height: 2em;
-  font-weight: normal;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 3px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
 }
 
 td {
   height: 1.5em;
-  padding-left: 0.35em;
-  padding-right: 0.35em;
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #dddddd;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
 }
 
 audio {
@@ -168,12 +203,27 @@ label {
   vertical-align: middle;
 }
 
-code {
-  color: #163eac;
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
 }
 
-pre {
-  border: 4px solid #eeeeee;
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
 }
 
 li {
@@ -202,7 +252,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-05-01
+  Update: 2020-05-07
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -228,15 +278,15 @@ footer {
   <li><a href="#pitch">Pitch</a></li>
   <li><a href="#unison">Unison</a></li>
   <li><a href="#lfo">LFO</a></li>
-  <li><a href="#phase-1">Phase</a></li>
+  <li><a href="#phase">Phase</a></li>
   <li><a href="#misc.">Misc.</a></li>
   </ul></li>
   <li><a href="#wavetable-tab">Wavetable Tab</a><ul>
   <li><a href="#overtone-controls">Overtone Controls</a></li>
-  <li><a href="#pitch-2">Pitch</a></li>
+  <li><a href="#pitch-1">Pitch</a></li>
   <li><a href="#spectrum">Spectrum</a></li>
-  <li><a href="#phase-4">Phase</a></li>
-  <li><a href="#random-2">Random</a></li>
+  <li><a href="#phase-1">Phase</a></li>
+  <li><a href="#random">Random</a></li>
   <li><a href="#modifier">Modifier</a></li>
   <li><a href="#refresh-table">Refresh Table</a></li>
   </ul></li>
@@ -256,7 +306,7 @@ footer {
 <p><img src="img/cubicpadsynth.png" /></p>
 <p>CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip">Download CubicPadSynth 0.1.3 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/CubicPadSynth0.1.4.zip">Download CubicPadSynth 0.1.4 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -443,24 +493,32 @@ noteToFreq(137) = 22350.606811712252</code></pre>
 <h3 id="main-tab">Main Tab</h3>
 <p><img src="img/cubicpadsynth.png" /></p>
 <h4 id="tuning">Tuning</h4>
-<h5 id="octave-semi-milli">Octave, Semi, Milli</h5>
-<p>Changes master pitch.</p>
+<dl>
+<dt>Octave, Semi, Milli</dt>
+<dd><p>Changes master pitch.</p>
 <p><code>Milli</code> is 1/1000 of semitone or 1/10 cent.</p>
-<h5 id="et-a4-hz">ET, A4 [Hz]</h5>
-<p>Changes tuning.</p>
+</dd>
+<dt>ET, A4 [Hz]</dt>
+<dd><p>Changes tuning.</p>
 <p><code>ET</code> stands for equal temperature. Note that when <code>ET</code> is less than 12, some notes becomes silent due to frequency becomes too high or too low.</p>
 <p><code>A4 [Hz]</code> is frequency of note A4.</p>
+</dd>
+</dl>
 <h4 id="gain">Gain</h4>
-<h5 id="a-d-s-r">A, D, S, R</h5>
-<p>Gain envelope parameters.</p>
+<dl>
+<dt>A, D, S, R</dt>
+<dd><p>Gain envelope parameters.</p>
 <ul>
 <li><code>A</code> : Attack time which is the length from note-on to reaching peak value.</li>
 <li><code>D</code> : Decay time which is the length from peak value to reaching sustain level.</li>
 <li><code>S</code> : Sustain level which is the gain after decay.</li>
 <li><code>R</code> : Release time which is the length from note-off to the gain reaching to 0.</li>
 </ul>
-<h5 id="gain-1">Gain</h5>
-<p>Master output gain.</p>
+</dd>
+<dt>Gain</dt>
+<dd><p>Master output gain.</p>
+</dd>
+</dl>
 <h4 id="lowpass">Lowpass</h4>
 <p>This is a psuedo low-pass filter. It shifts to wavetable which contains less overtone to get low-passed output.</p>
 <p>Equation to get cutoff frequency is following.</p>
@@ -475,33 +533,47 @@ lpFreq = noteToFreq(midiNote + lowpassPitch)
 ntFreq = noteToFreq(midiNote)
 cutoffFrequency = (1 + (range - lpFreq) / range) * ntFreq</code></pre>
 <p>128 used to calculate <code>lpCut</code> is an arbitrary value which came from MIDI note number range + 1. <code>nTable</code> is set to 136.</p>
-<h5 id="cutoff">Cutoff</h5>
-<p>Changes filter cutoff frequency.</p>
-<h5 id="keyfollow">KeyFollow</h5>
-<p>When set to right-most, cutoff frequency is set to make the number of overtone to be almost same regardless of pitch of note. When set to left-most, it only use the value of <code>Cutoff</code>.</p>
-<h5 id="a-d-s-r-amount">A, D, S, R, Amount</h5>
-<p>Filter envelope parameters. <code>Amount</code> changes the amount of modulation to cutoff.</p>
+<dl>
+<dt>Cutoff</dt>
+<dd><p>Changes filter cutoff frequency.</p>
+</dd>
+<dt>KeyFollow</dt>
+<dd><p>When set to right-most, cutoff frequency is set to make the number of overtone to be almost same regardless of pitch of note. When set to left-most, it only use the value of <code>Cutoff</code>.</p>
+</dd>
+<dt>A, D, S, R, Amount</dt>
+<dd><p>Filter envelope parameters. <code>Amount</code> changes the amount of modulation to cutoff.</p>
+</dd>
+</dl>
 <h4 id="pitch">Pitch</h4>
-<h5 id="a-d-s-r-amount-1">A, D, S, R, Amount</h5>
-<p>Pitch envelope parameters.</p>
-<h5 id="negative">Negative</h5>
-<p>Changes the sign of pitch envelope output.</p>
+<dl>
+<dt>A, D, S, R, Amount</dt>
+<dd><p>Pitch envelope parameters.</p>
+</dd>
+<dt>Negative</dt>
+<dd><p>Changes the sign of pitch envelope output.</p>
+</dd>
+</dl>
 <h4 id="unison">Unison</h4>
-<h5 id="nunison">nUnison</h5>
-<p>Number of voices used by unison.</p>
+<dl>
+<dt>nUnison</dt>
+<dd><p>Number of voices used by unison.</p>
 <p>To avoid interruption of release, increase the number of <code>nVoice</code> in Misc. section. Note that increasing <code>nVoice</code> consumes more resources.</p>
-<h5 id="detune-random-detune">Detune, Random Detune</h5>
-<p><code>Detune</code> is the difference of pitch between voices used in a unison.</p>
+</dd>
+<dt>Detune, Random Detune</dt>
+<dd><p><code>Detune</code> is the difference of pitch between voices used in a unison.</p>
 <p>When <code>Random Detune</code> is checked, amount of detune changes for each note-on.</p>
 <pre><code>random = RandomDetune ? rand() : 1
 detune = pitch * (1 + random * unisonIndex * Detune)</code></pre>
-<h5 id="gainrnd">GainRnd</h5>
-<p>Amount of randomization of gain for voices used in a unison.</p>
-<h5 id="phase">Phase</h5>
-<p>Amount of randomization of phase for voices used in a unison.</p>
+</dd>
+<dt>GainRnd</dt>
+<dd><p>Amount of randomization of gain for voices used in a unison.</p>
+</dd>
+<dt>Phase</dt>
+<dd><p>Amount of randomization of phase for voices used in a unison.</p>
 <p>This parameter makes no effect when <code>Reset</code> in Phase section is checked.</p>
-<h5 id="spread-spread-type">Spread, Spread Type</h5>
-<p><code>Spread</code> is an amount of stereo spread for a unison.</p>
+</dd>
+<dt>Spread, Spread Type</dt>
+<dd><p><code>Spread</code> is an amount of stereo spread for a unison.</p>
 <p><code>Spread Type</code> provides options to assign panpot values according to voice pitch.</p>
 <ul>
 <li><code>Alternate L-R</code>: Alternates <code>Ascend L -&gt; R</code> and <code>Ascend R -&gt; L</code>.</li>
@@ -515,36 +587,53 @@ detune = pitch * (1 + random * unisonIndex * Detune)</code></pre>
 <li><code>RotateR</code>: Rotate to right for each note-on.</li>
 <li><code>Shuffle</code>: Randomly assign pan which is evenly ordered.</li>
 </ul>
+</dd>
+</dl>
 <h4 id="lfo">LFO</h4>
-<h5 id="refresh-lfo">Refresh LFO</h5>
-<p>Refresh LFO wavetable based on current value of <code>LFO Wave</code>.</p>
+<dl>
+<dt>Refresh LFO</dt>
+<dd><p>Refresh LFO wavetable based on current value of <code>LFO Wave</code>.</p>
 <p>Note that refreshing wavetable stops sound. It also interrupts MIDI notes.</p>
-<h5 id="interpolation">Interpolation</h5>
-<p>Type of LFO wavetable interpolation.</p>
+</dd>
+<dt>Interpolation</dt>
+<dd><p>Type of LFO wavetable interpolation.</p>
 <p><img src="img/interpolation_type.png" /></p>
-<h5 id="tempo-multiply">Tempo, Multiply</h5>
-<p>Sets LFO frequency according to current tempo. Lower numeral represents the length of note. Upper numeral is the number of notes.</p>
+</dd>
+<dt>Tempo, Multiply</dt>
+<dd><p>Sets LFO frequency according to current tempo. Lower numeral represents the length of note. Upper numeral is the number of notes.</p>
 <p>Value of <code>Multiply</code> is multiplied to the frequency calculated from <code>Tempo</code>.</p>
 <pre><code>// (60 seconds) * (4 beat) = 240
 lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)</code></pre>
-<h5 id="retrigger">Retrigger</h5>
-<p>When checked, resets LFO phase for each note-on.</p>
-<h5 id="amount">Amount</h5>
-<p>LFO frequency modulation amount.</p>
-<h5 id="lowpass-1">Lowpass</h5>
-<p>Changes cutoff freequency of low-pass filter for LFO.</p>
-<h5 id="lfo-wave">LFO Wave</h5>
-<p>LFO waveform.</p>
-<h4 id="phase-1">Phase</h4>
-<h5 id="phase-2">Phase</h5>
-<p>Initial phase of oscillator.</p>
-<h5 id="reset">Reset</h5>
-<p>When checked, resets oscillator phase to the value set by <code>Phase</code>.</p>
-<h5 id="random">Random</h5>
-<p>When checked, randomize phase for each note-on. In this case, value of <code>Phase</code> becomes range of randomization.</p>
+</dd>
+<dt>Retrigger</dt>
+<dd><p>When checked, resets LFO phase for each note-on.</p>
+</dd>
+<dt>Amount</dt>
+<dd><p>LFO frequency modulation amount.</p>
+</dd>
+<dt>Lowpass</dt>
+<dd><p>Changes cutoff freequency of low-pass filter for LFO.</p>
+</dd>
+<dt>LFO Wave</dt>
+<dd><p>LFO waveform.</p>
+</dd>
+</dl>
+<h4 id="phase">Phase</h4>
+<dl>
+<dt>Phase</dt>
+<dd><p>Initial phase of oscillator.</p>
+</dd>
+<dt>Reset</dt>
+<dd><p>When checked, resets oscillator phase to the value set by <code>Phase</code>.</p>
+</dd>
+<dt>Random</dt>
+<dd><p>When checked, randomize phase for each note-on. In this case, value of <code>Phase</code> becomes range of randomization.</p>
+</dd>
+</dl>
 <h4 id="misc.">Misc.</h4>
-<h5 id="smooth">Smooth</h5>
-<p>Time length to change some parameter value to current one. Unit is in second.</p>
+<dl>
+<dt>Smooth</dt>
+<dd><p>Time length to change some parameter value to current one. Unit is in second.</p>
 <p>List of parameters related to <code>Smooth</code>. <code>*</code> represents wild card.</p>
 <ul>
 <li>All parameters in Tuning section.</li>
@@ -578,68 +667,106 @@ lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)<
 <li><code>Phase</code></li>
 </ul></li>
 </ul>
-<h5 id="nvoice">nVoice</h5>
-<p>Maximum polyphony. Lowering the number of this option reduces CPU load.</p>
-<h5 id="pool">Pool</h5>
-<p>When checked, most quiet note is released when the number of active voice is close to maximum polyphony. This can be used to reduce pop noise which occurs on note-on.</p>
+</dd>
+<dt>nVoice</dt>
+<dd><p>Maximum polyphony. Lowering the number of this option reduces CPU load.</p>
+</dd>
+<dt>Pool</dt>
+<dd><p>When checked, most quiet note is released when the number of active voice is close to maximum polyphony. This can be used to reduce pop noise which occurs on note-on.</p>
+</dd>
+</dl>
 <h3 id="wavetable-tab">Wavetable Tab</h3>
 <p><img src="img/cubicpadsynth_wavetable_tab.png" /></p>
 <h4 id="overtone-controls">Overtone Controls</h4>
-<h5 id="gain-2">Gain</h5>
-<p>Gain of profile.</p>
-<h5 id="width">Width</h5>
-<p>Width of profile.</p>
-<h5 id="pitch-1">Pitch</h5>
-<p>This value is multiplied to profile center frequency.</p>
-<h5 id="phase-3">Phase</h5>
-<p>Range of randomization for the phase of profile.</p>
-<h4 id="pitch-2">Pitch</h4>
-<h5 id="base-freq.">Base Freq.</h5>
-<p>Fundamental frequency of wavetable. Note that if this value is small, master pitch becomes out of tune.</p>
-<h5 id="multiply-modulo">Multiply, Modulo</h5>
-<p>Changes profile center frequency.</p>
+<dl>
+<dt>Gain</dt>
+<dd><p>Gain of profile.</p>
+</dd>
+<dt>Width</dt>
+<dd><p>Width of profile.</p>
+</dd>
+<dt>Pitch</dt>
+<dd><p>This value is multiplied to profile center frequency.</p>
+</dd>
+<dt>Phase</dt>
+<dd><p>Range of randomization for the phase of profile.</p>
+</dd>
+</dl>
+<h4 id="pitch-1">Pitch</h4>
+<dl>
+<dt>Base Freq.</dt>
+<dd><p>Fundamental frequency of wavetable. Note that if this value is small, master pitch becomes out of tune.</p>
+</dd>
+<dt>Multiply, Modulo</dt>
+<dd><p>Changes profile center frequency.</p>
 <pre><code>profileCenterFrequency = mod(
   BaseFreq * profileIndex * overtonePitch * Multiply,
   440 * pow(2, (Modulo - 69) / 12)
 )</code></pre>
-<h5 id="random-1">Random</h5>
-<p>When checked, randomize profile center frequency. Ignores values of <code>Pitch</code> in overtone control.</p>
+</dd>
+<dt>Random</dt>
+<dd><p>When checked, randomize profile center frequency. Ignores values of <code>Pitch</code> in overtone control.</p>
+</dd>
+</dl>
 <h4 id="spectrum">Spectrum</h4>
-<h5 id="expand">Expand</h5>
-<p>Scaling factor to shrink/expand the spectrum along to frequency axis.</p>
+<dl>
+<dt>Expand</dt>
+<dd><p>Scaling factor to shrink/expand the spectrum along to frequency axis.</p>
 <p><img src="img/expand.svg" /></p>
-<h5 id="shift">Shift</h5>
-<p>Shift spectrum along to frequency axis.</p>
+</dd>
+<dt>Shift</dt>
+<dd><p>Shift spectrum along to frequency axis.</p>
 <p><img src="img/shift.svg" /></p>
-<h5 id="comb">Comb</h5>
-<p>When this value is higher than 1, it changes the shape of profile like a comb. The value specifies interval between peaks.</p>
+</dd>
+<dt>Comb</dt>
+<dd><p>When this value is higher than 1, it changes the shape of profile like a comb. The value specifies interval between peaks.</p>
 <p><img src="img/comb.png" /></p>
-<h5 id="shape">Shape</h5>
-<p>Changes profile shapes by using the value of <code>Shape</code> as an exponent.</p>
+</dd>
+<dt>Shape</dt>
+<dd><p>Changes profile shapes by using the value of <code>Shape</code> as an exponent.</p>
 <pre><code>shapedProfile = powf(profile, shape);</code></pre>
-<h5 id="invert">Invert</h5>
-<p>Invert spectrum to make the maximum of absolute value to 0, and 0 to the max-abs value. Signs are preserved. Phases aren’t considered.</p>
+</dd>
+<dt>Invert</dt>
+<dd><p>Invert spectrum to make the maximum of absolute value to 0, and 0 to the max-abs value. Signs are preserved. Phases aren’t considered.</p>
 <pre><code>maxRe = max(abs(spectrumRe))
 maxIm = max(abs(spectrumIm))
 invertedSpectrumRe = spectrumRe - sgn(spectrumRe) * maxRe
 invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
-<h4 id="phase-4">Phase</h4>
-<h5 id="uniformphase">UniformPhase</h5>
-<p>When checked, phase of a profile becomes an uniform value.</p>
-<h4 id="random-2">Random</h4>
-<h5 id="seed">Seed</h5>
-<p>Random seed. This value change random number sequence.</p>
+</dd>
+</dl>
+<h4 id="phase-1">Phase</h4>
+<dl>
+<dt>UniformPhase</dt>
+<dd><p>When checked, phase of a profile becomes an uniform value.</p>
+</dd>
+</dl>
+<h4 id="random">Random</h4>
+<dl>
+<dt>Seed</dt>
+<dd><p>Random seed. This value change random number sequence.</p>
+</dd>
+</dl>
 <h4 id="modifier">Modifier</h4>
-<h5 id="gain-3">Gain^</h5>
-<p>Exponent for <code>Gain</code> in overtone control.</p>
+<dl>
+<dt>Gain^</dt>
+<dd><p>Exponent for <code>Gain</code> in overtone control.</p>
 <pre><code>profileGain = pow(Gain, Gain^)</code></pre>
-<h5 id="width-multiplier-for-width-in-overtone-control.">Width* Multiplier for <code>Width</code> in overtone control.</h5>
+</dd>
+<dt>Width*</dt>
+<dd><p>Multiplier for <code>Width</code> in overtone control.</p>
 <pre><code>profileWidth = Width * (Width*)</code></pre>
+</dd>
+</dl>
 <h4 id="refresh-table">Refresh Table</h4>
 <p>Refresh PADsynth wavetable based on current configuration of Wavetable tab.</p>
 <p>Note that refreshing wavetable stops sound. It also interrupts MIDI notes.</p>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.4
+<ul>
+<li>Fixed a bug that refreshing wavetable before parameters are loaded at launch.</li>
+<li>Fixed off by one error in LFO wavetable with cubic interpolation.</li>
+</ul></li>
 <li>0.1.3
 <ul>
 <li>Fixed a bug that some shortcuts are disabled for BarBox.</li>
@@ -660,6 +787,7 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
 </ul>
 <h3 id="old-versions">Old Versions</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip">CubicPadSynth 0.1.3 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynth0.1.2.zip">CubicPadSynth 0.1.2 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip">CubicPadSynth 0.1.1 - VST 3 (github.com)</a></li>
 </ul>

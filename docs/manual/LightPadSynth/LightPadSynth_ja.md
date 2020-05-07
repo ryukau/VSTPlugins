@@ -437,13 +437,13 @@ Width\*
 ## チェンジログ
 - 0.1.2
   - 起動時にパラメータがロードされる前にウェーブテーブルが更新されるバグを修正。
+  - LFO ウェーブテーブルの補間が Cubic のときにインデックスが 1 つずれていたバグを修正。
 - 0.1.1
   - Refresh LFO ボタンと Refresh Table ボタンをメッセージからパラメータに修正。
 - 0.1.0
   - 初期リリース。
 
 ### 旧バージョン
-- [LightPadSynth 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.1/LightPadSynth0.1.1.zip)
 - [LightPadSynth 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynth0.1.0.zip)
 
 ## ライセンス
