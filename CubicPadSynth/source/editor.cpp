@@ -387,8 +387,8 @@ bool Editor::prepareUI()
     tabMain, addGroupVerticalLabel(lfoWaveLeft, lfoWaveTop, lfoBarboxHeight, "LFO Wave"));
   auto barboxLfoWavetable = addBarBox(
     lfoWaveLeft + labelY, lfoWaveTop, barboxWidth + 2.0f * knobX + 4.0f * margin,
-    lfoBarboxHeight, ID::lfoWavetable0, nLFOWavetable, "LFO Wave");
-  barboxLfoWavetable->drawCenterLine = true;
+    lfoBarboxHeight, ID::lfoWavetable0, nLFOWavetable, Scales::lfoWavetable, "LFO Wave");
+  barboxLfoWavetable->sliderZero = 0.5f;
   tabview->addWidget(tabMain, barboxLfoWavetable);
 
   // Wavetable pitch.
@@ -548,7 +548,7 @@ bool Editor::prepareUI()
     tabPadSynth,
     addBarBox(
       otGainLeft0, otGainTop, barboxWidth, barboxHeight, ID::overtoneGain0, nOvertone,
-      "Gain"));
+      Scales::overtoneGain, "Gain"));
 
   // Overtone Width.
   const auto otWidthTop = otGainTop + barboxY + margin;
@@ -561,7 +561,7 @@ bool Editor::prepareUI()
     tabPadSynth,
     addBarBox(
       otWidthLeft0, otWidthTop, barboxWidth, barboxHeight, ID::overtoneWidth0, nOvertone,
-      "Width"));
+      Scales::overtoneWidth, "Width"));
 
   // Overtone Pitch.
   const auto otPitchTop = otWidthTop + barboxY + margin;
@@ -574,7 +574,7 @@ bool Editor::prepareUI()
     tabPadSynth,
     addBarBox(
       otPitchLeft0, otPitchTop, barboxWidth, barboxHeight, ID::overtonePitch0, nOvertone,
-      "Pitch"));
+      Scales::overtonePitch, "Pitch"));
 
   // Overtone Phase.
   const auto otPhaseTop = otPitchTop + barboxY + margin;
@@ -587,7 +587,7 @@ bool Editor::prepareUI()
     tabPadSynth,
     addBarBox(
       otPhaseLeft0, otPhaseTop, barboxWidth, barboxHeight, ID::overtonePhase0, nOvertone,
-      "Phase"));
+      Scales::overtonePhase, "Phase"));
 
   auto textKnobControl = R"(- Knob -
 Shift + Left Drag|Fine Tuning

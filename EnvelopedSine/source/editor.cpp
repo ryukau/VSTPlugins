@@ -205,7 +205,7 @@ bool Editor::prepareUI()
   const auto attackLeft0 = attackLeft + labelY;
   addBarBox(
     attackLeft0, attackTop, barboxWidth, barboxHeight, ID::attack0, Synth::nOvertone,
-    "Attack");
+    Scales::envelopeA, "Attack");
 
   // Decay.
   const auto decayTop = attackTop + barboxY + margin;
@@ -215,7 +215,7 @@ bool Editor::prepareUI()
   const auto decayLeft0 = decayLeft + labelY;
   addBarBox(
     decayLeft0, decayTop, barboxWidth, barboxHeight, ID::decay0, Synth::nOvertone,
-    "Decay");
+    Scales::envelopeD, "Decay");
 
   // Overtone.
   const auto overtoneTop = decayTop + barboxY + margin;
@@ -225,7 +225,7 @@ bool Editor::prepareUI()
   const auto overtoneLeft0 = overtoneLeft + labelY;
   addBarBox(
     overtoneLeft0, overtoneTop, barboxWidth, barboxHeight, ID::overtone0,
-    Synth::nOvertone, "Gain");
+    Synth::nOvertone, Scales::gainDecibel, "Gain");
 
   // Saturation.
   const auto saturationTop = overtoneTop + barboxY + margin;
@@ -235,7 +235,7 @@ bool Editor::prepareUI()
   const auto saturationLeft0 = saturationLeft + labelY;
   addBarBox(
     saturationLeft0, saturationTop, barboxWidth, barboxHeight, ID::saturation0,
-    Synth::nOvertone, "Saturation");
+    Synth::nOvertone, Scales::saturation, "Saturation");
 
   // Plugin name.
   const auto splashTop = defaultHeight - splashHeight - 20.0f;

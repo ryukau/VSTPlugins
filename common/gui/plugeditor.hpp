@@ -79,14 +79,48 @@ public:
     const char *pluginName,
     float buttonFontSize = 18.0);
 
-  BarBox *addBarBox(
+  template<typename Scale>
+  BarBox<Scale> *addBarBox(
     CCoord left,
     CCoord top,
     CCoord width,
     CCoord height,
     ParamID id0,
     size_t nBar,
-    std::string name);
+    Scale &scale,
+    std::string name)
+  {
+    std::vector<ParamID> id(nBar);
+    for (size_t i = 0; i < id.size(); ++i) id[i] = id0 + ParamID(i);
+    std::vector<double> value(id.size());
+    for (size_t i = 0; i < value.size(); ++i)
+      value[i] = controller->getParamNormalized(id[i]);
+    std::vector<double> defaultValue(id.size());
+    for (size_t i = 0; i < value.size(); ++i)
+      defaultValue[i] = param->getDefaultNormalized(id[i]);
+
+    auto barBox = new BarBox<Scale>(
+      this, CRect(left, top, left + width, top + height), id, value, defaultValue);
+    barBox->setIndexFont(
+      new CFontDesc(PlugEditorStyle::fontName(), 10.0, CTxtFace::kBoldFace));
+    barBox->setNameFont(
+      new CFontDesc(PlugEditorStyle::fontName(), 24.0, CTxtFace::kNormalFace));
+    barBox->setBorderColor(colorBlack);
+    barBox->setValueColor(colorBlue);
+    barBox->setName(name);
+    frame->addView(barBox);
+
+    auto iter = arrayControlInstances.find(id0);
+    if (iter != arrayControlInstances.end()) {
+      iter->second->forget();
+      arrayControlInstances.erase(iter);
+    }
+    barBox->remember();
+    arrayControlInstances.emplace(std::make_pair(id0, barBox));
+    for (size_t i = 0; i < id.size(); ++i)
+      arrayControlMap.emplace(std::make_pair(id0 + i, barBox));
+    return barBox;
+  }
 
   CTextLabel *addLabel(
     CCoord left, CCoord top, CCoord width, UTF8String name, CFontDesc *font = nullptr);
@@ -248,6 +282,15 @@ public:
     float cellWidth,
     CCoord textSize);
 
+  TabView *addTabView(
+    float left,
+    float top,
+    float width,
+    float hegiht,
+    float tabHeight,
+    CColor highlightColor,
+    std::vector<std::string> tabs);
+
 protected:
   void addToControlMap(Vst::ParamID id, CControl *control);
   virtual bool prepareUI() = 0;
@@ -255,8 +298,10 @@ protected:
   std::unique_ptr<ParameterInterface> param;
 
   std::unordered_map<Vst::ParamID, CControl *> controlMap;
-  std::vector<ArrayControl *> arrayControls;
+  std::unordered_map<Vst::ParamID, ArrayControl *> arrayControlMap;
+  std::unordered_map<Vst::ParamID, ArrayControl *> arrayControlInstances; // Dirty hack.
 
+  float uiMargin = 20.0f;
   float uiTextSize = 14.0f;
   float midTextSize = 16.0f;
   float pluginNameTextSize = 22.0f;
@@ -267,6 +312,8 @@ protected:
   float knobHeight = 40.0f;
   float knobX = 60.0f; // With margin.
   float knobY = knobHeight + labelY;
+  float textKnobX = knobX;
+  float checkboxWidth = knobX;
   float sliderWidth = 70.0f;
   float sliderHeight = 2.0f * (knobHeight + labelY) + 67.5f;
   float sliderX = 80.0f;
@@ -274,7 +321,8 @@ protected:
   float barboxWidth = 12.0f * knobX;
   float barboxHeight = 2.0f * knobY;
   float barboxY = barboxHeight + 2.0f * margin;
-  float checkboxWidth = 60.0f;
+  float tabViewWidth = 200.0f;
+  float tabViewHeight = 200.0f;
   float splashHeight = 40.0f;
   int32 defaultWidth = int32(512);
   int32 defaultHeight = int32(512);

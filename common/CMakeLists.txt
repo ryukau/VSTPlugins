@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.10)
 project(UhhyouCommon)
 
 add_library(UhhyouCommon OBJECT
-  gui/barbox.cpp
   gui/button.cpp
   gui/checkbox.cpp
   gui/knob.cpp

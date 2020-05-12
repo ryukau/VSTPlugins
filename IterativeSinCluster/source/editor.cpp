@@ -329,9 +329,10 @@ bool Editor::prepareUI()
   const float leftOvertone = left0 + 5.0f * knobX + 2.0f * margin;
   addGroupLabel(leftOvertone, topOvertone0, 4.0f * knobX, "Overtone");
 
-  addBarBox(
+  auto barboxOvertone = addBarBox(
     leftOvertone, topOvertone0 + labelY, 4.0f * knobX, 2.0f * knobY, ID::overtone1, 16,
-    "");
+    Scales::gainDecibel, "");
+  barboxOvertone->indexOffset = 1;
 
   // Plugin name.
   const auto splashTop = defaultHeight - splashHeight - 20.0f;

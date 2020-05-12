@@ -34,8 +34,8 @@ PlugEditor::~PlugEditor()
   for (auto &ctrl : controlMap)
     if (ctrl.second) ctrl.second->forget();
 
-  for (auto &ctrl : arrayControls)
-    if (ctrl) ctrl->forget();
+  for (auto &ctrl : arrayControlInstances)
+    if (ctrl.second) ctrl.second->forget();
 }
 
 bool PlugEditor::open(void *parent, const PlatformType &platformType)
@@ -85,17 +85,18 @@ void PlugEditor::valueChanged(ParamID id, ParamValue normalized)
 
 void PlugEditor::updateUI(Vst::ParamID id, ParamValue normalized)
 {
-  auto iter = controlMap.find(id);
-  if (iter != controlMap.end()) {
-    iter->second->setValueNormalized(normalized);
-    iter->second->invalid();
+  auto vCtrl = controlMap.find(id);
+  if (vCtrl != controlMap.end()) {
+    vCtrl->second->setValueNormalized(normalized);
+    vCtrl->second->invalid();
     return;
   }
 
-  for (auto &ctrl : arrayControls) {
-    if (id < ctrl->id.front() && id > ctrl->id.back()) continue;
-    ctrl->setValueAt(id - ctrl->id.front(), normalized);
-    ctrl->invalid();
+  auto aCtrl = arrayControlMap.find(id);
+  if (aCtrl != arrayControlMap.end()) {
+    aCtrl->second->setValueAt(id - aCtrl->second->id.front(), normalized);
+    aCtrl->second->invalid();
+    return;
   }
 }
 
@@ -152,47 +153,6 @@ void PlugEditor::addSplashScreen(
   splash->setHighlightColor(colorOrange);
   frame->addView(splash);
   frame->addView(credit);
-}
-
-BarBox *PlugEditor::addBarBox(
-  CCoord left,
-  CCoord top,
-  CCoord width,
-  CCoord height,
-  ParamID id0,
-  size_t nBar,
-  std::string name)
-{
-  std::vector<ParamID> id(nBar);
-  for (size_t i = 0; i < id.size(); ++i) id[i] = id0 + ParamID(i);
-  std::vector<double> value(id.size());
-  for (size_t i = 0; i < value.size(); ++i)
-    value[i] = controller->getParamNormalized(id[i]);
-  std::vector<double> defaultValue(id.size());
-  for (size_t i = 0; i < value.size(); ++i)
-    defaultValue[i] = param->getDefaultNormalized(id[i]);
-
-  auto barBox = new BarBox(
-    this, CRect(left, top, left + width, top + height), id, value, defaultValue);
-  barBox->setIndexFont(
-    new CFontDesc(PlugEditorStyle::fontName(), 10.0, CTxtFace::kBoldFace));
-  barBox->setNameFont(
-    new CFontDesc(PlugEditorStyle::fontName(), 24.0, CTxtFace::kNormalFace));
-  barBox->setBorderColor(colorBlack);
-  barBox->setValueColor(colorBlue);
-  barBox->setName(name);
-  frame->addView(barBox);
-
-  auto iter = std::find_if(
-    arrayControls.begin(), arrayControls.end(),
-    [&](const ArrayControl *elem) { return elem->id[0] == id0; });
-  if (iter != arrayControls.end()) {
-    (*iter)->forget();
-    arrayControls.erase(iter);
-  }
-  barBox->remember();
-  arrayControls.push_back(barBox);
-  return barBox;
 }
 
 CTextLabel *PlugEditor::addLabel(
@@ -505,6 +465,23 @@ TextTableView *PlugEditor::addTextTableView(
     new CFontDesc(PlugEditorStyle::fontName(), textSize, CTxtFace::kNormalFace));
   frame->addView(view);
   return view;
+}
+
+TabView *PlugEditor::addTabView(
+  float left,
+  float top,
+  float width,
+  float hegiht,
+  float tabHeight,
+  CColor highlightColor,
+  std::vector<std::string> tabs)
+{
+  auto tabview = new TabView(
+    tabs, new CFontDesc(PlugEditorStyle::fontName(), fontSize, CTxtFace::kNormalFace),
+    tabHeight, CRect(left, top, left + width, top + hegiht));
+  tabview->setHighlightColor(highlightColor);
+  frame->addView(tabview);
+  return tabview;
 }
 
 void PlugEditor::addToControlMap(Vst::ParamID id, CControl *control)
