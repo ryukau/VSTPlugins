@@ -1,0 +1,257 @@
+// (c) 2020 Takamitsu Endo
+//
+// This file is part of LatticeReverb.
+//
+// LatticeReverb is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// LatticeReverb is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with LatticeReverb.  If not, see <https://www.gnu.org/licenses/>.
+
+#include "editor.hpp"
+#include "version.hpp"
+
+#include <algorithm>
+#include <sstream>
+
+enum tabIndex { tabBase, tabOffset, tabModulation };
+
+namespace Steinberg {
+namespace Vst {
+
+using namespace VSTGUI;
+
+Editor::Editor(void *controller) : PlugEditor(controller)
+{
+  param = std::make_unique<Synth::GlobalParameter>();
+
+  uiMargin = 20.0f;
+  uiTextSize = 14.0f;
+  midTextSize = 16.0f;
+  pluginNameTextSize = 22.0f;
+  margin = 5.0f;
+  labelHeight = 20.0f;
+  labelY = 30.0f;
+  knobWidth = 50.0f;
+  knobHeight = 40.0f;
+  knobX = 60.0f; // With margin.
+  knobY = knobHeight + labelY;
+  textKnobX = 80.0f;
+  splashHeight = 40.0f;
+  barboxWidth = 4 * textKnobX;
+  barboxHeight = 2 * knobY;
+
+  tabViewWidth = barboxWidth + labelY + 2 * uiMargin;
+  tabViewHeight = labelY + 3 * barboxHeight + 2 * labelHeight + 2 * uiMargin;
+
+  leftPanelWidth = 4 * knobX + 6 * margin + labelHeight;
+
+  defaultWidth = int32(leftPanelWidth + labelY + tabViewWidth + 2 * uiMargin);
+  defaultHeight = int32(tabViewHeight + 2 * uiMargin);
+  viewRect = ViewRect{0, 0, defaultWidth, defaultHeight};
+
+  setRect(viewRect);
+}
+
+bool Editor::prepareUI()
+{
+  using ID = Synth::ParameterID::ID;
+  using Scales = Synth::Scales;
+
+  const auto top0 = uiMargin;
+  const auto left0 = uiMargin;
+
+  // Multipliers.
+  const auto mulTop0 = top0;
+  const auto mulTop1 = mulTop0 + labelY;
+  const auto mulTop2 = mulTop1 + labelY;
+  const auto mulTop3 = mulTop2 + labelY;
+  const auto mulTop4 = mulTop3 + labelY;
+  const auto mulLeft0 = left0;
+  const auto mulLeft1 = mulLeft0 + textKnobX + 2 * margin;
+  const auto mulLeft2 = mulLeft1 + textKnobX + 2 * margin;
+
+  addGroupLabel(mulLeft0, mulTop0, leftPanelWidth, "Multiplier");
+
+  addLabel(mulLeft1, mulTop1, textKnobX, "Base");
+  addLabel(mulLeft2, mulTop1, textKnobX, "Offset");
+
+  addLabel(mulLeft0, mulTop2, textKnobX, "Time");
+  addLabel(mulLeft0, mulTop3, textKnobX, "OuterFeed");
+  addLabel(mulLeft0, mulTop4, textKnobX, "InnerFeed");
+
+  addTextKnob(
+    mulLeft1, mulTop2, textKnobX, colorBlue, ID::timeMultiply, Scales::multiply, false,
+    4);
+  addTextKnob(
+    mulLeft1, mulTop3, textKnobX, colorBlue, ID::outerFeedMultiply, Scales::multiply,
+    false, 4);
+  addTextKnob(
+    mulLeft1, mulTop4, textKnobX, colorBlue, ID::innerFeedMultiply, Scales::multiply,
+    false, 4);
+  addTextKnob(
+    mulLeft2, mulTop2, textKnobX, colorBlue, ID::timeOffsetMultiply, Scales::multiply,
+    false, 4);
+  addTextKnob(
+    mulLeft2, mulTop3, textKnobX, colorBlue, ID::outerFeedOffsetMultiply,
+    Scales::multiply, false, 4);
+  addTextKnob(
+    mulLeft2, mulTop4, textKnobX, colorBlue, ID::innerFeedOffsetMultiply,
+    Scales::multiply, false, 4);
+
+  // Panic button.
+  const auto panicButtonLeft = left0 + 1.5f * knobX;
+  const auto panicButtonTop = mulTop4 + 2 * labelY;
+  auto panicButton = new PanicButton(
+    CRect(
+      panicButtonLeft, panicButtonTop, panicButtonLeft + leftPanelWidth - 3.0f * knobX,
+      panicButtonTop + 2 * labelHeight),
+    this, 0, "Panic!",
+    new CFontDesc(PlugEditorStyle::fontName(), pluginNameTextSize, CTxtFace::kNormalFace),
+    this);
+  panicButton->setForegroundColor(colorBlack);
+  panicButton->setHighlightColor(colorOrange);
+  frame->addView(panicButton);
+
+  // Mix.
+  const auto miscTop0 = mulTop0 + 8 * labelY + 3 * margin;
+  const auto miscTop1 = miscTop0 + labelY;
+
+  const auto mixLeft0 = left0;
+  const auto mixLeft1 = mixLeft0 + knobX + 2 * margin;
+
+  addGroupLabel(mixLeft0, miscTop0, 2 * knobX + 2 * margin, "Mix");
+  addKnob(mixLeft0, miscTop1, knobX, colorBlue, "Dry", ID::dry);
+  addKnob(mixLeft1, miscTop1, knobX, colorBlue, "Wet", ID::wet);
+
+  // Misc.
+  const auto miscLeft0 = left0 + 2 * knobX + 2 * margin + labelHeight;
+  const auto miscLeft1 = miscLeft0 + knobX + 2 * margin;
+
+  addGroupLabel(miscLeft0, miscTop0, 2 * knobX + 2 * margin, "Stereo");
+  addKnob(miscLeft0, miscTop1, knobX, colorBlue, "Cross", ID::stereoCross);
+  addKnob(miscLeft1, miscTop1, knobX, colorBlue, "Spread", ID::stereoSpread);
+
+  // Smooth.
+  const auto leftSmooth = left0 + 1.5f * knobX + 3 * margin + 0.5f * labelHeight;
+  addKnob(
+    leftSmooth, miscTop1 + knobY + labelY, knobX, colorBlue, "Smooth", ID::smoothness);
+
+  // Right side.
+  const auto tabViewLeft = left0 + leftPanelWidth + labelY;
+
+  std::vector<std::string> tabs{"Base", "Offset", "Modulation"};
+  auto tabview
+    = addTabView(tabViewLeft, top0, tabViewWidth, tabViewHeight, labelY, colorBlue, tabs);
+
+  const auto tabInsideTop0 = top0 + labelY + uiMargin;
+  const auto tabInsideTop1 = tabInsideTop0 + barboxHeight + labelHeight;
+  const auto tabInsideTop2 = tabInsideTop1 + barboxHeight + labelHeight;
+  const auto tabInsideLeft0 = tabViewLeft + uiMargin;
+  const auto tabInsideLeft1 = tabInsideLeft0 + labelY;
+
+  // Base tab.
+  tabview->addWidget(
+    tabBase, addGroupVerticalLabel(tabInsideLeft0, tabInsideTop0, barboxHeight, "Time"));
+  tabview->addWidget(
+    tabBase,
+    addBarBox(
+      tabInsideLeft1, tabInsideTop0, barboxWidth, barboxHeight, ID::time0, nestingDepth,
+      Scales::time, "Time"));
+
+  tabview->addWidget(
+    tabBase,
+    addGroupVerticalLabel(tabInsideLeft0, tabInsideTop1, barboxHeight, "OuterFeed"));
+  auto barboxOuterFeed = addBarBox(
+    tabInsideLeft1, tabInsideTop1, barboxWidth, barboxHeight, ID::outerFeed0,
+    nestingDepth, Scales::feed, "OuterFeed");
+  barboxOuterFeed->sliderZero = 0.5f;
+  tabview->addWidget(tabBase, barboxOuterFeed);
+
+  tabview->addWidget(
+    tabBase,
+    addGroupVerticalLabel(tabInsideLeft0, tabInsideTop2, barboxHeight, "InnerFeed"));
+  auto barboxInnerFeed = addBarBox(
+    tabInsideLeft1, tabInsideTop2, barboxWidth, barboxHeight, ID::innerFeed0,
+    nestingDepth, Scales::feed, "InnerFeed");
+  barboxInnerFeed->sliderZero = 0.5f;
+  tabview->addWidget(tabBase, barboxInnerFeed);
+
+  // Tab offset.
+  tabview->addWidget(
+    tabOffset,
+    addGroupVerticalLabel(tabInsideLeft0, tabInsideTop0, barboxHeight, "Time"));
+  auto barboxTimeOffset = addBarBox(
+    tabInsideLeft1, tabInsideTop0, barboxWidth, barboxHeight, ID::timeOffset0,
+    nestingDepth, Scales::timeOffset, "Time");
+  barboxTimeOffset->sliderZero = 0.5f;
+  tabview->addWidget(tabOffset, barboxTimeOffset);
+
+  tabview->addWidget(
+    tabOffset,
+    addGroupVerticalLabel(tabInsideLeft0, tabInsideTop1, barboxHeight, "OuterFeed"));
+  auto barboxOuterOffset = addBarBox(
+    tabInsideLeft1, tabInsideTop1, barboxWidth, barboxHeight, ID::outerFeedOffset0,
+    nestingDepth, Scales::feedOffset, "OuterFeed");
+  barboxOuterOffset->sliderZero = 0.5f;
+  tabview->addWidget(tabOffset, barboxOuterOffset);
+
+  tabview->addWidget(
+    tabOffset,
+    addGroupVerticalLabel(tabInsideLeft0, tabInsideTop2, barboxHeight, "InnerFeed"));
+  auto barboxInnerOffset = addBarBox(
+    tabInsideLeft1, tabInsideTop2, barboxWidth, barboxHeight, ID::innerFeedOffset0,
+    nestingDepth, Scales::feedOffset, "InnerFeed");
+  barboxInnerOffset->sliderZero = 0.5f;
+  tabview->addWidget(tabOffset, barboxInnerOffset);
+
+  // Tab modulation
+  tabview->addWidget(
+    tabModulation,
+    addGroupVerticalLabel(tabInsideLeft0, tabInsideTop0, barboxHeight, "Time LFO"));
+  tabview->addWidget(
+    tabModulation,
+    addBarBox(
+      tabInsideLeft1, tabInsideTop0, barboxWidth, barboxHeight, ID::timeLfoAmount0,
+      nestingDepth, Scales::time, "Time LFO"));
+
+  const auto tabViewCenter1 = tabInsideTop1 + (barboxHeight - labelHeight) / 2;
+  tabview->addWidget(
+    tabModulation,
+    addLabel(tabInsideLeft0, tabViewCenter1, barboxHeight, "Time LFO Cutoff"));
+  tabview->addWidget(
+    tabModulation,
+    addTextKnob(
+      tabInsideLeft0 + 2 * textKnobX, tabViewCenter1, textKnobX, colorBlue,
+      ID::timeLfoLowpass, Scales::timeLfoLowpas, false, 5));
+
+  tabview->addWidget(
+    tabModulation,
+    addGroupVerticalLabel(tabInsideLeft0, tabInsideTop2, barboxHeight, "Lowpass Cutoff"));
+  tabview->addWidget(
+    tabModulation,
+    addBarBox(
+      tabInsideLeft1, tabInsideTop2, barboxWidth, barboxHeight, ID::lowpassCutoff0,
+      nestingDepth, Scales::defaultScale, "Lowpass Cutoff"));
+
+  tabview->refreshTab();
+
+  // Plugin name.
+  const auto splashTop = defaultHeight - splashHeight - uiMargin;
+  const auto splashLeft = left0 + knobX;
+  addSplashScreen(
+    splashLeft, splashTop, leftPanelWidth - 2 * knobX, splashHeight, uiMargin, uiMargin,
+    defaultWidth - splashHeight, defaultHeight - splashHeight, "LatticeReverb");
+
+  return true;
+}
+
+} // namespace Vst
+} // namespace Steinberg
