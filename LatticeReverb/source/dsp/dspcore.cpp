@@ -148,8 +148,6 @@ void DSPCORE_NAME::process(
   SmootherCommon<float>::setBufferSize(length);
 
   for (size_t i = 0; i < length; ++i) {
-    SmootherCommon<float>::setBufferIndex(i);
-
     for (size_t idx = 0; idx < nestingDepth; ++idx) {
       auto lpCut = interpLowpassCutoff[idx].process();
 

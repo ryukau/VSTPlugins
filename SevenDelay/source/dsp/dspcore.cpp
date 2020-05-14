@@ -17,6 +17,8 @@
 
 #include "dspcore.hpp"
 
+#include <iostream>
+
 namespace Steinberg {
 namespace Synth {
 
@@ -65,7 +67,7 @@ void DSPCore::setParameters(double tempo)
   SmootherCommon<float>::setTime(param.value[ParameterID::smoothness]->getFloat());
 
   // This won't work if sync is on and tempo < 15. Up to 8 sec or 8/16 beat.
-  // 15.0 is come from (60 sec per minute) * (4 beat) / (16 beat).
+  // 15.0 comes from (60 sec per minute) * (4 beat) / (16 beat).
   auto time = param.value[ParameterID::time]->getFloat();
   if (param.value[ParameterID::tempoSync]->getInt()) {
     if (time < 1.0)
@@ -129,8 +131,6 @@ void DSPCore::process(
 
   const bool lfoHold = !param.value[ParameterID::lfoHold]->getInt();
   for (size_t i = 0; i < length; ++i) {
-    SmootherCommon<float>::setBufferIndex(i);
-
     auto sign = (pi < lfoPhase) - (lfoPhase < pi);
     const float lfo = sign * powf(fabsf(float(sin(lfoPhase))), interpLfoShape.process());
     const float lfoTime = interpLfoTimeAmount.process() * (1.0f + lfo);
@@ -172,6 +172,8 @@ void DSPCore::process(
     const float outR = wet * delayOut[1];
     out0[i] = dry * in0[i] + outL + interpPanOut[0].process() * (outR - outL);
     out1[i] = dry * in1[i] + outL + interpPanOut[1].process() * (outR - outL);
+    // out0[i] = length;
+    // out1[i] = length;
 
     if (lfoHold) {
       lfoPhase += interpLfoFrequency.process() * lfoPhaseTick;

@@ -66,14 +66,14 @@ public:
     std::array<std::array<PController<float>, nestingDepth>, 2> lowpassLfoTime;          \
                                                                                          \
     StereoLongAllpass<float, nestingDepth> delay;                                        \
-    std::array<std::array<LinearSmoother<float>, nestingDepth>, 2> interpTime;           \
-    std::array<std::array<LinearSmoother<float>, nestingDepth>, 2> interpOuterFeed;      \
-    std::array<std::array<LinearSmoother<float>, nestingDepth>, 2> interpInnerFeed;      \
-    std::array<LinearSmoother<float>, nestingDepth> interpLowpassCutoff;                 \
-    LinearSmoother<float> interpStereoCross;                                             \
-    LinearSmoother<float> interpStereoSpread;                                            \
-    LinearSmoother<float> interpDry;                                                     \
-    LinearSmoother<float> interpWet;                                                     \
+    std::array<std::array<ExpSmoother<float>, nestingDepth>, 2> interpTime;              \
+    std::array<std::array<ExpSmoother<float>, nestingDepth>, 2> interpOuterFeed;         \
+    std::array<std::array<ExpSmoother<float>, nestingDepth>, 2> interpInnerFeed;         \
+    std::array<ExpSmoother<float>, nestingDepth> interpLowpassCutoff;                    \
+    ExpSmoother<float> interpStereoCross;                                                \
+    ExpSmoother<float> interpStereoSpread;                                               \
+    ExpSmoother<float> interpDry;                                                        \
+    ExpSmoother<float> interpWet;                                                        \
   };
 
 DSPCORE_CLASS(AVX512)

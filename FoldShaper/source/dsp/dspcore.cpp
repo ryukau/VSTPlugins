@@ -71,8 +71,6 @@ void DSPCORE_NAME::process(
 
   std::array<float, 2> frame;
   for (uint32_t i = 0; i < length; ++i) {
-    SmootherCommon<float>::setBufferIndex(i);
-
     auto inGain = interpInputGain.process();
     auto outGain = interpOutputGain.process();
     auto mul = interpMul.process();

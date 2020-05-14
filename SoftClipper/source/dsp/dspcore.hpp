@@ -69,12 +69,12 @@ transitionBuffer is used to store a release of a note to reduce pop noise.
     std::array<SoftClipper<float>, 2> shaper;                                            \
                                                                                          \
     bool oversample = true;                                                              \
-    LinearSmoother<float> interpInputGain;                                               \
-    LinearSmoother<float> interpOutputGain;                                              \
-    LinearSmoother<float> interpClip;                                                    \
-    LinearSmoother<float> interpOrder;                                                   \
-    LinearSmoother<float> interpRatio;                                                   \
-    LinearSmoother<float> interpSlope;                                                   \
+    ExpSmoother<float> interpInputGain;                                                  \
+    ExpSmoother<float> interpOutputGain;                                                 \
+    ExpSmoother<float> interpClip;                                                       \
+    ExpSmoother<float> interpOrder;                                                      \
+    ExpSmoother<float> interpRatio;                                                      \
+    ExpSmoother<float> interpSlope;                                                      \
   };
 
 DSPCORE_CLASS(AVX512)

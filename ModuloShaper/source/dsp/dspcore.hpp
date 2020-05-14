@@ -74,12 +74,12 @@ transitionBuffer is used to store a release of a note to reduce pop noise.
                                                                                          \
     uint32_t shaperType = 0; /* 0: naive, 1: 4x naive, 2: P-BLEP4, 3: P-BLEP8 */         \
     bool activateLowpass = true;                                                         \
-    LinearSmoother<float> interpInputGain;                                               \
-    LinearSmoother<float> interpClipGain;                                                \
-    LinearSmoother<float> interpOutputGain;                                              \
-    LinearSmoother<float> interpAdd;                                                     \
-    LinearSmoother<float> interpMul;                                                     \
-    LinearSmoother<float> interpCutoff;                                                  \
+    ExpSmoother<float> interpInputGain;                                                  \
+    ExpSmoother<float> interpClipGain;                                                   \
+    ExpSmoother<float> interpOutputGain;                                                 \
+    ExpSmoother<float> interpAdd;                                                        \
+    ExpSmoother<float> interpMul;                                                        \
+    ExpSmoother<float> interpCutoff;                                                     \
   };
 
 DSPCORE_CLASS(AVX512)

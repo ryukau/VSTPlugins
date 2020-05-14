@@ -91,7 +91,6 @@ void DSPCORE_NAME::process(
   phaser[1].interpStage.setBufferSize(length);
 
   for (size_t i = 0; i < length; ++i) {
-    SmootherCommon<float>::setBufferIndex(i);
     const auto freq = interpFrequency.process();
     const auto spread = interpFreqSpread.process();
     const auto feedback = interpFeedback.process();

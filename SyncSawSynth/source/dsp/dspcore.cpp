@@ -249,7 +249,7 @@ void DSPCore::setup(double sampleRate)
   this->sampleRate = sampleRate;
 
   SmootherCommon<float>::setSampleRate(sampleRate);
-  SmootherCommon<float>::setTime(0.04f);
+  SmootherCommon<float>::setTime(0.2f);
 
   for (auto &note : notes) {
     for (auto &nt : note) nt = std::make_unique<Note<float>>(sampleRate);
@@ -376,7 +376,6 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
   noteInfo.osc2SyncType = param.value[ParameterID::osc2SyncType]->getInt();
   noteInfo.osc2PTROrder = param.value[ParameterID::osc2PTROrder]->getInt();
   for (size_t i = 0; i < length; ++i) {
-    SmootherCommon<float>::setBufferIndex(i);
     processMidiNote(i);
 
     noteInfo.osc1Gain = interpOsc1Gain.process();

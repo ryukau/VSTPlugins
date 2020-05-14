@@ -37,7 +37,7 @@ void DSPCORE_NAME::setup(double sampleRate)
   this->sampleRate = sampleRate;
 
   SmootherCommon<float>::setSampleRate(sampleRate);
-  SmootherCommon<float>::setTime(0.04f);
+  SmootherCommon<float>::setTime(0.2f);
 
   startup();
 }
@@ -75,8 +75,6 @@ void DSPCORE_NAME::process(
 
   std::array<float, 2> frame;
   for (uint32_t i = 0; i < length; ++i) {
-    SmootherCommon<float>::setBufferIndex(i);
-
     auto drive = interpDrive.process();
     auto outGain = interpOutputGain.process();
 

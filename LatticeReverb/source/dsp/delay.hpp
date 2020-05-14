@@ -27,19 +27,22 @@
 
 namespace SomeDSP {
 
-// 2x oversampled delay with feedback.
+// 2x oversampled delay.
 template<typename Sample> class Delay {
 public:
   Sample w1 = 0;
   Sample rFraction = 0.0;
   int wptr = 0;
   int rptr = 0;
+  int size = 0;
   std::vector<Sample> buf;
 
   void setup(Sample sampleRate, Sample maxTime)
   {
-    auto size = int(Sample(2) * sampleRate * maxTime) + 1;
-    buf.resize(size < 0 ? 4 : size);
+    size = int(Sample(2) * sampleRate * maxTime) + 1;
+    if (size < 4) size = 4;
+
+    buf.resize(size);
 
     reset();
   }
@@ -53,34 +56,33 @@ public:
   Sample process(Sample input, Sample sampleRate, Sample seconds)
   {
     // Set delay time.
-    Sample timeInSample
-      = std::clamp<Sample>(Sample(2) * sampleRate * seconds, 0, buf.size());
+    Sample timeInSample = std::clamp<Sample>(Sample(2) * sampleRate * seconds, 0, size);
 
     int timeInt = int(timeInSample);
     rFraction = timeInSample - Sample(timeInt);
 
     rptr = wptr - timeInt;
-    if (rptr < 0) rptr += buf.size();
+    if (rptr < 0) rptr += size;
 
     // Write to buffer.
     buf[wptr] = input - Sample(0.5) * (input - w1);
     ++wptr;
-    if (wptr >= int(buf.size())) wptr -= buf.size();
+    if (wptr >= size) wptr -= size;
 
     buf[wptr] = input;
     ++wptr;
-    if (wptr >= int(buf.size())) wptr -= buf.size();
+    if (wptr >= size) wptr -= size;
 
     w1 = input;
 
     // Read from buffer.
     const size_t i1 = rptr;
     ++rptr;
-    if (rptr >= int(buf.size())) rptr -= buf.size();
+    if (rptr >= size) rptr -= size;
 
     const size_t i0 = rptr;
     ++rptr;
-    if (rptr >= int(buf.size())) rptr -= buf.size();
+    if (rptr >= size) rptr -= size;
 
     return buf[i0] - rFraction * (buf[i0] - buf[i1]);
   }
@@ -185,15 +187,11 @@ public:
   std::array<Sample, 2>
   process(Sample inL, Sample inR, Sample sampleRate, Sample stereoCross = 0.2)
   {
-    // for (size_t idx = 0; idx < nest; ++idx) {
-    //   Sample tmpL = apL.buffer[idx];
-    //   apL.buffer[idx] -= stereoCross * (apR.buffer[idx] + apL.buffer[idx]);
-    //   apR.buffer[idx] -= stereoCross * (tmpL + apR.buffer[idx]);
-    // }
-
-    Sample tmpL = apL.buffer.back();
-    apL.buffer.back() += stereoCross * (apR.buffer.back() - apL.buffer.back());
-    apR.buffer.back() += stereoCross * (tmpL - apR.buffer.back());
+    for (size_t idx = 0; idx < nest; idx += 2) {
+      Sample tmpL = apL.buffer[idx];
+      apL.buffer[idx] -= stereoCross * (apR.buffer[idx] + apL.buffer[idx]);
+      apR.buffer[idx] -= stereoCross * (tmpL + apR.buffer[idx]);
+    }
 
     return {apL.process(inL, sampleRate), apR.process(inR, sampleRate)};
   }

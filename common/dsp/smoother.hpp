@@ -35,46 +35,81 @@ public:
     setTime(time);
   }
 
-  static void setTime(Sample seconds) { timeInSamples = seconds * sampleRate; }
+  static void setTime(Sample seconds)
+  {
+    timeInSamples = seconds * sampleRate;
+    kp = PController<double>::cutoffToP(
+      sampleRate, std::clamp<double>(1.0 / seconds, 0.0, sampleRate / 2.0));
+  }
   static void setBufferSize(Sample _bufferSize) { bufferSize = _bufferSize; }
-  static void setBufferIndex(Sample index) { ratio = index / bufferSize; }
 
   static Sample sampleRate;
   static Sample timeInSamples;
+  static Sample kp;
   static Sample bufferSize;
-  static Sample ratio;
 };
 
 template<typename Sample> Sample SmootherCommon<Sample>::sampleRate = 44100.0;
 template<typename Sample> Sample SmootherCommon<Sample>::timeInSamples = 0.0;
+template<typename Sample> Sample SmootherCommon<Sample>::kp = 1.0;
 template<typename Sample> Sample SmootherCommon<Sample>::bufferSize = 44100.0;
-template<typename Sample> Sample SmootherCommon<Sample>::ratio = 0.0;
 
+template<typename Sample> class ExpSmoother {
+public:
+  Sample value = 0;
+  Sample target = 0;
+
+  inline Sample getValue() { return value; }
+  void reset(Sample value = 0) { this->value = value; }
+  void push(Sample newTarget) { target = newTarget; }
+  Sample process() { return value += SmootherCommon<Sample>::kp * (target - value); }
+};
+
+/**
+Legacy smoother for LightPadSynth or earlier plugins. Use ExpSmoother instead.
+
+I tried more faster and stable implementation of LinearSmoother. But ended up this slow
+and unstable implementation. This is because some host changes the size of buffer for each
+processing call, and faster implementation produces noise in such situation.
+
+I observed FL Studio 20.6 was using variable size buffer. Probably there are more hosts
+doing this.
+ */
 template<typename Sample> class LinearSmoother {
 public:
   using Common = SmootherCommon<Sample>;
 
-  virtual inline Sample getValue() { return value; }
-  virtual void reset(Sample value) { this->value = v0 = v1 = value; }
+  inline Sample getValue() { return value; }
   virtual void refresh() { push(target); }
 
-  virtual void push(Sample newTarget)
+  void reset(Sample value)
   {
-    target = newTarget;
-    v1 = v0;
-    v0 = (Common::timeInSamples >= Common::bufferSize)
-        && (somefabs<Sample>(v0 - newTarget) >= 1e-5)
-      ? (newTarget - v0) * Common::bufferSize / Common::timeInSamples + v0
-      : newTarget;
+    this->value = value;
+    target = value;
   }
 
-  Sample process() { return value = v1 + Common::ratio * (v0 - v1); }
+  void push(Sample newTarget)
+  {
+    target = newTarget;
+    if (Common::timeInSamples < Common::bufferSize) {
+      value = target;
+      ramp = 0;
+    } else {
+      ramp = (target - value) / Common::timeInSamples;
+    }
+  }
+
+  Sample process()
+  {
+    value += ramp;
+    if (somefabs<Sample>(value - target) < Sample(1e-5)) value = target;
+    return value;
+  }
 
 protected:
-  Sample target = 1.0;
   Sample value = 1.0;
-  Sample v0 = 1;
-  Sample v1 = 1;
+  Sample target = 1.0;
+  Sample ramp = 0.0;
 };
 
 template<typename Sample> class LinearSmootherLocal {
@@ -87,22 +122,26 @@ public:
 
   void setTime(Sample seconds) { timeInSamples = seconds * sampleRate; }
   void setBufferSize(Sample bufferSize) { this->bufferSize = bufferSize; }
-  void reset(Sample value) { this->value = v0 = v1 = value; }
+  void reset(Sample value) { this->value = target = value; }
   void refresh() { push(target); }
   inline Sample getValue() { return value; }
 
   void push(Sample newTarget)
   {
     target = newTarget;
-    v1 = v0;
-    v0 = (timeInSamples >= bufferSize) && (somefabs<Sample>(v0 - newTarget) >= 1e-5)
-      ? (newTarget - v0) * bufferSize / timeInSamples + v0
-      : newTarget;
+    if (Common::timeInSamples < Common::bufferSize) {
+      value = target;
+      ramp = 0;
+    } else {
+      ramp = (target - value) / Common::timeInSamples;
+    }
   }
 
-  virtual Sample process(Sample index)
+  Sample process()
   {
-    return value = v1 + index / bufferSize * (v0 - v1);
+    value += ramp;
+    if (somefabs<Sample>(value - target) < Sample(1e-5)) value = target;
+    return value;
   }
 
 protected:
@@ -110,72 +149,8 @@ protected:
   Sample timeInSamples = -1;
   Sample bufferSize = 0;
   Sample target = 1.0;
-  Sample v0 = 1;
-  Sample v1 = 1;
+  Sample ramp = 0.0;
   Sample value = 0;
-};
-
-// This can be used when terminated value must be equal to target value.
-template<typename Sample>
-class LinearSmootherExactLocal : public LinearSmootherLocal<Sample> {
-public:
-  Sample process(Sample index) override
-  {
-    if (somefabs<Sample>(this->value - this->target) < 1e-5)
-      return this->value = this->target;
-    return LinearSmootherLocal<Sample>::process(index);
-  }
-};
-
-// TODO: test.
-class alignas(64) LinearSmoother16 {
-public:
-  using Common = SmootherCommon<float>;
-
-  void push(
-    float f0,
-    float f1,
-    float f2,
-    float f3,
-    float f4,
-    float f5,
-    float f6,
-    float f7,
-    float f8,
-    float f9,
-    float f10,
-    float f11,
-    float f12,
-    float f13,
-    float f14,
-    float f15)
-  {
-    target = Vec16f(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15);
-    push(target);
-  }
-
-  void push(Vec16f newTarget)
-  {
-    target = newTarget;
-    v1 = v0;
-    v0 = (Common::timeInSamples >= Common::bufferSize)
-      ? (target - v0) * Common::bufferSize / Common::timeInSamples + v0
-      : target;
-    select(abs(v0 - target) >= 1e-5, v0, target);
-  }
-
-  inline Vec16f getValue() { return value; }
-  float operator[](const int index) { return value[index]; }
-  void reset(Vec16f value) { this->value = v0 = v1 = value; }
-  void reset(int index, float value) { this->value.insert(index, value); }
-
-  Vec16f process() { return value = v1 + Common::ratio * (v0 - v1); }
-
-protected:
-  Vec16f target = 1.0;
-  Vec16f value = 1.0;
-  Vec16f v0 = 1;
-  Vec16f v1 = 1;
 };
 
 // Unlike LinearSmoother, value is normalized in [0, 1].
