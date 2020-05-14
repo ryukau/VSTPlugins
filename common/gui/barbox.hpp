@@ -74,7 +74,7 @@ public:
       auto left = i * sliderWidth;
       auto right = left + (sliderWidth >= 4.0 ? sliderWidth - defaultBorderWidth : 1.0);
 
-      auto top = value[i] * height;
+      auto top = height - value[i] * height;
       double bottom = sliderZeroHeight;
       if (top > bottom) std::swap(top, bottom);
       pContext->drawRect(CRect(left, top, right, bottom), kDrawFilled);
@@ -132,12 +132,11 @@ public:
       pContext->drawString(name.c_str(), CRect(0, 0, width, height));
     }
 
-    // Center line.
-    // if (drawCenterLine) {
-    //   pContext->setFrameColor(nameColor);
-    //   pContext->setLineWidth(1.0f);
-    //   pContext->drawLine(CPoint(0, height / 2), CPoint(width, height / 2));
-    // }
+    // Zero line.
+    auto zeroLineHeight = height - sliderZero * height;
+    pContext->setFrameColor(nameColor);
+    pContext->setLineWidth(1.0f);
+    pContext->drawLine(CPoint(0, zeroLineHeight), CPoint(width, zeroLineHeight));
 
     setDirty(false);
   }
