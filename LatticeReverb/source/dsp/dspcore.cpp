@@ -32,7 +32,7 @@ void DSPCORE_NAME::setup(double sampleRate)
   this->sampleRate = sampleRate;
 
   SmootherCommon<float>::setSampleRate(sampleRate);
-  SmootherCommon<float>::setTime(0.04f);
+  SmootherCommon<float>::setTime(0.2f);
 
   delay.setup(sampleRate, Scales::time.getMax());
 
