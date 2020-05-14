@@ -27,6 +27,37 @@
 
 namespace SomeDSP {
 
+// PID controller without I and D.
+template<typename Sample> class PController {
+public:
+  Sample kp; // In [0, 1].
+  Sample value = 0;
+
+  // Lower bound of cutoffHz is around 3 to 4 Hz for single presision (float).
+  static Sample cutoffToP(Sample sampleRate, Sample cutoffHz)
+  {
+    auto omega_c = Sample(twopi) * cutoffHz / sampleRate;
+    auto y = Sample(1) - somecos<Sample>(omega_c);
+    return -y + somesqrt<Sample>((y + Sample(2)) * y);
+  }
+
+  void setP(Sample p) { kp = std::clamp<Sample>(p, Sample(0), Sample(1)); };
+  void reset(Sample value = 0) { this->value = value; }
+  Sample process(Sample input) { return value += kp * (input - value); }
+};
+
+class PController16 {
+public:
+  void setP(float p) { kp = std::clamp<float>(p, float(0), float(1)); };
+  void setP(int index, float p) { kp.insert(index, p); };
+  void reset() { value = 0; }
+  Vec16f process(Vec16f input) { return value += kp * (input - value); }
+
+private:
+  Vec16f kp = 1; // In [0, 1].
+  Vec16f value = 0;
+};
+
 template<typename Sample> class SmootherCommon {
 public:
   static void setSampleRate(Sample _sampleRate, Sample time = 0.04)
@@ -114,6 +145,8 @@ protected:
 
 template<typename Sample> class LinearSmootherLocal {
 public:
+  using Common = SmootherCommon<Sample>;
+
   void setSampleRate(Sample sampleRate, Sample time = 0.04)
   {
     this->sampleRate = sampleRate;
@@ -205,37 +238,6 @@ private:
   Sample target = 1.0;
   Sample ramp = 0.0;
   Sample max = 1;
-};
-
-// PID controller without I and D.
-template<typename Sample> class PController {
-public:
-  Sample kp; // In [0, 1].
-  Sample value = 0;
-
-  // Lower bound of cutoffHz is around 3 to 4 Hz for single presision (float).
-  static Sample cutoffToP(Sample sampleRate, Sample cutoffHz)
-  {
-    auto omega_c = Sample(twopi) * cutoffHz / sampleRate;
-    auto y = Sample(1) - somecos<Sample>(omega_c);
-    return -y + somesqrt<Sample>((y + Sample(2)) * y);
-  }
-
-  void setP(Sample p) { kp = std::clamp<Sample>(p, Sample(0), Sample(1)); };
-  void reset(Sample value = 0) { this->value = value; }
-  Sample process(Sample input) { return value += kp * (input - value); }
-};
-
-class PController16 {
-public:
-  void setP(float p) { kp = std::clamp<float>(p, float(0), float(1)); };
-  void setP(int index, float p) { kp.insert(index, p); };
-  void reset() { value = 0; }
-  Vec16f process(Vec16f input) { return value += kp * (input - value); }
-
-private:
-  Vec16f kp = 1; // In [0, 1].
-  Vec16f value = 0;
 };
 
 } // namespace SomeDSP
