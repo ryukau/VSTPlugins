@@ -96,9 +96,11 @@ public:
     value = 1.0f;
 
     if (editor) {
+      editor->valueChanged(ID::timeMultiply, 0.0f);
       editor->valueChanged(ID::innerFeedMultiply, 0.0f);
       editor->valueChanged(ID::outerFeedMultiply, 0.0f);
 
+      editor->updateUI(ID::timeMultiply, 0.0f);
       editor->updateUI(ID::innerFeedMultiply, 0.0f);
       editor->updateUI(ID::outerFeedMultiply, 0.0f);
     }
