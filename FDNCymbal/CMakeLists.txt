@@ -21,7 +21,7 @@ target_include_directories(${target} PUBLIC ${VSTGUI_ROOT}/vstgui4)
 include_directories(../common)
 target_link_libraries(${target} PRIVATE UhhyouCommon base sdk vstgui_support)
 
-smtg_add_vst3_snapshot(${target} "resource/61E7934EE5524F099269C45A3F1C754B_snapshot.png")
+smtg_add_vst3_snapshot(${target} "resource/1F217F2CE23F4BF4A2716CAE41B5AE4D_snapshot.png")
 
 if(SMTG_MAC)
   smtg_set_bundle(${target} INFOPLIST "${CMAKE_CURRENT_LIST_DIR}/resource/Info.plist" PREPROCESS)
