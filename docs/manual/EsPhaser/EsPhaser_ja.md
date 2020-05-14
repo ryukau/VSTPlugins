@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>EsPhaser<rt>エス フェイザ</rt></ruby> は最大 4096 の 2 次 Thiran オールパスフィルタを直列につなぐことができるフェイザです。 EnvelopedSine のフェイザと同じアルゴリズムを使っています。
 
-- [EsPhaser 0.1.2 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/EsPhaser0.1.2.zip) <img
+- [EsPhaser 0.1.3 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/EsPhaser0.1.3.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -87,60 +87,62 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 Mix
 
 :   Dry : Wet の信号比です。右いっぱいにすると Dry : Wet = 0 : 1 になります。
-    
+
 Freq
 
 :   LFO の周波数です。
-    
+
 Spread
 
 :   16 個の LFO の間で周波数をずらす量です。
-    
+
     1 サンプル当たりの LFO の位相の進み `deltaPhase` は次の式で計算されます。
-    
+
     ```
     deltaPhase = 2 * pi * Freq / ((1 + LfoIndex * Spread) * sampleRate)
     ```
-    
+
 Feedback
 
 :   フィードバックの大きさです。 12 時にするとフィードバックなし、左に回すと負のフィードバック、右に回すと正のフィードバックとなります。
-    
+
 Range
 
 :   LFO によって変更するオールパスフィルタの特性の幅です。
-    
+
 Min
 
 :   LFO によって変調するオールパスフィルタの特性の最小値です。
-    
+
 Cas. Offset
 
 :   16 個の LFO の間で位相をずらす量です。
-    
+
 L/R Offset
 
 :   左右の LFO の位相差です。
-    
+
 Phase
 
 :   LFO の位相です。オートメーションで音を作りたいときに使えます。 `Freq` を左いっぱいに回すことで LFO の周波数を 0 にできます。
-    
+
     最終的な LFO の位相は次の式で計算されます。
-    
+
     ```
     LfoPhaseOffset = Phase + (L/R Offset) + LfoIndex * (Cas. Offset)
     ```
-    
+
 Stage
 
 :   オールパスフィルタを直列につなぐ個数です。 `Stage` の値に比例して CPU 消費が増えるので注意してください。
-    
+
 Smooth
 
 :   パラメータを変更したときに、変更前の値から変更後の値へと移行する秒数です。 `Stage` 以外のパラメータに有効です。
-    
+
 ## チェンジログ
+- 0.1.3
+  - パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。
 - 0.1.2
   - 文字列の描画でクラッシュするバグを修正。
 - 0.1.1
@@ -149,7 +151,8 @@ Smooth
   - 初期リリース。
 
 ### 旧バージョン
-[EsPhaser 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EsPhaser0.1.0.zip)
+- [EsPhaser 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/EsPhaser0.1.2.zip)
+- [EsPhaser 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EsPhaser0.1.0.zip)
 
 ## ライセンス
 EsPhaser のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。

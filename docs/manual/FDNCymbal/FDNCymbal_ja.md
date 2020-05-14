@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>FDNCymbal<rt>エフディーエヌシンバル</rt></ruby> はシンバルのような音を合成するシンセサイザです。エフェクトとして使うこともできます。名前とは裏腹に金属的な質感は FDN (feedback delay network) ではなく Schroeder allpass section によって得られています。 `FDN.Time` の値を小さくすることで、わりとナイスなばちの衝突音が合成できます。シンバルの揺れをシミュレートするためにトレモロもついています。
 
-- [FDNCymbal 0.2.1 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/FDNCymbal0.2.1.zip) <img
+- [FDNCymbal 0.2.2 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/FDNCymbal0.2.2.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -113,112 +113,114 @@ FDNCymbal はエフェクトとして使うこともできますが、直感的�
 Pulse
 
 :   ばちオシレータが出力するインパルスの音量です。
-    
+
 Tone
 
 :   ばちオシレータが出力するサイン波によるトーンの音量です。
-    
+
 Velvet
 
 :   ばちオシレータが出力するベルベットノイズの音量です。
-    
+
     ベルベットノイズはランダムな間隔で異なる高さのインパルスが出力されるノイズのアルゴリズムです。
-    
+
 Decay
 
 :   ばちオシレータの減衰時間です。
-    
+
 ### Random
 Seed
 
 :   乱数のシード値です。
-    
+
 Retrigger.Time
 
 :   チェックを外すと、次の 3 つのパラメータでコントロールされる内部的なディレイ時間がノートオンのたびに変わります。
-    
+
     - `FDN.Time`
     - `Allpass.Stage1.Time`
     - `Allpass.Stage2.Time`
-    
+
 Retrigger.Stick
 
 :   チェックを外すと、ノートオンのたびにばちオシレータの音が変わります。
-    
+
 Retrigger.Tremolo
 
 :   チェックを外すと、トレモロのパラメータがノートオンのたびに変わります。
-    
+
 ### FDN
 オンのときはFDN (feedback delay network) セクションを信号が通過します。
 
 Time
 
 :   FDN のディレイ時間を調整します。内部的なディレイ時間はノブで設定した値をもとにランダマイズされます。
-    
+
 Feedback
 
 :   FDN セクションのフィードバックです。この値が 0 でないときは信号が発散することがあるので注意してください。
-    
+
 CascadeMix
 
 :   直列につないだ複数の FDN の出力のミックスを調整します。
-    
+
 ### Allpass
 Mix
 
 :   Schroeder allpass section のミックスを調整します。
-    
+
 ### Stage 1 と Stage 2
 2 つの Schroeder allpass section が直列につながっています。 Stage 2 では 4 つの Schroeder allpass section が並列接続されています。
 
 Time
 
 :   Schroeder allpass section のディレイ時間の最大値です。ディレイ時間は内部的にランダマイズされます。
-    
+
 Feedback
 
 :   Schroeder allpass section のフィードバックです。
-    
+
 HP Cutoff
 
 :   Schroeder allpass section の出力にかかるハイパスフィルタのカットオフ周波数です。
-    
+
 Tanh
 
 :   チェックを入れると Stage 1 のフィードバックにサチュレーションがかかります。
-    
+
 ### Tremolo
 Mix
 
 :   トレモロのミックスを調整します。
-    
+
 Depth
 
 :   `Depth` が大きいほどトレモロによる音量の変化が大きくなります。
-    
+
 Frequency
 
 :   トレモロに使われる LFO の周波数です。
-    
+
 DelayTime
 
 :   LFO によって変化するディレイ時間の最大値です。シンバルの揺れによって生じるドップラー効果を表現しています。
-    
+
 ### Random (Tremolo)
 Depth
 
 :   ノートオンのたびに `Tremolo.Depth` をランダマイズする度合いです。
-    
+
 Freq
 
 :   ノートオンのたびに `Tremolo.Frequency` をランダマイズする度合いです。
-    
+
 Time
 
 :   ノートオンのたびに `Tremolo.DelayTime` をランダマイズする度合いです。
-    
+
 ## チェンジログ
+- 0.2.2
+  - パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。
 - 0.2.1
   - 文字列の描画でクラッシュするバグを修正。
 - 0.2.0
@@ -247,6 +249,7 @@ Time
   - 初期リリース。
 
 ### 旧バージョン
+- [FDNCymbal 0.2.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/FDNCymbal0.2.1.zip)
 - [FDNCymbal 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/FDNCymbal0.1.5.zip)
 - [FDNCymbal 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/FDNCymbal0.1.4.zip)
 - [FDNCymbal 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbal0.1.3.zip)

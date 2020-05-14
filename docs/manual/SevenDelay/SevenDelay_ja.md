@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>SevenDelay<rt>セブンディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。
 
-- [SevenDelay 0.1.9 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SevenDelay0.1.9.zip) <img
+- [SevenDelay 0.1.10 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SevenDelay0.1.10.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -84,116 +84,118 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 Time
 
 :   ディレイ時間。範囲は 0.0001 から 8.0 です。
-    
+
     - もし `Sync` が有効で `Time` が 1.0 より小さいときは、ディレイ時間が `Time / 16` 拍に設定されます。
     - もし `Sync` が有効で `Time` が 1.0 以上のときは、ディレイ時間が `floor(2 * Time) / 32` 拍に設定されます。
     - それ以外のときは、ディレイ時間が `time` 秒に設定されます。
-    
+
 Feedback
 
 :   ディレイのフィードバック。範囲は 0.0 から 1.0 です。
-    
+
 Stereo
 
 :   左右のディレイ時間のオフセット。範囲は -1.0 から 1.0 です。
-    
+
     - もし `Stereo` が 0.0 より小さいときは、左チャンネルのディレイ時間が `timeL * (1.0 + Stereo)` に変更されます。
     - それ以外のときは、右チャンネルのディレイ時間が `timeR * (1.0 + Stereo)` に変更されます。
-    
+
 Wet
 
 :   ディレイ信号の出力音量。範囲は 0.0 から 1.0 。
-    
+
 Dry
 
 :   入力信号の出力音量。範囲は 0.0 から 1.0 。
-    
+
 Sync
 
 :   テンポシンクの切り替え。
-    
+
 Negative
 
 :   負のフィードバックの切り替え。ディレイ時間がとても短いときに役立つかもしれません。
-    
+
 Spread/Pan
 
 :   入力の広がり (In Spread) 、入力のパン (In Pan) 、出力の広がり (Out Spread) 、出力のパン (Out Pan) 。範囲は 0.0 から 1.0 です。
-    
+
     `In Spread` 、 `Out Spread` はステレオの広がりを制御します。 `In Pan` 、 `Out Pan` はステレオのパンニングを制御します。
-    
+
     これらのパラメータはパンニングの逆転やピンポンディレイを作るときに使えます。
-    
+
     - パンニングの逆転を行うには `[InSpread, InPan, OutSpread, OutPan]` を `[0.0, 0.5, 1.0, 0.5]` に設定します。
     - ピンポンディレイにするには `[InSpread, InPan, OutSpread, OutPan]` を `[1.0, 0.5, 0.0, 0.5]` に設定します。
-    
+
     ```
     panL = clamp(2 * pan + spread - 1.0, 0.0, 1.0)
     panR = clamp(2 * pan - spread, 0.0, 1.0)
-    
+
     signalL = incomingL + panL * (incomingR - incomingL)
     signalR = incomingL + panR * (incomingR - incomingL)
     ```
-    
+
 Allpass Cut
 
 :   SVF オールパスフィルタのカットオフ周波素。範囲は 90.0 から 20000.0 です。
-    
+
     `tone` が 20000.0 のとき、フィルタはバイパスされます。
-    
+
 Allpass Q
 
 :   SVF オールパスフィルタのレゾナンス。範囲は 0.00001 から 1.0 です。
-    
+
     値が大きいほどレゾナンスが強くなります。
-    
+
 DC Kill
 
 :   ハイパスフィルタのカットオフ周波数。範囲は 5.0 から 120.0 です。
-    
+
     `DC Kill` を 5.0 より大きく設定すればディレイのフィードバックから直流信号を取り除くことができます。
-    
+
 Smooth
 
 :   パラメータ平滑化の度合い。範囲は 0.0 から 1.0 で、単位は秒です。
-    
+
     パラメータによっては値が急激に変化するとノイズが出ることがあります。 `Smooth` の値を大きめにすることで、値の変化を緩やかにしてノイズを減らすことができます。
-    
+
 ### LFO
 To Time
 
 :   LFO によるディレイ時間の変調量。範囲は 0.0 から 1.0 です。
-    
+
 To Allpass
 
 :   LFO によるオールパスフィルタのカットオフ周波数の変調量。範囲は 0.0 から 1.0 です。
-    
+
 Frequency
 
 :   LFO の周波数。範囲は 0.01 から 100.0 。
-    
+
 Shape
 
 :   LFO の波形。範囲は 0.01 から 10.0 。
-    
+
     ```
     sign = 1 if (phase > π),
           -1 if (phase < π),
            0 if (phase == π)
     lfo = sign * abs(sin(phase))^shape
     ```
-    
+
 Phase
 
 :   LFO の位相の初期値。範囲は 0.0 から 2π 。
-    
+
     LFO の位相はホストが演奏を開始するたびに `Phase` の値にリセットされます。
-    
+
 Hold
 
 :   LFO の位相のホールドの切り替え。ライブ演奏などで役に立つかもしれません。
-    
+
 ## チェンジログ
+- 0.1.10
+  - パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。
 - 0.1.9
   - 文字列の描画でクラッシュするバグを修正。
 - 0.1.8
@@ -224,6 +226,7 @@ Hold
   - 初期リリース。
 
 ### 旧バージョン
+- [SevenDelay 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SevenDelay0.1.9.zip)
 - [SevenDelay 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip)
 - [SevenDelay 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip)
 - [SevenDelay 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelay0.1.5.zip)

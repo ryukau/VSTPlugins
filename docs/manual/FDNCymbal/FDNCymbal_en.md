@@ -7,7 +7,7 @@ lang: en
 
 FDNCymbal is a cymbal sound synthesizer. It can also be used as an effect. Unlike the name, most of metallic texture comes from Schroeder allpass section rather than FDN (feedback delay network). FDN section makes nice impact sound when `FDN.Time` is short. Tremolo is added to simulate wobbling of cymbal.
 
-- [Download FDNCymbal 0.2.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/FDNCymbal0.2.1.zip) <img
+- [Download FDNCymbal 0.2.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/FDNCymbal0.2.2.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -113,112 +113,114 @@ When `Stick` is on, each note on triggers stick oscillator. Noise density and pi
 Pulse
 
 :   Gain of impulse of stick oscillator.
-    
+
 Tone
 
 :   Gain of sine wave tone of stick oscillator.
-    
+
 Velvet
 
 :   Gain of velvet noise of stick oscillator.
-    
+
     Velvet noise is a noise algorithm which output different height of impulses with randomized interval.
-    
+
 Decay
 
 :   Decay time of stick oscillator.
-    
+
 ### Random
 Seed
 
 :   Value of random seed.
-    
+
 Retrigger.Time
 
 :   When not checked, internal delay time controlled by following 3 parameters will be changed for each note on.
-    
+
     - `FDN.Time`
     - `Allpass.Stage1.Time`
     - `Allpass.Stage2.Time`
-    
+
 Retrigger.Stick
 
 :   When not checked, stick oscillator output varies for each note.
-    
+
 Retrigger.Tremolo
 
 :   When not checked, tremolo parameters will be changed for each note on.
-    
+
 ### FDN
 When turned on, the signal go through FDN section.
 
 Time
 
 :   FDN delay time. Internal delay time will be randomized with respect to this value.
-    
+
 Feedback
 
 :   FDN section feedback. Beware that if this value is non zero, it's possible to blow up.
-    
+
 CascadeMix
 
 :   Controls mixing of Cascaded FDN.
-    
+
 ### Allpass
 Mix
 
 :   Mixing ratio of Schroeder allpass section.
-    
+
 ### Stage 1 and Stage 2
 Stage 1 is serially connected 8 Schroeder allpass. On stage 2, there are 4 Schroeder allpass section connected in parallel. For each section has serially connected 8 Schroeder allpass.
 
 Time
 
 :   Max delay time of Schroeder allpass section. Internally, delay time will be randomized.
-    
+
 Feedback
 
 :   Feedback of Schroeder allpass section.
-    
+
 HP Cutoff
 
 :   Cutoff frequency of high-pass filter to the output of Schroeder allpass section.
-    
+
 Tanh
 
 :   When checked, stage 1 feedback go through tanh saturator.
-    
+
 ### Tremolo
 Mix
 
 :   Mixing ratio of tremolo effect.
-    
+
 Depth
 
 :   Maximum change of amplitude with tremolo.
-    
+
 Frequency
 
 :   Tremolo LFO frequency.
-    
+
 DelayTime
 
 :   Maximum delay time. Delay time is modulated by LFO. This delay simulates doppler effect.
-    
+
 ### Random (Tremolo)
 Depth
 
 :   Amount of randomization to `Tremolo.Depth` for each note on.
-    
+
 Freq
 
 :   Amount of randomization to `Tremolo.Frequency` for each note on.
-    
+
 Time
 
 :   Amount of randomization to `Tremolo.DelayTime` for each note on.
-    
+
 ## Change Log
+- 0.2.2
+  - Reverted parameter smoother to the old one which works with variable size audio buffer.
 - 0.2.1
   - Fixed a bug that cause crash when drawing string.
 - 0.2.0
@@ -247,6 +249,7 @@ Time
   - Initial release.
 
 ### Old Versions
+- [FDNCymbal 0.2.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/FDNCymbal0.2.1.zip)
 - [FDNCymbal 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/FDNCymbal0.1.5.zip)
 - [FDNCymbal 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/FDNCymbal0.1.4.zip)
 - [FDNCymbal 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbal0.1.3.zip)

@@ -7,7 +7,7 @@ lang: en
 
 WaveCymbal is an attempt to make a cymbal synthesizer with banded wave-guide model. The result is more like dragging bunch of empty cans or thin metal plate on asphalt rather than cymbal.
 
-- [Download WaveCymbal 0.1.8 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/WaveCymbal0.1.8.zip) <img
+- [Download WaveCymbal 0.1.9 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/WaveCymbal0.1.9.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -89,90 +89,92 @@ Short delays that turns impulse to tone.
 Feedback
 
 :   Feedback of excitor delays.
-    
+
 Time
 
 :   Delay time of excitor delays. Beware that when the value of this parameter is high, output will be loud.
-    
+
 ### Objects
 nCymbal
 
 :   Number of cymbal-ish objects.
-    
+
 nString
 
 :   Number of Karplus-Strong string per cymbal object.
-    
+
 ### Wave
 Damping
 
 :   Damping of 1D wave simulation. Beware that when the value of this parameter is high, output will be loud.
-    
+
 PulsePosition
 
 :   Position where oscillator input causes wave.
-    
+
 PulseWidth
 
 :   Width of wave caused by oscillator input.
-    
+
 ### Collision
 When turns on, it sounds like a rubbing on surface of thin light metal plate. When `nCymbal` is 1, this doesn't change output sound.
 
 Distance
 
 :   Distance between cymbals. Collision will more likely to occur when turning this knob to left.
-    
+
 ### Random
 Seed
 
 :   Random seed. Output will be the same for each note while checking `Retrigger`.
-    
+
 Amount
 
 :   Amount of random number effects to delay time and band-pass cutoff. Beware that when the value of this parameter is low, output may be loud.
-    
+
 ### String
 MinHz
 
 :   Lower bound of Karplus-Strong string frequency.
-    
+
 MaxHz
 
 :   Upper bound of Karplus-Strong string frequency.
-    
+
 Decay
 
 :   Decay of Karplus-Strong string. Decay time will be longer when turning this knob to left.
-    
+
 Q
 
 :   Band-pass filter Q.
-    
+
 ### Oscillator
 Retrigger
 
 :   When checking, each note on resets random seed.
-    
+
 OscType
 
 :   Oscillator type.
-    
+
     - `Off` : Stop making noise for each note on. This option will be used when using WaveCymbal as FX.
     - `Impulse` : Outputs impulse for each note on. Simulates hit of cymbal with stick.
     - `Sustain` : Outputs impulse train with pitch of note. Simulates drawing of bow on surface of cymbal.
     - `Velvet Noise` : Outputs velvet noise of a density respect to pitch of note. Simulates less uniform drawing than `Sustain`.
     - `Brown Noise` : Outputs brown noise of a brightness respect to pitch of note. Kind of like dragging cymbal on asphalt.
-    
+
 Bandpass Cutoff Distribution
 
 :   - `Log` : Sound becomes relatively natural.
     - `Linear` : Leans sound to higher frequency.
-    
+
 ### Smoothness
 Transition time from previous value to current value in seconds. `Gain`, `Excitation.Time`, `Random.Amount`, `Bandpass.MinCutoff`, `Bandpass.MaxCutoff` will be affected. Slide effect of `OscType.Sustain` can be tuned by `Smoothness`.
 
 ## Change Log
+- 0.1.9
+  - Reverted parameter smoother to the old one which works with variable size audio buffer.
 - 0.1.8
   - Fixed a bug that cause crash when drawing string.
 - 0.1.7
@@ -198,6 +200,7 @@ Transition time from previous value to current value in seconds. `Gain`, `Excita
   - Initial release.
 
 ### Old Versions
+- [WaveCymbal 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/WaveCymbal0.1.8.zip)
 - [WaveCymbal 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/WaveCymbal0.1.6.zip)
 - [WaveCymbal 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/WaveCymbal0.1.5.zip)
 - [WaveCymbal 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/WaveCymbal0.1.4.zip)

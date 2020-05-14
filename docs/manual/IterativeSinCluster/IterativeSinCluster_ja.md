@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>IterativeSinCluster<rt>イテレイティブ サイン クラスタ</rt></ruby>はノート 1 つあたり 512 のサイン波を計算する加算合成シンセサイザです。一体、何を考えていたのか iterative sin という言葉を名前に使っていますが、アルゴリズムの種類を表す正しい言葉は recursive sine です。
 
-- [IterativeSinCluster 0.1.6 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/IterativeSinCluster0.1.6.zip) <img
+- [IterativeSinCluster 0.1.7 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/IterativeSinCluster0.1.7.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -92,22 +92,22 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 Boost, Gain
 
 :   どちらも音量を調整します。出力のピーク値は `Boost * Gain` となります。
-    
+
     `Note` 、 `Chord` 、 `Overtone` のゲインを調整すると音がかなり小さくなることがあります。そんなときに `Boost` が使えます。
-    
+
 ADSR
 
 :   音量エンベロープのパラメータです。
-    
+
     - `A` (Attack) : 鍵盤を押した瞬間から最大音量になるまでのアタック時間。
     - `D` (Decay) : 最大音量からサステイン音量になるまでのディケイ時間。
     - `S` (Sustain) : アタックとディケイが終わった後に鍵盤を押し続けているときのサステイン音量。
     - `R` (Release) : 鍵盤から指を離したあとに音量が 0 になるまでのリリース時間。
-    
+
 Curve
 
 :   音量エンベロープのアタックの曲線を変更するパラメータ。
-    
+
 ### Shelving
 `Low` と `High` の 2 つのシェルビングができます。
 
@@ -122,29 +122,29 @@ Curve
 Add Aliasing
 
 :   チェックを入れると、ナイキスト周波数より高い周波数が指定されたサイン波もレンダリングします。
-    
+
     ナイキスト周波数とは、ざっくりいえば録音したデータが再現可能な最高周波数のことです。音を生成するときはナイキスト周波数以上の値を指定することができますが、折り返し（エイリアシング）と呼ばれる現象によって計算結果は予期しない周波数になってしまいます。 `Add Aliasing` は、こうしたエイリアシングノイズを足し合わせるオプションです。
-    
+
 Reverse Semi
 
 :   チェックを入れると、 `Semi` の符号を逆転させます。たとえば `7.000` は `-7.000` として処理されます。
-    
+
 Octave
 
 :   ノートのオクターブです。
-    
+
 ET
 
 :   平均律の値です。この値によって `Semi` と `Milli` の調律を変更できます。例えば `ET` が 12 なら 12 平均律になります。 `ET` は Equal Temperament の略です。
-    
+
     ホスト側から送られてくるノートの調律を変更するわけではないので注意してください。
-    
+
 Multiply, Modulo
 
 :   サイン波の周波数を変更します。
-    
+
     計算式は `ノートの周波数 * (1 + fmod(Multiply * pitch, Modulo))` のようになっています。 `pitch` は `Note` 、 `Chord` 、 `Overtone` で指定した値から計算されるピッチです。 `fmod(a, b)` は `a` を `b` で割った余りを計算する関数です。
-    
+
 ### Smooth
 特定の値を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。
 
@@ -163,19 +163,19 @@ Multiply, Modulo
 Retrigger
 
 :   チェックを入れると、ノートオンごとに乱数シードをリセットします。
-    
+
 Seed
 
 :   乱数のシード値です。この値を変えると生成される乱数が変わります。
-    
+
 To Gain
 
 :   ノートオンごとに各サイン波の音量をランダマイズする度合いです。
-    
+
 To Pitch
 
 :   ノートオンごとに各サイン波の周波数をランダマイズする度合いです。
-    
+
 ### Note, Chord, Overtone
 サイン波のピッチと音量を指定します。
 
@@ -208,40 +208,42 @@ for each Chord:
 Mix
 
 :   Dry/Wet の比率を調整します。
-    
+
 Freq
 
 :   コーラスの LFO の周波数です。中央から右に回すと正、左に回すと負の周波数を指定できます。
-    
+
 Depth
 
 :   左右の広がりを調整します。
-    
+
 Range
 
 :   LFO によってディレイ時間を変調する度合いです。 3 つのディレイが用意されています。
-    
+
 Time
 
 :   ディレイ時間です。
-    
+
 Phase
 
 :   LFO の位相です。
-    
+
 Offset
 
 :   ディレイの間での位相差です。
-    
+
 Feedback
 
 :   ディレイのフィードバックです。
-    
+
 Key Follow
 
 :   チェックを入れると、ディレイ時間をノートの音程に応じて変更します。
-    
+
 ## チェンジログ
+- 0.1.7
+  - パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。
 - 0.1.6
   - BarBox にフォーカスした後、マウスカーソルを領域外に動かしている間はショートカットが無効になるように変更。
 - 0.1.5
@@ -260,6 +262,7 @@ Key Follow
   - 初期リリース。
 
 ### 旧バージョン
+- [IterativeSinCluster 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/IterativeSinCluster0.1.6.zip)
 - [IterativeSinCluster 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/IterativeSinCluster0.1.5.zip)
 - [IterativeSinCluster 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/IterativeSinCluster0.1.3.zip)
 - [IterativeSinCluster 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/IterativeSinCluster0.1.2.zip)

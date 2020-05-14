@@ -7,7 +7,7 @@ lang: en
 
 EsPhaser is a phaser with up to 4096 stages of order 2 Thiran all-pass filters. This is the same phaser used in EnvelopedSine.
 
-- [Download EsPhaser 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/EsPhaser0.1.2.zip) <img
+- [Download EsPhaser 0.1.3 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/EsPhaser0.1.3.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -87,56 +87,58 @@ Diagram only shows overview. It's not exact implementation.
 Stages
 
 :   Number of all-pass filter.
-    
+
 Mix
 
 :   Mixing ratio of dry/wet signal of phaser. `Dry : Wet` becomes `0 : 1` when turned the knob to rightmost.
-    
+
 Freq
 
 :   LFO frequency.
-    
+
 Spread
 
 :   Spread frequency between LFOs.
-    
+
     Equation for difference of LFO phase in 1 sample:
-    
+
     ```
     deltaPhase = 2 * pi * Freq / ((1 + LfoIndex * Spread) * sampleRate)
     ```
-    
+
 Feedback
 
 :   Amount of feedback. Feedback is disabled when the knob is pointing to 12 o'clock. It becomes negative feedback when turned to left and positive feedback when turned to right.
-    
+
 Range
 
 :   Range of all-pass filter modulation by LFO.
-    
+
 Min
 
 :   Minimum value of all-pass filter modulation by LFO.
-    
+
 Cas. Offset
 
 :   Phase offset between 16 LFO.
-    
+
 L/R Offset
 
 :   LFO phase offset between L/R channels.
-    
+
 Phase
 
 :   LFO phase. This can be used to make sound with automation. Turning `Freq` to leftmost sets LFO frequency to 0.
-    
+
     Equation for phase offset:
-    
+
     ```
     LfoPhaseOffset = Phase + (L/R Offset) + LfoIndex * (Cas. Offset)
     ```
-    
+
 ## Change Log
+- 0.1.3
+  - Reverted parameter smoother to the old one which works with variable size audio buffer.
 - 0.1.2
   - Fixed a bug that cause crash when drawing string.
 - 0.1.1
@@ -145,6 +147,7 @@ Phase
   - Initial release.
 
 ### Old Versions
+- [EsPhaser 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/EsPhaser0.1.2.zip)
 - [EsPhaser 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EsPhaser0.1.0.zip)
 
 ## License
