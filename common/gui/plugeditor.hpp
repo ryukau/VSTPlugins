@@ -117,7 +117,7 @@ public:
     }
     barBox->remember();
     arrayControlInstances.emplace(std::make_pair(id0, barBox));
-    for (size_t i = 0; i < id.size(); ++i)
+    for (ParamID i = 0; i < id.size(); ++i)
       arrayControlMap.emplace(std::make_pair(id0 + i, barBox));
     return barBox;
   }
