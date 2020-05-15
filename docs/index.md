@@ -32,6 +32,8 @@ For Linux, LV2 version is available.
 
 - [IterativeSinCluster](#iterativesincluster)
 
+- [LatticeReverb](#latticereverb)
+
 - [LightPadSynth](#lightpadsynth)
 
 - [SevenDelay](#sevendelay)
@@ -41,6 +43,17 @@ For Linux, LV2 version is available.
 - [TrapezoidSynth](#trapezoidsynth)
 
 - [WaveCymbal](#wavecymbal)
+
+## LatticeReverb
+![](manual/LatticeReverb/img/latticereverb.png)
+
+<ruby>LatticeReverb<rt>ラティス リバーブ</rt></ruby> はオールパスフィルタを格子状につないで入れ子にしたリバーブです。ディレイを使った高次のオールパスフィルタを使っています。
+
+- [LatticeReverb のマニュアル (日本語)](manual/LatticeReverb/LatticeReverb_ja.html)
+
+LatticeReverb is a reverb using nested high order all-pass filter. All-pass filters are connected in lattice structure.
+
+- [LatticeReverb Manual (English)](manual/LatticeReverb/LatticeReverb_en.html)
 
 ## LightPadSynth
 ![](manual/LightPadSynth/img/lightpadsynth.png)
