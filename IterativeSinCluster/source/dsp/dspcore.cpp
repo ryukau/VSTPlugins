@@ -37,9 +37,10 @@ inline float clamp(float value, float min, float max)
   return (value < min) ? min : (value > max) ? max : value;
 }
 
-inline float midiNoteToFrequency(float pitch, float tuning)
+inline float midiNoteToFrequency(float pitch, float tuning, float bend)
 {
-  return 440.0f * powf(2.0f, ((pitch - 69.0f) * 100.0f + tuning) / 1200.0f);
+  return 440.0f
+    * powf(2.0f, ((pitch - 69.0f) * 100.0f + tuning + (bend - 0.5f) * 400.0f) / 1200.0f);
 }
 
 // Using fmod because if equalTemperament == 1, this returns 2^121 which is too large.
@@ -358,7 +359,8 @@ void DSPCORE_NAME::noteOn(int32_t noteId, int16_t pitch, float tuning, float vel
     rng.seed = param.value[ParameterID::seed]->getInt();
 
   auto normalizedKey = float(pitch) / 127.0f;
-  lastNoteFreq = midiNoteToFrequency(pitch, tuning);
+  lastNoteFreq
+    = midiNoteToFrequency(pitch, tuning, param.value[ParameterID::pitchBend]->getFloat());
   notes[noteIdx].noteOn(noteId, normalizedKey, lastNoteFreq, velocity, param, rng);
 }
 
