@@ -6,7 +6,7 @@
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <meta name="dcterms.date" content="2020-05-14" />
-<title>SevenDelay_ja</title>
+<title>LatticeReverb_ja</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -258,7 +258,7 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#sevendelay">SevenDelay</a><ul>
+  <li><a href="#latticereverb">LatticeReverb</a><ul>
   <li><a href="#インストール">インストール</a><ul>
   <li><a href="#プラグイン">プラグイン</a></li>
   <li><a href="#プリセット">プリセット</a></li>
@@ -269,8 +269,14 @@ footer {
   <li><a href="#注意">注意</a></li>
   <li><a href="#ブロック線図">ブロック線図</a></li>
   <li><a href="#パラメータ">パラメータ</a><ul>
-  <li><a href="#delay">Delay</a></li>
-  <li><a href="#lfo">LFO</a></li>
+  <li><a href="#multiplier">Multiplier</a></li>
+  <li><a href="#panic">Panic!</a></li>
+  <li><a href="#mix">Mix</a></li>
+  <li><a href="#stereo">Stereo</a></li>
+  <li><a href="#misc.">Misc.</a></li>
+  <li><a href="#base">Base</a></li>
+  <li><a href="#offset">Offset</a></li>
+  <li><a href="#modulation">Modulation</a></li>
   </ul></li>
   <li><a href="#チェンジログ">チェンジログ</a><ul>
   <li><a href="#旧バージョン">旧バージョン</a></li>
@@ -283,17 +289,18 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="sevendelay">SevenDelay</h1>
-<p><img src="img/sevendelay.png" /></p>
-<p><ruby>SevenDelay<rt>セブンディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。</p>
+<h1 id="latticereverb">LatticeReverb</h1>
+<p><img src="img/latticereverb.png" /></p>
+<p><ruby>LatticeReverb<rt>ラティス リバーブ</rt></ruby> はオールパスフィルタを格子状につないで入れ子にしたリバーブです。ディレイを使った高次のオールパスフィルタを使っています。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SevenDelay0.1.10.zip">SevenDelay 0.1.10 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverb0.1.0.zip">LatticeReverb 0.1.0 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelayPresets.zip">プリセットをダウンロード (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverbPresets.zip">プリセットをダウンロード (github.com)</a></li>
 </ul>
+<p>LatticeReverb の利用には AVX 以降の SIMD 命令セットをサポートする CPU が必要です。</p>
 <p>パッケージには次のビルドが含まれています。</p>
 <ul>
 <li>Windows 64bit</li>
@@ -335,171 +342,215 @@ style="display: inline-block; vertical-align: middle;"></li>
 <h2 id="操作">操作</h2>
 <p>つまみとスライダーでは次の操作ができます。</p>
 <ul>
-<li>Ctrl + 左クリック : 値のリセット。</li>
-<li>Shift + 左ドラッグ : 細かい値の変更。</li>
+<li><kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。</li>
+<li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
 </ul>
+<p>数値スライダーでは、上記に加えて次の操作ができます。</p>
+<ul>
+<li><kbd>ホイールクリック</kbd> : 最小値、中央値、最大値の切り替え。</li>
+</ul>
+<p>青い縦棒が並んだコントロール (BarBox) ではショートカットが使えます。ショートカットは BarBox を左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを BarBox の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。</p>
+<p>左下のプラグイン名をクリックすると、よく使いそうな一部のショートカットを見ることができます。利用できる全てのショートカットを次の表に掲載しています。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">入力</th>
+<th style="text-align: left;">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><kbd>Ctrl</kbd> + <kbd>Left Click</kbd></td>
+<td style="text-align: left;">デフォルト値にリセット</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>Mouse Middle Drag</kbd></td>
+<td style="text-align: left;">直線の描画</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>d</kbd></td>
+<td style="text-align: left;">すべての値をデフォルト値にリセット</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>D</kbd></td>
+<td style="text-align: left;">最小値・中央値・最大値の切り替え</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>e</kbd></td>
+<td style="text-align: left;">低域の強調</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>E</kbd></td>
+<td style="text-align: left;">高域の強調</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>f</kbd></td>
+<td style="text-align: left;">ローパスフィルタ</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>F</kbd></td>
+<td style="text-align: left;">ハイパスフィルタ</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>i</kbd></td>
+<td style="text-align: left;">値の反転 (最小値を保存)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>I</kbd></td>
+<td style="text-align: left;">値の反転 (最小値を 0 に設定)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>n</kbd></td>
+<td style="text-align: left;">最大値を 1 に正規化 (最小値もスケーリング)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>N</kbd></td>
+<td style="text-align: left;">最大値を 1 に正規化 (最小値を 0 に設定)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>p</kbd></td>
+<td style="text-align: left;">ランダムに並べ替え</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>r</kbd></td>
+<td style="text-align: left;">ランダマイズ</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>R</kbd></td>
+<td style="text-align: left;">まばらなランダマイズ</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>s</kbd></td>
+<td style="text-align: left;">降順にソート</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>S</kbd></td>
+<td style="text-align: left;">昇順にソート</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>t</kbd></td>
+<td style="text-align: left;">少しだけランダマイズ</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>,</kbd> (Comma)</td>
+<td style="text-align: left;">左に回転</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>.</kbd> (Period)</td>
+<td style="text-align: left;">右に回転</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>1</kbd></td>
+<td style="text-align: left;">すべての値を低減</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>2</kbd>-<kbd>9</kbd></td>
+<td style="text-align: left;">インデックスが 2n-9n の値を低減</td>
+</tr>
+</tbody>
+</table>
+<p>操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。</p>
 <h2 id="注意">注意</h2>
-<p><code>Smooth</code> の値が 0 に近く、 <code>Allpass Cut</code> の値を速く動かしすぎたときに、非常に大きな音量のクリックノイズが出力されることがあります。これは <code>Allpass Cut</code> で使われているフィルタのカットオフ周波数が、速く、大きく、動きすぎると出力が発散する場合があることが原因です。特別な目的がない限り、<code>Smooth</code> パラメータを低く設定しすぎないことを推奨します。</p>
-<p><code>Time</code> の値が最小かつ <code>Feedback</code> の値が最大に設定されると直流信号が出ることがあります。 <code>DC Kill</code> を 1.0 より大きな値に設定することで直流信号を除去できます。</p>
+<p>サンプリング周波数によって出力が変わります。</p>
+<p>次の手順に沿った操作が行われると出力が大きくなることがあります。</p>
+<ol type="1">
+<li><code>OuterFeed</code> あるいは <code>InnerFeed</code> のいくつかを最大値あるいは最小値の近くに設定。</li>
+<li>信号を入力。</li>
+<li>手順 1. で設定した <code>OuterFeed</code> あるいは <code>InnerFeed</code> の値を変更する。</li>
+</ol>
 <h2 id="ブロック線図">ブロック線図</h2>
 <p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> + <kbd>マウスホイール</kbd> や、右クリックから「画像だけを表示」などで拡大できます。</p>
 <p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
-<p><img src="img/sevendelay.svg" /></p>
+<p><img src="img/latticereverb.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
-<h3 id="delay">Delay</h3>
+<p><code>Base</code> は左右のチャンネルで両方で使われる値です。 <code>Base</code> によってリバーブの大まかな質感が決まります。</p>
+<p><code>Offset</code> は左右のチャンネルの値の比率です。 <code>Offset</code> によって左右の広がりを作ることができます。</p>
+<pre><code>if (Offset &gt;= 0) {
+  valueL = Base
+  valueR = Base * (1 - Offset)
+}
+else {
+  valueL = Base * (1 + Offset)
+  valueR = Base
+}</code></pre>
 <dl>
 <dt>Time</dt>
-<dd><p>ディレイ時間。範囲は 0.0001 から 8.0 です。</p>
-<ul>
-<li>もし <code>Sync</code> が有効で <code>Time</code> が 1.0 より小さいときは、ディレイ時間が <code>Time / 16</code> 拍に設定されます。</li>
-<li>もし <code>Sync</code> が有効で <code>Time</code> が 1.0 以上のときは、ディレイ時間が <code>floor(2 * Time) / 32</code> 拍に設定されます。</li>
-<li>それ以外のときは、ディレイ時間が <code>time</code> 秒に設定されます。</li>
-</ul>
+<dd><p>オールパスフィルタのディレイ時間です。</p>
 </dd>
-<dt>Feedback</dt>
-<dd><p>ディレイのフィードバック。範囲は 0.0 から 1.0 です。</p>
+<dt>OuterFeed</dt>
+<dd><p>格子構造のフィードバック、フィードフォワードの値です。</p>
 </dd>
-<dt>Stereo</dt>
-<dd><p>左右のディレイ時間のオフセット。範囲は -1.0 から 1.0 です。</p>
-<ul>
-<li>もし <code>Stereo</code> が 0.0 より小さいときは、左チャンネルのディレイ時間が <code>timeL * (1.0 + Stereo)</code> に変更されます。</li>
-<li>それ以外のときは、右チャンネルのディレイ時間が <code>timeR * (1.0 + Stereo)</code> に変更されます。</li>
-</ul>
-</dd>
-<dt>Wet</dt>
-<dd><p>ディレイ信号の出力音量。範囲は 0.0 から 1.0 。</p>
-</dd>
-<dt>Dry</dt>
-<dd><p>入力信号の出力音量。範囲は 0.0 から 1.0 。</p>
-</dd>
-<dt>Sync</dt>
-<dd><p>テンポシンクの切り替え。</p>
-</dd>
-<dt>Negative</dt>
-<dd><p>負のフィードバックの切り替え。ディレイ時間がとても短いときに役立つかもしれません。</p>
-</dd>
-<dt>Spread/Pan</dt>
-<dd><p>入力の広がり (In Spread) 、入力のパン (In Pan) 、出力の広がり (Out Spread) 、出力のパン (Out Pan) 。範囲は 0.0 から 1.0 です。</p>
-<p><code>In Spread</code> 、 <code>Out Spread</code> はステレオの広がりを制御します。 <code>In Pan</code> 、 <code>Out Pan</code> はステレオのパンニングを制御します。</p>
-<p>これらのパラメータはパンニングの逆転やピンポンディレイを作るときに使えます。</p>
-<ul>
-<li>パンニングの逆転を行うには <code>[InSpread, InPan, OutSpread, OutPan]</code> を <code>[0.0, 0.5, 1.0, 0.5]</code> に設定します。</li>
-<li>ピンポンディレイにするには <code>[InSpread, InPan, OutSpread, OutPan]</code> を <code>[1.0, 0.5, 0.0, 0.5]</code> に設定します。</li>
-</ul>
-<pre><code>panL = clamp(2 * pan + spread - 1.0, 0.0, 1.0)
-panR = clamp(2 * pan - spread, 0.0, 1.0)
-
-signalL = incomingL + panL * (incomingR - incomingL)
-signalR = incomingL + panR * (incomingR - incomingL)</code></pre>
-</dd>
-<dt>Allpass Cut</dt>
-<dd><p>SVF オールパスフィルタのカットオフ周波素。範囲は 90.0 から 20000.0 です。</p>
-<p><code>tone</code> が 20000.0 のとき、フィルタはバイパスされます。</p>
-</dd>
-<dt>Allpass Q</dt>
-<dd><p>SVF オールパスフィルタのレゾナンス。範囲は 0.00001 から 1.0 です。</p>
-<p>値が大きいほどレゾナンスが強くなります。</p>
-</dd>
-<dt>DC Kill</dt>
-<dd><p>ハイパスフィルタのカットオフ周波数。範囲は 5.0 から 120.0 です。</p>
-<p><code>DC Kill</code> を 5.0 より大きく設定すればディレイのフィードバックから直流信号を取り除くことができます。</p>
-</dd>
-<dt>Smooth</dt>
-<dd><p>パラメータ平滑化の度合い。範囲は 0.0 から 1.0 で、単位は秒です。</p>
-<p>パラメータによっては値が急激に変化するとノイズが出ることがあります。 <code>Smooth</code> の値を大きめにすることで、値の変化を緩やかにしてノイズを減らすことができます。</p>
+<dt>InnerFeed</dt>
+<dd><p>格子構造の内側に入れ子になったオールパスフィルタのフィードバック、フィードフォワードの値です。</p>
 </dd>
 </dl>
-<h3 id="lfo">LFO</h3>
+<h3 id="multiplier">Multiplier</h3>
+<p><code>Time</code> 、 <code>OuterFeed</code> 、 <code>InnerFeed</code> の値をまとめて変更する係数です。リバーブの質感を変えずに減衰時間を変えるときに使えます。</p>
+<h3 id="panic">Panic!</h3>
+<p>ボタンを押すと <code>Time</code> 、 <code>OuterFeed</code> 、 <code>InnerFeed</code> の Multiplier を 0 にしてリバーブの出力を止めます。</p>
+<p>出力が想定外に大きくなったときなど、音を手早く止めたいときに使えます。</p>
+<h3 id="mix">Mix</h3>
 <dl>
-<dt>To Time</dt>
-<dd><p>LFO によるディレイ時間の変調量。範囲は 0.0 から 1.0 です。</p>
+<dt>Dry</dt>
+<dd><p>バイパスされる入力信号の音量です。</p>
 </dd>
-<dt>To Allpass</dt>
-<dd><p>LFO によるオールパスフィルタのカットオフ周波数の変調量。範囲は 0.0 から 1.0 です。</p>
+<dt>Wet</dt>
+<dd><p>リバーブを通った信号の音量です。</p>
 </dd>
-<dt>Frequency</dt>
-<dd><p>LFO の周波数。範囲は 0.01 から 100.0 。</p>
+</dl>
+<h3 id="stereo">Stereo</h3>
+<dl>
+<dt>Cross</dt>
+<dd><p>格子の偶数段で左右のチャンネルの信号をミックスする割合です。</p>
+<p>0 のときはもう片方のチャンネルからの信号はミックスされません。 0.5 のときは現在のチャンネルともう片方のチャンネルの信号比が 1:1 になります。</p>
 </dd>
-<dt>Shape</dt>
-<dd><p>LFO の波形。範囲は 0.01 から 10.0 。</p>
-<pre><code>sign = 1 if (phase &gt; π),
-      -1 if (phase &lt; π),
-       0 if (phase == π)
-lfo = sign * abs(sin(phase))^shape</code></pre>
+<dt>Spread</dt>
+<dd><p>ミッドとサイド (M-S) の信号の比率です。</p>
+<p>ミッドとサイドの信号は次の式で計算されます。</p>
+<p>``` mid = left + right side = left - right</p>
 </dd>
-<dt>Phase</dt>
-<dd><p>LFO の位相の初期値。範囲は 0.0 から 2π 。</p>
-<p>LFO の位相はホストが演奏を開始するたびに <code>Phase</code> の値にリセットされます。</p>
+</dl>
+<p>left = mid - Spread * (mid - side) right = mid - Spread * (mid + side) ```</p>
+<h3 id="misc.">Misc.</h3>
+<dl>
+<dt>Smooth</dt>
+<dd><p>パラメータを変更したときに、変更前の値から変更後の値へと移行する大まかな秒数です。</p>
 </dd>
-<dt>Hold</dt>
-<dd><p>LFO の位相のホールドの切り替え。ライブ演奏などで役に立つかもしれません。</p>
+</dl>
+<h3 id="base">Base</h3>
+<p><img src="img/latticereverb.png" /></p>
+<p><code>Time</code> 、 <code>OuterFeed</code> 、 <code>InnerFeed</code> の左右のチャンネルで共通する値を設定するタブです。</p>
+<p>リバーブの大まかなキャラクタは Base タブの設定で決まります。</p>
+<h3 id="offset">Offset</h3>
+<p><img src="img/latticereverb_offset_tab.png" /></p>
+<p><code>Time</code> 、 <code>OuterFeed</code> 、 <code>InnerFeed</code> の左右のチャンネル間での差を設定するタブです。</p>
+<p>Offset タブの値を変えると左右の広がりが出ます。</p>
+<h3 id="modulation">Modulation</h3>
+<p><img src="img/latticereverb_modulation_tab.png" /></p>
+<dl>
+<dt>Time LFO</dt>
+<dd><p>LFO によって <code>Time</code> を変調する量です。</p>
+<p>LFO の波形はノイズ（一様乱数）です。 <code>Time LFO Cutoff</code> と <code>Smooth</code> の値によって滑らかさが変わります。</p>
+</dd>
+<dt>Time LFO Cutoff</dt>
+<dd><p>LFO にかけるローパスフィルタのカットオフ周波数です。</p>
+</dd>
+<dt>Lowpass Cutoff</dt>
+<dd><p>格子の各段に備えられたローパスフィルタのカットオフ周波数です。</p>
+<p>リバーブの明るさを変更するときに役立ちます。</p>
 </dd>
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
-<li>0.1.10
-<ul>
-<li>パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。</li>
-</ul></li>
-<li>0.1.9
-<ul>
-<li>文字列の描画でクラッシュするバグを修正。</li>
-</ul></li>
-<li>0.1.8
-<ul>
-<li>プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。</li>
-</ul></li>
-<li>0.1.7
-<ul>
-<li>非アクティブ化で音が止まるように修正。</li>
-</ul></li>
-<li>0.1.6
-<ul>
-<li>Linux ビルドの GUI を有効化。</li>
-</ul></li>
-<li>0.1.5
-<ul>
-<li>Ableton Live 10.1.6 で特定のノブが揺れ戻るバグを修正。</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li>複数の GUI インスタンス間で表示を同期するように変更。</li>
-<li>スプラッシュスクリーンを開くとクラッシュするバグを修正。</li>
-<li>リロード時にクラッシュするバグを修正。</li>
-<li>GUI がホストのオートメーションに応じて更新されるように修正。</li>
-</ul></li>
-<li>0.1.3
-<ul>
-<li>スムーシングのアルゴリズムの値が決められた範囲を超えるバグを修正。</li>
-<li>LFO Hold のオン・オフが逆転していたバグを修正。</li>
-<li>オールパスのミキシングにかかっていた LFO による変調を除去。</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>内部のパラメータの構造を変更。</li>
-<li>UI の見た目を変更。</li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>Linux ビルドの GUI を無効化。VSTGUI に関するバグが治るまでの応急処置。</li>
-<li>LFO の <code>To Allpass</code> のチューニングを変更。</li>
-<li><code>DC Kill</code> の最小値を 5.0 Hz に変更。</li>
-</ul></li>
 <li>0.1.0
 <ul>
 <li>初期リリース。</li>
 </ul></li>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SevenDelay0.1.9.zip">SevenDelay 0.1.9 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip">SevenDelay 0.1.7 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip">SevenDelay 0.1.6 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelay0.1.5.zip">SevenDelay 0.1.5 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SevenDelay0.1.4.zip">SevenDelay 0.1.4 - VST 3 (github.com)</a></li>
-</ul>
+<p>現在、旧バージョンはありません。</p>
 <h2 id="ライセンス">ライセンス</h2>
-<p>SevenDelay のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
+<p>LatticeReverb のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
 <ul>
 <li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
 </ul>

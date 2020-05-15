@@ -6,7 +6,7 @@
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <meta name="dcterms.date" content="2020-05-14" />
-<title>TrapezoidSynth_en</title>
+<title>LatticeReverb_en</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -258,7 +258,7 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#trapezoidsynth">TrapezoidSynth</a><ul>
+  <li><a href="#latticereverb">LatticeReverb</a><ul>
   <li><a href="#installation">Installation</a><ul>
   <li><a href="#plugin">Plugin</a></li>
   <li><a href="#presets">Presets</a></li>
@@ -269,20 +269,14 @@ footer {
   <li><a href="#caution">Caution</a></li>
   <li><a href="#block-diagram">Block Diagram</a></li>
   <li><a href="#parameters">Parameters</a><ul>
-  <li><a href="#oscillator-common">Oscillator Common</a></li>
-  <li><a href="#oscillator-1">Oscillator 1</a></li>
-  <li><a href="#oscillator-2">Oscillator 2</a></li>
-  <li><a href="#envelope-common">Envelope Common</a></li>
-  <li><a href="#gain-envelope">Gain Envelope</a></li>
-  <li><a href="#filter">Filter</a></li>
-  <li><a href="#filter-envelope">Filter Envelope</a></li>
-  <li><a href="#misc">Misc</a></li>
-  <li><a href="#mod-common">Mod Common</a></li>
-  <li><a href="#mod-1">Mod 1</a></li>
-  <li><a href="#mod-2">Mod 2</a></li>
-  <li><a href="#shifter-common">Shifter Common</a></li>
-  <li><a href="#lfo">LFO</a></li>
-  <li><a href="#slide">Slide</a></li>
+  <li><a href="#multiplier">Multiplier</a></li>
+  <li><a href="#panic">Panic!</a></li>
+  <li><a href="#mix">Mix</a></li>
+  <li><a href="#stereo">Stereo</a></li>
+  <li><a href="#misc.">Misc.</a></li>
+  <li><a href="#base">Base</a></li>
+  <li><a href="#offset">Offset</a></li>
+  <li><a href="#modulation">Modulation</a></li>
   </ul></li>
   <li><a href="#change-log">Change Log</a><ul>
   <li><a href="#old-versions">Old Versions</a></li>
@@ -295,17 +289,18 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="trapezoidsynth">TrapezoidSynth</h1>
-<p><img src="img/trapezoidsynth.png" /></p>
-<p>TrapezoidSynth is a monophonic synthesizer equipped with 2 trapezoid oscillator. Trapezoid oscillator is based on PTR (Polynomial Transition Regions) and it has a drawback that increasing noise at high frequency. Therefore 8 times oversampled. 2 pitch shifters are added to make some chord.</p>
+<h1 id="latticereverb">LatticeReverb</h1>
+<p><img src="img/latticereverb.png" /></p>
+<p>LatticeReverb is a reverb using nested high order all-pass filter. All-pass filters are connected in lattice structure.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/TrapezoidSynth0.1.8.zip">Download TrapezoidSynth 0.1.8 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverb0.1.0.zip">Download LatticeReverb 0.1.0 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/TrapezoidSynthPresets.zip">Download Presets (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverbPresets.zip">Download Presets (github.com)</a></li>
 </ul>
+<p>LatticeReverb requires CPU which supports AVX or later SIMD instructions.</p>
 <p>The package includes following builds:</p>
 <ul>
 <li>Windows 64bit</li>
@@ -347,298 +342,214 @@ style="display: inline-block; vertical-align: middle;"></li>
 <h2 id="controls">Controls</h2>
 <p>Knob and slider can do:</p>
 <ul>
-<li>Ctrl + Left Click: Reset value.</li>
-<li>Shift + Left Drag: Fine adjustment.</li>
+<li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
+<li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
 </ul>
-<p>Right clicking on controllable object popups a context menu provided by DAW.</p>
+<p>There is an additional control for number sliders used for <code>Octave</code>, <code>Seed</code> etc.</p>
+<ul>
+<li><kbd>Middle Click</kbd> : Flip minimum and maximum.</li>
+</ul>
+<p>Control with many blue vertical bars (BarBox) have some keyboard shortcuts. <code>LFO Wave</code> on Main tab and <code>Gain</code>, <code>Width</code>, <code>Pitch</code>, <code>Phase</code> on Wavetable tab are using BarBox. Shortcuts are enabled after left clicking BarBox and mouse cursor is on the inside of BarBox. Cheat sheet is available on Infomation tab.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Input</th>
+<th style="text-align: left;">Control</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><kbd>Ctrl</kbd> + <kbd>Left Click</kbd></td>
+<td style="text-align: left;">Reset to Default</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>Right Drag</kbd></td>
+<td style="text-align: left;">Draw Line</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>d</kbd></td>
+<td style="text-align: left;">Reset Everything to Default</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>D</kbd></td>
+<td style="text-align: left;">Toggle Min/Mid/Max</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>e</kbd></td>
+<td style="text-align: left;">Emphasize Low</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>E</kbd></td>
+<td style="text-align: left;">Emphasize High</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>f</kbd></td>
+<td style="text-align: left;">Low-pass Filter</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>F</kbd></td>
+<td style="text-align: left;">High-pass Filter</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>i</kbd></td>
+<td style="text-align: left;">Invert Value (Preserve current minimum)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>I</kbd></td>
+<td style="text-align: left;">Invert Value (Minimum to 0)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>n</kbd></td>
+<td style="text-align: left;">Normalize (Preserve current minimum)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>N</kbd></td>
+<td style="text-align: left;">Normalize (Minimum to 0)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>p</kbd></td>
+<td style="text-align: left;">Permute</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>r</kbd></td>
+<td style="text-align: left;">Randomize</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>R</kbd></td>
+<td style="text-align: left;">Sparse Randomize</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>s</kbd></td>
+<td style="text-align: left;">Sort Descending Order</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>S</kbd></td>
+<td style="text-align: left;">Sort Ascending Order</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>t</kbd></td>
+<td style="text-align: left;">Subtle Randomize</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>,</kbd> (Comma)</td>
+<td style="text-align: left;">Rotate Back</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>.</kbd> (Period)</td>
+<td style="text-align: left;">Rotate Forward</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><kbd>1</kbd></td>
+<td style="text-align: left;">Decrease</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><kbd>2</kbd>-<kbd>9</kbd></td>
+<td style="text-align: left;">Decrease 2n-9n</td>
+</tr>
+</tbody>
+</table>
+<p><kbd>Right Click</kbd> on the controls pops up a context menu provided by DAW.</p>
 <h2 id="caution">Caution</h2>
-<p>It is recommended to insert high-pass when setting <code>SlideType</code> to <code>Reset to 0</code>.</p>
+<p>Output may change with different sample rate.</p>
+<p>Output may become loud when following steps are performed.</p>
+<ol type="1">
+<li>Set some of the <code>OuterFeed</code> or <code>InnerFeed</code> to close to minimum or maximum.</li>
+<li>Input signals.</li>
+<li>Change the value of <code>OuterFeed</code> or <code>InnerFeed</code> which was set at step 1.</li>
+</ol>
 <h2 id="block-diagram">Block Diagram</h2>
 <p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or “View Image” on right click menu to scale.</p>
 <p>Diagram only shows overview. It’s not exact implementation.</p>
-<p><img src="img/trapezoidsynth.svg" /></p>
+<p><img src="img/latticereverb.svg" /></p>
 <h2 id="parameters">Parameters</h2>
-<h3 id="oscillator-common">Oscillator Common</h3>
+<p><code>Base</code> is value used in both left and right channel. <code>Base</code> value determines the character of reverb.</p>
+<p><code>Offset</code> is ratio of value between left and right channel. Changing <code>Offset</code> spreads reverb to stereo.</p>
+<pre><code>if (Offset &gt;= 0) {
+  valueL = Base
+  valueR = Base * (1 - Offset)
+}
+else {
+  valueL = Base * (1 + Offset)
+  valueR = Base
+}</code></pre>
 <dl>
-<dt>Semi</dt>
-<dd><p>Change oscillator pitch in semitone.</p>
-</dd>
-<dt>Cent</dt>
-<dd><p>Change oscillator pitch in cent. 100 cent = 1 semitone.</p>
-</dd>
-<dt>Slope</dt>
-<dd><p>Change left and right side of slope of trapezoid.</p>
-</dd>
-<dt>PW</dt>
-<dd><p>Pulse width. Change length of upper side of trapezoid.</p>
-</dd>
-</dl>
-<h3 id="oscillator-1">Oscillator 1</h3>
-<dl>
-<dt>Drift</dt>
-<dd><p>Modulate pitch with white noise.</p>
-</dd>
-<dt>Feedback</dt>
-<dd><p>Modulate phase of Oscillator 1 with feedback signal.</p>
-<pre><code>osc1Phase += Feedback * (osc1 + OscMix * (osc2 - osc1))</code></pre>
-</dd>
-</dl>
-<h3 id="oscillator-2">Oscillator 2</h3>
-<dl>
-<dt>Overtone</dt>
-<dd><p>Multiply the frequency of oscillator by number of <code>Overtone</code>.</p>
-</dd>
-<dt>PM</dt>
-<dd><p>Modulate Osillator 1 phase with Oscillator 2 output.</p>
-</dd>
-</dl>
-<h3 id="envelope-common">Envelope Common</h3>
-<dl>
-<dt>Retrigger</dt>
-<dd><p>When checked, reset envelope for each note on. When not checked, reset envelope only if the number of pressed key is changed from 0 to 1 or more.</p>
-</dd>
-<dt>A</dt>
-<dd><p>Attack time in seconds.</p>
-</dd>
-<dt>D</dt>
-<dd><p>Decay time in seconds.</p>
-</dd>
-<dt>S</dt>
-<dd><p>Sustain level.</p>
-</dd>
-<dt>R</dt>
-<dd><p>Release time in seconds.</p>
-</dd>
-<dt>Curve</dt>
-<dd><p>Change envelope curve.</p>
-</dd>
-</dl>
-<h3 id="gain-envelope">Gain Envelope</h3>
-<dl>
-<dt>Gain</dt>
-<dd><p>Master output gain.</p>
-</dd>
-</dl>
-<h3 id="filter">Filter</h3>
-<dl>
-<dt>Order</dt>
-<dd><p>TrapezoidSynth is using 8 of serially connected first order filter. <code>Order</code> changes where to get the signal from the filter.</p>
-</dd>
-<dt>Cut</dt>
-<dd><p>Cutoff frequency in Hz.</p>
-</dd>
-<dt>Res</dt>
-<dd><p>Resonance.</p>
-</dd>
-<dt>Sat</dt>
-<dd><p>Filter saturation.</p>
-<pre><code>filterInput = tanh(Sat * (input + Res * filterOutput))</code></pre>
-</dd>
-<dt>Env&gt;Cut</dt>
-<dd><p>Modulation amount from Filter Envelope to <code>Cut</code>.</p>
-</dd>
-<dt>Key&gt;Cut</dt>
-<dd><p>Modulation amount from note pitch to <code>Cut</code>.</p>
-</dd>
-<dt>+OscMix</dt>
-<dd><p>Modulation amount from mixed signal of Oscillator 1 and Oscillator 2 to <code>Cut</code>.</p>
-</dd>
-</dl>
-<h3 id="filter-envelope">Filter Envelope</h3>
-<dl>
-<dt>&gt;Octave</dt>
-<dd><p>Modulation amount from Filter Envelope to pitch in octave.</p>
-</dd>
-</dl>
-<h3 id="misc">Misc</h3>
-<dl>
-<dt>OscMix</dt>
-<dd><p>Ratio of Oscillator 1 and Oscillator 2. When turned to left-most, output becomes only the signal from Oscillator 1.</p>
-</dd>
-<dt>Octave</dt>
-<dd><p>Change pitch in octave.</p>
-</dd>
-<dt>Smooth</dt>
-<dd><p>Interpolation time in seconds from previous value to current value. Following parameters are affected by <code>Smooth</code>.</p>
-<ul>
-<li><code>Drift</code></li>
-<li><code>Slope</code></li>
-<li><code>PW</code> (for all parameter with identical name)</li>
-<li><code>Feedback</code> (for all parameter with identical name)</li>
-<li><code>PM</code></li>
-<li><code>Gain</code> (for all parameter with identical name)</li>
-<li><code>Cut</code></li>
-<li><code>Res</code></li>
-<li><code>Sat</code></li>
-<li><code>Env&gt;Cut</code></li>
-<li><code>Key&gt;Cut</code></li>
-<li><code>+OscMix</code></li>
-<li><code>OscMix</code></li>
-<li><code>&gt;PM</code></li>
-<li><code>&gt;Feedback</code></li>
-<li><code>&gt;LFO</code></li>
-<li><code>&gt;Slope2</code></li>
-<li><code>&gt;Shifter1</code></li>
-<li><code>Shifter1.Semi</code></li>
-<li><code>Shifter1.Cent</code></li>
-<li><code>Shifter2.Semi</code></li>
-<li><code>Shifter2.Cent</code></li>
-<li><code>Freq</code></li>
-<li><code>Shape</code></li>
-<li><code>&gt;Pitch1</code></li>
-<li><code>&gt;Slope1</code></li>
-<li><code>&gt;PW1</code></li>
-<li><code>&gt;Cut</code></li>
-</ul>
-</dd>
-</dl>
-<h3 id="mod-common">Mod Common</h3>
-<dl>
-<dt>Retrigger</dt>
-<dd><p>When checked, reset envelope for each note on. When not checked, reset envelope only if the number of pressed key is changed from 0 to 1 or more.</p>
-</dd>
-<dt>Attack</dt>
-<dd><p>Modulation envelope attack time in seconds.</p>
-</dd>
-<dt>Curve</dt>
-<dd><p>Modulation envelope curve.</p>
-</dd>
-</dl>
-<h3 id="mod-1">Mod 1</h3>
-<dl>
-<dt>&gt;PM</dt>
-<dd><p>Modulation amount from modulation envelope 1 to <code>Oscillator2.PM</code>.</p>
-</dd>
-</dl>
-<h3 id="mod-2">Mod 2</h3>
-<dl>
-<dt>&gt;Feedback</dt>
-<dd><p>Modulation amount from modulation envelope 2 to <code>Oscillator1.Feedback</code>.</p>
-</dd>
-<dt>&gt;LFO</dt>
-<dd><p>Modulation amount from modulation envelope 2 to <code>LFO.Freq</code>.</p>
-</dd>
-<dt>&gt;Slope2</dt>
-<dd><p>Modulation amount from modulation envelope 2 to <code>Oscillator2.Slope</code>.</p>
-</dd>
-<dt>&gt;Shifter1</dt>
-<dd><p>Modulation amount from modulation envelope 2 to Shifter 1 pitch.</p>
-</dd>
-</dl>
-<h3 id="shifter-common">Shifter Common</h3>
-<dl>
-<dt>Semi</dt>
-<dd><p>Change amount of pitch shift in semitone.</p>
-</dd>
-<dt>Cent</dt>
-<dd><p>Change amount of pitch shift pitch in cent. 100 cent = 1 semitone.</p>
-</dd>
-<dt>Gain</dt>
-<dd><p>Output gain of pitch shifter.</p>
-</dd>
-</dl>
-<h3 id="lfo">LFO</h3>
-<dl>
-<dt>LFOType</dt>
-<dd><p>4 waveforms are available for LFO.</p>
-<ul>
-<li><code>Sin</code> : Sine wave. Output will be power of the value of <code>Shape</code>.</li>
-<li><code>Saw</code> : Sawtooth wave. Can be turned into triangle with <code>Shape</code>.</li>
-<li><code>Pulse</code> : Pulse wave. Duty ratio can be controlled by <code>Shape</code>.</li>
-<li><code>Noise</code> : Brown noise. Wandering of noise can be changed by <code>Shape</code>.</li>
-</ul>
-</dd>
-<dt>Tempo</dt>
-<dd><p>Synchronize LFO frequency to tempo.</p>
-</dd>
-<dt>Freq</dt>
-<dd><p>LFO frequency.</p>
-</dd>
-<dt>Shape</dt>
-<dd><p>Change LFO wave shape.</p>
-</dd>
-<dt>&gt;Pitch</dt>
-<dd><p>Modulation amount from LFO to Oscillator 1 pitch.</p>
-</dd>
-<dt>&gt;Slope1</dt>
-<dd><p>Modulation amount from LFO to <code>Oscillator1.Slope</code>.</p>
-</dd>
-<dt>&gt;PW1</dt>
-<dd><p>Modulation amount from LFO to <code>Oscillator1.PW</code>.</p>
-</dd>
-<dt>&gt;PW1</dt>
-<dd><p>Modulation amount from LFO to <code>Filter.Cut</code>.</p>
-</dd>
-</dl>
-<h3 id="slide">Slide</h3>
-<dl>
-<dt>SlideType</dt>
-<dd><p>3 type of pitch slide is available.</p>
-<ul>
-<li><code>Always</code> : Always slide from the pitch of last note.</li>
-<li><code>Sustain</code> : Only slide when 2 or more keys are pressed.</li>
-<li><code>Reset to 0</code> : When number of pressed key is changed from 0 to 1, or 1 to 0, pitch will be slide to 0 Hz. Otherwise, slide behaves same as other 2 options.</li>
-</ul>
-</dd>
 <dt>Time</dt>
-<dd><p>Time of pitch sliding.</p>
+<dd><p>Delay time of all-pass filter.</p>
 </dd>
-<dt>Offset</dt>
-<dd><p>Oscillator 2 slide time with respect to Oscillator 1 slide time.</p>
+<dt>OuterFeed</dt>
+<dd><p>Feedback and feedforward gain of lattice structure.</p>
+</dd>
+<dt>InnerFeed</dt>
+<dd><p>Feedback and feedforward gain of an all-pass filter.</p>
+</dd>
+</dl>
+<h3 id="multiplier">Multiplier</h3>
+<p>Multiplier for <code>Time</code>, <code>OuterFeed</code>, <code>InnerFeed</code>. Useful to shorten or lengthen reverb without changing much of the character.</p>
+<h3 id="panic">Panic!</h3>
+<p>Pressing <code>Panic!</code> button stops reverb output by setting multiplier of <code>Time</code>, <code>OuterFeed</code>, <code>InnerFeed</code> to 0.</p>
+<p>Useful to stop sounds in case of blow up.</p>
+<h3 id="mix">Mix</h3>
+<dl>
+<dt>Dry</dt>
+<dd><p>Gain of input signal.</p>
+</dd>
+<dt>Wet</dt>
+<dd><p>Gain of reverb signal.</p>
+</dd>
+</dl>
+<h3 id="stereo">Stereo</h3>
+<dl>
+<dt>Cross</dt>
+<dd><p>Mixing ratio of stereo signal for odd stage in lattice structure.</p>
+<p>If the value is 0, signal from other channel will not be mixed. If the value is 0.5, mixing ratio of current channel and other channel becomes 1:1.</p>
+</dd>
+<dt>Spread</dt>
+<dd><p>Mid-side (M-S) signal ratio.</p>
+<p>Following equations are used to calculate mid-side signal.</p>
+<p>``` mid = left + right side = left - right</p>
+</dd>
+</dl>
+<p>left = mid - Spread * (mid - side) right = mid - Spread * (mid + side) ```</p>
+<h3 id="misc.">Misc.</h3>
+<dl>
+<dt>Smooth</dt>
+<dd><p>Transition time to change parameter value to current one. Unit is in second.</p>
+</dd>
+</dl>
+<h3 id="base">Base</h3>
+<p><img src="img/latticereverb.png" /></p>
+<p><code>Base</code> tab provides controls for common values used in both channels.</p>
+<p>Character of reverb is mostly determined by <code>Base</code> values.</p>
+<h3 id="offset">Offset</h3>
+<p><img src="img/latticereverb_offset_tab.png" /></p>
+<p><code>Offset</code> tab provides controls for ratio of value between left and right channel.</p>
+<p>Changing values in <code>Offset</code> tab spreads reverb to stereo.</p>
+<h3 id="modulation">Modulation</h3>
+<p><img src="img/latticereverb_modulation_tab.png" /></p>
+<dl>
+<dt>Time LFO</dt>
+<dd><p>LFO modulation amount to <code>Time</code>.</p>
+<p>LFO waveform is noise (uniform pseudo random number). Smoothness of LFO is changed by <code>Time LFO Cutoff</code> and <code>Smooth</code>.</p>
+</dd>
+<dt>Time LFO Cutoff</dt>
+<dd><p>Low-pass filter cutoff frequency for LFO.</p>
+</dd>
+<dt>Lowpass Cutoff</dt>
+<dd><p>Cutoff frequency of low-pass filters placed for each stage of lattice structure.</p>
+<p>Useful to change the brightness of reverb.</p>
 </dd>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
-<li>0.1.8
-<ul>
-<li>Reverted parameter smoother to the old one which works with variable size audio buffer.</li>
-</ul></li>
-<li>0.1.7
-<ul>
-<li>Fixed a bug that cause crash when drawing string.</li>
-</ul></li>
-<li>0.1.6
-<ul>
-<li>Changed display method for pop-up which shows up by clicking plugin title.</li>
-</ul></li>
-<li>0.1.5
-<ul>
-<li>Fixed a bug that was causing noise on PreSonus Studio One 4.6.1.</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li>Enabled GUI for Linux build.</li>
-<li>Fixed plugin type from <code>kFxInstrument</code> to <code>kInstrumentSynth</code>.</li>
-</ul></li>
-<li>0.1.3
-<ul>
-<li>Fixed wobbling knob bug.</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>Added support for synchronization between multiple GUI instances.</li>
-<li>Fixed a bug that opening splash screen causes crash.</li>
-<li>Fixed GUI to follow host automation.</li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>Fixed mistake in oscillator implementation.</li>
-</ul></li>
 <li>0.1.0
 <ul>
 <li>Initial release.</li>
 </ul></li>
 </ul>
 <h3 id="old-versions">Old Versions</h3>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/TrapezoidSynth0.1.7.zip">TrapezoidSynth 0.1.7 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/TrapezoidSynth0.1.5.zip">TrapezoidSynth 0.1.5 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/TrapezoidSynth0.1.4.zip">TrapezoidSynth 0.1.4 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/TrapezoidSynth0.1.3.zip">TrapezoidSynth 0.1.3 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/TrapezoidSynth0.1.2.zip">TrapezoidSynth 0.1.2 - VST 3 (github.com)</a></li>
-</ul>
+<p>N/A</p>
 <h2 id="license">License</h2>
-<p>TrapezoidSynth is licensed under GPLv3. Complete licenses are linked below.</p>
+<p>LatticeReverb is licensed under GPLv3. Complete licenses are linked below.</p>
 <ul>
 <li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
 </ul>

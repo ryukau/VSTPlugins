@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-05-07" />
+<meta name="dcterms.date" content="2020-05-14" />
 <title>CubicPadSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -252,7 +252,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-05-07
+  Update: 2020-05-14
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -306,7 +306,7 @@ footer {
 <p><img src="img/cubicpadsynth.png" /></p>
 <p><ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby> は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/CubicPadSynth0.1.4.zip">CubicPadSynth 0.1.4 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/CubicPadSynth0.1.5.zip">CubicPadSynth 0.1.5 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -767,6 +767,10 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
 <p>ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.5
+<ul>
+<li>パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。</li>
+</ul></li>
 <li>0.1.4
 <ul>
 <li>起動時にパラメータがロードされる前にウェーブテーブルが更新されるバグを修正。</li>
@@ -792,6 +796,7 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/CubicPadSynth0.1.4.zip">CubicPadSynth 0.1.4 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip">CubicPadSynth 0.1.3 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynth0.1.2.zip">CubicPadSynth 0.1.2 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip">CubicPadSynth 0.1.1 - VST 3 (github.com)</a></li>

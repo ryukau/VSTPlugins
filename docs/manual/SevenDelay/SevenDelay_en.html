@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-05-07" />
+<meta name="dcterms.date" content="2020-05-14" />
 <title>SevenDelay_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -252,7 +252,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-05-07
+  Update: 2020-05-14
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -287,7 +287,7 @@ footer {
 <p><img src="img/sevendelay.png" /></p>
 <p>SevenDelay is a stereo delay with 7th order lagrange interpolated fractional delay and 7x oversampling.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SevenDelay0.1.9.zip">Download SevenDelay 0.1.9 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SevenDelay0.1.10.zip">Download SevenDelay 0.1.10 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -436,6 +436,10 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.10
+<ul>
+<li>Reverted parameter smoother to the old one which works with variable size audio buffer.</li>
+</ul></li>
 <li>0.1.9
 <ul>
 <li>Fixed a bug that cause crash when drawing string.</li>
@@ -487,6 +491,7 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 </ul>
 <h3 id="old-versions">Old Versions</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SevenDelay0.1.9.zip">SevenDelay 0.1.9 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip">SevenDelay 0.1.7 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip">SevenDelay 0.1.6 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelay0.1.5.zip">SevenDelay 0.1.5 - VST 3 (github.com)</a></li>
