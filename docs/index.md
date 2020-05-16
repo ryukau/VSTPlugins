@@ -47,11 +47,11 @@ For Linux, LV2 version is available.
 ## LatticeReverb
 ![](manual/LatticeReverb/img/latticereverb.png)
 
-<ruby>LatticeReverb<rt>ラティス リバーブ</rt></ruby> はオールパスフィルタを格子状につないで入れ子にしたリバーブです。ディレイを使った高次のオールパスフィルタを使っています。
+LatticeReverb はディレイを使った高次のオールパスフィルタを格子状につないで入れ子にしたリバーブです。 1 チャンネルあたり 16 のオールパスフィルタを備えています。
 
 - [LatticeReverb のマニュアル (日本語)](manual/LatticeReverb/LatticeReverb_ja.html)
 
-LatticeReverb is a reverb using nested high order all-pass filter. All-pass filters are connected in lattice structure.
+LatticeReverb is a reverb using lattice structure. Equipped with 16 delays per channel.
 
 - [LatticeReverb Manual (English)](manual/LatticeReverb/LatticeReverb_en.html)
 

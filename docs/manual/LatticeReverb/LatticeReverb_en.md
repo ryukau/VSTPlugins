@@ -5,7 +5,7 @@ lang: en
 # LatticeReverb
 ![](img/latticereverb.png)
 
-LatticeReverb is a reverb using nested high order all-pass filter. All-pass filters are connected in lattice structure.
+LatticeReverb is a reverb using lattice structure. Equipped with 16 delays per channel.
 
 - [Download LatticeReverb 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverb0.1.0.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
