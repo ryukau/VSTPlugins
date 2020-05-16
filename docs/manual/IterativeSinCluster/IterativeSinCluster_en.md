@@ -238,6 +238,7 @@ Key Follow
 ## Change Log
 - 0.1.7
   - Reverted parameter smoother to the old one which works with variable size audio buffer.
+  - Enabled pitch bend.
 - 0.1.6
   - Changed BarBox shortcuts to be disabled when mouse cursor is on the outside of BarBox.
 - 0.1.5
