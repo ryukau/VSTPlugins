@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-05-15" />
+<meta name="dcterms.date" content="2020-05-16" />
 <title>LatticeReverb_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -252,7 +252,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-05-15
+  Update: 2020-05-16
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -506,10 +506,13 @@ else {
 <dt>Spread</dt>
 <dd><p>Mid-side (M-S) signal ratio.</p>
 <p>Following equations are used to calculate mid-side signal.</p>
-<p>``` mid = left + right side = left - right</p>
+<pre><code>mid  = left + right
+side = left - right
+
+left  = mid - Spread * (mid - side)
+right = mid - Spread * (mid + side)</code></pre>
 </dd>
 </dl>
-<p>left = mid - Spread * (mid - side) right = mid - Spread * (mid + side) ```</p>
 <h3 id="misc.">Misc.</h3>
 <dl>
 <dt>Smooth</dt>

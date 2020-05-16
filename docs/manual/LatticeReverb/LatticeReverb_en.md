@@ -177,11 +177,11 @@ Spread
     Following equations are used to calculate mid-side signal.
 
     ```
-mid  = left + right
-side = left - right
+    mid  = left + right
+    side = left - right
 
-left  = mid - Spread * (mid - side)
-right = mid - Spread * (mid + side)
+    left  = mid - Spread * (mid - side)
+    right = mid - Spread * (mid + side)
     ```
 
 ### Misc.

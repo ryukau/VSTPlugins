@@ -179,11 +179,11 @@ Spread
     ミッドとサイドの信号は次の式で計算されます。
 
     ```
-mid  = left + right
-side = left - right
+    mid  = left + right
+    side = left - right
 
-left  = mid - Spread * (mid - side)
-right = mid - Spread * (mid + side)
+    left  = mid - Spread * (mid - side)
+    right = mid - Spread * (mid + side)
     ```
 
 ### Misc.
