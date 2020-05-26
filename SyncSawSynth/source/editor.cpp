@@ -21,7 +21,19 @@
 #include <algorithm>
 #include <sstream>
 
-enum tabIndex { tabMain, tabPadSynth, tabInfo };
+constexpr float uiTextSize = 12.0f;
+constexpr float midTextSize = 12.0f;
+constexpr float pluginNameTextSize = 24.0f;
+constexpr float margin = 5.0f;
+constexpr float labelHeight = 20.0f;
+constexpr float labelY = 30.0f;
+constexpr float knobWidth = 50.0f;
+constexpr float knobHeight = 40.0f;
+constexpr float knobX = 60.0f; // With margin.
+constexpr float knobY = knobHeight + labelY;
+constexpr float checkboxWidth = 60.0f;
+constexpr uint32_t defaultWidth = uint32_t(10.0 * knobX + 50.0);
+constexpr uint32_t defaultHeight = uint32_t(20.0 + 3.0 * labelY + 6.0 * knobY);
 
 namespace Steinberg {
 namespace Vst {
@@ -32,16 +44,7 @@ Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
 
-  margin = 5.0;
-  labelHeight = 20.0;
-  labelY = 30.0;
-  knobWidth = 50.0;
-  knobHeight = 40.0;
-  knobX = 60.0; // With margin.
-  knobY = knobHeight + labelY;
-
-  viewRect = ViewRect{0, 0, int32(10.0 * knobX + 50.0),
-                      int32(20.0 + 3.0 * labelY + 6.0 * knobY)};
+  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
@@ -58,49 +61,55 @@ void Editor::addOscillatorSection(
   ParamID tagPhase,
   ParamID tagPhaseLock)
 {
-  addGroupLabel(left, top, 2.0 * knobX, label);
+  using Scales = Synth::Scales;
+  using Style = Uhhyou::Style;
+
+  addGroupLabel(left, top, 2.0 * knobX, labelHeight, midTextSize, label);
 
   top += labelHeight + 10.0;
   auto knobCenterX = margin + left + knobX / 2.0;
-  addKnob(knobCenterX, top, knobWidth, colorBlue, "Gain", tagGain);
+  addKnob(knobCenterX, top, knobWidth, margin, uiTextSize, "Gain", tagGain);
 
   auto oscTop2 = top + knobY;
   auto knobLeft = margin + left;
   addNumberKnob(
-    knobLeft, oscTop2, knobWidth, colorBlue, "Semi", tagSemi, Synth::Scales::semi, 0);
-  addKnob(knobLeft + knobX, oscTop2, knobWidth, colorBlue, "Cent", tagCent);
+    knobLeft, oscTop2, knobWidth, margin, uiTextSize, "Semi", tagSemi, Scales::semi);
+  addKnob(knobLeft + knobX, oscTop2, knobWidth, margin, uiTextSize, "Cent", tagCent);
 
   auto oscTop3 = oscTop2 + knobY;
   auto syncKnobSize = 2.0 * knobHeight;
   auto oscMenuWidth = 2.0 * knobX;
   addKnob(
-    left + (oscMenuWidth - syncKnobSize) / 2.0, oscTop3, syncKnobSize, colorBlue, "Sync",
-    tagSync);
+    left + (oscMenuWidth - syncKnobSize) / 2.0, oscTop3, syncKnobSize, margin, uiTextSize,
+    "Sync", tagSync);
 
   auto oscTop4 = oscTop3 + syncKnobSize + labelY - 10.0;
-  std::vector<UTF8String> syncOptions = {"Off", "Ratio", "Fixed-Master", "Fixed-Slave"};
-  addOptionMenu(left, oscTop4, oscMenuWidth, tagSyncType, syncOptions);
+  std::vector<std::string> syncOptions = {"Off", "Ratio", "Fixed-Master", "Fixed-Slave"};
+  addOptionMenu(
+    left, oscTop4, oscMenuWidth, labelHeight, uiTextSize, tagSyncType, syncOptions);
 
   auto oscTop5 = oscTop4 + labelY - margin;
-  std::vector<UTF8String> ptrOrderOptions
+  std::vector<std::string> ptrOrderOptions
     = {"Order 0",        "Order 1",        "Order 2",        "Order 3",
        "Order 4",        "Order 5",        "Order 6",        "Order 7",
        "Order 8",        "Order 9",        "Order 10",       "Sin",
        "Order 6 double", "Order 7 double", "Order 8 double", "Order 9 double",
        "Order 10 double"};
-  addOptionMenu(left, oscTop5, oscMenuWidth, tagPTROrder, ptrOrderOptions);
+  addOptionMenu(
+    left, oscTop5, oscMenuWidth, labelHeight, uiTextSize, tagPTROrder, ptrOrderOptions);
 
   auto oscTop6 = oscTop5 + labelY;
-  addKnob(knobLeft, oscTop6, knobWidth, colorBlue, "Phase", tagPhase);
+  addKnob(knobLeft, oscTop6, knobWidth, margin, uiTextSize, "Phase", tagPhase);
   addCheckbox(
-    knobLeft + knobX, oscTop6 + (knobHeight - labelHeight) / 2.0, 100.0, "Lock",
-    tagPhaseLock);
+    knobLeft + knobX, oscTop6 + (knobHeight - labelHeight) / 2.0, checkboxWidth,
+    labelHeight, uiTextSize, "Lock", tagPhaseLock);
 }
 
 bool Editor::prepareUI()
 {
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
+  using Style = Uhhyou::Style;
 
   // Oscillators.
   const auto oscWidth = 2.0 * knobWidth + 4.0 * margin;
@@ -115,138 +124,162 @@ bool Editor::prepareUI()
     "Osc2", oscLeft2, oscTop, ID::osc2Gain, ID::osc2Semi, ID::osc2Cent, ID::osc2Sync,
     ID::osc2SyncType, ID::osc2PTROrder, ID::osc2Phase, ID::osc2PhaseLock);
 
-  std::vector<UTF8String> nVoiceOptions
+  std::vector<std::string> nVoiceOptions
     = {"Mono", "2 Voices", "4 Voices", "8 Voices", "16 Voices", "32 Voices"};
-  addOptionMenu(oscLeft2 - knobX / 2.0, oscTop + labelY, 60.0, ID::nVoice, nVoiceOptions);
-  addCheckbox(oscLeft2 - knobX / 2.0, oscTop + 2.0 * labelY, 100.0, "Unison", ID::unison);
+  addOptionMenu(
+    oscLeft2 - knobX / 2.0, oscTop + labelY, checkboxWidth, labelHeight, uiTextSize,
+    ID::nVoice, nVoiceOptions);
+  addCheckbox(
+    oscLeft2 - knobX / 2.0, oscTop + 2.0 * labelY, checkboxWidth, labelHeight, uiTextSize,
+    "Unison", ID::unison);
 
   const auto oscTop2 = 4.0 * labelY + 2.0 * knobY + 2.0 * knobHeight - margin;
   addCheckbox(
     oscLeft2 + margin + knobX, oscTop2 + labelY + (knobHeight - labelHeight) / 2.0 - 10.0,
-    100.0, "Invert", ID::osc2Invert);
+    checkboxWidth, labelHeight, uiTextSize, "Invert", ID::osc2Invert);
 
   // Cross modulation.
   const auto crossTop = oscTop2 + knobY;
   const auto crossLeft = oscLeft1;
-  addGroupLabel(crossLeft, crossTop, 2.0 * oscWidth + 10.0, "Modulation");
+  addGroupLabel(
+    crossLeft, crossTop, 2.0 * oscWidth + 10.0, labelHeight, midTextSize, "Modulation");
 
   const auto crossTop2 = crossTop + labelY;
   const auto crossKnobLeft = margin + crossLeft;
   addKnob(
-    crossKnobLeft, crossTop2, 1.5 * knobWidth, colorBlue, "Osc1->Sync1",
+    crossKnobLeft, crossTop2, 1.5 * knobWidth, margin, uiTextSize, "Osc1->Sync1",
     ID::fmOsc1ToSync1);
   addKnob(
-    crossKnobLeft + 1.5 * knobWidth + 10.0, crossTop2, 1.5 * knobWidth, colorBlue,
-    "Osc1->Freq2", ID::fmOsc1ToFreq2);
+    crossKnobLeft + 1.5 * knobWidth + 10.0, crossTop2, 1.5 * knobWidth, margin,
+    uiTextSize, "Osc1->Freq2", ID::fmOsc1ToFreq2);
   addKnob(
-    crossKnobLeft + 3.0 * knobWidth + 20.0, crossTop2, 1.5 * knobWidth, colorBlue,
-    "Osc2->Sync1", ID::fmOsc2ToSync1);
+    crossKnobLeft + 3.0 * knobWidth + 20.0, crossTop2, 1.5 * knobWidth, margin,
+    uiTextSize, "Osc2->Sync1", ID::fmOsc2ToSync1);
 
   // Modulation envelope and LFO.
   const auto modTop = oscTop;
   const auto modLeft = oscLeft2 + oscWidth + 20.0;
-  addGroupLabel(modLeft, modTop, 6.0 * knobX, "Modulation");
+  addGroupLabel(modLeft, modTop, 6.0 * knobX, labelHeight, midTextSize, "Modulation");
 
   const auto modTop1 = modTop + labelY;
-  addKnob(modLeft, modTop1, knobWidth, colorBlue, "Attack", ID::modEnvelopeA);
+  addKnob(modLeft, modTop1, knobWidth, margin, uiTextSize, "Attack", ID::modEnvelopeA);
   addKnob(
-    modLeft + 1.0 * knobX, modTop1, knobWidth, colorBlue, "Curve", ID::modEnvelopeCurve);
+    modLeft + 1.0 * knobX, modTop1, knobWidth, margin, uiTextSize, "Curve",
+    ID::modEnvelopeCurve);
   addKnob(
-    modLeft + 2.0 * knobX, modTop1, knobWidth, colorBlue, "To Freq1",
+    modLeft + 2.0 * knobX, modTop1, knobWidth, margin, uiTextSize, "To Freq1",
     ID::modEnvelopeToFreq1);
   addKnob(
-    modLeft + 3.0 * knobX, modTop1, knobWidth, colorBlue, "To Sync1",
+    modLeft + 3.0 * knobX, modTop1, knobWidth, margin, uiTextSize, "To Sync1",
     ID::modEnvelopeToSync1);
   addKnob(
-    modLeft + 4.0 * knobX, modTop1, knobWidth, colorBlue, "To Freq2",
+    modLeft + 4.0 * knobX, modTop1, knobWidth, margin, uiTextSize, "To Freq2",
     ID::modEnvelopeToFreq2);
   addKnob(
-    modLeft + 5.0 * knobX, modTop1, knobWidth, colorBlue, "To Sync2",
+    modLeft + 5.0 * knobX, modTop1, knobWidth, margin, uiTextSize, "To Sync2",
     ID::modEnvelopeToSync2);
 
   const auto modTop2 = modTop1 + knobY;
-  addKnob(modLeft, modTop2, knobWidth, colorBlue, "LFO", ID::modLFOFrequency);
+  addKnob(modLeft, modTop2, knobWidth, margin, uiTextSize, "LFO", ID::modLFOFrequency);
   addKnob(
-    modLeft + 1.0 * knobX, modTop2, knobWidth, colorBlue, "NoiseMix", ID::modLFONoiseMix);
+    modLeft + 1.0 * knobX, modTop2, knobWidth, margin, uiTextSize, "NoiseMix",
+    ID::modLFONoiseMix);
   addKnob(
-    modLeft + 2.0 * knobX, modTop2, knobWidth, colorBlue, "To Freq1", ID::modLFOToFreq1);
+    modLeft + 2.0 * knobX, modTop2, knobWidth, margin, uiTextSize, "To Freq1",
+    ID::modLFOToFreq1);
   addKnob(
-    modLeft + 3.0 * knobX, modTop2, knobWidth, colorBlue, "To Sync1", ID::modLFOToSync1);
+    modLeft + 3.0 * knobX, modTop2, knobWidth, margin, uiTextSize, "To Sync1",
+    ID::modLFOToSync1);
   addKnob(
-    modLeft + 4.0 * knobX, modTop2, knobWidth, colorBlue, "To Freq2", ID::modLFOToFreq2);
+    modLeft + 4.0 * knobX, modTop2, knobWidth, margin, uiTextSize, "To Freq2",
+    ID::modLFOToFreq2);
   addKnob(
-    modLeft + 5.0 * knobX, modTop2, knobWidth, colorBlue, "To Sync2", ID::modLFOToSync2);
+    modLeft + 5.0 * knobX, modTop2, knobWidth, margin, uiTextSize, "To Sync2",
+    ID::modLFOToSync2);
 
   // Gain.
   const auto gainTop = modTop2 + knobY + margin;
   const auto gainLeft = modLeft;
-  addGroupLabel(gainLeft, gainTop, 6.0 * knobX, "Gain");
+  addGroupLabel(gainLeft, gainTop, 6.0 * knobX, labelHeight, midTextSize, "Gain");
 
   const auto gainKnobTop = gainTop + labelY;
-  addKnob(gainLeft, gainKnobTop, knobWidth, colorBlue, "Gain", ID::gain);
-  addKnob(gainLeft + 1.0 * knobX, gainKnobTop, knobWidth, colorBlue, "A", ID::gainA);
-  addKnob(gainLeft + 2.0 * knobX, gainKnobTop, knobWidth, colorBlue, "D", ID::gainD);
-  addKnob(gainLeft + 3.0 * knobX, gainKnobTop, knobWidth, colorBlue, "S", ID::gainS);
-  addKnob(gainLeft + 4.0 * knobX, gainKnobTop, knobWidth, colorBlue, "R", ID::gainR);
+  addKnob(gainLeft, gainKnobTop, knobWidth, margin, uiTextSize, "Gain", ID::gain);
   addKnob(
-    gainLeft + 5.0 * knobX, gainKnobTop, knobWidth, colorBlue, "Curve",
+    gainLeft + 1.0 * knobX, gainKnobTop, knobWidth, margin, uiTextSize, "A", ID::gainA);
+  addKnob(
+    gainLeft + 2.0 * knobX, gainKnobTop, knobWidth, margin, uiTextSize, "D", ID::gainD);
+  addKnob(
+    gainLeft + 3.0 * knobX, gainKnobTop, knobWidth, margin, uiTextSize, "S", ID::gainS);
+  addKnob(
+    gainLeft + 4.0 * knobX, gainKnobTop, knobWidth, margin, uiTextSize, "R", ID::gainR);
+  addKnob(
+    gainLeft + 5.0 * knobX, gainKnobTop, knobWidth, margin, uiTextSize, "Curve",
     ID::gainEnvelopeCurve);
 
   // Filter.
   const auto filterTop = gainKnobTop + knobY + margin;
   const auto filterLeft = modLeft;
-  addGroupLabel(filterLeft, filterTop, 4.0 * knobX - 10.0, "Filter");
+  addGroupLabel(
+    filterLeft, filterTop, 4.0 * knobX - 10.0, labelHeight, midTextSize, "Filter");
   addCheckbox(
-    filterLeft + 4.0 * knobX, filterTop, 100.0, "Dirty Buffer", ID::filterDirty);
+    filterLeft + 4.0 * knobX, filterTop, 1.5 * checkboxWidth, labelHeight, uiTextSize,
+    "Dirty Buffer", ID::filterDirty);
 
   const auto filterTop1 = filterTop + labelY;
-  addKnob(filterLeft, filterTop1, knobWidth, colorBlue, "Cut", ID::filterCutoff);
+  addKnob(filterLeft, filterTop1, knobWidth, margin, uiTextSize, "Cut", ID::filterCutoff);
   addKnob(
-    filterLeft + 1.0 * knobX, filterTop1, knobWidth, colorBlue, "Res",
+    filterLeft + 1.0 * knobX, filterTop1, knobWidth, margin, uiTextSize, "Res",
     ID::filterResonance);
   addKnob(
-    filterLeft + 2.0 * knobX, filterTop1, knobWidth, colorBlue, "Feed",
+    filterLeft + 2.0 * knobX, filterTop1, knobWidth, margin, uiTextSize, "Feed",
     ID::filterFeedback);
   addKnob(
-    filterLeft + 3.0 * knobX, filterTop1, knobWidth, colorBlue, "Sat",
+    filterLeft + 3.0 * knobX, filterTop1, knobWidth, margin, uiTextSize, "Sat",
     ID::filterSaturation);
 
   const auto filterMenuWidth = 100.0;
-  std::vector<UTF8String> filterTypeOptions = {"LP", "HP", "BP", "Notch", "Bypass"};
+  std::vector<std::string> filterTypeOptions = {"LP", "HP", "BP", "Notch", "Bypass"};
   addOptionMenu(
-    filterLeft + 4.0 * knobX, filterTop1, filterMenuWidth, ID::filterType,
-    filterTypeOptions);
-  std::vector<UTF8String> filterShaperOptions
+    filterLeft + 4.0 * knobX, filterTop1, filterMenuWidth, labelHeight, uiTextSize,
+    ID::filterType, filterTypeOptions);
+  std::vector<std::string> filterShaperOptions
     = {"HardClip", "Tanh", "ShaperA", "ShaperB"};
   addOptionMenu(
-    filterLeft + 4.0 * knobX, filterTop1 + labelY, filterMenuWidth, ID::filterShaper,
-    filterShaperOptions);
+    filterLeft + 4.0 * knobX, filterTop1 + labelY, filterMenuWidth, labelHeight,
+    uiTextSize, ID::filterShaper, filterShaperOptions);
 
   const auto filterTop2 = filterTop1 + knobY;
-  addKnob(filterLeft, filterTop2, knobWidth, colorBlue, "A", ID::filterA);
-  addKnob(filterLeft + 1.0 * knobX, filterTop2, knobWidth, colorBlue, "D", ID::filterD);
-  addKnob(filterLeft + 2.0 * knobX, filterTop2, knobWidth, colorBlue, "S", ID::filterS);
-  addKnob(filterLeft + 3.0 * knobX, filterTop2, knobWidth, colorBlue, "R", ID::filterR);
+  addKnob(filterLeft, filterTop2, knobWidth, margin, uiTextSize, "A", ID::filterA);
   addKnob(
-    filterLeft + 4.0 * knobX, filterTop2, knobWidth, colorBlue, "To Cut",
+    filterLeft + 1.0 * knobX, filterTop2, knobWidth, margin, uiTextSize, "D",
+    ID::filterD);
+  addKnob(
+    filterLeft + 2.0 * knobX, filterTop2, knobWidth, margin, uiTextSize, "S",
+    ID::filterS);
+  addKnob(
+    filterLeft + 3.0 * knobX, filterTop2, knobWidth, margin, uiTextSize, "R",
+    ID::filterR);
+  addKnob(
+    filterLeft + 4.0 * knobX, filterTop2, knobWidth, margin, uiTextSize, "To Cut",
     ID::filterCutoffAmount);
   addKnob(
-    filterLeft + 5.0 * knobX, filterTop2, knobWidth, colorBlue, "To Res",
+    filterLeft + 5.0 * knobX, filterTop2, knobWidth, margin, uiTextSize, "To Res",
     ID::filterResonanceAmount);
 
   const auto filterTop3 = filterTop2 + knobY;
   addKnob(
-    filterLeft, filterTop3, knobWidth, colorBlue, "Key->Cut", ID::filterKeyToCutoff);
+    filterLeft, filterTop3, knobWidth, margin, uiTextSize, "Key->Cut",
+    ID::filterKeyToCutoff);
   addKnob(
-    filterLeft + 1.0 * knobX, filterTop3, knobWidth, colorBlue, "Key->Feed",
+    filterLeft + 1.0 * knobX, filterTop3, knobWidth, margin, uiTextSize, "Key->Feed",
     ID::filterKeyToFeedback);
 
   // Plugin name.
   const auto splashTop = filterTop2 + knobY + 2.0 * margin;
   const auto splashLeft = modLeft + 2.0 * knobX;
   addSplashScreen(
-    splashLeft + 0.25 * knobX, splashTop, 3.75 * knobX, 40.0, 20.0, 20.0,
-    viewRect.right - 40.0, viewRect.bottom - 40.0, "SyncSawSynth", 24.0);
+    splashLeft + 0.25f * knobX, splashTop, 3.5f * knobX, 40.0f, 20.0f, 20.0f,
+    defaultWidth - 40.0f, defaultHeight - 40.0f, pluginNameTextSize, "SyncSawSynth");
 
   return true;
 }
