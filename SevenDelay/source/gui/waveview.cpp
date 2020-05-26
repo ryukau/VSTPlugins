@@ -25,7 +25,10 @@
 
 namespace VSTGUI {
 
-WaveView::WaveView(const CRect &size) : CControl(size) {}
+WaveView::WaveView(const CRect &size, Uhhyou::Palette &palette)
+  : CControl(size), pal(palette)
+{
+}
 
 void WaveView::draw(CDrawContext *pContext)
 {
@@ -35,18 +38,15 @@ void WaveView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
-  const double borderWidth = 1.0;
 
   // Background.
-  const auto bgColor = CColor(255, 255, 255, 255);
-  pContext->setLineWidth(borderWidth);
-  pContext->setFillColor(bgColor);
+  pContext->setFillColor(pal.boxBackground());
   pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilled);
 
   // Waveform.
   pContext->setLineWidth(1.0);
   pContext->setLineStyle(lineStyle);
-  pContext->setFrameColor(CColor(19, 193, 54, 255));
+  pContext->setFrameColor(pal.highlightAccent());
   const size_t size = (size_t)(width + 1.0);
   if (points.size() != size) points.resize(size);
   for (size_t x = 0; x < points.size(); ++x)
@@ -54,8 +54,8 @@ void WaveView::draw(CDrawContext *pContext)
   pContext->drawPolygon(points);
 
   // Always draw border at last. Otherwise, inner object will be drawn over border.
-  const auto borderColor = CColor(0, 0, 0, 255);
-  pContext->setFrameColor(borderColor);
+  pContext->setLineWidth(2.0);
+  pContext->setFrameColor(pal.border());
   pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawStroked);
 
   setDirty(false);

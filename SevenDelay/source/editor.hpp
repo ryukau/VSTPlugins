@@ -39,7 +39,6 @@ public:
 
 protected:
   WaveView *waveView = nullptr;
-  const CRect WaveViewSize{760.0, 170.0, 940.0, 280.0};
 
   bool prepareUI() override;
   void addWaveView(const CRect &size);

@@ -21,7 +21,16 @@
 #include <algorithm>
 #include <sstream>
 
-enum tabIndex { tabMain, tabPadSynth, tabInfo };
+constexpr uint32_t defaultWidth = 960;
+constexpr uint32_t defaultHeight = 330;
+constexpr float pluginNameTextSize = 24.0f;
+constexpr float labelHeight = 30.0f;
+constexpr float midTextSize = 14.0f;
+constexpr float uiTextSize = 14.0f;
+constexpr float checkboxWidth = 80.0f;
+constexpr float sliderWidth = 70.0f;
+constexpr float sliderHeight = 230.0f;
+constexpr float margin = 0.0f;
 
 namespace Steinberg {
 namespace Vst {
@@ -32,11 +41,7 @@ Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
 
-  fontSize = 14.0;
-  sliderWidth = 70.0f;
-  sliderHeight = 230.0f;
-
-  viewRect = ViewRect{0, 0, 960, 330};
+  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
@@ -47,7 +52,7 @@ Editor::~Editor()
 
 void Editor::addWaveView(const CRect &size)
 {
-  auto view = new WaveView(size);
+  auto view = new WaveView(size, palette);
   view->shape = getPlainValue(Synth::ParameterID::lfoShape);
   view->phase = getPlainValue(Synth::ParameterID::lfoInitialPhase);
   frame->addView(view);
@@ -100,86 +105,105 @@ bool Editor::prepareUI()
 {
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
+  using Style = Uhhyou::Style;
 
-  const auto normalWidth = 90.0;
-  const auto normalHeight = normalWidth + 40.0;
-  const auto smallWidth = 50.0;
-  const auto smallHeight = 50.0;
-  const auto interval = 100.0;
+  const auto normalWidth = 80.0f;
+  const auto normalHeight = normalWidth + 40.0f;
+  const auto smallWidth = 40.0f;
+  const auto smallHeight = 50.0f;
+  const auto interval = 100.0f;
 
   // Delay.
-  const auto delayTop1 = 50.0;
-  const auto delayLeft = 20.0;
-  addGroupLabel(delayLeft, 10.0, 480.0, "Delay");
-  addKnob(delayLeft, delayTop1, normalWidth, colorBlue, "Time", ID::time);
+  const auto delayTop1 = 50.0f;
+  const auto delayLeft = 20.0f;
+  addGroupLabel(delayLeft, 10.0f, 480.0f, labelHeight, midTextSize, "Delay");
+  addKnob(delayLeft, delayTop1, normalWidth, margin, uiTextSize, "Time", ID::time);
   addKnob(
-    1.0 * interval + delayLeft, delayTop1, normalWidth, colorBlue, "Feedback",
+    1.0f * interval + delayLeft, delayTop1, normalWidth, margin, uiTextSize, "Feedback",
     ID::feedback);
   addKnob(
-    2.0 * interval + delayLeft, delayTop1, normalWidth, colorBlue, "Stereo", ID::offset,
-    LabelPosition::bottom);
+    2.0f * interval + delayLeft, delayTop1, normalWidth, margin, uiTextSize, "Stereo",
+    ID::offset);
   addKnob(
-    3.0 * interval + delayLeft, delayTop1, normalWidth, colorBlue, "Wet", ID::wetMix);
-  addKnob(
-    4.0 * interval + delayLeft, delayTop1, normalWidth, colorGreen, "Dry", ID::dryMix);
+    3.0f * interval + delayLeft, delayTop1, normalWidth, margin, uiTextSize, "Wet",
+    ID::wetMix);
+  addKnob<Style::accent>(
+    4.0f * interval + delayLeft, delayTop1, normalWidth, margin, uiTextSize, "Dry",
+    ID::dryMix);
 
-  const auto delayTop2 = delayTop1 + normalHeight - 10.0;
+  const auto delayTop2 = delayTop1 + normalHeight;
   const auto delayTop3 = delayTop2 + smallHeight;
   const auto delayTop4 = delayTop3 + smallHeight;
-  addCheckbox(delayLeft + 10.0, delayTop2 + 10.0, 100.0, "Sync", ID::tempoSync);
   addCheckbox(
-    delayLeft + 10.0, delayTop3 + 10.0, 100.0, "Negative", ID::negativeFeedback);
+    delayLeft + 10.0f, delayTop2, checkboxWidth, labelHeight, uiTextSize, "Sync",
+    ID::tempoSync);
+  addCheckbox(
+    delayLeft + 10.0f, delayTop3, checkboxWidth, labelHeight, uiTextSize, "Negative",
+    ID::negativeFeedback);
 
   addKnob(
-    1.0 * interval + delayLeft, delayTop2, smallWidth, colorBlue, " In Spread",
+    1.0f * interval + delayLeft, delayTop2, smallWidth, margin, uiTextSize, "In Spread",
     ID::inSpread, LabelPosition::right);
   addKnob(
-    1.0 * interval + delayLeft, delayTop3, smallWidth, colorBlue, " Out Spread",
+    1.0f * interval + delayLeft, delayTop3, smallWidth, margin, uiTextSize, "Out Spread",
     ID::outSpread, LabelPosition::right);
   addKnob(
-    2.3 * interval + delayLeft, delayTop2, smallWidth, colorBlue, " In Pan", ID::inPan,
-    LabelPosition::right);
+    2.3f * interval + delayLeft, delayTop2, smallWidth, margin, uiTextSize, "In Pan",
+    ID::inPan, LabelPosition::right);
   addKnob(
-    2.3 * interval + delayLeft, delayTop3, smallWidth, colorBlue, " Out Pan", ID::outPan,
-    LabelPosition::right);
+    2.3f * interval + delayLeft, delayTop3, smallWidth, margin, uiTextSize, "Out Pan",
+    ID::outPan, LabelPosition::right);
   addKnob(
-    2.3 * interval + delayLeft, delayTop4, smallWidth, colorBlue, " DC Kill", ID::dckill,
-    LabelPosition::right);
+    2.3f * interval + delayLeft, delayTop4, smallWidth, margin, uiTextSize, "DC Kill",
+    ID::dckill, LabelPosition::right);
 
   addKnob(
-    3.6 * interval + delayLeft, delayTop2, smallWidth, colorBlue, " Allpass Cut",
+    3.6f * interval + delayLeft, delayTop2, smallWidth, margin, uiTextSize, "Allpass Cut",
     ID::toneCutoff, LabelPosition::right);
   addKnob(
-    3.6 * interval + delayLeft, delayTop3, smallWidth, colorBlue, " Allpass Q", ID::toneQ,
-    LabelPosition::right);
+    3.6f * interval + delayLeft, delayTop3, smallWidth, margin, uiTextSize, "Allpass Q",
+    ID::toneQ, LabelPosition::right);
   addKnob(
-    3.6 * interval + delayLeft, delayTop4, smallWidth, colorBlue, " Smooth",
+    3.6f * interval + delayLeft, delayTop4, smallWidth, margin, uiTextSize, "Smooth",
     ID::smoothness, LabelPosition::right);
 
   // LFO.
   // 750 - 520 = 230 / 3 = 66 + 10
-  const auto lfoLeft1 = 520.0;
-  addGroupLabel(520.0, 10.0, 420.0, "LFO");
-  addVSlider(lfoLeft1, 50.0, colorBlue, "To Time", ID::lfoTimeAmount);
-  addVSlider(lfoLeft1 + 75.0, 50.0, colorBlue, "To Allpass", ID::lfoToneAmount);
-  addVSlider(lfoLeft1 + 150.0, 50.0, colorGreen, "Frequency", ID::lfoFrequency);
-  const auto lfoLeft2 = lfoLeft1 + 230.0;
-  addKnob(lfoLeft2, 50.0, normalWidth, colorBlue, "Shape", ID::lfoShape);
+  const auto lfoLeft1 = 520.0f;
+  addGroupLabel(520.0f, 10.0f, 420.0f, labelHeight, midTextSize, "LFO");
+  addVSlider(
+    lfoLeft1, 50.0f, sliderWidth, sliderHeight, margin, labelHeight, uiTextSize,
+    "To Time", ID::lfoTimeAmount);
+  addVSlider(
+    lfoLeft1 + 75.0f, 50.0f, sliderWidth, sliderHeight, margin, labelHeight, uiTextSize,
+    "To Allpass", ID::lfoToneAmount);
+  addVSlider<Style::accent>(
+    lfoLeft1 + 150.0f, 50.0f, sliderWidth, sliderHeight, margin, labelHeight, uiTextSize,
+    "Frequency", ID::lfoFrequency);
+  const auto lfoLeft2 = lfoLeft1 + 230.0f;
+  addKnob(lfoLeft2, 50.0f, normalWidth, margin, uiTextSize, "Shape", ID::lfoShape);
   addKnob(
-    interval + lfoLeft2, 50.0, normalWidth, colorBlue, "Phase", ID::lfoInitialPhase);
+    interval + lfoLeft2, 50.0f, normalWidth, margin, uiTextSize, "Phase",
+    ID::lfoInitialPhase);
 
-  addButton(
-    WaveViewSize.left, WaveViewSize.bottom + 10.0, WaveViewSize.right - WaveViewSize.left,
-    "LFO Hold", ID::lfoHold, CTextButton::kOnOffStyle);
-  addWaveView(WaveViewSize);
+  const auto waveViewLeft = 760.0f;
+  const auto waveViewTop = 170.0f;
+  const auto waveViewWidth = 180.0f;
+  const auto waveViewHeight = 110.0f;
+  addWaveView(CRect(
+    waveViewLeft, waveViewTop, waveViewLeft + waveViewWidth,
+    waveViewTop + waveViewHeight));
+  addToggleButton(
+    waveViewLeft, waveViewTop + waveViewHeight + 10.0f, waveViewWidth, labelHeight,
+    midTextSize, "LFO Hold", ID::lfoHold);
 
   // Plugin name.
   const auto nameLeft = delayLeft;
-  const auto nameTop = viewRect.bottom - 60.0;
-  const auto nameWidth = 180.0;
+  const auto nameTop = defaultHeight - 50.0f;
+  const auto nameWidth = 180.0f;
   addSplashScreen(
-    nameLeft, nameTop, nameWidth, 40.0, 200.0, 20.0, viewRect.right - 400.0,
-    viewRect.bottom - 40.0, "SevenDelay", 24.0f);
+    nameLeft, nameTop, nameWidth, 40.0f, 200.0f, 20.0f, defaultWidth - 400.0f,
+    defaultHeight - 40.0f, pluginNameTextSize, "SevenDelay");
 
   return true;
 }
