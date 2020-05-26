@@ -21,7 +21,23 @@
 #include <algorithm>
 #include <sstream>
 
-enum tabIndex { tabMain, tabPadSynth, tabInfo };
+constexpr float uiTextSize = 12.0f;
+constexpr float midTextSize = 12.0f;
+constexpr float pluginNameTextSize = 12.0f;
+constexpr float margin = 5.0f;
+constexpr float labelHeight = 20.0f;
+constexpr float labelY = 30.0f;
+constexpr float knobWidth = 50.0f;
+constexpr float knobHeight = 40.0f;
+constexpr float knobX = 60.0f; // With margin.
+constexpr float knobY = knobHeight + labelY;
+constexpr float barboxWidth = 12.0f * knobX;
+constexpr float barboxHeight = 2.0f * knobY;
+constexpr float barboxY = barboxHeight + 2.0f * margin;
+constexpr float checkboxWidth = 60.0f;
+constexpr float splashHeight = labelHeight;
+constexpr uint32_t defaultWidth = uint32_t(40 + 9.0f * knobX + labelY);
+constexpr uint32_t defaultHeight = uint32_t(40 + labelHeight + knobY);
 
 namespace Steinberg {
 namespace Vst {
@@ -32,24 +48,7 @@ Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
 
-  uiTextSize = 14.0f;
-  midTextSize = 16.0f;
-  pluginNameTextSize = 14.0f;
-  margin = 5.0f;
-  labelHeight = 20.0f;
-  labelY = 30.0f;
-  knobWidth = 50.0f;
-  knobHeight = 40.0f;
-  knobX = 60.0f; // With margin.
-  knobY = knobHeight + labelY;
-  barboxWidth = 12.0f * knobX;
-  barboxHeight = 2.0f * knobY;
-  barboxY = barboxHeight + 2.0f * margin;
-  checkboxWidth = 60.0f;
-  splashHeight = labelHeight;
-  defaultWidth = int32(40 + 9.0f * knobX + labelY);
-  defaultHeight = int32(40 + labelHeight + knobY);
-  viewRect = ViewRect{0, 0, defaultWidth, defaultHeight};
+  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
@@ -57,6 +56,7 @@ bool Editor::prepareUI()
 {
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
+  using Style = Uhhyou::Style;
 
   const auto top0 = 20.0f;
   const auto left0 = 20.0f;
@@ -65,46 +65,52 @@ bool Editor::prepareUI()
   const auto phaserTop = top0 - margin;
   const auto phaserLeft = left0;
 
-  addKnob(phaserLeft, phaserTop, knobWidth, colorBlue, "Mix", ID::mix);
-  addKnob(phaserLeft + knobX, phaserTop, knobWidth, colorBlue, "Freq", ID::frequency);
+  addKnob(phaserLeft, phaserTop, knobWidth, margin, uiTextSize, "Mix", ID::mix);
   addKnob(
-    phaserLeft + 2.0f * knobX, phaserTop, knobWidth, colorBlue, "Spread", ID::freqSpread);
+    phaserLeft + knobX, phaserTop, knobWidth, margin, uiTextSize, "Freq", ID::frequency);
   addKnob(
-    phaserLeft + 3.0f * knobX, phaserTop, knobWidth, colorRed, "Feedback", ID::feedback);
-  addKnob(phaserLeft + 4.0f * knobX, phaserTop, knobWidth, colorBlue, "Range", ID::range);
-  addKnob(phaserLeft + 5.0f * knobX, phaserTop, knobWidth, colorBlue, "Min", ID::min);
+    phaserLeft + 2.0f * knobX, phaserTop, knobWidth, margin, uiTextSize, "Spread",
+    ID::freqSpread);
+  addKnob<Style::warning>(
+    phaserLeft + 3.0f * knobX, phaserTop, knobWidth, margin, uiTextSize, "Feedback",
+    ID::feedback);
   addKnob(
-    phaserLeft + 6.0f * knobX, phaserTop, knobWidth, colorRed, "Cas. Offset",
+    phaserLeft + 4.0f * knobX, phaserTop, knobWidth, margin, uiTextSize, "Range",
+    ID::range);
+  addKnob(
+    phaserLeft + 5.0f * knobX, phaserTop, knobWidth, margin, uiTextSize, "Min", ID::min);
+  addKnob(
+    phaserLeft + 6.0f * knobX, phaserTop, knobWidth, margin, uiTextSize, "Cas. Offset",
     ID::cascadeOffset);
   addKnob(
-    phaserLeft + 7.0f * knobX, phaserTop, knobWidth, colorBlue, "L/R Offset",
+    phaserLeft + 7.0f * knobX, phaserTop, knobWidth, margin, uiTextSize, "L/R Offset",
     ID::stereoOffset);
   addRotaryKnob(
-    phaserLeft + 8.0f * knobX, phaserTop, knobWidth + labelY, colorBlue, "Phase",
+    phaserLeft + 8.0f * knobX, phaserTop, knobWidth + labelY, margin, uiTextSize, "Phase",
     ID::phase);
 
   const auto phaserTop1 = phaserTop + knobY + margin;
   const auto phaserLeft1 = left0 + 2.25f * knobX - margin;
-  addLabel(phaserLeft1, phaserTop1, knobX * 1.2, "Stage");
+  addLabel(phaserLeft1, phaserTop1, knobX * 1.2, labelHeight, uiTextSize, "Stage");
   addTextKnob(
-    phaserLeft1 + knobX, phaserTop1, knobX, colorBlue, ID::stage, Scales::stage, false, 0,
-    1);
+    phaserLeft1 + knobX, phaserTop1, knobX, labelHeight, uiTextSize, ID::stage,
+    Scales::stage, false, 0, 1);
 
   const auto phaserLeft2 = phaserLeft1 + 2.25f * knobX;
-  addLabel(phaserLeft2, phaserTop1, knobX, "Smooth");
+  addLabel(phaserLeft2, phaserTop1, knobX, labelHeight, uiTextSize, "Smooth");
   addTextKnob(
-    phaserLeft2 + knobX, phaserTop1, knobX, colorBlue, ID::smoothness, Scales::smoothness,
-    false, 3, 0);
+    phaserLeft2 + knobX, phaserTop1, knobX, labelHeight, uiTextSize, ID::smoothness,
+    Scales::smoothness, false, 3, 0);
 
   // Plugin name.
   const auto splashTop = phaserTop1;
   const auto splashLeft = left0;
   addSplashScreen(
     splashLeft, splashTop, 2.0f * knobX, splashHeight, 20.0f, 20.0f, defaultWidth - 40.0f,
-    defaultHeight - 40.0f, "EsPhaser");
+    defaultHeight - 40.0f, pluginNameTextSize, "EsPhaser");
 
   return true;
-}
+} // namespace Vst
 
 } // namespace Vst
 } // namespace Steinberg
