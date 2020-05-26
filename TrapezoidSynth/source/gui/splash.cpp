@@ -32,8 +32,8 @@ void SplashLabelTpz::draw(CDrawContext *pContext)
   const auto width = getWidth();
   const auto height = getHeight();
 
-  pContext->setFont(fontID);
-  pContext->setFontColor(fontColor);
+  pContext->setFont(fontId);
+  pContext->setFontColor(pal.foreground());
   const auto textOffsetTop = 6.0;
   const auto textOffsetLeft = 3.0;
   pContext->drawString(
@@ -42,7 +42,7 @@ void SplashLabelTpz::draw(CDrawContext *pContext)
 
   const double borderWidth = isMouseEntered ? highlightFrameWidth : frameWidth;
   const double halfBorderWidth = int(borderWidth / 2.0);
-  pContext->setFrameColor(isMouseEntered ? highlightColor : frameColor);
+  pContext->setFrameColor(isMouseEntered ? pal.highlightButton() : pal.border());
   pContext->setLineWidth(borderWidth);
   pContext->drawLine(CPoint(25.0, borderWidth), CPoint(width - 25.0, borderWidth));
   pContext->drawLine(
@@ -84,8 +84,6 @@ CMouseEventResult SplashLabelTpz::onMouseCancel()
   return kMouseEventHandled;
 }
 
-void SplashLabelTpz::setDefaultFrameColor(CColor color) { frameColor = color; }
-void SplashLabelTpz::setHighlightColor(CColor color) { highlightColor = color; }
 void SplashLabelTpz::setDefaultFrameWidth(float width) { frameWidth = width; }
 void SplashLabelTpz::setHighlightWidth(float width) { highlightFrameWidth = width; }
 

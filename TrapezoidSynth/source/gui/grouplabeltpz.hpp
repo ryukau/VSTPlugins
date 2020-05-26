@@ -17,21 +17,28 @@
 
 #pragma once
 
-#include "../../../common/gui/guistyle.hpp"
 #include "vstgui/vstgui.h"
+
+#include "../../../common/gui/style.hpp"
 
 namespace VSTGUI {
 
 class GroupLabelTpz : public CControl {
 public:
-  GroupLabelTpz(const CRect &size, IControlListener *listener, std::string text)
-    : CControl(size, listener), text(text)
+  GroupLabelTpz(
+    const CRect &size,
+    IControlListener *listener,
+    std::string text,
+    CFontRef fontId,
+    Uhhyou::Palette &palette)
+    : CControl(size, listener), text(text), fontId(fontId), pal(palette)
   {
+    this->fontId->remember();
   }
 
   ~GroupLabelTpz()
   {
-    if (fontID) fontID->forget();
+    if (fontId) fontId->forget();
   }
 
   void draw(CDrawContext *pContext) override
@@ -44,19 +51,19 @@ public:
     const auto height = getHeight();
 
     // Background.
-    pContext->setFillColor(backgroundColor);
+    pContext->setFillColor(pal.background());
     pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilled);
 
     // Text.
-    pContext->setFont(fontID);
-    pContext->setFontColor(foregroundColor);
+    pContext->setFont(fontId);
+    pContext->setFontColor(pal.foreground());
     const auto textWidth = pContext->getStringWidth(text.c_str());
     const auto textLeft = 0;
     const auto textRight = textWidth;
     pContext->drawString(text.c_str(), CRect(textLeft, 0, textRight, height));
 
     // Border.
-    pContext->setFrameColor(foregroundColor);
+    pContext->setFrameColor(pal.border());
     pContext->setLineWidth(lineWidth);
     pContext->drawLine(
       CPoint(textWidth + margin, height * 0.5), CPoint(width - 5.0, height * 0.5));
@@ -66,23 +73,18 @@ public:
 
   CLASS_METHODS(GroupLabelTpz, CControl);
 
-  void setForegroundColor(CColor color) { foregroundColor = color; }
-  void setBackgroundColor(CColor color) { backgroundColor = color; }
-  void setText(std::string text) { this->text = text; }
-  void setFont(CFontRef fontID) { this->fontID = fontID; }
   void setMargin(double margin) { this->margin = margin; }
 
 protected:
-  CColor foregroundColor = CColor(0, 0, 0, 255);
-  CColor backgroundColor = CColor(255, 255, 255, 255);
-
   double fontSize = 14.0;
   std::string text;
-  CFontRef fontID = nullptr;
+  CFontRef fontId = nullptr;
 
   double lineWidth = 1.0;
   double margin = 10.0;
   const CLineStyle lineStyle{CLineStyle::kLineCapRound, CLineStyle::kLineJoinRound};
+
+  Uhhyou::Palette &pal;
 };
 
 } // namespace VSTGUI

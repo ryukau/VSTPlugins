@@ -31,22 +31,26 @@ public:
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
 protected:
-  float groupLabelMargin = 10.0f;
-
   bool prepareUI() override;
 
-  void addGroupLabelTpz(
-    CCoord left, CCoord top, CCoord width, CCoord lineMargin, std::string name);
+  void addTpzLabel(
+    CCoord left,
+    CCoord top,
+    CCoord width,
+    CCoord height,
+    CCoord textSize,
+    std::string name);
 
   void addSplashScreenTpz(
-    float buttonLeft,
-    float buttonTop,
-    float buttonWidth,
-    float buttonHeight,
-    float splashLeft,
-    float splashTop,
-    float splashWidth,
-    float splashHeight,
+    CCoord buttonLeft,
+    CCoord buttonTop,
+    CCoord buttonWidth,
+    CCoord buttonHeight,
+    CCoord splashLeft,
+    CCoord splashTop,
+    CCoord splashWidth,
+    CCoord splashHeight,
+    CCoord textSize,
     const char *pluginName);
 };
 

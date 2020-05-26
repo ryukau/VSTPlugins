@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include "../../../common/gui/guistyle.hpp"
+#include "../../../common/gui/style.hpp"
 #include "vstgui/vstgui.h"
 
 namespace Steinberg {
@@ -30,19 +30,25 @@ public:
   SplashLabelTpz(
     const CRect &size,
     IControlListener *listener,
+    CFontRef fontId,
+    Uhhyou::Palette &palette,
     int32_t tag,
     CControl *splashView,
-    std::string label = "")
-    : CControl(size, listener, tag), splashView(splashView), label(label)
+    std::string label)
+    : CControl(size, listener, tag)
+    , fontId(fontId)
+    , pal(palette)
+    , splashView(splashView)
+    , label(label)
   {
+    this->fontId->remember();
     if (splashView != nullptr) splashView->remember();
-    fontID = new CFontDesc(PlugEditorStyle::fontName(), fontSize, CTxtFace::kBoldFace);
   }
 
   ~SplashLabelTpz()
   {
+    if (fontId) fontId->forget();
     if (splashView != nullptr) splashView->forget();
-    if (fontID) fontID->forget();
   }
 
   CLASS_METHODS(SplashLabelTpz, CControl);
@@ -54,8 +60,6 @@ public:
   CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override;
   CMouseEventResult onMouseCancel() override;
 
-  void setDefaultFrameColor(CColor color);
-  void setHighlightColor(CColor color);
   void setDefaultFrameWidth(float width);
   void setHighlightWidth(float width);
 
@@ -63,12 +67,9 @@ protected:
   CControl *splashView = nullptr;
   std::string label;
 
-  CFontRef fontID = nullptr;
-  double fontSize = 18.0;
-  CColor fontColor = CColor(0, 0, 0, 255);
+  CFontRef fontId = nullptr;
+  Uhhyou::Palette &pal;
 
-  CColor frameColor = CColor(0, 0, 0, 255);
-  CColor highlightColor = CColor(0, 0, 0, 255);
   float frameWidth = 4.0f;
   float highlightFrameWidth = 4.0f;
 
