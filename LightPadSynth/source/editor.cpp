@@ -21,6 +21,26 @@
 #include <algorithm>
 #include <sstream>
 
+constexpr float uiTextSize = 12.0f;
+constexpr float midTextSize = 12.0f;
+constexpr float infoTextSize = 12.0f;
+constexpr float pluginNameTextSize = 36.0f;
+constexpr float margin = 5.0f;
+constexpr float labelHeight = 20.0f;
+constexpr float labelY = 30.0f;
+constexpr float knobWidth = 50.0f;
+constexpr float knobHeight = 40.0f;
+constexpr float knobX = 60.0f; // With margin.
+constexpr float knobY = knobHeight + labelY;
+constexpr float barboxWidth = 12.0f * knobX;
+constexpr float barboxHeight = 2.0f * knobY;
+constexpr float barboxY = barboxHeight + 2.0f * margin;
+constexpr float checkboxWidth = 60.0f;
+constexpr float splashHeight = 40.0f;
+constexpr uint32_t defaultWidth
+  = uint32_t(barboxWidth + labelY + 2 * knobX + 12 * margin + 40);
+constexpr uint32_t defaultHeight = uint32_t(40 + labelY + 4 * barboxY + 9 * margin);
+
 enum tabIndex { tabMain, tabPadSynth, tabInfo };
 
 namespace Steinberg {
@@ -32,24 +52,7 @@ Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
 
-  uiTextSize = 14.0f;
-  midTextSize = 16.0f;
-  pluginNameTextSize = 22.0f;
-  margin = 5.0f;
-  labelHeight = 20.0f;
-  labelY = 30.0f;
-  knobWidth = 50.0f;
-  knobHeight = 40.0f;
-  knobX = 60.0f; // With margin.
-  knobY = knobHeight + labelY;
-  barboxWidth = 12.0f * knobX;
-  barboxHeight = 2.0f * knobY;
-  barboxY = barboxHeight + 2.0f * margin;
-  checkboxWidth = 60.0f;
-  splashHeight = 40.0f;
-  defaultWidth = int32(barboxWidth + labelY + 2 * knobX + 12 * margin + 40);
-  defaultHeight = int32(40 + labelY + 4 * barboxY + 9 * margin);
-  viewRect = ViewRect{0, 0, defaultWidth, defaultHeight};
+  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
@@ -57,6 +60,7 @@ bool Editor::prepareUI()
 {
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
+  using Style = Uhhyou::Style;
 
   const auto top0 = 20.0f;
   const auto left0 = 20.0f;
@@ -68,11 +72,8 @@ bool Editor::prepareUI()
   std::vector<std::string> tabs = {"Main", "Wavetable", "Information"};
   const auto tabWidth = defaultWidth - 40.0f;
   const auto tabHeight = labelY + 4.0f * barboxY + 9.0f * margin;
-  auto tabview = new TabView(
-    tabs, new CFontDesc(PlugEditorStyle::fontName(), fontSize, CTxtFace::kNormalFace),
-    labelY, CRect(tabLeft0, tabTop0, tabLeft0 + tabWidth, tabTop0 + tabHeight));
-  tabview->setHighlightColor(colorBlue);
-  frame->addView(tabview);
+  auto tabview
+    = addTabView(tabLeft0, tabTop0, tabWidth, tabHeight, uiTextSize, labelY, tabs);
 
   const auto tabInsideTop0 = tabTop0 + labelY + 4.0f * margin;
   const auto tabInsideLeft0 = tabLeft0 + 4.0f * margin;
@@ -80,70 +81,88 @@ bool Editor::prepareUI()
   // Gain.
   const auto gainTop = tabInsideTop0;
   const auto gainLeft = tabInsideLeft0 + labelY;
-  tabview->addWidget(tabMain, addGroupLabel(gainLeft, gainTop, 6.0f * knobX, "Gain"));
+  tabview->addWidget(
+    tabMain,
+    addGroupLabel(gainLeft, gainTop, 6.0f * knobX, labelHeight, midTextSize, "Gain"));
   const auto gainKnobTop = gainTop + labelY;
 
   tabview->addWidget(
-    tabMain, addKnob(gainLeft, gainKnobTop, knobWidth, colorBlue, "Gain", ID::gain));
-  tabview->addWidget(
     tabMain,
-    addKnob(gainLeft + 1.0f * knobX, gainKnobTop, knobWidth, colorBlue, "A", ID::gainA));
-  tabview->addWidget(
-    tabMain,
-    addKnob(gainLeft + 2.0f * knobX, gainKnobTop, knobWidth, colorBlue, "D", ID::gainD));
-  tabview->addWidget(
-    tabMain,
-    addKnob(gainLeft + 3.0f * knobX, gainKnobTop, knobWidth, colorBlue, "S", ID::gainS));
-  tabview->addWidget(
-    tabMain,
-    addKnob(gainLeft + 4.0f * knobX, gainKnobTop, knobWidth, colorBlue, "R", ID::gainR));
+    addKnob(gainLeft, gainKnobTop, knobWidth, margin, uiTextSize, "Gain", ID::gain));
   tabview->addWidget(
     tabMain,
     addKnob(
-      gainLeft + 5.0f * knobX, gainKnobTop, knobWidth, colorBlue, "Curve",
+      gainLeft + 1.0f * knobX, gainKnobTop, knobWidth, margin, uiTextSize, "A",
+      ID::gainA));
+  tabview->addWidget(
+    tabMain,
+    addKnob(
+      gainLeft + 2.0f * knobX, gainKnobTop, knobWidth, margin, uiTextSize, "D",
+      ID::gainD));
+  tabview->addWidget(
+    tabMain,
+    addKnob(
+      gainLeft + 3.0f * knobX, gainKnobTop, knobWidth, margin, uiTextSize, "S",
+      ID::gainS));
+  tabview->addWidget(
+    tabMain,
+    addKnob(
+      gainLeft + 4.0f * knobX, gainKnobTop, knobWidth, margin, uiTextSize, "R",
+      ID::gainR));
+  tabview->addWidget(
+    tabMain,
+    addKnob(
+      gainLeft + 5.0f * knobX, gainKnobTop, knobWidth, margin, uiTextSize, "Curve",
       ID::gainCurve));
 
   // Filter.
   const auto filterTop = gainTop;
   const auto filterLeft = gainLeft + 6.0f * knobX + 2.0f * margin;
   tabview->addWidget(
-    tabMain, addGroupLabel(filterLeft, filterTop, 8.0f * knobX, "Filter"));
+    tabMain,
+    addGroupLabel(
+      filterLeft, filterTop, 8.0f * knobX, labelHeight, midTextSize, "Filter"));
 
   const auto filterTop0 = filterTop + labelY;
   tabview->addWidget(
     tabMain,
-    addKnob(filterLeft, filterTop0, knobWidth, colorBlue, "Cutoff", ID::filterCutoff));
+    addKnob(
+      filterLeft, filterTop0, knobWidth, margin, uiTextSize, "Cutoff", ID::filterCutoff));
   tabview->addWidget(
     tabMain,
     addKnob(
-      filterLeft + 1.0f * knobX, filterTop0, knobWidth, colorBlue, "Resonance",
+      filterLeft + 1.0f * knobX, filterTop0, knobWidth, margin, uiTextSize, "Resonance",
       ID::filterResonance));
 
   tabview->addWidget(
     tabMain,
     addKnob(
-      filterLeft + 2.0f * knobX, filterTop0, knobWidth, colorBlue, "A", ID::filterA));
+      filterLeft + 2.0f * knobX, filterTop0, knobWidth, margin, uiTextSize, "A",
+      ID::filterA));
   tabview->addWidget(
     tabMain,
     addKnob(
-      filterLeft + 3.0f * knobX, filterTop0, knobWidth, colorBlue, "D", ID::filterD));
+      filterLeft + 3.0f * knobX, filterTop0, knobWidth, margin, uiTextSize, "D",
+      ID::filterD));
   tabview->addWidget(
     tabMain,
     addKnob(
-      filterLeft + 4.0f * knobX, filterTop0, knobWidth, colorBlue, "S", ID::filterS));
+      filterLeft + 4.0f * knobX, filterTop0, knobWidth, margin, uiTextSize, "S",
+      ID::filterS));
   tabview->addWidget(
     tabMain,
     addKnob(
-      filterLeft + 5.0f * knobX, filterTop0, knobWidth, colorBlue, "R", ID::filterR));
+      filterLeft + 5.0f * knobX, filterTop0, knobWidth, margin, uiTextSize, "R",
+      ID::filterR));
   tabview->addWidget(
     tabMain,
     addKnob(
-      filterLeft + 6.0f * knobX, filterTop0, knobWidth, colorBlue, "Amount",
+      filterLeft + 6.0f * knobX, filterTop0, knobWidth, margin, uiTextSize, "Amount",
       ID::filterAmount));
   tabview->addWidget(
     tabMain,
     addKnob(
-      filterLeft + 7.0f * knobX, filterTop0, knobWidth, colorBlue, "KeyFollow",
+      filterLeft + 7.0f * knobX, filterTop0, knobWidth, margin, uiTextSize, "KeyFollow",
       ID::filterKeyFollow));
 
   // Tuning.
@@ -151,7 +170,9 @@ bool Editor::prepareUI()
   const auto tuningLeft = gainLeft;
   tabview->addWidget(
     tabMain,
-    addGroupLabel(tuningLeft, tuningTop, 4.0f * knobX - 4.0f * margin, "Tuning"));
+    addGroupLabel(
+      tuningLeft, tuningTop, 4.0f * knobX - 4.0f * margin, labelHeight, midTextSize,
+      "Tuning"));
 
   const auto tuningLabelWidth = knobX - 2.0f * margin;
   const auto tuningLeft1 = tuningLeft;
@@ -159,28 +180,33 @@ bool Editor::prepareUI()
 
   const auto tuningTop1 = tuningTop + labelY;
   tabview->addWidget(
-    tabMain, addLabel(tuningLeft1, tuningTop1, tuningLabelWidth, "Octave"));
+    tabMain,
+    addLabel(
+      tuningLeft1, tuningTop1, tuningLabelWidth, labelHeight, uiTextSize, "Octave"));
   tabview->addWidget(
     tabMain,
     addTextKnob(
-      tuningLeft2, tuningTop1, knobWidth, colorBlue, ID::oscOctave, Scales::oscOctave,
-      false, 0, -12));
+      tuningLeft2, tuningTop1, knobWidth, labelHeight, uiTextSize, ID::oscOctave,
+      Scales::oscOctave, false, 0, -12));
 
   const auto tuningTop2 = tuningTop1 + labelY;
   tabview->addWidget(
-    tabMain, addLabel(tuningLeft1, tuningTop2, tuningLabelWidth, "Semi"));
+    tabMain,
+    addLabel(tuningLeft1, tuningTop2, tuningLabelWidth, labelHeight, uiTextSize, "Semi"));
   tabview->addWidget(
     tabMain,
     addTextKnob(
-      tuningLeft2, tuningTop2, knobWidth, colorBlue, ID::oscSemi, Scales::oscSemi, false,
-      0, -120));
+      tuningLeft2, tuningTop2, knobWidth, labelHeight, uiTextSize, ID::oscSemi,
+      Scales::oscSemi, false, 0, -120));
 
   const auto tuningTop3 = tuningTop2 + labelY;
   tabview->addWidget(
-    tabMain, addLabel(tuningLeft1, tuningTop3, tuningLabelWidth, "Milli"));
+    tabMain,
+    addLabel(
+      tuningLeft1, tuningTop3, tuningLabelWidth, labelHeight, uiTextSize, "Milli"));
   auto knobOscMilli = addTextKnob(
-    tuningLeft2, tuningTop3, knobWidth, colorBlue, ID::oscMilli, Scales::oscMilli, false,
-    0, -1000);
+    tuningLeft2, tuningTop3, knobWidth, labelHeight, uiTextSize, ID::oscMilli,
+    Scales::oscMilli, false, 0, -1000);
   knobOscMilli->sensitivity = 0.001f;
   knobOscMilli->lowSensitivity = 0.00025f;
   tabview->addWidget(tabMain, knobOscMilli);
@@ -189,150 +215,181 @@ bool Editor::prepareUI()
   const auto tuningLeft4 = tuningLeft3 + tuningLabelWidth;
 
   const auto tuningTop4 = tuningTop + 1.0f * labelY;
-  tabview->addWidget(tabMain, addLabel(tuningLeft3, tuningTop4, tuningLabelWidth, "ET"));
+  tabview->addWidget(
+    tabMain,
+    addLabel(tuningLeft3, tuningTop4, tuningLabelWidth, labelHeight, uiTextSize, "ET"));
   tabview->addWidget(
     tabMain,
     addTextKnob(
-      tuningLeft4, tuningTop4, knobWidth, colorBlue, ID::equalTemperament,
+      tuningLeft4, tuningTop4, knobWidth, labelHeight, uiTextSize, ID::equalTemperament,
       Scales::equalTemperament, false, 0, 1));
 
   const auto tuningTop5 = tuningTop4 + labelY;
   tabview->addWidget(
-    tabMain, addLabel(tuningLeft3, tuningTop5, tuningLabelWidth, "A4 [Hz]"));
+    tabMain,
+    addLabel(
+      tuningLeft3, tuningTop5, tuningLabelWidth, labelHeight, uiTextSize, "A4 [Hz]"));
   tabview->addWidget(
     tabMain,
     addTextKnob(
-      tuningLeft4, tuningTop5, knobWidth, colorBlue, ID::pitchA4Hz, Scales::pitchA4Hz,
-      false, 0, 100));
+      tuningLeft4, tuningTop5, knobWidth, labelHeight, uiTextSize, ID::pitchA4Hz,
+      Scales::pitchA4Hz, false, 0, 100));
 
   // Unison.
   const auto unisonTop = tuningTop;
   const auto unisonLeft = tuningLeft + 4.0f * knobX;
   tabview->addWidget(
-    tabMain, addGroupLabel(unisonLeft, unisonTop, 5.0f * knobX, "Unison"));
+    tabMain,
+    addGroupLabel(
+      unisonLeft, unisonTop, 5.0f * knobX, labelHeight, midTextSize, "Unison"));
   const auto unisonKnobTop = unisonTop + labelY;
-  tabview->addWidget(tabMain, addLabel(unisonLeft, unisonKnobTop, knobWidth, "nUnison"));
+  tabview->addWidget(
+    tabMain,
+    addLabel(unisonLeft, unisonKnobTop, knobWidth, labelHeight, uiTextSize, "nUnison"));
   tabview->addWidget(
     tabMain,
     addTextKnob(
-      unisonLeft, unisonKnobTop + labelHeight + margin, knobWidth, colorBlue, ID::nUnison,
-      Scales::nUnison, false, 0, 1));
+      unisonLeft, unisonKnobTop + labelHeight + margin, knobWidth, labelHeight,
+      uiTextSize, ID::nUnison, Scales::nUnison, false, 0, 1));
   tabview->addWidget(
     tabMain,
     addKnob(
-      unisonLeft + knobX, unisonKnobTop, knobWidth, colorBlue, "Detune",
+      unisonLeft + knobX, unisonKnobTop, knobWidth, margin, uiTextSize, "Detune",
       ID::unisonDetune));
   tabview->addWidget(
     tabMain,
     addKnob(
-      unisonLeft + 2.0f * knobX, unisonKnobTop, knobWidth, colorBlue, "GainRnd",
+      unisonLeft + 2.0f * knobX, unisonKnobTop, knobWidth, margin, uiTextSize, "GainRnd",
       ID::unisonGainRandom));
   tabview->addWidget(
     tabMain,
     addKnob(
-      unisonLeft + 3.0f * knobX, unisonKnobTop, knobWidth, colorBlue, "Phase",
+      unisonLeft + 3.0f * knobX, unisonKnobTop, knobWidth, margin, uiTextSize, "Phase",
       ID::unisonPhase));
   tabview->addWidget(
     tabMain,
     addKnob(
-      unisonLeft + 4.0f * knobX, unisonKnobTop, knobWidth, colorBlue, "Spread",
+      unisonLeft + 4.0f * knobX, unisonKnobTop, knobWidth, margin, uiTextSize, "Spread",
       ID::unisonPan));
   tabview->addWidget(
     tabMain,
     addCheckbox(
-      unisonLeft + 1.0f * knobX - 1.5f * margin, unisonKnobTop + knobY, knobWidth,
-      "Random Detune", ID::unisonDetuneRandom));
+      unisonLeft + 1.0f * knobX - 1.5f * margin, unisonKnobTop + knobY, 2.75f * knobWidth,
+      labelHeight, uiTextSize, "Random Detune", ID::unisonDetuneRandom));
 
-  std::vector<UTF8String> unisonPanTypeOptions{
+  std::vector<std::string> unisonPanTypeOptions{
     "Alternate L-R", "Alternate M-S", "Ascend L -> R", "Ascend R -> L", "High on Mid",
     "High on Side",  "Random",        "Rotate L",      "Rotate R",      "Shuffle"};
   tabview->addWidget(
     tabMain,
     addOptionMenu(
       unisonLeft + 3.5f * knobX + margin, unisonKnobTop + knobY, 2.0f * knobWidth,
-      ID::unisonPanType, unisonPanTypeOptions));
+      labelHeight, uiTextSize, ID::unisonPanType, unisonPanTypeOptions));
 
   // Phase.
   const auto phaseTop = unisonTop;
   const auto phaseLeft = unisonLeft + 5.0f * knobX + 2.0f * margin;
-  tabview->addWidget(tabMain, addGroupLabel(phaseLeft, phaseTop, 2.0f * knobX, "Phase"));
+  tabview->addWidget(
+    tabMain,
+    addGroupLabel(phaseLeft, phaseTop, 2.0f * knobX, labelHeight, midTextSize, "Phase"));
   const auto phaseKnobTop = phaseTop + labelY;
 
   tabview->addWidget(
     tabMain,
-    addKnob(phaseLeft, phaseKnobTop, knobWidth, colorBlue, "Phase", ID::oscInitialPhase));
+    addKnob(
+      phaseLeft, phaseKnobTop, knobWidth, margin, uiTextSize, "Phase",
+      ID::oscInitialPhase));
 
   const auto phaseLeft1 = phaseLeft + knobX;
   tabview->addWidget(
     tabMain,
-    addCheckbox(phaseLeft1, phaseKnobTop, knobWidth, "Reset", ID::oscPhaseReset));
+    addCheckbox(
+      phaseLeft1, phaseKnobTop, 1.25f * knobWidth, labelHeight, uiTextSize, "Reset",
+      ID::oscPhaseReset));
   tabview->addWidget(
     tabMain,
     addCheckbox(
-      phaseLeft1, phaseKnobTop + labelY, knobWidth, "Random", ID::oscPhaseRandom));
+      phaseLeft1, phaseKnobTop + labelY, 1.25f * knobWidth, labelHeight, uiTextSize,
+      "Random", ID::oscPhaseRandom));
 
   // Misc.
   const auto miscTop = phaseTop;
   const auto miscLeft = phaseLeft + 2.0f * knobX + 2.0f * margin;
   tabview->addWidget(
-    tabMain, addGroupLabel(miscLeft, miscTop, 3.0f * knobX - 2.0f * margin, "Misc."));
+    tabMain,
+    addGroupLabel(
+      miscLeft, miscTop, 3.0f * knobX - 2.0f * margin, labelHeight, midTextSize,
+      "Misc."));
 
   const auto miscTop0 = miscTop + labelY;
   const auto miscLeft0 = miscLeft;
   tabview->addWidget(
     tabMain,
     addKnob(
-      miscLeft0 + margin, miscTop0, knobWidth, colorBlue, "Smooth", ID::smoothness));
+      miscLeft0 + margin, miscTop0, knobWidth, margin, uiTextSize, "Smooth",
+      ID::smoothness));
 
   const auto nVoiceLeft = miscLeft0 + knobX + margin;
-  std::vector<UTF8String> nVoiceOptions
+  std::vector<std::string> nVoiceOptions
     = {"16 Voices", "32 Voices", "48 Voices",  "64 Voices",
        "80 Voices", "96 Voices", "112 Voices", "128 Voices"};
-  tabview->addWidget(tabMain, addLabel(nVoiceLeft, miscTop0, 8 * margin, "Poly"));
+  tabview->addWidget(
+    tabMain, addLabel(nVoiceLeft, miscTop0, 8 * margin, labelHeight, uiTextSize, "Poly"));
   tabview->addWidget(
     tabMain,
-    addOptionMenu(nVoiceLeft + 8 * margin, miscTop0, knobX, ID::nVoice, nVoiceOptions));
+    addOptionMenu(
+      nVoiceLeft + 8 * margin, miscTop0, knobX, labelHeight, uiTextSize, ID::nVoice,
+      nVoiceOptions));
 
   tabview->addWidget(
-    tabMain, addLabel(nVoiceLeft, miscTop0 + labelY, 8 * margin, "Seed"));
+    tabMain,
+    addLabel(nVoiceLeft, miscTop0 + labelY, 8 * margin, labelHeight, uiTextSize, "Seed"));
   tabview->addWidget(
     tabMain,
     addTextKnob(
-      nVoiceLeft + 8 * margin, miscTop0 + labelY, knobX, colorBlue, ID::seed,
-      Scales::seed));
+      nVoiceLeft + 8 * margin, miscTop0 + labelY, knobX, labelHeight, uiTextSize,
+      ID::seed, Scales::seed));
 
   // Delay.
   const auto delayTop = unisonTop + 2.0f * labelY + knobY;
   const auto delayLeft = gainLeft;
-  tabview->addWidget(tabMain, addGroupLabel(delayLeft, delayTop, 5.0f * knobX, "Delay"));
+  tabview->addWidget(
+    tabMain,
+    addGroupLabel(delayLeft, delayTop, 5.0f * knobX, labelHeight, midTextSize, "Delay"));
   const auto delayKnobTop = delayTop + labelY;
 
   tabview->addWidget(
-    tabMain, addKnob(delayLeft, delayKnobTop, knobWidth, colorBlue, "Mix", ID::delayMix));
+    tabMain,
+    addKnob(delayLeft, delayKnobTop, knobWidth, margin, uiTextSize, "Mix", ID::delayMix));
   tabview->addWidget(
     tabMain,
     addKnob(
-      delayLeft + 1.0f * knobX, delayKnobTop, knobWidth, colorBlue, "Feedback",
+      delayLeft + 1.0f * knobX, delayKnobTop, knobWidth, margin, uiTextSize, "Feedback",
       ID::delayFeedback));
   tabview->addWidget(
     tabMain,
     addKnob(
-      delayLeft + 2.0f * knobX, delayKnobTop, knobWidth, colorBlue, "Attack",
+      delayLeft + 2.0f * knobX, delayKnobTop, knobWidth, margin, uiTextSize, "Attack",
       ID::delayAttack));
 
   const auto delayDetuneLeft = delayLeft + 3.0f * knobX;
   tabview->addWidget(
-    tabMain, addLabel(delayDetuneLeft, delayKnobTop, tuningLabelWidth, "Semi"));
+    tabMain,
+    addLabel(
+      delayDetuneLeft, delayKnobTop, tuningLabelWidth, labelHeight, uiTextSize, "Semi"));
   tabview->addWidget(
     tabMain,
     addTextKnob(
-      delayDetuneLeft + knobX, delayKnobTop, knobWidth, colorBlue, ID::delayDetuneSemi,
-      Scales::delayDetuneSemi, false, 0, -120));
+      delayDetuneLeft + knobX, delayKnobTop, knobWidth, labelHeight, uiTextSize,
+      ID::delayDetuneSemi, Scales::delayDetuneSemi, false, 0, -120));
 
   tabview->addWidget(
-    tabMain, addLabel(delayDetuneLeft, delayKnobTop + labelY, tuningLabelWidth, "Milli"));
+    tabMain,
+    addLabel(
+      delayDetuneLeft, delayKnobTop + labelY, tuningLabelWidth, labelHeight, uiTextSize,
+      "Milli"));
   auto knobDelayMilli = addTextKnob(
-    delayDetuneLeft + knobX, delayKnobTop + labelY, knobWidth, colorBlue,
+    delayDetuneLeft + knobX, delayKnobTop + labelY, knobWidth, labelHeight, uiTextSize,
     ID::delayDetuneMilli, Scales::oscMilli, false, 0, -1000);
   knobDelayMilli->sensitivity = 0.001f;
   knobDelayMilli->lowSensitivity = 0.00025f;
@@ -341,20 +398,22 @@ bool Editor::prepareUI()
   // LFO.
   const auto lfoTop = delayTop;
   const auto lfoLeft = delayLeft + 5.0f * knobX + 2.0f * margin;
-  tabview->addWidget(tabMain, addGroupLabel(lfoLeft, lfoTop, 9.0f * knobX, "Delay LFO"));
+  tabview->addWidget(
+    tabMain,
+    addGroupLabel(lfoLeft, lfoTop, 9.0f * knobX, labelHeight, midTextSize, "LFO"));
   const auto lfoKnobTop = lfoTop + labelY;
 
   const auto lfoLeft1 = lfoLeft;
   const auto lfoTempoTop = lfoKnobTop;
   auto knobLfoTempoNumerator = addTextKnob(
-    lfoLeft1, lfoTempoTop, knobWidth, colorBlue, ID::lfoTempoNumerator,
+    lfoLeft1, lfoTempoTop, knobWidth, labelHeight, uiTextSize, ID::lfoTempoNumerator,
     Scales::lfoTempoNumerator, false, 0, 1);
   knobLfoTempoNumerator->sensitivity = 0.001;
   knobLfoTempoNumerator->lowSensitivity = 0.00025;
   tabview->addWidget(tabMain, knobLfoTempoNumerator);
 
   auto knobLfoTempoDenominator = addTextKnob(
-    lfoLeft1, lfoTempoTop + labelHeight + 1.0f, knobWidth, colorBlue,
+    lfoLeft1, lfoTempoTop + labelHeight + 1.0f, knobWidth, labelHeight, uiTextSize,
     ID::lfoTempoDenominator, Scales::lfoTempoDenominator, false, 0, 1);
   knobLfoTempoDenominator->sensitivity = 0.001;
   knobLfoTempoNumerator->lowSensitivity = 0.00025;
@@ -362,48 +421,54 @@ bool Editor::prepareUI()
 
   tabview->addWidget(
     tabMain,
-    addLabel(lfoLeft1, lfoTempoTop + labelHeight + labelY - margin, knobWidth, "Tempo"));
+    addLabel(
+      lfoLeft1, lfoTempoTop + labelHeight + labelY - margin, knobWidth, labelHeight,
+      uiTextSize, "Tempo"));
 
   tabview->addWidget(
     tabMain,
     addKnob(
-      lfoLeft1 + 1.0f * knobX, lfoKnobTop, knobWidth, colorBlue, "Multiply",
+      lfoLeft1 + 1.0f * knobX, lfoKnobTop, knobWidth, margin, uiTextSize, "Multiply",
       ID::lfoFrequencyMultiplier));
   tabview->addWidget(
     tabMain,
     addKnob(
-      lfoLeft1 + 2.0f * knobX, lfoKnobTop, knobWidth, colorBlue, "Amount",
+      lfoLeft1 + 2.0f * knobX, lfoKnobTop, knobWidth, margin, uiTextSize, "Amount",
       ID::lfoDelayAmount));
   tabview->addWidget(
     tabMain,
     addKnob(
-      lfoLeft1 + 3.0f * knobX, lfoKnobTop, knobWidth, colorBlue, "Lowpass",
+      lfoLeft1 + 3.0f * knobX, lfoKnobTop, knobWidth, margin, uiTextSize, "Lowpass",
       ID::lfoLowpass));
 
   const auto lfoLeft2 = lfoLeft + 5.0f * knobX;
 
-  std::vector<UTF8String> lfoWavetableTypeOptions{"Step", "Linear", "Cubic"};
+  std::vector<std::string> lfoWavetableTypeOptions{"Step", "Linear", "Cubic"};
   tabview->addWidget(
     tabMain,
-    addLabel(lfoLeft2 + 0.375f * knobX, lfoKnobTop, knobWidth * 1.5f, "Interpolation"));
+    addLabel(
+      lfoLeft2 + 0.375f * knobX, lfoKnobTop, knobWidth * 1.5f, labelHeight, uiTextSize,
+      "Interpolation"));
   tabview->addWidget(
     tabMain,
     addOptionMenu(
-      lfoLeft2 + 0.375f * knobX, lfoKnobTop + labelY, knobWidth * 1.5f,
-      ID::lfoWavetableType, lfoWavetableTypeOptions));
+      lfoLeft2 + 0.375f * knobX, lfoKnobTop + labelY, knobWidth * 1.5f, labelHeight,
+      uiTextSize, ID::lfoWavetableType, lfoWavetableTypeOptions));
 
   tabview->addWidget(
     tabMain,
     addKickButton(
-      lfoLeft2 + 2.0f * knobX, lfoKnobTop + 2.0f * margin, 2.0f * knobX, "Refresh LFO",
-      ID::refreshLFO));
+      lfoLeft2 + 2.0f * knobX, lfoKnobTop + 2.0f * margin, 2.0f * knobX,
+      2.0f * labelHeight, midTextSize, "Refresh LFO", ID::refreshLFO));
 
   // LFO wavetable.
   const auto lfoWaveTop = lfoKnobTop + knobY + 0.5f * labelY;
   const auto lfoWaveLeft = tabInsideLeft0;
   const auto lfoBarboxHeight = barboxHeight + 3.5f * labelY + 3.0f * margin;
   tabview->addWidget(
-    tabMain, addGroupVerticalLabel(lfoWaveLeft, lfoWaveTop, lfoBarboxHeight, "LFO Wave"));
+    tabMain,
+    addGroupVerticalLabel(
+      lfoWaveLeft, lfoWaveTop, lfoBarboxHeight, labelHeight, midTextSize, "LFO Wave"));
   auto barboxLfoWavetable = addBarBox(
     lfoWaveLeft + labelY, lfoWaveTop, barboxWidth + 2.0f * knobX + 4.0f * margin,
     lfoBarboxHeight, ID::lfoWavetable0, nLFOWavetable, Scales::lfoWavetable, "LFO Wave");
@@ -415,32 +480,41 @@ bool Editor::prepareUI()
   const auto tablePitchLeft0 = tabInsideLeft0;
   const auto tablePitchLeft1 = tablePitchLeft0 + knobX;
   tabview->addWidget(
-    tabPadSynth, addGroupLabel(tablePitchLeft0, tablePitchTop, 2.0f * knobX, "Pitch"));
-
-  tabview->addWidget(
-    tabPadSynth, addLabel(tablePitchLeft0, tablePitchTop + labelY, knobX, "Base Freq."));
-  tabview->addWidget(
     tabPadSynth,
-    addTextKnob(
-      tablePitchLeft1, tablePitchTop + labelY, knobX, colorBlue, ID::tableBaseFrequency,
-      Scales::tableBaseFrequency, false, 2));
+    addGroupLabel(
+      tablePitchLeft0, tablePitchTop, 2.0f * knobX, labelHeight, midTextSize, "Pitch"));
 
   tabview->addWidget(
     tabPadSynth,
-    addLabel(tablePitchLeft0, tablePitchTop + 2.0f * labelY, knobX, "Multiply"));
+    addLabel(
+      tablePitchLeft0, tablePitchTop + labelY, knobX, labelHeight, uiTextSize,
+      "Base Freq."));
   tabview->addWidget(
     tabPadSynth,
     addTextKnob(
-      tablePitchLeft1, tablePitchTop + 2.0f * labelY, knobX, colorBlue,
+      tablePitchLeft1, tablePitchTop + labelY, knobX, labelHeight, uiTextSize,
+      ID::tableBaseFrequency, Scales::tableBaseFrequency, false, 2));
+
+  tabview->addWidget(
+    tabPadSynth,
+    addLabel(
+      tablePitchLeft0, tablePitchTop + 2.0f * labelY, knobX, labelHeight, uiTextSize,
+      "Multiply"));
+  tabview->addWidget(
+    tabPadSynth,
+    addTextKnob(
+      tablePitchLeft1, tablePitchTop + 2.0f * labelY, knobX, labelHeight, uiTextSize,
       ID::overtonePitchMultiply, Scales::overtonePitchMultiply, false, 4));
 
   tabview->addWidget(
     tabPadSynth,
-    addLabel(tablePitchLeft0, tablePitchTop + 3.0f * labelY, knobX, "Modulo"));
+    addLabel(
+      tablePitchLeft0, tablePitchTop + 3.0f * labelY, knobX, labelHeight, uiTextSize,
+      "Modulo"));
   tabview->addWidget(
     tabPadSynth,
     addTextKnob(
-      tablePitchLeft1, tablePitchTop + 3.0f * labelY, knobX, colorBlue,
+      tablePitchLeft1, tablePitchTop + 3.0f * labelY, knobX, labelHeight, uiTextSize,
       ID::overtonePitchModulo, Scales::overtonePitchModulo, false, 4));
 
   const auto tableSpectrumTop = tablePitchTop + 4.0f * labelY;
@@ -448,31 +522,39 @@ bool Editor::prepareUI()
   const auto tableSpectrumLeft1 = tablePitchLeft1;
   tabview->addWidget(
     tabPadSynth,
-    addGroupLabel(tableSpectrumLeft0, tableSpectrumTop, 2.0f * knobX, "Spectrum"));
+    addGroupLabel(
+      tableSpectrumLeft0, tableSpectrumTop, 2.0f * knobX, labelHeight, midTextSize,
+      "Spectrum"));
 
   tabview->addWidget(
     tabPadSynth,
-    addLabel(tableSpectrumLeft0, tableSpectrumTop + labelY, knobX, "Expand"));
+    addLabel(
+      tableSpectrumLeft0, tableSpectrumTop + labelY, knobX, labelHeight, uiTextSize,
+      "Expand"));
   tabview->addWidget(
     tabPadSynth,
     addTextKnob(
-      tableSpectrumLeft1, tableSpectrumTop + labelY, knobX, colorBlue, ID::spectrumExpand,
-      Scales::spectrumExpand, false, 4));
+      tableSpectrumLeft1, tableSpectrumTop + labelY, knobX, labelHeight, uiTextSize,
+      ID::spectrumExpand, Scales::spectrumExpand, false, 4));
 
   tabview->addWidget(
     tabPadSynth,
-    addLabel(tableSpectrumLeft0, tableSpectrumTop + 2.0f * labelY, knobX, "Rotate"));
+    addLabel(
+      tableSpectrumLeft0, tableSpectrumTop + 2.0f * labelY, knobX, labelHeight,
+      uiTextSize, "Rotate"));
   auto knobSpectrumRotate = addTextKnob(
-    tableSpectrumLeft1, tableSpectrumTop + 2.0f * labelY, knobX, colorBlue,
+    tableSpectrumLeft1, tableSpectrumTop + 2.0f * labelY, knobX, labelHeight, uiTextSize,
     ID::spectrumRotate, Scales::defaultScale, false, 6);
   knobSpectrumRotate->lowSensitivity = 1.0f / spectrumSize;
   tabview->addWidget(tabPadSynth, knobSpectrumRotate);
 
   tabview->addWidget(
     tabPadSynth,
-    addLabel(tableSpectrumLeft0, tableSpectrumTop + 3.0 * labelY, knobX, "Comb"));
+    addLabel(
+      tableSpectrumLeft0, tableSpectrumTop + 3.0 * labelY, knobX, labelHeight, uiTextSize,
+      "Comb"));
   auto knobProfileComb = addTextKnob(
-    tableSpectrumLeft1, tableSpectrumTop + 3.0 * labelY, knobX, colorBlue,
+    tableSpectrumLeft1, tableSpectrumTop + 3.0 * labelY, knobX, labelHeight, uiTextSize,
     ID::profileComb, Scales::profileComb);
   knobProfileComb->sensitivity = 0.002;
   knobProfileComb->lowSensitivity = 0.0002;
@@ -480,54 +562,64 @@ bool Editor::prepareUI()
 
   tabview->addWidget(
     tabPadSynth,
-    addLabel(tableSpectrumLeft0, tableSpectrumTop + 4.0 * labelY, knobX, "Shape"));
+    addLabel(
+      tableSpectrumLeft0, tableSpectrumTop + 4.0 * labelY, knobX, labelHeight, uiTextSize,
+      "Shape"));
   tabview->addWidget(
     tabPadSynth,
     addTextKnob(
-      tableSpectrumLeft1, tableSpectrumTop + 4.0 * labelY, knobX, colorBlue,
+      tableSpectrumLeft1, tableSpectrumTop + 4.0 * labelY, knobX, labelHeight, uiTextSize,
       ID::profileShape, Scales::profileShape, false, 4, 0));
 
   const auto tablePhaseTop = tableSpectrumTop + 5.0f * labelY;
   const auto tablePhaseLeft0 = tablePitchLeft0;
   tabview->addWidget(
-    tabPadSynth, addGroupLabel(tablePhaseLeft0, tablePhaseTop, 2.0f * knobX, "Phase"));
+    tabPadSynth,
+    addGroupLabel(
+      tablePhaseLeft0, tablePhaseTop, 2.0f * knobX, labelHeight, midTextSize, "Phase"));
   tabview->addWidget(
     tabPadSynth,
     addCheckbox(
-      tablePhaseLeft0, tablePhaseTop + labelY, checkboxWidth, "UniformPhase",
-      ID::uniformPhaseProfile));
+      tablePhaseLeft0, tablePhaseTop + labelY, 2.0f * checkboxWidth, labelHeight,
+      uiTextSize, "UniformPhase", ID::uniformPhaseProfile));
 
   // Wavetable random.
   const auto tableRandomTop = tablePhaseTop + 2.0f * labelY;
   const auto tableRandomLeft0 = tablePitchLeft0;
   const auto tableRandomLeft1 = tablePitchLeft1;
   tabview->addWidget(
-    tabPadSynth, addGroupLabel(tableRandomLeft0, tableRandomTop, 2.0f * knobX, "Random"));
+    tabPadSynth,
+    addGroupLabel(
+      tableRandomLeft0, tableRandomTop, 2.0f * knobX, labelHeight, midTextSize,
+      "Random"));
 
   tabview->addWidget(
-    tabPadSynth, addLabel(tableRandomLeft0, tableRandomTop + labelY, knobX, "Seed"));
+    tabPadSynth,
+    addLabel(
+      tableRandomLeft0, tableRandomTop + labelY, knobX, labelHeight, uiTextSize, "Seed"));
   tabview->addWidget(
     tabPadSynth,
     addTextKnob(
-      tableRandomLeft1, tableRandomTop + labelY, knobX, colorBlue, ID::padSynthSeed,
-      Scales::seed));
+      tableRandomLeft1, tableRandomTop + labelY, knobX, labelHeight, uiTextSize,
+      ID::padSynthSeed, Scales::seed));
 
   // Wavetable buffer size.
   const auto tableBufferTop = tableRandomTop + 2.0f * labelY;
   const auto tableBufferLeft0 = tablePitchLeft0;
-  const auto tableBufferLeft1 = tablePitchLeft1;
   tabview->addWidget(
     tabPadSynth,
-    addGroupLabel(tableBufferLeft0, tableBufferTop, 2.0f * knobX, "BufferSize"));
+    addGroupLabel(
+      tableBufferLeft0, tableBufferTop, 2.0f * knobX, labelHeight, midTextSize,
+      "BufferSize"));
 
-  std::vector<UTF8String> bufferSizeItems{
+  std::vector<std::string> bufferSizeItems{
     "2^10", "2^11", "2^12",           "2^13",           "2^14",           "2^15",
     "2^16", "2^17", "2^18 (128 MiB)", "2^19 (256 MiB)", "2^20 (512 MiB)", "2^21 (1 GiB)"};
   tabview->addWidget(
     tabPadSynth,
     addOptionMenu(
-      tableRandomLeft0, tableBufferTop + labelY, 2.0f * knobX, ID::tableBufferSize,
-      bufferSizeItems));
+      tableRandomLeft0, tableBufferTop + labelY, 2.0f * knobX, labelHeight, uiTextSize,
+      ID::tableBufferSize, bufferSizeItems));
 
   // Wavetable modifier.
   const auto tableModifierTop = tableBufferTop + 2.0f * labelY;
@@ -535,18 +627,20 @@ bool Editor::prepareUI()
   const auto tableModifierLeft1 = tablePitchLeft1;
   tabview->addWidget(
     tabPadSynth,
-    addGroupLabel(tableModifierLeft0, tableModifierTop, 2.0f * knobX, "Modifier"));
+    addGroupLabel(
+      tableModifierLeft0, tableModifierTop, 2.0f * knobX, labelHeight, midTextSize,
+      "Modifier"));
 
   const auto tableModifierTop0 = tableModifierTop + labelY;
   tabview->addWidget(
     tabPadSynth,
     addKnob(
-      tableModifierLeft0, tableModifierTop0, knobWidth, colorBlue, "Gain^",
+      tableModifierLeft0, tableModifierTop0, knobWidth, margin, uiTextSize, "Gain^",
       ID::overtoneGainPower));
   tabview->addWidget(
     tabPadSynth,
     addKnob(
-      tableModifierLeft1, tableModifierTop0, knobWidth, colorBlue, "Width*",
+      tableModifierLeft1, tableModifierTop0, knobWidth, margin, uiTextSize, "Width*",
       ID::overtoneWidthMultiply));
 
   // Refresh button.
@@ -555,67 +649,77 @@ bool Editor::prepareUI()
   tabview->addWidget(
     tabPadSynth,
     addKickButton(
-      refreshLeft, refreshTop, 2.0f * knobX, "Refresh Table", ID::refreshTable));
+      refreshLeft, refreshTop, 2.0f * knobX, 2.0f * labelHeight, midTextSize,
+      "Refresh Table", ID::refreshTable));
 
   // Overtone Gain.
   const auto otGainTop = tabInsideTop0;
   const auto otGainLeft = tabInsideLeft0 + 2.0f * knobX + 4.0f * margin;
   tabview->addWidget(
-    tabPadSynth, addGroupVerticalLabel(otGainLeft, otGainTop, barboxHeight, "Gain"));
+    tabPadSynth,
+    addGroupVerticalLabel(
+      otGainLeft, otGainTop, barboxHeight, labelHeight, midTextSize, "Gain"));
 
   const auto otGainLeft0 = otGainLeft + labelY;
-  tabview->addWidget(
-    tabPadSynth,
-    addBarBox(
-      otGainLeft0, otGainTop, barboxWidth, barboxHeight, ID::overtoneGain0, nOvertone,
-      Scales::overtoneGain, "Gain"));
+  auto barboxOtGain = addBarBox(
+    otGainLeft0, otGainTop, barboxWidth, barboxHeight, ID::overtoneGain0, nOvertone,
+    Scales::overtoneGain, "Gain");
+  barboxOtGain->liveUpdateLineEdit = false;
+  tabview->addWidget(tabPadSynth, barboxOtGain);
 
   // Overtone Width.
   const auto otWidthTop = otGainTop + barboxY + margin;
   const auto otWidthLeft = otGainLeft;
   tabview->addWidget(
-    tabPadSynth, addGroupVerticalLabel(otWidthLeft, otWidthTop, barboxHeight, "Width"));
+    tabPadSynth,
+    addGroupVerticalLabel(
+      otWidthLeft, otWidthTop, barboxHeight, labelHeight, midTextSize, "Width"));
 
   const auto otWidthLeft0 = otWidthLeft + labelY;
-  tabview->addWidget(
-    tabPadSynth,
-    addBarBox(
-      otWidthLeft0, otWidthTop, barboxWidth, barboxHeight, ID::overtoneWidth0, nOvertone,
-      Scales::overtoneWidth, "Width"));
+  auto barboxOtWidth = addBarBox(
+    otWidthLeft0, otWidthTop, barboxWidth, barboxHeight, ID::overtoneWidth0, nOvertone,
+    Scales::overtoneWidth, "Width");
+  barboxOtWidth->liveUpdateLineEdit = false;
+  tabview->addWidget(tabPadSynth, barboxOtWidth);
 
   // Overtone Pitch.
   const auto otPitchTop = otWidthTop + barboxY + margin;
   const auto otPitchLeft = otGainLeft;
   tabview->addWidget(
-    tabPadSynth, addGroupVerticalLabel(otPitchLeft, otPitchTop, barboxHeight, "Pitch"));
+    tabPadSynth,
+    addGroupVerticalLabel(
+      otPitchLeft, otPitchTop, barboxHeight, labelHeight, midTextSize, "Pitch"));
 
   const auto otPitchLeft0 = otPitchLeft + labelY;
-  tabview->addWidget(
-    tabPadSynth,
-    addBarBox(
-      otPitchLeft0, otPitchTop, barboxWidth, barboxHeight, ID::overtonePitch0, nOvertone,
-      Scales::overtonePitch, "Pitch"));
+  auto barboxOtPitch = addBarBox(
+    otPitchLeft0, otPitchTop, barboxWidth, barboxHeight, ID::overtonePitch0, nOvertone,
+    Scales::overtonePitch, "Pitch");
+  barboxOtPitch->liveUpdateLineEdit = false;
+  tabview->addWidget(tabPadSynth, barboxOtPitch);
 
   // Overtone Phase.
   const auto otPhaseTop = otPitchTop + barboxY + margin;
   const auto otPhaseLeft = otGainLeft;
   tabview->addWidget(
-    tabPadSynth, addGroupVerticalLabel(otPhaseLeft, otPhaseTop, barboxHeight, "Phase"));
+    tabPadSynth,
+    addGroupVerticalLabel(
+      otPhaseLeft, otPhaseTop, barboxHeight, labelHeight, midTextSize, "Phase"));
 
   const auto otPhaseLeft0 = otPhaseLeft + labelY;
-  tabview->addWidget(
-    tabPadSynth,
-    addBarBox(
-      otPhaseLeft0, otPhaseTop, barboxWidth, barboxHeight, ID::overtonePhase0, nOvertone,
-      Scales::overtonePhase, "Phase"));
+  auto barboxOtPhase = addBarBox(
+    otPhaseLeft0, otPhaseTop, barboxWidth, barboxHeight, ID::overtonePhase0, nOvertone,
+    Scales::overtonePhase, "Phase");
+  barboxOtPhase->liveUpdateLineEdit = false;
+  tabview->addWidget(tabPadSynth, barboxOtPhase);
 
   auto textKnobControl = R"(- Knob -
-Shift + Left Drag|Fine Tuning
+Shift + Left Drag|Fine Adjustment
 Ctrl + Left Click|Reset to Default)";
   tabview->addWidget(
     tabInfo,
     addTextTableView(
-      tabInsideLeft0, tabInsideTop0, 400.0f, 400.0f, textKnobControl, 150.0f, fontSize));
+      tabInsideLeft0, tabInsideTop0, 400.0f, 400.0f, infoTextSize, textKnobControl,
+      150.0f));
 
   auto textNumberControl = R"(- Number -
 Shares same controls with knob, and:
@@ -623,8 +727,8 @@ Right Click|Flip Minimum and Maximum)";
   tabview->addWidget(
     tabInfo,
     addTextTableView(
-      tabInsideLeft0, tabInsideTop0 + 80.0f, 400.0f, 400.0f, textNumberControl, 150.0f,
-      fontSize));
+      tabInsideLeft0, tabInsideTop0 + 80.0f, 400.0f, 400.0f, infoTextSize,
+      textNumberControl, 150.0f));
 
   auto textOvertoneControl = R"(- Overtone & LFO Wave -
 Ctrl + Left Click|Reset to Default
@@ -652,8 +756,8 @@ T|Subtle Randomize
   tabview->addWidget(
     tabInfo,
     addTextTableView(
-      tabInsideLeft0, tabInsideTop0 + 160.0f, 400.0f, 400.0f, textOvertoneControl, 150.0f,
-      fontSize));
+      tabInsideLeft0, tabInsideTop0 + 160.0f, 400.0f, 480.0f, infoTextSize,
+      textOvertoneControl, 150.0f));
 
   const auto tabInfoLeft1 = tabInsideLeft0 + tabWidth / 2.0f;
 
@@ -664,29 +768,21 @@ Press following button to apply changes.
   tabview->addWidget(
     tabInfo,
     addTextView(
-      tabInfoLeft1, tabInsideTop0, 400.0f, 400.0f, textRefreshNotice, fontSize));
-
-  auto textBufferSizeNotice = R"(Be careful changing BufferSize.
-Max 1 GiB of memory will be allocated.
-Small buffer size makes some configs to be quiet.)";
-  tabview->addWidget(
-    tabInfo,
-    addTextView(
-      tabInfoLeft1, tabInsideTop0 + 100.0f, 400.0f, 400.0f, textBufferSizeNotice,
-      fontSize));
+      tabInfoLeft1, tabInsideTop0, 400.0f, 400.0f, infoTextSize, textRefreshNotice));
 
   const auto tabInfoBottom = tabInsideTop0 + tabHeight - labelY;
   std::stringstream ssPluginName;
-  ssPluginName << "\nLightPadSynth " << VERSION_STR;
+  ssPluginName << "LightPadSynth " << VERSION_STR;
   auto pluginNameTextView = addTextView(
-    tabInfoLeft1, tabInfoBottom - 160.0f, 400.0f, 400.0f, ssPluginName.str(), 36.0f);
+    tabInfoLeft1, tabInfoBottom - 140.0f, 400.0f, 400.0f, pluginNameTextSize,
+    ssPluginName.str());
   tabview->addWidget(tabInfo, pluginNameTextView);
 
   tabview->addWidget(
     tabInfo,
     addTextView(
-      tabInfoLeft1, tabInfoBottom - 100.0f, 400.0f, 400.0f,
-      "© 2020 Takamitsu Endo (ryukau@gmail.com)\n\nHave a nice day!", fontSize));
+      tabInfoLeft1, tabInfoBottom - 100.0f, 400.0f, 400.0f, infoTextSize,
+      "© 2020 Takamitsu Endo (ryukau@gmail.com)\n\nHave a nice day!"));
 
   tabview->refreshTab();
 
