@@ -19,6 +19,8 @@
 
 #include "vstgui/vstgui.h"
 
+#include "style.hpp"
+
 #include <string>
 #include <tuple>
 #include <vector>
@@ -61,6 +63,7 @@ public:
   TabView(
     std::vector<std::string> tabNames,
     CFontRef tabFontID,
+    Uhhyou::Palette &palette,
     float tabHeight,
     const CRect &size);
   ~TabView();
@@ -68,7 +71,6 @@ public:
   void addWidget(size_t tabIndex, CView *newWidget);
   void addWidget(size_t tabIndex, std::tuple<CView *, CView *> newWidgets);
   void refreshTab();
-  void setHighlightColor(CColor color) { colorFocus = color; }
 
   void draw(CDrawContext *pContext) override;
   CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;
@@ -86,13 +88,10 @@ public:
 protected:
   bool isInTabArea(const CPoint &pos);
 
-  CColor colorFocus{0x33, 0xaa, 0xff};
-  CColor colorFore{0, 0, 0};
-  CColor colorBack{0xff, 0xff, 0xff};
-
   float tabHeight = 30.0f;
   float tabFontSize = 14.0f;
   CFontRef tabFontID = nullptr;
+  Uhhyou::Palette &pal;
 
   bool isMouseEntered = false;
   CPoint mousePosition;

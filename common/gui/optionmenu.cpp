@@ -21,21 +21,18 @@ namespace VSTGUI {
 
 CMouseEventResult OptionMenu::onMouseEntered(CPoint &where, const CButtonState &buttons)
 {
-  setFrameWidth(highlightFrameWidth);
   setFrameColor(highlightColor);
   return kMouseEventHandled;
 }
 
 CMouseEventResult OptionMenu::onMouseExited(CPoint &where, const CButtonState &buttons)
 {
-  setFrameWidth(frameWidth);
   setFrameColor(frameColor);
   return kMouseEventHandled;
 }
 
 CMouseEventResult OptionMenu::onMouseCancel()
 {
-  setFrameWidth(frameWidth);
   setFrameColor(frameColor);
   return COptionMenu::onMouseCancel();
 }
@@ -47,13 +44,5 @@ void OptionMenu::setDefaultFrameColor(CColor color)
 }
 
 void OptionMenu::setHighlightColor(CColor color) { highlightColor = color; }
-
-void OptionMenu::setDefaultFrameWidth(float width)
-{
-  frameWidth = width;
-  setFrameWidth(frameWidth);
-}
-
-void OptionMenu::setHighlightWidth(float width) { highlightFrameWidth = width; }
 
 } // namespace VSTGUI

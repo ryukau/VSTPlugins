@@ -23,6 +23,7 @@
 
 #include "../dsp/scale.hpp"
 #include "arraycontrol.hpp"
+#include "style.hpp"
 
 #include <algorithm>
 #include <random>
@@ -40,9 +41,11 @@ public:
     const CRect &size,
     std::vector<Steinberg::Vst::ParamID> id,
     std::vector<double> value,
-    std::vector<double> defaultValue)
+    std::vector<double> defaultValue,
+    Uhhyou::Palette &palette)
     : ArrayControl(editor, size, id, value, defaultValue)
     , sliderWidth((size.right - size.left) / value.size())
+    , pal(palette)
   {
     setWantsFocus(true);
 
@@ -65,15 +68,17 @@ public:
     CDrawContext::Transform t(
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
-    // Value bar.
-    pContext->setFillColor(valueColor);
-    pContext->setLineWidth(1.0f);
+    // Background.
+    pContext->setFillColor(pal.boxBackground());
+    pContext->drawRect(CRect(0, 0, width, height), kDrawFilled);
 
-    float sliderZeroHeight = height * (1.0f - sliderZero);
+    // Value bar.
+    pContext->setFillColor(pal.highlightMain());
+
+    float sliderZeroHeight = height * (1.0 - sliderZero);
     for (size_t i = 0; i < value.size(); ++i) {
       auto left = i * sliderWidth;
       auto right = left + (sliderWidth >= 4.0 ? sliderWidth - defaultBorderWidth : 1.0);
-
       auto top = height - value[i] * height;
       double bottom = sliderZeroHeight;
       if (top > bottom) std::swap(top, bottom);
@@ -81,19 +86,19 @@ public:
     }
 
     // Splitter.
-    if (sliderWidth >= 4.0) {
-      pContext->setLineWidth(defaultBorderWidth);
-      pContext->setFrameColor(splitterColor);
-      for (size_t i = 0; i < value.size(); ++i) {
-        auto x = i * sliderWidth;
-        pContext->drawLine(CPoint(x, 0), CPoint(x, height));
-      }
-    }
+    // if (sliderWidth >= 4.0) {
+    //   pContext->setLineWidth(defaultBorderWidth);
+    //   pContext->setFrameColor(pal.boxBackground());
+    //   for (size_t i = 0; i < value.size(); ++i) {
+    //     auto x = i * sliderWidth;
+    //     pContext->drawLine(CPoint(x, 0), CPoint(x, height));
+    //   }
+    // }
 
     // Bar index.
-    pContext->setFrameColor(valueColor);
+    pContext->setFrameColor(pal.highlightMain());
     pContext->setFont(indexFontID);
-    pContext->setFontColor(borderColor);
+    pContext->setFontColor(pal.foreground());
     if (sliderWidth >= 10.0) {
       for (size_t i = 0; i < barIndices.size(); ++i) {
         auto left = i * sliderWidth;
@@ -105,20 +110,21 @@ public:
     }
 
     // Border.
-    pContext->setFrameColor(borderColor);
+    pContext->setLineWidth(defaultBorderWidth);
+    pContext->setFrameColor(pal.border());
     pContext->drawRect(CRect(0, 0, width, height), kDrawStroked);
 
     // Highlight.
     if (isMouseEntered || isMouseLeftDown) {
       size_t index = size_t(value.size() * mousePosition.x / width);
       if (index < value.size()) {
-        pContext->setFillColor(highlightColor);
+        pContext->setFillColor(pal.overlayHighlight());
         auto left = index * sliderWidth;
         pContext->drawRect(CRect(left, 0, left + sliderWidth, height), kDrawFilled);
 
         // Index text.
         pContext->setFont(nameFontID);
-        pContext->setFontColor(nameColor);
+        pContext->setFontColor(pal.overlay());
         std::ostringstream os;
         os << "#" << std::to_string(index + indexOffset) << ": "
            << std::to_string(value[index]);
@@ -128,13 +134,13 @@ public:
     } else {
       // Title.
       pContext->setFont(nameFontID);
-      pContext->setFontColor(nameColor);
+      pContext->setFontColor(pal.overlay());
       pContext->drawString(name.c_str(), CRect(0, 0, width, height));
     }
 
     // Zero line.
     auto zeroLineHeight = height - sliderZero * height;
-    pContext->setFrameColor(nameColor);
+    pContext->setFrameColor(pal.overlay());
     pContext->setLineWidth(1.0f);
     pContext->drawLine(CPoint(0, zeroLineHeight), CPoint(width, zeroLineHeight));
 
@@ -310,11 +316,8 @@ public:
     return 1;
   }
 
-  void setIndexFont(CFontRef fontID) { indexFontID = fontID; }
-  void setNameFont(CFontRef fontID) { nameFontID = fontID; }
-  void setHighlightColor(CColor color) { highlightColor = color; }
-  void setValueColor(CColor color) { valueColor = color; }
-  void setBorderColor(CColor color) { borderColor = color; }
+  void setIndexFont(CFontRef fontId) { indexFontID = fontId; }
+  void setNameFont(CFontRef fontId) { nameFontID = fontId; }
   void setDefaultBorderWidth(float width) { defaultBorderWidth = width; }
   void setName(std::string name) { this->name = name; }
 
@@ -471,12 +474,6 @@ protected:
 
   inline size_t calcIndex(CPoint position) { return size_t(position.x / sliderWidth); }
 
-  CColor highlightColor{0x00, 0xff, 0x00, 0x33};
-  CColor splitterColor{0xff, 0xff, 0xff};
-  CColor valueColor{0xdd, 0xdd, 0xdd};
-  CColor borderColor{0, 0, 0};
-  CColor nameColor{0, 0, 0, 0x88};
-
   CFontRef indexFontID = nullptr;
   CFontRef nameFontID = nullptr;
 
@@ -493,6 +490,8 @@ protected:
   std::string name;
   std::string indexText;
   std::vector<std::string> barIndices;
+
+  Uhhyou::Palette &pal;
 };
 
 } // namespace VSTGUI

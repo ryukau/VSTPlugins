@@ -20,63 +20,35 @@
 #include "public.sdk/source/vst/vsteditcontroller.h"
 #include "vstgui/vstgui.h"
 
-#include "guistyle.hpp"
+#include "style.hpp"
 
 #include <sstream>
 #include <string>
 
 namespace VSTGUI {
 
-class TextButton : public CTextButton {
-public:
-  TextButton(
-    const CRect &size,
-    IControlListener *listener = nullptr,
-    int32_t tag = -1,
-    UTF8StringPtr title = nullptr,
-    Style style = kKickStyle)
-    : CTextButton(size, listener, tag, title, style)
-  {
-    setFrameColor(frameColor);
-  }
-
-  CLASS_METHODS(TextButton, CTextButton);
-
-  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseCancel() override;
-
-  void setDefaultFrameColor(CColor color);
-  void setHighlightColor(CColor color);
-  void setDefaultFrameWidth(float width);
-  void setHighlightWidth(float width);
-
-protected:
-  CColor frameColor = CColor(0, 0, 0, 255);
-  CColor highlightColor = CColor(0, 0, 0, 255);
-  float frameWidth = 1.0f;
-  float highlightFrameWidth = 2.0f;
-};
-
-class KickButton : public CControl {
+template<Uhhyou::Style style = Uhhyou::Style::common> class ButtonBase : public CControl {
 public:
   std::string label;
 
-  KickButton(
+  ButtonBase(
     const CRect &size,
     IControlListener *listener,
     int32_t tag,
     std::string label,
-    CFontRef fontID)
-    : CControl(size, listener, tag), label(label), fontID(fontID)
+    CFontRef fontId,
+    Uhhyou::Palette &palette)
+    : CControl(size, listener, tag), label(label), fontId(fontId), pal(palette)
   {
-    this->fontID->remember();
+    this->fontId->remember();
   }
 
-  ~KickButton()
+  ~ButtonBase()
   {
-    if (fontID != nullptr) fontID->forget();
+    if (fontId != nullptr) fontId->forget();
   }
+
+  CLASS_METHODS(ButtonBase, CControl);
 
   void draw(CDrawContext *pContext) override
   {
@@ -84,45 +56,142 @@ public:
     CDrawContext::Transform t(
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
-    // Border.
-    pContext->setFillColor(isPressed ? colorFocus : colorBack);
-    pContext->setFrameColor(isMouseEntered && !isPressed ? colorFocus : colorFore);
+    // Border and background.
+    if constexpr (style == Uhhyou::Style::accent) {
+      pContext->setFillColor(value ? pal.highlightAccent() : pal.boxBackground());
+      pContext->setFrameColor(isMouseEntered ? pal.highlightAccent() : pal.border());
+    } else if (style == Uhhyou::Style::warning) {
+      pContext->setFillColor(value ? pal.highlightWarning() : pal.boxBackground());
+      pContext->setFrameColor(isMouseEntered ? pal.highlightWarning() : pal.border());
+    } else {
+      pContext->setFillColor(value ? pal.highlightButton() : pal.boxBackground());
+      pContext->setFrameColor(isMouseEntered ? pal.highlightButton() : pal.border());
+    }
     pContext->setLineWidth(isMouseEntered ? 2 * borderWidth : borderWidth);
     pContext->drawRect(CRect(0, 0, getWidth(), getHeight()), kDrawFilledAndStroked);
 
     // Text
-    pContext->setFont(fontID);
-    pContext->setFontColor(colorFore);
+    pContext->setFont(fontId);
+    pContext->setFontColor(pal.foreground());
     pContext->drawString(
-      label.c_str(), CRect(0, 0, getWidth(), getHeight()), kCenterText);
+      label.c_str(), CRect(0, 0, getWidth(), getHeight()), kCenterText, true);
   }
 
-  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseUp(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseCancel() override;
+  virtual CMouseEventResult
+  onMouseEntered(CPoint &where, const CButtonState &buttons) override
+  {
+    isMouseEntered = true;
+    invalid();
+    return kMouseEventHandled;
+  }
 
-  void setHighlightColor(CColor color) { colorFocus = color; }
-  void setForegroundColor(CColor color) { colorFore = color; }
-  void setBackgroundColor(CColor color) { colorBack = color; }
+  virtual CMouseEventResult
+  onMouseExited(CPoint &where, const CButtonState &buttons) override
+  {
+    isMouseEntered = false;
+    invalid();
+    return kMouseEventHandled;
+  }
+
+  virtual CMouseEventResult
+  onMouseDown(CPoint &where, const CButtonState &buttons) override
+  {
+    if (!buttons.isLeftButton()) return kMouseEventNotHandled;
+    value = value == 0 ? 1 : 0;
+    valueChanged();
+    invalid();
+    return kMouseEventHandled;
+  }
+
+  virtual CMouseEventResult onMouseCancel() override
+  {
+    isMouseEntered = false;
+    invalid();
+    return kMouseEventHandled;
+  }
+
   void setBorderWidth(CCoord width) { borderWidth = width < 0 ? 0 : width; }
 
-  CLASS_METHODS(KickButton, CControl);
-
 protected:
-  Steinberg::Vst::EditController *controller = nullptr;
+  CFontRef fontId = nullptr;
+  Uhhyou::Palette &pal;
 
-  CColor colorFore{0, 0, 0};
-  CColor colorBack{0xff, 0xff, 0xff};
-  CColor colorFocus{0x33, 0xee, 0xee};
+  CCoord borderWidth = 2.0;
 
-  CFontRef fontID = nullptr;
-
-  CCoord borderWidth = 1.0;
-
-  bool isPressed = false;
   bool isMouseEntered = false;
+};
+
+template<Uhhyou::Style style = Uhhyou::Style::common>
+class ToggleButton : public ButtonBase<style> {
+public:
+  ToggleButton(
+    const CRect &size,
+    IControlListener *listener,
+    int32_t tag,
+    std::string label,
+    CFontRef fontId,
+    Uhhyou::Palette &palette)
+    : ButtonBase<style>(size, listener, tag, label, fontId, palette)
+  {
+  }
+};
+
+template<Uhhyou::Style style = Uhhyou::Style::common>
+class KickButton : public ButtonBase<style> {
+public:
+  using Btn = ButtonBase<style>;
+
+  KickButton(
+    const CRect &size,
+    IControlListener *listener,
+    int32_t tag,
+    std::string label,
+    CFontRef fontId,
+    Uhhyou::Palette &palette)
+    : ButtonBase<style>(size, listener, tag, label, fontId, palette)
+  {
+  }
+
+  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override
+  {
+    if (Btn::value == 1) {
+      Btn::value = 0;
+      Btn::valueChanged();
+    }
+    Btn::isMouseEntered = false;
+    Btn::invalid();
+    return kMouseEventHandled;
+  }
+
+  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
+  {
+    if (!buttons.isLeftButton()) return kMouseEventNotHandled;
+    Btn::value = 1;
+    Btn::valueChanged();
+    Btn::invalid();
+    return kMouseEventHandled;
+  }
+
+  CMouseEventResult onMouseUp(CPoint &where, const CButtonState &buttons) override
+  {
+    if (Btn::value == 1) {
+      Btn::value = 0;
+      Btn::valueChanged();
+      Btn::invalid();
+    }
+    return kMouseEventHandled;
+  }
+
+  CMouseEventResult onMouseCancel() override
+  {
+    if (Btn::value == 1) {
+      Btn::value = 0;
+      Btn::valueChanged();
+    }
+    Btn::isMouseEntered = false;
+    Btn::invalid();
+    return kMouseEventHandled;
+  }
 };
 
 class MessageButton : public CControl {
@@ -135,21 +204,23 @@ public:
     const CRect &size,
     std::string label,
     std::string messageID,
-    CFontRef fontID)
+    CFontRef fontId,
+    Uhhyou::Palette &palette)
     : CControl(size, nullptr, -1)
     , label(label)
     , messageID(messageID)
     , controller(controller)
-    , fontID(fontID)
+    , fontId(fontId)
+    , pal(palette)
   {
     if (controller != nullptr) controller->addRef();
-    this->fontID->remember();
+    this->fontId->remember();
   }
 
   ~MessageButton()
   {
     if (controller != nullptr) controller->release();
-    if (fontID != nullptr) fontID->forget();
+    if (fontId != nullptr) fontId->forget();
   }
 
   void draw(CDrawContext *pContext) override
@@ -158,28 +229,58 @@ public:
     CDrawContext::Transform t(
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
-    // Border.
-    pContext->setFillColor(isPressed ? colorFocus : colorBack);
-    pContext->setFrameColor(isMouseEntered && !isPressed ? colorFocus : colorFore);
+    // Border and background.
+    pContext->setFillColor(isPressed ? pal.highlightButton() : pal.boxBackground());
+    pContext->setFrameColor(isMouseEntered ? pal.highlightButton() : pal.border());
     pContext->setLineWidth(isMouseEntered ? 2 * borderWidth : borderWidth);
     pContext->drawRect(CRect(0, 0, getWidth(), getHeight()), kDrawFilledAndStroked);
 
     // Text
-    pContext->setFont(fontID);
-    pContext->setFontColor(colorFore);
+    pContext->setFont(fontId);
+    pContext->setFontColor(pal.foreground());
     pContext->drawString(
-      label.c_str(), CRect(0, 0, getWidth(), getHeight()), kCenterText);
+      label.c_str(), CRect(0, 0, getWidth(), getHeight()), kCenterText, true);
   }
 
-  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseUp(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseCancel() override;
+  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override
+  {
+    isMouseEntered = true;
+    invalid();
+    return kMouseEventHandled;
+  }
 
-  void setHighlightColor(CColor color) { colorFocus = color; }
-  void setForegroundColor(CColor color) { colorFore = color; }
-  void setBackgroundColor(CColor color) { colorBack = color; }
+  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override
+  {
+    isPressed = false;
+    isMouseEntered = false;
+    invalid();
+    return kMouseEventHandled;
+  }
+
+  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
+  {
+    if (!buttons.isLeftButton()) return kMouseEventNotHandled;
+
+    isPressed = true;
+    return kMouseEventHandled;
+  }
+
+  CMouseEventResult onMouseUp(CPoint &where, const CButtonState &buttons) override
+  {
+    if (isPressed) {
+      controller->sendTextMessage(messageID.c_str());
+      isPressed = false;
+    }
+    return kMouseEventHandled;
+  }
+
+  CMouseEventResult onMouseCancel() override
+  {
+    isPressed = false;
+    isMouseEntered = false;
+    return kMouseEventHandled;
+  }
+
   void setBorderWidth(CCoord width) { borderWidth = width < 0 ? 0 : width; }
 
   CLASS_METHODS(MessageButton, CControl);
@@ -187,13 +288,10 @@ public:
 protected:
   Steinberg::Vst::EditController *controller = nullptr;
 
-  CColor colorFore{0, 0, 0};
-  CColor colorBack{0xff, 0xff, 0xff};
-  CColor colorFocus{0x33, 0xee, 0xee};
+  CFontRef fontId = nullptr;
+  Uhhyou::Palette &pal;
 
-  CFontRef fontID = nullptr;
-
-  CCoord borderWidth = 1.0;
+  CCoord borderWidth = 2.0;
 
   bool isPressed = false;
   bool isMouseEntered = false;

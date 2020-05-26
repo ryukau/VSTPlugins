@@ -16,16 +16,16 @@
 // along with Uhhyou Plugins.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "tabview.hpp"
-#include "guistyle.hpp"
 
 namespace VSTGUI {
 
 TabView::TabView(
   std::vector<std::string> tabNames,
   CFontRef tabFontID,
+  Uhhyou::Palette &palette,
   float tabHeight,
   const CRect &size)
-  : CControl(size, nullptr, -1)
+  : CControl(size, nullptr, -1), pal(palette)
 {
   tabFontID->remember();
   this->tabFontID = tabFontID;
@@ -82,25 +82,26 @@ void TabView::draw(CDrawContext *pContext)
     *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
   pContext->setFont(tabFontID);
-  pContext->setFontColor(colorFore);
+  pContext->setFontColor(pal.foreground());
   pContext->setLineWidth(1.0f);
   for (size_t idx = 0; idx < tabs.size(); ++idx) {
     if (idx == activeTabIndex) continue;
     const auto &tab = tabs[idx];
 
-    pContext->setFillColor(tab.isMouseEntered ? colorFocus : colorBack);
-    pContext->setFrameColor(colorFore);
+    pContext->setFillColor(
+      tab.isMouseEntered ? pal.overlayHighlight() : pal.boxBackground());
+    pContext->setFrameColor(pal.foreground());
     pContext->drawRect(
       CRect(tab.left, tab.top, tab.right, tab.height), kDrawFilledAndStroked);
 
-    pContext->setFillColor(colorFore);
+    pContext->setFillColor(pal.foreground());
     pContext->drawString(
       tab.name.c_str(), CRect(tab.left, tab.top, tab.right, tab.bottom), kCenterText);
   }
 
   // Active tab.
-  pContext->setFillColor(colorBack);
-  pContext->setFrameColor(colorFore);
+  pContext->setFillColor(pal.background());
+  pContext->setFrameColor(pal.foreground());
   pContext->setLineWidth(2.0f);
 
   const auto &activeTab = tabs[activeTabIndex];
@@ -117,7 +118,7 @@ void TabView::draw(CDrawContext *pContext)
   };
   pContext->drawPolygon(activeTabPath, kDrawFilledAndStroked);
 
-  pContext->setFillColor(colorFore);
+  pContext->setFillColor(pal.foreground());
   pContext->drawString(
     activeTab.name.c_str(),
     CRect(activeTab.left, activeTab.top, activeTab.right, activeTab.bottom), kCenterText);

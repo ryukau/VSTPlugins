@@ -19,7 +19,7 @@
 
 #include "vstgui/vstgui.h"
 
-#include "guistyle.hpp"
+#include "style.hpp"
 
 #include <string>
 
@@ -30,31 +30,36 @@ using namespace VSTGUI;
 
 class CreditView : public CControl {
 public:
-  CreditView(const CRect &size, IControlListener *listener) : CControl(size, listener)
+  CreditView(const CRect &size, IControlListener *listener, Uhhyou::Palette &palette)
+    : CControl(size, listener), pal(palette)
   {
     setVisible(false);
 
-    fontIDTitle
-      = new CFontDesc(PlugEditorStyle::fontName(), fontSizeTitle, CTxtFace::kBoldFace);
-    fontIDText = new CFontDesc(PlugEditorStyle::fontName(), fontSize);
+    fontIdTitle = new CFontDesc(Uhhyou::Font::name(), fontSizeTitle, CTxtFace::kBoldFace);
+    fontIdText = new CFontDesc(Uhhyou::Font::name(), fontSize);
   }
 
   ~CreditView()
   {
-    if (fontIDTitle) fontIDTitle->forget();
-    if (fontIDText) fontIDText->forget();
+    if (fontIdTitle) fontIdTitle->forget();
+    if (fontIdText) fontIdText->forget();
   }
 
   void draw(CDrawContext *pContext) override;
   CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override;
+  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;
+  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override;
   CLASS_METHODS(CreditView, CControl)
 
 private:
   CCoord fontSize = 12.0;
   CCoord fontSizeTitle = 18.0;
 
-  CFontRef fontIDTitle = nullptr;
-  CFontRef fontIDText = nullptr;
+  CFontRef fontIdTitle = nullptr;
+  CFontRef fontIdText = nullptr;
+  Uhhyou::Palette &pal;
+
+  bool isMouseEntered = false;
 };
 
 class SplashLabel : public CControl {
@@ -64,21 +69,23 @@ public:
     IControlListener *listener,
     int32_t tag,
     CControl *splashView,
-    std::string label = "",
-    double fontSize = 18.0)
+    std::string label,
+    CCoord fontSize,
+    Uhhyou::Palette &palette)
     : CControl(size, listener, tag)
     , splashView(splashView)
     , label(label)
     , fontSize(fontSize)
+    , pal(palette)
   {
     if (splashView != nullptr) splashView->remember();
-    fontID = new CFontDesc(PlugEditorStyle::fontName(), fontSize, CTxtFace::kBoldFace);
+    fontId = new CFontDesc(Uhhyou::Font::name(), fontSize, CTxtFace::kBoldFace);
   }
 
   ~SplashLabel()
   {
     if (splashView != nullptr) splashView->forget();
-    if (fontID) fontID->forget();
+    if (fontId) fontId->forget();
   }
 
   CLASS_METHODS(SplashLabel, CControl);
@@ -90,23 +97,19 @@ public:
   CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override;
   CMouseEventResult onMouseCancel() override;
 
-  void setDefaultFrameColor(CColor color);
-  void setHighlightColor(CColor color);
-  void setDefaultFrameWidth(float width);
-  void setHighlightWidth(float width);
+  void setDefaultFrameWidth(CCoord width);
+  void setHighlightWidth(CCoord width);
 
 protected:
   CControl *splashView = nullptr;
   std::string label;
 
-  CFontRef fontID = nullptr;
-  double fontSize = 18.0;
-  CColor fontColor = CColor(0, 0, 0, 255);
+  CCoord fontSize = 18.0;
+  CFontRef fontId = nullptr;
+  Uhhyou::Palette &pal;
 
-  CColor frameColor = CColor(0, 0, 0, 255);
-  CColor highlightColor = CColor(0, 0, 0, 255);
-  float frameWidth = 1.0f;
-  float highlightFrameWidth = 2.0f;
+  CCoord frameWidth = 2.0f;
+  CCoord highlightFrameWidth = 2.0f;
 
   bool isMouseEntered = false;
 };

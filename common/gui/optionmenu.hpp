@@ -42,14 +42,10 @@ public:
 
   void setDefaultFrameColor(CColor color);
   void setHighlightColor(CColor color);
-  void setDefaultFrameWidth(float width);
-  void setHighlightWidth(float width);
 
 protected:
   CColor frameColor = CColor(0xee, 0xee, 0xee, 255);
   CColor highlightColor = CColor(0, 0, 0, 255);
-  float frameWidth = 1.0f;
-  float highlightFrameWidth = 2.0f;
 };
 
 } // namespace VSTGUI

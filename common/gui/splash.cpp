@@ -16,7 +16,6 @@
 // along with Uhhyou Plugins.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "splash.hpp"
-#include "guistyle.hpp"
 
 namespace Steinberg {
 namespace Vst {
@@ -32,6 +31,20 @@ CMouseEventResult CreditView::onMouseDown(CPoint &where, const CButtonState &but
   return kMouseEventNotHandled;
 }
 
+CMouseEventResult CreditView::onMouseEntered(CPoint &where, const CButtonState &buttons)
+{
+  isMouseEntered = true;
+  invalid();
+  return kMouseEventHandled;
+}
+
+CMouseEventResult CreditView::onMouseExited(CPoint &where, const CButtonState &buttons)
+{
+  isMouseEntered = false;
+  invalid();
+  return kMouseEventHandled;
+}
+
 void SplashLabel::draw(CDrawContext *pContext)
 {
   pContext->setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));
@@ -41,19 +54,20 @@ void SplashLabel::draw(CDrawContext *pContext)
   const auto width = getWidth();
   const auto height = getHeight();
 
-  pContext->setFont(fontID);
-  pContext->setFontColor(fontColor);
-  pContext->drawString(label.c_str(), CRect(0.0, 0.0, width, height), kCenterText, true);
-
   const double borderWidth = isMouseEntered ? highlightFrameWidth : frameWidth;
   const double halfBorderWidth = int(borderWidth / 2.0);
-  pContext->setFrameColor(isMouseEntered ? highlightColor : frameColor);
+  pContext->setFillColor(pal.boxBackground());
+  pContext->setFrameColor(isMouseEntered ? pal.highlightButton() : pal.border());
   pContext->setLineWidth(borderWidth);
   pContext->drawRect(
     CRect(
       halfBorderWidth, halfBorderWidth, width - halfBorderWidth,
       height - halfBorderWidth),
-    kDrawStroked);
+    kDrawFilledAndStroked);
+
+  pContext->setFont(fontId);
+  pContext->setFontColor(pal.foreground());
+  pContext->drawString(label.c_str(), CRect(0.0, 0.0, width, height), kCenterText, true);
 
   setDirty(false);
 }
@@ -84,10 +98,8 @@ CMouseEventResult SplashLabel::onMouseCancel()
   return kMouseEventHandled;
 }
 
-void SplashLabel::setDefaultFrameColor(CColor color) { frameColor = color; }
-void SplashLabel::setHighlightColor(CColor color) { highlightColor = color; }
-void SplashLabel::setDefaultFrameWidth(float width) { frameWidth = width; }
-void SplashLabel::setHighlightWidth(float width) { highlightFrameWidth = width; }
+void SplashLabel::setDefaultFrameWidth(CCoord width) { frameWidth = width; }
+void SplashLabel::setHighlightWidth(CCoord width) { highlightFrameWidth = width; }
 
 } // namespace Vst
 } // namespace Steinberg

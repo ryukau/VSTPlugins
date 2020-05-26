@@ -19,23 +19,77 @@
 
 #include "vstgui/vstgui.h"
 
-#include "guistyle.hpp"
+#include "style.hpp"
 
 #include <string>
 
 namespace VSTGUI {
 
+class Label : public CControl {
+public:
+  Label(
+    const CRect &size,
+    IControlListener *listener,
+    std::string label,
+    CFontRef fontId,
+    Uhhyou::Palette &palette,
+    CHoriTxtAlign align = kCenterText)
+    : CControl(size, listener), label(label), fontId(fontId), pal(palette), align(align)
+  {
+    fontId->remember();
+  }
+
+  virtual ~Label()
+  {
+    if (fontId) fontId->forget();
+  }
+
+  CLASS_METHODS(Label, CControl);
+
+  void draw(CDrawContext *pContext) override
+  {
+    pContext->setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));
+    CDrawContext::Transform t(
+      *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
+
+    // Text.
+    pContext->setFont(fontId);
+    pContext->setFontColor(pal.foreground());
+    const auto textWidth = pContext->getStringWidth(label.c_str());
+    pContext->drawString(
+      label.c_str(), CRect(0, 0, getWidth(), getHeight()), align, true);
+
+    setDirty(false);
+  }
+
+protected:
+  std::string label;
+
+  CFontRef fontId = nullptr;
+  Uhhyou::Palette &pal;
+
+  CHoriTxtAlign align = kCenterText;
+};
+
 class GroupLabel : public CControl {
 public:
-  GroupLabel(const CRect &size, IControlListener *listener, std::string text)
-    : CControl(size, listener), text(text)
+  GroupLabel(
+    const CRect &size,
+    IControlListener *listener,
+    std::string label,
+    CFontRef fontId,
+    Uhhyou::Palette &palette)
+    : CControl(size, listener), label(label), fontId(fontId), pal(palette)
   {
+    fontId->remember();
   }
 
   virtual ~GroupLabel()
   {
-    if (fontID) fontID->forget();
+    if (fontId) fontId->forget();
   }
+
+  CLASS_METHODS(GroupLabel, CControl);
 
   void draw(CDrawContext *pContext) override
   {
@@ -47,19 +101,19 @@ public:
     const auto height = getHeight();
 
     // Background.
-    pContext->setFillColor(backgroundColor);
+    pContext->setFillColor(pal.background());
     pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilled);
 
     // Text.
-    pContext->setFont(fontID);
-    pContext->setFontColor(foregroundColor);
-    const auto textWidth = pContext->getStringWidth(text.c_str());
+    pContext->setFont(fontId);
+    pContext->setFontColor(pal.foreground());
+    const auto textWidth = pContext->getStringWidth(label.c_str());
     const auto textLeft = (width - textWidth) * 0.5;
     const auto textRight = (width + textWidth) * 0.5;
-    pContext->drawString(text.c_str(), CRect(textLeft, 0, textRight, height));
+    pContext->drawString(label.c_str(), CRect(textLeft, 0, textRight, height));
 
     // Border.
-    pContext->setFrameColor(foregroundColor);
+    pContext->setFrameColor(pal.border());
     pContext->setLineWidth(lineWidth);
     pContext->drawLine(
       CPoint(0.0, height * 0.5), CPoint(textLeft - margin, height * 0.5));
@@ -69,33 +123,29 @@ public:
     setDirty(false);
   }
 
-  CLASS_METHODS(GroupLabel, CControl);
-
-  void setForegroundColor(CColor color) { foregroundColor = color; }
-  void setBackgroundColor(CColor color) { backgroundColor = color; }
-  void setText(std::string text) { this->text = text; }
-  void setFont(CFontRef fontID) { this->fontID = fontID; }
-
 protected:
-  CColor foregroundColor = CColor(0, 0, 0, 255);
-  CColor testColor = CColor(0, 255, 0, 255);
-  CColor backgroundColor = CColor(255, 255, 255, 255);
+  std::string label;
 
-  double fontSize = 14.0;
-  std::string text;
-  CFontRef fontID = nullptr;
+  CFontRef fontId = nullptr;
+  Uhhyou::Palette &pal;
 
   double lineWidth = 2.0;
   double margin = 10.0;
-  const CLineStyle lineStyle{CLineStyle::kLineCapRound, CLineStyle::kLineJoinRound};
 };
 
 class VGroupLabel : public GroupLabel {
 public:
-  VGroupLabel(const CRect &size, IControlListener *listener, UTF8StringPtr text)
-    : GroupLabel(size, listener, text)
+  VGroupLabel(
+    const CRect &size,
+    IControlListener *listener,
+    std::string label,
+    CFontRef fontId,
+    Uhhyou::Palette &palette)
+    : GroupLabel(size, listener, label, fontId, palette)
   {
   }
+
+  CLASS_METHODS(VGroupLabel, CControl);
 
   void draw(CDrawContext *pContext) override
   {
@@ -108,21 +158,19 @@ public:
       *pContext, CGraphicsTransform().rotate(90).translate(getViewSize().getTopRight()));
 
     // Background.
-    pContext->setFillColor(testColor);
+    pContext->setFillColor(pal.boxBackground()); // This color is set for debug.
     pContext->drawRect(CRect(0.0, 0.0, height, width), kDrawFilled);
 
     // Text.
-    pContext->setFont(fontID);
-    pContext->setFontColor(foregroundColor);
-    const auto textWidth = pContext->getStringWidth(text.c_str());
+    pContext->setFont(fontId);
+    pContext->setFontColor(pal.foreground());
+    const auto textWidth = pContext->getStringWidth(label.c_str());
     const auto textLeft = (height - textWidth) * 0.5;
     const auto textRight = (height + textWidth) * 0.5;
-    pContext->drawString(text.c_str(), CRect(textLeft, 0, textRight, width));
+    pContext->drawString(label.c_str(), CRect(textLeft, 0, textRight, width));
 
     setDirty(false);
   }
-
-  CLASS_METHODS(VGroupLabel, CControl);
 };
 
 } // namespace VSTGUI

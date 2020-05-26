@@ -19,6 +19,8 @@
 
 #include "vstgui/vstgui.h"
 
+#include "style.hpp"
+
 #include <sstream>
 #include <string>
 #include <vector>
@@ -27,13 +29,13 @@ namespace VSTGUI {
 
 class TextView : public CControl {
 public:
-  CColor textColor{0, 0, 0};
   CCoord lineHeight = 20.0;
 
-  TextView(const CRect &size, std::string content, CFontRef fontID)
-    : CControl(size, nullptr, -1), fontID(fontID)
+  TextView(
+    const CRect &size, std::string content, CFontRef fontId, Uhhyou::Palette &palette)
+    : CControl(size, nullptr, -1), fontId(fontId), pal(palette)
   {
-    this->fontID->remember();
+    this->fontId->remember();
 
     std::stringstream ss(content);
     std::string line;
@@ -47,7 +49,7 @@ public:
 
   ~TextView()
   {
-    if (fontID != nullptr) fontID->forget();
+    if (fontId != nullptr) fontId->forget();
   }
 
   void draw(CDrawContext *pContext) override
@@ -57,8 +59,8 @@ public:
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
     // Text.
-    pContext->setFont(fontID);
-    pContext->setFontColor(textColor);
+    pContext->setFont(fontId);
+    pContext->setFontColor(pal.foreground());
     for (size_t idx = 0; idx < str.size(); ++idx) {
       pContext->drawString(
         str[idx].c_str(), CRect(0, idx * lineHeight, getWidth(), (idx + 1) * lineHeight),
@@ -76,7 +78,8 @@ public:
 
 protected:
   std::vector<std::string> str;
-  CFontRef fontID = nullptr;
+  CFontRef fontId = nullptr;
+  Uhhyou::Palette &pal;
 
   bool isMouseEntered = false;
 };
@@ -86,14 +89,18 @@ public:
   const char rowDelimiter = '\n';
   const char colDelimiter = '|';
 
-  CColor textColor{0, 0, 0};
   CCoord cellWidth = 100.0;
   CCoord lineHeight = 20.0;
 
-  TextTableView(const CRect &size, std::string content, CCoord cellWidth, CFontRef fontID)
-    : CControl(size, nullptr, -1), cellWidth(cellWidth), fontID(fontID)
+  TextTableView(
+    const CRect &size,
+    std::string content,
+    CCoord cellWidth,
+    CFontRef fontId,
+    Uhhyou::Palette &palette)
+    : CControl(size, nullptr, -1), cellWidth(cellWidth), fontId(fontId), pal(palette)
   {
-    this->fontID->remember();
+    this->fontId->remember();
 
     std::stringstream ssContent(content);
     std::string line;
@@ -112,7 +119,7 @@ public:
 
   ~TextTableView()
   {
-    if (fontID != nullptr) fontID->forget();
+    if (fontId != nullptr) fontId->forget();
   }
 
   void draw(CDrawContext *pContext) override
@@ -122,8 +129,8 @@ public:
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
     // Text.
-    pContext->setFont(fontID);
-    pContext->setFontColor(textColor);
+    pContext->setFont(fontId);
+    pContext->setFontColor(pal.foreground());
     for (size_t row = 0; row < table.size(); ++row) {
       for (size_t col = 0; col < table[row].size(); ++col) {
         const CCoord left = col * cellWidth;
@@ -144,7 +151,8 @@ public:
 
 protected:
   std::vector<std::vector<std::string>> table;
-  CFontRef fontID = nullptr;
+  CFontRef fontId = nullptr;
+  Uhhyou::Palette &pal;
 
   bool isMouseEntered = false;
 };

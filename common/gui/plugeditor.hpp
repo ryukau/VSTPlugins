@@ -23,13 +23,13 @@
 
 #include "../parameterInterface.hpp"
 #include "arraycontrol.hpp"
+#include "style.hpp"
 
 #include "barbox.hpp"
 #include "button.hpp"
 #include "checkbox.hpp"
-#include "grouplabel.hpp"
-#include "guistyle.hpp"
 #include "knob.hpp"
+#include "label.hpp"
 #include "optionmenu.hpp"
 #include "rotaryknob.hpp"
 #include "slider.hpp"
@@ -67,18 +67,6 @@ public:
 
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
-  void addSplashScreen(
-    float buttonLeft,
-    float buttonTop,
-    float buttonWidth,
-    float buttonHeight,
-    float splashLeft,
-    float splashTop,
-    float splashWidth,
-    float splashHeight,
-    const char *pluginName,
-    float buttonFontSize = 18.0);
-
   template<typename Scale>
   BarBox<Scale> *addBarBox(
     CCoord left,
@@ -86,11 +74,11 @@ public:
     CCoord width,
     CCoord height,
     ParamID id0,
-    size_t nBar,
+    size_t nElement,
     Scale &scale,
     std::string name)
   {
-    std::vector<ParamID> id(nBar);
+    std::vector<ParamID> id(nElement);
     for (size_t i = 0; i < id.size(); ++i) id[i] = id0 + ParamID(i);
     std::vector<double> value(id.size());
     for (size_t i = 0; i < value.size(); ++i)
@@ -100,13 +88,10 @@ public:
       defaultValue[i] = param->getDefaultNormalized(id[i]);
 
     auto barBox = new BarBox<Scale>(
-      this, CRect(left, top, left + width, top + height), id, value, defaultValue);
-    barBox->setIndexFont(
-      new CFontDesc(PlugEditorStyle::fontName(), 10.0, CTxtFace::kBoldFace));
-    barBox->setNameFont(
-      new CFontDesc(PlugEditorStyle::fontName(), 24.0, CTxtFace::kNormalFace));
-    barBox->setBorderColor(colorBlack);
-    barBox->setValueColor(colorBlue);
+      this, CRect(left, top, left + width, top + height), id, value, defaultValue,
+      palette);
+    barBox->setIndexFont(new CFontDesc(Uhhyou::Font::name(), 10.0, CTxtFace::kBoldFace));
+    barBox->setNameFont(new CFontDesc(Uhhyou::Font::name(), 24.0, CTxtFace::kNormalFace));
     barBox->setName(name);
     frame->addView(barBox);
 
@@ -122,56 +107,127 @@ public:
     return barBox;
   }
 
-  CTextLabel *addLabel(
-    CCoord left, CCoord top, CCoord width, UTF8String name, CFontDesc *font = nullptr);
-
-  GroupLabel *addGroupLabel(CCoord left, CCoord top, CCoord width, std::string name);
-
-  VGroupLabel *
-  addGroupVerticalLabel(CCoord left, CCoord top, CCoord width, std::string name);
-
-  std::tuple<Slider *, CTextLabel *> addVSlider(
-    CCoord left,
-    CCoord top,
-    CColor valueColor,
-    UTF8String name,
-    ParamID tag,
-    UTF8StringPtr tooltip = "",
-    bool drawFromCenter = false);
-
-  TextButton *addButton(
+  template<Uhhyou::Style style = Uhhyou::Style::common>
+  auto addKickButton(
     CCoord left,
     CCoord top,
     CCoord width,
-    UTF8String title,
-    ParamID tag,
-    int32_t style = CTextButton::kKickStyle);
+    CCoord height,
+    CCoord textSize,
+    std::string name,
+    ParamID tag)
+  {
+    auto button = new KickButton<style>(
+      CRect(left, top, left + width, top + height), this, tag, name,
+      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette);
+    button->setValueNormalized(controller->getParamNormalized(tag));
+    frame->addView(button);
+    addToControlMap(tag, button);
+    return button;
+  }
+
+  template<Uhhyou::Style style = Uhhyou::Style::common>
+  auto addToggleButton(
+    CCoord left,
+    CCoord top,
+    CCoord width,
+    CCoord height,
+    CCoord textSize,
+    std::string name,
+    ParamID tag)
+  {
+    auto button = new ToggleButton<style>(
+      CRect(left, top, left + width, top + height), this, tag, name,
+      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette);
+    button->setValueNormalized(controller->getParamNormalized(tag));
+    frame->addView(button);
+    addToControlMap(tag, button);
+    return button;
+  }
 
   MessageButton *addStateButton(
     CCoord left,
     CCoord top,
     CCoord width,
-    std::string title,
+    CCoord height,
+    CCoord textSize,
+    std::string name,
     std::string message,
-    std::string attribute);
+    std::string attribute)
+  {
+    auto button = new MessageButton(
+      controller, CRect(left, top, left + width, top + height), name, message,
+      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette);
+    frame->addView(button);
+    return button;
+  }
 
-  KickButton *
-  addKickButton(CCoord left, CCoord top, CCoord width, std::string title, ParamID tag);
-
-  CheckBox *addCheckbox(
+  template<Uhhyou::Style style = Uhhyou::Style::common>
+  auto addCheckbox(
     CCoord left,
     CCoord top,
     CCoord width,
-    UTF8String title,
-    ParamID tag,
-    int32_t style = CCheckBox::Styles::kAutoSizeToFit);
+    CCoord height,
+    CCoord textSize,
+    std::string name,
+    ParamID tag)
+  {
+    auto checkbox = new CheckBox<style>(
+      CRect(left, top, left + width, top + height), this, tag, name,
+      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette);
+    checkbox->setTextSize(textSize);
+    checkbox->setValueNormalized(controller->getParamNormalized(tag));
+    frame->addView(checkbox);
+    addToControlMap(tag, checkbox);
+    return checkbox;
+  }
 
-  OptionMenu *addOptionMenu(
+  auto addLabel(
     CCoord left,
     CCoord top,
     CCoord width,
-    ParamID tag,
-    const std::vector<UTF8String> &items);
+    CCoord height,
+    CCoord textSize,
+    std::string name,
+    CHoriTxtAlign align = CHoriTxtAlign::kCenterText)
+  {
+    auto label = new Label(
+      CRect(left, top, left + width, top + height), this, name,
+      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette,
+      align);
+    frame->addView(label);
+    return label;
+  }
+
+  GroupLabel *addGroupLabel(
+    CCoord left, CCoord top, CCoord width, float height, float textSize, std::string name)
+  {
+    auto label = new GroupLabel(
+      CRect(left, top, left + width, top + height), this, name,
+      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kBoldFace), palette);
+    frame->addView(label);
+    return label;
+  }
+
+  VGroupLabel *addGroupVerticalLabel(
+    CCoord left,
+    CCoord top,
+    CCoord width,
+    CCoord height,
+    CCoord textSize,
+    std::string name)
+  {
+    return nullptr;
+
+    // VSTGUI 4.9 can't draw roteted text.
+    /*
+    auto label = new VGroupLabel(
+      CRect(left, top, left + height, top + width), this, name);
+    label->setFont(new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kBoldFace));
+    frame->addView(label);
+    return label;
+    */
+  };
 
   enum class LabelPosition {
     top,
@@ -180,82 +236,147 @@ public:
     right,
   };
 
-  std::tuple<Knob *, CTextLabel *> addKnob(
+  template<Uhhyou::Style style = Uhhyou::Style::common>
+  auto addKnob(
     CCoord left,
     CCoord top,
     CCoord width,
-    CColor highlightColor,
-    UTF8String name,
+    CCoord margin,
+    CCoord textSize,
+    std::string name,
     ParamID tag,
-    LabelPosition labelPosition = LabelPosition::bottom);
-
-  std::tuple<RotaryKnob *, CTextLabel *> addRotaryKnob(
-    CCoord left,
-    CCoord top,
-    CCoord width,
-    CColor highlightColor,
-    UTF8String name,
-    ParamID tag,
-    LabelPosition labelPosition = LabelPosition::bottom);
-
-  template<typename Scale>
-  std::tuple<NumberKnob<Scale> *, CTextLabel *> addNumberKnob(
-    CCoord left,
-    CCoord top,
-    CCoord width,
-    CColor highlightColor,
-    UTF8String name,
-    ParamID tag,
-    Scale &scale,
-    int32_t offset,
-    LabelPosition labelPosition = LabelPosition::bottom)
+    LabelPosition labelPosition = LabelPosition::bottom,
+    CCoord labelMargin = 10)
   {
-    auto bottom = top + width - 10.0;
-    auto right = left + width;
+    auto height = width;
 
-    auto knob = new NumberKnob<Scale>(
-      CRect(left + 5.0, top, right - 5.0, bottom), this, tag, scale, offset);
-    knob->setFont(
-      new CFontDesc(PlugEditorStyle::fontName(), fontSize, CTxtFace::kNormalFace));
+    auto knob = new Knob<style>(
+      CRect(left, top + margin, left + width, top + width - margin), this, tag, palette);
     knob->setSlitWidth(8.0);
-    knob->setHighlightColor(highlightColor);
     knob->setValueNormalized(controller->getParamNormalized(tag));
     knob->setDefaultValue(param->getDefaultNormalized(tag));
     frame->addView(knob);
     addToControlMap(tag, knob);
 
-    auto label = addKnobLabel(left, top, right, bottom, name, labelPosition);
+    auto label = addKnobLabel(
+      left, top, width, height, labelMargin, textSize, name, labelPosition);
     return std::make_tuple(knob, label);
   }
 
-  CTextLabel *addKnobLabel(
-    CCoord left,
-    CCoord top,
-    CCoord right,
-    CCoord bottom,
-    UTF8String name,
-    LabelPosition labelPosition);
-
-  template<typename Scale>
-  TextKnob<Scale> *addTextKnob(
+  template<Uhhyou::Style style = Uhhyou::Style::common, typename Scale>
+  auto addNumberKnob(
     CCoord left,
     CCoord top,
     CCoord width,
-    CColor highlightColor,
+    CCoord margin,
+    CCoord textSize,
+    std::string name,
+    ParamID tag,
+    Scale &scale,
+    int32_t offset = 0,
+    LabelPosition labelPosition = LabelPosition::bottom,
+    CCoord labelMargin = 10)
+  {
+    auto height = width;
+
+    auto knob = new NumberKnob<Scale, style>(
+      CRect(left, top + margin, left + width, top + width - margin), this, tag,
+      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette,
+      scale, offset);
+    knob->setSlitWidth(8.0);
+    knob->setValueNormalized(controller->getParamNormalized(tag));
+    knob->setDefaultValue(param->getDefaultNormalized(tag));
+    frame->addView(knob);
+    addToControlMap(tag, knob);
+
+    auto label = addKnobLabel(
+      left, top, width, height, labelMargin, textSize, name, labelPosition);
+    return std::make_tuple(knob, label);
+  }
+
+  template<Uhhyou::Style style = Uhhyou::Style::common>
+  auto addRotaryKnob(
+    CCoord left,
+    CCoord top,
+    CCoord width,
+    CCoord margin,
+    CCoord textSize,
+    std::string name,
+    ParamID tag,
+    LabelPosition labelPosition = LabelPosition::bottom,
+    CCoord labelMargin = 10)
+  {
+    auto height = width;
+
+    auto knob = new RotaryKnob<style>(
+      CRect(left + margin, top + margin, left + width - margin, top + width - margin),
+      this, tag, palette);
+    knob->setSlitWidth(8.0);
+    knob->setValueNormalized(controller->getParamNormalized(tag));
+    knob->setDefaultValue(param->getDefaultNormalized(tag));
+    frame->addView(knob);
+    addToControlMap(tag, knob);
+
+    auto label = addKnobLabel(
+      left, top, width, height, labelMargin, textSize, name, labelPosition);
+    return std::make_tuple(knob, label);
+  }
+
+  auto addKnobLabel(
+    CCoord left,
+    CCoord top,
+    CCoord width,
+    CCoord height,
+    CCoord margin,
+    CCoord textSize,
+    std::string name,
+    LabelPosition labelPosition)
+  {
+    CHoriTxtAlign align;
+
+    switch (labelPosition) {
+      default:
+      case LabelPosition::bottom:
+        top = top + height - textSize * 0.25;
+        height = textSize * 1.5;
+        left -= 2 * margin;
+        width += 4 * margin;
+        align = kCenterText;
+        break;
+
+      case LabelPosition::right:
+        height = width;
+        left = left + width + margin;
+        width *= 2.0f;
+        align = kLeftText;
+        break;
+    }
+
+    auto label = new Label(
+      CRect(left, top, left + width, top + height), this, name,
+      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette,
+      align);
+    frame->addView(label);
+    return label;
+  }
+
+  template<Uhhyou::Style style = Uhhyou::Style::common, typename Scale>
+  auto addTextKnob(
+    CCoord left,
+    CCoord top,
+    CCoord width,
+    CCoord height,
+    CCoord textSize,
     ParamID tag,
     Scale &scale,
     bool isDecibel = false,
     uint32_t precision = 0,
     int32_t offset = 0)
   {
-    auto bottom = top + labelHeight;
-    auto right = left + width;
-
-    auto knob
-      = new TextKnob<Scale>(CRect(left, top, right, bottom), this, tag, scale, isDecibel);
-    knob->setFont(
-      new CFontDesc(PlugEditorStyle::fontName(), fontSize, CTxtFace::kNormalFace));
-    knob->setHighlightColor(highlightColor);
+    auto knob = new TextKnob<Scale, style>(
+      CRect(left, top, left + width, top + height), this, tag,
+      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette,
+      scale, isDecibel);
     knob->setValueNormalized(controller->getParamNormalized(tag));
     knob->setDefaultValue(param->getDefaultNormalized(tag));
     knob->setPrecision(precision);
@@ -265,31 +386,164 @@ public:
     return knob;
   }
 
+  template<Uhhyou::Style style = Uhhyou::Style::common>
+  OptionMenu *addOptionMenu(
+    CCoord left,
+    CCoord top,
+    CCoord width,
+    CCoord height,
+    CCoord textSize,
+    ParamID tag,
+    const std::vector<std::string> &items)
+  {
+    auto menu = new OptionMenu(
+      CRect(left, top, left + width, top + height), this, tag, nullptr, nullptr,
+      COptionMenu::kCheckStyle);
+
+    for (const auto &item : items) menu->addEntry(item.c_str());
+    menu->setFont(new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace));
+    menu->setFrameWidth(1.0);
+    menu->setFontColor(palette.foreground());
+    menu->setBackColor(palette.boxBackground());
+    menu->setDefaultFrameColor(palette.border());
+    if constexpr (style == Uhhyou::Style::accent) {
+      menu->setHighlightColor(palette.highlightAccent());
+    } else if (style == Uhhyou::Style::warning) {
+      menu->setHighlightColor(palette.highlightWarning());
+    } else {
+      menu->setHighlightColor(palette.highlightMain());
+    }
+    menu->sizeToFit();
+
+    menu->setValueNormalized(controller->getParamNormalized(tag));
+    frame->addView(menu);
+    addToControlMap(tag, menu);
+    return menu;
+  }
+
+  TabView *addTabView(
+    CCoord left,
+    CCoord top,
+    CCoord width,
+    CCoord height,
+    CCoord textSize,
+    CCoord tabHeight,
+    std::vector<std::string> tabs)
+  {
+    auto tabview = new TabView(
+      tabs, new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette,
+      tabHeight, CRect(left, top, left + width, top + height));
+    frame->addView(tabview);
+    return tabview;
+  }
+
+  void addSplashScreen(
+    CCoord buttonLeft,
+    CCoord buttonTop,
+    CCoord buttonWidth,
+    CCoord buttonHeight,
+    CCoord splashLeft,
+    CCoord splashTop,
+    CCoord splashWidth,
+    CCoord splashHeight,
+    CCoord buttonTextSize,
+    std::string pluginName)
+  {
+    auto credit = new CreditView(
+      CRect(splashLeft, splashTop, splashLeft + splashWidth, splashTop + splashHeight),
+      this, palette);
+    auto splash = new SplashLabel(
+      CRect(buttonLeft, buttonTop, buttonLeft + buttonWidth, buttonTop + buttonHeight),
+      this, 0, credit, pluginName, buttonTextSize, palette);
+    frame->addView(splash);
+    frame->addView(credit);
+  }
+
   TextView *addTextView(
     CCoord left,
     CCoord top,
     CCoord width,
     CCoord height,
-    std::string text,
-    CCoord textSize);
+    CCoord textSize,
+    std::string text)
+  {
+    auto view = new TextView(
+      CRect(left, top, left + width, top + height), text,
+      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette);
+    frame->addView(view);
+    return view;
+  }
 
   TextTableView *addTextTableView(
     CCoord left,
     CCoord top,
     CCoord width,
     CCoord height,
+    CCoord textSize,
     std::string text,
-    float cellWidth,
-    CCoord textSize);
+    CCoord cellWidth)
+  {
+    auto view = new TextTableView(
+      CRect(left, top, left + width, top + height), text, cellWidth,
+      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette);
+    frame->addView(view);
+    return view;
+  }
 
-  TabView *addTabView(
-    float left,
-    float top,
-    float width,
-    float hegiht,
-    float tabHeight,
-    CColor highlightColor,
-    std::vector<std::string> tabs);
+  template<Uhhyou::Style style = Uhhyou::Style::common>
+  auto addVSlider(
+    CCoord left,
+    CCoord top,
+    CCoord width,
+    CCoord height,
+    CCoord margin,
+    CCoord labelHeight,
+    CCoord textSize,
+    std::string name,
+    ParamID tag,
+    bool drawFromCenter = false)
+  {
+    auto right = left + width;
+    auto bottom = top + height;
+
+    auto slider = new Slider(
+      CRect(left, top, right, bottom), this, tag, top, bottom, nullptr, nullptr);
+
+    slider->setSliderMode(CSliderMode::FreeClick);
+    slider->setStyle(CSlider::kBottom | CSlider::kVertical);
+    slider->setDrawStyle(
+      CSlider::kDrawBack | CSlider::kDrawFrame | CSlider::kDrawValue
+      | (drawFromCenter ? CSlider::kDrawValueFromCenter | CSlider::kDrawInverted : 0));
+    slider->setBackColor(palette.boxBackground());
+    slider->setDefaultFrameColor(palette.border());
+    if constexpr (style == Uhhyou::Style::accent) {
+      slider->setValueColor(palette.highlightAccent());
+      slider->setHighlightColor(palette.highlightAccent());
+    } else if (style == Uhhyou::Style::warning) {
+      slider->setValueColor(palette.highlightWarning());
+      slider->setHighlightColor(palette.highlightWarning());
+    } else {
+      slider->setValueColor(palette.highlightMain());
+      slider->setHighlightColor(palette.highlightMain());
+    }
+    slider->setHighlightWidth(3.0);
+
+    slider->setValueNormalized(controller->getParamNormalized(tag));
+    slider->setDefaultValue(param->getDefaultNormalized(tag));
+    frame->addView(slider);
+    addToControlMap(tag, slider);
+
+    top = bottom + margin;
+    bottom = top + labelHeight;
+
+    auto label = new Label(
+      CRect(left, top, right, bottom), this, name,
+      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette,
+      kCenterText);
+    frame->addView(label);
+
+    return std::make_tuple(slider, label);
+  }
 
 protected:
   void addToControlMap(Vst::ParamID id, CControl *control);
@@ -301,45 +555,9 @@ protected:
   std::unordered_map<Vst::ParamID, ArrayControl *> arrayControlMap;
   std::unordered_map<Vst::ParamID, ArrayControl *> arrayControlInstances; // Dirty hack.
 
-  float uiMargin = 20.0f;
-  float uiTextSize = 14.0f;
-  float midTextSize = 16.0f;
-  float pluginNameTextSize = 22.0f;
-  float margin = 5.0f;
-  float labelHeight = 20.0f;
-  float labelY = 30.0f;
-  float knobWidth = 50.0f;
-  float knobHeight = 40.0f;
-  float knobX = 60.0f; // With margin.
-  float knobY = knobHeight + labelY;
-  float textKnobX = knobX;
-  float checkboxWidth = knobX;
-  float sliderWidth = 70.0f;
-  float sliderHeight = 2.0f * (knobHeight + labelY) + 67.5f;
-  float sliderX = 80.0f;
-  float sliderY = sliderHeight + labelY;
-  float barboxWidth = 12.0f * knobX;
-  float barboxHeight = 2.0f * knobY;
-  float barboxY = barboxHeight + 2.0f * margin;
-  float tabViewWidth = 200.0f;
-  float tabViewHeight = 200.0f;
-  float splashHeight = 40.0f;
-  int32 defaultWidth = int32(512);
-  int32 defaultHeight = int32(512);
+  ViewRect viewRect{0, 0, 512, 512};
 
-  ViewRect viewRect{0, 0, defaultWidth, defaultHeight};
-
-  CCoord fontSize = 12.0;
-
-  CCoord frameWidth = 2.0;
-
-  CColor colorBlack{0, 0, 0, 255};
-  CColor colorWhite{255, 255, 255, 255};
-  CColor colorBlue{11, 164, 241, 255};
-  CColor colorOrange{252, 192, 79, 255};
-  CColor colorRed{252, 128, 128, 255};
-  CColor colorGreen{19, 193, 54, 255};
-  CColor colorFaintGray{237, 237, 237, 255};
+  Uhhyou::Palette palette;
 };
 
 } // namespace Vst

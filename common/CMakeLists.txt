@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
 project(UhhyouCommon)
 
 add_library(UhhyouCommon OBJECT
-  gui/button.cpp
-  gui/checkbox.cpp
-  gui/knob.cpp
+  gui/style.cpp
   gui/optionmenu.cpp
-  gui/rotaryknob.cpp
   gui/slider.cpp
   gui/splash.cpp
   gui/tabview.cpp
