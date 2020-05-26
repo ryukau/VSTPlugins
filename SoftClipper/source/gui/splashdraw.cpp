@@ -35,17 +35,16 @@ void CreditView::draw(CDrawContext *pContext)
   const double halfBorderWidth = borderWidth / 2.0;
 
   // Background.
-  const auto bgColor = CColor(255, 255, 255, 255);
   pContext->setLineWidth(borderWidth);
-  pContext->setFillColor(bgColor);
+  pContext->setFillColor(pal.background());
   pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilled);
 
-  pContext->setFont(fontIDTitle);
-  pContext->setFontColor(CColor(0, 0, 0, 255));
+  pContext->setFont(fontIdTitle);
+  pContext->setFontColor(pal.foreground());
   pContext->drawString("SoftClipper " VERSION_STR, CPoint(20.0, 20.0));
 
-  pContext->setFont(fontIDText);
-  pContext->setFontColor(CColor(0, 0, 0, 255));
+  pContext->setFont(fontIdText);
+  pContext->setFontColor(pal.foreground());
   pContext->drawString("© 2020 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0, 40.0));
 
   pContext->drawString("- Shift + Left Drag: Fine Adjustment", CPoint(20.0f, 65.0f));
@@ -54,8 +53,7 @@ void CreditView::draw(CDrawContext *pContext)
   pContext->drawString("Have a nice day!", CPoint(372.0f, 85.0f));
 
   // Border.
-  const auto borderColor = CColor(0, 0, 0, 255);
-  pContext->setFrameColor(borderColor);
+  pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());
   pContext->drawRect(
     CRect(
       halfBorderWidth, halfBorderWidth, width - halfBorderWidth,
