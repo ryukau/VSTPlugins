@@ -236,6 +236,44 @@ public:
     right,
   };
 
+  auto addKnobLabel(
+    CCoord left,
+    CCoord top,
+    CCoord width,
+    CCoord height,
+    CCoord margin,
+    CCoord textSize,
+    std::string name,
+    LabelPosition labelPosition)
+  {
+    CHoriTxtAlign align;
+
+    switch (labelPosition) {
+      default:
+      case LabelPosition::bottom:
+        top = top + height - textSize * 0.25;
+        height = textSize * 1.5;
+        left -= 2 * margin;
+        width += 4 * margin;
+        align = kCenterText;
+        break;
+
+      case LabelPosition::right:
+        height = width;
+        left = left + width + margin;
+        width *= 2.0f;
+        align = kLeftText;
+        break;
+    }
+
+    auto label = new Label(
+      CRect(left, top, left + width, top + height), this, name,
+      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette,
+      align);
+    frame->addView(label);
+    return label;
+  }
+
   template<Uhhyou::Style style = Uhhyou::Style::common>
   auto addKnob(
     CCoord left,
@@ -320,44 +358,6 @@ public:
     auto label = addKnobLabel(
       left, top, width, height, labelMargin, textSize, name, labelPosition);
     return std::make_tuple(knob, label);
-  }
-
-  auto addKnobLabel(
-    CCoord left,
-    CCoord top,
-    CCoord width,
-    CCoord height,
-    CCoord margin,
-    CCoord textSize,
-    std::string name,
-    LabelPosition labelPosition)
-  {
-    CHoriTxtAlign align;
-
-    switch (labelPosition) {
-      default:
-      case LabelPosition::bottom:
-        top = top + height - textSize * 0.25;
-        height = textSize * 1.5;
-        left -= 2 * margin;
-        width += 4 * margin;
-        align = kCenterText;
-        break;
-
-      case LabelPosition::right:
-        height = width;
-        left = left + width + margin;
-        width *= 2.0f;
-        align = kLeftText;
-        break;
-    }
-
-    auto label = new Label(
-      CRect(left, top, left + width, top + height), this, name,
-      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette,
-      align);
-    frame->addView(label);
-    return label;
   }
 
   template<Uhhyou::Style style = Uhhyou::Style::common, typename Scale>
