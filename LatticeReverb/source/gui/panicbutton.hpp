@@ -21,6 +21,7 @@
 #include "vstgui/vstgui.h"
 
 #include "../../../common/gui/plugeditor.hpp"
+#include "../../../common/gui/style.hpp"
 #include "../parameter.hpp"
 
 #include <string>
@@ -36,17 +37,22 @@ public:
     IControlListener *listener,
     int32_t tag,
     std::string label,
-    CFontRef fontID,
+    CFontRef fontId,
+    Uhhyou::Palette &palette,
     Steinberg::Vst::PlugEditor *editor)
-    : CControl(size, listener, tag), label(label), fontID(fontID), editor(editor)
+    : CControl(size, listener, tag)
+    , label(label)
+    , fontId(fontId)
+    , pal(palette)
+    , editor(editor)
   {
-    this->fontID->remember();
+    this->fontId->remember();
     if (editor) editor->remember();
   }
 
   ~PanicButton()
   {
-    if (fontID) fontID->forget();
+    if (fontId) fontId->forget();
     if (editor) editor->forget();
   }
 
@@ -57,14 +63,15 @@ public:
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
     // Border.
-    pContext->setFillColor(isPressed ? colorFocus : colorBack);
-    pContext->setFrameColor(isMouseEntered && !isPressed ? colorFocus : colorFore);
+    pContext->setFillColor(isPressed ? pal.highlightButton() : pal.boxBackground());
+    pContext->setFrameColor(
+      isMouseEntered && !isPressed ? pal.highlightButton() : pal.foreground());
     pContext->setLineWidth(isMouseEntered ? 2 * borderWidth : borderWidth);
     pContext->drawRect(CRect(0, 0, getWidth(), getHeight()), kDrawFilledAndStroked);
 
     // Text
-    pContext->setFont(fontID);
-    pContext->setFontColor(colorFore);
+    pContext->setFont(fontId);
+    pContext->setFontColor(pal.foreground());
     pContext->drawString(
       label.c_str(), CRect(0, 0, getWidth(), getHeight()), kCenterText);
   }
@@ -130,9 +137,6 @@ public:
     return kMouseEventHandled;
   }
 
-  void setHighlightColor(CColor color) { colorFocus = color; }
-  void setForegroundColor(CColor color) { colorFore = color; }
-  void setBackgroundColor(CColor color) { colorBack = color; }
   void setBorderWidth(CCoord width) { borderWidth = width < 0 ? 0 : width; }
 
   CLASS_METHODS(PanicButton, CControl);
@@ -144,7 +148,8 @@ protected:
   CColor colorBack{0xff, 0xff, 0xff};
   CColor colorFocus{0x33, 0xee, 0xee};
 
-  CFontRef fontID = nullptr;
+  CFontRef fontId = nullptr;
+  Uhhyou::Palette &pal;
 
   CCoord borderWidth = 1.0;
 

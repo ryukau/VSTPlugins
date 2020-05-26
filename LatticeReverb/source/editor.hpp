@@ -32,8 +32,6 @@ public:
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
 protected:
-  float leftPanelWidth = 200.0f;
-
   bool prepareUI() override;
 };
 

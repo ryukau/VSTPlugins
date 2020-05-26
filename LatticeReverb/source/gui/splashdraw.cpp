@@ -37,14 +37,12 @@ void CreditView::draw(CDrawContext *pContext)
   const double halfBorderWidth = borderWidth / 2.0;
 
   // Background.
-  const auto bgColor = CColor(255, 255, 255, 255);
   pContext->setLineWidth(borderWidth);
-  pContext->setFillColor(bgColor);
+  pContext->setFillColor(pal.background());
   pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilled);
 
   // Border.
-  const auto borderColor = CColor(0, 0, 0, 255);
-  pContext->setFrameColor(borderColor);
+  pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());
   pContext->drawRect(
     CRect(
       halfBorderWidth, halfBorderWidth, width - halfBorderWidth,
@@ -52,12 +50,12 @@ void CreditView::draw(CDrawContext *pContext)
     kDrawStroked);
 
   // Text.
-  pContext->setFont(fontIDTitle);
-  pContext->setFontColor(CColor(0, 0, 0, 255));
+  pContext->setFont(fontIdTitle);
+  pContext->setFontColor(pal.foreground());
   TEXT(20.0, 50.0, "LatticeReverb " VERSION_STR);
 
-  pContext->setFont(fontIDText);
-  pContext->setFontColor(CColor(0, 0, 0, 255));
+  pContext->setFont(fontIdText);
+  pContext->setFontColor(pal.foreground());
   TEXT(20.0f, 90.0f, "© 2020 Takamitsu Endo (ryukau@gmail.com)");
 
   TEXT(20.0f, 140.0f, "- Knob -");
