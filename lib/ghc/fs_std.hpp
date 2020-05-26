@@ -30,26 +30,27 @@
 //              namespace fs.
 //---------------------------------------------------------------------------------------
 #ifndef GHC_FILESYSTEM_STD_H
-  #if defined(__cplusplus) && __cplusplus >= 201703L && defined(__has_include)
-    #if __has_include(<filesystem>)
-      #define GHC_USE_STD_FS
-      #include <filesystem>
+#if defined(__cplusplus) && __cplusplus >= 201703L && defined(__has_include)             \
+  && !defined(__APPLE__)
+#if __has_include(<filesystem>)
+#define GHC_USE_STD_FS
+#include <filesystem>
 namespace fs {
 using namespace std::filesystem;
 using ifstream = std::ifstream;
 using ofstream = std::ofstream;
 using fstream = std::fstream;
 } // namespace fs
-    #endif
-  #endif
-  #ifndef GHC_USE_STD_FS
-    #define GHC_WIN_WSTRING_STRING_TYPE
-    #include "filesystem.hpp"
+#endif
+#endif
+#ifndef GHC_USE_STD_FS
+#define GHC_WIN_WSTRING_STRING_TYPE
+#include "filesystem.hpp"
 namespace fs {
 using namespace ghc::filesystem;
 using ifstream = ghc::filesystem::ifstream;
 using ofstream = ghc::filesystem::ofstream;
 using fstream = ghc::filesystem::fstream;
 } // namespace fs
-  #endif
+#endif
 #endif // GHC_FILESYSTEM_STD_H
