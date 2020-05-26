@@ -21,7 +21,20 @@
 #include <algorithm>
 #include <sstream>
 
-enum tabIndex { tabMain, tabPadSynth, tabInfo };
+constexpr float uiTextSize = 12.0f;
+constexpr float midTextSize = 12.0f;
+constexpr float pluginNameTextSize = 14.0f;
+constexpr float margin = 5.0f;
+constexpr float labelHeight = 20.0f;
+constexpr float labelY = 30.0f;
+constexpr float knobWidth = 50.0f;
+constexpr float knobHeight = 40.0f;
+constexpr float knobX = 60.0f; // With margin.
+constexpr float knobY = knobHeight + labelY;
+constexpr float checkboxWidth = 60.0f;
+constexpr float splashHeight = 20.0f;
+constexpr uint32_t defaultWidth = uint32_t(5 * knobX + 30);
+constexpr uint32_t defaultHeight = uint32_t(30 + knobX + labelY + 3 * margin);
 
 namespace Steinberg {
 namespace Vst {
@@ -32,22 +45,7 @@ Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
 
-  uiTextSize = 14.0f;
-  midTextSize = 16.0f;
-  pluginNameTextSize = 18.0f;
-  margin = 5.0f;
-  labelHeight = 20.0f;
-  labelY = 30.0f;
-  knobWidth = 50.0f;
-  knobHeight = 40.0f;
-  knobX = 60.0f; // With margin.
-  knobY = knobHeight + labelY;
-  checkboxWidth = 60.0f;
-  splashHeight = 20.0f;
-  defaultWidth = int32(5 * knobX + 30);
-  defaultHeight = int32(30 + knobX + labelY + 3 * margin);
-  viewRect = ViewRect{0, 0, defaultWidth, defaultHeight};
-
+  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
@@ -55,32 +53,37 @@ bool Editor::prepareUI()
 {
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
+  using Style = Uhhyou::Style;
 
   const auto top0 = 15.0f;
   const auto left0 = 15.0f;
 
-  addKnob(left0 + 0 * knobX, top0, knobX, colorBlue, "Drive", ID::drive);
-  addKnob(left0 + 1 * knobX, top0, knobX, colorBlue, "Boost", ID::boost);
-  addKnob(left0 + 2 * knobX, top0, knobX, colorBlue, "Output", ID::outputGain);
+  addKnob(left0 + 0 * knobX, top0, knobX, margin, uiTextSize, "Drive", ID::drive);
+  addKnob(left0 + 1 * knobX, top0, knobX, margin, uiTextSize, "Boost", ID::boost);
+  addKnob(left0 + 2 * knobX, top0, knobX, margin, uiTextSize, "Output", ID::outputGain);
 
   const auto top1 = top0 + knobY + 3 * margin;
-  addLabel(left0, top1, knobX, "Order");
+  addLabel(left0, top1, knobX, labelHeight, uiTextSize, "Order");
   addTextKnob(
-    left0 + knobX, top1, knobX, colorBlue, ID::order, Scales::order, false, 0, 1);
+    left0 + knobX, top1, knobX, labelHeight, uiTextSize, ID::order, Scales::order, false,
+    0, 1);
 
   const auto checkboxLeft1 = left0 + 3 * knobX + 2 * margin;
   const auto checkboxHeight = labelY - margin;
-  addCheckbox(checkboxLeft1, top0, knobX, "Flip", ID::flip);
-  addCheckbox(checkboxLeft1, top0 + checkboxHeight, knobX, "Inverse", ID::inverse);
+  addCheckbox(checkboxLeft1, top0, knobX, labelHeight, uiTextSize, "Flip", ID::flip);
   addCheckbox(
-    checkboxLeft1, top0 + 2 * checkboxHeight, knobX, "OverSample", ID::oversample);
+    checkboxLeft1, top0 + checkboxHeight, 1.25f * knobX, labelHeight, uiTextSize,
+    "Inverse", ID::inverse);
+  addCheckbox(
+    checkboxLeft1, top0 + 2 * checkboxHeight, 1.5f * knobX, labelHeight, uiTextSize,
+    "OverSample", ID::oversample);
 
   // Plugin name.
   const auto splashTop = defaultHeight - splashHeight - 15.0f;
-  const auto splashLeft = checkboxLeft1 - 6 * margin;
+  const auto splashLeft = checkboxLeft1;
   addSplashScreen(
-    splashLeft, splashTop, 2.0f * knobX + 4 * margin, splashHeight, 15.0f, 15.0f,
-    defaultWidth - 30.0f, defaultHeight - 30.0f, "OddPowShaper", 14.0f);
+    splashLeft, splashTop, 2.0f * knobX - 2 * margin, splashHeight, 15.0f, 15.0f,
+    defaultWidth - 30.0f, defaultHeight - 30.0f, pluginNameTextSize, "OddPowShaper");
 
   return true;
 }
