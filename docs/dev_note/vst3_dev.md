@@ -764,9 +764,8 @@ void WaveView::draw(CDrawContext *pContext)
   const double halfBorderWidth = borderWidth / 2.0;
 
   // Background.
-  const auto bgColor = CColor(255, 255, 255, 255);
   pContext->setLineWidth(borderWidth);
-  pContext->setFillColor(bgColor);
+  pContext->setFillColor(pal.background());
   pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilled);
 
   // Waveform.
@@ -780,8 +779,7 @@ void WaveView::draw(CDrawContext *pContext)
   pContext->drawPolygon(points);
 
   // Always draw border at last. Otherwise, inner object will be drawn over border.
-  const auto borderColor = CColor(0, 0, 0, 255);
-  pContext->setFrameColor(borderColor);
+  pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());
   pContext->drawRect(
     CRect(halfBorderWidth, halfBorderWidth, width, height), kDrawStroked);
 
@@ -1148,9 +1146,8 @@ void WaveView::draw(CDrawContext *pContext)
   const double halfBorderWidth = borderWidth / 2.0;
 
   // Background.
-  const auto bgColor = CColor(255, 255, 255, 255);
   pContext->setLineWidth(borderWidth);
-  pContext->setFillColor(bgColor);
+  pContext->setFillColor(pal.background());
   pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilled);
 
   // Waveform.
@@ -1164,8 +1161,7 @@ void WaveView::draw(CDrawContext *pContext)
   pContext->drawPolygon(points);
 
   // Always draw border at last. Otherwise, inner object will be drawn over border.
-  const auto borderColor = CColor(0, 0, 0, 255);
-  pContext->setFrameColor(borderColor);
+  pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());
   pContext->drawRect(
     CRect(halfBorderWidth, halfBorderWidth, width, height), kDrawStroked);
 
@@ -1373,20 +1369,18 @@ void CreditView::draw(CDrawContext *pContext)
   const double halfBorderWidth = borderWidth / 2.0;
 
   // Background.
-  const auto bgColor = CColor(255, 255, 255, 255);
   pContext->setLineWidth(borderWidth);
-  pContext->setFillColor(bgColor);
+  pContext->setFillColor(pal.background());
   pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilled);
 
   pContext->setFont(
     new CFontDesc(fontName, fontSizeTitle, CTxtFace::kBoldFace | CTxtFace::kItalicFace));
-  pContext->setFontColor(CColor(0, 0, 0, 255));
+  pContext->setFontColor(pal.foreground());
   pContext->drawString(
     UTF8String("🐸🍻🐨🍻🐰").getPlatformString(), CPoint(20.0, 50.0));
 
   // Border.
-  const auto borderColor = CColor(0, 0, 0, 255);
-  pContext->setFrameColor(borderColor);
+  pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());
   pContext->drawRect(
     CRect(
       halfBorderWidth,
