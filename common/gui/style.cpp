@@ -33,8 +33,15 @@ This source is splitted because nlohmann/json.hpp is slow to compile.
 Specification of $XDG_CONFIG_HOME:
 https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 */
-inline fs::path getXdgConfigHome()
+inline fs::path getConfigHome()
 {
+#ifdef _WIN32
+  const char *appdataDir = std::getenv("AppData");
+  if (appdataDir != nullptr) return fs::path(appdataDir);
+
+  std::cerr << "%AppData% is empty.\n";
+
+#else
   const char *configDir = std::getenv("XDG_CONFIG_HOME");
   if (configDir != nullptr) return fs::path(configDir);
 
@@ -42,6 +49,8 @@ inline fs::path getXdgConfigHome()
   if (home != nullptr) return fs::path(home) / ".config";
 
   std::cerr << "$XDG_CONFIG_HOME and $HOME is empty.\n";
+
+#endif
   return fs::path("");
 }
 
@@ -53,7 +62,7 @@ inline nlohmann::json loadStyleJson()
 {
   nlohmann::json data;
 
-  auto styleJsonPath = getXdgConfigHome() / fs::path("UhhyouPlugins/style/style.json");
+  auto styleJsonPath = getConfigHome() / fs::path("UhhyouPlugins/style/style.json");
 
   if (!fs::is_regular_file(styleJsonPath)) {
     std::cerr << styleJsonPath << " is not regular file or doesn't exist.\n";
