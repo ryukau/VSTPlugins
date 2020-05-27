@@ -85,16 +85,6 @@ public:
       pContext->drawRect(CRect(left, top, right, bottom), kDrawFilled);
     }
 
-    // Splitter.
-    // if (sliderWidth >= 4.0) {
-    //   pContext->setLineWidth(defaultBorderWidth);
-    //   pContext->setFrameColor(pal.boxBackground());
-    //   for (size_t i = 0; i < value.size(); ++i) {
-    //     auto x = i * sliderWidth;
-    //     pContext->drawLine(CPoint(x, 0), CPoint(x, height));
-    //   }
-    // }
-
     // Bar index.
     pContext->setFrameColor(pal.highlightMain());
     pContext->setFont(indexFontID);
