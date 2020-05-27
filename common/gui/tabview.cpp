@@ -81,8 +81,10 @@ void TabView::draw(CDrawContext *pContext)
   CDrawContext::Transform t(
     *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
+  // Inactive tab.
   pContext->setFont(tabFontID);
   pContext->setFontColor(pal.foreground());
+  pContext->setFrameColor(pal.border());
   pContext->setLineWidth(1.0f);
   for (size_t idx = 0; idx < tabs.size(); ++idx) {
     if (idx == activeTabIndex) continue;
@@ -90,18 +92,16 @@ void TabView::draw(CDrawContext *pContext)
 
     pContext->setFillColor(
       tab.isMouseEntered ? pal.overlayHighlight() : pal.boxBackground());
-    pContext->setFrameColor(pal.foreground());
     pContext->drawRect(
       CRect(tab.left, tab.top, tab.right, tab.height), kDrawFilledAndStroked);
 
-    pContext->setFillColor(pal.foreground());
     pContext->drawString(
       tab.name.c_str(), CRect(tab.left, tab.top, tab.right, tab.bottom), kCenterText);
   }
 
   // Active tab.
   pContext->setFillColor(pal.background());
-  pContext->setFrameColor(pal.foreground());
+  pContext->setFrameColor(pal.border());
   pContext->setLineWidth(2.0f);
 
   const auto &activeTab = tabs[activeTabIndex];

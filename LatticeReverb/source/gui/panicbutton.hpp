@@ -65,7 +65,7 @@ public:
     // Border.
     pContext->setFillColor(isPressed ? pal.highlightButton() : pal.boxBackground());
     pContext->setFrameColor(
-      isMouseEntered && !isPressed ? pal.highlightButton() : pal.foreground());
+      isMouseEntered && !isPressed ? pal.highlightButton() : pal.border());
     pContext->setLineWidth(isMouseEntered ? 2 * borderWidth : borderWidth);
     pContext->drawRect(CRect(0, 0, getWidth(), getHeight()), kDrawFilledAndStroked);
 
