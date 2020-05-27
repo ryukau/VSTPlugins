@@ -108,7 +108,7 @@ protected:
   CFontRef fontId = nullptr;
   Uhhyou::Palette &pal;
 
-  CCoord frameWidth = 2.0f;
+  CCoord frameWidth = 1.0f;
   CCoord highlightFrameWidth = 2.0f;
 
   bool isMouseEntered = false;

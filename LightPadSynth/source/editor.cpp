@@ -274,8 +274,9 @@ bool Editor::prepareUI()
   tabview->addWidget(
     tabMain,
     addCheckbox(
-      unisonLeft + 1.0f * knobX - 1.5f * margin, unisonKnobTop + knobY, 2.75f * knobWidth,
-      labelHeight, uiTextSize, "Random Detune", ID::unisonDetuneRandom));
+      floor(unisonLeft + 1.0f * knobX - 1.5f * margin), unisonKnobTop + knobY,
+      floor(2.75f * knobWidth), labelHeight, uiTextSize, "Random Detune",
+      ID::unisonDetuneRandom));
 
   std::vector<std::string> unisonPanTypeOptions{
     "Alternate L-R", "Alternate M-S", "Ascend L -> R", "Ascend R -> L", "High on Mid",
@@ -447,17 +448,17 @@ bool Editor::prepareUI()
   tabview->addWidget(
     tabMain,
     addLabel(
-      lfoLeft2 + 0.375f * knobX, lfoKnobTop, knobWidth * 1.5f, labelHeight, uiTextSize,
-      "Interpolation"));
+      lfoLeft2 + floor(0.375f * knobX), lfoKnobTop, knobWidth * 1.5f, labelHeight,
+      uiTextSize, "Interpolation"));
   tabview->addWidget(
     tabMain,
     addOptionMenu(
-      lfoLeft2 + 0.375f * knobX, lfoKnobTop + labelY, knobWidth * 1.5f, labelHeight,
-      uiTextSize, ID::lfoWavetableType, lfoWavetableTypeOptions));
+      lfoLeft2 + floor(0.375f * knobX), lfoKnobTop + labelY, knobWidth * 1.5f,
+      labelHeight, uiTextSize, ID::lfoWavetableType, lfoWavetableTypeOptions));
 
   tabview->addWidget(
     tabMain,
-    addKickButton(
+    addKickButton<Style::warning>(
       lfoLeft2 + 2.0f * knobX, lfoKnobTop + 2.0f * margin, 2.0f * knobX,
       2.0f * labelHeight, midTextSize, "Refresh LFO", ID::refreshLFO));
 
@@ -469,9 +470,10 @@ bool Editor::prepareUI()
     tabMain,
     addGroupVerticalLabel(
       lfoWaveLeft, lfoWaveTop, lfoBarboxHeight, labelHeight, midTextSize, "LFO Wave"));
+  // 832 = 64 * 13.
   auto barboxLfoWavetable = addBarBox(
-    lfoWaveLeft + labelY, lfoWaveTop, barboxWidth + 2.0f * knobX + 4.0f * margin,
-    lfoBarboxHeight, ID::lfoWavetable0, nLFOWavetable, Scales::lfoWavetable, "LFO Wave");
+    lfoWaveLeft + labelY, lfoWaveTop, 832, lfoBarboxHeight, ID::lfoWavetable0,
+    nLFOWavetable, Scales::lfoWavetable, "LFO Wave");
   barboxLfoWavetable->sliderZero = 0.5f;
   tabview->addWidget(tabMain, barboxLfoWavetable);
 
@@ -648,7 +650,7 @@ bool Editor::prepareUI()
   const auto refreshLeft = tabInsideLeft0;
   tabview->addWidget(
     tabPadSynth,
-    addKickButton(
+    addKickButton<Style::warning>(
       refreshLeft, refreshTop, 2.0f * knobX, 2.0f * labelHeight, midTextSize,
       "Refresh Table", ID::refreshTable));
 

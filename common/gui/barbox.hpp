@@ -78,7 +78,7 @@ public:
     float sliderZeroHeight = height * (1.0 - sliderZero);
     for (size_t i = 0; i < value.size(); ++i) {
       auto left = i * sliderWidth;
-      auto right = left + (sliderWidth >= 4.0 ? sliderWidth - defaultBorderWidth : 1.0);
+      auto right = left + (sliderWidth >= 4.0 ? sliderWidth - borderWidth : 1.0);
       auto top = height - value[i] * height;
       double bottom = sliderZeroHeight;
       if (top > bottom) std::swap(top, bottom);
@@ -92,7 +92,7 @@ public:
     if (sliderWidth >= 10.0) {
       for (size_t i = 0; i < barIndices.size(); ++i) {
         auto left = i * sliderWidth;
-        auto right = left + (sliderWidth >= 4.0 ? sliderWidth - defaultBorderWidth : 1.0);
+        auto right = left + (sliderWidth >= 4.0 ? sliderWidth - borderWidth : 1.0);
         pContext->drawString(
           barIndices[i].c_str(), CRect(left, height - 16, right, height - 4),
           kCenterText);
@@ -100,7 +100,7 @@ public:
     }
 
     // Border.
-    pContext->setLineWidth(defaultBorderWidth);
+    pContext->setLineWidth(borderWidth);
     pContext->setFrameColor(pal.border());
     pContext->drawRect(CRect(0, 0, width, height), kDrawStroked);
 
@@ -308,7 +308,6 @@ public:
 
   void setIndexFont(CFontRef fontId) { indexFontID = fontId; }
   void setNameFont(CFontRef fontId) { nameFontID = fontId; }
-  void setDefaultBorderWidth(float width) { defaultBorderWidth = width; }
   void setName(std::string name) { this->name = name; }
 
 protected:
@@ -467,7 +466,7 @@ protected:
   CFontRef indexFontID = nullptr;
   CFontRef nameFontID = nullptr;
 
-  CCoord defaultBorderWidth = 2.0;
+  CCoord borderWidth = 1.0;
 
   bool isMouseLeftDown = false;
   bool isMouseMiddleDown = false;

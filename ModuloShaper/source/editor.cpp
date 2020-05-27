@@ -85,7 +85,7 @@ bool Editor::prepareUI()
   addKnob<Style::warning>(
     left0 + 3 * knobX, top1, knobX, margin, uiTextSize, "More Mul", ID::moreMul);
 
-  const auto top1Checkbox = top1 + 2.5 * margin;
+  const auto top1Checkbox = top1 + floor(2.5 * margin);
   const auto leftCheckbox = left0 + 4 * knobX + 2 * margin;
   addCheckbox(
     leftCheckbox, top1Checkbox, 1.5f * knobX, labelHeight, uiTextSize, "Hardclip",
@@ -98,8 +98,8 @@ bool Editor::prepareUI()
   const auto top2 = top1 + knobY + 3 * margin;
 
   addLabel(left0, top2, 1.5f * knobX, labelHeight, uiTextSize, "Anti-aliasing");
-  std::vector<std::string> typeItems{
-    "None", "16x OverSampling", "PolyBLEP 4", "PolyBLEP 8"};
+  std::vector<std::string> typeItems{"None", "16x OverSampling", "PolyBLEP 4",
+                                     "PolyBLEP 8"};
   addOptionMenu(
     left0 + 1.5f * knobX, top2, 2 * knobX, labelHeight, uiTextSize, ID::type, typeItems);
 

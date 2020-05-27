@@ -315,7 +315,7 @@ public:
   void setPrecision(uint32_t precision) { this->precision = precision; }
 
 protected:
-  float borderWidth = 2.0f;
+  float borderWidth = 1.0f;
   uint32_t precision = 0;
 
   CFontRef fontId = nullptr;

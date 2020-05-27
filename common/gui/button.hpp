@@ -116,7 +116,7 @@ protected:
   CFontRef fontId = nullptr;
   Uhhyou::Palette &pal;
 
-  CCoord borderWidth = 2.0;
+  CCoord borderWidth = 1.0;
 
   bool isMouseEntered = false;
 };

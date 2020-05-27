@@ -33,7 +33,7 @@ constexpr float knobRightMargin = 0.0f;
 constexpr float knobX = knobWidth; // With margin.
 constexpr float knobY = knobHeight + labelY + 2.0f * margin;
 constexpr float sliderWidth = 70.0f;
-constexpr float sliderHeight = 2.0f * (knobHeight + labelY) + 67.5f;
+constexpr float sliderHeight = int(2.0f * (knobHeight + labelY) + 67.5f);
 constexpr float sliderX = 80.0f;
 constexpr float sliderY = sliderHeight + labelY;
 constexpr float checkboxWidth = 80.0f;
@@ -132,8 +132,9 @@ bool Editor::prepareUI()
   const auto leftAP1 = leftAP + knobX + 2.0f * margin;
   addGroupLabel(leftAP1, top1, 3.0f * knobX, labelHeight, midTextSize, "Stage 1");
   addCheckbox(
-    leftAP1 + knobX + 3.5 * margin, topAP + knobHeight + labelHeight + 0.5f * margin,
-    checkboxWidth, labelHeight, uiTextSize, "Tanh", ID::allpass1Saturation);
+    floor(leftAP1 + knobX + 3.5 * margin),
+    floor(topAP + knobHeight + labelHeight + 0.5f * margin), checkboxWidth, labelHeight,
+    uiTextSize, "Tanh", ID::allpass1Saturation);
 
   addKnob(leftAP1, topAP, knobWidth, margin, uiTextSize, "Time", ID::allpass1Time);
   addKnob(

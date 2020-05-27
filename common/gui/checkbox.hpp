@@ -83,7 +83,7 @@ public:
       CRect(boxLeft, boxTop, boxLeft + boxSize, boxTop + boxSize), kDrawFilledAndStroked);
 
     if (value) {
-      const auto innerBoxSize = boxSize - 4;
+      auto innerBoxSize = boxSize - 4;
       if constexpr (style == Style::accent) {
         pContext->setFillColor(isMouseEntered ? pal.highlightAccent() : pal.foreground());
       } else if (style == Style::warning) {
@@ -94,6 +94,9 @@ public:
       }
       const auto checkLeft = 2 + (boxSize - innerBoxSize) / 2;
       const auto checkTop = centerY - innerBoxSize / 2;
+#ifndef __linux__
+      --innerBoxSize;
+#endif
       pContext->drawRect(
         CRect(checkLeft, checkTop, checkLeft + innerBoxSize, checkTop + innerBoxSize),
         kDrawFilled);

@@ -119,7 +119,7 @@ public:
   {
     auto button = new KickButton<style>(
       CRect(left, top, left + width, top + height), this, tag, name,
-      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette);
+      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kBoldFace), palette);
     button->setValueNormalized(controller->getParamNormalized(tag));
     frame->addView(button);
     addToControlMap(tag, button);
@@ -138,7 +138,7 @@ public:
   {
     auto button = new ToggleButton<style>(
       CRect(left, top, left + width, top + height), this, tag, name,
-      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette);
+      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kBoldFace), palette);
     button->setValueNormalized(controller->getParamNormalized(tag));
     frame->addView(button);
     addToControlMap(tag, button);
@@ -157,7 +157,7 @@ public:
   {
     auto button = new MessageButton(
       controller, CRect(left, top, left + width, top + height), name, message,
-      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette);
+      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kBoldFace), palette);
     frame->addView(button);
     return button;
   }
@@ -413,7 +413,7 @@ public:
     } else {
       menu->setHighlightColor(palette.highlightMain());
     }
-    menu->sizeToFit();
+    // menu->sizeToFit();
 
     menu->setValueNormalized(controller->getParamNormalized(tag));
     frame->addView(menu);

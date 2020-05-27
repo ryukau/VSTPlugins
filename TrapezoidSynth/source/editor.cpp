@@ -146,8 +146,8 @@ bool Editor::prepareUI()
   const auto top2 = top1knob + knobY;
   addTpzLabel(left0, top2, 6.0f * knobX, labelHeight, midTextSize, "Gain Envelope");
   auto checkBoxGainEnvRetrigger = addCheckbox(
-    left0 + 2.15f * knobX, top2, checkboxWidth, labelHeight, uiTextSize, "Retrigger",
-    ID::gainEnvRetrigger);
+    left0 + ceil(2.15f * knobX), top2, checkboxWidth, labelHeight, uiTextSize,
+    "Retrigger", ID::gainEnvRetrigger);
   checkBoxGainEnvRetrigger->drawBackground = true;
   const auto top2knob = top2 + labelHeight;
   addKnob(left0 + 0.0f * knobX, top2knob, knobWidth, margin, uiTextSize, "A", ID::gainA);
@@ -192,8 +192,8 @@ bool Editor::prepareUI()
   const auto top4 = top3knob + knobY;
   addTpzLabel(left0, top4, 6.0f * knobWidth, labelHeight, midTextSize, "Filter Envelope");
   auto checkBoxFiltEnvRetrigger = addCheckbox(
-    left0 + 2.15f * knobX, top4, checkboxWidth, labelHeight, uiTextSize, "Retrigger",
-    ID::filterEnvRetrigger);
+    left0 + ceil(2.15f * knobX), top4, checkboxWidth, labelHeight, uiTextSize,
+    "Retrigger", ID::filterEnvRetrigger);
   checkBoxFiltEnvRetrigger->drawBackground = true;
   const auto top4knob = top4 + labelHeight;
   addKnob(
@@ -226,8 +226,8 @@ bool Editor::prepareUI()
   addTpzLabel(
     left1 + 3.0f * knobX, top0, 3.0f * knobWidth, labelHeight, midTextSize, "Mod 1");
   auto checkBoxMod1Retrigger = addCheckbox(
-    left1 + 3.95f * knobX, top0, checkboxWidth, labelHeight, uiTextSize, "Retrigger",
-    ID::modEnv1Retrigger);
+    left1 + ceil(3.95f * knobX), top0, checkboxWidth, labelHeight, uiTextSize,
+    "Retrigger", ID::modEnv1Retrigger);
   checkBoxMod1Retrigger->drawBackground = true;
   addKnob(
     left1 + 3.0f * knobX, top0knob, knobWidth, margin, uiTextSize, "Attack",
@@ -241,8 +241,8 @@ bool Editor::prepareUI()
 
   addTpzLabel(left1, top1, 6.0f * knobWidth, labelHeight, midTextSize, "Mod 2");
   auto checkBoxMod2Retrigger = addCheckbox(
-    left1 + 0.95f * knobX, top1, checkboxWidth, labelHeight, uiTextSize, "Retrigger",
-    ID::modEnv2Retrigger);
+    left1 + ceil(0.95f * knobX), top1, checkboxWidth, labelHeight, uiTextSize,
+    "Retrigger", ID::modEnv2Retrigger);
   checkBoxMod2Retrigger->drawBackground = true;
   addKnob(
     left1 + 0.0f * knobX, top1knob, knobWidth, margin, uiTextSize, "Attack",

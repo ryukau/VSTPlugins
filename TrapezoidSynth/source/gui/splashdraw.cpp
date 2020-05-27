@@ -55,6 +55,8 @@ void CreditView::draw(CDrawContext *pContext)
 
   // Border.
   pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());
+  pContext->setLineStyle(
+    CLineStyle{CLineStyle::kLineCapRound, CLineStyle::kLineJoinRound});
   pContext->drawLine(CPoint(100.0, borderWidth), CPoint(width - 100.0, borderWidth));
   pContext->drawLine(
     CPoint(borderWidth, height - borderWidth),

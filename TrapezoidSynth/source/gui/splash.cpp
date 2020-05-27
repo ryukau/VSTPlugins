@@ -43,6 +43,8 @@ void SplashLabelTpz::draw(CDrawContext *pContext)
   const double borderWidth = isMouseEntered ? highlightFrameWidth : frameWidth;
   const double halfBorderWidth = int(borderWidth / 2.0);
   pContext->setFrameColor(isMouseEntered ? pal.highlightButton() : pal.border());
+  pContext->setLineStyle(
+    CLineStyle{CLineStyle::kLineCapRound, CLineStyle::kLineJoinRound});
   pContext->setLineWidth(borderWidth);
   pContext->drawLine(CPoint(25.0, borderWidth), CPoint(width - 25.0, borderWidth));
   pContext->drawLine(

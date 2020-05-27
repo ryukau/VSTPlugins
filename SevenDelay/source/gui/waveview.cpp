@@ -54,7 +54,7 @@ void WaveView::draw(CDrawContext *pContext)
   pContext->drawPolygon(points);
 
   // Always draw border at last. Otherwise, inner object will be drawn over border.
-  pContext->setLineWidth(2.0);
+  pContext->setLineWidth(1.0);
   pContext->setFrameColor(pal.border());
   pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawStroked);
 
