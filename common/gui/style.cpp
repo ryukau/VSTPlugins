@@ -40,7 +40,11 @@ inline fs::path getConfigHome()
   if (appdataDir != nullptr) return fs::path(appdataDir);
 
   std::cerr << "%AppData% is empty.\n";
+#elif __APPLE__
+  const char *home = std::getenv("HOME");
+  if (home != nullptr) return fs::path(home) / "Library/Preferences";
 
+  std::cerr << "$HOME is empty.\n";
 #else
   const char *configDir = std::getenv("XDG_CONFIG_HOME");
   if (configDir != nullptr) return fs::path(configDir);
