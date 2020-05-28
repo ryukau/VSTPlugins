@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>EsPhaser<rt>エス フェイザ</rt></ruby> は最大 4096 の 2 次 Thiran オールパスフィルタを直列につなぐことができるフェイザです。 EnvelopedSine のフェイザと同じアルゴリズムを使っています。
 
-- [EsPhaser 0.1.3 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/EsPhaser0.1.3.zip) <img
+- [EsPhaser 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/EsPhaser0.1.4.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -62,6 +62,62 @@ sudo apt install libxcb-cursor0  libxkbcommon-x11-0
 - [VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html)
 
 REAPER の Linux 版がプラグインを認識しないときは `~/.config/REAPER/reaper-vstplugins64.ini` を削除して REAPER を再起動してみてください。
+
+## 色の設定
+初回設定時は手動で次のファイルを作成してください。
+
+- Windows では `/Users/ユーザ名/AppData/Roaming/UhhyouPlugins/style/style.json` 。
+- Linux では `$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json` 。
+  - `$XDG_CONFIG_HOME` が空のときは `$HOME/.config/UhhyouPlugins/style/style.json` 。
+- macOS では `/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json` 。
+
+既存の色のテーマを次のリンクに掲載しています。 `style.json` にコピペして使ってください。
+
+- [LV2Plugins/style/themes at master · ryukau/LV2Plugins · GitHub](https://github.com/ryukau/LV2Plugins/tree/master/style/themes)
+
+`style.json` の設定例です。
+
+```json
+{
+  "foreground": "#ffffff",
+  "foregroundButtonOn": "#000000",
+  "background": "#353d3e",
+  "boxBackground": "#000000",
+  "border": "#808080",
+  "unfocused": "#b8a65c",
+  "highlightMain": "#368a94",
+  "highlightAccent": "#2c8a58",
+  "highlightButton": "#a77842",
+  "highlightWarning": "#8742a7",
+  "overlay": "#ffffff88",
+  "overlayHighlight": "#00ff0033"
+}
+```
+
+16 進数カラーコードを使っています。
+
+- 6 桁の色は RGB 。
+- 8 桁の色は RGBA 。
+
+プラグインはカラーコードの 1 つめのの文字を無視します。よって `?102938` や `
+11335577` も有効なカラーコードです。
+
+2 文字目以降のカラーコードの値に `0-9a-f` 以外の文字を使わないでください。
+
+以下は設定できる色の一覧です。設定に抜けがあるとデフォルトの色が使われます。
+
+- `foreground`: 文字の色。
+- `foregroundButtonOn`: オンになっているボタンの文字の色。 `foreground` か `boxBackground` のいずれかと同じ値にすることを推奨します。
+- `background`: 背景色。
+- `boxBackground`: 矩形の UI 部品の内側の背景色。
+- `border`: <ruby>縁<rt>ふち</rt></ruby>の色。
+- `unfocused`: つまみがフォーカスされていないときの色。
+- `highlightMain`: フォーカスされたときの色。スライダの値の表示にも使用されます。
+- `highlightAccent`: フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。
+- `highlightButton`: ボタンがフォーカスされたときの色。
+- `highlightWarning`: 変更に注意を要する UI がフォーカスされたときの色。
+- `overlay`: オーバーレイの色。
+- `overlayHighlight`: フォーカスを示すオーバーレイの色。
 
 ## 操作
 つまみと数値スライダでは次の操作ができます。
@@ -141,6 +197,8 @@ Smooth
 :   パラメータを変更したときに、変更前の値から変更後の値へと移行する秒数です。 `Stage` 以外のパラメータに有効です。
 
 ## チェンジログ
+- 0.1.4
+  - カラーコンフィグを追加。
 - 0.1.3
   - パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。
 - 0.1.2
@@ -151,6 +209,7 @@ Smooth
   - 初期リリース。
 
 ### 旧バージョン
+- [EsPhaser 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/EsPhaser0.1.3.zip)
 - [EsPhaser 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/EsPhaser0.1.2.zip)
 - [EsPhaser 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EsPhaser0.1.0.zip)
 

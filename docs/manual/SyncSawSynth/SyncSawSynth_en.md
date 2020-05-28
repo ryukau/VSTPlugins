@@ -7,7 +7,7 @@ lang: en
 
 SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR sawtooth oscillator. Just a basic synthesizer but very easy to make a noise similar to low battery sound of some toys.
 
-- [Download SyncSawSynth 0.1.12 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SyncSawSynth0.1.12.zip) <img
+- [Download SyncSawSynth 0.1.13 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SyncSawSynth0.1.13.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -60,6 +60,56 @@ If DAW doesn't recognize the plugin, take a look at `Package Requirements` secti
 - [VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html)
 
 REAPER on Linux may not recognize the plugin. A workaround is to delete a file `~/.config/REAPER/reaper-vstplugins64.ini` and restart REAPER.
+
+## Color Configuration
+At first time, create color config file to:
+
+- `/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json` on Windows.
+- `$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json` on Linux.
+  - If `$XDG_CONFIG_HOME` is empty, make `$HOME/.config/UhhyouPlugins/style/style.json`.
+- `/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json` on macOS.
+
+Below is a example of `style.json`.
+
+```json
+{
+  "foreground": "#ffffff",
+  "foregroundButtonOn": "#000000",
+  "background": "#353d3e",
+  "boxBackground": "#000000",
+  "border": "#808080",
+  "unfocused": "#b8a65c",
+  "highlightMain": "#368a94",
+  "highlightAccent": "#2c8a58",
+  "highlightButton": "#a77842",
+  "highlightWarning": "#8742a7",
+  "overlay": "#ffffff88",
+  "overlayHighlight": "#00ff0033"
+}
+```
+
+Hex color codes are used.
+
+- 6 digit color is RGB.
+- 8 digit color is RGBA.
+
+First letter `#` is conventional. Plugins ignore the first letter of color code, thus `?102938`, `
+11335577` are valid.
+
+Do not use characters outside of `0-9a-f` for color value.
+
+- `foreground`: Text color.
+- `foregroundButtonOn`: Text color of active toggle button. Recommend to use the same value of `foreground` or `boxBackground`.
+- `background`: Background color.
+- `boxBackground`: Background color of inside of box shaped components (Barbox, Button, Checkbox, OptionMenu, TextKnob, VSlider).
+- `border`: Border color of box shaped components.
+- `unfocused`: Color to fill unfocused components. Currently, only used for knobs.
+- `highlightMain`: Color to indicate focus is on a component. Highlight colors are also used for value of slider components (BarBox and VSlider).- {new_version}{change_log}
+- `highlightAccent`: Same as `highlightMain`. Used for cosmetics.
+- `highlightButton`: Color to indicate focus is on a button.
+- `highlightWarning`: Same as `highlightMain`, but only used for parameters which requires extra caution.
+- `overlay`: Overlay color. Used to overlay texts and indicators.
+- `overlayHighlight`: Overlay color to highlight current focus.
 
 ## Controls
 Knob and slider can do:
@@ -343,6 +393,8 @@ Key->Feed
 :   Modulation from MIDI note number to feedback. Range is -1.0 to 1.0.
 
 ## Change Log
+- 0.1.13
+  - Added color configuration.
 - 0.1.12
   - Changed parameter smoother to the one which works with variable size audio buffer.
 - 0.1.11
@@ -377,6 +429,7 @@ Key->Feed
   - Initial release.
 
 ### Old Versions
+- [SyncSawSynth 0.1.12 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SyncSawSynth0.1.12.zip)
 - [SyncSawSynth 0.1.11 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SyncSawSynth0.1.11.zip)
 - [SyncSawSynth 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SyncSawSynth0.1.9.zip)
 - [SyncSawSynth 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SyncSawSynth0.1.8.zip)
