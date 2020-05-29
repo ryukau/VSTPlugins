@@ -14,19 +14,18 @@ span.underline { text-decoration: underline; }
 div.column { display: inline-block; vertical-align: top; width: 50%; }
 </style>
 <style>
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -46,7 +45,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -251,7 +250,7 @@ footer {
 
 <body>
 <header>
-    <p><a href="..\..\index.html">Back to Index</a></p>
+    <p><a href="../../index.html">Back to Index</a></p>
       <p>
   Update: 2020-05-14
   </p>
@@ -266,6 +265,7 @@ footer {
   <li><a href="#windows-specific">Windows Specific</a></li>
   <li><a href="#linux-specific">Linux Specific</a></li>
   </ul></li>
+  <li><a href="#color-configuration">Color Configuration</a></li>
   <li><a href="#controls">Controls</a></li>
   <li><a href="#caution">Caution</a></li>
   <li><a href="#terms">Terms</a></li>
@@ -291,7 +291,7 @@ footer {
 <p><img src="img/syncsawsynth.png" /></p>
 <p>SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR sawtooth oscillator. Just a basic synthesizer but very easy to make a noise similar to low battery sound of some toys.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SyncSawSynth0.1.12.zip">Download SyncSawSynth 0.1.12 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SyncSawSynth0.1.13.zip">Download SyncSawSynth 0.1.13 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -336,6 +336,52 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html">VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins</a></li>
 </ul>
 <p>REAPER on Linux may not recognize the plugin. A workaround is to delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and restart REAPER.</p>
+<h2 id="color-configuration">Color Configuration</h2>
+<p>At first time, create color config file to:</p>
+<ul>
+<li><code>/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json</code> on Windows.</li>
+<li><code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> on Linux.
+<ul>
+<li>If <code>$XDG_CONFIG_HOME</code> is empty, make <code>$HOME/.config/UhhyouPlugins/style/style.json</code>.</li>
+</ul></li>
+<li><code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> on macOS.</li>
+</ul>
+<p>Below is a example of <code>style.json</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="dt">&quot;background&quot;</span><span class="fu">:</span> <span class="st">&quot;#353d3e&quot;</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="dt">&quot;boxBackground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="dt">&quot;border&quot;</span><span class="fu">:</span> <span class="st">&quot;#808080&quot;</span><span class="fu">,</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="dt">&quot;unfocused&quot;</span><span class="fu">:</span> <span class="st">&quot;#b8a65c&quot;</span><span class="fu">,</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>  <span class="dt">&quot;highlightMain&quot;</span><span class="fu">:</span> <span class="st">&quot;#368a94&quot;</span><span class="fu">,</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>  <span class="dt">&quot;highlightAccent&quot;</span><span class="fu">:</span> <span class="st">&quot;#2c8a58&quot;</span><span class="fu">,</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>  <span class="dt">&quot;highlightButton&quot;</span><span class="fu">:</span> <span class="st">&quot;#a77842&quot;</span><span class="fu">,</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#8742a7&quot;</span><span class="fu">,</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff88&quot;</span><span class="fu">,</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="fu">}</span></span></code></pre></div>
+<p>Hex color codes are used.</p>
+<ul>
+<li>6 digit color is RGB.</li>
+<li>8 digit color is RGBA.</li>
+</ul>
+<p>First letter <code>#</code> is conventional. Plugins ignore the first letter of color code, thus <code>?102938</code>, <code>11335577</code> are valid.</p>
+<p>Do not use characters outside of <code>0-9a-f</code> for color value.</p>
+<ul>
+<li><code>foreground</code>: Text color.</li>
+<li><code>foregroundButtonOn</code>: Text color of active toggle button. Recommend to use the same value of <code>foreground</code> or <code>boxBackground</code>.</li>
+<li><code>background</code>: Background color.</li>
+<li><code>boxBackground</code>: Background color of inside of box shaped components (Barbox, Button, Checkbox, OptionMenu, TextKnob, VSlider).</li>
+<li><code>border</code>: Border color of box shaped components.</li>
+<li><code>unfocused</code>: Color to fill unfocused components. Currently, only used for knobs.</li>
+<li><code>highlightMain</code>: Color to indicate focus is on a component. Highlight colors are also used for value of slider components (BarBox and VSlider).- {new_version}{change_log}</li>
+<li><code>highlightAccent</code>: Same as <code>highlightMain</code>. Used for cosmetics.</li>
+<li><code>highlightButton</code>: Color to indicate focus is on a button.</li>
+<li><code>highlightWarning</code>: Same as <code>highlightMain</code>, but only used for parameters which requires extra caution.</li>
+<li><code>overlay</code>: Overlay color. Used to overlay texts and indicators.</li>
+<li><code>overlayHighlight</code>: Overlay color to highlight current focus.</li>
+</ul>
 <h2 id="controls">Controls</h2>
 <p>Knob and slider can do:</p>
 <ul>
@@ -543,6 +589,10 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.13
+<ul>
+<li>Added color configuration.</li>
+</ul></li>
 <li>0.1.12
 <ul>
 <li>Changed parameter smoother to the one which works with variable size audio buffer.</li>
@@ -602,6 +652,7 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
 </ul>
 <h3 id="old-versions">Old Versions</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SyncSawSynth0.1.12.zip">SyncSawSynth 0.1.12 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SyncSawSynth0.1.11.zip">SyncSawSynth 0.1.11 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SyncSawSynth0.1.9.zip">SyncSawSynth 0.1.9 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SyncSawSynth0.1.8.zip">SyncSawSynth 0.1.8 - VST 3 (github.com)</a></li>
@@ -617,7 +668,7 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
 <p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
 
 <footer>
-    <p><a href="..\..\index.html">Back to Index</a></p>
+    <p><a href="../../index.html">Back to Index</a></p>
   </footer>
 </body>
 

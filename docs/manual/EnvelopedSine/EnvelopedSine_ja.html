@@ -14,19 +14,18 @@ span.underline { text-decoration: underline; }
 div.column { display: inline-block; vertical-align: top; width: 50%; }
 </style>
 <style>
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -46,7 +45,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -251,7 +250,7 @@ footer {
 
 <body>
 <header>
-    <p><a href="..\..\index.html">Back to Index</a></p>
+    <p><a href="../../index.html">Back to Index</a></p>
       <p>
   Update: 2020-05-14
   </p>
@@ -266,6 +265,7 @@ footer {
   <li><a href="#windows">Windows</a></li>
   <li><a href="#linux">Linux</a></li>
   </ul></li>
+  <li><a href="#色の設定">色の設定</a></li>
   <li><a href="#操作">操作</a></li>
   <li><a href="#ブロック線図">ブロック線図</a></li>
   <li><a href="#パラメータ">パラメータ</a><ul>
@@ -292,7 +292,7 @@ footer {
 <p><img src="img/envelopedsine.png" /></p>
 <p><ruby>EnvelopedSine<rt>エンベロープド サイン</rt></ruby>はノート 1 つあたり 64 のサイン波を計算する加算合成シンセサイザです。各サイン波に AD エンベロープとサチュレータがついているので IterativeSinCluster よりもパーカッシブな音が得意です。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/EnvelopedSine0.1.6.zip">EnvelopedSine 0.1.6 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/EnvelopedSine0.1.7.zip">EnvelopedSine 0.1.7 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -338,6 +338,57 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html">VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins</a></li>
 </ul>
 <p>REAPER の Linux 版がプラグインを認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
+<h2 id="色の設定">色の設定</h2>
+<p>初回設定時は手動で次のファイルを作成してください。</p>
+<ul>
+<li>Windows では <code>/Users/ユーザ名/AppData/Roaming/UhhyouPlugins/style/style.json</code> 。</li>
+<li>Linux では <code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> 。
+<ul>
+<li><code>$XDG_CONFIG_HOME</code> が空のときは <code>$HOME/.config/UhhyouPlugins/style/style.json</code> 。</li>
+</ul></li>
+<li>macOS では <code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> 。</li>
+</ul>
+<p>既存の色のテーマを次のリンクに掲載しています。 <code>style.json</code> にコピペして使ってください。</p>
+<ul>
+<li><a href="https://github.com/ryukau/LV2Plugins/tree/master/style/themes">LV2Plugins/style/themes at master · ryukau/LV2Plugins · GitHub</a></li>
+</ul>
+<p><code>style.json</code> の設定例です。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="dt">&quot;background&quot;</span><span class="fu">:</span> <span class="st">&quot;#353d3e&quot;</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="dt">&quot;boxBackground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="dt">&quot;border&quot;</span><span class="fu">:</span> <span class="st">&quot;#808080&quot;</span><span class="fu">,</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="dt">&quot;unfocused&quot;</span><span class="fu">:</span> <span class="st">&quot;#b8a65c&quot;</span><span class="fu">,</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>  <span class="dt">&quot;highlightMain&quot;</span><span class="fu">:</span> <span class="st">&quot;#368a94&quot;</span><span class="fu">,</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>  <span class="dt">&quot;highlightAccent&quot;</span><span class="fu">:</span> <span class="st">&quot;#2c8a58&quot;</span><span class="fu">,</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>  <span class="dt">&quot;highlightButton&quot;</span><span class="fu">:</span> <span class="st">&quot;#a77842&quot;</span><span class="fu">,</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#8742a7&quot;</span><span class="fu">,</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff88&quot;</span><span class="fu">,</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="fu">}</span></span></code></pre></div>
+<p>16 進数カラーコードを使っています。</p>
+<ul>
+<li>6 桁の色は RGB 。</li>
+<li>8 桁の色は RGBA 。</li>
+</ul>
+<p>プラグインはカラーコードの 1 つめのの文字を無視します。よって <code>?102938</code> や <code>11335577</code> も有効なカラーコードです。</p>
+<p>2 文字目以降のカラーコードの値に <code>0-9a-f</code> 以外の文字を使わないでください。</p>
+<p>以下は設定できる色の一覧です。設定に抜けがあるとデフォルトの色が使われます。</p>
+<ul>
+<li><code>foreground</code>: 文字の色。</li>
+<li><code>foregroundButtonOn</code>: オンになっているボタンの文字の色。 <code>foreground</code> か <code>boxBackground</code> のいずれかと同じ値にすることを推奨します。</li>
+<li><code>background</code>: 背景色。</li>
+<li><code>boxBackground</code>: 矩形の UI 部品の内側の背景色。</li>
+<li><code>border</code>: <ruby>縁<rt>ふち</rt></ruby>の色。</li>
+<li><code>unfocused</code>: つまみがフォーカスされていないときの色。</li>
+<li><code>highlightMain</code>: フォーカスされたときの色。スライダの値の表示にも使用されます。</li>
+<li><code>highlightAccent</code>: フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。</li>
+<li><code>highlightButton</code>: ボタンがフォーカスされたときの色。</li>
+<li><code>highlightWarning</code>: 変更に注意を要する UI がフォーカスされたときの色。</li>
+<li><code>overlay</code>: オーバーレイの色。</li>
+<li><code>overlayHighlight</code>: フォーカスを示すオーバーレイの色。</li>
+</ul>
 <h2 id="操作">操作</h2>
 <p>操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。</p>
 <p>つまみとスライダーでは次の操作ができます。</p>
@@ -577,6 +628,10 @@ style="display: inline-block; vertical-align: middle;"></li>
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.7
+<ul>
+<li>カラーコンフィグを追加。</li>
+</ul></li>
 <li>0.1.6
 <ul>
 <li>パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。</li>
@@ -609,6 +664,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/EnvelopedSine0.1.6.zip">EnvelopedSine 0.1.6 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/EnvelopedSine0.1.5.zip">EnvelopedSine 0.1.5 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/EnvelopedSine0.1.4.zip">EnvelopedSine 0.1.4 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EnvelopedSine0.1.2.zip">EnvelopedSine 0.1.2 - VST 3 (github.com)</a></li>
@@ -624,7 +680,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
 
 <footer>
-    <p><a href="..\..\index.html">Back to Index</a></p>
+    <p><a href="../../index.html">Back to Index</a></p>
   </footer>
 </body>
 

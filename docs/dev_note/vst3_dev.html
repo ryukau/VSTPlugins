@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-01-20" />
+<meta name="dcterms.date" content="2020-05-26" />
 <title>vst3_dev</title>
 <style>
 code { white-space: pre-wrap; }
@@ -14,19 +14,18 @@ span.underline { text-decoration: underline; }
 div.column { display: inline-block; vertical-align: top; width: 50%; }
 </style>
 <style>
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -46,7 +45,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -251,9 +250,9 @@ footer {
 
 <body>
 <header>
-    <p><a href="..\index.html">Back to Index</a></p>
+    <p><a href="../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-01-20
+  Update: 2020-05-26
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -928,42 +927,40 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb35-17"><a href="#cb35-17"></a>  <span class="at">const</span> <span class="dt">double</span> halfBorderWidth = borderWidth / <span class="fl">2.0</span>;</span>
 <span id="cb35-18"><a href="#cb35-18"></a></span>
 <span id="cb35-19"><a href="#cb35-19"></a>  <span class="co">// Background.</span></span>
-<span id="cb35-20"><a href="#cb35-20"></a>  <span class="at">const</span> <span class="kw">auto</span> bgColor = CColor(<span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>);</span>
-<span id="cb35-21"><a href="#cb35-21"></a>  pContext-&gt;setLineWidth(borderWidth);</span>
-<span id="cb35-22"><a href="#cb35-22"></a>  pContext-&gt;setFillColor(bgColor);</span>
-<span id="cb35-23"><a href="#cb35-23"></a>  pContext-&gt;drawRect(CRect(<span class="fl">0.0</span>, <span class="fl">0.0</span>, width, height), kDrawFilled);</span>
-<span id="cb35-24"><a href="#cb35-24"></a></span>
-<span id="cb35-25"><a href="#cb35-25"></a>  <span class="co">// Waveform.</span></span>
-<span id="cb35-26"><a href="#cb35-26"></a>  pContext-&gt;setLineWidth(<span class="fl">2.0</span>);</span>
-<span id="cb35-27"><a href="#cb35-27"></a>  pContext-&gt;setLineStyle(lineStyle);</span>
-<span id="cb35-28"><a href="#cb35-28"></a>  pContext-&gt;setFrameColor(CColor(<span class="dv">19</span>, <span class="dv">193</span>, <span class="dv">54</span>, <span class="dv">255</span>));</span>
-<span id="cb35-29"><a href="#cb35-29"></a>  <span class="at">const</span> <span class="dt">size_t</span> size = (<span class="dt">size_t</span>)(width + <span class="fl">1.0</span>);</span>
-<span id="cb35-30"><a href="#cb35-30"></a>  <span class="cf">if</span> (points.size() != size) points.resize(size);</span>
-<span id="cb35-31"><a href="#cb35-31"></a>  <span class="cf">for</span> (<span class="dt">size_t</span> x = <span class="dv">0</span>; x &lt; points.size(); ++x)</span>
-<span id="cb35-32"><a href="#cb35-32"></a>    points[x] = CPoint((CCoord)x, height * lfo(x / width));</span>
-<span id="cb35-33"><a href="#cb35-33"></a>  pContext-&gt;drawPolygon(points);</span>
-<span id="cb35-34"><a href="#cb35-34"></a></span>
-<span id="cb35-35"><a href="#cb35-35"></a>  <span class="co">// Always draw border at last. Otherwise, inner object will be drawn over border.</span></span>
-<span id="cb35-36"><a href="#cb35-36"></a>  <span class="at">const</span> <span class="kw">auto</span> borderColor = CColor(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">255</span>);</span>
-<span id="cb35-37"><a href="#cb35-37"></a>  pContext-&gt;setFrameColor(borderColor);</span>
-<span id="cb35-38"><a href="#cb35-38"></a>  pContext-&gt;drawRect(</span>
-<span id="cb35-39"><a href="#cb35-39"></a>    CRect(halfBorderWidth, halfBorderWidth, width, height), kDrawStroked);</span>
-<span id="cb35-40"><a href="#cb35-40"></a></span>
-<span id="cb35-41"><a href="#cb35-41"></a>  setDirty(<span class="kw">false</span>);</span>
-<span id="cb35-42"><a href="#cb35-42"></a>}</span>
-<span id="cb35-43"><a href="#cb35-43"></a></span>
-<span id="cb35-44"><a href="#cb35-44"></a><span class="dt">double</span> WaveView::lfo(<span class="dt">double</span> phase)</span>
-<span id="cb35-45"><a href="#cb35-45"></a>{</span>
-<span id="cb35-46"><a href="#cb35-46"></a>  <span class="at">const</span> <span class="dt">double</span> twopi = <span class="fl">6.283185307179586</span>;</span>
-<span id="cb35-47"><a href="#cb35-47"></a></span>
-<span id="cb35-48"><a href="#cb35-48"></a>  phase = <span class="kw">this</span>-&gt;phase + phase * twopi;</span>
-<span id="cb35-49"><a href="#cb35-49"></a>  <span class="cf">if</span> (phase &gt; twopi) phase -= twopi;</span>
-<span id="cb35-50"><a href="#cb35-50"></a>  <span class="kw">auto</span> sign = (pi &lt; phase) - (phase &lt; pi);</span>
-<span id="cb35-51"><a href="#cb35-51"></a>  <span class="kw">auto</span> wave = gain * sign * pow(fabs(sin(phase)), shape);</span>
-<span id="cb35-52"><a href="#cb35-52"></a>  <span class="cf">return</span> (wave + <span class="fl">1.0</span>) * <span class="fl">0.5</span>;</span>
-<span id="cb35-53"><a href="#cb35-53"></a>}</span>
-<span id="cb35-54"><a href="#cb35-54"></a></span>
-<span id="cb35-55"><a href="#cb35-55"></a>} <span class="co">// namespace VSTGUI</span></span></code></pre></div>
+<span id="cb35-20"><a href="#cb35-20"></a>  pContext-&gt;setLineWidth(borderWidth);</span>
+<span id="cb35-21"><a href="#cb35-21"></a>  pContext-&gt;setFillColor(pal.background());</span>
+<span id="cb35-22"><a href="#cb35-22"></a>  pContext-&gt;drawRect(CRect(<span class="fl">0.0</span>, <span class="fl">0.0</span>, width, height), kDrawFilled);</span>
+<span id="cb35-23"><a href="#cb35-23"></a></span>
+<span id="cb35-24"><a href="#cb35-24"></a>  <span class="co">// Waveform.</span></span>
+<span id="cb35-25"><a href="#cb35-25"></a>  pContext-&gt;setLineWidth(<span class="fl">2.0</span>);</span>
+<span id="cb35-26"><a href="#cb35-26"></a>  pContext-&gt;setLineStyle(lineStyle);</span>
+<span id="cb35-27"><a href="#cb35-27"></a>  pContext-&gt;setFrameColor(CColor(<span class="dv">19</span>, <span class="dv">193</span>, <span class="dv">54</span>, <span class="dv">255</span>));</span>
+<span id="cb35-28"><a href="#cb35-28"></a>  <span class="at">const</span> <span class="dt">size_t</span> size = (<span class="dt">size_t</span>)(width + <span class="fl">1.0</span>);</span>
+<span id="cb35-29"><a href="#cb35-29"></a>  <span class="cf">if</span> (points.size() != size) points.resize(size);</span>
+<span id="cb35-30"><a href="#cb35-30"></a>  <span class="cf">for</span> (<span class="dt">size_t</span> x = <span class="dv">0</span>; x &lt; points.size(); ++x)</span>
+<span id="cb35-31"><a href="#cb35-31"></a>    points[x] = CPoint((CCoord)x, height * lfo(x / width));</span>
+<span id="cb35-32"><a href="#cb35-32"></a>  pContext-&gt;drawPolygon(points);</span>
+<span id="cb35-33"><a href="#cb35-33"></a></span>
+<span id="cb35-34"><a href="#cb35-34"></a>  <span class="co">// Always draw border at last. Otherwise, inner object will be drawn over border.</span></span>
+<span id="cb35-35"><a href="#cb35-35"></a>  pContext-&gt;setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());</span>
+<span id="cb35-36"><a href="#cb35-36"></a>  pContext-&gt;drawRect(</span>
+<span id="cb35-37"><a href="#cb35-37"></a>    CRect(halfBorderWidth, halfBorderWidth, width, height), kDrawStroked);</span>
+<span id="cb35-38"><a href="#cb35-38"></a></span>
+<span id="cb35-39"><a href="#cb35-39"></a>  setDirty(<span class="kw">false</span>);</span>
+<span id="cb35-40"><a href="#cb35-40"></a>}</span>
+<span id="cb35-41"><a href="#cb35-41"></a></span>
+<span id="cb35-42"><a href="#cb35-42"></a><span class="dt">double</span> WaveView::lfo(<span class="dt">double</span> phase)</span>
+<span id="cb35-43"><a href="#cb35-43"></a>{</span>
+<span id="cb35-44"><a href="#cb35-44"></a>  <span class="at">const</span> <span class="dt">double</span> twopi = <span class="fl">6.283185307179586</span>;</span>
+<span id="cb35-45"><a href="#cb35-45"></a></span>
+<span id="cb35-46"><a href="#cb35-46"></a>  phase = <span class="kw">this</span>-&gt;phase + phase * twopi;</span>
+<span id="cb35-47"><a href="#cb35-47"></a>  <span class="cf">if</span> (phase &gt; twopi) phase -= twopi;</span>
+<span id="cb35-48"><a href="#cb35-48"></a>  <span class="kw">auto</span> sign = (pi &lt; phase) - (phase &lt; pi);</span>
+<span id="cb35-49"><a href="#cb35-49"></a>  <span class="kw">auto</span> wave = gain * sign * pow(fabs(sin(phase)), shape);</span>
+<span id="cb35-50"><a href="#cb35-50"></a>  <span class="cf">return</span> (wave + <span class="fl">1.0</span>) * <span class="fl">0.5</span>;</span>
+<span id="cb35-51"><a href="#cb35-51"></a>}</span>
+<span id="cb35-52"><a href="#cb35-52"></a></span>
+<span id="cb35-53"><a href="#cb35-53"></a>} <span class="co">// namespace VSTGUI</span></span></code></pre></div>
 <p><code>SomeFX/source/gui/waveviewcreator.cpp</code> の内容です。</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb36-1"><a href="#cb36-1"></a><span class="pp">#pragma once</span></span>
 <span id="cb36-2"><a href="#cb36-2"></a></span>
@@ -1284,42 +1281,40 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb42-22"><a href="#cb42-22"></a>  <span class="at">const</span> <span class="dt">double</span> halfBorderWidth = borderWidth / <span class="fl">2.0</span>;</span>
 <span id="cb42-23"><a href="#cb42-23"></a></span>
 <span id="cb42-24"><a href="#cb42-24"></a>  <span class="co">// Background.</span></span>
-<span id="cb42-25"><a href="#cb42-25"></a>  <span class="at">const</span> <span class="kw">auto</span> bgColor = CColor(<span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>);</span>
-<span id="cb42-26"><a href="#cb42-26"></a>  pContext-&gt;setLineWidth(borderWidth);</span>
-<span id="cb42-27"><a href="#cb42-27"></a>  pContext-&gt;setFillColor(bgColor);</span>
-<span id="cb42-28"><a href="#cb42-28"></a>  pContext-&gt;drawRect(CRect(<span class="fl">0.0</span>, <span class="fl">0.0</span>, width, height), kDrawFilled);</span>
-<span id="cb42-29"><a href="#cb42-29"></a></span>
-<span id="cb42-30"><a href="#cb42-30"></a>  <span class="co">// Waveform.</span></span>
-<span id="cb42-31"><a href="#cb42-31"></a>  pContext-&gt;setLineWidth(<span class="fl">2.0</span>);</span>
-<span id="cb42-32"><a href="#cb42-32"></a>  pContext-&gt;setLineStyle(lineStyle);</span>
-<span id="cb42-33"><a href="#cb42-33"></a>  pContext-&gt;setFrameColor(CColor(<span class="dv">19</span>, <span class="dv">193</span>, <span class="dv">54</span>, <span class="dv">255</span>));</span>
-<span id="cb42-34"><a href="#cb42-34"></a>  <span class="at">const</span> <span class="dt">size_t</span> size = (<span class="dt">size_t</span>)(width + <span class="fl">1.0</span>);</span>
-<span id="cb42-35"><a href="#cb42-35"></a>  <span class="cf">if</span> (points.size() != size) points.resize(size);</span>
-<span id="cb42-36"><a href="#cb42-36"></a>  <span class="cf">for</span> (<span class="dt">size_t</span> x = <span class="dv">0</span>; x &lt; points.size(); ++x)</span>
-<span id="cb42-37"><a href="#cb42-37"></a>    points[x] = CPoint((CCoord)x, height * lfo(x / width));</span>
-<span id="cb42-38"><a href="#cb42-38"></a>  pContext-&gt;drawPolygon(points);</span>
-<span id="cb42-39"><a href="#cb42-39"></a></span>
-<span id="cb42-40"><a href="#cb42-40"></a>  <span class="co">// Always draw border at last. Otherwise, inner object will be drawn over border.</span></span>
-<span id="cb42-41"><a href="#cb42-41"></a>  <span class="at">const</span> <span class="kw">auto</span> borderColor = CColor(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">255</span>);</span>
-<span id="cb42-42"><a href="#cb42-42"></a>  pContext-&gt;setFrameColor(borderColor);</span>
-<span id="cb42-43"><a href="#cb42-43"></a>  pContext-&gt;drawRect(</span>
-<span id="cb42-44"><a href="#cb42-44"></a>    CRect(halfBorderWidth, halfBorderWidth, width, height), kDrawStroked);</span>
-<span id="cb42-45"><a href="#cb42-45"></a></span>
-<span id="cb42-46"><a href="#cb42-46"></a>  setDirty(<span class="kw">false</span>);</span>
-<span id="cb42-47"><a href="#cb42-47"></a>}</span>
-<span id="cb42-48"><a href="#cb42-48"></a></span>
-<span id="cb42-49"><a href="#cb42-49"></a><span class="dt">double</span> WaveView::lfo(<span class="dt">double</span> phase)</span>
-<span id="cb42-50"><a href="#cb42-50"></a>{</span>
-<span id="cb42-51"><a href="#cb42-51"></a>  <span class="at">const</span> <span class="dt">double</span> pi = <span class="fl">3.14159265358979323846</span>;</span>
-<span id="cb42-52"><a href="#cb42-52"></a></span>
-<span id="cb42-53"><a href="#cb42-53"></a>  phase = <span class="kw">this</span>-&gt;phase + phase * <span class="dv">2</span> * pi;</span>
-<span id="cb42-54"><a href="#cb42-54"></a>  <span class="cf">if</span> (phase &gt; <span class="dv">2</span> * pi) phase -= <span class="dv">2</span> * pi;</span>
-<span id="cb42-55"><a href="#cb42-55"></a>  <span class="kw">auto</span> sign = (pi &lt; phase) - (phase &lt; pi);</span>
-<span id="cb42-56"><a href="#cb42-56"></a>  <span class="kw">auto</span> wave = amount * sign * pow(fabs(sin(phase)), shape);</span>
-<span id="cb42-57"><a href="#cb42-57"></a>  <span class="cf">return</span> (wave + <span class="fl">1.0</span>) * <span class="fl">0.5</span>;</span>
-<span id="cb42-58"><a href="#cb42-58"></a>}</span>
-<span id="cb42-59"><a href="#cb42-59"></a></span>
-<span id="cb42-60"><a href="#cb42-60"></a>} <span class="co">// namespace VSTGUI</span></span></code></pre></div>
+<span id="cb42-25"><a href="#cb42-25"></a>  pContext-&gt;setLineWidth(borderWidth);</span>
+<span id="cb42-26"><a href="#cb42-26"></a>  pContext-&gt;setFillColor(pal.background());</span>
+<span id="cb42-27"><a href="#cb42-27"></a>  pContext-&gt;drawRect(CRect(<span class="fl">0.0</span>, <span class="fl">0.0</span>, width, height), kDrawFilled);</span>
+<span id="cb42-28"><a href="#cb42-28"></a></span>
+<span id="cb42-29"><a href="#cb42-29"></a>  <span class="co">// Waveform.</span></span>
+<span id="cb42-30"><a href="#cb42-30"></a>  pContext-&gt;setLineWidth(<span class="fl">2.0</span>);</span>
+<span id="cb42-31"><a href="#cb42-31"></a>  pContext-&gt;setLineStyle(lineStyle);</span>
+<span id="cb42-32"><a href="#cb42-32"></a>  pContext-&gt;setFrameColor(CColor(<span class="dv">19</span>, <span class="dv">193</span>, <span class="dv">54</span>, <span class="dv">255</span>));</span>
+<span id="cb42-33"><a href="#cb42-33"></a>  <span class="at">const</span> <span class="dt">size_t</span> size = (<span class="dt">size_t</span>)(width + <span class="fl">1.0</span>);</span>
+<span id="cb42-34"><a href="#cb42-34"></a>  <span class="cf">if</span> (points.size() != size) points.resize(size);</span>
+<span id="cb42-35"><a href="#cb42-35"></a>  <span class="cf">for</span> (<span class="dt">size_t</span> x = <span class="dv">0</span>; x &lt; points.size(); ++x)</span>
+<span id="cb42-36"><a href="#cb42-36"></a>    points[x] = CPoint((CCoord)x, height * lfo(x / width));</span>
+<span id="cb42-37"><a href="#cb42-37"></a>  pContext-&gt;drawPolygon(points);</span>
+<span id="cb42-38"><a href="#cb42-38"></a></span>
+<span id="cb42-39"><a href="#cb42-39"></a>  <span class="co">// Always draw border at last. Otherwise, inner object will be drawn over border.</span></span>
+<span id="cb42-40"><a href="#cb42-40"></a>  pContext-&gt;setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());</span>
+<span id="cb42-41"><a href="#cb42-41"></a>  pContext-&gt;drawRect(</span>
+<span id="cb42-42"><a href="#cb42-42"></a>    CRect(halfBorderWidth, halfBorderWidth, width, height), kDrawStroked);</span>
+<span id="cb42-43"><a href="#cb42-43"></a></span>
+<span id="cb42-44"><a href="#cb42-44"></a>  setDirty(<span class="kw">false</span>);</span>
+<span id="cb42-45"><a href="#cb42-45"></a>}</span>
+<span id="cb42-46"><a href="#cb42-46"></a></span>
+<span id="cb42-47"><a href="#cb42-47"></a><span class="dt">double</span> WaveView::lfo(<span class="dt">double</span> phase)</span>
+<span id="cb42-48"><a href="#cb42-48"></a>{</span>
+<span id="cb42-49"><a href="#cb42-49"></a>  <span class="at">const</span> <span class="dt">double</span> pi = <span class="fl">3.14159265358979323846</span>;</span>
+<span id="cb42-50"><a href="#cb42-50"></a></span>
+<span id="cb42-51"><a href="#cb42-51"></a>  phase = <span class="kw">this</span>-&gt;phase + phase * <span class="dv">2</span> * pi;</span>
+<span id="cb42-52"><a href="#cb42-52"></a>  <span class="cf">if</span> (phase &gt; <span class="dv">2</span> * pi) phase -= <span class="dv">2</span> * pi;</span>
+<span id="cb42-53"><a href="#cb42-53"></a>  <span class="kw">auto</span> sign = (pi &lt; phase) - (phase &lt; pi);</span>
+<span id="cb42-54"><a href="#cb42-54"></a>  <span class="kw">auto</span> wave = amount * sign * pow(fabs(sin(phase)), shape);</span>
+<span id="cb42-55"><a href="#cb42-55"></a>  <span class="cf">return</span> (wave + <span class="fl">1.0</span>) * <span class="fl">0.5</span>;</span>
+<span id="cb42-56"><a href="#cb42-56"></a>}</span>
+<span id="cb42-57"><a href="#cb42-57"></a></span>
+<span id="cb42-58"><a href="#cb42-58"></a>} <span class="co">// namespace VSTGUI</span></span></code></pre></div>
 <p>エディタクラスに関数を追加します。</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb43-1"><a href="#cb43-1"></a><span class="kw">class</span> PlugEditor : <span class="kw">public</span> VSTGUIEditor, <span class="kw">public</span> IControlListener {</span>
 <span id="cb43-2"><a href="#cb43-2"></a><span class="co">// ...</span></span>
@@ -1471,33 +1466,31 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb51-17"><a href="#cb51-17"></a>  <span class="at">const</span> <span class="dt">double</span> halfBorderWidth = borderWidth / <span class="fl">2.0</span>;</span>
 <span id="cb51-18"><a href="#cb51-18"></a></span>
 <span id="cb51-19"><a href="#cb51-19"></a>  <span class="co">// Background.</span></span>
-<span id="cb51-20"><a href="#cb51-20"></a>  <span class="at">const</span> <span class="kw">auto</span> bgColor = CColor(<span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">255</span>);</span>
-<span id="cb51-21"><a href="#cb51-21"></a>  pContext-&gt;setLineWidth(borderWidth);</span>
-<span id="cb51-22"><a href="#cb51-22"></a>  pContext-&gt;setFillColor(bgColor);</span>
-<span id="cb51-23"><a href="#cb51-23"></a>  pContext-&gt;drawRect(CRect(<span class="fl">0.0</span>, <span class="fl">0.0</span>, width, height), kDrawFilled);</span>
-<span id="cb51-24"><a href="#cb51-24"></a></span>
-<span id="cb51-25"><a href="#cb51-25"></a>  pContext-&gt;setFont(</span>
-<span id="cb51-26"><a href="#cb51-26"></a>    <span class="kw">new</span> CFontDesc(fontName, fontSizeTitle, CTxtFace::kBoldFace | CTxtFace::kItalicFace));</span>
-<span id="cb51-27"><a href="#cb51-27"></a>  pContext-&gt;setFontColor(CColor(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">255</span>));</span>
-<span id="cb51-28"><a href="#cb51-28"></a>  pContext-&gt;drawString(</span>
-<span id="cb51-29"><a href="#cb51-29"></a>    UTF8String(<span class="st">&quot;🐸🍻🐨🍻🐰&quot;</span>).getPlatformString(), CPoint(<span class="fl">20.0</span>, <span class="fl">50.0</span>));</span>
-<span id="cb51-30"><a href="#cb51-30"></a></span>
-<span id="cb51-31"><a href="#cb51-31"></a>  <span class="co">// Border.</span></span>
-<span id="cb51-32"><a href="#cb51-32"></a>  <span class="at">const</span> <span class="kw">auto</span> borderColor = CColor(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">255</span>);</span>
-<span id="cb51-33"><a href="#cb51-33"></a>  pContext-&gt;setFrameColor(borderColor);</span>
-<span id="cb51-34"><a href="#cb51-34"></a>  pContext-&gt;drawRect(</span>
-<span id="cb51-35"><a href="#cb51-35"></a>    CRect(</span>
-<span id="cb51-36"><a href="#cb51-36"></a>      halfBorderWidth,</span>
-<span id="cb51-37"><a href="#cb51-37"></a>      halfBorderWidth,</span>
-<span id="cb51-38"><a href="#cb51-38"></a>      width - halfBorderWidth,</span>
-<span id="cb51-39"><a href="#cb51-39"></a>      height - halfBorderWidth),</span>
-<span id="cb51-40"><a href="#cb51-40"></a>    kDrawStroked);</span>
-<span id="cb51-41"><a href="#cb51-41"></a></span>
-<span id="cb51-42"><a href="#cb51-42"></a>  setDirty(<span class="kw">false</span>);</span>
-<span id="cb51-43"><a href="#cb51-43"></a>}</span>
-<span id="cb51-44"><a href="#cb51-44"></a></span>
-<span id="cb51-45"><a href="#cb51-45"></a>} <span class="co">// namespace Vst</span></span>
-<span id="cb51-46"><a href="#cb51-46"></a>} <span class="co">// namespace Steinberg</span></span></code></pre></div>
+<span id="cb51-20"><a href="#cb51-20"></a>  pContext-&gt;setLineWidth(borderWidth);</span>
+<span id="cb51-21"><a href="#cb51-21"></a>  pContext-&gt;setFillColor(pal.background());</span>
+<span id="cb51-22"><a href="#cb51-22"></a>  pContext-&gt;drawRect(CRect(<span class="fl">0.0</span>, <span class="fl">0.0</span>, width, height), kDrawFilled);</span>
+<span id="cb51-23"><a href="#cb51-23"></a></span>
+<span id="cb51-24"><a href="#cb51-24"></a>  pContext-&gt;setFont(</span>
+<span id="cb51-25"><a href="#cb51-25"></a>    <span class="kw">new</span> CFontDesc(fontName, fontSizeTitle, CTxtFace::kBoldFace | CTxtFace::kItalicFace));</span>
+<span id="cb51-26"><a href="#cb51-26"></a>  pContext-&gt;setFontColor(pal.foreground());</span>
+<span id="cb51-27"><a href="#cb51-27"></a>  pContext-&gt;drawString(</span>
+<span id="cb51-28"><a href="#cb51-28"></a>    UTF8String(<span class="st">&quot;🐸🍻🐨🍻🐰&quot;</span>).getPlatformString(), CPoint(<span class="fl">20.0</span>, <span class="fl">50.0</span>));</span>
+<span id="cb51-29"><a href="#cb51-29"></a></span>
+<span id="cb51-30"><a href="#cb51-30"></a>  <span class="co">// Border.</span></span>
+<span id="cb51-31"><a href="#cb51-31"></a>  pContext-&gt;setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());</span>
+<span id="cb51-32"><a href="#cb51-32"></a>  pContext-&gt;drawRect(</span>
+<span id="cb51-33"><a href="#cb51-33"></a>    CRect(</span>
+<span id="cb51-34"><a href="#cb51-34"></a>      halfBorderWidth,</span>
+<span id="cb51-35"><a href="#cb51-35"></a>      halfBorderWidth,</span>
+<span id="cb51-36"><a href="#cb51-36"></a>      width - halfBorderWidth,</span>
+<span id="cb51-37"><a href="#cb51-37"></a>      height - halfBorderWidth),</span>
+<span id="cb51-38"><a href="#cb51-38"></a>    kDrawStroked);</span>
+<span id="cb51-39"><a href="#cb51-39"></a></span>
+<span id="cb51-40"><a href="#cb51-40"></a>  setDirty(<span class="kw">false</span>);</span>
+<span id="cb51-41"><a href="#cb51-41"></a>}</span>
+<span id="cb51-42"><a href="#cb51-42"></a></span>
+<span id="cb51-43"><a href="#cb51-43"></a>} <span class="co">// namespace Vst</span></span>
+<span id="cb51-44"><a href="#cb51-44"></a>} <span class="co">// namespace Steinberg</span></span></code></pre></div>
 <p><code>SomeFX/CMakeLists.txt</code> にファイルを追加します。</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb52-1"><a href="#cb52-1"></a><span class="kw">set</span>(plug_sources</span>
 <span id="cb52-2"><a href="#cb52-2"></a>    //...</span>
@@ -1820,7 +1813,7 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <p>どこを右クリックしてもメニューが開くようにするには <code>COptionMenu</code> でメニューを作っておいて、コントロール上で右クリックされているときは <code>IContextMenu</code> に変換する、そうでなければ <code>COptionMenu</code> をそのままポップアップする、という処理が考えられます。 <code>vstgui4/vstgui/plugin-bindings/vst3editor.*</code> に実装例があります。</p>
 
 <footer>
-    <p><a href="..\index.html">Back to Index</a></p>
+    <p><a href="../index.html">Back to Index</a></p>
   </footer>
 </body>
 
