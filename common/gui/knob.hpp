@@ -294,7 +294,8 @@ public:
       anchorPoint = where;
       return kMouseEventHandled;
     } else if (buttons.isMiddleButton()) {
-      value = value > getMin() ? getMin() : getMax();
+      auto mid = (getMax() - getMin()) / 2.0;
+      value = value >= getMax() ? getMin() : value < mid ? mid : getMax();
       bounceValue();
       if (value != getOldValue()) valueChanged();
       if (isDirty()) invalid();
