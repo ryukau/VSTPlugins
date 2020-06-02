@@ -63,11 +63,17 @@ public:
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
     // Border.
+    const double borderW = isMouseEntered ? 2 * borderWidth : borderWidth;
+    const double halfBorderWidth = int(borderW / 2.0);
     pContext->setFillColor(isPressed ? pal.highlightButton() : pal.boxBackground());
     pContext->setFrameColor(
       isMouseEntered && !isPressed ? pal.highlightButton() : pal.border());
-    pContext->setLineWidth(isMouseEntered ? 2 * borderWidth : borderWidth);
-    pContext->drawRect(CRect(0, 0, getWidth(), getHeight()), kDrawFilledAndStroked);
+    pContext->setLineWidth(borderW);
+    pContext->drawRect(
+      CRect(
+        halfBorderWidth, halfBorderWidth, getWidth() - halfBorderWidth,
+        getHeight() - halfBorderWidth),
+      kDrawFilledAndStroked);
 
     // Text
     pContext->setFont(fontId);
