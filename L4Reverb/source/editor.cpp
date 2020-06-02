@@ -22,9 +22,9 @@
 #include <sstream>
 
 constexpr float uiMargin = 20.0f;
-constexpr float uiTextSize = 14.0f;
-constexpr float midTextSize = 16.0f;
-constexpr float pluginNameTextSize = 22.0f;
+constexpr float uiTextSize = 12.0f;
+constexpr float midTextSize = 12.0f;
+constexpr float pluginNameTextSize = 18.0f;
 constexpr float margin = 5.0f;
 constexpr float labelHeight = 20.0f;
 constexpr float labelY = 30.0f;
