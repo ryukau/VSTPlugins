@@ -107,6 +107,15 @@ public:
     return barBox;
   }
 
+  template<typename Parent>
+  auto addScrollBar(float left, float top, float width, float height, Parent parent)
+  {
+    auto scrollBar = new ScrollBar<Parent>(
+      CRect(left, top, left + width, top + height), this, parent, palette);
+    frame->addView(scrollBar);
+    return scrollBar;
+  }
+
   template<Uhhyou::Style style = Uhhyou::Style::common>
   auto addKickButton(
     CCoord left,
