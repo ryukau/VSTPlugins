@@ -728,7 +728,7 @@ protected:
 
   void normalizeFull(size_t start)
   {
-    auto pk = getValuePeak(start, false);
+    auto pk = getValuePeak(start, true);
 
     double diffNeg = pk.maxNeg - pk.minNeg;
     double diffPos = pk.maxPos - pk.minPos;
@@ -751,10 +751,10 @@ protected:
     for (size_t i = start; i < value.size(); ++i) {
       if (value[i] == sliderZero) continue;
       double val = value[i] < sliderZero
-        ? val = std::min<double>(
-            (value[i] - sliderZero + pk.minNeg) * mulNeg + fixNeg, sliderZero)
-        : val = std::max<double>(
-            (value[i] - sliderZero - pk.minPos) * mulPos + fixPos, sliderZero);
+        ? std::min<double>(
+          (value[i] - sliderZero + pk.minNeg) * mulNeg + fixNeg, sliderZero)
+        : std::max<double>(
+          (value[i] - sliderZero - pk.minPos) * mulPos + fixPos, sliderZero);
       setValueAt(i, val);
     }
   }
