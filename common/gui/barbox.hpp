@@ -296,7 +296,7 @@ public:
     pContext->setFillColor(pal.highlightMain());
 
     float sliderZeroHeight = height * (1.0 - sliderZero);
-    for (size_t i = indexL; i < indexR; ++i) {
+    for (int i = indexL; i < indexR; ++i) {
       auto left = (i - indexL) * sliderWidth;
       auto right = left + sliderWidth - barWidth;
       auto top = height - value[i] * height;
@@ -310,7 +310,7 @@ public:
     pContext->setFont(indexFontID);
     pContext->setFontColor(pal.foreground());
     if (sliderWidth >= 8.0) {
-      for (size_t i = indexL; i < indexR; ++i) {
+      for (int i = indexL; i < indexR; ++i) {
         auto left = (i - indexL) * sliderWidth;
         auto right = left + sliderWidth - barWidth;
         pContext->drawString(
