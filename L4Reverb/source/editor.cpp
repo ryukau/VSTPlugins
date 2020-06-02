@@ -34,12 +34,14 @@ constexpr float knobX = 60.0f; // With margin.
 constexpr float knobY = knobHeight + labelY;
 constexpr float textKnobX = 80.0f;
 constexpr float splashHeight = 40.0f;
+constexpr float scrollBarHeight = 10.0f;
 constexpr float barboxWidth = 2 * nDepth1;
-constexpr float barboxHeight = 2 * knobY + labelY + labelHeight;
+constexpr float barboxHeight = 2 * knobY + labelY + scrollBarHeight;
 constexpr float barboxWidthSmall = 4 * nDepth2;
 
 constexpr float barboxSectionWidth = barboxWidth + barboxWidthSmall + 3 * labelY;
-constexpr float barboxSectionHeight = 3 * barboxHeight + 2 * labelHeight;
+constexpr float barboxSectionHeight
+  = 3 * scrollBarHeight + 3 * barboxHeight + 2 * labelHeight;
 
 constexpr float leftPanelWidth = 4 * textKnobX + 6 * margin;
 
@@ -208,8 +210,8 @@ bool Editor::prepareUI()
   const auto tabViewLeft = left0 + leftPanelWidth + labelY;
 
   const auto tabInsideTop0 = top0;
-  const auto tabInsideTop1 = tabInsideTop0 + barboxHeight + labelHeight;
-  const auto tabInsideTop2 = tabInsideTop1 + barboxHeight + labelHeight;
+  const auto tabInsideTop1 = tabInsideTop0 + barboxHeight + scrollBarHeight + labelHeight;
+  const auto tabInsideTop2 = tabInsideTop1 + barboxHeight + scrollBarHeight + labelHeight;
   const auto tabInsideLeft0 = tabViewLeft;
   const auto tabInsideLeft1 = tabInsideLeft0 + labelY;
 
@@ -220,6 +222,9 @@ bool Editor::prepareUI()
     tabInsideLeft1, tabInsideTop0, 2 * nDepth1, barboxHeight, ID::time0, nDepth1,
     Scales::time, "Time");
   barboxTime->liveUpdateLineEdit = false;
+  addScrollBar(
+    tabInsideLeft1, tabInsideTop0 + barboxHeight, 2 * nDepth1, scrollBarHeight,
+    barboxTime);
 
   addGroupVerticalLabel(
     tabInsideLeft0, tabInsideTop1, barboxHeight, labelHeight, midTextSize, "InnerFeed");
@@ -228,6 +233,9 @@ bool Editor::prepareUI()
     Scales::feed, "InnerFeed");
   barboxInnerFeed->sliderZero = 0.5f;
   barboxInnerFeed->liveUpdateLineEdit = false;
+  addScrollBar(
+    tabInsideLeft1, tabInsideTop1 + barboxHeight, 2 * nDepth1, scrollBarHeight,
+    barboxInnerFeed);
 
   addGroupVerticalLabel(
     tabInsideLeft0, tabInsideTop2, barboxHeight, labelHeight, midTextSize, "D1 Feed");
@@ -236,6 +244,9 @@ bool Editor::prepareUI()
     Scales::feed, "D1 Feed");
   barboxD1Feed->sliderZero = 0.5f;
   barboxD1Feed->liveUpdateLineEdit = false;
+  addScrollBar(
+    tabInsideLeft1, tabInsideTop2 + barboxHeight, 2 * nDepth1, scrollBarHeight,
+    barboxD1Feed);
 
   const auto tabInsideLeft2 = tabInsideLeft1 + barboxWidth + labelY;
   const auto tabInsideLeft3 = tabInsideLeft2 + labelY;

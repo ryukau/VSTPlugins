@@ -21,10 +21,10 @@
 #include <algorithm>
 #include <sstream>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float midTextSize = 12.0f;
-constexpr float infoTextSize = 12.0f;
-constexpr float pluginNameTextSize = 36.0f;
+constexpr float uiTextSize = 14.0f;
+constexpr float midTextSize = 16.0f;
+constexpr float infoTextSize = 18.0f;
+constexpr float pluginNameTextSize = 22.0f;
 constexpr float margin = 5.0f;
 constexpr float labelHeight = 20.0f;
 constexpr float labelY = 30.0f;
@@ -32,9 +32,10 @@ constexpr float knobWidth = 50.0f;
 constexpr float knobHeight = 40.0f;
 constexpr float knobX = 60.0f; // With margin.
 constexpr float knobY = knobHeight + labelY;
+constexpr float scrollBarHeight = 10.0f;
 constexpr float barboxWidth = 12.0f * knobX;
-constexpr float barboxHeight = 2.0f * knobY;
-constexpr float barboxY = barboxHeight + 2.0f * margin;
+constexpr float barboxHeight = 2.0f * knobY - scrollBarHeight + margin;
+constexpr float barboxY = barboxHeight + scrollBarHeight + margin;
 constexpr float checkboxWidth = 60.0f;
 constexpr float splashHeight = 40.0f;
 constexpr uint32_t defaultWidth
@@ -669,6 +670,11 @@ bool Editor::prepareUI()
   barboxOtGain->liveUpdateLineEdit = false;
   tabview->addWidget(tabPadSynth, barboxOtGain);
 
+  tabview->addWidget(
+    tabPadSynth,
+    addScrollBar(
+      otGainLeft0, otGainTop + barboxHeight, barboxWidth, scrollBarHeight, barboxOtGain));
+
   // Overtone Width.
   const auto otWidthTop = otGainTop + barboxY + margin;
   const auto otWidthLeft = otGainLeft;
@@ -683,6 +689,12 @@ bool Editor::prepareUI()
     Scales::overtoneWidth, "Width");
   barboxOtWidth->liveUpdateLineEdit = false;
   tabview->addWidget(tabPadSynth, barboxOtWidth);
+
+  tabview->addWidget(
+    tabPadSynth,
+    addScrollBar(
+      otGainLeft0, otWidthTop + barboxHeight, barboxWidth, scrollBarHeight,
+      barboxOtWidth));
 
   // Overtone Pitch.
   const auto otPitchTop = otWidthTop + barboxY + margin;
@@ -699,6 +711,12 @@ bool Editor::prepareUI()
   barboxOtPitch->liveUpdateLineEdit = false;
   tabview->addWidget(tabPadSynth, barboxOtPitch);
 
+  tabview->addWidget(
+    tabPadSynth,
+    addScrollBar(
+      otGainLeft0, otPitchTop + barboxHeight, barboxWidth, scrollBarHeight,
+      barboxOtPitch));
+
   // Overtone Phase.
   const auto otPhaseTop = otPitchTop + barboxY + margin;
   const auto otPhaseLeft = otGainLeft;
@@ -713,6 +731,12 @@ bool Editor::prepareUI()
     Scales::overtonePhase, "Phase");
   barboxOtPhase->liveUpdateLineEdit = false;
   tabview->addWidget(tabPadSynth, barboxOtPhase);
+
+  tabview->addWidget(
+    tabPadSynth,
+    addScrollBar(
+      otGainLeft0, otPhaseTop + barboxHeight, barboxWidth, scrollBarHeight,
+      barboxOtPhase));
 
   auto textKnobControl = R"(- Knob -
 Shift + Left Drag|Fine Adjustment
