@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>IterativeSinCluster<rt>イテレイティブ サイン クラスタ</rt></ruby>はノート 1 つあたり 512 のサイン波を計算する加算合成シンセサイザです。一体、何を考えていたのか iterative sin という言葉を名前に使っていますが、アルゴリズムの種類を表す正しい言葉は recursive sine です。
 
-- [IterativeSinCluster 0.1.8 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/IterativeSinCluster0.1.8.zip) <img
+- [IterativeSinCluster 0.1.9 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/IterativeSinCluster0.1.9.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -321,6 +321,7 @@ Key Follow
   - 初期リリース。
 
 ### 旧バージョン
+- [IterativeSinCluster 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/IterativeSinCluster0.1.8.zip)
 - [IterativeSinCluster 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/IterativeSinCluster0.1.7.zip)
 - [IterativeSinCluster 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/IterativeSinCluster0.1.6.zip)
 - [IterativeSinCluster 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/IterativeSinCluster0.1.5.zip)

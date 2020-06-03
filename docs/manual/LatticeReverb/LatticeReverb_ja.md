@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>LatticeReverb<rt>ラティス リバーブ</rt></ruby> はディレイを使った高次のオールパスフィルタを格子状につないで入れ子にしたリバーブです。 1 チャンネルあたり 16 のオールパスフィルタを備えています。
 
-- [LatticeReverb 0.1.1 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/LatticeReverb0.1.1.zip) <img
+- [LatticeReverb 0.1.2 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/LatticeReverb0.1.2.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -120,6 +120,8 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 - `overlayHighlight`: フォーカスを示すオーバーレイの色。
 
 ## 操作
+操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。
+
 つまみとスライダーでは次の操作ができます。
 
 - <kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。
@@ -133,35 +135,38 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 
 左下のプラグイン名をクリックすると、よく使いそうな一部のショートカットを見ることができます。利用できる全てのショートカットを次の表に掲載しています。
 
-| 入力                                    | 操作                                       |
-| :-------------------------------------- | :----------------------------------------- |
-| <kbd>Ctrl</kbd> + <kbd>Left Click</kbd> | デフォルト値にリセット                     |
-| <kbd>Mouse Middle Drag</kbd>            | 直線の描画                                 |
-| <kbd>d</kbd>                            | すべての値をデフォルト値にリセット         |
-| <kbd>D</kbd>                            | 最小値・中央値・最大値の切り替え           |
-| <kbd>e</kbd>                            | 低域の強調                                 |
-| <kbd>E</kbd>                            | 高域の強調                                 |
-| <kbd>f</kbd>                            | ローパスフィルタ                           |
-| <kbd>F</kbd>                            | ハイパスフィルタ                           |
-| <kbd>i</kbd>                            | 値の反転 (最小値を保存)                    |
-| <kbd>I</kbd>                            | 値の反転 (最小値を 0 に設定)               |
-| <kbd>n</kbd>                            | 最大値を 1 に正規化 (最小値もスケーリング) |
-| <kbd>N</kbd>                            | 最大値を 1 に正規化 (最小値を 0 に設定)    |
-| <kbd>p</kbd>                            | ランダムに並べ替え                         |
-| <kbd>r</kbd>                            | ランダマイズ                               |
-| <kbd>R</kbd>                            | まばらなランダマイズ                       |
-| <kbd>s</kbd>                            | 降順にソート                               |
-| <kbd>S</kbd>                            | 昇順にソート                               |
-| <kbd>t</kbd>                            | 少しだけランダマイズ                       |
-| <kbd>,</kbd> (Comma)                    | 左に回転                                   |
-| <kbd>.</kbd> (Period)                   | 右に回転                                   |
-| <kbd>1</kbd>                            | すべての値を低減                           |
-| <kbd>2</kbd>-<kbd>9</kbd>               | インデックスが 2n-9n の値を低減            |
-
-操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。
+| 入力                                     | 操作                                    |
+| ---------------------------------------- | --------------------------------------- |
+| <kbd>Ctrl</kbd> + <kbd>左ドラッグ</kbd>  | デフォルト値にリセット                  |
+| <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> | 素朴な描画 (フレーム間の補間が無効)     |
+| <kbd>ホイールドラッグ</kbd>              | 直線の描画                              |
+| <kbd>a</kbd>                             | 符号を交互に入れ替え                    |
+| <kbd>d</kbd>                             | すべての値をデフォルト値にリセット      |
+| <kbd>D</kbd>                             | 最小値・中央値・最大値の切り替え        |
+| <kbd>e</kbd>                             | 低域の強調                              |
+| <kbd>E</kbd>                             | 高域の強調                              |
+| <kbd>f</kbd>                             | ローパスフィルタ                        |
+| <kbd>F</kbd>                             | ハイパスフィルタ                        |
+| <kbd>i</kbd>                             | 値の反転 (最小値を保存)                 |
+| <kbd>I</kbd>                             | 値の反転 (最小値を 0 に設定)            |
+| <kbd>n</kbd>                             | 最大値を 1 に正規化 (最小値を保存)      |
+| <kbd>N</kbd>                             | 最大値を 1 に正規化 (最小値を 0 に設定) |
+| <kbd>p</kbd>                             | ランダムに並べ替え                      |
+| <kbd>r</kbd>                             | ランダマイズ                            |
+| <kbd>R</kbd>                             | まばらなランダマイズ                    |
+| <kbd>s</kbd>                             | 降順にソート                            |
+| <kbd>S</kbd>                             | 昇順にソート                            |
+| <kbd>t</kbd>                             | 少しだけランダマイズ (ランダムウォーク) |
+| <kbd>T</kbd>                             | 少しだけランダマイズ (0 に収束)         |
+| <kbd>z</kbd>                             | アンドゥ                                |
+| <kbd>Z</kbd>                             | リドゥ                                  |
+| <kbd>,</kbd> (Comma)                     | 左に回転                                |
+| <kbd>.</kbd> (Period)                    | 右に回転                                |
+| <kbd>1</kbd>                             | すべての値を低減                        |
+| <kbd>2</kbd>-<kbd>9</kbd>                | インデックスが 2n-9n の値を低減         |
 
 ## 注意
-サンプリング周波数によって出力が変わります。
+サンプリング周波数やバッファサイズによって出力が変わります。
 
 次の手順に沿った操作が行われると出力が大きくなることがあります。
 
@@ -287,8 +292,8 @@ Lowpass Cutoff
   - 初期リリース。
 
 ### 旧バージョン
+- [LatticeReverb 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/LatticeReverb0.1.1.zip)
 - [LatticeReverb 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverb0.1.0.zip)
-現在、旧バージョンはありません。
 
 ## ライセンス
 LatticeReverb のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。

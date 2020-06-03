@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby> は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています
 
-- [CubicPadSynth 0.1.6 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/CubicPadSynth0.1.6.zip) <img
+- [CubicPadSynth 0.1.7 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/CubicPadSynth0.1.7.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -124,39 +124,49 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 
 つまみとスライダーでは次の操作ができます。
 
-- Ctrl + 左クリック : 値のリセット。
-- Shift + 左ドラッグ : 細かい値の変更。
+- <kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。
+- <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。
 
 `Octave` 、 `Seed` などで使われている数値スライダーでは、上記に加えて次の操作ができます。
 
-- ホイールクリック : 最小値、最大値の切り替え。
+- <kbd>ホイールクリック</kbd> : 最小値、最大値の切り替え。
 
 Wavetable タブの `Gain`, `Width`, `Pitch`, `Phase` と Main タブの `LFO Wave` で使われている青い縦棒が並んだコントロール (BarBox) ではショートカットが使えます。ショートカットは BarBox を左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを BarBox の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。 Information タブを開くとショートカットの一覧を見ることができます。
 
-| 入力                                    | 操作                                       |
-| --------------------------------------- | ------------------------------------------ |
-| <kbd>Ctrl</kbd> + <kbd>Left Click</kbd> | デフォルト値にリセット                     |
-| <kbd>Mouse Middle Drag</kbd>            | 直線の描画                                 |
-| <kbd>d</kbd>                            | すべての値をデフォルト値にリセット         |
-| <kbd>D</kbd>                            | 最小値・中央値・最大値の切り替え           |
-| <kbd>e</kbd>                            | 低域の強調                                 |
-| <kbd>E</kbd>                            | 高域の強調                                 |
-| <kbd>f</kbd>                            | ローパスフィルタ                           |
-| <kbd>F</kbd>                            | ハイパスフィルタ                           |
-| <kbd>i</kbd>                            | 値の反転 (最小値を保存)                    |
-| <kbd>I</kbd>                            | 値の反転 (最小値を 0 に設定)               |
-| <kbd>n</kbd>                            | 最大値を 1 に正規化 (最小値もスケーリング) |
-| <kbd>N</kbd>                            | 最大値を 1 に正規化 (最小値を 0 に設定)    |
-| <kbd>p</kbd>                            | ランダムに並べ替え                         |
-| <kbd>r</kbd>                            | ランダマイズ                               |
-| <kbd>R</kbd>                            | まばらなランダマイズ                       |
-| <kbd>s</kbd>                            | 降順にソート                               |
-| <kbd>S</kbd>                            | 昇順にソート                               |
-| <kbd>t</kbd>                            | 少しだけランダマイズ                       |
-| <kbd>,</kbd> (Comma)                    | 左に回転                                   |
-| <kbd>.</kbd> (Period)                   | 右に回転                                   |
-| <kbd>1</kbd>                            | すべての値を低減                           |
-| <kbd>2</kbd>-<kbd>9</kbd>               | インデックスが 2n-9n の値を低減            |
+| 入力                                     | 操作                                    |
+| ---------------------------------------- | --------------------------------------- |
+| <kbd>Ctrl</kbd> + <kbd>左ドラッグ</kbd>  | デフォルト値にリセット                  |
+| <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> | 素朴な描画 (フレーム間の補間が無効)     |
+| <kbd>ホイールドラッグ</kbd>              | 直線の描画                              |
+| <kbd>a</kbd>                             | 符号を交互に入れ替え                    |
+| <kbd>d</kbd>                             | すべての値をデフォルト値にリセット      |
+| <kbd>D</kbd>                             | 最小値・中央値・最大値の切り替え        |
+| <kbd>e</kbd>                             | 低域の強調                              |
+| <kbd>E</kbd>                             | 高域の強調                              |
+| <kbd>f</kbd>                             | ローパスフィルタ                        |
+| <kbd>F</kbd>                             | ハイパスフィルタ                        |
+| <kbd>i</kbd>                             | 値の反転 (最小値を保存)                 |
+| <kbd>I</kbd>                             | 値の反転 (最小値を 0 に設定)            |
+| <kbd>n</kbd>                             | 最大値を 1 に正規化 (最小値を保存)      |
+| <kbd>N</kbd>                             | 最大値を 1 に正規化 (最小値を 0 に設定) |
+| <kbd>p</kbd>                             | ランダムに並べ替え                      |
+| <kbd>r</kbd>                             | ランダマイズ                            |
+| <kbd>R</kbd>                             | まばらなランダマイズ                    |
+| <kbd>s</kbd>                             | 降順にソート                            |
+| <kbd>S</kbd>                             | 昇順にソート                            |
+| <kbd>t</kbd>                             | 少しだけランダマイズ (ランダムウォーク) |
+| <kbd>T</kbd>                             | 少しだけランダマイズ (0 に収束)         |
+| <kbd>z</kbd>                             | アンドゥ                                |
+| <kbd>Z</kbd>                             | リドゥ                                  |
+| <kbd>,</kbd> (Comma)                     | 左に回転                                |
+| <kbd>.</kbd> (Period)                    | 右に回転                                |
+| <kbd>1</kbd>                             | すべての値を低減                        |
+| <kbd>2</kbd>-<kbd>9</kbd>                | インデックスが 2n-9n の値を低減         |
+
+いくつかの BarBox の下にはスクロールバーがついています。細かい調整を行うときはスクロールバーの左右のハンドルを <kbd>左ドラッグ</kbd> で動かすことで表示範囲を変更できます。スクロールバーでは次の操作が行えます。
+
+- <kbd>右クリック</kbd> : 表示範囲のリセット
+- <kbd>マウスホイール</kbd> : ズームイン・ズームアウト
 
 ## 注意
 `Refresh LFO` あるいは `Refresh Table` ボタンを押すと音が止まります。発音中のノートも全て停止します。
@@ -539,6 +549,7 @@ Width\*
   - 初期リリース。
 
 ### 旧バージョン
+- [CubicPadSynth 0.1.6 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/CubicPadSynth0.1.6.zip)
 - [CubicPadSynth 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/CubicPadSynth0.1.5.zip)
 - [CubicPadSynth 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/CubicPadSynth0.1.4.zip)
 - [CubicPadSynth 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip)

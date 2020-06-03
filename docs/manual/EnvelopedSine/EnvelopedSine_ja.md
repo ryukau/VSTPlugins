@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>EnvelopedSine<rt>エンベロープド サイン</rt></ruby>はノート 1 つあたり 64 のサイン波を計算する加算合成シンセサイザです。各サイン波に AD エンベロープとサチュレータがついているので IterativeSinCluster よりもパーカッシブな音が得意です。
 
-- [EnvelopedSine 0.1.7 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/EnvelopedSine0.1.7.zip) <img
+- [EnvelopedSine 0.1.8 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/EnvelopedSine0.1.8.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -133,30 +133,35 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 
 `Attack` 、 `Decay` 、 `Gain` 、 `Saturation` を操作する、青い縦棒が並んだインターフェイス (BarBox) ではショートカットが使えます。ショートカットは BarBox を左クリックしてフォーカスした上で、マウスカーソルが BarBox の領域内にあるときだけ有効になります。左下にあるプラグインのタイトルをクリックするとショートカットの一覧を見ることができます。
 
-| 入力                                    | 操作                                       |
-| --------------------------------------- | ------------------------------------------ |
-| <kbd>Ctrl</kbd> + <kbd>Left Click</kbd> | デフォルト値にリセット                     |
-| <kbd>Mouse Middle Drag</kbd>            | 直線の描画                                 |
-| <kbd>d</kbd>                            | すべての値をデフォルト値にリセット         |
-| <kbd>D</kbd>                            | 最小値・中央値・最大値の切り替え           |
-| <kbd>e</kbd>                            | 低域の強調                                 |
-| <kbd>E</kbd>                            | 高域の強調                                 |
-| <kbd>f</kbd>                            | ローパスフィルタ                           |
-| <kbd>F</kbd>                            | ハイパスフィルタ                           |
-| <kbd>i</kbd>                            | 値の反転 (最小値を保存)                    |
-| <kbd>I</kbd>                            | 値の反転 (最小値を 0 に設定)               |
-| <kbd>n</kbd>                            | 最大値を 1 に正規化 (最小値もスケーリング) |
-| <kbd>N</kbd>                            | 最大値を 1 に正規化 (最小値を 0 に設定)    |
-| <kbd>p</kbd>                            | ランダムに並べ替え                         |
-| <kbd>r</kbd>                            | ランダマイズ                               |
-| <kbd>R</kbd>                            | まばらなランダマイズ                       |
-| <kbd>s</kbd>                            | 降順にソート                               |
-| <kbd>S</kbd>                            | 昇順にソート                               |
-| <kbd>t</kbd>                            | 少しだけランダマイズ                       |
-| <kbd>,</kbd> (Comma)                    | 左に回転                                   |
-| <kbd>.</kbd> (Period)                   | 右に回転                                   |
-| <kbd>1</kbd>                            | すべての値を低減                           |
-| <kbd>2</kbd>-<kbd>9</kbd>               | インデックスが 2n-9n の値を低減            |
+| 入力                                     | 操作                                    |
+| ---------------------------------------- | --------------------------------------- |
+| <kbd>Ctrl</kbd> + <kbd>左ドラッグ</kbd>  | デフォルト値にリセット                  |
+| <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> | 素朴な描画 (フレーム間の補間が無効)     |
+| <kbd>ホイールドラッグ</kbd>              | 直線の描画                              |
+| <kbd>a</kbd>                             | 符号を交互に入れ替え                    |
+| <kbd>d</kbd>                             | すべての値をデフォルト値にリセット      |
+| <kbd>D</kbd>                             | 最小値・中央値・最大値の切り替え        |
+| <kbd>e</kbd>                             | 低域の強調                              |
+| <kbd>E</kbd>                             | 高域の強調                              |
+| <kbd>f</kbd>                             | ローパスフィルタ                        |
+| <kbd>F</kbd>                             | ハイパスフィルタ                        |
+| <kbd>i</kbd>                             | 値の反転 (最小値を保存)                 |
+| <kbd>I</kbd>                             | 値の反転 (最小値を 0 に設定)            |
+| <kbd>n</kbd>                             | 最大値を 1 に正規化 (最小値を保存)      |
+| <kbd>N</kbd>                             | 最大値を 1 に正規化 (最小値を 0 に設定) |
+| <kbd>p</kbd>                             | ランダムに並べ替え                      |
+| <kbd>r</kbd>                             | ランダマイズ                            |
+| <kbd>R</kbd>                             | まばらなランダマイズ                    |
+| <kbd>s</kbd>                             | 降順にソート                            |
+| <kbd>S</kbd>                             | 昇順にソート                            |
+| <kbd>t</kbd>                             | 少しだけランダマイズ (ランダムウォーク) |
+| <kbd>T</kbd>                             | 少しだけランダマイズ (0 に収束)         |
+| <kbd>z</kbd>                             | アンドゥ                                |
+| <kbd>Z</kbd>                             | リドゥ                                  |
+| <kbd>,</kbd> (Comma)                     | 左に回転                                |
+| <kbd>.</kbd> (Period)                    | 右に回転                                |
+| <kbd>1</kbd>                             | すべての値を低減                        |
+| <kbd>2</kbd>-<kbd>9</kbd>                | インデックスが 2n-9n の値を低減         |
 
 ## ブロック線図
 図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> + <kbd>マウスホイール</kbd> や、右クリックから「画像だけを表示」などで拡大できます。
@@ -334,6 +339,7 @@ Phase
   - 初期リリース。
 
 ### 旧バージョン
+- [EnvelopedSine 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/EnvelopedSine0.1.7.zip)
 - [EnvelopedSine 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/EnvelopedSine0.1.6.zip)
 - [EnvelopedSine 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/EnvelopedSine0.1.5.zip)
 - [EnvelopedSine 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/EnvelopedSine0.1.4.zip)

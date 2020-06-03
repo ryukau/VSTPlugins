@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>LightPadSynth<rt>ライト パッド シンセ</rt></ruby> はピッチ変調を無くして補間を線形補完に変えた CubicPadSynth の軽量版です。ピッチ変調ができなくなった代わりに、各ボイスにディレイを追加しています。
 
-- [LightPadSynth 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/LightPadSynth0.1.4.zip) <img
+- [LightPadSynth 0.1.5 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/LightPadSynth0.1.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -133,30 +133,40 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 
 Wavetable タブの `Gain`, `Width`, `Pitch`, `Phase` と Main タブの `LFO Wave` で使われている青い縦棒が並んだコントロール (BarBox) ではショートカットが使えます。ショートカットは BarBox を左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを BarBox の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。 Information タブを開くとショートカットの一覧を見ることができます。
 
-| 入力                                    | 操作                                       |
-| :-------------------------------------- | :----------------------------------------- |
-| <kbd>Ctrl</kbd> + <kbd>Left Click</kbd> | デフォルト値にリセット                     |
-| <kbd>Mouse Middle Drag</kbd>            | 直線の描画                                 |
-| <kbd>d</kbd>                            | すべての値をデフォルト値にリセット         |
-| <kbd>D</kbd>                            | 最小値・中央値・最大値の切り替え           |
-| <kbd>e</kbd>                            | 低域の強調                                 |
-| <kbd>E</kbd>                            | 高域の強調                                 |
-| <kbd>f</kbd>                            | ローパスフィルタ                           |
-| <kbd>F</kbd>                            | ハイパスフィルタ                           |
-| <kbd>i</kbd>                            | 値の反転 (最小値を保存)                    |
-| <kbd>I</kbd>                            | 値の反転 (最小値を 0 に設定)               |
-| <kbd>n</kbd>                            | 最大値を 1 に正規化 (最小値もスケーリング) |
-| <kbd>N</kbd>                            | 最大値を 1 に正規化 (最小値を 0 に設定)    |
-| <kbd>p</kbd>                            | ランダムに並べ替え                         |
-| <kbd>r</kbd>                            | ランダマイズ                               |
-| <kbd>R</kbd>                            | まばらなランダマイズ                       |
-| <kbd>s</kbd>                            | 降順にソート                               |
-| <kbd>S</kbd>                            | 昇順にソート                               |
-| <kbd>t</kbd>                            | 少しだけランダマイズ                       |
-| <kbd>,</kbd> (Comma)                    | 左に回転                                   |
-| <kbd>.</kbd> (Period)                   | 右に回転                                   |
-| <kbd>1</kbd>                            | すべての値を低減                           |
-| <kbd>2</kbd>-<kbd>9</kbd>               | インデックスが 2n-9n の値を低減            |
+| 入力                                     | 操作                                    |
+| ---------------------------------------- | --------------------------------------- |
+| <kbd>Ctrl</kbd> + <kbd>左ドラッグ</kbd>  | デフォルト値にリセット                  |
+| <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> | 素朴な描画 (フレーム間の補間が無効)     |
+| <kbd>ホイールドラッグ</kbd>              | 直線の描画                              |
+| <kbd>a</kbd>                             | 符号を交互に入れ替え                    |
+| <kbd>d</kbd>                             | すべての値をデフォルト値にリセット      |
+| <kbd>D</kbd>                             | 最小値・中央値・最大値の切り替え        |
+| <kbd>e</kbd>                             | 低域の強調                              |
+| <kbd>E</kbd>                             | 高域の強調                              |
+| <kbd>f</kbd>                             | ローパスフィルタ                        |
+| <kbd>F</kbd>                             | ハイパスフィルタ                        |
+| <kbd>i</kbd>                             | 値の反転 (最小値を保存)                 |
+| <kbd>I</kbd>                             | 値の反転 (最小値を 0 に設定)            |
+| <kbd>n</kbd>                             | 最大値を 1 に正規化 (最小値を保存)      |
+| <kbd>N</kbd>                             | 最大値を 1 に正規化 (最小値を 0 に設定) |
+| <kbd>p</kbd>                             | ランダムに並べ替え                      |
+| <kbd>r</kbd>                             | ランダマイズ                            |
+| <kbd>R</kbd>                             | まばらなランダマイズ                    |
+| <kbd>s</kbd>                             | 降順にソート                            |
+| <kbd>S</kbd>                             | 昇順にソート                            |
+| <kbd>t</kbd>                             | 少しだけランダマイズ (ランダムウォーク) |
+| <kbd>T</kbd>                             | 少しだけランダマイズ (0 に収束)         |
+| <kbd>z</kbd>                             | アンドゥ                                |
+| <kbd>Z</kbd>                             | リドゥ                                  |
+| <kbd>,</kbd> (Comma)                     | 左に回転                                |
+| <kbd>.</kbd> (Period)                    | 右に回転                                |
+| <kbd>1</kbd>                             | すべての値を低減                        |
+| <kbd>2</kbd>-<kbd>9</kbd>                | インデックスが 2n-9n の値を低減         |
+
+いくつかの BarBox の下にはスクロールバーがついています。細かい調整を行うときはスクロールバーの左右のハンドルを <kbd>左ドラッグ</kbd> で動かすことで表示範囲を変更できます。スクロールバーでは次の操作が行えます。
+
+- <kbd>右クリック</kbd> : 表示範囲のリセット
+- <kbd>マウスホイール</kbd> : ズームイン・ズームアウト
 
 ## 注意
 `Refresh LFO` あるいは `Refresh Table` ボタンを押すと音が止まります。発音中のノートも全て停止します。
@@ -504,6 +514,7 @@ Width\*
   - 初期リリース。
 
 ### 旧バージョン
+- [LightPadSynth 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/LightPadSynth0.1.4.zip)
 - [LightPadSynth 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LightPadSynth0.1.3.zip)
 - [LightPadSynth 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/LightPadSynth0.1.2.zip)
 - [LightPadSynth 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynth0.1.0.zip)

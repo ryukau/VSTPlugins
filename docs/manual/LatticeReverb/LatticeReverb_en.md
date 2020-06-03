@@ -7,7 +7,7 @@ lang: en
 
 LatticeReverb is a reverb using lattice structure. Equipped with 16 delays per channel.
 
-- [Download LatticeReverb 0.1.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/LatticeReverb0.1.1.zip) <img
+- [Download LatticeReverb 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/LatticeReverb0.1.2.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -114,6 +114,8 @@ Do not use characters outside of `0-9a-f` for color value.
 - `overlayHighlight`: Overlay color to highlight current focus.
 
 ## Controls
+<kbd>Right Click</kbd> on the controls pops up a context menu provided by DAW.
+
 Knob and slider can do:
 
 - <kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.
@@ -125,35 +127,38 @@ There is an additional control for number sliders used for `Octave`, `Seed` etc.
 
 Control with many blue vertical bars (BarBox) have some keyboard shortcuts. `LFO Wave` on Main tab and `Gain`, `Width`, `Pitch`, `Phase` on Wavetable tab are using BarBox. Shortcuts are enabled after left clicking BarBox and mouse cursor is on the inside of BarBox. Cheat sheet is available on Infomation tab.
 
-| Input                                   | Control                                 |
-| :-------------------------------------- | :-------------------------------------- |
-| <kbd>Ctrl</kbd> + <kbd>Left Click</kbd> | Reset to Default                        |
-| <kbd>Right Drag</kbd>                   | Draw Line                               |
-| <kbd>d</kbd>                            | Reset Everything to Default             |
-| <kbd>D</kbd>                            | Toggle Min/Mid/Max                      |
-| <kbd>e</kbd>                            | Emphasize Low                           |
-| <kbd>E</kbd>                            | Emphasize High                          |
-| <kbd>f</kbd>                            | Low-pass Filter                         |
-| <kbd>F</kbd>                            | High-pass Filter                        |
-| <kbd>i</kbd>                            | Invert Value (Preserve current minimum) |
-| <kbd>I</kbd>                            | Invert Value (Minimum to 0)             |
-| <kbd>n</kbd>                            | Normalize (Preserve current minimum)    |
-| <kbd>N</kbd>                            | Normalize (Minimum to 0)                |
-| <kbd>p</kbd>                            | Permute                                 |
-| <kbd>r</kbd>                            | Randomize                               |
-| <kbd>R</kbd>                            | Sparse Randomize                        |
-| <kbd>s</kbd>                            | Sort Descending Order                   |
-| <kbd>S</kbd>                            | Sort Ascending Order                    |
-| <kbd>t</kbd>                            | Subtle Randomize                        |
-| <kbd>,</kbd> (Comma)                    | Rotate Back                             |
-| <kbd>.</kbd> (Period)                   | Rotate Forward                          |
-| <kbd>1</kbd>                            | Decrease                                |
-| <kbd>2</kbd>-<kbd>9</kbd>               | Decrease 2n-9n                          |
-
-<kbd>Right Click</kbd> on the controls pops up a context menu provided by DAW.
+| Input                                   | Control                               |
+| --------------------------------------- | ------------------------------------- |
+| <kbd>Ctrl</kbd> + <kbd>Left Drag</kbd>  | Reset to Default                      |
+| <kbd>Shift</kbd> + <kbd>Left Drag</kbd> | Naive Draw (Skip bars between frames) |
+| <kbd>Right Drag</kbd>                   | Draw Line                             |
+| <kbd>a</kbd>                            | Alternate Sign                        |
+| <kbd>d</kbd>                            | Reset Everything to Default           |
+| <kbd>D</kbd>                            | Toggle Min/Mid/Max                    |
+| <kbd>e</kbd>                            | Emphasize Low                         |
+| <kbd>E</kbd>                            | Emphasize High                        |
+| <kbd>f</kbd>                            | Low-pass Filter                       |
+| <kbd>F</kbd>                            | High-pass Filter                      |
+| <kbd>i</kbd>                            | Invert Value (Preserve minimum)       |
+| <kbd>I</kbd>                            | Invert Value (Minimum to 0)           |
+| <kbd>n</kbd>                            | Normalize (Preserve minimum)          |
+| <kbd>N</kbd>                            | Normalize (Minimum to 0)              |
+| <kbd>p</kbd>                            | Permute                               |
+| <kbd>r</kbd>                            | Randomize                             |
+| <kbd>R</kbd>                            | Sparse Randomize                      |
+| <kbd>s</kbd>                            | Sort Descending Order                 |
+| <kbd>S</kbd>                            | Sort Ascending Order                  |
+| <kbd>t</kbd>                            | Subtle Randomize (Random walk)        |
+| <kbd>T</kbd>                            | Subtle Randomize (Converge to 0)      |
+| <kbd>z</kbd>                            | Undo                                  |
+| <kbd>Z</kbd>                            | Redo                                  |
+| <kbd>,</kbd> (Comma)                    | Rotate Back                           |
+| <kbd>.</kbd> (Period)                   | Rotate Forward                        |
+| <kbd>1</kbd>                            | Decrease                              |
+| <kbd>2</kbd>-<kbd>9</kbd>               | Decrease 2n-9n                        |
 
 ## Caution
-Output may change with different sample rate.
+Output may change with different sample rate or buffer size.
 
 Output may become loud when following steps are performed.
 
@@ -279,8 +284,8 @@ Lowpass Cutoff
   - Initial release.
 
 ### Old Versions
+- [LatticeReverb 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/LatticeReverb0.1.1.zip)
 - [LatticeReverb 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverb0.1.0.zip)
-N/A
 
 ## License
 LatticeReverb is licensed under GPLv3. Complete licenses are linked below.

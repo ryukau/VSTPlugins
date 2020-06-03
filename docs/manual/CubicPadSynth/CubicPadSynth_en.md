@@ -7,7 +7,7 @@ lang: en
 
 CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.
 
-- [Download CubicPadSynth 0.1.6 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/CubicPadSynth0.1.6.zip) <img
+- [Download CubicPadSynth 0.1.7 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/CubicPadSynth0.1.7.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -125,30 +125,40 @@ There is an additional control for number sliders used for `Octave`, `Seed` etc.
 
 Control with many blue vertical bars (BarBox) have some keyboard shortcuts. `LFO Wave` on Main tab and `Gain`, `Width`, `Pitch`, `Phase` on Wavetable tab are using BarBox. Shortcuts are enabled after left clicking BarBox and mouse cursor is on the inside of BarBox. Cheat sheet is available on Infomation tab.
 
-| Input                                   | Control                                 |
-| --------------------------------------- | --------------------------------------- |
-| <kbd>Ctrl</kbd> + <kbd>Left Click</kbd> | Reset to Default                        |
-| <kbd>Right Drag</kbd>                   | Draw Line                               |
-| <kbd>d</kbd>                            | Reset Everything to Default             |
-| <kbd>D</kbd>                            | Toggle Min/Mid/Max                      |
-| <kbd>e</kbd>                            | Emphasize Low                           |
-| <kbd>E</kbd>                            | Emphasize High                          |
-| <kbd>f</kbd>                            | Low-pass Filter                         |
-| <kbd>F</kbd>                            | High-pass Filter                        |
-| <kbd>i</kbd>                            | Invert Value (Preserve current minimum) |
-| <kbd>I</kbd>                            | Invert Value (Minimum to 0)             |
-| <kbd>n</kbd>                            | Normalize (Preserve current minimum)    |
-| <kbd>N</kbd>                            | Normalize (Minimum to 0)                |
-| <kbd>p</kbd>                            | Permute                                 |
-| <kbd>r</kbd>                            | Randomize                               |
-| <kbd>R</kbd>                            | Sparse Randomize                        |
-| <kbd>s</kbd>                            | Sort Descending Order                   |
-| <kbd>S</kbd>                            | Sort Ascending Order                    |
-| <kbd>t</kbd>                            | Subtle Randomize                        |
-| <kbd>,</kbd> (Comma)                    | Rotate Back                             |
-| <kbd>.</kbd> (Period)                   | Rotate Forward                          |
-| <kbd>1</kbd>                            | Decrease                                |
-| <kbd>2</kbd>-<kbd>9</kbd>               | Decrease 2n-9n                          |
+| Input                                   | Control                               |
+| --------------------------------------- | ------------------------------------- |
+| <kbd>Ctrl</kbd> + <kbd>Left Drag</kbd>  | Reset to Default                      |
+| <kbd>Shift</kbd> + <kbd>Left Drag</kbd> | Naive Draw (Skip bars between frames) |
+| <kbd>Right Drag</kbd>                   | Draw Line                             |
+| <kbd>a</kbd>                            | Alternate Sign                        |
+| <kbd>d</kbd>                            | Reset Everything to Default           |
+| <kbd>D</kbd>                            | Toggle Min/Mid/Max                    |
+| <kbd>e</kbd>                            | Emphasize Low                         |
+| <kbd>E</kbd>                            | Emphasize High                        |
+| <kbd>f</kbd>                            | Low-pass Filter                       |
+| <kbd>F</kbd>                            | High-pass Filter                      |
+| <kbd>i</kbd>                            | Invert Value (Preserve minimum)       |
+| <kbd>I</kbd>                            | Invert Value (Minimum to 0)           |
+| <kbd>n</kbd>                            | Normalize (Preserve minimum)          |
+| <kbd>N</kbd>                            | Normalize (Minimum to 0)              |
+| <kbd>p</kbd>                            | Permute                               |
+| <kbd>r</kbd>                            | Randomize                             |
+| <kbd>R</kbd>                            | Sparse Randomize                      |
+| <kbd>s</kbd>                            | Sort Descending Order                 |
+| <kbd>S</kbd>                            | Sort Ascending Order                  |
+| <kbd>t</kbd>                            | Subtle Randomize (Random walk)        |
+| <kbd>T</kbd>                            | Subtle Randomize (Converge to 0)      |
+| <kbd>z</kbd>                            | Undo                                  |
+| <kbd>Z</kbd>                            | Redo                                  |
+| <kbd>,</kbd> (Comma)                    | Rotate Back                           |
+| <kbd>.</kbd> (Period)                   | Rotate Forward                        |
+| <kbd>1</kbd>                            | Decrease                              |
+| <kbd>2</kbd>-<kbd>9</kbd>               | Decrease 2n-9n                        |
+
+Some BarBox has scroll bar to zoom in. Scroll bar has handles on left end and right end. To control zoom, use <kbd>Left Drag</kbd> on one of the handle. Scroll bar also has following controls:
+
+- <kbd>Right Click</kbd> : Reset zoom.
+- <kbd>Mouse Wheel</kbd> : Zoom in/out.
 
 ## Caution
 Pressing `Refresh LFO` or `Refresh Table` button stop sound. They also stop all midi notes.
@@ -529,6 +539,7 @@ Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
   - Initial release.
 
 ### Old Versions
+- [CubicPadSynth 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/CubicPadSynth0.1.6.zip)
 - [CubicPadSynth 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/CubicPadSynth0.1.5.zip)
 - [CubicPadSynth 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/CubicPadSynth0.1.4.zip)
 - [CubicPadSynth 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip)
