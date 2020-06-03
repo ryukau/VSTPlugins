@@ -21,6 +21,7 @@
 
 #include "style.hpp"
 
+#include <sstream>
 #include <string>
 
 namespace Steinberg {
@@ -52,6 +53,31 @@ public:
   CLASS_METHODS(CreditView, CControl)
 
 private:
+  void drawTextBlock(
+    CDrawContext *pContext,
+    float left,
+    float top,
+    float lineHeight,
+    float blockWidth,
+    std::string str,
+    char colDelimiter = '|',
+    char rowDelimiter = '\n')
+  {
+    std::stringstream ssText(str);
+    std::string line;
+    std::string cell;
+    float leftStart = left;
+    while (std::getline(ssText, line, rowDelimiter)) {
+      std::stringstream ssLine(line);
+      left = leftStart;
+      while (std::getline(ssLine, cell, colDelimiter)) {
+        if (cell.size() > 0) pContext->drawString(cell.c_str(), CPoint(left, top));
+        left += blockWidth;
+      }
+      top += lineHeight;
+    }
+  }
+
   CCoord fontSize = 12.0;
   CCoord fontSizeTitle = 18.0;
 

@@ -18,8 +18,6 @@
 #include "../../../common/gui/splash.hpp"
 #include "../version.hpp"
 
-#define TEXT(X, Y, STR) pContext->drawString(STR, CPoint(X, Y));
-
 namespace Steinberg {
 namespace Vst {
 
@@ -52,53 +50,53 @@ void CreditView::draw(CDrawContext *pContext)
   // Text.
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  TEXT(20.0, 50.0, "LatticeReverb " VERSION_STR);
+  pContext->drawString("LatticeReverb " VERSION_STR, CPoint(20.0, 50.0));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
-  TEXT(20.0f, 90.0f, "© 2020 Takamitsu Endo (ryukau@gmail.com)");
+  pContext->drawString("© 2020 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0f, 90.0f));
 
-  TEXT(20.0f, 140.0f, "- Knob -");
-  TEXT(20.0f, 160.0f, "Shift + Left Drag");
-  TEXT(180.0f, 160.0f, "Fine Adjustment");
-  TEXT(20.0f, 180.0f, "Ctrl + Left Click");
-  TEXT(180.0f, 180.0f, "Reset to Default");
+  std::string leftText = R"(- BarBox -
+Ctrl + Left Drag|Reset to Default
+Right Drag|Draw Line
+Shift + D|Toggle Min/Mid/Max
+I|Invert Value
+P|Permute
+R|Randomize
+S|Sort Decending Order
+T|Random Walk
+Shift + T|Random Walk to 0
+Z|Undo
+Shift + Z|Redo
+, (Comma)|Rotate Back
+. (Period)|Rotate Forward
+1|Decrease
+2-9|Decrease 2n-9n
 
-  TEXT(20.0f, 220.0f, "- Number -");
-  TEXT(20.0f, 240.0f, "Shares same controls with knob, and:");
-  TEXT(20.0f, 260.0f, "Right Click");
-  TEXT(180.0f, 260.0f, "Flip Min/Max");
+And more! Refer to the manual for full list
+of shortcuts.)";
 
-  TEXT(20.0f, 300.0f, "- BarBox -");
-  TEXT(20.0f, 320.0f, "Ctrl + Left Click");
-  TEXT(180.0f, 320.0f, "Reset to Default");
-  TEXT(20.0f, 340.0f, "Right Drag");
-  TEXT(180.0f, 340.0f, "Draw Line");
-  TEXT(20.0f, 360.0f, "Shift + D");
-  TEXT(180.0f, 360.0f, "Toggle Min/Mid/Max");
-  TEXT(20.0f, 380.0f, "I");
-  TEXT(180.0f, 380.0f, "Invert Value");
-  TEXT(20.0f, 400.0f, "R");
-  TEXT(180.0f, 400.0f, "Randomize");
-  TEXT(20.0f, 420.0f, "T");
-  TEXT(180.0f, 420.0f, "Subtle Randomize");
-  TEXT(20.0f, 440.0f, ", (Comma)");
-  TEXT(180.0f, 440.0f, "Rotate Back");
-  TEXT(20.0f, 460.0f, ". (Period)");
-  TEXT(180.0f, 460.0f, "Rotate Forward");
-  TEXT(20.0f, 480.0f, "1");
-  TEXT(180.0f, 480.0f, "Decrease");
-  TEXT(20.0f, 500.0f, "2-9");
-  TEXT(180.0f, 500.0f, "Decrease 2n-9n");
+  std::string rightText = R"(- Knob -
+Shift + Left Drag|Fine Adjustment
+Ctrl + Left Click|Reset to Default
 
-  const float mid = 355;
+- Number -
+Shares same controls with knob, and:
+Right Click|Flip Min/Mid/Max
 
-  TEXT(mid, 140.0f, "Changing InnerFeed or OuterFeed may outputs");
-  TEXT(mid, 160.0f, "loud signal.");
+Changing InnerFeed or OuterFeed may
+outputs loud signal.
 
-  TEXT(mid, 200.0f, "Use Panic! button in case of blow up.");
+Use Panic! button in case of blow up.
 
-  TEXT(mid, 240.0f, "Have a nice day!");
+Have a nice day!)";
+
+  const float top0 = 140.0f;
+  const float mid = (750 - 2 * 20) / 2;
+  const float lineHeight = 20.0f;
+  const float blockWidth = 160.0f;
+  drawTextBlock(pContext, 20.0f, top0, lineHeight, blockWidth, leftText);
+  drawTextBlock(pContext, mid, top0, lineHeight, blockWidth, rightText);
 
   setDirty(false);
 }

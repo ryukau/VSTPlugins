@@ -21,9 +21,9 @@
 #include <algorithm>
 #include <sstream>
 
-constexpr float uiTextSize = 14.0f;
-constexpr float midTextSize = 16.0f;
-constexpr float infoTextSize = 18.0f;
+constexpr float uiTextSize = 12.0f;
+constexpr float midTextSize = 12.0f;
+constexpr float infoTextSize = 12.0f;
 constexpr float pluginNameTextSize = 22.0f;
 constexpr float margin = 5.0f;
 constexpr float labelHeight = 20.0f;
@@ -712,26 +712,9 @@ bool Editor::prepareUI()
       otGainLeft0, otPhaseTop + barboxHeight, barboxWidth, scrollBarHeight,
       barboxOtPhase));
 
-  auto textKnobControl = R"(- Knob -
-Shift + Left Drag|Fine Adjustment
-Ctrl + Left Click|Reset to Default)";
-  tabview->addWidget(
-    tabInfo,
-    addTextTableView(
-      tabInsideLeft0, tabInsideTop0, 400.0f, 400.0f, infoTextSize, textKnobControl,
-      150.0f));
-
-  auto textNumberControl = R"(- Number -
-Shares same controls with knob, and:
-Right Click|Flip Minimum and Maximum)";
-  tabview->addWidget(
-    tabInfo,
-    addTextTableView(
-      tabInsideLeft0, tabInsideTop0 + 80.0f, 400.0f, 400.0f, infoTextSize,
-      textNumberControl, 150.0f));
-
   auto textOvertoneControl = R"(- Overtone & LFO Wave -
-Ctrl + Left Click|Reset to Default
+Ctrl + Left Drag|Reset to Default
+Shift + Left Drag|Skip Between Frames
 Right Drag|Draw Line
 D|Reset to Default
 Shift + D|Toggle Min/Mid/Max
@@ -739,16 +722,19 @@ E|Emphasize Low
 Shift + E|Emphasize High
 F|Low-pass Filter
 Shift + F|High-pass Filter
-I|Invert Value
-Shift + I|Invert Value (Minimum to 0)
-N|Normalize
-Shift + N|Normalize (Minimum to 0)
+I|Invert
+Shift + I|Full Invert
+N|Normalize (Preserve Min)
+Shift + N|Normalize
 P|Permute
 R|Randomize
 Shift + R|Sparse Randomize
 S|Sort Decending Order
 Shift + S|Sort Ascending Order
-T|Subtle Randomize
+T|Random Walk
+Shift + T|Random Walk to 0
+Z|Undo
+Shift + Z|Redo
 , (Comma)|Rotate Back
 . (Period)|Rotate Forward
 1|Decrease
@@ -756,10 +742,28 @@ T|Subtle Randomize
   tabview->addWidget(
     tabInfo,
     addTextTableView(
-      tabInsideLeft0, tabInsideTop0 + 160.0f, 400.0f, 480.0f, infoTextSize,
+      tabInsideLeft0, tabInsideTop0, 400.0f, defaultHeight - 40, infoTextSize,
       textOvertoneControl, 150.0f));
 
   const auto tabInfoLeft1 = tabInsideLeft0 + tabWidth / 2.0f;
+
+  auto textKnobControl = R"(- Knob -
+Shift + Left Drag|Fine Adjustment
+Ctrl + Left Click|Reset to Default)";
+  tabview->addWidget(
+    tabInfo,
+    addTextTableView(
+      tabInfoLeft1, tabInsideTop0, 400.0f, 400.0f, infoTextSize, textKnobControl,
+      150.0f));
+
+  auto textNumberControl = R"(- Number -
+Shares same controls with knob, and:
+Right Click|Toggle Min/Mid/Max)";
+  tabview->addWidget(
+    tabInfo,
+    addTextTableView(
+      tabInfoLeft1, tabInsideTop0 + 80.0f, 400.0f, 400.0f, infoTextSize,
+      textNumberControl, 150.0f));
 
   auto textRefreshNotice = R"(Wavetables do not refresh automatically.
 Press following button to apply changes.
@@ -768,7 +772,8 @@ Press following button to apply changes.
   tabview->addWidget(
     tabInfo,
     addTextView(
-      tabInfoLeft1, tabInsideTop0, 400.0f, 400.0f, infoTextSize, textRefreshNotice));
+      tabInfoLeft1, tabInsideTop0 + 160.0f, 400.0f, 400.0f, infoTextSize,
+      textRefreshNotice));
 
   const auto tabInfoBottom = tabInsideTop0 + tabHeight - labelY;
   std::stringstream ssPluginName;
