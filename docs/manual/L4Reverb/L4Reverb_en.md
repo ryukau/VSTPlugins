@@ -95,8 +95,7 @@ Hex color codes are used.
 - 6 digit color is RGB.
 - 8 digit color is RGBA.
 
-First letter `#` is conventional. Plugins ignore the first letter of color code, thus `?102938`, `
-11335577` are valid.
+First letter `#` is conventional. Plugins ignore the first letter of color code, thus `?102938`, `\n11335577` are valid.
 
 Do not use characters outside of `0-9a-f` for color value.
 
