@@ -188,7 +188,8 @@ bool Editor::prepareUI()
     stereoLeft0, mixTop0, 2 * knobX + 2 * margin, labelHeight, midTextSize, "Stereo");
   addKnob<Style::warning>(
     stereoLeft0, mixTop1, knobX, margin, uiTextSize, "Cross", ID::stereoCross);
-  addKnob(stereoLeft1, mixTop1, knobX, margin, uiTextSize, "Spread", ID::stereoSpread);
+  addKnob<Style::warning>(
+    stereoLeft1, mixTop1, knobX, margin, uiTextSize, "Spread", ID::stereoSpread);
 
   // Misc.
   const auto miscTop0 = mixTop0 + labelY + knobY;
@@ -198,9 +199,11 @@ bool Editor::prepareUI()
   const auto miscLeft1 = miscLeft0 + textKnobX + 2 * margin;
 
   addLabel(miscLeft0, miscTop1, textKnobX, labelHeight, uiTextSize, "Seed", kCenterText);
-  addTextKnob(
+  auto textKnobSeed = addTextKnob(
     miscLeft0, miscTop1 + labelY, textKnobX, labelHeight, uiTextSize, ID::seed,
     Scales::seed);
+  textKnobSeed->sensitivity = 0.001f;
+  textKnobSeed->lowSensitivity = 1.0f / Scales::seed.getMax();
 
   addKnob(
     miscLeft1 + offsetKnobX, miscTop1, knobX, margin, uiTextSize, "Smooth",
