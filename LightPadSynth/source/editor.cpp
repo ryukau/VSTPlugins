@@ -673,7 +673,8 @@ bool Editor::prepareUI()
   tabview->addWidget(
     tabPadSynth,
     addScrollBar(
-      otGainLeft0, otGainTop + barboxHeight, barboxWidth, scrollBarHeight, barboxOtGain));
+      otGainLeft0, otGainTop + barboxHeight - 1, barboxWidth, scrollBarHeight,
+      barboxOtGain));
 
   // Overtone Width.
   const auto otWidthTop = otGainTop + barboxY + margin;
@@ -693,7 +694,7 @@ bool Editor::prepareUI()
   tabview->addWidget(
     tabPadSynth,
     addScrollBar(
-      otGainLeft0, otWidthTop + barboxHeight, barboxWidth, scrollBarHeight,
+      otGainLeft0, otWidthTop + barboxHeight - 1, barboxWidth, scrollBarHeight,
       barboxOtWidth));
 
   // Overtone Pitch.
@@ -714,7 +715,7 @@ bool Editor::prepareUI()
   tabview->addWidget(
     tabPadSynth,
     addScrollBar(
-      otGainLeft0, otPitchTop + barboxHeight, barboxWidth, scrollBarHeight,
+      otGainLeft0, otPitchTop + barboxHeight - 1, barboxWidth, scrollBarHeight,
       barboxOtPitch));
 
   // Overtone Phase.
@@ -735,7 +736,7 @@ bool Editor::prepareUI()
   tabview->addWidget(
     tabPadSynth,
     addScrollBar(
-      otGainLeft0, otPhaseTop + barboxHeight, barboxWidth, scrollBarHeight,
+      otGainLeft0, otPhaseTop + barboxHeight - 1, barboxWidth, scrollBarHeight,
       barboxOtPhase));
 
   auto textOvertoneControl = R"(- Overtone & LFO Wave -

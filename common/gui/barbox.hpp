@@ -57,7 +57,7 @@ public:
     CDrawContext::Transform t(
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
-    pContext->setLineWidth(2.0);
+    pContext->setLineWidth(1.0);
     pContext->setFrameColor(pal.border());
 
     // Bar.
@@ -66,7 +66,8 @@ public:
     CCoord barL = left + handleWidth;
     pContext->setFillColor(
       pointed == Part::bar ? pal.highlightButton() : pal.highlightMain());
-    pContext->drawRect(CRect(barL, 0, rightHandleL, height), kDrawFilledAndStroked);
+    pContext->drawRect(
+      CRect(barL - 1, 0, rightHandleL + 1, height), kDrawFilledAndStroked);
 
     // Left handle.
     pContext->setFillColor(

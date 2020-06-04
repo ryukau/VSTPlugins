@@ -226,7 +226,7 @@ bool Editor::prepareUI()
     Scales::time, "Time");
   barboxTime->liveUpdateLineEdit = false;
   addScrollBar(
-    tabInsideLeft1, tabInsideTop0 + barboxHeight, 2 * nDepth1, scrollBarHeight,
+    tabInsideLeft1, tabInsideTop0 + barboxHeight - 1, 2 * nDepth1, scrollBarHeight,
     barboxTime);
 
   addGroupVerticalLabel(
@@ -237,7 +237,7 @@ bool Editor::prepareUI()
   barboxInnerFeed->sliderZero = 0.5f;
   barboxInnerFeed->liveUpdateLineEdit = false;
   addScrollBar(
-    tabInsideLeft1, tabInsideTop1 + barboxHeight, 2 * nDepth1, scrollBarHeight,
+    tabInsideLeft1, tabInsideTop1 + barboxHeight - 1, 2 * nDepth1, scrollBarHeight,
     barboxInnerFeed);
 
   addGroupVerticalLabel(
@@ -248,7 +248,7 @@ bool Editor::prepareUI()
   barboxD1Feed->sliderZero = 0.5f;
   barboxD1Feed->liveUpdateLineEdit = false;
   addScrollBar(
-    tabInsideLeft1, tabInsideTop2 + barboxHeight, 2 * nDepth1, scrollBarHeight,
+    tabInsideLeft1, tabInsideTop2 + barboxHeight - 1, 2 * nDepth1, scrollBarHeight,
     barboxD1Feed);
 
   const auto tabInsideLeft2 = tabInsideLeft1 + barboxWidth + labelY;
