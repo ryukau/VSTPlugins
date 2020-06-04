@@ -5,7 +5,7 @@ lang: en
 # L4Reverb
 ![](img/l4reverb.png)
 
-L4Reverb is an extended version of LatticeReverb. This time, lattice structure has 4 * 4 * 4 * 4 = 256 sections per channel. All internal parameters are exposed.
+L4Reverb is an extended version of LatticeReverb. This time, lattice structure has 4 * 4 * 4 * 4 = 256 sections per channel.
 
 - [Download L4Reverb 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Reverb0.1.0.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
@@ -159,6 +159,8 @@ Some BarBox has scroll bar to zoom in. Scroll bar has handles on left end and ri
 
 ## Caution
 Output may change with different sample rate or buffer size.
+
+Output may blow up when both `Cross` and `Spread` are not 0.
 
 Output may become loud when `offset` of `*Feed` is not 0, and modulation is enabled.
 

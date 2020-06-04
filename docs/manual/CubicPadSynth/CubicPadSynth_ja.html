@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-05-14" />
+<meta name="dcterms.date" content="2020-06-03" />
 <title>CubicPadSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -252,7 +252,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-05-14
+  Update: 2020-06-03
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -307,7 +307,7 @@ footer {
 <p><img src="img/cubicpadsynth.png" /></p>
 <p><ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby> は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/CubicPadSynth0.1.6.zip">CubicPadSynth 0.1.6 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/CubicPadSynth0.1.7.zip">CubicPadSynth 0.1.7 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -408,12 +408,12 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。</p>
 <p>つまみとスライダーでは次の操作ができます。</p>
 <ul>
-<li>Ctrl + 左クリック : 値のリセット。</li>
-<li>Shift + 左ドラッグ : 細かい値の変更。</li>
+<li><kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。</li>
+<li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
 </ul>
 <p><code>Octave</code> 、 <code>Seed</code> などで使われている数値スライダーでは、上記に加えて次の操作ができます。</p>
 <ul>
-<li>ホイールクリック : 最小値、最大値の切り替え。</li>
+<li><kbd>ホイールクリック</kbd> : 最小値、最大値の切り替え。</li>
 </ul>
 <p>Wavetable タブの <code>Gain</code>, <code>Width</code>, <code>Pitch</code>, <code>Phase</code> と Main タブの <code>LFO Wave</code> で使われている青い縦棒が並んだコントロール (BarBox) ではショートカットが使えます。ショートカットは BarBox を左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを BarBox の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。 Information タブを開くとショートカットの一覧を見ることができます。</p>
 <table>
@@ -425,12 +425,20 @@ style="display: inline-block; vertical-align: middle;"></li>
 </thead>
 <tbody>
 <tr class="odd">
-<td><kbd>Ctrl</kbd> + <kbd>Left Click</kbd></td>
+<td><kbd>Ctrl</kbd> + <kbd>左ドラッグ</kbd></td>
 <td>デフォルト値にリセット</td>
 </tr>
 <tr class="even">
-<td><kbd>Mouse Middle Drag</kbd></td>
+<td><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd></td>
+<td>素朴な描画 (フレーム間の補間が無効)</td>
+</tr>
+<tr class="odd">
+<td><kbd>ホイールドラッグ</kbd></td>
 <td>直線の描画</td>
+</tr>
+<tr class="even">
+<td><kbd>a</kbd></td>
+<td>符号を交互に入れ替え</td>
 </tr>
 <tr class="odd">
 <td><kbd>d</kbd></td>
@@ -466,7 +474,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 </tr>
 <tr class="odd">
 <td><kbd>n</kbd></td>
-<td>最大値を 1 に正規化 (最小値もスケーリング)</td>
+<td>最大値を 1 に正規化 (最小値を保存)</td>
 </tr>
 <tr class="even">
 <td><kbd>N</kbd></td>
@@ -494,26 +502,43 @@ style="display: inline-block; vertical-align: middle;"></li>
 </tr>
 <tr class="even">
 <td><kbd>t</kbd></td>
-<td>少しだけランダマイズ</td>
+<td>少しだけランダマイズ (ランダムウォーク)</td>
 </tr>
 <tr class="odd">
+<td><kbd>T</kbd></td>
+<td>少しだけランダマイズ (0 に収束)</td>
+</tr>
+<tr class="even">
+<td><kbd>z</kbd></td>
+<td>アンドゥ</td>
+</tr>
+<tr class="odd">
+<td><kbd>Z</kbd></td>
+<td>リドゥ</td>
+</tr>
+<tr class="even">
 <td><kbd>,</kbd> (Comma)</td>
 <td>左に回転</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><kbd>.</kbd> (Period)</td>
 <td>右に回転</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><kbd>1</kbd></td>
 <td>すべての値を低減</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><kbd>2</kbd>-<kbd>9</kbd></td>
 <td>インデックスが 2n-9n の値を低減</td>
 </tr>
 </tbody>
 </table>
+<p>いくつかの BarBox の下にはスクロールバーがついています。細かい調整を行うときはスクロールバーの左右のハンドルを <kbd>左ドラッグ</kbd> で動かすことで表示範囲を変更できます。スクロールバーでは次の操作が行えます。</p>
+<ul>
+<li><kbd>右クリック</kbd> : 表示範囲のリセット</li>
+<li><kbd>マウスホイール</kbd> : ズームイン・ズームアウト</li>
+</ul>
 <h2 id="注意">注意</h2>
 <p><code>Refresh LFO</code> あるいは <code>Refresh Table</code> ボタンを押すと音が止まります。発音中のノートも全て停止します。</p>
 <h2 id="ウェーブテーブルの仕様">ウェーブテーブルの仕様</h2>
@@ -852,6 +877,7 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/CubicPadSynth0.1.6.zip">CubicPadSynth 0.1.6 - VST® 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/CubicPadSynth0.1.5.zip">CubicPadSynth 0.1.5 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/CubicPadSynth0.1.4.zip">CubicPadSynth 0.1.4 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip">CubicPadSynth 0.1.3 - VST 3 (github.com)</a></li>

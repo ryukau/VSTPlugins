@@ -32,6 +32,8 @@ For Linux, LV2 version is available.
 
 - [IterativeSinCluster](#iterativesincluster)
 
+- [L4Reverb](#l4reverb)
+
 - [LatticeReverb](#latticereverb)
 
 - [LightPadSynth](#lightpadsynth)
@@ -43,6 +45,17 @@ For Linux, LV2 version is available.
 - [TrapezoidSynth](#trapezoidsynth)
 
 - [WaveCymbal](#wavecymbal)
+
+## L4Reverb
+![](manual/L4Reverb/img/l4reverb.png)
+
+L4Reverb は LatticeReverb の拡張版です。今回の格子構造はチャンネル毎に 4 * 4 * 4 * 4 = 256 のセクションが設けてあります。
+
+- [L4Reverb のマニュアル (日本語)](manual/L4Reverb/L4Reverb_ja.html)
+
+L4Reverb is an extended version of LatticeReverb. This time, lattice structure has 4 * 4 * 4 * 4 = 256 sections per channel.
+
+- [L4Reverb Manual (English)](manual/L4Reverb/L4Reverb_en.html)
 
 ## LatticeReverb
 ![](manual/LatticeReverb/img/latticereverb.png)

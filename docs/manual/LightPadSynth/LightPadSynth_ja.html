@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-05-14" />
+<meta name="dcterms.date" content="2020-06-03" />
 <title>LightPadSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -252,7 +252,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-05-14
+  Update: 2020-06-03
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -307,7 +307,7 @@ footer {
 <p><img src="img/lightpadsynth.png" /></p>
 <p><ruby>LightPadSynth<rt>ライト パッド シンセ</rt></ruby> はピッチ変調を無くして補間を線形補完に変えた CubicPadSynth の軽量版です。ピッチ変調ができなくなった代わりに、各ボイスにディレイを追加しています。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/LightPadSynth0.1.4.zip">LightPadSynth 0.1.4 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/LightPadSynth0.1.5.zip">LightPadSynth 0.1.5 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -419,101 +419,126 @@ style="display: inline-block; vertical-align: middle;"></li>
 <table>
 <thead>
 <tr class="header">
-<th style="text-align: left;">入力</th>
-<th style="text-align: left;">操作</th>
+<th>入力</th>
+<th>操作</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><kbd>Ctrl</kbd> + <kbd>Left Click</kbd></td>
-<td style="text-align: left;">デフォルト値にリセット</td>
+<td><kbd>Ctrl</kbd> + <kbd>左ドラッグ</kbd></td>
+<td>デフォルト値にリセット</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>Mouse Middle Drag</kbd></td>
-<td style="text-align: left;">直線の描画</td>
+<td><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd></td>
+<td>素朴な描画 (フレーム間の補間が無効)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>d</kbd></td>
-<td style="text-align: left;">すべての値をデフォルト値にリセット</td>
+<td><kbd>ホイールドラッグ</kbd></td>
+<td>直線の描画</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>D</kbd></td>
-<td style="text-align: left;">最小値・中央値・最大値の切り替え</td>
+<td><kbd>a</kbd></td>
+<td>符号を交互に入れ替え</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>e</kbd></td>
-<td style="text-align: left;">低域の強調</td>
+<td><kbd>d</kbd></td>
+<td>すべての値をデフォルト値にリセット</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>E</kbd></td>
-<td style="text-align: left;">高域の強調</td>
+<td><kbd>D</kbd></td>
+<td>最小値・中央値・最大値の切り替え</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>f</kbd></td>
-<td style="text-align: left;">ローパスフィルタ</td>
+<td><kbd>e</kbd></td>
+<td>低域の強調</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>F</kbd></td>
-<td style="text-align: left;">ハイパスフィルタ</td>
+<td><kbd>E</kbd></td>
+<td>高域の強調</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>i</kbd></td>
-<td style="text-align: left;">値の反転 (最小値を保存)</td>
+<td><kbd>f</kbd></td>
+<td>ローパスフィルタ</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>I</kbd></td>
-<td style="text-align: left;">値の反転 (最小値を 0 に設定)</td>
+<td><kbd>F</kbd></td>
+<td>ハイパスフィルタ</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>n</kbd></td>
-<td style="text-align: left;">最大値を 1 に正規化 (最小値もスケーリング)</td>
+<td><kbd>i</kbd></td>
+<td>値の反転 (最小値を保存)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>N</kbd></td>
-<td style="text-align: left;">最大値を 1 に正規化 (最小値を 0 に設定)</td>
+<td><kbd>I</kbd></td>
+<td>値の反転 (最小値を 0 に設定)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>p</kbd></td>
-<td style="text-align: left;">ランダムに並べ替え</td>
+<td><kbd>n</kbd></td>
+<td>最大値を 1 に正規化 (最小値を保存)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>r</kbd></td>
-<td style="text-align: left;">ランダマイズ</td>
+<td><kbd>N</kbd></td>
+<td>最大値を 1 に正規化 (最小値を 0 に設定)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>R</kbd></td>
-<td style="text-align: left;">まばらなランダマイズ</td>
+<td><kbd>p</kbd></td>
+<td>ランダムに並べ替え</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>s</kbd></td>
-<td style="text-align: left;">降順にソート</td>
+<td><kbd>r</kbd></td>
+<td>ランダマイズ</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>S</kbd></td>
-<td style="text-align: left;">昇順にソート</td>
+<td><kbd>R</kbd></td>
+<td>まばらなランダマイズ</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>t</kbd></td>
-<td style="text-align: left;">少しだけランダマイズ</td>
+<td><kbd>s</kbd></td>
+<td>降順にソート</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>,</kbd> (Comma)</td>
-<td style="text-align: left;">左に回転</td>
+<td><kbd>S</kbd></td>
+<td>昇順にソート</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>.</kbd> (Period)</td>
-<td style="text-align: left;">右に回転</td>
+<td><kbd>t</kbd></td>
+<td>少しだけランダマイズ (ランダムウォーク)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>1</kbd></td>
-<td style="text-align: left;">すべての値を低減</td>
+<td><kbd>T</kbd></td>
+<td>少しだけランダマイズ (0 に収束)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>2</kbd>-<kbd>9</kbd></td>
-<td style="text-align: left;">インデックスが 2n-9n の値を低減</td>
+<td><kbd>z</kbd></td>
+<td>アンドゥ</td>
+</tr>
+<tr class="odd">
+<td><kbd>Z</kbd></td>
+<td>リドゥ</td>
+</tr>
+<tr class="even">
+<td><kbd>,</kbd> (Comma)</td>
+<td>左に回転</td>
+</tr>
+<tr class="odd">
+<td><kbd>.</kbd> (Period)</td>
+<td>右に回転</td>
+</tr>
+<tr class="even">
+<td><kbd>1</kbd></td>
+<td>すべての値を低減</td>
+</tr>
+<tr class="odd">
+<td><kbd>2</kbd>-<kbd>9</kbd></td>
+<td>インデックスが 2n-9n の値を低減</td>
 </tr>
 </tbody>
 </table>
+<p>いくつかの BarBox の下にはスクロールバーがついています。細かい調整を行うときはスクロールバーの左右のハンドルを <kbd>左ドラッグ</kbd> で動かすことで表示範囲を変更できます。スクロールバーでは次の操作が行えます。</p>
+<ul>
+<li><kbd>右クリック</kbd> : 表示範囲のリセット</li>
+<li><kbd>マウスホイール</kbd> : ズームイン・ズームアウト</li>
+</ul>
 <h2 id="注意">注意</h2>
 <p><code>Refresh LFO</code> あるいは <code>Refresh Table</code> ボタンを押すと音が止まります。発音中のノートも全て停止します。</p>
 <h2 id="ウェーブテーブルの仕様">ウェーブテーブルの仕様</h2>
@@ -818,6 +843,7 @@ lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)<
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/LightPadSynth0.1.4.zip">LightPadSynth 0.1.4 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LightPadSynth0.1.3.zip">LightPadSynth 0.1.3 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/LightPadSynth0.1.2.zip">LightPadSynth 0.1.2 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynth0.1.0.zip">LightPadSynth 0.1.0 - VST 3 (github.com)</a></li>

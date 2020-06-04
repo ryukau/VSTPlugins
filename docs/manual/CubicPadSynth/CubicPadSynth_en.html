@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-05-14" />
+<meta name="dcterms.date" content="2020-06-03" />
 <title>CubicPadSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -252,7 +252,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-05-14
+  Update: 2020-06-03
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -307,7 +307,7 @@ footer {
 <p><img src="img/cubicpadsynth.png" /></p>
 <p>CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/CubicPadSynth0.1.6.zip">Download CubicPadSynth 0.1.6 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/CubicPadSynth0.1.7.zip">Download CubicPadSynth 0.1.7 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -419,12 +419,20 @@ style="display: inline-block; vertical-align: middle;"></li>
 </thead>
 <tbody>
 <tr class="odd">
-<td><kbd>Ctrl</kbd> + <kbd>Left Click</kbd></td>
+<td><kbd>Ctrl</kbd> + <kbd>Left Drag</kbd></td>
 <td>Reset to Default</td>
 </tr>
 <tr class="even">
+<td><kbd>Shift</kbd> + <kbd>Left Drag</kbd></td>
+<td>Naive Draw (Skip bars between frames)</td>
+</tr>
+<tr class="odd">
 <td><kbd>Right Drag</kbd></td>
 <td>Draw Line</td>
+</tr>
+<tr class="even">
+<td><kbd>a</kbd></td>
+<td>Alternate Sign</td>
 </tr>
 <tr class="odd">
 <td><kbd>d</kbd></td>
@@ -452,7 +460,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 </tr>
 <tr class="odd">
 <td><kbd>i</kbd></td>
-<td>Invert Value (Preserve current minimum)</td>
+<td>Invert Value (Preserve minimum)</td>
 </tr>
 <tr class="even">
 <td><kbd>I</kbd></td>
@@ -460,7 +468,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 </tr>
 <tr class="odd">
 <td><kbd>n</kbd></td>
-<td>Normalize (Preserve current minimum)</td>
+<td>Normalize (Preserve minimum)</td>
 </tr>
 <tr class="even">
 <td><kbd>N</kbd></td>
@@ -488,26 +496,43 @@ style="display: inline-block; vertical-align: middle;"></li>
 </tr>
 <tr class="even">
 <td><kbd>t</kbd></td>
-<td>Subtle Randomize</td>
+<td>Subtle Randomize (Random walk)</td>
 </tr>
 <tr class="odd">
+<td><kbd>T</kbd></td>
+<td>Subtle Randomize (Converge to 0)</td>
+</tr>
+<tr class="even">
+<td><kbd>z</kbd></td>
+<td>Undo</td>
+</tr>
+<tr class="odd">
+<td><kbd>Z</kbd></td>
+<td>Redo</td>
+</tr>
+<tr class="even">
 <td><kbd>,</kbd> (Comma)</td>
 <td>Rotate Back</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><kbd>.</kbd> (Period)</td>
 <td>Rotate Forward</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><kbd>1</kbd></td>
 <td>Decrease</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><kbd>2</kbd>-<kbd>9</kbd></td>
 <td>Decrease 2n-9n</td>
 </tr>
 </tbody>
 </table>
+<p>Some BarBox has scroll bar to zoom in. Scroll bar has handles on left end and right end. To control zoom, use <kbd>Left Drag</kbd> on one of the handle. Scroll bar also has following controls:</p>
+<ul>
+<li><kbd>Right Click</kbd> : Reset zoom.</li>
+<li><kbd>Mouse Wheel</kbd> : Zoom in/out.</li>
+</ul>
 <h2 id="caution">Caution</h2>
 <p>Pressing <code>Refresh LFO</code> or <code>Refresh Table</code> button stop sound. They also stop all midi notes.</p>
 <h2 id="wavetable-specification">Wavetable Specification</h2>
@@ -842,6 +867,7 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
 </ul>
 <h3 id="old-versions">Old Versions</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/CubicPadSynth0.1.6.zip">CubicPadSynth 0.1.6 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/CubicPadSynth0.1.5.zip">CubicPadSynth 0.1.5 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/CubicPadSynth0.1.4.zip">CubicPadSynth 0.1.4 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip">CubicPadSynth 0.1.3 - VST 3 (github.com)</a></li>

@@ -5,7 +5,7 @@ lang: ja
 # L4Reverb
 ![](img/l4reverb.png)
 
-<ruby>L4Reverb<rt>エル フォー リバーブ</rt></ruby> は LatticeReverb の拡張版です。今回の格子構造はチャンネル毎に 4 * 4 * 4 * 4 = 256 のセクションが設けてあります。 LatticeReverb と同じく、全ての内部パラメータを直接操作することができます。
+<ruby>L4Reverb<rt>エル フォー リバーブ</rt></ruby> は LatticeReverb の拡張版です。今回の格子構造はチャンネル毎に 4 * 4 * 4 * 4 = 256 のセクションが設けてあります。
 
 - [L4Reverb 0.1.1 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Reverb0.1.0.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
@@ -172,6 +172,8 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 
 ## 注意
 サンプリング周波数やバッファサイズによって出力が変わります。
+
+`Cross` と `Spread` の両方が 0 でないときに発散することがあります。
 
 `*Feed` の `offset` が 0 でないときに出力が大きくなることがあります。
 

@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-05-16" />
+<meta name="dcterms.date" content="2020-06-03" />
 <title>LatticeReverb_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -252,7 +252,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-05-16
+  Update: 2020-06-03
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -294,7 +294,7 @@ footer {
 <p><img src="img/latticereverb.png" /></p>
 <p>LatticeReverb is a reverb using lattice structure. Equipped with 16 delays per channel.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/LatticeReverb0.1.1.zip">Download LatticeReverb 0.1.1 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/LatticeReverb0.1.2.zip">Download LatticeReverb 0.1.2 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -387,6 +387,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><code>overlayHighlight</code>: Overlay color to highlight current focus.</li>
 </ul>
 <h2 id="controls">Controls</h2>
+<p><kbd>Right Click</kbd> on the controls pops up a context menu provided by DAW.</p>
 <p>Knob and slider can do:</p>
 <ul>
 <li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
@@ -400,104 +401,123 @@ style="display: inline-block; vertical-align: middle;"></li>
 <table>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Input</th>
-<th style="text-align: left;">Control</th>
+<th>Input</th>
+<th>Control</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><kbd>Ctrl</kbd> + <kbd>Left Click</kbd></td>
-<td style="text-align: left;">Reset to Default</td>
+<td><kbd>Ctrl</kbd> + <kbd>Left Drag</kbd></td>
+<td>Reset to Default</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>Right Drag</kbd></td>
-<td style="text-align: left;">Draw Line</td>
+<td><kbd>Shift</kbd> + <kbd>Left Drag</kbd></td>
+<td>Naive Draw (Skip bars between frames)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>d</kbd></td>
-<td style="text-align: left;">Reset Everything to Default</td>
+<td><kbd>Right Drag</kbd></td>
+<td>Draw Line</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>D</kbd></td>
-<td style="text-align: left;">Toggle Min/Mid/Max</td>
+<td><kbd>a</kbd></td>
+<td>Alternate Sign</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>e</kbd></td>
-<td style="text-align: left;">Emphasize Low</td>
+<td><kbd>d</kbd></td>
+<td>Reset Everything to Default</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>E</kbd></td>
-<td style="text-align: left;">Emphasize High</td>
+<td><kbd>D</kbd></td>
+<td>Toggle Min/Mid/Max</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>f</kbd></td>
-<td style="text-align: left;">Low-pass Filter</td>
+<td><kbd>e</kbd></td>
+<td>Emphasize Low</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>F</kbd></td>
-<td style="text-align: left;">High-pass Filter</td>
+<td><kbd>E</kbd></td>
+<td>Emphasize High</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>i</kbd></td>
-<td style="text-align: left;">Invert Value (Preserve current minimum)</td>
+<td><kbd>f</kbd></td>
+<td>Low-pass Filter</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>I</kbd></td>
-<td style="text-align: left;">Invert Value (Minimum to 0)</td>
+<td><kbd>F</kbd></td>
+<td>High-pass Filter</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>n</kbd></td>
-<td style="text-align: left;">Normalize (Preserve current minimum)</td>
+<td><kbd>i</kbd></td>
+<td>Invert Value (Preserve minimum)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>N</kbd></td>
-<td style="text-align: left;">Normalize (Minimum to 0)</td>
+<td><kbd>I</kbd></td>
+<td>Invert Value (Minimum to 0)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>p</kbd></td>
-<td style="text-align: left;">Permute</td>
+<td><kbd>n</kbd></td>
+<td>Normalize (Preserve minimum)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>r</kbd></td>
-<td style="text-align: left;">Randomize</td>
+<td><kbd>N</kbd></td>
+<td>Normalize (Minimum to 0)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>R</kbd></td>
-<td style="text-align: left;">Sparse Randomize</td>
+<td><kbd>p</kbd></td>
+<td>Permute</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>s</kbd></td>
-<td style="text-align: left;">Sort Descending Order</td>
+<td><kbd>r</kbd></td>
+<td>Randomize</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>S</kbd></td>
-<td style="text-align: left;">Sort Ascending Order</td>
+<td><kbd>R</kbd></td>
+<td>Sparse Randomize</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>t</kbd></td>
-<td style="text-align: left;">Subtle Randomize</td>
+<td><kbd>s</kbd></td>
+<td>Sort Descending Order</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>,</kbd> (Comma)</td>
-<td style="text-align: left;">Rotate Back</td>
+<td><kbd>S</kbd></td>
+<td>Sort Ascending Order</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>.</kbd> (Period)</td>
-<td style="text-align: left;">Rotate Forward</td>
+<td><kbd>t</kbd></td>
+<td>Subtle Randomize (Random walk)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><kbd>1</kbd></td>
-<td style="text-align: left;">Decrease</td>
+<td><kbd>T</kbd></td>
+<td>Subtle Randomize (Converge to 0)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><kbd>2</kbd>-<kbd>9</kbd></td>
-<td style="text-align: left;">Decrease 2n-9n</td>
+<td><kbd>z</kbd></td>
+<td>Undo</td>
+</tr>
+<tr class="odd">
+<td><kbd>Z</kbd></td>
+<td>Redo</td>
+</tr>
+<tr class="even">
+<td><kbd>,</kbd> (Comma)</td>
+<td>Rotate Back</td>
+</tr>
+<tr class="odd">
+<td><kbd>.</kbd> (Period)</td>
+<td>Rotate Forward</td>
+</tr>
+<tr class="even">
+<td><kbd>1</kbd></td>
+<td>Decrease</td>
+</tr>
+<tr class="odd">
+<td><kbd>2</kbd>-<kbd>9</kbd></td>
+<td>Decrease 2n-9n</td>
 </tr>
 </tbody>
 </table>
-<p><kbd>Right Click</kbd> on the controls pops up a context menu provided by DAW.</p>
 <h2 id="caution">Caution</h2>
-<p>Output may change with different sample rate.</p>
+<p>Output may change with different sample rate or buffer size.</p>
 <p>Output may become loud when following steps are performed.</p>
 <ol type="1">
 <li>Set some of the <code>OuterFeed</code> or <code>InnerFeed</code> to close to minimum or maximum.</li>
@@ -602,7 +622,8 @@ right = mid - Spread * (mid + side)</code></pre>
 </ul>
 <h3 id="old-versions">Old Versions</h3>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverb0.1.0.zip">LatticeReverb 0.1.0 - VST 3 (github.com)</a> N/A</li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/LatticeReverb0.1.1.zip">LatticeReverb 0.1.1 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverb0.1.0.zip">LatticeReverb 0.1.0 - VST 3 (github.com)</a></li>
 </ul>
 <h2 id="license">License</h2>
 <p>LatticeReverb is licensed under GPLv3. Complete licenses are linked below.</p>
