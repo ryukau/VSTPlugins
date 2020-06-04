@@ -312,6 +312,8 @@ Phase
 :   LFO phase. This can be used to make sound with automation. Turning `Freq` to leftmost sets LFO frequency to 0.
 
 ## Change Log
+- 0.1.8
+  - Added undo/redo to BarBox.
 - 0.1.7
   - Added color configuration.
 - 0.1.6

@@ -278,6 +278,8 @@ Lowpass Cutoff
     Useful to change the brightness of reverb.
 
 ## Change Log
+- 0.1.2
+  - Added undo/redo to BarBox.
 - 0.1.1
   - Added color configuration.
 - 0.1.0

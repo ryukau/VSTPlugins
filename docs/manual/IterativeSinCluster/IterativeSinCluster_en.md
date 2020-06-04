@@ -286,6 +286,8 @@ Key Follow
 :   When checked, change delay time relative to note frequency.
 
 ## Change Log
+- 0.1.9
+  - Added undo/redo to BarBox.
 - 0.1.8
   - Added color configuration.
 - 0.1.7

@@ -521,6 +521,9 @@ Refresh PADsynth wavetable based on current configuration of Wavetable tab.
 Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
 
 ## Change Log
+- 0.1.7
+  - Added scroll bar to dense BarBox.
+  - Added undo/redo to BarBox.
 - 0.1.6
   - Added color configuration.
 - 0.1.5
