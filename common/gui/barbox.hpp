@@ -310,7 +310,7 @@ public:
     pContext->setFrameColor(pal.highlightMain());
     pContext->setFont(indexFontID);
     pContext->setFontColor(pal.foreground());
-    if (sliderWidth >= 8.0) {
+    if (sliderWidth >= 12.0) {
       for (int i = indexL; i < indexR; ++i) {
         auto left = (i - indexL) * sliderWidth;
         auto right = left + sliderWidth - barWidth;
