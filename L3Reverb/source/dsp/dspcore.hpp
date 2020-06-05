@@ -76,7 +76,7 @@ public:
     uint_fast32_t d3FeedSeed = 0;                                                        \
     uint_fast32_t d4FeedSeed = 0;                                                        \
                                                                                          \
-    std::array<NestD4<float, 4>, 2> delay;                                               \
+    std::array<NestD4<float, nSection1, nSection2, nSection3, nSection4>, 2> delay;      \
     std::array<float, 2> delayOut{};                                                     \
     ExpSmoother<float> interpStereoCross;                                                \
     ExpSmoother<float> interpStereoSpread;                                               \

@@ -24,11 +24,14 @@
 #include "../../common/parameterInterface.hpp"
 #include "../../common/value.hpp"
 
-constexpr uint16_t nSection = 3;
-constexpr uint16_t nDepth4 = nSection;
-constexpr uint16_t nDepth3 = nSection * nDepth4;
-constexpr uint16_t nDepth2 = nSection * nDepth3;
-constexpr uint16_t nDepth1 = nSection * nDepth2;
+constexpr uint16_t nSection4 = 3;
+constexpr uint16_t nSection3 = 3;
+constexpr uint16_t nSection2 = 3;
+constexpr uint16_t nSection1 = 5;
+constexpr uint16_t nDepth4 = nSection4;
+constexpr uint16_t nDepth3 = nSection3 * nDepth4;
+constexpr uint16_t nDepth2 = nSection2 * nDepth3;
+constexpr uint16_t nDepth1 = nSection1 * nDepth2;
 
 namespace Steinberg {
 namespace Synth {

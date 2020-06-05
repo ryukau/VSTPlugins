@@ -115,7 +115,7 @@ public:
   }
 };
 
-template<typename Sample, size_t nest> class NestedLongAllpass {
+template<typename Sample, uint16_t nest> class NestedLongAllpass {
 public:
   std::array<ExpSmoother<Sample>, nest> seconds{};
   std::array<ExpSmoother<Sample>, nest> innerFeed{};
@@ -139,13 +139,13 @@ public:
 
   Sample process(Sample input, Sample sampleRate)
   {
-    for (size_t idx = 0; idx < nest; ++idx) {
+    for (uint16_t idx = 0; idx < nest; ++idx) {
       input -= outerFeed[idx].process() * buffer[idx];
       in[idx] = input;
     }
 
     Sample out = in.back();
-    for (size_t idx = nest - 1; idx < nest; --idx) {
+    for (uint16_t idx = nest - 1; idx < nest; --idx) {
       auto apOut = allpass[idx].process(
         out, sampleRate, seconds[idx].process(), innerFeed[idx].process());
       out = buffer[idx] + outerFeed[idx].getValue() * in[idx];
@@ -156,46 +156,122 @@ public:
   }
 };
 
-#define NESTED_ALLPASS(NAME, CHILD)                                                      \
-  template<typename Sample, size_t nest> class NAME {                                    \
-  public:                                                                                \
-    std::array<Sample, nest> in{};                                                       \
-    std::array<Sample, nest> buffer{};                                                   \
-    std::array<ExpSmoother<Sample>, nest> feed;                                          \
-    std::array<CHILD<Sample, nest>, nest> allpass;                                       \
-                                                                                         \
-    void setup(Sample sampleRate, Sample maxTime)                                        \
-    {                                                                                    \
-      for (auto &ap : allpass) ap.setup(sampleRate, maxTime);                            \
-    }                                                                                    \
-                                                                                         \
-    void reset()                                                                         \
-    {                                                                                    \
-      in.fill(0);                                                                        \
-      buffer.fill(0);                                                                    \
-      for (auto &ap : allpass) ap.reset();                                               \
-    }                                                                                    \
-                                                                                         \
-    Sample process(Sample input, Sample sampleRate)                                      \
-    {                                                                                    \
-      for (size_t idx = 0; idx < nest; ++idx) {                                          \
-        input -= feed[idx].process() * buffer[idx];                                      \
-        in[idx] = input;                                                                 \
-      }                                                                                  \
-                                                                                         \
-      Sample out = in.back();                                                            \
-      for (size_t idx = nest - 1; idx < nest; --idx) {                                   \
-        auto apOut = allpass[idx].process(out, sampleRate);                              \
-        out = buffer[idx] + feed[idx].getValue() * in[idx];                              \
-        buffer[idx] = apOut;                                                             \
-      }                                                                                  \
-                                                                                         \
-      return out;                                                                        \
-    }                                                                                    \
-  };
+template<typename Sample, uint16_t nSection1, uint16_t nest> class NestD2 {
+public:
+  std::array<Sample, nest> in{};
+  std::array<Sample, nest> buffer{};
+  std::array<ExpSmoother<Sample>, nest> feed;
+  std::array<NestedLongAllpass<Sample, nSection1>, nest> allpass;
 
-NESTED_ALLPASS(NestD2, NestedLongAllpass)
-NESTED_ALLPASS(NestD3, NestD2)
-NESTED_ALLPASS(NestD4, NestD3)
+  void setup(Sample sampleRate, Sample maxTime)
+  {
+    for (auto &ap : allpass) ap.setup(sampleRate, maxTime);
+  }
+
+  void reset()
+  {
+    in.fill(0);
+    buffer.fill(0);
+    for (auto &ap : allpass) ap.reset();
+  }
+
+  Sample process(Sample input, Sample sampleRate)
+  {
+    for (uint16_t idx = 0; idx < nest; ++idx) {
+      input -= feed[idx].process() * buffer[idx];
+      in[idx] = input;
+    }
+
+    Sample out = in.back();
+    for (uint16_t idx = nest - 1; idx < nest; --idx) {
+      auto apOut = allpass[idx].process(out, sampleRate);
+      out = buffer[idx] + feed[idx].getValue() * in[idx];
+      buffer[idx] = apOut;
+    }
+
+    return out;
+  }
+};
+
+template<typename Sample, uint16_t nSection1, uint16_t nSection2, uint16_t nest>
+class NestD3 {
+public:
+  std::array<Sample, nest> in{};
+  std::array<Sample, nest> buffer{};
+  std::array<ExpSmoother<Sample>, nest> feed;
+  std::array<NestD2<Sample, nSection1, nSection2>, nest> allpass;
+
+  void setup(Sample sampleRate, Sample maxTime)
+  {
+    for (auto &ap : allpass) ap.setup(sampleRate, maxTime);
+  }
+
+  void reset()
+  {
+    in.fill(0);
+    buffer.fill(0);
+    for (auto &ap : allpass) ap.reset();
+  }
+
+  Sample process(Sample input, Sample sampleRate)
+  {
+    for (uint16_t idx = 0; idx < nest; ++idx) {
+      input -= feed[idx].process() * buffer[idx];
+      in[idx] = input;
+    }
+
+    Sample out = in.back();
+    for (uint16_t idx = nest - 1; idx < nest; --idx) {
+      auto apOut = allpass[idx].process(out, sampleRate);
+      out = buffer[idx] + feed[idx].getValue() * in[idx];
+      buffer[idx] = apOut;
+    }
+
+    return out;
+  }
+};
+
+template<
+  typename Sample,
+  uint16_t nSection1,
+  uint16_t nSection2,
+  uint16_t nSection3,
+  uint16_t nest>
+class NestD4 {
+public:
+  std::array<Sample, nest> in{};
+  std::array<Sample, nest> buffer{};
+  std::array<ExpSmoother<Sample>, nest> feed;
+  std::array<NestD3<Sample, nSection1, nSection2, nSection3>, nest> allpass;
+
+  void setup(Sample sampleRate, Sample maxTime)
+  {
+    for (auto &ap : allpass) ap.setup(sampleRate, maxTime);
+  }
+
+  void reset()
+  {
+    in.fill(0);
+    buffer.fill(0);
+    for (auto &ap : allpass) ap.reset();
+  }
+
+  Sample process(Sample input, Sample sampleRate)
+  {
+    for (uint16_t idx = 0; idx < nest; ++idx) {
+      input -= feed[idx].process() * buffer[idx];
+      in[idx] = input;
+    }
+
+    Sample out = in.back();
+    for (uint16_t idx = nest - 1; idx < nest; --idx) {
+      auto apOut = allpass[idx].process(out, sampleRate);
+      out = buffer[idx] + feed[idx].getValue() * in[idx];
+      buffer[idx] = apOut;
+    }
+
+    return out;
+  }
+};
 
 } // namespace SomeDSP

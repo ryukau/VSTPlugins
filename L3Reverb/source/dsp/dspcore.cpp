@@ -74,16 +74,16 @@ inline std::array<float, 2> calcOffset(float offset, float mul)
                                                                                          \
   auto &ap4L = delay[0];                                                                 \
   auto &ap4R = delay[1];                                                                 \
-  for (uint8_t d4 = 0; d4 < nSection; ++d4) {                                            \
+  for (uint8_t d4 = 0; d4 < nSection4; ++d4) {                                           \
     auto &ap3L = ap4L.allpass[d4];                                                       \
     auto &ap3R = ap4R.allpass[d4];                                                       \
-    for (uint8_t d3 = 0; d3 < nSection; ++d3) {                                          \
+    for (uint8_t d3 = 0; d3 < nSection3; ++d3) {                                         \
       auto &ap2L = ap3L.allpass[d3];                                                     \
       auto &ap2R = ap3R.allpass[d3];                                                     \
-      for (uint8_t d2 = 0; d2 < nSection; ++d2) {                                        \
+      for (uint8_t d2 = 0; d2 < nSection2; ++d2) {                                       \
         auto &ap1L = ap2L.allpass[d2];                                                   \
         auto &ap1R = ap2R.allpass[d2];                                                   \
-        for (uint8_t d1 = 0; d1 < nSection; ++d1) {                                      \
+        for (uint8_t d1 = 0; d1 < nSection1; ++d1) {                                     \
           auto d1TimeOffset = calcOffset(timeOffsetDist(timeRng), timeMul);              \
           auto innerFeedOffset = calcOffset(innerOffsetDist(innerRng), innerMul);        \
           auto d1FeedOffset = calcOffset(d1FeedOffsetDist(d1FeedRng), d1FeedMul);        \
