@@ -181,8 +181,10 @@ void DSPCORE_NAME::process(
 
   for (size_t i = 0; i < length; ++i) {
     const auto cross = interpStereoCross.process();
-    delayOut[0] = delay[0].process(in0[i] + cross * delayOut[1], sampleRate);
-    delayOut[1] = delay[1].process(in1[i] + cross * delayOut[0], sampleRate);
+    const auto delayOut0 = delayOut[0];
+    const auto delayOut1 = delayOut[1];
+    delayOut[0] = delay[0].process(in0[i] + cross * delayOut1, sampleRate);
+    delayOut[1] = delay[1].process(in1[i] + cross * delayOut0, sampleRate);
     const auto mid = delayOut[0] + delayOut[1];
     const auto side = delayOut[0] - delayOut[1];
 
