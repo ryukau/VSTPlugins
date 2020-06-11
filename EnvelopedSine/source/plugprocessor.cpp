@@ -77,6 +77,8 @@ tresult PLUGIN_API PlugProcessor::setBusArrangements(
 
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 {
+  if (dsp == nullptr) return kNotInitialized;
+  dsp->setup(processSetup.sampleRate);
   bypassFadeLength = int64_t(0.04 * setup.sampleRate); // 0.04 seconds fade-out.
   bypassCounter = bypassFadeLength;
   return AudioEffect::setupProcessing(setup);
@@ -85,7 +87,7 @@ tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 tresult PLUGIN_API PlugProcessor::setActive(TBool state)
 {
   if (state) {
-    if (dsp == nullptr) return kResultFalse;
+    if (dsp == nullptr) return kNotInitialized;
     dsp->setup(processSetup.sampleRate);
   } else {
     lastState = 0;
@@ -95,7 +97,7 @@ tresult PLUGIN_API PlugProcessor::setActive(TBool state)
 
 tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 {
-  if (dsp == nullptr) return kResultFalse;
+  if (dsp == nullptr) return kNotInitialized;
 
   // Read inputs parameter changes.
   if (data.inputParameterChanges) {
@@ -202,13 +204,14 @@ void PlugProcessor::handleEvent(Vst::ProcessData &data)
 
 tresult PLUGIN_API PlugProcessor::setState(IBStream *state)
 {
-  if (!state || dsp == nullptr) return kResultFalse;
+  if (dsp == nullptr) return kNotInitialized;
+  if (!state) return kResultFalse;
   return dsp->param.setState(state);
 }
 
 tresult PLUGIN_API PlugProcessor::getState(IBStream *state)
 {
-  if (dsp == nullptr) return kResultFalse;
+  if (dsp == nullptr) return kNotInitialized;
   return dsp->param.getState(state);
 }
 
