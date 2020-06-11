@@ -120,6 +120,8 @@ transitionBuffer is used to store a release of a note to reduce pop noise.
 #define DSPCORE_CLASS(INSTRSET)                                                          \
   class DSPCore_##INSTRSET final : public DSPInterface {                                 \
   public:                                                                                \
+    DSPCore_##INSTRSET();                                                                \
+                                                                                         \
     void setup(double sampleRate) override;                                              \
     void reset() override;                                                               \
     void startup() override;                                                             \
