@@ -83,7 +83,7 @@ void TabView::draw(CDrawContext *pContext)
 
   // Inactive tab.
   pContext->setFont(tabFontID);
-  pContext->setFontColor(pal.foreground());
+  pContext->setFontColor(pal.foregroundInactive());
   pContext->setFrameColor(pal.border());
   pContext->setLineWidth(1.0f);
   for (size_t idx = 0; idx < tabs.size(); ++idx) {

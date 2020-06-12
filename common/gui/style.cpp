@@ -115,9 +115,11 @@ void Uhhyou::Palette::load()
 
   loadColor(data, "foreground", _foreground);
   loadColor(data, "foregroundButtonOn", _foregroundButtonOn);
+  loadColor(data, "foregroundInactive", _foregroundInactive);
   loadColor(data, "background", _background);
   loadColor(data, "boxBackground", _boxBackground);
   loadColor(data, "border", _border);
+  loadColor(data, "borderCheckbox", _borderCheckbox);
   loadColor(data, "unfocused", _unfocused);
   loadColor(data, "highlightMain", _highlightMain);
   loadColor(data, "highlightAccent", _highlightAccent);

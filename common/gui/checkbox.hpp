@@ -70,11 +70,14 @@ public:
     // Border.
     pContext->setFillColor(pal.boxBackground());
     if constexpr (style == Style::accent) {
-      pContext->setFrameColor(isMouseEntered ? pal.highlightAccent() : pal.border());
+      pContext->setFrameColor(
+        isMouseEntered ? pal.highlightAccent() : pal.borderCheckbox());
     } else if (style == Style::warning) {
-      pContext->setFrameColor(isMouseEntered ? pal.highlightWarning() : pal.border());
+      pContext->setFrameColor(
+        isMouseEntered ? pal.highlightWarning() : pal.borderCheckbox());
     } else {
-      pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());
+      pContext->setFrameColor(
+        isMouseEntered ? pal.highlightMain() : pal.borderCheckbox());
     }
     pContext->setLineWidth(borderWidth);
     const auto boxLeft = 2;
