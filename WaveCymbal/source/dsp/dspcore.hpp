@@ -38,6 +38,8 @@ struct NoteInfo {
 
 class DSPCore {
 public:
+  DSPCore();
+
   static const size_t maxVoice = 32;
   GlobalParameter param;
 

@@ -175,11 +175,15 @@ DSPCORE_NAME::DSPCORE_NAME()
   voiceIndices.reserve(maxVoice);
 
   peakInfos.resize(nOvertone);
+
+  midiNotes.reserve(maxVoice);
 }
 
 void DSPCORE_NAME::setup(double sampleRate)
 {
   this->sampleRate = sampleRate;
+
+  midiNotes.resize(0);
 
   SmootherCommon<float>::setSampleRate(sampleRate);
   SmootherCommon<float>::setTime(0.04f);

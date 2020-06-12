@@ -30,9 +30,13 @@ inline float midiNoteToFrequency(float pitch, float tuning)
 
 float paramToPitch(float bend) { return powf(2.0f, ((bend - 0.5f) * 400.0f) / 1200.0f); }
 
+DSPCore::DSPCore() { midiNotes.reserve(128); }
+
 void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = sampleRate;
+
+  midiNotes.resize(0);
 
   SmootherCommon<float>::setSampleRate(sampleRate);
   SmootherCommon<float>::setTime(0.01f);

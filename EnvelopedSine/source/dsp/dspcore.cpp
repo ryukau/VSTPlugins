@@ -224,6 +224,8 @@ void DSPCORE_NAME::setup(double sampleRate)
 {
   this->sampleRate = sampleRate;
 
+  midiNotes.resize(0);
+
   SmootherCommon<float>::setSampleRate(sampleRate);
   SmootherCommon<float>::setTime(0.04f);
 
@@ -235,7 +237,6 @@ void DSPCORE_NAME::setup(double sampleRate)
   transitionBuffer.resize(1 + size_t(sampleRate * 0.005), {0.0f, 0.0f});
 
   for (auto &note : notes) note.rest();
-  midiNotes.resize(0);
 
   startup();
 }

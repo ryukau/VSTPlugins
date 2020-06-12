@@ -244,9 +244,13 @@ template<typename Sample> Sample Note<Sample>::process(NoteProcessInfo<Sample> &
   return gain * filter.process(info.osc1Gain * outSaw1 + info.osc2Gain * outSaw2);
 }
 
+DSPCore::DSPCore() { midiNotes.reserve(128); }
+
 void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = sampleRate;
+
+  midiNotes.resize(0);
 
   SmootherCommon<float>::setSampleRate(sampleRate);
   SmootherCommon<float>::setTime(0.2f);

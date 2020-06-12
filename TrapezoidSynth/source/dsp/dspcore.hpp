@@ -132,7 +132,7 @@ public:
   static const size_t maxVoice = 32;
   GlobalParameter param;
 
-  DSPCore() { midiNotes.reserve(128); }
+  DSPCore();
 
   void setup(double sampleRate);
   void free();    // Release memory.

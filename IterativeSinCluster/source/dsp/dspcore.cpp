@@ -207,9 +207,13 @@ template<typename Sample> std::array<Sample, 2> NOTE_NAME<Sample>::process()
   return out;
 }
 
+DSPCORE_NAME::DSPCORE_NAME() { midiNotes.reserve(128); }
+
 void DSPCORE_NAME::setup(double sampleRate)
 {
   this->sampleRate = sampleRate;
+
+  midiNotes.resize(0);
 
   SmootherCommon<float>::setSampleRate(sampleRate);
   SmootherCommon<float>::setTime(0.04f);

@@ -51,9 +51,13 @@ void DSPCore::setSystem()
     param.value[ParameterID::randomAmount]->getFloat());
 }
 
+DSPCore::DSPCore() { midiNotes.reserve(128); }
+
 void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = sampleRate;
+
+  midiNotes.resize(0);
 
   SmootherCommon<float>::setSampleRate(sampleRate);
   SmootherCommon<float>::setTime(param.value[ParameterID::smoothness]->getFloat());

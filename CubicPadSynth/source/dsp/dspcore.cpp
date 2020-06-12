@@ -145,6 +145,8 @@ DSPCORE_NAME::DSPCORE_NAME()
   noteIndices.reserve(maxVoice);
   voiceIndices.reserve(maxVoice);
 
+  midiNotes.reserve(maxVoice);
+
   for (int i = 0; i < notes.size(); ++i) {
     notes[i].vecIndex = i % 16;
     notes[i].arrayIndex = i / 16;
@@ -154,6 +156,8 @@ DSPCORE_NAME::DSPCORE_NAME()
 void DSPCORE_NAME::setup(double sampleRate)
 {
   this->sampleRate = sampleRate;
+
+  midiNotes.resize(0);
 
   SmootherCommon<float>::setSampleRate(sampleRate);
   SmootherCommon<float>::setTime(0.04f);

@@ -332,9 +332,13 @@ template<typename Sample> Sample TpzMono<Sample>::getOsc2Pitch(GlobalParameter &
            param.value[ParameterID::pitchBend]->getFloat());
 }
 
+DSPCore::DSPCore() { midiNotes.reserve(128); }
+
 void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = sampleRate;
+
+  midiNotes.resize(0);
 
   SmootherCommon<float>::setSampleRate(sampleRate);
   SmootherCommon<float>::setTime(0.01f);

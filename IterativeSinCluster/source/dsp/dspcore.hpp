@@ -121,6 +121,8 @@ mpt stands for Max Poly Transition. I guess this sounds weird for English native
 #define DSPCORE_CLASS(INSTRSET)                                                          \
   class DSPCore_##INSTRSET final : public DSPInterface {                                 \
   public:                                                                                \
+    DSPCore_##INSTRSET();                                                                \
+                                                                                         \
     void setup(double sampleRate) override;                                              \
     void reset() override;                                                               \
     void startup() override;                                                             \
