@@ -1,4 +1,4 @@
-# VST 3 Plugin
+# Uhhyou Plugins VST 3
 This repository is publishing VST 3 plugins under GPLv3.
 
 - [Uhhyou Plugins (Documentation)](https://ryukau.github.io/VSTPlugins/)
