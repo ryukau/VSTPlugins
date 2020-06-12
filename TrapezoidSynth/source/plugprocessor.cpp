@@ -58,6 +58,7 @@ tresult PLUGIN_API PlugProcessor::setBusArrangements(
 
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 {
+  dsp.setup(processSetup.sampleRate);
   bypassFadeLength = int64_t(0.04 * setup.sampleRate); // 0.04 seconds fade-out.
   bypassCounter = bypassFadeLength;
   return AudioEffect::setupProcessing(setup);
@@ -117,7 +118,7 @@ void PlugProcessor::processSignal(Vst::ProcessData &data)
 {
   float *out0 = data.outputs[0].channelBuffers32[0];
   float *out1 = data.outputs[0].channelBuffers32[1];
-  size_t length = (size_t)data.numSamples;
+  size_t length = data.numSamples < 0 ? 0 : size_t(data.numSamples);
   if (dsp.param.value[ParameterID::bypass]->getInt()) {
     if (bypassCounter > 0) { // Fade-out.
       dsp.process(length, out0, out1);

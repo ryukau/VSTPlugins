@@ -59,6 +59,7 @@ tresult PLUGIN_API PlugProcessor::setBusArrangements(
 
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 {
+  dsp.setup(processSetup.sampleRate);
   return AudioEffect::setupProcessing(setup);
 }
 

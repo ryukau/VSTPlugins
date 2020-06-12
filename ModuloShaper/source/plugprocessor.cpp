@@ -77,12 +77,15 @@ tresult PLUGIN_API PlugProcessor::setBusArrangements(
 
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 {
+  if (dsp == nullptr) return kNotInitialized;
+  dsp->setup(processSetup.sampleRate);
   return AudioEffect::setupProcessing(setup);
 }
 
 tresult PLUGIN_API PlugProcessor::setActive(TBool state)
 {
   if (state) {
+    if (dsp == nullptr) return kNotInitialized;
     dsp->setup(processSetup.sampleRate);
   } else {
     dsp->reset();
@@ -95,6 +98,8 @@ uint32 PLUGIN_API PlugProcessor::getLatencySamples() { return dsp->getLatency();
 
 tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 {
+  if (dsp == nullptr) return kNotInitialized;
+
   // Read inputs parameter changes.
   if (data.inputParameterChanges) {
     int32 parameterCount = data.inputParameterChanges->getParameterCount();
@@ -153,12 +158,14 @@ void PlugProcessor::processBypass(Vst::ProcessData &data)
 
 tresult PLUGIN_API PlugProcessor::setState(IBStream *state)
 {
+  if (dsp == nullptr) return kNotInitialized;
   if (!state) return kResultFalse;
   return dsp->param.setState(state);
 }
 
 tresult PLUGIN_API PlugProcessor::getState(IBStream *state)
 {
+  if (dsp == nullptr) return kNotInitialized;
   return dsp->param.getState(state);
 }
 

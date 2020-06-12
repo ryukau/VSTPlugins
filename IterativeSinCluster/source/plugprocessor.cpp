@@ -77,6 +77,8 @@ tresult PLUGIN_API PlugProcessor::setBusArrangements(
 
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 {
+  if (dsp == nullptr) return kNotInitialized;
+  dsp->setup(processSetup.sampleRate);
   bypassFadeLength = int64_t(0.04 * setup.sampleRate); // 0.04 seconds fade-out.
   bypassCounter = bypassFadeLength;
   return AudioEffect::setupProcessing(setup);
@@ -85,6 +87,7 @@ tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 tresult PLUGIN_API PlugProcessor::setActive(TBool state)
 {
   if (state) {
+    if (dsp == nullptr) return kNotInitialized;
     dsp->setup(processSetup.sampleRate);
   } else {
     lastState = 0;
@@ -94,6 +97,8 @@ tresult PLUGIN_API PlugProcessor::setActive(TBool state)
 
 tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 {
+  if (dsp == nullptr) return kNotInitialized;
+
   // Read inputs parameter changes.
   if (data.inputParameterChanges) {
     int32 parameterCount = data.inputParameterChanges->getParameterCount();
@@ -135,7 +140,7 @@ void PlugProcessor::processSignal(Vst::ProcessData &data)
 {
   float *out0 = data.outputs[0].channelBuffers32[0];
   float *out1 = data.outputs[0].channelBuffers32[1];
-  size_t length = (size_t)data.numSamples;
+  size_t length = data.numSamples < 0 ? 0 : size_t(data.numSamples);
   if (dsp->param.value[ParameterID::bypass]->getInt()) {
     if (bypassCounter > 0) { // Fade-out.
       dsp->process(length, out0, out1);
@@ -168,6 +173,8 @@ void PlugProcessor::processSignal(Vst::ProcessData &data)
 
 void PlugProcessor::handleEvent(Vst::ProcessData &data)
 {
+  if (dsp == nullptr) return;
+
   for (int32 index = 0; index < data.inputEvents->getEventCount(); ++index) {
     Vst::Event event;
     if (data.inputEvents->getEvent(index, event) != kResultOk) continue;
@@ -196,12 +203,14 @@ void PlugProcessor::handleEvent(Vst::ProcessData &data)
 
 tresult PLUGIN_API PlugProcessor::setState(IBStream *state)
 {
+  if (dsp == nullptr) return kNotInitialized;
   if (!state) return kResultFalse;
   return dsp->param.setState(state);
 }
 
 tresult PLUGIN_API PlugProcessor::getState(IBStream *state)
 {
+  if (dsp == nullptr) return kNotInitialized;
   return dsp->param.getState(state);
 }
 
