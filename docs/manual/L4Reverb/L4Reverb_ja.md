@@ -14,7 +14,16 @@ lang: ja
   style="display: inline-block; vertical-align: middle;">
 - [プリセットをダウンロード (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4ReverbPresets.zip)
 
-L4Reverb の利用には AVX 以降の SIMD 命令セットをサポートする CPU が必要です。
+もし L4Reverb が重たすぎるときは L3Reverb を試してみてください。 <ruby>L3Reverb<rt>エル スリー リバーブ</rt></ruby> は L4Reverb の軽量版です。格子構造はチャンネル毎に 3 * 3 * 3 * 5 = 135 のセクションが設けてあります。
+
+- [L3Reverb 0.1.0 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L3Reverb0.1.0.zip) <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="60px"
+  style="display: inline-block; vertical-align: middle;">
+- [プリセットをダウンロード (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L3ReverbPresets.zip)
+
+L4Reverb と L3Reverb の利用には AVX 以降の SIMD 命令セットをサポートする CPU が必要です。
 
 パッケージには次のビルドが含まれています。
 
@@ -79,11 +88,14 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 
 ```json
 {
+  "fontPath": "",
   "foreground": "#ffffff",
   "foregroundButtonOn": "#000000",
+  "foregroundInactive": "#8a8a8a",
   "background": "#353d3e",
   "boxBackground": "#000000",
   "border": "#808080",
+  "borderCheckbox": "#808080",
   "unfocused": "#b8a65c",
   "highlightMain": "#368a94",
   "highlightAccent": "#2c8a58",
@@ -105,11 +117,14 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 
 以下は設定できる色の一覧です。設定に抜けがあるとデフォルトの色が使われます。
 
+- `fontPath`: フォント (*.ttf) の絶対パス。VST 3 版では実装されていません。
 - `foreground`: 文字の色。
 - `foregroundButtonOn`: オンになっているボタンの文字の色。 `foreground` か `boxBackground` のいずれかと同じ値にすることを推奨します。
-- `background`: 背景色。
+- `foregroundInactive`: 非アクティブなタブの文字の色。
+- `background`: 背景色。x
 - `boxBackground`: 矩形の UI 部品の内側の背景色。
 - `border`: <ruby>縁<rt>ふち</rt></ruby>の色。
+- `borderCheckbox`: チェックボックスの縁の色。
 - `unfocused`: つまみがフォーカスされていないときの色。
 - `highlightMain`: フォーカスされたときの色。スライダの値の表示にも使用されます。
 - `highlightAccent`: フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。
@@ -280,8 +295,13 @@ Smooth
 :   パラメータを変更したときに、変更前の値から変更後の値へと移行する大まかな秒数です。
 
 ## チェンジログ
+### L4Reverb
 - 0.1.1
   - カラーコンフィグを追加。
+- 0.1.0
+  - 初期リリース。
+
+### L3Reverb
 - 0.1.0
   - 初期リリース。
 
@@ -290,7 +310,7 @@ Smooth
 現在、旧バージョンはありません。
 
 ## ライセンス
-L4Reverb のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。
+L4Reverb と L3Reverb のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。
 
 - [https://github.com/ryukau/VSTPlugins/tree/master/License](https://github.com/ryukau/VSTPlugins/tree/master/License)
 

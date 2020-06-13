@@ -77,11 +77,14 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 
 ```json
 {
+  "fontPath": "",
   "foreground": "#ffffff",
   "foregroundButtonOn": "#000000",
+  "foregroundInactive": "#8a8a8a",
   "background": "#353d3e",
   "boxBackground": "#000000",
   "border": "#808080",
+  "borderCheckbox": "#808080",
   "unfocused": "#b8a65c",
   "highlightMain": "#368a94",
   "highlightAccent": "#2c8a58",
@@ -103,11 +106,14 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 
 以下は設定できる色の一覧です。設定に抜けがあるとデフォルトの色が使われます。
 
+- `fontPath`: フォント (*.ttf) の絶対パス。VST 3 版では実装されていません。
 - `foreground`: 文字の色。
 - `foregroundButtonOn`: オンになっているボタンの文字の色。 `foreground` か `boxBackground` のいずれかと同じ値にすることを推奨します。
-- `background`: 背景色。
+- `foregroundInactive`: 非アクティブなタブの文字の色。
+- `background`: 背景色。x
 - `boxBackground`: 矩形の UI 部品の内側の背景色。
 - `border`: <ruby>縁<rt>ふち</rt></ruby>の色。
+- `borderCheckbox`: チェックボックスの縁の色。
 - `unfocused`: つまみがフォーカスされていないときの色。
 - `highlightMain`: フォーカスされたときの色。スライダの値の表示にも使用されます。
 - `highlightAccent`: フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。

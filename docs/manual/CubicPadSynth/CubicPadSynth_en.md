@@ -75,11 +75,14 @@ Below is a example of `style.json`.
 
 ```json
 {
+  "fontPath": "",
   "foreground": "#ffffff",
   "foregroundButtonOn": "#000000",
+  "foregroundInactive": "#8a8a8a",
   "background": "#353d3e",
   "boxBackground": "#000000",
   "border": "#808080",
+  "borderCheckbox": "#808080",
   "unfocused": "#b8a65c",
   "highlightMain": "#368a94",
   "highlightAccent": "#2c8a58",
@@ -99,13 +102,16 @@ First letter `#` is conventional. Plugins ignore the first letter of color code,
 
 Do not use characters outside of `0-9a-f` for color value.
 
+- `fontPath`: Absolute path to *.ttf font file. Not implemented in VST 3 version.
 - `foreground`: Text color.
 - `foregroundButtonOn`: Text color of active toggle button. Recommend to use the same value of `foreground` or `boxBackground`.
+- `foregroundInactive`: Text color of inactive components. Currently, only used for TabView.
 - `background`: Background color.
 - `boxBackground`: Background color of inside of box shaped components (Barbox, Button, Checkbox, OptionMenu, TextKnob, VSlider).
 - `border`: Border color of box shaped components.
+- `borderCheckbox`: Border color of CheckBox.
 - `unfocused`: Color to fill unfocused components. Currently, only used for knobs.
-- `highlightMain`: Color to indicate focus is on a component. Highlight colors are also used for value of slider components (BarBox and VSlider).- {new_version}{change_log}
+- `highlightMain`: Color to indicate focus is on a component. Highlight colors are also used for value of slider components (BarBox and VSlider).
 - `highlightAccent`: Same as `highlightMain`. Used for cosmetics.
 - `highlightButton`: Color to indicate focus is on a button.
 - `highlightWarning`: Same as `highlightMain`, but only used for parameters which requires extra caution.
