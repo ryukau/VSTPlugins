@@ -100,6 +100,7 @@ void TabView::draw(CDrawContext *pContext)
   }
 
   // Active tab.
+  pContext->setFontColor(pal.foreground());
   pContext->setFillColor(pal.background());
   pContext->setFrameColor(pal.border());
   pContext->setLineWidth(2.0f);
