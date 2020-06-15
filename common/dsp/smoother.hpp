@@ -154,7 +154,6 @@ public:
   }
 
   void setTime(Sample seconds) { timeInSamples = seconds * sampleRate; }
-  void setBufferSize(Sample bufferSize) { this->bufferSize = bufferSize; }
   void reset(Sample value) { this->value = target = value; }
   void refresh() { push(target); }
   inline Sample getValue() { return value; }
@@ -162,7 +161,7 @@ public:
   void push(Sample newTarget)
   {
     target = newTarget;
-    if (Common::timeInSamples < Common::bufferSize) {
+    if (timeInSamples < Common::bufferSize) {
       value = target;
       ramp = 0;
     } else {
@@ -180,7 +179,6 @@ public:
 protected:
   Sample sampleRate = 44100;
   Sample timeInSamples = -1;
-  Sample bufferSize = 0;
   Sample target = 1.0;
   Sample ramp = 0.0;
   Sample value = 0;

@@ -241,10 +241,6 @@ template<typename Sample> Sample TpzMono<Sample>::process(const size_t bufferSiz
 {
   if (gainEnvelope.isTerminated()) return 0;
 
-  interpOctave.setBufferSize(bufferSize);
-  interpOsc1Pitch.setBufferSize(bufferSize);
-  interpOsc2Pitch.setBufferSize(bufferSize);
-
   const auto modEnv2Sig = modEnvelope2.process();
   lfo.setFreq(
     interpLFOFrequency.process() + modEnv2Sig * interpMod2EnvToLFOFrequency.process());
