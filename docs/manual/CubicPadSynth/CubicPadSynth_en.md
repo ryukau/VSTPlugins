@@ -7,7 +7,7 @@ lang: en
 
 CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.
 
-- [Download CubicPadSynth 0.1.7 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/CubicPadSynth0.1.7.zip) <img
+- [Download CubicPadSynth 0.1.8 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/CubicPadSynth0.1.8.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -526,6 +526,8 @@ Refresh PADsynth wavetable based on current configuration of Wavetable tab.
 Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
 
 ## Change Log
+- 0.1.8
+  - Added check that DSP is initialized or not.
 - 0.1.7
   - Added scroll bar to dense BarBox.
   - Added undo/redo to BarBox.
@@ -547,6 +549,7 @@ Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
   - Initial release.
 
 ### Old Versions
+- [CubicPadSynth 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/CubicPadSynth0.1.7.zip)
 - [CubicPadSynth 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/CubicPadSynth0.1.6.zip)
 - [CubicPadSynth 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/CubicPadSynth0.1.5.zip)
 - [CubicPadSynth 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/CubicPadSynth0.1.4.zip)

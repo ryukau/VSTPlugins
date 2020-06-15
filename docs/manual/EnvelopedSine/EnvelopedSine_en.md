@@ -7,7 +7,7 @@ lang: en
 
 EnvelopedSine is an additive synthesizer that computes 64 sine waves for each note. Difference to IterativeSinCluster is that this synth has AD envelope and saturator for each oscillator. EnvelopedSine is better suited for percussive sounds.
 
-- [Download EnvelopedSine 0.1.8 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/EnvelopedSine0.1.8.zip) <img
+- [Download EnvelopedSine 0.1.9 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/EnvelopedSine0.1.9.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -317,6 +317,8 @@ Phase
 :   LFO phase. This can be used to make sound with automation. Turning `Freq` to leftmost sets LFO frequency to 0.
 
 ## Change Log
+- 0.1.9
+  - Added check that DSP is initialized or not.
 - 0.1.8
   - Added undo/redo to BarBox.
 - 0.1.7
@@ -338,6 +340,7 @@ Phase
   - Initial release.
 
 ### Old Versions
+- [EnvelopedSine 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/EnvelopedSine0.1.8.zip)
 - [EnvelopedSine 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/EnvelopedSine0.1.7.zip)
 - [EnvelopedSine 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/EnvelopedSine0.1.6.zip)
 - [EnvelopedSine 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/EnvelopedSine0.1.5.zip)

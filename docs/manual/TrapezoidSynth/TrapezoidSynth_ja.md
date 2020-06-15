@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>TrapezoidSynth<rt>トラピゾイドシンセ</rt></ruby>は台形オシレータを使ったモノフォニックシンセサイザです。台形オシレータは PTR (Polynomial Transition Regions) という手法に基づいて作ったのですが、ピッチが高くなると逆にノイズが増える欠点があるので 8 倍のオーバーサンプリングをしています。コードを作るために 2 つの AM ピッチシフタを搭載しています。
 
-- [TrapezoidSynth 0.1.9 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/TrapezoidSynth0.1.9.zip) <img
+- [TrapezoidSynth 0.1.10 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/TrapezoidSynth0.1.10.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -394,6 +394,8 @@ Offset
 :   Oscillator 1 のスライド時間に対する Oscillator 2 のスライド時間の比率です。
 
 ## チェンジログ
+- 0.1.10
+  - DSP が初期化されているかどうかのチェックを追加。
 - 0.1.9
   - カラーコンフィグを追加。
 - 0.1.8
@@ -419,6 +421,7 @@ Offset
   - 初期リリース。
 
 ### 旧バージョン
+- [TrapezoidSynth 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/TrapezoidSynth0.1.9.zip)
 - [TrapezoidSynth 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/TrapezoidSynth0.1.8.zip)
 - [TrapezoidSynth 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/TrapezoidSynth0.1.7.zip)
 - [TrapezoidSynth 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/TrapezoidSynth0.1.5.zip)

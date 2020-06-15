@@ -7,7 +7,7 @@ lang: en
 
 SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR sawtooth oscillator. Just a basic synthesizer but very easy to make a noise similar to low battery sound of some toys.
 
-- [Download SyncSawSynth 0.1.13 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SyncSawSynth0.1.13.zip) <img
+- [Download SyncSawSynth 0.1.14 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/SyncSawSynth0.1.14.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -398,6 +398,8 @@ Key->Feed
 :   Modulation from MIDI note number to feedback. Range is -1.0 to 1.0.
 
 ## Change Log
+- 0.1.14
+  - Added check that DSP is initialized or not.
 - 0.1.13
   - Added color configuration.
 - 0.1.12
@@ -434,6 +436,7 @@ Key->Feed
   - Initial release.
 
 ### Old Versions
+- [SyncSawSynth 0.1.13 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SyncSawSynth0.1.13.zip)
 - [SyncSawSynth 0.1.12 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SyncSawSynth0.1.12.zip)
 - [SyncSawSynth 0.1.11 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SyncSawSynth0.1.11.zip)
 - [SyncSawSynth 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SyncSawSynth0.1.9.zip)

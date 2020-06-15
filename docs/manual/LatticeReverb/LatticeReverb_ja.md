@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>LatticeReverb<rt>ラティス リバーブ</rt></ruby> はディレイを使った高次のオールパスフィルタを格子状につないで入れ子にしたリバーブです。 1 チャンネルあたり 16 のオールパスフィルタを備えています。
 
-- [LatticeReverb 0.1.2 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/LatticeReverb0.1.2.zip) <img
+- [LatticeReverb 0.1.3 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/LatticeReverb0.1.3.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -291,6 +291,8 @@ Lowpass Cutoff
     リバーブの明るさを変更するときに役立ちます。
 
 ## チェンジログ
+- 0.1.3
+  - DSP が初期化されているかどうかのチェックを追加。
 - 0.1.2
   - BarBox に アンドゥ・リドゥの機能を追加。
 - 0.1.1
@@ -299,6 +301,7 @@ Lowpass Cutoff
   - 初期リリース。
 
 ### 旧バージョン
+- [LatticeReverb 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/LatticeReverb0.1.2.zip)
 - [LatticeReverb 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/LatticeReverb0.1.1.zip)
 - [LatticeReverb 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverb0.1.0.zip)
 

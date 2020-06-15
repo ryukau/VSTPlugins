@@ -7,7 +7,7 @@ lang: en
 
 LatticeReverb is a reverb using lattice structure. Equipped with 16 delays per channel.
 
-- [Download LatticeReverb 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/LatticeReverb0.1.2.zip) <img
+- [Download LatticeReverb 0.1.3 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/LatticeReverb0.1.3.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -283,6 +283,8 @@ Lowpass Cutoff
     Useful to change the brightness of reverb.
 
 ## Change Log
+- 0.1.3
+  - Added check that DSP is initialized or not.
 - 0.1.2
   - Added undo/redo to BarBox.
 - 0.1.1
@@ -291,6 +293,7 @@ Lowpass Cutoff
   - Initial release.
 
 ### Old Versions
+- [LatticeReverb 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/LatticeReverb0.1.2.zip)
 - [LatticeReverb 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/LatticeReverb0.1.1.zip)
 - [LatticeReverb 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverb0.1.0.zip)
 

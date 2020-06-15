@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>L4Reverb<rt>エル フォー リバーブ</rt></ruby> は LatticeReverb の拡張版です。今回の格子構造はチャンネル毎に 4 * 4 * 4 * 4 = 256 のセクションが設けてあります。
 
-- [L4Reverb 0.1.0 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Reverb0.1.0.zip) <img
+- [L4Reverb 0.1.1 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L4Reverb0.1.1.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -297,6 +297,7 @@ Smooth
 ## チェンジログ
 ### L4Reverb
 - 0.1.1
+  - DSP が初期化されているかどうかのチェックを追加。
   - カラーコンフィグを追加。
 - 0.1.0
   - 初期リリース。
@@ -307,7 +308,6 @@ Smooth
 
 ### 旧バージョン
 - [L4Reverb 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Reverb0.1.0.zip)
-現在、旧バージョンはありません。
 
 ## ライセンス
 L4Reverb と L3Reverb のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。

@@ -7,7 +7,7 @@ lang: en
 
 L4Reverb is an extended version of LatticeReverb. This time, lattice structure has 4 * 4 * 4 * 4 = 256 sections per channel.
 
-- [Download L4Reverb 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Reverb0.1.0.zip) <img
+- [Download L4Reverb 0.1.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L4Reverb0.1.1.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -284,6 +284,7 @@ Smooth
 ## Change Log
 ### L4Reverb
 - 0.1.1
+  - Added check that DSP is initialized or not.
   - Added color configuration.
 - 0.1.0
   - Initial release.

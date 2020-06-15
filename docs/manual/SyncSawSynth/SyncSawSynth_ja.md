@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>SyncSawSynth<rt>シンクソウシンセ</rt></ruby>は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。
 
-- [SyncSawSynth 0.1.13 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SyncSawSynth0.1.13.zip) <img
+- [SyncSawSynth 0.1.14 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/SyncSawSynth0.1.14.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -403,6 +403,8 @@ Key->Feed
 :   ノートの MIDI ノート番号によるフィードバックの変調。範囲は -1.0 から 1.0 。
 
 ## チェンジログ
+- 0.1.14
+  - DSP が初期化されているかどうかのチェックを追加。
 - 0.1.13
   - カラーコンフィグを追加。
 - 0.1.12
@@ -439,6 +441,7 @@ Key->Feed
   - 初期リリース。
 
 ### 旧バージョン
+- [SyncSawSynth 0.1.13 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SyncSawSynth0.1.13.zip)
 - [SyncSawSynth 0.1.12 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SyncSawSynth0.1.12.zip)
 - [SyncSawSynth 0.1.11 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SyncSawSynth0.1.11.zip)
 - [SyncSawSynth 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SyncSawSynth0.1.9.zip)
