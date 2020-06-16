@@ -390,6 +390,7 @@ Offset
 ## Change Log
 - 0.1.10
   - Added check that DSP is initialized or not.
+  - Fixed `Slide->Time` is ignored and set as same as `Smooth`.
 - 0.1.9
   - Added color configuration.
 - 0.1.8
