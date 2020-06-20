@@ -37,6 +37,7 @@ public:
   const VSTGUI::CColor &boxBackground() { return _boxBackground; }
   const VSTGUI::CColor &border() { return _border; }
   const VSTGUI::CColor &borderCheckbox() { return _borderCheckbox; }
+  const VSTGUI::CColor &borderLabel() { return _borderLabel; }
   const VSTGUI::CColor &unfocused() { return _unfocused; }
   const VSTGUI::CColor &highlightMain() { return _highlightMain; }
   const VSTGUI::CColor &highlightAccent() { return _highlightAccent; }
@@ -53,6 +54,7 @@ private:
   VSTGUI::CColor _boxBackground{0xff, 0xff, 0xff};
   VSTGUI::CColor _border{0x00, 0x00, 0x00};
   VSTGUI::CColor _borderCheckbox{0x00, 0x00, 0x00};
+  VSTGUI::CColor _borderLabel{0x00, 0x00, 0x00};
   VSTGUI::CColor _unfocused{0xdd, 0xdd, 0xdd};
   VSTGUI::CColor _highlightMain{0x0b, 0xa4, 0xf1};
   VSTGUI::CColor _highlightAccent{0x13, 0xc1, 0x36};

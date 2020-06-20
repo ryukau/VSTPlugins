@@ -113,7 +113,7 @@ public:
     pContext->drawString(label.c_str(), CRect(textLeft, 0, textRight, height));
 
     // Border.
-    pContext->setFrameColor(pal.border());
+    pContext->setFrameColor(pal.borderLabel());
     pContext->setLineWidth(lineWidth);
     pContext->drawLine(
       CPoint(0.0, height * 0.5), CPoint(textLeft - margin, height * 0.5));
