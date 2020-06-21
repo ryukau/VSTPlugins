@@ -1,4 +1,5 @@
 // (c) 2020 Takamitsu Endo
+// (c) 2020 Konstantin Voinov
 //
 // This file is part of Uhhyou Plugins.
 //
