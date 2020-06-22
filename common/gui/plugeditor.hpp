@@ -32,6 +32,7 @@
 #include "label.hpp"
 #include "optionmenu.hpp"
 #include "rotaryknob.hpp"
+#include "scrollbar.hpp"
 #include "slider.hpp"
 #include "splash.hpp"
 #include "tabview.hpp"
