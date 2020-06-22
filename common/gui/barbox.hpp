@@ -28,11 +28,37 @@
 #include <algorithm>
 #include <random>
 
-#include <iostream>
-
 namespace VSTGUI {
 
 template<typename Scale> class BarBox : public ArrayControl {
+private:
+  enum class BarState : uint8_t { active, lock };
+
+  CFontRef indexFontID = nullptr;
+  CFontRef nameFontID = nullptr;
+
+  CCoord borderWidth = 1.0;
+
+  bool isMouseEntered = false;
+
+  CPoint mousePosition{-1.0, -1.0};
+  CPoint anchor{-1.0, -1.0};
+  BarState anchorState = BarState::active;
+  int indexL = 0;
+  int indexR = 0;
+  int indexRange = 0;
+  CCoord sliderWidth = 1.0f;
+  CCoord barWidth = 1.0f;
+
+  std::string name;
+  std::string indexText;
+  std::vector<std::string> barIndices;
+  std::vector<std::vector<double>> undoValue;
+  std::vector<BarState> barState;
+  std::vector<double> active, locked; // Used to store temporary values.
+
+  Uhhyou::Palette &pal;
+
 public:
   float sliderZero = 0.0f;
   int32_t indexOffset = 0;
@@ -57,6 +83,10 @@ public:
     setViewRange(0, 1);
 
     for (size_t i = 0; i < 4; ++i) undoValue.emplace_back(defaultValue);
+
+    barState.resize(defaultValue.size(), BarState::active);
+    active.reserve(value.size());
+    locked.reserve(value.size());
   }
 
   ~BarBox()
@@ -64,6 +94,8 @@ public:
     if (indexFontID) indexFontID->forget();
     if (nameFontID) nameFontID->forget();
   }
+
+  CLASS_METHODS(BarBox, CView);
 
   void draw(CDrawContext *pContext) override
   {
@@ -79,8 +111,6 @@ public:
     pContext->drawRect(CRect(0, 0, width, height), kDrawFilled);
 
     // Value bar.
-    pContext->setFillColor(pal.highlightMain());
-
     float sliderZeroHeight = height * (1.0 - sliderZero);
     for (int i = indexL; i < indexR; ++i) {
       auto left = (i - indexL) * sliderWidth;
@@ -88,6 +118,8 @@ public:
       auto top = height - value[i] * height;
       double bottom = sliderZeroHeight;
       if (top > bottom) std::swap(top, bottom);
+      pContext->setFillColor(
+        barState[i] == BarState::active ? pal.highlightMain() : pal.foregroundInactive());
       pContext->drawRect(CRect(left, top, right, bottom), kDrawFilled);
     }
 
@@ -100,8 +132,10 @@ public:
         auto left = (i - indexL) * sliderWidth;
         auto right = left + sliderWidth - barWidth;
         pContext->drawString(
-          barIndices[i].c_str(), CRect(left, height - 16, right, height - 4),
-          kCenterText);
+          barIndices[i].c_str(), CRect(left, height - 16, right, height - 4), kCenterText,
+          true);
+        if (barState[i] != BarState::active)
+          pContext->drawString("L", CRect(left, 0, right, 16), kCenterText, true);
       }
     }
 
@@ -133,6 +167,11 @@ public:
            << std::to_string(value[index]);
         indexText = os.str();
         pContext->drawString(indexText.c_str(), CRect(0, 0, width, height));
+
+        if (barState[index] != BarState::active) {
+          pContext->setFont(indexFontID);
+          pContext->drawString("Locked", CRect(0, 20, width, 40));
+        }
       }
     } else {
       // Title.
@@ -150,103 +189,29 @@ public:
     setDirty(false);
   }
 
-  CLASS_METHODS(BarBox, CView);
-
-  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override
-  {
-    isMouseEntered = true;
-    invalid();
-    return kMouseEventHandled;
-  }
-
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override
-  {
-    isMouseEntered = false;
-    invalid();
-    return kMouseEventHandled;
-  }
-
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
-  {
-    if (buttons.isRightButton()) {
-      auto componentHandler = editor->getController()->getComponentHandler();
-      if (componentHandler == nullptr) return kMouseEventNotHandled;
-
-      using namespace Steinberg;
-
-      FUnknownPtr<Vst::IComponentHandler3> handler(componentHandler);
-      if (handler == nullptr) return kMouseEventNotHandled;
-
-      setMousePosition(where);
-      size_t index = calcIndex(mousePosition);
-      if (index >= id.size()) return kMouseEventNotHandled;
-
-      Vst::IContextMenu *menu = handler->createContextMenu(editor, &id[index]);
-      if (menu == nullptr) return kMouseEventNotHandled;
-
-      menu->popup(where.x, where.y);
-      menu->release();
-      return kMouseEventHandled;
-    }
-
-    setMousePosition(where);
-
-    anchor = mousePosition;
-
-    setValueFromPosition(mousePosition, buttons);
-    return kMouseEventHandled;
-  }
-
-  CMouseEventResult onMouseUp(CPoint &where, const CButtonState &buttons) override
-  {
-    updateValue();
-    pushUndoValue();
-    return kMouseEventHandled;
-  }
-
-  CMouseEventResult onMouseMoved(CPoint &where, const CButtonState &buttons) override
-  {
-    setMousePosition(where);
-    invalid(); // Required to refresh highlighting position.
-    if (buttons.isLeftButton()) {
-      if (buttons.isShiftSet())
-        setValueFromPosition(mousePosition, buttons);
-      else
-        setValueFromLine(anchor, mousePosition, buttons.getModifierState());
-      anchor = mousePosition;
-      return kMouseEventHandled;
-    } else if (buttons.isMiddleButton()) {
-      setValueFromLine(anchor, mousePosition, buttons.getModifierState());
-      return kMouseEventHandled;
-    }
-    return kMouseEventNotHandled;
-  }
-
-  CMouseEventResult onMouseCancel() override
-  {
-    if (isDirty()) {
-      updateValue();
-      pushUndoValue();
-      invalid();
-    }
-    return kMouseEventHandled;
-  }
-
-  bool onWheel(
-    const CPoint &where,
-    const CMouseWheelAxis &axis,
-    const float &distance,
-    const CButtonState &buttons) override
-  {
-    if (isEditing() || axis != kMouseWheelAxisY || distance == 0.0f) return false;
-
-    size_t index = calcIndex(mousePosition);
-    if (index >= value.size()) return false;
-
-    setValueAt(index, value[index] + distance * 0.01f);
-    updateValueAt(index);
-    invalid();
-    return true;
+#define APPLY_ALGORITHM(START, FUNC)                                                     \
+  active.resize(0);                                                                      \
+  locked.resize(0);                                                                      \
+                                                                                         \
+  for (size_t i = START; i < value.size(); ++i) {                                        \
+    if (barState[i] == BarState::active)                                                 \
+      active.push_back(value[i]);                                                        \
+    else                                                                                 \
+      locked.push_back(value[i]);                                                        \
+  }                                                                                      \
+                                                                                         \
+  FUNC;                                                                                  \
+                                                                                         \
+  size_t activeIndex = 0;                                                                \
+  size_t lockedIndex = 0;                                                                \
+  for (size_t i = START; i < value.size(); ++i) {                                        \
+    if (barState[i] == BarState::active) {                                               \
+      value[i] = active[activeIndex];                                                    \
+      ++activeIndex;                                                                     \
+    } else {                                                                             \
+      value[i] = locked[lockedIndex];                                                    \
+      ++lockedIndex;                                                                     \
+    }                                                                                    \
   }
 
   int32_t onKeyDown(VstKeyCode &key) override
@@ -258,11 +223,9 @@ public:
     if (key.character == 'a') {
       alternateSign(index);
     } else if (key.character == 'd' && shift) { // Alternative default. (toggle min/max)
-      std::fill(
-        value.begin() + index, value.end(),
-        value[index] == 0 ? 0.5 : value[index] == 0.5 ? 1.0 : 0.0);
+      toggleMinMidMax(index);
     } else if (key.character == 'd') { // reset to Default.
-      value = defaultValue;
+      resetToDefault();
     } else if (key.character == 'e' && shift) {
       emphasizeHigh(index);
     } else if (key.character == 'e') {
@@ -280,15 +243,20 @@ public:
     } else if (key.character == 'n') {
       normalizeInRange(index);
     } else if (key.character == 'p') { // Permute.
-      permute(index);
+      APPLY_ALGORITHM(index, {
+        std::random_device device;
+        std::mt19937 rng(device());
+        std::shuffle(active.begin(), active.end(), rng);
+      });
     } else if (key.character == 'r' && shift) {
       sparseRandomize(index);
     } else if (key.character == 'r') {
       totalRandomize(index);
     } else if (key.character == 's' && shift) { // Sort ascending order.
-      std::sort(value.begin() + index, value.end());
+      APPLY_ALGORITHM(index, { std::sort(active.begin(), active.end()); });
     } else if (key.character == 's') { // Sort descending order.
-      std::sort(value.begin() + index, value.end(), std::greater<>());
+      APPLY_ALGORITHM(
+        index, { std::sort(active.begin(), active.end(), std::greater<>()); });
     } else if (key.character == 't' && shift) { // subTle randomize.
       mixRandomize(index, 0.02);
     } else if (key.character == 't') { // subTle randomize. Random walk.
@@ -304,11 +272,11 @@ public:
       invalid();
       return 1;
     } else if (key.character == ',') { // Rotate back.
-      if (index == value.size() - 1) index = 0;
-      std::rotate(value.begin() + index, value.begin() + index + 1, value.end());
+      APPLY_ALGORITHM(
+        index, { std::rotate(active.begin(), active.begin() + 1, active.end()); });
     } else if (key.character == '.') { // Rotate forward.
-      size_t rIndex = index == 0 ? 0 : value.size() - 1 - index;
-      std::rotate(value.rbegin() + rIndex, value.rbegin() + rIndex + 1, value.rend());
+      APPLY_ALGORITHM(
+        index, { std::rotate(active.rbegin(), active.rbegin() + 1, active.rend()); });
     } else if (key.character == '1') { // Decrease.
       multiplySkip(index, 1);
     } else if (key.character == '2') { // Decrease 2n.
@@ -354,24 +322,34 @@ public:
     value = undoValue.back();
   }
 
-  void setIndexFont(CFontRef fontId) { indexFontID = fontId; }
-  void setNameFont(CFontRef fontId) { nameFontID = fontId; }
-  void setName(std::string name) { this->name = name; }
-
-  void setViewRange(CCoord left, CCoord right)
+  void resetToDefault()
   {
-    indexL = int(std::clamp<CCoord>(left, 0, 1) * value.size());
-    indexR = int(std::clamp<CCoord>(right, 0, 1) * value.size());
-    indexRange = indexR >= indexL ? indexR - indexL : 0;
-    refreshSliderWidth(getWidth());
-    invalid();
+    for (size_t i = 0; i < value.size(); ++i) {
+      if (barState[i] == BarState::active) value[i] = defaultValue[i];
+    }
   }
 
-protected:
+  void toggleMinMidMax(size_t start)
+  {
+    double filler = 0;
+    for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] != BarState::active) continue;
+      filler = value[i] == 0 ? 0.5 : value[i] == 0.5 ? 1.0 : 0.0;
+      start = i;
+      break;
+    }
+
+    for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] == BarState::active) value[i] = filler;
+    }
+  }
+
   void alternateSign(size_t start)
   {
-    for (size_t i = start; i < value.size(); i += 2)
+    for (size_t i = start; i < value.size(); i += 2) {
+      if (barState[i] != BarState::active) continue;
       setValueAt(i, 2 * sliderZero - value[i]);
+    }
   }
 
   void averageLowpass(size_t start)
@@ -380,6 +358,7 @@ protected:
 
     std::vector<double> result(value);
     for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] != BarState::active) continue;
       result[i] = 0.0;
       for (int32_t j = -range; j <= range; ++j) {
         size_t index = i + j; // Note that index is unsigned.
@@ -400,6 +379,7 @@ protected:
     std::vector<double> result(value);
     size_t last = value.size() - 1;
     for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] != BarState::active) continue;
       auto val = value[i] - sliderZero;
       result[i] = 0.0;
       result[i] -= (i >= 1) ? value[i - 1] - sliderZero : val;
@@ -414,7 +394,10 @@ protected:
     std::random_device dev;
     std::mt19937_64 rng(dev());
     std::uniform_real_distribution<double> dist(0.0, 1.0);
-    for (size_t i = start; i < value.size(); ++i) value[i] = dist(rng);
+    for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] != BarState::active) continue;
+      value[i] = dist(rng);
+    }
   }
 
   void randomize(size_t start, double amount)
@@ -423,6 +406,7 @@ protected:
     std::mt19937_64 rng(dev());
     amount /= 2;
     for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] != BarState::active) continue;
       std::uniform_real_distribution<double> dist(value[i] - amount, value[i] + amount);
       setValueAt(i, dist(rng));
     }
@@ -433,8 +417,10 @@ protected:
     std::random_device dev;
     std::mt19937_64 rng(dev());
     std::uniform_real_distribution<double> dist(sliderZero - 0.5, sliderZero + 0.5);
-    for (size_t i = start; i < value.size(); ++i)
+    for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] != BarState::active) continue;
       setValueAt(i, value[i] + mix * (dist(rng) - value[i]));
+    }
   }
 
   void sparseRandomize(size_t start)
@@ -442,15 +428,10 @@ protected:
     std::random_device device;
     std::mt19937_64 rng(device());
     std::uniform_real_distribution<double> dist(0.0, 1.0);
-    for (size_t i = start; i < value.size(); ++i)
+    for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] != BarState::active) continue;
       if (dist(rng) < 0.1f) value[i] = dist(rng);
-  }
-
-  void permute(size_t start)
-  {
-    std::random_device device;
-    std::mt19937 rng(device());
-    std::shuffle(value.begin() + start, value.end(), rng);
+    }
   }
 
   struct ValuePeak {
@@ -464,6 +445,7 @@ protected:
   {
     ValuePeak pk;
     for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] != BarState::active) continue;
       double val = fabs(value[i] - sliderZero);
       if (value[i] == sliderZero) {
         if (skipZero) continue;
@@ -491,6 +473,7 @@ protected:
   void invertFull(size_t start)
   {
     for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] != BarState::active) continue;
       double val
         = value[i] >= sliderZero ? 1.0 - value[i] + sliderZero : sliderZero - value[i];
       setValueAt(i, val);
@@ -501,6 +484,7 @@ protected:
   {
     auto pk = getValuePeak(start, false);
     for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] != BarState::active) continue;
       double val = value[i] < sliderZero
         ? std::clamp<double>(
           2.0 * sliderZero - pk.maxNeg - value[i] - pk.minNeg, sliderZero - pk.maxNeg,
@@ -535,6 +519,7 @@ protected:
     }
 
     for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] != BarState::active) continue;
       if (value[i] == sliderZero) continue;
       double val = value[i] < sliderZero
         ? std::min<double>(
@@ -565,6 +550,7 @@ protected:
     }
 
     for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] != BarState::active) continue;
       if (value[i] == sliderZero) continue;
       auto val = value[i] < sliderZero
         ? (value[i] - sliderZero + pk.minNeg) * mulNeg + sliderZero - pk.minNeg
@@ -576,29 +562,199 @@ protected:
   void multiplySkip(size_t start, size_t interval) noexcept
   {
     for (size_t i = start; i < value.size(); i += interval) {
+      if (barState[i] != BarState::active) continue;
       setValueAt(i, (value[i] - sliderZero) * 0.9 + sliderZero);
     }
   }
 
   void emphasizeLow(size_t start)
   {
-    for (size_t i = start; i < value.size(); ++i)
+    for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] != BarState::active) continue;
       setValueAt(i, (value[i] - sliderZero) / pow(i + 1, 0.0625) + sliderZero);
+    }
   }
 
   void emphasizeHigh(size_t start)
   {
-    for (size_t i = start; i < value.size(); ++i)
+    for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] != BarState::active) continue;
       setValueAt(
         i,
         (value[i] - sliderZero) * (0.9 + 0.1 * double(i + 1) / value.size())
           + sliderZero);
+    }
+  }
+
+  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override
+  {
+    isMouseEntered = true;
+    invalid();
+    return kMouseEventHandled;
+  }
+
+  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override
+  {
+    isMouseEntered = false;
+    invalid();
+    return kMouseEventHandled;
+  }
+
+  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
+  {
+    if (buttons.isRightButton()) {
+      auto componentHandler = editor->getController()->getComponentHandler();
+      if (componentHandler == nullptr) return kMouseEventNotHandled;
+
+      using namespace Steinberg;
+
+      FUnknownPtr<Vst::IComponentHandler3> handler(componentHandler);
+      if (handler == nullptr) return kMouseEventNotHandled;
+
+      setMousePosition(where);
+      size_t index = calcIndex(mousePosition);
+      if (index >= id.size()) return kMouseEventNotHandled;
+
+      Vst::IContextMenu *menu = handler->createContextMenu(editor, &id[index]);
+      if (menu == nullptr) return kMouseEventNotHandled;
+
+      menu->popup(where.x, where.y);
+      menu->release();
+      return kMouseEventHandled;
+    }
+
+    setMousePosition(where);
+
+    anchor = mousePosition;
+
+    if (buttons.isShiftSet())
+      anchorState = setStateFromPosition(mousePosition, BarState::lock);
+    else
+      setValueFromPosition(mousePosition, buttons);
+    return kMouseEventHandled;
+  }
+
+  CMouseEventResult onMouseUp(CPoint &where, const CButtonState &buttons) override
+  {
+    updateValue();
+    pushUndoValue();
+    return kMouseEventHandled;
+  }
+
+  CMouseEventResult onMouseMoved(CPoint &where, const CButtonState &buttons) override
+  {
+    setMousePosition(where);
+    invalid(); // Required to refresh highlighting position.
+    if (buttons.isLeftButton()) {
+      if (buttons.isShiftSet())
+        setValueFromPosition(mousePosition, buttons);
+      else
+        setValueFromLine(anchor, mousePosition, buttons.getModifierState());
+      anchor = mousePosition;
+      return kMouseEventHandled;
+    } else if (buttons.isMiddleButton()) {
+      if (buttons.isShiftSet())
+        setStateFromLine(anchor, mousePosition, anchorState);
+      else
+        setValueFromLine(anchor, mousePosition, buttons.getModifierState());
+      return kMouseEventHandled;
+    }
+    return kMouseEventNotHandled;
+  }
+
+  CMouseEventResult onMouseCancel() override
+  {
+    if (isDirty()) {
+      updateValue();
+      pushUndoValue();
+      invalid();
+    }
+    return kMouseEventHandled;
+  }
+
+  bool onWheel(
+    const CPoint &where,
+    const CMouseWheelAxis &axis,
+    const float &distance,
+    const CButtonState &buttons) override
+  {
+    if (isEditing() || axis != kMouseWheelAxisY || distance == 0.0f) return false;
+
+    size_t index = calcIndex(mousePosition);
+    if (index >= value.size()) return false;
+    if (barState[index] != BarState::active) return true;
+
+    setValueAt(index, value[index] + distance * 0.01f);
+    updateValueAt(index);
+    invalid();
+    return true;
+  }
+
+  void setIndexFont(CFontRef fontId) { indexFontID = fontId; }
+  void setNameFont(CFontRef fontId) { nameFontID = fontId; }
+  void setName(std::string name) { this->name = name; }
+
+  void setViewRange(CCoord left, CCoord right)
+  {
+    indexL = int(std::clamp<CCoord>(left, 0, 1) * value.size());
+    indexR = int(std::clamp<CCoord>(right, 0, 1) * value.size());
+    indexRange = indexR >= indexL ? indexR - indexL : 0;
+    refreshSliderWidth(getWidth());
+    invalid();
+  }
+
+private:
+  void setMousePosition(CPoint &where)
+  {
+    auto view = getViewSize();
+    mousePosition = where - CPoint(view.left, view.top);
+  }
+
+  inline size_t calcIndex(CPoint &position)
+  {
+    return size_t(indexL + position.x / sliderWidth);
+  }
+
+  void refreshSliderWidth(CCoord width)
+  {
+    sliderWidth = indexRange >= 1 ? width / indexRange : width;
+    barWidth = sliderWidth <= 4.0f ? 1.0f : 2.0f;
+  }
+
+  BarState setStateFromPosition(CPoint &position, BarState state)
+  {
+    size_t index = calcIndex(position);
+    if (index >= value.size()) return BarState::active;
+
+    barState[index] = barState[index] != state ? state : BarState::active;
+    return barState[index];
+  }
+
+  void setStateFromLine(CPoint &p0, CPoint &p1, BarState state)
+  {
+    if (p0.x > p1.x) std::swap(p0, p1);
+
+    int last = int(value.size()) - 1;
+    if (last < 0) last = 0; // std::clamp is undefined if low is greater than high.
+
+    int left = int(calcIndex(p0));
+    int right = int(calcIndex(p1));
+
+    if ((left < 0 && right < 0) || (left > last && right > last)) return;
+
+    left = std::clamp(left, 0, last);
+    right = std::clamp(right, 0, last);
+
+    for (int idx = left + 1; idx >= 0 && idx < right; ++idx) barState[idx] = state;
+
+    invalid();
   }
 
   void setValueFromPosition(CPoint &position, const CButtonState &buttons)
   {
     size_t index = calcIndex(position);
     if (index >= value.size()) return;
+    if (barState[index] != BarState::active) return;
     if (buttons & kControl)
       setValueAt(index, defaultValue[index]);
     else
@@ -619,6 +775,7 @@ protected:
     const float p1y = p1.y;
 
     if (left == right) { // p0 and p1 are in a same bar.
+      if (barState[left] != BarState::active) return;
       if (modifier & kControl)
         setValueAt(left, defaultValue[left]);
       else
@@ -627,8 +784,10 @@ protected:
       invalid();
       return;
     } else if (modifier & kControl) {
-      for (size_t idx = left; idx >= 0 && idx <= right; ++idx)
+      for (size_t idx = left; idx >= 0 && idx <= right; ++idx) {
+        if (barState[left] != BarState::active) return;
         setValueAt(idx, defaultValue[idx]);
+      }
       if (liveUpdateLineEdit) updateValue();
       return;
     }
@@ -641,8 +800,8 @@ protected:
       p1.x = xR;
     }
 
-    setValueAt(left, 1.0f - p0y / getHeight());
-    setValueAt(right, 1.0f - p1y / getHeight());
+    if (barState[left] == BarState::active) setValueAt(left, 1.0f - p0y / getHeight());
+    if (barState[right] == BarState::active) setValueAt(right, 1.0f - p1y / getHeight());
 
     // In between.
     const float p0x = p0.x;
@@ -658,45 +817,6 @@ protected:
     if (liveUpdateLineEdit) updateValue();
     invalid();
   }
-
-  void setMousePosition(CPoint &where)
-  {
-    auto view = getViewSize();
-    mousePosition = where - CPoint(view.left, view.top);
-  }
-
-  inline size_t calcIndex(CPoint &position)
-  {
-    return size_t(indexL + position.x / sliderWidth);
-  }
-
-  void refreshSliderWidth(CCoord width)
-  {
-    sliderWidth = indexRange >= 1 ? width / indexRange : width;
-    barWidth = sliderWidth <= 4.0f ? 1.0f : 2.0f;
-  }
-
-  CFontRef indexFontID = nullptr;
-  CFontRef nameFontID = nullptr;
-
-  CCoord borderWidth = 1.0;
-
-  bool isMouseEntered = false;
-
-  CPoint mousePosition{-1.0, -1.0};
-  CPoint anchor{-1.0, -1.0};
-  int indexL = 0;
-  int indexR = 0;
-  int indexRange = 0;
-  CCoord sliderWidth = 1.0f;
-  CCoord barWidth = 1.0f;
-
-  std::string name;
-  std::string indexText;
-  std::vector<std::string> barIndices;
-  std::vector<std::vector<double>> undoValue;
-
-  Uhhyou::Palette &pal;
 };
 
 } // namespace VSTGUI
