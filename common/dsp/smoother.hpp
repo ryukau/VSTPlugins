@@ -165,7 +165,7 @@ public:
       value = target;
       ramp = 0;
     } else {
-      ramp = (target - value) / Common::timeInSamples;
+      ramp = (target - value) / timeInSamples;
     }
   }
 
