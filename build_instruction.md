@@ -1,6 +1,8 @@
 # Build Instruction
 Building this repository requires C++17 compatible compiler and CPU with AVX or later instruction set support. Some plugins use [vector class library](https://github.com/vectorclass/version2) (vcl) to write SIMD code, and vcl version 2 requires C++17 support.
 
+**If this instruction doesn't work, please open issue.**
+
 ## Linux
 Install required packages. See `Package Requirements` section of the link below.
 
@@ -16,7 +18,10 @@ git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
 git clone --recursive https://github.com/ryukau/VSTPlugins.git
 
 # Patch vst3sdk. See: https://github.com/ryukau/VSTPlugins/issues/3
-cp VSTPlugins/ci/linux_patch/cairocontext.cpp vst3sdk/vstgui4/vstgui/lib/platform/linux/cairocontext.cpp
+cp VSTPlugins/ci/linux_patch/cairocontext.cpp \
+   vst3sdk/vstgui4/vstgui/lib/platform/linux/cairocontext.cpp
+
+# Fedora 32 requires another patch. See "Building on Fedora 32" section.
 
 mkdir vst3sdk/build
 cd vst3sdk/build
@@ -27,19 +32,29 @@ cmake --build . -j
 
 After finishing the command, you can find a link to the plugin in `$HOME/.vst3`. The link is pointing to the plugin directory in `~/code/VST_SDK/VST3_SDK/build/VST3/Release/`.
 
-### Required Package for Fedora 32
-**WIP**: Some required packages may missing. If it doesn't work, please open issue.
-
-`git`, `gcc-c++`, and `cmake` is also needed if you haven't installed developping environment.
+### Building on Fedora 32
+Required packages are listed below.
 
 ```bash
 dnf install              \
+  make                   \
+  cmake                  \
+  gcc-c++                \
   sqlite-devel           \
   gtkmm30-devel          \
   xcb-util-devel         \
   xcb-util-cursor-devel  \
   xcb-util-keysyms-devel \
   libxkbcommon-x11-devel \
+```
+
+Fedora 32 needs extra patching to VST 3 SDK. To apply patch, run following command.
+
+```bash
+cd ~/code/vst
+
+cp VSTPlugins/ci/linux_patch/threadchecker_linux.cpp \
+   vst3sdk/public.sdk/source/common/threadchecker_linux.cpp
 ```
 
 ## Windows
