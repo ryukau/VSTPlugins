@@ -89,7 +89,7 @@ public:
       defaultValue[i] = param->getDefaultNormalized(id[i]);
 
     auto barBox = new BarBox<Scale>(
-      this, CRect(left, top, left + width, top + height), id, value, defaultValue,
+      this, CRect(left, top, left + width, top + height), id, scale, value, defaultValue,
       palette);
     barBox->setIndexFont(new CFontDesc(Uhhyou::Font::name(), 10.0, CTxtFace::kBoldFace));
     barBox->setNameFont(new CFontDesc(Uhhyou::Font::name(), 24.0, CTxtFace::kNormalFace));
