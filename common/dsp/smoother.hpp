@@ -41,6 +41,11 @@ public:
     return -y + somesqrt<Sample>((y + Sample(2)) * y);
   }
 
+  void setCutoff(Sample sampleRate, Sample cutoffHz)
+  {
+    kp = PController<double>::cutoffToP(sampleRate, cutoffHz);
+  }
+
   void setP(Sample p) { kp = std::clamp<Sample>(p, Sample(0), Sample(1)); };
   void reset(Sample value = 0) { this->value = value; }
   Sample process(Sample input) { return value += kp * (input - value); }
