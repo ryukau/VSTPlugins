@@ -18,6 +18,7 @@
 #pragma once
 
 #include "../../common/plugcontroller.hpp"
+#include "parameter.hpp"
 
 namespace Steinberg {
 namespace Synth {

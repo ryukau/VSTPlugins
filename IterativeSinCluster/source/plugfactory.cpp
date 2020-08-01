@@ -25,7 +25,6 @@
 #include "controller.hpp"
 #include "editor.hpp"
 #include "fuid.hpp"
-#include "parameter.hpp"
 #include "plugprocessor.hpp"
 #include "version.hpp"
 

@@ -60,13 +60,6 @@ public:
   void processSignal(Vst::ProcessData &data);
   void handleEvent(Vst::ProcessData &data);
 
-  Steinberg::tresult __stdcall queryInterface(
-    const Steinberg::TUID iid, void **obj) override
-  {
-    DEF_INTERFACE(IProcessContextRequirements)
-    return AudioEffect::queryInterface(iid, obj);
-  }
-
 protected:
   int64_t bypassCounter = 0;
   int64_t bypassFadeLength = 1;

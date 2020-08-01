@@ -146,8 +146,6 @@ public:
     float velocity;
   };
 
-  std::vector<MidiNote> midiNotes;
-
   virtual void pushMidiNote(
     bool isNoteOn,
     uint32_t frame,
@@ -164,23 +162,14 @@ public:
   public:                                                                                \
     DSPCore_##INSTRSET();                                                                \
                                                                                          \
-    void setup(double sampleRate);                                                       \
-    void reset();                                                                        \
-    void startup();                                                                      \
-    void setParameters(float tempo);                                                     \
-    void process(const size_t length, float *out0, float *out1);                         \
-    void noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity);            \
-    void noteOff(int32_t noteId);                                                        \
+    void setup(double sampleRate) override;                                              \
+    void reset() override;                                                               \
+    void startup() override;                                                             \
+    void setParameters(float tempo) override;                                            \
+    void process(const size_t length, float *out0, float *out1) override;                \
+    void noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity) override;   \
+    void noteOff(int32_t noteId) override;                                               \
     void fillTransitionBuffer(size_t noteIndex);                                         \
-                                                                                         \
-    struct MidiNote {                                                                    \
-      bool isNoteOn;                                                                     \
-      uint32_t frame;                                                                    \
-      int32_t id;                                                                        \
-      int16_t pitch;                                                                     \
-      float tuning;                                                                      \
-      float velocity;                                                                    \
-    };                                                                                   \
                                                                                          \
     std::vector<MidiNote> midiNotes;                                                     \
                                                                                          \
@@ -190,7 +179,7 @@ public:
       int32_t noteId,                                                                    \
       int16_t pitch,                                                                     \
       float tuning,                                                                      \
-      float velocity)                                                                    \
+      float velocity) override                                                           \
     {                                                                                    \
       MidiNote note;                                                                     \
       note.isNoteOn = isNoteOn;                                                          \
@@ -202,7 +191,7 @@ public:
       midiNotes.push_back(note);                                                         \
     }                                                                                    \
                                                                                          \
-    void processMidiNote(uint32_t frame)                                                 \
+    void processMidiNote(uint32_t frame) override                                        \
     {                                                                                    \
       while (true) {                                                                     \
         auto it                                                                          \
