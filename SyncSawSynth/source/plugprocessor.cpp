@@ -56,6 +56,13 @@ tresult PLUGIN_API PlugProcessor::setBusArrangements(
   return kResultFalse;
 }
 
+uint32 PLUGIN_API PlugProcessor::getProcessContextRequirements()
+{
+  using Rq = Vst::IProcessContextRequirements;
+
+  return Rq::kNeedTransportState;
+}
+
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 {
   dsp.setup(processSetup.sampleRate);

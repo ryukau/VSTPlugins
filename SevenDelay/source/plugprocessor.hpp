@@ -38,6 +38,7 @@ public:
     int32 numIns,
     Vst::SpeakerArrangement *outputs,
     int32 numOuts) SMTG_OVERRIDE;
+  uint32 PLUGIN_API getProcessContextRequirements() SMTG_OVERRIDE;
 
   tresult PLUGIN_API setupProcessing(Vst::ProcessSetup &setup) SMTG_OVERRIDE;
   tresult PLUGIN_API setActive(TBool state) SMTG_OVERRIDE;

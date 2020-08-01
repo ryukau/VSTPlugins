@@ -61,7 +61,7 @@ uint32_t DSPCORE_NAME::getLatency()
   return 0;
 }
 
-void DSPCORE_NAME::setParameters(float tempo)
+void DSPCORE_NAME::setParameters()
 {
   using ID = ParameterID::ID;
 

@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include "pluginterfaces/vst/ivstaudioprocessor.h"
 #include "public.sdk/source/vst/vstaudioeffect.h"
 
 #include "dsp/dspcore.hpp"
@@ -40,6 +41,7 @@ public:
     int32 numIns,
     Vst::SpeakerArrangement *outputs,
     int32 numOuts) SMTG_OVERRIDE;
+  uint32 PLUGIN_API getProcessContextRequirements() SMTG_OVERRIDE;
 
   tresult PLUGIN_API setupProcessing(Vst::ProcessSetup &setup) SMTG_OVERRIDE;
   tresult PLUGIN_API setActive(TBool state) SMTG_OVERRIDE;
@@ -57,6 +59,13 @@ public:
 
   void processSignal(Vst::ProcessData &data);
   void handleEvent(Vst::ProcessData &data);
+
+  Steinberg::tresult __stdcall queryInterface(
+    const Steinberg::TUID iid, void **obj) override
+  {
+    DEF_INTERFACE(IProcessContextRequirements)
+    return AudioEffect::queryInterface(iid, obj);
+  }
 
 protected:
   int64_t bypassCounter = 0;

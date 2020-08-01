@@ -156,7 +156,7 @@ void DSPCORE_NAME::startup()
   d4FeedRng.seed(d4FeedSeed);
 }
 
-void DSPCORE_NAME::setParameters(float tempo)
+void DSPCORE_NAME::setParameters()
 {
   using ID = ParameterID::ID;
 

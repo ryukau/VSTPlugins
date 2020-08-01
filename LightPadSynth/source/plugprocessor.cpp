@@ -81,6 +81,13 @@ tresult PLUGIN_API PlugProcessor::setBusArrangements(
   return kResultFalse;
 }
 
+uint32 PLUGIN_API PlugProcessor::getProcessContextRequirements()
+{
+  using Rq = Vst::IProcessContextRequirements;
+
+  return Rq::kNeedTempo & Rq::kNeedTransportState;
+}
+
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 {
   if (dsp == nullptr) return kNotInitialized;
@@ -202,6 +209,9 @@ void PlugProcessor::handleEvent(Vst::ProcessData &data)
         auto noteId
           = event.noteOff.noteId == -1 ? event.noteOff.pitch : event.noteOff.noteId;
         dsp->pushMidiNote(false, event.sampleOffset, noteId, 0, 0, 0);
+      } break;
+
+      case Vst::Event::kNoteExpressionValueEvent: {
       } break;
 
         // Add other event type here.

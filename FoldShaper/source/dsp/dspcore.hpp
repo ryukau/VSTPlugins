@@ -38,7 +38,7 @@ public:
   virtual void setup(double sampleRate) = 0;
   virtual void reset() = 0;   // Stop sounds.
   virtual void startup() = 0; // Reset phase, random seed etc.
-  virtual void setParameters(float tempo) = 0;
+  virtual void setParameters() = 0;
   virtual void process(
     const size_t length, const float *in0, const float *in1, float *out0, float *out1)
     = 0;
@@ -55,7 +55,7 @@ transitionBuffer is used to store a release of a note to reduce pop noise.
     void setup(double sampleRate) override;                                              \
     void reset() override;                                                               \
     void startup() override;                                                             \
-    void setParameters(float tempo) override;                                            \
+    void setParameters() override;                                                       \
     void process(                                                                        \
       const size_t length,                                                               \
       const float *in0,                                                                  \

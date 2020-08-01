@@ -91,7 +91,7 @@ void DSPCORE_NAME::reset()
 
 void DSPCORE_NAME::startup() { rng.seed(0); }
 
-void DSPCORE_NAME::setParameters(float tempo)
+void DSPCORE_NAME::setParameters()
 {
   using ID = ParameterID::ID;
 
