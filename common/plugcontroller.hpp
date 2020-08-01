@@ -64,35 +64,31 @@ public:
     int32 busIndex, int16 channel, Vst::CtrlNumber midiControllerNumber, Vst::ParamID &id)
     SMTG_OVERRIDE;
 
-  virtual int32 PLUGIN_API getNoteExpressionCount(int32 busIndex, int16 channel);
+  virtual int32 PLUGIN_API getNoteExpressionCount(int32 busIndex, int16 channel)
+    SMTG_OVERRIDE;
   virtual tresult PLUGIN_API getNoteExpressionInfo(
     int32 busIndex,
     int16 channel,
     int32 noteExpressionIndex,
-    Vst::NoteExpressionTypeInfo &info);
+    Vst::NoteExpressionTypeInfo &info) SMTG_OVERRIDE;
   virtual tresult PLUGIN_API getNoteExpressionStringByValue(
     int32 busIndex,
     int16 channel,
     Vst::NoteExpressionTypeID id,
     Vst::NoteExpressionValue valueNormalized,
-    Vst::String128 string);
+    Vst::String128 string) SMTG_OVERRIDE;
   virtual tresult PLUGIN_API getNoteExpressionValueByString(
     int32 busIndex,
     int16 channel,
     Vst::NoteExpressionTypeID id,
     const Vst::TChar *string,
-    Vst::NoteExpressionValue &valueNormalized);
+    Vst::NoteExpressionValue &valueNormalized) SMTG_OVERRIDE;
 
   OBJ_METHODS(PlugController, EditController)
-
-  Steinberg::tresult __stdcall queryInterface(
-    const Steinberg::TUID iid, void **obj) override
-  {
-    DEF_INTERFACE(IMidiMapping)
-    DEF_INTERFACE(INoteExpressionController)
-    return EditController::queryInterface(iid, obj);
-  }
-
+  DEFINE_INTERFACES
+  DEF_INTERFACE(IMidiMapping)
+  DEF_INTERFACE(INoteExpressionController)
+  END_DEFINE_INTERFACES(EditController)
   REFCOUNT_METHODS(EditController)
 };
 

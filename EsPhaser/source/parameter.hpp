@@ -132,7 +132,7 @@ struct GlobalParameter : public ParameterInterface {
     return kResultOk;
   }
 
-  double getDefaultNormalized(int32_t tag)
+  double getDefaultNormalized(int32_t tag) override
   {
     if (size_t(abs(tag)) >= value.size()) return 0.0;
     return value[tag]->getDefaultNormalized();
