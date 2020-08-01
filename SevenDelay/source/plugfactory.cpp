@@ -22,25 +22,12 @@
 #include "pluginterfaces/vst/ivstaudioprocessor.h"
 #include "public.sdk/source/main/pluginfactory.h"
 
-#include "../../common/plugcontroller.hpp"
+#include "../../common/fxcontroller.hpp"
 #include "editor.hpp"
 #include "fuid.hpp"
 #include "parameter.hpp"
 #include "plugprocessor.hpp"
 #include "version.hpp"
-
-namespace Steinberg {
-namespace Synth {
-
-template<typename EditorType, typename ParameterType>
-tresult PLUGIN_API PlugController<EditorType, ParameterType>::getMidiControllerAssignment(
-  int32 busIndex, int16 channel, Vst::CtrlNumber midiControllerNumber, Vst::ParamID &id)
-{
-  return kResultFalse;
-}
-
-} // namespace Synth
-} // namespace Steinberg
 
 // Subcategory for this Plug-in (see PlugType in ivstaudioprocessor.h)
 #define stringSubCategory Steinberg::Vst::PlugType::kFxDelay

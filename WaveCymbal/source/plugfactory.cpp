@@ -22,35 +22,12 @@
 #include "pluginterfaces/vst/ivstaudioprocessor.h"
 #include "public.sdk/source/main/pluginfactory.h"
 
-#include "../../common/plugcontroller.hpp"
+#include "controller.hpp"
 #include "editor.hpp"
 #include "fuid.hpp"
 #include "parameter.hpp"
 #include "plugprocessor.hpp"
 #include "version.hpp"
-
-namespace Steinberg {
-namespace Synth {
-
-template<typename EditorType, typename ParameterType>
-tresult PLUGIN_API PlugController<EditorType, ParameterType>::getMidiControllerAssignment(
-  int32 busIndex, int16 channel, Vst::CtrlNumber midiControllerNumber, Vst::ParamID &id)
-{
-  switch (midiControllerNumber) {
-    case Vst::kCtrlExpression:
-    case Vst::kCtrlVolume:
-      id = ParameterID::gain;
-      return kResultOk;
-
-    case Vst::kPitchBend:
-      id = ParameterID::pitchBend;
-      return kResultOk;
-  }
-  return kResultFalse;
-}
-
-} // namespace Synth
-} // namespace Steinberg
 
 // Subcategory for this Plug-in (see PlugType in ivstaudioprocessor.h)
 #define stringSubCategory Steinberg::Vst::PlugType::kFxInstrument

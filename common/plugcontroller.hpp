@@ -26,6 +26,7 @@
 #include "pluginterfaces/base/ibstream.h"
 #include "pluginterfaces/base/ustring.h"
 #include "pluginterfaces/vst/ivstmidicontrollers.h"
+#include "pluginterfaces/vst/ivstnoteexpression.h"
 #include "public.sdk/source/vst/vsteditcontroller.h"
 #include "public.sdk/source/vst/vstparameters.h"
 
@@ -36,7 +37,9 @@ namespace Steinberg {
 namespace Synth {
 
 template<typename EditorType, typename ParameterType>
-class PlugController : public Vst::EditController, public Vst::IMidiMapping {
+class PlugController : public Vst::EditController,
+                       public Vst::IMidiMapping,
+                       public Vst::INoteExpressionController {
 public:
   std::vector<EditorType *> editor;
 
@@ -61,10 +64,35 @@ public:
     int32 busIndex, int16 channel, Vst::CtrlNumber midiControllerNumber, Vst::ParamID &id)
     SMTG_OVERRIDE;
 
+  virtual int32 PLUGIN_API getNoteExpressionCount(int32 busIndex, int16 channel);
+  virtual tresult PLUGIN_API getNoteExpressionInfo(
+    int32 busIndex,
+    int16 channel,
+    int32 noteExpressionIndex,
+    Vst::NoteExpressionTypeInfo &info);
+  virtual tresult PLUGIN_API getNoteExpressionStringByValue(
+    int32 busIndex,
+    int16 channel,
+    Vst::NoteExpressionTypeID id,
+    Vst::NoteExpressionValue valueNormalized,
+    Vst::String128 string);
+  virtual tresult PLUGIN_API getNoteExpressionValueByString(
+    int32 busIndex,
+    int16 channel,
+    Vst::NoteExpressionTypeID id,
+    const Vst::TChar *string,
+    Vst::NoteExpressionValue &valueNormalized);
+
   OBJ_METHODS(PlugController, EditController)
-  DEFINE_INTERFACES
-  DEF_INTERFACE(IMidiMapping)
-  END_DEFINE_INTERFACES(EditController)
+
+  Steinberg::tresult __stdcall queryInterface(
+    const Steinberg::TUID iid, void **obj) override
+  {
+    DEF_INTERFACE(IMidiMapping)
+    DEF_INTERFACE(INoteExpressionController)
+    return EditController::queryInterface(iid, obj);
+  }
+
   REFCOUNT_METHODS(EditController)
 };
 
