@@ -30,7 +30,7 @@ cmake -DCMAKE_BUILD_TYPE=Release -DSMTG_MYPLUGINS_SRC_PATH="../../VSTPlugins" -D
 cmake --build . -j
 ```
 
-After finishing the command, you can find a link to the plugin in `$HOME/.vst3`. The link is pointing to the plugin directory in `~/code/VST_SDK/VST3_SDK/build/VST3/Release/`.
+After finishing the command, you can find a link to the plugin in `$HOME/.vst3`. The link is pointing to the plugin directory in `~/code/vst/VST_SDK/VST3_SDK/build/VST3/Release/`.
 
 ### Building on Fedora 32
 Required packages are listed below.
