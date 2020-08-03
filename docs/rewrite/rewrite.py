@@ -20,7 +20,7 @@ def process(
 ):
     print(f"Processing {path}")
 
-    with open(path, "r") as fi:
+    with open(path, "r", encoding="utf-8") as fi:
         text = fi.read()
 
     mt = re_download_link.search(text)
@@ -58,14 +58,14 @@ def process(
 
     out_dir = Path("out") / Path(path.parts[-2])
     out_dir.mkdir(parents=True, exist_ok=True)
-    with open(out_dir / Path(path.name), "w") as fi:
+    with open(out_dir / Path(path.name), "w", encoding="utf-8") as fi:
         fi.write(text)
 
-release_name = "L3Reverb0.1.0"
+release_name = "CollidingCombSynth0.1.0"
 en_change_log = """
-  - Added check that DSP is initialized or not."""
+  - Implemented process context requirements."""
 ja_change_log = """
-  - DSP が初期化されているかどうかのチェックを追加。"""
+  - Process context requirements を実装。"""
 
 re_en_download_link = re.compile(
     r"^- \[Download (.+?) ([0-9]+)\.([0-9]+)\.([0-9]+) - VST® 3.+?\]\((.*?)\)",
