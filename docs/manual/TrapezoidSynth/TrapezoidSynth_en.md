@@ -7,7 +7,7 @@ lang: en
 
 TrapezoidSynth is a monophonic synthesizer equipped with 2 trapezoid oscillator. Trapezoid oscillator is based on PTR (Polynomial Transition Regions) and it has a drawback that increasing noise at high frequency. Therefore 8 times oversampled. 2 pitch shifters are added to make some chord.
 
-- [Download TrapezoidSynth 0.1.11 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/TrapezoidSynth0.1.11.zip) <img
+- [Download TrapezoidSynth 0.1.12 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/TrapezoidSynth0.1.12.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -390,8 +390,9 @@ Offset
 :   Oscillator 2 slide time with respect to Oscillator 1 slide time.
 
 ## Change Log
-- 0.1.11
+- 0.1.12
   - Implemented process context requirements.
+- 0.1.11
   - Fixed `Slide->Time` is ignored and set as same as `Smooth`. Fix in 1.10 was incorrect.
 - 0.1.10
   - Added check that DSP is initialized or not.
