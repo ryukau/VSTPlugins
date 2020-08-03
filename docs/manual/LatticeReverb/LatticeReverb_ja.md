@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>LatticeReverb<rt>ラティス リバーブ</rt></ruby> はディレイを使った高次のオールパスフィルタを格子状につないで入れ子にしたリバーブです。 1 チャンネルあたり 16 のオールパスフィルタを備えています。
 
-- [LatticeReverb 0.1.3 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/LatticeReverb0.1.3.zip) <img
+- [LatticeReverb 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/LatticeReverb0.1.4.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -24,7 +24,7 @@ LatticeReverb の利用には AVX 以降の SIMD 命令セットをサポート�
 
 Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作るか、 `ryukau@gmail.com` までメールを送っていただければ対応します。
 
-Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.1.2 と REAPER 6.03 で動作確認を行いました。 Bitwig 3.1.2 では GUI が真っ黒になるバグがあるようです。
+Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig と REAPER で動作確認を行っています。もし Ubuntu 18.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は[ビルド手順](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md)に沿ってソースコードからビルドしてください。
 
 ## インストール
 ### プラグイン
@@ -80,19 +80,20 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 ```json
 {
   "fontPath": "",
-  "foreground": "#ffffff",
+  "foreground": "#000000",
   "foregroundButtonOn": "#000000",
   "foregroundInactive": "#8a8a8a",
-  "background": "#353d3e",
-  "boxBackground": "#000000",
-  "border": "#808080",
-  "borderCheckbox": "#808080",
-  "unfocused": "#b8a65c",
-  "highlightMain": "#368a94",
-  "highlightAccent": "#2c8a58",
-  "highlightButton": "#a77842",
-  "highlightWarning": "#8742a7",
-  "overlay": "#ffffff88",
+  "background": "#ffffff",
+  "boxBackground": "#ffffff",
+  "border": "#000000",
+  "borderCheckbox": "#000000",
+  "borderLabel": "#000000",
+  "unfocused": "#dddddd",
+  "highlightMain": "#0ba4f1",
+  "highlightAccent": "#13c136",
+  "highlightButton": "#fcc04f",
+  "highlightWarning": "#fc8080",
+  "overlay": "#00000088",
   "overlayHighlight": "#00ff0033"
 }
 ```
@@ -116,6 +117,7 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 - `boxBackground`: 矩形の UI 部品の内側の背景色。
 - `border`: <ruby>縁<rt>ふち</rt></ruby>の色。
 - `borderCheckbox`: チェックボックスの縁の色。
+- `borderLabel`: パラメータセクションのラベルの左右の直線の色。
 - `unfocused`: つまみがフォーカスされていないときの色。
 - `highlightMain`: フォーカスされたときの色。スライダの値の表示にも使用されます。
 - `highlightAccent`: フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。
@@ -140,35 +142,48 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 
 左下のプラグイン名をクリックすると、よく使いそうな一部のショートカットを見ることができます。利用できる全てのショートカットを次の表に掲載しています。
 
-| 入力                                     | 操作                                    |
-| ---------------------------------------- | --------------------------------------- |
-| <kbd>Ctrl</kbd> + <kbd>左ドラッグ</kbd>  | デフォルト値にリセット                  |
-| <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> | 素朴な描画 (フレーム間の補間が無効)     |
-| <kbd>ホイールドラッグ</kbd>              | 直線の描画                              |
-| <kbd>a</kbd>                             | 符号を交互に入れ替え                    |
-| <kbd>d</kbd>                             | すべての値をデフォルト値にリセット      |
-| <kbd>D</kbd>                             | 最小値・中央値・最大値の切り替え        |
-| <kbd>e</kbd>                             | 低域の強調                              |
-| <kbd>E</kbd>                             | 高域の強調                              |
-| <kbd>f</kbd>                             | ローパスフィルタ                        |
-| <kbd>F</kbd>                             | ハイパスフィルタ                        |
-| <kbd>i</kbd>                             | 値の反転 (最小値を保存)                 |
-| <kbd>I</kbd>                             | 値の反転 (最小値を 0 に設定)            |
-| <kbd>n</kbd>                             | 最大値を 1 に正規化 (最小値を保存)      |
-| <kbd>N</kbd>                             | 最大値を 1 に正規化 (最小値を 0 に設定) |
-| <kbd>p</kbd>                             | ランダムに並べ替え                      |
-| <kbd>r</kbd>                             | ランダマイズ                            |
-| <kbd>R</kbd>                             | まばらなランダマイズ                    |
-| <kbd>s</kbd>                             | 降順にソート                            |
-| <kbd>S</kbd>                             | 昇順にソート                            |
-| <kbd>t</kbd>                             | 少しだけランダマイズ (ランダムウォーク) |
-| <kbd>T</kbd>                             | 少しだけランダマイズ (0 に収束)         |
-| <kbd>z</kbd>                             | アンドゥ                                |
-| <kbd>Z</kbd>                             | リドゥ                                  |
-| <kbd>,</kbd> (Comma)                     | 左に回転                                |
-| <kbd>.</kbd> (Period)                    | 右に回転                                |
-| <kbd>1</kbd>                             | すべての値を低減                        |
-| <kbd>2</kbd>-<kbd>9</kbd>                | インデックスが 2n-9n の値を低減         |
+| 入力                                                             | 操作                                     |
+| ---------------------------------------------------------------- | ---------------------------------------- |
+| <kbd>左ドラッグ</kbd>                                            | 値の変更                                 |
+| <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd>                         | 値の変更 (スナップ)                      |
+| <kbd>Ctrl</kbd> + <kbd>左ドラッグ</kbd>                          | デフォルト値にリセット                   |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd>       | 値の変更 (フレーム間の補間が無効)        |
+| <kbd>ホイールドラッグ</kbd>                                      | 直線の描画                               |
+| <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd>                   | 1 つのバーを編集                         |
+| <kbd>Ctrl</kbd> + <kbd>ホイールドラッグ</kbd>                    | デフォルト値にリセット                   |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> | ロックの切り替え                         |
+| <kbd>a</kbd>                                                     | 符号を交互に入れ替え                     |
+| <kbd>d</kbd>                                                     | すべての値をデフォルト値にリセット       |
+| <kbd>D</kbd>                                                     | 最小値・中央値・最大値の切り替え         |
+| <kbd>e</kbd>                                                     | 低域の強調                               |
+| <kbd>E</kbd>                                                     | 高域の強調                               |
+| <kbd>f</kbd>                                                     | ローパスフィルタ                         |
+| <kbd>F</kbd>                                                     | ハイパスフィルタ                         |
+| <kbd>i</kbd>                                                     | 値の反転 (最小値を保存)                  |
+| <kbd>I</kbd>                                                     | 値の反転 (最小値を 0 に設定)             |
+| <kbd>l</kbd>                                                     | マウスカーソル下のバーのロックの切り替え |
+| <kbd>L</kbd>                                                     | 全てのバーのロックを切り替え             |
+| <kbd>n</kbd>                                                     | 最大値を 1 に正規化 (最小値を保存)       |
+| <kbd>N</kbd>                                                     | 最大値を 1 に正規化 (最小値を 0 に設定)  |
+| <kbd>p</kbd>                                                     | ランダムに並べ替え                       |
+| <kbd>r</kbd>                                                     | ランダマイズ                             |
+| <kbd>R</kbd>                                                     | まばらなランダマイズ                     |
+| <kbd>s</kbd>                                                     | 降順にソート                             |
+| <kbd>S</kbd>                                                     | 昇順にソート                             |
+| <kbd>t</kbd>                                                     | 少しだけランダマイズ (ランダムウォーク)  |
+| <kbd>T</kbd>                                                     | 少しだけランダマイズ (0 に収束)          |
+| <kbd>z</kbd>                                                     | アンドゥ                                 |
+| <kbd>Z</kbd>                                                     | リドゥ                                   |
+| <kbd>,</kbd> (Comma)                                             | 左に回転                                 |
+| <kbd>.</kbd> (Period)                                            | 右に回転                                 |
+| <kbd>1</kbd>                                                     | すべての値を低減                         |
+| <kbd>2</kbd>-<kbd>9</kbd>                                        | インデックスが 2n-9n の値を低減          |
+
+<kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> のスナップは一部の BarBox だけで有効になっています。特定の BarBox にスナップを追加したいという要望があれば、お気軽に [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を開いてください。
+
+<kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> による 1 つのバーを編集は、マウスホイールが押された時点でカーソルの下にあるバーだけを編集します。マウスホイールが押されている間はカーソルの左右の位置に関わらず、選択したバーのみを編集できます。
+
+<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> によるロックの切り替えでは、マウスホイールが押された時点でカーソルの下にあるバーの反対の状態が残り全てに適用されます。例えばカーソルの下のバーがアクティブだったときはロックに切り替えます。
 
 ## 注意
 サンプリング周波数やバッファサイズによって出力が変わります。
@@ -291,6 +306,14 @@ Lowpass Cutoff
     リバーブの明るさを変更するときに役立ちます。
 
 ## チェンジログ
+- 0.1.4
+  - Process context requirements を実装。
+  - BarBox の機能が LV2 版と同等になるように更新。
+    - 1 つのバーを編集を追加。
+    - ロックを追加。
+    - 内部的なマウスホイールの感度を追加。
+    - スナップを追加 (未使用) 。
+    - 直線の描画での開始点の値をアンカーポイントに固定するように変更。
 - 0.1.3
   - DSP が初期化されているかどうかのチェックを追加。
 - 0.1.2
@@ -301,6 +324,7 @@ Lowpass Cutoff
   - 初期リリース。
 
 ### 旧バージョン
+- [LatticeReverb 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/LatticeReverb0.1.3.zip)
 - [LatticeReverb 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/LatticeReverb0.1.2.zip)
 - [LatticeReverb 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/LatticeReverb0.1.1.zip)
 - [LatticeReverb 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverb0.1.0.zip)

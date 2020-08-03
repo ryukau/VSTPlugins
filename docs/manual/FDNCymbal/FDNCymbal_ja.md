@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>FDNCymbal<rt>エフディーエヌシンバル</rt></ruby> はシンバルのような音を合成するシンセサイザです。エフェクトとして使うこともできます。名前とは裏腹に金属的な質感は FDN (feedback delay network) ではなく Schroeder allpass section によって得られています。 `FDN.Time` の値を小さくすることで、わりとナイスなばちの衝突音が合成できます。シンバルの揺れをシミュレートするためにトレモロもついています。
 
-- [FDNCymbal 0.2.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/FDNCymbal0.2.4.zip) <img
+- [FDNCymbal 0.2.5 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/FDNCymbal0.2.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -22,7 +22,7 @@ lang: ja
 
 Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作るか、 `ryukau@gmail.com` までメールを送っていただければ対応します。
 
-Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.1.2 と REAPER 6.03 で動作確認を行いました。 Bitwig 3.1.2 では GUI が真っ黒になるバグがあるようです。
+Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig と REAPER で動作確認を行っています。もし Ubuntu 18.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は[ビルド手順](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md)に沿ってソースコードからビルドしてください。
 
 ## インストール
 ### プラグイン
@@ -78,19 +78,20 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 ```json
 {
   "fontPath": "",
-  "foreground": "#ffffff",
+  "foreground": "#000000",
   "foregroundButtonOn": "#000000",
   "foregroundInactive": "#8a8a8a",
-  "background": "#353d3e",
-  "boxBackground": "#000000",
-  "border": "#808080",
-  "borderCheckbox": "#808080",
-  "unfocused": "#b8a65c",
-  "highlightMain": "#368a94",
-  "highlightAccent": "#2c8a58",
-  "highlightButton": "#a77842",
-  "highlightWarning": "#8742a7",
-  "overlay": "#ffffff88",
+  "background": "#ffffff",
+  "boxBackground": "#ffffff",
+  "border": "#000000",
+  "borderCheckbox": "#000000",
+  "borderLabel": "#000000",
+  "unfocused": "#dddddd",
+  "highlightMain": "#0ba4f1",
+  "highlightAccent": "#13c136",
+  "highlightButton": "#fcc04f",
+  "highlightWarning": "#fc8080",
+  "overlay": "#00000088",
   "overlayHighlight": "#00ff0033"
 }
 ```
@@ -114,6 +115,7 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 - `boxBackground`: 矩形の UI 部品の内側の背景色。
 - `border`: <ruby>縁<rt>ふち</rt></ruby>の色。
 - `borderCheckbox`: チェックボックスの縁の色。
+- `borderLabel`: パラメータセクションのラベルの左右の直線の色。
 - `unfocused`: つまみがフォーカスされていないときの色。
 - `highlightMain`: フォーカスされたときの色。スライダの値の表示にも使用されます。
 - `highlightAccent`: フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。
@@ -280,6 +282,8 @@ Time
 :   ノートオンのたびに `Tremolo.DelayTime` をランダマイズする度合いです。
 
 ## チェンジログ
+- 0.2.5
+  - Process context requirements を実装。
 - 0.2.4
   - DSP が初期化されているかどうかのチェックを追加。
 - 0.2.3
@@ -314,6 +318,7 @@ Time
   - 初期リリース。
 
 ### 旧バージョン
+- [FDNCymbal 0.2.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/FDNCymbal0.2.4.zip)
 - [FDNCymbal 0.2.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/FDNCymbal0.2.3.zip)
 - [FDNCymbal 0.2.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/FDNCymbal0.2.2.zip)
 - [FDNCymbal 0.2.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/FDNCymbal0.2.1.zip)

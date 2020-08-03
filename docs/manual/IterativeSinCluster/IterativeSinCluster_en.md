@@ -7,7 +7,7 @@ lang: en
 
 IterativeSinCluster is an additive synthesizer. This synth computes 512 sine waves for each note to make tone cluster. I somehow thought "iterative sin" is a valid term. Correct term is "recursive sine".
 
-- [Download IterativeSinCluster 0.1.10 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/IterativeSinCluster0.1.10.zip) <img
+- [Download IterativeSinCluster 0.1.11 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/IterativeSinCluster0.1.11.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -24,7 +24,7 @@ The package includes following builds:
 
 macOS build isn't tested because I don't have Mac. If you found a bug, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`.
 
-Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.1.2 and Reaper 6.03. Bitwig 3.1.2 seems to have a bug that occasionally blackouts GUI.
+Linux build is built on Ubuntu 18.0.4 and tested on Bitwig and Reaper. If you are using distribution other than Ubuntu 18.04, plugin will not likely run. In this case, please take a look at [build instruction](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
 
 ## Installation
 ### Plugin
@@ -76,19 +76,20 @@ Below is a example of `style.json`.
 ```json
 {
   "fontPath": "",
-  "foreground": "#ffffff",
+  "foreground": "#000000",
   "foregroundButtonOn": "#000000",
   "foregroundInactive": "#8a8a8a",
-  "background": "#353d3e",
-  "boxBackground": "#000000",
-  "border": "#808080",
-  "borderCheckbox": "#808080",
-  "unfocused": "#b8a65c",
-  "highlightMain": "#368a94",
-  "highlightAccent": "#2c8a58",
-  "highlightButton": "#a77842",
-  "highlightWarning": "#8742a7",
-  "overlay": "#ffffff88",
+  "background": "#ffffff",
+  "boxBackground": "#ffffff",
+  "border": "#000000",
+  "borderCheckbox": "#000000",
+  "borderLabel": "#000000",
+  "unfocused": "#dddddd",
+  "highlightMain": "#0ba4f1",
+  "highlightAccent": "#13c136",
+  "highlightButton": "#fcc04f",
+  "highlightWarning": "#fc8080",
+  "overlay": "#00000088",
   "overlayHighlight": "#00ff0033"
 }
 ```
@@ -110,6 +111,7 @@ Do not use characters outside of `0-9a-f` for color value.
 - `boxBackground`: Background color of inside of box shaped components (Barbox, Button, Checkbox, OptionMenu, TextKnob, VSlider).
 - `border`: Border color of box shaped components.
 - `borderCheckbox`: Border color of CheckBox.
+- `borderLabel`: Line color of parameter section label.
 - `unfocused`: Color to fill unfocused components. Currently, only used for knobs.
 - `highlightMain`: Color to indicate focus is on a component. Highlight colors are also used for value of slider components (BarBox and VSlider).
 - `highlightAccent`: Same as `highlightMain`. Used for cosmetics.
@@ -291,6 +293,8 @@ Key Follow
 :   When checked, change delay time relative to note frequency.
 
 ## Change Log
+- 0.1.11
+  - Implemented process context requirements.
 - 0.1.10
   - Added check that DSP is initialized or not.
 - 0.1.9
@@ -318,6 +322,7 @@ Key Follow
   - Initial release.
 
 ### Old Versions
+- [IterativeSinCluster 0.1.10 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/IterativeSinCluster0.1.10.zip)
 - [IterativeSinCluster 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/IterativeSinCluster0.1.9.zip)
 - [IterativeSinCluster 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/IterativeSinCluster0.1.8.zip)
 - [IterativeSinCluster 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/IterativeSinCluster0.1.7.zip)

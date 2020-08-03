@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>EsPhaser<rt>エス フェイザ</rt></ruby> は最大 4096 の 2 次 Thiran オールパスフィルタを直列につなぐことができるフェイザです。 EnvelopedSine のフェイザと同じアルゴリズムを使っています。
 
-- [EsPhaser 0.1.5 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/EsPhaser0.1.5.zip) <img
+- [EsPhaser 0.1.6 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/EsPhaser0.1.6.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -24,7 +24,7 @@ EsPhaser の利用には AVX 以降の SIMD 命令セットをサポートする
 
 Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作るか、 `ryukau@gmail.com` までメールを送っていただければ対応します。
 
-Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.1.2 と REAPER 6.03 で動作確認を行いました。 Bitwig 3.1.2 では GUI が真っ黒になるバグがあるようです。
+Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig と REAPER で動作確認を行っています。もし Ubuntu 18.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は[ビルド手順](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md)に沿ってソースコードからビルドしてください。
 
 ## インストール
 ### プラグイン
@@ -80,19 +80,20 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 ```json
 {
   "fontPath": "",
-  "foreground": "#ffffff",
+  "foreground": "#000000",
   "foregroundButtonOn": "#000000",
   "foregroundInactive": "#8a8a8a",
-  "background": "#353d3e",
-  "boxBackground": "#000000",
-  "border": "#808080",
-  "borderCheckbox": "#808080",
-  "unfocused": "#b8a65c",
-  "highlightMain": "#368a94",
-  "highlightAccent": "#2c8a58",
-  "highlightButton": "#a77842",
-  "highlightWarning": "#8742a7",
-  "overlay": "#ffffff88",
+  "background": "#ffffff",
+  "boxBackground": "#ffffff",
+  "border": "#000000",
+  "borderCheckbox": "#000000",
+  "borderLabel": "#000000",
+  "unfocused": "#dddddd",
+  "highlightMain": "#0ba4f1",
+  "highlightAccent": "#13c136",
+  "highlightButton": "#fcc04f",
+  "highlightWarning": "#fc8080",
+  "overlay": "#00000088",
   "overlayHighlight": "#00ff0033"
 }
 ```
@@ -116,6 +117,7 @@ REAPER の Linux 版がプラグインを認識しないときは `~/.config/REA
 - `boxBackground`: 矩形の UI 部品の内側の背景色。
 - `border`: <ruby>縁<rt>ふち</rt></ruby>の色。
 - `borderCheckbox`: チェックボックスの縁の色。
+- `borderLabel`: パラメータセクションのラベルの左右の直線の色。
 - `unfocused`: つまみがフォーカスされていないときの色。
 - `highlightMain`: フォーカスされたときの色。スライダの値の表示にも使用されます。
 - `highlightAccent`: フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。
@@ -202,6 +204,8 @@ Smooth
 :   パラメータを変更したときに、変更前の値から変更後の値へと移行する秒数です。 `Stage` 以外のパラメータに有効です。
 
 ## チェンジログ
+- 0.1.6
+  - Process context requirements を実装。
 - 0.1.5
   - DSP が初期化されているかどうかのチェックを追加。
 - 0.1.4
@@ -216,6 +220,7 @@ Smooth
   - 初期リリース。
 
 ### 旧バージョン
+- [EsPhaser 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/EsPhaser0.1.5.zip)
 - [EsPhaser 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/EsPhaser0.1.4.zip)
 - [EsPhaser 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/EsPhaser0.1.3.zip)
 - [EsPhaser 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/EsPhaser0.1.2.zip)

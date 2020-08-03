@@ -7,7 +7,7 @@ lang: en
 
 EnvelopedSine is an additive synthesizer that computes 64 sine waves for each note. Difference to IterativeSinCluster is that this synth has AD envelope and saturator for each oscillator. EnvelopedSine is better suited for percussive sounds.
 
-- [Download EnvelopedSine 0.1.9 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/EnvelopedSine0.1.9.zip) <img
+- [Download EnvelopedSine 0.1.10 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/EnvelopedSine0.1.10.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -24,7 +24,7 @@ The package includes following builds:
 
 macOS build isn't tested because I don't have Mac. If you found a bug, please file a issue to [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`.
 
-Linux build is built on Ubuntu 18.0.4 and tested on Bitwig 3.1.2 and Reaper 6.03. Bitwig 3.1.2 seems to have a bug that occasionally blackouts GUI.
+Linux build is built on Ubuntu 18.0.4 and tested on Bitwig and Reaper. If you are using distribution other than Ubuntu 18.04, plugin will not likely run. In this case, please take a look at [build instruction](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
 
 ## Installation
 ### Plugin
@@ -76,19 +76,20 @@ Below is a example of `style.json`.
 ```json
 {
   "fontPath": "",
-  "foreground": "#ffffff",
+  "foreground": "#000000",
   "foregroundButtonOn": "#000000",
   "foregroundInactive": "#8a8a8a",
-  "background": "#353d3e",
-  "boxBackground": "#000000",
-  "border": "#808080",
-  "borderCheckbox": "#808080",
-  "unfocused": "#b8a65c",
-  "highlightMain": "#368a94",
-  "highlightAccent": "#2c8a58",
-  "highlightButton": "#a77842",
-  "highlightWarning": "#8742a7",
-  "overlay": "#ffffff88",
+  "background": "#ffffff",
+  "boxBackground": "#ffffff",
+  "border": "#000000",
+  "borderCheckbox": "#000000",
+  "borderLabel": "#000000",
+  "unfocused": "#dddddd",
+  "highlightMain": "#0ba4f1",
+  "highlightAccent": "#13c136",
+  "highlightButton": "#fcc04f",
+  "highlightWarning": "#fc8080",
+  "overlay": "#00000088",
   "overlayHighlight": "#00ff0033"
 }
 ```
@@ -110,6 +111,7 @@ Do not use characters outside of `0-9a-f` for color value.
 - `boxBackground`: Background color of inside of box shaped components (Barbox, Button, Checkbox, OptionMenu, TextKnob, VSlider).
 - `border`: Border color of box shaped components.
 - `borderCheckbox`: Border color of CheckBox.
+- `borderLabel`: Line color of parameter section label.
 - `unfocused`: Color to fill unfocused components. Currently, only used for knobs.
 - `highlightMain`: Color to indicate focus is on a component. Highlight colors are also used for value of slider components (BarBox and VSlider).
 - `highlightAccent`: Same as `highlightMain`. Used for cosmetics.
@@ -130,35 +132,48 @@ There is an additional control for number sliders used for `Octave`, `Seed` etc.
 
 Control with many blue vertical bars (BarBox) have some keyboard shortcuts. BarBox is used by `Attack`, `Decay`, `Gain` and `Saturation`. Shortcuts are only enabled after left clicking overtone control. Cheat sheet can be popped up by clicking plugin title on bottom left.
 
-| Input                                   | Control                               |
-| --------------------------------------- | ------------------------------------- |
-| <kbd>Ctrl</kbd> + <kbd>Left Drag</kbd>  | Reset to Default                      |
-| <kbd>Shift</kbd> + <kbd>Left Drag</kbd> | Naive Draw (Skip bars between frames) |
-| <kbd>Right Drag</kbd>                   | Draw Line                             |
-| <kbd>a</kbd>                            | Alternate Sign                        |
-| <kbd>d</kbd>                            | Reset Everything to Default           |
-| <kbd>D</kbd>                            | Toggle Min/Mid/Max                    |
-| <kbd>e</kbd>                            | Emphasize Low                         |
-| <kbd>E</kbd>                            | Emphasize High                        |
-| <kbd>f</kbd>                            | Low-pass Filter                       |
-| <kbd>F</kbd>                            | High-pass Filter                      |
-| <kbd>i</kbd>                            | Invert Value (Preserve minimum)       |
-| <kbd>I</kbd>                            | Invert Value (Minimum to 0)           |
-| <kbd>n</kbd>                            | Normalize (Preserve minimum)          |
-| <kbd>N</kbd>                            | Normalize (Minimum to 0)              |
-| <kbd>p</kbd>                            | Permute                               |
-| <kbd>r</kbd>                            | Randomize                             |
-| <kbd>R</kbd>                            | Sparse Randomize                      |
-| <kbd>s</kbd>                            | Sort Descending Order                 |
-| <kbd>S</kbd>                            | Sort Ascending Order                  |
-| <kbd>t</kbd>                            | Subtle Randomize (Random walk)        |
-| <kbd>T</kbd>                            | Subtle Randomize (Converge to 0)      |
-| <kbd>z</kbd>                            | Undo                                  |
-| <kbd>Z</kbd>                            | Redo                                  |
-| <kbd>,</kbd> (Comma)                    | Rotate Back                           |
-| <kbd>.</kbd> (Period)                   | Rotate Forward                        |
-| <kbd>1</kbd>                            | Decrease                              |
-| <kbd>2</kbd>-<kbd>9</kbd>               | Decrease 2n-9n                        |
+| Input                                                      | Control                            |
+| ---------------------------------------------------------- | ---------------------------------- |
+| <kbd>Left Drag</kbd>                                       | Change Value                       |
+| <kbd>Shift</kbd> + <kbd>Left Drag</kbd>                    | Change Value (Snapped)             |
+| <kbd>Ctrl</kbd> + <kbd>Left Drag</kbd>                     | Reset to Default                   |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Left Drag</kbd>  | Change Value (Skip Between Frames) |
+| <kbd>Right Drag</kbd>                                      | Draw Line                          |
+| <kbd>Shift</kbd> + <kbd>Right Drag</kbd>                   | Edit One Bar                       |
+| <kbd>Ctrl</kbd> + <kbd>Right Drag</kbd>                    | Reset to Default                   |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Right Drag</kbd> | Toggle Lock                        |
+| <kbd>a</kbd>                                               | Alternate Sign                     |
+| <kbd>d</kbd>                                               | Reset Everything to Default        |
+| <kbd>D</kbd>                                               | Toggle Min/Mid/Max                 |
+| <kbd>e</kbd>                                               | Emphasize Low                      |
+| <kbd>E</kbd>                                               | Emphasize High                     |
+| <kbd>f</kbd>                                               | Low-pass Filter                    |
+| <kbd>F</kbd>                                               | High-pass Filter                   |
+| <kbd>i</kbd>                                               | Invert Value (Preserve minimum)    |
+| <kbd>I</kbd>                                               | Invert Value (Minimum to 0)        |
+| <kbd>l</kbd>                                               | Toggle Lock under Mouse Cursor     |
+| <kbd>L</kbd>                                               | Toggle Lock for All                |
+| <kbd>n</kbd>                                               | Normalize (Preserve minimum)       |
+| <kbd>N</kbd>                                               | Normalize (Minimum to 0)           |
+| <kbd>p</kbd>                                               | Permute                            |
+| <kbd>r</kbd>                                               | Randomize                          |
+| <kbd>R</kbd>                                               | Sparse Randomize                   |
+| <kbd>s</kbd>                                               | Sort Descending Order              |
+| <kbd>S</kbd>                                               | Sort Ascending Order               |
+| <kbd>t</kbd>                                               | Subtle Randomize (Random walk)     |
+| <kbd>T</kbd>                                               | Subtle Randomize (Converge to 0)   |
+| <kbd>z</kbd>                                               | Undo                               |
+| <kbd>Z</kbd>                                               | Redo                               |
+| <kbd>,</kbd> (Comma)                                       | Rotate Back                        |
+| <kbd>.</kbd> (Period)                                      | Rotate Forward                     |
+| <kbd>1</kbd>                                               | Decrease                           |
+| <kbd>2</kbd>-<kbd>9</kbd>                                  | Decrease 2n-9n                     |
+
+Snapping is not available for all BarBox. If you'd like to have snapping for certain BarBox, feel free to open issue to [GitHub repository](https://github.com/ryukau/VSTPlugins).
+
+Edit One Bar with <kbd>Shift</kbd> + <kbd>Right Drag</kbd> holds a bar under the cursor when mouse right button is pressed. Then only changes that one bar while holding down mouse right button.
+
+Toggle Lock with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Right Drag</kbd> behaves as line edit. When right mouse button (RMB) is pressed, it holds the opposite state of the bar below mouse cursor, then use the state for the rest of bars. For example, if RMB is pressed on a locked bar, dragging unlocks bars while holding down RMB.
 
 ## Block Diagram
 If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Image" on right click menu to scale.
@@ -317,6 +332,14 @@ Phase
 :   LFO phase. This can be used to make sound with automation. Turning `Freq` to leftmost sets LFO frequency to 0.
 
 ## Change Log
+- 0.1.10
+  - Implemented process context requirements.
+  - Added/Changed BarBox functionality to match LV2 version.
+    - Edit one bar.
+    - Lock.
+    - Internal mouse wheel sensitivitly.
+    - Snapping (implemented, but not used).
+    - Starting bar of line edit is now fixed to anchor point.
 - 0.1.9
   - Added check that DSP is initialized or not.
 - 0.1.8
@@ -340,6 +363,7 @@ Phase
   - Initial release.
 
 ### Old Versions
+- [EnvelopedSine 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/EnvelopedSine0.1.9.zip)
 - [EnvelopedSine 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/EnvelopedSine0.1.8.zip)
 - [EnvelopedSine 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/EnvelopedSine0.1.7.zip)
 - [EnvelopedSine 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/EnvelopedSine0.1.6.zip)
