@@ -46,6 +46,17 @@ For Linux, LV2 version is available.
 
 - [WaveCymbal](#wavecymbal)
 
+## CollidingCombSynth
+![](manual/CollidingCombSynth/img/collidingcombsynth.png)
+
+CollidingCombSynth は弦を擦ったときのような音が出る、実験的なシンセサイザです。 24 個の Karplus-Strong アルゴリズムによる弦がぶつかり合います。音程はでますが、チューニングが難しいので効果音に向いています。
+
+- [CollidingCombSynth のマニュアル (日本語)](manual/CollidingCombSynth/CollidingCombSynth_ja.html)
+
+CollidingCombSynth is an experimental synthesizer which sounds like bowed string. Equipped with 24 Karplus-Strong strings which collides to each other. Tuning of pitch is possible, but difficult. Therefore mostly suitable for sound effects.
+
+- [CollidingCombSynth Manual (English)](manual/CollidingCombSynth/CollidingCombSynth_en.html)
+
 ## L4Reverb
 ![](manual/L4Reverb/img/l4reverb.png)
 
