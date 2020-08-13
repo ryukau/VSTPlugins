@@ -315,6 +315,17 @@ Distance
 
 :   Distance between strings. When an immediate amplitude of a string exceeds `Distance`, exceeded amplitude will be propagated to a neighbouring string.
 
+Propagation
+
+:   The value of `Propagation` changes the loss of force when strings are collided. The bounce will be weaken if `Propagation` is smaller.
+
+Connection
+
+:   Connection type of strings.
+
+    - `Parallel`: Connect strings in parallel. Input of excitation starts from string 0, then incrementally going through the rest of strings. Collided signal is accumulated to the excitation signal incrementally.
+    - `Serial`: Connect strings in serial. Excitation is only input to string 0. Then output of string 0 goes to input of string 1, output of string 1 goes to input of string 2, and so on. Beware that output signal may become louder than `Parallel`, so take care when turn off `Compressor`.
+
 A, D, S, R
 
 :   Envelope parameters which modulates `LP Cutoff`. This envelope basically works as the gain envelope of CollidingCombSynth.
