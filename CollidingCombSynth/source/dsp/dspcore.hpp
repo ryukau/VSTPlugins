@@ -37,7 +37,8 @@ enum class NoteState { active, release, rest };
 #define NOTE_PROCESS_INFO_SMOOTHER(METHOD)                                               \
   lowpassCutoff.METHOD(pv[ID::lowpassCutoff]->getFloat());                               \
   highpassCutoff.METHOD(pv[ID::highpassCutoff]->getFloat());                             \
-  noiseGain.METHOD(pv[ID::exciterGain]->getFloat());
+  noiseGain.METHOD(pv[ID::exciterGain]->getFloat());                                     \
+  propagation.METHOD(pv[ID::propagation]->getFloat());
 
 struct NoteProcessInfo {
   std::minstd_rand rngNoise{0};
@@ -48,6 +49,7 @@ struct NoteProcessInfo {
   ExpSmoother<float> lowpassCutoff;
   ExpSmoother<float> highpassCutoff;
   ExpSmoother<float> noiseGain;
+  ExpSmoother<float> propagation;
 
   void reset(GlobalParameter &param)
   {

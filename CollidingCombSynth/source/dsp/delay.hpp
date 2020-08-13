@@ -341,6 +341,7 @@ public:
   std::array<KsString<Sample>, size> string;
   std::array<Sample, size> buf{};
   Sample distance = 1;
+  bool isSerial = false;
 
   Sample kp = 0; // Lowpass coefficient.
   Sample b1 = 1; // Highpass coefficient.
@@ -356,21 +357,23 @@ public:
     buf.fill(0);
   }
 
-  void trigger(Sample distance)
+  void trigger(Sample distance, bool isSerial)
   {
     this->distance = distance;
+    this->isSerial = isSerial;
     reset();
   }
 
-  Sample process(Sample input)
+  Sample process(Sample input, Sample propagation)
   {
     Sample out = 0;
     for (uint16_t idx = 0; idx < size; ++idx) {
       Sample dist = (idx < 1) ? distance : distance - buf[idx - 1];
       Sample leftover = (input <= dist) ? 0 : input - dist;
-      input -= Sample(0.9) * leftover;
+      input -= propagation * leftover;
       buf[idx] = string[idx].process(input, kp, b1);
       out += buf[idx];
+      if (isSerial) input = buf[idx];
     }
     return out / size;
   }

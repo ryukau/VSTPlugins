@@ -45,6 +45,7 @@ LogScale<double> Scales::envelopeS(0.0, 0.9995, 0.5, 0.3);
 LogScale<double> Scales::envelopeR(0.001, 16.0, 0.5, 2.0);
 
 LogScale<double> Scales::distance(0.001, 1.0, 0.5, 0.2);
+LogScale<double> Scales::propagation(0.001, 1.0, 0.5, 0.7);
 IntScale<double> Scales::seed(16777215); // 2^24 - 1
 
 LogScale<double> Scales::randomFrequency(0.0, 1.0, 0.5, 0.05);

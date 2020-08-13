@@ -295,12 +295,27 @@ bool Editor::prepareUI()
     stringLabelLeft1, stringTop2, stringLabelWidth, labelHeight, uiTextSize,
     ID::highpassCutoff, Scales::highpassCutoff, false, 2);
 
-  constexpr auto stringTop3 = stringTop2 + labelY;
+  constexpr auto stringTop3 = stringTop1 + knobY;
   addLabel(
     stringLeft0, stringTop3, stringLabelWidth, labelHeight, uiTextSize, "Distance");
   addTextKnob(
     stringLabelLeft1, stringTop3, stringLabelWidth, labelHeight, uiTextSize, ID::distance,
     Scales::distance, false, 6);
+
+  addLabel(
+    stringLeft0 + floorf(3.25f * knobWidth), stringTop3, stringLabelWidth, labelHeight,
+    uiTextSize, "Propagation");
+  addTextKnob(
+    stringLeft0 + floorf(4.75f * knobWidth), stringTop3, stringLabelWidth, labelHeight,
+    uiTextSize, ID::propagation, Scales::propagation, false, 6);
+
+  addLabel(
+    stringLeft0 + floorf(6.5f * knobWidth), stringTop3, stringLabelWidth, labelHeight,
+    uiTextSize, "Connection");
+  std::vector<std::string> connectionItems = {"Parallel", "Serial"};
+  addOptionMenu(
+    stringLeft0 + floorf(8.0f * knobWidth), stringTop3, stringLabelWidth, labelHeight,
+    uiTextSize, ID::connection, connectionItems);
 
   // String lowpass envelope.
   constexpr auto stringLeft1 = stringLeft0 + 3 * knobX;
