@@ -26,7 +26,7 @@ jobs:
         path: VSTPlugins
         submodules: recursive
     - name: Run script
-      run: ci/ci_windows.ps1
+      run: VSTPlugins/ci/ci_windows.ps1
     - name: Upload
       uses: actions/upload-artifact@v1
       with:
