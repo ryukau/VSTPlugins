@@ -4,10 +4,8 @@
 
 $ErrorActionPreference = "Stop"
 
-pwd
-
-$workspace = (Get-Item -Path ".\").FullName
-cd $HOME
+# $workspace = (Get-Item -Path ".\").FullName
+cd $GITHUB_WORKSPACE
 
 git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
 cd vst3sdk
@@ -15,10 +13,8 @@ cd vst3sdk
 mkdir build
 cd build
 
-pwd
-
 cmake -G"Visual Studio 16 2019" `
-  -DSMTG_MYPLUGINS_SRC_PATH="$workspace" `
+  -DSMTG_MYPLUGINS_SRC_PATH="$GITHUB_WORKSPACE/VSTPlugins" `
   -DSMTG_ADD_VST3_HOSTING_SAMPLES=FALSE `
   -DSMTG_ADD_VST3_PLUGINS_SAMPLES=FALSE `
   ..
@@ -31,4 +27,4 @@ $plugin_dir = "$HOME\vst3sdk\build\VST3\Release"
 foreach ($dir in $plugin_dir) {
   attrib.exe -S $dir /D
 }
-Copy-Item -Path $plugin_dir "$workspace\vst_windows" -Recurse
+Copy-Item -Path $plugin_dir "$GITHUB_WORKSPACE\vst_windows" -Recurse
