@@ -12,9 +12,9 @@ cd vst3sdk
 mkdir build
 cd build
 
-# No idea what's happening, but this cmake command doesn't run.
+# No idea what's happening, but this cmake command stucks.
 cmake -G"Visual Studio 16 2019" `
-  -DSMTG_MYPLUGINS_SRC_PATH="$GITHUB_WORKSPACE/VSTPlugins" `
+  -DSMTG_MYPLUGINS_SRC_PATH="$GITHUB_WORKSPACE\VSTPlugins" `
   -DSMTG_ADD_VST3_HOSTING_SAMPLES=FALSE `
   -DSMTG_ADD_VST3_PLUGINS_SAMPLES=FALSE `
   ..
