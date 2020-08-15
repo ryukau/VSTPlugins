@@ -4,36 +4,26 @@
 
 $ErrorActionPreference = "Stop"
 
-$uhhyou_dir = "$GITHUB_WORKSPACE\VSTPlugins"
+$workspace = (Get-Item -Path ".\").FullName
+cd $HOME
 
-cd $GITHUB_WORKSPACE
-
-git clone `
-  https://github.com/steinbergmedia/vst3sdk.git `
-  vst3sdk
-
-git submodule update --init vst3sdk/base
-git submodule update --init vst3sdk/cmake
-git submodule update --init vst3sdk/pluginterfaces
-git submodule update --init vst3sdk/public.sdk
-git submodule update --init vst3sdk/vstgui4
-
-tree
+git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
+cd vst3sdk
 
 mkdir build
 cd build
-
-echo "///////////////////////////// in build"
-
-cmake -G "Visual Studio 16 2019" -A x64 `
-  -DSMTG_MYPLUGINS_SRC_PATH="$uhhyou_dir" `
+cmake -G"Visual Studio 16 2019" `
+  -DSMTG_MYPLUGINS_SRC_PATH="$workspace" `
   -DSMTG_ADD_VST3_HOSTING_SAMPLES=FALSE `
   -DSMTG_ADD_VST3_PLUGINS_SAMPLES=FALSE `
-  ../vst3sdk
+  ..
 cmake --build . -j --config Release
 
 # https://gitlab.com/gitlab-org/gitlab-runner/issues/3194#note_196458158
 if (!$?) { Exit $LASTEXITCODE }
 
-$plugin_dir = "$GITHUB_WORKSPACE\build\VST3\Release"
-Copy-Item -Path $plugin_dir "$GITHUB_WORKSPACE\vst_windows" -Recurse
+$plugin_dir = "$HOME\vst3sdk\build\VST3\Release"
+foreach ($dir in $plugin_dir) {
+  attrib.exe -S $dir /D
+}
+Copy-Item -Path $plugin_dir "$workspace\vst_windows" -Recurse
