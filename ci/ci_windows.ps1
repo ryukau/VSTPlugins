@@ -2,20 +2,17 @@
 # Build script for GitHub Actions.
 #
 
-# $workspace = (Get-Item -Path ".\").FullName
+$ErrorActionPreference = "Stop"
+
 cd $GITHUB_WORKSPACE
 
 git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
 cd vst3sdk
 
-tree $GITHUB_WORKSPACE
-
 mkdir build
 cd build
 
-pwd
-cmake --help
-
+# No idea what's happening, but this cmake command doesn't run.
 cmake -G"Visual Studio 16 2019" `
   -DSMTG_MYPLUGINS_SRC_PATH="$GITHUB_WORKSPACE/VSTPlugins" `
   -DSMTG_ADD_VST3_HOSTING_SAMPLES=FALSE `
