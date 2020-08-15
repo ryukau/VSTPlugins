@@ -2,16 +2,19 @@
 # Build script for GitHub Actions.
 #
 
-$ErrorActionPreference = "Stop"
-
 # $workspace = (Get-Item -Path ".\").FullName
 cd $GITHUB_WORKSPACE
 
 git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
 cd vst3sdk
 
+tree $GITHUB_WORKSPACE
+
 mkdir build
 cd build
+
+pwd
+cmake --help
 
 cmake -G"Visual Studio 16 2019" `
   -DSMTG_MYPLUGINS_SRC_PATH="$GITHUB_WORKSPACE/VSTPlugins" `
