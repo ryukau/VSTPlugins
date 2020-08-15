@@ -23,10 +23,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        path: VSTPlugins
         submodules: recursive
     - name: Run script
-      run: VSTPlugins/ci/ci_windows.ps1
+      run: ci/ci_windows.ps1
     - name: Upload
       uses: actions/upload-artifact@v1
       with:
