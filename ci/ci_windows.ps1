@@ -12,11 +12,11 @@ git clone `
   https://github.com/steinbergmedia/vst3sdk.git `
   vst3sdk
 
-git sudmodule update --init vst3sdk/base
-git sudmodule update --init vst3sdk/cmake
-git sudmodule update --init vst3sdk/pluginterfaces
-git sudmodule update --init vst3sdk/public.sdk
-git sudmodule update --init vst3sdk/vstgui4
+git submodule update --init vst3sdk/base
+git submodule update --init vst3sdk/cmake
+git submodule update --init vst3sdk/pluginterfaces
+git submodule update --init vst3sdk/public.sdk
+git submodule update --init vst3sdk/vstgui4
 
 tree
 
