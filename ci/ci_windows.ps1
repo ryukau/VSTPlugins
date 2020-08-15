@@ -16,7 +16,6 @@ cd build
 echo $workspace
 
 cmake -G"Visual Studio 16 2019" -A x64 `
-  -DSMTG_MYPLUGINS_SRC_PATH="$workspace" `
   -DSMTG_ADD_VST3_HOSTING_SAMPLES=FALSE `
   -DSMTG_ADD_VST3_PLUGINS_SAMPLES=FALSE `
   ..
