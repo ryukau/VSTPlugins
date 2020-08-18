@@ -7,7 +7,7 @@ lang: en
 
 CollidingCombSynth is a reverb using lattice structure. Equipped with 16 delays per channel.
 
-- [Download CollidingCombSynth 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/CollidingCombSynth0.1.0.zip) <img
+- [Download CollidingCombSynth 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CollidingCombSynth0.1.0.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"

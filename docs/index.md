@@ -51,7 +51,7 @@ For Linux, LV2 version is available.
 ## CollidingCombSynth
 ![](manual/CollidingCombSynth/img/collidingcombsynth.png)
 
-CollidingCombSynth は弦を擦ったときのような音が出る、実験的なシンセサイザです。 24 個の Karplus-Strong アルゴリズムによる弦がぶつかり合います。音程はでますが、チューニングが難しいので効果音に向いています。
+CollidingCombSynth は弦を擦ったときのような音が出る、実験的なシンセサイザです。 24 個の Karplus-Strong アルゴリズムによる弦がぶつかり合います。音程はでますがチューニングが難しいので、どちらかと言うと効果音に向いています。
 
 - [CollidingCombSynth のマニュアル (日本語)](manual/CollidingCombSynth/CollidingCombSynth_ja.html)
 

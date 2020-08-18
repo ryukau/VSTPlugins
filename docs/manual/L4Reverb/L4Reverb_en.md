@@ -16,7 +16,7 @@ L4Reverb is an extended version of LatticeReverb. This time, lattice structure h
 
 If L4Reverb is too heavy for your machine, L3Reverb is also available. L3Reverb is a trimmed down version of L4Reverb. The lattice structure has 3 * 3 * 3 * 5 = 135 sections per channel.
 
-- [Download L3Reverb 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.2/L3Reverb0.1.2.zip) <img
+- [Download L3Reverb 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/L3Reverb0.1.2.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
