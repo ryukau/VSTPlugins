@@ -87,7 +87,8 @@ Beware that steps above degrades security of your system. To revert the settings
 1. Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select option to "App Store and identified developers".
 2. Open terminal and run `sudo spctl --master-enable`.
 
-Reference:
+#### Reference
+
 - [How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac](https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/)
 - [Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio](https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/)
 - [Safely open apps on your Mac - Apple Support](https://support.apple.com/en-us/HT202491)

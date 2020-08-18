@@ -5,7 +5,7 @@ lang: en
 # CollidingCombSynth
 ![](img/collidingcombsynth.png)
 
-CollidingCombSynth is a reverb using lattice structure. Equipped with 16 delays per channel.
+CollidingCombSynth is an experimental synthesizer which sounds like bowed string. Equipped with 24 Karplus-Strong string models which collide to each other. Tuning of pitch is possible, but difficult. So mostly suitable for sound effects.
 
 - [Download CollidingCombSynth 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CollidingCombSynth0.1.0.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
@@ -87,7 +87,8 @@ Beware that steps above degrades security of your system. To revert the settings
 1. Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select option to "App Store and identified developers".
 2. Open terminal and run `sudo spctl --master-enable`.
 
-Reference:
+#### Reference
+
 - [How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac](https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/)
 - [Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio](https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/)
 - [Safely open apps on your Mac - Apple Support](https://support.apple.com/en-us/HT202491)

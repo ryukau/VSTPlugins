@@ -5,7 +5,7 @@ lang: ja
 # CollidingCombSynth
 ![](img/collidingcombsynth.png)
 
-<ruby>CollidingCombSynth<rt>ラティス リバーブ</rt></ruby> はディレイを使った高次のオールパスフィルタを格子状につないで入れ子にしたリバーブです。 1 チャンネルあたり 16 のオールパスフィルタを備えています。
+<ruby>CollidingCombSynth<rt>コライディング・コム・シンセ</rt></ruby> は Karplus-Strong アルゴリズムによる弦の物理モデルをぶつけることで、弦を擦ったときのような音が出る実験的なシンセサイザです。音程はでますがチューニングが難しいので、どちらかと言うと効果音に向いています。
 
 - [CollidingCombSynth 0.1.0 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CollidingCombSynth0.1.0.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
@@ -82,7 +82,8 @@ xattr -rc /path/to/PluginName.vst3
 1. システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「App Store と認証済みの開発元からのアプリケーションを許可」 を選択。
 2. ターミナルを開いて `sudo spctl --master-enable` を実行。
 
-Reference:
+#### 参考リンク
+
 - [How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac](https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/)
 - [Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio](https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/)
 - [Safely open apps on your Mac - Apple Support](https://support.apple.com/en-us/HT202491)

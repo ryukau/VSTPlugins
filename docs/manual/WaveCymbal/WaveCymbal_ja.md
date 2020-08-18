@@ -80,7 +80,8 @@ xattr -rc /path/to/PluginName.vst3
 1. システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「App Store と認証済みの開発元からのアプリケーションを許可」 を選択。
 2. ターミナルを開いて `sudo spctl --master-enable` を実行。
 
-Reference:
+#### 参考リンク
+
 - [How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac](https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/)
 - [Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio](https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/)
 - [Safely open apps on your Mac - Apple Support](https://support.apple.com/en-us/HT202491)

@@ -51,11 +51,11 @@ For Linux, LV2 version is available.
 ## CollidingCombSynth
 ![](manual/CollidingCombSynth/img/collidingcombsynth.png)
 
-CollidingCombSynth は弦を擦ったときのような音が出る実験的なシンセサイザです。 24 個の Karplus-Strong アルゴリズムによる弦がぶつかり合います。音程はでますがチューニングが難しいので、どちらかと言うと効果音に向いています。
+CollidingCombSynth は Karplus-Strong アルゴリズムによる弦の物理モデルをぶつけることで、弦を擦ったときのような音が出る実験的なシンセサイザです。音程はでますがチューニングが難しいので、どちらかと言うと効果音に向いています。
 
 - [CollidingCombSynth のマニュアル (日本語)](manual/CollidingCombSynth/CollidingCombSynth_ja.html)
 
-CollidingCombSynth is an experimental synthesizer which sounds like bowed string. Equipped with 24 Karplus-Strong strings which collides to each other. Tuning of pitch is possible, but difficult. Therefore mostly suitable for sound effects.
+CollidingCombSynth is an experimental synthesizer which sounds like bowed string. Equipped with 24 Karplus-Strong string models which collide to each other. Tuning of pitch is possible, but difficult. So mostly suitable for sound effects.
 
 - [CollidingCombSynth Manual (English)](manual/CollidingCombSynth/CollidingCombSynth_en.html)
 
