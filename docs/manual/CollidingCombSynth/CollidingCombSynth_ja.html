@@ -5,8 +5,8 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-08-03" />
-<title>SevenDelay_ja</title>
+<meta name="dcterms.date" content="2020-08-13" />
+<title>CollidingCombSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -252,13 +252,13 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-08-03
+  Update: 2020-08-13
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#sevendelay">SevenDelay</a><ul>
+  <li><a href="#collidingcombsynth">CollidingCombSynth</a><ul>
   <li><a href="#インストール">インストール</a><ul>
   <li><a href="#プラグイン">プラグイン</a></li>
   <li><a href="#プリセット">プリセット</a></li>
@@ -271,8 +271,12 @@ footer {
   <li><a href="#注意">注意</a></li>
   <li><a href="#ブロック線図">ブロック線図</a></li>
   <li><a href="#パラメータ">パラメータ</a><ul>
-  <li><a href="#delay">Delay</a></li>
-  <li><a href="#lfo">LFO</a></li>
+  <li><a href="#gain">Gain</a></li>
+  <li><a href="#tuning">Tuning</a></li>
+  <li><a href="#unison">Unison</a></li>
+  <li><a href="#random">Random</a></li>
+  <li><a href="#exciter">Exciter</a></li>
+  <li><a href="#string">String</a></li>
   </ul></li>
   <li><a href="#チェンジログ">チェンジログ</a><ul>
   <li><a href="#旧バージョン">旧バージョン</a></li>
@@ -285,17 +289,18 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="sevendelay">SevenDelay</h1>
-<p><img src="img/sevendelay.png" /></p>
-<p><ruby>SevenDelay<rt>セブンディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。</p>
+<h1 id="collidingcombsynth">CollidingCombSynth</h1>
+<p><img src="img/collidingcombsynth.png" /></p>
+<p><ruby>CollidingCombSynth<rt>ラティス リバーブ</rt></ruby> はディレイを使った高次のオールパスフィルタを格子状につないで入れ子にしたリバーブです。 1 チャンネルあたり 16 のオールパスフィルタを備えています。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SevenDelay0.1.13.zip">SevenDelay 0.1.13 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/CollidingCombSynth0.1.3.zip">CollidingCombSynth 0.1.3 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelayPresets.zip">プリセットをダウンロード (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CollidingCombSynthPresets.zip">プリセットをダウンロード (github.com)</a></li>
 </ul>
+<p>CollidingCombSynth の利用には AVX 以降の SIMD 命令セットをサポートする CPU が必要です。</p>
 <p>パッケージには次のビルドが含まれています。</p>
 <ul>
 <li>Windows 64bit</li>
@@ -409,188 +414,314 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><code>overlayHighlight</code>: フォーカスを示すオーバーレイの色。</li>
 </ul>
 <h2 id="操作">操作</h2>
+<p>操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。</p>
 <p>つまみとスライダーでは次の操作ができます。</p>
 <ul>
-<li>Ctrl + 左クリック : 値のリセット。</li>
-<li>Shift + 左ドラッグ : 細かい値の変更。</li>
+<li><kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。</li>
+<li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
 </ul>
+<p>数値スライダーでは、上記に加えて次の操作ができます。</p>
+<ul>
+<li><kbd>ホイールクリック</kbd> : 最小値、中央値、最大値の切り替え。</li>
+</ul>
+<p>青い縦棒が並んだコントロール (BarBox) ではショートカットが使えます。ショートカットは BarBox を左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを BarBox の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。</p>
+<p>左下のプラグイン名をクリックすると、よく使いそうな一部のショートカットを見ることができます。利用できる全てのショートカットを次の表に掲載しています。</p>
+<table>
+<thead>
+<tr class="header">
+<th>入力</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><kbd>左ドラッグ</kbd></td>
+<td>値の変更</td>
+</tr>
+<tr class="even">
+<td><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd></td>
+<td>値の変更 (スナップ)</td>
+</tr>
+<tr class="odd">
+<td><kbd>Ctrl</kbd> + <kbd>左ドラッグ</kbd></td>
+<td>デフォルト値にリセット</td>
+</tr>
+<tr class="even">
+<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd></td>
+<td>値の変更 (フレーム間の補間が無効)</td>
+</tr>
+<tr class="odd">
+<td><kbd>ホイールドラッグ</kbd></td>
+<td>直線の描画</td>
+</tr>
+<tr class="even">
+<td><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd></td>
+<td>1 つのバーを編集</td>
+</tr>
+<tr class="odd">
+<td><kbd>Ctrl</kbd> + <kbd>ホイールドラッグ</kbd></td>
+<td>デフォルト値にリセット</td>
+</tr>
+<tr class="even">
+<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd></td>
+<td>ロックの切り替え</td>
+</tr>
+<tr class="odd">
+<td><kbd>a</kbd></td>
+<td>符号を交互に入れ替え</td>
+</tr>
+<tr class="even">
+<td><kbd>d</kbd></td>
+<td>すべての値をデフォルト値にリセット</td>
+</tr>
+<tr class="odd">
+<td><kbd>D</kbd></td>
+<td>最小値・中央値・最大値の切り替え</td>
+</tr>
+<tr class="even">
+<td><kbd>e</kbd></td>
+<td>低域の強調</td>
+</tr>
+<tr class="odd">
+<td><kbd>E</kbd></td>
+<td>高域の強調</td>
+</tr>
+<tr class="even">
+<td><kbd>f</kbd></td>
+<td>ローパスフィルタ</td>
+</tr>
+<tr class="odd">
+<td><kbd>F</kbd></td>
+<td>ハイパスフィルタ</td>
+</tr>
+<tr class="even">
+<td><kbd>i</kbd></td>
+<td>値の反転 (最小値を保存)</td>
+</tr>
+<tr class="odd">
+<td><kbd>I</kbd></td>
+<td>値の反転 (最小値を 0 に設定)</td>
+</tr>
+<tr class="even">
+<td><kbd>l</kbd></td>
+<td>マウスカーソル下のバーのロックの切り替え</td>
+</tr>
+<tr class="odd">
+<td><kbd>L</kbd></td>
+<td>全てのバーのロックを切り替え</td>
+</tr>
+<tr class="even">
+<td><kbd>n</kbd></td>
+<td>最大値を 1 に正規化 (最小値を保存)</td>
+</tr>
+<tr class="odd">
+<td><kbd>N</kbd></td>
+<td>最大値を 1 に正規化 (最小値を 0 に設定)</td>
+</tr>
+<tr class="even">
+<td><kbd>p</kbd></td>
+<td>ランダムに並べ替え</td>
+</tr>
+<tr class="odd">
+<td><kbd>r</kbd></td>
+<td>ランダマイズ</td>
+</tr>
+<tr class="even">
+<td><kbd>R</kbd></td>
+<td>まばらなランダマイズ</td>
+</tr>
+<tr class="odd">
+<td><kbd>s</kbd></td>
+<td>降順にソート</td>
+</tr>
+<tr class="even">
+<td><kbd>S</kbd></td>
+<td>昇順にソート</td>
+</tr>
+<tr class="odd">
+<td><kbd>t</kbd></td>
+<td>少しだけランダマイズ (ランダムウォーク)</td>
+</tr>
+<tr class="even">
+<td><kbd>T</kbd></td>
+<td>少しだけランダマイズ (0 に収束)</td>
+</tr>
+<tr class="odd">
+<td><kbd>z</kbd></td>
+<td>アンドゥ</td>
+</tr>
+<tr class="even">
+<td><kbd>Z</kbd></td>
+<td>リドゥ</td>
+</tr>
+<tr class="odd">
+<td><kbd>,</kbd> (Comma)</td>
+<td>左に回転</td>
+</tr>
+<tr class="even">
+<td><kbd>.</kbd> (Period)</td>
+<td>右に回転</td>
+</tr>
+<tr class="odd">
+<td><kbd>1</kbd></td>
+<td>すべての値を低減</td>
+</tr>
+<tr class="even">
+<td><kbd>2</kbd>-<kbd>9</kbd></td>
+<td>インデックスが 2n-9n の値を低減</td>
+</tr>
+</tbody>
+</table>
+<p><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> のスナップは一部の BarBox だけで有効になっています。特定の BarBox にスナップを追加したいという要望があれば、気軽に <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を開いてください。</p>
+<p><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> による 1 つのバーを編集は、マウスホイールが押された時点でカーソルの下にあるバーだけを編集します。マウスホイールが押されている間はカーソルの左右の位置に関わらず、選択したバーのみを編集できます。</p>
+<p><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> によるロックの切り替えでは、マウスホイールが押された時点でカーソルの下にあるバーの反対の状態が残り全てに適用されます。例えばカーソルの下のバーがアクティブだったときはロックに切り替えます。</p>
 <h2 id="注意">注意</h2>
-<p><code>Smooth</code> の値が 0 に近く、 <code>Allpass Cut</code> の値を速く動かしすぎたときに、非常に大きな音量のクリックノイズが出力されることがあります。これは <code>Allpass Cut</code> で使われているフィルタのカットオフ周波数が、速く、大きく、動きすぎると出力が発散する場合があることが原因です。特別な目的がない限り、<code>Smooth</code> パラメータを低く設定しすぎないことを推奨します。</p>
-<p><code>Time</code> の値が最小かつ <code>Feedback</code> の値が最大に設定されると直流信号が出ることがあります。 <code>DC Kill</code> を 1.0 より大きな値に設定することで直流信号を除去できます。</p>
+<p><code>Compressor</code> を有効にしていても音量の変化が激しいので、 CollidingCombSynth の後に必ずリミッタを挿入することをお勧めします。</p>
 <h2 id="ブロック線図">ブロック線図</h2>
 <p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> + <kbd>マウスホイール</kbd> や、右クリックから「画像だけを表示」などで拡大できます。</p>
 <p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
-<p><img src="img/sevendelay.svg" /></p>
+<p><img src="img/collidingcombsynth.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
-<h3 id="delay">Delay</h3>
+<h3 id="gain">Gain</h3>
 <dl>
+<dt>Gain, Boost</dt>
+<dd><p>出力音量です。 <code>Gain</code> の値と <code>Boost</code> の値は掛け合わされます。</p>
+<pre><code>masterGain = Gain * Boost</code></pre>
+</dd>
+<dt>Compressor</dt>
+<dd><p>ボイスごとに用意されたコンプレッサを有効・無効にします。</p>
+</dd>
 <dt>Time</dt>
-<dd><p>ディレイ時間。範囲は 0.0001 から 8.0 です。</p>
-<ul>
-<li>もし <code>Sync</code> が有効で <code>Time</code> が 1.0 より小さいときは、ディレイ時間が <code>Time / 16</code> 拍に設定されます。</li>
-<li>もし <code>Sync</code> が有効で <code>Time</code> が 1.0 以上のときは、ディレイ時間が <code>floor(2 * Time) / 32</code> 拍に設定されます。</li>
-<li>それ以外のときは、ディレイ時間が <code>time</code> 秒に設定されます。</li>
-</ul>
+<dd><p>コンプレッサのアタック・リリース時間です。</p>
+<p><code>Time</code> の音を大きくするほうが自然な聞こえ方に近くなりますが、音量のピークが抑えきれないときがあります。このときは <code>Threshold</code> の値を下げてみてください。</p>
 </dd>
-<dt>Feedback</dt>
-<dd><p>ディレイのフィードバック。範囲は 0.0 から 1.0 です。</p>
-</dd>
-<dt>Stereo</dt>
-<dd><p>左右のディレイ時間のオフセット。範囲は -1.0 から 1.0 です。</p>
-<ul>
-<li>もし <code>Stereo</code> が 0.0 より小さいときは、左チャンネルのディレイ時間が <code>timeL * (1.0 + Stereo)</code> に変更されます。</li>
-<li>それ以外のときは、右チャンネルのディレイ時間が <code>timeR * (1.0 + Stereo)</code> に変更されます。</li>
-</ul>
-</dd>
-<dt>Wet</dt>
-<dd><p>ディレイ信号の出力音量。範囲は 0.0 から 1.0 。</p>
-</dd>
-<dt>Dry</dt>
-<dd><p>入力信号の出力音量。範囲は 0.0 から 1.0 。</p>
-</dd>
-<dt>Sync</dt>
-<dd><p>テンポシンクの切り替え。</p>
-</dd>
-<dt>Negative</dt>
-<dd><p>負のフィードバックの切り替え。ディレイ時間がとても短いときに役立つかもしれません。</p>
-</dd>
-<dt>Spread/Pan</dt>
-<dd><p>入力の広がり (In Spread) 、入力のパン (In Pan) 、出力の広がり (Out Spread) 、出力のパン (Out Pan) 。範囲は 0.0 から 1.0 です。</p>
-<p><code>In Spread</code> 、 <code>Out Spread</code> はステレオの広がりを制御します。 <code>In Pan</code> 、 <code>Out Pan</code> はステレオのパンニングを制御します。</p>
-<p>これらのパラメータはパンニングの逆転やピンポンディレイを作るときに使えます。</p>
-<ul>
-<li>パンニングの逆転を行うには <code>[InSpread, InPan, OutSpread, OutPan]</code> を <code>[0.0, 0.5, 1.0, 0.5]</code> に設定します。</li>
-<li>ピンポンディレイにするには <code>[InSpread, InPan, OutSpread, OutPan]</code> を <code>[1.0, 0.5, 0.0, 0.5]</code> に設定します。</li>
-</ul>
-<pre><code>panL = clamp(2 * pan + spread - 1.0, 0.0, 1.0)
-panR = clamp(2 * pan - spread, 0.0, 1.0)
-
-signalL = incomingL + panL * (incomingR - incomingL)
-signalR = incomingL + panR * (incomingR - incomingL)</code></pre>
-</dd>
-<dt>Allpass Cut</dt>
-<dd><p>SVF オールパスフィルタのカットオフ周波素。範囲は 90.0 から 20000.0 です。</p>
-<p><code>tone</code> が 20000.0 のとき、フィルタはバイパスされます。</p>
-</dd>
-<dt>Allpass Q</dt>
-<dd><p>SVF オールパスフィルタのレゾナンス。範囲は 0.00001 から 1.0 です。</p>
-<p>値が大きいほどレゾナンスが強くなります。</p>
-</dd>
-<dt>DC Kill</dt>
-<dd><p>ハイパスフィルタのカットオフ周波数。範囲は 5.0 から 120.0 です。</p>
-<p><code>DC Kill</code> を 5.0 より大きく設定すればディレイのフィードバックから直流信号を取り除くことができます。</p>
-</dd>
-<dt>Smooth</dt>
-<dd><p>パラメータ平滑化の度合い。範囲は 0.0 から 1.0 で、単位は秒です。</p>
-<p>パラメータによっては値が急激に変化するとノイズが出ることがあります。 <code>Smooth</code> の値を大きめにすることで、値の変化を緩やかにしてノイズを減らすことができます。</p>
+<dt>Threshold</dt>
+<dd><p>コンプレッサが動作を始める音量です。通常は 1.0 以下に設定することをお勧めします。</p>
 </dd>
 </dl>
-<h3 id="lfo">LFO</h3>
+<h3 id="tuning">Tuning</h3>
 <dl>
-<dt>To Time</dt>
-<dd><p>LFO によるディレイ時間の変調量。範囲は 0.0 から 1.0 です。</p>
+<dt>Octave, Semi, Milli</dt>
+<dd><p>全体の音の高さを変更します。</p>
+<ul>
+<li><code>Octave</code>: オクターブ</li>
+<li><code>Semi</code>: 半音</li>
+<li><code>Milli</code>: 半音の 1 / 1000 。 1 / 10 セント。</li>
+</ul>
 </dd>
-<dt>To Allpass</dt>
-<dd><p>LFO によるオールパスフィルタのカットオフ周波数の変調量。範囲は 0.0 から 1.0 です。</p>
+<dt>ET, A4 [Hz]</dt>
+<dd><p>音律を変更します。</p>
+<p><code>ET</code> は Equal Temperature (平均律) の略です。 <code>ET</code> が 12 のときは 12 平均律となります。 <code>ET</code> を 12 よりも小さくすると無音になる範囲が増えるので注意してください。</p>
+<p><code>A4 [Hz]</code> は、音程 A4 の周波数です。</p>
+</dd>
+</dl>
+<h3 id="unison">Unison</h3>
+<dl>
+<dt>nUnison</dt>
+<dd><p>ユニゾンに使うボイスの数です。</p>
+<p><code>Misc.</code> の <code>Poly</code> を増やすことで <code>nUnison</code> が大きいときに起こるリリースの途切れを減らすことができますが、引き換えに動作が重くなります。</p>
+</dd>
+<dt>Detune, Random Detune</dt>
+<dd><p><code>Detune</code> はユニゾンに使われているボイスのピッチをずらす量です。</p>
+<p><code>Random Detune</code> のチェックを入れると、ピッチがずれる量がノートオンごとにランダムに変わるようになります。</p>
+<pre><code>random = RandomDetune ? rand() : 1
+detune = pitch * (1 + random * unisonIndex * Detune)</code></pre>
+</dd>
+<dt>Spread</dt>
+<dd><p>ユニゾンの左右の広がりの量です。</p>
+</dd>
+<dt>Gain</dt>
+<dd><p>ユニゾンに使われているボイスの音量をランダムに変更する量です。</p>
+</dd>
+</dl>
+<h3 id="random">Random</h3>
+<p>4 つの乱数生成器の設定です。</p>
+<ul>
+<li>Noise: エキサイタ (exciter) のガウシアンノイズを生成する乱数です。</li>
+<li>Comb: エキサイタの <code>Comb Time</code> をランダマイズする乱数です。</li>
+<li>Str.Freq: <code>String</code> セクションの <code>Frequency</code> をランダマイズする乱数です。</li>
+<li>Unison: <code>Unison</code> セクションの <code>Detune</code> と <code>Gain</code> パラメータで使われる乱数です。</li>
+</ul>
+<dl>
+<dt>Amount</dt>
+<dd><p>ランダマイズの度合いです。 0 のときはランダマイズが無効になります。</p>
+</dd>
+<dt>Seed</dt>
+<dd><p>乱数列のシード値です。この値を変えると生成される乱数列が変わります。</p>
+</dd>
+<dt>Retrigger</dt>
+<dd><p>チェックを入れるとノートオンのたびにシード値を設定しなおして、同じ乱数列を使用します。</p>
+</dd>
+</dl>
+<h3 id="exciter">Exciter</h3>
+<p>物理モデルを励起 (excite) する信号の設定です。例えばギターのピッキング、ピアノの弦とハンマーの衝突、太鼓の打面とばちの衝突などが励起にあたります。</p>
+<p>CollidingCombSynth のエキサイタは鋸歯波・ノイズオシレータの出力を、直列につないだ 8 個のコムフィルタに通しています。</p>
+<dl>
+<dt>LP Cutoff</dt>
+<dd><p>オシレータ出力にかけるローパスフィルタのカットオフ周波数です。表示される値の単位は Hz です。</p>
+</dd>
+<dt>Gain</dt>
+<dd><p>オシレータの音量です。</p>
+</dd>
+<dt>A, D</dt>
+<dd><p><code>A</code> はオシレータのアタック時間 (attack) 、 <code>D</code> はオシレータのディケイ時間 (decay) です。</p>
+<p><code>A</code> を右に回すことでアタックが緩やかな音が作れます。</p>
+</dd>
+<dt>Saw/Noise</dt>
+<dd><p>鋸歯波 (saw) オシレータとガウシアンノイズのミックスの比率です。左いっぱいに回すと鋸歯波のみ、右いっぱいに回すとノイズのみが出力されます。</p>
+</dd>
+<dt>Comb Time</dt>
+<dd><p>オシレータから出力された信号が通るコムフィルタの時間です。表示される値の単位は秒です。</p>
+</dd>
+</dl>
+<h3 id="string">String</h3>
+<p>Karplus-Strong アルゴリズムによる弦の設定です。</p>
+<dl>
+<dt>LP Cutoff</dt>
+<dd><p>各弦のフィードバックに用意されたローパスフィルタのカットオフ周波数です。表示される値の単位は Hz です。</p>
+</dd>
+<dt>HP Cutoff</dt>
+<dd><p>各弦の出力にかけるハイパスフィルタのカットオフ周波数です。表示される値の単位は Hz です。</p>
+</dd>
+<dt>Distance</dt>
+<dd><p>隣り合う弦の間の距離です。 1 つの弦の出力の瞬時値が <code>Distance</code> を超えると、超えた音量が隣の弦に伝わります。</p>
+</dd>
+<dt>Propagation</dt>
+<dd><p>弦が衝突したときに失う力を調整します。値が小さいほど衝突後の跳ね返りが弱くなります。</p>
+</dd>
+<dt>Connection</dt>
+<dd><p>弦のつなげ方です。</p>
+<ul>
+<li><code>Parallel</code>: 弦を並列につなぎます。励起信号は 0 番目の弦から順に、衝突後の跳ね返りを加えつつ順に入力されます。</li>
+<li><code>Serial</code>: 弦を直列につなぎます。励起信号は 0 番目の弦にだけに入力されます。あとは N 番目の弦の出力が N + 1 番目の弦へと衝突を繰り返しながら伝わっていきます。 <code>Parallel</code> に比べると音量の変化がより激しくなるので、 <code>Compressor</code> をオフにするときは注意してください。</li>
+</ul>
+</dd>
+<dt>A, D, S, R</dt>
+<dd><p><code>LP Cutoff</code> を変調するエンベロープのパラメータです。実質的に音量エンベロープと似たような働きをします。</p>
+<ul>
+<li><code>A</code> (Attack) : 鍵盤を押した瞬間から <code>LP Cutoff</code> の値に到達するまでのアタック時間。</li>
+<li><code>D</code> (Decay) : <code>LP Cutoff</code> の値から <code>(LP Cutoff) * S</code> の値になるまでのディケイ時間。</li>
+<li><code>S</code> (Sustain) : アタックとディケイが終わった後に鍵盤を押し続けているときのサステインの大きさ。</li>
+<li><code>R</code> (Release) : 鍵盤から指を離したあとにカットオフ周波数が 0 になるまでのリリース時間。</li>
+</ul>
 </dd>
 <dt>Frequency</dt>
-<dd><p>LFO の周波数。範囲は 0.01 から 100.0 。</p>
-</dd>
-<dt>Shape</dt>
-<dd><p>LFO の波形。範囲は 0.01 から 10.0 。</p>
-<pre><code>sign = 1 if (phase &gt; π),
-      -1 if (phase &lt; π),
-       0 if (phase == π)
-lfo = sign * abs(sin(phase))^shape</code></pre>
-</dd>
-<dt>Phase</dt>
-<dd><p>LFO の位相の初期値。範囲は 0.0 から 2π 。</p>
-<p>LFO の位相はホストが演奏を開始するたびに <code>Phase</code> の値にリセットされます。</p>
-</dd>
-<dt>Hold</dt>
-<dd><p>LFO の位相のホールドの切り替え。ライブ演奏などで役に立つかもしれません。</p>
+<dd><p>弦の基本周波数です。弦の最終的な周波数は音程と <code>Frequency</code> を掛け合わせた値になります。</p>
+<pre><code>noteFrequency = A4Hz * pow(2, Octave + (Semi - 69) / ET + Milli / (ET * 1000))
+stringFrequency = Frequency * noteFrequency</code></pre>
 </dd>
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
-<li>0.1.13
-<ul>
-<li>Process context requirements を実装。</li>
-</ul></li>
-<li>0.1.12
-<ul>
-<li>DSP が初期化されているかどうかのチェックを追加。</li>
-</ul></li>
-<li>0.1.11
-<ul>
-<li>カラーコンフィグを追加。</li>
-</ul></li>
-<li>0.1.10
-<ul>
-<li>パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。</li>
-</ul></li>
-<li>0.1.9
-<ul>
-<li>文字列の描画でクラッシュするバグを修正。</li>
-</ul></li>
-<li>0.1.8
-<ul>
-<li>プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。</li>
-</ul></li>
-<li>0.1.7
-<ul>
-<li>非アクティブ化で音が止まるように修正。</li>
-</ul></li>
-<li>0.1.6
-<ul>
-<li>Linux ビルドの GUI を有効化。</li>
-</ul></li>
-<li>0.1.5
-<ul>
-<li>Ableton Live 10.1.6 で特定のノブが揺れ戻るバグを修正。</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li>複数の GUI インスタンス間で表示を同期するように変更。</li>
-<li>スプラッシュスクリーンを開くとクラッシュするバグを修正。</li>
-<li>リロード時にクラッシュするバグを修正。</li>
-<li>GUI がホストのオートメーションに応じて更新されるように修正。</li>
-</ul></li>
-<li>0.1.3
-<ul>
-<li>スムーシングのアルゴリズムの値が決められた範囲を超えるバグを修正。</li>
-<li>LFO Hold のオン・オフが逆転していたバグを修正。</li>
-<li>オールパスのミキシングにかかっていた LFO による変調を除去。</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>内部のパラメータの構造を変更。</li>
-<li>UI の見た目を変更。</li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>Linux ビルドの GUI を無効化。VSTGUI に関するバグが治るまでの応急処置。</li>
-<li>LFO の <code>To Allpass</code> のチューニングを変更。</li>
-<li><code>DC Kill</code> の最小値を 5.0 Hz に変更。</li>
-</ul></li>
 <li>0.1.0
 <ul>
 <li>初期リリース。</li>
 </ul></li>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/SevenDelay0.1.12.zip">SevenDelay 0.1.12 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SevenDelay0.1.11.zip">SevenDelay 0.1.11 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SevenDelay0.1.10.zip">SevenDelay 0.1.10 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SevenDelay0.1.9.zip">SevenDelay 0.1.9 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip">SevenDelay 0.1.7 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip">SevenDelay 0.1.6 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelay0.1.5.zip">SevenDelay 0.1.5 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SevenDelay0.1.4.zip">SevenDelay 0.1.4 - VST 3 (github.com)</a></li>
-</ul>
+<p>現在、旧バージョンはありません。</p>
 <h2 id="ライセンス">ライセンス</h2>
-<p>SevenDelay のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
+<p>CollidingCombSynth のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
 <ul>
 <li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
 </ul>

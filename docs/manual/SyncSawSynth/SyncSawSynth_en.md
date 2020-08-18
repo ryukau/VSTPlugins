@@ -61,6 +61,35 @@ If DAW doesn't recognize the plugin, take a look at `Package Requirements` secti
 
 REAPER on Linux may not recognize the plugin. A workaround is to delete a file `~/.config/REAPER/reaper-vstplugins64.ini` and restart REAPER.
 
+### macOS Specific
+When trying to run plugin first time, following message may appear on macOS.
+
+```
+<PluginName>.vst3 is damaged and can't be opened. You should move it to
+the Trash"
+```
+
+In this case, open terminal and try running following command to unzipped `.vst3` directory.
+
+```sh
+xattr -rc /path/to/PluginName.vst3
+```
+
+Plugin may be considered as unsigned/un-notarized application. In this case, try following the steps below.
+
+1. Open terminal and run `sudo spctl --master-disable`.
+2. Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select "Anywhere".
+
+Beware that steps above degrades security of your system. To revert the settings, follow the steps below.
+
+1. Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select option to "App Store and identified developers".
+2. Open terminal and run `sudo spctl --master-enable`.
+
+Reference:
+- [How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac](https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/)
+- [Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio](https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/)
+- [Safely open apps on your Mac - Apple Support](https://support.apple.com/en-us/HT202491)
+
 ## Color Configuration
 At first time, create color config file to:
 

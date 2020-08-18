@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-06-15" />
+<meta name="dcterms.date" content="2020-08-03" />
 <title>SyncSawSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -252,7 +252,7 @@ footer {
 <header>
     <p><a href="../../index.html">Back to Index</a></p>
       <p>
-  Update: 2020-06-15
+  Update: 2020-08-03
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -264,6 +264,7 @@ footer {
   <li><a href="#プリセット">プリセット</a></li>
   <li><a href="#windows">Windows</a></li>
   <li><a href="#linux">Linux</a></li>
+  <li><a href="#macos">macOS</a></li>
   </ul></li>
   <li><a href="#色の設定">色の設定</a></li>
   <li><a href="#操作">操作</a></li>
@@ -291,7 +292,7 @@ footer {
 <p><img src="img/syncsawsynth.png" /></p>
 <p><ruby>SyncSawSynth<rt>シンクソウシンセ</rt></ruby>は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/SyncSawSynth0.1.14.zip">SyncSawSynth 0.1.14 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SyncSawSynth0.1.15.zip">SyncSawSynth 0.1.15 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -305,7 +306,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li>macOS 64bit</li>
 </ul>
 <p>Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければ対応します。</p>
-<p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig 3.1.2 と REAPER 6.03 で動作確認を行いました。 Bitwig 3.1.2 では GUI が真っ黒になるバグがあるようです。</p>
+<p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig と REAPER で動作確認を行っています。もし Ubuntu 18.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
 <h2 id="インストール">インストール</h2>
 <h3 id="プラグイン">プラグイン</h3>
 <p>名前が <code>.vst3</code> で終わるディレクトリを OS ごとに決められた位置に配置してください。</p>
@@ -336,6 +337,21 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html">VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins</a></li>
 </ul>
 <p>REAPER の Linux 版がプラグインを認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
+<h3 id="macos">macOS</h3>
+<p><strong>注意</strong>: この節は英語で macOS を使用しているユーザからの報告によって作成されました。日本語でのエラーメッセージが分からなかったので曖昧な書き方になっています。</p>
+<p>プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した <code>.vst3</code> ディレクトリに次のコマンドを適用してみてください。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">xattr</span> -rc /path/to/PluginName.vst3</span></code></pre></div>
+<p>プラグインは署名されていない (unsigned) 、または公証されていない (un-notarized) アプリケーションとして認識されることがあります。この場合は以下の手順を試してみてください。</p>
+<ol type="1">
+<li>ターミナルを開いて <code>sudo spctl --master-disable</code> を実行。</li>
+<li>システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「全てのアプリケーションを許可」 を選択。</li>
+</ol>
+<p>上記の手順を実行するとシステムのセキュリティが弱くなるので注意してください。元に戻すには以下の手順を実行してください。</p>
+<ol type="1">
+<li>システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「App Store と認証済みの開発元からのアプリケーションを許可」 を選択。</li>
+<li>ターミナルを開いて <code>sudo spctl --master-enable</code> を実行。</li>
+</ol>
+<p>Reference: - <a href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac</a> - <a href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio</a> - <a href="https://support.apple.com/en-us/HT202491">Safely open apps on your Mac - Apple Support</a></p>
 <h2 id="色の設定">色の設定</h2>
 <p>初回設定時は手動で次のファイルを作成してください。</p>
 <ul>
@@ -351,23 +367,24 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><a href="https://github.com/ryukau/LV2Plugins/tree/master/style/themes">LV2Plugins/style/themes at master · ryukau/LV2Plugins · GitHub</a></li>
 </ul>
 <p><code>style.json</code> の設定例です。</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">{</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="dt">&quot;fontPath&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span><span class="fu">,</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>  <span class="dt">&quot;background&quot;</span><span class="fu">:</span> <span class="st">&quot;#353d3e&quot;</span><span class="fu">,</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>  <span class="dt">&quot;boxBackground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a>  <span class="dt">&quot;border&quot;</span><span class="fu">:</span> <span class="st">&quot;#808080&quot;</span><span class="fu">,</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a>  <span class="dt">&quot;borderCheckbox&quot;</span><span class="fu">:</span> <span class="st">&quot;#808080&quot;</span><span class="fu">,</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a>  <span class="dt">&quot;unfocused&quot;</span><span class="fu">:</span> <span class="st">&quot;#b8a65c&quot;</span><span class="fu">,</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a>  <span class="dt">&quot;highlightMain&quot;</span><span class="fu">:</span> <span class="st">&quot;#368a94&quot;</span><span class="fu">,</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a>  <span class="dt">&quot;highlightAccent&quot;</span><span class="fu">:</span> <span class="st">&quot;#2c8a58&quot;</span><span class="fu">,</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a>  <span class="dt">&quot;highlightButton&quot;</span><span class="fu">:</span> <span class="st">&quot;#a77842&quot;</span><span class="fu">,</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#8742a7&quot;</span><span class="fu">,</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff88&quot;</span><span class="fu">,</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="dt">&quot;fontPath&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span><span class="fu">,</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="dt">&quot;background&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="dt">&quot;boxBackground&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="dt">&quot;border&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>  <span class="dt">&quot;borderCheckbox&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>  <span class="dt">&quot;borderLabel&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>  <span class="dt">&quot;unfocused&quot;</span><span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span><span class="fu">,</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>  <span class="dt">&quot;highlightMain&quot;</span><span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span><span class="fu">,</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>  <span class="dt">&quot;highlightAccent&quot;</span><span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span><span class="fu">,</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>  <span class="dt">&quot;highlightButton&quot;</span><span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span><span class="fu">,</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="fu">}</span></span></code></pre></div>
 <p>16 進数カラーコードを使っています。</p>
 <ul>
 <li>6 桁の色は RGB 。</li>
@@ -385,6 +402,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><code>boxBackground</code>: 矩形の UI 部品の内側の背景色。</li>
 <li><code>border</code>: <ruby>縁<rt>ふち</rt></ruby>の色。</li>
 <li><code>borderCheckbox</code>: チェックボックスの縁の色。</li>
+<li><code>borderLabel</code>: パラメータセクションのラベルの左右の直線の色。</li>
 <li><code>unfocused</code>: つまみがフォーカスされていないときの色。</li>
 <li><code>highlightMain</code>: フォーカスされたときの色。スライダの値の表示にも使用されます。</li>
 <li><code>highlightAccent</code>: フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。</li>
@@ -599,6 +617,10 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.15
+<ul>
+<li>Process context requirements を実装。</li>
+</ul></li>
 <li>0.1.14
 <ul>
 <li>DSP が初期化されているかどうかのチェックを追加。</li>
@@ -666,6 +688,7 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/SyncSawSynth0.1.14.zip">SyncSawSynth 0.1.14 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SyncSawSynth0.1.13.zip">SyncSawSynth 0.1.13 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SyncSawSynth0.1.12.zip">SyncSawSynth 0.1.12 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SyncSawSynth0.1.11.zip">SyncSawSynth 0.1.11 - VST 3 (github.com)</a></li>
