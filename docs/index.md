@@ -22,6 +22,8 @@ For Linux, LV2 version is available.
 
 # プラグイン一覧 | Plugin List
 
+- [CollidingCombSynth](#collidingcombsynth)
+
 - [CubicPadSynth](#cubicpadsynth)
 
 - [EnvelopedSine](#envelopedsine)
