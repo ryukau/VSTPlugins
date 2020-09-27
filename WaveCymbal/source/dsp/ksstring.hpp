@@ -17,14 +17,14 @@
 
 #pragma once
 
-#include <array>
-#include <memory>
-
 #include "../../../common/dsp/smoother.hpp"
-#include "../../../common/dsp/somemath.hpp"
 #include "../../../lib/juce_FastMathApproximations.h"
 #include "delay.hpp"
 #include "wave.hpp"
+
+#include <array>
+#include <cmath>
+#include <memory>
 
 namespace SomeDSP {
 
@@ -90,9 +90,8 @@ public:
 
   void set(Sample frequency, Sample decay)
   {
-    this->decay = frequency < Sample(1e-5)
-      ? Sample(1.0)
-      : somepow<Sample>(Sample(0.5), decay / frequency);
+    this->decay
+      = frequency < Sample(1e-5) ? Sample(1.0) : std::pow(Sample(0.5), decay / frequency);
 
     interpDelayTime.push(Sample(1.0) / frequency);
   }
@@ -167,12 +166,11 @@ public:
     this->q = clamp(q, Sample(1e-5), Sample(1.0));
 
     Sample w0 = twopi * f0 / fs;
-    Sample cos_w0 = somecos<Sample>(w0);
-    Sample sin_w0 = somesin<Sample>(w0);
+    Sample cos_w0 = std::cos(w0);
+    Sample sin_w0 = std::sin(w0);
 
     // 0.34657359027997264 = log(2) / 2.
-    Sample alpha
-      = sin_w0 * somesinh<Sample>(Sample(0.34657359027997264) * q * w0 / sin_w0);
+    Sample alpha = sin_w0 * std::sinh(Sample(0.34657359027997264) * q * w0 / sin_w0);
     b0 = alpha;
     b1 = Sample(0.0);
     b2 = -alpha;
@@ -280,8 +278,7 @@ public:
   {
     return type == CrossoverType::linear
       ? low + (high - low) * index / length
-      : someexp<Sample>(
-        somelog<Sample>(high / low) * index / length + somelog<Sample>(low));
+      : std::exp(std::log(high / low) * index / length + std::log(low));
   }
 
   Sample process(Sample input)
@@ -491,7 +488,7 @@ public:
     phase += tick;
     if (phase < Sample(1)) return 0;
     phase -= Sample(1);
-    return Sample(2) * someround<Sample>(rng.process()) - Sample(1);
+    return Sample(2) * std::round(rng.process()) - Sample(1);
   }
 
   Sample sampleRate = 44100;
@@ -519,7 +516,7 @@ public:
       const Sample rnd
         = (Sample)seed / ((Sample)INT32_MAX + Sample(1.0)); // Normalize to [-1, 1).
       output = last + rnd * drift;
-    } while (somefabs<Sample>(output) > Sample(1.0));
+    } while (std::fabs(output) > Sample(1.0));
     last = output;
     return output;
   }

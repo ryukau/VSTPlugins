@@ -18,9 +18,9 @@
 #pragma once
 
 #include <algorithm>
+#include <cmath>
 
 #include "constants.hpp"
-#include "somemath.hpp"
 
 namespace SomeDSP {
 
@@ -97,8 +97,8 @@ public:
     if (input < T(0.0)) return min;
     if (input > T(1.0)) return max;
     T value = input <= T(0.5)
-      ? T(0.5) * somepow<T>(T(2.0) * input, power)
-      : T(1.0) - T(0.5) * somepow<T>(T(2.0) - T(2.0) * input, power);
+      ? T(0.5) * std::pow(T(2.0) * input, power)
+      : T(1.0) - T(0.5) * std::pow(T(2.0) - T(2.0) * input, power);
     return value * scale + min;
   }
 
@@ -110,8 +110,8 @@ public:
     if (input > max) return T(1.0);
     T value = (input - min) / scale;
     return value <= T(0.5)
-      ? T(0.5) * somepow<T>(T(2.0) * value, powerInv)
-      : T(1.0) - T(0.5) * somepow<T>(T(2.0) - T(2.0) * value, powerInv);
+      ? T(0.5) * std::pow(T(2.0) * value, powerInv)
+      : T(1.0) - T(0.5) * std::pow(T(2.0) - T(2.0) * value, powerInv);
   }
 
   T getMin() { return min; }
@@ -144,8 +144,8 @@ public:
     if (value < T(0.0)) return min;
     if (value > T(1.0)) return max;
     value = value <= T(0.5)
-      ? T(0.5) * (T(1.0) - somepow<T>(somecos<T>(value * pi), power))
-      : T(0.5) + T(0.5) * somepow<T>(somecos<T>((T(1.0) - value) * pi), power);
+      ? T(0.5) * (T(1.0) - std::pow(std::cos(value * pi), power))
+      : T(0.5) + T(0.5) * std::pow(std::cos((T(1.0) - value) * pi), power);
     return value * scale + min;
   }
 
@@ -157,8 +157,8 @@ public:
     if (value > max) return T(1.0);
     value = (value - min) / scale;
     return value <= T(0.5)
-      ? someacos<T>(somepow<T>(T(1.0) - value * T(2.0), powerInv)) / pi
-      : T(1.0) - someacos<T>(somepow<T>(T(2.0) * value - T(1.0), powerInv)) / pi;
+      ? std::acos(std::pow(T(1.0) - value * T(2.0), powerInv)) / pi
+      : T(1.0) - std::acos(std::pow(T(2.0) * value - T(1.0), powerInv)) / pi;
   }
 
   T getMin() { return min; }
@@ -186,7 +186,7 @@ public:
     this->min = min;
     this->max = max;
     scale = max - min;
-    expo = somelog<T>((outValue - min) / scale) / somelog<T>(inValue);
+    expo = std::log((outValue - min) / scale) / std::log(inValue);
     expoInv = T(1.0) / expo;
   }
 
@@ -259,8 +259,8 @@ public:
   T getMin() { return minAmp; }
   T getMax() { return maxAmp; }
 
-  inline T dbToAmp(T dB) { return somepow<T>(T(10), dB / T(20)); }
-  inline T ampToDB(T amplitude) { return T(20) * somelog10<T>(amplitude); }
+  inline T dbToAmp(T dB) { return std::pow(T(10), dB / T(20)); }
+  inline T ampToDB(T amplitude) { return T(20) * std::log10(amplitude); }
 
 protected:
   bool minToZero;

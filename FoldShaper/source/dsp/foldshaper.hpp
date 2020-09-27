@@ -16,9 +16,9 @@
 // along with FoldShaper.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "../../../common/dsp/decimationLowpass.hpp"
-#include "../../../common/dsp/somemath.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace SomeDSP {
 
@@ -40,17 +40,17 @@ public:
   Sample process(Sample x0)
   {
     if (hardclip) x0 = std::clamp(x0, Sample(-1), Sample(1));
-    Sample absed = somefabs(x0 * gain);
-    Sample floored = somefloor(absed);
-    Sample mul = somepow(multiply, floored);
+    Sample absed = std::fabs(x0 * gain);
+    Sample floored = std::floor(absed);
+    Sample mul = std::pow(multiply, floored);
 
     Sample output;
     if (int(floored) % 2 == 1) {
-      output = somecopysign(Sample(1), x0) - somecopysign(mul * (absed - floored), x0);
+      output = std::copysign(Sample(1), x0) - std::copysign(mul * (absed - floored), x0);
     } else if (floored >= Sample(1)) {
-      output = somecopysign(mul * (absed - floored) + (Sample(1) - mul / multiply), x0);
+      output = std::copysign(mul * (absed - floored) + (Sample(1) - mul / multiply), x0);
     } else {
-      output = somecopysign(mul * (absed - floored) + (Sample(1) - mul), x0);
+      output = std::copysign(mul * (absed - floored) + (Sample(1) - mul), x0);
     }
     return std::isfinite(output) ? output : 0;
   }

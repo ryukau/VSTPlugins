@@ -16,9 +16,9 @@
 // along with ModuloShaper.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "../../../common/dsp/decimationLowpass.hpp"
-#include "../../../common/dsp/somemath.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace SomeDSP {
 
@@ -114,11 +114,11 @@ template<typename Sample> struct ModuloShaper {
   Sample process(Sample x0)
   {
     if (hardclip) x0 = std::clamp(x0, Sample(-1), Sample(1));
-    Sample sign = somecopysign(Sample(1), x0);
-    x0 = somefabs(x0 * gain);
-    Sample floored = somefloor(x0);
-    Sample height = somepow(add, floored);
-    return sign * ((x0 - floored) * somepow(mul, floored) * height + Sample(1) - height);
+    Sample sign = std::copysign(Sample(1), x0);
+    x0 = std::fabs(x0 * gain);
+    Sample floored = std::floor(x0);
+    Sample height = std::pow(add, floored);
+    return sign * ((x0 - floored) * std::pow(mul, floored) * height + Sample(1) - height);
   }
 
   float process4x(Sample x0)
@@ -168,17 +168,17 @@ public:
   Sample process4(Sample input)
   {
     if (hardclip) input = std::clamp(input, Sample(-1), Sample(1));
-    Sample sign = somecopysign<Sample>(Sample(1), input);
-    input = somefabs<Sample>(input * gain);
-    Sample floored = somefloor<Sample>(input);
-    Sample height = somepow<Sample>(add, floored);
-    input = sign
-      * ((input - floored) * somepow<Sample>(mul, floored) * height + Sample(1) - height);
+    Sample sign = std::copysign(Sample(1), input);
+    input = std::fabs(input * gain);
+    Sample floored = std::floor(input);
+    Sample height = std::pow(add, floored);
+    input
+      = sign * ((input - floored) * std::pow(mul, floored) * height + Sample(1) - height);
 
     if (f1 != 0) {
-      Sample x2_abs = somefabs<Sample>(x2);
+      Sample x2_abs = std::fabs(x2);
       Sample t = std::clamp<Sample>(
-        (Sample(1) - x2_abs) / (somefabs<Sample>(x1) + Sample(1) - x2_abs), Sample(0),
+        (Sample(1) - x2_abs) / (std::fabs(x1) + Sample(1) - x2_abs), Sample(0),
         Sample(1));
 
       Sample polyBlepResidual4_0 = -t * t * t * t / Sample(24) + t * t * t / Sample(6)
@@ -199,7 +199,7 @@ public:
 
     if (floored != lastInt) {
       if (floored < lastInt) height *= Sample(0.5);
-      f0 = height * sign * somecopysign<Sample>(Sample(1), lastInt - floored);
+      f0 = height * sign * std::copysign(Sample(1), lastInt - floored);
       lastInt = floored;
     } else {
       f0 = 0;
@@ -216,17 +216,17 @@ public:
   Sample process8(Sample input)
   {
     if (hardclip) input = std::clamp(input, Sample(-1), Sample(1));
-    Sample sign = somecopysign<Sample>(Sample(1), input);
-    input = somefabs<Sample>(input * gain);
-    Sample floored = somefloor<Sample>(input);
-    Sample height = somepow<Sample>(add, floored);
-    input = sign
-      * ((input - floored) * somepow<Sample>(mul, floored) * height + Sample(1) - height);
+    Sample sign = std::copysign(Sample(1), input);
+    input = std::fabs(input * gain);
+    Sample floored = std::floor(input);
+    Sample height = std::pow(add, floored);
+    input
+      = sign * ((input - floored) * std::pow(mul, floored) * height + Sample(1) - height);
 
     if (f3 != 0) {
-      Sample x4_abs = somefabs<Sample>(x4);
+      Sample x4_abs = std::fabs(x4);
       Sample t = std::clamp<Sample>(
-        (Sample(1) - x4_abs) / (somefabs<Sample>(x3) + Sample(1) - x4_abs), Sample(0),
+        (Sample(1) - x4_abs) / (std::fabs(x3) + Sample(1) - x4_abs), Sample(0),
         Sample(1));
 
       Sample polyBlepResidual8_0 = -t * t * t * t * t * t * t * t / Sample(40320)
@@ -278,7 +278,7 @@ public:
 
     if (floored != lastInt) {
       if (floored < lastInt) height *= Sample(0.5);
-      f0 = height * sign * somecopysign<Sample>(Sample(1), lastInt - floored);
+      f0 = height * sign * std::copysign(Sample(1), lastInt - floored);
       lastInt = floored;
     } else {
       f0 = 0;

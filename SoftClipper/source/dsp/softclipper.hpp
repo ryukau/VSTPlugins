@@ -16,9 +16,9 @@
 // along with SoftClipper.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "../../../common/dsp/decimationLowpass.hpp"
-#include "../../../common/dsp/somemath.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace SomeDSP {
 
@@ -48,18 +48,18 @@ public:
 
   Sample process(Sample x0)
   {
-    Sample absed = somefabs(x0);
+    Sample absed = std::fabs(x0);
 
     Sample rc = clipY * ratio;
     if (absed <= rc) return x0;
 
     Sample xc = rc + order * (clipY - rc);
-    Sample scale = (rc - clipY) / somepow(xc - rc, order);
-    Sample xs = xc - somepow(-slope / (scale * order), Sample(1) / (order - Sample(1)));
-    if (absed < xs) return somecopysign(clipY + scale * somepow(xc - absed, order), x0);
+    Sample scale = (rc - clipY) / std::pow(xc - rc, order);
+    Sample xs = xc - std::pow(-slope / (scale * order), Sample(1) / (order - Sample(1)));
+    if (absed < xs) return std::copysign(clipY + scale * std::pow(xc - absed, order), x0);
 
-    return somecopysign(
-      slope * (absed - xs) + clipY + scale * somepow(xc - xs, order), x0);
+    return std::copysign(
+      slope * (absed - xs) + clipY + scale * std::pow(xc - xs, order), x0);
   }
 
   Sample process16(Sample x0)

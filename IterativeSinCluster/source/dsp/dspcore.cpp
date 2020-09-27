@@ -96,8 +96,7 @@ void NOTE_NAME<Sample>::noteOn(
   const Sample pitchModulo
     = semiToPitch(param.value[ID::pitchModulo]->getFloat(), eqTemp);
 
-  frequency
-    *= somepow<Sample>(2, somefloor<Sample>(param.value[ID::masterOctave]->getFloat()));
+  frequency *= std::pow(2, std::floor(param.value[ID::masterOctave]->getFloat()));
   const Sample lowShelfFreq = frequency
     * semiToPitch(semiSign * param.value[ID::lowShelfPitch]->getFloat(), eqTemp);
   const Sample lowShelfGain = param.value[ID::lowShelfGain]->getFloat();

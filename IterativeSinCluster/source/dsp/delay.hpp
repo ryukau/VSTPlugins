@@ -151,13 +151,13 @@ public:
 
     const auto phaseDelta = interpPhase.process();
 
-    const Sample lfo = Sample(0.5) * (Sample(1) + somesin<Sample>(phase + phaseDelta));
+    const Sample lfo = Sample(0.5) * (Sample(1) + std::sin(phase + phaseDelta));
     delay.setTime(delayTimeLowpass.process(
       interpMinDelayTime.process() + lfo * interpDelayTimeRange.process()));
     feedbackBuffer = delay.process(input + interpFeedback.process() * feedbackBuffer);
 
     const Sample lfoDepth
-      = Sample(0.5) * (Sample(1) + somesin<Sample>(phase + phaseDelta + Sample(pi / 2)));
+      = Sample(0.5) * (Sample(1) + std::sin(phase + phaseDelta + Sample(pi / 2)));
     const auto depth = interpDepth.process();
     return {feedbackBuffer * (Sample(1) - depth * lfoDepth),
             feedbackBuffer * (Sample(1) - depth * (Sample(1) - lfoDepth))};

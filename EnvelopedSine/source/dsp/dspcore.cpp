@@ -71,8 +71,7 @@ void NOTE_NAME<Sample>::noteOn(
 {
   using ID = ParameterID::ID;
 
-  frequency
-    *= somepow<Sample>(2, somefloor<Sample>(param.value[ID::masterOctave]->getFloat()));
+  frequency *= std::pow(2, std::floor(param.value[ID::masterOctave]->getFloat()));
 
   state = NoteState::active;
   id = noteId;

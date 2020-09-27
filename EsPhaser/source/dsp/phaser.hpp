@@ -66,7 +66,7 @@ public:
     if (value == target) return value;
     value += ramp;
 
-    if (somefabs<Sample>(value - target) < epsilon) // This condition is sketchy.
+    if (std::fabs(value - target) < epsilon) // This condition is sketchy.
       value = target;
     return value;
   }

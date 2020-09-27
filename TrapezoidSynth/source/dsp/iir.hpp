@@ -18,10 +18,10 @@
 #pragma once
 
 #include "../../../common/dsp/constants.hpp"
-#include "../../../common/dsp/somemath.hpp"
 #include "../../../lib/juce_FastMathApproximations.h"
 
 #include <array>
+#include <cmath>
 
 namespace SomeDSP {
 
@@ -107,9 +107,9 @@ public:
     y1[7] = y0[7];
 
     const auto re = y0[3];
-    const auto norm = somesqrt<Sample>(re * re + im * im);
-    const auto theta = someatan2<Sample>(im, re);
-    const auto output = norm * somecos<Sample>(theta + phase);
+    const auto norm = std::sqrt(re * re + im * im);
+    const auto theta = std::atan2(im, re);
+    const auto output = norm * std::cos(theta + phase);
 
     // 1 sample delayed.
     im = y0[7];

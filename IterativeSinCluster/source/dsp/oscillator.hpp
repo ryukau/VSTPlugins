@@ -17,12 +17,12 @@
 
 #pragma once
 
-#include <array>
-
 #include "../../../common/dsp/constants.hpp"
-#include "../../../common/dsp/somemath.hpp"
 #include "../../../lib/vcl/vectorclass.h"
 #include "../../../lib/vcl/vectormath_trig.h"
+
+#include <array>
+#include <cmath>
 
 namespace SomeDSP {
 

@@ -50,7 +50,7 @@ template<typename Sample> struct EasyCompressor {
 
   Sample process(Sample input)
   {
-    auto inAbs = somefabs(input);
+    auto inAbs = std::fabs(input);
 
     if (inAbs > inHold) {
       inHold = inAbs;
@@ -176,7 +176,7 @@ public:
 
   void set(Sample sampleRate, Sample seconds)
   {
-    alpha = somepow(Sample(1) / threshold, Sample(1) / (seconds * sampleRate));
+    alpha = std::pow(Sample(1) / threshold, Sample(1) / (seconds * sampleRate));
   }
 
   void release() { rel = true; }

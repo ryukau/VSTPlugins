@@ -45,7 +45,7 @@ public:
   {
     this->length = length > maxLength ? maxLength : length;
 
-    this->damping = somepow<Sample>(damping, 44100.0f / sampleRate);
+    this->damping = std::pow(damping, 44100.0f / sampleRate);
 
     this->pulsePosition = size_t(pulsePosition * this->length);
 

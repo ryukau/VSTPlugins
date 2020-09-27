@@ -20,10 +20,10 @@
 #include "../../lib/vcl/vectorclass.h"
 
 #include "constants.hpp"
-#include "somemath.hpp"
 
 #include <algorithm>
 #include <array>
+#include <cmath>
 
 namespace SomeDSP {
 
@@ -37,8 +37,8 @@ public:
   static Sample cutoffToP(Sample sampleRate, Sample cutoffHz)
   {
     auto omega_c = Sample(twopi) * cutoffHz / sampleRate;
-    auto y = Sample(1) - somecos<Sample>(omega_c);
-    return -y + somesqrt<Sample>((y + Sample(2)) * y);
+    auto y = Sample(1) - std::cos(omega_c);
+    return -y + std::sqrt((y + Sample(2)) * y);
   }
 
   void setCutoff(Sample sampleRate, Sample cutoffHz)
@@ -138,7 +138,7 @@ public:
   Sample process()
   {
     value += ramp;
-    if (somefabs<Sample>(value - target) < Sample(1e-5)) value = target;
+    if (std::fabs(value - target) < Sample(1e-5)) value = target;
     return value;
   }
 
@@ -177,7 +177,7 @@ public:
   Sample process()
   {
     value += ramp;
-    if (somefabs<Sample>(value - target) < Sample(1e-5)) value = target;
+    if (std::fabs(value - target) < Sample(1e-5)) value = target;
     return value;
   }
 
@@ -211,13 +211,13 @@ public:
 
     if (dist1 < 0) {
       auto dist2 = this->target + max - this->value;
-      if (somefabs<Sample>(dist1) > dist2) {
+      if (std::fabs(dist1) > dist2) {
         this->ramp = dist2 / Common::timeInSamples;
         return;
       }
     } else {
       auto dist2 = this->target - max - this->value;
-      if (dist1 > somefabs<Sample>(dist2)) {
+      if (dist1 > std::fabs(dist2)) {
         this->ramp = dist2 / Common::timeInSamples;
         return;
       }
@@ -229,10 +229,10 @@ public:
   {
     if (this->value == this->target) return this->value;
     this->value += this->ramp;
-    this->value -= max * somefloor<Sample>(this->value / max);
+    this->value -= max * std::floor(this->value / max);
 
     auto diff = this->value - this->target;
-    if (somefabs<Sample>(diff) < 1e-5) this->value = this->target;
+    if (std::fabs(diff) < 1e-5) this->value = this->target;
     return this->value;
   }
 

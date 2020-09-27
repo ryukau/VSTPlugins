@@ -19,16 +19,16 @@
 
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/smoother.hpp"
-#include "../../../common/dsp/somemath.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace SomeDSP {
 
 // t in [0, 1].
 template<typename Sample> inline Sample cosinterp(Sample t)
 {
-  return 0.5 * (1.0 - somecos<Sample>(pi * t));
+  return 0.5 * (1.0 - std::cos(pi * t));
 }
 
 template<typename Sample> class ExpDecay {
@@ -82,8 +82,7 @@ protected:
     if (decayTime * sampleRate <= declickLength)
       alpha = threshold;
     else
-      alpha = somepow<Sample>(
-        threshold, Sample(1.0) / (decayTime * sampleRate - declickLength));
+      alpha = std::pow(threshold, Sample(1.0) / (decayTime * sampleRate - declickLength));
   }
 
   int32_t declickLength = 0;

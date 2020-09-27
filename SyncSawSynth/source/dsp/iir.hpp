@@ -18,8 +18,9 @@
 #pragma once
 
 #include "../../../common/dsp/constants.hpp"
-#include "../../../common/dsp/somemath.hpp"
 #include "../../../lib/juce_FastMathApproximations.h"
+
+#include <cmath>
 
 #include <array>
 #include <memory>
@@ -116,7 +117,7 @@ public:
   void setBandpass()
   {
     // 0.34657359027997264 = log(2) / 2.
-    alpha = sin_w0 * somesinh<Sample>(Sample(0.34657359027997264) * q * w0 / sin_w0);
+    alpha = sin_w0 * std::sinh(Sample(0.34657359027997264) * q * w0 / sin_w0);
     b0 = alpha;
     b1 = 0.0;
     b2 = -alpha;
@@ -127,7 +128,7 @@ public:
 
   void setNotch()
   {
-    alpha = sin_w0 * somesinh<Sample>(Sample(0.34657359027997264) * q * w0 / sin_w0);
+    alpha = sin_w0 * std::sinh(Sample(0.34657359027997264) * q * w0 / sin_w0);
     b0 = Sample(1.0);
     b1 = -Sample(2.0) * cos_w0;
     b2 = Sample(1.0);
@@ -166,7 +167,7 @@ public:
 
   Sample shaperSinRunge(Sample x)
   {
-    return somesin<Sample>(Sample(2.0 * pi) * x) / (Sample(1.0) + Sample(10.0) * x * x);
+    return std::sin(Sample(2.0 * pi) * x) / (Sample(1.0) + Sample(10.0) * x * x);
   }
 
   Sample shaperCubicExpDecayAbs(Sample x)
@@ -174,7 +175,7 @@ public:
     // Solve x for: diff(x^3*exp(-x), x) = 0,
     // then we get: x = 0, 27 * math.exp(-3).
     // 0.7439087749328765 = 1 / (27 * math.exp(-3))
-    return Sample(0.7439087749328765) * x * x * x * someexp<Sample>(-somefabs<Sample>(x));
+    return Sample(0.7439087749328765) * x * x * x * std::exp(-std::fabs(x));
   }
 
   Sample shaperHardclip(Sample x)
@@ -192,7 +193,7 @@ public:
         break;
 
       case ShaperType::tanh:
-        // input = sometanh<Sample>(input);
+        // input = std::tanh(input);
         input = juce::dsp::FastMathApproximations::tanh<Sample>(input);
         break;
 

@@ -19,14 +19,15 @@
 
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/smoother.hpp"
-#include "../../../common/dsp/somemath.hpp"
+
+#include <cmath>
 
 namespace SomeDSP {
 
 // t in [0, 1].
 template<typename Sample> inline Sample cosinterp(Sample t)
 {
-  return 0.5 * (1.0 - somecos<Sample>(pi * t));
+  return 0.5 * (1.0 - std::cos(pi * t));
 }
 
 // When using float, time will be shorten.
@@ -86,17 +87,17 @@ public:
     if (releaseTime * sampleRate <= declickLength)
       releaseAlpha = threshold;
     else
-      releaseAlpha = somepow<Sample>(
-        threshold, Sample(1.0) / (releaseTime * sampleRate - declickLength));
+      releaseAlpha
+        = std::pow(threshold, Sample(1.0) / (releaseTime * sampleRate - declickLength));
 
     switch (state) {
       case State::attack:
-        alpha = somepow<Sample>(
-          Sample(1.0) / threshold, Sample(1.0) / (attackTime * sampleRate));
+        alpha
+          = std::pow(Sample(1.0) / threshold, Sample(1.0) / (attackTime * sampleRate));
         break;
 
       case State::decay:
-        alpha = somepow<Sample>(threshold, Sample(1.0) / (decayTime * sampleRate));
+        alpha = std::pow(threshold, Sample(1.0) / (decayTime * sampleRate));
         break;
 
       case State::release:
@@ -146,7 +147,7 @@ public:
         if (value >= Sample(1.0)) {
           value = Sample(1.0);
           state = State::decay;
-          alpha = somepow<Sample>(threshold, Sample(1.0) / (decayTime * sampleRate));
+          alpha = std::pow(threshold, Sample(1.0) / (decayTime * sampleRate));
         }
         output = value;
         break;
@@ -314,8 +315,8 @@ public:
   void reset(Sample attack, Sample curve)
   {
     alpha = attack * curve;
-    peak = somepow<Sample>(alpha / curve, alpha) * someexp<Sample>(-alpha);
-    gamma = someexp<Sample>(-curve / sampleRate);
+    peak = std::pow(alpha / curve, alpha) * std::exp(-alpha);
+    gamma = std::exp(-curve / sampleRate);
     tick = 1.0 / sampleRate;
 
     time = 0.0;
@@ -324,7 +325,7 @@ public:
 
   Sample process()
   {
-    auto output = somepow<Sample>(time, alpha) * value / peak;
+    auto output = std::pow(time, alpha) * value / peak;
     if (!std::isfinite(output)) return 0.0; // TODO
     time += tick;
     value *= gamma;

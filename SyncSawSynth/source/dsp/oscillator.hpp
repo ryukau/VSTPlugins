@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include "../../../common/dsp/somemath.hpp"
+#include <cmath>
 
 namespace SomeDSP {
 
@@ -33,10 +33,10 @@ public:
   void setSyncFreq(Sample hz) { syncTick = hz / sampleRate; }
   void setOrder(uint32_t order) { this->order = order; }
 
-  void setPhase(Sample phase) { oscPhase = phase - somefloor<Sample>(phase); }
+  void setPhase(Sample phase) { oscPhase = phase - std::floor(phase); }
   void addPhase(Sample phase)
   {
-    oscPhase += phase - somefloor<Sample>(phase);
+    oscPhase += phase - std::floor(phase);
     if (oscPhase > 1.0) oscPhase -= 1.0;
   }
 
@@ -89,7 +89,7 @@ public:
         break;
 
       case 11:
-        lastSig = -somesin<Sample>(oscPhase * Sample(2.0) * Sample(pi));
+        lastSig = -std::sin(oscPhase * Sample(2.0) * Sample(pi));
         break;
 
       case 12:
@@ -118,12 +118,12 @@ public:
   {
     syncPhase += syncTick + modSync;
     if (syncPhase >= Sample(1.0) || syncPhase < 0.0) {
-      syncPhase -= somefloor<Sample>(syncPhase);
+      syncPhase -= std::floor(syncPhase);
 
       oscPhase = syncPhase;
       if (syncTick != 0.0) {
         auto ratio = oscTick / syncTick;
-        height = ratio - somefloor<Sample>(ratio);
+        height = ratio - std::floor(ratio);
       } else {
         height = lastSig;
         ptr();
@@ -135,7 +135,7 @@ public:
       oscPhase += oscTick + modOsc;
       if (oscPhase >= Sample(1.0) || oscPhase < 0.0) {
         height = Sample(1.0);
-        oscPhase -= somefloor<Sample>(oscPhase);
+        oscPhase -= std::floor(oscPhase);
       }
     }
     ptr();

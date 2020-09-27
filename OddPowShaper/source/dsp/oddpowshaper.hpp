@@ -16,9 +16,9 @@
 // along with OddPowShaper.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "../../../common/dsp/decimationLowpass.hpp"
-#include "../../../common/dsp/somemath.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace SomeDSP {
 
@@ -40,9 +40,9 @@ public:
 
   Sample process(Sample x0)
   {
-    Sample absed = somefabs(x0 * drive);
+    Sample absed = std::fabs(x0 * drive);
 
-    Sample y2 = somefmod(absed, Sample(2)) - Sample(1);
+    Sample y2 = std::fmod(absed, Sample(2)) - Sample(1);
     y2 *= y2;
 
     Sample expo = y2;
@@ -50,7 +50,7 @@ public:
     if (inverse) expo = Sample(1) / (Sample(1) + expo);
     if (flip) expo = Sample(1) - expo;
 
-    Sample output = somecopysign(somepow(absed, expo), x0);
+    Sample output = std::copysign(std::pow(absed, expo), x0);
     if (!inverse) output /= drive;
 
     return std::isfinite(output) ? output : 0;

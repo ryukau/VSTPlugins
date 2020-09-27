@@ -19,14 +19,15 @@
 
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/smoother.hpp"
-#include "../../../common/dsp/somemath.hpp"
+
+#include <cmath>
 
 namespace SomeDSP {
 
 // t in [0, 1].
 template<typename Sample> inline Sample cosinterp(Sample t)
 {
-  return 0.5 * (1.0 - somecos<Sample>(pi * t));
+  return 0.5 * (1.0 - std::cos(pi * t));
 }
 
 template<typename Sample> class ExpDecayCurve {
@@ -39,7 +40,7 @@ public:
 
   void set(Sample sampleRate, Sample seconds)
   {
-    alpha = somepow<Sample>(threshold, Sample(1) / (seconds * sampleRate));
+    alpha = std::pow(threshold, Sample(1) / (seconds * sampleRate));
   }
 
   bool isTerminated() { return value <= threshold; }
@@ -67,8 +68,7 @@ public:
 
   void set(Sample sampleRate, Sample seconds)
   {
-    alpha
-      = somepow<Sample>(Sample(1.0) / threshold, Sample(1.0) / (seconds * sampleRate));
+    alpha = std::pow(Sample(1.0) / threshold, Sample(1.0) / (seconds * sampleRate));
   }
 
   bool isTerminated() { return value >= Sample(1); }
@@ -97,7 +97,7 @@ public:
 
   void set(Sample sampleRate, Sample seconds)
   {
-    alpha = somepow<Sample>(threshold, Sample(1) / (seconds * sampleRate));
+    alpha = std::pow(threshold, Sample(1) / (seconds * sampleRate));
   }
 
   bool isTerminated() { return value <= threshold; }

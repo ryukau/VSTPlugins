@@ -51,7 +51,7 @@ public:
     phase += tick;
     if (phase < Sample(1)) return 0;
     phase -= Sample(1);
-    return Sample(2) * someround<Sample>(rng.process()) - Sample(1);
+    return Sample(2) * std::round(rng.process()) - Sample(1);
   }
 
   Sample sampleRate = 44100;
@@ -78,7 +78,7 @@ public:
       const Sample rnd
         = (Sample)seed / ((Sample)INT32_MAX + Sample(1.0)); // Normalize to [-1, 1).
       output = last + rnd * drift;
-    } while (somefabs<Sample>(output) > Sample(1.0));
+    } while (std::fabs(output) > Sample(1.0));
     last = output;
     return output;
   }

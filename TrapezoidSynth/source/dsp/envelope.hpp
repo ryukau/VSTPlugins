@@ -18,9 +18,9 @@
 #pragma once
 
 #include "../../../common/dsp/constants.hpp"
-#include "../../../common/dsp/somemath.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace SomeDSP {
 
@@ -47,7 +47,7 @@ private:
 // t in [0, 1].
 template<typename Sample> inline Sample cosinterp(Sample t)
 {
-  return 0.5 * (1.0 - somecos<Sample>(pi * t));
+  return 0.5 * (1.0 - std::cos(pi * t));
 }
 
 enum class EnvelopeCurveType { attack, decay };
@@ -85,10 +85,10 @@ public:
   {
     if (type == EnvelopeCurveType::attack) {
       if (counter >= length) return 1.0;
-      return somepow<Sample>((Sample)(++counter) / length, power);
+      return std::pow((Sample)(++counter) / length, power);
     } else {
       if (counter <= 0) return 0.0;
-      return somepow<Sample>((Sample)(--counter) / length, power);
+      return std::pow((Sample)(--counter) / length, power);
     }
   }
 
@@ -104,7 +104,7 @@ public:
   TableCurve(Sample sampleRate, Sample seconds, Sample curve)
   {
     for (size_t i = 0; i < tableSize; ++i)
-      tableF[i] = somepow<Sample>(i / Sample(tableSize - 1), Sample(4.5));
+      tableF[i] = std::pow(i / Sample(tableSize - 1), Sample(4.5));
 
     for (size_t i = 0; i < tableSize; ++i) tableR[i] = 1 - tableF[tableSize - 1 - i];
 
@@ -141,7 +141,7 @@ public:
   Sample at(Sample pos)
   {
     size_t low = phase;
-    size_t high = someceil<Sample>(phase);
+    size_t high = std::ceil(phase);
     auto outF = tableF[low] + (pos - low) * (tableF[high] - tableF[low]);
     auto outR = tableR[low] + (pos - low) * (tableR[high] - tableR[low]);
     return outF + curve * (outR - outF);
@@ -317,8 +317,8 @@ public:
   void reset(Sample attack, Sample curve)
   {
     alpha = attack * curve;
-    peak = somepow<Sample>(alpha / curve, alpha) * someexp<Sample>(-alpha);
-    gamma = someexp<Sample>(-curve / sampleRate);
+    peak = std::pow(alpha / curve, alpha) * std::exp(-alpha);
+    gamma = std::exp(-curve / sampleRate);
     tick = 1.0 / sampleRate;
 
     time = 0.0;
@@ -327,7 +327,7 @@ public:
 
   Sample process()
   {
-    auto output = somepow<Sample>(time, alpha) * value / peak;
+    auto output = std::pow(time, alpha) * value / peak;
     if (!std::isfinite(output)) return 0.0; // TODO
     time += tick;
     value *= gamma;

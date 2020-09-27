@@ -18,7 +18,6 @@
 #pragma once
 
 #include "../../../common/dsp/smoother.hpp"
-#include "../../../common/dsp/somemath.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -27,7 +26,7 @@ namespace SomeDSP {
 
 template<typename Sample> inline void trimNoteFreq(Sample &noteFreq)
 {
-  if (somefabs(noteFreq) < Sample(0.001)) noteFreq = Sample(0.001);
+  if (std::fabs(noteFreq) < Sample(0.001)) noteFreq = Sample(0.001);
 }
 
 template<typename Sample> inline Sample adaptTime(Sample seconds, Sample noteFreq)
@@ -46,7 +45,7 @@ public:
 
   void set(Sample sampleRate, Sample seconds)
   {
-    alpha = somepow(threshold, Sample(1) / (seconds * sampleRate));
+    alpha = std::pow(threshold, Sample(1) / (seconds * sampleRate));
   }
 
   bool isTerminated() { return value <= threshold; }
@@ -74,7 +73,7 @@ public:
 
   void set(Sample sampleRate, Sample seconds)
   {
-    alpha = somepow(Sample(1) / threshold, Sample(1) / (seconds * sampleRate));
+    alpha = std::pow(Sample(1) / threshold, Sample(1) / (seconds * sampleRate));
   }
 
   bool isTerminated() { return value >= Sample(1); }

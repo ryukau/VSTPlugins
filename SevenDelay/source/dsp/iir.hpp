@@ -29,7 +29,7 @@ public:
 
   void setCoefficient()
   {
-    Sample omega_c = sometan(Sample(pi) * cutoff / sampleRate);
+    Sample omega_c = std::tan(Sample(pi) * cutoff / sampleRate);
     g = omega_c / (Sample(1.0) + omega_c);
     twoR = 2 * resonance;
     g1 = twoR + g;
@@ -110,8 +110,8 @@ public:
     f0 = hz > 0.0 ? hz : 0.0;
 
     Sample w0 = Sample(twopi) * f0 / fs;
-    Sample cos_w0 = somecos(w0);
-    Sample sin_w0 = somesin(w0);
+    Sample cos_w0 = std::cos(w0);
+    Sample sin_w0 = std::sin(w0);
 
     Sample alpha = sin_w0 / (Sample(2.0) * q);
     b0 = (Sample(1.0) + cos_w0) / Sample(2.0);

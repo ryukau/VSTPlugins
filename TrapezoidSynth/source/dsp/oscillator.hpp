@@ -17,12 +17,12 @@
 
 #pragma once
 
-#include <algorithm>
-
 #include "../../../common/dsp/constants.hpp"
-#include "../../../common/dsp/somemath.hpp"
 #include "../../../lib/juce_FastMathApproximations.h"
 #include "noise.hpp"
+
+#include <algorithm>
+#include <cmath>
 
 namespace SomeDSP {
 
@@ -62,8 +62,8 @@ public:
     if (phaseRad > Sample(pi)) phaseRad -= Sample(twopi);
 
     auto sign = (Sample(pi) < phaseRad) - (phaseRad < Sample(pi));
-    auto sinSig = somefabs<Sample>(juce::dsp::FastMathApproximations::sin(phaseRad));
-    return Sample(0.5) + Sample(0.5) * sign * somepow<Sample>(sinSig, Sample(2) * pw);
+    auto sinSig = std::fabs(juce::dsp::FastMathApproximations::sin(phaseRad));
+    return Sample(0.5) + Sample(0.5) * sign * std::pow(sinSig, Sample(2) * pw);
   }
 
   inline Sample saw()
@@ -125,7 +125,7 @@ public:
   {
     if (tick <= 0) return 0;
     phase += tick;
-    phase -= somefloor<float>(phase);
+    phase -= std::floor(phase);
     return ptrTpz5(phase, tick, slope, pw);
   }
 

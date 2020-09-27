@@ -259,7 +259,7 @@ void DSPCore::noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity
   const float fdnTime = param.value[ParameterID::fdnTime]->getFloat();
   for (size_t n = 0; n < fdnCascade.size(); ++n) {
     float diagMod = float(n + 1) / fdnCascade.size();
-    float delayTimeMod = somepow<float>(diagMod * 2.0f, 0.8f);
+    float delayTimeMod = std::pow(diagMod * 2.0f, 0.8f);
     for (size_t i = 0; i < fdnMatrixSize; ++i) {
       for (size_t j = 0; j < fdnMatrixSize; ++j) {
         if (i == j)

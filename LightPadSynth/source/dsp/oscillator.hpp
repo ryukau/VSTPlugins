@@ -21,9 +21,9 @@
 #include "../../../lib/AudioFFT/AudioFFT.h"
 
 #include "../../../common/dsp/constants.hpp"
-#include "../../../common/dsp/somemath.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <complex>
 #include <cstring>
 #include <deque>

@@ -301,7 +301,7 @@ template<typename Sample> Sample TpzMono<Sample>::process(const size_t bufferSiz
 template<typename Sample> Sample TpzMono<Sample>::getOctave(GlobalParameter &param)
 {
   int32_t index = 4
-    + int32_t(somefloor<Sample>(
+    + int32_t(std::floor(
       param.value[ParameterID::octave]->getFloat()
       + filterEnvelope.getValue()
         * param.value[ParameterID::filterEnvToOctave]->getFloat()));

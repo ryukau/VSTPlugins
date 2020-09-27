@@ -84,7 +84,7 @@ public:
     phase += tick;
     if (phase < Sample(1)) return 0;
     phase -= Sample(1);
-    return Sample(2) * someround<Sample>(rng.process()) - Sample(1);
+    return Sample(2) * std::round(rng.process()) - Sample(1);
   }
 
   Sample sampleRate = 44100;
