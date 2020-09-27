@@ -93,10 +93,11 @@ tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 
 tresult PLUGIN_API PlugProcessor::setActive(TBool state)
 {
+  if (dsp == nullptr) return kResultFalse;
   if (state) {
-    if (dsp == nullptr) return kNotInitialized;
     dsp->setup(processSetup.sampleRate);
   } else {
+    dsp->reset();
     lastState = 0;
   }
   return AudioEffect::setActive(state);
