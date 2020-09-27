@@ -38,7 +38,7 @@ constexpr size_t oscillatorSize = 4;
 enum class NoteState { active, release, rest };
 
 #define NOTE_CLASS(INSTRSET)                                                             \
-  template<typename Sample> class Note_##INSTRSET {                                      \
+  template<typename Sample> class alignas(64) Note_##INSTRSET {                          \
   public:                                                                                \
     NoteState state = NoteState::rest;                                                   \
                                                                                          \
@@ -118,7 +118,7 @@ Transition happens when synth is playing all notes and user send a new note on.
 transitionBuffer is used to store a release of a note to reduce pop noise.
 */
 #define DSPCORE_CLASS(INSTRSET)                                                          \
-  class DSPCore_##INSTRSET final : public DSPInterface {                                 \
+  class alignas(64) DSPCore_##INSTRSET final : public DSPInterface {                     \
   public:                                                                                \
     DSPCore_##INSTRSET();                                                                \
                                                                                          \
