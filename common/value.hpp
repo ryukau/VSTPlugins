@@ -130,20 +130,17 @@ struct IntValue : public ValueInterface {
 
   void setFromInt(uint32_t value) override
   {
-    raw = value < scale.getMin() ? scale.getMin()
-                                 : value > scale.getMax() ? scale.getMax() : value;
+    raw = std::clamp<uint32_t>(value, scale.getMin(), scale.getMax());
   }
 
   void setFromFloat(double valueFloat) override
   {
-    uint32_t value = uint32_t(valueFloat);
-    raw = value < scale.getMin() ? scale.getMin()
-                                 : value > scale.getMax() ? scale.getMax() : value;
+    raw = std::clamp<uint32_t>(uint32_t(valueFloat), scale.getMin(), scale.getMax());
   }
 
   void setFromNormalized(double value) override
   {
-    raw = scale.map(value < 0.0 ? 0.0 : value > 1.0 ? 1.0 : value);
+    raw = scale.map(std::clamp<double>(value, 0.0, 1.0));
   }
 
   tresult setState(IBStreamer &streamer) override
@@ -199,19 +196,17 @@ template<typename Scale> struct FloatValue : public ValueInterface {
 
   void setFromInt(uint32_t value) override
   {
-    raw = value < scale.getMin() ? scale.getMin()
-                                 : value > scale.getMax() ? scale.getMax() : value;
+    raw = std::clamp<double>(value, scale.getMin(), scale.getMax());
   }
 
   void setFromFloat(double value) override
   {
-    raw = value < scale.getMin() ? scale.getMin()
-                                 : value > scale.getMax() ? scale.getMax() : value;
+    raw = std::clamp<double>(value, scale.getMin(), scale.getMax());
   }
 
   void setFromNormalized(double value) override
   {
-    raw = scale.map(value < 0.0 ? 0.0 : value > 1.0 ? 1.0 : value);
+    raw = scale.map(std::clamp<double>(value, 0.0, 1.0));
   }
 
   tresult setState(IBStreamer &streamer) override
@@ -233,7 +228,6 @@ template<typename Scale> struct FloatValue : public ValueInterface {
     auto par = parameters.addParameter(new Vst::ScaledParameter<Scale>(
       USTRING(name.c_str()), id, scale, defaultNormalized, USTRING(unit.c_str()),
       parameterFlags));
-    if (par == nullptr) return kResultFalse;
     return par == nullptr ? kResultFalse : kResultOk;
   }
 
