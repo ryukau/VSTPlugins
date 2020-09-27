@@ -267,7 +267,7 @@ ET, A4 [Hz]
 
 :   Changes tuning.
 
-    `ET` stands for equal temperature. Note that when `ET` is less than 12, some notes becomes silent due to frequency becomes too high or too low.
+    `ET` stands for equal temperament. Note that when `ET` is less than 12, some notes becomes silent due to frequency becomes too high or too low.
 
     `A4 [Hz]` is frequency of note A4.
 
