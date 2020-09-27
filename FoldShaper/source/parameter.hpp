@@ -72,9 +72,6 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::bypass] = std::make_unique<IntValue>(
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
-    value[ID::bypass]
-      = std::make_unique<IntValue>(0, Scales::boolScale, "bypass", Info::kCanAutomate);
-
     value[ID::inputGain] = std::make_unique<LogValue>(
       0.5, Scales::inputGain, "inputGain", Info::kCanAutomate);
     value[ID::mul]
