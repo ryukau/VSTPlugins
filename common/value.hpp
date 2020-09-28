@@ -100,8 +100,8 @@ struct ValueInterface {
   virtual void setId(Vst::ParamID id) = 0;
 };
 
-struct IntValue : public ValueInterface {
-  SomeDSP::IntScale<double> &scale;
+struct UIntValue : public ValueInterface {
+  SomeDSP::UIntScale<double> &scale;
   double defaultNormalized;
   uint32_t raw;
 
@@ -110,9 +110,9 @@ struct IntValue : public ValueInterface {
   int32 parameterFlags;
   Vst::ParamID id;
 
-  IntValue(
+  UIntValue(
     uint32_t defaultRaw,
-    SomeDSP::IntScale<double> &scale,
+    SomeDSP::UIntScale<double> &scale,
     std::string name,
     int32 parameterFlags)
     : scale(scale)

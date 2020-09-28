@@ -59,10 +59,10 @@ enum ID {
 } // namespace ParameterID
 
 struct Scales {
-  static SomeDSP::IntScale<double> boolScale;
+  static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LinearScale<double> defaultScale;
 
-  static SomeDSP::IntScale<double> seed;
+  static SomeDSP::UIntScale<double> seed;
   static SomeDSP::LogScale<double> randomAmount;
   static SomeDSP::LinearScale<double> nCymbal;
   static SomeDSP::LogScale<double> decay;
@@ -71,10 +71,10 @@ struct Scales {
   static SomeDSP::LogScale<double> maxFrequency;
   static SomeDSP::LinearScale<double> bandpassQ;
   static SomeDSP::LogScale<double> distance;
-  static SomeDSP::IntScale<double> stack;
+  static SomeDSP::UIntScale<double> stack;
   static SomeDSP::LogScale<double> pickCombFeedback;
   static SomeDSP::LogScale<double> pickCombTime;
-  static SomeDSP::IntScale<double> oscType;
+  static SomeDSP::UIntScale<double> oscType;
   static SomeDSP::LogScale<double> smoothness;
 
   static SomeDSP::LogScale<double> gain;
@@ -92,17 +92,17 @@ struct GlobalParameter : public ParameterInterface {
     using LinearValue = FloatValue<SomeDSP::LinearScale<double>>;
     using LogValue = FloatValue<SomeDSP::LogScale<double>>;
 
-    value[ID::bypass] = std::make_unique<IntValue>(
+    value[ID::bypass] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     value[ID::seed]
-      = std::make_unique<IntValue>(6583421, Scales::seed, "seed", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(6583421, Scales::seed, "seed", Info::kCanAutomate);
     value[ID::randomAmount] = std::make_unique<LogValue>(
       1.0, Scales::randomAmount, "randomAmount", Info::kCanAutomate);
     value[ID::nCymbal] = std::make_unique<LinearValue>(
       1.0, Scales::nCymbal, "nCymbal", Info::kCanAutomate);
     value[ID::stack]
-      = std::make_unique<IntValue>(24, Scales::stack, "stack", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(24, Scales::stack, "stack", Info::kCanAutomate);
     value[ID::decay]
       = std::make_unique<LogValue>(0.5, Scales::decay, "decay", Info::kCanAutomate);
     value[ID::distance]
@@ -123,16 +123,16 @@ struct GlobalParameter : public ParameterInterface {
       0.5, Scales::pickCombFeedback, "pickCombFeedback", Info::kCanAutomate);
     value[ID::pickCombTime] = std::make_unique<LogValue>(
       0.25, Scales::pickCombTime, "pickCombTime", Info::kCanAutomate);
-    value[ID::retrigger]
-      = std::make_unique<IntValue>(0, Scales::boolScale, "retrigger", Info::kCanAutomate);
-    value[ID::cutoffMap]
-      = std::make_unique<IntValue>(0, Scales::boolScale, "cutoffMap", Info::kCanAutomate);
-    value[ID::excitation] = std::make_unique<IntValue>(
+    value[ID::retrigger] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "retrigger", Info::kCanAutomate);
+    value[ID::cutoffMap] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "cutoffMap", Info::kCanAutomate);
+    value[ID::excitation] = std::make_unique<UIntValue>(
       1, Scales::boolScale, "excitation", Info::kCanAutomate);
-    value[ID::collision]
-      = std::make_unique<IntValue>(1, Scales::boolScale, "collision", Info::kCanAutomate);
+    value[ID::collision] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "collision", Info::kCanAutomate);
     value[ID::oscType]
-      = std::make_unique<IntValue>(2, Scales::oscType, "oscType", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(2, Scales::oscType, "oscType", Info::kCanAutomate);
     value[ID::smoothness] = std::make_unique<LogValue>(
       0.7, Scales::smoothness, "smoothness", Info::kCanAutomate);
 

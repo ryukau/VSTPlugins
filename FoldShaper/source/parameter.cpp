@@ -23,7 +23,7 @@ namespace Synth {
 
 using namespace SomeDSP;
 
-IntScale<double> Scales::boolScale(1);
+UIntScale<double> Scales::boolScale(1);
 LinearScale<double> Scales::defaultScale(0.0, 1.0);
 
 LogScale<double> Scales::inputGain(0.0, 16.0, 0.5, 2.0);

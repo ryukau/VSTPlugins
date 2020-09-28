@@ -69,10 +69,10 @@ enum ID {
 } // namespace ParameterID
 
 struct Scales {
-  static SomeDSP::IntScale<double> boolScale;
+  static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LinearScale<double> defaultScale;
 
-  static SomeDSP::IntScale<double> seed;
+  static SomeDSP::UIntScale<double> seed;
   static SomeDSP::LogScale<double> fdnTime;
   static SomeDSP::LogScale<double> fdnFeedback;
   static SomeDSP::LogScale<double> fdnCascadeMix;
@@ -101,20 +101,20 @@ struct GlobalParameter : public ParameterInterface {
     using LinearValue = FloatValue<SomeDSP::LinearScale<double>>;
     using LogValue = FloatValue<SomeDSP::LogScale<double>>;
 
-    value[ID::bypass] = std::make_unique<IntValue>(
+    value[ID::bypass] = std::make_unique<UIntValue>(
       false, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     value[ID::seed]
-      = std::make_unique<IntValue>(6583421, Scales::seed, "seed", Info::kCanAutomate);
-    value[ID::retriggerTime] = std::make_unique<IntValue>(
+      = std::make_unique<UIntValue>(6583421, Scales::seed, "seed", Info::kCanAutomate);
+    value[ID::retriggerTime] = std::make_unique<UIntValue>(
       true, Scales::boolScale, "retriggerTime", Info::kCanAutomate);
-    value[ID::retriggerStick] = std::make_unique<IntValue>(
+    value[ID::retriggerStick] = std::make_unique<UIntValue>(
       false, Scales::boolScale, "retriggerStick", Info::kCanAutomate);
-    value[ID::retriggerTremolo] = std::make_unique<IntValue>(
+    value[ID::retriggerTremolo] = std::make_unique<UIntValue>(
       false, Scales::boolScale, "retriggerTremolo", Info::kCanAutomate);
 
     value[ID::fdn]
-      = std::make_unique<IntValue>(true, Scales::boolScale, "fdn", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(true, Scales::boolScale, "fdn", Info::kCanAutomate);
     value[ID::fdnTime]
       = std::make_unique<LogValue>(0.2, Scales::fdnTime, "fdnTime", Info::kCanAutomate);
     value[ID::fdnFeedback] = std::make_unique<LogValue>(
@@ -124,7 +124,7 @@ struct GlobalParameter : public ParameterInterface {
 
     value[ID::allpassMix] = std::make_unique<LinearValue>(
       0.75, Scales::defaultScale, "allpassMix", Info::kCanAutomate);
-    value[ID::allpass1Saturation] = std::make_unique<IntValue>(
+    value[ID::allpass1Saturation] = std::make_unique<UIntValue>(
       true, Scales::boolScale, "allpass1Saturation", Info::kCanAutomate);
     value[ID::allpass1Time] = std::make_unique<LogValue>(
       0.5, Scales::allpassTime, "allpass1Time", Info::kCanAutomate);
@@ -155,7 +155,7 @@ struct GlobalParameter : public ParameterInterface {
       0.35, Scales::defaultScale, "randomTremoloDelayTime", Info::kCanAutomate);
 
     value[ID::stick]
-      = std::make_unique<IntValue>(true, Scales::boolScale, "stick", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(true, Scales::boolScale, "stick", Info::kCanAutomate);
     value[ID::stickDecay] = std::make_unique<LogValue>(
       0.5, Scales::stickDecay, "stickDecay", Info::kCanAutomate);
     value[ID::stickToneMix] = std::make_unique<LogValue>(

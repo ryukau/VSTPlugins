@@ -84,7 +84,7 @@ inline nlohmann::json loadStyleJson()
   return data;
 }
 
-inline int strHexToUint8(std::string str)
+inline int strHexToUInt8(std::string str)
 {
   return std::clamp<int>(std::stoi(str, 0, 16), 0, 255);
 }
@@ -104,9 +104,9 @@ inline void loadColor(nlohmann::json &data, std::string key, VSTGUI::CColor &col
   if (hex.size() != 7 && hex.size() != 9) return;
 
   color = VSTGUI::CColor(
-    strHexToUint8(hex.substr(1, 2)), strHexToUint8(hex.substr(3, 2)),
-    strHexToUint8(hex.substr(5, 2)),
-    hex.size() != 9 ? 255 : strHexToUint8(hex.substr(7, 2)));
+    strHexToUInt8(hex.substr(1, 2)), strHexToUInt8(hex.substr(3, 2)),
+    strHexToUInt8(hex.substr(5, 2)),
+    hex.size() != 9 ? 255 : strHexToUInt8(hex.substr(7, 2)));
 }
 
 void Uhhyou::Palette::load()

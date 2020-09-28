@@ -121,7 +121,7 @@ enum ID {
 } // namespace ParameterID
 
 struct Scales {
-  static SomeDSP::IntScale<double> boolScale;
+  static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LinearScale<double> defaultScale;
 
   static SomeDSP::DecibelScale<double> overtoneGain;
@@ -130,15 +130,15 @@ struct Scales {
   static SomeDSP::LinearScale<double> overtonePhase;
 
   static SomeDSP::LogScale<double> tableBaseFrequency;
-  static SomeDSP::IntScale<double> tableBufferSize;
+  static SomeDSP::UIntScale<double> tableBufferSize;
   static SomeDSP::LogScale<double> overtoneGainPower;
   static SomeDSP::LogScale<double> overtoneWidthMultiply;
   static SomeDSP::LogScale<double> overtonePitchMultiply;
   static SomeDSP::LinearScale<double> overtonePitchModulo;
   static SomeDSP::LogScale<double> spectrumExpand;
-  static SomeDSP::IntScale<double> profileComb;
+  static SomeDSP::UIntScale<double> profileComb;
   static SomeDSP::LogScale<double> profileShape;
-  static SomeDSP::IntScale<double> seed;
+  static SomeDSP::UIntScale<double> seed;
 
   static SomeDSP::LogScale<double> gain;
   static SomeDSP::LogScale<double> envelopeA;
@@ -149,27 +149,27 @@ struct Scales {
   static SomeDSP::LogScale<double> filterCutoff;
   static SomeDSP::LinearScale<double> filterResonance;
 
-  static SomeDSP::IntScale<double> delayDetuneSemi;
+  static SomeDSP::UIntScale<double> delayDetuneSemi;
   static SomeDSP::LinearScale<double> delayFeedback;
 
-  static SomeDSP::IntScale<double> oscOctave;
-  static SomeDSP::IntScale<double> oscSemi;
-  static SomeDSP::IntScale<double> oscMilli;
-  static SomeDSP::IntScale<double> equalTemperament;
-  static SomeDSP::IntScale<double> pitchA4Hz;
+  static SomeDSP::UIntScale<double> oscOctave;
+  static SomeDSP::UIntScale<double> oscSemi;
+  static SomeDSP::UIntScale<double> oscMilli;
+  static SomeDSP::UIntScale<double> equalTemperament;
+  static SomeDSP::UIntScale<double> pitchA4Hz;
 
   static SomeDSP::LinearScale<double> lfoWavetable;
-  static SomeDSP::IntScale<double> lfoWavetableType;
-  static SomeDSP::IntScale<double> lfoTempoNumerator;
-  static SomeDSP::IntScale<double> lfoTempoDenominator;
+  static SomeDSP::UIntScale<double> lfoWavetableType;
+  static SomeDSP::UIntScale<double> lfoTempoNumerator;
+  static SomeDSP::UIntScale<double> lfoTempoDenominator;
   static SomeDSP::LogScale<double> lfoFrequencyMultiplier;
   static SomeDSP::LogScale<double> lfoDelayAmount;
 
-  static SomeDSP::IntScale<double> nUnison;
+  static SomeDSP::UIntScale<double> nUnison;
   static SomeDSP::LogScale<double> unisonDetune;
-  static SomeDSP::IntScale<double> unisonPanType;
+  static SomeDSP::UIntScale<double> unisonPanType;
 
-  static SomeDSP::IntScale<double> nVoice;
+  static SomeDSP::UIntScale<double> nVoice;
   static SomeDSP::LogScale<double> smoothness;
 };
 
@@ -186,7 +186,7 @@ struct GlobalParameter : public ParameterInterface {
     using LogValue = FloatValue<SomeDSP::LogScale<double>>;
     using DecibelValue = FloatValue<SomeDSP::DecibelScale<double>>;
 
-    value[ID::bypass] = std::make_unique<IntValue>(
+    value[ID::bypass] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     std::string gainLabel("gain");
@@ -218,10 +218,10 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::tableBaseFrequency] = std::make_unique<LogValue>(
       Scales::tableBaseFrequency.invmap(10.0), Scales::tableBaseFrequency,
       "tableBaseFrequency", Info::kCanAutomate);
-    value[ID::tableBufferSize] = std::make_unique<IntValue>(
+    value[ID::tableBufferSize] = std::make_unique<UIntValue>(
       8, Scales::tableBufferSize, "tableBufferSize", Info::kCanAutomate);
     value[ID::padSynthSeed]
-      = std::make_unique<IntValue>(0, Scales::seed, "padSynthSeed", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::seed, "padSynthSeed", Info::kCanAutomate);
     value[ID::overtoneGainPower] = std::make_unique<LogValue>(
       0.5, Scales::overtoneGainPower, "overtoneGainPower", Info::kCanAutomate);
     value[ID::overtoneWidthMultiply] = std::make_unique<LogValue>(
@@ -236,12 +236,12 @@ struct GlobalParameter : public ParameterInterface {
       Info::kCanAutomate);
     value[ID::spectrumRotate] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "spectrumRotate", Info::kCanAutomate);
-    value[ID::profileComb] = std::make_unique<IntValue>(
+    value[ID::profileComb] = std::make_unique<UIntValue>(
       0, Scales::profileComb, "profileComb", Info::kCanAutomate);
     value[ID::profileShape] = std::make_unique<LogValue>(
       Scales::profileShape.invmap(1.0), Scales::profileShape, "profileShape",
       Info::kCanAutomate);
-    value[ID::uniformPhaseProfile] = std::make_unique<IntValue>(
+    value[ID::uniformPhaseProfile] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "uniformPhaseProfile", Info::kCanAutomate);
 
     value[ID::gain]
@@ -276,31 +276,31 @@ struct GlobalParameter : public ParameterInterface {
 
     value[ID::delayMix] = std::make_unique<LinearValue>(
       0.5, Scales::defaultScale, "delayMix", Info::kCanAutomate);
-    value[ID::delayDetuneSemi] = std::make_unique<IntValue>(
+    value[ID::delayDetuneSemi] = std::make_unique<UIntValue>(
       120, Scales::delayDetuneSemi, "delayDetuneSemi", Info::kCanAutomate);
-    value[ID::delayDetuneMilli] = std::make_unique<IntValue>(
+    value[ID::delayDetuneMilli] = std::make_unique<UIntValue>(
       1000, Scales::oscMilli, "delayDetuneMilli", Info::kCanAutomate);
     value[ID::delayFeedback] = std::make_unique<LinearValue>(
       0.5, Scales::delayFeedback, "delayFeedback", Info::kCanAutomate);
     value[ID::delayAttack] = std::make_unique<LogValue>(
       0.0, Scales::envelopeA, "delayAttack", Info::kCanAutomate);
 
-    value[ID::oscOctave] = std::make_unique<IntValue>(
+    value[ID::oscOctave] = std::make_unique<UIntValue>(
       12, Scales::oscOctave, "oscOctave", Info::kCanAutomate);
     value[ID::oscSemi]
-      = std::make_unique<IntValue>(120, Scales::oscSemi, "oscSemi", Info::kCanAutomate);
-    value[ID::oscMilli] = std::make_unique<IntValue>(
+      = std::make_unique<UIntValue>(120, Scales::oscSemi, "oscSemi", Info::kCanAutomate);
+    value[ID::oscMilli] = std::make_unique<UIntValue>(
       1000, Scales::oscMilli, "oscMilli", Info::kCanAutomate);
-    value[ID::equalTemperament] = std::make_unique<IntValue>(
+    value[ID::equalTemperament] = std::make_unique<UIntValue>(
       11, Scales::equalTemperament, "equalTemperament", Info::kCanAutomate);
-    value[ID::pitchA4Hz] = std::make_unique<IntValue>(
+    value[ID::pitchA4Hz] = std::make_unique<UIntValue>(
       340, Scales::pitchA4Hz, "pitchA4Hz", Info::kCanAutomate);
 
-    value[ID::lfoWavetableType] = std::make_unique<IntValue>(
+    value[ID::lfoWavetableType] = std::make_unique<UIntValue>(
       2, Scales::lfoWavetableType, "lfoWavetableType", Info::kCanAutomate);
-    value[ID::lfoTempoNumerator] = std::make_unique<IntValue>(
+    value[ID::lfoTempoNumerator] = std::make_unique<UIntValue>(
       0, Scales::lfoTempoNumerator, "lfoTempoNumerator", Info::kCanAutomate);
-    value[ID::lfoTempoDenominator] = std::make_unique<IntValue>(
+    value[ID::lfoTempoDenominator] = std::make_unique<UIntValue>(
       0, Scales::lfoTempoDenominator, "lfoTempoDenominator", Info::kCanAutomate);
     value[ID::lfoFrequencyMultiplier] = std::make_unique<LogValue>(
       Scales::lfoFrequencyMultiplier.invmap(1.0), Scales::lfoFrequencyMultiplier,
@@ -312,13 +312,13 @@ struct GlobalParameter : public ParameterInterface {
 
     value[ID::oscInitialPhase] = std::make_unique<LinearValue>(
       1.0, Scales::defaultScale, "oscInitialPhase", Info::kCanAutomate);
-    value[ID::oscPhaseReset] = std::make_unique<IntValue>(
+    value[ID::oscPhaseReset] = std::make_unique<UIntValue>(
       true, Scales::boolScale, "oscPhaseReset", Info::kCanAutomate);
-    value[ID::oscPhaseRandom] = std::make_unique<IntValue>(
+    value[ID::oscPhaseRandom] = std::make_unique<UIntValue>(
       true, Scales::boolScale, "oscPhaseRandom", Info::kCanAutomate);
 
     value[ID::nUnison]
-      = std::make_unique<IntValue>(0, Scales::nUnison, "nUnison", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::nUnison, "nUnison", Info::kCanAutomate);
     value[ID::unisonDetune] = std::make_unique<LogValue>(
       0.2, Scales::unisonDetune, "unisonDetune", Info::kCanAutomate);
     value[ID::unisonPan] = std::make_unique<LinearValue>(
@@ -327,24 +327,24 @@ struct GlobalParameter : public ParameterInterface {
       1.0, Scales::defaultScale, "unisonPhase", Info::kCanAutomate);
     value[ID::unisonGainRandom] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "unisonGainRandom", Info::kCanAutomate);
-    value[ID::unisonDetuneRandom] = std::make_unique<IntValue>(
+    value[ID::unisonDetuneRandom] = std::make_unique<UIntValue>(
       1, Scales::boolScale, "unisonDetuneRandom", Info::kCanAutomate);
-    value[ID::unisonPanType] = std::make_unique<IntValue>(
+    value[ID::unisonPanType] = std::make_unique<UIntValue>(
       0, Scales::unisonPanType, "unisonPanType", Info::kCanAutomate);
 
     value[ID::nVoice]
-      = std::make_unique<IntValue>(1, Scales::nVoice, "nVoice", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(1, Scales::nVoice, "nVoice", Info::kCanAutomate);
     value[ID::smoothness] = std::make_unique<LogValue>(
       0.1, Scales::smoothness, "smoothness", Info::kCanAutomate);
     value[ID::seed]
-      = std::make_unique<IntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
 
     value[ID::pitchBend] = std::make_unique<LinearValue>(
       0.5, Scales::defaultScale, "pitchBend", Info::kCanAutomate);
 
-    value[ID::refreshLFO] = std::make_unique<IntValue>(
+    value[ID::refreshLFO] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "refreshLFO", Info::kCanAutomate);
-    value[ID::refreshTable] = std::make_unique<IntValue>(
+    value[ID::refreshTable] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "refreshTable", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));

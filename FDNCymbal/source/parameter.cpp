@@ -23,10 +23,10 @@ namespace Synth {
 
 using namespace SomeDSP;
 
-IntScale<double> Scales::boolScale(1);
+UIntScale<double> Scales::boolScale(1);
 LinearScale<double> Scales::defaultScale(0.0, 1.0);
 
-IntScale<double> Scales::seed(16777215); // 2^24 - 1
+UIntScale<double> Scales::seed(16777215); // 2^24 - 1
 LogScale<double> Scales::fdnTime(0.0001, 0.5, 0.5, 0.1);
 LogScale<double> Scales::fdnFeedback(0.0, 4.0, 0.75, 1.0);
 LogScale<double> Scales::fdnCascadeMix(0.0, 1.0, 0.5, 0.2);

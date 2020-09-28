@@ -23,7 +23,7 @@ namespace Synth {
 
 using namespace SomeDSP;
 
-IntScale<double> Scales::boolScale(1);
+UIntScale<double> Scales::boolScale(1);
 LinearScale<double> Scales::defaultScale(0.0, 1.0);
 
 LogScale<double> Scales::frequency(0.0, 16.0, 0.5, 2.0);
@@ -31,7 +31,7 @@ LinearScale<double> Scales::feedback(-1.0, 1.0);
 LogScale<double> Scales::range(0.0, 128.0, 0.5, 32.0);
 LinearScale<double> Scales::phase(0.0, twopi);
 LinearScale<double> Scales::cascadeOffset(0.0, twopi);
-IntScale<double> Scales::stage(4095);
+UIntScale<double> Scales::stage(4095);
 
 LogScale<double> Scales::smoothness(0.04, 1.0, 0.5, 0.4);
 

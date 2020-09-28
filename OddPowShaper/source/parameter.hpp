@@ -48,13 +48,13 @@ enum ID {
 } // namespace ParameterID
 
 struct Scales {
-  static SomeDSP::IntScale<double> boolScale;
+  static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LinearScale<double> defaultScale;
 
   static SomeDSP::LogScale<double> drive;
   static SomeDSP::LinearScale<double> boost;
   static SomeDSP::LogScale<double> outputGain;
-  static SomeDSP::IntScale<double> order;
+  static SomeDSP::UIntScale<double> order;
 
   static SomeDSP::LogScale<double> smoothness;
 };
@@ -72,7 +72,7 @@ struct GlobalParameter : public ParameterInterface {
     using LogValue = FloatValue<SomeDSP::LogScale<double>>;
     // using DecibelValue = FloatValue<SomeDSP::DecibelScale<double>>;
 
-    value[ID::bypass] = std::make_unique<IntValue>(
+    value[ID::bypass] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     value[ID::drive]
@@ -83,13 +83,13 @@ struct GlobalParameter : public ParameterInterface {
       0.5, Scales::outputGain, "outputGain", Info::kCanAutomate);
 
     value[ID::order]
-      = std::make_unique<IntValue>(0, Scales::order, "order", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::order, "order", Info::kCanAutomate);
     value[ID::flip]
-      = std::make_unique<IntValue>(true, Scales::boolScale, "flip", Info::kCanAutomate);
-    value[ID::inverse] = std::make_unique<IntValue>(
+      = std::make_unique<UIntValue>(true, Scales::boolScale, "flip", Info::kCanAutomate);
+    value[ID::inverse] = std::make_unique<UIntValue>(
       true, Scales::boolScale, "inverse", Info::kCanAutomate);
 
-    value[ID::oversample] = std::make_unique<IntValue>(
+    value[ID::oversample] = std::make_unique<UIntValue>(
       true, Scales::boolScale, "oversample", Info::kCanAutomate);
 
     value[ID::smoothness] = std::make_unique<LogValue>(

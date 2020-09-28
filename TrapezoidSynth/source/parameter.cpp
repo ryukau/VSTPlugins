@@ -23,7 +23,7 @@ namespace Synth {
 
 using namespace SomeDSP;
 
-IntScale<double> Scales::boolScale(1);
+UIntScale<double> Scales::boolScale(1);
 LinearScale<double> Scales::defaultScale(0.0, 1.0);
 
 LinearScale<double> Scales::semi(-24.0, 24.0);
@@ -42,7 +42,7 @@ LogScale<double> Scales::envelopeR(0.0012, 16.0, 0.5, 2.0);
 LogScale<double> Scales::filterCutoff(20.0, 20000.0, 0.5, 1000.0);
 LogScale<double> Scales::filterResonance(0.0, 1.0, 0.5, 0.3);
 LogScale<double> Scales::filterSaturation(0.01, 8.0, 0.3, 0.5);
-IntScale<double> Scales::filterOrder(7);
+UIntScale<double> Scales::filterOrder(7);
 SPolyScale<double> Scales::filterEnvToCutoff(-1.0, 1.0, 0.3);
 LinearScale<double> Scales::filterKeyToCutoff(0.0, 2.0);
 LinearScale<double> Scales::oscMixToFilterCutoff(0.0, 0.5);
@@ -55,13 +55,13 @@ LogScale<double> Scales::modEnvToShifter(0.0, 4000.0, 0.5, 500.0);
 LinearScale<double> Scales::shifterSemi(0.0, 24.0);
 LinearScale<double> Scales::shifterCent(0.0, 100.0);
 
-IntScale<double> Scales::lfoType(3);
+UIntScale<double> Scales::lfoType(3);
 LogScale<double> Scales::lfoFrequency(0.1, 20.0, 0.5, 4.0);
 LogScale<double> Scales::lfoSlope(0.0, 32.0, 0.5, 8.0);
 
 LinearScale<double> Scales::octave(-4.0, 4.0);
 
-IntScale<double> Scales::pitchSlideType(2);
+UIntScale<double> Scales::pitchSlideType(2);
 LogScale<double> Scales::pitchSlide(0.001, 0.5, 0.5, 0.15);
 LinearScale<double> Scales::pitchSlideOffset(0.0, 2.0);
 

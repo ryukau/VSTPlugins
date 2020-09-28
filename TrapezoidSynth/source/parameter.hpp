@@ -113,7 +113,7 @@ enum ID {
 } // namespace ParameterID
 
 struct Scales {
-  static SomeDSP::IntScale<double> boolScale;
+  static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LinearScale<double> defaultScale;
 
   static SomeDSP::LinearScale<double> semi;
@@ -132,7 +132,7 @@ struct Scales {
   static SomeDSP::LogScale<double> filterCutoff;
   static SomeDSP::LogScale<double> filterResonance;
   static SomeDSP::LogScale<double> filterSaturation;
-  static SomeDSP::IntScale<double> filterOrder;
+  static SomeDSP::UIntScale<double> filterOrder;
   static SomeDSP::SPolyScale<double> filterEnvToCutoff;
   static SomeDSP::LinearScale<double> filterKeyToCutoff;
   static SomeDSP::LinearScale<double> oscMixToFilterCutoff;
@@ -145,13 +145,13 @@ struct Scales {
   static SomeDSP::LinearScale<double> shifterSemi;
   static SomeDSP::LinearScale<double> shifterCent;
 
-  static SomeDSP::IntScale<double> lfoType;
+  static SomeDSP::UIntScale<double> lfoType;
   static SomeDSP::LogScale<double> lfoFrequency;
   static SomeDSP::LogScale<double> lfoSlope;
 
   static SomeDSP::LinearScale<double> octave;
 
-  static SomeDSP::IntScale<double> pitchSlideType;
+  static SomeDSP::UIntScale<double> pitchSlideType;
   static SomeDSP::LogScale<double> pitchSlide;
   static SomeDSP::LinearScale<double> pitchSlideOffset;
 
@@ -173,7 +173,7 @@ struct GlobalParameter : public ParameterInterface {
     using LogValue = FloatValue<SomeDSP::LogScale<double>>;
     using SPolyValue = FloatValue<SomeDSP::SPolyScale<double>>;
 
-    value[ID::bypass] = std::make_unique<IntValue>(
+    value[ID::bypass] = std::make_unique<UIntValue>(
       false, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     value[ID::osc1Semi]
@@ -214,10 +214,10 @@ struct GlobalParameter : public ParameterInterface {
       = std::make_unique<LogValue>(0.1, Scales::envelopeR, "gainR", Info::kCanAutomate);
     value[ID::gainCurve] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "gainCurve", Info::kCanAutomate);
-    value[ID::gainEnvRetrigger] = std::make_unique<IntValue>(
+    value[ID::gainEnvRetrigger] = std::make_unique<UIntValue>(
       true, Scales::boolScale, "gainEnvRetrigger", Info::kCanAutomate);
 
-    value[ID::filterOrder] = std::make_unique<IntValue>(
+    value[ID::filterOrder] = std::make_unique<UIntValue>(
       7, Scales::filterOrder, "filterOrder", Info::kCanAutomate);
     value[ID::filterCutoff] = std::make_unique<LogValue>(
       1.0, Scales::filterCutoff, "filterCutoff", Info::kCanAutomate);
@@ -244,7 +244,7 @@ struct GlobalParameter : public ParameterInterface {
       0.0, Scales::defaultScale, "filterCurve", Info::kCanAutomate);
     value[ID::filterEnvToOctave] = std::make_unique<LinearValue>(
       0.5, Scales::filterEnvToOctave, "filterEnvToOctave", Info::kCanAutomate);
-    value[ID::filterEnvRetrigger] = std::make_unique<IntValue>(
+    value[ID::filterEnvRetrigger] = std::make_unique<UIntValue>(
       true, Scales::boolScale, "filterEnvRetrigger", Info::kCanAutomate);
 
     value[ID::modEnv1Attack] = std::make_unique<LogValue>(
@@ -253,7 +253,7 @@ struct GlobalParameter : public ParameterInterface {
       0.5, Scales::modEnvelopeCurve, "modEnv1Curve", Info::kCanAutomate);
     value[ID::modEnv1ToPhaseMod] = std::make_unique<LogValue>(
       0.0, Scales::phaseModulation, "modEnv1ToPhaseMod", Info::kCanAutomate);
-    value[ID::modEnv1Retrigger] = std::make_unique<IntValue>(
+    value[ID::modEnv1Retrigger] = std::make_unique<UIntValue>(
       true, Scales::boolScale, "modEnv1Retrigger", Info::kCanAutomate);
 
     value[ID::modEnv2Attack] = std::make_unique<LogValue>(
@@ -268,7 +268,7 @@ struct GlobalParameter : public ParameterInterface {
       0.0, Scales::oscSlope, "modEnv2ToOsc2Slope", Info::kCanAutomate);
     value[ID::modEnv2ToShifter1] = std::make_unique<LogValue>(
       0.0, Scales::modEnvToShifter, "modEnv2ToShifter1", Info::kCanAutomate);
-    value[ID::modEnv2Retrigger] = std::make_unique<IntValue>(
+    value[ID::modEnv2Retrigger] = std::make_unique<UIntValue>(
       true, Scales::boolScale, "modEnv2Retrigger", Info::kCanAutomate);
 
     value[ID::shifter1Semi] = std::make_unique<LinearValue>(
@@ -287,8 +287,8 @@ struct GlobalParameter : public ParameterInterface {
       0.0, Scales::defaultScale, "shifter2Gain", Info::kCanAutomate);
 
     value[ID::lfoType]
-      = std::make_unique<IntValue>(0, Scales::lfoType, "lfoType", Info::kCanAutomate);
-    value[ID::lfoTempoSync] = std::make_unique<IntValue>(
+      = std::make_unique<UIntValue>(0, Scales::lfoType, "lfoType", Info::kCanAutomate);
+    value[ID::lfoTempoSync] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "lfoTempoSync", Info::kCanAutomate);
     value[ID::lfoFrequency] = std::make_unique<LogValue>(
       0.5, Scales::lfoFrequency, "lfoFrequency", Info::kCanAutomate);
@@ -308,7 +308,7 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::octave]
       = std::make_unique<LinearValue>(0.5, Scales::octave, "octave", Info::kCanAutomate);
 
-    value[ID::pitchSlideType] = std::make_unique<IntValue>(
+    value[ID::pitchSlideType] = std::make_unique<UIntValue>(
       1, Scales::pitchSlideType, "pitchSlideType", Info::kCanAutomate);
     value[ID::pitchSlide] = std::make_unique<LogValue>(
       0.1, Scales::pitchSlide, "pitchSlide", Info::kCanAutomate);

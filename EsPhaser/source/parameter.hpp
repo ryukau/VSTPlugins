@@ -51,7 +51,7 @@ enum ID {
 } // namespace ParameterID
 
 struct Scales {
-  static SomeDSP::IntScale<double> boolScale;
+  static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LinearScale<double> defaultScale;
 
   static SomeDSP::LogScale<double> frequency;
@@ -59,7 +59,7 @@ struct Scales {
   static SomeDSP::LogScale<double> range;
   static SomeDSP::LinearScale<double> phase;
   static SomeDSP::LinearScale<double> cascadeOffset;
-  static SomeDSP::IntScale<double> stage;
+  static SomeDSP::UIntScale<double> stage;
 
   static SomeDSP::LogScale<double> smoothness;
 };
@@ -77,7 +77,7 @@ struct GlobalParameter : public ParameterInterface {
     using LogValue = FloatValue<SomeDSP::LogScale<double>>;
     using DecibelValue = FloatValue<SomeDSP::DecibelScale<double>>;
 
-    value[ID::bypass] = std::make_unique<IntValue>(
+    value[ID::bypass] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     value[ID::mix] = std::make_unique<LinearValue>(
@@ -100,7 +100,7 @@ struct GlobalParameter : public ParameterInterface {
       Scales::cascadeOffset.invmap(SomeDSP::twopi / 16.0), Scales::cascadeOffset,
       "cascadeOffset", Info::kCanAutomate);
     value[ID::stage]
-      = std::make_unique<IntValue>(15, Scales::stage, "stage", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(15, Scales::stage, "stage", Info::kCanAutomate);
 
     value[ID::smoothness] = std::make_unique<LogValue>(
       Scales::smoothness.invmap(0.35), Scales::smoothness, "smoothness",

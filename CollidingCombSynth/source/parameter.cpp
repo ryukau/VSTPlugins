@@ -23,7 +23,7 @@ namespace Synth {
 
 using namespace SomeDSP;
 
-IntScale<double> Scales::boolScale(1);
+UIntScale<double> Scales::boolScale(1);
 LinearScale<double> Scales::defaultScale(0.0, 1.0);
 
 LogScale<double> Scales::gain(0.0, 1.0, 0.5, 0.2);
@@ -46,22 +46,22 @@ LogScale<double> Scales::envelopeR(0.001, 16.0, 0.5, 2.0);
 
 LogScale<double> Scales::distance(0.001, 1.0, 0.5, 0.2);
 LogScale<double> Scales::propagation(0.001, 1.0, 0.5, 0.7);
-IntScale<double> Scales::seed(16777215); // 2^24 - 1
+UIntScale<double> Scales::seed(16777215); // 2^24 - 1
 
 LogScale<double> Scales::randomFrequency(0.0, 1.0, 0.5, 0.05);
 
 LogScale<double> Scales::compressorTime(0.001, 8.0, 0.5, 1.0);
 LogScale<double> Scales::compressorThreshold(0.01, 2.0, 0.5, 0.5);
 
-IntScale<double> Scales::nVoice(15);
-IntScale<double> Scales::nUnison(7);
+UIntScale<double> Scales::nVoice(15);
+UIntScale<double> Scales::nUnison(7);
 LogScale<double> Scales::unisonDetune(0.0, 0.3, 0.2, 0.001);
 
-IntScale<double> Scales::octave(16);
-IntScale<double> Scales::semitone(168);
-IntScale<double> Scales::milli(2000);
-IntScale<double> Scales::equalTemperament(119);
-IntScale<double> Scales::pitchA4Hz(900);
+UIntScale<double> Scales::octave(16);
+UIntScale<double> Scales::semitone(168);
+UIntScale<double> Scales::milli(2000);
+UIntScale<double> Scales::equalTemperament(119);
+UIntScale<double> Scales::pitchA4Hz(900);
 
 } // namespace Synth
 } // namespace Steinberg

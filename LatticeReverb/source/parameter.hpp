@@ -67,7 +67,7 @@ enum ID {
 
 struct Scales {
   static SomeDSP::LinearScale<double> defaultScale;
-  static SomeDSP::IntScale<double> boolScale;
+  static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LinearScale<double> multiply;
   static SomeDSP::LogScale<double> time;
   static SomeDSP::LinearScale<double> feed;
@@ -91,7 +91,7 @@ struct GlobalParameter : public ParameterInterface {
     using LinearValue = FloatValue<SomeDSP::LinearScale<double>>;
     using LogValue = FloatValue<SomeDSP::LogScale<double>>;
 
-    value[ID::bypass] = std::make_unique<IntValue>(
+    value[ID::bypass] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     std::string timeLabel("time");

@@ -80,12 +80,12 @@ enum ID {
 
 struct Scales {
   static SomeDSP::LinearScale<double> defaultScale;
-  static SomeDSP::IntScale<double> boolScale;
+  static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LogScale<double> time;
   static SomeDSP::LinearScale<double> feed;
   static SomeDSP::LogScale<double> timeMultiply;
   static SomeDSP::LogScale<double> timeOffsetRange;
-  static SomeDSP::IntScale<double> seed;
+  static SomeDSP::UIntScale<double> seed;
   static SomeDSP::LinearScale<double> stereoCross;
   static SomeDSP::LogScale<double> gain;
   static SomeDSP::LogScale<double> smoothness;
@@ -165,21 +165,21 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::d4FeedOffsetRange] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "d4FeedOffsetRange", Info::kCanAutomate);
 
-    value[ID::timeModulation] = std::make_unique<IntValue>(
+    value[ID::timeModulation] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "timeModulation", Info::kCanAutomate);
-    value[ID::innerFeedModulation] = std::make_unique<IntValue>(
+    value[ID::innerFeedModulation] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "innerFeedModulation", Info::kCanAutomate);
-    value[ID::d1FeedModulation] = std::make_unique<IntValue>(
+    value[ID::d1FeedModulation] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "d1FeedModulation", Info::kCanAutomate);
-    value[ID::d2FeedModulation] = std::make_unique<IntValue>(
+    value[ID::d2FeedModulation] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "d2FeedModulation", Info::kCanAutomate);
-    value[ID::d3FeedModulation] = std::make_unique<IntValue>(
+    value[ID::d3FeedModulation] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "d3FeedModulation", Info::kCanAutomate);
-    value[ID::d4FeedModulation] = std::make_unique<IntValue>(
+    value[ID::d4FeedModulation] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "d4FeedModulation", Info::kCanAutomate);
 
     value[ID::seed]
-      = std::make_unique<IntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
 
     value[ID::stereoCross] = std::make_unique<LinearValue>(
       Scales::stereoCross.invmap(0.0), Scales::stereoCross, "stereoCross",
@@ -194,7 +194,7 @@ struct GlobalParameter : public ParameterInterface {
 
     value[ID::smoothness] = std::make_unique<LogValue>(
       0.5, Scales::smoothness, "smoothness", Info::kCanAutomate);
-    value[ID::bypass] = std::make_unique<IntValue>(
+    value[ID::bypass] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));

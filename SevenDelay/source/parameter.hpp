@@ -59,7 +59,7 @@ enum ID : Vst::ParamID {
 } // namespace ParameterID
 
 struct Scales {
-  static SomeDSP::IntScale<double> boolScale;
+  static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LinearScale<double> defaultScale;
 
   static SomeDSP::LogScale<double> time;
@@ -90,7 +90,7 @@ struct GlobalParameter : public ParameterInterface {
     using LogValue = FloatValue<SomeDSP::LogScale<double>>;
     using SPolyValue = FloatValue<SomeDSP::SPolyScale<double>>;
 
-    value[ID::bypass] = std::make_unique<IntValue>(
+    value[ID::bypass] = std::make_unique<UIntValue>(
       0.0, Scales::boolScale, "Bypass", Info::kCanAutomate | Info::kIsBypass);
     value[ID::time]
       = std::make_unique<LogValue>(0.5, Scales::time, "Time", Info::kCanAutomate);
@@ -102,9 +102,9 @@ struct GlobalParameter : public ParameterInterface {
       0.75, Scales::defaultScale, "WetMix", Info::kCanAutomate);
     value[ID::dryMix] = std::make_unique<LinearValue>(
       1.0, Scales::defaultScale, "DryMix", Info::kCanAutomate);
-    value[ID::tempoSync] = std::make_unique<IntValue>(
+    value[ID::tempoSync] = std::make_unique<UIntValue>(
       0.0, Scales::boolScale, "TempoSync", Info::kCanAutomate);
-    value[ID::negativeFeedback] = std::make_unique<IntValue>(
+    value[ID::negativeFeedback] = std::make_unique<UIntValue>(
       0.0, Scales::boolScale, "NegativeFeedback", Info::kCanAutomate);
     value[ID::lfoTimeAmount] = std::make_unique<LogValue>(
       0.0, Scales::lfoTimeAmount, "LFO to Time", Info::kCanAutomate);
@@ -114,7 +114,7 @@ struct GlobalParameter : public ParameterInterface {
       0.5, Scales::lfoShape, "LFO Shape", Info::kCanAutomate);
     value[ID::lfoInitialPhase] = std::make_unique<LinearValue>(
       0.0, Scales::lfoInitialPhase, "LFO Initial Phase", Info::kCanAutomate);
-    value[ID::lfoHold] = std::make_unique<IntValue>(
+    value[ID::lfoHold] = std::make_unique<UIntValue>(
       0.0, Scales::boolScale, "LFO Phase Hold", Info::kCanAutomate);
     value[ID::smoothness] = std::make_unique<LogValue>(
       0.3, Scales::smoothness, "Smoothness", Info::kCanAutomate);

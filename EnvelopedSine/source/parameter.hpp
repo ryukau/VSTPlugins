@@ -87,7 +87,7 @@ enum ID {
 } // namespace ParameterID
 
 struct Scales {
-  static SomeDSP::IntScale<double> boolScale;
+  static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LinearScale<double> defaultScale;
 
   static SomeDSP::LogScale<double> envelopeA;
@@ -103,7 +103,7 @@ struct Scales {
   static SomeDSP::LinearScale<double> pitchMultiply;
   static SomeDSP::LinearScale<double> pitchModulo;
 
-  static SomeDSP::IntScale<double> seed;
+  static SomeDSP::UIntScale<double> seed;
   static SomeDSP::LinearScale<double> randomGain;
   static SomeDSP::LogScale<double> randomFrequency;
   static SomeDSP::LinearScale<double> randomAttack;
@@ -121,9 +121,9 @@ struct Scales {
   static SomeDSP::LinearScale<double> phaserFeedback;
   static SomeDSP::LogScale<double> phaserRange;
   static SomeDSP::LinearScale<double> phaserPhase;
-  static SomeDSP::IntScale<double> phaserStage;
+  static SomeDSP::UIntScale<double> phaserStage;
 
-  static SomeDSP::IntScale<double> nVoice;
+  static SomeDSP::UIntScale<double> nVoice;
   static SomeDSP::LogScale<double> smoothness;
 };
 
@@ -140,7 +140,7 @@ struct GlobalParameter : public ParameterInterface {
     using LogValue = FloatValue<SomeDSP::LogScale<double>>;
     using DecibelValue = FloatValue<SomeDSP::DecibelScale<double>>;
 
-    value[ID::bypass] = std::make_unique<IntValue>(
+    value[ID::bypass] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     std::string attackLabel("attack");
@@ -166,7 +166,7 @@ struct GlobalParameter : public ParameterInterface {
       0.0, Scales::gainBoost, "gainBoost", Info::kCanAutomate);
 
     value[ID::aliasing]
-      = std::make_unique<IntValue>(0, Scales::boolScale, "aliasing", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::boolScale, "aliasing", Info::kCanAutomate);
     value[ID::masterOctave] = std::make_unique<LinearValue>(
       0.5, Scales::masterOctave, "masterOctave", Info::kCanAutomate);
     value[ID::pitchMultiply] = std::make_unique<LinearValue>(
@@ -176,8 +176,8 @@ struct GlobalParameter : public ParameterInterface {
       0.0, Scales::pitchModulo, "pitchModulo", Info::kCanAutomate);
 
     value[ID::seed]
-      = std::make_unique<IntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
-    value[ID::randomRetrigger] = std::make_unique<IntValue>(
+      = std::make_unique<UIntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
+    value[ID::randomRetrigger] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "randomRetrigger", Info::kCanAutomate);
     value[ID::randomGain] = std::make_unique<LinearValue>(
       0.0, Scales::randomGain, "randomGain", Info::kCanAutomate);
@@ -205,7 +205,7 @@ struct GlobalParameter : public ParameterInterface {
       Scales::envelopeMultiplier.invmap(1.0), Scales::envelopeMultiplier,
       "decayMultiplier", Info::kCanAutomate);
     value[ID::declick]
-      = std::make_unique<IntValue>(1, Scales::boolScale, "declick", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(1, Scales::boolScale, "declick", Info::kCanAutomate);
     value[ID::gainPower] = std::make_unique<LinearValue>(
       Scales::gainPower.invmap(1.0), Scales::gainPower, "gainPower", Info::kCanAutomate);
     value[ID::saturationMix] = std::make_unique<LinearValue>(
@@ -225,13 +225,13 @@ struct GlobalParameter : public ParameterInterface {
       0.0, Scales::phaserPhase, "phaserPhase", Info::kCanAutomate);
     value[ID::phaserOffset] = std::make_unique<LinearValue>(
       0.5, Scales::phaserPhase, "phaserOffset", Info::kCanAutomate);
-    value[ID::phaserStage] = std::make_unique<IntValue>(
+    value[ID::phaserStage] = std::make_unique<UIntValue>(
       15, Scales::phaserStage, "phaserStage", Info::kCanAutomate);
 
     value[ID::unison]
-      = std::make_unique<IntValue>(0, Scales::boolScale, "unison", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::boolScale, "unison", Info::kCanAutomate);
     value[ID::nVoice]
-      = std::make_unique<IntValue>(5, Scales::nVoice, "nVoice", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(5, Scales::nVoice, "nVoice", Info::kCanAutomate);
     value[ID::smoothness] = std::make_unique<LogValue>(
       0.1, Scales::smoothness, "smoothness", Info::kCanAutomate);
 

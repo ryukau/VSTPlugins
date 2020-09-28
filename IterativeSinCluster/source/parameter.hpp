@@ -143,7 +143,7 @@ enum ID {
 } // namespace ParameterID
 
 struct Scales {
-  static SomeDSP::IntScale<double> boolScale;
+  static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LinearScale<double> defaultScale;
 
   static SomeDSP::LinearScale<double> masterOctave;
@@ -151,7 +151,7 @@ struct Scales {
   static SomeDSP::LinearScale<double> pitchMultiply;
   static SomeDSP::LinearScale<double> pitchModulo;
 
-  static SomeDSP::IntScale<double> seed;
+  static SomeDSP::UIntScale<double> seed;
   static SomeDSP::LogScale<double> randomAmount;
 
   static SomeDSP::SPolyScale<double> chorusFrequency;
@@ -160,9 +160,9 @@ struct Scales {
   static SomeDSP::LinearScale<double> chorusPhase;
   static SomeDSP::LinearScale<double> chorusOffset;
 
-  static SomeDSP::IntScale<double> oscSemi;
-  static SomeDSP::IntScale<double> oscMilli;
-  static SomeDSP::IntScale<double> oscOctave;
+  static SomeDSP::UIntScale<double> oscSemi;
+  static SomeDSP::UIntScale<double> oscMilli;
+  static SomeDSP::UIntScale<double> oscOctave;
 
   static SomeDSP::LogScale<double> gain;
   static SomeDSP::LinearScale<double> gainBoost;
@@ -176,7 +176,7 @@ struct Scales {
   static SomeDSP::LogScale<double> envelopeS;
   static SomeDSP::LogScale<double> envelopeR;
 
-  static SomeDSP::IntScale<double> nVoice;
+  static SomeDSP::UIntScale<double> nVoice;
   static SomeDSP::LogScale<double> smoothness;
 };
 
@@ -194,12 +194,12 @@ struct GlobalParameter : public ParameterInterface {
     using SPolyValue = FloatValue<SomeDSP::SPolyScale<double>>;
     using DecibelValue = FloatValue<SomeDSP::DecibelScale<double>>;
 
-    value[ID::bypass] = std::make_unique<IntValue>(
+    value[ID::bypass] = std::make_unique<UIntValue>(
       false, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     value[ID::aliasing]
-      = std::make_unique<IntValue>(0, Scales::boolScale, "aliasing", Info::kCanAutomate);
-    value[ID::negativeSemi] = std::make_unique<IntValue>(
+      = std::make_unique<UIntValue>(0, Scales::boolScale, "aliasing", Info::kCanAutomate);
+    value[ID::negativeSemi] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "negativeSemi", Info::kCanAutomate);
     value[ID::masterOctave] = std::make_unique<LinearValue>(
       0.5, Scales::masterOctave, "masterOctave", Info::kCanAutomate);
@@ -212,8 +212,8 @@ struct GlobalParameter : public ParameterInterface {
       0.0, Scales::pitchModulo, "pitchModulo", Info::kCanAutomate);
 
     value[ID::seed]
-      = std::make_unique<IntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
-    value[ID::randomRetrigger] = std::make_unique<IntValue>(
+      = std::make_unique<UIntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
+    value[ID::randomRetrigger] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "randomRetrigger", Info::kCanAutomate);
     value[ID::randomGainAmount] = std::make_unique<LogValue>(
       0.0, Scales::randomAmount, "randomGainAmount", Info::kCanAutomate);
@@ -244,7 +244,7 @@ struct GlobalParameter : public ParameterInterface {
       0.0, Scales::chorusOffset, "chorusOffset", Info::kCanAutomate);
     value[ID::chorusFeedback] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "chorusFeedback", Info::kCanAutomate);
-    value[ID::chorusKeyFollow] = std::make_unique<IntValue>(
+    value[ID::chorusKeyFollow] = std::make_unique<UIntValue>(
       true, Scales::boolScale, "chorusKeyFollow", Info::kCanAutomate);
 
     value[ID::gain0] = std::make_unique<DecibelValue>(
@@ -265,38 +265,38 @@ struct GlobalParameter : public ParameterInterface {
       1.0, Scales::gainDecibel, "gain7", Info::kCanAutomate);
 
     value[ID::semi0]
-      = std::make_unique<IntValue>(0, Scales::oscSemi, "semi0", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscSemi, "semi0", Info::kCanAutomate);
     value[ID::semi1]
-      = std::make_unique<IntValue>(0, Scales::oscSemi, "semi1", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscSemi, "semi1", Info::kCanAutomate);
     value[ID::semi2]
-      = std::make_unique<IntValue>(0, Scales::oscSemi, "semi2", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscSemi, "semi2", Info::kCanAutomate);
     value[ID::semi3]
-      = std::make_unique<IntValue>(0, Scales::oscSemi, "semi3", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscSemi, "semi3", Info::kCanAutomate);
     value[ID::semi4]
-      = std::make_unique<IntValue>(0, Scales::oscSemi, "semi4", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscSemi, "semi4", Info::kCanAutomate);
     value[ID::semi5]
-      = std::make_unique<IntValue>(0, Scales::oscSemi, "semi5", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscSemi, "semi5", Info::kCanAutomate);
     value[ID::semi6]
-      = std::make_unique<IntValue>(0, Scales::oscSemi, "semi6", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscSemi, "semi6", Info::kCanAutomate);
     value[ID::semi7]
-      = std::make_unique<IntValue>(0, Scales::oscSemi, "semi7", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscSemi, "semi7", Info::kCanAutomate);
 
     value[ID::milli0]
-      = std::make_unique<IntValue>(0, Scales::oscMilli, "milli0", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscMilli, "milli0", Info::kCanAutomate);
     value[ID::milli1]
-      = std::make_unique<IntValue>(0, Scales::oscMilli, "milli1", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscMilli, "milli1", Info::kCanAutomate);
     value[ID::milli2]
-      = std::make_unique<IntValue>(0, Scales::oscMilli, "milli2", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscMilli, "milli2", Info::kCanAutomate);
     value[ID::milli3]
-      = std::make_unique<IntValue>(0, Scales::oscMilli, "milli3", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscMilli, "milli3", Info::kCanAutomate);
     value[ID::milli4]
-      = std::make_unique<IntValue>(0, Scales::oscMilli, "milli4", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscMilli, "milli4", Info::kCanAutomate);
     value[ID::milli5]
-      = std::make_unique<IntValue>(0, Scales::oscMilli, "milli5", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscMilli, "milli5", Info::kCanAutomate);
     value[ID::milli6]
-      = std::make_unique<IntValue>(0, Scales::oscMilli, "milli6", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscMilli, "milli6", Info::kCanAutomate);
     value[ID::milli7]
-      = std::make_unique<IntValue>(0, Scales::oscMilli, "milli7", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscMilli, "milli7", Info::kCanAutomate);
 
     value[ID::overtone1] = std::make_unique<DecibelValue>(
       Scales::gainDecibel.invmap(1.0), Scales::gainDecibel, "overtone1",
@@ -357,21 +357,21 @@ struct GlobalParameter : public ParameterInterface {
       1.0, Scales::gainDecibel, "chordGain3", Info::kCanAutomate);
 
     value[ID::chordSemi0]
-      = std::make_unique<IntValue>(0, Scales::oscSemi, "chordSemi0", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscSemi, "chordSemi0", Info::kCanAutomate);
     value[ID::chordSemi1]
-      = std::make_unique<IntValue>(0, Scales::oscSemi, "chordSemi1", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscSemi, "chordSemi1", Info::kCanAutomate);
     value[ID::chordSemi2]
-      = std::make_unique<IntValue>(0, Scales::oscSemi, "chordSemi2", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscSemi, "chordSemi2", Info::kCanAutomate);
     value[ID::chordSemi3]
-      = std::make_unique<IntValue>(0, Scales::oscSemi, "chordSemi3", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::oscSemi, "chordSemi3", Info::kCanAutomate);
 
-    value[ID::chordMilli0] = std::make_unique<IntValue>(
+    value[ID::chordMilli0] = std::make_unique<UIntValue>(
       0, Scales::oscMilli, "chordMilli0", Info::kCanAutomate);
-    value[ID::chordMilli1] = std::make_unique<IntValue>(
+    value[ID::chordMilli1] = std::make_unique<UIntValue>(
       0, Scales::oscMilli, "chordMilli1", Info::kCanAutomate);
-    value[ID::chordMilli2] = std::make_unique<IntValue>(
+    value[ID::chordMilli2] = std::make_unique<UIntValue>(
       0, Scales::oscMilli, "chordMilli2", Info::kCanAutomate);
-    value[ID::chordMilli3] = std::make_unique<IntValue>(
+    value[ID::chordMilli3] = std::make_unique<UIntValue>(
       0, Scales::oscMilli, "chordMilli3", Info::kCanAutomate);
 
     value[ID::chordPan0] = std::make_unique<LinearValue>(
@@ -408,7 +408,7 @@ struct GlobalParameter : public ParameterInterface {
       0.5, Scales::shelvingGain, "highShelfGain", Info::kCanAutomate);
 
     value[ID::nVoice]
-      = std::make_unique<IntValue>(5, Scales::nVoice, "nVoice", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(5, Scales::nVoice, "nVoice", Info::kCanAutomate);
     value[ID::smoothness] = std::make_unique<LogValue>(
       0.1, Scales::smoothness, "smoothness", Info::kCanAutomate);
 

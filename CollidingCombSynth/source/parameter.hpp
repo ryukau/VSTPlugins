@@ -96,7 +96,7 @@ enum ID {
 } // namespace ParameterID
 
 struct Scales {
-  static SomeDSP::IntScale<double> boolScale;
+  static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LinearScale<double> defaultScale;
 
   static SomeDSP::LogScale<double> gain;
@@ -119,22 +119,22 @@ struct Scales {
 
   static SomeDSP::LogScale<double> distance;
   static SomeDSP::LogScale<double> propagation;
-  static SomeDSP::IntScale<double> seed;
+  static SomeDSP::UIntScale<double> seed;
 
   static SomeDSP::LogScale<double> randomFrequency;
 
   static SomeDSP::LogScale<double> compressorTime;
   static SomeDSP::LogScale<double> compressorThreshold;
 
-  static SomeDSP::IntScale<double> nVoice;
-  static SomeDSP::IntScale<double> nUnison;
+  static SomeDSP::UIntScale<double> nVoice;
+  static SomeDSP::UIntScale<double> nUnison;
   static SomeDSP::LogScale<double> unisonDetune;
 
-  static SomeDSP::IntScale<double> octave;
-  static SomeDSP::IntScale<double> semitone;
-  static SomeDSP::IntScale<double> milli;
-  static SomeDSP::IntScale<double> equalTemperament;
-  static SomeDSP::IntScale<double> pitchA4Hz;
+  static SomeDSP::UIntScale<double> octave;
+  static SomeDSP::UIntScale<double> semitone;
+  static SomeDSP::UIntScale<double> milli;
+  static SomeDSP::UIntScale<double> equalTemperament;
+  static SomeDSP::UIntScale<double> pitchA4Hz;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -150,7 +150,7 @@ struct GlobalParameter : public ParameterInterface {
     using LogValue = FloatValue<SomeDSP::LogScale<double>>;
     using DecibelValue = FloatValue<SomeDSP::DecibelScale<double>>;
 
-    value[ID::bypass] = std::make_unique<IntValue>(
+    value[ID::bypass] = std::make_unique<UIntValue>(
       false, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     std::string frequencyLabel("frequency");
@@ -204,7 +204,7 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::propagation] = std::make_unique<LogValue>(
       Scales::propagation.invmap(0.9), Scales::propagation, "propagation",
       Info::kCanAutomate);
-    value[ID::connection] = std::make_unique<IntValue>(
+    value[ID::connection] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "connection", Info::kCanAutomate);
 
     value[ID::randomComb] = std::make_unique<LinearValue>(
@@ -212,25 +212,25 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::randomFrequency] = std::make_unique<LogValue>(
       0.0, Scales::randomFrequency, "randomFrequency", Info::kCanAutomate);
 
-    value[ID::seedNoise] = std::make_unique<IntValue>(
+    value[ID::seedNoise] = std::make_unique<UIntValue>(
       11467559, Scales::seed, "seedNoise", Info::kCanAutomate);
-    value[ID::seedComb] = std::make_unique<IntValue>(
+    value[ID::seedComb] = std::make_unique<UIntValue>(
       14700349, Scales::seed, "seedComb", Info::kCanAutomate);
-    value[ID::seedString] = std::make_unique<IntValue>(
+    value[ID::seedString] = std::make_unique<UIntValue>(
       3937273, Scales::seed, "seedString", Info::kCanAutomate);
-    value[ID::seedUnison] = std::make_unique<IntValue>(
+    value[ID::seedUnison] = std::make_unique<UIntValue>(
       2060287, Scales::seed, "seedUnison", Info::kCanAutomate);
 
-    value[ID::retriggerNoise] = std::make_unique<IntValue>(
+    value[ID::retriggerNoise] = std::make_unique<UIntValue>(
       false, Scales::boolScale, "retriggerNoise", Info::kCanAutomate);
-    value[ID::retriggerComb] = std::make_unique<IntValue>(
+    value[ID::retriggerComb] = std::make_unique<UIntValue>(
       false, Scales::boolScale, "retriggerComb", Info::kCanAutomate);
-    value[ID::retriggerString] = std::make_unique<IntValue>(
+    value[ID::retriggerString] = std::make_unique<UIntValue>(
       true, Scales::boolScale, "retriggerString", Info::kCanAutomate);
-    value[ID::retriggerUnison] = std::make_unique<IntValue>(
+    value[ID::retriggerUnison] = std::make_unique<UIntValue>(
       false, Scales::boolScale, "retriggerUnison", Info::kCanAutomate);
 
-    value[ID::compressor] = std::make_unique<IntValue>(
+    value[ID::compressor] = std::make_unique<UIntValue>(
       1, Scales::boolScale, "compressor", Info::kCanAutomate);
     value[ID::compressorTime] = std::make_unique<LogValue>(
       Scales::compressorTime.invmap(0.1), Scales::compressorTime, "compressorTime",
@@ -240,27 +240,27 @@ struct GlobalParameter : public ParameterInterface {
       "compressorThreshold", Info::kCanAutomate);
 
     value[ID::nVoice]
-      = std::make_unique<IntValue>(7, Scales::nVoice, "nVoice", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(7, Scales::nVoice, "nVoice", Info::kCanAutomate);
     value[ID::nUnison]
-      = std::make_unique<IntValue>(1, Scales::nUnison, "nUnison", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(1, Scales::nUnison, "nUnison", Info::kCanAutomate);
     value[ID::unisonDetune] = std::make_unique<LogValue>(
       0.25, Scales::unisonDetune, "unisonDetune", Info::kCanAutomate);
     value[ID::unisonSpread] = std::make_unique<LinearValue>(
       0.5, Scales::defaultScale, "unisonSpread", Info::kCanAutomate);
     value[ID::unisonGainRandom] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "unisonGainRandom", Info::kCanAutomate);
-    value[ID::unisonDetuneRandom] = std::make_unique<IntValue>(
+    value[ID::unisonDetuneRandom] = std::make_unique<UIntValue>(
       1, Scales::boolScale, "unisonDetuneRandom", Info::kCanAutomate);
 
     value[ID::octave]
-      = std::make_unique<IntValue>(12, Scales::octave, "octave", Info::kCanAutomate);
-    value[ID::semitone]
-      = std::make_unique<IntValue>(120, Scales::semitone, "semitone", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(12, Scales::octave, "octave", Info::kCanAutomate);
+    value[ID::semitone] = std::make_unique<UIntValue>(
+      120, Scales::semitone, "semitone", Info::kCanAutomate);
     value[ID::milli]
-      = std::make_unique<IntValue>(1000, Scales::milli, "milli", Info::kCanAutomate);
-    value[ID::equalTemperament] = std::make_unique<IntValue>(
+      = std::make_unique<UIntValue>(1000, Scales::milli, "milli", Info::kCanAutomate);
+    value[ID::equalTemperament] = std::make_unique<UIntValue>(
       11, Scales::equalTemperament, "equalTemperament", Info::kCanAutomate);
-    value[ID::pitchA4Hz] = std::make_unique<IntValue>(
+    value[ID::pitchA4Hz] = std::make_unique<UIntValue>(
       340, Scales::pitchA4Hz, "pitchA4Hz", Info::kCanAutomate);
 
     value[ID::pitchBend] = std::make_unique<LinearValue>(

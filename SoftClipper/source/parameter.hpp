@@ -48,13 +48,13 @@ enum ID {
 } // namespace ParameterID
 
 struct Scales {
-  static SomeDSP::IntScale<double> boolScale;
+  static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LinearScale<double> defaultScale;
 
   static SomeDSP::LogScale<double> inputGain;
   static SomeDSP::LogScale<double> outputGain;
   static SomeDSP::LogScale<double> clip;
-  static SomeDSP::IntScale<double> orderInteger;
+  static SomeDSP::UIntScale<double> orderInteger;
 
   static SomeDSP::LogScale<double> smoothness;
 };
@@ -72,7 +72,7 @@ struct GlobalParameter : public ParameterInterface {
     using LogValue = FloatValue<SomeDSP::LogScale<double>>;
     // using DecibelValue = FloatValue<SomeDSP::DecibelScale<double>>;
 
-    value[ID::bypass] = std::make_unique<IntValue>(
+    value[ID::bypass] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     value[ID::inputGain] = std::make_unique<LogValue>(
@@ -87,12 +87,12 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::slope] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "slope", Info::kCanAutomate);
 
-    value[ID::orderInteger] = std::make_unique<IntValue>(
+    value[ID::orderInteger] = std::make_unique<UIntValue>(
       2, Scales::orderInteger, "orderInteger", Info::kCanAutomate);
     value[ID::orderFraction] = std::make_unique<LinearValue>(
       0, Scales::defaultScale, "orderFraction", Info::kCanAutomate);
 
-    value[ID::oversample] = std::make_unique<IntValue>(
+    value[ID::oversample] = std::make_unique<UIntValue>(
       true, Scales::boolScale, "oversample", Info::kCanAutomate);
 
     value[ID::smoothness] = std::make_unique<LogValue>(

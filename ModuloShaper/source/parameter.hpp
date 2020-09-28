@@ -51,7 +51,7 @@ enum ID {
 } // namespace ParameterID
 
 struct Scales {
-  static SomeDSP::IntScale<double> boolScale;
+  static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LinearScale<double> defaultScale;
 
   static SomeDSP::LogScale<double> inputGain;
@@ -60,7 +60,7 @@ struct Scales {
   static SomeDSP::LinearScale<double> moreAdd;
   static SomeDSP::LinearScale<double> moreMul;
   static SomeDSP::LogScale<double> outputGain;
-  static SomeDSP::IntScale<double> type;
+  static SomeDSP::UIntScale<double> type;
 
   static SomeDSP::LogScale<double> lowpassCutoff;
 
@@ -80,7 +80,7 @@ struct GlobalParameter : public ParameterInterface {
     using LogValue = FloatValue<SomeDSP::LogScale<double>>;
     // using DecibelValue = FloatValue<SomeDSP::DecibelScale<double>>;
 
-    value[ID::bypass] = std::make_unique<IntValue>(
+    value[ID::bypass] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     value[ID::inputGain] = std::make_unique<LogValue>(
@@ -98,11 +98,11 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::outputGain] = std::make_unique<LogValue>(
       0.5, Scales::outputGain, "outputGain", Info::kCanAutomate);
     value[ID::type]
-      = std::make_unique<IntValue>(1, Scales::type, "type", Info::kCanAutomate);
-    value[ID::hardclip] = std::make_unique<IntValue>(
+      = std::make_unique<UIntValue>(1, Scales::type, "type", Info::kCanAutomate);
+    value[ID::hardclip] = std::make_unique<UIntValue>(
       false, Scales::boolScale, "hardclip", Info::kCanAutomate);
 
-    value[ID::lowpass] = std::make_unique<IntValue>(
+    value[ID::lowpass] = std::make_unique<UIntValue>(
       true, Scales::boolScale, "lowpass", Info::kCanAutomate);
     value[ID::lowpassCutoff] = std::make_unique<LogValue>(
       1.0, Scales::lowpassCutoff, "lowpassCutoff", Info::kCanAutomate);
