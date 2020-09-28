@@ -20,6 +20,7 @@
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
+#include "limiter.hpp"
 
 #include "oddpowshaper.hpp"
 
@@ -38,6 +39,7 @@ public:
   virtual void setup(double sampleRate) = 0;
   virtual void reset() = 0;   // Stop sounds.
   virtual void startup() = 0; // Reset phase, random seed etc.
+  virtual uint32_t getLatency() = 0;
   virtual void setParameters() = 0;
   virtual void process(
     const size_t length, const float *in0, const float *in1, float *out0, float *out1)
@@ -50,6 +52,7 @@ public:
     void setup(double sampleRate) override;                                              \
     void reset() override;                                                               \
     void startup() override;                                                             \
+    uint32_t getLatency() override;                                                      \
     void setParameters() override;                                                       \
     void process(                                                                        \
       const size_t length,                                                               \
@@ -62,8 +65,10 @@ public:
     float sampleRate = 44100.0f;                                                         \
                                                                                          \
     std::array<OddPowShaper<float>, 2> shaper;                                           \
+    EasyLimiter<float> limiter;                                                          \
                                                                                          \
     bool oversample = true;                                                              \
+    bool activateLimiter = true;                                                         \
     ExpSmoother<float> interpDrive;                                                      \
     ExpSmoother<float> interpOutputGain;                                                 \
   };

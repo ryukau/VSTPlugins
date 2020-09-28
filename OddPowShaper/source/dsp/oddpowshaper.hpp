@@ -22,6 +22,11 @@
 
 namespace SomeDSP {
 
+template<typename Sample> inline Sample safeClip(Sample input)
+{
+  return std::isfinite(input) ? std::clamp<Sample>(input, Sample(-128), Sample(128)) : 0;
+}
+
 template<typename Sample> class OddPowShaper {
 public:
   Sample drive = 1;  // Must be greater than 0.
@@ -53,7 +58,7 @@ public:
     Sample output = std::copysign(std::pow(absed, expo), x0);
     if (!inverse) output /= drive;
 
-    return std::isfinite(output) ? output : 0;
+    return safeClip(output);
   }
 
   Sample process16(Sample x0)

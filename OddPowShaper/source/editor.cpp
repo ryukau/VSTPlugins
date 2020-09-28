@@ -33,8 +33,12 @@ constexpr float knobX = 60.0f; // With margin.
 constexpr float knobY = knobHeight + labelY;
 constexpr float checkboxWidth = 60.0f;
 constexpr float splashHeight = 20.0f;
-constexpr uint32_t defaultWidth = uint32_t(5 * knobX + 30);
-constexpr uint32_t defaultHeight = uint32_t(30 + knobX + labelY + 3 * margin);
+
+constexpr float limiterLabelWidth = knobX + 3 * margin;
+
+constexpr uint32_t defaultWidth
+  = uint32_t(5 * knobX + 2 * limiterLabelWidth + 2 * margin + 30);
+constexpr uint32_t defaultHeight = uint32_t(30 + 3 * labelY + labelHeight);
 
 namespace Steinberg {
 namespace Vst {
@@ -47,6 +51,21 @@ Editor::Editor(void *controller) : PlugEditor(controller)
 
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
+}
+
+void Editor::valueChanged(CControl *pControl)
+{
+  ParamID tag = pControl->getTag();
+
+  switch (tag) {
+    case Synth::ParameterID::ID::limiter:
+    case Synth::ParameterID::ID::limiterAttack:
+      controller->getComponentHandler()->restartComponent(kLatencyChanged);
+  }
+
+  ParamValue value = pControl->getValueNormalized();
+  controller->setParamNormalized(tag, value);
+  controller->performEdit(tag, value);
 }
 
 bool Editor::prepareUI()
@@ -62,28 +81,60 @@ bool Editor::prepareUI()
   addKnob(left0 + 1 * knobX, top0, knobX, margin, uiTextSize, "Boost", ID::boost);
   addKnob(left0 + 2 * knobX, top0, knobX, margin, uiTextSize, "Output", ID::outputGain);
 
-  const auto top1 = top0 + knobY + 3 * margin;
-  addLabel(left0, top1, knobX, labelHeight, uiTextSize, "Order");
+  const auto topOrder0 = top0 + 3 * labelY;
+  addLabel(left0, topOrder0, knobX, labelHeight, uiTextSize, "Order");
   addTextKnob(
-    left0 + knobX, top1, knobX, labelHeight, uiTextSize, ID::order, Scales::order, false,
-    0, 1);
+    left0 + knobX, topOrder0, knobX, labelHeight, uiTextSize, ID::order, Scales::order,
+    false, 0, 1);
 
   const auto checkboxLeft1 = left0 + 3 * knobX + 2 * margin;
   const auto checkboxHeight = labelY - margin;
   addCheckbox(checkboxLeft1, top0, knobX, labelHeight, uiTextSize, "Flip", ID::flip);
   addCheckbox(
-    checkboxLeft1, top0 + checkboxHeight, 1.25f * knobX, labelHeight, uiTextSize,
-    "Inverse", ID::inverse);
+    checkboxLeft1, top0 + checkboxHeight, std::floor(1.25f * knobX), labelHeight,
+    uiTextSize, "Inverse", ID::inverse);
   addCheckbox(
-    checkboxLeft1, top0 + 2 * checkboxHeight, 1.5f * knobX, labelHeight, uiTextSize,
-    "OverSample", ID::oversample);
+    checkboxLeft1, top0 + 2 * checkboxHeight, std::floor(1.5f * knobX), labelHeight,
+    uiTextSize, "OverSample", ID::oversample);
+
+  // Limiter.
+  const auto leftLimiter0 = left0 + 5 * knobX + 2 * margin;
+  const auto leftLimiter1 = leftLimiter0 + limiterLabelWidth;
+  const auto topLimiter1 = top0 + 1 * labelY;
+  const auto topLimiter2 = top0 + 2 * labelY;
+  const auto topLimiter3 = top0 + 3 * labelY;
+  addToggleButton(
+    leftLimiter0, top0, 2 * limiterLabelWidth, labelHeight, midTextSize, "Limiter",
+    ID::limiter);
+  addLabel(
+    leftLimiter0, topLimiter1, limiterLabelWidth, labelHeight, uiTextSize, "Threshold",
+    kLeftText);
+  addTextKnob(
+    leftLimiter1, topLimiter1, limiterLabelWidth, labelHeight, uiTextSize,
+    ID::limiterThreshold, Scales::limiterThreshold, false, 5);
+  addLabel(
+    leftLimiter0, topLimiter2, limiterLabelWidth, labelHeight, uiTextSize, "Attack [s]",
+    kLeftText);
+  addTextKnob(
+    leftLimiter1, topLimiter2, limiterLabelWidth, labelHeight, uiTextSize,
+    ID::limiterAttack, Scales::limiterAttack, false, 5);
+  addLabel(
+    leftLimiter0, topLimiter3, limiterLabelWidth, labelHeight, uiTextSize, "Release [s]",
+    kLeftText);
+  addTextKnob(
+    leftLimiter1, topLimiter3, limiterLabelWidth, labelHeight, uiTextSize,
+    ID::limiterRelease, Scales::limiterRelease, false, 5);
 
   // Plugin name.
-  const auto splashTop = defaultHeight - splashHeight - 15.0f;
-  const auto splashLeft = checkboxLeft1;
+  const auto splashTop = top0 + 3 * labelY;
+  const auto splashLeft = checkboxLeft1 - std::floor(0.5f * knobX);
   addSplashScreen(
-    splashLeft, splashTop, 2.0f * knobX - 2 * margin, splashHeight, 15.0f, 15.0f,
-    defaultWidth - 30.0f, defaultHeight - 30.0f, pluginNameTextSize, "OddPowShaper");
+    splashLeft, splashTop, std::floor(2.5f * knobX) - 2 * margin, splashHeight, 15.0f,
+    15.0f, defaultWidth - 30.0f, defaultHeight - 30.0f, pluginNameTextSize,
+    "OddPowShaper");
+
+  // Probably this restartComponent() is redundant, but to make sure.
+  controller->getComponentHandler()->restartComponent(kLatencyChanged);
 
   return true;
 }

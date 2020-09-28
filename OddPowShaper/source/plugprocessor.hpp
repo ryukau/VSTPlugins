@@ -49,6 +49,8 @@ public:
   tresult PLUGIN_API setState(IBStream *state) SMTG_OVERRIDE;
   tresult PLUGIN_API getState(IBStream *state) SMTG_OVERRIDE;
 
+  uint32 PLUGIN_API getLatencySamples() SMTG_OVERRIDE;
+
   static FUnknown *createInstance(void *)
   {
     return (Vst::IAudioProcessor *)new PlugProcessor();
