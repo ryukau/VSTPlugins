@@ -31,10 +31,14 @@ constexpr float knobWidth = 50.0f;
 constexpr float knobHeight = 40.0f;
 constexpr float knobX = 60.0f; // With margin.
 constexpr float knobY = knobHeight + labelY;
-constexpr float checkboxWidth = 60.0f;
+constexpr float checkboxWidth = 2 * knobX;
 constexpr float splashHeight = 20.0f;
-constexpr uint32_t defaultWidth = uint32_t(6 * knobX + 30);
-constexpr uint32_t defaultHeight = uint32_t(30 + 2 * labelY + splashHeight + margin);
+
+constexpr float limiterLabelWidth = knobX + 3 * margin;
+
+constexpr uint32_t defaultWidth
+  = uint32_t(4 * knobX + 2 * limiterLabelWidth + 2 * margin + 30);
+constexpr uint32_t defaultHeight = uint32_t(30 + 4 * labelY + labelHeight);
 
 namespace Steinberg {
 namespace Vst {
@@ -47,6 +51,21 @@ Editor::Editor(void *controller) : PlugEditor(controller)
 
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
+}
+
+void Editor::valueChanged(CControl *pControl)
+{
+  ParamID tag = pControl->getTag();
+
+  switch (tag) {
+    case Synth::ParameterID::ID::limiter:
+    case Synth::ParameterID::ID::limiterAttack:
+      controller->getComponentHandler()->restartComponent(kLatencyChanged);
+  }
+
+  ParamValue value = pControl->getValueNormalized();
+  controller->setParamNormalized(tag, value);
+  controller->performEdit(tag, value);
 }
 
 bool Editor::prepareUI()
@@ -64,21 +83,51 @@ bool Editor::prepareUI()
     left0 + 2 * knobX, top0, knobX, margin, uiTextSize, "More Mul", ID::moreMul);
   addKnob(left0 + 3 * knobX, top0, knobX, margin, uiTextSize, "Output", ID::outputGain);
 
-  const auto checkboxTop = top0;
-  const auto checkboxLeft = left0 + 4 * knobX + 2 * margin;
+  const auto checkboxTop = top0 + 3 * labelY;
   addCheckbox(
-    checkboxLeft, checkboxTop, 1.5f * knobX, labelHeight, uiTextSize, "OverSample",
+    left0, checkboxTop, checkboxWidth, labelHeight, uiTextSize, "OverSample",
     ID::oversample);
   addCheckbox(
-    checkboxLeft, checkboxTop + labelY, 1.5f * knobX, labelHeight, uiTextSize, "Hardclip",
+    left0, checkboxTop + labelY, checkboxWidth, labelHeight, uiTextSize, "Hardclip",
     ID::hardclip);
 
+  // Limiter.
+  const auto leftLimiter0 = left0 + 4 * knobX + 2 * margin;
+  const auto leftLimiter1 = leftLimiter0 + limiterLabelWidth;
+  const auto topLimiter1 = top0 + 1 * labelY;
+  const auto topLimiter2 = top0 + 2 * labelY;
+  const auto topLimiter3 = top0 + 3 * labelY;
+  addToggleButton(
+    leftLimiter0, top0, 2 * limiterLabelWidth, labelHeight, midTextSize, "Limiter",
+    ID::limiter);
+  addLabel(
+    leftLimiter0, topLimiter1, limiterLabelWidth, labelHeight, uiTextSize, "Threshold",
+    kLeftText);
+  addTextKnob(
+    leftLimiter1, topLimiter1, limiterLabelWidth, labelHeight, uiTextSize,
+    ID::limiterThreshold, Scales::limiterThreshold, false, 5);
+  addLabel(
+    leftLimiter0, topLimiter2, limiterLabelWidth, labelHeight, uiTextSize, "Attack [s]",
+    kLeftText);
+  addTextKnob(
+    leftLimiter1, topLimiter2, limiterLabelWidth, labelHeight, uiTextSize,
+    ID::limiterAttack, Scales::limiterAttack, false, 5);
+  addLabel(
+    leftLimiter0, topLimiter3, limiterLabelWidth, labelHeight, uiTextSize, "Release [s]",
+    kLeftText);
+  addTextKnob(
+    leftLimiter1, topLimiter3, limiterLabelWidth, labelHeight, uiTextSize,
+    ID::limiterRelease, Scales::limiterRelease, false, 5);
+
   // Plugin name.
-  const auto splashTop = checkboxTop + 2 * labelY + margin;
-  const auto splashLeft = checkboxLeft;
+  const auto splashTop = checkboxTop + labelY;
+  const auto splashLeft = left0 + 2 * knobX;
   addSplashScreen(
-    splashLeft, splashTop, 2.0f * knobX - 2 * margin, splashHeight, 15.0f, 15.0f,
+    splashLeft, splashTop, checkboxWidth, splashHeight, 15.0f, 15.0f,
     defaultWidth - 30.0f, defaultHeight - 30.0f, pluginNameTextSize, "FoldShaper");
+
+  // Probably this restartComponent() is redundant, but to make sure.
+  controller->getComponentHandler()->restartComponent(kLatencyChanged);
 
   return true;
 }

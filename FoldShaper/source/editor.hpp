@@ -30,6 +30,8 @@ public:
   Editor(void *controller);
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
+  virtual void valueChanged(CControl *pControl) override;
+
 protected:
   bool prepareUI() override;
 };

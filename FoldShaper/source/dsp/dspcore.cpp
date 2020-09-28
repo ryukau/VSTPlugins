@@ -45,23 +45,32 @@ void DSPCORE_NAME::setup(double sampleRate)
 void DSPCORE_NAME::reset()
 {
   for (auto &shpr : shaper) shpr.reset();
+  limiter.reset();
   startup();
 }
 
 void DSPCORE_NAME::startup() {}
 
+uint32_t DSPCORE_NAME::getLatency() { return activateLimiter ? limiter.latency() : 0; }
+
 void DSPCORE_NAME::setParameters()
 {
   using ID = ParameterID::ID;
+  auto &pv = param.value;
 
-  SmootherCommon<float>::setTime(param.value[ID::smoothness]->getFloat());
+  SmootherCommon<float>::setTime(pv[ID::smoothness]->getFloat());
 
-  interpInputGain.push(param.value[ID::inputGain]->getFloat());
-  interpOutputGain.push(param.value[ID::outputGain]->getFloat());
-  interpMul.push(param.value[ID::mul]->getFloat() * param.value[ID::moreMul]->getFloat());
+  interpInputGain.push(pv[ID::inputGain]->getFloat());
+  interpOutputGain.push(pv[ID::outputGain]->getFloat());
+  interpMul.push(pv[ID::mul]->getFloat() * pv[ID::moreMul]->getFloat());
 
-  oversample = param.value[ID::oversample]->getInt();
-  for (auto &shpr : shaper) shpr.hardclip = param.value[ID::hardclip]->getInt();
+  oversample = pv[ID::oversample]->getInt();
+  for (auto &shpr : shaper) shpr.hardclip = pv[ID::hardclip]->getInt();
+
+  activateLimiter = pv[ID::limiter]->getInt();
+  limiter.prepare(
+    sampleRate, pv[ID::limiterAttack]->getFloat(), pv[ID::limiterRelease]->getFloat(),
+    pv[ID::limiterThreshold]->getFloat());
 }
 
 void DSPCORE_NAME::process(
@@ -89,7 +98,9 @@ void DSPCORE_NAME::process(
       frame[1] = outGain * shaper[1].process(frame[1]);
     }
 
-    out0[i] = std::clamp(frame[0], -128.0f, 128.0f);
-    out1[i] = std::clamp(frame[1], -128.0f, 128.0f);
+    if (activateLimiter) frame = limiter.process(frame);
+
+    out0[i] = frame[0];
+    out1[i] = frame[1];
   }
 }

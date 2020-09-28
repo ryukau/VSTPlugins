@@ -22,6 +22,11 @@
 
 namespace SomeDSP {
 
+template<typename Sample> inline Sample safeClip(Sample input)
+{
+  return std::isfinite(input) ? std::clamp<Sample>(input, Sample(-128), Sample(128)) : 0;
+}
+
 template<typename Sample> class FoldShaper {
 public:
   Sample gain = 1;
@@ -52,7 +57,8 @@ public:
     } else {
       output = std::copysign(mul * (absed - floored) + (Sample(1) - mul), x0);
     }
-    return std::isfinite(output) ? output : 0;
+
+    return safeClip(output);
   }
 
   Sample process16(Sample x0)

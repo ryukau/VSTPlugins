@@ -40,6 +40,11 @@ enum ID {
 
   smoothness,
 
+  limiter,
+  limiterThreshold,
+  limiterAttack,
+  limiterRelease,
+
   ID_ENUM_LENGTH,
 };
 } // namespace ParameterID
@@ -54,6 +59,10 @@ struct Scales {
   static SomeDSP::LogScale<double> outputGain;
 
   static SomeDSP::LogScale<double> smoothness;
+
+  static SomeDSP::LogScale<double> limiterThreshold;
+  static SomeDSP::LogScale<double> limiterAttack;
+  static SomeDSP::LogScale<double> limiterRelease;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -88,6 +97,18 @@ struct GlobalParameter : public ParameterInterface {
 
     value[ID::smoothness] = std::make_unique<LogValue>(
       0.1, Scales::smoothness, "smoothness", Info::kCanAutomate);
+
+    value[ID::limiter]
+      = std::make_unique<UIntValue>(1, Scales::boolScale, "limiter", Info::kCanAutomate);
+    value[ID::limiterThreshold] = std::make_unique<LogValue>(
+      Scales::limiterThreshold.invmap(1.0), Scales::limiterThreshold, "limiterThreshold",
+      Info::kCanAutomate);
+    value[ID::limiterAttack] = std::make_unique<LogValue>(
+      Scales::limiterAttack.invmap(0.002), Scales::limiterAttack, "limiterAttack",
+      Info::kCanAutomate);
+    value[ID::limiterRelease] = std::make_unique<LogValue>(
+      Scales::limiterRelease.invmap(0.005), Scales::limiterRelease, "limiterRelease",
+      Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }
