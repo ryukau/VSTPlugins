@@ -54,7 +54,7 @@ inline float calcNotePitch(float notePitch, float equalTemperament = 12.0f)
   return powf(2.0f, (notePitch - 69.0f) / equalTemperament);
 }
 
-// Fast approximation of PController::cutoffToP().
+// Fast approximation of EMAFilter::cutoffToP().
 // x is normalized frequency. Range is [0, 0.5).
 template<typename T> inline T cutoffToPApprox(T x)
 {

@@ -107,7 +107,7 @@ public:
   LinearSmoother<Sample> interpDepth;
   LinearSmoother<Sample> interpDelayTimeRange;
   LinearSmoother<Sample> interpMinDelayTime;
-  PController<Sample> delayTimeLowpass;
+  EMAFilter<Sample> delayTimeLowpass;
 
   void setup(double sampleRate, Sample time, Sample maxTime)
   {

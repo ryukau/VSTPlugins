@@ -24,12 +24,12 @@
 
 namespace SomeDSP {
 
-// PID controller without I and D.
-template<typename Sample> class PControllerTpz {
+// Exponential moving average filter.
+template<typename Sample> class EMAFilterTpz {
 public:
   Sample sampleRate = 44100;
 
-  PControllerTpz(Sample kp) : kp(kp) {}
+  EMAFilterTpz(Sample kp) : kp(kp) {}
 
   void reset() { value = 0; }
 
@@ -293,7 +293,7 @@ protected:
   Decay dec{44100, 1, 1};
   Release rel{44100, 1, 1};
 
-  PControllerTpz<Sample> smoother{2048};
+  EMAFilterTpz<Sample> smoother{2048};
 
   State state = State::terminated;
   Sample value = 0;

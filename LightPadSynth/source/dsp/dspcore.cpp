@@ -240,7 +240,7 @@ void DSPCORE_NAME::setParameters(float tempo)
     param.value[ID::lfoFrequencyMultiplier]->getFloat() * tempo / 240.0f / beat);
   info.lfoAmount.push(param.value[ID::lfoDelayAmount]->getFloat());
   info.lfoLowpass.push(
-    PController<float>::cutoffToP(sampleRate, param.value[ID::lfoLowpass]->getFloat()));
+    EMAFilter<float>::cutoffToP(sampleRate, param.value[ID::lfoLowpass]->getFloat()));
 
   nVoice = 16 * (param.value[ID::nVoice]->getInt() + 1);
   if (nVoice > notes.size()) nVoice = notes.size();

@@ -27,8 +27,8 @@
 
 namespace SomeDSP {
 
-// PID controller without I and D.
-template<typename Sample> class PController {
+// Exponential moving average filter.
+template<typename Sample> class EMAFilter {
 public:
   Sample kp; // In [0, 1].
   Sample value = 0;
@@ -43,7 +43,7 @@ public:
 
   void setCutoff(Sample sampleRate, Sample cutoffHz)
   {
-    kp = PController<double>::cutoffToP(sampleRate, cutoffHz);
+    kp = EMAFilter<double>::cutoffToP(sampleRate, cutoffHz);
   }
 
   void setP(Sample p) { kp = std::clamp<Sample>(p, Sample(0), Sample(1)); };
@@ -51,7 +51,7 @@ public:
   Sample process(Sample input) { return value += kp * (input - value); }
 };
 
-class PController16 {
+class EMAFilter16 {
 public:
   void setP(float p) { kp = std::clamp<float>(p, float(0), float(1)); };
   void setP(int index, float p) { kp.insert(index, p); };
@@ -74,7 +74,7 @@ public:
   static void setTime(Sample seconds)
   {
     timeInSamples = seconds * sampleRate;
-    kp = PController<double>::cutoffToP(
+    kp = EMAFilter<double>::cutoffToP(
       sampleRate, std::clamp<double>(1.0 / seconds, 0.0, sampleRate / 2.0));
   }
   static void setBufferSize(Sample _bufferSize) { bufferSize = _bufferSize; }

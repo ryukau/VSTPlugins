@@ -26,7 +26,7 @@
 namespace SomeDSP {
 
 template<typename Sample> struct EasyCompressor {
-  PController<float> smoother;
+  EMAFilter<float> smoother;
   Sample threshold = 0.1;
   Sample targetAmp = 1;
   Sample inHold = 0;
@@ -160,7 +160,7 @@ public:
   }
 
 private:
-  PController<Sample> lowpass;
+  EMAFilter<Sample> lowpass;
   Sample value = 0;
   Sample ramp = 0;
 };
@@ -217,7 +217,7 @@ template<typename Sample> struct OnePoleHighpass {
   }
 };
 
-template<typename Sample> struct PControllerKSHat {
+template<typename Sample> struct EMAFilterKSHat {
   Sample value = 0;
 
   void reset(Sample value = 0) { this->value = value; }
@@ -314,7 +314,7 @@ public:
 template<typename Sample> class KsString {
 public:
   Delay<Sample> delay;
-  PControllerKSHat<Sample> lowpass;
+  EMAFilterKSHat<Sample> lowpass;
   OnePoleHighpass<Sample> highpass;
   Sample feedback = 0;
 

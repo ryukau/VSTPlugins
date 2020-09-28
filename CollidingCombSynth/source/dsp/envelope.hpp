@@ -132,7 +132,7 @@ private:
   uint32_t tailLength = 32;
   uint32_t tailCounter = tailLength;
 
-  PController<Sample> pController;
+  EMAFilter<Sample> pController;
   State state = State::terminated;
   uint32_t atk = 0;
   Sample decTime = 0;

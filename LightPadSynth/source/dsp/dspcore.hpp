@@ -52,7 +52,7 @@ struct NoteProcessInfo {
   LinearSmoother<float> lfoLowpass;
 
   LfoTableOsc<lfoTableSize> lfo;
-  PController<float> lowpass;
+  EMAFilter<float> lowpass;
   float lfoOut = 0;
 
   void process(float sampleRate, LfoWavetable<lfoTableSize> &lfoWavetable)

@@ -128,7 +128,7 @@ public:
   std::array<Sample, nest> buffer{};
   std::array<LongAllpass<Sample>, nest> allpass;
   std::array<LongAllpassData<Sample>, nest> data;
-  std::array<PController<Sample>, nest> lowpass;
+  std::array<EMAFilter<Sample>, nest> lowpass;
 
   void setup(Sample sampleRate, Sample maxTime)
   {

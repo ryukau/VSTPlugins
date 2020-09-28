@@ -63,7 +63,7 @@ public:
     float sampleRate = 44100.0f;                                                         \
                                                                                          \
     std::minstd_rand rng{0};                                                             \
-    std::array<std::array<PController<float>, nestingDepth>, 2> lowpassLfoTime;          \
+    std::array<std::array<EMAFilter<float>, nestingDepth>, 2> lowpassLfoTime;            \
                                                                                          \
     StereoLongAllpass<float, nestingDepth> delay;                                        \
     std::array<std::array<ExpSmoother<float>, nestingDepth>, 2> interpTime;              \

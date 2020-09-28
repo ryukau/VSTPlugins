@@ -96,7 +96,7 @@ struct NoteProcessInfo {
     float releaseLength = 0;                                                             \
                                                                                          \
     ADNoise noise;                                                                       \
-    PController<float> exciterLowpass;                                                   \
+    EMAFilter<float> exciterLowpass;                                                     \
     AttackGate<float> gate;                                                              \
     std::array<ShortComb<float>, nComb> comb;                                            \
     KsHat<float, nDelay> cymbal;                                                         \

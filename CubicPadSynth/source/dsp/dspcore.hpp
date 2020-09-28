@@ -71,7 +71,7 @@ struct NoteProcessInfo {
   struct ProcessingUnit_##INSTRSET {                                                     \
     TableOsc16<tableSize> osc;                                                           \
     LfoTableOsc16<lfoTableSize> lfo;                                                     \
-    PController16 lfoSmoother;                                                           \
+    EMAFilter16 lfoSmoother;                                                             \
     ExpADSREnvelope16 gainEnvelope;                                                      \
     LinearADSREnvelope16 pitchEnvelope;                                                  \
     LinearADSREnvelope16 lowpassEnvelope;                                                \
