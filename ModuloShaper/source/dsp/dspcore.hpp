@@ -20,6 +20,7 @@
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
+#include "limiter.hpp"
 
 #include "moduloshaper.hpp"
 
@@ -66,9 +67,11 @@ public:
     std::array<ModuloShaper<float>, 2> shaperNaive;                                      \
     std::array<ModuloShaperPolyBLEP<double>, 2> shaperBlep;                              \
     std::array<Butter8Lowpass<float>, 2> lowpass;                                        \
+    EasyLimiter<float> limiter;                                                          \
                                                                                          \
     uint32_t shaperType = 0; /* 0: naive, 1: 4x naive, 2: P-BLEP4, 3: P-BLEP8 */         \
     bool activateLowpass = true;                                                         \
+    bool activateLimiter = true;                                                         \
     ExpSmoother<float> interpInputGain;                                                  \
     ExpSmoother<float> interpClipGain;                                                   \
     ExpSmoother<float> interpOutputGain;                                                 \

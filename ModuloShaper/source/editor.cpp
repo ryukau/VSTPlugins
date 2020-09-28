@@ -33,7 +33,11 @@ constexpr float knobX = 60.0f; // With margin.
 constexpr float knobY = knobHeight + labelY;
 constexpr float checkboxWidth = 60.0f;
 constexpr float splashHeight = 30.0f;
-constexpr uint32_t defaultWidth = uint32_t(6 * knobX + 30);
+
+constexpr float limiterLabelWidth = knobX + 3 * margin;
+
+constexpr uint32_t defaultWidth
+  = uint32_t(6 * knobX + 2 * margin + 2 * limiterLabelWidth + 30);
 constexpr uint32_t defaultHeight = uint32_t(40 + 2 * knobY + 2 * margin + labelY);
 
 namespace Steinberg {
@@ -53,8 +57,12 @@ void Editor::valueChanged(CControl *pControl)
 {
   ParamID tag = pControl->getTag();
 
-  if (tag == Synth::ParameterID::ID::type)
-    controller->getComponentHandler()->restartComponent(kLatencyChanged);
+  switch (tag) {
+    case Synth::ParameterID::ID::type:
+    case Synth::ParameterID::ID::limiter:
+    case Synth::ParameterID::ID::limiterAttack:
+      controller->getComponentHandler()->restartComponent(kLatencyChanged);
+  }
 
   ParamValue value = pControl->getValueNormalized();
   controller->setParamNormalized(tag, value);
@@ -103,12 +111,43 @@ bool Editor::prepareUI()
   addOptionMenu(
     left0 + 1.5f * knobX, top2, 2 * knobX, labelHeight, uiTextSize, ID::type, typeItems);
 
+  // Limiter.
+  const auto leftLimiter0 = left0 + 6 * knobX + 2 * margin;
+  const auto leftLimiter1 = leftLimiter0 + limiterLabelWidth;
+  const auto topLimiter1 = top0 + 1 * labelY;
+  const auto topLimiter2 = top0 + 2 * labelY;
+  const auto topLimiter3 = top0 + 3 * labelY;
+  addToggleButton(
+    leftLimiter0, top0, 2 * limiterLabelWidth, labelHeight, midTextSize, "Limiter",
+    ID::limiter);
+  addLabel(
+    leftLimiter0, topLimiter1, limiterLabelWidth, labelHeight, uiTextSize, "Threshold",
+    kLeftText);
+  addTextKnob(
+    leftLimiter1, topLimiter1, limiterLabelWidth, labelHeight, uiTextSize,
+    ID::limiterThreshold, Scales::limiterThreshold, false, 5);
+  addLabel(
+    leftLimiter0, topLimiter2, limiterLabelWidth, labelHeight, uiTextSize, "Attack [s]",
+    kLeftText);
+  addTextKnob(
+    leftLimiter1, topLimiter2, limiterLabelWidth, labelHeight, uiTextSize,
+    ID::limiterAttack, Scales::limiterAttack, false, 5);
+  addLabel(
+    leftLimiter0, topLimiter3, limiterLabelWidth, labelHeight, uiTextSize, "Release [s]",
+    kLeftText);
+  addTextKnob(
+    leftLimiter1, topLimiter3, limiterLabelWidth, labelHeight, uiTextSize,
+    ID::limiterRelease, Scales::limiterRelease, false, 5);
+
   // Plugin name.
   const auto splashTop = defaultHeight - splashHeight - 15.0f;
   const auto splashLeft = defaultWidth + 2 * margin - 2 * knobX - 15.0f;
   addSplashScreen(
     splashLeft, splashTop, 2 * knobX - 2 * margin, splashHeight, 15.0f, 15.0f,
     defaultWidth - 30.0f, defaultHeight - 30.0f, pluginNameTextSize, "ModuloShaper");
+
+  // Probably this restartComponent() is redundant, but to make sure.
+  controller->getComponentHandler()->restartComponent(kLatencyChanged);
 
   return true;
 }

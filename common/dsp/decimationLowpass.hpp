@@ -115,7 +115,7 @@ public:
   std::array<Sample, 8> y0{};
   std::array<Sample, 8> y1{};
   std::array<Sample, 8> y2{};
-  const std::array<std::array<Sample, 5>, 8> co{{
+  constexpr static std::array<std::array<Sample, 5>, 8> co{{
     {1.325527960537483e-06, -1.0486296880714946e-06, 1.3255279605374831e-06,
      -1.8869513625870566, 0.8907702524266276},
     {1.0, -1.7990799255799657, 0.9999999999999999, -1.8984243919196817, 0.90603953110456},

@@ -38,5 +38,11 @@ LogScale<double> Scales::lowpassCutoff(20.0, 20000.0, 0.5, 200.0);
 
 LogScale<double> Scales::smoothness(0.0, 0.5, 0.1, 0.04);
 
+// Limiter attack time is based on the time of 4095 frames in 192 kHz samplerate.
+// 0.021328 ~= 4095 / 192k.
+LogScale<double> Scales::limiterThreshold(0.01, 2.0, 0.5, 0.5);
+LogScale<double> Scales::limiterAttack(0.0001, 0.021328, 0.1, 0.002);
+LogScale<double> Scales::limiterRelease(0.0001, 0.2, 0.2, 0.01);
+
 } // namespace Synth
 } // namespace Steinberg

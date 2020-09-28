@@ -47,6 +47,7 @@ void DSPCORE_NAME::reset()
   for (auto &shaper : shaperNaive) shaper.reset();
   for (auto &shaper : shaperBlep) shaper.reset();
   for (auto &lp : lowpass) lp.reset();
+  limiter.reset();
   startup();
 }
 
@@ -54,32 +55,39 @@ void DSPCORE_NAME::startup() {}
 
 uint32_t DSPCORE_NAME::getLatency()
 {
+  auto latency = activateLimiter ? limiter.latency() : 0;
   if (shaperType == 2) // 4 point PolyBLEP residual.
-    return 4;
+    return 4 + latency;
   else if (shaperType == 3) // 8 point PolyBLEP residual.
-    return 8;
-  return 0;
+    return 8 + latency;
+  return latency;
 }
 
 void DSPCORE_NAME::setParameters()
 {
   using ID = ParameterID::ID;
+  auto &pv = param.value;
 
-  SmootherCommon<float>::setTime(param.value[ID::smoothness]->getFloat());
+  SmootherCommon<float>::setTime(pv[ID::smoothness]->getFloat());
 
-  interpInputGain.push(param.value[ID::inputGain]->getFloat());
-  interpClipGain.push(param.value[ID::clipGain]->getFloat());
-  interpOutputGain.push(param.value[ID::outputGain]->getFloat());
-  interpAdd.push(param.value[ID::add]->getFloat() * param.value[ID::moreAdd]->getFloat());
-  interpMul.push(param.value[ID::mul]->getFloat() * param.value[ID::moreMul]->getFloat());
-  interpCutoff.push(param.value[ID::lowpassCutoff]->getFloat());
+  interpInputGain.push(pv[ID::inputGain]->getFloat());
+  interpClipGain.push(pv[ID::clipGain]->getFloat());
+  interpOutputGain.push(pv[ID::outputGain]->getFloat());
+  interpAdd.push(pv[ID::add]->getFloat() * pv[ID::moreAdd]->getFloat());
+  interpMul.push(pv[ID::mul]->getFloat() * pv[ID::moreMul]->getFloat());
+  interpCutoff.push(pv[ID::lowpassCutoff]->getFloat());
 
-  shaperType = param.value[ID::type]->getInt();
-  activateLowpass = param.value[ID::lowpass]->getInt();
+  shaperType = pv[ID::type]->getInt();
+  activateLowpass = pv[ID::lowpass]->getInt();
 
-  bool hardclip = param.value[ID::hardclip]->getInt();
+  bool hardclip = pv[ID::hardclip]->getInt();
   for (auto &shaper : shaperNaive) shaper.hardclip = hardclip;
   for (auto &shaper : shaperBlep) shaper.hardclip = hardclip;
+
+  activateLimiter = pv[ID::limiter]->getInt();
+  limiter.prepare(
+    sampleRate, pv[ID::limiterAttack]->getFloat(), pv[ID::limiterRelease]->getFloat(),
+    pv[ID::limiterThreshold]->getFloat());
 }
 
 void DSPCORE_NAME::process(
@@ -119,14 +127,14 @@ void DSPCORE_NAME::process(
         frame[1] = clipGain * shaperNaive[1].process(inGain * frame[1]);
         break;
 
-      case 1: // Naive 4x oversampling.
+      case 1: // Naive 16x oversampling.
         shaperNaive[0].add = add;
         shaperNaive[1].add = add;
         shaperNaive[0].mul = mul;
         shaperNaive[1].mul = mul;
 
-        frame[0] = clipGain * shaperNaive[0].process4x(inGain * frame[0]);
-        frame[1] = clipGain * shaperNaive[1].process4x(inGain * frame[1]);
+        frame[0] = clipGain * shaperNaive[0].process16x(inGain * frame[0]);
+        frame[1] = clipGain * shaperNaive[1].process16x(inGain * frame[1]);
         break;
 
       case 2: // 4 point PolyBLEP residual.
@@ -153,7 +161,9 @@ void DSPCORE_NAME::process(
     frame[0] *= outGain;
     frame[1] *= outGain;
 
-    out0[i] = std::isfinite(frame[0]) ? std::clamp(frame[0], -128.0f, 128.0f) : 0;
-    out1[i] = std::isfinite(frame[1]) ? std::clamp(frame[1], -128.0f, 128.0f) : 0;
+    if (activateLimiter) frame = limiter.process(frame);
+
+    out0[i] = frame[0];
+    out1[i] = frame[1];
   }
 }

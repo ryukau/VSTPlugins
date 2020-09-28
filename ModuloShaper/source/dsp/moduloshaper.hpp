@@ -22,6 +22,11 @@
 
 namespace SomeDSP {
 
+template<typename Sample> inline Sample safeClip(Sample input)
+{
+  return std::isfinite(input) ? std::clamp<Sample>(input, Sample(-128), Sample(128)) : 0;
+}
+
 template<typename Sample> class Butter8Lowpass {
 public:
   void reset()
@@ -118,10 +123,12 @@ template<typename Sample> struct ModuloShaper {
     x0 = std::fabs(x0 * gain);
     Sample floored = std::floor(x0);
     Sample height = std::pow(add, floored);
-    return sign * ((x0 - floored) * std::pow(mul, floored) * height + Sample(1) - height);
+    Sample out
+      = sign * ((x0 - floored) * std::pow(mul, floored) * height + Sample(1) - height);
+    return safeClip(out);
   }
 
-  float process4x(Sample x0)
+  float process16x(Sample x0)
   {
     if (hardclip) x0 = std::clamp(x0, Sample(-1), Sample(1));
     Sample diff = x0 - x1;
@@ -210,7 +217,7 @@ public:
     x1 = x0;
     x0 = input;
 
-    return x3;
+    return safeClip(x3);
   }
 
   Sample process8(Sample input)
@@ -293,7 +300,7 @@ public:
     x1 = x0;
     x0 = input;
 
-    return x7;
+    return safeClip(x7);
   }
 };
 
