@@ -17,16 +17,44 @@
 
 #include "dspcore.hpp"
 
-#include <iostream>
-
 namespace Steinberg {
 namespace Synth {
 
 constexpr size_t channel = 2;
 
-float clamp(float value, float min, float max)
+inline std::array<float, 2> calcPan(float inL, float inR, float pan, float spread)
 {
-  return (value < min) ? min : (value > max) ? max : value;
+  // // M-S spread. Not used because of compatibility.
+  // float mid = inL + inR;
+  // float side = inL - inR;
+  // float sigL = mid - spread * (mid - side);
+  // float sigR = mid - spread * (mid + side);
+
+  float balanceL = std::clamp<float>(spread, 0.0f, 1.0f);
+  float balanceR = std::clamp<float>(1.0f - spread, 0.0f, 1.0f);
+  float sigL = inL + balanceL * (inR - inL);
+  float sigR = inL + balanceR * (inR - inL);
+
+  float gainLL = pan < 0.5f ? 0.5f + pan : 1.0f;
+  float gainRR = pan > 0.5f ? 1.5f - pan : 1.0f;
+  float theta = float(halfpi) * pan;
+  return {
+    (gainLL * sigL + (1.0f - gainLL) * sigR) * std::cos(theta),
+    ((1.0f - gainRR) * sigL + gainRR * sigR) * std::sin(theta),
+  };
+
+  // float gainLL = pan < 0.5f ? 0.5f + pan : 1.0f;
+  // float gainRR = pan > 0.5f ? 1.5f - pan : 1.0f;
+  // float theta = float(halfpi) * pan;
+  // float sigL = (gainLL * inL + (1.0f - gainLL) * inR) * std::cos(theta);
+  // float sigR = ((1.0f - gainRR) * inL + gainRR * inR) * std::sin(theta);
+
+  // float balanceL = std::clamp<float>(spread, 0.0f, 1.0f);
+  // float balanceR = std::clamp<float>(1.0f - spread, 0.0f, 1.0f);
+  // return {
+  //   sigL + balanceL * (sigR - sigL),
+  //   sigL + balanceR * (sigR - sigL),
+  // };
 }
 
 void DSPCore::setup(double sampleRate)
@@ -99,20 +127,10 @@ void DSPCore::setParameters(double tempo)
   interpLfoFrequency.push(param.value[ParameterID::lfoFrequency]->getFloat());
   interpLfoShape.push(param.value[ParameterID::lfoShape]->getFloat());
 
-  float inPan = 2 * param.value[ParameterID::inPan]->getFloat();
-  float panInL
-    = clamp(inPan + param.value[ParameterID::inSpread]->getFloat() - 1.0, 0.0, 1.0);
-  float panInR = clamp(inPan - param.value[ParameterID::inSpread]->getFloat(), 0.0, 1.0);
-  interpPanIn[0].push(panInL);
-  interpPanIn[1].push(panInR);
-
-  float outPan = 2 * param.value[ParameterID::outPan]->getFloat();
-  float panOutL
-    = clamp(outPan + param.value[ParameterID::outSpread]->getFloat() - 1.0, 0.0, 1.0);
-  float panOutR
-    = clamp(outPan - param.value[ParameterID::outSpread]->getFloat(), 0.0, 1.0);
-  interpPanOut[0].push(panOutL);
-  interpPanOut[1].push(panOutR);
+  interpPanIn.push(param.value[ParameterID::inPan]->getFloat());
+  interpSpreadIn.push(param.value[ParameterID::inSpread]->getFloat());
+  interpPanOut.push(param.value[ParameterID::outPan]->getFloat());
+  interpSpreadOut.push(param.value[ParameterID::outSpread]->getFloat());
 
   interpToneCutoff.push(param.value[ParameterID::toneCutoff]->getFloat());
   interpToneQ.push(param.value[ParameterID::toneQ]->getFloat());
@@ -139,10 +157,10 @@ void DSPCore::process(
     delay[1].setTime(interpTime[1].process() + lfoTime);
 
     const float feedback = interpFeedback.process();
-    const float inL = in0[i] + feedback * delayOut[0];
-    const float inR = in1[i] + feedback * delayOut[1];
-    delayOut[0] = delay[0].process(inL + interpPanIn[0].process() * (inR - inL));
-    delayOut[1] = delay[1].process(inL + interpPanIn[1].process() * (inR - inL));
+    const auto inDelay
+      = calcPan(in0[i], in1[i], interpPanIn.process(), interpSpreadIn.process());
+    delayOut[0] = delay[0].process(inDelay[0] + feedback * delayOut[0]);
+    delayOut[1] = delay[1].process(inDelay[1] + feedback * delayOut[1]);
 
     const float lfoTone = interpLfoToneAmount.process() * (0.5f * lfo + 0.5f);
     float toneCutoff = interpToneCutoff.process() * lfoTone * lfoTone;
@@ -165,15 +183,13 @@ void DSPCore::process(
     // dckillmix == 1 -> delayout
     delayOut[0] = filterOutL + dckillMix * (delayOut[0] - filterOutL);
     delayOut[1] = filterOutR + dckillMix * (delayOut[1] - filterOutR);
+    delayOut = calcPan(
+      delayOut[0], delayOut[1], interpPanOut.process(), interpSpreadOut.process());
 
     const float wet = interpWetMix.process();
     const float dry = interpDryMix.process();
-    const float outL = wet * delayOut[0];
-    const float outR = wet * delayOut[1];
-    out0[i] = dry * in0[i] + outL + interpPanOut[0].process() * (outR - outL);
-    out1[i] = dry * in1[i] + outL + interpPanOut[1].process() * (outR - outL);
-    // out0[i] = length;
-    // out1[i] = length;
+    out0[i] = dry * in0[i] + wet * delayOut[0];
+    out1[i] = dry * in1[i] + wet * delayOut[1];
 
     if (lfoHold) {
       lfoPhase += interpLfoFrequency.process() * lfoPhaseTick;
