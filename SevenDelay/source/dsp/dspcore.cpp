@@ -90,16 +90,8 @@ void DSPCore::setParameters(double tempo)
   }
 
   auto offset = param.value[ParameterID::offset]->getFloat();
-  if (offset < 0.0) {
-    interpTime[0].push(time * (1.0 + offset));
-    interpTime[1].push(time);
-  } else if (offset > 0.0) {
-    interpTime[0].push(time);
-    interpTime[1].push(time * (1.0 - offset));
-  } else {
-    interpTime[0].push(time);
-    interpTime[1].push(time);
-  }
+  interpTime[0].push(offset < 0.0 ? time * (1.0 + offset) : time);
+  interpTime[1].push(offset > 0.0 ? time * (1.0 - offset) : time);
 
   interpWetMix.push(param.value[ParameterID::wetMix]->getFloat());
   interpDryMix.push(param.value[ParameterID::dryMix]->getFloat());
