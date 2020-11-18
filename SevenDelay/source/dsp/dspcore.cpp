@@ -24,37 +24,22 @@ constexpr size_t channel = 2;
 
 inline std::array<float, 2> calcPan(float inL, float inR, float pan, float spread)
 {
-  // // M-S spread. Not used because of compatibility.
-  // float mid = inL + inR;
-  // float side = inL - inR;
-  // float sigL = mid - spread * (mid - side);
-  // float sigR = mid - spread * (mid + side);
-
   float balanceL = std::clamp<float>(spread, 0.0f, 1.0f);
   float balanceR = std::clamp<float>(1.0f - spread, 0.0f, 1.0f);
   float sigL = inL + balanceL * (inR - inL);
   float sigR = inL + balanceR * (inR - inL);
 
-  float gainLL = pan < 0.5f ? 0.5f + pan : 1.0f;
-  float gainRR = pan > 0.5f ? 1.5f - pan : 1.0f;
-  float theta = float(halfpi) * pan;
+  pan = std::clamp<float>(pan, 0.0f, 1.0f);
+  if (pan < 0.5f) {
+    return {
+      (0.5f + pan) * sigL + (0.5f - pan) * sigR,
+      sigR * 2.0f * pan,
+    };
+  }
   return {
-    (gainLL * sigL + (1.0f - gainLL) * sigR) * std::cos(theta),
-    ((1.0f - gainRR) * sigL + gainRR * sigR) * std::sin(theta),
+    sigL * (2.0f - 2.0f * pan),
+    (pan - 0.5f) * sigL + (1.5f - pan) * sigR,
   };
-
-  // float gainLL = pan < 0.5f ? 0.5f + pan : 1.0f;
-  // float gainRR = pan > 0.5f ? 1.5f - pan : 1.0f;
-  // float theta = float(halfpi) * pan;
-  // float sigL = (gainLL * inL + (1.0f - gainLL) * inR) * std::cos(theta);
-  // float sigR = ((1.0f - gainRR) * inL + gainRR * inR) * std::sin(theta);
-
-  // float balanceL = std::clamp<float>(spread, 0.0f, 1.0f);
-  // float balanceR = std::clamp<float>(1.0f - spread, 0.0f, 1.0f);
-  // return {
-  //   sigL + balanceL * (sigR - sigL),
-  //   sigL + balanceR * (sigR - sigL),
-  // };
 }
 
 void DSPCore::setup(double sampleRate)
