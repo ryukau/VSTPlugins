@@ -19,6 +19,7 @@
 #include "version.hpp"
 
 #include <algorithm>
+#include <iomanip>
 #include <sstream>
 
 constexpr uint32_t defaultWidth = 960;
@@ -27,6 +28,7 @@ constexpr float pluginNameTextSize = 24.0f;
 constexpr float labelHeight = 30.0f;
 constexpr float midTextSize = 14.0f;
 constexpr float uiTextSize = 14.0f;
+constexpr float infoTextSize = 12.0f;
 constexpr float checkboxWidth = 80.0f;
 constexpr float sliderWidth = 70.0f;
 constexpr float sliderHeight = 230.0f;
@@ -48,6 +50,7 @@ Editor::Editor(void *controller) : PlugEditor(controller)
 Editor::~Editor()
 {
   if (waveView) waveView->forget();
+  if (timeTextView) timeTextView->forget();
 }
 
 void Editor::addWaveView(const CRect &size)
@@ -70,15 +73,16 @@ ParamValue Editor::getPlainValue(ParamID tag)
 
 void Editor::valueChanged(CControl *pControl)
 {
-  ParamID tag = pControl->getTag();
+  ParamID id = pControl->getTag();
   ParamValue value = pControl->getValueNormalized();
-  controller->setParamNormalized(tag, value);
-  controller->performEdit(tag, value);
+  controller->setParamNormalized(id, value);
+  controller->performEdit(id, value);
 
-  refreshWaveView(tag);
+  refreshWaveView(id);
+  refreshTimeTextView(id);
 }
 
-void Editor::updateUI(Vst::ParamID id, ParamValue normalized)
+void Editor::updateUI(ParamID id, ParamValue normalized)
 {
   auto iter = controlMap.find(id);
   if (iter == controlMap.end()) return;
@@ -86,6 +90,7 @@ void Editor::updateUI(Vst::ParamID id, ParamValue normalized)
   iter->second->invalid();
 
   refreshWaveView(id);
+  refreshTimeTextView(id);
 }
 
 void Editor::refreshWaveView(ParamID id)
@@ -99,6 +104,35 @@ void Editor::refreshWaveView(ParamID id)
     waveView->phase = getPlainValue(id);
     waveView->setDirty(true);
   }
+}
+
+void Editor::refreshTimeTextView(ParamID id)
+{
+  using ID = Synth::ParameterID::ID;
+
+  if (timeTextView == nullptr) return;
+  if (id != ID::time && id != ID::offset && id != ID::tempoSync) return;
+
+  auto timeC = getPlainValue(ID::time);
+  auto offset = getPlainValue(ID::offset);
+
+  std::stringstream ss;
+  if (0.0f != controller->getParamNormalized(ID::tempoSync)) { // is tempo syncing.
+    if (timeC > 1.0) timeC = std::floor(2.0 * timeC) / 2.0;
+    auto timeL = offset < 0.0 ? timeC * (1.0 + offset) : timeC;
+    auto timeR = offset > 0.0 ? timeC * (1.0 - offset) : timeC;
+    ss << "L: " << std::setprecision(4) << timeL << "/16\nR: " << std::setprecision(4)
+       << timeR << "/16";
+  } else {
+    timeC *= 1e3;
+    auto timeL = offset < 0.0 ? timeC * (1.0 + offset) : timeC;
+    auto timeR = offset > 0.0 ? timeC * (1.0 - offset) : timeC;
+    ss << "L: " << std::setw(7) << std::right << timeL << "ms\nR: " << std::setw(7)
+       << std::right << timeR << "ms";
+  }
+  std::string text = ss.str();
+  timeTextView->setText(text);
+  timeTextView->setDirty(true);
 }
 
 bool Editor::prepareUI()
@@ -134,12 +168,18 @@ bool Editor::prepareUI()
   const auto delayTop2 = delayTop1 + normalHeight;
   const auto delayTop3 = delayTop2 + smallHeight;
   const auto delayTop4 = delayTop3 + smallHeight;
+
+  if (timeTextView) timeTextView->forget();
+  timeTextView = addTextView(
+    delayLeft, delayTop2 - 15.0f, checkboxWidth + 15.0f, 40.0f, infoTextSize, "");
+  timeTextView->remember();
+
   addCheckbox(
-    delayLeft + 10.0f, delayTop2, checkboxWidth, labelHeight, uiTextSize, "Sync",
+    delayLeft + 10.0f, delayTop3 - 15.0f, checkboxWidth, labelHeight, uiTextSize, "Sync",
     ID::tempoSync);
   addCheckbox(
-    delayLeft + 10.0f, delayTop3, checkboxWidth, labelHeight, uiTextSize, "Negative",
-    ID::negativeFeedback);
+    delayLeft + 10.0f, delayTop3 + 15.0f, checkboxWidth, labelHeight, uiTextSize,
+    "Negative", ID::negativeFeedback);
 
   addKnob(
     1.0f * interval + delayLeft, delayTop2, smallWidth, margin, uiTextSize, "In Spread",
@@ -204,6 +244,8 @@ bool Editor::prepareUI()
   addSplashScreen(
     nameLeft, nameTop, nameWidth, 40.0f, 200.0f, 20.0f, defaultWidth - 400.0f,
     defaultHeight - 40.0f, pluginNameTextSize, "SevenDelay");
+
+  refreshTimeTextView(ID::time);
 
   return true;
 }

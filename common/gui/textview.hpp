@@ -31,13 +31,24 @@ class TextView : public CControl {
 public:
   CCoord lineHeight = 20.0;
 
-  TextView(
-    const CRect &size, std::string content, CFontRef fontId, Uhhyou::Palette &palette)
+  TextView(const CRect &size, std::string text, CFontRef fontId, Uhhyou::Palette &palette)
     : CControl(size, nullptr, -1), fontId(fontId), pal(palette)
   {
     this->fontId->remember();
 
-    std::stringstream ss(content);
+    setText(text);
+  }
+
+  ~TextView()
+  {
+    if (fontId != nullptr) fontId->forget();
+  }
+
+  void setText(std::string text)
+  {
+    str.clear();
+
+    std::stringstream ss(text);
     std::string line;
     while (std::getline(ss, line, '\n')) {
       if (line.size() <= 0)
@@ -45,11 +56,6 @@ public:
       else
         str.push_back(line);
     }
-  }
-
-  ~TextView()
-  {
-    if (fontId != nullptr) fontId->forget();
   }
 
   void draw(CDrawContext *pContext) override

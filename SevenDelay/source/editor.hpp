@@ -34,11 +34,13 @@ public:
   void valueChanged(CControl *pControl) override;
   void updateUI(Vst::ParamID id, ParamValue normalized) override;
   void refreshWaveView(Vst::ParamID id);
+  void refreshTimeTextView(Vst::ParamID id);
 
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
 protected:
   WaveView *waveView = nullptr;
+  TextView *timeTextView = nullptr;
 
   bool prepareUI() override;
   void addWaveView(const CRect &size);
