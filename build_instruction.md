@@ -48,7 +48,7 @@ dnf install              \
   libxkbcommon-x11-devel \
 ```
 
-Fedora 32 needs extra patching to VST 3 SDK. To apply patch, run following command.
+If the version of VST 3 SDK is below 3.7.1, Fedora 32 needs extra patching. To apply patch, run following command.
 
 ```bash
 cd ~/code/vst
@@ -82,7 +82,15 @@ cmake -G"Visual Studio 16 2019" -A x64 -DSMTG_MYPLUGINS_SRC_PATH="../../VSTPlugi
 cmake --build . -j --config Release
 ```
 
-Plugins are built into `~/code/vst3sdk/build/VST3/Release`. To install plugins, copy them to `/c/Program Files/Common Files/VST3` in Git Bash path, or `C:\Program Files\Common Files\VST3` in Windows path.
+Plugins are built into `~/code/vst3sdk/build/VST3/Release`. In default, link of plugins are made to `/c/Program Files/Common Files/VST3` in Git Bash path, or `C:\Program Files\Common Files\VST3` in Windows path.
+
+If the plugin already exists in `C:\Program Files\Common Files\VST3`, following error may appear.
+
+```
+error MSB3073: mklink "C:\Program Files\Common Files\VST3\SomePlugin.vst3"  C:\<somepath>\vst3sdk\build\VST3\Release\SomePlugin.vst3
+```
+
+In this case, add `-DSMTG_CREATE_PLUGIN_LINK=FALSE` to cmake option.
 
 ## macOS
 Note that I don't have mac, so I can't test this instruction. This instruction is based on build script for [GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions). If you find something wrong, feel free to open issue.
