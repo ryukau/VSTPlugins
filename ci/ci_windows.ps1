@@ -4,28 +4,32 @@
 
 $ErrorActionPreference = "Stop"
 
-cd $GITHUB_WORKSPACE
-
 git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
-cd vst3sdk
 
 mkdir build
-cd build
+mkdir target
+$SRC_ROOT = (Get-Item .).FullName
 
-# No idea what's happening, but this cmake command stucks.
-cmake -G"Visual Studio 16 2019" `
-  -DSMTG_MYPLUGINS_SRC_PATH="$GITHUB_WORKSPACE\VSTPlugins" `
+# SMTG_PLUGIN_TARGET_PATH must be set for GitHub Actions. Because cmake can't
+# reach the default path which is `C:/Program Files/Common Files/VST3`.
+cmake `
+  -S vst3sdk `
+  -B build `
+  -G "Visual Studio 16 2019" `
+  -A x64 `
+  -DSMTG_MYPLUGINS_SRC_PATH="$SRC_ROOT\VSTPlugins" `
+  -DSMTG_PLUGIN_TARGET_PATH="$SRC_ROOT\target" `
   -DSMTG_ADD_VST3_HOSTING_SAMPLES=FALSE `
   -DSMTG_ADD_VST3_PLUGINS_SAMPLES=FALSE `
-  -DSMTG_CREATE_PLUGIN_LINK=FALSE `
-  ..
-cmake --build . -j --config Release
+  -DSMTG_CREATE_PLUGIN_LINK=FALSE
+
+cmake --build build -j --config Release
 
 # https://gitlab.com/gitlab-org/gitlab-runner/issues/3194#note_196458158
 if (!$?) { Exit $LASTEXITCODE }
 
-$plugin_dir = "$HOME\vst3sdk\build\VST3\Release"
+$plugin_dir = "$SRC_ROOT\build\VST3\Release"
 foreach ($dir in $plugin_dir) {
   attrib.exe -S $dir /D
 }
-Copy-Item -Path $plugin_dir "$GITHUB_WORKSPACE\vst_windows" -Recurse
+Copy-Item -Path $plugin_dir "$SRC_ROOT\vst_windows" -Recurse
