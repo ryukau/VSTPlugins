@@ -115,7 +115,7 @@ public:
   }
 };
 
-template<typename Sample, uint16_t nest> class NestedLongAllpass {
+template<typename Sample, size_t nest> class NestedLongAllpass {
 public:
   std::array<ExpSmoother<Sample>, nest> seconds{};
   std::array<ExpSmoother<Sample>, nest> innerFeed{};
@@ -139,13 +139,13 @@ public:
 
   Sample process(Sample input, Sample sampleRate)
   {
-    for (uint16_t idx = 0; idx < nest; ++idx) {
+    for (size_t idx = 0; idx < nest; ++idx) {
       input -= outerFeed[idx].process() * buffer[idx];
       in[idx] = input;
     }
 
     Sample out = in.back();
-    for (uint16_t idx = nest - 1; idx < nest; --idx) {
+    for (size_t idx = nest - 1; idx != size_t(-1); --idx) {
       auto apOut = allpass[idx].process(
         out, sampleRate, seconds[idx].process(), innerFeed[idx].process());
       out = buffer[idx] + outerFeed[idx].getValue() * in[idx];
@@ -156,7 +156,7 @@ public:
   }
 };
 
-template<typename Sample, uint16_t nSection1, uint16_t nest> class NestD2 {
+template<typename Sample, size_t nSection1, size_t nest> class NestD2 {
 public:
   std::array<Sample, nest> in{};
   std::array<Sample, nest> buffer{};
@@ -177,13 +177,13 @@ public:
 
   Sample process(Sample input, Sample sampleRate)
   {
-    for (uint16_t idx = 0; idx < nest; ++idx) {
+    for (size_t idx = 0; idx < nest; ++idx) {
       input -= feed[idx].process() * buffer[idx];
       in[idx] = input;
     }
 
     Sample out = in.back();
-    for (uint16_t idx = nest - 1; idx < nest; --idx) {
+    for (size_t idx = nest - 1; idx != size_t(-1); --idx) {
       auto apOut = allpass[idx].process(out, sampleRate);
       out = buffer[idx] + feed[idx].getValue() * in[idx];
       buffer[idx] = apOut;
@@ -193,8 +193,7 @@ public:
   }
 };
 
-template<typename Sample, uint16_t nSection1, uint16_t nSection2, uint16_t nest>
-class NestD3 {
+template<typename Sample, size_t nSection1, size_t nSection2, size_t nest> class NestD3 {
 public:
   std::array<Sample, nest> in{};
   std::array<Sample, nest> buffer{};
@@ -215,13 +214,13 @@ public:
 
   Sample process(Sample input, Sample sampleRate)
   {
-    for (uint16_t idx = 0; idx < nest; ++idx) {
+    for (size_t idx = 0; idx < nest; ++idx) {
       input -= feed[idx].process() * buffer[idx];
       in[idx] = input;
     }
 
     Sample out = in.back();
-    for (uint16_t idx = nest - 1; idx < nest; --idx) {
+    for (size_t idx = nest - 1; idx != size_t(-1); --idx) {
       auto apOut = allpass[idx].process(out, sampleRate);
       out = buffer[idx] + feed[idx].getValue() * in[idx];
       buffer[idx] = apOut;
@@ -233,10 +232,10 @@ public:
 
 template<
   typename Sample,
-  uint16_t nSection1,
-  uint16_t nSection2,
-  uint16_t nSection3,
-  uint16_t nest>
+  size_t nSection1,
+  size_t nSection2,
+  size_t nSection3,
+  size_t nest>
 class NestD4 {
 public:
   std::array<Sample, nest> in{};
@@ -258,13 +257,13 @@ public:
 
   Sample process(Sample input, Sample sampleRate)
   {
-    for (uint16_t idx = 0; idx < nest; ++idx) {
+    for (size_t idx = 0; idx < nest; ++idx) {
       input -= feed[idx].process() * buffer[idx];
       in[idx] = input;
     }
 
     Sample out = in.back();
-    for (uint16_t idx = nest - 1; idx < nest; --idx) {
+    for (size_t idx = nest - 1; idx != size_t(-1); --idx) {
       auto apOut = allpass[idx].process(out, sampleRate);
       out = buffer[idx] + feed[idx].getValue() * in[idx];
       buffer[idx] = apOut;

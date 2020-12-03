@@ -152,15 +152,13 @@ public:
     }
 
     Sample out = in.back();
-    for (size_t idx = nest - 1; idx < nest; --idx) {
+    for (size_t idx = nest - 1; idx != size_t(-1); --idx) {
       auto apOut
         = allpass[idx].process(out, sampleRate, data[idx].seconds, data[idx].innerFeed);
       out = buffer[idx] + data[idx].outerFeed * in[idx];
 
       lowpass[idx].kp = data[idx].lowpassKp;
       buffer[idx] = lowpass[idx].process(apOut);
-
-      // buffer[idx] = apOut;
     }
 
     return out;
