@@ -145,7 +145,7 @@ public:
     }
 
     Sample out = in.back();
-    for (size_t idx = nest - 1; idx < nest; --idx) {
+    for (size_t idx = nest - 1; idx != size_t(-1); --idx) {
       auto apOut = allpass[idx].process(
         out, sampleRate, seconds[idx].process(), innerFeed[idx].process());
       out = buffer[idx] + outerFeed[idx].getValue() * in[idx];
@@ -184,7 +184,7 @@ public:
       }                                                                                  \
                                                                                          \
       Sample out = in.back();                                                            \
-      for (size_t idx = nest - 1; idx < nest; --idx) {                                   \
+      for (size_t idx = nest - 1; idx != size_t(-1); --idx) {                            \
         auto apOut = allpass[idx].process(out, sampleRate);                              \
         out = buffer[idx] + feed[idx].getValue() * in[idx];                              \
         buffer[idx] = apOut;                                                             \

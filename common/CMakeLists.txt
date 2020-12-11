@@ -13,4 +13,4 @@ add_library(UhhyouCommon OBJECT
   gui/tabview.cpp
   gui/plugeditor.cpp)
 
-target_include_directories(UhhyouCommon PUBLIC ${VSTGUI_ROOT}/vstgui4)
+target_include_directories(UhhyouCommon PUBLIC ${SMTG_VSTGUI_ROOT}/vstgui4)
