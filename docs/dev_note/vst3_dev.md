@@ -1,3 +1,7 @@
+---
+lang: ja
+...
+
 # VST 3 の開発
 VST 3 の開発についてまとめました。何かあれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作ってもらえれば対応します。
 
