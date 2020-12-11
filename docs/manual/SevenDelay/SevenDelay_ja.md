@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>SevenDelay<rt>セブンディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。
 
-- [SevenDelay 0.1.13 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SevenDelay0.1.13.zip) <img
+- [SevenDelay 0.1.14 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.14/SevenDelay0.1.14.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -187,7 +187,7 @@ Stereo
 :   左右のディレイ時間のオフセット。範囲は -1.0 から 1.0 です。
 
     - もし `Stereo` が 0.0 より小さいときは、左チャンネルのディレイ時間が `timeL * (1.0 + Stereo)` に変更されます。
-    - それ以外のときは、右チャンネルのディレイ時間が `timeR * (1.0 + Stereo)` に変更されます。
+    - それ以外のときは、右チャンネルのディレイ時間が `timeR * (1.0 - Stereo)` に変更されます。
 
 Wet
 
@@ -217,11 +217,17 @@ Spread/Pan
     - ピンポンディレイにするには `[InSpread, InPan, OutSpread, OutPan]` を `[1.0, 0.5, 0.0, 0.5]` に設定します。
 
     ```
-    panL = clamp(2 * pan + spread - 1.0, 0.0, 1.0)
-    panR = clamp(2 * pan - spread, 0.0, 1.0)
+    signalL = inL + spread * (inR - inL)
+    signalR = inL + (1.0f - spread) * (inR - inL)
 
-    signalL = incomingL + panL * (incomingR - incomingL)
-    signalR = incomingL + panR * (incomingR - incomingL)
+    if (pan < 0.5f) {
+      outL = (0.5f + pan) * signalL + (0.5f - pan) * signalR,
+      outR = signalR * 2.0f * pan,
+    }
+    else {
+      outL = signalL * (2.0f - 2.0f * pan)
+      outR = (pan - 0.5f) * signalL + (1.5f - pan) * signalR
+    }
     ```
 
 Allpass Cut
@@ -283,6 +289,9 @@ Hold
 :   LFO の位相のホールドの切り替え。ライブ演奏などで役に立つかもしれません。
 
 ## チェンジログ
+- 0.1.14
+  - `In Pan` と `Out Pan` をステレオバランスからステレオパンニングに変更。
+  - 時間の値の表示を追加。
 - 0.1.13
   - Process context requirements を実装。
 - 0.1.12
@@ -321,6 +330,7 @@ Hold
   - 初期リリース。
 
 ### 旧バージョン
+- [SevenDelay 0.1.13 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SevenDelay0.1.13.zip)
 - [SevenDelay 0.1.12 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/SevenDelay0.1.12.zip)
 - [SevenDelay 0.1.11 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SevenDelay0.1.11.zip)
 - [SevenDelay 0.1.10 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SevenDelay0.1.10.zip)

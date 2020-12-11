@@ -7,7 +7,7 @@ lang: en
 
 SevenDelay is a stereo delay with 7th order lagrange interpolated fractional delay and 7x oversampling.
 
-- [Download SevenDelay 0.1.13 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SevenDelay0.1.13.zip) <img
+- [Download SevenDelay 0.1.14 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.14/SevenDelay0.1.14.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -185,7 +185,7 @@ Stereo
 :   L/R stereo offset. Range is -1.0 to 1.0.
 
     - If `Stereo` is less than 0.0, then left channel delay time is modified to `timeL * (1.0 + Stereo)`.
-    - Otherwise, right channel delay time is modified to `timeR * (1.0 + Stereo)`.
+    - Otherwise, right channel delay time is modified to `timeR * (1.0 - Stereo)`.
 
 Wet
 
@@ -215,11 +215,17 @@ In/Out Spread/Pan
     - For ping-pong delay, set `[InSpread, InPan, OutSpread, OutPan]` to `[1.0, 0.5, 0.0, 0.5]`.
 
     ```
-    panL = clamp(2 * pan + spread - 1.0, 0.0, 1.0)
-    panR = clamp(2 * pan - spread, 0.0, 1.0)
+    signalL = inL + spread * (inR - inL)
+    signalR = inL + (1.0f - spread) * (inR - inL)
 
-    signalL = incomingL + panL * (incomingR - incomingL)
-    signalR = incomingL + panR * (incomingR - incomingL)
+    if (pan < 0.5f) {
+      outL = (0.5f + pan) * signalL + (0.5f - pan) * signalR,
+      outR = signalR * 2.0f * pan,
+    }
+    else {
+      outL = signalL * (2.0f - 2.0f * pan)
+      outR = (pan - 0.5f) * signalL + (1.5f - pan) * signalR
+    }
     ```
 
 Allpass Cut
@@ -279,6 +285,9 @@ Hold
 :   Toggle LFO phase hold. This may be useful for live performance.
 
 ## Change Log
+- 0.1.14
+  - Changed `In Pan` and `Out Pan` from stereo balance to stereo panning.
+  - Added time readout display.
 - 0.1.13
   - Implemented process context requirements.
 - 0.1.12
@@ -317,6 +326,7 @@ Hold
   - Initial release.
 
 ### Old Versions
+- [SevenDelay 0.1.13 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SevenDelay0.1.13.zip)
 - [SevenDelay 0.1.12 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/SevenDelay0.1.12.zip)
 - [SevenDelay 0.1.11 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SevenDelay0.1.11.zip)
 - [SevenDelay 0.1.10 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SevenDelay0.1.10.zip)
