@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-08-18" />
+<meta name="dcterms.date" content="2020-12-11" />
 <title>SevenDelay_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -14,18 +14,19 @@ span.underline { text-decoration: underline; }
 div.column { display: inline-block; vertical-align: top; width: 50%; }
 </style>
 <style>
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -45,7 +46,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -250,9 +251,9 @@ footer {
 
 <body>
 <header>
-    <p><a href="../../index.html">Back to Index</a></p>
+    <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2020-08-18
+  Update: 2020-12-11
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -291,7 +292,7 @@ footer {
 <p><img src="img/sevendelay.png" /></p>
 <p>SevenDelay is a stereo delay with 7th order lagrange interpolated fractional delay and 7x oversampling.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SevenDelay0.1.13.zip">Download SevenDelay 0.1.13 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.14/SevenDelay0.1.14.zip">Download SevenDelay 0.1.14 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -443,7 +444,7 @@ the Trash&quot;</code></pre>
 <dd><p>L/R stereo offset. Range is -1.0 to 1.0.</p>
 <ul>
 <li>If <code>Stereo</code> is less than 0.0, then left channel delay time is modified to <code>timeL * (1.0 + Stereo)</code>.</li>
-<li>Otherwise, right channel delay time is modified to <code>timeR * (1.0 + Stereo)</code>.</li>
+<li>Otherwise, right channel delay time is modified to <code>timeR * (1.0 - Stereo)</code>.</li>
 </ul>
 </dd>
 <dt>Wet</dt>
@@ -466,11 +467,17 @@ the Trash&quot;</code></pre>
 <li>For inverse panning, set <code>[InSpread, InPan, OutSpread, OutPan]</code> to <code>[0.0, 0.5, 1.0, 0.5]</code>.</li>
 <li>For ping-pong delay, set <code>[InSpread, InPan, OutSpread, OutPan]</code> to <code>[1.0, 0.5, 0.0, 0.5]</code>.</li>
 </ul>
-<pre><code>panL = clamp(2 * pan + spread - 1.0, 0.0, 1.0)
-panR = clamp(2 * pan - spread, 0.0, 1.0)
+<pre><code>signalL = inL + spread * (inR - inL)
+signalR = inL + (1.0f - spread) * (inR - inL)
 
-signalL = incomingL + panL * (incomingR - incomingL)
-signalR = incomingL + panR * (incomingR - incomingL)</code></pre>
+if (pan &lt; 0.5f) {
+  outL = (0.5f + pan) * signalL + (0.5f - pan) * signalR,
+  outR = signalR * 2.0f * pan,
+}
+else {
+  outL = signalL * (2.0f - 2.0f * pan)
+  outR = (pan - 0.5f) * signalL + (1.5f - pan) * signalR
+}</code></pre>
 </dd>
 <dt>Allpass Cut</dt>
 <dd><p>SFV allpass filter cutoff frequency. Range is 90.0 to 20000.0.</p>
@@ -516,6 +523,11 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.14
+<ul>
+<li>Changed <code>In Pan</code> and <code>Out Pan</code> from stereo balance to stereo panning.</li>
+<li>Added time readout display.</li>
+</ul></li>
 <li>0.1.13
 <ul>
 <li>Implemented process context requirements.</li>
@@ -583,6 +595,7 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 </ul>
 <h3 id="old-versions">Old Versions</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SevenDelay0.1.13.zip">SevenDelay 0.1.13 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/SevenDelay0.1.12.zip">SevenDelay 0.1.12 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SevenDelay0.1.11.zip">SevenDelay 0.1.11 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SevenDelay0.1.10.zip">SevenDelay 0.1.10 - VST 3 (github.com)</a></li>
@@ -602,7 +615,7 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 <p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
 
 <footer>
-    <p><a href="../../index.html">Back to Index</a></p>
+    <p><a href="..\..\index.html">Back to Index</a></p>
   </footer>
 </body>
 

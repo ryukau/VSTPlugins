@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-08-18" />
+<meta name="dcterms.date" content="2020-12-11" />
 <title>SevenDelay_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -14,18 +14,19 @@ span.underline { text-decoration: underline; }
 div.column { display: inline-block; vertical-align: top; width: 50%; }
 </style>
 <style>
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -45,7 +46,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -250,9 +251,9 @@ footer {
 
 <body>
 <header>
-    <p><a href="../../index.html">Back to Index</a></p>
+    <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2020-08-18
+  Update: 2020-12-11
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -291,7 +292,7 @@ footer {
 <p><img src="img/sevendelay.png" /></p>
 <p><ruby>SevenDelay<rt>セブンディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SevenDelay0.1.13.zip">SevenDelay 0.1.13 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.14/SevenDelay0.1.14.zip">SevenDelay 0.1.14 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -446,7 +447,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <dd><p>左右のディレイ時間のオフセット。範囲は -1.0 から 1.0 です。</p>
 <ul>
 <li>もし <code>Stereo</code> が 0.0 より小さいときは、左チャンネルのディレイ時間が <code>timeL * (1.0 + Stereo)</code> に変更されます。</li>
-<li>それ以外のときは、右チャンネルのディレイ時間が <code>timeR * (1.0 + Stereo)</code> に変更されます。</li>
+<li>それ以外のときは、右チャンネルのディレイ時間が <code>timeR * (1.0 - Stereo)</code> に変更されます。</li>
 </ul>
 </dd>
 <dt>Wet</dt>
@@ -469,11 +470,17 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li>パンニングの逆転を行うには <code>[InSpread, InPan, OutSpread, OutPan]</code> を <code>[0.0, 0.5, 1.0, 0.5]</code> に設定します。</li>
 <li>ピンポンディレイにするには <code>[InSpread, InPan, OutSpread, OutPan]</code> を <code>[1.0, 0.5, 0.0, 0.5]</code> に設定します。</li>
 </ul>
-<pre><code>panL = clamp(2 * pan + spread - 1.0, 0.0, 1.0)
-panR = clamp(2 * pan - spread, 0.0, 1.0)
+<pre><code>signalL = inL + spread * (inR - inL)
+signalR = inL + (1.0f - spread) * (inR - inL)
 
-signalL = incomingL + panL * (incomingR - incomingL)
-signalR = incomingL + panR * (incomingR - incomingL)</code></pre>
+if (pan &lt; 0.5f) {
+  outL = (0.5f + pan) * signalL + (0.5f - pan) * signalR,
+  outR = signalR * 2.0f * pan,
+}
+else {
+  outL = signalL * (2.0f - 2.0f * pan)
+  outR = (pan - 0.5f) * signalL + (1.5f - pan) * signalR
+}</code></pre>
 </dd>
 <dt>Allpass Cut</dt>
 <dd><p>SVF オールパスフィルタのカットオフ周波素。範囲は 90.0 から 20000.0 です。</p>
@@ -520,6 +527,11 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.14
+<ul>
+<li><code>In Pan</code> と <code>Out Pan</code> をステレオバランスからステレオパンニングに変更。</li>
+<li>時間の値の表示を追加。</li>
+</ul></li>
 <li>0.1.13
 <ul>
 <li>Process context requirements を実装。</li>
@@ -587,6 +599,7 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SevenDelay0.1.13.zip">SevenDelay 0.1.13 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/SevenDelay0.1.12.zip">SevenDelay 0.1.12 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SevenDelay0.1.11.zip">SevenDelay 0.1.11 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SevenDelay0.1.10.zip">SevenDelay 0.1.10 - VST 3 (github.com)</a></li>
@@ -606,7 +619,7 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 <p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
 
 <footer>
-    <p><a href="../../index.html">Back to Index</a></p>
+    <p><a href="..\..\index.html">Back to Index</a></p>
   </footer>
 </body>
 
