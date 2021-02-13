@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2021 Takamitsu Endo
 //
 // This file is part of Uhhyou Plugins.
 //
@@ -54,9 +54,7 @@ public:
   T map(T input) const
   {
     T value = input * scale + min;
-    if (value < min) return min;
-    if (value > max) return max;
-    return value;
+    return std::clamp(value, min, max);
   }
 
   T reverseMap(T input) const { return map(T(1.0) - input); }
@@ -64,9 +62,7 @@ public:
   T invmap(T input) const
   {
     T value = (input - min) / scale;
-    if (value < T(0.0)) return T(0.0);
-    if (value > T(1.0)) return T(1.0);
-    return value;
+    return std::clamp(value, T(0), T(1));
   }
 
   T getMin() { return min; }
@@ -194,7 +190,7 @@ public:
   {
     if (input < T(0.0)) return min;
     if (input > T(1.0)) return max;
-    T value = pow(input, expo) * scale + min;
+    T value = std::pow(input, expo) * scale + min;
     return value;
   }
 
@@ -204,7 +200,7 @@ public:
   {
     if (input < min) return T(0.0);
     if (input > max) return T(1.0);
-    T value = pow((input - min) / scale, expoInv);
+    T value = std::pow((input - min) / scale, expoInv);
     return value;
   }
 
@@ -217,6 +213,54 @@ protected:
   T expoInv;
   T min;
   T max;
+};
+
+// `min` and `max` is MIDI note number.
+// 69 is A4, 440Hz.
+// Maps nomalized value to frequency.
+template<typename T> class SemitoneScale {
+public:
+  SemitoneScale(T minNote, T maxNote, bool minToZero)
+  {
+    set(minNote, maxNote, minToZero);
+  }
+
+  void set(T minNote, T maxNote, bool minToZero)
+  {
+    this->minToZero = minToZero;
+    this->minNote = minNote;
+    this->maxNote = maxNote;
+    this->minFreq = noteToFreq(minNote);
+    this->maxFreq = noteToFreq(maxNote);
+    scaleNote = maxNote - minNote;
+  }
+
+  T map(T normalized) const
+  {
+    if (minToZero && normalized <= T(0)) return T(0);
+    T note = std::clamp(normalized * scaleNote + minNote, minNote, maxNote);
+    return noteToFreq(note);
+  }
+
+  T reverseMap(T input) const { return map(T(1) - input); }
+
+  T invmap(T hz) const
+  {
+    if (hz <= T(0)) return T(0);
+    T normalized = (freqToNote(hz) - minNote) / scaleNote;
+    return std::clamp(normalized, T(0), T(1));
+  }
+
+  T getMin() { return minToZero ? 0 : minFreq; }
+  T getMax() { return maxFreq; }
+
+protected:
+  bool minToZero;
+  T minNote;
+  T maxNote;
+  T minFreq;
+  T maxFreq;
+  T scaleNote;
 };
 
 // Maps value normalized in [0, 1] -> dB -> amplitude.
@@ -237,11 +281,7 @@ public:
   T map(T normalized)
   {
     if (minToZero && normalized <= T(0)) return T(0);
-    T dB = normalized * scaleDB + minDB;
-    if (dB < minDB)
-      dB = minDB;
-    else if (dB > maxDB)
-      dB = maxDB;
+    T dB = std::clamp(normalized * scaleDB + minDB, minDB, maxDB);
     return dbToAmp(dB);
   }
 
@@ -251,12 +291,10 @@ public:
   {
     if (amplitude <= T(0)) return T(0);
     T normalized = (ampToDB(amplitude) - minDB) / scaleDB;
-    if (normalized < T(0)) return T(0);
-    if (normalized > T(1)) return T(1);
-    return normalized;
+    return std::clamp(normalized, T(0), T(1));
   }
 
-  T getMin() { return minAmp; }
+  T getMin() { return minToZero ? 0 : minAmp; }
   T getMax() { return maxAmp; }
 
   inline T dbToAmp(T dB) { return std::pow(T(10), dB / T(20)); }

@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2021 Takamitsu Endo
 //
 // This file is part of Uhhyou Plugins.
 //
@@ -17,8 +17,20 @@
 
 #pragma once
 
+#include <cmath>
+
 namespace SomeDSP {
 constexpr double halfpi = 1.57079632679489661923;
 constexpr double pi = 3.14159265358979323846;
 constexpr double twopi = 6.28318530717958647692;
+
+template<typename T> inline T noteToFreq(T note)
+{
+  return T(440) * std::exp2((note - 69) / T(12));
+}
+
+template<typename T> inline T freqToNote(T freq)
+{
+  return T(69) + T(12) * std::log2(freq / T(440));
+}
 } // namespace SomeDSP
