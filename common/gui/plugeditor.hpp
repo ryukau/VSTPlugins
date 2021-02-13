@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2021 Takamitsu Endo
 //
 // This file is part of Uhhyou Plugins.
 //
@@ -30,6 +30,7 @@
 #include "checkbox.hpp"
 #include "knob.hpp"
 #include "label.hpp"
+#include "matrixknob.hpp"
 #include "optionmenu.hpp"
 #include "rotaryknob.hpp"
 #include "scrollbar.hpp"
@@ -37,6 +38,7 @@
 #include "splash.hpp"
 #include "tabview.hpp"
 #include "textview.hpp"
+#include "xypad.hpp"
 
 #include <memory>
 #include <tuple>
@@ -96,20 +98,66 @@ public:
     barBox->setName(name);
     frame->addView(barBox);
 
-    auto iter = arrayControlInstances.find(id0);
-    if (iter != arrayControlInstances.end()) {
-      iter->second->forget();
-      arrayControlInstances.erase(iter);
-    }
-    barBox->remember();
-    arrayControlInstances.emplace(std::make_pair(id0, barBox));
+    addToArrayControlInstances(id0, barBox);
+
     for (ParamID i = 0; i < id.size(); ++i)
       arrayControlMap.emplace(std::make_pair(id0 + i, barBox));
     return barBox;
   }
 
+  auto
+  addXYPad(CCoord left, CCoord top, CCoord width, CCoord height, ParamID id0, ParamID id1)
+  {
+    std::vector<ParamID> id{id0, id1};
+    std::vector<double> value(id.size());
+    for (size_t i = 0; i < value.size(); ++i)
+      value[i] = controller->getParamNormalized(id[i]);
+    std::vector<double> defaultValue(value);
+    for (size_t i = 0; i < defaultValue.size(); ++i)
+      defaultValue[i] = param->getDefaultNormalized(id[i]);
+
+    auto xyPad = new XYPad(
+      this, CRect(left, top, left + width, top + height), id, value, defaultValue,
+      palette);
+    frame->addView(xyPad);
+
+    addToArrayControlInstances(id0, xyPad);
+
+    arrayControlMap.emplace(std::make_pair(id0, xyPad));
+    arrayControlMap.emplace(std::make_pair(id1, xyPad));
+    return xyPad;
+  }
+
+  auto addMatrixKnob(
+    CCoord left,
+    CCoord top,
+    CCoord width,
+    CCoord height,
+    uint32_t nRow,
+    uint32_t nColumn,
+    std::vector<ParamID> id,
+    TextView *textView)
+  {
+    std::vector<double> value(id.size());
+    for (size_t i = 0; i < value.size(); ++i)
+      value[i] = controller->getParamNormalized(id[i]);
+    std::vector<double> defaultValue(value);
+    for (size_t i = 0; i < defaultValue.size(); ++i)
+      defaultValue[i] = param->getDefaultNormalized(id[i]);
+
+    auto matrix = new MatrixKnob(
+      this, CRect(left, top, left + width, top + height), id, value, defaultValue, nRow,
+      nColumn, textView, palette);
+    frame->addView(matrix);
+
+    addToArrayControlInstances(id[0], matrix);
+
+    for (const auto &ident : id) arrayControlMap.emplace(std::make_pair(ident, matrix));
+    return matrix;
+  }
+
   template<typename Parent>
-  auto addScrollBar(float left, float top, float width, float height, Parent parent)
+  auto addScrollBar(CCoord left, CCoord top, CCoord width, CCoord height, Parent parent)
   {
     auto scrollBar = new ScrollBar<Parent>(
       CRect(left, top, left + width, top + height), this, parent, palette);
@@ -556,6 +604,17 @@ public:
   }
 
 protected:
+  void addToArrayControlInstances(Vst::ParamID id0, ArrayControl *control)
+  {
+    auto iter = arrayControlInstances.find(id0);
+    if (iter != arrayControlInstances.end()) {
+      iter->second->forget();
+      arrayControlInstances.erase(iter);
+    }
+    control->remember();
+    arrayControlInstances.emplace(std::make_pair(id0, control));
+  }
+
   void addToControlMap(Vst::ParamID id, CControl *control);
   virtual bool prepareUI() = 0;
 

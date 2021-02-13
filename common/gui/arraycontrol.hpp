@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2021 Takamitsu Endo
 //
 // This file is part of Uhhyou Plugins.
 //
@@ -40,7 +40,7 @@ public:
     if (editor != nullptr) editor->addRef();
   }
 
-  ~ArrayControl()
+  virtual ~ArrayControl()
   {
     if (editor != nullptr) editor->release();
   }

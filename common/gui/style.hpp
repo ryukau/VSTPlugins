@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2021 Takamitsu Endo
 // (c) 2020 Konstantin Voinov
 //
 // This file is part of Uhhyou Plugins.
@@ -46,6 +46,7 @@ public:
   const VSTGUI::CColor &highlightWarning() { return _highlightWarning; }
   const VSTGUI::CColor &overlay() { return _overlay; }
   const VSTGUI::CColor &overlayHighlight() { return _overlayHighlight; }
+  const VSTGUI::CColor &overlayFaint() { return _overlayFaint; }
 
 private:
   VSTGUI::CColor _foreground{0x00, 0x00, 0x00};
@@ -63,6 +64,7 @@ private:
   VSTGUI::CColor _highlightWarning{0xfc, 0x80, 0x80};
   VSTGUI::CColor _overlay{0x00, 0x00, 0x00, 0x88};
   VSTGUI::CColor _overlayHighlight{0x00, 0xff, 0x00, 0x33};
+  VSTGUI::CColor _overlayFaint{0x00, 0x00, 0x00, 0x0b};
 };
 
 struct Font {
