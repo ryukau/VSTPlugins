@@ -25,6 +25,10 @@
 #include "../../common/value.hpp"
 
 constexpr float maxShiftDelaySeconds = 0.03f;
+
+constexpr float minFeedbackCutoffNote = 3.4868205763524287f; // 10 Hz in midi note.
+constexpr float maxFeedbackCutoffNote = 62.36950772365466f;  // 300 Hz in midi note.
+
 constexpr size_t nParallel = 4;
 constexpr size_t nSerial = 4;
 constexpr size_t nShifter = nParallel * nSerial;
@@ -46,10 +50,14 @@ enum ID {
   lfoShiftOffset,
   shiftMix,
   shiftPhase,
-  shiftFeedback,
+  shiftFeedbackGain,
   shiftSemiMultiplier,
   gain,
   smoothness,
+
+  invertEachSection,
+  shiftFeedbackCutoff,
+  lfoToFeedbackCutoff,
 
   ID_ENUM_LENGTH,
 };
@@ -63,11 +71,13 @@ struct Scales {
   static SomeDSP::LogScale<double> shiftDelay;
   static SomeDSP::DecibelScale<double> shiftGain;
   static SomeDSP::LinearScale<double> shiftPhase;
-  static SomeDSP::DecibelScale<double> shiftFeedback;
+  static SomeDSP::DecibelScale<double> shiftFeedbackGain;
+  static SomeDSP::SemitoneScale<double> shiftFeedbackCutoff;
   static SomeDSP::LogScale<double> shiftSemiMultiplier;
 
   static SomeDSP::SemitoneScale<double> lfoHz;
   static SomeDSP::LinearScale<double> lfoShiftOffset;
+  static SomeDSP::LinearScale<double> lfoToFeedbackCutoff;
   static SomeDSP::DecibelScale<double> gain;
 
   static SomeDSP::LogScale<double> smoothness;
@@ -123,8 +133,9 @@ struct GlobalParameter : public ParameterInterface {
       0.75, Scales::defaultScale, "shiftMix", Info::kCanAutomate);
     value[ID::shiftPhase] = std::make_unique<LinearValue>(
       0.5, Scales::shiftPhase, "shiftPhase", Info::kCanAutomate);
-    value[ID::shiftFeedback] = std::make_unique<DecibelValue>(
-      0.0, Scales::shiftFeedback, "shiftFeedback", Info::kCanAutomate);
+    value[ID::shiftFeedbackGain] = std::make_unique<DecibelValue>(
+      Scales::shiftFeedbackGain.invmap(0.0), Scales::shiftFeedbackGain,
+      "shiftFeedbackGain", Info::kCanAutomate);
     value[ID::shiftSemiMultiplier] = std::make_unique<LogValue>(
       Scales::shiftSemiMultiplier.invmap(0.02), Scales::shiftSemiMultiplier,
       "shiftSemiMultiplier", Info::kCanAutomate);
@@ -135,6 +146,15 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::smoothness] = std::make_unique<LogValue>(
       Scales::smoothness.invmap(0.35), Scales::smoothness, "smoothness",
       Info::kCanAutomate);
+    value[ID::invertEachSection] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "invertEachSection", Info::kCanAutomate);
+
+    value[ID::shiftFeedbackCutoff] = std::make_unique<SemitoneValue>(
+      Scales::shiftFeedbackCutoff.invmap(40.0), Scales::shiftFeedbackCutoff,
+      "shiftFeedbackCutoff", Info::kCanAutomate);
+    value[ID::lfoToFeedbackCutoff] = std::make_unique<LinearValue>(
+      Scales::lfoToFeedbackCutoff.invmap(0.0), Scales::lfoToFeedbackCutoff,
+      "lfoToFeedbackCutoff", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

@@ -242,15 +242,97 @@ private:
   std::array<Sample, 8> y2{};
 };
 
+template<typename Sample, size_t nParallel> class AMPitchShiterFixed {
+private:
+  constexpr static std::array<Sample, 4> coRe{
+    Sample(0.16175849836770106), Sample(0.7330289323414905), Sample(0.9453497003291133),
+    Sample(0.9905991566845292)};
+  constexpr static std::array<Sample, 4> coIm{
+    Sample(0.47940086558884), Sample(0.8762184935393101), Sample(0.9765975895081993),
+    Sample(0.9974992559355491)};
+
+  std::array<Sample, coRe.size()> x1Re{};
+  std::array<Sample, coRe.size()> x2Re{};
+  std::array<Sample, coRe.size()> y1Re{};
+  std::array<Sample, coRe.size()> y2Re{};
+
+  std::array<Sample, coIm.size()> x1Im{};
+  std::array<Sample, coIm.size()> x2Im{};
+  std::array<Sample, coIm.size()> y1Im{};
+  std::array<Sample, coIm.size()> y2Im{};
+
+  std::array<Sample, nParallel> phase{};
+  Sample delayedIm = 0.0;
+
+public:
+  void reset()
+  {
+    x1Re.fill(0);
+    x2Re.fill(0);
+    y1Re.fill(0);
+    y2Re.fill(0);
+
+    x1Im.fill(0);
+    x2Im.fill(0);
+    y1Im.fill(0);
+    y2Im.fill(0);
+
+    phase.fill(0);
+  }
+
+  // Note: output may exceed the amplitude of input.
+  Sample process(
+    Sample sampleRate,
+    const Sample input,
+    Sample phaseOffset,
+    std::array<Sample, nParallel> &shiftHz)
+  {
+    auto sigRe = input;
+    for (size_t i = 0; i < coRe.size(); ++i) {
+      auto y0 = coRe[i] * (sigRe + y2Re[i]) - x2Re[i];
+      x2Re[i] = x1Re[i];
+      x1Re[i] = sigRe;
+      y2Re[i] = y1Re[i];
+      y1Re[i] = y0;
+      sigRe = y0;
+    }
+
+    auto sigIm = input;
+    for (size_t i = 0; i < coIm.size(); ++i) {
+      auto y0 = coIm[i] * (sigIm + y2Im[i]) - x2Im[i];
+      x2Im[i] = x1Im[i];
+      x1Im[i] = sigIm;
+      y2Im[i] = y1Im[i];
+      y1Im[i] = y0;
+      sigIm = y0;
+    }
+
+    const auto norm = std::sqrt(sigRe * sigRe + delayedIm * delayedIm);
+    const auto theta = std::atan2(delayedIm, sigRe);
+    delayedIm = sigIm; // 1 sample delay.
+
+    Sample output = 0;
+    for (size_t idx = 0; idx < nParallel; ++idx) {
+      output += norm * std::cos(theta + Sample(twopi) * (phase[idx] + phaseOffset));
+
+      phase[idx] += std::clamp<Sample>(shiftHz[idx] / sampleRate, 0, 1);
+      phase[idx] -= std::floor(phase[idx]);
+    }
+
+    return output / Sample(nParallel);
+  }
+};
+
 template<typename Sample, size_t nParallel, size_t nSerial> class MultiShifter {
 public:
-  std::array<AMPitchShiter<Sample, nParallel>, nSerial> shifter;
+  std::array<AMPitchShiterFixed<Sample, nParallel>, nSerial> shifter;
   std::array<Delay<Sample>, nSerial> delay;
   SVF<Sample, 7> svf;
 
   std::array<std::array<Sample, nParallel>, nSerial> hz;
   std::array<Sample, nSerial> seconds{};
-  std::array<Sample, nSerial + 1> gain{}; // Last element is bypass gain.
+  std::array<Sample, nSerial> gain{};
+  Sample bypassGain = 0;
 
   Sample buf = 0;
 
@@ -266,15 +348,21 @@ public:
     for (auto &dly : delay) dly.reset();
   }
 
-  Sample process(Sample sampleRate, Sample input, Sample phaseOffset, Sample feedback)
+  Sample process(
+    Sample sampleRate,
+    Sample input,
+    Sample phaseOffset,
+    Sample feedbackGain,
+    Sample feedbackCutoffHz,
+    Sample sectionGain)
   {
-    Sample output = gain.back() * input + (feedback * buf);
+    Sample output = bypassGain * input + (feedbackGain * buf);
     for (size_t idx = 0; idx < nSerial; ++idx) {
-      input = -shifter[idx].process(sampleRate, input, phaseOffset, hz[idx]);
+      input = sectionGain * shifter[idx].process(sampleRate, input, phaseOffset, hz[idx]);
       input = delay[idx].process(sampleRate, input, seconds[idx]);
       output += gain[idx] * input;
     }
-    buf = svf.process(sampleRate, output, Sample(40), Sample(0.1), Sample(-3));
+    buf = svf.process(sampleRate, output, feedbackCutoffHz, Sample(0.1), Sample(-3));
     return output / Sample(nSerial);
   }
 };

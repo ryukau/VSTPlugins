@@ -31,11 +31,14 @@ LogScale<double>
   Scales::shiftDelay(0, maxShiftDelaySeconds, 0.5, 0.2 * maxShiftDelaySeconds);
 DecibelScale<double> Scales::shiftGain(-30, 0, true);
 LinearScale<double> Scales::shiftPhase(-0.5, 0.5);
-DecibelScale<double> Scales::shiftFeedback(-18, 0, true);
+DecibelScale<double> Scales::shiftFeedbackGain(-18.0, 0.0, true);
+SemitoneScale<double>
+  Scales::shiftFeedbackCutoff(minFeedbackCutoffNote, maxFeedbackCutoffNote, false);
 LogScale<double> Scales::shiftSemiMultiplier(0.0, 1.0, 0.5, 0.2);
 
 SemitoneScale<double> Scales::lfoHz(freqToNote(0.01), freqToNote(20.0), true);
 LinearScale<double> Scales::lfoShiftOffset(-1.0, 1.0);
+LinearScale<double> Scales::lfoToFeedbackCutoff(-1.0, 1.0);
 
 DecibelScale<double> Scales::gain(-24, 24, true);
 

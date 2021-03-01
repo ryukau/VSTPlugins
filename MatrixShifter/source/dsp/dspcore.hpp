@@ -33,7 +33,6 @@ class DSPInterface {
 public:
   virtual ~DSPInterface(){};
 
-  static const size_t maxVoice = 32;
   GlobalParameter param;
 
   virtual void setup(double sampleRate) = 0;
@@ -62,13 +61,22 @@ public:
   private:                                                                               \
     float sampleRate = 44100.0f;                                                         \
                                                                                          \
-    ExpSmoother<float> intperGain;                                                       \
-    ExpSmoother<float> intperShiftPhase;                                                 \
-    ExpSmoother<float> intperShiftFeedback;                                              \
+    /* Temporary variables. */                                                           \
+    std::array<float, 2> lfoOut{};                                                       \
+    std::array<float, 2> lfoDelay{};                                                     \
+    std::array<float, 2> feedbackCutoffHz{};                                             \
+    std::array<float, 2> lfoHz{};                                                        \
+                                                                                         \
+    ExpSmoother<float> interpGain;                                                       \
+    ExpSmoother<float> interpShiftPhase;                                                 \
+    ExpSmoother<float> interpShiftFeedbackGain;                                          \
+    ExpSmoother<float> interpShiftFeedbackCutoff;                                        \
+    ExpSmoother<float> interpSectionGain;                                                \
     ExpSmoother<float> interpLfoHz;                                                      \
     ExpSmoother<float> interpLfoAmount;                                                  \
     ExpSmoother<float> interpLfoSkew;                                                    \
     ExpSmoother<float> interpLfoShiftOffset;                                             \
+    ExpSmoother<float> interpLfoToFeedbackCutoff;                                        \
     std::array<std::array<ExpSmoother<float>, nParallel>, nSerial> interpShiftHz;        \
     std::array<ExpSmoother<float>, nSerial> interpShiftDelay;                            \
     std::array<ExpSmoother<float>, nSerial + 1> interpShiftGain;                         \

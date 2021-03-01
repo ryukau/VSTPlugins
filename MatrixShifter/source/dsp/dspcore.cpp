@@ -50,20 +50,22 @@ void DSPCORE_NAME::setup(double sampleRate)
   reset();
 }
 
-// template<typename Sample>
-
 #define ASSIGN_PARAMETER(METHOD)                                                         \
-  intperGain.METHOD(param.value[ID::gain]->getFloat());                                  \
+  interpGain.METHOD(param.value[ID::gain]->getFloat());                                  \
                                                                                          \
   auto shiftMix = param.value[ID::shiftMix]->getFloat();                                 \
   auto bypassMix = 1 - shiftMix;                                                         \
-  intperShiftPhase.METHOD(param.value[ID::shiftPhase]->getFloat());                      \
-  intperShiftFeedback.METHOD(param.value[ID::shiftFeedback]->getFloat());                \
+  interpShiftPhase.METHOD(param.value[ID::shiftPhase]->getFloat());                      \
+  interpShiftFeedbackGain.METHOD(param.value[ID::shiftFeedbackGain]->getFloat());        \
+  interpShiftFeedbackCutoff.METHOD(                                                      \
+    freqToNote(param.value[ID::shiftFeedbackCutoff]->getFloat()));                       \
+  interpSectionGain.METHOD(param.value[ID::invertEachSection]->getInt() ? -1.0f : 1.0f); \
                                                                                          \
   interpLfoHz.METHOD(param.value[ID::lfoHz]->getFloat());                                \
   interpLfoAmount.METHOD(param.value[ID::lfoAmount]->getFloat());                        \
   interpLfoSkew.METHOD(param.value[ID::lfoSkew]->getFloat());                            \
   interpLfoShiftOffset.METHOD(param.value[ID::lfoShiftOffset]->getFloat());              \
+  interpLfoToFeedbackCutoff.METHOD(param.value[ID::lfoToFeedbackCutoff]->getFloat());    \
                                                                                          \
   auto shiftMul = param.value[ID::shiftSemiMultiplier]->getFloat();                      \
   for (size_t x = 0; x < nSerial; ++x) {                                                 \
@@ -105,30 +107,40 @@ void DSPCORE_NAME::process(
 {
   SmootherCommon<float>::setBufferSize(length);
 
-  std::array<float, 2> lfoAmt{};
-  std::array<float, 2> lfoHz{};
   for (size_t i = 0; i < length; ++i) {
-    const auto phaseOffset = calcPhaseOffset(intperShiftPhase.process());
+    const auto phaseOffset = calcPhaseOffset(interpShiftPhase.process());
+
+    auto cutoff = interpShiftFeedbackCutoff.process();
+    auto lfoFreqHz = interpLfoHz.process();
+    auto lfoSkew = interpLfoSkew.process();
+    auto lfoDelayAmt = interpLfoAmount.process();
+    auto lfoCutoffAmt = interpLfoToFeedbackCutoff.process();
+    for (size_t j = 0; j < lfo.size(); ++j) {
+      lfoOut[j] = lfo[j].process(sampleRate, lfoFreqHz, lfoSkew, phaseOffset[j]);
+      lfoDelay[j] = 1.0f + lfoDelayAmt * (lfoOut[j] - 1.0f);
+
+      if (lfoCutoffAmt >= 0.0) {
+        feedbackCutoffHz[j] = noteToFreq(
+          cutoff + lfoCutoffAmt * lfoOut[j] * (maxFeedbackCutoffNote - cutoff));
+      } else {
+        feedbackCutoffHz[j] = noteToFreq(
+          cutoff - lfoCutoffAmt * lfoOut[j] * (minFeedbackCutoffNote - cutoff));
+      }
+    }
 
     const auto lfoShiftOffset = interpLfoShiftOffset.process();
     if (lfoShiftOffset >= 0.0) {
-      lfoHz[0] = 1.0f + lfoShiftOffset * (lfoAmt[0] - 1.0f);
-      lfoHz[1] = 1.0f + lfoShiftOffset * (lfoAmt[1] - 1.0f);
+      lfoHz[0] = 1.0f + lfoShiftOffset * (lfoOut[0] - 1.0f);
+      lfoHz[1] = 1.0f + lfoShiftOffset * (lfoOut[1] - 1.0f);
     } else {
-      lfoHz[0] = 1.0f - lfoShiftOffset * (lfoAmt[1] - 1.0f);
-      lfoHz[1] = 1.0f - lfoShiftOffset * (lfoAmt[0] - 1.0f);
-    }
-
-    for (size_t j = 0; j < lfo.size(); ++j) {
-      const float lfoOut = lfo[j].process(
-        sampleRate, interpLfoHz.process(), interpLfoSkew.process(), phaseOffset[j]);
-      lfoAmt[j] = 1.0f + interpLfoAmount.process() * (lfoOut - 1.0f);
+      lfoHz[0] = 1.0f - lfoShiftOffset * (lfoOut[1] - 1.0f);
+      lfoHz[1] = 1.0f - lfoShiftOffset * (lfoOut[0] - 1.0f);
     }
 
     for (size_t x = 0; x < nSerial; ++x) {
       auto delay = interpShiftDelay[x].process();
-      shifter[0].seconds[x] = lfoAmt[0] * delay;
-      shifter[1].seconds[x] = lfoAmt[1] * delay;
+      shifter[0].seconds[x] = lfoDelay[0] * delay;
+      shifter[1].seconds[x] = lfoDelay[1] * delay;
 
       auto gain = interpShiftGain[x].process();
       shifter[0].gain[x] = gain;
@@ -141,12 +153,17 @@ void DSPCORE_NAME::process(
       }
     }
     auto bypassGain = interpShiftGain.back().process();
-    shifter[0].gain.back() = bypassGain;
-    shifter[1].gain.back() = bypassGain;
+    shifter[0].bypassGain = bypassGain;
+    shifter[1].bypassGain = bypassGain;
 
-    const auto gain = intperGain.process();
-    const auto feedback = intperShiftFeedback.process();
-    out0[i] = gain * shifter[0].process(sampleRate, in0[i], phaseOffset[0], feedback);
-    out1[i] = gain * shifter[1].process(sampleRate, in1[i], phaseOffset[1], feedback);
+    const auto gain = interpGain.process();
+    const auto fbGain = interpShiftFeedbackGain.process();
+    const auto sectionGain = interpSectionGain.process();
+    out0[i] = gain
+      * shifter[0].process(
+        sampleRate, in0[i], phaseOffset[0], fbGain, feedbackCutoffHz[0], sectionGain);
+    out1[i] = gain
+      * shifter[1].process(
+        sampleRate, in1[i], phaseOffset[1], fbGain, feedbackCutoffHz[1], sectionGain);
   }
 }

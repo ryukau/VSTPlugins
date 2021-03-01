@@ -39,7 +39,7 @@ constexpr float shiftMatrixWidth = nParallel * matrixKnobSize;
 constexpr float shiftMatrixHeight = nSerial * matrixKnobSize;
 constexpr float shiftBarBoxWidth = 3 * knobX;
 
-constexpr float innerWidth = shiftMatrixWidth + shiftBarBoxWidth + 8 * margin + 4 * knobX;
+constexpr float innerWidth = shiftMatrixWidth + shiftBarBoxWidth + 8 * margin + 5 * knobX;
 constexpr float innerHeight = 2 * labelY + shiftMatrixHeight;
 
 constexpr uint32_t defaultWidth = uint32_t(2 * uiMargin + innerWidth);
@@ -75,8 +75,7 @@ bool Editor::prepareUI()
     labelHeight, uiTextSize, "Hello world.");
 
   // Shifter matrix.
-  addGroupLabel(
-    left0, top0, shiftMatrixWidth, labelHeight, midTextSize, "Pitch Shift [Hz]");
+  addGroupLabel(left0, top0, shiftMatrixWidth, labelHeight, midTextSize, "Pitch Shift");
 
   std::vector<ParamID> shiftId;
   shiftId.reserve(nShifter);
@@ -102,6 +101,7 @@ bool Editor::prepareUI()
   const auto miscLeft1 = miscLeft0 + knobX;
   const auto miscLeft2 = miscLeft1 + knobX;
   const auto miscLeft3 = miscLeft2 + knobX;
+  const auto miscLeft4 = miscLeft3 + knobX;
 
   const auto miscTop0 = top0;
   const auto miscTop1 = miscTop0 + knobY;
@@ -113,22 +113,35 @@ bool Editor::prepareUI()
   addKnob(miscLeft2, miscTop0, knobWidth, margin, uiTextSize, "LFO Skew", ID::lfoSkew);
   addKnob(
     miscLeft3, miscTop0, knobWidth, margin, uiTextSize, "LFO Shift", ID::lfoShiftOffset);
+  addKnob(
+    miscLeft4, miscTop0, knobWidth, margin, uiTextSize, "LFO fb.Cut",
+    ID::lfoToFeedbackCutoff);
 
   addKnob(miscLeft0, miscTop1, knobWidth, margin, uiTextSize, "Gain", ID::gain);
   addKnob(miscLeft1, miscTop1, knobWidth, margin, uiTextSize, "Mix", ID::shiftMix);
   addKnob(miscLeft2, miscTop1, knobWidth, margin, uiTextSize, "Phase", ID::shiftPhase);
   addKnob(
-    miscLeft3, miscTop1, knobWidth, margin, uiTextSize, "Feedback", ID::shiftFeedback);
+    miscLeft3, miscTop1, knobWidth, margin, uiTextSize, "Feedback",
+    ID::shiftFeedbackGain);
 
   addLabel(miscLeft0, miscTop2, knobX, labelHeight, uiTextSize, "Shift*");
   addTextKnob(
     miscLeft1, miscTop2, knobX, labelHeight, uiTextSize, ID::shiftSemiMultiplier,
     Scales::shiftSemiMultiplier, false, 5, 0);
 
+  addCheckbox(
+    miscLeft2, miscTop2, 2 * knobX, labelHeight, uiTextSize, "InvertEachSection",
+    ID::invertEachSection);
+
   addLabel(miscLeft0, miscTop3, knobX, labelHeight, uiTextSize, "Smooth [s]");
   addTextKnob(
     miscLeft1, miscTop3, knobX, labelHeight, uiTextSize, ID::smoothness,
     Scales::smoothness, false, 3, 0);
+
+  addLabel(miscLeft2, miscTop3, knobX, labelHeight, uiTextSize, "fb.Cut");
+  addTextKnob(
+    miscLeft3, miscTop3, knobX, labelHeight, uiTextSize, ID::shiftFeedbackCutoff,
+    Scales::shiftFeedbackCutoff, false, 2, 0);
 
   // Plugin name.
   const auto splashTop = uiMargin + innerHeight - splashHeight;
