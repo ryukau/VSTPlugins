@@ -32,7 +32,7 @@ class DSPInterface {
 public:
   virtual ~DSPInterface(){};
 
-  GlobalParameter param;
+  PlugParameter param;
 
   virtual void setup(double sampleRate) = 0;
   virtual void reset() = 0;   // Stop sounds.

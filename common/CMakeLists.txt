@@ -10,7 +10,6 @@ add_library(UhhyouCommon OBJECT
   gui/optionmenu.cpp
   gui/slider.cpp
   gui/splash.cpp
-  gui/tabview.cpp
-  gui/plugeditor.cpp)
+  gui/tabview.cpp)
 
 target_include_directories(UhhyouCommon PUBLIC ${SMTG_VSTGUI_ROOT}/vstgui4)

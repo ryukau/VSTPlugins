@@ -41,15 +41,15 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-Editor::Editor(void *controller) : PlugEditor(controller)
+template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
 {
-  param = std::make_unique<Synth::GlobalParameter>();
+  // param = std::make_unique<Synth::PlugParameter>();
 
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-void Editor::valueChanged(CControl *pControl)
+template<> void Editor<Synth::PlugParameter>::valueChanged(CControl *pControl)
 {
   ParamID tag = pControl->getTag();
 
@@ -64,11 +64,11 @@ void Editor::valueChanged(CControl *pControl)
   controller->performEdit(tag, value);
 }
 
-bool Editor::prepareUI()
+template<> bool Editor<Synth::PlugParameter>::prepareUI()
 {
   using ID = Synth::ParameterID::ID;
-  using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
+  const auto &scale = param.scale;
 
   const auto top0 = uiMargin;
   const auto left0 = uiMargin;
@@ -88,31 +88,31 @@ bool Editor::prepareUI()
     "Threshold [dB]", kLeftText);
   addTextKnob(
     leftLimiter1, topLimiter1, limiterLabelWidth, labelHeight, uiTextSize,
-    ID::limiterThreshold, Scales::limiterThreshold, true, 5);
+    ID::limiterThreshold, scale.limiterThreshold, true, 5);
   addLabel(
     leftLimiter0, topLimiter2, limiterLabelWidth, labelHeight, uiTextSize, "Gate [dB]",
     kLeftText);
   addTextKnob(
     leftLimiter1, topLimiter2, limiterLabelWidth, labelHeight, uiTextSize,
-    ID::limiterGate, Scales::limiterGate, true, 5);
+    ID::limiterGate, scale.limiterGate, true, 5);
   addLabel(
     leftLimiter0, topLimiter3, limiterLabelWidth, labelHeight, uiTextSize, "Attack [s]",
     kLeftText);
   addTextKnob(
     leftLimiter1, topLimiter3, limiterLabelWidth, labelHeight, uiTextSize,
-    ID::limiterAttack, Scales::limiterAttack, false, 5);
+    ID::limiterAttack, scale.limiterAttack, false, 5);
   addLabel(
     leftLimiter0, topLimiter4, limiterLabelWidth, labelHeight, uiTextSize, "Release [s]",
     kLeftText);
   addTextKnob(
     leftLimiter1, topLimiter4, limiterLabelWidth, labelHeight, uiTextSize,
-    ID::limiterRelease, Scales::limiterRelease, false, 5);
+    ID::limiterRelease, scale.limiterRelease, false, 5);
   addLabel(
     leftLimiter0, topLimiter5, limiterLabelWidth, labelHeight, uiTextSize, "Sustain [s]",
     kLeftText);
   addTextKnob(
     leftLimiter1, topLimiter5, limiterLabelWidth, labelHeight, uiTextSize,
-    ID::limiterSustain, Scales::limiterSustain, false, 5);
+    ID::limiterSustain, scale.limiterSustain, false, 5);
 
   addCheckbox(
     leftLimiter0, topLimiter6, checkboxWidth, labelHeight, uiTextSize, "True Peak",
