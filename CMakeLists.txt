@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 add_subdirectory(common)
 
+add_subdirectory(BasicLimiter)
 add_subdirectory(CollidingCombSynth)
 add_subdirectory(CubicPadSynth)
 add_subdirectory(EnvelopedSine)
