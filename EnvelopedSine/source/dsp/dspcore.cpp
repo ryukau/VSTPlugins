@@ -66,7 +66,7 @@ void NOTE_NAME<Sample>::noteOn(
   Sample frequency,
   Sample velocity,
   Sample pan,
-  GlobalParameter &param,
+  PlugParameter &param,
   White16 &rng)
 {
   using ID = ParameterID::ID;

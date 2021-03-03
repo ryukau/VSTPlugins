@@ -28,6 +28,8 @@
 
 namespace VSTGUI {
 
+using namespace Steinberg;
+
 class PanicButton : public CControl {
 public:
   std::string label;
@@ -39,7 +41,7 @@ public:
     std::string label,
     CFontRef fontId,
     Uhhyou::Palette &palette,
-    Steinberg::Vst::PlugEditor *editor)
+    Vst::PlugEditor<Synth::PlugParameter> *editor)
     : CControl(size, listener, tag)
     , label(label)
     , fontId(fontId)
@@ -102,7 +104,7 @@ public:
 
   CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
   {
-    using ID = Steinberg::Synth::ParameterID::ID;
+    using ID = Synth::ParameterID::ID;
 
     if (!buttons.isLeftButton()) return kMouseEventNotHandled;
     isPressed = true;
@@ -148,7 +150,7 @@ public:
   CLASS_METHODS(PanicButton, CControl);
 
 protected:
-  Steinberg::Vst::PlugEditor *editor = nullptr;
+  Vst::PlugEditor<Synth::PlugParameter> *editor = nullptr;
 
   CColor colorFore{0, 0, 0};
   CColor colorBack{0xff, 0xff, 0xff};

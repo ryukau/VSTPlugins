@@ -43,8 +43,6 @@ using namespace VSTGUI;
 
 template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
 {
-  // param = std::make_unique<Synth::PlugParameter>();
-
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
@@ -66,9 +64,9 @@ template<> void Editor<Synth::PlugParameter>::valueChanged(CControl *pControl)
 
 template<> bool Editor<Synth::PlugParameter>::prepareUI()
 {
+  const auto &scale = param.scale;
   using ID = Synth::ParameterID::ID;
   using Style = Uhhyou::Style;
-  const auto &scale = param.scale;
 
   const auto top0 = uiMargin;
   const auto left0 = uiMargin;

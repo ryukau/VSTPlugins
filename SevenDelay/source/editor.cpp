@@ -39,21 +39,19 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-Editor::Editor(void *controller) : PlugEditor(controller)
+template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
 {
-  param = std::make_unique<Synth::GlobalParameter>();
-
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-Editor::~Editor()
+template<> Editor<Synth::PlugParameter>::~Editor()
 {
   if (waveView) waveView->forget();
   if (timeTextView) timeTextView->forget();
 }
 
-void Editor::addWaveView(const CRect &size)
+template<> void Editor<Synth::PlugParameter>::addWaveView(const CRect &size)
 {
   auto view = new WaveView(size, palette);
   view->shape = getPlainValue(Synth::ParameterID::lfoShape);
@@ -65,13 +63,13 @@ void Editor::addWaveView(const CRect &size)
   waveView->remember();
 }
 
-ParamValue Editor::getPlainValue(ParamID tag)
+template<> ParamValue Editor<Synth::PlugParameter>::getPlainValue(ParamID tag)
 {
   auto normalized = controller->getParamNormalized(tag);
   return controller->normalizedParamToPlain(tag, normalized);
 }
 
-void Editor::valueChanged(CControl *pControl)
+template<> void Editor<Synth::PlugParameter>::valueChanged(CControl *pControl)
 {
   ParamID id = pControl->getTag();
   ParamValue value = pControl->getValueNormalized();
@@ -82,7 +80,7 @@ void Editor::valueChanged(CControl *pControl)
   refreshTimeTextView(id);
 }
 
-void Editor::updateUI(ParamID id, ParamValue normalized)
+template<> void Editor<Synth::PlugParameter>::updateUI(ParamID id, ParamValue normalized)
 {
   auto iter = controlMap.find(id);
   if (iter == controlMap.end()) return;
@@ -93,7 +91,7 @@ void Editor::updateUI(ParamID id, ParamValue normalized)
   refreshTimeTextView(id);
 }
 
-void Editor::refreshWaveView(ParamID id)
+template<> void Editor<Synth::PlugParameter>::refreshWaveView(ParamID id)
 {
   if (id == Synth::ParameterID::lfoShape) {
     if (waveView == nullptr) return;
@@ -106,7 +104,7 @@ void Editor::refreshWaveView(ParamID id)
   }
 }
 
-void Editor::refreshTimeTextView(ParamID id)
+template<> void Editor<Synth::PlugParameter>::refreshTimeTextView(ParamID id)
 {
   using ID = Synth::ParameterID::ID;
 
@@ -135,7 +133,7 @@ void Editor::refreshTimeTextView(ParamID id)
   timeTextView->setDirty(true);
 }
 
-bool Editor::prepareUI()
+template<> bool Editor<Synth::PlugParameter>::prepareUI()
 {
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;

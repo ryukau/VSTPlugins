@@ -73,7 +73,7 @@ template<typename Sample> void TpzMono<Sample>::startup()
 }
 
 template<typename Sample>
-void TpzMono<Sample>::setParameters(Sample tempo, GlobalParameter &param)
+void TpzMono<Sample>::setParameters(Sample tempo, PlugParameter &param)
 {
   interpOctave.push(getOctave(param));
   interpOsc1Pitch.setTime(param.value[ParameterID::pitchSlide]->getFloat());
@@ -168,7 +168,7 @@ void TpzMono<Sample>::setParameters(Sample tempo, GlobalParameter &param)
 
 template<typename Sample>
 void TpzMono<Sample>::noteOn(
-  bool wasResting, Sample frequency, Sample normalizedKey, GlobalParameter &param)
+  bool wasResting, Sample frequency, Sample normalizedKey, PlugParameter &param)
 {
   noteFreq = frequency;
 
@@ -298,7 +298,7 @@ template<typename Sample> Sample TpzMono<Sample>::process(const size_t bufferSiz
        + interpShifter2Gain.process() * shifter2.process(feedbackBuffer));
 }
 
-template<typename Sample> Sample TpzMono<Sample>::getOctave(GlobalParameter &param)
+template<typename Sample> Sample TpzMono<Sample>::getOctave(PlugParameter &param)
 {
   int32_t index = 4
     + int32_t(std::floor(
@@ -310,7 +310,7 @@ template<typename Sample> Sample TpzMono<Sample>::getOctave(GlobalParameter &par
   return octaveTable[index];
 }
 
-template<typename Sample> Sample TpzMono<Sample>::getOsc1Pitch(GlobalParameter &param)
+template<typename Sample> Sample TpzMono<Sample>::getOsc1Pitch(PlugParameter &param)
 {
   return noteFreq
     * paramToPitch(
@@ -319,7 +319,7 @@ template<typename Sample> Sample TpzMono<Sample>::getOsc1Pitch(GlobalParameter &
            param.value[ParameterID::pitchBend]->getFloat());
 }
 
-template<typename Sample> Sample TpzMono<Sample>::getOsc2Pitch(GlobalParameter &param)
+template<typename Sample> Sample TpzMono<Sample>::getOsc2Pitch(PlugParameter &param)
 {
   return noteFreq * param.value[ParameterID::osc2Overtone]->getInt()
     * paramToPitch(

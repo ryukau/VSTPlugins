@@ -45,7 +45,8 @@ DEF_CLASS2(
   kVstVersionString, // SDK Version (do not changed this, use always this define)
   Steinberg::Synth::PlugProcessor::createInstance)
 
-using Controller = Steinberg::Synth::PlugController<Vst::Editor, GlobalParameter>;
+using Controller
+  = Steinberg::Synth::PlugController<Vst::Editor<PlugParameter>, PlugParameter>;
 
 DEF_CLASS2(
   INLINE_UID_FROM_FUID(Steinberg::Synth::ControllerUID),

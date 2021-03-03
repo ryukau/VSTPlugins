@@ -74,7 +74,7 @@ void NOTE_NAME<Sample>::noteOn(
   Sample normalizedKey,
   Sample frequency,
   Sample velocity,
-  GlobalParameter &param,
+  PlugParameter &param,
   White<float> &rng)
 {
   state = NoteState::active;
@@ -222,7 +222,8 @@ void DSPCORE_NAME::setup(double sampleRate)
   for (auto &chrs : chorus)
     chrs.setup(
       sampleRate, 0,
-      Scales::chorusDelayTimeRange.getMax() + Scales::chorusMinDelayTime.getMax());
+      param.scale.chorusDelayTimeRange.getMax()
+        + param.scale.chorusMinDelayTime.getMax());
 
   // 2 msec + 1 sample transition time.
   transitionBuffer.resize(1 + size_t(sampleRate * 0.005), {0, 0});

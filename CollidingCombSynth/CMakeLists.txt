@@ -47,7 +47,6 @@ endif()
 # VST 3 settings.
 set(plug_sources
   ../lib/vcl/instrset_detect.cpp
-  source/parameter.cpp
   source/gui/splashdraw.cpp
   source/plugprocessor.cpp
   source/editor.cpp

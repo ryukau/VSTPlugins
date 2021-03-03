@@ -45,15 +45,13 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-Editor::Editor(void *controller) : PlugEditor(controller)
+template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
 {
-  param = std::make_unique<Synth::GlobalParameter>();
-
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-void Editor::valueChanged(CControl *pControl)
+template<> void Editor<Synth::PlugParameter>::valueChanged(CControl *pControl)
 {
   ParamID tag = pControl->getTag();
 
@@ -68,8 +66,9 @@ void Editor::valueChanged(CControl *pControl)
   controller->performEdit(tag, value);
 }
 
-bool Editor::prepareUI()
+template<> bool Editor<Synth::PlugParameter>::prepareUI()
 {
+  const auto &scale = param.scale;
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
@@ -84,7 +83,7 @@ bool Editor::prepareUI()
   const auto topOrder0 = top0 + 3 * labelY;
   addLabel(left0, topOrder0, knobX, labelHeight, uiTextSize, "Order");
   addTextKnob(
-    left0 + knobX, topOrder0, knobX, labelHeight, uiTextSize, ID::order, Scales::order,
+    left0 + knobX, topOrder0, knobX, labelHeight, uiTextSize, ID::order, scale.order,
     false, 0, 1);
 
   const auto checkboxLeft1 = left0 + 3 * knobX + 2 * margin;
@@ -111,19 +110,19 @@ bool Editor::prepareUI()
     kLeftText);
   addTextKnob(
     leftLimiter1, topLimiter1, limiterLabelWidth, labelHeight, uiTextSize,
-    ID::limiterThreshold, Scales::limiterThreshold, false, 5);
+    ID::limiterThreshold, scale.limiterThreshold, false, 5);
   addLabel(
     leftLimiter0, topLimiter2, limiterLabelWidth, labelHeight, uiTextSize, "Attack [s]",
     kLeftText);
   addTextKnob(
     leftLimiter1, topLimiter2, limiterLabelWidth, labelHeight, uiTextSize,
-    ID::limiterAttack, Scales::limiterAttack, false, 5);
+    ID::limiterAttack, scale.limiterAttack, false, 5);
   addLabel(
     leftLimiter0, topLimiter3, limiterLabelWidth, labelHeight, uiTextSize, "Release [s]",
     kLeftText);
   addTextKnob(
     leftLimiter1, topLimiter3, limiterLabelWidth, labelHeight, uiTextSize,
-    ID::limiterRelease, Scales::limiterRelease, false, 5);
+    ID::limiterRelease, scale.limiterRelease, false, 5);
 
   // Plugin name.
   const auto splashTop = top0 + 3 * labelY;

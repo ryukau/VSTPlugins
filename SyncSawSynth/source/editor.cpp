@@ -40,15 +40,14 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-Editor::Editor(void *controller) : PlugEditor(controller)
+template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
 {
-  param = std::make_unique<Synth::GlobalParameter>();
-
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-void Editor::addOscillatorSection(
+template<>
+void Editor<Synth::PlugParameter>::addOscillatorSection(
   std::string label,
   double left,
   double top,
@@ -73,7 +72,7 @@ void Editor::addOscillatorSection(
   auto oscTop2 = top + knobY;
   auto knobLeft = margin + left;
   addNumberKnob(
-    knobLeft, oscTop2, knobWidth, margin, uiTextSize, "Semi", tagSemi, Scales::semi);
+    knobLeft, oscTop2, knobWidth, margin, uiTextSize, "Semi", tagSemi, param.scale.semi);
   addKnob(knobLeft + knobX, oscTop2, knobWidth, margin, uiTextSize, "Cent", tagCent);
 
   auto oscTop3 = oscTop2 + knobY;
@@ -105,7 +104,7 @@ void Editor::addOscillatorSection(
     labelHeight, uiTextSize, "Lock", tagPhaseLock);
 }
 
-bool Editor::prepareUI()
+template<> bool Editor<Synth::PlugParameter>::prepareUI()
 {
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;

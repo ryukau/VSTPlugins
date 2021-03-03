@@ -64,7 +64,7 @@ enum class NoteState { active, release, rest };
       Sample normalizedKey,                                                              \
       Sample frequency,                                                                  \
       Sample velocity,                                                                   \
-      GlobalParameter &param,                                                            \
+      PlugParameter &param,                                                              \
       White<float> &rng);                                                                \
     void release();                                                                      \
     void rest();                                                                         \
@@ -80,7 +80,7 @@ public:
   virtual ~DSPInterface(){};
 
   static const size_t maxVoice = 32;
-  GlobalParameter param;
+  PlugParameter param;
 
   virtual void setup(double sampleRate) = 0;
   virtual void reset() = 0;   // Stop sounds.

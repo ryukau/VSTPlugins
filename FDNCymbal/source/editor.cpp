@@ -46,16 +46,15 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-Editor::Editor(void *controller) : PlugEditor(controller)
+template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
 {
-  param = std::make_unique<Synth::GlobalParameter>();
-
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-bool Editor::prepareUI()
+template<> bool Editor<Synth::PlugParameter>::prepareUI()
 {
+  const auto &scale = param.scale;
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
@@ -96,7 +95,7 @@ bool Editor::prepareUI()
   const auto topRandom = top0 + labelHeight;
   addNumberKnob(
     leftRandom, topRandom + margin, knobWidth, margin, uiTextSize, "Seed", ID::seed,
-    Scales::seed);
+    scale.seed);
   addLabel(
     leftRandom + knobX, topRandom, knobWidth, labelHeight, uiTextSize, "Retrigger");
   addCheckbox(

@@ -21,7 +21,6 @@
 #include <string>
 #include <vector>
 
-#include "../../common/parameterInterface.hpp"
 #include "../../common/value.hpp"
 
 constexpr uint16_t nSection4 = 3;
@@ -82,22 +81,37 @@ enum ID {
 } // namespace ParameterID
 
 struct Scales {
-  static SomeDSP::LinearScale<double> defaultScale;
-  static SomeDSP::UIntScale<double> boolScale;
-  static SomeDSP::LogScale<double> time;
-  static SomeDSP::LinearScale<double> feed;
-  static SomeDSP::LogScale<double> timeMultiply;
-  static SomeDSP::LogScale<double> timeOffsetRange;
-  static SomeDSP::UIntScale<double> seed;
-  static SomeDSP::LinearScale<double> stereoCross;
-  static SomeDSP::LogScale<double> gain;
-  static SomeDSP::LogScale<double> smoothness;
+  Scales()
+    : defaultScale(0.0, 1.0)
+    , boolScale(1)
+    , time(0.0, 1.0, 0.5, 0.05)
+    , feed(-1.0, 1.0)
+    , timeMultiply(0.0, 1.0, 0.5, 0.1)
+    , timeOffsetRange(0.0, 1.0, 0.5, 0.2)
+    , seed(16777215)
+    , stereoCross(-1.0, 1.0)
+    , gain(0.0, 4.0, 0.5, 1.0)
+    , smoothness(0.0, 8.0, 0.5, 1.0)
+  {
+  }
+
+  SomeDSP::LinearScale<double> defaultScale;
+  SomeDSP::UIntScale<double> boolScale;
+  SomeDSP::LogScale<double> time;
+  SomeDSP::LinearScale<double> feed;
+  SomeDSP::LogScale<double> timeMultiply;
+  SomeDSP::LogScale<double> timeOffsetRange;
+  SomeDSP::UIntScale<double> seed;
+  SomeDSP::LinearScale<double> stereoCross;
+  SomeDSP::LogScale<double> gain;
+  SomeDSP::LogScale<double> smoothness;
 };
 
-struct GlobalParameter : public ParameterInterface {
+struct PlugParameter {
+  Scales scale;
   std::vector<std::unique_ptr<ValueInterface>> value;
 
-  GlobalParameter()
+  PlugParameter()
   {
     value.resize(ParameterID::ID_ENUM_LENGTH);
 
@@ -112,93 +126,93 @@ struct GlobalParameter : public ParameterInterface {
     for (size_t idx = 0; idx < nDepth1; ++idx) {
       auto indexStr = std::to_string(idx);
       value[ID::time0 + idx] = std::make_unique<LogValue>(
-        Scales::time.invmap(0.1), Scales::time, (timeLabel + indexStr).c_str(),
+        scale.time.invmap(0.1), scale.time, (timeLabel + indexStr).c_str(),
         Info::kCanAutomate);
       value[ID::innerFeed0 + idx] = std::make_unique<LinearValue>(
-        0.5, Scales::feed, (innerFeedLabel + indexStr).c_str(), Info::kCanAutomate);
+        0.5, scale.feed, (innerFeedLabel + indexStr).c_str(), Info::kCanAutomate);
       value[ID::d1Feed0 + idx] = std::make_unique<LinearValue>(
-        0.5, Scales::feed, (d1FeedLabel + indexStr).c_str(), Info::kCanAutomate);
+        0.5, scale.feed, (d1FeedLabel + indexStr).c_str(), Info::kCanAutomate);
     }
 
     std::string d2FeedLabel("d2Feed");
     for (size_t idx = 0; idx < nDepth2; ++idx) {
       auto indexStr = std::to_string(idx);
       value[ID::d2Feed0 + idx] = std::make_unique<LinearValue>(
-        0.5, Scales::feed, (d2FeedLabel + indexStr).c_str(), Info::kCanAutomate);
+        0.5, scale.feed, (d2FeedLabel + indexStr).c_str(), Info::kCanAutomate);
     }
 
     std::string d3FeedLabel("d3Feed");
     for (size_t idx = 0; idx < nDepth3; ++idx) {
       auto indexStr = std::to_string(idx);
       value[ID::d3Feed0 + idx] = std::make_unique<LinearValue>(
-        0.5, Scales::feed, (d3FeedLabel + indexStr).c_str(), Info::kCanAutomate);
+        0.5, scale.feed, (d3FeedLabel + indexStr).c_str(), Info::kCanAutomate);
     }
 
     std::string d4FeedLabel("d4Feed");
     for (size_t idx = 0; idx < nDepth4; ++idx) {
       auto indexStr = std::to_string(idx);
       value[ID::d4Feed0 + idx] = std::make_unique<LinearValue>(
-        0.5, Scales::feed, (d4FeedLabel + indexStr).c_str(), Info::kCanAutomate);
+        0.5, scale.feed, (d4FeedLabel + indexStr).c_str(), Info::kCanAutomate);
     }
 
     value[ID::timeMultiply] = std::make_unique<LogValue>(
-      1.0, Scales::timeMultiply, "timeMultiply", Info::kCanAutomate);
+      1.0, scale.timeMultiply, "timeMultiply", Info::kCanAutomate);
     value[ID::innerFeedMultiply] = std::make_unique<LinearValue>(
-      1.0, Scales::defaultScale, "innerFeedMultiply", Info::kCanAutomate);
+      1.0, scale.defaultScale, "innerFeedMultiply", Info::kCanAutomate);
     value[ID::d1FeedMultiply] = std::make_unique<LinearValue>(
-      1.0, Scales::defaultScale, "d1FeedMultiply", Info::kCanAutomate);
+      1.0, scale.defaultScale, "d1FeedMultiply", Info::kCanAutomate);
     value[ID::d2FeedMultiply] = std::make_unique<LinearValue>(
-      1.0, Scales::defaultScale, "d2FeedMultiply", Info::kCanAutomate);
+      1.0, scale.defaultScale, "d2FeedMultiply", Info::kCanAutomate);
     value[ID::d3FeedMultiply] = std::make_unique<LinearValue>(
-      1.0, Scales::defaultScale, "d3FeedMultiply", Info::kCanAutomate);
+      1.0, scale.defaultScale, "d3FeedMultiply", Info::kCanAutomate);
     value[ID::d4FeedMultiply] = std::make_unique<LinearValue>(
-      1.0, Scales::defaultScale, "d4FeedMultiply", Info::kCanAutomate);
+      1.0, scale.defaultScale, "d4FeedMultiply", Info::kCanAutomate);
 
     value[ID::timeOffsetRange] = std::make_unique<LogValue>(
-      Scales::timeOffsetRange.invmap(0.05), Scales::timeOffsetRange, "timeOffsetRange",
+      scale.timeOffsetRange.invmap(0.05), scale.timeOffsetRange, "timeOffsetRange",
       Info::kCanAutomate);
     value[ID::innerFeedOffsetRange] = std::make_unique<LinearValue>(
-      0.0, Scales::defaultScale, "innerFeedOffsetRange", Info::kCanAutomate);
+      0.0, scale.defaultScale, "innerFeedOffsetRange", Info::kCanAutomate);
     value[ID::d1FeedOffsetRange] = std::make_unique<LinearValue>(
-      0.0, Scales::defaultScale, "d1FeedOffsetRange", Info::kCanAutomate);
+      0.0, scale.defaultScale, "d1FeedOffsetRange", Info::kCanAutomate);
     value[ID::d2FeedOffsetRange] = std::make_unique<LinearValue>(
-      0.0, Scales::defaultScale, "d2FeedOffsetRange", Info::kCanAutomate);
+      0.0, scale.defaultScale, "d2FeedOffsetRange", Info::kCanAutomate);
     value[ID::d3FeedOffsetRange] = std::make_unique<LinearValue>(
-      0.0, Scales::defaultScale, "d3FeedOffsetRange", Info::kCanAutomate);
+      0.0, scale.defaultScale, "d3FeedOffsetRange", Info::kCanAutomate);
     value[ID::d4FeedOffsetRange] = std::make_unique<LinearValue>(
-      0.0, Scales::defaultScale, "d4FeedOffsetRange", Info::kCanAutomate);
+      0.0, scale.defaultScale, "d4FeedOffsetRange", Info::kCanAutomate);
 
     value[ID::timeModulation] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "timeModulation", Info::kCanAutomate);
+      0, scale.boolScale, "timeModulation", Info::kCanAutomate);
     value[ID::innerFeedModulation] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "innerFeedModulation", Info::kCanAutomate);
+      0, scale.boolScale, "innerFeedModulation", Info::kCanAutomate);
     value[ID::d1FeedModulation] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "d1FeedModulation", Info::kCanAutomate);
+      0, scale.boolScale, "d1FeedModulation", Info::kCanAutomate);
     value[ID::d2FeedModulation] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "d2FeedModulation", Info::kCanAutomate);
+      0, scale.boolScale, "d2FeedModulation", Info::kCanAutomate);
     value[ID::d3FeedModulation] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "d3FeedModulation", Info::kCanAutomate);
+      0, scale.boolScale, "d3FeedModulation", Info::kCanAutomate);
     value[ID::d4FeedModulation] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "d4FeedModulation", Info::kCanAutomate);
+      0, scale.boolScale, "d4FeedModulation", Info::kCanAutomate);
 
     value[ID::seed]
-      = std::make_unique<UIntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, scale.seed, "seed", Info::kCanAutomate);
 
     value[ID::stereoCross] = std::make_unique<LinearValue>(
-      Scales::stereoCross.invmap(0.0), Scales::stereoCross, "stereoCross",
+      scale.stereoCross.invmap(0.0), scale.stereoCross, "stereoCross",
       Info::kCanAutomate);
     value[ID::stereoSpread] = std::make_unique<LinearValue>(
-      0.5, Scales::defaultScale, "stereoSpread", Info::kCanAutomate);
+      0.5, scale.defaultScale, "stereoSpread", Info::kCanAutomate);
 
     value[ID::dry]
-      = std::make_unique<LogValue>(0.5, Scales::gain, "dry", Info::kCanAutomate);
+      = std::make_unique<LogValue>(0.5, scale.gain, "dry", Info::kCanAutomate);
     value[ID::wet]
-      = std::make_unique<LogValue>(0.5, Scales::gain, "wet", Info::kCanAutomate);
+      = std::make_unique<LogValue>(0.5, scale.gain, "wet", Info::kCanAutomate);
 
     value[ID::smoothness] = std::make_unique<LogValue>(
-      0.5, Scales::smoothness, "smoothness", Info::kCanAutomate);
+      0.5, scale.smoothness, "smoothness", Info::kCanAutomate);
     value[ID::bypass] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
+      0, scale.boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }
@@ -226,7 +240,7 @@ struct GlobalParameter : public ParameterInterface {
     return kResultOk;
   }
 
-  double getDefaultNormalized(int32_t tag) override
+  double getDefaultNormalized(int32_t tag)
   {
     if (size_t(abs(tag)) >= value.size()) return 0.0;
     return value[tag]->getDefaultNormalized();

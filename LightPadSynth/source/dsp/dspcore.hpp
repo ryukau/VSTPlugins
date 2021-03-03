@@ -130,7 +130,7 @@ struct NoteProcessInfo {
       float sampleRate,                                                                  \
       Wavetable &wavetable,                                                              \
       NoteProcessInfo &info,                                                             \
-      GlobalParameter &param);                                                           \
+      PlugParameter &param);                                                           \
     void release();                                                                      \
     void release(float seconds);                                                         \
     void rest();                                                                         \
@@ -149,7 +149,7 @@ public:
   virtual ~DSPInterface(){};
 
   static const size_t maxVoice = 128;
-  GlobalParameter param;
+  PlugParameter param;
 
   virtual void setup(double sampleRate) = 0;
   virtual void reset() = 0;   // Stop sounds.

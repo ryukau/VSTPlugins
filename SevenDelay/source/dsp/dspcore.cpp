@@ -112,11 +112,11 @@ void DSPCore::setParameters(double tempo)
   interpToneCutoff.push(param.value[ParameterID::toneCutoff]->getFloat());
   interpToneQ.push(param.value[ParameterID::toneQ]->getFloat());
   interpToneMix.push(
-    Scales::toneMix.map(param.value[ParameterID::toneCutoff]->getNormalized()));
+    param.scale.toneMix.map(param.value[ParameterID::toneCutoff]->getNormalized()));
 
   interpDCKill.push(param.value[ParameterID::dckill]->getFloat());
   interpDCKillMix.push(
-    Scales::dckillMix.reverseMap(param.value[ParameterID::dckill]->getNormalized()));
+    param.scale.dckillMix.reverseMap(param.value[ParameterID::dckill]->getNormalized()));
 }
 
 void DSPCore::process(

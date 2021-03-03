@@ -54,16 +54,15 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-Editor::Editor(void *controller) : PlugEditor(controller)
+template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
 {
-  param = std::make_unique<Synth::GlobalParameter>();
-
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-bool Editor::prepareUI()
+template<> bool Editor<Synth::PlugParameter>::prepareUI()
 {
+  const auto &scale = param.scale;
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
@@ -93,22 +92,22 @@ bool Editor::prepareUI()
 
   addTextKnob(
     mulLeft1, mulTop2, textKnobX, labelHeight, uiTextSize, ID::timeMultiply,
-    Scales::multiply, false, 4);
+    scale.multiply, false, 4);
   addTextKnob(
     mulLeft1, mulTop3, textKnobX, labelHeight, uiTextSize, ID::outerFeedMultiply,
-    Scales::multiply, false, 4);
+    scale.multiply, false, 4);
   addTextKnob(
     mulLeft1, mulTop4, textKnobX, labelHeight, uiTextSize, ID::innerFeedMultiply,
-    Scales::multiply, false, 4);
+    scale.multiply, false, 4);
   addTextKnob(
     mulLeft2, mulTop2, textKnobX, labelHeight, uiTextSize, ID::timeOffsetMultiply,
-    Scales::multiply, false, 4);
+    scale.multiply, false, 4);
   addTextKnob(
     mulLeft2, mulTop3, textKnobX, labelHeight, uiTextSize, ID::outerFeedOffsetMultiply,
-    Scales::multiply, false, 4);
+    scale.multiply, false, 4);
   addTextKnob(
     mulLeft2, mulTop4, textKnobX, labelHeight, uiTextSize, ID::innerFeedOffsetMultiply,
-    Scales::multiply, false, 4);
+    scale.multiply, false, 4);
 
   // Panic button.
   const auto panicButtonLeft = left0 + 1.5f * knobX;
@@ -171,7 +170,7 @@ bool Editor::prepareUI()
     tabBase,
     addBarBox(
       tabInsideLeft1, tabInsideTop0, barboxWidth, barboxHeight, ID::time0, nestingDepth,
-      Scales::time, "Time"));
+      scale.time, "Time"));
 
   tabview->addWidget(
     tabBase,
@@ -180,7 +179,7 @@ bool Editor::prepareUI()
       "OuterFeed"));
   auto barboxOuterFeed = addBarBox(
     tabInsideLeft1, tabInsideTop1, barboxWidth, barboxHeight, ID::outerFeed0,
-    nestingDepth, Scales::feed, "OuterFeed");
+    nestingDepth, scale.feed, "OuterFeed");
   barboxOuterFeed->sliderZero = 0.5f;
   tabview->addWidget(tabBase, barboxOuterFeed);
 
@@ -191,7 +190,7 @@ bool Editor::prepareUI()
       "InnerFeed"));
   auto barboxInnerFeed = addBarBox(
     tabInsideLeft1, tabInsideTop2, barboxWidth, barboxHeight, ID::innerFeed0,
-    nestingDepth, Scales::feed, "InnerFeed");
+    nestingDepth, scale.feed, "InnerFeed");
   barboxInnerFeed->sliderZero = 0.5f;
   tabview->addWidget(tabBase, barboxInnerFeed);
 
@@ -202,7 +201,7 @@ bool Editor::prepareUI()
       tabInsideLeft0, tabInsideTop0, barboxHeight, labelHeight, midTextSize, "Time"));
   auto barboxTimeOffset = addBarBox(
     tabInsideLeft1, tabInsideTop0, barboxWidth, barboxHeight, ID::timeOffset0,
-    nestingDepth, Scales::timeOffset, "Time");
+    nestingDepth, scale.timeOffset, "Time");
   barboxTimeOffset->sliderZero = 0.5f;
   tabview->addWidget(tabOffset, barboxTimeOffset);
 
@@ -213,7 +212,7 @@ bool Editor::prepareUI()
       "OuterFeed"));
   auto barboxOuterOffset = addBarBox(
     tabInsideLeft1, tabInsideTop1, barboxWidth, barboxHeight, ID::outerFeedOffset0,
-    nestingDepth, Scales::feedOffset, "OuterFeed");
+    nestingDepth, scale.feedOffset, "OuterFeed");
   barboxOuterOffset->sliderZero = 0.5f;
   tabview->addWidget(tabOffset, barboxOuterOffset);
 
@@ -224,7 +223,7 @@ bool Editor::prepareUI()
       "InnerFeed"));
   auto barboxInnerOffset = addBarBox(
     tabInsideLeft1, tabInsideTop2, barboxWidth, barboxHeight, ID::innerFeedOffset0,
-    nestingDepth, Scales::feedOffset, "InnerFeed");
+    nestingDepth, scale.feedOffset, "InnerFeed");
   barboxInnerOffset->sliderZero = 0.5f;
   tabview->addWidget(tabOffset, barboxInnerOffset);
 
@@ -237,7 +236,7 @@ bool Editor::prepareUI()
     tabModulation,
     addBarBox(
       tabInsideLeft1, tabInsideTop0, barboxWidth, barboxHeight, ID::timeLfoAmount0,
-      nestingDepth, Scales::time, "Time LFO"));
+      nestingDepth, scale.time, "Time LFO"));
 
   const auto tabViewCenter1 = tabInsideTop1 + (barboxHeight - labelHeight) / 2;
   tabview->addWidget(
@@ -249,7 +248,7 @@ bool Editor::prepareUI()
     tabModulation,
     addTextKnob(
       tabInsideLeft0 + 2 * textKnobX, tabViewCenter1, textKnobX, labelHeight, uiTextSize,
-      ID::timeLfoLowpass, Scales::timeLfoLowpas, false, 5));
+      ID::timeLfoLowpass, scale.timeLfoLowpas, false, 5));
 
   tabview->addWidget(
     tabModulation,
@@ -260,7 +259,7 @@ bool Editor::prepareUI()
     tabModulation,
     addBarBox(
       tabInsideLeft1, tabInsideTop2, barboxWidth, barboxHeight, ID::lowpassCutoff0,
-      nestingDepth, Scales::defaultScale, "Lowpass Cutoff"));
+      nestingDepth, scale.defaultScale, "Lowpass Cutoff"));
 
   tabview->refreshTab();
 

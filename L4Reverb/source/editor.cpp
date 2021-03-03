@@ -54,16 +54,15 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-Editor::Editor(void *controller) : PlugEditor(controller)
+template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
 {
-  param = std::make_unique<Synth::GlobalParameter>();
-
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-bool Editor::prepareUI()
+template<> bool Editor<Synth::PlugParameter>::prepareUI()
 {
+  const auto &scale = param.scale;
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
@@ -102,41 +101,41 @@ bool Editor::prepareUI()
 
   addTextKnob(
     mulLeft1, mulTop2, textKnobX, labelHeight, uiTextSize, ID::timeMultiply,
-    Scales::timeMultiply, false, 8);
+    scale.timeMultiply, false, 8);
   addTextKnob(
     mulLeft1, mulTop3, textKnobX, labelHeight, uiTextSize, ID::innerFeedMultiply,
-    Scales::defaultScale, false, 4);
+    scale.defaultScale, false, 4);
   addTextKnob(
     mulLeft1, mulTop4, textKnobX, labelHeight, uiTextSize, ID::d1FeedMultiply,
-    Scales::defaultScale, false, 4);
+    scale.defaultScale, false, 4);
   addTextKnob(
     mulLeft1, mulTop5, textKnobX, labelHeight, uiTextSize, ID::d2FeedMultiply,
-    Scales::defaultScale, false, 4);
+    scale.defaultScale, false, 4);
   addTextKnob(
     mulLeft1, mulTop6, textKnobX, labelHeight, uiTextSize, ID::d3FeedMultiply,
-    Scales::defaultScale, false, 4);
+    scale.defaultScale, false, 4);
   addTextKnob(
     mulLeft1, mulTop7, textKnobX, labelHeight, uiTextSize, ID::d4FeedMultiply,
-    Scales::defaultScale, false, 4);
+    scale.defaultScale, false, 4);
 
   addTextKnob(
     mulLeft2, mulTop2, textKnobX, labelHeight, uiTextSize, ID::timeOffsetRange,
-    Scales::timeOffsetRange, false, 8);
+    scale.timeOffsetRange, false, 8);
   addTextKnob(
     mulLeft2, mulTop3, textKnobX, labelHeight, uiTextSize, ID::innerFeedOffsetRange,
-    Scales::defaultScale, false, 4);
+    scale.defaultScale, false, 4);
   addTextKnob(
     mulLeft2, mulTop4, textKnobX, labelHeight, uiTextSize, ID::d1FeedOffsetRange,
-    Scales::defaultScale, false, 4);
+    scale.defaultScale, false, 4);
   addTextKnob(
     mulLeft2, mulTop5, textKnobX, labelHeight, uiTextSize, ID::d2FeedOffsetRange,
-    Scales::defaultScale, false, 4);
+    scale.defaultScale, false, 4);
   addTextKnob(
     mulLeft2, mulTop6, textKnobX, labelHeight, uiTextSize, ID::d3FeedOffsetRange,
-    Scales::defaultScale, false, 4);
+    scale.defaultScale, false, 4);
   addTextKnob(
     mulLeft2, mulTop7, textKnobX, labelHeight, uiTextSize, ID::d4FeedOffsetRange,
-    Scales::defaultScale, false, 4);
+    scale.defaultScale, false, 4);
 
   const auto mulLeft3Mid = mulLeft3 + floorf(textKnobX / 2) - 5;
   addCheckbox(
@@ -201,9 +200,9 @@ bool Editor::prepareUI()
   addLabel(miscLeft0, miscTop1, textKnobX, labelHeight, uiTextSize, "Seed", kCenterText);
   auto textKnobSeed = addTextKnob(
     miscLeft0, miscTop1 + labelY, textKnobX, labelHeight, uiTextSize, ID::seed,
-    Scales::seed);
+    scale.seed);
   textKnobSeed->sensitivity = 0.001f;
-  textKnobSeed->lowSensitivity = 1.0f / Scales::seed.getMax();
+  textKnobSeed->lowSensitivity = 1.0f / scale.seed.getMax();
 
   addKnob(
     miscLeft1 + offsetKnobX, miscTop1, knobX, margin, uiTextSize, "Smooth",
@@ -223,7 +222,7 @@ bool Editor::prepareUI()
     tabInsideLeft0, tabInsideTop0, barboxHeight, labelHeight, midTextSize, "Time");
   auto barboxTime = addBarBox(
     tabInsideLeft1, tabInsideTop0, 2 * nDepth1, barboxHeight, ID::time0, nDepth1,
-    Scales::time, "Time");
+    scale.time, "Time");
   barboxTime->liveUpdateLineEdit = false;
   addScrollBar(
     tabInsideLeft1, tabInsideTop0 + barboxHeight - 1, 2 * nDepth1, scrollBarHeight,
@@ -233,7 +232,7 @@ bool Editor::prepareUI()
     tabInsideLeft0, tabInsideTop1, barboxHeight, labelHeight, midTextSize, "InnerFeed");
   auto barboxInnerFeed = addBarBox(
     tabInsideLeft1, tabInsideTop1, 2 * nDepth1, barboxHeight, ID::innerFeed0, nDepth1,
-    Scales::feed, "InnerFeed");
+    scale.feed, "InnerFeed");
   barboxInnerFeed->sliderZero = 0.5f;
   barboxInnerFeed->liveUpdateLineEdit = false;
   addScrollBar(
@@ -244,7 +243,7 @@ bool Editor::prepareUI()
     tabInsideLeft0, tabInsideTop2, barboxHeight, labelHeight, midTextSize, "D1 Feed");
   auto barboxD1Feed = addBarBox(
     tabInsideLeft1, tabInsideTop2, 2 * nDepth1, barboxHeight, ID::d1Feed0, nDepth1,
-    Scales::feed, "D1 Feed");
+    scale.feed, "D1 Feed");
   barboxD1Feed->sliderZero = 0.5f;
   barboxD1Feed->liveUpdateLineEdit = false;
   addScrollBar(
@@ -258,7 +257,7 @@ bool Editor::prepareUI()
     tabInsideLeft2, tabInsideTop0, barboxHeight, labelHeight, midTextSize, "D2 Feed");
   auto barboxD2Feed = addBarBox(
     tabInsideLeft3, tabInsideTop0, barboxWidthSmall, barboxHeight, ID::d2Feed0, nDepth2,
-    Scales::feed, "D2 Feed");
+    scale.feed, "D2 Feed");
   barboxD2Feed->sliderZero = 0.5f;
   barboxD2Feed->liveUpdateLineEdit = false;
 
@@ -266,14 +265,14 @@ bool Editor::prepareUI()
     tabInsideLeft2, tabInsideTop1, barboxHeight, labelHeight, midTextSize, "D3 Feed");
   auto barboxD3Feed = addBarBox(
     tabInsideLeft3, tabInsideTop1, barboxWidthSmall, barboxHeight, ID::d3Feed0, nDepth3,
-    Scales::feed, "D3 Feed");
+    scale.feed, "D3 Feed");
   barboxD3Feed->sliderZero = 0.5f;
 
   addGroupVerticalLabel(
     tabInsideLeft2, tabInsideTop2, barboxHeight, labelHeight, midTextSize, "D4 Feed");
   auto barboxD4Feed = addBarBox(
     tabInsideLeft3, tabInsideTop2, barboxWidthSmall, barboxHeight, ID::d4Feed0, nDepth4,
-    Scales::feed, "D4 Feed");
+    scale.feed, "D4 Feed");
   barboxD4Feed->sliderZero = 0.5f;
 
   // Plugin name.

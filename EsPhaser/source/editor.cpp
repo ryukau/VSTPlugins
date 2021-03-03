@@ -44,16 +44,15 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-Editor::Editor(void *controller) : PlugEditor(controller)
+template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
 {
-  param = std::make_unique<Synth::GlobalParameter>();
-
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-bool Editor::prepareUI()
+template<> bool Editor<Synth::PlugParameter>::prepareUI()
 {
+  const auto &scale = param.scale;
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
@@ -94,13 +93,13 @@ bool Editor::prepareUI()
   addLabel(phaserLeft1, phaserTop1, knobX * 1.2, labelHeight, uiTextSize, "Stage");
   addTextKnob(
     phaserLeft1 + knobX, phaserTop1, knobX, labelHeight, uiTextSize, ID::stage,
-    Scales::stage, false, 0, 1);
+    scale.stage, false, 0, 1);
 
   const auto phaserLeft2 = phaserLeft1 + 2.25f * knobX;
   addLabel(phaserLeft2, phaserTop1, knobX, labelHeight, uiTextSize, "Smooth");
   addTextKnob(
     phaserLeft2 + knobX, phaserTop1, knobX, labelHeight, uiTextSize, ID::smoothness,
-    Scales::smoothness, false, 3, 0);
+    scale.smoothness, false, 3, 0);
 
   // Plugin name.
   const auto splashTop = phaserTop1;

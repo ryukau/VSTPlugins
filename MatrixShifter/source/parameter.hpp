@@ -21,7 +21,7 @@
 #include <string>
 #include <vector>
 
-#include "../../common/parameterInterface.hpp"
+#include "../../common/dsp/constants.hpp"
 #include "../../common/value.hpp"
 
 constexpr float maxShiftDelaySeconds = 0.03f;
@@ -35,6 +35,8 @@ constexpr size_t nShifter = nParallel * nSerial;
 
 namespace Steinberg {
 namespace Synth {
+
+using namespace SomeDSP;
 
 namespace ParameterID {
 enum ID {
@@ -64,29 +66,48 @@ enum ID {
 } // namespace ParameterID
 
 struct Scales {
-  static SomeDSP::UIntScale<double> boolScale;
-  static SomeDSP::LinearScale<double> defaultScale;
+  Scales()
+    : boolScale(1)
+    , defaultScale(0.0, 1.0)
+    , shiftSemi(0.0, 10.0)
+    , shiftDelay(0, maxShiftDelaySeconds, 0.5, 0.2 * maxShiftDelaySeconds)
+    , shiftGain(-30, 0, true)
+    , shiftPhase(-0.5, 0.5)
+    , shiftFeedbackGain(-18.0, 0.0, true)
+    , shiftFeedbackCutoff(minFeedbackCutoffNote, maxFeedbackCutoffNote, false)
+    , shiftSemiMultiplier(0.0, 1.0, 0.5, 0.2)
+    , lfoHz(freqToNote(0.01), freqToNote(20.0), true)
+    , lfoShiftOffset(-1.0, 1.0)
+    , lfoToFeedbackCutoff(-1.0, 1.0)
+    , gain(-24, 24, true)
+    , smoothness(0.04, 8.0, 0.5, 1.0)
+  {
+  }
 
-  static SomeDSP::LinearScale<double> shiftSemi;
-  static SomeDSP::LogScale<double> shiftDelay;
-  static SomeDSP::DecibelScale<double> shiftGain;
-  static SomeDSP::LinearScale<double> shiftPhase;
-  static SomeDSP::DecibelScale<double> shiftFeedbackGain;
-  static SomeDSP::SemitoneScale<double> shiftFeedbackCutoff;
-  static SomeDSP::LogScale<double> shiftSemiMultiplier;
+  SomeDSP::UIntScale<double> boolScale;
+  SomeDSP::LinearScale<double> defaultScale;
 
-  static SomeDSP::SemitoneScale<double> lfoHz;
-  static SomeDSP::LinearScale<double> lfoShiftOffset;
-  static SomeDSP::LinearScale<double> lfoToFeedbackCutoff;
-  static SomeDSP::DecibelScale<double> gain;
+  SomeDSP::LinearScale<double> shiftSemi;
+  SomeDSP::LogScale<double> shiftDelay;
+  SomeDSP::DecibelScale<double> shiftGain;
+  SomeDSP::LinearScale<double> shiftPhase;
+  SomeDSP::DecibelScale<double> shiftFeedbackGain;
+  SomeDSP::SemitoneScale<double> shiftFeedbackCutoff;
+  SomeDSP::LogScale<double> shiftSemiMultiplier;
 
-  static SomeDSP::LogScale<double> smoothness;
+  SomeDSP::SemitoneScale<double> lfoHz;
+  SomeDSP::LinearScale<double> lfoShiftOffset;
+  SomeDSP::LinearScale<double> lfoToFeedbackCutoff;
+  SomeDSP::DecibelScale<double> gain;
+
+  SomeDSP::LogScale<double> smoothness;
 };
 
-struct GlobalParameter : public ParameterInterface {
+struct PlugParameter {
+  Scales scale;
   std::vector<std::unique_ptr<ValueInterface>> value;
 
-  GlobalParameter()
+  PlugParameter()
   {
     value.resize(ParameterID::ID_ENUM_LENGTH);
 
@@ -98,14 +119,14 @@ struct GlobalParameter : public ParameterInterface {
     using SemitoneValue = FloatValue<SomeDSP::SemitoneScale<double>>;
 
     value[ID::bypass] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
+      0, scale.boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     std::string shiftHzLabel("shiftHz");
     for (size_t idx = 0; idx < nShifter; ++idx) {
       auto indexStr = std::to_string(idx);
       value[ID::shiftSemi0 + idx] = std::make_unique<LinearValue>(
-        Scales::shiftSemi.invmap(0.0), Scales::shiftSemi,
-        (shiftHzLabel + indexStr).c_str(), Info::kCanAutomate);
+        scale.shiftSemi.invmap(0.0), scale.shiftSemi, (shiftHzLabel + indexStr).c_str(),
+        Info::kCanAutomate);
     }
 
     std::string delayLabel("delay");
@@ -113,47 +134,46 @@ struct GlobalParameter : public ParameterInterface {
     for (size_t idx = 0; idx < nSerial; ++idx) {
       auto indexStr = std::to_string(idx);
       value[ID::shiftDelay0 + idx] = std::make_unique<LogValue>(
-        Scales::shiftDelay.invmap(0.0), Scales::shiftDelay,
-        (shiftHzLabel + indexStr).c_str(), Info::kCanAutomate);
+        scale.shiftDelay.invmap(0.0), scale.shiftDelay, (shiftHzLabel + indexStr).c_str(),
+        Info::kCanAutomate);
       value[ID::shiftGain0 + idx] = std::make_unique<DecibelValue>(
-        Scales::shiftGain.invmap(1.0), Scales::shiftGain,
-        (shiftHzLabel + indexStr).c_str(), Info::kCanAutomate);
+        scale.shiftGain.invmap(1.0), scale.shiftGain, (shiftHzLabel + indexStr).c_str(),
+        Info::kCanAutomate);
     }
 
     value[ID::lfoHz]
-      = std::make_unique<SemitoneValue>(0.5, Scales::lfoHz, "lfoHz", Info::kCanAutomate);
+      = std::make_unique<SemitoneValue>(0.5, scale.lfoHz, "lfoHz", Info::kCanAutomate);
     value[ID::lfoAmount] = std::make_unique<LinearValue>(
-      0.0, Scales::defaultScale, "lfoAmount", Info::kCanAutomate);
+      0.0, scale.defaultScale, "lfoAmount", Info::kCanAutomate);
     value[ID::lfoSkew] = std::make_unique<LinearValue>(
-      0.0, Scales::defaultScale, "lfoSkew", Info::kCanAutomate);
+      0.0, scale.defaultScale, "lfoSkew", Info::kCanAutomate);
     value[ID::lfoShiftOffset] = std::make_unique<LinearValue>(
-      0.5, Scales::lfoShiftOffset, "lfoShiftOffset", Info::kCanAutomate);
+      0.5, scale.lfoShiftOffset, "lfoShiftOffset", Info::kCanAutomate);
 
     value[ID::shiftMix] = std::make_unique<LinearValue>(
-      0.75, Scales::defaultScale, "shiftMix", Info::kCanAutomate);
+      0.75, scale.defaultScale, "shiftMix", Info::kCanAutomate);
     value[ID::shiftPhase] = std::make_unique<LinearValue>(
-      0.5, Scales::shiftPhase, "shiftPhase", Info::kCanAutomate);
+      0.5, scale.shiftPhase, "shiftPhase", Info::kCanAutomate);
     value[ID::shiftFeedbackGain] = std::make_unique<DecibelValue>(
-      Scales::shiftFeedbackGain.invmap(0.0), Scales::shiftFeedbackGain,
-      "shiftFeedbackGain", Info::kCanAutomate);
+      scale.shiftFeedbackGain.invmap(0.0), scale.shiftFeedbackGain, "shiftFeedbackGain",
+      Info::kCanAutomate);
     value[ID::shiftSemiMultiplier] = std::make_unique<LogValue>(
-      Scales::shiftSemiMultiplier.invmap(0.02), Scales::shiftSemiMultiplier,
+      scale.shiftSemiMultiplier.invmap(0.02), scale.shiftSemiMultiplier,
       "shiftSemiMultiplier", Info::kCanAutomate);
 
     value[ID::gain] = std::make_unique<DecibelValue>(
-      Scales::gain.invmap(1.0), Scales::gain, "gain", Info::kCanAutomate);
+      scale.gain.invmap(1.0), scale.gain, "gain", Info::kCanAutomate);
 
     value[ID::smoothness] = std::make_unique<LogValue>(
-      Scales::smoothness.invmap(0.35), Scales::smoothness, "smoothness",
-      Info::kCanAutomate);
+      scale.smoothness.invmap(0.35), scale.smoothness, "smoothness", Info::kCanAutomate);
     value[ID::invertEachSection] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "invertEachSection", Info::kCanAutomate);
+      0, scale.boolScale, "invertEachSection", Info::kCanAutomate);
 
     value[ID::shiftFeedbackCutoff] = std::make_unique<SemitoneValue>(
-      Scales::shiftFeedbackCutoff.invmap(40.0), Scales::shiftFeedbackCutoff,
+      scale.shiftFeedbackCutoff.invmap(40.0), scale.shiftFeedbackCutoff,
       "shiftFeedbackCutoff", Info::kCanAutomate);
     value[ID::lfoToFeedbackCutoff] = std::make_unique<LinearValue>(
-      Scales::lfoToFeedbackCutoff.invmap(0.0), Scales::lfoToFeedbackCutoff,
+      scale.lfoToFeedbackCutoff.invmap(0.0), scale.lfoToFeedbackCutoff,
       "lfoToFeedbackCutoff", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
@@ -182,7 +202,7 @@ struct GlobalParameter : public ParameterInterface {
     return kResultOk;
   }
 
-  double getDefaultNormalized(int32_t tag) override
+  double getDefaultNormalized(int32_t tag)
   {
     if (size_t(abs(tag)) >= value.size()) return 0.0;
     return value[tag]->getDefaultNormalized();

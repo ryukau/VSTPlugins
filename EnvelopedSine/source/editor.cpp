@@ -46,16 +46,15 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-Editor::Editor(void *controller) : PlugEditor(controller)
+template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
 {
-  param = std::make_unique<Synth::GlobalParameter>();
-
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-bool Editor::prepareUI()
+template<> bool Editor<Synth::PlugParameter>::prepareUI()
 {
+  const auto &scale = param.scale;
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
@@ -90,31 +89,31 @@ bool Editor::prepareUI()
   addLabel(pitchLeft1, pitchTop1, pitchLabelWidth, labelHeight, uiTextSize, "Octave");
   addTextKnob(
     pitchLeft2, pitchTop1, knobX, labelHeight, uiTextSize, ID::masterOctave,
-    Scales::masterOctave);
+    scale.masterOctave);
 
   const auto pitchTop2 = pitchTop1 + labelY;
   addLabel(pitchLeft1, pitchTop2, pitchLabelWidth, labelHeight, uiTextSize, "Multiply");
   addTextKnob(
     pitchLeft2, pitchTop2, knobX, labelHeight, uiTextSize, ID::pitchMultiply,
-    Scales::pitchMultiply, false, 3);
+    scale.pitchMultiply, false, 3);
 
   const auto pitchTop3 = pitchTop2 + labelY;
   addLabel(pitchLeft1, pitchTop3, pitchLabelWidth, labelHeight, uiTextSize, "Modulo");
   addTextKnob(
     pitchLeft2, pitchTop3, knobX, labelHeight, uiTextSize, ID::pitchModulo,
-    Scales::pitchModulo, false, 3);
+    scale.pitchModulo, false, 3);
 
   const auto pitchTop4 = pitchTop3 + labelY;
   addLabel(pitchLeft1, pitchTop4, pitchLabelWidth, labelHeight, uiTextSize, "Expand");
   addTextKnob(
     pitchLeft2, pitchTop4, knobX, labelHeight, uiTextSize, ID::overtoneExpand,
-    Scales::overtoneExpand, false, 3);
+    scale.overtoneExpand, false, 3);
 
   const auto pitchTop5 = pitchTop4 + labelY;
   addLabel(pitchLeft1, pitchTop5, pitchLabelWidth, labelHeight, uiTextSize, "Shift");
   addTextKnob(
     pitchLeft2, pitchTop5, knobX, labelHeight, uiTextSize, ID::overtoneShift,
-    Scales::overtoneShift, false, 3);
+    scale.overtoneShift, false, 3);
 
   // Random.
   const auto randomTop0 = pitchTop0 + labelHeight + 6.0 * labelY - margin;
@@ -131,7 +130,7 @@ bool Editor::prepareUI()
     randomLeft0, randomTop1, knobX - 2.0f * margin, labelHeight, uiTextSize, "Seed");
   addTextKnob(
     randomLeft1 - 2.0f * margin, randomTop1, knobX, labelHeight, uiTextSize, ID::seed,
-    Scales::seed);
+    scale.seed);
 
   const auto randomTop2 = randomTop1 + labelY;
   addKnob(
@@ -241,7 +240,7 @@ bool Editor::prepareUI()
   const auto attackLeft0 = attackLeft + labelY;
   addBarBox(
     attackLeft0, attackTop, barboxWidth, barboxHeight, ID::attack0, Synth::nOvertone,
-    Scales::envelopeA, "Attack");
+    scale.envelopeA, "Attack");
 
   // Decay.
   const auto decayTop = attackTop + barboxY + margin;
@@ -252,7 +251,7 @@ bool Editor::prepareUI()
   const auto decayLeft0 = decayLeft + labelY;
   addBarBox(
     decayLeft0, decayTop, barboxWidth, barboxHeight, ID::decay0, Synth::nOvertone,
-    Scales::envelopeD, "Decay");
+    scale.envelopeD, "Decay");
 
   // Overtone.
   const auto overtoneTop = decayTop + barboxY + margin;
@@ -263,7 +262,7 @@ bool Editor::prepareUI()
   const auto overtoneLeft0 = overtoneLeft + labelY;
   addBarBox(
     overtoneLeft0, overtoneTop, barboxWidth, barboxHeight, ID::overtone0,
-    Synth::nOvertone, Scales::gainDecibel, "Gain");
+    Synth::nOvertone, scale.gainDecibel, "Gain");
 
   // Saturation.
   const auto saturationTop = overtoneTop + barboxY + margin;
@@ -274,7 +273,7 @@ bool Editor::prepareUI()
   const auto saturationLeft0 = saturationLeft + labelY;
   addBarBox(
     saturationLeft0, saturationTop, barboxWidth, barboxHeight, ID::saturation0,
-    Synth::nOvertone, Scales::saturation, "Saturation");
+    Synth::nOvertone, scale.saturation, "Saturation");
 
   // Plugin name.
   const auto splashTop = defaultHeight - splashHeight - 20.0f;

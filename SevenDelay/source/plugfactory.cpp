@@ -32,10 +32,12 @@
 // Subcategory for this Plug-in (see PlugType in ivstaudioprocessor.h)
 #define stringSubCategory Steinberg::Vst::PlugType::kFxDelay
 
+using namespace Steinberg::Synth;
+
 BEGIN_FACTORY_DEF(stringCompanyName, stringCompanyWeb, stringCompanyEmail)
 
 DEF_CLASS2(
-  INLINE_UID_FROM_FUID(Steinberg::Synth::ProcessorUID),
+  INLINE_UID_FROM_FUID(ProcessorUID),
   PClassInfo::kManyInstances, // cardinality
   kVstAudioEffectClass,       // the component category (do not changed this)
   stringPluginName,           // here the Plug-in name (to be changed)
@@ -43,13 +45,12 @@ DEF_CLASS2(
   stringSubCategory, // Subcategory for this Plug-in (to be changed)
   FULL_VERSION_STR,  // Plug-in version (to be changed)
   kVstVersionString, // SDK Version (do not changed this, use always this define)
-  Steinberg::Synth::PlugProcessor::createInstance)
+  PlugProcessor::createInstance)
 
-using Controller
-  = Steinberg::Synth::PlugController<Vst::Editor, Steinberg::Synth::GlobalParameter>;
+using Controller = PlugController<Vst::Editor<PlugParameter>, PlugParameter>;
 
 DEF_CLASS2(
-  INLINE_UID_FROM_FUID(Steinberg::Synth::ControllerUID),
+  INLINE_UID_FROM_FUID(ControllerUID),
   PClassInfo::kManyInstances,   // cardinality
   kVstComponentControllerClass, // the Controller category (do not changed this)
   stringPluginName
