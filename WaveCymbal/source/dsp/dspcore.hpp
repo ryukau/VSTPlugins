@@ -41,7 +41,7 @@ public:
   DSPCore();
 
   static const size_t maxVoice = 32;
-  PlugParameter param;
+  GlobalParameter param;
 
   void setup(double sampleRate);
   void reset();   // Stop sounds.

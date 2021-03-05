@@ -21,9 +21,9 @@
 #include "pluginterfaces/vst/ivstplugview.h"
 #include "public.sdk/source/vst/vstguieditor.h"
 
+#include "../parameterInterface.hpp"
 #include "arraycontrol.hpp"
 #include "style.hpp"
-#include "x11runloop.hpp"
 
 #include "barbox.hpp"
 #include "button.hpp"
@@ -49,128 +49,24 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-template<typename PlugParameter>
 class PlugEditor : public VSTGUIEditor, public IControlListener, public IMouseObserver {
-protected:
-  PlugParameter param;
-
-  std::unordered_map<Vst::ParamID, CControl *> controlMap;
-  std::unordered_map<Vst::ParamID, ArrayControl *> arrayControlMap;
-  std::unordered_map<Vst::ParamID, ArrayControl *> arrayControlInstances; // Dirty hack.
-
-  ViewRect viewRect{0, 0, 512, 512};
-
-  Uhhyou::Palette palette;
-
 public:
-  PlugEditor(void *controller) : VSTGUIEditor(controller) { setRect(viewRect); }
-
-  ~PlugEditor()
-  {
-    for (auto &ctrl : controlMap)
-      if (ctrl.second) ctrl.second->forget();
-
-    for (auto &ctrl : arrayControlInstances)
-      if (ctrl.second) ctrl.second->forget();
-  }
+  PlugEditor(void *controller);
+  ~PlugEditor();
 
   bool PLUGIN_API
-  open(void *parent, const PlatformType &platformType = kDefaultNative) override
-  {
-    if (frame) return false;
-
-    setIdleRate(1000 / 60);
-
-    frame = new CFrame(
-      CRect(viewRect.left, viewRect.top, viewRect.right, viewRect.bottom), this);
-    if (frame == nullptr) return false;
-    frame->setBackgroundColor(palette.background());
-    frame->registerMouseObserver(this);
-
-    IPlatformFrameConfig *config = nullptr;
-#if LINUX
-    X11::FrameConfig x11config;
-    x11config.runLoop = VSTGUI::owned(new RunLoop(plugFrame));
-    config = &x11config;
-#endif
-    frame->open(parent, platformType, config);
-
-    return prepareUI();
-  }
-
-  void PLUGIN_API close() override
-  {
-    if (frame != nullptr) {
-      frame->forget();
-      frame = nullptr;
-    }
-  }
-
-  virtual void valueChanged(CControl *pControl) override
-  {
-    ParamID tag = pControl->getTag();
-    ParamValue value = pControl->getValueNormalized();
-    controller->setParamNormalized(tag, value);
-    controller->performEdit(tag, value);
-  }
-
-  virtual void valueChanged(ParamID id, ParamValue normalized)
-  {
-    controller->setParamNormalized(id, normalized);
-    controller->performEdit(id, normalized);
-  }
-
-  virtual void updateUI(Vst::ParamID id, ParamValue normalized)
-  {
-    auto vCtrl = controlMap.find(id);
-    if (vCtrl != controlMap.end()) {
-      vCtrl->second->setValueNormalized(normalized);
-      vCtrl->second->invalid();
-      return;
-    }
-
-    auto aCtrl = arrayControlMap.find(id);
-    if (aCtrl != arrayControlMap.end()) {
-      aCtrl->second->setValueAt(id - aCtrl->second->id.front(), normalized);
-      aCtrl->second->invalid();
-      return;
-    }
-  }
+  open(void *parent, const PlatformType &platformType = kDefaultNative) override;
+  void PLUGIN_API close() override;
+  virtual void valueChanged(CControl *pControl) override;
+  virtual void valueChanged(ParamID id, ParamValue normalized);
+  virtual void updateUI(Vst::ParamID id, ParamValue normalized);
 
   virtual void onMouseEntered(CView *view, CFrame *frame) override {}
   virtual void onMouseExited(CView *view, CFrame *frame) override {}
-
   virtual CMouseEventResult
-  onMouseMoved(CFrame *frame, const CPoint &where, const CButtonState &buttons) override
-  {
-    return kMouseEventNotHandled;
-  }
-
+  onMouseMoved(CFrame *frame, const CPoint &where, const CButtonState &buttons) override;
   virtual CMouseEventResult
-  onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &buttons) override
-  {
-    if (!buttons.isRightButton()) return kMouseEventNotHandled;
-
-    auto componentHandler = controller->getComponentHandler();
-    if (componentHandler == nullptr) return kMouseEventNotHandled;
-
-    FUnknownPtr<IComponentHandler3> handler(componentHandler);
-    if (handler == nullptr) return kMouseEventNotHandled;
-
-    auto control = dynamic_cast<CControl *>(frame->getViewAt(where));
-    if (control == nullptr) return kMouseEventNotHandled;
-
-    // Context menu will not popup when the control has negative tag.
-    ParamID id = control->getTag();
-    if (id < 1 || id >= LONG_MAX) return kMouseEventNotHandled;
-
-    IContextMenu *menu = handler->createContextMenu(this, &id);
-    if (menu == nullptr) return kMouseEventNotHandled;
-
-    menu->popup(where.x, where.y);
-    menu->release();
-    return kMouseEventHandled;
-  }
+  onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &buttons) override;
 
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
@@ -192,7 +88,7 @@ public:
       value[i] = controller->getParamNormalized(id[i]);
     std::vector<double> defaultValue(id.size());
     for (size_t i = 0; i < value.size(); ++i)
-      defaultValue[i] = param.getDefaultNormalized(id[i]);
+      defaultValue[i] = param->getDefaultNormalized(id[i]);
 
     auto barBox = new BarBox<Scale>(
       this, CRect(left, top, left + width, top + height), id, scale, value, defaultValue,
@@ -218,7 +114,7 @@ public:
       value[i] = controller->getParamNormalized(id[i]);
     std::vector<double> defaultValue(value);
     for (size_t i = 0; i < defaultValue.size(); ++i)
-      defaultValue[i] = param.getDefaultNormalized(id[i]);
+      defaultValue[i] = param->getDefaultNormalized(id[i]);
 
     auto xyPad = new XYPad(
       this, CRect(left, top, left + width, top + height), id, value, defaultValue,
@@ -247,7 +143,7 @@ public:
       value[i] = controller->getParamNormalized(id[i]);
     std::vector<double> defaultValue(value);
     for (size_t i = 0; i < defaultValue.size(); ++i)
-      defaultValue[i] = param.getDefaultNormalized(id[i]);
+      defaultValue[i] = param->getDefaultNormalized(id[i]);
 
     auto matrix = new MatrixKnob(
       this, CRect(left, top, left + width, top + height), id, value, defaultValue, nRow,
@@ -454,7 +350,7 @@ public:
       CRect(left, top + margin, left + width, top + width - margin), this, tag, palette);
     knob->setSlitWidth(8.0);
     knob->setValueNormalized(controller->getParamNormalized(tag));
-    knob->setDefaultValue(param.getDefaultNormalized(tag));
+    knob->setDefaultValue(param->getDefaultNormalized(tag));
     frame->addView(knob);
     addToControlMap(tag, knob);
 
@@ -485,7 +381,7 @@ public:
       scale, offset);
     knob->setSlitWidth(8.0);
     knob->setValueNormalized(controller->getParamNormalized(tag));
-    knob->setDefaultValue(param.getDefaultNormalized(tag));
+    knob->setDefaultValue(param->getDefaultNormalized(tag));
     frame->addView(knob);
     addToControlMap(tag, knob);
 
@@ -513,7 +409,7 @@ public:
       this, tag, palette);
     knob->setSlitWidth(8.0);
     knob->setValueNormalized(controller->getParamNormalized(tag));
-    knob->setDefaultValue(param.getDefaultNormalized(tag));
+    knob->setDefaultValue(param->getDefaultNormalized(tag));
     frame->addView(knob);
     addToControlMap(tag, knob);
 
@@ -540,7 +436,7 @@ public:
       new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette,
       scale, isDecibel);
     knob->setValueNormalized(controller->getParamNormalized(tag));
-    knob->setDefaultValue(param.getDefaultNormalized(tag));
+    knob->setDefaultValue(param->getDefaultNormalized(tag));
     knob->setPrecision(precision);
     knob->offset = offset;
     frame->addView(knob);
@@ -691,7 +587,7 @@ public:
     slider->setHighlightWidth(3.0);
 
     slider->setValueNormalized(controller->getParamNormalized(tag));
-    slider->setDefaultValue(param.getDefaultNormalized(tag));
+    slider->setDefaultValue(param->getDefaultNormalized(tag));
     frame->addView(slider);
     addToControlMap(tag, slider);
 
@@ -719,15 +615,18 @@ protected:
     arrayControlInstances.emplace(std::make_pair(id0, control));
   }
 
-  void addToControlMap(Vst::ParamID id, CControl *control)
-  {
-    auto iter = controlMap.find(id);
-    if (iter != controlMap.end()) iter->second->forget();
-    control->remember();
-    controlMap.insert({id, control});
-  }
-
+  void addToControlMap(Vst::ParamID id, CControl *control);
   virtual bool prepareUI() = 0;
+
+  std::unique_ptr<ParameterInterface> param;
+
+  std::unordered_map<Vst::ParamID, CControl *> controlMap;
+  std::unordered_map<Vst::ParamID, ArrayControl *> arrayControlMap;
+  std::unordered_map<Vst::ParamID, ArrayControl *> arrayControlInstances; // Dirty hack.
+
+  ViewRect viewRect{0, 0, 512, 512};
+
+  Uhhyou::Palette palette;
 };
 
 } // namespace Vst

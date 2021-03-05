@@ -4,6 +4,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(plug_sources
+  source/parameter.cpp
   source/gui/splashdraw.cpp
   source/dsp/dspcore.cpp
   source/plugprocessor.cpp

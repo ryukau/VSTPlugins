@@ -51,7 +51,7 @@ struct NoteProcessInfo {
   ExpSmoother<float> noiseGain;
   ExpSmoother<float> propagation;
 
-  void reset(PlugParameter &param)
+  void reset(GlobalParameter &param)
   {
     using ID = ParameterID::ID;
     auto &pv = param.value;
@@ -64,7 +64,7 @@ struct NoteProcessInfo {
     NOTE_PROCESS_INFO_SMOOTHER(reset);
   }
 
-  void setParameters(PlugParameter &param)
+  void setParameters(GlobalParameter &param)
   {
     using ID = ParameterID::ID;
     auto &pv = param.value;
@@ -112,7 +112,7 @@ struct NoteProcessInfo {
       float pan,                                                                         \
       float sampleRate,                                                                  \
       NoteProcessInfo &info,                                                             \
-      PlugParameter &param);                                                             \
+      GlobalParameter &param);                                                           \
     void release(float sampleRate);                                                      \
     void rest();                                                                         \
     bool isAttacking();                                                                  \
@@ -129,7 +129,7 @@ public:
   virtual ~DSPInterface(){};
 
   constexpr static uint8_t maxVoice = 16;
-  PlugParameter param;
+  GlobalParameter param;
 
   virtual void setup(double sampleRate) = 0;
   virtual void reset() = 0;   // Stop sounds.

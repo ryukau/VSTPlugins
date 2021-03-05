@@ -54,15 +54,16 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
+Editor::Editor(void *controller) : PlugEditor(controller)
 {
+  param = std::make_unique<Synth::GlobalParameter>();
+
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-template<> bool Editor<Synth::PlugParameter>::prepareUI()
+bool Editor::prepareUI()
 {
-  const auto &scale = param.scale;
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
@@ -92,22 +93,22 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
 
   addTextKnob(
     mulLeft1, mulTop2, textKnobX, labelHeight, uiTextSize, ID::timeMultiply,
-    scale.multiply, false, 4);
+    Scales::multiply, false, 4);
   addTextKnob(
     mulLeft1, mulTop3, textKnobX, labelHeight, uiTextSize, ID::outerFeedMultiply,
-    scale.multiply, false, 4);
+    Scales::multiply, false, 4);
   addTextKnob(
     mulLeft1, mulTop4, textKnobX, labelHeight, uiTextSize, ID::innerFeedMultiply,
-    scale.multiply, false, 4);
+    Scales::multiply, false, 4);
   addTextKnob(
     mulLeft2, mulTop2, textKnobX, labelHeight, uiTextSize, ID::timeOffsetMultiply,
-    scale.multiply, false, 4);
+    Scales::multiply, false, 4);
   addTextKnob(
     mulLeft2, mulTop3, textKnobX, labelHeight, uiTextSize, ID::outerFeedOffsetMultiply,
-    scale.multiply, false, 4);
+    Scales::multiply, false, 4);
   addTextKnob(
     mulLeft2, mulTop4, textKnobX, labelHeight, uiTextSize, ID::innerFeedOffsetMultiply,
-    scale.multiply, false, 4);
+    Scales::multiply, false, 4);
 
   // Panic button.
   const auto panicButtonLeft = left0 + 1.5f * knobX;
@@ -170,7 +171,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     tabBase,
     addBarBox(
       tabInsideLeft1, tabInsideTop0, barboxWidth, barboxHeight, ID::time0, nestingDepth,
-      scale.time, "Time"));
+      Scales::time, "Time"));
 
   tabview->addWidget(
     tabBase,
@@ -179,7 +180,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
       "OuterFeed"));
   auto barboxOuterFeed = addBarBox(
     tabInsideLeft1, tabInsideTop1, barboxWidth, barboxHeight, ID::outerFeed0,
-    nestingDepth, scale.feed, "OuterFeed");
+    nestingDepth, Scales::feed, "OuterFeed");
   barboxOuterFeed->sliderZero = 0.5f;
   tabview->addWidget(tabBase, barboxOuterFeed);
 
@@ -190,7 +191,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
       "InnerFeed"));
   auto barboxInnerFeed = addBarBox(
     tabInsideLeft1, tabInsideTop2, barboxWidth, barboxHeight, ID::innerFeed0,
-    nestingDepth, scale.feed, "InnerFeed");
+    nestingDepth, Scales::feed, "InnerFeed");
   barboxInnerFeed->sliderZero = 0.5f;
   tabview->addWidget(tabBase, barboxInnerFeed);
 
@@ -201,7 +202,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
       tabInsideLeft0, tabInsideTop0, barboxHeight, labelHeight, midTextSize, "Time"));
   auto barboxTimeOffset = addBarBox(
     tabInsideLeft1, tabInsideTop0, barboxWidth, barboxHeight, ID::timeOffset0,
-    nestingDepth, scale.timeOffset, "Time");
+    nestingDepth, Scales::timeOffset, "Time");
   barboxTimeOffset->sliderZero = 0.5f;
   tabview->addWidget(tabOffset, barboxTimeOffset);
 
@@ -212,7 +213,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
       "OuterFeed"));
   auto barboxOuterOffset = addBarBox(
     tabInsideLeft1, tabInsideTop1, barboxWidth, barboxHeight, ID::outerFeedOffset0,
-    nestingDepth, scale.feedOffset, "OuterFeed");
+    nestingDepth, Scales::feedOffset, "OuterFeed");
   barboxOuterOffset->sliderZero = 0.5f;
   tabview->addWidget(tabOffset, barboxOuterOffset);
 
@@ -223,7 +224,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
       "InnerFeed"));
   auto barboxInnerOffset = addBarBox(
     tabInsideLeft1, tabInsideTop2, barboxWidth, barboxHeight, ID::innerFeedOffset0,
-    nestingDepth, scale.feedOffset, "InnerFeed");
+    nestingDepth, Scales::feedOffset, "InnerFeed");
   barboxInnerOffset->sliderZero = 0.5f;
   tabview->addWidget(tabOffset, barboxInnerOffset);
 
@@ -236,7 +237,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     tabModulation,
     addBarBox(
       tabInsideLeft1, tabInsideTop0, barboxWidth, barboxHeight, ID::timeLfoAmount0,
-      nestingDepth, scale.time, "Time LFO"));
+      nestingDepth, Scales::time, "Time LFO"));
 
   const auto tabViewCenter1 = tabInsideTop1 + (barboxHeight - labelHeight) / 2;
   tabview->addWidget(
@@ -248,7 +249,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     tabModulation,
     addTextKnob(
       tabInsideLeft0 + 2 * textKnobX, tabViewCenter1, textKnobX, labelHeight, uiTextSize,
-      ID::timeLfoLowpass, scale.timeLfoLowpas, false, 5));
+      ID::timeLfoLowpass, Scales::timeLfoLowpas, false, 5));
 
   tabview->addWidget(
     tabModulation,
@@ -259,7 +260,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     tabModulation,
     addBarBox(
       tabInsideLeft1, tabInsideTop2, barboxWidth, barboxHeight, ID::lowpassCutoff0,
-      nestingDepth, scale.defaultScale, "Lowpass Cutoff"));
+      nestingDepth, Scales::defaultScale, "Lowpass Cutoff"));
 
   tabview->refreshTab();
 

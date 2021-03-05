@@ -42,15 +42,16 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
+Editor::Editor(void *controller) : PlugEditor(controller)
 {
+  param = std::make_unique<Synth::GlobalParameter>();
+
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-template<> bool Editor<Synth::PlugParameter>::prepareUI()
+bool Editor::prepareUI()
 {
-  const auto &scale = param.scale;
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
@@ -96,7 +97,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     randomLeft0, randomTop1, knobX - 2.0f * margin, labelHeight, uiTextSize, "Seed");
   addTextKnob(
     randomLeft1 - 2.0f * margin, randomTop1, knobX, labelHeight, uiTextSize, ID::seed,
-    scale.seed);
+    Scales::seed);
   addKnob(
     randomLeft2, randomTop0 + labelY, knobWidth, margin, uiTextSize, "To Gain",
     ID::randomGainAmount);
@@ -120,18 +121,18 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   addLabel(filterLeft1, filterTop1, knobX, labelHeight, uiTextSize, "Low");
   addTextKnob(
     filterLeft1, filterTop2, knobX, labelHeight, uiTextSize, ID::lowShelfGain,
-    scale.shelvingGain, true, 2);
+    Scales::shelvingGain, true, 2);
   addTextKnob(
     filterLeft1, filterTop3, knobX, labelHeight, uiTextSize, ID::lowShelfPitch,
-    scale.shelvingPitch, false, 3);
+    Scales::shelvingPitch, false, 3);
 
   addLabel(filterLeft2, filterTop1, knobX, labelHeight, uiTextSize, "High");
   addTextKnob(
     filterLeft2, filterTop2, knobX, labelHeight, uiTextSize, ID::highShelfGain,
-    scale.shelvingGain, true, 2);
+    Scales::shelvingGain, true, 2);
   addTextKnob(
     filterLeft2, filterTop3, knobX, labelHeight, uiTextSize, ID::highShelfPitch,
-    scale.shelvingPitch, false, 3);
+    Scales::shelvingPitch, false, 3);
 
   // Pitch.
   const auto pitchTop0 = top0 + knobY + labelY;
@@ -151,12 +152,12 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     "Octave");
   addTextKnob(
     pitchLeft0 + knobX, pitchTop1, knobX, labelHeight, uiTextSize, ID::masterOctave,
-    scale.masterOctave);
+    Scales::masterOctave);
   addLabel(
     pitchLeft0 + margin, pitchTop2, knobX - 2.0f * margin, labelHeight, uiTextSize, "ET");
   addTextKnob(
     pitchLeft0 + knobX, pitchTop2, knobX, labelHeight, uiTextSize, ID::equalTemperament,
-    scale.equalTemperament);
+    Scales::equalTemperament);
 
   const auto pitchLeft1 = pitchLeft0 + 2.1f * knobX;
   addLabel(
@@ -164,14 +165,14 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     "Multiply");
   addTextKnob(
     pitchLeft1 + knobX, pitchTop1, knobX, labelHeight, uiTextSize, ID::pitchMultiply,
-    scale.pitchMultiply, false, 3);
+    Scales::pitchMultiply, false, 3);
 
   addLabel(
     pitchLeft1 + margin, pitchTop2, knobX - 2.0f * margin, labelHeight, uiTextSize,
     "Modulo");
   addTextKnob(
     pitchLeft1 + knobX, pitchTop2, knobX, labelHeight, uiTextSize, ID::pitchModulo,
-    scale.pitchModulo, false, 3);
+    Scales::pitchModulo, false, 3);
 
   // Misc.
   const auto miscLeft = pitchLeft0 + 4.5f * knobX + 2.0f * margin;
@@ -241,82 +242,82 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   addLabel(left0, noteTop1, knobX, labelHeight, uiTextSize, "Gain [dB]");
   addTextKnob(
     left0 + 1.0f * knobX, noteTop1, knobX, labelHeight, uiTextSize, ID::gain0,
-    scale.gainDecibel, true, 2);
+    Scales::gainDecibel, true, 2);
   addTextKnob(
     left0 + 2.0f * knobX, noteTop1, knobX, labelHeight, uiTextSize, ID::gain1,
-    scale.gainDecibel, true, 2);
+    Scales::gainDecibel, true, 2);
   addTextKnob(
     left0 + 3.0f * knobX, noteTop1, knobX, labelHeight, uiTextSize, ID::gain2,
-    scale.gainDecibel, true, 2);
+    Scales::gainDecibel, true, 2);
   addTextKnob(
     left0 + 4.0f * knobX, noteTop1, knobX, labelHeight, uiTextSize, ID::gain3,
-    scale.gainDecibel, true, 2);
+    Scales::gainDecibel, true, 2);
   addTextKnob(
     left0 + 5.0f * knobX, noteTop1, knobX, labelHeight, uiTextSize, ID::gain4,
-    scale.gainDecibel, true, 2);
+    Scales::gainDecibel, true, 2);
   addTextKnob(
     left0 + 6.0f * knobX, noteTop1, knobX, labelHeight, uiTextSize, ID::gain5,
-    scale.gainDecibel, true, 2);
+    Scales::gainDecibel, true, 2);
   addTextKnob(
     left0 + 7.0f * knobX, noteTop1, knobX, labelHeight, uiTextSize, ID::gain6,
-    scale.gainDecibel, true, 2);
+    Scales::gainDecibel, true, 2);
   addTextKnob(
     left0 + 8.0f * knobX, noteTop1, knobX, labelHeight, uiTextSize, ID::gain7,
-    scale.gainDecibel, true, 2);
+    Scales::gainDecibel, true, 2);
 
   const float noteTop2 = noteTop1 + labelY;
   addLabel(left0, noteTop2, knobX, labelHeight, uiTextSize, "Semi");
   addTextKnob(
     left0 + 1.0f * knobX, noteTop2, knobX, labelHeight, uiTextSize, ID::semi0,
-    scale.oscSemi);
+    Scales::oscSemi);
   addTextKnob(
     left0 + 2.0f * knobX, noteTop2, knobX, labelHeight, uiTextSize, ID::semi1,
-    scale.oscSemi);
+    Scales::oscSemi);
   addTextKnob(
     left0 + 3.0f * knobX, noteTop2, knobX, labelHeight, uiTextSize, ID::semi2,
-    scale.oscSemi);
+    Scales::oscSemi);
   addTextKnob(
     left0 + 4.0f * knobX, noteTop2, knobX, labelHeight, uiTextSize, ID::semi3,
-    scale.oscSemi);
+    Scales::oscSemi);
   addTextKnob(
     left0 + 5.0f * knobX, noteTop2, knobX, labelHeight, uiTextSize, ID::semi4,
-    scale.oscSemi);
+    Scales::oscSemi);
   addTextKnob(
     left0 + 6.0f * knobX, noteTop2, knobX, labelHeight, uiTextSize, ID::semi5,
-    scale.oscSemi);
+    Scales::oscSemi);
   addTextKnob(
     left0 + 7.0f * knobX, noteTop2, knobX, labelHeight, uiTextSize, ID::semi6,
-    scale.oscSemi);
+    Scales::oscSemi);
   addTextKnob(
     left0 + 8.0f * knobX, noteTop2, knobX, labelHeight, uiTextSize, ID::semi7,
-    scale.oscSemi);
+    Scales::oscSemi);
 
   const float noteTop3 = noteTop2 + labelY;
   addLabel(left0, noteTop3, knobX, labelHeight, uiTextSize, "Milli");
   addTextKnob(
     left0 + 1.0f * knobX, noteTop3, knobX, labelHeight, uiTextSize, ID::milli0,
-    scale.oscMilli);
+    Scales::oscMilli);
   addTextKnob(
     left0 + 2.0f * knobX, noteTop3, knobX, labelHeight, uiTextSize, ID::milli1,
-    scale.oscMilli);
+    Scales::oscMilli);
   addTextKnob(
     left0 + 3.0f * knobX, noteTop3, knobX, labelHeight, uiTextSize, ID::milli2,
-    scale.oscMilli);
+    Scales::oscMilli);
   addTextKnob(
     left0 + 4.0f * knobX, noteTop3, knobX, labelHeight, uiTextSize, ID::milli3,
-    scale.oscMilli);
+    Scales::oscMilli);
   addTextKnob(
     left0 + 5.0f * knobX, noteTop3, knobX, labelHeight, uiTextSize, ID::milli4,
-    scale.oscMilli);
+    Scales::oscMilli);
   addTextKnob(
     left0 + 6.0f * knobX, noteTop3, knobX, labelHeight, uiTextSize, ID::milli5,
-    scale.oscMilli);
+    Scales::oscMilli);
   addTextKnob(
     left0 + 7.0f * knobX, noteTop3, knobX, labelHeight, uiTextSize, ID::milli6,
-    scale.oscMilli);
+    Scales::oscMilli);
   addTextKnob(
     left0 + 8.0f * knobX, noteTop3, knobX, labelHeight, uiTextSize, ID::milli7,
-    scale.oscMilli);
+    Scales::oscMilli);
 
   // Chord.
   const float topChord0 = noteTop0 + 4.0f * labelY;
@@ -327,46 +328,46 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   addLabel(left0, topChord1, knobX, labelHeight, uiTextSize, "Gain [dB]");
   addTextKnob(
     left0 + 1.0f * knobX, topChord1, knobX, labelHeight, uiTextSize, ID::chordGain0,
-    scale.gainDecibel, true, 2);
+    Scales::gainDecibel, true, 2);
   addTextKnob(
     left0 + 2.0f * knobX, topChord1, knobX, labelHeight, uiTextSize, ID::chordGain1,
-    scale.gainDecibel, true, 2);
+    Scales::gainDecibel, true, 2);
   addTextKnob(
     left0 + 3.0f * knobX, topChord1, knobX, labelHeight, uiTextSize, ID::chordGain2,
-    scale.gainDecibel, true, 2);
+    Scales::gainDecibel, true, 2);
   addTextKnob(
     left0 + 4.0f * knobX, topChord1, knobX, labelHeight, uiTextSize, ID::chordGain3,
-    scale.gainDecibel, true, 2);
+    Scales::gainDecibel, true, 2);
 
   const float topChord2 = topChord1 + labelY;
   addLabel(left0, topChord2, knobX, labelHeight, uiTextSize, "Semi");
   addTextKnob(
     left0 + 1.0f * knobX, topChord2, knobX, labelHeight, uiTextSize, ID::chordSemi0,
-    scale.oscSemi);
+    Scales::oscSemi);
   addTextKnob(
     left0 + 2.0f * knobX, topChord2, knobX, labelHeight, uiTextSize, ID::chordSemi1,
-    scale.oscSemi);
+    Scales::oscSemi);
   addTextKnob(
     left0 + 3.0f * knobX, topChord2, knobX, labelHeight, uiTextSize, ID::chordSemi2,
-    scale.oscSemi);
+    Scales::oscSemi);
   addTextKnob(
     left0 + 4.0f * knobX, topChord2, knobX, labelHeight, uiTextSize, ID::chordSemi3,
-    scale.oscSemi);
+    Scales::oscSemi);
 
   const float topChord3 = topChord2 + labelY;
   addLabel(left0, topChord3, knobX, labelHeight, uiTextSize, "Milli");
   addTextKnob(
     left0 + 1.0f * knobX, topChord3, knobX, labelHeight, uiTextSize, ID::chordMilli0,
-    scale.oscMilli);
+    Scales::oscMilli);
   addTextKnob(
     left0 + 2.0f * knobX, topChord3, knobX, labelHeight, uiTextSize, ID::chordMilli1,
-    scale.oscMilli);
+    Scales::oscMilli);
   addTextKnob(
     left0 + 3.0f * knobX, topChord3, knobX, labelHeight, uiTextSize, ID::chordMilli2,
-    scale.oscMilli);
+    Scales::oscMilli);
   addTextKnob(
     left0 + 4.0f * knobX, topChord3, knobX, labelHeight, uiTextSize, ID::chordMilli3,
-    scale.oscMilli);
+    Scales::oscMilli);
 
   const float topChord4 = topChord3 + labelY;
   addLabel(
@@ -391,7 +392,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     leftOvertone, topOvertone0, 4.0f * knobX, labelHeight, midTextSize, "Overtone");
   addBarBox(
     leftOvertone, topOvertone0 + labelY, 4.0f * knobX, 2.0f * knobY, ID::overtone1, 16,
-    scale.gainDecibel, "Overtone");
+    Scales::gainDecibel, "Overtone");
 
   // Plugin name.
   const auto splashTop = defaultHeight - splashHeight - 20.0f;

@@ -21,6 +21,7 @@
 #include <string>
 #include <vector>
 
+#include "../../common/parameterInterface.hpp"
 #include "../../common/value.hpp"
 
 namespace Steinberg {
@@ -55,49 +56,30 @@ enum ID {
 } // namespace ParameterID
 
 struct Scales {
-  Scales()
-    : boolScale(1)
-    , defaultScale(0.0, 1.0)
-    , inputGain(0.0, 16.0, 0.5, 2.0)
-    , outputGain(0.0, 1.0, 0.5, 0.1)
-    , add(0.0, 1.0)
-    , mul(0.0, 1.0)
-    , moreAdd(1.0, 2.0)
-    , moreMul(1.0, 2.0)
-    , type(3)
-    , lowpassCutoff(20.0, 20000.0, 0.5, 200.0)
-    , smoothness(0.0, 0.5, 0.1, 0.04)
-    , limiterThreshold(0.01, 2.0, 0.5, 0.5)
-    , limiterAttack(0.0001, 0.021328, 0.1, 0.002)
-    , limiterRelease(0.0001, 0.2, 0.2, 0.01)
-  {
-  }
+  static SomeDSP::UIntScale<double> boolScale;
+  static SomeDSP::LinearScale<double> defaultScale;
 
-  SomeDSP::UIntScale<double> boolScale;
-  SomeDSP::LinearScale<double> defaultScale;
+  static SomeDSP::LogScale<double> inputGain;
+  static SomeDSP::LinearScale<double> add;
+  static SomeDSP::LinearScale<double> mul;
+  static SomeDSP::LinearScale<double> moreAdd;
+  static SomeDSP::LinearScale<double> moreMul;
+  static SomeDSP::LogScale<double> outputGain;
+  static SomeDSP::UIntScale<double> type;
 
-  SomeDSP::LogScale<double> inputGain;
-  SomeDSP::LinearScale<double> add;
-  SomeDSP::LinearScale<double> mul;
-  SomeDSP::LinearScale<double> moreAdd;
-  SomeDSP::LinearScale<double> moreMul;
-  SomeDSP::LogScale<double> outputGain;
-  SomeDSP::UIntScale<double> type;
+  static SomeDSP::LogScale<double> lowpassCutoff;
 
-  SomeDSP::LogScale<double> lowpassCutoff;
+  static SomeDSP::LogScale<double> smoothness;
 
-  SomeDSP::LogScale<double> smoothness;
-
-  SomeDSP::LogScale<double> limiterThreshold;
-  SomeDSP::LogScale<double> limiterAttack;
-  SomeDSP::LogScale<double> limiterRelease;
+  static SomeDSP::LogScale<double> limiterThreshold;
+  static SomeDSP::LogScale<double> limiterAttack;
+  static SomeDSP::LogScale<double> limiterRelease;
 };
 
-struct PlugParameter {
-  Scales scale;
+struct GlobalParameter : public ParameterInterface {
   std::vector<std::unique_ptr<ValueInterface>> value;
 
-  PlugParameter()
+  GlobalParameter()
   {
     value.resize(ParameterID::ID_ENUM_LENGTH);
 
@@ -108,45 +90,45 @@ struct PlugParameter {
     // using DecibelValue = FloatValue<SomeDSP::DecibelScale<double>>;
 
     value[ID::bypass] = std::make_unique<UIntValue>(
-      0, scale.boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
+      0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
-    value[ID::inputGain]
-      = std::make_unique<LogValue>(0.5, scale.inputGain, "inputGain", Info::kCanAutomate);
+    value[ID::inputGain] = std::make_unique<LogValue>(
+      0.5, Scales::inputGain, "inputGain", Info::kCanAutomate);
     value[ID::add]
-      = std::make_unique<LinearValue>(1.0, scale.add, "add", Info::kCanAutomate);
+      = std::make_unique<LinearValue>(1.0, Scales::add, "add", Info::kCanAutomate);
     value[ID::mul]
-      = std::make_unique<LinearValue>(1.0, scale.mul, "mul", Info::kCanAutomate);
-    value[ID::moreAdd]
-      = std::make_unique<LinearValue>(0.0, scale.moreAdd, "moreAdd", Info::kCanAutomate);
-    value[ID::moreMul]
-      = std::make_unique<LinearValue>(0.0, scale.moreMul, "moreMul", Info::kCanAutomate);
-    value[ID::clipGain]
-      = std::make_unique<LogValue>(1.0, scale.outputGain, "clipGain", Info::kCanAutomate);
+      = std::make_unique<LinearValue>(1.0, Scales::mul, "mul", Info::kCanAutomate);
+    value[ID::moreAdd] = std::make_unique<LinearValue>(
+      0.0, Scales::moreAdd, "moreAdd", Info::kCanAutomate);
+    value[ID::moreMul] = std::make_unique<LinearValue>(
+      0.0, Scales::moreMul, "moreMul", Info::kCanAutomate);
+    value[ID::clipGain] = std::make_unique<LogValue>(
+      1.0, Scales::outputGain, "clipGain", Info::kCanAutomate);
     value[ID::outputGain] = std::make_unique<LogValue>(
-      0.5, scale.outputGain, "outputGain", Info::kCanAutomate);
+      0.5, Scales::outputGain, "outputGain", Info::kCanAutomate);
     value[ID::type]
-      = std::make_unique<UIntValue>(1, scale.type, "type", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(1, Scales::type, "type", Info::kCanAutomate);
     value[ID::hardclip] = std::make_unique<UIntValue>(
-      false, scale.boolScale, "hardclip", Info::kCanAutomate);
+      false, Scales::boolScale, "hardclip", Info::kCanAutomate);
 
-    value[ID::lowpass]
-      = std::make_unique<UIntValue>(true, scale.boolScale, "lowpass", Info::kCanAutomate);
+    value[ID::lowpass] = std::make_unique<UIntValue>(
+      true, Scales::boolScale, "lowpass", Info::kCanAutomate);
     value[ID::lowpassCutoff] = std::make_unique<LogValue>(
-      1.0, scale.lowpassCutoff, "lowpassCutoff", Info::kCanAutomate);
+      1.0, Scales::lowpassCutoff, "lowpassCutoff", Info::kCanAutomate);
 
     value[ID::smoothness] = std::make_unique<LogValue>(
-      0.1, scale.smoothness, "smoothness", Info::kCanAutomate);
+      0.1, Scales::smoothness, "smoothness", Info::kCanAutomate);
 
     value[ID::limiter]
-      = std::make_unique<UIntValue>(1, scale.boolScale, "limiter", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(1, Scales::boolScale, "limiter", Info::kCanAutomate);
     value[ID::limiterThreshold] = std::make_unique<LogValue>(
-      scale.limiterThreshold.invmap(1.0), scale.limiterThreshold, "limiterThreshold",
+      Scales::limiterThreshold.invmap(1.0), Scales::limiterThreshold, "limiterThreshold",
       Info::kCanAutomate);
     value[ID::limiterAttack] = std::make_unique<LogValue>(
-      scale.limiterAttack.invmap(0.002), scale.limiterAttack, "limiterAttack",
+      Scales::limiterAttack.invmap(0.002), Scales::limiterAttack, "limiterAttack",
       Info::kCanAutomate);
     value[ID::limiterRelease] = std::make_unique<LogValue>(
-      scale.limiterRelease.invmap(0.005), scale.limiterRelease, "limiterRelease",
+      Scales::limiterRelease.invmap(0.005), Scales::limiterRelease, "limiterRelease",
       Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
@@ -175,7 +157,7 @@ struct PlugParameter {
     return kResultOk;
   }
 
-  double getDefaultNormalized(int32_t tag)
+  double getDefaultNormalized(int32_t tag) override
   {
     if (size_t(abs(tag)) >= value.size()) return 0.0;
     return value[tag]->getDefaultNormalized();

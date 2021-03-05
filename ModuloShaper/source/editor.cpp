@@ -45,13 +45,15 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
+Editor::Editor(void *controller) : PlugEditor(controller)
 {
+  param = std::make_unique<Synth::GlobalParameter>();
+
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-template<> void Editor<Synth::PlugParameter>::valueChanged(CControl *pControl)
+void Editor::valueChanged(CControl *pControl)
 {
   ParamID tag = pControl->getTag();
 
@@ -67,9 +69,8 @@ template<> void Editor<Synth::PlugParameter>::valueChanged(CControl *pControl)
   controller->performEdit(tag, value);
 }
 
-template<> bool Editor<Synth::PlugParameter>::prepareUI()
+bool Editor::prepareUI()
 {
-  const auto &scale = param.scale;
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
@@ -105,8 +106,8 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   const auto top2 = top1 + knobY + 3 * margin;
 
   addLabel(left0, top2, 1.5f * knobX, labelHeight, uiTextSize, "Anti-aliasing");
-  std::vector<std::string> typeItems{
-    "None", "16x OverSampling", "PolyBLEP 4", "PolyBLEP 8"};
+  std::vector<std::string> typeItems{"None", "16x OverSampling", "PolyBLEP 4",
+                                     "PolyBLEP 8"};
   addOptionMenu(
     left0 + 1.5f * knobX, top2, 2 * knobX, labelHeight, uiTextSize, ID::type, typeItems);
 
@@ -124,19 +125,19 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     kLeftText);
   addTextKnob(
     leftLimiter1, topLimiter1, limiterLabelWidth, labelHeight, uiTextSize,
-    ID::limiterThreshold, scale.limiterThreshold, false, 5);
+    ID::limiterThreshold, Scales::limiterThreshold, false, 5);
   addLabel(
     leftLimiter0, topLimiter2, limiterLabelWidth, labelHeight, uiTextSize, "Attack [s]",
     kLeftText);
   addTextKnob(
     leftLimiter1, topLimiter2, limiterLabelWidth, labelHeight, uiTextSize,
-    ID::limiterAttack, scale.limiterAttack, false, 5);
+    ID::limiterAttack, Scales::limiterAttack, false, 5);
   addLabel(
     leftLimiter0, topLimiter3, limiterLabelWidth, labelHeight, uiTextSize, "Release [s]",
     kLeftText);
   addTextKnob(
     leftLimiter1, topLimiter3, limiterLabelWidth, labelHeight, uiTextSize,
-    ID::limiterRelease, scale.limiterRelease, false, 5);
+    ID::limiterRelease, Scales::limiterRelease, false, 5);
 
   // Plugin name.
   const auto splashTop = defaultHeight - splashHeight - 15.0f;

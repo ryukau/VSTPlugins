@@ -48,14 +48,15 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
+Editor::Editor(void *controller) : PlugEditor(controller)
 {
+  param = std::make_unique<Synth::GlobalParameter>();
+
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-template<>
-void Editor<Synth::PlugParameter>::addTpzLabel(
+void Editor::addTpzLabel(
   CCoord left, CCoord top, CCoord width, CCoord height, CCoord textSize, std::string name)
 {
   auto bottom = top + labelHeight;
@@ -67,8 +68,7 @@ void Editor<Synth::PlugParameter>::addTpzLabel(
   frame->addView(label);
 }
 
-template<>
-void Editor<Synth::PlugParameter>::addSplashScreenTpz(
+void Editor::addSplashScreenTpz(
   CCoord buttonLeft,
   CCoord buttonTop,
   CCoord buttonWidth,
@@ -91,9 +91,8 @@ void Editor<Synth::PlugParameter>::addSplashScreenTpz(
   frame->addView(credit);
 }
 
-template<> bool Editor<Synth::PlugParameter>::prepareUI()
+bool Editor::prepareUI()
 {
-  const auto &scale = param.scale;
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
@@ -105,10 +104,10 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   const auto top0knob = top0 + labelHeight;
   addNumberKnob(
     left0 + 0.0f * knobX, top0knob, knobWidth, margin, uiTextSize, "Semi", ID::osc1Semi,
-    scale.semi);
+    Scales::semi);
   addNumberKnob(
     left0 + 1.0f * knobX, top0knob, knobWidth, margin, uiTextSize, "Cent", ID::osc1Cent,
-    scale.cent);
+    Scales::cent);
   addKnob(
     left0 + 2.0f * knobX, top0knob, knobWidth, margin, uiTextSize, "Drift",
     ID::osc1PitchDrift);
@@ -127,13 +126,13 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   const auto top1knob = top1 + labelHeight;
   addNumberKnob(
     left0 + 0.0f * knobX, top1knob, knobWidth, margin, uiTextSize, "Semi", ID::osc2Semi,
-    scale.semi);
+    Scales::semi);
   addNumberKnob(
     left0 + 1.0f * knobX, top1knob, knobWidth, margin, uiTextSize, "Cent", ID::osc2Cent,
-    scale.cent);
+    Scales::cent);
   addNumberKnob(
     left0 + 2.0f * knobX, top1knob, knobWidth, margin, uiTextSize, "Overtone",
-    ID::osc2Overtone, scale.overtone);
+    ID::osc2Overtone, Scales::overtone);
   addKnob(
     left0 + 3.0f * knobX, top1knob, knobWidth, margin, uiTextSize, "Slope",
     ID::osc2Slope);
@@ -210,7 +209,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     ID::filterCurve);
   addNumberKnob(
     left0 + 5.0f * knobX, top4knob, knobWidth, margin, uiTextSize, ">Octave",
-    ID::filterEnvToOctave, scale.filterEnvToOctave);
+    ID::filterEnvToOctave, Scales::filterEnvToOctave);
 
   const auto left1 = left0 + 7.0f * knobX;
 
@@ -219,7 +218,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     left1 + 0.0f * knobX, top0knob, knobWidth, margin, uiTextSize, "OscMix", ID::oscMix);
   addNumberKnob(
     left1 + 1.0f * knobX, top0knob, knobWidth, margin, uiTextSize, "Octave", ID::octave,
-    scale.octave);
+    Scales::octave);
   addKnob(
     left1 + 2.0f * knobX, top0knob, knobWidth, margin, uiTextSize, "Smooth",
     ID::smoothness);
@@ -267,10 +266,10 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   addTpzLabel(left1, top2, 3.0f * knobWidth, labelHeight, midTextSize, "Shifter 1");
   addNumberKnob(
     left1 + 0.0f * knobX, top2knob, knobWidth, margin, uiTextSize, "Semi",
-    ID::shifter1Semi, scale.shifterSemi);
+    ID::shifter1Semi, Scales::shifterSemi);
   addNumberKnob(
     left1 + 1.0f * knobX, top2knob, knobWidth, margin, uiTextSize, "Cent",
-    ID::shifter1Cent, scale.shifterCent);
+    ID::shifter1Cent, Scales::shifterCent);
   addKnob(
     left1 + 2.0f * knobX, top2knob, knobWidth, margin, uiTextSize, "Gain",
     ID::shifter1Gain);
@@ -279,10 +278,10 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     left1 + 3.0f * knobX, top2, 3.0f * knobWidth, labelHeight, midTextSize, "Shifter 2");
   addNumberKnob(
     left1 + 3.0f * knobX, top2knob, knobWidth, margin, uiTextSize, "Semi",
-    ID::shifter2Semi, scale.shifterSemi);
+    ID::shifter2Semi, Scales::shifterSemi);
   addNumberKnob(
     left1 + 4.0f * knobX, top2knob, knobWidth, margin, uiTextSize, "Cent",
-    ID::shifter2Cent, scale.shifterCent);
+    ID::shifter2Cent, Scales::shifterCent);
   addKnob(
     left1 + 5.0f * knobX, top2knob, knobWidth, margin, uiTextSize, "Gain",
     ID::shifter2Gain);
