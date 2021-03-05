@@ -21,6 +21,7 @@
 #include <string>
 #include <vector>
 
+#include "../../common/parameterInterface.hpp"
 #include "../../common/value.hpp"
 
 namespace Steinberg {
@@ -50,37 +51,23 @@ enum ID {
 } // namespace ParameterID
 
 struct Scales {
-  Scales()
-    : boolScale(1)
-    , defaultScale(0.0, 1.0)
-    , frequency(0.0, 16.0, 0.5, 2.0)
-    , feedback(-1.0, 1.0)
-    , range(0.0, 128.0, 0.5, 32.0)
-    , phase(0.0, SomeDSP::twopi)
-    , cascadeOffset(0.0, SomeDSP::twopi)
-    , stage(4095)
-    , smoothness(0.04, 1.0, 0.5, 0.4)
-  {
-  }
+  static SomeDSP::UIntScale<double> boolScale;
+  static SomeDSP::LinearScale<double> defaultScale;
 
-  SomeDSP::UIntScale<double> boolScale;
-  SomeDSP::LinearScale<double> defaultScale;
+  static SomeDSP::LogScale<double> frequency;
+  static SomeDSP::LinearScale<double> feedback;
+  static SomeDSP::LogScale<double> range;
+  static SomeDSP::LinearScale<double> phase;
+  static SomeDSP::LinearScale<double> cascadeOffset;
+  static SomeDSP::UIntScale<double> stage;
 
-  SomeDSP::LogScale<double> frequency;
-  SomeDSP::LinearScale<double> feedback;
-  SomeDSP::LogScale<double> range;
-  SomeDSP::LinearScale<double> phase;
-  SomeDSP::LinearScale<double> cascadeOffset;
-  SomeDSP::UIntScale<double> stage;
-
-  SomeDSP::LogScale<double> smoothness;
+  static SomeDSP::LogScale<double> smoothness;
 };
 
-struct PlugParameter {
-  Scales scale;
+struct GlobalParameter : public ParameterInterface {
   std::vector<std::unique_ptr<ValueInterface>> value;
 
-  PlugParameter()
+  GlobalParameter()
   {
     value.resize(ParameterID::ID_ENUM_LENGTH);
 
@@ -91,32 +78,33 @@ struct PlugParameter {
     using DecibelValue = FloatValue<SomeDSP::DecibelScale<double>>;
 
     value[ID::bypass] = std::make_unique<UIntValue>(
-      0, scale.boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
+      0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
-    value[ID::mix]
-      = std::make_unique<LinearValue>(0.5, scale.defaultScale, "mix", Info::kCanAutomate);
-    value[ID::frequency]
-      = std::make_unique<LogValue>(0.5, scale.frequency, "frequency", Info::kCanAutomate);
+    value[ID::mix] = std::make_unique<LinearValue>(
+      0.5, Scales::defaultScale, "mix", Info::kCanAutomate);
+    value[ID::frequency] = std::make_unique<LogValue>(
+      0.5, Scales::frequency, "frequency", Info::kCanAutomate);
     value[ID::freqSpread] = std::make_unique<LinearValue>(
-      0.0, scale.defaultScale, "freqSpread", Info::kCanAutomate);
+      0.0, Scales::defaultScale, "freqSpread", Info::kCanAutomate);
     value[ID::feedback] = std::make_unique<LinearValue>(
-      0.5, scale.feedback, "feedback", Info::kCanAutomate);
+      0.5, Scales::feedback, "feedback", Info::kCanAutomate);
     value[ID::range]
-      = std::make_unique<LogValue>(1.0, scale.range, "range", Info::kCanAutomate);
+      = std::make_unique<LogValue>(1.0, Scales::range, "range", Info::kCanAutomate);
     value[ID::min]
-      = std::make_unique<LogValue>(0.0, scale.range, "min", Info::kCanAutomate);
+      = std::make_unique<LogValue>(0.0, Scales::range, "min", Info::kCanAutomate);
     value[ID::phase]
-      = std::make_unique<LinearValue>(0.0, scale.phase, "phase", Info::kCanAutomate);
+      = std::make_unique<LinearValue>(0.0, Scales::phase, "phase", Info::kCanAutomate);
     value[ID::stereoOffset] = std::make_unique<LinearValue>(
-      0.5, scale.phase, "stereoOffset", Info::kCanAutomate);
+      0.5, Scales::phase, "stereoOffset", Info::kCanAutomate);
     value[ID::cascadeOffset] = std::make_unique<LinearValue>(
-      scale.cascadeOffset.invmap(SomeDSP::twopi / 16.0), scale.cascadeOffset,
+      Scales::cascadeOffset.invmap(SomeDSP::twopi / 16.0), Scales::cascadeOffset,
       "cascadeOffset", Info::kCanAutomate);
     value[ID::stage]
-      = std::make_unique<UIntValue>(15, scale.stage, "stage", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(15, Scales::stage, "stage", Info::kCanAutomate);
 
     value[ID::smoothness] = std::make_unique<LogValue>(
-      scale.smoothness.invmap(0.35), scale.smoothness, "smoothness", Info::kCanAutomate);
+      Scales::smoothness.invmap(0.35), Scales::smoothness, "smoothness",
+      Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }
@@ -144,7 +132,7 @@ struct PlugParameter {
     return kResultOk;
   }
 
-  double getDefaultNormalized(int32_t tag)
+  double getDefaultNormalized(int32_t tag) override
   {
     if (size_t(abs(tag)) >= value.size()) return 0.0;
     return value[tag]->getDefaultNormalized();

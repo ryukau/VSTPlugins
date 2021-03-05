@@ -88,7 +88,7 @@ struct NoteProcessInfo {
                                                                                          \
     bool isActive = false;                                                               \
                                                                                          \
-    void setParameters(float sampleRate, NoteProcessInfo &info, PlugParameter &param);   \
+    void setParameters(float sampleRate, NoteProcessInfo &info, GlobalParameter &param); \
     std::array<float, 2> process(                                                        \
       float sampleRate,                                                                  \
       WaveTable<tableSize, nOvertone> &wavetable,                                        \
@@ -121,7 +121,7 @@ PROCESSING_UNIT_CLASS(AVX)
       float phase,                                                                       \
       NoteProcessInfo &info,                                                             \
       std::array<ProcessingUnit_##INSTRSET, nUnit> &units,                               \
-      PlugParameter &param);                                                             \
+      GlobalParameter &param);                                                           \
     void release(std::array<ProcessingUnit_##INSTRSET, nUnit> &units);                   \
     void release(std::array<ProcessingUnit_##INSTRSET, nUnit> &units, float seconds);    \
     void rest();                                                                         \
@@ -138,7 +138,7 @@ public:
   virtual ~DSPInterface(){};
 
   static const size_t maxVoice = 128;
-  PlugParameter param;
+  GlobalParameter param;
 
   virtual void setup(double sampleRate) = 0;
   virtual void reset() = 0;   // Stop sounds.

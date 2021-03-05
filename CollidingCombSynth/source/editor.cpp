@@ -44,15 +44,16 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
+Editor::Editor(void *controller) : PlugEditor(controller)
 {
+  param = std::make_unique<Synth::GlobalParameter>();
+
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-template<> bool Editor<Synth::PlugParameter>::prepareUI()
+bool Editor::prepareUI()
 {
-  const auto &scale = param.scale;
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
@@ -81,13 +82,13 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   addLabel(compressorLeft0, compressorTop1, knobX, labelHeight, uiTextSize, "Time");
   addTextKnob(
     compressorLeft1, compressorTop1, knobX, labelHeight, uiTextSize, ID::compressorTime,
-    scale.compressorTime, false, 5);
+    Scales::compressorTime, false, 5);
 
   const auto compressorTop2 = compressorTop1 + labelY;
   addLabel(compressorLeft0, compressorTop2, knobX, labelHeight, uiTextSize, "Threshold");
   addTextKnob(
     compressorLeft1, compressorTop2, knobX, labelHeight, uiTextSize,
-    ID::compressorThreshold, scale.compressorThreshold, false, 5);
+    ID::compressorThreshold, Scales::compressorThreshold, false, 5);
 
   // Tuning.
   constexpr auto tuningLeft0 = gainLeft0 + 2 * knobX + 2 * margin;
@@ -100,19 +101,19 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   constexpr auto tuningLabelWidth = knobX - 2 * margin;
   addLabel(tuningLeft0, tuningTop1, tuningLabelWidth, labelHeight, uiTextSize, "Octave");
   addTextKnob(
-    tuningLeft1, tuningTop1, knobX, labelHeight, uiTextSize, ID::octave, scale.octave,
+    tuningLeft1, tuningTop1, knobX, labelHeight, uiTextSize, ID::octave, Scales::octave,
     false, 0, -12);
 
   constexpr auto tuningTop2 = tuningTop1 + labelY;
   addLabel(tuningLeft0, tuningTop2, tuningLabelWidth, labelHeight, uiTextSize, "Semi");
   addTextKnob(
-    tuningLeft1, tuningTop2, knobX, labelHeight, uiTextSize, ID::semitone, scale.semitone,
-    false, 0, -120);
+    tuningLeft1, tuningTop2, knobX, labelHeight, uiTextSize, ID::semitone,
+    Scales::semitone, false, 0, -120);
 
   constexpr auto tuningTop3 = tuningTop2 + labelY;
   addLabel(tuningLeft0, tuningTop3, tuningLabelWidth, labelHeight, uiTextSize, "Milli");
   auto knobOscMilli = addTextKnob(
-    tuningLeft1, tuningTop3, knobX, labelHeight, uiTextSize, ID::milli, scale.milli,
+    tuningLeft1, tuningTop3, knobX, labelHeight, uiTextSize, ID::milli, Scales::milli,
     false, 0, -1000);
   knobOscMilli->sensitivity = 0.001f;
   knobOscMilli->lowSensitivity = 0.00025f;
@@ -121,13 +122,13 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   addLabel(tuningLeft0, tuningTop4, tuningLabelWidth, labelHeight, uiTextSize, "ET");
   addTextKnob(
     tuningLeft1, tuningTop4, knobX, labelHeight, uiTextSize, ID::equalTemperament,
-    scale.equalTemperament, false, 0, 1);
+    Scales::equalTemperament, false, 0, 1);
 
   constexpr auto tuningTop5 = tuningTop4 + labelY;
   addLabel(tuningLeft0, tuningTop5, tuningLabelWidth, labelHeight, uiTextSize, "A4 [Hz]");
   addTextKnob(
     tuningLeft1, tuningTop5, knobX, labelHeight, uiTextSize, ID::pitchA4Hz,
-    scale.pitchA4Hz, false, 0, 100);
+    Scales::pitchA4Hz, false, 0, 100);
 
   // Unison.
   constexpr auto unisonLeft0 = gainLeft0;
@@ -143,7 +144,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     "nUnison");
   addTextKnob(
     unisonLeft0, unisonTop1 + labelY + margin, unisonLabelWidth, labelHeight, uiTextSize,
-    ID::nUnison, scale.nUnison, false, 0, 1);
+    ID::nUnison, Scales::nUnison, false, 0, 1);
 
   addKnob(
     unisonLeft1 + 0 * knobX, unisonTop1, knobWidth, margin, uiTextSize, "Detune",
@@ -182,20 +183,22 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   addLabel(randomLeft1, randomTop1, knobX, labelHeight, uiTextSize, "Amount");
   addTextKnob(
     randomLeft1, randomTop3, knobX, labelHeight, uiTextSize, ID::randomComb,
-    scale.defaultScale, false, 5);
+    Scales::defaultScale, false, 5);
   addTextKnob(
     randomLeft1, randomTop4, knobX, labelHeight, uiTextSize, ID::randomFrequency,
-    scale.defaultScale, false, 5);
+    Scales::defaultScale, false, 5);
 
   addLabel(randomLeft2, randomTop1, knobX, labelHeight, uiTextSize, "Seed");
   addTextKnob(
-    randomLeft2, randomTop2, knobX, labelHeight, uiTextSize, ID::seedNoise, scale.seed);
+    randomLeft2, randomTop2, knobX, labelHeight, uiTextSize, ID::seedNoise, Scales::seed);
   addTextKnob(
-    randomLeft2, randomTop3, knobX, labelHeight, uiTextSize, ID::seedComb, scale.seed);
+    randomLeft2, randomTop3, knobX, labelHeight, uiTextSize, ID::seedComb, Scales::seed);
   addTextKnob(
-    randomLeft2, randomTop4, knobX, labelHeight, uiTextSize, ID::seedString, scale.seed);
+    randomLeft2, randomTop4, knobX, labelHeight, uiTextSize, ID::seedString,
+    Scales::seed);
   addTextKnob(
-    randomLeft2, randomTop5, knobX, labelHeight, uiTextSize, ID::seedUnison, scale.seed);
+    randomLeft2, randomTop5, knobX, labelHeight, uiTextSize, ID::seedUnison,
+    Scales::seed);
 
   const auto retriggerOffsetX = floorf(knobX / 2 - 5.0f);
   addLabel(randomLeft3, randomTop1, knobX, labelHeight, uiTextSize, "Retrigger");
@@ -221,7 +224,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   addLabel(miscLeft0, miscTop1, knobX, labelHeight, uiTextSize, "Poly");
   addTextKnob(
     miscLeft0 + knobX, miscTop1 + 0 * labelY, knobX, labelHeight, uiTextSize, ID::nVoice,
-    scale.nVoice, false, 0, 1);
+    Scales::nVoice, false, 0, 1);
 
   // Exciter.
   constexpr auto exciterLeft0 = left0 + 4 * knobX + labelY;
@@ -241,7 +244,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     "LP Cutoff");
   addTextKnob(
     exciterLabelLeft1, exciterLabelTop, exciterLabelWidth, labelHeight, uiTextSize,
-    ID::exciterLowpassCutoff, scale.exciterLowpassCutoff, false, 2);
+    ID::exciterLowpassCutoff, Scales::exciterLowpassCutoff, false, 2);
 
   constexpr auto exciterLeft1 = exciterLeft0 + 3 * knobX;
   addKnob(
@@ -267,7 +270,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   const auto barboxCombWidth = floorf((exciterWidth - labelY) / nComb) * nComb;
   addBarBox(
     combLeft1, combTop0, barboxCombWidth, barboxHeight, ID::combTime0, nComb,
-    scale.combTime, "Comb Time [s]");
+    Scales::combTime, "Comb Time [s]");
 
   // String.
   constexpr auto stringLeft0 = exciterLeft0;
@@ -283,28 +286,28 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     stringLeft0, stringTop1, stringLabelWidth, labelHeight, uiTextSize, "LP Cutoff");
   addTextKnob(
     stringLabelLeft1, stringTop1, stringLabelWidth, labelHeight, uiTextSize,
-    ID::lowpassCutoff, scale.lowpassCutoff, false, 2);
+    ID::lowpassCutoff, Scales::lowpassCutoff, false, 2);
 
   constexpr auto stringTop2 = stringTop1 + labelY;
   addLabel(
     stringLeft0, stringTop2, stringLabelWidth, labelHeight, uiTextSize, "HP Cutoff");
   addTextKnob(
     stringLabelLeft1, stringTop2, stringLabelWidth, labelHeight, uiTextSize,
-    ID::highpassCutoff, scale.highpassCutoff, false, 2);
+    ID::highpassCutoff, Scales::highpassCutoff, false, 2);
 
   constexpr auto stringTop3 = stringTop1 + knobY;
   addLabel(
     stringLeft0, stringTop3, stringLabelWidth, labelHeight, uiTextSize, "Distance");
   addTextKnob(
     stringLabelLeft1, stringTop3, stringLabelWidth, labelHeight, uiTextSize, ID::distance,
-    scale.distance, false, 6);
+    Scales::distance, false, 6);
 
   addLabel(
     stringLeft0 + floorf(3.25f * knobWidth), stringTop3, stringLabelWidth, labelHeight,
     uiTextSize, "Propagation");
   addTextKnob(
     stringLeft0 + floorf(4.75f * knobWidth), stringTop3, stringLabelWidth, labelHeight,
-    uiTextSize, ID::propagation, scale.propagation, false, 6);
+    uiTextSize, ID::propagation, Scales::propagation, false, 6);
 
   addLabel(
     stringLeft0 + floorf(6.5f * knobWidth), stringTop3, stringLabelWidth, labelHeight,
@@ -339,7 +342,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   const auto barboxStrFreqWidth = floorf((stringWidth - labelY) / nDelay) * nDelay;
   addBarBox(
     strFreqLeft1, strFreqTop0, barboxStrFreqWidth, barboxHeight, ID::frequency0, nDelay,
-    scale.frequency, "Frequency [Hz]");
+    Scales::frequency, "Frequency [Hz]");
 
   // Plugin name.
   const auto splashTop = innerHeight - splashHeight + uiMargin;

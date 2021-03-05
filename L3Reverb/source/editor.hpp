@@ -26,7 +26,7 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-template<typename Parameters> class Editor : public PlugEditor<Parameters> {
+class Editor : public PlugEditor {
 public:
   Editor(void *controller);
   DELEGATE_REFCOUNT(VSTGUIEditor);

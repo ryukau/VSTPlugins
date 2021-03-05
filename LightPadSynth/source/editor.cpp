@@ -49,15 +49,16 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
+Editor::Editor(void *controller) : PlugEditor(controller)
 {
+  param = std::make_unique<Synth::GlobalParameter>();
+
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-template<> bool Editor<Synth::PlugParameter>::prepareUI()
+bool Editor::prepareUI()
 {
-  const auto &scale = param.scale;
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
@@ -187,7 +188,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     tabMain,
     addTextKnob(
       tuningLeft2, tuningTop1, knobWidth, labelHeight, uiTextSize, ID::oscOctave,
-      scale.oscOctave, false, 0, -12));
+      Scales::oscOctave, false, 0, -12));
 
   const auto tuningTop2 = tuningTop1 + labelY;
   tabview->addWidget(
@@ -197,7 +198,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     tabMain,
     addTextKnob(
       tuningLeft2, tuningTop2, knobWidth, labelHeight, uiTextSize, ID::oscSemi,
-      scale.oscSemi, false, 0, -120));
+      Scales::oscSemi, false, 0, -120));
 
   const auto tuningTop3 = tuningTop2 + labelY;
   tabview->addWidget(
@@ -206,7 +207,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
       tuningLeft1, tuningTop3, tuningLabelWidth, labelHeight, uiTextSize, "Milli"));
   auto knobOscMilli = addTextKnob(
     tuningLeft2, tuningTop3, knobWidth, labelHeight, uiTextSize, ID::oscMilli,
-    scale.oscMilli, false, 0, -1000);
+    Scales::oscMilli, false, 0, -1000);
   knobOscMilli->sensitivity = 0.001f;
   knobOscMilli->lowSensitivity = 0.00025f;
   tabview->addWidget(tabMain, knobOscMilli);
@@ -222,7 +223,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     tabMain,
     addTextKnob(
       tuningLeft4, tuningTop4, knobWidth, labelHeight, uiTextSize, ID::equalTemperament,
-      scale.equalTemperament, false, 0, 1));
+      Scales::equalTemperament, false, 0, 1));
 
   const auto tuningTop5 = tuningTop4 + labelY;
   tabview->addWidget(
@@ -233,7 +234,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     tabMain,
     addTextKnob(
       tuningLeft4, tuningTop5, knobWidth, labelHeight, uiTextSize, ID::pitchA4Hz,
-      scale.pitchA4Hz, false, 0, 100));
+      Scales::pitchA4Hz, false, 0, 100));
 
   // Unison.
   const auto unisonTop = tuningTop;
@@ -250,7 +251,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     tabMain,
     addTextKnob(
       unisonLeft, unisonKnobTop + labelHeight + margin, knobWidth, labelHeight,
-      uiTextSize, ID::nUnison, scale.nUnison, false, 0, 1));
+      uiTextSize, ID::nUnison, Scales::nUnison, false, 0, 1));
   tabview->addWidget(
     tabMain,
     addKnob(
@@ -349,7 +350,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     tabMain,
     addTextKnob(
       nVoiceLeft + 8 * margin, miscTop0 + labelY, knobX, labelHeight, uiTextSize,
-      ID::seed, scale.seed));
+      ID::seed, Scales::seed));
 
   // Delay.
   const auto delayTop = unisonTop + 2.0f * labelY + knobY;
@@ -382,7 +383,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     tabMain,
     addTextKnob(
       delayDetuneLeft + knobX, delayKnobTop, knobWidth, labelHeight, uiTextSize,
-      ID::delayDetuneSemi, scale.delayDetuneSemi, false, 0, -120));
+      ID::delayDetuneSemi, Scales::delayDetuneSemi, false, 0, -120));
 
   tabview->addWidget(
     tabMain,
@@ -391,7 +392,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
       "Milli"));
   auto knobDelayMilli = addTextKnob(
     delayDetuneLeft + knobX, delayKnobTop + labelY, knobWidth, labelHeight, uiTextSize,
-    ID::delayDetuneMilli, scale.oscMilli, false, 0, -1000);
+    ID::delayDetuneMilli, Scales::oscMilli, false, 0, -1000);
   knobDelayMilli->sensitivity = 0.001f;
   knobDelayMilli->lowSensitivity = 0.00025f;
   tabview->addWidget(tabMain, knobDelayMilli);
@@ -408,14 +409,14 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   const auto lfoTempoTop = lfoKnobTop;
   auto knobLfoTempoNumerator = addTextKnob(
     lfoLeft1, lfoTempoTop, knobWidth, labelHeight, uiTextSize, ID::lfoTempoNumerator,
-    scale.lfoTempoNumerator, false, 0, 1);
+    Scales::lfoTempoNumerator, false, 0, 1);
   knobLfoTempoNumerator->sensitivity = 0.001;
   knobLfoTempoNumerator->lowSensitivity = 0.00025;
   tabview->addWidget(tabMain, knobLfoTempoNumerator);
 
   auto knobLfoTempoDenominator = addTextKnob(
     lfoLeft1, lfoTempoTop + labelHeight + 1.0f, knobWidth, labelHeight, uiTextSize,
-    ID::lfoTempoDenominator, scale.lfoTempoDenominator, false, 0, 1);
+    ID::lfoTempoDenominator, Scales::lfoTempoDenominator, false, 0, 1);
   knobLfoTempoDenominator->sensitivity = 0.001;
   knobLfoTempoNumerator->lowSensitivity = 0.00025;
   tabview->addWidget(tabMain, knobLfoTempoDenominator);
@@ -473,7 +474,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   // 832 = 64 * 13.
   auto barboxLfoWavetable = addBarBox(
     lfoWaveLeft + labelY, lfoWaveTop, 832, lfoBarboxHeight, ID::lfoWavetable0,
-    nLFOWavetable, scale.lfoWavetable, "LFO Wave");
+    nLFOWavetable, Scales::lfoWavetable, "LFO Wave");
   barboxLfoWavetable->sliderZero = 0.5f;
   tabview->addWidget(tabMain, barboxLfoWavetable);
 
@@ -495,7 +496,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     tabPadSynth,
     addTextKnob(
       tablePitchLeft1, tablePitchTop + labelY, knobX, labelHeight, uiTextSize,
-      ID::tableBaseFrequency, scale.tableBaseFrequency, false, 2));
+      ID::tableBaseFrequency, Scales::tableBaseFrequency, false, 2));
 
   tabview->addWidget(
     tabPadSynth,
@@ -506,7 +507,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     tabPadSynth,
     addTextKnob(
       tablePitchLeft1, tablePitchTop + 2.0f * labelY, knobX, labelHeight, uiTextSize,
-      ID::overtonePitchMultiply, scale.overtonePitchMultiply, false, 4));
+      ID::overtonePitchMultiply, Scales::overtonePitchMultiply, false, 4));
 
   tabview->addWidget(
     tabPadSynth,
@@ -517,7 +518,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     tabPadSynth,
     addTextKnob(
       tablePitchLeft1, tablePitchTop + 3.0f * labelY, knobX, labelHeight, uiTextSize,
-      ID::overtonePitchModulo, scale.overtonePitchModulo, false, 4));
+      ID::overtonePitchModulo, Scales::overtonePitchModulo, false, 4));
 
   const auto tableSpectrumTop = tablePitchTop + 4.0f * labelY;
   const auto tableSpectrumLeft0 = tablePitchLeft0;
@@ -537,7 +538,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     tabPadSynth,
     addTextKnob(
       tableSpectrumLeft1, tableSpectrumTop + labelY, knobX, labelHeight, uiTextSize,
-      ID::spectrumExpand, scale.spectrumExpand, false, 4));
+      ID::spectrumExpand, Scales::spectrumExpand, false, 4));
 
   tabview->addWidget(
     tabPadSynth,
@@ -546,7 +547,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
       uiTextSize, "Rotate"));
   auto knobSpectrumRotate = addTextKnob(
     tableSpectrumLeft1, tableSpectrumTop + 2.0f * labelY, knobX, labelHeight, uiTextSize,
-    ID::spectrumRotate, scale.defaultScale, false, 6);
+    ID::spectrumRotate, Scales::defaultScale, false, 6);
   knobSpectrumRotate->lowSensitivity = 1.0f / spectrumSize;
   tabview->addWidget(tabPadSynth, knobSpectrumRotate);
 
@@ -557,7 +558,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
       "Comb"));
   auto knobProfileComb = addTextKnob(
     tableSpectrumLeft1, tableSpectrumTop + 3.0 * labelY, knobX, labelHeight, uiTextSize,
-    ID::profileComb, scale.profileComb);
+    ID::profileComb, Scales::profileComb);
   knobProfileComb->sensitivity = 0.002;
   knobProfileComb->lowSensitivity = 0.0002;
   tabview->addWidget(tabPadSynth, knobProfileComb);
@@ -571,7 +572,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     tabPadSynth,
     addTextKnob(
       tableSpectrumLeft1, tableSpectrumTop + 4.0 * labelY, knobX, labelHeight, uiTextSize,
-      ID::profileShape, scale.profileShape, false, 4, 0));
+      ID::profileShape, Scales::profileShape, false, 4, 0));
 
   const auto tablePhaseTop = tableSpectrumTop + 5.0f * labelY;
   const auto tablePhaseLeft0 = tablePitchLeft0;
@@ -603,7 +604,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
     tabPadSynth,
     addTextKnob(
       tableRandomLeft1, tableRandomTop + labelY, knobX, labelHeight, uiTextSize,
-      ID::padSynthSeed, scale.seed));
+      ID::padSynthSeed, Scales::seed));
 
   // Wavetable buffer size.
   const auto tableBufferTop = tableRandomTop + 2.0f * labelY;
@@ -665,7 +666,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   const auto otGainLeft0 = otGainLeft + labelY;
   auto barboxOtGain = addBarBox(
     otGainLeft0, otGainTop, barboxWidth, barboxHeight, ID::overtoneGain0, nOvertone,
-    scale.overtoneGain, "Gain");
+    Scales::overtoneGain, "Gain");
   barboxOtGain->liveUpdateLineEdit = false;
   tabview->addWidget(tabPadSynth, barboxOtGain);
 
@@ -686,7 +687,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   const auto otWidthLeft0 = otWidthLeft + labelY;
   auto barboxOtWidth = addBarBox(
     otWidthLeft0, otWidthTop, barboxWidth, barboxHeight, ID::overtoneWidth0, nOvertone,
-    scale.overtoneWidth, "Width");
+    Scales::overtoneWidth, "Width");
   barboxOtWidth->liveUpdateLineEdit = false;
   tabview->addWidget(tabPadSynth, barboxOtWidth);
 
@@ -707,7 +708,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   const auto otPitchLeft0 = otPitchLeft + labelY;
   auto barboxOtPitch = addBarBox(
     otPitchLeft0, otPitchTop, barboxWidth, barboxHeight, ID::overtonePitch0, nOvertone,
-    scale.overtonePitch, "Pitch");
+    Scales::overtonePitch, "Pitch");
   barboxOtPitch->liveUpdateLineEdit = false;
   tabview->addWidget(tabPadSynth, barboxOtPitch);
 
@@ -728,7 +729,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   const auto otPhaseLeft0 = otPhaseLeft + labelY;
   auto barboxOtPhase = addBarBox(
     otPhaseLeft0, otPhaseTop, barboxWidth, barboxHeight, ID::overtonePhase0, nOvertone,
-    scale.overtonePhase, "Phase");
+    Scales::overtonePhase, "Phase");
   barboxOtPhase->liveUpdateLineEdit = false;
   tabview->addWidget(tabPadSynth, barboxOtPhase);
 

@@ -21,6 +21,7 @@
 #include <string>
 #include <vector>
 
+#include "../../common/parameterInterface.hpp"
 #include "../../common/value.hpp"
 
 constexpr float maxAttackSeconds = 1.0f;
@@ -44,37 +45,21 @@ enum ID {
 };
 } // namespace ParameterID
 
-struct Some {
-  int i;
-  Some(int i) : i(i) {}
-};
-
 struct Scales {
-  SomeDSP::UIntScale<double> boolScale;
-  SomeDSP::LinearScale<double> defaultScale;
-  SomeDSP::DecibelScale<double> limiterThreshold;
-  SomeDSP::DecibelScale<double> limiterGate;
-  SomeDSP::LogScale<double> limiterAttack;
-  SomeDSP::LogScale<double> limiterRelease;
-  SomeDSP::LogScale<double> limiterSustain;
+  static SomeDSP::UIntScale<double> boolScale;
+  static SomeDSP::LinearScale<double> defaultScale;
 
-  Scales()
-    : boolScale(1)
-    , defaultScale(0.0, 1.0)
-    , limiterThreshold(-30.0, 30.0, false)
-    , limiterGate(-100.0, 0.0, true)
-    , limiterAttack(0.0001, maxAttackSeconds, 0.1, 0.002)
-    , limiterRelease(0.0001, 16.0, 0.5, 1.0)
-    , limiterSustain(0.0, maxAttackSeconds, 0.1, 0.002)
-  {
-  }
+  static SomeDSP::DecibelScale<double> limiterThreshold;
+  static SomeDSP::DecibelScale<double> limiterGate;
+  static SomeDSP::LogScale<double> limiterAttack;
+  static SomeDSP::LogScale<double> limiterRelease;
+  static SomeDSP::LogScale<double> limiterSustain;
 };
 
-struct PlugParameter {
-  Scales scale;
+struct GlobalParameter : public ParameterInterface {
   std::vector<std::unique_ptr<ValueInterface>> value;
 
-  PlugParameter()
+  GlobalParameter()
   {
     value.resize(ParameterID::ID_ENUM_LENGTH);
 
@@ -85,25 +70,25 @@ struct PlugParameter {
     using DecibelValue = FloatValue<SomeDSP::DecibelScale<double>>;
 
     value[ID::bypass] = std::make_unique<UIntValue>(
-      0, scale.boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
+      0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     value[ID::limiterThreshold] = std::make_unique<DecibelValue>(
-      scale.limiterThreshold.invmap(1.0), scale.limiterThreshold, "limiterThreshold",
+      Scales::limiterThreshold.invmap(1.0), Scales::limiterThreshold, "limiterThreshold",
       Info::kCanAutomate);
     value[ID::limiterGate] = std::make_unique<DecibelValue>(
-      0.0, scale.limiterGate, "limiterGate", Info::kCanAutomate);
+      0.0, Scales::limiterGate, "limiterGate", Info::kCanAutomate);
     value[ID::limiterAttack] = std::make_unique<LogValue>(
-      scale.limiterAttack.invmap(0.02), scale.limiterAttack, "limiterAttack",
+      Scales::limiterAttack.invmap(0.02), Scales::limiterAttack, "limiterAttack",
       Info::kCanAutomate);
     value[ID::limiterRelease] = std::make_unique<LogValue>(
-      scale.limiterRelease.invmap(0.1), scale.limiterRelease, "limiterRelease",
+      Scales::limiterRelease.invmap(0.1), Scales::limiterRelease, "limiterRelease",
       Info::kCanAutomate);
     value[ID::limiterSustain] = std::make_unique<LogValue>(
-      scale.limiterSustain.invmap(0.0), scale.limiterSustain, "limiterSustain",
+      Scales::limiterSustain.invmap(0.0), Scales::limiterSustain, "limiterSustain",
       Info::kCanAutomate);
 
     value[ID::truePeak]
-      = std::make_unique<UIntValue>(0, scale.boolScale, "truePeak", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::boolScale, "truePeak", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }
@@ -131,7 +116,7 @@ struct PlugParameter {
     return kResultOk;
   }
 
-  double getDefaultNormalized(int32_t tag)
+  double getDefaultNormalized(int32_t tag) override
   {
     if (size_t(abs(tag)) >= value.size()) return 0.0;
     return value[tag]->getDefaultNormalized();

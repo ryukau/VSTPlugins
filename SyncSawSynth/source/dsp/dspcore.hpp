@@ -112,7 +112,7 @@ public:
     Sample normalizedKey,
     Sample frequency,
     Sample velocity,
-    PlugParameter &param);
+    GlobalParameter &param);
   void release();
   void rest();
   Sample process(NoteProcessInfo<Sample> &info);
@@ -123,7 +123,7 @@ public:
   DSPCore();
 
   static const size_t maxVoice = 32;
-  PlugParameter param;
+  GlobalParameter param;
 
   void setup(double sampleRate);
   void free();    // Release memory.

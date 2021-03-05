@@ -20,6 +20,7 @@
 #include <memory>
 #include <vector>
 
+#include "../../common/parameterInterface.hpp"
 #include "../../common/value.hpp"
 
 namespace Steinberg {
@@ -68,50 +69,30 @@ enum ID {
 } // namespace ParameterID
 
 struct Scales {
-  Scales()
-    : boolScale(1)
-    , defaultScale(0.0, 1.0)
-    , seed(16777215)
-    , fdnTime(0.0001, 0.5, 0.5, 0.1)
-    , fdnFeedback(0.0, 4.0, 0.75, 1.0)
-    , fdnCascadeMix(0.0, 1.0, 0.5, 0.2)
-    , allpassTime(0.0, 0.005, 0.5, 0.001)
-    , allpassFeedback(0.0, 0.9999, 0.5, 0.9)
-    , allpassHighpassCutoff(1.0, 40.0, 0.5, 10.0)
-    , tremoloFrequency(0.1, 20, 0.5, 4.0)
-    , tremoloDelayTime(0.00003, 0.001, 0.5, 0.0001)
-    , stickDecay(0.01, 4.0, 0.5, 0.1)
-    , stickToneMix(0.0, 0.02, 0.5, 0.001)
-    , smoothness(0.0, 0.5, 0.2, 0.02)
-    , gain(0.0, 4.0, 0.75, 0.5)
-  {
-  }
+  static SomeDSP::UIntScale<double> boolScale;
+  static SomeDSP::LinearScale<double> defaultScale;
 
-  SomeDSP::UIntScale<double> boolScale;
-  SomeDSP::LinearScale<double> defaultScale;
+  static SomeDSP::UIntScale<double> seed;
+  static SomeDSP::LogScale<double> fdnTime;
+  static SomeDSP::LogScale<double> fdnFeedback;
+  static SomeDSP::LogScale<double> fdnCascadeMix;
+  static SomeDSP::LogScale<double> allpassTime;
+  static SomeDSP::LogScale<double> allpassFeedback;
+  static SomeDSP::LogScale<double> allpassHighpassCutoff;
+  static SomeDSP::LogScale<double> tremoloFrequency;
+  static SomeDSP::LogScale<double> tremoloDelayTime;
+  static SomeDSP::LogScale<double> stickDecay;
+  static SomeDSP::LogScale<double> stickToneMix;
 
-  SomeDSP::UIntScale<double> seed;
-  SomeDSP::LogScale<double> fdnTime;
-  SomeDSP::LogScale<double> fdnFeedback;
-  SomeDSP::LogScale<double> fdnCascadeMix;
-  SomeDSP::LogScale<double> allpassTime;
-  SomeDSP::LogScale<double> allpassFeedback;
-  SomeDSP::LogScale<double> allpassHighpassCutoff;
-  SomeDSP::LogScale<double> tremoloFrequency;
-  SomeDSP::LogScale<double> tremoloDelayTime;
-  SomeDSP::LogScale<double> stickDecay;
-  SomeDSP::LogScale<double> stickToneMix;
+  static SomeDSP::LogScale<double> smoothness;
 
-  SomeDSP::LogScale<double> smoothness;
-
-  SomeDSP::LogScale<double> gain;
+  static SomeDSP::LogScale<double> gain;
 };
 
-struct PlugParameter {
-  Scales scale;
+struct GlobalParameter : public ParameterInterface {
   std::vector<std::unique_ptr<ValueInterface>> value;
 
-  PlugParameter()
+  GlobalParameter()
   {
     value.resize(ParameterID::ID_ENUM_LENGTH);
 
@@ -121,76 +102,76 @@ struct PlugParameter {
     using LogValue = FloatValue<SomeDSP::LogScale<double>>;
 
     value[ID::bypass] = std::make_unique<UIntValue>(
-      false, scale.boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
+      false, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     value[ID::seed]
-      = std::make_unique<UIntValue>(6583421, scale.seed, "seed", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(6583421, Scales::seed, "seed", Info::kCanAutomate);
     value[ID::retriggerTime] = std::make_unique<UIntValue>(
-      true, scale.boolScale, "retriggerTime", Info::kCanAutomate);
+      true, Scales::boolScale, "retriggerTime", Info::kCanAutomate);
     value[ID::retriggerStick] = std::make_unique<UIntValue>(
-      false, scale.boolScale, "retriggerStick", Info::kCanAutomate);
+      false, Scales::boolScale, "retriggerStick", Info::kCanAutomate);
     value[ID::retriggerTremolo] = std::make_unique<UIntValue>(
-      false, scale.boolScale, "retriggerTremolo", Info::kCanAutomate);
+      false, Scales::boolScale, "retriggerTremolo", Info::kCanAutomate);
 
     value[ID::fdn]
-      = std::make_unique<UIntValue>(true, scale.boolScale, "fdn", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(true, Scales::boolScale, "fdn", Info::kCanAutomate);
     value[ID::fdnTime]
-      = std::make_unique<LogValue>(0.2, scale.fdnTime, "fdnTime", Info::kCanAutomate);
+      = std::make_unique<LogValue>(0.2, Scales::fdnTime, "fdnTime", Info::kCanAutomate);
     value[ID::fdnFeedback] = std::make_unique<LogValue>(
-      0.5, scale.fdnFeedback, "fdnFeedback", Info::kCanAutomate);
+      0.5, Scales::fdnFeedback, "fdnFeedback", Info::kCanAutomate);
     value[ID::fdnCascadeMix] = std::make_unique<LogValue>(
-      0.5, scale.fdnCascadeMix, "fdnCascadeMix", Info::kCanAutomate);
+      0.5, Scales::fdnCascadeMix, "fdnCascadeMix", Info::kCanAutomate);
 
     value[ID::allpassMix] = std::make_unique<LinearValue>(
-      0.75, scale.defaultScale, "allpassMix", Info::kCanAutomate);
+      0.75, Scales::defaultScale, "allpassMix", Info::kCanAutomate);
     value[ID::allpass1Saturation] = std::make_unique<UIntValue>(
-      true, scale.boolScale, "allpass1Saturation", Info::kCanAutomate);
+      true, Scales::boolScale, "allpass1Saturation", Info::kCanAutomate);
     value[ID::allpass1Time] = std::make_unique<LogValue>(
-      0.5, scale.allpassTime, "allpass1Time", Info::kCanAutomate);
+      0.5, Scales::allpassTime, "allpass1Time", Info::kCanAutomate);
     value[ID::allpass1Feedback] = std::make_unique<LogValue>(
-      0.75, scale.allpassFeedback, "allpass1Feedback", Info::kCanAutomate);
+      0.75, Scales::allpassFeedback, "allpass1Feedback", Info::kCanAutomate);
     value[ID::allpass1HighpassCutoff] = std::make_unique<LogValue>(
-      0.5, scale.allpassHighpassCutoff, "allpass1HighpassCutoff", Info::kCanAutomate);
+      0.5, Scales::allpassHighpassCutoff, "allpass1HighpassCutoff", Info::kCanAutomate);
     value[ID::allpass2Time] = std::make_unique<LogValue>(
-      0.5, scale.allpassTime, "allpass2Time", Info::kCanAutomate);
+      0.5, Scales::allpassTime, "allpass2Time", Info::kCanAutomate);
     value[ID::allpass2Feedback] = std::make_unique<LogValue>(
-      0.5, scale.allpassFeedback, "allpass2Feedback", Info::kCanAutomate);
+      0.5, Scales::allpassFeedback, "allpass2Feedback", Info::kCanAutomate);
     value[ID::allpass2HighpassCutoff] = std::make_unique<LogValue>(
-      0.5, scale.allpassHighpassCutoff, "allpass2HighpassCutoff", Info::kCanAutomate);
+      0.5, Scales::allpassHighpassCutoff, "allpass2HighpassCutoff", Info::kCanAutomate);
 
     value[ID::tremoloMix] = std::make_unique<LinearValue>(
-      0.2, scale.defaultScale, "tremoloMix", Info::kCanAutomate);
+      0.2, Scales::defaultScale, "tremoloMix", Info::kCanAutomate);
     value[ID::tremoloDepth] = std::make_unique<LinearValue>(
-      0.8, scale.defaultScale, "tremoloDepth", Info::kCanAutomate);
+      0.8, Scales::defaultScale, "tremoloDepth", Info::kCanAutomate);
     value[ID::tremoloFrequency] = std::make_unique<LogValue>(
-      0.5, scale.tremoloFrequency, "tremoloFrequency", Info::kCanAutomate);
+      0.5, Scales::tremoloFrequency, "tremoloFrequency", Info::kCanAutomate);
     value[ID::tremoloDelayTime] = std::make_unique<LogValue>(
-      0.25, scale.tremoloDelayTime, "tremoloDelayTime", Info::kCanAutomate);
+      0.25, Scales::tremoloDelayTime, "tremoloDelayTime", Info::kCanAutomate);
     value[ID::randomTremoloDepth] = std::make_unique<LinearValue>(
-      0.35, scale.defaultScale, "randomTremoloDepth", Info::kCanAutomate);
+      0.35, Scales::defaultScale, "randomTremoloDepth", Info::kCanAutomate);
     value[ID::randomTremoloFrequency] = std::make_unique<LinearValue>(
-      0.35, scale.defaultScale, "randomTremoloFrequency", Info::kCanAutomate);
+      0.35, Scales::defaultScale, "randomTremoloFrequency", Info::kCanAutomate);
     value[ID::randomTremoloDelayTime] = std::make_unique<LinearValue>(
-      0.35, scale.defaultScale, "randomTremoloDelayTime", Info::kCanAutomate);
+      0.35, Scales::defaultScale, "randomTremoloDelayTime", Info::kCanAutomate);
 
     value[ID::stick]
-      = std::make_unique<UIntValue>(true, scale.boolScale, "stick", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(true, Scales::boolScale, "stick", Info::kCanAutomate);
     value[ID::stickDecay] = std::make_unique<LogValue>(
-      0.5, scale.stickDecay, "stickDecay", Info::kCanAutomate);
+      0.5, Scales::stickDecay, "stickDecay", Info::kCanAutomate);
     value[ID::stickToneMix] = std::make_unique<LogValue>(
-      0.5, scale.stickToneMix, "stickToneMix", Info::kCanAutomate);
+      0.5, Scales::stickToneMix, "stickToneMix", Info::kCanAutomate);
     value[ID::stickPulseMix] = std::make_unique<LinearValue>(
-      1.0, scale.defaultScale, "stickPulseMix", Info::kCanAutomate);
+      1.0, Scales::defaultScale, "stickPulseMix", Info::kCanAutomate);
     value[ID::stickVelvetMix] = std::make_unique<LinearValue>(
-      1.0, scale.defaultScale, "stickVelvetMix", Info::kCanAutomate);
+      1.0, Scales::defaultScale, "stickVelvetMix", Info::kCanAutomate);
 
     value[ID::smoothness] = std::make_unique<LogValue>(
-      0.1, scale.smoothness, "smoothness", Info::kCanAutomate);
+      0.1, Scales::smoothness, "smoothness", Info::kCanAutomate);
 
     value[ID::gain]
-      = std::make_unique<LogValue>(0.5, scale.gain, "gain", Info::kCanAutomate);
+      = std::make_unique<LogValue>(0.5, Scales::gain, "gain", Info::kCanAutomate);
     value[ID::pitchBend] = std::make_unique<LinearValue>(
-      0.5, scale.defaultScale, "pitchBend", Info::kCanAutomate);
+      0.5, Scales::defaultScale, "pitchBend", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }
@@ -218,7 +199,7 @@ struct PlugParameter {
     return kResultOk;
   }
 
-  double getDefaultNormalized(int32_t tag)
+  double getDefaultNormalized(int32_t tag) override
   {
     if (size_t(abs(tag)) >= value.size()) return 0.0;
     return value[tag]->getDefaultNormalized();

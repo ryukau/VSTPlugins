@@ -20,6 +20,7 @@
 #include <memory>
 #include <vector>
 
+#include "../../common/parameterInterface.hpp"
 #include "../../common/value.hpp"
 
 namespace Steinberg {
@@ -98,82 +99,48 @@ enum ID : Vst::ParamID {
 } // namespace ParameterID
 
 struct Scales {
-  Scales()
-    : boolScale(1)
-    , defaultScale(0.0, 1.0)
-    , oscGain(0.0, 1.0, 0.75, 0.5)
-    , semi(-24.0, 24.0)
-    , cent(-100.0, 100.0)
-    , sync(0.01, 16.0)
-    , osc1SyncType(3)
-    , osc1PTROrder(16)
-    , fmToSync(0.0, 1.0, 0.5, 0.1)
-    , fmToFreq(0.0, 1.0, 0.5, 0.1)
-    , gain(0.0, 4.0, 0.75, 1.0)
-    , envelopeA(0.0001, 16.0, 0.5, 1.0)
-    , envelopeD(0.0001, 16.0, 0.5, 1.0)
-    , envelopeS(0.0, 0.9995, 0.5, 0.3)
-    , envelopeR(0.001, 16.0, 0.5, 2.0)
-    , filterCutoff(20.0, 20000.0, 0.5, 800.0)
-    , filterResonance(0.001, 1.0, 0.5, 0.3)
-    , filterFeedback(0.0, 1.0, 0.5, 0.3)
-    , filterSaturation(0.01, 8.0, 0.3, 0.5)
-    , filterType(4)
-    , filterShaper(3)
-    , filterCutoffAmount(-1.0, 1.0)
-    , filterKeyMod(-1.0, 1.0)
-    , modEnvelopeA(0.0, 4.0, 0.5, 0.5)
-    , modEnvelopeCurve(1.0, 96.0, 0.5, 8.0)
-    , modLFOFrequency(0.01, 20.0, 0.5, 1.0)
-    , modToFreq(0.0, 16.0, 0.5, 1.0)
-    , modToSync(0.0, 16.0, 0.5, 1.0)
-    , nVoice(5)
-  {
-  }
+  static SomeDSP::UIntScale<double> boolScale;
+  static SomeDSP::LinearScale<double> defaultScale;
 
-  SomeDSP::UIntScale<double> boolScale;
-  SomeDSP::LinearScale<double> defaultScale;
+  static SomeDSP::LogScale<double> oscGain;
+  static SomeDSP::LinearScale<double> semi;
+  static SomeDSP::LinearScale<double> cent;
+  static SomeDSP::LinearScale<double> sync;
+  static SomeDSP::UIntScale<double> osc1SyncType;
+  static SomeDSP::UIntScale<double> osc1PTROrder;
 
-  SomeDSP::LogScale<double> oscGain;
-  SomeDSP::LinearScale<double> semi;
-  SomeDSP::LinearScale<double> cent;
-  SomeDSP::LinearScale<double> sync;
-  SomeDSP::UIntScale<double> osc1SyncType;
-  SomeDSP::UIntScale<double> osc1PTROrder;
+  static SomeDSP::LogScale<double> fmToSync;
+  static SomeDSP::LogScale<double> fmToFreq;
 
-  SomeDSP::LogScale<double> fmToSync;
-  SomeDSP::LogScale<double> fmToFreq;
+  static SomeDSP::LogScale<double> gain;
 
-  SomeDSP::LogScale<double> gain;
+  static SomeDSP::LogScale<double> envelopeA;
+  static SomeDSP::LogScale<double> envelopeD;
+  static SomeDSP::LogScale<double> envelopeS;
+  static SomeDSP::LogScale<double> envelopeR;
 
-  SomeDSP::LogScale<double> envelopeA;
-  SomeDSP::LogScale<double> envelopeD;
-  SomeDSP::LogScale<double> envelopeS;
-  SomeDSP::LogScale<double> envelopeR;
+  static SomeDSP::LogScale<double> filterCutoff;
+  static SomeDSP::LogScale<double> filterResonance;
+  static SomeDSP::LogScale<double> filterFeedback;
+  static SomeDSP::LogScale<double> filterSaturation;
+  static SomeDSP::UIntScale<double> filterType;
+  static SomeDSP::UIntScale<double> filterShaper;
+  static SomeDSP::LinearScale<double> filterCutoffAmount;
+  static SomeDSP::LinearScale<double> filterKeyMod;
 
-  SomeDSP::LogScale<double> filterCutoff;
-  SomeDSP::LogScale<double> filterResonance;
-  SomeDSP::LogScale<double> filterFeedback;
-  SomeDSP::LogScale<double> filterSaturation;
-  SomeDSP::UIntScale<double> filterType;
-  SomeDSP::UIntScale<double> filterShaper;
-  SomeDSP::LinearScale<double> filterCutoffAmount;
-  SomeDSP::LinearScale<double> filterKeyMod;
+  static SomeDSP::LogScale<double> modEnvelopeA;
+  static SomeDSP::LogScale<double> modEnvelopeCurve;
+  static SomeDSP::LogScale<double> modLFOFrequency;
+  static SomeDSP::LogScale<double> modToFreq;
+  static SomeDSP::LogScale<double> modToSync;
 
-  SomeDSP::LogScale<double> modEnvelopeA;
-  SomeDSP::LogScale<double> modEnvelopeCurve;
-  SomeDSP::LogScale<double> modLFOFrequency;
-  SomeDSP::LogScale<double> modToFreq;
-  SomeDSP::LogScale<double> modToSync;
-
-  SomeDSP::UIntScale<double> nVoice;
+  static SomeDSP::UIntScale<double> nVoice;
 };
 
-struct PlugParameter {
-  Scales scale;
+struct GlobalParameter : public ParameterInterface {
   std::vector<std::unique_ptr<ValueInterface>> value;
 
-  PlugParameter()
+  GlobalParameter()
   {
     value.resize(ParameterID::ID_ENUM_LENGTH);
 
@@ -183,126 +150,126 @@ struct PlugParameter {
     using ValueLog = FloatValue<SomeDSP::LogScale<double>>;
 
     value[ID::bypass] = std::make_unique<UIntValue>(
-      0, scale.boolScale, "Bypass", Info::kCanAutomate | Info::kIsBypass);
+      0, Scales::boolScale, "Bypass", Info::kCanAutomate | Info::kIsBypass);
 
     value[ID::osc1Gain]
-      = std::make_unique<ValueLog>(1.0, scale.oscGain, "Osc1Gain", Info::kCanAutomate);
+      = std::make_unique<ValueLog>(1.0, Scales::oscGain, "Osc1Gain", Info::kCanAutomate);
     value[ID::osc1Semi]
-      = std::make_unique<ValueLinear>(0.5, scale.semi, "Osc1Semi", Info::kCanAutomate);
+      = std::make_unique<ValueLinear>(0.5, Scales::semi, "Osc1Semi", Info::kCanAutomate);
     value[ID::osc1Cent]
-      = std::make_unique<ValueLinear>(0.5, scale.cent, "Osc1Cent", Info::kCanAutomate);
+      = std::make_unique<ValueLinear>(0.5, Scales::cent, "Osc1Cent", Info::kCanAutomate);
     value[ID::osc1Sync] = std::make_unique<ValueLinear>(
-      1.0 / 16.0, scale.sync, "Osc1Sync", Info::kCanAutomate);
+      1.0 / 16.0, Scales::sync, "Osc1Sync", Info::kCanAutomate);
     value[ID::osc1SyncType] = std::make_unique<UIntValue>(
-      0, scale.osc1SyncType, "Osc1SyncType", Info::kCanAutomate);
+      0, Scales::osc1SyncType, "Osc1SyncType", Info::kCanAutomate);
     value[ID::osc1PTROrder] = std::make_unique<UIntValue>(
-      16, scale.osc1PTROrder, "Osc1PTROrder", Info::kCanAutomate);
+      16, Scales::osc1PTROrder, "Osc1PTROrder", Info::kCanAutomate);
     value[ID::osc1Phase] = std::make_unique<ValueLinear>(
-      0.0, scale.defaultScale, "Osc1Phase", Info::kCanAutomate);
+      0.0, Scales::defaultScale, "Osc1Phase", Info::kCanAutomate);
     value[ID::osc1PhaseLock] = std::make_unique<UIntValue>(
-      0, scale.boolScale, "Osc1PhaseLock", Info::kCanAutomate);
+      0, Scales::boolScale, "Osc1PhaseLock", Info::kCanAutomate);
 
     value[ID::osc2Gain]
-      = std::make_unique<ValueLog>(1.0, scale.oscGain, "Osc2Gain", Info::kCanAutomate);
+      = std::make_unique<ValueLog>(1.0, Scales::oscGain, "Osc2Gain", Info::kCanAutomate);
     value[ID::osc2Semi]
-      = std::make_unique<ValueLinear>(0.5, scale.semi, "Osc2Semi", Info::kCanAutomate);
+      = std::make_unique<ValueLinear>(0.5, Scales::semi, "Osc2Semi", Info::kCanAutomate);
     value[ID::osc2Cent]
-      = std::make_unique<ValueLinear>(0.5, scale.cent, "Osc2Cent", Info::kCanAutomate);
+      = std::make_unique<ValueLinear>(0.5, Scales::cent, "Osc2Cent", Info::kCanAutomate);
     value[ID::osc2Sync] = std::make_unique<ValueLinear>(
-      1.0 / 16.0, scale.sync, "Osc2Sync", Info::kCanAutomate);
+      1.0 / 16.0, Scales::sync, "Osc2Sync", Info::kCanAutomate);
     value[ID::osc2SyncType] = std::make_unique<UIntValue>(
-      0, scale.osc1SyncType, "Osc2SyncType", Info::kCanAutomate);
+      0, Scales::osc1SyncType, "Osc2SyncType", Info::kCanAutomate);
     value[ID::osc2PTROrder] = std::make_unique<UIntValue>(
-      16, scale.osc1PTROrder, "Osc2PTROrder", Info::kCanAutomate);
-    value[ID::osc2Invert]
-      = std::make_unique<UIntValue>(0, scale.boolScale, "Osc2Invert", Info::kCanAutomate);
+      16, Scales::osc1PTROrder, "Osc2PTROrder", Info::kCanAutomate);
+    value[ID::osc2Invert] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "Osc2Invert", Info::kCanAutomate);
     value[ID::osc2Phase] = std::make_unique<ValueLinear>(
-      0.0, scale.defaultScale, "Osc2Phase", Info::kCanAutomate);
+      0.0, Scales::defaultScale, "Osc2Phase", Info::kCanAutomate);
     value[ID::osc2PhaseLock] = std::make_unique<UIntValue>(
-      0, scale.boolScale, "Osc2PhaseLock", Info::kCanAutomate);
+      0, Scales::boolScale, "Osc2PhaseLock", Info::kCanAutomate);
 
     value[ID::fmOsc1ToSync1] = std::make_unique<ValueLog>(
-      0.0, scale.fmToSync, "FM_Osc1_to_Sync1", Info::kCanAutomate);
+      0.0, Scales::fmToSync, "FM_Osc1_to_Sync1", Info::kCanAutomate);
     value[ID::fmOsc1ToFreq2] = std::make_unique<ValueLog>(
-      0.0, scale.fmToFreq, "FM_Osc1_to_Freq2", Info::kCanAutomate);
+      0.0, Scales::fmToFreq, "FM_Osc1_to_Freq2", Info::kCanAutomate);
     value[ID::fmOsc2ToSync1] = std::make_unique<ValueLog>(
-      0.0, scale.fmToSync, "FM_Osc2_to_Sync1", Info::kCanAutomate);
+      0.0, Scales::fmToSync, "FM_Osc2_to_Sync1", Info::kCanAutomate);
 
     value[ID::gain]
-      = std::make_unique<ValueLog>(0.5, scale.gain, "Gain", Info::kCanAutomate);
+      = std::make_unique<ValueLog>(0.5, Scales::gain, "Gain", Info::kCanAutomate);
     value[ID::gainA] = std::make_unique<ValueLog>(
-      0.05, scale.envelopeA, "GainAttack", Info::kCanAutomate);
-    value[ID::gainD]
-      = std::make_unique<ValueLog>(0.5, scale.envelopeD, "GainDecay", Info::kCanAutomate);
+      0.05, Scales::envelopeA, "GainAttack", Info::kCanAutomate);
+    value[ID::gainD] = std::make_unique<ValueLog>(
+      0.5, Scales::envelopeD, "GainDecay", Info::kCanAutomate);
     value[ID::gainS] = std::make_unique<ValueLog>(
-      0.5, scale.envelopeS, "GainSustain", Info::kCanAutomate);
+      0.5, Scales::envelopeS, "GainSustain", Info::kCanAutomate);
     value[ID::gainR] = std::make_unique<ValueLog>(
-      0.1, scale.envelopeR, "GainRelease", Info::kCanAutomate);
+      0.1, Scales::envelopeR, "GainRelease", Info::kCanAutomate);
     value[ID::gainEnvelopeCurve] = std::make_unique<ValueLinear>(
-      0.0, scale.defaultScale, "GainEnvCurve", Info::kCanAutomate);
+      0.0, Scales::defaultScale, "GainEnvCurve", Info::kCanAutomate);
 
-    value[ID::filterCutoff]
-      = std::make_unique<ValueLog>(1.0, scale.filterCutoff, "Cutoff", Info::kCanAutomate);
+    value[ID::filterCutoff] = std::make_unique<ValueLog>(
+      1.0, Scales::filterCutoff, "Cutoff", Info::kCanAutomate);
     value[ID::filterResonance] = std::make_unique<ValueLog>(
-      0.5, scale.filterResonance, "Resonance", Info::kCanAutomate);
+      0.5, Scales::filterResonance, "Resonance", Info::kCanAutomate);
     value[ID::filterFeedback] = std::make_unique<ValueLog>(
-      0.0, scale.filterFeedback, "Feedback", Info::kCanAutomate);
+      0.0, Scales::filterFeedback, "Feedback", Info::kCanAutomate);
     value[ID::filterSaturation] = std::make_unique<ValueLog>(
-      0.3, scale.filterSaturation, "Saturation", Info::kCanAutomate);
+      0.3, Scales::filterSaturation, "Saturation", Info::kCanAutomate);
     value[ID::filterDirty] = std::make_unique<UIntValue>(
-      0, scale.boolScale, "DirtyBuffer", Info::kCanAutomate);
+      0, Scales::boolScale, "DirtyBuffer", Info::kCanAutomate);
     value[ID::filterType] = std::make_unique<UIntValue>(
-      0, scale.filterType, "FilterType", Info::kCanAutomate);
+      0, Scales::filterType, "FilterType", Info::kCanAutomate);
     value[ID::filterShaper] = std::make_unique<UIntValue>(
-      1, scale.filterShaper, "FilterShaper", Info::kCanAutomate);
+      1, Scales::filterShaper, "FilterShaper", Info::kCanAutomate);
     value[ID::filterA] = std::make_unique<ValueLog>(
-      0.0, scale.envelopeA, "FilterEnvAttack", Info::kCanAutomate);
+      0.0, Scales::envelopeA, "FilterEnvAttack", Info::kCanAutomate);
     value[ID::filterD] = std::make_unique<ValueLog>(
-      0.5, scale.envelopeD, "FilterEnvDecay", Info::kCanAutomate);
+      0.5, Scales::envelopeD, "FilterEnvDecay", Info::kCanAutomate);
     value[ID::filterS] = std::make_unique<ValueLog>(
-      0.0, scale.envelopeS, "FilterEnvSustain", Info::kCanAutomate);
+      0.0, Scales::envelopeS, "FilterEnvSustain", Info::kCanAutomate);
     value[ID::filterR] = std::make_unique<ValueLog>(
-      0.5, scale.envelopeR, "FilterEnvRelease", Info::kCanAutomate);
+      0.5, Scales::envelopeR, "FilterEnvRelease", Info::kCanAutomate);
     value[ID::filterCutoffAmount] = std::make_unique<ValueLinear>(
-      0.5, scale.filterCutoffAmount, "CutoffAmount", Info::kCanAutomate);
+      0.5, Scales::filterCutoffAmount, "CutoffAmount", Info::kCanAutomate);
     value[ID::filterResonanceAmount] = std::make_unique<ValueLinear>(
-      0.0, scale.defaultScale, "ResonanceAmount", Info::kCanAutomate);
+      0.0, Scales::defaultScale, "ResonanceAmount", Info::kCanAutomate);
     value[ID::filterKeyToCutoff] = std::make_unique<ValueLinear>(
-      0.5, scale.filterKeyMod, "Key_to_Cutoff", Info::kCanAutomate);
+      0.5, Scales::filterKeyMod, "Key_to_Cutoff", Info::kCanAutomate);
     value[ID::filterKeyToFeedback] = std::make_unique<ValueLinear>(
-      0.5, scale.filterKeyMod, "Key_to_Feedback", Info::kCanAutomate);
+      0.5, Scales::filterKeyMod, "Key_to_Feedback", Info::kCanAutomate);
 
     value[ID::modEnvelopeA] = std::make_unique<ValueLog>(
-      0.0, scale.modEnvelopeA, "ModEnvAttack", Info::kCanAutomate);
+      0.0, Scales::modEnvelopeA, "ModEnvAttack", Info::kCanAutomate);
     value[ID::modEnvelopeCurve] = std::make_unique<ValueLog>(
-      0.5, scale.modEnvelopeCurve, "ModEnvCurve", Info::kCanAutomate);
+      0.5, Scales::modEnvelopeCurve, "ModEnvCurve", Info::kCanAutomate);
     value[ID::modEnvelopeToFreq1] = std::make_unique<ValueLog>(
-      0.0, scale.modToFreq, "ModEnv_to_Freq1", Info::kCanAutomate);
+      0.0, Scales::modToFreq, "ModEnv_to_Freq1", Info::kCanAutomate);
     value[ID::modEnvelopeToSync1] = std::make_unique<ValueLog>(
-      0.0, scale.modToSync, "ModEnv_to_Sync1", Info::kCanAutomate);
+      0.0, Scales::modToSync, "ModEnv_to_Sync1", Info::kCanAutomate);
     value[ID::modEnvelopeToFreq2] = std::make_unique<ValueLog>(
-      0.0, scale.modToFreq, "ModEnv_to_Freq2", Info::kCanAutomate);
+      0.0, Scales::modToFreq, "ModEnv_to_Freq2", Info::kCanAutomate);
     value[ID::modEnvelopeToSync2] = std::make_unique<ValueLog>(
-      0.0, scale.modToSync, "ModEnv_to_Sync2", Info::kCanAutomate);
+      0.0, Scales::modToSync, "ModEnv_to_Sync2", Info::kCanAutomate);
     value[ID::modLFOFrequency] = std::make_unique<ValueLog>(
-      0.5, scale.modLFOFrequency, "LFO_Frequency", Info::kCanAutomate);
+      0.5, Scales::modLFOFrequency, "LFO_Frequency", Info::kCanAutomate);
     value[ID::modLFONoiseMix] = std::make_unique<ValueLinear>(
-      0.01, scale.defaultScale, "LFO_Noise_Mix", Info::kCanAutomate);
+      0.01, Scales::defaultScale, "LFO_Noise_Mix", Info::kCanAutomate);
     value[ID::modLFOToFreq1] = std::make_unique<ValueLog>(
-      0.0, scale.modToFreq, "LFO_to_Freq1", Info::kCanAutomate);
+      0.0, Scales::modToFreq, "LFO_to_Freq1", Info::kCanAutomate);
     value[ID::modLFOToSync1] = std::make_unique<ValueLog>(
-      0.0, scale.modToSync, "LFO_to_Sync1", Info::kCanAutomate);
+      0.0, Scales::modToSync, "LFO_to_Sync1", Info::kCanAutomate);
     value[ID::modLFOToFreq2] = std::make_unique<ValueLog>(
-      0.0, scale.modToFreq, "LFO_to_Freq2", Info::kCanAutomate);
+      0.0, Scales::modToFreq, "LFO_to_Freq2", Info::kCanAutomate);
     value[ID::modLFOToSync2] = std::make_unique<ValueLog>(
-      0.0, scale.modToSync, "LFO_to_Sync2", Info::kCanAutomate);
+      0.0, Scales::modToSync, "LFO_to_Sync2", Info::kCanAutomate);
 
     value[ID::pitchBend] = std::make_unique<ValueLinear>(
-      0.5, scale.defaultScale, "PitchBend", Info::kCanAutomate);
+      0.5, Scales::defaultScale, "PitchBend", Info::kCanAutomate);
     value[ID::unison]
-      = std::make_unique<UIntValue>(0, scale.boolScale, "Unison", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::boolScale, "Unison", Info::kCanAutomate);
     value[ID::nVoice]
-      = std::make_unique<UIntValue>(5, scale.nVoice, "nVoice", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(5, Scales::nVoice, "nVoice", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }
@@ -330,7 +297,7 @@ struct PlugParameter {
     return kResultOk;
   }
 
-  double getDefaultNormalized(int32_t tag)
+  double getDefaultNormalized(int32_t tag) override
   {
     if (size_t(abs(tag)) >= value.size()) return 0.0;
     return value[tag]->getDefaultNormalized();

@@ -45,7 +45,7 @@ void Note<Sample>::setup(
   Sample normalizedKey,
   Sample frequency,
   Sample velocity,
-  Steinberg::Synth::PlugParameter &param)
+  Steinberg::Synth::GlobalParameter &param)
 {
   state = NoteState::active;
   id = noteId;

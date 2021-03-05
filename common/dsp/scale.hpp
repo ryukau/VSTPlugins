@@ -31,8 +31,8 @@ public:
   uint32_t map(T input) const { return uint32_t(std::min<T>(max, input * (max + 1))); }
   uint32_t reverseMap(T input) const { return map(T(1.0) - input); }
   T invmap(uint32_t input) const { return input / T(max); }
-  T getMin() const { return T(0); }
-  T getMax() const { return T(max); }
+  T getMin() { return T(0); }
+  T getMax() { return T(max); }
 
 protected:
   const uint32_t max;
@@ -65,8 +65,8 @@ public:
     return std::clamp(value, T(0), T(1));
   }
 
-  T getMin() const { return min; }
-  T getMax() const { return max; }
+  T getMin() { return min; }
+  T getMax() { return max; }
 
 protected:
   T scale;
@@ -110,8 +110,8 @@ public:
       : T(1.0) - T(0.5) * std::pow(T(2.0) - T(2.0) * value, powerInv);
   }
 
-  T getMin() const { return min; }
-  T getMax() const { return max; }
+  T getMin() { return min; }
+  T getMax() { return max; }
 
 protected:
   T scale;
@@ -157,8 +157,8 @@ public:
       : T(1.0) - std::acos(std::pow(T(2.0) * value - T(1.0), powerInv)) / pi;
   }
 
-  T getMin() const { return min; }
-  T getMax() const { return max; }
+  T getMin() { return min; }
+  T getMax() { return max; }
 
 protected:
   T scale;
@@ -204,8 +204,8 @@ public:
     return value;
   }
 
-  T getMin() const { return min; }
-  T getMax() const { return max; }
+  T getMin() { return min; }
+  T getMax() { return max; }
 
 protected:
   T scale;
@@ -251,8 +251,8 @@ public:
     return std::clamp(normalized, T(0), T(1));
   }
 
-  T getMin() const { return minToZero ? 0 : minFreq; }
-  T getMax() const { return maxFreq; }
+  T getMin() { return minToZero ? 0 : minFreq; }
+  T getMax() { return maxFreq; }
 
 protected:
   bool minToZero;
@@ -278,7 +278,7 @@ public:
     scaleDB = (maxDB - minDB);
   }
 
-  T map(T normalized) const
+  T map(T normalized)
   {
     if (minToZero && normalized <= T(0)) return T(0);
     T dB = std::clamp(normalized * scaleDB + minDB, minDB, maxDB);
@@ -287,18 +287,18 @@ public:
 
   T reverseMap(T input) const { return map(T(1) - input); }
 
-  T invmap(T amplitude) const
+  T invmap(T amplitude)
   {
     if (amplitude <= T(0)) return T(0);
     T normalized = (ampToDB(amplitude) - minDB) / scaleDB;
     return std::clamp(normalized, T(0), T(1));
   }
 
-  T getMin() const { return minToZero ? 0 : minAmp; }
-  T getMax() const { return maxAmp; }
+  T getMin() { return minToZero ? 0 : minAmp; }
+  T getMax() { return maxAmp; }
 
-  inline T dbToAmp(T dB) const { return std::pow(T(10), dB / T(20)); }
-  inline T ampToDB(T amplitude) const { return T(20) * std::log10(amplitude); }
+  inline T dbToAmp(T dB) { return std::pow(T(10), dB / T(20)); }
+  inline T ampToDB(T amplitude) { return T(20) * std::log10(amplitude); }
 
 protected:
   bool minToZero;

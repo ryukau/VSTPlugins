@@ -59,6 +59,7 @@ set_property(TARGET fftw3 PROPERTY IMPORTED_LOCATION ${fftw3_path})
 # VST 3 settings.
 set(plug_sources
   ../lib/vcl/instrset_detect.cpp
+  source/parameter.cpp
   ../common/gui/splashdrawempty.cpp
   source/plugprocessor.cpp
   source/editor.cpp

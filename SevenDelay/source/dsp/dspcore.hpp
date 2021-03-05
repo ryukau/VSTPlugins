@@ -40,7 +40,7 @@ using DCKillerTypeName = SomeDSP::BiquadHighPass<float>;
 
 class DSPCore {
 public:
-  PlugParameter param;
+  GlobalParameter param;
 
   void setup(double sampleRate);
   void reset();                     // Stop sounds.
