@@ -22,7 +22,12 @@
 #include <vector>
 
 #include "../../common/dsp/constants.hpp"
+
+#ifdef TEST_DSP
+#include "../../test/value.hpp"
+#else
 #include "../../common/value.hpp"
+#endif
 
 constexpr uint16_t nDelay = 24;
 constexpr uint16_t nComb = 8;
@@ -300,9 +305,16 @@ struct PlugParameter {
     value[ID::pitchBend] = std::make_unique<LinearValue>(
       0.5, scale.defaultScale, "pitchBend", Info::kCanAutomate);
 
+#ifndef TEST_DSP
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
+#endif
   }
 
+#ifdef TEST_DSP
+  // Not used in DSP test.
+  double getDefaultNormalized(int32_t tag) { return 0.0; }
+
+#else
   tresult setState(IBStream *stream)
   {
     IBStreamer streamer(stream, kLittleEndian);
@@ -331,6 +343,7 @@ struct PlugParameter {
     if (size_t(abs(tag)) >= value.size()) return 0.0;
     return value[tag]->getDefaultNormalized();
   }
+#endif
 };
 
 } // namespace Synth

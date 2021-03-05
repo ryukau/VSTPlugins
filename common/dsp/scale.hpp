@@ -31,8 +31,8 @@ public:
   uint32_t map(T input) const { return uint32_t(std::min<T>(max, input * (max + 1))); }
   uint32_t reverseMap(T input) const { return map(T(1.0) - input); }
   T invmap(uint32_t input) const { return input / T(max); }
-  T getMin() const { return T(0); }
-  T getMax() const { return T(max); }
+  uint32_t getMin() const { return 0; }
+  uint32_t getMax() const { return max; }
 
 protected:
   const uint32_t max;
