@@ -63,34 +63,6 @@ template<> void Editor<Synth::PlugParameter>::addWaveView(const CRect &size)
   waveView->remember();
 }
 
-template<> ParamValue Editor<Synth::PlugParameter>::getPlainValue(ParamID tag)
-{
-  auto normalized = controller->getParamNormalized(tag);
-  return controller->normalizedParamToPlain(tag, normalized);
-}
-
-template<> void Editor<Synth::PlugParameter>::valueChanged(CControl *pControl)
-{
-  ParamID id = pControl->getTag();
-  ParamValue value = pControl->getValueNormalized();
-  controller->setParamNormalized(id, value);
-  controller->performEdit(id, value);
-
-  refreshWaveView(id);
-  refreshTimeTextView(id);
-}
-
-template<> void Editor<Synth::PlugParameter>::updateUI(ParamID id, ParamValue normalized)
-{
-  auto iter = controlMap.find(id);
-  if (iter == controlMap.end()) return;
-  iter->second->setValueNormalized(normalized);
-  iter->second->invalid();
-
-  refreshWaveView(id);
-  refreshTimeTextView(id);
-}
-
 template<> void Editor<Synth::PlugParameter>::refreshWaveView(ParamID id)
 {
   if (id == Synth::ParameterID::lfoShape) {
@@ -131,6 +103,34 @@ template<> void Editor<Synth::PlugParameter>::refreshTimeTextView(ParamID id)
   std::string text = ss.str();
   timeTextView->setText(text);
   timeTextView->setDirty(true);
+}
+
+template<> ParamValue Editor<Synth::PlugParameter>::getPlainValue(ParamID tag)
+{
+  auto normalized = controller->getParamNormalized(tag);
+  return controller->normalizedParamToPlain(tag, normalized);
+}
+
+template<> void Editor<Synth::PlugParameter>::valueChanged(CControl *pControl)
+{
+  ParamID id = pControl->getTag();
+  ParamValue value = pControl->getValueNormalized();
+  controller->setParamNormalized(id, value);
+  controller->performEdit(id, value);
+
+  refreshWaveView(id);
+  refreshTimeTextView(id);
+}
+
+template<> void Editor<Synth::PlugParameter>::updateUI(ParamID id, ParamValue normalized)
+{
+  auto iter = controlMap.find(id);
+  if (iter == controlMap.end()) return;
+  iter->second->setValueNormalized(normalized);
+  iter->second->invalid();
+
+  refreshWaveView(id);
+  refreshTimeTextView(id);
 }
 
 template<> bool Editor<Synth::PlugParameter>::prepareUI()
