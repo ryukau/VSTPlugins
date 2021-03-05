@@ -146,8 +146,8 @@ struct GlobalParameter : public ParameterInterface {
 
     using Info = Vst::ParameterInfo;
     using ID = ParameterID::ID;
-    using ValueLinear = FloatValue<SomeDSP::LinearScale<double>>;
-    using ValueLog = FloatValue<SomeDSP::LogScale<double>>;
+    using ValueLinear = DoubleValue<SomeDSP::LinearScale<double>>;
+    using ValueLog = DoubleValue<SomeDSP::LogScale<double>>;
 
     value[ID::bypass] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "Bypass", Info::kCanAutomate | Info::kIsBypass);

@@ -92,10 +92,10 @@ struct GlobalParameter : public ParameterInterface {
 
     using Info = Vst::ParameterInfo;
     using ID = ParameterID::ID;
-    using LinearValue = FloatValue<SomeDSP::LinearScale<double>>;
-    using LogValue = FloatValue<SomeDSP::LogScale<double>>;
-    using DecibelValue = FloatValue<SomeDSP::DecibelScale<double>>;
-    using SemitoneValue = FloatValue<SomeDSP::SemitoneScale<double>>;
+    using LinearValue = DoubleValue<SomeDSP::LinearScale<double>>;
+    using LogValue = DoubleValue<SomeDSP::LogScale<double>>;
+    using DecibelValue = DoubleValue<SomeDSP::DecibelScale<double>>;
+    using SemitoneValue = DoubleValue<SomeDSP::SemitoneScale<double>>;
 
     value[ID::bypass] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);

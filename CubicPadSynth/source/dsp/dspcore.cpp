@@ -285,7 +285,6 @@ std::array<float, 2> PROCESSING_UNIT_NAME::process(
   pitch = lfoSig + notePitch + info.masterPitch.getValue()
     + info.pitchEnvelopeAmount.getValue() * pitchEnvelope.process();
   osc.setFrequency(
-    sampleRate,
     notePitchToFrequency(
       pitch, info.equalTemperament.getValue(), info.pitchA4Hz.getValue()),
     wavetable.tableBaseFreq);

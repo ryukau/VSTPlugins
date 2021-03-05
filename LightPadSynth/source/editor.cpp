@@ -548,7 +548,7 @@ bool Editor::prepareUI()
   auto knobSpectrumRotate = addTextKnob(
     tableSpectrumLeft1, tableSpectrumTop + 2.0f * labelY, knobX, labelHeight, uiTextSize,
     ID::spectrumRotate, Scales::defaultScale, false, 6);
-  knobSpectrumRotate->lowSensitivity = 1.0f / spectrumSize;
+  knobSpectrumRotate->lowSensitivity = 1.0f / oscSpectrumSize;
   tabview->addWidget(tabPadSynth, knobSpectrumRotate);
 
   tabview->addWidget(

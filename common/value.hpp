@@ -85,8 +85,9 @@ protected:
 struct ValueInterface {
   virtual ~ValueInterface() {}
 
-  virtual double getFloat() const = 0;
   virtual uint32_t getInt() const = 0;
+  virtual float getFloat() const = 0;
+  virtual double getDouble() const = 0;
   virtual double getNormalized() = 0;
   virtual double getDefaultNormalized() = 0;
   virtual void setFromInt(uint32_t value) = 0;
@@ -124,7 +125,8 @@ struct UIntValue : public ValueInterface {
   }
 
   inline uint32_t getInt() const override { return raw; }
-  inline double getFloat() const override { return raw; }
+  inline float getFloat() const override { return float(raw); }
+  inline double getDouble() const override { return double(raw); }
   double getNormalized() override { return scale.invmap(raw); }
   inline double getDefaultNormalized() override { return defaultNormalized; }
 
@@ -171,7 +173,7 @@ struct UIntValue : public ValueInterface {
 
 template<typename Scale> struct FloatValue : public ValueInterface {
   double defaultNormalized;
-  double raw;
+  float raw;
   Scale &scale;
 
   std::string name;
@@ -190,7 +192,76 @@ template<typename Scale> struct FloatValue : public ValueInterface {
   }
 
   inline uint32_t getInt() const override { return uint32_t(raw); }
-  inline double getFloat() const override { return raw; }
+  inline float getFloat() const override { return raw; }
+  inline double getDouble() const override { return double(raw); }
+  double getNormalized() override { return scale.invmap(raw); }
+  inline double getDefaultNormalized() override { return defaultNormalized; }
+
+  void setFromInt(uint32_t value) override
+  {
+    raw = std::clamp<double>(value, scale.getMin(), scale.getMax());
+  }
+
+  void setFromFloat(double value) override
+  {
+    raw = std::clamp<double>(value, scale.getMin(), scale.getMax());
+  }
+
+  void setFromNormalized(double value) override
+  {
+    raw = scale.map(std::clamp<double>(value, 0.0, 1.0));
+  }
+
+  tresult setState(IBStreamer &streamer) override
+  {
+    double normalized;
+    if (!streamer.readFloat(normalized)) return kResultFalse;
+    setFromNormalized(normalized);
+    return kResultOk;
+  }
+
+  tresult getState(IBStreamer &streamer) override
+  {
+    if (!streamer.writeFloat(getNormalized())) return kResultFalse;
+    return kResultOk;
+  }
+
+  tresult addParameter(Vst::ParameterContainer &parameters) override
+  {
+    auto par = parameters.addParameter(new Vst::ScaledParameter<Scale>(
+      USTRING(name.c_str()), id, scale, defaultNormalized, USTRING(unit.c_str()),
+      parameterFlags));
+    return par == nullptr ? kResultFalse : kResultOk;
+  }
+
+  Vst::ParamID getId() override { return id; }
+  void setId(Vst::ParamID id) override { this->id = id; }
+};
+
+// Only used in old plugins.
+template<typename Scale> struct DoubleValue : public ValueInterface {
+  double defaultNormalized;
+  double raw;
+  Scale &scale;
+
+  std::string name;
+  std::string unit;
+  int32 parameterFlags;
+  Vst::ParamID id;
+
+  DoubleValue(
+    double defaultNormalized, Scale &scale, std::string name, int32 parameterFlags)
+    : defaultNormalized(defaultNormalized)
+    , raw(scale.map(defaultNormalized))
+    , scale(scale)
+    , name(name)
+    , parameterFlags(parameterFlags)
+  {
+  }
+
+  inline uint32_t getInt() const override { return uint32_t(raw); }
+  inline float getFloat() const override { return float(raw); }
+  inline double getDouble() const override { return double(raw); }
   double getNormalized() override { return scale.invmap(raw); }
   inline double getDefaultNormalized() override { return defaultNormalized; }
 

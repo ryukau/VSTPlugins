@@ -27,9 +27,9 @@
 
 constexpr int32_t nOvertone = 360;
 constexpr int32_t nLFOWavetable = 64;
-constexpr int32_t tableSize = 262144;
+constexpr int32_t oscTableSize = 262144;
+constexpr int32_t oscSpectrumSize = oscTableSize / 2 + 1;
 constexpr int32_t lfoTableSize = 1023;
-constexpr int32_t spectrumSize = tableSize / 2 + 1;
 
 namespace Steinberg {
 namespace Synth {
@@ -182,9 +182,9 @@ struct GlobalParameter : public ParameterInterface {
 
     using Info = Vst::ParameterInfo;
     using ID = ParameterID::ID;
-    using LinearValue = FloatValue<SomeDSP::LinearScale<double>>;
-    using LogValue = FloatValue<SomeDSP::LogScale<double>>;
-    using DecibelValue = FloatValue<SomeDSP::DecibelScale<double>>;
+    using LinearValue = DoubleValue<SomeDSP::LinearScale<double>>;
+    using LogValue = DoubleValue<SomeDSP::LogScale<double>>;
+    using DecibelValue = DoubleValue<SomeDSP::DecibelScale<double>>;
 
     value[ID::bypass] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);

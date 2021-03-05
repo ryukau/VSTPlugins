@@ -20,23 +20,23 @@ endif()
 
 if(MSVC)
   set(dsp_msvc_flag
-    $<$<CONFIG:Debug>:>
-    $<$<CONFIG:Release>:/O2 /fp:fast>)
+    $<$<CONFIG:Debug>:/W4>
+    $<$<CONFIG:Release>:/O2 /fp:fast /W4 /wd4127 /wd4324 /wd4458>)
   target_compile_options(${dspcore_avx} PRIVATE ${dsp_msvc_flag} /arch:AVX)
   target_compile_options(${dspcore_avx2} PRIVATE ${dsp_msvc_flag} /arch:AVX2)
   # target_compile_options(${dspcore_avx512} PRIVATE ${dsp_msvc_flag} /arch:AVX512)
 elseif(UNIX)
   if(APPLE)
     set(dsp_apple_clang_flag
-      $<$<CONFIG:Debug>:-g -fPIC -fno-aligned-allocation>
-      $<$<CONFIG:Release>:-O3 -fPIC -fno-aligned-allocation>)
+      $<$<CONFIG:Debug>:-g -fPIC -fno-aligned-allocation -Wall>
+      $<$<CONFIG:Release>:-O3 -fPIC -fno-aligned-allocation -Wall>)
     target_compile_options(${dspcore_avx} PRIVATE ${dsp_apple_clang_flag} -mavx)
     target_compile_options(${dspcore_avx2} PRIVATE ${dsp_apple_clang_flag} -mavx2 -mfma)
     # target_compile_options(${dspcore_avx512} PRIVATE ${dsp_apple_clang_flag} -mavx512f -mfma -mavx512vl -mavx512bw -mavx512dq)
   else()
     set(dsp_linux_gcc_flag
-      $<$<CONFIG:Debug>:-g -fPIC>
-      $<$<CONFIG:Release>:-O3 -fPIC>)
+      $<$<CONFIG:Debug>:-g -fPIC -Wall>
+      $<$<CONFIG:Release>:-O3 -fPIC -Wall>)
     target_compile_options(${dspcore_avx} PRIVATE ${dsp_linux_gcc_flag} -mavx)
     target_compile_options(${dspcore_avx2} PRIVATE ${dsp_linux_gcc_flag} -mavx2 -mfma)
     target_compile_options(${dspcore_avx512} PRIVATE ${dsp_linux_gcc_flag} -mavx512f -mfma -mavx512vl -mavx512bw -mavx512dq)

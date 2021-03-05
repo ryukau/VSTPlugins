@@ -189,10 +189,10 @@ struct GlobalParameter : public ParameterInterface {
 
     using Info = Vst::ParameterInfo;
     using ID = ParameterID::ID;
-    using LinearValue = FloatValue<SomeDSP::LinearScale<double>>;
-    using LogValue = FloatValue<SomeDSP::LogScale<double>>;
-    using SPolyValue = FloatValue<SomeDSP::SPolyScale<double>>;
-    using DecibelValue = FloatValue<SomeDSP::DecibelScale<double>>;
+    using LinearValue = DoubleValue<SomeDSP::LinearScale<double>>;
+    using LogValue = DoubleValue<SomeDSP::LogScale<double>>;
+    using SPolyValue = DoubleValue<SomeDSP::SPolyScale<double>>;
+    using DecibelValue = DoubleValue<SomeDSP::DecibelScale<double>>;
 
     value[ID::bypass] = std::make_unique<UIntValue>(
       false, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);

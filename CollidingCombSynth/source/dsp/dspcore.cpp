@@ -223,7 +223,7 @@ void DSPCORE_NAME::reset()
 
 void DSPCORE_NAME::startup() {}
 
-void DSPCORE_NAME::setParameters(float tempo)
+void DSPCORE_NAME::setParameters(float /* tempo */)
 {
   using ID = ParameterID::ID;
   auto &pv = param.value;
