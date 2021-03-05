@@ -51,6 +51,12 @@ template<> Editor<Synth::PlugParameter>::~Editor()
   if (timeTextView) timeTextView->forget();
 }
 
+template<> ParamValue Editor<Synth::PlugParameter>::getPlainValue(ParamID tag)
+{
+  auto normalized = controller->getParamNormalized(tag);
+  return controller->normalizedParamToPlain(tag, normalized);
+}
+
 template<> void Editor<Synth::PlugParameter>::addWaveView(const CRect &size)
 {
   auto view = new WaveView(size, palette);
@@ -103,12 +109,6 @@ template<> void Editor<Synth::PlugParameter>::refreshTimeTextView(ParamID id)
   std::string text = ss.str();
   timeTextView->setText(text);
   timeTextView->setDirty(true);
-}
-
-template<> ParamValue Editor<Synth::PlugParameter>::getPlainValue(ParamID tag)
-{
-  auto normalized = controller->getParamNormalized(tag);
-  return controller->normalizedParamToPlain(tag, normalized);
 }
 
 template<> void Editor<Synth::PlugParameter>::valueChanged(CControl *pControl)
