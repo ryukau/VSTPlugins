@@ -74,7 +74,7 @@ void NOTE_NAME::noteOn(
   float phase,
   NoteProcessInfo &info,
   std::array<PROCESSING_UNIT_NAME, nUnit> &units,
-  PlugParameter &param)
+  GlobalParameter &param)
 {
   using ID = ParameterID::ID;
 
@@ -205,7 +205,7 @@ void DSPCORE_NAME::startup()
 }
 
 void PROCESSING_UNIT_NAME::setParameters(
-  float sampleRate, NoteProcessInfo &info, PlugParameter &param)
+  float sampleRate, NoteProcessInfo &info, GlobalParameter &param)
 {
   using ID = ParameterID::ID;
 
@@ -227,7 +227,6 @@ void PROCESSING_UNIT_NAME::setParameters(
 
 void DSPCORE_NAME::setParameters(float tempo)
 {
-  const auto &scale = param.scale;
   using ID = ParameterID::ID;
 
   SmootherCommon<float>::setTime(param.value[ID::smoothness]->getFloat());
@@ -241,7 +240,7 @@ void DSPCORE_NAME::setParameters(float tempo)
   info.equalTemperament.push(param.value[ID::equalTemperament]->getFloat() + 1);
   info.pitchA4Hz.push(param.value[ID::pitchA4Hz]->getFloat() + 100);
   info.tableLowpass.push(
-    scale.tableLowpass.getMax() - param.value[ID::tableLowpass]->getFloat());
+    Scales::tableLowpass.getMax() - param.value[ID::tableLowpass]->getFloat());
   info.tableLowpassKeyFollow.push(param.value[ID::tableLowpassKeyFollow]->getFloat());
   info.tableLowpassEnvelopeAmount.push(
     param.value[ID::tableLowpassEnvelopeAmount]->getFloat());
@@ -286,7 +285,6 @@ std::array<float, 2> PROCESSING_UNIT_NAME::process(
   pitch = lfoSig + notePitch + info.masterPitch.getValue()
     + info.pitchEnvelopeAmount.getValue() * pitchEnvelope.process();
   osc.setFrequency(
-    sampleRate,
     notePitchToFrequency(
       pitch, info.equalTemperament.getValue(), info.pitchA4Hz.getValue()),
     wavetable.tableBaseFreq);

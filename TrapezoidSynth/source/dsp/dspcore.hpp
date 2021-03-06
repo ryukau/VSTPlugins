@@ -114,23 +114,23 @@ public:
   void setup(Sample sampleRate);
   void reset();
   void startup();
-  void setParameters(Sample tempo, PlugParameter &param);
+  void setParameters(Sample tempo, GlobalParameter &param);
   void
-  noteOn(bool wasResting, Sample frequency, Sample normalizedKey, PlugParameter &param);
+  noteOn(bool wasResting, Sample frequency, Sample normalizedKey, GlobalParameter &param);
   void noteOff(Sample frequency);
   void release(bool resetPitch);
   Sample process(const size_t bufferSize);
 
 private:
-  Sample getOctave(PlugParameter &param);
-  Sample getOsc1Pitch(PlugParameter &param);
-  Sample getOsc2Pitch(PlugParameter &param);
+  Sample getOctave(GlobalParameter &param);
+  Sample getOsc1Pitch(GlobalParameter &param);
+  Sample getOsc2Pitch(GlobalParameter &param);
 };
 
 class DSPCore {
 public:
   static const size_t maxVoice = 32;
-  PlugParameter param;
+  GlobalParameter param;
 
   DSPCore();
 

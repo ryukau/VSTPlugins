@@ -21,6 +21,7 @@
 #include <string>
 #include <vector>
 
+#include "../../common/parameterInterface.hpp"
 #include "../../common/value.hpp"
 
 namespace Steinberg {
@@ -47,66 +48,55 @@ enum ID {
 } // namespace ParameterID
 
 struct Scales {
-  Scales()
-    : boolScale(1)
-    , defaultScale(0.0, 1.0)
-    , inputGain(0.0, 4.0, 0.5, 1.0)
-    , outputGain(0.0, 2.0, 0.5, 0.2)
-    , clip(0.0, 32.0, 0.5, 4.0)
-    , orderInteger(16)
-    , smoothness(0.0, 0.5, 0.1, 0.04)
-  {
-  }
+  static SomeDSP::UIntScale<double> boolScale;
+  static SomeDSP::LinearScale<double> defaultScale;
 
-  SomeDSP::UIntScale<double> boolScale;
-  SomeDSP::LinearScale<double> defaultScale;
+  static SomeDSP::LogScale<double> inputGain;
+  static SomeDSP::LogScale<double> outputGain;
+  static SomeDSP::LogScale<double> clip;
+  static SomeDSP::UIntScale<double> orderInteger;
 
-  SomeDSP::LogScale<double> inputGain;
-  SomeDSP::LogScale<double> outputGain;
-  SomeDSP::LogScale<double> clip;
-  SomeDSP::UIntScale<double> orderInteger;
-
-  SomeDSP::LogScale<double> smoothness;
+  static SomeDSP::LogScale<double> smoothness;
 };
 
-struct PlugParameter {
-  Scales scale;
+struct GlobalParameter : public ParameterInterface {
   std::vector<std::unique_ptr<ValueInterface>> value;
 
-  PlugParameter()
+  GlobalParameter()
   {
     value.resize(ParameterID::ID_ENUM_LENGTH);
 
     using Info = Vst::ParameterInfo;
     using ID = ParameterID::ID;
-    using LinearValue = FloatValue<SomeDSP::LinearScale<double>>;
-    using LogValue = FloatValue<SomeDSP::LogScale<double>>;
-    // using DecibelValue = FloatValue<SomeDSP::DecibelScale<double>>;
+    using LinearValue = DoubleValue<SomeDSP::LinearScale<double>>;
+    using LogValue = DoubleValue<SomeDSP::LogScale<double>>;
+    // using DecibelValue = DoubleValue<SomeDSP::DecibelScale<double>>;
 
     value[ID::bypass] = std::make_unique<UIntValue>(
-      0, scale.boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
+      0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
-    value[ID::inputGain]
-      = std::make_unique<LogValue>(0.5, scale.inputGain, "inputGain", Info::kCanAutomate);
+    value[ID::inputGain] = std::make_unique<LogValue>(
+      0.5, Scales::inputGain, "inputGain", Info::kCanAutomate);
     value[ID::outputGain] = std::make_unique<LogValue>(
-      scale.outputGain.invmap(1.0), scale.outputGain, "outputGain", Info::kCanAutomate);
+      Scales::outputGain.invmap(1.0), Scales::outputGain, "outputGain",
+      Info::kCanAutomate);
     value[ID::clip] = std::make_unique<LogValue>(
-      scale.clip.invmap(1.0), scale.clip, "clip", Info::kCanAutomate);
+      Scales::clip.invmap(1.0), Scales::clip, "clip", Info::kCanAutomate);
     value[ID::ratio] = std::make_unique<LinearValue>(
-      0.9, scale.defaultScale, "ratio", Info::kCanAutomate);
+      0.9, Scales::defaultScale, "ratio", Info::kCanAutomate);
     value[ID::slope] = std::make_unique<LinearValue>(
-      0.0, scale.defaultScale, "slope", Info::kCanAutomate);
+      0.0, Scales::defaultScale, "slope", Info::kCanAutomate);
 
     value[ID::orderInteger] = std::make_unique<UIntValue>(
-      2, scale.orderInteger, "orderInteger", Info::kCanAutomate);
+      2, Scales::orderInteger, "orderInteger", Info::kCanAutomate);
     value[ID::orderFraction] = std::make_unique<LinearValue>(
-      0, scale.defaultScale, "orderFraction", Info::kCanAutomate);
+      0, Scales::defaultScale, "orderFraction", Info::kCanAutomate);
 
     value[ID::oversample] = std::make_unique<UIntValue>(
-      true, scale.boolScale, "oversample", Info::kCanAutomate);
+      true, Scales::boolScale, "oversample", Info::kCanAutomate);
 
     value[ID::smoothness] = std::make_unique<LogValue>(
-      0.1, scale.smoothness, "smoothness", Info::kCanAutomate);
+      0.1, Scales::smoothness, "smoothness", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }
@@ -134,7 +124,7 @@ struct PlugParameter {
     return kResultOk;
   }
 
-  double getDefaultNormalized(int32_t tag)
+  double getDefaultNormalized(int32_t tag) override
   {
     if (size_t(abs(tag)) >= value.size()) return 0.0;
     return value[tag]->getDefaultNormalized();

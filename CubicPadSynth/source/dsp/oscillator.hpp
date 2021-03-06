@@ -126,7 +126,7 @@ template<size_t tableSize, size_t nPeak> struct WaveTable {
     return powf(expf(-x * x) / bwi, shape);
   }
 
-  void refreshTable(float sampleRate)
+  void refreshTable()
   {
     isRefreshing = true;
 
@@ -215,13 +215,13 @@ template<size_t tableSize, size_t nPeak> struct WaveTable {
       int32_t end = std::min<int32_t>(center + profileHalf, spectrumSize);
 
       std::uniform_real_distribution<float> distPhase(0.0f, phase[peak]);
-      auto phase = distPhase(rng);
+      float phi = distPhase(rng);
       for (int32_t bin = start; bin < end; bin += profileSkip) {
-        auto radius = gain[peak]
+        float radius = gain[peak]
           * profile(bin / float(spectrumSize) - freqIdx, bandIdx, profileShape);
-        if (!uniformPhaseProfile) phase = distPhase(rng);
-        spectrum[bin][0] += radius * cosf(phase);
-        spectrum[bin][1] += radius * sinf(phase);
+        if (!uniformPhaseProfile) phi = distPhase(rng);
+        spectrum[bin][0] += radius * cosf(phi);
+        spectrum[bin][1] += radius * sinf(phi);
       }
     }
 
@@ -275,7 +275,7 @@ template<size_t tableSize, size_t nPeak> struct WaveTable {
     spectrum[0][0] = 0.0f;
     spectrum[0][1] = 0.0f;
 
-    refreshTable(sampleRate);
+    refreshTable();
   }
 };
 
@@ -360,13 +360,13 @@ template<size_t tableSize> struct alignas(64) TableOsc16 {
     this->phase.insert(index, 1.0f + (phase - floorf(phase)) * tableSize);
   }
 
-  void setFrequency(float sampleRate, Vec16f frequency, float tableBaseFreq)
+  void setFrequency(Vec16f frequency, float tableBaseFreq)
   {
     tick = frequency / tableBaseFreq;
     tick = select(tick >= tableSize, 0, tick);
   }
 
-  void setFrequency(int index, float sampleRate, float frequency, float tableBaseFreq)
+  void setFrequency(int index, float frequency, float tableBaseFreq)
   {
     float tck = frequency / tableBaseFreq;
     tick.insert(index, tck >= tableSize ? 0 : tck);

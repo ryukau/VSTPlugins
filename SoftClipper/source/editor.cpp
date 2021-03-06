@@ -41,15 +41,16 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
+Editor::Editor(void *controller) : PlugEditor(controller)
 {
+  param = std::make_unique<Synth::GlobalParameter>();
+
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-template<> bool Editor<Synth::PlugParameter>::prepareUI()
+bool Editor::prepareUI()
 {
-  const auto &scale = param.scale;
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
@@ -69,14 +70,14 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   addLabel(
     left1, top0, 1.5f * knobX, labelHeight, uiTextSize, "Order Integer", kLeftText);
   addTextKnob(
-    left2, top0, knobX, labelHeight, uiTextSize, ID::orderInteger, scale.orderInteger);
+    left2, top0, knobX, labelHeight, uiTextSize, ID::orderInteger, Scales::orderInteger);
 
   addLabel(
     left1, top0 + labelY, 1.5f * knobX, labelHeight, uiTextSize, "Order Fraction",
     kLeftText);
   addTextKnob(
     left2, top0 + labelY, knobX, labelHeight, uiTextSize, ID::orderFraction,
-    scale.defaultScale, false, 4);
+    Scales::defaultScale, false, 4);
 
   addCheckbox(
     left1, top0 + 2 * labelY, 1.5f * knobX, labelHeight, uiTextSize, "OverSample",

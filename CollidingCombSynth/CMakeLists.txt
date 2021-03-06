@@ -12,44 +12,40 @@ endfunction()
 # `dspcore_avx512` must be empty string on Windows and macOS.
 #
 function(build_dspcore target)
+  get_plugin_name(PLUGIN_NAME)
+  set(target ${PLUGIN_NAME})
+
   set(dspcore_avx "${target}_dspcore_avx")
-  set(dspcore_avx ${dspcore_avx} PARENT_SCOPE)
-
   set(dspcore_avx2 "${target}_dspcore_avx2")
-  set(dspcore_avx2 ${dspcore_avx2} PARENT_SCOPE)
+  set(dspcore_avx512 "${target}_dspcore_avx512")
 
-  message("target: ${target}")
-  message("avx: ${dspcore_avx}")
-  message("${target}_dspcore_avx")
+  set(dspcore_avx ${dspcore_avx} PARENT_SCOPE)
+  set(dspcore_avx2 ${dspcore_avx2} PARENT_SCOPE)
+  set(dspcore_avx512 ${dspcore_avx512} PARENT_SCOPE)
+
   add_library(${dspcore_avx} OBJECT source/dsp/dspcore.cpp)
   add_library(${dspcore_avx2} OBJECT source/dsp/dspcore.cpp)
-
-  if(UNIX AND NOT APPLE) # Linux.
-    # I couldn't build FFTW3 with AVX512 on Windows and macOS.
-    set(dspcore_avx512 "${target}_dspcore_avx512")
-    set(dspcore_avx512 ${dspcore_avx512} PARENT_SCOPE)
-    add_library(${dspcore_avx512} OBJECT source/dsp/dspcore.cpp)
-  endif()
+  add_library(${dspcore_avx512} OBJECT source/dsp/dspcore.cpp)
 
   if(MSVC)
     set(dsp_msvc_flag
-      $<$<CONFIG:Debug>:>
-      $<$<CONFIG:Release>:/O2 /fp:fast>)
+      $<$<CONFIG:Debug>:/W4 /wd4127 /wd4324 /wd4458>
+      $<$<CONFIG:Release>:/O2 /fp:fast /W4 /wd4127 /wd4324 /wd4458>)
     target_compile_options(${dspcore_avx} PRIVATE ${dsp_msvc_flag} /arch:AVX)
     target_compile_options(${dspcore_avx2} PRIVATE ${dsp_msvc_flag} /arch:AVX2)
-    # target_compile_options(${dspcore_avx512} PRIVATE ${dsp_msvc_flag} /arch:AVX512)
+    target_compile_options(${dspcore_avx512} PRIVATE ${dsp_msvc_flag} /arch:AVX512)
   elseif(UNIX)
     if(APPLE)
       set(dsp_apple_clang_flag
-        $<$<CONFIG:Debug>:-g -fPIC -fno-aligned-allocation>
-        $<$<CONFIG:Release>:-O3 -fPIC -fno-aligned-allocation>)
+        $<$<CONFIG:Debug>:-g -fPIC -fno-aligned-allocation -Wall>
+        $<$<CONFIG:Release>:-O3 -fPIC -fno-aligned-allocation -Wall>)
       target_compile_options(${dspcore_avx} PRIVATE ${dsp_apple_clang_flag} -mavx)
       target_compile_options(${dspcore_avx2} PRIVATE ${dsp_apple_clang_flag} -mavx2 -mfma)
-      # target_compile_options(${dspcore_avx512} PRIVATE ${dsp_apple_clang_flag} -mavx512f -mfma -mavx512vl -mavx512bw -mavx512dq)
+      target_compile_options(${dspcore_avx512} PRIVATE ${dsp_apple_clang_flag} -mavx512f -mfma -mavx512vl -mavx512bw -mavx512dq)
     else()
       set(dsp_linux_gcc_flag
-        $<$<CONFIG:Debug>:-g -fPIC>
-        $<$<CONFIG:Release>:-O3 -fPIC>)
+        $<$<CONFIG:Debug>:-g -fPIC -Wall>
+        $<$<CONFIG:Release>:-O3 -fPIC -Wall>)
       target_compile_options(${dspcore_avx} PRIVATE ${dsp_linux_gcc_flag} -mavx)
       target_compile_options(${dspcore_avx2} PRIVATE ${dsp_linux_gcc_flag} -mavx2 -mfma)
       target_compile_options(${dspcore_avx512} PRIVATE ${dsp_linux_gcc_flag} -mavx512f -mfma -mavx512vl -mavx512bw -mavx512dq)
@@ -60,7 +56,6 @@ endfunction()
 function(build_test)
   get_plugin_name(PLUGIN_NAME)
   set(target "testdsp_${PLUGIN_NAME}")
-  message("add build: ${target}")
 
   add_compile_definitions(TEST_DSP)
 
@@ -84,6 +79,7 @@ function(build_vst3)
   # VST 3 settings.
   set(plug_sources
     ../lib/vcl/instrset_detect.cpp
+    source/parameter.cpp
     source/gui/splashdraw.cpp
     source/plugprocessor.cpp
     source/editor.cpp

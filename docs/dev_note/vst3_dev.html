@@ -574,7 +574,7 @@ footer {
 <span id="cb18-9"><a href="#cb18-9"></a>  <span class="kw">target_compile_options</span>(<span class="dv">${</span>target<span class="dv">}</span> <span class="ot">PRIVATE</span> /O2 /fp:fast /arch:AVX2)</span>
 <span id="cb18-10"><a href="#cb18-10"></a><span class="kw">elseif</span>(<span class="dv">UNIX</span>)</span>
 <span id="cb18-11"><a href="#cb18-11"></a>  <span class="kw">if</span>(<span class="dv">APPLE</span>) <span class="co"># macOS, clang</span></span>
-<span id="cb18-12"><a href="#cb18-12"></a>    <span class="kw">target_compile_options</span>(<span class="dv">${</span>target<span class="dv">}</span> <span class="ot">PRIVATE</span> -O3 -fPIC -fno-aligned-allocation -mfma -mavx2)</span>
+<span id="cb18-12"><a href="#cb18-12"></a>    <span class="kw">target_compile_options</span>(<span class="dv">${</span>target<span class="dv">}</span> <span class="ot">PRIVATE</span> -O3 -fPIC -fno-aligned-allocation -Wall -mfma -mavx2)</span>
 <span id="cb18-13"><a href="#cb18-13"></a>  <span class="kw">else</span>() <span class="co"># Linux</span></span>
 <span id="cb18-14"><a href="#cb18-14"></a>    <span class="kw">target_compile_options</span>(<span class="dv">${</span>target<span class="dv">}</span> <span class="ot">PRIVATE</span> -O3 -fPIC -mfma -mavx2)</span>
 <span id="cb18-15"><a href="#cb18-15"></a>  <span class="kw">endif</span>()</span>

@@ -83,7 +83,7 @@ void NOTE_NAME::noteOn(
   float sampleRate,
   Wavetable &wavetable,
   NoteProcessInfo &info,
-  PlugParameter &param)
+  GlobalParameter &param)
 {
   using ID = ParameterID::ID;
 

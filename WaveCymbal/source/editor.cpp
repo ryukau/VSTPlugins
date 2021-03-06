@@ -44,15 +44,16 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
+Editor::Editor(void *controller) : PlugEditor(controller)
 {
+  param = std::make_unique<Synth::GlobalParameter>();
+
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-template<> bool Editor<Synth::PlugParameter>::prepareUI()
+bool Editor::prepareUI()
 {
-  const auto &scale = param.scale;
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
@@ -87,10 +88,10 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   const auto topObjects = top0 + labelHeight + margin;
   addNumberKnob(
     leftObjects, topObjects, knobWidth, margin, uiTextSize, "nCymbal", ID::nCymbal,
-    scale.nCymbal, 1);
+    Scales::nCymbal, 1);
   addNumberKnob(
     leftObjects + knobX, topObjects, knobWidth, margin, uiTextSize, "nString", ID::stack,
-    scale.stack, 1);
+    Scales::stack, 1);
 
   // Wave.
   const auto leftWave = leftObjects + 2.0f * knobX + 4.0f * margin;
@@ -124,7 +125,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
 
   const auto topRandom = top1 + labelHeight + margin;
   addNumberKnob(
-    leftRandom, topRandom, knobWidth, margin, uiTextSize, "Seed", ID::seed, scale.seed,
+    leftRandom, topRandom, knobWidth, margin, uiTextSize, "Seed", ID::seed, Scales::seed,
     0);
   addKnob<Style::warning>(
     leftRandom + knobX, topRandom, knobWidth, margin, uiTextSize, "Amount",

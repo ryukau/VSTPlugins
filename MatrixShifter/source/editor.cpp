@@ -50,15 +50,16 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
+Editor::Editor(void *controller) : PlugEditor(controller)
 {
+  param = std::make_unique<Synth::GlobalParameter>();
+
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-template<> bool Editor<Synth::PlugParameter>::prepareUI()
+bool Editor::prepareUI()
 {
-  const auto &scale = param.scale;
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
@@ -90,10 +91,10 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   const auto barboxTop1 = barboxTop0 + shiftBarBoxHeight + 2 * margin;
   addBarBox(
     barboxLeft0, barboxTop0, shiftBarBoxWidth, shiftBarBoxHeight, ID::shiftDelay0,
-    nSerial, scale.shiftDelay, "Delay");
+    nSerial, Scales::shiftDelay, "Delay");
   addBarBox(
     barboxLeft0, barboxTop1, shiftBarBoxWidth, shiftBarBoxHeight, ID::shiftGain0, nSerial,
-    scale.shiftGain, "Gain");
+    Scales::shiftGain, "Gain");
 
   // Other controls.
   const auto miscLeft0 = left0 + shiftMatrixWidth + shiftBarBoxWidth + 8 * margin;
@@ -126,7 +127,7 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
   addLabel(miscLeft0, miscTop2, knobX, labelHeight, uiTextSize, "Shift*");
   addTextKnob(
     miscLeft1, miscTop2, knobX, labelHeight, uiTextSize, ID::shiftSemiMultiplier,
-    scale.shiftSemiMultiplier, false, 5, 0);
+    Scales::shiftSemiMultiplier, false, 5, 0);
 
   addCheckbox(
     miscLeft2, miscTop2, 2 * knobX, labelHeight, uiTextSize, "InvertEachSection",
@@ -134,13 +135,13 @@ template<> bool Editor<Synth::PlugParameter>::prepareUI()
 
   addLabel(miscLeft0, miscTop3, knobX, labelHeight, uiTextSize, "Smooth [s]");
   addTextKnob(
-    miscLeft1, miscTop3, knobX, labelHeight, uiTextSize, ID::smoothness, scale.smoothness,
-    false, 3, 0);
+    miscLeft1, miscTop3, knobX, labelHeight, uiTextSize, ID::smoothness,
+    Scales::smoothness, false, 3, 0);
 
   addLabel(miscLeft2, miscTop3, knobX, labelHeight, uiTextSize, "fb.Cut");
   addTextKnob(
     miscLeft3, miscTop3, knobX, labelHeight, uiTextSize, ID::shiftFeedbackCutoff,
-    scale.shiftFeedbackCutoff, false, 2, 0);
+    Scales::shiftFeedbackCutoff, false, 2, 0);
 
   // Plugin name.
   const auto splashTop = uiMargin + innerHeight - splashHeight;

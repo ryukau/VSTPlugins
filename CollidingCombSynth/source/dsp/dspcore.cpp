@@ -86,7 +86,7 @@ void NOTE_NAME::noteOn(
   float pan,
   float sampleRate,
   NoteProcessInfo &info,
-  PlugParameter &param)
+  GlobalParameter &param)
 {
   using ID = ParameterID::ID;
   auto &pv = param.value;
@@ -127,7 +127,7 @@ void NOTE_NAME::noteOn(
   for (size_t idx = 0; idx < nDelay; ++idx) {
     const auto freq = pitch * pv[ID::frequency0 + idx]->getFloat();
     const auto spread
-      = (freq - param.scale.frequency.getMin()) * pv[ID::randomFrequency]->getFloat();
+      = (freq - Scales::frequency.getMin()) * pv[ID::randomFrequency]->getFloat();
     std::uniform_real_distribution<float> distFreq(freq - spread, freq + spread);
     cymbal.string[idx].delay.setTime(sampleRate, 1.0f / distFreq(info.rngString));
   }
@@ -223,7 +223,7 @@ void DSPCORE_NAME::reset()
 
 void DSPCORE_NAME::startup() {}
 
-void DSPCORE_NAME::setParameters(float tempo)
+void DSPCORE_NAME::setParameters(float /* tempo */)
 {
   using ID = ParameterID::ID;
   auto &pv = param.value;

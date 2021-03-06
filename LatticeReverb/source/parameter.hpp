@@ -21,6 +21,7 @@
 #include <string>
 #include <vector>
 
+#include "../../common/parameterInterface.hpp"
 #include "../../common/value.hpp"
 
 constexpr size_t nestingDepth = 16;
@@ -63,50 +64,35 @@ enum ID {
   ID_ENUM_LENGTH,
 };
 } // namespace ParameterID
-struct Scales {
-  Scales()
-    : defaultScale(0.0, 1.0)
-    , boolScale(1)
-    , time(0.0, 1.0, 0.5, 0.05)
-    , feed(-1.0, 1.0)
-    , timeOffset(-1.0, 1.0)
-    , feedOffset(-1.0, 1.0)
-    , multiply(0.0, 1.0)
-    , timeLfoLowpas(0.0, 1.0, 0.5, 0.2)
-    , stereoCross(0.0, 0.5)
-    , gain(0.0, 4.0, 0.5, 1.0)
-    , smoothness(0.0, 8.0, 0.5, 1.0)
-  {
-  }
 
-  SomeDSP::LinearScale<double> defaultScale;
-  SomeDSP::UIntScale<double> boolScale;
-  SomeDSP::LinearScale<double> multiply;
-  SomeDSP::LogScale<double> time;
-  SomeDSP::LinearScale<double> feed;
-  SomeDSP::LinearScale<double> timeOffset;
-  SomeDSP::LinearScale<double> feedOffset;
-  SomeDSP::LogScale<double> timeLfoLowpas;
-  SomeDSP::LinearScale<double> stereoCross;
-  SomeDSP::LogScale<double> gain;
-  SomeDSP::LogScale<double> smoothness;
+struct Scales {
+  static SomeDSP::LinearScale<double> defaultScale;
+  static SomeDSP::UIntScale<double> boolScale;
+  static SomeDSP::LinearScale<double> multiply;
+  static SomeDSP::LogScale<double> time;
+  static SomeDSP::LinearScale<double> feed;
+  static SomeDSP::LinearScale<double> timeOffset;
+  static SomeDSP::LinearScale<double> feedOffset;
+  static SomeDSP::LogScale<double> timeLfoLowpas;
+  static SomeDSP::LinearScale<double> stereoCross;
+  static SomeDSP::LogScale<double> gain;
+  static SomeDSP::LogScale<double> smoothness;
 };
 
-struct PlugParameter {
-  Scales scale;
+struct GlobalParameter : public ParameterInterface {
   std::vector<std::unique_ptr<ValueInterface>> value;
 
-  PlugParameter()
+  GlobalParameter()
   {
     value.resize(ParameterID::ID_ENUM_LENGTH);
 
     using Info = Vst::ParameterInfo;
     using ID = ParameterID::ID;
-    using LinearValue = FloatValue<SomeDSP::LinearScale<double>>;
-    using LogValue = FloatValue<SomeDSP::LogScale<double>>;
+    using LinearValue = DoubleValue<SomeDSP::LinearScale<double>>;
+    using LogValue = DoubleValue<SomeDSP::LogScale<double>>;
 
     value[ID::bypass] = std::make_unique<UIntValue>(
-      0, scale.boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
+      0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     std::string timeLabel("time");
     std::string outerFeedLabel("outerFeed");
@@ -122,60 +108,61 @@ struct PlugParameter {
     for (size_t idx = 0; idx < nestingDepth; ++idx) {
       auto indexStr = std::to_string(idx);
       value[ID::time0 + idx] = std::make_unique<LogValue>(
-        scale.time.invmap(0.1), scale.time, (timeLabel + indexStr).c_str(),
+        Scales::time.invmap(0.1), Scales::time, (timeLabel + indexStr).c_str(),
         Info::kCanAutomate);
       value[ID::outerFeed0 + idx] = std::make_unique<LinearValue>(
-        0.5, scale.feed, (outerFeedLabel + indexStr).c_str(), Info::kCanAutomate);
+        0.5, Scales::feed, (outerFeedLabel + indexStr).c_str(), Info::kCanAutomate);
       value[ID::innerFeed0 + idx] = std::make_unique<LinearValue>(
-        0.5, scale.feed, (innerFeedLabel + indexStr).c_str(), Info::kCanAutomate);
+        0.5, Scales::feed, (innerFeedLabel + indexStr).c_str(), Info::kCanAutomate);
 
       value[ID::timeOffset0 + idx] = std::make_unique<LinearValue>(
-        0.5, scale.timeOffset, (timeOffsetLabel + indexStr).c_str(), Info::kCanAutomate);
+        0.5, Scales::timeOffset, (timeOffsetLabel + indexStr).c_str(),
+        Info::kCanAutomate);
       value[ID::outerFeedOffset0 + idx] = std::make_unique<LinearValue>(
-        0.5, scale.feedOffset, (outerFeedOffsetLabel + indexStr).c_str(),
+        0.5, Scales::feedOffset, (outerFeedOffsetLabel + indexStr).c_str(),
         Info::kCanAutomate);
       value[ID::innerFeedOffset0 + idx] = std::make_unique<LinearValue>(
-        0.5, scale.feedOffset, (innerFeedOffsetLabel + indexStr).c_str(),
+        0.5, Scales::feedOffset, (innerFeedOffsetLabel + indexStr).c_str(),
         Info::kCanAutomate);
 
       value[ID::timeLfoAmount0 + idx] = std::make_unique<LogValue>(
-        0.0, scale.time, (timeLfoAmountLabel + indexStr).c_str(), Info::kCanAutomate);
+        0.0, Scales::time, (timeLfoAmountLabel + indexStr).c_str(), Info::kCanAutomate);
 
       value[ID::lowpassCutoff0 + idx] = std::make_unique<LinearValue>(
-        1.0, scale.defaultScale, (lowpassCutoffLabel + indexStr).c_str(),
+        1.0, Scales::defaultScale, (lowpassCutoffLabel + indexStr).c_str(),
         Info::kCanAutomate);
     }
 
     value[ID::timeMultiply] = std::make_unique<LinearValue>(
-      1.0, scale.multiply, "timeMultiply", Info::kCanAutomate);
+      1.0, Scales::multiply, "timeMultiply", Info::kCanAutomate);
     value[ID::outerFeedMultiply] = std::make_unique<LinearValue>(
-      1.0, scale.multiply, "outerFeedMultiply", Info::kCanAutomate);
+      1.0, Scales::multiply, "outerFeedMultiply", Info::kCanAutomate);
     value[ID::innerFeedMultiply] = std::make_unique<LinearValue>(
-      1.0, scale.multiply, "innerFeedMultiply", Info::kCanAutomate);
+      1.0, Scales::multiply, "innerFeedMultiply", Info::kCanAutomate);
 
     value[ID::timeOffsetMultiply] = std::make_unique<LinearValue>(
-      0.05, scale.multiply, "timeOffsetMultiply", Info::kCanAutomate);
+      0.05, Scales::multiply, "timeOffsetMultiply", Info::kCanAutomate);
     value[ID::outerFeedOffsetMultiply] = std::make_unique<LinearValue>(
-      1.0, scale.multiply, "outerFeedOffsetMultiply", Info::kCanAutomate);
+      1.0, Scales::multiply, "outerFeedOffsetMultiply", Info::kCanAutomate);
     value[ID::innerFeedOffsetMultiply] = std::make_unique<LinearValue>(
-      1.0, scale.multiply, "innerFeedOffsetMultiply", Info::kCanAutomate);
+      1.0, Scales::multiply, "innerFeedOffsetMultiply", Info::kCanAutomate);
 
     value[ID::timeLfoLowpass] = std::make_unique<LogValue>(
-      scale.timeLfoLowpas.invmap(0.01), scale.timeLfoLowpas, "timeLfoLowpass",
+      Scales::timeLfoLowpas.invmap(0.01), Scales::timeLfoLowpas, "timeLfoLowpass",
       Info::kCanAutomate);
 
     value[ID::stereoCross] = std::make_unique<LinearValue>(
-      0.0, scale.stereoCross, "stereoCross", Info::kCanAutomate);
+      0.0, Scales::stereoCross, "stereoCross", Info::kCanAutomate);
     value[ID::stereoSpread] = std::make_unique<LinearValue>(
-      0.5, scale.defaultScale, "stereoSpread", Info::kCanAutomate);
+      0.5, Scales::defaultScale, "stereoSpread", Info::kCanAutomate);
 
     value[ID::dry]
-      = std::make_unique<LogValue>(0.5, scale.gain, "dry", Info::kCanAutomate);
+      = std::make_unique<LogValue>(0.5, Scales::gain, "dry", Info::kCanAutomate);
     value[ID::wet]
-      = std::make_unique<LogValue>(0.5, scale.gain, "wet", Info::kCanAutomate);
+      = std::make_unique<LogValue>(0.5, Scales::gain, "wet", Info::kCanAutomate);
 
     value[ID::smoothness] = std::make_unique<LogValue>(
-      0.5, scale.smoothness, "smoothness", Info::kCanAutomate);
+      0.5, Scales::smoothness, "smoothness", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }
@@ -203,7 +190,7 @@ struct PlugParameter {
     return kResultOk;
   }
 
-  double getDefaultNormalized(int32_t tag)
+  double getDefaultNormalized(int32_t tag) override
   {
     if (size_t(abs(tag)) >= value.size()) return 0.0;
     return value[tag]->getDefaultNormalized();

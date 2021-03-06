@@ -39,25 +39,27 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-template<> Editor<Synth::PlugParameter>::Editor(void *controller) : PlugEditor(controller)
+Editor::Editor(void *controller) : PlugEditor(controller)
 {
+  param = std::make_unique<Synth::GlobalParameter>();
+
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
 }
 
-template<> Editor<Synth::PlugParameter>::~Editor()
+Editor::~Editor()
 {
   if (waveView) waveView->forget();
   if (timeTextView) timeTextView->forget();
 }
 
-template<> ParamValue Editor<Synth::PlugParameter>::getPlainValue(ParamID tag)
+ParamValue Editor::getPlainValue(ParamID tag)
 {
   auto normalized = controller->getParamNormalized(tag);
   return controller->normalizedParamToPlain(tag, normalized);
 }
 
-template<> void Editor<Synth::PlugParameter>::addWaveView(const CRect &size)
+void Editor::addWaveView(const CRect &size)
 {
   auto view = new WaveView(size, palette);
   view->shape = getPlainValue(Synth::ParameterID::lfoShape);
@@ -69,7 +71,7 @@ template<> void Editor<Synth::PlugParameter>::addWaveView(const CRect &size)
   waveView->remember();
 }
 
-template<> void Editor<Synth::PlugParameter>::refreshWaveView(ParamID id)
+void Editor::refreshWaveView(ParamID id)
 {
   if (id == Synth::ParameterID::lfoShape) {
     if (waveView == nullptr) return;
@@ -82,7 +84,7 @@ template<> void Editor<Synth::PlugParameter>::refreshWaveView(ParamID id)
   }
 }
 
-template<> void Editor<Synth::PlugParameter>::refreshTimeTextView(ParamID id)
+void Editor::refreshTimeTextView(ParamID id)
 {
   using ID = Synth::ParameterID::ID;
 
@@ -111,7 +113,7 @@ template<> void Editor<Synth::PlugParameter>::refreshTimeTextView(ParamID id)
   timeTextView->setDirty(true);
 }
 
-template<> void Editor<Synth::PlugParameter>::valueChanged(CControl *pControl)
+void Editor::valueChanged(CControl *pControl)
 {
   ParamID id = pControl->getTag();
   ParamValue value = pControl->getValueNormalized();
@@ -122,7 +124,7 @@ template<> void Editor<Synth::PlugParameter>::valueChanged(CControl *pControl)
   refreshTimeTextView(id);
 }
 
-template<> void Editor<Synth::PlugParameter>::updateUI(ParamID id, ParamValue normalized)
+void Editor::updateUI(ParamID id, ParamValue normalized)
 {
   auto iter = controlMap.find(id);
   if (iter == controlMap.end()) return;
@@ -133,7 +135,7 @@ template<> void Editor<Synth::PlugParameter>::updateUI(ParamID id, ParamValue no
   refreshTimeTextView(id);
 }
 
-template<> bool Editor<Synth::PlugParameter>::prepareUI()
+bool Editor::prepareUI()
 {
   using ID = Synth::ParameterID::ID;
   using Scales = Synth::Scales;

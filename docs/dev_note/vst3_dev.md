@@ -310,7 +310,7 @@ if(MSVC) # Windows, MSVC
   target_compile_options(${target} PRIVATE /O2 /fp:fast /arch:AVX2)
 elseif(UNIX)
   if(APPLE) # macOS, clang
-    target_compile_options(${target} PRIVATE -O3 -fPIC -fno-aligned-allocation -mfma -mavx2)
+    target_compile_options(${target} PRIVATE -O3 -fPIC -fno-aligned-allocation -Wall -mfma -mavx2)
   else() # Linux
     target_compile_options(${target} PRIVATE -O3 -fPIC -mfma -mavx2)
   endif()

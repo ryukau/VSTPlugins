@@ -36,7 +36,7 @@ public:
   virtual ~DSPInterface(){};
 
   static const size_t maxVoice = 32;
-  PlugParameter param;
+  GlobalParameter param;
 
   virtual void setup(double sampleRate) = 0;
   virtual void reset() = 0;   // Stop sounds.
