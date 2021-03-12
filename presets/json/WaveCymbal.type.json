@@ -1,0 +1,186 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "seed",
+    "type": "I",
+    "default": 6583421,
+    "scale": "Scales::seed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "randomAmount",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::randomAmount",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "nCymbal",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::nCymbal",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "stack",
+    "type": "I",
+    "default": 24,
+    "scale": "Scales::stack",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "decay",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::decay",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "distance",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::distance",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "minFrequency",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::minFrequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "maxFrequency",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::maxFrequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "bandpassQ",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::bandpassQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "damping",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::damping",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "pulsePosition",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "pulseWidth",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "pickCombFeedback",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::pickCombFeedback",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "pickCombTime",
+    "type": "d",
+    "default": 0.25,
+    "scale": "Scales::pickCombTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "retrigger",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "cutoffMap",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "excitation",
+    "type": "I",
+    "default": 1,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "collision",
+    "type": "I",
+    "default": 1,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "oscType",
+    "type": "I",
+    "default": 2,
+    "scale": "Scales::oscType",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "smoothness",
+    "type": "d",
+    "default": 0.7,
+    "scale": "Scales::smoothness",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "gain",
+    "type": "d",
+    "default": 0.4,
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 22,
+    "name": "pitchBend",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  }
+]

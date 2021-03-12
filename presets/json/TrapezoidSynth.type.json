@@ -1,0 +1,530 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": false,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "osc1Semi",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::semi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "osc1Cent",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::cent",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "osc1PitchDrift",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::pitchDrift",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "osc1Slope",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::oscSlope",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "osc1PulseWidth",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "osc1Feedback",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::oscFeedback",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "osc2Semi",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::semi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "osc2Cent",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::cent",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "osc2Overtone",
+    "type": "d",
+    "default": 0,
+    "scale": "Scales::overtone",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "osc2Slope",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::oscSlope",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "osc2PulseWidth",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "pmOsc2ToOsc1",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::phaseModulation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "gain",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "gainA",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "gainD",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "gainS",
+    "type": "d",
+    "default": 0.8,
+    "scale": "Scales::envelopeS",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "gainR",
+    "type": "d",
+    "default": 0.1,
+    "scale": "Scales::envelopeR",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "gainCurve",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "gainEnvRetrigger",
+    "type": "I",
+    "default": true,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "filterOrder",
+    "type": "I",
+    "default": 7,
+    "scale": "Scales::filterOrder",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "filterCutoff",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::filterCutoff",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 22,
+    "name": "filterFeedback",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::filterResonance",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 23,
+    "name": "filterSaturation",
+    "type": "d",
+    "default": 0.3,
+    "scale": "Scales::filterSaturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 24,
+    "name": "filterEnvToCutoff",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::filterEnvToCutoff",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 25,
+    "name": "filterKeyToCutoff",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::filterKeyToCutoff",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 26,
+    "name": "oscMixToFilterCutoff",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::oscMixToFilterCutoff",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 27,
+    "name": "filterA",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 28,
+    "name": "filterD",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 29,
+    "name": "filterS",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeS",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 30,
+    "name": "filterR",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeR",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 31,
+    "name": "filterCurve",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 32,
+    "name": "filterEnvToOctave",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::filterEnvToOctave",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 33,
+    "name": "filterEnvRetrigger",
+    "type": "I",
+    "default": true,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 34,
+    "name": "modEnv1Attack",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::modEnvelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 35,
+    "name": "modEnv1Curve",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::modEnvelopeCurve",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 36,
+    "name": "modEnv1ToPhaseMod",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::phaseModulation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 37,
+    "name": "modEnv1Retrigger",
+    "type": "I",
+    "default": true,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 38,
+    "name": "modEnv2Attack",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::modEnvelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 39,
+    "name": "modEnv2Curve",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::modEnvelopeCurve",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 40,
+    "name": "modEnv2ToFeedback",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 41,
+    "name": "modEnv2ToLFOFrequency",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::lfoFrequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 42,
+    "name": "modEnv2ToOsc2Slope",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::oscSlope",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 43,
+    "name": "modEnv2ToShifter1",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::modEnvToShifter",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 44,
+    "name": "modEnv2Retrigger",
+    "type": "I",
+    "default": true,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 45,
+    "name": "shifter1Semi",
+    "type": "d",
+    "default": "7.001 / Scales::shifterSemi.getMax()",
+    "scale": "Scales::shifterSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 46,
+    "name": "shifter1Cent",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::shifterCent",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 47,
+    "name": "shifter1Gain",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 48,
+    "name": "shifter2Semi",
+    "type": "d",
+    "default": "14.001 / Scales::shifterSemi.getMax()",
+    "scale": "Scales::shifterSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 49,
+    "name": "shifter2Cent",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::shifterCent",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 50,
+    "name": "shifter2Gain",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 51,
+    "name": "lfoType",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::lfoType",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 52,
+    "name": "lfoTempoSync",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 53,
+    "name": "lfoFrequency",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::lfoFrequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 54,
+    "name": "lfoShape",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 55,
+    "name": "lfoToPitch",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 56,
+    "name": "lfoToSlope",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::lfoSlope",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 57,
+    "name": "lfoToPulseWidth",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 58,
+    "name": "lfoToCutoff",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 59,
+    "name": "oscMix",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 60,
+    "name": "octave",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::octave",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 61,
+    "name": "pitchSlideType",
+    "type": "I",
+    "default": 1,
+    "scale": "Scales::pitchSlideType",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 62,
+    "name": "pitchSlide",
+    "type": "d",
+    "default": 0.1,
+    "scale": "Scales::pitchSlide",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 63,
+    "name": "pitchSlideOffset",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::pitchSlideOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 64,
+    "name": "smoothness",
+    "type": "d",
+    "default": 0.1,
+    "scale": "Scales::smoothness",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 65,
+    "name": "pitchBend",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  }
+]

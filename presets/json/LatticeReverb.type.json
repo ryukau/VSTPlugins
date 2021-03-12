@@ -1,0 +1,1130 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "time0",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "time1",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "time2",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "time3",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "time4",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "time5",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "time6",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "time7",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "time8",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "time9",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "time10",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "time11",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "time12",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "time13",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "time14",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "time15",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "outerFeed0",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "outerFeed1",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "outerFeed2",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "outerFeed3",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "outerFeed4",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 22,
+    "name": "outerFeed5",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 23,
+    "name": "outerFeed6",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 24,
+    "name": "outerFeed7",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 25,
+    "name": "outerFeed8",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 26,
+    "name": "outerFeed9",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 27,
+    "name": "outerFeed10",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 28,
+    "name": "outerFeed11",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 29,
+    "name": "outerFeed12",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 30,
+    "name": "outerFeed13",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 31,
+    "name": "outerFeed14",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 32,
+    "name": "outerFeed15",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 33,
+    "name": "innerFeed0",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 34,
+    "name": "innerFeed1",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 35,
+    "name": "innerFeed2",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 36,
+    "name": "innerFeed3",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 37,
+    "name": "innerFeed4",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 38,
+    "name": "innerFeed5",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 39,
+    "name": "innerFeed6",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 40,
+    "name": "innerFeed7",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 41,
+    "name": "innerFeed8",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 42,
+    "name": "innerFeed9",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 43,
+    "name": "innerFeed10",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 44,
+    "name": "innerFeed11",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 45,
+    "name": "innerFeed12",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 46,
+    "name": "innerFeed13",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 47,
+    "name": "innerFeed14",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 48,
+    "name": "innerFeed15",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 49,
+    "name": "timeOffset0",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::timeOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 50,
+    "name": "timeOffset1",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::timeOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 51,
+    "name": "timeOffset2",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::timeOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 52,
+    "name": "timeOffset3",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::timeOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 53,
+    "name": "timeOffset4",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::timeOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 54,
+    "name": "timeOffset5",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::timeOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 55,
+    "name": "timeOffset6",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::timeOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 56,
+    "name": "timeOffset7",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::timeOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 57,
+    "name": "timeOffset8",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::timeOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 58,
+    "name": "timeOffset9",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::timeOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 59,
+    "name": "timeOffset10",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::timeOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 60,
+    "name": "timeOffset11",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::timeOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 61,
+    "name": "timeOffset12",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::timeOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 62,
+    "name": "timeOffset13",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::timeOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 63,
+    "name": "timeOffset14",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::timeOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 64,
+    "name": "timeOffset15",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::timeOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 65,
+    "name": "outerFeedOffset0",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 66,
+    "name": "outerFeedOffset1",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 67,
+    "name": "outerFeedOffset2",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 68,
+    "name": "outerFeedOffset3",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 69,
+    "name": "outerFeedOffset4",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 70,
+    "name": "outerFeedOffset5",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 71,
+    "name": "outerFeedOffset6",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 72,
+    "name": "outerFeedOffset7",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 73,
+    "name": "outerFeedOffset8",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 74,
+    "name": "outerFeedOffset9",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 75,
+    "name": "outerFeedOffset10",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 76,
+    "name": "outerFeedOffset11",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 77,
+    "name": "outerFeedOffset12",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 78,
+    "name": "outerFeedOffset13",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 79,
+    "name": "outerFeedOffset14",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 80,
+    "name": "outerFeedOffset15",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 81,
+    "name": "innerFeedOffset0",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 82,
+    "name": "innerFeedOffset1",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 83,
+    "name": "innerFeedOffset2",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 84,
+    "name": "innerFeedOffset3",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 85,
+    "name": "innerFeedOffset4",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 86,
+    "name": "innerFeedOffset5",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 87,
+    "name": "innerFeedOffset6",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 88,
+    "name": "innerFeedOffset7",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 89,
+    "name": "innerFeedOffset8",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 90,
+    "name": "innerFeedOffset9",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 91,
+    "name": "innerFeedOffset10",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 92,
+    "name": "innerFeedOffset11",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 93,
+    "name": "innerFeedOffset12",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 94,
+    "name": "innerFeedOffset13",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 95,
+    "name": "innerFeedOffset14",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 96,
+    "name": "innerFeedOffset15",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 97,
+    "name": "timeLfoAmount0",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 98,
+    "name": "timeLfoAmount1",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 99,
+    "name": "timeLfoAmount2",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 100,
+    "name": "timeLfoAmount3",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 101,
+    "name": "timeLfoAmount4",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 102,
+    "name": "timeLfoAmount5",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 103,
+    "name": "timeLfoAmount6",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 104,
+    "name": "timeLfoAmount7",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 105,
+    "name": "timeLfoAmount8",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 106,
+    "name": "timeLfoAmount9",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 107,
+    "name": "timeLfoAmount10",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 108,
+    "name": "timeLfoAmount11",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 109,
+    "name": "timeLfoAmount12",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 110,
+    "name": "timeLfoAmount13",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 111,
+    "name": "timeLfoAmount14",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 112,
+    "name": "timeLfoAmount15",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 113,
+    "name": "lowpassCutoff0",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 114,
+    "name": "lowpassCutoff1",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 115,
+    "name": "lowpassCutoff2",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 116,
+    "name": "lowpassCutoff3",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 117,
+    "name": "lowpassCutoff4",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 118,
+    "name": "lowpassCutoff5",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 119,
+    "name": "lowpassCutoff6",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 120,
+    "name": "lowpassCutoff7",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 121,
+    "name": "lowpassCutoff8",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 122,
+    "name": "lowpassCutoff9",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 123,
+    "name": "lowpassCutoff10",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 124,
+    "name": "lowpassCutoff11",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 125,
+    "name": "lowpassCutoff12",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 126,
+    "name": "lowpassCutoff13",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 127,
+    "name": "lowpassCutoff14",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 128,
+    "name": "lowpassCutoff15",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 129,
+    "name": "timeMultiply",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::multiply",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 130,
+    "name": "outerFeedMultiply",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::multiply",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 131,
+    "name": "innerFeedMultiply",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::multiply",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 132,
+    "name": "timeOffsetMultiply",
+    "type": "d",
+    "default": 0.05,
+    "scale": "Scales::multiply",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 133,
+    "name": "outerFeedOffsetMultiply",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::multiply",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 134,
+    "name": "innerFeedOffsetMultiply",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::multiply",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 135,
+    "name": "timeLfoLowpass",
+    "type": "d",
+    "default": "Scales::timeLfoLowpas.invmap(0.01)",
+    "scale": "Scales::timeLfoLowpas",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 136,
+    "name": "stereoCross",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::stereoCross",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 137,
+    "name": "stereoSpread",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 138,
+    "name": "dry",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 139,
+    "name": "wet",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 140,
+    "name": "smoothness",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::smoothness",
+    "flags": "Info::kCanAutomate"
+  }
+]

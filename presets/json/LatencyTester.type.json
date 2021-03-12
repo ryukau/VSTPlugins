@@ -1,0 +1,18 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "scale.boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "latency",
+    "type": "I",
+    "default": 1,
+    "scale": "scale.boolScale",
+    "flags": "Info::kCanAutomate"
+  }
+]

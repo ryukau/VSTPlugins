@@ -1,0 +1,98 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "mix",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "frequency",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "freqSpread",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "feedback",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedback",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "range",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::range",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "min",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::range",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "phase",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::phase",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "stereoOffset",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::phase",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "cascadeOffset",
+    "type": "d",
+    "default": "Scales::cascadeOffset.invmap(SomeDSP::twopi / 16.0)",
+    "scale": "Scales::cascadeOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "stage",
+    "type": "I",
+    "default": 15,
+    "scale": "Scales::stage",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "smoothness",
+    "type": "d",
+    "default": "Scales::smoothness.invmap(0.35)",
+    "scale": "Scales::smoothness",
+    "flags": "Info::kCanAutomate"
+  }
+]

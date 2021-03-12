@@ -1,0 +1,82 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "inputGain",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::inputGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "outputGain",
+    "type": "d",
+    "default": "Scales::outputGain.invmap(1.0)",
+    "scale": "Scales::outputGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "clip",
+    "type": "d",
+    "default": "Scales::clip.invmap(1.0)",
+    "scale": "Scales::clip",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "ratio",
+    "type": "d",
+    "default": 0.9,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "slope",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "orderInteger",
+    "type": "I",
+    "default": 2,
+    "scale": "Scales::orderInteger",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "orderFraction",
+    "type": "d",
+    "default": 0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "oversample",
+    "type": "I",
+    "default": true,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "smoothness",
+    "type": "d",
+    "default": 0.1,
+    "scale": "Scales::smoothness",
+    "flags": "Info::kCanAutomate"
+  }
+]

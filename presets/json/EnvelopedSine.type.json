@@ -1,0 +1,2322 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "attack0",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "attack1",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "attack2",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "attack3",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "attack4",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "attack5",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "attack6",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "attack7",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "attack8",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "attack9",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "attack10",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "attack11",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "attack12",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "attack13",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "attack14",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "attack15",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "attack16",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "attack17",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "attack18",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "attack19",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "attack20",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 22,
+    "name": "attack21",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 23,
+    "name": "attack22",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 24,
+    "name": "attack23",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 25,
+    "name": "attack24",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 26,
+    "name": "attack25",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 27,
+    "name": "attack26",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 28,
+    "name": "attack27",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 29,
+    "name": "attack28",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 30,
+    "name": "attack29",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 31,
+    "name": "attack30",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 32,
+    "name": "attack31",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 33,
+    "name": "attack32",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 34,
+    "name": "attack33",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 35,
+    "name": "attack34",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 36,
+    "name": "attack35",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 37,
+    "name": "attack36",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 38,
+    "name": "attack37",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 39,
+    "name": "attack38",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 40,
+    "name": "attack39",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 41,
+    "name": "attack40",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 42,
+    "name": "attack41",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 43,
+    "name": "attack42",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 44,
+    "name": "attack43",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 45,
+    "name": "attack44",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 46,
+    "name": "attack45",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 47,
+    "name": "attack46",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 48,
+    "name": "attack47",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 49,
+    "name": "attack48",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 50,
+    "name": "attack49",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 51,
+    "name": "attack50",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 52,
+    "name": "attack51",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 53,
+    "name": "attack52",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 54,
+    "name": "attack53",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 55,
+    "name": "attack54",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 56,
+    "name": "attack55",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 57,
+    "name": "attack56",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 58,
+    "name": "attack57",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 59,
+    "name": "attack58",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 60,
+    "name": "attack59",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 61,
+    "name": "attack60",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 62,
+    "name": "attack61",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 63,
+    "name": "attack62",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 64,
+    "name": "attack63",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 65,
+    "name": "decay0",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 66,
+    "name": "decay1",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 67,
+    "name": "decay2",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 68,
+    "name": "decay3",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 69,
+    "name": "decay4",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 70,
+    "name": "decay5",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 71,
+    "name": "decay6",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 72,
+    "name": "decay7",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 73,
+    "name": "decay8",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 74,
+    "name": "decay9",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 75,
+    "name": "decay10",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 76,
+    "name": "decay11",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 77,
+    "name": "decay12",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 78,
+    "name": "decay13",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 79,
+    "name": "decay14",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 80,
+    "name": "decay15",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 81,
+    "name": "decay16",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 82,
+    "name": "decay17",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 83,
+    "name": "decay18",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 84,
+    "name": "decay19",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 85,
+    "name": "decay20",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 86,
+    "name": "decay21",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 87,
+    "name": "decay22",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 88,
+    "name": "decay23",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 89,
+    "name": "decay24",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 90,
+    "name": "decay25",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 91,
+    "name": "decay26",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 92,
+    "name": "decay27",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 93,
+    "name": "decay28",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 94,
+    "name": "decay29",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 95,
+    "name": "decay30",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 96,
+    "name": "decay31",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 97,
+    "name": "decay32",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 98,
+    "name": "decay33",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 99,
+    "name": "decay34",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 100,
+    "name": "decay35",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 101,
+    "name": "decay36",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 102,
+    "name": "decay37",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 103,
+    "name": "decay38",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 104,
+    "name": "decay39",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 105,
+    "name": "decay40",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 106,
+    "name": "decay41",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 107,
+    "name": "decay42",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 108,
+    "name": "decay43",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 109,
+    "name": "decay44",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 110,
+    "name": "decay45",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 111,
+    "name": "decay46",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 112,
+    "name": "decay47",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 113,
+    "name": "decay48",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 114,
+    "name": "decay49",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 115,
+    "name": "decay50",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 116,
+    "name": "decay51",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 117,
+    "name": "decay52",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 118,
+    "name": "decay53",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 119,
+    "name": "decay54",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 120,
+    "name": "decay55",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 121,
+    "name": "decay56",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 122,
+    "name": "decay57",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 123,
+    "name": "decay58",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 124,
+    "name": "decay59",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 125,
+    "name": "decay60",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 126,
+    "name": "decay61",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 127,
+    "name": "decay62",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 128,
+    "name": "decay63",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 129,
+    "name": "overtone0",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 130,
+    "name": "overtone1",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 131,
+    "name": "overtone2",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 132,
+    "name": "overtone3",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 133,
+    "name": "overtone4",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 134,
+    "name": "overtone5",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 135,
+    "name": "overtone6",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 136,
+    "name": "overtone7",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 137,
+    "name": "overtone8",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 138,
+    "name": "overtone9",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 139,
+    "name": "overtone10",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 140,
+    "name": "overtone11",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 141,
+    "name": "overtone12",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 142,
+    "name": "overtone13",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 143,
+    "name": "overtone14",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 144,
+    "name": "overtone15",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 145,
+    "name": "overtone16",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 146,
+    "name": "overtone17",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 147,
+    "name": "overtone18",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 148,
+    "name": "overtone19",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 149,
+    "name": "overtone20",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 150,
+    "name": "overtone21",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 151,
+    "name": "overtone22",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 152,
+    "name": "overtone23",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 153,
+    "name": "overtone24",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 154,
+    "name": "overtone25",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 155,
+    "name": "overtone26",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 156,
+    "name": "overtone27",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 157,
+    "name": "overtone28",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 158,
+    "name": "overtone29",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 159,
+    "name": "overtone30",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 160,
+    "name": "overtone31",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 161,
+    "name": "overtone32",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 162,
+    "name": "overtone33",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 163,
+    "name": "overtone34",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 164,
+    "name": "overtone35",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 165,
+    "name": "overtone36",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 166,
+    "name": "overtone37",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 167,
+    "name": "overtone38",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 168,
+    "name": "overtone39",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 169,
+    "name": "overtone40",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 170,
+    "name": "overtone41",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 171,
+    "name": "overtone42",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 172,
+    "name": "overtone43",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 173,
+    "name": "overtone44",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 174,
+    "name": "overtone45",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 175,
+    "name": "overtone46",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 176,
+    "name": "overtone47",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 177,
+    "name": "overtone48",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 178,
+    "name": "overtone49",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 179,
+    "name": "overtone50",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 180,
+    "name": "overtone51",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 181,
+    "name": "overtone52",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 182,
+    "name": "overtone53",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 183,
+    "name": "overtone54",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 184,
+    "name": "overtone55",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 185,
+    "name": "overtone56",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 186,
+    "name": "overtone57",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 187,
+    "name": "overtone58",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 188,
+    "name": "overtone59",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 189,
+    "name": "overtone60",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 190,
+    "name": "overtone61",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 191,
+    "name": "overtone62",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 192,
+    "name": "overtone63",
+    "type": "d",
+    "default": "Scales::gainDecibel.invmap(1.0 / (i + 1))",
+    "scale": "Scales::gainDecibel",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 193,
+    "name": "saturation0",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 194,
+    "name": "saturation1",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 195,
+    "name": "saturation2",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 196,
+    "name": "saturation3",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 197,
+    "name": "saturation4",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 198,
+    "name": "saturation5",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 199,
+    "name": "saturation6",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 200,
+    "name": "saturation7",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 201,
+    "name": "saturation8",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 202,
+    "name": "saturation9",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 203,
+    "name": "saturation10",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 204,
+    "name": "saturation11",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 205,
+    "name": "saturation12",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 206,
+    "name": "saturation13",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 207,
+    "name": "saturation14",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 208,
+    "name": "saturation15",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 209,
+    "name": "saturation16",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 210,
+    "name": "saturation17",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 211,
+    "name": "saturation18",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 212,
+    "name": "saturation19",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 213,
+    "name": "saturation20",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 214,
+    "name": "saturation21",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 215,
+    "name": "saturation22",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 216,
+    "name": "saturation23",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 217,
+    "name": "saturation24",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 218,
+    "name": "saturation25",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 219,
+    "name": "saturation26",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 220,
+    "name": "saturation27",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 221,
+    "name": "saturation28",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 222,
+    "name": "saturation29",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 223,
+    "name": "saturation30",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 224,
+    "name": "saturation31",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 225,
+    "name": "saturation32",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 226,
+    "name": "saturation33",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 227,
+    "name": "saturation34",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 228,
+    "name": "saturation35",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 229,
+    "name": "saturation36",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 230,
+    "name": "saturation37",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 231,
+    "name": "saturation38",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 232,
+    "name": "saturation39",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 233,
+    "name": "saturation40",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 234,
+    "name": "saturation41",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 235,
+    "name": "saturation42",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 236,
+    "name": "saturation43",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 237,
+    "name": "saturation44",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 238,
+    "name": "saturation45",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 239,
+    "name": "saturation46",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 240,
+    "name": "saturation47",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 241,
+    "name": "saturation48",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 242,
+    "name": "saturation49",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 243,
+    "name": "saturation50",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 244,
+    "name": "saturation51",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 245,
+    "name": "saturation52",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 246,
+    "name": "saturation53",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 247,
+    "name": "saturation54",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 248,
+    "name": "saturation55",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 249,
+    "name": "saturation56",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 250,
+    "name": "saturation57",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 251,
+    "name": "saturation58",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 252,
+    "name": "saturation59",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 253,
+    "name": "saturation60",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 254,
+    "name": "saturation61",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 255,
+    "name": "saturation62",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 256,
+    "name": "saturation63",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::saturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 257,
+    "name": "gain",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 258,
+    "name": "gainBoost",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::gainBoost",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 259,
+    "name": "aliasing",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 260,
+    "name": "masterOctave",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::masterOctave",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 261,
+    "name": "pitchMultiply",
+    "type": "d",
+    "default": "Scales::pitchMultiply.invmap(1.0)",
+    "scale": "Scales::pitchMultiply",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 262,
+    "name": "pitchModulo",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::pitchModulo",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 263,
+    "name": "seed",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::seed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 264,
+    "name": "randomRetrigger",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 265,
+    "name": "randomGain",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::randomGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 266,
+    "name": "randomFrequency",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::randomFrequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 267,
+    "name": "randomAttack",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::randomAttack",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 268,
+    "name": "randomDecay",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::randomDecay",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 269,
+    "name": "randomSaturation",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::randomSaturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 270,
+    "name": "randomPhase",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::randomPhase",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 271,
+    "name": "overtoneExpand",
+    "type": "d",
+    "default": "Scales::overtoneExpand.invmap(1.0)",
+    "scale": "Scales::overtoneExpand",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 272,
+    "name": "overtoneShift",
+    "type": "d",
+    "default": 0,
+    "scale": "Scales::overtoneShift",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 273,
+    "name": "attackMultiplier",
+    "type": "d",
+    "default": "Scales::envelopeMultiplier.invmap(1.0)",
+    "scale": "Scales::envelopeMultiplier",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 274,
+    "name": "decayMultiplier",
+    "type": "d",
+    "default": "Scales::envelopeMultiplier.invmap(1.0)",
+    "scale": "Scales::envelopeMultiplier",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 275,
+    "name": "declick",
+    "type": "I",
+    "default": 1,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 276,
+    "name": "gainPower",
+    "type": "d",
+    "default": "Scales::gainPower.invmap(1.0)",
+    "scale": "Scales::gainPower",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 277,
+    "name": "saturationMix",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 278,
+    "name": "phaserMix",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 279,
+    "name": "phaserFrequency",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::phaserFrequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 280,
+    "name": "phaserFeedback",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::phaserFeedback",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 281,
+    "name": "phaserRange",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::phaserRange",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 282,
+    "name": "phaserMin",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::phaserRange",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 283,
+    "name": "phaserPhase",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::phaserPhase",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 284,
+    "name": "phaserOffset",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::phaserPhase",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 285,
+    "name": "phaserStage",
+    "type": "I",
+    "default": 15,
+    "scale": "Scales::phaserStage",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 286,
+    "name": "unison",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 287,
+    "name": "nVoice",
+    "type": "I",
+    "default": 5,
+    "scale": "Scales::nVoice",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 288,
+    "name": "smoothness",
+    "type": "d",
+    "default": 0.1,
+    "scale": "Scales::smoothness",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 289,
+    "name": "pitchBend",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  }
+]

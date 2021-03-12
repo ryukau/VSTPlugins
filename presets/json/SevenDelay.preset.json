@@ -1,0 +1,2417 @@
+[
+  {
+    "name": "3_16Invert",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.726374
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.625
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.9
+      }
+    ]
+  },
+  {
+    "name": "3_16PingPong",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.726374
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.625
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.9
+      }
+    ]
+  },
+  {
+    "name": "Bend",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.144
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.625
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.547826
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.595652
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 0.196
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.092
+      }
+    ]
+  },
+  {
+    "name": "Chorus",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.124
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.524
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.862
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.182609
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 0.788
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 0.717391
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.308
+      }
+    ]
+  },
+  {
+    "name": "CloseToPhaser",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.032
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.929
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.413043
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.696
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 0.924
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.068
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.952
+      }
+    ]
+  },
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.625
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.9
+      }
+    ]
+  },
+  {
+    "name": "Flapping",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.044
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.969
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.586957
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.228
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 0.808
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 1.0
+      }
+    ]
+  },
+  {
+    "name": "GhostVibrato",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.08
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.925
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.524233
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.258
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.130435
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.643478
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.984
+      }
+    ]
+  },
+  {
+    "name": "High",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.028
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.965
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.248
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.83913
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.308
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 0.995652
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.052
+      }
+    ]
+  },
+  {
+    "name": "Lean",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.324
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.956
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.730435
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.768
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 0.308
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.9
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 0.508696
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.372
+      }
+    ]
+  },
+  {
+    "name": "MaxFeedback",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.08
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.143478
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.928
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.9
+      }
+    ]
+  },
+  {
+    "name": "ModeratelyCentered",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.62
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.592
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.408
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.673913
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.384
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 0.824
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.66
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.344
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 0.188
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.596
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.236
+      }
+    ]
+  },
+  {
+    "name": "Noise",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.176
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.098
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.268
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 0.724
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.08
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.132
+      }
+    ]
+  },
+  {
+    "name": "Power",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.236
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.625
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.502402
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.504348
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.430435
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.668
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.372
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.9
+      }
+    ]
+  },
+  {
+    "name": "Response",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.24
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.217
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.966
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 0.784
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.264
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.86
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.9
+      }
+    ]
+  },
+  {
+    "name": "SlowLFO",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.404
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.625
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.328
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.542
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.547826
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.265217
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.564
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.396
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.064
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.9
+      }
+    ]
+  },
+  {
+    "name": "Somewhere",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.168
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.049
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.384
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.424
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.969565
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.308
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.188
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 0.324
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.164
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 0.430435
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.9
+      }
+    ]
+  },
+  {
+    "name": "Tail",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.636
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.837
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.176
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.772
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 0.064
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.14
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.22
+      }
+    ]
+  },
+  {
+    "name": "TurnUpTimeKnob",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.156
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.829
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.436
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.169565
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 0.508
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 0.695652
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.32
+      }
+    ]
+  },
+  {
+    "name": "WaitForScratch",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.852
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.436
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.9
+      }
+    ]
+  },
+  {
+    "name": "Wandering",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "time",
+        "type": "d",
+        "value": 0.34
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.625
+      },
+      {
+        "name": "offset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "wetMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "dryMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "negativeFeedback",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoTimeAmount",
+        "type": "d",
+        "value": 0.221739
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.595652
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoInitialPhase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoHold",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "inSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "outSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "outPan",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "toneCutoff",
+        "type": "d",
+        "value": 0.196
+      },
+      {
+        "name": "dckill",
+        "type": "d",
+        "value": 0.188
+      },
+      {
+        "name": "lfoToneAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "toneQ",
+        "type": "d",
+        "value": 0.092
+      }
+    ]
+  }
+]

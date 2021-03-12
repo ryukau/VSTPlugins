@@ -1,0 +1,1982 @@
+[
+  {
+    "name": "0",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "retriggerTime",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "retriggerStick",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "retriggerTremolo",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fdn",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fdnTime",
+        "type": "d",
+        "value": 0.4959999918937683
+      },
+      {
+        "name": "fdnFeedback",
+        "type": "d",
+        "value": 0.3240000009536743
+      },
+      {
+        "name": "fdnCascadeMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpassMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "allpass1Saturation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "allpass1Time",
+        "type": "d",
+        "value": 0.800000011920929
+      },
+      {
+        "name": "allpass1Feedback",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "allpass1HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2Time",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2Feedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tremoloMix",
+        "type": "d",
+        "value": 0.2
+      },
+      {
+        "name": "tremoloDepth",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "tremoloFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tremoloDelayTime",
+        "type": "d",
+        "value": 0.25000000000000006
+      },
+      {
+        "name": "randomTremoloDepth",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "randomTremoloFrequency",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "randomTremoloDelayTime",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "stick",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "stickDecay",
+        "type": "d",
+        "value": 0.7359999418258667
+      },
+      {
+        "name": "stickToneMix",
+        "type": "d",
+        "value": 0.22800002992153168
+      },
+      {
+        "name": "stickPulseMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stickVelvetMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "11415258",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 11415258
+      },
+      {
+        "name": "retriggerTime",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "retriggerStick",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "retriggerTremolo",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fdn",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fdnTime",
+        "type": "d",
+        "value": 0.2
+      },
+      {
+        "name": "fdnFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "fdnCascadeMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpassMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "allpass1Saturation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "allpass1Time",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass1Feedback",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "allpass1HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2Time",
+        "type": "d",
+        "value": 0.30000004172325134
+      },
+      {
+        "name": "allpass2Feedback",
+        "type": "d",
+        "value": 0.8920000195503238
+      },
+      {
+        "name": "allpass2HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tremoloMix",
+        "type": "d",
+        "value": 0.2
+      },
+      {
+        "name": "tremoloDepth",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "tremoloFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tremoloDelayTime",
+        "type": "d",
+        "value": 0.25000000000000006
+      },
+      {
+        "name": "randomTremoloDepth",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "randomTremoloFrequency",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "randomTremoloDelayTime",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "stick",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "stickDecay",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stickToneMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stickPulseMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stickVelvetMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "5711006",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 5711006
+      },
+      {
+        "name": "retriggerTime",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "retriggerStick",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "retriggerTremolo",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fdn",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fdnTime",
+        "type": "d",
+        "value": 0.12799999117851257
+      },
+      {
+        "name": "fdnFeedback",
+        "type": "d",
+        "value": 0.5360000729560852
+      },
+      {
+        "name": "fdnCascadeMix",
+        "type": "d",
+        "value": 0.09199995547533037
+      },
+      {
+        "name": "allpassMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "allpass1Saturation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "allpass1Time",
+        "type": "d",
+        "value": 0.6880000233650208
+      },
+      {
+        "name": "allpass1Feedback",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "allpass1HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2Time",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2Feedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tremoloMix",
+        "type": "d",
+        "value": 0.2
+      },
+      {
+        "name": "tremoloDepth",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "tremoloFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tremoloDelayTime",
+        "type": "d",
+        "value": 0.25000000000000006
+      },
+      {
+        "name": "randomTremoloDepth",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "randomTremoloFrequency",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "randomTremoloDelayTime",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "stick",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "stickDecay",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stickToneMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stickPulseMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stickVelvetMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 6583421
+      },
+      {
+        "name": "retriggerTime",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "retriggerStick",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "retriggerTremolo",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fdn",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fdnTime",
+        "type": "d",
+        "value": 0.2
+      },
+      {
+        "name": "fdnFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "fdnCascadeMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpassMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "allpass1Saturation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "allpass1Time",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass1Feedback",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "allpass1HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2Time",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2Feedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tremoloMix",
+        "type": "d",
+        "value": 0.2
+      },
+      {
+        "name": "tremoloDepth",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "tremoloFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tremoloDelayTime",
+        "type": "d",
+        "value": 0.25000000000000006
+      },
+      {
+        "name": "randomTremoloDepth",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "randomTremoloFrequency",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "randomTremoloDelayTime",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "stick",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "stickDecay",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stickToneMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stickPulseMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stickVelvetMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "FDNTweak",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 3227983
+      },
+      {
+        "name": "retriggerTime",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "retriggerStick",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "retriggerTremolo",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fdn",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fdnTime",
+        "type": "d",
+        "value": 0.5839999914169312
+      },
+      {
+        "name": "fdnFeedback",
+        "type": "d",
+        "value": 0.6200000047683716
+      },
+      {
+        "name": "fdnCascadeMix",
+        "type": "d",
+        "value": 0.26800012588500977
+      },
+      {
+        "name": "allpassMix",
+        "type": "d",
+        "value": 0.8180000185966492
+      },
+      {
+        "name": "allpass1Saturation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "allpass1Time",
+        "type": "d",
+        "value": 0.4680000543594361
+      },
+      {
+        "name": "allpass1Feedback",
+        "type": "d",
+        "value": 0.598000168800354
+      },
+      {
+        "name": "allpass1HighpassCutoff",
+        "type": "d",
+        "value": 0.5560001134872437
+      },
+      {
+        "name": "allpass2Time",
+        "type": "d",
+        "value": 0.699999988079071
+      },
+      {
+        "name": "allpass2Feedback",
+        "type": "d",
+        "value": 0.3320000469684602
+      },
+      {
+        "name": "allpass2HighpassCutoff",
+        "type": "d",
+        "value": 0.7079998254776001
+      },
+      {
+        "name": "tremoloMix",
+        "type": "d",
+        "value": 0.3120000958442688
+      },
+      {
+        "name": "tremoloDepth",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "tremoloFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tremoloDelayTime",
+        "type": "d",
+        "value": 0.25000000000000006
+      },
+      {
+        "name": "randomTremoloDepth",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "randomTremoloFrequency",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "randomTremoloDelayTime",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "stick",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "stickDecay",
+        "type": "d",
+        "value": 0.7319999933242798
+      },
+      {
+        "name": "stickToneMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stickPulseMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stickVelvetMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "Glassy",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 3362196
+      },
+      {
+        "name": "retriggerTime",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "retriggerStick",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "retriggerTremolo",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fdn",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fdnTime",
+        "type": "d",
+        "value": 0.17600004374980927
+      },
+      {
+        "name": "fdnFeedback",
+        "type": "d",
+        "value": 0.24400001764297485
+      },
+      {
+        "name": "fdnCascadeMix",
+        "type": "d",
+        "value": 0.4159999787807465
+      },
+      {
+        "name": "allpassMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "allpass1Saturation",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "allpass1Time",
+        "type": "d",
+        "value": 0.11600007861852649
+      },
+      {
+        "name": "allpass1Feedback",
+        "type": "d",
+        "value": 0.9759999513626098
+      },
+      {
+        "name": "allpass1HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2Time",
+        "type": "d",
+        "value": 0.26400014758110046
+      },
+      {
+        "name": "allpass2Feedback",
+        "type": "d",
+        "value": 0.9639999270439145
+      },
+      {
+        "name": "allpass2HighpassCutoff",
+        "type": "d",
+        "value": 0.3319999873638153
+      },
+      {
+        "name": "tremoloMix",
+        "type": "d",
+        "value": 0.2
+      },
+      {
+        "name": "tremoloDepth",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "tremoloFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tremoloDelayTime",
+        "type": "d",
+        "value": 0.25000000000000006
+      },
+      {
+        "name": "randomTremoloDepth",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "randomTremoloFrequency",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "randomTremoloDelayTime",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "stick",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "stickDecay",
+        "type": "d",
+        "value": 0.28800001740455633
+      },
+      {
+        "name": "stickToneMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stickPulseMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stickVelvetMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "LongExcitation",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 11415258
+      },
+      {
+        "name": "retriggerTime",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "retriggerStick",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "retriggerTremolo",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fdn",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fdnTime",
+        "type": "d",
+        "value": 0.2
+      },
+      {
+        "name": "fdnFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "fdnCascadeMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpassMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "allpass1Saturation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "allpass1Time",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass1Feedback",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "allpass1HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2Time",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2Feedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tremoloMix",
+        "type": "d",
+        "value": 0.1920001208782196
+      },
+      {
+        "name": "tremoloDepth",
+        "type": "d",
+        "value": 0.740000307559967
+      },
+      {
+        "name": "tremoloFrequency",
+        "type": "d",
+        "value": 0.41200003027915955
+      },
+      {
+        "name": "tremoloDelayTime",
+        "type": "d",
+        "value": 0.25000000000000006
+      },
+      {
+        "name": "randomTremoloDepth",
+        "type": "d",
+        "value": 0.6100000739097595
+      },
+      {
+        "name": "randomTremoloFrequency",
+        "type": "d",
+        "value": 0.5979999303817749
+      },
+      {
+        "name": "randomTremoloDelayTime",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "stick",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "stickDecay",
+        "type": "d",
+        "value": 0.8040000200271606
+      },
+      {
+        "name": "stickToneMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stickPulseMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stickVelvetMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "RandomShortTime",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 11952129
+      },
+      {
+        "name": "retriggerTime",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "retriggerStick",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "retriggerTremolo",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fdn",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fdnTime",
+        "type": "d",
+        "value": 0.2
+      },
+      {
+        "name": "fdnFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "fdnCascadeMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpassMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "allpass1Saturation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "allpass1Time",
+        "type": "d",
+        "value": 0.03600005805492402
+      },
+      {
+        "name": "allpass1Feedback",
+        "type": "d",
+        "value": 0.8220000863075256
+      },
+      {
+        "name": "allpass1HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2Time",
+        "type": "d",
+        "value": 0.05600006133317948
+      },
+      {
+        "name": "allpass2Feedback",
+        "type": "d",
+        "value": 0.7840001583099367
+      },
+      {
+        "name": "allpass2HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tremoloMix",
+        "type": "d",
+        "value": 0.2
+      },
+      {
+        "name": "tremoloDepth",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "tremoloFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tremoloDelayTime",
+        "type": "d",
+        "value": 0.25000000000000006
+      },
+      {
+        "name": "randomTremoloDepth",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "randomTremoloFrequency",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "randomTremoloDelayTime",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "stick",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "stickDecay",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stickToneMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stickPulseMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stickVelvetMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "RetriggerStickOscillator",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 15307574
+      },
+      {
+        "name": "retriggerTime",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "retriggerStick",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "retriggerTremolo",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fdn",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fdnTime",
+        "type": "d",
+        "value": 0.33199992775917053
+      },
+      {
+        "name": "fdnFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "fdnCascadeMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpassMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "allpass1Saturation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "allpass1Time",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass1Feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "allpass1HighpassCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "allpass2Time",
+        "type": "d",
+        "value": 0.9120000004768372
+      },
+      {
+        "name": "allpass2Feedback",
+        "type": "d",
+        "value": 0.6239998936653139
+      },
+      {
+        "name": "allpass2HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tremoloMix",
+        "type": "d",
+        "value": 0.2
+      },
+      {
+        "name": "tremoloDepth",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "tremoloFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tremoloDelayTime",
+        "type": "d",
+        "value": 0.25000000000000006
+      },
+      {
+        "name": "randomTremoloDepth",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "randomTremoloFrequency",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "randomTremoloDelayTime",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "stick",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "stickDecay",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stickToneMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stickPulseMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stickVelvetMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "Smooth",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 7522945
+      },
+      {
+        "name": "retriggerTime",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "retriggerStick",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "retriggerTremolo",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fdn",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fdnTime",
+        "type": "d",
+        "value": 0.41599997878074646
+      },
+      {
+        "name": "fdnFeedback",
+        "type": "d",
+        "value": 0.5360000729560852
+      },
+      {
+        "name": "fdnCascadeMix",
+        "type": "d",
+        "value": 0.09199995547533037
+      },
+      {
+        "name": "allpassMix",
+        "type": "d",
+        "value": 0.6220000386238098
+      },
+      {
+        "name": "allpass1Saturation",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "allpass1Time",
+        "type": "d",
+        "value": 0.18800005316734317
+      },
+      {
+        "name": "allpass1Feedback",
+        "type": "d",
+        "value": 0.19399996101856226
+      },
+      {
+        "name": "allpass1HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2Time",
+        "type": "d",
+        "value": 0.11200007051229478
+      },
+      {
+        "name": "allpass2Feedback",
+        "type": "d",
+        "value": 0.05600006878376008
+      },
+      {
+        "name": "allpass2HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tremoloMix",
+        "type": "d",
+        "value": 0.1719999760389328
+      },
+      {
+        "name": "tremoloDepth",
+        "type": "d",
+        "value": 0.18400001525878906
+      },
+      {
+        "name": "tremoloFrequency",
+        "type": "d",
+        "value": 0.9240000247955322
+      },
+      {
+        "name": "tremoloDelayTime",
+        "type": "d",
+        "value": 0.7219998836517334
+      },
+      {
+        "name": "randomTremoloDepth",
+        "type": "d",
+        "value": 0.862000048160553
+      },
+      {
+        "name": "randomTremoloFrequency",
+        "type": "d",
+        "value": 0.5500000715255737
+      },
+      {
+        "name": "randomTremoloDelayTime",
+        "type": "d",
+        "value": 0.6899999380111694
+      },
+      {
+        "name": "stick",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "stickDecay",
+        "type": "d",
+        "value": 0.4159999489784241
+      },
+      {
+        "name": "stickToneMix",
+        "type": "d",
+        "value": 0.35200002789497375
+      },
+      {
+        "name": "stickPulseMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stickVelvetMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.3479999601840973
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.49625468254089355
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "TooMuchDelayTime",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 9603320
+      },
+      {
+        "name": "retriggerTime",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "retriggerStick",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "retriggerTremolo",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fdn",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fdnTime",
+        "type": "d",
+        "value": 0.6719999313354492
+      },
+      {
+        "name": "fdnFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "fdnCascadeMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpassMix",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "allpass1Saturation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "allpass1Time",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass1Feedback",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "allpass1HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2Time",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2Feedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpass2HighpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tremoloMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tremoloDepth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "tremoloFrequency",
+        "type": "d",
+        "value": 0.6040000319480896
+      },
+      {
+        "name": "tremoloDelayTime",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "randomTremoloDepth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "randomTremoloFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "randomTremoloDelayTime",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stick",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "stickDecay",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stickToneMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stickPulseMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stickVelvetMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "TurnRight",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 15039140
+      },
+      {
+        "name": "retriggerTime",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "retriggerStick",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "retriggerTremolo",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fdn",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fdnTime",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "fdnFeedback",
+        "type": "d",
+        "value": 0.28800004720687866
+      },
+      {
+        "name": "fdnCascadeMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "allpassMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "allpass1Saturation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "allpass1Time",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "allpass1Feedback",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "allpass1HighpassCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "allpass2Time",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "allpass2Feedback",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "allpass2HighpassCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tremoloMix",
+        "type": "d",
+        "value": 0.11200007796287537
+      },
+      {
+        "name": "tremoloDepth",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "tremoloFrequency",
+        "type": "d",
+        "value": 0.23200008273124692
+      },
+      {
+        "name": "tremoloDelayTime",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "randomTremoloDepth",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "randomTremoloFrequency",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "randomTremoloDelayTime",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stick",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "stickDecay",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stickToneMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stickPulseMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stickVelvetMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5861423015594482
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  }
+]

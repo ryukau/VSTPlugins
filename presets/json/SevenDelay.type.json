@@ -1,0 +1,178 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0.0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "time",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "feedback",
+    "type": "d",
+    "default": 0.625,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "offset",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::offset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "wetMix",
+    "type": "d",
+    "default": 0.75,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "dryMix",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "tempoSync",
+    "type": "I",
+    "default": 0.0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "negativeFeedback",
+    "type": "I",
+    "default": 0.0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "lfoTimeAmount",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::lfoTimeAmount",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "lfoFrequency",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::lfoFrequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "lfoShape",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::lfoShape",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "lfoInitialPhase",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::lfoInitialPhase",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "lfoHold",
+    "type": "I",
+    "default": 0.0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "smoothness",
+    "type": "d",
+    "default": 0.3,
+    "scale": "Scales::smoothness",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "inSpread",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "inPan",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "outSpread",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "outPan",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "toneCutoff",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::toneCutoff",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "dckill",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::dckill",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "lfoToneAmount",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::lfoToneAmount",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "toneQ",
+    "type": "d",
+    "default": 0.9,
+    "scale": "Scales::toneQ",
+    "flags": "Info::kCanAutomate"
+  }
+]

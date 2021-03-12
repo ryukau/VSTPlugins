@@ -1,0 +1,1562 @@
+[
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 6583421
+      },
+      {
+        "name": "randomAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "nCymbal",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stack",
+        "type": "I",
+        "value": 24
+      },
+      {
+        "name": "decay",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "distance",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "minFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "maxFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "bandpassQ",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "damping",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pulsePosition",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pickCombFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pickCombTime",
+        "type": "d",
+        "value": 0.25
+      },
+      {
+        "name": "retrigger",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "cutoffMap",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "excitation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "collision",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "oscType",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.6999999999999998
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.4
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "DontTouchFeedback",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 11012605
+      },
+      {
+        "name": "randomAmount",
+        "type": "d",
+        "value": 0.45600003004074097
+      },
+      {
+        "name": "nCymbal",
+        "type": "d",
+        "value": 0.67
+      },
+      {
+        "name": "stack",
+        "type": "I",
+        "value": 4
+      },
+      {
+        "name": "decay",
+        "type": "d",
+        "value": 0.11200007796287537
+      },
+      {
+        "name": "distance",
+        "type": "d",
+        "value": 0.09599999338388443
+      },
+      {
+        "name": "minFrequency",
+        "type": "d",
+        "value": 0.3560000956058502
+      },
+      {
+        "name": "maxFrequency",
+        "type": "d",
+        "value": 0.2920001447200775
+      },
+      {
+        "name": "bandpassQ",
+        "type": "d",
+        "value": 0.8680000305175781
+      },
+      {
+        "name": "damping",
+        "type": "d",
+        "value": 0.9360007047653202
+      },
+      {
+        "name": "pulsePosition",
+        "type": "d",
+        "value": 0.3879999816417694
+      },
+      {
+        "name": "pulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pickCombFeedback",
+        "type": "d",
+        "value": 0.3599994480609894
+      },
+      {
+        "name": "pickCombTime",
+        "type": "d",
+        "value": 0.04199992865324022
+      },
+      {
+        "name": "retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "cutoffMap",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "excitation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "collision",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "oscType",
+        "type": "I",
+        "value": 3
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.6999999999999998
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.09827584028244019
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "IsThis",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 3764849
+      },
+      {
+        "name": "randomAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "nCymbal",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stack",
+        "type": "I",
+        "value": 45
+      },
+      {
+        "name": "decay",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "distance",
+        "type": "d",
+        "value": 0.2200000286102295
+      },
+      {
+        "name": "minFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "maxFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "bandpassQ",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "damping",
+        "type": "d",
+        "value": 0.3560000061988831
+      },
+      {
+        "name": "pulsePosition",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pickCombFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pickCombTime",
+        "type": "d",
+        "value": 0.11399995535612106
+      },
+      {
+        "name": "retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "cutoffMap",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "excitation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "collision",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "oscType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.6999999999999998
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.636206865310669
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "ItsHappning",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 11750803
+      },
+      {
+        "name": "randomAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "nCymbal",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stack",
+        "type": "I",
+        "value": 54
+      },
+      {
+        "name": "decay",
+        "type": "d",
+        "value": 0.2680000066757202
+      },
+      {
+        "name": "distance",
+        "type": "d",
+        "value": 0.23200000822544098
+      },
+      {
+        "name": "minFrequency",
+        "type": "d",
+        "value": 0.2240000814199448
+      },
+      {
+        "name": "maxFrequency",
+        "type": "d",
+        "value": 0.25999999046325684
+      },
+      {
+        "name": "bandpassQ",
+        "type": "d",
+        "value": 0.21600009500980377
+      },
+      {
+        "name": "damping",
+        "type": "d",
+        "value": 0.18400073051452637
+      },
+      {
+        "name": "pulsePosition",
+        "type": "d",
+        "value": 0.18800009787082672
+      },
+      {
+        "name": "pulseWidth",
+        "type": "d",
+        "value": 0.9320000410079956
+      },
+      {
+        "name": "pickCombFeedback",
+        "type": "d",
+        "value": 0.928000271320343
+      },
+      {
+        "name": "pickCombTime",
+        "type": "d",
+        "value": 0.04200000315904618
+      },
+      {
+        "name": "retrigger",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "cutoffMap",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "excitation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "collision",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "oscType",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.6999999999999998
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.19137930870056152
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "NotEvenClose",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 9737537
+      },
+      {
+        "name": "randomAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "nCymbal",
+        "type": "d",
+        "value": 0.67
+      },
+      {
+        "name": "stack",
+        "type": "I",
+        "value": 41
+      },
+      {
+        "name": "decay",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "distance",
+        "type": "d",
+        "value": 0.18400011956691742
+      },
+      {
+        "name": "minFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "maxFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "bandpassQ",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "damping",
+        "type": "d",
+        "value": 0.9599999189376829
+      },
+      {
+        "name": "pulsePosition",
+        "type": "d",
+        "value": 0.1759999543428421
+      },
+      {
+        "name": "pulseWidth",
+        "type": "d",
+        "value": 0.1679999828338623
+      },
+      {
+        "name": "pickCombFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pickCombTime",
+        "type": "d",
+        "value": 0.25
+      },
+      {
+        "name": "retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "cutoffMap",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "excitation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "collision",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "oscType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.6999999999999998
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.28448277711868286
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "NothingLikeCymbal",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 13898286
+      },
+      {
+        "name": "randomAmount",
+        "type": "d",
+        "value": 0.5080000162124634
+      },
+      {
+        "name": "nCymbal",
+        "type": "d",
+        "value": 0.34
+      },
+      {
+        "name": "stack",
+        "type": "I",
+        "value": 47
+      },
+      {
+        "name": "decay",
+        "type": "d",
+        "value": 0.7080003619194031
+      },
+      {
+        "name": "distance",
+        "type": "d",
+        "value": 0.2160000503063202
+      },
+      {
+        "name": "minFrequency",
+        "type": "d",
+        "value": 0.04800000786781312
+      },
+      {
+        "name": "maxFrequency",
+        "type": "d",
+        "value": 0.28399986028671265
+      },
+      {
+        "name": "bandpassQ",
+        "type": "d",
+        "value": 0.8159999251365662
+      },
+      {
+        "name": "damping",
+        "type": "d",
+        "value": 0.952000379562378
+      },
+      {
+        "name": "pulsePosition",
+        "type": "d",
+        "value": 0.8200005292892456
+      },
+      {
+        "name": "pulseWidth",
+        "type": "d",
+        "value": 0.04000024497509003
+      },
+      {
+        "name": "pickCombFeedback",
+        "type": "d",
+        "value": 0.20399993658065793
+      },
+      {
+        "name": "pickCombTime",
+        "type": "d",
+        "value": 0.27400022745132446
+      },
+      {
+        "name": "retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "cutoffMap",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "excitation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "collision",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "oscType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.6999999999999998
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.4534482955932617
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "ReverbDevsNightmare",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 9737540
+      },
+      {
+        "name": "randomAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "nCymbal",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stack",
+        "type": "I",
+        "value": 63
+      },
+      {
+        "name": "decay",
+        "type": "d",
+        "value": 0.8400002717971802
+      },
+      {
+        "name": "distance",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "minFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "maxFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "bandpassQ",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "damping",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "pulsePosition",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "pulseWidth",
+        "type": "d",
+        "value": 0.5720000863075256
+      },
+      {
+        "name": "pickCombFeedback",
+        "type": "d",
+        "value": 0.2240000218153
+      },
+      {
+        "name": "pickCombTime",
+        "type": "d",
+        "value": 0.4659999907016754
+      },
+      {
+        "name": "retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "cutoffMap",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "excitation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "collision",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "oscType",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.6999999999999998
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.4
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "RubbingTheSurface",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 9804646
+      },
+      {
+        "name": "randomAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "nCymbal",
+        "type": "d",
+        "value": 0.67
+      },
+      {
+        "name": "stack",
+        "type": "I",
+        "value": 24
+      },
+      {
+        "name": "decay",
+        "type": "d",
+        "value": 0.5800000429153442
+      },
+      {
+        "name": "distance",
+        "type": "d",
+        "value": 0.13600009679794312
+      },
+      {
+        "name": "minFrequency",
+        "type": "d",
+        "value": 0.6159999966621399
+      },
+      {
+        "name": "maxFrequency",
+        "type": "d",
+        "value": 0.21599999070167544
+      },
+      {
+        "name": "bandpassQ",
+        "type": "d",
+        "value": 0.1080000102519989
+      },
+      {
+        "name": "damping",
+        "type": "d",
+        "value": 0.07200013101100922
+      },
+      {
+        "name": "pulsePosition",
+        "type": "d",
+        "value": 0.7199999690055847
+      },
+      {
+        "name": "pulseWidth",
+        "type": "d",
+        "value": 0.5720000267028809
+      },
+      {
+        "name": "pickCombFeedback",
+        "type": "d",
+        "value": 0.4000000953674317
+      },
+      {
+        "name": "pickCombTime",
+        "type": "d",
+        "value": 0.25
+      },
+      {
+        "name": "retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "cutoffMap",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "excitation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "collision",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "oscType",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.6999999999999998
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.7120689749717712
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "SoFuturistic",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 15039139
+      },
+      {
+        "name": "randomAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "nCymbal",
+        "type": "d",
+        "value": 0.34
+      },
+      {
+        "name": "stack",
+        "type": "I",
+        "value": 29
+      },
+      {
+        "name": "decay",
+        "type": "d",
+        "value": 0.12800003588199615
+      },
+      {
+        "name": "distance",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "minFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "maxFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "bandpassQ",
+        "type": "d",
+        "value": 0.796000063419342
+      },
+      {
+        "name": "damping",
+        "type": "d",
+        "value": 0.7759999632835387
+      },
+      {
+        "name": "pulsePosition",
+        "type": "d",
+        "value": 0.5080001354217529
+      },
+      {
+        "name": "pulseWidth",
+        "type": "d",
+        "value": 0.9319999814033508
+      },
+      {
+        "name": "pickCombFeedback",
+        "type": "d",
+        "value": 0.2439998388290405
+      },
+      {
+        "name": "pickCombTime",
+        "type": "d",
+        "value": 0.2460002452135086
+      },
+      {
+        "name": "retrigger",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "cutoffMap",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "excitation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "collision",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "oscType",
+        "type": "I",
+        "value": 3
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.6999999999999998
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.42241376638412476
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "SomeMachineNoise",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 10542846
+      },
+      {
+        "name": "randomAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "nCymbal",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stack",
+        "type": "I",
+        "value": 24
+      },
+      {
+        "name": "decay",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "distance",
+        "type": "d",
+        "value": 0.2200000137090683
+      },
+      {
+        "name": "minFrequency",
+        "type": "d",
+        "value": 0.22000004351139069
+      },
+      {
+        "name": "maxFrequency",
+        "type": "d",
+        "value": 0.05600001662969587
+      },
+      {
+        "name": "bandpassQ",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "damping",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pulsePosition",
+        "type": "d",
+        "value": 0.50799959897995
+      },
+      {
+        "name": "pulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pickCombFeedback",
+        "type": "d",
+        "value": 0.6800000667572021
+      },
+      {
+        "name": "pickCombTime",
+        "type": "d",
+        "value": 0.1340000331401825
+      },
+      {
+        "name": "retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "cutoffMap",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "excitation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "collision",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "oscType",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.6999999999999998
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.34310346841812134
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "ThatWavyMetalPlate",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 10945497
+      },
+      {
+        "name": "randomAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "nCymbal",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stack",
+        "type": "I",
+        "value": 42
+      },
+      {
+        "name": "decay",
+        "type": "d",
+        "value": 0.8679999709129333
+      },
+      {
+        "name": "distance",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "minFrequency",
+        "type": "d",
+        "value": 0.2680000066757202
+      },
+      {
+        "name": "maxFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "bandpassQ",
+        "type": "d",
+        "value": 0.9560002088546753
+      },
+      {
+        "name": "damping",
+        "type": "d",
+        "value": 0.7080000042915346
+      },
+      {
+        "name": "pulsePosition",
+        "type": "d",
+        "value": 0.2120000123977661
+      },
+      {
+        "name": "pulseWidth",
+        "type": "d",
+        "value": 0.07999999821186066
+      },
+      {
+        "name": "pickCombFeedback",
+        "type": "d",
+        "value": 0.3640001714229583
+      },
+      {
+        "name": "pickCombTime",
+        "type": "d",
+        "value": 0.722000002861023
+      },
+      {
+        "name": "retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "cutoffMap",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "excitation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "collision",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "oscType",
+        "type": "I",
+        "value": 4
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.25999999046325684
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.26724135875701904
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "What",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 4234610
+      },
+      {
+        "name": "randomAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "nCymbal",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stack",
+        "type": "I",
+        "value": 34
+      },
+      {
+        "name": "decay",
+        "type": "d",
+        "value": 0.3639998435974121
+      },
+      {
+        "name": "distance",
+        "type": "d",
+        "value": 0.18400011956691742
+      },
+      {
+        "name": "minFrequency",
+        "type": "d",
+        "value": 0.6640000343322754
+      },
+      {
+        "name": "maxFrequency",
+        "type": "d",
+        "value": 0.8520000576972961
+      },
+      {
+        "name": "bandpassQ",
+        "type": "d",
+        "value": 0.22000020742416382
+      },
+      {
+        "name": "damping",
+        "type": "d",
+        "value": 0.7119997739791869
+      },
+      {
+        "name": "pulsePosition",
+        "type": "d",
+        "value": 0.49599990248680115
+      },
+      {
+        "name": "pulseWidth",
+        "type": "d",
+        "value": 0.5679998993873596
+      },
+      {
+        "name": "pickCombFeedback",
+        "type": "d",
+        "value": 0.6600000262260437
+      },
+      {
+        "name": "pickCombTime",
+        "type": "d",
+        "value": 0.7899999618530273
+      },
+      {
+        "name": "retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "cutoffMap",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "excitation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "collision",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "oscType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.6999999999999998
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.36724138259887695
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "Why",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 14763946
+      },
+      {
+        "name": "randomAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "nCymbal",
+        "type": "d",
+        "value": 0.67
+      },
+      {
+        "name": "stack",
+        "type": "I",
+        "value": 42
+      },
+      {
+        "name": "decay",
+        "type": "d",
+        "value": 0.17600001394748688
+      },
+      {
+        "name": "distance",
+        "type": "d",
+        "value": 0.25599998235702515
+      },
+      {
+        "name": "minFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "maxFrequency",
+        "type": "d",
+        "value": 0.6120002269744873
+      },
+      {
+        "name": "bandpassQ",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "damping",
+        "type": "d",
+        "value": 0.7399998903274537
+      },
+      {
+        "name": "pulsePosition",
+        "type": "d",
+        "value": 0.47999998927116394
+      },
+      {
+        "name": "pulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pickCombFeedback",
+        "type": "d",
+        "value": 0.40799999237060547
+      },
+      {
+        "name": "pickCombTime",
+        "type": "d",
+        "value": 0.025999985635280626
+      },
+      {
+        "name": "retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "cutoffMap",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "excitation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "collision",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "oscType",
+        "type": "I",
+        "value": 4
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.6999999999999998
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.4534482955932617
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  }
+]

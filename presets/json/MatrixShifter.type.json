@@ -1,0 +1,306 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "shiftSemi0",
+    "type": "d",
+    "default": "Scales::shiftSemi.invmap(0.0)",
+    "scale": "Scales::shiftSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "shiftSemi1",
+    "type": "d",
+    "default": "Scales::shiftSemi.invmap(0.0)",
+    "scale": "Scales::shiftSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "shiftSemi2",
+    "type": "d",
+    "default": "Scales::shiftSemi.invmap(0.0)",
+    "scale": "Scales::shiftSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "shiftSemi3",
+    "type": "d",
+    "default": "Scales::shiftSemi.invmap(0.0)",
+    "scale": "Scales::shiftSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "shiftSemi4",
+    "type": "d",
+    "default": "Scales::shiftSemi.invmap(0.0)",
+    "scale": "Scales::shiftSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "shiftSemi5",
+    "type": "d",
+    "default": "Scales::shiftSemi.invmap(0.0)",
+    "scale": "Scales::shiftSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "shiftSemi6",
+    "type": "d",
+    "default": "Scales::shiftSemi.invmap(0.0)",
+    "scale": "Scales::shiftSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "shiftSemi7",
+    "type": "d",
+    "default": "Scales::shiftSemi.invmap(0.0)",
+    "scale": "Scales::shiftSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "shiftSemi8",
+    "type": "d",
+    "default": "Scales::shiftSemi.invmap(0.0)",
+    "scale": "Scales::shiftSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "shiftSemi9",
+    "type": "d",
+    "default": "Scales::shiftSemi.invmap(0.0)",
+    "scale": "Scales::shiftSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "shiftSemi10",
+    "type": "d",
+    "default": "Scales::shiftSemi.invmap(0.0)",
+    "scale": "Scales::shiftSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "shiftSemi11",
+    "type": "d",
+    "default": "Scales::shiftSemi.invmap(0.0)",
+    "scale": "Scales::shiftSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "shiftSemi12",
+    "type": "d",
+    "default": "Scales::shiftSemi.invmap(0.0)",
+    "scale": "Scales::shiftSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "shiftSemi13",
+    "type": "d",
+    "default": "Scales::shiftSemi.invmap(0.0)",
+    "scale": "Scales::shiftSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "shiftSemi14",
+    "type": "d",
+    "default": "Scales::shiftSemi.invmap(0.0)",
+    "scale": "Scales::shiftSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "shiftSemi15",
+    "type": "d",
+    "default": "Scales::shiftSemi.invmap(0.0)",
+    "scale": "Scales::shiftSemi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "shiftDelay0",
+    "type": "d",
+    "default": "Scales::shiftDelay.invmap(0.0)",
+    "scale": "Scales::shiftDelay",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "shiftDelay1",
+    "type": "d",
+    "default": "Scales::shiftDelay.invmap(0.0)",
+    "scale": "Scales::shiftDelay",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "shiftDelay2",
+    "type": "d",
+    "default": "Scales::shiftDelay.invmap(0.0)",
+    "scale": "Scales::shiftDelay",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "shiftDelay3",
+    "type": "d",
+    "default": "Scales::shiftDelay.invmap(0.0)",
+    "scale": "Scales::shiftDelay",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "shiftGain0",
+    "type": "d",
+    "default": "Scales::shiftGain.invmap(1.0)",
+    "scale": "Scales::shiftGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 22,
+    "name": "shiftGain1",
+    "type": "d",
+    "default": "Scales::shiftGain.invmap(1.0)",
+    "scale": "Scales::shiftGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 23,
+    "name": "shiftGain2",
+    "type": "d",
+    "default": "Scales::shiftGain.invmap(1.0)",
+    "scale": "Scales::shiftGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 24,
+    "name": "shiftGain3",
+    "type": "d",
+    "default": "Scales::shiftGain.invmap(1.0)",
+    "scale": "Scales::shiftGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 25,
+    "name": "lfoHz",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::lfoHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 26,
+    "name": "lfoAmount",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 27,
+    "name": "lfoSkew",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 28,
+    "name": "lfoShiftOffset",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::lfoShiftOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 29,
+    "name": "shiftMix",
+    "type": "d",
+    "default": 0.75,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 30,
+    "name": "shiftPhase",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::shiftPhase",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 31,
+    "name": "shiftFeedbackGain",
+    "type": "d",
+    "default": "Scales::shiftFeedbackGain.invmap(0.0)",
+    "scale": "Scales::shiftFeedbackGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 32,
+    "name": "shiftSemiMultiplier",
+    "type": "d",
+    "default": "Scales::shiftSemiMultiplier.invmap(0.02)",
+    "scale": "Scales::shiftSemiMultiplier",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 33,
+    "name": "gain",
+    "type": "d",
+    "default": "Scales::gain.invmap(1.0)",
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 34,
+    "name": "smoothness",
+    "type": "d",
+    "default": "Scales::smoothness.invmap(0.35)",
+    "scale": "Scales::smoothness",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 35,
+    "name": "invertEachSection",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 36,
+    "name": "shiftFeedbackCutoff",
+    "type": "d",
+    "default": "Scales::shiftFeedbackCutoff.invmap(40.0)",
+    "scale": "Scales::shiftFeedbackCutoff",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 37,
+    "name": "lfoToFeedbackCutoff",
+    "type": "d",
+    "default": "Scales::lfoToFeedbackCutoff.invmap(0.0)",
+    "scale": "Scales::lfoToFeedbackCutoff",
+    "flags": "Info::kCanAutomate"
+  }
+]

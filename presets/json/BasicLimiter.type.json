@@ -1,0 +1,58 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "limiterThreshold",
+    "type": "d",
+    "default": "Scales::limiterThreshold.invmap(1.0)",
+    "scale": "Scales::limiterThreshold",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "limiterGate",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::limiterGate",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "limiterAttack",
+    "type": "d",
+    "default": "Scales::limiterAttack.invmap(0.02)",
+    "scale": "Scales::limiterAttack",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "limiterRelease",
+    "type": "d",
+    "default": "Scales::limiterRelease.invmap(0.1)",
+    "scale": "Scales::limiterRelease",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "limiterSustain",
+    "type": "d",
+    "default": "Scales::limiterSustain.invmap(0.0)",
+    "scale": "Scales::limiterSustain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "truePeak",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  }
+]

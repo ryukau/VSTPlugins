@@ -1,0 +1,258 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": false,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "seed",
+    "type": "I",
+    "default": 6583421,
+    "scale": "Scales::seed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "retriggerTime",
+    "type": "I",
+    "default": true,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "retriggerStick",
+    "type": "I",
+    "default": false,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "retriggerTremolo",
+    "type": "I",
+    "default": false,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "fdn",
+    "type": "I",
+    "default": true,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "fdnTime",
+    "type": "d",
+    "default": 0.2,
+    "scale": "Scales::fdnTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "fdnFeedback",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::fdnFeedback",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "fdnCascadeMix",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::fdnCascadeMix",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "allpassMix",
+    "type": "d",
+    "default": 0.75,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "allpass1Saturation",
+    "type": "I",
+    "default": true,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "allpass1Time",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::allpassTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "allpass1Feedback",
+    "type": "d",
+    "default": 0.75,
+    "scale": "Scales::allpassFeedback",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "allpass1HighpassCutoff",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::allpassHighpassCutoff",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "allpass2Time",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::allpassTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "allpass2Feedback",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::allpassFeedback",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "allpass2HighpassCutoff",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::allpassHighpassCutoff",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "tremoloMix",
+    "type": "d",
+    "default": 0.2,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "tremoloDepth",
+    "type": "d",
+    "default": 0.8,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "tremoloFrequency",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::tremoloFrequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "tremoloDelayTime",
+    "type": "d",
+    "default": 0.25,
+    "scale": "Scales::tremoloDelayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "randomTremoloDepth",
+    "type": "d",
+    "default": 0.35,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 22,
+    "name": "randomTremoloFrequency",
+    "type": "d",
+    "default": 0.35,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 23,
+    "name": "randomTremoloDelayTime",
+    "type": "d",
+    "default": 0.35,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 24,
+    "name": "stick",
+    "type": "I",
+    "default": true,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 25,
+    "name": "stickDecay",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::stickDecay",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 26,
+    "name": "stickToneMix",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::stickToneMix",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 27,
+    "name": "stickPulseMix",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 28,
+    "name": "stickVelvetMix",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 29,
+    "name": "smoothness",
+    "type": "d",
+    "default": 0.1,
+    "scale": "Scales::smoothness",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 30,
+    "name": "gain",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 31,
+    "name": "pitchBend",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  }
+]

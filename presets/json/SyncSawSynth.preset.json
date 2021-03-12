@@ -1,0 +1,6962 @@
+[
+  {
+    "name": "-2Octave",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.2305000126361847
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.23999997973442078
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.4599999189376831
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.4599999785423279
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 0.7160000205039978
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.7199999690055847
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.3840000629425049
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.328000009059906
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.15200002491474152
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.48399993777275085
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "Almost",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.25450003147125244
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 3
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.7560004591941833
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.10250014811754227
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.8600001335144043
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.30000004172325134
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.3880000412464142
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999998
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "BasicFilter",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.7160001993179321
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.25199994444847107
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 0.5119996666908264
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.7440000772476196
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.8640002608299255
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5880000591278076
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5880001187324524
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.12800012528896332
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "BasicSync",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.06650000065565109
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.35050004720687866
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000001
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.49999999999999994
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.6120001673698425
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 0.49999999999999994
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.4039998948574066
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "Breathing",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.28650006651878357
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.4219999611377716
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.4999997317790985
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.35199999809265137
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.7199999690055847
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.43199965357780457
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 0.6320000886917114
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.7719999551773071
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.7520005702972412
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.6479999423027039
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.7600000500679016
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.6200001835823059
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.6440000534057617
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.4560000002384186
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "BurningUpCPU",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.37449994683265686
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.6679997444152832
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 0.7879996299743652
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.3159998953342438
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.7480000853538513
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.9839999675750732
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.6520001888275146
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.1239999607205391
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.5879999995231628
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.2439999133348465
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.16000023484230042
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000001
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.49999999999999994
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999999
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 0.49999999999999994
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "EdgyResonance",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.2225000411272049
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.4039999842643738
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.7639998197555542
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.9799999594688416
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.6840002536773682
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 3
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.7400000095367432
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.6440000534057617
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.11999999731779107
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.656000018119812
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "Faint",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5119999051094055
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.48399996757507324
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.320000022649765
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.27199995517730713
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.5000001788139343
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.30400004982948303
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.8399999737739563
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.956000030040741
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "Hmmm",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.6600000262260437
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.018500082194805145
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.543999969959259
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.31450003385543823
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.06000009179115296
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.09200007468461992
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5479998588562012
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.29600000381469727
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.2919999659061432
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 4
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.3799999952316284
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.09200006723403932
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.8040000200271606
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "Indistinguishable",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.3225000500679016
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.3400000035762787
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.17600001394748688
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.9399999380111694
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.6519999504089355
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.7479999661445618
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.4440000057220459
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "MessBehindFilter",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 0.6119999885559082
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.7640003561973572
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.374500036239624
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 5
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5160000324249268
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 5
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.1600000411272049
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.22799992561340335
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.6520001292228699
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.6320000886917114
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.6360000371932983
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.5719996690750122
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.8159999847412109
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.30000016093254095
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.3240000009536743
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.5919998288154602
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.35999998450279236
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.320000022649765
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.628000020980835
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.4560000002384186
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.30399996042251587
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "Mod+HP",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.2679999768733978
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.43050000071525574
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 3
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.7560000419616699
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.21450012922286987
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.4719999432563782
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.9280000329017639
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999998
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.3040000796318054
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 0.6800000071525574
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.5920000672340393
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.6200000643730164
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.7680001258850098
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "Motivation",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.1545000523328781
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.13450002670288086
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.15599998831748962
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.11200001090765001
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.25599995255470276
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.6039999723434448
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.24800018966197968
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.703999936580658
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.6840002536773682
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.6920000910758972
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.7159998416900635
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.4240001440048218
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.4520000219345093
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.31999990344047546
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.4479999840259552
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.24799995124340057
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "NoisyMod",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.6600003242492676
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.4520004689693451
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.6800001263618469
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.6719997525215149
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.5600000023841858
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.5319998264312744
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.9959999918937683
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.4519999325275421
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.5600000619888306
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.5079999566078186
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "OutOfTuning",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.46399977803230286
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.7480005025863647
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.26649993658065796
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.3279999792575836
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.5759999752044678
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.41999995708465576
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.3080000579357147
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.9880000352859497
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.6960000395774841
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.6400002241134644
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.3639999330043793
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.13999998569488534
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.27999991178512573
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "PitchDecay",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 5
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.5080000758171082
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999998
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 0.49999999999999994
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.20800006389617923
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.8279998898506165
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.8360000252723694
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "PitchLFO",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.32799991965293884
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.6560002565383911
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.747999906539917
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.15600004792213443
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.5199999213218689
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.2839999794960022
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "Pulse",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.5359998941421509
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.3160000145435333
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "RunOutOfIdea",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.3944999873638153
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.4025000035762787
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 3
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.24000000953674316
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.2360000312328339
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.5199998617172241
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.403999924659729
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.3859999477863312
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.42399999499320984
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.8360000252723694
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.5679999589920044
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.46000000834465027
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.7879998683929443
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.892000138759613
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.8759999871253967
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.8720000982284546
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "SingleOscSyncLFO",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.11450003832578659
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.7520004510879517
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.5400000214576721
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.6840000152587891
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.7719995975494385
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 0.9160001873970032
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.6880000829696656
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.871999979019165
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.5320000052452087
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5920002460479736
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.3080002963542938
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.8479998707771301
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.2280000001192093
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.23600004613399508
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.7760003209114075
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "SomehowTonal",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.255999892950058
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.2264999896287918
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5040001273155212
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.4945000112056732
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.08399999886751176
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.32399991154670715
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.3060000240802765
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.3240000009536743
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.4840001165866852
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.6320000886917114
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.6439999341964722
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.48000001907348633
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.7159997820854187
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "TeachMeEnglishCoolWords",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5760001540184021
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.6400002837181091
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0780000388622284
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.41600000858306885
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.49599960446357727
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 0.7520000338554382
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.6159999966621399
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.5800000429153442
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.6640000939369202
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.7560001015663147
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.30399996042251587
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.6599999666213989
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.5480000972747803
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "name": "ThisIsntAModem",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5039998292922974
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Sync",
+        "type": "d",
+        "value": 0.06249999999999999
+      },
+      {
+        "name": "osc1SyncType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1PTROrder",
+        "type": "I",
+        "value": 11
+      },
+      {
+        "name": "osc1Phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PhaseLock",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5160000324249268
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Sync",
+        "type": "d",
+        "value": 0.34250012040138245
+      },
+      {
+        "name": "osc2SyncType",
+        "type": "I",
+        "value": 3
+      },
+      {
+        "name": "osc2PTROrder",
+        "type": "I",
+        "value": 5
+      },
+      {
+        "name": "osc2Invert",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "osc2Phase",
+        "type": "d",
+        "value": 0.4960000813007355
+      },
+      {
+        "name": "osc2PhaseLock",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "fmOsc1ToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmOsc1ToFreq2",
+        "type": "d",
+        "value": 0.9200000166893005
+      },
+      {
+        "name": "fmOsc2ToSync1",
+        "type": "d",
+        "value": 0.30000001192092896
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.7159997820854187
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.05000000000000002
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.4999999999999999
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999998
+      },
+      {
+        "name": "gainEnvelopeCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.8120005130767822
+      },
+      {
+        "name": "filterResonance",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterDirty",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterShaper",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCutoffAmount",
+        "type": "d",
+        "value": 0.6480000019073486
+      },
+      {
+        "name": "filterResonanceAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToFeedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeCurve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnvelopeToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnvelopeToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLFONoiseMix",
+        "type": "d",
+        "value": 0.01
+      },
+      {
+        "name": "modLFOToFreq1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToFreq2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modLFOToSync2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unison",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "nVoice",
+        "type": "I",
+        "value": 5
+      }
+    ]
+  }
+]

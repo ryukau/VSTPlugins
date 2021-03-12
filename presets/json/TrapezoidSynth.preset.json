@@ -1,0 +1,6702 @@
+[
+  {
+    "name": "BassAndSweep",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999998
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 5
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.12000000476837158
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.8880000114440918
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.7240002751350403
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 0.590100874852465
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.6959999799728394
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.1199999898672104
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.4560000002384186
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.5193748474121094
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.8999999165534973
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "Below",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.7999999523162842
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.23200005292892456
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.31199997663497925
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.19999995827674866
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999998
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.41600021719932556
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 0.5379108066782622
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.34000000357627863
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.8799999356269836
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.29170833333333335
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.5360000133514404
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.3840000331401825
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.2520001530647278
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "BrokenModulation",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.7239999771118164
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.8799999356269836
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.29600000381469727
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.18800002336502072
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.32800009846687317
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.4520000219345093
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.5077082514762878
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.6959993839263916
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.47599995136260986
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.6360000371932983
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.796000063419342
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999999
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.29170833333333335
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.583375
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "DetunedPhaseMod",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.24799992144107819
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.6880001425743103
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.6039999723434448
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.6280000805854797
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.19200000166893005
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.800000011920929
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999998
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.4400000274181366
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.8039999604225159
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.4880000054836273
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.09570838510990143
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.03199993073940277
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.7913753390312195
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.7720000147819519
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.13600000739097595
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "DetuneWhileSliding",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.6920000314712524
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.29170833333333335
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.583375
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.49199995398521423
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.800000011920929
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "Drift",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.3640000820159912
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.4280000925064087
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.1599999964237213
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.2120000272989273
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.38399997353553766
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.5960000157356262
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.5039999485015869
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.18400025367736816
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.887999951839447
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.6600000858306885
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.21570836007595062
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.1679999828338623
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.5880000591278076
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.7153752446174622
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.6079999804496765
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.2640000581741333
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.6359999179840088
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.04400002956390381
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.04400002956390381
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.4720001220703125
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.12400000542402267
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.9440000057220459
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "Groan",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5039994716644287
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.34800001978874207
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.1599999964237213
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.3280000686645508
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.3760000169277191
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.39599996805191046
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.4360000789165497
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.2879999279975891
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.5160000324249268
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.8480000495910645
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 0.827777998783721
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.29170833333333335
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.583375
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.3680000305175781
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.5120000839233398
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "LFOFreqDecay",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.2639999985694885
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.11600032448768616
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999998
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.38800001144409174
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.34400027990341187
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.20000006258487707
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.5077083706855774
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.531999945640564
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.4999998211860657
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.583375
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.7040000557899475
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.2159999310970306
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.7440001368522644
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "MindlessModulation",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.3840000331401825
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.7480002045631409
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.24000003933906555
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.1640000343322754
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.5840001106262207
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.22799997031688693
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.36399999260902405
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.6920000314712524
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.6639999151229858
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.38400003314018255
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.8799999356269836
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 1.0378216055388882
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.10400000959634781
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.4399999976158142
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.31200000643730164
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.304000049829483
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.239999994635582
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.3680000305175781
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.5159998536109924
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.8439999222755432
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.8040001392364502
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.8959999084472656
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.6239999532699585
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.5360000729560852
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.2520000636577606
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.7079999446868896
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.24800001084804535
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.3479999899864197
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.29170833333333335
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.8800000548362732
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.2633749544620514
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.7319999933242798
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.19599997997283936
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.7559999823570251
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.25199997425079346
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.7239999771118164
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.5600000023841858
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.47600001096725464
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.49199995398521423
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.4919999837875366
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "Minor3rdShift",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.6399999856948853
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5720001459121704
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999998
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.20799997448921206
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.8079999685287476
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.29170833333333335
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.5440000891685486
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.6873751878738403
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.8160001039505005
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.2000001221895218
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.6639999747276306
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.3839999735355377
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.40400010347366333
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.5919997096061707
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "OctaveDecay",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.288000077009201
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.23999997973442078
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.41599997878074646
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.7960000038146973
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5759999752044678
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.09200000762939455
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.29170833333333335
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.583375
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.20800001919269562
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.10000000149011612
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.6200000047683716
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "Osc1PitchLFO",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.1999999433755875
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.6720001697540283
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.1199997514486313
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999998
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.2919999659061432
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.04800000786781312
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.48799997568130493
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.3319999873638153
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.5440000891685486
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.5520000457763672
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.19970837235450745
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.4439997375011444
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.25200000405311584
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.4359999895095825
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "OverTheNyquist",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.36399996280670166
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.6119998693466187
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.7920000553131104
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999998
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.29170833333333335
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.583375
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "Overtone19",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.7600004076957703
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.44799935817718506
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.03999999165534973
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.5919999480247498
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.8400000929832458
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.004000050947070122
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999998
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.7119999527931213
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.30000001192092896
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 1.7268072314089384
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.531999945640564
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.7640001177787781
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.29170833333333335
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.583375
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.2120000123977661
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.8080000281333923
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.41200003027915955
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.18400004506111145
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "ResShortDecay",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.3319999873638153
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.8040000200271606
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.6919999718666077
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.7400000095367432
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.1599999815225601
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999998
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 3
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.20400018990039825
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.6679999828338623
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 1.7268078049901712
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.17200005054473874
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.16799999773502353
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.7839998006820679
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.14000001549720764
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.29170833333333335
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.583375
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.5320000648498535
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "Saturation",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.34800001978874207
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.5680000185966492
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.11200003325939178
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.45200008153915405
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999998
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.16400000452995303
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.9280000329017639
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.8719999194145203
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 0.9224026595554398
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.42000001668930054
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.42800000309944153
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.7400000095367432
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.29170833333333335
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.583375
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "ShifterPseudoResonance",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.9240001440048218
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.2080000340938568
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.503999650478363
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.2359999567270279
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.2080000638961792
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.28000000119209284
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999998
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.08800026029348379
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 0.6805153348553992
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.4439999759197235
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.8520000576972961
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.591999888420105
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.15600022673606875
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.7119998335838318
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.583375
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "SubBassDrum",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.43199998140335083
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 0.2720000445842743
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 0.551459278417076
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.25200003385543823
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.29170833333333335
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.583375
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.5000000596046448
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  },
+  {
+    "name": "TpzRoar",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "osc1Semi",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PitchDrift",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc1Slope",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1PulseWidth",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1Feedback",
+        "type": "d",
+        "value": 0.10000018030405046
+      },
+      {
+        "name": "osc2Semi",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Cent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2Overtone",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2Slope",
+        "type": "d",
+        "value": 0.8040000200271606
+      },
+      {
+        "name": "osc2PulseWidth",
+        "type": "d",
+        "value": 0.3320000171661377
+      },
+      {
+        "name": "pmOsc2ToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainS",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "gainR",
+        "type": "d",
+        "value": 0.09999999999999998
+      },
+      {
+        "name": "gainCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "filterOrder",
+        "type": "I",
+        "value": 7
+      },
+      {
+        "name": "filterCutoff",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "filterFeedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterSaturation",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "filterEnvToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterKeyToCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "oscMixToFilterCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterA",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterD",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterS",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterR",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterCurve",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "filterEnvToOctave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "filterEnvRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv1Attack",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv1ToPhaseMod",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv1Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modEnv2Attack",
+        "type": "d",
+        "value": 0.5760000348091125
+      },
+      {
+        "name": "modEnv2Curve",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modEnv2ToFeedback",
+        "type": "d",
+        "value": 0.5919999480247498
+      },
+      {
+        "name": "modEnv2ToLFOFrequency",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToOsc2Slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2ToShifter1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "modEnv2Retrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shifter1Semi",
+        "type": "d",
+        "value": 0.29170833333333335
+      },
+      {
+        "name": "shifter1Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter1Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Semi",
+        "type": "d",
+        "value": 0.583375
+      },
+      {
+        "name": "shifter2Cent",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "shifter2Gain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoFrequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToSlope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToPulseWidth",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "octave",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchSlideType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "pitchSlide",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchSlideOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      }
+    ]
+  }
+]

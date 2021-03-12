@@ -1,0 +1,594 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": false,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "frequency0",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 0)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "frequency1",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 1)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "frequency2",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 2)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "frequency3",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 3)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "frequency4",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 4)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "frequency5",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 5)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "frequency6",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 6)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "frequency7",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 7)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "frequency8",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 8)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "frequency9",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 9)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "frequency10",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 10)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "frequency11",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 11)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "frequency12",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 12)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "frequency13",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 13)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "frequency14",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 14)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "frequency15",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 15)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "frequency16",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 16)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "frequency17",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 17)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "frequency18",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 18)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "frequency19",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 19)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "frequency20",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 20)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 22,
+    "name": "frequency21",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 21)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 23,
+    "name": "frequency22",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 22)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 24,
+    "name": "frequency23",
+    "type": "d",
+    "default": "Scales::frequency.invmap(100.0 + 20.0 * 23)",
+    "scale": "Scales::frequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 25,
+    "name": "combTime0",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::combTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 26,
+    "name": "combTime1",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::combTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 27,
+    "name": "combTime2",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::combTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 28,
+    "name": "combTime3",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::combTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 29,
+    "name": "combTime4",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::combTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 30,
+    "name": "combTime5",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::combTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 31,
+    "name": "combTime6",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::combTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 32,
+    "name": "combTime7",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::combTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 33,
+    "name": "gain",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 34,
+    "name": "boost",
+    "type": "d",
+    "default": "Scales::boost.invmap(1.0)",
+    "scale": "Scales::boost",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 35,
+    "name": "exciterGain",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::exciterGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 36,
+    "name": "exciterAttack",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::exciterAttack",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 37,
+    "name": "exciterDecay",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::exciterDecay",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 38,
+    "name": "exciterNoiseMix",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 39,
+    "name": "exciterLowpassCutoff",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::exciterLowpassCutoff",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 40,
+    "name": "lowpassCutoff",
+    "type": "d",
+    "default": "Scales::lowpassCutoff.invmap(12000.0)",
+    "scale": "Scales::lowpassCutoff",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 41,
+    "name": "highpassCutoff",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::highpassCutoff",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 42,
+    "name": "lowpassA",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 43,
+    "name": "lowpassD",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 44,
+    "name": "lowpassS",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeS",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 45,
+    "name": "lowpassR",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeR",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 46,
+    "name": "distance",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::distance",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 47,
+    "name": "propagation",
+    "type": "d",
+    "default": "Scales::propagation.invmap(0.9)",
+    "scale": "Scales::propagation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 48,
+    "name": "connection",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 49,
+    "name": "randomComb",
+    "type": "d",
+    "default": 0.01,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 50,
+    "name": "randomFrequency",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::randomFrequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 51,
+    "name": "seedNoise",
+    "type": "I",
+    "default": 11467559,
+    "scale": "Scales::seed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 52,
+    "name": "seedComb",
+    "type": "I",
+    "default": 14700349,
+    "scale": "Scales::seed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 53,
+    "name": "seedString",
+    "type": "I",
+    "default": 3937273,
+    "scale": "Scales::seed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 54,
+    "name": "seedUnison",
+    "type": "I",
+    "default": 2060287,
+    "scale": "Scales::seed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 55,
+    "name": "retriggerNoise",
+    "type": "I",
+    "default": false,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 56,
+    "name": "retriggerComb",
+    "type": "I",
+    "default": false,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 57,
+    "name": "retriggerString",
+    "type": "I",
+    "default": true,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 58,
+    "name": "retriggerUnison",
+    "type": "I",
+    "default": false,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 59,
+    "name": "compressor",
+    "type": "I",
+    "default": 1,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 60,
+    "name": "compressorTime",
+    "type": "d",
+    "default": "Scales::compressorTime.invmap(0.1)",
+    "scale": "Scales::compressorTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 61,
+    "name": "compressorThreshold",
+    "type": "d",
+    "default": "Scales::compressorThreshold.invmap(0.5)",
+    "scale": "Scales::compressorThreshold",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 62,
+    "name": "nVoice",
+    "type": "I",
+    "default": 7,
+    "scale": "Scales::nVoice",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 63,
+    "name": "nUnison",
+    "type": "I",
+    "default": 1,
+    "scale": "Scales::nUnison",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 64,
+    "name": "unisonDetune",
+    "type": "d",
+    "default": 0.25,
+    "scale": "Scales::unisonDetune",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 65,
+    "name": "unisonSpread",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 66,
+    "name": "unisonGainRandom",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 67,
+    "name": "unisonDetuneRandom",
+    "type": "I",
+    "default": 1,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 68,
+    "name": "octave",
+    "type": "I",
+    "default": 12,
+    "scale": "Scales::octave",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 69,
+    "name": "semitone",
+    "type": "I",
+    "default": 120,
+    "scale": "Scales::semitone",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 70,
+    "name": "milli",
+    "type": "I",
+    "default": 1000,
+    "scale": "Scales::milli",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 71,
+    "name": "equalTemperament",
+    "type": "I",
+    "default": 11,
+    "scale": "Scales::equalTemperament",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 72,
+    "name": "pitchA4Hz",
+    "type": "I",
+    "default": 340,
+    "scale": "Scales::pitchA4Hz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 73,
+    "name": "pitchBend",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  }
+]

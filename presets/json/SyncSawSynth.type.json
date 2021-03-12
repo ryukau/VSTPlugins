@@ -1,0 +1,458 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "osc1Gain",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::oscGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "osc1Semi",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::semi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "osc1Cent",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::cent",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "osc1Sync",
+    "type": "d",
+    "default": "1.0 / 16.0",
+    "scale": "Scales::sync",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "osc1SyncType",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::osc1SyncType",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "osc1PTROrder",
+    "type": "I",
+    "default": 16,
+    "scale": "Scales::osc1PTROrder",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "osc1Phase",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "osc1PhaseLock",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "osc2Gain",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::oscGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "osc2Semi",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::semi",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "osc2Cent",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::cent",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "osc2Sync",
+    "type": "d",
+    "default": "1.0 / 16.0",
+    "scale": "Scales::sync",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "osc2SyncType",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::osc1SyncType",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "osc2PTROrder",
+    "type": "I",
+    "default": 16,
+    "scale": "Scales::osc1PTROrder",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "osc2Invert",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "osc2Phase",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "osc2PhaseLock",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "fmOsc1ToSync1",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::fmToSync",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "fmOsc1ToFreq2",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::fmToFreq",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "fmOsc2ToSync1",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::fmToSync",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "gain",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 22,
+    "name": "gainA",
+    "type": "d",
+    "default": 0.05,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 23,
+    "name": "gainD",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 24,
+    "name": "gainS",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeS",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 25,
+    "name": "gainR",
+    "type": "d",
+    "default": 0.1,
+    "scale": "Scales::envelopeR",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 26,
+    "name": "gainEnvelopeCurve",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 27,
+    "name": "filterCutoff",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::filterCutoff",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 28,
+    "name": "filterResonance",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::filterResonance",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 29,
+    "name": "filterFeedback",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::filterFeedback",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 30,
+    "name": "filterSaturation",
+    "type": "d",
+    "default": 0.3,
+    "scale": "Scales::filterSaturation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 31,
+    "name": "filterDirty",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 32,
+    "name": "filterType",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::filterType",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 33,
+    "name": "filterShaper",
+    "type": "I",
+    "default": 1,
+    "scale": "Scales::filterShaper",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 34,
+    "name": "filterA",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 35,
+    "name": "filterD",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeD",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 36,
+    "name": "filterS",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::envelopeS",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 37,
+    "name": "filterR",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::envelopeR",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 38,
+    "name": "filterCutoffAmount",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::filterCutoffAmount",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 39,
+    "name": "filterResonanceAmount",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 40,
+    "name": "filterKeyToCutoff",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::filterKeyMod",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 41,
+    "name": "filterKeyToFeedback",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::filterKeyMod",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 42,
+    "name": "modEnvelopeA",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::modEnvelopeA",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 43,
+    "name": "modEnvelopeCurve",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::modEnvelopeCurve",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 44,
+    "name": "modEnvelopeToFreq1",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::modToFreq",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 45,
+    "name": "modEnvelopeToSync1",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::modToSync",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 46,
+    "name": "modEnvelopeToFreq2",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::modToFreq",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 47,
+    "name": "modEnvelopeToSync2",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::modToSync",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 48,
+    "name": "modLFOFrequency",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::modLFOFrequency",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 49,
+    "name": "modLFONoiseMix",
+    "type": "d",
+    "default": 0.01,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 50,
+    "name": "modLFOToFreq1",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::modToFreq",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 51,
+    "name": "modLFOToSync1",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::modToSync",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 52,
+    "name": "modLFOToFreq2",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::modToFreq",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 53,
+    "name": "modLFOToSync2",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::modToSync",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 54,
+    "name": "pitchBend",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 55,
+    "name": "unison",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 56,
+    "name": "nVoice",
+    "type": "I",
+    "default": 5,
+    "scale": "Scales::nVoice",
+    "flags": "Info::kCanAutomate"
+  }
+]

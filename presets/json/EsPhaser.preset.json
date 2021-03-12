@@ -1,0 +1,782 @@
+[
+  {
+    "name": "AutomateCasOffset",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.492
+      },
+      {
+        "name": "frequency",
+        "type": "d",
+        "value": 0.148
+      },
+      {
+        "name": "freqSpread",
+        "type": "d",
+        "value": 0.208
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.964
+      },
+      {
+        "name": "range",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "min",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stereoOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "cascadeOffset",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stage",
+        "type": "I",
+        "value": 4095
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.0
+      }
+    ]
+  },
+  {
+    "name": "AutomateMin",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.584
+      },
+      {
+        "name": "frequency",
+        "type": "d",
+        "value": 0.76
+      },
+      {
+        "name": "freqSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.958696
+      },
+      {
+        "name": "range",
+        "type": "d",
+        "value": 0.048
+      },
+      {
+        "name": "min",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stereoOffset",
+        "type": "d",
+        "value": 0.34
+      },
+      {
+        "name": "cascadeOffset",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stage",
+        "type": "I",
+        "value": 4095
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.0
+      }
+    ]
+  },
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "frequency",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "freqSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "range",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "min",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stereoOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "cascadeOffset",
+        "type": "d",
+        "value": 0.0625
+      },
+      {
+        "name": "stage",
+        "type": "I",
+        "value": 15
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.0
+      }
+    ]
+  },
+  {
+    "name": "Feedback",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.9320003390312195
+      },
+      {
+        "name": "frequency",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "freqSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "range",
+        "type": "d",
+        "value": 0.8960002064704895
+      },
+      {
+        "name": "min",
+        "type": "d",
+        "value": 0.9479999542236328
+      },
+      {
+        "name": "phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stereoOffset",
+        "type": "d",
+        "value": 0.5600001215934753
+      },
+      {
+        "name": "cascadeOffset",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stage",
+        "type": "I",
+        "value": 2260
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.0
+      }
+    ]
+  },
+  {
+    "name": "Hallucinogen95",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.584
+      },
+      {
+        "name": "frequency",
+        "type": "d",
+        "value": 0.412
+      },
+      {
+        "name": "freqSpread",
+        "type": "d",
+        "value": 0.552
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.906696
+      },
+      {
+        "name": "range",
+        "type": "d",
+        "value": 0.364
+      },
+      {
+        "name": "min",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stereoOffset",
+        "type": "d",
+        "value": 0.34
+      },
+      {
+        "name": "cascadeOffset",
+        "type": "d",
+        "value": 0.264
+      },
+      {
+        "name": "stage",
+        "type": "I",
+        "value": 114
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.0
+      }
+    ]
+  },
+  {
+    "name": "Resonator",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.32
+      },
+      {
+        "name": "frequency",
+        "type": "d",
+        "value": 0.14
+      },
+      {
+        "name": "freqSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.008
+      },
+      {
+        "name": "range",
+        "type": "d",
+        "value": 0.048
+      },
+      {
+        "name": "min",
+        "type": "d",
+        "value": 0.368
+      },
+      {
+        "name": "phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stereoOffset",
+        "type": "d",
+        "value": 0.34
+      },
+      {
+        "name": "cascadeOffset",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stage",
+        "type": "I",
+        "value": 57
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.0
+      }
+    ]
+  },
+  {
+    "name": "Sharp",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.8360000848770142
+      },
+      {
+        "name": "frequency",
+        "type": "d",
+        "value": 0.056000053882598884
+      },
+      {
+        "name": "freqSpread",
+        "type": "d",
+        "value": 0.7280000448226929
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.08800039440393448
+      },
+      {
+        "name": "range",
+        "type": "d",
+        "value": 0.33999985456466675
+      },
+      {
+        "name": "min",
+        "type": "d",
+        "value": 0.6800001263618469
+      },
+      {
+        "name": "phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stereoOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "cascadeOffset",
+        "type": "d",
+        "value": 0.4679999947547912
+      },
+      {
+        "name": "stage",
+        "type": "I",
+        "value": 24
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.0
+      }
+    ]
+  },
+  {
+    "name": "SlowBend",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.3880005478858948
+      },
+      {
+        "name": "frequency",
+        "type": "d",
+        "value": 0.14400027692317963
+      },
+      {
+        "name": "freqSpread",
+        "type": "d",
+        "value": 0.432000070810318
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.0320000946521759
+      },
+      {
+        "name": "range",
+        "type": "d",
+        "value": 0.8960002064704895
+      },
+      {
+        "name": "min",
+        "type": "d",
+        "value": 0.28800007700920105
+      },
+      {
+        "name": "phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stereoOffset",
+        "type": "d",
+        "value": 0.3160001337528229
+      },
+      {
+        "name": "cascadeOffset",
+        "type": "d",
+        "value": 0.5999999642372131
+      },
+      {
+        "name": "stage",
+        "type": "I",
+        "value": 3514
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.0
+      }
+    ]
+  },
+  {
+    "name": "Stage4096",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "frequency",
+        "type": "d",
+        "value": 0.043994
+      },
+      {
+        "name": "freqSpread",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.952
+      },
+      {
+        "name": "range",
+        "type": "d",
+        "value": 0.368
+      },
+      {
+        "name": "min",
+        "type": "d",
+        "value": 0.932
+      },
+      {
+        "name": "phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stereoOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "cascadeOffset",
+        "type": "d",
+        "value": 0.628
+      },
+      {
+        "name": "stage",
+        "type": "I",
+        "value": 4095
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.0
+      }
+    ]
+  },
+  {
+    "name": "Subtle",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "frequency",
+        "type": "d",
+        "value": 0.412
+      },
+      {
+        "name": "freqSpread",
+        "type": "d",
+        "value": 0.968
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.402695
+      },
+      {
+        "name": "range",
+        "type": "d",
+        "value": 0.972
+      },
+      {
+        "name": "min",
+        "type": "d",
+        "value": 0.7
+      },
+      {
+        "name": "phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stereoOffset",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "cascadeOffset",
+        "type": "d",
+        "value": 0.264
+      },
+      {
+        "name": "stage",
+        "type": "I",
+        "value": 753
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.0
+      }
+    ]
+  },
+  {
+    "name": "Thick",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.836000382900238
+      },
+      {
+        "name": "frequency",
+        "type": "d",
+        "value": 0.7920001149177551
+      },
+      {
+        "name": "freqSpread",
+        "type": "d",
+        "value": 0.8640003204345703
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.47199997305870056
+      },
+      {
+        "name": "range",
+        "type": "d",
+        "value": 0.7519999146461487
+      },
+      {
+        "name": "min",
+        "type": "d",
+        "value": 0.31999996304512024
+      },
+      {
+        "name": "phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stereoOffset",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "cascadeOffset",
+        "type": "d",
+        "value": 0.8719998598098754
+      },
+      {
+        "name": "stage",
+        "type": "I",
+        "value": 827
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.0
+      }
+    ]
+  },
+  {
+    "name": "ThisPhaserIsTooResourceHungry",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "frequency",
+        "type": "d",
+        "value": 0.42
+      },
+      {
+        "name": "freqSpread",
+        "type": "d",
+        "value": 0.444
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.972
+      },
+      {
+        "name": "range",
+        "type": "d",
+        "value": 0.476
+      },
+      {
+        "name": "min",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "phase",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stereoOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "cascadeOffset",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stage",
+        "type": "I",
+        "value": 4095
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.0
+      }
+    ]
+  }
+]

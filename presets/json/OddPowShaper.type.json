@@ -1,0 +1,106 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "drive",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::drive",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "boost",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::boost",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "outputGain",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::outputGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "order",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::order",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "flip",
+    "type": "I",
+    "default": true,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "inverse",
+    "type": "I",
+    "default": true,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "oversample",
+    "type": "I",
+    "default": true,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "smoothness",
+    "type": "d",
+    "default": 0.1,
+    "scale": "Scales::smoothness",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "limiter",
+    "type": "I",
+    "default": 1,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "limiterThreshold",
+    "type": "d",
+    "default": "Scales::limiterThreshold.invmap(1.0)",
+    "scale": "Scales::limiterThreshold",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "limiterAttack",
+    "type": "d",
+    "default": "Scales::limiterAttack.invmap(0.002)",
+    "scale": "Scales::limiterAttack",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "limiterRelease",
+    "type": "d",
+    "default": "Scales::limiterRelease.invmap(0.005)",
+    "scale": "Scales::limiterRelease",
+    "flags": "Info::kCanAutomate"
+  }
+]

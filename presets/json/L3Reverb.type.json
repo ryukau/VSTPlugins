@@ -1,0 +1,3754 @@
+[
+  {
+    "id": 0,
+    "name": "time0",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 1,
+    "name": "time1",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "time2",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "time3",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "time4",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "time5",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "time6",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "time7",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "time8",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "time9",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "time10",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "time11",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "time12",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "time13",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "time14",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "time15",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "time16",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "time17",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "time18",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "time19",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "time20",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "time21",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 22,
+    "name": "time22",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 23,
+    "name": "time23",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 24,
+    "name": "time24",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 25,
+    "name": "time25",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 26,
+    "name": "time26",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 27,
+    "name": "time27",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 28,
+    "name": "time28",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 29,
+    "name": "time29",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 30,
+    "name": "time30",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 31,
+    "name": "time31",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 32,
+    "name": "time32",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 33,
+    "name": "time33",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 34,
+    "name": "time34",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 35,
+    "name": "time35",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 36,
+    "name": "time36",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 37,
+    "name": "time37",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 38,
+    "name": "time38",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 39,
+    "name": "time39",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 40,
+    "name": "time40",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 41,
+    "name": "time41",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 42,
+    "name": "time42",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 43,
+    "name": "time43",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 44,
+    "name": "time44",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 45,
+    "name": "time45",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 46,
+    "name": "time46",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 47,
+    "name": "time47",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 48,
+    "name": "time48",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 49,
+    "name": "time49",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 50,
+    "name": "time50",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 51,
+    "name": "time51",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 52,
+    "name": "time52",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 53,
+    "name": "time53",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 54,
+    "name": "time54",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 55,
+    "name": "time55",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 56,
+    "name": "time56",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 57,
+    "name": "time57",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 58,
+    "name": "time58",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 59,
+    "name": "time59",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 60,
+    "name": "time60",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 61,
+    "name": "time61",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 62,
+    "name": "time62",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 63,
+    "name": "time63",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 64,
+    "name": "time64",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 65,
+    "name": "time65",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 66,
+    "name": "time66",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 67,
+    "name": "time67",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 68,
+    "name": "time68",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 69,
+    "name": "time69",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 70,
+    "name": "time70",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 71,
+    "name": "time71",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 72,
+    "name": "time72",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 73,
+    "name": "time73",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 74,
+    "name": "time74",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 75,
+    "name": "time75",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 76,
+    "name": "time76",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 77,
+    "name": "time77",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 78,
+    "name": "time78",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 79,
+    "name": "time79",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 80,
+    "name": "time80",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 81,
+    "name": "time81",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 82,
+    "name": "time82",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 83,
+    "name": "time83",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 84,
+    "name": "time84",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 85,
+    "name": "time85",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 86,
+    "name": "time86",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 87,
+    "name": "time87",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 88,
+    "name": "time88",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 89,
+    "name": "time89",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 90,
+    "name": "time90",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 91,
+    "name": "time91",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 92,
+    "name": "time92",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 93,
+    "name": "time93",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 94,
+    "name": "time94",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 95,
+    "name": "time95",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 96,
+    "name": "time96",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 97,
+    "name": "time97",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 98,
+    "name": "time98",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 99,
+    "name": "time99",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 100,
+    "name": "time100",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 101,
+    "name": "time101",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 102,
+    "name": "time102",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 103,
+    "name": "time103",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 104,
+    "name": "time104",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 105,
+    "name": "time105",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 106,
+    "name": "time106",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 107,
+    "name": "time107",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 108,
+    "name": "time108",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 109,
+    "name": "time109",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 110,
+    "name": "time110",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 111,
+    "name": "time111",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 112,
+    "name": "time112",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 113,
+    "name": "time113",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 114,
+    "name": "time114",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 115,
+    "name": "time115",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 116,
+    "name": "time116",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 117,
+    "name": "time117",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 118,
+    "name": "time118",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 119,
+    "name": "time119",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 120,
+    "name": "time120",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 121,
+    "name": "time121",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 122,
+    "name": "time122",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 123,
+    "name": "time123",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 124,
+    "name": "time124",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 125,
+    "name": "time125",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 126,
+    "name": "time126",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 127,
+    "name": "time127",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 128,
+    "name": "time128",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 129,
+    "name": "time129",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 130,
+    "name": "time130",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 131,
+    "name": "time131",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 132,
+    "name": "time132",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 133,
+    "name": "time133",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 134,
+    "name": "time134",
+    "type": "d",
+    "default": "Scales::time.invmap(0.1)",
+    "scale": "Scales::time",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 135,
+    "name": "innerFeed0",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 136,
+    "name": "innerFeed1",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 137,
+    "name": "innerFeed2",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 138,
+    "name": "innerFeed3",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 139,
+    "name": "innerFeed4",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 140,
+    "name": "innerFeed5",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 141,
+    "name": "innerFeed6",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 142,
+    "name": "innerFeed7",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 143,
+    "name": "innerFeed8",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 144,
+    "name": "innerFeed9",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 145,
+    "name": "innerFeed10",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 146,
+    "name": "innerFeed11",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 147,
+    "name": "innerFeed12",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 148,
+    "name": "innerFeed13",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 149,
+    "name": "innerFeed14",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 150,
+    "name": "innerFeed15",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 151,
+    "name": "innerFeed16",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 152,
+    "name": "innerFeed17",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 153,
+    "name": "innerFeed18",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 154,
+    "name": "innerFeed19",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 155,
+    "name": "innerFeed20",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 156,
+    "name": "innerFeed21",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 157,
+    "name": "innerFeed22",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 158,
+    "name": "innerFeed23",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 159,
+    "name": "innerFeed24",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 160,
+    "name": "innerFeed25",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 161,
+    "name": "innerFeed26",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 162,
+    "name": "innerFeed27",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 163,
+    "name": "innerFeed28",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 164,
+    "name": "innerFeed29",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 165,
+    "name": "innerFeed30",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 166,
+    "name": "innerFeed31",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 167,
+    "name": "innerFeed32",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 168,
+    "name": "innerFeed33",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 169,
+    "name": "innerFeed34",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 170,
+    "name": "innerFeed35",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 171,
+    "name": "innerFeed36",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 172,
+    "name": "innerFeed37",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 173,
+    "name": "innerFeed38",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 174,
+    "name": "innerFeed39",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 175,
+    "name": "innerFeed40",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 176,
+    "name": "innerFeed41",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 177,
+    "name": "innerFeed42",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 178,
+    "name": "innerFeed43",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 179,
+    "name": "innerFeed44",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 180,
+    "name": "innerFeed45",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 181,
+    "name": "innerFeed46",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 182,
+    "name": "innerFeed47",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 183,
+    "name": "innerFeed48",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 184,
+    "name": "innerFeed49",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 185,
+    "name": "innerFeed50",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 186,
+    "name": "innerFeed51",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 187,
+    "name": "innerFeed52",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 188,
+    "name": "innerFeed53",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 189,
+    "name": "innerFeed54",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 190,
+    "name": "innerFeed55",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 191,
+    "name": "innerFeed56",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 192,
+    "name": "innerFeed57",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 193,
+    "name": "innerFeed58",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 194,
+    "name": "innerFeed59",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 195,
+    "name": "innerFeed60",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 196,
+    "name": "innerFeed61",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 197,
+    "name": "innerFeed62",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 198,
+    "name": "innerFeed63",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 199,
+    "name": "innerFeed64",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 200,
+    "name": "innerFeed65",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 201,
+    "name": "innerFeed66",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 202,
+    "name": "innerFeed67",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 203,
+    "name": "innerFeed68",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 204,
+    "name": "innerFeed69",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 205,
+    "name": "innerFeed70",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 206,
+    "name": "innerFeed71",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 207,
+    "name": "innerFeed72",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 208,
+    "name": "innerFeed73",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 209,
+    "name": "innerFeed74",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 210,
+    "name": "innerFeed75",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 211,
+    "name": "innerFeed76",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 212,
+    "name": "innerFeed77",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 213,
+    "name": "innerFeed78",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 214,
+    "name": "innerFeed79",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 215,
+    "name": "innerFeed80",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 216,
+    "name": "innerFeed81",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 217,
+    "name": "innerFeed82",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 218,
+    "name": "innerFeed83",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 219,
+    "name": "innerFeed84",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 220,
+    "name": "innerFeed85",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 221,
+    "name": "innerFeed86",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 222,
+    "name": "innerFeed87",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 223,
+    "name": "innerFeed88",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 224,
+    "name": "innerFeed89",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 225,
+    "name": "innerFeed90",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 226,
+    "name": "innerFeed91",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 227,
+    "name": "innerFeed92",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 228,
+    "name": "innerFeed93",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 229,
+    "name": "innerFeed94",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 230,
+    "name": "innerFeed95",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 231,
+    "name": "innerFeed96",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 232,
+    "name": "innerFeed97",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 233,
+    "name": "innerFeed98",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 234,
+    "name": "innerFeed99",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 235,
+    "name": "innerFeed100",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 236,
+    "name": "innerFeed101",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 237,
+    "name": "innerFeed102",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 238,
+    "name": "innerFeed103",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 239,
+    "name": "innerFeed104",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 240,
+    "name": "innerFeed105",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 241,
+    "name": "innerFeed106",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 242,
+    "name": "innerFeed107",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 243,
+    "name": "innerFeed108",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 244,
+    "name": "innerFeed109",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 245,
+    "name": "innerFeed110",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 246,
+    "name": "innerFeed111",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 247,
+    "name": "innerFeed112",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 248,
+    "name": "innerFeed113",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 249,
+    "name": "innerFeed114",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 250,
+    "name": "innerFeed115",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 251,
+    "name": "innerFeed116",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 252,
+    "name": "innerFeed117",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 253,
+    "name": "innerFeed118",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 254,
+    "name": "innerFeed119",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 255,
+    "name": "innerFeed120",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 256,
+    "name": "innerFeed121",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 257,
+    "name": "innerFeed122",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 258,
+    "name": "innerFeed123",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 259,
+    "name": "innerFeed124",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 260,
+    "name": "innerFeed125",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 261,
+    "name": "innerFeed126",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 262,
+    "name": "innerFeed127",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 263,
+    "name": "innerFeed128",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 264,
+    "name": "innerFeed129",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 265,
+    "name": "innerFeed130",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 266,
+    "name": "innerFeed131",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 267,
+    "name": "innerFeed132",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 268,
+    "name": "innerFeed133",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 269,
+    "name": "innerFeed134",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 270,
+    "name": "d1Feed0",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 271,
+    "name": "d1Feed1",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 272,
+    "name": "d1Feed2",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 273,
+    "name": "d1Feed3",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 274,
+    "name": "d1Feed4",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 275,
+    "name": "d1Feed5",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 276,
+    "name": "d1Feed6",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 277,
+    "name": "d1Feed7",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 278,
+    "name": "d1Feed8",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 279,
+    "name": "d1Feed9",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 280,
+    "name": "d1Feed10",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 281,
+    "name": "d1Feed11",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 282,
+    "name": "d1Feed12",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 283,
+    "name": "d1Feed13",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 284,
+    "name": "d1Feed14",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 285,
+    "name": "d1Feed15",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 286,
+    "name": "d1Feed16",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 287,
+    "name": "d1Feed17",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 288,
+    "name": "d1Feed18",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 289,
+    "name": "d1Feed19",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 290,
+    "name": "d1Feed20",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 291,
+    "name": "d1Feed21",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 292,
+    "name": "d1Feed22",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 293,
+    "name": "d1Feed23",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 294,
+    "name": "d1Feed24",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 295,
+    "name": "d1Feed25",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 296,
+    "name": "d1Feed26",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 297,
+    "name": "d1Feed27",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 298,
+    "name": "d1Feed28",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 299,
+    "name": "d1Feed29",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 300,
+    "name": "d1Feed30",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 301,
+    "name": "d1Feed31",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 302,
+    "name": "d1Feed32",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 303,
+    "name": "d1Feed33",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 304,
+    "name": "d1Feed34",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 305,
+    "name": "d1Feed35",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 306,
+    "name": "d1Feed36",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 307,
+    "name": "d1Feed37",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 308,
+    "name": "d1Feed38",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 309,
+    "name": "d1Feed39",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 310,
+    "name": "d1Feed40",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 311,
+    "name": "d1Feed41",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 312,
+    "name": "d1Feed42",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 313,
+    "name": "d1Feed43",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 314,
+    "name": "d1Feed44",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 315,
+    "name": "d1Feed45",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 316,
+    "name": "d1Feed46",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 317,
+    "name": "d1Feed47",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 318,
+    "name": "d1Feed48",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 319,
+    "name": "d1Feed49",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 320,
+    "name": "d1Feed50",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 321,
+    "name": "d1Feed51",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 322,
+    "name": "d1Feed52",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 323,
+    "name": "d1Feed53",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 324,
+    "name": "d1Feed54",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 325,
+    "name": "d1Feed55",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 326,
+    "name": "d1Feed56",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 327,
+    "name": "d1Feed57",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 328,
+    "name": "d1Feed58",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 329,
+    "name": "d1Feed59",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 330,
+    "name": "d1Feed60",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 331,
+    "name": "d1Feed61",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 332,
+    "name": "d1Feed62",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 333,
+    "name": "d1Feed63",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 334,
+    "name": "d1Feed64",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 335,
+    "name": "d1Feed65",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 336,
+    "name": "d1Feed66",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 337,
+    "name": "d1Feed67",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 338,
+    "name": "d1Feed68",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 339,
+    "name": "d1Feed69",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 340,
+    "name": "d1Feed70",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 341,
+    "name": "d1Feed71",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 342,
+    "name": "d1Feed72",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 343,
+    "name": "d1Feed73",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 344,
+    "name": "d1Feed74",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 345,
+    "name": "d1Feed75",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 346,
+    "name": "d1Feed76",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 347,
+    "name": "d1Feed77",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 348,
+    "name": "d1Feed78",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 349,
+    "name": "d1Feed79",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 350,
+    "name": "d1Feed80",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 351,
+    "name": "d1Feed81",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 352,
+    "name": "d1Feed82",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 353,
+    "name": "d1Feed83",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 354,
+    "name": "d1Feed84",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 355,
+    "name": "d1Feed85",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 356,
+    "name": "d1Feed86",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 357,
+    "name": "d1Feed87",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 358,
+    "name": "d1Feed88",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 359,
+    "name": "d1Feed89",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 360,
+    "name": "d1Feed90",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 361,
+    "name": "d1Feed91",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 362,
+    "name": "d1Feed92",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 363,
+    "name": "d1Feed93",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 364,
+    "name": "d1Feed94",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 365,
+    "name": "d1Feed95",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 366,
+    "name": "d1Feed96",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 367,
+    "name": "d1Feed97",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 368,
+    "name": "d1Feed98",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 369,
+    "name": "d1Feed99",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 370,
+    "name": "d1Feed100",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 371,
+    "name": "d1Feed101",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 372,
+    "name": "d1Feed102",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 373,
+    "name": "d1Feed103",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 374,
+    "name": "d1Feed104",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 375,
+    "name": "d1Feed105",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 376,
+    "name": "d1Feed106",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 377,
+    "name": "d1Feed107",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 378,
+    "name": "d1Feed108",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 379,
+    "name": "d1Feed109",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 380,
+    "name": "d1Feed110",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 381,
+    "name": "d1Feed111",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 382,
+    "name": "d1Feed112",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 383,
+    "name": "d1Feed113",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 384,
+    "name": "d1Feed114",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 385,
+    "name": "d1Feed115",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 386,
+    "name": "d1Feed116",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 387,
+    "name": "d1Feed117",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 388,
+    "name": "d1Feed118",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 389,
+    "name": "d1Feed119",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 390,
+    "name": "d1Feed120",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 391,
+    "name": "d1Feed121",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 392,
+    "name": "d1Feed122",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 393,
+    "name": "d1Feed123",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 394,
+    "name": "d1Feed124",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 395,
+    "name": "d1Feed125",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 396,
+    "name": "d1Feed126",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 397,
+    "name": "d1Feed127",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 398,
+    "name": "d1Feed128",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 399,
+    "name": "d1Feed129",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 400,
+    "name": "d1Feed130",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 401,
+    "name": "d1Feed131",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 402,
+    "name": "d1Feed132",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 403,
+    "name": "d1Feed133",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 404,
+    "name": "d1Feed134",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 405,
+    "name": "d2Feed0",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 406,
+    "name": "d2Feed1",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 407,
+    "name": "d2Feed2",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 408,
+    "name": "d2Feed3",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 409,
+    "name": "d2Feed4",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 410,
+    "name": "d2Feed5",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 411,
+    "name": "d2Feed6",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 412,
+    "name": "d2Feed7",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 413,
+    "name": "d2Feed8",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 414,
+    "name": "d2Feed9",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 415,
+    "name": "d2Feed10",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 416,
+    "name": "d2Feed11",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 417,
+    "name": "d2Feed12",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 418,
+    "name": "d2Feed13",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 419,
+    "name": "d2Feed14",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 420,
+    "name": "d2Feed15",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 421,
+    "name": "d2Feed16",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 422,
+    "name": "d2Feed17",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 423,
+    "name": "d2Feed18",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 424,
+    "name": "d2Feed19",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 425,
+    "name": "d2Feed20",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 426,
+    "name": "d2Feed21",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 427,
+    "name": "d2Feed22",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 428,
+    "name": "d2Feed23",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 429,
+    "name": "d2Feed24",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 430,
+    "name": "d2Feed25",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 431,
+    "name": "d2Feed26",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 432,
+    "name": "d3Feed0",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 433,
+    "name": "d3Feed1",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 434,
+    "name": "d3Feed2",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 435,
+    "name": "d3Feed3",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 436,
+    "name": "d3Feed4",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 437,
+    "name": "d3Feed5",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 438,
+    "name": "d3Feed6",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 439,
+    "name": "d3Feed7",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 440,
+    "name": "d3Feed8",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 441,
+    "name": "d4Feed0",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 442,
+    "name": "d4Feed1",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 443,
+    "name": "d4Feed2",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 444,
+    "name": "timeMultiply",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::timeMultiply",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 445,
+    "name": "innerFeedMultiply",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 446,
+    "name": "d1FeedMultiply",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 447,
+    "name": "d2FeedMultiply",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 448,
+    "name": "d3FeedMultiply",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 449,
+    "name": "d4FeedMultiply",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 450,
+    "name": "timeOffsetRange",
+    "type": "d",
+    "default": "Scales::timeOffsetRange.invmap(0.05)",
+    "scale": "Scales::timeOffsetRange",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 451,
+    "name": "innerFeedOffsetRange",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 452,
+    "name": "d1FeedOffsetRange",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 453,
+    "name": "d2FeedOffsetRange",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 454,
+    "name": "d3FeedOffsetRange",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 455,
+    "name": "d4FeedOffsetRange",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 456,
+    "name": "timeModulation",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 457,
+    "name": "innerFeedModulation",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 458,
+    "name": "d1FeedModulation",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 459,
+    "name": "d2FeedModulation",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 460,
+    "name": "d3FeedModulation",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 461,
+    "name": "d4FeedModulation",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 462,
+    "name": "seed",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::seed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 463,
+    "name": "stereoCross",
+    "type": "d",
+    "default": "Scales::stereoCross.invmap(0.0)",
+    "scale": "Scales::stereoCross",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 464,
+    "name": "stereoSpread",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 465,
+    "name": "dry",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 466,
+    "name": "wet",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 467,
+    "name": "smoothness",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::smoothness",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 468,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  }
+]
