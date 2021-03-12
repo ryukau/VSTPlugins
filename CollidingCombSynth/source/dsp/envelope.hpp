@@ -26,7 +26,7 @@ template<typename Sample> class ExpADSREnvelopeP {
 public:
   void setup(Sample sampleRate) { tailLength = uint32_t(0.01 * sampleRate); }
 
-  void reset(
+  void prepare(
     Sample sampleRate,
     Sample attackTime,
     Sample decayTime,
@@ -39,6 +39,12 @@ public:
     decTime = decayTime;
     relTime = releaseTime;
     pController.setCutoff(sampleRate, Sample(1) / attackTime);
+  }
+
+  void reset()
+  {
+    state = State::terminated;
+    pController.reset(0);
   }
 
   void set(
@@ -127,7 +133,7 @@ public:
 
 private:
   enum class State : int32_t { attack, decay, release, tail, terminated };
-  const Sample threshold = 1e-5;
+  const Sample threshold = Sample(1e-5);
 
   uint32_t tailLength = 32;
   uint32_t tailCounter = tailLength;

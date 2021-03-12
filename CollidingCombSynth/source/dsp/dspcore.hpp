@@ -216,8 +216,7 @@ public:
     float velocity = 0.0f;                                                               \
     DecibelScale<float> velocityMap{-30, 0, true};                                       \
                                                                                          \
-    uint8_t nVoice = 8;                                                                  \
-    int32_t panCounter = 0;                                                              \
+    uint32_t nVoice = 8;                                                                 \
     std::vector<size_t> noteIndices;                                                     \
     std::vector<size_t> voiceIndices;                                                    \
     std::vector<float> unisonPan;                                                        \

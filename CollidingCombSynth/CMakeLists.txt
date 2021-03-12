@@ -54,16 +54,22 @@ function(build_dspcore target)
 endfunction()
 
 function(build_test)
+  find_package(SndFile CONFIG REQUIRED)
+
   get_plugin_name(PLUGIN_NAME)
   set(target "testdsp_${PLUGIN_NAME}")
-
   add_compile_definitions(TEST_DSP)
 
   build_dspcore(${target})
+
   add_executable(${target} test/testdsp.cpp)
+  target_compile_definitions(${target} PRIVATE
+    UHHYOU_PLUGIN_NAME="${PLUGIN_NAME}")
   add_library(src
-  ../lib/vcl/instrset_detect.cpp)
+    ../lib/vcl/instrset_detect.cpp
+    source/parameter.cpp)
   target_link_libraries(${target} PRIVATE
+    SndFile::sndfile
     ${dspcore_avx}
     ${dspcore_avx2}
     ${dspcore_avx512}

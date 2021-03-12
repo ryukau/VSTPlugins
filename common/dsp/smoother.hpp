@@ -43,7 +43,7 @@ public:
 
   void setCutoff(Sample sampleRate, Sample cutoffHz)
   {
-    kp = EMAFilter<double>::cutoffToP(sampleRate, cutoffHz);
+    kp = Sample(EMAFilter<double>::cutoffToP(sampleRate, cutoffHz));
   }
 
   void setP(Sample p) { kp = std::clamp<Sample>(p, Sample(0), Sample(1)); };
@@ -74,8 +74,8 @@ public:
   static void setTime(Sample seconds)
   {
     timeInSamples = seconds * sampleRate;
-    kp = EMAFilter<double>::cutoffToP(
-      sampleRate, std::clamp<double>(1.0 / seconds, 0.0, sampleRate / 2.0));
+    kp = Sample(EMAFilter<double>::cutoffToP(
+      sampleRate, std::clamp<double>(1.0 / seconds, 0.0, sampleRate / 2.0)));
   }
   static void setBufferSize(Sample _bufferSize) { bufferSize = _bufferSize; }
 

@@ -77,6 +77,7 @@ void NOTE_NAME::setup(float sampleRate)
 {
   cymbalLowpassEnvelope.setup(sampleRate);
   cymbal.setup(sampleRate);
+  for (auto &cmb : comb) cmb.reset();
 }
 
 void NOTE_NAME::noteOn(
@@ -127,13 +128,18 @@ void NOTE_NAME::noteOn(
   for (size_t idx = 0; idx < nDelay; ++idx) {
     const auto freq = pitch * pv[ID::frequency0 + idx]->getFloat();
     const auto spread
-      = (freq - Scales::frequency.getMin()) * pv[ID::randomFrequency]->getFloat();
-    std::uniform_real_distribution<float> distFreq(freq - spread, freq + spread);
-    cymbal.string[idx].delay.setTime(sampleRate, 1.0f / distFreq(info.rngString));
+      = (freq - float(Scales::frequency.getMin())) * pv[ID::randomFrequency]->getFloat();
+
+    auto distLower = freq - spread;
+    auto distUpper = freq + spread;
+    if (distLower > distUpper) std::swap(distLower, distUpper);
+    std::uniform_real_distribution<float> distFreq(0.0f, 1.0f);
+    auto freqValue = distLower + (distUpper - distLower) * distFreq(info.rngString);
+    cymbal.string[idx].delay.setTime(sampleRate, 1.0f / freqValue);
   }
   cymbal.trigger(pv[ID::distance]->getFloat(), pv[ID::connection]->getInt());
 
-  cymbalLowpassEnvelope.reset(
+  cymbalLowpassEnvelope.prepare(
     sampleRate, pv[ID::lowpassA]->getFloat(), pv[ID::lowpassD]->getFloat(),
     pv[ID::lowpassS]->getFloat(), pv[ID::lowpassR]->getFloat());
 
@@ -189,15 +195,15 @@ std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
 
 void DSPCORE_NAME::setup(double sampleRate)
 {
-  this->sampleRate = sampleRate;
+  this->sampleRate = float(sampleRate);
 
-  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(this->sampleRate);
   SmootherCommon<float>::setTime(0.01f);
 
   // 10 msec + 1 sample transition time.
-  transitionBuffer.resize(1 + size_t(sampleRate * 0.005), {0.0f, 0.0f});
+  transitionBuffer.resize(1 + size_t(this->sampleRate * 0.005), {0.0f, 0.0f});
 
-  for (auto &note : notes) note.setup(sampleRate);
+  for (auto &note : notes) note.setup(this->sampleRate);
 
   reset();
 }
@@ -209,6 +215,7 @@ DSPCORE_NAME::DSPCORE_NAME()
   voiceIndices.reserve(maxVoice);
 }
 
+#include <iostream>
 void DSPCORE_NAME::reset()
 {
   using ID = ParameterID::ID;
@@ -216,9 +223,22 @@ void DSPCORE_NAME::reset()
 
   info.reset(param);
 
-  for (auto &note : notes) note.rest();
+  for (auto &note : notes) {
+    note.rest();
+    note.id = -1;
+    note.gain = 0;
+    note.noise.resetPhase();
+    for (auto &cmb : note.comb) cmb.reset();
+    note.cymbal.reset();
+    note.cymbalLowpassEnvelope.reset();
+  }
 
   interpMasterGain.reset(pv[ID::gain]->getFloat() * pv[ID::boost]->getFloat());
+
+  for (auto &frame : transitionBuffer) frame.fill(0.0f);
+  isTransitioning = false;
+  trIndex = 0;
+  trStop = 0;
 }
 
 void DSPCORE_NAME::startup() {}
@@ -244,7 +264,7 @@ void DSPCORE_NAME::setParameters(float /* tempo */)
 
 void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(float(length));
 
   std::array<float, 2> frame{};
   for (uint32_t i = 0; i < length; ++i) {
@@ -299,7 +319,7 @@ void DSPCORE_NAME::noteOn(int32_t noteId, int16_t pitch, float tuning, float vel
   noteIndices.resize(0);
 
   // Pick up note from resting one.
-  for (uint8_t index = 0; index < nVoice; ++index) {
+  for (uint32_t index = 0; index < nVoice; ++index) {
     if (notes[index].id == noteId) noteIndices.push_back(index);
     if (notes[index].state == NoteState::rest) noteIndices.push_back(index);
     if (noteIndices.size() >= nUnison) break;
@@ -361,13 +381,14 @@ void DSPCORE_NAME::noteOff(int32_t noteId)
 
 void DSPCORE_NAME::fillTransitionBuffer(size_t noteIndex)
 {
+  auto &note = notes[noteIndex];
+  if (note.state == NoteState::rest) return;
+
   isTransitioning = true;
 
   // Beware the negative overflow. trStop is size_t.
   trStop = trIndex - 1;
   if (trStop >= transitionBuffer.size()) trStop += transitionBuffer.size();
-
-  auto &note = notes[noteIndex];
 
   for (size_t bufIdx = 0; bufIdx < transitionBuffer.size(); ++bufIdx) {
     auto oscOut = note.process(sampleRate, info);

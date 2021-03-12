@@ -21,13 +21,14 @@
 #include "../../../common/dsp/smoother.hpp"
 
 #include <cfloat>
+#include <limits>
 #include <random>
 
 namespace SomeDSP {
 
 template<typename Sample> struct EasyCompressor {
   EMAFilter<float> smoother;
-  Sample threshold = 0.1;
+  Sample threshold = Sample(0.1);
   Sample targetAmp = 1;
   Sample inHold = 0;
   int32_t counter = 0;
@@ -52,7 +53,7 @@ template<typename Sample> struct EasyCompressor {
   {
     auto inAbs = std::fabs(input);
 
-    if (inAbs > inHold) {
+    if (inAbs > std::numeric_limits<Sample>::min() && inAbs > inHold) {
       inHold = inAbs;
       counter = holdFrames;
       targetAmp = threshold / inAbs;
@@ -83,6 +84,8 @@ struct ADNoise {
 
   static constexpr float minPw = 1e-5f;
 
+  void resetPhase() { phase = 0; }
+
   void reset(
     float sampleRate,
     float attackSeconds,
@@ -98,8 +101,8 @@ struct ADNoise {
     isReleasing = false;
     isTerminated = false;
 
-    tick = std::clamp<float>(frequency / sampleRate, 0, 0.99999f);
     mix = noiseMix;
+    tick = std::clamp<float>(frequency / sampleRate, 0, 0.99999f);
 
     constexpr float dampThreshold = 1000.0f; // In Hz.
     constexpr float dampMax = 4000.0f;       // In Hz.
@@ -205,7 +208,7 @@ template<typename Sample> struct OnePoleHighpass {
   // Used to set b1 in process().
   static Sample setCutoff(Sample sampleRate, Sample cutoffHz)
   {
-    return exp(-twopi * cutoffHz / sampleRate); // Use double.
+    return Sample(exp(-twopi * cutoffHz / sampleRate)); // Use double.
   }
 
   void reset() { z1 = 0; }
@@ -226,21 +229,21 @@ template<typename Sample> struct EMAFilterKSHat {
 
 template<typename Sample> class ShortComb {
 public:
-  std::array<Sample, 512> buf; // At least 20ms when samplerate is 192kHz.
-  int wptr = 0;
-  int rptr = 0;
+  std::array<Sample, 512> buf{}; // At least 20ms when samplerate is 192kHz.
+  size_t wptr = 0;
+  size_t rptr = 0;
   Sample r1 = 0;
 
   void reset()
   {
-    r1 = 0;
     buf.fill(0);
+    r1 = 0;
   }
 
   void setTime(Sample sampleRate, Sample seconds)
   {
-    rptr = wptr - std::clamp<int>(sampleRate * seconds, 0, int(buf.size()));
-    if (rptr < 0) rptr += int(buf.size());
+    rptr = wptr - std::clamp<size_t>(size_t(sampleRate * seconds), 0, buf.size());
+    if (rptr >= buf.size()) rptr += buf.size(); // Unsigned negative overflow case.
   }
 
   Sample process(Sample input)
@@ -262,7 +265,7 @@ template<typename Sample> class Delay {
 public:
   constexpr static int bufEnd = 32767; // 2^15 - 1. 0x7fff.
 
-  std::array<Sample, bufEnd + 1> buf; // Min ~11.72Hz when samplerate is 192kHz.
+  std::array<Sample, bufEnd + 1> buf{}; // Min ~11.72Hz when samplerate is 192kHz.
   Sample w1 = 0;
   Sample rFraction = 0;
   int wptr = 0;
@@ -318,7 +321,11 @@ public:
   OnePoleHighpass<Sample> highpass;
   Sample feedback = 0;
 
-  void setup(Sample sampleRate) { highpass.setCutoff(sampleRate, 20); }
+  void setup(Sample sampleRate)
+  {
+    highpass.setCutoff(sampleRate, 20);
+    reset();
+  }
 
   void reset()
   {

@@ -44,8 +44,9 @@ struct ParameterInfo {
 struct ValueInterface {
   virtual ~ValueInterface() {}
 
-  virtual float getFloat() const = 0;
   virtual uint32_t getInt() const = 0;
+  virtual float getFloat() const = 0;
+  virtual double getDouble() const = 0;
   virtual double getNormalized() = 0;
   virtual double getDefaultNormalized() = 0;
   virtual void setFromInt(uint32_t value) = 0;
@@ -78,6 +79,7 @@ struct UIntValue : public ValueInterface {
 
   inline uint32_t getInt() const override { return raw; }
   inline float getFloat() const override { return float(raw); }
+  inline double getDouble() const override { return double(raw); }
   double getNormalized() override { return scale.invmap(raw); }
   inline double getDefaultNormalized() override { return defaultNormalized; }
 
@@ -119,6 +121,7 @@ template<typename Scale> struct DoubleValue : public ValueInterface {
 
   inline uint32_t getInt() const override { return uint32_t(raw); }
   inline float getFloat() const override { return float(raw); }
+  inline double getDouble() const override { return double(raw); }
   double getNormalized() override { return scale.invmap(raw); }
   inline double getDefaultNormalized() override { return defaultNormalized; }
 
