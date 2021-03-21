@@ -271,9 +271,7 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::pitchBend] = std::make_unique<LinearValue>(
       0.5, Scales::defaultScale, "pitchBend", Info::kCanAutomate);
 
-#ifndef TEST_DSP
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
-#endif
   }
 
 #ifdef TEST_DSP

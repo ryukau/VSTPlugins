@@ -52,6 +52,7 @@ struct ValueInterface {
   virtual void setFromInt(uint32_t value) = 0;
   virtual void setFromFloat(double value) = 0;
   virtual void setFromNormalized(double value) = 0;
+  void setId(Vst::ParamID) {}
 };
 
 struct UIntValue : public ValueInterface {

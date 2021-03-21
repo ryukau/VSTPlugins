@@ -23,7 +23,12 @@
 
 #include "../../common/dsp/constants.hpp"
 #include "../../common/parameterInterface.hpp"
+
+#ifdef TEST_DSP
+#include "../../test/value.hpp"
+#else
 #include "../../common/value.hpp"
+#endif
 
 constexpr int32_t nOvertone = 360;
 constexpr int32_t nLFOWavetable = 64;
@@ -350,6 +355,11 @@ struct GlobalParameter : public ParameterInterface {
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }
 
+#ifdef TEST_DSP
+  // Not used in DSP test.
+  double getDefaultNormalized(int32_t) { return 0.0; }
+
+#else
   tresult setState(IBStream *stream)
   {
     IBStreamer streamer(stream, kLittleEndian);
@@ -378,6 +388,7 @@ struct GlobalParameter : public ParameterInterface {
     if (size_t(abs(tag)) >= value.size()) return 0.0;
     return value[tag]->getDefaultNormalized();
   }
+#endif
 };
 
 } // namespace Synth

@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "inputGain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.8116727049819131
+      },
+      {
+        "name": "clip",
+        "type": "d",
+        "value": 0.31498026247371824
+      },
+      {
+        "name": "ratio",
+        "type": "d",
+        "value": 0.9
+      },
+      {
+        "name": "slope",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "orderInteger",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "orderFraction",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oversample",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.10000000000000002
+      }
+    ]
+  }
+]

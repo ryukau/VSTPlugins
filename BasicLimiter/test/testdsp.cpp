@@ -15,12 +15,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Uhhyou Plugins.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "../../test/synthtester.hpp"
+#define SET_PARAMETERS dsp->setParameters();
+
+#include "../../test/fxtester.hpp"
 #include "../source/dsp/dspcore.hpp"
 
 // CMake provides this macro, but just in case.
 #ifndef UHHYOU_PLUGIN_NAME
-#define UHHYOU_PLUGIN_NAME "CollidingCombSynth"
+#define UHHYOU_PLUGIN_NAME "BasicLimiter"
 #endif
 
 #define OUT_DIR_PATH "snd/" UHHYOU_PLUGIN_NAME
@@ -28,10 +30,10 @@
 int main()
 {
 #ifdef __linux__
-  SynthTester<DSPInterface, DSPCore_AVX512, DSPCore_AVX2, DSPCore_AVX> tester(
+  FxTester<DSPInterface, DSPCore_AVX512, DSPCore_AVX2, DSPCore_AVX> tester(
     UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
 #else
-  SynthTester<DSPInterface, DSPCore_AVX2, DSPCore_AVX> tester(
+  FxTester<DSPInterface, DSPCore_AVX2, DSPCore_AVX> tester(
     UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
 #endif
 

@@ -32,9 +32,9 @@
 
 void DSPCORE_NAME::setup(double sampleRate)
 {
-  this->sampleRate = sampleRate;
+  this->sampleRate = float(sampleRate);
 
-  for (auto &lm : limiter) lm.resize(size_t(maxAttackSeconds * sampleRate) + 1);
+  for (auto &lm : limiter) lm.resize(size_t(maxAttackSeconds * this->sampleRate) + 1);
   for (auto &dly : latencyDelay) dly.setFrames(SOCPFIR<float>::intDelay);
 
   reset();

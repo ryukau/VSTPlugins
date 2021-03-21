@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "limiterThreshold",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "limiterGate",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "limiterAttack",
+        "type": "d",
+        "value": 0.23706682249967376
+      },
+      {
+        "name": "limiterRelease",
+        "type": "d",
+        "value": 0.2811128453936974
+      },
+      {
+        "name": "limiterSustain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "truePeak",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "name": "Truepeak",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "limiterThreshold",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "limiterGate",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "limiterAttack",
+        "type": "d",
+        "value": 0.23706682249967376
+      },
+      {
+        "name": "limiterRelease",
+        "type": "d",
+        "value": 0.2811128453936974
+      },
+      {
+        "name": "limiterSustain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "truePeak",
+        "type": "I",
+        "value": 1
+      }
+    ]
+  }
+]

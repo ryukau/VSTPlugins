@@ -1,0 +1,132 @@
+[
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "inputGain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "mul",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "moreMul",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oversample",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "hardclip",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.10000000000000002
+      },
+      {
+        "name": "limiter",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "limiterThreshold",
+        "type": "d",
+        "value": 0.7080016854809706
+      },
+      {
+        "name": "limiterAttack",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "limiterRelease",
+        "type": "d",
+        "value": 0.13723227318055767
+      }
+    ]
+  },
+  {
+    "name": "More",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "inputGain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "mul",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "moreMul",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "oversample",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "hardclip",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.10000000000000002
+      },
+      {
+        "name": "limiter",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "limiterThreshold",
+        "type": "d",
+        "value": 0.7080016854809706
+      },
+      {
+        "name": "limiterAttack",
+        "type": "d",
+        "value": 0.1
+      },
+      {
+        "name": "limiterRelease",
+        "type": "d",
+        "value": 0.13723227318055767
+      }
+    ]
+  }
+]

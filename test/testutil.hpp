@@ -21,9 +21,19 @@
 #include <algorithm>
 #include <deque>
 #include <iostream>
+#include <limits>
+#include <memory>
 #include <mutex>
+#include <random>
 #include <sndfile.h>
+#include <sstream>
 #include <string>
+#include <thread>
+#include <utility>
+
+// Disables `min` and `max` macro definition in `minwindef.h`.
+#undef min
+#undef max
 
 enum class SndFileResult { success, failure };
 
@@ -107,8 +117,9 @@ public:
 
     SNDFILE *file = sf_open(path.c_str(), SFM_READ, &sfinfo);
     if (!file) {
-      std::cerr << "Error: sf_open failed." << std::endl;
+      std::cerr << "Error " << path << ": sf_open failed." << std::endl;
       isReady_ = SndFileResult::failure;
+      return;
     }
 
     samplerate_ = sfinfo.samplerate;
@@ -128,6 +139,7 @@ public:
     if (sf_close(file) != 0) {
       std::cerr << "Error: sf_close failed." << std::endl;
       isReady_ = SndFileResult::failure;
+      return;
     }
 
     isReady_ = SndFileResult::success;
@@ -181,93 +193,5 @@ struct PresetQueue {
       ++iter;
     }
     return preset;
-  }
-};
-
-enum class NoteEventType { noteOn, noteOff };
-
-struct NoteEvent {
-  int32_t id;
-  int16_t pitch;
-  float tuning;
-  float velocity;
-  size_t frame;
-  NoteEventType type;
-};
-
-struct Sequencer {
-  size_t eventIndex_ = 0;
-  std::vector<NoteEvent> events_;
-
-  void rewind() { eventIndex_ = 0; }
-
-  void addNote(
-    float sampleRate,
-    float noteOnTime,
-    float noteOffTime,
-    int32_t id,
-    int16_t pitch,
-    float tuning,
-    float velocity)
-  {
-    NoteEvent noteOn;
-    noteOn.id = id;
-    noteOn.pitch = pitch;
-    noteOn.tuning = tuning;
-    noteOn.velocity = velocity;
-    noteOn.frame = size_t(sampleRate * noteOnTime);
-    noteOn.type = NoteEventType::noteOn;
-    events_.push_back(noteOn);
-
-    NoteEvent noteOff = noteOn;
-    noteOff.frame = size_t(sampleRate * noteOffTime);
-    noteOff.type = NoteEventType::noteOff;
-    events_.push_back(noteOff);
-  }
-
-  void sort()
-  {
-    std::sort(events_.begin(), events_.end(), [](const auto &lhs, const auto &rhs) {
-      return lhs.frame < rhs.frame;
-    });
-  }
-
-  void setupSequence(float sampleRate, float tempo)
-  {
-    if (tempo <= 0.0f) {
-      std::cerr << "Error at Sequencer.setupSequence: Negative tempo.\n";
-      return;
-    }
-
-    float secondsPerNote = 60.0f / tempo;
-    std::vector<float> time(8);
-    for (size_t i = 0; i < time.size(); ++i) {
-      time[i] = float(i) * secondsPerNote;
-    }
-
-    addNote(sampleRate, time[0], time[0] + 3.0f * secondsPerNote, 0, 40, 0.0f, 0.5f);
-    addNote(sampleRate, time[1], time[1] + 2.0f * secondsPerNote, 1, 47, 0.3f, 0.75f);
-    addNote(sampleRate, time[2], time[2] + 0.5f * secondsPerNote, 2, 54, 0.6f, 1.0f);
-
-    addNote(sampleRate, time[4], time[4] + 3.0f * secondsPerNote, 3, 43, 0.6f, 1.0f);
-    addNote(sampleRate, time[5], time[5] + 2.0f * secondsPerNote, 4, 50, 0.3f, 0.75f);
-    addNote(sampleRate, time[6], time[6] + 0.5f * secondsPerNote, 5, 57, 0.0f, 0.5f);
-
-    sort();
-  }
-
-  size_t nextFrame()
-  {
-    if (eventIndex_ >= events_.size()) return UINT_MAX;
-    return events_[eventIndex_].frame;
-  }
-
-  bool process(size_t frame, NoteEvent &note)
-  {
-    if (eventIndex_ >= events_.size()) return false;
-    if (frame != events_[eventIndex_].frame) return false;
-    note = events_[eventIndex_];
-    ++eventIndex_;
-    return true;
   }
 };
