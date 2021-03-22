@@ -215,7 +215,6 @@ DSPCORE_NAME::DSPCORE_NAME()
   voiceIndices.reserve(maxVoice);
 }
 
-#include <iostream>
 void DSPCORE_NAME::reset()
 {
   using ID = ParameterID::ID;
