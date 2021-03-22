@@ -122,7 +122,11 @@ private:
 public:
   bool isFinished = false;
 
-  SynthTester(std::string plugin_name, std::string out_dir)
+  // n_thread is used to disable multithreading. Useful for plugin using FFTW3.
+  SynthTester(
+    std::string plugin_name,
+    std::string out_dir,
+    int n_thread = std::thread::hardware_concurrency())
     : ref_dir(out_dir + "/reference/")
   {
     if (!checkInstrset()) return;
@@ -136,8 +140,7 @@ public:
 
     queue = std::make_shared<PresetQueue>(plugin_name);
 
-    const auto n_cpu = std::thread::hardware_concurrency();
-    for (size_t i = 0; i < n_cpu; ++i) {
+    for (size_t i = 0; i < n_thread; ++i) {
 #ifdef __linux__
       std::thread th(
         &SynthTester<DSPInterface, DSP_AVX512, DSP_AVX2, DSP_AVX>::testSequence, this,

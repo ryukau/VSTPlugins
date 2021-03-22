@@ -173,7 +173,7 @@ template<size_t tableSize, size_t nPeak> struct WaveTable {
     isRefreshing = false;
   }
 
-  inline float sign(float x) { return (0 < x) - (x < 0); }
+  float sign(float x) { return float((0 < x) - (x < 0)); }
 
   void padsynth(
     float sampleRate,
@@ -186,7 +186,7 @@ template<size_t tableSize, size_t nPeak> struct WaveTable {
     float expand,
     int32_t shift,
     uint32_t profileSkip,
-    uint32_t profileShape,
+    float profileShape,
     bool randomPitch,
     bool invertSpectrum,
     bool uniformPhaseProfile)
@@ -218,7 +218,8 @@ template<size_t tableSize, size_t nPeak> struct WaveTable {
       float phi = distPhase(rng);
       for (int32_t bin = start; bin < end; bin += profileSkip) {
         float radius = gain[peak]
-          * profile(bin / float(spectrumSize) - freqIdx, bandIdx, profileShape);
+          * profile(bin / float(spectrumSize) - freqIdx, bandIdx,
+                    std::floor(profileShape));
         if (!uniformPhaseProfile) phi = distPhase(rng);
         spectrum[bin][0] += radius * cosf(phi);
         spectrum[bin][1] += radius * sinf(phi);
@@ -237,6 +238,10 @@ template<size_t tableSize, size_t nPeak> struct WaveTable {
       for (int32_t bin = 1; bin < spectrumSize; ++bin) {
         spectrum[bin][0] -= sign(spectrum[bin][0]) * reMax;
         spectrum[bin][1] -= sign(spectrum[bin][1]) * imMax;
+
+        // TODO: test
+        // spectrum[bin][0] -= std::copysign(reMax, spectrum[bin][0]);
+        // spectrum[bin][1] -= std::copysign(imMax, spectrum[bin][1]);
       }
     }
 
@@ -290,7 +295,11 @@ template<size_t tableSize> struct TableOsc {
     if (tick >= tableSize) tick = 0;
   }
 
-  void reset() { phase = 1; }
+  void reset()
+  {
+    phase = 1;
+    tick = 0;
+  }
 
   // notePitch is fractional note number. For example, notePitch = 60.12 means 60
   // semitones and 12 cents higher from midi note number 0.
@@ -300,8 +309,8 @@ template<size_t tableSize> struct TableOsc {
     if (phase > paddedLast) phase -= tableSize;
 
     if (notePitch <= 0) {
-      float frac = phase - floor(phase);
-      size_t x1 = phase;
+      float frac = phase - std::floor(phase);
+      size_t x1 = size_t(phase);
       size_t x0 = x1 - 1;
       size_t x2 = x1 + 1;
       size_t x3 = x1 + 2;
@@ -323,13 +332,13 @@ template<size_t tableSize> struct TableOsc {
     // return x0 + yFrac * (x1 - x0);
 
     // Bicubic interpolation.
-    auto yFrac = notePitch - floor(notePitch);
+    auto yFrac = notePitch - std::floor(notePitch);
     size_t iy1 = size_t(notePitch);
     size_t iy0 = iy1 - 1;
     size_t iy2 = iy1 + 1;
     size_t iy3 = iy1 + 2;
 
-    auto xFrac = phase - floor(phase);
+    auto xFrac = phase - std::floor(phase);
     size_t ix1 = size_t(phase);
     size_t ix0 = ix1 - 1;
     size_t ix2 = ix1 + 1;
@@ -357,7 +366,7 @@ template<size_t tableSize> struct alignas(64) TableOsc16 {
 
   void setPhase(int index, float phase)
   {
-    this->phase.insert(index, 1.0f + (phase - floorf(phase)) * tableSize);
+    this->phase.insert(index, 1.0f + (phase - std::floor(phase)) * tableSize);
   }
 
   void setFrequency(Vec16f frequency, float tableBaseFreq)
@@ -372,7 +381,11 @@ template<size_t tableSize> struct alignas(64) TableOsc16 {
     tick.insert(index, tck >= tableSize ? 0 : tck);
   }
 
-  void reset() { phase = 1; }
+  void reset()
+  {
+    phase = 1;
+    tick = 0;
+  }
 
   inline Vec16f loadTable(Vec16i ix, Vec16i iy, std::array<float *, nTablePadded> &table)
   {
@@ -480,7 +493,7 @@ template<size_t tableSize> struct alignas(64) LfoWaveTable {
     switch (interpType) {
       case interpStep: {
         for (size_t idx = 0; idx < last; ++idx) {
-          size_t uiIdx = uiTable.size() * idx / float(last);
+          size_t uiIdx = size_t(uiTable.size() * idx / float(last));
           table[idx] = uiTable[uiIdx];
         }
       } break;
@@ -533,7 +546,12 @@ public:
     tick.insert(index, tck >= tableSize ? 0 : tck);
   }
 
-  void reset() { phase = 0; }
+  void reset()
+  {
+    phase = 0;
+    tick = 0;
+  }
+
   void reset(int index) { phase.insert(index, 0); }
 
   inline Vec16f loadTable(Vec16i ix, std::array<float, tableSize + 1> &table)

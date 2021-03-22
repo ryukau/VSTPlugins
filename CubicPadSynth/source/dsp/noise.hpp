@@ -54,7 +54,7 @@ struct alignas(64) White16 {
   Vec16f process()
   {
     buffer = 1664525L * buffer + 1013904223L;
-    return to_float(buffer) / UINT32_MAX;
+    return to_float(buffer) / float(UINT32_MAX);
   }
 };
 

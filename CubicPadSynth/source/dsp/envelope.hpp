@@ -65,6 +65,11 @@ public:
     declickIn.insert(index, 0);
   }
 
+  void resetSustain(float sustainLevel)
+  {
+    sus.reset(std::clamp<float>(sustainLevel, 0.0f, 1.0f));
+  }
+
   void set(
     float attackTime,
     float decayTime,
@@ -72,7 +77,7 @@ public:
     float releaseTime,
     Vec16f noteFreq)
   {
-    sus.push(std::max<float>(float(0.0), std::min<float>(sustainLevel, float(1.0))));
+    sus.push(std::clamp<float>(sustainLevel, 0.0f, 1.0f));
     atk = secondToMultiplier(adaptTime(attackTime, noteFreq));
     dec = secondToMultiplier(decayTime);
     rel = secondToMultiplier(adaptTime(releaseTime, noteFreq));
@@ -130,7 +135,7 @@ public:
   }
 
 protected:
-  static constexpr float threshold = 1e-5;
+  static constexpr float threshold = 1e-5f;
 
   enum State : int32_t {
     stateAttack,
@@ -186,6 +191,14 @@ public:
     state.insert(index, stateAttack);
     value.insert(index, float(1) - value[index]);
     set(attackTime, decayTime, sustainLevel, releaseTime, noteFreq);
+  }
+
+  void resetSustain(float sustainLevel)
+  {
+    sus.reset(std::clamp<float>(sustainLevel, 0.0f, 1.0f));
+    state = stateTerminated;
+    value = 0;
+    out = 0;
   }
 
   void set(
@@ -246,9 +259,9 @@ protected:
 
   float sampleRate = 44100;
   LinearSmoother<float> sus;
-  Vec16f atk = 0.01;
-  Vec16f dec = 0.01;
-  Vec16f rel = 0.01;
+  Vec16f atk = 0.01f;
+  Vec16f dec = 0.01f;
+  Vec16f rel = 0.01f;
   Vec16i state = stateTerminated;
   Vec16f value = 0;
   Vec16f out = 0;

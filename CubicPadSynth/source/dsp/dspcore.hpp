@@ -34,6 +34,20 @@
 using namespace SomeDSP;
 using namespace Steinberg::Synth;
 
+inline float calcMasterPitch(int32_t octave, int32_t semi, int32_t milli, float bend)
+{
+  return 12 * octave + semi + milli / 1000.0f + (bend - 0.5f) * 4.0f;
+}
+
+inline float getMasterPitch(GlobalParameter &param)
+{
+  using ID = ParameterID::ID;
+  return calcMasterPitch(
+    int32_t(param.value[ID::oscOctave]->getInt()) - 12,
+    param.value[ID::oscSemi]->getInt() - 120, param.value[ID::oscMilli]->getInt() - 1000,
+    param.value[ID::pitchBend]->getFloat());
+}
+
 constexpr size_t nUnit = 8;
 
 enum class NoteState { active, release, rest };
@@ -52,18 +66,25 @@ struct NoteProcessInfo {
   LinearSmoother<float> lfoPitchAmount;
   LinearSmoother<float> lfoLowpass;
 
-  void reset()
+  void reset(GlobalParameter &param)
   {
-    masterPitch.reset(1.0f);
-    equalTemperament.reset(12.0f);
-    pitchA4Hz.reset(440.0f);
-    tableLowpass.reset(0);
-    tableLowpassKeyFollow.reset(1.0);
-    tableLowpassEnvelopeAmount.reset(0);
-    pitchEnvelopeAmount.reset(0);
+    using ID = ParameterID::ID;
+
+    masterPitch.reset(getMasterPitch(param));
+    equalTemperament.reset(param.value[ID::equalTemperament]->getFloat() + 1);
+    pitchA4Hz.reset(param.value[ID::pitchA4Hz]->getFloat() + 100);
+    tableLowpass.reset(
+      float(Scales::tableLowpass.getMax()) - param.value[ID::tableLowpass]->getFloat());
+    tableLowpassKeyFollow.reset(param.value[ID::tableLowpassKeyFollow]->getFloat());
+    tableLowpassEnvelopeAmount.reset(
+      param.value[ID::tableLowpassEnvelopeAmount]->getFloat());
+    pitchEnvelopeAmount.reset(
+      param.value[ID::pitchEnvelopeAmount]->getFloat()
+      * (param.value[ID::pitchEnvelopeAmountNegative]->getInt() ? -1 : 1));
+
     lfoFrequency.reset(0);
-    lfoPitchAmount.reset(0);
-    lfoLowpass.reset(1);
+    lfoPitchAmount.reset(param.value[ID::lfoPitchAmount]->getFloat());
+    lfoLowpass.reset(param.value[ID::lfoLowpass]->getFloat());
   }
 };
 
@@ -94,7 +115,7 @@ struct NoteProcessInfo {
       WaveTable<tableSize, nOvertone> &wavetable,                                        \
       LfoWaveTable<lfoTableSize> &lfoWaveTable,                                          \
       NoteProcessInfo &info);                                                            \
-    void reset();                                                                        \
+    void reset(GlobalParameter &param);                                                  \
   };
 
 PROCESSING_UNIT_CLASS(AVX512)

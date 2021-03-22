@@ -47,11 +47,6 @@ inline float clamp(float value, float min, float max)
   return (value < min) ? min : (value > max) ? max : value;
 }
 
-inline float calcMasterPitch(int32_t octave, int32_t semi, int32_t milli, float bend)
-{
-  return 12 * octave + semi + milli / 1000.0f + (bend - 0.5f) * 4.0f;
-}
-
 inline Vec16f
 notePitchToFrequency(Vec16f notePitch, float equalTemperament, float a4Hz = 440.0f)
 {
@@ -127,7 +122,11 @@ void NOTE_NAME::release(std::array<PROCESSING_UNIT_NAME, nUnit> &units, float se
   units[arrayIndex].gainEnvelope.setRelease(vecIndex, seconds);
 }
 
-void NOTE_NAME::rest() { state = NoteState::rest; }
+void NOTE_NAME::rest()
+{
+  state = NoteState::rest;
+  id = -1;
+}
 
 bool NOTE_NAME::isAttacking(std::array<PROCESSING_UNIT_NAME, nUnit> &units)
 {
@@ -155,41 +154,65 @@ DSPCORE_NAME::DSPCORE_NAME()
 
 void DSPCORE_NAME::setup(double sampleRate)
 {
-  this->sampleRate = sampleRate;
+  this->sampleRate = float(sampleRate);
 
   midiNotes.resize(0);
 
-  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(this->sampleRate);
   SmootherCommon<float>::setTime(0.04f);
 
   for (size_t idx = 0; idx < nUnit; ++idx) {
     units[idx].gainEnvelope.setup(
-      sampleRate, param.value[ParameterID::gainS]->getFloat());
+      this->sampleRate, param.value[ParameterID::gainS]->getFloat());
   }
 
-  for (auto &note : notes) note.setup(sampleRate);
+  for (auto &note : notes) note.setup(this->sampleRate);
 
   // 2 msec + 1 sample transition time.
-  transitionBuffer.resize(1 + size_t(sampleRate * 0.01), {0.0f, 0.0f});
+  transitionBuffer.resize(1 + size_t(this->sampleRate * 0.01), {0.0f, 0.0f});
 
   startup();
   prepareRefresh = true;
 }
 
-void PROCESSING_UNIT_NAME::reset()
+void PROCESSING_UNIT_NAME::reset(GlobalParameter &param)
 {
+  notePitch = 0;
+  pitch = 0;
+  lowpassPitch = 0;
+  notePan = 0.5f;
+  frequency = 1;
+  gain = 0;
+  gain0 = 0;
+  gain1 = 0;
+  velocity = 0;
+
   isActive = false;
+
   osc.reset();
   lfo.reset();
   lfoSmoother.reset();
   gainEnvelope.terminate();
+  gainEnvelope.resetSustain(param.value[ParameterID::gainS]->getFloat());
+  pitchEnvelope.resetSustain(param.value[ParameterID::pitchS]->getFloat());
+  lowpassEnvelope.resetSustain(param.value[ParameterID::tableLowpassS]->getFloat());
 }
 
 void DSPCORE_NAME::reset()
 {
   for (auto &note : notes) note.rest();
-  for (auto &unit : units) unit.reset();
-  info.reset();
+  for (auto &unit : units) unit.reset(param);
+  info.reset(param);
+
+  panCounter = 0;
+
+  interpMasterGain.reset(param.value[ParameterID::gain]->getFloat());
+
+  for (auto &buf : transitionBuffer) buf.fill(0);
+  isTransitioning = false;
+  trIndex = 0;
+  trStop = 0;
+
   startup();
 }
 
@@ -233,14 +256,11 @@ void DSPCORE_NAME::setParameters(float tempo)
 
   interpMasterGain.push(param.value[ID::gain]->getFloat());
 
-  info.masterPitch.push(calcMasterPitch(
-    int32_t(param.value[ID::oscOctave]->getInt()) - 12,
-    param.value[ID::oscSemi]->getInt() - 120, param.value[ID::oscMilli]->getInt() - 1000,
-    param.value[ID::pitchBend]->getFloat()));
+  info.masterPitch.push(getMasterPitch(param));
   info.equalTemperament.push(param.value[ID::equalTemperament]->getFloat() + 1);
   info.pitchA4Hz.push(param.value[ID::pitchA4Hz]->getFloat() + 100);
   info.tableLowpass.push(
-    Scales::tableLowpass.getMax() - param.value[ID::tableLowpass]->getFloat());
+    float(Scales::tableLowpass.getMax()) - param.value[ID::tableLowpass]->getFloat());
   info.tableLowpassKeyFollow.push(param.value[ID::tableLowpassKeyFollow]->getFloat());
   info.tableLowpassEnvelopeAmount.push(
     param.value[ID::tableLowpassEnvelopeAmount]->getFloat());
@@ -320,7 +340,7 @@ void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
     return;
   }
 
-  SmootherCommon<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(float(length));
 
   std::array<float, 2> frame{};
   for (uint32_t i = 0; i < length; ++i) {
