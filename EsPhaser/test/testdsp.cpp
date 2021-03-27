@@ -30,12 +30,11 @@
 int main()
 {
 #ifdef __linux__
-  FxTesterSimdRuntimeDispatchSimdRuntimeDispatch<
-    DSPInterface, DSPCore_AVX512, DSPCore_AVX2, DSPCore_AVX>
+  FxTesterSimdRuntimeDispatch<DSPInterface, DSPCore_AVX512, DSPCore_AVX2, DSPCore_AVX>
     tester(UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
 #else
-  FxTesterSimdRuntimeDispatchSimdRuntimeDispatch<DSPInterface, DSPCore_AVX2, DSPCore_AVX>
-    tester(UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
+  FxTesterSimdRuntimeDispatch<DSPInterface, DSPCore_AVX2, DSPCore_AVX> tester(
+    UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
 #endif
 
   return tester.isFinished ? EXIT_SUCCESS : EXIT_FAILURE;

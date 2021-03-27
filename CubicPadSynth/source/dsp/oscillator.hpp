@@ -121,7 +121,7 @@ template<size_t tableSize, size_t nPeak> struct WaveTable {
 
   inline float profile(float fi, float bwi, float shape)
   {
-    if (bwi < 1e-5) bwi = 1e-5;
+    if (bwi < 1e-5f) bwi = 1e-5f;
     auto x = fi / bwi;
     return powf(expf(-x * x) / bwi, shape);
   }

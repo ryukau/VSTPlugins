@@ -112,8 +112,8 @@ public:
   void setup(Sample sampleRate, Sample time, Sample maxTime)
   {
     delay.setup(sampleRate, time, maxTime);
-    delayTimeLowpass.setP(0.1); // Fixed P.
-    interpPhase.setRange(twopi);
+    delayTimeLowpass.setP(Sample(0.1)); // Fixed P.
+    interpPhase.setRange(Sample(twopi));
   }
 
   // frequency can be negative.

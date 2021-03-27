@@ -47,7 +47,7 @@ template<size_t size> struct alignas(64) QuadOscExpAD {
   std::array<Vec16f, size> alphaD{};
 
   float decayGain = 0;
-  const float threshold = 1e-5;
+  const float threshold = 1e-5f;
 
   bool isTerminated() { return decayGain <= threshold; }
   float getDecayGain() { return decayGain; }
@@ -88,11 +88,11 @@ template<size_t size> struct alignas(64) QuadOscExpAD {
 
       // Gain envelope.
       valueA[i] = 1.0f;
-      attack[i] = select(attack[i] < 1e-5, 1e-5, attack[i]);
+      attack[i] = select(attack[i] < 1e-5f, 1e-5f, attack[i]);
       alphaA[i] = pow(Vec16f(threshold), 1.0f / (attack[i] * sampleRate));
 
       valueD[i] = 1.0f;
-      decay[i] = select(decay[i] < 1e-5, 1e-5, decay[i]);
+      decay[i] = select(decay[i] < 1e-5f, 1e-5f, decay[i]);
       alphaD[i] = pow(Vec16f(threshold), 1.0f / (decay[i] * sampleRate));
 
       // Gain normalization.

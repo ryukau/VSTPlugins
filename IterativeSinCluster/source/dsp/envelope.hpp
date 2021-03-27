@@ -53,7 +53,7 @@ public:
   }
 
 protected:
-  const Sample threshold = 1e-5;
+  const Sample threshold = Sample(1e-5);
   Sample value = 0;
   Sample alpha = 0;
 };
@@ -81,7 +81,7 @@ public:
   }
 
 protected:
-  const Sample threshold = 1e-5;
+  const Sample threshold = Sample(1e-5);
   Sample value = 0;
   Sample alpha = 0;
 };
@@ -110,7 +110,7 @@ public:
   }
 
 protected:
-  const Sample threshold = 1e-5;
+  const Sample threshold = Sample(1e-5);
   Sample value = 0;
   Sample alpha = 0;
 };
