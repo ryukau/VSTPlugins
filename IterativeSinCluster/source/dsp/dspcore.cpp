@@ -32,6 +32,8 @@
 #error Unsupported instruction set
 #endif
 
+#include <iostream> // debug
+
 inline float clamp(float value, float min, float max)
 {
   return (value < min) ? min : (value > max) ? max : value;
@@ -87,7 +89,7 @@ void NOTE_NAME<Sample>::noteOn(
 
   const Sample semiSign
     = param.value[ID::negativeSemi]->getInt() ? Sample(-1) : Sample(1);
-  const Sample eqTemp = param.value[ID::equalTemperament]->getInt();
+  const Sample eqTemp = Sample(param.value[ID::equalTemperament]->getInt());
 
   const Sample nyquist = sampleRate / 2;
   const Sample randGainAmt = 3 * param.value[ID::randomGainAmount]->getFloat();
@@ -96,7 +98,7 @@ void NOTE_NAME<Sample>::noteOn(
   const Sample pitchModulo
     = semiToPitch(param.value[ID::pitchModulo]->getFloat(), eqTemp);
 
-  frequency *= std::pow(2, std::floor(param.value[ID::masterOctave]->getFloat()));
+  frequency *= std::pow(2.0f, std::floor(param.value[ID::masterOctave]->getFloat()));
   const Sample lowShelfFreq = frequency
     * semiToPitch(semiSign * param.value[ID::lowShelfPitch]->getFloat(), eqTemp);
   const Sample lowShelfGain = param.value[ID::lowShelfGain]->getFloat();
@@ -180,7 +182,12 @@ template<typename Sample> void NOTE_NAME<Sample>::release()
   gainEnvelope.release();
 }
 
-template<typename Sample> void NOTE_NAME<Sample>::rest() { state = NoteState::rest; }
+template<typename Sample> void NOTE_NAME<Sample>::rest()
+{
+  state = NoteState::rest;
+  id = -1;
+  gain = 0;
+}
 
 template<typename Sample> std::array<Sample, 2> NOTE_NAME<Sample>::process()
 {
@@ -210,21 +217,22 @@ DSPCORE_NAME::DSPCORE_NAME() { midiNotes.reserve(128); }
 
 void DSPCORE_NAME::setup(double sampleRate)
 {
-  this->sampleRate = sampleRate;
+  this->sampleRate = float(sampleRate);
 
   midiNotes.resize(0);
 
-  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(this->sampleRate);
   SmootherCommon<float>::setTime(0.04f);
 
-  for (auto &note : notes) note.setup(sampleRate);
+  for (auto &note : notes) note.setup(this->sampleRate);
 
   for (auto &chrs : chorus)
     chrs.setup(
-      sampleRate, 0,
-      Scales::chorusDelayTimeRange.getMax() + Scales::chorusMinDelayTime.getMax());
+      this->sampleRate, 0,
+      float(Scales::chorusDelayTimeRange.getMax())
+        + float(Scales::chorusMinDelayTime.getMax()));
 
-  // 2 msec + 1 sample transition time.
+  // 5 msec + 1 sample transition time.
   transitionBuffer.resize(1 + size_t(sampleRate * 0.005), {0, 0});
 
   startup();
@@ -232,10 +240,38 @@ void DSPCORE_NAME::setup(double sampleRate)
 
 void DSPCORE_NAME::reset()
 {
-  for (auto &note : notes) note.rest();
+  using ID = ParameterID::ID;
+
+  SmootherCommon<float>::setTime(param.value[ID::smoothness]->getFloat());
+
+  interpChorusMix.reset(param.value[ID::chorusMix]->getFloat());
+  interpMasterGain.reset(
+    param.value[ID::gain]->getFloat() * param.value[ID::gainBoost]->getFloat());
+
+  for (auto &note : notes) {
+    note.rest();
+    note.gainEnvelope.terminate();
+  }
+
   lastNoteFreq = 1.0f;
 
-  for (auto &chrs : chorus) chrs.reset();
+  for (size_t i = 0; i < chorus.size(); ++i) {
+    chorus[i].reset(
+      param.value[ID::chorusFrequency]->getFloat(),
+      param.value[ID::chorusPhase]->getFloat()
+        + i * param.value[ID::chorusOffset]->getFloat(),
+      param.value[ID::chorusFeedback]->getFloat(),
+      param.value[ID::chorusDepth]->getFloat(),
+      param.value[ID::chorusDelayTimeRange0 + i]->getFloat(),
+      param.value[ID::chorusKeyFollow]->getInt()
+        ? 200.0f * param.value[ID::chorusMinDelayTime0 + i]->getFloat() / lastNoteFreq
+        : param.value[ID::chorusMinDelayTime0 + i]->getFloat());
+  }
+
+  for (auto &buf : transitionBuffer) buf.fill(0);
+  isTransitioning = false;
+  mptIndex = 0;
+  mptStop = 0;
 
   startup();
 }
@@ -248,7 +284,7 @@ void DSPCORE_NAME::setParameters()
 
   SmootherCommon<float>::setTime(param.value[ID::smoothness]->getFloat());
 
-  interpTremoloMix.push(param.value[ID::chorusMix]->getFloat());
+  interpChorusMix.push(param.value[ID::chorusMix]->getFloat());
   interpMasterGain.push(
     param.value[ID::gain]->getFloat() * param.value[ID::gainBoost]->getFloat());
 
@@ -279,7 +315,7 @@ void DSPCORE_NAME::setParameters()
 
 void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(float(length));
 
   std::array<float, 2> frame{};
   std::array<float, 2> chorusOut{};
@@ -313,7 +349,7 @@ void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
     chorusOut[0] /= chorus.size();
     chorusOut[1] /= chorus.size();
 
-    const auto chorusMix = interpTremoloMix.process();
+    const auto chorusMix = interpChorusMix.process();
     const auto masterGain = interpMasterGain.process();
     out0[i] = masterGain * (frame[0] + chorusMix * (chorusOut[0] - frame[0]));
     out1[i] = masterGain * (frame[1] + chorusMix * (chorusOut[1] - frame[1]));

@@ -75,10 +75,10 @@ protected:
   Sample sampleRate = 44100;
   Sample timeInSamples = -1;
   Sample bufferSize = 0;
-  Sample value = 1.0;
-  Sample target = 1.0;
-  Sample ramp = 0.0;
-  Sample epsilon = 1e-5;
+  Sample value = 1;
+  Sample target = 1;
+  Sample ramp = 0;
+  Sample epsilon = Sample(1e-5);
 };
 
 struct alignas(64) ThiranAllpass2x16 {
@@ -124,7 +124,7 @@ struct alignas(64) ThiranAllpass2x16 {
 
 struct alignas(64) Thiran2Phaser {
   std::array<ThiranAllpass2x16, 256> allpass;
-  Vec16f phase{0};
+  Vec16f phase = 0;
   float buffer = 0;
   float sampleRate = 44100;
   std::array<int, 2> stage{15, 15};
@@ -160,10 +160,15 @@ struct alignas(64) Thiran2Phaser {
     interpStage.reset(1.0f);
   }
 
-  void reset()
+  void reset(int newStage)
   {
     for (auto &ap : allpass) ap.reset();
+    phase = 0;
     buffer = 0;
+    stage = {newStage, newStage};
+    index = {newStage >> 4, newStage >> 4};
+    arrayStop = 255;
+    interpStage.reset(1.0f);
   }
 
   // tick = frequency / sampleRate.

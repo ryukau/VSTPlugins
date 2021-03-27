@@ -31,9 +31,9 @@
 namespace Steinberg {
 namespace Synth {
 
-constexpr Vst::ParamValue maxDelayTime = 8.0;
-constexpr Vst::ParamValue maxToneFrequency = 20000.0;
-constexpr Vst::ParamValue minDCKillFrequency = 5.0;
+constexpr double maxDelayTime = 8.0;
+constexpr double maxToneFrequency = 20000.0;
+constexpr double minDCKillFrequency = 5.0;
 
 namespace ParameterID {
 enum ID : Vst::ParamID {
@@ -96,7 +96,7 @@ struct GlobalParameter : public ParameterInterface {
     using SPolyValue = DoubleValue<SomeDSP::SPolyScale<double>>;
 
     value[ID::bypass] = std::make_unique<UIntValue>(
-      0.0, Scales::boolScale, "Bypass", Info::kCanAutomate | Info::kIsBypass);
+      0, Scales::boolScale, "Bypass", Info::kCanAutomate | Info::kIsBypass);
     value[ID::time]
       = std::make_unique<LogValue>(0.5, Scales::time, "Time", Info::kCanAutomate);
     value[ID::feedback] = std::make_unique<LinearValue>(
@@ -108,9 +108,9 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::dryMix] = std::make_unique<LinearValue>(
       1.0, Scales::defaultScale, "DryMix", Info::kCanAutomate);
     value[ID::tempoSync] = std::make_unique<UIntValue>(
-      0.0, Scales::boolScale, "TempoSync", Info::kCanAutomate);
+      0, Scales::boolScale, "TempoSync", Info::kCanAutomate);
     value[ID::negativeFeedback] = std::make_unique<UIntValue>(
-      0.0, Scales::boolScale, "NegativeFeedback", Info::kCanAutomate);
+      0, Scales::boolScale, "NegativeFeedback", Info::kCanAutomate);
     value[ID::lfoTimeAmount] = std::make_unique<LogValue>(
       0.0, Scales::lfoTimeAmount, "LFO to Time", Info::kCanAutomate);
     value[ID::lfoFrequency] = std::make_unique<LogValue>(
@@ -120,7 +120,7 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::lfoInitialPhase] = std::make_unique<LinearValue>(
       0.0, Scales::lfoInitialPhase, "LFO Initial Phase", Info::kCanAutomate);
     value[ID::lfoHold] = std::make_unique<UIntValue>(
-      0.0, Scales::boolScale, "LFO Phase Hold", Info::kCanAutomate);
+      0, Scales::boolScale, "LFO Phase Hold", Info::kCanAutomate);
     value[ID::smoothness] = std::make_unique<LogValue>(
       0.3, Scales::smoothness, "Smoothness", Info::kCanAutomate);
     value[ID::inSpread] = std::make_unique<LinearValue>(

@@ -39,15 +39,15 @@ public:
   // q in (0, 1].
   void setCutoffQ(Sample hz, Sample q)
   {
-    cutoff = hz > 0.0 ? hz : 0.0;
+    cutoff = hz > 0 ? hz : 0;
     resonance = q < Sample(1e-5) ? Sample(1e-5) : q;
     setCoefficient();
   }
 
   void reset()
   {
-    yLP = yBP = yHP = 0.0;
-    s1 = s2 = 0.0;
+    yLP = yBP = yHP = 0;
+    s1 = s2 = 0;
   }
 
   Sample process(Sample input)
@@ -62,29 +62,29 @@ public:
     yLP = v2 + s2;
     s2 = yLP + v2;
 
-    Sample output = input - Sample(2.0) * twoR * yBP;
+    Sample output = input - Sample(2) * twoR * yBP;
     if (std::isfinite(output)) return output;
 
     reset();
-    return 0.0;
+    return 0;
   }
 
 protected:
   Sample sampleRate = 44100;
-  Sample cutoff = 0.5;
-  Sample resonance = 0.5;
+  Sample cutoff = Sample(0.5);
+  Sample resonance = Sample(0.5);
 
-  Sample yLP = 0.0;
-  Sample yBP = 0.0;
-  Sample yHP = 0.0;
+  Sample yLP = 0;
+  Sample yBP = 0;
+  Sample yHP = 0;
 
-  Sample s1 = 0.0;
-  Sample s2 = 0.0;
+  Sample s1 = 0;
+  Sample s2 = 0;
 
-  Sample g = 0.0;
-  Sample g1 = 0.0;
-  Sample d = 0.0;
-  Sample twoR = 0.0;
+  Sample g = 0;
+  Sample g1 = 0;
+  Sample d = 0;
+  Sample twoR = 0;
 };
 
 // http://www.musicdsp.org/files/Audio-EQ-Cookbook.txt
@@ -99,27 +99,27 @@ public:
 
   void reset()
   {
-    b0 = b1 = b2 = 0.0;
-    a0 = a1 = a2 = 0.0;
-    x1 = x2 = 0.0;
-    y1 = y2 = 0.0;
+    b0 = b1 = b2 = 0;
+    a0 = a1 = a2 = 0;
+    x1 = x2 = 0;
+    y1 = y2 = 0;
   }
 
   void setCutoff(Sample hz)
   {
-    f0 = hz > 0.0 ? hz : 0.0;
+    f0 = hz > 0 ? hz : 0;
 
     Sample w0 = Sample(twopi) * f0 / fs;
     Sample cos_w0 = std::cos(w0);
     Sample sin_w0 = std::sin(w0);
 
-    Sample alpha = sin_w0 / (Sample(2.0) * q);
-    b0 = (Sample(1.0) + cos_w0) / Sample(2.0);
-    b1 = -(Sample(1.0) + cos_w0);
-    b2 = (Sample(1.0) + cos_w0) / Sample(2.0);
-    a0 = Sample(1.0) + alpha;
-    a1 = -Sample(2.0) * cos_w0;
-    a2 = Sample(1.0) - alpha;
+    Sample alpha = sin_w0 / (Sample(2) * q);
+    b0 = (Sample(1) + cos_w0) / Sample(2);
+    b1 = -(Sample(1) + cos_w0);
+    b2 = (Sample(1) + cos_w0) / Sample(2);
+    a0 = Sample(1) + alpha;
+    a1 = -Sample(2) * cos_w0;
+    a2 = Sample(1) - alpha;
 
     b0 /= a0;
     b1 /= a0;
@@ -143,19 +143,19 @@ public:
 
 protected:
   Sample fs = 44100;
-  Sample f0 = 0.5;
-  Sample q = 0.5;
+  Sample f0 = Sample(0.5);
+  Sample q = Sample(0.5);
 
-  Sample b0 = 0.0;
-  Sample b1 = 0.0;
-  Sample b2 = 0.0;
-  Sample a0 = 0.0;
-  Sample a1 = 0.0;
-  Sample a2 = 0.0;
-  Sample x1 = 0.0;
-  Sample x2 = 0.0;
-  Sample y1 = 0.0;
-  Sample y2 = 0.0;
+  Sample b0 = 0;
+  Sample b1 = 0;
+  Sample b2 = 0;
+  Sample a0 = 0;
+  Sample a1 = 0;
+  Sample a2 = 0;
+  Sample x1 = 0;
+  Sample x2 = 0;
+  Sample y1 = 0;
+  Sample y2 = 0;
 };
 
 } // namespace SomeDSP

@@ -47,15 +47,15 @@ public:
 
   void reset()
   {
-    std::fill(buf.begin(), buf.end(), 0);
+    std::fill(buf.begin(), buf.end(), Sample(0));
     w1 = 0;
     r1 = 0;
   }
 
   void setTime(Sample sampleRate, Sample seconds)
   {
-    Sample timeInSample
-      = std::clamp<Sample>(Sample(2) * sampleRate * seconds, 0, buf.size());
+    Sample timeInSample = std::clamp<Sample>(
+      Sample(2) * sampleRate * seconds, Sample(0), Sample(buf.size()));
 
     int timeInt = int(timeInSample);
     rFraction = timeInSample - Sample(timeInt);

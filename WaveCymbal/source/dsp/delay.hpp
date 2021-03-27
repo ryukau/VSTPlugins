@@ -24,20 +24,19 @@ namespace SomeDSP {
 // 2x oversampled, linear interpolated delay.
 template<typename Sample> class Delay {
 public:
-  void setup(double sampleRate, Sample time, Sample maxTime)
+  void setup(Sample sampleRate, Sample time, Sample maxTime)
   {
-    this->sampleRate = 2 * sampleRate;
+    this->sampleRate = Sample(2) * sampleRate;
 
     auto size = size_t(this->sampleRate * maxTime);
-    buf.resize(size >= INT32_MAX ? INT32_MAX : size + 1, 0.0);
+    buf.resize(size >= INT32_MAX ? INT32_MAX : size + 1, 0);
 
     setTime(time);
   }
 
   void setTime(Sample seconds)
   {
-    auto timeInSample
-      = std::max<Sample>(0, std::min<Sample>(sampleRate * seconds, (Sample)buf.size()));
+    auto timeInSample = std::clamp(sampleRate * seconds, Sample(0), Sample(buf.size()));
 
     size_t timeInt = size_t(timeInSample);
     rFraction = timeInSample - Sample(timeInt);
@@ -49,8 +48,8 @@ public:
 
   void reset()
   {
-    std::fill(buf.begin(), buf.end(), 0);
-    w1 = 0.0;
+    std::fill(buf.begin(), buf.end(), Sample(0));
+    w1 = 0;
   }
 
   Sample process(const Sample input)
@@ -79,9 +78,9 @@ public:
   }
 
 protected:
-  double sampleRate = 44100.0;
-  Sample rFraction = 0.0;
-  Sample w1 = 0.0;
+  Sample sampleRate = 44100;
+  Sample rFraction = 0;
+  Sample w1 = 0;
   size_t wptr = 0;
   size_t rptr = 0;
   std::vector<Sample> buf{2};

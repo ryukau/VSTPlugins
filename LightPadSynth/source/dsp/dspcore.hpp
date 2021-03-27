@@ -32,6 +32,22 @@
 using namespace SomeDSP;
 using namespace Steinberg::Synth;
 
+inline float calcMasterPitch(int32_t octave, int32_t semi, int32_t milli, float bend)
+{
+  return 12 * octave + semi + milli / 1000.0f + (bend - 0.5f) * 4.0f;
+}
+
+inline float calcDelayPitch(int32_t semi, int32_t milli, float equalTemperament)
+{
+  return powf(2.0f, -(semi + 0.001f * milli) / equalTemperament);
+}
+
+inline float
+notePitchToFrequency(float notePitch, float equalTemperament, float a4Hz = 440.0f)
+{
+  return a4Hz * powf(2.0f, (notePitch - 69.0f) / equalTemperament);
+}
+
 enum class NoteState { active, release, rest };
 
 struct NoteProcessInfo {
@@ -79,21 +95,37 @@ struct NoteProcessInfo {
     if (lfoOut < 0.0f) lfoOut = 0.0f;
   }
 
-  void reset()
+  void reset(GlobalParameter &param, float sampleRate)
   {
-    masterPitch.reset(1.0f);
-    equalTemperament.reset(12.0f);
-    pitchA4Hz.reset(440.0f);
-    filterCutoff.reset(0.0f);
-    filterResonance.reset(0.0f);
-    filterAmount.reset(0.0f);
-    filterKeyFollow.reset(0.0f);
-    delayMix.reset(0.5f);
-    delayDetune.reset(1.0f);
-    delayFeedback.reset(0.5f);
-    lfoFrequency.reset(0.0f);
-    lfoAmount.reset(0.0f);
-    lfoLowpass.reset(1.0f);
+    using ID = ParameterID::ID;
+
+    masterPitch.reset(calcMasterPitch(
+      int32_t(param.value[ID::oscOctave]->getInt()) - 12,
+      param.value[ID::oscSemi]->getInt() - 120,
+      param.value[ID::oscMilli]->getInt() - 1000,
+      param.value[ID::pitchBend]->getFloat()));
+
+    auto et = param.value[ID::equalTemperament]->getFloat() + 1;
+    equalTemperament.reset(et);
+    pitchA4Hz.reset(param.value[ID::pitchA4Hz]->getFloat() + 100);
+
+    filterCutoff.reset(param.value[ID::filterCutoff]->getFloat());
+    filterResonance.reset(param.value[ID::filterResonance]->getFloat());
+    filterAmount.reset(param.value[ID::filterAmount]->getFloat());
+    filterKeyFollow.reset(param.value[ID::filterKeyFollow]->getFloat());
+
+    delayMix.reset(param.value[ID::delayMix]->getFloat());
+    delayDetune.reset(calcDelayPitch(
+      param.value[ID::delayDetuneSemi]->getInt() - 120,
+      param.value[ID::delayDetuneMilli]->getInt() - 1000, et));
+    delayFeedback.reset(param.value[ID::delayFeedback]->getFloat());
+
+    const float beat = float(param.value[ID::lfoTempoNumerator]->getInt() + 1)
+      / float(param.value[ID::lfoTempoDenominator]->getInt() + 1);
+    lfoFrequency.reset(1.0f);
+    lfoAmount.reset(param.value[ID::lfoDelayAmount]->getFloat());
+    lfoLowpass.reset(
+      EMAFilter<float>::cutoffToP(sampleRate, param.value[ID::lfoLowpass]->getFloat()));
 
     lfo.reset();
     lowpass.reset();
@@ -134,6 +166,7 @@ struct NoteProcessInfo {
     void release();                                                                      \
     void release(float seconds);                                                         \
     void rest();                                                                         \
+    void reset();                                                                        \
     bool isAttacking();                                                                  \
     float getGain();                                                                     \
     std::array<float, 2>                                                                 \

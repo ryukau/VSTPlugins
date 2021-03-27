@@ -99,7 +99,7 @@ struct Wavetable {
 
   inline float profile(float fi, float bwi, float shape)
   {
-    if (bwi < 1e-5) bwi = 1e-5;
+    if (bwi < 1e-5f) bwi = 1e-5f;
     auto x = fi / bwi;
     return powf(expf(-x * x) / bwi, shape);
   }
@@ -175,8 +175,8 @@ struct Wavetable {
       }
 
       if (bin < spectrumRe.size()) {
-        std::fill(spectrumRe.begin() + bin, spectrumRe.end(), 0);
-        std::fill(spectrumIm.begin() + bin, spectrumIm.end(), 0);
+        std::fill(spectrumRe.begin() + bin, spectrumRe.end(), 0.0f);
+        std::fill(spectrumIm.begin() + bin, spectrumIm.end(), 0.0f);
       }
     }
 
@@ -199,7 +199,7 @@ struct Wavetable {
     }
 
     for (int i = 0; i < int(table.size()); ++i)
-      refreshTable(440.0 * pow(2.0, (i - 69) / 12.0), table[i]);
+      refreshTable(440.0f * std::pow(2.0f, (i - 69.0f) / 12.0f), table[i]);
   }
 
   void refreshTable(float frequency, std::vector<float> &table)
@@ -209,8 +209,8 @@ struct Wavetable {
 
     std::copy_n(spectrumRe.begin(), bandIdx, tmpSpecRe.begin());
     std::copy_n(spectrumIm.begin(), bandIdx, tmpSpecIm.begin());
-    std::fill(tmpSpecRe.begin() + bandIdx, tmpSpecRe.end(), 0);
-    std::fill(tmpSpecIm.begin() + bandIdx, tmpSpecIm.end(), 0);
+    std::fill(tmpSpecRe.begin() + bandIdx, tmpSpecRe.end(), 0.0f);
+    std::fill(tmpSpecIm.begin() + bandIdx, tmpSpecIm.end(), 0.0f);
 
     fft.ifft(table.data(), tmpSpecRe.data(), tmpSpecIm.data());
 
@@ -240,7 +240,12 @@ struct TableOsc {
     this->phase = (phase - floorf(phase)) * tableSize;
   }
 
-  void reset() { phase = 0; }
+  void reset()
+  {
+    phase = 0;
+    tick = 0;
+    tableIndex = 0;
+  }
 
   float process(std::vector<std::vector<float>> &table, size_t tableSize)
   {
@@ -249,8 +254,8 @@ struct TableOsc {
     phase += tick;
     if (phase >= tableSize) phase -= tableSize;
 
-    size_t x0 = phase;
-    return tbl[x0] + (phase - floorf(phase)) * (tbl[x0 + 1] - tbl[x0]);
+    size_t x0 = size_t(phase);
+    return tbl[x0] + (phase - float(x0)) * (tbl[x0 + 1] - tbl[x0]);
   }
 };
 
@@ -265,7 +270,7 @@ template<size_t tableSize> struct LfoWavetable {
     switch (interpType) {
       case interpStep: {
         for (size_t idx = 0; idx < last; ++idx) {
-          size_t uiIdx = uiTable.size() * idx / float(last);
+          size_t uiIdx = size_t(uiTable.size() * idx / float(last));
           table[idx] = uiTable[uiIdx];
         }
       } break;
@@ -316,15 +321,21 @@ public:
     phase += tick;
     if (phase >= tableSize) phase -= tableSize;
 
-    float xFrac = phase - floor(phase);
-    int ix0 = phase;
+    size_t ix0 = size_t(phase);
+    float xFrac = phase - float(ix0);
     return table[ix0] + xFrac * (table[ix0 + 1] - table[ix0]);
   }
 };
 
 template<typename Sample> class LP3 {
 public:
-  void reset() { acc = vel = pos = x1 = 0; }
+  void reset()
+  {
+    acc = 0;
+    vel = 0;
+    pos = 0;
+    x1 = 0;
+  }
 
   Sample process(const Sample x0, Sample sampleRate, Sample lowpassHz, Sample resonance)
   {

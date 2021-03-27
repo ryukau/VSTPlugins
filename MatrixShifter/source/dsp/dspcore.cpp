@@ -40,12 +40,12 @@ inline std::array<float, 2> calcPhaseOffset(float offset)
 
 void DSPCORE_NAME::setup(double sampleRate)
 {
-  this->sampleRate = sampleRate;
+  this->sampleRate = float(sampleRate);
 
-  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(this->sampleRate);
   SmootherCommon<float>::setTime(0.04f);
 
-  for (auto &shf : shifter) shf.setup(sampleRate, maxShiftDelaySeconds);
+  for (auto &shf : shifter) shf.setup(this->sampleRate, maxShiftDelaySeconds);
 
   reset();
 }
@@ -86,6 +86,12 @@ void DSPCORE_NAME::reset()
 
   startup();
   for (auto &shf : shifter) shf.reset();
+  for (auto &os : lfo) os.reset();
+
+  lfoOut.fill(0);
+  lfoDelay.fill(0);
+  feedbackCutoffHz.fill(0);
+  lfoHz.fill(0);
 
   ASSIGN_PARAMETER(reset);
 }
@@ -95,7 +101,7 @@ void DSPCORE_NAME::startup()
   for (auto &osc : lfo) osc.reset();
 }
 
-void DSPCORE_NAME::setParameters(float tempo)
+void DSPCORE_NAME::setParameters(float /* tempo */)
 {
   using ID = ParameterID::ID;
 
@@ -105,7 +111,7 @@ void DSPCORE_NAME::setParameters(float tempo)
 void DSPCORE_NAME::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(float(length));
 
   for (size_t i = 0; i < length; ++i) {
     const auto phaseOffset = calcPhaseOffset(interpShiftPhase.process());

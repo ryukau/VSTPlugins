@@ -107,13 +107,15 @@ def vstpreset_to_json(preset_plugin_dir,
 
     preset_list = []
     for vstpreset_path in sorted(preset_plugin_dir.glob("**/*.vstpreset")):
+        print(vstpreset_path)
         data = read_vstpreset(vstpreset_path, endian)
         if debug_print_data: # For debug.
             print(f"-- filename\n{vstpreset_path}\n")
             print_data(data)
 
         # type_data = [{"id":, "name":, "type":, "default":, "scale":, "flags":,}, ... ]
-        with open(json_dir / Path(f"{plugin_name}.type.json"), "r") as fi:
+        with open(json_dir / Path(f"{plugin_name}.type.json"), "r",
+                  encoding="utf-8") as fi:
             type_data = json.load(fi)
 
         comp_data = data["Comp"]
@@ -122,14 +124,14 @@ def vstpreset_to_json(preset_plugin_dir,
 
         for info in type_data:
             # TODO: delete this branch after fixing LPS presets.
-            if preset_plugin_dir.stem == "LightPadSynth" and (info["id"] == 1506 or
-                                                              info["id"] == 1513):
-                param.append({
-                    "name": info["name"],
-                    "type": info["type"],
-                    "value": info["default"],
-                })
-                continue
+            # if preset_plugin_dir.stem == "LightPadSynth" and (info["id"] == 1506 or
+            #                                                   info["id"] == 1513):
+            #     param.append({
+            #         "name": info["name"],
+            #         "type": info["type"],
+            #         "value": info["default"],
+            #     })
+            #     continue
 
             type_char = info["type"]
             n_byte = struct.calcsize(type_char)
@@ -147,13 +149,14 @@ def vstpreset_to_json(preset_plugin_dir,
         preset_list.append(preset)
 
     if dump_json:
-        with open(json_dir / Path(f"{plugin_name}.preset.json"), "w") as fi:
+        with open(json_dir / Path(f"{plugin_name}.preset.json"), "w",
+                  encoding="utf-8") as fi:
             json.dump(preset_list, fi, indent=2)
     return preset_list
 
 if __name__ == "__main__":
-    for path in Path("Uhhyou").glob("*"):
-        if not path.is_dir():
-            continue
-        vstpreset_to_json(path, "little")
-    # vstpreset_to_json(Path("Uhhyou/SoftClipper"), "little", debug_print_data=True)
+    # for path in Path("Uhhyou").glob("*"):
+    #     if not path.is_dir():
+    #         continue
+    #     vstpreset_to_json(path, "little")
+    vstpreset_to_json(Path("Uhhyou/LightPadSynth"), "little", debug_print_data=True)

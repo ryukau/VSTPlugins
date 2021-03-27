@@ -43,17 +43,17 @@ public:
   Sample f0;
   Sample q;
 
-  Sample b0 = 0.0;
-  Sample b1 = 0.0;
-  Sample b2 = 0.0;
-  Sample a0 = 0.0;
-  Sample a1 = 0.0;
-  Sample a2 = 0.0;
+  Sample b0 = 0;
+  Sample b1 = 0;
+  Sample b2 = 0;
+  Sample a0 = 0;
+  Sample a1 = 0;
+  Sample a2 = 0;
 
-  Sample w0 = 0.0;
-  Sample cos_w0 = 0.0;
-  Sample sin_w0 = 0.0;
-  Sample alpha = 0.0;
+  Sample w0 = 0;
+  Sample cos_w0 = 0;
+  Sample sin_w0 = 0;
+  Sample alpha = 0;
 
   std::array<Sample, 4> x0{};
   std::array<Sample, 4> x1{};
@@ -62,8 +62,8 @@ public:
   std::array<Sample, 4> y1{};
   std::array<Sample, 4> y2{};
 
-  Sample feedback = 0.0;
-  Sample saturation = 1.0;
+  Sample feedback = 0;
+  Sample saturation = 1;
   ShaperType shaper = ShaperType::sinRunge;
 
   SerialFilter4(Sample sampleRate, Sample cutoff, Sample resonance)
@@ -73,16 +73,18 @@ public:
 
   void reset()
   {
-    b0 = b1 = b2 = 0.0f;
-    a0 = a1 = a2 = 0.0f;
+    b0 = b1 = b2 = 0;
+    a0 = a1 = a2 = 0;
     clear();
   }
 
   void clear()
   {
-    feedback = 0.0;
+    feedback = 0;
+    x0.fill(0);
     x1.fill(0);
     x2.fill(0);
+    y0.fill(0);
     y1.fill(0);
     y2.fill(0);
   }
@@ -142,7 +144,7 @@ public:
     f0 = clamp(hz, Sample(20.0), Sample(20000.0));
     this->q = clamp(q, Sample(1e-5), Sample(1.0));
 
-    w0 = twopi * f0 / fs;
+    w0 = Sample(twopi) * f0 / fs;
     cos_w0 = juce::dsp::FastMathApproximations::cos<Sample>(w0);
     sin_w0 = juce::dsp::FastMathApproximations::sin<Sample>(w0);
     switch (type) {
@@ -216,25 +218,10 @@ public:
     y0[2] = (b0 * x0[2] + b1 * x1[2] + b2 * x2[2] - a1 * y1[2] - a2 * y2[2]) / a0;
     y0[3] = (b0 * x0[3] + b1 * x1[3] + b2 * x2[3] - a1 * y1[3] - a2 * y2[3]) / a0;
 
-    x2[0] = x1[0];
-    x2[1] = x1[1];
-    x2[2] = x1[2];
-    x2[3] = x1[3];
-
-    x1[0] = x0[0];
-    x1[1] = x0[1];
-    x1[2] = x0[2];
-    x1[3] = x0[3];
-
-    y2[0] = y1[0];
-    y2[1] = y1[1];
-    y2[2] = y1[2];
-    y2[3] = y1[3];
-
-    y1[0] = y0[0];
-    y1[1] = y0[1];
-    y1[2] = y0[2];
-    y1[3] = y0[3];
+    x2 = x1;
+    x1 = x0;
+    y2 = y1;
+    y1 = y0;
 
     if (std::isfinite(y0[3])) return y0[3];
     clear();

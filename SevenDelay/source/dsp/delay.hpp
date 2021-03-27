@@ -24,8 +24,8 @@ template<typename Sample, unsigned char Order> class FractionalDelayLagrange {
 public:
   void reset()
   {
-    xd.fill(0.0);
-    diff.fill(0.0);
+    xd.fill(0);
+    diff.fill(0);
   }
 
   void push(Sample input)
@@ -93,7 +93,7 @@ public:
 
   void reset()
   {
-    std::fill(buf.begin(), buf.end(), 0.0);
+    std::fill(buf.begin(), buf.end(), Sample(0));
     wInterp.reset();
   }
 
@@ -123,7 +123,7 @@ private:
   static const size_t overSample = Order;
   static const size_t fix = (overSample * (Order - 1)) / 2;
   Sample sampleRate = 44100.0;
-  Sample rFraction = 0.0;
+  Sample rFraction = 0;
   std::vector<Sample> buf{1};
   int32_t wptr = 0;
   int32_t rptr = 0;

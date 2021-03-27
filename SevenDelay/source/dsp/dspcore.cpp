@@ -17,9 +17,6 @@
 
 #include "dspcore.hpp"
 
-namespace Steinberg {
-namespace Synth {
-
 constexpr size_t channel = 2;
 
 inline std::array<float, 2> calcPan(float inL, float inR, float pan, float spread)
@@ -44,14 +41,14 @@ inline std::array<float, 2> calcPan(float inL, float inR, float pan, float sprea
 
 void DSPCore::setup(double sampleRate)
 {
-  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(float(sampleRate));
 
   for (size_t i = 0; i < delay.size(); ++i)
-    delay[i].setup(sampleRate, 1.0f, maxDelayTime);
+    delay[i].setup(float(sampleRate), 1.0f, maxDelayTime);
 
-  for (size_t i = 0; i < filter.size(); ++i) filter[i].setup(sampleRate);
+  for (size_t i = 0; i < filter.size(); ++i) filter[i].setup(float(sampleRate));
 
-  for (size_t i = 0; i < dcKiller.size(); ++i) dcKiller[i].setup(sampleRate, 0.1);
+  for (size_t i = 0; i < dcKiller.size(); ++i) dcKiller[i].setup(float(sampleRate), 0.1f);
 
   lfoPhaseTick = 2.0 * pi / sampleRate;
 
@@ -83,15 +80,15 @@ void DSPCore::setParameters(double tempo)
   // 15.0 comes from (60 sec per minute) * (4 beat) / (16 beat).
   auto time = param.value[ParameterID::time]->getFloat();
   if (param.value[ParameterID::tempoSync]->getInt()) {
-    if (time < 1.0)
-      time *= 15.0 / tempo;
+    if (time < 1.0f)
+      time *= 15.0f / float(tempo);
     else
-      time = floor(2.0 * time) * 7.5 / tempo;
+      time = std::floor(2.0f * time) * 7.5f / float(tempo);
   }
 
   auto offset = param.value[ParameterID::offset]->getFloat();
-  interpTime[0].push(offset < 0.0 ? time * (1.0 + offset) : time);
-  interpTime[1].push(offset > 0.0 ? time * (1.0 - offset) : time);
+  interpTime[0].push(offset < 0.0f ? time * (1.0f + offset) : time);
+  interpTime[1].push(offset > 0.0f ? time * (1.0f - offset) : time);
 
   interpWetMix.push(param.value[ParameterID::wetMix]->getFloat());
   interpDryMix.push(param.value[ParameterID::dryMix]->getFloat());
@@ -112,17 +109,17 @@ void DSPCore::setParameters(double tempo)
   interpToneCutoff.push(param.value[ParameterID::toneCutoff]->getFloat());
   interpToneQ.push(param.value[ParameterID::toneQ]->getFloat());
   interpToneMix.push(
-    Scales::toneMix.map(param.value[ParameterID::toneCutoff]->getNormalized()));
+    float(Scales::toneMix.map(param.value[ParameterID::toneCutoff]->getNormalized())));
 
   interpDCKill.push(param.value[ParameterID::dckill]->getFloat());
-  interpDCKillMix.push(
-    Scales::dckillMix.reverseMap(param.value[ParameterID::dckill]->getNormalized()));
+  interpDCKillMix.push(float(
+    Scales::dckillMix.reverseMap(param.value[ParameterID::dckill]->getNormalized())));
 }
 
 void DSPCore::process(
-  const size_t length, float *in0, float *in1, float *out0, float *out1)
+  const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(float(length));
 
   const bool lfoHold = !param.value[ParameterID::lfoHold]->getInt();
   for (size_t i = 0; i < length; ++i) {
@@ -174,6 +171,3 @@ void DSPCore::process(
     }
   }
 }
-
-} // namespace Synth
-} // namespace Steinberg

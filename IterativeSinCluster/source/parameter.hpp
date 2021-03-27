@@ -252,6 +252,30 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::chorusKeyFollow] = std::make_unique<UIntValue>(
       true, Scales::boolScale, "chorusKeyFollow", Info::kCanAutomate);
 
+    value[ID::gain]
+      = std::make_unique<LogValue>(0.5, Scales::gain, "gain", Info::kCanAutomate);
+    value[ID::gainBoost] = std::make_unique<LinearValue>(
+      0.0, Scales::gainBoost, "gainBoost", Info::kCanAutomate);
+    value[ID::gainA]
+      = std::make_unique<LogValue>(0.0, Scales::envelopeA, "gainA", Info::kCanAutomate);
+    value[ID::gainD]
+      = std::make_unique<LogValue>(0.5, Scales::envelopeD, "gainD", Info::kCanAutomate);
+    value[ID::gainS]
+      = std::make_unique<LogValue>(0.5, Scales::envelopeS, "gainS", Info::kCanAutomate);
+    value[ID::gainR]
+      = std::make_unique<LogValue>(0.0, Scales::envelopeR, "gainR", Info::kCanAutomate);
+    value[ID::gainEnvelopeCurve] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "gainEnvelopeCurve", Info::kCanAutomate);
+
+    value[ID::lowShelfPitch] = std::make_unique<LinearValue>(
+      0.0, Scales::shelvingPitch, "lowShelfPitch", Info::kCanAutomate);
+    value[ID::lowShelfGain] = std::make_unique<DecibelValue>(
+      0.5, Scales::shelvingGain, "lowShelfGain", Info::kCanAutomate);
+    value[ID::highShelfPitch] = std::make_unique<LinearValue>(
+      0.0, Scales::shelvingPitch, "highShelfPitch", Info::kCanAutomate);
+    value[ID::highShelfGain] = std::make_unique<DecibelValue>(
+      0.5, Scales::shelvingGain, "highShelfGain", Info::kCanAutomate);
+
     value[ID::gain0] = std::make_unique<DecibelValue>(
       1.0, Scales::gainDecibel, "gain0", Info::kCanAutomate);
     value[ID::gain1] = std::make_unique<DecibelValue>(
@@ -387,30 +411,6 @@ struct GlobalParameter : public ParameterInterface {
       0.5, Scales::defaultScale, "chordPan2", Info::kCanAutomate);
     value[ID::chordPan3] = std::make_unique<LinearValue>(
       0.5, Scales::defaultScale, "chordPan3", Info::kCanAutomate);
-
-    value[ID::gain]
-      = std::make_unique<LogValue>(0.5, Scales::gain, "gain", Info::kCanAutomate);
-    value[ID::gainBoost] = std::make_unique<LinearValue>(
-      0.0, Scales::gainBoost, "gainBoost", Info::kCanAutomate);
-    value[ID::gainA]
-      = std::make_unique<LogValue>(0.0, Scales::envelopeA, "gainA", Info::kCanAutomate);
-    value[ID::gainD]
-      = std::make_unique<LogValue>(0.5, Scales::envelopeD, "gainD", Info::kCanAutomate);
-    value[ID::gainS]
-      = std::make_unique<LogValue>(0.5, Scales::envelopeS, "gainS", Info::kCanAutomate);
-    value[ID::gainR]
-      = std::make_unique<LogValue>(0.0, Scales::envelopeR, "gainR", Info::kCanAutomate);
-    value[ID::gainEnvelopeCurve] = std::make_unique<LinearValue>(
-      0.0, Scales::defaultScale, "gainEnvelopeCurve", Info::kCanAutomate);
-
-    value[ID::lowShelfPitch] = std::make_unique<LinearValue>(
-      0.0, Scales::shelvingPitch, "lowShelfPitch", Info::kCanAutomate);
-    value[ID::lowShelfGain] = std::make_unique<DecibelValue>(
-      0.5, Scales::shelvingGain, "lowShelfGain", Info::kCanAutomate);
-    value[ID::highShelfPitch] = std::make_unique<LinearValue>(
-      0.0, Scales::shelvingPitch, "highShelfPitch", Info::kCanAutomate);
-    value[ID::highShelfGain] = std::make_unique<DecibelValue>(
-      0.5, Scales::shelvingGain, "highShelfGain", Info::kCanAutomate);
 
     value[ID::nVoice]
       = std::make_unique<UIntValue>(5, Scales::nVoice, "nVoice", Info::kCanAutomate);

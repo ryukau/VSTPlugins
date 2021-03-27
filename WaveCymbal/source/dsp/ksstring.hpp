@@ -102,6 +102,7 @@ public:
     decay = Sample(1.0);
     lowpass.reset();
     highpass.reset();
+    interpDelayTime.reset(0);
     delay.reset();
   }
 
@@ -126,19 +127,19 @@ template<typename Sample> class BiquadBandpass {
 public:
   Sample fs = 44100;
   Sample f0 = 100;
-  Sample q = 0.5;
+  Sample q = Sample(0.5);
 
-  Sample b0 = 0.0;
-  Sample b1 = 0.0;
-  Sample b2 = 0.0;
-  Sample a0 = 1.0;
-  Sample a1 = 0.0;
-  Sample a2 = 0.0;
+  Sample b0 = 0;
+  Sample b1 = 0;
+  Sample b2 = 0;
+  Sample a0 = 1;
+  Sample a1 = 0;
+  Sample a2 = 0;
 
-  Sample x1 = 0.0;
-  Sample x2 = 0.0;
-  Sample y1 = 0.0;
-  Sample y2 = 0.0;
+  Sample x1 = 0;
+  Sample x2 = 0;
+  Sample y1 = 0;
+  Sample y2 = 0;
 
   void setup(Sample sampleRate) { fs = sampleRate; }
 
@@ -165,7 +166,7 @@ public:
     f0 = clamp(hz, Sample(20.0), Sample(20000.0));
     this->q = clamp(q, Sample(1e-5), Sample(1.0));
 
-    Sample w0 = twopi * f0 / fs;
+    Sample w0 = Sample(twopi) * f0 / fs;
     Sample cos_w0 = std::cos(w0);
     Sample sin_w0 = std::sin(w0);
 
@@ -224,7 +225,7 @@ public:
 
   void setup(Sample sampleRate)
   {
-    wave1d.setup(sampleRate, maxStack, 0.5, 0.5, 0.1);
+    wave1d.setup(sampleRate, maxStack, Sample(0.5), Sample(0.5), Sample(0.1));
     for (auto &str : string) str.setup(sampleRate, Sample(100.0), Sample(0.5));
     for (auto &bp : bandpass) bp.setup(sampleRate);
     stringRnd.fill(1);
@@ -259,7 +260,8 @@ public:
       string[i].set(
         (Sample(1.0) - randomAmount * stringRnd[i]) * maxFrequency + minFrequency, decay);
 
-      high = getCrossoverFrequency(20, 20000, i + 1, this->stack, crossoverType);
+      high = getCrossoverFrequency(
+        Sample(20), Sample(20000), Sample(i + 1), Sample(this->stack), crossoverType);
       bandpass[i].setCutoffQ(
         low + (high - low) * (Sample(1.0) - randomAmount * bandpassRnd[i]), bandpassQ);
       low = high;
@@ -285,7 +287,7 @@ public:
   {
     wave1d.process(input);
     Sample output = 0;
-    Sample denom = stack * 1024;
+    Sample denom = Sample(stack * 1024);
     for (size_t i = 0; i < stack; ++i) {
       const auto rendered = string[i].process(bandpass[i].process(wave1d[i]));
       wave1d[i] += rendered / denom;
@@ -297,8 +299,8 @@ public:
 
 template<typename Sample> class WaveHat {
 public:
-  static const size_t maxStack = 64;
-  static const size_t maxCymbal = 4;
+  static constexpr size_t maxStack = 64;
+  static constexpr size_t maxCymbal = 4;
 
   size_t nCymbal = 0;
   Sample distance = 100;
@@ -328,7 +330,7 @@ public:
     CrossoverType crossoverType,
     Sample randomAmount)
   {
-    this->nCymbal = nCymbal > maxCymbal ? maxCymbal : nCymbal;
+    this->nCymbal = std::min(nCymbal, maxCymbal);
     this->distance = distance;
 
     for (size_t i = 0; i < nCymbal; ++i) {
@@ -371,7 +373,7 @@ public:
   {
     this->gain = gain;
     this->feedback = feedback;
-    delay.setup(sampleRate, time, 0.4);
+    delay.setup(sampleRate, time, Sample(0.4));
   }
 
   // random is in [0, 1].
@@ -388,6 +390,7 @@ public:
   {
     delay.reset();
     buf = 0;
+    interpDelayTime.reset(0);
   }
 
   Sample process(Sample input)
@@ -483,6 +486,13 @@ public:
   // Average distance in samples between impulses.
   void setDensity(Sample density) { tick = rng.process() * density / sampleRate; }
 
+  void reset()
+  {
+    phase = 0;
+    tick = 0;
+    rng.seed = 0;
+  }
+
   Sample process()
   {
     phase += tick;
@@ -502,19 +512,25 @@ public:
 // RNG algorithm is from Numerical Recipes In C p.284.
 template<typename Sample> class Brown {
 public:
-  int32_t seed;
+  uint32_t seed = 0;
   Sample drift = 1.0 / 16.0; // Range [0.0, 1.0].
 
-  Brown(Sample seed) : seed(seed) {}
+  Brown(uint32_t seed) : seed(seed) {}
+
+  void reset(uint32_t seed)
+  {
+    this->seed = seed;
+    last = 0;
+  }
 
   Sample process()
   {
     if (drift < 1e-5) return 0;
     Sample output;
     do {
-      seed = 1664525L * seed + 1013904223L;
-      const Sample rnd
-        = (Sample)seed / ((Sample)INT32_MAX + Sample(1.0)); // Normalize to [-1, 1).
+      seed = 1664525 * seed + 1013904223;
+      const Sample rnd = (Sample)((int32_t)seed)
+        / ((Sample)INT32_MAX + Sample(1.0)); // Normalize to [-1, 1).
       output = last + rnd * drift;
     } while (std::fabs(output) > Sample(1.0));
     last = output;
@@ -522,7 +538,7 @@ public:
   }
 
 private:
-  Sample last = 0.0;
+  Sample last = 0;
 };
 
 } // namespace SomeDSP

@@ -22,8 +22,8 @@
 #include <climits>
 #include <vector>
 
-#include "../common/dsp/constants.hpp"
-#include "../common/dsp/smoother.hpp"
+#include "../../../common/dsp/constants.hpp"
+#include "../../../common/dsp/smoother.hpp"
 
 namespace SomeDSP {
 
@@ -50,13 +50,14 @@ public:
   void reset()
   {
     w1 = 0;
-    std::fill(buf.begin(), buf.end(), 0);
+    std::fill(buf.begin(), buf.end(), Sample(0));
   }
 
   Sample process(Sample input, Sample sampleRate, Sample seconds)
   {
     // Set delay time.
-    Sample timeInSample = std::clamp<Sample>(Sample(2) * sampleRate * seconds, 0, size);
+    Sample timeInSample
+      = std::clamp<Sample>(Sample(2) * sampleRate * seconds, Sample(0), Sample(size));
 
     int timeInt = int(timeInSample);
     rFraction = timeInSample - Sample(timeInt);

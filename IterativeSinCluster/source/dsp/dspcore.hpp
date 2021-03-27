@@ -176,7 +176,7 @@ mpt stands for Max Poly Transition. I guess this sounds weird for English native
                                                                                          \
     std::array<Chorus<float>, 3> chorus;                                                 \
                                                                                          \
-    LinearSmoother<float> interpTremoloMix;                                              \
+    LinearSmoother<float> interpChorusMix;                                               \
     LinearSmoother<float> interpMasterGain;                                              \
                                                                                          \
     std::vector<std::array<float, 2>> transitionBuffer{};                                \

@@ -34,7 +34,7 @@ public:
   size_t rptr = 0;
   std::vector<Sample> buf;
 
-  void setup(double sampleRate, Sample time, Sample maxTime)
+  void setup(Sample sampleRate, Sample time, Sample maxTime)
   {
     this->sampleRate = 2 * sampleRate;
 
@@ -66,8 +66,8 @@ public:
 
   void reset()
   {
-    std::fill(buf.begin(), buf.end(), 0);
-    w1 = 0.0;
+    w1 = 0;
+    std::fill(buf.begin(), buf.end(), Sample(0));
   }
 
   Sample process(const Sample input)
@@ -109,7 +109,7 @@ public:
   LinearSmoother<Sample> interpMinDelayTime;
   EMAFilter<Sample> delayTimeLowpass;
 
-  void setup(double sampleRate, Sample time, Sample maxTime)
+  void setup(Sample sampleRate, Sample time, Sample maxTime)
   {
     delay.setup(sampleRate, time, maxTime);
     delayTimeLowpass.setP(0.1); // Fixed P.
@@ -133,11 +133,25 @@ public:
     interpMinDelayTime.push(minDelayTime);
   }
 
-  void reset()
+  void reset(
+    Sample frequency,
+    Sample phase,
+    Sample feedback,
+    Sample depth,
+    Sample delayTimeRange,
+    Sample minDelayTime)
   {
     delay.reset();
-    phase = 0;
+    this->phase = 0;
     feedbackBuffer = 0;
+
+    interpTick.reset(Sample(twopi) * frequency / delay.sampleRate);
+    interpPhase.reset(phase);
+    interpFeedback.reset(feedback);
+    interpDepth.reset(depth);
+    interpDelayTimeRange.reset(delayTimeRange);
+    interpMinDelayTime.reset(minDelayTime);
+
     delayTimeLowpass.reset();
   }
 
@@ -159,8 +173,9 @@ public:
     const Sample lfoDepth
       = Sample(0.5) * (Sample(1) + std::sin(phase + phaseDelta + Sample(pi / 2)));
     const auto depth = interpDepth.process();
-    return {feedbackBuffer * (Sample(1) - depth * lfoDepth),
-            feedbackBuffer * (Sample(1) - depth * (Sample(1) - lfoDepth))};
+    return {
+      feedbackBuffer * (Sample(1) - depth * lfoDepth),
+      feedbackBuffer * (Sample(1) - depth * (Sample(1) - lfoDepth))};
   }
 };
 

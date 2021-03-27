@@ -29,12 +29,12 @@
 
 void DSPCORE_NAME::setup(double sampleRate)
 {
-  this->sampleRate = sampleRate;
+  this->sampleRate = float(sampleRate);
 
-  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(this->sampleRate);
   SmootherCommon<float>::setTime(0.2f);
 
-  for (auto &dly : delay) dly.setup(sampleRate, Scales::time.getMax());
+  for (auto &dly : delay) dly.setup(this->sampleRate, float(Scales::time.getMax()));
 
   reset();
 }
@@ -106,7 +106,6 @@ inline std::array<float, 2> calcOffset(float offset, float mul)
         }                                                                                \
                                                                                          \
         auto offsetD2Feed = calcOffset(d2FeedOffsetDist(d2FeedRng), d2FeedMul);          \
-                                                                                         \
         ap2L.feed[d2].METHOD(                                                            \
           param.value[ID::d2Feed0 + i2]->getFloat() * offsetD2Feed[0]);                  \
         ap2R.feed[d2].METHOD(                                                            \
@@ -140,6 +139,7 @@ void DSPCORE_NAME::reset()
   startup();
 
   for (auto &dly : delay) dly.reset();
+  delayOut.fill(0);
 
   ASSIGN_ALLPASS_PARAMETER(reset);
 }
@@ -177,7 +177,7 @@ void DSPCORE_NAME::setParameters()
 void DSPCORE_NAME::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(float(length));
 
   for (size_t i = 0; i < length; ++i) {
     const auto cross = interpStereoCross.process();

@@ -1,0 +1,392 @@
+[
+  {
+    "name": "random1",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "shiftSemi0",
+        "type": "d",
+        "value": 0.892691509636836
+      },
+      {
+        "name": "shiftSemi1",
+        "type": "d",
+        "value": 0.3670358686925023
+      },
+      {
+        "name": "shiftSemi2",
+        "type": "d",
+        "value": 0.5081522778040725
+      },
+      {
+        "name": "shiftSemi3",
+        "type": "d",
+        "value": 0.24928735260420437
+      },
+      {
+        "name": "shiftSemi4",
+        "type": "d",
+        "value": 0.29217000846898705
+      },
+      {
+        "name": "shiftSemi5",
+        "type": "d",
+        "value": 0.6212400834581524
+      },
+      {
+        "name": "shiftSemi6",
+        "type": "d",
+        "value": 0.2956359972792148
+      },
+      {
+        "name": "shiftSemi7",
+        "type": "d",
+        "value": 0.5634481402508258
+      },
+      {
+        "name": "shiftSemi8",
+        "type": "d",
+        "value": 0.9080296068301955
+      },
+      {
+        "name": "shiftSemi9",
+        "type": "d",
+        "value": 0.7398187411449444
+      },
+      {
+        "name": "shiftSemi10",
+        "type": "d",
+        "value": 0.9828680190403789
+      },
+      {
+        "name": "shiftSemi11",
+        "type": "d",
+        "value": 0.34319832089182734
+      },
+      {
+        "name": "shiftSemi12",
+        "type": "d",
+        "value": 0.36246242573003257
+      },
+      {
+        "name": "shiftSemi13",
+        "type": "d",
+        "value": 0.6673669490007709
+      },
+      {
+        "name": "shiftSemi14",
+        "type": "d",
+        "value": 0.7474119691863881
+      },
+      {
+        "name": "shiftSemi15",
+        "type": "d",
+        "value": 0.813330607465313
+      },
+      {
+        "name": "shiftDelay0",
+        "type": "d",
+        "value": 0.6789280955176616
+      },
+      {
+        "name": "shiftDelay1",
+        "type": "d",
+        "value": 0.5925322268354879
+      },
+      {
+        "name": "shiftDelay2",
+        "type": "d",
+        "value": 0.8256035393531601
+      },
+      {
+        "name": "shiftDelay3",
+        "type": "d",
+        "value": 0.5793883463023266
+      },
+      {
+        "name": "shiftGain0",
+        "type": "d",
+        "value": 0.8578568096662244
+      },
+      {
+        "name": "shiftGain1",
+        "type": "d",
+        "value": 0.9848905972836935
+      },
+      {
+        "name": "shiftGain2",
+        "type": "d",
+        "value": 0.6747829414120987
+      },
+      {
+        "name": "shiftGain3",
+        "type": "d",
+        "value": 0.5224567667342341
+      },
+      {
+        "name": "lfoHz",
+        "type": "d",
+        "value": 0.5800000429153443
+      },
+      {
+        "name": "lfoAmount",
+        "type": "d",
+        "value": 0.2280000001192093
+      },
+      {
+        "name": "lfoSkew",
+        "type": "d",
+        "value": 0.25600001215934753
+      },
+      {
+        "name": "lfoShiftOffset",
+        "type": "d",
+        "value": 0.5880000591278076
+      },
+      {
+        "name": "shiftMix",
+        "type": "d",
+        "value": 0.994000256061554
+      },
+      {
+        "name": "shiftPhase",
+        "type": "d",
+        "value": 0.8960000872612
+      },
+      {
+        "name": "shiftFeedbackGain",
+        "type": "d",
+        "value": 0.42000001668930054
+      },
+      {
+        "name": "shiftSemiMultiplier",
+        "type": "d",
+        "value": 0.18547844501215244
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.7640000581741333
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.345226179670355
+      },
+      {
+        "name": "invertEachSection",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "shiftFeedbackCutoff",
+        "type": "d",
+        "value": 0.4075901015028374
+      },
+      {
+        "name": "lfoToFeedbackCutoff",
+        "type": "d",
+        "value": 0.23200005292892456
+      }
+    ]
+  },
+  {
+    "name": "random2",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "shiftSemi0",
+        "type": "d",
+        "value": 0.9951862122273164
+      },
+      {
+        "name": "shiftSemi1",
+        "type": "d",
+        "value": 0.6084802856756111
+      },
+      {
+        "name": "shiftSemi2",
+        "type": "d",
+        "value": 0.4393298256454214
+      },
+      {
+        "name": "shiftSemi3",
+        "type": "d",
+        "value": 0.7644241339184907
+      },
+      {
+        "name": "shiftSemi4",
+        "type": "d",
+        "value": 0.5642300350479317
+      },
+      {
+        "name": "shiftSemi5",
+        "type": "d",
+        "value": 0.21579240341758893
+      },
+      {
+        "name": "shiftSemi6",
+        "type": "d",
+        "value": 0.9804671791158152
+      },
+      {
+        "name": "shiftSemi7",
+        "type": "d",
+        "value": 0.800405209135618
+      },
+      {
+        "name": "shiftSemi8",
+        "type": "d",
+        "value": 0.18523417450821048
+      },
+      {
+        "name": "shiftSemi9",
+        "type": "d",
+        "value": 0.7883221670709293
+      },
+      {
+        "name": "shiftSemi10",
+        "type": "d",
+        "value": 0.7776478439220189
+      },
+      {
+        "name": "shiftSemi11",
+        "type": "d",
+        "value": 0.11631772029746754
+      },
+      {
+        "name": "shiftSemi12",
+        "type": "d",
+        "value": 0.815763151059923
+      },
+      {
+        "name": "shiftSemi13",
+        "type": "d",
+        "value": 0.710740101744998
+      },
+      {
+        "name": "shiftSemi14",
+        "type": "d",
+        "value": 0.16762441431884234
+      },
+      {
+        "name": "shiftSemi15",
+        "type": "d",
+        "value": 0.35203634071307516
+      },
+      {
+        "name": "shiftDelay0",
+        "type": "d",
+        "value": 0.7430461565310584
+      },
+      {
+        "name": "shiftDelay1",
+        "type": "d",
+        "value": 0.5991577763689486
+      },
+      {
+        "name": "shiftDelay2",
+        "type": "d",
+        "value": 0.49151839226048494
+      },
+      {
+        "name": "shiftDelay3",
+        "type": "d",
+        "value": 0.4470189260016121
+      },
+      {
+        "name": "shiftGain0",
+        "type": "d",
+        "value": 0.16926969677724676
+      },
+      {
+        "name": "shiftGain1",
+        "type": "d",
+        "value": 0.6652677642052546
+      },
+      {
+        "name": "shiftGain2",
+        "type": "d",
+        "value": 0.7211964883290187
+      },
+      {
+        "name": "shiftGain3",
+        "type": "d",
+        "value": 0.9430007419025391
+      },
+      {
+        "name": "lfoHz",
+        "type": "d",
+        "value": 0.38000008463859575
+      },
+      {
+        "name": "lfoAmount",
+        "type": "d",
+        "value": 0.6200000047683716
+      },
+      {
+        "name": "lfoSkew",
+        "type": "d",
+        "value": 0.4999999701976776
+      },
+      {
+        "name": "lfoShiftOffset",
+        "type": "d",
+        "value": 0.3640000820159912
+      },
+      {
+        "name": "shiftMix",
+        "type": "d",
+        "value": 0.3300004005432129
+      },
+      {
+        "name": "shiftPhase",
+        "type": "d",
+        "value": 0.34800010919570923
+      },
+      {
+        "name": "shiftFeedbackGain",
+        "type": "d",
+        "value": 0.8040000796318054
+      },
+      {
+        "name": "shiftSemiMultiplier",
+        "type": "d",
+        "value": 0.35747846961021423
+      },
+      {
+        "name": "gain",
+        "type": "d",
+        "value": 0.32400017976760864
+      },
+      {
+        "name": "smoothness",
+        "type": "d",
+        "value": 0.5892261266708374
+      },
+      {
+        "name": "invertEachSection",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "shiftFeedbackCutoff",
+        "type": "d",
+        "value": 0.5235900282859802
+      },
+      {
+        "name": "lfoToFeedbackCutoff",
+        "type": "d",
+        "value": 0.8040000796318054
+      }
+    ]
+  }
+]

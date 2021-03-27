@@ -64,10 +64,8 @@ public:
 
   void step()
   {
-    auto tmp = wave2;
     wave2 = wave1;
     wave1 = wave0;
-    wave0 = tmp;
 
     size_t end = length - 1;
 
@@ -124,7 +122,7 @@ public:
 
 protected:
   Sample sampleRate = 44100;
-  Sample damping = 0.9;
+  Sample damping = Sample(0.9);
 
   Sample alpha = 0;
   Sample beta = 0;

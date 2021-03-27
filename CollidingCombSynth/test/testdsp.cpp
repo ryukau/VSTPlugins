@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Uhhyou Plugins.  If not, see <https://www.gnu.org/licenses/>.
 
+#define SET_PARAMETERS dsp->setParameters(tempo);
+
 #include "../../test/synthtester.hpp"
 #include "../source/dsp/dspcore.hpp"
 
@@ -28,10 +30,10 @@
 int main()
 {
 #ifdef __linux__
-  SynthTester<DSPInterface, DSPCore_AVX512, DSPCore_AVX2, DSPCore_AVX> tester(
-    UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
+  SynthTesterSimdRuntimeDispatch<DSPInterface, DSPCore_AVX512, DSPCore_AVX2, DSPCore_AVX>
+    tester(UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
 #else
-  SynthTester<DSPInterface, DSPCore_AVX2, DSPCore_AVX> tester(
+  SynthTesterSimdRuntimeDispatch<DSPInterface, DSPCore_AVX2, DSPCore_AVX> tester(
     UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
 #endif
 

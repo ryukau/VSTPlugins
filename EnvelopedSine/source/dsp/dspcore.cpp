@@ -71,7 +71,7 @@ void NOTE_NAME<Sample>::noteOn(
 {
   using ID = ParameterID::ID;
 
-  frequency *= std::pow(2, std::floor(param.value[ID::masterOctave]->getFloat()));
+  frequency *= std::pow(2.0f, std::floor(param.value[ID::masterOctave]->getFloat()));
 
   state = NoteState::active;
   id = noteId;
@@ -125,7 +125,7 @@ void NOTE_NAME<Sample>::noteOn(
   for (size_t idx = 0; idx < oscillatorSize; ++idx) {
     for (int jdx = 0; jdx < 16; ++jdx) {
       float index = expand * (16 * idx + jdx);
-      size_t high = ceilf(index);
+      size_t high = size_t(std::ceil(index));
 
       if (high >= paramGain.size()) {
         osc.attack[idx].insert(jdx, 0);
@@ -135,7 +135,7 @@ void NOTE_NAME<Sample>::noteOn(
         continue;
       }
 
-      size_t low = index;
+      size_t low = size_t(index);
       float frac = index - low;
 
       osc.attack[idx].insert(
@@ -221,19 +221,19 @@ DSPCORE_NAME::DSPCORE_NAME() { midiNotes.reserve(128); }
 
 void DSPCORE_NAME::setup(double sampleRate)
 {
-  this->sampleRate = sampleRate;
+  this->sampleRate = float(sampleRate);
 
   midiNotes.resize(0);
 
-  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(this->sampleRate);
   SmootherCommon<float>::setTime(0.04f);
 
   interpPhaserPhase.setRange(float(twopi));
 
-  for (auto &note : notes) note.setup(sampleRate);
+  for (auto &note : notes) note.setup(this->sampleRate);
 
   // 2 msec + 1 sample transition time.
-  transitionBuffer.resize(1 + size_t(sampleRate * 0.005), {0.0f, 0.0f});
+  transitionBuffer.resize(1 + size_t(this->sampleRate * 0.005), {0.0f, 0.0f});
 
   for (auto &note : notes) note.rest();
 
@@ -270,7 +270,7 @@ void DSPCORE_NAME::setParameters()
 
   interpPhaserMix.push(param.value[ID::phaserMix]->getFloat());
   interpPhaserFrequency.push(
-    param.value[ID::phaserFrequency]->getFloat() * twopi / sampleRate);
+    param.value[ID::phaserFrequency]->getFloat() * float(twopi) / sampleRate);
   interpPhaserFeedback.push(param.value[ID::phaserFeedback]->getFloat());
 
   const float phaserRange = param.value[ID::phaserRange]->getFloat();
@@ -291,7 +291,7 @@ void DSPCORE_NAME::setParameters()
 
 void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(float(length));
 
   std::array<float, 2> frame{};
   for (uint32_t i = 0; i < length; ++i) {
@@ -376,7 +376,7 @@ void DSPCORE_NAME::noteOn(int32_t identifier, int16_t pitch, float tuning, float
     auto normalizedKey = float(pitch) / 127.0f;
     lastNoteFreq = midiNoteToFrequency(
       pitch, tuning, param.value[ParameterID::pitchBend]->getFloat());
-    auto pan = nUnison == 1 ? 0.5 : unison / float(nUnison - 1);
+    auto pan = nUnison == 1 ? 0.5f : unison / float(nUnison - 1);
     notes[ndx].noteOn(identifier, normalizedKey, lastNoteFreq, velocity, pan, param, rng);
 
     // Band-aid solution. Hope this won't overlap the id provided by DAW.

@@ -29,12 +29,12 @@
 
 void DSPCORE_NAME::setup(double sampleRate)
 {
-  this->sampleRate = sampleRate;
+  this->sampleRate = float(sampleRate);
 
-  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(this->sampleRate);
   SmootherCommon<float>::setTime(0.2f);
 
-  delay.setup(sampleRate, Scales::time.getMax());
+  delay.setup(this->sampleRate, float(Scales::time.getMax()));
 
   reset();
 }
@@ -145,7 +145,7 @@ void DSPCORE_NAME::setParameters()
 void DSPCORE_NAME::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(float(length));
 
   for (size_t i = 0; i < length; ++i) {
     for (size_t idx = 0; idx < nestingDepth; ++idx) {

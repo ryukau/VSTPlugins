@@ -57,7 +57,7 @@ def get_enum_range(code):
     return enum
 
 def extract_plugin_parameter(parameter_hpp_path):
-    with open(parameter_hpp_path, "r") as fi:
+    with open(parameter_hpp_path, "r", encoding="utf-8") as fi:
         code = fi.read()
 
     plugin_name = re.findall(r"This file is part of (.*)\n", code)[0][:-1]
@@ -105,7 +105,7 @@ def extract_plugin_parameter(parameter_hpp_path):
 
     json_dir = Path(__file__).parent / Path("json")
     json_dir.mkdir(parents=True, exist_ok=True)
-    with open(json_dir / Path(f"{plugin_name}.type.json"), "w") as fi:
+    with open(json_dir / Path(f"{plugin_name}.type.json"), "w", encoding="utf-8") as fi:
         json.dump(data, fi, indent=2)
 
 def extract_parameter():

@@ -34,21 +34,44 @@
 
 void DSPCORE_NAME::setup(double sampleRate)
 {
-  this->sampleRate = sampleRate;
+  this->sampleRate = float(sampleRate);
 
-  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(this->sampleRate);
   SmootherCommon<float>::setTime(0.04f);
 
   interpPhase.setRange(float(twopi));
 
-  phaser[0].setup(sampleRate);
-  phaser[1].setup(sampleRate);
+  phaser[0].setup(this->sampleRate);
+  phaser[1].setup(this->sampleRate);
   startup();
 }
 
+#define ASSIGN_PARAMETER(METHOD)                                                         \
+  SmootherCommon<float>::setTime(param.value[ID::smoothness]->getFloat());               \
+                                                                                         \
+  interpMix.METHOD(param.value[ID::mix]->getFloat());                                    \
+  interpFrequency.METHOD(                                                                \
+    param.value[ID::frequency]->getFloat() * float(twopi) / sampleRate);                 \
+  interpFreqSpread.METHOD(param.value[ID::freqSpread]->getFloat());                      \
+  interpFeedback.METHOD(param.value[ID::feedback]->getFloat());                          \
+                                                                                         \
+  const float phaserRange = param.value[ID::range]->getFloat();                          \
+  interpRange.METHOD(phaserRange);                                                       \
+  interpMin.METHOD(                                                                      \
+    Thiran2Phaser::getLfoMin(phaserRange, param.value[ID::min]->getFloat()));            \
+                                                                                         \
+  interpPhase.METHOD(param.value[ID::phase]->getFloat());                                \
+  interpStereoOffset.METHOD(param.value[ID::stereoOffset]->getFloat());                  \
+  interpCascadeOffset.METHOD(param.value[ID::cascadeOffset]->getFloat());
+
 void DSPCORE_NAME::reset()
 {
-  for (auto &ph : phaser) ph.reset();
+  using ID = ParameterID::ID;
+
+  ASSIGN_PARAMETER(reset);
+
+  auto phaserStage = param.value[ID::stage]->getInt();
+  for (auto &ph : phaser) ph.reset(phaserStage);
   startup();
 }
 
@@ -63,20 +86,7 @@ void DSPCORE_NAME::setParameters(float /* tempo */)
 {
   using ID = ParameterID::ID;
 
-  SmootherCommon<float>::setTime(param.value[ID::smoothness]->getFloat());
-
-  interpMix.push(param.value[ID::mix]->getFloat());
-  interpFrequency.push(param.value[ID::frequency]->getFloat() * twopi / sampleRate);
-  interpFreqSpread.push(param.value[ID::freqSpread]->getFloat());
-  interpFeedback.push(param.value[ID::feedback]->getFloat());
-
-  const float phaserRange = param.value[ID::range]->getFloat();
-  interpRange.push(phaserRange);
-  interpMin.push(Thiran2Phaser::getLfoMin(phaserRange, param.value[ID::min]->getFloat()));
-
-  interpPhase.push(param.value[ID::phase]->getFloat());
-  interpStereoOffset.push(param.value[ID::stereoOffset]->getFloat());
-  interpCascadeOffset.push(param.value[ID::cascadeOffset]->getFloat());
+  ASSIGN_PARAMETER(push);
 
   auto phaserStage = param.value[ID::stage]->getInt();
   phaser[0].setStage(phaserStage);
@@ -86,9 +96,10 @@ void DSPCORE_NAME::setParameters(float /* tempo */)
 void DSPCORE_NAME::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(length);
-  phaser[0].interpStage.setBufferSize(length);
-  phaser[1].interpStage.setBufferSize(length);
+  auto len_f = float(length);
+  SmootherCommon<float>::setBufferSize(float(len_f));
+  phaser[0].interpStage.setBufferSize(float(len_f));
+  phaser[1].interpStage.setBufferSize(float(len_f));
 
   for (size_t i = 0; i < length; ++i) {
     const auto freq = interpFrequency.process();

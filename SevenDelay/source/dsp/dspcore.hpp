@@ -17,9 +17,6 @@
 
 #pragma once
 
-#include "pluginterfaces/vst/ivstprocesscontext.h"
-#include "public.sdk/source/vst/vstaudioeffect.h"
-
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
 #include "delay.hpp"
@@ -28,10 +25,8 @@
 #include <array>
 #include <memory>
 
-namespace Steinberg {
-namespace Synth {
-
 using namespace SomeDSP;
+using namespace Steinberg::Synth;
 
 // Lagrange delay is very slow at debug build. If that's the case set Order to 1.
 using DelayTypeName = DelayLagrange<float, 7>;
@@ -47,11 +42,10 @@ public:
   void startup();                   // Reset phase, random seed etc.
   void setParameters(double tempo); // tempo is beat per minutes.
 
-  void process(const size_t length, float *in0, float *in1, float *out0, float *out1);
+  void process(
+    const size_t length, const float *in0, const float *in1, float *out0, float *out1);
 
 protected:
-  const float pi = 3.14159265358979323846;
-
   std::array<LinearSmoother<float>, 2> interpTime{};
   LinearSmoother<float> interpWetMix;
   LinearSmoother<float> interpDryMix;
@@ -77,6 +71,3 @@ protected:
   std::array<FilterTypeName, 2> filter;
   std::array<DCKillerTypeName, 2> dcKiller;
 };
-
-} // namespace Synth
-} // namespace Steinberg

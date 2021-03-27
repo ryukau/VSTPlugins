@@ -27,7 +27,7 @@ namespace SomeDSP {
 // t in [0, 1].
 template<typename Sample> inline Sample cosinterp(Sample t)
 {
-  return 0.5 * (1.0 - std::cos(pi * t));
+  return Sample(0.5) * (Sample(1) - std::cos(Sample(pi) * t));
 }
 
 // When using float, time will be shorten.
@@ -42,8 +42,8 @@ public:
     Sample decayTime,
     Sample sustainLevel,
     Sample releaseTime,
-    Sample declickTime = 0.001,
-    Sample threshold = 1e-5)
+    Sample declickTime = Sample(0.001),
+    Sample threshold = Sample(1e-5))
     : sampleRate(sampleRate)
   {
     reset(attackTime, decayTime, sustainLevel, releaseTime, declickTime, threshold);
@@ -54,8 +54,8 @@ public:
     Sample decayTime,
     Sample sustainLevel,
     Sample releaseTime,
-    Sample declickTime = 0.001,
-    Sample threshold = 1e-5)
+    Sample declickTime = Sample(0.001),
+    Sample threshold = Sample(1e-5))
   {
     state = State::attack;
     value = threshold;
@@ -68,8 +68,8 @@ public:
     Sample decayTime,
     Sample sustainLevel,
     Sample releaseTime,
-    Sample declickTime = 0.001,
-    Sample threshold = 1e-5)
+    Sample declickTime = Sample(0.001),
+    Sample threshold = Sample(1e-5))
   {
     this->threshold = threshold;
 
@@ -131,6 +131,15 @@ public:
     value = Sample(1.0);
     alpha = releaseAlpha;
     state = State::release;
+  }
+
+  void terminate()
+  {
+    state = State::terminated;
+    declickCounter = 0;
+    releaseRange = 1;
+    value = 0;
+    sustain.reset(0);
   }
 
   bool isAttacking() { return state == State::attack; }
@@ -201,14 +210,14 @@ protected:
   int32_t declickLength;
   int32_t declickCounter = 0;
 
-  State state = State::attack;
+  State state = State::terminated;
   Sample sampleRate;
   Sample decayTime;
   Sample releaseAlpha;
-  Sample releaseRange = 1.0;
+  Sample releaseRange = 1;
   Sample alpha;
   Sample value;
-  Sample threshold = 1e-5;
+  Sample threshold = Sample(1e-5);
   LinearSmoother<Sample> sustain;
 };
 
@@ -233,12 +242,12 @@ public:
 
   void set(Sample attackTime, Sample decayTime, Sample sustainLevel, Sample releaseTime)
   {
-    sustain = std::max<Sample>(0.0, std::min<Sample>(sustainLevel, 1.0));
-    decayRange = 1.0 - sustain;
+    sustain = std::clamp(sustainLevel, Sample(0), Sample(1));
+    decayRange = Sample(1) - sustain;
 
-    attackDelta = Sample(1.0) / attackTime / sampleRate;
-    decayDelta = Sample(1.0) / decayTime / sampleRate;
-    releaseDelta = Sample(1.0) / releaseTime / sampleRate;
+    attackDelta = Sample(1) / attackTime / sampleRate;
+    decayDelta = Sample(1) / decayTime / sampleRate;
+    releaseDelta = Sample(1) / releaseTime / sampleRate;
   }
 
   void release()
@@ -246,6 +255,12 @@ public:
     if (state == State::terminated) return;
     state = State::release;
     releaseRange = value;
+  }
+
+  void terminate()
+  {
+    state = State::terminated;
+    value = 0;
   }
 
   bool isTerminated() { return state == State::terminated; }
@@ -288,8 +303,8 @@ public:
 
 protected:
   enum class State : int32_t { attack, decay, sustain, release, terminated };
-  State state = State::attack;
-  Sample value = 0.0;
+  State state = State::terminated;
+  Sample value = 0;
   Sample sampleRate;
   Sample sustain;
   Sample attackDelta;
@@ -321,6 +336,12 @@ public:
 
     time = 0.0;
     value = 1.0;
+  }
+
+  void terminate()
+  {
+    value = 0;
+    time = 0;
   }
 
   Sample process()

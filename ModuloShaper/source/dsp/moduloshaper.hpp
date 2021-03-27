@@ -43,7 +43,7 @@ public:
   {
     Sample oc1 = 4 * Sample(twopi) * cutoffHz / sampleRate; // oc for ω_c.
     Sample oc2 = oc1 * oc1;
-    Sample mid_oc = 2.8284271247461903 * oc1; // 2^(3/2) = 2.8284271247461903
+    Sample mid_oc = Sample(2.8284271247461903) * oc1; // 2^(3/2) = 2.8284271247461903
 
     co[0] = oc2;                                    // b0
     co[1] = Sample(2) * oc2;                        // b1
@@ -69,25 +69,10 @@ public:
     y0[3] = co[5]
       * (co[0] * x0[3] + co[1] * x1[3] + co[2] * x2[3] - co[3] * y1[3] - co[4] * y2[3]);
 
-    x2[0] = x1[0];
-    x2[1] = x1[1];
-    x2[2] = x1[2];
-    x2[3] = x1[3];
-
-    x1[0] = x0[0];
-    x1[1] = x0[1];
-    x1[2] = x0[2];
-    x1[3] = x0[3];
-
-    y2[0] = y1[0];
-    y2[1] = y1[1];
-    y2[2] = y1[2];
-    y2[3] = y1[3];
-
-    y1[0] = y0[0];
-    y1[1] = y0[1];
-    y1[2] = y0[2];
-    y1[3] = y0[3];
+    x2 = x1;
+    x1 = x0;
+    y2 = y1;
+    y1 = y0;
 
     return y0[3];
   }
@@ -132,7 +117,7 @@ template<typename Sample> struct ModuloShaper {
   {
     if (hardclip) x0 = std::clamp(x0, Sample(-1), Sample(1));
     Sample diff = x0 - x1;
-    for (int i = 0; i < 16; ++i) lowpass.push(process(x1 + i / Sample(16) * diff));
+    for (size_t i = 0; i < 16; ++i) lowpass.push(process(x1 + i / Sample(16) * diff));
     x1 = x0;
     if (std::isfinite(lowpass.output())) return lowpass.output();
 

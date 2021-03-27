@@ -93,65 +93,76 @@ public:
         break;
 
       case 12:
-        lastSig = ptrSaw6Double(oscPhase, oscTick, height);
+        lastSig = Sample(ptrSaw6Double(oscPhase, oscTick, height));
         break;
 
       case 13:
-        lastSig = ptrSaw7Double(oscPhase, oscTick, height);
+        lastSig = Sample(ptrSaw7Double(oscPhase, oscTick, height));
         break;
 
       case 14:
-        lastSig = ptrSaw8Double(oscPhase, oscTick, height);
+        lastSig = Sample(ptrSaw8Double(oscPhase, oscTick, height));
         break;
 
       case 15:
-        lastSig = ptrSaw9Double(oscPhase, oscTick, height);
+        lastSig = Sample(ptrSaw9Double(oscPhase, oscTick, height));
         break;
 
       case 16:
-        lastSig = ptrSaw10Double(oscPhase, oscTick, height);
+        lastSig = Sample(ptrSaw10Double(oscPhase, oscTick, height));
         break;
     }
   }
 
-  Sample process(Sample modOsc = 0.0, Sample modSync = 0.0)
+  Sample process(Sample modOsc = 0, Sample modSync = 0)
   {
     syncPhase += syncTick + modSync;
-    if (syncPhase >= Sample(1.0) || syncPhase < 0.0) {
+    if (syncPhase >= Sample(1) || syncPhase < 0) {
       syncPhase -= std::floor(syncPhase);
 
       oscPhase = syncPhase;
-      if (syncTick != 0.0) {
+      if (syncTick != 0) {
         auto ratio = oscTick / syncTick;
         height = ratio - std::floor(ratio);
       } else {
         height = lastSig;
         ptr();
-        lastSig = lastSig > Sample(1.0) ? Sample(1.0)
-                                        : lastSig < Sample(-1.0) ? Sample(-1.0) : lastSig;
+        lastSig = lastSig > Sample(1) ? Sample(1)
+          : lastSig < Sample(-1)      ? Sample(-1)
+                                      : lastSig;
         return lastSig;
       }
     } else {
       oscPhase += oscTick + modOsc;
-      if (oscPhase >= Sample(1.0) || oscPhase < 0.0) {
-        height = Sample(1.0);
+      if (oscPhase >= Sample(1) || oscPhase < 0) {
+        height = Sample(1);
         oscPhase -= std::floor(oscPhase);
       }
     }
     ptr();
-    if (!std::isfinite(lastSig)) lastSig = 0.0;
+    if (!std::isfinite(lastSig)) lastSig = 0;
     return lastSig;
+  }
+
+  void reset()
+  {
+    oscPhase = 0;
+    oscTick = 0;
+    height = 1;
+    syncPhase = 0;
+    syncTick = 0;
+    lastSig = 0;
   }
 
 protected:
   uint32_t order = 7;
   Sample sampleRate;
-  Sample oscPhase = 0.0; // Range in [0, 1)
-  Sample oscTick = 0.0;  // sec/sample
-  Sample height = 1.0;   // Range in [0, 1]. Sample value at phase reset of hardsync.
-  Sample syncPhase = 0.0;
-  Sample syncTick = 0.0;
-  Sample lastSig = 0.0;
+  Sample oscPhase = 0; // Range in [0, 1)
+  Sample oscTick = 0;  // sec/sample
+  Sample height = 1;   // Range in [0, 1]. Sample value at phase reset of hardsync.
+  Sample syncPhase = 0;
+  Sample syncTick = 0;
+  Sample lastSig = 0;
 
   float ptrSaw0(float phi, float T, float h = 1.0)
   {

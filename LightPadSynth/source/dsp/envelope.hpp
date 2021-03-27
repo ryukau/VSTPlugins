@@ -58,7 +58,7 @@ public:
   }
 
 protected:
-  constexpr static Sample threshold = 1e-5;
+  constexpr static Sample threshold = Sample(1e-5);
   Sample value = 0;
   Sample alpha = 0;
 };
@@ -86,7 +86,7 @@ public:
   }
 
 protected:
-  constexpr static Sample threshold = 1e-5;
+  constexpr static Sample threshold = Sample(1e-5);
   Sample value = 0;
   Sample alpha = 0;
 };
@@ -114,7 +114,7 @@ public:
   }
 
 protected:
-  constexpr static Sample threshold = 1e-5;
+  constexpr static Sample threshold = Sample(1e-5);
   Sample value = 0;
   Sample ramp = 0;
 };
@@ -199,6 +199,8 @@ public:
     range = value;
     state = State::release;
   }
+
+  void resetSustain(Sample sustainLevel) { sus.reset(sustainLevel); }
 
   void terminate()
   {
@@ -345,10 +347,10 @@ protected:
   State state = State::terminated;
   LinearSmoother<Sample> sus;
 
-  Sample atk = 0.01;
-  Sample dec = 0.01;
-  Sample rel = 0.01;
-  Sample relRange = 0.5;
+  Sample atk = Sample(0.01);
+  Sample dec = Sample(0.01);
+  Sample rel = Sample(0.01);
+  Sample relRange = Sample(0.5);
   Sample value = 0;
   Sample out = 0;
 };

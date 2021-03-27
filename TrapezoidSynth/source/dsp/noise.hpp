@@ -64,10 +64,10 @@ public:
 // RNG algorithm is from Numerical Recipes In C p.284.
 template<typename Sample> class Brown {
 public:
-  int32_t seed;
+  uint32_t seed;
   Sample drift = 1.0 / 16.0; // Range [0.0, 1.0].
 
-  Brown(Sample seed) : seed(seed) {}
+  Brown(uint32_t seed) : seed(seed) {}
 
   Sample process()
   {
@@ -75,16 +75,16 @@ public:
     Sample output;
     do {
       seed = 1664525L * seed + 1013904223L;
-      const Sample rnd
-        = (Sample)seed / ((Sample)INT32_MAX + Sample(1.0)); // Normalize to [-1, 1).
+      const Sample rnd = (Sample)((int32_t)seed)
+        / ((Sample)INT32_MAX + Sample(1)); // Normalize to [-1, 1).
       output = last + rnd * drift;
-    } while (std::fabs(output) > Sample(1.0));
+    } while (std::fabs(output) > Sample(1));
     last = output;
     return output;
   }
 
 private:
-  Sample last = 0.0;
+  Sample last = 0;
 };
 
 } // namespace SomeDSP

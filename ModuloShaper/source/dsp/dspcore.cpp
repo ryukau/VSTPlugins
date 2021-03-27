@@ -34,16 +34,40 @@
 
 void DSPCORE_NAME::setup(double sampleRate)
 {
-  this->sampleRate = sampleRate;
+  this->sampleRate = float(sampleRate);
 
-  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(this->sampleRate);
   SmootherCommon<float>::setTime(0.2f);
 
   startup();
 }
 
+#define ASSIGN_PARAMETER(METHOD)                                                         \
+  using ID = ParameterID::ID;                                                            \
+  auto &pv = param.value;                                                                \
+                                                                                         \
+  SmootherCommon<float>::setTime(pv[ID::smoothness]->getFloat());                        \
+                                                                                         \
+  interpInputGain.METHOD(pv[ID::inputGain]->getFloat());                                 \
+  interpClipGain.METHOD(pv[ID::clipGain]->getFloat());                                   \
+  interpOutputGain.METHOD(pv[ID::outputGain]->getFloat());                               \
+  interpAdd.METHOD(pv[ID::add]->getFloat() * pv[ID::moreAdd]->getFloat());               \
+  interpMul.METHOD(pv[ID::mul]->getFloat() * pv[ID::moreMul]->getFloat());               \
+  interpCutoff.METHOD(pv[ID::lowpassCutoff]->getFloat());                                \
+                                                                                         \
+  shaperType = pv[ID::type]->getInt();                                                   \
+  activateLowpass = pv[ID::lowpass]->getInt();                                           \
+                                                                                         \
+  bool hardclip = pv[ID::hardclip]->getInt();                                            \
+  for (auto &shaper : shaperNaive) shaper.hardclip = hardclip;                           \
+  for (auto &shaper : shaperBlep) shaper.hardclip = hardclip;                            \
+                                                                                         \
+  activateLimiter = pv[ID::limiter]->getInt();
+
 void DSPCORE_NAME::reset()
 {
+  ASSIGN_PARAMETER(reset);
+
   for (auto &shaper : shaperNaive) shaper.reset();
   for (auto &shaper : shaperBlep) shaper.reset();
   for (auto &lp : lowpass) lp.reset();
@@ -65,26 +89,8 @@ uint32_t DSPCORE_NAME::getLatency()
 
 void DSPCORE_NAME::setParameters()
 {
-  using ID = ParameterID::ID;
-  auto &pv = param.value;
+  ASSIGN_PARAMETER(push);
 
-  SmootherCommon<float>::setTime(pv[ID::smoothness]->getFloat());
-
-  interpInputGain.push(pv[ID::inputGain]->getFloat());
-  interpClipGain.push(pv[ID::clipGain]->getFloat());
-  interpOutputGain.push(pv[ID::outputGain]->getFloat());
-  interpAdd.push(pv[ID::add]->getFloat() * pv[ID::moreAdd]->getFloat());
-  interpMul.push(pv[ID::mul]->getFloat() * pv[ID::moreMul]->getFloat());
-  interpCutoff.push(pv[ID::lowpassCutoff]->getFloat());
-
-  shaperType = pv[ID::type]->getInt();
-  activateLowpass = pv[ID::lowpass]->getInt();
-
-  bool hardclip = pv[ID::hardclip]->getInt();
-  for (auto &shaper : shaperNaive) shaper.hardclip = hardclip;
-  for (auto &shaper : shaperBlep) shaper.hardclip = hardclip;
-
-  activateLimiter = pv[ID::limiter]->getInt();
   limiter.prepare(
     sampleRate, pv[ID::limiterAttack]->getFloat(), pv[ID::limiterRelease]->getFloat(),
     pv[ID::limiterThreshold]->getFloat());
@@ -93,9 +99,9 @@ void DSPCORE_NAME::setParameters()
 void DSPCORE_NAME::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(float(length));
 
-  std::array<float, 2> frame;
+  std::array<float, 2> frame{};
   for (uint32_t i = 0; i < length; ++i) {
     auto inGain = interpInputGain.process();
     auto clipGain = interpClipGain.process();
@@ -143,8 +149,8 @@ void DSPCORE_NAME::process(
         shaperBlep[0].mul = mul;
         shaperBlep[1].mul = mul;
 
-        frame[0] = clipGain * shaperBlep[0].process4(inGain * frame[0]);
-        frame[1] = clipGain * shaperBlep[1].process4(inGain * frame[1]);
+        frame[0] = clipGain * float(shaperBlep[0].process4(inGain * frame[0]));
+        frame[1] = clipGain * float(shaperBlep[1].process4(inGain * frame[1]));
         break;
 
       case 3: // 8 point PolyBLEP residual.
@@ -153,8 +159,8 @@ void DSPCORE_NAME::process(
         shaperBlep[0].mul = mul;
         shaperBlep[1].mul = mul;
 
-        frame[0] = clipGain * shaperBlep[0].process8(inGain * frame[0]);
-        frame[1] = clipGain * shaperBlep[1].process8(inGain * frame[1]);
+        frame[0] = clipGain * float(shaperBlep[0].process8(inGain * frame[0]));
+        frame[1] = clipGain * float(shaperBlep[1].process8(inGain * frame[1]));
         break;
     }
 

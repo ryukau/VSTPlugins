@@ -34,42 +34,30 @@ DSPCore::DSPCore() { midiNotes.reserve(128); }
 
 void DSPCore::setup(double sampleRate)
 {
-  this->sampleRate = sampleRate;
+  this->sampleRate = float(sampleRate);
 
   midiNotes.resize(0);
 
-  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(this->sampleRate);
   SmootherCommon<float>::setTime(0.01f);
 
   noteStack.reserve(128);
   noteStack.resize(0);
 
-  pulsar.sampleRate = sampleRate;
+  pulsar.sampleRate = this->sampleRate;
 
-  stickEnvelope.setup(sampleRate, 0.1f);
-  for (auto &osc : stickOscillator) osc.setup(sampleRate, 100.0f);
-  velvet.setup(sampleRate, sampleRate * 0.004, 0);
+  stickEnvelope.setup(this->sampleRate, 0.1f);
+  for (auto &osc : stickOscillator) osc.setup(this->sampleRate, 100.0f);
+  velvet.setup(this->sampleRate, this->sampleRate * 0.004f, 0);
 
-  for (auto &fdn : fdnCascade) fdn.setup(sampleRate, 0.5f);
+  for (auto &fdn : fdnCascade) fdn.setup(this->sampleRate, 0.5f);
 
-  serialAP1.setup(sampleRate, 0.01f);
-  for (auto &ap : serialAP2) ap.setup(sampleRate, 0.01f);
-  serialAP1Highpass.setup(sampleRate);
-  serialAP2Highpass.setup(sampleRate);
+  serialAP1.setup(this->sampleRate, 0.01f);
+  for (auto &ap : serialAP2) ap.setup(this->sampleRate, 0.01f);
+  serialAP1Highpass.setup(this->sampleRate);
+  serialAP2Highpass.setup(this->sampleRate);
 
-  tremoloDelay.setup(sampleRate, tremoloDelayMaxTime, tremoloDelayMaxTime);
-
-  interpFDNFeedback.reset(param.value[ParameterID::fdnFeedback]->getFloat());
-  interpFDNCascadeMix.reset(param.value[ParameterID::fdnCascadeMix]->getFloat());
-  interpAllpassMix.reset(param.value[ParameterID::allpassMix]->getFloat());
-  interpAllpass1Feedback.reset(param.value[ParameterID::allpass1Feedback]->getFloat());
-  interpAllpass2Feedback.reset(param.value[ParameterID::allpass2Feedback]->getFloat());
-  interpTremoloMix.reset(param.value[ParameterID::tremoloMix]->getFloat());
-  interpTremoloDepth.reset(param.value[ParameterID::tremoloDepth]->getFloat());
-  interpTremoloFrequency.reset(param.value[ParameterID::tremoloFrequency]->getFloat());
-  interpTremoloDelayTime.reset(param.value[ParameterID::tremoloDelayTime]->getFloat());
-  interpStickToneMix.reset(param.value[ParameterID::stickToneMix]->getFloat());
-  interpMasterGain.reset(param.value[ParameterID::gain]->getFloat());
+  tremoloDelay.setup(this->sampleRate, tremoloDelayMaxTime, tremoloDelayMaxTime);
 
   reset();
   startup();
@@ -77,6 +65,23 @@ void DSPCore::setup(double sampleRate)
 
 void DSPCore::reset()
 {
+  using ID = ParameterID::ID;
+
+  pulsar.reset();
+  stickEnvelope.terminate(param.value[ID::stickDecay]->getFloat());
+  for (auto &osc : stickOscillator) osc.reset();
+  velvet.reset(0);
+
+  fdnSig = 0.0f;
+  const float fdnTime = param.value[ID::fdnTime]->getFloat();
+  for (size_t n = 0; n < fdnCascade.size(); ++n) {
+    fdnCascade[n].reset();
+    float diagMod = float(n + 1) / fdnCascade.size();
+    float delayTimeMod = std::pow(diagMod * 2.0f, 0.8f);
+    for (size_t i = 0; i < fdnMatrixSize; ++i)
+      fdnCascade[n].delayTime[i].reset(delayTimeMod * fdnTime);
+  }
+
   serialAP1Sig = 0.0f;
   serialAP1.reset();
   serialAP1Highpass.reset();
@@ -85,10 +90,26 @@ void DSPCore::reset()
   for (auto &ap : serialAP2) ap.reset();
   serialAP2Highpass.reset();
 
-  fdnSig = 0.0f;
-  for (auto &fdn : fdnCascade) fdn.reset();
-
   tremoloDelay.reset();
+
+  interpPitch.reset(0.0f);
+  interpStickToneMix.reset(param.value[ID::stickToneMix]->getFloat());
+  interpStickPulseMix.reset(param.value[ID::stickPulseMix]->getFloat());
+  interpStickVelvetMix.reset(param.value[ID::stickVelvetMix]->getFloat());
+
+  interpFDNFeedback.reset(param.value[ID::fdnFeedback]->getFloat());
+  interpFDNCascadeMix.reset(param.value[ID::fdnCascadeMix]->getFloat());
+
+  interpAllpassMix.reset(param.value[ID::allpassMix]->getFloat());
+  interpAllpass1Feedback.reset(param.value[ID::allpass1Feedback]->getFloat());
+  interpAllpass2Feedback.reset(param.value[ID::allpass2Feedback]->getFloat());
+
+  interpTremoloMix.reset(param.value[ID::tremoloMix]->getFloat());
+  interpTremoloDepth.reset(param.value[ID::tremoloDepth]->getFloat());
+  interpTremoloFrequency.reset(param.value[ID::tremoloFrequency]->getFloat());
+  interpTremoloDelayTime.reset(param.value[ID::tremoloDelayTime]->getFloat());
+
+  interpMasterGain.reset(param.value[ID::gain]->getFloat());
 
   startup();
 }
@@ -96,7 +117,13 @@ void DSPCore::reset()
 void DSPCore::startup()
 {
   rng.seed = param.value[ParameterID::seed]->getInt();
+  rngStick.seed = 0;
+  rngTremolo.seed = 0;
+
   tremoloPhase = 0.0f;
+  randomTremoloDepth = 0.0f;
+  randomTremoloFrequency = 0.0f;
+  randomTremoloDelayTime = 0.0f;
 }
 
 void DSPCore::setParameters()
@@ -142,7 +169,7 @@ void DSPCore::setParameters()
 void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(float(length));
 
   for (auto &fdn : fdnCascade)
     for (auto &time : fdn.delayTime) time.refresh();
@@ -181,7 +208,7 @@ void DSPCore::process(
       for (size_t j = 1; j < fdnCascade.size(); ++j) {
         fdnSig += fdnCascadeMix * (fdnCascade[j].process(fdnSig * 2.0f) - fdnSig);
       }
-      sample = fdnSig * 1024.0;
+      sample = fdnSig * 1024.0f;
     }
 
     // Allpass.
@@ -190,13 +217,13 @@ void DSPCore::process(
       : serialAP1Sig;
     serialAP1Sig
       = serialAP1.process(sample + interpAllpass1Feedback.process() * serialAP1Sig);
-    float apOut = serialAP1Highpass.process(serialAP1Sig);
+    float apOut = float(serialAP1Highpass.process(serialAP1Sig));
 
     serialAP2Sig = apOut + interpAllpass2Feedback.process() * serialAP2Sig;
     float sum = 0.0f;
     for (auto &ap : serialAP2) sum += ap.process(serialAP2Sig);
     serialAP2Sig = sum / serialAP2.size();
-    apOut += 4.0f * serialAP2Highpass.process(serialAP2Sig);
+    apOut += 4.0f * float(serialAP2Highpass.process(serialAP2Sig));
 
     const float allpassMix = interpAllpassMix.process();
     sample += allpassMix * (apOut - sample);

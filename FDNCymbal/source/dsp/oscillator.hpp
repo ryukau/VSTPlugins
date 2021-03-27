@@ -37,6 +37,7 @@ public:
   {
     tick = 0;
     phase = 0;
+    buffer = 0;
   }
 
   Sample process()
@@ -63,7 +64,7 @@ public:
   Sample process()
   {
     seed = 1664525L * seed + 1013904223L;
-    return Sample(seed) / UINT32_MAX; // Normalize to [0, 1).
+    return Sample(seed) / Sample(UINT32_MAX); // Normalize to [0, 1).
   }
 };
 
@@ -78,6 +79,13 @@ public:
 
   // Average distance in samples between impulses.
   void setDensity(Sample density) { tick = rng.process() * density / sampleRate; }
+
+  void reset(uint32_t seed)
+  {
+    phase = 0;
+    tick = 0;
+    rng.seed = seed;
+  }
 
   Sample process()
   {
@@ -108,9 +116,16 @@ public:
   void setFrequency(Sample hz)
   {
     auto omega = Sample(twopi) * hz / sampleRate;
-    u1 = 0.0;
-    u0 = -sin(omega);
-    k = 2.0 * cos(omega);
+    u1 = 0;
+    u0 = -std::sin(omega);
+    k = Sample(2) * std::cos(omega);
+  }
+
+  void reset()
+  {
+    u1 = 0;
+    u0 = 0;
+    k = 0;
   }
 
   Sample process()

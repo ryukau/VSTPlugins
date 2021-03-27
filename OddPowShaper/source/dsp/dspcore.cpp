@@ -34,9 +34,9 @@
 
 void DSPCORE_NAME::setup(double sampleRate)
 {
-  this->sampleRate = sampleRate;
+  this->sampleRate = float(sampleRate);
 
-  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(this->sampleRate);
   SmootherCommon<float>::setTime(0.2f);
 
   startup();
@@ -44,6 +44,14 @@ void DSPCORE_NAME::setup(double sampleRate)
 
 void DSPCORE_NAME::reset()
 {
+  using ID = ParameterID::ID;
+  auto &pv = param.value;
+
+  SmootherCommon<float>::setTime(pv[ID::smoothness]->getFloat());
+
+  interpDrive.reset(pv[ID::drive]->getFloat() * pv[ID::boost]->getFloat());
+  interpOutputGain.reset(pv[ID::outputGain]->getFloat());
+
   for (auto &shpr : shaper) shpr.reset();
   limiter.reset();
   startup();
@@ -79,9 +87,9 @@ void DSPCORE_NAME::setParameters()
 void DSPCORE_NAME::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(float(length));
 
-  std::array<float, 2> frame;
+  std::array<float, 2> frame{};
   for (uint32_t i = 0; i < length; ++i) {
     auto drive = interpDrive.process();
     auto outGain = interpOutputGain.process();
@@ -100,7 +108,7 @@ void DSPCORE_NAME::process(
       frame[1] = outGain * shaper[1].process(frame[1]);
     }
 
-    if (activateLimiter) frame = limiter.process(frame);
+    // if (activateLimiter) frame = limiter.process(frame);
 
     out0[i] = frame[0];
     out1[i] = frame[1];

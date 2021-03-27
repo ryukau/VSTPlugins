@@ -126,13 +126,37 @@ template<typename Sample> void Note<Sample>::release()
   filterEnvelope.release();
 }
 
-template<typename Sample> void Note<Sample>::rest() { state = NoteState::rest; }
+template<typename Sample> void Note<Sample>::rest()
+{
+  state = NoteState::rest;
+  id = -1;
+  normalizedKey = 0;
+  velocity = 0;
+  gain = 0;
+  frequency = 0;
+  bypassFilter = false;
+}
+
+template<typename Sample> void Note<Sample>::reset()
+{
+  saw1.reset();
+  saw2.reset();
+  oscBuffer.fill(0);
+
+  filter.reset();
+
+  gainEnvelope.terminate();
+  filterEnvelope.terminate();
+  modEnvelope.terminate();
+
+  rest();
+}
 
 template<typename Sample> Sample Note<Sample>::process(NoteProcessInfo<Sample> &info)
 {
   if (state == NoteState::rest) return 0;
 
-  const float modEnv = modEnvelope.process();
+  const float modEnv = float(modEnvelope.process());
 
   saw1.setOrder(info.osc1PTROrder);
   switch (info.osc1SyncType) {
@@ -248,15 +272,15 @@ DSPCore::DSPCore() { midiNotes.reserve(128); }
 
 void DSPCore::setup(double sampleRate)
 {
-  this->sampleRate = sampleRate;
+  this->sampleRate = float(sampleRate);
 
   midiNotes.resize(0);
 
-  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(this->sampleRate);
   SmootherCommon<float>::setTime(0.2f);
 
   for (auto &note : notes) {
-    for (auto &nt : note) nt = std::make_unique<Note<float>>(sampleRate);
+    for (auto &nt : note) nt = std::make_unique<Note<float>>(this->sampleRate);
   }
 
   // 2 msec + 1 sample transition time.
@@ -267,63 +291,87 @@ void DSPCore::setup(double sampleRate)
 
 void DSPCore::free() {}
 
+#define ASSIGN_PARAMETER(METHOD)                                                         \
+  interpMasterGain.METHOD(param.value[ParameterID::gain]->getFloat());                   \
+                                                                                         \
+  interpOsc1Gain.METHOD(param.value[ParameterID::osc1Gain]->getFloat());                 \
+  interpOsc1Pitch.METHOD(paramToPitch(                                                   \
+    param.value[ParameterID::osc1Semi]->getFloat(),                                      \
+    param.value[ParameterID::osc1Cent]->getFloat(),                                      \
+    param.value[ParameterID::pitchBend]->getFloat()));                                   \
+  interpOsc1Sync.METHOD(param.value[ParameterID::osc1Sync]->getFloat());                 \
+                                                                                         \
+  interpOsc2Gain.METHOD(                                                                 \
+    (param.value[ParameterID::osc2Invert]->getInt() ? -1.0f : 1.0f)                      \
+    * param.value[ParameterID::osc2Gain]->getFloat());                                   \
+  interpOsc2Pitch.METHOD(paramToPitch(                                                   \
+    param.value[ParameterID::osc2Semi]->getFloat(),                                      \
+    param.value[ParameterID::osc2Cent]->getFloat(),                                      \
+    param.value[ParameterID::pitchBend]->getFloat()));                                   \
+  interpOsc2Sync.METHOD(param.value[ParameterID::osc2Sync]->getFloat());                 \
+                                                                                         \
+  interpFMOsc1ToSync1.METHOD(param.value[ParameterID::fmOsc1ToSync1]->getFloat());       \
+  interpFMOsc1ToFreq2.METHOD(param.value[ParameterID::fmOsc1ToFreq2]->getFloat());       \
+  interpFMOsc2ToSync1.METHOD(param.value[ParameterID::fmOsc2ToSync1]->getFloat());       \
+                                                                                         \
+  interpModEnvelopeToFreq1.METHOD(                                                       \
+    param.value[ParameterID::modEnvelopeToFreq1]->getFloat());                           \
+  interpModEnvelopeToSync1.METHOD(                                                       \
+    param.value[ParameterID::modEnvelopeToSync1]->getFloat());                           \
+  interpModEnvelopeToFreq2.METHOD(                                                       \
+    param.value[ParameterID::modEnvelopeToFreq2]->getFloat());                           \
+  interpModEnvelopeToSync2.METHOD(                                                       \
+    param.value[ParameterID::modEnvelopeToSync2]->getFloat());                           \
+  interpModLFOFrequency.METHOD(param.value[ParameterID::modLFOFrequency]->getFloat());   \
+  interpModLFONoiseMix.METHOD(param.value[ParameterID::modLFONoiseMix]->getFloat());     \
+  interpModLFOToFreq1.METHOD(param.value[ParameterID::modLFOToFreq1]->getFloat());       \
+  interpModLFOToSync1.METHOD(param.value[ParameterID::modLFOToSync1]->getFloat());       \
+  interpModLFOToFreq2.METHOD(param.value[ParameterID::modLFOToFreq2]->getFloat());       \
+  interpModLFOToSync2.METHOD(param.value[ParameterID::modLFOToSync2]->getFloat());       \
+                                                                                         \
+  interpGainEnvelopeCurve.METHOD(                                                        \
+    param.value[ParameterID::gainEnvelopeCurve]->getFloat());                            \
+                                                                                         \
+  interpFilterCutoff.METHOD(param.value[ParameterID::filterCutoff]->getFloat());         \
+  interpFilterResonance.METHOD(param.value[ParameterID::filterResonance]->getFloat());   \
+  interpFilterFeedback.METHOD(param.value[ParameterID::filterFeedback]->getFloat());     \
+  interpFilterSaturation.METHOD(param.value[ParameterID::filterSaturation]->getFloat()); \
+  interpFilterCutoffAmount.METHOD(                                                       \
+    param.value[ParameterID::filterCutoffAmount]->getFloat());                           \
+  interpFilterResonanceAmount.METHOD(                                                    \
+    param.value[ParameterID::filterResonanceAmount]->getFloat());                        \
+  interpFilterKeyToCutoff.METHOD(                                                        \
+    param.value[ParameterID::filterKeyToCutoff]->getFloat());                            \
+  interpFilterKeyToFeedback.METHOD(                                                      \
+    param.value[ParameterID::filterKeyToFeedback]->getFloat());
+
 void DSPCore::reset()
 {
+  noise.reset(0);
+
+  ASSIGN_PARAMETER(reset);
+
   for (auto &note : notes) {
-    for (auto &nt : note) nt->rest();
+    for (auto &nt : note) nt->reset();
   }
+
+  std::fill(transitionBuffer.begin(), transitionBuffer.end(), 0.0f);
+  isTransitioning = false;
+  trIndex = 0;
+  trStop = 0;
+
   startup();
 }
 
-void DSPCore::startup() { lfoPhase = 0.0f; }
+void DSPCore::startup()
+{
+  lfoPhase = 0.0f;
+  lfoValue = 0.0f;
+}
 
 void DSPCore::setParameters()
 {
-  interpMasterGain.push(param.value[ParameterID::gain]->getFloat());
-
-  interpOsc1Gain.push(param.value[ParameterID::osc1Gain]->getFloat());
-  interpOsc1Pitch.push(paramToPitch(
-    param.value[ParameterID::osc1Semi]->getFloat(),
-    param.value[ParameterID::osc1Cent]->getFloat(),
-    param.value[ParameterID::pitchBend]->getFloat()));
-  interpOsc1Sync.push(param.value[ParameterID::osc1Sync]->getFloat());
-
-  interpOsc2Gain.push(
-    (param.value[ParameterID::osc2Invert]->getInt() ? -1.0f : 1.0f)
-    * param.value[ParameterID::osc2Gain]->getFloat());
-  interpOsc2Pitch.push(paramToPitch(
-    param.value[ParameterID::osc2Semi]->getFloat(),
-    param.value[ParameterID::osc2Cent]->getFloat(),
-    param.value[ParameterID::pitchBend]->getFloat()));
-  interpOsc2Sync.push(param.value[ParameterID::osc2Sync]->getFloat());
-
-  interpFMOsc1ToSync1.push(param.value[ParameterID::fmOsc1ToSync1]->getFloat());
-  interpFMOsc1ToFreq2.push(param.value[ParameterID::fmOsc1ToFreq2]->getFloat());
-  interpFMOsc2ToSync1.push(param.value[ParameterID::fmOsc2ToSync1]->getFloat());
-
-  interpModEnvelopeToFreq1.push(param.value[ParameterID::modEnvelopeToFreq1]->getFloat());
-  interpModEnvelopeToSync1.push(param.value[ParameterID::modEnvelopeToSync1]->getFloat());
-  interpModEnvelopeToFreq2.push(param.value[ParameterID::modEnvelopeToFreq2]->getFloat());
-  interpModEnvelopeToSync2.push(param.value[ParameterID::modEnvelopeToSync2]->getFloat());
-  interpModLFOFrequency.push(param.value[ParameterID::modLFOFrequency]->getFloat());
-  interpModLFONoiseMix.push(param.value[ParameterID::modLFONoiseMix]->getFloat());
-  interpModLFOToFreq1.push(param.value[ParameterID::modLFOToFreq1]->getFloat());
-  interpModLFOToSync1.push(param.value[ParameterID::modLFOToSync1]->getFloat());
-  interpModLFOToFreq2.push(param.value[ParameterID::modLFOToFreq2]->getFloat());
-  interpModLFOToSync2.push(param.value[ParameterID::modLFOToSync2]->getFloat());
-
-  interpGainEnvelopeCurve.push(param.value[ParameterID::gainEnvelopeCurve]->getFloat());
-
-  interpFilterCutoff.push(param.value[ParameterID::filterCutoff]->getFloat());
-  interpFilterResonance.push(param.value[ParameterID::filterResonance]->getFloat());
-  interpFilterFeedback.push(param.value[ParameterID::filterFeedback]->getFloat());
-  interpFilterSaturation.push(param.value[ParameterID::filterSaturation]->getFloat());
-  interpFilterCutoffAmount.push(param.value[ParameterID::filterCutoffAmount]->getFloat());
-  interpFilterResonanceAmount.push(
-    param.value[ParameterID::filterResonanceAmount]->getFloat());
-  interpFilterKeyToCutoff.push(param.value[ParameterID::filterKeyToCutoff]->getFloat());
-  interpFilterKeyToFeedback.push(
-    param.value[ParameterID::filterKeyToFeedback]->getFloat());
+  ASSIGN_PARAMETER(push);
 
   switch (param.value[ParameterID::nVoice]->getInt()) {
     case 0:
@@ -355,7 +403,7 @@ void DSPCore::setParameters()
 
 void DSPCore::process(const size_t length, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(float(length));
 
   bool unison = param.value[ParameterID::unison]->getFloat();
   for (auto &note : notes) {
@@ -396,7 +444,7 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
     noteInfo.modEnvelopeToFreq2 = interpModEnvelopeToFreq2.process();
     noteInfo.modEnvelopeToSync2 = interpModEnvelopeToSync2.process();
 
-    lfoPhase += 2.0 * float(pi) * interpModLFOFrequency.process() / sampleRate;
+    lfoPhase += 2.0f * float(pi) * interpModLFOFrequency.process() / sampleRate;
     if (lfoPhase >= float(pi)) lfoPhase -= float(pi);
     lfoValue = sinf(lfoPhase);
     // lfoValue = (lfoValue + 1.0f) * 0.5f;
@@ -429,10 +477,10 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
     }
 
     if (isTransitioning) {
-      sample += transitionBuffer[mptIndex];
-      transitionBuffer[mptIndex] = 0.0f;
-      mptIndex = (mptIndex + 1) % transitionBuffer.size();
-      if (mptIndex == mptStop) isTransitioning = false;
+      sample += transitionBuffer[trIndex];
+      transitionBuffer[trIndex] = 0.0f;
+      trIndex = (trIndex + 1) % transitionBuffer.size();
+      if (trIndex == trStop) isTransitioning = false;
     }
 
     const float masterGain = interpMasterGain.process();
@@ -491,14 +539,14 @@ void DSPCore::noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity
     noteInfo.filterKeyToCutoff = interpFilterKeyToCutoff.getValue();
     noteInfo.filterKeyToFeedback = interpFilterKeyToFeedback.getValue();
 
-    // Beware the negative overflow. mptStop is size_t.
-    mptStop = mptIndex - 1;
-    if (mptStop >= transitionBuffer.size()) mptStop += transitionBuffer.size();
+    // Beware the negative overflow. trStop is size_t.
+    trStop = trIndex - 1;
+    if (trStop >= transitionBuffer.size()) trStop += transitionBuffer.size();
 
     for (size_t j = 0; j < transitionBuffer.size(); ++j) {
       if (notes[i][0]->state == NoteState::rest) {
-        mptStop = mptIndex + j;
-        if (mptStop >= transitionBuffer.size()) mptStop -= transitionBuffer.size();
+        trStop = trIndex + j;
+        if (trStop >= transitionBuffer.size()) trStop -= transitionBuffer.size();
         break;
       }
 
@@ -508,8 +556,8 @@ void DSPCore::noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity
         && notes[i][1]->state != NoteState::rest) {
         sample += notes[i][1]->process(noteInfo);
       }
-      transitionBuffer[(mptIndex + j) % transitionBuffer.size()]
-        += sample * (0.5 + 0.5 * cosf(pi * (float)j / transitionBuffer.size()));
+      transitionBuffer[(trIndex + j) % transitionBuffer.size()] += sample
+        * (0.5f + 0.5f * std::cos(float(pi) * float(j) / transitionBuffer.size()));
     }
   }
 
@@ -518,7 +566,7 @@ void DSPCore::noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity
   notes[i][0]->setup(noteId, normalizedKey, frequency, velocity, param);
   if (param.value[ParameterID::unison]->getFloat()) {
     notes[i][1]->setup(noteId, normalizedKey, frequency, velocity, param);
-    notes[i][1]->saw1.addPhase(0.1777);
+    notes[i][1]->saw1.addPhase(0.1777f);
     notes[i][1]->saw2.addPhase(0.6883f);
   } else {
     notes[i][1]->release();

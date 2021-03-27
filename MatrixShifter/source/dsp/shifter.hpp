@@ -137,14 +137,14 @@ public:
   void reset()
   {
     w1 = 0;
-    std::fill(buf.begin(), buf.end(), 0);
+    std::fill(buf.begin(), buf.end(), Sample(0));
   }
 
   Sample process(Sample sampleRate, Sample input, Sample seconds)
   {
     // Set delay time.
-    Sample timeInSample
-      = std::clamp<Sample>(Sample(2) * sampleRate * seconds, 0, buf.size() - 1);
+    Sample timeInSample = std::clamp<Sample>(
+      Sample(2) * sampleRate * seconds, Sample(0), Sample(buf.size() - 1));
 
     size_t timeInt = size_t(timeInSample);
     rFraction = timeInSample - Sample(timeInt);
@@ -262,7 +262,7 @@ private:
   std::array<Sample, coIm.size()> y2Im{};
 
   std::array<Sample, nParallel> phase{};
-  Sample delayedIm = 0.0;
+  Sample delayedIm = 0;
 
 public:
   void reset()
@@ -278,6 +278,7 @@ public:
     y2Im.fill(0);
 
     phase.fill(0);
+    delayedIm = 0;
   }
 
   // Note: output may exceed the amplitude of input.
@@ -328,13 +329,12 @@ public:
   std::array<AMPitchShiterFixed<Sample, nParallel>, nSerial> shifter;
   std::array<Delay<Sample>, nSerial> delay;
   SVF<Sample, 7> svf;
+  Sample buf = 0;
 
   std::array<std::array<Sample, nParallel>, nSerial> hz;
   std::array<Sample, nSerial> seconds{};
   std::array<Sample, nSerial> gain{};
   Sample bypassGain = 0;
-
-  Sample buf = 0;
 
   void setup(Sample sampleRate, Sample maxSeconds)
   {
@@ -343,9 +343,10 @@ public:
 
   void reset()
   {
-    buf = 0;
     for (auto &shf : shifter) shf.reset();
     for (auto &dly : delay) dly.reset();
+    svf.reset();
+    buf = 0;
   }
 
   Sample process(

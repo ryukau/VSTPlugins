@@ -16,7 +16,6 @@
 // along with Uhhyou Plugins.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "../../lib/ghc/fs_std.hpp"
-#include "../../lib/json.hpp"
 
 #include <algorithm>
 #include <deque>
@@ -34,6 +33,8 @@
 // Disables `min` and `max` macro definition in `minwindef.h`.
 #undef min
 #undef max
+
+#include "../../lib/json.hpp"
 
 enum class SndFileResult { success, failure };
 
@@ -193,5 +194,69 @@ struct PresetQueue {
       ++iter;
     }
     return preset;
+  }
+};
+
+class TesterCommon {
+protected:
+  std::mutex mtx;
+  std::shared_ptr<PresetQueue> queue;
+  std::vector<std::thread> threads;
+
+  std::string ref_dir;
+  std::vector<std::string> test_dir;
+
+public:
+  bool isFinished = false;
+
+  SoundFile readReferenceWave(std::string path)
+  {
+    std::unique_lock<std::mutex> lk{mtx};
+    SoundFile snd(path);
+    return snd;
+  }
+
+  SndFileResult writeWaveWithLock(
+    std::string path, std::vector<std::vector<float>> &wav, int sampleRate)
+  {
+    std::unique_lock<std::mutex> lk{mtx};
+    return writeWave(path, wav, sampleRate);
+  }
+
+  template<typename T> bool almostEqual(T a, T b)
+  {
+    auto diff = std::fabs(a - b);
+    return diff
+      <= 8 * std::numeric_limits<T>::epsilon() * std::max(std::fabs(a), std::fabs(b))
+      || diff < std::numeric_limits<T>::min();
+  }
+
+  void testAlmostEqual(
+    const std::string &name,
+    std::stringstream &error_stream,
+    std::vector<std::vector<float>> &wav,
+    SoundFile &ref)
+  {
+    if (!ref.isReady()) return;
+
+    for (size_t ch = 0; ch < wav.size(); ++ch) {
+      for (size_t fr = 0; fr < wav[ch].size(); ++fr) {
+        if (!std::isfinite(wav[ch][fr])) {
+          std::unique_lock<std::mutex> lk{mtx};
+          error_stream << "Error " << name << ": Non-finite value " << wav[ch][fr]
+                       << " at channel " << ch << ", frame " << fr << "\n";
+          return;
+        }
+
+        if (!almostEqual(wav[ch][fr], ref.data_[ch][fr])) {
+          std::unique_lock<std::mutex> lk{mtx};
+          error_stream << "Error " << name << ": actual " << wav[ch][fr]
+                       << " and expected " << ref.data_[ch][fr]
+                       << " are not almost equal at channel " << ch << ", frame " << fr
+                       << "\n";
+          return;
+        }
+      }
+    }
   }
 };

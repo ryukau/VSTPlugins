@@ -105,32 +105,15 @@ struct Sequencer {
   }
 };
 
-#ifdef __linux__
-template<typename DSP_IF, typename DSP_AVX512, typename DSP_AVX2, typename DSP_AVX>
-#else
-template<typename DSP_IF, typename DSP_AVX2, typename DSP_AVX>
-#endif
-class SynthTester {
-private:
-  std::mutex mtx;
-  std::shared_ptr<PresetQueue> queue;
-  std::vector<std::thread> threads;
-
-  std::string ref_dir;
-  std::vector<std::string> test_dir;
-
+template<typename DSP_CLASS> class SynthTester : public TesterCommon {
 public:
-  bool isFinished = false;
-
   // n_thread is used to disable multithreading. Useful for plugin using FFTW3.
   SynthTester(
     std::string plugin_name,
     std::string out_dir,
     int n_thread = std::thread::hardware_concurrency())
-    : ref_dir(out_dir + "/reference/")
   {
-    if (!checkInstrset()) return;
-
+    ref_dir = out_dir + "/reference/";
     test_dir.resize(2);
     test_dir[0] = out_dir + "/run1_init/";
     test_dir[1] = out_dir + "/run2_reset/";
@@ -141,14 +124,7 @@ public:
     queue = std::make_shared<PresetQueue>(plugin_name);
 
     for (size_t i = 0; i < n_thread; ++i) {
-#ifdef __linux__
-      std::thread th(
-        &SynthTester<DSPInterface, DSP_AVX512, DSP_AVX2, DSP_AVX>::testSequence, this,
-        queue);
-#else
-      std::thread th(
-        &SynthTester<DSPInterface, DSP_AVX2, DSP_AVX>::testSequence, this, queue);
-#endif
+      std::thread th(&SynthTester<DSP_CLASS>::testSequence, this, queue);
       threads.push_back(std::move(th));
     }
     for (auto &th : threads) th.join();
@@ -156,49 +132,28 @@ public:
     isFinished = true;
   }
 
-  bool checkInstrset()
+  std::unique_ptr<DSP_CLASS> setupDSP() { return std::make_unique<DSP_CLASS>(); }
+
+  void processDsp(
+    size_t length,
+    size_t currentFrame,
+    std::vector<std::vector<float>> &wav,
+    std::unique_ptr<DSP_CLASS> &dsp)
   {
-    auto iset = instrset_detect();
-
-#ifdef __linux__
-    if (iset >= 10) {
-      std::cout << "AVX512 is selected.\n";
-      return true;
-    } else
+#ifdef HAS_INPUT
+    dsp->process(
+      length, wav[0].data() + currentFrame, wav[1].data() + currentFrame,
+      wav[0].data() + currentFrame, wav[1].data() + currentFrame);
+#else
+    dsp->process(length, wav[0].data() + currentFrame, wav[1].data() + currentFrame);
 #endif
-      if (iset >= 8) {
-      std::cout << "AVX2 is selected.\n";
-      return true;
-    } else if (iset >= 7) {
-      std::cout << "AVX is selected.\n";
-      return true;
-    }
-    std::cerr << "\nError: Instruction set AVX or later not supported on this computer";
-    return false;
-  }
-
-  std::unique_ptr<DSP_IF> setupDSP()
-  {
-    auto iset = instrset_detect();
-
-#ifdef __linux__
-    if (iset >= 10) {
-      return std::make_unique<DSPCore_AVX512>();
-    } else
-#endif
-      if (iset >= 8) {
-      return std::make_unique<DSPCore_AVX2>();
-    } else if (iset >= 7) {
-      return std::make_unique<DSPCore_AVX>();
-    }
-    return nullptr;
   }
 
   void render(
     const size_t nFrame,
     Sequencer &sequencer,
     std::vector<std::vector<float>> &wav,
-    std::unique_ptr<DSP_IF> &dsp)
+    std::unique_ptr<DSP_CLASS> &dsp)
   {
     sequencer.rewind();
 
@@ -222,64 +177,10 @@ public:
       } while (nextFrame == currentFrame);
       if (nextFrame >= nFrame) break;
 
-      dsp->process(
-        nextFrame - currentFrame, wav[0].data() + currentFrame,
-        wav[1].data() + currentFrame);
+      processDsp(nextFrame - currentFrame, currentFrame, wav, dsp);
       currentFrame = nextFrame;
     }
-    dsp->process(
-      nFrame - currentFrame, wav[0].data() + currentFrame, wav[1].data() + currentFrame);
-  }
-
-  SoundFile readReferenceWave(std::string path)
-  {
-    std::unique_lock<std::mutex> lk{mtx};
-    SoundFile snd(path);
-    return snd;
-  }
-
-  SndFileResult writeWaveWithLock(
-    std::string path, std::vector<std::vector<float>> &wav, int sampleRate)
-  {
-    std::unique_lock<std::mutex> lk{mtx};
-    return writeWave(path, wav, sampleRate);
-  }
-
-  template<typename T> bool almostEqual(T a, T b)
-  {
-    auto diff = std::fabs(a - b);
-    return diff
-      <= 8 * std::numeric_limits<T>::epsilon() * std::max(std::fabs(a), std::fabs(b))
-      || diff < std::numeric_limits<T>::min();
-  }
-
-  void testAlmostEqual(
-    const std::string &name,
-    std::stringstream &error_stream,
-    std::vector<std::vector<float>> &wav,
-    SoundFile &ref)
-  {
-    if (!ref.isReady()) return;
-
-    for (size_t ch = 0; ch < wav.size(); ++ch) {
-      for (size_t fr = 0; fr < wav[ch].size(); ++fr) {
-        if (!std::isfinite(wav[ch][fr])) {
-          std::unique_lock<std::mutex> lk{mtx};
-          error_stream << "Error " << name << ": Non-finite value " << wav[ch][fr]
-                       << " at channel " << ch << ", frame " << fr << "\n";
-          return;
-        }
-
-        if (!almostEqual(wav[ch][fr], ref.data_[ch][fr])) {
-          std::unique_lock<std::mutex> lk{mtx};
-          error_stream << "Error " << name << ": actual " << wav[ch][fr]
-                       << " and expected " << ref.data_[ch][fr]
-                       << " are not almost equal at channel " << ch << ", frame " << fr
-                       << "\n";
-          return;
-        }
-      }
-    }
+    processDsp(nFrame - currentFrame, currentFrame, wav, dsp);
   }
 
   void testSequence(std::shared_ptr<PresetQueue> queue)
@@ -314,7 +215,7 @@ public:
           dsp->param.value[index]->setFromNormalized(parameter["value"]);
         ++index;
       }
-      dsp->setParameters(tempo);
+      SET_PARAMETERS;
       dsp->reset();
 
       std::string filename = preset["name"].get<std::string>() + ".wav";
@@ -325,6 +226,202 @@ public:
       testAlmostEqual(filename + " init", error_stream, wav, ref);
       writeWaveWithLock(test_dir[0] + filename, wav, int(sampleRate));
 
+      for (auto &wv : wav) std::fill(wv.begin(), wv.end(), 0.0f);
+      dsp->reset();
+
+      render(nFrame, sequencer, wav, dsp);
+      testAlmostEqual(filename + " reset", error_stream, wav, ref);
+      writeWaveWithLock(test_dir[1] + filename, wav, int(sampleRate));
+
+      // Post processing.
+      std::string error_str = error_stream.str();
+      {
+        std::unique_lock<std::mutex> lk{mtx};
+        if (error_str.size() > 0) std::cerr << error_str;
+      }
+
+      for (auto &channel : wav) std::fill(channel.begin(), channel.end(), 0.0f);
+
+      iter = queue->next();
+    }
+  }
+};
+
+#ifdef __linux__
+template<typename DSP_IF, typename DSP_AVX512, typename DSP_AVX2, typename DSP_AVX>
+#else
+template<typename DSP_IF, typename DSP_AVX2, typename DSP_AVX>
+#endif
+class SynthTesterSimdRuntimeDispatch : public TesterCommon {
+public:
+  // n_thread is used to disable multithreading. Useful for plugin using FFTW3.
+  SynthTesterSimdRuntimeDispatch(
+    std::string plugin_name,
+    std::string out_dir,
+    int n_thread = std::thread::hardware_concurrency())
+  {
+    if (!checkInstrset()) return;
+
+    ref_dir = out_dir + "/reference/";
+    test_dir.resize(2);
+    test_dir[0] = out_dir + "/run1_init/";
+    test_dir[1] = out_dir + "/run2_reset/";
+
+    fs::create_directories(test_dir[0]);
+    fs::create_directories(test_dir[1]);
+
+    queue = std::make_shared<PresetQueue>(plugin_name);
+
+    for (size_t i = 0; i < n_thread; ++i) {
+#ifdef __linux__
+      std::thread th(
+        &SynthTesterSimdRuntimeDispatch<
+          DSPInterface, DSP_AVX512, DSP_AVX2, DSP_AVX>::testSequence,
+        this, queue);
+#else
+      std::thread th(
+        &SynthTesterSimdRuntimeDispatch<DSPInterface, DSP_AVX2, DSP_AVX>::testSequence,
+        this, queue);
+#endif
+      threads.push_back(std::move(th));
+    }
+    for (auto &th : threads) th.join();
+
+    isFinished = true;
+  }
+
+  bool checkInstrset()
+  {
+    auto iset = instrset_detect();
+
+#ifdef __linux__
+    if (iset >= 10) {
+      std::cout << "AVX512 is selected.\n";
+      return true;
+    } else
+#endif
+      if (iset >= 8) {
+      std::cout << "AVX2 is selected.\n";
+      return true;
+    } else if (iset >= 7) {
+      std::cout << "AVX is selected.\n";
+      return true;
+    }
+    std::cerr
+      << "Error: Instruction set AVX or later is not supported on this computer\n";
+    return false;
+  }
+
+  std::unique_ptr<DSP_IF> setupDSP()
+  {
+    auto iset = instrset_detect();
+
+#ifdef __linux__
+    if (iset >= 10) {
+      return std::make_unique<DSPCore_AVX512>();
+    } else
+#endif
+      if (iset >= 8) {
+      return std::make_unique<DSPCore_AVX2>();
+    } else if (iset >= 7) {
+      return std::make_unique<DSPCore_AVX>();
+    }
+    return nullptr;
+  }
+
+  void processDsp(
+    size_t length,
+    size_t currentFrame,
+    std::vector<std::vector<float>> &wav,
+    std::unique_ptr<DSP_IF> &dsp)
+  {
+#ifdef HAS_INPUT
+    dsp->process(
+      length, wav[0].data() + currentFrame, wav[1].data() + currentFrame,
+      wav[0].data() + currentFrame, wav[1].data() + currentFrame);
+#else
+    dsp->process(length, wav[0].data() + currentFrame, wav[1].data() + currentFrame);
+#endif
+  }
+
+  void render(
+    const size_t nFrame,
+    Sequencer &sequencer,
+    std::vector<std::vector<float>> &wav,
+    std::unique_ptr<DSP_IF> &dsp)
+  {
+    sequencer.rewind();
+
+    size_t currentFrame = 0;
+    size_t nextFrame = 0;
+    NoteEvent note;
+    while (true) {
+      do {
+        bool success = sequencer.process(currentFrame, note);
+        if (success) {
+          switch (note.type) {
+            case NoteEventType::noteOn:
+              dsp->noteOn(note.id, note.pitch, note.tuning, note.velocity);
+              break;
+            case NoteEventType::noteOff:
+              dsp->noteOff(note.id);
+              break;
+          }
+        }
+        nextFrame = sequencer.nextFrame();
+      } while (nextFrame == currentFrame);
+      if (nextFrame >= nFrame) break;
+
+      processDsp(nextFrame - currentFrame, currentFrame, wav, dsp);
+      currentFrame = nextFrame;
+    }
+    processDsp(nFrame - currentFrame, currentFrame, wav, dsp);
+  }
+
+  void testSequence(std::shared_ptr<PresetQueue> queue)
+  {
+    constexpr float sampleRate = 48000;
+    constexpr size_t nFrame = size_t(5 * sampleRate);
+    constexpr float tempo = 120.0f;
+
+    std::vector<std::vector<float>> wav(2);
+    for (auto &channel : wav) channel.resize(nFrame);
+
+    Sequencer sequencer;
+    sequencer.setupSequence(sampleRate, tempo);
+
+    auto iter = queue->next();
+    while (iter != queue->end()) {
+      const auto &preset = iter.value();
+
+      auto dsp = setupDSP();
+      if (!dsp) {
+        std::unique_lock<std::mutex> lk{mtx};
+        std::cerr << "Error: AVX or later instruction set is not supported.\n";
+        return;
+      }
+      dsp->setup(sampleRate);
+
+      size_t index = 0;
+      for (const auto &parameter : preset["parameter"]) {
+        if (parameter["type"] == "I")
+          dsp->param.value[index]->setFromInt(parameter["value"]);
+        else if (parameter["type"] == "d")
+          dsp->param.value[index]->setFromNormalized(parameter["value"]);
+        ++index;
+      }
+      SET_PARAMETERS;
+      dsp->reset();
+
+      std::string filename = preset["name"].get<std::string>() + ".wav";
+      std::stringstream error_stream;
+      SoundFile ref = readReferenceWave(ref_dir + filename);
+
+      render(nFrame, sequencer, wav, dsp);
+      testAlmostEqual(filename + " init", error_stream, wav, ref);
+      writeWaveWithLock(test_dir[0] + filename, wav, int(sampleRate));
+
+      for (auto &wv : wav) std::fill(wv.begin(), wv.end(), 0.0f);
       dsp->reset();
 
       render(nFrame, sequencer, wav, dsp);

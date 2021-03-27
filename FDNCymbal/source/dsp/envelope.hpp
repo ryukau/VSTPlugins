@@ -28,7 +28,7 @@ namespace SomeDSP {
 // t in [0, 1].
 template<typename Sample> inline Sample cosinterp(Sample t)
 {
-  return 0.5 * (1.0 - std::cos(pi * t));
+  return Sample(0.5) * (Sample(1) - std::cos(Sample(pi) * t));
 }
 
 template<typename Sample> class ExpDecay {
@@ -37,11 +37,11 @@ public:
 
   void setup(
     Sample sampleRate,
-    Sample decayTime = 1.0,
-    Sample declickTime = 0.001,
-    Sample threshold = 1e-5)
+    Sample decayTime = Sample(1),
+    Sample declickTime = Sample(0.001),
+    Sample threshold = Sample(1e-5))
   {
-    declickLength = declickTime * sampleRate;
+    declickLength = int(declickTime * sampleRate);
     this->sampleRate = sampleRate;
     this->threshold = threshold;
 
@@ -55,6 +55,16 @@ public:
     isTerminated = false;
     declickCounter = 0;
     value = Sample(1.0);
+  }
+
+  void terminate(Sample decayTime)
+  {
+    isTerminated = true;
+    setDecayTime(decayTime);
+    declickCounter = 0;
+    declickOffset = 0;
+    value = Sample(1);
+    output = 0;
   }
 
   Sample process()
@@ -85,13 +95,13 @@ protected:
       alpha = std::pow(threshold, Sample(1.0) / (decayTime * sampleRate - declickLength));
   }
 
-  int32_t declickLength = 0;
-  int32_t declickCounter = 0;
+  int declickLength = 0;
+  int declickCounter = 0;
   Sample declickOffset = 0;
 
   Sample sampleRate = 44100;
   Sample alpha = Sample(0);
-  Sample threshold = 1e-5;
+  Sample threshold = Sample(1e-5);
   Sample value = Sample(1);
   Sample output = Sample(0);
 };

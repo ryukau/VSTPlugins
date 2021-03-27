@@ -79,17 +79,17 @@ public:
   NoteState state = NoteState::rest;
 
   int32_t id = -1;
-  Sample normalizedKey = 0.0;
-  Sample velocity = 0.0;
-  Sample gain = 0.0;
-  Sample frequency = 0.0;
+  Sample normalizedKey = 0;
+  Sample velocity = 0;
+  Sample gain = 0;
+  Sample frequency = 0;
   bool bypassFilter = false;
 
-  Sample filterEnv = 0.0;
+  Sample filterEnv = 0;
 
   PTRSyncSaw<Sample> saw1;
   PTRSyncSaw<Sample> saw2;
-  std::array<float, 2> oscBuffer = {0.0, 0.0};
+  std::array<float, 2> oscBuffer = {0, 0};
 
   SerialFilter4<Sample> filter;
 
@@ -98,12 +98,12 @@ public:
   PolyExpEnvelope<double> modEnvelope;
 
   Note(Sample sampleRate)
-    : saw1(sampleRate, 0.0, 0.0)
-    , saw2(sampleRate, 0.0, 0.0)
-    , filter(sampleRate, 20000.0, 0.5)
-    , gainEnvelope(sampleRate, 0.2, 0.5, 0.2, 1.0)
-    , filterEnvelope(sampleRate, 0.2, 0.5, 0.2, 1.0)
-    , modEnvelope(sampleRate, 0.0, 1.0)
+    : saw1(sampleRate, 0, 0)
+    , saw2(sampleRate, 0, 0)
+    , filter(sampleRate, Sample(20000), Sample(0.5))
+    , gainEnvelope(sampleRate, Sample(0.2), Sample(0.5), Sample(0.2), Sample(1))
+    , filterEnvelope(sampleRate, Sample(0.2), Sample(0.5), Sample(0.2), Sample(1))
+    , modEnvelope(sampleRate, 0, 1)
   {
   }
 
@@ -115,6 +115,7 @@ public:
     GlobalParameter &param);
   void release();
   void rest();
+  void reset();
   Sample process(NoteProcessInfo<Sample> &info);
 };
 
@@ -221,9 +222,9 @@ private:
   std::array<std::array<std::unique_ptr<Note<float>>, 2>, maxVoice> notes;
 
   // Transition happens when synth is playing all notes and user send a new note on.
-  // transitionBuffer is used to store a release of a note to reduce pop noise.
+  // transitionBuffer is used to store release of a note to reduce pop noise.
   std::vector<float> transitionBuffer{};
   bool isTransitioning = false;
-  size_t mptIndex = 0; // mpt for Max Poly Transition.
-  size_t mptStop = 0;
+  size_t trIndex = 0;
+  size_t trStop = 0;
 };

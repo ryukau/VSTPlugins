@@ -27,7 +27,7 @@ namespace SomeDSP {
 // t in [0, 1].
 template<typename Sample> inline Sample cosinterp(Sample t)
 {
-  return 0.5 * (1.0 - std::cos(pi * t));
+  return Sample(0.5) * (Sample(1) - std::cos(Sample(pi) * t));
 }
 
 template<typename Sample> class ExpDecayCurve {
@@ -190,6 +190,15 @@ public:
   {
     range = value;
     state = State::release;
+  }
+
+  void terminate()
+  {
+    state = State::terminated;
+    value = 0;
+    offset = 0;
+    range = 1;
+    sustain = 1;
   }
 
   bool isAttacking() { return state == State::attack; }

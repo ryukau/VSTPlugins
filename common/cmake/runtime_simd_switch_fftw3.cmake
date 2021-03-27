@@ -13,12 +13,11 @@ endfunction()
 #
 function(build_dspcore target)
   set(dspcore_avx "${target}_dspcore_avx")
-  set(dspcore_avx2 "${target}_dspcore_avx2")
-
   set(dspcore_avx ${dspcore_avx} PARENT_SCOPE)
-  set(dspcore_avx2 ${dspcore_avx2} PARENT_SCOPE)
-
   add_library(${dspcore_avx} OBJECT source/dsp/dspcore.cpp)
+
+  set(dspcore_avx2 "${target}_dspcore_avx2")
+  set(dspcore_avx2 ${dspcore_avx2} PARENT_SCOPE)
   add_library(${dspcore_avx2} OBJECT source/dsp/dspcore.cpp)
 
   if(UNIX AND NOT APPLE) # Linux.

@@ -36,28 +36,14 @@ inline std::vector<std::vector<Sample>> generateTestNoise(size_t nFrame)
   return data;
 }
 
-#ifdef __linux__
-template<typename DSP_IF, typename DSP_AVX512, typename DSP_AVX2, typename DSP_AVX>
-#else
-template<typename DSP_IF, typename DSP_AVX2, typename DSP_AVX>
-#endif
-class FxTester {
-private:
-  std::mutex mtx;
-  std::shared_ptr<PresetQueue> queue;
-  std::vector<std::thread> threads;
-
-  std::string ref_dir;
-  std::vector<std::string> test_dir;
-
+template<typename DSP_CLASS> class FxTester : public TesterCommon {
 public:
-  bool isFinished = false;
-
-  FxTester(std::string plugin_name, std::string out_dir)
-    : ref_dir(out_dir + "/reference/")
+  FxTester(
+    std::string plugin_name,
+    std::string out_dir,
+    int n_thread = std::thread::hardware_concurrency())
   {
-    if (!checkInstrset()) return;
-
+    ref_dir = out_dir + "/reference/";
     test_dir.resize(2);
     test_dir[0] = out_dir + "/run1_init/";
     test_dir[1] = out_dir + "/run2_reset/";
@@ -67,15 +53,123 @@ public:
 
     queue = std::make_shared<PresetQueue>(plugin_name);
 
-    const auto n_cpu = std::thread::hardware_concurrency();
-    for (size_t i = 0; i < n_cpu; ++i) {
+    for (size_t i = 0; i < n_thread; ++i) {
+      std::thread th(&FxTester<DSP_CLASS>::testSequence, this, queue);
+      threads.push_back(std::move(th));
+    }
+    for (auto &th : threads) th.join();
+
+    isFinished = true;
+  }
+
+  std::unique_ptr<DSP_CLASS> setupDSP() { return std::make_unique<DSP_CLASS>(); }
+
+  void render(
+    const size_t nFrame,
+    const std::vector<std::vector<float>> &in,
+    std::vector<std::vector<float>> &wav,
+    std::unique_ptr<DSP_CLASS> &dsp)
+  {
+    dsp->process(nFrame, in[0].data(), in[1].data(), wav[0].data(), wav[1].data());
+  }
+
+  void testSequence(std::shared_ptr<PresetQueue> queue)
+  {
+    constexpr float sampleRate = 48000;
+    constexpr size_t nFrame = size_t(5 * sampleRate);
+    constexpr float tempo = 120.0f;
+
+    const auto input = generateTestNoise<float>(nFrame);
+
+    std::vector<std::vector<float>> wav(2);
+    for (auto &channel : wav) channel.resize(nFrame);
+
+    auto iter = queue->next();
+    while (iter != queue->end()) {
+      const auto &preset = iter.value();
+
+      auto dsp = setupDSP();
+      if (!dsp) {
+        std::unique_lock<std::mutex> lk{mtx};
+        std::cerr << "Error: setupDSP failed.\n";
+        return;
+      }
+      dsp->setup(sampleRate);
+
+      size_t index = 0;
+      for (const auto &parameter : preset["parameter"]) {
+        if (parameter["type"] == "I")
+          dsp->param.value[index]->setFromInt(parameter["value"]);
+        else if (parameter["type"] == "d")
+          dsp->param.value[index]->setFromNormalized(parameter["value"]);
+        ++index;
+      }
+
+      SET_PARAMETERS;
+      dsp->reset();
+
+      std::string filename = preset["name"].get<std::string>() + ".wav";
+      std::stringstream error_stream;
+      SoundFile ref = readReferenceWave(ref_dir + filename);
+
+      render(nFrame, input, wav, dsp);
+      testAlmostEqual(filename + " init", error_stream, wav, ref);
+      writeWaveWithLock(test_dir[0] + filename, wav, int(sampleRate));
+
+      dsp->reset();
+
+      render(nFrame, input, wav, dsp);
+      testAlmostEqual(filename + " reset", error_stream, wav, ref);
+      writeWaveWithLock(test_dir[1] + filename, wav, int(sampleRate));
+
+      // Post processing.
+      std::string error_str = error_stream.str();
+      {
+        std::unique_lock<std::mutex> lk{mtx};
+        if (error_str.size() > 0) std::cerr << error_str;
+      }
+
+      for (auto &channel : wav) std::fill(channel.begin(), channel.end(), 0.0f);
+
+      iter = queue->next();
+    }
+  }
+};
+
+#ifdef __linux__
+template<typename DSP_IF, typename DSP_AVX512, typename DSP_AVX2, typename DSP_AVX>
+#else
+template<typename DSP_IF, typename DSP_AVX2, typename DSP_AVX>
+#endif
+class FxTesterSimdRuntimeDispatch : public TesterCommon {
+public:
+  FxTesterSimdRuntimeDispatch(
+    std::string plugin_name,
+    std::string out_dir,
+    int n_thread = std::thread::hardware_concurrency())
+  {
+    if (!checkInstrset()) return;
+
+    ref_dir = out_dir + "/reference/";
+    test_dir.resize(2);
+    test_dir[0] = out_dir + "/run1_init/";
+    test_dir[1] = out_dir + "/run2_reset/";
+
+    fs::create_directories(test_dir[0]);
+    fs::create_directories(test_dir[1]);
+
+    queue = std::make_shared<PresetQueue>(plugin_name);
+
+    for (size_t i = 0; i < n_thread; ++i) {
 #ifdef __linux__
       std::thread th(
-        &FxTester<DSPInterface, DSP_AVX512, DSP_AVX2, DSP_AVX>::testSequence, this,
-        queue);
+        &FxTesterSimdRuntimeDispatch<
+          DSPInterface, DSP_AVX512, DSP_AVX2, DSP_AVX>::testSequence,
+        this, queue);
 #else
       std::thread th(
-        &FxTester<DSPInterface, DSP_AVX2, DSP_AVX>::testSequence, this, queue);
+        &FxTesterSimdRuntimeDispatch<DSPInterface, DSP_AVX2, DSP_AVX>::testSequence, this,
+        queue);
 #endif
       threads.push_back(std::move(th));
     }
@@ -131,57 +225,6 @@ public:
     dsp->process(nFrame, in[0].data(), in[1].data(), wav[0].data(), wav[1].data());
   }
 
-  SoundFile readReferenceWave(std::string path)
-  {
-    std::unique_lock<std::mutex> lk{mtx};
-    SoundFile snd(path);
-    return snd;
-  }
-
-  SndFileResult writeWaveWithLock(
-    std::string path, std::vector<std::vector<float>> &wav, int sampleRate)
-  {
-    std::unique_lock<std::mutex> lk{mtx};
-    return writeWave(path, wav, sampleRate);
-  }
-
-  template<typename T> bool almostEqual(T a, T b)
-  {
-    auto diff = std::fabs(a - b);
-    return diff
-      <= 8 * std::numeric_limits<T>::epsilon() * std::max(std::fabs(a), std::fabs(b))
-      || diff < std::numeric_limits<T>::min();
-  }
-
-  void testAlmostEqual(
-    const std::string &name,
-    std::stringstream &error_stream,
-    const std::vector<std::vector<float>> &wav,
-    SoundFile &ref)
-  {
-    if (!ref.isReady()) return;
-
-    for (size_t ch = 0; ch < wav.size(); ++ch) {
-      for (size_t fr = 0; fr < wav[ch].size(); ++fr) {
-        if (!std::isfinite(wav[ch][fr])) {
-          std::unique_lock<std::mutex> lk{mtx};
-          error_stream << "Error " << name << ": Non-finite value " << wav[ch][fr]
-                       << " at channel " << ch << ", frame " << fr << "\n";
-          return;
-        }
-
-        if (!almostEqual(wav[ch][fr], ref.data_[ch][fr])) {
-          std::unique_lock<std::mutex> lk{mtx};
-          error_stream << "Error " << name << ": actual " << wav[ch][fr]
-                       << " and expected " << ref.data_[ch][fr]
-                       << " are not almost equal at channel " << ch << ", frame " << fr
-                       << "\n";
-          return;
-        }
-      }
-    }
-  }
-
   void testSequence(std::shared_ptr<PresetQueue> queue)
   {
     constexpr float sampleRate = 48000;
@@ -200,7 +243,7 @@ public:
       auto dsp = setupDSP();
       if (!dsp) {
         std::unique_lock<std::mutex> lk{mtx};
-        std::cerr << "Error: AVX or later instruction set is not supported.\n";
+        std::cerr << "Error: setupDSP failed.\n";
         return;
       }
       dsp->setup(sampleRate);

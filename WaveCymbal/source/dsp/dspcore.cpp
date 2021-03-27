@@ -55,21 +55,21 @@ DSPCore::DSPCore() { midiNotes.reserve(128); }
 
 void DSPCore::setup(double sampleRate)
 {
-  this->sampleRate = sampleRate;
+  this->sampleRate = float(sampleRate);
 
   midiNotes.resize(0);
 
-  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(this->sampleRate);
   SmootherCommon<float>::setTime(param.value[ParameterID::smoothness]->getFloat());
 
   noteStack.reserve(128);
   noteStack.resize(0);
 
-  pulsar.sampleRate = sampleRate;
-  velvetNoise.sampleRate = sampleRate;
+  pulsar.sampleRate = this->sampleRate;
+  velvetNoise.sampleRate = this->sampleRate;
 
-  excitor.setup(sampleRate);
-  cymbal.setup(sampleRate);
+  excitor.setup(this->sampleRate);
+  cymbal.setup(this->sampleRate);
   setSystem();
 
   startup();
@@ -77,8 +77,18 @@ void DSPCore::setup(double sampleRate)
 
 void DSPCore::reset()
 {
+  pulsar.reset();
+  velvetNoise.reset();
+  brownNoise.reset(0);
+
   excitor.reset();
   cymbal.reset();
+
+  trigger = false;
+
+  interpMasterGain.reset(param.value[ParameterID::gain]->getFloat());
+  interpPitch.reset(0.0f);
+
   startup();
 }
 
@@ -117,7 +127,7 @@ void DSPCore::setParameters()
 void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(float(length));
 
   const bool excitation = param.value[ParameterID::excitation]->getInt();
   const bool collision = param.value[ParameterID::collision]->getInt();

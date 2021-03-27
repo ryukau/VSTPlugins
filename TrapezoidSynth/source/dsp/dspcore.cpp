@@ -33,10 +33,66 @@ inline float paramToPitch(float semi, float cent, float bend)
   return powf(2.0f, (100.0f * floorf(semi) + cent + (bend - 0.5f) * 400.0f) / 1200.0f);
 }
 
+#define ASSIGN_NOTE_PARAMETER(METHOD)                                                    \
+  interpOctave.METHOD(getOctave(param));                                                 \
+  interpOsc1Pitch.setTime(param.value[ParameterID::pitchSlide]->getFloat());             \
+  interpOsc1Pitch.METHOD(getOsc1Pitch(param));                                           \
+  interpOsc2Pitch.setTime(                                                               \
+    param.value[ParameterID::pitchSlide]->getFloat()                                     \
+    * param.value[ParameterID::pitchSlideOffset]->getFloat());                           \
+  interpOsc2Pitch.METHOD(getOsc2Pitch(param));                                           \
+                                                                                         \
+  interpOsc1Slope.METHOD(param.value[ParameterID::osc1Slope]->getFloat());               \
+  interpOsc1PulseWidth.METHOD(param.value[ParameterID::osc1PulseWidth]->getFloat());     \
+  interpOsc2Slope.METHOD(param.value[ParameterID::osc2Slope]->getFloat());               \
+  interpOsc2PulseWidth.METHOD(param.value[ParameterID::osc2PulseWidth]->getFloat());     \
+  interpOscMix.METHOD(param.value[ParameterID::oscMix]->getFloat());                     \
+  interpPitchDrift.METHOD(param.value[ParameterID::osc1PitchDrift]->getFloat());         \
+  interpPhaseMod.METHOD(param.value[ParameterID::pmOsc2ToOsc1]->getFloat());             \
+  interpFeedback.METHOD(param.value[ParameterID::osc1Feedback]->getFloat());             \
+  interpFilterCutoff.METHOD(param.value[ParameterID::filterCutoff]->getFloat());         \
+  interpFilterFeedback.METHOD(param.value[ParameterID::filterFeedback]->getFloat());     \
+  interpFilterSaturation.METHOD(param.value[ParameterID::filterSaturation]->getFloat()); \
+  interpFilterEnvToCutoff.METHOD(                                                        \
+    param.value[ParameterID::filterEnvToCutoff]->getFloat());                            \
+  interpFilterKeyToCutoff.METHOD(                                                        \
+    param.value[ParameterID::filterKeyToCutoff]->getFloat());                            \
+  interpOscMixToFilterCutoff.METHOD(                                                     \
+    param.value[ParameterID::oscMixToFilterCutoff]->getFloat());                         \
+  interpMod1EnvToPhaseMod.METHOD(                                                        \
+    param.value[ParameterID::modEnv1ToPhaseMod]->getFloat());                            \
+  interpMod2EnvToFeedback.METHOD(                                                        \
+    param.value[ParameterID::modEnv2ToFeedback]->getFloat());                            \
+  interpMod2EnvToLFOFrequency.METHOD(                                                    \
+    param.value[ParameterID::modEnv2ToLFOFrequency]->getFloat());                        \
+  interpModEnv2ToOsc2Slope.METHOD(                                                       \
+    param.value[ParameterID::modEnv2ToOsc2Slope]->getFloat());                           \
+  interpMod2EnvToShifter1.METHOD(                                                        \
+    param.value[ParameterID::modEnv2ToShifter1]->getFloat());                            \
+  interpLFOShape.METHOD(param.value[ParameterID::lfoShape]->getFloat());                 \
+  interpLFOToPitch.METHOD(param.value[ParameterID::lfoToPitch]->getFloat());             \
+  interpLFOToSlope.METHOD(param.value[ParameterID::lfoToSlope]->getFloat());             \
+  interpLFOToPulseWidth.METHOD(param.value[ParameterID::lfoToPulseWidth]->getFloat());   \
+  interpLFOToCutoff.METHOD(param.value[ParameterID::lfoToCutoff]->getFloat());           \
+                                                                                         \
+  /* shiftHz = freq * shifterPitch - freq. */                                            \
+  interpShifter1Pitch.METHOD(                                                            \
+    paramToPitch(                                                                        \
+      param.value[ParameterID::shifter1Semi]->getFloat(),                                \
+      param.value[ParameterID::shifter1Cent]->getFloat(), 0.5f)                          \
+    - Sample(1));                                                                        \
+  interpShifter1Gain.METHOD(param.value[ParameterID::shifter1Gain]->getFloat());         \
+  interpShifter2Pitch.METHOD(                                                            \
+    paramToPitch(                                                                        \
+      param.value[ParameterID::shifter2Semi]->getFloat(),                                \
+      param.value[ParameterID::shifter2Cent]->getFloat(), 0.5f)                          \
+    - Sample(1));                                                                        \
+  interpShifter2Gain.METHOD(param.value[ParameterID::shifter2Gain]->getFloat());
+
 template<typename Sample> void TpzMono<Sample>::setup(Sample sampleRate)
 {
   interpOctave.setSampleRate(sampleRate);
-  interpOctave.setTime(0.001);
+  interpOctave.setTime(Sample(0.001));
   interpOsc1Pitch.setSampleRate(sampleRate);
   interpOsc2Pitch.setSampleRate(sampleRate);
   tpzOsc1.sampleRate = 8 * sampleRate;
@@ -51,13 +107,21 @@ template<typename Sample> void TpzMono<Sample>::setup(Sample sampleRate)
   shifter2.setup(sampleRate);
 }
 
-template<typename Sample> void TpzMono<Sample>::reset()
+template<typename Sample> void TpzMono<Sample>::reset(GlobalParameter &param)
 {
   decimationLP.reset();
   filter.reset();
   shifter1.reset();
   shifter2.reset();
   gainEnvelope.terminate();
+  filterEnvelope.terminate();
+
+  noteFreq = 0;
+  normalizedKey = 0;
+
+  ASSIGN_NOTE_PARAMETER(reset);
+
+  interpLFOFrequency.reset(1.0f);
 
   startup();
 }
@@ -75,57 +139,9 @@ template<typename Sample> void TpzMono<Sample>::startup()
 template<typename Sample>
 void TpzMono<Sample>::setParameters(Sample tempo, GlobalParameter &param)
 {
-  interpOctave.push(getOctave(param));
-  interpOsc1Pitch.setTime(param.value[ParameterID::pitchSlide]->getFloat());
-  interpOsc1Pitch.push(getOsc1Pitch(param));
-  interpOsc2Pitch.setTime(
-    param.value[ParameterID::pitchSlide]->getFloat()
-    * param.value[ParameterID::pitchSlideOffset]->getFloat());
-  interpOsc2Pitch.push(getOsc2Pitch(param));
-
-  interpOsc1Slope.push(param.value[ParameterID::osc1Slope]->getFloat());
-  interpOsc1PulseWidth.push(param.value[ParameterID::osc1PulseWidth]->getFloat());
-  interpOsc2Slope.push(param.value[ParameterID::osc2Slope]->getFloat());
-  interpOsc2PulseWidth.push(param.value[ParameterID::osc2PulseWidth]->getFloat());
-  interpOscMix.push(param.value[ParameterID::oscMix]->getFloat());
-  interpPitchDrift.push(param.value[ParameterID::osc1PitchDrift]->getFloat());
-  interpPhaseMod.push(param.value[ParameterID::pmOsc2ToOsc1]->getFloat());
-  interpFeedback.push(param.value[ParameterID::osc1Feedback]->getFloat());
-  interpFilterCutoff.push(param.value[ParameterID::filterCutoff]->getFloat());
-  interpFilterFeedback.push(param.value[ParameterID::filterFeedback]->getFloat());
-  interpFilterSaturation.push(param.value[ParameterID::filterSaturation]->getFloat());
-  interpFilterEnvToCutoff.push(param.value[ParameterID::filterEnvToCutoff]->getFloat());
-  interpFilterKeyToCutoff.push(param.value[ParameterID::filterKeyToCutoff]->getFloat());
-  interpOscMixToFilterCutoff.push(
-    param.value[ParameterID::oscMixToFilterCutoff]->getFloat());
-  interpMod1EnvToPhaseMod.push(param.value[ParameterID::modEnv1ToPhaseMod]->getFloat());
-  interpMod2EnvToFeedback.push(param.value[ParameterID::modEnv2ToFeedback]->getFloat());
-  interpMod2EnvToLFOFrequency.push(
-    param.value[ParameterID::modEnv2ToLFOFrequency]->getFloat());
-  interpModEnv2ToOsc2Slope.push(param.value[ParameterID::modEnv2ToOsc2Slope]->getFloat());
-  interpMod2EnvToShifter1.push(param.value[ParameterID::modEnv2ToShifter1]->getFloat());
-  interpLFOShape.push(param.value[ParameterID::lfoShape]->getFloat());
-  interpLFOToPitch.push(param.value[ParameterID::lfoToPitch]->getFloat());
-  interpLFOToSlope.push(param.value[ParameterID::lfoToSlope]->getFloat());
-  interpLFOToPulseWidth.push(param.value[ParameterID::lfoToPulseWidth]->getFloat());
-  interpLFOToCutoff.push(param.value[ParameterID::lfoToCutoff]->getFloat());
-
-  // shiftHz = freq * shifterPitch - freq.
-  interpShifter1Pitch.push(
-    paramToPitch(
-      param.value[ParameterID::shifter1Semi]->getFloat(),
-      param.value[ParameterID::shifter1Cent]->getFloat(), 0.5f)
-    - Sample(1));
-  interpShifter1Gain.push(param.value[ParameterID::shifter1Gain]->getFloat());
-  interpShifter2Pitch.push(
-    paramToPitch(
-      param.value[ParameterID::shifter2Semi]->getFloat(),
-      param.value[ParameterID::shifter2Cent]->getFloat(), 0.5f)
-    - Sample(1));
-  interpShifter2Gain.push(param.value[ParameterID::shifter2Gain]->getFloat());
+  ASSIGN_NOTE_PARAMETER(push);
 
   float lfoFreq = param.value[ParameterID::lfoFrequency]->getFloat();
-  // tempo / 60 is Hz for a 1/4 beat.
   if (param.value[ParameterID::lfoTempoSync]->getInt()) {
     lfoFreq = lfoFreq * tempo / 240.0f;
   }
@@ -241,7 +257,7 @@ template<typename Sample> Sample TpzMono<Sample>::process(const size_t bufferSiz
 {
   if (gainEnvelope.isTerminated()) return 0;
 
-  const auto modEnv2Sig = modEnvelope2.process();
+  const auto modEnv2Sig = float(modEnvelope2.process());
   lfo.setFreq(
     interpLFOFrequency.process() + modEnv2Sig * interpMod2EnvToLFOFrequency.process());
   lfo.pw = interpLFOShape.process();
@@ -275,7 +291,7 @@ template<typename Sample> Sample TpzMono<Sample>::process(const size_t bufferSiz
   tpzOsc2.setPulseWidth(interpOsc2PulseWidth.process());
 
   const auto oscMix = interpOscMix.process();
-  const auto modEnv1Sig = modEnvelope1.process();
+  const auto modEnv1Sig = float(modEnvelope1.process());
   tpzOsc1.addPhase(
     feedbackBuffer
       * (interpMod2EnvToFeedback.process() * modEnv2Sig + interpFeedback.process())
@@ -332,19 +348,17 @@ DSPCore::DSPCore() { midiNotes.reserve(128); }
 
 void DSPCore::setup(double sampleRate)
 {
-  this->sampleRate = sampleRate;
+  this->sampleRate = float(sampleRate);
 
   midiNotes.resize(0);
 
-  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(this->sampleRate);
   SmootherCommon<float>::setTime(0.01f);
 
   noteStack.reserve(128);
   noteStack.resize(0);
 
-  tpz1.setup(sampleRate);
-
-  interpMasterGain.reset(param.value[ParameterID::gain]->getFloat());
+  tpz1.setup(this->sampleRate);
 
   reset();
   startup();
@@ -354,7 +368,8 @@ void DSPCore::free() {}
 
 void DSPCore::reset()
 {
-  tpz1.reset();
+  tpz1.reset(param);
+  interpMasterGain.reset(param.value[ParameterID::gain]->getFloat());
   startup();
 }
 
@@ -366,12 +381,12 @@ void DSPCore::setParameters(double tempo)
 
   interpMasterGain.push(velocity * param.value[ParameterID::gain]->getFloat());
 
-  tpz1.setParameters(tempo, param);
+  tpz1.setParameters(float(tempo), param);
 }
 
 void DSPCore::process(const size_t length, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(float(length));
 
   float sample = 1.0;
   for (uint32_t i = 0; i < length; ++i) {

@@ -47,7 +47,7 @@ private:
 // t in [0, 1].
 template<typename Sample> inline Sample cosinterp(Sample t)
 {
-  return 0.5 * (1.0 - std::cos(pi * t));
+  return Sample(0.5) * (Sample(1) - std::cos(Sample(pi) * t));
 }
 
 enum class EnvelopeCurveType { attack, decay };
@@ -140,8 +140,8 @@ public:
 
   Sample at(Sample pos)
   {
-    size_t low = phase;
-    size_t high = std::ceil(phase);
+    size_t low = size_t(phase);
+    size_t high = size_t(std::ceil(phase));
     auto outF = tableF[low] + (pos - low) * (tableF[high] - tableF[low]);
     auto outR = tableR[low] + (pos - low) * (tableR[high] - tableR[low]);
     return outF + curve * (outR - outF);
@@ -239,7 +239,16 @@ public:
     state = State::release;
   }
 
-  void terminate() { state = State::terminated; }
+  void terminate()
+  {
+    state = State::terminated;
+    value = 0;
+    output = 0;
+    offset = 0;
+    range = 1;
+    smoother.reset();
+  }
+
   bool isReleasing() { return state == State::release; }
   bool isTerminated() { return state == State::terminated; }
   Sample getValue() { return output; }

@@ -41,27 +41,6 @@
 
 constexpr float delayMaxTime = 1.0f;
 
-inline float clamp(float value, float min, float max)
-{
-  return (value < min) ? min : (value > max) ? max : value;
-}
-
-inline float calcMasterPitch(int32_t octave, int32_t semi, int32_t milli, float bend)
-{
-  return 12 * octave + semi + milli / 1000.0f + (bend - 0.5f) * 4.0f;
-}
-
-inline float calcDelayPitch(int32_t semi, int32_t milli, float equalTemperament)
-{
-  return powf(2.0f, -(semi + 0.001f * milli) / equalTemperament);
-}
-
-inline float
-notePitchToFrequency(float notePitch, float equalTemperament, float a4Hz = 440.0f)
-{
-  return a4Hz * powf(2.0f, (notePitch - 69.0f) / equalTemperament);
-}
-
 // Approximation of `440 * powf(2, x * 10 - 5.75);`.
 // x in [0.0, 1.0].
 inline float mapCutoff(float x)
@@ -135,7 +114,12 @@ void NOTE_NAME::release()
   filterEnvelope.release();
 }
 
-void NOTE_NAME::rest() { state = NoteState::rest; }
+void NOTE_NAME::rest()
+{
+  state = NoteState::rest;
+  id = -1;
+  gain = 0;
+}
 
 bool NOTE_NAME::isAttacking() { return gainEnvelope.isAttacking(); }
 
@@ -181,17 +165,17 @@ DSPCORE_NAME::DSPCORE_NAME()
 
 void DSPCORE_NAME::setup(double sampleRate)
 {
-  this->sampleRate = sampleRate;
+  this->sampleRate = float(sampleRate);
 
   midiNotes.resize(0);
 
-  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(this->sampleRate);
   SmootherCommon<float>::setTime(0.04f);
 
-  for (auto &note : notes) note.setup(sampleRate);
+  for (auto &note : notes) note.setup(this->sampleRate);
 
   // 2 msec + 1 sample transition time.
-  transitionBuffer.resize(1 + size_t(sampleRate * 0.01), {0.0f, 0.0f});
+  transitionBuffer.resize(1 + size_t(this->sampleRate * 0.01), {0.0f, 0.0f});
 
   startup();
   prepareRefresh = true;
@@ -199,8 +183,19 @@ void DSPCORE_NAME::setup(double sampleRate)
 
 void DSPCORE_NAME::reset()
 {
+  using ID = ParameterID::ID;
+
+  panCounter = 0;
   for (auto &note : notes) note.rest();
-  info.reset();
+
+  info.reset(param, sampleRate);
+  interpMasterGain.reset(param.value[ID::gain]->getFloat());
+
+  for (auto &buf : transitionBuffer) buf.fill(0);
+  isTransitioning = false;
+  trIndex = 0;
+  trStop = 0;
+
   startup();
 }
 
@@ -271,7 +266,7 @@ void DSPCORE_NAME::setParameters(float tempo)
 
 void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(float(length));
 
   std::array<float, 2> frame{};
   for (uint32_t i = 0; i < length; ++i) {

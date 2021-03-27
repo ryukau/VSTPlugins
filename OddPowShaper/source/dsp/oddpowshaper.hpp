@@ -29,8 +29,8 @@ template<typename Sample> inline Sample safeClip(Sample input)
 
 template<typename Sample> class OddPowShaper {
 public:
-  Sample drive = 1;  // Must be greater than 0.
-  uint8_t order = 0; // exponential = 2 * (1 + order).
+  Sample drive = 1; // Must be greater than 0.
+  size_t order = 0; // exponential = 2 * (1 + order).
   bool flip = false;
   bool inverse = false;
 
@@ -51,7 +51,7 @@ public:
     y2 *= y2;
 
     Sample expo = y2;
-    for (uint8_t i = 0; i < order; ++i) expo *= y2;
+    for (size_t i = 0; i < order; ++i) expo *= y2;
     if (inverse) expo = Sample(1) / (Sample(1) + expo);
     if (flip) expo = Sample(1) - expo;
 
@@ -64,7 +64,7 @@ public:
   Sample process16(Sample x0)
   {
     Sample diff = x0 - x1;
-    for (int i = 0; i < 16; ++i) lowpass.push(process(x1 + i / Sample(16) * diff));
+    for (size_t i = 0; i < 16; ++i) lowpass.push(process(x1 + i / Sample(16) * diff));
     x1 = x0;
     if (std::isfinite(lowpass.output())) return lowpass.output();
 

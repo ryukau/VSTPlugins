@@ -34,13 +34,27 @@
 
 void DSPCORE_NAME::setup(double sampleRate)
 {
-  this->sampleRate = sampleRate;
+  this->sampleRate = float(sampleRate);
 
-  SmootherCommon<float>::setSampleRate(sampleRate);
+  SmootherCommon<float>::setSampleRate(this->sampleRate);
   SmootherCommon<float>::setTime(0.2f);
 
   startup();
 }
+
+#define ASSIGN_PARAMETER(METHOD)                                                         \
+  using ID = ParameterID::ID;                                                            \
+                                                                                         \
+  SmootherCommon<float>::setTime(param.value[ID::smoothness]->getFloat());               \
+                                                                                         \
+  interpInputGain.METHOD(param.value[ID::inputGain]->getFloat());                        \
+  interpOutputGain.METHOD(param.value[ID::outputGain]->getFloat());                      \
+  interpClip.METHOD(param.value[ID::clip]->getFloat());                                  \
+  interpOrder.METHOD(float(                                                              \
+    param.value[ID::orderInteger]->getInt()                                              \
+    + param.value[ID::orderFraction]->getInt()));                                        \
+  interpRatio.METHOD(param.value[ID::ratio]->getFloat());                                \
+  interpSlope.METHOD(param.value[ID::slope]->getFloat());
 
 void DSPCORE_NAME::reset()
 {
@@ -48,29 +62,18 @@ void DSPCORE_NAME::reset()
   startup();
 }
 
-void DSPCORE_NAME::startup() {}
+void DSPCORE_NAME::startup() { ASSIGN_PARAMETER(reset); }
 
 void DSPCORE_NAME::setParameters()
 {
-  using ID = ParameterID::ID;
-
-  SmootherCommon<float>::setTime(param.value[ID::smoothness]->getFloat());
-
-  interpInputGain.push(param.value[ID::inputGain]->getFloat());
-  interpOutputGain.push(param.value[ID::outputGain]->getFloat());
-  interpClip.push(param.value[ID::clip]->getFloat());
-  interpOrder.push(
-    param.value[ID::orderInteger]->getInt() + param.value[ID::orderFraction]->getInt());
-  interpRatio.push(param.value[ID::ratio]->getFloat());
-  interpSlope.push(param.value[ID::slope]->getFloat());
-
+  ASSIGN_PARAMETER(push);
   oversample = param.value[ID::oversample]->getInt();
 }
 
 void DSPCORE_NAME::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(length);
+  SmootherCommon<float>::setBufferSize(float(length));
 
   for (uint32_t i = 0; i < length; ++i) {
     auto inGain = interpInputGain.process();

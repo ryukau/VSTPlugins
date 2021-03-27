@@ -112,7 +112,7 @@ public:
   LinearSmoother<Sample> interpShifter2Gain;
 
   void setup(Sample sampleRate);
-  void reset();
+  void reset(GlobalParameter &param);
   void startup();
   void setParameters(Sample tempo, GlobalParameter &param);
   void
