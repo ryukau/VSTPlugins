@@ -109,7 +109,7 @@ function(build_vst3 plug_sources)
   target_link_libraries(${target} PRIVATE
     ${dspcore_avx}
     ${dspcore_avx2}
-    # ${dspcore_avx512}
+    ${dspcore_avx512}
     UhhyouCommon
     fftw3
     base
