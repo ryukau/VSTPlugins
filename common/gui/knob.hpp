@@ -194,8 +194,8 @@ public:
     auto tipLength = halfArcWidth - radius;
     pContext->setLineWidth(halfArcWidth / 2.0);
     pContext->drawLine(
-      mapValueToSlit(defaultValue / getRange(), tipLength * defaultTickLength),
-      mapValueToSlit(defaultValue / getRange(), tipLength));
+      mapValueToSlit(getDefaultValue() / getRange(), tipLength * defaultTickLength),
+      mapValueToSlit(getDefaultValue() / getRange(), tipLength));
 
     // Line from center to tip.
     auto tip = mapValueToSlit(getValueNormalized(), tipLength);
@@ -385,8 +385,8 @@ public:
     auto tipLength = halfArcWidth - radius;
     pContext->setLineWidth(halfArcWidth / 2.0);
     pContext->drawLine(
-      mapValueToSlit(defaultValue / getRange(), tipLength * defaultTickLength),
-      mapValueToSlit(defaultValue / getRange(), tipLength));
+      mapValueToSlit(getDefaultValue() / getRange(), tipLength * defaultTickLength),
+      mapValueToSlit(getDefaultValue() / getRange(), tipLength));
 
     // Text.
     pContext->setFont(fontId);

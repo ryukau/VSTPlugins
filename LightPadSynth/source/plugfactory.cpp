@@ -61,7 +61,7 @@ DEF_CLASS2(
 END_FACTORY
 
 // called after library was loaded
-bool InitModule() { return true; }
+inline bool InitModule() { return true; }
 
 // called after library is unloaded
-bool DeinitModule() { return true; }
+inline bool DeinitModule() { return true; }

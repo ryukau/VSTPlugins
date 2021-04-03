@@ -20,6 +20,7 @@
 #include "pluginterfaces/vst/ivstcontextmenu.h"
 #include "pluginterfaces/vst/ivstplugview.h"
 #include "public.sdk/source/vst/vstguieditor.h"
+#include "vstgui/lib/platform/iplatformframecallback.h"
 
 #include "../parameterInterface.hpp"
 #include "arraycontrol.hpp"
@@ -51,22 +52,115 @@ using namespace VSTGUI;
 
 class PlugEditor : public VSTGUIEditor, public IControlListener, public IMouseObserver {
 public:
-  PlugEditor(void *controller);
-  ~PlugEditor();
+  PlugEditor(void *controller) : VSTGUIEditor(controller) { setRect(viewRect); }
 
-  bool PLUGIN_API
-  open(void *parent, const PlatformType &platformType = kDefaultNative) override;
-  void PLUGIN_API close() override;
-  virtual void valueChanged(CControl *pControl) override;
-  virtual void valueChanged(ParamID id, ParamValue normalized);
-  virtual void updateUI(Vst::ParamID id, ParamValue normalized);
+  ~PlugEditor()
+  {
+    for (auto &ctrl : controlMap)
+      if (ctrl.second) ctrl.second->forget();
+
+    for (auto &ctrl : arrayControlInstances)
+      if (ctrl.second) ctrl.second->forget();
+  }
+
+  bool PLUGIN_API open(
+    void *parent,
+    const PlatformType &platformType = PlatformType::kDefaultNative) override
+  {
+    if (frame) return false;
+
+    setIdleRate(1000 / 60);
+
+    frame = new CFrame(
+      CRect(viewRect.left, viewRect.top, viewRect.right, viewRect.bottom), this);
+    if (frame == nullptr) return false;
+    frame->setBackgroundColor(palette.background());
+    frame->registerMouseObserver(this);
+
+    IPlatformFrameConfig *config = nullptr;
+#if LINUX
+    X11::FrameConfig x11config;
+    x11config.runLoop = VSTGUI::owned(new RunLoop(plugFrame));
+    config = &x11config;
+#endif
+    frame->open(parent, platformType, config);
+
+    return prepareUI();
+  }
+
+  void PLUGIN_API close() override
+  {
+    if (frame != nullptr) {
+      frame->forget();
+      frame = nullptr;
+    }
+  }
+
+  virtual void valueChanged(CControl *pControl) override
+  {
+    ParamID tag = pControl->getTag();
+    ParamValue value = pControl->getValueNormalized();
+    controller->setParamNormalized(tag, value);
+    controller->performEdit(tag, value);
+  }
+
+  virtual void valueChanged(ParamID id, ParamValue normalized)
+  {
+    controller->setParamNormalized(id, normalized);
+    controller->performEdit(id, normalized);
+  }
+
+  virtual void updateUI(Vst::ParamID id, ParamValue normalized)
+  {
+    auto vCtrl = controlMap.find(id);
+    if (vCtrl != controlMap.end()) {
+      vCtrl->second->setValueNormalized(normalized);
+      vCtrl->second->invalid();
+      return;
+    }
+
+    auto aCtrl = arrayControlMap.find(id);
+    if (aCtrl != arrayControlMap.end()) {
+      aCtrl->second->setValueAt(id - aCtrl->second->id.front(), normalized);
+      aCtrl->second->invalid();
+      return;
+    }
+  }
 
   virtual void onMouseEntered(CView *view, CFrame *frame) override {}
   virtual void onMouseExited(CView *view, CFrame *frame) override {}
+
   virtual CMouseEventResult
-  onMouseMoved(CFrame *frame, const CPoint &where, const CButtonState &buttons) override;
+  onMouseMoved(CFrame *frame, const CPoint &where, const CButtonState &buttons) override
+  {
+    return kMouseEventNotHandled;
+  }
+
   virtual CMouseEventResult
-  onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &buttons) override;
+  onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &buttons) override
+  {
+    if (!buttons.isRightButton()) return kMouseEventNotHandled;
+
+    auto componentHandler = controller->getComponentHandler();
+    if (componentHandler == nullptr) return kMouseEventNotHandled;
+
+    FUnknownPtr<IComponentHandler3> handler(componentHandler);
+    if (handler == nullptr) return kMouseEventNotHandled;
+
+    auto control = dynamic_cast<CControl *>(frame->getViewAt(where));
+    if (control == nullptr) return kMouseEventNotHandled;
+
+    // Context menu will not popup when the control has negative tag.
+    ParamID id = control->getTag();
+    if (id < 1 || id >= LONG_MAX) return kMouseEventNotHandled;
+
+    IContextMenu *menu = handler->createContextMenu(this, &id);
+    if (menu == nullptr) return kMouseEventNotHandled;
+
+    menu->popup(where.x, where.y);
+    menu->release();
+    return kMouseEventHandled;
+  }
 
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
@@ -615,7 +709,14 @@ protected:
     arrayControlInstances.emplace(std::make_pair(id0, control));
   }
 
-  void addToControlMap(Vst::ParamID id, CControl *control);
+  void addToControlMap(Vst::ParamID id, CControl *control)
+  {
+    auto iter = controlMap.find(id);
+    if (iter != controlMap.end()) iter->second->forget();
+    control->remember();
+    controlMap.insert({id, control});
+  }
+
   virtual bool prepareUI() = 0;
 
   std::unique_ptr<ParameterInterface> param;
