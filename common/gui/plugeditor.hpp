@@ -41,6 +41,8 @@
 #include "textview.hpp"
 #include "xypad.hpp"
 
+#include "x11runloop.hpp"
+
 #include <memory>
 #include <tuple>
 #include <unordered_map>

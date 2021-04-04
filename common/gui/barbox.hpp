@@ -26,6 +26,8 @@
 
 #include <algorithm>
 #include <random>
+#include <sstream>
+#include <string>
 
 namespace VSTGUI {
 
