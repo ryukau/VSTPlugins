@@ -644,6 +644,28 @@ public:
     return view;
   }
 
+  template<typename Scale>
+  auto addValueTextView(
+    CCoord left,
+    CCoord top,
+    CCoord width,
+    CCoord height,
+    CCoord textSize,
+    std::string name,
+    ParamID tag,
+    Scale &scale)
+  {
+    auto view = new ValueTextView<Scale>(
+      CRect(left, top, left + width, top + height), name,
+      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette,
+      scale);
+    view->setValueNormalized(controller->getParamNormalized(tag));
+    view->setDefaultValue(param->getDefaultNormalized(tag));
+    frame->addView(view);
+    addToControlMap(tag, view);
+    return view;
+  }
+
   template<Uhhyou::Style style = Uhhyou::Style::common>
   auto addVSlider(
     CCoord left,

@@ -7,9 +7,6 @@ project(UhhyouCommon)
 
 add_library(UhhyouCommon OBJECT
   gui/style.cpp
-  gui/optionmenu.cpp
-  gui/slider.cpp
-  gui/splash.cpp
-  gui/tabview.cpp)
+  gui/splash.cpp)
 
 target_include_directories(UhhyouCommon PUBLIC "${SMTG_VSTGUI_ROOT}/vstgui4")

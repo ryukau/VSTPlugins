@@ -40,14 +40,42 @@ public:
 
   CLASS_METHODS(Slider, CSlider);
 
-  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseCancel() override;
+  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override
+  {
+    setFrameWidth(highlightFrameWidth);
+    setFrameColor(highlightColor);
+    return kMouseEventHandled;
+  }
 
-  void setDefaultFrameColor(CColor color);
-  void setHighlightColor(CColor color);
-  void setDefaultFrameWidth(float width);
-  void setHighlightWidth(float width);
+  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override
+  {
+    setFrameWidth(frameWidth);
+    setFrameColor(frameColor);
+    return kMouseEventHandled;
+  }
+
+  CMouseEventResult onMouseCancel() override
+  {
+    setFrameWidth(frameWidth);
+    setFrameColor(frameColor);
+    return CSlider::onMouseCancel();
+  }
+
+  void setDefaultFrameColor(CColor color)
+  {
+    frameColor = color;
+    setFrameColor(frameColor);
+  }
+
+  void setHighlightColor(CColor color) { highlightColor = color; }
+
+  void setDefaultFrameWidth(float width)
+  {
+    frameWidth = width;
+    setFrameWidth(frameWidth);
+  }
+
+  void setHighlightWidth(float width) { highlightFrameWidth = width; }
 
 protected:
   CColor frameColor = CColor(0xee, 0xee, 0xee, 255);

@@ -80,7 +80,7 @@ public:
   // override; CMouseEventResult onMouseMoved(CPoint &where, const CButtonState &buttons)
   // override;
 
-  CLASS_METHODS(TextView, CView);
+  CLASS_METHODS(TextView, CControl);
 
 protected:
   std::vector<std::string> str;
@@ -92,8 +92,8 @@ protected:
 
 class TextTableView : public CControl {
 public:
-  const char rowDelimiter = '\n';
-  const char colDelimiter = '|';
+  static constexpr char rowDelimiter = '\n';
+  static constexpr char colDelimiter = '|';
 
   CCoord cellWidth = 100.0;
   CCoord lineHeight = 20.0;
@@ -153,7 +153,7 @@ public:
   // override; CMouseEventResult onMouseMoved(CPoint &where, const CButtonState &buttons)
   // override;
 
-  CLASS_METHODS(TextTableView, CView);
+  CLASS_METHODS(TextTableView, CControl);
 
 protected:
   std::vector<std::vector<std::string>> table;
@@ -161,6 +161,54 @@ protected:
   Uhhyou::Palette &pal;
 
   bool isMouseEntered = false;
+};
+
+template<typename Scale> class ValueTextView : public CControl {
+public:
+  double lineHeight = 20.0;
+
+  ValueTextView(
+    const CRect &size,
+    std::string name,
+    CFontRef fontId,
+    Uhhyou::Palette &palette,
+    Scale &scale)
+    : CControl(size, nullptr, -1), fontId(fontId), pal(palette), scale(scale)
+  {
+    this->fontId->remember();
+    setName(name);
+  }
+
+  ~ValueTextView()
+  {
+    if (fontId != nullptr) fontId->forget();
+  }
+
+  void setName(std::string name) { name_ = name; }
+
+  void draw(CDrawContext *pContext) override
+  {
+    pContext->setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));
+    CDrawContext::Transform t(
+      *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
+
+    // Text.
+    pContext->setFont(fontId);
+    pContext->setFontColor(pal.foreground());
+    pContext->drawString(name_.c_str(), CRect(0, 0, getWidth(), lineHeight), kLeftText);
+
+    std::string value_str = std::to_string(scale.map(value));
+    pContext->drawString(
+      value_str.c_str(), CRect(getWidth() / 2, 0, getWidth(), lineHeight), kLeftText);
+  }
+
+  CLASS_METHODS(ValueTextView, CControl);
+
+protected:
+  std::string name_;
+  CFontRef fontId = nullptr;
+  Uhhyou::Palette &pal;
+  Scale &scale;
 };
 
 } // namespace VSTGUI
