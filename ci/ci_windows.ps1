@@ -10,6 +10,8 @@ mkdir build
 mkdir target
 $SRC_ROOT = (Get-Item .).FullName
 
+cmake --version
+
 # SMTG_PLUGIN_TARGET_PATH must be set for GitHub Actions. Because cmake can't
 # reach the default path which is `C:/Program Files/Common Files/VST3`.
 cmake `
@@ -17,6 +19,7 @@ cmake `
   -B build `
   -G "Visual Studio 16 2019" `
   -A x64 `
+  -DCMAKE_BUILD_TYPE=Release `
   -DSMTG_MYPLUGINS_SRC_PATH="$SRC_ROOT\VSTPlugins" `
   -DSMTG_PLUGIN_TARGET_PATH="$SRC_ROOT\target" `
   -DSMTG_ADD_VST3_HOSTING_SAMPLES=FALSE `
