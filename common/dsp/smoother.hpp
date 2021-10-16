@@ -77,7 +77,7 @@ public:
     kp = Sample(EMAFilter<double>::cutoffToP(
       sampleRate, std::clamp<double>(1.0 / seconds, 0.0, sampleRate / 2.0)));
   }
-  static void setBufferSize(Sample _bufferSize) { bufferSize = _bufferSize; }
+  static void setBufferSize(Sample bufferSize) { this->bufferSize = bufferSize; }
 
   static Sample sampleRate;
   static Sample timeInSamples;
