@@ -232,7 +232,7 @@ public:
     uint32_t nRow,
     uint32_t nColumn,
     std::vector<ParamID> id,
-    TextView *textView)
+    TextView *textView = nullptr)
   {
     std::vector<double> value(id.size());
     for (size_t i = 0; i < value.size(); ++i)
