@@ -119,15 +119,14 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 
   if (data.inputEvents != nullptr) handleEvent(data);
 
-  if (dsp.param.value[ParameterID::bypass]->getInt()) {
-    processBypass(data);
-  } else {
-    float *in0 = data.inputs[0].channelBuffers32[0];
-    float *in1 = data.inputs[0].channelBuffers32[1];
-    float *out0 = data.outputs[0].channelBuffers32[0];
-    float *out1 = data.outputs[0].channelBuffers32[1];
-    dsp.process((size_t)data.numSamples, in0, in1, out0, out1);
-  }
+  float *in0 = data.inputs[0].channelBuffers32[0];
+  float *in1 = data.inputs[0].channelBuffers32[1];
+  float *out0 = data.outputs[0].channelBuffers32[0];
+  float *out1 = data.outputs[0].channelBuffers32[1];
+  dsp.process((size_t)data.numSamples, in0, in1, out0, out1);
+
+  // Inefficient, but this makes unmuting more intuitive.
+  if (dsp.param.value[ParameterID::bypass]->getInt()) processBypass(data);
 
   return kResultOk;
 }

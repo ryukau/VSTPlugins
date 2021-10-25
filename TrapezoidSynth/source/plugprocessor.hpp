@@ -52,13 +52,9 @@ public:
     return (Vst::IAudioProcessor *)new PlugProcessor();
   }
 
-  void processSignal(Vst::ProcessData &data);
   void handleEvent(Vst::ProcessData &data);
 
 protected:
-  int64_t bypassCounter = 0;
-  int64_t bypassFadeLength = 1;
-
   uint64_t lastState = 0;
   DSPCore dsp;
 };

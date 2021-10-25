@@ -139,7 +139,9 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   if (data.outputs[0].numChannels != 2) return kResultOk;
   if (data.symbolicSampleSize == Vst::kSample64) return kResultOk;
 
-  if (dsp->param.value[ParameterID::bypass]->getInt()) {
+  auto isBypassing = dsp->param.value[ParameterID::bypass]->getInt();
+  if (isBypassing) {
+    if (!wasBypassing) dsp->reset();
     processBypass(data);
   } else {
     float *in0 = data.inputs[0].channelBuffers32[0];
@@ -148,6 +150,7 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
     float *out1 = data.outputs[0].channelBuffers32[1];
     dsp->process((size_t)data.numSamples, in0, in1, out0, out1);
   }
+  wasBypassing = isBypassing;
 
   return kResultOk;
 }

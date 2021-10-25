@@ -241,8 +241,13 @@ void DSPCore::process(
          - sample);
 
     const float masterGain = interpMasterGain.process();
-    out0[i] = masterGain * sample;
-    out1[i] = masterGain * sample;
+
+    // Only write to buffer if bypass is off. This is because VST 3 specification says
+    // that input and output buffer may points to the same memory region.
+    if (!param.value[ParameterID::bypass]->getInt()) {
+      out0[i] = masterGain * sample;
+      out1[i] = masterGain * sample;
+    }
   }
 }
 

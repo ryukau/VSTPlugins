@@ -63,6 +63,7 @@ protected:
   }
 
   uint64_t lastState = 0;
+  uint32_t wasBypassing = 0;
   std::unique_ptr<DSPInterface> dsp;
 };
 

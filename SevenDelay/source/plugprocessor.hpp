@@ -56,6 +56,7 @@ public:
 
 protected:
   uint32_t lastState = 0;
+  uint32_t wasBypassing = 0;
   DSPCore dsp;
 };
 
