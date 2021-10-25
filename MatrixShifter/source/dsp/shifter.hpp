@@ -1,4 +1,4 @@
-// (c) 2019-2020 Takamitsu Endo
+// (c) 2021 Takamitsu Endo
 //
 // This file is part of MatrixShifter.
 //
@@ -98,21 +98,6 @@ public:
       return v0 * A * A + v1 * k * (A - Sample(1)) * A + v2 * (Sample(1) - A * A);
     }
     return Sample(0); // Shouldn't reach here.
-  }
-};
-
-template<typename Sample> class LFO {
-public:
-  Sample phase = 0;
-
-  void reset() { phase = 0; }
-
-  Sample process(Sample sampleRate, Sample hz, Sample skew, Sample phaseOffset)
-  {
-    phase += hz / sampleRate;
-    phase -= std::floor(phase);
-    const auto ph = phaseOffset + phase - skew * (phase * phase - phase);
-    return 0.5f + 0.5f * std::sin(Sample(twopi) * ph);
   }
 };
 
@@ -316,7 +301,7 @@ public:
     for (size_t idx = 0; idx < nParallel; ++idx) {
       output += norm * std::cos(theta + Sample(twopi) * (phase[idx] + phaseOffset));
 
-      phase[idx] += std::clamp<Sample>(shiftHz[idx] / sampleRate, 0, 1);
+      phase[idx] += shiftHz[idx] / sampleRate;
       phase[idx] -= std::floor(phase[idx]);
     }
 

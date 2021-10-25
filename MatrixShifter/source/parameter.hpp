@@ -49,12 +49,15 @@ enum ID {
   shiftDelay0 = 1 + nShifter,
   shiftGain0 = 1 + nShifter + nSerial,
 
-  lfoHz = 1 + nShifter + 2 * nSerial,
-  lfoAmount,
+  lfoRate = 1 + nShifter + 2 * nSerial,
+  lfoLrPhaseOffset,
+  lfoTempoSync,
+  lfoSyncUpper,
+  lfoSyncLower,
+  lfoToDelay,
   lfoSkew,
-  lfoShiftOffset,
+  lfoToPitchShift,
   shiftMix,
-  shiftPhase,
   shiftFeedbackGain,
   shiftSemiMultiplier,
   gain,
@@ -75,13 +78,14 @@ struct Scales {
   static SomeDSP::LinearScale<double> shiftSemi;
   static SomeDSP::LogScale<double> shiftDelay;
   static SomeDSP::DecibelScale<double> shiftGain;
-  static SomeDSP::LinearScale<double> shiftPhase;
   static SomeDSP::DecibelScale<double> shiftFeedbackGain;
   static SomeDSP::SemitoneScale<double> shiftFeedbackCutoff;
   static SomeDSP::LogScale<double> shiftSemiMultiplier;
 
-  static SomeDSP::SemitoneScale<double> lfoHz;
-  static SomeDSP::LinearScale<double> lfoShiftOffset;
+  static SomeDSP::SemitoneScale<double> lfoRate;
+  static SomeDSP::LinearScale<double> lfoLrPhaseOffset;
+  static SomeDSP::UIntScale<double> lfoSync;
+  static SomeDSP::LinearScale<double> lfoToPitchShift;
   static SomeDSP::LinearScale<double> lfoToFeedbackCutoff;
   static SomeDSP::DecibelScale<double> gain;
 
@@ -125,19 +129,25 @@ struct GlobalParameter : public ParameterInterface {
         (shiftHzLabel + indexStr).c_str(), Info::kCanAutomate);
     }
 
-    value[ID::lfoHz]
-      = std::make_unique<SemitoneValue>(0.5, Scales::lfoHz, "lfoHz", Info::kCanAutomate);
-    value[ID::lfoAmount] = std::make_unique<LinearValue>(
-      0.0, Scales::defaultScale, "lfoAmount", Info::kCanAutomate);
+    value[ID::lfoRate] = std::make_unique<SemitoneValue>(
+      Scales::lfoRate.invmap(1.0), Scales::lfoRate, "lfoRate", Info::kCanAutomate);
+    value[ID::lfoLrPhaseOffset] = std::make_unique<LinearValue>(
+      0.5, Scales::lfoLrPhaseOffset, "lfoLrPhaseOffset", Info::kCanAutomate);
+    value[ID::lfoTempoSync] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "lfoTempoSync", Info::kCanAutomate);
+    value[ID::lfoSyncUpper] = std::make_unique<UIntValue>(
+      0, Scales::lfoSync, "lfoSyncUpper", Info::kCanAutomate);
+    value[ID::lfoSyncLower] = std::make_unique<UIntValue>(
+      0, Scales::lfoSync, "lfoSyncLower", Info::kCanAutomate);
+    value[ID::lfoToDelay] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "lfoToDelay", Info::kCanAutomate);
     value[ID::lfoSkew] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "lfoSkew", Info::kCanAutomate);
-    value[ID::lfoShiftOffset] = std::make_unique<LinearValue>(
-      0.5, Scales::lfoShiftOffset, "lfoShiftOffset", Info::kCanAutomate);
+    value[ID::lfoToPitchShift] = std::make_unique<LinearValue>(
+      0.5, Scales::lfoToPitchShift, "lfoToPitchShift", Info::kCanAutomate);
 
     value[ID::shiftMix] = std::make_unique<LinearValue>(
       0.75, Scales::defaultScale, "shiftMix", Info::kCanAutomate);
-    value[ID::shiftPhase] = std::make_unique<LinearValue>(
-      0.5, Scales::shiftPhase, "shiftPhase", Info::kCanAutomate);
     value[ID::shiftFeedbackGain] = std::make_unique<DecibelValue>(
       Scales::shiftFeedbackGain.invmap(0.0), Scales::shiftFeedbackGain,
       "shiftFeedbackGain", Info::kCanAutomate);

@@ -20,6 +20,7 @@
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
+#include "lfo.hpp"
 #include "shifter.hpp"
 
 #include <array>
@@ -34,11 +35,14 @@ public:
   virtual ~DSPInterface(){};
 
   GlobalParameter param;
+  bool isPlaying = false;
+  float tempo = 120.0f;
+  float beatsElapsed = 0.0f;
 
   virtual void setup(double sampleRate) = 0;
   virtual void reset() = 0;   // Stop sounds.
   virtual void startup() = 0; // Reset phase, random seed etc.
-  virtual void setParameters(float tempo) = 0;
+  virtual void setParameters() = 0;
   virtual void process(
     const size_t length, const float *in0, const float *in1, float *out0, float *out1)
     = 0;
@@ -50,7 +54,7 @@ public:
     void setup(double sampleRate) override;                                              \
     void reset() override;                                                               \
     void startup() override;                                                             \
-    void setParameters(float tempo) override;                                            \
+    void setParameters() override;                                                       \
     void process(                                                                        \
       const size_t length,                                                               \
       const float *in0,                                                                  \
@@ -59,6 +63,8 @@ public:
       float *out1) override;                                                             \
                                                                                          \
   private:                                                                               \
+    float getTempoSyncInterval();                                                        \
+                                                                                         \
     float sampleRate = 44100.0f;                                                         \
                                                                                          \
     /* Temporary variables. */                                                           \
@@ -68,19 +74,19 @@ public:
     std::array<float, 2> lfoHz{};                                                        \
                                                                                          \
     ExpSmoother<float> interpGain;                                                       \
-    ExpSmoother<float> interpShiftPhase;                                                 \
     ExpSmoother<float> interpShiftFeedbackGain;                                          \
     ExpSmoother<float> interpShiftFeedbackCutoff;                                        \
     ExpSmoother<float> interpSectionGain;                                                \
-    ExpSmoother<float> interpLfoHz;                                                      \
-    ExpSmoother<float> interpLfoAmount;                                                  \
+    ExpSmoother<float> interpLfoLrPhaseOffset;                                           \
+    ExpSmoother<float> interpLfoToDelay;                                                 \
     ExpSmoother<float> interpLfoSkew;                                                    \
-    ExpSmoother<float> interpLfoShiftOffset;                                             \
+    ExpSmoother<float> interpLfoToPitchShift;                                            \
     ExpSmoother<float> interpLfoToFeedbackCutoff;                                        \
     std::array<std::array<ExpSmoother<float>, nParallel>, nSerial> interpShiftHz;        \
     std::array<ExpSmoother<float>, nSerial> interpShiftDelay;                            \
     std::array<ExpSmoother<float>, nSerial + 1> interpShiftGain;                         \
                                                                                          \
+    TempoSynchronizer<float> syncer;                                                     \
     std::array<LFO<float>, 2> lfo;                                                       \
     std::array<MultiShifter<float, nParallel, nSerial>, 2> shifter;                      \
   };

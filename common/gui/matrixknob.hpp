@@ -30,7 +30,6 @@
 #include <cfloat>
 #include <cmath>
 #include <functional>
-#include <memory>
 #include <random>
 #include <unordered_map>
 
@@ -67,7 +66,7 @@ private:
   bool isMouseEntered = false;
   bool isGrabbing = false;
 
-  std::shared_ptr<TextView> textView;
+  TextView *textView = nullptr; // nullptr means no display to status bar.
   int32_t mode = 0;
 
   CLineStyle lineStyle;
@@ -365,11 +364,7 @@ public:
     if (!isMouseEntered) return 1;
 
     bool shift = key.modifier & MODIFIER_SHIFT;
-    if (key.character == 8) { // Backspace
-      updateTextView("Backspace.");
-    } else if (key.character == 13) { // Carriage return.
-      updateTextView("Carriage return.");
-    } else if (key.character == 'c') { // Copy.
+    if (key.character == 'c') { // Copy.
       if (mode == modeNeutral) {
         updateTextView("c: Copy failed. Enable column(1)/row(2) mode to copy.");
         invalid();
@@ -428,6 +423,7 @@ public:
 private:
   void updateTextView(std::string text)
   {
+    if (textView == nullptr) return;
     std::string modeStr;
     if (mode & modeColumn) modeStr += "Column, ";
     if (mode & modeRow) modeStr += "Row, ";

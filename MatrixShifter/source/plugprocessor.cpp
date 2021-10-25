@@ -79,7 +79,7 @@ uint32 PLUGIN_API PlugProcessor::getProcessContextRequirements()
 {
   using Rq = Vst::IProcessContextRequirements;
 
-  return Rq::kNeedTempo & Rq::kNeedTransportState;
+  return Rq::kNeedProjectTimeMusic & Rq::kNeedTempo & Rq::kNeedTransportState;
 }
 
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
@@ -92,12 +92,10 @@ tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 tresult PLUGIN_API PlugProcessor::setActive(TBool state)
 {
   if (dsp == nullptr) return kResultFalse;
-  if (state) {
+  if (state)
     dsp->setup(processSetup.sampleRate);
-  } else {
+  else
     dsp->reset();
-    lastState = 0;
-  }
   return AudioEffect::setActive(state);
 }
 
@@ -123,14 +121,18 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   if (data.processContext == nullptr) return kResultOk;
 
   uint64_t state = data.processContext->state;
-  if (
-    (lastState & Vst::ProcessContext::kPlaying) == 0
-    && (state & Vst::ProcessContext::kPlaying) != 0) {
+  if (state & Vst::ProcessContext::kTempoValid) {
+    dsp->tempo = float(data.processContext->tempo);
+  }
+  if (state & Vst::ProcessContext::kProjectTimeMusicValid) {
+    dsp->beatsElapsed = float(data.processContext->projectTimeMusic);
+  }
+  if (!dsp->isPlaying && (state & Vst::ProcessContext::kPlaying) != 0) {
     dsp->startup();
   }
-  lastState = state;
+  dsp->isPlaying = state & Vst::ProcessContext::kPlaying;
 
-  dsp->setParameters(data.processContext->tempo);
+  dsp->setParameters();
 
   if (data.numInputs == 0) return kResultOk;
   if (data.numOutputs == 0) return kResultOk;
@@ -139,7 +141,9 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   if (data.outputs[0].numChannels != 2) return kResultOk;
   if (data.symbolicSampleSize == Vst::kSample64) return kResultOk;
 
-  if (dsp->param.value[ParameterID::bypass]->getInt()) {
+  auto isBypassing = dsp->param.value[ParameterID::bypass]->getInt();
+  if (isBypassing) {
+    if (!wasBypassing) dsp->reset();
     processBypass(data);
   } else {
     float *in0 = data.inputs[0].channelBuffers32[0];
@@ -148,6 +152,7 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
     float *out1 = data.outputs[0].channelBuffers32[1];
     dsp->process((size_t)data.numSamples, in0, in1, out0, out1);
   }
+  wasBypassing = isBypassing;
 
   return kResultOk;
 }

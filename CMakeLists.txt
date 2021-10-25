@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.12)
 
 add_subdirectory(common)
 
@@ -14,7 +14,7 @@ add_subdirectory(L3Reverb)
 add_subdirectory(L4Reverb)
 add_subdirectory(LatticeReverb)
 add_subdirectory(LightPadSynth)
-# add_subdirectory(MatrixShifter)
+add_subdirectory(MatrixShifter)
 add_subdirectory(ModuloShaper)
 add_subdirectory(OddPowShaper)
 add_subdirectory(SevenDelay)
