@@ -85,8 +85,6 @@ public:
   Sample frequency = 0;
   bool bypassFilter = false;
 
-  Sample filterEnv = 0;
-
   PTRSyncSaw<Sample> saw1;
   PTRSyncSaw<Sample> saw2;
   std::array<float, 2> oscBuffer = {0, 0};

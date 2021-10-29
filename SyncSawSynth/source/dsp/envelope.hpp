@@ -59,6 +59,7 @@ public:
   {
     state = State::attack;
     value = threshold;
+    sustain.reset(sustainLevel);
     set(attackTime, decayTime, sustainLevel, releaseTime, declickTime, threshold);
   }
 

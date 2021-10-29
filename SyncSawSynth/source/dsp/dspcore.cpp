@@ -254,7 +254,7 @@ template<typename Sample> Sample Note<Sample>::process(NoteProcessInfo<Sample> &
 
   if (bypassFilter) return gain * (info.osc1Gain * outSaw1 + info.osc2Gain * outSaw2);
 
-  filterEnv = filterEnvelope.process();
+  auto filterEnv = filterEnvelope.process();
   filter.setCutoffQ(
     info.filterCutoff
       * powf(
@@ -283,8 +283,8 @@ void DSPCore::setup(double sampleRate)
     for (auto &nt : note) nt = std::make_unique<Note<float>>(this->sampleRate);
   }
 
-  // 2 msec + 1 sample transition time.
-  transitionBuffer.resize(1 + int(sampleRate * 0.005), 0.0);
+  // 10 msec + 1 sample transition time.
+  transitionBuffer.resize(1 + size_t(this->sampleRate * 0.01f), 0.0);
 
   startup();
 }
@@ -502,7 +502,7 @@ void DSPCore::noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity
       mostSilent = i;
     }
   }
-  if (i >= nVoice) {
+  if (i >= nVoice && notes[i][0]->state != NoteState::rest) {
     isTransitioning = true;
 
     i = mostSilent;
