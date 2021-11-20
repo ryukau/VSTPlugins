@@ -7,7 +7,7 @@ lang: en
 
 LatticeReverb is a reverb using lattice structure. Equipped with 16 delays per channel.
 
-- [Download LatticeReverb 0.1.5 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/LatticeReverb_0.1.5.zip) <img
+- [Download LatticeReverb 0.1.6 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/LatticeReverb_0.1.6.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -328,7 +328,7 @@ Lowpass Cutoff
     Useful to change the brightness of reverb.
 
 ## Change Log
-- 0.1.5
+- 0.1.6
   - Fixed to reset properly.
   - Fixed `bypass` parameter behavior. This fixes playing all the notes at the moment of unmute, even if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3 `bypass` parameter.
 - 0.1.4

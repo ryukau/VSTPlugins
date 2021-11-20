@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>L4Reverb<rt>エル フォー リバーブ</rt></ruby> は LatticeReverb の拡張版です。今回の格子構造はチャンネル毎に 4 * 4 * 4 * 4 = 256 のセクションが設けてあります。
 
-- [L4Reverb 0.1.3 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L4Reverb_0.1.3.zip) <img
+- [L4Reverb 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L4Reverb_0.1.4.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -16,7 +16,7 @@ lang: ja
 
 もし L4Reverb が重たすぎるときは L3Reverb を試してみてください。 <ruby>L3Reverb<rt>エル スリー リバーブ</rt></ruby> は L4Reverb の軽量版です。格子構造はチャンネル毎に 3 * 3 * 3 * 5 = 135 のセクションが設けてあります。
 
-- [L3Reverb 0.1.2 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/L3Reverb0.1.2.zip) <img
+- [L3Reverb 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/L3Reverb0.1.4.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -336,10 +336,10 @@ Smooth
 :   パラメータを変更したときに、変更前の値から変更後の値へと移行する大まかな秒数です。
 
 ## チェンジログ
-- 0.1.3
+### L4Reverb
+- 0.1.4
   - リセットが正しく行われるように修正。
   - `bypass` パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の `bypass` パラメータを正しく実装しているホストでのみ発生していた。
-### L4Reverb
 - 0.1.2
   - Process context requirements を実装。
   - BarBox の機能が LV2 版と同等になるように更新。
@@ -355,6 +355,9 @@ Smooth
   - 初期リリース。
 
 ### L3Reverb
+- 0.1.4
+  - リセットが正しく行われるように修正。
+  - `bypass` パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の `bypass` パラメータを正しく実装しているホストでのみ発生していた。
 - 0.1.2
   - L4Reverb のバージョンと同じにするため 0.1.1 をスキップ。
   - Process context requirements を実装。

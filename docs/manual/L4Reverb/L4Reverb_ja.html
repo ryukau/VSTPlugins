@@ -1,618 +1,393 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" >
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2021-11-20" />
-  <title>L4Reverb_ja</title>
-  <style>
-    code {
-      white-space: pre-wrap;
-    }
-
-    span.smallcaps {
-      font-variant: small-caps;
-    }
-
-    span.underline {
-      text-decoration: underline;
-    }
-
-    div.column {
-      display: inline-block;
-      vertical-align: top;
-      width: 50%;
-    }
-  </style>
-  <style>
-    code.sourceCode>span {
-      display: inline-block;
-      line-height: 1.25;
-    }
-
-    code.sourceCode>span {
-      color: inherit;
-      text-decoration: inherit;
-    }
-
-    code.sourceCode>span:empty {
-      height: 1.2em;
-    }
-
-    .sourceCode {
-      overflow: visible;
-    }
-
-    code.sourceCode {
-      white-space: pre;
-      position: relative;
-    }
-
-    div.sourceCode {
-      margin: 1em 0;
-    }
-
-    pre.sourceCode {
-      margin: 0;
-    }
-
-    @media screen {
-      div.sourceCode {
-        overflow: auto;
-      }
-    }
-
-    @media print {
-      code.sourceCode {
-        white-space: pre-wrap;
-      }
-
-      code.sourceCode>span {
-        text-indent: -5em;
-        padding-left: 5em;
-      }
-    }
-
-    pre.numberSource code {
-      counter-reset: source-line 0;
-    }
-
-    pre.numberSource code>span {
-      position: relative;
-      left: -4em;
-      counter-increment: source-line;
-    }
-
-    pre.numberSource code>span>a:first-child::before {
-      content: counter(source-line);
-      position: relative;
-      left: -1em;
-      text-align: right;
-      vertical-align: baseline;
-      border: none;
-      display: inline-block;
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      padding: 0 4px;
-      width: 4em;
-      color: #aaaaaa;
-    }
-
-    pre.numberSource {
-      margin-left: 3em;
-      border-left: 1px solid #aaaaaa;
-      padding-left: 4px;
-    }
-
-    div.sourceCode {}
-
-    @media screen {
-      code.sourceCode>span>a:first-child::before {
-        text-decoration: underline;
-      }
-    }
-
-    code span.al {
-      color: #ff0000;
-      font-weight: bold;
-    }
-
-    /* Alert */
-    code span.an {
-      color: #60a0b0;
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    /* Annotation */
-    code span.at {
-      color: #7d9029;
-    }
-
-    /* Attribute */
-    code span.bn {
-      color: #40a070;
-    }
-
-    /* BaseN */
-    code span.bu {}
-
-    /* BuiltIn */
-    code span.cf {
-      color: #007020;
-      font-weight: bold;
-    }
-
-    /* ControlFlow */
-    code span.ch {
-      color: #4070a0;
-    }
-
-    /* Char */
-    code span.cn {
-      color: #880000;
-    }
-
-    /* Constant */
-    code span.co {
-      color: #60a0b0;
-      font-style: italic;
-    }
-
-    /* Comment */
-    code span.cv {
-      color: #60a0b0;
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    /* CommentVar */
-    code span.do {
-      color: #ba2121;
-      font-style: italic;
-    }
-
-    /* Documentation */
-    code span.dt {
-      color: #902000;
-    }
-
-    /* DataType */
-    code span.dv {
-      color: #40a070;
-    }
-
-    /* DecVal */
-    code span.er {
-      color: #ff0000;
-      font-weight: bold;
-    }
-
-    /* Error */
-    code span.ex {}
-
-    /* Extension */
-    code span.fl {
-      color: #40a070;
-    }
-
-    /* Float */
-    code span.fu {
-      color: #06287e;
-    }
-
-    /* Function */
-    code span.im {}
-
-    /* Import */
-    code span.in {
-      color: #60a0b0;
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    /* Information */
-    code span.kw {
-      color: #007020;
-      font-weight: bold;
-    }
-
-    /* Keyword */
-    code span.op {
-      color: #666666;
-    }
-
-    /* Operator */
-    code span.ot {
-      color: #007020;
-    }
-
-    /* Other */
-    code span.pp {
-      color: #bc7a00;
-    }
-
-    /* Preprocessor */
-    code span.sc {
-      color: #4070a0;
-    }
-
-    /* SpecialChar */
-    code span.ss {
-      color: #bb6688;
-    }
-
-    /* SpecialString */
-    code span.st {
-      color: #4070a0;
-    }
-
-    /* String */
-    code span.va {
-      color: #19177c;
-    }
-
-    /* Variable */
-    code span.vs {
-      color: #4070a0;
-    }
-
-    /* VerbatimString */
-    code span.wa {
-      color: #60a0b0;
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    /* Warning */
-  </style>
-  <style>
-    body {
-      max-width: 704px;
-      margin: auto;
-      padding: 32px 8px;
-    }
-
-    img {
-      max-width: 100%;
-    }
-
-    video {
-      max-width: 100%;
-    }
-
-    details.list>summary {
-      line-height: 3em;
-    }
-
-    kbd {
-      font-family: inherit;
-      border-style: solid;
-      border-width: 1px 2px 2px 1px;
-      border-radius: 2px;
-      padding: 4px;
-      margin: 2px;
-      line-height: calc(1em + 16px);
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    h1 {
-      background-color: #163eac;
-      color: #ffffff;
-      padding-left: 8px;
-    }
-
-    h2 {
-      border-left: solid 32px #2851c2;
-      padding-left: 24px;
-    }
-
-    h3 {
-      border-left: solid 20px #4d74dd;
-      padding-left: 16px;
-    }
-
-    h4 {
-      border-left: solid 12px #6a88da;
-      padding-left: 8px;
-    }
-
-    h5 {
-      border-left: solid 4px #8ca4e7;
-      padding-left: 4px;
-    }
-
-    h6 {
-      border-left: solid 2px #a8bcf5;
-      padding-left: 2px;
-    }
-
-    table {
-      border-spacing: 0px;
-      border-collapse: separate;
-      border-left: 1px solid #888888;
-      border-right: 1px solid #888888;
-      border-top: 1px solid #888888;
-      border-bottom: hidden;
-    }
-
-    tr:nth-child(odd) {
-      background: #eeeeee;
-    }
-
-    tr:nth-child(even) {
-      background: #ffffff;
-    }
-
-    th {
-      height: 2em;
-      padding: 4px 1em 4px 1em;
-      background: #ffffff;
-      border-bottom: 1px solid #888888;
-    }
-
-    th:not(:first-child) {
-      border-left: 1px solid #888888;
-    }
-
-    td {
-      height: 1.5em;
-      padding: 4px 1em 4px 1em;
-      border-bottom: 1px solid #888888;
-    }
-
-    td:not(:first-child) {
-      border-left: 1px solid #888888;
-    }
-
-    dl {
-      padding-left: 2em;
-    }
-
-    dt {
-      font-weight: bold;
-      border-bottom: 1px dashed #000000;
-      margin-top: 2em;
-    }
-
-    dd {
-      border-left: 1px dotted #000000;
-      margin-left: 1em;
-      padding-left: 1em;
-    }
-
-    audio {
-      vertical-align: middle;
-    }
-
-    label {
-      vertical-align: middle;
-    }
-
-    :not(.sourceCode)>pre {
-      overflow: auto;
-      border: 1px solid #888888;
-      padding: 8px;
-    }
-
-    div.sourceCode {
-      overflow: auto;
-      border: 1px solid #888888;
-      padding: 8px;
-    }
-
-    pre>code.sourceCode>span>a:first-child::before {
-      border-right: 1px solid #888888;
-      padding-right: 1em;
-      margin-right: 1em;
-      text-decoration: none;
-    }
-
-    :not(pre)>code {
-      color: #163eac;
-    }
-
-    li {
-      margin: 8px;
-    }
-
-    summary:hover {
-      background-color: #eeeeee;
-    }
-
-    header {
-      border-bottom: 1px gray solid;
-      padding: 0.5em;
-      margin-bottom: 1em;
-    }
-
-    footer {
-      border-top: 1px gray solid;
-      padding: 0.5em;
-      margin-top: 1em;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="dcterms.date" content="2021-11-20" />
+<title>L4Reverb_ja</title>
+<style>
+code { white-space: pre-wrap; }
+span.smallcaps { font-variant: small-caps; }
+span.underline { text-decoration: underline; }
+div.column { display: inline-block; vertical-align: top; width: 50%; }
+</style>
+<style>
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style>
+body {
+  max-width: 704px;
+  margin: auto;
+  padding: 32px 8px;
+}
+
+img {
+  max-width: 100%;
+}
+
+video {
+  max-width: 100%;
+}
+
+details.list > summary {
+  line-height: 3em;
+}
+
+kbd {
+  font-family: inherit;
+  border-style: solid;
+  border-width: 1px 2px 2px 1px;
+  border-radius: 2px;
+  padding: 4px;
+  margin: 2px;
+  line-height: calc(1em + 16px);
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  background-color: #163eac;
+  color: #ffffff;
+  padding-left: 8px;
+}
+
+h2 {
+  border-left: solid 32px #2851c2;
+  padding-left: 24px;
+}
+
+h3 {
+  border-left: solid 20px #4d74dd;
+  padding-left: 16px;
+}
+
+h4 {
+  border-left: solid 12px #6a88da;
+  padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
+}
+
+table {
+  border-spacing: 0px;
+  border-collapse: separate;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
+}
+
+tr:nth-child(odd) {
+  background: #eeeeee;
+}
+
+tr:nth-child(even) {
+  background: #ffffff;
+}
+
+th {
+  height: 2em;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+td {
+  height: 1.5em;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
+}
+
+audio {
+  vertical-align: middle;
+}
+
+label {
+  vertical-align: middle;
+}
+
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
+}
+
+li {
+  margin: 8px;
+}
+
+summary:hover {
+  background-color: #eeeeee;
+}
+
+header {
+  border-bottom: 1px gray solid;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
+
+footer {
+  border-top: 1px gray solid;
+  padding: 0.5em;
+  margin-top: 1em;
+}
+</style>
 </head>
 
 <body>
-  <header>
-    <p><a href="..\..\..\index.html">Back to Index</a></p>
-    <p>
-      Update: 2021-11-20
-    </p>
-    <details>
-      <summary translate="yes">Table of Contents</summary>
-      <nav id="TOC" role="doc-toc">
-        <ul>
-          <li><a href="#l4reverb">L4Reverb</a>
-            <ul>
-              <li><a href="#インストール">インストール</a>
-                <ul>
-                  <li><a href="#プラグイン">プラグイン</a></li>
-                  <li><a href="#プリセット">プリセット</a></li>
-                  <li><a href="#windows">Windows</a></li>
-                  <li><a href="#linux">Linux</a></li>
-                  <li><a href="#macos">macOS</a>
-                    <ul>
-                      <li><a href="#参考リンク">参考リンク</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="#色の設定">色の設定</a></li>
-              <li><a href="#操作">操作</a></li>
-              <li><a href="#注意">注意</a></li>
-              <li><a href="#ブロック線図">ブロック線図</a></li>
-              <li><a href="#パラメータ">パラメータ</a>
-                <ul>
-                  <li><a href="#multiplier">Multiplier</a></li>
-                  <li><a href="#panic">Panic!</a></li>
-                  <li><a href="#mix">Mix</a></li>
-                  <li><a href="#stereo">Stereo</a></li>
-                  <li><a href="#misc.">Misc.</a></li>
-                </ul>
-              </li>
-              <li><a href="#チェンジログ">チェンジログ</a>
-                <ul>
-                  <li><a href="#l3reverb">L3Reverb</a></li>
-                  <li><a href="#旧バージョン">旧バージョン</a></li>
-                </ul>
-              </li>
-              <li><a href="#ライセンス">ライセンス</a>
-                <ul>
-                  <li><a href="#vst-について">VST® について</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </details>
+<header>
+    <p><a href="..\..\index.html">Back to Index</a></p>
+      <p>
+  Update: 2021-11-20
+  </p>
+      <details>
+  <summary translate="yes">Table of Contents</summary>
+  <nav id="TOC" role="doc-toc">
+  <ul>
+  <li><a href="#l4reverb">L4Reverb</a><ul>
+  <li><a href="#インストール">インストール</a><ul>
+  <li><a href="#プラグイン">プラグイン</a></li>
+  <li><a href="#プリセット">プリセット</a></li>
+  <li><a href="#windows">Windows</a></li>
+  <li><a href="#linux">Linux</a></li>
+  <li><a href="#macos">macOS</a><ul>
+  <li><a href="#参考リンク">参考リンク</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#色の設定">色の設定</a></li>
+  <li><a href="#操作">操作</a></li>
+  <li><a href="#注意">注意</a></li>
+  <li><a href="#ブロック線図">ブロック線図</a></li>
+  <li><a href="#パラメータ">パラメータ</a><ul>
+  <li><a href="#multiplier">Multiplier</a></li>
+  <li><a href="#panic">Panic!</a></li>
+  <li><a href="#mix">Mix</a></li>
+  <li><a href="#stereo">Stereo</a></li>
+  <li><a href="#misc.">Misc.</a></li>
+  </ul></li>
+  <li><a href="#チェンジログ">チェンジログ</a><ul>
+  <li><a href="#l4reverb-1">L4Reverb</a></li>
+  <li><a href="#l3reverb">L3Reverb</a></li>
+  <li><a href="#旧バージョン">旧バージョン</a></li>
+  </ul></li>
+  <li><a href="#ライセンス">ライセンス</a><ul>
+  <li><a href="#vst-について">VST® について</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+  </nav>
+  </details>
   </header>
-  <h1 id="l4reverb">L4Reverb</h1>
-  <p><img src="img/l4reverb.png" /></p>
-  <p><ruby>L4Reverb<rt>エル フォー リバーブ</rt></ruby> は LatticeReverb の拡張版です。今回の格子構造はチャンネル毎に 4 * 4 * 4 * 4 = 256
-    のセクションが設けてあります。</p>
-  <ul>
-    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L4Reverb_0.1.3.zip">L4Reverb
-        0.1.3 をダウンロード - VST® 3 (github.com)</a> <img src="img/VST_Compatible_Logo_Steinberg_negative.svg"
-        alt="VST compatible logo." width="60px" style="display: inline-block; vertical-align: middle;"></li>
-    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4ReverbPresets.zip">プリセットをダウンロード
-        (github.com)</a></li>
-  </ul>
-  <p>もし L4Reverb が重たすぎるときは L3Reverb を試してみてください。 <ruby>L3Reverb<rt>エル スリー リバーブ</rt></ruby> は L4Reverb の軽量版です。格子構造はチャンネル毎に
-    3 * 3 * 3 * 5 = 135 のセクションが設けてあります。</p>
-  <ul>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/L3Reverb0.1.2.zip">L3Reverb
-        0.1.2 をダウンロード - VST® 3 (github.com)</a> <img src="img/VST_Compatible_Logo_Steinberg_negative.svg"
-        alt="VST compatible logo." width="60px" style="display: inline-block; vertical-align: middle;"></li>
-    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L3ReverbPresets.zip">プリセットをダウンロード
-        (github.com)</a></li>
-  </ul>
-  <p>L4Reverb と L3Reverb の利用には AVX 以降の SIMD 命令セットをサポートする CPU が必要です。</p>
-  <p>パッケージには次のビルドが含まれています。</p>
-  <ul>
-    <li>Windows 64bit</li>
-    <li>Linux 64bit</li>
-    <li>macOS 64bit</li>
-  </ul>
-  <p>Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に
-    issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければ対応します。</p>
-  <p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig と REAPER で動作確認を行っています。もし Ubuntu 18.04
-    以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a
-      href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
-  <h2 id="インストール">インストール</h2>
-  <h3 id="プラグイン">プラグイン</h3>
-  <p>名前が <code>.vst3</code> で終わるディレクトリを OS ごとに決められた位置に配置してください。</p>
-  <ul>
-    <li>Windows では <code>/Program Files/Common Files/VST3/</code> に配置します。</li>
-    <li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
-    <li>macOS では <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> に配置します。</li>
-  </ul>
-  <p>DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。</p>
-  <h3 id="プリセット">プリセット</h3>
-  <p>解凍して出てきたディレクトリを OS ごとに決められた位置に配置すると使えるようになります。</p>
-  <ul>
-    <li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
-    <li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
-    <li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
-  </ul>
-  <p>プリセットディレクトリの名前はプラグインと同じである必要があります。 <code>Uhhyou</code> ディレクトリが無いときは作成してください。</p>
-  <h3 id="windows">Windows</h3>
-  <p>プラグインが DAW に認識されないときは C++ redistributable をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は
-    <code>vc_redist.x64.exe</code> です。</p>
-  <ul>
-    <li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest
-        supported Visual C++ downloads</a></li>
-  </ul>
-  <h3 id="linux">Linux</h3>
-  <p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
-  <div class="sourceCode" id="cb1">
-    <pre
-      class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre>
-  </div>
-  <p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。
-  </p>
-  <ul>
-    <li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VST 3 Interfaces: Setup Linux
-        for building VST 3 Plug-ins</a></li>
-  </ul>
-  <p>REAPER の Linux 版がプラグインを認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。
-  </p>
-  <h3 id="macos">macOS</h3>
-  <p><strong>注意</strong>: この節は英語で macOS を使用しているユーザからの報告によって作成されました。日本語でのエラーメッセージが分からなかったので曖昧な書き方になっています。</p>
-  <p>プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した <code>.vst3</code> ディレクトリに次のコマンドを適用してみてください。</p>
-  <div class="sourceCode" id="cb2">
-    <pre
-      class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">xattr</span> -rc /path/to/PluginName.vst3</span></code></pre>
-  </div>
-  <p>プラグインは署名されていない (unsigned) 、または公証されていない (un-notarized) アプリケーションとして認識されることがあります。この場合は以下の手順を試してみてください。</p>
-  <ol type="1">
-    <li>ターミナルを開いて <code>sudo spctl --master-disable</code> を実行。</li>
-    <li>システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「全てのアプリケーションを許可」 を選択。</li>
-  </ol>
-  <p>上記の手順を実行するとシステムのセキュリティが弱くなるので注意してください。元に戻すには以下の手順を実行してください。</p>
-  <ol type="1">
-    <li>システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「App Store と認証済みの開発元からのアプリケーションを許可」 を選択。</li>
-    <li>ターミナルを開いて <code>sudo spctl --master-enable</code> を実行。</li>
-  </ol>
-  <h4 id="参考リンク">参考リンク</h4>
-  <ul>
-    <li><a href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How to Fix App “is
-        damaged and can’t be opened. You should move it to the Trash” Error on Mac</a></li>
-    <li><a href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
-        unsigned/un-notarized applications/plugins in Mac OS | Venn Audio</a></li>
-    <li><a href="https://support.apple.com/en-us/HT202491">Safely open apps on your Mac - Apple Support</a></li>
-  </ul>
-  <h2 id="色の設定">色の設定</h2>
-  <p>初回設定時は手動で次のファイルを作成してください。</p>
-  <ul>
-    <li>Windows では <code>/Users/ユーザ名/AppData/Roaming/UhhyouPlugins/style/style.json</code> 。</li>
-    <li>Linux では <code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> 。
-      <ul>
-        <li><code>$XDG_CONFIG_HOME</code> が空のときは <code>$HOME/.config/UhhyouPlugins/style/style.json</code> 。</li>
-      </ul>
-    </li>
-    <li>macOS では <code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> 。</li>
-  </ul>
-  <p>既存の色のテーマを次のリンクに掲載しています。 <code>style.json</code> にコピペして使ってください。</p>
-  <ul>
-    <li><a href="https://github.com/ryukau/LV2Plugins/tree/master/style/themes">LV2Plugins/style/themes at master ·
-        ryukau/LV2Plugins · GitHub</a></li>
-  </ul>
-  <p><code>style.json</code> の設定例です。</p>
-  <div class="sourceCode" id="cb3">
-    <pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">{</span></span>
+<h1 id="l4reverb">L4Reverb</h1>
+<p><img src="img/l4reverb.png" /></p>
+<p><ruby>L4Reverb<rt>エル フォー リバーブ</rt></ruby> は LatticeReverb の拡張版です。今回の格子構造はチャンネル毎に 4 * 4 * 4 * 4 = 256 のセクションが設けてあります。</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L4Reverb_0.1.4.zip">L4Reverb 0.1.4 をダウンロード - VST® 3 (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="60px"
+style="display: inline-block; vertical-align: middle;"></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4ReverbPresets.zip">プリセットをダウンロード (github.com)</a></li>
+</ul>
+<p>もし L4Reverb が重たすぎるときは L3Reverb を試してみてください。 <ruby>L3Reverb<rt>エル スリー リバーブ</rt></ruby> は L4Reverb の軽量版です。格子構造はチャンネル毎に 3 * 3 * 3 * 5 = 135 のセクションが設けてあります。</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/L3Reverb0.1.4.zip">L3Reverb 0.1.4 をダウンロード - VST® 3 (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="60px"
+style="display: inline-block; vertical-align: middle;"></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L3ReverbPresets.zip">プリセットをダウンロード (github.com)</a></li>
+</ul>
+<p>L4Reverb と L3Reverb の利用には AVX 以降の SIMD 命令セットをサポートする CPU が必要です。</p>
+<p>パッケージには次のビルドが含まれています。</p>
+<ul>
+<li>Windows 64bit</li>
+<li>Linux 64bit</li>
+<li>macOS 64bit</li>
+</ul>
+<p>Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければ対応します。</p>
+<p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig と REAPER で動作確認を行っています。もし Ubuntu 18.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
+<h2 id="インストール">インストール</h2>
+<h3 id="プラグイン">プラグイン</h3>
+<p>名前が <code>.vst3</code> で終わるディレクトリを OS ごとに決められた位置に配置してください。</p>
+<ul>
+<li>Windows では <code>/Program Files/Common Files/VST3/</code> に配置します。</li>
+<li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
+<li>macOS では <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> に配置します。</li>
+</ul>
+<p>DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。</p>
+<h3 id="プリセット">プリセット</h3>
+<p>解凍して出てきたディレクトリを OS ごとに決められた位置に配置すると使えるようになります。</p>
+<ul>
+<li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
+<li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
+<li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
+</ul>
+<p>プリセットディレクトリの名前はプラグインと同じである必要があります。 <code>Uhhyou</code> ディレクトリが無いときは作成してください。</p>
+<h3 id="windows">Windows</h3>
+<p>プラグインが DAW に認識されないときは C++ redistributable をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は <code>vc_redist.x64.exe</code> です。</p>
+<ul>
+<li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest supported Visual C++ downloads</a></li>
+</ul>
+<h3 id="linux">Linux</h3>
+<p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+<p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。</p>
+<ul>
+<li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI: Setup</a></li>
+</ul>
+<p>REAPER の Linux 版がプラグインを認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
+<h3 id="macos">macOS</h3>
+<p><strong>注意</strong>: この節は英語で macOS を使用しているユーザからの報告によって作成されました。日本語でのエラーメッセージが分からなかったので曖昧な書き方になっています。</p>
+<p>プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した <code>.vst3</code> ディレクトリに次のコマンドを適用してみてください。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">xattr</span> -rc /path/to/PluginName.vst3</span></code></pre></div>
+<p>プラグインは署名されていない (unsigned) 、または公証されていない (un-notarized) アプリケーションとして認識されることがあります。この場合は以下の手順を試してみてください。</p>
+<ol type="1">
+<li>ターミナルを開いて <code>sudo spctl --master-disable</code> を実行。</li>
+<li>システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「全てのアプリケーションを許可」 を選択。</li>
+</ol>
+<p>上記の手順を実行するとシステムのセキュリティが弱くなるので注意してください。元に戻すには以下の手順を実行してください。</p>
+<ol type="1">
+<li>システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「App Store と認証済みの開発元からのアプリケーションを許可」 を選択。</li>
+<li>ターミナルを開いて <code>sudo spctl --master-enable</code> を実行。</li>
+</ol>
+<h4 id="参考リンク">参考リンク</h4>
+<ul>
+<li><a href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac</a></li>
+<li><a href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio</a></li>
+<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps on your Mac - Apple Support</a></li>
+</ul>
+<h2 id="色の設定">色の設定</h2>
+<p>初回設定時は手動で次のファイルを作成してください。</p>
+<ul>
+<li>Windows では <code>/Users/ユーザ名/AppData/Roaming/UhhyouPlugins/style/style.json</code> 。</li>
+<li>Linux では <code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> 。
+<ul>
+<li><code>$XDG_CONFIG_HOME</code> が空のときは <code>$HOME/.config/UhhyouPlugins/style/style.json</code> 。</li>
+</ul></li>
+<li>macOS では <code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> 。</li>
+</ul>
+<p>既存の色のテーマを次のリンクに掲載しています。 <code>style.json</code> にコピペして使ってください。</p>
+<ul>
+<li><a href="https://github.com/ryukau/LV2Plugins/tree/master/style/themes">LV2Plugins/style/themes at master · ryukau/LV2Plugins · GitHub</a></li>
+</ul>
+<p><code>style.json</code> の設定例です。</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">{</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>  <span class="dt">&quot;fontPath&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
@@ -629,255 +404,241 @@
 <span id="cb3-15"><a href="#cb3-15"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
 <span id="cb3-16"><a href="#cb3-16"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
 <span id="cb3-17"><a href="#cb3-17"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="fu">}</span></span></code></pre>
-  </div>
-  <p>16 進数カラーコードを使っています。</p>
-  <ul>
-    <li>6 桁の色は RGB 。</li>
-    <li>8 桁の色は RGBA 。</li>
-  </ul>
-  <p>プラグインはカラーコードの 1 文字目を無視します。よって <code>?102938</code> や <code>\n11335577</code> も有効なカラーコードです。</p>
-  <p>2 文字目以降のカラーコードの値に <code>0-9a-f</code> 以外の文字を使わないでください。</p>
-  <p>以下は設定できる色の一覧です。設定に抜けがあるとデフォルトの色が使われます。</p>
-  <ul>
-    <li><code>fontPath</code>: フォント (*.ttf) の絶対パス。VST 3 版では実装されていません。</li>
-    <li><code>foreground</code>: 文字の色。</li>
-    <li><code>foregroundButtonOn</code>: オンになっているボタンの文字の色。 <code>foreground</code> か <code>boxBackground</code>
-      のいずれかと同じ値にすることを推奨します。</li>
-    <li><code>foregroundInactive</code>: 非アクティブなタブの文字の色。</li>
-    <li><code>background</code>: 背景色。x</li>
-    <li><code>boxBackground</code>: 矩形の UI 部品の内側の背景色。</li>
-    <li><code>border</code>: <ruby>縁<rt>ふち</rt></ruby>の色。</li>
-    <li><code>borderCheckbox</code>: チェックボックスの縁の色。</li>
-    <li><code>borderLabel</code>: パラメータセクションのラベルの左右の直線の色。</li>
-    <li><code>unfocused</code>: つまみがフォーカスされていないときの色。</li>
-    <li><code>highlightMain</code>: フォーカスされたときの色。スライダの値の表示にも使用されます。</li>
-    <li><code>highlightAccent</code>: フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。</li>
-    <li><code>highlightButton</code>: ボタンがフォーカスされたときの色。</li>
-    <li><code>highlightWarning</code>: 変更に注意を要する UI がフォーカスされたときの色。</li>
-    <li><code>overlay</code>: オーバーレイの色。</li>
-    <li><code>overlayHighlight</code>: フォーカスを示すオーバーレイの色。</li>
-  </ul>
-  <h2 id="操作">操作</h2>
-  <p>操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。</p>
-  <p>つまみとスライダーでは次の操作ができます。</p>
-  <ul>
-    <li><kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。</li>
-    <li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
-  </ul>
-  <p>数値スライダーでは、上記に加えて次の操作ができます。</p>
-  <ul>
-    <li><kbd>ホイールクリック</kbd> : 最小値、中央値、最大値の切り替え。</li>
-  </ul>
-  <p>青い縦棒が並んだコントロール (BarBox) ではショートカットが使えます。ショートカットは BarBox を左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを BarBox
-    の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。</p>
-  <p>左下のプラグイン名をクリックすると、よく使いそうな一部のショートカットを見ることができます。利用できる全てのショートカットを次の表に掲載しています。</p>
-  <table>
-    <thead>
-      <tr class="header">
-        <th>入力</th>
-        <th>操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="odd">
-        <td><kbd>左ドラッグ</kbd></td>
-        <td>値の変更</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd></td>
-        <td>値の変更 (スナップ)</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>Ctrl</kbd> + <kbd>左ドラッグ</kbd></td>
-        <td>デフォルト値にリセット</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd></td>
-        <td>値の変更 (フレーム間の補間が無効)</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>ホイールドラッグ</kbd></td>
-        <td>直線の描画</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd></td>
-        <td>1 つのバーを編集</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>Ctrl</kbd> + <kbd>ホイールドラッグ</kbd></td>
-        <td>デフォルト値にリセット</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd></td>
-        <td>ロックの切り替え</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>a</kbd></td>
-        <td>符号を交互に入れ替え</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>d</kbd></td>
-        <td>すべての値をデフォルト値にリセット</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>D</kbd></td>
-        <td>最小値・中央値・最大値の切り替え</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>e</kbd></td>
-        <td>低域の強調</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>E</kbd></td>
-        <td>高域の強調</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>f</kbd></td>
-        <td>ローパスフィルタ</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>F</kbd></td>
-        <td>ハイパスフィルタ</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>i</kbd></td>
-        <td>値の反転 (最小値を保存)</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>I</kbd></td>
-        <td>値の反転 (最小値を 0 に設定)</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>l</kbd></td>
-        <td>マウスカーソル下のバーのロックの切り替え</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>L</kbd></td>
-        <td>全てのバーのロックを切り替え</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>n</kbd></td>
-        <td>最大値を 1 に正規化 (最小値を保存)</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>N</kbd></td>
-        <td>最大値を 1 に正規化 (最小値を 0 に設定)</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>p</kbd></td>
-        <td>ランダムに並べ替え</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>r</kbd></td>
-        <td>ランダマイズ</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>R</kbd></td>
-        <td>まばらなランダマイズ</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>s</kbd></td>
-        <td>降順にソート</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>S</kbd></td>
-        <td>昇順にソート</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>t</kbd></td>
-        <td>少しだけランダマイズ (ランダムウォーク)</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>T</kbd></td>
-        <td>少しだけランダマイズ (0 に収束)</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>z</kbd></td>
-        <td>アンドゥ</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>Z</kbd></td>
-        <td>リドゥ</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>,</kbd> (Comma)</td>
-        <td>左に回転</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>.</kbd> (Period)</td>
-        <td>右に回転</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>1</kbd></td>
-        <td>すべての値を低減</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>2</kbd>-<kbd>9</kbd></td>
-        <td>インデックスが 2n-9n の値を低減</td>
-      </tr>
-    </tbody>
-  </table>
-  <p><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> のスナップは一部の BarBox だけで有効になっています。特定の BarBox にスナップを追加したいという要望があれば、お気軽に <a
-      href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を開いてください。</p>
-  <p><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> による 1
-    つのバーを編集は、マウスホイールが押された時点でカーソルの下にあるバーだけを編集します。マウスホイールが押されている間はカーソルの左右の位置に関わらず、選択したバーのみを編集できます。</p>
-  <p><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd>
-    によるロックの切り替えでは、マウスホイールが押された時点でカーソルの下にあるバーの反対の状態が残り全てに適用されます。例えばカーソルの下のバーがアクティブだったときはロックに切り替えます。</p>
-  <p>いくつかの BarBox の下にはスクロールバーがついています。細かい調整を行うときはスクロールバーの左右のハンドルを <kbd>左ドラッグ</kbd> で動かすことで表示範囲を変更できます。スクロールバーでは次の操作が行えます。
-  </p>
-  <ul>
-    <li><kbd>右クリック</kbd> : 表示範囲のリセット</li>
-    <li><kbd>マウスホイール</kbd> : ズームイン・ズームアウト</li>
-  </ul>
-  <h2 id="注意">注意</h2>
-  <p>サンプリング周波数やバッファサイズによって出力が変わります。</p>
-  <p><code>Cross</code> と <code>Spread</code> の両方が 0 でないときに発散することがあります。</p>
-  <p><code>*Feed</code> の <code>offset</code> が 0 でないときに出力が大きくなることがあります。</p>
-  <p>次の手順に沿った操作が行われると出力が大きくなることがあります。</p>
-  <ol type="1">
-    <li><code>OuterFeed</code> あるいは <code>InnerFeed</code> のいくつかを最大値あるいは最小値の近くに設定。</li>
-    <li>信号を入力。</li>
-    <li>手順 1. で設定した <code>OuterFeed</code> あるいは <code>InnerFeed</code> の値を変更する。</li>
-  </ol>
-  <h2 id="ブロック線図">ブロック線図</h2>
-  <p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> + <kbd>マウスホイール</kbd> や、右クリックから「画像だけを表示」などで拡大できます。</p>
-  <p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
-  <p><img src="img/l4reverb.svg" /></p>
-  <h2 id="パラメータ">パラメータ</h2>
-  <dl>
-    <dt>Time</dt>
-    <dd>
-      <p>オールパスフィルタのディレイ時間です。</p>
-    </dd>
-    <dt>InnerFeed</dt>
-    <dd>
-      <p>格子構造の内側に入れ子になったオールパスフィルタのフィードバック、フィードフォワードの値です。</p>
-    </dd>
-    <dt>D1Feed</dt>
-    <dd>
-      <p>格子構造の入れ子の最下層のフィードバック、フィードフォワードの値です。</p>
-    </dd>
-    <dt>D2Feed</dt>
-    <dd>
-      <p>格子構造の入れ子の底から 2 番目の階層でのフィードバック、フィードフォワードの値です。</p>
-    </dd>
-    <dt>D3Feed</dt>
-    <dd>
-      <p>格子構造の入れ子の底から 3 番目の階層でのフィードバック、フィードフォワードの値です。</p>
-    </dd>
-    <dt>D4Feed</dt>
-    <dd>
-      <p>格子構造の入れ子の最上層でのフィードバック、フィードフォワードの値です。</p>
-    </dd>
-  </dl>
-  <p><strong>Tip</strong>: フィードバック、フィードフォワードの値をすべて負の値にすることで、入力信号の音がぼやけてウェットな質感になります。特に <code>D4Feed</code>
-    をうまく調整してみてください。</p>
-  <h3 id="multiplier">Multiplier</h3>
-  <p><code>Time</code> や <code>*Feed</code> の値をまとめて変更する係数です。減衰時間をまとめて変えるときなどに使えます。</p>
-  <p><code>Base</code> は左右のチャンネルで両方で使われる値です。 <code>Base</code> によってリバーブの大まかな質感が決まります。</p>
-  <p><code>Offset</code> は左右のチャンネルの値の比率です。 <code>Offset</code> によって左右の広がりを作ることができます。</p>
-  <pre><code>if (Offset &gt;= 0) {
+<span id="cb3-18"><a href="#cb3-18"></a><span class="fu">}</span></span></code></pre></div>
+<p>16 進数カラーコードを使っています。</p>
+<ul>
+<li>6 桁の色は RGB 。</li>
+<li>8 桁の色は RGBA 。</li>
+</ul>
+<p>プラグインはカラーコードの 1 文字目を無視します。よって <code>?102938</code> や <code>\n11335577</code> も有効なカラーコードです。</p>
+<p>2 文字目以降のカラーコードの値に <code>0-9a-f</code> 以外の文字を使わないでください。</p>
+<p>以下は設定できる色の一覧です。設定に抜けがあるとデフォルトの色が使われます。</p>
+<ul>
+<li><code>fontPath</code>: フォント (*.ttf) の絶対パス。VST 3 版では実装されていません。</li>
+<li><code>foreground</code>: 文字の色。</li>
+<li><code>foregroundButtonOn</code>: オンになっているボタンの文字の色。 <code>foreground</code> か <code>boxBackground</code> のいずれかと同じ値にすることを推奨します。</li>
+<li><code>foregroundInactive</code>: 非アクティブなタブの文字の色。</li>
+<li><code>background</code>: 背景色。x</li>
+<li><code>boxBackground</code>: 矩形の UI 部品の内側の背景色。</li>
+<li><code>border</code>: <ruby>縁<rt>ふち</rt></ruby>の色。</li>
+<li><code>borderCheckbox</code>: チェックボックスの縁の色。</li>
+<li><code>borderLabel</code>: パラメータセクションのラベルの左右の直線の色。</li>
+<li><code>unfocused</code>: つまみがフォーカスされていないときの色。</li>
+<li><code>highlightMain</code>: フォーカスされたときの色。スライダの値の表示にも使用されます。</li>
+<li><code>highlightAccent</code>: フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。</li>
+<li><code>highlightButton</code>: ボタンがフォーカスされたときの色。</li>
+<li><code>highlightWarning</code>: 変更に注意を要する UI がフォーカスされたときの色。</li>
+<li><code>overlay</code>: オーバーレイの色。</li>
+<li><code>overlayHighlight</code>: フォーカスを示すオーバーレイの色。</li>
+</ul>
+<h2 id="操作">操作</h2>
+<p>操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。</p>
+<p>つまみとスライダーでは次の操作ができます。</p>
+<ul>
+<li><kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。</li>
+<li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
+</ul>
+<p>数値スライダーでは、上記に加えて次の操作ができます。</p>
+<ul>
+<li><kbd>ホイールクリック</kbd> : 最小値、中央値、最大値の切り替え。</li>
+</ul>
+<p>青い縦棒が並んだコントロール (BarBox) ではショートカットが使えます。ショートカットは BarBox を左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを BarBox の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。</p>
+<p>左下のプラグイン名をクリックすると、よく使いそうな一部のショートカットを見ることができます。利用できる全てのショートカットを次の表に掲載しています。</p>
+<table>
+<thead>
+<tr class="header">
+<th>入力</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><kbd>左ドラッグ</kbd></td>
+<td>値の変更</td>
+</tr>
+<tr class="even">
+<td><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd></td>
+<td>値の変更 (スナップ)</td>
+</tr>
+<tr class="odd">
+<td><kbd>Ctrl</kbd> + <kbd>左ドラッグ</kbd></td>
+<td>デフォルト値にリセット</td>
+</tr>
+<tr class="even">
+<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd></td>
+<td>値の変更 (フレーム間の補間が無効)</td>
+</tr>
+<tr class="odd">
+<td><kbd>ホイールドラッグ</kbd></td>
+<td>直線の描画</td>
+</tr>
+<tr class="even">
+<td><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd></td>
+<td>1 つのバーを編集</td>
+</tr>
+<tr class="odd">
+<td><kbd>Ctrl</kbd> + <kbd>ホイールドラッグ</kbd></td>
+<td>デフォルト値にリセット</td>
+</tr>
+<tr class="even">
+<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd></td>
+<td>ロックの切り替え</td>
+</tr>
+<tr class="odd">
+<td><kbd>a</kbd></td>
+<td>符号を交互に入れ替え</td>
+</tr>
+<tr class="even">
+<td><kbd>d</kbd></td>
+<td>すべての値をデフォルト値にリセット</td>
+</tr>
+<tr class="odd">
+<td><kbd>D</kbd></td>
+<td>最小値・中央値・最大値の切り替え</td>
+</tr>
+<tr class="even">
+<td><kbd>e</kbd></td>
+<td>低域の強調</td>
+</tr>
+<tr class="odd">
+<td><kbd>E</kbd></td>
+<td>高域の強調</td>
+</tr>
+<tr class="even">
+<td><kbd>f</kbd></td>
+<td>ローパスフィルタ</td>
+</tr>
+<tr class="odd">
+<td><kbd>F</kbd></td>
+<td>ハイパスフィルタ</td>
+</tr>
+<tr class="even">
+<td><kbd>i</kbd></td>
+<td>値の反転 (最小値を保存)</td>
+</tr>
+<tr class="odd">
+<td><kbd>I</kbd></td>
+<td>値の反転 (最小値を 0 に設定)</td>
+</tr>
+<tr class="even">
+<td><kbd>l</kbd></td>
+<td>マウスカーソル下のバーのロックの切り替え</td>
+</tr>
+<tr class="odd">
+<td><kbd>L</kbd></td>
+<td>全てのバーのロックを切り替え</td>
+</tr>
+<tr class="even">
+<td><kbd>n</kbd></td>
+<td>最大値を 1 に正規化 (最小値を保存)</td>
+</tr>
+<tr class="odd">
+<td><kbd>N</kbd></td>
+<td>最大値を 1 に正規化 (最小値を 0 に設定)</td>
+</tr>
+<tr class="even">
+<td><kbd>p</kbd></td>
+<td>ランダムに並べ替え</td>
+</tr>
+<tr class="odd">
+<td><kbd>r</kbd></td>
+<td>ランダマイズ</td>
+</tr>
+<tr class="even">
+<td><kbd>R</kbd></td>
+<td>まばらなランダマイズ</td>
+</tr>
+<tr class="odd">
+<td><kbd>s</kbd></td>
+<td>降順にソート</td>
+</tr>
+<tr class="even">
+<td><kbd>S</kbd></td>
+<td>昇順にソート</td>
+</tr>
+<tr class="odd">
+<td><kbd>t</kbd></td>
+<td>少しだけランダマイズ (ランダムウォーク)</td>
+</tr>
+<tr class="even">
+<td><kbd>T</kbd></td>
+<td>少しだけランダマイズ (0 に収束)</td>
+</tr>
+<tr class="odd">
+<td><kbd>z</kbd></td>
+<td>アンドゥ</td>
+</tr>
+<tr class="even">
+<td><kbd>Z</kbd></td>
+<td>リドゥ</td>
+</tr>
+<tr class="odd">
+<td><kbd>,</kbd> (Comma)</td>
+<td>左に回転</td>
+</tr>
+<tr class="even">
+<td><kbd>.</kbd> (Period)</td>
+<td>右に回転</td>
+</tr>
+<tr class="odd">
+<td><kbd>1</kbd></td>
+<td>すべての値を低減</td>
+</tr>
+<tr class="even">
+<td><kbd>2</kbd>-<kbd>9</kbd></td>
+<td>インデックスが 2n-9n の値を低減</td>
+</tr>
+</tbody>
+</table>
+<p><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> のスナップは一部の BarBox だけで有効になっています。特定の BarBox にスナップを追加したいという要望があれば、お気軽に <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を開いてください。</p>
+<p><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> による 1 つのバーを編集は、マウスホイールが押された時点でカーソルの下にあるバーだけを編集します。マウスホイールが押されている間はカーソルの左右の位置に関わらず、選択したバーのみを編集できます。</p>
+<p><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> によるロックの切り替えでは、マウスホイールが押された時点でカーソルの下にあるバーの反対の状態が残り全てに適用されます。例えばカーソルの下のバーがアクティブだったときはロックに切り替えます。</p>
+<p>いくつかの BarBox の下にはスクロールバーがついています。細かい調整を行うときはスクロールバーの左右のハンドルを <kbd>左ドラッグ</kbd> で動かすことで表示範囲を変更できます。スクロールバーでは次の操作が行えます。</p>
+<ul>
+<li><kbd>右クリック</kbd> : 表示範囲のリセット</li>
+<li><kbd>マウスホイール</kbd> : ズームイン・ズームアウト</li>
+</ul>
+<h2 id="注意">注意</h2>
+<p>サンプリング周波数やバッファサイズによって出力が変わります。</p>
+<p><code>Cross</code> と <code>Spread</code> の両方が 0 でないときに発散することがあります。</p>
+<p><code>*Feed</code> の <code>offset</code> が 0 でないときに出力が大きくなることがあります。</p>
+<p>次の手順に沿った操作が行われると出力が大きくなることがあります。</p>
+<ol type="1">
+<li><code>OuterFeed</code> あるいは <code>InnerFeed</code> のいくつかを最大値あるいは最小値の近くに設定。</li>
+<li>信号を入力。</li>
+<li>手順 1. で設定した <code>OuterFeed</code> あるいは <code>InnerFeed</code> の値を変更する。</li>
+</ol>
+<h2 id="ブロック線図">ブロック線図</h2>
+<p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> + <kbd>マウスホイール</kbd> や、右クリックから「画像だけを表示」などで拡大できます。</p>
+<p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
+<p><img src="img/l4reverb.svg" /></p>
+<h2 id="パラメータ">パラメータ</h2>
+<dl>
+<dt>Time</dt>
+<dd><p>オールパスフィルタのディレイ時間です。</p>
+</dd>
+<dt>InnerFeed</dt>
+<dd><p>格子構造の内側に入れ子になったオールパスフィルタのフィードバック、フィードフォワードの値です。</p>
+</dd>
+<dt>D1Feed</dt>
+<dd><p>格子構造の入れ子の最下層のフィードバック、フィードフォワードの値です。</p>
+</dd>
+<dt>D2Feed</dt>
+<dd><p>格子構造の入れ子の底から 2 番目の階層でのフィードバック、フィードフォワードの値です。</p>
+</dd>
+<dt>D3Feed</dt>
+<dd><p>格子構造の入れ子の底から 3 番目の階層でのフィードバック、フィードフォワードの値です。</p>
+</dd>
+<dt>D4Feed</dt>
+<dd><p>格子構造の入れ子の最上層でのフィードバック、フィードフォワードの値です。</p>
+</dd>
+</dl>
+<p><strong>Tip</strong>: フィードバック、フィードフォワードの値をすべて負の値にすることで、入力信号の音がぼやけてウェットな質感になります。特に <code>D4Feed</code> をうまく調整してみてください。</p>
+<h3 id="multiplier">Multiplier</h3>
+<p><code>Time</code> や <code>*Feed</code> の値をまとめて変更する係数です。減衰時間をまとめて変えるときなどに使えます。</p>
+<p><code>Base</code> は左右のチャンネルで両方で使われる値です。 <code>Base</code> によってリバーブの大まかな質感が決まります。</p>
+<p><code>Offset</code> は左右のチャンネルの値の比率です。 <code>Offset</code> によって左右の広がりを作ることができます。</p>
+<pre><code>if (Offset &gt;= 0) {
   valueL = Base
   valueR = Base * (1 - Offset)
 }
@@ -885,132 +646,115 @@ else {
   valueL = Base * (1 + Offset)
   valueR = Base
 }</code></pre>
-  <p><code>Modulation</code> にチェックが入っているとき、 <code>Offset</code> の値はバッファごとにランダマイズされます。 <code>Smooth</code>
-    でモジュレーションの質感を変えることができます。</p>
-  <h3 id="panic">Panic!</h3>
-  <p>ボタンを押すと <code>Time</code> と <code>*Feed</code> の Multiplier を 0 にしてリバーブの出力を止めます。</p>
-  <p>出力が想定外に大きくなったときなど、音を手早く止めたいときに使えます。</p>
-  <h3 id="mix">Mix</h3>
-  <dl>
-    <dt>Dry</dt>
-    <dd>
-      <p>バイパスされる入力信号の音量です。</p>
-    </dd>
-    <dt>Wet</dt>
-    <dd>
-      <p>リバーブを通った信号の音量です。</p>
-    </dd>
-  </dl>
-  <h3 id="stereo">Stereo</h3>
-  <dl>
-    <dt>Cross</dt>
-    <dd>
-      <p>あるチャンネルから、もう片方のチャンネルに格子構造の出力をフィードバックする量です。 0 のときはもう片方のチャンネルからの信号はミックスされません。</p>
-    </dd>
-    <dt>Spread</dt>
-    <dd>
-      <p>ミッドとサイド (M-S) の信号の比率です。</p>
-      <p>ミッドとサイドの信号は次の式で計算されます。</p>
-      <pre><code>mid  = left + right
+<p><code>Modulation</code> にチェックが入っているとき、 <code>Offset</code> の値はバッファごとにランダマイズされます。 <code>Smooth</code> でモジュレーションの質感を変えることができます。</p>
+<h3 id="panic">Panic!</h3>
+<p>ボタンを押すと <code>Time</code> と <code>*Feed</code> の Multiplier を 0 にしてリバーブの出力を止めます。</p>
+<p>出力が想定外に大きくなったときなど、音を手早く止めたいときに使えます。</p>
+<h3 id="mix">Mix</h3>
+<dl>
+<dt>Dry</dt>
+<dd><p>バイパスされる入力信号の音量です。</p>
+</dd>
+<dt>Wet</dt>
+<dd><p>リバーブを通った信号の音量です。</p>
+</dd>
+</dl>
+<h3 id="stereo">Stereo</h3>
+<dl>
+<dt>Cross</dt>
+<dd><p>あるチャンネルから、もう片方のチャンネルに格子構造の出力をフィードバックする量です。 0 のときはもう片方のチャンネルからの信号はミックスされません。</p>
+</dd>
+<dt>Spread</dt>
+<dd><p>ミッドとサイド (M-S) の信号の比率です。</p>
+<p>ミッドとサイドの信号は次の式で計算されます。</p>
+<pre><code>mid  = left + right
 side = left - right
 
 left  = mid - Spread * (mid - side)
 right = mid - Spread * (mid + side)</code></pre>
-    </dd>
-  </dl>
-  <h3 id="misc.">Misc.</h3>
-  <dl>
-    <dt>Seed</dt>
-    <dd>
-      <p>疑似乱数列のシード値です。</p>
-    </dd>
-    <dt>Smooth</dt>
-    <dd>
-      <p>パラメータを変更したときに、変更前の値から変更後の値へと移行する大まかな秒数です。</p>
-    </dd>
-  </dl>
-  <h2 id="チェンジログ">チェンジログ</h2>
-  <ul>
-    <li>0.1.3
-      <ul>
-        <li>リセットが正しく行われるように修正。</li>
-        <li><code>bypass</code>
-          パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の
-          <code>bypass</code> パラメータを正しく実装しているホストでのみ発生していた。 ### L4Reverb</li>
-      </ul>
-    </li>
-    <li>0.1.2
-      <ul>
-        <li>Process context requirements を実装。</li>
-        <li>BarBox の機能が LV2 版と同等になるように更新。
-          <ul>
-            <li>1 つのバーを編集を追加。</li>
-            <li>ロックを追加。</li>
-            <li>内部的なマウスホイールの感度を追加。</li>
-            <li>スナップを追加 (未使用) 。</li>
-            <li>直線の描画での開始点の値をアンカーポイントに固定するように変更。</li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li>0.1.1
-      <ul>
-        <li>DSP が初期化されているかどうかのチェックを追加。</li>
-        <li>カラーコンフィグを追加。</li>
-      </ul>
-    </li>
-    <li>0.1.0
-      <ul>
-        <li>初期リリース。</li>
-      </ul>
-    </li>
-  </ul>
-  <h3 id="l3reverb">L3Reverb</h3>
-  <ul>
-    <li>0.1.2
-      <ul>
-        <li>L4Reverb のバージョンと同じにするため 0.1.1 をスキップ。</li>
-        <li>Process context requirements を実装。</li>
-        <li>BarBox の機能が LV2 版と同等になるように更新。
-          <ul>
-            <li>1 つのバーを編集を追加。</li>
-            <li>ロックを追加。</li>
-            <li>内部的なマウスホイールの感度を追加。</li>
-            <li>スナップを追加 (未使用) 。</li>
-            <li>直線の描画での開始点の値をアンカーポイントに固定するように変更。</li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li>0.1.0
-      <ul>
-        <li>初期リリース。</li>
-      </ul>
-    </li>
-  </ul>
-  <h3 id="旧バージョン">旧バージョン</h3>
-  <ul>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/L4Reverb0.1.2.zip">L4Reverb
-        0.1.2 - VST 3 (github.com)</a></li>
-    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L4Reverb0.1.1.zip">L4Reverb 0.1.1
-        - VST 3 (github.com)</a></li>
-    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Reverb0.1.0.zip">L4Reverb 0.1.0
-        - VST 3 (github.com)</a></li>
-  </ul>
-  <h2 id="ライセンス">ライセンス</h2>
-  <p>L4Reverb と L3Reverb のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
-  <ul>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a>
-    </li>
-  </ul>
-  <p>リンクが切れているときは <code>ryukau@gmail.com</code> にメールを送ってください。</p>
-  <h3 id="vst-について">VST® について</h3>
-  <p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
+</dd>
+</dl>
+<h3 id="misc.">Misc.</h3>
+<dl>
+<dt>Seed</dt>
+<dd><p>疑似乱数列のシード値です。</p>
+</dd>
+<dt>Smooth</dt>
+<dd><p>パラメータを変更したときに、変更前の値から変更後の値へと移行する大まかな秒数です。</p>
+</dd>
+</dl>
+<h2 id="チェンジログ">チェンジログ</h2>
+<h3 id="l4reverb-1">L4Reverb</h3>
+<ul>
+<li>0.1.4
+<ul>
+<li>リセットが正しく行われるように修正。</li>
+<li><code>bypass</code> パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の <code>bypass</code> パラメータを正しく実装しているホストでのみ発生していた。</li>
+</ul></li>
+<li>0.1.2
+<ul>
+<li>Process context requirements を実装。</li>
+<li>BarBox の機能が LV2 版と同等になるように更新。
+<ul>
+<li>1 つのバーを編集を追加。</li>
+<li>ロックを追加。</li>
+<li>内部的なマウスホイールの感度を追加。</li>
+<li>スナップを追加 (未使用) 。</li>
+<li>直線の描画での開始点の値をアンカーポイントに固定するように変更。</li>
+</ul></li>
+</ul></li>
+<li>0.1.1
+<ul>
+<li>DSP が初期化されているかどうかのチェックを追加。</li>
+<li>カラーコンフィグを追加。</li>
+</ul></li>
+<li>0.1.0
+<ul>
+<li>初期リリース。</li>
+</ul></li>
+</ul>
+<h3 id="l3reverb">L3Reverb</h3>
+<ul>
+<li>0.1.4
+<ul>
+<li>リセットが正しく行われるように修正。</li>
+<li><code>bypass</code> パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の <code>bypass</code> パラメータを正しく実装しているホストでのみ発生していた。</li>
+</ul></li>
+<li>0.1.2
+<ul>
+<li>L4Reverb のバージョンと同じにするため 0.1.1 をスキップ。</li>
+<li>Process context requirements を実装。</li>
+<li>BarBox の機能が LV2 版と同等になるように更新。
+<ul>
+<li>1 つのバーを編集を追加。</li>
+<li>ロックを追加。</li>
+<li>内部的なマウスホイールの感度を追加。</li>
+<li>スナップを追加 (未使用) 。</li>
+<li>直線の描画での開始点の値をアンカーポイントに固定するように変更。</li>
+</ul></li>
+</ul></li>
+<li>0.1.0
+<ul>
+<li>初期リリース。</li>
+</ul></li>
+</ul>
+<h3 id="旧バージョン">旧バージョン</h3>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/L4Reverb0.1.2.zip">L4Reverb 0.1.2 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L4Reverb0.1.1.zip">L4Reverb 0.1.1 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Reverb0.1.0.zip">L4Reverb 0.1.0 - VST 3 (github.com)</a></li>
+</ul>
+<h2 id="ライセンス">ライセンス</h2>
+<p>L4Reverb と L3Reverb のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+</ul>
+<p>リンクが切れているときは <code>ryukau@gmail.com</code> にメールを送ってください。</p>
+<h3 id="vst-について">VST® について</h3>
+<p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
 
-  <footer>
-    <p><a href="..\..\..\index.html">Back to Index</a></p>
+<footer>
+    <p><a href="..\..\index.html">Back to Index</a></p>
   </footer>
 </body>
 
