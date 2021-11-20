@@ -6,7 +6,7 @@ Building this repository requires C++17 compatible compiler and CPU with AVX or 
 ## Linux
 Install required packages. See `Package Requirements` section of the link below.
 
-- [VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html)
+- [VSTGUI: Setup](https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html)
 
 Open terminal and run following command. The command creates `~/code/vst` directory. If you alreadly have `~/code`, it might be better to change `code` in below command to some other name.
 
