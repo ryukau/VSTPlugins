@@ -43,7 +43,7 @@ def process(
 
     # Update download link.
     new_version = f"{major_version}.{minor_version}.{int(patch_version) + 1}"
-    new_downlaod_url = f"https://github.com/ryukau/VSTPlugins/releases/download/{release_name}/{plugin_name}{new_version}.zip"
+    new_downlaod_url = f"https://github.com/ryukau/VSTPlugins/releases/download/{release_name}/{plugin_name}_{new_version}.zip"
 
     new_link = compose_download_link(locale, plugin_name, new_version, new_downlaod_url)
     if new_link is None:
@@ -61,45 +61,48 @@ def process(
     with open(out_dir / Path(path.name), "w", encoding="utf-8") as fi:
         fi.write(text)
 
-release_name = "CollidingCombSynth0.1.0"
-en_change_log = """
-  - Implemented process context requirements."""
-ja_change_log = """
-  - Process context requirements を実装。"""
+if __name__ == "__main__":
+    release_name = "ResetAndMuteFix"
+    en_change_log = """
+  - Fixed to reset properly.
+  - Fixed `bypass` parameter behavior. This fixes playing all the notes at the moment of unmute, even if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3 `bypass` parameter."""
+    ja_change_log = """
+  - リセットが正しく行われるように修正。
+  - `bypass` パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の `bypass` パラメータを正しく実装しているホストでのみ発生していた。"""
 
-re_en_download_link = re.compile(
-    r"^- \[Download (.+?) ([0-9]+)\.([0-9]+)\.([0-9]+) - VST® 3.+?\]\((.*?)\)",
-    flags=re.MULTILINE | re.DOTALL,
-)
-re_en_old_versions = re.compile(r"### Old Versions", flags=re.MULTILINE | re.DOTALL)
-re_en_change_log = re.compile(r"^## Change Log", flags=re.MULTILINE | re.DOTALL)
+    re_en_download_link = re.compile(
+        r"^- \[Download (.+?) ([0-9]+)\.([0-9]+)\.([0-9]+) - VST® 3.+?\]\((.*?)\)",
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    re_en_old_versions = re.compile(r"### Old Versions", flags=re.MULTILINE | re.DOTALL)
+    re_en_change_log = re.compile(r"^## Change Log", flags=re.MULTILINE | re.DOTALL)
 
-re_ja_download_link = re.compile(
-    r"^- \[(.+?) ([0-9]+)\.([0-9]+)\.([0-9]+) をダウンロード - VST® 3.+?\]\((.*?)\)",
-    flags=re.MULTILINE | re.DOTALL,
-)
-re_ja_old_versions = re.compile(r"### 旧バージョン", flags=re.MULTILINE | re.DOTALL)
-re_ja_change_log = re.compile(r"^## チェンジログ", flags=re.MULTILINE | re.DOTALL)
+    re_ja_download_link = re.compile(
+        r"^- \[(.+?) ([0-9]+)\.([0-9]+)\.([0-9]+) をダウンロード - VST® 3.+?\]\((.*?)\)",
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    re_ja_old_versions = re.compile(r"### 旧バージョン", flags=re.MULTILINE | re.DOTALL)
+    re_ja_change_log = re.compile(r"^## チェンジログ", flags=re.MULTILINE | re.DOTALL)
 
-for path in Path("manual").glob("**/*.md"):
-    if path.name.find("_en.md") != -1:
-        process(
-            path,
-            "en",
-            re_en_download_link,
-            re_en_old_versions,
-            re_en_change_log,
-            en_change_log,
-        )
-    elif path.name.find("_ja.md") != -1:
-        process(
-            path,
-            "ja",
-            re_ja_download_link,
-            re_ja_old_versions,
-            re_ja_change_log,
-            ja_change_log,
-        )
-    else:
-        print(f"File name doesn't contain locale: {path}")
-        continue
+    for path in Path("manual").glob("**/*.md"):
+        if path.name.find("_en.md") != -1:
+            process(
+                path,
+                "en",
+                re_en_download_link,
+                re_en_old_versions,
+                re_en_change_log,
+                en_change_log,
+            )
+        elif path.name.find("_ja.md") != -1:
+            process(
+                path,
+                "ja",
+                re_ja_download_link,
+                re_ja_old_versions,
+                re_ja_change_log,
+                ja_change_log,
+            )
+        else:
+            print(f"File name doesn't contain locale: {path}")
+            continue

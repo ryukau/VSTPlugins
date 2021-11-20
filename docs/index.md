@@ -200,7 +200,7 @@ VST3 の開発中に分かりにくかったことをまとめました。あま
 
 - [波ノート](https://ryukau.github.io/filter_notes/index.html)
 
-If you are interested in those articles and would like read it in English, contact me via GitHub issue or email. I'll translate it on demand. Contact link/information is at the top of this page.
+These links are notes I took while development. All are written in Japanese.
 
 # ブログ
 - [Uhhyou (ブログ)](https://ryukau.blogspot.com/)

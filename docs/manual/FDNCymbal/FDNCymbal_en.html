@@ -1,384 +1,613 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 
 <head>
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-08-18" />
-<title>FDNCymbal_en</title>
-<style>
-code { white-space: pre-wrap; }
-span.smallcaps { font-variant: small-caps; }
-span.underline { text-decoration: underline; }
-div.column { display: inline-block; vertical-align: top; width: 50%; }
-</style>
-<style>
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-<style>
-body {
-  max-width: 704px;
-  margin: auto;
-  padding: 32px 8px;
-}
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2021-11-20" />
+  <title>FDNCymbal_en</title>
+  <style>
+    code {
+      white-space: pre-wrap;
+    }
 
-img {
-  max-width: 100%;
-}
+    span.smallcaps {
+      font-variant: small-caps;
+    }
 
-video {
-  max-width: 100%;
-}
+    span.underline {
+      text-decoration: underline;
+    }
 
-details.list > summary {
-  line-height: 3em;
-}
+    div.column {
+      display: inline-block;
+      vertical-align: top;
+      width: 50%;
+    }
+  </style>
+  <style>
+    code.sourceCode>span {
+      display: inline-block;
+      line-height: 1.25;
+    }
 
-kbd {
-  font-family: inherit;
-  border-style: solid;
-  border-width: 1px 2px 2px 1px;
-  border-radius: 2px;
-  padding: 4px;
-  margin: 2px;
-  line-height: calc(1em + 16px);
-}
+    code.sourceCode>span {
+      color: inherit;
+      text-decoration: inherit;
+    }
 
-a {
-  text-decoration: none;
-}
+    code.sourceCode>span:empty {
+      height: 1.2em;
+    }
 
-h1 {
-  background-color: #163eac;
-  color: #ffffff;
-  padding-left: 8px;
-}
+    .sourceCode {
+      overflow: visible;
+    }
 
-h2 {
-  border-left: solid 32px #2851c2;
-  padding-left: 24px;
-}
+    code.sourceCode {
+      white-space: pre;
+      position: relative;
+    }
 
-h3 {
-  border-left: solid 20px #4d74dd;
-  padding-left: 16px;
-}
+    div.sourceCode {
+      margin: 1em 0;
+    }
 
-h4 {
-  border-left: solid 12px #6a88da;
-  padding-left: 8px;
-}
+    pre.sourceCode {
+      margin: 0;
+    }
 
-h5 {
-  border-left: solid 4px #8ca4e7;
-  padding-left: 4px;
-}
+    @media screen {
+      div.sourceCode {
+        overflow: auto;
+      }
+    }
 
-h6 {
-  border-left: solid 2px #a8bcf5;
-  padding-left: 2px;
-}
+    @media print {
+      code.sourceCode {
+        white-space: pre-wrap;
+      }
 
-table {
-  border-spacing: 0px;
-  border-collapse: separate;
-  border-left: 1px solid #888888;
-  border-right: 1px solid #888888;
-  border-top: 1px solid #888888;
-  border-bottom: hidden;
-}
+      code.sourceCode>span {
+        text-indent: -5em;
+        padding-left: 5em;
+      }
+    }
 
-tr:nth-child(odd) {
-  background: #eeeeee;
-}
+    pre.numberSource code {
+      counter-reset: source-line 0;
+    }
 
-tr:nth-child(even) {
-  background: #ffffff;
-}
+    pre.numberSource code>span {
+      position: relative;
+      left: -4em;
+      counter-increment: source-line;
+    }
 
-th {
-  height: 2em;
-  padding: 4px 1em 4px 1em;
-  background: #ffffff;
-  border-bottom: 1px solid #888888;
-}
+    pre.numberSource code>span>a:first-child::before {
+      content: counter(source-line);
+      position: relative;
+      left: -1em;
+      text-align: right;
+      vertical-align: baseline;
+      border: none;
+      display: inline-block;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      padding: 0 4px;
+      width: 4em;
+      color: #aaaaaa;
+    }
 
-th:not(:first-child) {
-  border-left: 1px solid #888888;
-}
+    pre.numberSource {
+      margin-left: 3em;
+      border-left: 1px solid #aaaaaa;
+      padding-left: 4px;
+    }
 
-td {
-  height: 1.5em;
-  padding: 4px 1em 4px 1em;
-  border-bottom: 1px solid #888888;
-}
+    div.sourceCode {}
 
-td:not(:first-child) {
-  border-left: 1px solid #888888;
-}
+    @media screen {
+      code.sourceCode>span>a:first-child::before {
+        text-decoration: underline;
+      }
+    }
 
-dl {
-  padding-left: 2em;
-}
+    code span.al {
+      color: #ff0000;
+      font-weight: bold;
+    }
 
-dt {
-  font-weight: bold;
-  border-bottom: 1px dashed #000000;
-  margin-top: 2em;
-}
+    /* Alert */
+    code span.an {
+      color: #60a0b0;
+      font-weight: bold;
+      font-style: italic;
+    }
 
-dd {
-  border-left: 1px dotted #000000;
-  margin-left: 1em;
-  padding-left: 1em;
-}
+    /* Annotation */
+    code span.at {
+      color: #7d9029;
+    }
 
-audio {
-  vertical-align: middle;
-}
+    /* Attribute */
+    code span.bn {
+      color: #40a070;
+    }
 
-label {
-  vertical-align: middle;
-}
+    /* BaseN */
+    code span.bu {}
 
-:not(.sourceCode) > pre {
-  overflow: auto;
-  border: 1px solid #888888;
-  padding: 8px;
-}
+    /* BuiltIn */
+    code span.cf {
+      color: #007020;
+      font-weight: bold;
+    }
 
-div.sourceCode {
-  overflow: auto;
-  border: 1px solid #888888;
-  padding: 8px;
-}
+    /* ControlFlow */
+    code span.ch {
+      color: #4070a0;
+    }
 
-pre > code.sourceCode > span > a:first-child::before {
-  border-right: 1px solid #888888;
-  padding-right: 1em;
-  margin-right: 1em;
-  text-decoration: none;
-}
+    /* Char */
+    code span.cn {
+      color: #880000;
+    }
 
-:not(pre) > code {
-  color: #163eac;
-}
+    /* Constant */
+    code span.co {
+      color: #60a0b0;
+      font-style: italic;
+    }
 
-li {
-  margin: 8px;
-}
+    /* Comment */
+    code span.cv {
+      color: #60a0b0;
+      font-weight: bold;
+      font-style: italic;
+    }
 
-summary:hover {
-  background-color: #eeeeee;
-}
+    /* CommentVar */
+    code span.do {
+      color: #ba2121;
+      font-style: italic;
+    }
 
-header {
-  border-bottom: 1px gray solid;
-  padding: 0.5em;
-  margin-bottom: 1em;
-}
+    /* Documentation */
+    code span.dt {
+      color: #902000;
+    }
 
-footer {
-  border-top: 1px gray solid;
-  padding: 0.5em;
-  margin-top: 1em;
-}
-</style>
+    /* DataType */
+    code span.dv {
+      color: #40a070;
+    }
+
+    /* DecVal */
+    code span.er {
+      color: #ff0000;
+      font-weight: bold;
+    }
+
+    /* Error */
+    code span.ex {}
+
+    /* Extension */
+    code span.fl {
+      color: #40a070;
+    }
+
+    /* Float */
+    code span.fu {
+      color: #06287e;
+    }
+
+    /* Function */
+    code span.im {}
+
+    /* Import */
+    code span.in {
+      color: #60a0b0;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    /* Information */
+    code span.kw {
+      color: #007020;
+      font-weight: bold;
+    }
+
+    /* Keyword */
+    code span.op {
+      color: #666666;
+    }
+
+    /* Operator */
+    code span.ot {
+      color: #007020;
+    }
+
+    /* Other */
+    code span.pp {
+      color: #bc7a00;
+    }
+
+    /* Preprocessor */
+    code span.sc {
+      color: #4070a0;
+    }
+
+    /* SpecialChar */
+    code span.ss {
+      color: #bb6688;
+    }
+
+    /* SpecialString */
+    code span.st {
+      color: #4070a0;
+    }
+
+    /* String */
+    code span.va {
+      color: #19177c;
+    }
+
+    /* Variable */
+    code span.vs {
+      color: #4070a0;
+    }
+
+    /* VerbatimString */
+    code span.wa {
+      color: #60a0b0;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    /* Warning */
+  </style>
+  <style>
+    body {
+      max-width: 704px;
+      margin: auto;
+      padding: 32px 8px;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    video {
+      max-width: 100%;
+    }
+
+    details.list>summary {
+      line-height: 3em;
+    }
+
+    kbd {
+      font-family: inherit;
+      border-style: solid;
+      border-width: 1px 2px 2px 1px;
+      border-radius: 2px;
+      padding: 4px;
+      margin: 2px;
+      line-height: calc(1em + 16px);
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    h1 {
+      background-color: #163eac;
+      color: #ffffff;
+      padding-left: 8px;
+    }
+
+    h2 {
+      border-left: solid 32px #2851c2;
+      padding-left: 24px;
+    }
+
+    h3 {
+      border-left: solid 20px #4d74dd;
+      padding-left: 16px;
+    }
+
+    h4 {
+      border-left: solid 12px #6a88da;
+      padding-left: 8px;
+    }
+
+    h5 {
+      border-left: solid 4px #8ca4e7;
+      padding-left: 4px;
+    }
+
+    h6 {
+      border-left: solid 2px #a8bcf5;
+      padding-left: 2px;
+    }
+
+    table {
+      border-spacing: 0px;
+      border-collapse: separate;
+      border-left: 1px solid #888888;
+      border-right: 1px solid #888888;
+      border-top: 1px solid #888888;
+      border-bottom: hidden;
+    }
+
+    tr:nth-child(odd) {
+      background: #eeeeee;
+    }
+
+    tr:nth-child(even) {
+      background: #ffffff;
+    }
+
+    th {
+      height: 2em;
+      padding: 4px 1em 4px 1em;
+      background: #ffffff;
+      border-bottom: 1px solid #888888;
+    }
+
+    th:not(:first-child) {
+      border-left: 1px solid #888888;
+    }
+
+    td {
+      height: 1.5em;
+      padding: 4px 1em 4px 1em;
+      border-bottom: 1px solid #888888;
+    }
+
+    td:not(:first-child) {
+      border-left: 1px solid #888888;
+    }
+
+    dl {
+      padding-left: 2em;
+    }
+
+    dt {
+      font-weight: bold;
+      border-bottom: 1px dashed #000000;
+      margin-top: 2em;
+    }
+
+    dd {
+      border-left: 1px dotted #000000;
+      margin-left: 1em;
+      padding-left: 1em;
+    }
+
+    audio {
+      vertical-align: middle;
+    }
+
+    label {
+      vertical-align: middle;
+    }
+
+    :not(.sourceCode)>pre {
+      overflow: auto;
+      border: 1px solid #888888;
+      padding: 8px;
+    }
+
+    div.sourceCode {
+      overflow: auto;
+      border: 1px solid #888888;
+      padding: 8px;
+    }
+
+    pre>code.sourceCode>span>a:first-child::before {
+      border-right: 1px solid #888888;
+      padding-right: 1em;
+      margin-right: 1em;
+      text-decoration: none;
+    }
+
+    :not(pre)>code {
+      color: #163eac;
+    }
+
+    li {
+      margin: 8px;
+    }
+
+    summary:hover {
+      background-color: #eeeeee;
+    }
+
+    header {
+      border-bottom: 1px gray solid;
+      padding: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    footer {
+      border-top: 1px gray solid;
+      padding: 0.5em;
+      margin-top: 1em;
+    }
+  </style>
 </head>
 
 <body>
-<header>
-    <p><a href="..\..\index.html">Back to Index</a></p>
-      <p>
-  Update: 2020-08-18
-  </p>
-      <details>
-  <summary translate="yes">Table of Contents</summary>
-  <nav id="TOC" role="doc-toc">
-  <ul>
-  <li><a href="#fdncymbal">FDNCymbal</a><ul>
-  <li><a href="#installation">Installation</a><ul>
-  <li><a href="#plugin">Plugin</a></li>
-  <li><a href="#presets">Presets</a></li>
-  <li><a href="#windows-specific">Windows Specific</a></li>
-  <li><a href="#linux-specific">Linux Specific</a></li>
-  <li><a href="#macos-specific">macOS Specific</a><ul>
-  <li><a href="#reference">Reference</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#color-configuration">Color Configuration</a></li>
-  <li><a href="#controls">Controls</a></li>
-  <li><a href="#caution">Caution</a></li>
-  <li><a href="#use-as-effect">Use as Effect</a></li>
-  <li><a href="#block-diagram">Block Diagram</a></li>
-  <li><a href="#parameters">Parameters</a><ul>
-  <li><a href="#gain">Gain</a></li>
-  <li><a href="#smooth">Smooth</a></li>
-  <li><a href="#stick">Stick</a></li>
-  <li><a href="#random">Random</a></li>
-  <li><a href="#fdn">FDN</a></li>
-  <li><a href="#allpass">Allpass</a></li>
-  <li><a href="#stage-1-and-stage-2">Stage 1 and Stage 2</a></li>
-  <li><a href="#tremolo">Tremolo</a></li>
-  <li><a href="#random-tremolo">Random (Tremolo)</a></li>
-  </ul></li>
-  <li><a href="#change-log">Change Log</a><ul>
-  <li><a href="#old-versions">Old Versions</a></li>
-  </ul></li>
-  <li><a href="#license">License</a><ul>
-  <li><a href="#about-vst">About VST</a></li>
-  </ul></li>
-  </ul></li>
-  </ul>
-  </nav>
-  </details>
+  <header>
+    <p><a href="..\..\..\index.html">Back to Index</a></p>
+    <p>
+      Update: 2021-11-20
+    </p>
+    <details>
+      <summary translate="yes">Table of Contents</summary>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+          <li><a href="#fdncymbal">FDNCymbal</a>
+            <ul>
+              <li><a href="#installation">Installation</a>
+                <ul>
+                  <li><a href="#plugin">Plugin</a></li>
+                  <li><a href="#presets">Presets</a></li>
+                  <li><a href="#windows-specific">Windows Specific</a></li>
+                  <li><a href="#linux-specific">Linux Specific</a></li>
+                  <li><a href="#macos-specific">macOS Specific</a>
+                    <ul>
+                      <li><a href="#reference">Reference</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="#color-configuration">Color Configuration</a></li>
+              <li><a href="#controls">Controls</a></li>
+              <li><a href="#caution">Caution</a></li>
+              <li><a href="#use-as-effect">Use as Effect</a></li>
+              <li><a href="#block-diagram">Block Diagram</a></li>
+              <li><a href="#parameters">Parameters</a>
+                <ul>
+                  <li><a href="#gain">Gain</a></li>
+                  <li><a href="#smooth">Smooth</a></li>
+                  <li><a href="#stick">Stick</a></li>
+                  <li><a href="#random">Random</a></li>
+                  <li><a href="#fdn">FDN</a></li>
+                  <li><a href="#allpass">Allpass</a></li>
+                  <li><a href="#stage-1-and-stage-2">Stage 1 and Stage 2</a></li>
+                  <li><a href="#tremolo">Tremolo</a></li>
+                  <li><a href="#random-tremolo">Random (Tremolo)</a></li>
+                </ul>
+              </li>
+              <li><a href="#change-log">Change Log</a>
+                <ul>
+                  <li><a href="#old-versions">Old Versions</a></li>
+                </ul>
+              </li>
+              <li><a href="#license">License</a>
+                <ul>
+                  <li><a href="#about-vst">About VST</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </details>
   </header>
-<h1 id="fdncymbal">FDNCymbal</h1>
-<p><img src="img/fdncymbal.png" /></p>
-<p>FDNCymbal is a cymbal sound synthesizer. It can also be used as an effect. Unlike the name, most of metallic texture comes from Schroeder allpass section rather than FDN (feedback delay network). FDN section makes nice impact sound when <code>FDN.Time</code> is short. Tremolo is added to simulate wobbling of cymbal.</p>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/FDNCymbal0.2.5.zip">Download FDNCymbal 0.2.5 - VST® 3 (github.com)</a> <img
-src="img/VST_Compatible_Logo_Steinberg_negative.svg"
-alt="VST compatible logo."
-width="60px"
-style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/FDNCymbalPresets.zip">Download Presets (github.com)</a></li>
-</ul>
-<p>The package includes following builds:</p>
-<ul>
-<li>Windows 64bit</li>
-<li>Linux 64bit</li>
-<li>macOS 64bit</li>
-</ul>
-<p>macOS build isn’t tested because I don’t have Mac. If you found a bug, please file a issue to <a href="https://github.com/ryukau/VSTPlugins">GitHub repository</a> or send email to <code>ryukau@gmail.com</code>.</p>
-<p>Linux build is built on Ubuntu 18.0.4 and tested on Bitwig and Reaper. If you are using distribution other than Ubuntu 18.04, plugin will not likely run. In this case, please take a look at <a href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">build instruction</a>.</p>
-<h2 id="installation">Installation</h2>
-<h3 id="plugin">Plugin</h3>
-<p>Place <code>*.vst3</code> directory to:</p>
-<ul>
-<li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
-<li><code>$HOME/.vst3/</code> for Linux.</li>
-<li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for macOS.</li>
-</ul>
-<p>DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.</p>
-<h3 id="presets">Presets</h3>
-<p>Extract preset zip, then place preset directory to the OS specific path:</p>
-<ul>
-<li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
-<li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
-<li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
-</ul>
-<p>Preset directory name must be the same as the plugin. Make <code>Uhhyou</code> directory if it does not exist.</p>
-<h3 id="windows-specific">Windows Specific</h3>
-<p>If DAW doesn’t recognize the plugin, try installing C++ redistributable (<code>vc_redist.x64.exe</code>). Installer can be found in the link below.</p>
-<ul>
-<li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest supported Visual C++ downloads</a></li>
-</ul>
-<h3 id="linux-specific">Linux Specific</h3>
-<p>On Ubuntu 18.0.4, those packages are required.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
-<p>If DAW doesn’t recognize the plugin, take a look at <code>Package Requirements</code> section of the link below and make sure all the VST3 related package is installed.</p>
-<ul>
-<li><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html">VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins</a></li>
-</ul>
-<p>REAPER on Linux may not recognize the plugin. A workaround is to delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and restart REAPER.</p>
-<h3 id="macos-specific">macOS Specific</h3>
-<p>When trying to run plugin first time, following message may appear on macOS.</p>
-<pre><code>&lt;PluginName&gt;.vst3 is damaged and can&#39;t be opened. You should move it to
+  <h1 id="fdncymbal">FDNCymbal</h1>
+  <p><img src="img/fdncymbal.png" /></p>
+  <p>FDNCymbal is a cymbal sound synthesizer. It can also be used as an effect. Unlike the name, most of metallic
+    texture comes from Schroeder allpass section rather than FDN (feedback delay network). FDN section makes nice impact
+    sound when <code>FDN.Time</code> is short. Tremolo is added to simulate wobbling of cymbal.</p>
+  <ul>
+    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/FDNCymbal_0.2.6.zip">Download
+        FDNCymbal 0.2.6 - VST® 3 (github.com)</a> <img src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+        alt="VST compatible logo." width="60px" style="display: inline-block; vertical-align: middle;"></li>
+    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/FDNCymbalPresets.zip">Download
+        Presets (github.com)</a></li>
+  </ul>
+  <p>The package includes following builds:</p>
+  <ul>
+    <li>Windows 64bit</li>
+    <li>Linux 64bit</li>
+    <li>macOS 64bit</li>
+  </ul>
+  <p>macOS build isn’t tested because I don’t have Mac. If you found a bug, please file a issue to <a
+      href="https://github.com/ryukau/VSTPlugins">GitHub repository</a> or send email to <code>ryukau@gmail.com</code>.
+  </p>
+  <p>Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely
+    run. In this case, please take a look at <a
+      href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">build instruction</a>.</p>
+  <h2 id="installation">Installation</h2>
+  <h3 id="plugin">Plugin</h3>
+  <p>Place <code>*.vst3</code> directory to:</p>
+  <ul>
+    <li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
+    <li><code>$HOME/.vst3/</code> for Linux.</li>
+    <li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for macOS.</li>
+  </ul>
+  <p>DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.</p>
+  <h3 id="presets">Presets</h3>
+  <p>Extract preset zip, then place preset directory to the OS specific path:</p>
+  <ul>
+    <li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
+    <li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
+    <li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
+  </ul>
+  <p>Preset directory name must be the same as the plugin. Make <code>Uhhyou</code> directory if it does not exist.</p>
+  <h3 id="windows-specific">Windows Specific</h3>
+  <p>If DAW doesn’t recognize the plugin, try installing C++ redistributable (<code>vc_redist.x64.exe</code>). Installer
+    can be found in the link below.</p>
+  <ul>
+    <li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest
+        supported Visual C++ downloads</a></li>
+  </ul>
+  <h3 id="linux-specific">Linux Specific</h3>
+  <p>On Ubuntu 18.0.4, those packages are required.</p>
+  <div class="sourceCode" id="cb1">
+    <pre
+      class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre>
+  </div>
+  <p>If DAW doesn’t recognize the plugin, take a look at <code>Package Requirements</code> section of the link below and
+    make sure all the VST3 related package is installed.</p>
+  <ul>
+    <li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VST 3 Interfaces: Setup Linux
+        for building VST 3 Plug-ins</a></li>
+  </ul>
+  <p>REAPER on Linux may not recognize the plugin. A workaround is to delete a file
+    <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and restart REAPER.</p>
+  <h3 id="macos-specific">macOS Specific</h3>
+  <p>When trying to run plugin first time, following message may appear on macOS.</p>
+  <pre><code>&lt;PluginName&gt;.vst3 is damaged and can&#39;t be opened. You should move it to
 the Trash&quot;</code></pre>
-<p>In this case, open terminal and try running following command to unzipped <code>.vst3</code> directory.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="ex">xattr</span> -rc /path/to/PluginName.vst3</span></code></pre></div>
-<p>Plugin may be considered as unsigned/un-notarized application. In this case, try following the steps below.</p>
-<ol type="1">
-<li>Open terminal and run <code>sudo spctl --master-disable</code>.</li>
-<li>Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select “Anywhere”.</li>
-</ol>
-<p>Beware that steps above degrades security of your system. To revert the settings, follow the steps below.</p>
-<ol type="1">
-<li>Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select option to “App Store and identified developers”.</li>
-<li>Open terminal and run <code>sudo spctl --master-enable</code>.</li>
-</ol>
-<h4 id="reference">Reference</h4>
-<ul>
-<li><a href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac</a></li>
-<li><a href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio</a></li>
-<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps on your Mac - Apple Support</a></li>
-</ul>
-<h2 id="color-configuration">Color Configuration</h2>
-<p>At first time, create color config file to:</p>
-<ul>
-<li><code>/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json</code> on Windows.</li>
-<li><code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> on Linux.
-<ul>
-<li>If <code>$XDG_CONFIG_HOME</code> is empty, make <code>$HOME/.config/UhhyouPlugins/style/style.json</code>.</li>
-</ul></li>
-<li><code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> on macOS.</li>
-</ul>
-<p>Below is a example of <code>style.json</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">{</span></span>
+  <p>In this case, open terminal and try running following command to unzipped <code>.vst3</code> directory.</p>
+  <div class="sourceCode" id="cb3">
+    <pre
+      class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="ex">xattr</span> -rc /path/to/PluginName.vst3</span></code></pre>
+  </div>
+  <p>Plugin may be considered as unsigned/un-notarized application. In this case, try following the steps below.</p>
+  <ol type="1">
+    <li>Open terminal and run <code>sudo spctl --master-disable</code>.</li>
+    <li>Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select “Anywhere”.
+    </li>
+  </ol>
+  <p>Beware that steps above degrades security of your system. To revert the settings, follow the steps below.</p>
+  <ol type="1">
+    <li>Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select option to
+      “App Store and identified developers”.</li>
+    <li>Open terminal and run <code>sudo spctl --master-enable</code>.</li>
+  </ol>
+  <h4 id="reference">Reference</h4>
+  <ul>
+    <li><a href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How to Fix App “is
+        damaged and can’t be opened. You should move it to the Trash” Error on Mac</a></li>
+    <li><a href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
+        unsigned/un-notarized applications/plugins in Mac OS | Venn Audio</a></li>
+    <li><a href="https://support.apple.com/en-us/HT202491">Safely open apps on your Mac - Apple Support</a></li>
+  </ul>
+  <h2 id="color-configuration">Color Configuration</h2>
+  <p>At first time, create color config file to:</p>
+  <ul>
+    <li><code>/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json</code> on Windows.</li>
+    <li><code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> on Linux.
+      <ul>
+        <li>If <code>$XDG_CONFIG_HOME</code> is empty, make <code>$HOME/.config/UhhyouPlugins/style/style.json</code>.
+        </li>
+      </ul>
+    </li>
+    <li><code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> on macOS.</li>
+  </ul>
+  <p>Below is a example of <code>style.json</code>.</p>
+  <div class="sourceCode" id="cb4">
+    <pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">{</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>  <span class="dt">&quot;fontPath&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
@@ -395,255 +624,329 @@ the Trash&quot;</code></pre>
 <span id="cb4-15"><a href="#cb4-15"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
 <span id="cb4-16"><a href="#cb4-16"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
 <span id="cb4-17"><a href="#cb4-17"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="fu">}</span></span></code></pre></div>
-<p>Hex color codes are used.</p>
-<ul>
-<li>6 digit color is RGB.</li>
-<li>8 digit color is RGBA.</li>
-</ul>
-<p>First letter <code>#</code> is conventional. Plugins ignore the first letter of color code, thus <code>?102938</code>, <code>\n11335577</code> are valid.</p>
-<p>Do not use characters outside of <code>0-9a-f</code> for color value.</p>
-<ul>
-<li><code>fontPath</code>: Absolute path to *.ttf font file. Not implemented in VST 3 version.</li>
-<li><code>foreground</code>: Text color.</li>
-<li><code>foregroundButtonOn</code>: Text color of active toggle button. Recommend to use the same value of <code>foreground</code> or <code>boxBackground</code>.</li>
-<li><code>foregroundInactive</code>: Text color of inactive components. Currently, only used for TabView.</li>
-<li><code>background</code>: Background color.</li>
-<li><code>boxBackground</code>: Background color of inside of box shaped components (Barbox, Button, Checkbox, OptionMenu, TextKnob, VSlider).</li>
-<li><code>border</code>: Border color of box shaped components.</li>
-<li><code>borderCheckbox</code>: Border color of CheckBox.</li>
-<li><code>borderLabel</code>: Line color of parameter section label.</li>
-<li><code>unfocused</code>: Color to fill unfocused components. Currently, only used for knobs.</li>
-<li><code>highlightMain</code>: Color to indicate focus is on a component. Highlight colors are also used for value of slider components (BarBox and VSlider).</li>
-<li><code>highlightAccent</code>: Same as <code>highlightMain</code>. Used for cosmetics.</li>
-<li><code>highlightButton</code>: Color to indicate focus is on a button.</li>
-<li><code>highlightWarning</code>: Same as <code>highlightMain</code>, but only used for parameters which requires extra caution.</li>
-<li><code>overlay</code>: Overlay color. Used to overlay texts and indicators.</li>
-<li><code>overlayHighlight</code>: Overlay color to highlight current focus.</li>
-</ul>
-<h2 id="controls">Controls</h2>
-<p>Knob and slider can do:</p>
-<ul>
-<li>Ctrl + Left Click: Reset value.</li>
-<li>Shift + Left Drag: Fine adjustment.</li>
-</ul>
-<h2 id="caution">Caution</h2>
-<p>There’s no compatibility between version 0.1.x and 0.2.x.</p>
-<p>When <code>FDN.Feedback</code> is non zero, it may possibly blow up. If that happens, turn <code>FDN.Feedback</code> to leftmost.</p>
-<p>When <code>HP Cutoff</code> is moving fast, it may output massive DC. To avoid this, use Shift + Mouse Left Drag or turn up Smooth.</p>
-<h2 id="use-as-effect">Use as Effect</h2>
-<p>FDNCymbal can be use as effect, but it’s not intuitive.</p>
-<p>When loaded, FDNCymbal is muted to prevent unexpected blow up at initialization. Therefore user must send MIDI note-on to FDNCymbal. Note that output volume could be changed by velocity. <code>Seed</code> and parameters under <code>FDN</code> section are only refreshed when FDNCymbal receives a new note.</p>
-<h2 id="block-diagram">Block Diagram</h2>
-<p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or “View Image” on right click menu to scale.</p>
-<p>Diagram only shows overview. It’s not exact implementation.</p>
-<p><img src="img/fdncymbal.svg" /></p>
-<h2 id="parameters">Parameters</h2>
-<h3 id="gain">Gain</h3>
-<p>Output gain.</p>
-<h3 id="smooth">Smooth</h3>
-<p>Time in seconds to move the value of parameters from previous one to changed one. Below is a list of parameter that is affected by <code>Smooth</code>.</p>
-<ul>
-<li><code>Gain</code></li>
-<li><code>FDN.Time</code></li>
-<li><code>FDN.Feedback</code></li>
-<li><code>FDN.CascadeMix</code></li>
-<li><code>Allpass.Mix</code></li>
-<li><code>Allpass.Stage1.Time</code></li>
-<li><code>Allpass.Stage1.Feedback</code></li>
-<li><code>Allpass.Stage2.Time</code></li>
-<li><code>Allpass.Stage2.Feedback</code></li>
-<li><code>Tremolo.Mix</code></li>
-<li><code>Tremolo.Depth</code></li>
-<li><code>Tremolo.Frequency</code></li>
-<li><code>Tremolo.DelayTime</code></li>
-</ul>
-<h3 id="stick">Stick</h3>
-<p>When <code>Stick</code> is on, each note on triggers stick oscillator. Noise density and pitch of tone are related to the pitch of note.</p>
-<dl>
-<dt>Pulse</dt>
-<dd><p>Gain of impulse of stick oscillator.</p>
-</dd>
-<dt>Tone</dt>
-<dd><p>Gain of sine wave tone of stick oscillator.</p>
-</dd>
-<dt>Velvet</dt>
-<dd><p>Gain of velvet noise of stick oscillator.</p>
-<p>Velvet noise is a noise algorithm which output different height of impulses with randomized interval.</p>
-</dd>
-<dt>Decay</dt>
-<dd><p>Decay time of stick oscillator.</p>
-</dd>
-</dl>
-<h3 id="random">Random</h3>
-<dl>
-<dt>Seed</dt>
-<dd><p>Value of random seed.</p>
-</dd>
-<dt>Retrigger.Time</dt>
-<dd><p>When not checked, internal delay time controlled by following 3 parameters will be changed for each note on.</p>
-<ul>
-<li><code>FDN.Time</code></li>
-<li><code>Allpass.Stage1.Time</code></li>
-<li><code>Allpass.Stage2.Time</code></li>
-</ul>
-</dd>
-<dt>Retrigger.Stick</dt>
-<dd><p>When not checked, stick oscillator output varies for each note.</p>
-</dd>
-<dt>Retrigger.Tremolo</dt>
-<dd><p>When not checked, tremolo parameters will be changed for each note on.</p>
-</dd>
-</dl>
-<h3 id="fdn">FDN</h3>
-<p>When turned on, the signal go through FDN section.</p>
-<dl>
-<dt>Time</dt>
-<dd><p>FDN delay time. Internal delay time will be randomized with respect to this value.</p>
-</dd>
-<dt>Feedback</dt>
-<dd><p>FDN section feedback. Beware that if this value is non zero, it’s possible to blow up.</p>
-</dd>
-<dt>CascadeMix</dt>
-<dd><p>Controls mixing of Cascaded FDN.</p>
-</dd>
-</dl>
-<h3 id="allpass">Allpass</h3>
-<dl>
-<dt>Mix</dt>
-<dd><p>Mixing ratio of Schroeder allpass section.</p>
-</dd>
-</dl>
-<h3 id="stage-1-and-stage-2">Stage 1 and Stage 2</h3>
-<p>Stage 1 is serially connected 8 Schroeder allpass. On stage 2, there are 4 Schroeder allpass section connected in parallel. For each section has serially connected 8 Schroeder allpass.</p>
-<dl>
-<dt>Time</dt>
-<dd><p>Max delay time of Schroeder allpass section. Internally, delay time will be randomized.</p>
-</dd>
-<dt>Feedback</dt>
-<dd><p>Feedback of Schroeder allpass section.</p>
-</dd>
-<dt>HP Cutoff</dt>
-<dd><p>Cutoff frequency of high-pass filter to the output of Schroeder allpass section.</p>
-</dd>
-<dt>Tanh</dt>
-<dd><p>When checked, stage 1 feedback go through tanh saturator.</p>
-</dd>
-</dl>
-<h3 id="tremolo">Tremolo</h3>
-<dl>
-<dt>Mix</dt>
-<dd><p>Mixing ratio of tremolo effect.</p>
-</dd>
-<dt>Depth</dt>
-<dd><p>Maximum change of amplitude with tremolo.</p>
-</dd>
-<dt>Frequency</dt>
-<dd><p>Tremolo LFO frequency.</p>
-</dd>
-<dt>DelayTime</dt>
-<dd><p>Maximum delay time. Delay time is modulated by LFO. This delay simulates doppler effect.</p>
-</dd>
-</dl>
-<h3 id="random-tremolo">Random (Tremolo)</h3>
-<dl>
-<dt>Depth</dt>
-<dd><p>Amount of randomization to <code>Tremolo.Depth</code> for each note on.</p>
-</dd>
-<dt>Freq</dt>
-<dd><p>Amount of randomization to <code>Tremolo.Frequency</code> for each note on.</p>
-</dd>
-<dt>Time</dt>
-<dd><p>Amount of randomization to <code>Tremolo.DelayTime</code> for each note on.</p>
-</dd>
-</dl>
-<h2 id="change-log">Change Log</h2>
-<ul>
-<li>0.2.5
-<ul>
-<li>Implemented process context requirements.</li>
-</ul></li>
-<li>0.2.4
-<ul>
-<li>Added check that DSP is initialized or not.</li>
-</ul></li>
-<li>0.2.3
-<ul>
-<li>Added color configuration.</li>
-</ul></li>
-<li>0.2.2
-<ul>
-<li>Reverted parameter smoother to the old one which works with variable size audio buffer.</li>
-</ul></li>
-<li>0.2.1
-<ul>
-<li>Fixed a bug that cause crash when drawing string.</li>
-</ul></li>
-<li>0.2.0
-<ul>
-<li>Changed display method for pop-up which shows up by clicking plugin title.</li>
-<li>Added <code>Pulse</code> parameter to control pulse gain.</li>
-<li>Added <code>Velvet</code> parameter to control velvet noise gain.</li>
-<li>Changed <code>ToneMix</code> to <code>Tone</code>. Value range is increased from [0, 0.002] to [0, 0.02].</li>
-<li>Changed algorithm to allocate sine frequency.</li>
-<li>Fixed velvet noise oscillator to randomize interval.</li>
-</ul></li>
-<li>0.1.5
-<ul>
-<li>Fixed to stop sounds when deactivated.</li>
-<li>Fixed a bug that was causing noise on PreSonus Studio One 4.6.1.</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li>Enabled GUI for Linux build.</li>
-</ul></li>
-<li>0.1.3
-<ul>
-<li>Fixed a bug that sound stops on Steinberg host.</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>Added support for synchronization between multiple GUI instances.</li>
-<li>Fixed a bug that opening splash screen causes crash.</li>
-<li>Fixed a bug that crash plugin when reloading.</li>
-<li>Fixed GUI to follow host automation.</li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>Fixed note on/off event to be triggered at exact timing.</li>
-<li>Fixed a bug that <code>Allpass.Stage1.Feedback</code> was disabled.</li>
-</ul></li>
-<li>0.1.0
-<ul>
-<li>Initial release.</li>
-</ul></li>
-</ul>
-<h3 id="old-versions">Old Versions</h3>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/FDNCymbal0.2.4.zip">FDNCymbal 0.2.4 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/FDNCymbal0.2.3.zip">FDNCymbal 0.2.3 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/FDNCymbal0.2.2.zip">FDNCymbal 0.2.2 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/FDNCymbal0.2.1.zip">FDNCymbal 0.2.1 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/FDNCymbal0.1.5.zip">FDNCymbal 0.1.5 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/FDNCymbal0.1.4.zip">FDNCymbal 0.1.4 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbal0.1.3.zip">FDNCymbal 0.1.3 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/FDNCymbal0.1.2.zip">FDNCymbal 0.1.2 - VST 3 (github.com)</a></li>
-</ul>
-<p>Presets for old versions.</p>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbalPresets.zip">Presets for version 0.1.* (github.com)</a></li>
-</ul>
-<h2 id="license">License</h2>
-<p>FDNCymbal is licensed under GPLv3. Complete licenses are linked below.</p>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
-</ul>
-<p>If the link above doesn’t work, please send email to <code>ryukau@gmail.com</code>.</p>
-<h3 id="about-vst">About VST</h3>
-<p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="fu">}</span></span></code></pre>
+  </div>
+  <p>Hex color codes are used.</p>
+  <ul>
+    <li>6 digit color is RGB.</li>
+    <li>8 digit color is RGBA.</li>
+  </ul>
+  <p>First letter <code>#</code> is conventional. Plugins ignore the first letter of color code, thus
+    <code>?102938</code>, <code>\n11335577</code> are valid.</p>
+  <p>Do not use characters outside of <code>0-9a-f</code> for color value.</p>
+  <ul>
+    <li><code>fontPath</code>: Absolute path to *.ttf font file. Not implemented in VST 3 version.</li>
+    <li><code>foreground</code>: Text color.</li>
+    <li><code>foregroundButtonOn</code>: Text color of active toggle button. Recommend to use the same value of
+      <code>foreground</code> or <code>boxBackground</code>.</li>
+    <li><code>foregroundInactive</code>: Text color of inactive components. Currently, only used for TabView.</li>
+    <li><code>background</code>: Background color.</li>
+    <li><code>boxBackground</code>: Background color of inside of box shaped components (Barbox, Button, Checkbox,
+      OptionMenu, TextKnob, VSlider).</li>
+    <li><code>border</code>: Border color of box shaped components.</li>
+    <li><code>borderCheckbox</code>: Border color of CheckBox.</li>
+    <li><code>borderLabel</code>: Line color of parameter section label.</li>
+    <li><code>unfocused</code>: Color to fill unfocused components. Currently, only used for knobs.</li>
+    <li><code>highlightMain</code>: Color to indicate focus is on a component. Highlight colors are also used for value
+      of slider components (BarBox and VSlider).</li>
+    <li><code>highlightAccent</code>: Same as <code>highlightMain</code>. Used for cosmetics.</li>
+    <li><code>highlightButton</code>: Color to indicate focus is on a button.</li>
+    <li><code>highlightWarning</code>: Same as <code>highlightMain</code>, but only used for parameters which requires
+      extra caution.</li>
+    <li><code>overlay</code>: Overlay color. Used to overlay texts and indicators.</li>
+    <li><code>overlayHighlight</code>: Overlay color to highlight current focus.</li>
+  </ul>
+  <h2 id="controls">Controls</h2>
+  <p>Knob and slider can do:</p>
+  <ul>
+    <li>Ctrl + Left Click: Reset value.</li>
+    <li>Shift + Left Drag: Fine adjustment.</li>
+  </ul>
+  <h2 id="caution">Caution</h2>
+  <p>There’s no compatibility between version 0.1.x and 0.2.x.</p>
+  <p>When <code>FDN.Feedback</code> is non zero, it may possibly blow up. If that happens, turn
+    <code>FDN.Feedback</code> to leftmost.</p>
+  <p>When <code>HP Cutoff</code> is moving fast, it may output massive DC. To avoid this, use Shift + Mouse Left Drag or
+    turn up Smooth.</p>
+  <h2 id="use-as-effect">Use as Effect</h2>
+  <p>FDNCymbal can be use as effect, but it’s not intuitive.</p>
+  <p>When loaded, FDNCymbal is muted to prevent unexpected blow up at initialization. Therefore user must send MIDI
+    note-on to FDNCymbal. Note that output volume could be changed by velocity. <code>Seed</code> and parameters under
+    <code>FDN</code> section are only refreshed when FDNCymbal receives a new note.</p>
+  <h2 id="block-diagram">Block Diagram</h2>
+  <p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or “View Image” on right click menu to scale.
+  </p>
+  <p>Diagram only shows overview. It’s not exact implementation.</p>
+  <p><img src="img/fdncymbal.svg" /></p>
+  <h2 id="parameters">Parameters</h2>
+  <h3 id="gain">Gain</h3>
+  <p>Output gain.</p>
+  <h3 id="smooth">Smooth</h3>
+  <p>Time in seconds to move the value of parameters from previous one to changed one. Below is a list of parameter that
+    is affected by <code>Smooth</code>.</p>
+  <ul>
+    <li><code>Gain</code></li>
+    <li><code>FDN.Time</code></li>
+    <li><code>FDN.Feedback</code></li>
+    <li><code>FDN.CascadeMix</code></li>
+    <li><code>Allpass.Mix</code></li>
+    <li><code>Allpass.Stage1.Time</code></li>
+    <li><code>Allpass.Stage1.Feedback</code></li>
+    <li><code>Allpass.Stage2.Time</code></li>
+    <li><code>Allpass.Stage2.Feedback</code></li>
+    <li><code>Tremolo.Mix</code></li>
+    <li><code>Tremolo.Depth</code></li>
+    <li><code>Tremolo.Frequency</code></li>
+    <li><code>Tremolo.DelayTime</code></li>
+  </ul>
+  <h3 id="stick">Stick</h3>
+  <p>When <code>Stick</code> is on, each note on triggers stick oscillator. Noise density and pitch of tone are related
+    to the pitch of note.</p>
+  <dl>
+    <dt>Pulse</dt>
+    <dd>
+      <p>Gain of impulse of stick oscillator.</p>
+    </dd>
+    <dt>Tone</dt>
+    <dd>
+      <p>Gain of sine wave tone of stick oscillator.</p>
+    </dd>
+    <dt>Velvet</dt>
+    <dd>
+      <p>Gain of velvet noise of stick oscillator.</p>
+      <p>Velvet noise is a noise algorithm which output different height of impulses with randomized interval.</p>
+    </dd>
+    <dt>Decay</dt>
+    <dd>
+      <p>Decay time of stick oscillator.</p>
+    </dd>
+  </dl>
+  <h3 id="random">Random</h3>
+  <dl>
+    <dt>Seed</dt>
+    <dd>
+      <p>Value of random seed.</p>
+    </dd>
+    <dt>Retrigger.Time</dt>
+    <dd>
+      <p>When not checked, internal delay time controlled by following 3 parameters will be changed for each note on.
+      </p>
+      <ul>
+        <li><code>FDN.Time</code></li>
+        <li><code>Allpass.Stage1.Time</code></li>
+        <li><code>Allpass.Stage2.Time</code></li>
+      </ul>
+    </dd>
+    <dt>Retrigger.Stick</dt>
+    <dd>
+      <p>When not checked, stick oscillator output varies for each note.</p>
+    </dd>
+    <dt>Retrigger.Tremolo</dt>
+    <dd>
+      <p>When not checked, tremolo parameters will be changed for each note on.</p>
+    </dd>
+  </dl>
+  <h3 id="fdn">FDN</h3>
+  <p>When turned on, the signal go through FDN section.</p>
+  <dl>
+    <dt>Time</dt>
+    <dd>
+      <p>FDN delay time. Internal delay time will be randomized with respect to this value.</p>
+    </dd>
+    <dt>Feedback</dt>
+    <dd>
+      <p>FDN section feedback. Beware that if this value is non zero, it’s possible to blow up.</p>
+    </dd>
+    <dt>CascadeMix</dt>
+    <dd>
+      <p>Controls mixing of Cascaded FDN.</p>
+    </dd>
+  </dl>
+  <h3 id="allpass">Allpass</h3>
+  <dl>
+    <dt>Mix</dt>
+    <dd>
+      <p>Mixing ratio of Schroeder allpass section.</p>
+    </dd>
+  </dl>
+  <h3 id="stage-1-and-stage-2">Stage 1 and Stage 2</h3>
+  <p>Stage 1 is serially connected 8 Schroeder allpass. On stage 2, there are 4 Schroeder allpass section connected in
+    parallel. For each section has serially connected 8 Schroeder allpass.</p>
+  <dl>
+    <dt>Time</dt>
+    <dd>
+      <p>Max delay time of Schroeder allpass section. Internally, delay time will be randomized.</p>
+    </dd>
+    <dt>Feedback</dt>
+    <dd>
+      <p>Feedback of Schroeder allpass section.</p>
+    </dd>
+    <dt>HP Cutoff</dt>
+    <dd>
+      <p>Cutoff frequency of high-pass filter to the output of Schroeder allpass section.</p>
+    </dd>
+    <dt>Tanh</dt>
+    <dd>
+      <p>When checked, stage 1 feedback go through tanh saturator.</p>
+    </dd>
+  </dl>
+  <h3 id="tremolo">Tremolo</h3>
+  <dl>
+    <dt>Mix</dt>
+    <dd>
+      <p>Mixing ratio of tremolo effect.</p>
+    </dd>
+    <dt>Depth</dt>
+    <dd>
+      <p>Maximum change of amplitude with tremolo.</p>
+    </dd>
+    <dt>Frequency</dt>
+    <dd>
+      <p>Tremolo LFO frequency.</p>
+    </dd>
+    <dt>DelayTime</dt>
+    <dd>
+      <p>Maximum delay time. Delay time is modulated by LFO. This delay simulates doppler effect.</p>
+    </dd>
+  </dl>
+  <h3 id="random-tremolo">Random (Tremolo)</h3>
+  <dl>
+    <dt>Depth</dt>
+    <dd>
+      <p>Amount of randomization to <code>Tremolo.Depth</code> for each note on.</p>
+    </dd>
+    <dt>Freq</dt>
+    <dd>
+      <p>Amount of randomization to <code>Tremolo.Frequency</code> for each note on.</p>
+    </dd>
+    <dt>Time</dt>
+    <dd>
+      <p>Amount of randomization to <code>Tremolo.DelayTime</code> for each note on.</p>
+    </dd>
+  </dl>
+  <h2 id="change-log">Change Log</h2>
+  <ul>
+    <li>0.2.6
+      <ul>
+        <li>Fixed to reset properly.</li>
+        <li>Fixed <code>bypass</code> parameter behavior. This fixes playing all the notes at the moment of unmute, even
+          if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3
+          <code>bypass</code> parameter.</li>
+      </ul>
+    </li>
+    <li>0.2.5
+      <ul>
+        <li>Implemented process context requirements.</li>
+      </ul>
+    </li>
+    <li>0.2.4
+      <ul>
+        <li>Added check that DSP is initialized or not.</li>
+      </ul>
+    </li>
+    <li>0.2.3
+      <ul>
+        <li>Added color configuration.</li>
+      </ul>
+    </li>
+    <li>0.2.2
+      <ul>
+        <li>Reverted parameter smoother to the old one which works with variable size audio buffer.</li>
+      </ul>
+    </li>
+    <li>0.2.1
+      <ul>
+        <li>Fixed a bug that cause crash when drawing string.</li>
+      </ul>
+    </li>
+    <li>0.2.0
+      <ul>
+        <li>Changed display method for pop-up which shows up by clicking plugin title.</li>
+        <li>Added <code>Pulse</code> parameter to control pulse gain.</li>
+        <li>Added <code>Velvet</code> parameter to control velvet noise gain.</li>
+        <li>Changed <code>ToneMix</code> to <code>Tone</code>. Value range is increased from [0, 0.002] to [0, 0.02].
+        </li>
+        <li>Changed algorithm to allocate sine frequency.</li>
+        <li>Fixed velvet noise oscillator to randomize interval.</li>
+      </ul>
+    </li>
+    <li>0.1.5
+      <ul>
+        <li>Fixed to stop sounds when deactivated.</li>
+        <li>Fixed a bug that was causing noise on PreSonus Studio One 4.6.1.</li>
+      </ul>
+    </li>
+    <li>0.1.4
+      <ul>
+        <li>Enabled GUI for Linux build.</li>
+      </ul>
+    </li>
+    <li>0.1.3
+      <ul>
+        <li>Fixed a bug that sound stops on Steinberg host.</li>
+      </ul>
+    </li>
+    <li>0.1.2
+      <ul>
+        <li>Added support for synchronization between multiple GUI instances.</li>
+        <li>Fixed a bug that opening splash screen causes crash.</li>
+        <li>Fixed a bug that crash plugin when reloading.</li>
+        <li>Fixed GUI to follow host automation.</li>
+      </ul>
+    </li>
+    <li>0.1.1
+      <ul>
+        <li>Fixed note on/off event to be triggered at exact timing.</li>
+        <li>Fixed a bug that <code>Allpass.Stage1.Feedback</code> was disabled.</li>
+      </ul>
+    </li>
+    <li>0.1.0
+      <ul>
+        <li>Initial release.</li>
+      </ul>
+    </li>
+  </ul>
+  <h3 id="old-versions">Old Versions</h3>
+  <ul>
+    <li><a
+        href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/FDNCymbal0.2.5.zip">FDNCymbal
+        0.2.5 - VST 3 (github.com)</a></li>
+    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/FDNCymbal0.2.4.zip">FDNCymbal
+        0.2.4 - VST 3 (github.com)</a></li>
+    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/FDNCymbal0.2.3.zip">FDNCymbal 0.2.3
+        - VST 3 (github.com)</a></li>
+    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/FDNCymbal0.2.2.zip">FDNCymbal
+        0.2.2 - VST 3 (github.com)</a></li>
+    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/FDNCymbal0.2.1.zip">FDNCymbal
+        0.2.1 - VST 3 (github.com)</a></li>
+    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/FDNCymbal0.1.5.zip">FDNCymbal
+        0.1.5 - VST 3 (github.com)</a></li>
+    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/FDNCymbal0.1.4.zip">FDNCymbal 0.1.4
+        - VST 3 (github.com)</a></li>
+    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbal0.1.3.zip">FDNCymbal
+        0.1.3 - VST 3 (github.com)</a></li>
+    <li><a
+        href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/FDNCymbal0.1.2.zip">FDNCymbal
+        0.1.2 - VST 3 (github.com)</a></li>
+  </ul>
+  <p>Presets for old versions.</p>
+  <ul>
+    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/FDNCymbalPresets.zip">Presets
+        for version 0.1.* (github.com)</a></li>
+  </ul>
+  <h2 id="license">License</h2>
+  <p>FDNCymbal is licensed under GPLv3. Complete licenses are linked below.</p>
+  <ul>
+    <li><a
+        href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a>
+    </li>
+  </ul>
+  <p>If the link above doesn’t work, please send email to <code>ryukau@gmail.com</code>.</p>
+  <h3 id="about-vst">About VST</h3>
+  <p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
 
-<footer>
-    <p><a href="..\..\index.html">Back to Index</a></p>
+  <footer>
+    <p><a href="..\..\..\index.html">Back to Index</a></p>
   </footer>
 </body>
 

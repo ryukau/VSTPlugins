@@ -1,398 +1,629 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 
 <head>
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2020-09-02" />
-<title>CubicPadSynth_ja</title>
-<style>
-code { white-space: pre-wrap; }
-span.smallcaps { font-variant: small-caps; }
-span.underline { text-decoration: underline; }
-div.column { display: inline-block; vertical-align: top; width: 50%; }
-</style>
-<style>
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-<style>
-body {
-  max-width: 704px;
-  margin: auto;
-  padding: 32px 8px;
-}
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2021-11-20" />
+  <title>CubicPadSynth_ja</title>
+  <style>
+    code {
+      white-space: pre-wrap;
+    }
 
-img {
-  max-width: 100%;
-}
+    span.smallcaps {
+      font-variant: small-caps;
+    }
 
-video {
-  max-width: 100%;
-}
+    span.underline {
+      text-decoration: underline;
+    }
 
-details.list > summary {
-  line-height: 3em;
-}
+    div.column {
+      display: inline-block;
+      vertical-align: top;
+      width: 50%;
+    }
+  </style>
+  <style>
+    code.sourceCode>span {
+      display: inline-block;
+      line-height: 1.25;
+    }
 
-kbd {
-  font-family: inherit;
-  border-style: solid;
-  border-width: 1px 2px 2px 1px;
-  border-radius: 2px;
-  padding: 4px;
-  margin: 2px;
-  line-height: calc(1em + 16px);
-}
+    code.sourceCode>span {
+      color: inherit;
+      text-decoration: inherit;
+    }
 
-a {
-  text-decoration: none;
-}
+    code.sourceCode>span:empty {
+      height: 1.2em;
+    }
 
-h1 {
-  background-color: #163eac;
-  color: #ffffff;
-  padding-left: 8px;
-}
+    .sourceCode {
+      overflow: visible;
+    }
 
-h2 {
-  border-left: solid 32px #2851c2;
-  padding-left: 24px;
-}
+    code.sourceCode {
+      white-space: pre;
+      position: relative;
+    }
 
-h3 {
-  border-left: solid 20px #4d74dd;
-  padding-left: 16px;
-}
+    div.sourceCode {
+      margin: 1em 0;
+    }
 
-h4 {
-  border-left: solid 12px #6a88da;
-  padding-left: 8px;
-}
+    pre.sourceCode {
+      margin: 0;
+    }
 
-h5 {
-  border-left: solid 4px #8ca4e7;
-  padding-left: 4px;
-}
+    @media screen {
+      div.sourceCode {
+        overflow: auto;
+      }
+    }
 
-h6 {
-  border-left: solid 2px #a8bcf5;
-  padding-left: 2px;
-}
+    @media print {
+      code.sourceCode {
+        white-space: pre-wrap;
+      }
 
-table {
-  border-spacing: 0px;
-  border-collapse: separate;
-  border-left: 1px solid #888888;
-  border-right: 1px solid #888888;
-  border-top: 1px solid #888888;
-  border-bottom: hidden;
-}
+      code.sourceCode>span {
+        text-indent: -5em;
+        padding-left: 5em;
+      }
+    }
 
-tr:nth-child(odd) {
-  background: #eeeeee;
-}
+    pre.numberSource code {
+      counter-reset: source-line 0;
+    }
 
-tr:nth-child(even) {
-  background: #ffffff;
-}
+    pre.numberSource code>span {
+      position: relative;
+      left: -4em;
+      counter-increment: source-line;
+    }
 
-th {
-  height: 2em;
-  padding: 4px 1em 4px 1em;
-  background: #ffffff;
-  border-bottom: 1px solid #888888;
-}
+    pre.numberSource code>span>a:first-child::before {
+      content: counter(source-line);
+      position: relative;
+      left: -1em;
+      text-align: right;
+      vertical-align: baseline;
+      border: none;
+      display: inline-block;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      padding: 0 4px;
+      width: 4em;
+      color: #aaaaaa;
+    }
 
-th:not(:first-child) {
-  border-left: 1px solid #888888;
-}
+    pre.numberSource {
+      margin-left: 3em;
+      border-left: 1px solid #aaaaaa;
+      padding-left: 4px;
+    }
 
-td {
-  height: 1.5em;
-  padding: 4px 1em 4px 1em;
-  border-bottom: 1px solid #888888;
-}
+    div.sourceCode {}
 
-td:not(:first-child) {
-  border-left: 1px solid #888888;
-}
+    @media screen {
+      code.sourceCode>span>a:first-child::before {
+        text-decoration: underline;
+      }
+    }
 
-dl {
-  padding-left: 2em;
-}
+    code span.al {
+      color: #ff0000;
+      font-weight: bold;
+    }
 
-dt {
-  font-weight: bold;
-  border-bottom: 1px dashed #000000;
-  margin-top: 2em;
-}
+    /* Alert */
+    code span.an {
+      color: #60a0b0;
+      font-weight: bold;
+      font-style: italic;
+    }
 
-dd {
-  border-left: 1px dotted #000000;
-  margin-left: 1em;
-  padding-left: 1em;
-}
+    /* Annotation */
+    code span.at {
+      color: #7d9029;
+    }
 
-audio {
-  vertical-align: middle;
-}
+    /* Attribute */
+    code span.bn {
+      color: #40a070;
+    }
 
-label {
-  vertical-align: middle;
-}
+    /* BaseN */
+    code span.bu {}
 
-:not(.sourceCode) > pre {
-  overflow: auto;
-  border: 1px solid #888888;
-  padding: 8px;
-}
+    /* BuiltIn */
+    code span.cf {
+      color: #007020;
+      font-weight: bold;
+    }
 
-div.sourceCode {
-  overflow: auto;
-  border: 1px solid #888888;
-  padding: 8px;
-}
+    /* ControlFlow */
+    code span.ch {
+      color: #4070a0;
+    }
 
-pre > code.sourceCode > span > a:first-child::before {
-  border-right: 1px solid #888888;
-  padding-right: 1em;
-  margin-right: 1em;
-  text-decoration: none;
-}
+    /* Char */
+    code span.cn {
+      color: #880000;
+    }
 
-:not(pre) > code {
-  color: #163eac;
-}
+    /* Constant */
+    code span.co {
+      color: #60a0b0;
+      font-style: italic;
+    }
 
-li {
-  margin: 8px;
-}
+    /* Comment */
+    code span.cv {
+      color: #60a0b0;
+      font-weight: bold;
+      font-style: italic;
+    }
 
-summary:hover {
-  background-color: #eeeeee;
-}
+    /* CommentVar */
+    code span.do {
+      color: #ba2121;
+      font-style: italic;
+    }
 
-header {
-  border-bottom: 1px gray solid;
-  padding: 0.5em;
-  margin-bottom: 1em;
-}
+    /* Documentation */
+    code span.dt {
+      color: #902000;
+    }
 
-footer {
-  border-top: 1px gray solid;
-  padding: 0.5em;
-  margin-top: 1em;
-}
-</style>
+    /* DataType */
+    code span.dv {
+      color: #40a070;
+    }
+
+    /* DecVal */
+    code span.er {
+      color: #ff0000;
+      font-weight: bold;
+    }
+
+    /* Error */
+    code span.ex {}
+
+    /* Extension */
+    code span.fl {
+      color: #40a070;
+    }
+
+    /* Float */
+    code span.fu {
+      color: #06287e;
+    }
+
+    /* Function */
+    code span.im {}
+
+    /* Import */
+    code span.in {
+      color: #60a0b0;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    /* Information */
+    code span.kw {
+      color: #007020;
+      font-weight: bold;
+    }
+
+    /* Keyword */
+    code span.op {
+      color: #666666;
+    }
+
+    /* Operator */
+    code span.ot {
+      color: #007020;
+    }
+
+    /* Other */
+    code span.pp {
+      color: #bc7a00;
+    }
+
+    /* Preprocessor */
+    code span.sc {
+      color: #4070a0;
+    }
+
+    /* SpecialChar */
+    code span.ss {
+      color: #bb6688;
+    }
+
+    /* SpecialString */
+    code span.st {
+      color: #4070a0;
+    }
+
+    /* String */
+    code span.va {
+      color: #19177c;
+    }
+
+    /* Variable */
+    code span.vs {
+      color: #4070a0;
+    }
+
+    /* VerbatimString */
+    code span.wa {
+      color: #60a0b0;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    /* Warning */
+  </style>
+  <style>
+    body {
+      max-width: 704px;
+      margin: auto;
+      padding: 32px 8px;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    video {
+      max-width: 100%;
+    }
+
+    details.list>summary {
+      line-height: 3em;
+    }
+
+    kbd {
+      font-family: inherit;
+      border-style: solid;
+      border-width: 1px 2px 2px 1px;
+      border-radius: 2px;
+      padding: 4px;
+      margin: 2px;
+      line-height: calc(1em + 16px);
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    h1 {
+      background-color: #163eac;
+      color: #ffffff;
+      padding-left: 8px;
+    }
+
+    h2 {
+      border-left: solid 32px #2851c2;
+      padding-left: 24px;
+    }
+
+    h3 {
+      border-left: solid 20px #4d74dd;
+      padding-left: 16px;
+    }
+
+    h4 {
+      border-left: solid 12px #6a88da;
+      padding-left: 8px;
+    }
+
+    h5 {
+      border-left: solid 4px #8ca4e7;
+      padding-left: 4px;
+    }
+
+    h6 {
+      border-left: solid 2px #a8bcf5;
+      padding-left: 2px;
+    }
+
+    table {
+      border-spacing: 0px;
+      border-collapse: separate;
+      border-left: 1px solid #888888;
+      border-right: 1px solid #888888;
+      border-top: 1px solid #888888;
+      border-bottom: hidden;
+    }
+
+    tr:nth-child(odd) {
+      background: #eeeeee;
+    }
+
+    tr:nth-child(even) {
+      background: #ffffff;
+    }
+
+    th {
+      height: 2em;
+      padding: 4px 1em 4px 1em;
+      background: #ffffff;
+      border-bottom: 1px solid #888888;
+    }
+
+    th:not(:first-child) {
+      border-left: 1px solid #888888;
+    }
+
+    td {
+      height: 1.5em;
+      padding: 4px 1em 4px 1em;
+      border-bottom: 1px solid #888888;
+    }
+
+    td:not(:first-child) {
+      border-left: 1px solid #888888;
+    }
+
+    dl {
+      padding-left: 2em;
+    }
+
+    dt {
+      font-weight: bold;
+      border-bottom: 1px dashed #000000;
+      margin-top: 2em;
+    }
+
+    dd {
+      border-left: 1px dotted #000000;
+      margin-left: 1em;
+      padding-left: 1em;
+    }
+
+    audio {
+      vertical-align: middle;
+    }
+
+    label {
+      vertical-align: middle;
+    }
+
+    :not(.sourceCode)>pre {
+      overflow: auto;
+      border: 1px solid #888888;
+      padding: 8px;
+    }
+
+    div.sourceCode {
+      overflow: auto;
+      border: 1px solid #888888;
+      padding: 8px;
+    }
+
+    pre>code.sourceCode>span>a:first-child::before {
+      border-right: 1px solid #888888;
+      padding-right: 1em;
+      margin-right: 1em;
+      text-decoration: none;
+    }
+
+    :not(pre)>code {
+      color: #163eac;
+    }
+
+    li {
+      margin: 8px;
+    }
+
+    summary:hover {
+      background-color: #eeeeee;
+    }
+
+    header {
+      border-bottom: 1px gray solid;
+      padding: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    footer {
+      border-top: 1px gray solid;
+      padding: 0.5em;
+      margin-top: 1em;
+    }
+  </style>
 </head>
 
 <body>
-<header>
-    <p><a href="..\..\index.html">Back to Index</a></p>
-      <p>
-  Update: 2020-09-02
-  </p>
-      <details>
-  <summary translate="yes">Table of Contents</summary>
-  <nav id="TOC" role="doc-toc">
-  <ul>
-  <li><a href="#cubicpadsynth">CubicPadSynth</a><ul>
-  <li><a href="#インストール">インストール</a><ul>
-  <li><a href="#プラグイン">プラグイン</a></li>
-  <li><a href="#プリセット">プリセット</a></li>
-  <li><a href="#windows">Windows</a></li>
-  <li><a href="#linux">Linux</a></li>
-  <li><a href="#macos">macOS</a><ul>
-  <li><a href="#参考リンク">参考リンク</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#色の設定">色の設定</a></li>
-  <li><a href="#操作">操作</a></li>
-  <li><a href="#注意">注意</a></li>
-  <li><a href="#ウェーブテーブルの仕様">ウェーブテーブルの仕様</a></li>
-  <li><a href="#padsynth-アルゴリズムの概要">PADsynth アルゴリズムの概要</a></li>
-  <li><a href="#ブロック線図">ブロック線図</a></li>
-  <li><a href="#パラメータ">パラメータ</a><ul>
-  <li><a href="#main-タブ">Main タブ</a><ul>
-  <li><a href="#tuning">Tuning</a></li>
-  <li><a href="#gain">Gain</a></li>
-  <li><a href="#lowpass">Lowpass</a></li>
-  <li><a href="#pitch">Pitch</a></li>
-  <li><a href="#unison">Unison</a></li>
-  <li><a href="#lfo">LFO</a></li>
-  <li><a href="#phase">Phase</a></li>
-  <li><a href="#misc.">Misc.</a></li>
-  </ul></li>
-  <li><a href="#wavetable-タブ">Wavetable タブ</a><ul>
-  <li><a href="#倍音コントロール">倍音コントロール</a></li>
-  <li><a href="#pitch-1">Pitch</a></li>
-  <li><a href="#spectrum">Spectrum</a></li>
-  <li><a href="#phase-1">Phase</a></li>
-  <li><a href="#random">Random</a></li>
-  <li><a href="#modifier">Modifier</a></li>
-  <li><a href="#refresh-table">Refresh Table</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#チェンジログ">チェンジログ</a><ul>
-  <li><a href="#旧バージョン">旧バージョン</a></li>
-  </ul></li>
-  <li><a href="#ライセンス">ライセンス</a><ul>
-  <li><a href="#vst-について">VST® について</a></li>
-  </ul></li>
-  </ul></li>
-  </ul>
-  </nav>
-  </details>
+  <header>
+    <p><a href="..\..\..\index.html">Back to Index</a></p>
+    <p>
+      Update: 2021-11-20
+    </p>
+    <details>
+      <summary translate="yes">Table of Contents</summary>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+          <li><a href="#cubicpadsynth">CubicPadSynth</a>
+            <ul>
+              <li><a href="#インストール">インストール</a>
+                <ul>
+                  <li><a href="#プラグイン">プラグイン</a></li>
+                  <li><a href="#プリセット">プリセット</a></li>
+                  <li><a href="#windows">Windows</a></li>
+                  <li><a href="#linux">Linux</a></li>
+                  <li><a href="#macos">macOS</a>
+                    <ul>
+                      <li><a href="#参考リンク">参考リンク</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="#色の設定">色の設定</a></li>
+              <li><a href="#操作">操作</a></li>
+              <li><a href="#注意">注意</a></li>
+              <li><a href="#ウェーブテーブルの仕様">ウェーブテーブルの仕様</a></li>
+              <li><a href="#padsynth-アルゴリズムの概要">PADsynth アルゴリズムの概要</a></li>
+              <li><a href="#ブロック線図">ブロック線図</a></li>
+              <li><a href="#パラメータ">パラメータ</a>
+                <ul>
+                  <li><a href="#main-タブ">Main タブ</a>
+                    <ul>
+                      <li><a href="#tuning">Tuning</a></li>
+                      <li><a href="#gain">Gain</a></li>
+                      <li><a href="#lowpass">Lowpass</a></li>
+                      <li><a href="#pitch">Pitch</a></li>
+                      <li><a href="#unison">Unison</a></li>
+                      <li><a href="#lfo">LFO</a></li>
+                      <li><a href="#phase">Phase</a></li>
+                      <li><a href="#misc.">Misc.</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#wavetable-タブ">Wavetable タブ</a>
+                    <ul>
+                      <li><a href="#倍音コントロール">倍音コントロール</a></li>
+                      <li><a href="#pitch-1">Pitch</a></li>
+                      <li><a href="#spectrum">Spectrum</a></li>
+                      <li><a href="#phase-1">Phase</a></li>
+                      <li><a href="#random">Random</a></li>
+                      <li><a href="#modifier">Modifier</a></li>
+                      <li><a href="#refresh-table">Refresh Table</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="#チェンジログ">チェンジログ</a>
+                <ul>
+                  <li><a href="#旧バージョン">旧バージョン</a></li>
+                </ul>
+              </li>
+              <li><a href="#ライセンス">ライセンス</a>
+                <ul>
+                  <li><a href="#vst-について">VST® について</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </details>
   </header>
-<h1 id="cubicpadsynth">CubicPadSynth</h1>
-<p><img src="img/cubicpadsynth.png" /></p>
-<p><ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby> は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています</p>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CubicPadSynth0.1.9.zip">CubicPadSynth 0.1.9 をダウンロード - VST® 3 (github.com)</a> <img
-src="img/VST_Compatible_Logo_Steinberg_negative.svg"
-alt="VST compatible logo."
-width="60px"
-style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynthPresets.zip">プリセットをダウンロード (github.com)</a></li>
-</ul>
-<p>CubicPadSynth を使うには CPU が AVX 以降の SIMD 命令セットをサポートしている必要があります。</p>
-<p>パッケージには次のビルドが含まれています。</p>
-<ul>
-<li>Windows 64bit</li>
-<li>Linux 64bit</li>
-<li>macOS 64bit</li>
-</ul>
-<p>Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければ対応します。</p>
-<p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig と REAPER で動作確認を行っています。もし Ubuntu 18.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
-<h2 id="インストール">インストール</h2>
-<h3 id="プラグイン">プラグイン</h3>
-<p>名前が <code>.vst3</code> で終わるディレクトリを OS ごとに決められた位置に配置してください。</p>
-<ul>
-<li>Windows では <code>/Program Files/Common Files/VST3/</code> に配置します。</li>
-<li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
-<li>macOS では <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> に配置します。</li>
-</ul>
-<p>DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。</p>
-<h3 id="プリセット">プリセット</h3>
-<p>解凍して出てきたディレクトリを OS ごとに決められた位置に配置すると使えるようになります。</p>
-<ul>
-<li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
-<li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
-<li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
-</ul>
-<p>プリセットディレクトリの名前はプラグインと同じである必要があります。 <code>Uhhyou</code> ディレクトリが無いときは作成してください。</p>
-<h3 id="windows">Windows</h3>
-<p>プラグインが DAW に認識されないときは C++ redistributable をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は <code>vc_redist.x64.exe</code> です。</p>
-<ul>
-<li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest supported Visual C++ downloads</a></li>
-</ul>
-<h3 id="linux">Linux</h3>
-<p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
-<p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。</p>
-<ul>
-<li><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html">VST 3 Interfaces: Setup Linux for building VST 3 Plug-ins</a></li>
-</ul>
-<p>REAPER の Linux 版がプラグインを認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
-<h3 id="macos">macOS</h3>
-<p><strong>注意</strong>: この節は英語で macOS を使用しているユーザからの報告によって作成されました。日本語でのエラーメッセージが分からなかったので曖昧な書き方になっています。</p>
-<p>プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した <code>.vst3</code> ディレクトリに次のコマンドを適用してみてください。</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">xattr</span> -rc /path/to/PluginName.vst3</span></code></pre></div>
-<p>プラグインは署名されていない (unsigned) 、または公証されていない (un-notarized) アプリケーションとして認識されることがあります。この場合は以下の手順を試してみてください。</p>
-<ol type="1">
-<li>ターミナルを開いて <code>sudo spctl --master-disable</code> を実行。</li>
-<li>システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「全てのアプリケーションを許可」 を選択。</li>
-</ol>
-<p>上記の手順を実行するとシステムのセキュリティが弱くなるので注意してください。元に戻すには以下の手順を実行してください。</p>
-<ol type="1">
-<li>システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「App Store と認証済みの開発元からのアプリケーションを許可」 を選択。</li>
-<li>ターミナルを開いて <code>sudo spctl --master-enable</code> を実行。</li>
-</ol>
-<h4 id="参考リンク">参考リンク</h4>
-<ul>
-<li><a href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac</a></li>
-<li><a href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio</a></li>
-<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps on your Mac - Apple Support</a></li>
-</ul>
-<h2 id="色の設定">色の設定</h2>
-<p>初回設定時は手動で次のファイルを作成してください。</p>
-<ul>
-<li>Windows では <code>/Users/ユーザ名/AppData/Roaming/UhhyouPlugins/style/style.json</code> 。</li>
-<li>Linux では <code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> 。
-<ul>
-<li><code>$XDG_CONFIG_HOME</code> が空のときは <code>$HOME/.config/UhhyouPlugins/style/style.json</code> 。</li>
-</ul></li>
-<li>macOS では <code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> 。</li>
-</ul>
-<p>既存の色のテーマを次のリンクに掲載しています。 <code>style.json</code> にコピペして使ってください。</p>
-<ul>
-<li><a href="https://github.com/ryukau/LV2Plugins/tree/master/style/themes">LV2Plugins/style/themes at master · ryukau/LV2Plugins · GitHub</a></li>
-</ul>
-<p><code>style.json</code> の設定例です。</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">{</span></span>
+  <h1 id="cubicpadsynth">CubicPadSynth</h1>
+  <p><img src="img/cubicpadsynth.png" /></p>
+  <p><ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby> は PADsynth
+    アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています</p>
+  <ul>
+    <li><a
+        href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/CubicPadSynth_0.1.10.zip">CubicPadSynth
+        0.1.10 をダウンロード - VST® 3 (github.com)</a> <img src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+        alt="VST compatible logo." width="60px" style="display: inline-block; vertical-align: middle;"></li>
+    <li><a
+        href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynthPresets.zip">プリセットをダウンロード
+        (github.com)</a></li>
+  </ul>
+  <p>CubicPadSynth を使うには CPU が AVX 以降の SIMD 命令セットをサポートしている必要があります。</p>
+  <p>パッケージには次のビルドが含まれています。</p>
+  <ul>
+    <li>Windows 64bit</li>
+    <li>Linux 64bit</li>
+    <li>macOS 64bit</li>
+  </ul>
+  <p>Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に
+    issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければ対応します。</p>
+  <p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig と REAPER で動作確認を行っています。もし Ubuntu 18.04
+    以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a
+      href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
+  <h2 id="インストール">インストール</h2>
+  <h3 id="プラグイン">プラグイン</h3>
+  <p>名前が <code>.vst3</code> で終わるディレクトリを OS ごとに決められた位置に配置してください。</p>
+  <ul>
+    <li>Windows では <code>/Program Files/Common Files/VST3/</code> に配置します。</li>
+    <li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
+    <li>macOS では <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> に配置します。</li>
+  </ul>
+  <p>DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。</p>
+  <h3 id="プリセット">プリセット</h3>
+  <p>解凍して出てきたディレクトリを OS ごとに決められた位置に配置すると使えるようになります。</p>
+  <ul>
+    <li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
+    <li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
+    <li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
+  </ul>
+  <p>プリセットディレクトリの名前はプラグインと同じである必要があります。 <code>Uhhyou</code> ディレクトリが無いときは作成してください。</p>
+  <h3 id="windows">Windows</h3>
+  <p>プラグインが DAW に認識されないときは C++ redistributable をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は
+    <code>vc_redist.x64.exe</code> です。</p>
+  <ul>
+    <li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest
+        supported Visual C++ downloads</a></li>
+  </ul>
+  <h3 id="linux">Linux</h3>
+  <p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
+  <div class="sourceCode" id="cb1">
+    <pre
+      class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre>
+  </div>
+  <p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。
+  </p>
+  <ul>
+    <li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VST 3 Interfaces: Setup Linux
+        for building VST 3 Plug-ins</a></li>
+  </ul>
+  <p>REAPER の Linux 版がプラグインを認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。
+  </p>
+  <h3 id="macos">macOS</h3>
+  <p><strong>注意</strong>: この節は英語で macOS を使用しているユーザからの報告によって作成されました。日本語でのエラーメッセージが分からなかったので曖昧な書き方になっています。</p>
+  <p>プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した <code>.vst3</code> ディレクトリに次のコマンドを適用してみてください。</p>
+  <div class="sourceCode" id="cb2">
+    <pre
+      class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">xattr</span> -rc /path/to/PluginName.vst3</span></code></pre>
+  </div>
+  <p>プラグインは署名されていない (unsigned) 、または公証されていない (un-notarized) アプリケーションとして認識されることがあります。この場合は以下の手順を試してみてください。</p>
+  <ol type="1">
+    <li>ターミナルを開いて <code>sudo spctl --master-disable</code> を実行。</li>
+    <li>システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「全てのアプリケーションを許可」 を選択。</li>
+  </ol>
+  <p>上記の手順を実行するとシステムのセキュリティが弱くなるので注意してください。元に戻すには以下の手順を実行してください。</p>
+  <ol type="1">
+    <li>システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「App Store と認証済みの開発元からのアプリケーションを許可」 を選択。</li>
+    <li>ターミナルを開いて <code>sudo spctl --master-enable</code> を実行。</li>
+  </ol>
+  <h4 id="参考リンク">参考リンク</h4>
+  <ul>
+    <li><a href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How to Fix App “is
+        damaged and can’t be opened. You should move it to the Trash” Error on Mac</a></li>
+    <li><a href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
+        unsigned/un-notarized applications/plugins in Mac OS | Venn Audio</a></li>
+    <li><a href="https://support.apple.com/en-us/HT202491">Safely open apps on your Mac - Apple Support</a></li>
+  </ul>
+  <h2 id="色の設定">色の設定</h2>
+  <p>初回設定時は手動で次のファイルを作成してください。</p>
+  <ul>
+    <li>Windows では <code>/Users/ユーザ名/AppData/Roaming/UhhyouPlugins/style/style.json</code> 。</li>
+    <li>Linux では <code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> 。
+      <ul>
+        <li><code>$XDG_CONFIG_HOME</code> が空のときは <code>$HOME/.config/UhhyouPlugins/style/style.json</code> 。</li>
+      </ul>
+    </li>
+    <li>macOS では <code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> 。</li>
+  </ul>
+  <p>既存の色のテーマを次のリンクに掲載しています。 <code>style.json</code> にコピペして使ってください。</p>
+  <ul>
+    <li><a href="https://github.com/ryukau/LV2Plugins/tree/master/style/themes">LV2Plugins/style/themes at master ·
+        ryukau/LV2Plugins · GitHub</a></li>
+  </ul>
+  <p><code>style.json</code> の設定例です。</p>
+  <div class="sourceCode" id="cb3">
+    <pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">{</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>  <span class="dt">&quot;fontPath&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
@@ -409,265 +640,288 @@ style="display: inline-block; vertical-align: middle;"></li>
 <span id="cb3-15"><a href="#cb3-15"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
 <span id="cb3-16"><a href="#cb3-16"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
 <span id="cb3-17"><a href="#cb3-17"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="fu">}</span></span></code></pre></div>
-<p>16 進数カラーコードを使っています。</p>
-<ul>
-<li>6 桁の色は RGB 。</li>
-<li>8 桁の色は RGBA 。</li>
-</ul>
-<p>プラグインはカラーコードの 1 文字目を無視します。よって <code>?102938</code> や <code>\n11335577</code> も有効なカラーコードです。</p>
-<p>2 文字目以降のカラーコードの値に <code>0-9a-f</code> 以外の文字を使わないでください。</p>
-<p>以下は設定できる色の一覧です。設定に抜けがあるとデフォルトの色が使われます。</p>
-<ul>
-<li><code>fontPath</code>: フォント (*.ttf) の絶対パス。VST 3 版では実装されていません。</li>
-<li><code>foreground</code>: 文字の色。</li>
-<li><code>foregroundButtonOn</code>: オンになっているボタンの文字の色。 <code>foreground</code> か <code>boxBackground</code> のいずれかと同じ値にすることを推奨します。</li>
-<li><code>foregroundInactive</code>: 非アクティブなタブの文字の色。</li>
-<li><code>background</code>: 背景色。x</li>
-<li><code>boxBackground</code>: 矩形の UI 部品の内側の背景色。</li>
-<li><code>border</code>: <ruby>縁<rt>ふち</rt></ruby>の色。</li>
-<li><code>borderCheckbox</code>: チェックボックスの縁の色。</li>
-<li><code>borderLabel</code>: パラメータセクションのラベルの左右の直線の色。</li>
-<li><code>unfocused</code>: つまみがフォーカスされていないときの色。</li>
-<li><code>highlightMain</code>: フォーカスされたときの色。スライダの値の表示にも使用されます。</li>
-<li><code>highlightAccent</code>: フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。</li>
-<li><code>highlightButton</code>: ボタンがフォーカスされたときの色。</li>
-<li><code>highlightWarning</code>: 変更に注意を要する UI がフォーカスされたときの色。</li>
-<li><code>overlay</code>: オーバーレイの色。</li>
-<li><code>overlayHighlight</code>: フォーカスを示すオーバーレイの色。</li>
-</ul>
-<h2 id="操作">操作</h2>
-<p>操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。</p>
-<p>つまみとスライダーでは次の操作ができます。</p>
-<ul>
-<li><kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。</li>
-<li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
-</ul>
-<p><code>Octave</code> 、 <code>Seed</code> などで使われている数値スライダーでは、上記に加えて次の操作ができます。</p>
-<ul>
-<li><kbd>ホイールクリック</kbd> : 最小値、最大値の切り替え。</li>
-</ul>
-<p>Wavetable タブの <code>Gain</code>, <code>Width</code>, <code>Pitch</code>, <code>Phase</code> と Main タブの <code>LFO Wave</code> で使われている青い縦棒が並んだコントロール (BarBox) ではショートカットが使えます。ショートカットは BarBox を左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを BarBox の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。 Information タブを開くとショートカットの一覧を見ることができます。</p>
-<table>
-<thead>
-<tr class="header">
-<th>入力</th>
-<th>操作</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><kbd>左ドラッグ</kbd></td>
-<td>値の変更</td>
-</tr>
-<tr class="even">
-<td><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd></td>
-<td>値の変更 (スナップ)</td>
-</tr>
-<tr class="odd">
-<td><kbd>Ctrl</kbd> + <kbd>左ドラッグ</kbd></td>
-<td>デフォルト値にリセット</td>
-</tr>
-<tr class="even">
-<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd></td>
-<td>値の変更 (フレーム間の補間が無効)</td>
-</tr>
-<tr class="odd">
-<td><kbd>ホイールドラッグ</kbd></td>
-<td>直線の描画</td>
-</tr>
-<tr class="even">
-<td><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd></td>
-<td>1 つのバーを編集</td>
-</tr>
-<tr class="odd">
-<td><kbd>Ctrl</kbd> + <kbd>ホイールドラッグ</kbd></td>
-<td>デフォルト値にリセット</td>
-</tr>
-<tr class="even">
-<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd></td>
-<td>ロックの切り替え</td>
-</tr>
-<tr class="odd">
-<td><kbd>a</kbd></td>
-<td>符号を交互に入れ替え</td>
-</tr>
-<tr class="even">
-<td><kbd>d</kbd></td>
-<td>すべての値をデフォルト値にリセット</td>
-</tr>
-<tr class="odd">
-<td><kbd>D</kbd></td>
-<td>最小値・中央値・最大値の切り替え</td>
-</tr>
-<tr class="even">
-<td><kbd>e</kbd></td>
-<td>低域の強調</td>
-</tr>
-<tr class="odd">
-<td><kbd>E</kbd></td>
-<td>高域の強調</td>
-</tr>
-<tr class="even">
-<td><kbd>f</kbd></td>
-<td>ローパスフィルタ</td>
-</tr>
-<tr class="odd">
-<td><kbd>F</kbd></td>
-<td>ハイパスフィルタ</td>
-</tr>
-<tr class="even">
-<td><kbd>i</kbd></td>
-<td>値の反転 (最小値を保存)</td>
-</tr>
-<tr class="odd">
-<td><kbd>I</kbd></td>
-<td>値の反転 (最小値を 0 に設定)</td>
-</tr>
-<tr class="even">
-<td><kbd>l</kbd></td>
-<td>マウスカーソル下のバーのロックの切り替え</td>
-</tr>
-<tr class="odd">
-<td><kbd>L</kbd></td>
-<td>全てのバーのロックを切り替え</td>
-</tr>
-<tr class="even">
-<td><kbd>n</kbd></td>
-<td>最大値を 1 に正規化 (最小値を保存)</td>
-</tr>
-<tr class="odd">
-<td><kbd>N</kbd></td>
-<td>最大値を 1 に正規化 (最小値を 0 に設定)</td>
-</tr>
-<tr class="even">
-<td><kbd>p</kbd></td>
-<td>ランダムに並べ替え</td>
-</tr>
-<tr class="odd">
-<td><kbd>r</kbd></td>
-<td>ランダマイズ</td>
-</tr>
-<tr class="even">
-<td><kbd>R</kbd></td>
-<td>まばらなランダマイズ</td>
-</tr>
-<tr class="odd">
-<td><kbd>s</kbd></td>
-<td>降順にソート</td>
-</tr>
-<tr class="even">
-<td><kbd>S</kbd></td>
-<td>昇順にソート</td>
-</tr>
-<tr class="odd">
-<td><kbd>t</kbd></td>
-<td>少しだけランダマイズ (ランダムウォーク)</td>
-</tr>
-<tr class="even">
-<td><kbd>T</kbd></td>
-<td>少しだけランダマイズ (0 に収束)</td>
-</tr>
-<tr class="odd">
-<td><kbd>z</kbd></td>
-<td>アンドゥ</td>
-</tr>
-<tr class="even">
-<td><kbd>Z</kbd></td>
-<td>リドゥ</td>
-</tr>
-<tr class="odd">
-<td><kbd>,</kbd> (Comma)</td>
-<td>左に回転</td>
-</tr>
-<tr class="even">
-<td><kbd>.</kbd> (Period)</td>
-<td>右に回転</td>
-</tr>
-<tr class="odd">
-<td><kbd>1</kbd></td>
-<td>すべての値を低減</td>
-</tr>
-<tr class="even">
-<td><kbd>2</kbd>-<kbd>9</kbd></td>
-<td>インデックスが 2n-9n の値を低減</td>
-</tr>
-</tbody>
-</table>
-<p><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> のスナップは一部の BarBox だけで有効になっています。特定の BarBox にスナップを追加したいという要望があれば、お気軽に <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を開いてください。</p>
-<p><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> による 1 つのバーを編集は、マウスホイールが押された時点でカーソルの下にあるバーだけを編集します。マウスホイールが押されている間はカーソルの左右の位置に関わらず、選択したバーのみを編集できます。</p>
-<p><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> によるロックの切り替えでは、マウスホイールが押された時点でカーソルの下にあるバーの反対の状態が残り全てに適用されます。例えばカーソルの下のバーがアクティブだったときはロックに切り替えます。</p>
-<p>いくつかの BarBox の下にはスクロールバーがついています。細かい調整を行うときはスクロールバーの左右のハンドルを <kbd>左ドラッグ</kbd> で動かすことで表示範囲を変更できます。スクロールバーでは次の操作が行えます。</p>
-<ul>
-<li><kbd>右クリック</kbd> : 表示範囲のリセット</li>
-<li><kbd>マウスホイール</kbd> : ズームイン・ズームアウト</li>
-</ul>
-<h2 id="注意">注意</h2>
-<p><code>Refresh LFO</code> あるいは <code>Refresh Table</code> ボタンを押すと音が止まります。発音中のノートも全て停止します。</p>
-<h2 id="ウェーブテーブルの仕様">ウェーブテーブルの仕様</h2>
-<p>1 つのウェーブテーブルの長さは <code>2^18</code> サンプルです。</p>
-<p>各 MIDI ノートと 20000Hz までのピッチベンドができるように帯域制限された 136 のウェーブテーブルが生成されます。約 21100 Hz より音程が高くなると完全な無音になります。 21100 は MIDI ノート番号 136 から求められた値です。 MIDI ノート番号 137 の周波数は 22050 Hz よりも高いので、サンプリング周波数が 44100 Hz のときにエイリアシングが起こります。したがって一つ小さい 136 を使っています。</p>
-<p>音程の基本周波数が 8.18 Hz (MIDI ノート番号 0) より低くなると高域の周波数成分が失われた音になります。ただし、キュービック補間によって生じるノイズによって、周波数成分の値が完全に 0 にはならないことがあります。</p>
-<pre><code>noteToFreq(note) := 440 * pow(2, (note - 69) / 12)
+<span id="cb3-18"><a href="#cb3-18"></a><span class="fu">}</span></span></code></pre>
+  </div>
+  <p>16 進数カラーコードを使っています。</p>
+  <ul>
+    <li>6 桁の色は RGB 。</li>
+    <li>8 桁の色は RGBA 。</li>
+  </ul>
+  <p>プラグインはカラーコードの 1 文字目を無視します。よって <code>?102938</code> や <code>\n11335577</code> も有効なカラーコードです。</p>
+  <p>2 文字目以降のカラーコードの値に <code>0-9a-f</code> 以外の文字を使わないでください。</p>
+  <p>以下は設定できる色の一覧です。設定に抜けがあるとデフォルトの色が使われます。</p>
+  <ul>
+    <li><code>fontPath</code>: フォント (*.ttf) の絶対パス。VST 3 版では実装されていません。</li>
+    <li><code>foreground</code>: 文字の色。</li>
+    <li><code>foregroundButtonOn</code>: オンになっているボタンの文字の色。 <code>foreground</code> か <code>boxBackground</code>
+      のいずれかと同じ値にすることを推奨します。</li>
+    <li><code>foregroundInactive</code>: 非アクティブなタブの文字の色。</li>
+    <li><code>background</code>: 背景色。x</li>
+    <li><code>boxBackground</code>: 矩形の UI 部品の内側の背景色。</li>
+    <li><code>border</code>: <ruby>縁<rt>ふち</rt></ruby>の色。</li>
+    <li><code>borderCheckbox</code>: チェックボックスの縁の色。</li>
+    <li><code>borderLabel</code>: パラメータセクションのラベルの左右の直線の色。</li>
+    <li><code>unfocused</code>: つまみがフォーカスされていないときの色。</li>
+    <li><code>highlightMain</code>: フォーカスされたときの色。スライダの値の表示にも使用されます。</li>
+    <li><code>highlightAccent</code>: フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。</li>
+    <li><code>highlightButton</code>: ボタンがフォーカスされたときの色。</li>
+    <li><code>highlightWarning</code>: 変更に注意を要する UI がフォーカスされたときの色。</li>
+    <li><code>overlay</code>: オーバーレイの色。</li>
+    <li><code>overlayHighlight</code>: フォーカスを示すオーバーレイの色。</li>
+  </ul>
+  <h2 id="操作">操作</h2>
+  <p>操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。</p>
+  <p>つまみとスライダーでは次の操作ができます。</p>
+  <ul>
+    <li><kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。</li>
+    <li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
+  </ul>
+  <p><code>Octave</code> 、 <code>Seed</code> などで使われている数値スライダーでは、上記に加えて次の操作ができます。</p>
+  <ul>
+    <li><kbd>ホイールクリック</kbd> : 最小値、最大値の切り替え。</li>
+  </ul>
+  <p>Wavetable タブの <code>Gain</code>, <code>Width</code>, <code>Pitch</code>, <code>Phase</code> と Main タブの
+    <code>LFO Wave</code> で使われている青い縦棒が並んだコントロール (BarBox) ではショートカットが使えます。ショートカットは BarBox
+    を左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを BarBox
+    の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。 Information タブを開くとショートカットの一覧を見ることができます。</p>
+  <table>
+    <thead>
+      <tr class="header">
+        <th>入力</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="odd">
+        <td><kbd>左ドラッグ</kbd></td>
+        <td>値の変更</td>
+      </tr>
+      <tr class="even">
+        <td><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd></td>
+        <td>値の変更 (スナップ)</td>
+      </tr>
+      <tr class="odd">
+        <td><kbd>Ctrl</kbd> + <kbd>左ドラッグ</kbd></td>
+        <td>デフォルト値にリセット</td>
+      </tr>
+      <tr class="even">
+        <td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd></td>
+        <td>値の変更 (フレーム間の補間が無効)</td>
+      </tr>
+      <tr class="odd">
+        <td><kbd>ホイールドラッグ</kbd></td>
+        <td>直線の描画</td>
+      </tr>
+      <tr class="even">
+        <td><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd></td>
+        <td>1 つのバーを編集</td>
+      </tr>
+      <tr class="odd">
+        <td><kbd>Ctrl</kbd> + <kbd>ホイールドラッグ</kbd></td>
+        <td>デフォルト値にリセット</td>
+      </tr>
+      <tr class="even">
+        <td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd></td>
+        <td>ロックの切り替え</td>
+      </tr>
+      <tr class="odd">
+        <td><kbd>a</kbd></td>
+        <td>符号を交互に入れ替え</td>
+      </tr>
+      <tr class="even">
+        <td><kbd>d</kbd></td>
+        <td>すべての値をデフォルト値にリセット</td>
+      </tr>
+      <tr class="odd">
+        <td><kbd>D</kbd></td>
+        <td>最小値・中央値・最大値の切り替え</td>
+      </tr>
+      <tr class="even">
+        <td><kbd>e</kbd></td>
+        <td>低域の強調</td>
+      </tr>
+      <tr class="odd">
+        <td><kbd>E</kbd></td>
+        <td>高域の強調</td>
+      </tr>
+      <tr class="even">
+        <td><kbd>f</kbd></td>
+        <td>ローパスフィルタ</td>
+      </tr>
+      <tr class="odd">
+        <td><kbd>F</kbd></td>
+        <td>ハイパスフィルタ</td>
+      </tr>
+      <tr class="even">
+        <td><kbd>i</kbd></td>
+        <td>値の反転 (最小値を保存)</td>
+      </tr>
+      <tr class="odd">
+        <td><kbd>I</kbd></td>
+        <td>値の反転 (最小値を 0 に設定)</td>
+      </tr>
+      <tr class="even">
+        <td><kbd>l</kbd></td>
+        <td>マウスカーソル下のバーのロックの切り替え</td>
+      </tr>
+      <tr class="odd">
+        <td><kbd>L</kbd></td>
+        <td>全てのバーのロックを切り替え</td>
+      </tr>
+      <tr class="even">
+        <td><kbd>n</kbd></td>
+        <td>最大値を 1 に正規化 (最小値を保存)</td>
+      </tr>
+      <tr class="odd">
+        <td><kbd>N</kbd></td>
+        <td>最大値を 1 に正規化 (最小値を 0 に設定)</td>
+      </tr>
+      <tr class="even">
+        <td><kbd>p</kbd></td>
+        <td>ランダムに並べ替え</td>
+      </tr>
+      <tr class="odd">
+        <td><kbd>r</kbd></td>
+        <td>ランダマイズ</td>
+      </tr>
+      <tr class="even">
+        <td><kbd>R</kbd></td>
+        <td>まばらなランダマイズ</td>
+      </tr>
+      <tr class="odd">
+        <td><kbd>s</kbd></td>
+        <td>降順にソート</td>
+      </tr>
+      <tr class="even">
+        <td><kbd>S</kbd></td>
+        <td>昇順にソート</td>
+      </tr>
+      <tr class="odd">
+        <td><kbd>t</kbd></td>
+        <td>少しだけランダマイズ (ランダムウォーク)</td>
+      </tr>
+      <tr class="even">
+        <td><kbd>T</kbd></td>
+        <td>少しだけランダマイズ (0 に収束)</td>
+      </tr>
+      <tr class="odd">
+        <td><kbd>z</kbd></td>
+        <td>アンドゥ</td>
+      </tr>
+      <tr class="even">
+        <td><kbd>Z</kbd></td>
+        <td>リドゥ</td>
+      </tr>
+      <tr class="odd">
+        <td><kbd>,</kbd> (Comma)</td>
+        <td>左に回転</td>
+      </tr>
+      <tr class="even">
+        <td><kbd>.</kbd> (Period)</td>
+        <td>右に回転</td>
+      </tr>
+      <tr class="odd">
+        <td><kbd>1</kbd></td>
+        <td>すべての値を低減</td>
+      </tr>
+      <tr class="even">
+        <td><kbd>2</kbd>-<kbd>9</kbd></td>
+        <td>インデックスが 2n-9n の値を低減</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> のスナップは一部の BarBox だけで有効になっています。特定の BarBox にスナップを追加したいという要望があれば、お気軽に <a
+      href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を開いてください。</p>
+  <p><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> による 1
+    つのバーを編集は、マウスホイールが押された時点でカーソルの下にあるバーだけを編集します。マウスホイールが押されている間はカーソルの左右の位置に関わらず、選択したバーのみを編集できます。</p>
+  <p><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd>
+    によるロックの切り替えでは、マウスホイールが押された時点でカーソルの下にあるバーの反対の状態が残り全てに適用されます。例えばカーソルの下のバーがアクティブだったときはロックに切り替えます。</p>
+  <p>いくつかの BarBox の下にはスクロールバーがついています。細かい調整を行うときはスクロールバーの左右のハンドルを <kbd>左ドラッグ</kbd> で動かすことで表示範囲を変更できます。スクロールバーでは次の操作が行えます。
+  </p>
+  <ul>
+    <li><kbd>右クリック</kbd> : 表示範囲のリセット</li>
+    <li><kbd>マウスホイール</kbd> : ズームイン・ズームアウト</li>
+  </ul>
+  <h2 id="注意">注意</h2>
+  <p><code>Refresh LFO</code> あるいは <code>Refresh Table</code> ボタンを押すと音が止まります。発音中のノートも全て停止します。</p>
+  <h2 id="ウェーブテーブルの仕様">ウェーブテーブルの仕様</h2>
+  <p>1 つのウェーブテーブルの長さは <code>2^18</code> サンプルです。</p>
+  <p>各 MIDI ノートと 20000Hz までのピッチベンドができるように帯域制限された 136 のウェーブテーブルが生成されます。約 21100 Hz より音程が高くなると完全な無音になります。 21100 は MIDI
+    ノート番号 136 から求められた値です。 MIDI ノート番号 137 の周波数は 22050 Hz よりも高いので、サンプリング周波数が 44100 Hz のときにエイリアシングが起こります。したがって一つ小さい 136
+    を使っています。</p>
+  <p>音程の基本周波数が 8.18 Hz (MIDI ノート番号 0) より低くなると高域の周波数成分が失われた音になります。ただし、キュービック補間によって生じるノイズによって、周波数成分の値が完全に 0 にはならないことがあります。
+  </p>
+  <pre><code>noteToFreq(note) := 440 * pow(2, (note - 69) / 12)
 noteToFreq(0) = 8.175798915643707
 noteToFreq(136) = 21096.16364242367
 noteToFreq(137) = 22350.606811712252</code></pre>
-<p>ウェーブテーブルは <code>136 * 2^18</code> の 2 次元配列として表現されています。オシレータの位相と周波数から求められるテーブル上の座標についてバイキュービック補間で値を求めています。</p>
-<p>ウェーブテーブルが大きめなので、メモリが遅いとフレーム落ち (<a href="https://alsa.opensrc.org/Xruns">xrun</a>) の可能性が高まります。音程が高くなるほどアクセスパターンがランダムに近くなるので、環境によっては重くなります。</p>
-<ul>
-<li><a href="https://alsa.opensrc.org/Xruns">Alsa Opensrc Org - Independent ALSA and linux audio support site</a></li>
-<li><a href="https://unix.stackexchange.com/questions/199498/what-are-xruns">linux - What are XRuns? - Unix &amp; Linux Stack Exchange</a></li>
-</ul>
-<h2 id="padsynth-アルゴリズムの概要">PADsynth アルゴリズムの概要</h2>
-<p>CubicPadSynth は <a href="https://zynaddsubfx.sourceforge.io/">ZynAddSubFX</a> や <a href="http://yoshimi.sourceforge.net/">Yoshimi</a> で使われている PADsynth アルゴリズムでウェーブテーブルを合成しています。</p>
-<p>適当に位相をランダマイズした周波数成分を逆 DFT すると一方の端ともう一方の端が滑らかにつながった周期的な波形になります。PADsynth アルゴリズムはこの性質を使って滑らかにループするウェーブテーブルを合成します。</p>
-<p>周波数成分の合成ではプロファイルと呼ばれている適当な関数をスペクトラム上に並べます。 CubicPadSynth のプロファイルはオリジナルの PADsynth アルゴリズムと同じ正規分布曲線を使っています。プロファイルの中心となる周波数は任意に決めることができます。 CubicPadSynth ではデフォルトで <code>Base Freq.</code> で指定した基本周波数とその倍音にあたる周波数を使います。</p>
-<p><img src="img/padsynth.svg" /></p>
-<ul>
-<li><a href="https://zynaddsubfx.sourceforge.io/doc/PADsynth/PADsynth.htm">PADsynth algorithm</a></li>
-</ul>
-<h2 id="ブロック線図">ブロック線図</h2>
-<p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> + <kbd>マウスホイール</kbd> や、右クリックから「画像だけを表示」などで拡大できます。</p>
-<p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
-<p><img src="img/cubicpadsynth.svg" /></p>
-<h2 id="パラメータ">パラメータ</h2>
-<h3 id="main-タブ">Main タブ</h3>
-<p><img src="img/cubicpadsynth.png" /></p>
-<h4 id="tuning">Tuning</h4>
-<dl>
-<dt>Octave, Semi, Milli</dt>
-<dd><p>全体の音の高さを変更します。</p>
-<ul>
-<li><code>Octave</code>: オクターブ</li>
-<li><code>Semi</code>: 半音</li>
-<li><code>Milli</code>: 半音の 1 / 1000 。 1 / 10 セント。</li>
-</ul>
-</dd>
-<dt>ET, A4 [Hz]</dt>
-<dd><p>音律を変更します。</p>
-<p><code>ET</code> は Equal Temperament (平均律) の略です。 <code>ET</code> が 12 のときは 12 平均律となります。 <code>ET</code> を 12 よりも小さくすると無音になる範囲が増えるので注意してください。</p>
-<p><code>A4 [Hz]</code> は、音程 A4 の周波数です。</p>
-</dd>
-</dl>
-<h4 id="gain">Gain</h4>
-<dl>
-<dt>A, D, S, R</dt>
-<dd><p>音量エンベロープのパラメータです。</p>
-<ul>
-<li><code>A</code> (Attack) : 鍵盤を押した瞬間から最大音量になるまでのアタック時間。</li>
-<li><code>D</code> (Decay) : 最大音量からサステイン音量になるまでのディケイ時間。</li>
-<li><code>S</code> (Sustain) : アタックとディケイが終わった後に鍵盤を押し続けているときのサステイン音量。</li>
-<li><code>R</code> (Release) : 鍵盤から指を離したあとに音量が 0 になるまでのリリース時間。</li>
-</ul>
-</dd>
-<dt>Gain</dt>
-<dd><p>音量を変更します。</p>
-</dd>
-</dl>
-<h4 id="lowpass">Lowpass</h4>
-<p>現在の音程よりも倍音の少ないウェーブテーブルを使うことで疑似的にローパスフィルタを再現しています。</p>
-<p>カットオフ周波数の計算式は次のようになっています。</p>
-<pre><code>cut = Cutoff * 128
+  <p>ウェーブテーブルは <code>136 * 2^18</code> の 2 次元配列として表現されています。オシレータの位相と周波数から求められるテーブル上の座標についてバイキュービック補間で値を求めています。</p>
+  <p>ウェーブテーブルが大きめなので、メモリが遅いとフレーム落ち (<a href="https://alsa.opensrc.org/Xruns">xrun</a>)
+    の可能性が高まります。音程が高くなるほどアクセスパターンがランダムに近くなるので、環境によっては重くなります。</p>
+  <ul>
+    <li><a href="https://alsa.opensrc.org/Xruns">Alsa Opensrc Org - Independent ALSA and linux audio support site</a>
+    </li>
+    <li><a href="https://unix.stackexchange.com/questions/199498/what-are-xruns">linux - What are XRuns? - Unix &amp;
+        Linux Stack Exchange</a></li>
+  </ul>
+  <h2 id="padsynth-アルゴリズムの概要">PADsynth アルゴリズムの概要</h2>
+  <p>CubicPadSynth は <a href="https://zynaddsubfx.sourceforge.io/">ZynAddSubFX</a> や <a
+      href="http://yoshimi.sourceforge.net/">Yoshimi</a> で使われている PADsynth アルゴリズムでウェーブテーブルを合成しています。</p>
+  <p>適当に位相をランダマイズした周波数成分を逆 DFT すると一方の端ともう一方の端が滑らかにつながった周期的な波形になります。PADsynth アルゴリズムはこの性質を使って滑らかにループするウェーブテーブルを合成します。</p>
+  <p>周波数成分の合成ではプロファイルと呼ばれている適当な関数をスペクトラム上に並べます。 CubicPadSynth のプロファイルはオリジナルの PADsynth
+    アルゴリズムと同じ正規分布曲線を使っています。プロファイルの中心となる周波数は任意に決めることができます。 CubicPadSynth ではデフォルトで <code>Base Freq.</code>
+    で指定した基本周波数とその倍音にあたる周波数を使います。</p>
+  <p><img src="img/padsynth.svg" /></p>
+  <ul>
+    <li><a href="https://zynaddsubfx.sourceforge.io/doc/PADsynth/PADsynth.htm">PADsynth algorithm</a></li>
+  </ul>
+  <h2 id="ブロック線図">ブロック線図</h2>
+  <p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> + <kbd>マウスホイール</kbd> や、右クリックから「画像だけを表示」などで拡大できます。</p>
+  <p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
+  <p><img src="img/cubicpadsynth.svg" /></p>
+  <h2 id="パラメータ">パラメータ</h2>
+  <h3 id="main-タブ">Main タブ</h3>
+  <p><img src="img/cubicpadsynth.png" /></p>
+  <h4 id="tuning">Tuning</h4>
+  <dl>
+    <dt>Octave, Semi, Milli</dt>
+    <dd>
+      <p>全体の音の高さを変更します。</p>
+      <ul>
+        <li><code>Octave</code>: オクターブ</li>
+        <li><code>Semi</code>: 半音</li>
+        <li><code>Milli</code>: 半音の 1 / 1000 。 1 / 10 セント。</li>
+      </ul>
+    </dd>
+    <dt>ET, A4 [Hz]</dt>
+    <dd>
+      <p>音律を変更します。</p>
+      <p><code>ET</code> は Equal Temperament (平均律) の略です。 <code>ET</code> が 12 のときは 12 平均律となります。 <code>ET</code> を 12
+        よりも小さくすると無音になる範囲が増えるので注意してください。</p>
+      <p><code>A4 [Hz]</code> は、音程 A4 の周波数です。</p>
+    </dd>
+  </dl>
+  <h4 id="gain">Gain</h4>
+  <dl>
+    <dt>A, D, S, R</dt>
+    <dd>
+      <p>音量エンベロープのパラメータです。</p>
+      <ul>
+        <li><code>A</code> (Attack) : 鍵盤を押した瞬間から最大音量になるまでのアタック時間。</li>
+        <li><code>D</code> (Decay) : 最大音量からサステイン音量になるまでのディケイ時間。</li>
+        <li><code>S</code> (Sustain) : アタックとディケイが終わった後に鍵盤を押し続けているときのサステイン音量。</li>
+        <li><code>R</code> (Release) : 鍵盤から指を離したあとに音量が 0 になるまでのリリース時間。</li>
+      </ul>
+    </dd>
+    <dt>Gain</dt>
+    <dd>
+      <p>音量を変更します。</p>
+    </dd>
+  </dl>
+  <h4 id="lowpass">Lowpass</h4>
+  <p>現在の音程よりも倍音の少ないウェーブテーブルを使うことで疑似的にローパスフィルタを再現しています。</p>
+  <p>カットオフ周波数の計算式は次のようになっています。</p>
+  <pre><code>cut = Cutoff * 128
 keyFollowRange = Cutoff * (nTable - pitch)
 lowpassPitch = (cut + KeyFollow * (keyFollowRange - cut)) - lowpassEnvelope * Amount;
 if (lowpassPitch &lt; 0) lowpassPitch = 0
@@ -677,309 +931,397 @@ range  = noteToFreq(nTable)
 lpFreq = noteToFreq(midiNote + lowpassPitch)
 ntFreq = noteToFreq(midiNote)
 cutoffFrequency = (1 + (range - lpFreq) / range) * ntFreq</code></pre>
-<p><code>lpCut</code> の計算に使っている 128 は MIDI ノート番号の範囲 + 1 から適当に決めた値です。また <code>nTable = 136</code> です。</p>
-<dl>
-<dt>Cutoff</dt>
-<dd><p>フィルタのカットオフ周波数を変更します。</p>
-</dd>
-<dt>KeyFollow</dt>
-<dd><p>右いっぱいに回すと音程に関わらず倍音の数がだいたい等しくなるようにカットオフ周波数を調節します。左いっぱいに回すと音程に関わらず <code>Cutoff</code> で設定されたカットオフ周波数を使います。</p>
-</dd>
-<dt>A, D, S, R, Amount</dt>
-<dd><p>フィルタのカットオフ周波数を変調するエンベロープのパラメータです。 <code>Amount</code> は <code>Cutoff</code> への変調量です。</p>
-</dd>
-</dl>
-<h4 id="pitch">Pitch</h4>
-<dl>
-<dt>A, D, S, R, Amount</dt>
-<dd><p>ノートごとにピッチを変調するエンベロープのパラメータです。</p>
-</dd>
-<dt>Negative</dt>
-<dd><p>エンベロープの符号を反転します。</p>
-</dd>
-</dl>
-<h4 id="unison">Unison</h4>
-<dl>
-<dt>nUnison</dt>
-<dd><p>ユニゾンに使うボイスの数です。</p>
-<p><code>Misc.</code> の <code>nVoice</code> を増やすことで <code>nUnison</code> が大きいときに起こるリリースの途切れを減らすことができますが、引き換えに動作が重くなります。</p>
-</dd>
-<dt>Detune, Random Detune</dt>
-<dd><p><code>Detune</code> はユニゾンに使われているボイスのピッチをずらす量です。</p>
-<p><code>Random Detune</code> のチェックを入れると、ピッチがずれる量がノートオンごとにランダムに変わるようになります。</p>
-<pre><code>random = RandomDetune ? rand() : 1
+  <p><code>lpCut</code> の計算に使っている 128 は MIDI ノート番号の範囲 + 1 から適当に決めた値です。また <code>nTable = 136</code> です。</p>
+  <dl>
+    <dt>Cutoff</dt>
+    <dd>
+      <p>フィルタのカットオフ周波数を変更します。</p>
+    </dd>
+    <dt>KeyFollow</dt>
+    <dd>
+      <p>右いっぱいに回すと音程に関わらず倍音の数がだいたい等しくなるようにカットオフ周波数を調節します。左いっぱいに回すと音程に関わらず <code>Cutoff</code> で設定されたカットオフ周波数を使います。</p>
+    </dd>
+    <dt>A, D, S, R, Amount</dt>
+    <dd>
+      <p>フィルタのカットオフ周波数を変調するエンベロープのパラメータです。 <code>Amount</code> は <code>Cutoff</code> への変調量です。</p>
+    </dd>
+  </dl>
+  <h4 id="pitch">Pitch</h4>
+  <dl>
+    <dt>A, D, S, R, Amount</dt>
+    <dd>
+      <p>ノートごとにピッチを変調するエンベロープのパラメータです。</p>
+    </dd>
+    <dt>Negative</dt>
+    <dd>
+      <p>エンベロープの符号を反転します。</p>
+    </dd>
+  </dl>
+  <h4 id="unison">Unison</h4>
+  <dl>
+    <dt>nUnison</dt>
+    <dd>
+      <p>ユニゾンに使うボイスの数です。</p>
+      <p><code>Misc.</code> の <code>nVoice</code> を増やすことで <code>nUnison</code>
+        が大きいときに起こるリリースの途切れを減らすことができますが、引き換えに動作が重くなります。</p>
+    </dd>
+    <dt>Detune, Random Detune</dt>
+    <dd>
+      <p><code>Detune</code> はユニゾンに使われているボイスのピッチをずらす量です。</p>
+      <p><code>Random Detune</code> のチェックを入れると、ピッチがずれる量がノートオンごとにランダムに変わるようになります。</p>
+      <pre><code>random = RandomDetune ? rand() : 1
 detune = pitch * (1 + random * unisonIndex * Detune)</code></pre>
-</dd>
-<dt>GainRnd</dt>
-<dd><p>ユニゾンに使われているボイスの音量をランダムに変更する量です。</p>
-</dd>
-<dt>Phase</dt>
-<dd><p>ユニゾンに使われているボイスの位相をランダムに変更する量です。</p>
-<p>Phase セクションの <code>Reset</code> にチェックが入っていないとき、この値は無視されます。</p>
-</dd>
-<dt>Spread, Spread Type</dt>
-<dd><p><code>Spread</code> はユニゾンの左右の広がりの量です。</p>
-<p><code>Spread Type</code> でボイスのピッチに応じたパンの割り当て方を選択できます。</p>
-<ul>
-<li><code>Alternate L-R</code>: <code>Ascend L -&gt; R</code> と <code>Ascend R -&gt; L</code> を交互に変更。</li>
-<li><code>Alternate M-S</code>: <code>HighOnMid</code> と <code>HighOnSide</code> を交互に変更。</li>
-<li><code>Ascend L -&gt; R</code>: 左から右に向かってピッチが上昇。</li>
-<li><code>Ascend R -&gt; L</code>: 右から左に向かってピッチが上昇。</li>
-<li><code>HighOnMid</code>: 端から中央に向かってピッチが上昇。</li>
-<li><code>HighOnSide</code>: 中央から端に向かってピッチが上昇。</li>
-<li><code>Random</code>: ランダムに生成したパンを割り当て。偏ることがあります。</li>
-<li><code>RotateL</code>: ノートオンごとに割り当てを左に回転。</li>
-<li><code>RotateR</code>: ノートオンごとに割り当てを右に回転。</li>
-<li><code>Shuffle</code>: 均一に並べたパンをランダムに割り当て。</li>
-</ul>
-</dd>
-</dl>
-<h4 id="lfo">LFO</h4>
-<dl>
-<dt>Refresh LFO</dt>
-<dd><p>現在の <code>LFO Wave</code> のパラメータに基づいて LFO のウェーブテーブルを更新します。</p>
-<p>ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。</p>
-</dd>
-<dt>Interpolation</dt>
-<dd><p>LFO のウェーブテーブルの補間の種類です。</p>
-<p><img src="img/interpolation_type.png" /></p>
-</dd>
-<dt>Tempo, Multiply</dt>
-<dd><p>LFO の周波数をテンポに応じた形で指定します。 <code>Tempo</code> の下の数字が音符の長さ、上の数字が音符の数です。例えば上が 6 、下が 8 なら 8 分音符の 6 個分の長さが LFO の 1 周期になります (6 / 8 拍子)。</p>
-<p><code>Multiply</code> は <code>Tempo</code> から計算された周波数に掛け合わされる値です。</p>
-<pre><code>// (60 秒) * (4 拍子) = 240 。
+    </dd>
+    <dt>GainRnd</dt>
+    <dd>
+      <p>ユニゾンに使われているボイスの音量をランダムに変更する量です。</p>
+    </dd>
+    <dt>Phase</dt>
+    <dd>
+      <p>ユニゾンに使われているボイスの位相をランダムに変更する量です。</p>
+      <p>Phase セクションの <code>Reset</code> にチェックが入っていないとき、この値は無視されます。</p>
+    </dd>
+    <dt>Spread, Spread Type</dt>
+    <dd>
+      <p><code>Spread</code> はユニゾンの左右の広がりの量です。</p>
+      <p><code>Spread Type</code> でボイスのピッチに応じたパンの割り当て方を選択できます。</p>
+      <ul>
+        <li><code>Alternate L-R</code>: <code>Ascend L -&gt; R</code> と <code>Ascend R -&gt; L</code> を交互に変更。</li>
+        <li><code>Alternate M-S</code>: <code>HighOnMid</code> と <code>HighOnSide</code> を交互に変更。</li>
+        <li><code>Ascend L -&gt; R</code>: 左から右に向かってピッチが上昇。</li>
+        <li><code>Ascend R -&gt; L</code>: 右から左に向かってピッチが上昇。</li>
+        <li><code>HighOnMid</code>: 端から中央に向かってピッチが上昇。</li>
+        <li><code>HighOnSide</code>: 中央から端に向かってピッチが上昇。</li>
+        <li><code>Random</code>: ランダムに生成したパンを割り当て。偏ることがあります。</li>
+        <li><code>RotateL</code>: ノートオンごとに割り当てを左に回転。</li>
+        <li><code>RotateR</code>: ノートオンごとに割り当てを右に回転。</li>
+        <li><code>Shuffle</code>: 均一に並べたパンをランダムに割り当て。</li>
+      </ul>
+    </dd>
+  </dl>
+  <h4 id="lfo">LFO</h4>
+  <dl>
+    <dt>Refresh LFO</dt>
+    <dd>
+      <p>現在の <code>LFO Wave</code> のパラメータに基づいて LFO のウェーブテーブルを更新します。</p>
+      <p>ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。</p>
+    </dd>
+    <dt>Interpolation</dt>
+    <dd>
+      <p>LFO のウェーブテーブルの補間の種類です。</p>
+      <p><img src="img/interpolation_type.png" /></p>
+    </dd>
+    <dt>Tempo, Multiply</dt>
+    <dd>
+      <p>LFO の周波数をテンポに応じた形で指定します。 <code>Tempo</code> の下の数字が音符の長さ、上の数字が音符の数です。例えば上が 6 、下が 8 なら 8 分音符の 6 個分の長さが LFO の 1
+        周期になります (6 / 8 拍子)。</p>
+      <p><code>Multiply</code> は <code>Tempo</code> から計算された周波数に掛け合わされる値です。</p>
+      <pre><code>// (60 秒) * (4 拍子) = 240 。
 lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)</code></pre>
-</dd>
-<dt>Retrigger</dt>
-<dd><p>チェックを入れると、ノートオンごとに LFO の位相をリセットします。</p>
-</dd>
-<dt>Amount</dt>
-<dd><p>LFO でピッチを変調する量です。</p>
-</dd>
-<dt>Lowpass</dt>
-<dd><p>LFO にかけるローパスフィルタのカットオフ周波数を変更します。</p>
-</dd>
-<dt>LFO Wave</dt>
-<dd><p>LFO の波形です。</p>
-</dd>
-</dl>
-<h4 id="phase">Phase</h4>
-<dl>
-<dt>Phase</dt>
-<dd><p>オシレータの初期位相です。</p>
-</dd>
-<dt>Reset</dt>
-<dd><p>チェックを入れると、ノートオンのたびにオシレータの位相を <code>Phase</code> で指定した値にリセットします。</p>
-</dd>
-<dt>Random</dt>
-<dd><p>チェックを入れると、ノートオンごとに位相をランダマイズします。 <code>Phase</code> で指定した値がランダマイズの範囲になります。</p>
-</dd>
-</dl>
-<h4 id="misc.">Misc.</h4>
-<dl>
-<dt>Smooth</dt>
-<dd><p>特定の値を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。</p>
-<p><code>Smooth</code> と関連するパラメータのリストです。 <code>*</code> はワイルドカードです。</p>
-<ul>
-<li>Tuning セクションの全て</li>
-<li>Gain
-<ul>
-<li><code>S</code></li>
-<li><code>Gain</code></li>
-</ul></li>
-<li>Lowpass
-<ul>
-<li><code>Cutoff</code></li>
-<li><code>KeyFollow</code></li>
-<li><code>S</code></li>
-<li><code>Amount</code></li>
-</ul></li>
-<li>Pitch
-<ul>
-<li><code>S</code></li>
-<li><code>Amount</code></li>
-<li><code>Negative</code></li>
-</ul></li>
-<li>LFO
-<ul>
-<li><code>Tempo</code></li>
-<li><code>Multiply</code></li>
-<li><code>Amount</code></li>
-<li><code>Lowpass</code></li>
-</ul></li>
-<li>Phase
-<ul>
-<li><code>Phase</code></li>
-</ul></li>
-</ul>
-</dd>
-<dt>nVoice</dt>
-<dd><p>最大同時発音数です。</p>
-</dd>
-<dt>Pool</dt>
-<dd><p>チェックを入れると、現在の発音数が同時最大発音数に近づいたときに、音量の最も小さいボイスをリリースします。ノートオン時に生じるプチノイズの低減に使えます。</p>
-</dd>
-</dl>
-<h3 id="wavetable-タブ">Wavetable タブ</h3>
-<p><img src="img/cubicpadsynth_wavetable_tab.png" /></p>
-<h4 id="倍音コントロール">倍音コントロール</h4>
-<dl>
-<dt>Gain</dt>
-<dd><p>プロファイルの高さです。</p>
-</dd>
-<dt>Width</dt>
-<dd><p>プロファイルの幅です。</p>
-</dd>
-<dt>Pitch</dt>
-<dd><p>プロファイルの周波数にかけ合わせる値です。</p>
-</dd>
-<dt>Phase</dt>
-<dd><p>プロファイルの位相をランダマイズする量です。</p>
-</dd>
-</dl>
-<h4 id="pitch-1">Pitch</h4>
-<dl>
-<dt>Base Freq.</dt>
-<dd><p>ウェーブテーブルのレンダリング時の基本周波数です。この値が小さいとマスターピッチのチューニングが狂うことがあるので注意してください。</p>
-</dd>
-<dt>Multiply, Modulo</dt>
-<dd><p>プロファイルの周波数を変更します。</p>
-<pre><code>profileFrequency = mod(
+    </dd>
+    <dt>Retrigger</dt>
+    <dd>
+      <p>チェックを入れると、ノートオンごとに LFO の位相をリセットします。</p>
+    </dd>
+    <dt>Amount</dt>
+    <dd>
+      <p>LFO でピッチを変調する量です。</p>
+    </dd>
+    <dt>Lowpass</dt>
+    <dd>
+      <p>LFO にかけるローパスフィルタのカットオフ周波数を変更します。</p>
+    </dd>
+    <dt>LFO Wave</dt>
+    <dd>
+      <p>LFO の波形です。</p>
+    </dd>
+  </dl>
+  <h4 id="phase">Phase</h4>
+  <dl>
+    <dt>Phase</dt>
+    <dd>
+      <p>オシレータの初期位相です。</p>
+    </dd>
+    <dt>Reset</dt>
+    <dd>
+      <p>チェックを入れると、ノートオンのたびにオシレータの位相を <code>Phase</code> で指定した値にリセットします。</p>
+    </dd>
+    <dt>Random</dt>
+    <dd>
+      <p>チェックを入れると、ノートオンごとに位相をランダマイズします。 <code>Phase</code> で指定した値がランダマイズの範囲になります。</p>
+    </dd>
+  </dl>
+  <h4 id="misc.">Misc.</h4>
+  <dl>
+    <dt>Smooth</dt>
+    <dd>
+      <p>特定の値を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。</p>
+      <p><code>Smooth</code> と関連するパラメータのリストです。 <code>*</code> はワイルドカードです。</p>
+      <ul>
+        <li>Tuning セクションの全て</li>
+        <li>Gain
+          <ul>
+            <li><code>S</code></li>
+            <li><code>Gain</code></li>
+          </ul>
+        </li>
+        <li>Lowpass
+          <ul>
+            <li><code>Cutoff</code></li>
+            <li><code>KeyFollow</code></li>
+            <li><code>S</code></li>
+            <li><code>Amount</code></li>
+          </ul>
+        </li>
+        <li>Pitch
+          <ul>
+            <li><code>S</code></li>
+            <li><code>Amount</code></li>
+            <li><code>Negative</code></li>
+          </ul>
+        </li>
+        <li>LFO
+          <ul>
+            <li><code>Tempo</code></li>
+            <li><code>Multiply</code></li>
+            <li><code>Amount</code></li>
+            <li><code>Lowpass</code></li>
+          </ul>
+        </li>
+        <li>Phase
+          <ul>
+            <li><code>Phase</code></li>
+          </ul>
+        </li>
+      </ul>
+    </dd>
+    <dt>nVoice</dt>
+    <dd>
+      <p>最大同時発音数です。</p>
+    </dd>
+    <dt>Pool</dt>
+    <dd>
+      <p>チェックを入れると、現在の発音数が同時最大発音数に近づいたときに、音量の最も小さいボイスをリリースします。ノートオン時に生じるプチノイズの低減に使えます。</p>
+    </dd>
+  </dl>
+  <h3 id="wavetable-タブ">Wavetable タブ</h3>
+  <p><img src="img/cubicpadsynth_wavetable_tab.png" /></p>
+  <h4 id="倍音コントロール">倍音コントロール</h4>
+  <dl>
+    <dt>Gain</dt>
+    <dd>
+      <p>プロファイルの高さです。</p>
+    </dd>
+    <dt>Width</dt>
+    <dd>
+      <p>プロファイルの幅です。</p>
+    </dd>
+    <dt>Pitch</dt>
+    <dd>
+      <p>プロファイルの周波数にかけ合わせる値です。</p>
+    </dd>
+    <dt>Phase</dt>
+    <dd>
+      <p>プロファイルの位相をランダマイズする量です。</p>
+    </dd>
+  </dl>
+  <h4 id="pitch-1">Pitch</h4>
+  <dl>
+    <dt>Base Freq.</dt>
+    <dd>
+      <p>ウェーブテーブルのレンダリング時の基本周波数です。この値が小さいとマスターピッチのチューニングが狂うことがあるので注意してください。</p>
+    </dd>
+    <dt>Multiply, Modulo</dt>
+    <dd>
+      <p>プロファイルの周波数を変更します。</p>
+      <pre><code>profileFrequency = mod(
   BaseFreq * profileIndex * overtonePitch * Multiply,
   440 * pow(2, (Modulo - 69) / 12)
 )</code></pre>
-</dd>
-<dt>Random</dt>
-<dd><p>チェックを入れると、倍音コントロールの <code>Pitch</code> で指定された値を無視して、プロファイルの周波数をランダマイズします。</p>
-</dd>
-</dl>
-<h4 id="spectrum">Spectrum</h4>
-<dl>
-<dt>Expand</dt>
-<dd><p>スペクトラムを周波数軸に沿って拡大・縮小するスケーリング係数です。</p>
-<p><img src="img/expand.svg" /></p>
-</dd>
-<dt>Shift</dt>
-<dd><p>スペクトラムを左右にシフトする量です。</p>
-<p><img src="img/shift.svg" /></p>
-</dd>
-<dt>Comb</dt>
-<dd><p><code>Comb</code> の値が 1 以上のとき、プロファイルをくし状に変形します。値はくしのすき間の間隔です。</p>
-<p><img src="img/comb.png" /></p>
-</dd>
-<dt>Shape</dt>
-<dd><p><code>Shape</code> の値を指数として、プロファイルの形をべき乗によって変更します。</p>
-<pre><code>shapedProfile = powf(profile, shape);</code></pre>
-</dd>
-<dt>Invert</dt>
-<dd><p>スペクトラムの絶対値の最大値が 0 、 0 が絶対値の最大値になるように反転します。符号は保持されます。位相は考慮していません。</p>
-<pre><code>maxRe = max(abs(spectrumRe))
+    </dd>
+    <dt>Random</dt>
+    <dd>
+      <p>チェックを入れると、倍音コントロールの <code>Pitch</code> で指定された値を無視して、プロファイルの周波数をランダマイズします。</p>
+    </dd>
+  </dl>
+  <h4 id="spectrum">Spectrum</h4>
+  <dl>
+    <dt>Expand</dt>
+    <dd>
+      <p>スペクトラムを周波数軸に沿って拡大・縮小するスケーリング係数です。</p>
+      <p><img src="img/expand.svg" /></p>
+    </dd>
+    <dt>Shift</dt>
+    <dd>
+      <p>スペクトラムを左右にシフトする量です。</p>
+      <p><img src="img/shift.svg" /></p>
+    </dd>
+    <dt>Comb</dt>
+    <dd>
+      <p><code>Comb</code> の値が 1 以上のとき、プロファイルをくし状に変形します。値はくしのすき間の間隔です。</p>
+      <p><img src="img/comb.png" /></p>
+    </dd>
+    <dt>Shape</dt>
+    <dd>
+      <p><code>Shape</code> の値を指数として、プロファイルの形をべき乗によって変更します。</p>
+      <pre><code>shapedProfile = powf(profile, shape);</code></pre>
+    </dd>
+    <dt>Invert</dt>
+    <dd>
+      <p>スペクトラムの絶対値の最大値が 0 、 0 が絶対値の最大値になるように反転します。符号は保持されます。位相は考慮していません。</p>
+      <pre><code>maxRe = max(abs(spectrumRe))
 maxIm = max(abs(spectrumIm))
 invertedSpectrumRe = spectrumRe - sgn(spectrumRe) * maxRe
 invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
-</dd>
-</dl>
-<h4 id="phase-1">Phase</h4>
-<dl>
-<dt>UniformPhase</dt>
-<dd><p>チェックを入れると、プロファイル内での位相を均一にします。</p>
-</dd>
-</dl>
-<h4 id="random">Random</h4>
-<dl>
-<dt>Seed</dt>
-<dd><p>乱数のシード値です。この値を変えると生成される乱数が変わります。</p>
-</dd>
-</dl>
-<h4 id="modifier">Modifier</h4>
-<dl>
-<dt>Gain^</dt>
-<dd><p>倍音コントロールの <code>Gain</code> をべき乗する値です。</p>
-<pre><code>profileGain = pow(Gain, Gain^)</code></pre>
-</dd>
-<dt>Width*</dt>
-<dd><p>倍音コントロールの <code>Width</code> にかけ合わせる値です。</p>
-<pre><code>profileWidth = Width * (Width*)</code></pre>
-</dd>
-</dl>
-<h4 id="refresh-table">Refresh Table</h4>
-<p>現在の Wavetable タブのパラメータに基づいてオシレータのウェーブテーブルを更新します。</p>
-<p>ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。</p>
-<h2 id="チェンジログ">チェンジログ</h2>
-<ul>
-<li>0.1.9
-<ul>
-<li>Process context requirements を実装。</li>
-<li>BarBox の機能が LV2 版と同等になるように更新。
-<ul>
-<li>1 つのバーを編集を追加。</li>
-<li>ロックを追加。</li>
-<li>内部的なマウスホイールの感度を追加。</li>
-<li>スナップを追加 (未使用) 。</li>
-<li>直線の描画での開始点の値をアンカーポイントに固定するように変更。</li>
-</ul></li>
-</ul></li>
-<li>0.1.8
-<ul>
-<li>DSP が初期化されているかどうかのチェックを追加。</li>
-</ul></li>
-<li>0.1.7
-<ul>
-<li>いくつかの BarBox にスクロールバーを追加。</li>
-<li>BarBox に アンドゥ・リドゥの機能を追加。</li>
-</ul></li>
-<li>0.1.6
-<ul>
-<li>カラーコンフィグを追加。</li>
-</ul></li>
-<li>0.1.5
-<ul>
-<li>パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li>起動時にパラメータがロードされる前にウェーブテーブルが更新されるバグを修正。</li>
-<li>LFO ウェーブテーブルの補間が Cubic のときにインデックスが 1 つずれていたバグを修正。</li>
-</ul></li>
-<li>0.1.3
-<ul>
-<li>BarBox のショートカットが効かないバグを修正。</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>オートメーションと MIDI マッピングを利用できるように <code>Refresh Table</code> と <code>Refresh LFO</code> を VST のメッセージからパラメータへと変更。</li>
-<li>BarBox にフォーカスした後、マウスカーソルが領域外にあるときはショートカットが無効になるように変更。</li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>文字列の描画でクラッシュするバグを修正。</li>
-</ul></li>
-<li>0.1.0
-<ul>
-<li>初期リリース。</li>
-</ul></li>
-</ul>
-<h3 id="旧バージョン">旧バージョン</h3>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/CubicPadSynth0.1.8.zip">CubicPadSynth 0.1.8 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/CubicPadSynth0.1.7.zip">CubicPadSynth 0.1.7 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/CubicPadSynth0.1.6.zip">CubicPadSynth 0.1.6 - VST® 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/CubicPadSynth0.1.5.zip">CubicPadSynth 0.1.5 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/CubicPadSynth0.1.4.zip">CubicPadSynth 0.1.4 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip">CubicPadSynth 0.1.3 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynth0.1.2.zip">CubicPadSynth 0.1.2 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip">CubicPadSynth 0.1.1 - VST 3 (github.com)</a></li>
-</ul>
-<h2 id="ライセンス">ライセンス</h2>
-<p>CubicPadSynth のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。リンクが切れているときは <code>ryukau@gmail.com</code> にメールを送ってください。</p>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
-</ul>
-<h3 id="vst-について">VST® について</h3>
-<p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
+    </dd>
+  </dl>
+  <h4 id="phase-1">Phase</h4>
+  <dl>
+    <dt>UniformPhase</dt>
+    <dd>
+      <p>チェックを入れると、プロファイル内での位相を均一にします。</p>
+    </dd>
+  </dl>
+  <h4 id="random">Random</h4>
+  <dl>
+    <dt>Seed</dt>
+    <dd>
+      <p>乱数のシード値です。この値を変えると生成される乱数が変わります。</p>
+    </dd>
+  </dl>
+  <h4 id="modifier">Modifier</h4>
+  <dl>
+    <dt>Gain^</dt>
+    <dd>
+      <p>倍音コントロールの <code>Gain</code> をべき乗する値です。</p>
+      <pre><code>profileGain = pow(Gain, Gain^)</code></pre>
+    </dd>
+    <dt>Width*</dt>
+    <dd>
+      <p>倍音コントロールの <code>Width</code> にかけ合わせる値です。</p>
+      <pre><code>profileWidth = Width * (Width*)</code></pre>
+    </dd>
+  </dl>
+  <h4 id="refresh-table">Refresh Table</h4>
+  <p>現在の Wavetable タブのパラメータに基づいてオシレータのウェーブテーブルを更新します。</p>
+  <p>ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。</p>
+  <h2 id="チェンジログ">チェンジログ</h2>
+  <ul>
+    <li>0.1.10
+      <ul>
+        <li>リセットが正しく行われるように修正。</li>
+        <li><code>bypass</code>
+          パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の
+          <code>bypass</code> パラメータを正しく実装しているホストでのみ発生していた。</li>
+      </ul>
+    </li>
+    <li>0.1.9
+      <ul>
+        <li>Process context requirements を実装。</li>
+        <li>BarBox の機能が LV2 版と同等になるように更新。
+          <ul>
+            <li>1 つのバーを編集を追加。</li>
+            <li>ロックを追加。</li>
+            <li>内部的なマウスホイールの感度を追加。</li>
+            <li>スナップを追加 (未使用) 。</li>
+            <li>直線の描画での開始点の値をアンカーポイントに固定するように変更。</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>0.1.8
+      <ul>
+        <li>DSP が初期化されているかどうかのチェックを追加。</li>
+      </ul>
+    </li>
+    <li>0.1.7
+      <ul>
+        <li>いくつかの BarBox にスクロールバーを追加。</li>
+        <li>BarBox に アンドゥ・リドゥの機能を追加。</li>
+      </ul>
+    </li>
+    <li>0.1.6
+      <ul>
+        <li>カラーコンフィグを追加。</li>
+      </ul>
+    </li>
+    <li>0.1.5
+      <ul>
+        <li>パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。</li>
+      </ul>
+    </li>
+    <li>0.1.4
+      <ul>
+        <li>起動時にパラメータがロードされる前にウェーブテーブルが更新されるバグを修正。</li>
+        <li>LFO ウェーブテーブルの補間が Cubic のときにインデックスが 1 つずれていたバグを修正。</li>
+      </ul>
+    </li>
+    <li>0.1.3
+      <ul>
+        <li>BarBox のショートカットが効かないバグを修正。</li>
+      </ul>
+    </li>
+    <li>0.1.2
+      <ul>
+        <li>オートメーションと MIDI マッピングを利用できるように <code>Refresh Table</code> と <code>Refresh LFO</code> を VST のメッセージからパラメータへと変更。
+        </li>
+        <li>BarBox にフォーカスした後、マウスカーソルが領域外にあるときはショートカットが無効になるように変更。</li>
+      </ul>
+    </li>
+    <li>0.1.1
+      <ul>
+        <li>文字列の描画でクラッシュするバグを修正。</li>
+      </ul>
+    </li>
+    <li>0.1.0
+      <ul>
+        <li>初期リリース。</li>
+      </ul>
+    </li>
+  </ul>
+  <h3 id="旧バージョン">旧バージョン</h3>
+  <ul>
+    <li><a
+        href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CubicPadSynth0.1.9.zip">CubicPadSynth
+        0.1.9 - VST 3 (github.com)</a></li>
+    <li><a
+        href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/CubicPadSynth0.1.8.zip">CubicPadSynth
+        0.1.8 - VST 3 (github.com)</a></li>
+    <li><a
+        href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/CubicPadSynth0.1.7.zip">CubicPadSynth
+        0.1.7 - VST 3 (github.com)</a></li>
+    <li><a
+        href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/CubicPadSynth0.1.6.zip">CubicPadSynth
+        0.1.6 - VST® 3 (github.com)</a></li>
+    <li><a
+        href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/CubicPadSynth0.1.5.zip">CubicPadSynth
+        0.1.5 - VST 3 (github.com)</a></li>
+    <li><a
+        href="https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/CubicPadSynth0.1.4.zip">CubicPadSynth
+        0.1.4 - VST 3 (github.com)</a></li>
+    <li><a
+        href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip">CubicPadSynth
+        0.1.3 - VST 3 (github.com)</a></li>
+    <li><a
+        href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynth0.1.2.zip">CubicPadSynth
+        0.1.2 - VST 3 (github.com)</a></li>
+    <li><a
+        href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip">CubicPadSynth
+        0.1.1 - VST 3 (github.com)</a></li>
+  </ul>
+  <h2 id="ライセンス">ライセンス</h2>
+  <p>CubicPadSynth のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。リンクが切れているときは <code>ryukau@gmail.com</code>
+    にメールを送ってください。</p>
+  <ul>
+    <li><a
+        href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a>
+    </li>
+  </ul>
+  <h3 id="vst-について">VST® について</h3>
+  <p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
 
-<footer>
-    <p><a href="..\..\index.html">Back to Index</a></p>
+  <footer>
+    <p><a href="..\..\..\index.html">Back to Index</a></p>
   </footer>
 </body>
 
