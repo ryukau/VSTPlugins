@@ -1,631 +1,396 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2021-11-20" />
-  <title>CubicPadSynth_en</title>
-  <style>
-    code {
-      white-space: pre-wrap;
-    }
-
-    span.smallcaps {
-      font-variant: small-caps;
-    }
-
-    span.underline {
-      text-decoration: underline;
-    }
-
-    div.column {
-      display: inline-block;
-      vertical-align: top;
-      width: 50%;
-    }
-  </style>
-  <style>
-    code.sourceCode>span {
-      display: inline-block;
-      line-height: 1.25;
-    }
-
-    code.sourceCode>span {
-      color: inherit;
-      text-decoration: inherit;
-    }
-
-    code.sourceCode>span:empty {
-      height: 1.2em;
-    }
-
-    .sourceCode {
-      overflow: visible;
-    }
-
-    code.sourceCode {
-      white-space: pre;
-      position: relative;
-    }
-
-    div.sourceCode {
-      margin: 1em 0;
-    }
-
-    pre.sourceCode {
-      margin: 0;
-    }
-
-    @media screen {
-      div.sourceCode {
-        overflow: auto;
-      }
-    }
-
-    @media print {
-      code.sourceCode {
-        white-space: pre-wrap;
-      }
-
-      code.sourceCode>span {
-        text-indent: -5em;
-        padding-left: 5em;
-      }
-    }
-
-    pre.numberSource code {
-      counter-reset: source-line 0;
-    }
-
-    pre.numberSource code>span {
-      position: relative;
-      left: -4em;
-      counter-increment: source-line;
-    }
-
-    pre.numberSource code>span>a:first-child::before {
-      content: counter(source-line);
-      position: relative;
-      left: -1em;
-      text-align: right;
-      vertical-align: baseline;
-      border: none;
-      display: inline-block;
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      padding: 0 4px;
-      width: 4em;
-      color: #aaaaaa;
-    }
-
-    pre.numberSource {
-      margin-left: 3em;
-      border-left: 1px solid #aaaaaa;
-      padding-left: 4px;
-    }
-
-    div.sourceCode {}
-
-    @media screen {
-      code.sourceCode>span>a:first-child::before {
-        text-decoration: underline;
-      }
-    }
-
-    code span.al {
-      color: #ff0000;
-      font-weight: bold;
-    }
-
-    /* Alert */
-    code span.an {
-      color: #60a0b0;
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    /* Annotation */
-    code span.at {
-      color: #7d9029;
-    }
-
-    /* Attribute */
-    code span.bn {
-      color: #40a070;
-    }
-
-    /* BaseN */
-    code span.bu {}
-
-    /* BuiltIn */
-    code span.cf {
-      color: #007020;
-      font-weight: bold;
-    }
-
-    /* ControlFlow */
-    code span.ch {
-      color: #4070a0;
-    }
-
-    /* Char */
-    code span.cn {
-      color: #880000;
-    }
-
-    /* Constant */
-    code span.co {
-      color: #60a0b0;
-      font-style: italic;
-    }
-
-    /* Comment */
-    code span.cv {
-      color: #60a0b0;
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    /* CommentVar */
-    code span.do {
-      color: #ba2121;
-      font-style: italic;
-    }
-
-    /* Documentation */
-    code span.dt {
-      color: #902000;
-    }
-
-    /* DataType */
-    code span.dv {
-      color: #40a070;
-    }
-
-    /* DecVal */
-    code span.er {
-      color: #ff0000;
-      font-weight: bold;
-    }
-
-    /* Error */
-    code span.ex {}
-
-    /* Extension */
-    code span.fl {
-      color: #40a070;
-    }
-
-    /* Float */
-    code span.fu {
-      color: #06287e;
-    }
-
-    /* Function */
-    code span.im {}
-
-    /* Import */
-    code span.in {
-      color: #60a0b0;
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    /* Information */
-    code span.kw {
-      color: #007020;
-      font-weight: bold;
-    }
-
-    /* Keyword */
-    code span.op {
-      color: #666666;
-    }
-
-    /* Operator */
-    code span.ot {
-      color: #007020;
-    }
-
-    /* Other */
-    code span.pp {
-      color: #bc7a00;
-    }
-
-    /* Preprocessor */
-    code span.sc {
-      color: #4070a0;
-    }
-
-    /* SpecialChar */
-    code span.ss {
-      color: #bb6688;
-    }
-
-    /* SpecialString */
-    code span.st {
-      color: #4070a0;
-    }
-
-    /* String */
-    code span.va {
-      color: #19177c;
-    }
-
-    /* Variable */
-    code span.vs {
-      color: #4070a0;
-    }
-
-    /* VerbatimString */
-    code span.wa {
-      color: #60a0b0;
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    /* Warning */
-  </style>
-  <style>
-    body {
-      max-width: 704px;
-      margin: auto;
-      padding: 32px 8px;
-    }
-
-    img {
-      max-width: 100%;
-    }
-
-    video {
-      max-width: 100%;
-    }
-
-    details.list>summary {
-      line-height: 3em;
-    }
-
-    kbd {
-      font-family: inherit;
-      border-style: solid;
-      border-width: 1px 2px 2px 1px;
-      border-radius: 2px;
-      padding: 4px;
-      margin: 2px;
-      line-height: calc(1em + 16px);
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    h1 {
-      background-color: #163eac;
-      color: #ffffff;
-      padding-left: 8px;
-    }
-
-    h2 {
-      border-left: solid 32px #2851c2;
-      padding-left: 24px;
-    }
-
-    h3 {
-      border-left: solid 20px #4d74dd;
-      padding-left: 16px;
-    }
-
-    h4 {
-      border-left: solid 12px #6a88da;
-      padding-left: 8px;
-    }
-
-    h5 {
-      border-left: solid 4px #8ca4e7;
-      padding-left: 4px;
-    }
-
-    h6 {
-      border-left: solid 2px #a8bcf5;
-      padding-left: 2px;
-    }
-
-    table {
-      border-spacing: 0px;
-      border-collapse: separate;
-      border-left: 1px solid #888888;
-      border-right: 1px solid #888888;
-      border-top: 1px solid #888888;
-      border-bottom: hidden;
-    }
-
-    tr:nth-child(odd) {
-      background: #eeeeee;
-    }
-
-    tr:nth-child(even) {
-      background: #ffffff;
-    }
-
-    th {
-      height: 2em;
-      padding: 4px 1em 4px 1em;
-      background: #ffffff;
-      border-bottom: 1px solid #888888;
-    }
-
-    th:not(:first-child) {
-      border-left: 1px solid #888888;
-    }
-
-    td {
-      height: 1.5em;
-      padding: 4px 1em 4px 1em;
-      border-bottom: 1px solid #888888;
-    }
-
-    td:not(:first-child) {
-      border-left: 1px solid #888888;
-    }
-
-    dl {
-      padding-left: 2em;
-    }
-
-    dt {
-      font-weight: bold;
-      border-bottom: 1px dashed #000000;
-      margin-top: 2em;
-    }
-
-    dd {
-      border-left: 1px dotted #000000;
-      margin-left: 1em;
-      padding-left: 1em;
-    }
-
-    audio {
-      vertical-align: middle;
-    }
-
-    label {
-      vertical-align: middle;
-    }
-
-    :not(.sourceCode)>pre {
-      overflow: auto;
-      border: 1px solid #888888;
-      padding: 8px;
-    }
-
-    div.sourceCode {
-      overflow: auto;
-      border: 1px solid #888888;
-      padding: 8px;
-    }
-
-    pre>code.sourceCode>span>a:first-child::before {
-      border-right: 1px solid #888888;
-      padding-right: 1em;
-      margin-right: 1em;
-      text-decoration: none;
-    }
-
-    :not(pre)>code {
-      color: #163eac;
-    }
-
-    li {
-      margin: 8px;
-    }
-
-    summary:hover {
-      background-color: #eeeeee;
-    }
-
-    header {
-      border-bottom: 1px gray solid;
-      padding: 0.5em;
-      margin-bottom: 1em;
-    }
-
-    footer {
-      border-top: 1px gray solid;
-      padding: 0.5em;
-      margin-top: 1em;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="dcterms.date" content="2021-11-20" />
+<title>CubicPadSynth_en</title>
+<style>
+code { white-space: pre-wrap; }
+span.smallcaps { font-variant: small-caps; }
+span.underline { text-decoration: underline; }
+div.column { display: inline-block; vertical-align: top; width: 50%; }
+</style>
+<style>
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style>
+body {
+  max-width: 704px;
+  margin: auto;
+  padding: 32px 8px;
+}
+
+img {
+  max-width: 100%;
+}
+
+video {
+  max-width: 100%;
+}
+
+details.list > summary {
+  line-height: 3em;
+}
+
+kbd {
+  font-family: inherit;
+  border-style: solid;
+  border-width: 1px 2px 2px 1px;
+  border-radius: 2px;
+  padding: 4px;
+  margin: 2px;
+  line-height: calc(1em + 16px);
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  background-color: #163eac;
+  color: #ffffff;
+  padding-left: 8px;
+}
+
+h2 {
+  border-left: solid 32px #2851c2;
+  padding-left: 24px;
+}
+
+h3 {
+  border-left: solid 20px #4d74dd;
+  padding-left: 16px;
+}
+
+h4 {
+  border-left: solid 12px #6a88da;
+  padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
+}
+
+table {
+  border-spacing: 0px;
+  border-collapse: separate;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
+}
+
+tr:nth-child(odd) {
+  background: #eeeeee;
+}
+
+tr:nth-child(even) {
+  background: #ffffff;
+}
+
+th {
+  height: 2em;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+td {
+  height: 1.5em;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
+}
+
+audio {
+  vertical-align: middle;
+}
+
+label {
+  vertical-align: middle;
+}
+
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
+}
+
+li {
+  margin: 8px;
+}
+
+summary:hover {
+  background-color: #eeeeee;
+}
+
+header {
+  border-bottom: 1px gray solid;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
+
+footer {
+  border-top: 1px gray solid;
+  padding: 0.5em;
+  margin-top: 1em;
+}
+</style>
 </head>
 
 <body>
-  <header>
-    <p><a href="..\..\..\index.html">Back to Index</a></p>
-    <p>
-      Update: 2021-11-20
-    </p>
-    <details>
-      <summary translate="yes">Table of Contents</summary>
-      <nav id="TOC" role="doc-toc">
-        <ul>
-          <li><a href="#cubicpadsynth">CubicPadSynth</a>
-            <ul>
-              <li><a href="#installation">Installation</a>
-                <ul>
-                  <li><a href="#plugin">Plugin</a></li>
-                  <li><a href="#presets">Presets</a></li>
-                  <li><a href="#windows-specific">Windows Specific</a></li>
-                  <li><a href="#linux-specific">Linux Specific</a></li>
-                  <li><a href="#macos-specific">macOS Specific</a>
-                    <ul>
-                      <li><a href="#reference">Reference</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="#color-configuration">Color Configuration</a></li>
-              <li><a href="#controls">Controls</a></li>
-              <li><a href="#caution">Caution</a></li>
-              <li><a href="#wavetable-specification">Wavetable Specification</a></li>
-              <li><a href="#padsynth-algorithm-overview">PADsynth Algorithm Overview</a></li>
-              <li><a href="#block-diagram">Block Diagram</a></li>
-              <li><a href="#parameters">Parameters</a>
-                <ul>
-                  <li><a href="#main-tab">Main Tab</a>
-                    <ul>
-                      <li><a href="#tuning">Tuning</a></li>
-                      <li><a href="#gain">Gain</a></li>
-                      <li><a href="#lowpass">Lowpass</a></li>
-                      <li><a href="#pitch">Pitch</a></li>
-                      <li><a href="#unison">Unison</a></li>
-                      <li><a href="#lfo">LFO</a></li>
-                      <li><a href="#phase">Phase</a></li>
-                      <li><a href="#misc.">Misc.</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#wavetable-tab">Wavetable Tab</a>
-                    <ul>
-                      <li><a href="#overtone-controls">Overtone Controls</a></li>
-                      <li><a href="#pitch-1">Pitch</a></li>
-                      <li><a href="#spectrum">Spectrum</a></li>
-                      <li><a href="#phase-1">Phase</a></li>
-                      <li><a href="#random">Random</a></li>
-                      <li><a href="#modifier">Modifier</a></li>
-                      <li><a href="#refresh-table">Refresh Table</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="#change-log">Change Log</a>
-                <ul>
-                  <li><a href="#old-versions">Old Versions</a></li>
-                </ul>
-              </li>
-              <li><a href="#license">License</a>
-                <ul>
-                  <li><a href="#about-vst">About VST</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </details>
+<header>
+    <p><a href="..\..\index.html">Back to Index</a></p>
+      <p>
+  Update: 2021-11-20
+  </p>
+      <details>
+  <summary translate="yes">Table of Contents</summary>
+  <nav id="TOC" role="doc-toc">
+  <ul>
+  <li><a href="#cubicpadsynth">CubicPadSynth</a><ul>
+  <li><a href="#installation">Installation</a><ul>
+  <li><a href="#plugin">Plugin</a></li>
+  <li><a href="#presets">Presets</a></li>
+  <li><a href="#windows-specific">Windows Specific</a></li>
+  <li><a href="#linux-specific">Linux Specific</a></li>
+  <li><a href="#macos-specific">macOS Specific</a><ul>
+  <li><a href="#reference">Reference</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#color-configuration">Color Configuration</a></li>
+  <li><a href="#controls">Controls</a></li>
+  <li><a href="#caution">Caution</a></li>
+  <li><a href="#wavetable-specification">Wavetable Specification</a></li>
+  <li><a href="#padsynth-algorithm-overview">PADsynth Algorithm Overview</a></li>
+  <li><a href="#block-diagram">Block Diagram</a></li>
+  <li><a href="#parameters">Parameters</a><ul>
+  <li><a href="#main-tab">Main Tab</a><ul>
+  <li><a href="#tuning">Tuning</a></li>
+  <li><a href="#gain">Gain</a></li>
+  <li><a href="#lowpass">Lowpass</a></li>
+  <li><a href="#pitch">Pitch</a></li>
+  <li><a href="#unison">Unison</a></li>
+  <li><a href="#lfo">LFO</a></li>
+  <li><a href="#phase">Phase</a></li>
+  <li><a href="#misc.">Misc.</a></li>
+  </ul></li>
+  <li><a href="#wavetable-tab">Wavetable Tab</a><ul>
+  <li><a href="#overtone-controls">Overtone Controls</a></li>
+  <li><a href="#pitch-1">Pitch</a></li>
+  <li><a href="#spectrum">Spectrum</a></li>
+  <li><a href="#phase-1">Phase</a></li>
+  <li><a href="#random">Random</a></li>
+  <li><a href="#modifier">Modifier</a></li>
+  <li><a href="#refresh-table">Refresh Table</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#change-log">Change Log</a><ul>
+  <li><a href="#old-versions">Old Versions</a></li>
+  </ul></li>
+  <li><a href="#license">License</a><ul>
+  <li><a href="#about-vst">About VST</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+  </nav>
+  </details>
   </header>
-  <h1 id="cubicpadsynth">CubicPadSynth</h1>
-  <p><img src="img/cubicpadsynth.png" /></p>
-  <p>CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to generate oscillator tables. Cubic
-    interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.
-  </p>
-  <ul>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/CubicPadSynth_0.1.10.zip">Download
-        CubicPadSynth 0.1.10 - VST® 3 (github.com)</a> <img src="img/VST_Compatible_Logo_Steinberg_negative.svg"
-        alt="VST compatible logo." width="60px" style="display: inline-block; vertical-align: middle;"></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynthPresets.zip">Download
-        Presets (github.com)</a></li>
-  </ul>
-  <p>CubicPadSynth requires CPU which supports AVX or later SIMD instructions.</p>
-  <p>The package includes following builds:</p>
-  <ul>
-    <li>Windows 64bit</li>
-    <li>Linux 64bit</li>
-    <li>macOS 64bit</li>
-  </ul>
-  <p>macOS build isn’t tested because I don’t have Mac. If you found a bug, please file a issue to <a
-      href="https://github.com/ryukau/VSTPlugins">GitHub repository</a> or send email to <code>ryukau@gmail.com</code>.
-  </p>
-  <p>Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely
-    run. In this case, please take a look at <a
-      href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">build instruction</a>.</p>
-  <h2 id="installation">Installation</h2>
-  <h3 id="plugin">Plugin</h3>
-  <p>Place <code>*.vst3</code> directory to:</p>
-  <ul>
-    <li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
-    <li><code>$HOME/.vst3/</code> for Linux.</li>
-    <li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for macOS.</li>
-  </ul>
-  <p>DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.</p>
-  <h3 id="presets">Presets</h3>
-  <p>Extract preset zip, then place preset directory to the OS specific path:</p>
-  <ul>
-    <li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
-    <li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
-    <li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
-  </ul>
-  <p>Preset directory name must be the same as the plugin. Make <code>Uhhyou</code> directory if it does not exist.</p>
-  <h3 id="windows-specific">Windows Specific</h3>
-  <p>If DAW doesn’t recognize the plugin, try installing C++ redistributable (<code>vc_redist.x64.exe</code>). Installer
-    can be found in the link below.</p>
-  <ul>
-    <li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest
-        supported Visual C++ downloads</a></li>
-  </ul>
-  <h3 id="linux-specific">Linux Specific</h3>
-  <p>On Ubuntu 18.0.4, those packages are required.</p>
-  <div class="sourceCode" id="cb1">
-    <pre
-      class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre>
-  </div>
-  <p>If DAW doesn’t recognize the plugin, take a look at <code>Package Requirements</code> section of the link below and
-    make sure all the VST3 related package is installed.</p>
-  <ul>
-    <li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VST 3 Interfaces: Setup Linux
-        for building VST 3 Plug-ins</a></li>
-  </ul>
-  <p>REAPER on Linux may not recognize the plugin. A workaround is to delete a file
-    <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and restart REAPER.</p>
-  <h3 id="macos-specific">macOS Specific</h3>
-  <p>When trying to run plugin first time, following message may appear on macOS.</p>
-  <pre><code>&lt;PluginName&gt;.vst3 is damaged and can&#39;t be opened. You should move it to
+<h1 id="cubicpadsynth">CubicPadSynth</h1>
+<p><img src="img/cubicpadsynth.png" /></p>
+<p>CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/CubicPadSynth_0.1.10.zip">Download CubicPadSynth 0.1.10 - VST® 3 (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="60px"
+style="display: inline-block; vertical-align: middle;"></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynthPresets.zip">Download Presets (github.com)</a></li>
+</ul>
+<p>CubicPadSynth requires CPU which supports AVX or later SIMD instructions.</p>
+<p>The package includes following builds:</p>
+<ul>
+<li>Windows 64bit</li>
+<li>Linux 64bit</li>
+<li>macOS 64bit</li>
+</ul>
+<p>macOS build isn’t tested because I don’t have Mac. If you found a bug, please file a issue to <a href="https://github.com/ryukau/VSTPlugins">GitHub repository</a> or send email to <code>ryukau@gmail.com</code>.</p>
+<p>Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely run. In this case, please take a look at <a href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">build instruction</a>.</p>
+<h2 id="installation">Installation</h2>
+<h3 id="plugin">Plugin</h3>
+<p>Place <code>*.vst3</code> directory to:</p>
+<ul>
+<li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
+<li><code>$HOME/.vst3/</code> for Linux.</li>
+<li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for macOS.</li>
+</ul>
+<p>DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.</p>
+<h3 id="presets">Presets</h3>
+<p>Extract preset zip, then place preset directory to the OS specific path:</p>
+<ul>
+<li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
+<li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
+<li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
+</ul>
+<p>Preset directory name must be the same as the plugin. Make <code>Uhhyou</code> directory if it does not exist.</p>
+<h3 id="windows-specific">Windows Specific</h3>
+<p>If DAW doesn’t recognize the plugin, try installing C++ redistributable (<code>vc_redist.x64.exe</code>). Installer can be found in the link below.</p>
+<ul>
+<li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest supported Visual C++ downloads</a></li>
+</ul>
+<h3 id="linux-specific">Linux Specific</h3>
+<p>On Ubuntu 18.0.4, those packages are required.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+<p>If DAW doesn’t recognize the plugin, take a look at <code>Package Requirements</code> section of the link below and make sure all the VST3 related package is installed.</p>
+<ul>
+<li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI: Setup</a></li>
+</ul>
+<p>REAPER on Linux may not recognize the plugin. A workaround is to delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and restart REAPER.</p>
+<h3 id="macos-specific">macOS Specific</h3>
+<p>When trying to run plugin first time, following message may appear on macOS.</p>
+<pre><code>&lt;PluginName&gt;.vst3 is damaged and can&#39;t be opened. You should move it to
 the Trash&quot;</code></pre>
-  <p>In this case, open terminal and try running following command to unzipped <code>.vst3</code> directory.</p>
-  <div class="sourceCode" id="cb3">
-    <pre
-      class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="ex">xattr</span> -rc /path/to/PluginName.vst3</span></code></pre>
-  </div>
-  <p>Plugin may be considered as unsigned/un-notarized application. In this case, try following the steps below.</p>
-  <ol type="1">
-    <li>Open terminal and run <code>sudo spctl --master-disable</code>.</li>
-    <li>Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select “Anywhere”.
-    </li>
-  </ol>
-  <p>Beware that steps above degrades security of your system. To revert the settings, follow the steps below.</p>
-  <ol type="1">
-    <li>Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select option to
-      “App Store and identified developers”.</li>
-    <li>Open terminal and run <code>sudo spctl --master-enable</code>.</li>
-  </ol>
-  <h4 id="reference">Reference</h4>
-  <ul>
-    <li><a href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How to Fix App “is
-        damaged and can’t be opened. You should move it to the Trash” Error on Mac</a></li>
-    <li><a href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
-        unsigned/un-notarized applications/plugins in Mac OS | Venn Audio</a></li>
-    <li><a href="https://support.apple.com/en-us/HT202491">Safely open apps on your Mac - Apple Support</a></li>
-  </ul>
-  <h2 id="color-configuration">Color Configuration</h2>
-  <p>At first time, create color config file to:</p>
-  <ul>
-    <li><code>/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json</code> on Windows.</li>
-    <li><code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> on Linux.
-      <ul>
-        <li>If <code>$XDG_CONFIG_HOME</code> is empty, make <code>$HOME/.config/UhhyouPlugins/style/style.json</code>.
-        </li>
-      </ul>
-    </li>
-    <li><code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> on macOS.</li>
-  </ul>
-  <p>Below is a example of <code>style.json</code>.</p>
-  <div class="sourceCode" id="cb4">
-    <pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">{</span></span>
+<p>In this case, open terminal and try running following command to unzipped <code>.vst3</code> directory.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="ex">xattr</span> -rc /path/to/PluginName.vst3</span></code></pre></div>
+<p>Plugin may be considered as unsigned/un-notarized application. In this case, try following the steps below.</p>
+<ol type="1">
+<li>Open terminal and run <code>sudo spctl --master-disable</code>.</li>
+<li>Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select “Anywhere”.</li>
+</ol>
+<p>Beware that steps above degrades security of your system. To revert the settings, follow the steps below.</p>
+<ol type="1">
+<li>Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select option to “App Store and identified developers”.</li>
+<li>Open terminal and run <code>sudo spctl --master-enable</code>.</li>
+</ol>
+<h4 id="reference">Reference</h4>
+<ul>
+<li><a href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac</a></li>
+<li><a href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio</a></li>
+<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps on your Mac - Apple Support</a></li>
+</ul>
+<h2 id="color-configuration">Color Configuration</h2>
+<p>At first time, create color config file to:</p>
+<ul>
+<li><code>/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json</code> on Windows.</li>
+<li><code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> on Linux.
+<ul>
+<li>If <code>$XDG_CONFIG_HOME</code> is empty, make <code>$HOME/.config/UhhyouPlugins/style/style.json</code>.</li>
+</ul></li>
+<li><code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> on macOS.</li>
+</ul>
+<p>Below is a example of <code>style.json</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">{</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>  <span class="dt">&quot;fontPath&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
@@ -642,293 +407,259 @@ the Trash&quot;</code></pre>
 <span id="cb4-15"><a href="#cb4-15"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
 <span id="cb4-16"><a href="#cb4-16"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
 <span id="cb4-17"><a href="#cb4-17"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="fu">}</span></span></code></pre>
-  </div>
-  <p>Hex color codes are used.</p>
-  <ul>
-    <li>6 digit color is RGB.</li>
-    <li>8 digit color is RGBA.</li>
-  </ul>
-  <p>First letter <code>#</code> is conventional. Plugins ignore the first letter of color code, thus
-    <code>?102938</code>, <code>\n11335577</code> are valid.</p>
-  <p>Do not use characters outside of <code>0-9a-f</code> for color value.</p>
-  <ul>
-    <li><code>fontPath</code>: Absolute path to *.ttf font file. Not implemented in VST 3 version.</li>
-    <li><code>foreground</code>: Text color.</li>
-    <li><code>foregroundButtonOn</code>: Text color of active toggle button. Recommend to use the same value of
-      <code>foreground</code> or <code>boxBackground</code>.</li>
-    <li><code>foregroundInactive</code>: Text color of inactive components. Currently, only used for TabView.</li>
-    <li><code>background</code>: Background color.</li>
-    <li><code>boxBackground</code>: Background color of inside of box shaped components (Barbox, Button, Checkbox,
-      OptionMenu, TextKnob, VSlider).</li>
-    <li><code>border</code>: Border color of box shaped components.</li>
-    <li><code>borderCheckbox</code>: Border color of CheckBox.</li>
-    <li><code>borderLabel</code>: Line color of parameter section label.</li>
-    <li><code>unfocused</code>: Color to fill unfocused components. Currently, only used for knobs.</li>
-    <li><code>highlightMain</code>: Color to indicate focus is on a component. Highlight colors are also used for value
-      of slider components (BarBox and VSlider).</li>
-    <li><code>highlightAccent</code>: Same as <code>highlightMain</code>. Used for cosmetics.</li>
-    <li><code>highlightButton</code>: Color to indicate focus is on a button.</li>
-    <li><code>highlightWarning</code>: Same as <code>highlightMain</code>, but only used for parameters which requires
-      extra caution.</li>
-    <li><code>overlay</code>: Overlay color. Used to overlay texts and indicators.</li>
-    <li><code>overlayHighlight</code>: Overlay color to highlight current focus.</li>
-  </ul>
-  <h2 id="controls">Controls</h2>
-  <p>Knob and slider can do:</p>
-  <ul>
-    <li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
-    <li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
-  </ul>
-  <p>There is an additional control for number sliders used for <code>Octave</code>, <code>Seed</code> etc.</p>
-  <ul>
-    <li><kbd>Middle Click</kbd> : Flip minimum and maximum.</li>
-  </ul>
-  <p>Control with many blue vertical bars (BarBox) have some keyboard shortcuts. <code>LFO Wave</code> on Main tab and
-    <code>Gain</code>, <code>Width</code>, <code>Pitch</code>, <code>Phase</code> on Wavetable tab are using BarBox.
-    Shortcuts are enabled after left clicking BarBox and mouse cursor is on the inside of BarBox. Cheat sheet is
-    available on Infomation tab.</p>
-  <table>
-    <thead>
-      <tr class="header">
-        <th>Input</th>
-        <th>Control</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="odd">
-        <td><kbd>Left Drag</kbd></td>
-        <td>Change Value</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>Shift</kbd> + <kbd>Left Drag</kbd></td>
-        <td>Change Value (Snapped)</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>Ctrl</kbd> + <kbd>Left Drag</kbd></td>
-        <td>Reset to Default</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Left Drag</kbd></td>
-        <td>Change Value (Skip Between Frames)</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>Right Drag</kbd></td>
-        <td>Draw Line</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>Shift</kbd> + <kbd>Right Drag</kbd></td>
-        <td>Edit One Bar</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>Ctrl</kbd> + <kbd>Right Drag</kbd></td>
-        <td>Reset to Default</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Right Drag</kbd></td>
-        <td>Toggle Lock</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>a</kbd></td>
-        <td>Alternate Sign</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>d</kbd></td>
-        <td>Reset Everything to Default</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>D</kbd></td>
-        <td>Toggle Min/Mid/Max</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>e</kbd></td>
-        <td>Emphasize Low</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>E</kbd></td>
-        <td>Emphasize High</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>f</kbd></td>
-        <td>Low-pass Filter</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>F</kbd></td>
-        <td>High-pass Filter</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>i</kbd></td>
-        <td>Invert Value (Preserve minimum)</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>I</kbd></td>
-        <td>Invert Value (Minimum to 0)</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>l</kbd></td>
-        <td>Toggle Lock under Mouse Cursor</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>L</kbd></td>
-        <td>Toggle Lock for All</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>n</kbd></td>
-        <td>Normalize (Preserve minimum)</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>N</kbd></td>
-        <td>Normalize (Minimum to 0)</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>p</kbd></td>
-        <td>Permute</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>r</kbd></td>
-        <td>Randomize</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>R</kbd></td>
-        <td>Sparse Randomize</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>s</kbd></td>
-        <td>Sort Descending Order</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>S</kbd></td>
-        <td>Sort Ascending Order</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>t</kbd></td>
-        <td>Subtle Randomize (Random walk)</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>T</kbd></td>
-        <td>Subtle Randomize (Converge to 0)</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>z</kbd></td>
-        <td>Undo</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>Z</kbd></td>
-        <td>Redo</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>,</kbd> (Comma)</td>
-        <td>Rotate Back</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>.</kbd> (Period)</td>
-        <td>Rotate Forward</td>
-      </tr>
-      <tr class="odd">
-        <td><kbd>1</kbd></td>
-        <td>Decrease</td>
-      </tr>
-      <tr class="even">
-        <td><kbd>2</kbd>-<kbd>9</kbd></td>
-        <td>Decrease 2n-9n</td>
-      </tr>
-    </tbody>
-  </table>
-  <p>Snapping is not available for all BarBox. If you’d like to have snapping for certain BarBox, feel free to open
-    issue to <a href="https://github.com/ryukau/VSTPlugins">GitHub repository</a>.</p>
-  <p>Edit One Bar with <kbd>Shift</kbd> + <kbd>Right Drag</kbd> holds a bar under the cursor when mouse right button is
-    pressed. Then only changes that one bar while holding down mouse right button.</p>
-  <p>Toggle Lock with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Right Drag</kbd> behaves as line edit. When right mouse
-    button (RMB) is pressed, it holds the opposite state of the bar below mouse cursor, then use the state for the rest
-    of bars. For example, if RMB is pressed on a locked bar, dragging unlocks bars while holding down RMB.</p>
-  <p>Some BarBox has scroll bar to zoom in. Scroll bar has handles on left end and right end. To control zoom, use
-    <kbd>Left Drag</kbd> on one of the handle. Scroll bar also has following controls:</p>
-  <ul>
-    <li><kbd>Right Click</kbd> : Reset zoom.</li>
-    <li><kbd>Mouse Wheel</kbd> : Zoom in/out.</li>
-  </ul>
-  <h2 id="caution">Caution</h2>
-  <p>Pressing <code>Refresh LFO</code> or <code>Refresh Table</code> button stop sound. They also stop all midi notes.
-  </p>
-  <h2 id="wavetable-specification">Wavetable Specification</h2>
-  <p>Length of a wavetable is <code>2^18</code> samples.</p>
-  <p>136 band-limited wavetables are generated for each MIDI note. Pitch bending is supported as high as 21100 Hz. 21100
-    Hz is derived from MIDI note number 136. Frequency of MIDI note number 137 is higher then 22050 Hz. That’s why 136
-    is selected.</p>
-  <p>When fundamental frequency of a note is lower than 8.18 Hz, some overtones on high frequency may lost. However,
-    cubic interpolation may cause noise which makes those frequency not to be 0.</p>
-  <pre><code>noteToFreq(note) := 440 * Math.pow(2, (note - 69) / 12)
+<span id="cb4-18"><a href="#cb4-18"></a><span class="fu">}</span></span></code></pre></div>
+<p>Hex color codes are used.</p>
+<ul>
+<li>6 digit color is RGB.</li>
+<li>8 digit color is RGBA.</li>
+</ul>
+<p>First letter <code>#</code> is conventional. Plugins ignore the first letter of color code, thus <code>?102938</code>, <code>\n11335577</code> are valid.</p>
+<p>Do not use characters outside of <code>0-9a-f</code> for color value.</p>
+<ul>
+<li><code>fontPath</code>: Absolute path to *.ttf font file. Not implemented in VST 3 version.</li>
+<li><code>foreground</code>: Text color.</li>
+<li><code>foregroundButtonOn</code>: Text color of active toggle button. Recommend to use the same value of <code>foreground</code> or <code>boxBackground</code>.</li>
+<li><code>foregroundInactive</code>: Text color of inactive components. Currently, only used for TabView.</li>
+<li><code>background</code>: Background color.</li>
+<li><code>boxBackground</code>: Background color of inside of box shaped components (Barbox, Button, Checkbox, OptionMenu, TextKnob, VSlider).</li>
+<li><code>border</code>: Border color of box shaped components.</li>
+<li><code>borderCheckbox</code>: Border color of CheckBox.</li>
+<li><code>borderLabel</code>: Line color of parameter section label.</li>
+<li><code>unfocused</code>: Color to fill unfocused components. Currently, only used for knobs.</li>
+<li><code>highlightMain</code>: Color to indicate focus is on a component. Highlight colors are also used for value of slider components (BarBox and VSlider).</li>
+<li><code>highlightAccent</code>: Same as <code>highlightMain</code>. Used for cosmetics.</li>
+<li><code>highlightButton</code>: Color to indicate focus is on a button.</li>
+<li><code>highlightWarning</code>: Same as <code>highlightMain</code>, but only used for parameters which requires extra caution.</li>
+<li><code>overlay</code>: Overlay color. Used to overlay texts and indicators.</li>
+<li><code>overlayHighlight</code>: Overlay color to highlight current focus.</li>
+</ul>
+<h2 id="controls">Controls</h2>
+<p>Knob and slider can do:</p>
+<ul>
+<li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
+<li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
+</ul>
+<p>There is an additional control for number sliders used for <code>Octave</code>, <code>Seed</code> etc.</p>
+<ul>
+<li><kbd>Middle Click</kbd> : Flip minimum and maximum.</li>
+</ul>
+<p>Control with many blue vertical bars (BarBox) have some keyboard shortcuts. <code>LFO Wave</code> on Main tab and <code>Gain</code>, <code>Width</code>, <code>Pitch</code>, <code>Phase</code> on Wavetable tab are using BarBox. Shortcuts are enabled after left clicking BarBox and mouse cursor is on the inside of BarBox. Cheat sheet is available on Infomation tab.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Input</th>
+<th>Control</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><kbd>Left Drag</kbd></td>
+<td>Change Value</td>
+</tr>
+<tr class="even">
+<td><kbd>Shift</kbd> + <kbd>Left Drag</kbd></td>
+<td>Change Value (Snapped)</td>
+</tr>
+<tr class="odd">
+<td><kbd>Ctrl</kbd> + <kbd>Left Drag</kbd></td>
+<td>Reset to Default</td>
+</tr>
+<tr class="even">
+<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Left Drag</kbd></td>
+<td>Change Value (Skip Between Frames)</td>
+</tr>
+<tr class="odd">
+<td><kbd>Right Drag</kbd></td>
+<td>Draw Line</td>
+</tr>
+<tr class="even">
+<td><kbd>Shift</kbd> + <kbd>Right Drag</kbd></td>
+<td>Edit One Bar</td>
+</tr>
+<tr class="odd">
+<td><kbd>Ctrl</kbd> + <kbd>Right Drag</kbd></td>
+<td>Reset to Default</td>
+</tr>
+<tr class="even">
+<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Right Drag</kbd></td>
+<td>Toggle Lock</td>
+</tr>
+<tr class="odd">
+<td><kbd>a</kbd></td>
+<td>Alternate Sign</td>
+</tr>
+<tr class="even">
+<td><kbd>d</kbd></td>
+<td>Reset Everything to Default</td>
+</tr>
+<tr class="odd">
+<td><kbd>D</kbd></td>
+<td>Toggle Min/Mid/Max</td>
+</tr>
+<tr class="even">
+<td><kbd>e</kbd></td>
+<td>Emphasize Low</td>
+</tr>
+<tr class="odd">
+<td><kbd>E</kbd></td>
+<td>Emphasize High</td>
+</tr>
+<tr class="even">
+<td><kbd>f</kbd></td>
+<td>Low-pass Filter</td>
+</tr>
+<tr class="odd">
+<td><kbd>F</kbd></td>
+<td>High-pass Filter</td>
+</tr>
+<tr class="even">
+<td><kbd>i</kbd></td>
+<td>Invert Value (Preserve minimum)</td>
+</tr>
+<tr class="odd">
+<td><kbd>I</kbd></td>
+<td>Invert Value (Minimum to 0)</td>
+</tr>
+<tr class="even">
+<td><kbd>l</kbd></td>
+<td>Toggle Lock under Mouse Cursor</td>
+</tr>
+<tr class="odd">
+<td><kbd>L</kbd></td>
+<td>Toggle Lock for All</td>
+</tr>
+<tr class="even">
+<td><kbd>n</kbd></td>
+<td>Normalize (Preserve minimum)</td>
+</tr>
+<tr class="odd">
+<td><kbd>N</kbd></td>
+<td>Normalize (Minimum to 0)</td>
+</tr>
+<tr class="even">
+<td><kbd>p</kbd></td>
+<td>Permute</td>
+</tr>
+<tr class="odd">
+<td><kbd>r</kbd></td>
+<td>Randomize</td>
+</tr>
+<tr class="even">
+<td><kbd>R</kbd></td>
+<td>Sparse Randomize</td>
+</tr>
+<tr class="odd">
+<td><kbd>s</kbd></td>
+<td>Sort Descending Order</td>
+</tr>
+<tr class="even">
+<td><kbd>S</kbd></td>
+<td>Sort Ascending Order</td>
+</tr>
+<tr class="odd">
+<td><kbd>t</kbd></td>
+<td>Subtle Randomize (Random walk)</td>
+</tr>
+<tr class="even">
+<td><kbd>T</kbd></td>
+<td>Subtle Randomize (Converge to 0)</td>
+</tr>
+<tr class="odd">
+<td><kbd>z</kbd></td>
+<td>Undo</td>
+</tr>
+<tr class="even">
+<td><kbd>Z</kbd></td>
+<td>Redo</td>
+</tr>
+<tr class="odd">
+<td><kbd>,</kbd> (Comma)</td>
+<td>Rotate Back</td>
+</tr>
+<tr class="even">
+<td><kbd>.</kbd> (Period)</td>
+<td>Rotate Forward</td>
+</tr>
+<tr class="odd">
+<td><kbd>1</kbd></td>
+<td>Decrease</td>
+</tr>
+<tr class="even">
+<td><kbd>2</kbd>-<kbd>9</kbd></td>
+<td>Decrease 2n-9n</td>
+</tr>
+</tbody>
+</table>
+<p>Snapping is not available for all BarBox. If you’d like to have snapping for certain BarBox, feel free to open issue to <a href="https://github.com/ryukau/VSTPlugins">GitHub repository</a>.</p>
+<p>Edit One Bar with <kbd>Shift</kbd> + <kbd>Right Drag</kbd> holds a bar under the cursor when mouse right button is pressed. Then only changes that one bar while holding down mouse right button.</p>
+<p>Toggle Lock with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Right Drag</kbd> behaves as line edit. When right mouse button (RMB) is pressed, it holds the opposite state of the bar below mouse cursor, then use the state for the rest of bars. For example, if RMB is pressed on a locked bar, dragging unlocks bars while holding down RMB.</p>
+<p>Some BarBox has scroll bar to zoom in. Scroll bar has handles on left end and right end. To control zoom, use <kbd>Left Drag</kbd> on one of the handle. Scroll bar also has following controls:</p>
+<ul>
+<li><kbd>Right Click</kbd> : Reset zoom.</li>
+<li><kbd>Mouse Wheel</kbd> : Zoom in/out.</li>
+</ul>
+<h2 id="caution">Caution</h2>
+<p>Pressing <code>Refresh LFO</code> or <code>Refresh Table</code> button stop sound. They also stop all midi notes.</p>
+<h2 id="wavetable-specification">Wavetable Specification</h2>
+<p>Length of a wavetable is <code>2^18</code> samples.</p>
+<p>136 band-limited wavetables are generated for each MIDI note. Pitch bending is supported as high as 21100 Hz. 21100 Hz is derived from MIDI note number 136. Frequency of MIDI note number 137 is higher then 22050 Hz. That’s why 136 is selected.</p>
+<p>When fundamental frequency of a note is lower than 8.18 Hz, some overtones on high frequency may lost. However, cubic interpolation may cause noise which makes those frequency not to be 0.</p>
+<pre><code>noteToFreq(note) := 440 * Math.pow(2, (note - 69) / 12)
 noteToFreq(0) = 8.175798915643707
 noteToFreq(136) = 21096.16364242367
 noteToFreq(137) = 22350.606811712252</code></pre>
-  <p>Wavetable is represented as 2D array with size of <code>136 * 2^18</code>. Bicubic interpolation is used to get the
-    value from the table. Coordinate on time/band-limit axis is determined by phase and frequency of oscillator.</p>
-  <p>The size of wavetable is large for a synthesizer. <a href="https://alsa.opensrc.org/Xruns">Xrun</a> may occur if
-    memory is slow. It may also consume more resources for higher notes because access pattern becomes close to random.
-  </p>
-  <ul>
-    <li><a href="https://alsa.opensrc.org/Xruns">Alsa Opensrc Org - Independent ALSA and linux audio support site</a>
-    </li>
-    <li><a href="https://unix.stackexchange.com/questions/199498/what-are-xruns">linux - What are XRuns? - Unix &amp;
-        Linux Stack Exchange</a></li>
-  </ul>
-  <h2 id="padsynth-algorithm-overview">PADsynth Algorithm Overview</h2>
-  <p>CubicPadSynth uses PADsynth algorithm, which is originated from <a
-      href="https://zynaddsubfx.sourceforge.io/">ZynAddSubFX</a>. <a href="http://yoshimi.sourceforge.net/">Yoshimi</a>
-    is also using PADsynth algorithm.</p>
-  <p>Passing phase randomized spectrum to IDFT (inverse discrete fourier transform) generates a cyclic waveform which is
-    smooth when connecting an end to another end. PADsynth is utilizing this property.</p>
-  <p>“Profile” function is used to synthesize spectrum. CubicPadSynth uses normal distribution curve for profile, which
-    is same as original PADsynth algorithm. Center frequency of profile can be set arbitrary. In default, CubicPadSynth
-    uses fundamental frequency set by <code>Base Freq.</code> and its overtones.</p>
-  <p><img src="img/padsynth.svg" /></p>
-  <ul>
-    <li><a href="https://zynaddsubfx.sourceforge.io/doc/PADsynth/PADsynth.htm">PADsynth algorithm</a></li>
-  </ul>
-  <h2 id="block-diagram">Block Diagram</h2>
-  <p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or “View Image” on right click menu to scale.
-  </p>
-  <p>Diagram only shows overview. It’s not exact implementation.</p>
-  <p><img src="img/cubicpadsynth.svg" /></p>
-  <h2 id="parameters">Parameters</h2>
-  <h3 id="main-tab">Main Tab</h3>
-  <p><img src="img/cubicpadsynth.png" /></p>
-  <h4 id="tuning">Tuning</h4>
-  <dl>
-    <dt>Octave, Semi, Milli</dt>
-    <dd>
-      <p>Changes master pitch.</p>
-      <p><code>Milli</code> is 1/1000 of semitone or 1/10 cent.</p>
-    </dd>
-    <dt>ET, A4 [Hz]</dt>
-    <dd>
-      <p>Changes tuning.</p>
-      <p><code>ET</code> stands for equal temperament. Note that when <code>ET</code> is less than 12, some notes
-        becomes silent due to frequency becomes too high or too low.</p>
-      <p><code>A4 [Hz]</code> is frequency of note A4.</p>
-    </dd>
-  </dl>
-  <h4 id="gain">Gain</h4>
-  <dl>
-    <dt>A, D, S, R</dt>
-    <dd>
-      <p>Gain envelope parameters.</p>
-      <ul>
-        <li><code>A</code> : Attack time which is the length from note-on to reaching peak value.</li>
-        <li><code>D</code> : Decay time which is the length from peak value to reaching sustain level.</li>
-        <li><code>S</code> : Sustain level which is the gain after decay.</li>
-        <li><code>R</code> : Release time which is the length from note-off to the gain reaching to 0.</li>
-      </ul>
-    </dd>
-    <dt>Gain</dt>
-    <dd>
-      <p>Master output gain.</p>
-    </dd>
-  </dl>
-  <h4 id="lowpass">Lowpass</h4>
-  <p>This is a psuedo low-pass filter. It shifts to wavetable which contains less overtone to get low-passed output.</p>
-  <p>Equation to get cutoff frequency is following.</p>
-  <pre><code>cut = Cutoff * 128
+<p>Wavetable is represented as 2D array with size of <code>136 * 2^18</code>. Bicubic interpolation is used to get the value from the table. Coordinate on time/band-limit axis is determined by phase and frequency of oscillator.</p>
+<p>The size of wavetable is large for a synthesizer. <a href="https://alsa.opensrc.org/Xruns">Xrun</a> may occur if memory is slow. It may also consume more resources for higher notes because access pattern becomes close to random.</p>
+<ul>
+<li><a href="https://alsa.opensrc.org/Xruns">Alsa Opensrc Org - Independent ALSA and linux audio support site</a></li>
+<li><a href="https://unix.stackexchange.com/questions/199498/what-are-xruns">linux - What are XRuns? - Unix &amp; Linux Stack Exchange</a></li>
+</ul>
+<h2 id="padsynth-algorithm-overview">PADsynth Algorithm Overview</h2>
+<p>CubicPadSynth uses PADsynth algorithm, which is originated from <a href="https://zynaddsubfx.sourceforge.io/">ZynAddSubFX</a>. <a href="http://yoshimi.sourceforge.net/">Yoshimi</a> is also using PADsynth algorithm.</p>
+<p>Passing phase randomized spectrum to IDFT (inverse discrete fourier transform) generates a cyclic waveform which is smooth when connecting an end to another end. PADsynth is utilizing this property.</p>
+<p>“Profile” function is used to synthesize spectrum. CubicPadSynth uses normal distribution curve for profile, which is same as original PADsynth algorithm. Center frequency of profile can be set arbitrary. In default, CubicPadSynth uses fundamental frequency set by <code>Base Freq.</code> and its overtones.</p>
+<p><img src="img/padsynth.svg" /></p>
+<ul>
+<li><a href="https://zynaddsubfx.sourceforge.io/doc/PADsynth/PADsynth.htm">PADsynth algorithm</a></li>
+</ul>
+<h2 id="block-diagram">Block Diagram</h2>
+<p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or “View Image” on right click menu to scale.</p>
+<p>Diagram only shows overview. It’s not exact implementation.</p>
+<p><img src="img/cubicpadsynth.svg" /></p>
+<h2 id="parameters">Parameters</h2>
+<h3 id="main-tab">Main Tab</h3>
+<p><img src="img/cubicpadsynth.png" /></p>
+<h4 id="tuning">Tuning</h4>
+<dl>
+<dt>Octave, Semi, Milli</dt>
+<dd><p>Changes master pitch.</p>
+<p><code>Milli</code> is 1/1000 of semitone or 1/10 cent.</p>
+</dd>
+<dt>ET, A4 [Hz]</dt>
+<dd><p>Changes tuning.</p>
+<p><code>ET</code> stands for equal temperament. Note that when <code>ET</code> is less than 12, some notes becomes silent due to frequency becomes too high or too low.</p>
+<p><code>A4 [Hz]</code> is frequency of note A4.</p>
+</dd>
+</dl>
+<h4 id="gain">Gain</h4>
+<dl>
+<dt>A, D, S, R</dt>
+<dd><p>Gain envelope parameters.</p>
+<ul>
+<li><code>A</code> : Attack time which is the length from note-on to reaching peak value.</li>
+<li><code>D</code> : Decay time which is the length from peak value to reaching sustain level.</li>
+<li><code>S</code> : Sustain level which is the gain after decay.</li>
+<li><code>R</code> : Release time which is the length from note-off to the gain reaching to 0.</li>
+</ul>
+</dd>
+<dt>Gain</dt>
+<dd><p>Master output gain.</p>
+</dd>
+</dl>
+<h4 id="lowpass">Lowpass</h4>
+<p>This is a psuedo low-pass filter. It shifts to wavetable which contains less overtone to get low-passed output.</p>
+<p>Equation to get cutoff frequency is following.</p>
+<pre><code>cut = Cutoff * 128
 keyFollowRange = Cutoff * (nTable - pitch)
 lowpassPitch = (cut + KeyFollow * (keyFollowRange - cut)) - lowpassEnvelope * Amount;
 if (lowpassPitch &lt; 0) lowpassPitch = 0
@@ -938,403 +669,316 @@ range  = noteToFreq(nTable)
 lpFreq = noteToFreq(midiNote + lowpassPitch)
 ntFreq = noteToFreq(midiNote)
 cutoffFrequency = (1 + (range - lpFreq) / range) * ntFreq</code></pre>
-  <p>128 used to calculate <code>lpCut</code> is an arbitrary value which came from MIDI note number range + 1.
-    <code>nTable</code> is set to 136.</p>
-  <dl>
-    <dt>Cutoff</dt>
-    <dd>
-      <p>Changes filter cutoff frequency.</p>
-    </dd>
-    <dt>KeyFollow</dt>
-    <dd>
-      <p>When set to right-most, cutoff frequency is set to make the number of overtone to be almost same regardless of
-        pitch of note. When set to left-most, it only use the value of <code>Cutoff</code>.</p>
-    </dd>
-    <dt>A, D, S, R, Amount</dt>
-    <dd>
-      <p>Filter envelope parameters. <code>Amount</code> changes the amount of modulation to cutoff.</p>
-    </dd>
-  </dl>
-  <h4 id="pitch">Pitch</h4>
-  <dl>
-    <dt>A, D, S, R, Amount</dt>
-    <dd>
-      <p>Pitch envelope parameters.</p>
-    </dd>
-    <dt>Negative</dt>
-    <dd>
-      <p>Changes the sign of pitch envelope output.</p>
-    </dd>
-  </dl>
-  <h4 id="unison">Unison</h4>
-  <dl>
-    <dt>nUnison</dt>
-    <dd>
-      <p>Number of voices used by unison.</p>
-      <p>To avoid interruption of release, increase the number of <code>nVoice</code> in Misc. section. Note that
-        increasing <code>nVoice</code> consumes more resources.</p>
-    </dd>
-    <dt>Detune, Random Detune</dt>
-    <dd>
-      <p><code>Detune</code> is the difference of pitch between voices used in a unison.</p>
-      <p>When <code>Random Detune</code> is checked, amount of detune changes for each note-on.</p>
-      <pre><code>random = RandomDetune ? rand() : 1
+<p>128 used to calculate <code>lpCut</code> is an arbitrary value which came from MIDI note number range + 1. <code>nTable</code> is set to 136.</p>
+<dl>
+<dt>Cutoff</dt>
+<dd><p>Changes filter cutoff frequency.</p>
+</dd>
+<dt>KeyFollow</dt>
+<dd><p>When set to right-most, cutoff frequency is set to make the number of overtone to be almost same regardless of pitch of note. When set to left-most, it only use the value of <code>Cutoff</code>.</p>
+</dd>
+<dt>A, D, S, R, Amount</dt>
+<dd><p>Filter envelope parameters. <code>Amount</code> changes the amount of modulation to cutoff.</p>
+</dd>
+</dl>
+<h4 id="pitch">Pitch</h4>
+<dl>
+<dt>A, D, S, R, Amount</dt>
+<dd><p>Pitch envelope parameters.</p>
+</dd>
+<dt>Negative</dt>
+<dd><p>Changes the sign of pitch envelope output.</p>
+</dd>
+</dl>
+<h4 id="unison">Unison</h4>
+<dl>
+<dt>nUnison</dt>
+<dd><p>Number of voices used by unison.</p>
+<p>To avoid interruption of release, increase the number of <code>nVoice</code> in Misc. section. Note that increasing <code>nVoice</code> consumes more resources.</p>
+</dd>
+<dt>Detune, Random Detune</dt>
+<dd><p><code>Detune</code> is the difference of pitch between voices used in a unison.</p>
+<p>When <code>Random Detune</code> is checked, amount of detune changes for each note-on.</p>
+<pre><code>random = RandomDetune ? rand() : 1
 detune = pitch * (1 + random * unisonIndex * Detune)</code></pre>
-    </dd>
-    <dt>GainRnd</dt>
-    <dd>
-      <p>Amount of randomization of gain for voices used in a unison.</p>
-    </dd>
-    <dt>Phase</dt>
-    <dd>
-      <p>Amount of randomization of phase for voices used in a unison.</p>
-      <p>This parameter makes no effect when <code>Reset</code> in Phase section is checked.</p>
-    </dd>
-    <dt>Spread, Spread Type</dt>
-    <dd>
-      <p><code>Spread</code> is an amount of stereo spread for a unison.</p>
-      <p><code>Spread Type</code> provides options to assign panpot values according to voice pitch.</p>
-      <ul>
-        <li><code>Alternate L-R</code>: Alternates <code>Ascend L -&gt; R</code> and <code>Ascend R -&gt; L</code>.</li>
-        <li><code>Alternate M-S</code>: Alternates <code>HighOnMid</code> and <code>HighOnSide</code>.</li>
-        <li><code>Ascend L -&gt; R</code>: Ascend pitch from left to right.</li>
-        <li><code>Ascend R -&gt; L</code>: Ascend pitch from right to left.</li>
-        <li><code>HighOnMid</code>: Ascend pitch from side to mid.</li>
-        <li><code>HighOnSide</code>: Ascend pitch from mid to side.</li>
-        <li><code>Random</code>: Randomize pan. May be biased.</li>
-        <li><code>RotateL</code>: Rotate to left for each note-on.</li>
-        <li><code>RotateR</code>: Rotate to right for each note-on.</li>
-        <li><code>Shuffle</code>: Randomly assign pan which is evenly ordered.</li>
-      </ul>
-    </dd>
-  </dl>
-  <h4 id="lfo">LFO</h4>
-  <dl>
-    <dt>Refresh LFO</dt>
-    <dd>
-      <p>Refresh LFO wavetable based on current value of <code>LFO Wave</code>.</p>
-      <p>Note that refreshing wavetable stops sound. It also interrupts MIDI notes.</p>
-    </dd>
-    <dt>Interpolation</dt>
-    <dd>
-      <p>Type of LFO wavetable interpolation.</p>
-      <p><img src="img/interpolation_type.png" /></p>
-    </dd>
-    <dt>Tempo, Multiply</dt>
-    <dd>
-      <p>Sets LFO frequency according to current tempo. Lower numeral represents the length of note. Upper numeral is
-        the number of notes.</p>
-      <p>Value of <code>Multiply</code> is multiplied to the frequency calculated from <code>Tempo</code>.</p>
-      <pre><code>// (60 seconds) * (4 beat) = 240
+</dd>
+<dt>GainRnd</dt>
+<dd><p>Amount of randomization of gain for voices used in a unison.</p>
+</dd>
+<dt>Phase</dt>
+<dd><p>Amount of randomization of phase for voices used in a unison.</p>
+<p>This parameter makes no effect when <code>Reset</code> in Phase section is checked.</p>
+</dd>
+<dt>Spread, Spread Type</dt>
+<dd><p><code>Spread</code> is an amount of stereo spread for a unison.</p>
+<p><code>Spread Type</code> provides options to assign panpot values according to voice pitch.</p>
+<ul>
+<li><code>Alternate L-R</code>: Alternates <code>Ascend L -&gt; R</code> and <code>Ascend R -&gt; L</code>.</li>
+<li><code>Alternate M-S</code>: Alternates <code>HighOnMid</code> and <code>HighOnSide</code>.</li>
+<li><code>Ascend L -&gt; R</code>: Ascend pitch from left to right.</li>
+<li><code>Ascend R -&gt; L</code>: Ascend pitch from right to left.</li>
+<li><code>HighOnMid</code>: Ascend pitch from side to mid.</li>
+<li><code>HighOnSide</code>: Ascend pitch from mid to side.</li>
+<li><code>Random</code>: Randomize pan. May be biased.</li>
+<li><code>RotateL</code>: Rotate to left for each note-on.</li>
+<li><code>RotateR</code>: Rotate to right for each note-on.</li>
+<li><code>Shuffle</code>: Randomly assign pan which is evenly ordered.</li>
+</ul>
+</dd>
+</dl>
+<h4 id="lfo">LFO</h4>
+<dl>
+<dt>Refresh LFO</dt>
+<dd><p>Refresh LFO wavetable based on current value of <code>LFO Wave</code>.</p>
+<p>Note that refreshing wavetable stops sound. It also interrupts MIDI notes.</p>
+</dd>
+<dt>Interpolation</dt>
+<dd><p>Type of LFO wavetable interpolation.</p>
+<p><img src="img/interpolation_type.png" /></p>
+</dd>
+<dt>Tempo, Multiply</dt>
+<dd><p>Sets LFO frequency according to current tempo. Lower numeral represents the length of note. Upper numeral is the number of notes.</p>
+<p>Value of <code>Multiply</code> is multiplied to the frequency calculated from <code>Tempo</code>.</p>
+<pre><code>// (60 seconds) * (4 beat) = 240
 lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)</code></pre>
-    </dd>
-    <dt>Retrigger</dt>
-    <dd>
-      <p>When checked, resets LFO phase for each note-on.</p>
-    </dd>
-    <dt>Amount</dt>
-    <dd>
-      <p>LFO frequency modulation amount.</p>
-    </dd>
-    <dt>Lowpass</dt>
-    <dd>
-      <p>Changes cutoff freequency of low-pass filter for LFO.</p>
-    </dd>
-    <dt>LFO Wave</dt>
-    <dd>
-      <p>LFO waveform.</p>
-    </dd>
-  </dl>
-  <h4 id="phase">Phase</h4>
-  <dl>
-    <dt>Phase</dt>
-    <dd>
-      <p>Initial phase of oscillator.</p>
-    </dd>
-    <dt>Reset</dt>
-    <dd>
-      <p>When checked, resets oscillator phase to the value set by <code>Phase</code>.</p>
-    </dd>
-    <dt>Random</dt>
-    <dd>
-      <p>When checked, randomize phase for each note-on. In this case, value of <code>Phase</code> becomes range of
-        randomization.</p>
-    </dd>
-  </dl>
-  <h4 id="misc.">Misc.</h4>
-  <dl>
-    <dt>Smooth</dt>
-    <dd>
-      <p>Time length to change some parameter value to current one. Unit is in second.</p>
-      <p>List of parameters related to <code>Smooth</code>. <code>*</code> represents wild card.</p>
-      <ul>
-        <li>All parameters in Tuning section.</li>
-        <li>Gain
-          <ul>
-            <li><code>S</code></li>
-            <li><code>Gain</code></li>
-          </ul>
-        </li>
-        <li>Lowpass
-          <ul>
-            <li><code>Cutoff</code></li>
-            <li><code>KeyFollow</code></li>
-            <li><code>S</code></li>
-            <li><code>Amount</code></li>
-          </ul>
-        </li>
-        <li>Pitch
-          <ul>
-            <li><code>S</code></li>
-            <li><code>Amount</code></li>
-            <li><code>Negative</code></li>
-          </ul>
-        </li>
-        <li>LFO
-          <ul>
-            <li><code>Tempo</code></li>
-            <li><code>Multiply</code></li>
-            <li><code>Amount</code></li>
-            <li><code>Lowpass</code></li>
-          </ul>
-        </li>
-        <li>Phase
-          <ul>
-            <li><code>Phase</code></li>
-          </ul>
-        </li>
-      </ul>
-    </dd>
-    <dt>nVoice</dt>
-    <dd>
-      <p>Maximum polyphony. Lowering the number of this option reduces CPU load.</p>
-    </dd>
-    <dt>Pool</dt>
-    <dd>
-      <p>When checked, most quiet note is released when the number of active voice is close to maximum polyphony. This
-        can be used to reduce pop noise which occurs on note-on.</p>
-    </dd>
-  </dl>
-  <h3 id="wavetable-tab">Wavetable Tab</h3>
-  <p><img src="img/cubicpadsynth_wavetable_tab.png" /></p>
-  <h4 id="overtone-controls">Overtone Controls</h4>
-  <dl>
-    <dt>Gain</dt>
-    <dd>
-      <p>Gain of profile.</p>
-    </dd>
-    <dt>Width</dt>
-    <dd>
-      <p>Width of profile.</p>
-    </dd>
-    <dt>Pitch</dt>
-    <dd>
-      <p>This value is multiplied to profile center frequency.</p>
-    </dd>
-    <dt>Phase</dt>
-    <dd>
-      <p>Range of randomization for the phase of profile.</p>
-    </dd>
-  </dl>
-  <h4 id="pitch-1">Pitch</h4>
-  <dl>
-    <dt>Base Freq.</dt>
-    <dd>
-      <p>Fundamental frequency of wavetable. Note that if this value is small, master pitch becomes out of tune.</p>
-    </dd>
-    <dt>Multiply, Modulo</dt>
-    <dd>
-      <p>Changes profile center frequency.</p>
-      <pre><code>profileCenterFrequency = mod(
+</dd>
+<dt>Retrigger</dt>
+<dd><p>When checked, resets LFO phase for each note-on.</p>
+</dd>
+<dt>Amount</dt>
+<dd><p>LFO frequency modulation amount.</p>
+</dd>
+<dt>Lowpass</dt>
+<dd><p>Changes cutoff freequency of low-pass filter for LFO.</p>
+</dd>
+<dt>LFO Wave</dt>
+<dd><p>LFO waveform.</p>
+</dd>
+</dl>
+<h4 id="phase">Phase</h4>
+<dl>
+<dt>Phase</dt>
+<dd><p>Initial phase of oscillator.</p>
+</dd>
+<dt>Reset</dt>
+<dd><p>When checked, resets oscillator phase to the value set by <code>Phase</code>.</p>
+</dd>
+<dt>Random</dt>
+<dd><p>When checked, randomize phase for each note-on. In this case, value of <code>Phase</code> becomes range of randomization.</p>
+</dd>
+</dl>
+<h4 id="misc.">Misc.</h4>
+<dl>
+<dt>Smooth</dt>
+<dd><p>Time length to change some parameter value to current one. Unit is in second.</p>
+<p>List of parameters related to <code>Smooth</code>. <code>*</code> represents wild card.</p>
+<ul>
+<li>All parameters in Tuning section.</li>
+<li>Gain
+<ul>
+<li><code>S</code></li>
+<li><code>Gain</code></li>
+</ul></li>
+<li>Lowpass
+<ul>
+<li><code>Cutoff</code></li>
+<li><code>KeyFollow</code></li>
+<li><code>S</code></li>
+<li><code>Amount</code></li>
+</ul></li>
+<li>Pitch
+<ul>
+<li><code>S</code></li>
+<li><code>Amount</code></li>
+<li><code>Negative</code></li>
+</ul></li>
+<li>LFO
+<ul>
+<li><code>Tempo</code></li>
+<li><code>Multiply</code></li>
+<li><code>Amount</code></li>
+<li><code>Lowpass</code></li>
+</ul></li>
+<li>Phase
+<ul>
+<li><code>Phase</code></li>
+</ul></li>
+</ul>
+</dd>
+<dt>nVoice</dt>
+<dd><p>Maximum polyphony. Lowering the number of this option reduces CPU load.</p>
+</dd>
+<dt>Pool</dt>
+<dd><p>When checked, most quiet note is released when the number of active voice is close to maximum polyphony. This can be used to reduce pop noise which occurs on note-on.</p>
+</dd>
+</dl>
+<h3 id="wavetable-tab">Wavetable Tab</h3>
+<p><img src="img/cubicpadsynth_wavetable_tab.png" /></p>
+<h4 id="overtone-controls">Overtone Controls</h4>
+<dl>
+<dt>Gain</dt>
+<dd><p>Gain of profile.</p>
+</dd>
+<dt>Width</dt>
+<dd><p>Width of profile.</p>
+</dd>
+<dt>Pitch</dt>
+<dd><p>This value is multiplied to profile center frequency.</p>
+</dd>
+<dt>Phase</dt>
+<dd><p>Range of randomization for the phase of profile.</p>
+</dd>
+</dl>
+<h4 id="pitch-1">Pitch</h4>
+<dl>
+<dt>Base Freq.</dt>
+<dd><p>Fundamental frequency of wavetable. Note that if this value is small, master pitch becomes out of tune.</p>
+</dd>
+<dt>Multiply, Modulo</dt>
+<dd><p>Changes profile center frequency.</p>
+<pre><code>profileCenterFrequency = mod(
   BaseFreq * profileIndex * overtonePitch * Multiply,
   440 * pow(2, (Modulo - 69) / 12)
 )</code></pre>
-    </dd>
-    <dt>Random</dt>
-    <dd>
-      <p>When checked, randomize profile center frequency. Ignores values of <code>Pitch</code> in overtone control.</p>
-    </dd>
-  </dl>
-  <h4 id="spectrum">Spectrum</h4>
-  <dl>
-    <dt>Expand</dt>
-    <dd>
-      <p>Scaling factor to shrink/expand the spectrum along to frequency axis.</p>
-      <p><img src="img/expand.svg" /></p>
-    </dd>
-    <dt>Shift</dt>
-    <dd>
-      <p>Shift spectrum along to frequency axis.</p>
-      <p><img src="img/shift.svg" /></p>
-    </dd>
-    <dt>Comb</dt>
-    <dd>
-      <p>When this value is higher than 1, it changes the shape of profile like a comb. The value specifies interval
-        between peaks.</p>
-      <p><img src="img/comb.png" /></p>
-    </dd>
-    <dt>Shape</dt>
-    <dd>
-      <p>Changes profile shapes by using the value of <code>Shape</code> as an exponent.</p>
-      <pre><code>shapedProfile = powf(profile, shape);</code></pre>
-    </dd>
-    <dt>Invert</dt>
-    <dd>
-      <p>Invert spectrum to make the maximum of absolute value to 0, and 0 to the max-abs value. Signs are preserved.
-        Phases aren’t considered.</p>
-      <pre><code>maxRe = max(abs(spectrumRe))
+</dd>
+<dt>Random</dt>
+<dd><p>When checked, randomize profile center frequency. Ignores values of <code>Pitch</code> in overtone control.</p>
+</dd>
+</dl>
+<h4 id="spectrum">Spectrum</h4>
+<dl>
+<dt>Expand</dt>
+<dd><p>Scaling factor to shrink/expand the spectrum along to frequency axis.</p>
+<p><img src="img/expand.svg" /></p>
+</dd>
+<dt>Shift</dt>
+<dd><p>Shift spectrum along to frequency axis.</p>
+<p><img src="img/shift.svg" /></p>
+</dd>
+<dt>Comb</dt>
+<dd><p>When this value is higher than 1, it changes the shape of profile like a comb. The value specifies interval between peaks.</p>
+<p><img src="img/comb.png" /></p>
+</dd>
+<dt>Shape</dt>
+<dd><p>Changes profile shapes by using the value of <code>Shape</code> as an exponent.</p>
+<pre><code>shapedProfile = powf(profile, shape);</code></pre>
+</dd>
+<dt>Invert</dt>
+<dd><p>Invert spectrum to make the maximum of absolute value to 0, and 0 to the max-abs value. Signs are preserved. Phases aren’t considered.</p>
+<pre><code>maxRe = max(abs(spectrumRe))
 maxIm = max(abs(spectrumIm))
 invertedSpectrumRe = spectrumRe - sgn(spectrumRe) * maxRe
 invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
-    </dd>
-  </dl>
-  <h4 id="phase-1">Phase</h4>
-  <dl>
-    <dt>UniformPhase</dt>
-    <dd>
-      <p>When checked, phase of a profile becomes an uniform value.</p>
-    </dd>
-  </dl>
-  <h4 id="random">Random</h4>
-  <dl>
-    <dt>Seed</dt>
-    <dd>
-      <p>Random seed. This value change random number sequence.</p>
-    </dd>
-  </dl>
-  <h4 id="modifier">Modifier</h4>
-  <dl>
-    <dt>Gain^</dt>
-    <dd>
-      <p>Exponent for <code>Gain</code> in overtone control.</p>
-      <pre><code>profileGain = pow(Gain, Gain^)</code></pre>
-    </dd>
-    <dt>Width*</dt>
-    <dd>
-      <p>Multiplier for <code>Width</code> in overtone control.</p>
-      <pre><code>profileWidth = Width * (Width*)</code></pre>
-    </dd>
-  </dl>
-  <h4 id="refresh-table">Refresh Table</h4>
-  <p>Refresh PADsynth wavetable based on current configuration of Wavetable tab.</p>
-  <p>Note that refreshing wavetable stops sound. It also interrupts MIDI notes.</p>
-  <h2 id="change-log">Change Log</h2>
-  <ul>
-    <li>0.1.10
-      <ul>
-        <li>Fixed to reset properly.</li>
-        <li>Fixed <code>bypass</code> parameter behavior. This fixes playing all the notes at the moment of unmute, even
-          if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3
-          <code>bypass</code> parameter.</li>
-      </ul>
-    </li>
-    <li>0.1.9
-      <ul>
-        <li>Implemented process context requirements.</li>
-        <li>Added/Changed BarBox functionality to match LV2 version.
-          <ul>
-            <li>Edit one bar.</li>
-            <li>Lock.</li>
-            <li>Internal mouse wheel sensitivitly.</li>
-            <li>Snapping (implemented, but not used).</li>
-            <li>Starting bar of line edit is now fixed to anchor point.</li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li>0.1.8
-      <ul>
-        <li>Added check that DSP is initialized or not.</li>
-      </ul>
-    </li>
-    <li>0.1.7
-      <ul>
-        <li>Added scroll bar to dense BarBox.</li>
-        <li>Added undo/redo to BarBox.</li>
-      </ul>
-    </li>
-    <li>0.1.6
-      <ul>
-        <li>Added color configuration.</li>
-      </ul>
-    </li>
-    <li>0.1.5
-      <ul>
-        <li>Reverted parameter smoother to the old one which works with variable size audio buffer.</li>
-      </ul>
-    </li>
-    <li>0.1.4
-      <ul>
-        <li>Fixed a bug that refreshing wavetable before parameters are loaded at launch.</li>
-        <li>Fixed off by one error in LFO wavetable with cubic interpolation.</li>
-      </ul>
-    </li>
-    <li>0.1.3
-      <ul>
-        <li>Fixed a bug that some shortcuts are disabled for BarBox.</li>
-      </ul>
-    </li>
-    <li>0.1.2
-      <ul>
-        <li>Changed <code>Refresh Table</code> and <code>Refresh LFO</code> from VST message to parameter. This enables
-          automation and midi mapping.</li>
-        <li>Changed BarBox shortcuts to be disabled when mouse cursor is on the outside of BarBox.</li>
-      </ul>
-    </li>
-    <li>0.1.1
-      <ul>
-        <li>Fixed a bug that cause crash when drawing string.</li>
-      </ul>
-    </li>
-    <li>0.1.0
-      <ul>
-        <li>Initial release.</li>
-      </ul>
-    </li>
-  </ul>
-  <h3 id="old-versions">Old Versions</h3>
-  <ul>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CubicPadSynth0.1.9.zip">CubicPadSynth
-        0.1.9 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/CubicPadSynth0.1.8.zip">CubicPadSynth
-        0.1.8 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/CubicPadSynth0.1.7.zip">CubicPadSynth
-        0.1.7 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/CubicPadSynth0.1.6.zip">CubicPadSynth
-        0.1.6 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/CubicPadSynth0.1.5.zip">CubicPadSynth
-        0.1.5 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/CubicPadSynth0.1.4.zip">CubicPadSynth
-        0.1.4 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip">CubicPadSynth
-        0.1.3 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynth0.1.2.zip">CubicPadSynth
-        0.1.2 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip">CubicPadSynth
-        0.1.1 - VST 3 (github.com)</a></li>
-  </ul>
-  <h2 id="license">License</h2>
-  <p>CubicPadSynth is licensed under GPLv3. Complete licenses are linked below.</p>
-  <ul>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a>
-    </li>
-  </ul>
-  <p>If the link above doesn’t work, please send email to <code>ryukau@gmail.com</code>.</p>
-  <h3 id="about-vst">About VST</h3>
-  <p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
+</dd>
+</dl>
+<h4 id="phase-1">Phase</h4>
+<dl>
+<dt>UniformPhase</dt>
+<dd><p>When checked, phase of a profile becomes an uniform value.</p>
+</dd>
+</dl>
+<h4 id="random">Random</h4>
+<dl>
+<dt>Seed</dt>
+<dd><p>Random seed. This value change random number sequence.</p>
+</dd>
+</dl>
+<h4 id="modifier">Modifier</h4>
+<dl>
+<dt>Gain^</dt>
+<dd><p>Exponent for <code>Gain</code> in overtone control.</p>
+<pre><code>profileGain = pow(Gain, Gain^)</code></pre>
+</dd>
+<dt>Width*</dt>
+<dd><p>Multiplier for <code>Width</code> in overtone control.</p>
+<pre><code>profileWidth = Width * (Width*)</code></pre>
+</dd>
+</dl>
+<h4 id="refresh-table">Refresh Table</h4>
+<p>Refresh PADsynth wavetable based on current configuration of Wavetable tab.</p>
+<p>Note that refreshing wavetable stops sound. It also interrupts MIDI notes.</p>
+<h2 id="change-log">Change Log</h2>
+<ul>
+<li>0.1.10
+<ul>
+<li>Fixed to reset properly.</li>
+<li>Fixed <code>bypass</code> parameter behavior. This fixes playing all the notes at the moment of unmute, even if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3 <code>bypass</code> parameter.</li>
+</ul></li>
+<li>0.1.9
+<ul>
+<li>Implemented process context requirements.</li>
+<li>Added/Changed BarBox functionality to match LV2 version.
+<ul>
+<li>Edit one bar.</li>
+<li>Lock.</li>
+<li>Internal mouse wheel sensitivitly.</li>
+<li>Snapping (implemented, but not used).</li>
+<li>Starting bar of line edit is now fixed to anchor point.</li>
+</ul></li>
+</ul></li>
+<li>0.1.8
+<ul>
+<li>Added check that DSP is initialized or not.</li>
+</ul></li>
+<li>0.1.7
+<ul>
+<li>Added scroll bar to dense BarBox.</li>
+<li>Added undo/redo to BarBox.</li>
+</ul></li>
+<li>0.1.6
+<ul>
+<li>Added color configuration.</li>
+</ul></li>
+<li>0.1.5
+<ul>
+<li>Reverted parameter smoother to the old one which works with variable size audio buffer.</li>
+</ul></li>
+<li>0.1.4
+<ul>
+<li>Fixed a bug that refreshing wavetable before parameters are loaded at launch.</li>
+<li>Fixed off by one error in LFO wavetable with cubic interpolation.</li>
+</ul></li>
+<li>0.1.3
+<ul>
+<li>Fixed a bug that some shortcuts are disabled for BarBox.</li>
+</ul></li>
+<li>0.1.2
+<ul>
+<li>Changed <code>Refresh Table</code> and <code>Refresh LFO</code> from VST message to parameter. This enables automation and midi mapping.</li>
+<li>Changed BarBox shortcuts to be disabled when mouse cursor is on the outside of BarBox.</li>
+</ul></li>
+<li>0.1.1
+<ul>
+<li>Fixed a bug that cause crash when drawing string.</li>
+</ul></li>
+<li>0.1.0
+<ul>
+<li>Initial release.</li>
+</ul></li>
+</ul>
+<h3 id="old-versions">Old Versions</h3>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CubicPadSynth0.1.9.zip">CubicPadSynth 0.1.9 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/CubicPadSynth0.1.8.zip">CubicPadSynth 0.1.8 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/CubicPadSynth0.1.7.zip">CubicPadSynth 0.1.7 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/CubicPadSynth0.1.6.zip">CubicPadSynth 0.1.6 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/CubicPadSynth0.1.5.zip">CubicPadSynth 0.1.5 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/CubicPadSynth0.1.4.zip">CubicPadSynth 0.1.4 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip">CubicPadSynth 0.1.3 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynth0.1.2.zip">CubicPadSynth 0.1.2 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip">CubicPadSynth 0.1.1 - VST 3 (github.com)</a></li>
+</ul>
+<h2 id="license">License</h2>
+<p>CubicPadSynth is licensed under GPLv3. Complete licenses are linked below.</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+</ul>
+<p>If the link above doesn’t work, please send email to <code>ryukau@gmail.com</code>.</p>
+<h3 id="about-vst">About VST</h3>
+<p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
 
-  <footer>
-    <p><a href="..\..\..\index.html">Back to Index</a></p>
+<footer>
+    <p><a href="..\..\index.html">Back to Index</a></p>
   </footer>
 </body>
 

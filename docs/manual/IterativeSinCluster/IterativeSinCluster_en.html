@@ -1,612 +1,382 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2021-11-20" />
-  <title>IterativeSinCluster_en</title>
-  <style>
-    code {
-      white-space: pre-wrap;
-    }
-
-    span.smallcaps {
-      font-variant: small-caps;
-    }
-
-    span.underline {
-      text-decoration: underline;
-    }
-
-    div.column {
-      display: inline-block;
-      vertical-align: top;
-      width: 50%;
-    }
-  </style>
-  <style>
-    code.sourceCode>span {
-      display: inline-block;
-      line-height: 1.25;
-    }
-
-    code.sourceCode>span {
-      color: inherit;
-      text-decoration: inherit;
-    }
-
-    code.sourceCode>span:empty {
-      height: 1.2em;
-    }
-
-    .sourceCode {
-      overflow: visible;
-    }
-
-    code.sourceCode {
-      white-space: pre;
-      position: relative;
-    }
-
-    div.sourceCode {
-      margin: 1em 0;
-    }
-
-    pre.sourceCode {
-      margin: 0;
-    }
-
-    @media screen {
-      div.sourceCode {
-        overflow: auto;
-      }
-    }
-
-    @media print {
-      code.sourceCode {
-        white-space: pre-wrap;
-      }
-
-      code.sourceCode>span {
-        text-indent: -5em;
-        padding-left: 5em;
-      }
-    }
-
-    pre.numberSource code {
-      counter-reset: source-line 0;
-    }
-
-    pre.numberSource code>span {
-      position: relative;
-      left: -4em;
-      counter-increment: source-line;
-    }
-
-    pre.numberSource code>span>a:first-child::before {
-      content: counter(source-line);
-      position: relative;
-      left: -1em;
-      text-align: right;
-      vertical-align: baseline;
-      border: none;
-      display: inline-block;
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      padding: 0 4px;
-      width: 4em;
-      color: #aaaaaa;
-    }
-
-    pre.numberSource {
-      margin-left: 3em;
-      border-left: 1px solid #aaaaaa;
-      padding-left: 4px;
-    }
-
-    div.sourceCode {}
-
-    @media screen {
-      code.sourceCode>span>a:first-child::before {
-        text-decoration: underline;
-      }
-    }
-
-    code span.al {
-      color: #ff0000;
-      font-weight: bold;
-    }
-
-    /* Alert */
-    code span.an {
-      color: #60a0b0;
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    /* Annotation */
-    code span.at {
-      color: #7d9029;
-    }
-
-    /* Attribute */
-    code span.bn {
-      color: #40a070;
-    }
-
-    /* BaseN */
-    code span.bu {}
-
-    /* BuiltIn */
-    code span.cf {
-      color: #007020;
-      font-weight: bold;
-    }
-
-    /* ControlFlow */
-    code span.ch {
-      color: #4070a0;
-    }
-
-    /* Char */
-    code span.cn {
-      color: #880000;
-    }
-
-    /* Constant */
-    code span.co {
-      color: #60a0b0;
-      font-style: italic;
-    }
-
-    /* Comment */
-    code span.cv {
-      color: #60a0b0;
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    /* CommentVar */
-    code span.do {
-      color: #ba2121;
-      font-style: italic;
-    }
-
-    /* Documentation */
-    code span.dt {
-      color: #902000;
-    }
-
-    /* DataType */
-    code span.dv {
-      color: #40a070;
-    }
-
-    /* DecVal */
-    code span.er {
-      color: #ff0000;
-      font-weight: bold;
-    }
-
-    /* Error */
-    code span.ex {}
-
-    /* Extension */
-    code span.fl {
-      color: #40a070;
-    }
-
-    /* Float */
-    code span.fu {
-      color: #06287e;
-    }
-
-    /* Function */
-    code span.im {}
-
-    /* Import */
-    code span.in {
-      color: #60a0b0;
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    /* Information */
-    code span.kw {
-      color: #007020;
-      font-weight: bold;
-    }
-
-    /* Keyword */
-    code span.op {
-      color: #666666;
-    }
-
-    /* Operator */
-    code span.ot {
-      color: #007020;
-    }
-
-    /* Other */
-    code span.pp {
-      color: #bc7a00;
-    }
-
-    /* Preprocessor */
-    code span.sc {
-      color: #4070a0;
-    }
-
-    /* SpecialChar */
-    code span.ss {
-      color: #bb6688;
-    }
-
-    /* SpecialString */
-    code span.st {
-      color: #4070a0;
-    }
-
-    /* String */
-    code span.va {
-      color: #19177c;
-    }
-
-    /* Variable */
-    code span.vs {
-      color: #4070a0;
-    }
-
-    /* VerbatimString */
-    code span.wa {
-      color: #60a0b0;
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    /* Warning */
-  </style>
-  <style>
-    body {
-      max-width: 704px;
-      margin: auto;
-      padding: 32px 8px;
-    }
-
-    img {
-      max-width: 100%;
-    }
-
-    video {
-      max-width: 100%;
-    }
-
-    details.list>summary {
-      line-height: 3em;
-    }
-
-    kbd {
-      font-family: inherit;
-      border-style: solid;
-      border-width: 1px 2px 2px 1px;
-      border-radius: 2px;
-      padding: 4px;
-      margin: 2px;
-      line-height: calc(1em + 16px);
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    h1 {
-      background-color: #163eac;
-      color: #ffffff;
-      padding-left: 8px;
-    }
-
-    h2 {
-      border-left: solid 32px #2851c2;
-      padding-left: 24px;
-    }
-
-    h3 {
-      border-left: solid 20px #4d74dd;
-      padding-left: 16px;
-    }
-
-    h4 {
-      border-left: solid 12px #6a88da;
-      padding-left: 8px;
-    }
-
-    h5 {
-      border-left: solid 4px #8ca4e7;
-      padding-left: 4px;
-    }
-
-    h6 {
-      border-left: solid 2px #a8bcf5;
-      padding-left: 2px;
-    }
-
-    table {
-      border-spacing: 0px;
-      border-collapse: separate;
-      border-left: 1px solid #888888;
-      border-right: 1px solid #888888;
-      border-top: 1px solid #888888;
-      border-bottom: hidden;
-    }
-
-    tr:nth-child(odd) {
-      background: #eeeeee;
-    }
-
-    tr:nth-child(even) {
-      background: #ffffff;
-    }
-
-    th {
-      height: 2em;
-      padding: 4px 1em 4px 1em;
-      background: #ffffff;
-      border-bottom: 1px solid #888888;
-    }
-
-    th:not(:first-child) {
-      border-left: 1px solid #888888;
-    }
-
-    td {
-      height: 1.5em;
-      padding: 4px 1em 4px 1em;
-      border-bottom: 1px solid #888888;
-    }
-
-    td:not(:first-child) {
-      border-left: 1px solid #888888;
-    }
-
-    dl {
-      padding-left: 2em;
-    }
-
-    dt {
-      font-weight: bold;
-      border-bottom: 1px dashed #000000;
-      margin-top: 2em;
-    }
-
-    dd {
-      border-left: 1px dotted #000000;
-      margin-left: 1em;
-      padding-left: 1em;
-    }
-
-    audio {
-      vertical-align: middle;
-    }
-
-    label {
-      vertical-align: middle;
-    }
-
-    :not(.sourceCode)>pre {
-      overflow: auto;
-      border: 1px solid #888888;
-      padding: 8px;
-    }
-
-    div.sourceCode {
-      overflow: auto;
-      border: 1px solid #888888;
-      padding: 8px;
-    }
-
-    pre>code.sourceCode>span>a:first-child::before {
-      border-right: 1px solid #888888;
-      padding-right: 1em;
-      margin-right: 1em;
-      text-decoration: none;
-    }
-
-    :not(pre)>code {
-      color: #163eac;
-    }
-
-    li {
-      margin: 8px;
-    }
-
-    summary:hover {
-      background-color: #eeeeee;
-    }
-
-    header {
-      border-bottom: 1px gray solid;
-      padding: 0.5em;
-      margin-bottom: 1em;
-    }
-
-    footer {
-      border-top: 1px gray solid;
-      padding: 0.5em;
-      margin-top: 1em;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="dcterms.date" content="2021-11-20" />
+<title>IterativeSinCluster_en</title>
+<style>
+code { white-space: pre-wrap; }
+span.smallcaps { font-variant: small-caps; }
+span.underline { text-decoration: underline; }
+div.column { display: inline-block; vertical-align: top; width: 50%; }
+</style>
+<style>
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style>
+body {
+  max-width: 704px;
+  margin: auto;
+  padding: 32px 8px;
+}
+
+img {
+  max-width: 100%;
+}
+
+video {
+  max-width: 100%;
+}
+
+details.list > summary {
+  line-height: 3em;
+}
+
+kbd {
+  font-family: inherit;
+  border-style: solid;
+  border-width: 1px 2px 2px 1px;
+  border-radius: 2px;
+  padding: 4px;
+  margin: 2px;
+  line-height: calc(1em + 16px);
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  background-color: #163eac;
+  color: #ffffff;
+  padding-left: 8px;
+}
+
+h2 {
+  border-left: solid 32px #2851c2;
+  padding-left: 24px;
+}
+
+h3 {
+  border-left: solid 20px #4d74dd;
+  padding-left: 16px;
+}
+
+h4 {
+  border-left: solid 12px #6a88da;
+  padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
+}
+
+table {
+  border-spacing: 0px;
+  border-collapse: separate;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
+}
+
+tr:nth-child(odd) {
+  background: #eeeeee;
+}
+
+tr:nth-child(even) {
+  background: #ffffff;
+}
+
+th {
+  height: 2em;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+td {
+  height: 1.5em;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
+}
+
+audio {
+  vertical-align: middle;
+}
+
+label {
+  vertical-align: middle;
+}
+
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
+}
+
+li {
+  margin: 8px;
+}
+
+summary:hover {
+  background-color: #eeeeee;
+}
+
+header {
+  border-bottom: 1px gray solid;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
+
+footer {
+  border-top: 1px gray solid;
+  padding: 0.5em;
+  margin-top: 1em;
+}
+</style>
 </head>
 
 <body>
-  <header>
-    <p><a href="..\..\..\index.html">Back to Index</a></p>
-    <p>
-      Update: 2021-11-20
-    </p>
-    <details>
-      <summary translate="yes">Table of Contents</summary>
-      <nav id="TOC" role="doc-toc">
-        <ul>
-          <li><a href="#iterativesincluster">IterativeSinCluster</a>
-            <ul>
-              <li><a href="#installation">Installation</a>
-                <ul>
-                  <li><a href="#plugin">Plugin</a></li>
-                  <li><a href="#presets">Presets</a></li>
-                  <li><a href="#windows-specific">Windows Specific</a></li>
-                  <li><a href="#linux-specific">Linux Specific</a></li>
-                  <li><a href="#macos-specific">macOS Specific</a>
-                    <ul>
-                      <li><a href="#reference">Reference</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="#color-configuration">Color Configuration</a></li>
-              <li><a href="#controls">Controls</a></li>
-              <li><a href="#block-diagram">Block Diagram</a></li>
-              <li><a href="#parameters">Parameters</a>
-                <ul>
-                  <li><a href="#gain">Gain</a></li>
-                  <li><a href="#shelving">Shelving</a></li>
-                  <li><a href="#pitch">Pitch</a></li>
-                  <li><a href="#smooth">Smooth</a></li>
-                  <li><a href="#nvoice">nVoice</a></li>
-                  <li><a href="#random">Random</a></li>
-                  <li><a href="#note-chord-overtone">Note, Chord, Overtone</a></li>
-                  <li><a href="#chorus">Chorus</a></li>
-                </ul>
-              </li>
-              <li><a href="#change-log">Change Log</a>
-                <ul>
-                  <li><a href="#old-versions">Old Versions</a></li>
-                </ul>
-              </li>
-              <li><a href="#license">License</a>
-                <ul>
-                  <li><a href="#about-vst">About VST</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </details>
-  </header>
-  <h1 id="iterativesincluster">IterativeSinCluster</h1>
-  <p><img src="img/iterativesincluster.png" /></p>
-  <p>IterativeSinCluster is an additive synthesizer. This synth computes 512 sine waves for each note to make tone
-    cluster. I somehow thought “iterative sin” is a valid term. Correct term is “recursive sine”.</p>
-  <ul>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/IterativeSinCluster_0.1.12.zip">Download
-        IterativeSinCluster 0.1.12 - VST® 3 (github.com)</a> <img src="img/VST_Compatible_Logo_Steinberg_negative.svg"
-        alt="VST compatible logo." width="60px" style="display: inline-block; vertical-align: middle;"></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/IterativeSinClusterPresets.zip">Download
-        Presets (github.com)</a></li>
-  </ul>
-  <p>IterativeSinCluster requires CPU which supports AVX or later SIMD instructions.</p>
-  <p>The package includes following builds:</p>
-  <ul>
-    <li>Windows 64bit</li>
-    <li>Linux 64bit</li>
-    <li>macOS 64bit</li>
-  </ul>
-  <p>macOS build isn’t tested because I don’t have Mac. If you found a bug, please file a issue to <a
-      href="https://github.com/ryukau/VSTPlugins">GitHub repository</a> or send email to <code>ryukau@gmail.com</code>.
+<header>
+    <p><a href="..\..\index.html">Back to Index</a></p>
+      <p>
+  Update: 2021-11-20
   </p>
-  <p>Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely
-    run. In this case, please take a look at <a
-      href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">build instruction</a>.</p>
-  <h2 id="installation">Installation</h2>
-  <h3 id="plugin">Plugin</h3>
-  <p>Place <code>*.vst3</code> directory to:</p>
+      <details>
+  <summary translate="yes">Table of Contents</summary>
+  <nav id="TOC" role="doc-toc">
   <ul>
-    <li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
-    <li><code>$HOME/.vst3/</code> for Linux.</li>
-    <li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for macOS.</li>
+  <li><a href="#iterativesincluster">IterativeSinCluster</a><ul>
+  <li><a href="#installation">Installation</a><ul>
+  <li><a href="#plugin">Plugin</a></li>
+  <li><a href="#presets">Presets</a></li>
+  <li><a href="#windows-specific">Windows Specific</a></li>
+  <li><a href="#linux-specific">Linux Specific</a></li>
+  <li><a href="#macos-specific">macOS Specific</a><ul>
+  <li><a href="#reference">Reference</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#color-configuration">Color Configuration</a></li>
+  <li><a href="#controls">Controls</a></li>
+  <li><a href="#block-diagram">Block Diagram</a></li>
+  <li><a href="#parameters">Parameters</a><ul>
+  <li><a href="#gain">Gain</a></li>
+  <li><a href="#shelving">Shelving</a></li>
+  <li><a href="#pitch">Pitch</a></li>
+  <li><a href="#smooth">Smooth</a></li>
+  <li><a href="#nvoice">nVoice</a></li>
+  <li><a href="#random">Random</a></li>
+  <li><a href="#note-chord-overtone">Note, Chord, Overtone</a></li>
+  <li><a href="#chorus">Chorus</a></li>
+  </ul></li>
+  <li><a href="#change-log">Change Log</a><ul>
+  <li><a href="#old-versions">Old Versions</a></li>
+  </ul></li>
+  <li><a href="#license">License</a><ul>
+  <li><a href="#about-vst">About VST</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
-  <p>DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.</p>
-  <h3 id="presets">Presets</h3>
-  <p>Extract preset zip, then place preset directory to the OS specific path:</p>
-  <ul>
-    <li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
-    <li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
-    <li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
-  </ul>
-  <p>Preset directory name must be the same as the plugin. Make <code>Uhhyou</code> directory if it does not exist.</p>
-  <h3 id="windows-specific">Windows Specific</h3>
-  <p>If DAW doesn’t recognize the plugin, try installing C++ redistributable (<code>vc_redist.x64.exe</code>). Installer
-    can be found in the link below.</p>
-  <ul>
-    <li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest
-        supported Visual C++ downloads</a></li>
-  </ul>
-  <h3 id="linux-specific">Linux Specific</h3>
-  <p>On Ubuntu 18.0.4, those packages are required.</p>
-  <div class="sourceCode" id="cb1">
-    <pre
-      class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre>
-  </div>
-  <p>If DAW doesn’t recognize the plugin, take a look at <code>Package Requirements</code> section of the link below and
-    make sure all the VST3 related package is installed.</p>
-  <ul>
-    <li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VST 3 Interfaces: Setup Linux
-        for building VST 3 Plug-ins</a></li>
-  </ul>
-  <p>REAPER on Linux may not recognize the plugin. A workaround is to delete a file
-    <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and restart REAPER.</p>
-  <h3 id="macos-specific">macOS Specific</h3>
-  <p>When trying to run plugin first time, following message may appear on macOS.</p>
-  <pre><code>&lt;PluginName&gt;.vst3 is damaged and can&#39;t be opened. You should move it to
+  </nav>
+  </details>
+  </header>
+<h1 id="iterativesincluster">IterativeSinCluster</h1>
+<p><img src="img/iterativesincluster.png" /></p>
+<p>IterativeSinCluster is an additive synthesizer. This synth computes 512 sine waves for each note to make tone cluster. I somehow thought “iterative sin” is a valid term. Correct term is “recursive sine”.</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/IterativeSinCluster_0.1.12.zip">Download IterativeSinCluster 0.1.12 - VST® 3 (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="60px"
+style="display: inline-block; vertical-align: middle;"></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/IterativeSinClusterPresets.zip">Download Presets (github.com)</a></li>
+</ul>
+<p>IterativeSinCluster requires CPU which supports AVX or later SIMD instructions.</p>
+<p>The package includes following builds:</p>
+<ul>
+<li>Windows 64bit</li>
+<li>Linux 64bit</li>
+<li>macOS 64bit</li>
+</ul>
+<p>macOS build isn’t tested because I don’t have Mac. If you found a bug, please file a issue to <a href="https://github.com/ryukau/VSTPlugins">GitHub repository</a> or send email to <code>ryukau@gmail.com</code>.</p>
+<p>Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely run. In this case, please take a look at <a href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">build instruction</a>.</p>
+<h2 id="installation">Installation</h2>
+<h3 id="plugin">Plugin</h3>
+<p>Place <code>*.vst3</code> directory to:</p>
+<ul>
+<li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
+<li><code>$HOME/.vst3/</code> for Linux.</li>
+<li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for macOS.</li>
+</ul>
+<p>DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.</p>
+<h3 id="presets">Presets</h3>
+<p>Extract preset zip, then place preset directory to the OS specific path:</p>
+<ul>
+<li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
+<li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
+<li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
+</ul>
+<p>Preset directory name must be the same as the plugin. Make <code>Uhhyou</code> directory if it does not exist.</p>
+<h3 id="windows-specific">Windows Specific</h3>
+<p>If DAW doesn’t recognize the plugin, try installing C++ redistributable (<code>vc_redist.x64.exe</code>). Installer can be found in the link below.</p>
+<ul>
+<li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest supported Visual C++ downloads</a></li>
+</ul>
+<h3 id="linux-specific">Linux Specific</h3>
+<p>On Ubuntu 18.0.4, those packages are required.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+<p>If DAW doesn’t recognize the plugin, take a look at <code>Package Requirements</code> section of the link below and make sure all the VST3 related package is installed.</p>
+<ul>
+<li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI: Setup</a></li>
+</ul>
+<p>REAPER on Linux may not recognize the plugin. A workaround is to delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and restart REAPER.</p>
+<h3 id="macos-specific">macOS Specific</h3>
+<p>When trying to run plugin first time, following message may appear on macOS.</p>
+<pre><code>&lt;PluginName&gt;.vst3 is damaged and can&#39;t be opened. You should move it to
 the Trash&quot;</code></pre>
-  <p>In this case, open terminal and try running following command to unzipped <code>.vst3</code> directory.</p>
-  <div class="sourceCode" id="cb3">
-    <pre
-      class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="ex">xattr</span> -rc /path/to/PluginName.vst3</span></code></pre>
-  </div>
-  <p>Plugin may be considered as unsigned/un-notarized application. In this case, try following the steps below.</p>
-  <ol type="1">
-    <li>Open terminal and run <code>sudo spctl --master-disable</code>.</li>
-    <li>Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select “Anywhere”.
-    </li>
-  </ol>
-  <p>Beware that steps above degrades security of your system. To revert the settings, follow the steps below.</p>
-  <ol type="1">
-    <li>Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select option to
-      “App Store and identified developers”.</li>
-    <li>Open terminal and run <code>sudo spctl --master-enable</code>.</li>
-  </ol>
-  <h4 id="reference">Reference</h4>
-  <ul>
-    <li><a href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How to Fix App “is
-        damaged and can’t be opened. You should move it to the Trash” Error on Mac</a></li>
-    <li><a href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
-        unsigned/un-notarized applications/plugins in Mac OS | Venn Audio</a></li>
-    <li><a href="https://support.apple.com/en-us/HT202491">Safely open apps on your Mac - Apple Support</a></li>
-  </ul>
-  <h2 id="color-configuration">Color Configuration</h2>
-  <p>At first time, create color config file to:</p>
-  <ul>
-    <li><code>/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json</code> on Windows.</li>
-    <li><code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> on Linux.
-      <ul>
-        <li>If <code>$XDG_CONFIG_HOME</code> is empty, make <code>$HOME/.config/UhhyouPlugins/style/style.json</code>.
-        </li>
-      </ul>
-    </li>
-    <li><code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> on macOS.</li>
-  </ul>
-  <p>Below is a example of <code>style.json</code>.</p>
-  <div class="sourceCode" id="cb4">
-    <pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">{</span></span>
+<p>In this case, open terminal and try running following command to unzipped <code>.vst3</code> directory.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="ex">xattr</span> -rc /path/to/PluginName.vst3</span></code></pre></div>
+<p>Plugin may be considered as unsigned/un-notarized application. In this case, try following the steps below.</p>
+<ol type="1">
+<li>Open terminal and run <code>sudo spctl --master-disable</code>.</li>
+<li>Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select “Anywhere”.</li>
+</ol>
+<p>Beware that steps above degrades security of your system. To revert the settings, follow the steps below.</p>
+<ol type="1">
+<li>Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select option to “App Store and identified developers”.</li>
+<li>Open terminal and run <code>sudo spctl --master-enable</code>.</li>
+</ol>
+<h4 id="reference">Reference</h4>
+<ul>
+<li><a href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac</a></li>
+<li><a href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio</a></li>
+<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps on your Mac - Apple Support</a></li>
+</ul>
+<h2 id="color-configuration">Color Configuration</h2>
+<p>At first time, create color config file to:</p>
+<ul>
+<li><code>/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json</code> on Windows.</li>
+<li><code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> on Linux.
+<ul>
+<li>If <code>$XDG_CONFIG_HOME</code> is empty, make <code>$HOME/.config/UhhyouPlugins/style/style.json</code>.</li>
+</ul></li>
+<li><code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> on macOS.</li>
+</ul>
+<p>Below is a example of <code>style.json</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">{</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>  <span class="dt">&quot;fontPath&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
@@ -623,168 +393,136 @@ the Trash&quot;</code></pre>
 <span id="cb4-15"><a href="#cb4-15"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
 <span id="cb4-16"><a href="#cb4-16"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
 <span id="cb4-17"><a href="#cb4-17"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="fu">}</span></span></code></pre>
-  </div>
-  <p>Hex color codes are used.</p>
-  <ul>
-    <li>6 digit color is RGB.</li>
-    <li>8 digit color is RGBA.</li>
-  </ul>
-  <p>First letter <code>#</code> is conventional. Plugins ignore the first letter of color code, thus
-    <code>?102938</code>, <code>\n11335577</code> are valid.</p>
-  <p>Do not use characters outside of <code>0-9a-f</code> for color value.</p>
-  <ul>
-    <li><code>fontPath</code>: Absolute path to *.ttf font file. Not implemented in VST 3 version.</li>
-    <li><code>foreground</code>: Text color.</li>
-    <li><code>foregroundButtonOn</code>: Text color of active toggle button. Recommend to use the same value of
-      <code>foreground</code> or <code>boxBackground</code>.</li>
-    <li><code>foregroundInactive</code>: Text color of inactive components. Currently, only used for TabView.</li>
-    <li><code>background</code>: Background color.</li>
-    <li><code>boxBackground</code>: Background color of inside of box shaped components (Barbox, Button, Checkbox,
-      OptionMenu, TextKnob, VSlider).</li>
-    <li><code>border</code>: Border color of box shaped components.</li>
-    <li><code>borderCheckbox</code>: Border color of CheckBox.</li>
-    <li><code>borderLabel</code>: Line color of parameter section label.</li>
-    <li><code>unfocused</code>: Color to fill unfocused components. Currently, only used for knobs.</li>
-    <li><code>highlightMain</code>: Color to indicate focus is on a component. Highlight colors are also used for value
-      of slider components (BarBox and VSlider).</li>
-    <li><code>highlightAccent</code>: Same as <code>highlightMain</code>. Used for cosmetics.</li>
-    <li><code>highlightButton</code>: Color to indicate focus is on a button.</li>
-    <li><code>highlightWarning</code>: Same as <code>highlightMain</code>, but only used for parameters which requires
-      extra caution.</li>
-    <li><code>overlay</code>: Overlay color. Used to overlay texts and indicators.</li>
-    <li><code>overlayHighlight</code>: Overlay color to highlight current focus.</li>
-  </ul>
-  <h2 id="controls">Controls</h2>
-  <p>Knob and slider can do:</p>
-  <ul>
-    <li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
-    <li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
-  </ul>
-  <p>Additionally, number sliders use in <code>Gain</code>, <code>Semi</code> etc. can do:</p>
-  <ul>
-    <li><kbd>Wheel Click</kbd>: Toggle Min/Max.</li>
-  </ul>
-  <p><code>Overtone</code> has following controls:</p>
-  <ul>
-    <li><kbd>Ctrl</kbd> + <kbd>Left Drag</kbd>: Reset to Default</li>
-    <li><kbd>Mouse Wheel Drag</kbd>: Draw Line</li>
-  </ul>
-  <h2 id="block-diagram">Block Diagram</h2>
-  <p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or “View Image” on right click menu to scale.
-  </p>
-  <p>Diagram only shows overview. It’s not exact implementation.</p>
-  <p><img src="img/iterativesincluster.svg" /></p>
-  <h2 id="parameters">Parameters</h2>
-  <h3 id="gain">Gain</h3>
-  <dl>
-    <dt>Boost, Gain</dt>
-    <dd>
-      <p>Both controls output gain. Peak value of output will be <code>Boost * Gain</code>.</p>
-      <p>It’s possible that output gain becomes too small while changing gain of <code>Note</code>, <code>Chord</code>,
-        <code>Overtone</code>. <code>Boost</code> can be useful in this situation.</p>
-    </dd>
-    <dt>ADSR</dt>
-    <dd>
-      <p>Parameters for gain envelope.</p>
-      <ul>
-        <li><code>A</code> : Attack time which is the length from note-on to reaching peak value.</li>
-        <li><code>D</code> : Decay time which is the length from peak value to reaching sustain level.</li>
-        <li><code>S</code> : Sustain level which is the gain after decay.</li>
-        <li><code>R</code> : Release time which is the length from note-off to the gain reaching to 0.</li>
-      </ul>
-    </dd>
-    <dt>Curve</dt>
-    <dd>
-      <p>Change attack curve of gain envelope.</p>
-    </dd>
-  </dl>
-  <h3 id="shelving">Shelving</h3>
-  <p>Cutoff freqeuncy can be changed by <code>Semi</code>, which is relative to a note frequency. For example, if the
-    note is C4 and <code>Semi</code> is 12.000, cutoff frequency is set to <code>C4 + 12 semitone = C5</code>.</p>
-  <ul>
-    <li><code>Low</code> shelving changes <code>Gain</code> of sine waves <strong>less than or equal to</strong> the
-      cutoff frequency specified by <code>Semi</code>.</li>
-    <li><code>High</code> shelving changes <code>Gain</code> of sine waves <strong>greater than or equal to</strong> the
-      cutoff frequency specified by <code>Semi</code>.</li>
-  </ul>
-  <h3 id="pitch">Pitch</h3>
-  <dl>
-    <dt>Add Aliasing</dt>
-    <dd>
-      <p>When checked, the synth enables rendering of sine waves over nyquist frequency.</p>
-      <p>Roughly speaking, nyquist frequency is the highest frequency that can be reconstructed from recorded digital
-        signal. When generating sound, it’s possible to set value that is higher than nyquist frequency. However, the
-        result may contain unexpected frequency due to a phenomenon called aliasing. <code>Add Aliasing</code> is option
-        to add those aliasing noise.</p>
-    </dd>
-    <dt>Reverse Semi</dt>
-    <dd>
-      <p>When checked, negate sign of <code>Semi</code>. For example, 7.000 becomes -7.000.</p>
-    </dd>
-    <dt>Octave</dt>
-    <dd>
-      <p>Note octave.</p>
-    </dd>
-    <dt>ET</dt>
-    <dd>
-      <p><code>ET</code> stands for equal temperament. This parameter can be used to change tuning of <code>Semi</code>
-        and <code>Milli</code>.</p>
-      <p>Note that this parameter is not to change tuning of notes sent from plugin host. Only affect to internal
-        parameters.</p>
-    </dd>
-    <dt>Multiply, Modulo</dt>
-    <dd>
-      <p>Change sine wave frequency.</p>
-      <p>Equation is <code>noteFrequency * (1 + fmod(Multiply * pitch, Modulo))</code>. <code>pitch</code> is calculated
-        from <code>Note</code>, <code>Chord</code> and <code>Overtone</code>. <code>fmod(a, b)</code> is a function that
-        returns reminder of <code>a / b</code>.</p>
-    </dd>
-  </dl>
-  <h3 id="smooth">Smooth</h3>
-  <p>Time length to change some parameter value to current one. Unit is in second.</p>
-  <p>List of parameters related to <code>Smooth</code>. <code>*</code> represents wild card.</p>
-  <ul>
-    <li>All parameters in <code>Gain</code> section.</li>
-    <li><code>Chord.Pan</code></li>
-    <li>All parameters in <code>Chorus</code> section, except <code>Key Follow</code>.</li>
-  </ul>
-  <p>Other parameter uses the value obtained from the timing of note-on for entire duration of a note.</p>
-  <h3 id="nvoice">nVoice</h3>
-  <p>Maximum polyphony. Lowering the number of this option reduces CPU load.</p>
-  <h3 id="random">Random</h3>
-  <dl>
-    <dt>Retrigger</dt>
-    <dd>
-      <p>When checked, reset random seed for each note-on.</p>
-    </dd>
-    <dt>Seed</dt>
-    <dd>
-      <p>Random seed. This value change random number sequence.</p>
-    </dd>
-    <dt>To Gain</dt>
-    <dd>
-      <p>Amount of randomization to sine wave gain. Randomization is done for each note-on.</p>
-    </dd>
-    <dt>To Pitch</dt>
-    <dd>
-      <p>Amount of randomization to sine wave pitch. Randomization is done for each note-on.</p>
-    </dd>
-  </dl>
-  <h3 id="note-chord-overtone">Note, Chord, Overtone</h3>
-  <p>Change sine wave gain and pitch.</p>
-  <p>1 <code>Note</code> have 16 <code>Overtone</code>. 1 <code>Chord</code> consists of 8 <code>Note</code>. 4
-    <code>Chord</code> are available to use.</p>
-  <p>Common parameters for <code>Note</code> and <code>Chord</code>.</p>
-  <ul>
-    <li><code>Gain</code> : Sine wave gain.</li>
-    <li><code>Semi</code> : Distance from note frequency. Unit is semitone.</li>
-    <li><code>Milli</code> : Distance from note frequency. Unit is 1 / 1000 semitone, or 1 / 10 cent.</li>
-  </ul>
-  <p>Leftmost of <code>Overtone</code> is gain of fundamental frequency (1st overtone) of a note. For each bar from left
-    represents 1st, 2nd, 3rd, … , 16th overtone gain.</p>
-  <p>Below is the summary of calculation of sine wave frequency.</p>
-  <pre><code>function toneToPitch(semi, milli):
+<span id="cb4-18"><a href="#cb4-18"></a><span class="fu">}</span></span></code></pre></div>
+<p>Hex color codes are used.</p>
+<ul>
+<li>6 digit color is RGB.</li>
+<li>8 digit color is RGBA.</li>
+</ul>
+<p>First letter <code>#</code> is conventional. Plugins ignore the first letter of color code, thus <code>?102938</code>, <code>\n11335577</code> are valid.</p>
+<p>Do not use characters outside of <code>0-9a-f</code> for color value.</p>
+<ul>
+<li><code>fontPath</code>: Absolute path to *.ttf font file. Not implemented in VST 3 version.</li>
+<li><code>foreground</code>: Text color.</li>
+<li><code>foregroundButtonOn</code>: Text color of active toggle button. Recommend to use the same value of <code>foreground</code> or <code>boxBackground</code>.</li>
+<li><code>foregroundInactive</code>: Text color of inactive components. Currently, only used for TabView.</li>
+<li><code>background</code>: Background color.</li>
+<li><code>boxBackground</code>: Background color of inside of box shaped components (Barbox, Button, Checkbox, OptionMenu, TextKnob, VSlider).</li>
+<li><code>border</code>: Border color of box shaped components.</li>
+<li><code>borderCheckbox</code>: Border color of CheckBox.</li>
+<li><code>borderLabel</code>: Line color of parameter section label.</li>
+<li><code>unfocused</code>: Color to fill unfocused components. Currently, only used for knobs.</li>
+<li><code>highlightMain</code>: Color to indicate focus is on a component. Highlight colors are also used for value of slider components (BarBox and VSlider).</li>
+<li><code>highlightAccent</code>: Same as <code>highlightMain</code>. Used for cosmetics.</li>
+<li><code>highlightButton</code>: Color to indicate focus is on a button.</li>
+<li><code>highlightWarning</code>: Same as <code>highlightMain</code>, but only used for parameters which requires extra caution.</li>
+<li><code>overlay</code>: Overlay color. Used to overlay texts and indicators.</li>
+<li><code>overlayHighlight</code>: Overlay color to highlight current focus.</li>
+</ul>
+<h2 id="controls">Controls</h2>
+<p>Knob and slider can do:</p>
+<ul>
+<li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
+<li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
+</ul>
+<p>Additionally, number sliders use in <code>Gain</code>, <code>Semi</code> etc. can do:</p>
+<ul>
+<li><kbd>Wheel Click</kbd>: Toggle Min/Max.</li>
+</ul>
+<p><code>Overtone</code> has following controls:</p>
+<ul>
+<li><kbd>Ctrl</kbd> + <kbd>Left Drag</kbd>: Reset to Default</li>
+<li><kbd>Mouse Wheel Drag</kbd>: Draw Line</li>
+</ul>
+<h2 id="block-diagram">Block Diagram</h2>
+<p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or “View Image” on right click menu to scale.</p>
+<p>Diagram only shows overview. It’s not exact implementation.</p>
+<p><img src="img/iterativesincluster.svg" /></p>
+<h2 id="parameters">Parameters</h2>
+<h3 id="gain">Gain</h3>
+<dl>
+<dt>Boost, Gain</dt>
+<dd><p>Both controls output gain. Peak value of output will be <code>Boost * Gain</code>.</p>
+<p>It’s possible that output gain becomes too small while changing gain of <code>Note</code>, <code>Chord</code>, <code>Overtone</code>. <code>Boost</code> can be useful in this situation.</p>
+</dd>
+<dt>ADSR</dt>
+<dd><p>Parameters for gain envelope.</p>
+<ul>
+<li><code>A</code> : Attack time which is the length from note-on to reaching peak value.</li>
+<li><code>D</code> : Decay time which is the length from peak value to reaching sustain level.</li>
+<li><code>S</code> : Sustain level which is the gain after decay.</li>
+<li><code>R</code> : Release time which is the length from note-off to the gain reaching to 0.</li>
+</ul>
+</dd>
+<dt>Curve</dt>
+<dd><p>Change attack curve of gain envelope.</p>
+</dd>
+</dl>
+<h3 id="shelving">Shelving</h3>
+<p>Cutoff freqeuncy can be changed by <code>Semi</code>, which is relative to a note frequency. For example, if the note is C4 and <code>Semi</code> is 12.000, cutoff frequency is set to <code>C4 + 12 semitone = C5</code>.</p>
+<ul>
+<li><code>Low</code> shelving changes <code>Gain</code> of sine waves <strong>less than or equal to</strong> the cutoff frequency specified by <code>Semi</code>.</li>
+<li><code>High</code> shelving changes <code>Gain</code> of sine waves <strong>greater than or equal to</strong> the cutoff frequency specified by <code>Semi</code>.</li>
+</ul>
+<h3 id="pitch">Pitch</h3>
+<dl>
+<dt>Add Aliasing</dt>
+<dd><p>When checked, the synth enables rendering of sine waves over nyquist frequency.</p>
+<p>Roughly speaking, nyquist frequency is the highest frequency that can be reconstructed from recorded digital signal. When generating sound, it’s possible to set value that is higher than nyquist frequency. However, the result may contain unexpected frequency due to a phenomenon called aliasing. <code>Add Aliasing</code> is option to add those aliasing noise.</p>
+</dd>
+<dt>Reverse Semi</dt>
+<dd><p>When checked, negate sign of <code>Semi</code>. For example, 7.000 becomes -7.000.</p>
+</dd>
+<dt>Octave</dt>
+<dd><p>Note octave.</p>
+</dd>
+<dt>ET</dt>
+<dd><p><code>ET</code> stands for equal temperament. This parameter can be used to change tuning of <code>Semi</code> and <code>Milli</code>.</p>
+<p>Note that this parameter is not to change tuning of notes sent from plugin host. Only affect to internal parameters.</p>
+</dd>
+<dt>Multiply, Modulo</dt>
+<dd><p>Change sine wave frequency.</p>
+<p>Equation is <code>noteFrequency * (1 + fmod(Multiply * pitch, Modulo))</code>. <code>pitch</code> is calculated from <code>Note</code>, <code>Chord</code> and <code>Overtone</code>. <code>fmod(a, b)</code> is a function that returns reminder of <code>a / b</code>.</p>
+</dd>
+</dl>
+<h3 id="smooth">Smooth</h3>
+<p>Time length to change some parameter value to current one. Unit is in second.</p>
+<p>List of parameters related to <code>Smooth</code>. <code>*</code> represents wild card.</p>
+<ul>
+<li>All parameters in <code>Gain</code> section.</li>
+<li><code>Chord.Pan</code></li>
+<li>All parameters in <code>Chorus</code> section, except <code>Key Follow</code>.</li>
+</ul>
+<p>Other parameter uses the value obtained from the timing of note-on for entire duration of a note.</p>
+<h3 id="nvoice">nVoice</h3>
+<p>Maximum polyphony. Lowering the number of this option reduces CPU load.</p>
+<h3 id="random">Random</h3>
+<dl>
+<dt>Retrigger</dt>
+<dd><p>When checked, reset random seed for each note-on.</p>
+</dd>
+<dt>Seed</dt>
+<dd><p>Random seed. This value change random number sequence.</p>
+</dd>
+<dt>To Gain</dt>
+<dd><p>Amount of randomization to sine wave gain. Randomization is done for each note-on.</p>
+</dd>
+<dt>To Pitch</dt>
+<dd><p>Amount of randomization to sine wave pitch. Randomization is done for each note-on.</p>
+</dd>
+</dl>
+<h3 id="note-chord-overtone">Note, Chord, Overtone</h3>
+<p>Change sine wave gain and pitch.</p>
+<p>1 <code>Note</code> have 16 <code>Overtone</code>. 1 <code>Chord</code> consists of 8 <code>Note</code>. 4 <code>Chord</code> are available to use.</p>
+<p>Common parameters for <code>Note</code> and <code>Chord</code>.</p>
+<ul>
+<li><code>Gain</code> : Sine wave gain.</li>
+<li><code>Semi</code> : Distance from note frequency. Unit is semitone.</li>
+<li><code>Milli</code> : Distance from note frequency. Unit is 1 / 1000 semitone, or 1 / 10 cent.</li>
+</ul>
+<p>Leftmost of <code>Overtone</code> is gain of fundamental frequency (1st overtone) of a note. For each bar from left represents 1st, 2nd, 3rd, … , 16th overtone gain.</p>
+<p>Below is the summary of calculation of sine wave frequency.</p>
+<pre><code>function toneToPitch(semi, milli):
   return 2 ^ (1000 * semi + milli) / (ET * 1000)
 
 for each Chord:
@@ -794,168 +532,120 @@ for each Chord:
     for each Overtone:
       frequency = midiNoteFrequency
         * (1 + mod(Multiply * Overtone * notePitch * chordPitch, Modulo))</code></pre>
-  <h3 id="chorus">Chorus</h3>
-  <dl>
-    <dt>Mix</dt>
-    <dd>
-      <p>Change Dry/Wet mix ratio.</p>
-    </dd>
-    <dt>Freq</dt>
-    <dd>
-      <p>Chorus LFO frequency.</p>
-    </dd>
-    <dt>Depth</dt>
-    <dd>
-      <p>Change stereo spread.</p>
-    </dd>
-    <dt>Range</dt>
-    <dd>
-      <p>Amount of modulation from LFO to delay time. There are three delays in this chorus.</p>
-    </dd>
-    <dt>Time</dt>
-    <dd>
-      <p>Delay time.</p>
-    </dd>
-    <dt>Phase</dt>
-    <dd>
-      <p>LFO phase.</p>
-    </dd>
-    <dt>Offset</dt>
-    <dd>
-      <p>Phase difference between delays.</p>
-    </dd>
-    <dt>Feedback</dt>
-    <dd>
-      <p>Feedback of delay.</p>
-    </dd>
-    <dt>Key Follow</dt>
-    <dd>
-      <p>When checked, change delay time relative to note frequency.</p>
-    </dd>
-  </dl>
-  <h2 id="change-log">Change Log</h2>
-  <ul>
-    <li>0.1.12
-      <ul>
-        <li>Fixed to reset properly.</li>
-        <li>Fixed <code>bypass</code> parameter behavior. This fixes playing all the notes at the moment of unmute, even
-          if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3
-          <code>bypass</code> parameter.</li>
-      </ul>
-    </li>
-    <li>0.1.11
-      <ul>
-        <li>Implemented process context requirements.</li>
-      </ul>
-    </li>
-    <li>0.1.10
-      <ul>
-        <li>Added check that DSP is initialized or not.</li>
-      </ul>
-    </li>
-    <li>0.1.9
-      <ul>
-        <li>Added undo/redo to BarBox.</li>
-      </ul>
-    </li>
-    <li>0.1.8
-      <ul>
-        <li>Added color configuration.</li>
-      </ul>
-    </li>
-    <li>0.1.7
-      <ul>
-        <li>Reverted parameter smoother to the old one which works with variable size audio buffer.</li>
-        <li>Enabled pitch bend.</li>
-      </ul>
-    </li>
-    <li>0.1.6
-      <ul>
-        <li>Changed BarBox shortcuts to be disabled when mouse cursor is on the outside of BarBox.</li>
-      </ul>
-    </li>
-    <li>0.1.5
-      <ul>
-        <li>Fixed a bug that cause crash when drawing string.</li>
-      </ul>
-    </li>
-    <li>0.1.4
-      <ul>
-        <li>Changed display method for pop-up which shows up by clicking plugin title.</li>
-      </ul>
-    </li>
-    <li>0.1.3
-      <ul>
-        <li>Fixed a bug that was causing noise on PreSonus Studio One 4.6.1.</li>
-      </ul>
-    </li>
-    <li>0.1.2
-      <ul>
-        <li>Enabled GUI for Linux build.</li>
-      </ul>
-    </li>
-    <li>0.1.1
-      <ul>
-        <li>Fixed macOS build.</li>
-        <li>Added code paths for AVX and AVX512 instructions.</li>
-        <li>Fixed wobbling knob bug.</li>
-      </ul>
-    </li>
-    <li>0.1.0
-      <ul>
-        <li>Initial release.</li>
-      </ul>
-    </li>
-  </ul>
-  <h3 id="old-versions">Old Versions</h3>
-  <ul>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/IterativeSinCluster0.1.11.zip">IterativeSinCluster
-        0.1.11 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/IterativeSinCluster0.1.10.zip">IterativeSinCluster
-        0.1.10 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/IterativeSinCluster0.1.9.zip">IterativeSinCluster
-        0.1.9 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/IterativeSinCluster0.1.8.zip">IterativeSinCluster
-        0.1.8 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/IterativeSinCluster0.1.7.zip">IterativeSinCluster
-        0.1.7 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/IterativeSinCluster0.1.6.zip">IterativeSinCluster
-        0.1.6 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/IterativeSinCluster0.1.5.zip">IterativeSinCluster
-        0.1.5 - VST 3 (github.com)</a></li>
-    <li>[IterativeSinCluster 0.1.3 - VST 3
-      (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/IterativeSinCluster0.1.3.zip
-    </li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/IterativeSinCluster0.1.2.zip">IterativeSinCluster
-        0.1.2 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/IterativeSinCluster0.1.1.zip">IterativeSinCluster
-        0.1.1 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/IterativeSinCluster0.1.0.zip">IterativeSinCluster
-        0.1.0 - VST 3 (github.com)</a></li>
-  </ul>
-  <h2 id="license">License</h2>
-  <p>IterativeSinCluster is licensed under GPLv3. Complete licenses are linked below.</p>
-  <ul>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a>
-    </li>
-  </ul>
-  <p>If the link above doesn’t work, please send email to <code>ryukau@gmail.com</code>.</p>
-  <h3 id="about-vst">About VST</h3>
-  <p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
+<h3 id="chorus">Chorus</h3>
+<dl>
+<dt>Mix</dt>
+<dd><p>Change Dry/Wet mix ratio.</p>
+</dd>
+<dt>Freq</dt>
+<dd><p>Chorus LFO frequency.</p>
+</dd>
+<dt>Depth</dt>
+<dd><p>Change stereo spread.</p>
+</dd>
+<dt>Range</dt>
+<dd><p>Amount of modulation from LFO to delay time. There are three delays in this chorus.</p>
+</dd>
+<dt>Time</dt>
+<dd><p>Delay time.</p>
+</dd>
+<dt>Phase</dt>
+<dd><p>LFO phase.</p>
+</dd>
+<dt>Offset</dt>
+<dd><p>Phase difference between delays.</p>
+</dd>
+<dt>Feedback</dt>
+<dd><p>Feedback of delay.</p>
+</dd>
+<dt>Key Follow</dt>
+<dd><p>When checked, change delay time relative to note frequency.</p>
+</dd>
+</dl>
+<h2 id="change-log">Change Log</h2>
+<ul>
+<li>0.1.12
+<ul>
+<li>Fixed to reset properly.</li>
+<li>Fixed <code>bypass</code> parameter behavior. This fixes playing all the notes at the moment of unmute, even if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3 <code>bypass</code> parameter.</li>
+</ul></li>
+<li>0.1.11
+<ul>
+<li>Implemented process context requirements.</li>
+</ul></li>
+<li>0.1.10
+<ul>
+<li>Added check that DSP is initialized or not.</li>
+</ul></li>
+<li>0.1.9
+<ul>
+<li>Added undo/redo to BarBox.</li>
+</ul></li>
+<li>0.1.8
+<ul>
+<li>Added color configuration.</li>
+</ul></li>
+<li>0.1.7
+<ul>
+<li>Reverted parameter smoother to the old one which works with variable size audio buffer.</li>
+<li>Enabled pitch bend.</li>
+</ul></li>
+<li>0.1.6
+<ul>
+<li>Changed BarBox shortcuts to be disabled when mouse cursor is on the outside of BarBox.</li>
+</ul></li>
+<li>0.1.5
+<ul>
+<li>Fixed a bug that cause crash when drawing string.</li>
+</ul></li>
+<li>0.1.4
+<ul>
+<li>Changed display method for pop-up which shows up by clicking plugin title.</li>
+</ul></li>
+<li>0.1.3
+<ul>
+<li>Fixed a bug that was causing noise on PreSonus Studio One 4.6.1.</li>
+</ul></li>
+<li>0.1.2
+<ul>
+<li>Enabled GUI for Linux build.</li>
+</ul></li>
+<li>0.1.1
+<ul>
+<li>Fixed macOS build.</li>
+<li>Added code paths for AVX and AVX512 instructions.</li>
+<li>Fixed wobbling knob bug.</li>
+</ul></li>
+<li>0.1.0
+<ul>
+<li>Initial release.</li>
+</ul></li>
+</ul>
+<h3 id="old-versions">Old Versions</h3>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/IterativeSinCluster0.1.11.zip">IterativeSinCluster 0.1.11 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/IterativeSinCluster0.1.10.zip">IterativeSinCluster 0.1.10 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/IterativeSinCluster0.1.9.zip">IterativeSinCluster 0.1.9 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/IterativeSinCluster0.1.8.zip">IterativeSinCluster 0.1.8 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/IterativeSinCluster0.1.7.zip">IterativeSinCluster 0.1.7 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/IterativeSinCluster0.1.6.zip">IterativeSinCluster 0.1.6 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/IterativeSinCluster0.1.5.zip">IterativeSinCluster 0.1.5 - VST 3 (github.com)</a></li>
+<li>[IterativeSinCluster 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/IterativeSinCluster0.1.3.zip</li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/IterativeSinCluster0.1.2.zip">IterativeSinCluster 0.1.2 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/IterativeSinCluster0.1.1.zip">IterativeSinCluster 0.1.1 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/IterativeSinCluster0.1.0.zip">IterativeSinCluster 0.1.0 - VST 3 (github.com)</a></li>
+</ul>
+<h2 id="license">License</h2>
+<p>IterativeSinCluster is licensed under GPLv3. Complete licenses are linked below.</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+</ul>
+<p>If the link above doesn’t work, please send email to <code>ryukau@gmail.com</code>.</p>
+<h3 id="about-vst">About VST</h3>
+<p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
 
-  <footer>
-    <p><a href="..\..\..\index.html">Back to Index</a></p>
+<footer>
+    <p><a href="..\..\index.html">Back to Index</a></p>
   </footer>
 </body>
 

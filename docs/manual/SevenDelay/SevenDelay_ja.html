@@ -1,604 +1,378 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" >
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2021-11-20" />
-  <title>SevenDelay_ja</title>
-  <style>
-    code {
-      white-space: pre-wrap;
-    }
-
-    span.smallcaps {
-      font-variant: small-caps;
-    }
-
-    span.underline {
-      text-decoration: underline;
-    }
-
-    div.column {
-      display: inline-block;
-      vertical-align: top;
-      width: 50%;
-    }
-  </style>
-  <style>
-    code.sourceCode>span {
-      display: inline-block;
-      line-height: 1.25;
-    }
-
-    code.sourceCode>span {
-      color: inherit;
-      text-decoration: inherit;
-    }
-
-    code.sourceCode>span:empty {
-      height: 1.2em;
-    }
-
-    .sourceCode {
-      overflow: visible;
-    }
-
-    code.sourceCode {
-      white-space: pre;
-      position: relative;
-    }
-
-    div.sourceCode {
-      margin: 1em 0;
-    }
-
-    pre.sourceCode {
-      margin: 0;
-    }
-
-    @media screen {
-      div.sourceCode {
-        overflow: auto;
-      }
-    }
-
-    @media print {
-      code.sourceCode {
-        white-space: pre-wrap;
-      }
-
-      code.sourceCode>span {
-        text-indent: -5em;
-        padding-left: 5em;
-      }
-    }
-
-    pre.numberSource code {
-      counter-reset: source-line 0;
-    }
-
-    pre.numberSource code>span {
-      position: relative;
-      left: -4em;
-      counter-increment: source-line;
-    }
-
-    pre.numberSource code>span>a:first-child::before {
-      content: counter(source-line);
-      position: relative;
-      left: -1em;
-      text-align: right;
-      vertical-align: baseline;
-      border: none;
-      display: inline-block;
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      padding: 0 4px;
-      width: 4em;
-      color: #aaaaaa;
-    }
-
-    pre.numberSource {
-      margin-left: 3em;
-      border-left: 1px solid #aaaaaa;
-      padding-left: 4px;
-    }
-
-    div.sourceCode {}
-
-    @media screen {
-      code.sourceCode>span>a:first-child::before {
-        text-decoration: underline;
-      }
-    }
-
-    code span.al {
-      color: #ff0000;
-      font-weight: bold;
-    }
-
-    /* Alert */
-    code span.an {
-      color: #60a0b0;
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    /* Annotation */
-    code span.at {
-      color: #7d9029;
-    }
-
-    /* Attribute */
-    code span.bn {
-      color: #40a070;
-    }
-
-    /* BaseN */
-    code span.bu {}
-
-    /* BuiltIn */
-    code span.cf {
-      color: #007020;
-      font-weight: bold;
-    }
-
-    /* ControlFlow */
-    code span.ch {
-      color: #4070a0;
-    }
-
-    /* Char */
-    code span.cn {
-      color: #880000;
-    }
-
-    /* Constant */
-    code span.co {
-      color: #60a0b0;
-      font-style: italic;
-    }
-
-    /* Comment */
-    code span.cv {
-      color: #60a0b0;
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    /* CommentVar */
-    code span.do {
-      color: #ba2121;
-      font-style: italic;
-    }
-
-    /* Documentation */
-    code span.dt {
-      color: #902000;
-    }
-
-    /* DataType */
-    code span.dv {
-      color: #40a070;
-    }
-
-    /* DecVal */
-    code span.er {
-      color: #ff0000;
-      font-weight: bold;
-    }
-
-    /* Error */
-    code span.ex {}
-
-    /* Extension */
-    code span.fl {
-      color: #40a070;
-    }
-
-    /* Float */
-    code span.fu {
-      color: #06287e;
-    }
-
-    /* Function */
-    code span.im {}
-
-    /* Import */
-    code span.in {
-      color: #60a0b0;
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    /* Information */
-    code span.kw {
-      color: #007020;
-      font-weight: bold;
-    }
-
-    /* Keyword */
-    code span.op {
-      color: #666666;
-    }
-
-    /* Operator */
-    code span.ot {
-      color: #007020;
-    }
-
-    /* Other */
-    code span.pp {
-      color: #bc7a00;
-    }
-
-    /* Preprocessor */
-    code span.sc {
-      color: #4070a0;
-    }
-
-    /* SpecialChar */
-    code span.ss {
-      color: #bb6688;
-    }
-
-    /* SpecialString */
-    code span.st {
-      color: #4070a0;
-    }
-
-    /* String */
-    code span.va {
-      color: #19177c;
-    }
-
-    /* Variable */
-    code span.vs {
-      color: #4070a0;
-    }
-
-    /* VerbatimString */
-    code span.wa {
-      color: #60a0b0;
-      font-weight: bold;
-      font-style: italic;
-    }
-
-    /* Warning */
-  </style>
-  <style>
-    body {
-      max-width: 704px;
-      margin: auto;
-      padding: 32px 8px;
-    }
-
-    img {
-      max-width: 100%;
-    }
-
-    video {
-      max-width: 100%;
-    }
-
-    details.list>summary {
-      line-height: 3em;
-    }
-
-    kbd {
-      font-family: inherit;
-      border-style: solid;
-      border-width: 1px 2px 2px 1px;
-      border-radius: 2px;
-      padding: 4px;
-      margin: 2px;
-      line-height: calc(1em + 16px);
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    h1 {
-      background-color: #163eac;
-      color: #ffffff;
-      padding-left: 8px;
-    }
-
-    h2 {
-      border-left: solid 32px #2851c2;
-      padding-left: 24px;
-    }
-
-    h3 {
-      border-left: solid 20px #4d74dd;
-      padding-left: 16px;
-    }
-
-    h4 {
-      border-left: solid 12px #6a88da;
-      padding-left: 8px;
-    }
-
-    h5 {
-      border-left: solid 4px #8ca4e7;
-      padding-left: 4px;
-    }
-
-    h6 {
-      border-left: solid 2px #a8bcf5;
-      padding-left: 2px;
-    }
-
-    table {
-      border-spacing: 0px;
-      border-collapse: separate;
-      border-left: 1px solid #888888;
-      border-right: 1px solid #888888;
-      border-top: 1px solid #888888;
-      border-bottom: hidden;
-    }
-
-    tr:nth-child(odd) {
-      background: #eeeeee;
-    }
-
-    tr:nth-child(even) {
-      background: #ffffff;
-    }
-
-    th {
-      height: 2em;
-      padding: 4px 1em 4px 1em;
-      background: #ffffff;
-      border-bottom: 1px solid #888888;
-    }
-
-    th:not(:first-child) {
-      border-left: 1px solid #888888;
-    }
-
-    td {
-      height: 1.5em;
-      padding: 4px 1em 4px 1em;
-      border-bottom: 1px solid #888888;
-    }
-
-    td:not(:first-child) {
-      border-left: 1px solid #888888;
-    }
-
-    dl {
-      padding-left: 2em;
-    }
-
-    dt {
-      font-weight: bold;
-      border-bottom: 1px dashed #000000;
-      margin-top: 2em;
-    }
-
-    dd {
-      border-left: 1px dotted #000000;
-      margin-left: 1em;
-      padding-left: 1em;
-    }
-
-    audio {
-      vertical-align: middle;
-    }
-
-    label {
-      vertical-align: middle;
-    }
-
-    :not(.sourceCode)>pre {
-      overflow: auto;
-      border: 1px solid #888888;
-      padding: 8px;
-    }
-
-    div.sourceCode {
-      overflow: auto;
-      border: 1px solid #888888;
-      padding: 8px;
-    }
-
-    pre>code.sourceCode>span>a:first-child::before {
-      border-right: 1px solid #888888;
-      padding-right: 1em;
-      margin-right: 1em;
-      text-decoration: none;
-    }
-
-    :not(pre)>code {
-      color: #163eac;
-    }
-
-    li {
-      margin: 8px;
-    }
-
-    summary:hover {
-      background-color: #eeeeee;
-    }
-
-    header {
-      border-bottom: 1px gray solid;
-      padding: 0.5em;
-      margin-bottom: 1em;
-    }
-
-    footer {
-      border-top: 1px gray solid;
-      padding: 0.5em;
-      margin-top: 1em;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="dcterms.date" content="2021-11-20" />
+<title>SevenDelay_ja</title>
+<style>
+code { white-space: pre-wrap; }
+span.smallcaps { font-variant: small-caps; }
+span.underline { text-decoration: underline; }
+div.column { display: inline-block; vertical-align: top; width: 50%; }
+</style>
+<style>
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style>
+body {
+  max-width: 704px;
+  margin: auto;
+  padding: 32px 8px;
+}
+
+img {
+  max-width: 100%;
+}
+
+video {
+  max-width: 100%;
+}
+
+details.list > summary {
+  line-height: 3em;
+}
+
+kbd {
+  font-family: inherit;
+  border-style: solid;
+  border-width: 1px 2px 2px 1px;
+  border-radius: 2px;
+  padding: 4px;
+  margin: 2px;
+  line-height: calc(1em + 16px);
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  background-color: #163eac;
+  color: #ffffff;
+  padding-left: 8px;
+}
+
+h2 {
+  border-left: solid 32px #2851c2;
+  padding-left: 24px;
+}
+
+h3 {
+  border-left: solid 20px #4d74dd;
+  padding-left: 16px;
+}
+
+h4 {
+  border-left: solid 12px #6a88da;
+  padding-left: 8px;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
+}
+
+table {
+  border-spacing: 0px;
+  border-collapse: separate;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
+}
+
+tr:nth-child(odd) {
+  background: #eeeeee;
+}
+
+tr:nth-child(even) {
+  background: #ffffff;
+}
+
+th {
+  height: 2em;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+td {
+  height: 1.5em;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+  margin-top: 2em;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  padding-left: 1em;
+}
+
+audio {
+  vertical-align: middle;
+}
+
+label {
+  vertical-align: middle;
+}
+
+:not(.sourceCode) > pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre > code.sourceCode > span > a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre) > code {
+  color: #163eac;
+}
+
+li {
+  margin: 8px;
+}
+
+summary:hover {
+  background-color: #eeeeee;
+}
+
+header {
+  border-bottom: 1px gray solid;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
+
+footer {
+  border-top: 1px gray solid;
+  padding: 0.5em;
+  margin-top: 1em;
+}
+</style>
 </head>
 
 <body>
-  <header>
-    <p><a href="..\..\..\index.html">Back to Index</a></p>
-    <p>
-      Update: 2021-11-20
-    </p>
-    <details>
-      <summary translate="yes">Table of Contents</summary>
-      <nav id="TOC" role="doc-toc">
-        <ul>
-          <li><a href="#sevendelay">SevenDelay</a>
-            <ul>
-              <li><a href="#インストール">インストール</a>
-                <ul>
-                  <li><a href="#プラグイン">プラグイン</a></li>
-                  <li><a href="#プリセット">プリセット</a></li>
-                  <li><a href="#windows">Windows</a></li>
-                  <li><a href="#linux">Linux</a></li>
-                  <li><a href="#macos">macOS</a>
-                    <ul>
-                      <li><a href="#参考リンク">参考リンク</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="#色の設定">色の設定</a></li>
-              <li><a href="#操作">操作</a></li>
-              <li><a href="#注意">注意</a></li>
-              <li><a href="#ブロック線図">ブロック線図</a></li>
-              <li><a href="#パラメータ">パラメータ</a>
-                <ul>
-                  <li><a href="#delay">Delay</a></li>
-                  <li><a href="#lfo">LFO</a></li>
-                </ul>
-              </li>
-              <li><a href="#チェンジログ">チェンジログ</a>
-                <ul>
-                  <li><a href="#旧バージョン">旧バージョン</a></li>
-                </ul>
-              </li>
-              <li><a href="#ライセンス">ライセンス</a>
-                <ul>
-                  <li><a href="#vst-について">VST® について</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </details>
+<header>
+    <p><a href="..\..\index.html">Back to Index</a></p>
+      <p>
+  Update: 2021-11-20
+  </p>
+      <details>
+  <summary translate="yes">Table of Contents</summary>
+  <nav id="TOC" role="doc-toc">
+  <ul>
+  <li><a href="#sevendelay">SevenDelay</a><ul>
+  <li><a href="#インストール">インストール</a><ul>
+  <li><a href="#プラグイン">プラグイン</a></li>
+  <li><a href="#プリセット">プリセット</a></li>
+  <li><a href="#windows">Windows</a></li>
+  <li><a href="#linux">Linux</a></li>
+  <li><a href="#macos">macOS</a><ul>
+  <li><a href="#参考リンク">参考リンク</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#色の設定">色の設定</a></li>
+  <li><a href="#操作">操作</a></li>
+  <li><a href="#注意">注意</a></li>
+  <li><a href="#ブロック線図">ブロック線図</a></li>
+  <li><a href="#パラメータ">パラメータ</a><ul>
+  <li><a href="#delay">Delay</a></li>
+  <li><a href="#lfo">LFO</a></li>
+  </ul></li>
+  <li><a href="#チェンジログ">チェンジログ</a><ul>
+  <li><a href="#旧バージョン">旧バージョン</a></li>
+  </ul></li>
+  <li><a href="#ライセンス">ライセンス</a><ul>
+  <li><a href="#vst-について">VST® について</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+  </nav>
+  </details>
   </header>
-  <h1 id="sevendelay">SevenDelay</h1>
-  <p><img src="img/sevendelay.png" /></p>
-  <p><ruby>SevenDelay<rt>セブンディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。</p>
-  <ul>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/SevenDelay_0.1.15.zip">SevenDelay
-        0.1.15 をダウンロード - VST® 3 (github.com)</a> <img src="img/VST_Compatible_Logo_Steinberg_negative.svg"
-        alt="VST compatible logo." width="60px" style="display: inline-block; vertical-align: middle;"></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelayPresets.zip">プリセットをダウンロード
-        (github.com)</a></li>
-  </ul>
-  <p>パッケージには次のビルドが含まれています。</p>
-  <ul>
-    <li>Windows 64bit</li>
-    <li>Linux 64bit</li>
-    <li>macOS 64bit</li>
-  </ul>
-  <p>Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に
-    issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければ対応します。</p>
-  <p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig と REAPER で動作確認を行っています。もし Ubuntu 18.04
-    以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a
-      href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
-  <h2 id="インストール">インストール</h2>
-  <h3 id="プラグイン">プラグイン</h3>
-  <p>名前が <code>.vst3</code> で終わるディレクトリを OS ごとに決められた位置に配置してください。</p>
-  <ul>
-    <li>Windows では <code>/Program Files/Common Files/VST3/</code> に配置します。</li>
-    <li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
-    <li>macOS では <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> に配置します。</li>
-  </ul>
-  <p>DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。</p>
-  <h3 id="プリセット">プリセット</h3>
-  <p>解凍して出てきたディレクトリを OS ごとに決められた位置に配置すると使えるようになります。</p>
-  <ul>
-    <li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
-    <li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
-    <li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
-  </ul>
-  <p>プリセットディレクトリの名前はプラグインと同じである必要があります。 <code>Uhhyou</code> ディレクトリが無いときは作成してください。</p>
-  <h3 id="windows">Windows</h3>
-  <p>プラグインが DAW に認識されないときは C++ redistributable をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は
-    <code>vc_redist.x64.exe</code> です。</p>
-  <ul>
-    <li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest
-        supported Visual C++ downloads</a></li>
-  </ul>
-  <h3 id="linux">Linux</h3>
-  <p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
-  <div class="sourceCode" id="cb1">
-    <pre
-      class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre>
-  </div>
-  <p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。
-  </p>
-  <ul>
-    <li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VST 3 Interfaces: Setup Linux
-        for building VST 3 Plug-ins</a></li>
-  </ul>
-  <p>REAPER の Linux 版がプラグインを認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。
-  </p>
-  <h3 id="macos">macOS</h3>
-  <p><strong>注意</strong>: この節は英語で macOS を使用しているユーザからの報告によって作成されました。日本語でのエラーメッセージが分からなかったので曖昧な書き方になっています。</p>
-  <p>プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した <code>.vst3</code> ディレクトリに次のコマンドを適用してみてください。</p>
-  <div class="sourceCode" id="cb2">
-    <pre
-      class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">xattr</span> -rc /path/to/PluginName.vst3</span></code></pre>
-  </div>
-  <p>プラグインは署名されていない (unsigned) 、または公証されていない (un-notarized) アプリケーションとして認識されることがあります。この場合は以下の手順を試してみてください。</p>
-  <ol type="1">
-    <li>ターミナルを開いて <code>sudo spctl --master-disable</code> を実行。</li>
-    <li>システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「全てのアプリケーションを許可」 を選択。</li>
-  </ol>
-  <p>上記の手順を実行するとシステムのセキュリティが弱くなるので注意してください。元に戻すには以下の手順を実行してください。</p>
-  <ol type="1">
-    <li>システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「App Store と認証済みの開発元からのアプリケーションを許可」 を選択。</li>
-    <li>ターミナルを開いて <code>sudo spctl --master-enable</code> を実行。</li>
-  </ol>
-  <h4 id="参考リンク">参考リンク</h4>
-  <ul>
-    <li><a href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How to Fix App “is
-        damaged and can’t be opened. You should move it to the Trash” Error on Mac</a></li>
-    <li><a href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
-        unsigned/un-notarized applications/plugins in Mac OS | Venn Audio</a></li>
-    <li><a href="https://support.apple.com/en-us/HT202491">Safely open apps on your Mac - Apple Support</a></li>
-  </ul>
-  <h2 id="色の設定">色の設定</h2>
-  <p>初回設定時は手動で次のファイルを作成してください。</p>
-  <ul>
-    <li>Windows では <code>/Users/ユーザ名/AppData/Roaming/UhhyouPlugins/style/style.json</code> 。</li>
-    <li>Linux では <code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> 。
-      <ul>
-        <li><code>$XDG_CONFIG_HOME</code> が空のときは <code>$HOME/.config/UhhyouPlugins/style/style.json</code> 。</li>
-      </ul>
-    </li>
-    <li>macOS では <code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> 。</li>
-  </ul>
-  <p>既存の色のテーマを次のリンクに掲載しています。 <code>style.json</code> にコピペして使ってください。</p>
-  <ul>
-    <li><a href="https://github.com/ryukau/LV2Plugins/tree/master/style/themes">LV2Plugins/style/themes at master ·
-        ryukau/LV2Plugins · GitHub</a></li>
-  </ul>
-  <p><code>style.json</code> の設定例です。</p>
-  <div class="sourceCode" id="cb3">
-    <pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">{</span></span>
+<h1 id="sevendelay">SevenDelay</h1>
+<p><img src="img/sevendelay.png" /></p>
+<p><ruby>SevenDelay<rt>セブンディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/SevenDelay_0.1.15.zip">SevenDelay 0.1.15 をダウンロード - VST® 3 (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="60px"
+style="display: inline-block; vertical-align: middle;"></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelayPresets.zip">プリセットをダウンロード (github.com)</a></li>
+</ul>
+<p>パッケージには次のビルドが含まれています。</p>
+<ul>
+<li>Windows 64bit</li>
+<li>Linux 64bit</li>
+<li>macOS 64bit</li>
+</ul>
+<p>Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければ対応します。</p>
+<p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig と REAPER で動作確認を行っています。もし Ubuntu 18.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
+<h2 id="インストール">インストール</h2>
+<h3 id="プラグイン">プラグイン</h3>
+<p>名前が <code>.vst3</code> で終わるディレクトリを OS ごとに決められた位置に配置してください。</p>
+<ul>
+<li>Windows では <code>/Program Files/Common Files/VST3/</code> に配置します。</li>
+<li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
+<li>macOS では <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> に配置します。</li>
+</ul>
+<p>DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。</p>
+<h3 id="プリセット">プリセット</h3>
+<p>解凍して出てきたディレクトリを OS ごとに決められた位置に配置すると使えるようになります。</p>
+<ul>
+<li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
+<li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
+<li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
+</ul>
+<p>プリセットディレクトリの名前はプラグインと同じである必要があります。 <code>Uhhyou</code> ディレクトリが無いときは作成してください。</p>
+<h3 id="windows">Windows</h3>
+<p>プラグインが DAW に認識されないときは C++ redistributable をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は <code>vc_redist.x64.exe</code> です。</p>
+<ul>
+<li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest supported Visual C++ downloads</a></li>
+</ul>
+<h3 id="linux">Linux</h3>
+<p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+<p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。</p>
+<ul>
+<li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI: Setup</a></li>
+</ul>
+<p>REAPER の Linux 版がプラグインを認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
+<h3 id="macos">macOS</h3>
+<p><strong>注意</strong>: この節は英語で macOS を使用しているユーザからの報告によって作成されました。日本語でのエラーメッセージが分からなかったので曖昧な書き方になっています。</p>
+<p>プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した <code>.vst3</code> ディレクトリに次のコマンドを適用してみてください。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">xattr</span> -rc /path/to/PluginName.vst3</span></code></pre></div>
+<p>プラグインは署名されていない (unsigned) 、または公証されていない (un-notarized) アプリケーションとして認識されることがあります。この場合は以下の手順を試してみてください。</p>
+<ol type="1">
+<li>ターミナルを開いて <code>sudo spctl --master-disable</code> を実行。</li>
+<li>システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「全てのアプリケーションを許可」 を選択。</li>
+</ol>
+<p>上記の手順を実行するとシステムのセキュリティが弱くなるので注意してください。元に戻すには以下の手順を実行してください。</p>
+<ol type="1">
+<li>システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「App Store と認証済みの開発元からのアプリケーションを許可」 を選択。</li>
+<li>ターミナルを開いて <code>sudo spctl --master-enable</code> を実行。</li>
+</ol>
+<h4 id="参考リンク">参考リンク</h4>
+<ul>
+<li><a href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac</a></li>
+<li><a href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio</a></li>
+<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps on your Mac - Apple Support</a></li>
+</ul>
+<h2 id="色の設定">色の設定</h2>
+<p>初回設定時は手動で次のファイルを作成してください。</p>
+<ul>
+<li>Windows では <code>/Users/ユーザ名/AppData/Roaming/UhhyouPlugins/style/style.json</code> 。</li>
+<li>Linux では <code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> 。
+<ul>
+<li><code>$XDG_CONFIG_HOME</code> が空のときは <code>$HOME/.config/UhhyouPlugins/style/style.json</code> 。</li>
+</ul></li>
+<li>macOS では <code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> 。</li>
+</ul>
+<p>既存の色のテーマを次のリンクに掲載しています。 <code>style.json</code> にコピペして使ってください。</p>
+<ul>
+<li><a href="https://github.com/ryukau/LV2Plugins/tree/master/style/themes">LV2Plugins/style/themes at master · ryukau/LV2Plugins · GitHub</a></li>
+</ul>
+<p><code>style.json</code> の設定例です。</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">{</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>  <span class="dt">&quot;fontPath&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
@@ -615,105 +389,88 @@
 <span id="cb3-15"><a href="#cb3-15"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
 <span id="cb3-16"><a href="#cb3-16"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
 <span id="cb3-17"><a href="#cb3-17"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="fu">}</span></span></code></pre>
-  </div>
-  <p>16 進数カラーコードを使っています。</p>
-  <ul>
-    <li>6 桁の色は RGB 。</li>
-    <li>8 桁の色は RGBA 。</li>
-  </ul>
-  <p>プラグインはカラーコードの 1 文字目を無視します。よって <code>?102938</code> や <code>\n11335577</code> も有効なカラーコードです。</p>
-  <p>2 文字目以降のカラーコードの値に <code>0-9a-f</code> 以外の文字を使わないでください。</p>
-  <p>以下は設定できる色の一覧です。設定に抜けがあるとデフォルトの色が使われます。</p>
-  <ul>
-    <li><code>fontPath</code>: フォント (*.ttf) の絶対パス。VST 3 版では実装されていません。</li>
-    <li><code>foreground</code>: 文字の色。</li>
-    <li><code>foregroundButtonOn</code>: オンになっているボタンの文字の色。 <code>foreground</code> か <code>boxBackground</code>
-      のいずれかと同じ値にすることを推奨します。</li>
-    <li><code>foregroundInactive</code>: 非アクティブなタブの文字の色。</li>
-    <li><code>background</code>: 背景色。x</li>
-    <li><code>boxBackground</code>: 矩形の UI 部品の内側の背景色。</li>
-    <li><code>border</code>: <ruby>縁<rt>ふち</rt></ruby>の色。</li>
-    <li><code>borderCheckbox</code>: チェックボックスの縁の色。</li>
-    <li><code>borderLabel</code>: パラメータセクションのラベルの左右の直線の色。</li>
-    <li><code>unfocused</code>: つまみがフォーカスされていないときの色。</li>
-    <li><code>highlightMain</code>: フォーカスされたときの色。スライダの値の表示にも使用されます。</li>
-    <li><code>highlightAccent</code>: フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。</li>
-    <li><code>highlightButton</code>: ボタンがフォーカスされたときの色。</li>
-    <li><code>highlightWarning</code>: 変更に注意を要する UI がフォーカスされたときの色。</li>
-    <li><code>overlay</code>: オーバーレイの色。</li>
-    <li><code>overlayHighlight</code>: フォーカスを示すオーバーレイの色。</li>
-  </ul>
-  <h2 id="操作">操作</h2>
-  <p>つまみとスライダーでは次の操作ができます。</p>
-  <ul>
-    <li>Ctrl + 左クリック : 値のリセット。</li>
-    <li>Shift + 左ドラッグ : 細かい値の変更。</li>
-  </ul>
-  <h2 id="注意">注意</h2>
-  <p><code>Smooth</code> の値が 0 に近く、 <code>Allpass Cut</code> の値を速く動かしすぎたときに、非常に大きな音量のクリックノイズが出力されることがあります。これは
-    <code>Allpass Cut</code> で使われているフィルタのカットオフ周波数が、速く、大きく、動きすぎると出力が発散する場合があることが原因です。特別な目的がない限り、<code>Smooth</code>
-    パラメータを低く設定しすぎないことを推奨します。</p>
-  <p><code>Time</code> の値が最小かつ <code>Feedback</code> の値が最大に設定されると直流信号が出ることがあります。 <code>DC Kill</code> を 1.0
-    より大きな値に設定することで直流信号を除去できます。</p>
-  <h2 id="ブロック線図">ブロック線図</h2>
-  <p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> + <kbd>マウスホイール</kbd> や、右クリックから「画像だけを表示」などで拡大できます。</p>
-  <p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
-  <p><img src="img/sevendelay.svg" /></p>
-  <h2 id="パラメータ">パラメータ</h2>
-  <h3 id="delay">Delay</h3>
-  <dl>
-    <dt>Time</dt>
-    <dd>
-      <p>ディレイ時間。範囲は 0.0001 から 8.0 です。</p>
-      <ul>
-        <li>もし <code>Sync</code> が有効で <code>Time</code> が 1.0 より小さいときは、ディレイ時間が <code>Time / 16</code> 拍に設定されます。</li>
-        <li>もし <code>Sync</code> が有効で <code>Time</code> が 1.0 以上のときは、ディレイ時間が <code>floor(2 * Time) / 32</code> 拍に設定されます。
-        </li>
-        <li>それ以外のときは、ディレイ時間が <code>time</code> 秒に設定されます。</li>
-      </ul>
-    </dd>
-    <dt>Feedback</dt>
-    <dd>
-      <p>ディレイのフィードバック。範囲は 0.0 から 1.0 です。</p>
-    </dd>
-    <dt>Stereo</dt>
-    <dd>
-      <p>左右のディレイ時間のオフセット。範囲は -1.0 から 1.0 です。</p>
-      <ul>
-        <li>もし <code>Stereo</code> が 0.0 より小さいときは、左チャンネルのディレイ時間が <code>timeL * (1.0 + Stereo)</code> に変更されます。</li>
-        <li>それ以外のときは、右チャンネルのディレイ時間が <code>timeR * (1.0 - Stereo)</code> に変更されます。</li>
-      </ul>
-    </dd>
-    <dt>Wet</dt>
-    <dd>
-      <p>ディレイ信号の出力音量。範囲は 0.0 から 1.0 。</p>
-    </dd>
-    <dt>Dry</dt>
-    <dd>
-      <p>入力信号の出力音量。範囲は 0.0 から 1.0 。</p>
-    </dd>
-    <dt>Sync</dt>
-    <dd>
-      <p>テンポシンクの切り替え。</p>
-    </dd>
-    <dt>Negative</dt>
-    <dd>
-      <p>負のフィードバックの切り替え。ディレイ時間がとても短いときに役立つかもしれません。</p>
-    </dd>
-    <dt>Spread/Pan</dt>
-    <dd>
-      <p>入力の広がり (In Spread) 、入力のパン (In Pan) 、出力の広がり (Out Spread) 、出力のパン (Out Pan) 。範囲は 0.0 から 1.0 です。</p>
-      <p><code>In Spread</code> 、 <code>Out Spread</code> はステレオの広がりを制御します。 <code>In Pan</code> 、 <code>Out Pan</code>
-        はステレオのパンニングを制御します。</p>
-      <p>これらのパラメータはパンニングの逆転やピンポンディレイを作るときに使えます。</p>
-      <ul>
-        <li>パンニングの逆転を行うには <code>[InSpread, InPan, OutSpread, OutPan]</code> を <code>[0.0, 0.5, 1.0, 0.5]</code> に設定します。
-        </li>
-        <li>ピンポンディレイにするには <code>[InSpread, InPan, OutSpread, OutPan]</code> を <code>[1.0, 0.5, 0.0, 0.5]</code> に設定します。
-        </li>
-      </ul>
-      <pre><code>signalL = inL + spread * (inR - inL)
+<span id="cb3-18"><a href="#cb3-18"></a><span class="fu">}</span></span></code></pre></div>
+<p>16 進数カラーコードを使っています。</p>
+<ul>
+<li>6 桁の色は RGB 。</li>
+<li>8 桁の色は RGBA 。</li>
+</ul>
+<p>プラグインはカラーコードの 1 文字目を無視します。よって <code>?102938</code> や <code>\n11335577</code> も有効なカラーコードです。</p>
+<p>2 文字目以降のカラーコードの値に <code>0-9a-f</code> 以外の文字を使わないでください。</p>
+<p>以下は設定できる色の一覧です。設定に抜けがあるとデフォルトの色が使われます。</p>
+<ul>
+<li><code>fontPath</code>: フォント (*.ttf) の絶対パス。VST 3 版では実装されていません。</li>
+<li><code>foreground</code>: 文字の色。</li>
+<li><code>foregroundButtonOn</code>: オンになっているボタンの文字の色。 <code>foreground</code> か <code>boxBackground</code> のいずれかと同じ値にすることを推奨します。</li>
+<li><code>foregroundInactive</code>: 非アクティブなタブの文字の色。</li>
+<li><code>background</code>: 背景色。x</li>
+<li><code>boxBackground</code>: 矩形の UI 部品の内側の背景色。</li>
+<li><code>border</code>: <ruby>縁<rt>ふち</rt></ruby>の色。</li>
+<li><code>borderCheckbox</code>: チェックボックスの縁の色。</li>
+<li><code>borderLabel</code>: パラメータセクションのラベルの左右の直線の色。</li>
+<li><code>unfocused</code>: つまみがフォーカスされていないときの色。</li>
+<li><code>highlightMain</code>: フォーカスされたときの色。スライダの値の表示にも使用されます。</li>
+<li><code>highlightAccent</code>: フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。</li>
+<li><code>highlightButton</code>: ボタンがフォーカスされたときの色。</li>
+<li><code>highlightWarning</code>: 変更に注意を要する UI がフォーカスされたときの色。</li>
+<li><code>overlay</code>: オーバーレイの色。</li>
+<li><code>overlayHighlight</code>: フォーカスを示すオーバーレイの色。</li>
+</ul>
+<h2 id="操作">操作</h2>
+<p>つまみとスライダーでは次の操作ができます。</p>
+<ul>
+<li>Ctrl + 左クリック : 値のリセット。</li>
+<li>Shift + 左ドラッグ : 細かい値の変更。</li>
+</ul>
+<h2 id="注意">注意</h2>
+<p><code>Smooth</code> の値が 0 に近く、 <code>Allpass Cut</code> の値を速く動かしすぎたときに、非常に大きな音量のクリックノイズが出力されることがあります。これは <code>Allpass Cut</code> で使われているフィルタのカットオフ周波数が、速く、大きく、動きすぎると出力が発散する場合があることが原因です。特別な目的がない限り、<code>Smooth</code> パラメータを低く設定しすぎないことを推奨します。</p>
+<p><code>Time</code> の値が最小かつ <code>Feedback</code> の値が最大に設定されると直流信号が出ることがあります。 <code>DC Kill</code> を 1.0 より大きな値に設定することで直流信号を除去できます。</p>
+<h2 id="ブロック線図">ブロック線図</h2>
+<p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> + <kbd>マウスホイール</kbd> や、右クリックから「画像だけを表示」などで拡大できます。</p>
+<p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
+<p><img src="img/sevendelay.svg" /></p>
+<h2 id="パラメータ">パラメータ</h2>
+<h3 id="delay">Delay</h3>
+<dl>
+<dt>Time</dt>
+<dd><p>ディレイ時間。範囲は 0.0001 から 8.0 です。</p>
+<ul>
+<li>もし <code>Sync</code> が有効で <code>Time</code> が 1.0 より小さいときは、ディレイ時間が <code>Time / 16</code> 拍に設定されます。</li>
+<li>もし <code>Sync</code> が有効で <code>Time</code> が 1.0 以上のときは、ディレイ時間が <code>floor(2 * Time) / 32</code> 拍に設定されます。</li>
+<li>それ以外のときは、ディレイ時間が <code>time</code> 秒に設定されます。</li>
+</ul>
+</dd>
+<dt>Feedback</dt>
+<dd><p>ディレイのフィードバック。範囲は 0.0 から 1.0 です。</p>
+</dd>
+<dt>Stereo</dt>
+<dd><p>左右のディレイ時間のオフセット。範囲は -1.0 から 1.0 です。</p>
+<ul>
+<li>もし <code>Stereo</code> が 0.0 より小さいときは、左チャンネルのディレイ時間が <code>timeL * (1.0 + Stereo)</code> に変更されます。</li>
+<li>それ以外のときは、右チャンネルのディレイ時間が <code>timeR * (1.0 - Stereo)</code> に変更されます。</li>
+</ul>
+</dd>
+<dt>Wet</dt>
+<dd><p>ディレイ信号の出力音量。範囲は 0.0 から 1.0 。</p>
+</dd>
+<dt>Dry</dt>
+<dd><p>入力信号の出力音量。範囲は 0.0 から 1.0 。</p>
+</dd>
+<dt>Sync</dt>
+<dd><p>テンポシンクの切り替え。</p>
+</dd>
+<dt>Negative</dt>
+<dd><p>負のフィードバックの切り替え。ディレイ時間がとても短いときに役立つかもしれません。</p>
+</dd>
+<dt>Spread/Pan</dt>
+<dd><p>入力の広がり (In Spread) 、入力のパン (In Pan) 、出力の広がり (Out Spread) 、出力のパン (Out Pan) 。範囲は 0.0 から 1.0 です。</p>
+<p><code>In Spread</code> 、 <code>Out Spread</code> はステレオの広がりを制御します。 <code>In Pan</code> 、 <code>Out Pan</code> はステレオのパンニングを制御します。</p>
+<p>これらのパラメータはパンニングの逆転やピンポンディレイを作るときに使えます。</p>
+<ul>
+<li>パンニングの逆転を行うには <code>[InSpread, InPan, OutSpread, OutPan]</code> を <code>[0.0, 0.5, 1.0, 0.5]</code> に設定します。</li>
+<li>ピンポンディレイにするには <code>[InSpread, InPan, OutSpread, OutPan]</code> を <code>[1.0, 0.5, 0.0, 0.5]</code> に設定します。</li>
+</ul>
+<pre><code>signalL = inL + spread * (inR - inL)
 signalR = inL + (1.0f - spread) * (inR - inL)
 
 if (pan &lt; 0.5f) {
@@ -724,196 +481,151 @@ else {
   outL = signalL * (2.0f - 2.0f * pan)
   outR = (pan - 0.5f) * signalL + (1.5f - pan) * signalR
 }</code></pre>
-    </dd>
-    <dt>Allpass Cut</dt>
-    <dd>
-      <p>SVF オールパスフィルタのカットオフ周波素。範囲は 90.0 から 20000.0 です。</p>
-      <p><code>tone</code> が 20000.0 のとき、フィルタはバイパスされます。</p>
-    </dd>
-    <dt>Allpass Q</dt>
-    <dd>
-      <p>SVF オールパスフィルタのレゾナンス。範囲は 0.00001 から 1.0 です。</p>
-      <p>値が大きいほどレゾナンスが強くなります。</p>
-    </dd>
-    <dt>DC Kill</dt>
-    <dd>
-      <p>ハイパスフィルタのカットオフ周波数。範囲は 5.0 から 120.0 です。</p>
-      <p><code>DC Kill</code> を 5.0 より大きく設定すればディレイのフィードバックから直流信号を取り除くことができます。</p>
-    </dd>
-    <dt>Smooth</dt>
-    <dd>
-      <p>パラメータ平滑化の度合い。範囲は 0.0 から 1.0 で、単位は秒です。</p>
-      <p>パラメータによっては値が急激に変化するとノイズが出ることがあります。 <code>Smooth</code> の値を大きめにすることで、値の変化を緩やかにしてノイズを減らすことができます。</p>
-    </dd>
-  </dl>
-  <h3 id="lfo">LFO</h3>
-  <dl>
-    <dt>To Time</dt>
-    <dd>
-      <p>LFO によるディレイ時間の変調量。範囲は 0.0 から 1.0 です。</p>
-    </dd>
-    <dt>To Allpass</dt>
-    <dd>
-      <p>LFO によるオールパスフィルタのカットオフ周波数の変調量。範囲は 0.0 から 1.0 です。</p>
-    </dd>
-    <dt>Frequency</dt>
-    <dd>
-      <p>LFO の周波数。範囲は 0.01 から 100.0 。</p>
-    </dd>
-    <dt>Shape</dt>
-    <dd>
-      <p>LFO の波形。範囲は 0.01 から 10.0 。</p>
-      <pre><code>sign = 1 if (phase &gt; π),
+</dd>
+<dt>Allpass Cut</dt>
+<dd><p>SVF オールパスフィルタのカットオフ周波素。範囲は 90.0 から 20000.0 です。</p>
+<p><code>tone</code> が 20000.0 のとき、フィルタはバイパスされます。</p>
+</dd>
+<dt>Allpass Q</dt>
+<dd><p>SVF オールパスフィルタのレゾナンス。範囲は 0.00001 から 1.0 です。</p>
+<p>値が大きいほどレゾナンスが強くなります。</p>
+</dd>
+<dt>DC Kill</dt>
+<dd><p>ハイパスフィルタのカットオフ周波数。範囲は 5.0 から 120.0 です。</p>
+<p><code>DC Kill</code> を 5.0 より大きく設定すればディレイのフィードバックから直流信号を取り除くことができます。</p>
+</dd>
+<dt>Smooth</dt>
+<dd><p>パラメータ平滑化の度合い。範囲は 0.0 から 1.0 で、単位は秒です。</p>
+<p>パラメータによっては値が急激に変化するとノイズが出ることがあります。 <code>Smooth</code> の値を大きめにすることで、値の変化を緩やかにしてノイズを減らすことができます。</p>
+</dd>
+</dl>
+<h3 id="lfo">LFO</h3>
+<dl>
+<dt>To Time</dt>
+<dd><p>LFO によるディレイ時間の変調量。範囲は 0.0 から 1.0 です。</p>
+</dd>
+<dt>To Allpass</dt>
+<dd><p>LFO によるオールパスフィルタのカットオフ周波数の変調量。範囲は 0.0 から 1.0 です。</p>
+</dd>
+<dt>Frequency</dt>
+<dd><p>LFO の周波数。範囲は 0.01 から 100.0 。</p>
+</dd>
+<dt>Shape</dt>
+<dd><p>LFO の波形。範囲は 0.01 から 10.0 。</p>
+<pre><code>sign = 1 if (phase &gt; π),
       -1 if (phase &lt; π),
        0 if (phase == π)
 lfo = sign * abs(sin(phase))^shape</code></pre>
-    </dd>
-    <dt>Phase</dt>
-    <dd>
-      <p>LFO の位相の初期値。範囲は 0.0 から 2π 。</p>
-      <p>LFO の位相はホストが演奏を開始するたびに <code>Phase</code> の値にリセットされます。</p>
-    </dd>
-    <dt>Hold</dt>
-    <dd>
-      <p>LFO の位相のホールドの切り替え。ライブ演奏などで役に立つかもしれません。</p>
-    </dd>
-  </dl>
-  <h2 id="チェンジログ">チェンジログ</h2>
-  <ul>
-    <li>0.1.15
-      <ul>
-        <li>リセットが正しく行われるように修正。</li>
-        <li><code>bypass</code>
-          パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の
-          <code>bypass</code> パラメータを正しく実装しているホストでのみ発生していた。</li>
-      </ul>
-    </li>
-    <li>0.1.14
-      <ul>
-        <li><code>In Pan</code> と <code>Out Pan</code> をステレオバランスからステレオパンニングに変更。</li>
-        <li>時間の値の表示を追加。</li>
-      </ul>
-    </li>
-    <li>0.1.13
-      <ul>
-        <li>Process context requirements を実装。</li>
-      </ul>
-    </li>
-    <li>0.1.12
-      <ul>
-        <li>DSP が初期化されているかどうかのチェックを追加。</li>
-      </ul>
-    </li>
-    <li>0.1.11
-      <ul>
-        <li>カラーコンフィグを追加。</li>
-      </ul>
-    </li>
-    <li>0.1.10
-      <ul>
-        <li>パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。</li>
-      </ul>
-    </li>
-    <li>0.1.9
-      <ul>
-        <li>文字列の描画でクラッシュするバグを修正。</li>
-      </ul>
-    </li>
-    <li>0.1.8
-      <ul>
-        <li>プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。</li>
-      </ul>
-    </li>
-    <li>0.1.7
-      <ul>
-        <li>非アクティブ化で音が止まるように修正。</li>
-      </ul>
-    </li>
-    <li>0.1.6
-      <ul>
-        <li>Linux ビルドの GUI を有効化。</li>
-      </ul>
-    </li>
-    <li>0.1.5
-      <ul>
-        <li>Ableton Live 10.1.6 で特定のノブが揺れ戻るバグを修正。</li>
-      </ul>
-    </li>
-    <li>0.1.4
-      <ul>
-        <li>複数の GUI インスタンス間で表示を同期するように変更。</li>
-        <li>スプラッシュスクリーンを開くとクラッシュするバグを修正。</li>
-        <li>リロード時にクラッシュするバグを修正。</li>
-        <li>GUI がホストのオートメーションに応じて更新されるように修正。</li>
-      </ul>
-    </li>
-    <li>0.1.3
-      <ul>
-        <li>スムーシングのアルゴリズムの値が決められた範囲を超えるバグを修正。</li>
-        <li>LFO Hold のオン・オフが逆転していたバグを修正。</li>
-        <li>オールパスのミキシングにかかっていた LFO による変調を除去。</li>
-      </ul>
-    </li>
-    <li>0.1.2
-      <ul>
-        <li>内部のパラメータの構造を変更。</li>
-        <li>UI の見た目を変更。</li>
-      </ul>
-    </li>
-    <li>0.1.1
-      <ul>
-        <li>Linux ビルドの GUI を無効化。VSTGUI に関するバグが治るまでの応急処置。</li>
-        <li>LFO の <code>To Allpass</code> のチューニングを変更。</li>
-        <li><code>DC Kill</code> の最小値を 5.0 Hz に変更。</li>
-      </ul>
-    </li>
-    <li>0.1.0
-      <ul>
-        <li>初期リリース。</li>
-      </ul>
-    </li>
-  </ul>
-  <h3 id="旧バージョン">旧バージョン</h3>
-  <ul>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.14/SevenDelay0.1.14.zip">SevenDelay
-        0.1.14 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SevenDelay0.1.13.zip">SevenDelay
-        0.1.13 - VST 3 (github.com)</a></li>
-    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/SevenDelay0.1.12.zip">SevenDelay
-        0.1.12 - VST 3 (github.com)</a></li>
-    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SevenDelay0.1.11.zip">SevenDelay
-        0.1.11 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SevenDelay0.1.10.zip">SevenDelay
-        0.1.10 - VST 3 (github.com)</a></li>
-    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SevenDelay0.1.9.zip">SevenDelay
-        0.1.9 - VST 3 (github.com)</a></li>
-    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip">SevenDelay
-        0.1.7 - VST 3 (github.com)</a></li>
-    <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip">SevenDelay
-        0.1.6 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelay0.1.5.zip">SevenDelay
-        0.1.5 - VST 3 (github.com)</a></li>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SevenDelay0.1.4.zip">SevenDelay
-        0.1.4 - VST 3 (github.com)</a></li>
-  </ul>
-  <h2 id="ライセンス">ライセンス</h2>
-  <p>SevenDelay のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
-  <ul>
-    <li><a
-        href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a>
-    </li>
-  </ul>
-  <p>リンクが切れているときは <code>ryukau@gmail.com</code> にメールを送ってください。</p>
-  <h3 id="vst-について">VST® について</h3>
-  <p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
+</dd>
+<dt>Phase</dt>
+<dd><p>LFO の位相の初期値。範囲は 0.0 から 2π 。</p>
+<p>LFO の位相はホストが演奏を開始するたびに <code>Phase</code> の値にリセットされます。</p>
+</dd>
+<dt>Hold</dt>
+<dd><p>LFO の位相のホールドの切り替え。ライブ演奏などで役に立つかもしれません。</p>
+</dd>
+</dl>
+<h2 id="チェンジログ">チェンジログ</h2>
+<ul>
+<li>0.1.15
+<ul>
+<li>リセットが正しく行われるように修正。</li>
+<li><code>bypass</code> パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の <code>bypass</code> パラメータを正しく実装しているホストでのみ発生していた。</li>
+</ul></li>
+<li>0.1.14
+<ul>
+<li><code>In Pan</code> と <code>Out Pan</code> をステレオバランスからステレオパンニングに変更。</li>
+<li>時間の値の表示を追加。</li>
+</ul></li>
+<li>0.1.13
+<ul>
+<li>Process context requirements を実装。</li>
+</ul></li>
+<li>0.1.12
+<ul>
+<li>DSP が初期化されているかどうかのチェックを追加。</li>
+</ul></li>
+<li>0.1.11
+<ul>
+<li>カラーコンフィグを追加。</li>
+</ul></li>
+<li>0.1.10
+<ul>
+<li>パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。</li>
+</ul></li>
+<li>0.1.9
+<ul>
+<li>文字列の描画でクラッシュするバグを修正。</li>
+</ul></li>
+<li>0.1.8
+<ul>
+<li>プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。</li>
+</ul></li>
+<li>0.1.7
+<ul>
+<li>非アクティブ化で音が止まるように修正。</li>
+</ul></li>
+<li>0.1.6
+<ul>
+<li>Linux ビルドの GUI を有効化。</li>
+</ul></li>
+<li>0.1.5
+<ul>
+<li>Ableton Live 10.1.6 で特定のノブが揺れ戻るバグを修正。</li>
+</ul></li>
+<li>0.1.4
+<ul>
+<li>複数の GUI インスタンス間で表示を同期するように変更。</li>
+<li>スプラッシュスクリーンを開くとクラッシュするバグを修正。</li>
+<li>リロード時にクラッシュするバグを修正。</li>
+<li>GUI がホストのオートメーションに応じて更新されるように修正。</li>
+</ul></li>
+<li>0.1.3
+<ul>
+<li>スムーシングのアルゴリズムの値が決められた範囲を超えるバグを修正。</li>
+<li>LFO Hold のオン・オフが逆転していたバグを修正。</li>
+<li>オールパスのミキシングにかかっていた LFO による変調を除去。</li>
+</ul></li>
+<li>0.1.2
+<ul>
+<li>内部のパラメータの構造を変更。</li>
+<li>UI の見た目を変更。</li>
+</ul></li>
+<li>0.1.1
+<ul>
+<li>Linux ビルドの GUI を無効化。VSTGUI に関するバグが治るまでの応急処置。</li>
+<li>LFO の <code>To Allpass</code> のチューニングを変更。</li>
+<li><code>DC Kill</code> の最小値を 5.0 Hz に変更。</li>
+</ul></li>
+<li>0.1.0
+<ul>
+<li>初期リリース。</li>
+</ul></li>
+</ul>
+<h3 id="旧バージョン">旧バージョン</h3>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.14/SevenDelay0.1.14.zip">SevenDelay 0.1.14 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SevenDelay0.1.13.zip">SevenDelay 0.1.13 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/SevenDelay0.1.12.zip">SevenDelay 0.1.12 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SevenDelay0.1.11.zip">SevenDelay 0.1.11 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SevenDelay0.1.10.zip">SevenDelay 0.1.10 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SevenDelay0.1.9.zip">SevenDelay 0.1.9 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip">SevenDelay 0.1.7 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip">SevenDelay 0.1.6 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelay0.1.5.zip">SevenDelay 0.1.5 - VST 3 (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SevenDelay0.1.4.zip">SevenDelay 0.1.4 - VST 3 (github.com)</a></li>
+</ul>
+<h2 id="ライセンス">ライセンス</h2>
+<p>SevenDelay のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+</ul>
+<p>リンクが切れているときは <code>ryukau@gmail.com</code> にメールを送ってください。</p>
+<h3 id="vst-について">VST® について</h3>
+<p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
 
-  <footer>
-    <p><a href="..\..\..\index.html">Back to Index</a></p>
+<footer>
+    <p><a href="..\..\index.html">Back to Index</a></p>
   </footer>
 </body>
 
