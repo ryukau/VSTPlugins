@@ -429,7 +429,7 @@ void DSPCORE_NAME::noteOn(int32_t identifier, int16_t pitch, float tuning, float
     if (noteIndices.size() >= nUnison) break;
   }
 
-  // If there aren't enought resting note, pick up from most quiet one.
+  // If there aren't enough resting note, pick up from most quiet one.
   if (noteIndices.size() < nUnison) {
     sortVoiceIndicesByGain();
     for (auto &index : voiceIndices) {

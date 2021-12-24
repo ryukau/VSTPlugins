@@ -33,7 +33,7 @@ constexpr size_t nTable = 136; // midi note nubmer 136 ~= 21096 Hz.
 constexpr size_t nTablePadded = nTable + 4;
 constexpr size_t notePitchUpperBound = nTable + 1;
 
-// Range of t is in [0, 1]. Interpoltes between y1 and y2.
+// Range of t is in [0, 1]. Interpolates between y1 and y2.
 inline float cubicInterp(float y0, float y1, float y2, float y3, float t)
 {
   auto t2 = t * t;
@@ -44,7 +44,7 @@ inline float cubicInterp(float y0, float y1, float y2, float y3, float t)
   return c3 * t * t2 - (c2 + c3) * t2 + c1 * t + y1;
 }
 
-// Range of t is in [0, 1]. Interpoltes between y1 and y2.
+// Range of t is in [0, 1]. Interpolates between y1 and y2.
 inline Vec16f cubicInterp(Vec16f y0, Vec16f y1, Vec16f y2, Vec16f y3, Vec16f t)
 {
   auto t2 = t * t;
@@ -70,7 +70,7 @@ table is 2d array which has extra padding for interpolation.
 
 '@' in figure above represents padded array. Index is table[column][row].
 - Padded first column has last element of original table.
-- Padded last column has first element of original table.
+- Padded last 2 columns has first and second element of original table.
 - Padded first row is copy of first row of original table.
 - Padded last 3 row is silence.
 */
