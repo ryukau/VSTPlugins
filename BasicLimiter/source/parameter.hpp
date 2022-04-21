@@ -83,14 +83,14 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::limiterGate] = std::make_unique<DecibelValue>(
       0.0, Scales::limiterGate, "limiterGate", Info::kCanAutomate);
     value[ID::limiterAttack] = std::make_unique<LogValue>(
-      Scales::limiterAttack.invmap(0.02), Scales::limiterAttack, "limiterAttack",
-      Info::kCanAutomate);
+      Scales::limiterAttack.invmap(0.001333333333333333), Scales::limiterAttack,
+      "limiterAttack", Info::kCanAutomate); // Default 1.3 ms = 64 sample / 48000 Hz.
     value[ID::limiterRelease] = std::make_unique<LogValue>(
-      Scales::limiterRelease.invmap(0.1), Scales::limiterRelease, "limiterRelease",
+      Scales::limiterRelease.invmap(0.0), Scales::limiterRelease, "limiterRelease",
       Info::kCanAutomate);
     value[ID::limiterSustain] = std::make_unique<LogValue>(
-      Scales::limiterSustain.invmap(0.0), Scales::limiterSustain, "limiterSustain",
-      Info::kCanAutomate);
+      Scales::limiterSustain.invmap(0.0016666666666666666), Scales::limiterSustain,
+      "limiterSustain", Info::kCanAutomate);
 
     value[ID::truePeak]
       = std::make_unique<UIntValue>(0, Scales::boolScale, "truePeak", Info::kCanAutomate);

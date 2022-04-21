@@ -43,12 +43,7 @@ void DSPCORE_NAME::setup(double sampleRate)
 
 void DSPCORE_NAME::reset()
 {
-  using ID = ParameterID::ID;
-  auto &pv = param.value;
-
-  for (auto &lm : limiter) {
-    lm.reset(pv[ID::limiterThreshold]->getFloat(), pv[ID::limiterGate]->getFloat());
-  }
+  for (auto &lm : limiter) lm.reset();
   for (auto &fd : fracDelay) fd.reset();
   for (auto &dly : latencyDelay) dly.reset();
   startup();
