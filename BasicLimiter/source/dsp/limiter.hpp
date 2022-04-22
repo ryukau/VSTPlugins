@@ -23,44 +23,67 @@
 
 namespace SomeDSP {
 
-template<typename Sample> struct SOCPFIR {
-  constexpr static size_t bufferSize = 7;
-  constexpr static size_t intDelay = 3;
+/**
+HighEliminationFir removes high frequency components near nyquist frequency to prevent
+clipping by true peak.
 
-  constexpr static std::array<std::array<Sample, bufferSize>, 4> coefficient{{
-    {Sample(0.03396642725330925), Sample(-0.12673821137646601),
-     Sample(0.5759982312324312), Sample(0.6592123095604063), Sample(-0.19435321143573606),
-     Sample(0.0782612693103079), Sample(-0.025807862651826587)},
-    {Sample(0.021616078095824397), Sample(-0.07539816970638001),
-     Sample(0.2653441329619578), Sample(0.9081714824861011), Sample(-0.16017585860369898),
-     Sample(0.059489586593950955), Sample(-0.018863293456169244)},
-    {Sample(-0.018863293456169286), Sample(0.05948958659395098),
-     Sample(-0.16017585860369907), Sample(0.908171482486101), Sample(0.2653441329619578),
-     Sample(-0.07539816970638011), Sample(0.02161607809582444)},
-    {Sample(-0.02580786265182662), Sample(0.07826126931030812),
-     Sample(-0.1943532114357363), Sample(0.6592123095604064), Sample(0.5759982312324308),
-     Sample(-0.12673821137646582), Sample(0.033966427253309124)},
-  }};
-};
+```python
+import scipy.signal as signal
+fir = signal.remez(63, [0, 18000, 23000, 24000], [1, 0], [100, 1], fs=48000, maxiter=256)
+```
+*/
+template<typename Sample> class HighEliminationFir {
+private:
+  constexpr static std::array<Sample, 64> fir{
+    Sample(4.9957589007682075e-05), Sample(-0.00021327109340196594),
+    Sample(0.0004739960362686736),  Sample(-0.0008611690024367459),
+    Sample(0.001260266054786863),   Sample(-0.0015161798249005863),
+    Sample(0.0014026814978336472),  Sample(-0.0007337083968697367),
+    Sample(-0.0005479898948901594), Sample(0.002261800136016642),
+    Sample(-0.00395430054327271),   Sample(0.004960316462021296),
+    Sample(-0.004588665194329012),  Sample(0.002394558631270695),
+    Sample(0.0015393306210772118),  Sample(-0.006428637618655796),
+    Sample(0.010827276500916071),   Sample(-0.012938044517719046),
+    Sample(0.011161288569599697),   Sample(-0.004748860750888805),
+    Sample(-0.005643812356704201),  Sample(0.01772818365710279),
+    Sample(-0.027832816368675142),  Sample(0.03165730883844591),
+    Sample(-0.02538813018473096),   Sample(0.0068901595228859965),
+    Sample(0.023381358252292393),   Sample(-0.06206344987682824),
+    Sample(0.10333010971288058),    Sample(-0.14004974307017476),
+    Sample(0.16538655646332506),    Sample(0.8255726297215179),
+    Sample(0.16538655646332506),    Sample(-0.14004974307017476),
+    Sample(0.10333010971288058),    Sample(-0.06206344987682824),
+    Sample(0.023381358252292393),   Sample(0.0068901595228859965),
+    Sample(-0.02538813018473096),   Sample(0.03165730883844591),
+    Sample(-0.027832816368675142),  Sample(0.01772818365710279),
+    Sample(-0.005643812356704201),  Sample(-0.004748860750888805),
+    Sample(0.011161288569599697),   Sample(-0.012938044517719046),
+    Sample(0.010827276500916071),   Sample(-0.006428637618655796),
+    Sample(0.0015393306210772118),  Sample(0.002394558631270695),
+    Sample(-0.004588665194329012),  Sample(0.004960316462021296),
+    Sample(-0.00395430054327271),   Sample(0.002261800136016642),
+    Sample(-0.0005479898948901594), Sample(-0.0007337083968697367),
+    Sample(0.0014026814978336472),  Sample(-0.0015161798249005863),
+    Sample(0.001260266054786863),   Sample(-0.0008611690024367459),
+    Sample(0.0004739960362686736),  Sample(-0.00021327109340196594),
+    Sample(4.9957589007682075e-05), Sample(0.0),
+  };
 
-template<typename Sample, typename FractionalDelayFIR> class TruePeakMeterFIR {
-  std::array<Sample, FractionalDelayFIR::bufferSize> buf{};
+  std::array<Sample, 64> buf{};
 
 public:
+  static constexpr size_t delay = 31;
+
   void reset() { buf.fill(Sample(0)); }
 
   Sample process(Sample input)
   {
-    for (size_t i = 0; i < buf.size() - 1; ++i) buf[i] = buf[i + 1];
-    buf.back() = input;
+    std::rotate(buf.rbegin(), buf.rbegin() + 1, buf.rend());
+    buf[0] = input;
 
-    Sample max = std::fabs(buf[FractionalDelayFIR::intDelay]);
-    for (const auto &phase : FractionalDelayFIR::coefficient) {
-      Sample sum = 0;
-      for (size_t i = 0; i < phase.size(); ++i) sum += buf[i] * phase[i];
-      max = std::max(max, std::fabs(sum));
-    }
-    return max;
+    Sample output = 0;
+    for (size_t n = 0; n < fir.size(); ++n) output += buf[n] * fir[n];
+    return output;
   }
 };
 
@@ -317,7 +340,7 @@ private:
   IntDelay<Sample> lookaheadDelay;
 
 public:
-  uint32_t latency() { return uint32_t(attackFrames); }
+  size_t latency(size_t upfold) { return attackFrames / upfold; }
 
   void resize(size_t size)
   {

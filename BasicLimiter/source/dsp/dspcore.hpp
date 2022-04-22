@@ -22,11 +22,15 @@
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
 #include "limiter.hpp"
+#include "polyphase.hpp"
 
 #include <array>
 
 using namespace SomeDSP;
 using namespace Steinberg::Synth;
+
+using FractionalDelayFir = SocpFractionalDelayFir16x8<float>;
+using DownSamplerFir = DownSamplerFir8Fold<float>;
 
 class DSPInterface {
 public:
@@ -37,7 +41,7 @@ public:
   virtual void setup(double sampleRate) = 0;
   virtual void reset() = 0;   // Stop sounds.
   virtual void startup() = 0; // Reset phase, random seed etc.
-  virtual uint32_t getLatency() = 0;
+  virtual size_t getLatency() = 0;
   virtual void setParameters() = 0;
   virtual void process(
     const size_t length, const float *in0, const float *in1, float *out0, float *out1)
@@ -50,7 +54,7 @@ public:
     void setup(double sampleRate) override;                                              \
     void reset() override;                                                               \
     void startup() override;                                                             \
-    uint32_t getLatency() override;                                                      \
+    size_t getLatency() override;                                                        \
     void setParameters() override;                                                       \
     void process(                                                                        \
       const size_t length,                                                               \
@@ -63,8 +67,9 @@ public:
     float sampleRate = 44100.0f;                                                         \
                                                                                          \
     std::array<Limiter<float>, 2> limiter;                                               \
-    std::array<TruePeakMeterFIR<float, SOCPFIR<float>>, 2> fracDelay;                    \
-    std::array<IntDelay<float>, 2> latencyDelay{8, 8}; /* Compensate fracDelay. */       \
+    std::array<HighEliminationFir<float>, 2> highEliminator;                             \
+    std::array<FirUpSampler<float, FractionalDelayFir>, 2> upSampler;                    \
+    std::array<FirDownSampler<float, DownSamplerFir>, 2> downSampler;                    \
   };
 
 DSPCORE_CLASS(AVX512)

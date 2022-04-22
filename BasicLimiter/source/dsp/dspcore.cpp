@@ -34,8 +34,9 @@ void DSPCORE_NAME::setup(double sampleRate)
 {
   this->sampleRate = float(sampleRate);
 
-  for (auto &lm : limiter) lm.resize(size_t(maxAttackSeconds * this->sampleRate) + 1);
-  for (auto &dly : latencyDelay) dly.setFrames(SOCPFIR<float>::intDelay);
+  for (auto &lm : limiter)
+    lm.resize(
+      size_t(FractionalDelayFir::upfold * maxAttackSeconds * this->sampleRate) + 1);
 
   reset();
   startup();
@@ -44,20 +45,22 @@ void DSPCORE_NAME::setup(double sampleRate)
 void DSPCORE_NAME::reset()
 {
   for (auto &lm : limiter) lm.reset();
-  for (auto &fd : fracDelay) fd.reset();
-  for (auto &dly : latencyDelay) dly.reset();
+  for (auto &he : highEliminator) he.reset();
+  for (auto &us : upSampler) us.reset();
+  for (auto &ds : downSampler) ds.reset();
   startup();
 }
 
 void DSPCORE_NAME::startup() {}
 
-uint32_t DSPCORE_NAME::getLatency()
+size_t DSPCORE_NAME::getLatency()
 {
-  uint32_t latency = limiter[0].latency();
-
-  if (param.value[ParameterID::truePeak]->getInt())
-    latency += uint32_t(SOCPFIR<float>::intDelay);
-
+  bool truepeak = param.value[ParameterID::truePeak]->getInt();
+  auto latency = limiter[0].latency(truepeak ? FractionalDelayFir::upfold : 1);
+  if (truepeak) {
+    latency += FractionalDelayFir::intDelay + DownSamplerFir::intDelay
+      + highEliminator[0].delay + 1;
+  }
   return latency;
 }
 
@@ -67,10 +70,17 @@ void DSPCORE_NAME::setParameters()
   auto &pv = param.value;
 
   for (auto &lm : limiter) {
-    lm.prepare(
-      sampleRate, pv[ID::limiterAttack]->getFloat(), pv[ID::limiterSustain]->getFloat(),
-      pv[ID::limiterRelease]->getFloat(), pv[ID::limiterThreshold]->getFloat(),
-      pv[ID::limiterGate]->getFloat());
+    if (param.value[ParameterID::truePeak]->getInt()) {
+      lm.prepare(
+        FractionalDelayFir::upfold * sampleRate, pv[ID::limiterAttack]->getFloat(),
+        pv[ID::limiterSustain]->getFloat(), pv[ID::limiterRelease]->getFloat(),
+        pv[ID::limiterThreshold]->getFloat(), pv[ID::limiterGate]->getFloat());
+    } else {
+      lm.prepare(
+        sampleRate, pv[ID::limiterAttack]->getFloat(), pv[ID::limiterSustain]->getFloat(),
+        pv[ID::limiterRelease]->getFloat(), pv[ID::limiterThreshold]->getFloat(),
+        pv[ID::limiterGate]->getFloat());
+    }
   }
 }
 
@@ -78,16 +88,29 @@ void DSPCORE_NAME::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
   if (param.value[ParameterID::truePeak]->getInt()) {
+    constexpr size_t upfold = FractionalDelayFir::upfold;
     for (size_t i = 0; i < length; ++i) {
-      const auto tp0 = fracDelay[0].process(in0[i]);
-      const auto tp1 = fracDelay[1].process(in1[i]);
-      const auto inAbs = std::max(tp0, tp1);
-      out0[i] = limiter[0].process(latencyDelay[0].process(in0[i]), inAbs);
-      out1[i] = limiter[1].process(latencyDelay[1].process(in1[i]), inAbs);
+      auto &&sig0 = highEliminator[0].process(in0[i]);
+      auto &&sig1 = highEliminator[1].process(in1[i]);
+
+      upSampler[0].process(sig0);
+      upSampler[1].process(sig1);
+
+      std::array<std::array<float, upfold>, 2> expanded;
+      for (size_t j = 0; j < upfold; ++j) {
+        auto tp0 = upSampler[0].output[j];
+        auto tp1 = upSampler[1].output[j];
+        auto inAbs = std::fmax(std::fabs(tp0), std::fabs(tp1));
+        expanded[0][j] = limiter[0].process(tp0, inAbs);
+        expanded[1][j] = limiter[1].process(tp1, inAbs);
+      }
+
+      out0[i] = downSampler[0].process(expanded[0]);
+      out1[i] = downSampler[1].process(expanded[1]);
     }
   } else {
     for (size_t i = 0; i < length; ++i) {
-      const auto inAbs = std::max(std::fabs(in0[i]), std::fabs(in1[i]));
+      auto &&inAbs = std::fmax(std::fabs(in0[i]), std::fabs(in1[i]));
       out0[i] = limiter[0].process(in0[i], inAbs);
       out1[i] = limiter[1].process(in1[i], inAbs);
     }

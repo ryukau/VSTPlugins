@@ -103,8 +103,8 @@ tresult PLUGIN_API PlugProcessor::setActive(TBool state)
 
 uint32 PLUGIN_API PlugProcessor::getLatencySamples()
 {
-  if (dsp == nullptr) return kNotInitialized;
-  return dsp->getLatency();
+  auto latency = dsp->getLatency();
+  return uint32(latency);
 }
 
 tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
