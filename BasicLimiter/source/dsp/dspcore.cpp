@@ -86,18 +86,14 @@ void DSPCORE_NAME::setParameters()
 {
   ASSIGN_PARAMETER(push);
 
+  auto &&rate = param.value[ParameterID::truePeak]->getInt()
+    ? FractionalDelayFir::upfold * sampleRate
+    : sampleRate;
   for (auto &lm : limiter) {
-    if (param.value[ParameterID::truePeak]->getInt()) {
-      lm.prepare(
-        FractionalDelayFir::upfold * sampleRate, pv[ID::limiterAttack]->getFloat(),
-        pv[ID::limiterSustain]->getFloat(), pv[ID::limiterRelease]->getFloat(),
-        pv[ID::limiterThreshold]->getFloat(), pv[ID::limiterGate]->getFloat());
-    } else {
-      lm.prepare(
-        sampleRate, pv[ID::limiterAttack]->getFloat(), pv[ID::limiterSustain]->getFloat(),
-        pv[ID::limiterRelease]->getFloat(), pv[ID::limiterThreshold]->getFloat(),
-        pv[ID::limiterGate]->getFloat());
-    }
+    lm.prepare(
+      rate, pv[ID::limiterAttack]->getFloat(), pv[ID::limiterSustain]->getFloat(),
+      pv[ID::limiterRelease]->getFloat(), pv[ID::limiterThreshold]->getFloat(),
+      pv[ID::limiterGate]->getFloat());
   }
 }
 
