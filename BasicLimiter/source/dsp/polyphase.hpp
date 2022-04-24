@@ -42,6 +42,16 @@ public:
   }
 };
 
+/**
+FIR polyphase lowpass coefficients for 8 fold downsampling.
+
+```python
+fir = signal.firwin(511, 20000, window=("dpss", 4), fs=8 * 48000)
+fir = np.hstack((fir, [0]))
+
+poly = fir.reshape((nTaps, nPhase)).T
+```
+*/
 template<typename Sample> struct DownSamplerFir8Fold {
   constexpr static size_t bufferSize = 64;
   constexpr static size_t intDelay = 31;
