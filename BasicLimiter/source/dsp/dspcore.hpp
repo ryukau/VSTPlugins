@@ -64,10 +64,15 @@ public:
       float *out1) override;                                                             \
                                                                                          \
   private:                                                                               \
+    std::array<float, 2> processStereoLink(float in0, float in1);                        \
+                                                                                         \
     float sampleRate = 44100.0f;                                                         \
                                                                                          \
+    ExpSmoother<float> interpStereoLink;                                                 \
+                                                                                         \
     std::array<Limiter<float>, 2> limiter;                                               \
-    std::array<HighEliminationFir<float>, 2> highEliminator;                             \
+    std::array<NaiveConvolver<float, HighEliminationFir<float>>, 2> highEliminator;      \
+    std::array<NaiveConvolver<float, HighshelfFir<float>>, 2> highshelf;                 \
     std::array<FirUpSampler<float, FractionalDelayFir>, 2> upSampler;                    \
     std::array<FirDownSampler<float, DownSamplerFir>, 2> downSampler;                    \
   };

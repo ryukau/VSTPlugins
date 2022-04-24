@@ -31,10 +31,10 @@ constexpr float labelY = 30.0f;
 constexpr float splashHeight = 30.0f;
 
 constexpr float limiterLabelWidth = 100.0f;
-constexpr float checkboxWidth = 1.5f * limiterLabelWidth;
+constexpr float checkboxWidth = 2.0f * limiterLabelWidth;
 
 constexpr uint32_t defaultWidth = uint32_t(2 * uiMargin + 2 * limiterLabelWidth);
-constexpr uint32_t defaultHeight = uint32_t(2 * uiMargin + 6 * labelY + splashHeight);
+constexpr uint32_t defaultHeight = uint32_t(2 * uiMargin + 8 * labelY + splashHeight);
 
 namespace Steinberg {
 namespace Vst {
@@ -51,17 +51,18 @@ Editor::Editor(void *controller) : PlugEditor(controller)
 
 void Editor::valueChanged(CControl *pControl)
 {
-  ParamID tag = pControl->getTag();
+  ParamID id = pControl->getTag();
 
-  switch (tag) {
+  switch (id) {
     case Synth::ParameterID::ID::limiterAttack:
     case Synth::ParameterID::ID::truePeak:
+    case Synth::ParameterID::ID::limiterHighCompensation:
       controller->getComponentHandler()->restartComponent(kLatencyChanged);
   }
 
   ParamValue value = pControl->getValueNormalized();
-  controller->setParamNormalized(tag, value);
-  controller->performEdit(tag, value);
+  controller->setParamNormalized(id, value);
+  controller->performEdit(id, value);
 }
 
 bool Editor::prepareUI()
@@ -82,6 +83,8 @@ bool Editor::prepareUI()
   const auto topLimiter4 = top0 + 3 * labelY;
   const auto topLimiter5 = top0 + 4 * labelY;
   const auto topLimiter6 = top0 + 5 * labelY;
+  const auto topLimiter7 = top0 + 6 * labelY;
+  const auto topLimiter8 = top0 + 7 * labelY;
 
   addLabel(
     leftLimiter0, topLimiter1, limiterLabelWidth, labelHeight, uiTextSize,
@@ -113,10 +116,19 @@ bool Editor::prepareUI()
   addTextKnob(
     leftLimiter1, topLimiter5, limiterLabelWidth, labelHeight, uiTextSize,
     ID::limiterSustain, Scales::limiterSustain, false, 5);
+  addLabel(
+    leftLimiter0, topLimiter6, limiterLabelWidth, labelHeight, uiTextSize, "Stereo Link",
+    kLeftText);
+  addTextKnob(
+    leftLimiter1, topLimiter6, limiterLabelWidth, labelHeight, uiTextSize,
+    ID::limiterStereoLink, Scales::limiterSustain, false, 5);
 
   addCheckbox(
-    leftLimiter0, topLimiter6, checkboxWidth, labelHeight, uiTextSize, "True Peak",
+    leftLimiter0, topLimiter7, checkboxWidth, labelHeight, uiTextSize, "True Peak",
     ID::truePeak);
+  addCheckbox(
+    leftLimiter0, topLimiter8, checkboxWidth, labelHeight, uiTextSize,
+    "High Compensation (TP mode only)", ID::limiterHighCompensation);
 
   // Plugin name.
   const auto splashMargin = uiMargin - margin;

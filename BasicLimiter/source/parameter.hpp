@@ -43,8 +43,10 @@ enum ID {
   limiterAttack,
   limiterRelease,
   limiterSustain,
+  limiterStereoLink,
 
   truePeak,
+  limiterHighCompensation,
 
   ID_ENUM_LENGTH,
 };
@@ -91,9 +93,13 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::limiterSustain] = std::make_unique<LogValue>(
       Scales::limiterSustain.invmap(0.0016666666666666666), Scales::limiterSustain,
       "limiterSustain", Info::kCanAutomate);
+    value[ID::limiterStereoLink] = std::make_unique<LinearValue>(
+      1.0, Scales::defaultScale, "limiterStereoLink", Info::kCanAutomate);
 
     value[ID::truePeak]
       = std::make_unique<UIntValue>(0, Scales::boolScale, "truePeak", Info::kCanAutomate);
+    value[ID::limiterHighCompensation] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "limiterHighCompensation", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }
