@@ -366,11 +366,11 @@ public:
 
     sum1 = add(sum1, input);
     Sample d1 = delay1.process(input);
-    sum1 = std::fmax(Sample(0), sum1 - d1);
+    sum1 = std::max(Sample(0), sum1 - d1);
 
     sum2 = add(sum2, sum1);
     Sample d2 = delay2.process(sum1);
-    sum2 = std::fmax(Sample(0), sum2 - d2);
+    sum2 = std::max(Sample(0), sum2 - d2);
 
     auto output = buf;
     buf = sum2;
@@ -378,18 +378,50 @@ public:
   }
 };
 
+template<typename Sample> class DoubleEMAFilter {
+private:
+  Sample kp = Sample(1);
+  Sample v1 = 0;
+  Sample v2 = 0;
+
+public:
+  void reset(Sample value = 0)
+  {
+    v1 = value;
+    v2 = value;
+  }
+
+  void setMin(Sample value)
+  {
+    v1 = std::min(v1, value);
+    v2 = std::min(v2, value);
+  }
+
+  void setCutoff(Sample sampleRate, Sample cutoffHz)
+  {
+    kp = cutoffHz >= sampleRate / Sample(2)
+      ? Sample(1)
+      : Sample(EMAFilter<double>::cutoffToP(sampleRate, cutoffHz));
+  }
+
+  Sample process(Sample input)
+  {
+    auto &&v0 = input;
+    v1 += kp * (v0 - v1);
+    v2 += kp * (v1 - v2);
+    return v2;
+  }
+};
+
 template<typename Sample> class Limiter {
 private:
-  static constexpr Sample releaseConstant = Sample(1e-5);
-
   Sample thresholdAmp = Sample(1); // thresholdAmp > 0.
   Sample gateAmp = 0;              // gateAmp >= 0.
-  Sample gainAmp = Sample(1);      // Internal.
-  Sample release = 0;              // Exponential curve coefficient.
   size_t attackFrames = 0;
 
   PeakHold<Sample> peakhold;
   DoubleAverageFilter<double> smoother;
+  DoubleEMAFilter<Sample> releaseFilter;
   IntDelay<Sample> lookaheadDelay;
 
 public:
@@ -405,9 +437,9 @@ public:
 
   void reset()
   {
-    gainAmp = Sample(1);
     peakhold.reset();
     smoother.reset();
+    releaseFilter.reset();
     lookaheadDelay.reset();
   }
 
@@ -424,8 +456,7 @@ public:
     attackFrames += attackFrames % 2; // DoubleAverageFilter requires multiple of 2.
     if (prevAttack != attackFrames) reset();
 
-    release
-      = std::pow(Sample(1) / releaseConstant, Sample(1) / (releaseSeconds * sampleRate));
+    releaseFilter.setCutoff(sampleRate, Sample(1) / releaseSeconds);
 
     thresholdAmp = thresholdAmplitude;
     gateAmp = gateAmplitude;
@@ -440,11 +471,18 @@ public:
     return peakAmp > thresholdAmp ? thresholdAmp / peakAmp : Sample(1);
   }
 
+  inline Sample processRelease(Sample gain)
+  {
+    releaseFilter.setMin(gain);
+    return releaseFilter.process(gain);
+  }
+
   Sample process(const Sample input, Sample inAbs)
   {
     auto &&peakAmp = peakhold.process(inAbs);
     auto &&candidate = applyCharacteristicCurve(peakAmp);
-    gainAmp = std::min(gainAmp * release, candidate);
+    auto &&released = processRelease(candidate);
+    auto &&gainAmp = std::min(released, candidate);
     auto &&targetAmp = peakAmp <= gateAmp ? 0 : gainAmp;
     auto &&smoothed = smoother.process(targetAmp);
     auto &&delayed = lookaheadDelay.process(input);
