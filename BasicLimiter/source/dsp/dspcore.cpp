@@ -47,18 +47,12 @@ void DSPCORE_NAME::setup(double sampleRate)
 
 size_t DSPCORE_NAME::getLatency()
 {
-  using ID = ParameterID::ID;
-  const auto &pv = param.value;
-
   bool truepeak = param.value[ParameterID::truePeak]->getInt();
   auto latency = limiter[0].latency(truepeak ? FractionalDelayFir::upfold : 1);
   if (truepeak) {
     latency += FractionalDelayFir::intDelay + DownSamplerFir::intDelay
       + HighEliminationFir<float>::delay + 1;
   }
-
-  if (pv[ID::limiterHighCompensation]->getInt()) latency += HighshelfFir<float>::delay;
-
   return latency;
 }
 
@@ -74,7 +68,6 @@ void DSPCORE_NAME::reset()
 
   for (auto &lm : limiter) lm.reset();
   for (auto &he : highEliminator) he.reset();
-  for (auto &hc : highshelf) hc.reset();
   for (auto &us : upSampler) us.reset();
   for (auto &ds : downSampler) ds.reset();
   startup();
@@ -111,22 +104,13 @@ std::array<float, 2> DSPCORE_NAME::processStereoLink(float in0, float in1)
 void DSPCORE_NAME::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
-  using ID = ParameterID::ID;
-  const auto &pv = param.value;
-
   SmootherCommon<float>::setBufferSize(float(length));
 
   if (param.value[ParameterID::truePeak]->getInt()) {
     constexpr size_t upfold = FractionalDelayFir::upfold;
-    bool &&highCompensation = pv[ID::limiterHighCompensation]->getInt();
     for (size_t i = 0; i < length; ++i) {
       auto sig0 = highEliminator[0].process(in0[i]);
       auto sig1 = highEliminator[1].process(in1[i]);
-
-      if (highCompensation) {
-        sig0 = highshelf[0].process(sig0);
-        sig1 = highshelf[1].process(sig1);
-      }
 
       upSampler[0].process(sig0);
       upSampler[1].process(sig1);

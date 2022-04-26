@@ -46,7 +46,6 @@ enum ID {
   limiterStereoLink,
 
   truePeak,
-  limiterHighCompensation,
 
   ID_ENUM_LENGTH,
 };
@@ -98,8 +97,6 @@ struct GlobalParameter : public ParameterInterface {
 
     value[ID::truePeak]
       = std::make_unique<UIntValue>(0, Scales::boolScale, "truePeak", Info::kCanAutomate);
-    value[ID::limiterHighCompensation] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "limiterHighCompensation", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

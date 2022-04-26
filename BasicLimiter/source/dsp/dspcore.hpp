@@ -72,7 +72,6 @@ public:
                                                                                          \
     std::array<Limiter<float>, 2> limiter;                                               \
     std::array<NaiveConvolver<float, HighEliminationFir<float>>, 2> highEliminator;      \
-    std::array<NaiveConvolver<float, HighshelfFir<float>>, 2> highshelf;                 \
     std::array<FirUpSampler<float, FractionalDelayFir>, 2> upSampler;                    \
     std::array<FirDownSampler<float, DownSamplerFir>, 2> downSampler;                    \
   };

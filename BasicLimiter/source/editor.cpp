@@ -56,7 +56,6 @@ void Editor::valueChanged(CControl *pControl)
   switch (id) {
     case Synth::ParameterID::ID::limiterAttack:
     case Synth::ParameterID::ID::truePeak:
-    case Synth::ParameterID::ID::limiterHighCompensation:
       controller->getComponentHandler()->restartComponent(kLatencyChanged);
   }
 
@@ -126,9 +125,6 @@ bool Editor::prepareUI()
   addCheckbox(
     leftLimiter0, topLimiter7, checkboxWidth, labelHeight, uiTextSize, "True Peak",
     ID::truePeak);
-  addCheckbox(
-    leftLimiter0, topLimiter8, checkboxWidth, labelHeight, uiTextSize,
-    "High Compensation (TP mode only)", ID::limiterHighCompensation);
 
   // Plugin name.
   const auto splashMargin = uiMargin - margin;
