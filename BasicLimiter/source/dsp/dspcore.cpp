@@ -104,7 +104,7 @@ std::array<float, 2> DSPCORE_NAME::processStereoLink(float in0, float in1)
   auto &&stereoLink = interpStereoLink.process();
   auto &&abs0 = std::fabs(in0);
   auto &&abs1 = std::fabs(in1);
-  auto &&absMax = std::fmax(abs0, abs1);
+  auto &&absMax = std::max(abs0, abs1);
   return {lerp(abs0, absMax, stereoLink), lerp(abs1, absMax, stereoLink)};
 }
 
