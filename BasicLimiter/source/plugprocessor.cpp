@@ -101,11 +101,7 @@ tresult PLUGIN_API PlugProcessor::setActive(TBool state)
   return AudioEffect::setActive(state);
 }
 
-uint32 PLUGIN_API PlugProcessor::getLatencySamples()
-{
-  auto latency = dsp->getLatency();
-  return uint32(latency);
-}
+uint32 PLUGIN_API PlugProcessor::getLatencySamples() { return uint32(dsp->getLatency()); }
 
 tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 {
