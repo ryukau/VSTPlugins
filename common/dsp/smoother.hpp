@@ -30,7 +30,7 @@ namespace SomeDSP {
 // Exponential moving average filter.
 template<typename Sample> class EMAFilter {
 public:
-  Sample kp; // In [0, 1].
+  Sample kp = Sample(1); // In [0, 1].
   Sample value = 0;
 
   // Lower bound of cutoffHz is around 3 to 4 Hz for single presision (float).
