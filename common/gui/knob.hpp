@@ -303,15 +303,15 @@ public:
     return kMouseEventNotHandled;
   }
 
-  int32_t onKeyDown(VstKeyCode &keyCode) override
-  {
-    if (keyCode.character != 't') return -1;
-    value = value > getMin() ? getMin() : getMax();
-    bounceValue();
-    valueChanged();
-    invalid();
-    return 1;
-  }
+  // int32_t onKeyDown(VstKeyCode &keyCode) override
+  // {
+  //   if (keyCode.character != 't') return -1;
+  //   value = value > getMin() ? getMin() : getMax();
+  //   bounceValue();
+  //   valueChanged();
+  //   invalid();
+  //   return 1;
+  // }
 
   void setPrecision(uint32_t precision) { this->precision = precision; }
 
