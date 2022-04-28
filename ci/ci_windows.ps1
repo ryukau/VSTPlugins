@@ -6,13 +6,11 @@ $ErrorActionPreference = "Stop"
 
 git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
 
-cd .\vst3sdk\pluginterfaces\base\
-git apply ..\..\..\VSTPlugins\ci\windows_patch\funknown.cpp.patch
-cd ..\..\..\
-
 mkdir build
 mkdir target
 $SRC_ROOT = (Get-Item .).FullName
+
+cmake --version
 
 # SMTG_PLUGIN_TARGET_PATH must be set for GitHub Actions. Because cmake can't
 # reach the default path which is `C:/Program Files/Common Files/VST3`.
