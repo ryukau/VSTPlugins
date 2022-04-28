@@ -1,4 +1,4 @@
-name: CI
+name: Build VSTPlugins
 
 # on: [create, delete]
 on: [push]
@@ -37,16 +37,20 @@ jobs:
   #       name: vst_windows
   #       path: vst_windows
 
-  build-macOS:
-    runs-on: macos-10.15
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: recursive
-    - name: Run script
-      run: ci/ci_macOS.sh
-    - name: Upload
-      uses: actions/upload-artifact@v1
-      with:
-        name: vst_macOS
-        path: vst_macOS
+  ##
+  ## Disabling macOS build. To enable, it requires code path without
+  ## vectorclass library.
+  ##
+  # build-macOS:
+  #   runs-on: macos-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #     with:
+  #       submodules: recursive
+  #   - name: Run script
+  #     run: ci/ci_macOS.sh
+  #   - name: Upload
+  #     uses: actions/upload-artifact@v1
+  #     with:
+  #       name: vst_macOS
+  #       path: vst_macOS
