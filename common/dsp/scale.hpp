@@ -35,7 +35,7 @@ public:
   uint32_t getMax() const { return max; }
 
 protected:
-  const uint32_t max;
+  uint32_t max;
 };
 
 // Maps a value in [0, 1] to [min, max].
@@ -291,6 +291,12 @@ public:
   {
     if (amplitude <= T(0)) return T(0);
     T normalized = (ampToDB(amplitude) - minDB) / scaleDB;
+    return std::clamp(normalized, T(0), T(1));
+  }
+
+  T invmapDB(T dB)
+  {
+    T normalized = (dB - minDB) / scaleDB;
     return std::clamp(normalized, T(0), T(1));
   }
 

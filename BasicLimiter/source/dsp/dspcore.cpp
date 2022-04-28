@@ -30,6 +30,13 @@
 #error Unsupported instruction set
 #endif
 
+inline float maxAbs(const size_t length, const float *buffer)
+{
+  float max = 0.0f;
+  for (size_t i = 0; i < length; ++i) max = std::max(max, std::fabs(buffer[i]));
+  return max;
+}
+
 void DSPCORE_NAME::setup(double sampleRate)
 {
   this->sampleRate = float(sampleRate);
@@ -38,8 +45,7 @@ void DSPCORE_NAME::setup(double sampleRate)
   SmootherCommon<float>::setTime(0.2f);
 
   for (auto &lm : limiter)
-    lm.resize(
-      size_t(FractionalDelayFir::upfold * maxAttackSeconds * this->sampleRate) + 1);
+    lm.resize(size_t(UpSamplerFir::upfold * maxAttackSeconds * this->sampleRate) + 1);
 
   reset();
   startup();
@@ -48,10 +54,10 @@ void DSPCORE_NAME::setup(double sampleRate)
 size_t DSPCORE_NAME::getLatency()
 {
   bool truepeak = param.value[ParameterID::truePeak]->getInt();
-  auto latency = limiter[0].latency(truepeak ? FractionalDelayFir::upfold : 1);
+  auto latency = limiter[0].latency(truepeak ? UpSamplerFir::upfold : 1);
   if (truepeak) {
-    latency += FractionalDelayFir::intDelay + DownSamplerFir::intDelay
-      + HighEliminationFir<float>::delay + 1;
+    latency += 1 + UpSamplerFir::intDelay + DownSamplerFir::intDelay
+      + HighEliminationFir<float>::delay;
   }
   return latency;
 }
@@ -65,6 +71,8 @@ size_t DSPCORE_NAME::getLatency()
 void DSPCORE_NAME::reset()
 {
   ASSIGN_PARAMETER(reset);
+
+  pv[ID::overshoot]->setFromFloat(1.0);
 
   for (auto &lm : limiter) lm.reset();
   for (auto &he : highEliminator) he.reset();
@@ -80,7 +88,7 @@ void DSPCORE_NAME::setParameters()
   ASSIGN_PARAMETER(push);
 
   auto &&rate = param.value[ParameterID::truePeak]->getInt()
-    ? FractionalDelayFir::upfold * sampleRate
+    ? UpSamplerFir::upfold * sampleRate
     : sampleRate;
   for (auto &lm : limiter) {
     lm.prepare(
@@ -107,7 +115,7 @@ void DSPCORE_NAME::process(
   SmootherCommon<float>::setBufferSize(float(length));
 
   if (param.value[ParameterID::truePeak]->getInt()) {
-    constexpr size_t upfold = FractionalDelayFir::upfold;
+    constexpr size_t upfold = UpSamplerFir::upfold;
     for (size_t i = 0; i < length; ++i) {
       auto sig0 = highEliminator[0].process(in0[i]);
       auto sig1 = highEliminator[1].process(in1[i]);
@@ -136,4 +144,9 @@ void DSPCORE_NAME::process(
       out1[i] = limiter[1].process(in1[i], inAbs[1]);
     }
   }
+
+  auto &&maxOut = std::max(maxAbs(length, out0), maxAbs(length, out1));
+  auto &paramClippingPeak = param.value[ParameterID::overshoot];
+  auto &&previousPeak = paramClippingPeak->getFloat();
+  if (maxOut > previousPeak) paramClippingPeak->setFromFloat(maxOut);
 }

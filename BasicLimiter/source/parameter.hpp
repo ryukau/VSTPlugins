@@ -1,4 +1,4 @@
-// (c) 2021 Takamitsu Endo
+// (c) 2021-2022 Takamitsu Endo
 //
 // This file is part of BasicLimiter.
 //
@@ -46,8 +46,10 @@ enum ID {
   limiterStereoLink,
 
   truePeak,
+  overshoot,
 
   ID_ENUM_LENGTH,
+  ID_ENUM_GUI_START = overshoot,
 };
 } // namespace ParameterID
 
@@ -60,6 +62,8 @@ struct Scales {
   static SomeDSP::LogScale<double> limiterAttack;
   static SomeDSP::LogScale<double> limiterRelease;
   static SomeDSP::LogScale<double> limiterSustain;
+
+  static SomeDSP::LinearScale<double> overshoot;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -79,8 +83,8 @@ struct GlobalParameter : public ParameterInterface {
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     value[ID::limiterThreshold] = std::make_unique<DecibelValue>(
-      Scales::limiterThreshold.invmap(1.0), Scales::limiterThreshold, "limiterThreshold",
-      Info::kCanAutomate);
+      Scales::limiterThreshold.invmapDB(-0.1), Scales::limiterThreshold,
+      "limiterThreshold", Info::kCanAutomate);
     value[ID::limiterGate] = std::make_unique<DecibelValue>(
       0.0, Scales::limiterGate, "limiterGate", Info::kCanAutomate);
     value[ID::limiterAttack] = std::make_unique<LogValue>(
@@ -93,10 +97,12 @@ struct GlobalParameter : public ParameterInterface {
       Scales::limiterSustain.invmap(0.0016666666666666666), Scales::limiterSustain,
       "limiterSustain", Info::kCanAutomate);
     value[ID::limiterStereoLink] = std::make_unique<LinearValue>(
-      1.0, Scales::defaultScale, "limiterStereoLink", Info::kCanAutomate);
+      0.5, Scales::defaultScale, "limiterStereoLink", Info::kCanAutomate);
 
     value[ID::truePeak]
       = std::make_unique<UIntValue>(0, Scales::boolScale, "truePeak", Info::kCanAutomate);
+    value[ID::overshoot] = std::make_unique<LinearValue>(
+      0.0, Scales::overshoot, "overshoot", Info::kIsReadOnly);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

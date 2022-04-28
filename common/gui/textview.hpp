@@ -107,10 +107,20 @@ public:
     : CControl(size, nullptr, -1), cellWidth(cellWidth), fontId(fontId), pal(palette)
   {
     this->fontId->remember();
+    setText(content);
+  }
 
+  ~TextTableView()
+  {
+    if (fontId != nullptr) fontId->forget();
+  }
+
+  void setText(std::string content)
+  {
     std::stringstream ssContent(content);
     std::string line;
     std::string cell;
+    table.resize(0);
     while (std::getline(ssContent, line, rowDelimiter)) {
       table.push_back(std::vector<std::string>());
       std::stringstream ssLine(line);
@@ -121,11 +131,6 @@ public:
           table.back().push_back(cell);
       }
     }
-  }
-
-  ~TextTableView()
-  {
-    if (fontId != nullptr) fontId->forget();
   }
 
   void draw(CDrawContext *pContext) override

@@ -1,4 +1,4 @@
-// (c) 2021 Takamitsu Endo
+// (c) 2021-2022 Takamitsu Endo
 //
 // This file is part of BasicLimiter.
 //
@@ -19,7 +19,9 @@
 #include "version.hpp"
 
 #include <algorithm>
+#include <iomanip>
 #include <sstream>
+#include <string>
 
 constexpr float uiTextSize = 12.0f;
 constexpr float midTextSize = 12.0f;
@@ -49,6 +51,19 @@ Editor::Editor(void *controller) : PlugEditor(controller)
   setRect(viewRect);
 }
 
+Editor::~Editor()
+{
+  if (infoTextView) infoTextView->forget();
+}
+
+ParamValue Editor::getPlainValue(ParamID id)
+{
+  auto normalized = controller->getParamNormalized(id);
+  return controller->normalizedParamToPlain(id, normalized);
+}
+
+template<typename T> inline T ampToDecibel(T x) { return T(20) * std::log10(x); }
+
 void Editor::valueChanged(CControl *pControl)
 {
   ParamID id = pControl->getTag();
@@ -62,6 +77,32 @@ void Editor::valueChanged(CControl *pControl)
   ParamValue value = pControl->getValueNormalized();
   controller->setParamNormalized(id, value);
   controller->performEdit(id, value);
+}
+
+void Editor::updateUI(ParamID id, ParamValue normalized)
+{
+  PlugEditor::updateUI(id, normalized);
+
+  // Refresh infoTextView.
+  using ID = Synth::ParameterID::ID;
+
+  if (id == ID::limiterAttack) {
+    controller->performEdit(ID::overshoot, 0.0);
+    return;
+  }
+
+  if (infoTextView == nullptr) return;
+  if (id != ID::overshoot) return;
+
+  auto &&rdlm = TextTableView::rowDelimiter;
+  auto &&cdlm = TextTableView::colDelimiter;
+  auto overshoot = ampToDecibel(getPlainValue(ID::overshoot));
+  if (overshoot > 0 && overshoot < 1e-5f) overshoot = 1e-5f;
+  std::ostringstream os;
+  os.precision(5);
+  os << std::fixed << "Overshoot [dB]" << cdlm << overshoot << rdlm;
+  infoTextView->setText(os.str());
+  infoTextView->setDirty();
 }
 
 bool Editor::prepareUI()
@@ -88,9 +129,13 @@ bool Editor::prepareUI()
   addLabel(
     leftLimiter0, topLimiter1, limiterLabelWidth, labelHeight, uiTextSize,
     "Threshold [dB]", kLeftText);
-  addTextKnob(
+  auto thresholdKnob = addTextKnob(
     leftLimiter1, topLimiter1, limiterLabelWidth, labelHeight, uiTextSize,
     ID::limiterThreshold, Scales::limiterThreshold, true, 5);
+  if (thresholdKnob) {
+    thresholdKnob->sensitivity = 0.002f / 6.0f;
+    thresholdKnob->lowSensitivity = 0.002f / 120.0f;
+  }
   addLabel(
     leftLimiter0, topLimiter2, limiterLabelWidth, labelHeight, uiTextSize, "Gate [dB]",
     kLeftText);
@@ -100,7 +145,7 @@ bool Editor::prepareUI()
   addLabel(
     leftLimiter0, topLimiter3, limiterLabelWidth, labelHeight, uiTextSize, "Attack [s]",
     kLeftText);
-  addTextKnob(
+  addTextKnob<Uhhyou::Style::warning>(
     leftLimiter1, topLimiter3, limiterLabelWidth, labelHeight, uiTextSize,
     ID::limiterAttack, Scales::limiterAttack, false, 5);
   addLabel(
@@ -120,15 +165,25 @@ bool Editor::prepareUI()
     kLeftText);
   addTextKnob(
     leftLimiter1, topLimiter6, limiterLabelWidth, labelHeight, uiTextSize,
-    ID::limiterStereoLink, Scales::limiterSustain, false, 5);
+    ID::limiterStereoLink, Scales::defaultScale, false, 5);
 
   addCheckbox(
     leftLimiter0, topLimiter7, checkboxWidth, labelHeight, uiTextSize, "True Peak",
     ID::truePeak);
 
+  addKickButton(
+    leftLimiter1, topLimiter7, limiterLabelWidth, labelHeight, uiTextSize,
+    "Reset Overshoot", ID::overshoot);
+
+  if (infoTextView) infoTextView->forget();
+  infoTextView = addTextTableView(
+    leftLimiter0, topLimiter8, 2 * limiterLabelWidth, labelHeight, uiTextSize,
+    "Overshoot [dB]", limiterLabelWidth);
+  infoTextView->remember();
+
   // Plugin name.
-  const auto splashMargin = uiMargin - margin;
-  const auto splashTop = defaultHeight - splashHeight - splashMargin;
+  const auto splashMargin = margin;
+  const auto splashTop = defaultHeight - splashHeight - uiMargin + margin;
   const auto splashLeft = leftLimiter0;
   addSplashScreen(
     splashLeft, splashTop, checkboxWidth, splashHeight, splashMargin, splashMargin,

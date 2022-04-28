@@ -32,5 +32,7 @@ LogScale<double> Scales::limiterAttack(0.0001, maxAttackSeconds, 0.5, 0.002);
 LogScale<double> Scales::limiterRelease(0.0, 16.0, 0.5, 1.0);
 LogScale<double> Scales::limiterSustain(0.0, maxAttackSeconds, 0.1, 0.002);
 
+LinearScale<double> Scales::overshoot(1.0, 32.0);
+
 } // namespace Synth
 } // namespace Steinberg

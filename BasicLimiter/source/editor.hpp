@@ -28,11 +28,16 @@ using namespace VSTGUI;
 class Editor : public PlugEditor {
 public:
   Editor(void *controller);
-  DELEGATE_REFCOUNT(VSTGUIEditor);
+  ~Editor();
 
   virtual void valueChanged(CControl *pControl) override;
+  void updateUI(Vst::ParamID id, ParamValue normalized) override;
+
+  DELEGATE_REFCOUNT(VSTGUIEditor);
 
 protected:
+  TextTableView *infoTextView = nullptr;
+  ParamValue getPlainValue(ParamID id);
   bool prepareUI() override;
 };
 

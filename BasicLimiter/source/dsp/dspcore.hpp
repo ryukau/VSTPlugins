@@ -29,7 +29,7 @@
 using namespace SomeDSP;
 using namespace Steinberg::Synth;
 
-using FractionalDelayFir = SocpFractionalDelayFir16x8<float>;
+using UpSamplerFir = UpSamplerFir8Fold<float>;
 using DownSamplerFir = DownSamplerFir8Fold<float>;
 
 class DSPInterface {
@@ -72,7 +72,7 @@ public:
                                                                                          \
     std::array<Limiter<float>, 2> limiter;                                               \
     std::array<NaiveConvolver<float, HighEliminationFir<float>>, 2> highEliminator;      \
-    std::array<FirUpSampler<float, FractionalDelayFir>, 2> upSampler;                    \
+    std::array<FirPolyPhaseUpSampler<float, UpSamplerFir>, 2> upSampler;                 \
     std::array<FirDownSampler<float, DownSamplerFir>, 2> downSampler;                    \
   };
 
