@@ -1,0 +1,13 @@
+diff --git a/base/funknown.cpp b/base/funknown.cpp
+index 23ca64e..1d60750 100644
+--- a/base/funknown.cpp
++++ b/base/funknown.cpp
+@@ -56,7 +56,7 @@
+ #endif
+ 
+ #if defined (SMTG_USE_STDATOMIC_H) && SMTG_USE_STDATOMIC_H 
+-#include <stdatomic.h>
++#include <atomic>
+ #endif
+ 
+ namespace Steinberg {
