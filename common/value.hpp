@@ -161,9 +161,9 @@ struct UIntValue : public ValueInterface {
 
   tresult addParameter(Vst::ParameterContainer &parameters) override
   {
-    auto par = parameters.addParameter(
-      USTRING(name.c_str()), USTRING(unit.c_str()), scale.getMax(), defaultNormalized,
-      parameterFlags, id);
+    auto par = parameters.addParameter(new Vst::ScaledParameter(
+      USTRING(name.c_str()), id, scale, defaultNormalized, USTRING(unit.c_str()),
+      parameterFlags));
     return par == nullptr ? kResultFalse : kResultOk;
   }
 
