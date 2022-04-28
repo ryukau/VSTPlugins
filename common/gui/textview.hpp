@@ -31,17 +31,14 @@ class TextView : public CControl {
 public:
   CCoord lineHeight = 20.0;
 
-  TextView(const CRect &size, std::string text, CFontRef fontId, Uhhyou::Palette &palette)
+  TextView(
+    const CRect &size,
+    std::string text,
+    const SharedPointer<CFontDesc> &fontId,
+    Uhhyou::Palette &palette)
     : CControl(size, nullptr, -1), fontId(fontId), pal(palette)
   {
-    this->fontId->remember();
-
     setText(text);
-  }
-
-  ~TextView()
-  {
-    if (fontId != nullptr) fontId->forget();
   }
 
   void setText(std::string text)
@@ -84,7 +81,7 @@ public:
 
 protected:
   std::vector<std::string> str;
-  CFontRef fontId = nullptr;
+  SharedPointer<CFontDesc> fontId;
   Uhhyou::Palette &pal;
 
   bool isMouseEntered = false;
@@ -102,17 +99,11 @@ public:
     const CRect &size,
     std::string content,
     CCoord cellWidth,
-    CFontRef fontId,
+    const SharedPointer<CFontDesc> &fontId,
     Uhhyou::Palette &palette)
     : CControl(size, nullptr, -1), cellWidth(cellWidth), fontId(fontId), pal(palette)
   {
-    this->fontId->remember();
     setText(content);
-  }
-
-  ~TextTableView()
-  {
-    if (fontId != nullptr) fontId->forget();
   }
 
   void setText(std::string content)
@@ -162,7 +153,7 @@ public:
 
 protected:
   std::vector<std::vector<std::string>> table;
-  CFontRef fontId = nullptr;
+  SharedPointer<CFontDesc> fontId;
   Uhhyou::Palette &pal;
 
   bool isMouseEntered = false;
@@ -175,18 +166,12 @@ public:
   ValueTextView(
     const CRect &size,
     std::string name,
-    CFontRef fontId,
+    const SharedPointer<CFontDesc> &fontId,
     Uhhyou::Palette &palette,
     Scale &scale)
     : CControl(size, nullptr, -1), fontId(fontId), pal(palette), scale(scale)
   {
-    this->fontId->remember();
     setName(name);
-  }
-
-  ~ValueTextView()
-  {
-    if (fontId != nullptr) fontId->forget();
   }
 
   void setName(std::string name) { name_ = name; }
@@ -211,7 +196,7 @@ public:
 
 protected:
   std::string name_;
-  CFontRef fontId = nullptr;
+  SharedPointer<CFontDesc> fontId;
   Uhhyou::Palette &pal;
   Scale &scale;
 };

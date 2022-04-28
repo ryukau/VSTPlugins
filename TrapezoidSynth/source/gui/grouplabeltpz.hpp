@@ -29,16 +29,10 @@ public:
     const CRect &size,
     IControlListener *listener,
     std::string text,
-    CFontRef fontId,
+    const SharedPointer<CFontDesc> &fontId,
     Uhhyou::Palette &palette)
     : CControl(size, listener), text(text), fontId(fontId), pal(palette)
   {
-    this->fontId->remember();
-  }
-
-  ~GroupLabelTpz()
-  {
-    if (fontId) fontId->forget();
   }
 
   void draw(CDrawContext *pContext) override
@@ -78,7 +72,7 @@ public:
 protected:
   double fontSize = 14.0;
   std::string text;
-  CFontRef fontId = nullptr;
+  SharedPointer<CFontDesc> fontId;
 
   double lineWidth = 1.0;
   double margin = 10.0;

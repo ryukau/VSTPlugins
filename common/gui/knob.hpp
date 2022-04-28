@@ -223,7 +223,7 @@ public:
     const CRect &size,
     IControlListener *listener,
     int32_t tag,
-    CFontRef fontId,
+    const SharedPointer<CFontDesc> &fontId,
     Uhhyou::Palette &palette,
     Scale &scale,
     bool isDecibel = false)
@@ -232,16 +232,9 @@ public:
     , scale(scale)
     , isDecibel(isDecibel)
   {
-    this->fontId->remember();
-
     setWantsFocus(true);
     sensitivity = 0.002f;
     lowSensitivity = sensitivity / 10.0f;
-  }
-
-  ~TextKnob()
-  {
-    if (fontId) fontId->forget();
   }
 
   CLASS_METHODS(TextKnob, CControl);
@@ -319,7 +312,7 @@ protected:
   float borderWidth = 1.0f;
   uint32_t precision = 0;
 
-  CFontRef fontId = nullptr;
+  SharedPointer<CFontDesc> fontId;
   Scale &scale;
   const bool isDecibel;
 
@@ -334,18 +327,12 @@ public:
     const CRect &size,
     IControlListener *listener,
     int32_t tag,
-    CFontRef fontId,
+    const SharedPointer<CFontDesc> &fontId,
     Uhhyou::Palette &palette,
     Scale &scale,
     int32_t offset = 0)
     : KnobBase(size, listener, tag, palette), fontId(fontId), scale(scale), offset(offset)
   {
-    this->fontId->remember();
-  }
-
-  ~NumberKnob()
-  {
-    if (fontId) fontId->forget();
   }
 
   CLASS_METHODS(NumberKnob, CControl);
@@ -414,7 +401,7 @@ public:
   }
 
 protected:
-  CFontRef fontId = nullptr;
+  SharedPointer<CFontDesc> fontId;
   Scale &scale;
   int32_t offset;
 

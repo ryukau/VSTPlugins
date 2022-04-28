@@ -54,7 +54,11 @@ using namespace VSTGUI;
 
 class PlugEditor : public VSTGUIEditor, public IControlListener, public IMouseObserver {
 public:
-  PlugEditor(void *controller) : VSTGUIEditor(controller) { setRect(viewRect); }
+  PlugEditor(void *controller) : VSTGUIEditor(controller)
+  {
+    setRect(viewRect);
+    loadFont();
+  }
 
   ~PlugEditor()
   {
@@ -189,8 +193,8 @@ public:
     auto barBox = new BarBox<Scale>(
       this, CRect(left, top, left + width, top + height), id, scale, value, defaultValue,
       palette);
-    barBox->setIndexFont(new CFontDesc(Uhhyou::Font::name(), 10.0, CTxtFace::kBoldFace));
-    barBox->setNameFont(new CFontDesc(Uhhyou::Font::name(), 24.0, CTxtFace::kNormalFace));
+    barBox->setIndexFont(getFont(10));
+    barBox->setNameFont(getFont(24));
     barBox->setName(name);
     frame->addView(barBox);
 
@@ -272,8 +276,8 @@ public:
     ParamID tag)
   {
     auto button = new KickButton<style>(
-      CRect(left, top, left + width, top + height), this, tag, name,
-      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kBoldFace), palette);
+      CRect(left, top, left + width, top + height), this, tag, name, getFont(textSize),
+      palette);
     button->setValueNormalized(controller->getParamNormalized(tag));
     frame->addView(button);
     addToControlMap(tag, button);
@@ -291,8 +295,8 @@ public:
     ParamID tag)
   {
     auto button = new ToggleButton<style>(
-      CRect(left, top, left + width, top + height), this, tag, name,
-      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kBoldFace), palette);
+      CRect(left, top, left + width, top + height), this, tag, name, getFont(textSize),
+      palette);
     button->setValueNormalized(controller->getParamNormalized(tag));
     frame->addView(button);
     addToControlMap(tag, button);
@@ -311,7 +315,7 @@ public:
   {
     auto button = new MessageButton(
       controller, CRect(left, top, left + width, top + height), name, message,
-      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kBoldFace), palette);
+      getFont(textSize), palette);
     frame->addView(button);
     return button;
   }
@@ -327,8 +331,8 @@ public:
     ParamID tag)
   {
     auto checkbox = new CheckBox<style>(
-      CRect(left, top, left + width, top + height), this, tag, name,
-      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette);
+      CRect(left, top, left + width, top + height), this, tag, name, getFont(textSize),
+      palette);
     checkbox->setTextSize(textSize);
     checkbox->setValueNormalized(controller->getParamNormalized(tag));
     frame->addView(checkbox);
@@ -346,9 +350,8 @@ public:
     CHoriTxtAlign align = CHoriTxtAlign::kCenterText)
   {
     auto label = new Label(
-      CRect(left, top, left + width, top + height), this, name,
-      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette,
-      align);
+      CRect(left, top, left + width, top + height), this, name, getFont(textSize),
+      palette, align);
     frame->addView(label);
     return label;
   }
@@ -357,8 +360,8 @@ public:
     CCoord left, CCoord top, CCoord width, float height, float textSize, std::string name)
   {
     auto label = new GroupLabel(
-      CRect(left, top, left + width, top + height), this, name,
-      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kBoldFace), palette);
+      CRect(left, top, left + width, top + height), this, name, getFont(textSize),
+      palette);
     frame->addView(label);
     return label;
   }
@@ -377,7 +380,7 @@ public:
     /*
     auto label = new VGroupLabel(
       CRect(left, top, left + height, top + width), this, name);
-    label->setFont(new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kBoldFace));
+    label->setFont(getFont(textSize));
     frame->addView(label);
     return label;
     */
@@ -421,9 +424,8 @@ public:
     }
 
     auto label = new Label(
-      CRect(left, top, left + width, top + height), this, name,
-      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette,
-      align);
+      CRect(left, top, left + width, top + height), this, name, getFont(textSize),
+      palette, align);
     frame->addView(label);
     return label;
   }
@@ -473,8 +475,7 @@ public:
 
     auto knob = new NumberKnob<Scale, style>(
       CRect(left, top + margin, left + width, top + width - margin), this, tag,
-      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette,
-      scale, offset);
+      getFont(textSize), palette, scale, offset);
     knob->setSlitWidth(8.0);
     knob->setValueNormalized(controller->getParamNormalized(tag));
     knob->setDefaultValue(param->getDefaultNormalized(tag));
@@ -528,8 +529,7 @@ public:
     int32_t offset = 0)
   {
     auto knob = new TextKnob<Scale, style>(
-      CRect(left, top, left + width, top + height), this, tag,
-      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette,
+      CRect(left, top, left + width, top + height), this, tag, getFont(textSize), palette,
       scale, isDecibel);
     knob->setValueNormalized(controller->getParamNormalized(tag));
     knob->setDefaultValue(param->getDefaultNormalized(tag));
@@ -555,7 +555,7 @@ public:
       COptionMenu::kCheckStyle);
 
     for (const auto &item : items) menu->addEntry(item.c_str());
-    menu->setFont(new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace));
+    menu->setFont(getFont(textSize));
     menu->setFrameWidth(1.0);
     menu->setFontColor(palette.foreground());
     menu->setBackColor(palette.boxBackground());
@@ -585,8 +585,8 @@ public:
     std::vector<std::string> tabs)
   {
     auto tabview = new TabView(
-      tabs, new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette,
-      tabHeight, CRect(left, top, left + width, top + height));
+      tabs, getFont(textSize), palette, tabHeight,
+      CRect(left, top, left + width, top + height));
     frame->addView(tabview);
     return tabview;
   }
@@ -605,10 +605,10 @@ public:
   {
     auto credit = new CreditView(
       CRect(splashLeft, splashTop, splashLeft + splashWidth, splashTop + splashHeight),
-      this, palette);
+      this, getFont(18.0), getFont(12.0), palette);
     auto splash = new SplashLabel(
       CRect(buttonLeft, buttonTop, buttonLeft + buttonWidth, buttonTop + buttonHeight),
-      this, 0, credit, pluginName, buttonTextSize, palette);
+      this, 0, credit, pluginName, getFont(buttonTextSize), palette);
     frame->addView(splash);
     frame->addView(credit);
   }
@@ -622,8 +622,7 @@ public:
     std::string text)
   {
     auto view = new TextView(
-      CRect(left, top, left + width, top + height), text,
-      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette);
+      CRect(left, top, left + width, top + height), text, getFont(textSize), palette);
     frame->addView(view);
     return view;
   }
@@ -638,8 +637,8 @@ public:
     CCoord cellWidth)
   {
     auto view = new TextTableView(
-      CRect(left, top, left + width, top + height), text, cellWidth,
-      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette);
+      CRect(left, top, left + width, top + height), text, cellWidth, getFont(textSize),
+      palette);
     frame->addView(view);
     return view;
   }
@@ -656,8 +655,7 @@ public:
     Scale &scale)
   {
     auto view = new ValueTextView<Scale>(
-      CRect(left, top, left + width, top + height), name,
-      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette,
+      CRect(left, top, left + width, top + height), name, getFont(textSize), palette,
       scale);
     view->setValueNormalized(controller->getParamNormalized(tag));
     view->setDefaultValue(param->getDefaultNormalized(tag));
@@ -713,8 +711,7 @@ public:
     bottom = top + labelHeight;
 
     auto label = new Label(
-      CRect(left, top, right, bottom), this, name,
-      new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kNormalFace), palette,
+      CRect(left, top, right, bottom), this, name, getFont(textSize), palette,
       kCenterText);
     frame->addView(label);
 
@@ -741,6 +738,24 @@ protected:
     controlMap.insert({id, control});
   }
 
+  SharedPointer<CFontDesc> getFont(double size)
+  {
+    auto keySize = size_t(10.0 * size);
+    auto found = fontMap.find(keySize);
+    if (found != fontMap.end()) return found->second;
+    auto inserted = fontMap.emplace(
+      keySize, new CFontDesc(palette.fontName(), CCoord(keySize) / 10.0, fontFace));
+    return inserted.first->second;
+  }
+
+  void loadFont()
+  {
+    std::vector<size_t> sizes{100, 120, 140, 160, 180, 200, 220, 240};
+    for (const auto &sz : sizes) {
+      fontMap.emplace(sz, new CFontDesc(palette.fontName(), CCoord(sz) / 10.0, fontFace));
+    }
+  }
+
   virtual bool prepareUI() = 0;
 
   std::unique_ptr<ParameterInterface> param;
@@ -752,6 +767,9 @@ protected:
   ViewRect viewRect{0, 0, 512, 512};
 
   Uhhyou::Palette palette;
+
+  static constexpr int fontFace = CTxtFace::kBoldFace | CTxtFace::kItalicFace;
+  std::unordered_map<size_t, SharedPointer<CFontDesc>> fontMap; // key = 10 * fontSize.
 };
 
 } // namespace Vst

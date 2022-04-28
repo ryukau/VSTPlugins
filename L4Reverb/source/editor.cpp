@@ -161,9 +161,7 @@ bool Editor::prepareUI()
     CRect(
       panicButtonLeft, panicButtonTop, panicButtonLeft + 2 * textKnobX + 2 * margin,
       panicButtonTop + 2 * labelHeight),
-    this, 0, "Panic!",
-    new CFontDesc(Uhhyou::Font::name(), pluginNameTextSize, CTxtFace::kNormalFace),
-    palette, this);
+    this, 0, "Panic!", getFont(pluginNameTextSize), palette, this);
   frame->addView(panicButton);
 
   // Mix.

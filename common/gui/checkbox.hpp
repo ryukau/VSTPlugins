@@ -35,16 +35,10 @@ public:
     IControlListener *listener,
     int32_t tag,
     std::string label,
-    CFontRef fontId,
+    const SharedPointer<CFontDesc> &fontId,
     Uhhyou::Palette &palette)
     : CControl(size, listener, tag), label(label), fontId(fontId), pal(palette)
   {
-    this->fontId->remember();
-  }
-
-  ~CheckBox()
-  {
-    if (fontId != nullptr) fontId->forget();
   }
 
   CLASS_METHODS(CheckBox, CControl);
@@ -153,7 +147,7 @@ protected:
 
   CHoriTxtAlign align = kLeftText;
 
-  CFontRef fontId = nullptr;
+  SharedPointer<CFontDesc> fontId;
   Uhhyou::Palette &pal;
 
   bool isMouseEntered = false;

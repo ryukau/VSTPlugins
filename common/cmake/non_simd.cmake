@@ -50,6 +50,9 @@ function(build_vst3 plug_sources)
     smtg_add_vst3_snapshot(${target} "${snapshot_path}")
   endif()
 
+  smtg_add_plugin_resource(${target} "../common/resource/Fonts/Tinos-BoldItalic.ttf" "Fonts")
+  smtg_add_plugin_resource(${target} "../common/resource/Fonts/LICENSE.txt" "Fonts")
+
   if(SMTG_MAC)
     smtg_set_bundle(${target} INFOPLIST "${CMAKE_CURRENT_LIST_DIR}/resource/Info.plist" PREPROCESS)
   elseif(SMTG_WIN)

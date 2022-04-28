@@ -31,19 +31,18 @@ using namespace VSTGUI;
 
 class CreditView : public CControl {
 public:
-  CreditView(const CRect &size, IControlListener *listener, Uhhyou::Palette &palette)
-    : CControl(size, listener), pal(palette)
+  CreditView(
+    const CRect &size,
+    IControlListener *listener,
+    const SharedPointer<CFontDesc> &fontIdTitle,
+    const SharedPointer<CFontDesc> &fontIdText,
+    Uhhyou::Palette &palette)
+    : CControl(size, listener)
+    , fontIdTitle(fontIdTitle)
+    , fontIdText(fontIdText)
+    , pal(palette)
   {
     setVisible(false);
-
-    fontIdTitle = new CFontDesc(Uhhyou::Font::name(), fontSizeTitle, CTxtFace::kBoldFace);
-    fontIdText = new CFontDesc(Uhhyou::Font::name(), fontSize);
-  }
-
-  ~CreditView()
-  {
-    if (fontIdTitle) fontIdTitle->forget();
-    if (fontIdText) fontIdText->forget();
   }
 
   void draw(CDrawContext *pContext) override;
@@ -78,11 +77,8 @@ private:
     }
   }
 
-  CCoord fontSize = 12.0;
-  CCoord fontSizeTitle = 18.0;
-
-  CFontRef fontIdTitle = nullptr;
-  CFontRef fontIdText = nullptr;
+  SharedPointer<CFontDesc> fontIdTitle;
+  SharedPointer<CFontDesc> fontIdText;
   Uhhyou::Palette &pal;
 
   bool isMouseEntered = false;
@@ -96,22 +92,20 @@ public:
     int32_t tag,
     CControl *splashView,
     std::string label,
-    CCoord fontSize,
+    const SharedPointer<CFontDesc> &fontId,
     Uhhyou::Palette &palette)
     : CControl(size, listener, tag)
     , splashView(splashView)
     , label(label)
-    , fontSize(fontSize)
+    , fontId(fontId)
     , pal(palette)
   {
     if (splashView != nullptr) splashView->remember();
-    fontId = new CFontDesc(Uhhyou::Font::name(), fontSize, CTxtFace::kBoldFace);
   }
 
   ~SplashLabel()
   {
     if (splashView != nullptr) splashView->forget();
-    if (fontId) fontId->forget();
   }
 
   CLASS_METHODS(SplashLabel, CControl);
@@ -130,8 +124,7 @@ protected:
   CControl *splashView = nullptr;
   std::string label;
 
-  CCoord fontSize = 18.0;
-  CFontRef fontId = nullptr;
+  SharedPointer<CFontDesc> fontId;
   Uhhyou::Palette &pal;
 
   CCoord frameWidth = 1.0f;

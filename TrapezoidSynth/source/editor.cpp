@@ -62,8 +62,7 @@ void Editor::addTpzLabel(
   auto bottom = top + labelHeight;
 
   auto label = new GroupLabelTpz(
-    CRect(left, top, left + width, bottom), this, name,
-    new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kBoldFace), palette);
+    CRect(left, top, left + width, bottom), this, name, getFont(textSize), palette);
   label->setMargin(groupLabelMargin);
   frame->addView(label);
 }
@@ -82,11 +81,10 @@ void Editor::addSplashScreenTpz(
 {
   auto credit = new CreditView(
     CRect(splashLeft, splashTop, splashLeft + splashWidth, splashTop + splashHeight),
-    this, palette);
+    this, getFont(18.0), getFont(12.0), palette);
   auto splash = new SplashLabelTpz(
     CRect(buttonLeft, buttonTop, buttonLeft + buttonWidth, buttonTop + buttonHeight),
-    this, new CFontDesc(Uhhyou::Font::name(), textSize, CTxtFace::kBoldFace), palette, 0,
-    credit, pluginName);
+    this, getFont(textSize), palette, 0, credit, pluginName);
   frame->addView(splash);
   frame->addView(credit);
 }

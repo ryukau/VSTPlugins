@@ -30,7 +30,7 @@ public:
   SplashLabelTpz(
     const CRect &size,
     IControlListener *listener,
-    CFontRef fontId,
+    const SharedPointer<CFontDesc> &fontId,
     Uhhyou::Palette &palette,
     int32_t tag,
     CControl *splashView,
@@ -41,13 +41,11 @@ public:
     , splashView(splashView)
     , label(label)
   {
-    this->fontId->remember();
     if (splashView != nullptr) splashView->remember();
   }
 
   ~SplashLabelTpz()
   {
-    if (fontId) fontId->forget();
     if (splashView != nullptr) splashView->forget();
   }
 
@@ -67,7 +65,7 @@ protected:
   CControl *splashView = nullptr;
   std::string label;
 
-  CFontRef fontId = nullptr;
+  SharedPointer<CFontDesc> fontId;
   Uhhyou::Palette &pal;
 
   float frameWidth = 4.0f;

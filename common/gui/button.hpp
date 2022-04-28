@@ -36,16 +36,10 @@ public:
     IControlListener *listener,
     int32_t tag,
     std::string label,
-    CFontRef fontId,
+    const SharedPointer<CFontDesc> &fontId,
     Uhhyou::Palette &palette)
     : CControl(size, listener, tag), label(label), fontId(fontId), pal(palette)
   {
-    this->fontId->remember();
-  }
-
-  ~ButtonBase()
-  {
-    if (fontId != nullptr) fontId->forget();
   }
 
   CLASS_METHODS(ButtonBase, CControl);
@@ -119,7 +113,7 @@ public:
   void setBorderWidth(CCoord width) { borderWidth = width < 0 ? 0 : width; }
 
 protected:
-  CFontRef fontId = nullptr;
+  SharedPointer<CFontDesc> fontId;
   Uhhyou::Palette &pal;
 
   CCoord borderWidth = 1.0;
@@ -135,7 +129,7 @@ public:
     IControlListener *listener,
     int32_t tag,
     std::string label,
-    CFontRef fontId,
+    const SharedPointer<CFontDesc> &fontId,
     Uhhyou::Palette &palette)
     : ButtonBase<style>(size, listener, tag, label, fontId, palette)
   {
@@ -152,7 +146,7 @@ public:
     IControlListener *listener,
     int32_t tag,
     std::string label,
-    CFontRef fontId,
+    const SharedPointer<CFontDesc> &fontId,
     Uhhyou::Palette &palette)
     : ButtonBase<style>(size, listener, tag, label, fontId, palette)
   {
@@ -210,7 +204,7 @@ public:
     const CRect &size,
     std::string label,
     std::string messageID,
-    CFontRef fontId,
+    const SharedPointer<CFontDesc> &fontId,
     Uhhyou::Palette &palette)
     : CControl(size, nullptr, -1)
     , label(label)
@@ -220,13 +214,11 @@ public:
     , pal(palette)
   {
     if (controller != nullptr) controller->addRef();
-    this->fontId->remember();
   }
 
   ~MessageButton()
   {
     if (controller != nullptr) controller->release();
-    if (fontId != nullptr) fontId->forget();
   }
 
   void draw(CDrawContext *pContext) override
@@ -294,7 +286,7 @@ public:
 protected:
   Steinberg::Vst::EditController *controller = nullptr;
 
-  CFontRef fontId = nullptr;
+  SharedPointer<CFontDesc> fontId;
   Uhhyou::Palette &pal;
 
   CCoord borderWidth = 2.0;

@@ -32,17 +32,11 @@ public:
     const CRect &size,
     IControlListener *listener,
     std::string label,
-    CFontRef fontId,
+    const SharedPointer<CFontDesc> &fontId,
     Uhhyou::Palette &palette,
     CHoriTxtAlign align = kCenterText)
     : CControl(size, listener), label(label), fontId(fontId), pal(palette), align(align)
   {
-    fontId->remember();
-  }
-
-  virtual ~Label()
-  {
-    if (fontId) fontId->forget();
   }
 
   CLASS_METHODS(Label, CControl);
@@ -66,7 +60,7 @@ public:
 protected:
   std::string label;
 
-  CFontRef fontId = nullptr;
+  SharedPointer<CFontDesc> fontId;
   Uhhyou::Palette &pal;
 
   CHoriTxtAlign align = kCenterText;
@@ -78,16 +72,10 @@ public:
     const CRect &size,
     IControlListener *listener,
     std::string label,
-    CFontRef fontId,
+    const SharedPointer<CFontDesc> &fontId,
     Uhhyou::Palette &palette)
     : CControl(size, listener), label(label), fontId(fontId), pal(palette)
   {
-    fontId->remember();
-  }
-
-  virtual ~GroupLabel()
-  {
-    if (fontId) fontId->forget();
   }
 
   CLASS_METHODS(GroupLabel, CControl);
@@ -127,7 +115,7 @@ public:
 protected:
   std::string label;
 
-  CFontRef fontId = nullptr;
+  SharedPointer<CFontDesc> fontId;
   Uhhyou::Palette &pal;
 
   double lineWidth = 2.0;
@@ -140,7 +128,7 @@ public:
     const CRect &size,
     IControlListener *listener,
     std::string label,
-    CFontRef fontId,
+    const SharedPointer<CFontDesc> &fontId,
     Uhhyou::Palette &palette)
     : GroupLabel(size, listener, label, fontId, palette)
   {

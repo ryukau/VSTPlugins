@@ -37,7 +37,7 @@ public:
     IControlListener *listener,
     int32_t tag,
     std::string label,
-    CFontRef fontId,
+    const SharedPointer<CFontDesc> &fontId,
     Uhhyou::Palette &palette,
     Steinberg::Vst::PlugEditor *editor)
     : CControl(size, listener, tag)
@@ -46,13 +46,11 @@ public:
     , pal(palette)
     , editor(editor)
   {
-    this->fontId->remember();
     if (editor) editor->remember();
   }
 
   ~PanicButton()
   {
-    if (fontId) fontId->forget();
     if (editor) editor->forget();
   }
 
@@ -160,7 +158,7 @@ protected:
   CColor colorBack{0xff, 0xff, 0xff};
   CColor colorFocus{0x33, 0xee, 0xee};
 
-  CFontRef fontId = nullptr;
+  SharedPointer<CFontDesc> fontId;
   Uhhyou::Palette &pal;
 
   CCoord borderWidth = 1.0;

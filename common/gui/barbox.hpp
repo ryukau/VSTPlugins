@@ -35,8 +35,8 @@ template<typename Scale> class BarBox : public ArrayControl {
 private:
   enum class BarState : uint8_t { active, lock };
 
-  CFontRef indexFontID = nullptr;
-  CFontRef nameFontID = nullptr;
+  SharedPointer<CFontDesc> indexFontID;
+  SharedPointer<CFontDesc> nameFontID;
 
   CCoord borderWidth = 1.0;
 
@@ -95,12 +95,6 @@ public:
     barState.resize(defaultValue.size(), BarState::active);
     active.reserve(value.size());
     locked.reserve(value.size());
-  }
-
-  ~BarBox()
-  {
-    if (indexFontID) indexFontID->forget();
-    if (nameFontID) nameFontID->forget();
   }
 
   CLASS_METHODS(BarBox, CView);
@@ -719,8 +713,8 @@ public:
     return true;
   }
 
-  void setIndexFont(CFontRef fontId) { indexFontID = fontId; }
-  void setNameFont(CFontRef fontId) { nameFontID = fontId; }
+  void setIndexFont(const SharedPointer<CFontDesc> &fontId) { indexFontID = fontId; }
+  void setNameFont(const SharedPointer<CFontDesc> &fontId) { nameFontID = fontId; }
   void setName(std::string name) { this->name = name; }
 
   void setViewRange(CCoord left, CCoord right)

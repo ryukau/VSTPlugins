@@ -62,15 +62,12 @@ public:
 
   TabView(
     std::vector<std::string> tabNames,
-    CFontRef tabFontID,
+    const SharedPointer<CFontDesc> &tabFontID,
     Uhhyou::Palette &palette,
     float tabHeight,
     const CRect &size)
-    : CControl(size, nullptr, -1), pal(palette)
+    : CControl(size, nullptr, -1), tabFontID(tabFontID), pal(palette)
   {
-    tabFontID->remember();
-    this->tabFontID = tabFontID;
-
     tabs.reserve(tabNames.size());
     const auto tabWidth = float(getWidth()) / tabNames.size();
     for (size_t idx = 0; idx < tabNames.size(); ++idx) {
@@ -82,7 +79,6 @@ public:
 
   ~TabView()
   {
-    if (tabFontID) tabFontID->forget();
     for (auto &tab : widgets) {
       for (auto &wdgt : tab) {
         if (wdgt != nullptr) wdgt->forget();
@@ -242,7 +238,7 @@ protected:
 
   float tabHeight = 30.0f;
   float tabFontSize = 14.0f;
-  CFontRef tabFontID = nullptr;
+  SharedPointer<CFontDesc> tabFontID;
   Uhhyou::Palette &pal;
 
   bool isMouseEntered = false;

@@ -19,6 +19,7 @@
 #pragma once
 
 #include "vstgui4/vstgui/lib/ccolor.h"
+#include "vstgui4/vstgui/lib/cfont.h"
 #include "vstgui4/vstgui/lib/cstring.h"
 
 namespace Uhhyou {
@@ -31,6 +32,7 @@ public:
   Palette() { load(); }
   void load();
 
+  const VSTGUI::UTF8String &fontName() { return _fontName; }
   const VSTGUI::CColor &foreground() { return _foreground; }
   const VSTGUI::CColor &foregroundButtonOn() { return _foregroundButtonOn; }
   const VSTGUI::CColor &foregroundInactive() { return _foregroundInactive; }
@@ -49,6 +51,7 @@ public:
   const VSTGUI::CColor &overlayFaint() { return _overlayFaint; }
 
 private:
+  VSTGUI::UTF8String _fontName{"Tinos"};
   VSTGUI::CColor _foreground{0x00, 0x00, 0x00};
   VSTGUI::CColor _foregroundButtonOn{0x00, 0x00, 0x00};
   VSTGUI::CColor _foregroundInactive{0x00, 0x00, 0x00};
@@ -65,17 +68,6 @@ private:
   VSTGUI::CColor _overlay{0x00, 0x00, 0x00, 0x88};
   VSTGUI::CColor _overlayHighlight{0x00, 0xff, 0x00, 0x33};
   VSTGUI::CColor _overlayFaint{0x00, 0x00, 0x00, 0x0b};
-};
-
-struct Font {
-  inline static VSTGUI::UTF8String name()
-  {
-#ifdef LINUX
-    return VSTGUI::UTF8String{"sans-serif"};
-#else
-    return VSTGUI::UTF8String{"Arial"};
-#endif
-  }
 };
 
 } // namespace Uhhyou
