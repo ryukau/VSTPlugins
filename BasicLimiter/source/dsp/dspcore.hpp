@@ -18,7 +18,6 @@
 #pragma once
 
 #include "../../../common/dsp/constants.hpp"
-#include "../../../common/dsp/decimationLowpass.hpp"
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
 #include "limiter.hpp"
