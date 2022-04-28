@@ -17,7 +17,7 @@ cmake --version
 cmake `
   -S vst3sdk `
   -B build `
-  -G "Visual Studio 16 2019" `
+  -G "Visual Studio 17 2022" `
   -A x64 `
   -DCMAKE_BUILD_TYPE=Release `
   -DSMTG_MYPLUGINS_SRC_PATH="$SRC_ROOT\VSTPlugins" `
