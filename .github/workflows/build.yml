@@ -18,23 +18,27 @@ jobs:
         name: vst_ubuntu
         path: vst_ubuntu
 
-  build-windows:
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        path: VSTPlugins
-        submodules: recursive
-    - name: Run script
-      run: VSTPlugins/ci/ci_windows.ps1
-    - name: Upload
-      uses: actions/upload-artifact@v1
-      with:
-        name: vst_windows
-        path: vst_windows
+  ##
+  ## Disabling Windows until next VST 3 SDK release. See link below.
+  ## https://github.com/steinbergmedia/vst3_pluginterfaces/issues/10
+  ##
+  # build-windows:
+  #   runs-on: windows-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #     with:
+  #       path: VSTPlugins
+  #       submodules: recursive
+  #   - name: Run script
+  #     run: VSTPlugins/ci/ci_windows.ps1
+  #   - name: Upload
+  #     uses: actions/upload-artifact@v1
+  #     with:
+  #       name: vst_windows
+  #       path: vst_windows
 
   build-macOS:
-    runs-on: macos-latest
+    runs-on: macos-10.15
     steps:
     - uses: actions/checkout@v2
       with:
