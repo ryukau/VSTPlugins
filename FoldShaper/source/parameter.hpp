@@ -47,10 +47,13 @@ enum ID {
 
   limiter,
   limiterThreshold,
-  limiterAttack,
+  limiterAttack, // Deprecated but not removed for backward compatibility.
   limiterRelease,
 
+  guiInputGain,
+
   ID_ENUM_LENGTH,
+  ID_ENUM_GUI_START = guiInputGain,
 };
 } // namespace ParameterID
 
@@ -66,8 +69,10 @@ struct Scales {
   static SomeDSP::LogScale<double> smoothness;
 
   static SomeDSP::LogScale<double> limiterThreshold;
-  static SomeDSP::LogScale<double> limiterAttack;
+  static SomeDSP::LogScale<double> limiterAttack; // Deprecated.
   static SomeDSP::LogScale<double> limiterRelease;
+
+  static SomeDSP::LinearScale<double> guiInputGainScale;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -109,11 +114,14 @@ struct GlobalParameter : public ParameterInterface {
       Scales::limiterThreshold.invmap(1.0), Scales::limiterThreshold, "limiterThreshold",
       Info::kCanAutomate);
     value[ID::limiterAttack] = std::make_unique<LogValue>(
-      Scales::limiterAttack.invmap(0.002), Scales::limiterAttack, "limiterAttack",
-      Info::kCanAutomate);
+      Scales::limiterAttack.invmap(0.002), Scales::limiterAttack,
+      "limiterAttack (deprecated)", Info::kIsHidden);
     value[ID::limiterRelease] = std::make_unique<LogValue>(
       Scales::limiterRelease.invmap(0.005), Scales::limiterRelease, "limiterRelease",
       Info::kCanAutomate);
+
+    value[ID::guiInputGain] = std::make_unique<LinearValue>(
+      0.0, Scales::guiInputGainScale, "guiInputGain", Info::kIsReadOnly);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

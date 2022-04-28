@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2022 Takamitsu Endo
 //
 // This file is part of FoldShaper.
 //
@@ -17,8 +17,6 @@
 
 #include "dspcore.hpp"
 
-#include "../../../lib/vcl/vectormath_exp.h"
-
 #include <algorithm>
 #include <numeric>
 
@@ -31,6 +29,13 @@
 #else
 #error Unsupported instruction set
 #endif
+
+inline float maxAbs(const size_t length, const float *buffer)
+{
+  float max = 0.0f;
+  for (size_t i = 0; i < length; ++i) max = std::max(max, std::fabs(buffer[i]));
+  return max;
+}
 
 void DSPCORE_NAME::setup(double sampleRate)
 {
@@ -60,22 +65,29 @@ void DSPCORE_NAME::reset()
   ASSIGN_PARAMETER(reset);
 
   for (auto &shpr : shaper) shpr.reset();
-  limiter.reset();
+  for (auto &lm : limiter) lm.reset();
   startup();
 }
 
 void DSPCORE_NAME::startup() {}
 
-uint32_t DSPCORE_NAME::getLatency() { return activateLimiter ? limiter.latency() : 0; }
+size_t DSPCORE_NAME::getLatency()
+{
+  auto &&latency = activateLimiter ? limiter[0].latency() : 0;
+  latency += oversample ? shaper[0].latency() : 0;
+  return latency;
+}
 
 void DSPCORE_NAME::setParameters()
 {
   ASSIGN_PARAMETER(push);
 
   activateLimiter = pv[ID::limiter]->getInt();
-  limiter.prepare(
-    sampleRate, pv[ID::limiterAttack]->getFloat(), pv[ID::limiterRelease]->getFloat(),
-    pv[ID::limiterThreshold]->getFloat());
+  for (auto &lm : limiter) {
+    lm.prepare(
+      sampleRate, pv[ID::limiterRelease]->getFloat(),
+      pv[ID::limiterThreshold]->getFloat());
+  }
 }
 
 void DSPCORE_NAME::process(
@@ -83,8 +95,11 @@ void DSPCORE_NAME::process(
 {
   SmootherCommon<float>::setBufferSize(float(length));
 
+  param.value[ParameterID::guiInputGain]->setFromFloat(
+    std::max(maxAbs(length, in0), maxAbs(length, in1)));
+
   std::array<float, 2> frame{};
-  for (uint32_t i = 0; i < length; ++i) {
+  for (size_t i = 0; i < length; ++i) {
     auto inGain = interpInputGain.process();
     auto outGain = interpOutputGain.process();
     auto mul = interpMul.process();
@@ -103,7 +118,10 @@ void DSPCORE_NAME::process(
       frame[1] = outGain * shaper[1].process(frame[1]);
     }
 
-    if (activateLimiter) frame = limiter.process(frame);
+    if (activateLimiter) {
+      frame[0] = limiter[0].process(frame[0]);
+      frame[1] = limiter[1].process(frame[1]);
+    }
 
     out0[i] = frame[0];
     out1[i] = frame[1];

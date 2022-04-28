@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2022 Takamitsu Endo
 //
 // This file is part of ModuloShaper.
 //
@@ -38,11 +38,12 @@ LogScale<double> Scales::lowpassCutoff(20.0, 20000.0, 0.5, 200.0);
 
 LogScale<double> Scales::smoothness(0.0, 0.5, 0.1, 0.04);
 
-// Limiter attack time is based on the time of 4095 frames in 192 kHz samplerate.
-// 0.021328 ~= 4095 / 192k.
 LogScale<double> Scales::limiterThreshold(0.01, 2.0, 0.5, 0.5);
-LogScale<double> Scales::limiterAttack(0.0001, 0.021328, 0.1, 0.002);
+LogScale<double> Scales::limiterAttack(0.0001, 0.021328, 0.1, 0.002); // Depricated.
 LogScale<double> Scales::limiterRelease(0.0001, 0.2, 0.2, 0.01);
+
+constexpr double maxClip = 1024.0;
+LinearScale<double> Scales::guiInputGainScale(0.0, maxClip);
 
 } // namespace Synth
 } // namespace Steinberg

@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2022 Takamitsu Endo
 //
 // This file is part of OddPowShaper.
 //
@@ -15,7 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with OddPowShaper.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "../../../common/dsp/decimationLowpass.hpp"
+#pragma once
+
+#include "../../../common/dsp/multirate.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -24,7 +26,8 @@ namespace SomeDSP {
 
 template<typename Sample> inline Sample safeClip(Sample input)
 {
-  return std::isfinite(input) ? std::clamp<Sample>(input, Sample(-128), Sample(128)) : 0;
+  return std::isfinite(input) ? std::clamp<Sample>(input, Sample(-1024), Sample(1024))
+                              : 0;
 }
 
 template<typename Sample> class OddPowShaper {
@@ -34,13 +37,26 @@ public:
   bool flip = false;
   bool inverse = false;
 
-  Sample x1 = 0;
-  DecimationLowpass16<Sample> lowpass;
+  FirUpSampler<Sample, Fir16FoldUpSample<Sample>> upSampler;
+  DecimationLowpass<Sample, Sos16FoldFirstStage<Sample>> lowpass;
+  HalfBandIIR<Sample, HalfBandCoefficient<Sample>> halfbandIir;
+
+  size_t latency() { return Fir16FoldUpSample<Sample>::intDelay; }
 
   void reset()
   {
-    x1 = 0;
+    upSampler.reset();
     lowpass.reset();
+    halfbandIir.reset();
+  }
+
+  // Only used for GUI.
+  void set(Sample drive, size_t order, bool flip, bool inverse)
+  {
+    this->drive = drive;
+    this->order = order;
+    this->flip = flip;
+    this->inverse = inverse;
   }
 
   Sample process(Sample x0)
@@ -63,13 +79,15 @@ public:
 
   Sample process16(Sample x0)
   {
-    Sample diff = x0 - x1;
-    for (size_t i = 0; i < 16; ++i) lowpass.push(process(x1 + i / Sample(16) * diff));
-    x1 = x0;
-    if (std::isfinite(lowpass.output())) return lowpass.output();
+    upSampler.process(x0);
 
-    reset();
-    return 0;
+    std::array<Sample, 2> halfBandInput;
+    for (size_t i = 0; i < 8; ++i) lowpass.push(process(upSampler.output[i]));
+    halfBandInput[0] = lowpass.output();
+    for (size_t i = 8; i < 16; ++i) lowpass.push(process(upSampler.output[i]));
+    halfBandInput[1] = lowpass.output();
+
+    return halfbandIir.process(halfBandInput);
   }
 };
 

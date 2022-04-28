@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2022 Takamitsu Endo
 //
 // This file is part of SoftClipper.
 //
@@ -32,6 +32,13 @@
 #error Unsupported instruction set
 #endif
 
+inline float maxAbs(const size_t length, const float *buffer)
+{
+  float max = 0.0f;
+  for (size_t i = 0; i < length; ++i) max = std::max(max, std::fabs(buffer[i]));
+  return max;
+}
+
 void DSPCORE_NAME::setup(double sampleRate)
 {
   this->sampleRate = float(sampleRate);
@@ -43,6 +50,8 @@ void DSPCORE_NAME::setup(double sampleRate)
 }
 
 #define ASSIGN_PARAMETER(METHOD)                                                         \
+  maxGain = 0.0f;                                                                        \
+                                                                                         \
   using ID = ParameterID::ID;                                                            \
                                                                                          \
   SmootherCommon<float>::setTime(param.value[ID::smoothness]->getFloat());               \
@@ -50,9 +59,9 @@ void DSPCORE_NAME::setup(double sampleRate)
   interpInputGain.METHOD(param.value[ID::inputGain]->getFloat());                        \
   interpOutputGain.METHOD(param.value[ID::outputGain]->getFloat());                      \
   interpClip.METHOD(param.value[ID::clip]->getFloat());                                  \
-  interpOrder.METHOD(float(                                                              \
-    param.value[ID::orderInteger]->getInt()                                              \
-    + param.value[ID::orderFraction]->getInt()));                                        \
+  interpOrder.METHOD(                                                                    \
+    float(param.value[ID::orderInteger]->getInt())                                       \
+    + param.value[ID::orderFraction]->getFloat());                                       \
   interpRatio.METHOD(param.value[ID::ratio]->getFloat());                                \
   interpSlope.METHOD(param.value[ID::slope]->getFloat());
 
@@ -64,6 +73,8 @@ void DSPCORE_NAME::reset()
 
 void DSPCORE_NAME::startup() { ASSIGN_PARAMETER(reset); }
 
+size_t DSPCORE_NAME::getLatency() { return oversample ? shaper[0].latency() : 0; }
+
 void DSPCORE_NAME::setParameters()
 {
   ASSIGN_PARAMETER(push);
@@ -74,6 +85,9 @@ void DSPCORE_NAME::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
   SmootherCommon<float>::setBufferSize(float(length));
+
+  param.value[ParameterID::guiInputGain]->setFromFloat(
+    std::max(maxAbs(length, in0), maxAbs(length, in1)));
 
   for (uint32_t i = 0; i < length; ++i) {
     auto inGain = interpInputGain.process();

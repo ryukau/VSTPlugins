@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2022 Takamitsu Endo
 //
 // This file is part of OddPowShaper.
 //
@@ -18,9 +18,9 @@
 #pragma once
 
 #include "../../../common/dsp/constants.hpp"
+#include "../../../common/dsp/lightlimiter.hpp"
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
-#include "limiter.hpp"
 
 #include "oddpowshaper.hpp"
 
@@ -39,7 +39,7 @@ public:
   virtual void setup(double sampleRate) = 0;
   virtual void reset() = 0;   // Stop sounds.
   virtual void startup() = 0; // Reset phase, random seed etc.
-  virtual uint32_t getLatency() = 0;
+  virtual size_t getLatency() = 0;
   virtual void setParameters() = 0;
   virtual void process(
     const size_t length, const float *in0, const float *in1, float *out0, float *out1)
@@ -52,7 +52,7 @@ public:
     void setup(double sampleRate) override;                                              \
     void reset() override;                                                               \
     void startup() override;                                                             \
-    uint32_t getLatency() override;                                                      \
+    size_t getLatency() override;                                                        \
     void setParameters() override;                                                       \
     void process(                                                                        \
       const size_t length,                                                               \
@@ -63,9 +63,10 @@ public:
                                                                                          \
   private:                                                                               \
     float sampleRate = 44100.0f;                                                         \
+    float maxGain = 0.0f;                                                                \
                                                                                          \
     std::array<OddPowShaper<float>, 2> shaper;                                           \
-    EasyLimiter<float> limiter;                                                          \
+    std::array<LightLimiter<float, 64>, 2> limiter;                                      \
                                                                                          \
     bool oversample = true;                                                              \
     bool activateLimiter = true;                                                         \

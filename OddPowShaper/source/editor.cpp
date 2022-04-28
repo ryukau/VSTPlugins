@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2022 Takamitsu Endo
 //
 // This file is part of OddPowShaper.
 //
@@ -33,12 +33,16 @@ constexpr float knobX = 60.0f; // With margin.
 constexpr float knobY = knobHeight + labelY;
 constexpr float checkboxWidth = 60.0f;
 constexpr float splashHeight = 20.0f;
+constexpr float indicatorHeight = 120.0f;
+constexpr float indicatorWidth = 5 * knobX;
+constexpr float infoTextSize = 12.0f;
+constexpr float infoTextCellWidth = 100.0f;
 
 constexpr float limiterLabelWidth = knobX + 3 * margin;
 
 constexpr uint32_t defaultWidth
   = uint32_t(5 * knobX + 2 * limiterLabelWidth + 2 * margin + 30);
-constexpr uint32_t defaultHeight = uint32_t(30 + 3 * labelY + labelHeight);
+constexpr uint32_t defaultHeight = uint32_t(30 + knobY + 2 * labelY + indicatorHeight);
 
 namespace Steinberg {
 namespace Vst {
@@ -51,6 +55,61 @@ Editor::Editor(void *controller) : PlugEditor(controller)
 
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
+}
+
+Editor::~Editor()
+{
+  if (curveView) curveView->forget();
+  if (infoTextView) infoTextView->forget();
+}
+
+ParamValue Editor::getPlainValue(ParamID id)
+{
+  auto normalized = controller->getParamNormalized(id);
+  return controller->normalizedParamToPlain(id, normalized);
+}
+
+CurveView<decltype(Synth::Scales::guiInputGainScale)> *Editor::addCurveView(
+  CCoord left,
+  CCoord top,
+  CCoord width,
+  CCoord height,
+  ParamID id,
+  TextTableView *textView)
+{
+  auto curveView = new CurveView(
+    CRect(left, top, left + width, top + height), palette,
+    Synth::Scales::guiInputGainScale, textView);
+  curveView->setValueNormalized(controller->getParamNormalized(id));
+  curveView->setDefaultValue(param->getDefaultNormalized(id));
+  frame->addView(curveView);
+  addToControlMap(id, curveView);
+  refreshCurveView(Synth::ParameterID::ID::guiInputGain);
+  return curveView;
+}
+
+void Editor::refreshCurveView(ParamID id)
+{
+  using ID = Synth::ParameterID::ID;
+
+  if (curveView == nullptr) return;
+  switch (id) {
+    case ID::guiInputGain:
+    case ID::drive:
+    case ID::boost:
+    case ID::order:
+    case ID::flip:
+    case ID::inverse:
+      break;
+    default:
+      return;
+  }
+
+  curveView->shaper.set(
+    getPlainValue(ID::drive) * getPlainValue(ID::boost),
+    size_t(std::round(getPlainValue(ID::order))), getPlainValue(ID::flip) > 0,
+    getPlainValue(ID::inverse) > 0);
+  curveView->invalid();
 }
 
 void Editor::valueChanged(CControl *pControl)
@@ -68,6 +127,13 @@ void Editor::valueChanged(CControl *pControl)
   controller->performEdit(tag, value);
 }
 
+void Editor::updateUI(ParamID id, ParamValue normalized)
+{
+  PlugEditor::updateUI(id, normalized);
+
+  refreshCurveView(id);
+}
+
 bool Editor::prepareUI()
 {
   using ID = Synth::ParameterID::ID;
@@ -77,6 +143,26 @@ bool Editor::prepareUI()
   const auto top0 = 15.0f;
   const auto left0 = 15.0f;
 
+  // Indicator. `curveView` must be instanciated after `infoTextView`.
+  const auto leftInfo = left0 + 2 * margin + indicatorWidth;
+  const auto topInfo = top0 + knobY + 2 * labelY;
+  if (infoTextView) infoTextView->forget();
+  infoTextView = addTextTableView(
+    leftInfo, topInfo, 2 * infoTextCellWidth, labelHeight, infoTextSize, "",
+    infoTextCellWidth);
+  infoTextView->remember();
+
+  if (curveView) curveView->forget();
+  curveView = addCurveView(
+    left0, topInfo, indicatorWidth, indicatorHeight, ID::guiInputGain, infoTextView);
+  curveView->remember();
+
+  addTextView(
+    leftInfo, topInfo + 2 * labelHeight, 2 * infoTextCellWidth, 2 * labelHeight,
+    infoTextSize, R"(Max Output Peak = Input Peak.
+Curve is approximation.)");
+
+  // Shaper.
   addKnob(left0 + 0 * knobX, top0, knobX, margin, uiTextSize, "Drive", ID::drive);
   addKnob(left0 + 1 * knobX, top0, knobX, margin, uiTextSize, "Boost", ID::boost);
   addKnob(left0 + 2 * knobX, top0, knobX, margin, uiTextSize, "Output", ID::outputGain);
@@ -100,11 +186,11 @@ bool Editor::prepareUI()
   // Limiter.
   const auto leftLimiter0 = left0 + 5 * knobX + 2 * margin;
   const auto leftLimiter1 = leftLimiter0 + limiterLabelWidth;
-  const auto topLimiter1 = top0 + 1 * labelY;
-  const auto topLimiter2 = top0 + 2 * labelY;
-  const auto topLimiter3 = top0 + 3 * labelY;
+  const auto topLimiter0 = top0;
+  const auto topLimiter1 = topLimiter0 + 1 * labelY;
+  const auto topLimiter2 = topLimiter0 + 2 * labelY;
   addToggleButton(
-    leftLimiter0, top0, 2 * limiterLabelWidth, labelHeight, midTextSize, "Limiter",
+    leftLimiter0, topLimiter0, 2 * limiterLabelWidth, labelHeight, midTextSize, "Limiter",
     ID::limiter);
   addLabel(
     leftLimiter0, topLimiter1, limiterLabelWidth, labelHeight, uiTextSize, "Threshold",
@@ -113,25 +199,19 @@ bool Editor::prepareUI()
     leftLimiter1, topLimiter1, limiterLabelWidth, labelHeight, uiTextSize,
     ID::limiterThreshold, Scales::limiterThreshold, false, 5);
   addLabel(
-    leftLimiter0, topLimiter2, limiterLabelWidth, labelHeight, uiTextSize, "Attack [s]",
+    leftLimiter0, topLimiter2, limiterLabelWidth, labelHeight, uiTextSize, "Release [s]",
     kLeftText);
   addTextKnob(
     leftLimiter1, topLimiter2, limiterLabelWidth, labelHeight, uiTextSize,
-    ID::limiterAttack, Scales::limiterAttack, false, 5);
-  addLabel(
-    leftLimiter0, topLimiter3, limiterLabelWidth, labelHeight, uiTextSize, "Release [s]",
-    kLeftText);
-  addTextKnob(
-    leftLimiter1, topLimiter3, limiterLabelWidth, labelHeight, uiTextSize,
     ID::limiterRelease, Scales::limiterRelease, false, 5);
 
   // Plugin name.
-  const auto splashTop = top0 + 3 * labelY;
-  const auto splashLeft = checkboxLeft1 - std::floor(0.5f * knobX);
+  const auto splashTop = defaultHeight - splashHeight - 15.0f;
+  const auto splashWidth = 2 * limiterLabelWidth - 2 * margin;
+  const auto splashLeft = defaultWidth - splashWidth - 4 * margin;
   addSplashScreen(
-    splashLeft, splashTop, std::floor(2.5f * knobX) - 2 * margin, splashHeight, 15.0f,
-    15.0f, defaultWidth - 30.0f, defaultHeight - 30.0f, pluginNameTextSize,
-    "OddPowShaper");
+    splashLeft, splashTop, splashWidth, splashHeight, 15.0f, 15.0f, defaultWidth - 30.0f,
+    defaultHeight - 30.0f, pluginNameTextSize, "OddPowShaper");
 
   // Probably this restartComponent() is redundant, but to make sure.
   controller->getComponentHandler()->restartComponent(kLatencyChanged);

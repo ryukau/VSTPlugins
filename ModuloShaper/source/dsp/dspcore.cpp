@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2022 Takamitsu Endo
 //
 // This file is part of ModuloShaper.
 //
@@ -31,6 +31,13 @@
 #else
 #error Unsupported instruction set
 #endif
+
+inline float maxAbs(const size_t length, const float *buffer)
+{
+  float max = 0.0f;
+  for (size_t i = 0; i < length; ++i) max = std::max(max, std::fabs(buffer[i]));
+  return max;
+}
 
 void DSPCORE_NAME::setup(double sampleRate)
 {
@@ -71,16 +78,18 @@ void DSPCORE_NAME::reset()
   for (auto &shaper : shaperNaive) shaper.reset();
   for (auto &shaper : shaperBlep) shaper.reset();
   for (auto &lp : lowpass) lp.reset();
-  limiter.reset();
+  for (auto &lm : limiter) lm.reset();
   startup();
 }
 
 void DSPCORE_NAME::startup() {}
 
-uint32_t DSPCORE_NAME::getLatency()
+size_t DSPCORE_NAME::getLatency()
 {
-  auto latency = activateLimiter ? limiter.latency() : 0;
-  if (shaperType == 2) // 4 point PolyBLEP residual.
+  auto latency = activateLimiter ? limiter[0].latency() : 0;
+  if (shaperType == 1)
+    return shaperNaive[0].latency() + latency;
+  else if (shaperType == 2) // 4 point PolyBLEP residual.
     return 4 + latency;
   else if (shaperType == 3) // 8 point PolyBLEP residual.
     return 8 + latency;
@@ -91,9 +100,11 @@ void DSPCORE_NAME::setParameters()
 {
   ASSIGN_PARAMETER(push);
 
-  limiter.prepare(
-    sampleRate, pv[ID::limiterAttack]->getFloat(), pv[ID::limiterRelease]->getFloat(),
-    pv[ID::limiterThreshold]->getFloat());
+  for (auto &lm : limiter) {
+    lm.prepare(
+      sampleRate, pv[ID::limiterRelease]->getFloat(),
+      pv[ID::limiterThreshold]->getFloat());
+  }
 }
 
 void DSPCORE_NAME::process(
@@ -101,8 +112,11 @@ void DSPCORE_NAME::process(
 {
   SmootherCommon<float>::setBufferSize(float(length));
 
+  param.value[ParameterID::guiInputGain]->setFromFloat(
+    std::max(maxAbs(length, in0), maxAbs(length, in1)));
+
   std::array<float, 2> frame{};
-  for (uint32_t i = 0; i < length; ++i) {
+  for (size_t i = 0; i < length; ++i) {
     auto inGain = interpInputGain.process();
     auto clipGain = interpClipGain.process();
     auto outGain = interpOutputGain.process();
@@ -167,7 +181,10 @@ void DSPCORE_NAME::process(
     frame[0] *= outGain;
     frame[1] *= outGain;
 
-    if (activateLimiter) frame = limiter.process(frame);
+    if (activateLimiter) {
+      frame[0] = limiter[0].process(frame[0]);
+      frame[1] = limiter[1].process(frame[1]);
+    }
 
     out0[i] = frame[0];
     out1[i] = frame[1];

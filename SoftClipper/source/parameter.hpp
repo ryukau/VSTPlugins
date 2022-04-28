@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2022 Takamitsu Endo
 //
 // This file is part of SoftClipper.
 //
@@ -48,7 +48,10 @@ enum ID {
 
   smoothness,
 
+  guiInputGain,
+
   ID_ENUM_LENGTH,
+  ID_ENUM_GUI_START = guiInputGain,
 };
 } // namespace ParameterID
 
@@ -62,6 +65,8 @@ struct Scales {
   static SomeDSP::UIntScale<double> orderInteger;
 
   static SomeDSP::LogScale<double> smoothness;
+
+  static SomeDSP::LinearScale<double> guiInputGainScale;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -102,6 +107,9 @@ struct GlobalParameter : public ParameterInterface {
 
     value[ID::smoothness] = std::make_unique<LogValue>(
       0.1, Scales::smoothness, "smoothness", Info::kCanAutomate);
+
+    value[ID::guiInputGain] = std::make_unique<LinearValue>(
+      0.0, Scales::guiInputGainScale, "guiInputGain", Info::kIsReadOnly);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

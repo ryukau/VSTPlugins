@@ -2,7 +2,7 @@
 // (c) 2018, Steinberg Media Technologies GmbH, All Rights Reserved
 //
 // Modified by:
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2022 Takamitsu Endo
 //
 // This file is part of FoldShaper.
 //
@@ -27,8 +27,6 @@
 #include "pluginterfaces/vst/ivstaudioprocessor.h"
 #include "pluginterfaces/vst/ivstevents.h"
 #include "pluginterfaces/vst/ivstparameterchanges.h"
-
-#include "../../lib/vcl/vectorclass.h"
 
 #include <iostream>
 
@@ -101,14 +99,12 @@ tresult PLUGIN_API PlugProcessor::setActive(TBool state)
   return AudioEffect::setActive(state);
 }
 
-uint32 PLUGIN_API PlugProcessor::getLatencySamples()
-{
-  if (dsp == nullptr) return kNotInitialized;
-  return dsp->getLatency();
-}
+uint32 PLUGIN_API PlugProcessor::getLatencySamples() { return uint32(dsp->getLatency()); }
 
 tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 {
+  using ID = ParameterID::ID;
+
   if (dsp == nullptr) return kNotInitialized;
 
   // Read inputs parameter changes.
@@ -157,6 +153,15 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
     dsp->process((size_t)data.numSamples, in0, in1, out0, out1);
   }
   wasBypassing = isBypassing;
+
+  // Send parameter changes for GUI.
+  if (!data.outputParameterChanges) return kResultOk;
+  int32 index = 0;
+  for (uint32 id = ID::ID_ENUM_GUI_START; id < ID::ID_ENUM_LENGTH; ++id) {
+    auto queue = data.outputParameterChanges->addParameterData(id, index);
+    if (!queue) continue;
+    queue->addPoint(0, dsp->param.value[id]->getNormalized(), index);
+  }
 
   return kResultOk;
 }

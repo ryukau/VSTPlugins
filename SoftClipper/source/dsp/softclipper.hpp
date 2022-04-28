@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2022 Takamitsu Endo
 //
 // This file is part of SoftClipper.
 //
@@ -15,7 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with SoftClipper.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "../../../common/dsp/decimationLowpass.hpp"
+#pragma once
+
+#include "../../../common/dsp/multirate.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -29,20 +31,25 @@ public:
   Sample ratio = 1; // In [0, 1].
   Sample slope = 0; // In [0, 1].
 
-  Sample x1 = 0;
-  DecimationLowpass16<Sample> lowpass;
+  FirUpSampler<Sample, Fir16FoldUpSample<Sample>> upSampler;
+  DecimationLowpass<Sample, Sos16FoldFirstStage<Sample>> lowpass;
+  HalfBandIIR<Sample, HalfBandCoefficient<Sample>> halfbandIir;
+
+  size_t latency() { return Fir16FoldUpSample<Sample>::intDelay; }
 
   void reset()
   {
-    x1 = 0;
+    upSampler.reset();
     lowpass.reset();
+    halfbandIir.reset();
   }
 
+  // Only used for GUI.
   void set(Sample clip, Sample order, Sample ratio, Sample slope)
   {
-    this->clipY = clip;
-    this->order = order;
-    this->ratio = ratio;
+    this->clipY = std::max(Sample(1e-15), clip);
+    this->order = std::max(Sample(1), order);
+    this->ratio = std::min(ratio, Sample(0.999));
     this->slope = slope;
   }
 
@@ -52,25 +59,28 @@ public:
 
     Sample rc = clipY * ratio;
     if (absed <= rc) return x0;
+    if (ratio >= Sample(1)) return std::copysign(clipY, x0);
 
     Sample xc = rc + order * (clipY - rc);
     Sample scale = (rc - clipY) / std::pow(xc - rc, order);
     Sample xs = xc - std::pow(-slope / (scale * order), Sample(1) / (order - Sample(1)));
-    if (absed < xs) return std::copysign(clipY + scale * std::pow(xc - absed, order), x0);
-
-    return std::copysign(
-      slope * (absed - xs) + clipY + scale * std::pow(xc - xs, order), x0);
+    return absed < xs
+      ? std::copysign(clipY + scale * std::pow(xc - absed, order), x0)
+      : std::copysign(
+        slope * (absed - xs) + clipY + scale * std::pow(xc - xs, order), x0);
   }
 
   Sample process16(Sample x0)
   {
-    Sample diff = x0 - x1;
-    for (int i = 0; i < 16; ++i) lowpass.push(process(x1 + i / Sample(16) * diff));
-    x1 = x0;
-    if (std::isfinite(lowpass.output())) return lowpass.output();
+    upSampler.process(x0);
 
-    reset();
-    return 0;
+    std::array<Sample, 2> halfBandInput;
+    for (size_t i = 0; i < 8; ++i) lowpass.push(process(upSampler.output[i]));
+    halfBandInput[0] = lowpass.output();
+    for (size_t i = 8; i < 16; ++i) lowpass.push(process(upSampler.output[i]));
+    halfBandInput[1] = lowpass.output();
+
+    return halfbandIir.process(halfBandInput);
   }
 };
 

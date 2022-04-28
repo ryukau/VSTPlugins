@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2022 Takamitsu Endo
 //
 // This file is part of ModuloShaper.
 //
@@ -18,6 +18,7 @@
 #pragma once
 
 #include "../../common/gui/plugeditor.hpp"
+#include "gui/curveview.hpp"
 #include "parameter.hpp"
 
 namespace Steinberg {
@@ -28,11 +29,27 @@ using namespace VSTGUI;
 class Editor : public PlugEditor {
 public:
   Editor(void *controller);
-  DELEGATE_REFCOUNT(VSTGUIEditor);
+  ~Editor();
 
   virtual void valueChanged(CControl *pControl) override;
+  void updateUI(Vst::ParamID id, ParamValue normalized) override;
+
+  DELEGATE_REFCOUNT(VSTGUIEditor);
 
 protected:
+  CurveView<decltype(Synth::Scales::guiInputGainScale)> *curveView = nullptr;
+  TextTableView *infoTextView = nullptr;
+
+  ParamValue getPlainValue(ParamID id);
+  CurveView<decltype(Synth::Scales::guiInputGainScale)> *Editor::addCurveView(
+    CCoord left,
+    CCoord top,
+    CCoord width,
+    CCoord height,
+    ParamID tag,
+    TextTableView *textView);
+  void refreshCurveView(ParamID id);
+
   bool prepareUI() override;
 };
 
