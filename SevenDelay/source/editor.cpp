@@ -187,25 +187,26 @@ bool Editor::prepareUI()
   addKnob(
     1.0f * interval + delayLeft, delayTop3, smallWidth, margin, uiTextSize, "Out Spread",
     ID::outSpread, LabelPosition::right);
-  addKnob(
-    2.3f * interval + delayLeft, delayTop2, smallWidth, margin, uiTextSize, "In Pan",
-    ID::inPan, LabelPosition::right);
-  addKnob(
-    2.3f * interval + delayLeft, delayTop3, smallWidth, margin, uiTextSize, "Out Pan",
-    ID::outPan, LabelPosition::right);
-  addKnob(
-    2.3f * interval + delayLeft, delayTop4, smallWidth, margin, uiTextSize, "DC Kill",
-    ID::dckill, LabelPosition::right);
 
   addKnob(
-    3.6f * interval + delayLeft, delayTop2, smallWidth, margin, uiTextSize, "Allpass Cut",
-    ID::toneCutoff, LabelPosition::right);
+    std::floor(2.3f * interval) + delayLeft, delayTop2, smallWidth, margin, uiTextSize,
+    "In Pan", ID::inPan, LabelPosition::right);
   addKnob(
-    3.6f * interval + delayLeft, delayTop3, smallWidth, margin, uiTextSize, "Allpass Q",
-    ID::toneQ, LabelPosition::right);
+    std::floor(2.3f * interval) + delayLeft, delayTop3, smallWidth, margin, uiTextSize,
+    "Out Pan", ID::outPan, LabelPosition::right);
   addKnob(
-    3.6f * interval + delayLeft, delayTop4, smallWidth, margin, uiTextSize, "Smooth",
-    ID::smoothness, LabelPosition::right);
+    std::floor(2.3f * interval) + delayLeft, delayTop4, smallWidth, margin, uiTextSize,
+    "DC Kill", ID::dckill, LabelPosition::right);
+
+  addKnob(
+    std::floor(3.6f * interval) + delayLeft, delayTop2, smallWidth, margin, uiTextSize,
+    "Allpass Cut", ID::toneCutoff, LabelPosition::right);
+  addKnob(
+    std::floor(3.6f * interval) + delayLeft, delayTop3, smallWidth, margin, uiTextSize,
+    "Allpass Q", ID::toneQ, LabelPosition::right);
+  addKnob(
+    std::floor(3.6f * interval) + delayLeft, delayTop4, smallWidth, margin, uiTextSize,
+    "Smooth", ID::smoothness, LabelPosition::right);
 
   // LFO.
   // 750 - 520 = 230 / 3 = 66 + 10
