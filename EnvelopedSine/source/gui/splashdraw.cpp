@@ -82,7 +82,8 @@ Ctrl + Left Click|Reset to Default
 
 - Number -
 Shares same controls with knob, and:
-Right Click|Toggle Min/Mid/Max
+Wheel Click|Toggle Min/Mid/Max
+
 Have a nice day!)";
 
   const float top0 = 140.0f;
