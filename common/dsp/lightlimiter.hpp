@@ -179,15 +179,25 @@ public:
 
   - `0.5 * pi` : Less low frequency noise, high noise floor.
   - `1.5 * pi` : More low frequency noise, low noise floor.
+
+  On macOS, triangular windows is used instead. This is because Apple Clang doesn't
+  provide cmath special functions.
   */
   void fillFir(Sample beta)
   {
     constexpr Sample N = Sample(length - 1);
     for (size_t n = 0; n < fir[0].size(); ++n) {
+#ifdef __APPLE__
+      // Triangular window where cyl_bessel_i is not available.
+      size_t half = length / 2;
+      fir[0][n] = n < half ? Sample(n + 1) : Sample(length - n);
+#else
+      // Kaiser window where cyl_bessel_i is available.
       auto &&A = Sample(2) * Sample(n) / N - Sample(1);
       auto &&value = std::cyl_bessel_i(Sample(0), beta * std::sqrt(Sample(1) - A * A))
         / std::cyl_bessel_i(Sample(0), beta);
       fir[0][n] = Sample(value);
+#endif
     }
     auto sum = std::accumulate(fir[0].begin(), fir[0].end(), Sample(0));
     if (sum <= Sample(1e-15)) return; // Avoid zero division.
