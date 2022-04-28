@@ -41,7 +41,7 @@ protected:
   TextTableView *infoTextView = nullptr;
 
   ParamValue getPlainValue(ParamID id);
-  CurveView<decltype(Synth::Scales::guiInputGainScale)> *Editor::addCurveView(
+  CurveView<decltype(Synth::Scales::guiInputGainScale)> *addCurveView(
     CCoord left,
     CCoord top,
     CCoord width,
