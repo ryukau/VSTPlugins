@@ -314,7 +314,11 @@ public:
   void resize(size_t size)
   {
     size += size % 2;
-    peakhold.resize(size);
+
+    // Assuming `maxAttackTime = maxSustainTime`. Otherwise peakhold requires the size
+    // equals to the sum of attack time and sustain time.
+    peakhold.resize(2 * size);
+
     smoother.resize(size);
     lookaheadDelay.resize(size);
   }
