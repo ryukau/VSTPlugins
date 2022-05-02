@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.20)
 
 add_subdirectory(common)
 
@@ -8,6 +8,7 @@ add_subdirectory(CubicPadSynth)
 add_subdirectory(EnvelopedSine)
 add_subdirectory(EsPhaser)
 add_subdirectory(FDNCymbal)
+add_subdirectory(FDN64Reverb)
 add_subdirectory(FoldShaper)
 add_subdirectory(IterativeSinCluster)
 add_subdirectory(L3Reverb)
