@@ -316,7 +316,7 @@ public:
     size += size % 2;
 
     // Assuming `maxAttackTime = maxSustainTime`. Otherwise peakhold requires the size
-    // equals to the sum of attack time and sustain time.
+    // of `maxAttackTime + maxSustainTime`.
     peakhold.resize(2 * size);
 
     smoother.resize(size);
