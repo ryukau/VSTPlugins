@@ -10,7 +10,7 @@ LV2 versions are also available. [GitHub - ryukau/LV2Plugins](https://github.com
 ## Build Instruction
 See [build_instruction.md](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md) for building plugin.
 
-Building on latest macOS may fail. See [macosarmbuild.md](macosarmbuild.md) for more details.
+Building on latest macOS may fail. See [macosarmbuild.md](https://github.com/ryukau/VSTPlugins/blob/master/macarmbuild.md) for more details.
 
 ## x86_64 CPU Dispatching
 To use appropriate SIMD instruction set at runtime, CPU dispatching is implemented. See the note below for the technique used in this repository. It was written for LV2 repository, but the same thing applies to this repository.
