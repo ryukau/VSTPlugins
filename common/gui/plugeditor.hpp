@@ -97,6 +97,7 @@ public:
   void PLUGIN_API close() override
   {
     if (frame != nullptr) {
+      frame->unregisterMouseObserver(this);
       frame->forget();
       frame = nullptr;
     }
