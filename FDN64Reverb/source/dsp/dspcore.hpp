@@ -61,6 +61,7 @@ public:
   private:                                                                               \
     bool prepareRefresh = true;                                                          \
     bool isMatrixRefeshed = false;                                                       \
+    unsigned previousSeed = 0;                                                           \
     pcg64 rng;                                                                           \
                                                                                          \
     float sampleRate = 44100.0f;                                                         \

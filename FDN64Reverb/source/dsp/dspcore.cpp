@@ -111,8 +111,12 @@ void DSPCORE_NAME::setParameters()
   auto &&splitRotationHz = pv[ID::splitRotationHz]->getFloat();
   for (auto &fdn : feedbackDelayNetwork) fdn.prepare(sampleRate, splitRotationHz);
 
-  if (prepareRefresh || (!isMatrixRefeshed && pv[ID::refreshMatrix]->getInt())) {
-    pcg64 matrixRng{pv[ID::seed]->getInt()};
+  unsigned seed = pv[ID::seed]->getInt();
+  if (
+    prepareRefresh || (!isMatrixRefeshed && pv[ID::refreshMatrix]->getInt())
+    || seed != previousSeed) {
+    previousSeed = seed;
+    pcg64 matrixRng{seed};
     std::uniform_int_distribution<unsigned> seedDist{
       0, std::numeric_limits<unsigned>::max()};
     feedbackDelayNetwork[0].randomizeMatrix(seedDist(matrixRng));
