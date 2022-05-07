@@ -67,7 +67,12 @@ template<typename T> struct RingQueue {
 
   void resize(size_t size) { buf.resize(size); }
 
-  void reset(T value = 0) { std::fill(buf.begin(), buf.end(), value); }
+  void reset(T value = 0)
+  {
+    std::fill(buf.begin(), buf.end(), value);
+    wptr = 0;
+    rptr = 0;
+  }
 
   inline size_t size()
   {
@@ -299,9 +304,10 @@ public:
 
 template<typename Sample> class Limiter {
 private:
+  size_t attackFrames = 0;
+  size_t sustainFrames = 0;
   Sample thresholdAmp = Sample(1); // thresholdAmp > 0.
   Sample gateAmp = 0;              // gateAmp >= 0.
-  size_t attackFrames = 0;
 
   PeakHold<Sample> peakhold;
   DoubleAverageFilter<double> smoother;
@@ -342,14 +348,18 @@ public:
     auto prevAttack = attackFrames;
     attackFrames = size_t(sampleRate * attackSeconds);
     attackFrames += attackFrames % 2; // DoubleAverageFilter requires multiple of 2.
-    if (prevAttack != attackFrames) reset();
+
+    auto prevSustain = sustainFrames;
+    sustainFrames = size_t(sampleRate * sustainSeconds);
+
+    if (prevAttack != attackFrames || prevSustain != sustainFrames) reset();
 
     releaseFilter.setCutoff(sampleRate, Sample(1) / releaseSeconds);
 
     thresholdAmp = thresholdAmplitude;
     gateAmp = gateAmplitude;
 
-    peakhold.setFrames(attackFrames + size_t(sampleRate * sustainSeconds));
+    peakhold.setFrames(attackFrames + sustainFrames);
     smoother.setFrames(attackFrames);
     lookaheadDelay.setFrames(attackFrames);
   }

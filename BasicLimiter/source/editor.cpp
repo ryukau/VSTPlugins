@@ -157,7 +157,7 @@ bool Editor::prepareUI()
   addLabel(
     leftLimiter0, topLimiter5, limiterLabelWidth, labelHeight, uiTextSize, "Sustain [s]",
     kLeftText);
-  addTextKnob(
+  addTextKnob<Uhhyou::Style::warning>(
     leftLimiter1, topLimiter5, limiterLabelWidth, labelHeight, uiTextSize,
     ID::limiterSustain, Scales::limiterSustain, false, 5);
   addLabel(
