@@ -147,7 +147,7 @@ bool Editor::prepareUI()
     ctrlLeft2, ctrlTop4, labelWidth, labelHeight, uiTextSize, ID::delayTimeInterpRate,
     Scales::delayTimeInterpRate, false, 5);
   addLabel(ctrlLeft1, ctrlTop5, labelWidth, labelHeight, uiTextSize, "Seed", kCenterText);
-  seedTextKnob = addTextKnob(
+  seedTextKnob = addTextKnob<Style::warning>(
     ctrlLeft2, ctrlTop5, labelWidth, labelHeight, uiTextSize, ID::seed, Scales::seed);
   seedTextKnob->sensitivity = 2048.0f / float(1 << 24);
   seedTextKnob->lowSensitivity = 1.0f / float(1 << 24);

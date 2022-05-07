@@ -34,7 +34,8 @@ public:
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
 protected:
-  SharedPointer<TextKnob<decltype(Synth::Scales::seed)>> seedTextKnob;
+  SharedPointer<TextKnob<decltype(Synth::Scales::seed), Uhhyou::Style::warning>>
+    seedTextKnob;
 
   ParamValue getPlainValue(ParamID id);
   void refreshSeed(ParamID id);
