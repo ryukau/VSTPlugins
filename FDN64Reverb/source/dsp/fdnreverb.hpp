@@ -131,12 +131,11 @@ public:
 };
 
 /**
-Warn that if `length` is too long, compiler fails to allocate stack.
+If `length` is too long, compiler might silently fail to allocate stack.
 */
 template<typename Sample, size_t length> class FeedbackDelayNetwork {
 private:
   std::array<std::array<Sample, length>, length> matrix{};
-  // std::array<Sample, length> buf{};
   std::array<std::array<Sample, length>, 2> buf{};
   std::array<Delay<Sample>, length> delay;
   std::array<DoubleEMAFilter<Sample>, length> lowpass;
