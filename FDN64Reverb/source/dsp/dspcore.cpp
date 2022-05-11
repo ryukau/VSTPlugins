@@ -45,6 +45,8 @@ void DSPCORE_NAME::setup(double sampleRate)
     lowpassLfoTime[1][idx].setCutoff(sampleRate, 1.0f);
   }
 
+  gate.setup(sampleRate, 0.001f);
+
   for (auto &fdn : feedbackDelayNetwork) fdn.setup(sampleRate, 1.0f);
 
   reset();
@@ -59,16 +61,15 @@ size_t DSPCORE_NAME::getLatency() { return 0; }
                                                                                          \
   RateLimiter<float>::rate = pv[ID::delayTimeInterpRate]->getFloat();                    \
                                                                                          \
-  std::uniform_real_distribution<float> timeLfoDist(0.0f, 1.0f);                         \
   auto timeMul = pv[ID::timeMultiplier]->getFloat();                                     \
   for (size_t idx = 0; idx < nDelay; ++idx) {                                            \
     auto time = timeMul * sampleRate * pv[ID::delayTime0 + idx]->getFloat();             \
     auto timeLfo = sampleRate * pv[ID::timeLfoAmount0 + idx]->getFloat();                \
                                                                                          \
     feedbackDelayNetwork[0].delayTimeSample[idx].METHOD(                                 \
-      time + timeLfo * lowpassLfoTime[0][idx].process(timeLfoDist(rng)));                \
+      time + timeLfo * lowpassLfoTime[0][idx].value);                                    \
     feedbackDelayNetwork[1].delayTimeSample[idx].METHOD(                                 \
-      time + timeLfo * lowpassLfoTime[0][idx].process(timeLfoDist(rng)));                \
+      time + timeLfo * lowpassLfoTime[1][idx].value);                                    \
                                                                                          \
     auto &&lowpassCutoffHz = pv[ID::lowpassCutoffHz0 + idx]->getFloat();                 \
     interpLowpassCutoff[idx].METHOD(                                                     \
@@ -84,20 +85,24 @@ size_t DSPCORE_NAME::getLatency() { return 0; }
   interpStereoCross.METHOD(pv[ID::stereoCross]->getFloat());                             \
   interpFeedback.METHOD(pv[ID::feedback]->getFloat());                                   \
   interpDry.METHOD(pv[ID::dry]->getFloat());                                             \
-  interpWet.METHOD(pv[ID::wet]->getFloat());
+  interpWet.METHOD(pv[ID::wet]->getFloat());                                             \
+                                                                                         \
+  gate.prepare(std::max(0.0f, pv[ID::gateThreshold]->getFloat()));
 
 void DSPCORE_NAME::reset()
 {
   rng.seed(9999991);
 
+  std::uniform_real_distribution<float> timeLfoDist(0.0f, 1.0f);
   for (size_t idx = 0; idx < nDelay; ++idx) {
-    lowpassLfoTime[0][idx].reset();
-    lowpassLfoTime[1][idx].reset();
+    lowpassLfoTime[0][idx].reset(timeLfoDist(rng));
+    lowpassLfoTime[1][idx].reset(timeLfoDist(rng));
   }
 
   ASSIGN_PARAMETER(reset);
 
   crossBuffer.fill(0);
+  gate.reset();
   for (auto &fdn : feedbackDelayNetwork) fdn.reset();
   startup();
 }
@@ -106,21 +111,30 @@ void DSPCORE_NAME::startup() {}
 
 void DSPCORE_NAME::setParameters()
 {
+  std::uniform_real_distribution<float> timeLfoDist(0.0f, 1.0f);
+  for (size_t idx = 0; idx < nDelay; ++idx) {
+    lowpassLfoTime[0][idx].process(timeLfoDist(rng));
+    lowpassLfoTime[1][idx].process(timeLfoDist(rng));
+  }
+
   ASSIGN_PARAMETER(push);
 
   auto &&splitRotationHz = pv[ID::splitRotationHz]->getFloat();
   for (auto &fdn : feedbackDelayNetwork) fdn.prepare(sampleRate, splitRotationHz);
 
   unsigned seed = pv[ID::seed]->getInt();
+  unsigned matrixType = pv[ID::matrixType]->getInt();
   if (
     prepareRefresh || (!isMatrixRefeshed && pv[ID::refreshMatrix]->getInt())
-    || seed != previousSeed) {
+    || seed != previousSeed || previousMatrixType != matrixType) {
     previousSeed = seed;
+    previousMatrixType = matrixType;
+
     pcg64 matrixRng{seed};
     std::uniform_int_distribution<unsigned> seedDist{
       0, std::numeric_limits<unsigned>::max()};
-    feedbackDelayNetwork[0].randomizeMatrix(seedDist(matrixRng));
-    feedbackDelayNetwork[1].randomizeMatrix(seedDist(matrixRng));
+    feedbackDelayNetwork[0].randomizeMatrix(matrixType, seedDist(matrixRng));
+    feedbackDelayNetwork[1].randomizeMatrix(matrixType, seedDist(matrixRng));
   }
   isMatrixRefeshed = pv[ID::refreshMatrix]->getInt();
   prepareRefresh = false;
@@ -133,11 +147,6 @@ void DSPCORE_NAME::process(
 
   for (size_t i = 0; i < length; ++i) {
     for (size_t idx = 0; idx < nDelay; ++idx) {
-      // feedbackDelayNetwork[0].delayTimeSample[idx]
-      //   = sampleRate * interpDelayTime[0][idx].process();
-      // feedbackDelayNetwork[1].delayTimeSample[idx]
-      //   = sampleRate * interpDelayTime[1][idx].process();
-
       auto lowpassCutoff = interpLowpassCutoff[idx].process();
       auto highpassCutoff = interpHighpassCutoff[idx].process();
       for (auto &fdn : feedbackDelayNetwork) {
@@ -150,6 +159,9 @@ void DSPCORE_NAME::process(
     auto splitSkew = interpSplitSkew.process();
     auto stereoCross = interpStereoCross.process();
     auto feedback = interpFeedback.process();
+
+    auto &&gateOut = gate.process(std::max(std::fabs(in0[i]), std::fabs(in1[i])));
+    stereoCross = std::min(1.0f, stereoCross + (1.0f - stereoCross) * gateOut);
 
     auto fdnBuf0 = feedbackDelayNetwork[0].preProcess(splitPhaseOffset, splitSkew);
     auto fdnBuf1 = feedbackDelayNetwork[1].preProcess(splitPhaseOffset, splitSkew);

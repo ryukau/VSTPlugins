@@ -62,6 +62,7 @@ public:
     bool prepareRefresh = true;                                                          \
     bool isMatrixRefeshed = false;                                                       \
     unsigned previousSeed = 0;                                                           \
+    unsigned previousMatrixType = 0;                                                     \
     pcg64 rng;                                                                           \
                                                                                          \
     float sampleRate = 44100.0f;                                                         \
@@ -78,6 +79,7 @@ public:
     ExpSmoother<float> interpDry;                                                        \
     ExpSmoother<float> interpWet;                                                        \
                                                                                          \
+    EasyGate<float> gate;                                                                \
     std::array<FeedbackDelayNetwork<float, nDelay>, 2> feedbackDelayNetwork;             \
   };
 

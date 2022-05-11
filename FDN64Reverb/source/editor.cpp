@@ -146,16 +146,33 @@ bool Editor::prepareUI()
   addTextKnob(
     ctrlLeft2, ctrlTop4, labelWidth, labelHeight, uiTextSize, ID::delayTimeInterpRate,
     Scales::delayTimeInterpRate, false, 5);
-  addLabel(ctrlLeft1, ctrlTop5, labelWidth, labelHeight, uiTextSize, "Seed", kCenterText);
+  addLabel(
+    ctrlLeft1, ctrlTop5, labelWidth, labelHeight, uiTextSize, "Gate [dB]", kCenterText);
+  addTextKnob(
+    ctrlLeft2, ctrlTop5, labelWidth, labelHeight, uiTextSize, ID::gateThreshold,
+    Scales::gateThreshold, true, 5);
+
+  addLabel(
+    ctrlLeft3, ctrlTop2, labelWidth, labelHeight, uiTextSize, "Matrix", kCenterText);
+  std::vector<std::string> matrixTypes{
+    "Ortho.",       "S. Ortho.",   "Circ. Ortho.", "Circ. 4",      "Circ. 8",
+    "Circ. 16",     "Circ. 32",    "Upper Tri. +", "Upper Tri. -", "Lower Tri. +",
+    "Lower Tri. -", "Schroeder +", "Schroeder -",  "Absorbent +",  "Absorbent -",
+  };
+  addOptionMenu<Style::warning>(
+    ctrlLeft4, ctrlTop2, labelWidth, labelHeight, uiTextSize, ID::matrixType,
+    matrixTypes);
+
+  addLabel(ctrlLeft3, ctrlTop3, labelWidth, labelHeight, uiTextSize, "Seed", kCenterText);
   seedTextKnob = addTextKnob<Style::warning>(
-    ctrlLeft2, ctrlTop5, labelWidth, labelHeight, uiTextSize, ID::seed, Scales::seed);
+    ctrlLeft4, ctrlTop3, labelWidth, labelHeight, uiTextSize, ID::seed, Scales::seed);
   seedTextKnob->sensitivity = 2048.0f / float(1 << 24);
   seedTextKnob->lowSensitivity = 1.0f / float(1 << 24);
 
   addKickButton<Style::warning>(
-    ctrlLeft3 + std::floor(0.25f * labelX), ctrlTop3 + margin,
-    std::floor(1.5f * labelX) - margin, labelY + std::floor(labelHeight / 2), uiTextSize,
-    "Change Matrix", ID::refreshMatrix);
+    ctrlLeft3 + std::floor(0.25f * labelX), ctrlTop4 + margin,
+    std::floor(1.75f * labelX) - 2 * margin, labelY + std::floor(labelHeight / 2),
+    uiTextSize, "Change Matrix", ID::refreshMatrix);
 
   addGroupLabel(ctrlLeft5, ctrlTop1, 2 * labelX - margin, labelHeight, uiTextSize, "Mix");
   addLabel(

@@ -22,6 +22,7 @@
 #include <vector>
 
 #include "../../common/parameterInterface.hpp"
+#include "dsp/matrixtype.hpp"
 
 #ifdef TEST_DSP
 #include "../../test/value.hpp"
@@ -47,6 +48,8 @@ enum ID {
   feedback,
   delayTimeInterpRate,
   seed,
+  matrixType,
+  gateThreshold,
 
   dry,
   wet,
@@ -69,6 +72,8 @@ struct Scales {
   static SomeDSP::LogScale<double> delayTime;
   static SomeDSP::SemitoneScale<double> lowpassCutoffHz;
   static SomeDSP::SemitoneScale<double> highpassCutoffHz;
+  static SomeDSP::UIntScale<double> matrixType;
+  static SomeDSP::DecibelScale<double> gateThreshold;
   static SomeDSP::DecibelScale<double> dry;
   static SomeDSP::DecibelScale<double> wet;
   static SomeDSP::LogScale<double> feedback;
@@ -121,10 +126,15 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::feedback]
       = std::make_unique<LogValue>(0.5, Scales::feedback, "feedback", Info::kCanAutomate);
     value[ID::delayTimeInterpRate] = std::make_unique<LogValue>(
-      Scales::delayTimeInterpRate.invmap(1.0), Scales::delayTimeInterpRate,
+      Scales::delayTimeInterpRate.invmap(0.5), Scales::delayTimeInterpRate,
       "delayTimeInterpRate", Info::kCanAutomate);
     value[ID::seed]
       = std::make_unique<UIntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
+    value[ID::matrixType] = std::make_unique<UIntValue>(
+      SomeDSP::FeedbackMatrixType::specialOrthogonal, Scales::matrixType, "matrixType",
+      Info::kCanAutomate);
+    value[ID::gateThreshold] = std::make_unique<DecibelValue>(
+      0.0, Scales::gateThreshold, "gateThreshold", Info::kCanAutomate);
 
     value[ID::dry] = std::make_unique<DecibelValue>(
       Scales::dry.invmapDB(0.0), Scales::dry, "dry", Info::kCanAutomate);
