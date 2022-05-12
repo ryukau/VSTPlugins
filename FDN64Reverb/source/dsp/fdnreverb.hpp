@@ -22,9 +22,11 @@
 #include "../../../lib/pcg-cpp/pcg_random.hpp"
 #include "matrixtype.hpp"
 
+#include <algorithm>
 #include <array>
 #include <numeric>
 #include <random>
+#include <set>
 
 namespace SomeDSP {
 
@@ -632,6 +634,83 @@ public:
     }
   }
 
+  /** Sylvester's construction of Hadamard matrix. */
+  template<size_t dim>
+  void constructHadamardSylvester(std::array<std::array<Sample, dim>, dim> &mat)
+  {
+    // This static_assert condition is obtained from: https://stackoverflow.com/a/19399478
+    static_assert(
+      dim && ((dim & (dim - 1)) == 0),
+      "FeedbackDelayNetwork::constructHadamardSylvester(): dim must be power of 2.");
+
+    mat[0][0] = Sample(1) / std::sqrt(Sample(dim));
+
+    size_t start = 1;
+    size_t end = 2;
+    while (start < dim) {
+      for (size_t row = start; row < end; ++row) {
+        for (size_t col = start; col < end; ++col) {
+          auto &&value = mat[row - start][col - start];
+          mat[row - start][col] = value; // Upper right.
+          mat[row][col - start] = value; // Lower left.
+          mat[row][col] = -value;        // Lower right.
+        }
+      }
+      start *= 2;
+      end *= 2;
+    }
+  }
+
+  /**
+  Construct a kind of conference matrix which is used in Paley's construction of Hadamard
+  matrix.
+
+  `dim` must follow the conditions below:
+  - `dim mod 4 == 2`.
+  - `dim - 1` is sum of 2 squared integer.
+
+  This implementation use the sequence from https://oeis.org/A000952 to determine the size
+  of matrix. It's possible to construct this kind of conference matrix greater than size
+  of 62, but they are out of scope of FDN64Reverb.
+  */
+  template<size_t dim>
+  void constructConference(std::array<std::array<Sample, dim>, dim> &mat)
+  {
+    constexpr std::array<size_t, 13> candidates{
+      62, 54, 50, 46, 42, 38, 30, 26, 18, 14, 10, 6, 2,
+    };
+
+    auto found = std::find_if(
+      candidates.begin(), candidates.end(), [](size_t size) { return size <= dim; });
+    if (found == candidates.end()) return; // mat is too small.
+
+    size_t dimension = *found;
+    size_t modulo = dimension - 1;
+
+    std::set<size_t> quadraticResidue;
+    for (size_t i = 1; i < modulo; ++i) quadraticResidue.emplace((i * i) % modulo);
+    quadraticResidue.erase(0); // Just in case.
+
+    Sample value = Sample(1) / std::sqrt(Sample(modulo));
+    std::vector<Sample> symbol; // Legendre symbol of quadratic residue.
+    symbol.reserve(modulo);
+    symbol.push_back(0);
+    for (size_t i = 1; i < modulo; ++i) {
+      symbol.push_back(quadraticResidue.count(i) ? value : -value);
+    }
+
+    mat.fill({});
+    mat[0][0] = 0;
+    for (size_t i = 1; i < dimension; ++i) {
+      mat[0][i] = value;
+      mat[i][0] = value;
+    }
+    for (size_t row = 1; row < dimension; ++row) {
+      std::copy(symbol.begin(), symbol.end(), mat[row].begin() + 1);
+      std::rotate(symbol.rbegin(), symbol.rbegin() + 1, symbol.rend());
+    }
+  }
+
   void randomizeMatrix(unsigned matrixType, unsigned seed)
   {
     if (matrixType == FeedbackMatrixType::specialOrthogonal) {
@@ -662,6 +741,10 @@ public:
       randomAbsorbent(seed, 0, Sample(1), matrix);
     } else if (matrixType == FeedbackMatrixType::absorbentNegative) {
       randomAbsorbent(seed, Sample(-1), 0, matrix);
+    } else if (matrixType == FeedbackMatrixType::hadamard) {
+      constructHadamardSylvester(matrix);
+    } else if (matrixType == FeedbackMatrixType::conference) {
+      constructConference(matrix);
     } else { // matrixType == FeedbackMatrixType::orthogonal, or default.
       randomOrthogonal(seed, matrix);
     }

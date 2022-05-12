@@ -36,6 +36,8 @@ enum FeedbackMatrixType : unsigned {
   schroederNegative,
   absorbentPositive,
   absorbentNegative,
+  hadamard,
+  conference,
   FeedbackMatrixType_ENUM_LENGTH,
 };
 } // namespace FeedbackMatrixType

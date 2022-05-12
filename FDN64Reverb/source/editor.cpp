@@ -158,6 +158,7 @@ bool Editor::prepareUI()
     "Ortho.",       "S. Ortho.",   "Circ. Ortho.", "Circ. 4",      "Circ. 8",
     "Circ. 16",     "Circ. 32",    "Upper Tri. +", "Upper Tri. -", "Lower Tri. +",
     "Lower Tri. -", "Schroeder +", "Schroeder -",  "Absorbent +",  "Absorbent -",
+    "Hadamard",     "Conference",
   };
   addOptionMenu<Style::warning>(
     ctrlLeft4, ctrlTop2, labelWidth, labelHeight, uiTextSize, ID::matrixType,
