@@ -5,7 +5,7 @@ lang: en
 # BasicLimiter
 ![](img/basiclimiter.png)
 
-BasicLimiter is a phaser with up to 4096 stages of order 2 Thiran all-pass filters. This is the same phaser used in EnvelopedSine.
+BasicLimiter is a basic single band limiter. The sound is nothing new, but the design of true peak mode is a bit luxurious.
 
 - [Download BasicLimiter 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiter_0.1.2.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"

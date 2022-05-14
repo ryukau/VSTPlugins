@@ -5,7 +5,8 @@ from pathlib import Path
 
 def get_last_modified(md):
     result = subprocess.run(
-        ["git", "log", "-1", '--date=format:%Y-%m-%d', '--format="%cd"', "--", str(md)],
+        ["git", "log", "-1", '--date=format:%Y-%m-%d', '--format="%cd"', "--",
+         str(md)],
         stdout=subprocess.PIPE,
         encoding="utf-8",
     )
@@ -24,7 +25,7 @@ if os == "nt":
     template_path = template_path.as_uri()
 
 for md in Path(".").glob("**/*.md"):
-    if md.stem == "README":
+    if md.stem == "README" or md.parts[0] == "rewrite":
         continue
 
     print(f"Processing {md}")
