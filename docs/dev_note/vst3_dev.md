@@ -1058,6 +1058,30 @@ IController *PlugController::createSubController(
 
 - [C++でVST作り](http://vstcpp.wpblog.jp/)
 
+#### カスタムフォント
+VSTGUI でカスタムフォントを使うにはプラグインバンドルの `Contents/Resources/Fonts` に `*.ttf` ファイルを配置します。
+
+プラグインの `CMakeLists.txt` に以下の行を追加します。 `${target}` はプラグイン名あるいはプロジェクト名です。ライセンスファイルもまとめて同梱しています。
+
+```cmake
+smtg_add_plugin_resource(${target} "../common/resource/Fonts/Tinos-BoldItalic.ttf" "Fonts")
+smtg_add_plugin_resource(${target} "../common/resource/Fonts/LICENSE.txt" "Fonts")
+```
+
+コード側では `CFontDesc` でフォントファミリの文字列とスタイルを指定すれば使えます。
+
+```c++
+SharedPointer<CFontDesc> font = new CFontDesc(
+  "Tinos",                                    // フォントファミリ名。
+  10.0,                                       // サイズ。
+  CTxtFace::kBoldFace | CTxtFace::kItalicFace // スタイル。
+);
+```
+
+太字とイタリックは使えました。 Noto フォントなどが提供している demi light などのより細かい文字の太さが使えるかどうかは確認していません。
+
+フォントファミリ名あるいはスタイルの指定が正しくないときは VSTGUI が設定した `kSystemFont` がデフォルトとして使われます。 macOS では 12 ポイントの `Helvetica` 、 それ以外の OS では 12 ポイントの `Arial` がデフォルトです。詳細は `vst3sdk/vstgui4/vstgui/lib/cfont.cpp` を参照してみてください。
+
 #### ホストのオートメーションに応じて表示を更新
 ホストがオートメーションによってパラメータを変更したときは `EditController.setParamNormalized()` に変更された値が渡されます。 `setParamNormalized()` をオーバーライドして GUI に値を渡すことができます。
 
