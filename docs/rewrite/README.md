@@ -12,6 +12,7 @@ Automation scripts to rewrite manuals.
 Copy `docs/manual/*.md` under `rewrite`.
 
 ```bash
+cd docs/rewrite
 cp -r ../manual .
 ```
 
@@ -24,14 +25,13 @@ Update following variables in `rewrite.py`:
 Run following command to apply changes:
 
 ```bash
-cd docs/rewrite
 python3 rewrite.py
 ```
 
 Rewrited markdowns will be placed to `docs/rewrite/out` directory.
 
 ## `verify.py`
-`verify.py` verifies urls in all of manual html.
+`verify.py` verifies urls in all of manual html. Use this to verify download links updated by `rewrite.py`.
 
 ### Usage
 

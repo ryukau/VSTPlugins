@@ -62,13 +62,11 @@ def process(
         fi.write(text)
 
 if __name__ == "__main__":
-    release_name = "ResetAndMuteFix"
+    release_name = "BasicLimiterAndFDN64Reverb"
     en_change_log = """
-  - Fixed to reset properly.
-  - Fixed `bypass` parameter behavior. This fixes playing all the notes at the moment of unmute, even if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3 `bypass` parameter."""
+  - Change font to Tinos."""
     ja_change_log = """
-  - リセットが正しく行われるように修正。
-  - `bypass` パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の `bypass` パラメータを正しく実装しているホストでのみ発生していた。"""
+  - フォントを Tinos に変更。"""
 
     re_en_download_link = re.compile(
         r"^- \[Download (.+?) ([0-9]+)\.([0-9]+)\.([0-9]+) - VST® 3.+?\]\((.*?)\)",
