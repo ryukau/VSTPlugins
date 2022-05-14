@@ -103,10 +103,10 @@ bool Editor::prepareUI()
 
   addBarBox(
     left0, top0, barboxWidth, barboxHeight, ID::delayTime0, nDelay, Scales::delayTime,
-    "DelayTime");
+    "Delay Time [s]");
   addBarBox(
     left0, top1, barboxWidth, barboxHeight, ID::timeLfoAmount0, nDelay, Scales::delayTime,
-    "Time LFO Amount");
+    "Time LFO Amount [s]");
   addBarBox(
     left1, top0, barboxWidth, barboxHeight, ID::lowpassCutoffHz0, nDelay,
     Scales::lowpassCutoffHz, "Lowpass Cutoff [Hz]");
