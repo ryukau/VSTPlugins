@@ -5,7 +5,7 @@ lang: en
 # FDN64Reverb
 ![](img/fdn64reverb.png)
 
-FDN64Reverb is a reverb using lattice structure. Equipped with 16 delays per channel.
+FDN64Reverb is a reverb using single feedback delay network. The size of feedback matrix is 64.
 
 - [Download FDN64Reverb 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/FDN64Reverb_0.1.0.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
@@ -221,9 +221,9 @@ Diagram only shows overview. It's not exact implementation.
 ![](img/fdn64reverb.svg)
 
 ## Parameters
-Delay Time \[s\]:
+Delay Time \[s\]
 
-    Delay times in seconds. Below is the equation to calculate the total of delay time.
+:   Delay times in seconds. Below is the equation to calculate the total of delay time.
 
     ```
     delayTime = (Time Multi.) * (Delay Time) + (Time LFO Amount) * random().
@@ -231,46 +231,46 @@ Delay Time \[s\]:
 
     Note that maximum delay time do not exceed 1 second. This means that if both `Delay Time` and `Time LFO Amount` are set to 1, then LFO stop working.
 
-Time LFO Amount \[s\]:
+Time LFO Amount \[s\]
 
-    Amounts of LFO modulation to delay times.
+:   Amounts of LFO modulation to delay times.
 
     When `Interp. Rate` exceeds 1.0, LFO modulations start adding noticeable noise. To get smooth output, recommend to set `Interp. Rate` under 0.25.
 
-Lowpass Cutoff \[Hz\]:
+Lowpass Cutoff \[Hz\]
 
-    Cutoff frequencies of lowpass filters that are applied to delay outputs.
+:   Cutoff frequencies of lowpass filters that are applied to delay outputs.
 
-Highpass Cutoff \[Hz\]:
+Highpass Cutoff \[Hz\]
 
-    Cutoff frequencies of highpass filters that are applied to delay outputs.
+:   Cutoff frequencies of highpass filters that are applied to delay outputs.
 
     Note that setting `Feedback` to 1 and `Highpass Cutoff` to 0 might adds massive direct current depending on input signal.
 
 ### Delay
-Time Multi.:
+Time Multi.
 
-    A multiplier to `Delay Time`. Useful to change all the delay time at once.
+:   A multiplier to `Delay Time`. Useful to change all the delay time at once.
 
-Feedback:
+Feedback
 
-    Feedback amount of FDN. In other words, `Feedback` is a scalar that multiplies feedback matrix.
+:   Feedback amount of FDN. In other words, `Feedback` is a scalar that multiplies feedback matrix.
 
     When `Feedback` is close to 1.0, it lengthen the reverb time. When set to exactly 1.0, the reverb stop to decay. In this case, `Gate` can be used to shut down the reverb.
 
-Interp. Rate:
+Interp. Rate
 
-    Rate limiting value of delay time interpolation. For example, when `Interp. Rate` is set to 0.1, changing delay time from 0 to 1 samples requires 10 samples of interpolation time.
+:   Rate limiting value of delay time interpolation. For example, when `Interp. Rate` is set to 0.1, changing delay time from 0 to 1 samples requires 10 samples of interpolation time.
 
-Gate \[dB\]:
+Gate \[dB\]
 
-    Threshold of gate.
+:   Threshold of gate.
 
     When input amplitude is less than the value of `Gate` for a while, the gate modulates `Stereo Cross` to make output amplitude to 0. This gate is added to use along with rotation, therefore it closes fast.
 
-Matrix:
+Matrix
 
-    Type of feedback matrix. Note that changing this parameter may cause pop nosie.
+:   Type of feedback matrix. Note that changing this parameter may cause pop nosie.
 
     | Abbreviation | Full Name          | Additional Infomation               | Quality |
     | ------------ | ------------------ | ----------------------------------- | ------- |
@@ -294,42 +294,41 @@ Matrix:
 
     Quality very rough indication. Bad means it frequently adds metallic tones to output. Good means almost no metallic tone. OK is in between good and bad. SFX means they sound strange as a reverb. Bad matrices can be used to add more effects with rotation.
 
-Seed:
+Seed
 
-    フィードバック行列のランダマイズに使われるシード値です。この値を変更するとポップノイズがでることがあるので注意してください。
-    Seed value for randomization of feedback matrix. Note that changing this parameter may cause pop nosie.
+:   Seed value for randomization of feedback matrix. Note that changing this parameter may cause pop nosie.
 
-Change Matrix:
+Change Matrix
 
-    A button to randomize feedback matrix. Pressing `Change Matrix` also changes the value of `Seed`. Note that changing this parameter may cause pop nosie.
+:   A button to randomize feedback matrix. Pressing `Change Matrix` also changes the value of `Seed`. Note that changing this parameter may cause pop nosie.
 
 ### Mix
-Dry \[dB\]:
+Dry \[dB\]
 
-    A gain applied to input signal which bypasses FDN.
+:   A gain applied to input signal which bypasses FDN.
 
-Wet \[dB\]:
+Wet \[dB\]
 
-    FDN output gain.
+:   FDN output gain.
 
-Stereo Cross:
+Stereo Cross
 
-    Stereo crossing feedback amount between left and right FDNs. Setting `Stereo Cross` to 1.0 stops input to prevent blow up.
+:   Stereo crossing feedback amount between left and right FDNs. Setting `Stereo Cross` to 1.0 stops input to prevent blow up.
 
 ### Rotation
-Speed \[Hz\]:
+Speed \[Hz\]
 
-    Rotation speed of FDN input gains.
+:   Rotation speed of FDN input gains.
 
-Offset:
+Offset
 
-    Initial phase of the waveform to rotate input gains.
+:   Initial phase of the waveform to rotate input gains.
 
     `Offset` can be used to change the sound when `Speed` is 0, but `Skew` is greater than 0. Feedback matrix affects the character of output.
 
-Skew:
+Skew
 
-    Changes the waveform used to rotate input gains. Note that when `Skew` is set to 0, `Speed` and `Offset` stop working.
+:   Changes the waveform used to rotate input gains. Note that when `Skew` is set to 0, `Speed` and `Offset` stop working.
 
     Below is a plot of relation between `Skew` and rotation waveform.
 

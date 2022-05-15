@@ -5,7 +5,7 @@ lang: ja
 # WaveCymbal
 ![](img/wavecymbal.png)
 
-<ruby>WaveCymbal<rt>ウェイブシンバル</rt></ruby>は banded wave-guide という手法を用いてシンバルの音が鳴るはずだったシンセサイザです。実際のところはシンバルというよりも、アスファルトの上でトタン板や紐につないだ空き缶を引きずったときのような音が出ます。
+<ruby>WaveCymbal<rt>ウェイブ シンバル</rt></ruby> は banded wave-guide という手法を用いてシンバルの音が鳴るはずだったシンセサイザです。実際のところはシンバルというよりも、アスファルトの上でトタン板や紐につないだ空き缶を引きずったときのような音が出ます。
 
 - [WaveCymbal 0.1.14 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/WaveCymbal_0.1.14.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
@@ -139,7 +139,7 @@ xattr -rc /path/to/PluginName.vst3
 - `foreground`: 文字の色。
 - `foregroundButtonOn`: オンになっているボタンの文字の色。 `foreground` か `boxBackground` のいずれかと同じ値にすることを推奨します。
 - `foregroundInactive`: 非アクティブなタブの文字の色。
-- `background`: 背景色。x
+- `background`: 背景色。
 - `boxBackground`: 矩形の UI 部品の内側の背景色。
 - `border`: <ruby>縁<rt>ふち</rt></ruby>の色。
 - `borderCheckbox`: チェックボックスの縁の色。

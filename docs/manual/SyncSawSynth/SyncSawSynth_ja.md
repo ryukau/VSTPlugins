@@ -5,7 +5,7 @@ lang: ja
 # SyncSawSynth
 ![](img/syncsawsynth.png)
 
-<ruby>SyncSawSynth<rt>シンクソウシンセ</rt></ruby>は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。
+<ruby>SyncSawSynth<rt>シンク ソウ シンセ</rt></ruby> は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。
 
 - [SyncSawSynth 0.1.18 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/SyncSawSynth_0.1.18.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
@@ -139,7 +139,7 @@ xattr -rc /path/to/PluginName.vst3
 - `foreground`: 文字の色。
 - `foregroundButtonOn`: オンになっているボタンの文字の色。 `foreground` か `boxBackground` のいずれかと同じ値にすることを推奨します。
 - `foregroundInactive`: 非アクティブなタブの文字の色。
-- `background`: 背景色。x
+- `background`: 背景色。
 - `boxBackground`: 矩形の UI 部品の内側の背景色。
 - `border`: <ruby>縁<rt>ふち</rt></ruby>の色。
 - `borderCheckbox`: チェックボックスの縁の色。

@@ -22,34 +22,93 @@ For Linux, LV2 version is available.
 
 # プラグイン一覧 | Plugin List
 
-- [CollidingCombSynth](#collidingcombsynth)
+<style>
+div.pluginlist {
+  margin: auto 0.25em;
+  padding: 0.25em;
+  display: inline-flex;
+}
+</style>
 
-- [CubicPadSynth](#cubicpadsynth)
+#### Synthesizers
+<div class="pluginlist"><a href="#collidingcombsynth">
+<ruby>CollidingCombSynth<rt>コライディング コム シンセ</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#cubicpadsynth">
+<ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#envelopedsine">
+<ruby>EnvelopedSine<rt>エンベロープド サイン</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#fdncymbal">
+<ruby>FDNCymbal<rt>エフディーエヌ シンバル</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#iterativesincluster">
+<ruby>IterativeSinCluster<rt>イテレイティブ サイン クラスタ</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#lightpadsynth">
+<ruby>LightPadSynth<rt>ライト パッド シンセ</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#syncsawsynth">
+<ruby>SyncSawSynth<rt>シンク ソウ シンセ</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#trapezoidsynth">
+<ruby>TrapezoidSynth<rt>トラピゾイド シンセ</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#wavecymbal">
+<ruby>WaveCymbal<rt>ウェイブ シンバル</rt></ruby>
+</a></div>
 
-- [EnvelopedSine](#envelopedsine)
+#### Effects
+<div class="pluginlist"><a href="#basiclimiter">
+<ruby>BasicLimiter<rt>ベーシック リミッタ</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#esphaser">
+<ruby>EsPhaser<rt>エス フェイザ</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#fdn64reverb">
+<ruby>FDN64Reverb<rt>エフディーエヌ 64 リバーブ</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#l4reverb">
+<ruby>L4Reverb<rt>エル フォー リバーブ</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#latticereverb">
+<ruby>LatticeReverb<rt>ラティス リバーブ</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#sevendelay">
+<ruby>SevenDelay<rt>セブン ディレイ</rt></ruby>
+</a></div>
 
-- [EsPhaser](#esphaser)
+## FDN64Reverb
+<figure>
+<img src="manual/FDN64Reverb/img/fdn64reverb.png" alt="Image of FDN64Reverb graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 
-- [FDNCymbal](#fdncymbal)
+FDN64Reverb はフィードバック・ディレイ・ネットワーク (FDN) を 1 つだけ搭載したリバーブです。しかしながら、フィードバック行列の大きさは 64 です。
 
-- [IterativeSinCluster](#iterativesincluster)
+- [FDN64Reverb のマニュアル (日本語)](manual/FDN64Reverb/FDN64Reverb_ja.html)
 
-- [L4Reverb](#l4reverb)
+FDN64Reverb is a reverb equipped with a feedback delay network (FDN). However, the size of feedback matrix is 64.
 
-- [LatticeReverb](#latticereverb)
+- [FDN64Reverb Manual (English)](manual/FDN64Reverb/FDN64Reverb_en.html)
 
-- [LightPadSynth](#lightpadsynth)
+## BasicLimiter
+<figure>
+<img src="manual/BasicLimiter/img/basiclimiter.png" alt="Image of BasicLimiter graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 
-- [SevenDelay](#sevendelay)
+BasicLimiter は名前の通りベーシックなシングルバンドリミッタです。目新しい音は出ませんが、トゥルーピークモードはやや贅沢に設計しています。
 
-- [SyncSawSynth](#syncsawsynth)
+- [BasicLimiter のマニュアル (日本語)](manual/BasicLimiter/BasicLimiter_ja.html)
 
-- [TrapezoidSynth](#trapezoidsynth)
+BasicLimiter is a basic single band limiter. The sound is nothing new, but the design of true peak mode is a bit luxurious.
 
-- [WaveCymbal](#wavecymbal)
+- [BasicLimiter Manual (English)](manual/BasicLimiter/BasicLimiter_en.html)
 
 ## CollidingCombSynth
-![](manual/CollidingCombSynth/img/collidingcombsynth.png)
+<figure>
+<img src="manual/CollidingCombSynth/img/collidingcombsynth.png" alt="Image of CollidingCombSynth graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 
 CollidingCombSynth は Karplus-Strong アルゴリズムによる弦の物理モデルをぶつけることで、弦を擦ったときのような音が出る実験的なシンセサイザです。音程はでますがチューニングが難しいので、どちらかと言うと効果音に向いています。
 
@@ -60,7 +119,9 @@ CollidingCombSynth is an experimental synthesizer which sounds like bowed string
 - [CollidingCombSynth Manual (English)](manual/CollidingCombSynth/CollidingCombSynth_en.html)
 
 ## L4Reverb
-![](manual/L4Reverb/img/l4reverb.png)
+<figure>
+<img src="manual/L4Reverb/img/l4reverb.png" alt="Image of L4Reverb graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 
 L4Reverb は LatticeReverb の拡張版です。今回の格子構造はチャンネル毎に 4 * 4 * 4 * 4 = 256 のセクションが設けてあります。
 
@@ -71,7 +132,9 @@ L4Reverb is an extended version of LatticeReverb. This time, lattice structure h
 - [L4Reverb Manual (English)](manual/L4Reverb/L4Reverb_en.html)
 
 ## LatticeReverb
-![](manual/LatticeReverb/img/latticereverb.png)
+<figure>
+<img src="manual/LatticeReverb/img/latticereverb.png" alt="Image of LatticeReverb graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 
 LatticeReverb はディレイを使った高次のオールパスフィルタを格子状につないで入れ子にしたリバーブです。 1 チャンネルあたり 16 のオールパスフィルタを備えています。
 
@@ -82,7 +145,9 @@ LatticeReverb is a reverb using lattice structure. Equipped with 16 delays per c
 - [LatticeReverb Manual (English)](manual/LatticeReverb/LatticeReverb_en.html)
 
 ## LightPadSynth
-![](manual/LightPadSynth/img/lightpadsynth.png)
+<figure>
+<img src="manual/LightPadSynth/img/lightpadsynth.png" alt="Image of LightPadSynth graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 
 LightPadSynth はピッチ変調を無くして補間を線形補完に変えた CubicPadSynth の軽量版です。ピッチ変調ができなくなった代わりに、各ボイスにディレイを追加しています。
 
@@ -93,7 +158,9 @@ LightPadSynth is a lightweight version of CubicPadSynth. For efficiency, interpo
 - [LightPadSynth Manual (English)](manual/LightPadSynth/LightPadSynth_en.html)
 
 ## CubicPadSynth
-![](manual/CubicPadSynth/img/cubicpadsynth.png)
+<figure>
+<img src="manual/CubicPadSynth/img/cubicpadsynth.png" alt="Image of CubicPadSynth graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 
 CubicPadSynth は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています。
 
@@ -104,7 +171,9 @@ CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to genera
 - [CubicPadSynth Manual (English)](manual/CubicPadSynth/CubicPadSynth_en.html)
 
 ## EsPhaser
-![](manual/EsPhaser/img/esphaser.png)
+<figure>
+<img src="manual/EsPhaser/img/esphaser.png" alt="Image of EsPhaser graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 
 EsPhaser は最大 4096 の 2 次 Thiran オールパスフィルタを直列につなぐことができるフェイザです。 EnvelopedSine のフェイザと同じアルゴリズムを使っています。
 
@@ -115,7 +184,9 @@ EsPhaser is a phaser with up to 4096 stages of order 2 Thiran all-pass filters. 
 - [EsPhaser Manual (English)](manual/EsPhaser/EsPhaser_en.html)
 
 ## EnvelopedSine
-![](manual/EnvelopedSine/img/envelopedsine.png)
+<figure>
+<img src="manual/EnvelopedSine/img/envelopedsine.png" alt="Image of EnvelopedSine graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 
 EnvelopedSineはノート 1 つあたり 64 のサイン波を計算する加算合成シンセサイザです。各サイン波に AD エンベロープとサチュレータがついているので IterativeSinCluster よりもパーカッシブな音が得意です。
 
@@ -126,7 +197,9 @@ EnvelopedSine is an additive synthesizer that computes 64 sine waves for each no
 - [EnvelopedSine Manual (English)](manual/EnvelopedSine/EnvelopedSine_en.html)
 
 ## IterativeSinCluster
-![](manual/IterativeSinCluster/img/iterativesincluster.png)
+<figure>
+<img src="manual/IterativeSinCluster/img/iterativesincluster.png" alt="Image of IterativeSinCluster graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 
 IterativeSinCluster はノート 1 つあたりで 512 のサイン波を計算する加算合成シンセサイザです。このページで配布しているバイナリを利用するには AVX2 をサポートしている CPU が必要です。
 
@@ -137,7 +210,9 @@ IterativeSinCluster is an additive synthesizer. This synth computes 512 sine wav
 - [IterativeSinCluster Manual (English)](manual/IterativeSinCluster/IterativeSinCluster_en.html)
 
 ## TrapezoidSynth
-![](manual/TrapezoidSynth/img/trapezoidsynth.png)
+<figure>
+<img src="manual/TrapezoidSynth/img/trapezoidsynth.png" alt="Image of TrapezoidSynth graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 
 TrapezoidSynth は 4 つの PTR ランプ関数を継ぎ接ぎした台形オシレータを使ったモノフォニックシンセサイザです。継ぎ接ぎしたのが仇をなしてピッチが高くなるとノイズが乗る欠点があったので8倍にオーバーサンプリングしました。結果としてやたら重たくなっています。
 
@@ -148,7 +223,9 @@ TrapezoidSynth is a monophonic synthesizer equipped with trapezoid oscillator wh
 - [TrapezoidSynth Manual (English)](manual/TrapezoidSynth/TrapezoidSynth_en.html)
 
 ## FDNCymbal
-![](manual/FDNCymbal/img/fdncymbal.png)
+<figure>
+<img src="manual/FDNCymbal/img/fdncymbal.png" alt="Image of FDNCymbal graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 
 FDNCymbal は WaveCymbal に続いてシンバルのような音を作ろうとしたプラグインです。今回は FDN (Feedback Delay Network) と Schroeder allpass を使っています。名前とは裏腹に、金属的な質感はほとんど Schroeder allpass によって加えられています。シンバルの揺れをシミュレートするためにトレモロもついています。
 
@@ -159,7 +236,9 @@ FDNCymbal is another attempt to make cymbal sound. This time FDN (Feedback Delay
 - [FDNCymbal Manual (English)](manual/FDNCymbal/FDNCymbal_en.html)
 
 ## WaveCymbal
-![](manual/WaveCymbal/img/wavecymbal.png)
+<figure>
+<img src="manual/WaveCymbal/img/wavecymbal.png" alt="Image of WaveCymbal graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 
 WaveCymbal は banded wave-guide という物理モデリングの手法でシンバルの音を作ろうとしたプラグインです。シンバルというよりも、薄い金属板をアスファルトの上で引きずったときのような音が出ます。シンセサイザ、エフェクトのどちらとしても使えます。
 
@@ -170,7 +249,9 @@ WaveCymbal is an attempt to make cymbal sound with banded wave-guide which is a 
 - [WaveCymbal Manual (English)](manual/WaveCymbal/WaveCymbal_en.html)
 
 ## SyncSawSynth
-![](manual/SyncSawSynth/img/syncsawsynth.png)
+<figure>
+<img src="manual/SyncSawSynth/img/syncsawsynth.png" alt="Image of SyncSawSynth graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 
 SyncSawSynthは10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。
 
@@ -181,7 +262,9 @@ SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR saw
 - [SyncSawSynth Manual (English)](manual/SyncSawSynth/SyncSawSynth_en.html)
 
 ## SevenDelay
-![](manual/SevenDelay/img/sevendelay.png)
+<figure>
+<img src="manual/SevenDelay/img/sevendelay.png" alt="Image of SevenDelay graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 
 SevenDelayはステレオディレイです。分数ディレイに7次のラグランジュ補間を使って7倍のオーバーサンプリングをしています。オートメーションなどでディレイ時間を積極的に動かして音を作る用途に向いています。
 

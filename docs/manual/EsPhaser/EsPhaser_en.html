@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2021-11-20" />
+<meta name="dcterms.date" content="2022-05-14" />
 <title>EsPhaser_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -14,19 +14,19 @@ span.underline { text-decoration: underline; }
 div.column { display: inline-block; vertical-align: top; width: 50%; }
 </style>
 <style>
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -46,7 +46,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -78,8 +78,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
-<style>
-body {
+<style>body {
   max-width: 704px;
   margin: auto;
   padding: 32px 8px;
@@ -93,22 +92,26 @@ video {
   max-width: 100%;
 }
 
-details.list > summary {
+details.list>summary {
   line-height: 3em;
 }
 
 kbd {
   font-family: inherit;
-  border-style: solid;
+  border-style: outset;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 4px;
+  padding: 2px 4px;
   margin: 2px;
   line-height: calc(1em + 16px);
 }
 
 a {
   text-decoration: none;
+}
+
+a:hover {
+  background-color: #ffe590;
 }
 
 h1 {
@@ -130,16 +133,19 @@ h3 {
 h4 {
   border-left: solid 12px #6a88da;
   padding-left: 8px;
+  margin-bottom: 0.5em;
 }
 
 h5 {
   border-left: solid 4px #8ca4e7;
   padding-left: 4px;
+  margin-bottom: 0.5em;
 }
 
 h6 {
   border-left: solid 2px #a8bcf5;
   padding-left: 2px;
+  margin-bottom: 0.5em;
 }
 
 table {
@@ -187,12 +193,12 @@ dl {
 dt {
   font-weight: bold;
   border-bottom: 1px dashed #000000;
-  margin-top: 2em;
 }
 
 dd {
   border-left: 1px dotted #000000;
   margin-left: 1em;
+  margin-bottom: 2em;
   padding-left: 1em;
 }
 
@@ -204,7 +210,7 @@ label {
   vertical-align: middle;
 }
 
-:not(.sourceCode) > pre {
+:not(.sourceCode)>pre {
   overflow: auto;
   border: 1px solid #888888;
   padding: 8px;
@@ -216,15 +222,17 @@ div.sourceCode {
   padding: 8px;
 }
 
-pre > code.sourceCode > span > a:first-child::before {
+pre>code.sourceCode>span>a:first-child::before {
   border-right: 1px solid #888888;
   padding-right: 1em;
   margin-right: 1em;
   text-decoration: none;
 }
 
-:not(pre) > code {
-  color: #163eac;
+:not(pre)>code {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+  color: #705020;
 }
 
 li {
@@ -246,6 +254,7 @@ footer {
   padding: 0.5em;
   margin-top: 1em;
 }
+
 </style>
 </head>
 
@@ -253,19 +262,23 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2021-11-20
+  Update: 2022-05-14
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#esphaser">EsPhaser</a><ul>
-  <li><a href="#installation">Installation</a><ul>
+  <li><a href="#esphaser">EsPhaser</a>
+  <ul>
+  <li><a href="#contact">Contact</a></li>
+  <li><a href="#installation">Installation</a>
+  <ul>
   <li><a href="#plugin">Plugin</a></li>
   <li><a href="#presets">Presets</a></li>
   <li><a href="#windows-specific">Windows Specific</a></li>
   <li><a href="#linux-specific">Linux Specific</a></li>
-  <li><a href="#macos-specific">macOS Specific</a><ul>
+  <li><a href="#macos-specific">macOS Specific</a>
+  <ul>
   <li><a href="#reference">Reference</a></li>
   </ul></li>
   </ul></li>
@@ -274,10 +287,12 @@ footer {
   <li><a href="#caution">Caution</a></li>
   <li><a href="#block-diagram">Block Diagram</a></li>
   <li><a href="#parameters">Parameters</a></li>
-  <li><a href="#change-log">Change Log</a><ul>
+  <li><a href="#change-log">Change Log</a>
+  <ul>
   <li><a href="#old-versions">Old Versions</a></li>
   </ul></li>
-  <li><a href="#license">License</a><ul>
+  <li><a href="#license">License</a>
+  <ul>
   <li><a href="#about-vst">About VST</a></li>
   </ul></li>
   </ul></li>
@@ -289,7 +304,7 @@ footer {
 <p><img src="img/esphaser.png" /></p>
 <p>EsPhaser is a phaser with up to 4096 stages of order 2 Thiran all-pass filters. This is the same phaser used in EnvelopedSine.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/EsPhaser_0.1.7.zip">Download EsPhaser 0.1.7 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/EsPhaser_0.1.8.zip">Download EsPhaser 0.1.8 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -301,10 +316,11 @@ style="display: inline-block; vertical-align: middle;"></li>
 <ul>
 <li>Windows 64bit</li>
 <li>Linux 64bit</li>
-<li>macOS 64bit</li>
 </ul>
-<p>macOS build isn’t tested because I don’t have Mac. If you found a bug, please file a issue to <a href="https://github.com/ryukau/VSTPlugins">GitHub repository</a> or send email to <code>ryukau@gmail.com</code>.</p>
+<p>On 2022-05-15, macOS is not supported. Current code fails to build as macOS universal binary. I’m planning to support macOS in future. However due to my financial situation, I can’t purchase M1 mac for now.</p>
 <p>Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely run. In this case, please take a look at <a href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">build instruction</a>.</p>
+<h2 id="contact">Contact</h2>
+<p>Feel free to contact me on <a href="https://github.com/ryukau/VSTPlugins/commits/master">GitHub repository</a> or <code>ryukau@gmail.com.</code></p>
 <h2 id="installation">Installation</h2>
 <h3 id="plugin">Plugin</h3>
 <p>Place <code>*.vst3</code> directory to:</p>
@@ -329,18 +345,19 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <h3 id="linux-specific">Linux Specific</h3>
 <p>On Ubuntu 18.0.4, those packages are required.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
 <p>If DAW doesn’t recognize the plugin, take a look at <code>Package Requirements</code> section of the link below and make sure all the VST3 related package is installed.</p>
 <ul>
 <li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI: Setup</a></li>
 </ul>
 <p>REAPER on Linux may not recognize the plugin. A workaround is to delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and restart REAPER.</p>
 <h3 id="macos-specific">macOS Specific</h3>
+<p><strong>Important</strong>: Current package do not contain mac OS build.</p>
 <p>When trying to run plugin first time, following message may appear on macOS.</p>
 <pre><code>&lt;PluginName&gt;.vst3 is damaged and can&#39;t be opened. You should move it to
 the Trash&quot;</code></pre>
 <p>In this case, open terminal and try running following command to unzipped <code>.vst3</code> directory.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="ex">xattr</span> -rc /path/to/PluginName.vst3</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rc</span> /path/to/PluginName.vst3</span></code></pre></div>
 <p>Plugin may be considered as unsigned/un-notarized application. In this case, try following the steps below.</p>
 <ol type="1">
 <li>Open terminal and run <code>sudo spctl --master-disable</code>.</li>
@@ -368,24 +385,24 @@ the Trash&quot;</code></pre>
 <li><code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> on macOS.</li>
 </ul>
 <p>Below is a example of <code>style.json</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">{</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="dt">&quot;fontPath&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span><span class="fu">,</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a>  <span class="dt">&quot;background&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a>  <span class="dt">&quot;boxBackground&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>  <span class="dt">&quot;border&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a>  <span class="dt">&quot;borderCheckbox&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a>  <span class="dt">&quot;borderLabel&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a>  <span class="dt">&quot;unfocused&quot;</span><span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span><span class="fu">,</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a>  <span class="dt">&quot;highlightMain&quot;</span><span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span><span class="fu">,</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a>  <span class="dt">&quot;highlightAccent&quot;</span><span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span><span class="fu">,</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a>  <span class="dt">&quot;highlightButton&quot;</span><span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span><span class="fu">,</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontPath&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span><span class="fu">,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;background&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;boxBackground&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;border&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderCheckbox&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderLabel&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;unfocused&quot;</span><span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span><span class="fu">,</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightMain&quot;</span><span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span><span class="fu">,</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightAccent&quot;</span><span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span><span class="fu">,</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightButton&quot;</span><span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span><span class="fu">,</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Hex color codes are used.</p>
 <ul>
 <li>6 digit color is RGB.</li>
@@ -464,6 +481,10 @@ the Trash&quot;</code></pre>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.8
+<ul>
+<li>Changed font to Tinos.</li>
+</ul></li>
 <li>0.1.7
 <ul>
 <li>Fixed to reset properly.</li>
@@ -500,6 +521,7 @@ the Trash&quot;</code></pre>
 </ul>
 <h3 id="old-versions">Old Versions</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/EsPhaser_0.1.7.zip">EsPhaser 0.1.7 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/EsPhaser0.1.6.zip">EsPhaser 0.1.6 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/EsPhaser0.1.5.zip">EsPhaser 0.1.5 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/EsPhaser0.1.4.zip">EsPhaser 0.1.4 - VST 3 (github.com)</a></li>

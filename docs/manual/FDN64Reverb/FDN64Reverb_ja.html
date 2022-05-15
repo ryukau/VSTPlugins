@@ -6,7 +6,7 @@
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <meta name="dcterms.date" content="2022-05-14" />
-<title>L4Reverb_ja</title>
+<title>FDN64Reverb_ja</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -268,7 +268,7 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#l4reverb">L4Reverb</a>
+  <li><a href="#fdn64reverb">FDN64Reverb</a>
   <ul>
   <li><a href="#連絡先">連絡先</a></li>
   <li><a href="#インストール">インストール</a>
@@ -288,15 +288,12 @@ footer {
   <li><a href="#ブロック線図">ブロック線図</a></li>
   <li><a href="#パラメータ">パラメータ</a>
   <ul>
-  <li><a href="#multiplier">Multiplier</a></li>
-  <li><a href="#panic">Panic!</a></li>
+  <li><a href="#delay">Delay</a></li>
   <li><a href="#mix">Mix</a></li>
-  <li><a href="#stereo">Stereo</a></li>
-  <li><a href="#misc.">Misc.</a></li>
+  <li><a href="#rotation">Rotation</a></li>
   </ul></li>
   <li><a href="#チェンジログ">チェンジログ</a>
   <ul>
-  <li><a href="#l3reverb">L3Reverb</a></li>
   <li><a href="#旧バージョン">旧バージョン</a></li>
   </ul></li>
   <li><a href="#ライセンス">ライセンス</a>
@@ -308,27 +305,18 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="l4reverb">L4Reverb</h1>
-<p><img src="img/l4reverb.png" /></p>
-<p><ruby>L4Reverb<rt>エル フォー リバーブ</rt></ruby> は LatticeReverb の拡張版です。今回の格子構造はチャンネル毎に 4 * 4 * 4 * 4 = 256 のセクションが設けてあります。</p>
+<h1 id="fdn64reverb">FDN64Reverb</h1>
+<p><img src="img/fdn64reverb.png" /></p>
+<p><ruby>FDN64Reverb<rt>エフディーエヌ 64 リバーブ</rt></ruby> はフィードバック・ディレイ・ネットワーク (FDN) を 1 つだけ搭載したリバーブです。しかしながら、フィードバック行列の大きさは 64 です。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/L4Reverb_0.1.5.zip">L4Reverb 0.1.5 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/FDN64Reverb_0.1.0.zip">FDN64Reverb 0.1.0 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4ReverbPresets.zip">プリセットをダウンロード (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/FDN64ReverbPresets.zip">プリセットをダウンロード (github.com)</a></li>
 </ul>
-<p>もし L4Reverb が重たすぎるときは L3Reverb を試してみてください。 <ruby>L3Reverb<rt>エル スリー リバーブ</rt></ruby> は L4Reverb の軽量版です。格子構造はチャンネル毎に 3 * 3 * 3 * 5 = 135 のセクションが設けてあります。</p>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L3Reverb_0.1.4.zip">L3Reverb 0.1.4 をダウンロード - VST® 3 (github.com)</a> <img
-src="img/VST_Compatible_Logo_Steinberg_negative.svg"
-alt="VST compatible logo."
-width="60px"
-style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L3ReverbPresets.zip">プリセットをダウンロード (github.com)</a></li>
-</ul>
-<p>L4Reverb と L3Reverb の利用には AVX 以降の SIMD 命令セットをサポートする CPU が必要です。</p>
+<p>FDN64Reverb の利用には AVX 以降の SIMD 命令セットをサポートする CPU が必要です。</p>
 <p>パッケージには次のビルドが含まれています。</p>
 <ul>
 <li>Windows 64bit</li>
@@ -610,163 +598,212 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> のスナップは一部の BarBox だけで有効になっています。特定の BarBox にスナップを追加したいという要望があれば、お気軽に <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を開いてください。</p>
 <p><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> による 1 つのバーを編集は、マウスホイールが押された時点でカーソルの下にあるバーだけを編集します。マウスホイールが押されている間はカーソルの左右の位置に関わらず、選択したバーのみを編集できます。</p>
 <p><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> によるロックの切り替えでは、マウスホイールが押された時点でカーソルの下にあるバーの反対の状態が残り全てに適用されます。例えばカーソルの下のバーがアクティブだったときはロックに切り替えます。</p>
-<p>いくつかの BarBox の下にはスクロールバーがついています。細かい調整を行うときはスクロールバーの左右のハンドルを <kbd>左ドラッグ</kbd> で動かすことで表示範囲を変更できます。スクロールバーでは次の操作が行えます。</p>
-<ul>
-<li><kbd>右クリック</kbd> : 表示範囲のリセット</li>
-<li><kbd>マウスホイール</kbd> : ズームイン・ズームアウト</li>
-</ul>
 <h2 id="注意">注意</h2>
-<p>サンプリング周波数やバッファサイズによって出力が変わります。</p>
-<p><code>Cross</code> と <code>Spread</code> の両方が 0 でないときに発散することがあります。</p>
-<p><code>*Feed</code> の <code>offset</code> が 0 でないときに出力が大きくなることがあります。</p>
-<p>次の手順に沿った操作が行われると出力が大きくなることがあります。</p>
-<ol type="1">
-<li><code>OuterFeed</code> あるいは <code>InnerFeed</code> のいくつかを最大値あるいは最小値の近くに設定。</li>
-<li>信号を入力。</li>
-<li>手順 1. で設定した <code>OuterFeed</code> あるいは <code>InnerFeed</code> の値を変更する。</li>
-</ol>
+<p><code>Feedback</code> の値が 1 のときに <code>Highpass Cutoff</code> の値を 0 にすると入力信号によっては極端な直流が乗ることがあります。</p>
 <h2 id="ブロック線図">ブロック線図</h2>
 <p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> + <kbd>マウスホイール</kbd> や、右クリックから「画像だけを表示」などで拡大できます。</p>
 <p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
-<p><img src="img/l4reverb.svg" /></p>
+<p><img src="img/fdn64reverb.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
 <dl>
-<dt>Time</dt>
-<dd><p>オールパスフィルタのディレイ時間です。</p>
+<dt>Delay Time [s]</dt>
+<dd><p>ディレイ時間の秒数です。最終的なディレイ時間の秒数は以下の式で計算されます。</p>
+<pre><code>delayTime = (Time Multi.) * (Delay Time) + (Time LFO Amount) * random().</code></pre>
+<p>ディレイ時間は 1 秒を超えることはないので注意してください。例えば <code>Delay Time</code> と <code>Time LFO Amount</code> を最大に設定すると LFO はかかりません。</p>
 </dd>
-<dt>InnerFeed</dt>
-<dd><p>格子構造の内側に入れ子になったオールパスフィルタのフィードバック、フィードフォワードの値です。</p>
+<dt>Time LFO Amount [s]</dt>
+<dd><p>ディレイ時間に加算される LFO の量です。例えば <code>Time LFO Amount</code> の値が 0.1 ならディレイ時間の最大値は <code>(Delay Time) + 0.1</code> 秒になります。</p>
+<p><code>Interp. Rate</code> が 1.0 を超えると変調によるノイズが目立ち始めます。とにかく滑らかな音が欲しいときは <code>Interp. Rate</code> を 0.25 以下にすることを推奨します。</p>
 </dd>
-<dt>D1Feed</dt>
-<dd><p>格子構造の入れ子の最下層のフィードバック、フィードフォワードの値です。</p>
+<dt>Lowpass Cutoff [Hz]</dt>
+<dd><p>ディレイの出力にかかるローパスフィルタのカットオフ周波数です。</p>
 </dd>
-<dt>D2Feed</dt>
-<dd><p>格子構造の入れ子の底から 2 番目の階層でのフィードバック、フィードフォワードの値です。</p>
-</dd>
-<dt>D3Feed</dt>
-<dd><p>格子構造の入れ子の底から 3 番目の階層でのフィードバック、フィードフォワードの値です。</p>
-</dd>
-<dt>D4Feed</dt>
-<dd><p>格子構造の入れ子の最上層でのフィードバック、フィードフォワードの値です。</p>
+<dt>Highpass Cutoff [Hz]</dt>
+<dd><p>ディレイの出力にかかるハイパスフィルタのカットオフ周波数です。</p>
+<p><code>Feedback</code> の値が 1 のときに <code>Highpass Cutoff</code> の値を 0 にすると直流が乗ることがあるので注意してください。</p>
 </dd>
 </dl>
-<p><strong>Tip</strong>: フィードバック、フィードフォワードの値をすべて負の値にすることで、入力信号の音がぼやけてウェットな質感になります。特に <code>D4Feed</code> をうまく調整してみてください。</p>
-<h3 id="multiplier">Multiplier</h3>
-<p><code>Time</code> や <code>*Feed</code> の値をまとめて変更する係数です。減衰時間をまとめて変えるときなどに使えます。</p>
-<p><code>Base</code> は左右のチャンネルで両方で使われる値です。 <code>Base</code> によってリバーブの大まかな質感が決まります。</p>
-<p><code>Offset</code> は左右のチャンネルの値の比率です。 <code>Offset</code> によって左右の広がりを作ることができます。</p>
-<pre><code>if (Offset &gt;= 0) {
-  valueL = Base
-  valueR = Base * (1 - Offset)
-}
-else {
-  valueL = Base * (1 + Offset)
-  valueR = Base
-}</code></pre>
-<p><code>Modulation</code> にチェックが入っているとき、 <code>Offset</code> の値はバッファごとにランダマイズされます。 <code>Smooth</code> でモジュレーションの質感を変えることができます。</p>
-<h3 id="panic">Panic!</h3>
-<p>ボタンを押すと <code>Time</code> と <code>*Feed</code> の Multiplier を 0 にしてリバーブの出力を止めます。</p>
-<p>出力が想定外に大きくなったときなど、音を手早く止めたいときに使えます。</p>
+<h3 id="delay">Delay</h3>
+<dl>
+<dt>Time Multi.</dt>
+<dd><p><code>Delay Time</code> に乗算される値です。まとめてディレイ時間を変えたいときに便利です。</p>
+</dd>
+<dt>Feedback</dt>
+<dd><p>FDN からフィードバックされる量です。別の言い方をすると FDN のフィードバック行列に掛け合わされるスカラーです。</p>
+<p>1.0 に近づくほどリバーブ時間が長くなります。 1.0 すると、ほとんど減衰しなくなります。このときは <code>Gate</code> を使って残響を打ち切ることができます。</p>
+</dd>
+<dt>Interp. Rate</dt>
+<dd><p>ディレイ時間の変動を補間するレートリミッタの、 1 サンプルあたりの制限量です。例えば <code>Interp. Rate</code> が 0.1 のときは、 10 サンプル経過でディレイ時間が 0.1 * 10 = 1 サンプル変わります。</p>
+</dd>
+<dt>Gate [dB]</dt>
+<dd><p>ゲートのしきい値です。</p>
+<p>入力振幅が <code>Gate</code> の値を一定時間下回ると、 <code>Stereo Cross</code> の値を内部的に変調して出力振幅を 0 にします。このゲートは Rotation 使用時にフィードバックを打ち切るためにつけた機能なので、かなり素早く閉じます。</p>
+</dd>
+<dt>Matrix</dt>
+<dd><p>フィードバック行列の種類です。この値を変更するとポップノイズがでることがあるので注意してください。</p>
+<table>
+<thead>
+<tr class="header">
+<th>GUI 上の略称</th>
+<th>行列名</th>
+<th>追加情報</th>
+<th>質</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ortho.</td>
+<td>直交行列</td>
+<td></td>
+<td>良</td>
+</tr>
+<tr class="even">
+<td>S. Ortho.</td>
+<td>特殊直行行列</td>
+<td></td>
+<td>良</td>
+</tr>
+<tr class="odd">
+<td>Circ. Ortho.</td>
+<td>巡回行列</td>
+<td></td>
+<td>並</td>
+</tr>
+<tr class="even">
+<td>Circ. 4</td>
+<td>巡回行列</td>
+<td>1 行当たりの非ゼロ要素を 4 に制限</td>
+<td>特殊効果</td>
+</tr>
+<tr class="odd">
+<td>Circ. 8</td>
+<td>巡回行列</td>
+<td>1 行当たりの非ゼロ要素を 8 に制限</td>
+<td>特殊効果</td>
+</tr>
+<tr class="even">
+<td>Circ. 16</td>
+<td>巡回行列</td>
+<td>1 行当たりの非ゼロ要素を 16 に制限</td>
+<td>特殊効果</td>
+</tr>
+<tr class="odd">
+<td>Circ. 32</td>
+<td>巡回行列</td>
+<td>1 行当たりの非ゼロ要素を 32 に制限</td>
+<td>特殊効果</td>
+</tr>
+<tr class="even">
+<td>Upper Tri. +</td>
+<td>上三角行列</td>
+<td>ランダマイズの範囲が <code>[0, 1]</code></td>
+<td>低</td>
+</tr>
+<tr class="odd">
+<td>Upper Tri. -</td>
+<td>上三角行列</td>
+<td>ランダマイズの範囲が <code>[-1, 0]</code></td>
+<td>低</td>
+</tr>
+<tr class="even">
+<td>Lower Tri. +</td>
+<td>下三角行列</td>
+<td>ランダマイズの範囲が <code>[0, 1]</code></td>
+<td>低</td>
+</tr>
+<tr class="odd">
+<td>Lower Tri. -</td>
+<td>下三角行列</td>
+<td>ランダマイズの範囲が <code>[-1, 0]</code></td>
+<td>低</td>
+</tr>
+<tr class="even">
+<td>Schroeder +</td>
+<td>シュローダー・リバーブ行列</td>
+<td>ランダマイズの範囲が <code>[0, 1]</code></td>
+<td>低</td>
+</tr>
+<tr class="odd">
+<td>Schroeder -</td>
+<td>シュローダー・リバーブ行列</td>
+<td>ランダマイズの範囲が <code>[-1, 0]</code></td>
+<td>低</td>
+</tr>
+<tr class="even">
+<td>Absorbent +</td>
+<td>吸収オールパス行列</td>
+<td>ランダマイズの範囲が <code>[0, 1]</code></td>
+<td>並</td>
+</tr>
+<tr class="odd">
+<td>Absorbent -</td>
+<td>吸収オールパス行列</td>
+<td>ランダマイズの範囲が <code>[-1, 0]</code></td>
+<td>並</td>
+</tr>
+<tr class="even">
+<td>Hadamard</td>
+<td>アダマール行列</td>
+<td>行列の性質よりランダマイズ無効</td>
+<td>良</td>
+</tr>
+<tr class="odd">
+<td>Conference</td>
+<td>カンファレンス行列</td>
+<td>行列の性質よりランダマイズ無効</td>
+<td>良</td>
+</tr>
+</tbody>
+</table>
+<p>質は大まかな目安です。ショートディレイによる金属的な質感が出やすいものは低、出にくいものは良としています。特殊効果としているものは一般的なリバーブとしては音が変という意味です。 Rotation の効果は質が低いほど聞こえやすくなります。</p>
+</dd>
+<dt>Seed</dt>
+<dd><p>フィードバック行列のランダマイズに使われるシード値です。この値を変更するとポップノイズがでることがあるので注意してください。</p>
+</dd>
+<dt>Change Matrix</dt>
+<dd><p>フィードバック行列をランダマイズするボタンです。押すたびに <code>Seed</code> の値が変更されます。この値を変更するとポップノイズがでることがあるので注意してください。</p>
+</dd>
+</dl>
 <h3 id="mix">Mix</h3>
 <dl>
-<dt>Dry</dt>
-<dd><p>バイパスされる入力信号の音量です。</p>
+<dt>Dry [dB]</dt>
+<dd><p>FDN をバイパスした入力にかけ合わせられるゲインです。</p>
 </dd>
-<dt>Wet</dt>
-<dd><p>リバーブを通った信号の音量です。</p>
+<dt>Wet [dB]</dt>
+<dd><p>FDN の出力にかけ合わせられるゲインです。</p>
 </dd>
-</dl>
-<h3 id="stereo">Stereo</h3>
-<dl>
-<dt>Cross</dt>
-<dd><p>あるチャンネルから、もう片方のチャンネルに格子構造の出力をフィードバックする量です。 0 のときはもう片方のチャンネルからの信号はミックスされません。</p>
-</dd>
-<dt>Spread</dt>
-<dd><p>ミッドとサイド (M-S) の信号の比率です。</p>
-<p>ミッドとサイドの信号は次の式で計算されます。</p>
-<pre><code>mid  = left + right
-side = left - right
-
-left  = mid - Spread * (mid - side)
-right = mid - Spread * (mid + side)</code></pre>
+<dt>Stereo Cross</dt>
+<dd><p>左右のチャンネルの FDN の出力をクロスしてフィードバックする量です。 1.0 にすると発散を防ぐために入力を止めてしまうので注意してください。</p>
 </dd>
 </dl>
-<h3 id="misc.">Misc.</h3>
+<h3 id="rotation">Rotation</h3>
 <dl>
-<dt>Seed</dt>
-<dd><p>疑似乱数列のシード値です。</p>
+<dt>Speed [Hz]</dt>
+<dd><p>FDN への入力ゲインを回転させる速度です。</p>
 </dd>
-<dt>Smooth</dt>
-<dd><p>パラメータを変更したときに、変更前の値から変更後の値へと移行する大まかな秒数です。</p>
+<dt>Offset</dt>
+<dd><p>入力ゲインの回転に使われる波形の初期位相です。</p>
+<p><code>Speed</code> が 0 かつ <code>Skew</code> が 0 より大きいときに音を変えることができます。どのような音になるかはフィードバック行列のランダマイズに大きく影響されます。</p>
+</dd>
+<dt>Skew</dt>
+<dd><p>入力ゲインの回転に使われる波形を変更します。 <code>Skew</code> が 0 のときは <code>Speed</code> と <code>Offset</code> を変えても音が変わらないので注意してください。</p>
+<p>以下は <code>Skew</code> と波形の関係についてのプロットです。</p>
+<figure>
+<img src="img/skewplot.svg" alt="Image of plot of relation between `Skew` parameter and rotation waveform. The equation of waveform is `exp(skew * sin(ω * t))`." style="padding-bottom: 12px;"/>
+</figure>
 </dd>
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
-<li>0.1.5
-<ul>
-<li>フォントを Tinos に変更。 ### L4Reverb</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li>リセットが正しく行われるように修正。</li>
-<li><code>bypass</code> パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の <code>bypass</code> パラメータを正しく実装しているホストでのみ発生していた。</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>Process context requirements を実装。</li>
-<li>BarBox の機能が LV2 版と同等になるように更新。
-<ul>
-<li>1 つのバーを編集を追加。</li>
-<li>ロックを追加。</li>
-<li>内部的なマウスホイールの感度を追加。</li>
-<li>スナップを追加 (未使用) 。</li>
-<li>直線の描画での開始点の値をアンカーポイントに固定するように変更。</li>
-</ul></li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>DSP が初期化されているかどうかのチェックを追加。</li>
-<li>カラーコンフィグを追加。</li>
-</ul></li>
-<li>0.1.0
-<ul>
-<li>初期リリース。</li>
-</ul></li>
-</ul>
-<h3 id="l3reverb">L3Reverb</h3>
-<ul>
-<li>0.1.4
-<ul>
-<li>リセットが正しく行われるように修正。</li>
-<li><code>bypass</code> パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の <code>bypass</code> パラメータを正しく実装しているホストでのみ発生していた。</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>L4Reverb のバージョンと同じにするため 0.1.1 をスキップ。</li>
-<li>Process context requirements を実装。</li>
-<li>BarBox の機能が LV2 版と同等になるように更新。
-<ul>
-<li>1 つのバーを編集を追加。</li>
-<li>ロックを追加。</li>
-<li>内部的なマウスホイールの感度を追加。</li>
-<li>スナップを追加 (未使用) 。</li>
-<li>直線の描画での開始点の値をアンカーポイントに固定するように変更。</li>
-</ul></li>
-</ul></li>
 <li>0.1.0
 <ul>
 <li>初期リリース。</li>
 </ul></li>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L4Reverb_0.1.4.zip">L4Reverb 0.1.4 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/L4Reverb0.1.2.zip">L4Reverb 0.1.2 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L4Reverb0.1.1.zip">L4Reverb 0.1.1 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Reverb0.1.0.zip">L4Reverb 0.1.0 - VST 3 (github.com)</a></li>
-</ul>
+<p>旧バージョンはありません。</p>
 <h2 id="ライセンス">ライセンス</h2>
-<p>L4Reverb と L3Reverb のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
+<p>FDN64Reverb のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
 <ul>
 <li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
 </ul>

@@ -13,8 +13,7 @@ span.smallcaps { font-variant: small-caps; }
 span.underline { text-decoration: underline; }
 div.column { display: inline-block; vertical-align: top; width: 50%; }
 </style>
-<style>
-body {
+<style>body {
   max-width: 704px;
   margin: auto;
   padding: 32px 8px;
@@ -28,22 +27,26 @@ video {
   max-width: 100%;
 }
 
-details.list > summary {
+details.list>summary {
   line-height: 3em;
 }
 
 kbd {
   font-family: inherit;
-  border-style: solid;
+  border-style: outset;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 4px;
+  padding: 2px 4px;
   margin: 2px;
   line-height: calc(1em + 16px);
 }
 
 a {
   text-decoration: none;
+}
+
+a:hover {
+  background-color: #ffe590;
 }
 
 h1 {
@@ -65,16 +68,19 @@ h3 {
 h4 {
   border-left: solid 12px #6a88da;
   padding-left: 8px;
+  margin-bottom: 0.5em;
 }
 
 h5 {
   border-left: solid 4px #8ca4e7;
   padding-left: 4px;
+  margin-bottom: 0.5em;
 }
 
 h6 {
   border-left: solid 2px #a8bcf5;
   padding-left: 2px;
+  margin-bottom: 0.5em;
 }
 
 table {
@@ -122,12 +128,12 @@ dl {
 dt {
   font-weight: bold;
   border-bottom: 1px dashed #000000;
-  margin-top: 2em;
 }
 
 dd {
   border-left: 1px dotted #000000;
   margin-left: 1em;
+  margin-bottom: 2em;
   padding-left: 1em;
 }
 
@@ -139,7 +145,7 @@ label {
   vertical-align: middle;
 }
 
-:not(.sourceCode) > pre {
+:not(.sourceCode)>pre {
   overflow: auto;
   border: 1px solid #888888;
   padding: 8px;
@@ -151,15 +157,17 @@ div.sourceCode {
   padding: 8px;
 }
 
-pre > code.sourceCode > span > a:first-child::before {
+pre>code.sourceCode>span>a:first-child::before {
   border-right: 1px solid #888888;
   padding-right: 1em;
   margin-right: 1em;
   text-decoration: none;
 }
 
-:not(pre) > code {
-  color: #163eac;
+:not(pre)>code {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+  color: #705020;
 }
 
 li {
@@ -181,6 +189,7 @@ footer {
   padding: 0.5em;
   margin-top: 1em;
 }
+
 </style>
 </head>
 
@@ -195,7 +204,12 @@ footer {
   <ul>
   <li><a href="#uhhyou-plugins">Uhhyou Plugins</a></li>
   <li><a href="#lv2-plugins">LV2 Plugins</a></li>
-  <li><a href="#プラグイン一覧-plugin-list">プラグイン一覧 | Plugin List</a><ul>
+  <li><a href="#プラグイン一覧-plugin-list">プラグイン一覧 | Plugin List</a>
+  <ul>
+  <li><a href="#synthesizers">Synthesizers</a></li>
+  <li><a href="#effects">Effects</a></li>
+  <li><a href="#fdn64reverb">FDN64Reverb</a></li>
+  <li><a href="#basiclimiter">BasicLimiter</a></li>
   <li><a href="#collidingcombsynth">CollidingCombSynth</a></li>
   <li><a href="#l4reverb">L4Reverb</a></li>
   <li><a href="#latticereverb">LatticeReverb</a></li>
@@ -232,23 +246,88 @@ footer {
 <li><a href="https://github.com/ryukau/LV2Plugins">GitHub - ryukau/LV2Plugins</a></li>
 </ul>
 <h1 id="プラグイン一覧-plugin-list">プラグイン一覧 | Plugin List</h1>
+<style>
+div.pluginlist {
+  margin: auto 0.25em;
+  padding: 0.25em;
+  display: inline-flex;
+}
+</style>
+<h4 id="synthesizers">Synthesizers</h4>
+<div class="pluginlist">
+<a href="#collidingcombsynth"> <ruby>CollidingCombSynth<rt>コライディング コム シンセ</rt></ruby> </a>
+</div>
+<div class="pluginlist">
+<a href="#cubicpadsynth"> <ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby> </a>
+</div>
+<div class="pluginlist">
+<a href="#envelopedsine"> <ruby>EnvelopedSine<rt>エンベロープド サイン</rt></ruby> </a>
+</div>
+<div class="pluginlist">
+<a href="#fdncymbal"> <ruby>FDNCymbal<rt>エフディーエヌ シンバル</rt></ruby> </a>
+</div>
+<div class="pluginlist">
+<a href="#iterativesincluster"> <ruby>IterativeSinCluster<rt>イテレイティブ サイン クラスタ</rt></ruby> </a>
+</div>
+<div class="pluginlist">
+<a href="#lightpadsynth"> <ruby>LightPadSynth<rt>ライト パッド シンセ</rt></ruby> </a>
+</div>
+<div class="pluginlist">
+<a href="#syncsawsynth"> <ruby>SyncSawSynth<rt>シンク ソウ シンセ</rt></ruby> </a>
+</div>
+<div class="pluginlist">
+<a href="#trapezoidsynth"> <ruby>TrapezoidSynth<rt>トラピゾイド シンセ</rt></ruby> </a>
+</div>
+<div class="pluginlist">
+<a href="#wavecymbal"> <ruby>WaveCymbal<rt>ウェイブ シンバル</rt></ruby> </a>
+</div>
+<h4 id="effects">Effects</h4>
+<div class="pluginlist">
+<a href="#basiclimiter"> <ruby>BasicLimiter<rt>ベーシック リミッタ</rt></ruby> </a>
+</div>
+<div class="pluginlist">
+<a href="#esphaser"> <ruby>EsPhaser<rt>エス フェイザ</rt></ruby> </a>
+</div>
+<div class="pluginlist">
+<a href="#fdn64reverb"> <ruby>FDN64Reverb<rt>エフディーエヌ 64 リバーブ</rt></ruby> </a>
+</div>
+<div class="pluginlist">
+<a href="#l4reverb"> <ruby>L4Reverb<rt>エル フォー リバーブ</rt></ruby> </a>
+</div>
+<div class="pluginlist">
+<a href="#latticereverb"> <ruby>LatticeReverb<rt>ラティス リバーブ</rt></ruby> </a>
+</div>
+<div class="pluginlist">
+<a href="#sevendelay"> <ruby>SevenDelay<rt>セブン ディレイ</rt></ruby> </a>
+</div>
+<h2 id="fdn64reverb">FDN64Reverb</h2>
+<figure>
+<img src="manual/FDN64Reverb/img/fdn64reverb.png" alt="Image of FDN64Reverb graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+<p>FDN64Reverb はフィードバック・ディレイ・ネットワーク (FDN) を 1 つだけ搭載したリバーブです。しかしながら、フィードバック行列の大きさは 64 です。</p>
 <ul>
-<li><p><a href="#collidingcombsynth">CollidingCombSynth</a></p></li>
-<li><p><a href="#cubicpadsynth">CubicPadSynth</a></p></li>
-<li><p><a href="#envelopedsine">EnvelopedSine</a></p></li>
-<li><p><a href="#esphaser">EsPhaser</a></p></li>
-<li><p><a href="#fdncymbal">FDNCymbal</a></p></li>
-<li><p><a href="#iterativesincluster">IterativeSinCluster</a></p></li>
-<li><p><a href="#l4reverb">L4Reverb</a></p></li>
-<li><p><a href="#latticereverb">LatticeReverb</a></p></li>
-<li><p><a href="#lightpadsynth">LightPadSynth</a></p></li>
-<li><p><a href="#sevendelay">SevenDelay</a></p></li>
-<li><p><a href="#syncsawsynth">SyncSawSynth</a></p></li>
-<li><p><a href="#trapezoidsynth">TrapezoidSynth</a></p></li>
-<li><p><a href="#wavecymbal">WaveCymbal</a></p></li>
+<li><a href="manual/FDN64Reverb/FDN64Reverb_ja.html">FDN64Reverb のマニュアル (日本語)</a></li>
+</ul>
+<p>FDN64Reverb is a reverb equipped with a feedback delay network (FDN). However, the size of feedback matrix is 64.</p>
+<ul>
+<li><a href="manual/FDN64Reverb/FDN64Reverb_en.html">FDN64Reverb Manual (English)</a></li>
+</ul>
+<h2 id="basiclimiter">BasicLimiter</h2>
+<figure>
+<img src="manual/BasicLimiter/img/basiclimiter.png" alt="Image of BasicLimiter graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+<p>BasicLimiter は名前の通りベーシックなシングルバンドリミッタです。目新しい音は出ませんが、トゥルーピークモードはやや贅沢に設計しています。</p>
+<ul>
+<li><a href="manual/BasicLimiter/BasicLimiter_ja.html">BasicLimiter のマニュアル (日本語)</a></li>
+</ul>
+<p>BasicLimiter is a basic single band limiter. The sound is nothing new, but the design of true peak mode is a bit luxurious.</p>
+<ul>
+<li><a href="manual/BasicLimiter/BasicLimiter_en.html">BasicLimiter Manual (English)</a></li>
 </ul>
 <h2 id="collidingcombsynth">CollidingCombSynth</h2>
-<p><img src="manual/CollidingCombSynth/img/collidingcombsynth.png" /></p>
+<figure>
+<img src="manual/CollidingCombSynth/img/collidingcombsynth.png" alt="Image of CollidingCombSynth graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 <p>CollidingCombSynth は Karplus-Strong アルゴリズムによる弦の物理モデルをぶつけることで、弦を擦ったときのような音が出る実験的なシンセサイザです。音程はでますがチューニングが難しいので、どちらかと言うと効果音に向いています。</p>
 <ul>
 <li><a href="manual/CollidingCombSynth/CollidingCombSynth_ja.html">CollidingCombSynth のマニュアル (日本語)</a></li>
@@ -258,7 +337,9 @@ footer {
 <li><a href="manual/CollidingCombSynth/CollidingCombSynth_en.html">CollidingCombSynth Manual (English)</a></li>
 </ul>
 <h2 id="l4reverb">L4Reverb</h2>
-<p><img src="manual/L4Reverb/img/l4reverb.png" /></p>
+<figure>
+<img src="manual/L4Reverb/img/l4reverb.png" alt="Image of L4Reverb graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 <p>L4Reverb は LatticeReverb の拡張版です。今回の格子構造はチャンネル毎に 4 * 4 * 4 * 4 = 256 のセクションが設けてあります。</p>
 <ul>
 <li><a href="manual/L4Reverb/L4Reverb_ja.html">L4Reverb のマニュアル (日本語)</a></li>
@@ -268,7 +349,9 @@ footer {
 <li><a href="manual/L4Reverb/L4Reverb_en.html">L4Reverb Manual (English)</a></li>
 </ul>
 <h2 id="latticereverb">LatticeReverb</h2>
-<p><img src="manual/LatticeReverb/img/latticereverb.png" /></p>
+<figure>
+<img src="manual/LatticeReverb/img/latticereverb.png" alt="Image of LatticeReverb graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 <p>LatticeReverb はディレイを使った高次のオールパスフィルタを格子状につないで入れ子にしたリバーブです。 1 チャンネルあたり 16 のオールパスフィルタを備えています。</p>
 <ul>
 <li><a href="manual/LatticeReverb/LatticeReverb_ja.html">LatticeReverb のマニュアル (日本語)</a></li>
@@ -278,7 +361,9 @@ footer {
 <li><a href="manual/LatticeReverb/LatticeReverb_en.html">LatticeReverb Manual (English)</a></li>
 </ul>
 <h2 id="lightpadsynth">LightPadSynth</h2>
-<p><img src="manual/LightPadSynth/img/lightpadsynth.png" /></p>
+<figure>
+<img src="manual/LightPadSynth/img/lightpadsynth.png" alt="Image of LightPadSynth graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 <p>LightPadSynth はピッチ変調を無くして補間を線形補完に変えた CubicPadSynth の軽量版です。ピッチ変調ができなくなった代わりに、各ボイスにディレイを追加しています。</p>
 <ul>
 <li><a href="manual/LightPadSynth/LightPadSynth_ja.html">LightPadSynth のマニュアル (日本語)</a></li>
@@ -288,7 +373,9 @@ footer {
 <li><a href="manual/LightPadSynth/LightPadSynth_en.html">LightPadSynth Manual (English)</a></li>
 </ul>
 <h2 id="cubicpadsynth">CubicPadSynth</h2>
-<p><img src="manual/CubicPadSynth/img/cubicpadsynth.png" /></p>
+<figure>
+<img src="manual/CubicPadSynth/img/cubicpadsynth.png" alt="Image of CubicPadSynth graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 <p>CubicPadSynth は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています。</p>
 <ul>
 <li><a href="manual/CubicPadSynth/CubicPadSynth_ja.html">CubicPadSynth のマニュアル (日本語)</a></li>
@@ -298,7 +385,9 @@ footer {
 <li><a href="manual/CubicPadSynth/CubicPadSynth_en.html">CubicPadSynth Manual (English)</a></li>
 </ul>
 <h2 id="esphaser">EsPhaser</h2>
-<p><img src="manual/EsPhaser/img/esphaser.png" /></p>
+<figure>
+<img src="manual/EsPhaser/img/esphaser.png" alt="Image of EsPhaser graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 <p>EsPhaser は最大 4096 の 2 次 Thiran オールパスフィルタを直列につなぐことができるフェイザです。 EnvelopedSine のフェイザと同じアルゴリズムを使っています。</p>
 <ul>
 <li><a href="manual/EsPhaser/EsPhaser_ja.html">EsPhaser のマニュアル (日本語)</a></li>
@@ -308,7 +397,9 @@ footer {
 <li><a href="manual/EsPhaser/EsPhaser_en.html">EsPhaser Manual (English)</a></li>
 </ul>
 <h2 id="envelopedsine">EnvelopedSine</h2>
-<p><img src="manual/EnvelopedSine/img/envelopedsine.png" /></p>
+<figure>
+<img src="manual/EnvelopedSine/img/envelopedsine.png" alt="Image of EnvelopedSine graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 <p>EnvelopedSineはノート 1 つあたり 64 のサイン波を計算する加算合成シンセサイザです。各サイン波に AD エンベロープとサチュレータがついているので IterativeSinCluster よりもパーカッシブな音が得意です。</p>
 <ul>
 <li><a href="manual/EnvelopedSine/EnvelopedSine_ja.html">EnvelopedSine のマニュアル (日本語)</a></li>
@@ -318,7 +409,9 @@ footer {
 <li><a href="manual/EnvelopedSine/EnvelopedSine_en.html">EnvelopedSine Manual (English)</a></li>
 </ul>
 <h2 id="iterativesincluster">IterativeSinCluster</h2>
-<p><img src="manual/IterativeSinCluster/img/iterativesincluster.png" /></p>
+<figure>
+<img src="manual/IterativeSinCluster/img/iterativesincluster.png" alt="Image of IterativeSinCluster graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 <p>IterativeSinCluster はノート 1 つあたりで 512 のサイン波を計算する加算合成シンセサイザです。このページで配布しているバイナリを利用するには AVX2 をサポートしている CPU が必要です。</p>
 <ul>
 <li><a href="manual/IterativeSinCluster/IterativeSinCluster_ja.html">IterativeSinCluster のマニュアル (日本語)</a></li>
@@ -328,7 +421,9 @@ footer {
 <li><a href="manual/IterativeSinCluster/IterativeSinCluster_en.html">IterativeSinCluster Manual (English)</a></li>
 </ul>
 <h2 id="trapezoidsynth">TrapezoidSynth</h2>
-<p><img src="manual/TrapezoidSynth/img/trapezoidsynth.png" /></p>
+<figure>
+<img src="manual/TrapezoidSynth/img/trapezoidsynth.png" alt="Image of TrapezoidSynth graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 <p>TrapezoidSynth は 4 つの PTR ランプ関数を継ぎ接ぎした台形オシレータを使ったモノフォニックシンセサイザです。継ぎ接ぎしたのが仇をなしてピッチが高くなるとノイズが乗る欠点があったので8倍にオーバーサンプリングしました。結果としてやたら重たくなっています。</p>
 <ul>
 <li><a href="manual/TrapezoidSynth/TrapezoidSynth_ja.html">TrapezoidSynth のマニュアル (日本語)</a></li>
@@ -338,7 +433,9 @@ footer {
 <li><a href="manual/TrapezoidSynth/TrapezoidSynth_en.html">TrapezoidSynth Manual (English)</a></li>
 </ul>
 <h2 id="fdncymbal">FDNCymbal</h2>
-<p><img src="manual/FDNCymbal/img/fdncymbal.png" /></p>
+<figure>
+<img src="manual/FDNCymbal/img/fdncymbal.png" alt="Image of FDNCymbal graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 <p>FDNCymbal は WaveCymbal に続いてシンバルのような音を作ろうとしたプラグインです。今回は FDN (Feedback Delay Network) と Schroeder allpass を使っています。名前とは裏腹に、金属的な質感はほとんど Schroeder allpass によって加えられています。シンバルの揺れをシミュレートするためにトレモロもついています。</p>
 <ul>
 <li><a href="manual/FDNCymbal/FDNCymbal_ja.html">FDNCymbal のマニュアル (日本語)</a></li>
@@ -348,7 +445,9 @@ footer {
 <li><a href="manual/FDNCymbal/FDNCymbal_en.html">FDNCymbal Manual (English)</a></li>
 </ul>
 <h2 id="wavecymbal">WaveCymbal</h2>
-<p><img src="manual/WaveCymbal/img/wavecymbal.png" /></p>
+<figure>
+<img src="manual/WaveCymbal/img/wavecymbal.png" alt="Image of WaveCymbal graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 <p>WaveCymbal は banded wave-guide という物理モデリングの手法でシンバルの音を作ろうとしたプラグインです。シンバルというよりも、薄い金属板をアスファルトの上で引きずったときのような音が出ます。シンセサイザ、エフェクトのどちらとしても使えます。</p>
 <ul>
 <li><a href="manual/WaveCymbal/WaveCymbal_ja.html">WaveCymbal のマニュアル (日本語)</a></li>
@@ -358,7 +457,9 @@ footer {
 <li><a href="manual/WaveCymbal/WaveCymbal_en.html">WaveCymbal Manual (English)</a></li>
 </ul>
 <h2 id="syncsawsynth">SyncSawSynth</h2>
-<p><img src="manual/SyncSawSynth/img/syncsawsynth.png" /></p>
+<figure>
+<img src="manual/SyncSawSynth/img/syncsawsynth.png" alt="Image of SyncSawSynth graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 <p>SyncSawSynthは10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。</p>
 <ul>
 <li><a href="manual/SyncSawSynth/SyncSawSynth_ja.html">SyncSawSynth のマニュアル (日本語)</a></li>
@@ -368,7 +469,9 @@ footer {
 <li><a href="manual/SyncSawSynth/SyncSawSynth_en.html">SyncSawSynth Manual (English)</a></li>
 </ul>
 <h2 id="sevendelay">SevenDelay</h2>
-<p><img src="manual/SevenDelay/img/sevendelay.png" /></p>
+<figure>
+<img src="manual/SevenDelay/img/sevendelay.png" alt="Image of SevenDelay graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
 <p>SevenDelayはステレオディレイです。分数ディレイに7次のラグランジュ補間を使って7倍のオーバーサンプリングをしています。オートメーションなどでディレイ時間を積極的に動かして音を作る用途に向いています。</p>
 <ul>
 <li><a href="manual/SevenDelay/SevenDelay_ja.html">SevenDelay のマニュアル (日本語)</a></li>

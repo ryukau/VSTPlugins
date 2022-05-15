@@ -5,7 +5,7 @@ lang: ja
 # FDNCymbal
 ![](img/fdncymbal.png)
 
-<ruby>FDNCymbal<rt>エフディーエヌシンバル</rt></ruby> はシンバルのような音を合成するシンセサイザです。エフェクトとして使うこともできます。名前とは裏腹に金属的な質感は FDN (feedback delay network) ではなく Schroeder allpass section によって得られています。 `FDN.Time` の値を小さくすることで、わりとナイスなばちの衝突音が合成できます。シンバルの揺れをシミュレートするためにトレモロもついています。
+<ruby>FDNCymbal<rt>エフディーエヌ シンバル</rt></ruby> はシンバルのような音を合成するシンセサイザです。エフェクトとして使うこともできます。名前とは裏腹に金属的な質感は FDN (feedback delay network) ではなく Schroeder allpass section によって得られています。 `FDN.Time` の値を小さくすることで、わりとナイスなばちの衝突音が合成できます。シンバルの揺れをシミュレートするためにトレモロもついています。
 
 - [FDNCymbal 0.2.7 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/FDNCymbal_0.2.7.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
@@ -139,7 +139,7 @@ xattr -rc /path/to/PluginName.vst3
 - `foreground`: 文字の色。
 - `foregroundButtonOn`: オンになっているボタンの文字の色。 `foreground` か `boxBackground` のいずれかと同じ値にすることを推奨します。
 - `foregroundInactive`: 非アクティブなタブの文字の色。
-- `background`: 背景色。x
+- `background`: 背景色。
 - `boxBackground`: 矩形の UI 部品の内側の背景色。
 - `border`: <ruby>縁<rt>ふち</rt></ruby>の色。
 - `borderCheckbox`: チェックボックスの縁の色。

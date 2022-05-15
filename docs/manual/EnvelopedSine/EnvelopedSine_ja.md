@@ -5,7 +5,7 @@ lang: ja
 # EnvelopedSine
 ![](img/envelopedsine.png)
 
-<ruby>EnvelopedSine<rt>エンベロープド サイン</rt></ruby>はノート 1 つあたり 64 のサイン波を計算する加算合成シンセサイザです。各サイン波に AD エンベロープとサチュレータがついているので IterativeSinCluster よりもパーカッシブな音が得意です。
+<ruby>EnvelopedSine<rt>エンベロープド サイン</rt></ruby> はノート 1 つあたり 64 のサイン波を計算する加算合成シンセサイザです。各サイン波に AD エンベロープとサチュレータがついているので IterativeSinCluster よりもパーカッシブな音が得意です。
 
 - [EnvelopedSine 0.1.12 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/EnvelopedSine_0.1.12.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
@@ -141,7 +141,7 @@ xattr -rc /path/to/PluginName.vst3
 - `foreground`: 文字の色。
 - `foregroundButtonOn`: オンになっているボタンの文字の色。 `foreground` か `boxBackground` のいずれかと同じ値にすることを推奨します。
 - `foregroundInactive`: 非アクティブなタブの文字の色。
-- `background`: 背景色。x
+- `background`: 背景色。
 - `boxBackground`: 矩形の UI 部品の内側の背景色。
 - `border`: <ruby>縁<rt>ふち</rt></ruby>の色。
 - `borderCheckbox`: チェックボックスの縁の色。

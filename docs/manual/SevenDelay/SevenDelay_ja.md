@@ -5,7 +5,7 @@ lang: ja
 # SevenDelay
 ![](img/sevendelay.png)
 
-<ruby>SevenDelay<rt>セブンディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。
+<ruby>SevenDelay<rt>セブン ディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。
 
 - [SevenDelay 0.1.16 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/SevenDelay_0.1.16.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
@@ -139,7 +139,7 @@ xattr -rc /path/to/PluginName.vst3
 - `foreground`: 文字の色。
 - `foregroundButtonOn`: オンになっているボタンの文字の色。 `foreground` か `boxBackground` のいずれかと同じ値にすることを推奨します。
 - `foregroundInactive`: 非アクティブなタブの文字の色。
-- `background`: 背景色。x
+- `background`: 背景色。
 - `boxBackground`: 矩形の UI 部品の内側の背景色。
 - `border`: <ruby>縁<rt>ふち</rt></ruby>の色。
 - `borderCheckbox`: チェックボックスの縁の色。

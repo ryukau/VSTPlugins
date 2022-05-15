@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2021-11-20" />
+<meta name="dcterms.date" content="2022-05-14" />
 <title>WaveCymbal_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -14,19 +14,19 @@ span.underline { text-decoration: underline; }
 div.column { display: inline-block; vertical-align: top; width: 50%; }
 </style>
 <style>
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -46,7 +46,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -78,8 +78,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
-<style>
-body {
+<style>body {
   max-width: 704px;
   margin: auto;
   padding: 32px 8px;
@@ -93,22 +92,26 @@ video {
   max-width: 100%;
 }
 
-details.list > summary {
+details.list>summary {
   line-height: 3em;
 }
 
 kbd {
   font-family: inherit;
-  border-style: solid;
+  border-style: outset;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 4px;
+  padding: 2px 4px;
   margin: 2px;
   line-height: calc(1em + 16px);
 }
 
 a {
   text-decoration: none;
+}
+
+a:hover {
+  background-color: #ffe590;
 }
 
 h1 {
@@ -130,16 +133,19 @@ h3 {
 h4 {
   border-left: solid 12px #6a88da;
   padding-left: 8px;
+  margin-bottom: 0.5em;
 }
 
 h5 {
   border-left: solid 4px #8ca4e7;
   padding-left: 4px;
+  margin-bottom: 0.5em;
 }
 
 h6 {
   border-left: solid 2px #a8bcf5;
   padding-left: 2px;
+  margin-bottom: 0.5em;
 }
 
 table {
@@ -187,12 +193,12 @@ dl {
 dt {
   font-weight: bold;
   border-bottom: 1px dashed #000000;
-  margin-top: 2em;
 }
 
 dd {
   border-left: 1px dotted #000000;
   margin-left: 1em;
+  margin-bottom: 2em;
   padding-left: 1em;
 }
 
@@ -204,7 +210,7 @@ label {
   vertical-align: middle;
 }
 
-:not(.sourceCode) > pre {
+:not(.sourceCode)>pre {
   overflow: auto;
   border: 1px solid #888888;
   padding: 8px;
@@ -216,15 +222,17 @@ div.sourceCode {
   padding: 8px;
 }
 
-pre > code.sourceCode > span > a:first-child::before {
+pre>code.sourceCode>span>a:first-child::before {
   border-right: 1px solid #888888;
   padding-right: 1em;
   margin-right: 1em;
   text-decoration: none;
 }
 
-:not(pre) > code {
-  color: #163eac;
+:not(pre)>code {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+  color: #705020;
 }
 
 li {
@@ -246,6 +254,7 @@ footer {
   padding: 0.5em;
   margin-top: 1em;
 }
+
 </style>
 </head>
 
@@ -253,19 +262,23 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2021-11-20
+  Update: 2022-05-14
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#wavecymbal">WaveCymbal</a><ul>
-  <li><a href="#インストール">インストール</a><ul>
+  <li><a href="#wavecymbal">WaveCymbal</a>
+  <ul>
+  <li><a href="#連絡先">連絡先</a></li>
+  <li><a href="#インストール">インストール</a>
+  <ul>
   <li><a href="#プラグイン">プラグイン</a></li>
   <li><a href="#プリセット">プリセット</a></li>
   <li><a href="#windows">Windows</a></li>
   <li><a href="#linux">Linux</a></li>
-  <li><a href="#macos">macOS</a><ul>
+  <li><a href="#macos">macOS</a>
+  <ul>
   <li><a href="#参考リンク">参考リンク</a></li>
   </ul></li>
   </ul></li>
@@ -273,7 +286,8 @@ footer {
   <li><a href="#操作">操作</a></li>
   <li><a href="#注意">注意</a></li>
   <li><a href="#ブロック線図">ブロック線図</a></li>
-  <li><a href="#パラメータ">パラメータ</a><ul>
+  <li><a href="#パラメータ">パラメータ</a>
+  <ul>
   <li><a href="#gain">Gain</a></li>
   <li><a href="#excitation">Excitation</a></li>
   <li><a href="#objects">Objects</a></li>
@@ -284,10 +298,12 @@ footer {
   <li><a href="#oscillator">Oscillator</a></li>
   <li><a href="#smoothness">Smoothness</a></li>
   </ul></li>
-  <li><a href="#チェンジログ">チェンジログ</a><ul>
+  <li><a href="#チェンジログ">チェンジログ</a>
+  <ul>
   <li><a href="#旧バージョン">旧バージョン</a></li>
   </ul></li>
-  <li><a href="#ライセンス">ライセンス</a><ul>
+  <li><a href="#ライセンス">ライセンス</a>
+  <ul>
   <li><a href="#vst-について">VST® について</a></li>
   </ul></li>
   </ul></li>
@@ -297,9 +313,9 @@ footer {
   </header>
 <h1 id="wavecymbal">WaveCymbal</h1>
 <p><img src="img/wavecymbal.png" /></p>
-<p><ruby>WaveCymbal<rt>ウェイブシンバル</rt></ruby>は banded wave-guide という手法を用いてシンバルの音が鳴るはずだったシンセサイザです。実際のところはシンバルというよりも、アスファルトの上でトタン板や紐につないだ空き缶を引きずったときのような音が出ます。</p>
+<p><ruby>WaveCymbal<rt>ウェイブ シンバル</rt></ruby> は banded wave-guide という手法を用いてシンバルの音が鳴るはずだったシンセサイザです。実際のところはシンバルというよりも、アスファルトの上でトタン板や紐につないだ空き缶を引きずったときのような音が出ます。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/WaveCymbal_0.1.13.zip">WaveCymbal 0.1.13 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/WaveCymbal_0.1.14.zip">WaveCymbal 0.1.14 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -310,10 +326,11 @@ style="display: inline-block; vertical-align: middle;"></li>
 <ul>
 <li>Windows 64bit</li>
 <li>Linux 64bit</li>
-<li>macOS 64bit</li>
 </ul>
-<p>Mac を持っていないので、 macOS ビルドはテストできていません。もしバグを見つけたときは <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか、 <code>ryukau@gmail.com</code> までメールを送っていただければ対応します。</p>
-<p>Linux ビルドは Ubuntu 18.0.4 でビルドしています。また Bitwig と REAPER で動作確認を行っています。もし Ubuntu 18.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
+<p>2022-05-14 の時点ではユニバーサルバイナリのビルドに失敗するので、 macOS ビルドはパッケージに含まれていません。将来的に対応したいですが、お財布の問題で M1 mac 入手のめどが立たないので時期は未定です。</p>
+<p>Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
+<h2 id="連絡先">連絡先</h2>
+<p>何かあれば <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか <code>ryukau@gmail.com</code> までお気軽にどうぞ。</p>
 <h2 id="インストール">インストール</h2>
 <h3 id="プラグイン">プラグイン</h3>
 <p>名前が <code>.vst3</code> で終わるディレクトリを OS ごとに決められた位置に配置してください。</p>
@@ -338,16 +355,17 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <h3 id="linux">Linux</h3>
 <p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
 <p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。</p>
 <ul>
 <li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI: Setup</a></li>
 </ul>
 <p>REAPER の Linux 版がプラグインを認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
 <h3 id="macos">macOS</h3>
+<p><strong>重要</strong>: 現バージョンのパッケージは macOS 未対応です。</p>
 <p><strong>注意</strong>: この節は英語で macOS を使用しているユーザからの報告によって作成されました。日本語でのエラーメッセージが分からなかったので曖昧な書き方になっています。</p>
 <p>プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した <code>.vst3</code> ディレクトリに次のコマンドを適用してみてください。</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">xattr</span> -rc /path/to/PluginName.vst3</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rc</span> /path/to/PluginName.vst3</span></code></pre></div>
 <p>プラグインは署名されていない (unsigned) 、または公証されていない (un-notarized) アプリケーションとして認識されることがあります。この場合は以下の手順を試してみてください。</p>
 <ol type="1">
 <li>ターミナルを開いて <code>sudo spctl --master-disable</code> を実行。</li>
@@ -379,24 +397,24 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><a href="https://github.com/ryukau/LV2Plugins/tree/master/style/themes">LV2Plugins/style/themes at master · ryukau/LV2Plugins · GitHub</a></li>
 </ul>
 <p><code>style.json</code> の設定例です。</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">{</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>  <span class="dt">&quot;fontPath&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span><span class="fu">,</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a>  <span class="dt">&quot;background&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a>  <span class="dt">&quot;boxBackground&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a>  <span class="dt">&quot;border&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a>  <span class="dt">&quot;borderCheckbox&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a>  <span class="dt">&quot;borderLabel&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a>  <span class="dt">&quot;unfocused&quot;</span><span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span><span class="fu">,</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a>  <span class="dt">&quot;highlightMain&quot;</span><span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span><span class="fu">,</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a>  <span class="dt">&quot;highlightAccent&quot;</span><span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span><span class="fu">,</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a>  <span class="dt">&quot;highlightButton&quot;</span><span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span><span class="fu">,</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontPath&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span><span class="fu">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;background&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;boxBackground&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;border&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderCheckbox&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderLabel&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;unfocused&quot;</span><span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span><span class="fu">,</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightMain&quot;</span><span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span><span class="fu">,</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightAccent&quot;</span><span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span><span class="fu">,</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightButton&quot;</span><span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span><span class="fu">,</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>16 進数カラーコードを使っています。</p>
 <ul>
 <li>6 桁の色は RGB 。</li>
@@ -410,7 +428,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><code>foreground</code>: 文字の色。</li>
 <li><code>foregroundButtonOn</code>: オンになっているボタンの文字の色。 <code>foreground</code> か <code>boxBackground</code> のいずれかと同じ値にすることを推奨します。</li>
 <li><code>foregroundInactive</code>: 非アクティブなタブの文字の色。</li>
-<li><code>background</code>: 背景色。x</li>
+<li><code>background</code>: 背景色。</li>
 <li><code>boxBackground</code>: 矩形の UI 部品の内側の背景色。</li>
 <li><code>border</code>: <ruby>縁<rt>ふち</rt></ruby>の色。</li>
 <li><code>borderCheckbox</code>: チェックボックスの縁の色。</li>
@@ -529,6 +547,10 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p><code>Gain</code>, <code>Excitation.Time</code>, <code>Random.Amount</code>, <code>Bandpass.MinCutoff</code>, <code>Bandpass.MaxCutoff</code> を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。 <code>OscType.Sustain</code> のスライドの長さも <code>Smoothness</code> で調整できます。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.14
+<ul>
+<li>フォントを Tinos に変更。</li>
+</ul></li>
 <li>0.1.13
 <ul>
 <li>リセットが正しく行われるように修正。</li>
@@ -594,6 +616,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <h3 id="旧バージョン">旧バージョン</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/WaveCymbal_0.1.13.zip">WaveCymbal 0.1.13 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/WaveCymbal0.1.12.zip">WaveCymbal 0.1.12 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/WaveCymbal0.1.11.zip">WaveCymbal 0.1.11 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/WaveCymbal0.1.10.zip">WaveCymbal 0.1.10 - VST 3 (github.com)</a></li>

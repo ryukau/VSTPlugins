@@ -6,7 +6,7 @@
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <meta name="dcterms.date" content="2022-05-14" />
-<title>WaveCymbal_en</title>
+<title>BasicLimiter_en</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -268,7 +268,7 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#wavecymbal">WaveCymbal</a>
+  <li><a href="#basiclimiter">BasicLimiter</a>
   <ul>
   <li><a href="#contact">Contact</a></li>
   <li><a href="#installation">Installation</a>
@@ -286,18 +286,7 @@ footer {
   <li><a href="#controls">Controls</a></li>
   <li><a href="#caution">Caution</a></li>
   <li><a href="#block-diagram">Block Diagram</a></li>
-  <li><a href="#parameters">Parameters</a>
-  <ul>
-  <li><a href="#gain">Gain</a></li>
-  <li><a href="#excitation">Excitation</a></li>
-  <li><a href="#objects">Objects</a></li>
-  <li><a href="#wave">Wave</a></li>
-  <li><a href="#collision">Collision</a></li>
-  <li><a href="#random">Random</a></li>
-  <li><a href="#string">String</a></li>
-  <li><a href="#oscillator">Oscillator</a></li>
-  <li><a href="#smoothness">Smoothness</a></li>
-  </ul></li>
+  <li><a href="#parameters">Parameters</a></li>
   <li><a href="#change-log">Change Log</a>
   <ul>
   <li><a href="#old-versions">Old Versions</a></li>
@@ -311,17 +300,18 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="wavecymbal">WaveCymbal</h1>
-<p><img src="img/wavecymbal.png" /></p>
-<p>WaveCymbal is an attempt to make a cymbal synthesizer with banded wave-guide model. The result is more like dragging bunch of empty cans or thin metal plate on asphalt rather than cymbal.</p>
+<h1 id="basiclimiter">BasicLimiter</h1>
+<p><img src="img/basiclimiter.png" /></p>
+<p>BasicLimiter is a basic single band limiter. The sound is nothing new, but the design of true peak mode is a bit luxurious.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/WaveCymbal_0.1.14.zip">Download WaveCymbal 0.1.14 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiter_0.1.2.zip">Download BasicLimiter 0.1.2 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/WaveCymbalPresets.zip">Download Presets (github.com)</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterPresets.zip">Download Presets (github.com)</a></li>
 </ul>
+<p>BasicLimiter requires CPU which supports AVX or later SIMD instructions.</p>
 <p>The package includes following builds:</p>
 <ul>
 <li>Windows 64bit</li>
@@ -439,191 +429,71 @@ the Trash&quot;</code></pre>
 <li><code>overlayHighlight</code>: Overlay color to highlight current focus.</li>
 </ul>
 <h2 id="controls">Controls</h2>
-<p>Knob and slider can do:</p>
+<p>Knob and number slider can do:</p>
 <ul>
-<li>Ctrl + Left Click: Reset value.</li>
-<li>Shift + Left Drag: Fine adjustment.</li>
+<li><kbd>Ctrl</kbd> + <kdb>Left Click</kbd>: Reset value.</li>
+<li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
 </ul>
-<p>Right clicking on controllable object popups a context menu provided by DAW.</p>
 <h2 id="caution">Caution</h2>
-<p>Parameters that turns red when pointing can drastically change output gain. Changing those parameters with Shift + Left Drag is recommended. To prevent sudden clipping, always insert limiter after WaveCymbal.</p>
+<p>The algorithm used in BasicLimiter causes over-limiting when input amplitude is extremely high. When over-limiting happens, higher input amplitude turns into lower output amplitude. This problems is expected to happen when input amplitude exceeds <code>2^53</code>, or 319 in decibel.</p>
 <h2 id="block-diagram">Block Diagram</h2>
 <p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or “View Image” on right click menu to scale.</p>
 <p>Diagram only shows overview. It’s not exact implementation.</p>
-<p><img src="img/wavecymbal.svg" /></p>
+<p><img src="img/basiclimiter.svg" /></p>
 <h2 id="parameters">Parameters</h2>
-<h3 id="gain">Gain</h3>
-<p>Output gain.</p>
-<h3 id="excitation">Excitation</h3>
-<p>Short delays that turns impulse to tone.</p>
 <dl>
-<dt>Feedback</dt>
-<dd><p>Feedback of excitor delays.</p>
+<dt>Threshold [dB]</dt>
+<dd><p>Threshold of limiter output amplitude.</p>
+<p>When <code>True Peak</code> is off, output amplitude is limited under <code>Threshold</code>.</p>
+<p>When <code>True Peak</code> is on, output amplitude might exceeds <code>Threshold</code>. This is due to the limitation of real-time algorithm.</p>
 </dd>
-<dt>Time</dt>
-<dd><p>Delay time of excitor delays. Beware that when the value of this parameter is high, output will be loud.</p>
+<dt>Gate [dB]</dt>
+<dd><p>Threshold of gate. When input amplitude is less than the value of <code>Gate</code> for the duration of <code>Attack</code>, output amplitude becomes 0.</p>
+</dd>
+<dt>Attack [s]</dt>
+<dd><p>Transition time of smoothing filter which applies to internal envelope. The value of <code>Attack</code> also adds to the latency.</p>
+<p>For the sound with sharp transitions, like drums, recommend to set <code>Attack</code> under 0.02 seconds. This 0.02 seconds comes from a psychoacoustic effect called <a href="https://ccrma.stanford.edu/~bosse/proj/node21.html">temporal masking</a>.</p>
+</dd>
+<dt>Release [s]</dt>
+<dd><p>Smoothness to reset internal envelope to neutral position.</p>
+<p>Internally, the inverse value of <code>Release</code> is used as cutoff frequency. This means that the indicated value is not exact. For usual case, recommend to set the sum of <code>Release</code> and <code>Sustain</code> under 0.2 seconds. This is based on temporal masking.</p>
+</dd>
+<dt>Sustain [s]</dt>
+<dd><p>Additional peak hold time for the internal envelope.</p>
+<p><code>Sustain</code> causes more ducking when applied to sounds like drums. For sounds like distorted guitar or sustaining synthesizer, <code>Sustain</code> might sounds cleaner than <code>Release</code>, because it works similar to auto-gain. Note that the sustain on limiter envelope doesn’t match the curve of temporal masking.</p>
+</dd>
+<dt>Stereo Link</dt>
+<dd><p>When <code>Stereo Link</code> is set to 0.0, limiter for each channel works independently. When set to 1.0, maximum of all the input amplitude is used for both limiter. Following snippet shows the calculation of <code>Stereo Link</code></p>
+<pre><code>absL = fabs(leftInput).
+absR = fabs(rightInput).
+
+absMax = max(absL, absR).
+
+amplitudeL = absL + stereoLink * (absMax - absL).
+amplitudeR = absR + stereoLink * (absMax - absR).</code></pre>
+<p>When <code>Stereo Link</code> is set to 0.0, and input amplitude is leaned to left or right, it may sounds like the pan is wobbling. So for fine tuning, set the value to 0.0, gradually increase the value to 1.0, then stop when the wobbling is gone.</p>
+</dd>
+<dt>True Peak</dt>
+<dd><p>Enables true peak mode when checked.</p>
+<p>While true peak mode is enabled, lowpass filter is applied to remove the components near nyquist frequency. Also, sample peak might exceeds <code>Threshold</code>. Especially when sample peak exceeds 0 dB, the value of <code>Overshoot</code> becomes greater than 0. Lower <code>Threshold</code> in this case.</p>
+<p>In real time processing, restoration of true peak around nyquist frequency is almost impossible. That’s why the lowpass is applied, and this true peak mode causes overshoot. If the aim is to eliminate overshoot at any cost, the lowpass will either change the gain of audible frequency, or burn out your CPU. The lowpass on BasicLimiter is designed to only change the gain over 18000 Hz.</p>
+</dd>
+<dt>Reset Overshoot</dt>
+<dd><p>Resets <code>Overshoot</code> to 0 when clicked.</p>
+<p>When output sample peak exceeds 0 dB, the value of <code>Overshoots</code> changes to greater than 0, and <code>Reset Overshoot</code> will be lit.</p>
 </dd>
 </dl>
-<h3 id="objects">Objects</h3>
-<dl>
-<dt>nCymbal</dt>
-<dd><p>Number of cymbal-ish objects.</p>
-</dd>
-<dt>nString</dt>
-<dd><p>Number of Karplus-Strong string per cymbal object.</p>
-</dd>
-</dl>
-<h3 id="wave">Wave</h3>
-<dl>
-<dt>Damping</dt>
-<dd><p>Damping of 1D wave simulation. Beware that when the value of this parameter is high, output will be loud.</p>
-</dd>
-<dt>PulsePosition</dt>
-<dd><p>Position where oscillator input causes wave.</p>
-</dd>
-<dt>PulseWidth</dt>
-<dd><p>Width of wave caused by oscillator input.</p>
-</dd>
-</dl>
-<h3 id="collision">Collision</h3>
-<p>When turns on, it sounds like a rubbing on surface of thin light metal plate. When <code>nCymbal</code> is 1, this doesn’t change output sound.</p>
-<dl>
-<dt>Distance</dt>
-<dd><p>Distance between cymbals. Collision will more likely to occur when turning this knob to left.</p>
-</dd>
-</dl>
-<h3 id="random">Random</h3>
-<dl>
-<dt>Seed</dt>
-<dd><p>Random seed. Output will be the same for each note while checking <code>Retrigger</code>.</p>
-</dd>
-<dt>Amount</dt>
-<dd><p>Amount of random number effects to delay time and band-pass cutoff. Beware that when the value of this parameter is low, output may be loud.</p>
-</dd>
-</dl>
-<h3 id="string">String</h3>
-<dl>
-<dt>MinHz</dt>
-<dd><p>Lower bound of Karplus-Strong string frequency.</p>
-</dd>
-<dt>MaxHz</dt>
-<dd><p>Upper bound of Karplus-Strong string frequency.</p>
-</dd>
-<dt>Decay</dt>
-<dd><p>Decay of Karplus-Strong string. Decay time will be longer when turning this knob to left.</p>
-</dd>
-<dt>Q</dt>
-<dd><p>Band-pass filter Q.</p>
-</dd>
-</dl>
-<h3 id="oscillator">Oscillator</h3>
-<dl>
-<dt>Retrigger</dt>
-<dd><p>When checking, each note on resets random seed.</p>
-</dd>
-<dt>OscType</dt>
-<dd><p>Oscillator type.</p>
-<ul>
-<li><code>Off</code> : Stop making noise for each note on. This option will be used when using WaveCymbal as FX.</li>
-<li><code>Impulse</code> : Outputs impulse for each note on. Simulates hit of cymbal with stick.</li>
-<li><code>Sustain</code> : Outputs impulse train with pitch of note. Simulates drawing of bow on surface of cymbal.</li>
-<li><code>Velvet Noise</code> : Outputs velvet noise of a density respect to pitch of note. Simulates less uniform drawing than <code>Sustain</code>.</li>
-<li><code>Brown Noise</code> : Outputs brown noise of a brightness respect to pitch of note. Kind of like dragging cymbal on asphalt.</li>
-</ul>
-</dd>
-<dt>Bandpass Cutoff Distribution</dt>
-<dd><ul>
-<li><code>Log</code> : Sound becomes relatively natural.</li>
-<li><code>Linear</code> : Leans sound to higher frequency.</li>
-</ul>
-</dd>
-</dl>
-<h3 id="smoothness">Smoothness</h3>
-<p>Transition time from previous value to current value in seconds. <code>Gain</code>, <code>Excitation.Time</code>, <code>Random.Amount</code>, <code>Bandpass.MinCutoff</code>, <code>Bandpass.MaxCutoff</code> will be affected. Slide effect of <code>OscType.Sustain</code> can be tuned by <code>Smoothness</code>.</p>
 <h2 id="change-log">Change Log</h2>
 <ul>
-<li>0.1.14
-<ul>
-<li>Changed font to Tinos.</li>
-</ul></li>
-<li>0.1.13
-<ul>
-<li>Fixed to reset properly.</li>
-<li>Fixed <code>bypass</code> parameter behavior. This fixes playing all the notes at the moment of unmute, even if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3 <code>bypass</code> parameter.</li>
-</ul></li>
-<li>0.1.12
-<ul>
-<li>Implemented process context requirements.</li>
-</ul></li>
-<li>0.1.11
-<ul>
-<li>Added check that DSP is initialized or not.</li>
-</ul></li>
-<li>0.1.10
-<ul>
-<li>Added color configuration.</li>
-</ul></li>
-<li>0.1.9
-<ul>
-<li>Reverted parameter smoother to the old one which works with variable size audio buffer.</li>
-</ul></li>
-<li>0.1.8
-<ul>
-<li>Fixed a bug that cause crash when drawing string.</li>
-</ul></li>
-<li>0.1.7
-<ul>
-<li>Changed display method for pop-up which shows up by clicking plugin title.</li>
-</ul></li>
-<li>0.1.6
-<ul>
-<li>Fixed to stop sounds when deactivated.</li>
-<li>Fixed a bug that was causing noise on PreSonus Studio One 4.6.1.</li>
-</ul></li>
-<li>0.1.5
-<ul>
-<li>Enabled GUI for Linux build.</li>
-<li>Fixed broken presets.</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li>Fixed wobbling knob bug.</li>
-</ul></li>
-<li>0.1.3
-<ul>
-<li>Added support for synchronization between multiple GUI instances.</li>
-<li>Fixed a bug that opening splash screen causes crash.</li>
-<li>Fixed a bug that crash plugin when reloading.</li>
-<li>Fixed GUI to follow host automation.</li>
-</ul></li>
 <li>0.1.2
-<ul>
-<li>Fixed note on/off event to be triggered at exact timing.</li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>Fixed smoothing algorithm to prevent blow up.</li>
-</ul></li>
-<li>0.1.0
 <ul>
 <li>Initial release.</li>
 </ul></li>
 </ul>
 <h3 id="old-versions">Old Versions</h3>
-<ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/WaveCymbal_0.1.13.zip">WaveCymbal 0.1.13 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/WaveCymbal0.1.12.zip">WaveCymbal 0.1.12 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/WaveCymbal0.1.11.zip">WaveCymbal 0.1.11 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/WaveCymbal0.1.10.zip">WaveCymbal 0.1.10 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/WaveCymbal0.1.9.zip">WaveCymbal 0.1.9 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/WaveCymbal0.1.8.zip">WaveCymbal 0.1.8 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/WaveCymbal0.1.6.zip">WaveCymbal 0.1.6 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/WaveCymbal0.1.5.zip">WaveCymbal 0.1.5 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/WaveCymbal0.1.4.zip">WaveCymbal 0.1.4 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/WaveCymbal0.1.3.zip">WaveCymbal 0.1.3 - VST 3 (github.com)</a></li>
-</ul>
+<p>There aren’t any old versions.</p>
 <h2 id="license">License</h2>
-<p>WaveCymbal is licensed under GPLv3. Complete licenses are linked below.</p>
+<p>BasicLimiter is licensed under GPLv3. Complete licenses are linked below.</p>
 <ul>
 <li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
 </ul>

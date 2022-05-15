@@ -1,5 +1,4 @@
-<style>
-body {
+<style>body {
   max-width: 704px;
   margin: auto;
   padding: 32px 8px;
@@ -13,22 +12,26 @@ video {
   max-width: 100%;
 }
 
-details.list > summary {
+details.list>summary {
   line-height: 3em;
 }
 
 kbd {
   font-family: inherit;
-  border-style: solid;
+  border-style: outset;
   border-width: 1px 2px 2px 1px;
   border-radius: 2px;
-  padding: 4px;
+  padding: 2px 4px;
   margin: 2px;
   line-height: calc(1em + 16px);
 }
 
 a {
   text-decoration: none;
+}
+
+a:hover {
+  background-color: #ffe590;
 }
 
 h1 {
@@ -50,16 +53,19 @@ h3 {
 h4 {
   border-left: solid 12px #6a88da;
   padding-left: 8px;
+  margin-bottom: 0.5em;
 }
 
 h5 {
   border-left: solid 4px #8ca4e7;
   padding-left: 4px;
+  margin-bottom: 0.5em;
 }
 
 h6 {
   border-left: solid 2px #a8bcf5;
   padding-left: 2px;
+  margin-bottom: 0.5em;
 }
 
 table {
@@ -107,12 +113,12 @@ dl {
 dt {
   font-weight: bold;
   border-bottom: 1px dashed #000000;
-  margin-top: 2em;
 }
 
 dd {
   border-left: 1px dotted #000000;
   margin-left: 1em;
+  margin-bottom: 2em;
   padding-left: 1em;
 }
 
@@ -124,7 +130,7 @@ label {
   vertical-align: middle;
 }
 
-:not(.sourceCode) > pre {
+:not(.sourceCode)>pre {
   overflow: auto;
   border: 1px solid #888888;
   padding: 8px;
@@ -136,15 +142,17 @@ div.sourceCode {
   padding: 8px;
 }
 
-pre > code.sourceCode > span > a:first-child::before {
+pre>code.sourceCode>span>a:first-child::before {
   border-right: 1px solid #888888;
   padding-right: 1em;
   margin-right: 1em;
   text-decoration: none;
 }
 
-:not(pre) > code {
-  color: #163eac;
+:not(pre)>code {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+  color: #705020;
 }
 
 li {
@@ -166,4 +174,5 @@ footer {
   padding: 0.5em;
   margin-top: 1em;
 }
+
 </style>
