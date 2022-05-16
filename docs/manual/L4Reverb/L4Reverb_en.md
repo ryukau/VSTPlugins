@@ -16,7 +16,7 @@ L4Reverb is an extended version of LatticeReverb. This time, lattice structure h
 
 If L4Reverb is too heavy for your machine, L3Reverb is also available. L3Reverb is a trimmed down version of L4Reverb. The lattice structure has 3 * 3 * 3 * 5 = 135 sections per channel.
 
-- [Download L3Reverb 0.1.4 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L3Reverb_0.1.4.zip) <img
+- [Download L3Reverb 0.1.5 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/L3Reverb_0.1.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -335,9 +335,9 @@ Smooth
 :    Transition time to change parameter value to current one. Unit is in second.
 
 ## Change Log
+### L4Reverb
 - 0.1.5
   - Changed font to Tinos.
-### L4Reverb
 - 0.1.4
   - Fixed to reset properly.
   - Fixed `bypass` parameter behavior. This fixes playing all the notes at the moment of unmute, even if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3 `bypass` parameter.
@@ -356,6 +356,8 @@ Smooth
   - Initial release.
 
 ### L3Reverb
+- 0.1.5
+  - Changed font to Tinos.
 - 0.1.4
   - Fixed to reset properly.
   - Fixed `bypass` parameter behavior. This fixes playing all the notes at the moment of unmute, even if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3 `bypass` parameter.
@@ -372,10 +374,14 @@ Smooth
   - Initial release.
 
 ### Old Versions
+#### L4Reverb
 - [L4Reverb 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L4Reverb_0.1.4.zip)
 - [L4Reverb 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/L4Reverb0.1.2.zip)
 - [L4Reverb 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L4Reverb0.1.1.zip)
 - [L4Reverb 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Reverb0.1.0.zip)
+
+#### L3Reverb
+- [L3Reverb 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L3Reverb_0.1.4.zip)
 
 ## License
 L4Reverb and L3Reverb is licensed under GPLv3. Complete licenses are linked below.
