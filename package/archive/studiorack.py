@@ -6,7 +6,7 @@ from pathlib import Path
 
 studiorack_dir = Path("pack/studiorack")
 
-def create_studiorack_archives():
+def create_studiorack_archives(platforms):
     """
     This function creates studiorack package as zip archive.
     Returns list of packaged plugin names.
@@ -17,7 +17,7 @@ def create_studiorack_archives():
         stem = str(path.stem).split("_")
         name = stem[0]
         version = stem[1]
-        for platform in ["linux", "mac", "win"]:
+        for platform in platforms:
             target_path = studiorack_dir / Path(f"{name}-{platform}{path.suffix}")
             shutil.copyfile(path, target_path)
         plugins.append({"name": name, "version": version})
@@ -40,7 +40,7 @@ def extract_description_from_manual(manual_path):
                      text,
                      flags=re.MULTILINE | re.DOTALL).groups()[0]
 
-def create_studiorack_data(plugins):
+def create_studiorack_data(plugins, platforms):
     common = {}
     common["author"] = "Takamitsu Endo"
     common["homepage"] = "https://ryukau.github.io/VSTPlugins/"
@@ -98,7 +98,7 @@ def create_studiorack_data(plugins):
             "size": get_size(screenshot_path)
         }
 
-        for platform in ["linux", "mac", "win"]:
+        for platform in platforms:
             archive_name = f"{name}-{platform}.zip"
             data["files"][platform] = {
                 "name": archive_name,
@@ -111,5 +111,7 @@ def create_studiorack_data(plugins):
         json.dump(plugindata, fi)
 
 if __name__ == "__main__":
-    plugins = create_studiorack_archives()
-    create_studiorack_data(plugins)
+    platforms = ["linux", "win"]
+
+    plugins = create_studiorack_archives(platforms)
+    create_studiorack_data(plugins, platforms)
