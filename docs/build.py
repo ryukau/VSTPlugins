@@ -1,7 +1,15 @@
-import subprocess
+import argparse
+import json
 import os
+import subprocess
 import time
 from pathlib import Path
+
+def read_build_info(rebuild=False):
+    if not rebuild and Path("buildinfo.json").exists():
+        with open("buildinfo.json", "r") as build_info:
+            return json.load(build_info)
+    return {}
 
 def get_last_modified(md):
     result = subprocess.run(
@@ -17,38 +25,55 @@ def get_last_modified(md):
     epoch = Path(md).stat().st_mtime
     return time.strftime("%F", time.localtime(epoch))
 
-index_path = Path("index.html").resolve()
-css_path = Path("style.css").resolve()
-template_path = Path("template.html").resolve()
-if os == "nt":
-    css_path = css_path.as_uri()
-    template_path = template_path.as_uri()
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-r", "--rebuild", action='store_true', help="rebuild all file")
+    args = parser.parse_args()
 
-for md in Path(".").glob("**/*.md"):
-    if md.stem == "README" or md.parts[0] == "rewrite":
-        continue
+    md_info = read_build_info(args.rebuild)
 
-    print(f"Processing {md}")
+    index_path = Path("index.html").resolve()
+    css_path = Path("style.css").resolve()
+    template_path = Path("template.html").resolve()
+    if os == "nt":
+        css_path = css_path.as_uri()
+        template_path = template_path.as_uri()
 
-    index_relpath = os.path.relpath(str(index_path), str(md.parent.resolve()))
-    if index_relpath == "index.html":
-        index_relpath = ""
+    for md in Path(".").glob("**/*.md"):
+        if md.stem == "README" or md.parts[0] == "rewrite":
+            continue
 
-    last_modified = get_last_modified(md)
+        mtime = os.path.getmtime(md)
+        if str(md) not in md_info:
+            md_info[str(md)] = {"mtime": mtime}
+        elif md_info[str(md)]["mtime"] == mtime:
+            continue
+        md_info[str(md)]["mtime"] = mtime
 
-    subprocess.run([
-        "pandoc",
-        "--standalone",
-        "--toc",
-        "--toc-depth=4",
-        "--metadata",
-        f"title={md.stem}",
-        "--metadata",
-        f"date-meta={last_modified}",
-        "--metadata",
-        f"index-relative-path={index_relpath}",
-        f"--template={str(template_path)}",
-        f"--include-in-header={str(css_path)}",
-        f"--output={md.with_suffix('')}.html",
-        str(md),
-    ])
+        print(f"Processing {md}")
+
+        index_relpath = os.path.relpath(str(index_path), str(md.parent.resolve()))
+        if index_relpath == "index.html":
+            index_relpath = ""
+
+        last_modified = get_last_modified(md)
+
+        subprocess.run([
+            "pandoc",
+            "--standalone",
+            "--toc",
+            "--toc-depth=4",
+            "--metadata",
+            f"title={md.stem}",
+            "--metadata",
+            f"date-meta={last_modified}",
+            "--metadata",
+            f"index-relative-path={index_relpath}",
+            f"--template={str(template_path)}",
+            f"--include-in-header={str(css_path)}",
+            f"--output={md.with_suffix('')}.html",
+            str(md),
+        ])
+
+    with open("buildinfo.json", "w") as fi:
+        json.dump(md_info, fi)
