@@ -47,7 +47,7 @@ def create_archive_from_github_actions_artifact():
         # Ensuring that no binary is missing.
         check_file(vst3_dir / Path(f"Contents/x86_64-win/{plugin_name}.vst3"))
         check_file(vst3_dir / Path(f"Contents/x86_64-linux/{plugin_name}.so"))
-        check_file(vst3_dir / Path(f"Contents/MacOS/{plugin_name}"))
+        # check_file(vst3_dir / Path(f"Contents/MacOS/{plugin_name}"))
 
         packed_path_str = shutil.make_archive(
             str(vst3_dir.parent / Path(f"{plugin_name}")),
