@@ -5,7 +5,7 @@ lang: en
 # FDN64Reverb
 ![](img/fdn64reverb.png)
 
-FDN64Reverb is a reverb using single feedback delay network. The size of feedback matrix is 64.
+FDN64Reverb is a reverb equipped with a feedback delay network (FDN). However, the size of feedback matrix is 64.
 
 - [Download FDN64Reverb 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/FDN64Reverb_0.1.0.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
