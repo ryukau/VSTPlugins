@@ -757,7 +757,7 @@ protected:
 
   std::unordered_map<Vst::ParamID, CControl *> controlMap;
   std::unordered_map<Vst::ParamID, ArrayControl *> arrayControlMap;
-  std::unordered_map<Vst::ParamID, ArrayControl *> arrayControlInstances; // Dirty hack.
+  std::unordered_map<Vst::ParamID, ArrayControl *> arrayControlInstances;
 
   ViewRect viewRect{0, 0, 512, 512};
 

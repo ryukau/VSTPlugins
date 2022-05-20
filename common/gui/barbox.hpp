@@ -17,12 +17,11 @@
 
 #pragma once
 
-#include "pluginterfaces/base/funknown.h"
-#include "pluginterfaces/vst/ivstcontextmenu.h"
-#include "vstgui/vstgui.h"
-
 #include "arraycontrol.hpp"
 #include "style.hpp"
+
+#include "pluginterfaces/base/funknown.h"
+#include "pluginterfaces/vst/ivstcontextmenu.h"
 
 #include <algorithm>
 #include <random>
@@ -70,7 +69,7 @@ public:
   double altScrollSensitivity = 0.001;
   std::vector<double> snapValue;
 
-  BarBox(
+  explicit BarBox(
     Steinberg::Vst::VSTGUIEditor *editor,
     const CRect &size,
     std::vector<Steinberg::Vst::ParamID> id,
@@ -191,29 +190,126 @@ public:
     setDirty(false);
   }
 
-#define APPLY_ALGORITHM(START, FUNC)                                                     \
-  active.resize(0);                                                                      \
-  locked.resize(0);                                                                      \
-                                                                                         \
-  for (size_t i = START; i < value.size(); ++i) {                                        \
-    if (barState[i] == BarState::active)                                                 \
-      active.push_back(value[i]);                                                        \
-    else                                                                                 \
-      locked.push_back(value[i]);                                                        \
-  }                                                                                      \
-                                                                                         \
-  FUNC;                                                                                  \
-                                                                                         \
-  size_t activeIndex = 0;                                                                \
-  size_t lockedIndex = 0;                                                                \
-  for (size_t i = START; i < value.size(); ++i) {                                        \
-    if (barState[i] == BarState::active) {                                               \
-      value[i] = active[activeIndex];                                                    \
-      ++activeIndex;                                                                     \
-    } else {                                                                             \
-      value[i] = locked[lockedIndex];                                                    \
-      ++lockedIndex;                                                                     \
-    }                                                                                    \
+  void onMouseEnterEvent(MouseEnterEvent &event) override
+  {
+    grabFocus();
+
+    isMouseEntered = true;
+    invalid();
+    event.consumed = true;
+  }
+
+  void onMouseExitEvent(MouseExitEvent &event) override
+  {
+    isMouseEntered = false;
+    invalid();
+    event.consumed = true;
+  }
+
+  void onMouseDownEvent(MouseDownEvent &event) override
+  {
+    if (event.buttonState.isRight()) {
+      auto componentHandler = editor->getController()->getComponentHandler();
+      if (componentHandler == nullptr) return;
+
+      using namespace Steinberg;
+
+      FUnknownPtr<Vst::IComponentHandler3> handler(componentHandler);
+      if (handler == nullptr) return;
+
+      setMousePosition(event.mousePosition);
+      size_t index = calcIndex(mousePosition);
+      if (index >= id.size()) return;
+
+      Vst::IContextMenu *menu = handler->createContextMenu(editor, &id[index]);
+      if (menu == nullptr) return;
+
+      menu->popup(event.mousePosition.x, event.mousePosition.y);
+      menu->release();
+      event.consumed = true;
+      return;
+    }
+
+    setMousePosition(event.mousePosition);
+    anchor = mousePosition;
+
+    if (
+      event.buttonState.isMiddle() && event.modifiers.has(ModifierKey::Control)
+      && event.modifiers.has(ModifierKey::Shift)) {
+      anchorState = setStateFromPosition(mousePosition, BarState::lock);
+    } else {
+      setValueFromPosition(mousePosition, event.modifiers);
+    }
+    invalid();
+    event.consumed = true;
+  }
+
+  void onMouseUpEvent(MouseUpEvent &event) override
+  {
+    updateValue();
+    pushUndoValue();
+    event.consumed = true;
+  }
+
+  void onMouseMoveEvent(MouseMoveEvent &event) override
+  {
+    setMousePosition(event.mousePosition);
+    if (event.buttonState.isLeft()) {
+      if (
+        event.modifiers.has(ModifierKey::Control)
+        && event.modifiers.has(ModifierKey::Shift)) {
+        setValueFromPosition(mousePosition, event.modifiers);
+      } else {
+        setValueFromLine(anchor, mousePosition, event.modifiers);
+      }
+      anchor = mousePosition;
+      event.consumed = true;
+    } else if (event.buttonState.isMiddle()) {
+      if (
+        event.modifiers.has(ModifierKey::Control)
+        && event.modifiers.has(ModifierKey::Shift)) {
+        setStateFromLine(anchor, mousePosition, anchorState);
+      } else if (event.modifiers.has(ModifierKey::Shift)) {
+        mousePosition.x = anchor.x;
+        setValueFromPosition(mousePosition, false, false);
+      } else {
+        setValueFromLine(anchor, mousePosition, event.modifiers);
+      }
+      event.consumed = true;
+    }
+    invalid(); // Required to refresh highlighting position.
+  }
+
+  void onMouseCancelEvent(MouseCancelEvent &event) override
+  {
+    if (isDirty()) {
+      updateValue();
+      pushUndoValue();
+      invalid();
+    }
+    event.consumed = true;
+  }
+
+  void onMouseWheelEvent(MouseWheelEvent &event) override
+  {
+    if (event.deltaY == 0) return;
+
+    size_t index = calcIndex(mousePosition);
+    if (index >= value.size()) return;
+
+    if (barState[index] != BarState::active) {
+      event.consumed = true;
+      return;
+    }
+
+    if (event.modifiers.has(ModifierKey::Shift)) {
+      setValueAt(index, value[index] + event.deltaY * altScrollSensitivity);
+    } else {
+      setValueAt(index, value[index] + event.deltaY * scrollSensitivity);
+    }
+    updateValueAt(index);
+    invalid();
+    event.consumed = true;
   }
 
   void onKeyboardEvent(KeyboardEvent &event) override
@@ -223,54 +319,53 @@ public:
     size_t index = calcIndex(mousePosition);
     if (index >= value.size()) index = value.size() - 1;
 
-    bool shift = event.modifiers.has(ModifierKey::Shift);
     if (event.character == 'a') {
       alternateSign(index);
-    } else if (event.character == 'd' && shift) { // Alternative default. (toggle min/max)
+    } else if (event.character == 'D') { // Alternative default. (toggle min/max)
       toggleMinMidMax(index);
     } else if (event.character == 'd') { // reset to Default.
       resetToDefault();
-    } else if (event.character == 'e' && shift) {
+    } else if (event.character == 'E') {
       emphasizeHigh(index);
     } else if (event.character == 'e') {
       emphasizeLow(index);
-    } else if (event.character == 'f' && shift) {
+    } else if (event.character == 'F') {
       highpass(index);
     } else if (event.character == 'f') {
       averageLowpass(index);
-    } else if (event.character == 'i' && shift) {
+    } else if (event.character == 'I') {
       invertFull(index);
     } else if (event.character == 'i') {
       invertInRange(index);
-    } else if (event.character == 'l' && shift) {
+    } else if (event.character == 'L') {
       lockAll(index);
     } else if (event.character == 'l') {
       barState[index]
         = barState[index] == BarState::active ? BarState::lock : BarState::active;
-    } else if (event.character == 'n' && shift) {
+    } else if (event.character == 'N') {
       normalizeFull(index);
     } else if (event.character == 'n') {
       normalizeInRange(index);
     } else if (event.character == 'p') { // Permute.
-      APPLY_ALGORITHM(index, {
+      applyAlgorithm(index, [&]() {
         std::random_device device;
         std::mt19937 rng(device());
         std::shuffle(active.begin(), active.end(), rng);
       });
-    } else if (event.character == 'r' && shift) {
+    } else if (event.character == 'R') {
       sparseRandomize(index);
     } else if (event.character == 'r') {
       totalRandomize(index);
-    } else if (event.character == 's' && shift) { // Sort ascending order.
-      APPLY_ALGORITHM(index, { std::sort(active.begin(), active.end()); });
+    } else if (event.character == 'S') { // Sort ascending order.
+      applyAlgorithm(index, [&]() { std::sort(active.begin(), active.end()); });
     } else if (event.character == 's') { // Sort descending order.
-      APPLY_ALGORITHM(
-        index, { std::sort(active.begin(), active.end(), std::greater<>()); });
-    } else if (event.character == 't' && shift) { // subTle randomize.
+      applyAlgorithm(
+        index, [&]() { std::sort(active.begin(), active.end(), std::greater<>()); });
+    } else if (event.character == 'T') { // subTle randomize.
       mixRandomize(index, 0.02);
     } else if (event.character == 't') { // subTle randomize. Random walk.
       randomize(index, 0.02);
-    } else if (event.character == 'z' && shift) { // Redo
+    } else if (event.character == 'Z') { // Redo
       redo();
       ArrayControl::updateValue();
       invalid();
@@ -283,11 +378,12 @@ public:
       event.consumed = true;
       return;
     } else if (event.character == ',') { // Rotate back.
-      APPLY_ALGORITHM(
-        index, { std::rotate(active.begin(), active.begin() + 1, active.end()); });
+      applyAlgorithm(
+        index, [&]() { std::rotate(active.begin(), active.begin() + 1, active.end()); });
     } else if (event.character == '.') { // Rotate forward.
-      APPLY_ALGORITHM(
-        index, { std::rotate(active.rbegin(), active.rbegin() + 1, active.rend()); });
+      applyAlgorithm(index, [&]() {
+        std::rotate(active.rbegin(), active.rbegin() + 1, active.rend());
+      });
     } else if (event.character == '1') { // Decrease.
       multiplySkip(index, 1);
     } else if (event.character == '2') { // Decrease 2n.
@@ -316,6 +412,169 @@ public:
     event.consumed = true;
   }
 
+  void setIndexFont(const SharedPointer<CFontDesc> &fontId) { indexFontID = fontId; }
+  void setNameFont(const SharedPointer<CFontDesc> &fontId) { nameFontID = fontId; }
+  void setName(std::string name) { this->name = name; }
+
+  void setViewRange(CCoord left, CCoord right)
+  {
+    indexL = int(std::clamp<CCoord>(left, 0, 1) * value.size());
+    indexR = int(std::clamp<CCoord>(right, 0, 1) * value.size());
+    indexRange = indexR >= indexL ? indexR - indexL : 0;
+    refreshSliderWidth(getWidth());
+    invalid();
+  }
+
+private:
+  void setMousePosition(CPoint &pos)
+  {
+    auto view = getViewSize();
+    mousePosition = pos - CPoint(view.left, view.top);
+  }
+
+  inline size_t calcIndex(CPoint &position)
+  {
+    return size_t(indexL + position.x / sliderWidth);
+  }
+
+  void refreshSliderWidth(CCoord width)
+  {
+    sliderWidth = indexRange >= 1 ? width / indexRange : width;
+    barWidth = sliderWidth <= 4.0f ? 1.0f : 2.0f;
+  }
+
+  double snap(double val)
+  {
+    if (snapValue.size() <= 0) return val;
+
+    size_t idx = 0;
+    for (; idx < snapValue.size(); ++idx) {
+      if (snapValue[idx] < val) continue;
+      break;
+    }
+    return idx < snapValue.size() ? snapValue[idx] : 1.0;
+  }
+
+  BarState setStateFromPosition(CPoint &position, BarState state)
+  {
+    size_t index = calcIndex(position);
+    if (index >= value.size()) return BarState::active;
+
+    barState[index] = barState[index] != state ? state : BarState::active;
+    return barState[index];
+  }
+
+  void setStateFromLine(CPoint &p0, CPoint &p1, BarState state)
+  {
+    if (p0.x > p1.x) std::swap(p0, p1);
+
+    int last = int(value.size()) - 1;
+    if (last < 0) last = 0; // std::clamp is undefined if low is greater than high.
+
+    int left = int(calcIndex(p0));
+    int right = int(calcIndex(p1));
+
+    if ((left < 0 && right < 0) || (left > last && right > last)) return;
+
+    left = std::clamp(left, 0, last);
+    right = std::clamp(right, 0, last);
+
+    for (int idx = left; idx >= 0 && idx <= right; ++idx) barState[idx] = state;
+
+    invalid();
+  }
+
+  void setValueFromPosition(CPoint &position, const Modifiers &modifiers)
+  {
+    setValueFromPosition(
+      position, modifiers.has(ModifierKey::Control), modifiers.has(ModifierKey::Shift));
+  }
+
+  void setValueFromPosition(CPoint &position, const bool ctrl, const bool shift)
+  {
+    size_t index = calcIndex(position);
+    if (index >= value.size()) return;
+    if (barState[index] != BarState::active) return;
+
+    if (ctrl && !shift)
+      setValueAt(index, defaultValue[index]);
+    else if (!ctrl && shift)
+      setValueAt(index, snap(1.0 - position.y / getHeight()));
+    else
+      setValueAt(index, 1.0 - position.y / getHeight());
+
+    updateValueAt(index);
+    invalid();
+  }
+
+  void setValueFromLine(CPoint p0, CPoint p1, const Modifiers &modifiers)
+  {
+    if (p0.x > p1.x) std::swap(p0, p1);
+
+    size_t left = calcIndex(p0);
+    size_t right = calcIndex(p1);
+    if (left >= value.size() || right >= value.size()) return;
+
+    const float p0y = p0.y;
+    const float p1y = p1.y;
+
+    if (left == right) { // p0 and p1 are in a same bar.
+      if (barState[left] != BarState::active) return;
+
+      if (modifiers.has(ModifierKey::Control))
+        setValueAt(left, defaultValue[left]);
+      else if (modifiers.has(ModifierKey::Shift))
+        setValueAt(left, snap(1.0f - anchor.y / getHeight()));
+      else
+        setValueAt(left, 1.0f - anchor.y / getHeight());
+
+      updateValueAt(left);
+      invalid();
+      return;
+    } else if (modifiers.has(ModifierKey::Control)) {
+      for (size_t idx = left; idx >= 0 && idx <= right; ++idx) {
+        if (barState[left] != BarState::active) return;
+        setValueAt(idx, defaultValue[idx]);
+      }
+      if (liveUpdateLineEdit) updateValue();
+      return;
+    }
+
+    const bool isSnapping = modifiers.has(ModifierKey::Shift);
+
+    if (barState[left] == BarState::active) {
+      auto val = 1.0f - p0y / getHeight();
+      setValueAt(left, isSnapping ? snap(val) : val);
+    }
+    if (barState[right] == BarState::active) {
+      auto val = 1.0f - p1y / getHeight();
+      setValueAt(right, isSnapping ? snap(val) : val);
+    }
+
+    // In between.
+    const float xL = sliderWidth * (left + 1);
+    const float xR = sliderWidth * right;
+
+    if (fabs(xR - xL) >= 1e-5) { // Avoid 0 division on slope.
+      p0.x = xL;
+      p1.x = xR;
+    }
+
+    const float p0x = p0.x;
+    const float p1x = p1.x;
+    const float slope = (p1y - p0y) / (p1x - p0x);
+    const float yInc = slope * sliderWidth;
+    float y = slope * (sliderWidth * (left + 1) - p0x) + p0y;
+    for (size_t idx = left + 1; idx < right; ++idx) {
+      auto val = 1.0f - (y + 0.5f * yInc) / getHeight();
+      setValueAt(idx, isSnapping ? snap(val) : val);
+      y += yInc;
+    }
+
+    if (liveUpdateLineEdit) updateValue();
+    invalid();
+  }
+
   void pushUndoValue()
   {
     std::rotate(undoValue.begin(), undoValue.begin() + 1, undoValue.end());
@@ -332,6 +591,33 @@ public:
   {
     std::rotate(undoValue.begin(), undoValue.begin() + 1, undoValue.end());
     value = undoValue.back();
+  }
+
+  template<typename Func> void applyAlgorithm(size_t start, Func func)
+  {
+    active.resize(0);
+    locked.resize(0);
+
+    for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] == BarState::active)
+        active.push_back(value[i]);
+      else
+        locked.push_back(value[i]);
+    }
+
+    func();
+
+    size_t activeIndex = 0;
+    size_t lockedIndex = 0;
+    for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] == BarState::active) {
+        value[i] = active[activeIndex];
+        ++activeIndex;
+      } else {
+        value[i] = locked[lockedIndex];
+        ++lockedIndex;
+      }
+    }
   }
 
   void resetToDefault()
@@ -598,293 +884,9 @@ public:
   {
     for (size_t i = start; i < value.size(); ++i) {
       if (barState[i] != BarState::active) continue;
-      setValueAt(
-        i,
-        (value[i] - sliderZero) * (0.9 + 0.1 * double(i + 1) / value.size())
-          + sliderZero);
+      auto &&emphasis = 0.9 + 0.1 * double(i + 1) / value.size();
+      setValueAt(i, (value[i] - sliderZero) * emphasis + sliderZero);
     }
-  }
-
-  void onMouseEnterEvent(MouseEnterEvent &event) override
-  {
-    isMouseEntered = true;
-    invalid();
-    event.consumed = true;
-  }
-
-  void onMouseExitEvent(MouseExitEvent &event) override
-  {
-    isMouseEntered = false;
-    invalid();
-    event.consumed = true;
-  }
-
-  void onMouseDownEvent(MouseDownEvent &event) override
-  {
-    if (event.buttonState.isRight()) {
-      auto componentHandler = editor->getController()->getComponentHandler();
-      if (componentHandler == nullptr) return;
-
-      using namespace Steinberg;
-
-      FUnknownPtr<Vst::IComponentHandler3> handler(componentHandler);
-      if (handler == nullptr) return;
-
-      setMousePosition(event.mousePosition);
-      size_t index = calcIndex(mousePosition);
-      if (index >= id.size()) return;
-
-      Vst::IContextMenu *menu = handler->createContextMenu(editor, &id[index]);
-      if (menu == nullptr) return;
-
-      menu->popup(event.mousePosition.x, event.mousePosition.y);
-      menu->release();
-      event.consumed = true;
-    }
-
-    setMousePosition(event.mousePosition);
-
-    anchor = mousePosition;
-
-    if (
-      event.buttonState.isMiddle() && event.modifiers.has(ModifierKey::Control)
-      && event.modifiers.has(ModifierKey::Shift)) {
-      anchorState = setStateFromPosition(mousePosition, BarState::lock);
-    } else {
-      setValueFromPosition(mousePosition, event.modifiers);
-    }
-    event.consumed = true;
-  }
-
-  void onMouseUpEvent(MouseUpEvent &event) override
-  {
-    updateValue();
-    pushUndoValue();
-    event.consumed = true;
-  }
-
-  void onMouseMoveEvent(MouseMoveEvent &event) override
-  {
-    setMousePosition(event.mousePosition);
-    invalid(); // Required to refresh highlighting position.
-    if (event.buttonState.isLeft()) {
-      if (
-        event.modifiers.has(ModifierKey::Control)
-        && event.modifiers.has(ModifierKey::Shift)) {
-        setValueFromPosition(mousePosition, event.modifiers);
-      } else {
-        setValueFromLine(anchor, mousePosition, event.modifiers);
-      }
-      anchor = mousePosition;
-      event.consumed = true;
-    } else if (event.buttonState.isMiddle()) {
-      if (
-        event.modifiers.has(ModifierKey::Control)
-        && event.modifiers.has(ModifierKey::Shift)) {
-        setStateFromLine(anchor, mousePosition, anchorState);
-      } else if (event.modifiers.has(ModifierKey::Shift)) {
-        mousePosition.x = anchor.x;
-        setValueFromPosition(mousePosition, false, false);
-      } else {
-        setValueFromLine(anchor, mousePosition, event.modifiers);
-      }
-      event.consumed = true;
-    }
-  }
-
-  void onMouseCancelEvent(MouseCancelEvent &event) override
-  {
-    if (isDirty()) {
-      updateValue();
-      pushUndoValue();
-      invalid();
-    }
-    event.consumed = true;
-  }
-
-  void onMouseWheelEvent(MouseWheelEvent &event) override
-  {
-    if (isEditing() || event.deltaY == 0) return;
-
-    size_t index = calcIndex(mousePosition);
-    if (index >= value.size()) return;
-
-    if (barState[index] != BarState::active) {
-      event.consumed = true;
-      return;
-    }
-
-    if (event.modifiers.has(ModifierKey::Shift)) {
-      setValueAt(index, value[index] + event.deltaY * altScrollSensitivity);
-    } else {
-      setValueAt(index, value[index] + event.deltaY * scrollSensitivity);
-    }
-    updateValueAt(index);
-    invalid();
-    event.consumed = true;
-  }
-
-  void setIndexFont(const SharedPointer<CFontDesc> &fontId) { indexFontID = fontId; }
-  void setNameFont(const SharedPointer<CFontDesc> &fontId) { nameFontID = fontId; }
-  void setName(std::string name) { this->name = name; }
-
-  void setViewRange(CCoord left, CCoord right)
-  {
-    indexL = int(std::clamp<CCoord>(left, 0, 1) * value.size());
-    indexR = int(std::clamp<CCoord>(right, 0, 1) * value.size());
-    indexRange = indexR >= indexL ? indexR - indexL : 0;
-    refreshSliderWidth(getWidth());
-    invalid();
-  }
-
-private:
-  void setMousePosition(CPoint &pos)
-  {
-    auto view = getViewSize();
-    mousePosition = pos - CPoint(view.left, view.top);
-  }
-
-  inline size_t calcIndex(CPoint &position)
-  {
-    return size_t(indexL + position.x / sliderWidth);
-  }
-
-  void refreshSliderWidth(CCoord width)
-  {
-    sliderWidth = indexRange >= 1 ? width / indexRange : width;
-    barWidth = sliderWidth <= 4.0f ? 1.0f : 2.0f;
-  }
-
-  double snap(double val)
-  {
-    if (snapValue.size() <= 0) return val;
-
-    size_t idx = 0;
-    for (; idx < snapValue.size(); ++idx) {
-      if (snapValue[idx] < val) continue;
-      break;
-    }
-    return idx < snapValue.size() ? snapValue[idx] : 1.0;
-  }
-
-  BarState setStateFromPosition(CPoint &position, BarState state)
-  {
-    size_t index = calcIndex(position);
-    if (index >= value.size()) return BarState::active;
-
-    barState[index] = barState[index] != state ? state : BarState::active;
-    return barState[index];
-  }
-
-  void setStateFromLine(CPoint &p0, CPoint &p1, BarState state)
-  {
-    if (p0.x > p1.x) std::swap(p0, p1);
-
-    int last = int(value.size()) - 1;
-    if (last < 0) last = 0; // std::clamp is undefined if low is greater than high.
-
-    int left = int(calcIndex(p0));
-    int right = int(calcIndex(p1));
-
-    if ((left < 0 && right < 0) || (left > last && right > last)) return;
-
-    left = std::clamp(left, 0, last);
-    right = std::clamp(right, 0, last);
-
-    for (int idx = left; idx >= 0 && idx <= right; ++idx) barState[idx] = state;
-
-    invalid();
-  }
-
-  void setValueFromPosition(CPoint &position, const Modifiers &modifiers)
-  {
-    setValueFromPosition(
-      position, modifiers.has(ModifierKey::Control), modifiers.has(ModifierKey::Shift));
-  }
-
-  void setValueFromPosition(CPoint &position, const bool ctrl, const bool shift)
-  {
-    size_t index = calcIndex(position);
-    if (index >= value.size()) return;
-    if (barState[index] != BarState::active) return;
-
-    if (ctrl && !shift)
-      setValueAt(index, defaultValue[index]);
-    else if (!ctrl && shift)
-      setValueAt(index, snap(1.0 - position.y / getHeight()));
-    else
-      setValueAt(index, 1.0 - position.y / getHeight());
-
-    updateValueAt(index);
-    invalid();
-  }
-
-  void setValueFromLine(CPoint p0, CPoint p1, const Modifiers &modifiers)
-  {
-    if (p0.x > p1.x) std::swap(p0, p1);
-
-    size_t left = calcIndex(p0);
-    size_t right = calcIndex(p1);
-    if (left >= value.size() || right >= value.size()) return;
-
-    const float p0y = p0.y;
-    const float p1y = p1.y;
-
-    if (left == right) { // p0 and p1 are in a same bar.
-      if (barState[left] != BarState::active) return;
-
-      if (modifiers.has(ModifierKey::Control))
-        setValueAt(left, defaultValue[left]);
-      else if (modifiers.has(ModifierKey::Shift))
-        setValueAt(left, snap(1.0f - anchor.y / getHeight()));
-      else
-        setValueAt(left, 1.0f - anchor.y / getHeight());
-
-      updateValueAt(left);
-      invalid();
-      return;
-    } else if (modifiers.has(ModifierKey::Control)) {
-      for (size_t idx = left; idx >= 0 && idx <= right; ++idx) {
-        if (barState[left] != BarState::active) return;
-        setValueAt(idx, defaultValue[idx]);
-      }
-      if (liveUpdateLineEdit) updateValue();
-      return;
-    }
-
-    const bool isSnapping = modifiers.has(ModifierKey::Shift);
-
-    if (barState[left] == BarState::active) {
-      auto val = 1.0f - p0y / getHeight();
-      setValueAt(left, isSnapping ? snap(val) : val);
-    }
-    if (barState[right] == BarState::active) {
-      auto val = 1.0f - p1y / getHeight();
-      setValueAt(right, isSnapping ? snap(val) : val);
-    }
-
-    // In between.
-    const float xL = sliderWidth * (left + 1);
-    const float xR = sliderWidth * right;
-
-    if (fabs(xR - xL) >= 1e-5) { // Avoid 0 division on slope.
-      p0.x = xL;
-      p1.x = xR;
-    }
-
-    const float p0x = p0.x;
-    const float p1x = p1.x;
-    const float slope = (p1y - p0y) / (p1x - p0x);
-    const float yInc = slope * sliderWidth;
-    float y = slope * (sliderWidth * (left + 1) - p0x) + p0y;
-    for (size_t idx = left + 1; idx < right; ++idx) {
-      auto val = 1.0f - (y + 0.5f * yInc) / getHeight();
-      setValueAt(idx, isSnapping ? snap(val) : val);
-      y += yInc;
-    }
-
-    if (liveUpdateLineEdit) updateValue();
-    invalid();
   }
 };
 

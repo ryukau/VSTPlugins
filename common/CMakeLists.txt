@@ -9,4 +9,5 @@ add_library(UhhyouCommon OBJECT
   gui/style.cpp
   gui/splash.cpp)
 
+# target_compile_definitions(UhhyouCommon PRIVATE VSTGUI_ENABLE_DEPRECATED_METHODS=0)
 target_include_directories(UhhyouCommon PUBLIC "${SMTG_VSTGUI_ROOT}/vstgui4")

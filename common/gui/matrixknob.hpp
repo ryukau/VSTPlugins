@@ -26,7 +26,7 @@
 #include "pluginterfaces/vst/ivstcontextmenu.h"
 
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 #include <cfloat>
 #include <cmath>
 #include <functional>
@@ -110,7 +110,7 @@ public:
     if (textView) textView->forget();
   }
 
-  CLASS_METHODS(MatrixKnob, CControl);
+  CLASS_METHODS(MatrixKnob, CView);
 
   void draw(CDrawContext *pContext) override
   {
@@ -189,6 +189,8 @@ public:
 
   void onMouseEnterEvent(MouseEnterEvent &event) override
   {
+    grabFocus();
+
     isMouseEntered = true;
     invalid();
     event.consumed = true;
@@ -298,7 +300,7 @@ public:
 
   void onMouseWheelEvent(MouseWheelEvent &event) override
   {
-    if (isEditing() || event.deltaY == 0) return;
+    if (event.deltaY == 0) return;
     auto sensi
       = event.modifiers.has(ModifierKey::Shift) ? lowSensitivity : 8.0 * sensitivity;
     setValueFromDelta(event.deltaY * sensi);
@@ -364,7 +366,6 @@ public:
   {
     if (!isMouseEntered || event.type == EventType::KeyUp) return;
 
-    bool shift = event.modifiers.has(ModifierKey::Shift);
     if (event.character == 'c') { // Copy.
       if (mode == modeNeutral) {
         updateTextView("c: Copy failed. Enable column(1)/row(2) mode to copy.");
@@ -401,7 +402,7 @@ public:
     } else if (event.character == 'w') {
       mode ^= modeRow;
       updateTextView("w: Toggle row mode.");
-    } else if (event.character == 'z' && shift) { // Redo
+    } else if (event.character == 'Z') { // Redo
       redo();
       ArrayControl::updateValue();
       updateTextView("Redo: Done.");

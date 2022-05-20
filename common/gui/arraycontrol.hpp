@@ -23,26 +23,46 @@
 
 namespace VSTGUI {
 
-struct ArrayControl : public CControl {
+struct ArrayControl : public CView, public IFocusDrawing {
 public:
-  ArrayControl(
+  Steinberg::Vst::VSTGUIEditor *editor = nullptr;
+  std::vector<Steinberg::Vst::ParamID> id;
+  std::vector<double> value;
+  std::vector<double> defaultValue;
+
+  explicit ArrayControl(
     Steinberg::Vst::VSTGUIEditor *editor,
     const CRect &size,
     std::vector<Steinberg::Vst::ParamID> id,
     std::vector<double> value,
     std::vector<double> defaultValue)
-    : CControl(size, nullptr, -1)
-    , editor(editor)
-    , id(id)
-    , value(value)
-    , defaultValue(defaultValue)
+    : CView(size), editor(editor), id(id), value(value), defaultValue(defaultValue)
   {
+    setTransparency(false);
+    setMouseEnabled(true);
+
     if (editor != nullptr) editor->addRef();
   }
 
   virtual ~ArrayControl()
   {
     if (editor != nullptr) editor->release();
+  }
+
+  bool drawFocusOnTop() override { return true; }
+
+  bool getFocusPath(CGraphicsPath &outPath) override
+  {
+    if (wantsFocus()) {
+      CCoord focusWidth = getFrame()->getFocusWidth();
+      CRect r(getVisibleViewSize());
+      if (!r.isEmpty()) {
+        outPath.addRect(r);
+        r.extend(focusWidth, focusWidth);
+        outPath.addRect(r);
+      }
+    }
+    return true;
   }
 
   void setValueAt(size_t index, double normalized)
@@ -69,10 +89,17 @@ public:
     getFrame()->endEdit(id[index]);
   }
 
-  Steinberg::Vst::VSTGUIEditor *editor = nullptr;
-  std::vector<Steinberg::Vst::ParamID> id;
-  std::vector<double> value;
-  std::vector<double> defaultValue;
+  void grabFocus()
+  {
+    if (!editor) return;
+    if (editor->getFrame()) editor->getFrame()->setFocusView(this);
+  }
+
+  void releaseFocus()
+  {
+    if (!editor) return;
+    if (editor->getFrame()) editor->getFrame()->setFocusView(nullptr);
+  }
 };
 
 } // namespace VSTGUI
