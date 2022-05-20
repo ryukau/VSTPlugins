@@ -137,37 +137,31 @@ public:
   virtual void onMouseEntered(CView *view, CFrame *frame) override {}
   virtual void onMouseExited(CView *view, CFrame *frame) override {}
 
-  virtual CMouseEventResult
-  onMouseMoved(CFrame *frame, const CPoint &where, const CButtonState &buttons) override
+  virtual void onMouseEvent(MouseEvent &event, CFrame *frame) override
   {
-    return kMouseEventNotHandled;
-  }
-
-  virtual CMouseEventResult
-  onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &buttons) override
-  {
-    if (!buttons.isRightButton()) return kMouseEventNotHandled;
+    if (!event.buttonState.isRight()) return;
 
     auto componentHandler = controller->getComponentHandler();
-    if (componentHandler == nullptr) return kMouseEventNotHandled;
+    if (componentHandler == nullptr) return;
 
     FUnknownPtr<IComponentHandler3> handler(componentHandler);
-    if (handler == nullptr) return kMouseEventNotHandled;
+    if (handler == nullptr) return;
 
-    auto control = dynamic_cast<CControl *>(frame->getViewAt(where));
-    if (control == nullptr) return kMouseEventNotHandled;
+    auto control = dynamic_cast<CControl *>(frame->getViewAt(event.mousePosition));
+    if (control == nullptr) return;
 
     // Context menu will not popup when the control has negative tag.
     ParamID id = control->getTag();
-    if (id < 1 || id >= LONG_MAX) return kMouseEventNotHandled;
+    if (id < 1 || id >= LONG_MAX) return;
 
     IContextMenu *menu = handler->createContextMenu(this, &id);
-    if (menu == nullptr) return kMouseEventNotHandled;
+    if (menu == nullptr) return;
 
-    menu->popup(where.x, where.y);
+    menu->popup(event.mousePosition.x, event.mousePosition.y);
     menu->release();
-    return kMouseEventHandled;
-  }
+
+    event.consumed = true;
+  };
 
   DELEGATE_REFCOUNT(VSTGUIEditor);
 

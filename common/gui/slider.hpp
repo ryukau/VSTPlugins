@@ -40,25 +40,25 @@ public:
 
   CLASS_METHODS(Slider, CSlider);
 
-  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override
+  void onMouseEnterEvent(MouseEnterEvent &event) override
   {
     setFrameWidth(highlightFrameWidth);
     setFrameColor(highlightColor);
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override
+  void onMouseExitEvent(MouseExitEvent &event) override
   {
     setFrameWidth(frameWidth);
     setFrameColor(frameColor);
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseCancel() override
+  void onMouseCancelEvent(MouseCancelEvent &event) override
   {
     setFrameWidth(frameWidth);
     setFrameColor(frameColor);
-    return CSlider::onMouseCancel();
+    CSlider::onMouseCancelEvent(event);
   }
 
   void setDefaultFrameColor(CColor color)

@@ -41,58 +41,54 @@ public:
 
   void draw(CDrawContext *pContext) override {}
 
-  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override
+  virtual void onMouseEnterEvent(MouseEnterEvent &event) override
   {
     isMouseEntered = true;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override
+  virtual void onMouseExitEvent(MouseExitEvent &event) override
   {
     isMouseEntered = false;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
+  virtual void onMouseDownEvent(MouseDownEvent &event) override
   {
-    if (!buttons.isLeftButton()) return kMouseEventNotHandled;
+    if (!event.buttonState.isLeft()) return;
 
     beginEdit();
-    if (checkDefaultValue(buttons)) {
-      endEdit();
-      return kMouseDownEventHandledButDontNeedMovedOrUpEvents;
-    }
-
     isMouseDown = true;
-    anchorPoint = where;
-    return kMouseEventHandled;
+    anchorPoint = event.mousePosition;
+
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseUp(CPoint &where, const CButtonState &buttons) override
+  virtual void onMouseUpEvent(MouseUpEvent &event) override
   {
     if (isMouseDown) endEdit();
     isMouseDown = false;
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseMoved(CPoint &where, const CButtonState &buttons) override
+  virtual void onMouseMoveEvent(MouseMoveEvent &event) override
   {
-    if (!isMouseDown) return kMouseEventNotHandled;
+    if (!isMouseDown) return;
 
-    auto sensi = (buttons & kShift) ? lowSensitivity : sensitivity;
-    value += (float)((anchorPoint.y - where.y) * sensi);
+    auto sensi = event.modifiers.has(ModifierKey::Shift) ? lowSensitivity : sensitivity;
+    value += (float)((anchorPoint.y - event.mousePosition.y) * sensi);
     bounceValue();
 
     if (value != getOldValue()) valueChanged();
     if (isDirty()) invalid();
 
-    anchorPoint = where;
-    return kMouseEventHandled;
+    anchorPoint = event.mousePosition;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseCancel() override
+  virtual void onMouseCancelEvent(MouseCancelEvent &event) override
   {
     if (isMouseDown) {
       if (isDirty()) {
@@ -103,24 +99,19 @@ public:
     }
     isMouseDown = false;
     isMouseEntered = false;
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  bool onWheel(
-    const CPoint &where,
-    const CMouseWheelAxis &axis,
-    const float &distance,
-    const CButtonState &buttons) override
+  virtual void onMouseWheelEvent(MouseWheelEvent &event) override
   {
-    if (isEditing() || axis != kMouseWheelAxisY || distance == 0.0f) return false;
-
+    if (isEditing() || event.deltaY == 0) return;
     beginEdit();
-    value += distance * float(sensitivity) * 0.5f;
+    value += event.deltaY * float(sensitivity) * 0.5f;
     bounceValue();
     valueChanged();
     endEdit();
     invalid();
-    return true;
+    event.consumed = true;
   }
 
   void setSlitWidth(double width) { halfArcWidth = width / 2.0; }
@@ -275,36 +266,22 @@ public:
     setDirty(false);
   }
 
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
+  void onMouseDownEvent(MouseDownEvent &event) override
   {
-    if (buttons.isLeftButton()) {
+    if (event.buttonState.isLeft()) {
       beginEdit();
-      if (checkDefaultValue(buttons)) {
-        endEdit();
-        return kMouseDownEventHandledButDontNeedMovedOrUpEvents;
-      }
       isMouseDown = true;
-      anchorPoint = where;
-      return kMouseEventHandled;
-    } else if (buttons.isMiddleButton()) {
-      auto mid = (getMax() - getMin()) / 2.0;
+      anchorPoint = event.mousePosition;
+      event.consumed = true;
+    } else if (event.buttonState.isMiddle()) {
+      auto mid = getDefaultValue();
       value = value >= getMax() ? getMin() : value < mid ? mid : getMax();
       bounceValue();
       if (value != getOldValue()) valueChanged();
       if (isDirty()) invalid();
+      event.consumed = true;
     }
-    return kMouseEventNotHandled;
   }
-
-  // int32_t onKeyDown(VstKeyCode &keyCode) override
-  // {
-  //   if (keyCode.character != 't') return -1;
-  //   value = value > getMin() ? getMin() : getMax();
-  //   bounceValue();
-  //   valueChanged();
-  //   invalid();
-  //   return 1;
-  // }
 
   void setPrecision(uint32_t precision) { this->precision = precision; }
 

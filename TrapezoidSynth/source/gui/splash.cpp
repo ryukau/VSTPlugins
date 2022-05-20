@@ -58,32 +58,30 @@ void SplashLabelTpz::draw(CDrawContext *pContext)
   setDirty(false);
 }
 
-CMouseEventResult SplashLabelTpz::onMouseDown(CPoint &where, const CButtonState &buttons)
+void SplashLabelTpz::onMouseDownEvent(MouseDownEvent &event)
 {
   splashView->setVisible(true);
-  return kMouseEventHandled;
+  event.consumed = true;
 }
 
-CMouseEventResult
-SplashLabelTpz::onMouseEntered(CPoint &where, const CButtonState &buttons)
+void SplashLabelTpz::onMouseEnterEvent(MouseEnterEvent &event)
 {
   isMouseEntered = true;
   invalid();
-  return kMouseEventHandled;
+  event.consumed = true;
 }
 
-CMouseEventResult
-SplashLabelTpz::onMouseExited(CPoint &where, const CButtonState &buttons)
+void SplashLabelTpz::onMouseExitEvent(MouseExitEvent &event)
 {
   isMouseEntered = false;
   invalid();
-  return kMouseEventHandled;
+  event.consumed = true;
 }
 
-CMouseEventResult SplashLabelTpz::onMouseCancel()
+void SplashLabelTpz::onMouseCancelEvent(MouseCancelEvent &event)
 {
   isMouseEntered = false;
-  return kMouseEventHandled;
+  event.consumed = true;
 }
 
 void SplashLabelTpz::setDefaultFrameWidth(float width) { frameWidth = width; }

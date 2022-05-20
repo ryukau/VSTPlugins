@@ -5,7 +5,9 @@ lang: ja
 # VST 3 の開発
 VST 3 の開発についてまとめました。何かあれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作ってもらえれば対応します。
 
-初版を書いたときは VST 3 SDK 3.6.13 と VSTGUI 4.8 を使っていました。現在のバージョンは VST 3 SDK 3.6.14 と VSTGUI 4.9 です。
+初版を書いたときは VST 3 SDK 3.6.13 と VSTGUI 4.8 を使っていました。最後に動作を確認したバージョンは VST 3 SDK 3.6.14 と VSTGUI 4.9 です。
+
+最後に編集したときのバージョンは VST 3 SDK 3.7.5 と VSTGUI 4.11 です。ところどころ廃止 (depricated) になったメソッドなどが紛れているかもしれないので注意してください。そのままコピペすることは推奨しません。
 
 最新版の SDK は Steinberg のページからダウンロードできます。
 
@@ -1354,13 +1356,12 @@ public:
 
   void draw(CDrawContext *pContext) override;
 
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
+  void onMouseDownEvent (MouseDownEvent& event) override
   {
-    if (buttons.isLeftButton()) {
-      valueChanged();
-      return kMouseDownEventHandledButDontNeedMovedOrUpEvents;
-    }
-    return kMouseEventNotHandled;
+    if (event.buttonState.isLeft()) return;
+    valueChanged();
+    event.consumed = true;
+    event.ignoreFollowUpMoveAndUpEvents(true);
   }
 
   CLASS_METHODS(CreditView, CControl)
@@ -1472,34 +1473,36 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
 `onMouseDown` を実装します。
 
 ```cpp
-CMouseEventResult
-PlugEditor::onMouseDown(CFrame *frame, const CPoint &where, const CButtonState &buttons)
-{
-  if (!buttons.isRightButton()) return kMouseEventNotHandled;
+void PlugEditor::onMouseEvent(MouseEvent &event, CFrame *frame) override
+  {
+    if (!event.buttonState.isRight()) return;
 
-  auto componentHandler = controller->getComponentHandler();
-  if (componentHandler == nullptr) return kMouseEventNotHandled;
+    auto componentHandler = controller->getComponentHandler();
+    if (componentHandler == nullptr) return;
 
-  FUnknownPtr<IComponentHandler3> handler(componentHandler);
-  if (handler == nullptr) return kMouseEventNotHandled;
+    FUnknownPtr<IComponentHandler3> handler(componentHandler);
+    if (handler == nullptr) return;
 
-  auto control = dynamic_cast<CControl *>(frame->getViewAt(where));
-  if (control == nullptr) return kMouseEventNotHandled;
+    auto control = dynamic_cast<CControl *>(frame->getViewAt(event.mousePosition));
+    if (control == nullptr) return;
 
-  ParamID id = control->getTag();
-  if (id < 1 || id >= LONG_MAX) return kMouseEventNotHandled;
+    // Context menu will not popup when the control has negative tag.
+    ParamID id = control->getTag();
+    if (id < 1 || id >= LONG_MAX) return;
 
-  IContextMenu *menu = handler->createContextMenu(this, &id);
-  if (menu == nullptr) return kMouseEventNotHandled;
-  menu->popup(where.x, where.y);
-  menu->release();
-  return kMouseEventHandled;
-}
+    IContextMenu *menu = handler->createContextMenu(this, &id);
+    if (menu == nullptr) return;
+
+    menu->popup(event.mousePosition.x, event.mousePosition.y);
+    menu->release();
+
+    event.consumed = true;
+  };
 ```
 
 0 あるいは負の tag が指定されたコントロールではコンテキストメニューを表示したくないので、 `id` の条件を `id < 1 || id >= LONG_MAX` としています。 `LONG_MAX` を使っているのは `ParamID` が `unsigned long` の typedef だからです。
 
-コンテキストメニューが開かないときは `kMouseEventNotHandled` を返して、他のコントロールにマウスイベントが伝わるようにしています。
+コンテキストメニューが開かないときは `event.consumed` を変えずにリターンすることで、他のコントロールにマウスイベントが伝わるようにしています。
 
 #### Linux で VSTGUI を利用
 `RunLoop` クラスを `VST3Editor` のコードからコピーして `x11runloop.hpp` というヘッダにします。
@@ -1652,6 +1655,7 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
 
 - コンテキストメニューはコントロールの上でしか表示されない。
 - 入れ子になったメニューの登録がうまくできない。
+- VSTGUI 4.11 で導入された新しいイベントハンドラを使っていない。
 
 FL Studio 20.5 でズーム後にプラグインのウィンドウがリサイズされなかったことが、あきらめた理由です。
 

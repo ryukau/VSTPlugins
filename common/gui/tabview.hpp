@@ -162,26 +162,26 @@ public:
       kCenterText);
   }
 
-  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override
+  void onMouseEnterEvent(MouseEnterEvent &event) override
   {
     isMouseEntered = true;
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override
+  void onMouseExitEvent(MouseExitEvent &event) override
   {
     isMouseEntered = false;
     for (auto &tab : tabs) tab.isMouseEntered = false;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
+  void onMouseDownEvent(MouseDownEvent &event) override
   {
-    if (!isInTabArea(where) || !buttons.isLeftButton()) return kMouseEventNotHandled;
+    if (!isInTabArea(event.mousePosition) || !event.buttonState.isLeft()) return;
     auto view = getViewSize();
-    auto mouseX = where.x - view.left;
-    auto mouseY = where.y - view.top;
+    auto mouseX = event.mousePosition.x - view.left;
+    auto mouseY = event.mousePosition.y - view.top;
     for (size_t idx = 0; idx < tabs.size(); ++idx) {
       if (tabs[idx].hitTest(float(mouseX), float(mouseY))) {
         activeTabIndex = idx;
@@ -190,31 +190,24 @@ public:
     }
     refreshTab();
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseMoved(CPoint &where, const CButtonState &buttons) override
+  void onMouseMoveEvent(MouseMoveEvent &event) override
   {
-    // auto view = getViewSize();
-    // mousePosition = where - CPoint(view.left, view.top);
-    // mousePosition = where;
-    if (!isMouseEntered) return kMouseEventNotHandled;
+    if (!isMouseEntered) return;
     auto view = getViewSize();
-    auto mouseX = where.x - view.left;
-    auto mouseY = where.y - view.top;
+    auto mouseX = event.mousePosition.x - view.left;
+    auto mouseY = event.mousePosition.y - view.top;
     for (auto &tab : tabs) tab.isMouseEntered = tab.hitTest(float(mouseX), float(mouseY));
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  bool onWheel(
-    const CPoint &where,
-    const CMouseWheelAxis &axis,
-    const float &distance,
-    const CButtonState &buttons) override
+  void onMouseWheelEvent(MouseWheelEvent &event) override
   {
-    if (distance == 0.0f || !isInTabArea(where)) return false;
-    if (distance > 0.0f) {
+    if (event.deltaY == 0.0f || !isInTabArea(event.mousePosition)) return;
+    if (event.deltaY > 0.0f) {
       activeTabIndex -= 1;
       if (activeTabIndex >= tabs.size()) activeTabIndex += tabs.size();
     } else {
@@ -223,7 +216,7 @@ public:
     }
     refreshTab();
     invalid();
-    return true;
+    event.consumed = true;
   }
 
   CLASS_METHODS(TabView, CView);

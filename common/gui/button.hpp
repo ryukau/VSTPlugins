@@ -77,37 +77,34 @@ public:
       label.c_str(), CRect(0, 0, getWidth(), getHeight()), kCenterText, true);
   }
 
-  virtual CMouseEventResult
-  onMouseEntered(CPoint &where, const CButtonState &buttons) override
+  virtual void onMouseEnterEvent(MouseEnterEvent &event) override
   {
     isMouseEntered = true;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  virtual CMouseEventResult
-  onMouseExited(CPoint &where, const CButtonState &buttons) override
+  virtual void onMouseExitEvent(MouseExitEvent &event) override
   {
     isMouseEntered = false;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  virtual CMouseEventResult
-  onMouseDown(CPoint &where, const CButtonState &buttons) override
+  virtual void onMouseDownEvent(MouseDownEvent &event) override
   {
-    if (!buttons.isLeftButton()) return kMouseEventNotHandled;
+    if (!event.buttonState.isLeft()) return;
     value = value == 0 ? 1 : 0;
     valueChanged();
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  virtual CMouseEventResult onMouseCancel() override
+  virtual void onMouseCancelEvent(MouseCancelEvent &event) override
   {
     isMouseEntered = false;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
   void setBorderWidth(CCoord width) { borderWidth = width < 0 ? 0 : width; }
@@ -152,7 +149,7 @@ public:
   {
   }
 
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override
+  void onMouseExitEvent(MouseExitEvent &event) override
   {
     if (Btn::value == 1) {
       Btn::value = 0;
@@ -160,29 +157,29 @@ public:
     }
     Btn::isMouseEntered = false;
     Btn::invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
+  void onMouseDownEvent(MouseDownEvent &event) override
   {
-    if (!buttons.isLeftButton()) return kMouseEventNotHandled;
+    if (!event.buttonState.isLeft()) return;
     Btn::value = 1;
     Btn::valueChanged();
     Btn::invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseUp(CPoint &where, const CButtonState &buttons) override
+  void onMouseUpEvent(MouseUpEvent &event) override
   {
     if (Btn::value == 1) {
       Btn::value = 0;
       Btn::valueChanged();
       Btn::invalid();
     }
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseCancel() override
+  void onMouseCancelEvent(MouseCancelEvent &event) override
   {
     if (Btn::value == 1) {
       Btn::value = 0;
@@ -190,7 +187,7 @@ public:
     }
     Btn::isMouseEntered = false;
     Btn::invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 };
 
@@ -240,43 +237,43 @@ public:
       label.c_str(), CRect(0, 0, getWidth(), getHeight()), kCenterText, true);
   }
 
-  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override
+  void onMouseEnterEvent(MouseEnterEvent &event) override
   {
     isMouseEntered = true;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override
+  void onMouseExitEvent(MouseExitEvent &event) override
   {
     isPressed = false;
     isMouseEntered = false;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
+  void onMouseDownEvent(MouseDownEvent &event) override
   {
-    if (!buttons.isLeftButton()) return kMouseEventNotHandled;
+    if (!event.buttonState.isLeft()) return;
 
     isPressed = true;
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseUp(CPoint &where, const CButtonState &buttons) override
+  void onMouseUpEvent(MouseUpEvent &event) override
   {
     if (isPressed) {
       controller->sendTextMessage(messageID.c_str());
       isPressed = false;
     }
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseCancel() override
+  void onMouseCancelEvent(MouseCancelEvent &event) override
   {
     isPressed = false;
     isMouseEntered = false;
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
   void setBorderWidth(CCoord width) { borderWidth = width < 0 ? 0 : width; }

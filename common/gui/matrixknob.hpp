@@ -187,99 +187,104 @@ public:
     setDirty(false);
   }
 
-  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override
+  void onMouseEnterEvent(MouseEnterEvent &event) override
   {
     isMouseEntered = true;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override
+  void onMouseExitEvent(MouseExitEvent &event) override
   {
     isMouseEntered = false;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
+  void onMouseDownEvent(MouseDownEvent &event) override
   {
-    if (buttons.isRightButton()) {
+    if (event.buttonState.isRight()) {
       auto componentHandler = editor->getController()->getComponentHandler();
-      if (componentHandler == nullptr) return kMouseEventNotHandled;
+      if (componentHandler == nullptr) return;
 
       using namespace Steinberg;
 
       FUnknownPtr<Vst::IComponentHandler3> handler(componentHandler);
-      if (handler == nullptr) return kMouseEventNotHandled;
+      if (handler == nullptr) return;
 
-      setMousePosition(where);
+      setMousePosition(event.mousePosition);
       setFocus(cursor);
       size_t index = getIndex(focusRow, focusCol);
-      if (index >= id.size()) return kMouseEventNotHandled;
+      if (index >= id.size()) return;
 
       Vst::IContextMenu *menu = handler->createContextMenu(editor, &id[index]);
-      if (menu == nullptr) return kMouseEventNotHandled;
+      if (menu == nullptr) return;
 
-      menu->popup(where.x, where.y);
+      menu->popup(event.mousePosition.x, event.mousePosition.y);
       menu->release();
-      return kMouseEventHandled;
+      event.consumed = true;
+      return;
     }
 
-    if (buttons.isLeftButton()) {
+    if (event.buttonState.isLeft()) {
       isMouseLeftDown = true;
       setFocus(cursor);
-      if (buttons.isControlSet()) {
+      if (event.modifiers.is(ModifierKey::Control)) {
         uint32_t idx = getIndex(focusRow, focusCol);
         value[idx] = defaultValue[idx];
         updateValueAt(idx);
       } else {
         isGrabbing = true;
-        setMousePosition(where);
-        anchor = where;
+        setMousePosition(event.mousePosition);
+        anchor = event.mousePosition;
       }
     }
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseUp(CPoint &where, const CButtonState &buttons) override
+  void onMouseUpEvent(MouseUpEvent &event) override
   {
     isMouseLeftDown = false;
     isGrabbing = false;
     updateValueWithUndo();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseMoved(CPoint &where, const CButtonState &buttons) override
+  void onMouseMoveEvent(MouseMoveEvent &event) override
   {
     if (isMouseLeftDown) {
       if (isGrabbing) {
-        auto sensi = (buttons.isShiftSet()) ? lowSensitivity : sensitivity;
-        setValueFromDelta((anchor.y - where.y) * sensi);
+        auto sensi
+          = event.modifiers.has(ModifierKey::Shift) ? lowSensitivity : sensitivity;
+        setValueFromDelta((anchor.y - event.mousePosition.y) * sensi);
 
-        anchor = where;
+        anchor = event.mousePosition;
 
         invalid();
-        return kMouseEventHandled;
-      } else if (buttons.isControlSet()) {
+        event.consumed = true;
+        return;
+      } else if (event.modifiers.is(ModifierKey::Control)) {
         uint32_t idx = getIndex(focusRow, focusCol);
-        value[idx] = defaultValue[idx];
-        updateValueAt(idx);
+        if (idx < value.size()) {
+          value[idx] = defaultValue[idx];
+          updateValueAt(idx);
+        }
       }
+      event.consumed = true;
     }
 
     if (isMouseEntered) {
-      setMousePosition(where);
+      setMousePosition(event.mousePosition);
       setFocus(cursor);
     } else {
       focusCol = nCol;
       focusRow = nRow;
     }
     invalid();
-    return kMouseEventNotHandled;
   }
 
-  CMouseEventResult onMouseCancel() override
+  void onMouseCancelEvent(MouseCancelEvent &event) override
   {
     isMouseLeftDown = false;
     isMouseEntered = false;
@@ -288,22 +293,18 @@ public:
       updateValueWithUndo();
       invalid();
     }
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  bool onWheel(
-    const CPoint &where,
-    const CMouseWheelAxis &axis,
-    const float &distance,
-    const CButtonState &buttons) override
+  void onMouseWheelEvent(MouseWheelEvent &event) override
   {
-    if (isEditing() || axis != kMouseWheelAxisY || distance == 0.0) return false;
-
-    auto sensi = (buttons.isShiftSet()) ? lowSensitivity : 8.0 * sensitivity;
-    setValueFromDelta(distance * sensi);
+    if (isEditing() || event.deltaY == 0) return;
+    auto sensi
+      = event.modifiers.has(ModifierKey::Shift) ? lowSensitivity : 8.0 * sensitivity;
+    setValueFromDelta(event.deltaY * sensi);
     updateValueWithUndo();
     invalid();
-    return true;
+    event.consumed = true;
   }
 
   void updateValueWithUndo()
@@ -359,65 +360,70 @@ public:
     }
   }
 
-  int32_t onKeyDown(VstKeyCode &key) override
+  void onKeyboardEvent(KeyboardEvent &event) override
   {
-    if (!isMouseEntered) return 1;
+    if (!isMouseEntered || event.type == EventType::KeyUp) return;
 
-    bool shift = key.modifier & MODIFIER_SHIFT;
-    if (key.character == 'c') { // Copy.
+    bool shift = event.modifiers.has(ModifierKey::Shift);
+    if (event.character == 'c') { // Copy.
       if (mode == modeNeutral) {
         updateTextView("c: Copy failed. Enable column(1)/row(2) mode to copy.");
         invalid();
-        return -1;
+        event.consumed = true;
+        return;
       }
       copy();
       updateTextView("c: Copy: Done.");
-    } else if (key.character == 'd') {
+    } else if (event.character == 'd') {
       resetToDefault();
       updateTextView("d: Reset to default: Done.");
-    } else if (key.character == 'l') {
+    } else if (event.character == 'l') {
       mode ^= modeLink;
       updateTextView("l: Toggle link mode.");
-    } else if (key.character == 'q') {
+    } else if (event.character == 'q') {
       mode ^= modeColumn;
       updateTextView("q: Toggle column mode.");
-    } else if (key.character == 'r') {
+    } else if (event.character == 'r') {
       totalRandomize();
       updateTextView("r: Randomize: Done.");
-    } else if (key.character == 't') { // subTle randomize. Random walk.
+    } else if (event.character == 't') { // subTle randomize. Random walk.
       randomize(0.02);
       updateTextView("t: Subtle Randomize: Done.");
-    } else if (key.character == 'v') { // Paste.
+    } else if (event.character == 'v') { // Paste.
       if (mode == modeNeutral) {
         updateTextView("v: Paste failed. Enable column(1)/row(2) mode to paste.");
         invalid();
-        return -1;
+        event.consumed = true;
+        return;
       }
       paste();
       updateTextView("v: Paste: Done.");
-    } else if (key.character == 'w') {
+    } else if (event.character == 'w') {
       mode ^= modeRow;
       updateTextView("w: Toggle row mode.");
-    } else if (key.character == 'z' && shift) { // Redo
+    } else if (event.character == 'z' && shift) { // Redo
       redo();
       ArrayControl::updateValue();
       updateTextView("Redo: Done.");
       invalid();
-      return 1;
-    } else if (key.character == 'z') { // Undo
+      event.consumed = true;
+      return;
+    } else if (event.character == 'z') { // Undo
       undo();
       ArrayControl::updateValue();
       updateTextView("Undo: Done.");
       invalid();
-      return 1;
+      event.consumed = true;
+      return;
     } else {
       std::string str("No bind on key ");
-      updateTextView(str + std::to_string(key.character));
-      return -1;
+      updateTextView(str + std::to_string(event.character));
+      event.consumed = true;
+      return;
     }
     updateValueWithUndo();
     invalid();
-    return 1;
+    event.consumed = true;
   }
 
 private:

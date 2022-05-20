@@ -72,9 +72,9 @@ public:
   }
 
   //// TODO: Implement line highlight.
-  // CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons)
-  // override; CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons)
-  // override; CMouseEventResult onMouseMoved(CPoint &where, const CButtonState &buttons)
+  // void onMouseEnterEvent (MouseEnterEvent& event)
+  // override; void onMouseExitEvent (MouseExitEvent& event)
+  // override; void onMouseMoveEvent (MouseMoveEvent& event)
   // override;
 
   CLASS_METHODS(TextView, CControl);
@@ -144,10 +144,6 @@ public:
   }
 
   //// TODO: Implement line highlight.
-  // CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons)
-  // override; CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons)
-  // override; CMouseEventResult onMouseMoved(CPoint &where, const CButtonState &buttons)
-  // override;
 
   CLASS_METHODS(TextTableView, CControl);
 

@@ -75,17 +75,17 @@ public:
       CRect(rightHandleL, 0, rightHandleL + handleWidth, height), kDrawFilledAndStroked);
   }
 
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override
+  void onMouseExitEvent(MouseExitEvent &event) override
   {
     grabbed = pointed = Part::background;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
+  void onMouseDownEvent(MouseDownEvent &event) override
   {
-    if (buttons.isLeftButton()) {
-      CPoint point = translateMousePosition(where);
+    if (event.buttonState.isLeft()) {
+      CPoint point = translateMousePosition(event.mousePosition);
 
       grabbed = pointed = hitTest(point);
 
@@ -96,25 +96,25 @@ public:
       else if (grabbed == Part::bar)
         grabOffset = int(leftPos * getWidth() - point.x);
 
-    } else if (buttons.isRightButton()) {
+    } else if (event.buttonState.isRight()) {
       leftPos = 0;
       rightPos = 1;
       parent->setViewRange(leftPos, rightPos);
     }
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseUp(CPoint &where, const CButtonState &buttons) override
+  void onMouseUpEvent(MouseUpEvent &event) override
   {
     grabbed = Part::background;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseMoved(CPoint &where, const CButtonState &buttons) override
+  void onMouseMoveEvent(MouseMoveEvent &event) override
   {
-    CPoint point = translateMousePosition(where);
+    CPoint point = translateMousePosition(event.mousePosition);
 
     auto posX = std::clamp<int>(point.x + grabOffset, 0, getWidth()) / float(getWidth());
     switch (grabbed) {
@@ -146,27 +146,24 @@ public:
       default:
         pointed = hitTest(point);
         invalid();
-        return kMouseEventHandled;
+        event.consumed = true;
     }
 
     parent->setViewRange(leftPos, rightPos);
     invalid();
 
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  bool onWheel(
-    const CPoint &where,
-    const CMouseWheelAxis &axis,
-    const float &distance,
-    const CButtonState &buttons) override
+  void onMouseWheelEvent(MouseWheelEvent &event) override
   {
-    CPoint point = translateMousePosition(where);
+    CPoint point = translateMousePosition(event.mousePosition);
 
     const CCoord mouseX = float(point.x) / getWidth();
-    const CCoord delta = distance;
+    const CCoord delta = event.deltaY;
 
-    float amountL, amountR;
+    float amountL = 0;
+    float amountR = 0;
     if (delta > 0) {
       amountL = 0.5 * zoomSensi;
       amountR = 0.5 * zoomSensi;
@@ -182,7 +179,7 @@ public:
     parent->setViewRange(leftPos, rightPos);
     invalid();
 
-    return true;
+    event.consumed = true;
   }
 
   void setHandleWidth(float width) { handleWidth = std::max(width, 0.0f); }
@@ -190,10 +187,10 @@ public:
 protected:
   enum class Part : uint8_t { background = 0, bar, leftHandle, rightHandle };
 
-  inline CPoint translateMousePosition(const CPoint &where)
+  inline CPoint translateMousePosition(const CPoint &mousePos)
   {
     auto view = getViewSize();
-    return where - CPoint(view.left, view.top);
+    return mousePos - CPoint(view.left, view.top);
   }
 
   inline void setLeftPos(CCoord x)

@@ -80,14 +80,14 @@ public:
       label.c_str(), CRect(0, 0, getWidth(), getHeight()), kCenterText);
   }
 
-  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override
+  void onMouseEnterEvent(MouseEnterEvent &event) override
   {
     isMouseEntered = true;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override
+  void onMouseExitEvent(MouseExitEvent &event) override
   {
     if (value == 1.0f) {
       value = 0.0f;
@@ -95,14 +95,14 @@ public:
     isPressed = false;
     isMouseEntered = false;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
+  void onMouseDownEvent(MouseDownEvent &event) override
   {
     using ID = Steinberg::Synth::ParameterID::ID;
 
-    if (!buttons.isLeftButton()) return kMouseEventNotHandled;
+    if (!event.buttonState.isLeft()) return;
     isPressed = true;
     value = 1.0f;
 
@@ -117,20 +117,20 @@ public:
     }
 
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseUp(CPoint &where, const CButtonState &buttons) override
+  void onMouseUpEvent(MouseUpEvent &event) override
   {
     if (isPressed) {
       isPressed = false;
       value = 0.0f;
       invalid();
     }
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseCancel() override
+  void onMouseCancelEvent(MouseCancelEvent &event) override
   {
     if (isPressed) {
       isPressed = false;
@@ -138,7 +138,7 @@ public:
       invalid();
     }
     isMouseEntered = false;
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
   void setBorderWidth(CCoord width) { borderWidth = width < 0 ? 0 : width; }

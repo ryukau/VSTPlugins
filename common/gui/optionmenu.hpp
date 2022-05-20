@@ -36,22 +36,22 @@ public:
 
   CLASS_METHODS(OptionMenu, COptionMenu);
 
-  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override
+  void onMouseEnterEvent(MouseEnterEvent &event) override
   {
     setFrameColor(highlightColor);
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override
+  void onMouseExitEvent(MouseExitEvent &event) override
   {
     setFrameColor(frameColor);
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseCancel() override
+  void onMouseCancelEvent(MouseCancelEvent &event) override
   {
     setFrameColor(frameColor);
-    return COptionMenu::onMouseCancel();
+    COptionMenu::onMouseCancelEvent(event);
   }
 
   void setDefaultFrameColor(CColor color)

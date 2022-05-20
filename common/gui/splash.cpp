@@ -22,27 +22,26 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-CMouseEventResult CreditView::onMouseDown(CPoint &where, const CButtonState &buttons)
+void CreditView::onMouseDownEvent(MouseDownEvent &event)
 {
-  if (buttons.isLeftButton()) {
-    setVisible(false);
-    return kMouseDownEventHandledButDontNeedMovedOrUpEvents;
-  }
-  return kMouseEventNotHandled;
+  if (!event.buttonState.isLeft()) return;
+  setVisible(false);
+  event.consumed = true;
+  event.ignoreFollowUpMoveAndUpEvents(true);
 }
 
-CMouseEventResult CreditView::onMouseEntered(CPoint &where, const CButtonState &buttons)
+void CreditView::onMouseEnterEvent(MouseEnterEvent &event)
 {
   isMouseEntered = true;
   invalid();
-  return kMouseEventHandled;
+  event.consumed = true;
 }
 
-CMouseEventResult CreditView::onMouseExited(CPoint &where, const CButtonState &buttons)
+void CreditView::onMouseExitEvent(MouseExitEvent &event)
 {
   isMouseEntered = false;
   invalid();
-  return kMouseEventHandled;
+  event.consumed = true;
 }
 
 void SplashLabel::draw(CDrawContext *pContext)
@@ -72,30 +71,30 @@ void SplashLabel::draw(CDrawContext *pContext)
   setDirty(false);
 }
 
-CMouseEventResult SplashLabel::onMouseDown(CPoint &where, const CButtonState &buttons)
+void SplashLabel::onMouseDownEvent(MouseDownEvent &event)
 {
   splashView->setVisible(true);
-  return kMouseEventHandled;
+  event.consumed = true;
 }
 
-CMouseEventResult SplashLabel::onMouseEntered(CPoint &where, const CButtonState &buttons)
+void SplashLabel::onMouseEnterEvent(MouseEnterEvent &event)
 {
   isMouseEntered = true;
   invalid();
-  return kMouseEventHandled;
+  event.consumed = true;
 }
 
-CMouseEventResult SplashLabel::onMouseExited(CPoint &where, const CButtonState &buttons)
+void SplashLabel::onMouseExitEvent(MouseExitEvent &event)
 {
   isMouseEntered = false;
   invalid();
-  return kMouseEventHandled;
+  event.consumed = true;
 }
 
-CMouseEventResult SplashLabel::onMouseCancel()
+void SplashLabel::onMouseCancelEvent(MouseCancelEvent &event)
 {
   isMouseEntered = false;
-  return kMouseEventHandled;
+  event.consumed = true;
 }
 
 void SplashLabel::setDefaultFrameWidth(CCoord width) { frameWidth = width; }

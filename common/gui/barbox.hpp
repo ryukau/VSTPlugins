@@ -216,101 +216,104 @@ public:
     }                                                                                    \
   }
 
-  int32_t onKeyDown(VstKeyCode &key) override
+  void onKeyboardEvent(KeyboardEvent &event) override
   {
-    if (!isMouseEntered) return 1;
+    if (!isMouseEntered || event.type == EventType::KeyUp) return;
 
     size_t index = calcIndex(mousePosition);
     if (index >= value.size()) index = value.size() - 1;
 
-    bool shift = key.modifier & MODIFIER_SHIFT;
-    if (key.character == 'a') {
+    bool shift = event.modifiers.has(ModifierKey::Shift);
+    if (event.character == 'a') {
       alternateSign(index);
-    } else if (key.character == 'd' && shift) { // Alternative default. (toggle min/max)
+    } else if (event.character == 'd' && shift) { // Alternative default. (toggle min/max)
       toggleMinMidMax(index);
-    } else if (key.character == 'd') { // reset to Default.
+    } else if (event.character == 'd') { // reset to Default.
       resetToDefault();
-    } else if (key.character == 'e' && shift) {
+    } else if (event.character == 'e' && shift) {
       emphasizeHigh(index);
-    } else if (key.character == 'e') {
+    } else if (event.character == 'e') {
       emphasizeLow(index);
-    } else if (key.character == 'f' && shift) {
+    } else if (event.character == 'f' && shift) {
       highpass(index);
-    } else if (key.character == 'f') {
+    } else if (event.character == 'f') {
       averageLowpass(index);
-    } else if (key.character == 'i' && shift) {
+    } else if (event.character == 'i' && shift) {
       invertFull(index);
-    } else if (key.character == 'i') {
+    } else if (event.character == 'i') {
       invertInRange(index);
-    } else if (key.character == 'l' && shift) {
+    } else if (event.character == 'l' && shift) {
       lockAll(index);
-    } else if (key.character == 'l') {
+    } else if (event.character == 'l') {
       barState[index]
         = barState[index] == BarState::active ? BarState::lock : BarState::active;
-    } else if (key.character == 'n' && shift) {
+    } else if (event.character == 'n' && shift) {
       normalizeFull(index);
-    } else if (key.character == 'n') {
+    } else if (event.character == 'n') {
       normalizeInRange(index);
-    } else if (key.character == 'p') { // Permute.
+    } else if (event.character == 'p') { // Permute.
       APPLY_ALGORITHM(index, {
         std::random_device device;
         std::mt19937 rng(device());
         std::shuffle(active.begin(), active.end(), rng);
       });
-    } else if (key.character == 'r' && shift) {
+    } else if (event.character == 'r' && shift) {
       sparseRandomize(index);
-    } else if (key.character == 'r') {
+    } else if (event.character == 'r') {
       totalRandomize(index);
-    } else if (key.character == 's' && shift) { // Sort ascending order.
+    } else if (event.character == 's' && shift) { // Sort ascending order.
       APPLY_ALGORITHM(index, { std::sort(active.begin(), active.end()); });
-    } else if (key.character == 's') { // Sort descending order.
+    } else if (event.character == 's') { // Sort descending order.
       APPLY_ALGORITHM(
         index, { std::sort(active.begin(), active.end(), std::greater<>()); });
-    } else if (key.character == 't' && shift) { // subTle randomize.
+    } else if (event.character == 't' && shift) { // subTle randomize.
       mixRandomize(index, 0.02);
-    } else if (key.character == 't') { // subTle randomize. Random walk.
+    } else if (event.character == 't') { // subTle randomize. Random walk.
       randomize(index, 0.02);
-    } else if (key.character == 'z' && shift) { // Redo
+    } else if (event.character == 'z' && shift) { // Redo
       redo();
       ArrayControl::updateValue();
       invalid();
-      return 1;
-    } else if (key.character == 'z') { // Undo
+      event.consumed = true;
+      return;
+    } else if (event.character == 'z') { // Undo
       undo();
       ArrayControl::updateValue();
       invalid();
-      return 1;
-    } else if (key.character == ',') { // Rotate back.
+      event.consumed = true;
+      return;
+    } else if (event.character == ',') { // Rotate back.
       APPLY_ALGORITHM(
         index, { std::rotate(active.begin(), active.begin() + 1, active.end()); });
-    } else if (key.character == '.') { // Rotate forward.
+    } else if (event.character == '.') { // Rotate forward.
       APPLY_ALGORITHM(
         index, { std::rotate(active.rbegin(), active.rbegin() + 1, active.rend()); });
-    } else if (key.character == '1') { // Decrease.
+    } else if (event.character == '1') { // Decrease.
       multiplySkip(index, 1);
-    } else if (key.character == '2') { // Decrease 2n.
+    } else if (event.character == '2') { // Decrease 2n.
       multiplySkip(index, 2);
-    } else if (key.character == '3') { // Decrease 3n.
+    } else if (event.character == '3') { // Decrease 3n.
       multiplySkip(index, 3);
-    } else if (key.character == '4') { // Decrease 4n.
+    } else if (event.character == '4') { // Decrease 4n.
       multiplySkip(index, 4);
-    } else if (key.character == '5') { // Decrease 5n.
+    } else if (event.character == '5') { // Decrease 5n.
       multiplySkip(index, 5);
-    } else if (key.character == '6') { // Decrease 6n.
+    } else if (event.character == '6') { // Decrease 6n.
       multiplySkip(index, 6);
-    } else if (key.character == '7') { // Decrease 7n.
+    } else if (event.character == '7') { // Decrease 7n.
       multiplySkip(index, 7);
-    } else if (key.character == '8') { // Decrease 8n.
+    } else if (event.character == '8') { // Decrease 8n.
       multiplySkip(index, 8);
-    } else if (key.character == '9') { // Decrease 9n.
+    } else if (event.character == '9') { // Decrease 9n.
       multiplySkip(index, 9);
     } else {
-      return -1;
+      event.consumed = true;
+      return;
     }
     invalid();
     updateValue();
     pushUndoValue();
-    return 1;
+    event.consumed = true;
   }
 
   void pushUndoValue()
@@ -602,115 +605,123 @@ public:
     }
   }
 
-  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override
+  void onMouseEnterEvent(MouseEnterEvent &event) override
   {
     isMouseEntered = true;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override
+  void onMouseExitEvent(MouseExitEvent &event) override
   {
     isMouseEntered = false;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
+  void onMouseDownEvent(MouseDownEvent &event) override
   {
-    if (buttons.isRightButton()) {
+    if (event.buttonState.isRight()) {
       auto componentHandler = editor->getController()->getComponentHandler();
-      if (componentHandler == nullptr) return kMouseEventNotHandled;
+      if (componentHandler == nullptr) return;
 
       using namespace Steinberg;
 
       FUnknownPtr<Vst::IComponentHandler3> handler(componentHandler);
-      if (handler == nullptr) return kMouseEventNotHandled;
+      if (handler == nullptr) return;
 
-      setMousePosition(where);
+      setMousePosition(event.mousePosition);
       size_t index = calcIndex(mousePosition);
-      if (index >= id.size()) return kMouseEventNotHandled;
+      if (index >= id.size()) return;
 
       Vst::IContextMenu *menu = handler->createContextMenu(editor, &id[index]);
-      if (menu == nullptr) return kMouseEventNotHandled;
+      if (menu == nullptr) return;
 
-      menu->popup(where.x, where.y);
+      menu->popup(event.mousePosition.x, event.mousePosition.y);
       menu->release();
-      return kMouseEventHandled;
+      event.consumed = true;
     }
 
-    setMousePosition(where);
+    setMousePosition(event.mousePosition);
 
     anchor = mousePosition;
 
-    if (buttons.isMiddleButton() && buttons.isControlSet() && buttons.isShiftSet())
+    if (
+      event.buttonState.isMiddle() && event.modifiers.has(ModifierKey::Control)
+      && event.modifiers.has(ModifierKey::Shift)) {
       anchorState = setStateFromPosition(mousePosition, BarState::lock);
-    else
-      setValueFromPosition(mousePosition, buttons);
-    return kMouseEventHandled;
+    } else {
+      setValueFromPosition(mousePosition, event.modifiers);
+    }
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseUp(CPoint &where, const CButtonState &buttons) override
+  void onMouseUpEvent(MouseUpEvent &event) override
   {
     updateValue();
     pushUndoValue();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseMoved(CPoint &where, const CButtonState &buttons) override
+  void onMouseMoveEvent(MouseMoveEvent &event) override
   {
-    setMousePosition(where);
+    setMousePosition(event.mousePosition);
     invalid(); // Required to refresh highlighting position.
-    if (buttons.isLeftButton()) {
-      if (buttons.isControlSet() && buttons.isShiftSet())
-        setValueFromPosition(mousePosition, buttons);
-      else
-        setValueFromLine(anchor, mousePosition, buttons.getModifierState());
-      anchor = mousePosition;
-      return kMouseEventHandled;
-    } else if (buttons.isMiddleButton()) {
-      if (buttons.isControlSet() && buttons.isShiftSet()) {
-        setStateFromLine(anchor, mousePosition, anchorState);
-      } else if (buttons.isShiftSet()) {
-        mousePosition = CPoint(anchor.x, std::clamp<CCoord>(where.y, 0, getHeight()));
-        setValueFromPosition(mousePosition, 0);
+    if (event.buttonState.isLeft()) {
+      if (
+        event.modifiers.has(ModifierKey::Control)
+        && event.modifiers.has(ModifierKey::Shift)) {
+        setValueFromPosition(mousePosition, event.modifiers);
       } else {
-        setValueFromLine(anchor, mousePosition, buttons.getModifierState());
+        setValueFromLine(anchor, mousePosition, event.modifiers);
       }
-      return kMouseEventHandled;
+      anchor = mousePosition;
+      event.consumed = true;
+    } else if (event.buttonState.isMiddle()) {
+      if (
+        event.modifiers.has(ModifierKey::Control)
+        && event.modifiers.has(ModifierKey::Shift)) {
+        setStateFromLine(anchor, mousePosition, anchorState);
+      } else if (event.modifiers.has(ModifierKey::Shift)) {
+        mousePosition.x = anchor.x;
+        setValueFromPosition(mousePosition, false, false);
+      } else {
+        setValueFromLine(anchor, mousePosition, event.modifiers);
+      }
+      event.consumed = true;
     }
-    return kMouseEventNotHandled;
   }
 
-  CMouseEventResult onMouseCancel() override
+  void onMouseCancelEvent(MouseCancelEvent &event) override
   {
     if (isDirty()) {
       updateValue();
       pushUndoValue();
       invalid();
     }
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  bool onWheel(
-    const CPoint &where,
-    const CMouseWheelAxis &axis,
-    const float &distance,
-    const CButtonState &buttons) override
+  void onMouseWheelEvent(MouseWheelEvent &event) override
   {
-    if (isEditing() || axis != kMouseWheelAxisY || distance == 0.0f) return false;
+    if (isEditing() || event.deltaY == 0) return;
 
     size_t index = calcIndex(mousePosition);
-    if (index >= value.size()) return false;
-    if (barState[index] != BarState::active) return true;
+    if (index >= value.size()) return;
 
-    if (buttons.isShiftSet())
-      setValueAt(index, value[index] + distance * altScrollSensitivity);
-    else
-      setValueAt(index, value[index] + distance * scrollSensitivity);
+    if (barState[index] != BarState::active) {
+      event.consumed = true;
+      return;
+    }
+
+    if (event.modifiers.has(ModifierKey::Shift)) {
+      setValueAt(index, value[index] + event.deltaY * altScrollSensitivity);
+    } else {
+      setValueAt(index, value[index] + event.deltaY * scrollSensitivity);
+    }
     updateValueAt(index);
     invalid();
-    return true;
+    event.consumed = true;
   }
 
   void setIndexFont(const SharedPointer<CFontDesc> &fontId) { indexFontID = fontId; }
@@ -727,10 +738,10 @@ public:
   }
 
 private:
-  void setMousePosition(CPoint &where)
+  void setMousePosition(CPoint &pos)
   {
     auto view = getViewSize();
-    mousePosition = where - CPoint(view.left, view.top);
+    mousePosition = pos - CPoint(view.left, view.top);
   }
 
   inline size_t calcIndex(CPoint &position)
@@ -785,14 +796,17 @@ private:
     invalid();
   }
 
-  void setValueFromPosition(CPoint &position, const CButtonState &buttons)
+  void setValueFromPosition(CPoint &position, const Modifiers &modifiers)
+  {
+    setValueFromPosition(
+      position, modifiers.has(ModifierKey::Control), modifiers.has(ModifierKey::Shift));
+  }
+
+  void setValueFromPosition(CPoint &position, const bool ctrl, const bool shift)
   {
     size_t index = calcIndex(position);
     if (index >= value.size()) return;
     if (barState[index] != BarState::active) return;
-
-    bool ctrl = buttons.isControlSet();
-    bool shift = buttons.isShiftSet();
 
     if (ctrl && !shift)
       setValueAt(index, defaultValue[index]);
@@ -805,7 +819,7 @@ private:
     invalid();
   }
 
-  void setValueFromLine(CPoint p0, CPoint p1, int32_t modifier)
+  void setValueFromLine(CPoint p0, CPoint p1, const Modifiers &modifiers)
   {
     if (p0.x > p1.x) std::swap(p0, p1);
 
@@ -819,9 +833,9 @@ private:
     if (left == right) { // p0 and p1 are in a same bar.
       if (barState[left] != BarState::active) return;
 
-      if (modifier & kControl)
+      if (modifiers.has(ModifierKey::Control))
         setValueAt(left, defaultValue[left]);
-      else if (modifier & kShift)
+      else if (modifiers.has(ModifierKey::Shift))
         setValueAt(left, snap(1.0f - anchor.y / getHeight()));
       else
         setValueAt(left, 1.0f - anchor.y / getHeight());
@@ -829,7 +843,7 @@ private:
       updateValueAt(left);
       invalid();
       return;
-    } else if (modifier & kControl) {
+    } else if (modifiers.has(ModifierKey::Control)) {
       for (size_t idx = left; idx >= 0 && idx <= right; ++idx) {
         if (barState[left] != BarState::active) return;
         setValueAt(idx, defaultValue[idx]);
@@ -838,7 +852,7 @@ private:
       return;
     }
 
-    const bool isSnapping = modifier & kShift;
+    const bool isSnapping = modifiers.has(ModifierKey::Shift);
 
     if (barState[left] == BarState::active) {
       auto val = 1.0f - p0y / getHeight();

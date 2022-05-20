@@ -17,6 +17,8 @@
 
 #pragma once
 
+#include "pluginterfaces/base/funknown.h"
+#include "pluginterfaces/vst/ivstcontextmenu.h"
 #include "vstgui/vstgui.h"
 
 #include "arraycontrol.hpp"
@@ -147,64 +149,64 @@ public:
     // pal.border()); stroke();
   }
 
-  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override
+  void onMouseEnterEvent(MouseEnterEvent &event) override
   {
     isMouseEntered = true;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override
+  void onMouseExitEvent(MouseExitEvent &event) override
   {
     isMouseEntered = false;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override
+  void onMouseDownEvent(MouseDownEvent &event) override
   {
-    if (buttons.isRightButton()) {
+    if (event.buttonState.isRight()) {
       auto componentHandler = editor->getController()->getComponentHandler();
-      if (componentHandler == nullptr) return kMouseEventNotHandled;
+      if (componentHandler == nullptr) return;
 
       using namespace Steinberg;
 
       FUnknownPtr<Vst::IComponentHandler3> handler(componentHandler);
-      if (handler == nullptr) return kMouseEventNotHandled;
+      if (handler == nullptr) return;
 
       // Open X menu on left half, and open Y menu on right half.
-      cursor = where;
+      cursor = event.mousePosition;
       size_t index = cursor.x < getWidth() / 2.0 ? 0 : 1;
-      if (index >= id.size()) return kMouseEventNotHandled;
+      if (index >= id.size()) return;
 
       Vst::IContextMenu *menu = handler->createContextMenu(editor, &id[index]);
-      if (menu == nullptr) return kMouseEventNotHandled;
+      if (menu == nullptr) return;
 
-      menu->popup(where.x, where.y);
+      menu->popup(event.mousePosition.x, event.mousePosition.y);
       menu->release();
-      return kMouseEventHandled;
+      event.consumed = true;
     }
 
-    if (buttons.isLeftButton()) {
-      cursor = where;
+    if (event.buttonState.isLeft()) {
+      cursor = event.mousePosition;
       isMouseLeftDown = true;
-      updateValueFromPos(where);
+      updateValueFromPos(event.mousePosition);
       invalid();
-      return kMouseEventHandled;
+      event.consumed = true;
     }
 
-    return kMouseEventNotHandled;
+    return;
   }
 
-  CMouseEventResult onMouseUp(CPoint &where, const CButtonState &buttons) override
+  void onMouseUpEvent(MouseUpEvent &event) override
   {
-    if (buttons.isLeftButton()) {
-      updateValueFromPos(where);
+    if (event.buttonState.isLeft()) {
+      updateValueFromPos(event.mousePosition);
       isMouseLeftDown = false;
       invalid();
-      return kMouseEventHandled;
+      event.consumed = true;
     }
-    return kMouseEventNotHandled;
+    return;
   }
 
   // bool onMouse(const MouseEvent &ev) override
@@ -222,15 +224,15 @@ public:
   //   return false;
   // }
 
-  CMouseEventResult onMouseMoved(CPoint &where, const CButtonState &buttons) override
+  void onMouseMoveEvent(MouseMoveEvent &event) override
   {
-    if (buttons.isLeftButton()) updateValueFromPos(where);
+    if (event.buttonState.isLeft()) updateValueFromPos(event.mousePosition);
     if (isMouseEntered) {
-      cursor = where;
+      cursor = event.mousePosition;
       invalid();
     }
-    if (isMouseEntered || isMouseLeftDown) return kMouseEventHandled;
-    return kMouseEventNotHandled;
+    if (isMouseEntered || isMouseLeftDown) event.consumed = true;
+    return;
   }
 
   // bool onMotion(const MotionEvent &ev) override
@@ -244,12 +246,12 @@ public:
   //   return isMouseEntered || isMouseLeftDown;
   // }
 
-  virtual CMouseEventResult onMouseCancel() override
+  virtual void onMouseCancelEvent(MouseCancelEvent &event) override
   {
     isMouseLeftDown = false;
     isMouseEntered = false;
     invalid();
-    return kMouseEventHandled;
+    event.consumed = true;
   }
 
 private:

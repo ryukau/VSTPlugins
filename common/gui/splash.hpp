@@ -46,9 +46,9 @@ public:
   }
 
   void draw(CDrawContext *pContext) override;
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override;
+  void onMouseDownEvent(MouseDownEvent &event) override;
+  void onMouseEnterEvent(MouseEnterEvent &event) override;
+  void onMouseExitEvent(MouseExitEvent &event) override;
   CLASS_METHODS(CreditView, CControl)
 
 private:
@@ -112,10 +112,10 @@ public:
 
   void draw(CDrawContext *pContext) override;
 
-  CMouseEventResult onMouseDown(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseEntered(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseExited(CPoint &where, const CButtonState &buttons) override;
-  CMouseEventResult onMouseCancel() override;
+  void onMouseDownEvent(MouseDownEvent &event) override;
+  void onMouseEnterEvent(MouseEnterEvent &event) override;
+  void onMouseExitEvent(MouseExitEvent &event) override;
+  void onMouseCancelEvent(MouseCancelEvent &event) override;
 
   void setDefaultFrameWidth(CCoord width);
   void setHighlightWidth(CCoord width);
