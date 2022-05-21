@@ -14,7 +14,7 @@ git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
 cd vst3sdk || exit
 
 # Patch vst3sdk. See: https://github.com/ryukau/VSTPlugins/issues/3
-cp "$GITHUB_WORKSPACE"/ci/linux_patch/cairocontext.cpp vstgui4/vstgui/lib/platform/linux/cairocontext.cpp
+# cp "$GITHUB_WORKSPACE"/ci/linux_patch/cairocontext.cpp vstgui4/vstgui/lib/platform/linux/cairocontext.cpp
 
 mkdir build
 cd build || exit
