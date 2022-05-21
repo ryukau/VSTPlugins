@@ -62,11 +62,11 @@ def process(
         fi.write(text)
 
 if __name__ == "__main__":
-    release_name = "BasicLimiterAndFDN64Reverb"
+    release_name = "ConformVSTGUI4_11"
     en_change_log = """
-  - Change font to Tinos."""
+  - Updated VSTGUI from 4.10 to 4.11."""
     ja_change_log = """
-  - フォントを Tinos に変更。"""
+  - VSTGUI を 4.10 から 4.11 にアップデート。"""
 
     re_en_download_link = re.compile(
         r"^- \[Download (.+?) ([0-9]+)\.([0-9]+)\.([0-9]+) - VST® 3.+?\]\((.*?)\)",
