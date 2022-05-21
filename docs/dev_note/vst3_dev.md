@@ -1111,6 +1111,89 @@ bool PlugEditor::open(void *parent, const PlatformType &platformType)
 - `public.sdk/source/vst/vstguieditor.cpp`
 - `vstgui4/vstgui/lib/cvstguitimer.h`
 
+#### キーボードイベントの受け取り
+キーボードイベントは `CView::onKeyboardEvent()` をオーバーライドして受け取ります。 `onKeyboardEvent` が呼ばれるためにはビューがフォーカスを取る必要があります。
+
+`CControl` を継承したクラスでは `setWantsFocus(true)` をコンストラクタで呼ぶだけで、マウスクリックなどでフォーカスが取れるようになります。
+
+```cpp
+struct SomeControl : public CControl {
+public:
+  explicit SomeControl(const CRect &size)
+    : CControl(size)
+  {
+    setWantsFocus(true); // 継承元が CControl ならこれで十分。
+  }
+
+  void onKeyboardEvent(KeyboardEvent &event) override
+  {
+    // ここでキーボードイベントをハンドル。
+  }
+};
+```
+
+`CControl` を継承したクラスは <kbd>Ctrl</kbd> + <kbd>左クリック</kbd> のイベントが奪われてしまうという問題があります。この問題を避けるためには `CView` が使えます。
+
+`CView` を継承したクラスではフォーカスを明示的に取る必要があります。フォーカスを取るには `CFrame::setFocusView()` が使えます。 `CFrame` は `VSTGUIEditor::getFrame()` から取得できます。
+
+```cpp
+struct SomeView : public CView {
+public:
+  // VSTGUIEditor::getFrame() を使うので editor としてコンストラクタで受け取る。
+  Steinberg::Vst::VSTGUIEditor *editor = nullptr;
+
+  explicit SomeView(
+    Steinberg::Vst::VSTGUIEditor *editor,
+    const CRect &size)
+    : CView(size), editor(editor)
+  {
+    setTransparency(false); // CControl のコンストラクタからコピーした。なくてもいい。
+    setMouseEnabled(true);  // CControl のコンストラクタからコピーした。必要。
+    setWantsFocus(true);    // 継承元が CControl ならこれで十分。 CView ではこれだけでは不足。
+
+    if (editor != nullptr) editor->addRef();
+  }
+
+  virtual ~SomeView()
+  {
+    if (editor != nullptr) editor->release();
+  }
+
+  void grabFocus()
+  {
+    if (!editor) return;
+    if (editor->getFrame()) editor->getFrame()->setFocusView(this);
+  }
+
+  void releaseFocus()
+  {
+    if (!editor) return;
+    if (editor->getFrame()) editor->getFrame()->setFocusView(nullptr);
+  }
+
+  void onMouseEnterEvent(MouseEnterEvent &event) override
+  {
+    grabFocus(); // マウスが SomeView の領域に入るとフォーカスを取る。
+    event.consumed = true;
+  }
+
+  void onMouseExitEvent(MouseExitEvent &event) override
+  {
+    releaseFocus(); // マウスが SomeView の領域から出るとフォーカスを外す。
+    event.consumed = true;
+  }
+
+  void onKeyboardEvent(KeyboardEvent &event) override
+  {
+    // ここでキーボードイベントをハンドル。
+  }
+};
+```
+
+以下は公式ドキュメンテーションへのリンクです。キーボードイベントを受け取る条件については書いてありますが、どうすればその条件を満たせるのか (どう実装すればいいのか) について書いていないので、あまり役には立ちません。
+
+- [VSTGUI: Keyboard Event Flow](https://steinbergmedia.github.io/vst3_doc/vstgui/html/key_event_flow.html)
+
 #### カスタムビューの実装と関連するコントロールの表示の変更
 あるコントロールの値を変更したときに、連動して別のコントロールの値や表示を変更したい時があります。ここでは例としてコントロールの値に応じてカスタムビューで波形を表示するようにします。
 
