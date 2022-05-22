@@ -7,9 +7,13 @@ lang: ja
 
 何かあれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を投げるか `ryukau@gmail.com` にメールを送信してもらえれば対応します。お気軽にお問い合わせください。
 
+[paypal.me/ryukau](paypal.me/ryukau) から開発資金を投げ銭することもできます。
+
 This page is publishing [VST®](#vst_logo) 3 plugins.
 
 If you found some part of manual is not clear and/or found typo, please file issue at [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`. Note that I'm not native in English and it's most likely that the manual contains some weird sentences. I'd like to fix it, so feel free to report those issues.
+
+You can fund the development via [paypal.me/ryukau](paypal.me/ryukau).
 
 # LV2 Plugins
 Linux 向けに LV2 版のプラグインもあります。

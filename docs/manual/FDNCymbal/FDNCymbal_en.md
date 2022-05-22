@@ -26,6 +26,8 @@ Linux build is built on Ubuntu 20.04. If you are using distribution other than U
 ## Contact
 Feel free to contact me on [GitHub repository](https://github.com/ryukau/VSTPlugins/commits/master) or `ryukau@gmail.com.`
 
+You can fund the development through [paypal.me/ryukau](paypal.me/ryukau).  Current goal is to purchase M1 mac for macOS and ARM port. 🤑💸💻
+
 ## Installation
 ### Plugin
 Place `*.vst3` directory to:

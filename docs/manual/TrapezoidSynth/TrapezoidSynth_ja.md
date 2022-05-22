@@ -26,6 +26,8 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 ## 連絡先
 何かあれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作るか `ryukau@gmail.com` までお気軽にどうぞ。
 
+[paypal.me/ryukau](paypal.me/ryukau) から開発資金を投げ銭することもできます。現在の目標は macOS と ARM ポートのための M1 mac の購入資金を作ることです。 🤑💸💻
+
 ## インストール
 ### プラグイン
 名前が `.vst3` で終わるディレクトリを OS ごとに決められた位置に配置してください。
