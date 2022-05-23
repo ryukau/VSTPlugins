@@ -739,7 +739,8 @@ protected:
     auto found = fontMap.find(keySize);
     if (found != fontMap.end()) return found->second;
     auto inserted = fontMap.emplace(
-      keySize, new CFontDesc(palette.fontName(), CCoord(keySize) / 10.0, fontFace));
+      keySize,
+      new CFontDesc(palette.fontName(), CCoord(keySize) / 10.0, palette.fontFace()));
     return inserted.first->second;
   }
 
@@ -747,7 +748,8 @@ protected:
   {
     std::vector<size_t> sizes{100, 120, 140, 160, 180, 200, 220, 240};
     for (const auto &sz : sizes) {
-      fontMap.emplace(sz, new CFontDesc(palette.fontName(), CCoord(sz) / 10.0, fontFace));
+      fontMap.emplace(
+        sz, new CFontDesc(palette.fontName(), CCoord(sz) / 10.0, palette.fontFace()));
     }
   }
 
@@ -763,7 +765,6 @@ protected:
 
   Uhhyou::Palette palette;
 
-  static constexpr int fontFace = CTxtFace::kBoldFace | CTxtFace::kItalicFace;
   std::unordered_map<size_t, SharedPointer<CFontDesc>> fontMap; // key = 10 * fontSize.
 };
 

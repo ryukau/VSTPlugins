@@ -109,11 +109,33 @@ inline void loadColor(nlohmann::json &data, std::string key, VSTGUI::CColor &col
     hex.size() != 9 ? 255 : strHexToUInt8(hex.substr(7, 2)));
 }
 
+inline void loadString(nlohmann::json &data, std::string key, VSTGUI::UTF8String &value)
+{
+  if (!data.contains(key)) return;
+  if (!data[key].is_string()) return;
+
+  std::string loaded = data[key];
+  if (loaded.empty()) return;
+
+  value = loaded;
+}
+
+inline void loadFontFace(nlohmann::json &data, std::string key, int targetMask, int &face)
+{
+  if (!data.contains(key)) return;
+  if (!data[key].is_boolean()) return;
+
+  face = data[key] ? (face | targetMask) : (face & (~targetMask));
+}
+
 void Uhhyou::Palette::load()
 {
   auto data = loadStyleJson();
   if (data.is_null()) return;
 
+  loadString(data, "fontFamily", _fontName);
+  loadFontFace(data, "fontBold", VSTGUI::CTxtFace::kBoldFace, _fontFace);
+  loadFontFace(data, "fontItalic", VSTGUI::CTxtFace::kItalicFace, _fontFace);
   loadColor(data, "foreground", _foreground);
   loadColor(data, "foregroundButtonOn", _foregroundButtonOn);
   loadColor(data, "foregroundInactive", _foregroundInactive);

@@ -33,6 +33,7 @@ public:
   void load();
 
   const VSTGUI::UTF8String &fontName() { return _fontName; }
+  const int &fontFace() { return _fontFace; }
   const VSTGUI::CColor &foreground() { return _foreground; }
   const VSTGUI::CColor &foregroundButtonOn() { return _foregroundButtonOn; }
   const VSTGUI::CColor &foregroundInactive() { return _foregroundInactive; }
@@ -52,6 +53,7 @@ public:
 
 private:
   VSTGUI::UTF8String _fontName{"Tinos"};
+  int _fontFace{VSTGUI::CTxtFace::kBoldFace | VSTGUI::CTxtFace::kItalicFace};
   VSTGUI::CColor _foreground{0x00, 0x00, 0x00};
   VSTGUI::CColor _foregroundButtonOn{0x00, 0x00, 0x00};
   VSTGUI::CColor _foregroundInactive{0x00, 0x00, 0x00};
