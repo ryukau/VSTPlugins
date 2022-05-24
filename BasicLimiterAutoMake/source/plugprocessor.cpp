@@ -140,9 +140,9 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   if (data.numInputs == 0) return kResultOk;
   if (data.numOutputs == 0) return kResultOk;
   if (data.numSamples <= 0) return kResultOk;
-  if (data.numInputs >= 1 && data.inputs[0].numChannels != 2) return kResultOk;
-  if (data.numInputs >= 2 && data.inputs[1].numChannels != 2) return kResultOk;
-  if (data.outputs[0].numChannels != 2) return kResultOk;
+  if (data.numInputs >= 1 && data.inputs[0].numChannels < 2) return kResultOk;
+  if (data.numInputs >= 2 && data.inputs[1].numChannels < 2) return kResultOk;
+  if (data.outputs[0].numChannels < 2) return kResultOk;
   if (data.symbolicSampleSize == Vst::kSample64) return kResultOk;
 
   auto isBypassing = dsp->param.value[ParameterID::bypass]->getInt();
@@ -153,8 +153,9 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
     float *in0 = data.inputs[0].channelBuffers32[0];
     float *in1 = data.inputs[0].channelBuffers32[1];
 
-    float *in2 = data.inputs[1].channelBuffers32[0];
-    float *in3 = data.inputs[1].channelBuffers32[1];
+    size_t sideIndex = data.numInputs <= 1 ? 0 : 1;
+    float *in2 = data.inputs[sideIndex].channelBuffers32[0];
+    float *in3 = data.inputs[sideIndex].channelBuffers32[1];
 
     float *out0 = data.outputs[0].channelBuffers32[0];
     float *out1 = data.outputs[0].channelBuffers32[1];

@@ -137,8 +137,8 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   if (data.numInputs == 0) return kResultOk;
   if (data.numOutputs == 0) return kResultOk;
   if (data.numSamples <= 0) return kResultOk;
-  if (data.inputs[0].numChannels != 2) return kResultOk;
-  if (data.outputs[0].numChannels != 2) return kResultOk;
+  if (data.inputs[0].numChannels < 2) return kResultOk;
+  if (data.outputs[0].numChannels < 2) return kResultOk;
   if (data.symbolicSampleSize == Vst::kSample64) return kResultOk;
 
   auto isBypassing = dsp->param.value[ParameterID::bypass]->getInt();

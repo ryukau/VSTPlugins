@@ -533,8 +533,8 @@ if (data.numSamples <= 0) return kResultOk;
 if (data.symbolicSampleSize == Vst::kSample64) return kResultOk;
 
 // この条件を追加しないと out of bounds へのアクセスでクラッシュする。
-if (data.inputs[0].numChannels != 2) return kResultOk;
-if (data.outputs[0].numChannels != 2) return kResultOk;
+if (data.inputs[0].numChannels < 2) return kResultOk;
+if (data.outputs[0].numChannels < 2) return kResultOk;
 
 float *in0 = data.inputs[0].channelBuffers32[0];
 float *in1 = data.inputs[0].channelBuffers32[1];
