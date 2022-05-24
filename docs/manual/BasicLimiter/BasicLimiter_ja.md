@@ -16,7 +16,7 @@ lang: ja
 
 自動メイクアップゲイン、サイドチェイン、左右 (L-R) とミッド-サイド (M-S) の切り替えを追加した BasicLimiterAutoMake もあります。ただし CPU 負荷は 1.5 倍強に上がります。
 
-- [BasicLimiterAutoMake 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterAutoMake_0.1.4.zip) <img
+- [BasicLimiterAutoMake 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiterAutoMake_0.1.4.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"

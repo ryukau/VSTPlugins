@@ -16,7 +16,7 @@ BasicLimiter is a basic single band limiter. The sound is nothing new, but the d
 
 An extended version BasicLimiterAutoMake is also available. Added features are automatic make up gain, sidechain, and switching between left-right (L-R) and mid-side (M-S). Note that CPU load is over 1.5 times heavier than BasicLimiter.
 
-- [Download BasicLimiterAutoMake 0.1.4 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterAutoMake_0.1.4.zip) <img
+- [Download BasicLimiterAutoMake 0.1.4 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiterAutoMake_0.1.4.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
