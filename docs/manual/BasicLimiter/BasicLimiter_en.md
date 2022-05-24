@@ -215,7 +215,7 @@ Attack \[s\]
 
 :   Transition time of smoothing filter which applies to internal envelope. The value of `Attack` also adds to the latency.
 
-    For the sound with sharp transitions, like drums, recommend to set `Attack` under 0.02 seconds. This 0.02 seconds comes from a psychoacoustic effect called [temporal masking](https://ccrma.stanford.edu/~bosse/proj/node21.html).
+    For the sound with sharp transitions, like drums, recommend to set `Attack` under 0.02 seconds. This 0.02 seconds comes from a psychoacoustic effect called [temporal masking](https://web.archive.org/web/20210624083625/http://ccrma.stanford.edu:80/~bosse/proj/node21.html).
 
 Release \[s\]
 
