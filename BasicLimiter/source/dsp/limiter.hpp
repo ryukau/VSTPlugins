@@ -381,7 +381,7 @@ public:
     auto &&candidate = applyCharacteristicCurve(peakAmp);
     auto &&released = processRelease(candidate);
     auto &&gainAmp = std::min(released, candidate);
-    auto &&targetAmp = peakAmp <= gateAmp ? 0 : gainAmp;
+    auto &&targetAmp = peakAmp < gateAmp ? 0 : gainAmp;
     auto &&smoothed = smoother.process(targetAmp);
     auto &&delayed = lookaheadDelay.process(input);
     return smoothed * delayed;
