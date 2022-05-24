@@ -7,14 +7,22 @@ lang: en
 
 BasicLimiter is a basic single band limiter. The sound is nothing new, but the design of true peak mode is a bit luxurious.
 
-- [Download BasicLimiter 0.1.2 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiter_0.1.2.zip) <img
+- [Download BasicLimiter 0.1.4 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiter_0.1.4.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
   style="display: inline-block; vertical-align: middle;">
 - [Download Presets (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterPresets.zip)
 
-BasicLimiter requires CPU which supports AVX or later SIMD instructions.
+An extended version BasicLimiterAutoMake is also available. Added features are automatic make up gain, sidechain, and switching between left-right (L-R) and mid-side (M-S). Note that CPU load is over 1.5 times heavier than BasicLimiter.
+
+- [Download BasicLimiterAutoMake 0.1.4 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterAutoMake_0.1.4.zip) <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="60px"
+  style="display: inline-block; vertical-align: middle;">
+
+BasicLimiter and BasicLimiterAutoMake requires CPU which supports AVX or later SIMD instructions.
 
 The package includes following builds:
 
@@ -28,7 +36,7 @@ Linux build is built on Ubuntu 20.04. If you are using distribution other than U
 ## Contact
 Feel free to contact me on [GitHub repository](https://github.com/ryukau/VSTPlugins/commits/master) or `ryukau@gmail.com.`
 
-You can fund the development through [paypal.me/ryukau](paypal.me/ryukau).  Current goal is to purchase M1 mac for macOS and ARM port. 🤑💸💻
+You can fund the development through [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).  Current goal is to purchase M1 mac for macOS and ARM port. 💸💻
 
 ## Installation
 ### Plugin
@@ -98,7 +106,7 @@ Beware that steps above degrades security of your system. To revert the settings
 - [Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio](https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/)
 - [Safely open apps on your Mac - Apple Support](https://support.apple.com/en-us/HT202491)
 
-## Color Configuration
+## GUI Style Configuration
 At first time, create color config file to:
 
 - `/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json` on Windows.
@@ -110,7 +118,9 @@ Below is a example of `style.json`.
 
 ```json
 {
-  "fontPath": "",
+  "fontFamily": "Tinos",
+  "fontBold": true,
+  "fontItalic": true,
   "foreground": "#000000",
   "foregroundButtonOn": "#000000",
   "foregroundInactive": "#8a8a8a",
@@ -129,6 +139,22 @@ Below is a example of `style.json`.
 }
 ```
 
+### Font Options
+Following is a list of font options.
+
+- `fontFamily`: Font family name.
+- `fontBold`: Enable **bold** style when `true`, disable when `false`.
+- `fontItalic`: Enable *italic* style when `true`, disable when `false`.
+
+To use custom font, place `*.ttf` file into custom font path: `*.vst3/Contents/Resources/Fonts`.
+
+**Important**: If the combination of `fontFamily`, `fontBold`, `fontItalic` is not exists in custom font path, default font of VSTGUI is used.
+
+If `fontFamily` is set to empty string `""`, then [`"Tinos"`](https://fonts.google.com/specimen/Tinos) is used as fallback. If the length is greater than 1 and the font family name doesn't exists, default font of VSTGUI is used.
+
+Styles other than bold, italic or bold-italic are not supported by VSTGUI. For example, "Thin", "Light", "Medium", and "Black" weights cannot be used.
+
+### Color Options
 Hex color codes are used.
 
 - 6 digit color is RGB.
@@ -138,7 +164,8 @@ First letter `#` is conventional. Plugins ignore the first letter of color code,
 
 Do not use characters outside of `0-9a-f` for color value.
 
-- `fontPath`: Absolute path to *.ttf font file. Not implemented in VST 3 version.
+Following is a list of color options. If an option is missing, default color will be used.
+
 - `foreground`: Text color.
 - `foregroundButtonOn`: Text color of active toggle button. Recommend to use the same value of `foreground` or `boxBackground`.
 - `foregroundInactive`: Text color of inactive components. Currently, only used for TabView.
@@ -232,12 +259,53 @@ Reset Overshoot
 
     When output sample peak exceeds 0 dB, the value of `Overshoots` changes to greater than 0, and `Reset Overshoot` will be lit.
 
+### BasicLimiterAutoMake Specific Parameters
+Auto Make Up
+
+:   Enable automatic make up gain when checked.
+
+    When `Auto Make Up` is enabled, output amplitude become lower when `Threshold` is greater than `Auto Make Up Target Gain`.
+
+    When `Auto Make Up` is enabled, and `Threshold` is increasing, overshoot may occur. Recommend to set the target gain to -0.1 dB (default) or lower in this case. If `Threshold` needs to be changed while signal is hot, insert another limiter for safe guard.
+
+Auto Make Up Target Gain
+
+:   Maximum amplitude after automatic make up gain is applied. This is a control placed on the right side of `Auto Make Up`. Unit is decibel.
+
+    When `Channel Type` is set to `M-S`, maximum amplitude is +6 dB of `Auto Make Up Target Gain`.
+
+Sidechain
+
+:   Enable sidechain when checked. Also disable `Auto Make Up` when checked, because source signal amplitude is not affected by `Threshold` while sidechain is applied.
+
+    BasicLimiterAutoMake has 2 stereo input. No. 1 is source input, and No. 2 is sidechain input. For routing, please refer to your DAW manual.
+
+Channel Type
+
+:   Switch the type of stereo channel between left-right (`L-R`) and mid-side (`M-S`).
+
+    When the type is set to `M-S`, sample peak becomes `Threshold` + 6 dB. Therefore, when using `Auto Make Up` with `M-S`, it is recommended to set `Auto Make Up Target Gain` to -6.1 dB or lower. This behavior aims to provide the same loudness when comparing `L-R` and `M-S`.
+
 ## Change Log
+### BasicLimiter
+- 0.1.4
+  - Added custom font options for `style.json`.
+  - Changed to disable `Gate` when the value is set to -inf dB.
+- 0.1.3
+  - Updated VSTGUI from 4.10 to 4.11.
 - 0.1.2
   - Initial release.
 
+#### BasicLimiterAutoMake
+- 0.1.4
+  - Initial release.
+
 ### Old Versions
-There aren't any old versions.
+### BasicLimiter
+- [BasicLimiter 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiter_0.1.2.zip)
+-
+#### BasicLimiterAutoMake
+Currently, there aren't any old versions.
 
 ## License
 BasicLimiter is licensed under GPLv3. Complete licenses are linked below.

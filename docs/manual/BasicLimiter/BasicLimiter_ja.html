@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-05-16" />
+<meta name="dcterms.date" content="2022-05-22" />
 <title>BasicLimiter_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-05-16
+  Update: 2022-05-22
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -282,14 +282,29 @@ footer {
   <li><a href="#参考リンク">参考リンク</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#色の設定">色の設定</a></li>
+  <li><a href="#gui-の見た目の設定">GUI の見た目の設定</a>
+  <ul>
+  <li><a href="#フォントオプション">フォントオプション</a></li>
+  <li><a href="#色のオプション">色のオプション</a></li>
+  </ul></li>
   <li><a href="#操作">操作</a></li>
   <li><a href="#注意">注意</a></li>
   <li><a href="#ブロック線図">ブロック線図</a></li>
-  <li><a href="#パラメータ">パラメータ</a></li>
+  <li><a href="#パラメータ">パラメータ</a>
+  <ul>
+  <li><a href="#basiclimiterautomake-の固有パラメータ">BasicLimiterAutoMake の固有パラメータ</a></li>
+  </ul></li>
   <li><a href="#チェンジログ">チェンジログ</a>
   <ul>
+  <li><a href="#basiclimiter-1">BasicLimiter</a>
+  <ul>
+  <li><a href="#basiclimiterautomake">BasicLimiterAutoMake</a></li>
+  </ul></li>
   <li><a href="#旧バージョン">旧バージョン</a></li>
+  <li><a href="#basiclimiter-2">BasicLimiter</a>
+  <ul>
+  <li><a href="#basiclimiterautomake-1">BasicLimiterAutoMake</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#ライセンス">ライセンス</a>
   <ul>
@@ -304,14 +319,22 @@ footer {
 <p><img src="img/basiclimiter.png" /></p>
 <p><ruby>BasicLimiter<rt>ベーシック リミッタ</rt></ruby> は名前の通りベーシックなシングルバンドリミッタです。目新しい音は出ませんが、トゥルーピークモードはやや贅沢に設計しています。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiter_0.1.2.zip">BasicLimiter 0.1.2 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiter_0.1.4.zip">BasicLimiter 0.1.4 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterPresets.zip">プリセットをダウンロード (github.com)</a></li>
 </ul>
-<p>BasicLimiter の利用には AVX 以降の SIMD 命令セットをサポートする CPU が必要です。</p>
+<p>自動メイクアップゲイン、サイドチェイン、左右 (L-R) とミッド-サイド (M-S) の切り替えを追加した BasicLimiterAutoMake もあります。ただし CPU 負荷は 1.5 倍強に上がります。</p>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterAutoMake_0.1.4.zip">BasicLimiterAutoMake 0.1.4 をダウンロード - VST® 3 (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="60px"
+style="display: inline-block; vertical-align: middle;"></li>
+</ul>
+<p>BasicLimiter と BasicLimiterAutoMake の利用には AVX 以降の SIMD 命令セットをサポートする CPU が必要です。</p>
 <p>パッケージには次のビルドが含まれています。</p>
 <ul>
 <li>Windows 64bit</li>
@@ -321,7 +344,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
 <h2 id="連絡先">連絡先</h2>
 <p>何かあれば <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか <code>ryukau@gmail.com</code> までお気軽にどうぞ。</p>
-<p><a href="paypal.me/ryukau">paypal.me/ryukau</a> から開発資金を投げ銭することもできます。現在の目標は macOS と ARM ポートのための M1 mac の購入資金を作ることです。 🤑💸💻</p>
+<p><a href="https://www.paypal.com/paypalme/ryukau">paypal.me/ryukau</a> から開発資金を投げ銭することもできます。現在の目標は macOS と ARM ポートのための M1 mac の購入資金を作ることです。 💸💻</p>
 <h2 id="インストール">インストール</h2>
 <h3 id="プラグイン">プラグイン</h3>
 <p>名前が <code>.vst3</code> で終わるディレクトリを OS ごとに決められた位置に配置してください。</p>
@@ -373,7 +396,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><a href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio</a></li>
 <li><a href="https://support.apple.com/en-us/HT202491">Safely open apps on your Mac - Apple Support</a></li>
 </ul>
-<h2 id="色の設定">色の設定</h2>
+<h2 id="gui-の見た目の設定">GUI の見た目の設定</h2>
 <p>初回設定時は手動で次のファイルを作成してください。</p>
 <ul>
 <li>Windows では <code>/Users/ユーザ名/AppData/Roaming/UhhyouPlugins/style/style.json</code> 。</li>
@@ -389,23 +412,37 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <p><code>style.json</code> の設定例です。</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontPath&quot;</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span><span class="fu">,</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;background&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;boxBackground&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;border&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderCheckbox&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderLabel&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;unfocused&quot;</span><span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span><span class="fu">,</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightMain&quot;</span><span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span><span class="fu">,</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightAccent&quot;</span><span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span><span class="fu">,</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightButton&quot;</span><span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span><span class="fu">,</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontFamily&quot;</span><span class="fu">:</span> <span class="st">&quot;Tinos&quot;</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontBold&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontItalic&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span><span class="fu">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;background&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;boxBackground&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;border&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderCheckbox&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderLabel&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;unfocused&quot;</span><span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span><span class="fu">,</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightMain&quot;</span><span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span><span class="fu">,</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightAccent&quot;</span><span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span><span class="fu">,</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightButton&quot;</span><span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span><span class="fu">,</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 id="フォントオプション">フォントオプション</h3>
+<p>以下はフォントオプションの一覧です。</p>
+<ul>
+<li><code>fontFamily</code>: フォントファミリ名。</li>
+<li><code>fontBold</code>: ボールドスタイル (太字) を <code>true</code> で有効、 <code>false</code> で無効。</li>
+<li><code>fontItalic</code>: イタリックスタイル (斜体) を <code>true</code> で有効、 <code>false</code> で無効。</li>
+</ul>
+<p>カスタムフォントを使用するには、プラグインディレクトリの <code>*.vst3/Contents/Resources/Fonts</code> に <code>*.ttf</code> ファイルを配置します。</p>
+<p><strong>重要</strong>: <code>fontFamily</code> 、 <code>fontBold</code> 、 <code>fontItalic</code> で設定したフォントファミリ名とスタイルの組み合わせが <code>*.vst3/Contents/Resources/Fonts</code> 以下のいずれかの <code>*.ttf</code> ファイルに含まれていないときは VSTGUI が指定するデフォルトフォントが使用されます。</p>
+<p><code>fontFamily</code> が長さ 0 の文字列 <code>""</code> のときはフォールバックとして <a href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a> に設定されます。長さが 1 以上かつ、存在しないフォントファミリ名が指定されると VSTGUI が指定するデフォルトフォントが使用されます。</p>
+<p>ボールドあるいはイタリック以外のスタイルは VSTGUI がサポートしていないので動作確認していません。該当する例としては Noto フォントの Demi Light や、 Roboto フォントの Thin や Black などがあります。</p>
+<h3 id="色のオプション">色のオプション</h3>
 <p>16 進数カラーコードを使っています。</p>
 <ul>
 <li>6 桁の色は RGB 。</li>
@@ -415,7 +452,6 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>2 文字目以降のカラーコードの値に <code>0-9a-f</code> 以外の文字を使わないでください。</p>
 <p>以下は設定できる色の一覧です。設定に抜けがあるとデフォルトの色が使われます。</p>
 <ul>
-<li><code>fontPath</code>: フォント (*.ttf) の絶対パス。VST 3 版では実装されていません。</li>
 <li><code>foreground</code>: 文字の色。</li>
 <li><code>foregroundButtonOn</code>: オンになっているボタンの文字の色。 <code>foreground</code> か <code>boxBackground</code> のいずれかと同じ値にすることを推奨します。</li>
 <li><code>foregroundInactive</code>: 非アクティブなタブの文字の色。</li>
@@ -487,15 +523,57 @@ amplitudeR = absR + stereoLink * (absMax - absR).</code></pre>
 <p>出力のサンプルピークが 0 dB を超えると <code>Overshoot</code> の値が 0 でなくなり、 <code>Reset Overshoot</code> が点灯します。</p>
 </dd>
 </dl>
+<h3 id="basiclimiterautomake-の固有パラメータ">BasicLimiterAutoMake の固有パラメータ</h3>
+<dl>
+<dt>Auto Make Up</dt>
+<dd><p>チェックを入れると自動メイクアップゲインが有効になります。</p>
+<p>自動メイクアップゲインが有効のときに <code>Threshold</code> の値が <code>Auto Make Up Target Gain</code> を超えると出力振幅が小さくなります。</p>
+<p>自動メイクアップゲインが有効のときに、手やオートメーションで <code>Threshold</code> を上げると、オーバーシュートすることがあります。そのため、オーバーシュートでの歪みを防ぐために <code>Auto Make Up Target Gain</code> を -0.1 dB 以下に設定することを推奨します。また、入力信号があるときに <code>Threshold</code> を動かすのであれば BasicLimiterAutoMake の後にお守りとしてさらにもう一つリミッタを挿入することを推奨します。</p>
+</dd>
+<dt>Auto Make Up Target Gain</dt>
+<dd><p>自動メイクアップゲインが適用された後の最大振幅です。 <code>Auto Make Up</code> の右側に配置されているコントロールで、単位はデシベルです。</p>
+<p><code>Channel Type</code> が <code>M-S</code> のときは設定値の +6 dB が最大振幅となります。</p>
+</dd>
+<dt>Sidechain</dt>
+<dd><p>チェックを入れるとサイドチェインが有効になります。サイドチェインが有効のとき、ソース信号の振幅は <code>Threshold</code> に影響されないので <code>Auto Make Up</code> は無効になります。</p>
+<p>BasicLimiterAutoMake は 2 つのステレオ入力を備えています。 1 番がソース信号、 2 番がサイドチェイン信号の入力です。ルーティングについてはお使いの DAW のマニュアルを参照してください。</p>
+</dd>
+<dt>Channel Type</dt>
+<dd><p>ステレオチャンネルの種類を左右 (<code>L-R</code>) とミッド-サイド (<code>M-S</code>) で切り替えます。</p>
+<p>種類を <code>M-S</code> に設定すると、サンプルピークが <code>Threshold</code> を最大で +6 dB 上回ることがあります。そこで <code>Auto Make Up</code> を有効にして <code>M-S</code> を使うときは、 <code>Auto Make Up Target Gain</code> の値を -6.1 dB 以下に設定することを推奨します。この仕様は <code>L-R</code> と <code>M-S</code> を切り替えて比較するときに聴感上の音の大きさが同じになることを狙っています。</p>
+</dd>
+</dl>
 <h2 id="チェンジログ">チェンジログ</h2>
+<h3 id="basiclimiter-1">BasicLimiter</h3>
 <ul>
+<li>0.1.4
+<ul>
+<li><code>style.json</code> でカスタムフォントを設定するオプションを追加。</li>
+<li><code>Gate</code> が -inf dB のときにゲートがかからないように変更。</li>
+</ul></li>
+<li>0.1.3
+<ul>
+<li>VSTGUI を 4.10 から 4.11 にアップデート。</li>
+</ul></li>
 <li>0.1.2
 <ul>
 <li>初期リリース。</li>
 </ul></li>
 </ul>
+<h4 id="basiclimiterautomake">BasicLimiterAutoMake</h4>
+<ul>
+<li>0.1.4
+<ul>
+<li>初期リリース。</li>
+</ul></li>
+</ul>
 <h3 id="旧バージョン">旧バージョン</h3>
-<p>旧バージョンはありません。</p>
+<h3 id="basiclimiter-2">BasicLimiter</h3>
+<ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiter_0.1.2.zip">BasicLimiter 0.1.2 - VST 3 (github.com)</a></li>
+</ul>
+<h4 id="basiclimiterautomake-1">BasicLimiterAutoMake</h4>
+<p>現在、旧バージョンはありません。</p>
 <h2 id="ライセンス">ライセンス</h2>
 <p>BasicLimiter のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
 <ul>

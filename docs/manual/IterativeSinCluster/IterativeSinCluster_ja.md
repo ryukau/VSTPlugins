@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>IterativeSinCluster<rt>イテレイティブ サイン クラスタ</rt></ruby>はノート 1 つあたり 512 のサイン波を計算する加算合成シンセサイザです。一体、何を考えていたのか iterative sin という言葉を名前に使っていますが、アルゴリズムの種類を表す正しい言葉は recursive sine です。
 
-- [IterativeSinCluster 0.1.13 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/IterativeSinCluster_0.1.13.zip) <img
+- [IterativeSinCluster 0.1.15 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/IterativeSinCluster_0.1.15.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -28,7 +28,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 ## 連絡先
 何かあれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作るか `ryukau@gmail.com` までお気軽にどうぞ。
 
-[paypal.me/ryukau](paypal.me/ryukau) から開発資金を投げ銭することもできます。現在の目標は macOS と ARM ポートのための M1 mac の購入資金を作ることです。 🤑💸💻
+[paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau) から開発資金を投げ銭することもできます。現在の目標は macOS と ARM ポートのための M1 mac の購入資金を作ることです。 💸💻
 
 ## インストール
 ### プラグイン
@@ -93,7 +93,7 @@ xattr -rc /path/to/PluginName.vst3
 - [Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio](https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/)
 - [Safely open apps on your Mac - Apple Support](https://support.apple.com/en-us/HT202491)
 
-## 色の設定
+## GUI の見た目の設定
 初回設定時は手動で次のファイルを作成してください。
 
 - Windows では `/Users/ユーザ名/AppData/Roaming/UhhyouPlugins/style/style.json` 。
@@ -109,7 +109,9 @@ xattr -rc /path/to/PluginName.vst3
 
 ```json
 {
-  "fontPath": "",
+  "fontFamily": "Tinos",
+  "fontBold": true,
+  "fontItalic": true,
   "foreground": "#000000",
   "foregroundButtonOn": "#000000",
   "foregroundInactive": "#8a8a8a",
@@ -128,6 +130,22 @@ xattr -rc /path/to/PluginName.vst3
 }
 ```
 
+### フォントオプション
+以下はフォントオプションの一覧です。
+
+- `fontFamily`: フォントファミリ名。
+- `fontBold`: ボールドスタイル (太字) を `true` で有効、 `false` で無効。
+- `fontItalic`: イタリックスタイル (斜体) を `true` で有効、 `false` で無効。
+
+カスタムフォントを使用するには、プラグインディレクトリの `*.vst3/Contents/Resources/Fonts` に `*.ttf` ファイルを配置します。
+
+**重要**: `fontFamily` 、 `fontBold` 、 `fontItalic` で設定したフォントファミリ名とスタイルの組み合わせが `*.vst3/Contents/Resources/Fonts` 以下のいずれかの `*.ttf` ファイルに含まれていないときは VSTGUI が指定するデフォルトフォントが使用されます。
+
+`fontFamily` が長さ 0 の文字列 `""` のときはフォールバックとして [`"Tinos"`](https://fonts.google.com/specimen/Tinos) に設定されます。長さが 1 以上かつ、存在しないフォントファミリ名が指定されると VSTGUI が指定するデフォルトフォントが使用されます。
+
+ボールドあるいはイタリック以外のスタイルは VSTGUI がサポートしていないので動作確認していません。該当する例としては Noto フォントの Demi Light や、 Roboto フォントの Thin や Black などがあります。
+
+### 色のオプション
 16 進数カラーコードを使っています。
 
 - 6 桁の色は RGB 。
@@ -139,7 +157,6 @@ xattr -rc /path/to/PluginName.vst3
 
 以下は設定できる色の一覧です。設定に抜けがあるとデフォルトの色が使われます。
 
-- `fontPath`: フォント (*.ttf) の絶対パス。VST 3 版では実装されていません。
 - `foreground`: 文字の色。
 - `foregroundButtonOn`: オンになっているボタンの文字の色。 `foreground` か `boxBackground` のいずれかと同じ値にすることを推奨します。
 - `foregroundInactive`: 非アクティブなタブの文字の色。
@@ -335,6 +352,10 @@ Key Follow
 :   チェックを入れると、ディレイ時間をノートの音程に応じて変更します。
 
 ## チェンジログ
+- 0.1.15
+  - `style.json` でカスタムフォントを設定するオプションを追加。
+- 0.1.14
+  - VSTGUI を 4.10 から 4.11 にアップデート。
 - 0.1.13
   - フォントを Tinos に変更。
 - 0.1.12
@@ -369,6 +390,7 @@ Key Follow
   - 初期リリース。
 
 ### 旧バージョン
+- [IterativeSinCluster 0.1.13 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/IterativeSinCluster_0.1.13.zip)
 - [IterativeSinCluster 0.1.12 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/IterativeSinCluster_0.1.12.zip)
 - [IterativeSinCluster 0.1.11 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/IterativeSinCluster0.1.11.zip)
 - [IterativeSinCluster 0.1.10 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/IterativeSinCluster0.1.10.zip)

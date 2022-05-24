@@ -7,14 +7,22 @@ lang: ja
 
 <ruby>BasicLimiter<rt>ベーシック リミッタ</rt></ruby> は名前の通りベーシックなシングルバンドリミッタです。目新しい音は出ませんが、トゥルーピークモードはやや贅沢に設計しています。
 
-- [BasicLimiter 0.1.2 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiter_0.1.2.zip) <img
+- [BasicLimiter 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiter_0.1.4.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
   style="display: inline-block; vertical-align: middle;">
 - [プリセットをダウンロード (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterPresets.zip)
 
-BasicLimiter の利用には AVX 以降の SIMD 命令セットをサポートする CPU が必要です。
+自動メイクアップゲイン、サイドチェイン、左右 (L-R) とミッド-サイド (M-S) の切り替えを追加した BasicLimiterAutoMake もあります。ただし CPU 負荷は 1.5 倍強に上がります。
+
+- [BasicLimiterAutoMake 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterAutoMake_0.1.4.zip) <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="60px"
+  style="display: inline-block; vertical-align: middle;">
+
+BasicLimiter と BasicLimiterAutoMake の利用には AVX 以降の SIMD 命令セットをサポートする CPU が必要です。
 
 パッケージには次のビルドが含まれています。
 
@@ -28,7 +36,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 ## 連絡先
 何かあれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作るか `ryukau@gmail.com` までお気軽にどうぞ。
 
-[paypal.me/ryukau](paypal.me/ryukau) から開発資金を投げ銭することもできます。現在の目標は macOS と ARM ポートのための M1 mac の購入資金を作ることです。 🤑💸💻
+[paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau) から開発資金を投げ銭することもできます。現在の目標は macOS と ARM ポートのための M1 mac の購入資金を作ることです。 💸💻
 
 ## インストール
 ### プラグイン
@@ -93,7 +101,7 @@ xattr -rc /path/to/PluginName.vst3
 - [Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio](https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/)
 - [Safely open apps on your Mac - Apple Support](https://support.apple.com/en-us/HT202491)
 
-## 色の設定
+## GUI の見た目の設定
 初回設定時は手動で次のファイルを作成してください。
 
 - Windows では `/Users/ユーザ名/AppData/Roaming/UhhyouPlugins/style/style.json` 。
@@ -109,7 +117,9 @@ xattr -rc /path/to/PluginName.vst3
 
 ```json
 {
-  "fontPath": "",
+  "fontFamily": "Tinos",
+  "fontBold": true,
+  "fontItalic": true,
   "foreground": "#000000",
   "foregroundButtonOn": "#000000",
   "foregroundInactive": "#8a8a8a",
@@ -128,6 +138,22 @@ xattr -rc /path/to/PluginName.vst3
 }
 ```
 
+### フォントオプション
+以下はフォントオプションの一覧です。
+
+- `fontFamily`: フォントファミリ名。
+- `fontBold`: ボールドスタイル (太字) を `true` で有効、 `false` で無効。
+- `fontItalic`: イタリックスタイル (斜体) を `true` で有効、 `false` で無効。
+
+カスタムフォントを使用するには、プラグインディレクトリの `*.vst3/Contents/Resources/Fonts` に `*.ttf` ファイルを配置します。
+
+**重要**: `fontFamily` 、 `fontBold` 、 `fontItalic` で設定したフォントファミリ名とスタイルの組み合わせが `*.vst3/Contents/Resources/Fonts` 以下のいずれかの `*.ttf` ファイルに含まれていないときは VSTGUI が指定するデフォルトフォントが使用されます。
+
+`fontFamily` が長さ 0 の文字列 `""` のときはフォールバックとして [`"Tinos"`](https://fonts.google.com/specimen/Tinos) に設定されます。長さが 1 以上かつ、存在しないフォントファミリ名が指定されると VSTGUI が指定するデフォルトフォントが使用されます。
+
+ボールドあるいはイタリック以外のスタイルは VSTGUI がサポートしていないので動作確認していません。該当する例としては Noto フォントの Demi Light や、 Roboto フォントの Thin や Black などがあります。
+
+### 色のオプション
 16 進数カラーコードを使っています。
 
 - 6 桁の色は RGB 。
@@ -139,7 +165,6 @@ xattr -rc /path/to/PluginName.vst3
 
 以下は設定できる色の一覧です。設定に抜けがあるとデフォルトの色が使われます。
 
-- `fontPath`: フォント (*.ttf) の絶対パス。VST 3 版では実装されていません。
 - `foreground`: 文字の色。
 - `foregroundButtonOn`: オンになっているボタンの文字の色。 `foreground` か `boxBackground` のいずれかと同じ値にすることを推奨します。
 - `foregroundInactive`: 非アクティブなタブの文字の色。
@@ -233,12 +258,53 @@ Reset Overshoot
 
     出力のサンプルピークが 0 dB を超えると `Overshoot` の値が 0 でなくなり、 `Reset Overshoot` が点灯します。
 
+### BasicLimiterAutoMake の固有パラメータ
+Auto Make Up
+
+:   チェックを入れると自動メイクアップゲインが有効になります。
+
+    自動メイクアップゲインが有効のときに `Threshold` の値が `Auto Make Up Target Gain` を超えると出力振幅が小さくなります。
+
+    自動メイクアップゲインが有効のときに、手やオートメーションで `Threshold` を上げると、オーバーシュートすることがあります。そのため、オーバーシュートでの歪みを防ぐために `Auto Make Up Target Gain` を -0.1 dB 以下に設定することを推奨します。また、入力信号があるときに `Threshold` を動かすのであれば BasicLimiterAutoMake の後にお守りとしてさらにもう一つリミッタを挿入することを推奨します。
+
+Auto Make Up Target Gain
+
+:   自動メイクアップゲインが適用された後の最大振幅です。 `Auto Make Up` の右側に配置されているコントロールで、単位はデシベルです。
+
+    `Channel Type` が `M-S` のときは設定値の +6 dB が最大振幅となります。
+
+Sidechain
+
+:   チェックを入れるとサイドチェインが有効になります。サイドチェインが有効のとき、ソース信号の振幅は `Threshold` に影響されないので `Auto Make Up` は無効になります。
+
+    BasicLimiterAutoMake は 2 つのステレオ入力を備えています。 1 番がソース信号、 2 番がサイドチェイン信号の入力です。ルーティングについてはお使いの DAW のマニュアルを参照してください。
+
+Channel Type
+
+:   ステレオチャンネルの種類を左右 (`L-R`) とミッド-サイド (`M-S`) で切り替えます。
+
+    種類を `M-S` に設定すると、サンプルピークが `Threshold` を最大で +6 dB 上回ることがあります。そこで `Auto Make Up` を有効にして `M-S` を使うときは、 `Auto Make Up Target Gain` の値を -6.1 dB 以下に設定することを推奨します。この仕様は `L-R` と `M-S` を切り替えて比較するときに聴感上の音の大きさが同じになることを狙っています。
+
 ## チェンジログ
+### BasicLimiter
+- 0.1.4
+  - `style.json` でカスタムフォントを設定するオプションを追加。
+  - `Gate` が -inf dB のときにゲートがかからないように変更。
+- 0.1.3
+  - VSTGUI を 4.10 から 4.11 にアップデート。
 - 0.1.2
   - 初期リリース。
 
+#### BasicLimiterAutoMake
+- 0.1.4
+  - 初期リリース。
+
 ### 旧バージョン
-旧バージョンはありません。
+### BasicLimiter
+- [BasicLimiter 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiter_0.1.2.zip)
+
+#### BasicLimiterAutoMake
+現在、旧バージョンはありません。
 
 ## ライセンス
 BasicLimiter のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。

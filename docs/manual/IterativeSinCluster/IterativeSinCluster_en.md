@@ -7,7 +7,7 @@ lang: en
 
 IterativeSinCluster is an additive synthesizer. This synth computes 512 sine waves for each note to make tone cluster. I somehow thought "iterative sin" is a valid term. Correct term is "recursive sine".
 
-- [Download IterativeSinCluster 0.1.13 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/IterativeSinCluster_0.1.13.zip) <img
+- [Download IterativeSinCluster 0.1.15 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/IterativeSinCluster_0.1.15.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -28,7 +28,7 @@ Linux build is built on Ubuntu 20.04. If you are using distribution other than U
 ## Contact
 Feel free to contact me on [GitHub repository](https://github.com/ryukau/VSTPlugins/commits/master) or `ryukau@gmail.com.`
 
-You can fund the development through [paypal.me/ryukau](paypal.me/ryukau).  Current goal is to purchase M1 mac for macOS and ARM port. 🤑💸💻
+You can fund the development through [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).  Current goal is to purchase M1 mac for macOS and ARM port. 💸💻
 
 ## Installation
 ### Plugin
@@ -98,7 +98,7 @@ Beware that steps above degrades security of your system. To revert the settings
 - [Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio](https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/)
 - [Safely open apps on your Mac - Apple Support](https://support.apple.com/en-us/HT202491)
 
-## Color Configuration
+## GUI Style Configuration
 At first time, create color config file to:
 
 - `/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json` on Windows.
@@ -110,7 +110,9 @@ Below is a example of `style.json`.
 
 ```json
 {
-  "fontPath": "",
+  "fontFamily": "Tinos",
+  "fontBold": true,
+  "fontItalic": true,
   "foreground": "#000000",
   "foregroundButtonOn": "#000000",
   "foregroundInactive": "#8a8a8a",
@@ -129,6 +131,22 @@ Below is a example of `style.json`.
 }
 ```
 
+### Font Options
+Following is a list of font options.
+
+- `fontFamily`: Font family name.
+- `fontBold`: Enable **bold** style when `true`, disable when `false`.
+- `fontItalic`: Enable *italic* style when `true`, disable when `false`.
+
+To use custom font, place `*.ttf` file into custom font path: `*.vst3/Contents/Resources/Fonts`.
+
+**Important**: If the combination of `fontFamily`, `fontBold`, `fontItalic` is not exists in custom font path, default font of VSTGUI is used.
+
+If `fontFamily` is set to empty string `""`, then [`"Tinos"`](https://fonts.google.com/specimen/Tinos) is used as fallback. If the length is greater than 1 and the font family name doesn't exists, default font of VSTGUI is used.
+
+Styles other than bold, italic or bold-italic are not supported by VSTGUI. For example, "Thin", "Light", "Medium", and "Black" weights cannot be used.
+
+### Color Options
 Hex color codes are used.
 
 - 6 digit color is RGB.
@@ -138,7 +156,8 @@ First letter `#` is conventional. Plugins ignore the first letter of color code,
 
 Do not use characters outside of `0-9a-f` for color value.
 
-- `fontPath`: Absolute path to *.ttf font file. Not implemented in VST 3 version.
+Following is a list of color options. If an option is missing, default color will be used.
+
 - `foreground`: Text color.
 - `foregroundButtonOn`: Text color of active toggle button. Recommend to use the same value of `foreground` or `boxBackground`.
 - `foregroundInactive`: Text color of inactive components. Currently, only used for TabView.
@@ -328,6 +347,10 @@ Key Follow
 :   When checked, change delay time relative to note frequency.
 
 ## Change Log
+- 0.1.15
+  - Added custom font options for `style.json`.
+- 0.1.14
+  - Updated VSTGUI from 4.10 to 4.11.
 - 0.1.13
   - Changed font to Tinos.
 - 0.1.12
@@ -362,6 +385,7 @@ Key Follow
   - Initial release.
 
 ### Old Versions
+- [IterativeSinCluster 0.1.13 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/IterativeSinCluster_0.1.13.zip)
 - [IterativeSinCluster 0.1.12 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/IterativeSinCluster_0.1.12.zip)
 - [IterativeSinCluster 0.1.11 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/IterativeSinCluster0.1.11.zip)
 - [IterativeSinCluster 0.1.10 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/IterativeSinCluster0.1.10.zip)

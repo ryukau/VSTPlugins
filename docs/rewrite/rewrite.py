@@ -62,11 +62,11 @@ def process(
         fi.write(text)
 
 if __name__ == "__main__":
-    release_name = "ConformVSTGUI4_11"
+    release_name = "CustomFontOptions"
     en_change_log = """
-  - Updated VSTGUI from 4.10 to 4.11."""
+  - Added custom font options for `style.json`."""
     ja_change_log = """
-  - VSTGUI を 4.10 から 4.11 にアップデート。"""
+  - `style.json` でカスタムフォントを設定するオプションを追加。"""
 
     re_en_download_link = re.compile(
         r"^- \[Download (.+?) ([0-9]+)\.([0-9]+)\.([0-9]+) - VST® 3.+?\]\((.*?)\)",
