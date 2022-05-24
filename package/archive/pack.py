@@ -1,4 +1,5 @@
 import re
+import json
 import shutil
 from pathlib import Path
 
@@ -16,6 +17,9 @@ def check_file(file_path):
         exit(1)
 
 def create_archive_from_github_actions_artifact():
+    with open("manual.json", "r", encoding="utf-8") as fi:
+        manual_dict = json.load(fi)
+
     pack_dir = Path("pack")
     pack_dir.mkdir(exist_ok=True)
 
@@ -28,13 +32,16 @@ def create_archive_from_github_actions_artifact():
     for vst3_dir in pack_dir.glob("*.vst3"):
         plugin_name = vst3_dir.stem
 
+        manual_name = (plugin_name
+                       if not plugin_name in manual_dict else manual_dict[plugin_name])
+
         # Do not make package if a plugin doesn't have manual.
-        if not Path(f"../../docs/manual/{plugin_name}").exists():
+        if not Path(f"../../docs/manual/{manual_name}").exists():
             print(f"Skipping {plugin_name}: manual not found")
             continue
 
         copy_resource(
-            Path(f"../../docs/manual/{plugin_name}"),
+            Path(f"../../docs/manual/{manual_name}"),
             vst3_dir / Path("Contents/Resources/Documentation"),
             f"{plugin_name} manual did not found",
         )

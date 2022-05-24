@@ -46,6 +46,9 @@ def create_studiorack_data(plugins, platforms):
     common["homepage"] = "https://ryukau.github.io/VSTPlugins/"
     common["date"] = f"{datetime.datetime.utcnow().isoformat(timespec='milliseconds')}Z"
 
+    with open("manual.json", "r", encoding="utf-8") as fi:
+        manual_dict = json.load(fi)
+
     re_plugtype = re.compile(
         r"#define\s+stringSubCategory\s+Steinberg::Vst::PlugType::(.*?)$",
         re.DOTALL | re.MULTILINE)
@@ -55,6 +58,8 @@ def create_studiorack_data(plugins, platforms):
         name = plugin_name_splitted["name"]
         plugin_dir = Path(f"../../{name}")
 
+        manual_name = (name if not name in manual_dict else manual_dict[name])
+
         #
         # On `screenshot_png`, `resource` directory for each plugin only contains 1 png
         # file which is plugin screenshot. So current implementation is just globbing it.
@@ -63,7 +68,7 @@ def create_studiorack_data(plugins, platforms):
         plugfactory_cpp = plugin_dir / Path("source/plugfactory.cpp")
         screenshot_png = list((plugin_dir / Path("resource")).glob("*.png"))[0]
         audiosample_wav = Path(f"../audiosample/{name}.wav")
-        manual_en_md = Path(f"../../docs/manual/{name}/{name}_en.md")
+        manual_en_md = Path(f"../../docs/manual/{manual_name}/{manual_name}_en.md")
 
         if not (plugfactory_cpp.exists() and screenshot_png.exists() and
                 audiosample_wav.exists() and manual_en_md.exists()):
