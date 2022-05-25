@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-05-22" />
+<meta name="dcterms.date" content="2022-05-25" />
 <title>SyncSawSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-05-22
+  Update: 2022-05-25
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -298,10 +298,8 @@ footer {
   <li><a href="#gain">Gain</a></li>
   <li><a href="#filter">Filter</a></li>
   </ul></li>
-  <li><a href="#change-log">Change Log</a>
-  <ul>
+  <li><a href="#change-log">Change Log</a></li>
   <li><a href="#old-versions">Old Versions</a></li>
-  </ul></li>
   <li><a href="#license">License</a>
   <ul>
   <li><a href="#about-vst">About VST</a></li>
@@ -315,7 +313,7 @@ footer {
 <p><img src="img/syncsawsynth.png" /></p>
 <p>SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR sawtooth oscillator. Just a basic synthesizer but very easy to make a noise similar to low battery sound of some toys.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/SyncSawSynth_0.1.20.zip">Download SyncSawSynth 0.1.20 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/SyncSawSynth_0.1.21.zip">Download SyncSawSynth 0.1.21 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -660,6 +658,10 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.21
+<ul>
+<li>Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.</li>
+</ul></li>
 <li>0.1.20
 <ul>
 <li>Added custom font options for <code>style.json</code>.</li>
@@ -750,8 +752,9 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
 <li>Initial release.</li>
 </ul></li>
 </ul>
-<h3 id="old-versions">Old Versions</h3>
+<h2 id="old-versions">Old Versions</h2>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/SyncSawSynth_0.1.20.zip">SyncSawSynth 0.1.20 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/SyncSawSynth_0.1.18.zip">SyncSawSynth 0.1.18 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/SyncSawSynth_0.1.17.zip">SyncSawSynth 0.1.17 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SyncSawSynth0.1.15.zip">SyncSawSynth 0.1.15 - VST 3 (github.com)</a></li>

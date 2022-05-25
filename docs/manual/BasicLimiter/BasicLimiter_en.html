@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-05-24" />
+<meta name="dcterms.date" content="2022-05-25" />
 <title>BasicLimiter_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-05-24
+  Update: 2022-05-25
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -296,11 +296,11 @@ footer {
   </ul></li>
   <li><a href="#change-log">Change Log</a>
   <ul>
-  <li><a href="#basiclimiter-1">BasicLimiter</a>
-  <ul>
+  <li><a href="#basiclimiter-1">BasicLimiter</a></li>
   <li><a href="#basiclimiterautomake">BasicLimiterAutoMake</a></li>
   </ul></li>
-  <li><a href="#old-versions">Old Versions</a></li>
+  <li><a href="#old-versions">Old Versions</a>
+  <ul>
   <li><a href="#basiclimiter-2">BasicLimiter</a></li>
   </ul></li>
   <li><a href="#license">License</a>
@@ -316,7 +316,7 @@ footer {
 <p><img src="img/basiclimiter.png" /></p>
 <p>BasicLimiter is a basic single band limiter. The sound is nothing new, but the design of true peak mode is a bit luxurious.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiter_0.1.4.zip">Download BasicLimiter 0.1.4 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiter_0.1.5.zip">Download BasicLimiter 0.1.5 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -325,7 +325,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <p>An extended version BasicLimiterAutoMake is also available. Added features are automatic make up gain, sidechain, and switching between left-right (L-R) and mid-side (M-S). Note that CPU load is over 1.5 times heavier than BasicLimiter.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiterAutoMake_0.1.4.zip">Download BasicLimiterAutoMake 0.1.4 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiterAutoMake_0.1.5.zip">Download BasicLimiterAutoMake 0.1.5 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -487,7 +487,7 @@ the Trash&quot;</code></pre>
 </dd>
 <dt>Attack [s]</dt>
 <dd><p>Transition time of smoothing filter which applies to internal envelope. The value of <code>Attack</code> also adds to the latency.</p>
-<p>For the sound with sharp transitions, like drums, recommend to set <code>Attack</code> under 0.02 seconds. This 0.02 seconds comes from a psychoacoustic effect called <a href="https://ccrma.stanford.edu/~bosse/proj/node21.html">temporal masking</a>.</p>
+<p>For the sound with sharp transitions, like drums, recommend to set <code>Attack</code> under 0.02 seconds. This 0.02 seconds comes from a psychoacoustic effect called <a href="https://web.archive.org/web/20210624083625/http://ccrma.stanford.edu:80/~bosse/proj/node21.html">temporal masking</a>.</p>
 </dd>
 <dt>Release [s]</dt>
 <dd><p>Smoothness to reset internal envelope to neutral position.</p>
@@ -541,6 +541,10 @@ amplitudeR = absR + stereoLink * (absMax - absR).</code></pre>
 <h2 id="change-log">Change Log</h2>
 <h3 id="basiclimiter-1">BasicLimiter</h3>
 <ul>
+<li>0.1.5
+<ul>
+<li>Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.</li>
+</ul></li>
 <li>0.1.4
 <ul>
 <li>Added custom font options for <code>style.json</code>.</li>
@@ -555,19 +559,24 @@ amplitudeR = absR + stereoLink * (absMax - absR).</code></pre>
 <li>Initial release.</li>
 </ul></li>
 </ul>
-<h4 id="basiclimiterautomake">BasicLimiterAutoMake</h4>
+<h3 id="basiclimiterautomake">BasicLimiterAutoMake</h3>
 <ul>
+<li>0.1.5
+<ul>
+<li>Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.</li>
+</ul></li>
 <li>0.1.4
 <ul>
 <li>Initial release.</li>
 </ul></li>
 </ul>
-<h3 id="old-versions">Old Versions</h3>
+<h2 id="old-versions">Old Versions</h2>
 <h3 id="basiclimiter-2">BasicLimiter</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiter_0.1.4.zip">BasicLimiter 0.1.4 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiter_0.1.2.zip">BasicLimiter 0.1.2 - VST 3 (github.com)</a></li>
-<li><h4 id="basiclimiterautomake-1">BasicLimiterAutoMake</h4>
-Currently, there aren’t any old versions.</li>
+<li><h3 id="basiclimiterautomake-1">BasicLimiterAutoMake</h3></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiterAutoMake_0.1.4.zip">BasicLimiterAutoMake 0.1.4 - VST 3 (github.com)</a> Currently, there aren’t any old versions.</li>
 </ul>
 <h2 id="license">License</h2>
 <p>BasicLimiter is licensed under GPLv3. Complete licenses are linked below.</p>

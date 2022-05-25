@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-05-22" />
+<meta name="dcterms.date" content="2022-05-25" />
 <title>TrapezoidSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-05-22
+  Update: 2022-05-25
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -307,10 +307,8 @@ footer {
   <li><a href="#lfo">LFO</a></li>
   <li><a href="#slide">Slide</a></li>
   </ul></li>
-  <li><a href="#change-log">Change Log</a>
-  <ul>
+  <li><a href="#change-log">Change Log</a></li>
   <li><a href="#old-versions">Old Versions</a></li>
-  </ul></li>
   <li><a href="#license">License</a>
   <ul>
   <li><a href="#about-vst">About VST</a></li>
@@ -324,7 +322,7 @@ footer {
 <p><img src="img/trapezoidsynth.png" /></p>
 <p>TrapezoidSynth is a monophonic synthesizer equipped with 2 trapezoid oscillator. Trapezoid oscillator is based on PTR (Polynomial Transition Regions) and it has a drawback that increasing noise at high frequency. Therefore 8 times oversampled. 2 pitch shifters are added to make some chord.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/TrapezoidSynth_0.1.16.zip">Download TrapezoidSynth 0.1.16 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/TrapezoidSynth_0.1.17.zip">Download TrapezoidSynth 0.1.17 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -707,6 +705,10 @@ the Trash&quot;</code></pre>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.17
+<ul>
+<li>Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.</li>
+</ul></li>
 <li>0.1.16
 <ul>
 <li>Added custom font options for <code>style.json</code>.</li>
@@ -781,8 +783,9 @@ the Trash&quot;</code></pre>
 <li>Initial release.</li>
 </ul></li>
 </ul>
-<h3 id="old-versions">Old Versions</h3>
+<h2 id="old-versions">Old Versions</h2>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/TrapezoidSynth_0.1.16.zip">TrapezoidSynth 0.1.16 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/TrapezoidSynth_0.1.14.zip">TrapezoidSynth 0.1.14 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/TrapezoidSynth_0.1.13.zip">TrapezoidSynth 0.1.13 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/TrapezoidSynth0.1.12.zip">TrapezoidSynth 0.1.12 - VST 3 (github.com)</a></li>

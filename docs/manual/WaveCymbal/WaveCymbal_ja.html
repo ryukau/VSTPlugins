@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-05-22" />
+<meta name="dcterms.date" content="2022-05-25" />
 <title>WaveCymbal_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-05-22
+  Update: 2022-05-25
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -302,10 +302,8 @@ footer {
   <li><a href="#oscillator">Oscillator</a></li>
   <li><a href="#smoothness">Smoothness</a></li>
   </ul></li>
-  <li><a href="#チェンジログ">チェンジログ</a>
-  <ul>
+  <li><a href="#チェンジログ">チェンジログ</a></li>
   <li><a href="#旧バージョン">旧バージョン</a></li>
-  </ul></li>
   <li><a href="#ライセンス">ライセンス</a>
   <ul>
   <li><a href="#vst-について">VST® について</a></li>
@@ -319,7 +317,7 @@ footer {
 <p><img src="img/wavecymbal.png" /></p>
 <p><ruby>WaveCymbal<rt>ウェイブ シンバル</rt></ruby> は banded wave-guide という手法を用いてシンバルの音が鳴るはずだったシンセサイザです。実際のところはシンバルというよりも、アスファルトの上でトタン板や紐につないだ空き缶を引きずったときのような音が出ます。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/WaveCymbal_0.1.16.zip">WaveCymbal 0.1.16 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/WaveCymbal_0.1.17.zip">WaveCymbal 0.1.17 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -565,6 +563,10 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p><code>Gain</code>, <code>Excitation.Time</code>, <code>Random.Amount</code>, <code>Bandpass.MinCutoff</code>, <code>Bandpass.MaxCutoff</code> を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。 <code>OscType.Sustain</code> のスライドの長さも <code>Smoothness</code> で調整できます。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.17
+<ul>
+<li>プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。</li>
+</ul></li>
 <li>0.1.16
 <ul>
 <li><code>style.json</code> でカスタムフォントを設定するオプションを追加。</li>
@@ -640,8 +642,9 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li>初期リリース。</li>
 </ul></li>
 </ul>
-<h3 id="旧バージョン">旧バージョン</h3>
+<h2 id="旧バージョン">旧バージョン</h2>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/WaveCymbal_0.1.16.zip">WaveCymbal 0.1.16 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/WaveCymbal_0.1.14.zip">WaveCymbal 0.1.14 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/WaveCymbal_0.1.13.zip">WaveCymbal 0.1.13 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/WaveCymbal0.1.12.zip">WaveCymbal 0.1.12 - VST 3 (github.com)</a></li>

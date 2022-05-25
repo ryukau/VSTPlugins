@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-05-20" />
+<meta name="dcterms.date" content="2022-05-25" />
 <title>vst3_dev</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-05-20
+  Update: 2022-05-25
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -761,8 +761,8 @@ footer {
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>data<span class="op">.</span>symbolicSampleSize <span class="op">==</span> Vst<span class="op">::</span>kSample64<span class="op">)</span> <span class="cf">return</span> kResultOk<span class="op">;</span></span>
 <span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">// この条件を追加しないと out of bounds へのアクセスでクラッシュする。</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>data<span class="op">.</span>inputs<span class="op">[</span><span class="dv">0</span><span class="op">].</span>numChannels <span class="op">!=</span> <span class="dv">2</span><span class="op">)</span> <span class="cf">return</span> kResultOk<span class="op">;</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>data<span class="op">.</span>outputs<span class="op">[</span><span class="dv">0</span><span class="op">].</span>numChannels <span class="op">!=</span> <span class="dv">2</span><span class="op">)</span> <span class="cf">return</span> kResultOk<span class="op">;</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>data<span class="op">.</span>inputs<span class="op">[</span><span class="dv">0</span><span class="op">].</span>numChannels <span class="op">&lt;</span> <span class="dv">2</span><span class="op">)</span> <span class="cf">return</span> kResultOk<span class="op">;</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>data<span class="op">.</span>outputs<span class="op">[</span><span class="dv">0</span><span class="op">].</span>numChannels <span class="op">&lt;</span> <span class="dv">2</span><span class="op">)</span> <span class="cf">return</span> kResultOk<span class="op">;</span></span>
 <span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> <span class="op">*</span>in0 <span class="op">=</span> data<span class="op">.</span>inputs<span class="op">[</span><span class="dv">0</span><span class="op">].</span>channelBuffers32<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
 <span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> <span class="op">*</span>in1 <span class="op">=</span> data<span class="op">.</span>inputs<span class="op">[</span><span class="dv">0</span><span class="op">].</span>channelBuffers32<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>

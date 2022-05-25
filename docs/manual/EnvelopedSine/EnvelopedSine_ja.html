@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-05-22" />
+<meta name="dcterms.date" content="2022-05-25" />
 <title>EnvelopedSine_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-05-22
+  Update: 2022-05-25
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -299,10 +299,8 @@ footer {
   <li><a href="#modifier">Modifier</a></li>
   <li><a href="#phaser">Phaser</a></li>
   </ul></li>
-  <li><a href="#チェンジログ">チェンジログ</a>
-  <ul>
+  <li><a href="#チェンジログ">チェンジログ</a></li>
   <li><a href="#旧バージョン">旧バージョン</a></li>
-  </ul></li>
   <li><a href="#ライセンス">ライセンス</a>
   <ul>
   <li><a href="#vst-について">VST® について</a></li>
@@ -316,7 +314,7 @@ footer {
 <p><img src="img/envelopedsine.png" /></p>
 <p><ruby>EnvelopedSine<rt>エンベロープド サイン</rt></ruby> はノート 1 つあたり 64 のサイン波を計算する加算合成シンセサイザです。各サイン波に AD エンベロープとサチュレータがついているので IterativeSinCluster よりもパーカッシブな音が得意です。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/EnvelopedSine_0.1.14.zip">EnvelopedSine 0.1.14 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/EnvelopedSine_0.1.15.zip">EnvelopedSine 0.1.15 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -747,6 +745,10 @@ style="display: inline-block; vertical-align: middle;"></li>
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.15
+<ul>
+<li>プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。</li>
+</ul></li>
 <li>0.1.14
 <ul>
 <li><code>style.json</code> でカスタムフォントを設定するオプションを追加。</li>
@@ -818,8 +820,9 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li>初期リリース。</li>
 </ul></li>
 </ul>
-<h3 id="旧バージョン">旧バージョン</h3>
+<h2 id="旧バージョン">旧バージョン</h2>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/EnvelopedSine_0.1.14.zip">EnvelopedSine 0.1.14 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/EnvelopedSine_0.1.12.zip">EnvelopedSine 0.1.12 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/EnvelopedSine_0.1.11.zip">EnvelopedSine 0.1.11 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/EnvelopedSine0.1.10.zip">EnvelopedSine 0.1.10 - VST 3 (github.com)</a></li>
