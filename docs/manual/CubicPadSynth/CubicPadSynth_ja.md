@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby> は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています
 
-- [CubicPadSynth 0.1.13 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/CubicPadSynth_0.1.13.zip) <img
+- [CubicPadSynth 0.1.14 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/CubicPadSynth_0.1.14.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -598,6 +598,8 @@ Width\*
 ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。
 
 ## チェンジログ
+- 0.1.14
+  - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。
 - 0.1.13
   - `style.json` でカスタムフォントを設定するオプションを追加。
 - 0.1.12
@@ -637,7 +639,8 @@ Width\*
 - 0.1.0
   - 初期リリース。
 
-### 旧バージョン
+## 旧バージョン
+- [CubicPadSynth 0.1.13 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/CubicPadSynth_0.1.13.zip)
 - [CubicPadSynth 0.1.11 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/CubicPadSynth_0.1.11.zip)
 - [CubicPadSynth 0.1.10 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/CubicPadSynth_0.1.10.zip)
 - [CubicPadSynth 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CubicPadSynth0.1.9.zip)

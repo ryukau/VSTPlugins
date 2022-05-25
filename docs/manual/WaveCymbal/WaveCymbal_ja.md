@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>WaveCymbal<rt>ウェイブ シンバル</rt></ruby> は banded wave-guide という手法を用いてシンバルの音が鳴るはずだったシンセサイザです。実際のところはシンバルというよりも、アスファルトの上でトタン板や紐につないだ空き缶を引きずったときのような音が出ます。
 
-- [WaveCymbal 0.1.16 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/WaveCymbal_0.1.16.zip) <img
+- [WaveCymbal 0.1.17 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/WaveCymbal_0.1.17.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -287,6 +287,8 @@ Bandpass Cutoff Distribution
 `Gain`, `Excitation.Time`, `Random.Amount`, `Bandpass.MinCutoff`, `Bandpass.MaxCutoff` を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。 `OscType.Sustain` のスライドの長さも `Smoothness` で調整できます。
 
 ## チェンジログ
+- 0.1.17
+  - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。
 - 0.1.16
   - `style.json` でカスタムフォントを設定するオプションを追加。
 - 0.1.15
@@ -328,7 +330,8 @@ Bandpass Cutoff Distribution
 - 0.1.0
   - 初期リリース。
 
-### 旧バージョン
+## 旧バージョン
+- [WaveCymbal 0.1.16 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/WaveCymbal_0.1.16.zip)
 - [WaveCymbal 0.1.14 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/WaveCymbal_0.1.14.zip)
 - [WaveCymbal 0.1.13 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/WaveCymbal_0.1.13.zip)
 - [WaveCymbal 0.1.12 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/WaveCymbal0.1.12.zip)

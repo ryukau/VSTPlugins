@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>FDNCymbal<rt>エフディーエヌ シンバル</rt></ruby> はシンバルのような音を合成するシンセサイザです。エフェクトとして使うこともできます。名前とは裏腹に金属的な質感は FDN (feedback delay network) ではなく Schroeder allpass section によって得られています。 `FDN.Time` の値を小さくすることで、わりとナイスなばちの衝突音が合成できます。シンバルの揺れをシミュレートするためにトレモロもついています。
 
-- [FDNCymbal 0.2.9 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/FDNCymbal_0.2.9.zip) <img
+- [FDNCymbal 0.2.10 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/FDNCymbal_0.2.10.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -329,6 +329,8 @@ Time
 :   ノートオンのたびに `Tremolo.DelayTime` をランダマイズする度合いです。
 
 ## チェンジログ
+- 0.2.10
+  - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。
 - 0.2.9
   - `style.json` でカスタムフォントを設定するオプションを追加。
 - 0.2.8
@@ -373,7 +375,8 @@ Time
 - 0.1.0
   - 初期リリース。
 
-### 旧バージョン
+## 旧バージョン
+- [FDNCymbal 0.2.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/FDNCymbal_0.2.9.zip)
 - [FDNCymbal 0.2.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/FDNCymbal_0.2.7.zip)
 - [FDNCymbal 0.2.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/FDNCymbal_0.2.6.zip)
 - [FDNCymbal 0.2.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/FDNCymbal0.2.5.zip)

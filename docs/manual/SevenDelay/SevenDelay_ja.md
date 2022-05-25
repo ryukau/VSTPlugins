@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>SevenDelay<rt>セブン ディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。
 
-- [SevenDelay 0.1.18 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/SevenDelay_0.1.18.zip) <img
+- [SevenDelay 0.1.19 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/SevenDelay_0.1.19.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -310,6 +310,8 @@ Hold
 :   LFO の位相のホールドの切り替え。ライブ演奏などで役に立つかもしれません。
 
 ## チェンジログ
+- 0.1.19
+  - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。
 - 0.1.18
   - `style.json` でカスタムフォントを設定するオプションを追加。
 - 0.1.17
@@ -360,7 +362,8 @@ Hold
 - 0.1.0
   - 初期リリース。
 
-### 旧バージョン
+## 旧バージョン
+- [SevenDelay 0.1.18 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/SevenDelay_0.1.18.zip)
 - [SevenDelay 0.1.16 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/SevenDelay_0.1.16.zip)
 - [SevenDelay 0.1.15 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/SevenDelay_0.1.15.zip)
 - [SevenDelay 0.1.14 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.14/SevenDelay0.1.14.zip)

@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>CollidingCombSynth<rt>コライディング コム シンセ</rt></ruby> は Karplus-Strong アルゴリズムによる弦の物理モデルをぶつけることで、弦を擦ったときのような音が出る実験的なシンセサイザです。音程はでますがチューニングが難しいので、どちらかと言うと効果音に向いています。
 
-- [CollidingCombSynth 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/CollidingCombSynth_0.1.4.zip) <img
+- [CollidingCombSynth 0.1.5 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/CollidingCombSynth_0.1.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -401,6 +401,8 @@ Frequency
     ```
 
 ## チェンジログ
+- 0.1.5
+  - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。
 - 0.1.4
   - `style.json` でカスタムフォントを設定するオプションを追加。
 - 0.1.3
@@ -413,11 +415,11 @@ Frequency
 - 0.1.0
   - 初期リリース。
 
-### 旧バージョン
+## 旧バージョン
+- [CollidingCombSynth 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/CollidingCombSynth_0.1.4.zip)
 - [CollidingCombSynth 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/CollidingCombSynth_0.1.2.zip)
 - [CollidingCombSynth 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/CollidingCombSynth_0.1.1.zip)
 - [CollidingCombSynth 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CollidingCombSynth0.1.0.zip)
-現在、旧バージョンはありません。
 
 ## ライセンス
 CollidingCombSynth のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。

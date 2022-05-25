@@ -7,7 +7,7 @@ lang: en
 
 IterativeSinCluster is an additive synthesizer. This synth computes 512 sine waves for each note to make tone cluster. I somehow thought "iterative sin" is a valid term. Correct term is "recursive sine".
 
-- [Download IterativeSinCluster 0.1.15 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/IterativeSinCluster_0.1.15.zip) <img
+- [Download IterativeSinCluster 0.1.16 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/IterativeSinCluster_0.1.16.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -347,6 +347,8 @@ Key Follow
 :   When checked, change delay time relative to note frequency.
 
 ## Change Log
+- 0.1.16
+  - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.15
   - Added custom font options for `style.json`.
 - 0.1.14
@@ -384,7 +386,8 @@ Key Follow
 - 0.1.0
   - Initial release.
 
-### Old Versions
+## Old Versions
+- [IterativeSinCluster 0.1.15 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/IterativeSinCluster_0.1.15.zip)
 - [IterativeSinCluster 0.1.13 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/IterativeSinCluster_0.1.13.zip)
 - [IterativeSinCluster 0.1.12 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/IterativeSinCluster_0.1.12.zip)
 - [IterativeSinCluster 0.1.11 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/IterativeSinCluster0.1.11.zip)

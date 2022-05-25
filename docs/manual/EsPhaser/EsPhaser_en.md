@@ -7,7 +7,7 @@ lang: en
 
 EsPhaser is a phaser with up to 4096 stages of order 2 Thiran all-pass filters. This is the same phaser used in EnvelopedSine.
 
-- [Download EsPhaser 0.1.10 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/EsPhaser_0.1.10.zip) <img
+- [Download EsPhaser 0.1.11 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/EsPhaser_0.1.11.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -248,6 +248,8 @@ Phase
     ```
 
 ## Change Log
+- 0.1.11
+  - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.10
   - Added custom font options for `style.json`.
 - 0.1.9
@@ -272,7 +274,8 @@ Phase
 - 0.1.0
   - Initial release.
 
-### Old Versions
+## Old Versions
+- [EsPhaser 0.1.10 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/EsPhaser_0.1.10.zip)
 - [EsPhaser 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/EsPhaser_0.1.8.zip)
 - [EsPhaser 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/EsPhaser_0.1.7.zip)
 - [EsPhaser 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/EsPhaser0.1.6.zip)

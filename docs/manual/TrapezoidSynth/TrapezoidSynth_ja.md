@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>TrapezoidSynth<rt>トラピゾイド シンセ</rt></ruby> は台形オシレータを使ったモノフォニックシンセサイザです。台形オシレータは PTR (Polynomial Transition Regions) という手法に基づいて作ったのですが、ピッチが高くなると逆にノイズが増える欠点があるので 8 倍のオーバーサンプリングをしています。コードを作るために 2 つの AM ピッチシフタを搭載しています。
 
-- [TrapezoidSynth 0.1.16 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/TrapezoidSynth_0.1.16.zip) <img
+- [TrapezoidSynth 0.1.17 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/TrapezoidSynth_0.1.17.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -443,6 +443,8 @@ Offset
 :   Oscillator 1 のスライド時間に対する Oscillator 2 のスライド時間の比率です。
 
 ## チェンジログ
+- 0.1.17
+  - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。
 - 0.1.16
   - `style.json` でカスタムフォントを設定するオプションを追加。
 - 0.1.15
@@ -483,7 +485,8 @@ Offset
 - 0.1.0
   - 初期リリース。
 
-### 旧バージョン
+## 旧バージョン
+- [TrapezoidSynth 0.1.16 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/TrapezoidSynth_0.1.16.zip)
 - [TrapezoidSynth 0.1.14 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/TrapezoidSynth_0.1.14.zip)
 - [TrapezoidSynth 0.1.13 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/TrapezoidSynth_0.1.13.zip)
 - [TrapezoidSynth 0.1.12 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/TrapezoidSynth0.1.12.zip)

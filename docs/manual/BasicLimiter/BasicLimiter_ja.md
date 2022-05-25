@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>BasicLimiter<rt>ベーシック リミッタ</rt></ruby> は名前の通りベーシックなシングルバンドリミッタです。目新しい音は出ませんが、トゥルーピークモードはやや贅沢に設計しています。
 
-- [BasicLimiter 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiter_0.1.4.zip) <img
+- [BasicLimiter 0.1.5 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiter_0.1.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -16,7 +16,7 @@ lang: ja
 
 自動メイクアップゲイン、サイドチェイン、左右 (L-R) とミッド-サイド (M-S) の切り替えを追加した BasicLimiterAutoMake もあります。ただし CPU 負荷は 1.5 倍強に上がります。
 
-- [BasicLimiterAutoMake 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiterAutoMake_0.1.4.zip) <img
+- [BasicLimiterAutoMake 0.1.5 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiterAutoMake_0.1.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -287,6 +287,8 @@ Channel Type
 
 ## チェンジログ
 ### BasicLimiter
+- 0.1.5
+  - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。
 - 0.1.4
   - `style.json` でカスタムフォントを設定するオプションを追加。
   - `Gate` が -inf dB のときにゲートがかからないように変更。
@@ -295,16 +297,19 @@ Channel Type
 - 0.1.2
   - 初期リリース。
 
-#### BasicLimiterAutoMake
+### BasicLimiterAutoMake
+- 0.1.5
+  - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。
 - 0.1.4
   - 初期リリース。
 
-### 旧バージョン
+## 旧バージョン
 ### BasicLimiter
+- [BasicLimiter 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiter_0.1.4.zip)
 - [BasicLimiter 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiter_0.1.2.zip)
 
-#### BasicLimiterAutoMake
-現在、旧バージョンはありません。
+### BasicLimiterAutoMake
+- [BasicLimiterAutoMake 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiterAutoMake_0.1.4.zip)
 
 ## ライセンス
 BasicLimiter のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。

@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>SyncSawSynth<rt>シンク ソウ シンセ</rt></ruby> は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。
 
-- [SyncSawSynth 0.1.20 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/SyncSawSynth_0.1.20.zip) <img
+- [SyncSawSynth 0.1.21 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/SyncSawSynth_0.1.21.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -452,6 +452,8 @@ Key->Feed
 :   ノートの MIDI ノート番号によるフィードバックの変調。範囲は -1.0 から 1.0 。
 
 ## チェンジログ
+- 0.1.21
+  - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。
 - 0.1.20
   - `style.json` でカスタムフォントを設定するオプションを追加。
 - 0.1.19
@@ -502,7 +504,8 @@ Key->Feed
 - 0.1.0
   - 初期リリース。
 
-### 旧バージョン
+## 旧バージョン
+- [SyncSawSynth 0.1.20 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/SyncSawSynth_0.1.20.zip)
 - [SyncSawSynth 0.1.18 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/SyncSawSynth_0.1.18.zip)
 - [SyncSawSynth 0.1.17 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/SyncSawSynth_0.1.17.zip)
 - [SyncSawSynth 0.1.15 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SyncSawSynth0.1.15.zip)

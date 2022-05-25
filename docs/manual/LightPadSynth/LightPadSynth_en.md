@@ -7,7 +7,7 @@ lang: en
 
 LightPadSynth is a lightweight version of CubicPadSynth. For efficiency, interpolation is changed to linear. Also pitch modulation is omitted. Instead, a delay is added for each voice.
 
-- [Download LightPadSynth 0.1.11 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/LightPadSynth_0.1.11.zip) <img
+- [Download LightPadSynth 0.1.12 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/LightPadSynth_0.1.12.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -563,6 +563,8 @@ Refresh PADsynth wavetable based on current configuration of Wavetable tab.
 Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
 
 ## Change Log
+- 0.1.12
+  - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.11
   - Added custom font options for `style.json`.
 - 0.1.10
@@ -597,7 +599,8 @@ Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
 - 0.1.0
   - Initial release.
 
-### Old Versions
+## Old Versions
+- [LightPadSynth 0.1.11 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/LightPadSynth_0.1.11.zip)
 - [LightPadSynth 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/LightPadSynth_0.1.9.zip)
 - [LightPadSynth 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/LightPadSynth_0.1.8.zip)
 - [LightPadSynth 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/LightPadSynth0.1.7.zip)

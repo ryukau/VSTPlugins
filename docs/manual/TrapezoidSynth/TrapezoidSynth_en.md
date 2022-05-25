@@ -7,7 +7,7 @@ lang: en
 
 TrapezoidSynth is a monophonic synthesizer equipped with 2 trapezoid oscillator. Trapezoid oscillator is based on PTR (Polynomial Transition Regions) and it has a drawback that increasing noise at high frequency. Therefore 8 times oversampled. 2 pitch shifters are added to make some chord.
 
-- [Download TrapezoidSynth 0.1.16 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/TrapezoidSynth_0.1.16.zip) <img
+- [Download TrapezoidSynth 0.1.17 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/TrapezoidSynth_0.1.17.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -444,6 +444,8 @@ Offset
 :   Oscillator 2 slide time with respect to Oscillator 1 slide time.
 
 ## Change Log
+- 0.1.17
+  - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.16
   - Added custom font options for `style.json`.
 - 0.1.15
@@ -484,7 +486,8 @@ Offset
 - 0.1.0
   - Initial release.
 
-### Old Versions
+## Old Versions
+- [TrapezoidSynth 0.1.16 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/TrapezoidSynth_0.1.16.zip)
 - [TrapezoidSynth 0.1.14 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/TrapezoidSynth_0.1.14.zip)
 - [TrapezoidSynth 0.1.13 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/TrapezoidSynth_0.1.13.zip)
 - [TrapezoidSynth 0.1.12 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/TrapezoidSynth0.1.12.zip)

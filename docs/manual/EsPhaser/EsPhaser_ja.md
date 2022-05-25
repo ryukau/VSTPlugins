@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>EsPhaser<rt>エス フェイザ</rt></ruby> は最大 4096 の 2 次 Thiran オールパスフィルタを直列につなぐことができるフェイザです。 EnvelopedSine のフェイザと同じアルゴリズムを使っています。
 
-- [EsPhaser 0.1.10 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/EsPhaser_0.1.10.zip) <img
+- [EsPhaser 0.1.11 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/EsPhaser_0.1.11.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -251,6 +251,8 @@ Smooth
 :   パラメータを変更したときに、変更前の値から変更後の値へと移行する秒数です。 `Stage` 以外のパラメータに有効です。
 
 ## チェンジログ
+- 0.1.11
+  - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。
 - 0.1.10
   - `style.json` でカスタムフォントを設定するオプションを追加。
 - 0.1.9
@@ -275,7 +277,8 @@ Smooth
 - 0.1.0
   - 初期リリース。
 
-### 旧バージョン
+## 旧バージョン
+- [EsPhaser 0.1.10 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/EsPhaser_0.1.10.zip)
 - [EsPhaser 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/EsPhaser_0.1.8.zip)
 - [EsPhaser 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/EsPhaser_0.1.7.zip)
 - [EsPhaser 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/EsPhaser0.1.6.zip)

@@ -7,7 +7,7 @@ lang: en
 
 CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.
 
-- [Download CubicPadSynth 0.1.13 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/CubicPadSynth_0.1.13.zip) <img
+- [Download CubicPadSynth 0.1.14 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/CubicPadSynth_0.1.14.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -595,6 +595,8 @@ Refresh PADsynth wavetable based on current configuration of Wavetable tab.
 Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
 
 ## Change Log
+- 0.1.14
+  - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.13
   - Added custom font options for `style.json`.
 - 0.1.12
@@ -634,7 +636,8 @@ Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
 - 0.1.0
   - Initial release.
 
-### Old Versions
+## Old Versions
+- [CubicPadSynth 0.1.13 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/CubicPadSynth_0.1.13.zip)
 - [CubicPadSynth 0.1.11 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/CubicPadSynth_0.1.11.zip)
 - [CubicPadSynth 0.1.10 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/CubicPadSynth_0.1.10.zip)
 - [CubicPadSynth 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CubicPadSynth0.1.9.zip)

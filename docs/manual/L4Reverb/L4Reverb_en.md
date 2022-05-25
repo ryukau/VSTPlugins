@@ -7,7 +7,7 @@ lang: en
 
 L4Reverb is an extended version of LatticeReverb. This time, lattice structure has 4 * 4 * 4 * 4 = 256 sections per channel.
 
-- [Download L4Reverb 0.1.7 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/L4Reverb_0.1.7.zip) <img
+- [Download L4Reverb 0.1.8 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L4Reverb_0.1.8.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -16,7 +16,7 @@ L4Reverb is an extended version of LatticeReverb. This time, lattice structure h
 
 If L4Reverb is too heavy for your machine, L3Reverb is also available. L3Reverb is a trimmed down version of L4Reverb. The lattice structure has 3 * 3 * 3 * 5 = 135 sections per channel.
 
-- [Download L3Reverb 0.1.7 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/L3Reverb_0.1.7.zip) <img
+- [Download L3Reverb 0.1.8 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L3Reverb_0.1.8.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -357,6 +357,8 @@ Smooth
 
 ## Change Log
 ### L4Reverb
+- 0.1.8
+  - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.7
   - Added custom font options for `style.json`.
 - 0.1.6
@@ -381,6 +383,8 @@ Smooth
   - Initial release.
 
 ### L3Reverb
+- 0.1.8
+  - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.7
   - Added custom font options for `style.json`.
 - 0.1.6
@@ -402,15 +406,17 @@ Smooth
 - 0.1.0
   - Initial release.
 
-### Old Versions
-#### L4Reverb
+## Old Versions
+### L4Reverb
+- [L4Reverb 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/L4Reverb_0.1.7.zip)
 - [L4Reverb 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/L4Reverb_0.1.5.zip)
 - [L4Reverb 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L4Reverb_0.1.4.zip)
 - [L4Reverb 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/L4Reverb0.1.2.zip)
 - [L4Reverb 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L4Reverb0.1.1.zip)
 - [L4Reverb 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Reverb0.1.0.zip)
 
-#### L3Reverb
+### L3Reverb
+- [L3Reverb 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/L3Reverb_0.1.7.zip)
 - [L3Reverb 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/L3Reverb_0.1.5.zip)
 - [L3Reverb 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L3Reverb_0.1.4.zip)
 

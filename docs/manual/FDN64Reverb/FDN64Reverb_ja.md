@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>FDN64Reverb<rt>エフディーエヌ 64 リバーブ</rt></ruby> はフィードバック・ディレイ・ネットワーク (FDN) を 1 つだけ搭載したリバーブです。しかしながら、フィードバック行列の大きさは 64 です。
 
-- [FDN64Reverb 0.1.2 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/FDN64Reverb_0.1.2.zip) <img
+- [FDN64Reverb 0.1.3 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/FDN64Reverb_0.1.3.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -359,6 +359,8 @@ Skew
     </figure>
 
 ## チェンジログ
+- 0.1.3
+  - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。
 - 0.1.2
   - `style.json` でカスタムフォントを設定するオプションを追加。
 - 0.1.1
@@ -366,7 +368,8 @@ Skew
 - 0.1.0
   - 初期リリース。
 
-### 旧バージョン
+## 旧バージョン
+- [FDN64Reverb 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/FDN64Reverb_0.1.2.zip)
 - [FDN64Reverb 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/FDN64Reverb_0.1.0.zip)
 
 ## ライセンス

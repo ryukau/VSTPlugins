@@ -7,7 +7,7 @@ lang: en
 
 FDNCymbal is a cymbal sound synthesizer. It can also be used as an effect. Unlike the name, most of metallic texture comes from Schroeder allpass section rather than FDN (feedback delay network). FDN section makes nice impact sound when `FDN.Time` is short. Tremolo is added to simulate wobbling of cymbal.
 
-- [Download FDNCymbal 0.2.9 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/FDNCymbal_0.2.9.zip) <img
+- [Download FDNCymbal 0.2.10 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/FDNCymbal_0.2.10.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -330,6 +330,8 @@ Time
 :   Amount of randomization to `Tremolo.DelayTime` for each note on.
 
 ## Change Log
+- 0.2.10
+  - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.2.9
   - Added custom font options for `style.json`.
 - 0.2.8
@@ -374,7 +376,8 @@ Time
 - 0.1.0
   - Initial release.
 
-### Old Versions
+## Old Versions
+- [FDNCymbal 0.2.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/FDNCymbal_0.2.9.zip)
 - [FDNCymbal 0.2.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/FDNCymbal_0.2.7.zip)
 - [FDNCymbal 0.2.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/FDNCymbal_0.2.6.zip)
 - [FDNCymbal 0.2.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/FDNCymbal0.2.5.zip)

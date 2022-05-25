@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>LatticeReverb<rt>ラティス リバーブ</rt></ruby> はディレイを使った高次のオールパスフィルタを格子状につないで入れ子にしたリバーブです。 1 チャンネルあたり 16 のオールパスフィルタを備えています。
 
-- [LatticeReverb 0.1.9 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/LatticeReverb_0.1.9.zip) <img
+- [LatticeReverb 0.1.10 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/LatticeReverb_0.1.10.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -353,6 +353,8 @@ Lowpass Cutoff
     リバーブの明るさを変更するときに役立ちます。
 
 ## チェンジログ
+- 0.1.10
+  - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。
 - 0.1.9
   - `style.json` でカスタムフォントを設定するオプションを追加。
 - 0.1.8
@@ -379,7 +381,8 @@ Lowpass Cutoff
 - 0.1.0
   - 初期リリース。
 
-### 旧バージョン
+## 旧バージョン
+- [LatticeReverb 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/LatticeReverb_0.1.9.zip)
 - [LatticeReverb 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/LatticeReverb_0.1.7.zip)
 - [LatticeReverb 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/LatticeReverb_0.1.6.zip)
 - [LatticeReverb 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/LatticeReverb0.1.4.zip)

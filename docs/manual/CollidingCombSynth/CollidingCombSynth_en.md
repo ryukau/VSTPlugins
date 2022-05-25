@@ -7,7 +7,7 @@ lang: en
 
 CollidingCombSynth is an experimental synthesizer which sounds like bowed string. Equipped with 24 Karplus-Strong string models which collide to each other. Tuning of pitch is possible, but difficult. So mostly suitable for sound effects.
 
-- [Download CollidingCombSynth 0.1.4 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/CollidingCombSynth_0.1.4.zip) <img
+- [Download CollidingCombSynth 0.1.5 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/CollidingCombSynth_0.1.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -399,6 +399,8 @@ Frequency
     ```
 
 ## Change Log
+- 0.1.5
+  - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.4
   - Added custom font options for `style.json`.
 - 0.1.3
@@ -411,11 +413,11 @@ Frequency
 - 0.1.0
   - Initial release.
 
-### Old Versions
+## Old Versions
+- [CollidingCombSynth 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/CollidingCombSynth_0.1.4.zip)
 - [CollidingCombSynth 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/CollidingCombSynth_0.1.2.zip)
 - [CollidingCombSynth 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/CollidingCombSynth_0.1.1.zip)
 - [CollidingCombSynth 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CollidingCombSynth0.1.0.zip)
-N/A.
 
 ## License
 CollidingCombSynth is licensed under GPLv3. Complete licenses are linked below.

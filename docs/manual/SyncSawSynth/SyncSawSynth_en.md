@@ -7,7 +7,7 @@ lang: en
 
 SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR sawtooth oscillator. Just a basic synthesizer but very easy to make a noise similar to low battery sound of some toys.
 
-- [Download SyncSawSynth 0.1.20 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/SyncSawSynth_0.1.20.zip) <img
+- [Download SyncSawSynth 0.1.21 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/SyncSawSynth_0.1.21.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -454,6 +454,8 @@ Key->Feed
 :   Modulation from MIDI note number to feedback. Range is -1.0 to 1.0.
 
 ## Change Log
+- 0.1.21
+  - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.20
   - Added custom font options for `style.json`.
 - 0.1.19
@@ -504,7 +506,8 @@ Key->Feed
 - 0.1.0
   - Initial release.
 
-### Old Versions
+## Old Versions
+- [SyncSawSynth 0.1.20 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/SyncSawSynth_0.1.20.zip)
 - [SyncSawSynth 0.1.18 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/SyncSawSynth_0.1.18.zip)
 - [SyncSawSynth 0.1.17 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/SyncSawSynth_0.1.17.zip)
 - [SyncSawSynth 0.1.15 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SyncSawSynth0.1.15.zip)

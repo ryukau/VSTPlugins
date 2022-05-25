@@ -7,7 +7,7 @@ lang: en
 
 BasicLimiter is a basic single band limiter. The sound is nothing new, but the design of true peak mode is a bit luxurious.
 
-- [Download BasicLimiter 0.1.4 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiter_0.1.4.zip) <img
+- [Download BasicLimiter 0.1.5 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiter_0.1.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -16,7 +16,7 @@ BasicLimiter is a basic single band limiter. The sound is nothing new, but the d
 
 An extended version BasicLimiterAutoMake is also available. Added features are automatic make up gain, sidechain, and switching between left-right (L-R) and mid-side (M-S). Note that CPU load is over 1.5 times heavier than BasicLimiter.
 
-- [Download BasicLimiterAutoMake 0.1.4 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiterAutoMake_0.1.4.zip) <img
+- [Download BasicLimiterAutoMake 0.1.5 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiterAutoMake_0.1.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -288,6 +288,8 @@ Channel Type
 
 ## Change Log
 ### BasicLimiter
+- 0.1.5
+  - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.4
   - Added custom font options for `style.json`.
   - Changed to disable `Gate` when the value is set to -inf dB.
@@ -296,15 +298,19 @@ Channel Type
 - 0.1.2
   - Initial release.
 
-#### BasicLimiterAutoMake
+### BasicLimiterAutoMake
+- 0.1.5
+  - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.4
   - Initial release.
 
-### Old Versions
+## Old Versions
 ### BasicLimiter
+- [BasicLimiter 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiter_0.1.4.zip)
 - [BasicLimiter 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiter_0.1.2.zip)
 -
-#### BasicLimiterAutoMake
+### BasicLimiterAutoMake
+- [BasicLimiterAutoMake 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiterAutoMake_0.1.4.zip)
 Currently, there aren't any old versions.
 
 ## License

@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>LightPadSynth<rt>ライト パッド シンセ</rt></ruby> はピッチ変調を無くして補間を線形補完に変えた CubicPadSynth の軽量版です。ピッチ変調ができなくなった代わりに、各ボイスにディレイを追加しています。
 
-- [LightPadSynth 0.1.11 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/LightPadSynth_0.1.11.zip) <img
+- [LightPadSynth 0.1.12 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/LightPadSynth_0.1.12.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -568,6 +568,8 @@ Width\*
 ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。
 
 ## チェンジログ
+- 0.1.12
+  - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。
 - 0.1.11
   - `style.json` でカスタムフォントを設定するオプションを追加。
 - 0.1.10
@@ -602,7 +604,8 @@ Width\*
 - 0.1.0
   - 初期リリース。
 
-### 旧バージョン
+## 旧バージョン
+- [LightPadSynth 0.1.11 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/LightPadSynth_0.1.11.zip)
 - [LightPadSynth 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/LightPadSynth_0.1.9.zip)
 - [LightPadSynth 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/LightPadSynth_0.1.8.zip)
 - [LightPadSynth 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/LightPadSynth0.1.7.zip)
