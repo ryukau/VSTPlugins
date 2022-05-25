@@ -9,8 +9,9 @@ session.mount("", adapter)
 
 log_text = ""
 for path in Path("..").glob("**/*.html"):
-    if path.stem == "vst3_dev":
+    if "rewrite" in path.parts:
         continue
+
     with open(path, "r") as fi:
         raw_html = fi.read()
     soup = BeautifulSoup(raw_html, "lxml")
@@ -40,5 +41,5 @@ for path in Path("..").glob("**/*.html"):
             print(status_text)
             log_text += status_text + "\n"
 
-with open("verify.txt", "w", encoding="utf-8") as fi:
-    fi.write(log_text)
+# with open("verify.txt", "w", encoding="utf-8") as fi:
+#     fi.write(log_text)
