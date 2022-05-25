@@ -71,8 +71,6 @@ private:
   Sample value = 0;
 
 public:
-  static Sample rate;
-
   void reset(Sample value = 0)
   {
     this->value = value;
@@ -81,7 +79,7 @@ public:
 
   void push(Sample target) { this->target = target; }
 
-  Sample process()
+  Sample process(Sample rate)
   {
     auto diff = target - value;
     if (diff > rate) {
@@ -94,8 +92,6 @@ public:
     return value;
   }
 };
-
-template<typename Sample> Sample RateLimiter<Sample>::rate = 1;
 
 template<typename Sample> class Delay {
 public:
@@ -328,6 +324,7 @@ private:
   size_t bufIndex = 0;
 
 public:
+  Sample rate = Sample(1);
   std::array<RateLimiter<Sample>, length> delayTimeSample;
   std::array<Sample, length> lowpassKp{};
   std::array<Sample, length> highpassKp{};
@@ -813,7 +810,7 @@ public:
     for (size_t idx = 0; idx < length; ++idx) {
       auto &&crossed = front[idx] + stereoCross * (crossIn - front[idx]);
       auto &&sig = splitGain[idx] * input + feedback * crossed;
-      auto &&delayed = delay[idx].process(sig, delayTimeSample[idx].process());
+      auto &&delayed = delay[idx].process(sig, delayTimeSample[idx].process(rate));
       auto &&lowpassed = lowpass[idx].process(delayed, lowpassKp[idx]);
       front[idx] = highpass[idx].process(lowpassed, highpassKp[idx]);
     }

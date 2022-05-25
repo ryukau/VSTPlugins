@@ -59,7 +59,9 @@ size_t DSPCORE_NAME::getLatency() { return 0; }
   using ID = ParameterID::ID;                                                            \
   const auto &pv = param.value;                                                          \
                                                                                          \
-  RateLimiter<float>::rate = pv[ID::delayTimeInterpRate]->getFloat();                    \
+  for (auto &fdn : feedbackDelayNetwork) {                                               \
+    fdn.rate = pv[ID::delayTimeInterpRate]->getFloat();                                  \
+  }                                                                                      \
                                                                                          \
   auto timeMul = pv[ID::timeMultiplier]->getFloat();                                     \
   for (size_t idx = 0; idx < nDelay; ++idx) {                                            \
