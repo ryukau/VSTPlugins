@@ -58,6 +58,8 @@ template<typename T, size_t length> struct RingQueueArray {
   void reset(T value = 0)
   {
     sz = 0;
+    wptr = 0;
+    rptr = 0;
     buf.fill(value);
   }
 
