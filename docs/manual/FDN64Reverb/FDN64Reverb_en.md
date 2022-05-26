@@ -7,7 +7,7 @@ lang: en
 
 FDN64Reverb is a reverb equipped with a feedback delay network (FDN). However, the size of feedback matrix is 64.
 
-- [Download FDN64Reverb 0.1.3 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/FDN64Reverb_0.1.3.zip) <img
+- [Download FDN64Reverb 0.1.4 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_32_0/FDN64Reverb_0.1.4.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -358,6 +358,8 @@ Skew
     </figure>
 
 ## Change Log
+- 0.1.4
+  - Fixed a bug that `Interp. Rate` is shared between all FDN64Reverb instances.
 - 0.1.3
   - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.2
@@ -368,6 +370,7 @@ Skew
   - Initial release.
 
 ## Old Versions
+- [FDN64Reverb 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/FDN64Reverb_0.1.3.zip)
 - [FDN64Reverb 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/FDN64Reverb_0.1.2.zip)
 - [FDN64Reverb 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/FDN64Reverb_0.1.0.zip)
 
