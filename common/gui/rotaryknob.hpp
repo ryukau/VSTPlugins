@@ -21,17 +21,117 @@
 
 #include "style.hpp"
 
+#include <sstream>
+#include <string>
+
 namespace VSTGUI {
 
 // Incremental encoder.
-template<Uhhyou::Style style = Uhhyou::Style::common> class RotaryKnob : public CControl {
+class RotaryKnobBase : public CControl {
 public:
+  bool liveUpdate = true;     // When false, only update value on mouse up event.
   double sensitivity = 0.004; // MovedPixel * sensitivity = valueChanged.
   double lowSensitivity = sensitivity / 5.0;
 
-  RotaryKnob(
+  RotaryKnobBase(
     const CRect &size, IControlListener *listener, int32_t tag, Uhhyou::Palette &palette)
     : CControl(size, listener, tag), pal(palette)
+  {
+  }
+
+  CLASS_METHODS(RotaryKnobBase, CControl);
+
+  virtual void draw(CDrawContext *pContext) override {}
+
+  virtual void onMouseEnterEvent(MouseEnterEvent &event) override
+  {
+    isMouseEntered = true;
+    invalid();
+    event.consumed = true;
+  }
+
+  virtual void onMouseExitEvent(MouseExitEvent &event) override
+  {
+    isMouseEntered = false;
+    invalid();
+    event.consumed = true;
+  }
+
+  virtual void onMouseDownEvent(MouseDownEvent &event) override
+  {
+    if (!event.buttonState.isLeft()) return;
+    beginEdit();
+    isMouseDown = true;
+    anchorPoint = event.mousePosition;
+    event.consumed = true;
+  }
+
+  virtual void onMouseUpEvent(MouseUpEvent &event) override
+  {
+    if (!liveUpdate) valueChanged();
+    if (isMouseDown) endEdit();
+    isMouseDown = false;
+    event.consumed = true;
+  }
+
+  virtual void onMouseMoveEvent(MouseMoveEvent &event) override
+  {
+    if (!isMouseDown) return;
+
+    auto sensi = event.modifiers.is(ModifierKey::Shift) ? lowSensitivity : sensitivity;
+    value += (float)((anchorPoint.y - event.mousePosition.y) * sensi);
+    value = value > 1.0 || value < 0.0 ? value - floor(value) : value;
+    bounceValue();
+
+    if (liveUpdate && value != getOldValue()) valueChanged();
+    if (isDirty()) invalid();
+
+    anchorPoint = event.mousePosition;
+    event.consumed = true;
+  }
+
+  virtual void onMouseCancelEvent(MouseCancelEvent &event) override
+  {
+    if (isMouseDown) {
+      if (isDirty()) {
+        valueChanged();
+        invalid();
+      }
+      endEdit();
+    }
+    isMouseDown = false;
+    isMouseEntered = false;
+    event.consumed = true;
+  }
+
+  virtual void onMouseWheelEvent(MouseWheelEvent &event) override
+  {
+    if (isEditing() || event.deltaY == 0) return;
+    beginEdit();
+    value += event.deltaY * float(sensitivity) * 0.5f;
+    value -= floor(value);
+    bounceValue();
+    valueChanged();
+    endEdit();
+    invalid();
+    event.consumed = true;
+  }
+
+protected:
+  CPoint anchorPoint{0.0, 0.0};
+  bool isMouseDown = false;
+  bool isMouseEntered = false;
+
+  Uhhyou::Palette &pal;
+};
+
+// Incremental encoder.
+template<Uhhyou::Style style = Uhhyou::Style::common>
+class RotaryKnob : public RotaryKnobBase {
+public:
+  RotaryKnob(
+    const CRect &size, IControlListener *listener, int32_t tag, Uhhyou::Palette &palette)
+    : RotaryKnobBase(size, listener, tag, palette)
   {
   }
 
@@ -93,79 +193,6 @@ public:
     setDirty(false);
   }
 
-  void onMouseEnterEvent(MouseEnterEvent &event) override
-  {
-    isMouseEntered = true;
-    invalid();
-    event.consumed = true;
-  }
-
-  void onMouseExitEvent(MouseExitEvent &event) override
-  {
-    isMouseEntered = false;
-    invalid();
-    event.consumed = true;
-  }
-
-  void onMouseDownEvent(MouseDownEvent &event) override
-  {
-    if (!event.buttonState.isLeft()) return;
-    beginEdit();
-    isMouseDown = true;
-    anchorPoint = event.mousePosition;
-    event.consumed = true;
-  }
-
-  void onMouseUpEvent(MouseUpEvent &event) override
-  {
-    if (isMouseDown) endEdit();
-    isMouseDown = false;
-    event.consumed = true;
-  }
-
-  void onMouseMoveEvent(MouseMoveEvent &event) override
-  {
-    if (!isMouseDown) return;
-
-    auto sensi = event.modifiers.is(ModifierKey::Shift) ? lowSensitivity : sensitivity;
-    value += (float)((anchorPoint.y - event.mousePosition.y) * sensi);
-    value = value > 1.0 || value < 0.0 ? value - floor(value) : value;
-    bounceValue();
-
-    if (value != getOldValue()) valueChanged();
-    if (isDirty()) invalid();
-
-    anchorPoint = event.mousePosition;
-    event.consumed = true;
-  }
-
-  void onMouseCancelEvent(MouseCancelEvent &event) override
-  {
-    if (isMouseDown) {
-      if (isDirty()) {
-        valueChanged();
-        invalid();
-      }
-      endEdit();
-    }
-    isMouseDown = false;
-    isMouseEntered = false;
-    event.consumed = true;
-  }
-
-  void onMouseWheelEvent(MouseWheelEvent &event) override
-  {
-    if (isEditing() || event.deltaY == 0) return;
-    beginEdit();
-    value += event.deltaY * float(sensitivity) * 0.5f;
-    value -= floor(value);
-    bounceValue();
-    valueChanged();
-    endEdit();
-    invalid();
-    event.consumed = true;
-  }
-
   void setSlitWidth(double width) { halfSlitWidth = width / 2.0; }
   void setDefaultTickLength(double length) { defaultTickLength = length; }
 
@@ -181,16 +208,10 @@ protected:
   double halfSlitWidth = 4.0;
   const double slitNotchHalf = 30.0; // Degree.
   double defaultTickLength = 0.5;
-
-  CPoint anchorPoint{0.0, 0.0};
-  bool isMouseDown = false;
-  bool isMouseEntered = false;
-
-  Uhhyou::Palette &pal;
 };
 
 template<typename Scale, Uhhyou::Style style = Uhhyou::Style::common>
-class RotaryTextKnob : public RotaryKnob<style> {
+class RotaryTextKnob : public RotaryKnobBase {
 public:
   int32_t offset = 0;
 
@@ -201,7 +222,7 @@ public:
     const SharedPointer<CFontDesc> &fontId,
     Uhhyou::Palette &palette,
     Scale &scale)
-    : RotaryKnob(size, listener, tag, palette), fontId(fontId), scale(scale)
+    : RotaryKnobBase(size, listener, tag, palette), fontId(fontId), scale(scale)
   {
     setWantsFocus(true);
     sensitivity = 0.002f;
