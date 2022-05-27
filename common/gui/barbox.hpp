@@ -319,30 +319,31 @@ public:
     size_t index = calcIndex(mousePosition);
     if (index >= value.size()) index = value.size() - 1;
 
+    auto shift = event.modifiers.has(ModifierKey::Shift);
     if (event.character == 'a') {
       alternateSign(index);
-    } else if (event.character == 'D') { // Alternative default. (toggle min/max)
+    } else if (shift && event.character == 'd') { // Alternative default. (toggle min/max)
       toggleMinMidMax(index);
     } else if (event.character == 'd') { // reset to Default.
       resetToDefault();
-    } else if (event.character == 'E') {
+    } else if (shift && event.character == 'e') {
       emphasizeHigh(index);
     } else if (event.character == 'e') {
       emphasizeLow(index);
-    } else if (event.character == 'F') {
+    } else if (shift && event.character == 'f') {
       highpass(index);
     } else if (event.character == 'f') {
       averageLowpass(index);
-    } else if (event.character == 'I') {
+    } else if (shift && event.character == 'i') {
       invertFull(index);
     } else if (event.character == 'i') {
       invertInRange(index);
-    } else if (event.character == 'L') {
+    } else if (shift && event.character == 'l') {
       lockAll(index);
     } else if (event.character == 'l') {
       barState[index]
         = barState[index] == BarState::active ? BarState::lock : BarState::active;
-    } else if (event.character == 'N') {
+    } else if (shift && event.character == 'n') {
       normalizeFull(index);
     } else if (event.character == 'n') {
       normalizeInRange(index);
@@ -352,20 +353,20 @@ public:
         std::mt19937 rng(device());
         std::shuffle(active.begin(), active.end(), rng);
       });
-    } else if (event.character == 'R') {
+    } else if (shift && event.character == 'r') {
       sparseRandomize(index);
     } else if (event.character == 'r') {
       totalRandomize(index);
-    } else if (event.character == 'S') { // Sort ascending order.
+    } else if (shift && event.character == 'S') { // Sort ascending order.
       applyAlgorithm(index, [&]() { std::sort(active.begin(), active.end()); });
     } else if (event.character == 's') { // Sort descending order.
       applyAlgorithm(
         index, [&]() { std::sort(active.begin(), active.end(), std::greater<>()); });
-    } else if (event.character == 'T') { // subTle randomize.
+    } else if (shift && event.character == 't') { // subTle randomize.
       mixRandomize(index, 0.02);
     } else if (event.character == 't') { // subTle randomize. Random walk.
       randomize(index, 0.02);
-    } else if (event.character == 'Z') { // Redo
+    } else if (shift && event.character == 'z') { // Redo
       redo();
       ArrayControl::updateValue();
       invalid();

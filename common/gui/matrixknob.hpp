@@ -366,6 +366,8 @@ public:
   {
     if (!isMouseEntered || event.type == EventType::KeyUp) return;
 
+    auto shift = event.modifiers.has(ModifierKey::Shift);
+
     if (event.character == 'c') { // Copy.
       if (mode == modeNeutral) {
         updateTextView("c: Copy failed. Enable column(1)/row(2) mode to copy.");
@@ -402,7 +404,7 @@ public:
     } else if (event.character == 'w') {
       mode ^= modeRow;
       updateTextView("w: Toggle row mode.");
-    } else if (event.character == 'Z') { // Redo
+    } else if (shift && event.character == 'z') { // Redo
       redo();
       ArrayControl::updateValue();
       updateTextView("Redo: Done.");
