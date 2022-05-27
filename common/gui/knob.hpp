@@ -28,6 +28,7 @@ namespace VSTGUI {
 
 class KnobBase : public CControl {
 public:
+  bool liveUpdate = true;     // When false, only update value on mouse up event.
   double sensitivity = 0.004; // MovedPixel * sensitivity = valueChanged.
   double lowSensitivity = sensitivity / 5.0;
 
@@ -68,6 +69,7 @@ public:
 
   virtual void onMouseUpEvent(MouseUpEvent &event) override
   {
+    if (!liveUpdate) valueChanged();
     if (isMouseDown) endEdit();
     isMouseDown = false;
     event.consumed = true;
@@ -81,7 +83,7 @@ public:
     value += (float)((anchorPoint.y - event.mousePosition.y) * sensi);
     bounceValue();
 
-    if (value != getOldValue()) valueChanged();
+    if (liveUpdate && value != getOldValue()) valueChanged();
     if (isDirty()) invalid();
 
     anchorPoint = event.mousePosition;
