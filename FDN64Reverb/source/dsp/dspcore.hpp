@@ -72,7 +72,7 @@ public:
                                                                                          \
     std::array<ExpSmoother<float>, nDelay> interpLowpassCutoff;                          \
     std::array<ExpSmoother<float>, nDelay> interpHighpassCutoff;                         \
-    ExpSmoother<float> interpSplitPhaseOffset;                                           \
+    RotarySmoother<float> interpSplitPhaseOffset;                                        \
     ExpSmoother<float> interpSplitSkew;                                                  \
     ExpSmoother<float> interpStereoCross;                                                \
     ExpSmoother<float> interpFeedback;                                                   \

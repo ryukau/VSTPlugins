@@ -202,9 +202,9 @@ bool Editor::prepareUI()
     Scales::splitRotationHz, false, 5);
   addLabel(
     ctrlLeft7, ctrlTop3, labelWidth, labelHeight, uiTextSize, "Offset", kCenterText);
-  addTextKnob(
+  addRotaryTextKnob(
     ctrlLeft8, ctrlTop3, labelWidth, labelHeight, uiTextSize, ID::splitPhaseOffset,
-    Scales::defaultScale, false, 5);
+    Scales::defaultScale, 5);
   addLabel(ctrlLeft7, ctrlTop4, labelWidth, labelHeight, uiTextSize, "Skew", kCenterText);
   addTextKnob(
     ctrlLeft8, ctrlTop4, labelWidth, labelHeight, uiTextSize, ID::splitSkew,
