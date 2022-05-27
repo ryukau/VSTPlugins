@@ -40,7 +40,7 @@ public:
 
   CLASS_METHODS(KnobBase, CControl);
 
-  void draw(CDrawContext *pContext) override {}
+  virtual void draw(CDrawContext *pContext) override {}
 
   virtual void onMouseEnterEvent(MouseEnterEvent &event) override
   {
@@ -257,8 +257,9 @@ public:
     pContext->setFont(fontId);
     pContext->setFontColor(pal.foreground());
 
-    auto displayValue = isDecibel ? 20.0 * log10(scale.map(value)) : scale.map(value);
-    if (precision == 0) displayValue = floor(displayValue);
+    auto displayValue
+      = isDecibel ? 20.0 * std::log10(scale.map(value)) : scale.map(value);
+    if (precision == 0) displayValue = std::floor(displayValue);
     std::ostringstream os;
     os.precision(precision);
     os << std::fixed << displayValue + offset;
@@ -295,7 +296,6 @@ protected:
   Scale &scale;
   const bool isDecibel;
 
-private:
   std::string textStr;
 };
 
@@ -358,7 +358,8 @@ public:
     pContext->setFont(fontId);
     pContext->setFontColor(pal.foreground());
     numberStr
-      = std::to_string(int32_t(floor(scale.map(getValueNormalized()))) + offset).c_str();
+      = std::to_string(int32_t(std::floor(scale.map(getValueNormalized()))) + offset)
+          .c_str();
     const auto textWidth = pContext->getStringWidth(numberStr.c_str());
     const auto textLeft = -textWidth * 0.5;
     const auto textRight = textWidth * 0.5;
