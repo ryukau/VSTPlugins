@@ -26,6 +26,9 @@ namespace VSTGUI {
 // Incremental encoder.
 template<Uhhyou::Style style = Uhhyou::Style::common> class RotaryKnob : public CControl {
 public:
+  double sensitivity = 0.004; // MovedPixel * sensitivity = valueChanged.
+  double lowSensitivity = sensitivity / 5.0;
+
   RotaryKnob(
     const CRect &size, IControlListener *listener, int32_t tag, Uhhyou::Palette &palette)
     : CControl(size, listener, tag), pal(palette)
@@ -34,7 +37,7 @@ public:
 
   CLASS_METHODS(RotaryKnob, CControl);
 
-  void draw(CDrawContext *pContext) override
+  virtual void draw(CDrawContext *pContext) override
   {
     const auto width = getWidth();
     const auto height = getHeight();
@@ -179,14 +182,97 @@ protected:
   const double slitNotchHalf = 30.0; // Degree.
   double defaultTickLength = 0.5;
 
-  const double sensitivity = 0.004; // MovedPixel * sensitivity = valueChanged.
-  const double lowSensitivity = sensitivity / 5.0;
-
   CPoint anchorPoint{0.0, 0.0};
   bool isMouseDown = false;
   bool isMouseEntered = false;
 
   Uhhyou::Palette &pal;
+};
+
+template<typename Scale, Uhhyou::Style style = Uhhyou::Style::common>
+class RotaryTextKnob : public RotaryKnob<style> {
+public:
+  int32_t offset = 0;
+
+  RotaryTextKnob(
+    const CRect &size,
+    IControlListener *listener,
+    int32_t tag,
+    const SharedPointer<CFontDesc> &fontId,
+    Uhhyou::Palette &palette,
+    Scale &scale)
+    : RotaryKnob(size, listener, tag, palette), fontId(fontId), scale(scale)
+  {
+    setWantsFocus(true);
+    sensitivity = 0.002f;
+    lowSensitivity = sensitivity / 10.0f;
+  }
+
+  CLASS_METHODS(RotaryTextKnob, CControl);
+
+  void draw(CDrawContext *pContext) override
+  {
+    const auto width = getWidth();
+    const auto height = getHeight();
+
+    pContext->setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));
+    CDrawContext::Transform t(
+      *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
+
+    // Border.
+    if constexpr (style == Uhhyou::Style::accent) {
+      pContext->setFrameColor(isMouseEntered ? pal.highlightAccent() : pal.border());
+    } else if (style == Uhhyou::Style::warning) {
+      pContext->setFrameColor(isMouseEntered ? pal.highlightWarning() : pal.border());
+    } else {
+      pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());
+    }
+    pContext->setFillColor(pal.boxBackground());
+    pContext->setLineWidth(borderWidth);
+    pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilledAndStroked);
+
+    // Text.
+    pContext->setFont(fontId);
+    pContext->setFontColor(pal.foreground());
+
+    auto displayValue = scale.map(value);
+    if (precision == 0) displayValue = std::floor(displayValue);
+    std::ostringstream os;
+    os.precision(precision);
+    os << std::fixed << displayValue + offset;
+    textStr = os.str();
+    pContext->drawString(textStr.c_str(), CRect(0, 0, width, height));
+
+    setDirty(false);
+  }
+
+  void onMouseDownEvent(MouseDownEvent &event) override
+  {
+    if (event.buttonState.isLeft()) {
+      beginEdit();
+      isMouseDown = true;
+      anchorPoint = event.mousePosition;
+      event.consumed = true;
+    } else if (event.buttonState.isMiddle()) {
+      auto mid = getDefaultValue();
+      value = value >= getMax() ? getMin() : value < mid ? mid : getMax();
+      bounceValue();
+      if (value != getOldValue()) valueChanged();
+      if (isDirty()) invalid();
+      event.consumed = true;
+    }
+  }
+
+  void setPrecision(uint32_t precision) { this->precision = precision; }
+
+protected:
+  float borderWidth = 1.0f;
+  uint32_t precision = 5;
+
+  SharedPointer<CFontDesc> fontId;
+  Scale &scale;
+
+  std::string textStr;
 };
 
 } // namespace VSTGUI

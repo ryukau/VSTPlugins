@@ -535,6 +535,30 @@ public:
     return knob;
   }
 
+  template<Uhhyou::Style style = Uhhyou::Style::common, typename Scale>
+  auto addRotaryTextKnob(
+    CCoord left,
+    CCoord top,
+    CCoord width,
+    CCoord height,
+    CCoord textSize,
+    ParamID tag,
+    Scale &scale,
+    uint32_t precision = 0,
+    int32_t offset = 0)
+  {
+    auto knob = new RotaryTextKnob<Scale, style>(
+      CRect(left, top, left + width, top + height), this, tag, getFont(textSize), palette,
+      scale);
+    knob->setValueNormalized(controller->getParamNormalized(tag));
+    knob->setDefaultValue(param->getDefaultNormalized(tag));
+    knob->setPrecision(precision);
+    knob->offset = offset;
+    frame->addView(knob);
+    addToControlMap(tag, knob);
+    return knob;
+  }
+
   template<Uhhyou::Style style = Uhhyou::Style::common>
   OptionMenu *addOptionMenu(
     CCoord left,
