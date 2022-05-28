@@ -80,7 +80,8 @@ void DSPCORE_NAME::reset()
   pv[ID::overshoot]->setFromFloat(1.0);
 
   for (auto &lm : limiter) lm.reset();
-  for (auto &he : highEliminator) he.reset();
+  for (auto &he : highEliminatorMain) he.reset();
+  for (auto &he : highEliminatorSide) he.reset();
   for (auto &us : upSamplerMain) us.reset();
   for (auto &us : upSamplerSide) us.reset();
   for (auto &ds : downSampler) ds.reset();
@@ -169,13 +170,13 @@ void DSPCORE_NAME::process(
       auto sig1 = in1[i];
       if (enableMidSide) convertToMidSide(sig0, sig1);
 
-      sig0 = highEliminator[0].process(sig0);
-      sig1 = highEliminator[1].process(sig1);
+      sig0 = highEliminatorMain[0].process(sig0);
+      sig1 = highEliminatorMain[1].process(sig1);
       upSamplerMain[0].process(sig0);
       upSamplerMain[1].process(sig1);
 
-      auto side0 = sidechain0[i];
-      auto side1 = sidechain1[i];
+      auto side0 = highEliminatorSide[0].process(sidechain0[i]);
+      auto side1 = highEliminatorSide[1].process(sidechain1[i]);
       if (enableMidSide) convertToMidSide(side0, side1);
 
       upSamplerSide[0].process(side0);

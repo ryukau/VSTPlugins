@@ -299,6 +299,8 @@ Channel Type
   - Initial release.
 
 ### BasicLimiterAutoMake
+- 0.1.6
+  - Added highEliminator for sidechain input to reduce overshoot in true peak mode.
 - 0.1.5
   - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.4

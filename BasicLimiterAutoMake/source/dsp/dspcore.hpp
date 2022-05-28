@@ -80,7 +80,8 @@ public:
     ExpSmoother<float> interpThreshold;                                                  \
                                                                                          \
     std::array<Limiter<float>, 2> limiter;                                               \
-    std::array<NaiveConvolver<float, HighEliminationFir<float>>, 2> highEliminator;      \
+    std::array<NaiveConvolver<float, HighEliminationFir<float>>, 2> highEliminatorMain;  \
+    std::array<NaiveConvolver<float, HighEliminationFir<float>>, 2> highEliminatorSide;  \
     std::array<FirPolyPhaseUpSampler<float, UpSamplerFir>, 2> upSamplerMain;             \
     std::array<FirPolyPhaseUpSampler<float, UpSamplerFir>, 2> upSamplerSide;             \
     std::array<FirDownSampler<float, DownSamplerFir>, 2> downSampler;                    \
