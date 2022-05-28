@@ -28,6 +28,10 @@ using namespace SomeDSP;
 UIntScale<double> Scales::boolScale(1);
 LinearScale<double> Scales::defaultScale(0.0, 1.0);
 DecibelScale<double> Scales::pitch(-60.0, 60.0, true);
+LogScale<double> Scales::delayTime(0.0, 1.0, 0.5, 0.05);
+LogScale<double> Scales::feedback(0.0, 1.0, 0.5, 0.75);
+DecibelScale<double> Scales::dry(-40.0, 0.0, true);
+DecibelScale<double> Scales::wet(-40.0, 40.0, true);
 
 } // namespace Synth
 } // namespace Steinberg

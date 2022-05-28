@@ -81,16 +81,11 @@ Shift + Left Drag|Fine Adjustment
 Ctrl + Left Click|Reset to Default
 Middle Click|Flip Min/Mid/Max
 
-Time Multi. and Feedback can be used to quickly
-shorten or lengthen reverb time.
+To set exact pitch from normalized value in
+range of [0.0, 1.0], use the following equation.
+Substitute desired pitch to "Target".
 
-To change stereo image, press Matrix button. It
-has no effect on Hadamard and Conference matrix.
-
-To get rotation effect, set Skew greater than 0.
-
-Increasing Interp. Rate adds more noise when
-delay time is modulated by hand or LFO.
+Normalized = (20 * log10(Target) + 60) / 120.
 
 Have a nice day!)";
 

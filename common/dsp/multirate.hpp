@@ -201,4 +201,34 @@ public:
   }
 };
 
+template<typename Sample> struct OverSampler16 {
+  static constexpr size_t fold = 16;
+
+  FirUpSampler<Sample, Fir16FoldUpSample<Sample>> upSampler;
+  std::array<Sample, 16> inputBuffer{};
+  DecimationLowpass<Sample, Sos16FoldFirstStage<Sample>> lowpass;
+  HalfBandIIR<Sample, HalfBandCoefficient<Sample>> halfbandIir;
+
+  void reset()
+  {
+    upSampler.reset();
+    inputBuffer.fill({});
+    lowpass.reset();
+    halfbandIir.reset();
+  }
+
+  void push(Sample x0) { upSampler.process(x0); }
+  Sample at(size_t index) { return upSampler.output[index]; }
+
+  Sample process()
+  {
+    std::array<Sample, 2> halfBandInput;
+    for (size_t i = 0; i < 8; ++i) lowpass.push(inputBuffer[i]);
+    halfBandInput[0] = lowpass.output();
+    for (size_t i = 8; i < 16; ++i) lowpass.push(inputBuffer[i]);
+    halfBandInput[1] = lowpass.output();
+    return halfbandIir.process(halfBandInput);
+  }
+};
+
 } // namespace SomeDSP

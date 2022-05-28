@@ -18,6 +18,7 @@
 #pragma once
 
 #include "../../../common/dsp/constants.hpp"
+#include "../../../common/dsp/multirate.hpp"
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
 #include "pitchshiftdelay.hpp"
@@ -26,6 +27,8 @@
 
 using namespace SomeDSP;
 using namespace Steinberg::Synth;
+
+using OverSampler = OverSampler16<float>;
 
 class DSPInterface {
 public:
@@ -61,9 +64,20 @@ public:
   private:                                                                               \
     float sampleRate = 44100.0f;                                                         \
                                                                                          \
-    ExpSmoother<float> interpPitch;                                                      \
+    ExpSmoother<float> interpPitchMain;                                                  \
+    ExpSmoother<float> interpPitchUnison;                                                \
+    ExpSmoother<float> interpDelayTime;                                                  \
+    ExpSmoother<float> interpFeedback;                                                   \
+    ExpSmoother<float> interpCross;                                                      \
+    ExpSmoother<float> interpUnisonMix;                                                  \
+    ExpSmoother<float> interpDry;                                                        \
+    ExpSmoother<float> interpWet;                                                        \
                                                                                          \
-    std::array<PitchShiftDelay<float>, 2> shifter;                                       \
+    std::array<float, 2> shifterMainOut{};                                               \
+    std::array<float, 2> shifterUnisonOut{};                                             \
+    std::array<OverSampler, 2> overSampler;                                              \
+    std::array<PitchShiftDelay<float>, 2> shifterMain;                                   \
+    std::array<PitchShiftDelay<float>, 2> shifterUnison;                                 \
   };
 
 DSPCORE_CLASS(AVX512)

@@ -89,7 +89,7 @@ bool Editor::prepareUI()
   const auto ctrlLeft6 = ctrlLeft5 + labelX;
   const auto ctrlLeft7 = ctrlLeft6 + labelX;
   const auto ctrlLeft8 = ctrlLeft7 + labelX;
-  const auto ctrlTop1 = top2;
+  const auto ctrlTop1 = top0;
   const auto ctrlTop2 = ctrlTop1 + labelY;
   const auto ctrlTop3 = ctrlTop2 + labelY;
   const auto ctrlTop4 = ctrlTop3 + labelY;
@@ -99,13 +99,62 @@ bool Editor::prepareUI()
     ctrlLeft1, ctrlTop1, 4 * labelX - margin, labelHeight, uiTextSize, "Delay");
   addLabel(
     ctrlLeft1, ctrlTop2, labelWidth, labelHeight, uiTextSize, "Pitch", kCenterText);
-  addTextKnob(
+  auto textKnobPitch = addTextKnob(
     ctrlLeft2, ctrlTop2, labelWidth, labelHeight, uiTextSize, ID::pitch, Scales::pitch,
     false, 5);
+  if (textKnobPitch) {
+    auto twoInDecibel = 6.020599913279624;       // == 20.0 * std::log10(2.0);
+    auto oneFifthInDecibel = 3.5218251811136247; //== 20.0 * std::log10(1.5);
+    textKnobPitch->sensitivity = twoInDecibel / 48.0 / 120.0;
+    textKnobPitch->lowSensitivity = 0.0001 * twoInDecibel / 120.0;
+    textKnobPitch->wheelSensitivity = oneFifthInDecibel / 4.0 / 120.0;
+  }
+  addLabel(
+    ctrlLeft1, ctrlTop3, labelWidth, labelHeight, uiTextSize, "Delay Time", kCenterText);
+  addTextKnob(
+    ctrlLeft2, ctrlTop3, labelWidth, labelHeight, uiTextSize, ID::delayTime,
+    Scales::delayTime, false, 5);
+  addLabel(
+    ctrlLeft1, ctrlTop4, labelWidth, labelHeight, uiTextSize, "Feedback", kCenterText);
+  addTextKnob(
+    ctrlLeft2, ctrlTop4, labelWidth, labelHeight, uiTextSize, ID::feedback,
+    Scales::feedback, false, 5);
+  addCheckbox(
+    ctrlLeft1, ctrlTop5, labelWidth, labelHeight, uiTextSize, "Inverse",
+    ID::inverseUnisonPitch);
+
+  addCheckbox(
+    ctrlLeft3, ctrlTop2, labelWidth, labelHeight, uiTextSize, "S1 Reverse",
+    ID::shifterMainReverse);
+  addCheckbox(
+    ctrlLeft4, ctrlTop2, labelWidth, labelHeight, uiTextSize, "S2 Reverse",
+    ID::shifterUnisonReverse);
+  addLabel(
+    ctrlLeft3, ctrlTop3, labelWidth, labelHeight, uiTextSize, "Cross", kCenterText);
+  addTextKnob(
+    ctrlLeft4, ctrlTop3, labelWidth, labelHeight, uiTextSize, ID::cross,
+    Scales::defaultScale, false, 5);
+
+  addGroupLabel(ctrlLeft5, ctrlTop1, 2 * labelX - margin, labelHeight, uiTextSize, "Mix");
+  addLabel(
+    ctrlLeft5, ctrlTop2, labelWidth, labelHeight, uiTextSize, "Dry [dB]", kCenterText);
+  addTextKnob(
+    ctrlLeft6, ctrlTop2, labelWidth, labelHeight, uiTextSize, ID::dry, Scales::dry, true,
+    5);
+  addLabel(
+    ctrlLeft5, ctrlTop3, labelWidth, labelHeight, uiTextSize, "Wet [dB]", kCenterText);
+  addTextKnob(
+    ctrlLeft6, ctrlTop3, labelWidth, labelHeight, uiTextSize, ID::wet, Scales::wet, true,
+    5);
+  addLabel(
+    ctrlLeft5, ctrlTop4, labelWidth, labelHeight, uiTextSize, "Unison Mix", kCenterText);
+  addTextKnob(
+    ctrlLeft6, ctrlTop4, labelWidth, labelHeight, uiTextSize, ID::unisonMix,
+    Scales::defaultScale, false, 5);
 
   // Plugin name.
   const auto splashMargin = uiMargin;
-  const auto splashTop = ctrlTop5 + margin;
+  const auto splashTop = ctrlTop5 + barboxHeight + margin;
   const auto splashLeft = ctrlLeft6 + std::floor(0.25f * labelX);
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
