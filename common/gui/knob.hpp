@@ -31,6 +31,7 @@ public:
   bool liveUpdate = true;     // When false, only update value on mouse up event.
   double sensitivity = 0.004; // MovedPixel * sensitivity = valueChanged.
   double lowSensitivity = sensitivity / 5.0;
+  double wheelSensitivity = sensitivity / 10.0;
 
   KnobBase(
     const CRect &size, IControlListener *listener, int32_t tag, Uhhyou::Palette &palette)
@@ -108,7 +109,7 @@ public:
   {
     if (isEditing() || event.deltaY == 0) return;
     beginEdit();
-    value += event.deltaY * float(sensitivity) * 0.5f;
+    value += event.deltaY * float(wheelSensitivity);
     bounceValue();
     valueChanged();
     endEdit();
