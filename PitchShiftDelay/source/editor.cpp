@@ -74,6 +74,9 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
+  constexpr auto twoInDecibel = 6.020599913279624;       // == 20.0 * std::log10(2.0);
+  constexpr auto oneFifthInDecibel = 3.5218251811136247; //== 20.0 * std::log10(1.5);
+
   const auto top0 = uiMargin;
   const auto top1 = top0 + barboxHeight + 2 * margin;
   const auto top2 = top1 + barboxHeight + 2 * margin;
@@ -94,6 +97,8 @@ bool Editor::prepareUI()
   const auto ctrlTop3 = ctrlTop2 + labelY;
   const auto ctrlTop4 = ctrlTop3 + labelY;
   const auto ctrlTop5 = ctrlTop4 + labelY;
+  const auto ctrlTop6 = ctrlTop5 + labelY;
+  const auto ctrlTop7 = ctrlTop6 + labelY;
 
   addGroupLabel(
     ctrlLeft1, ctrlTop1, 4 * labelX - margin, labelHeight, uiTextSize, "Delay");
@@ -103,37 +108,64 @@ bool Editor::prepareUI()
     ctrlLeft2, ctrlTop2, labelWidth, labelHeight, uiTextSize, ID::pitch, Scales::pitch,
     false, 5);
   if (textKnobPitch) {
-    auto twoInDecibel = 6.020599913279624;       // == 20.0 * std::log10(2.0);
-    auto oneFifthInDecibel = 3.5218251811136247; //== 20.0 * std::log10(1.5);
     textKnobPitch->sensitivity = twoInDecibel / 48.0 / 120.0;
     textKnobPitch->lowSensitivity = 0.0001 * twoInDecibel / 120.0;
     textKnobPitch->wheelSensitivity = oneFifthInDecibel / 4.0 / 120.0;
   }
   addLabel(
-    ctrlLeft1, ctrlTop3, labelWidth, labelHeight, uiTextSize, "Delay Time", kCenterText);
-  addTextKnob(
-    ctrlLeft2, ctrlTop3, labelWidth, labelHeight, uiTextSize, ID::delayTime,
-    Scales::delayTime, false, 5);
+    ctrlLeft1, ctrlTop3, labelWidth, labelHeight, uiTextSize, "Offset", kCenterText);
+  auto textKnobUnisonPitchOffset = addTextKnob(
+    ctrlLeft2, ctrlTop3, labelWidth, labelHeight, uiTextSize, ID::unisonPitchOffset,
+    Scales::pitch, false, 5);
+  if (textKnobUnisonPitchOffset) {
+    textKnobPitch->lowSensitivity = 0.0001 * twoInDecibel / 120.0;
+  }
   addLabel(
-    ctrlLeft1, ctrlTop4, labelWidth, labelHeight, uiTextSize, "Feedback", kCenterText);
+    ctrlLeft1, ctrlTop4, labelWidth, labelHeight, uiTextSize, "Pitch Cross", kCenterText);
   addTextKnob(
-    ctrlLeft2, ctrlTop4, labelWidth, labelHeight, uiTextSize, ID::feedback,
-    Scales::feedback, false, 5);
+    ctrlLeft2, ctrlTop4, labelWidth, labelHeight, uiTextSize, ID::pitchCross,
+    Scales::defaultScale, false, 5);
   addCheckbox(
-    ctrlLeft1, ctrlTop5, labelWidth, labelHeight, uiTextSize, "Inverse",
-    ID::inverseUnisonPitch);
-
+    ctrlLeft1, ctrlTop5, labelWidth, labelHeight, uiTextSize, "Mirror",
+    ID::mirrorUnisonPitch);
   addCheckbox(
-    ctrlLeft3, ctrlTop2, labelWidth, labelHeight, uiTextSize, "S1 Reverse",
+    ctrlLeft1, ctrlTop6, labelWidth, labelHeight, uiTextSize, "S1 Reverse",
     ID::shifterMainReverse);
   addCheckbox(
-    ctrlLeft4, ctrlTop2, labelWidth, labelHeight, uiTextSize, "S2 Reverse",
+    ctrlLeft1, ctrlTop7, labelWidth, labelHeight, uiTextSize, "S2 Reverse",
     ID::shifterUnisonReverse);
+  addKnob(
+    ctrlLeft2, ctrlTop5, labelWidth, margin, uiTextSize, "L-R Lean", ID::stereoLean);
+
   addLabel(
-    ctrlLeft3, ctrlTop3, labelWidth, labelHeight, uiTextSize, "Cross", kCenterText);
+    ctrlLeft3, ctrlTop2, labelWidth, labelHeight, uiTextSize, "Delay Time", kCenterText);
   addTextKnob(
-    ctrlLeft4, ctrlTop3, labelWidth, labelHeight, uiTextSize, ID::cross,
+    ctrlLeft4, ctrlTop2, labelWidth, labelHeight, uiTextSize, ID::delayTime,
+    Scales::delayTime, false, 5);
+  addLabel(
+    ctrlLeft3, ctrlTop3, labelWidth, labelHeight, uiTextSize, "Feedback", kCenterText);
+  addTextKnob(
+    ctrlLeft4, ctrlTop3, labelWidth, labelHeight, uiTextSize, ID::feedback,
+    Scales::feedback, false, 5);
+  addLabel(
+    ctrlLeft3, ctrlTop4, labelWidth, labelHeight, uiTextSize, "Stereo Cross",
+    kCenterText);
+  addTextKnob(
+    ctrlLeft4, ctrlTop4, labelWidth, labelHeight, uiTextSize, ID::stereoCross,
     Scales::defaultScale, false, 5);
+  addLabel(
+    ctrlLeft3, ctrlTop5, labelWidth, labelHeight, uiTextSize, "Channel Type",
+    kCenterText);
+  std::vector<std::string> channelTypeItems{"L-R", "M-S"};
+  addOptionMenu<Style::warning>(
+    ctrlLeft4, ctrlTop5, labelWidth, labelHeight, uiTextSize, ID::channelType,
+    channelTypeItems);
+  addLabel(
+    ctrlLeft3, ctrlTop6, labelWidth, labelHeight, uiTextSize, "Highpass [Hz]",
+    kCenterText);
+  addTextKnob(
+    ctrlLeft4, ctrlTop6, labelWidth, labelHeight, uiTextSize, ID::highpassCutoffHz,
+    Scales::highpassCutoffHz, false, 5);
 
   addGroupLabel(ctrlLeft5, ctrlTop1, 2 * labelX - margin, labelHeight, uiTextSize, "Mix");
   addLabel(

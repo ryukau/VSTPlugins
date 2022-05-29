@@ -39,17 +39,22 @@ enum ID {
   bypass,
 
   pitch,
+  unisonPitchOffset,
+  pitchCross,
   delayTime,
+  stereoLean,
+  stereoCross,
   feedback,
-  cross,
+  highpassCutoffHz,
 
   shifterMainReverse,
   shifterUnisonReverse,
-  inverseUnisonPitch,
+  mirrorUnisonPitch,
 
   dry,
   wet,
   unisonMix,
+  channelType,
 
   ID_ENUM_LENGTH,
   ID_ENUM_GUI_START = ID_ENUM_LENGTH,
@@ -61,7 +66,9 @@ struct Scales {
   static SomeDSP::LinearScale<double> defaultScale;
   static SomeDSP::DecibelScale<double> pitch;
   static SomeDSP::LogScale<double> delayTime;
+  static SomeDSP::LinearScale<double> stereoLean;
   static SomeDSP::LogScale<double> feedback;
+  static SomeDSP::SemitoneScale<double> highpassCutoffHz;
   static SomeDSP::DecibelScale<double> dry;
   static SomeDSP::DecibelScale<double> wet;
 };
@@ -78,26 +85,35 @@ struct GlobalParameter : public ParameterInterface {
     using LinearValue = DoubleValue<SomeDSP::LinearScale<double>>;
     using LogValue = DoubleValue<SomeDSP::LogScale<double>>;
     using DecibelValue = DoubleValue<SomeDSP::DecibelScale<double>>;
-    using SemitoneValue = DoubleValue<SomeDSP::DecibelScale<double>>;
+    using SemitoneValue = DoubleValue<SomeDSP::SemitoneScale<double>>;
 
     value[ID::bypass] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     value[ID::pitch] = std::make_unique<DecibelValue>(
       Scales::pitch.invmapDB(0), Scales::pitch, "pitch", Info::kCanAutomate);
+    value[ID::unisonPitchOffset] = std::make_unique<DecibelValue>(
+      0.0, Scales::pitch, "unisonPitchOffset", Info::kCanAutomate);
+    value[ID::pitchCross] = std::make_unique<LinearValue>(
+      1.0, Scales::defaultScale, "pitchCross", Info::kCanAutomate);
     value[ID::delayTime] = std::make_unique<LogValue>(
       Scales::delayTime.invmap(0.1), Scales::delayTime, "delayTime", Info::kCanAutomate);
+    value[ID::stereoLean] = std::make_unique<LinearValue>(
+      0.5, Scales::stereoLean, "stereoLean", Info::kCanAutomate);
+    value[ID::stereoCross] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "stereoCross", Info::kCanAutomate);
     value[ID::feedback]
       = std::make_unique<LogValue>(0.0, Scales::feedback, "feedback", Info::kCanAutomate);
-    value[ID::cross] = std::make_unique<LinearValue>(
-      1.0, Scales::defaultScale, "cross", Info::kCanAutomate);
+    value[ID::highpassCutoffHz] = std::make_unique<SemitoneValue>(
+      Scales::highpassCutoffHz.invmap(5.0), Scales::highpassCutoffHz, "highpassCutoffHz",
+      Info::kCanAutomate);
 
     value[ID::shifterMainReverse] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "shifterMainReverse", Info::kCanAutomate);
     value[ID::shifterUnisonReverse] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "shifterUnisonReverse", Info::kCanAutomate);
-    value[ID::inverseUnisonPitch] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "inverseUnisonPitch", Info::kCanAutomate);
+    value[ID::mirrorUnisonPitch] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "mirrorUnisonPitch", Info::kCanAutomate);
 
     value[ID::dry]
       = std::make_unique<DecibelValue>(0.0, Scales::dry, "dry", Info::kCanAutomate);
@@ -105,6 +121,8 @@ struct GlobalParameter : public ParameterInterface {
       Scales::wet.invmapDB(0.0), Scales::wet, "wet", Info::kCanAutomate);
     value[ID::unisonMix] = std::make_unique<LinearValue>(
       0.5, Scales::defaultScale, "unisonMix", Info::kCanAutomate);
+    value[ID::channelType] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "channelType", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

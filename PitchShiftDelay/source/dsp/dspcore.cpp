@@ -56,9 +56,10 @@ size_t DSPCORE_NAME::getLatency() { return 0; }
                                                                                          \
   auto pitchMain = pv[ID::pitch]->getFloat();                                            \
   auto pitchUnison = pitchMain;                                                          \
-  if (pv[ID::inverseUnisonPitch]->getInt()) {                                            \
+  if (pv[ID::mirrorUnisonPitch]->getInt()) {                                             \
     pitchUnison = pitchUnison > 0 ? float(1) / pitchUnison : float(1000);                \
   }                                                                                      \
+  pitchUnison += pv[ID::unisonPitchOffset]->getFloat();                                  \
   interpPitchMain.METHOD(                                                                \
     pitchMain *(pv[ID::shifterMainReverse]->getInt() ? float(-1) : float(1)));           \
   interpPitchUnison.METHOD(                                                              \
@@ -66,8 +67,12 @@ size_t DSPCORE_NAME::getLatency() { return 0; }
                                                                                          \
   interpDelayTime.METHOD(                                                                \
     pv[ID::delayTime]->getFloat() * sampleRate * OverSampler::fold);                     \
+  interpStereoLean.METHOD(pv[ID::stereoLean]->getFloat());                               \
   interpFeedback.METHOD(pv[ID::feedback]->getFloat());                                   \
-  interpCross.METHOD(pv[ID::cross]->getFloat());                                         \
+  interpHighpassCutoffKp.METHOD(float(                                                   \
+    EMAFilter<double>::cutoffToP(sampleRate, pv[ID::highpassCutoffHz]->getFloat())));    \
+  interpPitchCross.METHOD(pv[ID::pitchCross]->getFloat());                               \
+  interpStereoCross.METHOD(pv[ID::stereoCross]->getFloat());                             \
   interpUnisonMix.METHOD(pv[ID::unisonMix]->getFloat());                                 \
   interpDry.METHOD(pv[ID::dry]->getFloat());                                             \
   interpWet.METHOD(pv[ID::wet]->getFloat());
@@ -89,45 +94,95 @@ void DSPCORE_NAME::startup() {}
 
 void DSPCORE_NAME::setParameters() { ASSIGN_PARAMETER(push); }
 
+inline void convertToMidSide(float &left, float &right)
+{
+  auto mid = left + right;
+  auto side = left - right;
+  left = mid;
+  right = side;
+}
+
+inline void convertToLeftRight(float &mid, float &side)
+{
+  auto left = (mid + side);
+  auto right = (mid - side);
+  mid = left;
+  side = right;
+}
+
+inline std::array<float, 2> getStereoLean(float value, float lean)
+{
+  if (lean < 0) return {value * (float(1) + lean), value};
+  return {value, value * (float(1) - lean)};
+}
+
 void DSPCORE_NAME::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
+  using ID = ParameterID::ID;
+  const auto &pv = param.value;
+
   SmootherCommon<float>::setBufferSize(float(length));
 
+  bool enableMidSide = pv[ID::channelType]->getInt();
+
   for (size_t i = 0; i < length; ++i) {
-    overSampler[0].push(in0[i]);
-    overSampler[1].push(in1[i]);
+    float sig0 = in0[i];
+    float sig1 = in1[i];
+    if (enableMidSide) convertToMidSide(sig0, sig1);
+
+    overSampler[0].push(sig0);
+    overSampler[1].push(sig1);
     for (size_t idx = 0; idx < OverSampler::fold; ++idx) {
       auto pitchMain = interpPitchMain.process();
       auto pitchUnison = interpPitchUnison.process();
       auto delayTime = interpDelayTime.process();
+      auto stereoLean = interpStereoLean.process();
       auto feedback = interpFeedback.process();
-      auto cross = interpCross.process();
+      auto highpassKp = interpHighpassCutoffKp.process();
+      auto pitchCross = interpPitchCross.process();
+      auto stereoCross = interpStereoCross.process();
       auto unisonMix = interpUnisonMix.process();
       auto dry = interpDry.process();
       auto wet = interpWet.process();
 
-      auto crossMain0 = lerp(shifterMainOut[0], shifterUnisonOut[0], cross);
-      auto crossMain1 = lerp(shifterMainOut[1], shifterUnisonOut[1], cross);
-      auto crossUnison0 = lerp(shifterMainOut[0], shifterUnisonOut[0], float(1) - cross);
-      auto crossUnison1 = lerp(shifterMainOut[1], shifterUnisonOut[1], float(1) - cross);
+      auto crossMainTemp0 = lerp(shifterMainOut[0], shifterUnisonOut[0], pitchCross);
+      auto crossMainTemp1 = lerp(shifterMainOut[1], shifterUnisonOut[1], pitchCross);
+      auto crossMain0 = lerp(crossMainTemp0, crossMainTemp1, stereoCross);
+      auto crossMain1 = lerp(crossMainTemp1, crossMainTemp0, stereoCross);
+
+      auto crossUnisonTemp0 = lerp(shifterUnisonOut[0], shifterMainOut[0], pitchCross);
+      auto crossUnisonTemp1 = lerp(shifterUnisonOut[1], shifterMainOut[1], pitchCross);
+      auto crossUnison0 = lerp(crossUnisonTemp0, crossUnisonTemp1, stereoCross);
+      auto crossUnison1 = lerp(crossUnisonTemp1, crossUnisonTemp0, stereoCross);
+
+      auto leanedDelayTime = getStereoLean(delayTime, stereoLean);
 
       shifterMainOut[0] = shifterMain[0].process(
-        overSampler[0].at(idx) + feedback * crossMain0, pitchMain, delayTime);
+        overSampler[0].at(idx), feedback * crossMain0, highpassKp, pitchMain,
+        leanedDelayTime[0]);
       shifterMainOut[1] = shifterMain[1].process(
-        overSampler[1].at(idx) + feedback * crossMain1, pitchMain, delayTime);
+        overSampler[1].at(idx), feedback * crossMain1, highpassKp, pitchMain,
+        leanedDelayTime[1]);
 
       shifterUnisonOut[0] = shifterUnison[0].process(
-        overSampler[0].at(idx) + feedback * crossUnison0, pitchUnison, delayTime);
+        overSampler[0].at(idx), feedback * crossUnison0, highpassKp, pitchUnison,
+        leanedDelayTime[0]);
       shifterUnisonOut[1] = shifterUnison[1].process(
-        overSampler[1].at(idx) + feedback * crossUnison1, pitchUnison, delayTime);
+        overSampler[1].at(idx), feedback * crossUnison1, highpassKp, pitchUnison,
+        leanedDelayTime[1]);
 
       overSampler[0].inputBuffer[idx] = dry * overSampler[0].at(idx)
         + wet * lerp(shifterMainOut[0], shifterUnisonOut[0], unisonMix);
       overSampler[1].inputBuffer[idx] = dry * overSampler[1].at(idx)
         + wet * lerp(shifterMainOut[1], shifterUnisonOut[1], unisonMix);
     }
-    out0[i] = overSampler[0].process();
-    out1[i] = overSampler[1].process();
+
+    sig0 = overSampler[0].process();
+    sig1 = overSampler[1].process();
+    if (enableMidSide) convertToLeftRight(sig0, sig1);
+
+    out0[i] = sig0;
+    out1[i] = sig1;
   }
 }

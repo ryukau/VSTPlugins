@@ -67,8 +67,11 @@ public:
     ExpSmoother<float> interpPitchMain;                                                  \
     ExpSmoother<float> interpPitchUnison;                                                \
     ExpSmoother<float> interpDelayTime;                                                  \
+    ExpSmoother<float> interpStereoLean;                                                 \
     ExpSmoother<float> interpFeedback;                                                   \
-    ExpSmoother<float> interpCross;                                                      \
+    ExpSmoother<float> interpHighpassCutoffKp;                                           \
+    ExpSmoother<float> interpPitchCross;                                                 \
+    ExpSmoother<float> interpStereoCross;                                                \
     ExpSmoother<float> interpUnisonMix;                                                  \
     ExpSmoother<float> interpDry;                                                        \
     ExpSmoother<float> interpWet;                                                        \

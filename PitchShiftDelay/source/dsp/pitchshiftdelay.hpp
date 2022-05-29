@@ -29,6 +29,24 @@
 
 namespace SomeDSP {
 
+template<typename Sample, size_t nCascade> class EMAHighpass {
+private:
+  std::array<Sample, nCascade> v1{};
+
+public:
+  void reset(Sample value = 0) { v1.fill(value); }
+
+  Sample process(Sample input, Sample kp)
+  {
+    Sample v0 = input;
+    for (size_t idx = 0; idx < nCascade; ++idx) {
+      v1[idx] += kp * (v0 - v1[idx]);
+      v0 = v1[idx];
+    }
+    return input - v0;
+  }
+};
+
 /**
 PitchShiftDelay is a traditional time domain pitch shifter with variable delay time.
 
@@ -42,11 +60,11 @@ is half the delay time behind to the other read pointer (`rptr1 = rptr0 - delayT
 without wrap around). Crossfade is used to smooth the output of those 2 read pointers
 (`amp` in `process()`).
 */
-// TODO: oversampling
 template<typename Sample> class PitchShiftDelay {
 private:
   static constexpr size_t minSize = 4;
 
+  EMAHighpass<Sample, 1> highpass;
   size_t wptr = 0;
   Sample phase = 0;
   std::vector<Sample> buf;
@@ -63,16 +81,18 @@ public:
 
   void reset()
   {
+    highpass.reset();
     wptr = 0;
     phase = 0;
     std::fill(buf.begin(), buf.end(), Sample(0));
   }
 
   // `pitch` is a multiplier relative to input pitch. It can be negative number.
-  Sample process(Sample input, Sample pitch, Sample timeInSample)
+  Sample process(
+    Sample input, Sample feedback, Sample highpassKp, Sample pitch, Sample timeInSample)
   {
     // Write to buffer.
-    buf[wptr] = input;
+    buf[wptr] = input + highpass.process(feedback, highpassKp);
     if (++wptr >= buf.size()) wptr -= buf.size();
 
     // Read from buffer.
