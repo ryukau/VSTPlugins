@@ -114,8 +114,8 @@ struct GlobalParameter : public ParameterInterface {
         0.0, Scales::delayTime, (timeLfoAmountLabel + indexStr).c_str(),
         Info::kCanAutomate);
       value[ID::lowpassCutoffHz0 + idx] = std::make_unique<SemitoneValue>(
-        Scales::highpassCutoffHz.invmap(22000.0), Scales::lowpassCutoffHz,
-        (lowpassCutoffHzLabel + indexStr).c_str(), Info::kCanAutomate);
+        1.0, Scales::lowpassCutoffHz, (lowpassCutoffHzLabel + indexStr).c_str(),
+        Info::kCanAutomate);
       value[ID::highpassCutoffHz0 + idx] = std::make_unique<SemitoneValue>(
         Scales::highpassCutoffHz.invmap(5.0), Scales::highpassCutoffHz,
         (highpassCutoffHzLabel + indexStr).c_str(), Info::kCanAutomate);
