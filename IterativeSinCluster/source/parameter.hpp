@@ -209,8 +209,8 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::masterOctave] = std::make_unique<LinearValue>(
       0.5, Scales::masterOctave, "masterOctave", Info::kCanAutomate);
     value[ID::equalTemperament] = std::make_unique<LinearValue>(
-      Scales::equalTemperament.invmap(12), Scales::equalTemperament, "equalTemperament",
-      Info::kCanAutomate);
+      Scales::equalTemperament.invmap(12.01), Scales::equalTemperament,
+      "equalTemperament", Info::kCanAutomate);
     value[ID::pitchMultiply] = std::make_unique<LinearValue>(
       0.25, Scales::pitchMultiply, "pitchMultiply", Info::kCanAutomate);
     value[ID::pitchModulo] = std::make_unique<LinearValue>(
