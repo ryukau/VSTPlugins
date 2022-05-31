@@ -61,7 +61,7 @@ without wrap around). Crossfade is used to smooth the output of those 2 read poi
 (`amp` in `process()`).
 */
 template<typename Sample> class PitchShiftDelay {
-private:
+public:
   static constexpr size_t minSize = 4;
 
   EMAHighpass<Sample, 1> highpass;
@@ -69,7 +69,6 @@ private:
   Sample phase = 0;
   std::vector<Sample> buf;
 
-public:
   PitchShiftDelay() : buf(minSize) {}
 
   // bufferSize must be less than 2^24 for single precision float.
@@ -85,6 +84,18 @@ public:
     wptr = 0;
     phase = 0;
     std::fill(buf.begin(), buf.end(), Sample(0));
+  }
+
+  void syncPhase(Sample target, Sample kp)
+  {
+    auto d1 = target - phase;
+    if (d1 < 0) {
+      auto d2 = d1 + Sample(1);
+      phase += kp * (d2 < -d1 ? d2 : d1);
+    } else {
+      auto d2 = d1 - Sample(1);
+      phase += kp * (-d2 < d1 ? d2 : d1);
+    }
   }
 
   // `pitch` is a multiplier relative to input pitch. It can be negative number.

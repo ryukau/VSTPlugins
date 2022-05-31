@@ -21,6 +21,7 @@
 #include "../../../common/dsp/multirate.hpp"
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
+#include "lfo.hpp"
 #include "pitchshiftdelay.hpp"
 
 #include <array>
@@ -35,6 +36,9 @@ public:
   virtual ~DSPInterface(){};
 
   GlobalParameter param;
+  bool isPlaying = false;
+  float tempo = 120.0f;
+  double beatsElapsed = 0.0f;
 
   virtual void setup(double sampleRate) = 0;
   virtual void reset() = 0;   // Stop sounds.
@@ -62,10 +66,17 @@ public:
       float *out1) override;                                                             \
                                                                                          \
   private:                                                                               \
+    float getTempoSyncInterval();                                                        \
+                                                                                         \
     float sampleRate = 44100.0f;                                                         \
+    float phaseSyncCutoffKp = 1e-5f;                                                     \
                                                                                          \
     ExpSmoother<float> interpPitchMain;                                                  \
     ExpSmoother<float> interpPitchUnison;                                                \
+    ExpSmoother<float> interpLfoStereoOffset;                                            \
+    ExpSmoother<float> interpLfoUnisonOffset;                                            \
+    ExpSmoother<float> interpLfoToPitch;                                                 \
+    ExpSmoother<float> interpLfoToUnison;                                                \
     ExpSmoother<float> interpDelayTime;                                                  \
     ExpSmoother<float> interpStereoLean;                                                 \
     ExpSmoother<float> interpFeedback;                                                   \
@@ -76,6 +87,8 @@ public:
     ExpSmoother<float> interpDry;                                                        \
     ExpSmoother<float> interpWet;                                                        \
                                                                                          \
+    LightTempoSynchronizer<float> synchronizer;                                          \
+    TableLFO<float, nLfoWavetable, 2048, 4> lfo;                                         \
     std::array<float, 2> shifterMainOut{};                                               \
     std::array<float, 2> shifterUnisonOut{};                                             \
     std::array<OverSampler, 2> overSampler;                                              \

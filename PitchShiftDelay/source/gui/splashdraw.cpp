@@ -81,20 +81,19 @@ Shift + Left Drag|Fine Adjustment
 Ctrl + Left Click|Reset to Default
 Middle Click|Flip Min/Mid/Max
 
-To set exact pitch from normalized value in
-range of [0.0, 1.0], use the following equation.
-Substitute desired pitch to "Target".
+To set exact pitch from normalized value
+in range of [0.0, 1.0], use the following
+equation. Substitute desired pitch to "p".
 
-Normalized = (20 * log10(Target) + 60) / 120.
+Normalized = (20 * log10(p) + 60) / 120.
 
 Have a nice day!)";
 
   const float top0 = 100.0f;
-  const float mid = (750 - 2 * 20) / 2;
   const float lineHeight = 20.0f;
-  const float blockWidth = 160.0f;
+  const float blockWidth = 115.0f;
   drawTextBlock(pContext, 20.0f, top0, lineHeight, blockWidth, leftText);
-  drawTextBlock(pContext, mid, top0, lineHeight, blockWidth, rightText);
+  drawTextBlock(pContext, 20.0f + 240.0f, top0, lineHeight, blockWidth, rightText);
 
   setDirty(false);
 }
