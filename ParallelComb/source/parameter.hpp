@@ -30,7 +30,7 @@
 #endif
 
 constexpr size_t nCombTaps = 4;
-constexpr float maxDelayTime = 1.0f;
+constexpr float maxDelayTime = 4.0f;
 
 namespace Steinberg {
 namespace Synth {
@@ -46,9 +46,14 @@ enum ID {
   feedbackHighpassCutoffHz,
   feedbackLimiterRelease,
   delayTimeInterpRate,
+  delayTimeInterpLowpassSeconds,
+  stereoLean,
+  stereoCross,
 
   dry,
   wet,
+  channelType,
+  overSampling,
 
   ID_ENUM_LENGTH,
   ID_ENUM_GUI_START = ID_ENUM_LENGTH,
@@ -58,13 +63,17 @@ enum ID {
 struct Scales {
   static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LinearScale<double> defaultScale;
+
   static SomeDSP::LogScale<double> delayTime;
-  static SomeDSP::DecibelScale<double> dry;
-  static SomeDSP::DecibelScale<double> wet;
   static SomeDSP::LogScale<double> feedback;
   static SomeDSP::SemitoneScale<double> feedbackHighpassCutoffHz;
   static SomeDSP::LogScale<double> feedbackLimiterRelease;
   static SomeDSP::LogScale<double> delayTimeInterpRate;
+  static SomeDSP::DecibelScale<double> delayTimeInterpLowpassSeconds;
+  static SomeDSP::LinearScale<double> stereoLean;
+
+  static SomeDSP::DecibelScale<double> dry;
+  static SomeDSP::DecibelScale<double> wet;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -107,11 +116,22 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::delayTimeInterpRate] = std::make_unique<LogValue>(
       Scales::delayTimeInterpRate.invmap(0.5), Scales::delayTimeInterpRate,
       "delayTimeInterpRate", Info::kCanAutomate);
+    value[ID::delayTimeInterpLowpassSeconds] = std::make_unique<DecibelValue>(
+      0.0, Scales::delayTimeInterpLowpassSeconds, "delayTimeInterpLowpassSeconds",
+      Info::kCanAutomate);
+    value[ID::stereoLean] = std::make_unique<LinearValue>(
+      0.5, Scales::stereoLean, "stereoLean", Info::kCanAutomate);
+    value[ID::stereoCross] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "stereoCross", Info::kCanAutomate);
 
     value[ID::dry] = std::make_unique<DecibelValue>(
       Scales::dry.invmapDB(0.0), Scales::dry, "dry", Info::kCanAutomate);
     value[ID::wet] = std::make_unique<DecibelValue>(
       Scales::wet.invmapDB(0.0), Scales::wet, "wet", Info::kCanAutomate);
+    value[ID::channelType] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "channelType", Info::kCanAutomate);
+    value[ID::overSampling] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "overSampling", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

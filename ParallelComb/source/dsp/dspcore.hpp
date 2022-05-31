@@ -19,6 +19,7 @@
 
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/lightlimiter.hpp"
+#include "../../../common/dsp/multirate.hpp"
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
 #include "parallelcomb.hpp"
@@ -27,6 +28,8 @@
 
 using namespace SomeDSP;
 using namespace Steinberg::Synth;
+
+using OverSampler = OverSampler16<float>;
 
 class DSPInterface {
 public:
@@ -60,15 +63,20 @@ public:
       float *out1) override;                                                             \
                                                                                          \
   private:                                                                               \
+    std::array<float, 2> processInternal(float ch0, float ch1);                          \
+                                                                                         \
     float sampleRate = 44100.0f;                                                         \
     std::array<float, 2> delayOut{};                                                     \
                                                                                          \
     ExpSmoother<float> interpCombInterpRate;                                             \
+    ExpSmoother<float> interpCombInterpCutoffKp;                                         \
     ExpSmoother<float> interpFeedback;                                                   \
     ExpSmoother<float> interpFeedbackHighpassCutoffKp;                                   \
+    ExpSmoother<float> interpStereoCross;                                                \
     ExpSmoother<float> interpDry;                                                        \
     ExpSmoother<float> interpWet;                                                        \
                                                                                          \
+    std::array<OverSampler, 2> overSampler;                                              \
     std::array<ParallelComb<float, nCombTaps>, 2> comb;                                  \
     std::array<EMAHighpass<float, 4>, 2> feedbackHighpass;                               \
     std::array<LightLimiter<float, 64>, 2> feedbackLimiter;                              \

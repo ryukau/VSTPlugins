@@ -99,6 +99,9 @@ bool Editor::prepareUI()
   const auto ctrlTop4 = ctrlTop3 + labelY;
   const auto ctrlTop5 = ctrlTop4 + labelY;
 
+  addKnob(ctrlLeft1, top1, labelWidth, margin, uiTextSize, "Lean", ID::stereoLean);
+  addKnob(ctrlLeft2, top1, labelWidth, margin, uiTextSize, "Cross", ID::stereoCross);
+
   addGroupLabel(
     ctrlLeft1, ctrlTop1, 4 * labelX - margin, labelHeight, uiTextSize, "Delay");
   addLabel(
@@ -122,6 +125,12 @@ bool Editor::prepareUI()
   addTextKnob(
     ctrlLeft2, ctrlTop4, labelWidth, labelHeight, uiTextSize, ID::delayTimeInterpRate,
     Scales::delayTimeInterpRate, false, 5);
+  addLabel(
+    ctrlLeft1, ctrlTop5, labelWidth, labelHeight, uiTextSize, "Interp. LP [s]",
+    kCenterText);
+  addTextKnob(
+    ctrlLeft2, ctrlTop5, labelWidth, labelHeight, uiTextSize,
+    ID::delayTimeInterpLowpassSeconds, Scales::delayTimeInterpLowpassSeconds, false, 5);
 
   addLabel(
     ctrlLeft3, ctrlTop2, labelWidth, labelHeight, uiTextSize, "Highpass [Hz]",
@@ -146,6 +155,16 @@ bool Editor::prepareUI()
   addTextKnob(
     ctrlLeft6, ctrlTop3, labelWidth, labelHeight, uiTextSize, ID::wet, Scales::wet, true,
     5);
+  addLabel(
+    ctrlLeft5, ctrlTop4, labelWidth, labelHeight, uiTextSize, "Channel Type",
+    kCenterText);
+  std::vector<std::string> channelTypeItems{"L-R", "M-S"};
+  addOptionMenu<Style::warning>(
+    ctrlLeft6, ctrlTop4, labelWidth, labelHeight, uiTextSize, ID::channelType,
+    channelTypeItems);
+  addCheckbox(
+    ctrlLeft5, ctrlTop5, labelWidth, labelHeight, uiTextSize, "16x OverSampling",
+    ID::overSampling);
 
   // Plugin name.
   const auto splashMargin = uiMargin;

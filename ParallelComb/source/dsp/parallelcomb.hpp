@@ -74,14 +74,38 @@ public:
   }
 };
 
+template<typename Sample, size_t nValue> class ParallelCombSmoother {
+private:
+  std::array<RateLimiter<Sample>, nValue> limiter;
+  std::array<EMAFilter<Sample>, nValue> lowpass;
+
+public:
+  void resetAt(size_t index, Sample value = 0)
+  {
+    limiter[index].reset(value);
+    lowpass[index].reset(value);
+  }
+
+  void pushAt(size_t index, Sample target) { limiter[index].push(target); }
+  Sample at(size_t index) { return lowpass[index].value; }
+
+  void process(Sample rate, Sample kp)
+  {
+    for (size_t idx = 0; idx < nValue; ++idx) {
+      lowpass[idx].kp = kp;
+      lowpass[idx].process(limiter[idx].process(rate));
+    }
+  }
+};
+
 template<typename Sample, size_t nTap> class ParallelComb {
 private:
   size_t wptr = 0;
   std::vector<Sample> buf;
 
 public:
-  std::array<RateLimiter<Sample>, nTap> time;
-  // std::array<EMAFilter<Sample>, nTap> gain;
+  // std::array<RateLimiter<Sample>, nTap> time;
+  ParallelCombSmoother<Sample, nTap> time;
 
   void setup(Sample sampleRate, Sample maxTime)
   {
@@ -93,15 +117,16 @@ public:
 
   void reset() { std::fill(buf.begin(), buf.end(), Sample(0)); }
 
-  Sample process(Sample input, Sample rate)
+  Sample process(Sample input, Sample rate, Sample kp)
   {
     if (++wptr >= buf.size()) wptr -= buf.size();
     buf[wptr] = input;
 
+    time.process(rate, kp);
+
     Sample output = Sample(0);
     for (size_t idx = 0; idx < nTap; ++idx) {
-      Sample clamped
-        = std::clamp(time[idx].process(rate), Sample(0), Sample(buf.size() - 1));
+      Sample clamped = std::clamp(time.at(idx), Sample(0), Sample(buf.size() - 1));
       size_t &&timeInt = size_t(clamped);
       Sample fraction = clamped - Sample(timeInt);
 
