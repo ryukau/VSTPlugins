@@ -145,7 +145,7 @@ void DSPCORE_NAME::process(
     }
   }
 
-  auto &&maxOut = std::max(maxAbs(length, out0), maxAbs(length, out1));
+  auto maxOut = std::max(maxAbs(length, out0), maxAbs(length, out1));
   auto &paramClippingPeak = param.value[ParameterID::overshoot];
   auto &&previousPeak = paramClippingPeak->getFloat();
   if (maxOut > previousPeak) paramClippingPeak->setFromFloat(maxOut);
