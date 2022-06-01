@@ -104,18 +104,21 @@ private:
   std::vector<Sample> buf;
 
 public:
-  // std::array<RateLimiter<Sample>, nTap> time;
   ParallelCombSmoother<Sample, nTap> time;
 
   void setup(Sample sampleRate, Sample maxTime)
   {
-    auto &&size = size_t(sampleRate * maxTime) + 2;
+    auto &&size = size_t(sampleRate * maxTime) + 1;
     buf.resize(size < 4 ? 4 : size);
 
     reset();
   }
 
-  void reset() { std::fill(buf.begin(), buf.end(), Sample(0)); }
+  void reset()
+  {
+    wptr = 0;
+    std::fill(buf.begin(), buf.end(), Sample(0));
+  }
 
   Sample process(Sample input, Sample rate, Sample kp)
   {
@@ -127,7 +130,7 @@ public:
     Sample output = Sample(0);
     for (size_t idx = 0; idx < nTap; ++idx) {
       Sample clamped = std::clamp(time.at(idx), Sample(0), Sample(buf.size() - 1));
-      size_t &&timeInt = size_t(clamped);
+      size_t timeInt = size_t(clamped);
       Sample fraction = clamped - Sample(timeInt);
 
       size_t rptr0 = wptr - timeInt;

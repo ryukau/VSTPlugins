@@ -49,6 +49,7 @@ enum ID {
   delayTimeInterpLowpassSeconds,
   stereoLean,
   stereoCross,
+  feedbackToDelayTime,
 
   dry,
   wet,
@@ -71,6 +72,7 @@ struct Scales {
   static SomeDSP::LogScale<double> delayTimeInterpRate;
   static SomeDSP::DecibelScale<double> delayTimeInterpLowpassSeconds;
   static SomeDSP::LinearScale<double> stereoLean;
+  static SomeDSP::DecibelScale<double> feedbackToDelayTime;
 
   static SomeDSP::DecibelScale<double> dry;
   static SomeDSP::DecibelScale<double> wet;
@@ -123,6 +125,8 @@ struct GlobalParameter : public ParameterInterface {
       0.5, Scales::stereoLean, "stereoLean", Info::kCanAutomate);
     value[ID::stereoCross] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "stereoCross", Info::kCanAutomate);
+    value[ID::feedbackToDelayTime] = std::make_unique<DecibelValue>(
+      0.0, Scales::feedbackToDelayTime, "feedbackToDelayTime", Info::kCanAutomate);
 
     value[ID::dry] = std::make_unique<DecibelValue>(
       Scales::dry.invmapDB(0.0), Scales::dry, "dry", Info::kCanAutomate);

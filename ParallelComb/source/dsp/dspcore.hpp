@@ -73,6 +73,7 @@ public:
     ExpSmoother<float> interpFeedback;                                                   \
     ExpSmoother<float> interpFeedbackHighpassCutoffKp;                                   \
     ExpSmoother<float> interpStereoCross;                                                \
+    ExpSmoother<float> interpFeedbackToDelayTime;                                        \
     ExpSmoother<float> interpDry;                                                        \
     ExpSmoother<float> interpWet;                                                        \
                                                                                          \

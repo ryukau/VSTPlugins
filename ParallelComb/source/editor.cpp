@@ -17,11 +17,13 @@
 
 #include "editor.hpp"
 #include "../../lib/pcg-cpp/pcg_random.hpp"
+#include "gui/panicbutton.hpp"
 #include "version.hpp"
 
 #include <algorithm>
 #include <random>
 
+// 480 + 20
 constexpr float uiTextSize = 12.0f;
 constexpr float pluginNameTextSize = 14.0f;
 constexpr float margin = 5.0f;
@@ -30,16 +32,15 @@ constexpr float labelHeight = 20.0f;
 constexpr float labelY = labelHeight + 2 * margin;
 constexpr float labelWidth = 75.0f;
 constexpr float labelX = labelWidth + margin;
-constexpr float splashWidth = 2 * labelX;
+constexpr float splashWidth = 2 * labelWidth + margin;
 constexpr float splashHeight = 30.0f;
 
-constexpr float barboxWidth = 512.0f;
+constexpr float barboxWidth = 500.0f;
 constexpr float barboxHeight = 160.0f;
 
-constexpr int_least32_t defaultWidth
-  = int_least32_t(2 * uiMargin + 2 * barboxWidth + 4 * margin);
-constexpr int_least32_t defaultHeight = int_least32_t(
-  2 * uiMargin + 2 * barboxHeight + 4 * margin + 4 * labelY + splashHeight);
+constexpr int_least32_t defaultWidth = int_least32_t(2 * uiMargin + barboxWidth);
+constexpr int_least32_t defaultHeight
+  = int_least32_t(2 * uiMargin + barboxHeight + 2 * margin + 7 * labelY);
 
 namespace Steinberg {
 namespace Vst {
@@ -77,9 +78,7 @@ bool Editor::prepareUI()
   const auto top0 = uiMargin;
   const auto top1 = top0 + barboxHeight + 2 * margin;
   const auto top2 = top1 + barboxHeight + 2 * margin;
-  const auto top3 = top2 + barboxHeight + 2 * margin;
   const auto left0 = uiMargin;
-  const auto left1 = left0 + barboxWidth + 4 * margin;
 
   addBarBox(
     left0, top0, barboxWidth, barboxHeight, ID::delayTime0, nCombTaps, Scales::delayTime,
@@ -87,62 +86,78 @@ bool Editor::prepareUI()
 
   const auto ctrlLeft1 = left0;
   const auto ctrlLeft2 = ctrlLeft1 + labelX;
-  const auto ctrlLeft3 = ctrlLeft2 + labelX;
+  const auto ctrlLeft3 = ctrlLeft2 + labelX + 2 * margin;
   const auto ctrlLeft4 = ctrlLeft3 + labelX;
-  const auto ctrlLeft5 = ctrlLeft4 + labelX + 4 * margin;
+  const auto ctrlLeft5 = ctrlLeft4 + labelX + 3 * margin;
   const auto ctrlLeft6 = ctrlLeft5 + labelX;
   const auto ctrlLeft7 = ctrlLeft6 + labelX;
   const auto ctrlLeft8 = ctrlLeft7 + labelX;
-  const auto ctrlTop1 = top2;
+  const auto ctrlTop1 = top1;
   const auto ctrlTop2 = ctrlTop1 + labelY;
   const auto ctrlTop3 = ctrlTop2 + labelY;
   const auto ctrlTop4 = ctrlTop3 + labelY;
   const auto ctrlTop5 = ctrlTop4 + labelY;
-
-  addKnob(ctrlLeft1, top1, labelWidth, margin, uiTextSize, "Lean", ID::stereoLean);
-  addKnob(ctrlLeft2, top1, labelWidth, margin, uiTextSize, "Cross", ID::stereoCross);
+  const auto ctrlTop6 = ctrlTop5 + labelY;
+  const auto ctrlTop7 = ctrlTop6 + labelY;
 
   addGroupLabel(
-    ctrlLeft1, ctrlTop1, 4 * labelX - margin, labelHeight, uiTextSize, "Delay");
+    ctrlLeft1, ctrlTop1, 4 * labelX + margin, labelHeight, uiTextSize, "Delay");
   addLabel(
     ctrlLeft1, ctrlTop2, labelWidth, labelHeight, uiTextSize, "Time Multi.", kCenterText);
-  addTextKnob(
+  auto textKnobTimeMultiplier = addTextKnob(
     ctrlLeft2, ctrlTop2, labelWidth, labelHeight, uiTextSize, ID::timeMultiplier,
     Scales::defaultScale, false, 5);
+  if (textKnobTimeMultiplier) {
+    textKnobTimeMultiplier->lowSensitivity = 0.00001;
+    textKnobTimeMultiplier->wheelSensitivity = 0.001;
+  }
   addLabel(
-    ctrlLeft1, ctrlTop3, labelWidth, labelHeight, uiTextSize, "Feedback", kCenterText);
-  auto feedbackTextKnob = addTextKnob(
-    ctrlLeft2, ctrlTop3, labelWidth, labelHeight, uiTextSize, ID::feedback,
-    Scales::feedback, false, 5);
-  // if (feedbackTextKnob) {
-  //   feedbackTextKnob->sensitivity = 0.1 / (double(nCombTaps));
-  //   feedbackTextKnob->lowSensitivity = 0.001 / (double(nCombTaps));
-  // }
-
-  addLabel(
-    ctrlLeft1, ctrlTop4, labelWidth, labelHeight, uiTextSize, "Interp. Rate",
+    ctrlLeft1, ctrlTop3, labelWidth, labelHeight, uiTextSize, "Interp. Rate",
     kCenterText);
   addTextKnob(
-    ctrlLeft2, ctrlTop4, labelWidth, labelHeight, uiTextSize, ID::delayTimeInterpRate,
+    ctrlLeft2, ctrlTop3, labelWidth, labelHeight, uiTextSize, ID::delayTimeInterpRate,
     Scales::delayTimeInterpRate, false, 5);
   addLabel(
-    ctrlLeft1, ctrlTop5, labelWidth, labelHeight, uiTextSize, "Interp. LP [s]",
+    ctrlLeft1, ctrlTop4, labelWidth, labelHeight, uiTextSize, "Interp. LP [s]",
     kCenterText);
   addTextKnob(
-    ctrlLeft2, ctrlTop5, labelWidth, labelHeight, uiTextSize,
+    ctrlLeft2, ctrlTop4, labelWidth, labelHeight, uiTextSize,
     ID::delayTimeInterpLowpassSeconds, Scales::delayTimeInterpLowpassSeconds, false, 5);
 
+  addKnob(ctrlLeft1, ctrlTop5, labelWidth, margin, uiTextSize, "Lean", ID::stereoLean);
+  addKnob(ctrlLeft2, ctrlTop5, labelWidth, margin, uiTextSize, "Cross", ID::stereoCross);
+
   addLabel(
-    ctrlLeft3, ctrlTop2, labelWidth, labelHeight, uiTextSize, "Highpass [Hz]",
+    ctrlLeft3, ctrlTop2, labelWidth, labelHeight, uiTextSize, "Feedback", kCenterText);
+  auto feedbackTextKnob = addTextKnob(
+    ctrlLeft4, ctrlTop2, labelWidth, labelHeight, uiTextSize, ID::feedback,
+    Scales::feedback, false, 5);
+  addLabel(
+    ctrlLeft3, ctrlTop3, labelWidth, labelHeight, uiTextSize, "Highpass [Hz]",
     kCenterText);
   addTextKnob(
-    ctrlLeft4, ctrlTop2, labelWidth, labelHeight, uiTextSize,
+    ctrlLeft4, ctrlTop3, labelWidth, labelHeight, uiTextSize,
     ID::feedbackHighpassCutoffHz, Scales::feedbackHighpassCutoffHz, false, 5);
   addLabel(
-    ctrlLeft3, ctrlTop3, labelWidth, labelHeight, uiTextSize, "Limiter R.", kCenterText);
+    ctrlLeft3, ctrlTop4, labelWidth, labelHeight, uiTextSize, "Limiter R.", kCenterText);
   addTextKnob(
-    ctrlLeft4, ctrlTop3, labelWidth, labelHeight, uiTextSize, ID::feedbackLimiterRelease,
+    ctrlLeft4, ctrlTop4, labelWidth, labelHeight, uiTextSize, ID::feedbackLimiterRelease,
     Scales::feedbackLimiterRelease, false, 5);
+  addLabel(
+    ctrlLeft3, ctrlTop5, labelWidth, labelHeight, uiTextSize, "Self Mod.", kCenterText);
+  addTextKnob(
+    ctrlLeft4, ctrlTop5, labelWidth, labelHeight, uiTextSize, ID::feedbackToDelayTime,
+    Scales::feedbackToDelayTime, false, 5);
+
+  // Panic button.
+  const auto panicButtonLeft = ctrlLeft3 + 2 * margin;
+  const auto panicButtonTop = ctrlTop6 + 2 * margin;
+  auto panicButton = new PanicButton(
+    CRect(
+      panicButtonLeft, panicButtonTop, panicButtonLeft + 2 * labelWidth - 4 * margin,
+      panicButtonTop + labelHeight + 2 * margin),
+    this, 0, "Panic!", getFont(pluginNameTextSize), palette, this);
+  frame->addView(panicButton);
 
   addGroupLabel(ctrlLeft5, ctrlTop1, 2 * labelX - margin, labelHeight, uiTextSize, "Mix");
   addLabel(
@@ -163,13 +178,13 @@ bool Editor::prepareUI()
     ctrlLeft6, ctrlTop4, labelWidth, labelHeight, uiTextSize, ID::channelType,
     channelTypeItems);
   addCheckbox(
-    ctrlLeft5, ctrlTop5, labelWidth, labelHeight, uiTextSize, "16x OverSampling",
+    ctrlLeft5, ctrlTop5, 2 * labelWidth, labelHeight, uiTextSize, "16x OverSampling",
     ID::overSampling);
 
   // Plugin name.
   const auto splashMargin = uiMargin;
-  const auto splashTop = ctrlTop5 + margin;
-  const auto splashLeft = ctrlLeft6 + std::floor(0.25f * labelX);
+  const auto splashTop = defaultHeight - uiMargin - splashHeight;
+  const auto splashLeft = ctrlLeft5;
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,

@@ -75,6 +75,7 @@ size_t DSPCORE_NAME::getLatency() { return 0; }
   interpFeedbackHighpassCutoffKp.METHOD(float(EMAFilter<double>::cutoffToP(              \
     upRate, pv[ID::feedbackHighpassCutoffHz]->getFloat())));                             \
   interpStereoCross.METHOD(pv[ID::stereoCross]->getFloat());                             \
+  interpFeedbackToDelayTime.METHOD(pv[ID::feedbackToDelayTime]->getFloat());             \
   interpDry.METHOD(pv[ID::dry]->getFloat());                                             \
   interpWet.METHOD(pv[ID::wet]->getFloat());
 
@@ -126,14 +127,17 @@ std::array<float, 2> DSPCORE_NAME::processInternal(float ch0, float ch1)
   auto feedback = interpFeedback.process();
   auto feedbackHighpassKp = interpFeedbackHighpassCutoffKp.process();
   auto stereoCross = interpStereoCross.process();
+  auto toDelayTime = interpFeedbackToDelayTime.process();
   auto dry = interpDry.process();
   auto wet = interpWet.process();
 
   auto cross0 = lerp(delayOut[0], delayOut[1], stereoCross);
   auto cross1 = lerp(delayOut[1], delayOut[0], stereoCross);
 
-  auto combOut0 = comb[0].process(ch0 + feedback * cross0, combRate, combCutoffKp);
-  auto combOut1 = comb[1].process(ch1 + feedback * cross1, combRate, combCutoffKp);
+  auto combOut0 = comb[0].process(
+    ch0 + feedback * cross0, combRate + toDelayTime * cross0, combCutoffKp);
+  auto combOut1 = comb[1].process(
+    ch1 + feedback * cross1, combRate + toDelayTime * cross1, combCutoffKp);
 
   delayOut[0] = feedbackLimiter[0].process(
     feedbackHighpass[0].process(combOut0, feedbackHighpassKp));

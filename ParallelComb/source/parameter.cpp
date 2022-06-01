@@ -39,8 +39,8 @@ SemitoneScale<double>
 LogScale<double> Scales::feedbackLimiterRelease(0.0, 16.0, 0.5, 1.0);
 LogScale<double> Scales::delayTimeInterpRate(0.0, 4.0, 0.5, 0.25);
 DecibelScale<double> Scales::delayTimeInterpLowpassSeconds(-80.0, 40.0, true);
-
 LinearScale<double> Scales::stereoLean(-1.0, 1.0);
+DecibelScale<double> Scales::feedbackToDelayTime(-80.0, 40.0, true);
 
 DecibelScale<double> Scales::dry(-60.0, 24.0, true);
 DecibelScale<double> Scales::wet(-60.0, 60.0, true);
