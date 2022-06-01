@@ -35,7 +35,11 @@ public:
   std::array<Sample, length> buf{};
   size_t ptr = 0;
 
-  void reset(Sample value = 0) { buf.fill(value); }
+  void reset(Sample value = 0)
+  {
+    ptr = 0;
+    buf.fill(value);
+  }
 
   Sample process(Sample input)
   {
@@ -262,10 +266,10 @@ public:
 
   Sample process(Sample input)
   {
-    auto &&delayed = buf.process(input);
+    auto delayed = buf.process(input);
 
-    auto &&peakHold = processPeakHold(std::fabs(input), std::fabs(delayed));
-    auto &&candidate = applyCharacteristicCurve(peakHold, thresholdAmp);
+    auto peakHold = processPeakHold(std::fabs(input), std::fabs(delayed));
+    auto candidate = applyCharacteristicCurve(peakHold, thresholdAmp);
 
     releaseFilter.setMin(candidate);
     auto &&released = releaseFilter.process(candidate);
