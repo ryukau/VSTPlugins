@@ -42,6 +42,9 @@ DecibelScale<double> Scales::delayTimeInterpLowpassSeconds(-80.0, 40.0, true);
 LinearScale<double> Scales::stereoLean(-1.0, 1.0);
 DecibelScale<double> Scales::feedbackToDelayTime(-80.0, 40.0, true);
 
+DecibelScale<double> Scales::gateThreshold(-140.0, 0.0, true);
+DecibelScale<double> Scales::gateRelease(-80.0, 20, false);
+
 DecibelScale<double> Scales::dry(-60.0, 24.0, true);
 DecibelScale<double> Scales::wet(-60.0, 60.0, true);
 

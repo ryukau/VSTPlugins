@@ -139,7 +139,8 @@ bool Editor::prepareUI()
     ctrlLeft4, ctrlTop3, labelWidth, labelHeight, uiTextSize,
     ID::feedbackHighpassCutoffHz, Scales::feedbackHighpassCutoffHz, false, 5);
   addLabel(
-    ctrlLeft3, ctrlTop4, labelWidth, labelHeight, uiTextSize, "Limiter R.", kCenterText);
+    ctrlLeft3, ctrlTop4, labelWidth, labelHeight, uiTextSize, "Limiter R. [s]",
+    kCenterText);
   addTextKnob(
     ctrlLeft4, ctrlTop4, labelWidth, labelHeight, uiTextSize, ID::feedbackLimiterRelease,
     Scales::feedbackLimiterRelease, false, 5);
@@ -148,16 +149,17 @@ bool Editor::prepareUI()
   addTextKnob(
     ctrlLeft4, ctrlTop5, labelWidth, labelHeight, uiTextSize, ID::feedbackToDelayTime,
     Scales::feedbackToDelayTime, false, 5);
-
-  // Panic button.
-  const auto panicButtonLeft = ctrlLeft3 + 2 * margin;
-  const auto panicButtonTop = ctrlTop6 + 2 * margin;
-  auto panicButton = new PanicButton(
-    CRect(
-      panicButtonLeft, panicButtonTop, panicButtonLeft + 2 * labelWidth - 4 * margin,
-      panicButtonTop + labelHeight + 2 * margin),
-    this, 0, "Panic!", getFont(pluginNameTextSize), palette, this);
-  frame->addView(panicButton);
+  addLabel(
+    ctrlLeft3, ctrlTop6, labelWidth, labelHeight, uiTextSize, "Gate Th. [dB]",
+    kCenterText);
+  addTextKnob<Style::warning>(
+    ctrlLeft4, ctrlTop6, labelWidth, labelHeight, uiTextSize, ID::gateThreshold,
+    Scales::gateThreshold, true, 5);
+  addLabel(
+    ctrlLeft3, ctrlTop7, labelWidth, labelHeight, uiTextSize, "Gate R. [s]", kCenterText);
+  addTextKnob(
+    ctrlLeft4, ctrlTop7, labelWidth, labelHeight, uiTextSize, ID::gateRelease,
+    Scales::gateRelease, false, 5);
 
   addGroupLabel(ctrlLeft5, ctrlTop1, 2 * labelX - margin, labelHeight, uiTextSize, "Mix");
   addLabel(
@@ -180,6 +182,16 @@ bool Editor::prepareUI()
   addCheckbox(
     ctrlLeft5, ctrlTop5, 2 * labelWidth, labelHeight, uiTextSize, "16x OverSampling",
     ID::overSampling);
+
+  // Panic button.
+  const auto panicButtonLeft = ctrlLeft5 + 2 * margin;
+  const auto panicButtonTop = ctrlTop6;
+  auto panicButton = new PanicButton(
+    CRect(
+      panicButtonLeft, panicButtonTop, panicButtonLeft + 2 * labelWidth - 4 * margin,
+      panicButtonTop + labelHeight),
+    this, 0, "Panic!", getFont(uiTextSize), palette, this);
+  frame->addView(panicButton);
 
   // Plugin name.
   const auto splashMargin = uiMargin;

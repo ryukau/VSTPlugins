@@ -19,12 +19,10 @@
 
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/smoother.hpp"
-#include "../../../lib/pcg-cpp/pcg_random.hpp"
 
 #include <algorithm>
 #include <array>
 #include <numeric>
-#include <random>
 
 namespace SomeDSP {
 

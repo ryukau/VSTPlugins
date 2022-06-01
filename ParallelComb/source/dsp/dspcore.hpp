@@ -22,6 +22,7 @@
 #include "../../../common/dsp/multirate.hpp"
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
+#include "easygate.hpp"
 #include "parallelcomb.hpp"
 
 #include <array>
@@ -74,10 +75,12 @@ public:
     ExpSmoother<float> interpFeedbackHighpassCutoffKp;                                   \
     ExpSmoother<float> interpStereoCross;                                                \
     ExpSmoother<float> interpFeedbackToDelayTime;                                        \
+    ExpSmoother<float> interpGateReleaseKp;                                              \
     ExpSmoother<float> interpDry;                                                        \
     ExpSmoother<float> interpWet;                                                        \
                                                                                          \
     std::array<OverSampler, 2> overSampler;                                              \
+    EasyGate<float> gate;                                                                \
     std::array<ParallelComb<float, nCombTaps>, 2> comb;                                  \
     std::array<EMAHighpass<float, 4>, 2> feedbackHighpass;                               \
     std::array<LightLimiter<float, 64>, 2> feedbackLimiter;                              \

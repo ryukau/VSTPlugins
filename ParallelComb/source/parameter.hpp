@@ -51,6 +51,9 @@ enum ID {
   stereoCross,
   feedbackToDelayTime,
 
+  gateThreshold,
+  gateRelease,
+
   dry,
   wet,
   channelType,
@@ -73,6 +76,9 @@ struct Scales {
   static SomeDSP::DecibelScale<double> delayTimeInterpLowpassSeconds;
   static SomeDSP::LinearScale<double> stereoLean;
   static SomeDSP::DecibelScale<double> feedbackToDelayTime;
+
+  static SomeDSP::DecibelScale<double> gateThreshold;
+  static SomeDSP::DecibelScale<double> gateRelease;
 
   static SomeDSP::DecibelScale<double> dry;
   static SomeDSP::DecibelScale<double> wet;
@@ -127,6 +133,12 @@ struct GlobalParameter : public ParameterInterface {
       0.0, Scales::defaultScale, "stereoCross", Info::kCanAutomate);
     value[ID::feedbackToDelayTime] = std::make_unique<DecibelValue>(
       0.0, Scales::feedbackToDelayTime, "feedbackToDelayTime", Info::kCanAutomate);
+
+    value[ID::gateThreshold] = std::make_unique<DecibelValue>(
+      0.0, Scales::gateThreshold, "gateThreshold", Info::kCanAutomate);
+    value[ID::gateRelease] = std::make_unique<DecibelValue>(
+      Scales::gateRelease.invmap(0.01), Scales::gateRelease, "gateRelease",
+      Info::kCanAutomate);
 
     value[ID::dry] = std::make_unique<DecibelValue>(
       Scales::dry.invmapDB(0.0), Scales::dry, "dry", Info::kCanAutomate);
