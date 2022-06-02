@@ -124,7 +124,8 @@ bool Editor::prepareUI()
     ctrlLeft2, ctrlTop4, labelWidth, labelHeight, uiTextSize,
     ID::delayTimeInterpLowpassSeconds, Scales::delayTimeInterpLowpassSeconds, false, 5);
 
-  addKnob(ctrlLeft1, ctrlTop5, labelWidth, margin, uiTextSize, "Lean", ID::stereoLean);
+  addKnob(
+    ctrlLeft1, ctrlTop5, labelWidth, margin, uiTextSize, "L-R Lean", ID::stereoLean);
   addKnob(ctrlLeft2, ctrlTop5, labelWidth, margin, uiTextSize, "Cross", ID::stereoCross);
 
   addLabel(

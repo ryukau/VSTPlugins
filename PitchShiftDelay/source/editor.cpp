@@ -132,7 +132,8 @@ bool Editor::prepareUI()
     ctrlLeft2, ctrlTop5, labelWidth, margin, uiTextSize, "L-R Lean", ID::stereoLean);
 
   addLabel(
-    ctrlLeft3, ctrlTop2, labelWidth, labelHeight, uiTextSize, "Delay Time", kCenterText);
+    ctrlLeft3, ctrlTop2, labelWidth, labelHeight, uiTextSize, "Delay Time [s]",
+    kCenterText);
   addTextKnob(
     ctrlLeft4, ctrlTop2, labelWidth, labelHeight, uiTextSize, ID::delayTime,
     Scales::delayTime, false, 5);
