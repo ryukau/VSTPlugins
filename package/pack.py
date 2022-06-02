@@ -23,8 +23,15 @@ def create_archive_from_github_actions_artifact():
     pack_dir = Path("pack")
     pack_dir.mkdir(exist_ok=True)
 
+    # For manual packaging.
     for zip_file in Path().glob("*.zip"):
         shutil.unpack_archive(zip_file, pack_dir, format="zip")
+
+    # For GitHub Actions.
+    for artifact_dir in Path().glob("vst_*"):
+        if not artifact_dir.is_dir():
+            continue
+        shutil.copytree(artifact_dir, pack_dir, dirs_exist_ok=True)
 
     for dsym in pack_dir.glob("*.dSYM"):
         shutil.rmtree(dsym)
@@ -36,17 +43,17 @@ def create_archive_from_github_actions_artifact():
                        if not plugin_name in manual_dict else manual_dict[plugin_name])
 
         # Do not make package if a plugin doesn't have manual.
-        if not Path(f"../../docs/manual/{manual_name}").exists():
+        if not Path(f"../docs/manual/{manual_name}").exists():
             print(f"Skipping {plugin_name}: manual not found")
             continue
 
         copy_resource(
-            Path(f"../../docs/manual/{manual_name}"),
+            Path(f"../docs/manual/{manual_name}"),
             vst3_dir / Path("Contents/Resources/Documentation"),
             f"{plugin_name} manual did not found",
         )
         copy_resource(
-            Path("../../License"),
+            Path("../License"),
             vst3_dir / Path("Contents/Resources/License"),
             "License directory did not found",
         )
@@ -75,7 +82,7 @@ def add_version_to_archive_name():
     current = list(Path("pack").glob("*.zip"))
 
     for path in current:
-        version_hpp = Path("../../") / Path(path.stem) / Path("source/version.hpp")
+        version_hpp = Path("../") / Path(path.stem) / Path("source/version.hpp")
         if not version_hpp.exists():
             print(f"{version_hpp} did not found")
             continue

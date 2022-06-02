@@ -4,23 +4,15 @@ import re
 import shutil
 from pathlib import Path
 
-studiorack_dir = Path("pack/studiorack")
-
-def create_studiorack_archives(platforms):
+def get_plugin_list(package_dir):
     """
     This function creates studiorack package as zip archive.
     Returns list of packaged plugin names.
     """
     plugins = []
-    studiorack_dir.mkdir(parents=True, exist_ok=True)
-    for path in Path("pack").glob("*.zip"):
+    for path in Path(package_dir).glob("*.zip"):
         stem = str(path.stem).split("_")
-        name = stem[0]
-        version = stem[1]
-        for platform in platforms:
-            target_path = studiorack_dir / Path(f"{name}-{platform}{path.suffix}")
-            shutil.copyfile(path, target_path)
-        plugins.append({"name": name, "version": version})
+        plugins.append({"name": stem[0], "version": stem[1], "full": path.name})
     return plugins
 
 def format_id(name):
@@ -40,7 +32,9 @@ def extract_description_from_manual(manual_path):
                      text,
                      flags=re.MULTILINE | re.DOTALL).groups()[0]
 
-def create_studiorack_data(plugins, platforms):
+def create_studiorack_data(package_dir, platforms):
+    plugins = get_plugin_list(package_dir)
+
     common = {}
     common["author"] = "Takamitsu Endo"
     common["homepage"] = "https://ryukau.github.io/VSTPlugins/"
@@ -54,9 +48,9 @@ def create_studiorack_data(plugins, platforms):
         re.DOTALL | re.MULTILINE)
 
     plugindata = {"plugins": []}
-    for plugin_name_splitted in plugins:
-        name = plugin_name_splitted["name"]
-        plugin_dir = Path(f"../../{name}")
+    for plugin_name in plugins:
+        name = plugin_name["name"]
+        plugin_dir = Path(f"../{name}")
 
         manual_name = (name if not name in manual_dict else manual_dict[name])
 
@@ -67,11 +61,11 @@ def create_studiorack_data(plugins, platforms):
         #
         plugfactory_cpp = plugin_dir / Path("source/plugfactory.cpp")
         screenshot_png = list((plugin_dir / Path("resource")).glob("*.png"))[0]
-        audiosample_wav = Path(f"../audiosample/{name}.wav")
-        manual_en_md = Path(f"../../docs/manual/{manual_name}/{manual_name}_en.md")
+        audiosample = Path(f"audiosample/{name}.flac")
+        manual_en_md = Path(f"../docs/manual/{manual_name}/{manual_name}_en.md")
 
         if not (plugfactory_cpp.exists() and screenshot_png.exists() and
-                audiosample_wav.exists() and manual_en_md.exists()):
+                audiosample.exists() and manual_en_md.exists()):
             continue
 
         with open(plugfactory_cpp, "r", encoding="utf-8") as fi:
@@ -83,40 +77,36 @@ def create_studiorack_data(plugins, platforms):
         data = common.copy()
         data["name"] = name
         data["tags"] = tags
-        data["version"] = plugin_name_splitted["version"]
+        data["version"] = plugin_name["version"]
         data["description"] = extract_description_from_manual(manual_en_md)
         data["id"] = format_id(name)
         data["files"] = {} # Will be filled in following sections.
 
-        audiosample_path = studiorack_dir / Path(audiosample_wav.name)
-        shutil.copyfile(audiosample_wav, audiosample_path)
         data["files"]["audio"] = {
-            "name": audiosample_wav.name,
-            "size": get_size(audiosample_path),
+            "name": audiosample.name,
+            "size": get_size(audiosample),
         }
 
         screenshot_name = f"{name}.png"
-        screenshot_path = studiorack_dir / Path(screenshot_name)
+        screenshot_path = package_dir / Path(screenshot_name)
         shutil.copyfile(screenshot_png, screenshot_path)
         data["files"]["image"] = {
             "name": screenshot_name,
             "size": get_size(screenshot_path)
         }
 
+        archive_name = plugin_name["full"]
+        archive_size = get_size(package_dir / Path(archive_name))
         for platform in platforms:
-            archive_name = f"{name}-{platform}.zip"
-            data["files"][platform] = {
-                "name": archive_name,
-                "size": get_size(studiorack_dir / Path(archive_name))
-            }
+            data["files"][platform] = {"name": archive_name, "size": archive_size}
 
         plugindata["plugins"].append(data)
 
-    with open(f"{studiorack_dir}/plugins.json", "w", encoding="utf-8") as fi:
+    with open(package_dir / Path("plugins.json"), "w", encoding="utf-8") as fi:
         json.dump(plugindata, fi)
 
 if __name__ == "__main__":
+    package_dir = Path("pack")
     platforms = ["linux", "win"]
 
-    plugins = create_studiorack_archives(platforms)
-    create_studiorack_data(plugins, platforms)
+    create_studiorack_data(package_dir, platforms)
