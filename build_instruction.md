@@ -17,11 +17,16 @@ cd ~/code/vst
 git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
 git clone --recursive https://github.com/ryukau/VSTPlugins.git
 
-# Patch vst3sdk. See: https://github.com/ryukau/VSTPlugins/issues/3
-cp VSTPlugins/ci/linux_patch/cairocontext.cpp \
-   vst3sdk/vstgui4/vstgui/lib/platform/linux/cairocontext.cpp
+# Patch vst3sdk.
+# - https://github.com/ryukau/VSTPlugins/issues/3
+patch \
+  vst3sdk/vstgui4/vstgui/lib/platform/linux/cairocontext.cpp \
+  VSTPlugins/ci/linux_patch/cairocontext.cpp.diff
 
-# Fedora 32 requires another patch. See "Building on Fedora 32" section.
+# - https://github.com/steinbergmedia/vstgui/issues/249
+patch \
+  vst3sdk/vstgui4/vstgui/lib/platform/linux/x11frame.cpp \
+  VSTPlugins/ci/linux_patch/x11frame.cpp.diff
 
 mkdir vst3sdk/build
 cd vst3sdk/build
