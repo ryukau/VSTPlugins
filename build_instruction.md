@@ -48,15 +48,6 @@ dnf install              \
   libxkbcommon-x11-devel \
 ```
 
-If the version of VST 3 SDK is below 3.7.1, Fedora 32 needs extra patching. To apply patch, run following command.
-
-```bash
-cd ~/code/vst
-
-cp VSTPlugins/ci/linux_patch/threadchecker_linux.cpp \
-   vst3sdk/public.sdk/source/common/threadchecker_linux.cpp
-```
-
 ## Windows
 Install following applications.
 
