@@ -7,7 +7,7 @@ lang: en
 
 CollidingCombSynth is an experimental synthesizer which sounds like bowed string. Equipped with 24 Karplus-Strong string models which collide to each other. Tuning of pitch is possible, but difficult. So mostly suitable for sound effects.
 
-- [Download CollidingCombSynth 0.1.5 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/CollidingCombSynth_0.1.5.zip) <img
+- [Download CollidingCombSynth 0.1.6 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/CollidingCombSynth_0.1.6.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -140,7 +140,7 @@ Following is a list of font options.
 
 To use custom font, place `*.ttf` file into custom font path: `*.vst3/Contents/Resources/Fonts`.
 
-**Important**: If the combination of `fontFamily`, `fontBold`, `fontItalic` is not exists in custom font path, default font of VSTGUI is used.
+**Notice**: If the combination of `fontFamily`, `fontBold`, `fontItalic` is not exists in custom font path, default font of VSTGUI is used.
 
 If `fontFamily` is set to empty string `""`, then [`"Tinos"`](https://fonts.google.com/specimen/Tinos) is used as fallback. If the length is greater than 1 and the font family name doesn't exists, default font of VSTGUI is used.
 
@@ -399,6 +399,9 @@ Frequency
     ```
 
 ## Change Log
+- 0.1.6
+  - Fixed crash on Linux.
+  - Fixed BarBox to receive shift key.
 - 0.1.5
   - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.4
@@ -414,6 +417,7 @@ Frequency
   - Initial release.
 
 ## Old Versions
+- [CollidingCombSynth 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/CollidingCombSynth_0.1.5.zip)
 - [CollidingCombSynth 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/CollidingCombSynth_0.1.4.zip)
 - [CollidingCombSynth 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/CollidingCombSynth_0.1.2.zip)
 - [CollidingCombSynth 0.1.1 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/CollidingCombSynth_0.1.1.zip)

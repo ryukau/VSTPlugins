@@ -7,7 +7,7 @@ lang: en
 
 CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.
 
-- [Download CubicPadSynth 0.1.14 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/CubicPadSynth_0.1.14.zip) <img
+- [Download CubicPadSynth 0.1.15 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/CubicPadSynth_0.1.15.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -140,7 +140,7 @@ Following is a list of font options.
 
 To use custom font, place `*.ttf` file into custom font path: `*.vst3/Contents/Resources/Fonts`.
 
-**Important**: If the combination of `fontFamily`, `fontBold`, `fontItalic` is not exists in custom font path, default font of VSTGUI is used.
+**Notice**: If the combination of `fontFamily`, `fontBold`, `fontItalic` is not exists in custom font path, default font of VSTGUI is used.
 
 If `fontFamily` is set to empty string `""`, then [`"Tinos"`](https://fonts.google.com/specimen/Tinos) is used as fallback. If the length is greater than 1 and the font family name doesn't exists, default font of VSTGUI is used.
 
@@ -595,6 +595,9 @@ Refresh PADsynth wavetable based on current configuration of Wavetable tab.
 Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
 
 ## Change Log
+- 0.1.15
+  - Fixed crash on Linux.
+  - Fixed BarBox to receive shift key.
 - 0.1.14
   - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.13
@@ -637,6 +640,7 @@ Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
   - Initial release.
 
 ## Old Versions
+- [CubicPadSynth 0.1.14 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/CubicPadSynth_0.1.14.zip)
 - [CubicPadSynth 0.1.13 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/CubicPadSynth_0.1.13.zip)
 - [CubicPadSynth 0.1.11 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/CubicPadSynth_0.1.11.zip)
 - [CubicPadSynth 0.1.10 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/CubicPadSynth_0.1.10.zip)

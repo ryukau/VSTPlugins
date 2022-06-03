@@ -314,7 +314,7 @@ footer {
 <p><img src="img/collidingcombsynth.png" /></p>
 <p><ruby>CollidingCombSynth<rt>コライディング コム シンセ</rt></ruby> は Karplus-Strong アルゴリズムによる弦の物理モデルをぶつけることで、弦を擦ったときのような音が出る実験的なシンセサイザです。音程はでますがチューニングが難しいので、どちらかと言うと効果音に向いています。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/CollidingCombSynth_0.1.5.zip">CollidingCombSynth 0.1.5 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/CollidingCombSynth_0.1.6.zip">CollidingCombSynth 0.1.6 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -357,7 +357,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <h3 id="linux">Linux</h3>
 <p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
-<p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。</p>
+<p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してください。</p>
 <ul>
 <li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI: Setup</a></li>
 </ul>
@@ -755,6 +755,11 @@ stringFrequency = Frequency * noteFrequency</code></pre>
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.6
+<ul>
+<li>Linux でのクラッシュを修正。</li>
+<li>BarBox が <kbd>Shift</kbd> キーを受け取るように修正。</li>
+</ul></li>
 <li>0.1.5
 <ul>
 <li>プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。</li>
@@ -783,6 +788,7 @@ stringFrequency = Frequency * noteFrequency</code></pre>
 </ul>
 <h2 id="旧バージョン">旧バージョン</h2>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/CollidingCombSynth_0.1.5.zip">CollidingCombSynth 0.1.5 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/CollidingCombSynth_0.1.4.zip">CollidingCombSynth 0.1.4 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/CollidingCombSynth_0.1.2.zip">CollidingCombSynth 0.1.2 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/CollidingCombSynth_0.1.1.zip">CollidingCombSynth 0.1.1 - VST 3 (github.com)</a></li>

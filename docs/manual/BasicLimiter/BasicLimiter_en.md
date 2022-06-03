@@ -7,7 +7,7 @@ lang: en
 
 BasicLimiter is a basic single band limiter. The sound is nothing new, but the design of true peak mode is a bit luxurious.
 
-- [Download BasicLimiter 0.1.5 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiter_0.1.5.zip) <img
+- [Download BasicLimiter 0.1.6 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/BasicLimiter_0.1.6.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -148,7 +148,7 @@ Following is a list of font options.
 
 To use custom font, place `*.ttf` file into custom font path: `*.vst3/Contents/Resources/Fonts`.
 
-**Important**: If the combination of `fontFamily`, `fontBold`, `fontItalic` is not exists in custom font path, default font of VSTGUI is used.
+**Notice**: If the combination of `fontFamily`, `fontBold`, `fontItalic` is not exists in custom font path, default font of VSTGUI is used.
 
 If `fontFamily` is set to empty string `""`, then [`"Tinos"`](https://fonts.google.com/specimen/Tinos) is used as fallback. If the length is greater than 1 and the font family name doesn't exists, default font of VSTGUI is used.
 
@@ -251,7 +251,7 @@ True Peak
 
     While true peak mode is enabled, lowpass filter is applied to remove the components near nyquist frequency. Also, sample peak might exceeds `Threshold`. Especially when sample peak exceeds 0 dB, the value of `Overshoot` becomes greater than 0. Lower `Threshold` in this case.
 
-    In real time processing, restoration of true peak around nyquist frequency is almost impossible. That's why the lowpass is applied, and this true peak mode causes overshoot. If the aim is to eliminate overshoot at any cost, the lowpass will either change the gain of audible frequency, or burn out your CPU. The lowpass on BasicLimiter is designed to only change the gain over 18000 Hz.
+    In real time processing, restoration of true peak around nyquist frequency is almost impossible. That's why the lowpass is applied, and this true peak mode causes overshoot. If the aim is to eliminate overshoot at any cost, the lowpass will either change the gain of audible frequency, or burn out your CPU. The lowpass on BasicLimiter is designed to only change the gain over 18000 Hz when sampling rate is 48000 Hz.
 
 Reset Overshoot
 
@@ -288,6 +288,8 @@ Channel Type
 
 ## Change Log
 ### BasicLimiter
+- 0.1.6
+  - Fixed crash on Linux.
 - 0.1.5
   - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.4
@@ -300,6 +302,8 @@ Channel Type
 
 ### BasicLimiterAutoMake
 - 0.1.6
+  - Fixed crash on Linux.
+- 0.1.6
   - Added highEliminator for sidechain input to reduce overshoot in true peak mode.
 - 0.1.5
   - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
@@ -308,10 +312,12 @@ Channel Type
 
 ## Old Versions
 ### BasicLimiter
+- [BasicLimiter 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiter_0.1.5.zip)
 - [BasicLimiter 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiter_0.1.4.zip)
 - [BasicLimiter 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiter_0.1.2.zip)
 -
 ### BasicLimiterAutoMake
+- [BasicLimiterAutoMake 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiterAutoMake_0.1.5.zip)
 - [BasicLimiterAutoMake 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiterAutoMake_0.1.4.zip)
 Currently, there aren't any old versions.
 

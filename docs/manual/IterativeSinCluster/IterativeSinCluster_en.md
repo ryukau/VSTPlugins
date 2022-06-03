@@ -7,7 +7,7 @@ lang: en
 
 IterativeSinCluster is an additive synthesizer. This synth computes 512 sine waves for each note to make tone cluster. I somehow thought "iterative sin" is a valid term. Correct term is "recursive sine".
 
-- [Download IterativeSinCluster 0.1.16 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/IterativeSinCluster_0.1.16.zip) <img
+- [Download IterativeSinCluster 0.1.17 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/IterativeSinCluster_0.1.17.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -140,7 +140,7 @@ Following is a list of font options.
 
 To use custom font, place `*.ttf` file into custom font path: `*.vst3/Contents/Resources/Fonts`.
 
-**Important**: If the combination of `fontFamily`, `fontBold`, `fontItalic` is not exists in custom font path, default font of VSTGUI is used.
+**Notice**: If the combination of `fontFamily`, `fontBold`, `fontItalic` is not exists in custom font path, default font of VSTGUI is used.
 
 If `fontFamily` is set to empty string `""`, then [`"Tinos"`](https://fonts.google.com/specimen/Tinos) is used as fallback. If the length is greater than 1 and the font family name doesn't exists, default font of VSTGUI is used.
 
@@ -347,6 +347,11 @@ Key Follow
 :   When checked, change delay time relative to note frequency.
 
 ## Change Log
+- 0.1.17
+  - Fixed crash on Linux.
+  - Fixed BarBox to receive shift key.
+- 0.1.17
+  - Fixed `equalTemperament` default display value from 11 to 12. Display parameter name is `ET`.
 - 0.1.16
   - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.15
@@ -387,6 +392,7 @@ Key Follow
   - Initial release.
 
 ## Old Versions
+- [IterativeSinCluster 0.1.16 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/IterativeSinCluster_0.1.16.zip)
 - [IterativeSinCluster 0.1.15 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/IterativeSinCluster_0.1.15.zip)
 - [IterativeSinCluster 0.1.13 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/IterativeSinCluster_0.1.13.zip)
 - [IterativeSinCluster 0.1.12 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/IterativeSinCluster_0.1.12.zip)

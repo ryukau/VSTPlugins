@@ -83,11 +83,11 @@ def process(
         fi.write(text)
 
 if __name__ == "__main__":
-    release_name = "UhhyouPlugins_0_31_0"
+    release_name = "UhhyouPlugins0.33.0"
     en_change_log = """
-  - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER."""
+  - Fixed crash on Linux."""
     ja_change_log = """
-  - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。"""
+  - Linux でのクラッシュを修正。"""
 
     re_en_download_link = re.compile(
         r"^- \[Download (\S+?) ([0-9]+)\.([0-9]+)\.([0-9]+) - VST® 3.+?\]\((.*?)\)",

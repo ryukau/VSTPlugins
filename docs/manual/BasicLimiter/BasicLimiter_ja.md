@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>BasicLimiter<rt>ベーシック リミッタ</rt></ruby> は名前の通りベーシックなシングルバンドリミッタです。目新しい音は出ませんが、トゥルーピークモードはやや贅沢に設計しています。
 
-- [BasicLimiter 0.1.5 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiter_0.1.5.zip) <img
+- [BasicLimiter 0.1.6 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/BasicLimiter_0.1.6.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -69,7 +69,7 @@ Ubuntu 18.0.4 では次のパッケージのインストールが必要です。
 sudo apt install libxcb-cursor0  libxkbcommon-x11-0
 ```
 
-もし DAW がプラグインを認識しないときは、下のリンクの `Package Requirements` を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。
+もし DAW がプラグインを認識しないときは、下のリンクの `Package Requirements` を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してください。
 
 - [VSTGUI: Setup](https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html)
 
@@ -147,7 +147,7 @@ xattr -rc /path/to/PluginName.vst3
 
 カスタムフォントを使用するには、プラグインディレクトリの `*.vst3/Contents/Resources/Fonts` に `*.ttf` ファイルを配置します。
 
-**重要**: `fontFamily` 、 `fontBold` 、 `fontItalic` で設定したフォントファミリ名とスタイルの組み合わせが `*.vst3/Contents/Resources/Fonts` 以下のいずれかの `*.ttf` ファイルに含まれていないときは VSTGUI が指定するデフォルトフォントが使用されます。
+**注意**: `fontFamily` 、 `fontBold` 、 `fontItalic` で設定したフォントファミリ名とスタイルの組み合わせが `*.vst3/Contents/Resources/Fonts` 以下のいずれかの `*.ttf` ファイルに含まれていないときは VSTGUI が指定するデフォルトフォントが使用されます。
 
 `fontFamily` が長さ 0 の文字列 `""` のときはフォールバックとして [`"Tinos"`](https://fonts.google.com/specimen/Tinos) に設定されます。長さが 1 以上かつ、存在しないフォントファミリ名が指定されると VSTGUI が指定するデフォルトフォントが使用されます。
 
@@ -250,7 +250,7 @@ True Peak
 
     トゥルーピークモードがオンのときはナイキスト周波数に近い成分を落とすためのローパスフィルタがかかります。また、サンプルピークが `Threshold` で指定した値を超えることがあります。特にサンプルピークが 0 dB を超えたときは `Overshoot` の値が 0 でなくなります。このときは `Threshold` の値を下げてください。
 
-    リアルタイム処理ではトゥルーピークをしきい値以下に抑えることは困難です。ナイキスト周波数に近い成分が含まれているとトゥルーピークの値が正確に計算できなくなるのでローパスフィルタをかけるのですが、しきい値以下への振幅の制限を徹底すると可聴域内の周波数成分が大きく低減されて音が変わってしまいます。 BasicLimiter は、およそ 18000 Hz 以下の成分についてはローパスフィルタの影響が及ばないように設計しています。
+    リアルタイム処理ではトゥルーピークをしきい値以下に抑えることは困難です。ナイキスト周波数に近い成分が含まれているとトゥルーピークの値が正確に計算できなくなるのでローパスフィルタをかけるのですが、しきい値以下への振幅の制限を徹底すると可聴域内の周波数成分が大きく低減されて音が変わってしまいます。 BasicLimiter はサンプリング周波数が 48000 Hz のときに、およそ 18000 Hz 以下の成分についてはローパスフィルタの影響が及ばないように設計しています。
 
 Reset Overshoot
 
@@ -287,6 +287,8 @@ Channel Type
 
 ## チェンジログ
 ### BasicLimiter
+- 0.1.6
+  - Linux でのクラッシュを修正。
 - 0.1.5
   - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。
 - 0.1.4
@@ -299,6 +301,8 @@ Channel Type
 
 ### BasicLimiterAutoMake
 - 0.1.6
+  - Linux でのクラッシュを修正。
+- 0.1.6
   - トゥルーピークモードのオーバーシュートを減らすために、サイドチェイン入力の高域除去フィルタを追加。
 - 0.1.5
   - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。
@@ -307,10 +311,12 @@ Channel Type
 
 ## 旧バージョン
 ### BasicLimiter
+- [BasicLimiter 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiter_0.1.5.zip)
 - [BasicLimiter 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiter_0.1.4.zip)
 - [BasicLimiter 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiter_0.1.2.zip)
 
 ### BasicLimiterAutoMake
+- [BasicLimiterAutoMake 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiterAutoMake_0.1.5.zip)
 - [BasicLimiterAutoMake 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiterAutoMake_0.1.4.zip)
 
 ## ライセンス

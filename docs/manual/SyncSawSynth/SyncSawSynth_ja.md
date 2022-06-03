@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>SyncSawSynth<rt>シンク ソウ シンセ</rt></ruby> は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。
 
-- [SyncSawSynth 0.1.21 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/SyncSawSynth_0.1.21.zip) <img
+- [SyncSawSynth 0.1.22 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/SyncSawSynth_0.1.22.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -59,7 +59,7 @@ Ubuntu 18.0.4 では次のパッケージのインストールが必要です。
 sudo apt install libxcb-cursor0  libxkbcommon-x11-0
 ```
 
-もし DAW がプラグインを認識しないときは、下のリンクの `Package Requirements` を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。
+もし DAW がプラグインを認識しないときは、下のリンクの `Package Requirements` を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してください。
 
 - [VSTGUI: Setup](https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html)
 
@@ -137,7 +137,7 @@ xattr -rc /path/to/PluginName.vst3
 
 カスタムフォントを使用するには、プラグインディレクトリの `*.vst3/Contents/Resources/Fonts` に `*.ttf` ファイルを配置します。
 
-**重要**: `fontFamily` 、 `fontBold` 、 `fontItalic` で設定したフォントファミリ名とスタイルの組み合わせが `*.vst3/Contents/Resources/Fonts` 以下のいずれかの `*.ttf` ファイルに含まれていないときは VSTGUI が指定するデフォルトフォントが使用されます。
+**注意**: `fontFamily` 、 `fontBold` 、 `fontItalic` で設定したフォントファミリ名とスタイルの組み合わせが `*.vst3/Contents/Resources/Fonts` 以下のいずれかの `*.ttf` ファイルに含まれていないときは VSTGUI が指定するデフォルトフォントが使用されます。
 
 `fontFamily` が長さ 0 の文字列 `""` のときはフォールバックとして [`"Tinos"`](https://fonts.google.com/specimen/Tinos) に設定されます。長さが 1 以上かつ、存在しないフォントファミリ名が指定されると VSTGUI が指定するデフォルトフォントが使用されます。
 
@@ -452,6 +452,8 @@ Key->Feed
 :   ノートの MIDI ノート番号によるフィードバックの変調。範囲は -1.0 から 1.0 。
 
 ## チェンジログ
+- 0.1.22
+  - Linux でのクラッシュを修正。
 - 0.1.21
   - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。
 - 0.1.20
@@ -505,6 +507,7 @@ Key->Feed
   - 初期リリース。
 
 ## 旧バージョン
+- [SyncSawSynth 0.1.21 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/SyncSawSynth_0.1.21.zip)
 - [SyncSawSynth 0.1.20 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/SyncSawSynth_0.1.20.zip)
 - [SyncSawSynth 0.1.18 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/SyncSawSynth_0.1.18.zip)
 - [SyncSawSynth 0.1.17 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/SyncSawSynth_0.1.17.zip)

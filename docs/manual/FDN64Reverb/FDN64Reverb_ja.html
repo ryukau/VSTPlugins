@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-05-25" />
+<meta name="dcterms.date" content="2022-05-26" />
 <title>FDN64Reverb_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-05-25
+  Update: 2022-05-26
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -311,7 +311,7 @@ footer {
 <p><img src="img/fdn64reverb.png" /></p>
 <p><ruby>FDN64Reverb<rt>エフディーエヌ 64 リバーブ</rt></ruby> はフィードバック・ディレイ・ネットワーク (FDN) を 1 つだけ搭載したリバーブです。しかしながら、フィードバック行列の大きさは 64 です。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_32_0/FDN64Reverb_0.1.4.zip">FDN64Reverb 0.1.4 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/FDN64Reverb_0.1.5.zip">FDN64Reverb 0.1.5 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -354,7 +354,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <h3 id="linux">Linux</h3>
 <p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
-<p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。</p>
+<p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してください。</p>
 <ul>
 <li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI: Setup</a></li>
 </ul>
@@ -423,7 +423,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><code>fontItalic</code>: イタリックスタイル (斜体) を <code>true</code> で有効、 <code>false</code> で無効。</li>
 </ul>
 <p>カスタムフォントを使用するには、プラグインディレクトリの <code>*.vst3/Contents/Resources/Fonts</code> に <code>*.ttf</code> ファイルを配置します。</p>
-<p><strong>重要</strong>: <code>fontFamily</code> 、 <code>fontBold</code> 、 <code>fontItalic</code> で設定したフォントファミリ名とスタイルの組み合わせが <code>*.vst3/Contents/Resources/Fonts</code> 以下のいずれかの <code>*.ttf</code> ファイルに含まれていないときは VSTGUI が指定するデフォルトフォントが使用されます。</p>
+<p><strong>注意</strong>: <code>fontFamily</code> 、 <code>fontBold</code> 、 <code>fontItalic</code> で設定したフォントファミリ名とスタイルの組み合わせが <code>*.vst3/Contents/Resources/Fonts</code> 以下のいずれかの <code>*.ttf</code> ファイルに含まれていないときは VSTGUI が指定するデフォルトフォントが使用されます。</p>
 <p><code>fontFamily</code> が長さ 0 の文字列 <code>""</code> のときはフォールバックとして <a href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a> に設定されます。長さが 1 以上かつ、存在しないフォントファミリ名が指定されると VSTGUI が指定するデフォルトフォントが使用されます。</p>
 <p>ボールドあるいはイタリック以外のスタイルは VSTGUI がサポートしていないので動作確認していません。該当する例としては Noto フォントの Demi Light や、 Roboto フォントの Thin や Black などがあります。</p>
 <h3 id="色のオプション">色のオプション</h3>
@@ -625,7 +625,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <dt>Delay Time [s]</dt>
 <dd><p>ディレイ時間の秒数です。最終的なディレイ時間の秒数は以下の式で計算されます。</p>
 <pre><code>delayTime = (Time Multi.) * (Delay Time) + (Time LFO Amount) * random().</code></pre>
-<p>ディレイ時間は 1 秒を超えることはないので注意してください。例えば <code>Delay Time</code> と <code>Time LFO Amount</code> を最大に設定すると LFO はかかりません。</p>
+<p>ディレイ時間は 1 秒を超えることはないので注意してください。例えば <code>Delay Time</code> を最大に設定すると <code>Time LFO Amount</code> の値によらず LFO はかかりません。</p>
 </dd>
 <dt>Time LFO Amount [s]</dt>
 <dd><p>ディレイ時間に加算される LFO の量です。例えば <code>Time LFO Amount</code> の値が 0.1 ならディレイ時間の最大値は <code>(Delay Time) + 0.1</code> 秒になります。</p>
@@ -646,10 +646,10 @@ style="display: inline-block; vertical-align: middle;"></li>
 </dd>
 <dt>Feedback</dt>
 <dd><p>FDN からフィードバックされる量です。別の言い方をすると FDN のフィードバック行列に掛け合わされるスカラーです。</p>
-<p>1.0 に近づくほどリバーブ時間が長くなります。 1.0 すると、ほとんど減衰しなくなります。このときは <code>Gate</code> を使って残響を打ち切ることができます。</p>
+<p>1.0 に近づくほどリバーブ時間が長くなります。 1.0 のとき、ほとんど減衰しなくなります。このときは <code>Gate</code> を使って残響を打ち切ることができます。</p>
 </dd>
 <dt>Interp. Rate</dt>
-<dd><p>ディレイ時間の変動を補間するレートリミッタの、 1 サンプルあたりの制限量です。例えば <code>Interp. Rate</code> が 0.1 のときは、 10 サンプル経過でディレイ時間が 0.1 * 10 = 1 サンプル変わります。</p>
+<dd><p>ディレイ時間の変動を補間するレートリミッタの 1 サンプルあたりの制限量です。例えば <code>Interp. Rate</code> が 0.1 のときは、 10 サンプル経過でディレイ時間が 0.1 * 10 = 1 サンプル変わります。</p>
 </dd>
 <dt>Gate [dB]</dt>
 <dd><p>ゲートのしきい値です。</p>
@@ -688,73 +688,73 @@ style="display: inline-block; vertical-align: middle;"></li>
 <tr class="even">
 <td>Circ. 4</td>
 <td>巡回行列</td>
-<td>1 行当たりの非ゼロ要素を 4 に制限</td>
+<td>1 行当たりの非ゼロ要素が 4</td>
 <td>特殊効果</td>
 </tr>
 <tr class="odd">
 <td>Circ. 8</td>
 <td>巡回行列</td>
-<td>1 行当たりの非ゼロ要素を 8 に制限</td>
+<td>1 行当たりの非ゼロ要素が 8</td>
 <td>特殊効果</td>
 </tr>
 <tr class="even">
 <td>Circ. 16</td>
 <td>巡回行列</td>
-<td>1 行当たりの非ゼロ要素を 16 に制限</td>
+<td>1 行当たりの非ゼロ要素が 16</td>
 <td>特殊効果</td>
 </tr>
 <tr class="odd">
 <td>Circ. 32</td>
 <td>巡回行列</td>
-<td>1 行当たりの非ゼロ要素を 32 に制限</td>
+<td>1 行当たりの非ゼロ要素が 32</td>
 <td>特殊効果</td>
 </tr>
 <tr class="even">
 <td>Upper Tri. +</td>
 <td>上三角行列</td>
-<td>ランダマイズの範囲が <code>[0, 1]</code></td>
+<td>ランダマイズ範囲が <code>[0, 1]</code></td>
 <td>低</td>
 </tr>
 <tr class="odd">
 <td>Upper Tri. -</td>
 <td>上三角行列</td>
-<td>ランダマイズの範囲が <code>[-1, 0]</code></td>
+<td>ランダマイズ範囲が <code>[-1, 0]</code></td>
 <td>低</td>
 </tr>
 <tr class="even">
 <td>Lower Tri. +</td>
 <td>下三角行列</td>
-<td>ランダマイズの範囲が <code>[0, 1]</code></td>
+<td>ランダマイズ範囲が <code>[0, 1]</code></td>
 <td>低</td>
 </tr>
 <tr class="odd">
 <td>Lower Tri. -</td>
 <td>下三角行列</td>
-<td>ランダマイズの範囲が <code>[-1, 0]</code></td>
+<td>ランダマイズ範囲が <code>[-1, 0]</code></td>
 <td>低</td>
 </tr>
 <tr class="even">
 <td>Schroeder +</td>
 <td>シュローダー・リバーブ行列</td>
-<td>ランダマイズの範囲が <code>[0, 1]</code></td>
+<td>ランダマイズ範囲が <code>[0, 1]</code></td>
 <td>低</td>
 </tr>
 <tr class="odd">
 <td>Schroeder -</td>
 <td>シュローダー・リバーブ行列</td>
-<td>ランダマイズの範囲が <code>[-1, 0]</code></td>
+<td>ランダマイズ範囲が <code>[-1, 0]</code></td>
 <td>低</td>
 </tr>
 <tr class="even">
 <td>Absorbent +</td>
 <td>吸収オールパス行列</td>
-<td>ランダマイズの範囲が <code>[0, 1]</code></td>
+<td>ランダマイズ範囲が <code>[0, 1]</code></td>
 <td>並</td>
 </tr>
 <tr class="odd">
 <td>Absorbent -</td>
 <td>吸収オールパス行列</td>
-<td>ランダマイズの範囲が <code>[-1, 0]</code></td>
+<td>ランダマイズ範囲が <code>[-1, 0]</code></td>
 <td>並</td>
 </tr>
 <tr class="even">
@@ -811,6 +811,11 @@ style="display: inline-block; vertical-align: middle;"></li>
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.5
+<ul>
+<li>Linux でのクラッシュを修正。</li>
+<li>BarBox が <kbd>Shift</kbd> キーを受け取るように修正。</li>
+</ul></li>
 <li>0.1.4
 <ul>
 <li>複数のインスタンス間で <code>Interp. Rate</code> が共有されるバグを修正。</li>
@@ -834,6 +839,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <h2 id="旧バージョン">旧バージョン</h2>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_32_0/FDN64Reverb_0.1.4.zip">FDN64Reverb 0.1.4 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/FDN64Reverb_0.1.3.zip">FDN64Reverb 0.1.3 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/FDN64Reverb_0.1.2.zip">FDN64Reverb 0.1.2 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/FDN64Reverb_0.1.0.zip">FDN64Reverb 0.1.0 - VST 3 (github.com)</a></li>

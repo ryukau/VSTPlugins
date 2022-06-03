@@ -7,7 +7,7 @@ lang: en
 
 EnvelopedSine is an additive synthesizer that computes 64 sine waves for each note. Difference to IterativeSinCluster is that this synth has AD envelope and saturator for each oscillator. EnvelopedSine is better suited for percussive sounds.
 
-- [Download EnvelopedSine 0.1.15 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/EnvelopedSine_0.1.15.zip) <img
+- [Download EnvelopedSine 0.1.16 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/EnvelopedSine_0.1.16.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -140,7 +140,7 @@ Following is a list of font options.
 
 To use custom font, place `*.ttf` file into custom font path: `*.vst3/Contents/Resources/Fonts`.
 
-**Important**: If the combination of `fontFamily`, `fontBold`, `fontItalic` is not exists in custom font path, default font of VSTGUI is used.
+**Notice**: If the combination of `fontFamily`, `fontBold`, `fontItalic` is not exists in custom font path, default font of VSTGUI is used.
 
 If `fontFamily` is set to empty string `""`, then [`"Tinos"`](https://fonts.google.com/specimen/Tinos) is used as fallback. If the length is greater than 1 and the font family name doesn't exists, default font of VSTGUI is used.
 
@@ -386,6 +386,9 @@ Phase
 :   LFO phase. This can be used to make sound with automation. Turning `Freq` to leftmost sets LFO frequency to 0.
 
 ## Change Log
+- 0.1.16
+  - Fixed crash on Linux.
+  - Fixed BarBox to receive shift key.
 - 0.1.15
   - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.14
@@ -428,6 +431,7 @@ Phase
   - Initial release.
 
 ## Old Versions
+- [EnvelopedSine 0.1.15 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/EnvelopedSine_0.1.15.zip)
 - [EnvelopedSine 0.1.14 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/EnvelopedSine_0.1.14.zip)
 - [EnvelopedSine 0.1.12 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/EnvelopedSine_0.1.12.zip)
 - [EnvelopedSine 0.1.11 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/EnvelopedSine_0.1.11.zip)

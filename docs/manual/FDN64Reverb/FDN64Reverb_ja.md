@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>FDN64Reverb<rt>エフディーエヌ 64 リバーブ</rt></ruby> はフィードバック・ディレイ・ネットワーク (FDN) を 1 つだけ搭載したリバーブです。しかしながら、フィードバック行列の大きさは 64 です。
 
-- [FDN64Reverb 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_32_0/FDN64Reverb_0.1.4.zip) <img
+- [FDN64Reverb 0.1.5 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/FDN64Reverb_0.1.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -61,7 +61,7 @@ Ubuntu 18.0.4 では次のパッケージのインストールが必要です。
 sudo apt install libxcb-cursor0  libxkbcommon-x11-0
 ```
 
-もし DAW がプラグインを認識しないときは、下のリンクの `Package Requirements` を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。
+もし DAW がプラグインを認識しないときは、下のリンクの `Package Requirements` を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してください。
 
 - [VSTGUI: Setup](https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html)
 
@@ -139,7 +139,7 @@ xattr -rc /path/to/PluginName.vst3
 
 カスタムフォントを使用するには、プラグインディレクトリの `*.vst3/Contents/Resources/Fonts` に `*.ttf` ファイルを配置します。
 
-**重要**: `fontFamily` 、 `fontBold` 、 `fontItalic` で設定したフォントファミリ名とスタイルの組み合わせが `*.vst3/Contents/Resources/Fonts` 以下のいずれかの `*.ttf` ファイルに含まれていないときは VSTGUI が指定するデフォルトフォントが使用されます。
+**注意**: `fontFamily` 、 `fontBold` 、 `fontItalic` で設定したフォントファミリ名とスタイルの組み合わせが `*.vst3/Contents/Resources/Fonts` 以下のいずれかの `*.ttf` ファイルに含まれていないときは VSTGUI が指定するデフォルトフォントが使用されます。
 
 `fontFamily` が長さ 0 の文字列 `""` のときはフォールバックとして [`"Tinos"`](https://fonts.google.com/specimen/Tinos) に設定されます。長さが 1 以上かつ、存在しないフォントファミリ名が指定されると VSTGUI が指定するデフォルトフォントが使用されます。
 
@@ -251,7 +251,7 @@ Delay Time \[s\]
     delayTime = (Time Multi.) * (Delay Time) + (Time LFO Amount) * random().
     ```
 
-    ディレイ時間は 1 秒を超えることはないので注意してください。例えば `Delay Time` と `Time LFO Amount` を最大に設定すると LFO はかかりません。
+    ディレイ時間は 1 秒を超えることはないので注意してください。例えば `Delay Time` を最大に設定すると `Time LFO Amount` の値によらず LFO はかかりません。
 
 Time LFO Amount \[s\]
 
@@ -278,11 +278,11 @@ Feedback
 
 :   FDN からフィードバックされる量です。別の言い方をすると FDN のフィードバック行列に掛け合わされるスカラーです。
 
-    1.0 に近づくほどリバーブ時間が長くなります。 1.0 すると、ほとんど減衰しなくなります。このときは `Gate` を使って残響を打ち切ることができます。
+    1.0 に近づくほどリバーブ時間が長くなります。 1.0 のとき、ほとんど減衰しなくなります。このときは `Gate` を使って残響を打ち切ることができます。
 
 Interp. Rate
 
-:   ディレイ時間の変動を補間するレートリミッタの、 1 サンプルあたりの制限量です。例えば `Interp. Rate` が 0.1 のときは、 10 サンプル経過でディレイ時間が 0.1 * 10 = 1 サンプル変わります。
+:   ディレイ時間の変動を補間するレートリミッタの 1 サンプルあたりの制限量です。例えば `Interp. Rate` が 0.1 のときは、 10 サンプル経過でディレイ時間が 0.1 * 10 = 1 サンプル変わります。
 
 Gate \[dB\]
 
@@ -294,25 +294,25 @@ Matrix
 
 :   フィードバック行列の種類です。この値を変更するとポップノイズがでることがあるので注意してください。
 
-    | GUI 上の略称 | 行列名                     | 追加情報                           | 質       |
-    | ------------ | -------------------------- | ---------------------------------- | -------- |
-    | Ortho.       | 直交行列                   |                                    | 良       |
-    | S. Ortho.    | 特殊直行行列               |                                    | 良       |
-    | Circ. Ortho. | 巡回行列                   |                                    | 並       |
-    | Circ. 4      | 巡回行列                   | 1 行当たりの非ゼロ要素を 4 に制限  | 特殊効果 |
-    | Circ. 8      | 巡回行列                   | 1 行当たりの非ゼロ要素を 8 に制限  | 特殊効果 |
-    | Circ. 16     | 巡回行列                   | 1 行当たりの非ゼロ要素を 16 に制限 | 特殊効果 |
-    | Circ. 32     | 巡回行列                   | 1 行当たりの非ゼロ要素を 32 に制限 | 特殊効果 |
-    | Upper Tri. + | 上三角行列                 | ランダマイズの範囲が `[0, 1]`      | 低       |
-    | Upper Tri. - | 上三角行列                 | ランダマイズの範囲が `[-1, 0]`     | 低       |
-    | Lower Tri. + | 下三角行列                 | ランダマイズの範囲が `[0, 1]`      | 低       |
-    | Lower Tri. - | 下三角行列                 | ランダマイズの範囲が `[-1, 0]`     | 低       |
-    | Schroeder +  | シュローダー・リバーブ行列 | ランダマイズの範囲が `[0, 1]`      | 低       |
-    | Schroeder -  | シュローダー・リバーブ行列 | ランダマイズの範囲が `[-1, 0]`     | 低       |
-    | Absorbent +  | 吸収オールパス行列         | ランダマイズの範囲が `[0, 1]`      | 並       |
-    | Absorbent -  | 吸収オールパス行列         | ランダマイズの範囲が `[-1, 0]`     | 並       |
-    | Hadamard     | アダマール行列             | 行列の性質よりランダマイズ無効     | 良       |
-    | Conference   | カンファレンス行列         | 行列の性質よりランダマイズ無効     | 良       |
+    | GUI 上の略称 | 行列名                     | 追加情報                       | 質       |
+    | ------------ | -------------------------- | ------------------------------ | -------- |
+    | Ortho.       | 直交行列                   |                                | 良       |
+    | S. Ortho.    | 特殊直行行列               |                                | 良       |
+    | Circ. Ortho. | 巡回行列                   |                                | 並       |
+    | Circ. 4      | 巡回行列                   | 1 行当たりの非ゼロ要素が 4     | 特殊効果 |
+    | Circ. 8      | 巡回行列                   | 1 行当たりの非ゼロ要素が 8     | 特殊効果 |
+    | Circ. 16     | 巡回行列                   | 1 行当たりの非ゼロ要素が 16    | 特殊効果 |
+    | Circ. 32     | 巡回行列                   | 1 行当たりの非ゼロ要素が 32    | 特殊効果 |
+    | Upper Tri. + | 上三角行列                 | ランダマイズ範囲が `[0, 1]`    | 低       |
+    | Upper Tri. - | 上三角行列                 | ランダマイズ範囲が `[-1, 0]`   | 低       |
+    | Lower Tri. + | 下三角行列                 | ランダマイズ範囲が `[0, 1]`    | 低       |
+    | Lower Tri. - | 下三角行列                 | ランダマイズ範囲が `[-1, 0]`   | 低       |
+    | Schroeder +  | シュローダー・リバーブ行列 | ランダマイズ範囲が `[0, 1]`    | 低       |
+    | Schroeder -  | シュローダー・リバーブ行列 | ランダマイズ範囲が `[-1, 0]`   | 低       |
+    | Absorbent +  | 吸収オールパス行列         | ランダマイズ範囲が `[0, 1]`    | 並       |
+    | Absorbent -  | 吸収オールパス行列         | ランダマイズ範囲が `[-1, 0]`   | 並       |
+    | Hadamard     | アダマール行列             | 行列の性質よりランダマイズ無効 | 良       |
+    | Conference   | カンファレンス行列         | 行列の性質よりランダマイズ無効 | 良       |
 
     質は大まかな目安です。ショートディレイによる金属的な質感が出やすいものは低、出にくいものは良としています。特殊効果としているものは一般的なリバーブとしては音が変という意味です。 Rotation の効果は質が低いほど聞こえやすくなります。
 
@@ -359,6 +359,9 @@ Skew
     </figure>
 
 ## チェンジログ
+- 0.1.5
+  - Linux でのクラッシュを修正。
+  - BarBox が <kbd>Shift</kbd> キーを受け取るように修正。
 - 0.1.4
   - 複数のインスタンス間で `Interp. Rate` が共有されるバグを修正。
 - 0.1.3
@@ -371,6 +374,7 @@ Skew
   - 初期リリース。
 
 ## 旧バージョン
+- [FDN64Reverb 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_32_0/FDN64Reverb_0.1.4.zip)
 - [FDN64Reverb 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/FDN64Reverb_0.1.3.zip)
 - [FDN64Reverb 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/FDN64Reverb_0.1.2.zip)
 - [FDN64Reverb 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/FDN64Reverb_0.1.0.zip)

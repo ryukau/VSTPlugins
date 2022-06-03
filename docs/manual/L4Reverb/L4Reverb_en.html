@@ -321,7 +321,7 @@ footer {
 <p><img src="img/l4reverb.png" /></p>
 <p>L4Reverb is an extended version of LatticeReverb. This time, lattice structure has 4 * 4 * 4 * 4 = 256 sections per channel.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L4Reverb_0.1.8.zip">Download L4Reverb 0.1.8 - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/L4Reverb_0.1.9.zip">Download L4Reverb 0.1.9 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -440,7 +440,7 @@ the Trash&quot;</code></pre>
 <li><code>fontItalic</code>: Enable <em>italic</em> style when <code>true</code>, disable when <code>false</code>.</li>
 </ul>
 <p>To use custom font, place <code>*.ttf</code> file into custom font path: <code>*.vst3/Contents/Resources/Fonts</code>.</p>
-<p><strong>Important</strong>: If the combination of <code>fontFamily</code>, <code>fontBold</code>, <code>fontItalic</code> is not exists in custom font path, default font of VSTGUI is used.</p>
+<p><strong>Notice</strong>: If the combination of <code>fontFamily</code>, <code>fontBold</code>, <code>fontItalic</code> is not exists in custom font path, default font of VSTGUI is used.</p>
 <p>If <code>fontFamily</code> is set to empty string <code>""</code>, then <a href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a> is used as fallback. If the length is greater than 1 and the font family name doesn’t exists, default font of VSTGUI is used.</p>
 <p>Styles other than bold, italic or bold-italic are not supported by VSTGUI. For example, “Thin”, “Light”, “Medium”, and “Black” weights cannot be used.</p>
 <h3 id="color-options">Color Options</h3>
@@ -723,6 +723,11 @@ right = mid - Spread * (mid + side)</code></pre>
 <h2 id="change-log">Change Log</h2>
 <h3 id="l4reverb-1">L4Reverb</h3>
 <ul>
+<li>0.1.9
+<ul>
+<li>Fixed crash on Linux.</li>
+<li>Fixed BarBox to receive shift key.</li>
+</ul></li>
 <li>0.1.8
 <ul>
 <li>Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.</li>
@@ -768,6 +773,11 @@ right = mid - Spread * (mid + side)</code></pre>
 </ul>
 <h3 id="l3reverb">L3Reverb</h3>
 <ul>
+<li>0.1.9
+<ul>
+<li>Fixed crash on Linux.</li>
+<li>Fixed BarBox to receive shift key.</li>
+</ul></li>
 <li>0.1.8
 <ul>
 <li>Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.</li>
@@ -810,6 +820,7 @@ right = mid - Spread * (mid + side)</code></pre>
 <h2 id="old-versions">Old Versions</h2>
 <h3 id="l4reverb-2">L4Reverb</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L4Reverb_0.1.8.zip">L4Reverb 0.1.8 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/L4Reverb_0.1.7.zip">L4Reverb 0.1.7 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/L4Reverb_0.1.5.zip">L4Reverb 0.1.5 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L4Reverb_0.1.4.zip">L4Reverb 0.1.4 - VST 3 (github.com)</a></li>
@@ -819,6 +830,7 @@ right = mid - Spread * (mid + side)</code></pre>
 </ul>
 <h3 id="l3reverb-1">L3Reverb</h3>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L3Reverb_0.1.8.zip">L3Reverb 0.1.8 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/L3Reverb_0.1.7.zip">L3Reverb 0.1.7 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/L3Reverb_0.1.5.zip">L3Reverb 0.1.5 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L3Reverb_0.1.4.zip">L3Reverb 0.1.4 - VST 3 (github.com)</a></li>

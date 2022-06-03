@@ -316,7 +316,7 @@ footer {
 <p><img src="img/latticereverb.png" /></p>
 <p><ruby>LatticeReverb<rt>ラティス リバーブ</rt></ruby> はディレイを使った高次のオールパスフィルタを格子状につないで入れ子にしたリバーブです。 1 チャンネルあたり 16 のオールパスフィルタを備えています。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/LatticeReverb_0.1.10.zip">LatticeReverb 0.1.10 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/LatticeReverb_0.1.11.zip">LatticeReverb 0.1.11 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -359,7 +359,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <h3 id="linux">Linux</h3>
 <p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
-<p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してみてください。</p>
+<p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してください。</p>
 <ul>
 <li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI: Setup</a></li>
 </ul>
@@ -428,7 +428,7 @@ style="display: inline-block; vertical-align: middle;"></li>
 <li><code>fontItalic</code>: イタリックスタイル (斜体) を <code>true</code> で有効、 <code>false</code> で無効。</li>
 </ul>
 <p>カスタムフォントを使用するには、プラグインディレクトリの <code>*.vst3/Contents/Resources/Fonts</code> に <code>*.ttf</code> ファイルを配置します。</p>
-<p><strong>重要</strong>: <code>fontFamily</code> 、 <code>fontBold</code> 、 <code>fontItalic</code> で設定したフォントファミリ名とスタイルの組み合わせが <code>*.vst3/Contents/Resources/Fonts</code> 以下のいずれかの <code>*.ttf</code> ファイルに含まれていないときは VSTGUI が指定するデフォルトフォントが使用されます。</p>
+<p><strong>注意</strong>: <code>fontFamily</code> 、 <code>fontBold</code> 、 <code>fontItalic</code> で設定したフォントファミリ名とスタイルの組み合わせが <code>*.vst3/Contents/Resources/Fonts</code> 以下のいずれかの <code>*.ttf</code> ファイルに含まれていないときは VSTGUI が指定するデフォルトフォントが使用されます。</p>
 <p><code>fontFamily</code> が長さ 0 の文字列 <code>""</code> のときはフォールバックとして <a href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a> に設定されます。長さが 1 以上かつ、存在しないフォントファミリ名が指定されると VSTGUI が指定するデフォルトフォントが使用されます。</p>
 <p>ボールドあるいはイタリック以外のスタイルは VSTGUI がサポートしていないので動作確認していません。該当する例としては Noto フォントの Demi Light や、 Roboto フォントの Thin や Black などがあります。</p>
 <h3 id="色のオプション">色のオプション</h3>
@@ -714,6 +714,11 @@ right = mid - Spread * (mid + side)</code></pre>
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.11
+<ul>
+<li>Linux でのクラッシュを修正。</li>
+<li>BarBox が <kbd>Shift</kbd> キーを受け取るように修正。</li>
+</ul></li>
 <li>0.1.10
 <ul>
 <li>プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。</li>
@@ -766,6 +771,7 @@ right = mid - Spread * (mid + side)</code></pre>
 </ul>
 <h2 id="旧バージョン">旧バージョン</h2>
 <ul>
+<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/LatticeReverb_0.1.10.zip">LatticeReverb 0.1.10 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/LatticeReverb_0.1.9.zip">LatticeReverb 0.1.9 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/LatticeReverb_0.1.7.zip">LatticeReverb 0.1.7 - VST 3 (github.com)</a></li>
 <li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/LatticeReverb_0.1.6.zip">LatticeReverb 0.1.6 - VST 3 (github.com)</a></li>
