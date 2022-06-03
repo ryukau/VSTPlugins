@@ -47,7 +47,7 @@ function(build_vst3 plug_sources)
     if(length GREATER 1)
       message(WARNING "Several snapshots found. Using ${snapshot_path}")
     endif()
-    smtg_target_add_plugin_snapshots(${target} "${snapshot_path}")
+    smtg_target_add_plugin_resource(${target} "${snapshot_path}" "Snapshots")
   endif()
 
   smtg_target_add_plugin_resource(${target} "../common/resource/Fonts/Tinos-BoldItalic.ttf" "Fonts")
