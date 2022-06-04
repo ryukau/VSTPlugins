@@ -41,5 +41,5 @@ for path in Path("..").glob("**/*.html"):
             print(status_text)
             log_text += status_text + "\n"
 
-# with open("verify.txt", "w", encoding="utf-8") as fi:
-#     fi.write(log_text)
+with open("verify.txt", "w", encoding="utf-8") as fi:
+    fi.write(log_text)
