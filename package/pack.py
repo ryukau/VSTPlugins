@@ -50,12 +50,12 @@ def create_archive_from_github_actions_artifact():
         copy_resource(
             Path(f"../docs/manual/{manual_name}"),
             vst3_dir / Path("Contents/Resources/Documentation"),
-            f"{plugin_name} manual did not found",
+            f"{plugin_name} manual was not found",
         )
         copy_resource(
             Path("../License"),
             vst3_dir / Path("Contents/Resources/License"),
-            "License directory did not found",
+            "License directory was not found",
         )
 
         # Ensuring that no binary is missing.
@@ -84,7 +84,7 @@ def add_version_to_archive_name():
     for path in current:
         version_hpp = Path("../") / Path(path.stem) / Path("source/version.hpp")
         if not version_hpp.exists():
-            print(f"{version_hpp} did not found")
+            print(f"{version_hpp} was not found")
             continue
 
         with open(version_hpp, "r", encoding="utf-8") as fi:
