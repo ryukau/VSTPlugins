@@ -309,6 +309,10 @@ Hold
 :   Toggle LFO phase hold. This may be useful for live performance.
 
 ## Change Log
+- 0.1.20
+  - Fixed crash on Linux.
+- 0.1.19
+  - Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.
 - 0.1.18
   - Added custom font options for `style.json`.
 - 0.1.17
