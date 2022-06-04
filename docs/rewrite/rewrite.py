@@ -10,6 +10,29 @@ def compose_download_link(locale, plugin_name, version, download_url):
         print('Locale "{locale}" is not available.')
         return None
 
+def get_source_version(plugin_name):
+    version_hpp = Path("../../") / Path(path.stem) / Path("source/version.hpp")
+
+    if not version_hpp.exists():
+        print(f"{version_hpp} was not found")
+        exit(1)
+
+    with open(version_hpp, "r", encoding="utf-8") as fi:
+        text = fi.read()
+
+    re_major_version = re.compile(r"^#define MAJOR_VERSION_INT ([0-9]+)",
+                                  flags=re.MULTILINE | re.DOTALL)
+    re_minor_version = re.compile(r"^#define SUB_VERSION_INT ([0-9]+)",
+                                  flags=re.MULTILINE | re.DOTALL)
+    re_patch_version = re.compile(r"^#define RELEASE_NUMBER_INT ([0-9]+)",
+                                  flags=re.MULTILINE | re.DOTALL)
+
+    major = re_major_version.search(text).groups()[0]
+    minor = re_minor_version.search(text).groups()[0]
+    patch = re_patch_version.search(text).groups()[0]
+
+    return (major, minor, patch)
+
 def process(
     path: Path,
     locale: str,
@@ -39,6 +62,15 @@ def process(
         minor_version = mt.groups()[2]
         patch_version = mt.groups()[3]
         download_url = mt.groups()[4]
+
+        source_version = get_source_version(plugin_name)
+        if (major_version != source_version[0] or minor_version != source_version[1] or
+                patch_version != source_version[2]):
+            src_ver = ".".join(source_version)
+            man_ver = ".".join([major_version, minor_version, patch_version])
+            print(
+                f"Warning: {plugin_name} version mismatch. source {src_ver} manual {man_ver}"
+            )
 
         # Update download link.
         new_version = f"{major_version}.{minor_version}.{int(patch_version) + 1}"
