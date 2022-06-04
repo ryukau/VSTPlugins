@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-05-25" />
+<meta name="dcterms.date" content="2022-06-04" />
 <title>L4Reverb_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,55 +262,60 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-05-25
+  Update: 2022-06-04
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#l4reverb">L4Reverb</a>
+  <li><a href="#l4reverb" id="toc-l4reverb">L4Reverb</a>
   <ul>
-  <li><a href="#連絡先">連絡先</a></li>
-  <li><a href="#インストール">インストール</a>
+  <li><a href="#連絡先" id="toc-連絡先">連絡先</a></li>
+  <li><a href="#インストール" id="toc-インストール">インストール</a>
   <ul>
-  <li><a href="#プラグイン">プラグイン</a></li>
-  <li><a href="#プリセット">プリセット</a></li>
-  <li><a href="#windows">Windows</a></li>
-  <li><a href="#linux">Linux</a></li>
-  <li><a href="#macos">macOS</a>
+  <li><a href="#プラグイン" id="toc-プラグイン">プラグイン</a></li>
+  <li><a href="#プリセット" id="toc-プリセット">プリセット</a></li>
+  <li><a href="#windows" id="toc-windows">Windows</a></li>
+  <li><a href="#linux" id="toc-linux">Linux</a></li>
+  <li><a href="#macos" id="toc-macos">macOS</a>
   <ul>
-  <li><a href="#参考リンク">参考リンク</a></li>
+  <li><a href="#参考リンク" id="toc-参考リンク">参考リンク</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#gui-の見た目の設定">GUI の見た目の設定</a>
+  <li><a href="#gui-の見た目の設定" id="toc-gui-の見た目の設定">GUI
+  の見た目の設定</a>
   <ul>
-  <li><a href="#フォントオプション">フォントオプション</a></li>
-  <li><a href="#色のオプション">色のオプション</a></li>
+  <li><a href="#フォントオプション"
+  id="toc-フォントオプション">フォントオプション</a></li>
+  <li><a href="#色のオプション"
+  id="toc-色のオプション">色のオプション</a></li>
   </ul></li>
-  <li><a href="#操作">操作</a></li>
-  <li><a href="#注意">注意</a></li>
-  <li><a href="#ブロック線図">ブロック線図</a></li>
-  <li><a href="#パラメータ">パラメータ</a>
+  <li><a href="#操作" id="toc-操作">操作</a></li>
+  <li><a href="#注意" id="toc-注意">注意</a></li>
+  <li><a href="#ブロック線図"
+  id="toc-ブロック線図">ブロック線図</a></li>
+  <li><a href="#パラメータ" id="toc-パラメータ">パラメータ</a>
   <ul>
-  <li><a href="#multiplier">Multiplier</a></li>
-  <li><a href="#panic">Panic!</a></li>
-  <li><a href="#mix">Mix</a></li>
-  <li><a href="#stereo">Stereo</a></li>
-  <li><a href="#misc.">Misc.</a></li>
+  <li><a href="#multiplier" id="toc-multiplier">Multiplier</a></li>
+  <li><a href="#panic" id="toc-panic">Panic!</a></li>
+  <li><a href="#mix" id="toc-mix">Mix</a></li>
+  <li><a href="#stereo" id="toc-stereo">Stereo</a></li>
+  <li><a href="#misc." id="toc-misc.">Misc.</a></li>
   </ul></li>
-  <li><a href="#チェンジログ">チェンジログ</a>
+  <li><a href="#チェンジログ" id="toc-チェンジログ">チェンジログ</a>
   <ul>
-  <li><a href="#l4reverb-1">L4Reverb</a></li>
-  <li><a href="#l3reverb">L3Reverb</a></li>
+  <li><a href="#l4reverb-1" id="toc-l4reverb-1">L4Reverb</a></li>
+  <li><a href="#l3reverb" id="toc-l3reverb">L3Reverb</a></li>
   </ul></li>
-  <li><a href="#旧バージョン">旧バージョン</a>
+  <li><a href="#旧バージョン" id="toc-旧バージョン">旧バージョン</a>
   <ul>
-  <li><a href="#l4reverb-2">L4Reverb</a></li>
-  <li><a href="#l3reverb-1">L3Reverb</a></li>
+  <li><a href="#l4reverb-2" id="toc-l4reverb-2">L4Reverb</a></li>
+  <li><a href="#l3reverb-1" id="toc-l3reverb-1">L3Reverb</a></li>
   </ul></li>
-  <li><a href="#ライセンス">ライセンス</a>
+  <li><a href="#ライセンス" id="toc-ライセンス">ライセンス</a>
   <ul>
-  <li><a href="#vst-について">VST® について</a></li>
+  <li><a href="#vst-について" id="toc-vst-について">VST®
+  について</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -319,102 +324,175 @@ footer {
   </header>
 <h1 id="l4reverb">L4Reverb</h1>
 <p><img src="img/l4reverb.png" /></p>
-<p><ruby>L4Reverb<rt>エル フォー リバーブ</rt></ruby> は LatticeReverb の拡張版です。今回の格子構造はチャンネル毎に 4 * 4 * 4 * 4 = 256 のセクションが設けてあります。</p>
+<p><ruby>L4Reverb<rt>エル フォー リバーブ</rt></ruby> は LatticeReverb
+の拡張版です。今回の格子構造はチャンネル毎に 4 * 4 * 4 * 4 = 256
+のセクションが設けてあります。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/L4Reverb_0.1.9.zip">L4Reverb 0.1.9 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/L4Reverb_0.1.9.zip">L4Reverb
+0.1.9 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4ReverbPresets.zip">プリセットをダウンロード (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4ReverbPresets.zip">プリセットをダウンロード
+(github.com)</a></li>
 </ul>
-<p>もし L4Reverb が重たすぎるときは L3Reverb を試してみてください。 <ruby>L3Reverb<rt>エル スリー リバーブ</rt></ruby> は L4Reverb の軽量版です。格子構造はチャンネル毎に 3 * 3 * 3 * 5 = 135 のセクションが設けてあります。</p>
+<p>もし L4Reverb が重たすぎるときは L3Reverb を試してみてください。
+<ruby>L3Reverb<rt>エル スリー リバーブ</rt></ruby> は L4Reverb
+の軽量版です。格子構造はチャンネル毎に 3 * 3 * 3 * 5 = 135
+のセクションが設けてあります。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L3Reverb_0.1.8.zip">L3Reverb 0.1.8 をダウンロード - VST® 3 (github.com)</a> <img
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L3Reverb_0.1.8.zip">L3Reverb
+0.1.8 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L3ReverbPresets.zip">プリセットをダウンロード (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L3ReverbPresets.zip">プリセットをダウンロード
+(github.com)</a></li>
 </ul>
-<p>L4Reverb と L3Reverb の利用には AVX 以降の SIMD 命令セットをサポートする CPU が必要です。</p>
+<p>L4Reverb と L3Reverb の利用には AVX 以降の SIMD
+命令セットをサポートする CPU が必要です。</p>
 <p>パッケージには次のビルドが含まれています。</p>
 <ul>
 <li>Windows 64bit</li>
 <li>Linux 64bit</li>
 </ul>
-<p>2022-05-14 の時点ではユニバーサルバイナリのビルドに失敗するので、 macOS ビルドはパッケージに含まれていません。将来的に対応したいですが、お財布の問題で M1 mac 入手のめどが立たないので時期は未定です。</p>
-<p>Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
+<p>2022-05-14 の時点ではユニバーサルバイナリのビルドに失敗するので、
+macOS
+ビルドはパッケージに含まれていません。将来的に対応したいですが、お財布の問題で
+M1 mac 入手のめどが立たないので時期は未定です。</p>
+<p>Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.04
+以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a
+href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
 <h2 id="連絡先">連絡先</h2>
-<p>何かあれば <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作るか <code>ryukau@gmail.com</code> までお気軽にどうぞ。</p>
-<p><a href="https://www.paypal.com/paypalme/ryukau">paypal.me/ryukau</a> から開発資金を投げ銭することもできます。現在の目標は macOS と ARM ポートのための M1 mac の購入資金を作ることです。 💸💻</p>
+<p>何かあれば <a href="https://github.com/ryukau/VSTPlugins">GitHub
+のリポジトリ</a>に issue を作るか <code>ryukau@gmail.com</code>
+までお気軽にどうぞ。</p>
+<p><a href="https://www.paypal.com/paypalme/ryukau">paypal.me/ryukau</a>
+から開発資金を投げ銭することもできます。現在の目標は macOS と ARM
+ポートのための M1 mac の購入資金を作ることです。 💸💻</p>
 <h2 id="インストール">インストール</h2>
 <h3 id="プラグイン">プラグイン</h3>
-<p>名前が <code>.vst3</code> で終わるディレクトリを OS ごとに決められた位置に配置してください。</p>
+<p>名前が <code>.vst3</code> で終わるディレクトリを OS
+ごとに決められた位置に配置してください。</p>
 <ul>
-<li>Windows では <code>/Program Files/Common Files/VST3/</code> に配置します。</li>
+<li>Windows では <code>/Program Files/Common Files/VST3/</code>
+に配置します。</li>
 <li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
-<li>macOS では <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> に配置します。</li>
+<li>macOS では
+<code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code>
+に配置します。</li>
 </ul>
-<p>DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。</p>
+<p>DAW によっては上記とは別に VST3
+をインストールできるディレクトリを提供していることがあります。詳しくは利用している
+DAW のマニュアルを参照してください。</p>
 <h3 id="プリセット">プリセット</h3>
-<p>解凍して出てきたディレクトリを OS ごとに決められた位置に配置すると使えるようになります。</p>
+<p>解凍して出てきたディレクトリを OS
+ごとに決められた位置に配置すると使えるようになります。</p>
 <ul>
-<li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
+<li>Windows :
+<code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
 <li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
-<li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
+<li>macOS :
+<code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
 </ul>
-<p>プリセットディレクトリの名前はプラグインと同じである必要があります。 <code>Uhhyou</code> ディレクトリが無いときは作成してください。</p>
+<p>プリセットディレクトリの名前はプラグインと同じである必要があります。
+<code>Uhhyou</code> ディレクトリが無いときは作成してください。</p>
 <h3 id="windows">Windows</h3>
-<p>プラグインが DAW に認識されないときは C++ redistributable をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は <code>vc_redist.x64.exe</code> です。</p>
+<p>プラグインが DAW に認識されないときは C++ redistributable
+をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は
+<code>vc_redist.x64.exe</code> です。</p>
 <ul>
-<li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest supported Visual C++ downloads</a></li>
+<li><a
+href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The
+latest supported Visual C++ downloads</a></li>
 </ul>
 <h3 id="linux">Linux</h3>
 <p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
-<p>もし DAW がプラグインを認識しないときは、下のリンクの <code>Package Requirements</code> を参考にして VST3 に必要なパッケージがすべてインストールされているか確認してください。</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+<p>もし DAW がプラグインを認識しないときは、下のリンクの
+<code>Package Requirements</code> を参考にして VST3
+に必要なパッケージがすべてインストールされているか確認してください。</p>
 <ul>
-<li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI: Setup</a></li>
+<li><a
+href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI:
+Setup</a></li>
 </ul>
-<p>REAPER の Linux 版がプラグインを認識しないときは <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER を再起動してみてください。</p>
+<p>REAPER の Linux 版がプラグインを認識しないときは
+<code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER
+を再起動してみてください。</p>
 <h3 id="macos">macOS</h3>
-<p><strong>重要</strong>: 現バージョンのパッケージは macOS 未対応です。</p>
-<p><strong>注意</strong>: この節は英語で macOS を使用しているユーザからの報告によって作成されました。日本語でのエラーメッセージが分からなかったので曖昧な書き方になっています。</p>
-<p>プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した <code>.vst3</code> ディレクトリに次のコマンドを適用してみてください。</p>
+<p><strong>重要</strong>: 現バージョンのパッケージは macOS
+未対応です。</p>
+<p><strong>注意</strong>: この節は英語で macOS
+を使用しているユーザからの報告によって作成されました。日本語でのエラーメッセージが分からなかったので曖昧な書き方になっています。</p>
+<p>プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した
+<code>.vst3</code>
+ディレクトリに次のコマンドを適用してみてください。</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rc</span> /path/to/PluginName.vst3</span></code></pre></div>
-<p>プラグインは署名されていない (unsigned) 、または公証されていない (un-notarized) アプリケーションとして認識されることがあります。この場合は以下の手順を試してみてください。</p>
+<p>プラグインは署名されていない (unsigned) 、または公証されていない
+(un-notarized)
+アプリケーションとして認識されることがあります。この場合は以下の手順を試してみてください。</p>
 <ol type="1">
-<li>ターミナルを開いて <code>sudo spctl --master-disable</code> を実行。</li>
-<li>システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「全てのアプリケーションを許可」 を選択。</li>
+<li>ターミナルを開いて <code>sudo spctl --master-disable</code>
+を実行。</li>
+<li>システム環境設定 → セキュリティとプライバシー → 一般 →
+ダウンロードしたアプリケーションの実行許可、を開いて
+「全てのアプリケーションを許可」 を選択。</li>
 </ol>
 <p>上記の手順を実行するとシステムのセキュリティが弱くなるので注意してください。元に戻すには以下の手順を実行してください。</p>
 <ol type="1">
-<li>システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「App Store と認証済みの開発元からのアプリケーションを許可」 を選択。</li>
-<li>ターミナルを開いて <code>sudo spctl --master-enable</code> を実行。</li>
+<li>システム環境設定 → セキュリティとプライバシー → 一般 →
+ダウンロードしたアプリケーションの実行許可、を開いて 「App Store
+と認証済みの開発元からのアプリケーションを許可」 を選択。</li>
+<li>ターミナルを開いて <code>sudo spctl --master-enable</code>
+を実行。</li>
 </ol>
 <h4 id="参考リンク">参考リンク</h4>
 <ul>
-<li><a href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac</a></li>
-<li><a href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio</a></li>
-<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps on your Mac - Apple Support</a></li>
+<li><a
+href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How
+to Fix App “is damaged and can’t be opened. You should move it to the
+Trash” Error on Mac</a></li>
+<li><a
+href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
+unsigned/un-notarized applications/plugins in Mac OS | Venn
+Audio</a></li>
+<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps
+on your Mac - Apple Support</a></li>
 </ul>
 <h2 id="gui-の見た目の設定">GUI の見た目の設定</h2>
 <p>初回設定時は手動で次のファイルを作成してください。</p>
 <ul>
-<li>Windows では <code>/Users/ユーザ名/AppData/Roaming/UhhyouPlugins/style/style.json</code> 。</li>
-<li>Linux では <code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> 。
+<li>Windows では
+<code>/Users/ユーザ名/AppData/Roaming/UhhyouPlugins/style/style.json</code>
+。</li>
+<li>Linux では
+<code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> 。
 <ul>
-<li><code>$XDG_CONFIG_HOME</code> が空のときは <code>$HOME/.config/UhhyouPlugins/style/style.json</code> 。</li>
+<li><code>$XDG_CONFIG_HOME</code> が空のときは
+<code>$HOME/.config/UhhyouPlugins/style/style.json</code> 。</li>
 </ul></li>
-<li>macOS では <code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> 。</li>
+<li>macOS では
+<code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code>
+。</li>
 </ul>
-<p>既存の色のテーマを次のリンクに掲載しています。 <code>style.json</code> にコピペして使ってください。</p>
+<p>既存の色のテーマを次のリンクに掲載しています。
+<code>style.json</code> にコピペして使ってください。</p>
 <ul>
-<li><a href="https://github.com/ryukau/LV2Plugins/tree/master/style/themes">LV2Plugins/style/themes at master · ryukau/LV2Plugins · GitHub</a></li>
+<li><a
+href="https://github.com/ryukau/LV2Plugins/tree/master/style/themes">LV2Plugins/style/themes
+at master · ryukau/LV2Plugins · GitHub</a></li>
 </ul>
 <p><code>style.json</code> の設定例です。</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontFamily&quot;</span><span class="fu">:</span> <span class="st">&quot;Tinos&quot;</span><span class="fu">,</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontBold&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontItalic&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
@@ -438,41 +516,71 @@ style="display: inline-block; vertical-align: middle;"></li>
 <p>以下はフォントオプションの一覧です。</p>
 <ul>
 <li><code>fontFamily</code>: フォントファミリ名。</li>
-<li><code>fontBold</code>: ボールドスタイル (太字) を <code>true</code> で有効、 <code>false</code> で無効。</li>
-<li><code>fontItalic</code>: イタリックスタイル (斜体) を <code>true</code> で有効、 <code>false</code> で無効。</li>
+<li><code>fontBold</code>: ボールドスタイル (太字) を <code>true</code>
+で有効、 <code>false</code> で無効。</li>
+<li><code>fontItalic</code>: イタリックスタイル (斜体) を
+<code>true</code> で有効、 <code>false</code> で無効。</li>
 </ul>
-<p>カスタムフォントを使用するには、プラグインディレクトリの <code>*.vst3/Contents/Resources/Fonts</code> に <code>*.ttf</code> ファイルを配置します。</p>
-<p><strong>注意</strong>: <code>fontFamily</code> 、 <code>fontBold</code> 、 <code>fontItalic</code> で設定したフォントファミリ名とスタイルの組み合わせが <code>*.vst3/Contents/Resources/Fonts</code> 以下のいずれかの <code>*.ttf</code> ファイルに含まれていないときは VSTGUI が指定するデフォルトフォントが使用されます。</p>
-<p><code>fontFamily</code> が長さ 0 の文字列 <code>""</code> のときはフォールバックとして <a href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a> に設定されます。長さが 1 以上かつ、存在しないフォントファミリ名が指定されると VSTGUI が指定するデフォルトフォントが使用されます。</p>
-<p>ボールドあるいはイタリック以外のスタイルは VSTGUI がサポートしていないので動作確認していません。該当する例としては Noto フォントの Demi Light や、 Roboto フォントの Thin や Black などがあります。</p>
+<p>カスタムフォントを使用するには、プラグインディレクトリの
+<code>*.vst3/Contents/Resources/Fonts</code> に <code>*.ttf</code>
+ファイルを配置します。</p>
+<p><strong>注意</strong>: <code>fontFamily</code> 、
+<code>fontBold</code> 、 <code>fontItalic</code>
+で設定したフォントファミリ名とスタイルの組み合わせが
+<code>*.vst3/Contents/Resources/Fonts</code> 以下のいずれかの
+<code>*.ttf</code> ファイルに含まれていないときは VSTGUI
+が指定するデフォルトフォントが使用されます。</p>
+<p><code>fontFamily</code> が長さ 0 の文字列 <code>""</code>
+のときはフォールバックとして <a
+href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
+に設定されます。長さが 1
+以上かつ、存在しないフォントファミリ名が指定されると VSTGUI
+が指定するデフォルトフォントが使用されます。</p>
+<p>ボールドあるいはイタリック以外のスタイルは VSTGUI
+がサポートしていないので動作確認していません。該当する例としては Noto
+フォントの Demi Light や、 Roboto フォントの Thin や Black
+などがあります。</p>
 <h3 id="色のオプション">色のオプション</h3>
 <p>16 進数カラーコードを使っています。</p>
 <ul>
 <li>6 桁の色は RGB 。</li>
 <li>8 桁の色は RGBA 。</li>
 </ul>
-<p>プラグインはカラーコードの 1 文字目を無視します。よって <code>?102938</code> や <code>\n11335577</code> も有効なカラーコードです。</p>
-<p>2 文字目以降のカラーコードの値に <code>0-9a-f</code> 以外の文字を使わないでください。</p>
+<p>プラグインはカラーコードの 1 文字目を無視します。よって
+<code>?102938</code> や <code>\n11335577</code>
+も有効なカラーコードです。</p>
+<p>2 文字目以降のカラーコードの値に <code>0-9a-f</code>
+以外の文字を使わないでください。</p>
 <p>以下は設定できる色の一覧です。設定に抜けがあるとデフォルトの色が使われます。</p>
 <ul>
 <li><code>foreground</code>: 文字の色。</li>
-<li><code>foregroundButtonOn</code>: オンになっているボタンの文字の色。 <code>foreground</code> か <code>boxBackground</code> のいずれかと同じ値にすることを推奨します。</li>
+<li><code>foregroundButtonOn</code>: オンになっているボタンの文字の色。
+<code>foreground</code> か <code>boxBackground</code>
+のいずれかと同じ値にすることを推奨します。</li>
 <li><code>foregroundInactive</code>: 非アクティブなタブの文字の色。</li>
 <li><code>background</code>: 背景色。</li>
 <li><code>boxBackground</code>: 矩形の UI 部品の内側の背景色。</li>
 <li><code>border</code>: <ruby>縁<rt>ふち</rt></ruby>の色。</li>
 <li><code>borderCheckbox</code>: チェックボックスの縁の色。</li>
-<li><code>borderLabel</code>: パラメータセクションのラベルの左右の直線の色。</li>
-<li><code>unfocused</code>: つまみがフォーカスされていないときの色。</li>
-<li><code>highlightMain</code>: フォーカスされたときの色。スライダの値の表示にも使用されます。</li>
-<li><code>highlightAccent</code>: フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。</li>
-<li><code>highlightButton</code>: ボタンがフォーカスされたときの色。</li>
-<li><code>highlightWarning</code>: 変更に注意を要する UI がフォーカスされたときの色。</li>
+<li><code>borderLabel</code>:
+パラメータセクションのラベルの左右の直線の色。</li>
+<li><code>unfocused</code>:
+つまみがフォーカスされていないときの色。</li>
+<li><code>highlightMain</code>:
+フォーカスされたときの色。スライダの値の表示にも使用されます。</li>
+<li><code>highlightAccent</code>:
+フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。</li>
+<li><code>highlightButton</code>:
+ボタンがフォーカスされたときの色。</li>
+<li><code>highlightWarning</code>: 変更に注意を要する UI
+がフォーカスされたときの色。</li>
 <li><code>overlay</code>: オーバーレイの色。</li>
-<li><code>overlayHighlight</code>: フォーカスを示すオーバーレイの色。</li>
+<li><code>overlayHighlight</code>:
+フォーカスを示すオーバーレイの色。</li>
 </ul>
 <h2 id="操作">操作</h2>
-<p>操作できる箇所を右クリックすると DAW によって提供されているコンテキストメニューを開くことができます。</p>
+<p>操作できる箇所を右クリックすると DAW
+によって提供されているコンテキストメニューを開くことができます。</p>
 <p>つまみとスライダーでは次の操作ができます。</p>
 <ul>
 <li><kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。</li>
@@ -480,11 +588,20 @@ style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <p>数値スライダーでは、上記に加えて次の操作ができます。</p>
 <ul>
-<li><kbd>ホイールクリック</kbd> : 最小値、中央値、最大値の切り替え。</li>
+<li><kbd>ホイールクリック</kbd> :
+最小値、中央値、最大値の切り替え。</li>
 </ul>
-<p>青い縦棒が並んだコントロール (BarBox) ではショートカットが使えます。ショートカットは BarBox を左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを BarBox の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。</p>
+<p>青い縦棒が並んだコントロール (BarBox)
+ではショートカットが使えます。ショートカットは BarBox
+を左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを
+BarBox
+の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。</p>
 <p>左下のプラグイン名をクリックすると、よく使いそうな一部のショートカットを見ることができます。利用できる全てのショートカットを次の表に掲載しています。</p>
 <table>
+<colgroup>
+<col style="width: 61%" />
+<col style="width: 38%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>入力</th>
@@ -521,7 +638,8 @@ style="display: inline-block; vertical-align: middle;"></li>
 <td>デフォルト値にリセット</td>
 </tr>
 <tr class="even">
-<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd></td>
+<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> +
+<kbd>ホイールドラッグ</kbd></td>
 <td>ロックの切り替え</td>
 </tr>
 <tr class="odd">
@@ -630,54 +748,82 @@ style="display: inline-block; vertical-align: middle;"></li>
 </tr>
 </tbody>
 </table>
-<p><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> のスナップは一部の BarBox だけで有効になっています。特定の BarBox にスナップを追加したいという要望があれば、お気軽に <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を開いてください。</p>
-<p><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> による 1 つのバーを編集は、マウスホイールが押された時点でカーソルの下にあるバーだけを編集します。マウスホイールが押されている間はカーソルの左右の位置に関わらず、選択したバーのみを編集できます。</p>
-<p><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> によるロックの切り替えでは、マウスホイールが押された時点でカーソルの下にあるバーの反対の状態が残り全てに適用されます。例えばカーソルの下のバーがアクティブだったときはロックに切り替えます。</p>
-<p>いくつかの BarBox の下にはスクロールバーがついています。細かい調整を行うときはスクロールバーの左右のハンドルを <kbd>左ドラッグ</kbd> で動かすことで表示範囲を変更できます。スクロールバーでは次の操作が行えます。</p>
+<p><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> のスナップは一部の BarBox
+だけで有効になっています。特定の BarBox
+にスナップを追加したいという要望があれば、お気軽に <a
+href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に
+issue を開いてください。</p>
+<p><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> による 1
+つのバーを編集は、マウスホイールが押された時点でカーソルの下にあるバーだけを編集します。マウスホイールが押されている間はカーソルの左右の位置に関わらず、選択したバーのみを編集できます。</p>
+<p><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd>
+によるロックの切り替えでは、マウスホイールが押された時点でカーソルの下にあるバーの反対の状態が残り全てに適用されます。例えばカーソルの下のバーがアクティブだったときはロックに切り替えます。</p>
+<p>いくつかの BarBox
+の下にはスクロールバーがついています。細かい調整を行うときはスクロールバーの左右のハンドルを
+<kbd>左ドラッグ</kbd>
+で動かすことで表示範囲を変更できます。スクロールバーでは次の操作が行えます。</p>
 <ul>
 <li><kbd>右クリック</kbd> : 表示範囲のリセット</li>
 <li><kbd>マウスホイール</kbd> : ズームイン・ズームアウト</li>
 </ul>
 <h2 id="注意">注意</h2>
 <p>サンプリング周波数やバッファサイズによって出力が変わります。</p>
-<p><code>Cross</code> と <code>Spread</code> の両方が 0 でないときに発散することがあります。</p>
-<p><code>*Feed</code> の <code>offset</code> が 0 でないときに出力が大きくなることがあります。</p>
+<p><code>Cross</code> と <code>Spread</code> の両方が 0
+でないときに発散することがあります。</p>
+<p><code>*Feed</code> の <code>offset</code> が 0
+でないときに出力が大きくなることがあります。</p>
 <p>次の手順に沿った操作が行われると出力が大きくなることがあります。</p>
 <ol type="1">
-<li><code>OuterFeed</code> あるいは <code>InnerFeed</code> のいくつかを最大値あるいは最小値の近くに設定。</li>
+<li><code>OuterFeed</code> あるいは <code>InnerFeed</code>
+のいくつかを最大値あるいは最小値の近くに設定。</li>
 <li>信号を入力。</li>
-<li>手順 1. で設定した <code>OuterFeed</code> あるいは <code>InnerFeed</code> の値を変更する。</li>
+<li>手順 1. で設定した <code>OuterFeed</code> あるいは
+<code>InnerFeed</code> の値を変更する。</li>
 </ol>
 <h2 id="ブロック線図">ブロック線図</h2>
-<p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> + <kbd>マウスホイール</kbd> や、右クリックから「画像だけを表示」などで拡大できます。</p>
+<p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> +
+<kbd>マウスホイール</kbd>
+や、右クリックから「画像だけを表示」などで拡大できます。</p>
 <p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
 <p><img src="img/l4reverb.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
 <dl>
 <dt>Time</dt>
-<dd><p>オールパスフィルタのディレイ時間です。</p>
+<dd>
+<p>オールパスフィルタのディレイ時間です。</p>
 </dd>
 <dt>InnerFeed</dt>
-<dd><p>格子構造の内側に入れ子になったオールパスフィルタのフィードバック、フィードフォワードの値です。</p>
+<dd>
+<p>格子構造の内側に入れ子になったオールパスフィルタのフィードバック、フィードフォワードの値です。</p>
 </dd>
 <dt>D1Feed</dt>
-<dd><p>格子構造の入れ子の最下層のフィードバック、フィードフォワードの値です。</p>
+<dd>
+<p>格子構造の入れ子の最下層のフィードバック、フィードフォワードの値です。</p>
 </dd>
 <dt>D2Feed</dt>
-<dd><p>格子構造の入れ子の底から 2 番目の階層でのフィードバック、フィードフォワードの値です。</p>
+<dd>
+<p>格子構造の入れ子の底から 2
+番目の階層でのフィードバック、フィードフォワードの値です。</p>
 </dd>
 <dt>D3Feed</dt>
-<dd><p>格子構造の入れ子の底から 3 番目の階層でのフィードバック、フィードフォワードの値です。</p>
+<dd>
+<p>格子構造の入れ子の底から 3
+番目の階層でのフィードバック、フィードフォワードの値です。</p>
 </dd>
 <dt>D4Feed</dt>
-<dd><p>格子構造の入れ子の最上層でのフィードバック、フィードフォワードの値です。</p>
+<dd>
+<p>格子構造の入れ子の最上層でのフィードバック、フィードフォワードの値です。</p>
 </dd>
 </dl>
-<p><strong>Tip</strong>: フィードバック、フィードフォワードの値をすべて負の値にすることで、入力信号の音がぼやけてウェットな質感になります。特に <code>D4Feed</code> をうまく調整してみてください。</p>
+<p><strong>Tip</strong>:
+フィードバック、フィードフォワードの値をすべて負の値にすることで、入力信号の音がぼやけてウェットな質感になります。特に
+<code>D4Feed</code> をうまく調整してみてください。</p>
 <h3 id="multiplier">Multiplier</h3>
-<p><code>Time</code> や <code>*Feed</code> の値をまとめて変更する係数です。減衰時間をまとめて変えるときなどに使えます。</p>
-<p><code>Base</code> は左右のチャンネルで両方で使われる値です。 <code>Base</code> によってリバーブの大まかな質感が決まります。</p>
-<p><code>Offset</code> は左右のチャンネルの値の比率です。 <code>Offset</code> によって左右の広がりを作ることができます。</p>
+<p><code>Time</code> や <code>*Feed</code>
+の値をまとめて変更する係数です。減衰時間をまとめて変えるときなどに使えます。</p>
+<p><code>Base</code> は左右のチャンネルで両方で使われる値です。
+<code>Base</code> によってリバーブの大まかな質感が決まります。</p>
+<p><code>Offset</code> は左右のチャンネルの値の比率です。
+<code>Offset</code> によって左右の広がりを作ることができます。</p>
 <pre><code>if (Offset &gt;= 0) {
   valueL = Base
   valueR = Base * (1 - Offset)
@@ -686,26 +832,34 @@ else {
   valueL = Base * (1 + Offset)
   valueR = Base
 }</code></pre>
-<p><code>Modulation</code> にチェックが入っているとき、 <code>Offset</code> の値はバッファごとにランダマイズされます。 <code>Smooth</code> でモジュレーションの質感を変えることができます。</p>
+<p><code>Modulation</code> にチェックが入っているとき、
+<code>Offset</code> の値はバッファごとにランダマイズされます。
+<code>Smooth</code> でモジュレーションの質感を変えることができます。</p>
 <h3 id="panic">Panic!</h3>
-<p>ボタンを押すと <code>Time</code> と <code>*Feed</code> の Multiplier を 0 にしてリバーブの出力を止めます。</p>
+<p>ボタンを押すと <code>Time</code> と <code>*Feed</code> の Multiplier
+を 0 にしてリバーブの出力を止めます。</p>
 <p>出力が想定外に大きくなったときなど、音を手早く止めたいときに使えます。</p>
 <h3 id="mix">Mix</h3>
 <dl>
 <dt>Dry</dt>
-<dd><p>バイパスされる入力信号の音量です。</p>
+<dd>
+<p>バイパスされる入力信号の音量です。</p>
 </dd>
 <dt>Wet</dt>
-<dd><p>リバーブを通った信号の音量です。</p>
+<dd>
+<p>リバーブを通った信号の音量です。</p>
 </dd>
 </dl>
 <h3 id="stereo">Stereo</h3>
 <dl>
 <dt>Cross</dt>
-<dd><p>あるチャンネルから、もう片方のチャンネルに格子構造の出力をフィードバックする量です。 0 のときはもう片方のチャンネルからの信号はミックスされません。</p>
+<dd>
+<p>あるチャンネルから、もう片方のチャンネルに格子構造の出力をフィードバックする量です。
+0 のときはもう片方のチャンネルからの信号はミックスされません。</p>
 </dd>
 <dt>Spread</dt>
-<dd><p>ミッドとサイド (M-S) の信号の比率です。</p>
+<dd>
+<p>ミッドとサイド (M-S) の信号の比率です。</p>
 <p>ミッドとサイドの信号は次の式で計算されます。</p>
 <pre><code>mid  = left + right
 side = left - right
@@ -717,10 +871,12 @@ right = mid - Spread * (mid + side)</code></pre>
 <h3 id="misc.">Misc.</h3>
 <dl>
 <dt>Seed</dt>
-<dd><p>疑似乱数列のシード値です。</p>
+<dd>
+<p>疑似乱数列のシード値です。</p>
 </dd>
 <dt>Smooth</dt>
-<dd><p>パラメータを変更したときに、変更前の値から変更後の値へと移行する大まかな秒数です。</p>
+<dd>
+<p>パラメータを変更したときに、変更前の値から変更後の値へと移行する大まかな秒数です。</p>
 </dd>
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
@@ -733,11 +889,13 @@ right = mid - Spread * (mid + side)</code></pre>
 </ul></li>
 <li>0.1.8
 <ul>
-<li>プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。</li>
+<li>プラグインが許可するチャネル数の条件を修正。この修正は REAPER
+のサイドチェインで意図しないミュートがかかることを防ぐために行った。</li>
 </ul></li>
 <li>0.1.7
 <ul>
-<li><code>style.json</code> でカスタムフォントを設定するオプションを追加。</li>
+<li><code>style.json</code>
+でカスタムフォントを設定するオプションを追加。</li>
 </ul></li>
 <li>0.1.6
 <ul>
@@ -750,7 +908,10 @@ right = mid - Spread * (mid + side)</code></pre>
 <li>0.1.4
 <ul>
 <li>リセットが正しく行われるように修正。</li>
-<li><code>bypass</code> パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の <code>bypass</code> パラメータを正しく実装しているホストでのみ発生していた。</li>
+<li><code>bypass</code>
+パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは
+VST 3 の <code>bypass</code>
+パラメータを正しく実装しているホストでのみ発生していた。</li>
 </ul></li>
 <li>0.1.2
 <ul>
@@ -783,11 +944,13 @@ right = mid - Spread * (mid + side)</code></pre>
 </ul></li>
 <li>0.1.8
 <ul>
-<li>プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。</li>
+<li>プラグインが許可するチャネル数の条件を修正。この修正は REAPER
+のサイドチェインで意図しないミュートがかかることを防ぐために行った。</li>
 </ul></li>
 <li>0.1.7
 <ul>
-<li><code>style.json</code> でカスタムフォントを設定するオプションを追加。</li>
+<li><code>style.json</code>
+でカスタムフォントを設定するオプションを追加。</li>
 </ul></li>
 <li>0.1.6
 <ul>
@@ -800,7 +963,10 @@ right = mid - Spread * (mid + side)</code></pre>
 <li>0.1.4
 <ul>
 <li>リセットが正しく行われるように修正。</li>
-<li><code>bypass</code> パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の <code>bypass</code> パラメータを正しく実装しているホストでのみ発生していた。</li>
+<li><code>bypass</code>
+パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは
+VST 3 の <code>bypass</code>
+パラメータを正しく実装しているホストでのみ発生していた。</li>
 </ul></li>
 <li>0.1.2
 <ul>
@@ -823,29 +989,55 @@ right = mid - Spread * (mid + side)</code></pre>
 <h2 id="旧バージョン">旧バージョン</h2>
 <h3 id="l4reverb-2">L4Reverb</h3>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L4Reverb_0.1.8.zip">L4Reverb 0.1.8 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/L4Reverb_0.1.7.zip">L4Reverb 0.1.7 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/L4Reverb_0.1.5.zip">L4Reverb 0.1.5 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L4Reverb_0.1.4.zip">L4Reverb 0.1.4 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/L4Reverb0.1.2.zip">L4Reverb 0.1.2 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L4Reverb0.1.1.zip">L4Reverb 0.1.1 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Reverb0.1.0.zip">L4Reverb 0.1.0 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L4Reverb_0.1.8.zip">L4Reverb
+0.1.8 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/L4Reverb_0.1.7.zip">L4Reverb
+0.1.7 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/L4Reverb_0.1.5.zip">L4Reverb
+0.1.5 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L4Reverb_0.1.4.zip">L4Reverb
+0.1.4 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/L4Reverb0.1.2.zip">L4Reverb
+0.1.2 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L4Reverb0.1.1.zip">L4Reverb
+0.1.1 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Reverb0.1.0.zip">L4Reverb
+0.1.0 - VST 3 (github.com)</a></li>
 </ul>
 <h3 id="l3reverb-1">L3Reverb</h3>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L3Reverb_0.1.8.zip">L3Reverb 0.1.8 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/L3Reverb_0.1.7.zip">L3Reverb 0.1.7 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/L3Reverb_0.1.5.zip">L3Reverb 0.1.5 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L3Reverb_0.1.4.zip">L3Reverb 0.1.4 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L3Reverb_0.1.8.zip">L3Reverb
+0.1.8 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/L3Reverb_0.1.7.zip">L3Reverb
+0.1.7 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/L3Reverb_0.1.5.zip">L3Reverb
+0.1.5 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L3Reverb_0.1.4.zip">L3Reverb
+0.1.4 - VST 3 (github.com)</a></li>
 </ul>
 <h2 id="ライセンス">ライセンス</h2>
-<p>L4Reverb と L3Reverb のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
+<p>L4Reverb と L3Reverb のライセンスは GPLv3 です。 GPLv3
+の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
 </ul>
-<p>リンクが切れているときは <code>ryukau@gmail.com</code> にメールを送ってください。</p>
+<p>リンクが切れているときは <code>ryukau@gmail.com</code>
+にメールを送ってください。</p>
 <h3 id="vst-について">VST® について</h3>
-<p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
+<p>VST is a trademark of Steinberg Media Technologies GmbH, registered
+in Europe and other countries.</p>
 
 <footer>
     <p><a href="..\..\index.html">Back to Index</a></p>

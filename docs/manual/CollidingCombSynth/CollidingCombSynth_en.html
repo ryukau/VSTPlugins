@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-05-25" />
+<meta name="dcterms.date" content="2022-06-04" />
 <title>CollidingCombSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,48 +262,57 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-05-25
+  Update: 2022-06-04
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#collidingcombsynth">CollidingCombSynth</a>
+  <li><a href="#collidingcombsynth"
+  id="toc-collidingcombsynth">CollidingCombSynth</a>
   <ul>
-  <li><a href="#contact">Contact</a></li>
-  <li><a href="#installation">Installation</a>
+  <li><a href="#contact" id="toc-contact">Contact</a></li>
+  <li><a href="#installation" id="toc-installation">Installation</a>
   <ul>
-  <li><a href="#plugin">Plugin</a></li>
-  <li><a href="#presets">Presets</a></li>
-  <li><a href="#windows-specific">Windows Specific</a></li>
-  <li><a href="#linux-specific">Linux Specific</a></li>
-  <li><a href="#macos-specific">macOS Specific</a>
+  <li><a href="#plugin" id="toc-plugin">Plugin</a></li>
+  <li><a href="#presets" id="toc-presets">Presets</a></li>
+  <li><a href="#windows-specific" id="toc-windows-specific">Windows
+  Specific</a></li>
+  <li><a href="#linux-specific" id="toc-linux-specific">Linux
+  Specific</a></li>
+  <li><a href="#macos-specific" id="toc-macos-specific">macOS
+  Specific</a>
   <ul>
-  <li><a href="#reference">Reference</a></li>
+  <li><a href="#reference" id="toc-reference">Reference</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#gui-style-configuration">GUI Style Configuration</a>
+  <li><a href="#gui-style-configuration"
+  id="toc-gui-style-configuration">GUI Style Configuration</a>
   <ul>
-  <li><a href="#font-options">Font Options</a></li>
-  <li><a href="#color-options">Color Options</a></li>
+  <li><a href="#font-options" id="toc-font-options">Font
+  Options</a></li>
+  <li><a href="#color-options" id="toc-color-options">Color
+  Options</a></li>
   </ul></li>
-  <li><a href="#controls">Controls</a></li>
-  <li><a href="#caution">Caution</a></li>
-  <li><a href="#block-diagram">Block Diagram</a></li>
-  <li><a href="#parameters">Parameters</a>
+  <li><a href="#controls" id="toc-controls">Controls</a></li>
+  <li><a href="#caution" id="toc-caution">Caution</a></li>
+  <li><a href="#block-diagram" id="toc-block-diagram">Block
+  Diagram</a></li>
+  <li><a href="#parameters" id="toc-parameters">Parameters</a>
   <ul>
-  <li><a href="#gain">Gain</a></li>
-  <li><a href="#tuning">Tuning</a></li>
-  <li><a href="#unison">Unison</a></li>
-  <li><a href="#random">Random</a></li>
-  <li><a href="#exciter">Exciter</a></li>
-  <li><a href="#string">String</a></li>
+  <li><a href="#gain" id="toc-gain">Gain</a></li>
+  <li><a href="#tuning" id="toc-tuning">Tuning</a></li>
+  <li><a href="#unison" id="toc-unison">Unison</a></li>
+  <li><a href="#random" id="toc-random">Random</a></li>
+  <li><a href="#exciter" id="toc-exciter">Exciter</a></li>
+  <li><a href="#string" id="toc-string">String</a></li>
   </ul></li>
-  <li><a href="#change-log">Change Log</a></li>
-  <li><a href="#old-versions">Old Versions</a></li>
-  <li><a href="#license">License</a>
+  <li><a href="#change-log" id="toc-change-log">Change Log</a></li>
+  <li><a href="#old-versions" id="toc-old-versions">Old
+  Versions</a></li>
+  <li><a href="#license" id="toc-license">License</a>
   <ul>
-  <li><a href="#about-vst">About VST</a></li>
+  <li><a href="#about-vst" id="toc-about-vst">About VST</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -312,91 +321,146 @@ footer {
   </header>
 <h1 id="collidingcombsynth">CollidingCombSynth</h1>
 <p><img src="img/collidingcombsynth.png" /></p>
-<p>CollidingCombSynth is an experimental synthesizer which sounds like bowed string. Equipped with 24 Karplus-Strong string models which collide to each other. Tuning of pitch is possible, but difficult. So mostly suitable for sound effects.</p>
+<p>CollidingCombSynth is an experimental synthesizer which sounds like
+bowed string. Equipped with 24 Karplus-Strong string models which
+collide to each other. Tuning of pitch is possible, but difficult. So
+mostly suitable for sound effects.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/CollidingCombSynth_0.1.6.zip">Download CollidingCombSynth 0.1.6 - VST® 3 (github.com)</a> <img
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/CollidingCombSynth_0.1.6.zip">Download
+CollidingCombSynth 0.1.6 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CollidingCombSynthPresets.zip">Download Presets (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CollidingCombSynthPresets.zip">Download
+Presets (github.com)</a></li>
 </ul>
-<p>CollidingCombSynth requires CPU which supports AVX or later SIMD instructions.</p>
+<p>CollidingCombSynth requires CPU which supports AVX or later SIMD
+instructions.</p>
 <p>The package includes following builds:</p>
 <ul>
 <li>Windows 64bit</li>
 <li>Linux 64bit</li>
 </ul>
-<p>On 2022-05-15, macOS is not supported. Current code fails to build as macOS universal binary. I’m planning to support macOS in future. However due to my financial situation, I can’t purchase M1 mac for now.</p>
-<p>Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely run. In this case, please take a look at <a href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">build instruction</a>.</p>
+<p>On 2022-05-15, macOS is not supported. Current code fails to build as
+macOS universal binary. I’m planning to support macOS in future. However
+due to my financial situation, I can’t purchase M1 mac for now.</p>
+<p>Linux build is built on Ubuntu 20.04. If you are using distribution
+other than Ubuntu 20.04, plugin will not likely run. In this case,
+please take a look at <a
+href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">build
+instruction</a>.</p>
 <h2 id="contact">Contact</h2>
-<p>Feel free to contact me on <a href="https://github.com/ryukau/VSTPlugins/commits/master">GitHub repository</a> or <code>ryukau@gmail.com.</code></p>
-<p>You can fund the development through <a href="https://www.paypal.com/paypalme/ryukau">paypal.me/ryukau</a>. Current goal is to purchase M1 mac for macOS and ARM port. 💸💻</p>
+<p>Feel free to contact me on <a
+href="https://github.com/ryukau/VSTPlugins/commits/master">GitHub
+repository</a> or <code>ryukau@gmail.com.</code></p>
+<p>You can fund the development through <a
+href="https://www.paypal.com/paypalme/ryukau">paypal.me/ryukau</a>.
+Current goal is to purchase M1 mac for macOS and ARM port. 💸💻</p>
 <h2 id="installation">Installation</h2>
 <h3 id="plugin">Plugin</h3>
 <p>Place <code>*.vst3</code> directory to:</p>
 <ul>
 <li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
 <li><code>$HOME/.vst3/</code> for Linux.</li>
-<li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for macOS.</li>
+<li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for
+macOS.</li>
 </ul>
-<p>DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.</p>
+<p>DAW may provides additional VST3 directory. For more information,
+please refer to the manual of the DAW.</p>
 <h3 id="presets">Presets</h3>
-<p>Extract preset zip, then place preset directory to the OS specific path:</p>
+<p>Extract preset zip, then place preset directory to the OS specific
+path:</p>
 <ul>
-<li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
+<li>Windows :
+<code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
 <li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
-<li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
+<li>macOS :
+<code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
 </ul>
-<p>Preset directory name must be the same as the plugin. Make <code>Uhhyou</code> directory if it does not exist.</p>
+<p>Preset directory name must be the same as the plugin. Make
+<code>Uhhyou</code> directory if it does not exist.</p>
 <h3 id="windows-specific">Windows Specific</h3>
-<p>If DAW doesn’t recognize the plugin, try installing C++ redistributable (<code>vc_redist.x64.exe</code>). Installer can be found in the link below.</p>
+<p>If DAW doesn’t recognize the plugin, try installing C++
+redistributable (<code>vc_redist.x64.exe</code>). Installer can be found
+in the link below.</p>
 <ul>
-<li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest supported Visual C++ downloads</a></li>
+<li><a
+href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The
+latest supported Visual C++ downloads</a></li>
 </ul>
 <h3 id="linux-specific">Linux Specific</h3>
 <p>On Ubuntu 18.0.4, those packages are required.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
-<p>If DAW doesn’t recognize the plugin, take a look at <code>Package Requirements</code> section of the link below and make sure all the VST3 related package is installed.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+<p>If DAW doesn’t recognize the plugin, take a look at
+<code>Package Requirements</code> section of the link below and make
+sure all the VST3 related package is installed.</p>
 <ul>
-<li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI: Setup</a></li>
+<li><a
+href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI:
+Setup</a></li>
 </ul>
-<p>REAPER on Linux may not recognize the plugin. A workaround is to delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and restart REAPER.</p>
+<p>REAPER on Linux may not recognize the plugin. A workaround is to
+delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and
+restart REAPER.</p>
 <h3 id="macos-specific">macOS Specific</h3>
-<p><strong>Important</strong>: Current package do not contain mac OS build.</p>
-<p>When trying to run plugin first time, following message may appear on macOS.</p>
+<p><strong>Important</strong>: Current package do not contain mac OS
+build.</p>
+<p>When trying to run plugin first time, following message may appear on
+macOS.</p>
 <pre><code>&lt;PluginName&gt;.vst3 is damaged and can&#39;t be opened. You should move it to
 the Trash&quot;</code></pre>
-<p>In this case, open terminal and try running following command to unzipped <code>.vst3</code> directory.</p>
+<p>In this case, open terminal and try running following command to
+unzipped <code>.vst3</code> directory.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rc</span> /path/to/PluginName.vst3</span></code></pre></div>
-<p>Plugin may be considered as unsigned/un-notarized application. In this case, try following the steps below.</p>
+<p>Plugin may be considered as unsigned/un-notarized application. In
+this case, try following the steps below.</p>
 <ol type="1">
 <li>Open terminal and run <code>sudo spctl --master-disable</code>.</li>
-<li>Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select “Anywhere”.</li>
+<li>Go to System Preferences → Security and Privacy → General → Allow
+apps downloaded from, then select “Anywhere”.</li>
 </ol>
-<p>Beware that steps above degrades security of your system. To revert the settings, follow the steps below.</p>
+<p>Beware that steps above degrades security of your system. To revert
+the settings, follow the steps below.</p>
 <ol type="1">
-<li>Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select option to “App Store and identified developers”.</li>
+<li>Go to System Preferences → Security and Privacy → General → Allow
+apps downloaded from, then select option to “App Store and identified
+developers”.</li>
 <li>Open terminal and run <code>sudo spctl --master-enable</code>.</li>
 </ol>
 <h4 id="reference">Reference</h4>
 <ul>
-<li><a href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac</a></li>
-<li><a href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio</a></li>
-<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps on your Mac - Apple Support</a></li>
+<li><a
+href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How
+to Fix App “is damaged and can’t be opened. You should move it to the
+Trash” Error on Mac</a></li>
+<li><a
+href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
+unsigned/un-notarized applications/plugins in Mac OS | Venn
+Audio</a></li>
+<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps
+on your Mac - Apple Support</a></li>
 </ul>
 <h2 id="gui-style-configuration">GUI Style Configuration</h2>
 <p>At first time, create color config file to:</p>
 <ul>
-<li><code>/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json</code> on Windows.</li>
-<li><code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> on Linux.
+<li><code>/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json</code>
+on Windows.</li>
+<li><code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> on
+Linux.
 <ul>
-<li>If <code>$XDG_CONFIG_HOME</code> is empty, make <code>$HOME/.config/UhhyouPlugins/style/style.json</code>.</li>
+<li>If <code>$XDG_CONFIG_HOME</code> is empty, make
+<code>$HOME/.config/UhhyouPlugins/style/style.json</code>.</li>
 </ul></li>
-<li><code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> on macOS.</li>
+<li><code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code>
+on macOS.</li>
 </ul>
 <p>Below is a example of <code>style.json</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontFamily&quot;</span><span class="fu">:</span> <span class="st">&quot;Tinos&quot;</span><span class="fu">,</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontBold&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontItalic&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
@@ -420,52 +484,92 @@ the Trash&quot;</code></pre>
 <p>Following is a list of font options.</p>
 <ul>
 <li><code>fontFamily</code>: Font family name.</li>
-<li><code>fontBold</code>: Enable <strong>bold</strong> style when <code>true</code>, disable when <code>false</code>.</li>
-<li><code>fontItalic</code>: Enable <em>italic</em> style when <code>true</code>, disable when <code>false</code>.</li>
+<li><code>fontBold</code>: Enable <strong>bold</strong> style when
+<code>true</code>, disable when <code>false</code>.</li>
+<li><code>fontItalic</code>: Enable <em>italic</em> style when
+<code>true</code>, disable when <code>false</code>.</li>
 </ul>
-<p>To use custom font, place <code>*.ttf</code> file into custom font path: <code>*.vst3/Contents/Resources/Fonts</code>.</p>
-<p><strong>Notice</strong>: If the combination of <code>fontFamily</code>, <code>fontBold</code>, <code>fontItalic</code> is not exists in custom font path, default font of VSTGUI is used.</p>
-<p>If <code>fontFamily</code> is set to empty string <code>""</code>, then <a href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a> is used as fallback. If the length is greater than 1 and the font family name doesn’t exists, default font of VSTGUI is used.</p>
-<p>Styles other than bold, italic or bold-italic are not supported by VSTGUI. For example, “Thin”, “Light”, “Medium”, and “Black” weights cannot be used.</p>
+<p>To use custom font, place <code>*.ttf</code> file into custom font
+path: <code>*.vst3/Contents/Resources/Fonts</code>.</p>
+<p><strong>Notice</strong>: If the combination of
+<code>fontFamily</code>, <code>fontBold</code>, <code>fontItalic</code>
+is not exists in custom font path, default font of VSTGUI is used.</p>
+<p>If <code>fontFamily</code> is set to empty string <code>""</code>,
+then <a
+href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
+is used as fallback. If the length is greater than 1 and the font family
+name doesn’t exists, default font of VSTGUI is used.</p>
+<p>Styles other than bold, italic or bold-italic are not supported by
+VSTGUI. For example, “Thin”, “Light”, “Medium”, and “Black” weights
+cannot be used.</p>
 <h3 id="color-options">Color Options</h3>
 <p>Hex color codes are used.</p>
 <ul>
 <li>6 digit color is RGB.</li>
 <li>8 digit color is RGBA.</li>
 </ul>
-<p>First letter <code>#</code> is conventional. Plugins ignore the first letter of color code, thus <code>?102938</code>, <code>\n11335577</code> are valid.</p>
-<p>Do not use characters outside of <code>0-9a-f</code> for color value.</p>
-<p>Following is a list of color options. If an option is missing, default color will be used.</p>
+<p>First letter <code>#</code> is conventional. Plugins ignore the first
+letter of color code, thus <code>?102938</code>, <code>\n11335577</code>
+are valid.</p>
+<p>Do not use characters outside of <code>0-9a-f</code> for color
+value.</p>
+<p>Following is a list of color options. If an option is missing,
+default color will be used.</p>
 <ul>
 <li><code>foreground</code>: Text color.</li>
-<li><code>foregroundButtonOn</code>: Text color of active toggle button. Recommend to use the same value of <code>foreground</code> or <code>boxBackground</code>.</li>
-<li><code>foregroundInactive</code>: Text color of inactive components. Currently, only used for TabView.</li>
+<li><code>foregroundButtonOn</code>: Text color of active toggle button.
+Recommend to use the same value of <code>foreground</code> or
+<code>boxBackground</code>.</li>
+<li><code>foregroundInactive</code>: Text color of inactive components.
+Currently, only used for TabView.</li>
 <li><code>background</code>: Background color.</li>
-<li><code>boxBackground</code>: Background color of inside of box shaped components (Barbox, Button, Checkbox, OptionMenu, TextKnob, VSlider).</li>
+<li><code>boxBackground</code>: Background color of inside of box shaped
+components (Barbox, Button, Checkbox, OptionMenu, TextKnob,
+VSlider).</li>
 <li><code>border</code>: Border color of box shaped components.</li>
 <li><code>borderCheckbox</code>: Border color of CheckBox.</li>
-<li><code>borderLabel</code>: Line color of parameter section label.</li>
-<li><code>unfocused</code>: Color to fill unfocused components. Currently, only used for knobs.</li>
-<li><code>highlightMain</code>: Color to indicate focus is on a component. Highlight colors are also used for value of slider components (BarBox and VSlider).</li>
-<li><code>highlightAccent</code>: Same as <code>highlightMain</code>. Used for cosmetics.</li>
-<li><code>highlightButton</code>: Color to indicate focus is on a button.</li>
-<li><code>highlightWarning</code>: Same as <code>highlightMain</code>, but only used for parameters which requires extra caution.</li>
-<li><code>overlay</code>: Overlay color. Used to overlay texts and indicators.</li>
-<li><code>overlayHighlight</code>: Overlay color to highlight current focus.</li>
+<li><code>borderLabel</code>: Line color of parameter section
+label.</li>
+<li><code>unfocused</code>: Color to fill unfocused components.
+Currently, only used for knobs.</li>
+<li><code>highlightMain</code>: Color to indicate focus is on a
+component. Highlight colors are also used for value of slider components
+(BarBox and VSlider).</li>
+<li><code>highlightAccent</code>: Same as <code>highlightMain</code>.
+Used for cosmetics.</li>
+<li><code>highlightButton</code>: Color to indicate focus is on a
+button.</li>
+<li><code>highlightWarning</code>: Same as <code>highlightMain</code>,
+but only used for parameters which requires extra caution.</li>
+<li><code>overlay</code>: Overlay color. Used to overlay texts and
+indicators.</li>
+<li><code>overlayHighlight</code>: Overlay color to highlight current
+focus.</li>
 </ul>
 <h2 id="controls">Controls</h2>
-<p><kbd>Right Click</kbd> on the controls pops up a context menu provided by DAW.</p>
+<p><kbd>Right Click</kbd> on the controls pops up a context menu
+provided by DAW.</p>
 <p>Knob and slider can do:</p>
 <ul>
 <li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
 <li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
 </ul>
-<p>There is an additional control for number sliders used for <code>Octave</code>, <code>Seed</code> etc.</p>
+<p>There is an additional control for number sliders used for
+<code>Octave</code>, <code>Seed</code> etc.</p>
 <ul>
 <li><kbd>Middle Click</kbd> : Flip minimum and maximum.</li>
 </ul>
-<p>Control with many blue vertical bars (BarBox) have some keyboard shortcuts. <code>LFO Wave</code> on Main tab and <code>Gain</code>, <code>Width</code>, <code>Pitch</code>, <code>Phase</code> on Wavetable tab are using BarBox. Shortcuts are enabled after left clicking BarBox and mouse cursor is on the inside of BarBox. Cheat sheet is available on Infomation tab.</p>
+<p>Control with many blue vertical bars (BarBox) have some keyboard
+shortcuts. <code>LFO Wave</code> on Main tab and <code>Gain</code>,
+<code>Width</code>, <code>Pitch</code>, <code>Phase</code> on Wavetable
+tab are using BarBox. Shortcuts are enabled after left clicking BarBox
+and mouse cursor is on the inside of BarBox. Cheat sheet is available on
+Infomation tab.</p>
 <table>
+<colgroup>
+<col style="width: 63%" />
+<col style="width: 36%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Input</th>
@@ -611,140 +715,219 @@ the Trash&quot;</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Snapping is not available for all BarBox. If you’d like to have snapping for certain BarBox, feel free to open issue to <a href="https://github.com/ryukau/VSTPlugins">GitHub repository</a>.</p>
-<p>Edit One Bar with <kbd>Shift</kbd> + <kbd>Right Drag</kbd> holds a bar under the cursor when mouse right button is pressed. Then only changes that one bar while holding down mouse right button.</p>
-<p>Toggle Lock with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Right Drag</kbd> behaves as line edit. When right mouse button (RMB) is pressed, it holds the opposite state of the bar below mouse cursor, then use the state for the rest of bars. For example, if RMB is pressed on a locked bar, dragging unlocks bars while holding down RMB.</p>
+<p>Snapping is not available for all BarBox. If you’d like to have
+snapping for certain BarBox, feel free to open issue to <a
+href="https://github.com/ryukau/VSTPlugins">GitHub repository</a>.</p>
+<p>Edit One Bar with <kbd>Shift</kbd> + <kbd>Right Drag</kbd> holds a
+bar under the cursor when mouse right button is pressed. Then only
+changes that one bar while holding down mouse right button.</p>
+<p>Toggle Lock with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Right
+Drag</kbd> behaves as line edit. When right mouse button (RMB) is
+pressed, it holds the opposite state of the bar below mouse cursor, then
+use the state for the rest of bars. For example, if RMB is pressed on a
+locked bar, dragging unlocks bars while holding down RMB.</p>
 <h2 id="caution">Caution</h2>
-<p>Output amplitude varies a lot, even if <code>Compressor</code> is turned on. Recommend to always insert limiter after CollidingCombSynth.</p>
+<p>Output amplitude varies a lot, even if <code>Compressor</code> is
+turned on. Recommend to always insert limiter after
+CollidingCombSynth.</p>
 <h2 id="block-diagram">Block Diagram</h2>
-<p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or “View Image” on right click menu to scale.</p>
+<p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd>
+or “View Image” on right click menu to scale.</p>
 <p>Diagram only shows overview. It’s not exact implementation.</p>
 <p><img src="img/collidingcombsynth.svg" /></p>
 <h2 id="parameters">Parameters</h2>
 <h3 id="gain">Gain</h3>
 <dl>
 <dt>Gain, Boost</dt>
-<dd><p>Master gain. Value of <code>Gain</code> and value of <code>Boost</code> will be multiplied.</p>
+<dd>
+<p>Master gain. Value of <code>Gain</code> and value of
+<code>Boost</code> will be multiplied.</p>
 <pre><code>masterGain = Gain * Boost</code></pre>
 </dd>
 <dt>Compressor</dt>
-<dd><p>Turn on/off the comporessors. Each voice has a compressor.</p>
+<dd>
+<p>Turn on/off the comporessors. Each voice has a compressor.</p>
 </dd>
 <dt>Time</dt>
-<dd><p>Attack/Release time of compressor.</p>
-<p>Larger <code>Time</code> value may sound more natural, but compression becomes leaky. In this case, try turning down the value of <code>Threshold</code>.</p>
+<dd>
+<p>Attack/Release time of compressor.</p>
+<p>Larger <code>Time</code> value may sound more natural, but
+compression becomes leaky. In this case, try turning down the value of
+<code>Threshold</code>.</p>
 </dd>
 <dt>Threshold</dt>
-<dd><p>Compressor starts compressing the signal when input amplitude exceeds <code>Threshold</code>. Usually, <code>Threshold</code> is set to less than 1.0.</p>
+<dd>
+<p>Compressor starts compressing the signal when input amplitude exceeds
+<code>Threshold</code>. Usually, <code>Threshold</code> is set to less
+than 1.0.</p>
 </dd>
 </dl>
 <h3 id="tuning">Tuning</h3>
 <dl>
 <dt>Octave, Semi, Milli</dt>
-<dd><p>Changes master pitch.</p>
+<dd>
+<p>Changes master pitch.</p>
 <ul>
 <li><code>Semi</code> stands for semitone.</li>
 <li><code>Milli</code> is 1/1000 of semitone or 1/10 cent.</li>
 </ul>
 </dd>
 <dt>ET, A4 [Hz]</dt>
-<dd><p>Changes tuning.</p>
-<p><code>ET</code> stands for equal temperament. Note that when <code>ET</code> is less than 12, some notes may become silent due to frequency becomes too high or too low.</p>
+<dd>
+<p>Changes tuning.</p>
+<p><code>ET</code> stands for equal temperament. Note that when
+<code>ET</code> is less than 12, some notes may become silent due to
+frequency becomes too high or too low.</p>
 <p><code>A4 [Hz]</code> is frequency of note A4.</p>
 </dd>
 </dl>
 <h3 id="unison">Unison</h3>
 <dl>
 <dt>nUnison</dt>
-<dd><p>Number of voices used by unison.</p>
-<p>To avoid interruption of release, increase the number of <code>Poly</code> in Misc. section. Note that increasing <code>Poly</code> consumes more resources.</p>
+<dd>
+<p>Number of voices used by unison.</p>
+<p>To avoid interruption of release, increase the number of
+<code>Poly</code> in Misc. section. Note that increasing
+<code>Poly</code> consumes more resources.</p>
 </dd>
 <dt>Detune, Random Detune</dt>
-<dd><p><code>Detune</code> is the difference of pitch between voices used in a unison.</p>
-<p>When <code>Random Detune</code> is checked, amount of detune changes for each note-on.</p>
+<dd>
+<p><code>Detune</code> is the difference of pitch between voices used in
+a unison.</p>
+<p>When <code>Random Detune</code> is checked, amount of detune changes
+for each note-on.</p>
 <pre><code>random = RandomDetune ? rand() : 1
 detune = pitch * (1 + random * unisonIndex * Detune)</code></pre>
 </dd>
 <dt>Spread</dt>
-<dd><p>Amount of stereo spread for a unison.</p>
+<dd>
+<p>Amount of stereo spread for a unison.</p>
 </dd>
 <dt>Gain</dt>
-<dd><p>Amount of randomization of gain for voices used in a unison.</p>
+<dd>
+<p>Amount of randomization of gain for voices used in a unison.</p>
 </dd>
 </dl>
 <h3 id="random">Random</h3>
-<p>Random section has configurations for 4 random number generators (RNG).</p>
+<p>Random section has configurations for 4 random number generators
+(RNG).</p>
 <ul>
 <li>Noise: RNG for gaussian noise oscillator on exciter.</li>
-<li>Comb: RNG to randomize <code>Comb Time</code> in <code>Exciter</code> section.</li>
-<li>Str.Freq: RNG to randomize <code>Frequency</code> in <code>String</code> section.</li>
-<li>Unison: RNG used in <code>Detune</code> and <code>Gain</code> in <code>Unison</code> section.</li>
+<li>Comb: RNG to randomize <code>Comb Time</code> in
+<code>Exciter</code> section.</li>
+<li>Str.Freq: RNG to randomize <code>Frequency</code> in
+<code>String</code> section.</li>
+<li>Unison: RNG used in <code>Detune</code> and <code>Gain</code> in
+<code>Unison</code> section.</li>
 </ul>
 <dl>
 <dt>Amount</dt>
-<dd><p>Amount of randomization. Randomization is disabled when <code>Amount</code> is set to 0.</p>
+<dd>
+<p>Amount of randomization. Randomization is disabled when
+<code>Amount</code> is set to 0.</p>
 </dd>
 <dt>Seed</dt>
-<dd><p>Seed value. Different seed generates different sequence of pseudo random number.</p>
+<dd>
+<p>Seed value. Different seed generates different sequence of pseudo
+random number.</p>
 </dd>
 <dt>Retrigger</dt>
-<dd><p>When checked, the synth resets seed for each note-on.</p>
+<dd>
+<p>When checked, the synth resets seed for each note-on.</p>
 </dd>
 </dl>
 <h3 id="exciter">Exciter</h3>
-<p>Configuration of exciter. Excitation is some force to start physical model. For example, picking of guitar, impact of piano string and hammer, impact of stick and drumhead, are excitation.</p>
-<p>The exciter of CollidingCombSynth consists of sawtooth/noise oscillator and serially connected 8 comb filters.</p>
+<p>Configuration of exciter. Excitation is some force to start physical
+model. For example, picking of guitar, impact of piano string and
+hammer, impact of stick and drumhead, are excitation.</p>
+<p>The exciter of CollidingCombSynth consists of sawtooth/noise
+oscillator and serially connected 8 comb filters.</p>
 <dl>
 <dt>LP Cutoff</dt>
-<dd><p>Cutoff frequency of lowpass filter which applies to oscillator output. Unit of display value is Hz.</p>
+<dd>
+<p>Cutoff frequency of lowpass filter which applies to oscillator
+output. Unit of display value is Hz.</p>
 </dd>
 <dt>Gain</dt>
-<dd><p>オシレータの音量です。</p>
+<dd>
+<p>オシレータの音量です。</p>
 </dd>
 <dt>A, D</dt>
-<dd><p><code>A</code> is the attack time of oscillator. <code>D</code> is the decay time of oscillator.</p>
+<dd>
+<p><code>A</code> is the attack time of oscillator. <code>D</code> is
+the decay time of oscillator.</p>
 <p>Turning <code>A</code> knob to right makes sound softer.</p>
 </dd>
 <dt>Saw/Noise</dt>
-<dd><p>Mixing ratio of sawtooth and gaussian noise in oscillator output. When set to leftmost, oscillator only outputs sawtooth. When set to rightmost, oscillator only outputs gaussian noise.</p>
+<dd>
+<p>Mixing ratio of sawtooth and gaussian noise in oscillator output.
+When set to leftmost, oscillator only outputs sawtooth. When set to
+rightmost, oscillator only outputs gaussian noise.</p>
 </dd>
 <dt>Comb Time</dt>
-<dd><p>Delay time of comb filter. Unit of display value is seconds.</p>
+<dd>
+<p>Delay time of comb filter. Unit of display value is seconds.</p>
 </dd>
 </dl>
 <h3 id="string">String</h3>
 <p>Configurations of Karplus-Strong strings.</p>
 <dl>
 <dt>LP Cutoff</dt>
-<dd><p>Cutoff frequency of lowpass filter which is inserted in feedback path of string model. Unit of display value is Hz.</p>
+<dd>
+<p>Cutoff frequency of lowpass filter which is inserted in feedback path
+of string model. Unit of display value is Hz.</p>
 </dd>
 <dt>HP Cutoff</dt>
-<dd><p>Cutoff frequency of highpass filter which applies to string output. Unit of display value is Hz.</p>
+<dd>
+<p>Cutoff frequency of highpass filter which applies to string output.
+Unit of display value is Hz.</p>
 </dd>
 <dt>Distance</dt>
-<dd><p>Distance between strings. When an immediate amplitude of a string exceeds <code>Distance</code>, exceeded amplitude will be propagated to a neighbouring string.</p>
+<dd>
+<p>Distance between strings. When an immediate amplitude of a string
+exceeds <code>Distance</code>, exceeded amplitude will be propagated to
+a neighbouring string.</p>
 </dd>
 <dt>Propagation</dt>
-<dd><p>The value of <code>Propagation</code> changes the loss of force when strings are collided. The bounce will be weaken if <code>Propagation</code> is smaller.</p>
+<dd>
+<p>The value of <code>Propagation</code> changes the loss of force when
+strings are collided. The bounce will be weaken if
+<code>Propagation</code> is smaller.</p>
 </dd>
 <dt>Connection</dt>
-<dd><p>Connection type of strings.</p>
+<dd>
+<p>Connection type of strings.</p>
 <ul>
-<li><code>Parallel</code>: Connect strings in parallel. Input of excitation starts from string 0, then incrementally going through the rest of strings. Collided signal is accumulated to the excitation signal incrementally.</li>
-<li><code>Serial</code>: Connect strings in serial. Excitation is only input to string 0. Then output of string 0 goes to input of string 1, output of string 1 goes to input of string 2, and so on. Beware that output signal may become louder than <code>Parallel</code>, so take care when turn off <code>Compressor</code>.</li>
+<li><code>Parallel</code>: Connect strings in parallel. Input of
+excitation starts from string 0, then incrementally going through the
+rest of strings. Collided signal is accumulated to the excitation signal
+incrementally.</li>
+<li><code>Serial</code>: Connect strings in serial. Excitation is only
+input to string 0. Then output of string 0 goes to input of string 1,
+output of string 1 goes to input of string 2, and so on. Beware that
+output signal may become louder than <code>Parallel</code>, so take care
+when turn off <code>Compressor</code>.</li>
 </ul>
 </dd>
 <dt>A, D, S, R</dt>
-<dd><p>Envelope parameters which modulates <code>LP Cutoff</code>. This envelope basically works as the gain envelope of CollidingCombSynth.</p>
+<dd>
+<p>Envelope parameters which modulates <code>LP Cutoff</code>. This
+envelope basically works as the gain envelope of CollidingCombSynth.</p>
 <ul>
-<li><code>A</code> : Attack time which is the length from note-on to reaching <code>LP Cutoff</code> value.</li>
-<li><code>D</code> : Decay time which is the length from <code>LP Cutoff</code> value to reaching <code>(LP Cutoff) * S</code>.</li>
+<li><code>A</code> : Attack time which is the length from note-on to
+reaching <code>LP Cutoff</code> value.</li>
+<li><code>D</code> : Decay time which is the length from
+<code>LP Cutoff</code> value to reaching
+<code>(LP Cutoff) * S</code>.</li>
 <li><code>S</code> : Sustain level which is the gain after decay.</li>
-<li><code>R</code> : Release time which is the length from note-off to the <code>LP Cutoff</code> reaching to 0.</li>
+<li><code>R</code> : Release time which is the length from note-off to
+the <code>LP Cutoff</code> reaching to 0.</li>
 </ul>
 </dd>
 <dt>Frequency</dt>
-<dd><p>Fundamental frequency of string. The final frequency of a string is calculated by multiplying note pitch by <code>Frequency</code>.</p>
+<dd>
+<p>Fundamental frequency of string. The final frequency of a string is
+calculated by multiplying note pitch by <code>Frequency</code>.</p>
 <pre><code>noteFrequency = A4Hz * pow(2, Octave + (Semi - 69) / ET + Milli / (ET * 1000))
 stringFrequency = Frequency * noteFrequency</code></pre>
 </dd>
@@ -758,7 +941,8 @@ stringFrequency = Frequency * noteFrequency</code></pre>
 </ul></li>
 <li>0.1.5
 <ul>
-<li>Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER.</li>
+<li>Fixed the condition of acceptable channel count. This is a fix for
+unintentional muting on sidechain in REAPER.</li>
 </ul></li>
 <li>0.1.4
 <ul>
@@ -775,7 +959,10 @@ stringFrequency = Frequency * noteFrequency</code></pre>
 <li>0.1.1
 <ul>
 <li>Fixed to reset properly.</li>
-<li>Fixed <code>bypass</code> parameter behavior. This fixes playing all the notes at the moment of unmute, even if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3 <code>bypass</code> parameter.</li>
+<li>Fixed <code>bypass</code> parameter behavior. This fixes playing all
+the notes at the moment of unmute, even if host sends note to plugin
+while muting. This bug was only happening on the hosts which respect VST
+3 <code>bypass</code> parameter.</li>
 </ul></li>
 <li>0.1.0
 <ul>
@@ -784,20 +971,34 @@ stringFrequency = Frequency * noteFrequency</code></pre>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/CollidingCombSynth_0.1.5.zip">CollidingCombSynth 0.1.5 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/CollidingCombSynth_0.1.4.zip">CollidingCombSynth 0.1.4 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/CollidingCombSynth_0.1.2.zip">CollidingCombSynth 0.1.2 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/CollidingCombSynth_0.1.1.zip">CollidingCombSynth 0.1.1 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CollidingCombSynth0.1.0.zip">CollidingCombSynth 0.1.0 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/CollidingCombSynth_0.1.5.zip">CollidingCombSynth
+0.1.5 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/CollidingCombSynth_0.1.4.zip">CollidingCombSynth
+0.1.4 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/CollidingCombSynth_0.1.2.zip">CollidingCombSynth
+0.1.2 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/CollidingCombSynth_0.1.1.zip">CollidingCombSynth
+0.1.1 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CollidingCombSynth0.1.0.zip">CollidingCombSynth
+0.1.0 - VST 3 (github.com)</a></li>
 </ul>
 <h2 id="license">License</h2>
-<p>CollidingCombSynth is licensed under GPLv3. Complete licenses are linked below.</p>
+<p>CollidingCombSynth is licensed under GPLv3. Complete licenses are
+linked below.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
 </ul>
-<p>If the link above doesn’t work, please send email to <code>ryukau@gmail.com</code>.</p>
+<p>If the link above doesn’t work, please send email to
+<code>ryukau@gmail.com</code>.</p>
 <h3 id="about-vst">About VST</h3>
-<p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
+<p>VST is a trademark of Steinberg Media Technologies GmbH, registered
+in Europe and other countries.</p>
 
 <footer>
     <p><a href="..\..\index.html">Back to Index</a></p>

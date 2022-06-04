@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-05-25" />
+<meta name="dcterms.date" content="2022-06-04" />
 <title>SevenDelay_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,44 +262,52 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-05-25
+  Update: 2022-06-04
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#sevendelay">SevenDelay</a>
+  <li><a href="#sevendelay" id="toc-sevendelay">SevenDelay</a>
   <ul>
-  <li><a href="#contact">Contact</a></li>
-  <li><a href="#installation">Installation</a>
+  <li><a href="#contact" id="toc-contact">Contact</a></li>
+  <li><a href="#installation" id="toc-installation">Installation</a>
   <ul>
-  <li><a href="#plugin">Plugin</a></li>
-  <li><a href="#presets">Presets</a></li>
-  <li><a href="#windows-specific">Windows Specific</a></li>
-  <li><a href="#linux-specific">Linux Specific</a></li>
-  <li><a href="#macos-specific">macOS Specific</a>
+  <li><a href="#plugin" id="toc-plugin">Plugin</a></li>
+  <li><a href="#presets" id="toc-presets">Presets</a></li>
+  <li><a href="#windows-specific" id="toc-windows-specific">Windows
+  Specific</a></li>
+  <li><a href="#linux-specific" id="toc-linux-specific">Linux
+  Specific</a></li>
+  <li><a href="#macos-specific" id="toc-macos-specific">macOS
+  Specific</a>
   <ul>
-  <li><a href="#reference">Reference</a></li>
+  <li><a href="#reference" id="toc-reference">Reference</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#gui-style-configuration">GUI Style Configuration</a>
+  <li><a href="#gui-style-configuration"
+  id="toc-gui-style-configuration">GUI Style Configuration</a>
   <ul>
-  <li><a href="#font-options">Font Options</a></li>
-  <li><a href="#color-options">Color Options</a></li>
+  <li><a href="#font-options" id="toc-font-options">Font
+  Options</a></li>
+  <li><a href="#color-options" id="toc-color-options">Color
+  Options</a></li>
   </ul></li>
-  <li><a href="#controls">Controls</a></li>
-  <li><a href="#caution">Caution</a></li>
-  <li><a href="#block-diagram">Block Diagram</a></li>
-  <li><a href="#parameters">Parameters</a>
+  <li><a href="#controls" id="toc-controls">Controls</a></li>
+  <li><a href="#caution" id="toc-caution">Caution</a></li>
+  <li><a href="#block-diagram" id="toc-block-diagram">Block
+  Diagram</a></li>
+  <li><a href="#parameters" id="toc-parameters">Parameters</a>
   <ul>
-  <li><a href="#delay">Delay</a></li>
-  <li><a href="#lfo">LFO</a></li>
+  <li><a href="#delay" id="toc-delay">Delay</a></li>
+  <li><a href="#lfo" id="toc-lfo">LFO</a></li>
   </ul></li>
-  <li><a href="#change-log">Change Log</a></li>
-  <li><a href="#old-versions">Old Versions</a></li>
-  <li><a href="#license">License</a>
+  <li><a href="#change-log" id="toc-change-log">Change Log</a></li>
+  <li><a href="#old-versions" id="toc-old-versions">Old
+  Versions</a></li>
+  <li><a href="#license" id="toc-license">License</a>
   <ul>
-  <li><a href="#about-vst">About VST</a></li>
+  <li><a href="#about-vst" id="toc-about-vst">About VST</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -308,90 +316,142 @@ footer {
   </header>
 <h1 id="sevendelay">SevenDelay</h1>
 <p><img src="img/sevendelay.png" /></p>
-<p>SevenDelay is a stereo delay with 7th order lagrange interpolated fractional delay and 7x oversampling.</p>
+<p>SevenDelay is a stereo delay with 7th order lagrange interpolated
+fractional delay and 7x oversampling.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/SevenDelay_0.1.20.zip">Download SevenDelay 0.1.20 - VST® 3 (github.com)</a> <img
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/SevenDelay_0.1.20.zip">Download
+SevenDelay 0.1.20 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelayPresets.zip">Download Presets (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelayPresets.zip">Download
+Presets (github.com)</a></li>
 </ul>
 <p>The package includes following builds:</p>
 <ul>
 <li>Windows 64bit</li>
 <li>Linux 64bit</li>
 </ul>
-<p>On 2022-05-15, macOS is not supported. Current code fails to build as macOS universal binary. I’m planning to support macOS in future. However due to my financial situation, I can’t purchase M1 mac for now.</p>
-<p>Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely run. In this case, please take a look at <a href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">build instruction</a>.</p>
+<p>On 2022-05-15, macOS is not supported. Current code fails to build as
+macOS universal binary. I’m planning to support macOS in future. However
+due to my financial situation, I can’t purchase M1 mac for now.</p>
+<p>Linux build is built on Ubuntu 20.04. If you are using distribution
+other than Ubuntu 20.04, plugin will not likely run. In this case,
+please take a look at <a
+href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">build
+instruction</a>.</p>
 <h2 id="contact">Contact</h2>
-<p>Feel free to contact me on <a href="https://github.com/ryukau/VSTPlugins/commits/master">GitHub repository</a> or <code>ryukau@gmail.com.</code></p>
-<p>You can fund the development through <a href="https://www.paypal.com/paypalme/ryukau">paypal.me/ryukau</a>. Current goal is to purchase M1 mac for macOS and ARM port. 💸💻</p>
+<p>Feel free to contact me on <a
+href="https://github.com/ryukau/VSTPlugins/commits/master">GitHub
+repository</a> or <code>ryukau@gmail.com.</code></p>
+<p>You can fund the development through <a
+href="https://www.paypal.com/paypalme/ryukau">paypal.me/ryukau</a>.
+Current goal is to purchase M1 mac for macOS and ARM port. 💸💻</p>
 <h2 id="installation">Installation</h2>
 <h3 id="plugin">Plugin</h3>
 <p>Place <code>*.vst3</code> directory to:</p>
 <ul>
 <li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
 <li><code>$HOME/.vst3/</code> for Linux.</li>
-<li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for macOS.</li>
+<li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for
+macOS.</li>
 </ul>
-<p>DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.</p>
+<p>DAW may provides additional VST3 directory. For more information,
+please refer to the manual of the DAW.</p>
 <h3 id="presets">Presets</h3>
-<p>Extract preset zip, then place preset directory to the OS specific path:</p>
+<p>Extract preset zip, then place preset directory to the OS specific
+path:</p>
 <ul>
-<li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
+<li>Windows :
+<code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
 <li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
-<li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
+<li>macOS :
+<code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
 </ul>
-<p>Preset directory name must be the same as the plugin. Make <code>Uhhyou</code> directory if it does not exist.</p>
+<p>Preset directory name must be the same as the plugin. Make
+<code>Uhhyou</code> directory if it does not exist.</p>
 <h3 id="windows-specific">Windows Specific</h3>
-<p>If DAW doesn’t recognize the plugin, try installing C++ redistributable (<code>vc_redist.x64.exe</code>). Installer can be found in the link below.</p>
+<p>If DAW doesn’t recognize the plugin, try installing C++
+redistributable (<code>vc_redist.x64.exe</code>). Installer can be found
+in the link below.</p>
 <ul>
-<li><a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The latest supported Visual C++ downloads</a></li>
+<li><a
+href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The
+latest supported Visual C++ downloads</a></li>
 </ul>
 <h3 id="linux-specific">Linux Specific</h3>
 <p>On Ubuntu 18.0.4, those packages are required.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
-<p>If DAW doesn’t recognize the plugin, take a look at <code>Package Requirements</code> section of the link below and make sure all the VST3 related package is installed.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+<p>If DAW doesn’t recognize the plugin, take a look at
+<code>Package Requirements</code> section of the link below and make
+sure all the VST3 related package is installed.</p>
 <ul>
-<li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI: Setup</a></li>
+<li><a
+href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI:
+Setup</a></li>
 </ul>
-<p>REAPER on Linux may not recognize the plugin. A workaround is to delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and restart REAPER.</p>
+<p>REAPER on Linux may not recognize the plugin. A workaround is to
+delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and
+restart REAPER.</p>
 <h3 id="macos-specific">macOS Specific</h3>
-<p><strong>Important</strong>: Current package do not contain mac OS build.</p>
-<p>When trying to run plugin first time, following message may appear on macOS.</p>
+<p><strong>Important</strong>: Current package do not contain mac OS
+build.</p>
+<p>When trying to run plugin first time, following message may appear on
+macOS.</p>
 <pre><code>&lt;PluginName&gt;.vst3 is damaged and can&#39;t be opened. You should move it to
 the Trash&quot;</code></pre>
-<p>In this case, open terminal and try running following command to unzipped <code>.vst3</code> directory.</p>
+<p>In this case, open terminal and try running following command to
+unzipped <code>.vst3</code> directory.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rc</span> /path/to/PluginName.vst3</span></code></pre></div>
-<p>Plugin may be considered as unsigned/un-notarized application. In this case, try following the steps below.</p>
+<p>Plugin may be considered as unsigned/un-notarized application. In
+this case, try following the steps below.</p>
 <ol type="1">
 <li>Open terminal and run <code>sudo spctl --master-disable</code>.</li>
-<li>Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select “Anywhere”.</li>
+<li>Go to System Preferences → Security and Privacy → General → Allow
+apps downloaded from, then select “Anywhere”.</li>
 </ol>
-<p>Beware that steps above degrades security of your system. To revert the settings, follow the steps below.</p>
+<p>Beware that steps above degrades security of your system. To revert
+the settings, follow the steps below.</p>
 <ol type="1">
-<li>Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select option to “App Store and identified developers”.</li>
+<li>Go to System Preferences → Security and Privacy → General → Allow
+apps downloaded from, then select option to “App Store and identified
+developers”.</li>
 <li>Open terminal and run <code>sudo spctl --master-enable</code>.</li>
 </ol>
 <h4 id="reference">Reference</h4>
 <ul>
-<li><a href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac</a></li>
-<li><a href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio</a></li>
-<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps on your Mac - Apple Support</a></li>
+<li><a
+href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How
+to Fix App “is damaged and can’t be opened. You should move it to the
+Trash” Error on Mac</a></li>
+<li><a
+href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
+unsigned/un-notarized applications/plugins in Mac OS | Venn
+Audio</a></li>
+<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps
+on your Mac - Apple Support</a></li>
 </ul>
 <h2 id="gui-style-configuration">GUI Style Configuration</h2>
 <p>At first time, create color config file to:</p>
 <ul>
-<li><code>/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json</code> on Windows.</li>
-<li><code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> on Linux.
+<li><code>/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json</code>
+on Windows.</li>
+<li><code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> on
+Linux.
 <ul>
-<li>If <code>$XDG_CONFIG_HOME</code> is empty, make <code>$HOME/.config/UhhyouPlugins/style/style.json</code>.</li>
+<li>If <code>$XDG_CONFIG_HOME</code> is empty, make
+<code>$HOME/.config/UhhyouPlugins/style/style.json</code>.</li>
 </ul></li>
-<li><code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code> on macOS.</li>
+<li><code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code>
+on macOS.</li>
 </ul>
 <p>Below is a example of <code>style.json</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontFamily&quot;</span><span class="fu">:</span> <span class="st">&quot;Tinos&quot;</span><span class="fu">,</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontBold&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontItalic&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
@@ -415,38 +475,67 @@ the Trash&quot;</code></pre>
 <p>Following is a list of font options.</p>
 <ul>
 <li><code>fontFamily</code>: Font family name.</li>
-<li><code>fontBold</code>: Enable <strong>bold</strong> style when <code>true</code>, disable when <code>false</code>.</li>
-<li><code>fontItalic</code>: Enable <em>italic</em> style when <code>true</code>, disable when <code>false</code>.</li>
+<li><code>fontBold</code>: Enable <strong>bold</strong> style when
+<code>true</code>, disable when <code>false</code>.</li>
+<li><code>fontItalic</code>: Enable <em>italic</em> style when
+<code>true</code>, disable when <code>false</code>.</li>
 </ul>
-<p>To use custom font, place <code>*.ttf</code> file into custom font path: <code>*.vst3/Contents/Resources/Fonts</code>.</p>
-<p><strong>Notice</strong>: If the combination of <code>fontFamily</code>, <code>fontBold</code>, <code>fontItalic</code> is not exists in custom font path, default font of VSTGUI is used.</p>
-<p>If <code>fontFamily</code> is set to empty string <code>""</code>, then <a href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a> is used as fallback. If the length is greater than 1 and the font family name doesn’t exists, default font of VSTGUI is used.</p>
-<p>Styles other than bold, italic or bold-italic are not supported by VSTGUI. For example, “Thin”, “Light”, “Medium”, and “Black” weights cannot be used.</p>
+<p>To use custom font, place <code>*.ttf</code> file into custom font
+path: <code>*.vst3/Contents/Resources/Fonts</code>.</p>
+<p><strong>Notice</strong>: If the combination of
+<code>fontFamily</code>, <code>fontBold</code>, <code>fontItalic</code>
+is not exists in custom font path, default font of VSTGUI is used.</p>
+<p>If <code>fontFamily</code> is set to empty string <code>""</code>,
+then <a
+href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
+is used as fallback. If the length is greater than 1 and the font family
+name doesn’t exists, default font of VSTGUI is used.</p>
+<p>Styles other than bold, italic or bold-italic are not supported by
+VSTGUI. For example, “Thin”, “Light”, “Medium”, and “Black” weights
+cannot be used.</p>
 <h3 id="color-options">Color Options</h3>
 <p>Hex color codes are used.</p>
 <ul>
 <li>6 digit color is RGB.</li>
 <li>8 digit color is RGBA.</li>
 </ul>
-<p>First letter <code>#</code> is conventional. Plugins ignore the first letter of color code, thus <code>?102938</code>, <code>\n11335577</code> are valid.</p>
-<p>Do not use characters outside of <code>0-9a-f</code> for color value.</p>
-<p>Following is a list of color options. If an option is missing, default color will be used.</p>
+<p>First letter <code>#</code> is conventional. Plugins ignore the first
+letter of color code, thus <code>?102938</code>, <code>\n11335577</code>
+are valid.</p>
+<p>Do not use characters outside of <code>0-9a-f</code> for color
+value.</p>
+<p>Following is a list of color options. If an option is missing,
+default color will be used.</p>
 <ul>
 <li><code>foreground</code>: Text color.</li>
-<li><code>foregroundButtonOn</code>: Text color of active toggle button. Recommend to use the same value of <code>foreground</code> or <code>boxBackground</code>.</li>
-<li><code>foregroundInactive</code>: Text color of inactive components. Currently, only used for TabView.</li>
+<li><code>foregroundButtonOn</code>: Text color of active toggle button.
+Recommend to use the same value of <code>foreground</code> or
+<code>boxBackground</code>.</li>
+<li><code>foregroundInactive</code>: Text color of inactive components.
+Currently, only used for TabView.</li>
 <li><code>background</code>: Background color.</li>
-<li><code>boxBackground</code>: Background color of inside of box shaped components (Barbox, Button, Checkbox, OptionMenu, TextKnob, VSlider).</li>
+<li><code>boxBackground</code>: Background color of inside of box shaped
+components (Barbox, Button, Checkbox, OptionMenu, TextKnob,
+VSlider).</li>
 <li><code>border</code>: Border color of box shaped components.</li>
 <li><code>borderCheckbox</code>: Border color of CheckBox.</li>
-<li><code>borderLabel</code>: Line color of parameter section label.</li>
-<li><code>unfocused</code>: Color to fill unfocused components. Currently, only used for knobs.</li>
-<li><code>highlightMain</code>: Color to indicate focus is on a component. Highlight colors are also used for value of slider components (BarBox and VSlider).</li>
-<li><code>highlightAccent</code>: Same as <code>highlightMain</code>. Used for cosmetics.</li>
-<li><code>highlightButton</code>: Color to indicate focus is on a button.</li>
-<li><code>highlightWarning</code>: Same as <code>highlightMain</code>, but only used for parameters which requires extra caution.</li>
-<li><code>overlay</code>: Overlay color. Used to overlay texts and indicators.</li>
-<li><code>overlayHighlight</code>: Overlay color to highlight current focus.</li>
+<li><code>borderLabel</code>: Line color of parameter section
+label.</li>
+<li><code>unfocused</code>: Color to fill unfocused components.
+Currently, only used for knobs.</li>
+<li><code>highlightMain</code>: Color to indicate focus is on a
+component. Highlight colors are also used for value of slider components
+(BarBox and VSlider).</li>
+<li><code>highlightAccent</code>: Same as <code>highlightMain</code>.
+Used for cosmetics.</li>
+<li><code>highlightButton</code>: Color to indicate focus is on a
+button.</li>
+<li><code>highlightWarning</code>: Same as <code>highlightMain</code>,
+but only used for parameters which requires extra caution.</li>
+<li><code>overlay</code>: Overlay color. Used to overlay texts and
+indicators.</li>
+<li><code>overlayHighlight</code>: Overlay color to highlight current
+focus.</li>
 </ul>
 <h2 id="controls">Controls</h2>
 <p>Knob and slider can do:</p>
@@ -455,52 +544,81 @@ the Trash&quot;</code></pre>
 <li>Shift + Left Drag: Fine adjustment.</li>
 </ul>
 <h2 id="caution">Caution</h2>
-<p>When the value of <code>Smooth</code> is near zero and change the value of <code>Allpass Cut</code> too fast, SevenDelay may output very loud click noise. This is caused by the filter which becomes unstable when cutoff frequency moves too fast. Recommendation is not to set <code>Smooth</code> parameter too low unless you have some specific purpose.</p>
-<p>When the value of <code>Time</code> is set to minimum and the value of <code>Feedback</code> is set to maximum, SevenDelay outputs direct current (DC). To remove DC, Set <code>DC Kill</code> to be greater than 1.0.</p>
+<p>When the value of <code>Smooth</code> is near zero and change the
+value of <code>Allpass Cut</code> too fast, SevenDelay may output very
+loud click noise. This is caused by the filter which becomes unstable
+when cutoff frequency moves too fast. Recommendation is not to set
+<code>Smooth</code> parameter too low unless you have some specific
+purpose.</p>
+<p>When the value of <code>Time</code> is set to minimum and the value
+of <code>Feedback</code> is set to maximum, SevenDelay outputs direct
+current (DC). To remove DC, Set <code>DC Kill</code> to be greater than
+1.0.</p>
 <h2 id="block-diagram">Block Diagram</h2>
-<p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or “View Image” on right click menu to scale.</p>
+<p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd>
+or “View Image” on right click menu to scale.</p>
 <p>Diagram only shows overview. It’s not exact implementation.</p>
 <p><img src="img/sevendelay.svg" /></p>
 <h2 id="parameters">Parameters</h2>
 <h3 id="delay">Delay</h3>
 <dl>
 <dt>Time</dt>
-<dd><p>Delay time. Range is 0.0001 to 8.0.</p>
+<dd>
+<p>Delay time. Range is 0.0001 to 8.0.</p>
 <ul>
-<li>If <code>Sync</code> is on and <code>Time</code> is less than 1.0, then delay time is set to <code>Time / 16</code> beats.</li>
-<li>If <code>Sync</code> is on and <code>Time</code> is greater or equal to 1.0, then delay time is set to <code>floor(2 * Time) / 32</code> beats.</li>
+<li>If <code>Sync</code> is on and <code>Time</code> is less than 1.0,
+then delay time is set to <code>Time / 16</code> beats.</li>
+<li>If <code>Sync</code> is on and <code>Time</code> is greater or equal
+to 1.0, then delay time is set to <code>floor(2 * Time) / 32</code>
+beats.</li>
 <li>Otherwise, delay time is set to <code>Time</code> seconds.</li>
 </ul>
 </dd>
 <dt>Feedback</dt>
-<dd><p>Delay feedback. Range is 0.0 to 1.0.</p>
+<dd>
+<p>Delay feedback. Range is 0.0 to 1.0.</p>
 </dd>
 <dt>Stereo</dt>
-<dd><p>L/R stereo offset. Range is -1.0 to 1.0.</p>
+<dd>
+<p>L/R stereo offset. Range is -1.0 to 1.0.</p>
 <ul>
-<li>If <code>Stereo</code> is less than 0.0, then left channel delay time is modified to <code>timeL * (1.0 + Stereo)</code>.</li>
-<li>Otherwise, right channel delay time is modified to <code>timeR * (1.0 - Stereo)</code>.</li>
+<li>If <code>Stereo</code> is less than 0.0, then left channel delay
+time is modified to <code>timeL * (1.0 + Stereo)</code>.</li>
+<li>Otherwise, right channel delay time is modified to
+<code>timeR * (1.0 - Stereo)</code>.</li>
 </ul>
 </dd>
 <dt>Wet</dt>
-<dd><p>Output volume of delayed signal. Range is 0.0 to 1.0.</p>
+<dd>
+<p>Output volume of delayed signal. Range is 0.0 to 1.0.</p>
 </dd>
 <dt>Dry</dt>
-<dd><p>Output volume of input signal. Range is 0.0 to 1.0.</p>
+<dd>
+<p>Output volume of input signal. Range is 0.0 to 1.0.</p>
 </dd>
 <dt>Sync</dt>
-<dd><p>Toggle tempo sync.</p>
+<dd>
+<p>Toggle tempo sync.</p>
 </dd>
 <dt>Negative</dt>
-<dd><p>Toggle negative feedback. This may be useful when delay time is very short.</p>
+<dd>
+<p>Toggle negative feedback. This may be useful when delay time is very
+short.</p>
 </dd>
 <dt>In/Out Spread/Pan</dt>
-<dd><p>Panning controls. Range is 0.0 to 1.0.</p>
-<p><code>In/Out Spread</code> controls stereo spread. <code>In/Out Pan</code> controls stereo panning.</p>
-<p>These parameter can be used for inverse panning, ping-pong delay etc.</p>
+<dd>
+<p>Panning controls. Range is 0.0 to 1.0.</p>
+<p><code>In/Out Spread</code> controls stereo spread.
+<code>In/Out Pan</code> controls stereo panning.</p>
+<p>These parameter can be used for inverse panning, ping-pong delay
+etc.</p>
 <ul>
-<li>For inverse panning, set <code>[InSpread, InPan, OutSpread, OutPan]</code> to <code>[0.0, 0.5, 1.0, 0.5]</code>.</li>
-<li>For ping-pong delay, set <code>[InSpread, InPan, OutSpread, OutPan]</code> to <code>[1.0, 0.5, 0.0, 0.5]</code>.</li>
+<li>For inverse panning, set
+<code>[InSpread, InPan, OutSpread, OutPan]</code> to
+<code>[0.0, 0.5, 1.0, 0.5]</code>.</li>
+<li>For ping-pong delay, set
+<code>[InSpread, InPan, OutSpread, OutPan]</code> to
+<code>[1.0, 0.5, 0.0, 0.5]</code>.</li>
 </ul>
 <pre><code>signalL = inL + spread * (inR - inL)
 signalR = inL + (1.0f - spread) * (inR - inL)
@@ -515,49 +633,73 @@ else {
 }</code></pre>
 </dd>
 <dt>Allpass Cut</dt>
-<dd><p>SFV allpass filter cutoff frequency. Range is 90.0 to 20000.0.</p>
+<dd>
+<p>SFV allpass filter cutoff frequency. Range is 90.0 to 20000.0.</p>
 <p>If <code>Allpass Cut</code> is 20000.0, filter will be bypassed.</p>
 </dd>
 <dt>Allpass Q</dt>
-<dd><p>SFV allpass filter resonance. Range is 0.00001 to 1.0.</p>
+<dd>
+<p>SFV allpass filter resonance. Range is 0.00001 to 1.0.</p>
 </dd>
 <dt>DC Kill</dt>
-<dd><p>Cutoff frequency of biquad highpass filter. Range is 1.0 to 120.0.</p>
-<p><code>DC Kill</code> removes direct current from delay feedback when the value is set to be greater than 1.0.</p>
+<dd>
+<p>Cutoff frequency of biquad highpass filter. Range is 1.0 to
+120.0.</p>
+<p><code>DC Kill</code> removes direct current from delay feedback when
+the value is set to be greater than 1.0.</p>
 </dd>
 <dt>Smooth</dt>
-<dd><p>Parameter smoothing. Range is 0.0 to 1.0. Unit is seconds.</p>
-<p>Some parameter may produce noise when the value is changed too fast. Increasing <code>Smooth</code> reduces those noise.</p>
+<dd>
+<p>Parameter smoothing. Range is 0.0 to 1.0. Unit is seconds.</p>
+<p>Some parameter may produce noise when the value is changed too fast.
+Increasing <code>Smooth</code> reduces those noise.</p>
 </dd>
 </dl>
 <h3 id="lfo">LFO</h3>
 <dl>
 <dt>To Time</dt>
-<dd><p>LFO modulation amount to delay time. Range is 0.0 to 1.0.</p>
+<dd>
+<p>LFO modulation amount to delay time. Range is 0.0 to 1.0.</p>
 </dd>
 <dt>To Allpass</dt>
-<dd><p>LFO modulation amount to allpass cutoff frequency. Range is 0.0 to 1.0.</p>
+<dd>
+<p>LFO modulation amount to allpass cutoff frequency. Range is 0.0 to
+1.0.</p>
 </dd>
 <dt>Freq</dt>
-<dd><p>LFO frequency. Range is 0.01 to 100.0.</p>
+<dd>
+<p>LFO frequency. Range is 0.01 to 100.0.</p>
 </dd>
 <dt>Shape</dt>
-<dd><p>LFO waveform shape. Range is 0.01 to 10.0.</p>
+<dd>
+<p>LFO waveform shape. Range is 0.01 to 10.0.</p>
 <pre><code>sign = 1 if (phase &gt; π),
       -1 if (phase &lt; π),
        0 if (phase == π)
 lfo = sign * abs(sin(phase))^shape</code></pre>
 </dd>
 <dt>Phase</dt>
-<dd><p>LFO initial phase. Range is 0.0 to 2π.</p>
-<p>LFO phase is reset to <code>Phase</code> for each time host starts playing.</p>
+<dd>
+<p>LFO initial phase. Range is 0.0 to 2π.</p>
+<p>LFO phase is reset to <code>Phase</code> for each time host starts
+playing.</p>
 </dd>
 <dt>Hold</dt>
-<dd><p>Toggle LFO phase hold. This may be useful for live performance.</p>
+<dd>
+<p>Toggle LFO phase hold. This may be useful for live performance.</p>
 </dd>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.20
+<ul>
+<li>Fixed crash on Linux.</li>
+</ul></li>
+<li>0.1.19
+<ul>
+<li>Fixed the condition of acceptable channel count. This is a fix for
+unintentional muting on sidechain in REAPER.</li>
+</ul></li>
 <li>0.1.18
 <ul>
 <li>Added custom font options for <code>style.json</code>.</li>
@@ -574,11 +716,15 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 <li>0.1.15
 <ul>
 <li>Fixed to reset properly.</li>
-<li>Fixed <code>bypass</code> parameter behavior. This fixes playing all the notes at the moment of unmute, even if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3 <code>bypass</code> parameter.</li>
+<li>Fixed <code>bypass</code> parameter behavior. This fixes playing all
+the notes at the moment of unmute, even if host sends note to plugin
+while muting. This bug was only happening on the hosts which respect VST
+3 <code>bypass</code> parameter.</li>
 </ul></li>
 <li>0.1.14
 <ul>
-<li>Changed <code>In Pan</code> and <code>Out Pan</code> from stereo balance to stereo panning.</li>
+<li>Changed <code>In Pan</code> and <code>Out Pan</code> from stereo
+balance to stereo panning.</li>
 <li>Added time readout display.</li>
 </ul></li>
 <li>0.1.13
@@ -595,7 +741,8 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 </ul></li>
 <li>0.1.10
 <ul>
-<li>Reverted parameter smoother to the old one which works with variable size audio buffer.</li>
+<li>Reverted parameter smoother to the old one which works with variable
+size audio buffer.</li>
 </ul></li>
 <li>0.1.9
 <ul>
@@ -603,7 +750,8 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 </ul></li>
 <li>0.1.8
 <ul>
-<li>Changed display method for pop-up which shows up by clicking plugin title.</li>
+<li>Changed display method for pop-up which shows up by clicking plugin
+title.</li>
 </ul></li>
 <li>0.1.7
 <ul>
@@ -619,7 +767,8 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 </ul></li>
 <li>0.1.4
 <ul>
-<li>Added support for synchronization between multiple GUI instances.</li>
+<li>Added support for synchronization between multiple GUI
+instances.</li>
 <li>Fixed a bug that opening splash screen causes crash.</li>
 <li>Fixed a bug that crash plugin when reloading.</li>
 <li>Fixed GUI to follow host automation.</li>
@@ -637,7 +786,8 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 </ul></li>
 <li>0.1.1
 <ul>
-<li>Disabled GUI for Linux build. This is a makeshift change while tracking down a bug related to VSTGUI.</li>
+<li>Disabled GUI for Linux build. This is a makeshift change while
+tracking down a bug related to VSTGUI.</li>
 <li>Changed tuning of <code>To Allpass</code> of LFO.</li>
 <li>Changed minimal value of <code>DC Kill</code> to 5.0 Hz.</li>
 </ul></li>
@@ -648,27 +798,55 @@ lfo = sign * abs(sin(phase))^shape</code></pre>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/SevenDelay_0.1.16.zip">SevenDelay 0.1.16 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/SevenDelay_0.1.15.zip">SevenDelay 0.1.15 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.14/SevenDelay0.1.14.zip">SevenDelay 0.1.14 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SevenDelay0.1.13.zip">SevenDelay 0.1.13 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/SevenDelay0.1.12.zip">SevenDelay 0.1.12 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SevenDelay0.1.11.zip">SevenDelay 0.1.11 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SevenDelay0.1.10.zip">SevenDelay 0.1.10 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SevenDelay0.1.9.zip">SevenDelay 0.1.9 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip">SevenDelay 0.1.7 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip">SevenDelay 0.1.6 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelay0.1.5.zip">SevenDelay 0.1.5 - VST 3 (github.com)</a></li>
-<li><a href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/SevenDelay_0.1.5.zip">Download SevenDelay 0.1.5 - VST® 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/SevenDelay_0.1.16.zip">SevenDelay
+0.1.16 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/SevenDelay_0.1.15.zip">SevenDelay
+0.1.15 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.14/SevenDelay0.1.14.zip">SevenDelay
+0.1.14 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SevenDelay0.1.13.zip">SevenDelay
+0.1.13 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/SevenDelay0.1.12.zip">SevenDelay
+0.1.12 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SevenDelay0.1.11.zip">SevenDelay
+0.1.11 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SevenDelay0.1.10.zip">SevenDelay
+0.1.10 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SevenDelay0.1.9.zip">SevenDelay
+0.1.9 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip">SevenDelay
+0.1.7 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip">SevenDelay
+0.1.6 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelay0.1.5.zip">SevenDelay
+0.1.5 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/SevenDelay_0.1.5.zip">Download
+SevenDelay 0.1.5 - VST® 3 (github.com)</a></li>
 </ul>
 <h2 id="license">License</h2>
-<p>SevenDelay is licensed under GPLv3. Complete licenses are linked below.</p>
+<p>SevenDelay is licensed under GPLv3. Complete licenses are linked
+below.</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
 </ul>
-<p>If the link above doesn’t work, please send email to <code>ryukau@gmail.com</code>.</p>
+<p>If the link above doesn’t work, please send email to
+<code>ryukau@gmail.com</code>.</p>
 <h3 id="about-vst">About VST</h3>
-<p>VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.</p>
+<p>VST is a trademark of Steinberg Media Technologies GmbH, registered
+in Europe and other countries.</p>
 
 <footer>
     <p><a href="..\..\index.html">Back to Index</a></p>
