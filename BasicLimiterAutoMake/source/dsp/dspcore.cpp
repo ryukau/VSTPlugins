@@ -228,8 +228,7 @@ void DSPCORE_NAME::process(
     }
   }
 
-  auto &&maxOut = std::max(maxAbs(length, out0), maxAbs(length, out1));
-  auto &paramClippingPeak = pv[ID::overshoot];
-  auto &&previousPeak = paramClippingPeak->getFloat();
-  if (maxOut > previousPeak) paramClippingPeak->setFromFloat(maxOut);
+  auto maxOut = std::max(maxAbs(length, out0), maxAbs(length, out1));
+  auto previousPeak = pv[ID::overshoot]->getFloat();
+  if (maxOut > previousPeak) pv[ID::overshoot]->setFromFloat(maxOut);
 }
