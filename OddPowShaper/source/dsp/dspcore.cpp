@@ -17,8 +17,6 @@
 
 #include "dspcore.hpp"
 
-#include "../../../lib/vcl/vectormath_exp.h"
-
 #include <algorithm>
 #include <numeric>
 
