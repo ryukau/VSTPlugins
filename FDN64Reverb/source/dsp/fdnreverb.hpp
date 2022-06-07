@@ -30,7 +30,7 @@
 
 namespace SomeDSP {
 
-template<typename Sample> class DoubleEMAFilter {
+template<typename Sample> class DoubleEMAFilterKp {
 private:
   Sample v1 = 0;
   Sample v2 = 0;
@@ -271,7 +271,7 @@ Note that this gate opens to 0, and close to 1. Specialized to modualte stereoCr
 template<typename Sample> class EasyGate {
 private:
   PeakHold<Sample> peakhold;
-  DoubleEMAFilter<Sample> smoother;
+  DoubleEMAFilterKp<Sample> smoother;
   Sample threshold = 0;
   Sample openKp = Sample(1);  // Smoother coefficient for opening gate.
   Sample closeKp = Sample(1); // Smoother coefficient for closing gate.
@@ -315,7 +315,7 @@ private:
   std::array<std::array<Sample, length>, length> matrix{};
   std::array<std::array<Sample, length>, 2> buf{};
   std::array<Delay<Sample>, length> delay;
-  std::array<DoubleEMAFilter<Sample>, length> lowpass;
+  std::array<DoubleEMAFilterKp<Sample>, length> lowpass;
   std::array<EMAHighpass<Sample>, length> highpass;
 
   std::array<Sample, length> splitGain;
