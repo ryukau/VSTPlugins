@@ -5,15 +5,13 @@ This repository is publishing VST 3 plugins under GPLv3.
 
 Packaged plugins are available at [Releases · ryukau/VSTPlugins](https://github.com/ryukau/VSTPlugins/releases).
 
-You can fund the development via [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau). Primary goal is to get M1 mac for macOS port.
+You can fund the development via [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau). Primary goal is to get ARM mac for macOS port.
 
 ## Build Instruction
 See [build_instruction.md](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md) for building plugin.
 
-Building on latest macOS will likely fail. See [macosarmbuild.md](https://github.com/ryukau/VSTPlugins/blob/master/macarmbuild.md) for more details.
-
 ## x86_64 CPU Dispatching
-To use appropriate SIMD instruction set at runtime, CPU dispatching is implemented. See the note below for the technique used in this repository. It was written for LV2 repository, but the same thing applies to this repository.
+To use appropriate SIMD instruction set at runtime, CPU dispatching is implemented for some plugins. See the note below for the technique used in this repository. It was written for LV2 repository, but the same thing applies to this repository.
 
 - [LV2Plugins/code_walkthrough.md at master · ryukau/LV2Plugins · GitHub](https://github.com/ryukau/LV2Plugins/blob/master/docs/dev_note/code_walkthrough.md#cpu-dispatching)
 

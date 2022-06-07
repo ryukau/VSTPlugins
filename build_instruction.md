@@ -89,7 +89,16 @@ error MSB3073: mklink "C:\Program Files\Common Files\VST3\SomePlugin.vst3"  C:\<
 In this case, add `-DSMTG_CREATE_PLUGIN_LINK=FALSE` to cmake option.
 
 ## macOS
-**Important**: Building on latest macOS will likely fail. See [macosarmbuild.md](https://github.com/ryukau/VSTPlugins/blob/master/macarmbuild.md) for more details.
+**Important**: Build of following plugins are disabled on macOS.
+
+- CubicPadSynth
+- EnvelopedSine
+- EsPhaser
+- IterativeSinCluster
+
+See [macosarmbuild.md](https://github.com/ryukau/VSTPlugins/blob/master/macarmbuild.md) for more details.
+
+---
 
 Note that I don't have mac, so I can't test this instruction. This instruction is based on build script for [GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions). If you find something wrong, feel free to open issue.
 
