@@ -11,7 +11,6 @@ else()
   set(plug_sources
     source/parameter.cpp
     source/gui/splashdraw.cpp
-    source/dsp/dspcore.cpp
     source/plugprocessor.cpp
     source/editor.cpp
     source/plugfactory.cpp)

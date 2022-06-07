@@ -29,7 +29,7 @@
 #include "../../common/value.hpp"
 #endif
 
-constexpr float maxDelayTime = 1.0f;
+constexpr float maxDelayTime = 8.0f;
 constexpr size_t nLfoWavetable = 64;
 
 namespace Steinberg {

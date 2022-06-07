@@ -12,7 +12,6 @@ else()
     source/parameter.cpp
     source/gui/splash.cpp
     source/gui/splashdraw.cpp
-    source/dsp/dspcore.cpp
     source/plugprocessor.cpp
     source/editor.cpp
     source/plugfactory.cpp)

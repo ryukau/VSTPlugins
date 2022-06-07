@@ -27,9 +27,14 @@ function(build_vst3 plug_sources)
   get_plugin_name(PLUGIN_NAME)
   set(target ${PLUGIN_NAME})
 
-  smtg_add_vst3plugin(${target} ${plug_sources})
+  smtg_add_vst3plugin(${target}
+    source/dsp/dspcore.cpp
+    ${plug_sources})
   if(APPLE)
     target_compile_options(${target} PRIVATE -fno-aligned-allocation)
+  elseif(MSVC)
+    ## Too many warnings are emitted from VST 3 SDK.
+    # target_compile_options(${target} PRIVATE /W4)
   endif()
   set_target_properties(${target} PROPERTIES ${SDK_IDE_MYPLUGINS_FOLDER})
   target_include_directories(${target} PUBLIC ${VSTGUI_ROOT}/vstgui4)

@@ -21,20 +21,22 @@
 #include <numeric>
 #include <random>
 
-#if INSTRSET >= 10
-#define PROCESSING_UNIT_NAME ProcessingUnit_AVX512
-#define NOTE_NAME Note_AVX512
-#define DSPCORE_NAME DSPCore_AVX512
-#elif INSTRSET >= 8
-#define PROCESSING_UNIT_NAME ProcessingUnit_AVX2
-#define NOTE_NAME Note_AVX2
-#define DSPCORE_NAME DSPCore_AVX2
-#elif INSTRSET >= 7
-#define PROCESSING_UNIT_NAME ProcessingUnit_AVX
-#define NOTE_NAME Note_AVX
-#define DSPCORE_NAME DSPCore_AVX
+#ifdef USE_VECTORCLASS
+  #if INSTRSET >= 10
+    #define NOTE_NAME Note_AVX512
+    #define DSPCORE_NAME DSPCore_AVX512
+  #elif INSTRSET >= 8
+    #define NOTE_NAME Note_AVX2
+    #define DSPCORE_NAME DSPCore_AVX2
+  #elif INSTRSET >= 7
+    #define NOTE_NAME Note_AVX
+    #define DSPCORE_NAME DSPCore_AVX
+  #else
+    #error Unsupported instruction set
+  #endif
 #else
-#error Unsupported instruction set
+  #define NOTE_NAME Note_Plain
+  #define DSPCORE_NAME DSPCore_Plain
 #endif
 
 inline float calcMasterPitch(

@@ -1,4 +1,4 @@
-// (c) 2021 Takamitsu Endo
+// (c) 2022 Takamitsu Endo
 //
 // This file is part of BasicLimiter.
 //
@@ -16,6 +16,10 @@
 // along with BasicLimiter.  If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
+
+#ifdef USE_VECTORCLASS
+  #include "../../../lib/vcl/vectorclass.h"
+#endif
 
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/smoother.hpp"
@@ -75,6 +79,10 @@ public:
     std::array<FirDownSampler<float, DownSamplerFir>, 2> downSampler;                    \
   };
 
+#ifdef USE_VECTORCLASS
 DSPCORE_CLASS(AVX512)
 DSPCORE_CLASS(AVX2)
 DSPCORE_CLASS(AVX)
+#else
+DSPCORE_CLASS(Plain)
+#endif

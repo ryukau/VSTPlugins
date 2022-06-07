@@ -1,21 +1,25 @@
 // (c) 2020 Takamitsu Endo
 //
-// This file is part of EnvelopedSine.
+// This file is part of CollidingCombSynth.
 //
-// EnvelopedSine is free software: you can redistribute it and/or modify
+// CollidingCombSynth is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// EnvelopedSine is distributed in the hope that it will be useful,
+// CollidingCombSynth is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with EnvelopedSine.  If not, see <https://www.gnu.org/licenses/>.
+// along with CollidingCombSynth.  If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
+
+#ifdef USE_VECTORCLASS
+  #include "../../../lib/vcl/vectorclass.h"
+#endif
 
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/smoother.hpp"
@@ -120,9 +124,13 @@ struct NoteProcessInfo {
     std::array<float, 2> process(float sampleRate, NoteProcessInfo &info);               \
   };
 
+#ifdef USE_VECTORCLASS
 NOTE_CLASS(AVX512)
 NOTE_CLASS(AVX2)
 NOTE_CLASS(AVX)
+#else
+NOTE_CLASS(Plain)
+#endif
 
 class DSPInterface {
 public:
@@ -231,6 +239,10 @@ public:
     size_t trStop = 0;                                                                   \
   };
 
+#ifdef USE_VECTORCLASS
 DSPCORE_CLASS(AVX512)
 DSPCORE_CLASS(AVX2)
 DSPCORE_CLASS(AVX)
+#else
+DSPCORE_CLASS(Plain)
+#endif

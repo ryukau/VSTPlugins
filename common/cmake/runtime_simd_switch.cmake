@@ -26,14 +26,16 @@ function(build_dspcore target)
 
   if(MSVC)
     set(dsp_msvc_flag
+      /D USE_VECTORCLASS
       $<$<CONFIG:Debug>:/W4 /wd4127 /wd4324 /wd4458>
-      $<$<CONFIG:Release>:/O2 /fp:fast /W4 /wd4127 /wd4324 /wd4458>)
+      $<$<CONFIG:Release>:/O2 /fp:fast /GL /W4 /wd4127 /wd4324 /wd4458>)
     target_compile_options(${dspcore_avx} PRIVATE ${dsp_msvc_flag} /arch:AVX)
     target_compile_options(${dspcore_avx2} PRIVATE ${dsp_msvc_flag} /arch:AVX2)
     target_compile_options(${dspcore_avx512} PRIVATE ${dsp_msvc_flag} /arch:AVX512)
   elseif(UNIX)
     if(APPLE)
       set(dsp_apple_clang_flag
+        -D USE_VECTORCLASS
         $<$<CONFIG:Debug>:-g -fPIC -fno-aligned-allocation -Wall>
         $<$<CONFIG:Release>:-O3 -fPIC -fno-aligned-allocation -Wall>)
       target_compile_options(${dspcore_avx} PRIVATE ${dsp_apple_clang_flag} -mavx)
@@ -41,6 +43,7 @@ function(build_dspcore target)
       target_compile_options(${dspcore_avx512} PRIVATE ${dsp_apple_clang_flag} -mavx512f -mfma -mavx512vl -mavx512bw -mavx512dq)
     else()
       set(dsp_linux_gcc_flag
+        -D USE_VECTORCLASS
         $<$<CONFIG:Debug>:-g -fPIC -Wall>
         $<$<CONFIG:Release>:-O3 -fPIC -Wall>)
       target_compile_options(${dspcore_avx} PRIVATE ${dsp_linux_gcc_flag} -mavx)
@@ -81,10 +84,13 @@ function(build_vst3 plug_sources)
 
   build_dspcore(${target})
 
-  smtg_add_vst3plugin(${target} ${plug_sources})
+  smtg_add_vst3plugin(${target}
+    ../lib/vcl/instrset_detect.cpp
+    ${plug_sources})
   if(APPLE)
     target_compile_options(${target} PRIVATE -fno-aligned-allocation)
   endif()
+  target_compile_options(${target} PRIVATE -DUSE_VECTORCLASS)
   set_target_properties(${target} PROPERTIES ${SDK_IDE_MYPLUGINS_FOLDER})
   target_include_directories(${target} PUBLIC ${VSTGUI_ROOT}/vstgui4)
   include_directories(../common)

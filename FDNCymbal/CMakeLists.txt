@@ -10,7 +10,6 @@ else()
     source/parameter.cpp
     source/gui/splashdraw.cpp
     source/editor.cpp
-    source/dsp/dspcore.cpp
     source/plugprocessor.cpp
     source/plugfactory.cpp)
   build_vst3("${plug_sources}")

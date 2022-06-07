@@ -20,14 +20,18 @@
 #include <algorithm>
 #include <numeric>
 
-#if INSTRSET >= 10
-#define DSPCORE_NAME DSPCore_AVX512
-#elif INSTRSET >= 8
-#define DSPCORE_NAME DSPCore_AVX2
-#elif INSTRSET >= 7
-#define DSPCORE_NAME DSPCore_AVX
+#ifdef USE_VECTORCLASS
+  #if INSTRSET >= 10
+    #define DSPCORE_NAME DSPCore_AVX512
+  #elif INSTRSET >= 8
+    #define DSPCORE_NAME DSPCore_AVX2
+  #elif INSTRSET >= 7
+    #define DSPCORE_NAME DSPCore_AVX
+  #else
+    #error Unsupported instruction set
+  #endif
 #else
-#error Unsupported instruction set
+  #define DSPCORE_NAME DSPCore_Plain
 #endif
 
 inline float maxAbs(const size_t length, const float *buffer)

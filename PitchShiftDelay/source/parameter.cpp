@@ -35,7 +35,7 @@ UIntScale<double> Scales::lfoTempoLower(255);
 DecibelScale<double> Scales::lfoRate(-60.0, 60.0, true);
 
 DecibelScale<double> Scales::pitch(-60.0, 60.0, true);
-LogScale<double> Scales::delayTime(0.0, 1.0, 0.5, 0.05);
+LogScale<double> Scales::delayTime(0.0, maxDelayTime, 0.5, 0.05 * maxDelayTime);
 LinearScale<double> Scales::stereoLean(-1.0, 1.0);
 LogScale<double> Scales::feedback(0.0, 1.0, 0.5, 0.75);
 SemitoneScale<double> Scales::highpassCutoffHz(-37.0, 117.0, true);

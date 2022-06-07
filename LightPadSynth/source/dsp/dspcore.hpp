@@ -17,6 +17,10 @@
 
 #pragma once
 
+#ifdef USE_VECTORCLASS
+  #include "../../../lib/vcl/vectorclass.h"
+#endif
+
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
@@ -173,9 +177,13 @@ struct NoteProcessInfo {
     process(float sampleRate, Wavetable &wavetable, NoteProcessInfo &info);              \
   };
 
+#ifdef USE_VECTORCLASS
 NOTE_CLASS(AVX512)
 NOTE_CLASS(AVX2)
 NOTE_CLASS(AVX)
+#else
+NOTE_CLASS(Plain)
+#endif
 
 class DSPInterface {
 public:
@@ -295,6 +303,10 @@ public:
     size_t trStop = 0;                                                                   \
   };
 
+#ifdef USE_VECTORCLASS
 DSPCORE_CLASS(AVX512)
 DSPCORE_CLASS(AVX2)
 DSPCORE_CLASS(AVX)
+#else
+DSPCORE_CLASS(Plain)
+#endif

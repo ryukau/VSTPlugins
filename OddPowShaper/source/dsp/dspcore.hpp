@@ -17,6 +17,10 @@
 
 #pragma once
 
+#ifdef USE_VECTORCLASS
+  #include "../../../lib/vcl/vectorclass.h"
+#endif
+
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/lightlimiter.hpp"
 #include "../../../common/dsp/smoother.hpp"
@@ -74,6 +78,10 @@ public:
     ExpSmoother<float> interpOutputGain;                                                 \
   };
 
+#ifdef USE_VECTORCLASS
 DSPCORE_CLASS(AVX512)
 DSPCORE_CLASS(AVX2)
 DSPCORE_CLASS(AVX)
+#else
+DSPCORE_CLASS(Plain)
+#endif

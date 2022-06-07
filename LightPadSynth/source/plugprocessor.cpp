@@ -28,7 +28,9 @@
 #include "pluginterfaces/vst/ivstevents.h"
 #include "pluginterfaces/vst/ivstparameterchanges.h"
 
-#include "../../lib/vcl/vectorclass.h"
+#ifdef USE_VECTORCLASS
+  #include "../../lib/vcl/vectorclass.h"
+#endif
 
 #include <cstring>
 #include <iostream>
@@ -38,15 +40,17 @@ namespace Synth {
 
 PlugProcessor::PlugProcessor()
 {
+#ifdef USE_VECTORCLASS
   auto iset = instrset_detect();
 
-#ifdef __linux__
+  #ifdef __linux__
   // I couldn't build FFTW3 with AVX512 on Windows and macOS.
   if (iset >= 10) {
     dsp = std::make_unique<DSPCore_AVX512>();
   } else
-#endif
-    if (iset >= 8) {
+  #endif
+    if (iset >= 8)
+  {
     dsp = std::make_unique<DSPCore_AVX2>();
   } else if (iset >= 7) {
     dsp = std::make_unique<DSPCore_AVX>();
@@ -54,6 +58,9 @@ PlugProcessor::PlugProcessor()
     std::cerr << "\nError: Instruction set AVX or later not supported on this computer";
     exit(EXIT_FAILURE);
   }
+#else
+  dsp = std::make_unique<DSPCore_Plain>();
+#endif
 
   setControllerClass(ControllerUID);
 }
@@ -130,7 +137,8 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
     uint64_t state = data.processContext->state;
     if (
       (lastState & Vst::ProcessContext::kPlaying) == 0
-      && (state & Vst::ProcessContext::kPlaying) != 0) {
+      && (state & Vst::ProcessContext::kPlaying) != 0)
+    {
       dsp->startup();
     }
     lastState = state;

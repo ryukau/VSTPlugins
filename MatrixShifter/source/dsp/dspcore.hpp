@@ -17,6 +17,10 @@
 
 #pragma once
 
+#ifdef USE_VECTORCLASS
+  #include "../../../lib/vcl/vectorclass.h"
+#endif
+
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
@@ -91,6 +95,10 @@ public:
     std::array<MultiShifter<float, nParallel, nSerial>, 2> shifter;                      \
   };
 
+#ifdef USE_VECTORCLASS
 DSPCORE_CLASS(AVX512)
 DSPCORE_CLASS(AVX2)
 DSPCORE_CLASS(AVX)
+#else
+DSPCORE_CLASS(Plain)
+#endif
