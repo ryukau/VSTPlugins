@@ -59,31 +59,31 @@ jobs:
         name: vst_macOS
         path: vst_macOS
 
-  release-packaging:
-    needs: [build-ubuntu, build-windows] # build-macOS is disabled.
-    runs-on: ubuntu-latest
-    if: ${{ startsWith(github.ref, 'refs/tags/UhhyouPlugins') }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          path:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v3
-        with:
-          path: ${{ env.package_path }}
-      - name: Run package script
-        run: |
-          cd ${{ env.package_path }}
-          echo "Run pack.py"
-          python3 pack.py
-          echo "Run studiorack.py"
-          python3 studiorack.py
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            ${{ env.package_path }}/pack/*.zip
-            ${{ env.package_path }}/pack/*.png
-            ${{ env.package_path }}/pack/plugins.json
-            ${{ env.package_path }}/audiosample/*.flac
+  # release-packaging:
+  #   needs: [build-ubuntu, build-windows, build-macOS]
+  #   runs-on: ubuntu-latest
+  #   if: ${{ startsWith(github.ref, 'refs/tags/UhhyouPlugins') }}
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+  #       with:
+  #         path:
+  #     - name: Download Artifacts
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         path: ${{ env.package_path }}
+  #     - name: Run package script
+  #       run: |
+  #         cd ${{ env.package_path }}
+  #         echo "Run pack.py"
+  #         python3 pack.py
+  #         echo "Run studiorack.py"
+  #         python3 studiorack.py
+  #     - name: Release
+  #       uses: softprops/action-gh-release@v1
+  #       with:
+  #         files: |
+  #           ${{ env.package_path }}/pack/*.zip
+  #           ${{ env.package_path }}/pack/*.png
+  #           ${{ env.package_path }}/pack/plugins.json
+  #           ${{ env.package_path }}/audiosample/*.flac
