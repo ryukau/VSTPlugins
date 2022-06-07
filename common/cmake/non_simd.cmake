@@ -59,7 +59,9 @@ function(build_vst3 plug_sources)
   smtg_target_add_plugin_resource(${target} "../common/resource/Fonts/LICENSE.txt" "Fonts")
 
   if(SMTG_MAC)
-    smtg_set_bundle(${target} INFOPLIST "${CMAKE_CURRENT_LIST_DIR}/resource/Info.plist" PREPROCESS)
+    smtg_target_set_bundle(${target}
+      BUNDLE_IDENTIFIER "com.steinberg.vst3.${target}"
+      COMPANY_NAME "Uhhyou Plugins")
   elseif(SMTG_WIN)
     target_sources(${target} PRIVATE resource/plug.rc)
   endif()
