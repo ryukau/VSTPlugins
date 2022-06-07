@@ -12,6 +12,7 @@ cd vst3sdk || exit
 mkdir build
 cd build || exit
 cmake -GXcode \
+  -DCMAKE_BUILD_TYPE=Release \
   -DSMTG_MYPLUGINS_SRC_PATH="$GITHUB_WORKSPACE" \
   -DSMTG_ADD_VST3_HOSTING_SAMPLES=FALSE \
   -DSMTG_ADD_VST3_PLUGINS_SAMPLES=FALSE \
