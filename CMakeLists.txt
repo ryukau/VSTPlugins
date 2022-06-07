@@ -2,16 +2,23 @@ cmake_minimum_required(VERSION 3.20)
 
 add_subdirectory(common)
 
+if(NOT APPLE)
+  # These plugins are dependent on:
+  # - x86_64 specific SIMD.
+  # - FFTW3.
+  # They require rewrite and/or ARM64 static library to build as universal binary.
+  add_subdirectory(CubicPadSynth)
+  add_subdirectory(EnvelopedSine)
+  add_subdirectory(EsPhaser)
+  add_subdirectory(IterativeSinCluster)
+endif()
+
 add_subdirectory(BasicLimiter)
 add_subdirectory(BasicLimiterAutoMake)
 add_subdirectory(CollidingCombSynth)
-add_subdirectory(CubicPadSynth)
-add_subdirectory(EnvelopedSine)
-add_subdirectory(EsPhaser)
 add_subdirectory(FDNCymbal)
 add_subdirectory(FDN64Reverb)
 add_subdirectory(FoldShaper)
-add_subdirectory(IterativeSinCluster)
 add_subdirectory(L3Reverb)
 add_subdirectory(L4Reverb)
 add_subdirectory(LatticeReverb)
