@@ -9,7 +9,6 @@ if(TEST_PLUGIN)
   build_test()
 else()
   set(plug_sources
-    ../lib/vcl/instrset_detect.cpp
     source/parameter.cpp
     source/gui/splashdraw.cpp
     source/plugprocessor.cpp

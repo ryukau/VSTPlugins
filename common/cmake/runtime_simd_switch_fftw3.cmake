@@ -98,7 +98,9 @@ function(build_vst3 plug_sources)
 
   build_dspcore(${target})
 
-  smtg_add_vst3plugin(${target} ${plug_sources})
+  smtg_add_vst3plugin(${target}
+    ../lib/vcl/instrset_detect.cpp
+    ${plug_sources})
   if(APPLE)
     target_compile_options(${target} PRIVATE -fno-aligned-allocation)
   endif()

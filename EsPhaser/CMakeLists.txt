@@ -10,7 +10,6 @@ if(TEST_PLUGIN)
 else()
   # VST 3 source files.
   set(plug_sources
-    ../lib/vcl/instrset_detect.cpp
     source/parameter.cpp
     source/gui/splashdraw.cpp
     source/plugprocessor.cpp
