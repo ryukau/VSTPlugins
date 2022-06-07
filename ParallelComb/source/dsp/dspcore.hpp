@@ -21,8 +21,8 @@
   #include "../../../lib/vcl/vectorclass.h"
 #endif
 
+#include "../../../common/dsp/basiclimiter.hpp"
 #include "../../../common/dsp/constants.hpp"
-#include "../../../common/dsp/lightlimiter.hpp"
 #include "../../../common/dsp/multirate.hpp"
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
@@ -87,7 +87,7 @@ public:
     EasyGate<float> gate;                                                                \
     std::array<ParallelComb<float, nCombTaps>, 2> comb;                                  \
     std::array<EMAHighpass<float, 4>, 2> feedbackHighpass;                               \
-    std::array<LightLimiter<float, 64>, 2> feedbackLimiter;                              \
+    std::array<BasicLimiter<float>, 2> feedbackLimiter;                                  \
   };
 
 #ifdef USE_VECTORCLASS

@@ -35,6 +35,8 @@
   #define DSPCORE_NAME DSPCore_Plain
 #endif
 
+constexpr float feedbackLimiterAttackSeconds = 64.0f / 48000.0f;
+
 template<typename T> T lerp(T a, T b, T t) { return a + t * (b - a); }
 
 void DSPCORE_NAME::setup(double sampleRate)
@@ -48,6 +50,10 @@ void DSPCORE_NAME::setup(double sampleRate)
   gate.setup(sampleRate, 0.001f);
 
   for (auto &cmb : comb) cmb.setup(upRate, maxDelayTime);
+
+  for (auto &lm : feedbackLimiter) {
+    lm.resize(size_t(upRate * feedbackLimiterAttackSeconds) + 1);
+  }
 
   reset();
   startup();
@@ -111,7 +117,10 @@ void DSPCORE_NAME::setParameters()
   ASSIGN_PARAMETER(push);
 
   for (auto &lm : feedbackLimiter) {
-    lm.prepare(upRate, pv[ID::feedbackLimiterRelease]->getFloat(), 1.0f);
+    // Set fixed limiter attack time regardless of oversampling.
+    lm.prepare(
+      upRate, OverSampler::fold * feedbackLimiterAttackSeconds / upfold,
+      pv[ID::feedbackLimiterRelease]->getFloat(), 1.0f);
   }
 }
 
