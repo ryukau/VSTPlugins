@@ -43,24 +43,21 @@ jobs:
         name: vst_windows
         path: vst_windows
 
-  ##
-  ## Disabling macOS build. To enable, it requires code path without
-  ## vectorclass library.
-  ##
-  # build-macOS:
-  #   runs-on: macos-latest
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v3
-  #     with:
-  #       submodules: recursive
-  #   - name: Run script
-  #     run: ci/ci_macOS.sh
-  #   - name: Upload
-  #     uses: actions/upload-artifact@v3
-  #     with:
-  #       name: vst_macOS
-  #       path: vst_macOS
+  build-macOS:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+    - name: Run script
+      run: ci/ci_macOS.sh
+    - name: Upload
+      if: ${{ startsWith(github.ref, 'refs/tags/') }}
+      uses: actions/upload-artifact@v3
+      with:
+        name: vst_macOS
+        path: vst_macOS
 
   release-packaging:
     needs: [build-ubuntu, build-windows] # build-macOS is disabled.
