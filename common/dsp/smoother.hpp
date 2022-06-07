@@ -49,6 +49,41 @@ public:
   Sample process(Sample input) { return value += kp * (input - value); }
 };
 
+template<typename Sample> class DoubleEMAFilter {
+private:
+  Sample kp = Sample(1);
+  Sample v1 = 0;
+  Sample v2 = 0;
+
+public:
+  void reset(Sample value = 0)
+  {
+    v1 = value;
+    v2 = value;
+  }
+
+  void setMin(Sample value)
+  {
+    v1 = std::min(v1, value);
+    v2 = std::min(v2, value);
+  }
+
+  void setCutoff(Sample sampleRate, Sample cutoffHz)
+  {
+    kp = cutoffHz >= sampleRate / Sample(2)
+      ? Sample(1)
+      : Sample(EMAFilter<double>::cutoffToP(sampleRate, cutoffHz));
+  }
+
+  Sample process(Sample input)
+  {
+    auto &&v0 = input;
+    v1 += kp * (v0 - v1);
+    v2 += kp * (v1 - v2);
+    return v2;
+  }
+};
+
 template<typename Sample> class SmootherCommon {
 public:
   static void setSampleRate(Sample _sampleRate, Sample time = 0.04)
