@@ -34,6 +34,18 @@
 using namespace SomeDSP;
 using namespace Steinberg::Synth;
 
+class EMAFilter16 {
+public:
+  void setP(float p) { kp = std::clamp<float>(p, float(0), float(1)); };
+  void setP(int index, float p) { kp.insert(index, p); };
+  void reset() { value = 0; }
+  Vec16f process(Vec16f input) { return value += kp * (input - value); }
+
+private:
+  Vec16f kp = 1; // In [0, 1].
+  Vec16f value = 0;
+};
+
 inline float calcMasterPitch(int32_t octave, int32_t semi, int32_t milli, float bend)
 {
   return 12 * octave + semi + milli / 1000.0f + (bend - 0.5f) * 4.0f;

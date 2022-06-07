@@ -17,8 +17,6 @@
 
 #pragma once
 
-#include "../../lib/vcl/vectorclass.h"
-
 #include "constants.hpp"
 
 #include <algorithm>
@@ -49,18 +47,6 @@ public:
   void setP(Sample p) { kp = std::clamp<Sample>(p, Sample(0), Sample(1)); };
   void reset(Sample value = 0) { this->value = value; }
   Sample process(Sample input) { return value += kp * (input - value); }
-};
-
-class EMAFilter16 {
-public:
-  void setP(float p) { kp = std::clamp<float>(p, float(0), float(1)); };
-  void setP(int index, float p) { kp.insert(index, p); };
-  void reset() { value = 0; }
-  Vec16f process(Vec16f input) { return value += kp * (input - value); }
-
-private:
-  Vec16f kp = 1; // In [0, 1].
-  Vec16f value = 0;
 };
 
 template<typename Sample> class SmootherCommon {
