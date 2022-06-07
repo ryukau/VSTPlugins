@@ -7,13 +7,17 @@ AllowShortIfStatementsOnASingleLine: true
 AllowShortLoopsOnASingleLine: true
 BinPackParameters: false
 BreakBeforeBinaryOperators: All
-BreakBeforeBraces: WebKit
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterControlStatement: MultiLine
+  AfterFunction: true
 BreakConstructorInitializers: BeforeComma
 ColumnLimit: 90
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 ConstructorInitializerIndentWidth: 2
 ContinuationIndentWidth: 2
 IndentCaseLabels: true
+IndentPPDirectives: BeforeHash
 KeepEmptyLinesAtTheStartOfBlocks: false
 SpaceAfterTemplateKeyword: false
 UseTab: Never
