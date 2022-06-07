@@ -24,12 +24,12 @@
 #include "../../common/parameterInterface.hpp"
 
 #ifdef TEST_DSP
-#include "../../test/value.hpp"
+  #include "../../test/value.hpp"
 #else
-#include "../../common/value.hpp"
+  #include "../../common/value.hpp"
 #endif
 
-constexpr float maxDelayTime = 8.0f;
+constexpr float maxDelayTime = 10.0f;
 constexpr size_t nLfoWavetable = 64;
 
 namespace Steinberg {
@@ -86,7 +86,7 @@ struct Scales {
   static SomeDSP::DecibelScale<double> lfoRate;
 
   static SomeDSP::DecibelScale<double> pitch;
-  static SomeDSP::LogScale<double> delayTime;
+  static SomeDSP::DecibelScale<double> delayTime;
   static SomeDSP::LinearScale<double> stereoLean;
   static SomeDSP::LogScale<double> feedback;
   static SomeDSP::SemitoneScale<double> highpassCutoffHz;
@@ -154,7 +154,7 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::mirrorUnisonPitch] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "mirrorUnisonPitch", Info::kCanAutomate);
 
-    value[ID::delayTime] = std::make_unique<LogValue>(
+    value[ID::delayTime] = std::make_unique<DecibelValue>(
       Scales::delayTime.invmap(0.1), Scales::delayTime, "delayTime", Info::kCanAutomate);
     value[ID::stereoLean] = std::make_unique<LinearValue>(
       0.5, Scales::stereoLean, "stereoLean", Info::kCanAutomate);
