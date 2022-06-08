@@ -134,8 +134,8 @@ inline void convertToMidSide(float &left, float &right)
 
 inline void convertToLeftRight(float &mid, float &side)
 {
-  auto left = (mid + side);
-  auto right = (mid - side);
+  auto left = 0.5f * (mid + side);
+  auto right = 0.5f * (mid - side);
   mid = left;
   side = right;
 }
@@ -209,7 +209,13 @@ void DSPCORE_NAME::process(
     }
   } else {
     for (size_t i = 0; i < length; ++i) {
-      auto buf = processInternal(in0[i], in1[i]);
+      float sig0 = in0[i];
+      float sig1 = in1[i];
+      if (enableMidSide) convertToMidSide(sig0, sig1);
+
+      auto buf = processInternal(sig0, sig1);
+
+      if (enableMidSide) convertToLeftRight(buf[0], buf[1]);
       out0[i] = buf[0];
       out1[i] = buf[1];
     }
