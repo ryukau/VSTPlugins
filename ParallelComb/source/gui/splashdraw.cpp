@@ -60,46 +60,37 @@ void CreditView::draw(CDrawContext *pContext)
 Ctrl + Left Drag|Reset to Default
 Middle Drag|Draw Line
 Shift + D|Toggle Min/Mid/Max
-I|Invert Value
-P|Permute
+I|Invert
+N|Normalize
 R|Randomize
-S|Sort Decending Order
 T|Random Walk
-Shift + T|Random Walk to 0
 Z|Undo
-Shift + Z|Redo
-, (Comma)|Rotate Back
-. (Period)|Rotate Forward
+, (Comma) / . (Period)|Rotate Back/Forward
 1|Decrease
-2-9|Decrease 2n-9n
 
 And more! Refer to the manual for full list
 of shortcuts.)";
 
-  std::string rightText = R"(- Number -
+  std::string rightText = R"(- Number & Knob -
 Shift + Left Drag|Fine Adjustment
 Ctrl + Left Click|Reset to Default
 Middle Click|Flip Min/Mid/Max
 
-Time Multi. and Feedback can be used to quickly
-shorten or lengthen reverb time.
+To stop the output, set Feedback to 0 or
+press Panic! button.
 
-To change stereo image, press Matrix button. It
-has no effect on Hadamard and Conference matrix.
-
-To get rotation effect, set Skew greater than 0.
-
-Increasing Interp. Rate adds more noise when
-delay time is modulated by hand or LFO.
+To reliably stop the output when Feedback
+is non 0, insert a gate before ParallelComb,
+so that input signal is all set to 0. Even
+dithering noise can saturate feedback.
 
 Have a nice day!)";
 
   const float top0 = 100.0f;
-  const float mid = (750 - 2 * 20) / 2;
   const float lineHeight = 20.0f;
-  const float blockWidth = 160.0f;
+  const float blockWidth = 115.0f;
   drawTextBlock(pContext, 20.0f, top0, lineHeight, blockWidth, leftText);
-  drawTextBlock(pContext, mid, top0, lineHeight, blockWidth, rightText);
+  drawTextBlock(pContext, 20.0f + 240.0f, top0, lineHeight, blockWidth, rightText);
 
   setDirty(false);
 }
