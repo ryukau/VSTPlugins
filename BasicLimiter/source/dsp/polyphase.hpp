@@ -24,7 +24,7 @@ namespace SomeDSP {
 
 template<typename Sample, typename Fir> class NaiveConvolver {
 private:
-  std::array<Sample, 64> buf{};
+  std::array<Sample, Fir::fir.size()> buf{};
 
 public:
   void reset() { buf.fill(Sample(0)); }
