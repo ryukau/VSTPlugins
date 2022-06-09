@@ -43,7 +43,7 @@ public:
 
   Sample process(Sample input)
   {
-    if (++ptr >= buf.size()) ptr -= buf.size();
+    if (++ptr >= buf.size()) ptr = 0;
     auto output = buf[ptr];
     buf[ptr] = input;
     return output;
