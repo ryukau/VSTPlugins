@@ -11,6 +11,7 @@ if(NOT APPLE)
   add_subdirectory(EnvelopedSine)
   add_subdirectory(EsPhaser)
   add_subdirectory(IterativeSinCluster)
+  add_subdirectory(MiniCliffEQ)
 endif()
 
 add_subdirectory(BasicLimiter)
