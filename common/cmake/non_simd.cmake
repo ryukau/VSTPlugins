@@ -3,6 +3,22 @@ function(get_plugin_name NAME_VAR)
   set(${NAME_VAR} ${PLUGIN_NAME} PARENT_SCOPE)
 endfunction()
 
+function(add_fftw3)
+  if(UHHYOU_USE_FFTW)
+    add_library(fftw3 STATIC IMPORTED)
+    if(MSVC)
+      get_filename_component(fftw3_path ../lib/fftw3/windows/fftw3f.lib ABSOLUTE)
+    elseif(UNIX)
+      if(APPLE)
+        get_filename_component(fftw3_path ../lib/fftw3/macOS/libfftw3f.a ABSOLUTE)
+      else()
+        get_filename_component(fftw3_path ../lib/fftw3/linux/libfftw3f.a ABSOLUTE)
+      endif()
+    endif()
+    set_property(TARGET fftw3 PROPERTY IMPORTED_LOCATION ${fftw3_path})
+  endif()
+endfunction()
+
 function(build_test)
   find_package(SndFile CONFIG REQUIRED)
 
@@ -15,12 +31,14 @@ function(build_test)
     UHHYOU_PLUGIN_NAME="${PLUGIN_NAME}")
 
   set(src "${target}_source")
+  add_fftw3()
   add_library(${src}
     source/parameter.cpp
     source/dsp/dspcore.cpp)
   target_link_libraries(${target} PRIVATE
     SndFile::sndfile
-    ${src})
+    ${src}
+    fftw3)
 endfunction()
 
 function(build_vst3 plug_sources)
@@ -39,8 +57,10 @@ function(build_vst3 plug_sources)
   set_target_properties(${target} PROPERTIES ${SDK_IDE_MYPLUGINS_FOLDER})
   target_include_directories(${target} PUBLIC ${VSTGUI_ROOT}/vstgui4)
   include_directories(../common)
+  add_fftw3()
   target_link_libraries(${target} PRIVATE
     UhhyouCommon
+    fftw3
     base
     sdk
     vstgui_support)
