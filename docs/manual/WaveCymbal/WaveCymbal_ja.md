@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>WaveCymbal<rt>ウェイブ シンバル</rt></ruby> は banded wave-guide という手法を用いてシンバルの音が鳴るはずだったシンセサイザです。実際のところはシンバルというよりも、アスファルトの上でトタン板や紐につないだ空き缶を引きずったときのような音が出ます。
 
-- [WaveCymbal 0.1.18 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/WaveCymbal_0.1.18.zip) <img
+- [WaveCymbal 0.1.19 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/WaveCymbal_0.1.19.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -18,6 +18,7 @@ lang: ja
 
 - Windows 64bit
 - Linux 64bit
+- macOS universal binary
 
 2022-05-14 の時点ではユニバーサルバイナリのビルドに失敗するので、 macOS ビルドはパッケージに含まれていません。将来的に対応したいですが、お財布の問題で M1 mac 入手のめどが立たないので時期は未定です。
 
@@ -26,7 +27,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 ## 連絡先
 何かあれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作るか `ryukau@gmail.com` までお気軽にどうぞ。
 
-[paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau) から開発資金を投げ銭することもできます。現在の目標は macOS と ARM ポートのための M1 mac の購入資金を作ることです。 💸💻
+[paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau) から開発資金を投げ銭することもできます。現在の目標はよりよい macOS サポートのための M1 mac の購入資金を作ることです。 💸💻
 
 ## インストール
 ### プラグイン
@@ -66,8 +67,6 @@ sudo apt install libxcb-cursor0  libxkbcommon-x11-0
 REAPER の Linux 版がプラグインを認識しないときは `~/.config/REAPER/reaper-vstplugins64.ini` を削除して REAPER を再起動してみてください。
 
 ### macOS
-**重要**: 現バージョンのパッケージは macOS 未対応です。
-
 **注意**: この節は英語で macOS を使用しているユーザからの報告によって作成されました。日本語でのエラーメッセージが分からなかったので曖昧な書き方になっています。
 
 プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した `.vst3` ディレクトリに次のコマンドを適用してみてください。
@@ -287,6 +286,8 @@ Bandpass Cutoff Distribution
 `Gain`, `Excitation.Time`, `Random.Amount`, `Bandpass.MinCutoff`, `Bandpass.MaxCutoff` を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。 `OscType.Sustain` のスライドの長さも `Smoothness` で調整できます。
 
 ## チェンジログ
+- 0.1.19
+  - macOS ビルドを復帰。
 - 0.1.18
   - Linux でのクラッシュを修正。
 - 0.1.17
@@ -333,6 +334,7 @@ Bandpass Cutoff Distribution
   - 初期リリース。
 
 ## 旧バージョン
+- [WaveCymbal 0.1.18 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/WaveCymbal_0.1.18.zip)
 - [WaveCymbal 0.1.17 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/WaveCymbal_0.1.17.zip)
 - [WaveCymbal 0.1.16 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/WaveCymbal_0.1.16.zip)
 - [WaveCymbal 0.1.14 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/WaveCymbal_0.1.14.zip)

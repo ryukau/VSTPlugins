@@ -7,28 +7,25 @@ lang: en
 
 LightPadSynth is a lightweight version of CubicPadSynth. For efficiency, interpolation is changed to linear. Also pitch modulation is omitted. Instead, a delay is added for each voice.
 
-- [Download LightPadSynth 0.1.13 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/LightPadSynth_0.1.13.zip) <img
+- [Download LightPadSynth 0.1.14 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/LightPadSynth_0.1.14.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
   style="display: inline-block; vertical-align: middle;">
 - [Download Presets (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynthPresets.zip)
 
-LightPadSynth requires CPU which supports AVX or later SIMD instructions.
-
 The package includes following builds:
 
 - Windows 64bit
 - Linux 64bit
+- macOS universal binary
 
-On 2022-05-15, macOS is not supported. Current code fails to build as macOS universal binary. I'm planning to support macOS in future. However due to my financial situation, I can't purchase M1 mac for now.
-
-Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely run. In this case, please take a look at [build instruction](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
+Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely to run. In this case, please take a look at [build instruction](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
 
 ## Contact
 Feel free to contact me on [GitHub repository](https://github.com/ryukau/VSTPlugins/commits/master) or `ryukau@gmail.com.`
 
-You can fund the development through [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).  Current goal is to purchase M1 mac for macOS and ARM port. 💸💻
+You can fund the development through [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).  Current goal is to purchase M1 mac for better macOS support. 💸💻
 
 ## Installation
 ### Plugin
@@ -68,8 +65,6 @@ If DAW doesn't recognize the plugin, take a look at `Package Requirements` secti
 REAPER on Linux may not recognize the plugin. A workaround is to delete a file `~/.config/REAPER/reaper-vstplugins64.ini` and restart REAPER.
 
 ### macOS Specific
-**Important**: Current package do not contain mac OS build.
-
 When trying to run plugin first time, following message may appear on macOS.
 
 ```
@@ -563,6 +558,8 @@ Refresh PADsynth wavetable based on current configuration of Wavetable tab.
 Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
 
 ## Change Log
+- 0.1.14
+  - Removed dependency to x86_64 specific SIMD instructions.
 - 0.1.13
   - Fixed crash on Linux.
   - Fixed BarBox to receive shift key.
@@ -603,6 +600,7 @@ Note that refreshing wavetable stops sound. It also interrupts MIDI notes.
   - Initial release.
 
 ## Old Versions
+- [LightPadSynth 0.1.13 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/LightPadSynth_0.1.13.zip)
 - [LightPadSynth 0.1.12 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/LightPadSynth_0.1.12.zip)
 - [LightPadSynth 0.1.11 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/LightPadSynth_0.1.11.zip)
 - [LightPadSynth 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/LightPadSynth_0.1.9.zip)

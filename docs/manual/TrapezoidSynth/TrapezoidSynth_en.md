@@ -7,7 +7,7 @@ lang: en
 
 TrapezoidSynth is a monophonic synthesizer equipped with 2 trapezoid oscillator. Trapezoid oscillator is based on PTR (Polynomial Transition Regions) and it has a drawback that increasing noise at high frequency. Therefore 8 times oversampled. 2 pitch shifters are added to make some chord.
 
-- [Download TrapezoidSynth 0.1.18 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/TrapezoidSynth_0.1.18.zip) <img
+- [Download TrapezoidSynth 0.1.19 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/TrapezoidSynth_0.1.19.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -18,15 +18,14 @@ The package includes following builds:
 
 - Windows 64bit
 - Linux 64bit
+- macOS universal binary
 
-On 2022-05-15, macOS is not supported. Current code fails to build as macOS universal binary. I'm planning to support macOS in future. However due to my financial situation, I can't purchase M1 mac for now.
-
-Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely run. In this case, please take a look at [build instruction](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
+Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely to run. In this case, please take a look at [build instruction](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
 
 ## Contact
 Feel free to contact me on [GitHub repository](https://github.com/ryukau/VSTPlugins/commits/master) or `ryukau@gmail.com.`
 
-You can fund the development through [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).  Current goal is to purchase M1 mac for macOS and ARM port. 💸💻
+You can fund the development through [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).  Current goal is to purchase M1 mac for better macOS support. 💸💻
 
 ## Installation
 ### Plugin
@@ -66,8 +65,6 @@ If DAW doesn't recognize the plugin, take a look at `Package Requirements` secti
 REAPER on Linux may not recognize the plugin. A workaround is to delete a file `~/.config/REAPER/reaper-vstplugins64.ini` and restart REAPER.
 
 ### macOS Specific
-**Important**: Current package do not contain mac OS build.
-
 When trying to run plugin first time, following message may appear on macOS.
 
 ```
@@ -444,6 +441,8 @@ Offset
 :   Oscillator 2 slide time with respect to Oscillator 1 slide time.
 
 ## Change Log
+- 0.1.19
+  - Resume macOS build.
 - 0.1.18
   - Fixed crash on Linux.
 - 0.1.17
@@ -489,6 +488,7 @@ Offset
   - Initial release.
 
 ## Old Versions
+- [TrapezoidSynth 0.1.18 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/TrapezoidSynth_0.1.18.zip)
 - [TrapezoidSynth 0.1.17 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/TrapezoidSynth_0.1.17.zip)
 - [TrapezoidSynth 0.1.16 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/TrapezoidSynth_0.1.16.zip)
 - [TrapezoidSynth 0.1.14 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/TrapezoidSynth_0.1.14.zip)

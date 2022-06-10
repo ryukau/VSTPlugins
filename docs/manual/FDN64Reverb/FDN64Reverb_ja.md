@@ -7,19 +7,18 @@ lang: ja
 
 <ruby>FDN64Reverb<rt>エフディーエヌ 64 リバーブ</rt></ruby> はフィードバック・ディレイ・ネットワーク (FDN) を 1 つだけ搭載したリバーブです。しかしながら、フィードバック行列の大きさは 64 です。
 
-- [FDN64Reverb 0.1.5 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/FDN64Reverb_0.1.5.zip) <img
+- [FDN64Reverb 0.1.6 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/FDN64Reverb_0.1.6.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
   style="display: inline-block; vertical-align: middle;">
 - [プリセットをダウンロード (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/FDN64ReverbPresets.zip)
 
-FDN64Reverb の利用には AVX 以降の SIMD 命令セットをサポートする CPU が必要です。
-
 パッケージには次のビルドが含まれています。
 
 - Windows 64bit
 - Linux 64bit
+- macOS universal binary
 
 2022-05-14 の時点ではユニバーサルバイナリのビルドに失敗するので、 macOS ビルドはパッケージに含まれていません。将来的に対応したいですが、お財布の問題で M1 mac 入手のめどが立たないので時期は未定です。
 
@@ -28,7 +27,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 ## 連絡先
 何かあれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を作るか `ryukau@gmail.com` までお気軽にどうぞ。
 
-[paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau) から開発資金を投げ銭することもできます。現在の目標は macOS と ARM ポートのための M1 mac の購入資金を作ることです。 💸💻
+[paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau) から開発資金を投げ銭することもできます。現在の目標はよりよい macOS サポートのための M1 mac の購入資金を作ることです。 💸💻
 
 ## インストール
 ### プラグイン
@@ -68,8 +67,6 @@ sudo apt install libxcb-cursor0  libxkbcommon-x11-0
 REAPER の Linux 版がプラグインを認識しないときは `~/.config/REAPER/reaper-vstplugins64.ini` を削除して REAPER を再起動してみてください。
 
 ### macOS
-**重要**: 現バージョンのパッケージは macOS 未対応です。
-
 **注意**: この節は英語で macOS を使用しているユーザからの報告によって作成されました。日本語でのエラーメッセージが分からなかったので曖昧な書き方になっています。
 
 プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した `.vst3` ディレクトリに次のコマンドを適用してみてください。
@@ -359,6 +356,8 @@ Skew
     </figure>
 
 ## チェンジログ
+- 0.1.6
+  - x86_64 固有の SIMD 命令への依存を除去。
 - 0.1.5
   - Linux でのクラッシュを修正。
   - BarBox が <kbd>Shift</kbd> キーを受け取るように修正。
@@ -374,6 +373,7 @@ Skew
   - 初期リリース。
 
 ## 旧バージョン
+- [FDN64Reverb 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/FDN64Reverb_0.1.5.zip)
 - [FDN64Reverb 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_32_0/FDN64Reverb_0.1.4.zip)
 - [FDN64Reverb 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/FDN64Reverb_0.1.3.zip)
 - [FDN64Reverb 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/FDN64Reverb_0.1.2.zip)

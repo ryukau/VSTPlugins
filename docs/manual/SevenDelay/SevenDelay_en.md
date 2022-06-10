@@ -7,7 +7,7 @@ lang: en
 
 SevenDelay is a stereo delay with 7th order lagrange interpolated fractional delay and 7x oversampling.
 
-- [Download SevenDelay 0.1.20 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/SevenDelay_0.1.20.zip) <img
+- [Download SevenDelay 0.1.21 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/SevenDelay_0.1.21.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -18,15 +18,14 @@ The package includes following builds:
 
 - Windows 64bit
 - Linux 64bit
+- macOS universal binary
 
-On 2022-05-15, macOS is not supported. Current code fails to build as macOS universal binary. I'm planning to support macOS in future. However due to my financial situation, I can't purchase M1 mac for now.
-
-Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely run. In this case, please take a look at [build instruction](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
+Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely to run. In this case, please take a look at [build instruction](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
 
 ## Contact
 Feel free to contact me on [GitHub repository](https://github.com/ryukau/VSTPlugins/commits/master) or `ryukau@gmail.com.`
 
-You can fund the development through [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).  Current goal is to purchase M1 mac for macOS and ARM port. 💸💻
+You can fund the development through [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).  Current goal is to purchase M1 mac for better macOS support. 💸💻
 
 ## Installation
 ### Plugin
@@ -66,8 +65,6 @@ If DAW doesn't recognize the plugin, take a look at `Package Requirements` secti
 REAPER on Linux may not recognize the plugin. A workaround is to delete a file `~/.config/REAPER/reaper-vstplugins64.ini` and restart REAPER.
 
 ### macOS Specific
-**Important**: Current package do not contain mac OS build.
-
 When trying to run plugin first time, following message may appear on macOS.
 
 ```
@@ -309,6 +306,8 @@ Hold
 :   Toggle LFO phase hold. This may be useful for live performance.
 
 ## Change Log
+- 0.1.21
+  - Resume macOS build.
 - 0.1.20
   - Fixed crash on Linux.
 - 0.1.19
@@ -364,6 +363,9 @@ Hold
   - Initial release.
 
 ## Old Versions
+- [SevenDelay 0.1.20 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/SevenDelay_0.1.20.zip)
+- [SevenDelay 0.1.19 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/SevenDelay_0.1.19.zip)
+- [SevenDelay 0.1.18 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/SevenDelay_0.1.18.zip)
 - [SevenDelay 0.1.16 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/SevenDelay_0.1.16.zip)
 - [SevenDelay 0.1.15 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/SevenDelay_0.1.15.zip)
 - [SevenDelay 0.1.14 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.14/SevenDelay0.1.14.zip)

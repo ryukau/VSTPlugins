@@ -11,11 +11,10 @@ def compose_download_link(locale, plugin_name, version, download_url):
         return None
 
 def get_source_version(plugin_name):
-    version_hpp = Path("../../") / Path(path.stem) / Path("source/version.hpp")
+    version_hpp = Path("../../") / Path(plugin_name) / Path("source/version.hpp")
 
     if not version_hpp.exists():
-        print(f"{version_hpp} was not found")
-        exit(1)
+        raise Exception(f"{version_hpp} was not found")
 
     with open(version_hpp, "r", encoding="utf-8") as fi:
         text = fi.read()
@@ -42,7 +41,7 @@ def process(
     re_change_log: re.Pattern,
     change_log: str,
 ):
-    print(f"Processing {path}")
+    # print(f"Processing {path}") # debug
 
     with open(path, "r", encoding="utf-8") as fi:
         text = fi.read()
@@ -65,7 +64,7 @@ def process(
 
         source_version = get_source_version(plugin_name)
         if (major_version != source_version[0] or minor_version != source_version[1] or
-                patch_version != source_version[2]):
+                int(patch_version) + 1 != int(source_version[2])):
             src_ver = ".".join(source_version)
             man_ver = ".".join([major_version, minor_version, patch_version])
             print(
@@ -115,11 +114,11 @@ def process(
         fi.write(text)
 
 if __name__ == "__main__":
-    release_name = "UhhyouPlugins0.33.0"
+    release_name = "UhhyouPlugins0.34.0"
     en_change_log = """
-  - Fixed crash on Linux."""
+  - Removed dependency to x86_64 specific SIMD instructions."""
     ja_change_log = """
-  - Linux でのクラッシュを修正。"""
+  - x86_64 固有の SIMD 命令への依存を除去。"""
 
     re_en_download_link = re.compile(
         r"^- \[Download (\S+?) ([0-9]+)\.([0-9]+)\.([0-9]+) - VST® 3.+?\]\((.*?)\)",

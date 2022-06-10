@@ -7,7 +7,7 @@ lang: en
 
 WaveCymbal is an attempt to make a cymbal synthesizer with banded wave-guide model. The result is more like dragging bunch of empty cans or thin metal plate on asphalt rather than cymbal.
 
-- [Download WaveCymbal 0.1.18 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/WaveCymbal_0.1.18.zip) <img
+- [Download WaveCymbal 0.1.19 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/WaveCymbal_0.1.19.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -18,15 +18,14 @@ The package includes following builds:
 
 - Windows 64bit
 - Linux 64bit
+- macOS universal binary
 
-On 2022-05-15, macOS is not supported. Current code fails to build as macOS universal binary. I'm planning to support macOS in future. However due to my financial situation, I can't purchase M1 mac for now.
-
-Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely run. In this case, please take a look at [build instruction](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
+Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely to run. In this case, please take a look at [build instruction](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
 
 ## Contact
 Feel free to contact me on [GitHub repository](https://github.com/ryukau/VSTPlugins/commits/master) or `ryukau@gmail.com.`
 
-You can fund the development through [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).  Current goal is to purchase M1 mac for macOS and ARM port. 💸💻
+You can fund the development through [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).  Current goal is to purchase M1 mac for better macOS support. 💸💻
 
 ## Installation
 ### Plugin
@@ -66,8 +65,6 @@ If DAW doesn't recognize the plugin, take a look at `Package Requirements` secti
 REAPER on Linux may not recognize the plugin. A workaround is to delete a file `~/.config/REAPER/reaper-vstplugins64.ini` and restart REAPER.
 
 ### macOS Specific
-**Important**: Current package do not contain mac OS build.
-
 When trying to run plugin first time, following message may appear on macOS.
 
 ```
@@ -284,6 +281,8 @@ Bandpass Cutoff Distribution
 Transition time from previous value to current value in seconds. `Gain`, `Excitation.Time`, `Random.Amount`, `Bandpass.MinCutoff`, `Bandpass.MaxCutoff` will be affected. Slide effect of `OscType.Sustain` can be tuned by `Smoothness`.
 
 ## Change Log
+- 0.1.19
+  - Resume macOS build.
 - 0.1.18
   - Fixed crash on Linux.
 - 0.1.17
@@ -330,6 +329,7 @@ Transition time from previous value to current value in seconds. `Gain`, `Excita
   - Initial release.
 
 ## Old Versions
+- [WaveCymbal 0.1.18 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/WaveCymbal_0.1.18.zip)
 - [WaveCymbal 0.1.17 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/WaveCymbal_0.1.17.zip)
 - [WaveCymbal 0.1.16 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/WaveCymbal_0.1.16.zip)
 - [WaveCymbal 0.1.14 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/WaveCymbal_0.1.14.zip)

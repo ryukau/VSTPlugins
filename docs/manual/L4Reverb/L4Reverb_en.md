@@ -7,7 +7,7 @@ lang: en
 
 L4Reverb is an extended version of LatticeReverb. This time, lattice structure has 4 * 4 * 4 * 4 = 256 sections per channel.
 
-- [Download L4Reverb 0.1.9 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/L4Reverb_0.1.9.zip) <img
+- [Download L4Reverb 0.1.10 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/L4Reverb_0.1.10.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -16,28 +16,25 @@ L4Reverb is an extended version of LatticeReverb. This time, lattice structure h
 
 If L4Reverb is too heavy for your machine, L3Reverb is also available. L3Reverb is a trimmed down version of L4Reverb. The lattice structure has 3 * 3 * 3 * 5 = 135 sections per channel.
 
-- [Download L3Reverb 0.1.8 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L3Reverb_0.1.8.zip) <img
+- [Download L3Reverb 0.1.10 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/L3Reverb_0.1.10.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
   style="display: inline-block; vertical-align: middle;">
 - [Download Presets (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L3ReverbPresets.zip)
 
-L4Reverb and L3Reverb requires CPU which supports AVX or later SIMD instructions.
-
 The package includes following builds:
 
 - Windows 64bit
 - Linux 64bit
+- macOS universal binary
 
-On 2022-05-15, macOS is not supported. Current code fails to build as macOS universal binary. I'm planning to support macOS in future. However due to my financial situation, I can't purchase M1 mac for now.
-
-Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely run. In this case, please take a look at [build instruction](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
+Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely to run. In this case, please take a look at [build instruction](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
 
 ## Contact
 Feel free to contact me on [GitHub repository](https://github.com/ryukau/VSTPlugins/commits/master) or `ryukau@gmail.com.`
 
-You can fund the development through [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).  Current goal is to purchase M1 mac for macOS and ARM port. 💸💻
+You can fund the development through [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).  Current goal is to purchase M1 mac for better macOS support. 💸💻
 
 ## Installation
 ### Plugin
@@ -77,8 +74,6 @@ If DAW doesn't recognize the plugin, take a look at `Package Requirements` secti
 REAPER on Linux may not recognize the plugin. A workaround is to delete a file `~/.config/REAPER/reaper-vstplugins64.ini` and restart REAPER.
 
 ### macOS Specific
-**Important**: Current package do not contain mac OS build.
-
 When trying to run plugin first time, following message may appear on macOS.
 
 ```
@@ -357,6 +352,8 @@ Smooth
 
 ## Change Log
 ### L4Reverb
+- 0.1.10
+  - Removed dependency to x86_64 specific SIMD instructions.
 - 0.1.9
   - Fixed crash on Linux.
   - Fixed BarBox to receive shift key.
@@ -386,6 +383,8 @@ Smooth
   - Initial release.
 
 ### L3Reverb
+- 0.1.10
+  - Removed dependency to x86_64 specific SIMD instructions.
 - 0.1.9
   - Fixed crash on Linux.
   - Fixed BarBox to receive shift key.
@@ -414,6 +413,7 @@ Smooth
 
 ## Old Versions
 ### L4Reverb
+- [L4Reverb 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/L4Reverb_0.1.9.zip)
 - [L4Reverb 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L4Reverb_0.1.8.zip)
 - [L4Reverb 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/L4Reverb_0.1.7.zip)
 - [L4Reverb 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/L4Reverb_0.1.5.zip)
@@ -423,6 +423,7 @@ Smooth
 - [L4Reverb 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Reverb0.1.0.zip)
 
 ### L3Reverb
+- [L3Reverb 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/L3Reverb_0.1.9.zip)
 - [L3Reverb 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L3Reverb_0.1.8.zip)
 - [L3Reverb 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/L3Reverb_0.1.7.zip)
 - [L3Reverb 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/L3Reverb_0.1.5.zip)
