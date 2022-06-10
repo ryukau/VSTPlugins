@@ -10,11 +10,23 @@ def copy_resource(src, dst, error_msg):
     else:
         print(error_msg)
 
-def check_file(file_path):
+def check_file(file_path, missing_on_mac_os=None):
     """Check existence of a file."""
     if not file_path.is_file():
         print(f"{file_path} does not exist")
+        if missing_on_mac_os is not None:
+            if file_path.stem in missing_on_mac_os:
+                return
         exit(1)
+
+def get_missing_on_mac_os():
+    with open("../CMakeLists.txt", "r", encoding="utf-8") as fi:
+        root_cmake_text = fi.read()
+
+    mt = re.findall(r"if\(NOT APPLE\)(.*?)endif\(\)",
+                    root_cmake_text,
+                    flags=re.MULTILINE | re.DOTALL)
+    return re.findall(r"add_subdirectory\((.+?)\)", mt[0])
 
 def create_archive_from_github_actions_artifact():
     with open("manual.json", "r", encoding="utf-8") as fi:
@@ -36,16 +48,18 @@ def create_archive_from_github_actions_artifact():
     for dsym in pack_dir.glob("*.dSYM"):
         shutil.rmtree(dsym)
 
+    missing_on_mac_os = get_missing_on_mac_os()
+
     for vst3_dir in pack_dir.glob("*.vst3"):
         plugin_name = vst3_dir.stem
 
         manual_name = (plugin_name
                        if not plugin_name in manual_dict else manual_dict[plugin_name])
 
-        # Do not make package if a plugin doesn't have manual.
-        if not Path(f"../docs/manual/{manual_name}").exists():
-            print(f"Skipping {plugin_name}: manual not found")
-            continue
+        # # Do not make package if a plugin doesn't have manual.
+        # if not Path(f"../docs/manual/{manual_name}").exists():
+        #     print(f"Skipping {plugin_name}: manual not found")
+        #     continue
 
         copy_resource(
             Path(f"../docs/manual/{manual_name}"),
@@ -61,7 +75,7 @@ def create_archive_from_github_actions_artifact():
         # Ensuring that no binary is missing.
         check_file(vst3_dir / Path(f"Contents/x86_64-win/{plugin_name}.vst3"))
         check_file(vst3_dir / Path(f"Contents/x86_64-linux/{plugin_name}.so"))
-        # check_file(vst3_dir / Path(f"Contents/MacOS/{plugin_name}"))
+        check_file(vst3_dir / Path(f"Contents/MacOS/{plugin_name}"), missing_on_mac_os)
 
         packed_path_str = shutil.make_archive(
             str(vst3_dir.parent / Path(f"{plugin_name}")),

@@ -107,6 +107,6 @@ def create_studiorack_data(package_dir, platforms):
 
 if __name__ == "__main__":
     package_dir = Path("pack")
-    platforms = ["linux", "win"]
+    platforms = ["linux", "win", "mac"]
 
     create_studiorack_data(package_dir, platforms)
