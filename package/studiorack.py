@@ -60,7 +60,12 @@ def create_studiorack_data(package_dir, platforms):
         # Otherwise, `ProcessorUID` should be retrieved from `source/fuid.hpp`.
         #
         plugfactory_cpp = plugin_dir / Path("source/plugfactory.cpp")
-        screenshot_png = list((plugin_dir / Path("resource")).glob("*.png"))[0]
+        screenshot_png = list((plugin_dir / Path("resource")).glob("*.png"))
+        if len(screenshot_png) == 0:
+            print(f"Skipping screenshot of {plugin_name}, {plugin_dir}")
+            continue
+        else:
+            screenshot_png = screenshot_png[0]
         audiosample = Path(f"audiosample/{name}.flac")
         manual_en_md = Path(f"../docs/manual/{manual_name}/{manual_name}_en.md")
 
