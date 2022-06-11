@@ -15,15 +15,6 @@ If you found some part of manual is not clear and/or found typo, please file iss
 
 You can fund the development via [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).
 
-# LV2 Plugins
-Linux 向けに LV2 版のプラグインもあります。
-
-- [GitHub - ryukau/LV2Plugins](https://github.com/ryukau/LV2Plugins)
-
-For Linux, LV2 version is available.
-
-- [GitHub - ryukau/LV2Plugins](https://github.com/ryukau/LV2Plugins)
-
 # プラグイン一覧 | Plugin List
 
 <style>
@@ -33,6 +24,14 @@ div.pluginlist {
   display: inline-flex;
 }
 </style>
+
+以下のリリースページからプラグインをまとめてダウンロードできます。
+
+- [Releases · ryukau/VSTPlugins · GitHub](https://github.com/ryukau/VSTPlugins/releases)
+
+All the plugin download link can be found at release page on following link.
+
+- [Releases · ryukau/VSTPlugins · GitHub](https://github.com/ryukau/VSTPlugins/releases)
 
 #### Synthesizers
 <div class="pluginlist"><a href="#collidingcombsynth">
