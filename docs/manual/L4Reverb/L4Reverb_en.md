@@ -188,7 +188,7 @@ Knob and slider can do:
 
 There is an additional control for number sliders used for `Octave`, `Seed` etc.
 
-- <kbd>Middle Click</kbd> : Flip minimum and maximum.
+- <kbd>Middle Click</kbd> : Rotate through minimum, default and maximum value.
 
 Control with many blue vertical bars (BarBox) have some keyboard shortcuts. `LFO Wave` on Main tab and `Gain`, `Width`, `Pitch`, `Phase` on Wavetable tab are using BarBox. Shortcuts are enabled after left clicking BarBox and mouse cursor is on the inside of BarBox. Cheat sheet is available on Infomation tab.
 

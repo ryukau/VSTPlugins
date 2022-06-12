@@ -182,7 +182,7 @@ Knob and slider can do:
 
 There is an additional control for number sliders used for `Octave`, `Seed` etc.
 
-- <kbd>Middle Click</kbd> : Flip minimum and maximum.
+- <kbd>Middle Click</kbd> : Rotate through minimum, default and maximum value.
 
 Control with many blue vertical bars (BarBox) have some keyboard shortcuts. BarBox is used by `Attack`, `Decay`, `Gain` and `Saturation`. Shortcuts are only enabled after left clicking overtone control. Cheat sheet can be popped up by clicking plugin title on bottom left.
 
