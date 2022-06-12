@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-06-11" />
+<meta name="dcterms.date" content="2022-06-12" />
 <title>index</title>
 <style>
 code { white-space: pre-wrap; }
@@ -196,7 +196,7 @@ footer {
 <body>
 <header>
       <p>
-  Update: 2022-06-11
+  Update: 2022-06-12
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -210,6 +210,11 @@ footer {
   <li><a href="#synthesizers"
   id="toc-synthesizers">Synthesizers</a></li>
   <li><a href="#effects" id="toc-effects">Effects</a></li>
+  <li><a href="#minicliffeq" id="toc-minicliffeq">MiniCliffEQ</a></li>
+  <li><a href="#pitchshiftdelay"
+  id="toc-pitchshiftdelay">PitchShiftDelay</a></li>
+  <li><a href="#parallelcomb"
+  id="toc-parallelcomb">ParallelComb</a></li>
   <li><a href="#fdn64reverb" id="toc-fdn64reverb">FDN64Reverb</a></li>
   <li><a href="#basiclimiter"
   id="toc-basiclimiter">BasicLimiter</a></li>
@@ -337,9 +342,81 @@ ryukau/VSTPlugins · GitHub</a></li>
 リバーブ</rt></ruby> </a>
 </div>
 <div class="pluginlist">
+<a href="#minicliffeq"> <ruby>MiniCliffEQ<rt>ミニ クリフ
+イーキュー</rt></ruby> </a>
+</div>
+<div class="pluginlist">
+<a href="#parallelcomb"> <ruby>ParallelComb<rt>パラレル コム</rt></ruby>
+</a>
+</div>
+<div class="pluginlist">
+<a href="#pitchshiftdelay"> <ruby>PitchShiftDelay<rt>ピッチ シフト
+ディレイ</rt></ruby> </a>
+</div>
+<div class="pluginlist">
 <a href="#sevendelay"> <ruby>SevenDelay<rt>セブン ディレイ</rt></ruby>
 </a>
 </div>
+<h2 id="minicliffeq">MiniCliffEQ</h2>
+<figure>
+<img src="manual/MiniCliffEQ/img/minicliffeq.png" alt="Image of MiniCliffEQ graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+<p>MiniCliffEQ はタップ数 2^15 = 32768 の FIR
+フィルタです。あまりにもタップ数が多いのでレイテンシがサンプリング周波数
+48000 Hz のときに 1 秒を超えます。主な用途は直流信号 (DC)
+の抑制ですが、とても急峻なローパス、ハイパス、ローシェルフ、ハイシェルフフィルタとしても使えます。</p>
+<ul>
+<li><a href="manual/MiniCliffEQ/MiniCliffEQ_ja.html">MiniCliffEQ
+のマニュアル (日本語)</a></li>
+</ul>
+<p>MiniCliffEQ is a FIR filter with 2^15 = 32768 taps. Because of this
+too many taps, latency is massive that it exceeds 1 second in 48000 Hz
+sampling rate. The primary purpose is to suppress direct current. It can
+also be used as very sharp low-pass, high-pass, low-shelf, and
+high-shelf filter.</p>
+<ul>
+<li><a href="manual/MiniCliffEQ/MiniCliffEQ_en.html">MiniCliffEQ Manual
+(English)</a></li>
+</ul>
+<h2 id="pitchshiftdelay">PitchShiftDelay</h2>
+<figure>
+<img src="manual/PitchShiftDelay/img/pitchshiftdelay.png" alt="Image of PitchShiftDelay graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+<p>PitchShiftDelay はディレイを使った時間領域ピッチシフタです。 16
+倍のオーバーサンプリングによってピッチシフタ特有の癖を多少抑えています。また内部のバッファ長をリアルタイムで変更できます。フォルマント補正がないので、声に使うとヘリウムを吸ったときのような音になります。</p>
+<ul>
+<li><a
+href="manual/PitchShiftDelay/PitchShiftDelay_ja.html">PitchShiftDelay
+のマニュアル (日本語)</a></li>
+</ul>
+<p>PitchShiftDelay is a time domain pitch shifter based on usual delay.
+The quirk of pitch shifter is somewhat reduced by 16x oversampling. Also
+the internal buffer length can be changed in real time. PitchShiftDelay
+doesn’t equipped with formant correction. So applying to voice may
+sounds strange, like Helium is inhaled.</p>
+<ul>
+<li><a
+href="manual/PitchShiftDelay/PitchShiftDelay_en.html">PitchShiftDelay
+Manual (English)</a></li>
+</ul>
+<h2 id="parallelcomb">ParallelComb</h2>
+<figure>
+<img src="manual/ParallelComb/img/parallelcomb.png" alt="Image of ParallelComb graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+<p>ParallelComb は 1 つバッファの異なる 4
+つの時点をフィードバックするコムフィルタです。フィードバック経路にリミッタが挟んであるので、それなりにクリーンな音が出ます。フィードバックの振幅でディレイ時間を変調することで、変な歪みを出すこともできます。</p>
+<ul>
+<li><a href="manual/ParallelComb/ParallelComb_ja.html">ParallelComb
+のマニュアル (日本語)</a></li>
+</ul>
+<p>ParallelComb is a comb filter which has 4 different delay time and 1
+shared buffer. A limiter is inserted on feedback path to make the output
+somewhat clean. Weird distorsion can be added by modulating delay time
+using feedback signal amplitude.</p>
+<ul>
+<li><a href="manual/ParallelComb/ParallelComb_en.html">ParallelComb
+Manual (English)</a></li>
+</ul>
 <h2 id="fdn64reverb">FDN64Reverb</h2>
 <figure>
 <img src="manual/FDN64Reverb/img/fdn64reverb.png" alt="Image of FDN64Reverb graphical user interface." style="padding-bottom: 12px;"/>

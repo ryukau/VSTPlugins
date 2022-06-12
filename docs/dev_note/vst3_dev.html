@@ -268,88 +268,130 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#vst-3-の開発">VST 3 の開発</a>
+  <li><a href="#vst-3-の開発" id="toc-vst-3-の開発">VST 3 の開発</a>
   <ul>
-  <li><a href="#ライセンス">ライセンス</a></li>
-  <li><a href="#リソース">リソース</a></li>
-  <li><a href="#プラグインホストについて">プラグインホストについて</a>
+  <li><a href="#ライセンス" id="toc-ライセンス">ライセンス</a></li>
+  <li><a href="#リソース" id="toc-リソース">リソース</a></li>
+  <li><a href="#プラグインホストについて"
+  id="toc-プラグインホストについて">プラグインホストについて</a>
   <ul>
-  <li><a href="#vst3plugintesthost">VST3PluginTestHost</a></li>
-  <li><a href="#fl-studio-20.6">FL Studio 20.6</a></li>
-  <li><a href="#reaper-5.980">Reaper 5.980</a></li>
-  <li><a href="#live-10.1.6">Live 10.1.6</a></li>
+  <li><a href="#vst3plugintesthost"
+  id="toc-vst3plugintesthost">VST3PluginTestHost</a></li>
+  <li><a href="#fl-studio-20.6" id="toc-fl-studio-20.6">FL Studio
+  20.6</a></li>
+  <li><a href="#reaper-5.980" id="toc-reaper-5.980">Reaper
+  5.980</a></li>
+  <li><a href="#live-10.1.6" id="toc-live-10.1.6">Live 10.1.6</a></li>
   </ul></li>
-  <li><a href="#開発環境の構築">開発環境の構築</a>
+  <li><a href="#開発環境の構築"
+  id="toc-開発環境の構築">開発環境の構築</a>
   <ul>
-  <li><a href="#開発用ソフトウェアのインストール">開発用ソフトウェアのインストール</a>
+  <li><a href="#開発用ソフトウェアのインストール"
+  id="toc-開発用ソフトウェアのインストール">開発用ソフトウェアのインストール</a>
   <ul>
-  <li><a href="#windows-10">Windows 10</a></li>
-  <li><a href="#linux">Linux</a></li>
-  <li><a href="#vs-code-のエクステンション">VS Code のエクステンション</a></li>
-  <li><a href="#ripgrep">ripgrep</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#ビルド">ビルド</a>
-  <ul>
-  <li><a href="#windows-10-1">Windows 10</a>
-  <ul>
-  <li><a href="#リリースビルド">リリースビルド</a></li>
-  <li><a href="#bit-x86-ビルド">32bit (x86) ビルド</a></li>
-  <li><a href="#デプロイ">デプロイ</a></li>
-  </ul></li>
-  <li><a href="#linux-1">Linux</a></li>
-  <li><a href="#cmake-のオプション">CMake のオプション</a>
-  <ul>
-  <li><a href="#サンプルプロジェクトのビルドを無効にする">サンプルプロジェクトのビルドを無効にする</a></li>
-  <li><a href="#コンパイラオプションの変更">コンパイラオプションの変更</a></li>
+  <li><a href="#windows-10" id="toc-windows-10">Windows 10</a></li>
+  <li><a href="#linux" id="toc-linux">Linux</a></li>
+  <li><a href="#vs-code-のエクステンション"
+  id="toc-vs-code-のエクステンション">VS Code
+  のエクステンション</a></li>
+  <li><a href="#ripgrep" id="toc-ripgrep">ripgrep</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#テスト">テスト</a>
+  <li><a href="#ビルド" id="toc-ビルド">ビルド</a>
   <ul>
-  <li><a href="#自動テスト">自動テスト</a></li>
-  <li><a href="#vst3plugintesthost-1">VST3PluginTestHost</a></li>
-  <li><a href="#reaper">REAPER</a></li>
+  <li><a href="#windows-10-1" id="toc-windows-10-1">Windows 10</a>
+  <ul>
+  <li><a href="#リリースビルド"
+  id="toc-リリースビルド">リリースビルド</a></li>
+  <li><a href="#bit-x86-ビルド" id="toc-bit-x86-ビルド">32bit (x86)
+  ビルド</a></li>
+  <li><a href="#デプロイ" id="toc-デプロイ">デプロイ</a></li>
   </ul></li>
-  <li><a href="#vst3-プラグインの大まかな仕組み">VST3 プラグインの大まかな仕組み</a></li>
-  <li><a href="#デバッグ">デバッグ</a>
+  <li><a href="#linux-1" id="toc-linux-1">Linux</a></li>
+  <li><a href="#cmake-のオプション" id="toc-cmake-のオプション">CMake
+  のオプション</a>
   <ul>
-  <li><a href="#ブレークポイント">ブレークポイント</a></li>
-  <li><a href="#プリント">プリント</a></li>
+  <li><a href="#サンプルプロジェクトのビルドを無効にする"
+  id="toc-サンプルプロジェクトのビルドを無効にする">サンプルプロジェクトのビルドを無効にする</a></li>
+  <li><a href="#コンパイラオプションの変更"
+  id="toc-コンパイラオプションの変更">コンパイラオプションの変更</a></li>
   </ul></li>
-  <li><a href="#helloworld-プラグインを何とかする">helloworld プラグインを何とかする</a>
-  <ul>
-  <li><a href="#ファイルの配置の変更">ファイルの配置の変更</a></li>
-  <li><a href="#名前やfuidの設定">名前やFUIDの設定</a></li>
-  <li><a href="#音を出す">音を出す</a></li>
-  <li><a href="#パラメータの追加">パラメータの追加</a>
-  <ul>
-  <li><a href="#vst3-のパラメータ">VST3 のパラメータ</a></li>
-  <li><a href="#パラメータ用のヘッダとソースの作成">パラメータ用のヘッダとソースの作成</a></li>
   </ul></li>
-  <li><a href="#hello-gui">Hello GUI</a></li>
-  <li><a href="#リファクタリング">リファクタリング</a></li>
+  <li><a href="#テスト" id="toc-テスト">テスト</a>
+  <ul>
+  <li><a href="#自動テスト" id="toc-自動テスト">自動テスト</a></li>
+  <li><a href="#vst3plugintesthost-1"
+  id="toc-vst3plugintesthost-1">VST3PluginTestHost</a></li>
+  <li><a href="#reaper" id="toc-reaper">REAPER</a></li>
   </ul></li>
-  <li><a href="#ポインタの扱いについて">ポインタの扱いについて</a></li>
-  <li><a href="#gui">GUI</a>
+  <li><a href="#vst3-プラグインの大まかな仕組み"
+  id="toc-vst3-プラグインの大まかな仕組み">VST3
+  プラグインの大まかな仕組み</a></li>
+  <li><a href="#デバッグ" id="toc-デバッグ">デバッグ</a>
   <ul>
-  <li><a href="#vst3-inline-ui-editor-を使った-gui-の作成">VST3 inline UI editor を使った GUI の作成</a>
-  <ul>
-  <li><a href="#オプションメニュー-コンボボックス-の追加">オプションメニュー (コンボボックス) の追加</a></li>
-  <li><a href="#ワークアラウンド">ワークアラウンド</a></li>
-  <li><a href="#カスタムビューの追加">カスタムビューの追加</a></li>
-  <li><a href="#パラメータの連動">パラメータの連動</a></li>
+  <li><a href="#ブレークポイント"
+  id="toc-ブレークポイント">ブレークポイント</a></li>
+  <li><a href="#プリント" id="toc-プリント">プリント</a></li>
   </ul></li>
-  <li><a href="#コードでgui">コードでGUI</a>
+  <li><a href="#helloworld-プラグインを何とかする"
+  id="toc-helloworld-プラグインを何とかする">helloworld
+  プラグインを何とかする</a>
   <ul>
-  <li><a href="#カスタムフォント">カスタムフォント</a></li>
-  <li><a href="#ホストのオートメーションに応じて表示を更新">ホストのオートメーションに応じて表示を更新</a></li>
-  <li><a href="#リフレッシュレートの設定">リフレッシュレートの設定</a></li>
-  <li><a href="#キーボードイベントの受け取り">キーボードイベントの受け取り</a></li>
-  <li><a href="#カスタムビューの実装と関連するコントロールの表示の変更">カスタムビューの実装と関連するコントロールの表示の変更</a></li>
-  <li><a href="#スプラッシュスクリーンの追加">スプラッシュスクリーンの追加</a></li>
-  <li><a href="#ホストが提供するコンテキストメニューの追加">ホストが提供するコンテキストメニューの追加</a></li>
-  <li><a href="#linux-で-vstgui-を利用">Linux で VSTGUI を利用</a></li>
-  <li><a href="#コンテキストメニューにズーム機能を追加">コンテキストメニューにズーム機能を追加</a></li>
+  <li><a href="#ファイルの配置の変更"
+  id="toc-ファイルの配置の変更">ファイルの配置の変更</a></li>
+  <li><a href="#名前やfuidの設定"
+  id="toc-名前やfuidの設定">名前やFUIDの設定</a></li>
+  <li><a href="#音を出す" id="toc-音を出す">音を出す</a></li>
+  <li><a href="#パラメータの追加"
+  id="toc-パラメータの追加">パラメータの追加</a>
+  <ul>
+  <li><a href="#vst3-のパラメータ" id="toc-vst3-のパラメータ">VST3
+  のパラメータ</a></li>
+  <li><a href="#パラメータ用のヘッダとソースの作成"
+  id="toc-パラメータ用のヘッダとソースの作成">パラメータ用のヘッダとソースの作成</a></li>
+  </ul></li>
+  <li><a href="#hello-gui" id="toc-hello-gui">Hello GUI</a></li>
+  <li><a href="#リファクタリング"
+  id="toc-リファクタリング">リファクタリング</a></li>
+  </ul></li>
+  <li><a href="#ポインタの扱いについて"
+  id="toc-ポインタの扱いについて">ポインタの扱いについて</a></li>
+  <li><a href="#gui" id="toc-gui">GUI</a>
+  <ul>
+  <li><a href="#vst3-inline-ui-editor-を使った-gui-の作成"
+  id="toc-vst3-inline-ui-editor-を使った-gui-の作成">VST3 inline UI
+  editor を使った GUI の作成</a>
+  <ul>
+  <li><a href="#オプションメニュー-コンボボックス-の追加"
+  id="toc-オプションメニュー-コンボボックス-の追加">オプションメニュー
+  (コンボボックス) の追加</a></li>
+  <li><a href="#ワークアラウンド"
+  id="toc-ワークアラウンド">ワークアラウンド</a></li>
+  <li><a href="#カスタムビューの追加"
+  id="toc-カスタムビューの追加">カスタムビューの追加</a></li>
+  <li><a href="#パラメータの連動"
+  id="toc-パラメータの連動">パラメータの連動</a></li>
+  </ul></li>
+  <li><a href="#コードでgui" id="toc-コードでgui">コードでGUI</a>
+  <ul>
+  <li><a href="#カスタムフォント"
+  id="toc-カスタムフォント">カスタムフォント</a></li>
+  <li><a href="#ホストのオートメーションに応じて表示を更新"
+  id="toc-ホストのオートメーションに応じて表示を更新">ホストのオートメーションに応じて表示を更新</a></li>
+  <li><a href="#リフレッシュレートの設定"
+  id="toc-リフレッシュレートの設定">リフレッシュレートの設定</a></li>
+  <li><a href="#キーボードイベントの受け取り"
+  id="toc-キーボードイベントの受け取り">キーボードイベントの受け取り</a></li>
+  <li><a href="#カスタムビューの実装と関連するコントロールの表示の変更"
+  id="toc-カスタムビューの実装と関連するコントロールの表示の変更">カスタムビューの実装と関連するコントロールの表示の変更</a></li>
+  <li><a href="#スプラッシュスクリーンの追加"
+  id="toc-スプラッシュスクリーンの追加">スプラッシュスクリーンの追加</a></li>
+  <li><a href="#ホストが提供するコンテキストメニューの追加"
+  id="toc-ホストが提供するコンテキストメニューの追加">ホストが提供するコンテキストメニューの追加</a></li>
+  <li><a href="#linux-で-vstgui-を利用"
+  id="toc-linux-で-vstgui-を利用">Linux で VSTGUI を利用</a></li>
+  <li><a href="#コンテキストメニューにズーム機能を追加"
+  id="toc-コンテキストメニューにズーム機能を追加">コンテキストメニューにズーム機能を追加</a></li>
   </ul></li>
   </ul></li>
   </ul></li>
@@ -358,18 +400,31 @@ footer {
   </details>
   </header>
 <h1 id="vst-3-の開発">VST 3 の開発</h1>
-<p>VST 3 の開発についてまとめました。何かあれば <a href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に issue を作ってもらえれば対応します。</p>
-<p>初版を書いたときは VST 3 SDK 3.6.13 と VSTGUI 4.8 を使っていました。最後に動作を確認したバージョンは VST 3 SDK 3.6.14 と VSTGUI 4.9 です。</p>
-<p>最後に編集したときのバージョンは VST 3 SDK 3.7.5 と VSTGUI 4.11 です。ところどころ廃止 (depricated) になったメソッドなどが紛れているかもしれないので注意してください。そのままコピペすることは推奨しません。</p>
+<p>VST 3 の開発についてまとめました。何かあれば <a
+href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に
+issue を作ってもらえれば対応します。</p>
+<p>初版を書いたときは VST 3 SDK 3.6.13 と VSTGUI 4.8
+を使っていました。最後に動作を確認したバージョンは VST 3 SDK 3.6.14 と
+VSTGUI 4.9 です。</p>
+<p>最後に編集したときのバージョンは VST 3 SDK 3.7.5 と VSTGUI 4.11
+です。ところどころ廃止 (depricated)
+になったメソッドなどが紛れているかもしれないので注意してください。そのままコピペすることは推奨しません。</p>
 <p>最新版の SDK は Steinberg のページからダウンロードできます。</p>
 <ul>
-<li><a href="https://www.steinberg.net/en/company/developers.html">Developers | Steinberg</a></li>
+<li><a
+href="https://www.steinberg.net/en/company/developers.html">Developers |
+Steinberg</a></li>
 </ul>
 <p>GitHub のリポジトリからクローンすることもできます。</p>
 <ul>
-<li><a href="https://github.com/steinbergmedia/vst3sdk">GitHub - steinbergmedia/vst3sdk: VST 3 Plug-In SDK</a></li>
+<li><a href="https://github.com/steinbergmedia/vst3sdk">GitHub -
+steinbergmedia/vst3sdk: VST 3 Plug-In SDK</a></li>
 </ul>
-<p>この文章では Steinberg のページからダウンロードできる SDK を使います。 GitHub のリポジトリには helloworld や VST3PluginTestHost が含まれていないからです。 <code>my_plugins</code> から始まるパスは開発中のプラグイン内のパスを表しています。それ以外のパスは特に断りがないときは <code>VST3_SDK</code> 以下の部分だけを書いています。</p>
+<p>この文章では Steinberg のページからダウンロードできる SDK
+を使います。 GitHub のリポジトリには helloworld や VST3PluginTestHost
+が含まれていないからです。 <code>my_plugins</code>
+から始まるパスは開発中のプラグイン内のパスを表しています。それ以外のパスは特に断りがないときは
+<code>VST3_SDK</code> 以下の部分だけを書いています。</p>
 <h2 id="ライセンス">ライセンス</h2>
 <p><code>VST3_SDK</code> 以下の各ディレクトリのライセンスです。</p>
 <table>
@@ -406,47 +461,87 @@ footer {
 </tr>
 </tbody>
 </table>
-<p>Steinberg にメールを送信して確認したところ、 Proprietary Steinberg VST 3 License あるいは GPLv3 のどちらを選択するかに関わらず <code>VST3_License_Agreement.pdf</code> に署名して Steinberg に送信する必要があります。</p>
-<p>選択したライセンスに関わらず VST compatible logo の表示が義務付けられています。 VST compatible logo は <code>doc/artwork</code> に入っています。また VST compatible logo の正しい表示方法が <code>VST3_Usage_Guidelines.pdf</code> に書いてあります。</p>
-<p>ソースコードを公開するときは GPLv3 で配布することができます。利用したライブラリのライセンスはバイナリの配布時に同梱する必要があります。ユーザマニュアルや GUI のクレジット画面でも利用したライセンスを参照できるようにすることが推奨されています。</p>
-<p>ソースコードを公開しないときは Proprietary Steinberg VST 3 License と BSD 3-Clause License に従って配布することになります。 Proprietary Steinberg VST 3 License の詳細は <code>VST3_License_Agreement.pdf</code> に書いてあります。</p>
+<p>Steinberg にメールを送信して確認したところ、 Proprietary Steinberg
+VST 3 License あるいは GPLv3 のどちらを選択するかに関わらず
+<code>VST3_License_Agreement.pdf</code> に署名して Steinberg
+に送信する必要があります。</p>
+<p>選択したライセンスに関わらず VST compatible logo
+の表示が義務付けられています。 VST compatible logo は
+<code>doc/artwork</code> に入っています。また VST compatible logo
+の正しい表示方法が <code>VST3_Usage_Guidelines.pdf</code>
+に書いてあります。</p>
+<p>ソースコードを公開するときは GPLv3
+で配布することができます。利用したライブラリのライセンスはバイナリの配布時に同梱する必要があります。ユーザマニュアルや
+GUI
+のクレジット画面でも利用したライセンスを参照できるようにすることが推奨されています。</p>
+<p>ソースコードを公開しないときは Proprietary Steinberg VST 3 License と
+BSD 3-Clause License に従って配布することになります。 Proprietary
+Steinberg VST 3 License の詳細は <code>VST3_License_Agreement.pdf</code>
+に書いてあります。</p>
 <ul>
-<li><a href="https://sdk.steinberg.net/viewtopic.php?f=4&amp;t=286&amp;sid=5da7b39b81a3259e03063b18bce97010">VST 3 SDK Licensing FAQ - sdk.steinberg.net</a></li>
-<li><a href="https://www.gnu.org/licenses/gpl-3.0.en.html">The GNU General Public License v3.0 - GNU Project - Free Software Foundation</a></li>
-<li><a href="https://opensource.org/licenses/BSD-3-Clause">The 3-Clause BSD License | Open Source Initiative</a></li>
-<li><a href="https://opensource.stackexchange.com/questions/7575/bsd-3-clause-where-to-place-license-for-binary-installation">binaries - BSD 3-Clause: where to place license for binary installation? - Open Source Stack Exchange</a></li>
+<li><a
+href="https://sdk.steinberg.net/viewtopic.php?f=4&amp;t=286&amp;sid=5da7b39b81a3259e03063b18bce97010">VST
+3 SDK Licensing FAQ - sdk.steinberg.net</a></li>
+<li><a href="https://www.gnu.org/licenses/gpl-3.0.en.html">The GNU
+General Public License v3.0 - GNU Project - Free Software
+Foundation</a></li>
+<li><a href="https://opensource.org/licenses/BSD-3-Clause">The 3-Clause
+BSD License | Open Source Initiative</a></li>
+<li><a
+href="https://opensource.stackexchange.com/questions/7575/bsd-3-clause-where-to-place-license-for-binary-installation">binaries
+- BSD 3-Clause: where to place license for binary installation? - Open
+Source Stack Exchange</a></li>
 </ul>
 <h2 id="リソース">リソース</h2>
-<p>VST 3 SDK の主な学習リソースは同梱されているサンプルプラグインのコードになります。サンプルプラグインは <code>public.sdk/samples/vst</code> に入っています。とりあえず <code>again</code> と <code>note_expression_synth</code> を押さえておけば何とかなります。</p>
-<p>VST 3 SDK に付属してくるドキュメンテーションはダウンロードしたディレクトリの <code>doc/index.html</code> から開けます。次のリンクは GitHub でホストされているドキュメンテーションです。</p>
+<p>VST 3 SDK
+の主な学習リソースは同梱されているサンプルプラグインのコードになります。サンプルプラグインは
+<code>public.sdk/samples/vst</code> に入っています。とりあえず
+<code>again</code> と <code>note_expression_synth</code>
+を押さえておけば何とかなります。</p>
+<p>VST 3 SDK
+に付属してくるドキュメンテーションはダウンロードしたディレクトリの
+<code>doc/index.html</code> から開けます。次のリンクは GitHub
+でホストされているドキュメンテーションです。</p>
 <ul>
-<li><a href="https://steinbergmedia.github.io/vst3_doc/">Steinberg Plug-in Interfaces Documentation</a></li>
+<li><a href="https://steinbergmedia.github.io/vst3_doc/">Steinberg
+Plug-in Interfaces Documentation</a></li>
 </ul>
-<p>VSTGUI4 のドキュメンテーションが 404 ですが、次のリンクが使えます。</p>
+<p>VSTGUI4 のドキュメンテーションが 404
+ですが、次のリンクが使えます。</p>
 <ul>
-<li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/">VSTGUI: Main Page</a></li>
+<li><a
+href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/">VSTGUI:
+Main Page</a></li>
 </ul>
 <p>ドキュメンテーション内をまとめて検索する方法が提供されていません。検索窓からクラスなどを探すときはトップページからのリンク先ごとに検索結果が異なるので注意してください。</p>
 <p>開発者フォーラムもあります。</p>
 <ul>
-<li><a href="https://sdk.steinberg.net/index.php">sdk.steinberg.net - Index page</a></li>
+<li><a href="https://sdk.steinberg.net/index.php">sdk.steinberg.net -
+Index page</a></li>
 </ul>
-<p>外部のリソースとしてはうつぼかずらさんによる<a href="http://vstcpp.wpblog.jp/">C++でVST作り</a>がとても参考になります。</p>
+<p>外部のリソースとしてはうつぼかずらさんによる<a
+href="http://vstcpp.wpblog.jp/">C++でVST作り</a>がとても参考になります。</p>
 <ul>
 <li><a href="http://vstcpp.wpblog.jp/">C++でVST作り</a></li>
 </ul>
 <h2 id="プラグインホストについて">プラグインホストについて</h2>
-<p>VST 3 はホストによっては実装が中途半端なようです。ここではホストごとの特徴的な挙動や不具合をまとめています。</p>
+<p>VST 3
+はホストによっては実装が中途半端なようです。ここではホストごとの特徴的な挙動や不具合をまとめています。</p>
 <h3 id="vst3plugintesthost">VST3PluginTestHost</h3>
 <ul>
-<li>プラグイン起動直後に <code>Vst::AudioEffect</code> の <code>process</code> が <code>setActive</code> よりも先に呼ばれることがある。</li>
+<li>プラグイン起動直後に <code>Vst::AudioEffect</code> の
+<code>process</code> が <code>setActive</code>
+よりも先に呼ばれることがある。</li>
 </ul>
 <h3 id="fl-studio-20.6">FL Studio 20.6</h3>
 <ul>
 <li>GUI のない VST 3 プラグインは何も表示されない。</li>
-<li>VST 3 プラグインのウィンドウを開いてから別のウィンドウを選択すると、プラグインのウィンドウが真っ黒になる。</li>
+<li>VST 3
+プラグインのウィンドウを開いてから別のウィンドウを選択すると、プラグインのウィンドウが真っ黒になる。</li>
 </ul>
-<p>不具合というより仕様ですが、プラグインの GUI ウィンドウの大きさを変更できないので VST3Editor の UI エディタで編集をするときにワークアラウンドが必要です。</p>
+<p>不具合というより仕様ですが、プラグインの GUI
+ウィンドウの大きさを変更できないので VST3Editor の UI
+エディタで編集をするときにワークアラウンドが必要です。</p>
 <ul>
 <li>TODO ワークアラウンドへの参照。</li>
 </ul>
@@ -460,27 +555,42 @@ footer {
 </ul>
 <h2 id="開発環境の構築">開発環境の構築</h2>
 <p>VST 3 SDK を編集してビルドできるように開発環境を構築します。</p>
-<p>ここでは CMake + VS Code + PowerShell を使っています。 Visual Studio や Qt Creater などの IDE は使っていません。</p>
-<h3 id="開発用ソフトウェアのインストール">開発用ソフトウェアのインストール</h3>
+<p>ここでは CMake + VS Code + PowerShell を使っています。 Visual Studio
+や Qt Creater などの IDE は使っていません。</p>
+<h3
+id="開発用ソフトウェアのインストール">開発用ソフトウェアのインストール</h3>
 <h4 id="windows-10">Windows 10</h4>
 <p>次のソフトウェアをインストールします。</p>
 <ul>
-<li><a href="https://visualstudio.microsoft.com/vs/community/">Visual Studio Community 2019</a></li>
+<li><a href="https://visualstudio.microsoft.com/vs/community/">Visual
+Studio Community 2019</a></li>
 <li><a href="https://cmake.org/">CMake</a></li>
 <li><a href="https://code.visualstudio.com/">VS Code</a></li>
 </ul>
-<p>Visual Studio Community 2019 のインストール時には「C++ によるデスクトップ開発」にチェックが入っていることを確認して、あとはデフォルトにしておきました。</p>
+<p>Visual Studio Community 2019 のインストール時には「C++
+によるデスクトップ開発」にチェックが入っていることを確認して、あとはデフォルトにしておきました。</p>
 <h4 id="linux">Linux</h4>
-<p>次のリンクに VST 3 SDK のビルドに必要なパッケージが書いてあります。</p>
+<p>次のリンクに VST 3 SDK
+のビルドに必要なパッケージが書いてあります。</p>
 <ul>
-<li><a href="https://steinbergmedia.github.io/vst3_doc/">Steinberg Plug-in Interfaces Documentation</a></li>
+<li><a href="https://steinbergmedia.github.io/vst3_doc/">Steinberg
+Plug-in Interfaces Documentation</a></li>
 </ul>
-<p>Ubuntu か Mint なら上のドキュメンテーションのコマンドをコピペで動きます。</p>
-<p>バグレポートをしていただいた方からの情報によると Debian buster でもドキュメンテーションのコマンドでビルド環境が整うようです。ただし <code>libxcb-util</code> のバージョンが Ubuntu とは異なるため、バイナリの互換性はないようです。</p>
+<p>Ubuntu か Mint
+なら上のドキュメンテーションのコマンドをコピペで動きます。</p>
+<p>バグレポートをしていただいた方からの情報によると Debian buster
+でもドキュメンテーションのコマンドでビルド環境が整うようです。ただし
+<code>libxcb-util</code> のバージョンが Ubuntu
+とは異なるため、バイナリの互換性はないようです。</p>
 <ul>
-<li><a href="https://github.com/ryukau/VSTPlugins/issues/3">VST3 GUI does not display in Linux · Issue #3 · ryukau/VSTPlugins · GitHub</a></li>
+<li><a href="https://github.com/ryukau/VSTPlugins/issues/3">VST3 GUI
+does not display in Linux · Issue #3 · ryukau/VSTPlugins ·
+GitHub</a></li>
 </ul>
-<p>Fedora 31 でもビルドできることを確認しました。パッケージの名前が一部異なります。パッケージを探すときは <a href="https://rpmfind.net/linux/RPM/index.html">rpmfind.net</a> が使えます。</p>
+<p>Fedora 31
+でもビルドできることを確認しました。パッケージの名前が一部異なります。パッケージを探すときは
+<a href="https://rpmfind.net/linux/RPM/index.html">rpmfind.net</a>
+が使えます。</p>
 <h4 id="vs-code-のエクステンション">VS Code のエクステンション</h4>
 <p>次の VS Code のエクステンションをインストールしました。</p>
 <ul>
@@ -491,30 +601,57 @@ footer {
 <li>Bookmarks (by Alessandro Fragnani)</li>
 </ul>
 <p>XML と Bookmarks は無くても何とかなります。</p>
-<p>XML のプラグインは GUI が記述された uidesc というファイルが XML だったのでフォーマットするためにインストールしました。 Red Hat のプラグインにしたのは要素の属性ごとに改行するフォーマットオプションがあったからです。 <a href="https://jdk.java.net/12/">OpenJDK</a> が必要なのでインストールには手間がかかります。</p>
-<p>Bookmarks はパラメータ追加で複数のファイルを行ったり来たりするときに便利です。</p>
+<p>XML のプラグインは GUI が記述された uidesc というファイルが XML
+だったのでフォーマットするためにインストールしました。 Red Hat
+のプラグインにしたのは要素の属性ごとに改行するフォーマットオプションがあったからです。
+<a href="https://jdk.java.net/12/">OpenJDK</a>
+が必要なのでインストールには手間がかかります。</p>
+<p>Bookmarks
+はパラメータ追加で複数のファイルを行ったり来たりするときに便利です。</p>
 <h4 id="ripgrep">ripgrep</h4>
-<p>ドキュメンテーションなどの検索ツールとして <a href="https://github.com/BurntSushi/ripgrep">ripgrep</a> をインストールしました。まず <a href="https://www.rust-lang.org/">Rust</a> をインストールしてから PowerShell で次のコマンドを実行します。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cargo install ripgrep</span></code></pre></div>
+<p>ドキュメンテーションなどの検索ツールとして <a
+href="https://github.com/BurntSushi/ripgrep">ripgrep</a>
+をインストールしました。まず <a
+href="https://www.rust-lang.org/">Rust</a> をインストールしてから
+PowerShell で次のコマンドを実行します。</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cargo install ripgrep</span></code></pre></div>
 <p>検索コマンドの例です。</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>rg <span class="st">&quot;How to use cmake&quot;</span></span></code></pre></div>
-<p>ファイル名だけを表示するときは <code>-l</code> オプションが使えます。</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rg <span class="op">-</span>l <span class="st">&quot;ParamID&quot;</span></span></code></pre></div>
-<p>特定のファイルを除外したいときは glob オプションの <code>-g</code> が使えます。</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rg <span class="op">-</span>g <span class="st">&quot;!*.html&quot;</span> <span class="op">-</span>g <span class="st">&quot;!*.js&quot;</span> <span class="st">&quot;EditController&quot;</span></span></code></pre></div>
-<p>今回はこれだけでなんとかなりました。他のオプションは <code>-h</code> で確認できます。</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rg <span class="op">-</span>h</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>rg <span class="st">&quot;How to use cmake&quot;</span></span></code></pre></div>
+<p>ファイル名だけを表示するときは <code>-l</code>
+オプションが使えます。</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rg <span class="op">-</span>l <span class="st">&quot;ParamID&quot;</span></span></code></pre></div>
+<p>特定のファイルを除外したいときは glob オプションの <code>-g</code>
+が使えます。</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rg <span class="op">-</span>g <span class="st">&quot;!*.html&quot;</span> <span class="op">-</span>g <span class="st">&quot;!*.js&quot;</span> <span class="st">&quot;EditController&quot;</span></span></code></pre></div>
+<p>今回はこれだけでなんとかなりました。他のオプションは <code>-h</code>
+で確認できます。</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rg <span class="op">-</span>h</span></code></pre></div>
 <h2 id="ビルド">ビルド</h2>
-<p>ビルド方法はドキュメンテーションと vst3sdk リポジトリの README.md に書いてあります。</p>
+<p>ビルド方法はドキュメンテーションと vst3sdk リポジトリの README.md
+に書いてあります。</p>
 <ul>
-<li><a href="https://github.com/steinbergmedia/vst3sdk">GitHub - steinbergmedia/vst3sdk: VST 3 Plug-In SDK</a></li>
-<li><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/cmakeUse.html">VST 3 Interfaces: How to use cmake for Building VST 3 Plug-ins</a></li>
-<li><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/addownplugs.html">VST 3 Interfaces: How to add/create your own VST 3 Plug-ins</a></li>
+<li><a href="https://github.com/steinbergmedia/vst3sdk">GitHub -
+steinbergmedia/vst3sdk: VST 3 Plug-In SDK</a></li>
+<li><a
+href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/cmakeUse.html">VST
+3 Interfaces: How to use cmake for Building VST 3 Plug-ins</a></li>
+<li><a
+href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/addownplugs.html">VST
+3 Interfaces: How to add/create your own VST 3 Plug-ins</a></li>
 </ul>
 <h3 id="windows-10-1">Windows 10</h3>
-<p><code>my_plugins/helloworld</code> にテンプレートが入っているのでコピーして適当に名前を付けることでプロジェクトを作成します。 <code>my_plugins</code> は <code>VST3_SDK</code> の1階層上のディレクトリに入っています。</p>
+<p><code>my_plugins/helloworld</code>
+にテンプレートが入っているのでコピーして適当に名前を付けることでプロジェクトを作成します。
+<code>my_plugins</code> は <code>VST3_SDK</code>
+の1階層上のディレクトリに入っています。</p>
 <p>プロジェクト作成後のディレクトリ構造の例です。関係ないディレクトリは省略しています。</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>VST_SDK</span>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>VST_SDK</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">+---</span>my_plugins</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>   <span class="op">+---</span>helloworld</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>   <span class="op">+---</span>helloworld_with_VSTGUI</span>
@@ -527,69 +664,126 @@ footer {
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">+---</span>pluginterfaces</span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">+---</span>public<span class="op">.</span><span class="fu">sdk</span></span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    \<span class="op">---</span>vstgui4</span></code></pre></div>
-<p><code>my_plugins/CMakeLists.txt</code> に <code>SomeFX</code> を追加します。</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">add_subdirectory</span>(helloworld)</span>
+<p><code>my_plugins/CMakeLists.txt</code> に <code>SomeFX</code>
+を追加します。</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">add_subdirectory</span>(helloworld)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">add_subdirectory</span>(helloworld_with_VSTGUI)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">add_subdirectory</span>(SomeFX)</span></code></pre></div>
-<p>PowerShell を開いて <code>VST3_SDK</code> で次のコマンドを実行します。 cmake のオプションで <code>SMTG_MYPLUGINS_SRC_PATH</code> を指定することでプロジェクトのパスを追加できます。</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mkdir build</span>
+<p>PowerShell を開いて <code>VST3_SDK</code>
+で次のコマンドを実行します。 cmake のオプションで
+<code>SMTG_MYPLUGINS_SRC_PATH</code>
+を指定することでプロジェクトのパスを追加できます。</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mkdir build</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> build</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>cmake <span class="op">-</span>G<span class="st">&quot;Visual Studio 16 2019&quot;</span> <span class="op">-</span>DSMTG_MYPLUGINS_SRC_PATH<span class="op">=</span><span class="st">&quot;../../my_plugins&quot;</span> <span class="op">..</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>cmake <span class="op">--</span>build <span class="op">.</span></span></code></pre></div>
-<p>これでデバッグビルドが始まります。コードを変更したときは <code>build</code> ディレクトリに移動して <code>cmake --build .</code> でリビルドできます。</p>
-<p>ビルドのコンフィグを変更するときは <code>cmake-gui</code> が使えます。</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cmake<span class="op">-</span>gui <span class="co"># build ディレクトリ内で実行する。</span></span></code></pre></div>
+<p>これでデバッグビルドが始まります。コードを変更したときは
+<code>build</code> ディレクトリに移動して <code>cmake --build .</code>
+でリビルドできます。</p>
+<p>ビルドのコンフィグを変更するときは <code>cmake-gui</code>
+が使えます。</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cmake<span class="op">-</span>gui <span class="co"># build ディレクトリ内で実行する。</span></span></code></pre></div>
 <h4 id="リリースビルド">リリースビルド</h4>
 <p><code>--config Release</code> を追加します。</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cmake <span class="op">--</span>build <span class="op">.</span> <span class="op">--</span>config Release</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cmake <span class="op">--</span>build <span class="op">.</span> <span class="op">--</span>config Release</span></code></pre></div>
 <h4 id="bit-x86-ビルド">32bit (x86) ビルド</h4>
-<p>32bit (x86) でビルドするときは一つ目の cmake のコマンドに <code>-A Win32</code> を追加します。</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mkdir build32 <span class="co"># 64bit 版と同じディレクトリを使わない。</span></span>
+<p>32bit (x86) でビルドするときは一つ目の cmake のコマンドに
+<code>-A Win32</code> を追加します。</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mkdir build32 <span class="co"># 64bit 版と同じディレクトリを使わない。</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> build32</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>cmake <span class="op">-</span>G<span class="st">&quot;Visual Studio 16 2019&quot;</span> <span class="op">-</span>A Win32 <span class="op">-</span>DSMTG_MYPLUGINS_SRC_PATH<span class="op">=</span><span class="st">&quot;../../my_plugins&quot;</span> <span class="op">..</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>cmake <span class="op">--</span>build <span class="op">.</span></span></code></pre></div>
-<p>ビルドターゲットを 64bit から 32bit に変更するとビルドに失敗するときがあります。ビルドが失敗するときは <code>build</code> ディレクトリを消して作り直してみてください。</p>
+<p>ビルドターゲットを 64bit から 32bit
+に変更するとビルドに失敗するときがあります。ビルドが失敗するときは
+<code>build</code> ディレクトリを消して作り直してみてください。</p>
 <ul>
-<li><a href="https://stackoverflow.com/questions/55708600/whats-the-cmake-generator-for-visual-studio-2019">c++ - What’s the cmake generator for Visual Studio 2019 - Stack Overflow</a></li>
-<li><a href="https://cmake.org/cmake/help/v3.15/generator/Visual%20Studio%2016%202019.html">Visual Studio 16 2019 — CMake 3.15.0-rc4 Documentation</a></li>
+<li><a
+href="https://stackoverflow.com/questions/55708600/whats-the-cmake-generator-for-visual-studio-2019">c++
+- What’s the cmake generator for Visual Studio 2019 - Stack
+Overflow</a></li>
+<li><a
+href="https://cmake.org/cmake/help/v3.15/generator/Visual%20Studio%2016%202019.html">Visual
+Studio 16 2019 — CMake 3.15.0-rc4 Documentation</a></li>
 </ul>
 <h4 id="デプロイ">デプロイ</h4>
-<p>VST 3 プラグインのデバッグビルドは <code>build\VST3\Debug</code> 、リリースビルドは <code>build\VST3\Release</code> に配置されます。ビルドされたプラグインは <code>*.vst3</code> という名前のディレクトリにパッケージされています。</p>
-<p>VST 3 プラグインは OS ごとにインストールする場所が決まっています。詳細は <a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/vst3loc.html">VST 3 Interfaces: VST 3 Locations / Format</a> に書いてあります。 Windows 10 では <code>C:\Program Files\Common Files\VST3</code> に配置すれば使えるようになります。</p>
-<p>PowerShell で関数を作って任意のプラグインをコマンド一つでデプロイできるようにします。 <code>$PROFILE</code> を開きます。 <code>$PROFILE</code> は bash の <code>.bashrc</code> に相当します。</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>code <span class="va">$PROFILE</span></span></code></pre></div>
+<p>VST 3 プラグインのデバッグビルドは <code>build\VST3\Debug</code>
+、リリースビルドは <code>build\VST3\Release</code>
+に配置されます。ビルドされたプラグインは <code>*.vst3</code>
+という名前のディレクトリにパッケージされています。</p>
+<p>VST 3 プラグインは OS
+ごとにインストールする場所が決まっています。詳細は <a
+href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/vst3loc.html">VST
+3 Interfaces: VST 3 Locations / Format</a> に書いてあります。 Windows 10
+では <code>C:\Program Files\Common Files\VST3</code>
+に配置すれば使えるようになります。</p>
+<p>PowerShell
+で関数を作って任意のプラグインをコマンド一つでデプロイできるようにします。
+<code>$PROFILE</code> を開きます。 <code>$PROFILE</code> は bash の
+<code>.bashrc</code> に相当します。</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>code <span class="va">$PROFILE</span></span></code></pre></div>
 <p>次のコードを <code>$PROFILE</code> に追加します。</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> cpvst<span class="op">(</span><span class="va">$name</span><span class="op">,</span> <span class="op">[</span><span class="kw">switch</span><span class="op">]</span> <span class="va">$release</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> cpvst<span class="op">(</span><span class="va">$name</span><span class="op">,</span> <span class="op">[</span><span class="kw">switch</span><span class="op">]</span> <span class="va">$release</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="va">$target_dir</span> <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="va">$release</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;Release&quot;</span> <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span> <span class="st">&quot;Debug&quot;</span> <span class="op">}</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="va">$vst_path</span> <span class="op">=</span> <span class="st">&quot;.\VST3\$target_dir\$name.vst3&quot;</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Copy-Item</span> <span class="va">$vst_path</span> <span class="op">-</span>Destination <span class="st">&quot;C:\Program Files\Common Files\VST3&quot;</span> <span class="op">-</span>Force <span class="op">-</span>Recurse</span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p><code>$PROFILE</code> を読み込んで更新します。 bash の <code>source</code> と同じような操作です。</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">.</span><span class="va">$PROFILE</span></span></code></pre></div>
-<p><code>C:\Program Files\Common Files\VST3</code> にファイルをコピーするには管理者権限が必要ですが、手間を省くために開発を行っているユーザに書き込み権限を与えます。エクスプローラーで <code>VST3</code> を右クリックしてプロパティを開きます。タブからセキュリティを選んで「アクセス許可を変更するには[編集]をクリックします。」というテキストの横にある編集ボタンをクリックします。上のほうにあるグループ名またはユーザ名のリストから開発を行っているユーザを選択します。私の環境では Users (DESKTOP-****) のような名前がついていました。ユーザを選択したら下のほうにあるアクセス許可のリストの書き込みにチェックを入れて OK で <code>VST3</code> への書き込みができるようになります。</p>
+<p><code>$PROFILE</code> を読み込んで更新します。 bash の
+<code>source</code> と同じような操作です。</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">.</span><span class="va">$PROFILE</span></span></code></pre></div>
+<p><code>C:\Program Files\Common Files\VST3</code>
+にファイルをコピーするには管理者権限が必要ですが、手間を省くために開発を行っているユーザに書き込み権限を与えます。エクスプローラーで
+<code>VST3</code>
+を右クリックしてプロパティを開きます。タブからセキュリティを選んで「アクセス許可を変更するには[編集]をクリックします。」というテキストの横にある編集ボタンをクリックします。上のほうにあるグループ名またはユーザ名のリストから開発を行っているユーザを選択します。私の環境では
+Users (DESKTOP-****)
+のような名前がついていました。ユーザを選択したら下のほうにあるアクセス許可のリストの書き込みにチェックを入れて
+OK で <code>VST3</code> への書き込みができるようになります。</p>
 <p>これで <code>cpvst</code> が使えるようになりました。</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cpvst helloworld      <span class="co"># build/VST3/Debug/helloworld.vst3 をデプロイ。</span></span>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cpvst helloworld      <span class="co"># build/VST3/Debug/helloworld.vst3 をデプロイ。</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>cpvst SomeFX <span class="op">-</span>release <span class="co"># build/VST3/Release/SomeFX.vst3 をデプロイ。</span></span></code></pre></div>
 <h3 id="linux-1">Linux</h3>
-<p>Windows 10 の手順とほとんど同じですが <code>cmake</code> に渡す引数が変わります。</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> build</span>
+<p>Windows 10 の手順とほとんど同じですが <code>cmake</code>
+に渡す引数が変わります。</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> build</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> build</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-DCMAKE_BUILD_TYPE</span><span class="op">=</span>Debug <span class="at">-DSMTG_MYPLUGINS_SRC_PATH</span><span class="op">=</span><span class="st">&quot;../../my_plugins&quot;</span> ..</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--build</span> .</span></code></pre></div>
-<p>リリースビルドのときは <code>-DCMAKE_BUILD_TYPE=Debug</code> を <code>-DCMAKE_BUILD_TYPE=Release</code> に変えます。</p>
-<p><code>cmake</code> でビルドするとデプロイを自動的に行ってくれます。 <code>VST3_SDK/build/VST3/Debug/</code> あるいは <code>VST3_SDK/build/VST3/Release/</code> 内のディレクトリが <code>~/.vst3</code> にリンクされます。</p>
+<p>リリースビルドのときは <code>-DCMAKE_BUILD_TYPE=Debug</code> を
+<code>-DCMAKE_BUILD_TYPE=Release</code> に変えます。</p>
+<p><code>cmake</code> でビルドするとデプロイを自動的に行ってくれます。
+<code>VST3_SDK/build/VST3/Debug/</code> あるいは
+<code>VST3_SDK/build/VST3/Release/</code> 内のディレクトリが
+<code>~/.vst3</code> にリンクされます。</p>
 <h3 id="cmake-のオプション">CMake のオプション</h3>
-<h4 id="サンプルプロジェクトのビルドを無効にする">サンプルプロジェクトのビルドを無効にする</h4>
-<p>サンプルプロジェクトのビルドを無効にするときは <code>SMTG_ADD_VST3_HOSTING_SAMPLES</code> と <code>SMTG_ADD_VST3_PLUGINS_SAMPLES</code> に <code>FALSE</code> を指定します。</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ` (backtick) は powershell で次の行に続くという意味。 bash の \ と同じ。</span></span>
+<h4
+id="サンプルプロジェクトのビルドを無効にする">サンプルプロジェクトのビルドを無効にする</h4>
+<p>サンプルプロジェクトのビルドを無効にするときは
+<code>SMTG_ADD_VST3_HOSTING_SAMPLES</code> と
+<code>SMTG_ADD_VST3_PLUGINS_SAMPLES</code> に <code>FALSE</code>
+を指定します。</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ` (backtick) は powershell で次の行に続くという意味。 bash の \ と同じ。</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>cmake <span class="op">-</span>G<span class="st">&quot;Visual Studio 16 2019&quot;</span> `</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span>DSMTG_MYPLUGINS_SRC_PATH<span class="op">=</span><span class="st">&quot;../../Plugins&quot;</span> `</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span>DSMTG_ADD_VST3_HOSTING_SAMPLES<span class="op">=</span>FALSE `</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span>DSMTG_ADD_VST3_PLUGINS_SAMPLES<span class="op">=</span>FALSE `</span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">..</span></span></code></pre></div>
 <h4 id="コンパイラオプションの変更">コンパイラオプションの変更</h4>
-<p>プラグインのコンパイラオプションを指定するときは <code>my_plugins/SomePlugin/CMakeLists.txt</code> に <code>target_compile_options</code> を追加します。次の例では AVX2 を有効にするオプションを指定しています。</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># C++17 を有効化。</span></span>
+<p>プラグインのコンパイラオプションを指定するときは
+<code>my_plugins/SomePlugin/CMakeLists.txt</code> に
+<code>target_compile_options</code> を追加します。次の例では AVX2
+を有効にするオプションを指定しています。</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># C++17 を有効化。</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(<span class="dv">CMAKE_CXX_STANDARD</span> 17)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(<span class="dv">CMAKE_CXX_STANDARD_REQUIRED</span> <span class="ot">True</span>)</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -605,18 +799,31 @@ footer {
 <span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">target_compile_options</span>(<span class="dv">${target}</span> <span class="bn">PRIVATE</span> -O3 -fPIC -mfma -mavx2)</span>
 <span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">endif</span>()</span>
 <span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="kw">endif</span>()</span></code></pre></div>
-<p>VST 3 SDK のコンパイラオプションは <a href="https://github.com/steinbergmedia/vst3_cmake/blob/master/modules/PlatformToolset.cmake"><code>cmake/modules/PlatformToolset.cmake</code></a> で指定されています。</p>
+<p>VST 3 SDK のコンパイラオプションは <a
+href="https://github.com/steinbergmedia/vst3_cmake/blob/master/modules/PlatformToolset.cmake"><code>cmake/modules/PlatformToolset.cmake</code></a>
+で指定されています。</p>
 <h2 id="テスト">テスト</h2>
 <p>ビルドを終えたらプラグインの動作をテストします。</p>
 <h3 id="自動テスト">自動テスト</h3>
-<p>VST 3 SDK はプラグインのビルドのたびに自動でいくつかのテストを行ってくれます。 API の使い方を間違えているなどの明らかなミスは、このテストで捉えられます。</p>
+<p>VST 3 SDK
+はプラグインのビルドのたびに自動でいくつかのテストを行ってくれます。 API
+の使い方を間違えているなどの明らかなミスは、このテストで捉えられます。</p>
 <h3 id="vst3plugintesthost-1">VST3PluginTestHost</h3>
-<p>GUI とプラグイン情報のチェックには VST3PluginTestHost が使えます。</p>
-<p>VST3PluginTestHost のインストーラは <code>VST_SDK/VST3_SDK/bin</code> 以下のディレクトリに入っています。 Linux 版は無いようです。 GitHub のリポジトリには VST3PluginTestHost が含まれていないようなので注意してください。</p>
-<p>簡易なシーケンサがついていますが MIDI キーボードがあれば演奏することができます。 wav を読み込んでエフェクタに音を送ることができますが、モノラルになってしまいます。音のレンダリングができないので、チューニングなどの細かい確認をするには向いていません。</p>
+<p>GUI とプラグイン情報のチェックには VST3PluginTestHost
+が使えます。</p>
+<p>VST3PluginTestHost のインストーラは <code>VST_SDK/VST3_SDK/bin</code>
+以下のディレクトリに入っています。 Linux 版は無いようです。 GitHub
+のリポジトリには VST3PluginTestHost
+が含まれていないようなので注意してください。</p>
+<p>簡易なシーケンサがついていますが MIDI
+キーボードがあれば演奏することができます。 wav
+を読み込んでエフェクタに音を送ることができますが、モノラルになってしまいます。音のレンダリングができないので、チューニングなどの細かい確認をするには向いていません。</p>
 <h3 id="reaper">REAPER</h3>
-<p>音をレンダリングして確認したいときは <a href="https://www.reaper.fm/">REAPER</a> が使えます。 Linux でも動きます。</p>
-<h2 id="vst3-プラグインの大まかな仕組み">VST3 プラグインの大まかな仕組み</h2>
+<p>音をレンダリングして確認したいときは <a
+href="https://www.reaper.fm/">REAPER</a> が使えます。 Linux
+でも動きます。</p>
+<h2 id="vst3-プラグインの大まかな仕組み">VST3
+プラグインの大まかな仕組み</h2>
 <p>VST3 プラグインは大きく次の3つの部品に分けることができます。</p>
 <ul>
 <li>Edit Controller (コントローラ)</li>
@@ -625,22 +832,32 @@ footer {
 </ul>
 <p>コントローラはパラメータとユーザインタフェースの橋渡し役です。</p>
 <p>プロセッサでは信号処理を行います。</p>
-<p>コントローラからプロセッサ、あるいはプロセッサからコントローラへとパラメータを直接を伝えることはありません。コントローラとプロセッサの間でのパラメータの伝達は、DAWなどの VST3 ホストの仕事です。</p>
-<p>エディタでは GUI に関する処理を行います。エディタはコントローラの下にぶら下がるような関係になっています。</p>
+<p>コントローラからプロセッサ、あるいはプロセッサからコントローラへとパラメータを直接を伝えることはありません。コントローラとプロセッサの間でのパラメータの伝達は、DAWなどの
+VST3 ホストの仕事です。</p>
+<p>エディタでは GUI
+に関する処理を行います。エディタはコントローラの下にぶら下がるような関係になっています。</p>
 <p><img src="img/VST3_overview.png" width="320"></p>
-<p>コントローラとプロセッサをファクトリに登録することで VST3 プラグインが使えるようになります。ファクトリのコードはテンプレートが用意されているのでほとんど書くことはありません。</p>
+<p>コントローラとプロセッサをファクトリに登録することで VST3
+プラグインが使えるようになります。ファクトリのコードはテンプレートが用意されているのでほとんど書くことはありません。</p>
 <h2 id="デバッグ">デバッグ</h2>
 <ul>
 <li>TODO: テスト</li>
 </ul>
-<p>ここに書いてある内容は動作確認していないので間違いがあるかもしれません。 noteexpressionsynth のコードから辿って見つけました。</p>
+<p>ここに書いてある内容は動作確認していないので間違いがあるかもしれません。
+noteexpressionsynth のコードから辿って見つけました。</p>
 <h3 id="ブレークポイント">ブレークポイント</h3>
 <p><code>FDebugBreak</code> が使えます。</p>
-<p><code>FDebugPrint</code> の引数は <code>printf</code> と同じです。</p>
+<p><code>FDebugPrint</code> の引数は <code>printf</code>
+と同じです。</p>
 <ul>
-<li>未検証: Windows では <code>build/WIN_PDB64</code> に入っている <code>プラグイン名.pdb</code> ファイルを <code>build/VST3/Debug/プラグイン名.vst3/Contents/x86_64-win</code> にコピーしておけば、 <code>FDebugBreak</code> が呼ばれたときにデバッガが起動するはず。</li>
+<li>未検証: Windows では <code>build/WIN_PDB64</code> に入っている
+<code>プラグイン名.pdb</code> ファイルを
+<code>build/VST3/Debug/プラグイン名.vst3/Contents/x86_64-win</code>
+にコピーしておけば、 <code>FDebugBreak</code>
+が呼ばれたときにデバッガが起動するはず。</li>
 </ul>
-<div class="sourceCode" id="cb19"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;base/source/fdebug.h&quot;</span></span>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;base/source/fdebug.h&quot;</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">// ...</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> somewhere<span class="op">(</span><span class="dt">float</span> value<span class="op">)</span></span>
@@ -651,13 +868,20 @@ footer {
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">// ...</span></span></code></pre></div>
 <ul>
-<li><a href="https://docs.microsoft.com/en-us/visualstudio/debugger/specify-symbol-dot-pdb-and-source-files-in-the-visual-studio-debugger?view=vs-2019">Set symbol (.pdb) and source files in the debugger - Visual Studio | Microsoft Docs</a></li>
+<li><a
+href="https://docs.microsoft.com/en-us/visualstudio/debugger/specify-symbol-dot-pdb-and-source-files-in-the-visual-studio-debugger?view=vs-2019">Set
+symbol (.pdb) and source files in the debugger - Visual Studio |
+Microsoft Docs</a></li>
 </ul>
 <h3 id="プリント">プリント</h3>
 <p><code>FDebugPrint</code> が使えます。</p>
-<p>出力を見るには DAW がデバッグ出力をサポートしている必要があります。 FL Studio 20.5 では左上のメニューから OPTIONS -&gt; Debugging log でデバッグ出力を表示できます。</p>
-<p><code>FDebugPrint</code> の引数は <code>printf</code> と同じです。</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;base/source/fdebug.h&quot;</span></span>
+<p>出力を見るには DAW がデバッグ出力をサポートしている必要があります。
+FL Studio 20.5 では左上のメニューから OPTIONS -&gt; Debugging log
+でデバッグ出力を表示できます。</p>
+<p><code>FDebugPrint</code> の引数は <code>printf</code>
+と同じです。</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;base/source/fdebug.h&quot;</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">// ...</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> somewhere<span class="op">(</span><span class="dt">float</span> value<span class="op">)</span></span>
@@ -667,8 +891,11 @@ footer {
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">// ...</span></span></code></pre></div>
-<p><code>base/source/fdebug.h</code> のコメントによると <code>FDebugPrint</code> を直接使わずに、 <code>FDebugPrint</code> をラップしたマクロを使うことが推奨されています。</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">// base/source/fdebug.h</span></span>
+<p><code>base/source/fdebug.h</code> のコメントによると
+<code>FDebugPrint</code> を直接使わずに、 <code>FDebugPrint</code>
+をラップしたマクロを使うことが推奨されています。</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">// base/source/fdebug.h</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">/** Send &quot;comment&quot; string to the debugger for display. */</span></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define SMTG_WARNING</span><span class="op">(</span>comment<span class="op">)</span><span class="pp"> </span>FDebugPrint<span class="pp"> </span><span class="op">(</span><span class="st">&quot;</span><span class="sc">%s</span><span class="st">(</span><span class="sc">%d</span><span class="st">) : </span><span class="sc">%s\n</span><span class="st">&quot;</span><span class="op">,</span><span class="pp"> </span><span class="ot">__FILE__</span><span class="op">,</span><span class="pp"> </span><span class="ot">__LINE__</span><span class="op">,</span><span class="pp"> </span>comment<span class="op">);</span></span>
@@ -687,14 +914,23 @@ footer {
 <span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co">///</span><span class="re">@}</span></span></code></pre></div>
 <ul>
 <li><code>base/source/fdebug.h</code></li>
-<li><a href="https://en.cppreference.com/w/cpp/utility/variadic">Variadic functions - cppreference.com</a></li>
+<li><a
+href="https://en.cppreference.com/w/cpp/utility/variadic">Variadic
+functions - cppreference.com</a></li>
 </ul>
-<h2 id="helloworld-プラグインを何とかする">helloworld プラグインを何とかする</h2>
-<p>テンプレートとして用意されている <code>my_plugins/helloworld</code> をリファクタリングしつつ、パラメータ追加のワークフローを作っていきます。</p>
-<p>ビルドの節で <code>my_plugins/helloworld</code> をコピーして作成した <code>my_plugins/SomeFX</code> に変更を加えていきます。 <code>my_plugins/SomeFX/**</code> に該当するパスは <code>my_plugins</code> を省略して <code>SomeFX/**</code> のように書いています。</p>
+<h2 id="helloworld-プラグインを何とかする">helloworld
+プラグインを何とかする</h2>
+<p>テンプレートとして用意されている <code>my_plugins/helloworld</code>
+をリファクタリングしつつ、パラメータ追加のワークフローを作っていきます。</p>
+<p>ビルドの節で <code>my_plugins/helloworld</code> をコピーして作成した
+<code>my_plugins/SomeFX</code> に変更を加えていきます。
+<code>my_plugins/SomeFX/**</code> に該当するパスは
+<code>my_plugins</code> を省略して <code>SomeFX/**</code>
+のように書いています。</p>
 <h3 id="ファイルの配置の変更">ファイルの配置の変更</h3>
 <p>コードが書いてあるファイルが7個しかないので、ディレクトリ移動の煩雑さを減らすために一つのディレクトリにまとめてしまいます。</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">+---</span>CMakeLists<span class="op">.</span><span class="fu">txt</span></span>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">+---</span>CMakeLists<span class="op">.</span><span class="fu">txt</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">+---</span>resource</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>   <span class="op">+---</span>Info<span class="op">.</span><span class="fu">plist</span></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>   \<span class="op">---</span>plug<span class="op">.</span><span class="fu">rc</span></span>
@@ -708,7 +944,8 @@ footer {
 <span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    \<span class="op">---</span>version<span class="op">.</span><span class="fu">hpp</span></span></code></pre></div>
 <p>ここではヘッダの拡張子に “.hpp” を使っています。</p>
 <p><code>SomeFX/CMakeList.txt</code> を変更します。</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(plug_sources</span>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(plug_sources</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    source/plugcontroller.hpp</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    source/plugids.hpp</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    source/plugprocessor.hpp</span>
@@ -717,18 +954,28 @@ footer {
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    source/plugcontroller.cpp</span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    source/plugprocessor.cpp</span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><code>SomeFX/resource/plug.rc</code> の <code>version.h</code> のインクルードパスを <code>version.hpp</code> に変更します。</p>
+<p><code>SomeFX/resource/plug.rc</code> の <code>version.h</code>
+のインクルードパスを <code>version.hpp</code> に変更します。</p>
 <pre><code>#include &quot;../source/version.hpp&quot;</code></pre>
 <h3 id="名前やfuidの設定">名前やFUIDの設定</h3>
-<p>この項の内容は <code>doc/vstinterfaces/addownplugs.html</code> に書いてあることと同じなので、あわせて参照することをお勧めします。</p>
+<p>この項の内容は <code>doc/vstinterfaces/addownplugs.html</code>
+に書いてあることと同じなので、あわせて参照することをお勧めします。</p>
 <p><code>SomeFX/CMakeLists.txt</code> を変更します。</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(target SomeFX)</span></code></pre></div>
-<p><code>SomeFX/source/plugids.hpp</code> にある 2 つの <code>FUID</code> を変更します。コメントにあるように <a href="https://www.guidgenerator.com/">Online GUID Generator</a> を使って生成できます。</p>
-<p>次のコードの ID をコピーして使わないでください。 ID が競合すると DAW で予期しないプラグインがロードされる不具合につながります。</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="at">static</span> <span class="at">const</span> FUID MyProcessorUID<span class="op">(</span><span class="bn">0x00000000</span><span class="op">,</span> <span class="bn">0x00000000</span><span class="op">,</span> <span class="bn">0x00000000</span><span class="op">,</span> <span class="bn">0x00000000</span><span class="op">);</span></span>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(target SomeFX)</span></code></pre></div>
+<p><code>SomeFX/source/plugids.hpp</code> にある 2 つの
+<code>FUID</code> を変更します。コメントにあるように <a
+href="https://www.guidgenerator.com/">Online GUID Generator</a>
+を使って生成できます。</p>
+<p>次のコードの ID をコピーして使わないでください。 ID が競合すると DAW
+で予期しないプラグインがロードされる不具合につながります。</p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="at">static</span> <span class="at">const</span> FUID MyProcessorUID<span class="op">(</span><span class="bn">0x00000000</span><span class="op">,</span> <span class="bn">0x00000000</span><span class="op">,</span> <span class="bn">0x00000000</span><span class="op">,</span> <span class="bn">0x00000000</span><span class="op">);</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="at">static</span> <span class="at">const</span> FUID MyControllerUID<span class="op">(</span><span class="bn">0x11111111</span><span class="op">,</span> <span class="bn">0x11111111</span><span class="op">,</span> <span class="bn">0x11111111</span><span class="op">,</span> <span class="bn">0x11111111</span><span class="op">);</span></span></code></pre></div>
-<p>プラグインの名前などは <code>SomeFX/source/version.hpp</code> で変更できます。</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define stringPluginName </span><span class="st">&quot;Hello World&quot;</span></span>
+<p>プラグインの名前などは <code>SomeFX/source/version.hpp</code>
+で変更できます。</p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define stringPluginName </span><span class="st">&quot;Hello World&quot;</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define stringOriginalFilename </span><span class="st">&quot;SomeFX.vst3&quot;</span></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#if SMTG_PLATFORM_64</span></span>
@@ -742,16 +989,22 @@ footer {
 <span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="pp">#define stringLegalCopyright </span><span class="st">&quot;(c) 2019 Someone&quot;</span></span>
 <span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="pp">#define stringLegalTrademarks </span><span class="st">&quot;VST is a trademark of Steinberg Media Technologies GmbH&quot;</span></span></code></pre></div>
-<p>プラグインの名前を変えるときは <code>Info.plist</code> の <code>SomeFX</code> の部分を変更します。</p>
+<p>プラグインの名前を変えるときは <code>Info.plist</code> の
+<code>SomeFX</code> の部分を変更します。</p>
 <ul>
 <li>10行目: <code>&lt;string&gt;SomeFX&lt;/string&gt;</code></li>
-<li>14行目: <code>&lt;string&gt;com.steinberg.vst3.SomeFX&lt;/string&gt;</code></li>
+<li>14行目:
+<code>&lt;string&gt;com.steinberg.vst3.SomeFX&lt;/string&gt;</code></li>
 </ul>
-<p>あとは各ファイルで定義されている名前空間 <code>HelloWorld</code> を適当に変更します。</p>
+<p>あとは各ファイルで定義されている名前空間 <code>HelloWorld</code>
+を適当に変更します。</p>
 <h3 id="音を出す">音を出す</h3>
 <p><code>SomeFX</code> を変更して音が出るようにします。</p>
-<p><code>SomeFX/source/plugprocessor.cpp</code> の <code>PlugProcessor::process</code> で音のデータをバッファに書き込みます。</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">//--- Process Audio---------------------</span></span>
+<p><code>SomeFX/source/plugprocessor.cpp</code> の
+<code>PlugProcessor::process</code>
+で音のデータをバッファに書き込みます。</p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">//--- Process Audio---------------------</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">//--- ----------------------------------</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>data<span class="op">.</span>numInputs <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="cf">return</span> kResultOk<span class="op">;</span></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>data<span class="op">.</span>numOutputs <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="cf">return</span> kResultOk<span class="op">;</span></span>
@@ -774,16 +1027,22 @@ footer {
 <span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>  out0<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> in0<span class="op">[</span>i<span class="op">];</span></span>
 <span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>  out1<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> in1<span class="op">[</span>i<span class="op">];</span></span>
 <span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>このコードは入力と出力のチャンネル数が同じであることを仮定しています。入出力のチャンネル数は <code>PlugProcessor::initialize</code> で指定できます。</p>
-<p><code>kResultOk</code> は 0 で <code>kResultFalse</code> は 1 なので if の条件で出てくるときは注意してください。 VST3 SDK では <code>if (isIt() == kResultFalse) doIt();</code> のように <code>==</code> でチェックしている箇所があります。</p>
+<p>このコードは入力と出力のチャンネル数が同じであることを仮定しています。入出力のチャンネル数は
+<code>PlugProcessor::initialize</code> で指定できます。</p>
+<p><code>kResultOk</code> は 0 で <code>kResultFalse</code> は 1 なので
+if の条件で出てくるときは注意してください。 VST3 SDK では
+<code>if (isIt() == kResultFalse) doIt();</code> のように
+<code>==</code> でチェックしている箇所があります。</p>
 <h3 id="パラメータの追加">パラメータの追加</h3>
 <p>このままだとパラメータの管理が手間になるのでリファクタリングします。</p>
 <h4 id="vst3-のパラメータ">VST3 のパラメータ</h4>
-<p>VST3 では1つのパラメータをコントローラとプロセッサの2か所で保持させることになります。</p>
+<p>VST3
+では1つのパラメータをコントローラとプロセッサの2か所で保持させることになります。</p>
 <ul>
 <li>TODO 図の追加</li>
 </ul>
-<h4 id="パラメータ用のヘッダとソースの作成">パラメータ用のヘッダとソースの作成</h4>
+<h4
+id="パラメータ用のヘッダとソースの作成">パラメータ用のヘッダとソースの作成</h4>
 <p>TODO 変更</p>
 <ul>
 <li><code>SomeFX/source/plugid.hpp</code></li>
@@ -792,15 +1051,23 @@ footer {
 <li><code>SomeFX/source/plugprocessor.cpp</code></li>
 </ul>
 <h3 id="hello-gui">Hello GUI</h3>
-<p>VSTGUI 4.8 ではコードで直接 GUI を書く方法と、 VST3 inline UI editor を使って GUI を作る方法があります。ここでは VST3 inline UI editor という名前を短くして UI エディタと呼ぶことにします。</p>
-<p>本格的な開発をするならコードで直接 GUI を書く方法をお勧めします。私が試した限りでは FL Studio 20.5 と Reaper 5.980 では UI エディタを使う方法に不具合がありました。不具合については GUI -&gt; VST3 inline UI editor を使った GUI の作成 -&gt; ワークアラウンド にまとめています。</p>
-<p>ここでは例として手軽でコードが少ない UI エディタを使う方法で GUI を作ります。</p>
+<p>VSTGUI 4.8 ではコードで直接 GUI を書く方法と、 VST3 inline UI editor
+を使って GUI を作る方法があります。ここでは VST3 inline UI editor
+という名前を短くして UI エディタと呼ぶことにします。</p>
+<p>本格的な開発をするならコードで直接 GUI
+を書く方法をお勧めします。私が試した限りでは FL Studio 20.5 と Reaper
+5.980 では UI エディタを使う方法に不具合がありました。不具合については
+GUI -&gt; VST3 inline UI editor を使った GUI の作成 -&gt;
+ワークアラウンド にまとめています。</p>
+<p>ここでは例として手軽でコードが少ない UI エディタを使う方法で GUI
+を作ります。</p>
 <p><code>SomeFX/source/plugcontroller.hpp</code> を変更します。</p>
 <ul>
 <li><code>vst3editor.h</code> をインクルード。</li>
 <li><code>createView</code> を追加。</li>
 </ul>
-<div class="sourceCode" id="cb29"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;vstgui/plugin-bindings/vst3editor.h&quot;</span></span>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;vstgui/plugin-bindings/vst3editor.h&quot;</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PlugController <span class="op">:</span> <span class="kw">public</span> Vst<span class="op">::</span>EditController <span class="op">{</span></span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
@@ -815,7 +1082,8 @@ footer {
 <span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
 <p><code>SomeFX/CMakeLists.txt</code> を変更します。</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">smtg_add_vst3plugin</span>(<span class="dv">${target}</span> <span class="dv">${plug_sources}</span>)</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="kw">set_target_properties</span>(<span class="dv">${target}</span> <span class="ot">PROPERTIES</span> <span class="dv">${SDK_IDE_MYPLUGINS_FOLDER}</span>)</span>
@@ -823,13 +1091,21 @@ footer {
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="kw">target_link_libraries</span>(<span class="dv">${target}</span> <span class="bn">PRIVATE</span> base sdk vstgui_support)    <span class="co"># vstgui_support を追加。</span></span>
 <span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span></code></pre></div>
-<p>ビルドしたプラグインを開くと真っ黒の画面が表示されます。黒い部分を右クリックするとコンテクストメニューが開いて UI エディタでの編集が選択できます。</p>
-<p>UI エディタの使い方は <code>vstgui4/vstgui/Documentation/html/page_uidescription_editor.html</code> に書いてあります。</p>
+<p>ビルドしたプラグインを開くと真っ黒の画面が表示されます。黒い部分を右クリックするとコンテクストメニューが開いて
+UI エディタでの編集が選択できます。</p>
+<p>UI エディタの使い方は
+<code>vstgui4/vstgui/Documentation/html/page_uidescription_editor.html</code>
+に書いてあります。</p>
 <ul>
 <li>TODO 画像</li>
 <li>TODO tag の設定。</li>
 </ul>
-<p>UI エディタでの編集が終わったらの左上にあるメニューから File -&gt; Save As を選んで <code>plug.uidesc</code> を保存します。保存した <code>plug.uidesc</code> を適当なディレクトリにおいて <code>SomeFX/CMakeLists.txt</code> の <code>smtg_add_vst3_resource</code> でパスを指定することでリソースに追加できます。</p>
+<p>UI エディタでの編集が終わったらの左上にあるメニューから File -&gt;
+Save As を選んで <code>plug.uidesc</code> を保存します。保存した
+<code>plug.uidesc</code> を適当なディレクトリにおいて
+<code>SomeFX/CMakeLists.txt</code> の
+<code>smtg_add_vst3_resource</code>
+でパスを指定することでリソースに追加できます。</p>
 <pre><code># ...
 target_link_libraries(${target} PRIVATE base sdk vstgui_support) # 上で変更した行。
 
@@ -838,15 +1114,23 @@ target_link_libraries(${target} PRIVATE base sdk vstgui_support) # 上で変更�
 smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 
 # ...</code></pre>
-<p>画像ファイルを使うときも <code>smtg_add_vst3_resource</code> でリソースに追加できます。</p>
+<p>画像ファイルを使うときも <code>smtg_add_vst3_resource</code>
+でリソースに追加できます。</p>
 <h3 id="リファクタリング">リファクタリング</h3>
 <ul>
 <li>TODO</li>
 </ul>
 <h2 id="ポインタの扱いについて">ポインタの扱いについて</h2>
-<p>vst3sdk では生ポインタを扱う場面が出てきますが、参照カウンタが使えるので use after free を防ぐことができます。</p>
-<p><code>new</code> したインスタンスを生ポインタに格納した後は <code>remember()</code> で参照カウントを増やします。また、メモリリークを防ぐためにクラスのデストラクタで必ず <code>forget()</code> を呼んで参照カウントを減らします。以下は私が実際に書いて動いた適当な例です。</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PlugController <span class="op">:</span> <span class="kw">public</span> Vst<span class="op">::</span>EditController<span class="op">,</span> <span class="kw">public</span> Vst<span class="op">::</span>IMidiMapping <span class="op">{</span></span>
+<p>vst3sdk
+では生ポインタを扱う場面が出てきますが、参照カウンタが使えるので use
+after free を防ぐことができます。</p>
+<p><code>new</code> したインスタンスを生ポインタに格納した後は
+<code>remember()</code>
+で参照カウントを増やします。また、メモリリークを防ぐためにクラスのデストラクタで必ず
+<code>forget()</code>
+を呼んで参照カウントを減らします。以下は私が実際に書いて動いた適当な例です。</p>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PlugController <span class="op">:</span> <span class="kw">public</span> Vst<span class="op">::</span>EditController<span class="op">,</span> <span class="kw">public</span> Vst<span class="op">::</span>IMidiMapping <span class="op">{</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  Steinberg<span class="op">::</span>Vst<span class="op">::</span>PlugEditor <span class="op">*</span>editor <span class="op">=</span> <span class="kw">nullptr</span><span class="op">;</span></span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -869,14 +1153,25 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>CMake では C++14 のフラグを立てていながらスマートポインタを使っていないのが疑問でしたが、 Wikipedia によると <a href="https://en.wikipedia.org/wiki/Virtual_Studio_Technology#History">VST 3 がリリースされたのは 2008 年</a>なので C++11 が使えなかったのだろうと思います。</p>
+<p>CMake では C++14
+のフラグを立てていながらスマートポインタを使っていないのが疑問でしたが、
+Wikipedia によると <a
+href="https://en.wikipedia.org/wiki/Virtual_Studio_Technology#History">VST
+3 がリリースされたのは 2008 年</a>なので C++11
+が使えなかったのだろうと思います。</p>
 <h2 id="gui">GUI</h2>
 <p>主にカスタムビューの作成についてまとめています。</p>
-<h3 id="vst3-inline-ui-editor-を使った-gui-の作成">VST3 inline UI editor を使った GUI の作成</h3>
-<h4 id="オプションメニュー-コンボボックス-の追加">オプションメニュー (コンボボックス) の追加</h4>
-<p>オプションメニューのアイテムは <code>StringListParameter</code> を使うことで設定できます。</p>
-<p>オプションメニューとリンクするパラメータを <code>SomeFX/source/plugcontroller.cpp</code> の <code>initialize</code> に追加します。</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;public.sdk/source/vst/vstparameters.h&quot;</span></span>
+<h3 id="vst3-inline-ui-editor-を使った-gui-の作成">VST3 inline UI editor
+を使った GUI の作成</h3>
+<h4 id="オプションメニュー-コンボボックス-の追加">オプションメニュー
+(コンボボックス) の追加</h4>
+<p>オプションメニューのアイテムは <code>StringListParameter</code>
+を使うことで設定できます。</p>
+<p>オプションメニューとリンクするパラメータを
+<code>SomeFX/source/plugcontroller.cpp</code> の <code>initialize</code>
+に追加します。</p>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;public.sdk/source/vst/vstparameters.h&quot;</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co">// ...</span></span>
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -889,17 +1184,32 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  parameterType<span class="op">-&gt;</span>appendString<span class="op">(</span>USTRING<span class="op">(</span><span class="st">&quot;yey&quot;</span><span class="op">));</span></span>
 <span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  parameters<span class="op">.</span>addParameter<span class="op">(</span>parameterType<span class="op">);</span></span>
 <span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>あとは UI エディタで <code>StringListParameter</code> として追加したパラメータのIDをオプションメニューの control-tag として指定すれば設定完了です。</p>
+<p>あとは UI エディタで <code>StringListParameter</code>
+として追加したパラメータのIDをオプションメニューの control-tag
+として指定すれば設定完了です。</p>
 <ul>
 <li><code>public.sdk/samples/vst/note_expression_synth/source/note_expression_synth_controller.cpp</code></li>
 <li><code>public.sdk/source/vst/vstparameters.*</code></li>
 </ul>
 <h4 id="ワークアラウンド">ワークアラウンド</h4>
-<p>FL Studio 20.5 ではプラグインのウィンドウの大きさを変更できないので編集が困難です。ワークアラウンドとして <code>plug.uidesc</code> を直接編集して編集画面の大きさを変更することができます。</p>
-<p>いったん UI エディタを開いて何も編集せずにメニューの Save as で <code>plug.uidesc</code> を保存します。 <code>plug.uidesc</code> をテキストエディタで開いて custom -&gt; attributes -&gt; EditorSize を変更することでGUI エディタのウィンドウの大きさを設定できます。 EditorSize のフォーマットは <code>"x, y, width, height"</code> となっています。変更した <code>plug.uidesc</code> をリソースとしてプラグインに追加すると次回から UI エディタのウィンドウが設定した大きさになります。</p>
-<p>Reaper v5.980 では UI エディタを開こうとするとクラッシュするので使えません。</p>
+<p>FL Studio 20.5
+ではプラグインのウィンドウの大きさを変更できないので編集が困難です。ワークアラウンドとして
+<code>plug.uidesc</code>
+を直接編集して編集画面の大きさを変更することができます。</p>
+<p>いったん UI エディタを開いて何も編集せずにメニューの Save as で
+<code>plug.uidesc</code> を保存します。 <code>plug.uidesc</code>
+をテキストエディタで開いて custom -&gt; attributes -&gt; EditorSize
+を変更することでGUI エディタのウィンドウの大きさを設定できます。
+EditorSize のフォーマットは <code>"x, y, width, height"</code>
+となっています。変更した <code>plug.uidesc</code>
+をリソースとしてプラグインに追加すると次回から UI
+エディタのウィンドウが設定した大きさになります。</p>
+<p>Reaper v5.980 では UI
+エディタを開こうとするとクラッシュするので使えません。</p>
 <h4 id="カスタムビューの追加">カスタムビューの追加</h4>
-<p>カスタムビューの概要については コードでGUI -&gt; カスタムビューの実装と関連するコントロールの表示の変更 を参照してください。</p>
+<p>カスタムビューの概要については コードでGUI -&gt;
+カスタムビューの実装と関連するコントロールの表示の変更
+を参照してください。</p>
 <p>サイン波を表示するカスタムビューを作ります。</p>
 <p>次の3つのファイルを作成します。</p>
 <ul>
@@ -908,7 +1218,8 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <li><code>SomeFX/source/gui/waveviewcreator.cpp</code></li>
 </ul>
 <p><code>SomeFX/source/gui/waveview.hpp</code> の内容です。</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#pragma once</span></span>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#pragma once</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;vstgui4/vstgui/vstgui.h&quot;</span></span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -935,7 +1246,8 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="co">// namespace VSTGUI</span></span></code></pre></div>
 <p><code>SomeFX/source/gui/waveview.cpp</code> の内容です。</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;waveview.hpp&quot;</span></span>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;waveview.hpp&quot;</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cmath&gt;</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="kw">namespace</span> VSTGUI <span class="op">{</span></span>
@@ -989,7 +1301,8 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb35-52"><a href="#cb35-52" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-53"><a href="#cb35-53" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="co">// namespace VSTGUI</span></span></code></pre></div>
 <p><code>SomeFX/source/gui/waveviewcreator.cpp</code> の内容です。</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#pragma once</span></span>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#pragma once</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;waveview.hpp&quot;</span></span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1129,7 +1442,8 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb36-138"><a href="#cb36-138" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-139"><a href="#cb36-139" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="co">// namespace UIViewCreator</span></span>
 <span id="cb36-140"><a href="#cb36-140" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="co">// namespace VSTGUI</span></span></code></pre></div>
-<div class="sourceCode" id="cb37"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="er">`SomeFX/CMakeLists.txt` にファイルを追加します。</span></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="er">```cmake</span></span>
@@ -1155,10 +1469,19 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <ul>
 <li>TODO 検証</li>
 </ul>
-<p>ここに書いてある内容は手持ちの DAW では動かなかったので検証できていません。同じ仕組みを使っている noteexpressionsynth のキーボード UI もうまく動いていなかったので、 DAW 側で実装されていない可能性が高いと判断して掲載しています。</p>
-<p>UI エディタで、パラメータを受け取る側のビューの sub-controller に適当な文字列を設定します。ここでは <code>WaveViewController</code> としています。</p>
-<p>コントロールクラスに <code>VST3EditorDelegate</code> を継承させて <code>createSubController</code> を実装します。 <code>SomeFX/source/plugcontroller.hpp</code> でメソッドを追加します。</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PlugController <span class="op">:</span> <span class="kw">public</span> Vst<span class="op">::</span>EditController<span class="op">,</span> <span class="kw">public</span> VSTGUI<span class="op">::</span>VST3EditorDelegate <span class="op">{</span></span>
+<p>ここに書いてある内容は手持ちの DAW
+では動かなかったので検証できていません。同じ仕組みを使っている
+noteexpressionsynth のキーボード UI もうまく動いていなかったので、 DAW
+側で実装されていない可能性が高いと判断して掲載しています。</p>
+<p>UI エディタで、パラメータを受け取る側のビューの sub-controller
+に適当な文字列を設定します。ここでは <code>WaveViewController</code>
+としています。</p>
+<p>コントロールクラスに <code>VST3EditorDelegate</code> を継承させて
+<code>createSubController</code> を実装します。
+<code>SomeFX/source/plugcontroller.hpp</code>
+でメソッドを追加します。</p>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PlugController <span class="op">:</span> <span class="kw">public</span> Vst<span class="op">::</span>EditController<span class="op">,</span> <span class="kw">public</span> VSTGUI<span class="op">::</span>VST3EditorDelegate <span class="op">{</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1167,8 +1490,10 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> VSTGUI<span class="op">::</span>IUIDescription <span class="op">*</span>description<span class="op">,</span></span>
 <span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    VSTGUI<span class="op">::</span>VST3Editor <span class="op">*</span>editor<span class="op">)</span> SMTG_OVERRIDE<span class="op">;</span></span>
 <span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
-<p><code>SomeFX/source/plugcontroller.cpp</code> に実装を追加します。</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> WaveViewController <span class="op">:</span> <span class="kw">public</span> DelegationController <span class="op">{</span></span>
+<p><code>SomeFX/source/plugcontroller.cpp</code>
+に実装を追加します。</p>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> WaveViewController <span class="op">:</span> <span class="kw">public</span> DelegationController <span class="op">{</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  WaveViewController<span class="op">(</span>IController <span class="op">*</span>controller<span class="op">)</span> <span class="op">:</span> DelegationController<span class="op">(</span>controller<span class="op">)</span> <span class="op">{}</span></span>
 <span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1215,45 +1540,82 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb39-45"><a href="#cb39-45" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb39-46"><a href="#cb39-46" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="kw">nullptr</span><span class="op">;</span></span>
 <span id="cb39-47"><a href="#cb39-47" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>これで動くはずですが、コメントで書いたように <code>DelegationController</code> の <code>valueChanged</code> がホストから呼び出されていないようです。ドキュメンテーションの <code>vstgui4/vstgui/Documentation/html/page_uidescription_editor.html</code> では <code>DelegationController</code> の <code>notify</code> を使っていますが、 <code>CControl::kMessageValueChanged</code> は VSTGUI 4.8 で廃止されたので動きません。</p>
+<p>これで動くはずですが、コメントで書いたように
+<code>DelegationController</code> の <code>valueChanged</code>
+がホストから呼び出されていないようです。ドキュメンテーションの
+<code>vstgui4/vstgui/Documentation/html/page_uidescription_editor.html</code>
+では <code>DelegationController</code> の <code>notify</code>
+を使っていますが、 <code>CControl::kMessageValueChanged</code> は VSTGUI
+4.8 で廃止されたので動きません。</p>
 <ul>
 <li><code>vstgui4/vstgui/Documentation/html/page_uidescription_editor.html</code></li>
 <li><code>vstgui4/vstgui/Documentation/html/page_news_and_changes.html</code></li>
 </ul>
 <h3 id="コードでgui">コードでGUI</h3>
 <p><code>VSTGUIEditor</code> をベースにしてコードでGUIを作ります。</p>
-<p><code>VSTGUIEditor</code> を使った GUI の作成についてはうつぼかずらさんによる<a href="http://vstcpp.wpblog.jp/">C++でVST作り</a>が参考になります。ここではC++でVST作りで紹介されていない内容について扱っています。</p>
+<p><code>VSTGUIEditor</code> を使った GUI
+の作成についてはうつぼかずらさんによる<a
+href="http://vstcpp.wpblog.jp/">C++でVST作り</a>が参考になります。ここではC++でVST作りで紹介されていない内容について扱っています。</p>
 <ul>
 <li><a href="http://vstcpp.wpblog.jp/">C++でVST作り</a></li>
 </ul>
 <h4 id="カスタムフォント">カスタムフォント</h4>
-<p>VSTGUI でカスタムフォントを使うにはプラグインバンドルの <code>Contents/Resources/Fonts</code> に <code>*.ttf</code> ファイルを配置します。</p>
-<p>プラグインの <code>CMakeLists.txt</code> に以下の行を追加します。 <code>${target}</code> はプラグイン名あるいはプロジェクト名です。ライセンスファイルもまとめて同梱しています。</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">smtg_add_plugin_resource</span>(<span class="dv">${target}</span> <span class="st">&quot;../common/resource/Fonts/Tinos-BoldItalic.ttf&quot;</span> <span class="st">&quot;Fonts&quot;</span>)</span>
+<p>VSTGUI でカスタムフォントを使うにはプラグインバンドルの
+<code>Contents/Resources/Fonts</code> に <code>*.ttf</code>
+ファイルを配置します。</p>
+<p>プラグインの <code>CMakeLists.txt</code> に以下の行を追加します。
+<code>${target}</code>
+はプラグイン名あるいはプロジェクト名です。ライセンスファイルもまとめて同梱しています。</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">smtg_add_plugin_resource</span>(<span class="dv">${target}</span> <span class="st">&quot;../common/resource/Fonts/Tinos-BoldItalic.ttf&quot;</span> <span class="st">&quot;Fonts&quot;</span>)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">smtg_add_plugin_resource</span>(<span class="dv">${target}</span> <span class="st">&quot;../common/resource/Fonts/LICENSE.txt&quot;</span> <span class="st">&quot;Fonts&quot;</span>)</span></code></pre></div>
-<p>コード側では <code>CFontDesc</code> でフォントファミリの文字列とスタイルを指定すれば使えます。</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>SharedPointer<span class="op">&lt;</span>CFontDesc<span class="op">&gt;</span> font <span class="op">=</span> <span class="kw">new</span> CFontDesc<span class="op">(</span></span>
+<p>コード側では <code>CFontDesc</code>
+でフォントファミリの文字列とスタイルを指定すれば使えます。</p>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>SharedPointer<span class="op">&lt;</span>CFontDesc<span class="op">&gt;</span> font <span class="op">=</span> <span class="kw">new</span> CFontDesc<span class="op">(</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Tinos&quot;</span><span class="op">,</span>                                    <span class="co">// フォントファミリ名。</span></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fl">10.0</span><span class="op">,</span>                                       <span class="co">// サイズ。</span></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  CTxtFace<span class="op">::</span>kBoldFace <span class="op">|</span> CTxtFace<span class="op">::</span>kItalicFace <span class="co">// スタイル。</span></span>
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="op">);</span></span></code></pre></div>
-<p>太字とイタリックは使えました。 Noto フォントなどが提供している demi light などのより細かい文字の太さが使えるかどうかは確認していません。</p>
-<p>フォントファミリ名あるいはスタイルの指定が正しくないときは VSTGUI が設定した <code>kSystemFont</code> がデフォルトとして使われます。 macOS では 12 ポイントの <code>Helvetica</code> 、 それ以外の OS では 12 ポイントの <code>Arial</code> がデフォルトです。詳細は <code>vst3sdk/vstgui4/vstgui/lib/cfont.cpp</code> を参照してみてください。</p>
-<h4 id="ホストのオートメーションに応じて表示を更新">ホストのオートメーションに応じて表示を更新</h4>
-<p>ホストがオートメーションによってパラメータを変更したときは <code>EditController.setParamNormalized()</code> に変更された値が渡されます。 <code>setParamNormalized()</code> をオーバーライドして GUI に値を渡すことができます。</p>
+<p>太字とイタリックは使えました。 Noto フォントなどが提供している demi
+light などのより細かい文字の太さが使えるかどうかは確認していません。</p>
+<p>フォントファミリ名あるいはスタイルの指定が正しくないときは VSTGUI
+が設定した <code>kSystemFont</code> がデフォルトとして使われます。 macOS
+では 12 ポイントの <code>Helvetica</code> 、 それ以外の OS では 12
+ポイントの <code>Arial</code> がデフォルトです。詳細は
+<code>vst3sdk/vstgui4/vstgui/lib/cfont.cpp</code>
+を参照してみてください。</p>
+<h4
+id="ホストのオートメーションに応じて表示を更新">ホストのオートメーションに応じて表示を更新</h4>
+<p>ホストがオートメーションによってパラメータを変更したときは
+<code>EditController.setParamNormalized()</code>
+に変更された値が渡されます。 <code>setParamNormalized()</code>
+をオーバーライドして GUI に値を渡すことができます。</p>
 <ol type="1">
-<li><code>VSTGUIEditor</code> を継承したエディタクラスに ID と値を受け取って <code>CControl</code> などの要素を更新するメソッドを作る。</li>
-<li><code>EditController</code> を継承したコントローラクラスにエディタクラスのポインタを持たせる。</li>
-<li><code>setParamNormalized()</code> をオーバーライドしてエディタクラスのポインタから GUI に値を渡す。</li>
+<li><code>VSTGUIEditor</code> を継承したエディタクラスに ID
+と値を受け取って <code>CControl</code>
+などの要素を更新するメソッドを作る。</li>
+<li><code>EditController</code>
+を継承したコントローラクラスにエディタクラスのポインタを持たせる。</li>
+<li><code>setParamNormalized()</code>
+をオーバーライドしてエディタクラスのポインタから GUI に値を渡す。</li>
 </ol>
 <ul>
 <li><p>TODO 実装の追加</p></li>
-<li><p><a href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/vst3Automation.html#vst3automationPlayback">VST 3 Interfaces: Parameters and Automation</a></p></li>
-<li><p><a href="https://sdk.steinberg.net/viewtopic.php?f=4&amp;t=714">Clarification of parameter handling in VST 3 - sdk.steinberg.net</a></p></li>
+<li><p><a
+href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/vst3Automation.html#vst3automationPlayback">VST
+3 Interfaces: Parameters and Automation</a></p></li>
+<li><p><a
+href="https://sdk.steinberg.net/viewtopic.php?f=4&amp;t=714">Clarification
+of parameter handling in VST 3 - sdk.steinberg.net</a></p></li>
 </ul>
 <h4 id="リフレッシュレートの設定">リフレッシュレートの設定</h4>
-<p><code>VSTGUIEditor</code> の <code>setIdleRate</code> でリフレッシュレートを変更できます。指定する値の単位は ms (ミリ秒) で、デフォルト値は 100ms (10Hz) です。カスタムビューの更新が遅く感じるときなどに変更してみてください。</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> PlugEditor<span class="op">::</span>open<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>parent<span class="op">,</span> <span class="at">const</span> PlatformType <span class="op">&amp;</span>platformType<span class="op">)</span></span>
+<p><code>VSTGUIEditor</code> の <code>setIdleRate</code>
+でリフレッシュレートを変更できます。指定する値の単位は ms (ミリ秒)
+で、デフォルト値は 100ms (10Hz)
+です。カスタムビューの更新が遅く感じるときなどに変更してみてください。</p>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> PlugEditor<span class="op">::</span>open<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>parent<span class="op">,</span> <span class="at">const</span> PlatformType <span class="op">&amp;</span>platformType<span class="op">)</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  setIdleRate<span class="op">(</span><span class="dv">1000</span> <span class="op">/</span> <span class="dv">60</span><span class="op">);</span></span>
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1264,9 +1626,14 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <li><code>vstgui4/vstgui/lib/cvstguitimer.h</code></li>
 </ul>
 <h4 id="キーボードイベントの受け取り">キーボードイベントの受け取り</h4>
-<p>キーボードイベントは <code>CView::onKeyboardEvent()</code> をオーバーライドして受け取ります。 <code>onKeyboardEvent</code> が呼ばれるためにはビューがフォーカスを取る必要があります。</p>
-<p><code>CControl</code> を継承したクラスでは <code>setWantsFocus(true)</code> をコンストラクタで呼ぶだけで、マウスクリックなどでフォーカスが取れるようになります。</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> SomeControl <span class="op">:</span> <span class="kw">public</span> CControl <span class="op">{</span></span>
+<p>キーボードイベントは <code>CView::onKeyboardEvent()</code>
+をオーバーライドして受け取ります。 <code>onKeyboardEvent</code>
+が呼ばれるためにはビューがフォーカスを取る必要があります。</p>
+<p><code>CControl</code> を継承したクラスでは
+<code>setWantsFocus(true)</code>
+をコンストラクタで呼ぶだけで、マウスクリックなどでフォーカスが取れるようになります。</p>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> SomeControl <span class="op">:</span> <span class="kw">public</span> CControl <span class="op">{</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">explicit</span> SomeControl<span class="op">(</span><span class="at">const</span> CRect <span class="op">&amp;</span>size<span class="op">)</span></span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> CControl<span class="op">(</span>size<span class="op">)</span></span>
@@ -1279,9 +1646,16 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ここでキーボードイベントをハンドル。</span></span>
 <span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
-<p><code>CControl</code> を継承したクラスは <kbd>Ctrl</kbd> + <kbd>左クリック</kbd> のイベントが奪われてしまうという問題があります。この問題を避けるためには <code>CView</code> が使えます。</p>
-<p><code>CView</code> を継承したクラスではフォーカスを明示的に取る必要があります。フォーカスを取るには <code>CFrame::setFocusView()</code> が使えます。 <code>CFrame</code> は <code>VSTGUIEditor::getFrame()</code> から取得できます。</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> SomeView <span class="op">:</span> <span class="kw">public</span> CView <span class="op">{</span></span>
+<p><code>CControl</code> を継承したクラスは <kbd>Ctrl</kbd> +
+<kbd>左クリック</kbd>
+のイベントが奪われてしまうという問題があります。この問題を避けるためには
+<code>CView</code> が使えます。</p>
+<p><code>CView</code>
+を継承したクラスではフォーカスを明示的に取る必要があります。フォーカスを取るには
+<code>CFrame::setFocusView()</code> が使えます。 <code>CFrame</code> は
+<code>VSTGUIEditor::getFrame()</code> から取得できます。</p>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> SomeView <span class="op">:</span> <span class="kw">public</span> CView <span class="op">{</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// VSTGUIEditor::getFrame() を使うので editor としてコンストラクタで受け取る。</span></span>
 <span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  Steinberg<span class="op">::</span>Vst<span class="op">::</span>VSTGUIEditor <span class="op">*</span>editor <span class="op">=</span> <span class="kw">nullptr</span><span class="op">;</span></span>
@@ -1332,15 +1706,31 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb44-49"><a href="#cb44-49" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ここでキーボードイベントをハンドル。</span></span>
 <span id="cb44-50"><a href="#cb44-50" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb44-51"><a href="#cb44-51" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
-<p>以下は公式ドキュメンテーションへのリンクです。キーボードイベントを受け取る条件については書いてありますが、どうすればその条件を満たせるのか (どう実装すればいいのか) について書いていないので、あまり役には立ちません。</p>
+<p>以下は公式ドキュメンテーションへのリンクです。キーボードイベントを受け取る条件については書いてありますが、どうすればその条件を満たせるのか
+(どう実装すればいいのか)
+について書いていないので、あまり役には立ちません。</p>
 <ul>
-<li><a href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/key_event_flow.html">VSTGUI: Keyboard Event Flow</a></li>
+<li><a
+href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/key_event_flow.html">VSTGUI:
+Keyboard Event Flow</a></li>
 </ul>
-<h4 id="カスタムビューの実装と関連するコントロールの表示の変更">カスタムビューの実装と関連するコントロールの表示の変更</h4>
+<h4
+id="カスタムビューの実装と関連するコントロールの表示の変更">カスタムビューの実装と関連するコントロールの表示の変更</h4>
 <p>あるコントロールの値を変更したときに、連動して別のコントロールの値や表示を変更したい時があります。ここでは例としてコントロールの値に応じてカスタムビューで波形を表示するようにします。</p>
-<p>カスタムビューは <code>CView</code> を継承したクラスならどれを継承しても作ることができます。例えばスライダーの見た目を変更したいなら <code>CSlider</code> を継承する、テキストを表示するカスタムビューを作りたいときは <code>CParamDisplay</code> を継承するといった形で実装の手間を減らせるときがあります。継承して使えるクラスを探すときは <code>vstgui4/vstgui/lib</code> と <code>vstgui4/vstgui/lib/controls</code> を覗いてみてください。</p>
-<p>ここでは波形を表示するだけなので <code>CControl</code> を継承して <code>draw</code> をオーバーライドしただけの <code>WaveView</code> というカスタムビューを作ります。 <code>waveview.hpp</code> の内容です。</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#pragma once</span></span>
+<p>カスタムビューは <code>CView</code>
+を継承したクラスならどれを継承しても作ることができます。例えばスライダーの見た目を変更したいなら
+<code>CSlider</code>
+を継承する、テキストを表示するカスタムビューを作りたいときは
+<code>CParamDisplay</code>
+を継承するといった形で実装の手間を減らせるときがあります。継承して使えるクラスを探すときは
+<code>vstgui4/vstgui/lib</code> と
+<code>vstgui4/vstgui/lib/controls</code> を覗いてみてください。</p>
+<p>ここでは波形を表示するだけなので <code>CControl</code> を継承して
+<code>draw</code> をオーバーライドしただけの <code>WaveView</code>
+というカスタムビューを作ります。 <code>waveview.hpp</code>
+の内容です。</p>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#pragma once</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;vstgui/vstgui.h&quot;</span></span>
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1366,11 +1756,15 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
 <span id="cb45-25"><a href="#cb45-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb45-26"><a href="#cb45-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="co">// namespace VSTGUI</span></span></code></pre></div>
-<p><code>waveview.cpp</code> の内容です。ここでは描画する波形が簡単なので <code>WaveView::lfo</code> として GUI 側で実装しています。コードがより複雑になるときは GUI 側に波形を生成するコードを書かずに、プロセッサクラスから信号処理の部分をヘッダにまとめてインクルードすることをお勧めします。</p>
+<p><code>waveview.cpp</code>
+の内容です。ここでは描画する波形が簡単なので <code>WaveView::lfo</code>
+として GUI 側で実装しています。コードがより複雑になるときは GUI
+側に波形を生成するコードを書かずに、プロセッサクラスから信号処理の部分をヘッダにまとめてインクルードすることをお勧めします。</p>
 <ul>
 <li>TODO</li>
 </ul>
-<div class="sourceCode" id="cb46"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;waveview.hpp&quot;</span></span>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;waveview.hpp&quot;</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cmath&gt;</span></span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1429,7 +1823,8 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb46-57"><a href="#cb46-57" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-58"><a href="#cb46-58" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="co">// namespace VSTGUI</span></span></code></pre></div>
 <p>エディタクラスに関数を追加します。</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PlugEditor <span class="op">:</span> <span class="kw">public</span> VSTGUIEditor<span class="op">,</span> <span class="kw">public</span> IControlListener <span class="op">{</span></span>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PlugEditor <span class="op">:</span> <span class="kw">public</span> VSTGUIEditor<span class="op">,</span> <span class="kw">public</span> IControlListener <span class="op">{</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co">// ...</span></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> addWaveView<span class="op">(</span><span class="at">const</span> CRect <span class="op">&amp;</span>size<span class="op">);</span></span>
@@ -1444,8 +1839,10 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a><span class="co">// ...</span></span>
 <span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
-<p><code>addWaveView</code> の実装です。 <code>parameter.hpp</code> で定義したパラメータIDを使ってコントローラから初期値を取得しています。</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;parameter.hpp&quot;</span></span>
+<p><code>addWaveView</code> の実装です。 <code>parameter.hpp</code>
+で定義したパラメータIDを使ってコントローラから初期値を取得しています。</p>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;parameter.hpp&quot;</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> PlugEditor<span class="op">::</span>addWaveView<span class="op">(</span><span class="at">const</span> CRect <span class="op">&amp;</span>size<span class="op">)</span></span>
 <span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
@@ -1461,7 +1858,8 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> controller<span class="op">-&gt;</span>normalizedParamToPlain<span class="op">(</span>tag<span class="op">,</span> normalized<span class="op">);</span></span>
 <span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
 <p><code>open</code> で <code>WaveView</code> を作成します。</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> PlugEditor<span class="op">::</span>open<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>parent<span class="op">,</span> <span class="at">const</span> PlatformType <span class="op">&amp;</span>platformType<span class="op">)</span></span>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> PlugEditor<span class="op">::</span>open<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>parent<span class="op">,</span> <span class="at">const</span> PlatformType <span class="op">&amp;</span>platformType<span class="op">)</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
 <span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1469,8 +1867,15 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
 <span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>エディタクラスの <code>valueChanged</code> で関連するコントロールの変更を検知して <code>WaveView</code> を更新します。ここでは <code>VSTGUIEditor::open</code> で作成したコントロールを取得するために <code>getViewAt</code> を使っています。 <code>getViewAt</code> に渡している <code>WaveViewPos</code> はエディタクラスのメンバとして定義した <code>WaveView</code> の位置です。</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> PlugEditor<span class="op">::</span>valueChanged<span class="op">(</span>CControl <span class="op">*</span>pControl<span class="op">)</span></span>
+<p>エディタクラスの <code>valueChanged</code>
+で関連するコントロールの変更を検知して <code>WaveView</code>
+を更新します。ここでは <code>VSTGUIEditor::open</code>
+で作成したコントロールを取得するために <code>getViewAt</code>
+を使っています。 <code>getViewAt</code> に渡している
+<code>WaveViewPos</code> はエディタクラスのメンバとして定義した
+<code>WaveView</code> の位置です。</p>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> PlugEditor<span class="op">::</span>valueChanged<span class="op">(</span>CControl <span class="op">*</span>pControl<span class="op">)</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  ParamID tag <span class="op">=</span> pControl<span class="op">-&gt;</span>getTag<span class="op">();</span></span>
 <span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  ParamValue value <span class="op">=</span> pControl<span class="op">-&gt;</span>getValueNormalized<span class="op">();</span></span>
@@ -1489,19 +1894,32 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>    some<span class="op">-&gt;</span>setDirty<span class="op">(</span><span class="kw">true</span><span class="op">);</span></span>
 <span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>コントロールを取得する別の方法としては <code>frame-&gt;getView</code> があります。引数の <code>index</code> がどういう値なのかドキュメンテーションに書いていなかったのでここでは使っていません。興味のある方は <code>vstgui4/vstgui/lib/cviewcontainer.*</code> を読んでみてください。</p>
+<p>コントロールを取得する別の方法としては <code>frame-&gt;getView</code>
+があります。引数の <code>index</code>
+がどういう値なのかドキュメンテーションに書いていなかったのでここでは使っていません。興味のある方は
+<code>vstgui4/vstgui/lib/cviewcontainer.*</code>
+を読んでみてください。</p>
 <h4 id="スプラッシュスクリーンの追加">スプラッシュスクリーンの追加</h4>
-<p><code>CSplashScreen</code> でスプラッシュスクリーンを作成できます。</p>
+<p><code>CSplashScreen</code>
+でスプラッシュスクリーンを作成できます。</p>
 <p>エディタクラスにスプラッシュスクリーンを追加する関数を作ります。</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PlugEditor <span class="op">:</span> <span class="kw">public</span> VSTGUIEditor<span class="op">,</span> <span class="kw">public</span> IControlListener <span class="op">{</span></span>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PlugEditor <span class="op">:</span> <span class="kw">public</span> VSTGUIEditor<span class="op">,</span> <span class="kw">public</span> IControlListener <span class="op">{</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> addSplashScreen<span class="op">(</span>CRect <span class="op">&amp;</span>buttonRect<span class="op">,</span> CRect splashRect<span class="op">);</span></span>
 <span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
 <span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
-<p><code>addSplashScreen</code> の実装です。ここではスプラッシュスクリーンとしてカスタムビューの <code>CreditView</code> が表示されるようにしています。開いたスプラッシュスクリーンをクリックしたときに閉じるようにするにはカスタムビュー側の <code>setListener</code> に <code>CSplashScreen</code> を渡しておく必要があります。 <code>setListener</code> は <code>CControl</code> で実装されています。</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> PlugEditor<span class="op">::</span>addSplashScreen<span class="op">(</span>CRect <span class="op">&amp;</span>buttonRect<span class="op">,</span> CRect splashRect<span class="op">)</span></span>
+<p><code>addSplashScreen</code>
+の実装です。ここではスプラッシュスクリーンとしてカスタムビューの
+<code>CreditView</code>
+が表示されるようにしています。開いたスプラッシュスクリーンをクリックしたときに閉じるようにするにはカスタムビュー側の
+<code>setListener</code> に <code>CSplashScreen</code>
+を渡しておく必要があります。 <code>setListener</code> は
+<code>CControl</code> で実装されています。</p>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> PlugEditor<span class="op">::</span>addSplashScreen<span class="op">(</span>CRect <span class="op">&amp;</span>buttonRect<span class="op">,</span> CRect splashRect<span class="op">)</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">auto</span> credit <span class="op">=</span> <span class="kw">new</span> CreditView<span class="op">(</span>splashRect<span class="op">,</span> <span class="kw">nullptr</span><span class="op">);</span></span>
 <span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">auto</span> splash <span class="op">=</span> <span class="kw">new</span> CSplashScreen<span class="op">(</span>buttonRect<span class="op">,</span> <span class="kw">this</span><span class="op">,</span> <span class="op">-</span><span class="dv">666</span><span class="op">,</span> credit<span class="op">);</span></span>
@@ -1509,7 +1927,8 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>  frame<span class="op">-&gt;</span>addView<span class="op">(</span>splash<span class="op">);</span></span>
 <span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p><code>open</code> でスプラッシュスクリーンを追加します。</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> PlugEditor<span class="op">::</span>open<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>parent<span class="op">,</span> <span class="at">const</span> PlatformType <span class="op">&amp;</span>platformType<span class="op">)</span></span>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> PlugEditor<span class="op">::</span>open<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>parent<span class="op">,</span> <span class="at">const</span> PlatformType <span class="op">&amp;</span>platformType<span class="op">)</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
 <span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1524,8 +1943,10 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
 <span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p><code>source/gui/splash.hpp</code> を作って <code>CreditView</code> を実装します。</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#pragma once</span></span>
+<p><code>source/gui/splash.hpp</code> を作って <code>CreditView</code>
+を実装します。</p>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#pragma once</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;vstgui/vstgui.h&quot;</span></span>
 <span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1559,7 +1980,8 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb54-32"><a href="#cb54-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="co">// namespace Vst</span></span>
 <span id="cb54-33"><a href="#cb54-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="co">// namespace Steinberg</span></span></code></pre></div>
 <p><code>source/gui/splash.cpp</code> を作ります。</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;splash.hpp&quot;</span></span>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;splash.hpp&quot;</span></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="kw">namespace</span> Steinberg <span class="op">{</span></span>
 <span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="kw">namespace</span> Vst <span class="op">{</span></span>
@@ -1604,14 +2026,17 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb55-43"><a href="#cb55-43" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="co">// namespace Vst</span></span>
 <span id="cb55-44"><a href="#cb55-44" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="co">// namespace Steinberg</span></span></code></pre></div>
 <p><code>SomeFX/CMakeLists.txt</code> にファイルを追加します。</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(plug_sources</span>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(plug_sources</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>    //...</span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    source/gui/splash.hpp <span class="co"># 追加</span></span>
 <span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>    source/gui/splash.cpp <span class="co"># 追加</span></span>
 <span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<h4 id="ホストが提供するコンテキストメニューの追加">ホストが提供するコンテキストメニューの追加</h4>
+<h4
+id="ホストが提供するコンテキストメニューの追加">ホストが提供するコンテキストメニューの追加</h4>
 <p>エディタクラスに <code>IMouseObserver</code> を継承させます。</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PlugEditor <span class="op">:</span> <span class="kw">public</span> VSTGUIEditor<span class="op">,</span> <span class="kw">public</span> IControlListener<span class="op">,</span> <span class="kw">public</span> IMouseObserver <span class="op">{</span></span>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PlugEditor <span class="op">:</span> <span class="kw">public</span> VSTGUIEditor<span class="op">,</span> <span class="kw">public</span> IControlListener<span class="op">,</span> <span class="kw">public</span> IMouseObserver <span class="op">{</span></span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="co">// ...</span></span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">// IMouseObserver の実装。</span></span>
@@ -1627,8 +2052,10 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a><span class="co">// ...</span></span>
 <span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
-<p>エディタクラスの <code>open</code> メソッド内で <code>frame</code> からマウスイベントを伝えるように指定します。</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> PlugEditor<span class="op">::</span>open<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>parent<span class="op">,</span> <span class="at">const</span> PlatformType <span class="op">&amp;</span>platformType<span class="op">)</span></span>
+<p>エディタクラスの <code>open</code> メソッド内で <code>frame</code>
+からマウスイベントを伝えるように指定します。</p>
+<div class="sourceCode" id="cb58"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> PlugEditor<span class="op">::</span>open<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>parent<span class="op">,</span> <span class="at">const</span> PlatformType <span class="op">&amp;</span>platformType<span class="op">)</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
 <span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1637,7 +2064,8 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
 <span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p><code>onMouseDown</code> を実装します。</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> PlugEditor<span class="op">::</span>onMouseEvent<span class="op">(</span>MouseEvent <span class="op">&amp;</span>event<span class="op">,</span> CFrame <span class="op">*</span>frame<span class="op">)</span> <span class="kw">override</span></span>
+<div class="sourceCode" id="cb59"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> PlugEditor<span class="op">::</span>onMouseEvent<span class="op">(</span>MouseEvent <span class="op">&amp;</span>event<span class="op">,</span> CFrame <span class="op">*</span>frame<span class="op">)</span> <span class="kw">override</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span></span>
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span>event<span class="op">.</span>buttonState<span class="op">.</span>isRight<span class="op">())</span> <span class="cf">return</span><span class="op">;</span></span>
 <span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1662,11 +2090,20 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb59-23"><a href="#cb59-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb59-24"><a href="#cb59-24" aria-hidden="true" tabindex="-1"></a>    event<span class="op">.</span>consumed <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
 <span id="cb59-25"><a href="#cb59-25" aria-hidden="true" tabindex="-1"></a>  <span class="op">};</span></span></code></pre></div>
-<p>0 あるいは負の tag が指定されたコントロールではコンテキストメニューを表示したくないので、 <code>id</code> の条件を <code>id &lt; 1 || id &gt;= LONG_MAX</code> としています。 <code>LONG_MAX</code> を使っているのは <code>ParamID</code> が <code>unsigned long</code> の typedef だからです。</p>
-<p>コンテキストメニューが開かないときは <code>event.consumed</code> を変えずにリターンすることで、他のコントロールにマウスイベントが伝わるようにしています。</p>
+<p>0 あるいは負の tag
+が指定されたコントロールではコンテキストメニューを表示したくないので、
+<code>id</code> の条件を <code>id &lt; 1 || id &gt;= LONG_MAX</code>
+としています。 <code>LONG_MAX</code> を使っているのは
+<code>ParamID</code> が <code>unsigned long</code> の typedef
+だからです。</p>
+<p>コンテキストメニューが開かないときは <code>event.consumed</code>
+を変えずにリターンすることで、他のコントロールにマウスイベントが伝わるようにしています。</p>
 <h4 id="linux-で-vstgui-を利用">Linux で VSTGUI を利用</h4>
-<p><code>RunLoop</code> クラスを <code>VST3Editor</code> のコードからコピーして <code>x11runloop.hpp</code> というヘッダにします。</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#pragma once</span></span>
+<p><code>RunLoop</code> クラスを <code>VST3Editor</code>
+のコードからコピーして <code>x11runloop.hpp</code>
+というヘッダにします。</p>
+<div class="sourceCode" id="cb60"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#pragma once</span></span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#if LINUX</span></span>
 <span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1774,8 +2211,10 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb60-106"><a href="#cb60-106" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="co">// namespace Steinberg</span></span>
 <span id="cb60-107"><a href="#cb60-107" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb60-108"><a href="#cb60-108" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span></code></pre></div>
-<p><code>PlugEditor</code> のコードに <code>x11runloop.hpp</code> をインクルードします。また CFrame の初期化が変わります。</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">//...</span></span>
+<p><code>PlugEditor</code> のコードに <code>x11runloop.hpp</code>
+をインクルードします。また CFrame の初期化が変わります。</p>
+<div class="sourceCode" id="cb61"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">//...</span></span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;x11runloop.hpp&quot;</span></span>
 <span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1802,18 +2241,23 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb61-25"><a href="#cb61-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-26"><a href="#cb61-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
 <span id="cb61-27"><a href="#cb61-27" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<h4 id="コンテキストメニューにズーム機能を追加">コンテキストメニューにズーム機能を追加</h4>
+<h4
+id="コンテキストメニューにズーム機能を追加">コンテキストメニューにズーム機能を追加</h4>
 <p>この項の内容は実装をあきらめたので中途半端です。次の問題が解決されていないので注意してください。</p>
 <ul>
 <li>コンテキストメニューはコントロールの上でしか表示されない。</li>
 <li>入れ子になったメニューの登録がうまくできない。</li>
 <li>VSTGUI 4.11 で導入された新しいイベントハンドラを使っていない。</li>
 </ul>
-<p>FL Studio 20.5 でズーム後にプラグインのウィンドウがリサイズされなかったことが、あきらめた理由です。</p>
+<p>FL Studio 20.5
+でズーム後にプラグインのウィンドウがリサイズされなかったことが、あきらめた理由です。</p>
 <hr />
-<p>ズーム機能は GUI を任意の倍率で拡大する機能です。 VSTGUI4 で高解像度ディスプレイへ対応するときに使えます。</p>
-<p>まずはエディタクラスに <code>CommandMenuItemTargetAdapter</code> を継承させて、ユーザがコンテキストメニューのアイテムを選択したときに通知されるようにします。</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PlugEditor <span class="op">:</span> <span class="kw">public</span> VSTGUIEditor<span class="op">,</span></span>
+<p>ズーム機能は GUI を任意の倍率で拡大する機能です。 VSTGUI4
+で高解像度ディスプレイへ対応するときに使えます。</p>
+<p>まずはエディタクラスに <code>CommandMenuItemTargetAdapter</code>
+を継承させて、ユーザがコンテキストメニューのアイテムを選択したときに通知されるようにします。</p>
+<div class="sourceCode" id="cb62"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PlugEditor <span class="op">:</span> <span class="kw">public</span> VSTGUIEditor<span class="op">,</span></span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>                   <span class="kw">public</span> IControlListener<span class="op">,</span></span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>                   <span class="kw">public</span> IMouseObserver<span class="op">,</span></span>
 <span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>                   <span class="kw">public</span> CommandMenuItemTargetAdapter <span class="op">{</span></span>
@@ -1828,8 +2272,12 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a><span class="co">// ...</span></span>
 <span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
-<p><code>onCommandMenuItemSelected</code> の実装です。 2 つのメニューアイテムを用意して、 1.0 倍と 2.0 倍を切り替えられるようにしています。倍率の切り替えには <code>CFrame</code> の <code>setZoom</code> を使います。</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> PlugEditor<span class="op">::</span>onCommandMenuItemSelected<span class="op">(</span>CCommandMenuItem <span class="op">*</span>item<span class="op">)</span></span>
+<p><code>onCommandMenuItemSelected</code> の実装です。 2
+つのメニューアイテムを用意して、 1.0 倍と 2.0
+倍を切り替えられるようにしています。倍率の切り替えには
+<code>CFrame</code> の <code>setZoom</code> を使います。</p>
+<div class="sourceCode" id="cb63"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> PlugEditor<span class="op">::</span>onCommandMenuItemSelected<span class="op">(</span>CCommandMenuItem <span class="op">*</span>item<span class="op">)</span></span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>item<span class="op">-&gt;</span>getCommandCategory<span class="op">()</span> <span class="op">!=</span> <span class="st">&quot;Scale&quot;</span><span class="op">)</span> <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
 <span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>frame <span class="op">==</span> <span class="kw">nullptr</span><span class="op">)</span> <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></span>
@@ -1846,9 +2294,15 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></span>
 <span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p><code>onMouseDown</code> を変更してマウスが右クリックされたときに表示されるコンテキストメニューにズームを行うアイテムを追加します。</p>
-<p>アイテムが選択されると <code>ContextMenuTarget</code> の <code>executeMenuItem</code> が呼び出されます。さらに <code>item-&gt;execute()</code> から <code>CommandMenuItemTargetAdapter</code> の <code>onCommandMenuItemSelected</code> が呼び出されます。</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ContextMenuTarget <span class="op">:</span> <span class="kw">public</span> IContextMenuTarget<span class="op">,</span> <span class="kw">public</span> FObject <span class="op">{</span></span>
+<p><code>onMouseDown</code>
+を変更してマウスが右クリックされたときに表示されるコンテキストメニューにズームを行うアイテムを追加します。</p>
+<p>アイテムが選択されると <code>ContextMenuTarget</code> の
+<code>executeMenuItem</code> が呼び出されます。さらに
+<code>item-&gt;execute()</code> から
+<code>CommandMenuItemTargetAdapter</code> の
+<code>onCommandMenuItemSelected</code> が呼び出されます。</p>
+<div class="sourceCode" id="cb64"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ContextMenuTarget <span class="op">:</span> <span class="kw">public</span> IContextMenuTarget<span class="op">,</span> <span class="kw">public</span> FObject <span class="op">{</span></span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
 <span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  ContextMenuTarget<span class="op">(</span>CCommandMenuItem <span class="op">*</span>item<span class="op">)</span> <span class="op">:</span> item<span class="op">(</span>item<span class="op">)</span></span>
 <span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span></span>
@@ -1924,8 +2378,16 @@ smtg_add_vst3_resource(${target} &quot;resource/plug.uidesc&quot;)
 <span id="cb64-74"><a href="#cb64-74" aria-hidden="true" tabindex="-1"></a>  contextMenu<span class="op">-&gt;</span>release<span class="op">();</span></span>
 <span id="cb64-75"><a href="#cb64-75" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> kMouseEventHandled<span class="op">;</span></span>
 <span id="cb64-76"><a href="#cb64-76" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>コメントにも書いていますが、 <code>kIsGroupStart</code> と <code>kIsGroupEnd</code> を設定してもメニューが入れ子になりません。</p>
-<p>どこを右クリックしてもメニューが開くようにするには <code>COptionMenu</code> でメニューを作っておいて、コントロール上で右クリックされているときは <code>IContextMenu</code> に変換する、そうでなければ <code>COptionMenu</code> をそのままポップアップする、という処理が考えられます。 <code>vstgui4/vstgui/plugin-bindings/vst3editor.*</code> に実装例があります。</p>
+<p>コメントにも書いていますが、 <code>kIsGroupStart</code> と
+<code>kIsGroupEnd</code> を設定してもメニューが入れ子になりません。</p>
+<p>どこを右クリックしてもメニューが開くようにするには
+<code>COptionMenu</code>
+でメニューを作っておいて、コントロール上で右クリックされているときは
+<code>IContextMenu</code> に変換する、そうでなければ
+<code>COptionMenu</code>
+をそのままポップアップする、という処理が考えられます。
+<code>vstgui4/vstgui/plugin-bindings/vst3editor.*</code>
+に実装例があります。</p>
 
 <footer>
     <p><a href="..\index.html">Back to Index</a></p>

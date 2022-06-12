@@ -6,7 +6,7 @@
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <meta name="dcterms.date" content="2022-06-12" />
-<title>LatticeReverb_ja</title>
+<title>ParallelComb_ja</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -268,7 +268,7 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#latticereverb" id="toc-latticereverb">LatticeReverb</a>
+  <li><a href="#parallelcomb" id="toc-parallelcomb">ParallelComb</a>
   <ul>
   <li><a href="#連絡先" id="toc-連絡先">連絡先</a></li>
   <li><a href="#インストール" id="toc-インストール">インストール</a>
@@ -296,19 +296,16 @@ footer {
   id="toc-ブロック線図">ブロック線図</a></li>
   <li><a href="#パラメータ" id="toc-パラメータ">パラメータ</a>
   <ul>
-  <li><a href="#multiplier" id="toc-multiplier">Multiplier</a></li>
-  <li><a href="#panic" id="toc-panic">Panic!</a></li>
+  <li><a href="#delay" id="toc-delay">Delay</a></li>
   <li><a href="#mix" id="toc-mix">Mix</a></li>
-  <li><a href="#stereo" id="toc-stereo">Stereo</a></li>
-  <li><a href="#misc." id="toc-misc.">Misc.</a></li>
-  <li><a href="#base" id="toc-base">Base</a></li>
-  <li><a href="#offset" id="toc-offset">Offset</a></li>
-  <li><a href="#modulation" id="toc-modulation">Modulation</a></li>
   </ul></li>
   <li><a href="#チェンジログ"
   id="toc-チェンジログ">チェンジログ</a></li>
-  <li><a href="#旧バージョン"
-  id="toc-旧バージョン">旧バージョン</a></li>
+  <li><a href="#旧バージョン" id="toc-旧バージョン">旧バージョン</a>
+  <ul>
+  <li><a href="#parallelcomb-1"
+  id="toc-parallelcomb-1">ParallelComb</a></li>
+  </ul></li>
   <li><a href="#ライセンス" id="toc-ライセンス">ライセンス</a>
   <ul>
   <li><a href="#vst-について" id="toc-vst-について">VST®
@@ -319,22 +316,20 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="latticereverb">LatticeReverb</h1>
-<p><img src="img/latticereverb.png" /></p>
-<p><ruby>LatticeReverb<rt>ラティス リバーブ</rt></ruby>
-はディレイを使った高次のオールパスフィルタを格子状につないで入れ子にしたリバーブです。
-1 チャンネルあたり 16 のオールパスフィルタを備えています。</p>
+<h1 id="parallelcomb">ParallelComb</h1>
+<p><img src="img/parallelcomb.png" /></p>
+<p><ruby>ParallelComb<rt>パラレル コム</rt></ruby> は 1
+つバッファの異なる 4
+つの時点をフィードバックするコムフィルタです。フィードバック経路にリミッタが挟んであるので、それなりにクリーンな音が出ます。フィードバックの振幅でディレイ時間を変調することで、変な歪みを出すこともできます。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/LatticeReverb_0.1.12.zip">LatticeReverb
-0.1.12 をダウンロード - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/ParallelComb_0.2.0.zip">ParallelComb
+0.2.0 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
-style="display: inline-block; vertical-align: middle;"></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverbPresets.zip">プリセットをダウンロード
-(github.com)</a></li>
+style="display: inline-block; vertical-align: middle;">
+<!-- - [プリセットをダウンロード (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/ParallelCombPresets.zip) --></li>
 </ul>
 <p>パッケージには次のビルドが含まれています。</p>
 <ul>
@@ -553,15 +548,10 @@ href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
 フォーカスを示すオーバーレイの色。</li>
 </ul>
 <h2 id="操作">操作</h2>
-<p>操作できる箇所を右クリックすると DAW
-によって提供されているコンテキストメニューを開くことができます。</p>
-<p>つまみとスライダーでは次の操作ができます。</p>
+<p>つまみと数値スライダでは次の操作ができます。</p>
 <ul>
 <li><kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。</li>
 <li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
-</ul>
-<p>数値スライダーでは、上記に加えて次の操作ができます。</p>
-<ul>
 <li><kbd>ホイールクリック</kbd> :
 最小値、デフォルト値、最大値の切り替え。</li>
 </ul>
@@ -724,7 +714,7 @@ BarBox
 </table>
 <p><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> のスナップは一部の BarBox
 だけで有効になっています。特定の BarBox
-にスナップを追加したいという要望があれば、お気軽に <a
+にスナップを追加したいという要望があれば、気軽に <a
 href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に
 issue を開いてください。</p>
 <p><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> による 1
@@ -732,224 +722,148 @@ issue を開いてください。</p>
 <p><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd>
 によるロックの切り替えでは、マウスホイールが押された時点でカーソルの下にあるバーの反対の状態が残り全てに適用されます。例えばカーソルの下のバーがアクティブだったときはロックに切り替えます。</p>
 <h2 id="注意">注意</h2>
-<p>サンプリング周波数やバッファサイズによって出力が変わります。</p>
-<p>次の手順に沿った操作が行われると出力が大きくなることがあります。</p>
-<ol type="1">
-<li><code>OuterFeed</code> あるいは <code>InnerFeed</code>
-のいくつかを最大値あるいは最小値の近くに設定。</li>
-<li>信号を入力。</li>
-<li>手順 1. で設定した <code>OuterFeed</code> あるいは
-<code>InnerFeed</code> の値を変更する。</li>
-</ol>
+<p><code>Feedback</code> が 0.25
+よりも大きいとき、出力はほぼ確実に発散します。発散するかどうかは
+<code>Feedback</code> と <code>Delay Time</code>
+の値の組み合わせに依存します。発散する状況ではディザリングノイズのような微弱な信号であってもフィードバックの飽和が起こります。フィードバックを確実に止めるためには
+ParallelComb
+の直前にゲートを挿入することを推奨します。ただし、ゲートがディザリングを行っていないことを確認してください。</p>
+<p><code>Feedback</code> の値を 0
+にするとフィードバックが止まります。右下の <code>Panic!</code>
+ボタンを押すことで即座に <code>Feedback</code> を 0 にできます。</p>
 <h2 id="ブロック線図">ブロック線図</h2>
 <p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> +
 <kbd>マウスホイール</kbd>
 や、右クリックから「画像だけを表示」などで拡大できます。</p>
 <p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
-<p><img src="img/latticereverb.svg" /></p>
+<p><img src="img/parallelcomb.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
-<p><code>Base</code> は左右のチャンネルで両方で使われる値です。
-<code>Base</code> によってリバーブの大まかな質感が決まります。</p>
-<p><code>Offset</code> は左右のチャンネルの値の比率です。
-<code>Offset</code> によって左右の広がりを作ることができます。</p>
-<pre><code>if (Offset &gt;= 0) {
-  valueL = Base
-  valueR = Base * (1 - Offset)
-}
-else {
-  valueL = Base * (1 + Offset)
-  valueR = Base
-}</code></pre>
+<h3 id="delay">Delay</h3>
 <dl>
-<dt>Time</dt>
+<dt>Delay Time [s]</dt>
 <dd>
-<p>オールパスフィルタのディレイ時間です。</p>
+<p>ディレイ時間の秒数です。最終的なディレイ時間の秒数は以下の式で計算されます。</p>
+<pre><code>leanL = (L-R Lean) &lt; 0 ? 1 + (L-R Lean) : 1;
+leanR = (L-R Lean) &lt; 0 ? 1              : 1 - (L-R Lean);
+
+upRate = (16x OverSampling) ? 16 : 1;
+time = (Time Multi.) * upRate * (Delay Time);
+
+delayTimeL = time * leanL;
+delayTimeR = time * leanR;</code></pre>
 </dd>
-<dt>OuterFeed</dt>
+<dt>Time Multi.</dt>
 <dd>
-<p>格子構造のフィードバック、フィードフォワードの値です。</p>
+<p><code>Delay Time</code>
+に乗算される値です。まとめてディレイ時間を変えたいときに便利です。</p>
 </dd>
-<dt>InnerFeed</dt>
+<dt>Interp. Rate</dt>
 <dd>
-<p>格子構造の内側に入れ子になったオールパスフィルタのフィードバック、フィードフォワードの値です。</p>
+<p>ディレイ時間の変動を補間するレートリミッタの 1
+サンプルあたりの制限量です。言い換えると <code>Interp. Rate</code> は 1
+サンプルあたりの <code>Delay Time</code>
+の増分の絶対値の最大です。例えば <code>Interp. Rate</code> が 0.1
+のときは、 10 サンプル経過でディレイ時間が最大 ±0.1 * 10 = ±1
+サンプル変わります。</p>
+<p><code>Interp. Rate</code> の値は <code>Self Mod.</code>
+のキャラクタに影響します。</p>
 </dd>
-</dl>
-<h3 id="multiplier">Multiplier</h3>
-<p><code>Time</code> 、 <code>OuterFeed</code> 、 <code>InnerFeed</code>
-の値をまとめて変更する係数です。リバーブの質感を変えずに減衰時間を変えるときに使えます。</p>
-<h3 id="panic">Panic!</h3>
-<p>ボタンを押すと <code>Time</code> 、 <code>OuterFeed</code> 、
-<code>InnerFeed</code> の Multiplier を 0
-にしてリバーブの出力を止めます。</p>
-<p>出力が想定外に大きくなったときなど、音を手早く止めたいときに使えます。</p>
-<h3 id="mix">Mix</h3>
-<dl>
-<dt>Dry</dt>
+<dt>Interp. LP [s]</dt>
 <dd>
-<p>バイパスされる入力信号の音量です。</p>
+<p><code>Delay Time</code>
+の補間に使われるローパスフィルタのスムーシング時間です。</p>
+<p><code>Interp. LP</code> の値は <code>Self Mod.</code>
+のキャラクタに影響します。</p>
 </dd>
-<dt>Wet</dt>
+<dt>L-R Lean</dt>
 <dd>
-<p>リバーブを通った信号の音量です。</p>
+<p>左右のディレイ時間の比率です。 <code>Channel Type</code> が
+<code>M-S</code> のときでも機能します。</p>
 </dd>
-</dl>
-<h3 id="stereo">Stereo</h3>
-<dl>
 <dt>Cross</dt>
 <dd>
-<p>格子の偶数段で左右のチャンネルの信号をミックスする割合です。</p>
-<p>0 のときはもう片方のチャンネルからの信号はミックスされません。 0.5
-のときは現在のチャンネルともう片方のチャンネルの信号比が 1:1
-になります。</p>
+<p>フィードバックを左右のチャンネルでクロスする量です。右いっぱいに回すとピンポンディレイになります。</p>
 </dd>
-<dt>Spread</dt>
+<dt>Feedback</dt>
 <dd>
-<p>ミッドとサイド (M-S) の信号の比率です。</p>
-<p>ミッドとサイドの信号は次の式で計算されます。</p>
-<pre><code>mid  = left + right
-side = left - right
-
-left  = mid - Spread * (mid - side)
-right = mid - Spread * (mid + side)</code></pre>
+<p>振幅であらわされたフィードバックのゲインです。</p>
+<p><code>Feedback</code> が <code>0.25</code>
+より小さいとき、出力は減衰してどこかの時点で止まります。
+<code>Feedback</code> が <code>0.25</code>
+より大きいと出力はほぼ確実に発散します。ただし <code>Feedback</code> と
+<code>Delay Time</code> の値の組み合わせによっては、
+<code>Feedback</code> の値が <code>0.25</code>
+より大きくても出力が減衰することがあります。</p>
+</dd>
+<dt>Highpass [Hz]</dt>
+<dd>
+<p>フィードバック経路に挿入されているハイパスフィルタのカットオフ周波数です。</p>
+</dd>
+<dt>Limiter R. [s]</dt>
+<dd>
+<p>フィードバック経路に挿入されているリミッタのリリース時間です。</p>
+<p><code>Limiter R.</code> を 0
+にすると出力がソフトクリッピングします。リリース時間を長くするとフィードバックの歪みが減ってクリーンな音になります。</p>
+</dd>
+<dt>Self Mod.</dt>
+<dd>
+<p>フィードバック信号の振幅でディレイ時間を変調する量です。</p>
+<p><code>Self Mod.</code> を 1 から 10 の間、 <code>Feedback</code> を 0
+に設定することで ParallelComb
+をディストーションやファズのように使えます。</p>
+<p>歪みのキャラクタは <code>Interp. Rate</code> と
+<code>Interp. LP</code> の値によって変わります。</p>
+</dd>
+<dt>Gate Th. [dB]</dt>
+<dd>
+<p>ゲートのしきい値となる振幅です。</p>
+<p>ゲートは入力信号の振幅が <code>Gate Th.</code>
+を下回ると閉じます。</p>
+</dd>
+<dt>Gate R. [s]</dt>
+<dd>
+<p>ゲートのリリース時間です。</p>
+<p><code>Gate Th.</code> を <code>-inf</code>
+より大きくしてゲートをかけたときに、どれくらい長く余韻を残すか調整するために使えます。</p>
 </dd>
 </dl>
-<h3 id="misc.">Misc.</h3>
+<h3 id="mix">Mix</h3>
 <dl>
-<dt>Smooth</dt>
+<dt>Dry [dB]</dt>
 <dd>
-<p>パラメータを変更したときに、変更前の値から変更後の値へと移行する大まかな秒数です。</p>
+<p>バイパスする入力信号のゲインです。</p>
 </dd>
-</dl>
-<h3 id="base">Base</h3>
-<p><img src="img/latticereverb.png" /></p>
-<p><code>Time</code> 、 <code>OuterFeed</code> 、 <code>InnerFeed</code>
-の左右のチャンネルで共通する値を設定するタブです。</p>
-<p>リバーブの大まかなキャラクタは Base タブの設定で決まります。</p>
-<h3 id="offset">Offset</h3>
-<p><img src="img/latticereverb_offset_tab.png" /></p>
-<p><code>Time</code> 、 <code>OuterFeed</code> 、 <code>InnerFeed</code>
-の左右のチャンネル間での差を設定するタブです。</p>
-<p>Offset タブの値を変えると左右の広がりが出ます。</p>
-<h3 id="modulation">Modulation</h3>
-<p><img src="img/latticereverb_modulation_tab.png" /></p>
-<dl>
-<dt>Time LFO</dt>
+<dt>Wet [dB]</dt>
 <dd>
-<p>LFO によって <code>Time</code> を変調する量です。</p>
-<p>LFO の波形はノイズ（一様乱数）です。 <code>Time LFO Cutoff</code> と
-<code>Smooth</code> の値によって滑らかさが変わります。</p>
+<p>ParallelComb を通過した出力信号のゲインです。</p>
 </dd>
-<dt>Time LFO Cutoff</dt>
+<dt>Channel Type</dt>
 <dd>
-<p>LFO にかけるローパスフィルタのカットオフ周波数です。</p>
+<p>入力信号のステレオチャンネルの種類を左右 (<code>L-R</code>)
+とミッド-サイド (<code>M-S</code>) のいずれかから選択します。</p>
 </dd>
-<dt>Lowpass Cutoff</dt>
+<dt>16x OverSampling</dt>
 <dd>
-<p>格子の各段に備えられたローパスフィルタのカットオフ周波数です。</p>
-<p>リバーブの明るさを変更するときに役立ちます。</p>
+<p>チェックを入れると 16 倍のオーバーサンプリングが有効になります。 CPU
+消費が 16 倍 + リサンプラの計算量だけ増えるので注意してください。</p>
+</dd>
+<dt>Panic!</dt>
+<dd>
+<p>クリックすると <code>Feedback</code> を 0 に設定します。</p>
 </dd>
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
-<li>0.1.12
-<ul>
-<li>x86_64 固有の SIMD 命令への依存を除去。</li>
-</ul></li>
-<li>0.1.11
-<ul>
-<li>Linux でのクラッシュを修正。</li>
-<li>BarBox が <kbd>Shift</kbd> キーを受け取るように修正。</li>
-</ul></li>
-<li>0.1.10
-<ul>
-<li>プラグインが許可するチャネル数の条件を修正。この修正は REAPER
-のサイドチェインで意図しないミュートがかかることを防ぐために行った。</li>
-</ul></li>
-<li>0.1.9
-<ul>
-<li><code>style.json</code>
-でカスタムフォントを設定するオプションを追加。</li>
-</ul></li>
-<li>0.1.8
-<ul>
-<li>VSTGUI を 4.10 から 4.11 にアップデート。</li>
-</ul></li>
-<li>0.1.7
-<ul>
-<li>フォントを Tinos に変更。</li>
-</ul></li>
-<li>0.1.6
-<ul>
-<li>リセットが正しく行われるように修正。</li>
-<li><code>bypass</code>
-パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは
-VST 3 の <code>bypass</code>
-パラメータを正しく実装しているホストでのみ発生していた。</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li>Process context requirements を実装。</li>
-<li>BarBox の機能が LV2 版と同等になるように更新。
-<ul>
-<li>1 つのバーを編集を追加。</li>
-<li>ロックを追加。</li>
-<li>内部的なマウスホイールの感度を追加。</li>
-<li>スナップを追加 (未使用) 。</li>
-<li>直線の描画での開始点の値をアンカーポイントに固定するように変更。</li>
-</ul></li>
-</ul></li>
-<li>0.1.3
-<ul>
-<li>DSP が初期化されているかどうかのチェックを追加。</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>BarBox に アンドゥ・リドゥの機能を追加。</li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>カラーコンフィグを追加。</li>
-</ul></li>
-<li>0.1.0
+<li>0.2.0
 <ul>
 <li>初期リリース。</li>
 </ul></li>
 </ul>
 <h2 id="旧バージョン">旧バージョン</h2>
-<ul>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/LatticeReverb_0.1.11.zip">LatticeReverb
-0.1.11 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/LatticeReverb_0.1.10.zip">LatticeReverb
-0.1.10 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/LatticeReverb_0.1.9.zip">LatticeReverb
-0.1.9 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/LatticeReverb_0.1.7.zip">LatticeReverb
-0.1.7 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/LatticeReverb_0.1.6.zip">LatticeReverb
-0.1.6 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/LatticeReverb0.1.4.zip">LatticeReverb
-0.1.4 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/LatticeReverb0.1.3.zip">LatticeReverb
-0.1.3 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/LatticeReverb0.1.2.zip">LatticeReverb
-0.1.2 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/LatticeReverb0.1.1.zip">LatticeReverb
-0.1.1 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverb0.1.0.zip">LatticeReverb
-0.1.0 - VST 3 (github.com)</a></li>
-</ul>
+<h3 id="parallelcomb-1">ParallelComb</h3>
+<p>旧バージョンはありません。</p>
 <h2 id="ライセンス">ライセンス</h2>
-<p>LatticeReverb のライセンスは GPLv3 です。 GPLv3
+<p>ParallelComb のライセンスは GPLv3 です。 GPLv3
 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
 <ul>
 <li><a

@@ -6,7 +6,7 @@
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <meta name="dcterms.date" content="2022-06-12" />
-<title>L4Reverb_en</title>
+<title>ParallelComb_en</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -268,7 +268,7 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#l4reverb" id="toc-l4reverb">L4Reverb</a>
+  <li><a href="#parallelcomb" id="toc-parallelcomb">ParallelComb</a>
   <ul>
   <li><a href="#contact" id="toc-contact">Contact</a></li>
   <li><a href="#installation" id="toc-installation">Installation</a>
@@ -299,22 +299,12 @@ footer {
   Diagram</a></li>
   <li><a href="#parameters" id="toc-parameters">Parameters</a>
   <ul>
-  <li><a href="#multiplier" id="toc-multiplier">Multiplier</a></li>
-  <li><a href="#panic" id="toc-panic">Panic!</a></li>
+  <li><a href="#delay" id="toc-delay">Delay</a></li>
   <li><a href="#mix" id="toc-mix">Mix</a></li>
-  <li><a href="#stereo" id="toc-stereo">Stereo</a></li>
-  <li><a href="#misc." id="toc-misc.">Misc.</a></li>
   </ul></li>
-  <li><a href="#change-log" id="toc-change-log">Change Log</a>
-  <ul>
-  <li><a href="#l4reverb-1" id="toc-l4reverb-1">L4Reverb</a></li>
-  <li><a href="#l3reverb" id="toc-l3reverb">L3Reverb</a></li>
-  </ul></li>
-  <li><a href="#old-versions" id="toc-old-versions">Old Versions</a>
-  <ul>
-  <li><a href="#l4reverb-2" id="toc-l4reverb-2">L4Reverb</a></li>
-  <li><a href="#l3reverb-1" id="toc-l3reverb-1">L3Reverb</a></li>
-  </ul></li>
+  <li><a href="#change-log" id="toc-change-log">Change Log</a></li>
+  <li><a href="#old-versions" id="toc-old-versions">Old
+  Versions</a></li>
   <li><a href="#license" id="toc-license">License</a>
   <ul>
   <li><a href="#about-vst" id="toc-about-vst">About VST</a></li>
@@ -324,36 +314,21 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="l4reverb">L4Reverb</h1>
-<p><img src="img/l4reverb.png" /></p>
-<p>L4Reverb is an extended version of LatticeReverb. This time, lattice
-structure has 4 * 4 * 4 * 4 = 256 sections per channel.</p>
+<h1 id="parallelcomb">ParallelComb</h1>
+<p><img src="img/parallelcomb.png" /></p>
+<p>ParallelComb is a comb filter which has 4 different delay time and 1
+shared buffer. A limiter is inserted on feedback path to make the output
+somewhat clean. Weird distorsion can be added by modulating delay time
+using feedback signal amplitude.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/L4Reverb_0.1.10.zip">Download
-L4Reverb 0.1.10 - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/ParallelComb_0.2.0.zip">Download
+ParallelComb 0.2.0 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
-style="display: inline-block; vertical-align: middle;"></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4ReverbPresets.zip">Download
-Presets (github.com)</a></li>
-</ul>
-<p>If L4Reverb is too heavy for your machine, L3Reverb is also
-available. L3Reverb is a trimmed down version of L4Reverb. The lattice
-structure has 3 * 3 * 3 * 5 = 135 sections per channel.</p>
-<ul>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/L3Reverb_0.1.10.zip">Download
-L3Reverb 0.1.10 - VST® 3 (github.com)</a> <img
-src="img/VST_Compatible_Logo_Steinberg_negative.svg"
-alt="VST compatible logo."
-width="60px"
-style="display: inline-block; vertical-align: middle;"></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L3ReverbPresets.zip">Download
-Presets (github.com)</a></li>
+style="display: inline-block; vertical-align: middle;">
+<!-- - [Download Presets (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/ParallelCombPresets.zip) --></li>
 </ul>
 <p>The package includes following builds:</p>
 <ul>
@@ -559,16 +534,10 @@ indicators.</li>
 focus.</li>
 </ul>
 <h2 id="controls">Controls</h2>
-<p><kbd>Right Click</kbd> on the controls pops up a context menu
-provided by DAW.</p>
-<p>Knob and slider can do:</p>
+<p>Knob and number slider can do:</p>
 <ul>
-<li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
+<li><kbd>Ctrl</kbd> + <kdb>Left Click</kbd>: Reset value.</li>
 <li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
-</ul>
-<p>There is an additional control for number sliders used for
-<code>Octave</code>, <code>Seed</code> etc.</p>
-<ul>
 <li><kbd>Middle Click</kbd> : Rotate through minimum, default and
 maximum value.</li>
 </ul>
@@ -739,293 +708,147 @@ Drag</kbd> behaves as line edit. When right mouse button (RMB) is
 pressed, it holds the opposite state of the bar below mouse cursor, then
 use the state for the rest of bars. For example, if RMB is pressed on a
 locked bar, dragging unlocks bars while holding down RMB.</p>
-<p>Some BarBox has scroll bar to zoom in. Scroll bar has handles on left
-end and right end. To control zoom, use <kbd>Left Drag</kbd> on one of
-the handle. Scroll bar also has following controls:</p>
-<ul>
-<li><kbd>Right Click</kbd> : Reset zoom.</li>
-<li><kbd>Mouse Wheel</kbd> : Zoom in/out.</li>
-</ul>
 <h2 id="caution">Caution</h2>
-<p>Output may change with different sample rate or buffer size.</p>
-<p>Output may blow up when both <code>Cross</code> and
-<code>Spread</code> are not 0.</p>
-<p>Output may become loud when <code>offset</code> of <code>*Feed</code>
-is not 0, and modulation is enabled.</p>
-<p>Output may become loud when following steps are performed.</p>
-<ol type="1">
-<li>Set some of the <code>OuterFeed</code> or <code>InnerFeed</code> to
-close to minimum or maximum.</li>
-<li>Input signals.</li>
-<li>Change the value of <code>OuterFeed</code> or <code>InnerFeed</code>
-which was set at step 1.</li>
-</ol>
+<p>When <code>Feedback</code> is greater than 0.25, output may diverge,
+depending on <code>Delay Time</code>. In this case, even dithering noise
+can saturate feedback. To ensure to stop feedback, insert gate before
+ParallelComb. Make sure that the gate do not output dithering noise.</p>
+<p>To stop the feedback, set <code>Feedback</code> to 0.
+<code>Panic!</code> button on bottom right can be used to immediately
+set <code>Feedback</code> to 0.</p>
 <h2 id="block-diagram">Block Diagram</h2>
 <p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd>
 or “View Image” on right click menu to scale.</p>
 <p>Diagram only shows overview. It’s not exact implementation.</p>
-<p><img src="img/l4reverb.svg" /></p>
+<p><img src="img/parallelcomb.svg" /></p>
 <h2 id="parameters">Parameters</h2>
+<h3 id="delay">Delay</h3>
 <dl>
-<dt>Time</dt>
+<dt>Delay Time [s]</dt>
 <dd>
-<p>Delay time of all-pass filter.</p>
+<p>Delay times in seconds. Following is the equation to calculate delay
+time.</p>
+<pre><code>leanL = (L-R Lean) &lt; 0 ? 1 + (L-R Lean) : 1;
+leanR = (L-R Lean) &lt; 0 ? 1              : 1 - (L-R Lean);
+
+upRate = (16x OverSampling) ? 16 : 1;
+time = (Time Multi.) * upRate * (Delay Time);
+
+delayTimeL = time * leanL;
+delayTimeR = time * leanR;</code></pre>
 </dd>
-<dt>InnerFeed</dt>
+<dt>Time Multi.</dt>
 <dd>
-<p>Feedback and feedforward gain of all-pass filters nested inside of
-lattice structure.</p>
+<p>A multiplier to <code>Delay Time</code>. Useful to change all the
+delay time at once.</p>
 </dd>
-<dt>D1Feed</dt>
+<dt>Interp. Rate</dt>
 <dd>
-<p>Feedback and feedforward gain of lattice structure at lowest
-layer.</p>
+<p>Rate limiting value of <code>Delay Time</code> interpolation. In
+other words, <code>Interp. Rate</code> represents absolute maximum
+increment of delay time for each samples. For example, when
+<code>Interp. Rate</code> is set to 0.1, maximum change of delay time in
+10 sample is ±0.1 * 10 = ±1 sample.</p>
+<p><code>Interp. Rate</code> affects the character of
+<code>Self Mod.</code>.</p>
 </dd>
-<dt>D2Feed</dt>
+<dt>Interp. LP [s]</dt>
 <dd>
-<p>Feedback and feedforward gain of lattice structure at 2nd lowest
-layer.</p>
+<p>Smoothing time of lowpass fitler applied to <code>Delay Time</code>
+interplation.</p>
+<p><code>Interp. LP</code> affects the character of
+<code>Self Mod.</code>.</p>
 </dd>
-<dt>D3Feed</dt>
+<dt>L-R Lean</dt>
 <dd>
-<p>Feedback and feedforward gain of lattice structure at 3rd lowest
-layer.</p>
+<p>The ratio of <code>Delay Time</code> between left and right channels.
+<code>L-R Lean</code> also works when <code>Channel Type</code> is
+<code>M-S</code>.</p>
 </dd>
-<dt>D3Feed</dt>
-<dd>
-<p>Feedback and feedforward gain of lattice structure at top layer.</p>
-</dd>
-</dl>
-<p><strong>Tip</strong>: Setting all of the <code>*Feed</code> values to
-negative makes output more wet by blurring input signal. Especially
-recommend to fine tuning <code>D4Feed</code>.</p>
-<h3 id="multiplier">Multiplier</h3>
-<p>Multiplier for <code>Time</code> and <code>*Feed</code>. Useful to
-shorten or lengthen reverb.</p>
-<p><code>Base</code> values are used in both left and right channel.
-<code>Base</code> value determines the character of reverb.</p>
-<p><code>Offset</code> values are maximum ratio between left and right
-channel. Amount of ratio is randomized. Changing <code>Offset</code>
-spreads reverb to stereo.</p>
-<pre><code>if (Offset &gt;= 0) {
-  valueL = Base
-  valueR = Base * (1 - Offset)
-}
-else {
-  valueL = Base * (1 + Offset)
-  valueR = Base
-}</code></pre>
-<p>When <code>Modulation</code> is checked, <code>Offset</code> values
-will be randomized for each buffer. <code>Smooth</code> can be used to
-change the character of modulation.</p>
-<h3 id="panic">Panic!</h3>
-<p>Pressing <code>Panic!</code> button stops reverb output by setting
-multiplier of <code>Time</code> and <code>*Feed</code> to 0.</p>
-<p>Useful to stop sounds in case of blow up.</p>
-<h3 id="mix">Mix</h3>
-<dl>
-<dt>Dry</dt>
-<dd>
-<p>Gain of input signal.</p>
-</dd>
-<dt>Wet</dt>
-<dd>
-<p>Gain of reverb signal.</p>
-</dd>
-</dl>
-<h3 id="stereo">Stereo</h3>
-<dl>
 <dt>Cross</dt>
 <dd>
-<p>Feedback amount from an output of lattice structure to the lattice
-structure on another channel. If the value is 0, signal from other
-channel will not be mixed.</p>
+<p>Stereo crossing amount. ParallelComb becomes ping-pong delay when
+<code>Cross</code> knob is turned to rightmost.</p>
 </dd>
-<dt>Spread</dt>
+<dt>Feedback</dt>
 <dd>
-<p>Mid-side (M-S) signal ratio.</p>
-<p>Following equations are used to calculate mid-side signal.</p>
-<pre><code>mid  = left + right
-side = left - right
-
-left  = mid - Spread * (mid - side)
-right = mid - Spread * (mid + side)</code></pre>
+<p>Feedback gain in amplitude.</p>
+<p>When <code>Feedback</code> is less than <code>0.25</code>, the output
+will decay and stop at some point. Otherwise, output will most likely
+not stop. Depending on the combination of <code>Feedback</code> and
+<code>Delay Time</code>, there’s a situation that output will stop even
+if <code>Feedback</code> exceeds <code>0.25</code>.</p>
+</dd>
+<dt>Highpass [Hz]</dt>
+<dd>
+<p>Cutoff frequency of a highpass filter inserted in feedback path.</p>
+</dd>
+<dt>Limiter R. [s]</dt>
+<dd>
+<p>Release time of limiter inserted in feedback path.</p>
+<p>Setting <code>Limiter R.</code> to 0 applies soft clipping to output.
+Feedback signal sounds more clean with longer release time.</p>
+</dd>
+<dt>Self Mod.</dt>
+<dd>
+<p>Amount of Feedback amplitude to delay time modulation.</p>
+<p>ParallelComb can be used as a distortion or fuzz by setting
+<code>Self Mod.</code> to somewhere between 1 to 10, and setting
+<code>Feedback</code> to 0.</p>
+<p>The character of distortion is affected by the value of
+<code>Interp. Rate</code> and <code>Interp. LP</code>.</p>
+</dd>
+<dt>Gate Th. [dB]</dt>
+<dd>
+<p>Gate threshold amplitude.</p>
+<p>Gate closes when the input signal amplitude is below
+<code>Gate Th.</code></p>
+</dd>
+<dt>Gate R. [s]</dt>
+<dd>
+<p>Release time of gate.</p>
+<p>This can be useful when using ParallelComb as a ordinary effector, to
+control decay time of wet signal.</p>
 </dd>
 </dl>
-<h3 id="misc.">Misc.</h3>
+<h3 id="mix">Mix</h3>
 <dl>
-<dt>Seed</dt>
+<dt>Dry [dB]</dt>
 <dd>
-<p>Seed value of random number sequence.</p>
+<p>Input bypass gain.</p>
 </dd>
-<dt>Smooth</dt>
+<dt>Wet [dB]</dt>
 <dd>
-<p>Transition time to change parameter value to current one. Unit is in
-second.</p>
+<p>Output gain of the signal that go through ParallelComb.</p>
+</dd>
+<dt>Channel Type</dt>
+<dd>
+<p>Select input channel type from left-right (<code>L-R</code>) or
+mid-side (<code>M-S</code>).</p>
+</dd>
+<dt>16x OverSampling</dt>
+<dd>
+<p>When checked, 16 fold over-sampling is enabled. Note that
+over-sampling increases CPU load for 16 times, and adds resampler
+computation on top of it.</p>
+</dd>
+<dt>Panic!</dt>
+<dd>
+<p>When clicked, set <code>Feedback</code> to 0 .</p>
 </dd>
 </dl>
 <h2 id="change-log">Change Log</h2>
-<h3 id="l4reverb-1">L4Reverb</h3>
 <ul>
-<li>0.1.10
-<ul>
-<li>Removed dependency to x86_64 specific SIMD instructions.</li>
-</ul></li>
-<li>0.1.9
-<ul>
-<li>Fixed crash on Linux.</li>
-<li>Fixed BarBox to receive shift key.</li>
-</ul></li>
-<li>0.1.8
-<ul>
-<li>Fixed the condition of acceptable channel count. This is a fix for
-unintentional muting on sidechain in REAPER.</li>
-</ul></li>
-<li>0.1.7
-<ul>
-<li>Added custom font options for <code>style.json</code>.</li>
-</ul></li>
-<li>0.1.6
-<ul>
-<li>Updated VSTGUI from 4.10 to 4.11.</li>
-</ul></li>
-<li>0.1.5
-<ul>
-<li>Changed font to Tinos.</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li>Fixed to reset properly.</li>
-<li>Fixed <code>bypass</code> parameter behavior. This fixes playing all
-the notes at the moment of unmute, even if host sends note to plugin
-while muting. This bug was only happening on the hosts which respect VST
-3 <code>bypass</code> parameter.</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>Implemented process context requirements.</li>
-<li>Added/Changed BarBox functionality to match LV2 version.
-<ul>
-<li>Edit one bar.</li>
-<li>Lock.</li>
-<li>Internal mouse wheel sensitivitly.</li>
-<li>Snapping (implemented, but not used).</li>
-<li>Starting bar of line edit is now fixed to anchor point.</li>
-</ul></li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>Added check that DSP is initialized or not.</li>
-<li>Added color configuration.</li>
-</ul></li>
-<li>0.1.0
-<ul>
-<li>Initial release.</li>
-</ul></li>
-</ul>
-<h3 id="l3reverb">L3Reverb</h3>
-<ul>
-<li>0.1.10
-<ul>
-<li>Removed dependency to x86_64 specific SIMD instructions.</li>
-</ul></li>
-<li>0.1.9
-<ul>
-<li>Fixed crash on Linux.</li>
-<li>Fixed BarBox to receive shift key.</li>
-</ul></li>
-<li>0.1.8
-<ul>
-<li>Fixed the condition of acceptable channel count. This is a fix for
-unintentional muting on sidechain in REAPER.</li>
-</ul></li>
-<li>0.1.7
-<ul>
-<li>Added custom font options for <code>style.json</code>.</li>
-</ul></li>
-<li>0.1.6
-<ul>
-<li>Updated VSTGUI from 4.10 to 4.11.</li>
-</ul></li>
-<li>0.1.5
-<ul>
-<li>Changed font to Tinos.</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li>Fixed to reset properly.</li>
-<li>Fixed <code>bypass</code> parameter behavior. This fixes playing all
-the notes at the moment of unmute, even if host sends note to plugin
-while muting. This bug was only happening on the hosts which respect VST
-3 <code>bypass</code> parameter.</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>0.1.1 is skipped to match L4Reverb version.</li>
-<li>Implemented process context requirements.</li>
-<li>Added/Changed BarBox functionality to match LV2 version.
-<ul>
-<li>Edit one bar.</li>
-<li>Lock.</li>
-<li>Internal mouse wheel sensitivitly.</li>
-<li>Snapping (implemented, but not used).</li>
-<li>Starting bar of line edit is now fixed to anchor point.</li>
-</ul></li>
-</ul></li>
-<li>0.1.0
+<li>0.2.0
 <ul>
 <li>Initial release.</li>
 </ul></li>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
-<h3 id="l4reverb-2">L4Reverb</h3>
-<ul>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/L4Reverb_0.1.9.zip">L4Reverb
-0.1.9 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L4Reverb_0.1.8.zip">L4Reverb
-0.1.8 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/L4Reverb_0.1.7.zip">L4Reverb
-0.1.7 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/L4Reverb_0.1.5.zip">L4Reverb
-0.1.5 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L4Reverb_0.1.4.zip">L4Reverb
-0.1.4 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/L4Reverb0.1.2.zip">L4Reverb
-0.1.2 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L4Reverb0.1.1.zip">L4Reverb
-0.1.1 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Reverb0.1.0.zip">L4Reverb
-0.1.0 - VST 3 (github.com)</a></li>
-</ul>
-<h3 id="l3reverb-1">L3Reverb</h3>
-<ul>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/L3Reverb_0.1.9.zip">L3Reverb
-0.1.9 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L3Reverb_0.1.8.zip">L3Reverb
-0.1.8 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/L3Reverb_0.1.7.zip">L3Reverb
-0.1.7 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/L3Reverb_0.1.5.zip">L3Reverb
-0.1.5 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L3Reverb_0.1.4.zip">L3Reverb
-0.1.4 - VST 3 (github.com)</a></li>
-</ul>
+<p>Old version is not available.</p>
 <h2 id="license">License</h2>
-<p>L4Reverb and L3Reverb is licensed under GPLv3. Complete licenses are
-linked below.</p>
+<p>ParallelComb is licensed under GPLv3. Complete licenses are linked
+below.</p>
 <ul>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
