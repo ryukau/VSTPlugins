@@ -78,9 +78,57 @@ All the plugin download link can be found at release page on following link.
 <div class="pluginlist"><a href="#latticereverb">
 <ruby>LatticeReverb<rt>ラティス リバーブ</rt></ruby>
 </a></div>
+<div class="pluginlist"><a href="#minicliffeq">
+<ruby>MiniCliffEQ<rt>ミニ クリフ イーキュー</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#parallelcomb">
+<ruby>ParallelComb<rt>パラレル コム</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#pitchshiftdelay">
+<ruby>PitchShiftDelay<rt>ピッチ シフト ディレイ</rt></ruby>
+</a></div>
 <div class="pluginlist"><a href="#sevendelay">
 <ruby>SevenDelay<rt>セブン ディレイ</rt></ruby>
 </a></div>
+
+## MiniCliffEQ
+<figure>
+<img src="manual/MiniCliffEQ/img/minicliffeq.png" alt="Image of MiniCliffEQ graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+
+MiniCliffEQ はタップ数 2^15 = 32768 の FIR フィルタです。あまりにもタップ数が多いのでレイテンシがサンプリング周波数 48000 Hz のときに 1 秒を超えます。主な用途は直流信号 (DC) の抑制ですが、とても急峻なローパス、ハイパス、ローシェルフ、ハイシェルフフィルタとしても使えます。
+
+- [MiniCliffEQ のマニュアル (日本語)](manual/MiniCliffEQ/MiniCliffEQ_ja.html)
+
+MiniCliffEQ is a FIR filter with 2^15 = 32768 taps. Because of this too many taps, latency is massive that it exceeds 1 second in 48000 Hz sampling rate. The primary purpose is to suppress direct current. It can also be used as very sharp low-pass, high-pass, low-shelf, and high-shelf filter.
+
+- [MiniCliffEQ Manual (English)](manual/MiniCliffEQ/MiniCliffEQ_en.html)
+
+## PitchShiftDelay
+<figure>
+<img src="manual/PitchShiftDelay/img/pitchshiftdelay.png" alt="Image of PitchShiftDelay graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+
+PitchShiftDelay はディレイを使った時間領域ピッチシフタです。 16 倍のオーバーサンプリングによってピッチシフタ特有の癖を多少抑えています。また内部のバッファ長をリアルタイムで変更できます。フォルマント補正がないので、声に使うとヘリウムを吸ったときのような音になります。
+
+- [PitchShiftDelay のマニュアル (日本語)](manual/PitchShiftDelay/PitchShiftDelay_ja.html)
+
+PitchShiftDelay is a time domain pitch shifter based on usual delay. The quirk of pitch shifter is somewhat reduced by 16x oversampling. Also the internal buffer length can be changed in real time. PitchShiftDelay doesn't equipped with formant correction. So applying to voice may sounds strange, like Helium is inhaled.
+
+- [PitchShiftDelay Manual (English)](manual/PitchShiftDelay/PitchShiftDelay_en.html)
+
+## ParallelComb
+<figure>
+<img src="manual/ParallelComb/img/parallelcomb.png" alt="Image of ParallelComb graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+
+ParallelComb は 1 つバッファの異なる 4 つの時点をフィードバックするコムフィルタです。フィードバック経路にリミッタが挟んであるので、それなりにクリーンな音が出ます。フィードバックの振幅でディレイ時間を変調することで、変な歪みを出すこともできます。
+
+- [ParallelComb のマニュアル (日本語)](manual/ParallelComb/ParallelComb_ja.html)
+
+ParallelComb is a comb filter which has 4 different delay time and 1 shared buffer. A limiter is inserted on feedback path to make the output somewhat clean. Weird distorsion can be added by modulating delay time using feedback signal amplitude.
+
+- [ParallelComb Manual (English)](manual/ParallelComb/ParallelComb_en.html)
 
 ## FDN64Reverb
 <figure>
