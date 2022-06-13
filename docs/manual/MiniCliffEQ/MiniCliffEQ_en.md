@@ -219,6 +219,8 @@ LP Gain \[dB\]
 :   Gain of lowpass output.
 
 ## Change Log
+- 0.1.1
+  - Changed to use `std::accumulate` to improve acculacy of FIR filter nomalization.
 - 0.1.0
   - Initial release.
 

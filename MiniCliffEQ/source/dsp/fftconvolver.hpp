@@ -24,6 +24,7 @@
 #include <array>
 #include <cmath>
 #include <complex>
+#include <numeric>
 
 namespace SomeDSP {
 
@@ -128,8 +129,7 @@ public:
     }
 
     // Normalize to fix FIR scaling.
-    float sum = 0;
-    for (size_t idx = 0; idx < end; ++idx) sum += coefficient[idx];
+    float sum = std::accumulate(coefficient, coefficient + half, float(0));
     for (size_t idx = 0; idx < end; ++idx) coefficient[idx] /= sum;
 
     if (isHighpass) {
