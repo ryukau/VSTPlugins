@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-06-11" />
+<meta name="dcterms.date" content="2022-06-14" />
 <title>BasicLimiter_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-06-11
+  Update: 2022-06-14
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -626,7 +626,7 @@ href="https://web.archive.org/web/20210624083625/http://ccrma.stanford.edu:80/~b
 よりもダッキングが目立つ傾向があります。歪ませたギターやサステイン中のシンセサイザなど、振幅が一定な音に対してはオートゲインと同じように働くので
 <code>Release</code> よりクリーンな出力が得られます。普段は
 <code>Sustain</code> と足し合わせた値が 0.2
-秒以下になるよう設定することを推奨します。サステインは継時マスキングの曲線とは一致しない点に注意してください。</p>
+秒以下になるよう設定することを推奨します。サステインを長くすると継時マスキングの曲線から乖離するので注意してください。</p>
 </dd>
 <dt>Stereo Link</dt>
 <dd>
@@ -650,15 +650,17 @@ amplitudeR = absR + stereoLink * (absMax - absR).</code></pre>
 <dd>
 <p>チェックを入れるとトゥルーピークモードがオンになります。トゥルーピークモードがオンのときは
 94 サンプルのレイテンシが加わります。</p>
-<p>トゥルーピークモードがオンのときはナイキスト周波数に近い成分を落とすためのローパスフィルタがかかります。また、サンプルピークが
-<code>Threshold</code>
+<p>トゥルーピークモードがオンのときはナイキスト周波数に近い成分を落とすためのローパスフィルタがかかります。サンプリング周波数が
+48000 Hz のときに、およそ 18000 Hz
+以下の成分についてはローパスフィルタの影響が及ばないように設計しています。</p>
+<p>サンプルピークが <code>Threshold</code>
 で指定した値を超えることがあります。特にサンプルピークが 0 dB
 を超えたときは <code>Overshoot</code> の値が 0
 でなくなります。このときは <code>Threshold</code>
 の値を下げてください。</p>
-<p>リアルタイム処理ではトゥルーピークをしきい値以下に抑えることは困難です。ナイキスト周波数に近い成分が含まれているとトゥルーピークの値が正確に計算できなくなるのでローパスフィルタをかけるのですが、しきい値以下への振幅の制限を徹底すると可聴域内の周波数成分が大きく低減されて音が変わってしまいます。
-BasicLimiter はサンプリング周波数が 48000 Hz のときに、およそ 18000 Hz
-以下の成分についてはローパスフィルタの影響が及ばないように設計しています。</p>
+<p>ナイキスト周波数のトゥルーピークの復元には無限の長さの FIR
+フィルタが必要です (sinc 補間)
+。したがってリアルタイムでの厳密な復元は不可能です。ローパスをかけていたり、トゥルーピークモードでオーバーシュートが起こったりと問題点があるのは、この無理をなんとかしようとしていることが原因です。</p>
 </dd>
 <dt>Reset Overshoot</dt>
 <dd>
@@ -678,10 +680,11 @@ BasicLimiter はサンプリング周波数が 48000 Hz のときに、およそ
 を超えると出力振幅が小さくなります。</p>
 <p>自動メイクアップゲインが有効のときに、手やオートメーションで
 <code>Threshold</code>
-を上げると、オーバーシュートすることがあります。そのため、オーバーシュートでの歪みを防ぐために
+を上げると、オーバーシュートすることがあります。オーバーシュートでの歪みを防ぐためには
 <code>Auto Make Up Target Gain</code> を -0.1 dB
-以下に設定することを推奨します。また、入力信号があるときに
-<code>Threshold</code> を動かすのであれば BasicLimiterAutoMake
+以下に設定することを推奨します。</p>
+<p>入力信号があるときに <code>Threshold</code> を動かすのであれば
+BasicLimiterAutoMake
 の後にお守りとしてさらにもう一つリミッタを挿入することを推奨します。</p>
 </dd>
 <dt>Auto Make Up Target Gain</dt>
@@ -707,7 +710,7 @@ BasicLimiter はサンプリング周波数が 48000 Hz のときに、およそ
 <p>ステレオチャンネルの種類を左右 (<code>L-R</code>) とミッド-サイド
 (<code>M-S</code>) で切り替えます。</p>
 <p>種類を <code>M-S</code> に設定すると、サンプルピークが
-<code>Threshold</code> を最大で +6 dB 上回ることがあります。そこで
+<code>Threshold</code> の 2 倍 (+6.02 dB) に達することがあります。そこで
 <code>Auto Make Up</code> を有効にして <code>M-S</code> を使うときは、
 <code>Auto Make Up Target Gain</code> の値を -6.1 dB
 以下に設定することを推奨します。この仕様は <code>L-R</code> と

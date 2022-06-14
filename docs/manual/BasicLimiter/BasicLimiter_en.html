@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-06-10" />
+<meta name="dcterms.date" content="2022-06-14" />
 <title>BasicLimiter_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-06-10
+  Update: 2022-06-14
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -566,8 +566,8 @@ focus.</li>
 <p>The algorithm used in BasicLimiter causes over-limiting when input
 amplitude is extremely high. When over-limiting happens, higher input
 amplitude turns into lower output amplitude. This problems is expected
-to happen when input amplitude exceeds <code>2^53</code>, or 319 in
-decibel.</p>
+to happen when input amplitude exceeds <code>2^53</code>, or +319
+dB.</p>
 <h2 id="block-diagram">Block Diagram</h2>
 <p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd>
 or “View Image” on right click menu to scale.</p>
@@ -594,9 +594,9 @@ amplitude becomes 0.</p>
 <dd>
 <p>Transition time of smoothing filter which applies to internal
 envelope. The value of <code>Attack</code> also adds to the latency.</p>
-<p>For the sound with sharp transitions, like drums, recommend to set
-<code>Attack</code> under 0.02 seconds. This 0.02 seconds comes from a
-psychoacoustic effect called <a
+<p>For the sound with sharp transitions like drums, recommend to set
+<code>Attack</code> under 0.02 seconds. This value, 0.02 seconds, is
+based on a psychoacoustic effect called <a
 href="https://web.archive.org/web/20210624083625/http://ccrma.stanford.edu:80/~bosse/proj/node21.html">temporal
 masking</a>.</p>
 </dd>
@@ -604,19 +604,19 @@ masking</a>.</p>
 <dd>
 <p>Smoothness to reset internal envelope to neutral position.</p>
 <p>Internally, the inverse value of <code>Release</code> is used as
-cutoff frequency. This means that the indicated value is not exact. For
-usual case, recommend to set the sum of <code>Release</code> and
-<code>Sustain</code> under 0.2 seconds. This is based on temporal
-masking.</p>
+cutoff frequency. This means that the value of <code>Release</code> is
+not exact. Because of temporal masking, setting the sum of
+<code>Release</code> and <code>Sustain</code> under 0.2 seconds is
+recommended.</p>
 </dd>
 <dt>Sustain [s]</dt>
 <dd>
 <p>Additional peak hold time for the internal envelope.</p>
 <p><code>Sustain</code> causes more ducking when applied to sounds like
 drums. For sounds like distorted guitar or sustaining synthesizer,
-<code>Sustain</code> might sounds cleaner than <code>Release</code>,
-because it works similar to auto-gain. Note that the sustain on limiter
-envelope doesn’t match the curve of temporal masking.</p>
+<code>Sustain</code> might sound cleaner than <code>Release</code>,
+because it works similar to auto-gain. Note that when sustain is longer,
+it deviates from the curve of temporal masking.</p>
 </dd>
 <dt>Stereo Link</dt>
 <dd>
@@ -632,25 +632,25 @@ absMax = max(absL, absR).
 amplitudeL = absL + stereoLink * (absMax - absL).
 amplitudeR = absR + stereoLink * (absMax - absR).</code></pre>
 <p>When <code>Stereo Link</code> is set to 0.0, and input amplitude is
-leaned to left or right, it may sounds like the pan is wobbling. So for
-fine tuning, set the value to 0.0, gradually increase the value to 1.0,
-then stop when the wobbling is gone.</p>
+leaned to left or right, it may sounds like the pan is wobbling. To
+reduce wobbling, set the value to 0.0, then gradually increase the value
+to 1.0. Stop increasing the value when pan wobbling becomes
+inaudible.</p>
 </dd>
 <dt>True Peak</dt>
 <dd>
 <p>Enables true peak mode when checked.</p>
 <p>While true peak mode is enabled, lowpass filter is applied to remove
-the components near nyquist frequency. Also, sample peak might exceeds
-<code>Threshold</code>. Especially when sample peak exceeds 0 dB, the
-value of <code>Overshoot</code> becomes greater than 0. Lower
-<code>Threshold</code> in this case.</p>
-<p>In real time processing, restoration of true peak around nyquist
-frequency is almost impossible. That’s why the lowpass is applied, and
-this true peak mode causes overshoot. If the aim is to eliminate
-overshoot at any cost, the lowpass will either change the gain of
-audible frequency, or burn out your CPU. The lowpass on BasicLimiter is
-designed to only change the gain over 18000 Hz when sampling rate is
-48000 Hz.</p>
+the components near nyquist frequency. This lowpass filter is designed
+to only change the gain over 18000 Hz when sampling rate is 48000
+Hz.</p>
+<p>Sample peak might exceeds <code>Threshold</code>. Especially when
+sample peak exceeds 0 dB, the value of <code>Overshoot</code> becomes
+greater than 0. Lower <code>Threshold</code> in this case.</p>
+<p>True peak restoration at nyquist frequency requires infinite length
+FIR filter (sinc interpolation). Therefore, it’s impossible to compute
+in real time. This is the reason that lowpass is applied, and true peak
+mode overshoots.</p>
 </dd>
 <dt>Reset Overshoot</dt>
 <dd>
@@ -671,9 +671,9 @@ lower when <code>Threshold</code> is greater than
 <code>Auto Make Up Target Gain</code>.</p>
 <p>When <code>Auto Make Up</code> is enabled, and <code>Threshold</code>
 is increasing, overshoot may occur. Recommend to set the target gain to
--0.1 dB (default) or lower in this case. If <code>Threshold</code> needs
-to be changed while signal is hot, insert another limiter for safe
-guard.</p>
+-0.1 dB (default) or lower in this case.</p>
+<p>If <code>Threshold</code> needs to be changed when input signal is
+hot, insert another limiter for safe guard.</p>
 </dd>
 <dt>Auto Make Up Target Gain</dt>
 <dd>
@@ -685,23 +685,23 @@ amplitude is +6 dB of <code>Auto Make Up Target Gain</code>.</p>
 </dd>
 <dt>Sidechain</dt>
 <dd>
-<p>Enable sidechain when checked. Also disable <code>Auto Make Up</code>
-when checked, because source signal amplitude is not affected by
-<code>Threshold</code> while sidechain is applied.</p>
-<p>BasicLimiterAutoMake has 2 stereo input. No. 1 is source input, and
-No. 2 is sidechain input. For routing, please refer to your DAW
-manual.</p>
+<p>When checked, enables sidechain and disables
+<code>Auto Make Up</code>.</p>
+<p><code>Auto Make Up</code> is disabled because source amplitude is not
+affected by <code>Threshold</code> while sidechain is activated.</p>
+<p>BasicLimiterAutoMake has 2 stereo input. No. 1 is source, and No. 2
+is sidechain. For routing, refer to your DAW manual.</p>
 </dd>
 <dt>Channel Type</dt>
 <dd>
 <p>Switch the type of stereo channel between left-right
 (<code>L-R</code>) and mid-side (<code>M-S</code>).</p>
-<p>When the type is set to <code>M-S</code>, sample peak becomes
-<code>Threshold</code> + 6 dB. Therefore, when using
-<code>Auto Make Up</code> with <code>M-S</code>, it is recommended to
-set <code>Auto Make Up Target Gain</code> to -6.1 dB or lower. This
-behavior aims to provide the same loudness when comparing
-<code>L-R</code> and <code>M-S</code>.</p>
+<p>When the type is <code>M-S</code>, sample peak becomes
+<code>2 * Threshold</code>, or +6.02 dB over <code>Threshold</code>.
+Therefore, when using <code>Auto Make Up</code> with <code>M-S</code>,
+it is recommended to set <code>Auto Make Up Target Gain</code> to -6.1
+dB or lower. This behavior aims to provide the same loudness when
+comparing <code>L-R</code> and <code>M-S</code>.</p>
 </dd>
 </dl>
 <h2 id="change-log">Change Log</h2>

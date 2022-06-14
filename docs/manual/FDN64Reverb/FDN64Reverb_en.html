@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-06-12" />
+<meta name="dcterms.date" content="2022-06-14" />
 <title>FDN64Reverb_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-06-12
+  Update: 2022-06-14
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -781,8 +781,9 @@ samples requires 10 samples of interpolation time.</p>
 <p>Threshold of gate.</p>
 <p>When input amplitude is less than the value of <code>Gate</code> for
 a while, the gate modulates <code>Stereo Cross</code> to make output
-amplitude to 0. This gate is added to use along with rotation, therefore
-it closes fast.</p>
+amplitude to 0.</p>
+<p>Gate is intended to use with rotation. Release time is approximately
+5 ms.</p>
 </dd>
 <dt>Matrix</dt>
 <dd>
@@ -908,7 +909,7 @@ pop nosie.</p>
 </tr>
 </tbody>
 </table>
-<p>Quality very rough indication. Bad means it frequently adds metallic
+<p>Quality is rough indication. Bad means it frequently adds metallic
 tones to output. Good means almost no metallic tone. OK is in between
 good and bad. SFX means they sound strange as a reverb. Bad matrices can
 be used to add more effects with rotation.</p>
