@@ -184,7 +184,7 @@ Knob and number slider can do:
 - <kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.
 
 ## Caution
-The algorithm used in BasicLimiter causes over-limiting when input amplitude is extremely high. When over-limiting happens, higher input amplitude turns into lower output amplitude. This problems is expected to happen when input amplitude exceeds `2^53`, or 319 in decibel.
+The algorithm used in BasicLimiter causes over-limiting when input amplitude is extremely high. When over-limiting happens, higher input amplitude turns into lower output amplitude. This problems is expected to happen when input amplitude exceeds `2^53`, or +319 dB.
 
 ## Block Diagram
 If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Image" on right click menu to scale.
@@ -210,19 +210,19 @@ Attack \[s\]
 
 :   Transition time of smoothing filter which applies to internal envelope. The value of `Attack` also adds to the latency.
 
-    For the sound with sharp transitions, like drums, recommend to set `Attack` under 0.02 seconds. This 0.02 seconds comes from a psychoacoustic effect called [temporal masking](https://web.archive.org/web/20210624083625/http://ccrma.stanford.edu:80/~bosse/proj/node21.html).
+    For the sound with sharp transitions like drums, recommend to set `Attack` under 0.02 seconds. This value, 0.02 seconds, is based on a psychoacoustic effect called [temporal masking](https://web.archive.org/web/20210624083625/http://ccrma.stanford.edu:80/~bosse/proj/node21.html).
 
 Release \[s\]
 
 :   Smoothness to reset internal envelope to neutral position.
 
-    Internally, the inverse value of `Release` is used as cutoff frequency. This means that the indicated value is not exact. For usual case, recommend to set the sum of `Release` and `Sustain` under 0.2 seconds. This is based on temporal masking.
+    Internally, the inverse value of `Release` is used as cutoff frequency. This means that the value of `Release` is not exact. Because of temporal masking, setting the sum of `Release` and `Sustain` under 0.2 seconds is recommended.
 
 Sustain \[s\]
 
 :   Additional peak hold time for the internal envelope.
 
-    `Sustain` causes more ducking when applied to sounds like drums. For sounds like distorted guitar or sustaining synthesizer, `Sustain` might sounds cleaner than `Release`, because it works similar to auto-gain. Note that the sustain on limiter envelope doesn't match the curve of temporal masking.
+    `Sustain` causes more ducking when applied to sounds like drums. For sounds like distorted guitar or sustaining synthesizer, `Sustain` might sound cleaner than `Release`, because it works similar to auto-gain. Note that when sustain is longer, it deviates from the curve of temporal masking.
 
 Stereo Link
 
@@ -238,15 +238,17 @@ Stereo Link
     amplitudeR = absR + stereoLink * (absMax - absR).
     ```
 
-    When `Stereo Link` is set to 0.0, and input amplitude is leaned to left or right, it may sounds like the pan is wobbling. So for fine tuning, set the value to 0.0, gradually increase the value to 1.0, then stop when the wobbling is gone.
+    When `Stereo Link` is set to 0.0, and input amplitude is leaned to left or right, it may sounds like the pan is wobbling. To reduce wobbling, set the value to 0.0, then gradually increase the value to 1.0. Stop increasing the value when pan wobbling becomes inaudible.
 
 True Peak
 
 :   Enables true peak mode when checked.
 
-    While true peak mode is enabled, lowpass filter is applied to remove the components near nyquist frequency. Also, sample peak might exceeds `Threshold`. Especially when sample peak exceeds 0 dB, the value of `Overshoot` becomes greater than 0. Lower `Threshold` in this case.
+    While true peak mode is enabled, lowpass filter is applied to remove the components near nyquist frequency. This lowpass filter is designed to only change the gain over 18000 Hz when sampling rate is 48000 Hz.
 
-    In real time processing, restoration of true peak around nyquist frequency is almost impossible. That's why the lowpass is applied, and this true peak mode causes overshoot. If the aim is to eliminate overshoot at any cost, the lowpass will either change the gain of audible frequency, or burn out your CPU. The lowpass on BasicLimiter is designed to only change the gain over 18000 Hz when sampling rate is 48000 Hz.
+    Sample peak might exceeds `Threshold`. Especially when sample peak exceeds 0 dB, the value of `Overshoot` becomes greater than 0. Lower `Threshold` in this case.
+
+    True peak restoration at nyquist frequency requires infinite length FIR filter (sinc interpolation). Therefore, it's impossible to compute in real time. This is the reason that lowpass is applied, and true peak mode overshoots.
 
 Reset Overshoot
 
@@ -261,7 +263,9 @@ Auto Make Up
 
     When `Auto Make Up` is enabled, output amplitude become lower when `Threshold` is greater than `Auto Make Up Target Gain`.
 
-    When `Auto Make Up` is enabled, and `Threshold` is increasing, overshoot may occur. Recommend to set the target gain to -0.1 dB (default) or lower in this case. If `Threshold` needs to be changed while signal is hot, insert another limiter for safe guard.
+    When `Auto Make Up` is enabled, and `Threshold` is increasing, overshoot may occur. Recommend to set the target gain to -0.1 dB (default) or lower in this case.
+
+    If `Threshold` needs to be changed when input signal is hot, insert another limiter for safe guard.
 
 Auto Make Up Target Gain
 
@@ -271,15 +275,17 @@ Auto Make Up Target Gain
 
 Sidechain
 
-:   Enable sidechain when checked. Also disable `Auto Make Up` when checked, because source signal amplitude is not affected by `Threshold` while sidechain is applied.
+:   When checked, enables sidechain and disables `Auto Make Up`.
 
-    BasicLimiterAutoMake has 2 stereo input. No. 1 is source input, and No. 2 is sidechain input. For routing, please refer to your DAW manual.
+    `Auto Make Up` is disabled because source amplitude is not affected by `Threshold` while sidechain is activated.
+
+    BasicLimiterAutoMake has 2 stereo input. No. 1 is source, and No. 2 is sidechain. For routing, refer to your DAW manual.
 
 Channel Type
 
 :   Switch the type of stereo channel between left-right (`L-R`) and mid-side (`M-S`).
 
-    When the type is set to `M-S`, sample peak becomes `Threshold` + 6 dB. Therefore, when using `Auto Make Up` with `M-S`, it is recommended to set `Auto Make Up Target Gain` to -6.1 dB or lower. This behavior aims to provide the same loudness when comparing `L-R` and `M-S`.
+    When the type is `M-S`, sample peak becomes `2 * Threshold`, or +6.02 dB over `Threshold`. Therefore, when using `Auto Make Up` with `M-S`, it is recommended to set `Auto Make Up Target Gain` to -6.1 dB or lower. This behavior aims to provide the same loudness when comparing `L-R` and `M-S`.
 
 ## Change Log
 ### BasicLimiter

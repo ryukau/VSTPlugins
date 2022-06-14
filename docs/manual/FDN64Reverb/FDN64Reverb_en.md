@@ -282,7 +282,9 @@ Gate \[dB\]
 
 :   Threshold of gate.
 
-    When input amplitude is less than the value of `Gate` for a while, the gate modulates `Stereo Cross` to make output amplitude to 0. This gate is added to use along with rotation, therefore it closes fast.
+    When input amplitude is less than the value of `Gate` for a while, the gate modulates `Stereo Cross` to make output amplitude to 0.
+
+    Gate is intended to use with rotation. Release time is approximately 5 ms.
 
 Matrix
 
@@ -308,7 +310,7 @@ Matrix
     | Hadamard     | Hadamard           | No randomization                    | Good    |
     | Conference   | Conference         | No randomization                    | Good    |
 
-    Quality very rough indication. Bad means it frequently adds metallic tones to output. Good means almost no metallic tone. OK is in between good and bad. SFX means they sound strange as a reverb. Bad matrices can be used to add more effects with rotation.
+    Quality is rough indication. Bad means it frequently adds metallic tones to output. Good means almost no metallic tone. OK is in between good and bad. SFX means they sound strange as a reverb. Bad matrices can be used to add more effects with rotation.
 
 Seed
 
