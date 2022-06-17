@@ -5,7 +5,7 @@ lang: en
 # MiniCliffEQ
 ![](img/minicliffeq.png)
 
-MiniCliffEQ is a FIR filter with 2^15 = 32768 taps. Because of this too many taps, latency is massive that it exceeds 1 second in 48000 Hz sampling rate. The primary purpose is to suppress direct current. It can also be used as very sharp low-pass, high-pass, low-shelf, and high-shelf filter.
+MiniCliffEQ is a linear phase FIR filter with 2^15 = 32768 taps. Latency is improved from initial version, however it still exceeds 0.34 seconds in 48000 Hz sampling rate. The primary purpose is to suppress direct current. It can also be used as very sharp low-pass, high-pass, low-shelf, and high-shelf filter.
 
 - [Download MiniCliffEQ 0.1.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/MiniCliffEQ_0.1.0.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
@@ -176,7 +176,7 @@ Knob and number slider can do:
 - <kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.
 
 ## Caution
-Latency is 49150 samples.
+Latency is `2^15 / 2 - 1 = 16383` samples. Signal to noise ratio is around -120 dB.
 
 ## Usage
 Primary usage of MiniCliffEQ is direct current (DC) suppression. It can also be used for detecting subtle noises. The filter is linear phase, so band-splitting is another application. If possible, it is always better to replace MiniCliffEQ for more lightweight EQ, because the high latency degrades your workflow.
@@ -219,6 +219,8 @@ LP Gain \[dB\]
 :   Gain of lowpass output.
 
 ## Change Log
+- 0.1.2
+  - Changed convolution algorithm not to introduce latency. Average CPU load is increased due to trade-off. Latency from FIR filter still remains.
 - 0.1.1
   - Changed to use `std::accumulate` to improve acculacy of FIR filter nomalization.
 - 0.1.0

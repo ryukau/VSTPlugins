@@ -96,11 +96,11 @@ All the plugin download link can be found at release page on following link.
 <img src="manual/MiniCliffEQ/img/minicliffeq.png" alt="Image of MiniCliffEQ graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
-MiniCliffEQ はタップ数 2^15 = 32768 の FIR フィルタです。あまりにもタップ数が多いのでレイテンシがサンプリング周波数 48000 Hz のときに 1 秒を超えます。主な用途は直流信号 (DC) の抑制ですが、とても急峻なローパス、ハイパス、ローシェルフ、ハイシェルフフィルタとしても使えます。
+MiniCliffEQ はタップ数 2^15 = 32768 の FIR フィルタです。初期バージョンからは改善しましたが、それでもタップ数が多いのでレイテンシがサンプリング周波数 48000 Hz のときに 0.34 秒を超えます。主な用途は直流信号 (DC) の抑制ですが、とても急峻なローパス、ハイパス、ローシェルフ、ハイシェルフフィルタとしても使えます。
 
 - [MiniCliffEQ のマニュアル (日本語)](manual/MiniCliffEQ/MiniCliffEQ_ja.html)
 
-MiniCliffEQ is a FIR filter with 2^15 = 32768 taps. Because of this too many taps, latency is massive that it exceeds 1 second in 48000 Hz sampling rate. The primary purpose is to suppress direct current. It can also be used as very sharp low-pass, high-pass, low-shelf, and high-shelf filter.
+MiniCliffEQ is a linear phase FIR filter with 2^15 = 32768 taps. Latency is improved from initial version, however it still exceeds 0.34 seconds in 48000 Hz sampling rate. The primary purpose is to suppress direct current. It can also be used as very sharp low-pass, high-pass, low-shelf, and high-shelf filter.
 
 - [MiniCliffEQ Manual (English)](manual/MiniCliffEQ/MiniCliffEQ_en.html)
 

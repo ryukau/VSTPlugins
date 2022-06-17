@@ -32,8 +32,8 @@
 using namespace SomeDSP;
 using namespace Steinberg::Synth;
 
-constexpr size_t firLength = 32768;
-constexpr size_t fftconvLatency = (firLength - 1) + (firLength / 2 - 1);
+constexpr size_t firLengthInPow2 = 15;
+constexpr size_t fftconvLatency = (size_t(1) << firLengthInPow2) / 2 - 1;
 
 class DSPInterface {
 public:
@@ -74,7 +74,7 @@ public:
     ExpSmoother<float> interpHighpassGain;                                               \
     ExpSmoother<float> interpLowpassGain;                                                \
                                                                                          \
-    std::array<FFTConvolver<firLength>, 2> convolver;                                    \
+    std::array<ImmediateConvolver<firLengthInPow2>, 2> convolver;                        \
     std::array<FixedIntDelay<float, fftconvLatency>, 2> delay;                           \
   };
 
