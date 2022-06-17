@@ -247,7 +247,7 @@ public:
     }
   }
 
-  void setFir(const std::vector<float> &source)
+  void setFir(std::vector<float> &source)
   {
     if (source.size() < nTap) source.resize(nTap);
 
