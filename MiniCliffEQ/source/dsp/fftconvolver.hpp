@@ -53,7 +53,7 @@ public:
   }
 };
 
-class FFTConvolver {
+class OverlapSaveConvolver {
 private:
   static constexpr size_t nBuffer = 2;
 
@@ -61,17 +61,17 @@ private:
   size_t bufSize = 2;
   size_t spcSize = 1; // spc = spectrum.
 
-  float *buf;
+  std::array<float *, nBuffer> buf;
   std::complex<float> *spc;
   std::complex<float> *fir;
-  std::array<float *, nBuffer> flt; // filtered.
+  float *flt; // filtered.
 
-  fftwf_plan forwardPlan;
-  std::array<fftwf_plan, nBuffer> inversePlan;
+  std::array<fftwf_plan, nBuffer> forwardPlan;
+  fftwf_plan inversePlan;
 
   size_t front = 0;
-  size_t wptr = 0;
-  std::array<size_t, nBuffer> rptr{};
+  std::array<size_t, nBuffer> wptr{};
+  size_t rptr = 0;
 
 public:
   void init(size_t nTap)
@@ -80,32 +80,32 @@ public:
     bufSize = 2 * half;
     spcSize = nTap + 1;
 
-    buf = (float *)fftwf_malloc(sizeof(float) * bufSize);
-    spc = (std::complex<float> *)fftwf_malloc(sizeof(std::complex<float>) * spcSize);
     for (size_t idx = 0; idx < nBuffer; ++idx) {
-      flt[idx] = (float *)fftwf_malloc(sizeof(float) * bufSize);
+      buf[idx] = (float *)fftwf_malloc(sizeof(float) * bufSize);
     }
+    spc = (std::complex<float> *)fftwf_malloc(sizeof(std::complex<float>) * spcSize);
+    flt = (float *)fftwf_malloc(sizeof(float) * bufSize);
 
     fir = (std::complex<float> *)fftwf_malloc(sizeof(std::complex<float>) * spcSize);
     std::fill(fir, fir + spcSize, std::complex<float>(0, 0));
 
-    forwardPlan = fftwf_plan_dft_r2c_1d(
-      int(bufSize), buf, reinterpret_cast<fftwf_complex *>(spc), FFTW_ESTIMATE);
     for (size_t idx = 0; idx < nBuffer; ++idx) {
-      inversePlan[idx] = fftwf_plan_dft_c2r_1d(
-        int(bufSize), reinterpret_cast<fftwf_complex *>(spc), flt[idx], FFTW_ESTIMATE);
+      forwardPlan[idx] = fftwf_plan_dft_r2c_1d(
+        int(bufSize), buf[idx], reinterpret_cast<fftwf_complex *>(spc), FFTW_ESTIMATE);
     }
+    inversePlan = fftwf_plan_dft_c2r_1d(
+      int(bufSize), reinterpret_cast<fftwf_complex *>(spc), flt, FFTW_ESTIMATE);
   }
 
-  ~FFTConvolver()
+  ~OverlapSaveConvolver()
   {
-    fftwf_destroy_plan(forwardPlan);
-    for (auto &ip : inversePlan) fftwf_destroy_plan(ip);
+    for (auto &fp : forwardPlan) fftwf_destroy_plan(fp);
+    fftwf_destroy_plan(inversePlan);
 
-    fftwf_free(buf);
+    for (auto &bf : buf) fftwf_free(bf);
     fftwf_free(spc);
     fftwf_free(fir);
-    for (auto &fl : flt) fftwf_free(fl);
+    fftwf_free(flt);
   }
 
   void setFir(std::vector<float> &source, size_t start, size_t end)
@@ -128,35 +128,36 @@ public:
   void reset()
   {
     front = 0;
-    wptr = 0;
-    rptr[0] = 1;
-    rptr[1] = 1 + half;
+    wptr[0] = half;
+    wptr[1] = 0;
+    rptr = half;
 
-    std::fill(buf, buf + bufSize, float(0));
-    std::fill(spc, spc + spcSize, std::complex<float>(0, 0));
     for (size_t idx = 0; idx < nBuffer; ++idx) {
-      std::fill(flt[idx], flt[idx] + bufSize, float(0));
+      std::fill(buf[idx], buf[idx] + bufSize, float(0));
     }
+    std::fill(spc, spc + spcSize, std::complex<float>(0, 0));
+    std::fill(flt, flt + bufSize, float(0));
   }
 
   float process(float input)
   {
-    buf[wptr] = input;
+    buf[0][wptr[0]] = input;
+    buf[1][wptr[1]] = input;
 
-    if (++wptr >= half) {
-      wptr = 0;
-      front ^= 1;
+    for (auto &w : wptr) {
+      if (++w >= bufSize) w = 0;
+    }
 
-      fftwf_execute(forwardPlan);
+    if (wptr[front] == 0) {
+      fftwf_execute(forwardPlan[front]);
       for (size_t i = 0; i < spcSize; ++i) spc[i] *= fir[i];
-      fftwf_execute(inversePlan[front]);
+      fftwf_execute(inversePlan);
+
+      front ^= 1;
     }
 
-    float output = flt[0][rptr[0]] + flt[1][rptr[1]];
-    for (auto &r : rptr) {
-      if (++r >= bufSize) r = 0;
-    }
-    return output;
+    if (++rptr >= bufSize) rptr = half;
+    return flt[rptr];
   }
 };
 
@@ -177,7 +178,7 @@ private:
   static constexpr size_t nFftConvolver = lengthInPow2 - minBlockSizeInPow2;
 
   DirectConvolver<float, size_t(1) << minBlockSizeInPow2> firstConvolver;
-  std::array<FFTConvolver, nFftConvolver> fftConvolver;
+  std::array<OverlapSaveConvolver, nFftConvolver> fftConvolver;
   std::array<float, nFftConvolver + 1> sumBuffer{};
 
 public:
