@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-06-12" />
+<meta name="dcterms.date" content="2022-06-18" />
 <title>MiniCliffEQ_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-06-12
+  Update: 2022-06-18
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -315,12 +315,12 @@ footer {
 <p><img src="img/minicliffeq.png" /></p>
 <p><ruby>MiniCliffEQ<rt>ミニ クリフ イーキュー</rt></ruby> はタップ数
 2^15 = 32768 の FIR
-フィルタです。あまりにもタップ数が多いのでレイテンシがサンプリング周波数
-48000 Hz のときに 1 秒を超えます。主な用途は直流信号 (DC)
+フィルタです。初期バージョンからは改善しましたが、それでもタップ数が多いのでレイテンシがサンプリング周波数
+48000 Hz のときに 0.34 秒を超えます。主な用途は直流信号 (DC)
 の抑制ですが、とても急峻なローパス、ハイパス、ローシェルフ、ハイシェルフフィルタとしても使えます。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/MiniCliffEQ_0.1.0.zip">MiniCliffEQ
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.35.0/MiniCliffEQ_0.1.3.zip">MiniCliffEQ
 0.1.0 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
@@ -553,7 +553,8 @@ href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
 <li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
 </ul>
 <h2 id="注意">注意</h2>
-<p>49150 サンプルのレイテンシが加わります。</p>
+<p><code>2^15 / 2 - 1 = 16383</code> サンプルのレイテンシが加わります。
+S/N 比はおよそ -120 dB です。</p>
 <h2 id="使い方">使い方</h2>
 <p>MiniCliffEQ の用途としては直流 (DC)
 の除去と、細かいノイズの検出を考慮しています。線形位相フィルタなのでバンドスプリッタとして使うこともできます。もちろん音を作る用途にも使えますが、レイテンシが大きいので通常のイコライザで足りる場面では使わないことを推奨します。</p>
@@ -607,6 +608,21 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a hr
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.3
+<ul>
+<li>畳み込みのアルゴリズムを overlap-add から overlap-save
+に変更。ノイズと CPU 負荷がどちらもわずかに低減。</li>
+</ul></li>
+<li>0.1.2
+<ul>
+<li>畳み込みのアルゴリズムをレイテンシを加えないものに変更。トレードオフとして平均
+CPU 負荷が向上。 FIR フィルタによるレイテンシは据え置き。</li>
+</ul></li>
+<li>0.1.1
+<ul>
+<li>FIR フィルタの正規化の精度向上のために <code>std::accumulate</code>
+を使うように変更。</li>
+</ul></li>
 <li>0.1.0
 <ul>
 <li>初期リリース。</li>
