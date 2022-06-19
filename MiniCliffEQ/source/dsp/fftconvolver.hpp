@@ -179,7 +179,7 @@ private:
 
   DirectConvolver<float, size_t(1) << minBlockSizeInPow2> firstConvolver;
   std::array<OverlapSaveConvolver, nFftConvolver> fftConvolver;
-  std::array<float, nFftConvolver + 1> sumBuffer{};
+  std::array<float, nFftConvolver> sumBuffer{};
 
 public:
   ImmediateConvolver()
@@ -271,12 +271,10 @@ public:
   {
     float output = std::accumulate(sumBuffer.begin(), sumBuffer.end(), float(0));
 
-    sumBuffer.back() = firstConvolver.process(input);
-
     for (size_t idx = 0; idx < nFftConvolver; ++idx)
       sumBuffer[idx] = fftConvolver[idx].process(input);
 
-    return output;
+    return output + firstConvolver.process(input);
   }
 };
 
