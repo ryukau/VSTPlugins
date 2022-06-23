@@ -37,7 +37,7 @@ public:
 
   void resize(size_t size)
   {
-    buf.resize(size);
+    buf.resize(size + 1);
     wptr = 0;
     rptr = 0;
   }
@@ -48,15 +48,15 @@ public:
   {
     if (delayFrames >= buf.size()) delayFrames = buf.size();
     rptr = wptr - delayFrames;
-    if (rptr >= buf.size()) rptr += buf.size(); // Unsigned overflow case.
+    if (rptr >= buf.size()) rptr += buf.size(); // Unsigned negative overflow case.
   }
 
   Sample process(Sample input)
   {
-    if (++wptr >= buf.size()) wptr -= buf.size();
+    if (++wptr >= buf.size()) wptr = 0;
     buf[wptr] = input;
 
-    if (++rptr >= buf.size()) rptr -= buf.size();
+    if (++rptr >= buf.size()) rptr = 0;
     return buf[rptr];
   }
 };

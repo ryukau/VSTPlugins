@@ -104,6 +104,8 @@ private:
 public:
   ParallelCombSmoother<Sample, nTap> time;
 
+  ParallelComb() : buf(4) {}
+
   void setup(Sample sampleRate, Sample maxTime)
   {
     auto &&size = size_t(sampleRate * maxTime) + 1;

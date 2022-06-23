@@ -35,7 +35,7 @@ public:
 
   void resize(size_t size)
   {
-    buf.resize(size);
+    buf.resize(size + 1);
     wptr = 0;
     rptr = 0;
   }
