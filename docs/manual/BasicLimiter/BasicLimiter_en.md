@@ -7,7 +7,7 @@ lang: en
 
 BasicLimiter is a basic single band limiter. The sound is nothing new, but the design of true peak mode is a bit luxurious.
 
-- [Download BasicLimiter 0.1.8 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiter_0.1.8.zip) <img
+- [Download BasicLimiter 0.1.9 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/BasicLimiter_0.1.9.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -16,7 +16,7 @@ BasicLimiter is a basic single band limiter. The sound is nothing new, but the d
 
 An extended version BasicLimiterAutoMake is also available. Added features are automatic make up gain, sidechain, and switching between left-right (L-R) and mid-side (M-S). Note that CPU load is over 1.5 times heavier than BasicLimiter.
 
-- [Download BasicLimiterAutoMake 0.1.8 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiterAutoMake_0.1.8.zip) <img
+- [Download BasicLimiterAutoMake 0.1.9 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/BasicLimiterAutoMake_0.1.9.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -289,6 +289,8 @@ Channel Type
 
 ## Change Log
 ### BasicLimiter
+- 0.1.9
+  - Fixed a potential bug that breaks limiter when internal delay buffer length and attack time are set to same value.
 - 0.1.8
   - Removed dependency to x86_64 specific SIMD instructions.
 - 0.1.6
@@ -304,6 +306,8 @@ Channel Type
   - Initial release.
 
 ### BasicLimiterAutoMake
+- 0.1.9
+  - Fixed a potential bug that breaks limiter when internal delay buffer length and attack time are set to same value.
 - 0.1.8
   - Removed dependency to x86_64 specific SIMD instructions.
 - 0.1.7
@@ -317,12 +321,14 @@ Channel Type
 
 ## Old Versions
 ### BasicLimiter
+- [BasicLimiter 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiter_0.1.8.zip)
 - [BasicLimiter 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/BasicLimiter_0.1.6.zip)
 - [BasicLimiter 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiter_0.1.5.zip)
 - [BasicLimiter 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiter_0.1.4.zip)
 - [BasicLimiter 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiter_0.1.2.zip)
--
+
 ### BasicLimiterAutoMake
+- [BasicLimiterAutoMake 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiterAutoMake_0.1.8.zip)
 - [BasicLimiterAutoMake 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/BasicLimiterAutoMake_0.1.7.zip)
 - [BasicLimiterAutoMake 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiterAutoMake_0.1.5.zip)
 - [BasicLimiterAutoMake 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiterAutoMake_0.1.4.zip)

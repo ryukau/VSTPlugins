@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>ParallelComb<rt>パラレル コム</rt></ruby> は 1 つバッファの異なる 4 つの時点をフィードバックするコムフィルタです。フィードバック経路にリミッタが挟んであるので、それなりにクリーンな音が出ます。フィードバックの振幅でディレイ時間を変調することで、変な歪みを出すこともできます。
 
-- [ParallelComb 0.2.0 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/ParallelComb_0.2.0.zip) <img
+- [ParallelComb 0.2.1 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/ParallelComb_0.2.1.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -334,6 +334,8 @@ Panic!
 :   クリックすると `Feedback` を 0 に設定します。
 
 ## チェンジログ
+- 0.2.1
+  - フィードバック経路のリミッタが動作せず、 wet 信号が無音となるバグを修正。
 - 0.2.0
   - 初期リリース。
 

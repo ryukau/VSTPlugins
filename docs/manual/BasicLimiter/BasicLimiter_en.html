@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-06-14" />
+<meta name="dcterms.date" content="2022-06-23" />
 <title>BasicLimiter_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-06-14
+  Update: 2022-06-23
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -314,6 +314,8 @@ footer {
   <ul>
   <li><a href="#basiclimiter-2"
   id="toc-basiclimiter-2">BasicLimiter</a></li>
+  <li><a href="#basiclimiterautomake-1"
+  id="toc-basiclimiterautomake-1">BasicLimiterAutoMake</a></li>
   </ul></li>
   <li><a href="#license" id="toc-license">License</a>
   <ul>
@@ -330,8 +332,8 @@ footer {
 new, but the design of true peak mode is a bit luxurious.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiter_0.1.8.zip">Download
-BasicLimiter 0.1.8 - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/BasicLimiter_0.1.9.zip">Download
+BasicLimiter 0.1.9 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -346,8 +348,8 @@ left-right (L-R) and mid-side (M-S). Note that CPU load is over 1.5
 times heavier than BasicLimiter.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiterAutoMake_0.1.8.zip">Download
-BasicLimiterAutoMake 0.1.8 - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/BasicLimiterAutoMake_0.1.9.zip">Download
+BasicLimiterAutoMake 0.1.9 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -707,6 +709,11 @@ comparing <code>L-R</code> and <code>M-S</code>.</p>
 <h2 id="change-log">Change Log</h2>
 <h3 id="basiclimiter-1">BasicLimiter</h3>
 <ul>
+<li>0.1.9
+<ul>
+<li>Fixed a potential bug that breaks limiter when internal delay buffer
+length and attack time are set to same value.</li>
+</ul></li>
 <li>0.1.8
 <ul>
 <li>Removed dependency to x86_64 specific SIMD instructions.</li>
@@ -737,6 +744,11 @@ dB.</li>
 </ul>
 <h3 id="basiclimiterautomake">BasicLimiterAutoMake</h3>
 <ul>
+<li>0.1.9
+<ul>
+<li>Fixed a potential bug that breaks limiter when internal delay buffer
+length and attack time are set to same value.</li>
+</ul></li>
 <li>0.1.8
 <ul>
 <li>Removed dependency to x86_64 specific SIMD instructions.</li>
@@ -764,6 +776,9 @@ unintentional muting on sidechain in REAPER.</li>
 <h3 id="basiclimiter-2">BasicLimiter</h3>
 <ul>
 <li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiter_0.1.8.zip">BasicLimiter
+0.1.8 - VST 3 (github.com)</a></li>
+<li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/BasicLimiter_0.1.6.zip">BasicLimiter
 0.1.6 - VST 3 (github.com)</a></li>
 <li><a
@@ -775,7 +790,12 @@ href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/B
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiter_0.1.2.zip">BasicLimiter
 0.1.2 - VST 3 (github.com)</a></li>
-<li><h3 id="basiclimiterautomake-1">BasicLimiterAutoMake</h3></li>
+</ul>
+<h3 id="basiclimiterautomake-1">BasicLimiterAutoMake</h3>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiterAutoMake_0.1.8.zip">BasicLimiterAutoMake
+0.1.8 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/BasicLimiterAutoMake_0.1.7.zip">BasicLimiterAutoMake
 0.1.7 - VST 3 (github.com)</a></li>

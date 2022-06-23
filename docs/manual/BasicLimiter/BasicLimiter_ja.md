@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>BasicLimiter<rt>ベーシック リミッタ</rt></ruby> は名前の通りベーシックなシングルバンドリミッタです。目新しい音は出ませんが、トゥルーピークモードはやや贅沢に設計しています。
 
-- [BasicLimiter 0.1.8 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiter_0.1.8.zip) <img
+- [BasicLimiter 0.1.9 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/BasicLimiter_0.1.9.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -16,7 +16,7 @@ lang: ja
 
 自動メイクアップゲイン、サイドチェイン、左右 (L-R) とミッド-サイド (M-S) の切り替えを追加した BasicLimiterAutoMake もあります。ただし CPU 負荷は 1.5 倍強に上がります。
 
-- [BasicLimiterAutoMake 0.1.8 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiterAutoMake_0.1.8.zip) <img
+- [BasicLimiterAutoMake 0.1.9 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/BasicLimiterAutoMake_0.1.9.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -286,6 +286,8 @@ Channel Type
 
 ## チェンジログ
 ### BasicLimiter
+- 0.1.9
+  - 内部で使われているディレイのバッファ長とアタック時間が一致したときに、巻き戻しによってリミッタの動作が壊れる潜在的な不具合を修正。
 - 0.1.8
   - x86_64 固有の SIMD 命令への依存を除去。
 - 0.1.6
@@ -301,6 +303,8 @@ Channel Type
   - 初期リリース。
 
 ### BasicLimiterAutoMake
+- 0.1.9
+  - 内部で使われているディレイのバッファ長とアタック時間が一致したときに、巻き戻しによってリミッタの動作が壊れる潜在的な不具合を修正。
 - 0.1.8
   - x86_64 固有の SIMD 命令への依存を除去。
 - 0.1.7
@@ -314,12 +318,14 @@ Channel Type
 
 ## 旧バージョン
 ### BasicLimiter
+- [BasicLimiter 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiter_0.1.8.zip)
 - [BasicLimiter 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/BasicLimiter_0.1.6.zip)
 - [BasicLimiter 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiter_0.1.5.zip)
 - [BasicLimiter 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiter_0.1.4.zip)
 - [BasicLimiter 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiter_0.1.2.zip)
 
 ### BasicLimiterAutoMake
+- [BasicLimiterAutoMake 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiterAutoMake_0.1.8.zip)
 - [BasicLimiterAutoMake 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/BasicLimiterAutoMake_0.1.7.zip)
 - [BasicLimiterAutoMake 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiterAutoMake_0.1.5.zip)
 - [BasicLimiterAutoMake 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiterAutoMake_0.1.4.zip)

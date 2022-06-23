@@ -7,7 +7,7 @@ lang: en
 
 ParallelComb is a comb filter which has 4 different delay time and 1 shared buffer. A limiter is inserted on feedback path to make the output somewhat clean. Weird distorsion can be added by modulating delay time using feedback signal amplitude.
 
-- [Download ParallelComb 0.2.0 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/ParallelComb_0.2.0.zip) <img
+- [Download ParallelComb 0.2.1 - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/ParallelComb_0.2.1.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -333,6 +333,8 @@ Panic!
 :   When clicked, set `Feedback` to 0 .
 
 ## Change Log
+- 0.2.1
+  - Fixed a bug that limiter on feedback path only output silence.
 - 0.2.0
   - Initial release.
 
