@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-06-18" />
+<meta name="dcterms.date" content="2022-06-25" />
 <title>MiniCliffEQ_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-06-18
+  Update: 2022-06-25
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -318,8 +318,8 @@ direct current. It can also be used as very sharp low-pass, high-pass,
 low-shelf, and high-shelf filter.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.36.0/MiniCliffEQ_0.1.4.zip">Download
-MiniCliffEQ 0.1.4 - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.38.0/MiniCliffEQ_0.1.5.zip">Download
+MiniCliffEQ 0.1.5 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -598,6 +598,11 @@ length of latency.</p>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.5
+<ul>
+<li>Fixed crash at plugin scan on some Windows environment. FFTW3 static
+library for Windows is changed to build without SIMD flags.</li>
+</ul></li>
 <li>0.1.4
 <ul>
 <li>Fixed a bug where one of the output of partial convolution was off
@@ -625,7 +630,11 @@ FIR filter nomalization.</li>
 </ul></li>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
-<p>Old version is not available.</p>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.36.0/MiniCliffEQ_0.1.4.zip">MiniCliffEQ
+0.1.4 - VST 3 (github.com)</a></li>
+</ul>
 <h2 id="license">License</h2>
 <p>MiniCliffEQ is licensed under GPLv3. Complete licenses are linked
 below.</p>

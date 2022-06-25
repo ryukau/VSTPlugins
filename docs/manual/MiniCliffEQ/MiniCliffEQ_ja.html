@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-06-18" />
+<meta name="dcterms.date" content="2022-06-25" />
 <title>MiniCliffEQ_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-06-18
+  Update: 2022-06-25
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -320,8 +320,8 @@ footer {
 の抑制ですが、とても急峻なローパス、ハイパス、ローシェルフ、ハイシェルフフィルタとしても使えます。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.36.0/MiniCliffEQ_0.1.4.zip">MiniCliffEQ
-0.1.4 をダウンロード - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.38.0/MiniCliffEQ_0.1.5.zip">MiniCliffEQ
+0.1.5 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -608,6 +608,12 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a hr
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.5
+<ul>
+<li>一部の Windows
+環境で発生していたプラグインスキャン時のクラッシュを修正。Windows 用の
+FFTW3 静的ライブラリを SIMD フラグなしでビルドするように変更。</li>
+</ul></li>
 <li>0.1.4
 <ul>
 <li>分割した畳み込みの出力の 1 つが 1
@@ -635,7 +641,11 @@ CPU 負荷が向上。 FIR フィルタによるレイテンシは据え置き�
 </ul>
 <h2 id="旧バージョン">旧バージョン</h2>
 <h3 id="minicliffeq-1">MiniCliffEQ</h3>
-<p>旧バージョンはありません。</p>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.36.0/MiniCliffEQ_0.1.4.zip">MiniCliffEQ
+0.1.4 - VST 3 (github.com)</a></li>
+</ul>
 <h2 id="ライセンス">ライセンス</h2>
 <p>MiniCliffEQ のライセンスは GPLv3 です。 GPLv3
 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>

@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-06-12" />
+<meta name="dcterms.date" content="2022-06-25" />
 <title>CubicPadSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-06-12
+  Update: 2022-06-25
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -348,8 +348,8 @@ get smooth sound even at inaudible low frequency range. LFO waveform can
 be directly drawn.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/CubicPadSynth_0.1.15.zip">Download
-CubicPadSynth 0.1.15 - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.38.0/CubicPadSynth_0.1.16.zip">Download
+CubicPadSynth 0.1.16 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -1163,6 +1163,11 @@ Wavetable tab.</p>
 notes.</p>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.16
+<ul>
+<li>Fixed crash at plugin scan on some Windows environment. FFTW3 static
+library for Windows is changed to build without SIMD flags.</li>
+</ul></li>
 <li>0.1.15
 <ul>
 <li>Fixed crash on Linux.</li>
@@ -1252,6 +1257,9 @@ outside of BarBox.</li>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/CubicPadSynth_0.1.15.zip">CubicPadSynth
+0.1.15 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/CubicPadSynth_0.1.14.zip">CubicPadSynth
 0.1.14 - VST 3 (github.com)</a></li>
