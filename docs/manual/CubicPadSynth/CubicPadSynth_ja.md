@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby> は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています
 
-- [CubicPadSynth 0.1.15 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/CubicPadSynth_0.1.15.zip) <img
+- [CubicPadSynth 0.1.16 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.38.0/CubicPadSynth_0.1.16.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -598,6 +598,8 @@ Width\*
 ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。
 
 ## チェンジログ
+- 0.1.16
+  - 一部の Windows 環境で発生していたプラグインスキャン時のクラッシュを修正。Windows 用の FFTW3 静的ライブラリを SIMD フラグなしでビルドするように変更。
 - 0.1.15
   - Linux でのクラッシュを修正。
   - BarBox が <kbd>Shift</kbd> キーを受け取るように修正。
@@ -643,6 +645,7 @@ Width\*
   - 初期リリース。
 
 ## 旧バージョン
+- [CubicPadSynth 0.1.15 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/CubicPadSynth_0.1.15.zip)
 - [CubicPadSynth 0.1.14 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/CubicPadSynth_0.1.14.zip)
 - [CubicPadSynth 0.1.13 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/CubicPadSynth_0.1.13.zip)
 - [CubicPadSynth 0.1.11 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/CubicPadSynth_0.1.11.zip)

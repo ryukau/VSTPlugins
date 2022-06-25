@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>MiniCliffEQ<rt>ミニ クリフ イーキュー</rt></ruby> はタップ数 2^15 = 32768 の FIR フィルタです。初期バージョンからは改善しましたが、それでもタップ数が多いのでレイテンシがサンプリング周波数 48000 Hz のときに 0.34 秒を超えます。主な用途は直流信号 (DC) の抑制ですが、とても急峻なローパス、ハイパス、ローシェルフ、ハイシェルフフィルタとしても使えます。
 
-- [MiniCliffEQ 0.1.4 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.36.0/MiniCliffEQ_0.1.4.zip) <img
+- [MiniCliffEQ 0.1.5 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.38.0/MiniCliffEQ_0.1.5.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -218,6 +218,8 @@ LP Gain \[dB\]
 :   ローパス出力のゲインです。
 
 ## チェンジログ
+- 0.1.5
+  - 一部の Windows 環境で発生していたプラグインスキャン時のクラッシュを修正。Windows 用の FFTW3 静的ライブラリを SIMD フラグなしでビルドするように変更。
 - 0.1.4
   - 分割した畳み込みの出力の 1 つが 1 サンプルずれていたバグを修正。
 - 0.1.3
@@ -231,7 +233,7 @@ LP Gain \[dB\]
 
 ## 旧バージョン
 ### MiniCliffEQ
-旧バージョンはありません。
+- [MiniCliffEQ 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.36.0/MiniCliffEQ_0.1.4.zip)
 
 ## ライセンス
 MiniCliffEQ のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。
