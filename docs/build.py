@@ -43,10 +43,11 @@ if __name__ == "__main__":
         if md.stem == "README" or md.parts[0] == "rewrite":
             continue
 
+        html = md.parent / Path(md.stem + ".html")
         mtime = os.path.getmtime(md)
         if str(md) not in md_info:
             md_info[str(md)] = {"mtime": mtime}
-        elif md_info[str(md)]["mtime"] == mtime:
+        elif html.exists() and md_info[str(md)]["mtime"] == mtime:
             continue
         md_info[str(md)]["mtime"] = mtime
 
