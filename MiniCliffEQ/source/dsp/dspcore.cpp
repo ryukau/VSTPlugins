@@ -51,7 +51,7 @@ void DSPCORE_NAME::setup(double sampleRate)
   prepareRefresh = true;
 }
 
-size_t DSPCORE_NAME::getLatency() { return convolver[0].latency(); }
+size_t DSPCORE_NAME::getLatency() { return fftconvLatency; }
 
 #define ASSIGN_PARAMETER(METHOD)                                                         \
   using ID = ParameterID::ID;                                                            \

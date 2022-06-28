@@ -28,6 +28,48 @@
 
 namespace SomeDSP {
 
+inline std::vector<float>
+getNuttallFir(size_t nTap, float sampleRate, float cutoffHz, bool isHighpass)
+{
+  const auto nyquist = sampleRate / float(2);
+  if (cutoffHz > nyquist) cutoffHz = nyquist;
+
+  bool isEven = (nTap / 2 & 1) == 0;
+  size_t end = nTap;
+  if (isEven) --end; // Always use odd length FIR.
+
+  std::vector<float> coefficient(nTap);
+
+  auto mid = float(end - 1) / float(2);
+  auto cutoff = float(twopi) * cutoffHz / sampleRate;
+  for (size_t idx = 0; idx < end; ++idx) {
+    float m = float(idx) - mid;
+    float x = cutoff * m;
+    coefficient[idx] = x == 0 ? float(1) : std::sin(x) / (x);
+  }
+
+  // Apply Nuttall window.
+  float tpN = float(twopi) / float(end - 1);
+  for (size_t n = 0; n < end; ++n) {
+    auto c0 = float(0.3635819);
+    auto c1 = float(0.4891775) * std::cos(tpN * n);
+    auto c2 = float(0.1365995) * std::cos(tpN * n * float(2));
+    auto c3 = float(0.0106411) * std::cos(tpN * n * float(3));
+    coefficient[n] *= c0 - c1 + c2 - c3;
+  }
+
+  // Normalize to fix FIR scaling.
+  float sum = std::accumulate(coefficient.begin(), coefficient.end(), float(0));
+  for (size_t idx = 0; idx < end; ++idx) coefficient[idx] /= sum;
+
+  if (isHighpass) {
+    for (size_t idx = 0; idx < end; ++idx) coefficient[idx] = -coefficient[idx];
+    coefficient[size_t(mid)] += float(1);
+  }
+
+  return coefficient;
+}
+
 template<typename Sample, size_t nTap> class DirectConvolver {
 private:
   std::array<Sample, nTap> co{};
@@ -72,10 +114,13 @@ private:
   size_t front = 0;
   std::array<size_t, nBuffer> wptr{};
   size_t rptr = 0;
+  size_t offset = 0;
 
 public:
-  void init(size_t nTap)
+  void init(size_t nTap, size_t delay = 0)
   {
+    offset = delay;
+
     half = nTap;
     bufSize = 2 * half;
     spcSize = nTap + 1;
@@ -127,10 +172,11 @@ public:
 
   void reset()
   {
-    front = 0;
-    wptr[0] = half;
-    wptr[1] = 0;
-    rptr = half;
+    wptr[0] = half + offset;
+    wptr[1] = offset;
+    for (auto &w : wptr) w %= bufSize;
+    front = wptr[1] < wptr[0] ? 0 : 1;
+    rptr = half + offset % half;
 
     for (size_t idx = 0; idx < nBuffer; ++idx) {
       std::fill(buf[idx], buf[idx] + bufSize, float(0));
@@ -203,41 +249,7 @@ public:
 
   void refreshFir(float sampleRate, float cutoffHz, bool isHighpass)
   {
-    const auto nyquist = sampleRate / float(2);
-    if (cutoffHz > nyquist) cutoffHz = nyquist;
-
-    bool isEven = (nTap / 2 & 1) == 0;
-    size_t end = nTap;
-    if (isEven) --end; // Always use odd length FIR.
-
-    std::vector<float> coefficient(nTap);
-
-    auto mid = float(end - 1) / float(2);
-    auto cutoff = float(twopi) * cutoffHz / sampleRate;
-    for (size_t idx = 0; idx < end; ++idx) {
-      float m = float(idx) - mid;
-      float x = cutoff * m;
-      coefficient[idx] = x == 0 ? float(1) : std::sin(x) / (x);
-    }
-
-    // Apply Nuttall window.
-    float tpN = float(twopi) / float(end - 1);
-    for (size_t n = 0; n < end; ++n) {
-      auto c0 = float(0.3635819);
-      auto c1 = float(0.4891775) * std::cos(tpN * n);
-      auto c2 = float(0.1365995) * std::cos(tpN * n * float(2));
-      auto c3 = float(0.0106411) * std::cos(tpN * n * float(3));
-      coefficient[n] *= c0 - c1 + c2 - c3;
-    }
-
-    // Normalize to fix FIR scaling.
-    float sum = std::accumulate(coefficient.begin(), coefficient.end(), float(0));
-    for (size_t idx = 0; idx < end; ++idx) coefficient[idx] /= sum;
-
-    if (isHighpass) {
-      for (size_t idx = 0; idx < end; ++idx) coefficient[idx] = -coefficient[idx];
-      coefficient[size_t(mid)] += float(1);
-    }
+    auto coefficient = getNuttallFir(nTap, sampleRate, cutoffHz, isHighpass);
 
     // Set FIR coefficients.
     firstConvolver.setFir(coefficient);
@@ -275,6 +287,90 @@ public:
       sumBuffer[idx] = fftConvolver[idx].process(input);
 
     return output + firstConvolver.process(input);
+  }
+};
+
+class FixedIntDelayVector {
+public:
+  std::vector<float> buf{};
+  size_t ptr = 0;
+
+  void resize(size_t size) { buf.resize(size); }
+  void reset(float value = 0) { std::fill(buf.begin(), buf.end(), value); }
+
+  float process(float input)
+  {
+    if (++ptr >= buf.size()) ptr -= buf.size();
+    auto output = buf[ptr];
+    buf[ptr] = input;
+    return output;
+  }
+};
+
+/**
+A variation of convolver without latency.
+
+SplitConvolver splits filter kernel into several blocks, then compute the blocks in
+different timings. This is a mitigation of CPU load spikes that's caused by FFT.
+
+Memory usage can be reduced by sharing input buffer.
+*/
+template<size_t nBlock, size_t blockSizeInPow2, size_t minBlockSizeInPow2 = 4>
+class SplitConvolver {
+public:
+  static constexpr size_t nTap = nBlock * (size_t(1) << blockSizeInPow2);
+  static constexpr size_t nFftConvolver = nBlock - 2;
+  static constexpr size_t blockSize = size_t(1) << blockSizeInPow2;
+
+  ImmediateConvolver<blockSizeInPow2, minBlockSizeInPow2> immediateConvolver;
+  OverlapSaveConvolver firstFftConvolver;
+  std::array<OverlapSaveConvolver, nFftConvolver> fftConvolver;
+  std::array<FixedIntDelayVector, nFftConvolver> outputDelay;
+  float buf = 0;
+
+  SplitConvolver()
+  {
+    firstFftConvolver.init(blockSize);
+    for (size_t idx = 0; idx < nFftConvolver; ++idx) {
+      size_t offset = (idx + 1) * blockSize / nBlock;
+      fftConvolver[idx].init(blockSize, offset);
+      outputDelay[idx].resize((idx + 1) * blockSize + 1);
+    }
+  }
+
+  void reset()
+  {
+    immediateConvolver.reset();
+
+    firstFftConvolver.reset();
+    for (size_t idx = 0; idx < nFftConvolver; ++idx) {
+      fftConvolver[idx].reset();
+      outputDelay[idx].reset();
+    }
+    buf = 0;
+  }
+
+  void refreshFir(float sampleRate, float cutoffHz, bool isHighpass)
+  {
+    auto coefficient = getNuttallFir(nTap, sampleRate, cutoffHz, isHighpass);
+
+    immediateConvolver.setFir(coefficient);
+    firstFftConvolver.setFir(coefficient, blockSize, 2 * blockSize);
+    for (size_t idx = 0; idx < nFftConvolver; ++idx) {
+      fftConvolver[idx].setFir(coefficient, (idx + 2) * blockSize, (idx + 3) * blockSize);
+    }
+  }
+
+  float process(float input)
+  {
+    auto output = immediateConvolver.process(input);
+    output += buf;
+    buf = firstFftConvolver.process(input);
+    for (size_t idx = 0; idx < nFftConvolver; ++idx) {
+      auto value = fftConvolver[idx].process(input);
+      output += outputDelay[idx].process(value);
+    }
+    return output;
   }
 };
 
