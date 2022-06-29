@@ -107,9 +107,11 @@ private:
   std::complex<float> *spc;
   std::complex<float> *fir;
   float *flt; // filtered.
+  float *coefficient;
 
   std::array<fftwf_plan, nBuffer> forwardPlan;
   fftwf_plan inversePlan;
+  fftwf_plan firPlan;
 
   size_t front = 0;
   std::array<size_t, nBuffer> wptr{};
@@ -131,6 +133,9 @@ public:
     spc = (std::complex<float> *)fftwf_malloc(sizeof(std::complex<float>) * spcSize);
     flt = (float *)fftwf_malloc(sizeof(float) * bufSize);
 
+    coefficient = (float *)fftwf_malloc(sizeof(float) * bufSize);
+    std::fill(coefficient, coefficient + bufSize, float(0));
+
     fir = (std::complex<float> *)fftwf_malloc(sizeof(std::complex<float>) * spcSize);
     std::fill(fir, fir + spcSize, std::complex<float>(0, 0));
 
@@ -140,34 +145,31 @@ public:
     }
     inversePlan = fftwf_plan_dft_c2r_1d(
       int(bufSize), reinterpret_cast<fftwf_complex *>(spc), flt, FFTW_ESTIMATE);
+    firPlan = fftwf_plan_dft_r2c_1d(
+      int(bufSize), coefficient, reinterpret_cast<fftwf_complex *>(fir), FFTW_ESTIMATE);
   }
 
   ~OverlapSaveConvolver()
   {
     for (auto &fp : forwardPlan) fftwf_destroy_plan(fp);
     fftwf_destroy_plan(inversePlan);
+    fftwf_destroy_plan(firPlan);
 
     for (auto &bf : buf) fftwf_free(bf);
     fftwf_free(spc);
     fftwf_free(fir);
     fftwf_free(flt);
+    fftwf_free(coefficient);
   }
 
   void setFir(std::vector<float> &source, size_t start, size_t end)
   {
-    float *coefficient = (float *)fftwf_malloc(sizeof(float) * bufSize);
     std::copy(source.begin() + start, source.begin() + end, coefficient);
-    std::fill(coefficient + half, coefficient + bufSize, float(0));
 
     // FFT scaling.
     for (size_t idx = 0; idx < half; ++idx) coefficient[idx] /= float(bufSize);
 
-    auto firPlan = fftwf_plan_dft_r2c_1d(
-      int(bufSize), coefficient, reinterpret_cast<fftwf_complex *>(fir), FFTW_ESTIMATE);
     fftwf_execute(firPlan);
-
-    fftwf_destroy_plan(firPlan);
-    fftwf_free(coefficient);
   }
 
   void reset()

@@ -7,7 +7,7 @@ lang: ja
 
 <ruby>MiniCliffEQ<rt>ミニ クリフ イーキュー</rt></ruby> はタップ数 2^15 = 32768 の FIR フィルタです。初期バージョンからは改善しましたが、それでもタップ数が多いのでレイテンシがサンプリング周波数 48000 Hz のときに 0.34 秒を超えます。主な用途は直流信号 (DC) の抑制ですが、とても急峻なローパス、ハイパス、ローシェルフ、ハイシェルフフィルタとしても使えます。
 
-- [MiniCliffEQ 0.1.6 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.39.0/MiniCliffEQ_0.1.6.zip) <img
+- [MiniCliffEQ 0.1.7 をダウンロード - VST® 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.40.0/MiniCliffEQ_0.1.7.zip) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
@@ -218,6 +218,8 @@ LP Gain \[dB\]
 :   ローパス出力のゲインです。
 
 ## チェンジログ
+- 0.1.7
+  - 2 つ以上のインスタンスの FIR フィルタが同時にリフレッシュされたときにクラッシュするバグを修正。
 - 0.1.6
   - CPU 負荷のスパイクを低減するために畳み込みのアルゴリズムを変更。
 - 0.1.5
