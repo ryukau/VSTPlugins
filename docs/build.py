@@ -28,6 +28,10 @@ def get_last_modified(md):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-r", "--rebuild", action='store_true', help="rebuild all file")
+    parser.add_argument("-t",
+                        "--today",
+                        action='store_true',
+                        help="use timestamp of today")
     args = parser.parse_args()
 
     md_info = read_build_info(args.rebuild)
@@ -57,7 +61,7 @@ if __name__ == "__main__":
         if index_relpath == "index.html":
             index_relpath = ""
 
-        last_modified = get_last_modified(md)
+        last_modified = time.strftime("%F") if args.today else get_last_modified(md)
 
         subprocess.run([
             "pandoc",
