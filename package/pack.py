@@ -47,6 +47,10 @@ def create_archive_from_github_actions_artifact():
 
     for dsym in pack_dir.glob("*.dSYM"):
         shutil.rmtree(dsym)
+    for desktop_ini in pack_dir.glob("**/desktop.ini"):
+        desktop_ini.unlink(desktop_ini)
+    for plugin_ico in pack_dir.glob("**/PlugIn.ico"):
+        plugin_ico.unlink(plugin_ico)
 
     missing_on_mac_os = get_missing_on_mac_os()
 
@@ -56,10 +60,10 @@ def create_archive_from_github_actions_artifact():
         manual_name = (plugin_name
                        if not plugin_name in manual_dict else manual_dict[plugin_name])
 
-        # # Do not make package if a plugin doesn't have manual.
-        # if not Path(f"../docs/manual/{manual_name}").exists():
-        #     print(f"Skipping {plugin_name}: manual not found")
-        #     continue
+        # Do not make package if a plugin doesn't have manual.
+        if not Path(f"../docs/manual/{manual_name}").exists():
+            print(f"Skipping {plugin_name}: manual not found")
+            continue
 
         copy_resource(
             Path(f"../docs/manual/{manual_name}"),
