@@ -1,4 +1,4 @@
-// (c) 2020-2021 Takamitsu Endo
+// (c) 2021 Takamitsu Endo
 //
 // This file is part of Uhhyou Plugins.
 //
@@ -15,26 +15,27 @@
 // You should have received a copy of the GNU General Public License
 // along with Uhhyou Plugins.  If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#define SET_PARAMETERS dsp->setParameters(tempo);
 
-#include <cmath>
+#include "../../test/synthtester.hpp"
+#include "../source/dsp/dspcore.hpp"
 
-namespace SomeDSP {
+// CMake provides this macro, but just in case.
+#ifndef UHHYOU_PLUGIN_NAME
+  #define UHHYOU_PLUGIN_NAME "PluckSynth"
+#endif
 
-constexpr double halfpi = 1.57079632679489661923;
-constexpr double pi = 3.14159265358979323846;
-constexpr double twopi = 6.28318530717958647692;
+#define OUT_DIR_PATH "snd/" UHHYOU_PLUGIN_NAME
 
-constexpr double halfSqrt2 = 0.7071067811865476;
-
-template<typename T> inline T noteToFreq(T note)
+int main()
 {
-  return T(440) * std::exp2((note - 69) / T(12));
-}
+#ifdef __linux__
+  SynthTesterSimdRuntimeDispatch<DSPInterface, DSPCore_AVX512, DSPCore_AVX2, DSPCore_AVX>
+    tester(UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
+#else
+  SynthTesterSimdRuntimeDispatch<DSPInterface, DSPCore_AVX2, DSPCore_AVX> tester(
+    UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
+#endif
 
-template<typename T> inline T freqToNote(T freq)
-{
-  return T(69) + T(12) * std::log2(freq / T(440));
+  return tester.isFinished ? EXIT_SUCCESS : EXIT_FAILURE;
 }
-
-} // namespace SomeDSP

@@ -50,12 +50,11 @@ public:
 };
 
 template<typename Sample> class DoubleEMAFilter {
-private:
+public:
   Sample kp = Sample(1);
   Sample v1 = 0;
   Sample v2 = 0;
 
-public:
   void reset(Sample value = 0)
   {
     v1 = value;
