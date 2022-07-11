@@ -62,7 +62,6 @@ public:
   void reset()
   {
     refreshCounter = 0;
-    output.fill({});
 
     refreshTable(0);
     refreshTable(1);
@@ -223,7 +222,14 @@ template<typename Sample> struct LFOPhase {
 
 template<typename Sample> struct EnvelopePhase {
   Sample delta = 0; // 1 / (sampleRate * timeInSecond).
-  Sample process() { return std::min(phase + delta, Sample(1)); }
+  Sample phase = 0;
+
+  Sample process()
+  {
+    if (phase >= Sample(1)) return Sample(1);
+    phase += delta;
+    return std::min(phase, Sample(1));
+  }
 };
 
 } // namespace SomeDSP

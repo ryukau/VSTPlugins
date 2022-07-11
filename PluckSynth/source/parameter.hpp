@@ -48,6 +48,7 @@ enum ID {
   equalTemperament,
   pitchA4Hz,
   pitchBend,
+  pitchBendRange,
 
   gain,
   gateRelease,
@@ -119,6 +120,8 @@ struct Scales {
   static SomeDSP::UIntScale<double> milli;
   static SomeDSP::UIntScale<double> equalTemperament;
   static SomeDSP::UIntScale<double> pitchA4Hz;
+  static SomeDSP::LinearScale<double> pitchBend;
+  static SomeDSP::LinearScale<double> pitchBendRange;
 
   static SomeDSP::DecibelScale<double> gain;
   static SomeDSP::DecibelScale<double> gateRelease;
@@ -187,7 +190,10 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::pitchA4Hz] = std::make_unique<UIntValue>(
       340, Scales::pitchA4Hz, "pitchA4Hz", Info::kCanAutomate);
     value[ID::pitchBend] = std::make_unique<LinearValue>(
-      0.5, Scales::defaultScale, "pitchBend", Info::kCanAutomate);
+      0.5, Scales::pitchBend, "pitchBend", Info::kCanAutomate);
+    value[ID::pitchBendRange] = std::make_unique<LinearValue>(
+      Scales::pitchBendRange.invmap(2.0), Scales::pitchBendRange, "pitchBendRange",
+      Info::kCanAutomate);
 
     value[ID::gain] = std::make_unique<DecibelValue>(
       Scales::gain.invmapDB(0.0), Scales::gain, "gain", Info::kCanAutomate);

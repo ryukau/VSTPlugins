@@ -177,6 +177,7 @@ bool Editor::prepareUI()
   constexpr auto tuningTop3 = tuningTop2 + labelY;
   constexpr auto tuningTop4 = tuningTop3 + labelY;
   constexpr auto tuningTop5 = tuningTop4 + labelY;
+  constexpr auto tuningTop6 = tuningTop5 + labelY;
   addGroupLabel(
     tuningLeft0, tuningTop0, 2 * labelWidth, labelHeight, midTextSize, "Tuning");
 
@@ -207,10 +208,15 @@ bool Editor::prepareUI()
     tuningLeft1, tuningTop5, labelWidth, labelHeight, uiTextSize, ID::pitchA4Hz,
     Scales::pitchA4Hz, false, 0, 100);
 
+  addLabel(tuningLeft0, tuningTop6, labelWidth, labelHeight, uiTextSize, "P.Bend Range");
+  addTextKnob(
+    tuningLeft1, tuningTop6, labelWidth, labelHeight, uiTextSize, ID::pitchBendRange,
+    Scales::pitchBendRange, false, 5);
+
   // Unison.
   constexpr auto unisonLeft0 = tuningLeft0;
   constexpr auto unisonLeft1 = unisonLeft0 + labelWidth;
-  constexpr auto unisonTop0 = tuningTop5 + labelY;
+  constexpr auto unisonTop0 = tuningTop6 + labelY;
   constexpr auto unisonTop1 = unisonTop0 + labelY;
   constexpr auto unisonTop2 = unisonTop1 + labelY;
   constexpr auto unisonTop3 = unisonTop2 + labelY;

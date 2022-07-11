@@ -32,6 +32,8 @@ UIntScale<double> Scales::semitone(168);
 UIntScale<double> Scales::milli(2000);
 UIntScale<double> Scales::equalTemperament(119);
 UIntScale<double> Scales::pitchA4Hz(900);
+LinearScale<double> Scales::pitchBend(-1.0, 1.0);
+LinearScale<double> Scales::pitchBendRange(0.0, 120.0);
 
 DecibelScale<double> Scales::gain(-60.0, 60.0, true);
 DecibelScale<double> Scales::gateRelease(-80.0, 40, false);

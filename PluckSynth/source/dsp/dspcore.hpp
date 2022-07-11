@@ -53,41 +53,42 @@ inline float noteToPitch(float note, float equalTemperament = 12.0f)
 
 enum class NoteState { active, release, rest };
 
-#define NOTE_PROCESS_INFO_SMOOTHER(METHOD)                                               \
-  lfo.interpType = pv[ID::lfoInterpolation]->getInt();                                   \
-  for (size_t idx = 0; idx < nLfoWavetable; ++idx) {                                     \
-    lfo.source[idx + 1] = pv[ID::lfoWavetable0 + idx]->getFloat();                       \
-  }                                                                                      \
-                                                                                         \
-  fdnEnable = pv[ID::fdnEnable]->getInt();                                               \
-                                                                                         \
-  oscNoteOffsetRate = SmootherCommon<float>::timeInSamples >= 1                          \
-    ? minOscNoteOffsetRate / SmootherCommon<float>::timeInSamples                        \
-    : minOscNoteOffsetRate;                                                              \
-                                                                                         \
-  eqTemp = pv[ID::equalTemperament]->getFloat() + float(1);                              \
-  auto semitone = int_fast32_t(pv[ID::semitone]->getInt()) - 120;                        \
-  auto octave = int_fast32_t(pv[ID::octave]->getInt()) - 12;                             \
-  auto milli = float(0.001) * (int_fast32_t(pv[ID::milli]->getInt()) - 1000);            \
-  auto a4Hz = pv[ID::pitchA4Hz]->getFloat() + float(100);                                \
-  auto oscOctave = int_fast32_t(pv[ID::oscOctave]->getInt()) - 12;                       \
-  auto oscFinePitch = pv[ID::oscFinePitch]->getFloat();                                  \
-  auto centerPitch = std::log2(a4Hz / float(440));                                       \
-  oscNoteOffset.METHOD(                                                                  \
-    float(12)                                                                            \
-    * (centerPitch + oscOctave + octave + (oscFinePitch + semitone + milli) / eqTemp));  \
-  fdnFreqOffset.METHOD(                                                                  \
-    a4Hz *calcNotePitch(eqTemp *octave + semitone + milli + float(69), eqTemp));         \
-                                                                                         \
-  fdnOvertoneOffset.METHOD(pv[ID::fdnOvertoneOffset]->getFloat());                       \
-  fdnOvertoneMul.METHOD(pv[ID::fdnOvertoneMul]->getFloat());                             \
-  fdnOvertoneAdd.METHOD(pv[ID::fdnOvertoneAdd]->getFloat());                             \
-  fdnLowpassQ.METHOD(pv[ID::lowpassQ]->getFloat());                                      \
-  fdnHighpassQ.METHOD(pv[ID::highpassQ]->getFloat());                                    \
-  fdnFeedback.METHOD(pv[ID::fdnFeedback]->getFloat());                                   \
-  lfoToOscPitchAmount.METHOD(pv[ID::lfoToOscPitchAmount]->getFloat());                   \
-  lfoToFdnPitchAmount.METHOD(pv[ID::lfoToFdnPitchAmount]->getFloat());                   \
-  lfoToOscPitchAlignment = pv[ID::lfoToOscPitchAlignment]->getFloat();                   \
+#define NOTE_PROCESS_INFO_SMOOTHER(METHOD)                                                          \
+  lfo.interpType = pv[ID::lfoInterpolation]->getInt();                                              \
+  for (size_t idx = 0; idx < nLfoWavetable; ++idx) {                                                \
+    lfo.source[idx + 1] = pv[ID::lfoWavetable0 + idx]->getFloat();                                  \
+  }                                                                                                 \
+                                                                                                    \
+  fdnEnable = pv[ID::fdnEnable]->getInt();                                                          \
+                                                                                                    \
+  oscNoteOffsetRate = SmootherCommon<float>::timeInSamples >= 1                                     \
+    ? minOscNoteOffsetRate / SmootherCommon<float>::timeInSamples                                   \
+    : minOscNoteOffsetRate;                                                                         \
+                                                                                                    \
+  eqTemp = pv[ID::equalTemperament]->getFloat() + float(1);                                         \
+  auto semitone = int_fast32_t(pv[ID::semitone]->getInt()) - 120;                                   \
+  auto octave = int_fast32_t(pv[ID::octave]->getInt()) - 12;                                        \
+  auto milli = float(0.001) * (int_fast32_t(pv[ID::milli]->getInt()) - 1000);                       \
+  auto a4Hz = pv[ID::pitchA4Hz]->getFloat() + float(100);                                           \
+  auto pitchBend = pv[ID::pitchBendRange]->getFloat() * pv[ID::pitchBend]->getFloat();              \
+  auto oscOctave = int_fast32_t(pv[ID::oscOctave]->getInt()) - 12;                                  \
+  auto oscFinePitch = pv[ID::oscFinePitch]->getFloat();                                             \
+  auto centerPitch = std::log2(a4Hz / float(440));                                                  \
+  oscNoteOffset.METHOD(                                                                             \
+    float(12)                                                                                       \
+    * (centerPitch + oscOctave + octave + (oscFinePitch + semitone + milli + pitchBend) / eqTemp)); \
+  fdnFreqOffset.METHOD(a4Hz *calcNotePitch(                                                         \
+    eqTemp *octave + semitone + milli + pitchBend + float(69), eqTemp));                            \
+                                                                                                    \
+  fdnOvertoneOffset.METHOD(pv[ID::fdnOvertoneOffset]->getFloat());                                  \
+  fdnOvertoneMul.METHOD(pv[ID::fdnOvertoneMul]->getFloat());                                        \
+  fdnOvertoneAdd.METHOD(pv[ID::fdnOvertoneAdd]->getFloat());                                        \
+  fdnLowpassQ.METHOD(pv[ID::lowpassQ]->getFloat());                                                 \
+  fdnHighpassQ.METHOD(pv[ID::highpassQ]->getFloat());                                               \
+  fdnFeedback.METHOD(pv[ID::fdnFeedback]->getFloat());                                              \
+  lfoToOscPitchAmount.METHOD(pv[ID::lfoToOscPitchAmount]->getFloat());                              \
+  lfoToFdnPitchAmount.METHOD(pv[ID::lfoToFdnPitchAmount]->getFloat());                              \
+  lfoToOscPitchAlignment = pv[ID::lfoToOscPitchAlignment]->getFloat();                              \
   lfoToFdnPitchAlignment = pv[ID::lfoToFdnPitchAlignment]->getFloat();
 
 struct NoteProcessInfo {
