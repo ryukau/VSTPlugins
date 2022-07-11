@@ -1,8 +1,4 @@
-// Original by:
-// (c) 2018, Steinberg Media Technologies GmbH, All Rights Reserved
-//
-// Modified by:
-// (c) 2021 Takamitsu Endo
+// (c) 2022 Takamitsu Endo
 //
 // This file is part of PluckSynth.
 //
@@ -86,7 +82,7 @@ uint32 PLUGIN_API PlugProcessor::getProcessContextRequirements()
 {
   using Rq = Vst::IProcessContextRequirements;
 
-  return Rq::kNeedTransportState;
+  return Rq::kNeedProjectTimeMusic & Rq::kNeedTempo & Rq::kNeedTransportState;
 }
 
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
@@ -103,7 +99,6 @@ tresult PLUGIN_API PlugProcessor::setActive(TBool state)
     dsp->setup(processSetup.sampleRate);
   } else {
     dsp->reset();
-    lastState = 0;
   }
   return AudioEffect::setActive(state);
 }
@@ -127,18 +122,21 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
     }
   }
 
-  if (data.processContext != nullptr) {
-    uint64_t state = data.processContext->state;
-    if (
-      (lastState & Vst::ProcessContext::kPlaying) == 0
-      && (state & Vst::ProcessContext::kPlaying) != 0)
-    {
-      dsp->startup();
-    }
-    lastState = state;
-    tempo = data.processContext->tempo;
+  if (data.processContext == nullptr) return kResultOk;
+
+  uint64_t state = data.processContext->state;
+  if (state & Vst::ProcessContext::kTempoValid) {
+    dsp->tempo = float(data.processContext->tempo);
   }
-  dsp->setParameters(tempo);
+  if (state & Vst::ProcessContext::kProjectTimeMusicValid) {
+    dsp->beatsElapsed = data.processContext->projectTimeMusic;
+  }
+  if (!dsp->isPlaying && (state & Vst::ProcessContext::kPlaying) != 0) {
+    dsp->startup();
+  }
+  dsp->isPlaying = state & Vst::ProcessContext::kPlaying;
+
+  dsp->setParameters();
 
   if (data.numOutputs == 0) return kResultOk;
   if (data.numSamples <= 0) return kResultOk;
@@ -164,9 +162,6 @@ void PlugProcessor::handleEvent(Vst::ProcessData &data)
     if (data.inputEvents->getEvent(index, event) != kResultOk) continue;
     switch (event.type) {
       case Vst::Event::kNoteOnEvent: {
-        // List of DAW that don't support note ID. Probably more.
-        // - Ableton Live 10.1.6
-        // - PreSonus Studio One 4.6.1
         auto noteId
           = event.noteOn.noteId == -1 ? event.noteOn.pitch : event.noteOn.noteId;
         dsp->pushMidiNote(

@@ -36,8 +36,8 @@ constexpr float knobX = 60.0f; // With margin.
 constexpr float knobY = knobHeight + labelY;
 constexpr float barboxWidth = 4 * labelWidth;
 constexpr float barboxHeight = 200.0f;
-constexpr float innerWidth = 12 * labelWidth + 10 * margin;
-constexpr float innerHeight = 15 * labelY + 2 * knobY + 14 * margin;
+constexpr float innerWidth = 16 * labelWidth + 10 * margin;
+constexpr float innerHeight = 28 * labelY;
 constexpr uint32_t defaultWidth = uint32_t(innerWidth + 2 * uiMargin);
 constexpr uint32_t defaultHeight = uint32_t(innerHeight + 2 * uiMargin);
 
@@ -97,6 +97,8 @@ bool Editor::prepareUI()
   constexpr auto fdnTop10 = fdnTop9 + labelY;
   constexpr auto fdnTop11 = fdnTop10 + labelY;
   constexpr auto fdnTop12 = fdnTop11 + labelY;
+  constexpr auto fdnTop13 = fdnTop12 + labelY;
+  constexpr auto fdnTop14 = fdnTop13 + labelY;
   addToggleButton(
     fdnLeft0, fdnTop0, 2 * labelWidth, labelHeight, midTextSize, "FDN", ID::fdnEnable);
 
@@ -149,12 +151,21 @@ bool Editor::prepareUI()
     fdnLeft1, fdnTop10, labelWidth, labelHeight, uiTextSize, ID::fdnOvertoneOffset,
     Scales::fdnOvertoneOffset, false, 5);
 
-  addLabel(fdnLeft0, fdnTop11, labelWidth, labelHeight, uiTextSize, "Seed");
+  addLabel(fdnLeft0, fdnTop11, labelWidth, labelHeight, uiTextSize, "Interp. Rate");
   addTextKnob(
-    fdnLeft1, fdnTop11, labelWidth, labelHeight, uiTextSize, ID::fdnSeed, Scales::seed,
+    fdnLeft1, fdnTop11, labelWidth, labelHeight, uiTextSize, ID::fdnInterpRate,
+    Scales::fdnInterpRate, false, 5);
+  addLabel(fdnLeft0, fdnTop12, labelWidth, labelHeight, uiTextSize, "Interp. LP [s]");
+  addTextKnob(
+    fdnLeft1, fdnTop12, labelWidth, labelHeight, uiTextSize, ID::fdnInterpLowpassSecond,
+    Scales::fdnInterpLowpassSecond, false, 5);
+
+  addLabel(fdnLeft0, fdnTop13, labelWidth, labelHeight, uiTextSize, "Seed");
+  addTextKnob(
+    fdnLeft1, fdnTop13, labelWidth, labelHeight, uiTextSize, ID::fdnSeed, Scales::seed,
     false, 0);
   addCheckbox(
-    fdnLeft0, fdnTop12, 2 * labelWidth, labelHeight, uiTextSize, "Fixed Seed",
+    fdnLeft0, fdnTop14, 2 * labelWidth, labelHeight, uiTextSize, "Fixed Seed",
     ID::fdnFixedSeed);
 
   // Tuning.
@@ -300,7 +311,6 @@ bool Editor::prepareUI()
   // Overtone.
   constexpr auto overtoneLeft0 = oscLeft1 + labelWidth + 2 * margin;
   constexpr auto overtoneTop0 = top0;
-  constexpr auto overtoneTop1 = overtoneTop0 + barboxHeight + 2 * margin;
 
   auto barboxOscOvertone = addBarBox(
     overtoneLeft0, overtoneTop0, barboxWidth, barboxHeight, ID::oscOvertone0,
@@ -308,6 +318,75 @@ bool Editor::prepareUI()
   if (barboxOscOvertone) {
     barboxOscOvertone->sliderZero = 0.5f;
   }
+
+  const auto lfoTop0 = overtoneTop0 + barboxHeight + 2 * margin;
+  const auto lfoTop1 = lfoTop0 + labelY;
+  const auto lfoTop2 = lfoTop1 + labelY;
+  const auto lfoTop3 = lfoTop2 + labelY;
+  const auto lfoTop4 = lfoTop3 + labelY;
+  const auto lfoTop5 = lfoTop4 + labelY;
+
+  const auto lfoLeft0 = overtoneLeft0;
+  const auto lfoLeft1 = lfoLeft0 + labelWidth + margin;
+  const auto lfoLeft2 = lfoLeft1 + labelWidth + margin;
+  const auto lfoLeft3 = lfoLeft2 + labelWidth + margin;
+  const auto lfoLeft4 = lfoLeft3 + labelWidth + margin;
+  const auto lfoLeft5 = lfoLeft4 + labelWidth + margin;
+  const auto lfoLeft6 = lfoLeft5 + labelWidth + margin;
+
+  addGroupLabel(
+    lfoLeft0, lfoTop0, 2 * labelWidth + 4 * margin, labelHeight, uiTextSize, "LFO");
+
+  addCheckbox(
+    lfoLeft0 + knobWidth / 2, lfoTop2, knobWidth, labelHeight, uiTextSize, "Sync.",
+    ID::lfoTempoSync);
+  addTextKnob(
+    lfoLeft1, lfoTop1 + 4 * margin, knobWidth, labelHeight, uiTextSize, ID::lfoTempoUpper,
+    Scales::lfoTempoUpper, false, 0, 1);
+  addTextKnob(
+    lfoLeft1, lfoTop3 - 4 * margin, knobWidth, labelHeight, uiTextSize, ID::lfoTempoLower,
+    Scales::lfoTempoLower, false, 0, 1);
+
+  addLabel(lfoLeft2, lfoTop1, labelWidth, labelHeight, uiTextSize, "Rate", kCenterText);
+  addTextKnob(
+    lfoLeft3, lfoTop1, labelWidth, labelHeight, uiTextSize, ID::lfoRate, Scales::lfoRate,
+    false, 5);
+
+  addLabel(lfoLeft2, lfoTop2, labelWidth, labelHeight, uiTextSize, "Wave Interp.");
+  std::vector<std::string> lfoInterpolationItems{"Step", "Linear", "PCHIP"};
+  addOptionMenu(
+    lfoLeft3, lfoTop2, labelWidth, labelHeight, uiTextSize, ID::lfoInterpolation,
+    lfoInterpolationItems);
+
+  auto barboxLfoWavetable = addBarBox(
+    lfoLeft0, lfoTop4, barboxWidth, barboxHeight, ID::lfoWavetable0, nLfoWavetable,
+    Scales::lfoWavetable, "LFO Wave");
+  if (barboxLfoWavetable) {
+    barboxLfoWavetable->sliderZero = 0.5f;
+  }
+
+  addLabel(lfoLeft4, lfoTop2, labelWidth, labelHeight, uiTextSize, "To Osc. Pitch");
+  addLabel(lfoLeft4, lfoTop3, labelWidth, labelHeight, uiTextSize, "To FDN Pitch");
+
+  addLabel(lfoLeft5, lfoTop1, labelWidth, labelHeight, uiTextSize, "Amount");
+  addTextKnob(
+    lfoLeft5, lfoTop2, labelWidth, labelHeight, uiTextSize, ID::lfoToOscPitchAmount,
+    Scales::lfoToPitchAmount, false, 5);
+  addTextKnob<Style::warning>(
+    lfoLeft5, lfoTop3, labelWidth, labelHeight, uiTextSize, ID::lfoToFdnPitchAmount,
+    Scales::lfoToPitchAmount, false, 5);
+
+  addLabel(lfoLeft6, lfoTop1, labelWidth, labelHeight, uiTextSize, "Alignment");
+  addTextKnob(
+    lfoLeft6, lfoTop2, labelWidth, labelHeight, uiTextSize, ID::lfoToOscPitchAlignment,
+    Scales::lfoToPitchAlignment, false, 0);
+  addTextKnob(
+    lfoLeft6, lfoTop3, labelWidth, labelHeight, uiTextSize, ID::lfoToFdnPitchAlignment,
+    Scales::lfoToPitchAlignment, false, 0);
+
+  addCheckbox(
+    lfoLeft4, lfoTop4, labelWidth, labelHeight, uiTextSize, "Retrigger",
+    ID::lfoRetrigger);
 
   // Plugin name.
   const auto splashTop = innerHeight - splashHeight + uiMargin;

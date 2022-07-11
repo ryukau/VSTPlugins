@@ -101,7 +101,7 @@ template<typename Sample, size_t nOvertone> class Wavetable {
 private:
   static constexpr Sample bendRange = Sample(1.7320508075688772935); // sqrt(3).
   static constexpr Sample baseFreq
-    = Sample(10.0); // Lowest frequency without loss of harmonics.
+    = Sample(0.5); // Lowest frequency without loss of harmonics.
 
   Sample basenote = Sample(0);
   Sample interval = Sample(12);
@@ -131,17 +131,17 @@ private:
     }
 
     // Blur with bidirectional filtering. `param.blur` is EMA filter coefficient.
-    // if (param.blur < Sample(1) && param.power.size() >= 2) {
-    auto value = param.power[1];
-    for (size_t k = 1; k < param.power.size(); ++k) {
-      value += param.blur * (param.power[k] - value);
-      param.power[k] = value;
+    if (param.blur < Sample(1) && param.power.size() >= 2) {
+      auto value = param.power[1];
+      for (size_t k = 1; k < param.power.size(); ++k) {
+        value += param.blur * (param.power[k] - value);
+        param.power[k] = value;
+      }
+      for (size_t k = param.power.size() - 1; k > 0; --k) {
+        value += param.blur * (param.power[k] - value);
+        param.power[k] = value;
+      }
     }
-    // for (size_t k = param.power.size() - 1; k > 0; --k) {
-    //   value += param.blur * (param.power[k] - value);
-    //   param.power[k] = value;
-    // }
-    // }
 
     // Highpass.
     for (size_t k = 1; k <= param.highpassIndex; ++k) {

@@ -17,6 +17,8 @@
 
 #pragma once
 
+#include "../../../common/dsp/smoother.hpp"
+
 #include <algorithm>
 #include <cmath>
 #include <limits>
@@ -285,6 +287,32 @@ public:
 
     return gain * v2_A * v2_D;
   }
+};
+
+template<typename Sample> class NoteGate {
+private:
+  Sample signal = 0;
+  DoubleEMAFilter<Sample> filter;
+
+public:
+  void reset()
+  {
+    signal = Sample(1);
+    filter.reset(Sample(1));
+    filter.kp = Sample(0);
+  }
+
+  void prepare(Sample sampleRate, Sample seconds)
+  {
+    if (seconds < std::numeric_limits<Sample>::epsilon())
+      filter.kp = Sample(1);
+    else
+      filter.setCutoff(sampleRate, Sample(1) / seconds);
+  }
+
+  void release() { signal = Sample(0); }
+
+  Sample process() { return filter.process(signal); }
 };
 
 } // namespace SomeDSP

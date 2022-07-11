@@ -41,7 +41,7 @@ List of `type`.
 - 4: Peak
 - 5: AP
 */
-template<typename Sample, size_t type> class SVF {
+template<typename Sample, size_t type> class GenericSVF {
 private:
   Sample ic1eq = Sample(0);
   Sample ic2eq = Sample(0);
@@ -50,7 +50,7 @@ private:
   Sample k = 0;
 
 public:
-  SVF() { static_assert(type <= 5, "SVF type must be less than or equal to 5."); }
+  GenericSVF() { static_assert(type <= 5, "SVF type must be less than or equal to 5."); }
 
   // normalizedFreq = cutoffHz / sampleRate.
   void setup(Sample normalizedFreq, Sample Q)
@@ -92,24 +92,49 @@ public:
   }
 };
 
-template<typename Sample, size_t type, size_t nCascade> class CascadeSVF {
-public:
-  std::array<SVF<Sample, type>, nCascade> svf;
+template<typename Sample, size_t length> class ParallelSVF {
+private:
+  std::array<Sample, length> ic1eq{};
+  std::array<Sample, length> ic2eq{};
 
-  void setup(Sample normalizedFreq, Sample Q)
+  Sample g = 0;
+  Sample k = 0;
+  Sample denom = Sample(1);
+
+public:
+  void setCutoff(Sample normalizedFreq, Sample Q)
   {
-    for (auto &filt : svf) filt.setup(normalizedFreq, Q);
+    g = std::tan(normalizedFreq * Sample(pi));
+    k = Sample(1) / Q;
+    denom = Sample(1) / (Sample(1) + g * (g + k));
   }
 
   void reset()
   {
-    for (auto &filt : svf) filt.reset();
+    ic1eq.fill(0);
+    ic2eq.fill(0);
   }
 
-  Sample process(Sample v0)
+  void lowpass(std::array<Sample, length> &v0)
   {
-    for (auto &filt : svf) v0 = filt.process(v0);
-    return v0;
+    for (size_t n = 0; n < length; ++n) {
+      auto v1 = (ic1eq[n] + g * (v0[n] - ic2eq[n])) * denom;
+      auto v2 = ic2eq[n] + g * v1;
+      ic1eq[n] = Sample(2) * v1 - ic1eq[n];
+      ic2eq[n] = Sample(2) * v2 - ic2eq[n];
+      v0[n] = v2;
+    }
+  }
+
+  void highpass(std::array<Sample, length> &v0)
+  {
+    for (size_t n = 0; n < length; ++n) {
+      auto v1 = (ic1eq[n] + g * (v0[n] - ic2eq[n])) * denom;
+      auto v2 = ic2eq[n] + g * v1;
+      ic1eq[n] = Sample(2) * v1 - ic1eq[n];
+      ic2eq[n] = Sample(2) * v2 - ic2eq[n];
+      v0[n] -= k * v1 + v2;
+    }
   }
 };
 

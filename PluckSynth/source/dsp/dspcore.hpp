@@ -28,6 +28,7 @@
 #include "../parameter.hpp"
 #include "envelope.hpp"
 #include "fdn.hpp"
+#include "lfo.hpp"
 #include "oscillator.hpp"
 
 #include <array>
@@ -38,37 +39,86 @@
 using namespace SomeDSP;
 using namespace Steinberg::Synth;
 
-constexpr float minNoteOffsetRate = float(9.5); // ~= 12 * log2(sqrt(3)).
+constexpr float minOscNoteOffsetRate = float(9.5); // ~= 12 * log2(sqrt(3)).
+
+inline float calcNotePitch(float note, float equalTemperament = 12.0f)
+{
+  return std::exp2((note - 69.0f) / equalTemperament);
+}
+
+inline float noteToPitch(float note, float equalTemperament = 12.0f)
+{
+  return std::exp2(note / equalTemperament);
+}
 
 enum class NoteState { active, release, rest };
 
-// TODO: 12 * Math.log2(440 / a4Hz);
 #define NOTE_PROCESS_INFO_SMOOTHER(METHOD)                                               \
+  lfo.interpType = pv[ID::lfoInterpolation]->getInt();                                   \
+  for (size_t idx = 0; idx < nLfoWavetable; ++idx) {                                     \
+    lfo.source[idx + 1] = pv[ID::lfoWavetable0 + idx]->getFloat();                       \
+  }                                                                                      \
+                                                                                         \
   fdnEnable = pv[ID::fdnEnable]->getInt();                                               \
                                                                                          \
-  noteOffsetRate = SmootherCommon<float>::timeInSamples >= 1                             \
-    ? minNoteOffsetRate / SmootherCommon<float>::timeInSamples                           \
-    : minNoteOffsetRate;                                                                 \
+  oscNoteOffsetRate = SmootherCommon<float>::timeInSamples >= 1                          \
+    ? minOscNoteOffsetRate / SmootherCommon<float>::timeInSamples                        \
+    : minOscNoteOffsetRate;                                                              \
                                                                                          \
-  auto eqTemp = pv[ID::equalTemperament]->getFloat() + 1;                                \
+  eqTemp = pv[ID::equalTemperament]->getFloat() + float(1);                              \
   auto semitone = int_fast32_t(pv[ID::semitone]->getInt()) - 120;                        \
   auto octave = int_fast32_t(pv[ID::octave]->getInt()) - 12;                             \
-  auto milli = 0.001f * (int_fast32_t(pv[ID::milli]->getInt()) - 1000);                  \
-  auto a4Hz = pv[ID::pitchA4Hz]->getFloat() + 100;                                       \
+  auto milli = float(0.001) * (int_fast32_t(pv[ID::milli]->getInt()) - 1000);            \
+  auto a4Hz = pv[ID::pitchA4Hz]->getFloat() + float(100);                                \
+  auto oscOctave = int_fast32_t(pv[ID::oscOctave]->getInt()) - 12;                       \
+  auto oscFinePitch = pv[ID::oscFinePitch]->getFloat();                                  \
   auto centerPitch = std::log2(a4Hz / float(440));                                       \
-  noteOffset.METHOD(float(12) * (octave + (semitone + milli) / eqTemp + centerPitch));   \
+  oscNoteOffset.METHOD(                                                                  \
+    float(12)                                                                            \
+    * (centerPitch + oscOctave + octave + (oscFinePitch + semitone + milli) / eqTemp));  \
+  fdnFreqOffset.METHOD(                                                                  \
+    a4Hz *calcNotePitch(eqTemp *octave + semitone + milli + float(69), eqTemp));         \
                                                                                          \
-  fdnFeedback.METHOD(pv[ID::fdnFeedback]->getFloat());
+  fdnOvertoneOffset.METHOD(pv[ID::fdnOvertoneOffset]->getFloat());                       \
+  fdnOvertoneMul.METHOD(pv[ID::fdnOvertoneMul]->getFloat());                             \
+  fdnOvertoneAdd.METHOD(pv[ID::fdnOvertoneAdd]->getFloat());                             \
+  fdnLowpassQ.METHOD(pv[ID::lowpassQ]->getFloat());                                      \
+  fdnHighpassQ.METHOD(pv[ID::highpassQ]->getFloat());                                    \
+  fdnFeedback.METHOD(pv[ID::fdnFeedback]->getFloat());                                   \
+  lfoToOscPitchAmount.METHOD(pv[ID::lfoToOscPitchAmount]->getFloat());                   \
+  lfoToFdnPitchAmount.METHOD(pv[ID::lfoToFdnPitchAmount]->getFloat());                   \
+  lfoToOscPitchAlignment = pv[ID::lfoToOscPitchAlignment]->getFloat();                   \
+  lfoToFdnPitchAlignment = pv[ID::lfoToFdnPitchAlignment]->getFloat();
 
 struct NoteProcessInfo {
   pcg64 rng;
   pcg64 fdnRng;
   Wavetable<float, oscOvertoneSize> wavetable;
 
+  TableLFO<float, nLfoWavetable, 1024> lfo;
+  TableLFO<float, nLfoWavetable, 1024> envelope;
+  LightTempoSynchronizer<float> synchronizer;
+  float lfoPhase = 0;
+
   bool fdnEnable = true;
-  float noteOffsetRate = 1.0f;
-  RateLimiter<float> noteOffset; // In 12ET semitones.
+  float oscNoteOffsetRate = 1.0f;
+  float eqTemp = float(12);
+  float lfoToOscPitchAlignment = float(1);
+  float lfoToFdnPitchAlignment = float(1);
+
+  RateLimiter<float> oscNoteOffset; // In 12ET semitones.
+  ExpSmoother<float> fdnFreqOffset;
+  ExpSmoother<float> fdnOvertoneOffset;
+  ExpSmoother<float> fdnOvertoneMul;
+  ExpSmoother<float> fdnOvertoneAdd;
+  ExpSmoother<float> fdnLowpassQ;
+  ExpSmoother<float> fdnHighpassQ;
   ExpSmoother<float> fdnFeedback;
+  ExpSmoother<float> lfoToOscPitchAmount;
+  ExpSmoother<float> lfoToFdnPitchAmount;
+
+  enum lfoIndex { lfoToOscPitch, lfoToFdnPitch };
+  std::array<float, 2> lfoOutput;
 
   void reset(GlobalParameter &param)
   {
@@ -77,6 +127,8 @@ struct NoteProcessInfo {
 
     rng.seed(9999991);
     fdnRng.seed(pv[ID::fdnSeed]->getInt());
+
+    lfoPhase = 0;
 
     NOTE_PROCESS_INFO_SMOOTHER(reset);
   }
@@ -91,8 +143,38 @@ struct NoteProcessInfo {
 
   void process()
   {
+    lfo.processRefresh();
+    envelope.processRefresh();
+
+    lfoPhase = synchronizer.process();
+
+    oscNoteOffset.process(oscNoteOffsetRate);
+
+    fdnFreqOffset.process();
+    fdnOvertoneOffset.process();
+    fdnOvertoneMul.process();
+    fdnOvertoneAdd.process();
+    fdnLowpassQ.process();
+    fdnHighpassQ.process();
     fdnFeedback.process();
-    noteOffset.process(noteOffsetRate);
+    lfoToOscPitchAmount.process();
+    lfoToFdnPitchAmount.process();
+  }
+
+  inline float alignModValue(float amount, float alignment, float value)
+  {
+    if (alignment == 0) return amount * value;
+    return alignment * std::floor(value * amount / alignment + 0.5f);
+  }
+
+  const auto &processLfo(float lfoValue)
+  {
+    lfoOutput[lfoToOscPitch] = float(12) / eqTemp
+      * alignModValue(lfoToOscPitchAmount.getValue(), lfoToOscPitchAlignment, lfoValue);
+    lfoOutput[lfoToFdnPitch] = noteToPitch(
+      alignModValue(lfoToFdnPitchAmount.getValue(), lfoToFdnPitchAlignment, lfoValue),
+      eqTemp);
+    return lfoOutput;
   }
 };
 
@@ -103,19 +185,25 @@ struct NoteProcessInfo {
                                                                                          \
     int_fast32_t id = -1;                                                                \
     float velocity = 0;                                                                  \
-    float noteFreq = 1;                                                                  \
+    float fdnPitch = 0;                                                                  \
     float oscNote = 0;                                                                   \
     float pan = 0.5f;                                                                    \
     float gain = 0;                                                                      \
     float releaseSwitch = 1.0f;                                                          \
                                                                                          \
+    ExpSmoother<float> fdnLowpassCutoff;  /* In normalized frequency. */                 \
+    ExpSmoother<float> fdnHighpassCutoff; /* In normalized frequency. */                 \
+                                                                                         \
     DoubleEmaADEnvelope<float> envelope;                                                 \
+    LFOPhase<float> lfoPhase;                                                            \
+    EnvelopePhase<float> modEnvelopePhase;                                               \
     TableOsc<float, oscOvertoneSize> osc;                                                \
     FeedbackDelayNetwork<float, fdnMatrixSize> fdn;                                      \
     NoteGate<float> gate;                                                                \
                                                                                          \
     void setup(float sampleRate);                                                        \
     void reset();                                                                        \
+    void setParameters(float sampleRate, NoteProcessInfo &info, GlobalParameter &param); \
     void noteOn(                                                                         \
       int_fast32_t noteId,                                                               \
       float notePitch,                                                                   \
@@ -145,11 +233,14 @@ public:
 
   constexpr static size_t maxVoice = maximumVoice;
   GlobalParameter param;
+  bool isPlaying = false;
+  float tempo = 120.0f;
+  double beatsElapsed = 0.0f;
 
   virtual void setup(double sampleRate) = 0;
   virtual void reset() = 0;   // Stop sounds.
   virtual void startup() = 0; // Reset phase, random seed etc.
-  virtual void setParameters(float tempo) = 0;
+  virtual void setParameters() = 0;
   virtual void process(const size_t length, float *out0, float *out1) = 0;
   virtual void
   noteOn(int_fast32_t noteId, int_fast16_t pitch, float tuning, float velocity)
@@ -184,7 +275,7 @@ public:
     void setup(double sampleRate) override;                                              \
     void reset() override;                                                               \
     void startup() override;                                                             \
-    void setParameters(float tempo) override;                                            \
+    void setParameters() override;                                                       \
     void process(const size_t length, float *out0, float *out1) override;                \
     void noteOn(                                                                         \
       int_fast32_t noteId, int_fast16_t pitch, float tuning, float velocity) override;   \
@@ -228,6 +319,8 @@ public:
     }                                                                                    \
                                                                                          \
   private:                                                                               \
+    float getTempoSyncInterval();                                                        \
+                                                                                         \
     static constexpr size_t upFold = 2;                                                  \
     bool prepareRefresh = true;                                                          \
     bool isWavetableRefeshed = false;                                                    \

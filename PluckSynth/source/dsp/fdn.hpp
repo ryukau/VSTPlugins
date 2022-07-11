@@ -18,7 +18,6 @@
 #pragma once
 
 #include "../../../common/dsp/constants.hpp"
-#include "../../../common/dsp/smoother.hpp"
 #include "../../../lib/pcg-cpp/pcg_random.hpp"
 #include "svf.hpp"
 
@@ -116,6 +115,77 @@ public:
   }
 };
 
+template<typename Sample, size_t length> class ParallelDelay {
+public:
+  std::array<Sample, length> targetTime{};
+  std::array<Sample, length> time{};
+  std::array<size_t, length> wptr{};
+  std::array<std::vector<Sample>, length> buffer;
+
+  Sample rate = Sample(0.25);
+  Sample kp = Sample(1);
+
+  void setup(Sample sampleRate, Sample maxTime)
+  {
+    auto size = size_t(sampleRate * maxTime) + 2;
+    for (auto &bf : buffer) bf.resize(size < 4 ? 4 : size);
+
+    reset();
+  }
+
+  void reset(Sample timeInSample = 0)
+  {
+    targetTime.fill(timeInSample);
+    time.fill(timeInSample);
+    for (auto &bf : buffer) std::fill(bf.begin(), bf.end(), Sample(0));
+  }
+
+  void setDelayTimeAt(size_t index, Sample sampleRate, Sample overtone, Sample noteFreq)
+  {
+    targetTime[index] = std::clamp(
+      sampleRate / overtone / noteFreq, Sample(0), Sample(buffer[index].size() - 1));
+  }
+
+  void resetDelayTimeAt(size_t index, Sample sampleRate, Sample overtone, Sample noteFreq)
+  {
+    setDelayTimeAt(index, sampleRate, overtone, noteFreq);
+    time[index] = targetTime[index];
+  }
+
+  void process(std::array<Sample, length> &input)
+  {
+    for (size_t idx = 0; idx < length; ++idx) {
+      // Interpolate delay time.
+      auto prevTime = time[idx];
+      time[idx] += kp * (targetTime[idx] - time[idx]);
+      auto diff = time[idx] - prevTime;
+      if (diff > rate) {
+        time[idx] = prevTime + rate;
+      } else if (diff < -rate) {
+        time[idx] = prevTime - rate;
+      }
+
+      // Set delay time.
+      size_t timeInt = size_t(time[idx]);
+      Sample rFraction = time[idx] - Sample(timeInt);
+
+      auto &buf = buffer[idx];
+
+      size_t rptr0 = wptr[idx] - timeInt;
+      size_t rptr1 = rptr0 - 1;
+      if (rptr0 >= buf.size()) rptr0 += buf.size(); // Unsigned negative overflow case.
+      if (rptr1 >= buf.size()) rptr1 += buf.size(); // Unsigned negative overflow case.
+
+      // Write to buffer.
+      buf[wptr[idx]] = input[idx];
+      if (++wptr[idx] >= buf.size()) wptr[idx] -= buf.size();
+
+      // Read from buffer.
+      input[idx] = buf[rptr0] + rFraction * (buf[rptr1] - buf[rptr0]);
+    }
+  }
+};
+
 /**
 If `length` is too long, compiler might silently fail to allocate stack.
 */
@@ -123,16 +193,12 @@ template<typename Sample, size_t length> class FeedbackDelayNetwork {
 private:
   std::array<std::array<Sample, length>, length> matrix{};
   std::array<std::array<Sample, length>, 2> buf{};
-  std::array<Delay<Sample>, length> delay;
-
   size_t bufIndex = 0;
 
 public:
-  Sample rate = Sample(1);
-  std::array<RateLimiter<Sample>, length> delayTimeSample;
-  // std::array<Sample, length> lowpassKp{};
-  std::array<SVF<Sample, 0>, length> lowpass;
-  std::array<SVF<Sample, 2>, length> highpass;
+  ParallelDelay<Sample, length> delay;
+  ParallelSVF<Sample, length> lowpass;
+  ParallelSVF<Sample, length> highpass;
 
   /**
   If `identityAmount` is close to 0, then the result becomes close to identity matrix.
@@ -178,11 +244,11 @@ public:
 
   void setup(Sample sampleRate, Sample maxTime)
   {
-    for (auto &dl : delay) dl.setup(sampleRate, maxTime);
+    delay.setup(sampleRate, maxTime);
 
     // Slightly below nyquist to prevent blow up.
-    for (auto &lp : lowpass) lp.setup(Sample(0.499), Sample(0.5));
-    for (auto &hp : highpass) hp.setup(Sample(5) / sampleRate, Sample(0.5));
+    lowpass.setCutoff(Sample(0.499), Sample(0.5));
+    highpass.setCutoff(Sample(5) / sampleRate, Sample(0.5));
 
     reset();
   }
@@ -190,9 +256,9 @@ public:
   void reset()
   {
     buf.fill({});
-    for (auto &dl : delay) dl.reset();
-    for (auto &lp : lowpass) lp.reset();
-    for (auto &hp : highpass) hp.reset();
+    delay.reset();
+    lowpass.reset();
+    highpass.reset();
   }
 
   Sample process(Sample input, Sample feedback)
@@ -205,42 +271,13 @@ public:
       for (size_t j = 0; j < length; ++j) front[i] += matrix[i][j] * back[j];
     }
 
-    for (size_t idx = 0; idx < length; ++idx) {
-      auto crossed = front[idx];
-      auto sig = input + feedback * crossed;
-      auto delayed = delay[idx].process(sig, delayTimeSample[idx].process(rate));
-      auto lowpassed = lowpass[idx].process(delayed);
-      front[idx] = highpass[idx].process(lowpassed);
-    }
+    for (size_t idx = 0; idx < length; ++idx) front[idx] = input + feedback * front[idx];
+    delay.process(front);
+    lowpass.lowpass(front);
+    highpass.highpass(front);
 
     return std::accumulate(front.begin(), front.end(), Sample(0));
   }
-};
-
-template<typename Sample> class NoteGate {
-private:
-  Sample signal = 0;
-  DoubleEMAFilter<Sample> filter;
-
-public:
-  void reset()
-  {
-    signal = Sample(1);
-    filter.reset(Sample(1));
-    filter.kp = Sample(0);
-  }
-
-  void prepare(Sample sampleRate, Sample seconds)
-  {
-    if (seconds < std::numeric_limits<Sample>::epsilon())
-      filter.kp = Sample(1);
-    else
-      filter.setCutoff(sampleRate, Sample(1) / seconds);
-  }
-
-  void release() { signal = Sample(0); }
-
-  Sample process() { return filter.process(signal); }
 };
 
 } // namespace SomeDSP

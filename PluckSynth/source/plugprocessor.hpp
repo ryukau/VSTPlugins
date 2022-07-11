@@ -59,8 +59,6 @@ public:
   void handleEvent(Vst::ProcessData &data);
 
 protected:
-  uint64_t lastState = 0;
-  float tempo = 120.0f;
   std::unique_ptr<DSPInterface> dsp;
 };
 

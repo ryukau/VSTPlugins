@@ -40,7 +40,7 @@ LinearScale<double> Scales::oscOvertone(-1.0, 1.0);
 DecibelScale<double> Scales::oscAttack(-80.0, 40, false);
 DecibelScale<double> Scales::oscDecay(-80.0, 40, false);
 UIntScale<double> Scales::oscOctave(24);
-LinearScale<double> Scales::oscFinePitch(-12.0, 12.0);
+LinearScale<double> Scales::oscFinePitch(-120.0, 120.0);
 DecibelScale<double> Scales::oscSpectrumDenominatorSlope(-60.0, 40.0, true);
 LinearScale<double> Scales::oscSpectrumRotationSlope(-1.0, 1.0);
 UIntScale<double> Scales::oscSpectrumInterval(31);
@@ -53,6 +53,8 @@ DecibelScale<double> Scales::fdnMatrixIdentityAmount(-60.0, 60.0, false);
 LinearScale<double> Scales::fdnOvertoneAdd(0.0, 64.0);
 LinearScale<double> Scales::fdnOvertoneMul(0.0, 64.0);
 LinearScale<double> Scales::fdnOvertoneOffset(0.0, 64.0);
+DecibelScale<double> Scales::fdnInterpRate(-40.0, 40.0, false);
+DecibelScale<double> Scales::fdnInterpLowpassSecond(-120.0, 40.0, true);
 
 LinearScale<double> Scales::filterCutoffSemi(-120.0, 200.0);
 LinearScale<double> Scales::filterQ(0.01, halfSqrt2);
@@ -60,6 +62,14 @@ LinearScale<double> Scales::filterQ(0.01, halfSqrt2);
 UIntScale<double> Scales::nUnison(maximumVoice - 1);
 DecibelScale<double> Scales::unisonDetune(0.0, 6.0, false);
 LinearScale<double> Scales::unisonPan(0.0, 1.0);
+
+LinearScale<double> Scales::lfoWavetable(-1.0, 1.0);
+UIntScale<double> Scales::lfoInterpolation(2);
+UIntScale<double> Scales::lfoTempoUpper(255);
+UIntScale<double> Scales::lfoTempoLower(255);
+DecibelScale<double> Scales::lfoRate(-60.0, 60.0, true);
+LinearScale<double> Scales::lfoToPitchAmount(-120.0, 120.0);
+UIntScale<double> Scales::lfoToPitchAlignment(120);
 
 } // namespace Synth
 } // namespace Steinberg

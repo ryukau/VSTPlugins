@@ -33,6 +33,7 @@
 constexpr size_t maximumVoice = 16;
 constexpr size_t oscOvertoneSize = 32;
 constexpr size_t fdnMatrixSize = 8;
+constexpr size_t nLfoWavetable = 64;
 
 namespace Steinberg {
 namespace Synth {
@@ -65,6 +66,8 @@ enum ID {
   oscSpectrumHighpass,
   oscSpectrumBlur,
 
+  refreshWavetable,
+
   fdnEnable,
   fdnMatrixIdentityAmount,
   fdnFeedback,
@@ -73,6 +76,8 @@ enum ID {
   fdnOvertoneOffset,
   // fdnOvertoneModulo, // TODO
   // fdnOvertoneRandomness, // TODO
+  fdnInterpRate,
+  fdnInterpLowpassSecond,
   fdnSeed,
   fdnFixedSeed,
 
@@ -87,7 +92,18 @@ enum ID {
   unisonDetune,
   unisonPan,
 
-  refreshWavetable,
+  lfoWavetable0,
+  lfoInterpolation = lfoWavetable0 + nLfoWavetable,
+  lfoTempoSync,
+  lfoTempoUpper,
+  lfoTempoLower,
+  lfoRate,
+  lfoRetrigger,
+
+  lfoToOscPitchAmount,
+  lfoToFdnPitchAmount,
+  lfoToOscPitchAlignment,
+  lfoToFdnPitchAlignment,
 
   ID_ENUM_LENGTH,
 };
@@ -124,6 +140,8 @@ struct Scales {
   static SomeDSP::LinearScale<double> fdnOvertoneAdd;
   static SomeDSP::LinearScale<double> fdnOvertoneMul;
   static SomeDSP::LinearScale<double> fdnOvertoneOffset;
+  static SomeDSP::DecibelScale<double> fdnInterpRate;
+  static SomeDSP::DecibelScale<double> fdnInterpLowpassSecond;
 
   static SomeDSP::LinearScale<double> filterCutoffSemi;
   static SomeDSP::LinearScale<double> filterQ;
@@ -131,6 +149,14 @@ struct Scales {
   static SomeDSP::UIntScale<double> nUnison;
   static SomeDSP::DecibelScale<double> unisonDetune;
   static SomeDSP::LinearScale<double> unisonPan;
+
+  static SomeDSP::LinearScale<double> lfoWavetable;
+  static SomeDSP::UIntScale<double> lfoInterpolation;
+  static SomeDSP::UIntScale<double> lfoTempoUpper;
+  static SomeDSP::UIntScale<double> lfoTempoLower;
+  static SomeDSP::DecibelScale<double> lfoRate;
+  static SomeDSP::LinearScale<double> lfoToPitchAmount;
+  static SomeDSP::UIntScale<double> lfoToPitchAlignment;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -177,8 +203,7 @@ struct GlobalParameter : public ParameterInterface {
         (oscOvertoneLabel + indexStr).c_str(), Info::kCanAutomate);
     }
     value[ID::impulseGain] = std::make_unique<DecibelValue>(
-      Scales::impulseGain.invmapDB(0.0), Scales::impulseGain, "impulseGain",
-      Info::kCanAutomate);
+      0.0, Scales::impulseGain, "impulseGain", Info::kCanAutomate);
     value[ID::oscGain] = std::make_unique<DecibelValue>(
       Scales::impulseGain.invmapDB(0.0), Scales::impulseGain, "oscGain",
       Info::kCanAutomate);
@@ -209,6 +234,9 @@ struct GlobalParameter : public ParameterInterface {
       Scales::oscSpectrumBlur.invmap(1.0), Scales::oscSpectrumBlur, "oscSpectrumBlur",
       Info::kCanAutomate);
 
+    value[ID::refreshWavetable] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "refreshWavetable", Info::kCanAutomate);
+
     value[ID::fdnEnable] = std::make_unique<UIntValue>(
       true, Scales::boolScale, "fdnEnable", Info::kCanAutomate);
     value[ID::fdnMatrixIdentityAmount] = std::make_unique<DecibelValue>(
@@ -225,6 +253,12 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::fdnOvertoneOffset] = std::make_unique<LinearValue>(
       Scales::fdnOvertoneOffset.invmap(0.0), Scales::fdnOvertoneOffset,
       "fdnOvertoneOffset", Info::kCanAutomate);
+    value[ID::fdnInterpRate] = std::make_unique<DecibelValue>(
+      Scales::fdnInterpRate.invmapDB(0.0), Scales::fdnInterpRate, "fdnInterpRate",
+      Info::kCanAutomate);
+    value[ID::fdnInterpLowpassSecond] = std::make_unique<DecibelValue>(
+      Scales::fdnInterpLowpassSecond.invmap(0.005), Scales::fdnInterpLowpassSecond,
+      "fdnInterpLowpassSecond", Info::kCanAutomate);
     value[ID::fdnSeed]
       = std::make_unique<UIntValue>(0, Scales::seed, "fdnSeed", Info::kCanAutomate);
     value[ID::fdnFixedSeed] = std::make_unique<UIntValue>(
@@ -253,8 +287,37 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::unisonPan] = std::make_unique<LinearValue>(
       1.0, Scales::unisonPan, "unisonPan", Info::kCanAutomate);
 
-    value[ID::refreshWavetable] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "refreshWavetable", Info::kCanAutomate);
+    std::string lfoWavetableLabel("lfoWavetable");
+    for (size_t idx = 0; idx < nLfoWavetable; ++idx) {
+      auto indexStr = std::to_string(idx);
+      value[ID::lfoWavetable0 + idx] = std::make_unique<LinearValue>(
+        Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * idx / double(nLfoWavetable))),
+        Scales::lfoWavetable, (lfoWavetableLabel + indexStr).c_str(), Info::kCanAutomate);
+    }
+    value[ID::lfoTempoSync] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "lfoTempoSync", Info::kCanAutomate);
+    value[ID::lfoInterpolation] = std::make_unique<UIntValue>(
+      2, Scales::lfoInterpolation, "lfoInterpolation", Info::kCanAutomate);
+    value[ID::lfoTempoUpper] = std::make_unique<UIntValue>(
+      0, Scales::lfoTempoUpper, "lfoTempoUpper", Info::kCanAutomate);
+    value[ID::lfoTempoLower] = std::make_unique<UIntValue>(
+      0, Scales::lfoTempoLower, "lfoTempoLower", Info::kCanAutomate);
+    value[ID::lfoRate] = std::make_unique<DecibelValue>(
+      Scales::lfoRate.invmap(1.0), Scales::lfoRate, "lfoRate", Info::kCanAutomate);
+    value[ID::lfoRetrigger] = std::make_unique<UIntValue>(
+      true, Scales::boolScale, "lfoRetrigger", Info::kCanAutomate);
+
+    value[ID::lfoToOscPitchAmount] = std::make_unique<LinearValue>(
+      Scales::lfoToPitchAmount.invmap(0.0), Scales::lfoToPitchAmount,
+      "lfoToOscPitchAmount", Info::kCanAutomate);
+    value[ID::lfoToFdnPitchAmount] = std::make_unique<LinearValue>(
+      Scales::lfoToPitchAmount.invmap(0.0), Scales::lfoToPitchAmount,
+      "lfoToFdnPitchAmount", Info::kCanAutomate);
+
+    value[ID::lfoToOscPitchAlignment] = std::make_unique<UIntValue>(
+      0, Scales::lfoToPitchAlignment, "lfoToOscPitchAlignment", Info::kCanAutomate);
+    value[ID::lfoToFdnPitchAlignment] = std::make_unique<UIntValue>(
+      0, Scales::lfoToPitchAlignment, "lfoToFdnPitchAlignment", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }
