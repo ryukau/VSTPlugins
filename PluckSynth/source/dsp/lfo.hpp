@@ -40,7 +40,10 @@ template<typename T> T pchipInterp(T y0, T y1, T y2, T y3, T t)
   return c3 * t * t2 - (c2 + c3) * t2 + c1 * t + y1;
 }
 
-template<typename Sample, size_t sourceSize, size_t tableSize> class TableLFO {
+enum class TableLFOType { lfo, envelope };
+
+template<typename Sample, size_t sourceSize, size_t tableSize, TableLFOType tableType>
+class TableLFO {
 private:
   enum Interpolation : unsigned { step, linear, pchip };
 
@@ -69,9 +72,15 @@ public:
 
   void refreshTable(size_t foreIndex)
   {
-    source[0] = source[sourceSize];
-    source[sourceSize + 1] = source[1];
-    source[sourceSize + 2] = source[2];
+    if constexpr (tableType == TableLFOType::envelope) {
+      source[0] = source[1];
+      source[sourceSize + 1] = 0;
+      source[sourceSize + 2] = 0;
+    } else { // tableType == TableLFOType::lfo
+      source[0] = source[sourceSize];
+      source[sourceSize + 1] = source[1];
+      source[sourceSize + 2] = source[2];
+    }
 
     auto &tbl = table[foreIndex];
 
@@ -98,7 +107,11 @@ public:
       }
     }
 
-    tbl.back() = tbl[0];
+    if constexpr (tableType == TableLFOType::envelope) {
+      tbl.back() = 0;
+    } else { // tableType == TableLFOType::lfo
+      tbl.back() = tbl[0];
+    }
   }
 
   void processRefresh()
@@ -113,6 +126,10 @@ public:
 
   Sample process(const Sample phase) const
   {
+    if constexpr (tableType == TableLFOType::envelope) {
+      if (phase >= Sample(1)) return 0;
+    }
+
     const auto &fore = table[tableIndex ^ 1];
     const auto &back = table[tableIndex];
     auto target = Sample(tableSize) * phase;
@@ -221,14 +238,20 @@ template<typename Sample> struct LFOPhase {
 };
 
 template<typename Sample> struct EnvelopePhase {
-  Sample delta = 0; // 1 / (sampleRate * timeInSecond).
-  Sample phase = 0;
+  uint_fast32_t timeInSamples = Sample(1);
+  uint_fast32_t counter = 0;
+
+  void noteOn(Sample sampleRate, Sample timeInSecond)
+  {
+    timeInSamples = std::max(uint_fast32_t(0), uint_fast32_t(sampleRate * timeInSecond));
+    counter = 0;
+  }
 
   Sample process()
   {
-    if (phase >= Sample(1)) return Sample(1);
-    phase += delta;
-    return std::min(phase, Sample(1));
+    if (counter >= timeInSamples) return Sample(1);
+    ++counter;
+    return Sample(counter) / Sample(timeInSamples);
   }
 };
 

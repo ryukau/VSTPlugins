@@ -99,6 +99,8 @@ bool Editor::prepareUI()
   constexpr auto fdnTop12 = fdnTop11 + labelY;
   constexpr auto fdnTop13 = fdnTop12 + labelY;
   constexpr auto fdnTop14 = fdnTop13 + labelY;
+  constexpr auto fdnTop15 = fdnTop14 + labelY;
+  constexpr auto fdnTop16 = fdnTop15 + labelY;
   addToggleButton(
     fdnLeft0, fdnTop0, 2 * labelWidth, labelHeight, midTextSize, "FDN", ID::fdnEnable);
 
@@ -150,22 +152,30 @@ bool Editor::prepareUI()
   addTextKnob(
     fdnLeft1, fdnTop10, labelWidth, labelHeight, uiTextSize, ID::fdnOvertoneOffset,
     Scales::fdnOvertoneOffset, false, 5);
+  addLabel(fdnLeft0, fdnTop11, labelWidth, labelHeight, uiTextSize, "OT Modulo");
+  addTextKnob(
+    fdnLeft1, fdnTop11, labelWidth, labelHeight, uiTextSize, ID::fdnOvertoneModulo,
+    Scales::fdnOvertoneModulo, false, 5);
+  addLabel(fdnLeft0, fdnTop12, labelWidth, labelHeight, uiTextSize, "OT Random");
+  addTextKnob(
+    fdnLeft1, fdnTop12, labelWidth, labelHeight, uiTextSize, ID::fdnOvertoneRandomness,
+    Scales::defaultScale, false, 5);
 
-  addLabel(fdnLeft0, fdnTop11, labelWidth, labelHeight, uiTextSize, "Interp. Rate");
+  addLabel(fdnLeft0, fdnTop13, labelWidth, labelHeight, uiTextSize, "Interp. Rate");
   addTextKnob(
-    fdnLeft1, fdnTop11, labelWidth, labelHeight, uiTextSize, ID::fdnInterpRate,
+    fdnLeft1, fdnTop13, labelWidth, labelHeight, uiTextSize, ID::fdnInterpRate,
     Scales::fdnInterpRate, false, 5);
-  addLabel(fdnLeft0, fdnTop12, labelWidth, labelHeight, uiTextSize, "Interp. LP [s]");
+  addLabel(fdnLeft0, fdnTop14, labelWidth, labelHeight, uiTextSize, "Interp. LP [s]");
   addTextKnob(
-    fdnLeft1, fdnTop12, labelWidth, labelHeight, uiTextSize, ID::fdnInterpLowpassSecond,
+    fdnLeft1, fdnTop14, labelWidth, labelHeight, uiTextSize, ID::fdnInterpLowpassSecond,
     Scales::fdnInterpLowpassSecond, false, 5);
 
-  addLabel(fdnLeft0, fdnTop13, labelWidth, labelHeight, uiTextSize, "Seed");
+  addLabel(fdnLeft0, fdnTop15, labelWidth, labelHeight, uiTextSize, "Seed");
   addTextKnob(
-    fdnLeft1, fdnTop13, labelWidth, labelHeight, uiTextSize, ID::fdnSeed, Scales::seed,
+    fdnLeft1, fdnTop15, labelWidth, labelHeight, uiTextSize, ID::fdnSeed, Scales::seed,
     false, 0);
   addCheckbox(
-    fdnLeft0, fdnTop14, 2 * labelWidth, labelHeight, uiTextSize, "Fixed Seed",
+    fdnLeft0, fdnTop16, 2 * labelWidth, labelHeight, uiTextSize, "Fixed Seed",
     ID::fdnFixedSeed);
 
   // Tuning.
@@ -359,14 +369,14 @@ bool Editor::prepareUI()
     false, 5);
 
   addLabel(lfoLeft2, lfoTop2, labelWidth, labelHeight, uiTextSize, "Wave Interp.");
-  std::vector<std::string> lfoInterpolationItems{"Step", "Linear", "PCHIP"};
+  std::vector<std::string> modWavetableInterpolationItems{"Step", "Linear", "PCHIP"};
   addOptionMenu(
     lfoLeft3, lfoTop2, labelWidth, labelHeight, uiTextSize, ID::lfoInterpolation,
-    lfoInterpolationItems);
+    modWavetableInterpolationItems);
 
   auto barboxLfoWavetable = addBarBox(
-    lfoLeft0, lfoTop4, barboxWidth, barboxHeight, ID::lfoWavetable0, nLfoWavetable,
-    Scales::lfoWavetable, "LFO Wave");
+    lfoLeft0, lfoTop4, barboxWidth, barboxHeight, ID::lfoWavetable0, nModWavetable,
+    Scales::wavetableAmp, "LFO Wave");
   if (barboxLfoWavetable) {
     barboxLfoWavetable->sliderZero = 0.5f;
   }
@@ -393,6 +403,72 @@ bool Editor::prepareUI()
   addCheckbox(
     lfoLeft4, lfoTop4, labelWidth, labelHeight, uiTextSize, "Retrigger",
     ID::lfoRetrigger);
+
+  const auto modEnvTop0 = lfoTop0 + 4 * labelY + barboxHeight + 2 * margin;
+  const auto modEnvTop1 = modEnvTop0 + labelY;
+  const auto modEnvTop2 = modEnvTop1 + labelY;
+  const auto modEnvTop3 = modEnvTop2 + labelY;
+  const auto modEnvTop4 = modEnvTop3 + labelY;
+  const auto modEnvTop5 = modEnvTop4 + labelY;
+  const auto modEnvTop6 = modEnvTop5 + labelY;
+  const auto modEnvTop7 = modEnvTop6 + labelY;
+
+  const auto modEnvLeft0 = overtoneLeft0;
+  const auto modEnvLeft1 = modEnvLeft0 + labelWidth + margin;
+  const auto modEnvLeft2 = modEnvLeft1 + labelWidth + margin;
+  const auto modEnvLeft3 = modEnvLeft2 + labelWidth + margin;
+  const auto modEnvLeft4 = modEnvLeft3 + labelWidth + margin;
+  const auto modEnvLeft5 = modEnvLeft4 + labelWidth + margin;
+  const auto modEnvLeft6 = modEnvLeft5 + labelWidth + margin;
+
+  addGroupLabel(
+    modEnvLeft0, modEnvTop0, 2 * labelWidth + 4 * margin, labelHeight, uiTextSize,
+    "Envelope");
+
+  addLabel(
+    modEnvLeft0, modEnvTop1, labelWidth, labelHeight, uiTextSize, "Time [s]",
+    kCenterText);
+  addTextKnob(
+    modEnvLeft1, modEnvTop1, labelWidth, labelHeight, uiTextSize, ID::modEnvelopeTime,
+    Scales::modEnvelopeTime, false, 5);
+
+  addLabel(modEnvLeft2, modEnvTop1, labelWidth, labelHeight, uiTextSize, "Wave Interp.");
+  addOptionMenu(
+    modEnvLeft3, modEnvTop1, labelWidth, labelHeight, uiTextSize,
+    ID::modEnvelopeInterpolation, modWavetableInterpolationItems);
+
+  auto barboxModEnvWavetable = addBarBox(
+    modEnvLeft0, modEnvTop3, barboxWidth, barboxHeight, ID::modEnvelopeWavetable0,
+    nModWavetable, Scales::wavetableAmp, "Envelope Wave");
+  if (barboxModEnvWavetable) {
+    barboxModEnvWavetable->sliderZero = 0.5f;
+  }
+
+  addLabel(modEnvLeft5, modEnvTop1, labelWidth, labelHeight, uiTextSize, "Amount");
+  addLabel(lfoLeft4, modEnvTop2, labelWidth, labelHeight, uiTextSize, "To Osc. Pitch");
+  addTextKnob(
+    lfoLeft5, modEnvTop2, labelWidth, labelHeight, uiTextSize, ID::modEnvelopeToOscPitch,
+    Scales::lfoToPitchAmount, false, 5);
+  addLabel(lfoLeft4, modEnvTop3, labelWidth, labelHeight, uiTextSize, "To FDN Pitch");
+  addTextKnob(
+    lfoLeft5, modEnvTop3, labelWidth, labelHeight, uiTextSize, ID::modEnvelopeToFdnPitch,
+    Scales::lfoToPitchAmount, false, 5);
+  addLabel(lfoLeft4, modEnvTop4, labelWidth, labelHeight, uiTextSize, "To LFO->Osc.");
+  addTextKnob(
+    lfoLeft5, modEnvTop4, labelWidth, labelHeight, uiTextSize,
+    ID::modEnvelopeToLfoToPOscPitch, Scales::defaultScale, false, 5);
+  addLabel(lfoLeft4, modEnvTop5, labelWidth, labelHeight, uiTextSize, "To LFO->FDN");
+  addTextKnob(
+    lfoLeft5, modEnvTop5, labelWidth, labelHeight, uiTextSize,
+    ID::modEnvelopeToLfoToPFdnPitch, Scales::defaultScale, false, 5);
+  addLabel(lfoLeft4, modEnvTop6, labelWidth, labelHeight, uiTextSize, "To FDN LP Cut");
+  addTextKnob(
+    lfoLeft5, modEnvTop6, labelWidth, labelHeight, uiTextSize,
+    ID::modEnvelopeToFdnLowpassCutoff, Scales::lfoToPitchAmount, false, 5);
+  addLabel(lfoLeft4, modEnvTop7, labelWidth, labelHeight, uiTextSize, "To FDN HP Cut");
+  addTextKnob(
+    lfoLeft5, modEnvTop7, labelWidth, labelHeight, uiTextSize,
+    ID::modEnvelopeToFdnHighpassCutoff, Scales::lfoToPitchAmount, false, 5);
 
   // Plugin name.
   const auto splashTop = innerHeight - splashHeight + uiMargin;

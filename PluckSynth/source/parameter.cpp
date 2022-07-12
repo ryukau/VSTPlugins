@@ -46,15 +46,16 @@ LinearScale<double> Scales::oscFinePitch(-120.0, 120.0);
 DecibelScale<double> Scales::oscSpectrumDenominatorSlope(-60.0, 40.0, true);
 LinearScale<double> Scales::oscSpectrumRotationSlope(-1.0, 1.0);
 UIntScale<double> Scales::oscSpectrumInterval(31);
-UIntScale<double> Scales::oscSpectrumHighpass(256);
+UIntScale<double> Scales::oscSpectrumHighpass(2048);
 DecibelScale<double> Scales::oscSpectrumBlur(-100.0, 0.0, false);
 
 DecibelScale<double> Scales::impulseGain(-100.0, 0.0, true);
 
 DecibelScale<double> Scales::fdnMatrixIdentityAmount(-60.0, 60.0, false);
-LinearScale<double> Scales::fdnOvertoneAdd(0.0, 64.0);
-LinearScale<double> Scales::fdnOvertoneMul(0.0, 64.0);
+DecibelScale<double> Scales::fdnOvertoneAdd(-60.0, 40.0, true);
+DecibelScale<double> Scales::fdnOvertoneMul(-60.0, 40.0, true);
 LinearScale<double> Scales::fdnOvertoneOffset(0.0, 64.0);
+DecibelScale<double> Scales::fdnOvertoneModulo(-60.0, 60.0, true);
 DecibelScale<double> Scales::fdnInterpRate(-40.0, 40.0, false);
 DecibelScale<double> Scales::fdnInterpLowpassSecond(-120.0, 40.0, true);
 
@@ -65,13 +66,16 @@ UIntScale<double> Scales::nUnison(maximumVoice - 1);
 DecibelScale<double> Scales::unisonDetune(0.0, 6.0, false);
 LinearScale<double> Scales::unisonPan(0.0, 1.0);
 
-LinearScale<double> Scales::lfoWavetable(-1.0, 1.0);
-UIntScale<double> Scales::lfoInterpolation(2);
+LinearScale<double> Scales::wavetableAmp(-1.0, 1.0);
+UIntScale<double> Scales::wavetableInterpolation(2);
+
 UIntScale<double> Scales::lfoTempoUpper(255);
 UIntScale<double> Scales::lfoTempoLower(255);
 DecibelScale<double> Scales::lfoRate(-60.0, 60.0, true);
 LinearScale<double> Scales::lfoToPitchAmount(-120.0, 120.0);
 UIntScale<double> Scales::lfoToPitchAlignment(120);
+
+DecibelScale<double> Scales::modEnvelopeTime(-80.0, 40.0, false);
 
 } // namespace Synth
 } // namespace Steinberg

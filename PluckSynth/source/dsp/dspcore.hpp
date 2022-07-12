@@ -55,9 +55,15 @@ enum class NoteState { active, release, rest };
 
 #define NOTE_PROCESS_INFO_SMOOTHER(METHOD)                                                          \
   lfo.interpType = pv[ID::lfoInterpolation]->getInt();                                              \
-  for (size_t idx = 0; idx < nLfoWavetable; ++idx) {                                                \
+  for (size_t idx = 0; idx < nModWavetable; ++idx) {                                                \
     lfo.source[idx + 1] = pv[ID::lfoWavetable0 + idx]->getFloat();                                  \
   }                                                                                                 \
+                                                                                                    \
+  envelope.interpType = pv[ID::modEnvelopeInterpolation]->getInt();                                 \
+  for (size_t idx = 0; idx < nModWavetable; ++idx) {                                                \
+    envelope.source[idx + 1] = pv[ID::modEnvelopeWavetable0 + idx]->getFloat();                     \
+  }                                                                                                 \
+  envelope.source[nModWavetable] = 0;                                                               \
                                                                                                     \
   fdnEnable = pv[ID::fdnEnable]->getInt();                                                          \
                                                                                                     \
@@ -83,21 +89,30 @@ enum class NoteState { active, release, rest };
   fdnOvertoneOffset.METHOD(pv[ID::fdnOvertoneOffset]->getFloat());                                  \
   fdnOvertoneMul.METHOD(pv[ID::fdnOvertoneMul]->getFloat());                                        \
   fdnOvertoneAdd.METHOD(pv[ID::fdnOvertoneAdd]->getFloat());                                        \
+  fdnOvertoneModulo.METHOD(pv[ID::fdnOvertoneModulo]->getFloat());                                  \
   fdnLowpassQ.METHOD(pv[ID::lowpassQ]->getFloat());                                                 \
   fdnHighpassQ.METHOD(pv[ID::highpassQ]->getFloat());                                               \
   fdnFeedback.METHOD(pv[ID::fdnFeedback]->getFloat());                                              \
   lfoToOscPitchAmount.METHOD(pv[ID::lfoToOscPitchAmount]->getFloat());                              \
   lfoToFdnPitchAmount.METHOD(pv[ID::lfoToFdnPitchAmount]->getFloat());                              \
   lfoToOscPitchAlignment = pv[ID::lfoToOscPitchAlignment]->getFloat();                              \
-  lfoToFdnPitchAlignment = pv[ID::lfoToFdnPitchAlignment]->getFloat();
+  lfoToFdnPitchAlignment = pv[ID::lfoToFdnPitchAlignment]->getFloat();                              \
+  modEnvelopeToOscPitch.METHOD(pv[ID::modEnvelopeToOscPitch]->getFloat());                          \
+  modEnvelopeToFdnPitch.METHOD(pv[ID::modEnvelopeToFdnPitch]->getFloat());                          \
+  modEnvelopeToLfoToPOscPitch.METHOD(pv[ID::modEnvelopeToLfoToPOscPitch]->getFloat());              \
+  modEnvelopeToLfoToPFdnPitch.METHOD(pv[ID::modEnvelopeToLfoToPFdnPitch]->getFloat());              \
+  modEnvelopeToFdnLowpassCutoff.METHOD(                                                             \
+    noteToPitch(pv[ID::modEnvelopeToFdnLowpassCutoff]->getFloat(), eqTemp));                        \
+  modEnvelopeToFdnHighpassCutoff.METHOD(                                                            \
+    noteToPitch(pv[ID::modEnvelopeToFdnHighpassCutoff]->getFloat(), eqTemp));
 
 struct NoteProcessInfo {
   pcg64 rng;
   pcg64 fdnRng;
   Wavetable<float, oscOvertoneSize> wavetable;
 
-  TableLFO<float, nLfoWavetable, 1024> lfo;
-  TableLFO<float, nLfoWavetable, 1024> envelope;
+  TableLFO<float, nModWavetable, 1024, TableLFOType::lfo> lfo;
+  TableLFO<float, nModWavetable + 1, 1024, TableLFOType::envelope> envelope;
   LightTempoSynchronizer<float> synchronizer;
   float lfoPhase = 0;
 
@@ -112,14 +127,18 @@ struct NoteProcessInfo {
   ExpSmoother<float> fdnOvertoneOffset;
   ExpSmoother<float> fdnOvertoneMul;
   ExpSmoother<float> fdnOvertoneAdd;
+  ExpSmoother<float> fdnOvertoneModulo;
   ExpSmoother<float> fdnLowpassQ;
   ExpSmoother<float> fdnHighpassQ;
   ExpSmoother<float> fdnFeedback;
   ExpSmoother<float> lfoToOscPitchAmount;
   ExpSmoother<float> lfoToFdnPitchAmount;
-
-  enum lfoIndex { lfoToOscPitch, lfoToFdnPitch };
-  std::array<float, 2> lfoOutput;
+  ExpSmoother<float> modEnvelopeToOscPitch;
+  ExpSmoother<float> modEnvelopeToFdnPitch;
+  ExpSmoother<float> modEnvelopeToLfoToPOscPitch;
+  ExpSmoother<float> modEnvelopeToLfoToPFdnPitch;
+  ExpSmoother<float> modEnvelopeToFdnLowpassCutoff;
+  ExpSmoother<float> modEnvelopeToFdnHighpassCutoff;
 
   void reset(GlobalParameter &param)
   {
@@ -155,27 +174,18 @@ struct NoteProcessInfo {
     fdnOvertoneOffset.process();
     fdnOvertoneMul.process();
     fdnOvertoneAdd.process();
+    fdnOvertoneModulo.process();
     fdnLowpassQ.process();
     fdnHighpassQ.process();
     fdnFeedback.process();
     lfoToOscPitchAmount.process();
     lfoToFdnPitchAmount.process();
-  }
-
-  inline float alignModValue(float amount, float alignment, float value)
-  {
-    if (alignment == 0) return amount * value;
-    return alignment * std::floor(value * amount / alignment + 0.5f);
-  }
-
-  const auto &processLfo(float lfoValue)
-  {
-    lfoOutput[lfoToOscPitch] = float(12) / eqTemp
-      * alignModValue(lfoToOscPitchAmount.getValue(), lfoToOscPitchAlignment, lfoValue);
-    lfoOutput[lfoToFdnPitch] = noteToPitch(
-      alignModValue(lfoToFdnPitchAmount.getValue(), lfoToFdnPitchAlignment, lfoValue),
-      eqTemp);
-    return lfoOutput;
+    modEnvelopeToOscPitch.process();
+    modEnvelopeToFdnPitch.process();
+    modEnvelopeToLfoToPOscPitch.process();
+    modEnvelopeToLfoToPFdnPitch.process();
+    modEnvelopeToFdnLowpassCutoff.process();
+    modEnvelopeToFdnHighpassCutoff.process();
   }
 };
 
@@ -199,6 +209,7 @@ struct NoteProcessInfo {
     LFOPhase<float> lfoPhase;                                                            \
     EnvelopePhase<float> modEnvelopePhase;                                               \
     TableOsc<float, oscOvertoneSize> osc;                                                \
+    std::array<float, fdnMatrixSize> overtoneRandomness{};                               \
     FeedbackDelayNetwork<float, fdnMatrixSize> fdn;                                      \
     NoteGate<float> gate;                                                                \
                                                                                          \

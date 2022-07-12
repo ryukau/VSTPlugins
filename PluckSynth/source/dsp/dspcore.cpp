@@ -196,6 +196,12 @@ void DSPCORE_NAME::setParameters()
   interpMasterGain.push(pv[ID::gain]->getFloat());
 }
 
+inline float alignModValue(float amount, float alignment, float value)
+{
+  if (alignment == 0) return amount * value;
+  return alignment * std::floor(value * amount / alignment + 0.5f);
+}
+
 std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
 {
   constexpr auto eps = std::numeric_limits<float>::epsilon();
@@ -208,38 +214,74 @@ std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
   fdnLowpassCutoff.process();
   fdnHighpassCutoff.process();
 
-  auto &lfo = info.processLfo(info.lfo.process(lfoPhase.process(info.lfoPhase)));
+  auto modenv = info.envelope.process(modEnvelopePhase.process());
+  auto modenvToOsc = modenv * info.modEnvelopeToOscPitch.getValue();
+  auto modenvToFdn = modenv * info.modEnvelopeToFdnPitch.getValue();
+  auto modenvToOscLfo
+    = float(1) + (modenv - float(1)) * info.modEnvelopeToLfoToPOscPitch.getValue();
+  auto modenvToFdnLfo
+    = float(1) + (modenv - float(1)) * info.modEnvelopeToLfoToPFdnPitch.getValue();
+  auto modenvToFdnLp
+    = (modenv + float(1)) * info.modEnvelopeToFdnLowpassCutoff.getValue();
+  auto modenvToFdnHp
+    = (modenv + float(1)) * info.modEnvelopeToFdnHighpassCutoff.getValue();
 
-  auto gateGain = gate.process();
+  auto lfoValue = info.lfo.process(lfoPhase.process(info.lfoPhase));
+  auto lfoToOsc = alignModValue(
+    info.lfoToOscPitchAmount.getValue(), info.lfoToOscPitchAlignment,
+    modenvToOscLfo * lfoValue);
+  auto lfoToFdn = alignModValue(
+    info.lfoToFdnPitchAmount.getValue(), info.lfoToFdnPitchAlignment,
+    modenvToFdnLfo * lfoValue);
+
+  auto oscPitchMod = (modenvToOsc + lfoToOsc) * float(12) / info.eqTemp;
+  auto fdnPitchMod = noteToPitch(modenvToFdn + lfoToFdn, info.eqTemp);
+
+  float sig = 0;
+
   auto oscGain = envelope.process();
-  gain = velocity * releaseSwitch * gateGain;
-
-  float sig = oscGain
-    * osc.process(
-      sampleRate, lfo[info.lfoToOscPitch] + oscNote + info.oscNoteOffset.getValue(),
-      // sampleRate, oscNote + info.oscNoteOffset.getValue(), //
-      info.wavetable);
+  if (oscGain >= eps) {
+    auto nt = oscPitchMod + oscNote + info.oscNoteOffset.getValue();
+    sig = oscGain * osc.process(sampleRate, nt, info.wavetable);
+  }
 
   if (info.fdnEnable) {
-    auto fdnFreq = info.fdnFreqOffset.getValue() * fdnPitch * lfo[info.lfoToFdnPitch];
-    // auto fdnFreq = info.fdnFreqOffset.getValue() * fdnPitch;
-
+    auto fdnFreq = info.fdnFreqOffset.getValue() * fdnPitch * fdnPitchMod;
     float overtone = 1.0f;
-    for (size_t i = 0; i < fdnMatrixSize; ++i) {
+    for (size_t idx = 0; idx < fdnMatrixSize; ++idx) {
       fdn.delay.setDelayTimeAt(
-        i, sampleRate, info.fdnOvertoneOffset.getValue() + overtone, fdnFreq);
-      overtone
+        idx, sampleRate,
+        info.fdnOvertoneOffset.getValue()
+          + (float(1) + overtoneRandomness[idx]) * overtone,
+        fdnFreq);
+      auto ot
         = overtone * info.fdnOvertoneMul.getValue() + info.fdnOvertoneAdd.getValue();
+      if (info.fdnOvertoneModulo.getValue() >= std::numeric_limits<float>::epsilon()) {
+        // Almost same operation as `std::fmod()`.
+        ot /= info.fdnOvertoneModulo.getValue();
+        ot -= std::floor(ot);
+        ot *= info.fdnOvertoneModulo.getValue();
+      }
+      overtone = ot;
     }
 
-    fdn.lowpass.setCutoff(fdnLowpassCutoff.getValue(), info.fdnLowpassQ.getValue());
-    fdn.highpass.setCutoff(fdnHighpassCutoff.getValue(), info.fdnHighpassQ.getValue());
+    constexpr auto minCutoff = float(0.00001);
+    constexpr auto nyquist = float(0.49998);
+    fdn.lowpass.setCutoff(
+      std::clamp(modenvToFdnLp * fdnLowpassCutoff.getValue(), minCutoff, nyquist),
+      info.fdnLowpassQ.getValue());
+    fdn.highpass.setCutoff(
+      std::clamp(modenvToFdnHp * fdnHighpassCutoff.getValue(), minCutoff, nyquist),
+      info.fdnHighpassQ.getValue());
 
     // TODO: FDN gain.
     sig = float(0.01 * pi) * fdn.process(sig, info.fdnFeedback.getValue());
   }
 
+  auto gateGain = gate.process();
   sig *= gateGain * velocity;
+  gain = velocity * releaseSwitch * gateGain;
+
   return {(float(1) - pan) * sig, pan * sig};
 }
 
@@ -312,6 +354,7 @@ void NOTE_NAME::noteOn(
   gate.reset();
 
   lfoPhase.offset = pv[ID::lfoRetrigger]->getInt() ? -info.synchronizer.getPhase() : 0;
+  modEnvelopePhase.noteOn(sampleRate, pv[ID::modEnvelopeTime]->getFloat());
 
   // Pitch.
   const auto eqTemp = pv[ID::equalTemperament]->getFloat() + 1;
@@ -343,11 +386,25 @@ void NOTE_NAME::noteOn(
     ? float(1)
     : float(EMAFilter<double>::cutoffToP(sampleRate, 1.0 / fdnInterpLowpassSecond));
 
+  std::uniform_real_distribution<float> overtoneDist(-1.0, 1.0);
+  for (size_t idx = 0; idx < fdnMatrixSize; ++idx) {
+    overtoneRandomness[idx]
+      = overtoneDist(info.fdnRng) * pv[ID::fdnOvertoneRandomness]->getFloat();
+  }
+
   float overtone = 1.0f;
-  for (size_t i = 0; i < fdnMatrixSize; ++i) {
+  for (size_t idx = 0; idx < fdnMatrixSize; ++idx) {
     fdn.delay.resetDelayTimeAt(
-      i, sampleRate, info.fdnOvertoneOffset.getValue() + overtone, fdnFreq);
-    overtone = overtone * info.fdnOvertoneMul.getValue() + info.fdnOvertoneAdd.getValue();
+      idx, sampleRate,
+      info.fdnOvertoneOffset.getValue() + (float(1) + overtoneRandomness[idx]) * overtone,
+      fdnFreq);
+    auto ot = overtone * info.fdnOvertoneMul.getValue() + info.fdnOvertoneAdd.getValue();
+    if (info.fdnOvertoneModulo.getValue() >= std::numeric_limits<float>::epsilon()) {
+      ot /= info.fdnOvertoneModulo.getValue();
+      ot -= std::floor(ot);
+      ot *= info.fdnOvertoneModulo.getValue();
+    }
+    overtone = ot;
   }
 
   // FDN feedback filters.
