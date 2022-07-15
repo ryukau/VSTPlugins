@@ -142,7 +142,7 @@ public:
   }
 };
 
-template<typename Sample> class LightTempoSynchronizer {
+template<typename Sample> class LinearTempoSynchronizer {
 private:
   enum class State { free, steady, catchingUp };
 
@@ -153,7 +153,8 @@ private:
   Sample lastSync = 0;
   double lastElapsedBeats = 0;
 
-  Sample transitionTime = 0; // In samples.
+  static constexpr Sample transitionTime = Sample(1024); // In samples.
+  Sample v2 = 0;
   Sample counter = 0;
 
   inline void setLastValues(Sample tempo, Sample sync, double elapsedBeats)
@@ -177,6 +178,7 @@ public:
     p1 = 0;
     lastTempo = tempo;
     lastSync = sync;
+    counter = 0;
   }
 
   // Must call this method at the start of each DSP processing cycle.
@@ -201,7 +203,7 @@ public:
     auto p0 = wrap(Sample(elapsedBeats / sync));
     if (lastTempo != tempo || lastSync != sync || lastElapsedBeats > elapsedBeats) {
       state = State::catchingUp;
-      transitionTime = wrap(p1 - p0) / v1;
+      v2 = wrap(p0 + v1 * transitionTime - p1) / transitionTime;
       counter = 0;
     } else if (state != State::catchingUp) {
       p1 = p0;
@@ -214,11 +216,11 @@ public:
   {
     auto outPhase = p1;
     if (state == State::catchingUp) {
-      if (++counter > transitionTime) {
+      if (++counter >= transitionTime) {
         state = State::steady;
         counter = 0;
-        p1 += v1 * (Sample(1) - wrap(transitionTime));
       }
+      p1 = wrap(p1 + v2);
       return outPhase;
     }
 

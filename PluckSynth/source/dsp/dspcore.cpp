@@ -158,6 +158,10 @@ void NOTE_NAME::setParameters(
   gate.prepare(sampleRate, pv[ID::gateRelease]->getFloat());
 
   fdn.delay.rate = pv[ID::fdnInterpRate]->getFloat();
+  auto fdnInterpLowpassSecond = pv[ID::fdnInterpLowpassSecond]->getFloat();
+  fdn.delay.kp = fdnInterpLowpassSecond == 0
+    ? float(1)
+    : float(EMAFilter<double>::cutoffToP(sampleRate, 1.0 / fdnInterpLowpassSecond));
   auto fdnFreq = info.fdnFreqOffset.getValue() * fdnPitch;
   SET_NOTE_FILTER_CUTOFF(push);
 }
@@ -183,10 +187,9 @@ void DSPCORE_NAME::setParameters()
     info.wavetable.param.highpassIndex = pv[ID::oscSpectrumHighpass]->getInt();
     info.wavetable.param.blur = pv[ID::oscSpectrumBlur]->getFloat();
     for (size_t idx = 0; idx < oscOvertoneSize; ++idx) {
-      auto &tone = info.wavetable.param.overtoneAmp[idx];
-      tone.real(pv[ID::oscOvertone0 + idx]->getFloat());
-      tone.imag(0);
-      // TODO: add rotation.
+      info.wavetable.param.overtoneAmp[idx] = std::polar(
+        pv[ID::oscOvertone0 + idx]->getFloat(),
+        float(pi) * pv[ID::oscRotation0 + idx]->getFloat());
     }
     info.wavetable.fillTable(upRate);
   }
@@ -371,12 +374,12 @@ void NOTE_NAME::noteOn(
     sampleRate * pv[ID::oscDecay]->getFloat());
 
   // FDN matrix.
-  if (pv[ID::fdnFixedSeed]->getInt()) info.fdnRng.seed(pv[ID::fdnSeed]->getInt());
   std::uniform_int_distribution<unsigned> seedDist{
     0, std::numeric_limits<unsigned>::max()};
   fdn.reset();
   fdn.randomOrthogonal(
-    seedDist(info.fdnRng), pv[ID::fdnMatrixIdentityAmount]->getFloat());
+    seedDist(info.fdnRng), pv[ID::fdnMatrixIdentityAmount]->getFloat(),
+    pv[ID::fdnRandomizeRatio]->getFloat(), info.fdnMatrixRandomBase);
   fdn.process(pv[ID::impulseGain]->getFloat(), 1.0f);
 
   // FDN delay.

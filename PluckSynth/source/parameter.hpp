@@ -54,7 +54,8 @@ enum ID {
   gateRelease,
 
   oscOvertone0,
-  impulseGain = oscOvertone0 + oscOvertoneSize,
+  oscRotation0 = oscOvertone0 + oscOvertoneSize,
+  impulseGain = oscRotation0 + oscOvertoneSize,
   oscGain,
   oscAttack,
   oscDecay,
@@ -80,7 +81,7 @@ enum ID {
   fdnInterpRate,
   fdnInterpLowpassSecond,
   fdnSeed,
-  fdnFixedSeed,
+  fdnRandomizeRatio,
 
   lowpassCutoffSemi,
   lowpassQ,
@@ -216,11 +217,15 @@ struct GlobalParameter : public ParameterInterface {
       Info::kCanAutomate);
 
     std::string oscOvertoneLabel("oscOvertone");
+    std::string oscRotationLabel("oscRotation");
     for (size_t idx = 0; idx < oscOvertoneSize; ++idx) {
       auto indexStr = std::to_string(idx);
       value[ID::oscOvertone0 + idx] = std::make_unique<LinearValue>(
         Scales::oscOvertone.invmap(idx == 0 ? 1.0 : 0.0), Scales::oscOvertone,
-        (oscOvertoneLabel + indexStr).c_str(), Info::kCanAutomate);
+        (oscRotationLabel + indexStr).c_str(), Info::kCanAutomate);
+      value[ID::oscRotation0 + idx] = std::make_unique<LinearValue>(
+        Scales::oscOvertone.invmap(0.0), Scales::oscOvertone,
+        (oscRotationLabel + indexStr).c_str(), Info::kCanAutomate);
     }
     value[ID::impulseGain] = std::make_unique<DecibelValue>(
       0.0, Scales::impulseGain, "impulseGain", Info::kCanAutomate);
@@ -286,8 +291,8 @@ struct GlobalParameter : public ParameterInterface {
       "fdnInterpLowpassSecond", Info::kCanAutomate);
     value[ID::fdnSeed]
       = std::make_unique<UIntValue>(0, Scales::seed, "fdnSeed", Info::kCanAutomate);
-    value[ID::fdnFixedSeed] = std::make_unique<UIntValue>(
-      false, Scales::boolScale, "fdnFixedSeed", Info::kCanAutomate);
+    value[ID::fdnRandomizeRatio] = std::make_unique<LinearValue>(
+      0.2, Scales::defaultScale, "fdnRandomizeRatio", Info::kCanAutomate);
 
     value[ID::lowpassCutoffSemi] = std::make_unique<LinearValue>(
       1.0, Scales::filterCutoffSemi, "lowpassCutoffSemi", Info::kCanAutomate);

@@ -109,11 +109,12 @@ enum class NoteState { active, release, rest };
 struct NoteProcessInfo {
   pcg64 rng;
   pcg64 fdnRng;
+  std::vector<std::vector<float>> fdnMatrixRandomBase;
   Wavetable<float, oscOvertoneSize> wavetable;
 
   TableLFO<float, nModWavetable, 1024, TableLFOType::lfo> lfo;
   TableLFO<float, nModWavetable + 1, 1024, TableLFOType::envelope> envelope;
-  LightTempoSynchronizer<float> synchronizer;
+  LinearTempoSynchronizer<float> synchronizer;
   float lfoPhase = 0;
 
   bool fdnEnable = true;
@@ -140,6 +141,14 @@ struct NoteProcessInfo {
   ExpSmoother<float> modEnvelopeToFdnLowpassCutoff;
   ExpSmoother<float> modEnvelopeToFdnHighpassCutoff;
 
+  NoteProcessInfo()
+  {
+    fdnMatrixRandomBase.resize(fdnMatrixSize);
+    for (size_t i = 0; i < fdnMatrixRandomBase.size(); ++i) {
+      fdnMatrixRandomBase[i].resize(fdnMatrixSize - i);
+    }
+  }
+
   void reset(GlobalParameter &param)
   {
     using ID = ParameterID::ID;
@@ -147,6 +156,11 @@ struct NoteProcessInfo {
 
     rng.seed(9999991);
     fdnRng.seed(pv[ID::fdnSeed]->getInt());
+
+    std::normal_distribution<float> dist{}; // mean 0, stddev 1.
+    for (auto &row : fdnMatrixRandomBase) {
+      for (auto &value : row) value = dist(fdnRng);
+    }
 
     lfoPhase = 0;
 

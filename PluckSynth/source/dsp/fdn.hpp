@@ -28,27 +28,6 @@
 
 namespace SomeDSP {
 
-template<typename Sample> class DoubleEMAFilterKp {
-private:
-  Sample v1 = 0;
-  Sample v2 = 0;
-
-public:
-  void reset(Sample value = 0)
-  {
-    v1 = value;
-    v2 = value;
-  }
-
-  Sample process(Sample input, Sample kp)
-  {
-    auto &&v0 = input;
-    v1 += kp * (v0 - v1);
-    v2 += kp * (v1 - v2);
-    return v2;
-  }
-};
-
 template<typename Sample> class RateLimiter {
 private:
   Sample target = 0;
@@ -205,7 +184,11 @@ public:
 
   This algorithm is ported from `scipy.stats.ortho_group` in SciPy v1.8.0.
   */
-  void randomOrthogonal(unsigned seed, Sample identityAmount)
+  void randomOrthogonal(
+    unsigned seed,
+    Sample identityAmount,
+    Sample ratio,
+    const std::vector<std::vector<Sample>> &randomBase)
   {
     pcg64 rng{};
     rng.seed(seed);
@@ -217,9 +200,12 @@ public:
     std::array<Sample, length> x;
     for (size_t n = 0; n < length; ++n) {
       auto xRange = length - n;
-      // for (size_t i = 0; i < xRange; ++i) x[i] = dist(rng);
+
       x[0] = Sample(1);
-      for (size_t i = 1; i < xRange; ++i) x[i] = identityAmount * dist(rng);
+      for (size_t i = 1; i < xRange; ++i) {
+        auto mix = randomBase[n][i] + ratio * (dist(rng) - randomBase[n][i]);
+        x[i] = identityAmount * mix;
+      }
 
       Sample norm2 = 0;
       for (size_t i = 0; i < xRange; ++i) norm2 += x[i] * x[i];
