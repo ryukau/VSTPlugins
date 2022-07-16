@@ -34,6 +34,7 @@ constexpr size_t maximumVoice = 16;
 constexpr size_t oscOvertoneSize = 32;
 constexpr size_t fdnMatrixSize = 8;
 constexpr size_t nModWavetable = 64;
+constexpr size_t nUnisonInterval = 4;
 
 namespace Steinberg {
 namespace Synth {
@@ -91,7 +92,10 @@ enum ID {
   highpassKeyFollow,
 
   nUnison,
-  unisonDetune,
+  unisonIntervalSemitone0,
+  unisonIntervalCycleAt = unisonIntervalSemitone0 + nUnisonInterval,
+  unisonEqualTemperament,
+  unisonPitchMul,
   unisonPan,
 
   lfoWavetable0,
@@ -162,7 +166,9 @@ struct Scales {
   static SomeDSP::LinearScale<double> filterQ;
 
   static SomeDSP::UIntScale<double> nUnison;
-  static SomeDSP::DecibelScale<double> unisonDetune;
+  static SomeDSP::UIntScale<double> unisonIntervalSemitone;
+  static SomeDSP::UIntScale<double> unisonIntervalCycleAt;
+  static SomeDSP::DecibelScale<double> unisonPitchMul;
   static SomeDSP::LinearScale<double> unisonPan;
 
   static SomeDSP::LinearScale<double> wavetableAmp;
@@ -311,9 +317,21 @@ struct GlobalParameter : public ParameterInterface {
 
     value[ID::nUnison]
       = std::make_unique<UIntValue>(0, Scales::nUnison, "nUnison", Info::kCanAutomate);
-    value[ID::unisonDetune] = std::make_unique<DecibelValue>(
-      Scales::unisonDetune.invmap(std::pow(10.0, 1.0 / 1200.0)), Scales::unisonDetune,
-      "unisonDetune", Info::kCanAutomate);
+    std::string unisonIntervalSemitoneLabel("unisonIntervalSemitone");
+    for (size_t idx = 0; idx < nUnisonInterval; ++idx) {
+      auto indexStr = std::to_string(idx);
+      value[ID::unisonIntervalSemitone0 + idx] = std::make_unique<UIntValue>(
+        1, Scales::unisonIntervalSemitone,
+        (unisonIntervalSemitoneLabel + indexStr).c_str(), Info::kCanAutomate);
+    }
+    value[ID::unisonIntervalCycleAt] = std::make_unique<UIntValue>(
+      uint32_t(nUnisonInterval - 1), Scales::unisonIntervalCycleAt,
+      "unisonIntervalCycleAt", Info::kCanAutomate);
+    value[ID::unisonEqualTemperament] = std::make_unique<UIntValue>(
+      11, Scales::equalTemperament, "unisonEqualTemperament", Info::kCanAutomate);
+    value[ID::unisonPitchMul] = std::make_unique<DecibelValue>(
+      Scales::unisonPitchMul.invmap(1.0), Scales::unisonPitchMul, "unisonPitchMul",
+      Info::kCanAutomate);
     value[ID::unisonPan] = std::make_unique<LinearValue>(
       1.0, Scales::unisonPan, "unisonPan", Info::kCanAutomate);
 

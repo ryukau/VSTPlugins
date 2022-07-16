@@ -490,12 +490,25 @@ void DSPCORE_NAME::noteOn(
     unisonPan[idx] = std::clamp(pan, 0.0f, 1.0f);
   }
 
-  const auto unisonDetune = param.value[ID::unisonDetune]->getFloat();
-  std::uniform_real_distribution<float> distDetune(0.0f, 1.0f);
+  std::array<float, 4> intervals{
+    pv[ID::unisonIntervalSemitone0 + 0]->getFloat(),
+    pv[ID::unisonIntervalSemitone0 + 1]->getFloat(),
+    pv[ID::unisonIntervalSemitone0 + 2]->getFloat(),
+    pv[ID::unisonIntervalSemitone0 + 3]->getFloat(),
+  };
+  const size_t cycleAt = pv[ID::unisonIntervalCycleAt]->getInt();
+  const auto eqTemp = pv[ID::unisonEqualTemperament]->getFloat() + float(1);
+  const auto pitchMul = param.value[ID::unisonPitchMul]->getFloat();
+  size_t intervalIndex = 0;
+  float sumInterval = 0;
   for (size_t unison = 0; unison < nUnison; ++unison) {
     if (noteIndices.size() <= unison) break;
-    auto detune = std::pow(unisonDetune, distDetune(info.rng));
-    auto notePitch = (float(pitch) + tuning) * detune;
+
+    auto notePitch
+      = (float(pitch) + tuning + sumInterval * pitchMul * float(12) / eqTemp);
+    sumInterval += intervals[intervalIndex];
+    if (++intervalIndex > cycleAt) intervalIndex = 0;
+
     notes[noteIndices[unison]].noteOn(
       noteId, notePitch, velocity / nUnison, unisonPan[unison], upRate, info, param);
   }

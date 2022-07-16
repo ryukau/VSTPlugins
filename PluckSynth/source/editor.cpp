@@ -22,7 +22,7 @@
 #include <sstream>
 
 constexpr float uiTextSize = 12.0f;
-constexpr float midTextSize = 12.0f;
+constexpr float midTextSize = 14.0f;
 constexpr float pluginNameTextSize = 18.0f;
 constexpr float uiMargin = 20.0f;
 constexpr float margin = 5.0f;
@@ -31,14 +31,11 @@ constexpr float labelWidth = 80.0f;
 constexpr float labelHeight = 20.0f;
 constexpr float labelY = 30.0f;
 constexpr float splashHeight = 40.0f;
-constexpr float knobWidth = 50.0f;
-constexpr float knobHeight = 40.0f;
-constexpr float knobX = 60.0f; // With margin.
-constexpr float knobY = knobHeight + labelY;
-constexpr float barboxWidth = 4 * labelWidth + 3 * margin;
-constexpr float barboxHeight = 200.0f;
-constexpr float innerWidth = 16 * labelWidth + 10 * margin;
-constexpr float innerHeight = 28 * labelY;
+constexpr float barboxWidth = int(64) * int(1 + (7 * labelWidth + 6 * margin) / 64);
+constexpr float barboxHeight = 8 * labelHeight + 14 * margin;
+constexpr float lfoWidthFix = 25.0f;
+constexpr float innerWidth = 6 * labelWidth + 10 * margin + barboxWidth;
+constexpr float innerHeight = 8 * labelY + 2 * barboxHeight + 9 * margin;
 constexpr uint32_t defaultWidth = uint32_t(innerWidth + 2 * uiMargin);
 constexpr uint32_t defaultHeight = uint32_t(innerHeight + 2 * uiMargin);
 
@@ -70,9 +67,9 @@ bool Editor::prepareUI()
   constexpr auto gainTop0 = top0;
   constexpr auto gainTop1 = gainTop0 + labelY;
   constexpr auto gainTop2 = gainTop1 + labelY;
-  addGroupLabel(gainLeft0, gainTop0, 2 * labelWidth, labelHeight, midTextSize, "Gain");
+  addGroupLabel(gainLeft0, gainTop0, 2 * labelWidth, labelHeight, uiTextSize, "Gain");
 
-  addLabel(gainLeft0, gainTop1, labelWidth, labelHeight, uiTextSize, "Gain");
+  addLabel(gainLeft0, gainTop1, labelWidth, labelHeight, uiTextSize, "Output [dB]");
   addTextKnob<Style::accent>(
     gainLeft1, gainTop1, labelWidth, labelHeight, uiTextSize, ID::gain, Scales::gain,
     true, 5);
@@ -93,7 +90,7 @@ bool Editor::prepareUI()
   constexpr auto tuningTop5 = tuningTop4 + labelY;
   constexpr auto tuningTop6 = tuningTop5 + labelY;
   addGroupLabel(
-    tuningLeft0, tuningTop0, 2 * labelWidth, labelHeight, midTextSize, "Tuning");
+    tuningLeft0, tuningTop0, 2 * labelWidth, labelHeight, uiTextSize, "Tuning");
 
   addLabel(tuningLeft0, tuningTop1, labelWidth, labelHeight, uiTextSize, "Octave");
   addTextKnob<Style::accent>(
@@ -133,27 +130,48 @@ bool Editor::prepareUI()
   constexpr auto unisonTop0 = tuningTop6 + labelY;
   constexpr auto unisonTop1 = unisonTop0 + labelY;
   constexpr auto unisonTop2 = unisonTop1 + labelY;
-  constexpr auto unisonTop3 = unisonTop2 + labelY;
+  constexpr auto unisonTop3 = unisonTop2 + labelY + 2 * margin;
+  constexpr auto unisonTop4 = unisonTop3 + labelY;
+  constexpr auto unisonTop5 = unisonTop4 + labelY + 2 * margin;
+  constexpr auto unisonTop6 = unisonTop5 + labelY;
+  constexpr auto unisonTop7 = unisonTop6 + labelY + 2 * margin;
   addGroupLabel(
-    unisonLeft0, unisonTop0, 2 * labelWidth, labelHeight, midTextSize, "Unison");
+    unisonLeft0, unisonTop0, 2 * labelWidth, labelHeight, uiTextSize, "Unison/Chord");
 
   addLabel(unisonLeft0, unisonTop1, labelWidth, labelHeight, uiTextSize, "nUnison");
   addTextKnob(
     unisonLeft1, unisonTop1, labelWidth, labelHeight, uiTextSize, ID::nUnison,
     Scales::nUnison, false, 0, 1);
-
-  addLabel(unisonLeft0, unisonTop2, labelWidth, labelHeight, uiTextSize, "Detune");
+  addLabel(unisonLeft0, unisonTop2, labelWidth, labelHeight, uiTextSize, "Pan");
   addTextKnob(
-    unisonLeft1, unisonTop2, labelWidth, labelHeight, uiTextSize, ID::unisonDetune,
-    Scales::unisonDetune, false, 5);
-
-  addLabel(unisonLeft0, unisonTop3, labelWidth, labelHeight, uiTextSize, "Pan");
-  addTextKnob(
-    unisonLeft1, unisonTop3, labelWidth, labelHeight, uiTextSize, ID::unisonPan,
+    unisonLeft1, unisonTop2, labelWidth, labelHeight, uiTextSize, ID::unisonPan,
     Scales::unisonPan, false, 5);
 
+  addLabel(unisonLeft0, unisonTop3, labelWidth, labelHeight, uiTextSize, "Pitch *");
+  addTextKnob(
+    unisonLeft1, unisonTop3, labelWidth, labelHeight, uiTextSize, ID::unisonPitchMul,
+    Scales::unisonPitchMul, false, 5);
+  addLabel(unisonLeft0, unisonTop4, labelWidth, labelHeight, uiTextSize, "ET");
+  addTextKnob(
+    unisonLeft1, unisonTop4, labelWidth, labelHeight, uiTextSize,
+    ID::unisonEqualTemperament, Scales::equalTemperament, false, 0, 1);
+
+  addLabel(
+    unisonLeft0, unisonTop5, labelWidth, labelHeight, uiTextSize, "Interval [st.]");
+  auto halfLabelWidth = int(labelWidth / 2);
+  for (size_t idx = 0; idx < nUnisonInterval; ++idx) {
+    addTextKnob(
+      unisonLeft0 + idx * halfLabelWidth, unisonTop6, halfLabelWidth, labelHeight,
+      uiTextSize, ID::unisonIntervalSemitone0 + idx, Scales::unisonIntervalSemitone,
+      false, 0);
+  }
+  addLabel(unisonLeft0, unisonTop7, labelWidth, labelHeight, uiTextSize, "Cycle At");
+  addTextKnob(
+    unisonLeft1, unisonTop7, labelWidth, labelHeight, uiTextSize,
+    ID::unisonIntervalCycleAt, Scales::unisonIntervalCycleAt, false, 0);
+
   // Oscillator.
-  constexpr auto oscLeft0 = gainLeft0 + 2 * labelWidth + 2 * margin;
+  constexpr auto oscLeft0 = gainLeft0 + 2 * labelWidth + 4 * margin;
   constexpr auto oscLeft1 = oscLeft0 + labelWidth;
   constexpr auto oscLeft2 = oscLeft1 + labelWidth + 2 * margin;
   constexpr auto oscLeft3 = oscLeft2 + labelWidth;
@@ -165,37 +183,36 @@ bool Editor::prepareUI()
   constexpr auto oscTop4 = oscTop3 + labelY;
   constexpr auto oscTop5 = oscTop4 + labelY;
   constexpr auto oscTop6 = oscTop5 + labelY;
-  constexpr auto oscTop7 = oscTop6 + labelY;
-  constexpr auto oscTop8 = oscTop7 + labelY;
+  constexpr auto oscTop7 = oscTop6 + labelY + 2 * margin;
+  constexpr auto oscTop8 = oscTop7 + 4 * labelY;
   addGroupLabel(
-    oscLeft0, oscTop0, 4 * labelWidth + 2 * margin, labelHeight, midTextSize,
+    oscLeft0, oscTop0, 4 * labelWidth + 2 * margin, labelHeight, uiTextSize,
     "Oscillator");
 
-  addLabel(oscLeft0, oscTop1, labelWidth, labelHeight, uiTextSize, "Attack [s]");
+  addLabel(oscLeft0, oscTop1, labelWidth, labelHeight, uiTextSize, "Impulse [dB]");
   addTextKnob(
-    oscLeft1, oscTop1, labelWidth, labelHeight, uiTextSize, ID::oscAttack,
+    oscLeft1, oscTop1, labelWidth, labelHeight, uiTextSize, ID::impulseGain,
+    Scales::impulseGain, true, 5);
+  addLabel(oscLeft0, oscTop2, labelWidth, labelHeight, uiTextSize, "Gain [dB]");
+  addTextKnob(
+    oscLeft1, oscTop2, labelWidth, labelHeight, uiTextSize, ID::oscGain,
+    Scales::impulseGain, true, 5);
+  addLabel(oscLeft0, oscTop3, labelWidth, labelHeight, uiTextSize, "Attack [s]");
+  addTextKnob(
+    oscLeft1, oscTop3, labelWidth, labelHeight, uiTextSize, ID::oscAttack,
     Scales::oscAttack, false, 5);
-  addLabel(oscLeft0, oscTop2, labelWidth, labelHeight, uiTextSize, "Decay [s]");
+  addLabel(oscLeft0, oscTop4, labelWidth, labelHeight, uiTextSize, "Decay [s]");
   addTextKnob(
-    oscLeft1, oscTop2, labelWidth, labelHeight, uiTextSize, ID::oscDecay,
+    oscLeft1, oscTop4, labelWidth, labelHeight, uiTextSize, ID::oscDecay,
     Scales::oscDecay, false, 5);
-
-  addLabel(oscLeft0, oscTop3, labelWidth, labelHeight, uiTextSize, "Gain [dB]");
-  addTextKnob(
-    oscLeft1, oscTop3, labelWidth, labelHeight, uiTextSize, ID::oscGain,
-    Scales::impulseGain, true, 5);
-  addLabel(oscLeft0, oscTop4, labelWidth, labelHeight, uiTextSize, "Octave");
+  addLabel(oscLeft0, oscTop5, labelWidth, labelHeight, uiTextSize, "Octave");
   addTextKnob<Style::accent>(
-    oscLeft1, oscTop4, labelWidth, labelHeight, uiTextSize, ID::oscOctave,
+    oscLeft1, oscTop5, labelWidth, labelHeight, uiTextSize, ID::oscOctave,
     Scales::oscOctave, false, 0, -12);
-  addLabel(oscLeft0, oscTop5, labelWidth, labelHeight, uiTextSize, "Semitone");
+  addLabel(oscLeft0, oscTop6, labelWidth, labelHeight, uiTextSize, "Semitone");
   addTextKnob<Style::accent>(
-    oscLeft1, oscTop5, labelWidth, labelHeight, uiTextSize, ID::oscFinePitch,
+    oscLeft1, oscTop6, labelWidth, labelHeight, uiTextSize, ID::oscFinePitch,
     Scales::oscFinePitch, false, 5);
-  addLabel(oscLeft0, oscTop7, labelWidth, labelHeight, uiTextSize, "Impulse [dB]");
-  addTextKnob(
-    oscLeft1, oscTop7, labelWidth, labelHeight, uiTextSize, ID::impulseGain,
-    Scales::impulseGain, true, 5);
 
   addLabel(oscLeft2, oscTop1, labelWidth, labelHeight, uiTextSize, "Denom. Slope");
   addTextKnob(
@@ -222,45 +239,42 @@ bool Editor::prepareUI()
     oscLeft3, oscTop6, labelWidth, labelHeight, uiTextSize, ID::oscSpectrumBlur,
     Scales::oscSpectrumBlur, false, 5, 0);
 
-  addKickButton<Style::warning>(
-    oscLeft2 + std::floor(labelWidth / 4), oscTop7 + labelHeight / 2,
-    std::floor(1.5 * labelWidth), std::floor(1.5 * labelHeight), uiTextSize,
-    "Refresh Wavetable", ID::refreshWavetable);
-
-  constexpr auto oscOvertoneLeft0 = oscLeft3 + labelWidth + 4 * margin;
-  constexpr auto oscOvertoneLeft1 = oscOvertoneLeft0 + barboxWidth + 4 * margin;
   auto barboxOscOvertone = addBarBox(
-    oscOvertoneLeft0, oscTop1, barboxWidth, barboxHeight, ID::oscOvertone0,
-    oscOvertoneSize, Scales::oscOvertone, "Rec. Overtone Amp.");
+    oscLeft0, oscTop7, 2 * labelWidth, 4 * labelHeight + 6 * margin, ID::oscOvertone0,
+    oscOvertoneSize, Scales::oscOvertone, "OT Amp.");
   if (barboxOscOvertone) {
     barboxOscOvertone->sliderZero = 0.5f;
   }
   auto barboxOscRotation = addBarBox(
-    oscOvertoneLeft1, oscTop1, barboxWidth, barboxHeight, ID::oscRotation0,
-    oscOvertoneSize, Scales::oscOvertone, "Rec. Rotation [rad/pi]");
+    oscLeft2, oscTop7, 2 * labelWidth, 4 * labelHeight + 6 * margin, ID::oscRotation0,
+    oscOvertoneSize, Scales::oscOvertone, "Rot. [rad/pi]");
   if (barboxOscRotation) {
     barboxOscRotation->sliderZero = 0.5f;
   }
 
+  addKickButton<Style::warning>(
+    oscLeft1 + 2 * margin, oscTop8 + labelHeight / 2, 2 * labelWidth - 2 * margin,
+    2 * labelHeight, midTextSize, "Refresh Wavetable", ID::refreshWavetable);
+
   // FDN.
-  constexpr auto fdnLeft0 = gainLeft0 + 2 * labelWidth + 2 * margin;
+  constexpr auto fdnLeft0 = oscLeft0;
   constexpr auto fdnLeft1 = fdnLeft0 + labelWidth;
   constexpr auto fdnLeft2 = fdnLeft1 + labelWidth + 2 * margin;
   constexpr auto fdnLeft3 = fdnLeft2 + labelWidth;
 
-  constexpr auto fdnTop0 = oscTop0 + 9 * labelY;
+  constexpr auto fdnTop0 = oscTop8 + 3 * labelHeight + 2 * margin;
   constexpr auto fdnTop1 = fdnTop0 + labelY;
   constexpr auto fdnTop2 = fdnTop1 + labelY;
   constexpr auto fdnTop3 = fdnTop2 + labelY;
   constexpr auto fdnTop4 = fdnTop3 + labelY;
   constexpr auto fdnTop5 = fdnTop4 + labelY;
   constexpr auto fdnTop6 = fdnTop5 + labelY;
-  constexpr auto fdnTop7 = fdnTop6 + labelY + 2 * margin;
+  constexpr auto fdnTop7 = fdnTop6 + labelY + 1 * margin;
   constexpr auto fdnTop8 = fdnTop7 + labelY;
   constexpr auto fdnTop9 = fdnTop8 + labelY;
   constexpr auto fdnTop10 = fdnTop9 + labelY;
   addToggleButton(
-    fdnLeft0, fdnTop0, 4 * labelWidth + 2 * margin, labelHeight, midTextSize, "FDN",
+    fdnLeft0, fdnTop0, 4 * labelWidth + 2 * margin, labelHeight, uiTextSize, "FDN",
     ID::fdnEnable);
 
   addLabel(fdnLeft0, fdnTop1, labelWidth, labelHeight, uiTextSize, "Identity");
@@ -317,7 +331,7 @@ bool Editor::prepareUI()
   addLabel(fdnFilterLeft1, fdnTop7, labelWidth, labelHeight, uiTextSize, "Lowpass");
   addLabel(fdnFilterLeft2, fdnTop7, labelWidth, labelHeight, uiTextSize, "Highpass");
 
-  addLabel(fdnFilterLeft0, fdnTop8, labelWidth, labelHeight, uiTextSize, "Cutoff [s.t.]");
+  addLabel(fdnFilterLeft0, fdnTop8, labelWidth, labelHeight, uiTextSize, "Cutoff [st.]");
   addTextKnob<Style::accent>(
     fdnFilterLeft1, fdnTop8, labelWidth, labelHeight, uiTextSize, ID::lowpassCutoffSemi,
     Scales::filterCutoffSemi, false, 5);
@@ -335,153 +349,155 @@ bool Editor::prepareUI()
 
   addLabel(fdnFilterLeft0, fdnTop10, labelWidth, labelHeight, uiTextSize, "Key Follow");
   addCheckbox(
-    fdnFilterLeft1 + std::floor((labelWidth - checkBoxWidth) / 2), fdnTop10, labelWidth,
+    fdnFilterLeft1 + int((labelWidth - checkBoxWidth) / 2), fdnTop10, labelWidth,
     labelHeight, uiTextSize, "", ID::lowpassKeyFollow);
   addCheckbox(
-    fdnFilterLeft2 + std::floor((labelWidth - checkBoxWidth) / 2), fdnTop10, labelWidth,
+    fdnFilterLeft2 + int((labelWidth - checkBoxWidth) / 2), fdnTop10, labelWidth,
     labelHeight, uiTextSize, "", ID::highpassKeyFollow);
 
   // LFO.
-  const auto lfoTop0 = fdnTop0;
-  const auto lfoTop1 = lfoTop0 + labelY;
-  const auto lfoTop2 = lfoTop1 + labelY;
-  const auto lfoTop3 = lfoTop2 + labelY;
-  const auto lfoTop4 = lfoTop3 + labelY;
-  const auto lfoTop5 = lfoTop4 + labelY;
-  const auto lfoTop6 = lfoTop5 + labelY;
-  const auto lfoTop7 = lfoTop6 + labelY;
+  constexpr auto lfoTop0 = oscTop0;
+  constexpr auto lfoTop1 = lfoTop0 + labelY;
+  constexpr auto lfoTop2 = lfoTop1 + labelY;
+  constexpr auto lfoTop3 = lfoTop2 + labelY;
+  constexpr auto lfoTop4 = lfoTop3 + labelY + 2 * margin;
 
-  const auto lfoLeft0 = left0 + 6 * labelWidth + 8 * margin;
-  const auto lfoLeft1 = lfoLeft0 + labelWidth + margin;
-  const auto lfoLeft2 = lfoLeft1 + labelWidth + margin;
-  const auto lfoLeft3 = lfoLeft2 + labelWidth + margin;
-  const auto lfoLeft4 = lfoLeft3 + labelWidth + margin;
-  const auto lfoLeft5 = lfoLeft4 + labelWidth + margin;
-  const auto lfoLeft6 = lfoLeft5 + labelWidth + margin;
+  constexpr auto lfoTopMid1 = lfoTop1 + int(labelHeight / 2) + margin;
+  constexpr auto lfoTopMid2 = lfoTopMid1 + labelY;
 
-  addGroupLabel(
-    lfoLeft0, lfoTop0, 2 * labelWidth + 4 * margin, labelHeight, uiTextSize, "LFO");
+  constexpr auto lfoLeft0 = oscLeft0 + 4 * labelWidth + 6 * margin;
+  constexpr auto lfoLeft1 = lfoLeft0 + labelWidth + margin;
+  constexpr auto lfoLeft2 = lfoLeft1 + labelWidth + margin + lfoWidthFix;
+  constexpr auto lfoLeft3 = lfoLeft2 + labelWidth;
+  constexpr auto lfoLeft4 = lfoLeft3 + labelWidth + +margin + lfoWidthFix;
+  constexpr auto lfoLeft5 = lfoLeft4 + labelWidth + margin;
+  constexpr auto lfoLeft6 = lfoLeft5 + labelWidth + margin;
+
+  addGroupLabel(lfoLeft0, lfoTop0, barboxWidth, labelHeight, uiTextSize, "LFO");
 
   addCheckbox(
-    lfoLeft0 + std::floor(labelWidth / 4), lfoTop1, labelWidth, labelHeight, uiTextSize,
+    lfoLeft0 + int(labelWidth / 8), lfoTopMid1, labelWidth, labelHeight, uiTextSize,
     "Retrigger", ID::lfoRetrigger);
-  addLabel(lfoLeft2, lfoTop1, labelWidth, labelHeight, uiTextSize, "Wave Interp.");
+  addLabel(lfoLeft0, lfoTopMid2, labelWidth, labelHeight, uiTextSize, "Wave Interp.");
   std::vector<std::string> modWavetableInterpolationItems{"Step", "Linear", "PCHIP"};
   addOptionMenu(
-    lfoLeft3, lfoTop1, labelWidth, labelHeight, uiTextSize, ID::lfoInterpolation,
+    lfoLeft1, lfoTopMid2, labelWidth, labelHeight, uiTextSize, ID::lfoInterpolation,
     modWavetableInterpolationItems);
 
+  constexpr auto lfoSyncTop = lfoTop1 + int(labelHeight / 2) + margin;
+  addCheckbox<Style::accent>(
+    lfoLeft2 + int(labelWidth / 4), lfoSyncTop, int(labelWidth / 2 + 2 * margin),
+    labelHeight, uiTextSize, "Sync.", ID::lfoTempoSync);
+  addTextKnob<Style::accent>(
+    lfoLeft3, lfoSyncTop - 2 * margin, int(labelWidth / 2 + 2 * margin), labelHeight,
+    uiTextSize, ID::lfoTempoUpper, Scales::lfoTempoUpper, false, 0, 1);
+  addTextKnob<Style::accent>(
+    lfoLeft3, lfoSyncTop + 2 * margin, int(labelWidth / 2 + 2 * margin), labelHeight,
+    uiTextSize, ID::lfoTempoLower, Scales::lfoTempoLower, false, 0, 1);
+
+  addLabel(
+    lfoLeft2, lfoTop3, labelWidth - 2 * margin, labelHeight, uiTextSize, "Rate",
+    kCenterText);
+  addTextKnob<Style::accent>(
+    lfoLeft3 - 2 * margin, lfoTop3, labelWidth, labelHeight, uiTextSize, ID::lfoRate,
+    Scales::lfoRate, false, 5);
+
+  addLabel(lfoLeft5, lfoTop1, labelWidth, labelHeight, uiTextSize, "Amount");
+  addLabel(lfoLeft6, lfoTop1, labelWidth, labelHeight, uiTextSize, "Alignment");
+
+  addLabel(lfoLeft4, lfoTop2, labelWidth, labelHeight, uiTextSize, "> Osc. Pitch");
+  addTextKnob<Style::accent>(
+    lfoLeft5, lfoTop2, labelWidth, labelHeight, uiTextSize, ID::lfoToOscPitchAmount,
+    Scales::lfoToPitchAmount, false, 5);
+  addTextKnob<Style::accent>(
+    lfoLeft6, lfoTop2, labelWidth, labelHeight, uiTextSize, ID::lfoToOscPitchAlignment,
+    Scales::lfoToPitchAlignment, false, 0);
+
+  addLabel(lfoLeft4, lfoTop3, labelWidth, labelHeight, uiTextSize, "> FDN Pitch");
+  addTextKnob<Style::warning>(
+    lfoLeft5, lfoTop3, labelWidth, labelHeight, uiTextSize, ID::lfoToFdnPitchAmount,
+    Scales::lfoToPitchAmount, false, 5);
+  addTextKnob<Style::accent>(
+    lfoLeft6, lfoTop3, labelWidth, labelHeight, uiTextSize, ID::lfoToFdnPitchAlignment,
+    Scales::lfoToPitchAlignment, false, 0);
+
   auto barboxLfoWavetable = addBarBox(
-    lfoLeft0, lfoTop2, barboxWidth, barboxHeight, ID::lfoWavetable0, nModWavetable,
+    lfoLeft0, lfoTop4, barboxWidth, barboxHeight, ID::lfoWavetable0, nModWavetable,
     Scales::wavetableAmp, "LFO Wave");
   if (barboxLfoWavetable) {
     barboxLfoWavetable->sliderZero = 0.5f;
   }
 
-  addLabel(lfoLeft4, lfoTop1, labelWidth, labelHeight, uiTextSize, "Rate", kCenterText);
-  addTextKnob<Style::accent>(
-    lfoLeft5, lfoTop1, labelWidth, labelHeight, uiTextSize, ID::lfoRate, Scales::lfoRate,
-    false, 5);
+  constexpr auto modEnvTop0 = lfoTop0 + 4 * labelY + barboxHeight + 7 * margin;
+  constexpr auto modEnvTop1 = modEnvTop0 + labelY;
+  constexpr auto modEnvTop2 = modEnvTop1 + labelY;
+  constexpr auto modEnvTop3 = modEnvTop2 + labelY;
+  constexpr auto modEnvTop4 = modEnvTop3 + labelY + 2 * margin;
 
-  addCheckbox<Style::accent>(
-    lfoLeft4 + knobWidth / 2, lfoTop3, knobWidth, labelHeight, uiTextSize, "Sync.",
-    ID::lfoTempoSync);
-  addTextKnob<Style::accent>(
-    lfoLeft5, lfoTop2 + 4 * margin, knobWidth, labelHeight, uiTextSize, ID::lfoTempoUpper,
-    Scales::lfoTempoUpper, false, 0, 1);
-  addTextKnob<Style::accent>(
-    lfoLeft5, lfoTop4 - 4 * margin, knobWidth, labelHeight, uiTextSize, ID::lfoTempoLower,
-    Scales::lfoTempoLower, false, 0, 1);
+  constexpr auto modEnvTopMid1 = modEnvTop1 + int(labelHeight / 2) + margin;
+  constexpr auto modEnvTopMid2 = modEnvTopMid1 + labelY;
 
-  addLabel(lfoLeft5, lfoTop5, labelWidth, labelHeight, uiTextSize, "Amount");
-  addLabel(lfoLeft6, lfoTop5, labelWidth, labelHeight, uiTextSize, "Alignment");
-
-  addLabel(lfoLeft4, lfoTop6, labelWidth, labelHeight, uiTextSize, "To Osc. Pitch");
-  addTextKnob<Style::accent>(
-    lfoLeft5, lfoTop6, labelWidth, labelHeight, uiTextSize, ID::lfoToOscPitchAmount,
-    Scales::lfoToPitchAmount, false, 5);
-  addTextKnob<Style::accent>(
-    lfoLeft6, lfoTop6, labelWidth, labelHeight, uiTextSize, ID::lfoToOscPitchAlignment,
-    Scales::lfoToPitchAlignment, false, 0);
-
-  addLabel(lfoLeft4, lfoTop7, labelWidth, labelHeight, uiTextSize, "To FDN Pitch");
-  addTextKnob<Style::warning>(
-    lfoLeft5, lfoTop7, labelWidth, labelHeight, uiTextSize, ID::lfoToFdnPitchAmount,
-    Scales::lfoToPitchAmount, false, 5);
-  addTextKnob<Style::accent>(
-    lfoLeft6, lfoTop7, labelWidth, labelHeight, uiTextSize, ID::lfoToFdnPitchAlignment,
-    Scales::lfoToPitchAlignment, false, 0);
-
-  const auto modEnvTop0 = lfoTop0 + 2 * labelY + barboxHeight + 2 * margin;
-  const auto modEnvTop1 = modEnvTop0 + labelY;
-  const auto modEnvTop2 = modEnvTop1 + labelY;
-  const auto modEnvTop3 = modEnvTop2 + labelY;
-  const auto modEnvTop4 = modEnvTop3 + labelY;
-  const auto modEnvTop5 = modEnvTop4 + labelY;
-  const auto modEnvTop6 = modEnvTop5 + labelY;
-  const auto modEnvTop7 = modEnvTop6 + labelY;
-  const auto modEnvTop8 = modEnvTop7 + labelY;
-
-  const auto modEnvLeft0 = left0 + 6 * labelWidth + 8 * margin;
-  const auto modEnvLeft1 = modEnvLeft0 + labelWidth + margin;
-  const auto modEnvLeft2 = modEnvLeft1 + labelWidth + margin;
-  const auto modEnvLeft3 = modEnvLeft2 + labelWidth + margin;
-  const auto modEnvLeft4 = modEnvLeft3 + labelWidth + margin;
-  const auto modEnvLeft5 = modEnvLeft4 + labelWidth + margin;
-  const auto modEnvLeft6 = modEnvLeft5 + labelWidth + margin;
+  constexpr auto modEnvLeft0 = lfoLeft0;
+  constexpr auto modEnvLeft1 = modEnvLeft0 + labelWidth + margin;
+  constexpr auto modEnvLeft2 = modEnvLeft1 + labelWidth + margin + lfoWidthFix;
+  constexpr auto modEnvLeft3 = modEnvLeft2 + labelWidth;
+  constexpr auto modEnvLeft4 = modEnvLeft3 + labelWidth + margin + lfoWidthFix;
+  constexpr auto modEnvLeft5 = modEnvLeft4 + labelWidth + margin;
+  constexpr auto modEnvLeft6 = modEnvLeft5 + labelWidth + margin;
 
   addGroupLabel(
-    modEnvLeft0, modEnvTop0, 2 * labelWidth + 4 * margin, labelHeight, uiTextSize,
-    "Envelope");
+    modEnvLeft0, modEnvTop0, barboxWidth, labelHeight, uiTextSize, "Envelope");
 
   addLabel(
-    modEnvLeft0, modEnvTop1, labelWidth, labelHeight, uiTextSize, "Time [s]",
+    modEnvLeft0, modEnvTopMid1, labelWidth, labelHeight, uiTextSize, "Time [s]",
     kCenterText);
   addTextKnob(
-    modEnvLeft1, modEnvTop1, labelWidth, labelHeight, uiTextSize, ID::modEnvelopeTime,
+    modEnvLeft1, modEnvTopMid1, labelWidth, labelHeight, uiTextSize, ID::modEnvelopeTime,
     Scales::modEnvelopeTime, false, 5);
-
-  addLabel(modEnvLeft2, modEnvTop1, labelWidth, labelHeight, uiTextSize, "Wave Interp.");
+  addLabel(
+    modEnvLeft0, modEnvTopMid2, labelWidth, labelHeight, uiTextSize, "Wave Interp.");
   addOptionMenu(
-    modEnvLeft3, modEnvTop1, labelWidth, labelHeight, uiTextSize,
+    modEnvLeft1, modEnvTopMid2, labelWidth, labelHeight, uiTextSize,
     ID::modEnvelopeInterpolation, modWavetableInterpolationItems);
 
+  addLabel(modEnvLeft2, modEnvTopMid1, labelWidth, labelHeight, uiTextSize, "> LP Cut");
+  addTextKnob<Style::accent>(
+    modEnvLeft3, modEnvTopMid1, labelWidth, labelHeight, uiTextSize,
+    ID::modEnvelopeToFdnLowpassCutoff, Scales::lfoToPitchAmount, false, 5);
+  addLabel(modEnvLeft2, modEnvTopMid2, labelWidth, labelHeight, uiTextSize, "> HP Cut");
+  addTextKnob<Style::accent>(
+    modEnvLeft3, modEnvTopMid2, labelWidth, labelHeight, uiTextSize,
+    ID::modEnvelopeToFdnHighpassCutoff, Scales::lfoToPitchAmount, false, 5);
+
+  addLabel(modEnvLeft5, modEnvTop1, labelWidth, labelHeight, uiTextSize, "Oscillator");
+  addLabel(modEnvLeft6, modEnvTop1, labelWidth, labelHeight, uiTextSize, "FDN");
+
+  addLabel(modEnvLeft4, modEnvTop2, labelWidth, labelHeight, uiTextSize, "> Pitch");
+  addLabel(modEnvLeft4, modEnvTop3, labelWidth, labelHeight, uiTextSize, "> LFO Amt.");
+  addTextKnob<Style::accent>(
+    modEnvLeft5, modEnvTop2, labelWidth, labelHeight, uiTextSize,
+    ID::modEnvelopeToOscPitch, Scales::lfoToPitchAmount, false, 5);
+  addTextKnob<Style::accent>(
+    modEnvLeft5, modEnvTop3, labelWidth, labelHeight, uiTextSize,
+    ID::modEnvelopeToLfoToPOscPitch, Scales::defaultScale, false, 5);
+
+  addTextKnob<Style::warning>(
+    modEnvLeft6, modEnvTop2, labelWidth, labelHeight, uiTextSize,
+    ID::modEnvelopeToFdnPitch, Scales::lfoToPitchAmount, false, 5);
+  addTextKnob<Style::accent>(
+    modEnvLeft6, modEnvTop3, labelWidth, labelHeight, uiTextSize,
+    ID::modEnvelopeToLfoToPFdnPitch, Scales::defaultScale, false, 5);
+
   auto barboxModEnvWavetable = addBarBox(
-    modEnvLeft0, modEnvTop2, barboxWidth, barboxHeight, ID::modEnvelopeWavetable0,
+    modEnvLeft0, modEnvTop4, barboxWidth, barboxHeight, ID::modEnvelopeWavetable0,
     nModWavetable, Scales::wavetableAmp, "Envelope Wave");
   if (barboxModEnvWavetable) {
     barboxModEnvWavetable->sliderZero = 0.5f;
   }
 
-  addLabel(modEnvLeft5, modEnvTop2, labelWidth, labelHeight, uiTextSize, "Amount");
-  addLabel(lfoLeft4, modEnvTop3, labelWidth, labelHeight, uiTextSize, "To Osc. Pitch");
-  addTextKnob<Style::accent>(
-    lfoLeft5, modEnvTop3, labelWidth, labelHeight, uiTextSize, ID::modEnvelopeToOscPitch,
-    Scales::lfoToPitchAmount, false, 5);
-  addLabel(lfoLeft4, modEnvTop4, labelWidth, labelHeight, uiTextSize, "To FDN Pitch");
-  addTextKnob<Style::warning>(
-    lfoLeft5, modEnvTop4, labelWidth, labelHeight, uiTextSize, ID::modEnvelopeToFdnPitch,
-    Scales::lfoToPitchAmount, false, 5);
-  addLabel(lfoLeft4, modEnvTop5, labelWidth, labelHeight, uiTextSize, "To LFO->Osc.");
-  addTextKnob<Style::accent>(
-    lfoLeft5, modEnvTop5, labelWidth, labelHeight, uiTextSize,
-    ID::modEnvelopeToLfoToPOscPitch, Scales::defaultScale, false, 5);
-  addLabel(lfoLeft4, modEnvTop6, labelWidth, labelHeight, uiTextSize, "To LFO->FDN");
-  addTextKnob<Style::accent>(
-    lfoLeft5, modEnvTop6, labelWidth, labelHeight, uiTextSize,
-    ID::modEnvelopeToLfoToPFdnPitch, Scales::defaultScale, false, 5);
-  addLabel(lfoLeft4, modEnvTop7, labelWidth, labelHeight, uiTextSize, "To FDN LP Cut");
-  addTextKnob<Style::accent>(
-    lfoLeft5, modEnvTop7, labelWidth, labelHeight, uiTextSize,
-    ID::modEnvelopeToFdnLowpassCutoff, Scales::lfoToPitchAmount, false, 5);
-  addLabel(lfoLeft4, modEnvTop8, labelWidth, labelHeight, uiTextSize, "To FDN HP Cut");
-  addTextKnob<Style::accent>(
-    lfoLeft5, modEnvTop8, labelWidth, labelHeight, uiTextSize,
-    ID::modEnvelopeToFdnHighpassCutoff, Scales::lfoToPitchAmount, false, 5);
-
   // Plugin name.
   const auto splashTop = innerHeight - splashHeight + uiMargin;
-  const auto splashLeft = uiMargin + innerWidth - 2 * labelWidth;
+  const auto splashLeft = uiMargin;
   addSplashScreen(
     splashLeft, splashTop, 2 * labelWidth, splashHeight, 20.0f, 20.0f,
     defaultWidth - splashHeight, defaultHeight - splashHeight, pluginNameTextSize,

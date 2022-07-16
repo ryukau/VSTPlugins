@@ -63,7 +63,9 @@ LinearScale<double> Scales::filterCutoffSemi(-120.0, 200.0);
 LinearScale<double> Scales::filterQ(0.01, halfSqrt2);
 
 UIntScale<double> Scales::nUnison(maximumVoice - 1);
-DecibelScale<double> Scales::unisonDetune(0.0, 6.0, false);
+UIntScale<double> Scales::unisonIntervalSemitone(120);
+UIntScale<double> Scales::unisonIntervalCycleAt(nUnisonInterval - 1);
+DecibelScale<double> Scales::unisonPitchMul(-40.0, 40.0, false);
 LinearScale<double> Scales::unisonPan(0.0, 1.0);
 
 LinearScale<double> Scales::wavetableAmp(-1.0, 1.0);
