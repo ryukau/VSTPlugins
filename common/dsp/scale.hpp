@@ -315,4 +315,36 @@ protected:
   T maxAmp;
 };
 
+// Maps value normalized in [0, 1] to dB, then add or subtract the value from `offset`.
+//
+// Added to use for feedback or resonance. Increasing normalized value makes the raw value
+// to be close to `offset`.
+template<typename T> class NegativeDecibelScale {
+public:
+  NegativeDecibelScale(T minDB, T maxDB, T offset, bool minToZero)
+    : scale(minDB, maxDB, minToZero)
+  {
+    this->offset = offset;
+  }
+
+  void set(T minDB, T maxDB, T offset, bool minToZero)
+  {
+    this->offset = offset;
+    scale.set(minDB, maxDB, minToZero);
+  }
+
+  T map(T normalized) { return offset - scale.map(T(1) - normalized); }
+  T reverseMap(T input) const { return map(T(1) - input); }
+
+  T invmap(T amplitude) { return T(1) - scale.invmap(offset - amplitude); }
+  T invmapDB(T dB) { return T(1) - scale.invmapDB(dB); }
+
+  T getMin() { return offset - scale.getMax(); }
+  T getMax() { return offset - scale.getMin(); }
+
+protected:
+  DecibelScale<T> scale;
+  T offset;
+};
+
 } // namespace SomeDSP

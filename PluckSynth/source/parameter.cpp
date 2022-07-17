@@ -27,6 +27,9 @@ UIntScale<double> Scales::boolScale(1);
 LinearScale<double> Scales::defaultScale(0.0, 1.0);
 UIntScale<double> Scales::seed(1 << 23);
 
+DecibelScale<double> Scales::gain(-60.0, 60.0, true);
+DecibelScale<double> Scales::gateRelease(-80.0, 40, false);
+
 UIntScale<double> Scales::octave(16);
 UIntScale<double> Scales::semitone(168);
 UIntScale<double> Scales::milli(2000);
@@ -35,8 +38,8 @@ UIntScale<double> Scales::pitchA4Hz(900);
 LinearScale<double> Scales::pitchBend(-1.0, 1.0);
 LinearScale<double> Scales::pitchBendRange(0.0, 120.0);
 
-DecibelScale<double> Scales::gain(-60.0, 60.0, true);
-DecibelScale<double> Scales::gateRelease(-80.0, 40, false);
+UIntScale<double> Scales::nVoice(maximumVoice - 1);
+DecibelScale<double> Scales::smoothingTimeSecond(-120.0, 40.0, true);
 
 LinearScale<double> Scales::oscOvertone(-1.0, 1.0);
 DecibelScale<double> Scales::oscAttack(-80.0, 40, false);
@@ -52,6 +55,7 @@ DecibelScale<double> Scales::oscSpectrumBlur(-100.0, 0.0, false);
 DecibelScale<double> Scales::impulseGain(-100.0, 0.0, true);
 
 DecibelScale<double> Scales::fdnMatrixIdentityAmount(-60.0, 60.0, false);
+NegativeDecibelScale<double> Scales::fdnFeedback(-120.0, 0.0, 1.0, true);
 DecibelScale<double> Scales::fdnOvertoneAdd(-60.0, 40.0, true);
 DecibelScale<double> Scales::fdnOvertoneMul(-60.0, 40.0, true);
 LinearScale<double> Scales::fdnOvertoneOffset(0.0, 64.0);

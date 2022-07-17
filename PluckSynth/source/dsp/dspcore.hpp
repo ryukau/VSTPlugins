@@ -55,15 +55,15 @@ enum class NoteState { active, release, rest };
 
 #define NOTE_PROCESS_INFO_SMOOTHER(METHOD)                                                          \
   lfo.interpType = pv[ID::lfoInterpolation]->getInt();                                              \
-  for (size_t idx = 0; idx < nModWavetable; ++idx) {                                                \
+  for (size_t idx = 0; idx < nLfoWavetable; ++idx) {                                                \
     lfo.source[idx + 1] = pv[ID::lfoWavetable0 + idx]->getFloat();                                  \
   }                                                                                                 \
                                                                                                     \
   envelope.interpType = pv[ID::modEnvelopeInterpolation]->getInt();                                 \
-  for (size_t idx = 0; idx < nModWavetable; ++idx) {                                                \
+  for (size_t idx = 0; idx < nModEnvelopeWavetable; ++idx) {                                        \
     envelope.source[idx + 1] = pv[ID::modEnvelopeWavetable0 + idx]->getFloat();                     \
   }                                                                                                 \
-  envelope.source[nModWavetable] = 0;                                                               \
+  envelope.source[nModEnvelopeWavetable] = 0;                                                       \
                                                                                                     \
   fdnEnable = pv[ID::fdnEnable]->getInt();                                                          \
                                                                                                     \
@@ -93,18 +93,19 @@ enum class NoteState { active, release, rest };
   fdnLowpassQ.METHOD(pv[ID::lowpassQ]->getFloat());                                                 \
   fdnHighpassQ.METHOD(pv[ID::highpassQ]->getFloat());                                               \
   fdnFeedback.METHOD(pv[ID::fdnFeedback]->getFloat());                                              \
+                                                                                                    \
   lfoToOscPitchAmount.METHOD(pv[ID::lfoToOscPitchAmount]->getFloat());                              \
   lfoToFdnPitchAmount.METHOD(pv[ID::lfoToFdnPitchAmount]->getFloat());                              \
   lfoToOscPitchAlignment = pv[ID::lfoToOscPitchAlignment]->getFloat();                              \
   lfoToFdnPitchAlignment = pv[ID::lfoToFdnPitchAlignment]->getFloat();                              \
+                                                                                                    \
+  modEnvelopeToFdnLowpassCutoff.METHOD(                                                             \
+    pv[ID::modEnvelopeToFdnLowpassCutoff]->getFloat());                                             \
+  modEnvelopeToFdnHighpassCutoff.METHOD(                                                            \
+    pv[ID::modEnvelopeToFdnHighpassCutoff]->getFloat());                                            \
   modEnvelopeToOscPitch.METHOD(pv[ID::modEnvelopeToOscPitch]->getFloat());                          \
   modEnvelopeToFdnPitch.METHOD(pv[ID::modEnvelopeToFdnPitch]->getFloat());                          \
-  modEnvelopeToLfoToPOscPitch.METHOD(pv[ID::modEnvelopeToLfoToPOscPitch]->getFloat());              \
-  modEnvelopeToLfoToPFdnPitch.METHOD(pv[ID::modEnvelopeToLfoToPFdnPitch]->getFloat());              \
-  modEnvelopeToFdnLowpassCutoff.METHOD(                                                             \
-    noteToPitch(pv[ID::modEnvelopeToFdnLowpassCutoff]->getFloat(), eqTemp));                        \
-  modEnvelopeToFdnHighpassCutoff.METHOD(                                                            \
-    noteToPitch(pv[ID::modEnvelopeToFdnHighpassCutoff]->getFloat(), eqTemp));
+  modEnvelopeToFdnOvertoneAdd.METHOD(pv[ID::modEnvelopeToFdnOvertoneAdd]->getFloat());
 
 struct NoteProcessInfo {
   pcg64 rng;
@@ -112,8 +113,8 @@ struct NoteProcessInfo {
   std::vector<std::vector<float>> fdnMatrixRandomBase;
   Wavetable<float, oscOvertoneSize> wavetable;
 
-  TableLFO<float, nModWavetable, 1024, TableLFOType::lfo> lfo;
-  TableLFO<float, nModWavetable + 1, 1024, TableLFOType::envelope> envelope;
+  TableLFO<float, nLfoWavetable, 1024, TableLFOType::lfo> lfo;
+  TableLFO<float, nModEnvelopeWavetable + 1, 1024, TableLFOType::envelope> envelope;
   LinearTempoSynchronizer<float> synchronizer;
   float lfoPhase = 0;
 
@@ -134,12 +135,11 @@ struct NoteProcessInfo {
   ExpSmoother<float> fdnFeedback;
   ExpSmoother<float> lfoToOscPitchAmount;
   ExpSmoother<float> lfoToFdnPitchAmount;
-  ExpSmoother<float> modEnvelopeToOscPitch;
-  ExpSmoother<float> modEnvelopeToFdnPitch;
-  ExpSmoother<float> modEnvelopeToLfoToPOscPitch;
-  ExpSmoother<float> modEnvelopeToLfoToPFdnPitch;
   ExpSmoother<float> modEnvelopeToFdnLowpassCutoff;
   ExpSmoother<float> modEnvelopeToFdnHighpassCutoff;
+  ExpSmoother<float> modEnvelopeToOscPitch;
+  ExpSmoother<float> modEnvelopeToFdnPitch;
+  ExpSmoother<float> modEnvelopeToFdnOvertoneAdd;
 
   NoteProcessInfo()
   {
@@ -194,12 +194,11 @@ struct NoteProcessInfo {
     fdnFeedback.process();
     lfoToOscPitchAmount.process();
     lfoToFdnPitchAmount.process();
-    modEnvelopeToOscPitch.process();
-    modEnvelopeToFdnPitch.process();
-    modEnvelopeToLfoToPOscPitch.process();
-    modEnvelopeToLfoToPFdnPitch.process();
     modEnvelopeToFdnLowpassCutoff.process();
     modEnvelopeToFdnHighpassCutoff.process();
+    modEnvelopeToOscPitch.process();
+    modEnvelopeToFdnPitch.process();
+    modEnvelopeToFdnOvertoneAdd.process();
   }
 };
 
@@ -257,7 +256,6 @@ class DSPInterface {
 public:
   virtual ~DSPInterface(){};
 
-  constexpr static size_t maxVoice = maximumVoice;
   GlobalParameter param;
   bool isPlaying = false;
   float tempo = 120.0f;
@@ -355,13 +353,13 @@ public:
     float velocity = 0.0f;                                                               \
     DecibelScale<float> velocityMap{-60, 0, true};                                       \
                                                                                          \
-    size_t nVoice = maxVoice;                                                            \
+    size_t nVoice = maximumVoice;                                                        \
     size_t noteOnIndex = 0;                                                              \
     size_t panCounter = 0;                                                               \
     std::vector<size_t> noteIndices;                                                     \
     std::vector<size_t> voiceIndices;                                                    \
     std::vector<float> unisonPan;                                                        \
-    std::array<Note_##INSTRSET, maxVoice> notes;                                         \
+    std::array<Note_##INSTRSET, maximumVoice> notes;                                     \
                                                                                          \
     NoteProcessInfo info;                                                                \
     ExpSmoother<float> interpMasterGain;                                                 \

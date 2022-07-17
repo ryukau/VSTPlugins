@@ -33,7 +33,8 @@
 constexpr size_t maximumVoice = 16;
 constexpr size_t oscOvertoneSize = 32;
 constexpr size_t fdnMatrixSize = 8;
-constexpr size_t nModWavetable = 64;
+constexpr size_t nLfoWavetable = 64;
+constexpr size_t nModEnvelopeWavetable = 128;
 constexpr size_t nUnisonInterval = 4;
 
 namespace Steinberg {
@@ -43,6 +44,9 @@ namespace ParameterID {
 enum ID {
   bypass,
 
+  gain,
+  gateRelease,
+
   octave,
   semitone,
   milli,
@@ -51,8 +55,9 @@ enum ID {
   pitchBend,
   pitchBendRange,
 
-  gain,
-  gateRelease,
+  nVoice,
+  clearBufferAtNoteOn,
+  smoothingTimeSecond,
 
   oscOvertone0,
   oscRotation0 = oscOvertone0 + oscOvertoneSize,
@@ -99,7 +104,7 @@ enum ID {
   unisonPan,
 
   lfoWavetable0,
-  lfoInterpolation = lfoWavetable0 + nModWavetable,
+  lfoInterpolation = lfoWavetable0 + nLfoWavetable,
   lfoTempoSync,
   lfoTempoUpper,
   lfoTempoLower,
@@ -112,14 +117,13 @@ enum ID {
   lfoToFdnPitchAlignment,
 
   modEnvelopeWavetable0,
-  modEnvelopeInterpolation = modEnvelopeWavetable0 + nModWavetable,
+  modEnvelopeInterpolation = modEnvelopeWavetable0 + nModEnvelopeWavetable,
   modEnvelopeTime,
-  modEnvelopeToOscPitch,
-  modEnvelopeToFdnPitch,
-  modEnvelopeToLfoToPOscPitch,
-  modEnvelopeToLfoToPFdnPitch,
   modEnvelopeToFdnLowpassCutoff,
   modEnvelopeToFdnHighpassCutoff,
+  modEnvelopeToOscPitch,
+  modEnvelopeToFdnPitch,
+  modEnvelopeToFdnOvertoneAdd,
 
   ID_ENUM_LENGTH,
 };
@@ -130,6 +134,9 @@ struct Scales {
   static SomeDSP::LinearScale<double> defaultScale;
   static SomeDSP::UIntScale<double> seed;
 
+  static SomeDSP::DecibelScale<double> gain;
+  static SomeDSP::DecibelScale<double> gateRelease;
+
   static SomeDSP::UIntScale<double> octave;
   static SomeDSP::UIntScale<double> semitone;
   static SomeDSP::UIntScale<double> milli;
@@ -138,8 +145,8 @@ struct Scales {
   static SomeDSP::LinearScale<double> pitchBend;
   static SomeDSP::LinearScale<double> pitchBendRange;
 
-  static SomeDSP::DecibelScale<double> gain;
-  static SomeDSP::DecibelScale<double> gateRelease;
+  static SomeDSP::UIntScale<double> nVoice;
+  static SomeDSP::DecibelScale<double> smoothingTimeSecond;
 
   static SomeDSP::LinearScale<double> oscOvertone;
   static SomeDSP::DecibelScale<double> oscAttack;
@@ -155,6 +162,7 @@ struct Scales {
   static SomeDSP::DecibelScale<double> impulseGain;
 
   static SomeDSP::DecibelScale<double> fdnMatrixIdentityAmount;
+  static SomeDSP::NegativeDecibelScale<double> fdnFeedback;
   static SomeDSP::DecibelScale<double> fdnOvertoneAdd;
   static SomeDSP::DecibelScale<double> fdnOvertoneMul;
   static SomeDSP::LinearScale<double> fdnOvertoneOffset;
@@ -195,10 +203,17 @@ struct GlobalParameter : public ParameterInterface {
     using LinearValue = DoubleValue<SomeDSP::LinearScale<double>>;
     using LogValue = DoubleValue<SomeDSP::LogScale<double>>;
     using DecibelValue = DoubleValue<SomeDSP::DecibelScale<double>>;
+    using NegativeDecibelValue = DoubleValue<SomeDSP::NegativeDecibelScale<double>>;
     using SemitoneValue = DoubleValue<SomeDSP::SemitoneScale<double>>;
 
     value[ID::bypass] = std::make_unique<UIntValue>(
       false, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
+
+    value[ID::gain] = std::make_unique<DecibelValue>(
+      Scales::gain.invmapDB(0.0), Scales::gain, "gain", Info::kCanAutomate);
+    value[ID::gateRelease] = std::make_unique<DecibelValue>(
+      Scales::gateRelease.invmap(0.01), Scales::gateRelease, "gateRelease",
+      Info::kCanAutomate);
 
     value[ID::octave]
       = std::make_unique<UIntValue>(12, Scales::octave, "octave", Info::kCanAutomate);
@@ -216,11 +231,13 @@ struct GlobalParameter : public ParameterInterface {
       Scales::pitchBendRange.invmap(2.0), Scales::pitchBendRange, "pitchBendRange",
       Info::kCanAutomate);
 
-    value[ID::gain] = std::make_unique<DecibelValue>(
-      Scales::gain.invmapDB(0.0), Scales::gain, "gain", Info::kCanAutomate);
-    value[ID::gateRelease] = std::make_unique<DecibelValue>(
-      Scales::gateRelease.invmap(0.01), Scales::gateRelease, "gateRelease",
-      Info::kCanAutomate);
+    value[ID::nVoice] = std::make_unique<UIntValue>(
+      uint32_t(maximumVoice - 1), Scales::nVoice, "nVoice", Info::kCanAutomate);
+    value[ID::clearBufferAtNoteOn] = std::make_unique<UIntValue>(
+      true, Scales::boolScale, "bypass", Info::kCanAutomate);
+    value[ID::smoothingTimeSecond] = std::make_unique<DecibelValue>(
+      Scales::smoothingTimeSecond.invmap(0.2), Scales::smoothingTimeSecond,
+      "smoothingTimeSecond", Info::kCanAutomate);
 
     std::string oscOvertoneLabel("oscOvertone");
     std::string oscRotationLabel("oscRotation");
@@ -273,8 +290,8 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::fdnMatrixIdentityAmount] = std::make_unique<DecibelValue>(
       Scales::fdnMatrixIdentityAmount.invmap(0.1), Scales::fdnMatrixIdentityAmount,
       "fdnMatrixIdentityAmount", Info::kCanAutomate);
-    value[ID::fdnFeedback] = std::make_unique<LinearValue>(
-      1.0, Scales::defaultScale, "fdnFeedback", Info::kCanAutomate);
+    value[ID::fdnFeedback] = std::make_unique<NegativeDecibelValue>(
+      1.0, Scales::fdnFeedback, "fdnFeedback", Info::kCanAutomate);
     value[ID::fdnOvertoneAdd] = std::make_unique<DecibelValue>(
       Scales::fdnOvertoneAdd.invmap(1.0), Scales::fdnOvertoneAdd, "fdnOvertoneAdd",
       Info::kCanAutomate);
@@ -336,11 +353,11 @@ struct GlobalParameter : public ParameterInterface {
       1.0, Scales::unisonPan, "unisonPan", Info::kCanAutomate);
 
     std::string lfoWavetableLabel("lfoWavetable");
-    for (size_t idx = 0; idx < nModWavetable; ++idx) {
+    for (size_t idx = 0; idx < nLfoWavetable; ++idx) {
       auto indexStr = std::to_string(idx);
       value[ID::lfoWavetable0 + idx] = std::make_unique<LinearValue>(
         Scales::wavetableAmp.invmap(
-          std::sin(SomeDSP::twopi * idx / double(nModWavetable))),
+          std::sin(SomeDSP::twopi * idx / double(nLfoWavetable))),
         Scales::wavetableAmp, (lfoWavetableLabel + indexStr).c_str(), Info::kCanAutomate);
     }
     value[ID::lfoInterpolation] = std::make_unique<UIntValue>(
@@ -368,7 +385,7 @@ struct GlobalParameter : public ParameterInterface {
       0, Scales::lfoToPitchAlignment, "lfoToFdnPitchAlignment", Info::kCanAutomate);
 
     std::string modEnvelopeWavetableLabel("modEnvelopeWavetable");
-    for (size_t idx = 0; idx < nModWavetable; ++idx) {
+    for (size_t idx = 0; idx < nModEnvelopeWavetable; ++idx) {
       auto indexStr = std::to_string(idx);
       value[ID::modEnvelopeWavetable0 + idx] = std::make_unique<LinearValue>(
         Scales::wavetableAmp.invmap(0.0), Scales::wavetableAmp,
@@ -380,22 +397,20 @@ struct GlobalParameter : public ParameterInterface {
       Scales::modEnvelopeTime.invmap(1.0), Scales::modEnvelopeTime, "modEnvelopeTime",
       Info::kCanAutomate);
 
-    value[ID::modEnvelopeToOscPitch] = std::make_unique<LinearValue>(
-      Scales::lfoToPitchAmount.invmap(0.0), Scales::lfoToPitchAmount,
-      "modEnvelopeToOscPitch", Info::kCanAutomate);
-    value[ID::modEnvelopeToFdnPitch] = std::make_unique<LinearValue>(
-      Scales::lfoToPitchAmount.invmap(0.0), Scales::lfoToPitchAmount,
-      "modEnvelopeToFdnPitch", Info::kCanAutomate);
-    value[ID::modEnvelopeToLfoToPOscPitch] = std::make_unique<LinearValue>(
-      0.0, Scales::defaultScale, "modEnvelopeToLfoToPOscPitch", Info::kCanAutomate);
-    value[ID::modEnvelopeToLfoToPFdnPitch] = std::make_unique<LinearValue>(
-      0.0, Scales::defaultScale, "modEnvelopeToLfoToPFdnPitch", Info::kCanAutomate);
     value[ID::modEnvelopeToFdnLowpassCutoff] = std::make_unique<LinearValue>(
       Scales::lfoToPitchAmount.invmap(0.0), Scales::lfoToPitchAmount,
       "modEnvelopeToFdnLowpassCutoff", Info::kCanAutomate);
     value[ID::modEnvelopeToFdnHighpassCutoff] = std::make_unique<LinearValue>(
       Scales::lfoToPitchAmount.invmap(0.0), Scales::lfoToPitchAmount,
       "modEnvelopeToFdnHighpassCutoff", Info::kCanAutomate);
+    value[ID::modEnvelopeToOscPitch] = std::make_unique<LinearValue>(
+      Scales::lfoToPitchAmount.invmap(0.0), Scales::lfoToPitchAmount,
+      "modEnvelopeToOscPitch", Info::kCanAutomate);
+    value[ID::modEnvelopeToFdnPitch] = std::make_unique<LinearValue>(
+      Scales::lfoToPitchAmount.invmap(0.0), Scales::lfoToPitchAmount,
+      "modEnvelopeToFdnPitch", Info::kCanAutomate);
+    value[ID::modEnvelopeToFdnOvertoneAdd] = std::make_unique<DecibelValue>(
+      0.0, Scales::fdnOvertoneAdd, "modEnvelopeToFdnOvertoneAdd", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

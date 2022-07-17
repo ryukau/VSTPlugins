@@ -60,9 +60,9 @@ semitoneToHz(float notePitch, float equalTemperament = 12.0f, float a4Hz = 440.0
 
 DSPCORE_NAME::DSPCORE_NAME()
 {
-  unisonPan.reserve(maxVoice);
-  noteIndices.reserve(maxVoice);
-  voiceIndices.reserve(maxVoice);
+  unisonPan.reserve(maximumVoice);
+  noteIndices.reserve(maximumVoice);
+  voiceIndices.reserve(maximumVoice);
 }
 
 void NOTE_NAME::setup(float sampleRate) { fdn.setup(sampleRate, maxDelayTime); }
@@ -73,7 +73,6 @@ void DSPCORE_NAME::setup(double sampleRate)
   upRate = upFold * this->sampleRate;
 
   SmootherCommon<float>::setSampleRate(upRate);
-  SmootherCommon<float>::setTime(0.01f);
 
   info.synchronizer.reset(upRate, defaultTempo, 1.0f);
 
@@ -94,6 +93,12 @@ void NOTE_NAME::reset()
   fdn.reset();
 }
 
+#define ASSIGN_PARAMETER(METHOD)                                                         \
+  nVoice = pv[ID::nVoice]->getInt() + 1;                                                 \
+  if (nVoice > notes.size()) nVoice = notes.size();                                      \
+                                                                                         \
+  interpMasterGain.METHOD(pv[ID::gain]->getFloat());
+
 void DSPCORE_NAME::reset()
 {
   using ID = ParameterID::ID;
@@ -101,12 +106,10 @@ void DSPCORE_NAME::reset()
 
   info.reset(param);
 
+  ASSIGN_PARAMETER(reset);
+
   for (auto &note : notes) note.reset();
-
-  interpMasterGain.reset(pv[ID::gain]->getFloat());
-
   for (auto &hb : halfbandIir) hb.reset();
-
   for (auto &frame : transitionBuffer) frame.fill(0.0f);
   isTransitioning = false;
   trIndex = 0;
@@ -173,6 +176,8 @@ void DSPCORE_NAME::setParameters()
 
   info.setParameters(param);
 
+  ASSIGN_PARAMETER(push);
+
   for (auto &note : notes) {
     if (note.state == NoteState::rest) continue;
     note.setParameters(upRate, info, param);
@@ -195,8 +200,6 @@ void DSPCORE_NAME::setParameters()
   }
   isWavetableRefeshed = pv[ID::refreshWavetable]->getInt();
   prepareRefresh = false;
-
-  interpMasterGain.push(pv[ID::gain]->getFloat());
 }
 
 inline float alignModValue(float amount, float alignment, float value)
@@ -209,33 +212,26 @@ std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
 {
   constexpr auto eps = std::numeric_limits<float>::epsilon();
 
-  if (state == NoteState::release) {
-    if (gain <= eps) state = NoteState::rest;
-  }
+  if (state == NoteState::release && gain <= eps) state = NoteState::rest;
   if (state == NoteState::rest) return {float(0), float(0)};
 
   fdnLowpassCutoff.process();
   fdnHighpassCutoff.process();
 
   auto modenv = info.envelope.process(modEnvelopePhase.process());
+  auto modenvToFdnLp
+    = noteToPitch(modenv * info.modEnvelopeToFdnLowpassCutoff.getValue(), info.eqTemp);
+  auto modenvToFdnHp
+    = noteToPitch(modenv * info.modEnvelopeToFdnHighpassCutoff.getValue(), info.eqTemp);
   auto modenvToOsc = modenv * info.modEnvelopeToOscPitch.getValue();
   auto modenvToFdn = modenv * info.modEnvelopeToFdnPitch.getValue();
-  auto modenvToOscLfo
-    = float(1) + (modenv - float(1)) * info.modEnvelopeToLfoToPOscPitch.getValue();
-  auto modenvToFdnLfo
-    = float(1) + (modenv - float(1)) * info.modEnvelopeToLfoToPFdnPitch.getValue();
-  auto modenvToFdnLp
-    = (modenv + float(1)) * info.modEnvelopeToFdnLowpassCutoff.getValue();
-  auto modenvToFdnHp
-    = (modenv + float(1)) * info.modEnvelopeToFdnHighpassCutoff.getValue();
+  auto modEnvelopeToFdnOvertoneAdd = modenv * info.modEnvelopeToFdnOvertoneAdd.getValue();
 
   auto lfoValue = info.lfo.process(lfoPhase.process(info.lfoPhase));
   auto lfoToOsc = alignModValue(
-    info.lfoToOscPitchAmount.getValue(), info.lfoToOscPitchAlignment,
-    modenvToOscLfo * lfoValue);
+    info.lfoToOscPitchAmount.getValue(), info.lfoToOscPitchAlignment, lfoValue);
   auto lfoToFdn = alignModValue(
-    info.lfoToFdnPitchAmount.getValue(), info.lfoToFdnPitchAlignment,
-    modenvToFdnLfo * lfoValue);
+    info.lfoToFdnPitchAmount.getValue(), info.lfoToFdnPitchAlignment, lfoValue);
 
   auto oscPitchMod = (modenvToOsc + lfoToOsc) * float(12) / info.eqTemp;
   auto fdnPitchMod = noteToPitch(modenvToFdn + lfoToFdn, info.eqTemp);
@@ -257,13 +253,13 @@ std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
         info.fdnOvertoneOffset.getValue()
           + (float(1) + overtoneRandomness[idx]) * overtone,
         fdnFreq);
-      auto ot
-        = overtone * info.fdnOvertoneMul.getValue() + info.fdnOvertoneAdd.getValue();
+      auto ot = overtone * info.fdnOvertoneMul.getValue() + info.fdnOvertoneAdd.getValue()
+        + modEnvelopeToFdnOvertoneAdd;
       if (info.fdnOvertoneModulo.getValue() >= std::numeric_limits<float>::epsilon()) {
         // Almost same operation as `std::fmod()`.
-        ot /= info.fdnOvertoneModulo.getValue();
+        ot /= float(1) + info.fdnOvertoneModulo.getValue();
         ot -= std::floor(ot);
-        ot *= info.fdnOvertoneModulo.getValue();
+        ot *= float(1) + info.fdnOvertoneModulo.getValue();
       }
       overtone = ot;
     }
@@ -293,6 +289,7 @@ void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
   using ID = ParameterID::ID;
   const auto &pv = param.value;
 
+  SmootherCommon<float>::setTime(pv[ID::smoothingTimeSecond]->getFloat());
   SmootherCommon<float>::setBufferSize(float(length));
 
   // When tempo-sync is off, use defaultTempo BPM.
@@ -346,7 +343,6 @@ void NOTE_NAME::noteOn(
   using ID = ParameterID::ID;
   auto &pv = param.value;
 
-  state = NoteState::active;
   id = noteId;
 
   this->pan = pan;
@@ -376,7 +372,9 @@ void NOTE_NAME::noteOn(
   // FDN matrix.
   std::uniform_int_distribution<unsigned> seedDist{
     0, std::numeric_limits<unsigned>::max()};
-  fdn.reset();
+
+  if (pv[ID::clearBufferAtNoteOn]->getInt() || state == NoteState::rest) fdn.reset();
+
   fdn.randomOrthogonal(
     seedDist(info.fdnRng), pv[ID::fdnMatrixIdentityAmount]->getFloat(),
     pv[ID::fdnRandomizeRatio]->getFloat(), info.fdnMatrixRandomBase);
@@ -405,7 +403,7 @@ void NOTE_NAME::noteOn(
     if (info.fdnOvertoneModulo.getValue() >= std::numeric_limits<float>::epsilon()) {
       ot /= info.fdnOvertoneModulo.getValue();
       ot -= std::floor(ot);
-      ot *= info.fdnOvertoneModulo.getValue();
+      ot *= float(1) + info.fdnOvertoneModulo.getValue();
     }
     overtone = ot;
   }
@@ -414,6 +412,8 @@ void NOTE_NAME::noteOn(
   SET_NOTE_FILTER_CUTOFF(reset);
   fdn.lowpass.setCutoff(fdnLowpassCutoff.getValue(), info.fdnLowpassQ.getValue());
   fdn.highpass.setCutoff(fdnHighpassCutoff.getValue(), info.fdnHighpassQ.getValue());
+
+  state = NoteState::active;
 }
 
 void NOTE_NAME::release(float sampleRate)
@@ -443,7 +443,7 @@ void DSPCORE_NAME::noteOn(
   // auto &targetNote = notes[noteOnIndex];
   // if (targetNote.state != NoteState::rest) fillTransitionBuffer(noteOnIndex);
   // targetNote.noteOn(noteId, float(pitch) + tuning, velocity, 0.5f, upRate, info,
-  // param); if (++noteOnIndex >= maxVoice) noteOnIndex = 0;
+  // param); if (++noteOnIndex >= maximumVoice) noteOnIndex = 0;
 
   const size_t nUnison = 1 + pv[ID::nUnison]->getInt();
 
@@ -465,7 +465,7 @@ void DSPCORE_NAME::noteOn(
     });
 
     for (auto &index : voiceIndices) {
-      fillTransitionBuffer(index);
+      if (pv[ID::clearBufferAtNoteOn]->getInt()) fillTransitionBuffer(index);
       noteIndices.push_back(index);
       if (noteIndices.size() >= nUnison) break;
     }

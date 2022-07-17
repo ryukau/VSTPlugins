@@ -170,6 +170,30 @@ bool Editor::prepareUI()
     unisonLeft1, unisonTop7, labelWidth, labelHeight, uiTextSize,
     ID::unisonIntervalCycleAt, Scales::unisonIntervalCycleAt, false, 0);
 
+  // Misc.
+  constexpr auto miscLeft0 = tuningLeft0;
+  constexpr auto miscLeft1 = miscLeft0 + labelWidth;
+  constexpr auto miscTop0 = unisonTop7 + labelY;
+  constexpr auto miscTop1 = miscTop0 + labelY;
+  constexpr auto miscTop2 = miscTop1 + labelY;
+  constexpr auto miscTop3 = miscTop2 + labelY;
+
+  addGroupLabel(miscLeft0, miscTop0, 2 * labelWidth, labelHeight, uiTextSize, "Misc.");
+
+  addLabel(miscLeft0, miscTop1, labelWidth, labelHeight, uiTextSize, "nVoice");
+  addTextKnob(
+    miscLeft1, miscTop1, labelWidth, labelHeight, uiTextSize, ID::nVoice, Scales::nVoice,
+    false, 0, 1);
+
+  addCheckbox(
+    miscLeft0, miscTop2, labelWidth, labelHeight, uiTextSize, "Clear Buffer",
+    ID::clearBufferAtNoteOn);
+
+  addLabel(miscLeft0, miscTop3, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
+  addTextKnob(
+    miscLeft1, miscTop3, labelWidth, labelHeight, uiTextSize, ID::smoothingTimeSecond,
+    Scales::smoothingTimeSecond, false, 5);
+
   // Oscillator.
   constexpr auto oscLeft0 = gainLeft0 + 2 * labelWidth + 4 * margin;
   constexpr auto oscLeft1 = oscLeft0 + labelWidth;
@@ -284,7 +308,7 @@ bool Editor::prepareUI()
   addLabel(fdnLeft0, fdnTop2, labelWidth, labelHeight, uiTextSize, "Feedback");
   addTextKnob<Style::accent>(
     fdnLeft1, fdnTop2, labelWidth, labelHeight, uiTextSize, ID::fdnFeedback,
-    Scales::defaultScale, false, 5);
+    Scales::fdnFeedback, false, 5);
   addLabel(fdnLeft0, fdnTop3, labelWidth, labelHeight, uiTextSize, "Interp. Rate");
   addTextKnob<Style::accent>(
     fdnLeft1, fdnTop3, labelWidth, labelHeight, uiTextSize, ID::fdnInterpRate,
@@ -422,7 +446,7 @@ bool Editor::prepareUI()
     Scales::lfoToPitchAlignment, false, 0);
 
   auto barboxLfoWavetable = addBarBox(
-    lfoLeft0, lfoTop4, barboxWidth, barboxHeight, ID::lfoWavetable0, nModWavetable,
+    lfoLeft0, lfoTop4, barboxWidth, barboxHeight, ID::lfoWavetable0, nLfoWavetable,
     Scales::wavetableAmp, "LFO Wave");
   if (barboxLfoWavetable) {
     barboxLfoWavetable->sliderZero = 0.5f;
@@ -469,28 +493,22 @@ bool Editor::prepareUI()
     modEnvLeft3, modEnvTopMid2, labelWidth, labelHeight, uiTextSize,
     ID::modEnvelopeToFdnHighpassCutoff, Scales::lfoToPitchAmount, false, 5);
 
-  addLabel(modEnvLeft5, modEnvTop1, labelWidth, labelHeight, uiTextSize, "Oscillator");
-  addLabel(modEnvLeft6, modEnvTop1, labelWidth, labelHeight, uiTextSize, "FDN");
-
-  addLabel(modEnvLeft4, modEnvTop2, labelWidth, labelHeight, uiTextSize, "> Pitch");
-  addLabel(modEnvLeft4, modEnvTop3, labelWidth, labelHeight, uiTextSize, "> LFO Amt.");
+  addLabel(modEnvLeft5, modEnvTop1, labelWidth, labelHeight, uiTextSize, "> Osc. Pitch");
   addTextKnob<Style::accent>(
-    modEnvLeft5, modEnvTop2, labelWidth, labelHeight, uiTextSize,
+    modEnvLeft6, modEnvTop1, labelWidth, labelHeight, uiTextSize,
     ID::modEnvelopeToOscPitch, Scales::lfoToPitchAmount, false, 5);
-  addTextKnob<Style::accent>(
-    modEnvLeft5, modEnvTop3, labelWidth, labelHeight, uiTextSize,
-    ID::modEnvelopeToLfoToPOscPitch, Scales::defaultScale, false, 5);
-
+  addLabel(modEnvLeft5, modEnvTop2, labelWidth, labelHeight, uiTextSize, "> FDN Pitch");
   addTextKnob<Style::warning>(
     modEnvLeft6, modEnvTop2, labelWidth, labelHeight, uiTextSize,
     ID::modEnvelopeToFdnPitch, Scales::lfoToPitchAmount, false, 5);
+  addLabel(modEnvLeft5, modEnvTop3, labelWidth, labelHeight, uiTextSize, "> FDN OT +");
   addTextKnob<Style::accent>(
     modEnvLeft6, modEnvTop3, labelWidth, labelHeight, uiTextSize,
-    ID::modEnvelopeToLfoToPFdnPitch, Scales::defaultScale, false, 5);
+    ID::modEnvelopeToFdnOvertoneAdd, Scales::fdnOvertoneAdd, false, 5);
 
   auto barboxModEnvWavetable = addBarBox(
     modEnvLeft0, modEnvTop4, barboxWidth, barboxHeight, ID::modEnvelopeWavetable0,
-    nModWavetable, Scales::wavetableAmp, "Envelope Wave");
+    nModEnvelopeWavetable, Scales::wavetableAmp, "Envelope Wave");
   if (barboxModEnvWavetable) {
     barboxModEnvWavetable->sliderZero = 0.5f;
   }
