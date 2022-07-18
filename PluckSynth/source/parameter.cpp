@@ -28,7 +28,8 @@ LinearScale<double> Scales::defaultScale(0.0, 1.0);
 UIntScale<double> Scales::seed(1 << 23);
 
 DecibelScale<double> Scales::gain(-60.0, 60.0, true);
-DecibelScale<double> Scales::gateRelease(-80.0, 40, false);
+DecibelScale<double> Scales::gateAttackSecond(-80.0, 40, true);
+DecibelScale<double> Scales::gateReleaseSecond(-80.0, 40, false);
 
 UIntScale<double> Scales::octave(16);
 UIntScale<double> Scales::semitone(168);

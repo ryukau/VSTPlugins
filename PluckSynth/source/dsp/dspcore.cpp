@@ -39,8 +39,8 @@
   #define DSPCORE_NAME DSPCore_Plain
 #endif
 
-constexpr float maxDelayTime = 4.0f;
-constexpr float defaultTempo = 120.0f;
+constexpr float maxDelayTime = float(4);
+constexpr float defaultTempo = float(120);
 
 inline float calcMasterPitch(
   int_fast32_t octave,
@@ -49,13 +49,14 @@ inline float calcMasterPitch(
   float bend,
   float equalTemperament)
 {
-  return equalTemperament * octave + semi + milli / 1000.0f + (bend - 0.5f) * 4.0f;
+  return equalTemperament * octave + semi + milli / float(1000)
+    + (bend - float(0.5)) * float(4);
 }
 
 inline float
-semitoneToHz(float notePitch, float equalTemperament = 12.0f, float a4Hz = 440.0f)
+semitoneToHz(float notePitch, float equalTemperament = float(12), float a4Hz = float(440))
 {
-  return a4Hz * std::exp2((notePitch - 69.0f) / equalTemperament);
+  return a4Hz * std::exp2((notePitch - float(69)) / equalTemperament);
 }
 
 DSPCORE_NAME::DSPCORE_NAME()
@@ -74,10 +75,10 @@ void DSPCORE_NAME::setup(double sampleRate)
 
   SmootherCommon<float>::setSampleRate(upRate);
 
-  info.synchronizer.reset(upRate, defaultTempo, 1.0f);
+  info.synchronizer.reset(upRate, defaultTempo, float(1));
 
   // 10 msec + 1 sample transition time.
-  transitionBuffer.resize(1 + size_t(upRate * 0.005), {0.0f, 0.0f});
+  transitionBuffer.resize(1 + size_t(upRate * double(0.005)), {float(0), float(0)});
 
   for (auto &note : notes) note.setup(upRate);
 
@@ -89,7 +90,10 @@ void NOTE_NAME::reset()
   rest();
   id = -1;
   gain = 0;
-  releaseSwitch = 1.0f;
+  releaseSwitch = float(1);
+
+  pan.reset(float(0.5));
+
   fdn.reset();
 }
 
@@ -110,7 +114,7 @@ void DSPCORE_NAME::reset()
 
   for (auto &note : notes) note.reset();
   for (auto &hb : halfbandIir) hb.reset();
-  for (auto &frame : transitionBuffer) frame.fill(0.0f);
+  for (auto &frame : transitionBuffer) frame.fill({});
   isTransitioning = false;
   trIndex = 0;
   trStop = 0;
@@ -124,7 +128,7 @@ float DSPCORE_NAME::getTempoSyncInterval()
   const auto &pv = param.value;
 
   auto lfoRate = pv[ID::lfoRate]->getFloat();
-  if (lfoRate > Scales::lfoRate.getMax()) return 0.0f;
+  if (lfoRate > Scales::lfoRate.getMax()) return 0;
 
   // Multiplying with 4 because 1 beat is 1/4 bar.
   auto &&upper = pv[ID::lfoTempoUpper]->getFloat() + float(1);
@@ -145,26 +149,34 @@ void DSPCORE_NAME::startup()
     ? semitoneToHz(                                                                      \
       pv[ID::lowpassCutoffSemi]->getFloat() + float(69), float(12), fdnFreq)             \
     : semitoneToHz(pv[ID::lowpassCutoffSemi]->getFloat());                               \
-  fdnLowpassCutoff.METHOD(std::clamp(lowpassCutoffHz, 1.0f, nyquist) / sampleRate);      \
+  fdnLowpassCutoff.METHOD(std::clamp(lowpassCutoffHz, float(1), nyquist) / sampleRate);  \
                                                                                          \
   auto highpassCutoffHz = pv[ID::highpassKeyFollow]->getInt()                            \
     ? semitoneToHz(                                                                      \
       pv[ID::highpassCutoffSemi]->getFloat() + float(69), float(12), fdnFreq)            \
     : semitoneToHz(pv[ID::highpassCutoffSemi]->getFloat());                              \
-  fdnHighpassCutoff.METHOD(std::clamp(highpassCutoffHz, 1.0f, nyquist) / sampleRate);
+  fdnHighpassCutoff.METHOD(std::clamp(highpassCutoffHz, float(1), nyquist) / sampleRate);
 
 void NOTE_NAME::setParameters(
   float sampleRate, NoteProcessInfo &info, GlobalParameter &param)
 {
   using ID = ParameterID::ID;
   auto &pv = param.value;
-  gate.prepare(sampleRate, pv[ID::gateRelease]->getFloat());
+
+  gate.prepare(sampleRate, pv[ID::gateReleaseSecond]->getFloat());
+
+  auto gateAttackSecond = pv[ID::gateAttackSecond]->getFloat();
+  gateSmoother.setCutoff(
+    sampleRate,
+    gateAttackSecond < std::numeric_limits<float>::epsilon()
+      ? sampleRate
+      : float(1) / gateAttackSecond);
 
   fdn.delay.rate = pv[ID::fdnInterpRate]->getFloat();
   auto fdnInterpLowpassSecond = pv[ID::fdnInterpLowpassSecond]->getFloat();
   fdn.delay.kp = fdnInterpLowpassSecond == 0
     ? float(1)
-    : float(EMAFilter<double>::cutoffToP(sampleRate, 1.0 / fdnInterpLowpassSecond));
+    : float(EMAFilter<double>::cutoffToP(sampleRate, double(1) / fdnInterpLowpassSecond));
   auto fdnFreq = info.fdnFreqOffset.getValue() * fdnPitch;
   SET_NOTE_FILTER_CUTOFF(push);
 }
@@ -205,14 +217,13 @@ void DSPCORE_NAME::setParameters()
 inline float alignModValue(float amount, float alignment, float value)
 {
   if (alignment == 0) return amount * value;
-  return alignment * std::floor(value * amount / alignment + 0.5f);
+  return alignment * std::floor(value * amount / alignment + float(0.5));
 }
 
 std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
 {
   constexpr auto eps = std::numeric_limits<float>::epsilon();
 
-  if (state == NoteState::release && gain <= eps) state = NoteState::rest;
   if (state == NoteState::rest) return {float(0), float(0)};
 
   fdnLowpassCutoff.process();
@@ -236,17 +247,18 @@ std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
   auto oscPitchMod = (modenvToOsc + lfoToOsc) * float(12) / info.eqTemp;
   auto fdnPitchMod = noteToPitch(modenvToFdn + lfoToFdn, info.eqTemp);
 
-  float sig = 0;
+  float sig = impulse;
+  impulse = 0;
 
   auto oscGain = envelope.process();
   if (oscGain >= eps) {
     auto nt = oscPitchMod + oscNote + info.oscNoteOffset.getValue();
-    sig = oscGain * osc.process(sampleRate, nt, info.wavetable);
+    sig += oscGain * osc.process(sampleRate, nt, info.wavetable);
   }
 
   if (info.fdnEnable) {
     auto fdnFreq = info.fdnFreqOffset.getValue() * fdnPitch * fdnPitchMod;
-    float overtone = 1.0f;
+    float overtone = float(1);
     for (size_t idx = 0; idx < fdnMatrixSize; ++idx) {
       fdn.delay.setDelayTimeAt(
         idx, sampleRate,
@@ -278,10 +290,14 @@ std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
   }
 
   auto gateGain = gate.process();
-  sig *= gateGain * velocity;
-  gain = velocity * releaseSwitch * gateGain;
+  gain = gateGain * releaseSwitch;
+  auto outputGain = gateSmoother.process(gateGain * velocity);
+  sig *= outputGain;
 
-  return {(float(1) - pan) * sig, pan * sig};
+  if (state == NoteState::release && outputGain <= eps) state = NoteState::rest;
+
+  auto panGain = pan.process();
+  return {(float(1) - panGain) * sig, panGain * sig};
 }
 
 void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
@@ -345,14 +361,12 @@ void NOTE_NAME::noteOn(
 
   id = noteId;
 
-  this->pan = pan;
-
   this->velocity = velocity;
   gain = 1.0f;
   releaseSwitch = 1.0f;
+
   gate.reset();
 
-  lfoPhase.offset = pv[ID::lfoRetrigger]->getInt() ? -info.synchronizer.getPhase() : 0;
   modEnvelopePhase.noteOn(sampleRate, pv[ID::modEnvelopeTime]->getFloat());
 
   // Pitch.
@@ -364,7 +378,7 @@ void NOTE_NAME::noteOn(
   oscNote = float(12) / eqTemp * (notePitch - 69) + 69;
 
   // Oscillator.
-  osc.reset();
+  impulse = pv[ID::impulseGain]->getFloat();
   envelope.noteOn(
     pv[ID::oscGain]->getFloat(), sampleRate * pv[ID::oscAttack]->getFloat(),
     sampleRate * pv[ID::oscDecay]->getFloat());
@@ -373,12 +387,9 @@ void NOTE_NAME::noteOn(
   std::uniform_int_distribution<unsigned> seedDist{
     0, std::numeric_limits<unsigned>::max()};
 
-  if (pv[ID::clearBufferAtNoteOn]->getInt() || state == NoteState::rest) fdn.reset();
-
   fdn.randomOrthogonal(
     seedDist(info.fdnRng), pv[ID::fdnMatrixIdentityAmount]->getFloat(),
     pv[ID::fdnRandomizeRatio]->getFloat(), info.fdnMatrixRandomBase);
-  fdn.process(pv[ID::impulseGain]->getFloat(), 1.0f);
 
   // FDN delay.
   fdn.delay.rate = pv[ID::fdnInterpRate]->getFloat();
@@ -393,25 +404,40 @@ void NOTE_NAME::noteOn(
       = overtoneDist(info.fdnRng) * pv[ID::fdnOvertoneRandomness]->getFloat();
   }
 
-  float overtone = 1.0f;
-  for (size_t idx = 0; idx < fdnMatrixSize; ++idx) {
-    fdn.delay.resetDelayTimeAt(
-      idx, sampleRate,
-      info.fdnOvertoneOffset.getValue() + (float(1) + overtoneRandomness[idx]) * overtone,
-      fdnFreq);
-    auto ot = overtone * info.fdnOvertoneMul.getValue() + info.fdnOvertoneAdd.getValue();
-    if (info.fdnOvertoneModulo.getValue() >= std::numeric_limits<float>::epsilon()) {
-      ot /= info.fdnOvertoneModulo.getValue();
-      ot -= std::floor(ot);
-      ot *= float(1) + info.fdnOvertoneModulo.getValue();
-    }
-    overtone = ot;
-  }
+  // Resetting.
+  bool resetAtNoteOn = pv[ID::resetAtNoteOn]->getInt();
 
-  // FDN feedback filters.
-  SET_NOTE_FILTER_CUTOFF(reset);
-  fdn.lowpass.setCutoff(fdnLowpassCutoff.getValue(), info.fdnLowpassQ.getValue());
-  fdn.highpass.setCutoff(fdnHighpassCutoff.getValue(), info.fdnHighpassQ.getValue());
+  if (resetAtNoteOn || state == NoteState::rest) {
+    this->pan.reset(pan);
+    gateSmoother.reset();
+
+    osc.reset();
+    lfoPhase.offset = pv[ID::lfoRetrigger]->getInt() ? -info.synchronizer.getPhase() : 0;
+
+    fdn.reset();
+
+    float overtone = 1.0f;
+    for (size_t idx = 0; idx < fdnMatrixSize; ++idx) {
+      fdn.delay.resetDelayTimeAt(
+        idx, sampleRate,
+        info.fdnOvertoneOffset.getValue()
+          + (float(1) + overtoneRandomness[idx]) * overtone,
+        fdnFreq);
+      auto ot
+        = overtone * info.fdnOvertoneMul.getValue() + info.fdnOvertoneAdd.getValue();
+      if (info.fdnOvertoneModulo.getValue() >= std::numeric_limits<float>::epsilon()) {
+        ot /= info.fdnOvertoneModulo.getValue();
+        ot -= std::floor(ot);
+        ot *= float(1) + info.fdnOvertoneModulo.getValue();
+      }
+      overtone = ot;
+    }
+
+    SET_NOTE_FILTER_CUTOFF(reset);
+  } else {
+    this->pan.push(pan);
+    SET_NOTE_FILTER_CUTOFF(push);
+  }
 
   state = NoteState::active;
 }
@@ -429,7 +455,7 @@ void NOTE_NAME::release(float sampleRate)
 
 void NOTE_NAME::rest() { state = NoteState::rest; }
 
-bool NOTE_NAME::isAttacking() { return envelope.isAttacking(); }
+bool NOTE_NAME::isAttacking() { return false; }
 
 float NOTE_NAME::getGain() { return gain; }
 
@@ -465,7 +491,7 @@ void DSPCORE_NAME::noteOn(
     });
 
     for (auto &index : voiceIndices) {
-      if (pv[ID::clearBufferAtNoteOn]->getInt()) fillTransitionBuffer(index);
+      if (pv[ID::resetAtNoteOn]->getInt()) fillTransitionBuffer(index);
       noteIndices.push_back(index);
       if (noteIndices.size() >= nUnison) break;
     }
@@ -476,18 +502,18 @@ void DSPCORE_NAME::noteOn(
 
   if (nUnison <= 1) {
     notes[noteIndices[0]].noteOn(
-      noteId, float(pitch) + tuning, velocity, 0.5f, upRate, info, param);
+      noteId, float(pitch) + tuning, velocity, float(0.5), upRate, info, param);
     return;
   }
 
   unisonPan.resize(nUnison);
   const auto unisonPanRange = param.value[ID::unisonPan]->getFloat();
   const float panRange = unisonPanRange / float(nUnison - 1);
-  const float panOffset = 0.5f - 0.5f * unisonPanRange;
-  panCounter = (panCounter + 1) % unisonPan.size();
+  const float panOffset = float(0.5) - float(0.5) * unisonPanRange;
+  if (++panCounter > unisonPan.size()) panCounter = 0;
   for (size_t idx = 0; idx < unisonPan.size(); ++idx) {
     auto pan = panRange * ((idx + panCounter) % unisonPan.size()) + panOffset;
-    unisonPan[idx] = std::clamp(pan, 0.0f, 1.0f);
+    unisonPan[idx] = std::clamp(pan, float(0), float(1));
   }
 
   std::array<float, 4> intervals{
@@ -534,7 +560,7 @@ void DSPCORE_NAME::fillTransitionBuffer(size_t noteIndex)
   for (size_t bufIdx = 0; bufIdx < transitionBuffer.size(); ++bufIdx) {
     auto oscOut = note.process(upRate, info);
     auto idx = (trIndex + bufIdx) % transitionBuffer.size();
-    auto interp = 1.0f - float(bufIdx) / transitionBuffer.size();
+    auto interp = float(1) - float(bufIdx) / transitionBuffer.size();
 
     transitionBuffer[idx][0] += oscOut[0] * interp;
     transitionBuffer[idx][1] += oscOut[1] * interp;

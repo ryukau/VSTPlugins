@@ -67,22 +67,26 @@ bool Editor::prepareUI()
   constexpr auto gainTop0 = top0;
   constexpr auto gainTop1 = gainTop0 + labelY;
   constexpr auto gainTop2 = gainTop1 + labelY;
+  constexpr auto gainTop3 = gainTop2 + labelY;
   addGroupLabel(gainLeft0, gainTop0, 2 * labelWidth, labelHeight, uiTextSize, "Gain");
 
   addLabel(gainLeft0, gainTop1, labelWidth, labelHeight, uiTextSize, "Output [dB]");
   addTextKnob<Style::accent>(
     gainLeft1, gainTop1, labelWidth, labelHeight, uiTextSize, ID::gain, Scales::gain,
     true, 5);
-
-  addLabel(gainLeft0, gainTop2, labelWidth, labelHeight, uiTextSize, "Release [s]");
+  addLabel(gainLeft0, gainTop2, labelWidth, labelHeight, uiTextSize, "Attack [s]");
   addTextKnob<Style::accent>(
-    gainLeft1, gainTop2, labelWidth, labelHeight, uiTextSize, ID::gateRelease,
-    Scales::gateRelease, false, 5);
+    gainLeft1, gainTop2, labelWidth, labelHeight, uiTextSize, ID::gateAttackSecond,
+    Scales::gateAttackSecond, false, 5);
+  addLabel(gainLeft0, gainTop3, labelWidth, labelHeight, uiTextSize, "Release [s]");
+  addTextKnob<Style::accent>(
+    gainLeft1, gainTop3, labelWidth, labelHeight, uiTextSize, ID::gateReleaseSecond,
+    Scales::gateReleaseSecond, false, 5);
 
   // Tuning.
   constexpr auto tuningLeft0 = left0;
   constexpr auto tuningLeft1 = tuningLeft0 + labelWidth;
-  constexpr auto tuningTop0 = gainTop2 + labelY;
+  constexpr auto tuningTop0 = gainTop3 + labelY;
   constexpr auto tuningTop1 = tuningTop0 + labelY;
   constexpr auto tuningTop2 = tuningTop1 + labelY;
   constexpr auto tuningTop3 = tuningTop2 + labelY;
@@ -176,7 +180,6 @@ bool Editor::prepareUI()
   constexpr auto miscTop0 = unisonTop7 + labelY;
   constexpr auto miscTop1 = miscTop0 + labelY;
   constexpr auto miscTop2 = miscTop1 + labelY;
-  constexpr auto miscTop3 = miscTop2 + labelY;
 
   addGroupLabel(miscLeft0, miscTop0, 2 * labelWidth, labelHeight, uiTextSize, "Misc.");
 
@@ -185,13 +188,9 @@ bool Editor::prepareUI()
     miscLeft1, miscTop1, labelWidth, labelHeight, uiTextSize, ID::nVoice, Scales::nVoice,
     false, 0, 1);
 
-  addCheckbox(
-    miscLeft0, miscTop2, labelWidth, labelHeight, uiTextSize, "Clear Buffer",
-    ID::clearBufferAtNoteOn);
-
-  addLabel(miscLeft0, miscTop3, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
+  addLabel(miscLeft0, miscTop2, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
   addTextKnob(
-    miscLeft1, miscTop3, labelWidth, labelHeight, uiTextSize, ID::smoothingTimeSecond,
+    miscLeft1, miscTop2, labelWidth, labelHeight, uiTextSize, ID::smoothingTimeSecond,
     Scales::smoothingTimeSecond, false, 5);
 
   // Oscillator.
@@ -347,6 +346,9 @@ bool Editor::prepareUI()
   addTextKnob(
     fdnLeft3, fdnTop5, labelWidth, labelHeight, uiTextSize, ID::fdnOvertoneRandomness,
     Scales::defaultScale, false, 5);
+  addCheckbox(
+    fdnLeft2, fdnTop6, 2 * labelWidth, labelHeight, uiTextSize, "Reset at Note On",
+    ID::resetAtNoteOn);
 
   constexpr auto fdnFilterLeft0 = fdnLeft0 + int(labelWidth / 4);
   constexpr auto fdnFilterLeft1 = fdnFilterLeft0 + labelWidth + 2 * margin;

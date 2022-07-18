@@ -211,13 +211,14 @@ struct NoteProcessInfo {
     float velocity = 0;                                                                  \
     float fdnPitch = 0;                                                                  \
     float oscNote = 0;                                                                   \
-    float pan = 0.5f;                                                                    \
     float gain = 0;                                                                      \
     float releaseSwitch = 1.0f;                                                          \
                                                                                          \
+    ExpSmoother<float> pan;                                                              \
     ExpSmoother<float> fdnLowpassCutoff;  /* In normalized frequency. */                 \
     ExpSmoother<float> fdnHighpassCutoff; /* In normalized frequency. */                 \
                                                                                          \
+    float impulse = 0;                                                                   \
     DoubleEmaADEnvelope<float> envelope;                                                 \
     LFOPhase<float> lfoPhase;                                                            \
     EnvelopePhase<float> modEnvelopePhase;                                               \
@@ -225,6 +226,7 @@ struct NoteProcessInfo {
     std::array<float, fdnMatrixSize> overtoneRandomness{};                               \
     FeedbackDelayNetwork<float, fdnMatrixSize> fdn;                                      \
     NoteGate<float> gate;                                                                \
+    DoubleEMAFilter<float> gateSmoother;                                                 \
                                                                                          \
     void setup(float sampleRate);                                                        \
     void reset();                                                                        \

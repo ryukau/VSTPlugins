@@ -299,7 +299,6 @@ public:
   {
     signal = Sample(1);
     filter.reset(Sample(1));
-    filter.kp = Sample(0);
   }
 
   void prepare(Sample sampleRate, Sample seconds)

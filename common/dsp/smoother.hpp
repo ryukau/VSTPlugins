@@ -116,7 +116,13 @@ public:
   Sample target = 0;
 
   inline Sample getValue() { return value; }
-  void reset(Sample value = 0) { this->value = value; }
+
+  void reset(Sample value = 0)
+  {
+    this->value = value;
+    target = value;
+  }
+
   void push(Sample newTarget) { target = newTarget; }
   Sample process() { return value += SmootherCommon<Sample>::kp * (target - value); }
 };

@@ -45,7 +45,8 @@ enum ID {
   bypass,
 
   gain,
-  gateRelease,
+  gateAttackSecond,
+  gateReleaseSecond,
 
   octave,
   semitone,
@@ -56,7 +57,7 @@ enum ID {
   pitchBendRange,
 
   nVoice,
-  clearBufferAtNoteOn,
+  resetAtNoteOn,
   smoothingTimeSecond,
 
   oscOvertone0,
@@ -135,7 +136,8 @@ struct Scales {
   static SomeDSP::UIntScale<double> seed;
 
   static SomeDSP::DecibelScale<double> gain;
-  static SomeDSP::DecibelScale<double> gateRelease;
+  static SomeDSP::DecibelScale<double> gateAttackSecond;
+  static SomeDSP::DecibelScale<double> gateReleaseSecond;
 
   static SomeDSP::UIntScale<double> octave;
   static SomeDSP::UIntScale<double> semitone;
@@ -211,9 +213,12 @@ struct GlobalParameter : public ParameterInterface {
 
     value[ID::gain] = std::make_unique<DecibelValue>(
       Scales::gain.invmapDB(0.0), Scales::gain, "gain", Info::kCanAutomate);
-    value[ID::gateRelease] = std::make_unique<DecibelValue>(
-      Scales::gateRelease.invmap(0.01), Scales::gateRelease, "gateRelease",
+    value[ID::gateAttackSecond] = std::make_unique<DecibelValue>(
+      Scales::gateAttackSecond.invmap(0.01), Scales::gateAttackSecond, "gateAttackSecond",
       Info::kCanAutomate);
+    value[ID::gateReleaseSecond] = std::make_unique<DecibelValue>(
+      Scales::gateReleaseSecond.invmap(0.01), Scales::gateReleaseSecond,
+      "gateReleaseSecond", Info::kCanAutomate);
 
     value[ID::octave]
       = std::make_unique<UIntValue>(12, Scales::octave, "octave", Info::kCanAutomate);
@@ -233,8 +238,8 @@ struct GlobalParameter : public ParameterInterface {
 
     value[ID::nVoice] = std::make_unique<UIntValue>(
       uint32_t(maximumVoice - 1), Scales::nVoice, "nVoice", Info::kCanAutomate);
-    value[ID::clearBufferAtNoteOn] = std::make_unique<UIntValue>(
-      true, Scales::boolScale, "bypass", Info::kCanAutomate);
+    value[ID::resetAtNoteOn] = std::make_unique<UIntValue>(
+      false, Scales::boolScale, "bypass", Info::kCanAutomate);
     value[ID::smoothingTimeSecond] = std::make_unique<DecibelValue>(
       Scales::smoothingTimeSecond.invmap(0.2), Scales::smoothingTimeSecond,
       "smoothingTimeSecond", Info::kCanAutomate);
