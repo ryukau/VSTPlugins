@@ -1,19 +1,19 @@
 // (c) 2021 Takamitsu Endo
 //
-// This file is part of PluckSynth.
+// This file is part of ClangSynth.
 //
-// PluckSynth is free software: you can redistribute it and/or modify
+// ClangSynth is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// PluckSynth is distributed in the hope that it will be useful,
+// ClangSynth is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with PluckSynth.  If not, see <https://www.gnu.org/licenses/>.
+// along with ClangSynth.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "../../../common/gui/splash.hpp"
 #include "../version.hpp"
@@ -41,7 +41,7 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("PluckSynth " VERSION_STR, CPoint(20.0, 50.0));
+  pContext->drawString("ClangSynth " VERSION_STR, CPoint(20.0, 50.0));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
@@ -89,7 +89,7 @@ Shares same controls with knob, and:
 Right Click|Toggle Min/Mid/Max
 
 
-PluckSynth outputs peaky signal.
+ClangSynth outputs peaky signal.
 Recommend to insert limiter, even if
 compressor is turned on.
 

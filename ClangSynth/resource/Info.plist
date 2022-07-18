@@ -7,11 +7,11 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>English</string>
 		<key>CFBundleExecutable</key>
-		<string>PluckSynth</string>
+		<string>ClangSynth</string>
 		<key>CFBundleIconFile</key>
 		<string></string>
 		<key>CFBundleIdentifier</key>
-		<string>com.steinberg.vst3.PluckSynth</string>
+		<string>com.steinberg.vst3.ClangSynth</string>
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
 		<key>CFBundlePackageType</key>
