@@ -65,6 +65,8 @@ public:
   void reset()
   {
     refreshCounter = 0;
+    tableIndex = 0;
+    fade = 0;
 
     refreshTable(0);
     refreshTable(1);
@@ -240,7 +242,7 @@ template<typename Sample> struct LFOPhase {
 };
 
 template<typename Sample> struct EnvelopePhase {
-  uint_fast32_t timeInSamples = Sample(1);
+  uint_fast32_t timeInSamples = 1;
   uint_fast32_t counter = 0;
 
   void noteOn(Sample sampleRate, Sample timeInSecond)

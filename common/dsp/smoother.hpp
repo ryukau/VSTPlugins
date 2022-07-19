@@ -127,6 +127,23 @@ public:
   Sample process() { return value += SmootherCommon<Sample>::kp * (target - value); }
 };
 
+template<typename Sample> class ExpSmootherLocal {
+public:
+  Sample value = 0;
+  Sample target = 0;
+
+  inline Sample getValue() { return value; }
+
+  void reset(Sample value = 0)
+  {
+    this->value = value;
+    target = value;
+  }
+
+  void push(Sample newTarget) { target = newTarget; }
+  Sample process(Sample kp) { return value += kp * (target - value); }
+};
+
 /**
 Legacy smoother for LightPadSynth or earlier plugins. Use ExpSmoother instead.
 

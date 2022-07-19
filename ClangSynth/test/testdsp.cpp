@@ -1,4 +1,4 @@
-// (c) 2021 Takamitsu Endo
+// (c) 2022 Takamitsu Endo
 //
 // This file is part of Uhhyou Plugins.
 //
@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Uhhyou Plugins.  If not, see <https://www.gnu.org/licenses/>.
 
-#define SET_PARAMETERS dsp->setParameters(tempo);
+#define SET_PARAMETERS dsp->setParameters();
 
 #include "../../test/synthtester.hpp"
 #include "../source/dsp/dspcore.hpp"
@@ -29,13 +29,6 @@
 
 int main()
 {
-#ifdef __linux__
-  SynthTesterSimdRuntimeDispatch<DSPInterface, DSPCore_AVX512, DSPCore_AVX2, DSPCore_AVX>
-    tester(UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
-#else
-  SynthTesterSimdRuntimeDispatch<DSPInterface, DSPCore_AVX2, DSPCore_AVX> tester(
-    UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
-#endif
-
+  SynthTester<DSPCore_Plain> tester(UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
   return tester.isFinished ? EXIT_SUCCESS : EXIT_FAILURE;
 }

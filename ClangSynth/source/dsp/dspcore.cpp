@@ -76,6 +76,7 @@ void DSPCORE_NAME::setup(double sampleRate)
   SmootherCommon<float>::setSampleRate(upRate);
 
   info.synchronizer.reset(upRate, defaultTempo, float(1));
+  info.smootherKp = float(EMAFilter<double>::cutoffToP(sampleRate, 100));
 
   // 10 msec + 1 sample transition time.
   transitionBuffer.resize(1 + size_t(upRate * double(0.005)), {float(0), float(0)});
@@ -85,16 +86,50 @@ void DSPCORE_NAME::setup(double sampleRate)
   reset();
 }
 
-void NOTE_NAME::reset()
+#define SET_NOTE_FILTER_CUTOFF(METHOD)                                                   \
+  /* To prevent blow up, upper limit of cutoff is set to slightly below Nyquist          \
+   * frequency. */                                                                       \
+  auto nyquist = float(0.49998) * sampleRate;                                            \
+  auto lowpassCutoffHz = pv[ID::lowpassKeyFollow]->getInt()                              \
+    ? semitoneToHz(                                                                      \
+      pv[ID::lowpassCutoffSemi]->getFloat() + float(69), float(12), fdnFreq)             \
+    : semitoneToHz(pv[ID::lowpassCutoffSemi]->getFloat());                               \
+  fdnLowpassCutoff.METHOD(std::clamp(lowpassCutoffHz, float(1), nyquist) / sampleRate);  \
+                                                                                         \
+  auto highpassCutoffHz = pv[ID::highpassKeyFollow]->getInt()                            \
+    ? semitoneToHz(                                                                      \
+      pv[ID::highpassCutoffSemi]->getFloat() + float(69), float(12), fdnFreq)            \
+    : semitoneToHz(pv[ID::highpassCutoffSemi]->getFloat());                              \
+  fdnHighpassCutoff.METHOD(std::clamp(highpassCutoffHz, float(1), nyquist) / sampleRate);
+
+void NOTE_NAME::reset(float sampleRate, NoteProcessInfo &info, GlobalParameter &param)
 {
-  rest();
+  using ID = ParameterID::ID;
+  auto &pv = param.value;
+
+  state = NoteState::rest;
   id = -1;
   gain = 0;
   releaseSwitch = float(1);
 
   pan.reset(float(0.5));
 
+  envelope.reset();
+  lfoPhase.offset = 0;
+  modEnvelopePhase.counter = 0;
+  osc.reset();
+
   fdn.reset();
+  auto fdnFreq = info.fdnFreqOffset.getValue() * fdnPitch;
+  SET_NOTE_FILTER_CUTOFF(reset);
+
+  auto gateAttackSecond = pv[ID::gateAttackSecond]->getFloat();
+  gateSmoother.setCutoff(
+    sampleRate,
+    gateAttackSecond < std::numeric_limits<float>::epsilon()
+      ? sampleRate
+      : float(1) / gateAttackSecond);
+  gateSmoother.reset();
 }
 
 #define ASSIGN_PARAMETER(METHOD)                                                         \
@@ -109,10 +144,11 @@ void DSPCORE_NAME::reset()
   auto &pv = param.value;
 
   info.reset(param);
+  info.synchronizer.reset(upRate, tempo, getTempoSyncInterval());
 
   ASSIGN_PARAMETER(reset);
 
-  for (auto &note : notes) note.reset();
+  for (auto &note : notes) note.reset(upRate, info, param);
   for (auto &hb : halfbandIir) hb.reset();
   for (auto &frame : transitionBuffer) frame.fill({});
   isTransitioning = false;
@@ -140,22 +176,6 @@ void DSPCORE_NAME::startup()
 {
   info.synchronizer.reset(upRate, tempo, getTempoSyncInterval());
 }
-
-#define SET_NOTE_FILTER_CUTOFF(METHOD)                                                   \
-  /* To prevent blow up, upper limit of cutoff is set to slightly below Nyquist          \
-   * frequency. */                                                                       \
-  auto nyquist = float(0.49998) * sampleRate;                                            \
-  auto lowpassCutoffHz = pv[ID::lowpassKeyFollow]->getInt()                              \
-    ? semitoneToHz(                                                                      \
-      pv[ID::lowpassCutoffSemi]->getFloat() + float(69), float(12), fdnFreq)             \
-    : semitoneToHz(pv[ID::lowpassCutoffSemi]->getFloat());                               \
-  fdnLowpassCutoff.METHOD(std::clamp(lowpassCutoffHz, float(1), nyquist) / sampleRate);  \
-                                                                                         \
-  auto highpassCutoffHz = pv[ID::highpassKeyFollow]->getInt()                            \
-    ? semitoneToHz(                                                                      \
-      pv[ID::highpassCutoffSemi]->getFloat() + float(69), float(12), fdnFreq)            \
-    : semitoneToHz(pv[ID::highpassCutoffSemi]->getFloat());                              \
-  fdnHighpassCutoff.METHOD(std::clamp(highpassCutoffHz, float(1), nyquist) / sampleRate);
 
 void NOTE_NAME::setParameters(
   float sampleRate, NoteProcessInfo &info, GlobalParameter &param)
@@ -226,9 +246,6 @@ std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
 
   if (state == NoteState::rest) return {float(0), float(0)};
 
-  fdnLowpassCutoff.process();
-  fdnHighpassCutoff.process();
-
   auto modenv = info.envelope.process(modEnvelopePhase.process());
   auto modenvToFdnLp
     = noteToPitch(modenv * info.modEnvelopeToFdnLowpassCutoff.getValue(), info.eqTemp);
@@ -279,10 +296,12 @@ std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
     constexpr auto minCutoff = float(0.00001);
     constexpr auto nyquist = float(0.49998);
     fdn.lowpass.setCutoff(
-      std::clamp(modenvToFdnLp * fdnLowpassCutoff.getValue(), minCutoff, nyquist),
+      std::clamp(
+        modenvToFdnLp * fdnLowpassCutoff.process(info.smootherKp), minCutoff, nyquist),
       info.fdnLowpassQ.getValue());
     fdn.highpass.setCutoff(
-      std::clamp(modenvToFdnHp * fdnHighpassCutoff.getValue(), minCutoff, nyquist),
+      std::clamp(
+        modenvToFdnHp * fdnHighpassCutoff.process(info.smootherKp), minCutoff, nyquist),
       info.fdnHighpassQ.getValue());
 
     // TODO: FDN gain.
@@ -296,7 +315,7 @@ std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
 
   if (state == NoteState::release && outputGain <= eps) state = NoteState::rest;
 
-  auto panGain = pan.process();
+  auto panGain = pan.process(info.smootherKp);
   return {(float(1) - panGain) * sig, panGain * sig};
 }
 
@@ -362,8 +381,8 @@ void NOTE_NAME::noteOn(
   id = noteId;
 
   this->velocity = velocity;
-  gain = 1.0f;
-  releaseSwitch = 1.0f;
+  gain = float(1);
+  releaseSwitch = float(1);
 
   gate.reset();
 
@@ -465,12 +484,6 @@ void DSPCORE_NAME::noteOn(
   using ID = ParameterID::ID;
   auto &pv = param.value;
 
-  // // Round robin note stealing for debug.
-  // auto &targetNote = notes[noteOnIndex];
-  // if (targetNote.state != NoteState::rest) fillTransitionBuffer(noteOnIndex);
-  // targetNote.noteOn(noteId, float(pitch) + tuning, velocity, 0.5f, upRate, info,
-  // param); if (++noteOnIndex >= maximumVoice) noteOnIndex = 0;
-
   const size_t nUnison = 1 + pv[ID::nUnison]->getInt();
 
   noteIndices.resize(0);
@@ -522,18 +535,15 @@ void DSPCORE_NAME::noteOn(
     pv[ID::unisonIntervalSemitone0 + 2]->getFloat(),
     pv[ID::unisonIntervalSemitone0 + 3]->getFloat(),
   };
-  const size_t cycleAt = pv[ID::unisonIntervalCycleAt]->getInt();
+  const size_t cycleAt = pv[ID::unisonIntervalCycleAt]->getInt() + 1;
   const auto eqTemp = pv[ID::unisonEqualTemperament]->getFloat() + float(1);
   const auto pitchMul = param.value[ID::unisonPitchMul]->getFloat();
-  size_t intervalIndex = 0;
   float sumInterval = 0;
   for (size_t unison = 0; unison < nUnison; ++unison) {
     if (noteIndices.size() <= unison) break;
 
-    auto notePitch
-      = (float(pitch) + tuning + sumInterval * pitchMul * float(12) / eqTemp);
-    sumInterval += intervals[intervalIndex];
-    if (++intervalIndex > cycleAt) intervalIndex = 0;
+    auto notePitch = float(pitch) + tuning + sumInterval * pitchMul * float(12) / eqTemp;
+    sumInterval += intervals[unison % cycleAt];
 
     notes[noteIndices[unison]].noteOn(
       noteId, notePitch, velocity / nUnison, unisonPan[unison], upRate, info, param);

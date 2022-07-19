@@ -119,7 +119,8 @@ struct NoteProcessInfo {
   float lfoPhase = 0;
 
   bool fdnEnable = true;
-  float oscNoteOffsetRate = 1.0f;
+  float smootherKp = float(1);
+  float oscNoteOffsetRate = float(1);
   float eqTemp = float(12);
   float lfoToOscPitchAlignment = float(1);
   float lfoToFdnPitchAlignment = float(1);
@@ -162,6 +163,8 @@ struct NoteProcessInfo {
       for (auto &value : row) value = dist(fdnRng);
     }
 
+    lfo.reset();
+    envelope.reset();
     lfoPhase = 0;
 
     NOTE_PROCESS_INFO_SMOOTHER(reset);
@@ -212,11 +215,11 @@ struct NoteProcessInfo {
     float fdnPitch = 0;                                                                  \
     float oscNote = 0;                                                                   \
     float gain = 0;                                                                      \
-    float releaseSwitch = 1.0f;                                                          \
+    float releaseSwitch = float(1);                                                      \
                                                                                          \
-    ExpSmoother<float> pan;                                                              \
-    ExpSmoother<float> fdnLowpassCutoff;  /* In normalized frequency. */                 \
-    ExpSmoother<float> fdnHighpassCutoff; /* In normalized frequency. */                 \
+    ExpSmootherLocal<float> pan;                                                         \
+    ExpSmootherLocal<float> fdnLowpassCutoff;  /* In normalized frequency. */            \
+    ExpSmootherLocal<float> fdnHighpassCutoff; /* In normalized frequency. */            \
                                                                                          \
     float impulse = 0;                                                                   \
     DoubleEmaADEnvelope<float> envelope;                                                 \
@@ -229,7 +232,7 @@ struct NoteProcessInfo {
     DoubleEMAFilter<float> gateSmoother;                                                 \
                                                                                          \
     void setup(float sampleRate);                                                        \
-    void reset();                                                                        \
+    void reset(float sampleRate, NoteProcessInfo &info, GlobalParameter &param);         \
     void setParameters(float sampleRate, NoteProcessInfo &info, GlobalParameter &param); \
     void noteOn(                                                                         \
       int_fast32_t noteId,                                                               \
@@ -352,11 +355,9 @@ public:
     bool isWavetableRefeshed = false;                                                    \
     float sampleRate = 44100.0f;                                                         \
     float upRate = 88200.0f;                                                             \
-    float velocity = 0.0f;                                                               \
     DecibelScale<float> velocityMap{-60, 0, true};                                       \
                                                                                          \
     size_t nVoice = maximumVoice;                                                        \
-    size_t noteOnIndex = 0;                                                              \
     size_t panCounter = 0;                                                               \
     std::vector<size_t> noteIndices;                                                     \
     std::vector<size_t> voiceIndices;                                                    \
