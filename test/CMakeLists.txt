@@ -2,11 +2,12 @@ function(add_subdir plugin_name)
   add_subdirectory("../${plugin_name}" "./${plugin_name}")
 endfunction()
 
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.20)
 project(TestPlugins)
 set(TEST_PLUGIN True)
 
 add_subdir(BasicLimiter)
+add_subdir(ClangSynth)
 add_subdir(CollidingCombSynth)
 add_subdir(CubicPadSynth)
 add_subdir(EnvelopedSine)

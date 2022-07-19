@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Uhhyou Plugins.  If not, see <https://www.gnu.org/licenses/>.
 
+#pragma once
+
 #include "testutil.hpp"
 
 enum class NoteEventType { noteOn, noteOff };
@@ -300,7 +302,8 @@ public:
       return true;
     } else
 #endif
-      if (iset >= 8) {
+      if (iset >= 8)
+    {
       std::cout << "AVX2 is selected.\n";
       return true;
     } else if (iset >= 7) {
@@ -321,7 +324,8 @@ public:
       return std::make_unique<DSPCore_AVX512>();
     } else
 #endif
-      if (iset >= 8) {
+      if (iset >= 8)
+    {
       return std::make_unique<DSPCore_AVX2>();
     } else if (iset >= 7) {
       return std::make_unique<DSPCore_AVX>();

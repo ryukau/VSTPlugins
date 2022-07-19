@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Uhhyou Plugins.  If not, see <https://www.gnu.org/licenses/>.
 
+#pragma once
+
 #include "../../lib/ghc/fs_std.hpp"
 
 #include <algorithm>

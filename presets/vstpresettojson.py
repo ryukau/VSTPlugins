@@ -159,4 +159,4 @@ if __name__ == "__main__":
     #     if not path.is_dir():
     #         continue
     #     vstpreset_to_json(path, "little")
-    vstpreset_to_json(Path("Uhhyou/LightPadSynth"), "little", debug_print_data=True)
+    vstpreset_to_json(Path("Uhhyou/ClangSynth"), "little", debug_print_data=True)
