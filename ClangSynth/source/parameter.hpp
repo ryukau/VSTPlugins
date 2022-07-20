@@ -241,7 +241,7 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::resetAtNoteOn] = std::make_unique<UIntValue>(
       false, Scales::boolScale, "bypass", Info::kCanAutomate);
     value[ID::smoothingTimeSecond] = std::make_unique<DecibelValue>(
-      Scales::smoothingTimeSecond.invmap(0.2), Scales::smoothingTimeSecond,
+      Scales::smoothingTimeSecond.invmap(0.02), Scales::smoothingTimeSecond,
       "smoothingTimeSecond", Info::kCanAutomate);
 
     std::string oscOvertoneLabel("oscOvertone");
@@ -352,7 +352,7 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::unisonEqualTemperament] = std::make_unique<UIntValue>(
       11, Scales::equalTemperament, "unisonEqualTemperament", Info::kCanAutomate);
     value[ID::unisonPitchMul] = std::make_unique<DecibelValue>(
-      Scales::unisonPitchMul.invmap(1.0), Scales::unisonPitchMul, "unisonPitchMul",
+      Scales::unisonPitchMul.invmap(0.1), Scales::unisonPitchMul, "unisonPitchMul",
       Info::kCanAutomate);
     value[ID::unisonPan] = std::make_unique<LinearValue>(
       1.0, Scales::unisonPan, "unisonPan", Info::kCanAutomate);

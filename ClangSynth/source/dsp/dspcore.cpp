@@ -267,7 +267,7 @@ std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
   float sig = impulse;
   impulse = 0;
 
-  auto oscGain = envelope.process();
+  auto oscGain = envelope.process() * velocity;
   if (oscGain >= eps) {
     auto nt = oscPitchMod + oscNote + info.oscNoteOffset.getValue();
     sig += oscGain * osc.process(sampleRate, nt, info.wavetable);
@@ -310,7 +310,7 @@ std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
 
   auto gateGain = gate.process();
   gain = gateGain * releaseSwitch;
-  auto outputGain = gateSmoother.process(gateGain * velocity);
+  auto outputGain = gateSmoother.process(gateGain);
   sig *= outputGain;
 
   if (state == NoteState::release && outputGain <= eps) state = NoteState::rest;

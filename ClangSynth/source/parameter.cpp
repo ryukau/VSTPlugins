@@ -56,7 +56,7 @@ DecibelScale<double> Scales::oscSpectrumBlur(-100.0, 0.0, false);
 DecibelScale<double> Scales::impulseGain(-100.0, 0.0, true);
 
 DecibelScale<double> Scales::fdnMatrixIdentityAmount(-60.0, 60.0, false);
-NegativeDecibelScale<double> Scales::fdnFeedback(-120.0, 0.0, 1.0, true);
+NegativeDecibelScale<double> Scales::fdnFeedback(-100.0, 0.0, 1.0, true);
 DecibelScale<double> Scales::fdnOvertoneAdd(-60.0, 40.0, true);
 DecibelScale<double> Scales::fdnOvertoneMul(-60.0, 40.0, true);
 LinearScale<double> Scales::fdnOvertoneOffset(0.0, 64.0);
@@ -70,7 +70,7 @@ LinearScale<double> Scales::filterQ(0.01, halfSqrt2);
 UIntScale<double> Scales::nUnison(maximumVoice - 1);
 UIntScale<double> Scales::unisonIntervalSemitone(120);
 UIntScale<double> Scales::unisonIntervalCycleAt(nUnisonInterval - 1);
-DecibelScale<double> Scales::unisonPitchMul(-40.0, 40.0, false);
+DecibelScale<double> Scales::unisonPitchMul(-60.0, 0.0, false);
 LinearScale<double> Scales::unisonPan(0.0, 1.0);
 
 LinearScale<double> Scales::wavetableAmp(-1.0, 1.0);

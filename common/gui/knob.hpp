@@ -120,6 +120,13 @@ public:
   void setSlitWidth(double width) { halfArcWidth = width / 2.0; }
   void setDefaultTickLength(double length) { defaultTickLength = length; }
 
+  void setSensitivity(double sensi, double lowSensi, double wheelSensi)
+  {
+    sensitivity = sensi;
+    lowSensitivity = lowSensi;
+    wheelSensitivity = wheelSensi;
+  }
+
 protected:
   CPoint mapValueToSlit(double normalized, double length)
   {

@@ -170,9 +170,12 @@ bool Editor::prepareUI()
       false, 0);
   }
   addLabel(unisonLeft0, unisonTop7, labelWidth, labelHeight, uiTextSize, "Cycle At");
-  addTextKnob(
+  auto unisonIntervalCycleAtTextKnob = addTextKnob(
     unisonLeft1, unisonTop7, labelWidth, labelHeight, uiTextSize,
     ID::unisonIntervalCycleAt, Scales::unisonIntervalCycleAt, false, 0);
+  if (unisonIntervalCycleAtTextKnob) {
+    unisonIntervalCycleAtTextKnob->setSensitivity(1.0 / 4.0, 1.0 / 32.0, 1.0 / 4.0);
+  }
 
   // Misc.
   constexpr auto miscLeft0 = tuningLeft0;
@@ -317,9 +320,13 @@ bool Editor::prepareUI()
     fdnLeft1, fdnTop4, labelWidth, labelHeight, uiTextSize, ID::fdnInterpLowpassSecond,
     Scales::fdnInterpLowpassSecond, false, 5);
   addLabel(fdnLeft0, fdnTop5, labelWidth, labelHeight, uiTextSize, "Seed");
-  addTextKnob(
+  auto seedTextKnob = addTextKnob(
     fdnLeft1, fdnTop5, labelWidth, labelHeight, uiTextSize, ID::fdnSeed, Scales::seed,
     false, 0);
+  if (seedTextKnob) {
+    seedTextKnob->setSensitivity(
+      2048 / double(1 << 24), 1 / double(1 << 24), 1 / double(1 << 24));
+  }
   addLabel(fdnLeft0, fdnTop6, labelWidth, labelHeight, uiTextSize, "Randomize");
   addTextKnob(
     fdnLeft1, fdnTop6, labelWidth, labelHeight, uiTextSize, ID::fdnRandomizeRatio,
@@ -432,17 +439,25 @@ bool Editor::prepareUI()
   addLabel(lfoLeft6, lfoTop1, labelWidth, labelHeight, uiTextSize, "Alignment");
 
   addLabel(lfoLeft4, lfoTop2, labelWidth, labelHeight, uiTextSize, "> Osc. Pitch");
-  addTextKnob<Style::accent>(
+  auto lfoToOscPitchAmountTextKnob = addTextKnob<Style::accent>(
     lfoLeft5, lfoTop2, labelWidth, labelHeight, uiTextSize, ID::lfoToOscPitchAmount,
     Scales::lfoToPitchAmount, false, 5);
+  if (lfoToOscPitchAmountTextKnob) {
+    lfoToOscPitchAmountTextKnob->setSensitivity(
+      float(1) / float(2400), float(1) / float(24000), float(1) / float(240000));
+  }
   addTextKnob<Style::accent>(
     lfoLeft6, lfoTop2, labelWidth, labelHeight, uiTextSize, ID::lfoToOscPitchAlignment,
     Scales::lfoToPitchAlignment, false, 0);
 
   addLabel(lfoLeft4, lfoTop3, labelWidth, labelHeight, uiTextSize, "> FDN Pitch");
-  addTextKnob<Style::warning>(
+  auto lfoToFdnPitchAmountTextKnob = addTextKnob<Style::warning>(
     lfoLeft5, lfoTop3, labelWidth, labelHeight, uiTextSize, ID::lfoToFdnPitchAmount,
     Scales::lfoToPitchAmount, false, 5);
+  if (lfoToFdnPitchAmountTextKnob) {
+    lfoToFdnPitchAmountTextKnob->setSensitivity(
+      float(1) / float(2400), float(1) / float(24000), float(1) / float(240000));
+  }
   addTextKnob<Style::accent>(
     lfoLeft6, lfoTop3, labelWidth, labelHeight, uiTextSize, ID::lfoToFdnPitchAlignment,
     Scales::lfoToPitchAlignment, false, 0);
@@ -496,13 +511,21 @@ bool Editor::prepareUI()
     ID::modEnvelopeToFdnHighpassCutoff, Scales::lfoToPitchAmount, false, 5);
 
   addLabel(modEnvLeft5, modEnvTop1, labelWidth, labelHeight, uiTextSize, "> Osc. Pitch");
-  addTextKnob<Style::accent>(
+  auto modEnvelopeToOscPitchTextKnob = addTextKnob<Style::accent>(
     modEnvLeft6, modEnvTop1, labelWidth, labelHeight, uiTextSize,
     ID::modEnvelopeToOscPitch, Scales::lfoToPitchAmount, false, 5);
+  if (modEnvelopeToOscPitchTextKnob) {
+    modEnvelopeToOscPitchTextKnob->setSensitivity(
+      float(1) / float(2400), float(1) / float(24000), float(1) / float(240000));
+  }
   addLabel(modEnvLeft5, modEnvTop2, labelWidth, labelHeight, uiTextSize, "> FDN Pitch");
-  addTextKnob<Style::warning>(
+  auto modEnvelopeToFdnPitchTextKnob = addTextKnob<Style::warning>(
     modEnvLeft6, modEnvTop2, labelWidth, labelHeight, uiTextSize,
     ID::modEnvelopeToFdnPitch, Scales::lfoToPitchAmount, false, 5);
+  if (modEnvelopeToFdnPitchTextKnob) {
+    modEnvelopeToFdnPitchTextKnob->setSensitivity(
+      float(1) / float(2400), float(1) / float(24000), float(1) / float(240000));
+  }
   addLabel(modEnvLeft5, modEnvTop3, labelWidth, labelHeight, uiTextSize, "> FDN OT +");
   addTextKnob<Style::accent>(
     modEnvLeft6, modEnvTop3, labelWidth, labelHeight, uiTextSize,
