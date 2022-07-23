@@ -341,7 +341,7 @@ bool Editor::prepareUI()
   addTextKnob<Style::accent>(
     fdnLeft3, fdnTop2, labelWidth, labelHeight, uiTextSize, ID::fdnOvertoneMul,
     Scales::fdnOvertoneMul, false, 5);
-  addLabel(fdnLeft2, fdnTop3, labelWidth, labelHeight, uiTextSize, "OT offset");
+  addLabel(fdnLeft2, fdnTop3, labelWidth, labelHeight, uiTextSize, "OT Offset");
   addTextKnob<Style::accent>(
     fdnLeft3, fdnTop3, labelWidth, labelHeight, uiTextSize, ID::fdnOvertoneOffset,
     Scales::fdnOvertoneOffset, false, 5);

@@ -445,7 +445,7 @@ void NOTE_NAME::noteOn(
       auto ot
         = overtone * info.fdnOvertoneMul.getValue() + info.fdnOvertoneAdd.getValue();
       if (info.fdnOvertoneModulo.getValue() >= std::numeric_limits<float>::epsilon()) {
-        ot /= info.fdnOvertoneModulo.getValue();
+        ot /= float(1) + info.fdnOvertoneModulo.getValue();
         ot -= std::floor(ot);
         ot *= float(1) + info.fdnOvertoneModulo.getValue();
       }

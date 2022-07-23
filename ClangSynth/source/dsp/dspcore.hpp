@@ -108,8 +108,8 @@ enum class NoteState { active, release, rest };
   modEnvelopeToFdnOvertoneAdd.METHOD(pv[ID::modEnvelopeToFdnOvertoneAdd]->getFloat());
 
 struct NoteProcessInfo {
-  pcg64 rng;
   pcg64 fdnRng;
+  uint32_t previousSeed = 0;
   std::vector<std::vector<float>> fdnMatrixRandomBase;
   Wavetable<float, oscOvertoneSize> wavetable;
 
@@ -155,8 +155,8 @@ struct NoteProcessInfo {
     using ID = ParameterID::ID;
     auto &pv = param.value;
 
-    rng.seed(9999991);
-    fdnRng.seed(pv[ID::fdnSeed]->getInt());
+    previousSeed = pv[ID::fdnSeed]->getInt();
+    fdnRng.seed(previousSeed);
 
     std::normal_distribution<float> dist{}; // mean 0, stddev 1.
     for (auto &row : fdnMatrixRandomBase) {
@@ -174,6 +174,16 @@ struct NoteProcessInfo {
   {
     using ID = ParameterID::ID;
     auto &pv = param.value;
+
+    auto seed = pv[ID::fdnSeed]->getInt();
+    if (previousSeed != seed) {
+      previousSeed = seed;
+
+      std::normal_distribution<float> dist{};
+      for (auto &row : fdnMatrixRandomBase) {
+        for (auto &value : row) value = dist(fdnRng);
+      }
+    }
 
     NOTE_PROCESS_INFO_SMOOTHER(push);
   }

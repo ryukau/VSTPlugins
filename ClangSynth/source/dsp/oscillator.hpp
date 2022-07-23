@@ -155,14 +155,12 @@ private:
       [](auto v) { return std::abs(v); });
     if (sumAmp < eps) sumAmp = eps;
     auto normalizeAmp = Sample(bufSize) / sumAmp;
-    // auto normalizeAmp = Sample(1);
 
     // Fill complex spectrum.
     param.source.resize(param.power.size());
     std::fill(param.source.begin(), param.source.end(), std::complex<Sample>(0, 0));
     for (size_t k = 1; k < param.source.size(); k += param.interval) {
       param.source[k] = std::polar(
-        // TODO: Amplitude normalization.
         param.power[k] * normalizeAmp,
         Sample(twopi) * (param.rotationOffset + Sample(k - 1) * param.rotationSlope));
     }
@@ -170,8 +168,6 @@ private:
     // Overtones.
     fullSpectrum.resize(param.source.size());
     std::fill(fullSpectrum.begin(), fullSpectrum.end(), std::complex<Sample>(0, 0));
-    // fullSpectrum[0] = std::complex<Sample>(0, 0);
-
     for (size_t i = 0; i < nOvertone; ++i) {
       for (size_t k = 1; k < param.source.size(); ++k) {
         auto index = (i + 1) * k;
