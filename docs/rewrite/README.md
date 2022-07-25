@@ -2,6 +2,8 @@
 Automation scripts to rewrite manuals.
 
 ## `rewrite.py`
+**Important** 2022-07-25: Due to a refactor, `rewrite.py` doesn't work for now.
+
 `rewrite.py` rewrites all of manual markdown. This is useful when a change is affected to all plugins.
 
 - Bump plugins version in download link.

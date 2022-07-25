@@ -1,0 +1,228 @@
+{
+  "SyncSawSynth": {
+    "latest_version": "0.1.23",
+    "urls": {
+      "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/SyncSawSynth_0.1.23.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/SyncSawSynth_0.1.22.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/SyncSawSynth_0.1.21.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/SyncSawSynth_0.1.20.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/SyncSawSynth_0.1.18.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/SyncSawSynth_0.1.17.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SyncSawSynth0.1.15.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/SyncSawSynth0.1.14.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SyncSawSynth0.1.13.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SyncSawSynth0.1.12.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SyncSawSynth0.1.11.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SyncSawSynth0.1.9.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SyncSawSynth0.1.8.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SyncSawSynth0.1.7.zip"
+      ],
+      "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SyncSawSynthPresets.zip"
+    },
+    "changelog": {
+      "0.1.23": {
+        "en": [
+          "Resume macOS build."
+        ],
+        "ja": [
+          "macOS ビルドを復帰。"
+        ]
+      },
+      "0.1.22": {
+        "en": [
+          "Fixed crash on Linux."
+        ],
+        "ja": [
+          "Linux でのクラッシュを修正。"
+        ]
+      },
+      "0.1.21": {
+        "en": [
+          "Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER."
+        ],
+        "ja": [
+          "プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。"
+        ]
+      },
+      "0.1.20": {
+        "en": [
+          "Added custom font options for `style.json`."
+        ],
+        "ja": [
+          "`style.json` でカスタムフォントを設定するオプションを追加。"
+        ]
+      },
+      "0.1.19": {
+        "en": [
+          "Updated VSTGUI from 4.10 to 4.11."
+        ],
+        "ja": [
+          "VSTGUI を 4.10 から 4.11 にアップデート。"
+        ]
+      },
+      "0.1.18": {
+        "en": [
+          "Changed font to Tinos."
+        ],
+        "ja": [
+          "フォントを Tinos に変更。"
+        ]
+      },
+      "0.1.17": {
+        "en": [
+          "Fixed a bug that insufficient reset of the sustain interpolation filter in amplitude envelope was causing pop noise."
+        ],
+        "ja": [
+          "振幅エンベロープのサステインの補間フィルタがリセットされずにポップノイズが起こっていたバグを修正。"
+        ]
+      },
+      "0.1.16": {
+        "en": [
+          "Fixed to reset properly.",
+          "Fixed `bypass` parameter behavior. This fixes playing all the notes at the moment of unmute, even if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3 `bypass` parameter."
+        ],
+        "ja": [
+          "リセットが正しく行われるように修正。",
+          "`bypass` パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の `bypass` パラメータを正しく実装しているホストでのみ発生していた。"
+        ]
+      },
+      "0.1.15": {
+        "en": [
+          "Implemented process context requirements."
+        ],
+        "ja": [
+          "Process context requirements を実装。"
+        ]
+      },
+      "0.1.14": {
+        "en": [
+          "Added check that DSP is initialized or not."
+        ],
+        "ja": [
+          "DSP が初期化されているかどうかのチェックを追加。"
+        ]
+      },
+      "0.1.13": {
+        "en": [
+          "Added color configuration."
+        ],
+        "ja": [
+          "カラーコンフィグを追加。"
+        ]
+      },
+      "0.1.12": {
+        "en": [
+          "Changed parameter smoother to the one which works with variable size audio buffer."
+        ],
+        "ja": [
+          "パラメータの補間を可変サイズのオーディオバッファでも機能する手法に変更。"
+        ]
+      },
+      "0.1.11": {
+        "en": [
+          "Fixed a bug that cause crash when drawing string."
+        ],
+        "ja": [
+          "文字列の描画でクラッシュするバグを修正。"
+        ]
+      },
+      "0.1.10": {
+        "en": [
+          "Changed display method for pop-up which shows up by clicking plugin title."
+        ],
+        "ja": [
+          "プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。"
+        ]
+      },
+      "0.1.9": {
+        "en": [
+          "Fixed a bug that was causing noise on PreSonus Studio One 4.6.1."
+        ],
+        "ja": [
+          "PreSonus Studio One 4.6.1 で出力にノイズが乗るバグを修正。"
+        ]
+      },
+      "0.1.8": {
+        "en": [
+          "Enabled GUI for Linux build."
+        ],
+        "ja": [
+          "Linux ビルドの GUI を有効化。"
+        ]
+      },
+      "0.1.7": {
+        "en": [
+          "Added support for synchronization between multiple GUI instances.",
+          "Fixed a bug that opening splash screen causes crash.",
+          "Fixed GUI to follow host automation."
+        ],
+        "ja": [
+          "複数の GUI インスタンス間で表示を同期するように変更。",
+          "スプラッシュスクリーンを開くとクラッシュするバグを修正。",
+          "GUI がホストのオートメーションに応じて更新されるように修正。"
+        ]
+      },
+      "0.1.6": {
+        "en": [
+          "Fixed note on/off event to be triggered at exact timing."
+        ],
+        "ja": [
+          "ノートオン・オフが正確なタイミングでトリガされるように修正。"
+        ]
+      },
+      "0.1.5": {
+        "en": [
+          "Fixed smoothing algorithm to prevent blow up."
+        ],
+        "ja": [
+          "スムーシングのアルゴリズムの値が決められた範囲を超えるバグを修正。"
+        ]
+      },
+      "0.1.4": {
+        "en": [
+          "Changed semitone control to NumberKnob."
+        ],
+        "ja": [
+          "semi コントロールのノブが番号を表示するように変更。"
+        ]
+      },
+      "0.1.3": {
+        "en": [
+          "Added unison parameter.",
+          "Added number of voice parameter.",
+          "Changed internal parameter structure.",
+          "Changed UI looks.",
+          "Made filter and math function faster."
+        ],
+        "ja": [
+          "ユニゾンパラメータを追加。",
+          "最大同時発音数パラメータを追加。",
+          "内部のパラメータ構造を変更。",
+          "UI の見た目を変更。",
+          "フィルタと数学関数の高速化。"
+        ]
+      },
+      "0.1.1": {
+        "en": [
+          "Added pitchbend support.",
+          "Added double precision PTR options.",
+          "Fix a bug that releasing gain envelope while attacking jumps the output value of gain envelope to sustain level."
+        ],
+        "ja": [
+          "ピッチベンドに対応。",
+          "double 型の PTR を追加。",
+          "音量エンベロープをアタック中にリリースすると、リリースがサステインの大きさから始まるバグを修正。"
+        ]
+      },
+      "0.1.0": {
+        "en": [
+          "Initial release."
+        ],
+        "ja": [
+          "初期リリース。"
+        ]
+      }
+    }
+  }
+}

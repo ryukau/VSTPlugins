@@ -1,0 +1,29 @@
+{
+  "ParallelComb": {
+    "latest_version": "0.2.1",
+    "urls": {
+      "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/ParallelComb_0.2.1.zip"
+      ],
+      "preset_url": ""
+    },
+    "changelog": {
+      "0.2.1": {
+        "en": [
+          "Fixed a bug that limiter on feedback path only output silence."
+        ],
+        "ja": [
+          "フィードバック経路のリミッタが動作せず、 wet 信号が無音となるバグを修正。"
+        ]
+      },
+      "0.2.0": {
+        "en": [
+          "Initial release."
+        ],
+        "ja": [
+          "初期リリース。"
+        ]
+      }
+    }
+  }
+}

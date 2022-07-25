@@ -1,0 +1,21 @@
+{
+  "ClangSynth": {
+    "latest_version": "0.0.1",
+    "urls": {
+      "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.9999.0/ClangSynth_0.0.1.zip"
+      ],
+      "preset_url": ""
+    },
+    "changelog": {
+      "0.0.1": {
+        "en": [
+          "β release."
+        ],
+        "ja": [
+          "β リリース。"
+        ]
+      }
+    }
+  }
+}

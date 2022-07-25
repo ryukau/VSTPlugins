@@ -1,0 +1,79 @@
+{
+  "MiniCliffEQ": {
+    "latest_version": "0.1.7",
+    "urls": {
+      "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.40.0/MiniCliffEQ_0.1.7.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.38.0/MiniCliffEQ_0.1.5.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.36.0/MiniCliffEQ_0.1.4.zip"
+      ],
+      "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/MiniCliffEQPresets.zip"
+    },
+    "changelog": {
+      "0.1.7": {
+        "en": [
+          "Fixed crash when FIR filter is refreshed at the same time on 2 or more instances of MiniCliffEQ."
+        ],
+        "ja": [
+          "2 つ以上のインスタンスの FIR フィルタが同時にリフレッシュされたときにクラッシュするバグを修正。"
+        ]
+      },
+      "0.1.6": {
+        "en": [
+          "Changed convolution algorithm to reduce CPU load spikes."
+        ],
+        "ja": [
+          "CPU 負荷のスパイクを低減するために畳み込みのアルゴリズムを変更。"
+        ]
+      },
+      "0.1.5": {
+        "en": [
+          "Fixed crash at plugin scan on some Windows environment. FFTW3 static library for Windows is changed to build without SIMD flags."
+        ],
+        "ja": [
+          "一部の Windows 環境で発生していたプラグインスキャン時のクラッシュを修正。Windows 用の FFTW3 静的ライブラリを SIMD フラグなしでビルドするように変更。"
+        ]
+      },
+      "0.1.4": {
+        "en": [
+          "Fixed a bug where one of the output of partial convolution was off by one sample."
+        ],
+        "ja": [
+          "分割した畳み込みの出力の 1 つが 1 サンプルずれていたバグを修正。"
+        ]
+      },
+      "0.1.3": {
+        "en": [
+          "Changed convolution algorithm from overlap-add to overlap-save for slightly less noise and also slightly better performance."
+        ],
+        "ja": [
+          "畳み込みのアルゴリズムを overlap-add から overlap-save に変更。ノイズと CPU 負荷がどちらもわずかに低減。"
+        ]
+      },
+      "0.1.2": {
+        "en": [
+          "Changed convolution algorithm not to introduce latency. Average CPU load is increased due to trade-off. Latency from FIR filter still remains."
+        ],
+        "ja": [
+          "畳み込みのアルゴリズムをレイテンシを加えないものに変更。トレードオフとして平均 CPU 負荷が向上。 FIR フィルタによるレイテンシは据え置き。"
+        ]
+      },
+      "0.1.1": {
+        "en": [
+          "Changed to use `std::accumulate` to improve acculacy of FIR filter nomalization."
+        ],
+        "ja": [
+          "FIR フィルタの正規化の精度向上のために `std::accumulate` を使うように変更。"
+        ]
+      },
+      "0.1.0": {
+        "en": [
+          "Initial release."
+        ],
+        "ja": [
+          "初期リリース。"
+        ]
+      }
+    }
+  }
+}

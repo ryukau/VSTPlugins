@@ -1,0 +1,21 @@
+{
+  "PitchShiftDelay": {
+    "latest_version": "0.2.0",
+    "urls": {
+      "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/PitchShiftDelay_0.2.0.zip"
+      ],
+      "preset_url": ""
+    },
+    "changelog": {
+      "0.2.0": {
+        "en": [
+          "Initial release."
+        ],
+        "ja": [
+          "初期リリース。"
+        ]
+      }
+    }
+  }
+}

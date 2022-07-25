@@ -1,0 +1,205 @@
+{
+  "L4Reverb": {
+    "latest_version": "0.1.10",
+    "urls": {
+      "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/L4Reverb_0.1.10.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/L4Reverb_0.1.9.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L4Reverb_0.1.8.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/L4Reverb_0.1.7.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/L4Reverb_0.1.5.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L4Reverb_0.1.4.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/L4Reverb0.1.2.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L4Reverb0.1.1.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Reverb0.1.0.zip"
+      ],
+      "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4ReverbPresets.zip"
+    },
+    "changelog": {
+      "0.1.10": {
+        "en": [
+          "Removed dependency to x86_64 specific SIMD instructions."
+        ],
+        "ja": [
+          "x86_64 固有の SIMD 命令への依存を除去。"
+        ]
+      },
+      "0.1.9": {
+        "en": [
+          "Fixed crash on Linux.",
+          "Fixed BarBox to receive shift key."
+        ],
+        "ja": [
+          "Linux でのクラッシュを修正。",
+          "BarBox が <kbd>Shift</kbd> キーを受け取るように修正。"
+        ]
+      },
+      "0.1.8": {
+        "en": [
+          "Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER."
+        ],
+        "ja": [
+          "プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。"
+        ]
+      },
+      "0.1.7": {
+        "en": [
+          "Added custom font options for `style.json`."
+        ],
+        "ja": [
+          "`style.json` でカスタムフォントを設定するオプションを追加。"
+        ]
+      },
+      "0.1.6": {
+        "en": [
+          "Updated VSTGUI from 4.10 to 4.11."
+        ],
+        "ja": [
+          "VSTGUI を 4.10 から 4.11 にアップデート。"
+        ]
+      },
+      "0.1.5": {
+        "en": [
+          "Changed font to Tinos."
+        ],
+        "ja": [
+          "フォントを Tinos に変更。"
+        ]
+      },
+      "0.1.4": {
+        "en": [
+          "Fixed to reset properly.",
+          "Fixed `bypass` parameter behavior. This fixes playing all the notes at the moment of unmute, even if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3 `bypass` parameter."
+        ],
+        "ja": [
+          "リセットが正しく行われるように修正。",
+          "`bypass` パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の `bypass` パラメータを正しく実装しているホストでのみ発生していた。"
+        ]
+      },
+      "0.1.2": {
+        "en": [
+          "Implemented process context requirements.",
+          "Added/Changed BarBox functionality to match LV2 version.\n    - Edit one bar.\n    - Lock.\n    - Internal mouse wheel sensitivitly.\n    - Snapping (implemented, but not used).\n    - Starting bar of line edit is now fixed to anchor point."
+        ],
+        "ja": [
+          "Process context requirements を実装。",
+          "BarBox の機能が LV2 版と同等になるように更新。\n    - 1 つのバーを編集を追加。\n    - ロックを追加。\n    - 内部的なマウスホイールの感度を追加。\n    - スナップを追加 (未使用) 。\n    - 直線の描画での開始点の値をアンカーポイントに固定するように変更。"
+        ]
+      },
+      "0.1.1": {
+        "en": [
+          "Added check that DSP is initialized or not.",
+          "Added color configuration."
+        ],
+        "ja": [
+          "DSP が初期化されているかどうかのチェックを追加。",
+          "カラーコンフィグを追加。"
+        ]
+      },
+      "0.1.0": {
+        "en": [
+          "Initial release."
+        ],
+        "ja": [
+          "初期リリース。"
+        ]
+      }
+    }
+  },
+  "L3Reverb": {
+    "latest_version": "0.1.10",
+    "urls": {
+      "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/L3Reverb_0.1.10.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/L3Reverb_0.1.9.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L3Reverb_0.1.8.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/L3Reverb_0.1.7.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/L3Reverb_0.1.5.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/L3Reverb_0.1.4.zip"
+      ],
+      "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L3ReverbPresets.zip"
+    },
+    "changelog": {
+      "0.1.10": {
+        "en": [
+          "Removed dependency to x86_64 specific SIMD instructions."
+        ],
+        "ja": [
+          "x86_64 固有の SIMD 命令への依存を除去。"
+        ]
+      },
+      "0.1.9": {
+        "en": [
+          "Fixed crash on Linux.",
+          "Fixed BarBox to receive shift key."
+        ],
+        "ja": [
+          "Linux でのクラッシュを修正。",
+          "BarBox が <kbd>Shift</kbd> キーを受け取るように修正。"
+        ]
+      },
+      "0.1.8": {
+        "en": [
+          "Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER."
+        ],
+        "ja": [
+          "プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。"
+        ]
+      },
+      "0.1.7": {
+        "en": [
+          "Added custom font options for `style.json`."
+        ],
+        "ja": [
+          "`style.json` でカスタムフォントを設定するオプションを追加。"
+        ]
+      },
+      "0.1.6": {
+        "en": [
+          "Updated VSTGUI from 4.10 to 4.11."
+        ],
+        "ja": [
+          "VSTGUI を 4.10 から 4.11 にアップデート。"
+        ]
+      },
+      "0.1.5": {
+        "en": [
+          "Changed font to Tinos."
+        ],
+        "ja": [
+          "フォントを Tinos に変更。"
+        ]
+      },
+      "0.1.4": {
+        "en": [
+          "Fixed to reset properly.",
+          "Fixed `bypass` parameter behavior. This fixes playing all the notes at the moment of unmute, even if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3 `bypass` parameter."
+        ],
+        "ja": [
+          "リセットが正しく行われるように修正。",
+          "`bypass` パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の `bypass` パラメータを正しく実装しているホストでのみ発生していた。"
+        ]
+      },
+      "0.1.2": {
+        "en": [
+          "0.1.1 is skipped to match L4Reverb version.",
+          "Implemented process context requirements.",
+          "Added/Changed BarBox functionality to match LV2 version.\n    - Edit one bar.\n    - Lock.\n    - Internal mouse wheel sensitivitly.\n    - Snapping (implemented, but not used).\n    - Starting bar of line edit is now fixed to anchor point."
+        ],
+        "ja": [
+          "L4Reverb のバージョンと同じにするため 0.1.1 をスキップ。",
+          "Process context requirements を実装。",
+          "BarBox の機能が LV2 版と同等になるように更新。\n    - 1 つのバーを編集を追加。\n    - ロックを追加。\n    - 内部的なマウスホイールの感度を追加。\n    - スナップを追加 (未使用) 。\n    - 直線の描画での開始点の値をアンカーポイントに固定するように変更。"
+        ]
+      },
+      "0.1.0": {
+        "en": [
+          "Initial release."
+        ],
+        "ja": [
+          "初期リリース。"
+        ]
+      }
+    }
+  }
+}
