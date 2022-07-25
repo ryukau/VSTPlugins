@@ -13,11 +13,6 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/FDN64ReverbPresets.zip"
     },
     "changelog": {
-      "0.1.7": {
-        "ja": [
-          "CPU 負荷をわずかに改善。"
-        ]
-      },
       "0.1.6": {
         "en": [
           "Removed dependency to x86_64 specific SIMD instructions."
