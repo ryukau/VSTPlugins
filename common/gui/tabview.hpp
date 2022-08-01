@@ -108,6 +108,12 @@ public:
     }
   }
 
+  virtual void setVisible(bool state) override
+  {
+    CView::setVisible(state);
+    for (auto &widget : widgets[activeTabIndex]) widget->setVisible(state);
+  }
+
   void draw(CDrawContext *pContext) override
   {
     const auto width = getWidth();
