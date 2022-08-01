@@ -32,7 +32,7 @@ class XYPad : public ArrayControl {
 private:
   constexpr static int8_t nGrid = 8;
 
-  CPoint cursor{-1, -1};
+  CPoint mousePosition{-1, -1};
   bool isMouseEntered = false;
   bool isMouseLeftDown = false;
 
@@ -73,12 +73,7 @@ public:
       for (size_t iy = 1; iy < nGrid; ++iy) {
         auto cx = ix * width / nGrid;
         auto cy = iy * height / nGrid;
-
-        pContext->drawEllipse(CRect(cx - 2.0, cy - 2.0, 4.0, 4.0), kDrawFilled);
-
-        // beginPath();
-        // circle(ix * getWidth() / nGrid, iy * getHeight() / nGrid, 2.0f);
-        // fill();
+        pContext->drawEllipse(CRect(cx - 2.0, cy - 2.0, cx + 2.0, cy + 2.0), kDrawFilled);
       }
     }
 
@@ -86,22 +81,8 @@ public:
     if (isMouseEntered) {
       pContext->setFrameColor(pal.highlightMain());
       pContext->setLineWidth(1.0);
-      pContext->drawLine(CPoint(0, cursor.y), CPoint(width, cursor.y));
-      pContext->drawLine(CPoint(cursor.x, 0), CPoint(cursor.x, height));
-
-      // strokeColor(pal.highlightMain());
-
-      // beginPath();
-      // moveTo(0, cursor.getY());
-      // lineTo(width, cursor.getY());
-      // strokeWidth(1.0f);
-      // stroke();
-
-      // beginPath();
-      // moveTo(cursor.getX(), 0);
-      // lineTo(cursor.getX(), height);
-      // strokeWidth(1.0f);
-      // stroke();
+      pContext->drawLine(CPoint(0, mousePosition.y), CPoint(width, mousePosition.y));
+      pContext->drawLine(CPoint(mousePosition.x, 0), CPoint(mousePosition.x, height));
     }
 
     // Value.
@@ -112,41 +93,17 @@ public:
 
     pContext->setLineWidth(2.0);
     pContext->drawEllipse(
-      CRect(valueX - valR, valueY - valR, 2 * valR, 2 * valR), kDrawStroked);
+      CRect(valueX - valR, valueY - valR, valueX + valR, valueY + valR), kDrawStroked);
 
     pContext->setLineWidth(1.0);
     pContext->drawLine(CPoint(0, valueY), CPoint(width, valueY));
     pContext->drawLine(CPoint(valueX, 0), CPoint(valueX, height));
-
-    // beginPath();
-    // circle(valueX, valueY, 8.0f);
-    // strokeWidth(2.0f);
-    // strokeColor(pal.foreground());
-    // stroke();
-
-    // beginPath();
-    // moveTo(0, valueY);
-    // lineTo(width, valueY);
-    // strokeWidth(1.0f);
-    // stroke();
-
-    // beginPath();
-    // moveTo(valueX, 0);
-    // lineTo(valueX, height);
-    // strokeWidth(1.0f);
-    // stroke();
 
     // Border.
     pContext->setLineWidth(borderWidth);
     pContext->setFrameColor(
       isMouseEntered || isMouseLeftDown ? pal.highlightMain() : pal.border());
     pContext->drawRect(CRect(0, 0, width, height), kDrawStroked);
-
-    // beginPath();
-    // rect(0, 0, width, height);
-    // strokeWidth(borderWidth);
-    // strokeColor(isMouseEntered || isMouseLeftDown ? pal.highlightMain() :
-    // pal.border()); stroke();
   }
 
   void onMouseEnterEvent(MouseEnterEvent &event) override
@@ -175,8 +132,8 @@ public:
       if (handler == nullptr) return;
 
       // Open X menu on left half, and open Y menu on right half.
-      cursor = event.mousePosition;
-      size_t index = cursor.x < getWidth() / 2.0 ? 0 : 1;
+      mousePosition = translatePoint(event.mousePosition);
+      size_t index = mousePosition.x < getWidth() / 2.0 ? 0 : 1;
       if (index >= id.size()) return;
 
       Vst::IContextMenu *menu = handler->createContextMenu(editor, &id[index]);
@@ -188,9 +145,9 @@ public:
     }
 
     if (event.buttonState.isLeft()) {
-      cursor = event.mousePosition;
+      mousePosition = translatePoint(event.mousePosition);
       isMouseLeftDown = true;
-      updateValueFromPos(event.mousePosition);
+      updateValueFromPos(mousePosition);
       invalid();
       event.consumed = true;
     }
@@ -201,7 +158,7 @@ public:
   void onMouseUpEvent(MouseUpEvent &event) override
   {
     if (event.buttonState.isLeft()) {
-      updateValueFromPos(event.mousePosition);
+      updateValueFromPos(translatePoint(event.mousePosition));
       isMouseLeftDown = false;
       invalid();
       event.consumed = true;
@@ -209,42 +166,18 @@ public:
     return;
   }
 
-  // bool onMouse(const MouseEvent &ev) override
-  // {
-  //   if (ev.press && contains(ev.pos)) {
-  //     if (ev.button == 1) {
-  //       isMouseLeftDown = true;
-  //       updateValueFromPos(ev.pos);
-  //     }
-  //     repaint();
-  //     return true;
-  //   }
-  //   isMouseLeftDown = false;
-  //   repaint();
-  //   return false;
-  // }
-
   void onMouseMoveEvent(MouseMoveEvent &event) override
   {
-    if (event.buttonState.isLeft()) updateValueFromPos(event.mousePosition);
+    if (event.buttonState.isLeft()) {
+      updateValueFromPos(translatePoint(event.mousePosition));
+    }
     if (isMouseEntered) {
-      cursor = event.mousePosition;
+      mousePosition = translatePoint(event.mousePosition);
       invalid();
     }
     if (isMouseEntered || isMouseLeftDown) event.consumed = true;
     return;
   }
-
-  // bool onMotion(const MotionEvent &ev) override
-  // {
-  //   if (isMouseLeftDown) {
-  //     updateValueFromPos(ev.pos);
-  //   }
-  //   isMouseEntered = contains(ev.pos);
-  //   if (isMouseEntered) cursor = ev.pos;
-  //   repaint();
-  //   return isMouseEntered || isMouseLeftDown;
-  // }
 
   virtual void onMouseCancelEvent(MouseCancelEvent &event) override
   {
@@ -255,6 +188,12 @@ public:
   }
 
 private:
+  CPoint translatePoint(CPoint &pos)
+  {
+    auto view = getViewSize();
+    return pos - CPoint(view.left, view.top);
+  }
+
   void updateValueFromPos(const CPoint &pos)
   {
     value[0] = std::clamp<int>(pos.x, 0, getWidth()) / double(getWidth());
