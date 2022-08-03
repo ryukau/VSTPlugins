@@ -112,7 +112,7 @@ def extract_parameter():
     for path in Path("..").glob("**/parameter.hpp"):
         if path.parts[1] == "_dump":
             continue
-        if path.parts[1] != "ClangSynth":
+        if path.parts[1] != "ClangCymbal":
             continue
         print(path)
         extract_plugin_parameter(path)
