@@ -81,6 +81,14 @@ public:
     v2 += kp * (v1 - v2);
     return v2;
   }
+
+  Sample processKp(Sample input, Sample kp)
+  {
+    auto &&v0 = input;
+    v1 += kp * (v0 - v1);
+    v2 += kp * (v1 - v2);
+    return v2;
+  }
 };
 
 template<typename Sample> class SmootherCommon {

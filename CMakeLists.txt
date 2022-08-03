@@ -12,6 +12,7 @@ endif()
 
 # add_subdirectory(BasicLimiter)
 # add_subdirectory(BasicLimiterAutoMake)
+add_subdirectory(ClangCymbal)
 add_subdirectory(ClangSynth)
 # add_subdirectory(CollidingCombSynth)
 # add_subdirectory(FDNCymbal)
