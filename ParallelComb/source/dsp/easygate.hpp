@@ -62,7 +62,7 @@ public:
     peakhold.resize(holdSamples);
     peakhold.setFrames(holdSamples);
 
-    openKp = EMAFilter<double>::cutoffToP(sampleRate, Sample(1000));
+    openKp = EMAFilter<double>::cutoffToP(sampleRate, Sample(200));
   }
 
   void reset()
@@ -71,10 +71,12 @@ public:
     smoother.reset(Sample(0));
   }
 
-  void prepare(Sample gateThresholdAmp)
+  void prepare(Sample sampleRate, Sample gateThresholdAmp)
   {
     threshold = gateThresholdAmp;
     if (threshold <= 0) smoother.reset(Sample(0));
+
+    openKp = EMAFilter<double>::cutoffToP(sampleRate, Sample(1000));
   }
 
   Sample process(Sample inAbs, Sample closeKp)

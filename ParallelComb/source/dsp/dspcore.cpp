@@ -93,7 +93,7 @@ size_t DSPCORE_NAME::getLatency() { return 0; }
   interpDry.METHOD(pv[ID::dry]->getFloat());                                             \
   interpWet.METHOD(pv[ID::wet]->getFloat());                                             \
                                                                                          \
-  gate.prepare(std::max(0.0f, pv[ID::gateThreshold]->getFloat()));
+  gate.prepare(upRate, std::max(0.0f, pv[ID::gateThreshold]->getFloat()));
 
 void DSPCORE_NAME::reset()
 {

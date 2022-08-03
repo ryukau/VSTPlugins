@@ -1,13 +1,22 @@
 {
   "ParallelComb": {
-    "latest_version": "0.2.1",
+    "latest_version": "0.2.2",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.9999.0/ParallelComb_0.2.2.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/ParallelComb_0.2.1.zip"
       ],
       "preset_url": ""
     },
     "changelog": {
+      "0.2.2": {
+        "en": [
+          "Changed to remove pop noise when gate is activated. Cutoff frequency of the filter of gate is lowered, and the filter coefficient now refreshes when oversampling is turned on."
+        ],
+        "ja": [
+          "ゲート有効時のポップノイズを抑えるように変更。フィルタのカットオフを下げて、オーバーサンプリング時に適切に係数が更新されるようにした。"
+        ]
+      },
       "0.2.1": {
         "en": [
           "Fixed a bug that limiter on feedback path only output silence."
