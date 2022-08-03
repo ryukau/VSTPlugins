@@ -106,6 +106,8 @@ enum ID {
   modEnvelopeToFdnHighpassCutoff,
   modEnvelopeToFdnPitch,
   modEnvelopeToFdnOvertoneAdd,
+  modEnvelopeToOscJitter,
+  modEnvelopeToOscNoisePulseRatio,
 
   tremoloMix,
   tremoloDepth,
@@ -120,6 +122,7 @@ enum ID {
 struct Scales {
   static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LinearScale<double> defaultScale;
+  static SomeDSP::LinearScale<double> bipolarScale;
   static SomeDSP::UIntScale<double> seed;
 
   static SomeDSP::DecibelScale<double> gain;
@@ -363,6 +366,12 @@ struct GlobalParameter : public ParameterInterface {
       "modEnvelopeToFdnPitch", Info::kCanAutomate);
     value[ID::modEnvelopeToFdnOvertoneAdd] = std::make_unique<DecibelValue>(
       0.0, Scales::fdnOvertoneAdd, "modEnvelopeToFdnOvertoneAdd", Info::kCanAutomate);
+    value[ID::modEnvelopeToOscJitter] = std::make_unique<LinearValue>(
+      Scales::bipolarScale.invmap(0.0), Scales::bipolarScale, "modEnvelopeToOscJitter",
+      Info::kCanAutomate);
+    value[ID::modEnvelopeToOscNoisePulseRatio] = std::make_unique<LinearValue>(
+      Scales::bipolarScale.invmap(0.0), Scales::bipolarScale,
+      "modEnvelopeToOscNoisePulseRatio", Info::kCanAutomate);
 
     value[ID::tremoloMix] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "tremoloMix", Info::kCanAutomate);

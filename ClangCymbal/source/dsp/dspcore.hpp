@@ -69,7 +69,7 @@ enum class NoteState { active, release, rest };
                                                                                          \
   oscBounce.METHOD(pv[ID::oscBounce]->getFloat());                                       \
   oscBounceCurve.METHOD(pv[ID::oscBounceCurve]->getFloat());                             \
-  oscJitter.METHOD(float(1) - pv[ID::oscJitter]->getFloat());                            \
+  oscJitter.METHOD(pv[ID::oscJitter]->getFloat());                                       \
   oscPulseGainRandomness.METHOD(pv[ID::oscPulseGainRandomness]->getFloat());             \
   oscNoisePulseRatio.METHOD(pv[ID::oscNoisePulseRatio]->getFloat());                     \
                                                                                          \
@@ -80,7 +80,10 @@ enum class NoteState { active, release, rest };
   fdnFeedback.METHOD(pv[ID::fdnFeedback]->getFloat());                                   \
                                                                                          \
   modEnvelopeToFdnPitch.METHOD(pv[ID::modEnvelopeToFdnPitch]->getFloat());               \
-  modEnvelopeToFdnOvertoneAdd.METHOD(pv[ID::modEnvelopeToFdnOvertoneAdd]->getFloat());
+  modEnvelopeToFdnOvertoneAdd.METHOD(pv[ID::modEnvelopeToFdnOvertoneAdd]->getFloat());   \
+  modEnvelopeToOscJitter.METHOD(pv[ID::modEnvelopeToOscJitter]->getFloat());             \
+  modEnvelopeToOscNoisePulseRatio.METHOD(                                                \
+    pv[ID::modEnvelopeToOscNoisePulseRatio]->getFloat());
 
 struct NoteProcessInfo {
   pcg64 fdnRng;
@@ -107,6 +110,8 @@ struct NoteProcessInfo {
   ExpSmoother<float> fdnFeedback;
   ExpSmoother<float> modEnvelopeToFdnPitch;
   ExpSmoother<float> modEnvelopeToFdnOvertoneAdd;
+  ExpSmoother<float> modEnvelopeToOscJitter;
+  ExpSmoother<float> modEnvelopeToOscNoisePulseRatio;
 
   NoteProcessInfo()
   {
@@ -170,6 +175,8 @@ struct NoteProcessInfo {
     fdnFeedback.process();
     modEnvelopeToFdnPitch.process();
     modEnvelopeToFdnOvertoneAdd.process();
+    modEnvelopeToOscJitter.process();
+    modEnvelopeToOscNoisePulseRatio.process();
   }
 };
 

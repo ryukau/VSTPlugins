@@ -31,11 +31,11 @@ constexpr float labelWidth = 80.0f;
 constexpr float labelHeight = 20.0f;
 constexpr float labelY = 30.0f;
 constexpr float splashHeight = 40.0f;
-constexpr float barboxWidth = int(64) * int(1 + (7 * labelWidth + 6 * margin) / 64);
-constexpr float barboxHeight = 8 * labelHeight + 14 * margin;
+constexpr float barboxWidth = int(64) * int(1 + (6 * labelWidth + 4 * margin) / 64);
+constexpr float barboxHeight = 6 * labelY - 2 * margin;
 constexpr float lfoWidthFix = 25.0f;
 constexpr float innerWidth = 6 * labelWidth + 10 * margin + barboxWidth;
-constexpr float innerHeight = 8 * labelY + 2 * barboxHeight + 9 * margin;
+constexpr float innerHeight = 22 * labelY + 8 * margin;
 constexpr uint32_t defaultWidth = uint32_t(innerWidth + 2 * uiMargin);
 constexpr uint32_t defaultHeight = uint32_t(innerHeight + 2 * uiMargin);
 
@@ -237,25 +237,26 @@ bool Editor::prepareUI()
   addTextKnob(
     oscLeft3, oscTop2, labelWidth, labelHeight, uiTextSize, ID::oscDensityKeyFollow,
     Scales::oscDensityKeyFollow, false, 5);
-  addLabel(oscLeft2, oscTop3, labelWidth, labelHeight, uiTextSize, "Noise Decay [s]");
+
+  addLabel(oscLeft2, oscTop4, labelWidth, labelHeight, uiTextSize, "Noise Decay [s]");
   addTextKnob(
-    oscLeft3, oscTop3, labelWidth, labelHeight, uiTextSize, ID::oscNoiseDecay,
+    oscLeft3, oscTop4, labelWidth, labelHeight, uiTextSize, ID::oscNoiseDecay,
     Scales::oscDecay, false, 5);
-  addLabel(oscLeft2, oscTop4, labelWidth, labelHeight, uiTextSize, "Bounce");
+  addLabel(oscLeft2, oscTop5, labelWidth, labelHeight, uiTextSize, "Bounce");
   addTextKnob(
-    oscLeft3, oscTop4, labelWidth, labelHeight, uiTextSize, ID::oscBounce,
+    oscLeft3, oscTop5, labelWidth, labelHeight, uiTextSize, ID::oscBounce,
     Scales::defaultScale, false, 5);
-  addLabel(oscLeft2, oscTop5, labelWidth, labelHeight, uiTextSize, "Bounce Curve");
+  addLabel(oscLeft2, oscTop6, labelWidth, labelHeight, uiTextSize, "Bounce Curve");
   addTextKnob(
-    oscLeft3, oscTop5, labelWidth, labelHeight, uiTextSize, ID::oscBounceCurve,
+    oscLeft3, oscTop6, labelWidth, labelHeight, uiTextSize, ID::oscBounceCurve,
     Scales::oscBounceCurve, false, 5);
-  addLabel(oscLeft2, oscTop6, labelWidth, labelHeight, uiTextSize, "Jitter");
+  addLabel(oscLeft2, oscTop7, labelWidth, labelHeight, uiTextSize, "Jitter");
   addTextKnob(
-    oscLeft3, oscTop6, labelWidth, labelHeight, uiTextSize, ID::oscJitter,
+    oscLeft3, oscTop7, labelWidth, labelHeight, uiTextSize, ID::oscJitter,
     Scales::defaultScale, false, 5);
-  addLabel(oscLeft2, oscTop7, labelWidth, labelHeight, uiTextSize, "Pulse Rand.");
+  addLabel(oscLeft2, oscTop8, labelWidth, labelHeight, uiTextSize, "Pulse Rand.");
   addTextKnob(
-    oscLeft3, oscTop7, labelWidth, labelHeight, uiTextSize, ID::oscPulseGainRandomness,
+    oscLeft3, oscTop8, labelWidth, labelHeight, uiTextSize, ID::oscPulseGainRandomness,
     Scales::defaultScale, false, 5);
 
   // FDN.
@@ -382,12 +383,13 @@ bool Editor::prepareUI()
     fdnFilterLeft2 + int((labelWidth - checkBoxWidth) / 2), fdnTop12, labelWidth,
     labelHeight, uiTextSize, "", ID::fdnHighpassKeyFollow);
 
-  constexpr auto fdnSvfBarboxWidth = 3 * labelWidth;
+  constexpr auto fdnSvfBarboxWidth = 256.0f;
   constexpr auto fdnSvfBarboxHeight = 6 * labelY - 2 * margin;
-  constexpr auto fdnSvfTop0 = oscTop0;
-  constexpr auto fdnSvfTop1 = oscTop0 + fdnSvfBarboxHeight + 2 * margin;
+  constexpr auto fdnSvfTop0 = fdnTop1;
+  constexpr auto fdnSvfTop1 = fdnSvfTop0 + fdnSvfBarboxHeight + 4 * margin;
   constexpr auto fdnSvfLeft0 = oscLeft0 + 4 * labelWidth + 6 * margin;
-  constexpr auto fdnSvfLeft1 = fdnSvfLeft0 + fdnSvfBarboxWidth + 4 * margin;
+  constexpr auto fdnSvfLeft1 = fdnSvfLeft0 + fdnSvfBarboxWidth + 0 * margin;
+  addGroupLabel(fdnSvfLeft0, fdnTop0, barboxWidth, labelHeight, uiTextSize, "FDN Filter");
 
   auto barboxFdnLowpassCutoffSemiOffset = addBarBox(
     fdnSvfLeft0, fdnSvfTop0, fdnSvfBarboxWidth, fdnSvfBarboxHeight,
@@ -396,19 +398,19 @@ bool Editor::prepareUI()
   if (barboxFdnLowpassCutoffSemiOffset) {
     barboxFdnLowpassCutoffSemiOffset->sliderZero = 0.5f;
   }
-  auto barboxFdnHighpassCutoffSemiOffset = addBarBox(
+  auto barboxFdnLowpassQOffset = addBarBox(
     fdnSvfLeft0, fdnSvfTop1, fdnSvfBarboxWidth, fdnSvfBarboxHeight,
+    ID::fdnLowpassQOffset0, fdnMatrixSize, Scales::filterQOffset, "LP Q Offset");
+  if (barboxFdnLowpassQOffset) {
+    barboxFdnLowpassQOffset->sliderZero = 0.5f;
+  }
+
+  auto barboxFdnHighpassCutoffSemiOffset = addBarBox(
+    fdnSvfLeft1, fdnSvfTop0, fdnSvfBarboxWidth, fdnSvfBarboxHeight,
     ID::fdnHighpassCutoffSemiOffset0, fdnMatrixSize, Scales::filterCutoffSemiOffset,
     "HP Cut Offset [st.]");
   if (barboxFdnHighpassCutoffSemiOffset) {
     barboxFdnHighpassCutoffSemiOffset->sliderZero = 0.5f;
-  }
-
-  auto barboxFdnLowpassQOffset = addBarBox(
-    fdnSvfLeft1, fdnSvfTop0, fdnSvfBarboxWidth, fdnSvfBarboxHeight,
-    ID::fdnLowpassQOffset0, fdnMatrixSize, Scales::filterQOffset, "LP Q Offset");
-  if (barboxFdnLowpassQOffset) {
-    barboxFdnLowpassQOffset->sliderZero = 0.5f;
   }
   auto barboxFdnHighpassQOffset = addBarBox(
     fdnSvfLeft1, fdnSvfTop1, fdnSvfBarboxWidth, fdnSvfBarboxHeight,
@@ -418,22 +420,21 @@ bool Editor::prepareUI()
   }
 
   // Envelope.
-  constexpr auto modEnvTop0 = oscTop0 + 4 * labelY + barboxHeight + 7 * margin;
+  constexpr auto modEnvTop0 = oscTop0;
   constexpr auto modEnvTop1 = modEnvTop0 + labelY;
   constexpr auto modEnvTop2 = modEnvTop1 + labelY;
   constexpr auto modEnvTop3 = modEnvTop2 + labelY;
-  constexpr auto modEnvTop4 = modEnvTop3 + labelY + 2 * margin;
+  constexpr auto modEnvTop4 = modEnvTop3 + labelY;
 
   constexpr auto modEnvTopMid1 = modEnvTop1 + int(labelHeight / 2) + margin;
   constexpr auto modEnvTopMid2 = modEnvTopMid1 + labelY;
 
   constexpr auto modEnvLeft0 = oscLeft0 + 4 * labelWidth + 6 * margin;
-  constexpr auto modEnvLeft1 = modEnvLeft0 + labelWidth + margin;
-  constexpr auto modEnvLeft2 = modEnvLeft1 + labelWidth + margin + lfoWidthFix;
+  constexpr auto modEnvLeft1 = modEnvLeft0 + labelWidth;
+  constexpr auto modEnvLeft2 = modEnvLeft1 + labelWidth + 2 * margin;
   constexpr auto modEnvLeft3 = modEnvLeft2 + labelWidth;
-  constexpr auto modEnvLeft4 = modEnvLeft3 + labelWidth + margin + lfoWidthFix;
-  constexpr auto modEnvLeft5 = modEnvLeft4 + labelWidth + margin;
-  constexpr auto modEnvLeft6 = modEnvLeft5 + labelWidth + margin;
+  constexpr auto modEnvLeft4 = modEnvLeft3 + labelWidth + 2 * margin;
+  constexpr auto modEnvLeft5 = modEnvLeft4 + labelWidth;
 
   addGroupLabel(
     modEnvLeft0, modEnvTop0, barboxWidth, labelHeight, uiTextSize, "Envelope");
@@ -451,27 +452,35 @@ bool Editor::prepareUI()
     modEnvLeft1, modEnvTopMid2, labelWidth, labelHeight, uiTextSize,
     ID::modEnvelopeInterpolation, modWavetableInterpolationItems);
 
-  addLabel(modEnvLeft2, modEnvTopMid1, labelWidth, labelHeight, uiTextSize, "> LP Cut");
+  addLabel(modEnvLeft2, modEnvTop1, labelWidth, labelHeight, uiTextSize, "> LP Cut");
   addTextKnob<Style::accent>(
-    modEnvLeft3, modEnvTopMid1, labelWidth, labelHeight, uiTextSize,
+    modEnvLeft3, modEnvTop1, labelWidth, labelHeight, uiTextSize,
     ID::modEnvelopeToFdnLowpassCutoff, Scales::lfoToPitchAmount, false, 5);
-  addLabel(modEnvLeft2, modEnvTopMid2, labelWidth, labelHeight, uiTextSize, "> HP Cut");
+  addLabel(modEnvLeft2, modEnvTop2, labelWidth, labelHeight, uiTextSize, "> HP Cut");
   addTextKnob<Style::accent>(
-    modEnvLeft3, modEnvTopMid2, labelWidth, labelHeight, uiTextSize,
+    modEnvLeft3, modEnvTop2, labelWidth, labelHeight, uiTextSize,
     ID::modEnvelopeToFdnHighpassCutoff, Scales::lfoToPitchAmount, false, 5);
+  addLabel(modEnvLeft2, modEnvTop3, labelWidth, labelHeight, uiTextSize, "> Jitter");
+  addTextKnob<Style::accent>(
+    modEnvLeft3, modEnvTop3, labelWidth, labelHeight, uiTextSize,
+    ID::modEnvelopeToOscJitter, Scales::bipolarScale, false, 5);
 
-  addLabel(modEnvLeft5, modEnvTop2, labelWidth, labelHeight, uiTextSize, "> FDN Pitch");
+  addLabel(modEnvLeft4, modEnvTop1, labelWidth, labelHeight, uiTextSize, "> FDN OT +");
+  addTextKnob<Style::accent>(
+    modEnvLeft5, modEnvTop1, labelWidth, labelHeight, uiTextSize,
+    ID::modEnvelopeToFdnOvertoneAdd, Scales::fdnOvertoneAdd, false, 5);
+  addLabel(modEnvLeft4, modEnvTop2, labelWidth, labelHeight, uiTextSize, "> FDN Pitch");
   auto modEnvelopeToFdnPitchTextKnob = addTextKnob<Style::warning>(
-    modEnvLeft6, modEnvTop2, labelWidth, labelHeight, uiTextSize,
+    modEnvLeft5, modEnvTop2, labelWidth, labelHeight, uiTextSize,
     ID::modEnvelopeToFdnPitch, Scales::lfoToPitchAmount, false, 5);
   if (modEnvelopeToFdnPitchTextKnob) {
     modEnvelopeToFdnPitchTextKnob->setSensitivity(
       float(1) / float(2400), float(1) / float(24000), float(1) / float(240000));
   }
-  addLabel(modEnvLeft5, modEnvTop3, labelWidth, labelHeight, uiTextSize, "> FDN OT +");
+  addLabel(modEnvLeft4, modEnvTop3, labelWidth, labelHeight, uiTextSize, "> Noise/Pulse");
   addTextKnob<Style::accent>(
-    modEnvLeft6, modEnvTop3, labelWidth, labelHeight, uiTextSize,
-    ID::modEnvelopeToFdnOvertoneAdd, Scales::fdnOvertoneAdd, false, 5);
+    modEnvLeft5, modEnvTop3, labelWidth, labelHeight, uiTextSize,
+    ID::modEnvelopeToOscNoisePulseRatio, Scales::bipolarScale, false, 5);
 
   addBarBox(
     modEnvLeft0, modEnvTop4, barboxWidth, barboxHeight, ID::modEnvelopeWavetable0,

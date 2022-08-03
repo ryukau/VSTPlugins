@@ -237,10 +237,13 @@ std::array<float, 2> Note::process(float sampleRate, NoteProcessInfo &info)
   if (state == NoteState::rest) return {float(0), float(0)};
 
   auto modenv = info.envelope.process(modEnvelopePhase.process());
-  auto modenvToFdn = modenv * info.modEnvelopeToFdnPitch.getValue();
-  auto modEnvelopeToFdnOvertoneAdd = modenv * info.modEnvelopeToFdnOvertoneAdd.getValue();
+  auto modenvToFdnPitch = modenv * info.modEnvelopeToFdnPitch.getValue();
+  auto modenvToFdnOvertoneAdd = modenv * info.modEnvelopeToFdnOvertoneAdd.getValue();
+  auto modenvToOscJitter = modenv * info.modEnvelopeToOscJitter.getValue();
+  auto modenvToOscNoisePulseRatio
+    = modenv * info.modEnvelopeToOscNoisePulseRatio.getValue();
 
-  auto fdnPitchMod = noteToPitch(modenvToFdn, info.eqTemp);
+  auto fdnPitchMod = noteToPitch(modenvToFdnPitch, info.eqTemp);
 
   float sig = impulse;
   impulse = 0;
@@ -251,11 +254,16 @@ std::array<float, 2> Note::process(float sampleRate, NoteProcessInfo &info)
       + info.oscBounce.getValue()
         * (std::pow(oscGain, info.oscBounceCurve.getValue()) - float(1));
     auto density = oscDensity.process();
+
     auto noise = pulsar.process(
-      info.oscJitter.getValue(), density, densityEnvelope,
-      info.oscPulseGainRandomness.getValue(), info.fdnRng);
+      std::clamp(info.oscJitter.getValue() + modenvToOscJitter, float(0), float(1)),
+      density, densityEnvelope, info.oscPulseGainRandomness.getValue(), info.fdnRng);
     auto pulse = pulsar.processBlit(density);
-    sig += oscGain * (noise + info.oscNoisePulseRatio.getValue() * (pulse - noise));
+
+    auto ratio = std::clamp(
+      info.oscNoisePulseRatio.getValue() + modenvToOscNoisePulseRatio, float(0),
+      float(1));
+    sig += oscGain * (noise + ratio * (pulse - noise));
   }
   sig = oscLowpass.process(sig);
   auto oscOut = sig;
@@ -270,7 +278,7 @@ std::array<float, 2> Note::process(float sampleRate, NoteProcessInfo &info)
           + (float(1) + overtoneRandomness[idx]) * overtone,
         fdnFreq);
       auto ot = overtone * info.fdnOvertoneMul.getValue() + info.fdnOvertoneAdd.getValue()
-        + modEnvelopeToFdnOvertoneAdd;
+        + modenvToFdnOvertoneAdd;
       if (info.fdnOvertoneModulo.getValue() >= std::numeric_limits<float>::epsilon()) {
         // Almost same operation as `std::fmod()`.
         ot /= float(1) + info.fdnOvertoneModulo.getValue();

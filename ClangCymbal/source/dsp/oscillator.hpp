@@ -54,7 +54,7 @@ public:
     // Standard deviation (sigma) is set to 1/3 to normalize amplitude to almost [-1, 1].
     // 99.7% of the value falls between -3 sigma and +3 sigma (68–95–99.7 rule).
     std::normal_distribution<Sample> normal(Sample(0), Sample(1) / Sample(3));
-    std::uniform_real_distribution<Sample> uniform(jitter, Sample(1));
+    std::uniform_real_distribution<Sample> uniform(Sample(1) - jitter, Sample(1));
 
     phase += uniform(rng) * density / envelope;
     if (phase >= Sample(1)) {

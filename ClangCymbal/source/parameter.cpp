@@ -25,6 +25,7 @@ using namespace SomeDSP;
 
 UIntScale<double> Scales::boolScale(1);
 LinearScale<double> Scales::defaultScale(0.0, 1.0);
+LinearScale<double> Scales::bipolarScale(-1.0, 1.0);
 UIntScale<double> Scales::seed(1 << 23);
 
 DecibelScale<double> Scales::gain(-60.0, 60.0, true);
