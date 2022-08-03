@@ -54,7 +54,7 @@ DSPCore::DSPCore() {}
 void Note::setup(float sampleRate)
 {
   fdn.setup(sampleRate, maxDelayTime);
-  tremolo.setup(sampleRate, Scales::tremoloDelayTime.getMax());
+  tremolo.setup(sampleRate, float(Scales::tremoloDelayTime.getMax()));
 }
 
 void DSPCore::setup(double sampleRate)
@@ -100,8 +100,8 @@ void DSPCore::setup(double sampleRate)
   auto modenvToFdnHp = noteToPitch(                                                      \
     modenv * pv[ID::modEnvelopeToFdnHighpassCutoff]->getFloat(), info.eqTemp);           \
                                                                                          \
-  auto fdnLowpassKeyFollow = pv[ID::fdnLowpassKeyFollow]->getInt();                      \
-  auto fdnHighpassKeyFollow = pv[ID::fdnHighpassKeyFollow]->getInt();                    \
+  auto fdnLowpassKeyFollow = float(pv[ID::fdnLowpassKeyFollow]->getInt());               \
+  auto fdnHighpassKeyFollow = float(pv[ID::fdnHighpassKeyFollow]->getInt());             \
   auto fdnLpCutBase = pv[ID::fdnLowpassCutoffSemi]->getFloat();                          \
   auto fdnHpCutBase = pv[ID::fdnHighpassCutoffSemi]->getFloat();                         \
   auto fdnLpCutSlope = pv[ID::fdnLowpassCutoffSlope]->getFloat();                        \
@@ -154,7 +154,7 @@ void Note::reset(float sampleRate, NoteProcessInfo &info, GlobalParameter &param
   oscEnvelopeSmoother.setCutoff(sampleRate, float(4000));
   oscEnvelopeSmoother.reset();
 
-  tremolo.reset();
+  tremolo.reset(pv[ID::tremoloModulationToDelayTimeOffset]->getFloat());
   tremoloSmoother.reset();
 
   auto gateAttackSecond = pv[ID::gateAttackSecond]->getFloat();
@@ -407,7 +407,7 @@ void Note::noteOn(
     gateSmoother.reset();
 
     fdn.reset();
-    tremolo.reset();
+    tremolo.reset(pv[ID::tremoloModulationToDelayTimeOffset]->getFloat());
 
     float overtone = 1.0f;
     for (size_t idx = 0; idx < fdnMatrixSize; ++idx) {

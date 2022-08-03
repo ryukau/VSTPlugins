@@ -279,7 +279,11 @@ public:
     delay.setup(sampleRate, maxDelayTime);
   }
 
-  void reset() { delay.reset(); }
+  void reset(Sample timeModOffset)
+  {
+    timeOffsetSmoother.reset(timeModOffset);
+    delay.reset();
+  }
 
   Sample process(
     Sample input,
