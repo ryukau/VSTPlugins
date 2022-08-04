@@ -37,12 +37,10 @@ UIntScale<double> Scales::semitone(168);
 UIntScale<double> Scales::milli(2000);
 UIntScale<double> Scales::equalTemperament(119);
 UIntScale<double> Scales::pitchA4Hz(900);
-LinearScale<double> Scales::pitchBend(-1.0, 1.0);
 LinearScale<double> Scales::pitchBendRange(0.0, 120.0);
 
 DecibelScale<double> Scales::smoothingTimeSecond(-120.0, 40.0, true);
 
-LinearScale<double> Scales::oscOvertone(-1.0, 1.0);
 DecibelScale<double> Scales::oscAttack(-80.0, 40, false);
 DecibelScale<double> Scales::oscDecay(-80.0, 40, false);
 DecibelScale<double> Scales::oscDensityHz(-20.0, 100, false);
@@ -69,7 +67,6 @@ LinearScale<double>
 LinearScale<double> Scales::filterCutoffSemiOffset(-120.0, 120.0);
 LinearScale<double> Scales::filterQOffset(-halfSqrt2, halfSqrt2);
 
-LinearScale<double> Scales::wavetableAmp(-1.0, 1.0);
 UIntScale<double> Scales::wavetableInterpolation(2);
 
 LinearScale<double> Scales::lfoToPitchAmount(-120.0, 120.0);

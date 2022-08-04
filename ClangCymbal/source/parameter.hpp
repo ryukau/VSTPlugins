@@ -134,12 +134,10 @@ struct Scales {
   static SomeDSP::UIntScale<double> milli;
   static SomeDSP::UIntScale<double> equalTemperament;
   static SomeDSP::UIntScale<double> pitchA4Hz;
-  static SomeDSP::LinearScale<double> pitchBend;
   static SomeDSP::LinearScale<double> pitchBendRange;
 
   static SomeDSP::DecibelScale<double> smoothingTimeSecond;
 
-  static SomeDSP::LinearScale<double> oscOvertone;
   static SomeDSP::DecibelScale<double> oscAttack;
   static SomeDSP::DecibelScale<double> oscDecay;
   static SomeDSP::DecibelScale<double> oscDensityHz;
@@ -165,7 +163,6 @@ struct Scales {
   static SomeDSP::LinearScale<double> filterCutoffSemiOffset;
   static SomeDSP::LinearScale<double> filterQOffset;
 
-  static SomeDSP::LinearScale<double> wavetableAmp;
   static SomeDSP::UIntScale<double> wavetableInterpolation;
 
   static SomeDSP::LinearScale<double> lfoToPitchAmount;
@@ -214,7 +211,7 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::pitchA4Hz] = std::make_unique<UIntValue>(
       340, Scales::pitchA4Hz, "pitchA4Hz", Info::kCanAutomate);
     value[ID::pitchBend] = std::make_unique<LinearValue>(
-      0.5, Scales::pitchBend, "pitchBend", Info::kCanAutomate);
+      0.5, Scales::bipolarScale, "pitchBend", Info::kCanAutomate);
     value[ID::pitchBendRange] = std::make_unique<LinearValue>(
       Scales::pitchBendRange.invmap(2.0), Scales::pitchBendRange, "pitchBendRange",
       Info::kCanAutomate);

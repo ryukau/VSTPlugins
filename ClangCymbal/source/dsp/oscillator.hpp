@@ -48,8 +48,25 @@ public:
   }
 
   // `density` is inverse of average samples between impulses.
-  Sample
-  process(Sample jitter, Sample density, Sample envelope, Sample randomGain, pcg64 &rng)
+  Sample process(
+    Sample jitter,
+    Sample density,
+    Sample envelope,
+    Sample randomGain,
+    Sample noisePulseRatio,
+    pcg64 &rng)
+  {
+    jitter = std::clamp(jitter, float(0), float(1));
+    noisePulseRatio = std::clamp(noisePulseRatio, float(0), float(1));
+
+    auto noise = processNoise(jitter, density, envelope, randomGain, rng);
+    auto pulse = processBlit(density);
+
+    return noise + noisePulseRatio * (pulse - noise);
+  }
+
+  inline Sample processNoise(
+    Sample jitter, Sample density, Sample envelope, Sample randomGain, pcg64 &rng)
   {
     // Standard deviation (sigma) is set to 1/3 to normalize amplitude to almost [-1, 1].
     // 99.7% of the value falls between -3 sigma and +3 sigma (68–95–99.7 rule).
@@ -66,8 +83,9 @@ public:
     return gain * normal(rng);
   }
 
-  // Band limited impulse trains. Must be called after `process()` to increment phase.
-  Sample processBlit(Sample density)
+  // Band limited impulse trains. Must be called after `processNoise()` to increment
+  // phase.
+  inline Sample processBlit(Sample density)
   {
     constexpr auto eps = std::numeric_limits<Sample>::epsilon();
 
