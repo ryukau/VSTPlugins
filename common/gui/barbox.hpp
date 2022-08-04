@@ -235,7 +235,8 @@ public:
 
     if (
       event.buttonState.isMiddle() && event.modifiers.has(ModifierKey::Control)
-      && event.modifiers.has(ModifierKey::Shift)) {
+      && event.modifiers.has(ModifierKey::Shift))
+    {
       anchorState = setStateFromPosition(mousePosition, BarState::lock);
     } else {
       setValueFromPosition(mousePosition, event.modifiers);
@@ -506,6 +507,12 @@ private:
 
     updateValueAt(index);
     invalid();
+  }
+
+  void setValueAt(size_t index, double normalized)
+  {
+    if (barState[index] != BarState::active) return;
+    ArrayControl::setValueAt(index, normalized);
   }
 
   void setValueFromLine(CPoint p0, CPoint p1, const Modifiers &modifiers)
