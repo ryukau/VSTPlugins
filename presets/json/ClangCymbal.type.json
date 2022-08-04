@@ -76,7 +76,7 @@
     "name": "pitchBend",
     "type": "d",
     "default": 0.5,
-    "scale": "Scales::pitchBend",
+    "scale": "Scales::bipolarScale",
     "flags": "Info::kCanAutomate"
   },
   {
@@ -97,7 +97,7 @@
   },
   {
     "id": 12,
-    "name": "smoothingTimeSecond",
+    "name": "commonSmoothingTimeSecond",
     "type": "d",
     "default": "Scales::smoothingTimeSecond.invmap(0.02)",
     "scale": "Scales::smoothingTimeSecond",
@@ -105,6 +105,22 @@
   },
   {
     "id": 13,
+    "name": "slideTimeSecond",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::smoothingTimeSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "slideType",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::slideType",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
     "name": "impulseGain",
     "type": "d",
     "default": 1.0,
@@ -112,7 +128,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 14,
+    "id": 16,
     "name": "oscGain",
     "type": "d",
     "default": "Scales::impulseGain.invmapDB(0.0)",
@@ -120,7 +136,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 15,
+    "id": 17,
     "name": "oscNoisePulseRatio",
     "type": "d",
     "default": 0.0,
@@ -128,7 +144,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 16,
+    "id": 18,
     "name": "oscAttack",
     "type": "d",
     "default": "Scales::oscAttack.invmap(0.001)",
@@ -136,7 +152,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 17,
+    "id": 19,
     "name": "oscDecay",
     "type": "d",
     "default": "Scales::oscDecay.invmap(1.0)",
@@ -144,7 +160,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 18,
+    "id": 20,
     "name": "oscDensityHz",
     "type": "d",
     "default": "Scales::oscDensityHz.invmap(7000.0)",
@@ -152,7 +168,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 19,
+    "id": 21,
     "name": "oscDensityKeyFollow",
     "type": "d",
     "default": "Scales::oscDensityKeyFollow.invmap(1.0)",
@@ -160,7 +176,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 20,
+    "id": 22,
     "name": "oscNoiseDecay",
     "type": "d",
     "default": "Scales::oscDecay.invmap(1.0)",
@@ -168,7 +184,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 21,
+    "id": 23,
     "name": "oscBounce",
     "type": "d",
     "default": 0.0,
@@ -176,7 +192,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 22,
+    "id": 24,
     "name": "oscBounceCurve",
     "type": "d",
     "default": "Scales::oscBounceCurve.invmap(1.0)",
@@ -184,7 +200,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 23,
+    "id": 25,
     "name": "oscJitter",
     "type": "d",
     "default": 1.0,
@@ -192,7 +208,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 24,
+    "id": 26,
     "name": "oscPulseGainRandomness",
     "type": "d",
     "default": 1.0,
@@ -200,7 +216,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 25,
+    "id": 27,
     "name": "oscLowpassCutoffSemi",
     "type": "d",
     "default": 1.0,
@@ -208,7 +224,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 26,
+    "id": 28,
     "name": "oscLowpassQ",
     "type": "d",
     "default": "Scales::oscLowpassQ.invmap(SomeDSP::halfSqrt2)",
@@ -216,7 +232,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 27,
+    "id": 29,
     "name": "oscLowpassKeyFollow",
     "type": "d",
     "default": 0.0,
@@ -224,7 +240,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 28,
+    "id": 30,
     "name": "fdnEnable",
     "type": "I",
     "default": true,
@@ -232,7 +248,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 29,
+    "id": 31,
     "name": "fdnMatrixIdentityAmount",
     "type": "d",
     "default": "Scales::fdnMatrixIdentityAmount.invmap(0.1)",
@@ -240,7 +256,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 30,
+    "id": 32,
     "name": "fdnFeedback",
     "type": "d",
     "default": 1.0,
@@ -248,7 +264,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 31,
+    "id": 33,
     "name": "fdnOvertoneAdd",
     "type": "d",
     "default": "Scales::fdnOvertoneAdd.invmap(1.0)",
@@ -256,7 +272,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 32,
+    "id": 34,
     "name": "fdnOvertoneMul",
     "type": "d",
     "default": "Scales::fdnOvertoneMul.invmap(1.0)",
@@ -264,7 +280,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 33,
+    "id": 35,
     "name": "fdnOvertoneOffset",
     "type": "d",
     "default": "Scales::fdnOvertoneOffset.invmap(0.0)",
@@ -272,7 +288,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 34,
+    "id": 36,
     "name": "fdnOvertoneModulo",
     "type": "d",
     "default": "Scales::fdnOvertoneModulo.invmap(0.0)",
@@ -280,7 +296,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 35,
+    "id": 37,
     "name": "fdnOvertoneRandomness",
     "type": "d",
     "default": 0.0,
@@ -288,15 +304,15 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 36,
+    "id": 38,
     "name": "fdnInterpRate",
     "type": "d",
-    "default": "Scales::fdnInterpRate.invmapDB(0.0)",
+    "default": 1.0,
     "scale": "Scales::fdnInterpRate",
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 37,
+    "id": 39,
     "name": "fdnInterpLowpassSecond",
     "type": "d",
     "default": "Scales::fdnInterpLowpassSecond.invmap(0.005)",
@@ -304,7 +320,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 38,
+    "id": 40,
     "name": "fdnSeed",
     "type": "I",
     "default": 0,
@@ -312,7 +328,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 39,
+    "id": 41,
     "name": "fdnRandomizeRatio",
     "type": "d",
     "default": 0.2,
@@ -320,7 +336,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 40,
+    "id": 42,
     "name": "fdnLowpassCutoffSemiOffset0",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -328,7 +344,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 41,
+    "id": 43,
     "name": "fdnLowpassCutoffSemiOffset1",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -336,7 +352,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 42,
+    "id": 44,
     "name": "fdnLowpassCutoffSemiOffset2",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -344,7 +360,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 43,
+    "id": 45,
     "name": "fdnLowpassCutoffSemiOffset3",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -352,7 +368,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 44,
+    "id": 46,
     "name": "fdnLowpassCutoffSemiOffset4",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -360,7 +376,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 45,
+    "id": 47,
     "name": "fdnLowpassCutoffSemiOffset5",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -368,7 +384,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 46,
+    "id": 48,
     "name": "fdnLowpassCutoffSemiOffset6",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -376,7 +392,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 47,
+    "id": 49,
     "name": "fdnLowpassCutoffSemiOffset7",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -384,7 +400,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 48,
+    "id": 50,
     "name": "fdnLowpassCutoffSemiOffset8",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -392,7 +408,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 49,
+    "id": 51,
     "name": "fdnLowpassCutoffSemiOffset9",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -400,7 +416,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 50,
+    "id": 52,
     "name": "fdnLowpassCutoffSemiOffset10",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -408,7 +424,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 51,
+    "id": 53,
     "name": "fdnLowpassCutoffSemiOffset11",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -416,7 +432,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 52,
+    "id": 54,
     "name": "fdnLowpassCutoffSemiOffset12",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -424,7 +440,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 53,
+    "id": 55,
     "name": "fdnLowpassCutoffSemiOffset13",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -432,7 +448,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 54,
+    "id": 56,
     "name": "fdnLowpassCutoffSemiOffset14",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -440,7 +456,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 55,
+    "id": 57,
     "name": "fdnLowpassCutoffSemiOffset15",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -448,7 +464,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 56,
+    "id": 58,
     "name": "fdnLowpassCutoffSemiOffset16",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -456,7 +472,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 57,
+    "id": 59,
     "name": "fdnLowpassCutoffSemiOffset17",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -464,7 +480,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 58,
+    "id": 60,
     "name": "fdnLowpassCutoffSemiOffset18",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -472,7 +488,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 59,
+    "id": 61,
     "name": "fdnLowpassCutoffSemiOffset19",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -480,7 +496,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 60,
+    "id": 62,
     "name": "fdnLowpassCutoffSemiOffset20",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -488,7 +504,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 61,
+    "id": 63,
     "name": "fdnLowpassCutoffSemiOffset21",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -496,7 +512,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 62,
+    "id": 64,
     "name": "fdnLowpassCutoffSemiOffset22",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -504,7 +520,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 63,
+    "id": 65,
     "name": "fdnLowpassCutoffSemiOffset23",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -512,7 +528,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 64,
+    "id": 66,
     "name": "fdnLowpassCutoffSemiOffset24",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -520,7 +536,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 65,
+    "id": 67,
     "name": "fdnLowpassCutoffSemiOffset25",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -528,7 +544,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 66,
+    "id": 68,
     "name": "fdnLowpassCutoffSemiOffset26",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -536,7 +552,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 67,
+    "id": 69,
     "name": "fdnLowpassCutoffSemiOffset27",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -544,7 +560,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 68,
+    "id": 70,
     "name": "fdnLowpassCutoffSemiOffset28",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -552,7 +568,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 69,
+    "id": 71,
     "name": "fdnLowpassCutoffSemiOffset29",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -560,7 +576,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 70,
+    "id": 72,
     "name": "fdnLowpassCutoffSemiOffset30",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -568,7 +584,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 71,
+    "id": 73,
     "name": "fdnLowpassCutoffSemiOffset31",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -576,7 +592,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 72,
+    "id": 74,
     "name": "fdnLowpassCutoffSemiOffset32",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -584,7 +600,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 73,
+    "id": 75,
     "name": "fdnLowpassCutoffSemiOffset33",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -592,7 +608,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 74,
+    "id": 76,
     "name": "fdnLowpassCutoffSemiOffset34",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -600,7 +616,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 75,
+    "id": 77,
     "name": "fdnLowpassCutoffSemiOffset35",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -608,7 +624,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 76,
+    "id": 78,
     "name": "fdnLowpassCutoffSemiOffset36",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -616,7 +632,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 77,
+    "id": 79,
     "name": "fdnLowpassCutoffSemiOffset37",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -624,7 +640,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 78,
+    "id": 80,
     "name": "fdnLowpassCutoffSemiOffset38",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -632,7 +648,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 79,
+    "id": 81,
     "name": "fdnLowpassCutoffSemiOffset39",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -640,7 +656,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 80,
+    "id": 82,
     "name": "fdnLowpassCutoffSemiOffset40",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -648,7 +664,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 81,
+    "id": 83,
     "name": "fdnLowpassCutoffSemiOffset41",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -656,7 +672,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 82,
+    "id": 84,
     "name": "fdnLowpassCutoffSemiOffset42",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -664,7 +680,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 83,
+    "id": 85,
     "name": "fdnLowpassCutoffSemiOffset43",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -672,7 +688,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 84,
+    "id": 86,
     "name": "fdnLowpassCutoffSemiOffset44",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -680,7 +696,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 85,
+    "id": 87,
     "name": "fdnLowpassCutoffSemiOffset45",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -688,7 +704,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 86,
+    "id": 88,
     "name": "fdnLowpassCutoffSemiOffset46",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -696,7 +712,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 87,
+    "id": 89,
     "name": "fdnLowpassCutoffSemiOffset47",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -704,7 +720,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 88,
+    "id": 90,
     "name": "fdnLowpassCutoffSemiOffset48",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -712,7 +728,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 89,
+    "id": 91,
     "name": "fdnLowpassCutoffSemiOffset49",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -720,7 +736,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 90,
+    "id": 92,
     "name": "fdnLowpassCutoffSemiOffset50",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -728,7 +744,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 91,
+    "id": 93,
     "name": "fdnLowpassCutoffSemiOffset51",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -736,7 +752,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 92,
+    "id": 94,
     "name": "fdnLowpassCutoffSemiOffset52",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -744,7 +760,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 93,
+    "id": 95,
     "name": "fdnLowpassCutoffSemiOffset53",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -752,7 +768,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 94,
+    "id": 96,
     "name": "fdnLowpassCutoffSemiOffset54",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -760,7 +776,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 95,
+    "id": 97,
     "name": "fdnLowpassCutoffSemiOffset55",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -768,7 +784,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 96,
+    "id": 98,
     "name": "fdnLowpassCutoffSemiOffset56",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -776,7 +792,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 97,
+    "id": 99,
     "name": "fdnLowpassCutoffSemiOffset57",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -784,7 +800,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 98,
+    "id": 100,
     "name": "fdnLowpassCutoffSemiOffset58",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -792,7 +808,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 99,
+    "id": 101,
     "name": "fdnLowpassCutoffSemiOffset59",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -800,7 +816,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 100,
+    "id": 102,
     "name": "fdnLowpassCutoffSemiOffset60",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -808,7 +824,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 101,
+    "id": 103,
     "name": "fdnLowpassCutoffSemiOffset61",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -816,7 +832,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 102,
+    "id": 104,
     "name": "fdnLowpassCutoffSemiOffset62",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -824,7 +840,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 103,
+    "id": 105,
     "name": "fdnLowpassCutoffSemiOffset63",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -832,7 +848,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 104,
+    "id": 106,
     "name": "fdnLowpassQOffset0",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -840,7 +856,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 105,
+    "id": 107,
     "name": "fdnLowpassQOffset1",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -848,7 +864,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 106,
+    "id": 108,
     "name": "fdnLowpassQOffset2",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -856,7 +872,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 107,
+    "id": 109,
     "name": "fdnLowpassQOffset3",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -864,7 +880,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 108,
+    "id": 110,
     "name": "fdnLowpassQOffset4",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -872,7 +888,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 109,
+    "id": 111,
     "name": "fdnLowpassQOffset5",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -880,7 +896,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 110,
+    "id": 112,
     "name": "fdnLowpassQOffset6",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -888,7 +904,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 111,
+    "id": 113,
     "name": "fdnLowpassQOffset7",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -896,7 +912,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 112,
+    "id": 114,
     "name": "fdnLowpassQOffset8",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -904,7 +920,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 113,
+    "id": 115,
     "name": "fdnLowpassQOffset9",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -912,7 +928,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 114,
+    "id": 116,
     "name": "fdnLowpassQOffset10",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -920,7 +936,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 115,
+    "id": 117,
     "name": "fdnLowpassQOffset11",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -928,7 +944,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 116,
+    "id": 118,
     "name": "fdnLowpassQOffset12",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -936,7 +952,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 117,
+    "id": 119,
     "name": "fdnLowpassQOffset13",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -944,7 +960,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 118,
+    "id": 120,
     "name": "fdnLowpassQOffset14",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -952,7 +968,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 119,
+    "id": 121,
     "name": "fdnLowpassQOffset15",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -960,7 +976,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 120,
+    "id": 122,
     "name": "fdnLowpassQOffset16",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -968,7 +984,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 121,
+    "id": 123,
     "name": "fdnLowpassQOffset17",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -976,7 +992,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 122,
+    "id": 124,
     "name": "fdnLowpassQOffset18",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -984,7 +1000,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 123,
+    "id": 125,
     "name": "fdnLowpassQOffset19",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -992,7 +1008,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 124,
+    "id": 126,
     "name": "fdnLowpassQOffset20",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1000,7 +1016,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 125,
+    "id": 127,
     "name": "fdnLowpassQOffset21",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1008,7 +1024,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 126,
+    "id": 128,
     "name": "fdnLowpassQOffset22",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1016,7 +1032,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 127,
+    "id": 129,
     "name": "fdnLowpassQOffset23",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1024,7 +1040,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 128,
+    "id": 130,
     "name": "fdnLowpassQOffset24",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1032,7 +1048,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 129,
+    "id": 131,
     "name": "fdnLowpassQOffset25",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1040,7 +1056,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 130,
+    "id": 132,
     "name": "fdnLowpassQOffset26",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1048,7 +1064,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 131,
+    "id": 133,
     "name": "fdnLowpassQOffset27",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1056,7 +1072,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 132,
+    "id": 134,
     "name": "fdnLowpassQOffset28",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1064,7 +1080,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 133,
+    "id": 135,
     "name": "fdnLowpassQOffset29",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1072,7 +1088,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 134,
+    "id": 136,
     "name": "fdnLowpassQOffset30",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1080,7 +1096,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 135,
+    "id": 137,
     "name": "fdnLowpassQOffset31",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1088,7 +1104,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 136,
+    "id": 138,
     "name": "fdnLowpassQOffset32",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1096,7 +1112,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 137,
+    "id": 139,
     "name": "fdnLowpassQOffset33",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1104,7 +1120,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 138,
+    "id": 140,
     "name": "fdnLowpassQOffset34",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1112,7 +1128,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 139,
+    "id": 141,
     "name": "fdnLowpassQOffset35",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1120,7 +1136,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 140,
+    "id": 142,
     "name": "fdnLowpassQOffset36",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1128,7 +1144,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 141,
+    "id": 143,
     "name": "fdnLowpassQOffset37",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1136,7 +1152,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 142,
+    "id": 144,
     "name": "fdnLowpassQOffset38",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1144,7 +1160,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 143,
+    "id": 145,
     "name": "fdnLowpassQOffset39",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1152,7 +1168,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 144,
+    "id": 146,
     "name": "fdnLowpassQOffset40",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1160,7 +1176,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 145,
+    "id": 147,
     "name": "fdnLowpassQOffset41",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1168,7 +1184,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 146,
+    "id": 148,
     "name": "fdnLowpassQOffset42",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1176,7 +1192,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 147,
+    "id": 149,
     "name": "fdnLowpassQOffset43",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1184,7 +1200,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 148,
+    "id": 150,
     "name": "fdnLowpassQOffset44",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1192,7 +1208,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 149,
+    "id": 151,
     "name": "fdnLowpassQOffset45",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1200,7 +1216,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 150,
+    "id": 152,
     "name": "fdnLowpassQOffset46",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1208,7 +1224,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 151,
+    "id": 153,
     "name": "fdnLowpassQOffset47",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1216,7 +1232,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 152,
+    "id": 154,
     "name": "fdnLowpassQOffset48",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1224,7 +1240,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 153,
+    "id": 155,
     "name": "fdnLowpassQOffset49",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1232,7 +1248,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 154,
+    "id": 156,
     "name": "fdnLowpassQOffset50",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1240,7 +1256,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 155,
+    "id": 157,
     "name": "fdnLowpassQOffset51",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1248,7 +1264,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 156,
+    "id": 158,
     "name": "fdnLowpassQOffset52",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1256,7 +1272,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 157,
+    "id": 159,
     "name": "fdnLowpassQOffset53",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1264,7 +1280,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 158,
+    "id": 160,
     "name": "fdnLowpassQOffset54",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1272,7 +1288,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 159,
+    "id": 161,
     "name": "fdnLowpassQOffset55",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1280,7 +1296,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 160,
+    "id": 162,
     "name": "fdnLowpassQOffset56",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1288,7 +1304,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 161,
+    "id": 163,
     "name": "fdnLowpassQOffset57",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1296,7 +1312,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 162,
+    "id": 164,
     "name": "fdnLowpassQOffset58",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1304,7 +1320,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 163,
+    "id": 165,
     "name": "fdnLowpassQOffset59",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1312,7 +1328,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 164,
+    "id": 166,
     "name": "fdnLowpassQOffset60",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1320,7 +1336,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 165,
+    "id": 167,
     "name": "fdnLowpassQOffset61",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1328,7 +1344,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 166,
+    "id": 168,
     "name": "fdnLowpassQOffset62",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1336,7 +1352,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 167,
+    "id": 169,
     "name": "fdnLowpassQOffset63",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1344,7 +1360,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 168,
+    "id": 170,
     "name": "fdnHighpassCutoffSemiOffset0",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1352,7 +1368,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 169,
+    "id": 171,
     "name": "fdnHighpassCutoffSemiOffset1",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1360,7 +1376,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 170,
+    "id": 172,
     "name": "fdnHighpassCutoffSemiOffset2",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1368,7 +1384,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 171,
+    "id": 173,
     "name": "fdnHighpassCutoffSemiOffset3",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1376,7 +1392,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 172,
+    "id": 174,
     "name": "fdnHighpassCutoffSemiOffset4",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1384,7 +1400,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 173,
+    "id": 175,
     "name": "fdnHighpassCutoffSemiOffset5",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1392,7 +1408,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 174,
+    "id": 176,
     "name": "fdnHighpassCutoffSemiOffset6",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1400,7 +1416,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 175,
+    "id": 177,
     "name": "fdnHighpassCutoffSemiOffset7",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1408,7 +1424,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 176,
+    "id": 178,
     "name": "fdnHighpassCutoffSemiOffset8",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1416,7 +1432,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 177,
+    "id": 179,
     "name": "fdnHighpassCutoffSemiOffset9",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1424,7 +1440,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 178,
+    "id": 180,
     "name": "fdnHighpassCutoffSemiOffset10",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1432,7 +1448,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 179,
+    "id": 181,
     "name": "fdnHighpassCutoffSemiOffset11",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1440,7 +1456,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 180,
+    "id": 182,
     "name": "fdnHighpassCutoffSemiOffset12",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1448,7 +1464,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 181,
+    "id": 183,
     "name": "fdnHighpassCutoffSemiOffset13",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1456,7 +1472,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 182,
+    "id": 184,
     "name": "fdnHighpassCutoffSemiOffset14",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1464,7 +1480,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 183,
+    "id": 185,
     "name": "fdnHighpassCutoffSemiOffset15",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1472,7 +1488,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 184,
+    "id": 186,
     "name": "fdnHighpassCutoffSemiOffset16",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1480,7 +1496,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 185,
+    "id": 187,
     "name": "fdnHighpassCutoffSemiOffset17",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1488,7 +1504,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 186,
+    "id": 188,
     "name": "fdnHighpassCutoffSemiOffset18",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1496,7 +1512,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 187,
+    "id": 189,
     "name": "fdnHighpassCutoffSemiOffset19",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1504,7 +1520,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 188,
+    "id": 190,
     "name": "fdnHighpassCutoffSemiOffset20",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1512,7 +1528,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 189,
+    "id": 191,
     "name": "fdnHighpassCutoffSemiOffset21",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1520,7 +1536,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 190,
+    "id": 192,
     "name": "fdnHighpassCutoffSemiOffset22",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1528,7 +1544,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 191,
+    "id": 193,
     "name": "fdnHighpassCutoffSemiOffset23",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1536,7 +1552,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 192,
+    "id": 194,
     "name": "fdnHighpassCutoffSemiOffset24",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1544,7 +1560,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 193,
+    "id": 195,
     "name": "fdnHighpassCutoffSemiOffset25",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1552,7 +1568,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 194,
+    "id": 196,
     "name": "fdnHighpassCutoffSemiOffset26",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1560,7 +1576,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 195,
+    "id": 197,
     "name": "fdnHighpassCutoffSemiOffset27",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1568,7 +1584,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 196,
+    "id": 198,
     "name": "fdnHighpassCutoffSemiOffset28",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1576,7 +1592,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 197,
+    "id": 199,
     "name": "fdnHighpassCutoffSemiOffset29",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1584,7 +1600,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 198,
+    "id": 200,
     "name": "fdnHighpassCutoffSemiOffset30",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1592,7 +1608,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 199,
+    "id": 201,
     "name": "fdnHighpassCutoffSemiOffset31",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1600,7 +1616,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 200,
+    "id": 202,
     "name": "fdnHighpassCutoffSemiOffset32",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1608,7 +1624,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 201,
+    "id": 203,
     "name": "fdnHighpassCutoffSemiOffset33",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1616,7 +1632,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 202,
+    "id": 204,
     "name": "fdnHighpassCutoffSemiOffset34",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1624,7 +1640,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 203,
+    "id": 205,
     "name": "fdnHighpassCutoffSemiOffset35",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1632,7 +1648,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 204,
+    "id": 206,
     "name": "fdnHighpassCutoffSemiOffset36",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1640,7 +1656,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 205,
+    "id": 207,
     "name": "fdnHighpassCutoffSemiOffset37",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1648,7 +1664,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 206,
+    "id": 208,
     "name": "fdnHighpassCutoffSemiOffset38",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1656,7 +1672,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 207,
+    "id": 209,
     "name": "fdnHighpassCutoffSemiOffset39",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1664,7 +1680,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 208,
+    "id": 210,
     "name": "fdnHighpassCutoffSemiOffset40",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1672,7 +1688,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 209,
+    "id": 211,
     "name": "fdnHighpassCutoffSemiOffset41",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1680,7 +1696,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 210,
+    "id": 212,
     "name": "fdnHighpassCutoffSemiOffset42",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1688,7 +1704,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 211,
+    "id": 213,
     "name": "fdnHighpassCutoffSemiOffset43",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1696,7 +1712,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 212,
+    "id": 214,
     "name": "fdnHighpassCutoffSemiOffset44",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1704,7 +1720,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 213,
+    "id": 215,
     "name": "fdnHighpassCutoffSemiOffset45",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1712,7 +1728,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 214,
+    "id": 216,
     "name": "fdnHighpassCutoffSemiOffset46",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1720,7 +1736,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 215,
+    "id": 217,
     "name": "fdnHighpassCutoffSemiOffset47",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1728,7 +1744,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 216,
+    "id": 218,
     "name": "fdnHighpassCutoffSemiOffset48",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1736,7 +1752,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 217,
+    "id": 219,
     "name": "fdnHighpassCutoffSemiOffset49",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1744,7 +1760,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 218,
+    "id": 220,
     "name": "fdnHighpassCutoffSemiOffset50",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1752,7 +1768,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 219,
+    "id": 221,
     "name": "fdnHighpassCutoffSemiOffset51",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1760,7 +1776,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 220,
+    "id": 222,
     "name": "fdnHighpassCutoffSemiOffset52",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1768,7 +1784,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 221,
+    "id": 223,
     "name": "fdnHighpassCutoffSemiOffset53",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1776,7 +1792,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 222,
+    "id": 224,
     "name": "fdnHighpassCutoffSemiOffset54",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1784,7 +1800,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 223,
+    "id": 225,
     "name": "fdnHighpassCutoffSemiOffset55",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1792,7 +1808,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 224,
+    "id": 226,
     "name": "fdnHighpassCutoffSemiOffset56",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1800,7 +1816,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 225,
+    "id": 227,
     "name": "fdnHighpassCutoffSemiOffset57",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1808,7 +1824,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 226,
+    "id": 228,
     "name": "fdnHighpassCutoffSemiOffset58",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1816,7 +1832,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 227,
+    "id": 229,
     "name": "fdnHighpassCutoffSemiOffset59",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1824,7 +1840,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 228,
+    "id": 230,
     "name": "fdnHighpassCutoffSemiOffset60",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1832,7 +1848,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 229,
+    "id": 231,
     "name": "fdnHighpassCutoffSemiOffset61",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1840,7 +1856,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 230,
+    "id": 232,
     "name": "fdnHighpassCutoffSemiOffset62",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1848,7 +1864,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 231,
+    "id": 233,
     "name": "fdnHighpassCutoffSemiOffset63",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -1856,7 +1872,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 232,
+    "id": 234,
     "name": "fdnHighpassQOffset0",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1864,7 +1880,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 233,
+    "id": 235,
     "name": "fdnHighpassQOffset1",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1872,7 +1888,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 234,
+    "id": 236,
     "name": "fdnHighpassQOffset2",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1880,7 +1896,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 235,
+    "id": 237,
     "name": "fdnHighpassQOffset3",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1888,7 +1904,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 236,
+    "id": 238,
     "name": "fdnHighpassQOffset4",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1896,7 +1912,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 237,
+    "id": 239,
     "name": "fdnHighpassQOffset5",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1904,7 +1920,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 238,
+    "id": 240,
     "name": "fdnHighpassQOffset6",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1912,7 +1928,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 239,
+    "id": 241,
     "name": "fdnHighpassQOffset7",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1920,7 +1936,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 240,
+    "id": 242,
     "name": "fdnHighpassQOffset8",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1928,7 +1944,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 241,
+    "id": 243,
     "name": "fdnHighpassQOffset9",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1936,7 +1952,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 242,
+    "id": 244,
     "name": "fdnHighpassQOffset10",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1944,7 +1960,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 243,
+    "id": 245,
     "name": "fdnHighpassQOffset11",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1952,7 +1968,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 244,
+    "id": 246,
     "name": "fdnHighpassQOffset12",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1960,7 +1976,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 245,
+    "id": 247,
     "name": "fdnHighpassQOffset13",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1968,7 +1984,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 246,
+    "id": 248,
     "name": "fdnHighpassQOffset14",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1976,7 +1992,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 247,
+    "id": 249,
     "name": "fdnHighpassQOffset15",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1984,7 +2000,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 248,
+    "id": 250,
     "name": "fdnHighpassQOffset16",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -1992,7 +2008,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 249,
+    "id": 251,
     "name": "fdnHighpassQOffset17",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2000,7 +2016,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 250,
+    "id": 252,
     "name": "fdnHighpassQOffset18",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2008,7 +2024,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 251,
+    "id": 253,
     "name": "fdnHighpassQOffset19",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2016,7 +2032,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 252,
+    "id": 254,
     "name": "fdnHighpassQOffset20",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2024,7 +2040,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 253,
+    "id": 255,
     "name": "fdnHighpassQOffset21",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2032,7 +2048,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 254,
+    "id": 256,
     "name": "fdnHighpassQOffset22",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2040,7 +2056,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 255,
+    "id": 257,
     "name": "fdnHighpassQOffset23",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2048,7 +2064,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 256,
+    "id": 258,
     "name": "fdnHighpassQOffset24",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2056,7 +2072,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 257,
+    "id": 259,
     "name": "fdnHighpassQOffset25",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2064,7 +2080,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 258,
+    "id": 260,
     "name": "fdnHighpassQOffset26",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2072,7 +2088,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 259,
+    "id": 261,
     "name": "fdnHighpassQOffset27",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2080,7 +2096,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 260,
+    "id": 262,
     "name": "fdnHighpassQOffset28",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2088,7 +2104,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 261,
+    "id": 263,
     "name": "fdnHighpassQOffset29",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2096,7 +2112,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 262,
+    "id": 264,
     "name": "fdnHighpassQOffset30",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2104,7 +2120,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 263,
+    "id": 265,
     "name": "fdnHighpassQOffset31",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2112,7 +2128,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 264,
+    "id": 266,
     "name": "fdnHighpassQOffset32",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2120,7 +2136,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 265,
+    "id": 267,
     "name": "fdnHighpassQOffset33",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2128,7 +2144,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 266,
+    "id": 268,
     "name": "fdnHighpassQOffset34",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2136,7 +2152,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 267,
+    "id": 269,
     "name": "fdnHighpassQOffset35",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2144,7 +2160,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 268,
+    "id": 270,
     "name": "fdnHighpassQOffset36",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2152,7 +2168,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 269,
+    "id": 271,
     "name": "fdnHighpassQOffset37",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2160,7 +2176,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 270,
+    "id": 272,
     "name": "fdnHighpassQOffset38",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2168,7 +2184,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 271,
+    "id": 273,
     "name": "fdnHighpassQOffset39",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2176,7 +2192,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 272,
+    "id": 274,
     "name": "fdnHighpassQOffset40",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2184,7 +2200,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 273,
+    "id": 275,
     "name": "fdnHighpassQOffset41",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2192,7 +2208,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 274,
+    "id": 276,
     "name": "fdnHighpassQOffset42",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2200,7 +2216,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 275,
+    "id": 277,
     "name": "fdnHighpassQOffset43",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2208,7 +2224,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 276,
+    "id": 278,
     "name": "fdnHighpassQOffset44",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2216,7 +2232,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 277,
+    "id": 279,
     "name": "fdnHighpassQOffset45",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2224,7 +2240,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 278,
+    "id": 280,
     "name": "fdnHighpassQOffset46",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2232,7 +2248,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 279,
+    "id": 281,
     "name": "fdnHighpassQOffset47",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2240,7 +2256,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 280,
+    "id": 282,
     "name": "fdnHighpassQOffset48",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2248,7 +2264,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 281,
+    "id": 283,
     "name": "fdnHighpassQOffset49",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2256,7 +2272,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 282,
+    "id": 284,
     "name": "fdnHighpassQOffset50",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2264,7 +2280,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 283,
+    "id": 285,
     "name": "fdnHighpassQOffset51",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2272,7 +2288,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 284,
+    "id": 286,
     "name": "fdnHighpassQOffset52",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2280,7 +2296,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 285,
+    "id": 287,
     "name": "fdnHighpassQOffset53",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2288,7 +2304,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 286,
+    "id": 288,
     "name": "fdnHighpassQOffset54",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2296,7 +2312,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 287,
+    "id": 289,
     "name": "fdnHighpassQOffset55",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2304,7 +2320,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 288,
+    "id": 290,
     "name": "fdnHighpassQOffset56",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2312,7 +2328,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 289,
+    "id": 291,
     "name": "fdnHighpassQOffset57",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2320,7 +2336,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 290,
+    "id": 292,
     "name": "fdnHighpassQOffset58",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2328,7 +2344,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 291,
+    "id": 293,
     "name": "fdnHighpassQOffset59",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2336,7 +2352,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 292,
+    "id": 294,
     "name": "fdnHighpassQOffset60",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2344,7 +2360,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 293,
+    "id": 295,
     "name": "fdnHighpassQOffset61",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2352,7 +2368,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 294,
+    "id": 296,
     "name": "fdnHighpassQOffset62",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2360,7 +2376,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 295,
+    "id": 297,
     "name": "fdnHighpassQOffset63",
     "type": "d",
     "default": "Scales::filterQOffset.invmap(0.0)",
@@ -2368,7 +2384,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 296,
+    "id": 298,
     "name": "fdnLowpassCutoffSemi",
     "type": "d",
     "default": 1.0,
@@ -2376,7 +2392,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 297,
+    "id": 299,
     "name": "fdnLowpassCutoffSlope",
     "type": "d",
     "default": "Scales::filterCutoffSlope.invmap(0.0)",
@@ -2384,7 +2400,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 298,
+    "id": 300,
     "name": "fdnLowpassQ",
     "type": "d",
     "default": 1.0,
@@ -2392,7 +2408,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 299,
+    "id": 301,
     "name": "fdnLowpassQSlope",
     "type": "d",
     "default": "Scales::filterQSlope.invmap(0.0)",
@@ -2400,7 +2416,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 300,
+    "id": 302,
     "name": "fdnLowpassKeyFollow",
     "type": "I",
     "default": true,
@@ -2408,7 +2424,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 301,
+    "id": 303,
     "name": "fdnHighpassCutoffSemi",
     "type": "d",
     "default": "Scales::filterCutoffSemi.invmap(-12.0)",
@@ -2416,7 +2432,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 302,
+    "id": 304,
     "name": "fdnHighpassCutoffSlope",
     "type": "d",
     "default": "Scales::filterCutoffSlope.invmap(0.0)",
@@ -2424,7 +2440,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 303,
+    "id": 305,
     "name": "fdnHighpassQ",
     "type": "d",
     "default": 1.0,
@@ -2432,7 +2448,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 304,
+    "id": 306,
     "name": "fdnHighpassQSlope",
     "type": "d",
     "default": "Scales::filterQSlope.invmap(0.0)",
@@ -2440,7 +2456,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 305,
+    "id": 307,
     "name": "fdnHighpassKeyFollow",
     "type": "I",
     "default": true,
@@ -2448,1031 +2464,1031 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 306,
+    "id": 308,
     "name": "modEnvelopeWavetable0",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
-    "scale": "Scales::defaultScale",
-    "flags": "Info::kCanAutomate"
-  },
-  {
-    "id": 307,
-    "name": "modEnvelopeWavetable1",
-    "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
-    "scale": "Scales::defaultScale",
-    "flags": "Info::kCanAutomate"
-  },
-  {
-    "id": 308,
-    "name": "modEnvelopeWavetable2",
-    "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(0) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 309,
-    "name": "modEnvelopeWavetable3",
+    "name": "modEnvelopeWavetable1",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(1) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 310,
-    "name": "modEnvelopeWavetable4",
+    "name": "modEnvelopeWavetable2",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(2) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 311,
-    "name": "modEnvelopeWavetable5",
+    "name": "modEnvelopeWavetable3",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(3) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 312,
-    "name": "modEnvelopeWavetable6",
+    "name": "modEnvelopeWavetable4",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(4) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 313,
-    "name": "modEnvelopeWavetable7",
+    "name": "modEnvelopeWavetable5",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(5) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 314,
-    "name": "modEnvelopeWavetable8",
+    "name": "modEnvelopeWavetable6",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(6) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 315,
-    "name": "modEnvelopeWavetable9",
+    "name": "modEnvelopeWavetable7",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(7) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 316,
-    "name": "modEnvelopeWavetable10",
+    "name": "modEnvelopeWavetable8",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(8) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 317,
-    "name": "modEnvelopeWavetable11",
+    "name": "modEnvelopeWavetable9",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(9) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 318,
-    "name": "modEnvelopeWavetable12",
+    "name": "modEnvelopeWavetable10",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(10) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 319,
-    "name": "modEnvelopeWavetable13",
+    "name": "modEnvelopeWavetable11",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(11) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 320,
-    "name": "modEnvelopeWavetable14",
+    "name": "modEnvelopeWavetable12",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(12) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 321,
-    "name": "modEnvelopeWavetable15",
+    "name": "modEnvelopeWavetable13",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(13) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 322,
-    "name": "modEnvelopeWavetable16",
+    "name": "modEnvelopeWavetable14",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(14) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 323,
-    "name": "modEnvelopeWavetable17",
+    "name": "modEnvelopeWavetable15",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(15) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 324,
-    "name": "modEnvelopeWavetable18",
+    "name": "modEnvelopeWavetable16",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(16) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 325,
-    "name": "modEnvelopeWavetable19",
+    "name": "modEnvelopeWavetable17",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(17) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 326,
-    "name": "modEnvelopeWavetable20",
+    "name": "modEnvelopeWavetable18",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(18) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 327,
-    "name": "modEnvelopeWavetable21",
+    "name": "modEnvelopeWavetable19",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(19) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 328,
-    "name": "modEnvelopeWavetable22",
+    "name": "modEnvelopeWavetable20",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(20) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 329,
-    "name": "modEnvelopeWavetable23",
+    "name": "modEnvelopeWavetable21",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(21) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 330,
-    "name": "modEnvelopeWavetable24",
+    "name": "modEnvelopeWavetable22",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(22) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 331,
-    "name": "modEnvelopeWavetable25",
+    "name": "modEnvelopeWavetable23",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(23) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 332,
-    "name": "modEnvelopeWavetable26",
+    "name": "modEnvelopeWavetable24",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(24) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 333,
-    "name": "modEnvelopeWavetable27",
+    "name": "modEnvelopeWavetable25",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(25) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 334,
-    "name": "modEnvelopeWavetable28",
+    "name": "modEnvelopeWavetable26",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(26) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 335,
-    "name": "modEnvelopeWavetable29",
+    "name": "modEnvelopeWavetable27",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(27) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 336,
-    "name": "modEnvelopeWavetable30",
+    "name": "modEnvelopeWavetable28",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(28) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 337,
-    "name": "modEnvelopeWavetable31",
+    "name": "modEnvelopeWavetable29",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(29) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 338,
-    "name": "modEnvelopeWavetable32",
+    "name": "modEnvelopeWavetable30",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(30) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 339,
-    "name": "modEnvelopeWavetable33",
+    "name": "modEnvelopeWavetable31",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(31) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 340,
-    "name": "modEnvelopeWavetable34",
+    "name": "modEnvelopeWavetable32",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(32) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 341,
-    "name": "modEnvelopeWavetable35",
+    "name": "modEnvelopeWavetable33",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(33) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 342,
-    "name": "modEnvelopeWavetable36",
+    "name": "modEnvelopeWavetable34",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(34) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 343,
-    "name": "modEnvelopeWavetable37",
+    "name": "modEnvelopeWavetable35",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(35) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 344,
-    "name": "modEnvelopeWavetable38",
+    "name": "modEnvelopeWavetable36",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(36) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 345,
-    "name": "modEnvelopeWavetable39",
+    "name": "modEnvelopeWavetable37",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(37) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 346,
-    "name": "modEnvelopeWavetable40",
+    "name": "modEnvelopeWavetable38",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(38) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 347,
-    "name": "modEnvelopeWavetable41",
+    "name": "modEnvelopeWavetable39",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(39) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 348,
-    "name": "modEnvelopeWavetable42",
+    "name": "modEnvelopeWavetable40",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(40) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 349,
-    "name": "modEnvelopeWavetable43",
+    "name": "modEnvelopeWavetable41",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(41) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 350,
-    "name": "modEnvelopeWavetable44",
+    "name": "modEnvelopeWavetable42",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(42) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 351,
-    "name": "modEnvelopeWavetable45",
+    "name": "modEnvelopeWavetable43",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(43) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 352,
-    "name": "modEnvelopeWavetable46",
+    "name": "modEnvelopeWavetable44",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(44) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 353,
-    "name": "modEnvelopeWavetable47",
+    "name": "modEnvelopeWavetable45",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(45) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 354,
-    "name": "modEnvelopeWavetable48",
+    "name": "modEnvelopeWavetable46",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(46) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 355,
-    "name": "modEnvelopeWavetable49",
+    "name": "modEnvelopeWavetable47",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(47) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 356,
-    "name": "modEnvelopeWavetable50",
+    "name": "modEnvelopeWavetable48",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(48) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 357,
-    "name": "modEnvelopeWavetable51",
+    "name": "modEnvelopeWavetable49",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(49) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 358,
-    "name": "modEnvelopeWavetable52",
+    "name": "modEnvelopeWavetable50",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(50) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 359,
-    "name": "modEnvelopeWavetable53",
+    "name": "modEnvelopeWavetable51",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(51) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 360,
-    "name": "modEnvelopeWavetable54",
+    "name": "modEnvelopeWavetable52",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(52) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 361,
-    "name": "modEnvelopeWavetable55",
+    "name": "modEnvelopeWavetable53",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(53) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 362,
-    "name": "modEnvelopeWavetable56",
+    "name": "modEnvelopeWavetable54",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(54) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 363,
-    "name": "modEnvelopeWavetable57",
+    "name": "modEnvelopeWavetable55",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(55) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 364,
-    "name": "modEnvelopeWavetable58",
+    "name": "modEnvelopeWavetable56",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(56) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 365,
-    "name": "modEnvelopeWavetable59",
+    "name": "modEnvelopeWavetable57",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(57) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 366,
-    "name": "modEnvelopeWavetable60",
+    "name": "modEnvelopeWavetable58",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(58) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 367,
-    "name": "modEnvelopeWavetable61",
+    "name": "modEnvelopeWavetable59",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(59) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 368,
-    "name": "modEnvelopeWavetable62",
+    "name": "modEnvelopeWavetable60",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(60) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 369,
-    "name": "modEnvelopeWavetable63",
+    "name": "modEnvelopeWavetable61",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(61) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 370,
-    "name": "modEnvelopeWavetable64",
+    "name": "modEnvelopeWavetable62",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(62) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 371,
-    "name": "modEnvelopeWavetable65",
+    "name": "modEnvelopeWavetable63",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(63) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 372,
-    "name": "modEnvelopeWavetable66",
+    "name": "modEnvelopeWavetable64",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(64) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 373,
-    "name": "modEnvelopeWavetable67",
+    "name": "modEnvelopeWavetable65",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(65) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 374,
-    "name": "modEnvelopeWavetable68",
+    "name": "modEnvelopeWavetable66",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(66) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 375,
-    "name": "modEnvelopeWavetable69",
+    "name": "modEnvelopeWavetable67",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(67) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 376,
-    "name": "modEnvelopeWavetable70",
+    "name": "modEnvelopeWavetable68",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(68) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 377,
-    "name": "modEnvelopeWavetable71",
+    "name": "modEnvelopeWavetable69",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(69) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 378,
-    "name": "modEnvelopeWavetable72",
+    "name": "modEnvelopeWavetable70",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(70) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 379,
-    "name": "modEnvelopeWavetable73",
+    "name": "modEnvelopeWavetable71",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(71) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 380,
-    "name": "modEnvelopeWavetable74",
+    "name": "modEnvelopeWavetable72",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(72) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 381,
-    "name": "modEnvelopeWavetable75",
+    "name": "modEnvelopeWavetable73",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(73) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 382,
-    "name": "modEnvelopeWavetable76",
+    "name": "modEnvelopeWavetable74",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(74) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 383,
-    "name": "modEnvelopeWavetable77",
+    "name": "modEnvelopeWavetable75",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(75) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 384,
-    "name": "modEnvelopeWavetable78",
+    "name": "modEnvelopeWavetable76",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(76) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 385,
-    "name": "modEnvelopeWavetable79",
+    "name": "modEnvelopeWavetable77",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(77) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 386,
-    "name": "modEnvelopeWavetable80",
+    "name": "modEnvelopeWavetable78",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(78) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 387,
-    "name": "modEnvelopeWavetable81",
+    "name": "modEnvelopeWavetable79",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(79) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 388,
-    "name": "modEnvelopeWavetable82",
+    "name": "modEnvelopeWavetable80",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(80) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 389,
-    "name": "modEnvelopeWavetable83",
+    "name": "modEnvelopeWavetable81",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(81) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 390,
-    "name": "modEnvelopeWavetable84",
+    "name": "modEnvelopeWavetable82",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(82) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 391,
-    "name": "modEnvelopeWavetable85",
+    "name": "modEnvelopeWavetable83",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(83) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 392,
-    "name": "modEnvelopeWavetable86",
+    "name": "modEnvelopeWavetable84",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(84) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 393,
-    "name": "modEnvelopeWavetable87",
+    "name": "modEnvelopeWavetable85",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(85) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 394,
-    "name": "modEnvelopeWavetable88",
+    "name": "modEnvelopeWavetable86",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(86) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 395,
-    "name": "modEnvelopeWavetable89",
+    "name": "modEnvelopeWavetable87",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(87) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 396,
-    "name": "modEnvelopeWavetable90",
+    "name": "modEnvelopeWavetable88",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(88) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 397,
-    "name": "modEnvelopeWavetable91",
+    "name": "modEnvelopeWavetable89",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(89) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 398,
-    "name": "modEnvelopeWavetable92",
+    "name": "modEnvelopeWavetable90",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(90) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 399,
-    "name": "modEnvelopeWavetable93",
+    "name": "modEnvelopeWavetable91",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(91) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 400,
-    "name": "modEnvelopeWavetable94",
+    "name": "modEnvelopeWavetable92",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(92) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 401,
-    "name": "modEnvelopeWavetable95",
+    "name": "modEnvelopeWavetable93",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(93) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 402,
-    "name": "modEnvelopeWavetable96",
+    "name": "modEnvelopeWavetable94",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(94) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 403,
-    "name": "modEnvelopeWavetable97",
+    "name": "modEnvelopeWavetable95",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(95) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 404,
-    "name": "modEnvelopeWavetable98",
+    "name": "modEnvelopeWavetable96",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(96) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 405,
-    "name": "modEnvelopeWavetable99",
+    "name": "modEnvelopeWavetable97",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(97) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 406,
-    "name": "modEnvelopeWavetable100",
+    "name": "modEnvelopeWavetable98",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(98) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 407,
-    "name": "modEnvelopeWavetable101",
+    "name": "modEnvelopeWavetable99",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(99) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 408,
-    "name": "modEnvelopeWavetable102",
+    "name": "modEnvelopeWavetable100",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(100) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 409,
-    "name": "modEnvelopeWavetable103",
+    "name": "modEnvelopeWavetable101",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(101) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 410,
-    "name": "modEnvelopeWavetable104",
+    "name": "modEnvelopeWavetable102",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(102) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 411,
-    "name": "modEnvelopeWavetable105",
+    "name": "modEnvelopeWavetable103",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(103) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 412,
-    "name": "modEnvelopeWavetable106",
+    "name": "modEnvelopeWavetable104",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(104) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 413,
-    "name": "modEnvelopeWavetable107",
+    "name": "modEnvelopeWavetable105",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(105) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 414,
-    "name": "modEnvelopeWavetable108",
+    "name": "modEnvelopeWavetable106",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(106) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 415,
-    "name": "modEnvelopeWavetable109",
+    "name": "modEnvelopeWavetable107",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(107) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 416,
-    "name": "modEnvelopeWavetable110",
+    "name": "modEnvelopeWavetable108",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(108) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 417,
-    "name": "modEnvelopeWavetable111",
+    "name": "modEnvelopeWavetable109",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(109) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 418,
-    "name": "modEnvelopeWavetable112",
+    "name": "modEnvelopeWavetable110",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(110) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 419,
-    "name": "modEnvelopeWavetable113",
+    "name": "modEnvelopeWavetable111",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(111) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 420,
-    "name": "modEnvelopeWavetable114",
+    "name": "modEnvelopeWavetable112",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(112) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 421,
-    "name": "modEnvelopeWavetable115",
+    "name": "modEnvelopeWavetable113",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(113) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 422,
-    "name": "modEnvelopeWavetable116",
+    "name": "modEnvelopeWavetable114",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(114) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 423,
-    "name": "modEnvelopeWavetable117",
+    "name": "modEnvelopeWavetable115",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(115) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 424,
-    "name": "modEnvelopeWavetable118",
+    "name": "modEnvelopeWavetable116",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(116) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 425,
-    "name": "modEnvelopeWavetable119",
+    "name": "modEnvelopeWavetable117",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(117) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 426,
-    "name": "modEnvelopeWavetable120",
+    "name": "modEnvelopeWavetable118",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(118) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 427,
-    "name": "modEnvelopeWavetable121",
+    "name": "modEnvelopeWavetable119",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(119) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 428,
-    "name": "modEnvelopeWavetable122",
+    "name": "modEnvelopeWavetable120",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(120) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 429,
-    "name": "modEnvelopeWavetable123",
+    "name": "modEnvelopeWavetable121",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(121) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 430,
-    "name": "modEnvelopeWavetable124",
+    "name": "modEnvelopeWavetable122",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(122) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 431,
-    "name": "modEnvelopeWavetable125",
+    "name": "modEnvelopeWavetable123",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(123) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 432,
-    "name": "modEnvelopeWavetable126",
+    "name": "modEnvelopeWavetable124",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(124) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 433,
-    "name": "modEnvelopeWavetable127",
+    "name": "modEnvelopeWavetable125",
     "type": "d",
-    "default": "Scales::defaultScale.invmap(0.0)",
+    "default": "1.0 - double(125) / nModEnvelopeWavetable",
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 434,
+    "name": "modEnvelopeWavetable126",
+    "type": "d",
+    "default": "1.0 - double(126) / nModEnvelopeWavetable",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 435,
+    "name": "modEnvelopeWavetable127",
+    "type": "d",
+    "default": "1.0 - double(127) / nModEnvelopeWavetable",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 436,
     "name": "modEnvelopeInterpolation",
     "type": "I",
     "default": 2,
@@ -3480,7 +3496,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 435,
+    "id": 437,
     "name": "modEnvelopeTime",
     "type": "d",
     "default": "Scales::modEnvelopeTime.invmap(1.0)",
@@ -3488,7 +3504,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 436,
+    "id": 438,
     "name": "modEnvelopeToFdnLowpassCutoff",
     "type": "d",
     "default": "Scales::lfoToPitchAmount.invmap(0.0)",
@@ -3496,7 +3512,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 437,
+    "id": 439,
     "name": "modEnvelopeToFdnHighpassCutoff",
     "type": "d",
     "default": "Scales::lfoToPitchAmount.invmap(0.0)",
@@ -3504,7 +3520,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 438,
+    "id": 440,
     "name": "modEnvelopeToFdnPitch",
     "type": "d",
     "default": "Scales::lfoToPitchAmount.invmap(0.0)",
@@ -3512,7 +3528,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 439,
+    "id": 441,
     "name": "modEnvelopeToFdnOvertoneAdd",
     "type": "d",
     "default": 0.0,
@@ -3520,7 +3536,23 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 440,
+    "id": 442,
+    "name": "modEnvelopeToOscJitter",
+    "type": "d",
+    "default": "Scales::bipolarScale.invmap(0.0)",
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 443,
+    "name": "modEnvelopeToOscNoisePulseRatio",
+    "type": "d",
+    "default": "Scales::bipolarScale.invmap(0.0)",
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 444,
     "name": "tremoloMix",
     "type": "d",
     "default": 0.0,
@@ -3528,7 +3560,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 441,
+    "id": 445,
     "name": "tremoloDepth",
     "type": "d",
     "default": "Scales::tremoloDepth.invmap(2.0)",
@@ -3536,7 +3568,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 442,
+    "id": 446,
     "name": "tremoloDelayTime",
     "type": "d",
     "default": "Scales::tremoloDelayTime.invmapDB(-60.0)",
@@ -3544,7 +3576,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 443,
+    "id": 447,
     "name": "tremoloModulationToDelayTimeOffset",
     "type": "d",
     "default": 0.1,
@@ -3552,7 +3584,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 444,
+    "id": 448,
     "name": "tremoloModulationSmoothingHz",
     "type": "d",
     "default": "Scales::tremoloModulationSmoothingHz.invmap(10.0)",
