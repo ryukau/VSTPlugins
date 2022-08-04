@@ -53,7 +53,9 @@ enum ID {
   pitchBendRange,
 
   resetAtNoteOn,
-  smoothingTimeSecond,
+  commonSmoothingTimeSecond,
+  slideTimeSecond,
+  slideType,
 
   impulseGain,
   oscGain,
@@ -85,10 +87,10 @@ enum ID {
   fdnRandomizeRatio,
 
   fdnLowpassCutoffSemiOffset0,
-  fdnLowpassQOffset0 = fdnLowpassCutoffSemiOffset0 + fdnMatrixSize,
-  fdnHighpassCutoffSemiOffset0 = fdnLowpassQOffset0 + fdnMatrixSize,
-  fdnHighpassQOffset0 = fdnHighpassCutoffSemiOffset0 + fdnMatrixSize,
-  fdnLowpassCutoffSemi = fdnHighpassQOffset0 + fdnMatrixSize,
+  fdnLowpassQOffset0 = 106,           // fdnLowpassCutoffSemiOffset0 + fdnMatrixSize,
+  fdnHighpassCutoffSemiOffset0 = 170, // fdnLowpassQOffset0 + fdnMatrixSize,
+  fdnHighpassQOffset0 = 234,          // fdnHighpassCutoffSemiOffset0 + fdnMatrixSize,
+  fdnLowpassCutoffSemi = 298,         // fdnHighpassQOffset0 + fdnMatrixSize,
   fdnLowpassCutoffSlope,
   fdnLowpassQ,
   fdnLowpassQSlope,
@@ -100,7 +102,7 @@ enum ID {
   fdnHighpassKeyFollow,
 
   modEnvelopeWavetable0,
-  modEnvelopeInterpolation = modEnvelopeWavetable0 + nModEnvelopeWavetable,
+  modEnvelopeInterpolation = 436, // modEnvelopeWavetable0 + nModEnvelopeWavetable,
   modEnvelopeTime,
   modEnvelopeToFdnLowpassCutoff,
   modEnvelopeToFdnHighpassCutoff,
@@ -137,6 +139,7 @@ struct Scales {
   static SomeDSP::LinearScale<double> pitchBendRange;
 
   static SomeDSP::DecibelScale<double> smoothingTimeSecond;
+  static SomeDSP::UIntScale<double> slideType;
 
   static SomeDSP::DecibelScale<double> oscAttack;
   static SomeDSP::DecibelScale<double> oscDecay;
@@ -218,9 +221,13 @@ struct GlobalParameter : public ParameterInterface {
 
     value[ID::resetAtNoteOn] = std::make_unique<UIntValue>(
       false, Scales::boolScale, "bypass", Info::kCanAutomate);
-    value[ID::smoothingTimeSecond] = std::make_unique<DecibelValue>(
+    value[ID::commonSmoothingTimeSecond] = std::make_unique<DecibelValue>(
       Scales::smoothingTimeSecond.invmap(0.02), Scales::smoothingTimeSecond,
-      "smoothingTimeSecond", Info::kCanAutomate);
+      "commonSmoothingTimeSecond", Info::kCanAutomate);
+    value[ID::slideTimeSecond] = std::make_unique<DecibelValue>(
+      0.0, Scales::smoothingTimeSecond, "slideTimeSecond", Info::kCanAutomate);
+    value[ID::slideType] = std::make_unique<UIntValue>(
+      0, Scales::slideType, "slideType", Info::kCanAutomate);
 
     value[ID::impulseGain] = std::make_unique<DecibelValue>(
       1.0, Scales::impulseGain, "impulseGain", Info::kCanAutomate);
@@ -282,8 +289,7 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::fdnOvertoneRandomness] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "fdnOvertoneRandomness", Info::kCanAutomate);
     value[ID::fdnInterpRate] = std::make_unique<DecibelValue>(
-      Scales::fdnInterpRate.invmapDB(0.0), Scales::fdnInterpRate, "fdnInterpRate",
-      Info::kCanAutomate);
+      1.0, Scales::fdnInterpRate, "fdnInterpRate", Info::kCanAutomate);
     value[ID::fdnInterpLowpassSecond] = std::make_unique<DecibelValue>(
       Scales::fdnInterpLowpassSecond.invmap(0.005), Scales::fdnInterpLowpassSecond,
       "fdnInterpLowpassSecond", Info::kCanAutomate);
@@ -343,7 +349,7 @@ struct GlobalParameter : public ParameterInterface {
     for (size_t idx = 0; idx < nModEnvelopeWavetable; ++idx) {
       auto indexStr = std::to_string(idx);
       value[ID::modEnvelopeWavetable0 + idx] = std::make_unique<LinearValue>(
-        Scales::defaultScale.invmap(0.0), Scales::defaultScale,
+        1.0 - double(idx) / nModEnvelopeWavetable, Scales::defaultScale,
         (modEnvelopeWavetableLabel + indexStr).c_str(), Info::kCanAutomate);
     }
     value[ID::modEnvelopeInterpolation] = std::make_unique<UIntValue>(

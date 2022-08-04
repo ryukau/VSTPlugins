@@ -121,6 +121,9 @@ public:
 
   void setDelayTimeAt(size_t index, Sample sampleRate, Sample overtone, Sample noteFreq)
   {
+    constexpr auto eps = std::numeric_limits<Sample>::epsilon();
+    overtone = std::max(eps, overtone);
+    noteFreq = std::max(eps, noteFreq);
     targetTime[index] = std::clamp(
       sampleRate / overtone / noteFreq, Sample(0), Sample(buffer[index].size() - 1));
   }

@@ -40,6 +40,7 @@ UIntScale<double> Scales::pitchA4Hz(900);
 LinearScale<double> Scales::pitchBendRange(0.0, 120.0);
 
 DecibelScale<double> Scales::smoothingTimeSecond(-120.0, 40.0, true);
+UIntScale<double> Scales::slideType(2);
 
 DecibelScale<double> Scales::oscAttack(-80.0, 40, false);
 DecibelScale<double> Scales::oscDecay(-80.0, 40, false);

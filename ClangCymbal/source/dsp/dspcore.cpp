@@ -23,15 +23,14 @@
 
 constexpr float maxDelayTime = float(4);
 
-inline float calcMasterPitch(
-  int_fast32_t octave,
-  int_fast32_t semi,
-  int_fast32_t milli,
-  float bend,
-  float equalTemperament)
+inline float calcNotePitch(float note, float equalTemperament = 12.0f)
 {
-  return equalTemperament * octave + semi + milli / float(1000)
-    + (bend - float(0.5)) * float(4);
+  return std::exp2((note - 69.0f) / equalTemperament);
+}
+
+inline float noteToPitch(float note, float equalTemperament = 12.0f)
+{
+  return std::exp2(note / equalTemperament);
 }
 
 inline float
@@ -68,6 +67,9 @@ void Note::setup(float sampleRate)
 
 void DSPCore::setup(double sampleRate)
 {
+  noteStack.reserve(1024);
+  noteStack.resize(0);
+
   this->sampleRate = float(sampleRate);
   upRate = upFold * this->sampleRate;
 
@@ -90,8 +92,9 @@ void DSPCore::setup(double sampleRate)
   }                                                                                      \
   envelopeTable.source[nModEnvelopeWavetable] = 0;                                       \
                                                                                          \
-  fdnEnable = pv[ID::fdnEnable]->getInt();                                               \
-                                                                                         \
+  fdnEnable = pv[ID::fdnEnable]->getInt();
+
+#define ASSIGN_FILTER_PARAMETER(METHOD)                                                  \
   eqTemp = pv[ID::equalTemperament]->getFloat() + float(1);                              \
   auto semitone = int_fast32_t(pv[ID::semitone]->getInt()) - 120;                        \
   auto octave = int_fast32_t(pv[ID::octave]->getInt()) - 12;                             \
@@ -105,9 +108,8 @@ void DSPCore::setup(double sampleRate)
   fdnOvertoneMul.METHOD(pv[ID::fdnOvertoneMul]->getFloat());                             \
   fdnOvertoneAdd.METHOD(pv[ID::fdnOvertoneAdd]->getFloat());                             \
   fdnOvertoneModulo.METHOD(pv[ID::fdnOvertoneModulo]->getFloat());                       \
-  fdnFeedback.METHOD(pv[ID::fdnFeedback]->getFloat());
-
-#define ASSIGN_FILTER_PARAMETER(METHOD)                                                  \
+  fdnFeedback.METHOD(pv[ID::fdnFeedback]->getFloat());                                   \
+                                                                                         \
   modEnvelopeToFdnPitch.METHOD(pv[ID::modEnvelopeToFdnPitch]->getFloat());               \
   modEnvelopeToFdnOvertoneAdd.METHOD(pv[ID::modEnvelopeToFdnOvertoneAdd]->getFloat());   \
   modEnvelopeToOscJitter.METHOD(pv[ID::modEnvelopeToOscJitter]->getFloat());             \
@@ -116,12 +118,12 @@ void DSPCore::setup(double sampleRate)
                                                                                          \
   oscBounce.METHOD(pv[ID::oscBounce]->getFloat());                                       \
   oscBounceCurve.METHOD(pv[ID::oscBounceCurve]->getFloat());                             \
-  oscJitter.METHOD(pv[ID::oscJitter]->getFloat());                                       \
   oscPulseGainRandomness.METHOD(pv[ID::oscPulseGainRandomness]->getFloat());             \
-  oscNoisePulseRatio.METHOD(pv[ID::oscNoisePulseRatio]->getFloat());                     \
-  auto oscDensityPitch                                                                   \
-    = float(1) + pv[ID::oscDensityKeyFollow]->getFloat() * (fdnPitch - float(1));        \
+  auto oscDensityPitch = float(1)                                                        \
+    + pv[ID::oscDensityKeyFollow]->getFloat() * (fdnPitch.getValue() - float(1));        \
   oscDensity.METHOD(oscDensityPitch *pv[ID::oscDensityHz]->getFloat() / sampleRate);     \
+  oscJitter.METHOD(pv[ID::oscJitter]->getFloat());                                       \
+  oscNoisePulseRatio.METHOD(pv[ID::oscNoisePulseRatio]->getFloat());                     \
                                                                                          \
   tremoloMix.METHOD(pv[ID::tremoloMix]->getFloat());                                     \
   tremoloDepth.METHOD(pv[ID::tremoloDepth]->getFloat());                                 \
@@ -130,6 +132,8 @@ void DSPCore::setup(double sampleRate)
     pv[ID::tremoloModulationToDelayTimeOffset]->getFloat());                             \
   tremoloModSmoothingKp.METHOD(float(EMAFilter<double>::cutoffToP(                       \
     sampleRate, pv[ID::tremoloModulationSmoothingHz]->getFloat())));                     \
+                                                                                         \
+  auto fdnFreq = fdnFreqOffset.getValue() * fdnPitch.getValue();                         \
                                                                                          \
   auto oscLpCutoff = semitoneToNormalizedFreq(                                           \
     sampleRate, fdnFreq, pv[ID::oscLowpassCutoffSemi]->getFloat(),                       \
@@ -189,7 +193,6 @@ void Note::reset(float sampleRate, GlobalParameter &param)
     for (auto &value : row) value = dist(rng);
   }
 
-  auto fdnFreq = fdnFreqOffset.getValue() * fdnPitch;
   ASSIGN_NOTE_PARAMETER(reset);
   ASSIGN_FILTER_PARAMETER(reset);
 
@@ -202,6 +205,9 @@ void Note::reset(float sampleRate, GlobalParameter &param)
   pulsar.reset();
   oscLowpass.reset();
 
+  fdnPitch.reset(float(1));
+  pitchSlideKp = float(
+    EMAFilter<double>::secondToP(sampleRate, pv[ID::slideTimeSecond]->getDouble()));
   fdn.reset();
 
   tremolo.reset(pv[ID::tremoloModulationToDelayTimeOffset]->getFloat());
@@ -252,17 +258,23 @@ void Note::setParameters(float sampleRate, GlobalParameter &param)
     }
   }
 
-  auto fdnFreq = fdnFreqOffset.getValue() * fdnPitch;
   ASSIGN_NOTE_PARAMETER(push);
   ASSIGN_FILTER_PARAMETER(push);
 
   pulsar.setDecay(sampleRate * pv[ID::oscNoiseDecay]->getFloat());
 
+  if (state == NoteState::release && pv[ID::slideType]->getInt() == 2) {
+    // `Reset to 0` case.
+    pitchSlideKp = float(
+      EMAFilter<double>::secondToP(sampleRate, pv[ID::gateReleaseSecond]->getDouble()));
+  } else {
+    pitchSlideKp = float(
+      EMAFilter<double>::secondToP(sampleRate, pv[ID::slideTimeSecond]->getDouble()));
+  }
+
   fdn.delay.rate = pv[ID::fdnInterpRate]->getFloat();
-  auto fdnInterpLowpassSecond = pv[ID::fdnInterpLowpassSecond]->getFloat();
-  fdn.delay.kp = fdnInterpLowpassSecond == 0
-    ? float(1)
-    : float(EMAFilter<double>::cutoffToP(sampleRate, double(1) / fdnInterpLowpassSecond));
+  fdn.delay.kp = float(EMAFilter<double>::secondToP(
+    sampleRate, pv[ID::fdnInterpLowpassSecond]->getDouble()));
 
   gate.prepare(sampleRate, pv[ID::gateReleaseSecond]->getFloat());
   auto gateAttackSecond = pv[ID::gateAttackSecond]->getFloat();
@@ -300,9 +312,9 @@ float Note::process(float sampleRate)
   oscBounce.process();
   oscBounceCurve.process();
   oscJitter.process();
+  oscDensity.process();
   oscPulseGainRandomness.process();
   oscNoisePulseRatio.process();
-  oscDensity.process();
   fdnFreqOffset.process();
   fdnOvertoneOffset.process();
   fdnOvertoneMul.process();
@@ -315,6 +327,8 @@ float Note::process(float sampleRate)
   tremoloModToDelayTimeOffset.process();
   tremoloModSmoothingKp.process();
 
+  fdnPitch.process(pitchSlideKp);
+
   envelopeTable.processRefresh();
 
   if (state == NoteState::rest) return 0;
@@ -324,8 +338,6 @@ float Note::process(float sampleRate)
   auto modenvToFdnOvertoneAdd = modenv * modEnvelopeToFdnOvertoneAdd.getValue();
   auto modenvToOscJitter = modenv * modEnvelopeToOscJitter.getValue();
   auto modenvToOscNoisePulseRatio = modenv * modEnvelopeToOscNoisePulseRatio.getValue();
-
-  auto fdnPitchMod = noteToPitch(modenvToFdnPitch, eqTemp);
 
   float sig = impulse;
   impulse = 0;
@@ -346,7 +358,8 @@ float Note::process(float sampleRate)
   auto oscOut = sig;
 
   if (fdnEnable) {
-    auto fdnFreq = fdnFreqOffset.getValue() * fdnPitch * fdnPitchMod;
+    auto fdnFreq = fdnFreqOffset.getValue() * fdnPitch.getValue()
+      * noteToPitch(modenvToFdnPitch, eqTemp);
     float overtone = float(1);
     for (size_t idx = 0; idx < fdnMatrixSize; ++idx) {
       fdn.delay.setDelayTimeAt(
@@ -386,7 +399,7 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
   using ID = ParameterID::ID;
   const auto &pv = param.value;
 
-  SmootherCommon<float>::setTime(pv[ID::smoothingTimeSecond]->getFloat());
+  SmootherCommon<float>::setTime(pv[ID::commonSmoothingTimeSecond]->getFloat());
   SmootherCommon<float>::setBufferSize(float(length));
 
   for (size_t i = 0; i < length; ++i) {
@@ -431,9 +444,6 @@ void Note::noteOn(
 
   this->velocity = velocity;
 
-  fdnPitch = calcNotePitch(notePitch, eqTemp);
-  auto fdnFreq = fdnFreqOffset.getValue() * fdnPitch;
-
   modEnvelopePhase.noteOn(sampleRate, pv[ID::modEnvelopeTime]->getFloat());
 
   // Oscillator.
@@ -444,6 +454,7 @@ void Note::noteOn(
     sampleRate * pv[ID::oscDecay]->getFloat());
 
   // FDN.
+
   std::uniform_real_distribution<float> overtoneDist(-1.0, 1.0);
   for (size_t idx = 0; idx < fdnMatrixSize; ++idx) {
     overtoneRandomness[idx]
@@ -465,9 +476,21 @@ void Note::noteOn(
   gate.reset();
 
   // Resetting.
+  pitchSlideKp = float(
+    EMAFilter<double>::secondToP(sampleRate, pv[ID::slideTimeSecond]->getDouble()));
+  auto fdnPitchTarget = calcNotePitch(notePitch, eqTemp);
   if (pv[ID::resetAtNoteOn]->getInt() || state == NoteState::rest) {
+    ASSIGN_FILTER_PARAMETER(reset);
+
     oscEnvelopeSmoother.reset();
     oscLowpass.reset();
+
+    auto slideType = pv[ID::slideType]->getInt();
+    if (slideType == 0) { // Sustain
+      fdnPitch.reset(fdnPitchTarget);
+    } else if (slideType == 2) { // Reset to 0
+      fdnPitch.reset(std::numeric_limits<float>::epsilon());
+    }
 
     fdn.reset();
     float overtone = 1.0f;
@@ -489,19 +512,34 @@ void Note::noteOn(
     tremoloSmoother.reset();
 
     gateSmoother.reset();
-
-    ASSIGN_FILTER_PARAMETER(reset);
   } else {
     ASSIGN_FILTER_PARAMETER(push);
   }
+  fdnPitch.push(fdnPitchTarget);
 
   state = NoteState::active;
 }
 
-void Note::release(float sampleRate)
+void Note::slide(int_fast32_t noteId, float notePitch, float velocity, float sampleRate)
 {
+  id = noteId;
+  this->velocity = velocity;
+  fdnPitch.push(calcNotePitch(notePitch, eqTemp));
+}
+
+void Note::release(float sampleRate, GlobalParameter &param)
+{
+  using ID = ParameterID::ID;
+  auto &pv = param.value;
+
   if (state == NoteState::rest) return;
   state = NoteState::release;
+
+  if (pv[ID::slideType]->getInt() == 2) {
+    fdnPitch.push(std::numeric_limits<float>::epsilon());
+    pitchSlideKp = float(
+      EMAFilter<double>::secondToP(sampleRate, pv[ID::gateReleaseSecond]->getDouble()));
+  }
 
   gate.release();
 }
@@ -513,12 +551,33 @@ void DSPCore::noteOn(
   auto &pv = param.value;
 
   if (pv[ID::resetAtNoteOn]->getInt()) fillTransitionBuffer();
-  note.noteOn(noteId, float(pitch) + tuning, velocity, float(0.5), upRate, param);
+
+  auto notePitch = float(pitch) + tuning;
+  note.noteOn(noteId, notePitch, velocity, float(0.5), upRate, param);
+
+  NoteInfo info;
+  info.id = noteId;
+  info.notePitch = notePitch;
+  info.velocity = velocity;
+  noteStack.push_back(info);
 }
 
 void DSPCore::noteOff(int_fast32_t noteId)
 {
-  if (note.id == noteId) note.release(upRate);
+  auto it = std::find_if(noteStack.begin(), noteStack.end(), [&](const NoteInfo &info) {
+    return info.id == noteId;
+  });
+  if (it == noteStack.end()) return;
+  noteStack.erase(it);
+
+  if (note.id == noteId) {
+    if (noteStack.empty()) {
+      note.release(upRate, param);
+    } else {
+      auto info = noteStack.back();
+      note.slide(info.id, info.notePitch, info.velocity, upRate);
+    }
+  }
 }
 
 void DSPCore::fillTransitionBuffer()

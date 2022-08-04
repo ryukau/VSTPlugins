@@ -35,25 +35,12 @@
 using namespace SomeDSP;
 using namespace Steinberg::Synth;
 
-constexpr float minOscNoteOffsetRate = float(9.5); // ~= 12 * log2(sqrt(3)).
-
-inline float calcNotePitch(float note, float equalTemperament = 12.0f)
-{
-  return std::exp2((note - 69.0f) / equalTemperament);
-}
-
-inline float noteToPitch(float note, float equalTemperament = 12.0f)
-{
-  return std::exp2(note / equalTemperament);
-}
-
 enum class NoteState { active, release, rest };
 
 class Note {
 private:
   float velocity = 0;
   float eqTemp = float(12);
-  float fdnPitch = 0;
 
   uint32_t previousSeed = 0;
   pcg64 rng;
@@ -66,9 +53,9 @@ private:
   ExpSmoother<float> oscBounce;
   ExpSmoother<float> oscBounceCurve;
   ExpSmoother<float> oscJitter;
+  ExpSmoother<float> oscDensity;
   ExpSmoother<float> oscPulseGainRandomness;
   ExpSmoother<float> oscNoisePulseRatio;
-  ExpSmoother<float> oscDensity;
   ExpSmoother<float> fdnFreqOffset;
   ExpSmoother<float> fdnOvertoneOffset;
   ExpSmoother<float> fdnOvertoneMul;
@@ -90,6 +77,8 @@ private:
   SampleAndHoldNoise<float> pulsar;
   GenericSVF<float, 0> oscLowpass;
 
+  ExpSmootherLocal<float> fdnPitch;
+  float pitchSlideKp = float(1);
   bool fdnEnable = true;
   std::array<float, fdnMatrixSize> overtoneRandomness{};
   FeedbackDelayNetwork<float, fdnMatrixSize> fdn;
@@ -115,7 +104,8 @@ public:
     float pan,
     float sampleRate,
     GlobalParameter &param);
-  void release(float sampleRate);
+  void slide(int_fast32_t noteId, float notePitch, float velocity, float sampleRate);
+  void release(float sampleRate, GlobalParameter &param);
   float process(float sampleRate);
 };
 
@@ -161,7 +151,7 @@ public:
     note.id = noteId;
     note.pitch = pitch;
     note.tuning = tuning;
-    note.velocity = velocity;
+    note.velocity = velocityMap.map(velocity);
     midiNotes.push_back(note);
   }
 
@@ -181,6 +171,14 @@ public:
   }
 
 private:
+  struct NoteInfo {
+    int32_t id;
+    float notePitch;
+    float velocity;
+  };
+
+  std::vector<NoteInfo> noteStack;
+
   static constexpr size_t upFold = 2;
   float sampleRate = 44100.0f;
   float upRate = 88200.0f;

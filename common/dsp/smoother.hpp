@@ -22,6 +22,7 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <limits>
 
 namespace SomeDSP {
 
@@ -37,6 +38,12 @@ public:
     auto omega_c = Sample(twopi) * cutoffHz / sampleRate;
     auto y = Sample(1) - std::cos(omega_c);
     return -y + std::sqrt((y + Sample(2)) * y);
+  }
+
+  static Sample secondToP(Sample sampleRate, Sample second)
+  {
+    if (second < std::numeric_limits<Sample>::epsilon()) return Sample(1);
+    return cutoffToP(sampleRate, Sample(1) / second);
   }
 
   void setCutoff(Sample sampleRate, Sample cutoffHz)

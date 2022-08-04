@@ -168,13 +168,24 @@ bool Editor::prepareUI()
   constexpr auto miscLeft1 = miscLeft0 + labelWidth;
   constexpr auto miscTop0 = tremoloTop5 + labelY;
   constexpr auto miscTop1 = miscTop0 + labelY;
+  constexpr auto miscTop2 = miscTop1 + labelY;
+  constexpr auto miscTop3 = miscTop2 + labelY;
 
   addGroupLabel(miscLeft0, miscTop0, 2 * labelWidth, labelHeight, uiTextSize, "Misc.");
 
   addLabel(miscLeft0, miscTop1, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
   addTextKnob(
-    miscLeft1, miscTop1, labelWidth, labelHeight, uiTextSize, ID::smoothingTimeSecond,
+    miscLeft1, miscTop1, labelWidth, labelHeight, uiTextSize,
+    ID::commonSmoothingTimeSecond, Scales::smoothingTimeSecond, false, 5);
+  addLabel(miscLeft0, miscTop2, labelWidth, labelHeight, uiTextSize, "Slide [s]");
+  addTextKnob(
+    miscLeft1, miscTop2, labelWidth, labelHeight, uiTextSize, ID::slideTimeSecond,
     Scales::smoothingTimeSecond, false, 5);
+  addLabel(miscLeft0, miscTop3, labelWidth, labelHeight, uiTextSize, "Slide Type");
+  std::vector<std::string> slideTypeItems{"Sustain", "Always", "Reset to 0"};
+  addOptionMenu(
+    miscLeft1, miscTop3, labelWidth, labelHeight, uiTextSize, ID::slideType,
+    slideTypeItems);
 
   // Oscillator.
   constexpr auto oscLeft0 = gainLeft0 + 2 * labelWidth + 4 * margin;
