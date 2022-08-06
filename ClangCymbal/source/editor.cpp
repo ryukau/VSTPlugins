@@ -142,24 +142,24 @@ bool Editor::prepareUI()
     tremoloLeft0, tremoloTop0, 2 * labelWidth, labelHeight, uiTextSize, "Tremolo");
 
   addLabel(tremoloLeft0, tremoloTop1, labelWidth, labelHeight, uiTextSize, "Mix");
-  addTextKnob(
+  addTextKnob<Style::accent>(
     tremoloLeft1, tremoloTop1, labelWidth, labelHeight, uiTextSize, ID::tremoloMix,
     Scales::defaultScale, false, 5);
   addLabel(tremoloLeft0, tremoloTop2, labelWidth, labelHeight, uiTextSize, "Depth");
-  addTextKnob(
+  addTextKnob<Style::accent>(
     tremoloLeft1, tremoloTop2, labelWidth, labelHeight, uiTextSize, ID::tremoloDepth,
     Scales::tremoloDepth, false, 5);
   addLabel(tremoloLeft0, tremoloTop3, labelWidth, labelHeight, uiTextSize, "Delay [s]");
-  addTextKnob(
+  addTextKnob<Style::accent>(
     tremoloLeft1, tremoloTop3, labelWidth, labelHeight, uiTextSize, ID::tremoloDelayTime,
     Scales::tremoloDelayTime, false, 5);
   addLabel(
     tremoloLeft0, tremoloTop4, labelWidth, labelHeight, uiTextSize, "Delay Offset");
-  addTextKnob(
+  addTextKnob<Style::accent>(
     tremoloLeft1, tremoloTop4, labelWidth, labelHeight, uiTextSize,
     ID::tremoloModulationToDelayTimeOffset, Scales::defaultScale, false, 5);
   addLabel(tremoloLeft0, tremoloTop5, labelWidth, labelHeight, uiTextSize, "Smooth [Hz]");
-  addTextKnob(
+  addTextKnob<Style::accent>(
     tremoloLeft1, tremoloTop5, labelWidth, labelHeight, uiTextSize,
     ID::tremoloModulationSmoothingHz, Scales::tremoloModulationSmoothingHz, false, 5);
 
@@ -174,11 +174,11 @@ bool Editor::prepareUI()
   addGroupLabel(miscLeft0, miscTop0, 2 * labelWidth, labelHeight, uiTextSize, "Misc.");
 
   addLabel(miscLeft0, miscTop1, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
-  addTextKnob(
+  addTextKnob<Style::accent>(
     miscLeft1, miscTop1, labelWidth, labelHeight, uiTextSize,
     ID::commonSmoothingTimeSecond, Scales::smoothingTimeSecond, false, 5);
   addLabel(miscLeft0, miscTop2, labelWidth, labelHeight, uiTextSize, "Slide [s]");
-  addTextKnob(
+  addTextKnob<Style::accent>(
     miscLeft1, miscTop2, labelWidth, labelHeight, uiTextSize, ID::slideTimeSecond,
     Scales::smoothingTimeSecond, false, 5);
   addLabel(miscLeft0, miscTop3, labelWidth, labelHeight, uiTextSize, "Slide Type");
@@ -216,7 +216,7 @@ bool Editor::prepareUI()
     oscLeft1, oscTop2, labelWidth, labelHeight, uiTextSize, ID::oscGain,
     Scales::impulseGain, true, 5);
   addLabel(oscLeft0, oscTop3, labelWidth, labelHeight, uiTextSize, "Noise/Pulse");
-  addTextKnob(
+  addTextKnob<Style::accent>(
     oscLeft1, oscTop3, labelWidth, labelHeight, uiTextSize, ID::oscNoisePulseRatio,
     Scales::defaultScale, false, 5);
   addLabel(oscLeft0, oscTop4, labelWidth, labelHeight, uiTextSize, "Attack [s]");
@@ -228,11 +228,11 @@ bool Editor::prepareUI()
     oscLeft1, oscTop5, labelWidth, labelHeight, uiTextSize, ID::oscDecay,
     Scales::oscDecay, false, 5);
   addLabel(oscLeft0, oscTop7, labelWidth, labelHeight, uiTextSize, "LP Cutoff [st.]");
-  addTextKnob(
+  addTextKnob<Style::accent>(
     oscLeft1, oscTop7, labelWidth, labelHeight, uiTextSize, ID::oscLowpassCutoffSemi,
     Scales::filterCutoffSemi, false, 5);
   addLabel(oscLeft0, oscTop8, labelWidth, labelHeight, uiTextSize, "LP Q");
-  addTextKnob(
+  addTextKnob<Style::accent>(
     oscLeft1, oscTop8, labelWidth, labelHeight, uiTextSize, ID::oscLowpassQ,
     Scales::oscLowpassQ, false, 5);
   addLabel(oscLeft0, oscTop9, labelWidth, labelHeight, uiTextSize, "LP Key");
@@ -241,32 +241,32 @@ bool Editor::prepareUI()
     Scales::defaultScale, false, 5);
 
   addLabel(oscLeft2, oscTop1, labelWidth, labelHeight, uiTextSize, "Density [Hz]");
-  addTextKnob(
+  addTextKnob<Style::accent>(
     oscLeft3, oscTop1, labelWidth, labelHeight, uiTextSize, ID::oscDensityHz,
     Scales::oscDensityHz, false, 5);
   addLabel(oscLeft2, oscTop2, labelWidth, labelHeight, uiTextSize, "Density Key");
-  addTextKnob(
+  addTextKnob<Style::accent>(
     oscLeft3, oscTop2, labelWidth, labelHeight, uiTextSize, ID::oscDensityKeyFollow,
     Scales::oscDensityKeyFollow, false, 5);
 
   addLabel(oscLeft2, oscTop4, labelWidth, labelHeight, uiTextSize, "Noise Decay [s]");
-  addTextKnob(
+  addTextKnob<Style::accent>(
     oscLeft3, oscTop4, labelWidth, labelHeight, uiTextSize, ID::oscNoiseDecay,
     Scales::oscDecay, false, 5);
   addLabel(oscLeft2, oscTop5, labelWidth, labelHeight, uiTextSize, "Bounce");
-  addTextKnob(
+  addTextKnob<Style::accent>(
     oscLeft3, oscTop5, labelWidth, labelHeight, uiTextSize, ID::oscBounce,
     Scales::defaultScale, false, 5);
   addLabel(oscLeft2, oscTop6, labelWidth, labelHeight, uiTextSize, "Bounce Curve");
-  addTextKnob(
+  addTextKnob<Style::accent>(
     oscLeft3, oscTop6, labelWidth, labelHeight, uiTextSize, ID::oscBounceCurve,
     Scales::oscBounceCurve, false, 5);
   addLabel(oscLeft2, oscTop7, labelWidth, labelHeight, uiTextSize, "Jitter");
-  addTextKnob(
+  addTextKnob<Style::accent>(
     oscLeft3, oscTop7, labelWidth, labelHeight, uiTextSize, ID::oscJitter,
     Scales::defaultScale, false, 5);
   addLabel(oscLeft2, oscTop8, labelWidth, labelHeight, uiTextSize, "Pulse Rand.");
-  addTextKnob(
+  addTextKnob<Style::accent>(
     oscLeft3, oscTop8, labelWidth, labelHeight, uiTextSize, ID::oscPulseGainRandomness,
     Scales::defaultScale, false, 5);
 
@@ -343,7 +343,7 @@ bool Editor::prepareUI()
   addTextKnob(
     fdnLeft3, fdnTop5, labelWidth, labelHeight, uiTextSize, ID::fdnOvertoneRandomness,
     Scales::defaultScale, false, 5);
-  addCheckbox(
+  addCheckbox<Style::warning>(
     fdnLeft2, fdnTop6, 2 * labelWidth, labelHeight, uiTextSize, "Reset at Note On",
     ID::resetAtNoteOn);
 
@@ -459,7 +459,7 @@ bool Editor::prepareUI()
   addLabel(
     modEnvLeft0, modEnvTopMid2, labelWidth, labelHeight, uiTextSize, "Wave Interp.");
   std::vector<std::string> modWavetableInterpolationItems{"Step", "Linear", "PCHIP"};
-  addOptionMenu(
+  addOptionMenu<Style::accent>(
     modEnvLeft1, modEnvTopMid2, labelWidth, labelHeight, uiTextSize,
     ID::modEnvelopeInterpolation, modWavetableInterpolationItems);
 
