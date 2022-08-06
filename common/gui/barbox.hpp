@@ -192,8 +192,6 @@ public:
 
   void onMouseEnterEvent(MouseEnterEvent &event) override
   {
-    grabFocus();
-
     isMouseEntered = true;
     invalid();
     event.consumed = true;
@@ -201,6 +199,8 @@ public:
 
   void onMouseExitEvent(MouseExitEvent &event) override
   {
+    releaseFocus();
+
     isMouseEntered = false;
     invalid();
     event.consumed = true;
@@ -229,6 +229,8 @@ public:
       event.consumed = true;
       return;
     }
+
+    grabFocus();
 
     setMousePosition(event.mousePosition);
     anchor = mousePosition;
