@@ -80,18 +80,14 @@ Shift + Z|Redo
 1|Decrease
 2-9|Decrease 2n-9n
 
-- Knob -
+- Number Knob -
 Shift + Left Drag|Fine Adjustment
 Ctrl + Left Click|Reset to Default
-
-- Number -
-Shares same controls with knob, and:
 Right Click|Toggle Min/Mid/Max
 
 
 ClangSynth outputs peaky signal.
-Recommend to insert limiter, even if
-compressor is turned on.
+Recommend to use with limiter.
 
 
 Have a nice day!)";
