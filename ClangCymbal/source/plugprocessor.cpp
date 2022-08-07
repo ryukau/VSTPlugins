@@ -81,8 +81,6 @@ tresult PLUGIN_API PlugProcessor::setActive(TBool state)
 
 tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 {
-  if (!dsp.isInitialized) return kNotInitialized;
-
   // Read inputs parameter changes.
   if (data.inputParameterChanges) {
     int32 parameterCount = data.inputParameterChanges->getParameterCount();
@@ -106,13 +104,14 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   }
   dsp.isPlaying = state & Vst::ProcessContext::kPlaying;
 
-  dsp.setParameters();
-
   if (data.numOutputs == 0) return kResultOk;
   if (data.numSamples <= 0) return kResultOk;
   if (data.outputs[0].numChannels != 2) return kResultOk;
   if (data.symbolicSampleSize == Vst::kSample64) return kResultOk;
 
+  if (!dsp.isInitialized) return kNotInitialized;
+
+  dsp.setParameters();
   if (data.inputEvents != nullptr) handleEvent(data);
 
   float *out0 = data.outputs[0].channelBuffers32[0];
@@ -125,8 +124,6 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 
 void PlugProcessor::handleEvent(Vst::ProcessData &data)
 {
-  if (!dsp.isInitialized) return;
-
   for (int32 index = 0; index < data.inputEvents->getEventCount(); ++index) {
     Vst::Event event;
     if (data.inputEvents->getEvent(index, event) != kResultOk) continue;
@@ -152,21 +149,13 @@ void PlugProcessor::handleEvent(Vst::ProcessData &data)
 
 tresult PLUGIN_API PlugProcessor::setState(IBStream *state)
 {
-  if (!dsp.isInitialized) return kNotInitialized;
   if (!state) return kResultFalse;
   return dsp.param.setState(state);
 }
 
 tresult PLUGIN_API PlugProcessor::getState(IBStream *state)
 {
-  if (!dsp.isInitialized) return kNotInitialized;
   return dsp.param.getState(state);
-}
-
-tresult PlugProcessor::receiveText(const char8 *text)
-{
-  if (!dsp.isInitialized) return kNotInitialized;
-  return kResultOk;
 }
 
 } // namespace Synth
