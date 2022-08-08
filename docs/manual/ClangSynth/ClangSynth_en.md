@@ -5,15 +5,26 @@ lang: en
 # ClangSynth
 ![](img/clangsynth.png)
 
-ClangSynth is a comb filter which has 4 different delay time and 1 shared buffer. A limiter is inserted on feedback path to make the output somewhat clean. Weird distorsion can be added by modulating delay time using feedback signal amplitude.
+ClangSynth is a synthesizer suitable for percussion sounds. Each voice equips an 8 * 8 feedback delay network (FDN) as a resonator. Oscillator is static wavetalble with controls specialized to make pulse train.
 
-- [Download ClangSynth {{ latest_version["ClangSynth"] }} <img
+- [Download ClangSynth {{ latest_version["ClangSynth"] }} - VST® 3 (github.com)]({{ latest_download_url["ClangSynth"] }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="60px"
   style="display: inline-block; vertical-align: middle;">
 {%- if preset_download_url["ClangSynth"]|length != 0%}
 - [Download Presets (github.com)]({{ preset_download_url["ClangSynth"] }})
+{%- endif %}
+
+ClangCymbal is a spin off of ClangSynth. FDN size is expended to 64 * 64 to provide more rich harmonics. However it is monophonic due to increased CPU load. Oscillator is changed for noise/pulse mix which is more suitable to make cymbal sounds. It can also make sound of manhole dragged on asphalt.
+
+- [Download ClangCymbal {{ latest_version["ClangCymbal"] }} - VST® 3 (github.com)]({{ latest_download_url["ClangCymbal"] }}) <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="60px"
+  style="display: inline-block; vertical-align: middle;">
+{%- if preset_download_url["ClangCymbal"]|length != 0%}
+- [Download Presets (github.com)]({{ preset_download_url["ClangCymbal"] }})
 {%- endif %}
 
 The package includes following builds:
@@ -53,7 +64,11 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
+### ClangSynth
 ![](img/clangsynth.svg)
+
+### ClangCymbal
+![](img/clangcymbal.svg)
 
 ## Parameters
 Characters inside of square brackets \[\] represents unit. Following is a list of units used in ClangSynth.
@@ -64,7 +79,8 @@ Characters inside of square brackets \[\] represents unit. Following is a list o
 - \[Hz\] : Hertz.
 - \[rad/pi\] : Radian / π.
 
-### Gain
+### ClangSynth
+#### Gain
 Output \[dB\]
 
 :   Output gain.
@@ -83,7 +99,7 @@ Release \[s\]
 
     Note that the value is not exact. It converts to filter cutoff frequency.
 
-### Tuning
+#### Tuning
 Octave, Semi, Milli
 
 :   Changes master pitch.
@@ -102,7 +118,7 @@ P.Bend Range
 
 :   Pitch bend range. Unit is semitone.
 
-### Unison/Chord
+#### Unison/Chord
 nUnison
 
 :   Number of voices a unison uses.
@@ -169,7 +185,7 @@ Interval \[st.\], Cycle At
     }
     ```
 
-### Misc.
+#### Misc.
 nVoice
 
 :   Maximum number of voices to play at the same time.
@@ -182,7 +198,7 @@ Smoothing \[s\]
 
     Note that the value is not exact. It converts to filter cutoff frequency.
 
-### Oscillator
+#### Oscillator
 Impulse \[dB\]
 
 :   Gain of impulse which is triggered at note-on.
@@ -292,7 +308,7 @@ Refresh Wavetable
     - `OT Amp.`
     - `Rot. [rad/pi]`
 
-### FDN
+#### FDN
 FDN
 
 :   When lit, oscillator output goes through FDN.
@@ -383,7 +399,7 @@ Key Follow
 
 :   When checked, cutoff frequency changes by following the pitch of a note.
 
-### LFO
+#### LFO
 LFO Wave
 
 :   The waveform of LFO wavetable.
@@ -459,7 +475,7 @@ Pitch Alignment
       modulation = alignment * floor(lfo * amount / alignment + 0.5);
     ```
 
-### Envelope
+#### Envelope
 Envelope Wave
 
 :   The waveform of envelope wavetable.
@@ -499,6 +515,152 @@ Wave Interp.
 :   Modulation amount to `OT +` in FDN section.
 
     `> FDN OT +` changes pitch using overtone structure, while `> FDN Pitch` moves entire pitch.
+
+### ClangCymbal
+This section only lists the parameters different to ClangSynth.
+
+#### Tremolo
+Modulation source of tremolo is the output of oscillator. Intention is to crudely imitate the distance from vibrating object to microphone.
+
+Mix
+
+:   Mixing ratio of input and delay output.
+
+    When the value is 0.0, input is bypassed.
+
+Depth
+
+:   Modulation amount to the gain of delay output.
+
+Delay \[s\]
+
+:   Maximum delay time.
+
+Delay Offset
+
+:   Amount of DC offset which adds to the delay time modulation signal.
+
+    On top of `Misc.->Smoothing`, extra smoothing is applied to `Delay Offset`.
+
+Smooth \[Hz\]
+
+:   Cutoff frequency of a lowpass filter which applies to modulation source.
+
+#### Misc.
+Pitch slide options are added.
+
+Slide \[s\]
+
+:   Pitch slide time.
+
+Slide Type
+
+:   3 types of pitch slide are available.
+
+    - `Always` : Always slide from the pitch of last note.
+    - `Sustain` : Only slide when 2 or more keys are pressed.
+    - `Reset to 0` : When number of pressed key is changed from 0 to 1, or 1 to 0, pitch will be slide to 0 Hz. Otherwise, slide behaves same as other 2 options. On release, slide time follows the value of `Gain->Release`, instead of `Misc.->Slide`.
+
+#### Oscillator
+ClangCymbal uses mix of noise and pulse train as an oscillator.
+
+Noise generation step is following:
+
+1. Generate naive pulse train.
+2. Input 1 to integrator.
+3. Multiply 2 to normal distribution noise.
+
+Integrator here is not the exact one used in theory, but behaves similarly.
+
+Pulse train is generated by BLIT (band-limited impulse train) algorithm. The naive pulse train used in noise generation is not related to this one.
+
+- Noise/Pulse
+
+:   Mixing ratio of noise and pulse train.
+
+- LP Cutoff \[st.\]
+
+:   Lowpass filter cutoff frequency.
+
+- LP Q
+
+:   Lowpass filter Q.
+
+- LP Key
+
+:   Key follow amount to `LP Cutoff`.
+
+    When `LP Cutoff` is set to 0, `Q` is set to maximum, and `LP Key` is set to 1, the oscillator outputs sine wave.
+
+- Density \[Hz\]
+
+:   Density of noise and pulse train.
+
+    To match the tuning to FDN, set the value of `Density` to the same value of `Tuning->A4`, then set `Density key` to 1.
+
+- Density Key
+
+:   Key follow amount to `Density`.
+
+- Noise Decay
+
+:   Decay time of a noise burst.
+
+    When the value of `Noise Decay` is small, it sounds like pulse train. However, the naive pulse train used for noise generator is not anti-aliased. Therefore it has different texture to BLIT.
+
+- Bounce
+
+:   Amount of bouncing effect.
+
+    The bouncing effect is tied to AD envelope output, and bouncing interval becomes shorter when AD envelope amplitude becomes lower. The effect is disabled when `Bounce` is 0.0.
+
+    `Bounce` can be used to simulate the bounce of a stick on a surface.
+
+- Bounce Curve
+
+:   The curve parameter of `Bounce` effect.
+
+    Increasing `Bounce Curve` shorten the interval of bounce.
+
+- Jitter
+
+:   Randomness of pulse interval.
+
+- Amp. Rand.
+
+:   Randomness of the amplitude of a naive pulse on noise generator.
+
+#### FDN
+Individual control for each filter is added compared to ClangSynth. This increases flexibility, and CPU load.
+
+Cutoff Slope
+
+:   Amount of increment or decrement to the filter cutoff. The amount is proportional to the order of harmonics.
+
+Q Slope
+
+:   Amount of increment or decrement to the filter Q. The amount is proportional to the order of harmonics.
+
+LP/HP Cut Offset \[st.\]
+
+:   The value added to filter cutoff frequency, which is calculated from `Cutoff` and `Cutoff Slope`.
+
+    On the control, the order of harmonics becomes lower towards left, and higher towards right. Note that higher harmonics may affects lower frequency, and lower harmonics may affects higher frequency. This is due to the cross feedback on FDN.
+
+LP/HP Q Offset
+
+:   The value added to filter Q, which is calculated from `Q` and `Q Slope`.
+
+    As same as `Cut Offset`, left side of control represents lower harmonics and right side represents higher harmonics.
+
+#### Envelope
+> Jitter
+
+:   Modulation amount to `Oscillator->Jitter`.
+
+> Noise/Pulse
+
+:   Modulation amount to `Oscillator->Noise/Pulse`.
 
 ## Change Log
 {%- for version, logs in changelog["ClangSynth"].items() %}
