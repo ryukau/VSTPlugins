@@ -5,6 +5,7 @@ import subprocess
 import time
 import jinja2
 import re
+import yaml
 from pathlib import Path
 
 def loadCommonSection(language):
@@ -97,6 +98,11 @@ def is_source_modified(md, html):
     md_mtime = os.path.getmtime(md)
     return md_mtime > html_mtime
 
+def dump_config_yml():
+    md_list = sorted([str(md.as_posix()) for md in Path(".").glob("**/*.md")])
+    with open("_config.yml", "w") as outfile:
+        yaml.dump({"exclude": md_list}, outfile, default_flow_style=False)
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-r", "--rebuild", action='store_true', help="rebuild all file")
@@ -105,6 +111,8 @@ if __name__ == "__main__":
                         action='store_true',
                         help="use timestamp of today")
     args = parser.parse_args()
+
+    dump_config_yml()
 
     index_path = Path("index.html").resolve()
     css_path = Path("style.css").resolve()
