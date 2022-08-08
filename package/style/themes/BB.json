@@ -1,0 +1,18 @@
+{
+  "fontPath": "",
+  "foreground": "#be7a33",
+  "foregroundButtonOn": "#d3dae3",
+  "foregroundInactive": "#6e5943",
+  "background": "#333333",
+  "boxBackground": "#333333",
+  "border": "#333333",
+  "borderCheckbox": "#4e4e4e",
+  "borderLabel": "#6e5943",
+  "unfocused": "#4e4e4e",
+  "highlightMain": "#54a16f",
+  "highlightAccent": "#2c8a58",
+  "highlightButton": "#4e4e4e",
+  "highlightWarning": "#aaaaff",
+  "overlay": "#d2dccfcc",
+  "overlayHighlight": "#54a16f32"
+}
