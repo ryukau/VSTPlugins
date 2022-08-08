@@ -6,7 +6,7 @@
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <meta name="dcterms.date" content="2022-08-08" />
-<title>IterativeSinCluster_ja</title>
+<title>ClangSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -268,8 +268,7 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#iterativesincluster"
-  id="toc-iterativesincluster">IterativeSinCluster</a>
+  <li><a href="#clangsynth" id="toc-clangsynth">ClangSynth</a>
   <ul>
   <li><a href="#連絡先" id="toc-連絡先">連絡先</a></li>
   <li><a href="#インストール" id="toc-インストール">インストール</a>
@@ -292,24 +291,40 @@ footer {
   id="toc-色のオプション">色のオプション</a></li>
   </ul></li>
   <li><a href="#操作" id="toc-操作">操作</a></li>
-  <li><a href="#ブロック線図"
-  id="toc-ブロック線図">ブロック線図</a></li>
+  <li><a href="#注意" id="toc-注意">注意</a></li>
+  <li><a href="#ブロック線図" id="toc-ブロック線図">ブロック線図</a>
+  <ul>
+  <li><a href="#clangsynth-1" id="toc-clangsynth-1">ClangSynth</a></li>
+  <li><a href="#clangcymbal" id="toc-clangcymbal">ClangCymbal</a></li>
+  </ul></li>
   <li><a href="#パラメータ" id="toc-パラメータ">パラメータ</a>
   <ul>
+  <li><a href="#clangsynth-2" id="toc-clangsynth-2">ClangSynth</a>
+  <ul>
   <li><a href="#gain" id="toc-gain">Gain</a></li>
-  <li><a href="#shelving" id="toc-shelving">Shelving</a></li>
-  <li><a href="#pitch" id="toc-pitch">Pitch</a></li>
-  <li><a href="#smooth" id="toc-smooth">Smooth</a></li>
-  <li><a href="#nvoice" id="toc-nvoice">nVoice</a></li>
-  <li><a href="#random" id="toc-random">Random</a></li>
-  <li><a href="#note-chord-overtone" id="toc-note-chord-overtone">Note,
-  Chord, Overtone</a></li>
-  <li><a href="#chorus" id="toc-chorus">Chorus</a></li>
+  <li><a href="#tuning" id="toc-tuning">Tuning</a></li>
+  <li><a href="#unisonchord" id="toc-unisonchord">Unison/Chord</a></li>
+  <li><a href="#misc." id="toc-misc.">Misc.</a></li>
+  <li><a href="#oscillator" id="toc-oscillator">Oscillator</a></li>
+  <li><a href="#fdn" id="toc-fdn">FDN</a></li>
+  <li><a href="#lfo" id="toc-lfo">LFO</a></li>
+  <li><a href="#envelope" id="toc-envelope">Envelope</a></li>
+  </ul></li>
+  <li><a href="#clangcymbal-1" id="toc-clangcymbal-1">ClangCymbal</a>
+  <ul>
+  <li><a href="#tremolo" id="toc-tremolo">Tremolo</a></li>
+  <li><a href="#misc.-1" id="toc-misc.-1">Misc.</a></li>
+  <li><a href="#oscillator-1" id="toc-oscillator-1">Oscillator</a></li>
+  <li><a href="#fdn-1" id="toc-fdn-1">FDN</a></li>
+  <li><a href="#envelope-1" id="toc-envelope-1">Envelope</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#チェンジログ"
   id="toc-チェンジログ">チェンジログ</a></li>
-  <li><a href="#旧バージョン"
-  id="toc-旧バージョン">旧バージョン</a></li>
+  <li><a href="#旧バージョン" id="toc-旧バージョン">旧バージョン</a>
+  <ul>
+  <li><a href="#clangsynth-3" id="toc-clangsynth-3">ClangSynth</a></li>
+  </ul></li>
   <li><a href="#ライセンス" id="toc-ライセンス">ライセンス</a>
   <ul>
   <li><a href="#vst-について" id="toc-vst-について">VST®
@@ -320,36 +335,41 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="iterativesincluster">IterativeSinCluster</h1>
-<p><img src="img/iterativesincluster.png" /></p>
-<p><ruby>IterativeSinCluster<rt>イテレイティブ サイン
-クラスタ</rt></ruby>はノート 1 つあたり 512
-のサイン波を計算する加算合成シンセサイザです。一体、何を考えていたのか
-iterative sin
-という言葉を名前に使っていますが、アルゴリズムの種類を表す正しい言葉は
-recursive sine です。</p>
+<h1 id="clangsynth">ClangSynth</h1>
+<p><img src="img/clangsynth.png" /></p>
+<p><ruby>ClangSynth<rt>クラング シンセ</rt></ruby>
+は金属的なパーカッションの音が得意なシンセサイザです。金属的な質感はフィードバック・ディレイ・ネットワーク
+(FDN) を用いたディレイ間のクロスフィードバックによるものです。
+WaveCymbal や FDNCymbal よりはシンバルに似た音が出ます。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/IterativeSinCluster_0.1.18.zip">IterativeSinCluster
-0.1.18 をダウンロード - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/ClangSynth_0.0.1.zip">ClangSynth
+0.0.1 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/IterativeSinClusterPresets.zip">プリセットをダウンロード
-(github.com)</a></li>
 </ul>
-<p>IterativeSinCluster を使うには CPU が AVX 以降の SIMD
-命令セットをサポートしている必要があります。</p>
+<p>ClangCymbal is a spin off of ClangSynth. FDN size is expended to 64 *
+64 to provide more rich harmonics. However it is monophonic due to
+increased CPU load. Oscillator is changed for noise/pulse mix which is
+more suitable to make cymbal sounds. It can also make sound of manhole
+dragged on asphalt.</p>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/ClangClangCymbal_0.0.1.zip">ClangCymbal
+0.0.1 をダウンロード - VST® 3 (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="60px"
+style="display: inline-block; vertical-align: middle;"></li>
+</ul>
 <p>パッケージには次のビルドが含まれています。</p>
 <ul>
 <li>Windows 64bit</li>
 <li>Linux 64bit</li>
+<li>macOS universal binary</li>
 </ul>
-<p><strong>重要</strong> 最新のパッケージからは macOS
-ビルドが欠落しています。将来的にはプラグインをmacOSに移植する予定ですが、開発用の
-ARM mac を購入するための資金が不足しています。</p>
 <p>Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.04
 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a
 href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
@@ -745,339 +765,654 @@ issue を開いてください。</p>
 <li><kbd>右クリック</kbd> : 表示範囲のリセット</li>
 <li><kbd>マウスホイール</kbd> : ズームイン・ズームアウト</li>
 </ul>
-<p>操作できる箇所を右クリックすると DAW
-によって提供されているコンテキストメニューを開くことができます。</p>
+<h2 id="注意">注意</h2>
+<p>音量の振れ幅が大きいので ClangSynth
+の後に必ずリミッタを挿入することを推奨します。</p>
+<p>FDN のパラメータが短時間に大きく変わると発散することがあります。 LFO
+やエンベロープを使うときは注意してください。発散はパラメータが時間とともに変わると線形時不変
+(linear time invariant, LTI)
+なシステムではなくなるために起こります。以下は発散の原因となるパラメータの一覧です。</p>
+<ul>
+<li>LFO
+<ul>
+<li><code>Amount &gt; FDN Pitch</code></li>
+</ul></li>
+<li>Envelope
+<ul>
+<li><code>&gt; LP Cut</code></li>
+<li><code>&gt; HP Cut</code></li>
+<li><code>&gt; FDN Pitch</code></li>
+<li><code>&gt; FDN OT +</code></li>
+</ul></li>
+</ul>
+<p><code>Refresh Wavetable</code>
+ボタンを押すとウェーブテーブルが更新されます。更新中は CPU
+負荷が上がり、ほぼ確実に音が止まるので注意してください。</p>
 <h2 id="ブロック線図">ブロック線図</h2>
 <p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> +
 <kbd>マウスホイール</kbd>
 や、右クリックから「画像だけを表示」などで拡大できます。</p>
 <p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
-<p><img src="img/iterativesincluster.svg" /></p>
+<h3 id="clangsynth-1">ClangSynth</h3>
+<p><img src="img/clangsynth.svg" /></p>
+<h3 id="clangcymbal">ClangCymbal</h3>
+<p><img src="img/clangcymbal.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
-<h3 id="gain">Gain</h3>
-<dl>
-<dt>Boost, Gain</dt>
-<dd>
-<p>どちらも音量を調整します。出力のピーク値は <code>Boost * Gain</code>
-となります。</p>
-<p><code>Note</code> 、 <code>Chord</code> 、 <code>Overtone</code>
-のゲインを調整すると音がかなり小さくなることがあります。そんなときに
-<code>Boost</code> が使えます。</p>
-</dd>
-<dt>ADSR</dt>
-<dd>
-<p>音量エンベロープのパラメータです。</p>
+<p>角かっこ [] で囲まれているのは単位です。以下は単位の一覧です。</p>
 <ul>
-<li><code>A</code> (Attack) :
-鍵盤を押した瞬間から最大音量になるまでのアタック時間。</li>
-<li><code>D</code> (Decay) :
-最大音量からサステイン音量になるまでのディケイ時間。</li>
-<li><code>S</code> (Sustain) :
-アタックとディケイが終わった後に鍵盤を押し続けているときのサステイン音量。</li>
-<li><code>R</code> (Release) : 鍵盤から指を離したあとに音量が 0
-になるまでのリリース時間。</li>
+<li>[dB] : デシベル (decibel) 。</li>
+<li>[s] : 秒 (second) 。</li>
+<li>[st.] : 半音 (semitone) 。</li>
+<li>[Hz] : 周波数 (Hertz) 。</li>
+<li>[rad/pi] : 正規化した位相 (radian / π) 。</li>
 </ul>
-</dd>
-<dt>Curve</dt>
+<h3 id="clangsynth-2">ClangSynth</h3>
+<h4 id="gain">Gain</h4>
+<dl>
+<dt>Output [dB]</dt>
 <dd>
-<p>音量エンベロープのアタックの曲線を変更するパラメータ。</p>
+<p>出力のゲインです。</p>
+</dd>
+<dt>Attack [s]</dt>
+<dd>
+<p>出力直前のゲインをスムーシングする秒数です。値が大きくなるとアタック時間とともに、リリース時間も長くなります。</p>
+<p>フィルタのカットオフ周波数へと変換されるので、あくまでも目安となる値であって、正確な値ではありません。</p>
+<p><code>Attack</code> は、FDN セクションの
+<code>Reset to Note On</code>
+がチェックされていないときに、ノートオンでポップノイズが起こることを防ぐために導入されました。
+FDN
+セクションのローパスフィルタのカットオフ周波数を下げているときは、値を小さくしすぎるとポップノイズが目立つことがあります。シンバルなどの高い周波数成分が多い音を作るときは
+0 まで値を下げても、ほとんど問題になりません。</p>
+</dd>
+<dt>Release [s]</dt>
+<dd>
+<p>ノートオフの後に続くリリース時間です。</p>
+<p>フィルタのカットオフ周波数へと変換されるので、あくまでも目安となる値であって、正確な値ではありません。</p>
 </dd>
 </dl>
-<h3 id="shelving">Shelving</h3>
-<p><code>Low</code> と <code>High</code> の 2
-つのシェルビングができます。</p>
-<p>カットオフ周波数はノートの音程を基準として、 <code>Semi</code>
-で指定した半音単位で相対的に決まります。例えば音程が C4 、
-<code>Semi</code> が 12.000 のときは カットオフ周波数は
-<code>C4 + 12 半音 = C5</code> になります。</p>
-<p>変更する音量は <code>Gain</code> で調整できます。</p>
-<ul>
-<li><code>Low</code> シェルビングは <code>Semi</code>
-で指定したカットオフ周波数<strong>以下</strong>のサイン波の音量を変更します。</li>
-<li><code>High</code> シェルビングは <code>Semi</code>
-で指定したカットオフ周波数<strong>以上</strong>のサイン波の音量を変更します。</li>
-</ul>
-<h3 id="pitch">Pitch</h3>
+<h4 id="tuning">Tuning</h4>
 <dl>
-<dt>Add Aliasing</dt>
+<dt>Octave, Semi, Milli</dt>
 <dd>
-<p>チェックを入れると、ナイキスト周波数より高い周波数が指定されたサイン波もレンダリングします。</p>
-<p>ナイキスト周波数とは、ざっくりいえば録音したデータが再現可能な最高周波数のことです。音を生成するときはナイキスト周波数以上の値を指定することができますが、折り返し（エイリアシング）と呼ばれる現象によって計算結果は予期しない周波数になってしまいます。
-<code>Add Aliasing</code>
-は、こうしたエイリアシングノイズを足し合わせるオプションです。</p>
+<p>全体の音の高さを変更します。</p>
+<ul>
+<li><code>Octave</code>: オクターブ</li>
+<li><code>Semi</code>: 半音</li>
+<li><code>Milli</code>: 半音の 1 / 1000 。 1 / 10 セント。</li>
+</ul>
 </dd>
-<dt>Reverse Semi</dt>
+<dt>ET, A4 [Hz]</dt>
 <dd>
-<p>チェックを入れると、 <code>Semi</code> の符号を逆転させます。たとえば
-<code>7.000</code> は <code>-7.000</code> として処理されます。</p>
+<p>音律を変更します。</p>
+<p><code>ET</code> は Equal Temperament (平均律) の略です。
+<code>ET</code> が 12 のときは 12 平均律となります。 <code>ET</code> を
+12 よりも小さくすると無音になる範囲が増えるので注意してください。</p>
+<p><code>A4 [Hz]</code> は、音程 A4 の周波数です。</p>
 </dd>
-<dt>Octave</dt>
+<dt>P.Bend Range</dt>
 <dd>
-<p>ノートのオクターブです。</p>
+<p>ピッチベンドの範囲です。単位は半音です。</p>
+</dd>
+</dl>
+<h4 id="unisonchord">Unison/Chord</h4>
+<dl>
+<dt>nUnison</dt>
+<dd>
+<p>ユニゾンにつかうボイスの数です。</p>
+</dd>
+<dt>Pan</dt>
+<dd>
+<p>パンを振る幅です。</p>
+<p>初回のノートオンでは、右から左へ向かって、ピッチの低い音から高い音へと順番にパンが振られます。以降はノートオンごとにパンの割り当てを左に回転させます。</p>
+</dd>
+<dt>Pitch *</dt>
+<dd>
+<p>ユニゾンで変更されるピッチに乗算される値です。</p>
+<p><code>Pitch *</code> が 0 のとき、 <code>Interval</code>
+の値は無効になります。</p>
 </dd>
 <dt>ET</dt>
 <dd>
-<p>平均律の値です。この値によって <code>Semi</code> と
-<code>Milli</code> の調律を変更できます。例えば <code>ET</code> が 12
-なら 12 平均律になります。 <code>ET</code> は Equal Temperament
-の略です。</p>
-<p>ホスト側から送られてくるノートの調律を変更するわけではないので注意してください。</p>
+<p><code>Interval</code> のみで使われる平均律の値です。</p>
 </dd>
-<dt>Multiply, Modulo</dt>
+<dt>Interval [st.], Cycle At</dt>
 <dd>
-<p>サイン波の周波数を変更します。</p>
-<p>計算式は
-<code>ノートの周波数 * (1 + fmod(Multiply * pitch, Modulo))</code>
-のようになっています。 <code>pitch</code> は <code>Note</code> 、
-<code>Chord</code> 、 <code>Overtone</code>
-で指定した値から計算されるピッチです。 <code>fmod(a, b)</code> は
-<code>a</code> を <code>b</code> で割った余りを計算する関数です。</p>
+<p><code>Interval</code>
+はユニゾンで使われるボイスのピッチを、ノートオンで送られてきたピッチからどれだけずらすかを調整する値です。</p>
+<p><code>Cycle At</code> は <code>Interval</code>
+の値を巻き戻すインデックスです。</p>
+<p>例えば <code>Interval</code> が以下の値に設定されているとします。</p>
+<pre><code>1, 2, 3, 4</code></pre>
+<p>各 <code>Interval</code> には <code>Pitch *</code>
+の値が乗算されます。仮に <code>Pitch *</code> の値が 0.1
+とすると以下の値へと変換されます。</p>
+<pre><code>0.1, 0.2, 0.3, 0.4</code></pre>
+<p>ここで <code>Cycle At</code> が 1
+に設定されているとすると、以下のようにインデックス 1
+で巻き戻しながら繰り返します。</p>
+<pre><code>0.1, 0.2, 0.1, 0.2, ...</code></pre>
+<p>さらにノートオンで MIDI ノート番号 60
+のピッチが入力されると、以下のようにピッチがボイスに割り当てられます。</p>
+<pre><code>60,                         // 60
+60 + 0.1,                   // 60.1
+60 + 0.1 + 0.2,             // 60.3
+60 + 0.1 + 0.2 + 0.1,       // 60.4
+60 + 0.1 + 0.2 + 0.1 + 0.2, // 60.6
+...</code></pre>
+<p>以下は計算の手続きです。</p>
+<pre><code>modulo = cycleAt + 1;
+accumulator = 0;
+for index in [0, nUnison) {
+  voice[index].pitch = notePitch + pitchMultiplier * accumulator;
+  accumulator += interval[index % modulo];
+}</code></pre>
 </dd>
 </dl>
-<h3 id="smooth">Smooth</h3>
-<p>特定の値を変更したときに、変更前の値から変更後の値に移行する時間（秒）です。</p>
-<p><code>Smooth</code> と関連するパラメータのリストです。 <code>*</code>
-はワイルドカードです。</p>
-<ul>
-<li><code>Gain</code> セクションの全て</li>
-<li><code>Chord.Pan</code></li>
-<li><code>Chorus</code> の <code>Key Follow</code> 以外</li>
-</ul>
-<p>他のパラメータはノートオンのタイミングで指定されていた値をノートの発音が終わるまで続けて使います。</p>
-<h3 id="nvoice">nVoice</h3>
+<h4 id="misc.">Misc.</h4>
+<dl>
+<dt>nVoice</dt>
+<dd>
 <p>最大同時発音数です。</p>
-<h3 id="random">Random</h3>
-<dl>
-<dt>Retrigger</dt>
-<dd>
-<p>チェックを入れると、ノートオンごとに乱数シードをリセットします。</p>
+<p>CPU 負荷を下げるときは <code>nVoice</code>
+の値を下げると効果的です。</p>
 </dd>
-<dt>Seed</dt>
+<dt>Smoothing [s]</dt>
 <dd>
-<p>乱数のシード値です。この値を変えると生成される乱数が変わります。</p>
-</dd>
-<dt>To Gain</dt>
-<dd>
-<p>ノートオンごとに各サイン波の音量をランダマイズする度合いです。</p>
-</dd>
-<dt>To Pitch</dt>
-<dd>
-<p>ノートオンごとに各サイン波の周波数をランダマイズする度合いです。</p>
+<p>パラメータのスムーシング時間です。</p>
+<p>フィルタのカットオフ周波数へと変換されるので、あくまでも目安となる値であって、正確な値ではありません。</p>
 </dd>
 </dl>
-<h3 id="note-chord-overtone">Note, Chord, Overtone</h3>
-<p>サイン波のピッチと音量を指定します。</p>
-<p>1つの <code>Note</code> あたり 16 の <code>Overtone</code>
-が発音されます。8つの <code>Note</code> で 1 つの <code>Chord</code>
-になります。そして 4 つの <code>Chord</code> が使えます。</p>
-<p><code>Note</code> と <code>Chord</code> に共通のパラメータです。</p>
-<ul>
-<li><code>Gain</code> : サイン波の音量。</li>
-<li><code>Semi</code> : ノートの基本周波数からの距離。単位は半音。</li>
-<li><code>Milli</code> : ノートの基本周波数からの距離。単位は 1 / 1000
-半音。 1 / 10 セント。</li>
-</ul>
-<p><code>Overtone</code>
-は左端が基本周波数（第1倍音）の音量で、右に一つ進むごとに第2倍音、第3倍音、
-… 、第16倍音の音量を表しています。</p>
-<p>サイン波の周波数の計算式は次のようになっています。</p>
-<pre><code>function toneToPitch(semi, milli):
-  return 2 ^ (1000 * semi + milli) / (ET * 1000)
-
-for each Chord:
-  chordPitch = toneToPitch(Chord.semi, Chord.milli)
-  for each Note:
-    notePitch = toneToPitch(Note.semi, Note.milli)
-    for each Overtone:
-      frequency = midiNoteFrequency
-        * (1 + mod(Multiply * Overtone * notePitch * chordPitch, Modulo))</code></pre>
-<h3 id="chorus">Chorus</h3>
+<h4 id="oscillator">Oscillator</h4>
 <dl>
-<dt>Mix</dt>
+<dt>Impulse [dB]</dt>
 <dd>
-<p>Dry/Wet の比率を調整します。</p>
+<p>ノートオンと同時に発音されるインパルスの振幅です。</p>
+<p>インパルスはシンバルの音を作るときの味付けに使えます。またインパルスはベロシティに影響されないので、ばちとシンバルの衝突の強弱を演奏時に調整するときにも便利です。</p>
+<p>TODO プリセットの紹介</p>
 </dd>
-<dt>Freq</dt>
+<dt>Gain [dB]</dt>
 <dd>
-<p>コーラスの LFO
-の周波数です。中央から右に回すと正、左に回すと負の周波数を指定できます。</p>
+<p>オシレータ出力のゲインです。</p>
 </dd>
-<dt>Depth</dt>
+<dt>Attack [s], Decay [s]</dt>
 <dd>
-<p>左右の広がりを調整します。</p>
+<p>オシレータの AD エンベロープのアタック時間とディケイ時間です。</p>
+<p>フィルタのカットオフ周波数へと変換されるので、あくまでも目安となる値であって、正確な値ではありません。</p>
+<p>ディケイ時間が短いときは <code>Attack</code>
+を長くしても音はほとんど変わりません。</p>
 </dd>
-<dt>Range</dt>
+<dt>Octave, Semitone</dt>
 <dd>
-<p>LFO によってディレイ時間を変調する度合いです。 3
-つのディレイが用意されています。</p>
+<p>オクターブあるいは半音単位のオシレータのチューニングです。</p>
 </dd>
-<dt>Time</dt>
+<dt>Denom. Slope, Rot. Slope, Rot. Offset, Interval</dt>
 <dd>
-<p>ディレイ時間です。</p>
+<p>オシレータのウェーブテーブルの基となるソース・スペクトラムを合成するパラメータです。</p>
+<ul>
+<li><code>Denom. Slope</code> : 振幅の分子の係数。</li>
+<li><code>Rot. Slope</code> : 位相の傾き。</li>
+<li><code>Rot. Offset</code> : 位相の切片。</li>
+<li><code>Interval</code> : 書き込む間隔。</li>
+</ul>
+<p><code>Denom. Slope</code> の値が 1 より大きいときはローパス、 1
+より小さいときはハイパスのように機能します。値が 1
+のときは、のこぎり波と同じ振幅特性になります。</p>
+<p><code>Interval</code> を 1 より大きくするとソース・スペクトラムが 0
+となる箇所を作り出します。例えば <code>Interval</code> の値が 3
+なら、インデックス 1, 4, 7, 10, 13, …
+の値だけが書き込まれて、それ以外のインデックスでの振幅は 0 となります。
+<code>Denom. Slope</code> の値が 1 かつ <code>Interval</code> の値が 2
+なら、矩形波が生成されます。</p>
+<p>以下は <code>Denom. Slope</code> 、 <code>Rot. Slope</code> 、
+<code>Rot. Offset</code> 、 <code>Interval</code>
+を使ったソース・スペクトラムの計算方法です。</p>
+<pre><code>for index in [1, numberOfHarmonics] {
+    if (index % interval != 0) continue;
+    sourceSpectrum[index].amp = 1 / (denominatorSlope * index);
+    sourceSpectrum[index].phase = rotationOffset + rotationSlope * index;
+}</code></pre>
 </dd>
-<dt>Phase</dt>
+<dt>Harmonic HP</dt>
 <dd>
-<p>LFO の位相です。</p>
+<p>ソース・スペクトラムの振幅に適用されるハイパスフィルタです。</p>
+<p><code>Harmonic HP</code>
+で指定された値よりインデックスが小さい低周波成分の振幅を下げます。値が 0
+のときはハイパスフィルタはかかりません。</p>
+<p>以下は <code>Harmonic HP</code> の計算方法です。</p>
+<pre><code>for index in [0, harmonicHighpass) {
+  sourceSpectrum[index].amp *= index / harmonicHighpass;
+}</code></pre>
 </dd>
-<dt>Offset</dt>
+<dt>Blur</dt>
 <dd>
-<p>ディレイの間での位相差です。</p>
+<p>ソース・スペクトラムの振幅を通過させるローパスフィルタの係数です。</p>
+<p><code>Blur</code>
+の値を下げると周波数領域で振幅の値が周囲のインデックスへと拡散するので、位相の回転を無視すると、時間領域に戻したときにはインパルスに近い音になります。</p>
+<p><code>Blur</code> が 1 のときはローパスフィルタはかかりません。</p>
+<p>TODO 図</p>
+</dd>
+<dt>OT Amp., Rot. [rad/pi]</dt>
+<dd>
+<p>ソース・スペクトラムを、さらに倍音間隔で足し合わせるときの振幅と位相です。</p>
+<ul>
+<li><code>OT Amp.</code> : 加算する倍音の振幅。</li>
+<li><code>Rot. \[rad/pi\]</code> : 加算する倍音の位相。</li>
+</ul>
+<p>以下は <code>OT Amp.</code> と <code>Rot.</code>
+による最終的なスペクトラムの計算方法です。</p>
+<pre><code>targetSpectrum.fill(0);
+
+for i in [0, nOvertone) {
+  for k in [0, nFrequency) {
+    auto index = (i + 1) * k;
+    if (index &gt;= nFrequency) break;
+    targetSpectrum[index] += sourceSpectrum[k] * complexFromPolar(otAmp[i], otRot[i]);
+  }
+}</code></pre>
+</dd>
+<dt>Refresh Wavetable</dt>
+<dd>
+<p>ボタンを押すとウェーブテーブルを更新します。</p>
+<p>更新中は CPU
+負荷が上がり、ほぼ確実に音が止まるので注意してください。</p>
+<p>Oscillator セクションの以下のパラメータは
+<code>Refresh Wavetable</code> ボタンを押すまで更新されません。</p>
+<ul>
+<li><code>Denom. Slope</code></li>
+<li><code>Rot. Slope</code></li>
+<li><code>Rot. Offset</code></li>
+<li><code>Interval</code></li>
+<li><code>Harmonic HP</code></li>
+<li><code>Blur</code></li>
+<li><code>OT Amp.</code></li>
+<li><code>Rot. [rad/pi]</code></li>
+</ul>
+</dd>
+</dl>
+<h4 id="fdn">FDN</h4>
+<dl>
+<dt>FDN</dt>
+<dd>
+<p>点灯しているときはオシレータ出力が FDN を通過します。</p>
+<p>オシレータの出力を確認するときには無効にすると便利です。</p>
+</dd>
+<dt>Identity</dt>
+<dd>
+<p>FDN 内のクロス・フィードバックの量を変更します。</p>
+<p><code>Identity</code> の値が 0
+から離れるほど、フィードバック行列が単位行列から離れてクロス・フィードバックが増えます。クロス・フィードバックが増えると非整数次倍音が増えて金属的な質感が出ます。</p>
 </dd>
 <dt>Feedback</dt>
 <dd>
-<p>ディレイのフィードバックです。</p>
+<p>FDN のフィードバック量です。</p>
+<p>ディレイ内部の線形補間の影響で、 <code>Feedback</code> の値が 1
+のときでも少しづつ減衰が起こります。</p>
+</dd>
+<dt>Interp. Rate</dt>
+<dd>
+<p>ディレイ時間が変更されたときのレート制限の量です。</p>
+</dd>
+<dt>Interp. LP [s]</dt>
+<dd>
+<p>ディレイ時間が変更されたときの補間に使われるローパスフィルタのカットオフ周波数の逆数です。</p>
+<p>ディレイ時間の補間は、ローパスフィルタ、レート制限の順で行われます。</p>
+</dd>
+<dt>Seed</dt>
+<dd>
+<p>フィードバック行列のランダマイズに使われるシード値です。</p>
+</dd>
+<dt>Randomize</dt>
+<dd>
+<p>ノートオンごとにフィードバック行列をランダマイズする割合です。</p>
+<p>内部的には行列をランダマイズする基となる値の組を 2 つ持っています。 1
+つの組は再生開始の時点で固定されます。もう 1
+つの組はノートオンごとに生成されます。この 2 つの組を混ぜる割合が
+<code>Randomize</code> です。</p>
+<p><code>Randomize</code> が 0
+のときは再生開始の時点で固定される組だけを使うので、ノートオンによって倍音が変わりません。
+<code>Randomize</code> が 1
+のときはノートオンのたびにフィードバック行列が変わるので、倍音も変わります。</p>
+</dd>
+<dt>OT +, OT *, OT Offset, OT Modulo, OT Random</dt>
+<dd>
+<p>FDN
+のディレイ時間を、ノートオンで提供されるピッチの倍音として設定するパラメータです。</p>
+<ul>
+<li><code>OT +</code> :
+倍音のインデックスが進むたびに加算される値。</li>
+<li><code>OT *</code> : 倍音のインデックスが進むたびに 1
+つ前の値に乗算される値。</li>
+<li><code>OT Offset</code> : 倍音を高いほうに向かってシフトする量。</li>
+<li><code>OT Modulo</code> : <code>OT +</code> と <code>OT *</code>
+から計算される値を、巻き戻す点。</li>
+<li><code>OT Random</code> :
+ノートオンごとに倍音をランダマイズする量。</li>
+</ul>
+<p><code>OT +</code> と <code>OT Offset</code>
+を整数でない値に設定することで打楽器のような音に近づきます。</p>
+<p><code>OT *</code> と <code>OT Modulo</code>
+はやや不自然な倍音になります。</p>
+<p>以下は倍音の計算方法です。</p>
+<pre><code>// At note on.
+for idnex in [0, fdnMatrixSize) {
+    overtoneRandomness[idx] = randomUniform(-1, 1) * otRandom;
+}
+
+// For each sample.
+overtone = 1;
+for idnex in [0, fdnMatrixSize) {
+  ot = otOffset + (1 + overtoneRandomness[index]) * overtone;
+  fdn.delayTime[index] = sampleRate / (ot * noteFrequency);
+  overtone = overtone * otMul + otAdd;
+  overtone = fmod(overtone, 1 + otModulo);
+}</code></pre>
+</dd>
+<dt>Reset at Note ON</dt>
+<dd>
+<p>チェックを入れるとノートオンのたびに FDN の状態をリセットします。</p>
+<p>リセットによる CPU
+負荷のスパイクに注意してください。音が止まるなどの問題が出るときは
+<code>nVoice</code> の値を小さくすることで CPU 負荷を軽減できます。</p>
+</dd>
+<dt>Cutoff [st.]</dt>
+<dd>
+<p>ディレイの出力が通るローパスフィルタとハイパスフィルタのカットオフ周波数です。</p>
+</dd>
+<dt>Q</dt>
+<dd>
+<p>ディレイの出力が通るローパスフィルタとハイパスフィルタの Q です。</p>
 </dd>
 <dt>Key Follow</dt>
 <dd>
-<p>チェックを入れると、ディレイ時間をノートの音程に応じて変更します。</p>
+<p>チェックを入れるとフィルタのカットオフ周波数をノートのピッチに応じて変更します。</p>
 </dd>
 </dl>
+<h4 id="lfo">LFO</h4>
+<dl>
+<dt>LFO Wave</dt>
+<dd>
+<p>LFO のウェーブテーブルの波形です。</p>
+<p>ウェーブテーブルの波形はすべてのボイスで共有されます。</p>
+</dd>
+<dt>Retrigger</dt>
+<dd>
+<p>チェックを入れるとノートオンされたボイスの LFO
+の位相をリセットします。</p>
+<p>チェックを外すとすべてのボイスが同じ位相を使います。</p>
+<p>1 つのボイスが 1
+つの物体を表すのであれば、チェックを入れたほうがそれらしく聞こえます。ノートオンによって同じ物体を叩く、例えば
+8
+人が両手にばちをもって同じ中華鍋を叩いているとするなら、チェックを外してください。</p>
+</dd>
+<dt>Wave Interp.</dt>
+<dd>
+<p>LFO の波形の補間方法です。</p>
+<ul>
+<li><code>Step</code>: ホールド。</li>
+<li><code>Linear</code>: 線形補間。</li>
+<li><code>PCHIP</code>: 単調な 3 次補間。</li>
+</ul>
+<p><code>Step</code> を選ぶと LFO をシーケンサのように使えます。
+<code>Linear</code> は <code>PCHIP</code>
+と似たような音になりますが、計算がすこし速いです。デフォルトの
+<code>PCHIP</code> はサンプル間をだいたい滑らかに補間します。</p>
+</dd>
+<dt>Sync.</dt>
+<dd>
+<p>チェックを入れるとテンポ同期を有効にします。また同期間隔が変わったときに再生開始時点から導かれる位相へと同期します。</p>
+<p>チェックが外れているときは 120 BPM
+に同期した状態と同じになります。ただし、同期間隔が変わったときに位相を調整しなくなります。</p>
+</dd>
+<dt>Tempo Upper</dt>
+<dd>
+<p>テンポ同期が有効な時の同期間隔を表す分数の分子です。</p>
+<p><code>1/1</code> のときに 1 小節、 4/4拍子であれば <code>1/4</code>
+のときに 1 拍で LFO が 1 周します。 <code>Rate</code>
+が乗算されて周期が変わる点に注意してください。</p>
+<p>以下は同期間隔の計算方法です。</p>
+<pre><code>syncInterval = (Rate) * (Tempo Upper) / (Tempo Lower);</code></pre>
+</dd>
+<dt>Tempo Lower</dt>
+<dd>
+<p>テンポ同期が有効な時の同期間隔を表す分数の分母です。</p>
+<p><code>Rate</code> が乗算されて周期が変わる点に注意してください。</p>
+</dd>
+<dt>Rate</dt>
+<dd>
+<p>同期間隔に乗算される係数です。</p>
+<p><code>Tempo Upper</code> と <code>Tempo Lower</code> を変えずに LFO
+の同期間隔を変えたいときに使えます。</p>
+</dd>
+<dt>Pitch Amount</dt>
+<dd>
+<p>LFO によるピッチの変調量です。単位は半音です。</p>
+<p><code>&gt; Osc. Pitch</code> の行のパラメータはオシレータ、
+<code>&gt; FDN Pitch</code> の行のパラメータは FDN への変調です。</p>
+</dd>
+<dt>Pitch Alignment</dt>
+<dd>
+<p>LFO のよるピッチの変調量は <code>Alignment</code>
+で指定された値の倍数だけを使います。例えば現在の変調量が 12.345 で
+<code>Alignment</code> が 6 とすると、実際の変調量は 12 になります。</p>
+<p><code>Alignment</code> が 0 のときは <code>Amount</code>
+の値を直接使います。</p>
+<p>以下は変調量の計算方法です。</p>
+<pre><code>if (alignment == 0)
+  modulation = amount * lfo;
+else
+  modulation = alignment * floor(lfo * amount / alignment + 0.5);</code></pre>
+</dd>
+</dl>
+<h4 id="envelope">Envelope</h4>
+<dl>
+<dt>Envelope Wave</dt>
+<dd>
+<p>エンベロープのウェーブテーブルの波形です。</p>
+<p>ウェーブテーブルの波形はすべてのボイスで共有されます。</p>
+</dd>
+<dt>Time [s]</dt>
+<dd>
+<p>ノートオンからエンベロープの終了までにかかる時間です。</p>
+<p>エンベロープが終了すると変調量はすべて 0 になります。</p>
+</dd>
+<dt>Wave Interp.</dt>
+<dd>
+<p>エンベロープのウェーブテーブルの補間方法です。</p>
+<p>LFO と同じく <code>Step</code> 、 <code>Linear</code> 、
+<code>PCHIP</code> の 3 つの補間方法から選択できます。補間方法の詳細は
+LFO セクションの <code>Wave Interp.</code> を参照してください。</p>
+</dd>
+<dt>&gt; LP Cut</dt>
+<dd>
+<p>FDN
+のローパスフィルタのカットオフ周波数への変調量です。単位は半音です。</p>
+</dd>
+<dt>&gt; HP Cut</dt>
+<dd>
+<p>FDN
+のハイパスフィルタのカットオフ周波数への変調量です。単位は半音です。</p>
+</dd>
+<dt>&gt; Osc. Pitch</dt>
+<dd>
+<p>オシレータのピッチの変調量です。単位は半音です。</p>
+</dd>
+<dt>&gt; FDN Pitch</dt>
+<dd>
+<p>FDN のピッチの変調量です。単位は半音です。</p>
+</dd>
+<dt>&gt; FDN OT +</dt>
+<dd>
+<p>FDN セクションの <code>OT +</code> への変調量です。</p>
+<p><code>&gt; FDN Pitch</code>
+とは異なり、倍音に基づいたピッチの変調を行います。</p>
+</dd>
+</dl>
+<h3 id="clangcymbal-1">ClangCymbal</h3>
+<p>ClangSynth と異なるパラメータだけをリストしています。</p>
+<h4 id="tremolo">Tremolo</h4>
+<p>トレモロは振動する物体とマイクとの距離をざっくりと表現するために追加されました。変調信号としてオシレータ出力が使われています。</p>
+<dl>
+<dt>Mix</dt>
+<dd>
+<p>入力信号とディレイを通過した信号を混ぜる比率です。</p>
+<p>値が 0.0 のときバイパス、 1.0
+のときディレイを通過した信号のみになります。</p>
+</dd>
+<dt>Depth</dt>
+<dd>
+<p>ディレイを通過した信号のゲインへの変調量です。</p>
+</dd>
+<dt>Delay [s]</dt>
+<dd>
+<p>ディレイ時間の最大値です。</p>
+</dd>
+<dt>Delay Offset</dt>
+<dd>
+<p>ディレイ時間への変調信号に加算される DC オフセットの量です。</p>
+<p><code>Delay Offset</code> の値は <code>Misc.-&gt;Smoothing</code>
+に加えてさらなる平滑化が行われています。追加された平滑化によって、値を変えるといつでもフランジャーのような効果を出すことができます。</p>
+</dd>
+<dt>Smooth [Hz]</dt>
+<dd>
+<p>変調信号にかかるローパスフィルタのカットオフ周波数です。</p>
+</dd>
+</dl>
+<h4 id="misc.-1">Misc.</h4>
+<p>ピッチスライドが追加されています。</p>
+<dl>
+<dt>Slide [s]</dt>
+<dd>
+<p>ピッチスライドにかかる時間です。</p>
+</dd>
+<dt>Slide Type</dt>
+<dd>
+<p>ピッチスライドの種類です。</p>
+<ul>
+<li><code>Sustain</code> : 2
+つ以上の鍵盤が同時に押されたときだけスライドします。</li>
+<li><code>Always</code> :
+常に最後に演奏されたノートのピッチからスライドします。</li>
+<li><code>Reset to 0</code> : 同時に押している鍵盤の数が 0 から 1
+、あるいは 1 から 0 になるときは 0 Hz
+にスライドします。それ以外の場合は他の 2
+つと同じようにスライドします。押している鍵盤の数が 1 から 0
+になるときのスライド時間は <code>Gain-&gt;Release</code>
+の値が使われます。</li>
+</ul>
+</dd>
+</dl>
+<h4 id="oscillator-1">Oscillator</h4>
+<p>ClangCymbal
+ではオシレータがノイズとパルス列の混合に変更されています。</p>
+<p>ノイズは以下の手順で生成されます。</p>
+<ol type="1">
+<li>素朴なパルス列を生成。</li>
+<li>1 を積分器に通してディケイを付与。</li>
+<li>2 を正規分布ノイズに乗算。</li>
+</ol>
+<p>ここで積分器と呼んでいる部品は、理論的な積分器とは別物ですが似たような動作をします。</p>
+<p>パルス列は、ノイズ生成で使われるものとは別に、BLIT
+アルゴリズムで生成されます。</p>
+<ul>
+<li>Noise/Pulse</li>
+</ul>
+<p>: ノイズとパルス列を混ぜる割合です。</p>
+<ul>
+<li>LP Cutoff [st.]</li>
+</ul>
+<p>: ローパスフィルタのカットオフ周波数です。</p>
+<ul>
+<li>LP Q</li>
+</ul>
+<p>: ローパスフィルタの Q 値です。</p>
+<pre><code>デフォルト値の 0.7071 を超えるとレゾナンスが目立ち始めます。</code></pre>
+<ul>
+<li>LP Key</li>
+</ul>
+<p>: 音程に応じて <code>LP Cutoff</code> を変える量です。</p>
+<pre><code>`LP Cutoff` を 0 、 `Q` を最大、 `LP Key` を 1 にすると、発振によってサイン波が出力されます。</code></pre>
+<ul>
+<li>Density [Hz]</li>
+</ul>
+<p>: ノイズとパルス列の密度です。</p>
+<pre><code>`Density` の値を `Tuning-&gt;A4` と同じにした上で、 `Density Key` を 1.0 にすると鍵盤上の音程と一致させることができます。</code></pre>
+<ul>
+<li>Density Key</li>
+</ul>
+<p>: 音程に応じて <code>Density</code> を変える量です。</p>
+<ul>
+<li>Noise Decay</li>
+</ul>
+<p>: 1 回のノイズが減衰する時間です。</p>
+<pre><code>`Noise Decay` の値が小さいときは、 `Noise/Pulse` の値が 0 でもパルス列に近い音になります。ノイズ生成器で使われているパルスはアンチエイリアシングが行われていないので質感の異なった音が出ます。</code></pre>
+<ul>
+<li>Bounce</li>
+</ul>
+<p>: AD
+エンベロープの信号が小さくなるほど、パルスが現れる間隔を短くする効果の量です。値が
+0.0 のときに無効、 1.0 のときに効果が最大になります。</p>
+<pre><code>力を入れずにスティックを打面に落としたときの、跳ね返りを表現するときに使えます。</code></pre>
+<ul>
+<li>Bounce Curve</li>
+</ul>
+<p>: <code>Bounce</code> 効果の曲線を変えるパラメータです。</p>
+<pre><code>値が大きいほど 1 回の跳ね返りにかかる時間が短くなります。</code></pre>
+<ul>
+<li>Jitter</li>
+</ul>
+<p>: パルスが現れる間隔のランダムさです。</p>
+<ul>
+<li>Amp. Rand.</li>
+</ul>
+<p>: ノイズ生成器のパルスの振幅のランダムさです。</p>
+<h4 id="fdn-1">FDN</h4>
+<p>ClangSynth
+とは異なり、各フィルタのパラメータを個別に変えることができます。より柔軟な設定ができますが、
+CPU 負荷も上がっています。</p>
+<dl>
+<dt>Cutoff Slope</dt>
+<dd>
+<p>倍音の次数に比例してカットオフ周波数を増やす、あるいは減らす量です。</p>
+</dd>
+<dt>Q Slope</dt>
+<dd>
+<p>倍音の次数に比例して Q を増やす、あるいは減らす量です。</p>
+</dd>
+<dt>LP/HP Cut Offset [st.]</dt>
+<dd>
+<p><code>Cutoff</code> と <code>Cutoff Slope</code>
+から計算されたフィルタのカットオフ周波数へと、さらに加算される値です。</p>
+<p>コントロールの左が低次、右が高次の倍音と対応します。ただし、クロスフィードバックの影響で、高次の倍音が低い周波数に、あるいは低次の倍音が高い周波数に影響を及ぼすことがあります。</p>
+</dd>
+<dt>LP/HP Q Offset</dt>
+<dd>
+<p><code>Q</code> と <code>Q Slope</code> から計算されたフィルタの Q
+値へと、さらに加算される値です。</p>
+<p><code>Cut Offset</code>
+と同様に、コントロールの左が低次、右が高次の倍音と対応します。</p>
+</dd>
+</dl>
+<h4 id="envelope-1">Envelope</h4>
+<blockquote>
+<p>Jitter</p>
+</blockquote>
+<p>: <code>Oscillator-&gt;Jitter</code> への変調量。</p>
+<blockquote>
+<p>Noise/Pulse</p>
+</blockquote>
+<p>: <code>Oscillator-&gt;Noise/Pulse</code> への変調量。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
-<li>0.1.18
+<li>0.0.1
 <ul>
-<li>BarBox
-がマウス押下でフォーカスを取得、マウスカーソルが範囲外に移動するとフォーカスを開放するように変更。</li>
-</ul></li>
-<li>0.1.17
-<ul>
-<li>Linux でのクラッシュを修正。</li>
-<li>BarBox が <kbd>Shift</kbd> キーを受け取るように修正。</li>
-<li><code>equalTemperament</code> の GUI で表示されるデフォルト値を 11
-から 12 に修正。対象パラメータの GUI 上での名前は <code>ET</code>.</li>
-</ul></li>
-<li>0.1.16
-<ul>
-<li>プラグインが許可するチャネル数の条件を修正。この修正は REAPER
-のサイドチェインで意図しないミュートがかかることを防ぐために行った。</li>
-</ul></li>
-<li>0.1.15
-<ul>
-<li><code>style.json</code>
-でカスタムフォントを設定するオプションを追加。</li>
-</ul></li>
-<li>0.1.14
-<ul>
-<li>VSTGUI を 4.10 から 4.11 にアップデート。</li>
-</ul></li>
-<li>0.1.13
-<ul>
-<li>フォントを Tinos に変更。</li>
-</ul></li>
-<li>0.1.12
-<ul>
-<li>リセットが正しく行われるように修正。</li>
-<li><code>bypass</code>
-パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは
-VST 3 の <code>bypass</code>
-パラメータを正しく実装しているホストでのみ発生していた。</li>
-</ul></li>
-<li>0.1.11
-<ul>
-<li>Process context requirements を実装。</li>
-</ul></li>
-<li>0.1.10
-<ul>
-<li>DSP が初期化されているかどうかのチェックを追加。</li>
-</ul></li>
-<li>0.1.9
-<ul>
-<li>BarBox に アンドゥ・リドゥの機能を追加。</li>
-</ul></li>
-<li>0.1.8
-<ul>
-<li>カラーコンフィグを追加。</li>
-</ul></li>
-<li>0.1.7
-<ul>
-<li>パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。</li>
-<li>ピッチベンドを有効化。</li>
-</ul></li>
-<li>0.1.6
-<ul>
-<li>BarBox
-にフォーカスした後、マウスカーソルを領域外に動かしている間はショートカットが無効になるように変更。</li>
-</ul></li>
-<li>0.1.5
-<ul>
-<li>文字列の描画でクラッシュするバグを修正。</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li>プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。</li>
-</ul></li>
-<li>0.1.3
-<ul>
-<li>PreSonus Studio One 4.6.1 で出力にノイズが乗るバグを修正。</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>Linux ビルドの GUI を有効化。</li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>macOS ビルドの修正。</li>
-<li>AVX, AVX512 命令セットのコードパスを追加。</li>
-<li>Ableton Live 10.1.6 で特定のノブが揺れ戻るバグを修正。</li>
-</ul></li>
-<li>0.1.0
-<ul>
-<li>初期リリース。</li>
+<li>β リリース。</li>
 </ul></li>
 </ul>
 <h2 id="旧バージョン">旧バージョン</h2>
-<ul>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/IterativeSinCluster_0.1.17.zip">IterativeSinCluster
-0.1.17 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/IterativeSinCluster_0.1.16.zip">IterativeSinCluster
-0.1.16 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/IterativeSinCluster_0.1.15.zip">IterativeSinCluster
-0.1.15 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/IterativeSinCluster_0.1.13.zip">IterativeSinCluster
-0.1.13 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/IterativeSinCluster_0.1.12.zip">IterativeSinCluster
-0.1.12 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/IterativeSinCluster0.1.11.zip">IterativeSinCluster
-0.1.11 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/IterativeSinCluster0.1.10.zip">IterativeSinCluster
-0.1.10 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/IterativeSinCluster0.1.9.zip">IterativeSinCluster
-0.1.9 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/IterativeSinCluster0.1.8.zip">IterativeSinCluster
-0.1.8 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/IterativeSinCluster0.1.7.zip">IterativeSinCluster
-0.1.7 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/IterativeSinCluster0.1.6.zip">IterativeSinCluster
-0.1.6 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/IterativeSinCluster0.1.5.zip">IterativeSinCluster
-0.1.5 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/IterativeSinCluster0.1.3.zip">IterativeSinCluster
-0.1.3 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/IterativeSinCluster0.1.2.zip">IterativeSinCluster
-0.1.2 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/IterativeSinCluster0.1.1.zip">IterativeSinCluster
-0.1.1 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/IterativeSinCluster0.1.0.zip">IterativeSinCluster
-0.1.0 - VST 3 (github.com)</a></li>
-</ul>
+<h3 id="clangsynth-3">ClangSynth</h3>
+<p>旧バージョンはありません。</p>
 <h2 id="ライセンス">ライセンス</h2>
-<p>IterativeSinCluster のライセンスは GPLv3 です。 GPLv3
+<p>ClangSynth のライセンスは GPLv3 です。 GPLv3
 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
 <ul>
 <li><a

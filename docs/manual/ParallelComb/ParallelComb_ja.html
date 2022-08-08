@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-06-23" />
+<meta name="dcterms.date" content="2022-08-08" />
 <title>ParallelComb_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-06-23
+  Update: 2022-08-08
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -323,13 +323,12 @@ footer {
 つの時点をフィードバックするコムフィルタです。フィードバック経路にリミッタが挟んであるので、それなりにクリーンな音が出ます。フィードバックの振幅でディレイ時間を変調することで、変な歪みを出すこともできます。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/ParallelComb_0.2.1.zip">ParallelComb
-0.2.1 をダウンロード - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/ParallelComb_0.2.2.zip">ParallelComb
+0.2.2 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
-style="display: inline-block; vertical-align: middle;">
-<!-- - [プリセットをダウンロード (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/ParallelCombPresets.zip) --></li>
+style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <p>パッケージには次のビルドが含まれています。</p>
 <ul>
@@ -548,6 +547,9 @@ href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
 フォーカスを示すオーバーレイの色。</li>
 </ul>
 <h2 id="操作">操作</h2>
+<p>パラメータが割り当てられているコントロールの上で
+<kbd>右クリック</kbd> すると、 DAW
+から提供されるコンテキストメニューが開きます。</p>
 <p>つまみと数値スライダでは次の操作ができます。</p>
 <ul>
 <li><kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。</li>
@@ -721,6 +723,14 @@ issue を開いてください。</p>
 つのバーを編集は、マウスホイールが押された時点でカーソルの下にあるバーだけを編集します。マウスホイールが押されている間はカーソルの左右の位置に関わらず、選択したバーのみを編集できます。</p>
 <p><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd>
 によるロックの切り替えでは、マウスホイールが押された時点でカーソルの下にあるバーの反対の状態が残り全てに適用されます。例えばカーソルの下のバーがアクティブだったときはロックに切り替えます。</p>
+<p>いくつかの BarBox
+の下にはスクロールバーがついています。細かい調整を行うときはスクロールバーの左右のハンドルを
+<kbd>左ドラッグ</kbd>
+で動かすことで表示範囲を変更できます。スクロールバーでは次の操作が行えます。</p>
+<ul>
+<li><kbd>右クリック</kbd> : 表示範囲のリセット</li>
+<li><kbd>マウスホイール</kbd> : ズームイン・ズームアウト</li>
+</ul>
 <h2 id="注意">注意</h2>
 <p><code>Feedback</code> が 0.25
 よりも大きいとき、出力はほぼ確実に発散します。発散するかどうかは
@@ -854,6 +864,12 @@ delayTimeR = time * leanR;</code></pre>
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.2.2
+<ul>
+<li>BarBox
+がマウス押下でフォーカスを取得、マウスカーソルが範囲外に移動するとフォーカスを開放するように変更。</li>
+<li>ゲート有効時のポップノイズを抑えるように変更。フィルタのカットオフを下げて、オーバーサンプリング時に適切に係数が更新されるようにした。</li>
+</ul></li>
 <li>0.2.1
 <ul>
 <li>フィードバック経路のリミッタが動作せず、 wet
@@ -866,7 +882,11 @@ delayTimeR = time * leanR;</code></pre>
 </ul>
 <h2 id="旧バージョン">旧バージョン</h2>
 <h3 id="parallelcomb-1">ParallelComb</h3>
-<p>旧バージョンはありません。</p>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/ParallelComb_0.2.1.zip">ParallelComb
+0.2.1 - VST 3 (github.com)</a></li>
+</ul>
 <h2 id="ライセンス">ライセンス</h2>
 <p>ParallelComb のライセンスは GPLv3 です。 GPLv3
 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>

@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-06-12" />
+<meta name="dcterms.date" content="2022-08-08" />
 <title>PitchShiftDelay_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-06-12
+  Update: 2022-08-08
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -324,13 +324,12 @@ doesn’t equipped with formant correction. So applying to voice may
 sounds strange, like Helium is inhaled.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/PitchShiftDelay_0.2.0.zip">Download
-PitchShiftDelay 0.2.0 - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/PitchShiftDelay_0.2.1.zip">Download
+PitchShiftDelay 0.2.1 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
-style="display: inline-block; vertical-align: middle;">
-<!-- - [Download Presets (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/PitchShiftDelayPresets.zip) --></li>
+style="display: inline-block; vertical-align: middle;"></li>
 </ul>
 <p>The package includes following builds:</p>
 <ul>
@@ -536,9 +535,11 @@ indicators.</li>
 focus.</li>
 </ul>
 <h2 id="controls">Controls</h2>
-<p>Knob and number slider can do:</p>
+<p><kbd>Right Click</kbd> on the controls pops up a context menu
+provided by DAW.</p>
+<p>Knob and slider can do:</p>
 <ul>
-<li><kbd>Ctrl</kbd> + <kdb>Left Click</kbd>: Reset value.</li>
+<li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
 <li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
 <li><kbd>Middle Click</kbd> : Rotate through minimum, default and
 maximum value.</li>
@@ -710,6 +711,13 @@ Drag</kbd> behaves as line edit. When right mouse button (RMB) is
 pressed, it holds the opposite state of the bar below mouse cursor, then
 use the state for the rest of bars. For example, if RMB is pressed on a
 locked bar, dragging unlocks bars while holding down RMB.</p>
+<p>Some BarBox has scroll bar to zoom in. Scroll bar has handles on left
+end and right end. To control zoom, use <kbd>Left Drag</kbd> on one of
+the handle. Scroll bar also has following controls:</p>
+<ul>
+<li><kbd>Right Click</kbd> : Reset zoom.</li>
+<li><kbd>Mouse Wheel</kbd> : Zoom in/out.</li>
+</ul>
 <h2 id="block-diagram">Block Diagram</h2>
 <p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd>
 or “View Image” on right click menu to scale.</p>
@@ -887,13 +895,22 @@ all 3.</p>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.2.1
+<ul>
+<li>Changed BarBox to get focus on mouse down, and release focus on
+mouse exit.</li>
+</ul></li>
 <li>0.2.0
 <ul>
 <li>Initial release.</li>
 </ul></li>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
-<p>Old version is not available.</p>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/PitchShiftDelay_0.2.0.zip">PitchShiftDelay
+0.2.0 - VST 3 (github.com)</a></li>
+</ul>
 <h2 id="license">License</h2>
 <p>PitchShiftDelay is licensed under GPLv3. Complete licenses are linked
 below.</p>

@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-06-14" />
+<meta name="dcterms.date" content="2022-08-08" />
 <title>FDN64Reverb_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-06-14
+  Update: 2022-08-08
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -321,8 +321,8 @@ footer {
 However, the size of feedback matrix is 64.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/FDN64Reverb_0.1.6.zip">Download
-FDN64Reverb 0.1.6 - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/FDN64Reverb_0.1.7.zip">Download
+FDN64Reverb 0.1.7 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -541,10 +541,6 @@ provided by DAW.</p>
 <ul>
 <li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
 <li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
-</ul>
-<p>There is an additional control for number sliders used for
-<code>Octave</code>, <code>Seed</code> etc.</p>
-<ul>
 <li><kbd>Middle Click</kbd> : Rotate through minimum, default and
 maximum value.</li>
 </ul>
@@ -715,6 +711,13 @@ Drag</kbd> behaves as line edit. When right mouse button (RMB) is
 pressed, it holds the opposite state of the bar below mouse cursor, then
 use the state for the rest of bars. For example, if RMB is pressed on a
 locked bar, dragging unlocks bars while holding down RMB.</p>
+<p>Some BarBox has scroll bar to zoom in. Scroll bar has handles on left
+end and right end. To control zoom, use <kbd>Left Drag</kbd> on one of
+the handle. Scroll bar also has following controls:</p>
+<ul>
+<li><kbd>Right Click</kbd> : Reset zoom.</li>
+<li><kbd>Mouse Wheel</kbd> : Zoom in/out.</li>
+</ul>
 <h2 id="caution">Caution</h2>
 <p>Setting <code>Feedback</code> to 1 and <code>Highpass Cutoff</code>
 to 0 might adds massive direct current depending on input signal.</p>
@@ -969,6 +972,11 @@ waveform.</p>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.7
+<ul>
+<li>Changed BarBox to get focus on mouse down, and release focus on
+mouse exit.</li>
+</ul></li>
 <li>0.1.6
 <ul>
 <li>Removed dependency to x86_64 specific SIMD instructions.</li>
@@ -1003,6 +1011,9 @@ unintentional muting on sidechain in REAPER.</li>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/FDN64Reverb_0.1.6.zip">FDN64Reverb
+0.1.6 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/FDN64Reverb_0.1.5.zip">FDN64Reverb
 0.1.5 - VST 3 (github.com)</a></li>

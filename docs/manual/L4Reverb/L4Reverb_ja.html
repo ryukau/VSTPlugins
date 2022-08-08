@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-06-12" />
+<meta name="dcterms.date" content="2022-08-08" />
 <title>L4Reverb_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-06-12
+  Update: 2022-08-08
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -329,8 +329,8 @@ footer {
 のセクションが設けてあります。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/L4Reverb_0.1.10.zip">L4Reverb
-0.1.10 をダウンロード - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/L4Reverb_0.1.11.zip">L4Reverb
+0.1.11 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -345,8 +345,8 @@ href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Rev
 のセクションが設けてあります。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/L3Reverb_0.1.10.zip">L3Reverb
-0.1.10 をダウンロード - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/L3Reverb_0.1.11.zip">L3Reverb
+0.1.11 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -572,15 +572,13 @@ href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
 フォーカスを示すオーバーレイの色。</li>
 </ul>
 <h2 id="操作">操作</h2>
-<p>操作できる箇所を右クリックすると DAW
-によって提供されているコンテキストメニューを開くことができます。</p>
-<p>つまみとスライダーでは次の操作ができます。</p>
+<p>パラメータが割り当てられているコントロールの上で
+<kbd>右クリック</kbd> すると、 DAW
+から提供されるコンテキストメニューが開きます。</p>
+<p>つまみと数値スライダでは次の操作ができます。</p>
 <ul>
 <li><kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。</li>
 <li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
-</ul>
-<p>数値スライダーでは、上記に加えて次の操作ができます。</p>
-<ul>
 <li><kbd>ホイールクリック</kbd> :
 最小値、デフォルト値、最大値の切り替え。</li>
 </ul>
@@ -743,7 +741,7 @@ BarBox
 </table>
 <p><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> のスナップは一部の BarBox
 だけで有効になっています。特定の BarBox
-にスナップを追加したいという要望があれば、お気軽に <a
+にスナップを追加したいという要望があれば、気軽に <a
 href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に
 issue を開いてください。</p>
 <p><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> による 1
@@ -875,6 +873,11 @@ right = mid - Spread * (mid + side)</code></pre>
 <h2 id="チェンジログ">チェンジログ</h2>
 <h3 id="l4reverb-1">L4Reverb</h3>
 <ul>
+<li>0.1.11
+<ul>
+<li>BarBox
+がマウス押下でフォーカスを取得、マウスカーソルが範囲外に移動するとフォーカスを開放するように変更。</li>
+</ul></li>
 <li>0.1.10
 <ul>
 <li>x86_64 固有の SIMD 命令への依存を除去。</li>
@@ -934,6 +937,11 @@ VST 3 の <code>bypass</code>
 </ul>
 <h3 id="l3reverb">L3Reverb</h3>
 <ul>
+<li>0.1.11
+<ul>
+<li>BarBox
+がマウス押下でフォーカスを取得、マウスカーソルが範囲外に移動するとフォーカスを開放するように変更。</li>
+</ul></li>
 <li>0.1.10
 <ul>
 <li>x86_64 固有の SIMD 命令への依存を除去。</li>
@@ -991,6 +999,9 @@ VST 3 の <code>bypass</code>
 <h3 id="l4reverb-2">L4Reverb</h3>
 <ul>
 <li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/L4Reverb_0.1.10.zip">L4Reverb
+0.1.10 - VST 3 (github.com)</a></li>
+<li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/L4Reverb_0.1.9.zip">L4Reverb
 0.1.9 - VST 3 (github.com)</a></li>
 <li><a
@@ -1017,6 +1028,9 @@ href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Rev
 </ul>
 <h3 id="l3reverb-1">L3Reverb</h3>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/L3Reverb_0.1.10.zip">L3Reverb
+0.1.10 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/L3Reverb_0.1.9.zip">L3Reverb
 0.1.9 - VST 3 (github.com)</a></li>

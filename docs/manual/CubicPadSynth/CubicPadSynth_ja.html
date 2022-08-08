@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-06-25" />
+<meta name="dcterms.date" content="2022-08-08" />
 <title>CubicPadSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-06-25
+  Update: 2022-08-08
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -348,8 +348,8 @@ PADsynth
 LFO もついています</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.38.0/CubicPadSynth_0.1.16.zip">CubicPadSynth
-0.1.16 をダウンロード - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/CubicPadSynth_0.1.17.zip">CubicPadSynth
+0.1.17 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -365,10 +365,9 @@ href="https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/Cubi
 <li>Windows 64bit</li>
 <li>Linux 64bit</li>
 </ul>
-<p>2022-05-14 の時点ではユニバーサルバイナリのビルドに失敗するので、
-macOS
-ビルドはパッケージに含まれていません。将来的に対応したいですが、お財布の問題で
-M1 mac 入手のめどが立たないので時期は未定です。</p>
+<p><strong>重要</strong> 最新のパッケージからは macOS
+ビルドが欠落しています。将来的にはプラグインをmacOSに移植する予定ですが、開発用の
+ARM mac を購入するための資金が不足しています。</p>
 <p>Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.04
 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a
 href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
@@ -431,8 +430,6 @@ Setup</a></li>
 <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER
 を再起動してみてください。</p>
 <h3 id="macos">macOS</h3>
-<p><strong>重要</strong>: 現バージョンのパッケージは macOS
-未対応です。</p>
 <p><strong>注意</strong>: この節は英語で macOS
 を使用しているユーザからの報告によって作成されました。日本語でのエラーメッセージが分からなかったので曖昧な書き方になっています。</p>
 <p>プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した
@@ -582,27 +579,22 @@ href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
 フォーカスを示すオーバーレイの色。</li>
 </ul>
 <h2 id="操作">操作</h2>
-<p>操作できる箇所を右クリックすると DAW
-によって提供されているコンテキストメニューを開くことができます。</p>
-<p>つまみとスライダーでは次の操作ができます。</p>
+<p>パラメータが割り当てられているコントロールの上で
+<kbd>右クリック</kbd> すると、 DAW
+から提供されるコンテキストメニューが開きます。</p>
+<p>つまみと数値スライダでは次の操作ができます。</p>
 <ul>
 <li><kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。</li>
 <li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
-</ul>
-<p><code>Octave</code> 、 <code>Seed</code>
-などで使われている数値スライダーでは、上記に加えて次の操作ができます。</p>
-<ul>
 <li><kbd>ホイールクリック</kbd> :
 最小値、デフォルト値、最大値の切り替え。</li>
 </ul>
-<p>Wavetable タブの <code>Gain</code>, <code>Width</code>,
-<code>Pitch</code>, <code>Phase</code> と Main タブの
-<code>LFO Wave</code> で使われている青い縦棒が並んだコントロール
-(BarBox) ではショートカットが使えます。ショートカットは BarBox
+<p>青い縦棒が並んだコントロール (BarBox)
+ではショートカットが使えます。ショートカットは BarBox
 を左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを
 BarBox
-の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。
-Information タブを開くとショートカットの一覧を見ることができます。</p>
+の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。</p>
+<p>左下のプラグイン名をクリックすると、よく使いそうな一部のショートカットを見ることができます。利用できる全てのショートカットを次の表に掲載しています。</p>
 <table>
 <colgroup>
 <col style="width: 61%" />
@@ -756,7 +748,7 @@ Information タブを開くとショートカットの一覧を見ることが�
 </table>
 <p><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> のスナップは一部の BarBox
 だけで有効になっています。特定の BarBox
-にスナップを追加したいという要望があれば、お気軽に <a
+にスナップを追加したいという要望があれば、気軽に <a
 href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に
 issue を開いてください。</p>
 <p><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> による 1
@@ -1179,6 +1171,11 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
 <p>ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.17
+<ul>
+<li>BarBox
+がマウス押下でフォーカスを取得、マウスカーソルが範囲外に移動するとフォーカスを開放するように変更。</li>
+</ul></li>
 <li>0.1.16
 <ul>
 <li>一部の Windows
@@ -1275,6 +1272,9 @@ VST 3 の <code>bypass</code>
 <h2 id="旧バージョン">旧バージョン</h2>
 <ul>
 <li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.38.0/CubicPadSynth_0.1.16.zip">CubicPadSynth
+0.1.16 - VST 3 (github.com)</a></li>
+<li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/CubicPadSynth_0.1.15.zip">CubicPadSynth
 0.1.15 - VST 3 (github.com)</a></li>
 <li><a
@@ -1300,7 +1300,7 @@ href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/Cubic
 0.1.7 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/CubicPadSynth0.1.6.zip">CubicPadSynth
-0.1.6 - VST® 3 (github.com)</a></li>
+0.1.6 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/CubicPadSynth0.1.5.zip">CubicPadSynth
 0.1.5 - VST 3 (github.com)</a></li>
