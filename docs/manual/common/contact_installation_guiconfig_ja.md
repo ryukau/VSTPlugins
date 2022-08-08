@@ -72,9 +72,11 @@ xattr -rc /path/to/PluginName.vst3
   - `$XDG_CONFIG_HOME` が空のときは `$HOME/.config/UhhyouPlugins/style/style.json` 。
 - macOS では `/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json` 。
 
+プラグインのウィンドウを開くたびに `style.json` が読み込まれて更新されます。
+
 既存の色のテーマを次のリンクに掲載しています。 `style.json` にコピペして使ってください。
 
-- [LV2Plugins/style/themes at master · ryukau/LV2Plugins · GitHub](https://github.com/ryukau/LV2Plugins/tree/master/style/themes)
+- [VSTPlugins/package/style/themes at master · ryukau/VSTPlugins](https://github.com/ryukau/VSTPlugins/tree/master/package/style/themes)
 
 `style.json` の設定例です。
 

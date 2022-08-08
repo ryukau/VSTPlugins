@@ -77,6 +77,12 @@ At first time, create color config file to:
   - If `$XDG_CONFIG_HOME` is empty, make `$HOME/.config/UhhyouPlugins/style/style.json`.
 - `/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json` on macOS.
 
+`style.json` will be loaded for each time a plugin window opens.
+
+Several color themes are available on the link below.
+
+- [VSTPlugins/package/style/themes at master · ryukau/VSTPlugins](https://github.com/ryukau/VSTPlugins/tree/master/package/style/themes)
+
 Below is a example of `style.json`.
 
 ```json
