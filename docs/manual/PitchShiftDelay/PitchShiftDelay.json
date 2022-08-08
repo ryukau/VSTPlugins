@@ -1,13 +1,22 @@
 {
   "PitchShiftDelay": {
-    "latest_version": "0.2.0",
+    "latest_version": "0.2.1",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/PitchShiftDelay_0.2.1.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/PitchShiftDelay_0.2.0.zip"
       ],
       "preset_url": ""
     },
     "changelog": {
+      "0.2.1": {
+        "en": [
+          "Changed BarBox to get focus on mouse down, and release focus on mouse exit."
+        ],
+        "ja": [
+          "BarBox がマウス押下でフォーカスを取得、マウスカーソルが範囲外に移動するとフォーカスを開放するように変更。"
+        ]
+      },
       "0.2.0": {
         "en": [
           "Initial release."

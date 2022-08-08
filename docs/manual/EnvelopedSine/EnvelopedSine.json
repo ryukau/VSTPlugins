@@ -1,8 +1,9 @@
 {
   "EnvelopedSine": {
-    "latest_version": "0.1.16",
+    "latest_version": "0.1.17",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/EnvelopedSine_0.1.17.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/EnvelopedSine_0.1.16.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/EnvelopedSine_0.1.15.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/EnvelopedSine_0.1.14.zip",
@@ -22,6 +23,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/EnvelopedSinePresets.zip"
     },
     "changelog": {
+      "0.1.17": {
+        "en": [
+          "Changed BarBox to get focus on mouse down, and release focus on mouse exit."
+        ],
+        "ja": [
+          "BarBox がマウス押下でフォーカスを取得、マウスカーソルが範囲外に移動するとフォーカスを開放するように変更。"
+        ]
+      },
       "0.1.16": {
         "en": [
           "Fixed crash on Linux.",

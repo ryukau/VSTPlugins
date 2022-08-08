@@ -1,8 +1,9 @@
 {
   "LatticeReverb": {
-    "latest_version": "0.1.12",
+    "latest_version": "0.1.13",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/LatticeReverb_0.1.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/LatticeReverb_0.1.12.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/LatticeReverb_0.1.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/LatticeReverb_0.1.10.zip",
@@ -18,6 +19,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverbPresets.zip"
     },
     "changelog": {
+      "0.1.13": {
+        "en": [
+          "Changed BarBox to get focus on mouse down, and release focus on mouse exit."
+        ],
+        "ja": [
+          "BarBox がマウス押下でフォーカスを取得、マウスカーソルが範囲外に移動するとフォーカスを開放するように変更。"
+        ]
+      },
       "0.1.12": {
         "en": [
           "Removed dependency to x86_64 specific SIMD instructions."

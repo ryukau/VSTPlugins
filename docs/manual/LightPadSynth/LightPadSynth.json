@@ -1,8 +1,9 @@
 {
   "LightPadSynth": {
-    "latest_version": "0.1.14",
+    "latest_version": "0.1.15",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/LightPadSynth_0.1.15.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/LightPadSynth_0.1.14.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/LightPadSynth_0.1.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/LightPadSynth_0.1.12.zip",
@@ -20,6 +21,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynthPresets.zip"
     },
     "changelog": {
+      "0.1.15": {
+        "en": [
+          "Changed BarBox to get focus on mouse down, and release focus on mouse exit."
+        ],
+        "ja": [
+          "BarBox がマウス押下でフォーカスを取得、マウスカーソルが範囲外に移動するとフォーカスを開放するように変更。"
+        ]
+      },
       "0.1.14": {
         "en": [
           "Removed dependency to x86_64 specific SIMD instructions."

@@ -1,8 +1,9 @@
 {
   "L4Reverb": {
-    "latest_version": "0.1.10",
+    "latest_version": "0.1.11",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/L4Reverb_0.1.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/L4Reverb_0.1.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/L4Reverb_0.1.9.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L4Reverb_0.1.8.zip",
@@ -16,6 +17,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4ReverbPresets.zip"
     },
     "changelog": {
+      "0.1.11": {
+        "en": [
+          "Changed BarBox to get focus on mouse down, and release focus on mouse exit."
+        ],
+        "ja": [
+          "BarBox がマウス押下でフォーカスを取得、マウスカーソルが範囲外に移動するとフォーカスを開放するように変更。"
+        ]
+      },
       "0.1.10": {
         "en": [
           "Removed dependency to x86_64 specific SIMD instructions."
@@ -107,9 +116,10 @@
     }
   },
   "L3Reverb": {
-    "latest_version": "0.1.10",
+    "latest_version": "0.1.11",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/L3Reverb_0.1.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/L3Reverb_0.1.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/L3Reverb_0.1.9.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/L3Reverb_0.1.8.zip",
@@ -120,6 +130,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L3ReverbPresets.zip"
     },
     "changelog": {
+      "0.1.11": {
+        "en": [
+          "Changed BarBox to get focus on mouse down, and release focus on mouse exit."
+        ],
+        "ja": [
+          "BarBox がマウス押下でフォーカスを取得、マウスカーソルが範囲外に移動するとフォーカスを開放するように変更。"
+        ]
+      },
       "0.1.10": {
         "en": [
           "Removed dependency to x86_64 specific SIMD instructions."
