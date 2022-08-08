@@ -27,6 +27,8 @@ ClangCymbal is a spin off of ClangSynth. FDN size is expended to 64 * 64 to prov
 - [Download Presets (github.com)]({{ preset_download_url["ClangCymbal"] }})
 {%- endif %}
 
+**Important**: ClangSynth and ClangCymbal are β version. Breaking change might be introduced. Recommend to render the result to file after using.
+
 The package includes following builds:
 
 - Windows 64bit

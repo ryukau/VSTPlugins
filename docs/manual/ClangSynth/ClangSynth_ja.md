@@ -16,7 +16,7 @@ lang: ja
 - [プリセットをダウンロード (github.com)]({{ preset_download_url["ClangSynth"] }})
 {%- endif %}
 
-ClangCymbal is a spin off of ClangSynth. FDN size is expended to 64 * 64 to provide more rich harmonics. However it is monophonic due to increased CPU load. Oscillator is changed for noise/pulse mix which is more suitable to make cymbal sounds. It can also make sound of manhole dragged on asphalt.
+<ruby>ClangCymbal<rt>クラング シンバル</rt></ruby> は ClangSynth のスピンオフです。 FDN の大きさが 64 * 64 に増えているので、よりリッチな倍音が出ます。ただし CPU 負荷も増えているのでモノフォニックです。オシレータはシンバルの合成に適したノイズとパルス列の混合に変更されています。マンホールをアスファルトの上で引きずったような音も出せます。
 
 - [ClangCymbal {{ latest_version["ClangCymbal"] }} をダウンロード - VST® 3 (github.com)]({{ latest_download_url["ClangCymbal"] }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
@@ -26,6 +26,8 @@ ClangCymbal is a spin off of ClangSynth. FDN size is expended to 64 * 64 to prov
 {%- if preset_download_url["ClangCymbal"]|length != 0%}
 - [プリセットをダウンロード (github.com)]({{ preset_download_url["ClangCymbal"] }})
 {%- endif %}
+
+**重要**: ClangSynth と ClangCymbal は β 版です。後方互換のない変更が行われる可能性があるので注意してください。使用後は結果をファイルにレンダリングすることを強く推奨します。
 
 パッケージには次のビルドが含まれています。
 
