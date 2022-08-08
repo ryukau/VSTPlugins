@@ -68,7 +68,7 @@ enum ID {
   oscBounce,
   oscBounceCurve,
   oscJitter,
-  oscPulseGainRandomness,
+  oscPulseAmpRandomness,
   oscLowpassCutoffSemi,
   oscLowpassQ,
   oscLowpassKeyFollow,
@@ -257,8 +257,8 @@ struct GlobalParameter : public ParameterInterface {
       Info::kCanAutomate);
     value[ID::oscJitter] = std::make_unique<LinearValue>(
       1.0, Scales::defaultScale, "oscJitter", Info::kCanAutomate);
-    value[ID::oscPulseGainRandomness] = std::make_unique<LinearValue>(
-      1.0, Scales::defaultScale, "oscPulseGainRandomness", Info::kCanAutomate);
+    value[ID::oscPulseAmpRandomness] = std::make_unique<LinearValue>(
+      1.0, Scales::defaultScale, "oscPulseAmpRandomness", Info::kCanAutomate);
     value[ID::oscLowpassCutoffSemi] = std::make_unique<LinearValue>(
       1.0, Scales::filterCutoffSemi, "oscLowpassCutoffSemi", Info::kCanAutomate);
     value[ID::oscLowpassQ] = std::make_unique<DecibelValue>(

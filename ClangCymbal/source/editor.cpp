@@ -211,7 +211,7 @@ bool Editor::prepareUI()
   addTextKnob(
     oscLeft1, oscTop1, labelWidth, labelHeight, uiTextSize, ID::impulseGain,
     Scales::impulseGain, true, 5);
-  addLabel(oscLeft0, oscTop2, labelWidth, labelHeight, uiTextSize, "Osc. [dB]");
+  addLabel(oscLeft0, oscTop2, labelWidth, labelHeight, uiTextSize, "Gain [dB]");
   addTextKnob(
     oscLeft1, oscTop2, labelWidth, labelHeight, uiTextSize, ID::oscGain,
     Scales::impulseGain, true, 5);
@@ -265,9 +265,9 @@ bool Editor::prepareUI()
   addTextKnob<Style::accent>(
     oscLeft3, oscTop7, labelWidth, labelHeight, uiTextSize, ID::oscJitter,
     Scales::defaultScale, false, 5);
-  addLabel(oscLeft2, oscTop8, labelWidth, labelHeight, uiTextSize, "Pulse Rand.");
+  addLabel(oscLeft2, oscTop8, labelWidth, labelHeight, uiTextSize, "Amp. Rand.");
   addTextKnob<Style::accent>(
-    oscLeft3, oscTop8, labelWidth, labelHeight, uiTextSize, ID::oscPulseGainRandomness,
+    oscLeft3, oscTop8, labelWidth, labelHeight, uiTextSize, ID::oscPulseAmpRandomness,
     Scales::defaultScale, false, 5);
 
   // FDN.

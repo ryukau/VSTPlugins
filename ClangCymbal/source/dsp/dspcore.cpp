@@ -118,7 +118,7 @@ void DSPCore::setup(double sampleRate)
                                                                                          \
   oscBounce.METHOD(pv[ID::oscBounce]->getFloat());                                       \
   oscBounceCurve.METHOD(pv[ID::oscBounceCurve]->getFloat());                             \
-  oscPulseGainRandomness.METHOD(pv[ID::oscPulseGainRandomness]->getFloat());             \
+  oscPulseAmpRandomness.METHOD(pv[ID::oscPulseAmpRandomness]->getFloat());               \
   auto oscDensityPitch = float(1)                                                        \
     + pv[ID::oscDensityKeyFollow]->getFloat() * (fdnPitch.getValue() - float(1));        \
   oscDensity.METHOD(oscDensityPitch *pv[ID::oscDensityHz]->getFloat() / sampleRate);     \
@@ -313,7 +313,7 @@ float Note::process(float sampleRate)
   oscBounceCurve.process();
   oscJitter.process();
   oscDensity.process();
-  oscPulseGainRandomness.process();
+  oscPulseAmpRandomness.process();
   oscNoisePulseRatio.process();
   fdnFreqOffset.process();
   fdnOvertoneOffset.process();
@@ -349,7 +349,7 @@ float Note::process(float sampleRate)
 
     auto oscOut = pulsar.process(
       oscJitter.getValue() + modenvToOscJitter, oscDensity.getValue(), densityEnvelope,
-      oscPulseGainRandomness.getValue(),
+      oscPulseAmpRandomness.getValue(),
       oscNoisePulseRatio.getValue() + modenvToOscNoisePulseRatio, rng);
 
     sig += oscGain * oscOut;

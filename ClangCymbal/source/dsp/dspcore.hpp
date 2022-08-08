@@ -54,7 +54,7 @@ private:
   ExpSmoother<float> oscBounceCurve;
   ExpSmoother<float> oscJitter;
   ExpSmoother<float> oscDensity;
-  ExpSmoother<float> oscPulseGainRandomness;
+  ExpSmoother<float> oscPulseAmpRandomness;
   ExpSmoother<float> oscNoisePulseRatio;
   ExpSmoother<float> fdnFreqOffset;
   ExpSmoother<float> fdnOvertoneOffset;
