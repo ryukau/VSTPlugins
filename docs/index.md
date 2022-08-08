@@ -34,6 +34,9 @@ All the plugin download link can be found at release page on following link.
 - [Releases · ryukau/VSTPlugins · GitHub](https://github.com/ryukau/VSTPlugins/releases)
 
 #### Synthesizers
+<div class="pluginlist"><a href="#clangsynth">
+<ruby>ClangSynthh<rt>クラング シンセ</rt></ruby>
+</a></div>
 <div class="pluginlist"><a href="#collidingcombsynth">
 <ruby>CollidingCombSynth<rt>コライディング コム シンセ</rt></ruby>
 </a></div>
@@ -90,6 +93,19 @@ All the plugin download link can be found at release page on following link.
 <div class="pluginlist"><a href="#sevendelay">
 <ruby>SevenDelay<rt>セブン ディレイ</rt></ruby>
 </a></div>
+
+## ClangSynth
+<figure>
+<img src="manual/ClangSynth/img/clangsynth.png" alt="Image of ClangSynth graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+
+<ruby>ClangSynth<rt>クラング シンセ</rt></ruby> は金属的なパーカッションの音が得意なシンセサイザです。金属的な質感はフィードバック・ディレイ・ネットワーク (FDN) を用いたディレイ間のクロスフィードバックによるものです。 WaveCymbal や FDNCymbal よりはシンバルに似た音が出ます。 FDN をより大きくしてシンバルの合成に特化した <ruby>ClangCymbal<rt>クラング シンバル</rt></ruby> もあります。
+
+- [ClangSynth のマニュアル (日本語)](manual/ClangSynth/ClangSynth_ja.html)
+
+ClangSynth is a synthesizer suitable for percussion sounds. Each voice equips an 8 * 8 feedback delay network (FDN) as a resonator. Oscillator is static wavetalble with controls specialized to make pulse train. For better cymbal sound, ClangCymbal is also available.
+
+- [ClangSynth Manual (English)](manual/ClangSynth/ClangSynth_en.html)
 
 ## MiniCliffEQ
 <figure>
