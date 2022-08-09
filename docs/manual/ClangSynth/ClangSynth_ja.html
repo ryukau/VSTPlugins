@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-08-08" />
+<meta name="dcterms.date" content="2022-08-09" />
 <title>ClangSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-08-08
+  Update: 2022-08-09
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -1316,58 +1316,66 @@ LFO セクションの <code>Wave Interp.</code> を参照してください。<
 <p>ここで積分器と呼んでいる部品は、理論的な積分器とは別物ですが似たような動作をします。</p>
 <p>パルス列は、ノイズ生成で使われるものとは別に、BLIT
 アルゴリズムで生成されます。</p>
-<ul>
-<li>Noise/Pulse</li>
-</ul>
-<p>: ノイズとパルス列を混ぜる割合です。</p>
-<ul>
-<li>LP Cutoff [st.]</li>
-</ul>
-<p>: ローパスフィルタのカットオフ周波数です。</p>
-<ul>
-<li>LP Q</li>
-</ul>
-<p>: ローパスフィルタの Q 値です。</p>
-<pre><code>デフォルト値の 0.7071 を超えるとレゾナンスが目立ち始めます。</code></pre>
-<ul>
-<li>LP Key</li>
-</ul>
-<p>: 音程に応じて <code>LP Cutoff</code> を変える量です。</p>
-<pre><code>`LP Cutoff` を 0 、 `Q` を最大、 `LP Key` を 1 にすると、発振によってサイン波が出力されます。</code></pre>
-<ul>
-<li>Density [Hz]</li>
-</ul>
-<p>: ノイズとパルス列の密度です。</p>
-<pre><code>`Density` の値を `Tuning-&gt;A4` と同じにした上で、 `Density Key` を 1.0 にすると鍵盤上の音程と一致させることができます。</code></pre>
-<ul>
-<li>Density Key</li>
-</ul>
-<p>: 音程に応じて <code>Density</code> を変える量です。</p>
-<ul>
-<li>Noise Decay</li>
-</ul>
-<p>: 1 回のノイズが減衰する時間です。</p>
-<pre><code>`Noise Decay` の値が小さいときは、 `Noise/Pulse` の値が 0 でもパルス列に近い音になります。ノイズ生成器で使われているパルスはアンチエイリアシングが行われていないので質感の異なった音が出ます。</code></pre>
-<ul>
-<li>Bounce</li>
-</ul>
-<p>: AD
+<dl>
+<dt>Noise/Pulse</dt>
+<dd>
+<p>ノイズとパルス列を混ぜる割合です。</p>
+</dd>
+<dt>LP Cutoff [st.]</dt>
+<dd>
+<p>ローパスフィルタのカットオフ周波数です。</p>
+</dd>
+<dt>LP Q</dt>
+<dd>
+<p>ローパスフィルタの Q 値です。</p>
+<p>デフォルト値の 0.7071 を超えるとレゾナンスが目立ち始めます。</p>
+</dd>
+<dt>LP Key</dt>
+<dd>
+<p>音程に応じて <code>LP Cutoff</code> を変える量です。</p>
+<p><code>LP Cutoff</code> を 0 、 <code>Q</code> を最大、
+<code>LP Key</code> を 1
+にすると、発振によってサイン波が出力されます。</p>
+</dd>
+<dt>Density [Hz]</dt>
+<dd>
+<p>ノイズとパルス列の密度です。</p>
+<p><code>Density</code> の値を <code>Tuning-&gt;A4</code>
+と同じにした上で、 <code>Density Key</code> を 1.0
+にすると鍵盤上の音程と一致させることができます。</p>
+</dd>
+<dt>Density Key</dt>
+<dd>
+<p>音程に応じて <code>Density</code> を変える量です。</p>
+</dd>
+<dt>Noise Decay</dt>
+<dd>
+<p>1 回のノイズが減衰する時間です。</p>
+<p><code>Noise Decay</code> の値が小さいときは、
+<code>Noise/Pulse</code> の値が 0
+でもパルス列に近い音になります。ノイズ生成器で使われているパルスはアンチエイリアシングが行われていないので質感の異なった音が出ます。</p>
+</dd>
+<dt>Bounce</dt>
+<dd>
+<p>AD
 エンベロープの信号が小さくなるほど、パルスが現れる間隔を短くする効果の量です。値が
 0.0 のときに無効、 1.0 のときに効果が最大になります。</p>
-<pre><code>力を入れずにスティックを打面に落としたときの、跳ね返りを表現するときに使えます。</code></pre>
-<ul>
-<li>Bounce Curve</li>
-</ul>
-<p>: <code>Bounce</code> 効果の曲線を変えるパラメータです。</p>
-<pre><code>値が大きいほど 1 回の跳ね返りにかかる時間が短くなります。</code></pre>
-<ul>
-<li>Jitter</li>
-</ul>
-<p>: パルスが現れる間隔のランダムさです。</p>
-<ul>
-<li>Amp. Rand.</li>
-</ul>
-<p>: ノイズ生成器のパルスの振幅のランダムさです。</p>
+<p>力を入れずにスティックを打面に落としたときの、跳ね返りを表現するときに使えます。</p>
+</dd>
+<dt>Bounce Curve</dt>
+<dd>
+<p><code>Bounce</code> 効果の曲線を変えるパラメータです。</p>
+<p>値が大きいほど 1 回の跳ね返りにかかる時間が短くなります。</p>
+</dd>
+<dt>Jitter</dt>
+<dd>
+<p>パルスが現れる間隔のランダムさです。</p>
+</dd>
+<dt>Amp. Rand.</dt>
+<dd>
+<p>ノイズ生成器のパルスの振幅のランダムさです。</p>
+</dd>
+</dl>
 <h4 id="fdn-1">FDN</h4>
 <p>ClangSynth
 とは異なり、各フィルタのパラメータを個別に変えることができます。より柔軟な設定ができますが、
