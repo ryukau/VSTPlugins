@@ -10,11 +10,6 @@ You can fund the development via [paypal.me/ryukau](https://www.paypal.com/paypa
 ## Build Instruction
 See [build_instruction.md](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md) for building plugin.
 
-## x86_64 CPU Dispatching
-To use appropriate SIMD instruction set at runtime, CPU dispatching is implemented for some plugins. See the note below for the technique used in this repository. It was written for LV2 repository, but the same thing applies to this repository.
-
-- [LV2Plugins/code_walkthrough.md at master · ryukau/LV2Plugins · GitHub](https://github.com/ryukau/LV2Plugins/blob/master/docs/dev_note/code_walkthrough.md#cpu-dispatching)
-
 ## Files and Directories
 - `.github/workflows` and `ci`: Continuous integration (CI) scripts for GitHub Actions.
 - `common`: Common components across plugins. Including GUI widgets, VST 3 controller, and some DSP code.
