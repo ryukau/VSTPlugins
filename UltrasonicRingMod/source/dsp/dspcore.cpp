@@ -44,7 +44,7 @@ size_t DSPCore::getLatency() { return 0; }
   const auto &pv = param.value;                                                          \
                                                                                          \
   pitchSmoothingKp = float(                                                              \
-    EMAFilter<float>::secondToP(upRate, pv[ID::noteSlideTimeSecond]->getFloat()));       \
+    EMAFilter<double>::secondToP(upRate, pv[ID::noteSlideTimeSecond]->getFloat()));      \
                                                                                          \
   interpMix.METHOD(pv[ID::mix]->getFloat());                                             \
   interpFrequencyHz.METHOD(pv[ID::frequencyHz]->getFloat());                             \
