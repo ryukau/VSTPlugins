@@ -27,43 +27,6 @@
 using namespace SomeDSP;
 using namespace Steinberg::Synth;
 
-/**
-Lowpass filter coefficient specialized for 64x oversampling.
-Sos stands for second order sections.
-
-```python
-import numpy
-from scipy import signal
-
-samplerate = 2 * 48000
-uprate = samplerate * 32
-sos = signal.butter(16, samplerate / 4, output="sos", fs=uprate)
-```
-*/
-template<typename Sample> struct Sos64FoldFirstStage {
-  static constexpr size_t fold = 32;
-
-  constexpr static std::array<std::array<Sample, 5>, 8> co{{
-    {Sample(1.354163914584143e-26), Sample(2.708327829168286e-26),
-     Sample(1.354163914584143e-26), Sample(-1.9045872504279573),
-     Sample(0.9068841759295282)},
-    {Sample(1.0), Sample(2.0), Sample(1.0), Sample(-1.908001035290007),
-     Sample(0.9103020778040721)},
-    {Sample(1.0), Sample(2.0), Sample(1.0), Sample(-1.9147330871451047),
-     Sample(0.9170422484899456)},
-    {Sample(1.0), Sample(2.0), Sample(1.0), Sample(-1.9245914935233015),
-     Sample(0.9269125440714382)},
-    {Sample(1.0), Sample(2.0), Sample(1.0), Sample(-1.9372866598709455),
-     Sample(0.9396230207448886)},
-    {Sample(1.0), Sample(2.0), Sample(1.0), Sample(-1.9524305274354947),
-     Sample(0.9547851517602688)},
-    {Sample(1.0), Sample(2.0), Sample(1.0), Sample(-1.9695376181976627),
-     Sample(0.9719128736135145)},
-    {Sample(1.0), Sample(2.0), Sample(1.0), Sample(-1.9880295377862067),
-     Sample(0.9904270943918131)},
-  }};
-};
-
 class DSPCore {
 public:
   struct NoteInfo {
