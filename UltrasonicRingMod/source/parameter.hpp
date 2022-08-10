@@ -29,9 +29,6 @@
   #include "../../common/value.hpp"
 #endif
 
-constexpr size_t nCombTaps = 4;
-constexpr float maxDelayTime = 4.0f;
-
 namespace Steinberg {
 namespace Synth {
 

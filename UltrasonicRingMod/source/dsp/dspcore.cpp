@@ -21,8 +21,6 @@
 #include <limits>
 #include <numeric>
 
-constexpr float feedbackLimiterAttackSeconds = 64.0f / 48000.0f;
-
 template<typename T> inline T lerp(T a, T b, T t) { return a + t * (b - a); }
 
 void DSPCore::setup(double sampleRate)
