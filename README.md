@@ -10,6 +10,16 @@ You can fund the development via [paypal.me/ryukau](https://www.paypal.com/paypa
 ## Build Instruction
 See [build_instruction.md](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md) for building plugin.
 
+## Experimental Plugins
+Following plugins are experimental, or in α stage. Breaking changes might be introduced.
+
+- FoldShaper, ModuloShaper, OddPowShaper, SoftClipper
+  - Naive waveshapers with 16-fold oversampling.
+- MatrixShifter
+  - AM frequency shifter and chorus in a plugin.
+- UltraSynth, UltrasonicRingMod
+  - Naive synthesizer and ring modulator with 64-fold oversampling.
+
 ## Files and Directories
 - `.github/workflows` and `ci`: Continuous integration (CI) scripts for GitHub Actions.
 - `common`: Common components across plugins. Including GUI widgets, VST 3 controller, and some DSP code.
