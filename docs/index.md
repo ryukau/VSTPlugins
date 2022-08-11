@@ -99,7 +99,7 @@ All the plugin download link can be found at release page on following link.
 <img src="manual/ClangSynth/img/clangsynth.png" alt="Image of ClangSynth graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
-<ruby>ClangSynth<rt>クラング シンセ</rt></ruby> は金属的なパーカッションの音が得意なシンセサイザです。金属的な質感はフィードバック・ディレイ・ネットワーク (FDN) を用いたディレイ間のクロスフィードバックによるものです。 WaveCymbal や FDNCymbal よりはシンバルに似た音が出ます。 FDN をより大きくしてシンバルの合成に特化した <ruby>ClangCymbal<rt>クラング シンバル</rt></ruby> もあります。
+ClangSynth は金属的なパーカッションの音が得意なシンセサイザです。金属的な質感はフィードバック・ディレイ・ネットワーク (FDN) を用いたディレイ間のクロスフィードバックによるものです。 WaveCymbal や FDNCymbal よりはシンバルに似た音が出ます。 FDN をより大きくしてシンバルの合成に特化した ClangCymbal もあります。
 
 - [ClangSynth のマニュアル (日本語)](manual/ClangSynth/ClangSynth_ja.html)
 
