@@ -37,17 +37,21 @@ enum ID {
   bypass,
 
   mix,
+  preClipGain,
+  outputGain,
   frequencyHz,
   dcOffset,
   feedbackGain,
   modFrequencyScaling,
-  modClipMix,
+  modWrapMix,
   hardclipMix,
 
   noteScaling,
   noteScalingNegative,
-  centerNoteNumber,
+  noteOffset,
   noteSlideTimeSecond,
+
+  parameterSmoothingSecond,
 
   ID_ENUM_LENGTH,
   ID_ENUM_GUI_START = ID_ENUM_LENGTH,
@@ -58,13 +62,14 @@ struct Scales {
   static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LinearScale<double> defaultScale;
 
+  static SomeDSP::DecibelScale<double> gain;
   static SomeDSP::DecibelScale<double> frequencyHz;
   static SomeDSP::DecibelScale<double> feedbackGain;
   static SomeDSP::DecibelScale<double> modFrequencyScaling;
-  static SomeDSP::NegativeDecibelScale<double> modClipMix;
+  static SomeDSP::NegativeDecibelScale<double> modWrapMix;
 
   static SomeDSP::LinearScale<double> noteScaling;
-  static SomeDSP::LinearScale<double> centerNoteNumber;
+  static SomeDSP::LinearScale<double> noteOffset;
   static SomeDSP::DecibelScale<double> noteSlideTimeSecond;
 };
 
@@ -86,6 +91,10 @@ struct GlobalParameter : public ParameterInterface {
 
     value[ID::mix] = std::make_unique<LinearValue>(
       1.0, Scales::defaultScale, "mix", Info::kCanAutomate);
+    value[ID::preClipGain] = std::make_unique<DecibelValue>(
+      Scales::gain.invmapDB(0.0), Scales::gain, "preClipGain", Info::kCanAutomate);
+    value[ID::outputGain] = std::make_unique<DecibelValue>(
+      Scales::gain.invmapDB(0.0), Scales::gain, "outputGain", Info::kCanAutomate);
     value[ID::frequencyHz] = std::make_unique<DecibelValue>(
       Scales::frequencyHz.invmap(10000.0), Scales::frequencyHz, "frequencyHz",
       Info::kCanAutomate);
@@ -97,8 +106,8 @@ struct GlobalParameter : public ParameterInterface {
 
     value[ID::modFrequencyScaling] = std::make_unique<DecibelValue>(
       0.0, Scales::modFrequencyScaling, "modFrequencyScaling", Info::kCanAutomate);
-    value[ID::modClipMix] = std::make_unique<NegativeDecibelValue>(
-      0.0, Scales::modClipMix, "modClipMix", Info::kCanAutomate);
+    value[ID::modWrapMix] = std::make_unique<NegativeDecibelValue>(
+      0.0, Scales::modWrapMix, "modWrapMix", Info::kCanAutomate);
     value[ID::hardclipMix] = std::make_unique<LinearValue>(
       1.0, Scales::defaultScale, "hardclipMix", Info::kCanAutomate);
 
@@ -107,12 +116,16 @@ struct GlobalParameter : public ParameterInterface {
       Info::kCanAutomate);
     value[ID::noteScalingNegative] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "noteScalingNegative", Info::kCanAutomate);
-    value[ID::centerNoteNumber] = std::make_unique<LinearValue>(
-      Scales::centerNoteNumber.invmap(60.0), Scales::centerNoteNumber, "centerNoteNumber",
+    value[ID::noteOffset] = std::make_unique<LinearValue>(
+      Scales::noteOffset.invmap(0.0), Scales::noteOffset, "noteOffset",
       Info::kCanAutomate);
     value[ID::noteSlideTimeSecond] = std::make_unique<DecibelValue>(
       Scales::noteSlideTimeSecond.invmap(0.02), Scales::noteSlideTimeSecond,
       "noteSlideTimeSecond", Info::kCanAutomate);
+
+    value[ID::parameterSmoothingSecond] = std::make_unique<DecibelValue>(
+      Scales::noteSlideTimeSecond.invmap(0.2), Scales::noteSlideTimeSecond,
+      "parameterSmoothingSecond", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

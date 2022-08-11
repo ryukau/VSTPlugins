@@ -100,12 +100,14 @@ private:
   float pitchSmoothingKp = 1.0f;
   ExpSmootherLocal<float> interpPitch;
 
+  ExpSmoother<float> interpPreClipGain;
+  ExpSmoother<float> interpOutputGain;
   ExpSmoother<float> interpMix;
   ExpSmoother<float> interpFrequencyHz;
   ExpSmoother<float> interpDCOffset;
   ExpSmoother<float> interpFeedbackGain;
   ExpSmoother<float> interpModFrequencyScaling;
-  ExpSmoother<float> interpModClipMix;
+  ExpSmoother<float> interpModWrapMix;
   ExpSmoother<float> interpHardclipMix;
 
   std::array<LinearUpSampler<float, upFold>, 2> upSampler;

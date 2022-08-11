@@ -94,32 +94,43 @@ bool Editor::prepareUI()
   addKnob(left2, top0, knobWidth, margin, uiTextSize, "DC Offset", ID::dcOffset);
   addKnob(left3, top0, knobWidth, margin, uiTextSize, "Feedback", ID::feedbackGain);
 
+  addKnob(
+    left0, top1 + int(knobWidth / 4), int(knobWidth / 2), margin, uiTextSize, "Pre Clip",
+    ID::preClipGain);
+  addKnob(
+    left0 + int(knobWidth / 2) + margin, top1 + int(knobWidth / 4), int(knobWidth / 2),
+    margin, uiTextSize, "Out", ID::outputGain);
   addKnob<Style::warning>(
     left1, top1, knobWidth, margin, uiTextSize, "Mod. Scale", ID::modFrequencyScaling);
-  addKnob(left2, top1, knobWidth, margin, uiTextSize, "Mod. Clip", ID::modClipMix);
+  addKnob(left2, top1, knobWidth, margin, uiTextSize, "Mod. Wrap", ID::modWrapMix);
   addKnob(left3, top1, knobWidth, margin, uiTextSize, "Hardclip", ID::hardclipMix);
 
   // Note.
   constexpr auto noteLeft1 = left0 + int(knobWidth / 2);
+  constexpr auto negativeScaleOffset = 2 * margin;
 
   addGroupLabel(left0, top2, 2 * knobX - 2 * margin, labelHeight, uiTextSize, "Note");
-
-  addLabel(left0, top3, int(knobWidth / 2), labelHeight, uiTextSize, "Scale");
-  addCheckbox(
-    noteLeft1, top3, int(knobWidth / 2), labelHeight, uiTextSize, "Neg.",
-    ID::noteScalingNegative);
+  addToggleButton(
+    left0, top3, int(knobWidth / 2) + negativeScaleOffset, labelHeight, uiTextSize,
+    "Negative", ID::noteScalingNegative);
+  addLabel(
+    noteLeft1 + negativeScaleOffset, top3, int(knobWidth / 2) - negativeScaleOffset,
+    labelHeight, uiTextSize, "Scale");
   addTextKnob(
     left1, top3, knobWidth, labelHeight, uiTextSize, ID::noteScaling, Scales::noteScaling,
     false, 5);
-
-  addLabel(left0, top4, knobWidth, labelHeight, uiTextSize, "Center");
+  addLabel(left0, top4, knobWidth, labelHeight, uiTextSize, "Offset [st.]");
   addTextKnob(
-    left1, top4, knobWidth, labelHeight, uiTextSize, ID::centerNoteNumber,
-    Scales::centerNoteNumber, false, 5);
-
+    left1, top4, knobWidth, labelHeight, uiTextSize, ID::noteOffset, Scales::noteOffset,
+    false, 5);
   addLabel(left0, top5, knobWidth, labelHeight, uiTextSize, "Slide Time [s]");
   addTextKnob(
     left1, top5, knobWidth, labelHeight, uiTextSize, ID::noteSlideTimeSecond,
+    Scales::noteSlideTimeSecond, false, 5);
+
+  addLabel(left2, top3, knobWidth, labelHeight, uiTextSize, "Smoothing [s]");
+  addTextKnob(
+    left3, top3, knobWidth, labelHeight, uiTextSize, ID::parameterSmoothingSecond,
     Scales::noteSlideTimeSecond, false, 5);
 
   // Plugin name.
