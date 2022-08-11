@@ -656,11 +656,11 @@ LP/HP Q Offset
     As same as `Cut Offset`, left side of control represents lower harmonics and right side represents higher harmonics.
 
 #### Envelope
-> Jitter
+\> Jitter
 
 :   Modulation amount to `Oscillator->Jitter`.
 
-> Noise/Pulse
+\> Noise/Pulse
 
 :   Modulation amount to `Oscillator->Noise/Pulse`.
 

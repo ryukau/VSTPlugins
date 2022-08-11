@@ -659,13 +659,13 @@ LP/HP Q Offset
     `Cut Offset` と同様に、コントロールの左が低次、右が高次の倍音と対応します。
 
 #### Envelope
-> Jitter
+\> Jitter
 
-:   `Oscillator->Jitter` への変調量。
+:   `Oscillator->Jitter` への変調量です。
 
-> Noise/Pulse
+\> Noise/Pulse
 
-:   `Oscillator->Noise/Pulse` への変調量。
+:   `Oscillator->Noise/Pulse` への変調量です。
 
 ## チェンジログ
 {%- for version, logs in changelog["ClangSynth"].items() %}
