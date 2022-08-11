@@ -64,7 +64,6 @@ uint32 PLUGIN_API PlugProcessor::getProcessContextRequirements()
 
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 {
-  if (!dsp.isInitialized) return kNotInitialized;
   dsp.setup(processSetup.sampleRate);
   return AudioEffect::setupProcessing(setup);
 }
