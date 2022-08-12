@@ -665,6 +665,7 @@ LP/HP Q Offset
 :   Modulation amount to `Oscillator->Noise/Pulse`.
 
 ## Change Log
+### ClangSynth
 {%- for version, logs in changelog["ClangSynth"].items() %}
 - {{version}}
   {%- for log in logs["en"] %}
@@ -672,12 +673,30 @@ LP/HP Q Offset
   {%- endfor %}
 {%- endfor %}
 
+### ClangCymbal
+{%- for version, logs in changelog["ClangCymbal"].items() %}
+- {{version}}
+  {%- for log in logs["en"] %}
+  - {{ log }}
+  {%- endfor %}
+{%- endfor %}
+
 ## Old Versions
+### ClangSynth
 {%- if old_download_link["ClangSynth"]|length == 0 %}
 N/A.
 {%- else %}
   {%- for x in old_download_link["ClangSynth"] %}
 - [ClangSynth {{ x["version"] }} - VST 3 (github.com)]({{ x["url"] }})
+  {%- endfor %}
+{%- endif %}
+
+### ClangCymbal
+{%- if old_download_link["ClangCymbal"]|length == 0 %}
+N/A.
+{%- else %}
+  {%- for x in old_download_link["ClangCymbal"] %}
+- [ClangCymbal {{ x["version"] }} - VST 3 (github.com)]({{ x["url"] }})
   {%- endfor %}
 {%- endif %}
 

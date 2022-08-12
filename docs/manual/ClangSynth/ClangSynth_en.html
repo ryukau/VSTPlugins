@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-08-09" />
+<meta name="dcterms.date" content="2022-08-12" />
 <title>ClangSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-08-09
+  Update: 2022-08-12
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -322,9 +322,18 @@ footer {
   <li><a href="#envelope-1" id="toc-envelope-1">Envelope</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#change-log" id="toc-change-log">Change Log</a></li>
-  <li><a href="#old-versions" id="toc-old-versions">Old
-  Versions</a></li>
+  <li><a href="#change-log" id="toc-change-log">Change Log</a>
+  <ul>
+  <li><a href="#clangsynth-3" id="toc-clangsynth-3">ClangSynth</a></li>
+  <li><a href="#clangcymbal-2"
+  id="toc-clangcymbal-2">ClangCymbal</a></li>
+  </ul></li>
+  <li><a href="#old-versions" id="toc-old-versions">Old Versions</a>
+  <ul>
+  <li><a href="#clangsynth-4" id="toc-clangsynth-4">ClangSynth</a></li>
+  <li><a href="#clangcymbal-3"
+  id="toc-clangcymbal-3">ClangCymbal</a></li>
+  </ul></li>
   <li><a href="#license" id="toc-license">License</a>
   <ul>
   <li><a href="#about-vst" id="toc-about-vst">About VST</a></li>
@@ -356,8 +365,8 @@ more suitable to make cymbal sounds. It can also make sound of manhole
 dragged on asphalt.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/ClangCymbal_0.0.1.zip">Download
-ClangCymbal 0.0.1 - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.42.0/ClangCymbal_0.0.2.zip">Download
+ClangCymbal 0.0.2 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -1422,23 +1431,46 @@ lower harmonics and right side represents higher harmonics.</p>
 </dd>
 </dl>
 <h4 id="envelope-1">Envelope</h4>
-<blockquote>
-<p>Jitter</p>
-</blockquote>
-<p>: Modulation amount to <code>Oscillator-&gt;Jitter</code>.</p>
-<blockquote>
-<p>Noise/Pulse</p>
-</blockquote>
-<p>: Modulation amount to <code>Oscillator-&gt;Noise/Pulse</code>.</p>
+<dl>
+<dt>&gt; Jitter</dt>
+<dd>
+<p>Modulation amount to <code>Oscillator-&gt;Jitter</code>.</p>
+</dd>
+<dt>&gt; Noise/Pulse</dt>
+<dd>
+<p>Modulation amount to <code>Oscillator-&gt;Noise/Pulse</code>.</p>
+</dd>
+</dl>
 <h2 id="change-log">Change Log</h2>
+<h3 id="clangsynth-3">ClangSynth</h3>
 <ul>
 <li>0.0.1
 <ul>
 <li>β release.</li>
 </ul></li>
 </ul>
+<h3 id="clangcymbal-2">ClangCymbal</h3>
+<ul>
+<li>0.0.2
+<ul>
+<li>Fix initialization failure on Bitwig and Live 11. Previously,
+<code>kNotInitialized</code> was incorrectly returned when sampling rate
+is changed.</li>
+</ul></li>
+<li>0.0.1
+<ul>
+<li>β release.</li>
+</ul></li>
+</ul>
 <h2 id="old-versions">Old Versions</h2>
+<h3 id="clangsynth-4">ClangSynth</h3>
 <p>N/A.</p>
+<h3 id="clangcymbal-3">ClangCymbal</h3>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/ClangCymbal_0.0.1.zip">ClangCymbal
+0.0.1 - VST 3 (github.com)</a></li>
+</ul>
 <h2 id="license">License</h2>
 <p>ClangSynth is licensed under GPLv3. Complete licenses are linked
 below.</p>

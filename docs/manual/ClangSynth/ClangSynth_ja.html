@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-08-09" />
+<meta name="dcterms.date" content="2022-08-12" />
 <title>ClangSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-08-09
+  Update: 2022-08-12
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -319,11 +319,17 @@ footer {
   <li><a href="#envelope-1" id="toc-envelope-1">Envelope</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#チェンジログ"
-  id="toc-チェンジログ">チェンジログ</a></li>
-  <li><a href="#旧バージョン" id="toc-旧バージョン">旧バージョン</a>
+  <li><a href="#チェンジログ" id="toc-チェンジログ">チェンジログ</a>
   <ul>
   <li><a href="#clangsynth-3" id="toc-clangsynth-3">ClangSynth</a></li>
+  <li><a href="#clangcymbal-2"
+  id="toc-clangcymbal-2">ClangCymbal</a></li>
+  </ul></li>
+  <li><a href="#旧バージョン" id="toc-旧バージョン">旧バージョン</a>
+  <ul>
+  <li><a href="#clangsynth-4" id="toc-clangsynth-4">ClangSynth</a></li>
+  <li><a href="#clangcymbal-3"
+  id="toc-clangcymbal-3">ClangCymbal</a></li>
   </ul></li>
   <li><a href="#ライセンス" id="toc-ライセンス">ライセンス</a>
   <ul>
@@ -356,8 +362,8 @@ style="display: inline-block; vertical-align: middle;"></li>
 負荷も増えているのでモノフォニックです。オシレータはシンバルの合成に適したノイズとパルス列の混合に変更されています。マンホールをアスファルトの上で引きずったような音も出せます。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/ClangCymbal_0.0.1.zip">ClangCymbal
-0.0.1 をダウンロード - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.42.0/ClangCymbal_0.0.2.zip">ClangCymbal
+0.0.2 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -1404,24 +1410,46 @@ CPU 負荷も上がっています。</p>
 </dd>
 </dl>
 <h4 id="envelope-1">Envelope</h4>
-<blockquote>
-<p>Jitter</p>
-</blockquote>
-<p>: <code>Oscillator-&gt;Jitter</code> への変調量。</p>
-<blockquote>
-<p>Noise/Pulse</p>
-</blockquote>
-<p>: <code>Oscillator-&gt;Noise/Pulse</code> への変調量。</p>
+<dl>
+<dt>&gt; Jitter</dt>
+<dd>
+<p><code>Oscillator-&gt;Jitter</code> への変調量です。</p>
+</dd>
+<dt>&gt; Noise/Pulse</dt>
+<dd>
+<p><code>Oscillator-&gt;Noise/Pulse</code> への変調量です。</p>
+</dd>
+</dl>
 <h2 id="チェンジログ">チェンジログ</h2>
+<h3 id="clangsynth-3">ClangSynth</h3>
 <ul>
 <li>0.0.1
 <ul>
 <li>β リリース。</li>
 </ul></li>
 </ul>
+<h3 id="clangcymbal-2">ClangCymbal</h3>
+<ul>
+<li>0.0.2
+<ul>
+<li>Bitwig と Live 11
+で初期化に失敗するバグを修正。修正前はサンプリング周波数が変更されたときに
+<code>kNotInitialized</code> が誤って返されていた。</li>
+</ul></li>
+<li>0.0.1
+<ul>
+<li>β リリース。</li>
+</ul></li>
+</ul>
 <h2 id="旧バージョン">旧バージョン</h2>
-<h3 id="clangsynth-3">ClangSynth</h3>
+<h3 id="clangsynth-4">ClangSynth</h3>
 <p>旧バージョンはありません。</p>
+<h3 id="clangcymbal-3">ClangCymbal</h3>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/ClangCymbal_0.0.1.zip">ClangCymbal
+0.0.1 - VST 3 (github.com)</a></li>
+</ul>
 <h2 id="ライセンス">ライセンス</h2>
 <p>ClangSynth のライセンスは GPLv3 です。 GPLv3
 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>

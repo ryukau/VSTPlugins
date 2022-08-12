@@ -19,14 +19,23 @@
     }
   },
   "ClangCymbal": {
-    "latest_version": "0.0.1",
+    "latest_version": "0.0.2",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.42.0/ClangCymbal_0.0.2.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/ClangCymbal_0.0.1.zip"
       ],
       "preset_url": ""
     },
     "changelog": {
+      "0.0.2": {
+        "en": [
+          "Fix initialization failure on Bitwig and Live 11. Previously, `kNotInitialized` was incorrectly returned when sampling rate is changed."
+        ],
+        "ja": [
+          "Bitwig と Live 11 で初期化に失敗するバグを修正。修正前はサンプリング周波数が変更されたときに `kNotInitialized` が誤って返されていた。"
+        ]
+      },
       "0.0.1": {
         "en": [
           "β release."

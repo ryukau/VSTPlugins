@@ -668,7 +668,16 @@ LP/HP Q Offset
 :   `Oscillator->Noise/Pulse` への変調量です。
 
 ## チェンジログ
+### ClangSynth
 {%- for version, logs in changelog["ClangSynth"].items() %}
+- {{version}}
+  {%- for log in logs["ja"] %}
+  - {{ log }}
+  {%- endfor %}
+{%- endfor %}
+
+### ClangCymbal
+{%- for version, logs in changelog["ClangCymbal"].items() %}
 - {{version}}
   {%- for log in logs["ja"] %}
   - {{ log }}
@@ -682,6 +691,15 @@ LP/HP Q Offset
 {%- else %}
   {%- for x in old_download_link["ClangSynth"] %}
 - [ClangSynth {{ x["version"] }} - VST 3 (github.com)]({{ x["url"] }})
+  {%- endfor %}
+{%- endif %}
+
+### ClangCymbal
+{%- if old_download_link["ClangCymbal"]|length == 0 %}
+旧バージョンはありません。
+{%- else %}
+  {%- for x in old_download_link["ClangCymbal"] %}
+- [ClangCymbal {{ x["version"] }} - VST 3 (github.com)]({{ x["url"] }})
   {%- endfor %}
 {%- endif %}
 
