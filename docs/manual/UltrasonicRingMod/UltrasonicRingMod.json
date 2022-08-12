@@ -1,0 +1,35 @@
+{
+  "UltrasonicRingMod": {
+    "latest_version": "0.0.2",
+    "urls": {
+      "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.43.0/UltrasonicRingMod_0.0.2.zip"
+      ],
+      "preset_url": ""
+    },
+    "changelog": {
+      "0.0.2": {
+        "en": [
+          "Added gains to hard clipping and to output.",
+          "Added parameter smoothing time, as a parameter.",
+          "Changed modulator amplitude clipping algorithm to floating point number modulo.",
+          "Changed center note number to note offset from C4."
+        ],
+        "ja": [
+          "ハードクリッピングと出力のゲインを追加。",
+          "パラメータ平滑化時間をパラメータとして追加。",
+          "変調波の振幅のクリッピングを浮動小数点数のモジュロに変更。",
+          "ノートの転調を行うパラメータの表現を C4 からのオフセットに変更。"
+        ]
+      },
+      "0.0.1": {
+        "en": [
+          "Initial release. Not distributed."
+        ],
+        "ja": [
+          "初期リリース。未配布。"
+        ]
+      }
+    }
+  }
+}

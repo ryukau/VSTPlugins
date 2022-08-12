@@ -93,6 +93,22 @@ All the plugin download link can be found at release page on following link.
 <div class="pluginlist"><a href="#sevendelay">
 <ruby>SevenDelay<rt>セブン ディレイ</rt></ruby>
 </a></div>
+<div class="pluginlist"><a href="#ultrasonicringmod">
+<ruby>UltrasonicRingMod<rt>ウルトラソニック リング モッド</rt></ruby>
+</a></div>
+
+## UltrasonicRingMod
+<figure>
+<img src="manual/UltrasonicRingMod/img/UltrasonicRingMod.png" alt="Image of UltrasonicRingMod graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+
+UltrasonicRingMod は 64 倍のオーバーサンプリングを行うリングモジュレータで、最高 1 MHz のサイン波による変調をかけることができます。とは言っても単に変調すると可聴域外なので何も聞こえなくなってしまいますが、フィードバックによる位相変調やハードクリッピングができるので、いくらかノイズが出せます。
+
+- [UltrasonicRingMod のマニュアル (日本語)](manual/UltrasonicRingMod/UltrasonicRingMod_ja.html)
+
+UltrasonicRingMod is a ring modulator with 64-fold oversampling. Maximum modulator frequency is 1 MHz. That said, just modulating with ultrasonic frequency doesn't produce anything audible. Therefore, phase modulation and hard clipping are added to make some noise in audible frequency.
+
+- [UltrasonicRingMod Manual (English)](manual/UltrasonicRingMod/UltrasonicRingMod_en.html)
 
 ## ClangSynth
 <figure>

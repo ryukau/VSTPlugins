@@ -38,6 +38,8 @@ exclude:
 - manual/SyncSawSynth/SyncSawSynth_ja.md
 - manual/TrapezoidSynth/TrapezoidSynth_en.md
 - manual/TrapezoidSynth/TrapezoidSynth_ja.md
+- manual/UltrasonicRingMod/UltrasonicRingMod_en.md
+- manual/UltrasonicRingMod/UltrasonicRingMod_ja.md
 - manual/WaveCymbal/WaveCymbal_en.md
 - manual/WaveCymbal/WaveCymbal_ja.md
 - manual/common/contact_installation_guiconfig_en.md
