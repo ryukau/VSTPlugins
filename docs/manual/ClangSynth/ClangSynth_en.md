@@ -3,7 +3,7 @@ lang: en
 ...
 
 # ClangSynth
-![](img/clangsynth.png)
+![](img/ClangSynth.png)
 
 ClangSynth is a synthesizer suitable for percussion sounds. Each voice equips an 8 * 8 feedback delay network (FDN) as a resonator. Oscillator is static wavetalble with controls specialized to make pulse train.
 
@@ -67,7 +67,7 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 Diagram only shows overview. It's not exact implementation.
 
 ### ClangSynth
-![](img/clangsynth.svg)
+![](img/ClangSynth.svg)
 
 ### ClangCymbal
 ![](img/clangcymbal.svg)

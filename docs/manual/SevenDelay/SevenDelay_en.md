@@ -3,7 +3,7 @@ lang: en
 ...
 
 # SevenDelay
-![](img/sevendelay.png)
+![](img/SevenDelay.png)
 
 SevenDelay is a stereo delay with 7th order lagrange interpolated fractional delay and 7x oversampling.
 
@@ -41,7 +41,7 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/sevendelay.svg)
+![](img/SevenDelay.svg)
 
 ## Parameters
 ### Delay

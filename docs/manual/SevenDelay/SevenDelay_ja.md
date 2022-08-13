@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # SevenDelay
-![](img/sevendelay.png)
+![](img/SevenDelay.png)
 
 <ruby>SevenDelay<rt>セブン ディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。
 
@@ -41,7 +41,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
-![](img/sevendelay.svg)
+![](img/SevenDelay.svg)
 
 ## パラメータ
 ### Delay

@@ -3,7 +3,7 @@ lang: en
 ...
 
 # IterativeSinCluster
-![](img/iterativesincluster.png)
+![](img/IterativeSinCluster.png)
 
 IterativeSinCluster is an additive synthesizer. This synth computes 512 sine waves for each note to make tone cluster. I somehow thought "iterative sin" is a valid term. Correct term is "recursive sine".
 
@@ -41,7 +41,7 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/iterativesincluster.svg)
+![](img/IterativeSinCluster.svg)
 
 ## Parameters
 ### Gain

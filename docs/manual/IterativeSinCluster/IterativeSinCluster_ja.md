@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # IterativeSinCluster
-![](img/iterativesincluster.png)
+![](img/IterativeSinCluster.png)
 
 <ruby>IterativeSinCluster<rt>イテレイティブ サイン クラスタ</rt></ruby>はノート 1 つあたり 512 のサイン波を計算する加算合成シンセサイザです。一体、何を考えていたのか iterative sin という言葉を名前に使っていますが、アルゴリズムの種類を表す正しい言葉は recursive sine です。
 
@@ -43,7 +43,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
-![](img/iterativesincluster.svg)
+![](img/IterativeSinCluster.svg)
 
 ## パラメータ
 ### Gain

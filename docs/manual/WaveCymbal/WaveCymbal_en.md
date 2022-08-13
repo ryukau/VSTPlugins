@@ -3,7 +3,7 @@ lang: en
 ...
 
 # WaveCymbal
-![](img/wavecymbal.png)
+![](img/WaveCymbal.png)
 
 WaveCymbal is an attempt to make a cymbal synthesizer with banded wave-guide model. The result is more like dragging bunch of empty cans or thin metal plate on asphalt rather than cymbal.
 
@@ -39,7 +39,7 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/wavecymbal.svg)
+![](img/WaveCymbal.svg)
 
 ## Parameters
 ### Gain

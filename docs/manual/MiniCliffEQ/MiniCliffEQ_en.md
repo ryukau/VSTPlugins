@@ -3,7 +3,7 @@ lang: en
 ...
 
 # MiniCliffEQ
-![](img/minicliffeq.png)
+![](img/MiniCliffEQ.png)
 
 MiniCliffEQ is a linear phase FIR filter with 2^15 = 32768 taps. Latency is improved from initial version, however it still exceeds 0.34 seconds in 48000 Hz sampling rate. The primary purpose is to suppress direct current. It can also be used as very sharp low-pass, high-pass, low-shelf, and high-shelf filter.
 

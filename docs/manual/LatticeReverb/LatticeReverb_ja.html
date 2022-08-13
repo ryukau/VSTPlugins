@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-08-08" />
+<meta name="dcterms.date" content="2022-08-13" />
 <title>LatticeReverb_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-08-08
+  Update: 2022-08-13
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -320,7 +320,7 @@ footer {
   </details>
   </header>
 <h1 id="latticereverb">LatticeReverb</h1>
-<p><img src="img/latticereverb.png" /></p>
+<p><img src="img/LatticeReverb.png" /></p>
 <p><ruby>LatticeReverb<rt>ラティス リバーブ</rt></ruby>
 はディレイを使った高次のオールパスフィルタを格子状につないで入れ子にしたリバーブです。
 1 チャンネルあたり 16 のオールパスフィルタを備えています。</p>
@@ -754,7 +754,7 @@ issue を開いてください。</p>
 <kbd>マウスホイール</kbd>
 や、右クリックから「画像だけを表示」などで拡大できます。</p>
 <p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
-<p><img src="img/latticereverb.svg" /></p>
+<p><img src="img/LatticeReverb.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
 <p><code>Base</code> は左右のチャンネルで両方で使われる値です。
 <code>Base</code> によってリバーブの大まかな質感が決まります。</p>
@@ -829,17 +829,17 @@ right = mid - Spread * (mid + side)</code></pre>
 </dd>
 </dl>
 <h3 id="base">Base</h3>
-<p><img src="img/latticereverb.png" /></p>
+<p><img src="img/LatticeReverb.png" /></p>
 <p><code>Time</code> 、 <code>OuterFeed</code> 、 <code>InnerFeed</code>
 の左右のチャンネルで共通する値を設定するタブです。</p>
 <p>リバーブの大まかなキャラクタは Base タブの設定で決まります。</p>
 <h3 id="offset">Offset</h3>
-<p><img src="img/latticereverb_offset_tab.png" /></p>
+<p><img src="img/LatticeReverb_offset_tab.png" /></p>
 <p><code>Time</code> 、 <code>OuterFeed</code> 、 <code>InnerFeed</code>
 の左右のチャンネル間での差を設定するタブです。</p>
 <p>Offset タブの値を変えると左右の広がりが出ます。</p>
 <h3 id="modulation">Modulation</h3>
-<p><img src="img/latticereverb_modulation_tab.png" /></p>
+<p><img src="img/LatticeReverb_modulation_tab.png" /></p>
 <dl>
 <dt>Time LFO</dt>
 <dd>

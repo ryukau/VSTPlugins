@@ -3,7 +3,7 @@ lang: en
 ...
 
 # CollidingCombSynth
-![](img/collidingcombsynth.png)
+![](img/CollidingCombSynth.png)
 
 CollidingCombSynth is an experimental synthesizer which sounds like bowed string. Equipped with 24 Karplus-Strong string models which collide to each other. Tuning of pitch is possible, but difficult. So mostly suitable for sound effects.
 
@@ -41,7 +41,7 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/collidingcombsynth.svg)
+![](img/CollidingCombSynth.svg)
 
 ## Parameters
 ### Gain

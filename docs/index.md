@@ -112,7 +112,7 @@ UltrasonicRingMod is a ring modulator with 64-fold oversampling. Maximum modulat
 
 ## ClangSynth
 <figure>
-<img src="manual/ClangSynth/img/clangsynth.png" alt="Image of ClangSynth graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/ClangSynth/img/ClangSynth.png" alt="Image of ClangSynth graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 ClangSynth は金属的なパーカッションの音が得意なシンセサイザです。金属的な質感はフィードバック・ディレイ・ネットワーク (FDN) を用いたディレイ間のクロスフィードバックによるものです。 WaveCymbal や FDNCymbal よりはシンバルに似た音が出ます。 FDN をより大きくしてシンバルの合成に特化した ClangCymbal もあります。
@@ -125,7 +125,7 @@ ClangSynth is a synthesizer suitable for percussion sounds. Each voice equips an
 
 ## MiniCliffEQ
 <figure>
-<img src="manual/MiniCliffEQ/img/minicliffeq.png" alt="Image of MiniCliffEQ graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/MiniCliffEQ/img/MiniCliffEQ.png" alt="Image of MiniCliffEQ graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 MiniCliffEQ はタップ数 2^15 = 32768 の FIR フィルタです。初期バージョンからは改善しましたが、それでもタップ数が多いのでレイテンシがサンプリング周波数 48000 Hz のときに 0.34 秒を超えます。主な用途は直流信号 (DC) の抑制ですが、とても急峻なローパス、ハイパス、ローシェルフ、ハイシェルフフィルタとしても使えます。
@@ -138,7 +138,7 @@ MiniCliffEQ is a linear phase FIR filter with 2^15 = 32768 taps. Latency is impr
 
 ## PitchShiftDelay
 <figure>
-<img src="manual/PitchShiftDelay/img/pitchshiftdelay.png" alt="Image of PitchShiftDelay graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/PitchShiftDelay/img/PitchShiftDelay.png" alt="Image of PitchShiftDelay graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 PitchShiftDelay はディレイを使った時間領域ピッチシフタです。 16 倍のオーバーサンプリングによってピッチシフタ特有の癖を多少抑えています。また内部のバッファ長をリアルタイムで変更できます。フォルマント補正がないので、声に使うとヘリウムを吸ったときのような音になります。
@@ -151,7 +151,7 @@ PitchShiftDelay is a time domain pitch shifter based on usual delay. The quirk o
 
 ## ParallelComb
 <figure>
-<img src="manual/ParallelComb/img/parallelcomb.png" alt="Image of ParallelComb graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/ParallelComb/img/ParallelComb.png" alt="Image of ParallelComb graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 ParallelComb は 1 つバッファの異なる 4 つの時点をフィードバックするコムフィルタです。フィードバック経路にリミッタが挟んであるので、それなりにクリーンな音が出ます。フィードバックの振幅でディレイ時間を変調することで、変な歪みを出すこともできます。
@@ -164,7 +164,7 @@ ParallelComb is a comb filter which has 4 different delay time and 1 shared buff
 
 ## FDN64Reverb
 <figure>
-<img src="manual/FDN64Reverb/img/fdn64reverb.png" alt="Image of FDN64Reverb graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/FDN64Reverb/img/FDN64Reverb.png" alt="Image of FDN64Reverb graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 FDN64Reverb はフィードバック・ディレイ・ネットワーク (FDN) を 1 つだけ搭載したリバーブです。しかしながら、フィードバック行列の大きさは 64 です。
@@ -177,7 +177,7 @@ FDN64Reverb is a reverb equipped with a feedback delay network (FDN). However, t
 
 ## BasicLimiter
 <figure>
-<img src="manual/BasicLimiter/img/basiclimiter.png" alt="Image of BasicLimiter graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/BasicLimiter/img/BasicLimiter.png" alt="Image of BasicLimiter graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 BasicLimiter は名前の通りベーシックなシングルバンドリミッタです。目新しい音は出ませんが、トゥルーピークモードはやや贅沢に設計しています。
@@ -190,7 +190,7 @@ BasicLimiter is a basic single band limiter. The sound is nothing new, but the d
 
 ## CollidingCombSynth
 <figure>
-<img src="manual/CollidingCombSynth/img/collidingcombsynth.png" alt="Image of CollidingCombSynth graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/CollidingCombSynth/img/CollidingCombSynth.png" alt="Image of CollidingCombSynth graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 CollidingCombSynth は Karplus-Strong アルゴリズムによる弦の物理モデルをぶつけることで、弦を擦ったときのような音が出る実験的なシンセサイザです。音程はでますがチューニングが難しいので、どちらかと言うと効果音に向いています。
@@ -203,7 +203,7 @@ CollidingCombSynth is an experimental synthesizer which sounds like bowed string
 
 ## L4Reverb
 <figure>
-<img src="manual/L4Reverb/img/l4reverb.png" alt="Image of L4Reverb graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/L4Reverb/img/L4Reverb.png" alt="Image of L4Reverb graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 L4Reverb は LatticeReverb の拡張版です。今回の格子構造はチャンネル毎に 4 * 4 * 4 * 4 = 256 のセクションが設けてあります。
@@ -216,7 +216,7 @@ L4Reverb is an extended version of LatticeReverb. This time, lattice structure h
 
 ## LatticeReverb
 <figure>
-<img src="manual/LatticeReverb/img/latticereverb.png" alt="Image of LatticeReverb graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/LatticeReverb/img/LatticeReverb.png" alt="Image of LatticeReverb graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 LatticeReverb はディレイを使った高次のオールパスフィルタを格子状につないで入れ子にしたリバーブです。 1 チャンネルあたり 16 のオールパスフィルタを備えています。
@@ -229,7 +229,7 @@ LatticeReverb is a reverb using lattice structure. Equipped with 16 delays per c
 
 ## LightPadSynth
 <figure>
-<img src="manual/LightPadSynth/img/lightpadsynth.png" alt="Image of LightPadSynth graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/LightPadSynth/img/LightPadSynth.png" alt="Image of LightPadSynth graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 LightPadSynth はピッチ変調を無くして補間を線形補完に変えた CubicPadSynth の軽量版です。ピッチ変調ができなくなった代わりに、各ボイスにディレイを追加しています。
@@ -242,7 +242,7 @@ LightPadSynth is a lightweight version of CubicPadSynth. For efficiency, interpo
 
 ## CubicPadSynth
 <figure>
-<img src="manual/CubicPadSynth/img/cubicpadsynth.png" alt="Image of CubicPadSynth graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/CubicPadSynth/img/CubicPadSynth.png" alt="Image of CubicPadSynth graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 CubicPadSynth は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています。
@@ -255,7 +255,7 @@ CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to genera
 
 ## EsPhaser
 <figure>
-<img src="manual/EsPhaser/img/esphaser.png" alt="Image of EsPhaser graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/EsPhaser/img/EsPhaser.png" alt="Image of EsPhaser graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 EsPhaser は最大 4096 の 2 次 Thiran オールパスフィルタを直列につなぐことができるフェイザです。 EnvelopedSine のフェイザと同じアルゴリズムを使っています。
@@ -268,7 +268,7 @@ EsPhaser is a phaser with up to 4096 stages of order 2 Thiran all-pass filters. 
 
 ## EnvelopedSine
 <figure>
-<img src="manual/EnvelopedSine/img/envelopedsine.png" alt="Image of EnvelopedSine graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/EnvelopedSine/img/EnvelopedSine.png" alt="Image of EnvelopedSine graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 EnvelopedSineはノート 1 つあたり 64 のサイン波を計算する加算合成シンセサイザです。各サイン波に AD エンベロープとサチュレータがついているので IterativeSinCluster よりもパーカッシブな音が得意です。
@@ -281,7 +281,7 @@ EnvelopedSine is an additive synthesizer that computes 64 sine waves for each no
 
 ## IterativeSinCluster
 <figure>
-<img src="manual/IterativeSinCluster/img/iterativesincluster.png" alt="Image of IterativeSinCluster graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/IterativeSinCluster/img/IterativeSinCluster.png" alt="Image of IterativeSinCluster graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 IterativeSinCluster はノート 1 つあたりで 512 のサイン波を計算する加算合成シンセサイザです。このページで配布しているバイナリを利用するには AVX2 をサポートしている CPU が必要です。
@@ -294,7 +294,7 @@ IterativeSinCluster is an additive synthesizer. This synth computes 512 sine wav
 
 ## TrapezoidSynth
 <figure>
-<img src="manual/TrapezoidSynth/img/trapezoidsynth.png" alt="Image of TrapezoidSynth graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/TrapezoidSynth/img/TrapezoidSynth.png" alt="Image of TrapezoidSynth graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 TrapezoidSynth は 4 つの PTR ランプ関数を継ぎ接ぎした台形オシレータを使ったモノフォニックシンセサイザです。継ぎ接ぎしたのが仇をなしてピッチが高くなるとノイズが乗る欠点があったので8倍にオーバーサンプリングしました。結果としてやたら重たくなっています。
@@ -307,7 +307,7 @@ TrapezoidSynth is a monophonic synthesizer equipped with trapezoid oscillator wh
 
 ## FDNCymbal
 <figure>
-<img src="manual/FDNCymbal/img/fdncymbal.png" alt="Image of FDNCymbal graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/FDNCymbal/img/FDNCymbal.png" alt="Image of FDNCymbal graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 FDNCymbal は WaveCymbal に続いてシンバルのような音を作ろうとしたプラグインです。今回は FDN (Feedback Delay Network) と Schroeder allpass を使っています。名前とは裏腹に、金属的な質感はほとんど Schroeder allpass によって加えられています。シンバルの揺れをシミュレートするためにトレモロもついています。
@@ -320,7 +320,7 @@ FDNCymbal is another attempt to make cymbal sound. This time FDN (Feedback Delay
 
 ## WaveCymbal
 <figure>
-<img src="manual/WaveCymbal/img/wavecymbal.png" alt="Image of WaveCymbal graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/WaveCymbal/img/WaveCymbal.png" alt="Image of WaveCymbal graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 WaveCymbal は banded wave-guide という物理モデリングの手法でシンバルの音を作ろうとしたプラグインです。シンバルというよりも、薄い金属板をアスファルトの上で引きずったときのような音が出ます。シンセサイザ、エフェクトのどちらとしても使えます。
@@ -333,7 +333,7 @@ WaveCymbal is an attempt to make cymbal sound with banded wave-guide which is a 
 
 ## SyncSawSynth
 <figure>
-<img src="manual/SyncSawSynth/img/syncsawsynth.png" alt="Image of SyncSawSynth graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/SyncSawSynth/img/SyncSawSynth.png" alt="Image of SyncSawSynth graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 SyncSawSynthは10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。
@@ -346,7 +346,7 @@ SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR saw
 
 ## SevenDelay
 <figure>
-<img src="manual/SevenDelay/img/sevendelay.png" alt="Image of SevenDelay graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/SevenDelay/img/SevenDelay.png" alt="Image of SevenDelay graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
 SevenDelayはステレオディレイです。分数ディレイに7次のラグランジュ補間を使って7倍のオーバーサンプリングをしています。オートメーションなどでディレイ時間を積極的に動かして音を作る用途に向いています。

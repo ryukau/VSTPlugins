@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # TrapezoidSynth
-![](img/trapezoidsynth.png)
+![](img/TrapezoidSynth.png)
 
 <ruby>TrapezoidSynth<rt>トラピゾイド シンセ</rt></ruby> は台形オシレータを使ったモノフォニックシンセサイザです。台形オシレータは PTR (Polynomial Transition Regions) という手法に基づいて作ったのですが、ピッチが高くなると逆にノイズが増える欠点があるので 8 倍のオーバーサンプリングをしています。コードを作るために 2 つの AM ピッチシフタを搭載しています。
 
@@ -39,7 +39,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
-![](img/trapezoidsynth.svg)
+![](img/TrapezoidSynth.svg)
 
 ## パラメータ
 ### Oscillator 共通

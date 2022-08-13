@@ -3,7 +3,7 @@ lang: en
 ...
 
 # BasicLimiter
-![](img/basiclimiter.png)
+![](img/BasicLimiter.png)
 
 BasicLimiter is a basic single band limiter. The sound is nothing new, but the design of true peak mode is a bit luxurious.
 
@@ -50,7 +50,7 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/basiclimiter.svg)
+![](img/BasicLimiter.svg)
 
 ## Parameters
 Threshold \[dB\]

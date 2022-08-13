@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # FDNCymbal
-![](img/fdncymbal.png)
+![](img/FDNCymbal.png)
 
 <ruby>FDNCymbal<rt>エフディーエヌ シンバル</rt></ruby> はシンバルのような音を合成するシンセサイザです。エフェクトとして使うこともできます。名前とは裏腹に金属的な質感は FDN (feedback delay network) ではなく Schroeder allpass section によって得られています。 `FDN.Time` の値を小さくすることで、わりとナイスなばちの衝突音が合成できます。シンバルの揺れをシミュレートするためにトレモロもついています。
 
@@ -48,7 +48,7 @@ FDNCymbal はエフェクトとして使うこともできますが、直感的�
 
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
-![](img/fdncymbal.svg)
+![](img/FDNCymbal.svg)
 
 ## パラメータ
 ### Gain

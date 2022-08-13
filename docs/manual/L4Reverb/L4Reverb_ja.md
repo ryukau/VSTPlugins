@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # L4Reverb
-![](img/l4reverb.png)
+![](img/L4Reverb.png)
 
 <ruby>L4Reverb<rt>エル フォー リバーブ</rt></ruby> は LatticeReverb の拡張版です。今回の格子構造はチャンネル毎に 4 * 4 * 4 * 4 = 256 のセクションが設けてあります。
 
@@ -62,7 +62,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
-![](img/l4reverb.svg)
+![](img/L4Reverb.svg)
 
 ## パラメータ
 

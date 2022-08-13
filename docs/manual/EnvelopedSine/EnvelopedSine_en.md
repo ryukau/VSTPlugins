@@ -3,7 +3,7 @@ lang: en
 ...
 
 # EnvelopedSine
-![](img/envelopedsine.png)
+![](img/EnvelopedSine.png)
 
 EnvelopedSine is an additive synthesizer that computes 64 sine waves for each note. Difference to IterativeSinCluster is that this synth has AD envelope and saturator for each oscillator. EnvelopedSine is better suited for percussive sounds.
 
@@ -41,7 +41,7 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/envelopedsine.svg)
+![](img/EnvelopedSine.svg)
 
 ## Parameters
 ### Overtone
@@ -85,13 +85,13 @@ Expand
 
 :   Scaling factor for overtone controls.
 
-    ![](img/envelopedsine_expand.svg)
+    ![](img/EnvelopedSine_expand.svg)
 
 Shift
 
 :   Amount of right shift to overtone controls.
 
-    ![](img/envelopedsine_shift.svg)
+    ![](img/EnvelopedSine_shift.svg)
 
 ### Random
 Randomize parameters. These are more effective when used with `Unison`.

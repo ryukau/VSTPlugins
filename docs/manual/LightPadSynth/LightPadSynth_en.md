@@ -3,7 +3,7 @@ lang: en
 ...
 
 # LightPadSynth
-![](img/lightpadsynth.png)
+![](img/LightPadSynth.png)
 
 LightPadSynth is a lightweight version of CubicPadSynth. For efficiency, interpolation is changed to linear. Also pitch modulation is omitted. Instead, a delay is added for each voice.
 
@@ -46,11 +46,11 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/lightpadsynth.svg)
+![](img/LightPadSynth.svg)
 
 ## Parameters
 ### Main Tab
-![](img/lightpadsynth.png)
+![](img/LightPadSynth.png)
 
 #### Gain
 A, D, S, R
@@ -256,7 +256,7 @@ LFO Wave
 :   LFO waveform.
 
 ### Wavetable Tab
-![](img/lightpadsynth_wavetable_tab.png)
+![](img/LightPadSynth_wavetable_tab.png)
 
 #### Overtone Controls
 Gain

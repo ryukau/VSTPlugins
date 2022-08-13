@@ -3,7 +3,7 @@ lang: en
 ...
 
 # ParallelComb
-![](img/parallelcomb.png)
+![](img/ParallelComb.png)
 
 ParallelComb is a comb filter which has 4 different delay time and 1 shared buffer. A limiter is inserted on feedback path to make the output somewhat clean. Weird distorsion can be added by modulating delay time using feedback signal amplitude.
 
@@ -43,7 +43,7 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/parallelcomb.svg)
+![](img/ParallelComb.svg)
 
 ## Parameters
 ### Delay

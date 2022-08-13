@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # LatticeReverb
-![](img/latticereverb.png)
+![](img/LatticeReverb.png)
 
 <ruby>LatticeReverb<rt>ラティス リバーブ</rt></ruby> はディレイを使った高次のオールパスフィルタを格子状につないで入れ子にしたリバーブです。 1 チャンネルあたり 16 のオールパスフィルタを備えています。
 
@@ -47,7 +47,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
-![](img/latticereverb.svg)
+![](img/LatticeReverb.svg)
 
 ## パラメータ
 `Base` は左右のチャンネルで両方で使われる値です。 `Base` によってリバーブの大まかな質感が決まります。
@@ -121,21 +121,21 @@ Smooth
 :   パラメータを変更したときに、変更前の値から変更後の値へと移行する大まかな秒数です。
 
 ### Base
-![](img/latticereverb.png)
+![](img/LatticeReverb.png)
 
 `Time` 、 `OuterFeed` 、 `InnerFeed` の左右のチャンネルで共通する値を設定するタブです。
 
 リバーブの大まかなキャラクタは Base タブの設定で決まります。
 
 ### Offset
-![](img/latticereverb_offset_tab.png)
+![](img/LatticeReverb_offset_tab.png)
 
 `Time` 、 `OuterFeed` 、 `InnerFeed` の左右のチャンネル間での差を設定するタブです。
 
 Offset タブの値を変えると左右の広がりが出ます。
 
 ### Modulation
-![](img/latticereverb_modulation_tab.png)
+![](img/LatticeReverb_modulation_tab.png)
 
 Time LFO
 

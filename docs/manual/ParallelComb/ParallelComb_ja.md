@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # ParallelComb
-![](img/parallelcomb.png)
+![](img/ParallelComb.png)
 
 <ruby>ParallelComb<rt>パラレル コム</rt></ruby> は 1 つバッファの異なる 4 つの時点をフィードバックするコムフィルタです。フィードバック経路にリミッタが挟んであるので、それなりにクリーンな音が出ます。フィードバックの振幅でディレイ時間を変調することで、変な歪みを出すこともできます。
 
@@ -43,7 +43,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
-![](img/parallelcomb.svg)
+![](img/ParallelComb.svg)
 
 ## パラメータ
 ### Delay

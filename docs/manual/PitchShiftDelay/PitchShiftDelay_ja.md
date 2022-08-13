@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # PitchShiftDelay
-![](img/pitchshiftdelay.png)
+![](img/PitchShiftDelay.png)
 
 <ruby>PitchShiftDelay<rt>ピッチ シフト ディレイ</rt></ruby> はディレイを使った時間領域ピッチシフタです。 16 倍のオーバーサンプリングによってピッチシフタ特有の癖を多少抑えています。また内部のバッファ長をリアルタイムで変更できます。フォルマント補正がないので、声に使うとヘリウムを吸ったときのような音になります。
 
@@ -38,7 +38,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
-![](img/pitchshiftdelay.svg)
+![](img/PitchShiftDelay.svg)
 
 ## パラメータ
 ### Delay

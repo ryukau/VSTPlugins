@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # EsPhaser
-![](img/esphaser.png)
+![](img/EsPhaser.png)
 
 <ruby>EsPhaser<rt>エス フェイザ</rt></ruby> は最大 4096 の 2 次 Thiran オールパスフィルタを直列につなぐことができるフェイザです。 EnvelopedSine のフェイザと同じアルゴリズムを使っています。
 
@@ -46,7 +46,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
-![](img/esphaser.svg)
+![](img/EsPhaser.svg)
 
 ## パラメータ
 Mix

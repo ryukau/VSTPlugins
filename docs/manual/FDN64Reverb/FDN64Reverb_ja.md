@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # FDN64Reverb
-![](img/fdn64reverb.png)
+![](img/FDN64Reverb.png)
 
 <ruby>FDN64Reverb<rt>エフディーエヌ 64 リバーブ</rt></ruby> はフィードバック・ディレイ・ネットワーク (FDN) を 1 つだけ搭載したリバーブです。しかしながら、フィードバック行列の大きさは 64 です。
 
@@ -41,7 +41,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
-![](img/fdn64reverb.svg)
+![](img/FDN64Reverb.svg)
 
 ## パラメータ
 Delay Time \[s\]

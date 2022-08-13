@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # UltrasonicRingMod
-![](img/ultrasonicringmod.png)
+![](img/UltrasonicRingMod.png)
 
 <ruby>UltrasonicRingMod<rt>ウルトラソニック リング モッド</rt></ruby> は 64 倍のオーバーサンプリングを行うリングモジュレータで、最高 1 MHz のサイン波による変調をかけることができます。とは言っても単に変調すると可聴域外なので何も聞こえなくなってしまいますが、フィードバックによる位相変調やハードクリッピングができるので、いくらかノイズが出せます。
 
@@ -39,7 +39,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
-![](img/ultrasonicringmod.svg)
+![](img/UltrasonicRingMod.svg)
 
 ## パラメータ
 Mix

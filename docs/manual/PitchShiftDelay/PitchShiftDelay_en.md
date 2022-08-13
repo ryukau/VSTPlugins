@@ -3,7 +3,7 @@ lang: en
 ...
 
 # PitchShiftDelay
-![](img/pitchshiftdelay.png)
+![](img/PitchShiftDelay.png)
 
 PitchShiftDelay is a time domain pitch shifter based on usual delay. The quirk of pitch shifter is somewhat reduced by 16x oversampling. Also the internal buffer length can be changed in real time. PitchShiftDelay doesn't equipped with formant correction. So applying to voice may sounds strange, like Helium is inhaled.
 
@@ -38,7 +38,7 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/pitchshiftdelay.svg)
+![](img/PitchShiftDelay.svg)
 
 ## Parameters
 ### Delay

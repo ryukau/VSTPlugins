@@ -3,7 +3,7 @@ lang: en
 ...
 
 # TrapezoidSynth
-![](img/trapezoidsynth.png)
+![](img/TrapezoidSynth.png)
 
 TrapezoidSynth is a monophonic synthesizer equipped with 2 trapezoid oscillator. Trapezoid oscillator is based on PTR (Polynomial Transition Regions) and it has a drawback that increasing noise at high frequency. Therefore 8 times oversampled. 2 pitch shifters are added to make some chord.
 
@@ -39,7 +39,7 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/trapezoidsynth.svg)
+![](img/TrapezoidSynth.svg)
 
 ## Parameters
 ### Oscillator Common

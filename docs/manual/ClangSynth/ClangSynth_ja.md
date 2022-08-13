@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # ClangSynth
-![](img/clangsynth.png)
+![](img/ClangSynth.png)
 
 <ruby>ClangSynth<rt>クラング シンセ</rt></ruby> は金属的なパーカッションの音が得意なシンセサイザです。金属的な質感はフィードバック・ディレイ・ネットワーク (FDN) を用いたディレイ間のクロスフィードバックによるものです。 WaveCymbal や FDNCymbal よりはシンバルに似た音が出ます。
 
@@ -67,7 +67,7 @@ FDN のパラメータが短時間に大きく変わると発散することが�
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
 ### ClangSynth
-![](img/clangsynth.svg)
+![](img/ClangSynth.svg)
 
 ### ClangCymbal
 ![](img/clangcymbal.svg)

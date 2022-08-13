@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # WaveCymbal
-![](img/wavecymbal.png)
+![](img/WaveCymbal.png)
 
 <ruby>WaveCymbal<rt>ウェイブ シンバル</rt></ruby> は banded wave-guide という手法を用いてシンバルの音が鳴るはずだったシンセサイザです。実際のところはシンバルというよりも、アスファルトの上でトタン板や紐につないだ空き缶を引きずったときのような音が出ます。
 
@@ -39,7 +39,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
-![](img/wavecymbal.svg)
+![](img/WaveCymbal.svg)
 
 ## パラメータ
 ### Gain

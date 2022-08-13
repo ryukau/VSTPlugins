@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # CubicPadSynth
-![](img/cubicpadsynth.png)
+![](img/CubicPadSynth.png)
 
 <ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby> は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています
 
@@ -76,11 +76,11 @@ CubicPadSynth は [ZynAddSubFX](https://zynaddsubfx.sourceforge.io/) や [Yoshim
 
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
-![](img/cubicpadsynth.svg)
+![](img/CubicPadSynth.svg)
 
 ## パラメータ
 ### Main タブ
-![](img/cubicpadsynth.png)
+![](img/CubicPadSynth.png)
 
 #### Tuning
 Octave, Semi, Milli
@@ -289,7 +289,7 @@ Pool
 :   チェックを入れると、現在の発音数が同時最大発音数に近づいたときに、音量の最も小さいボイスをリリースします。ノートオン時に生じるプチノイズの低減に使えます。
 
 ### Wavetable タブ
-![](img/cubicpadsynth_wavetable_tab.png)
+![](img/CubicPadSynth_wavetable_tab.png)
 
 #### 倍音コントロール
 Gain

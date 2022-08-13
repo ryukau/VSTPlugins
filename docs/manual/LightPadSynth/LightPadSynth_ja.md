@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # LightPadSynth
-![](img/lightpadsynth.png)
+![](img/LightPadSynth.png)
 
 <ruby>LightPadSynth<rt>ライト パッド シンセ</rt></ruby> はピッチ変調を無くして補間を線形補完に変えた CubicPadSynth の軽量版です。ピッチ変調ができなくなった代わりに、各ボイスにディレイを追加しています。
 
@@ -48,11 +48,11 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
-![](img/lightpadsynth.svg)
+![](img/LightPadSynth.svg)
 
 ## パラメータ
 ### Main タブ
-![](img/lightpadsynth.png)
+![](img/LightPadSynth.png)
 
 #### Gain
 A, D, S, R
@@ -260,7 +260,7 @@ LFO Wave
 :   LFO の波形です。
 
 ### Wavetable タブ
-![](img/lightpadsynth_wavetable_tab.png)
+![](img/LightPadSynth_wavetable_tab.png)
 
 #### 倍音コントロール
 Gain

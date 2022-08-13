@@ -3,7 +3,7 @@ lang: en
 ...
 
 # LatticeReverb
-![](img/latticereverb.png)
+![](img/LatticeReverb.png)
 
 LatticeReverb is a reverb using lattice structure. Equipped with 16 delays per channel.
 
@@ -47,7 +47,7 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/latticereverb.svg)
+![](img/LatticeReverb.svg)
 
 ## Parameters
 `Base` is value used in both left and right channel. `Base` value determines the character of reverb.
@@ -121,21 +121,21 @@ Smooth
 :    Transition time to change parameter value to current one. Unit is in second.
 
 ### Base
-![](img/latticereverb.png)
+![](img/LatticeReverb.png)
 
 `Base` tab provides controls for common values used in both channels.
 
 Character of reverb is mostly determined by `Base` values.
 
 ### Offset
-![](img/latticereverb_offset_tab.png)
+![](img/LatticeReverb_offset_tab.png)
 
 `Offset` tab provides controls for ratio of value between left and right channel.
 
 Changing values in `Offset` tab spreads reverb to stereo.
 
 ### Modulation
-![](img/latticereverb_modulation_tab.png)
+![](img/LatticeReverb_modulation_tab.png)
 
 Time LFO
 

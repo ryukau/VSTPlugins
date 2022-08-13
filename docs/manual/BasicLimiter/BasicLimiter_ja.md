@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # BasicLimiter
-![](img/basiclimiter.png)
+![](img/BasicLimiter.png)
 
 <ruby>BasicLimiter<rt>ベーシック リミッタ</rt></ruby> は名前の通りベーシックなシングルバンドリミッタです。目新しい音は出ませんが、トゥルーピークモードはやや贅沢に設計しています。
 
@@ -50,7 +50,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
-![](img/basiclimiter.svg)
+![](img/BasicLimiter.svg)
 
 ## パラメータ
 Threshold \[dB\]

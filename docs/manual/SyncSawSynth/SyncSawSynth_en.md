@@ -3,7 +3,7 @@ lang: en
 ...
 
 # SyncSawSynth
-![](img/syncsawsynth.png)
+![](img/SyncSawSynth.png)
 
 SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR sawtooth oscillator. Just a basic synthesizer but very easy to make a noise similar to low battery sound of some toys.
 
@@ -46,7 +46,7 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/syncsawsynth.svg)
+![](img/SyncSawSynth.svg)
 
 ## Parameters
 ### Osc

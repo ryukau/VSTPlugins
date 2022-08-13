@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # CollidingCombSynth
-![](img/collidingcombsynth.png)
+![](img/CollidingCombSynth.png)
 
 <ruby>CollidingCombSynth<rt>コライディング コム シンセ</rt></ruby> は Karplus-Strong アルゴリズムによる弦の物理モデルをぶつけることで、弦を擦ったときのような音が出る実験的なシンセサイザです。音程はでますがチューニングが難しいので、どちらかと言うと効果音に向いています。
 
@@ -41,7 +41,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
-![](img/collidingcombsynth.svg)
+![](img/CollidingCombSynth.svg)
 
 ## パラメータ
 ### Gain

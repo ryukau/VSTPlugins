@@ -3,7 +3,7 @@ lang: en
 ...
 
 # L4Reverb
-![](img/l4reverb.png)
+![](img/L4Reverb.png)
 
 L4Reverb is an extended version of LatticeReverb. This time, lattice structure has 4 * 4 * 4 * 4 = 256 sections per channel.
 
@@ -62,7 +62,7 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/l4reverb.svg)
+![](img/L4Reverb.svg)
 
 ## Parameters
 

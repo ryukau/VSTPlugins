@@ -3,7 +3,7 @@ lang: en
 ...
 
 # FDN64Reverb
-![](img/fdn64reverb.png)
+![](img/FDN64Reverb.png)
 
 FDN64Reverb is a reverb equipped with a feedback delay network (FDN). However, the size of feedback matrix is 64.
 
@@ -41,7 +41,7 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/fdn64reverb.svg)
+![](img/FDN64Reverb.svg)
 
 ## Parameters
 Delay Time \[s\]

@@ -3,7 +3,7 @@ lang: en
 ...
 
 # EsPhaser
-![](img/esphaser.png)
+![](img/EsPhaser.png)
 
 EsPhaser is a phaser with up to 4096 stages of order 2 Thiran all-pass filters. This is the same phaser used in EnvelopedSine.
 
@@ -46,7 +46,7 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/esphaser.svg)
+![](img/EsPhaser.svg)
 
 ## Parameters
 Stages

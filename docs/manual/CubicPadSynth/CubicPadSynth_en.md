@@ -3,7 +3,7 @@ lang: en
 ...
 
 # CubicPadSynth
-![](img/cubicpadsynth.png)
+![](img/CubicPadSynth.png)
 
 CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to generate oscillator tables. Cubic interpolation is used to get smooth sound even at inaudible low frequency range. LFO waveform can be directly drawn.
 
@@ -76,11 +76,11 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/cubicpadsynth.svg)
+![](img/CubicPadSynth.svg)
 
 ## Parameters
 ### Main Tab
-![](img/cubicpadsynth.png)
+![](img/CubicPadSynth.png)
 
 #### Tuning
 Octave, Semi, Milli
@@ -287,7 +287,7 @@ Pool
 :   When checked, most quiet note is released when the number of active voice is close to maximum polyphony. This can be used to reduce pop noise which occurs on note-on.
 
 ### Wavetable Tab
-![](img/cubicpadsynth_wavetable_tab.png)
+![](img/CubicPadSynth_wavetable_tab.png)
 
 #### Overtone Controls
 Gain

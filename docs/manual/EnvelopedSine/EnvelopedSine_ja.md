@@ -3,7 +3,7 @@ lang: ja
 ...
 
 # EnvelopedSine
-![](img/envelopedsine.png)
+![](img/EnvelopedSine.png)
 
 <ruby>EnvelopedSine<rt>エンベロープド サイン</rt></ruby> はノート 1 つあたり 64 のサイン波を計算する加算合成シンセサイザです。各サイン波に AD エンベロープとサチュレータがついているので IterativeSinCluster よりもパーカッシブな音が得意です。
 
@@ -41,7 +41,7 @@ Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.0
 
 図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。
 
-![](img/envelopedsine.svg)
+![](img/EnvelopedSine.svg)
 
 ## パラメータ
 ### Overtone
@@ -85,13 +85,13 @@ Expand
 
 :   倍音コントロールのインデックスを拡大・縮小するスケーリング係数です。
 
-    ![](img/envelopedsine_expand.svg)
+    ![](img/EnvelopedSine_expand.svg)
 
 Shift
 
 :   倍音コントロールのインデックスを右シフトする量です。
 
-    ![](img/envelopedsine_shift.svg)
+    ![](img/EnvelopedSine_shift.svg)
 
 ### Random
 ランダマイズに関するパラメータです。 `Unison` にチェックを入れた状態で使うと効果的です。

@@ -3,7 +3,7 @@ lang: en
 ...
 
 # UltrasonicRingMod
-![](img/ultrasonicringmod.png)
+![](img/UltrasonicRingMod.png)
 
 UltrasonicRingMod is a ring modulator with 64-fold oversampling. Maximum modulator frequency is 1 MHz. That said, just modulating with ultrasonic frequency doesn't produce anything audible. Therefore, phase modulation and hard clipping are added to make some noise in audible frequency.
 
@@ -39,7 +39,7 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/ultrasonicringmod.svg)
+![](img/UltrasonicRingMod.svg)
 
 ## Parameters
 Mix

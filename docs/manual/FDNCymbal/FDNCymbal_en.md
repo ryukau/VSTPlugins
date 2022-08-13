@@ -3,7 +3,7 @@ lang: en
 ...
 
 # FDNCymbal
-![](img/fdncymbal.png)
+![](img/FDNCymbal.png)
 
 FDNCymbal is a cymbal sound synthesizer. It can also be used as an effect. Unlike the name, most of metallic texture comes from Schroeder allpass section rather than FDN (feedback delay network). FDN section makes nice impact sound when `FDN.Time` is short. Tremolo is added to simulate wobbling of cymbal.
 
@@ -48,7 +48,7 @@ If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Ima
 
 Diagram only shows overview. It's not exact implementation.
 
-![](img/fdncymbal.svg)
+![](img/FDNCymbal.svg)
 
 ## Parameters
 ### Gain
