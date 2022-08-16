@@ -119,7 +119,7 @@ ClangSynth は金属的なパーカッションの音が得意なシンセサイ
 
 - [ClangSynth のマニュアル (日本語)](manual/ClangSynth/ClangSynth_ja.html)
 
-ClangSynth is a synthesizer suitable for percussion sounds. Each voice equips an 8 * 8 feedback delay network (FDN) as a resonator. Oscillator is static wavetalble with controls specialized to make pulse train. For better cymbal sound, ClangCymbal is also available.
+ClangSynth is a synthesizer suitable for percussion sounds. Each voice equips an 8 * 8 feedback delay network (FDN) as a resonator. Oscillator is static wavetable with controls specialized to make pulse train. For better cymbal sound, ClangCymbal is also available.
 
 - [ClangSynth Manual (English)](manual/ClangSynth/ClangSynth_en.html)
 
