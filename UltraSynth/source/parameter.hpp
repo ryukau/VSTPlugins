@@ -42,6 +42,7 @@ enum ID {
   bypass,
 
   outputGain,
+  rectificationMix,
   saturationMix,
   gainAttackSecond,
   gainDecaySecond,
@@ -50,16 +51,18 @@ enum ID {
 
   osc1Octave,
   osc2Octave,
-  osc1Overtone,
-  osc2Overtone,
   osc1FineTuneCent,
   osc2FineTuneCent,
   osc1WaveShape,
   osc2WaveShape,
-  oscMix,
+  osc1SawPulseMix,
+  osc2SawPulseMix,
   phaseModFromLowpassToOsc1,
-  phaseModFromOsc1ToOsc2,
-  phaseModFromOsc2ToOsc1,
+  pmPhase1ToPhase2,
+  pmPhase2ToPhase1,
+  pmOsc1ToPhase2,
+  pmOsc2ToPhase1,
+  oscMix,
 
   lowpassCutoffAttackSecond,
   lowpassCutoffDecaySecond,
@@ -67,7 +70,18 @@ enum ID {
   lowpassQ,
   lowpassCutoffEnvelopeAmount,
   lowpassKeyFollow,
-  lowpassRectification,
+
+  lfoTempoSync,
+  lfoTempoUpper,
+  lfoTempoLower,
+  lfoRate,
+  lfoRetrigger,
+  lfoToPitch,
+  lfoToOscMix,
+  lfoToCutoff,
+  lfoToPreSaturation,
+  lfoToOsc1WaveShape,
+  lfoToOsc2WaveShape,
 
   tuningSemitone,
   tuningCent,
@@ -76,9 +90,8 @@ enum ID {
   pitchBend,
   pitchBendRange,
 
-  noteSlideTimeSecond,
-
   resetPhaseAtNoteOn,
+  noteSlideTimeSecond,
 
   ID_ENUM_LENGTH,
   ID_ENUM_GUI_START = ID_ENUM_LENGTH,
@@ -91,11 +104,11 @@ struct Scales {
   static SomeDSP::LinearScale<double> bipolarScale;
 
   static SomeDSP::DecibelScale<double> outputGain;
+  static SomeDSP::DecibelScale<double> envelopeAttackSecond;
   static SomeDSP::DecibelScale<double> envelopeSecond;
   static SomeDSP::DecibelScale<double> gainSustainAmplitude;
 
   static SomeDSP::UIntScale<double> octave;
-  static SomeDSP::UIntScale<double> overtone;
   static SomeDSP::LinearScale<double> fineTuneCent;
   static SomeDSP::LinearScale<double> waveShape;
   static SomeDSP::DecibelScale<double> phaseMod;
@@ -103,6 +116,10 @@ struct Scales {
   static SomeDSP::DecibelScale<double> lowpassCutoffHz;
   static SomeDSP::DecibelScale<double> lowpassQ;
   static SomeDSP::DecibelScale<double> lowpassCutoffEnvelopeAmount;
+
+  static SomeDSP::UIntScale<double> lfoTempoUpper;
+  static SomeDSP::UIntScale<double> lfoTempoLower;
+  static SomeDSP::DecibelScale<double> lfoRate;
 
   static SomeDSP::UIntScale<double> semitone;
   static SomeDSP::LinearScale<double> cent;
@@ -132,6 +149,8 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::outputGain] = std::make_unique<DecibelValue>(
       Scales::outputGain.invmap(1.0), Scales::outputGain, "outputGain",
       Info::kCanAutomate);
+    value[ID::rectificationMix] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "rectificationMix", Info::kCanAutomate);
     value[ID::saturationMix] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "saturationMix", Info::kCanAutomate);
     value[ID::gainAttackSecond] = std::make_unique<DecibelValue>(
@@ -151,10 +170,6 @@ struct GlobalParameter : public ParameterInterface {
       octaveOffset, Scales::octave, "osc1Octave", Info::kCanAutomate);
     value[ID::osc2Octave] = std::make_unique<UIntValue>(
       octaveOffset, Scales::octave, "osc2Octave", Info::kCanAutomate);
-    value[ID::osc1Overtone] = std::make_unique<UIntValue>(
-      0, Scales::overtone, "osc1Overtone", Info::kCanAutomate);
-    value[ID::osc2Overtone] = std::make_unique<UIntValue>(
-      0, Scales::overtone, "osc2Overtone", Info::kCanAutomate);
     value[ID::osc1FineTuneCent] = std::make_unique<LinearValue>(
       Scales::fineTuneCent.invmap(0.0), Scales::fineTuneCent, "osc1FineTuneCent",
       Info::kCanAutomate);
@@ -162,20 +177,28 @@ struct GlobalParameter : public ParameterInterface {
       Scales::fineTuneCent.invmap(0.0), Scales::fineTuneCent, "osc2FineTuneCent",
       Info::kCanAutomate);
     value[ID::osc1WaveShape] = std::make_unique<LinearValue>(
-      0.0, Scales::waveShape, "osc1WaveShape", Info::kCanAutomate);
+      0.5, Scales::waveShape, "osc1WaveShape", Info::kCanAutomate);
     value[ID::osc2WaveShape] = std::make_unique<LinearValue>(
-      0.0, Scales::waveShape, "osc2WaveShape", Info::kCanAutomate);
-    value[ID::oscMix] = std::make_unique<LinearValue>(
-      0.5, Scales::defaultScale, "oscMix", Info::kCanAutomate);
+      0.5, Scales::waveShape, "osc2WaveShape", Info::kCanAutomate);
+    value[ID::osc1SawPulseMix] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "osc1SawPulseMix", Info::kCanAutomate);
+    value[ID::osc2SawPulseMix] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "osc2SawPulseMix", Info::kCanAutomate);
     value[ID::phaseModFromLowpassToOsc1] = std::make_unique<DecibelValue>(
       0.0, Scales::phaseMod, "phaseModFromLowpassToOsc1", Info::kCanAutomate);
-    value[ID::phaseModFromOsc1ToOsc2] = std::make_unique<DecibelValue>(
-      0.0, Scales::phaseMod, "phaseModFromOsc1ToOsc2", Info::kCanAutomate);
-    value[ID::phaseModFromOsc2ToOsc1] = std::make_unique<DecibelValue>(
-      0.0, Scales::phaseMod, "phaseModFromOsc2ToOsc1", Info::kCanAutomate);
+    value[ID::pmPhase1ToPhase2] = std::make_unique<DecibelValue>(
+      0.0, Scales::phaseMod, "pmPhase1ToPhase2", Info::kCanAutomate);
+    value[ID::pmPhase2ToPhase1] = std::make_unique<DecibelValue>(
+      0.0, Scales::phaseMod, "pmPhase2ToPhase1", Info::kCanAutomate);
+    value[ID::pmOsc1ToPhase2] = std::make_unique<DecibelValue>(
+      0.0, Scales::phaseMod, "pmOsc1ToPhase2", Info::kCanAutomate);
+    value[ID::pmOsc2ToPhase1] = std::make_unique<DecibelValue>(
+      0.0, Scales::phaseMod, "pmOsc2ToPhase1", Info::kCanAutomate);
+    value[ID::oscMix] = std::make_unique<LinearValue>(
+      0.5, Scales::defaultScale, "oscMix", Info::kCanAutomate);
 
     value[ID::lowpassCutoffAttackSecond] = std::make_unique<DecibelValue>(
-      Scales::envelopeSecond.invmap(0.001), Scales::envelopeSecond,
+      Scales::envelopeAttackSecond.invmap(0.0001), Scales::envelopeAttackSecond,
       "lowpassCutoffAttackSecond", Info::kCanAutomate);
     value[ID::lowpassCutoffDecaySecond] = std::make_unique<DecibelValue>(
       Scales::envelopeSecond.invmap(0.1), Scales::envelopeSecond,
@@ -192,8 +215,30 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::lowpassKeyFollow] = std::make_unique<LinearValue>(
       Scales::defaultScale.invmap(1.0), Scales::defaultScale, "lowpassKeyFollow",
       Info::kCanAutomate);
-    value[ID::lowpassRectification] = std::make_unique<LinearValue>(
-      0.0, Scales::defaultScale, "lowpassRectification", Info::kCanAutomate);
+
+    value[ID::lfoTempoSync] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "lfoTempoSync", Info::kCanAutomate);
+    value[ID::lfoTempoUpper] = std::make_unique<UIntValue>(
+      0, Scales::lfoTempoUpper, "lfoTempoUpper", Info::kCanAutomate);
+    value[ID::lfoTempoLower] = std::make_unique<UIntValue>(
+      0, Scales::lfoTempoLower, "lfoTempoLower", Info::kCanAutomate);
+    value[ID::lfoRate] = std::make_unique<DecibelValue>(
+      Scales::lfoRate.invmap(1.0), Scales::lfoRate, "lfoRate", Info::kCanAutomate);
+    value[ID::lfoRetrigger] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "lfoRetrigger", Info::kCanAutomate);
+
+    value[ID::lfoToPitch] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "lfoToPitch", Info::kCanAutomate);
+    value[ID::lfoToOscMix] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "lfoToOscMix", Info::kCanAutomate);
+    value[ID::lfoToCutoff] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "lfoToCutoff", Info::kCanAutomate);
+    value[ID::lfoToPreSaturation] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "lfoToPreSaturation", Info::kCanAutomate);
+    value[ID::lfoToOsc1WaveShape] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "lfoToOsc1WaveShape", Info::kCanAutomate);
+    value[ID::lfoToOsc2WaveShape] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "lfoToOsc2WaveShape", Info::kCanAutomate);
 
     value[ID::tuningSemitone] = std::make_unique<UIntValue>(
       semitoneOffset, Scales::semitone, "tuningSemitone", Info::kCanAutomate);
@@ -209,12 +254,11 @@ struct GlobalParameter : public ParameterInterface {
       Scales::pitchBendRange.invmap(2.0), Scales::pitchBendRange, "pitchBendRange",
       Info::kCanAutomate);
 
+    value[ID::resetPhaseAtNoteOn] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "resetPhaseAtNoteOn", Info::kCanAutomate);
     value[ID::noteSlideTimeSecond] = std::make_unique<DecibelValue>(
       Scales::noteSlideTimeSecond.invmap(0.0), Scales::noteSlideTimeSecond,
       "noteSlideTimeSecond", Info::kCanAutomate);
-
-    value[ID::resetPhaseAtNoteOn] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "resetPhaseAtNoteOn", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

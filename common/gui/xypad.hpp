@@ -34,9 +34,44 @@ private:
 
   CPoint mousePosition{-1, -1};
   bool isMouseEntered = false;
-  bool isMouseLeftDown = false;
+  bool isMouseDown = false;
 
   Uhhyou::Palette &pal;
+
+  enum class AxisLock { none, x, y };
+
+  CPoint translatePoint(CPoint &pos)
+  {
+    auto view = getViewSize();
+    return pos - CPoint(view.left, view.top);
+  }
+
+  AxisLock getLockState(MouseEvent &event)
+  {
+    if (event.buttonState.isMiddle()) {
+      return event.modifiers.has(ModifierKey::Shift) ? AxisLock::x : AxisLock::y;
+    }
+    return AxisLock::none;
+  }
+
+  void updateValueFromPos(const CPoint &pos, AxisLock lock = AxisLock::none)
+  {
+    if (lock != AxisLock::x) {
+      value[0] = std::clamp<int>(pos.x, 0, getWidth()) / double(getWidth());
+    }
+    if (lock != AxisLock::y) {
+      value[1]
+        = std::clamp<int>(getHeight() - pos.y, 0, getHeight()) / double(getHeight());
+    }
+    updateValue();
+  }
+
+  void resetValue(AxisLock lock = AxisLock::none)
+  {
+    if (lock != AxisLock::x) value[0] = defaultValue[0];
+    if (lock != AxisLock::y) value[1] = defaultValue[1];
+    updateValue();
+  }
 
 public:
   float borderWidth = 2.0f;
@@ -71,8 +106,8 @@ public:
     pContext->setFillColor(pal.foregroundInactive());
     for (size_t ix = 1; ix < nGrid; ++ix) {
       for (size_t iy = 1; iy < nGrid; ++iy) {
-        auto cx = ix * width / nGrid;
-        auto cy = iy * height / nGrid;
+        auto cx = std::floor(ix * width / nGrid);
+        auto cy = std::floor(iy * height / nGrid);
         pContext->drawEllipse(CRect(cx - 2.0, cy - 2.0, cx + 2.0, cy + 2.0), kDrawFilled);
       }
     }
@@ -86,8 +121,8 @@ public:
     }
 
     // Value.
-    double valueX = value[0] * width;
-    double valueY = value[1] * height;
+    double valueX = std::floor(value[0] * width);
+    double valueY = std::floor((1 - value[1]) * height);
     constexpr double valR = 8.0; // Radius of value pointer circle.
     pContext->setFrameColor(pal.foreground());
 
@@ -102,7 +137,7 @@ public:
     // Border.
     pContext->setLineWidth(borderWidth);
     pContext->setFrameColor(
-      isMouseEntered || isMouseLeftDown ? pal.highlightMain() : pal.border());
+      isMouseEntered || isMouseDown ? pal.highlightMain() : pal.border());
     pContext->drawRect(CRect(0, 0, width, height), kDrawStroked);
   }
 
@@ -144,22 +179,25 @@ public:
       event.consumed = true;
     }
 
-    if (event.buttonState.isLeft()) {
+    if (event.modifiers.has(ModifierKey::Control)) {
+      resetValue(getLockState(event));
+    } else {
       mousePosition = translatePoint(event.mousePosition);
-      isMouseLeftDown = true;
-      updateValueFromPos(mousePosition);
-      invalid();
-      event.consumed = true;
+      isMouseDown = true;
+      updateValueFromPos(mousePosition, getLockState(event));
     }
+
+    invalid();
+    event.consumed = true;
 
     return;
   }
 
   void onMouseUpEvent(MouseUpEvent &event) override
   {
-    if (event.buttonState.isLeft()) {
-      updateValueFromPos(translatePoint(event.mousePosition));
-      isMouseLeftDown = false;
+    if (isMouseDown) {
+      updateValueFromPos(translatePoint(event.mousePosition), getLockState(event));
+      isMouseDown = false;
       invalid();
       event.consumed = true;
     }
@@ -168,37 +206,23 @@ public:
 
   void onMouseMoveEvent(MouseMoveEvent &event) override
   {
-    if (event.buttonState.isLeft()) {
-      updateValueFromPos(translatePoint(event.mousePosition));
+    if (!event.buttonState.isRight() && isMouseDown) {
+      updateValueFromPos(translatePoint(event.mousePosition), getLockState(event));
     }
     if (isMouseEntered) {
       mousePosition = translatePoint(event.mousePosition);
       invalid();
     }
-    if (isMouseEntered || isMouseLeftDown) event.consumed = true;
+    if (isMouseEntered || isMouseDown) event.consumed = true;
     return;
   }
 
   virtual void onMouseCancelEvent(MouseCancelEvent &event) override
   {
-    isMouseLeftDown = false;
+    isMouseDown = false;
     isMouseEntered = false;
     invalid();
     event.consumed = true;
-  }
-
-private:
-  CPoint translatePoint(CPoint &pos)
-  {
-    auto view = getViewSize();
-    return pos - CPoint(view.left, view.top);
-  }
-
-  void updateValueFromPos(const CPoint &pos)
-  {
-    value[0] = std::clamp<int>(pos.x, 0, getWidth()) / double(getWidth());
-    value[1] = std::clamp<int>(pos.y, 0, getHeight()) / double(getHeight());
-    updateValue();
   }
 };
 

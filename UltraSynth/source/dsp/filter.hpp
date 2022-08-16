@@ -25,11 +25,11 @@ namespace SomeDSP {
 
 namespace SVFTool {
 
+constexpr double minCutoff = 0.00001;
+constexpr double nyquist = 0.49998;
+
 template<typename T> inline T freqToG(T normalizedFreq)
 {
-  constexpr double minCutoff = 0.00001;
-  constexpr double nyquist = 0.49998;
-
   return float(std::tan(std::clamp(double(normalizedFreq), minCutoff, nyquist) * pi));
 }
 
@@ -37,10 +37,10 @@ template<typename T> inline T qToK(T Q) { return T(1) / Q; }
 
 } // namespace SVFTool
 
-template<typename Sample, size_t cascade> class SerialSVF {
+template<typename Sample> class SerialSVF {
 private:
-  std::array<Sample, cascade> ic1eq{};
-  std::array<Sample, cascade> ic2eq{};
+  Sample ic1eq = 0;
+  Sample ic2eq = 0;
 
   EMAFilter<Sample> g;
   EMAFilter<Sample> k;
@@ -65,25 +65,21 @@ public:
   {
     gSmoother.reset(SVFTool::freqToG(Sample(0.49)));
     kSmoother.reset(Sample(1));
-    ic1eq.fill(0);
-    ic2eq.fill(0);
+    ic1eq = 0;
+    ic2eq = 0;
   }
 
-  Sample
-  lowpass(Sample input, Sample gTarget, Sample kTarget, Sample decayKp, Sample absMix)
+  Sample lowpass(Sample input, Sample gTarget, Sample kTarget, Sample decayKp)
   {
     auto gp = gSmoother.processKp(g.processKp(gTarget, decayKp), smootherKp);
     auto kp = kSmoother.processKp(k.processKp(kTarget, decayKp), smootherKp);
 
     auto v0 = input;
-    for (size_t n = 0; n < cascade; ++n) {
-      auto v1 = (ic1eq[n] + gp * (v0 - ic2eq[n])) / (Sample(1) + gp * (gp + kp));
-      auto v2 = ic2eq[n] + gp * v1;
-      ic1eq[n] = Sample(2) * v1 - ic1eq[n];
-      ic2eq[n] = Sample(2) * v2 - ic2eq[n];
-      v0 = v2 + absMix * (std::abs(v2) - v2);
-    }
-    return v0;
+    auto v1 = (ic1eq + gp * (v0 - ic2eq)) / (Sample(1) + gp * (gp + kp));
+    auto v2 = ic2eq + gp * v1;
+    ic1eq = Sample(2) * v1 - ic1eq;
+    ic2eq = Sample(2) * v2 - ic2eq;
+    return v2;
   }
 };
 

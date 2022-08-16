@@ -18,6 +18,7 @@
 #pragma once
 
 #include "../../../common/dsp/constants.hpp"
+#include "../../../common/dsp/lfo.hpp"
 #include "../../../common/dsp/multirate.hpp"
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
@@ -45,6 +46,9 @@ public:
   }
 
   GlobalParameter param;
+  bool isPlaying = false;
+  float tempo = 120.0f;
+  double beatsElapsed = 0.0f;
 
   void setup(double sampleRate);
   void reset();
@@ -103,38 +107,56 @@ private:
 
   float baseRateKp = 1.0f;
   ExpSmootherLocal<float> interpOutputGain;
+  ExpSmootherLocal<float> interpLfoToPitch;
+  ExpSmootherLocal<float> interpLfoToOscMix;
+  ExpSmootherLocal<float> interpLfoToCutoff;
+  ExpSmootherLocal<float> interpLfoToPreSaturation;
+  ExpSmootherLocal<float> interpLfoToOsc1WaveShape;
+  ExpSmootherLocal<float> interpLfoToOsc2WaveShape;
+
+  LinearTempoSynchronizer<float> synchronizer;
+  LFOPhase<float> lfoPhase;
+  DoubleEMAFilter<double> lfoSmootherB;
+  DoubleEMAFilter<double> lfoSmootherP;
 
   ExpSmoother<float> interpFrequencyHz;
   ExpSmoother<float> interpOsc1FrequencyOffsetPitch;
   ExpSmoother<float> interpOsc2FrequencyOffsetPitch;
   ExpSmoother<float> interpOsc1WaveShape;
   ExpSmoother<float> interpOsc2WaveShape;
+  ExpSmoother<float> interpOsc1SawPulse;
+  ExpSmoother<float> interpOsc2SawPulse;
   ExpSmoother<float> interpPhaseModFromLowpassToOsc1;
-  ExpSmoother<float> interpPhaseModFromOsc1ToOsc2;
-  ExpSmoother<float> interpPhaseModFromOsc2ToOsc1;
+  ExpSmoother<float> interpPmPhase1ToPhase2;
+  ExpSmoother<float> interpPmPhase2ToPhase1;
+  ExpSmoother<float> interpPmOsc1ToPhase2;
+  ExpSmoother<float> interpPmOsc2ToPhase1;
   ExpSmoother<float> interpOscMix;
   ExpSmoother<float> interpSvfG;
   ExpSmoother<float> interpSvfK;
-  ExpSmoother<float> interpSvfRectMix;
+  ExpSmoother<float> interpRectificationMix;
   ExpSmoother<float> interpSaturationMix;
   ExpSmoother<float> interpSustain;
 
-  float feedback = 0;
-  float phase1 = 0;
-  float phase2 = 0;
+  double feedback = 0;
+  double phase1 = 0;
+  double phase2 = 0;
+  double o1 = 0;
+  double o2 = 0;
 
-  float gainAttackKp = 1.0f;
-  float gainDecayKp = 1.0f;
-  DoubleEMAFilter<float> attackEnvelope;
-  DoubleEMAFilter<float> decayEnvelope;
-  NoteGate<float> releaseEnvelope;
+  double gainAttackKp = 1.0f;
+  double gainDecayKp = 1.0f;
+  DoubleEMAFilter<double> attackEnvelope;
+  DoubleEMAFilter<double> decayEnvelope;
+  NoteGate<double> releaseEnvelope;
 
-  SerialSVF<float, 4> svf;
-  OnePoleHighpass<float> highpass;
+  SerialSVF<double> svf;
 
   DecimationLowpass<float, Sos64FoldFirstStage<float>> firstStageLowpass;
   std::array<float, 2> halfBandInput;
   HalfBandIIR<float, HalfBandCoefficient<float>> halfbandIir;
 
   float calcNotePitch(float note);
+  float getTempoSyncInterval();
+  void resetBuffer();
 };

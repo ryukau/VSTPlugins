@@ -33,14 +33,14 @@ constexpr float knobX = knobWidth + 2 * margin;
 constexpr float knobY = knobWidth + labelHeight + 2 * margin;
 constexpr float labelY = labelHeight + 2 * margin;
 constexpr float labelWidth = 2 * knobWidth;
-constexpr float splashWidth = int(1.5 * labelWidth) + margin;
+constexpr float splashWidth = labelWidth + margin;
 constexpr float splashHeight = labelY;
 
 constexpr float barboxWidth = 500.0f;
 constexpr float barboxHeight = 160.0f;
 
 constexpr int_least32_t defaultWidth
-  = int_least32_t(2 * uiMargin + 8 * knobX + 2 * margin);
+  = int_least32_t(2 * uiMargin + 10 * knobX + 2 * margin);
 constexpr int_least32_t defaultHeight
   = int_least32_t(2 * uiMargin + 4 * knobY + 7 * labelY - 2 * margin);
 
@@ -94,60 +94,76 @@ bool Editor::prepareUI()
   constexpr auto left3 = left2 + knobX;
   constexpr auto left4 = left3 + knobX;
   constexpr auto left5 = left4 + knobX;
-  constexpr auto left6 = left5 + knobX + 2 * margin;
+  constexpr auto left6 = left5 + knobX;
   constexpr auto left7 = left6 + knobX;
+  constexpr auto left8 = left7 + knobX + 2 * margin;
+  constexpr auto left9 = left8 + knobX;
 
   // Gain.
   addGroupLabel(left0, top0, 2 * knobX - 2 * margin, labelHeight, uiTextSize, "Gain");
+
   addKnob(left0, top1, knobWidth, margin, uiTextSize, "Gain", ID::outputGain);
-  addKnob(left0, top2, knobWidth, margin, uiTextSize, "Sat.", ID::saturationMix);
+  addKnob(left0, top3, knobWidth, margin, uiTextSize, "Rect.", ID::rectificationMix);
+  addKnob(left0, top4, knobWidth, margin, uiTextSize, "Sat.", ID::saturationMix);
+
   addKnob(left1, top1, knobWidth, margin, uiTextSize, "A", ID::gainAttackSecond);
   addKnob(left1, top2, knobWidth, margin, uiTextSize, "D", ID::gainDecaySecond);
   addKnob(left1, top3, knobWidth, margin, uiTextSize, "S", ID::gainSustainAmplitude);
   addKnob(left1, top4, knobWidth, margin, uiTextSize, "R", ID::gainReleaseSecond);
 
   // Oscillator.
+  constexpr auto oscLeft1Half = left2 + int(knobX / 2);
   addGroupLabel(
-    left2, top0, 4 * knobX - 2 * margin, labelHeight, uiTextSize, "Oscillator");
+    left2, top0, 6 * knobX - 2 * margin, labelHeight, uiTextSize, "Oscillator");
+
+  addLabel(left2, top1, labelWidth, labelHeight, uiTextSize, "Pitch");
+  addXYPad(
+    left2, top1 + labelY, 2 * knobX - 2 * margin, 2 * knobX - 2 * margin,
+    ID::osc1FineTuneCent, ID::osc2FineTuneCent);
+
   addNumberKnob(
-    left2, top1, knobWidth, margin, uiTextSize, "O1 Oct.", ID::osc1Octave, Scales::octave,
+    left2, top3, knobWidth, margin, uiTextSize, "O1 Oct.", ID::osc1Octave, Scales::octave,
     -octaveOffset);
   addNumberKnob(
-    left3, top1, knobWidth, margin, uiTextSize, "O1 OT", ID::osc1Overtone,
-    Scales::overtone, 1);
-  addKnob(left4, top1, knobWidth, margin, uiTextSize, "O1 Cent", ID::osc1FineTuneCent);
-  addKnob(left5, top1, knobWidth, margin, uiTextSize, "O1 Shape", ID::osc1WaveShape);
-
-  addNumberKnob(
-    left2, top2, knobWidth, margin, uiTextSize, "O2 Oct.", ID::osc2Octave, Scales::octave,
+    left3, top3, knobWidth, margin, uiTextSize, "O2 Oct.", ID::osc2Octave, Scales::octave,
     -octaveOffset);
-  addNumberKnob(
-    left3, top2, knobWidth, margin, uiTextSize, "O2 OT", ID::osc2Overtone,
-    Scales::overtone, 1);
-  addKnob(left4, top2, knobWidth, margin, uiTextSize, "O2 Cent", ID::osc2FineTuneCent);
-  addKnob(left5, top2, knobWidth, margin, uiTextSize, "O2 Shape", ID::osc2WaveShape);
+  addKnob(left2, top4, knobWidth, margin, uiTextSize, "Mix", ID::oscMix);
+  addKnob(
+    left3, top4, knobWidth, margin, uiTextSize, "LP>O1", ID::phaseModFromLowpassToOsc1);
 
-  addKnob(left2, top3, knobWidth, margin, uiTextSize, "Mix", ID::oscMix);
+  addLabel(left4, top1, labelWidth, labelHeight, uiTextSize, "Wave Shape");
+  addXYPad(
+    left4, top1 + labelY, 2 * knobX - 2 * margin, 2 * knobX - 2 * margin,
+    ID::osc1WaveShape, ID::osc2WaveShape);
+  addLabel(left6, top1, labelWidth, labelHeight, uiTextSize, "Saw-Pulse");
+  addXYPad(
+    left6, top1 + labelY, 2 * knobX - 2 * margin, 2 * knobX - 2 * margin,
+    ID::osc1SawPulseMix, ID::osc2SawPulseMix);
 
-  addKnob(
-    left2, top4, knobWidth, margin, uiTextSize, "LP>O1", ID::phaseModFromLowpassToOsc1);
-  addKnob(
-    left3, top4, knobWidth, margin, uiTextSize, "O1>O2", ID::phaseModFromOsc1ToOsc2);
-  addKnob(
-    left4, top4, knobWidth, margin, uiTextSize, "O2>O1", ID::phaseModFromOsc2ToOsc1);
+  addLabel(left4, top3, labelWidth, labelHeight, uiTextSize, "Cross PM");
+  addXYPad(
+    left4, top3 + labelY, 2 * knobX - 2 * margin, 2 * knobX - 2 * margin,
+    ID::pmPhase1ToPhase2, ID::pmPhase2ToPhase1);
+  addLabel(left6, top3, labelWidth, labelHeight, uiTextSize, "Feedback PM");
+  addXYPad(
+    left6, top3 + labelY, 2 * knobX - 2 * margin, 2 * knobX - 2 * margin,
+    ID::pmOsc1ToPhase2, ID::pmOsc2ToPhase1);
 
   // Filter.
-  addGroupLabel(left6, top0, 2 * knobX - 2 * margin, labelHeight, uiTextSize, "Filter");
-  addKnob(left6, top1, knobWidth, margin, uiTextSize, "Cut", ID::lowpassCutoffHz);
-  addKnob(left6, top2, knobWidth, margin, uiTextSize, "Q", ID::lowpassQ);
-  addKnob(left6, top3, knobWidth, margin, uiTextSize, "Rect.", ID::lowpassRectification);
+  constexpr auto filterTop1Half = top1 + int(knobY / 2);
+  constexpr auto filterTop2Half = filterTop1Half + knobY;
+  addGroupLabel(left8, top0, 2 * knobX - 2 * margin, labelHeight, uiTextSize, "Filter");
 
-  addKnob(left7, top1, knobWidth, margin, uiTextSize, "A", ID::lowpassCutoffAttackSecond);
-  addKnob(left7, top2, knobWidth, margin, uiTextSize, "D", ID::lowpassCutoffDecaySecond);
   addKnob(
-    left7, top3, knobWidth, margin, uiTextSize, "Env>Cut",
+    left8, filterTop1Half, knobWidth, margin, uiTextSize, "Cut", ID::lowpassCutoffHz);
+  addKnob(left8, filterTop2Half, knobWidth, margin, uiTextSize, "Q", ID::lowpassQ);
+
+  addKnob(left9, top1, knobWidth, margin, uiTextSize, "A", ID::lowpassCutoffAttackSecond);
+  addKnob(left9, top2, knobWidth, margin, uiTextSize, "D", ID::lowpassCutoffDecaySecond);
+  addKnob(
+    left9, top3, knobWidth, margin, uiTextSize, "Env>Cut",
     ID::lowpassCutoffEnvelopeAmount);
-  addKnob(left7, top4, knobWidth, margin, uiTextSize, "Key", ID::lowpassKeyFollow);
+  addKnob(left9, top4, knobWidth, margin, uiTextSize, "Key", ID::lowpassKeyFollow);
 
   // Tuning.
   addGroupLabel(left0, top5, 4 * knobX - 2 * margin, labelHeight, uiTextSize, "Tuning");
@@ -173,19 +189,58 @@ bool Editor::prepareUI()
     left2, top10, labelWidth, labelHeight, uiTextSize, ID::pitchBendRange,
     Scales::pitchBendRange, false, 5);
 
+  // LFO.
+  constexpr auto lfoLeft0 = left4;
+  addGroupLabel(lfoLeft0, top5, 4 * knobX - 2 * margin, labelHeight, uiTextSize, "LFO");
+
+  constexpr auto lfoLeft1 = lfoLeft0 + knobX;
+  constexpr auto lfoLeft2 = lfoLeft1 + knobX;
+  constexpr auto lfoLeft3 = lfoLeft2 + knobX;
+  addSmallKnob(
+    lfoLeft0, top6, labelWidth, labelHeight, margin, uiTextSize, "Rate", ID::lfoRate);
+  addCheckbox(
+    lfoLeft0, top7, labelWidth, labelHeight, uiTextSize, "Retrigger", ID::lfoRetrigger);
+  addCheckbox(
+    lfoLeft2, top6 + int(labelY) / 2, knobWidth, labelHeight, uiTextSize, "Sync.",
+    ID::lfoTempoSync);
+  addTextKnob(
+    lfoLeft3, top6 + margin, knobWidth, labelHeight, uiTextSize, ID::lfoTempoUpper,
+    Scales::lfoTempoUpper, false, 0, 1);
+  addTextKnob(
+    lfoLeft3, top7 - margin, knobWidth, labelHeight, uiTextSize, ID::lfoTempoLower,
+    Scales::lfoTempoLower, false, 0, 1);
+
+  addSmallKnob(
+    lfoLeft0, top8, labelWidth, labelHeight, margin, uiTextSize, ">Pitch",
+    ID::lfoToPitch);
+  addSmallKnob(
+    lfoLeft0, top9, labelWidth, labelHeight, margin, uiTextSize, ">OscMix",
+    ID::lfoToOscMix);
+  addSmallKnob(
+    lfoLeft0, top10, labelWidth, labelHeight, margin, uiTextSize, ">Cutoff",
+    ID::lfoToCutoff);
+
+  addSmallKnob(
+    lfoLeft2, top8, labelWidth, labelHeight, margin, uiTextSize, ">Pre Sat.",
+    ID::lfoToPreSaturation);
+  addSmallKnob(
+    lfoLeft2, top9, labelWidth, labelHeight, margin, uiTextSize, ">O1 Shape",
+    ID::lfoToOsc1WaveShape);
+  addSmallKnob(
+    lfoLeft2, top10, labelWidth, labelHeight, margin, uiTextSize, ">O2 Shape",
+    ID::lfoToOsc2WaveShape);
+
   // Misc.
-  auto miscLeft0 = left4 + 2 * margin;
-  auto miscLeft1 = miscLeft0 + 2 * knobX;
+  constexpr auto miscLeft0 = left8;
+  constexpr auto miscLeft0Half = miscLeft0 + int(knobX / 2);
   addGroupLabel(
-    miscLeft0, top5, 4 * knobX - 2 * margin, labelHeight, uiTextSize, "Misc.");
+    miscLeft0, top5, 2 * knobX - 2 * margin, labelHeight, uiTextSize, "Misc.");
 
   addCheckbox(
-    miscLeft0, top6, labelWidth, labelHeight, uiTextSize, "Phase Reset",
-    ID::resetPhaseAtNoteOn);
-  addLabel(miscLeft0, top7, labelWidth, labelHeight, uiTextSize, "Slide Time [s]");
-  addTextKnob(
-    miscLeft1, top7, labelWidth, labelHeight, uiTextSize, ID::noteSlideTimeSecond,
-    Scales::noteSlideTimeSecond, false, 5);
+    miscLeft0 + 3 * margin, top6, labelWidth - 3 * margin, labelHeight, uiTextSize,
+    "Phase Reset", ID::resetPhaseAtNoteOn);
+  addKnob(
+    miscLeft0Half, top7, knobWidth, margin, uiTextSize, "Slide", ID::noteSlideTimeSecond);
 
   // Plugin name.
   constexpr auto splashMargin = uiMargin;
