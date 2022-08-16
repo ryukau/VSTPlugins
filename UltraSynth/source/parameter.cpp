@@ -47,6 +47,8 @@ DecibelScale<double> Scales::lowpassCutoffEnvelopeAmount(-80.0, 80.0, false);
 UIntScale<double> Scales::lfoTempoUpper(255);
 UIntScale<double> Scales::lfoTempoLower(255);
 DecibelScale<double> Scales::lfoRate(-60.0, 60.0, true);
+DecibelScale<double> Scales::lfoToPitch(-60.0, 0.0, true);
+DecibelScale<double> Scales::lfoToCutoff(-80.0, 0.0, true);
 
 UIntScale<double> Scales::semitone(semitoneOffset + 48);
 LinearScale<double> Scales::cent(-100.0, 100.0);
@@ -54,7 +56,7 @@ UIntScale<double> Scales::equalTemperament(119);
 UIntScale<double> Scales::a4Hz(900);
 LinearScale<double> Scales::pitchBendRange(0.0, 120.0);
 
-DecibelScale<double> Scales::noteSlideTimeSecond(-120.0, 40.0, true);
+DecibelScale<double> Scales::noteSlideTimeSecond(-100.0, 40.0, true);
 
 } // namespace Synth
 } // namespace Steinberg

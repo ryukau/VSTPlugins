@@ -21,33 +21,34 @@
 #include <limits>
 #include <numeric>
 
-constexpr float defaultTempo = float(120);
+constexpr double defaultTempo = double(120);
 
 template<typename T> inline T lerp(T a, T b, T t) { return a + t * (b - a); }
 
-inline float calcOscillatorPitch(int octave, float cent)
+inline double calcOscillatorPitch(double octave, double cent)
 {
-  return std::exp2(octave - octaveOffset + cent / 1200.0f);
+  return std::exp2(octave - octaveOffset + cent / 1200.0);
 }
 
-inline float calcPitch(float semitone, float equalTemperament = 12.0f)
+inline double calcPitch(double semitone, double equalTemperament = 12.0)
 {
   return std::exp2(semitone / equalTemperament);
 }
 
 void DSPCore::setup(double sampleRate)
 {
-  this->sampleRate = float(sampleRate);
-  auto upRate = float(sampleRate) * upFold;
+  noteStack.reserve(1024);
+  noteStack.resize(0);
 
-  synchronizer.reset(sampleRate, defaultTempo, float(1));
+  this->sampleRate = sampleRate;
+  auto upRate = sampleRate * upFold;
 
-  constexpr auto smoothingTimeSecond = 0.2f;
+  constexpr auto smoothingTimeSecond = 0.2;
 
-  baseRateKp = float(EMAFilter<double>::secondToP(sampleRate, smoothingTimeSecond));
+  baseRateKp = EMAFilter<double>::secondToP(sampleRate, smoothingTimeSecond);
 
-  SmootherCommon<float>::setSampleRate(upRate);
-  SmootherCommon<float>::setTime(smoothingTimeSecond);
+  SmootherCommon<double>::setSampleRate(upRate);
+  SmootherCommon<double>::setTime(smoothingTimeSecond);
 
   reset();
   startup();
@@ -57,61 +58,68 @@ void DSPCore::setup(double sampleRate)
   using ID = ParameterID::ID;                                                            \
   const auto &pv = param.value;                                                          \
                                                                                          \
-  pitchSmoothingKp = float(                                                              \
-    EMAFilter<double>::secondToP(upRate, pv[ID::noteSlideTimeSecond]->getFloat()));      \
-  lowpassCutoffDecayKp = float(                                                          \
-    EMAFilter<double>::secondToP(upRate, pv[ID::lowpassCutoffDecaySecond]->getFloat())); \
+  pitchSmoothingKp                                                                       \
+    = EMAFilter<double>::secondToP(upRate, pv[ID::noteSlideTimeSecond]->getDouble());    \
+  lowpassCutoffDecayKp = EMAFilter<double>::secondToP(                                   \
+    upRate, pv[ID::lowpassCutoffDecaySecond]->getDouble());                              \
+  auto notePitch = calcNotePitch(noteNumber);                                            \
+  interpPitch.METHOD(notePitch);                                                         \
                                                                                          \
-  interpOutputGain.METHOD(pv[ID::outputGain]->getFloat());                               \
+  interpOutputGain.METHOD(pv[ID::outputGain]->getDouble());                              \
+  interpLfoToPitch.METHOD(pv[ID::lfoToPitch]->getDouble());                              \
+  interpLfoToOscMix.METHOD(pv[ID::lfoToOscMix]->getDouble());                            \
+  interpLfoToCutoff.METHOD(pv[ID::lfoToCutoff]->getDouble());                            \
+  interpLfoToPreSaturation.METHOD(pv[ID::lfoToPreSaturation]->getDouble());              \
+  interpLfoToOsc1WaveShape.METHOD(pv[ID::lfoToOsc1WaveShape]->getDouble());              \
+  interpLfoToOsc2WaveShape.METHOD(pv[ID::lfoToOsc2WaveShape]->getDouble());              \
                                                                                          \
   gainAttackKp                                                                           \
-    = float(EMAFilter<double>::secondToP(upRate, pv[ID::gainAttackSecond]->getFloat())); \
+    = EMAFilter<double>::secondToP(upRate, pv[ID::gainAttackSecond]->getDouble());       \
   gainDecayKp                                                                            \
-    = float(EMAFilter<double>::secondToP(upRate, pv[ID::gainDecaySecond]->getFloat()));  \
+    = EMAFilter<double>::secondToP(upRate, pv[ID::gainDecaySecond]->getDouble());        \
                                                                                          \
   auto pitchBend                                                                         \
-    = calcPitch(pv[ID::pitchBendRange]->getFloat() * pv[ID::pitchBend]->getFloat());     \
+    = calcPitch(pv[ID::pitchBendRange]->getDouble() * pv[ID::pitchBend]->getDouble());   \
   interpFrequencyHz.METHOD(pitchBend *(pv[ID::tuningA4Hz]->getInt() + a4HzOffset));      \
-  interpLfoToPitch.METHOD(pv[ID::lfoToPitch]->getFloat());                               \
-  interpLfoToOscMix.METHOD(pv[ID::lfoToOscMix]->getFloat());                             \
-  interpLfoToCutoff.METHOD(pv[ID::lfoToCutoff]->getFloat());                             \
-  interpLfoToPreSaturation.METHOD(pv[ID::lfoToPreSaturation]->getFloat());               \
-  interpLfoToOsc1WaveShape.METHOD(pv[ID::lfoToOsc1WaveShape]->getFloat());               \
-  interpLfoToOsc2WaveShape.METHOD(pv[ID::lfoToOsc2WaveShape]->getFloat());               \
                                                                                          \
   interpOsc1FrequencyOffsetPitch.METHOD(calcOscillatorPitch(                             \
-    pv[ID::osc1Octave]->getFloat(), pv[ID::osc1FineTuneCent]->getFloat()));              \
+    pv[ID::osc1Octave]->getDouble(), pv[ID::osc1FineTuneCent]->getDouble()));            \
   interpOsc2FrequencyOffsetPitch.METHOD(calcOscillatorPitch(                             \
-    pv[ID::osc2Octave]->getFloat(), pv[ID::osc2FineTuneCent]->getFloat()));              \
-  interpOsc1WaveShape.METHOD(pv[ID::osc1WaveShape]->getFloat());                         \
-  interpOsc2WaveShape.METHOD(pv[ID::osc2WaveShape]->getFloat());                         \
-  interpOsc1SawPulse.METHOD(pv[ID::osc1SawPulseMix]->getFloat());                        \
-  interpOsc2SawPulse.METHOD(pv[ID::osc2SawPulseMix]->getFloat());                        \
-  interpPhaseModFromLowpassToOsc1.METHOD(pv[ID::phaseModFromLowpassToOsc1]->getFloat()); \
-  interpPmPhase1ToPhase2.METHOD(pv[ID::pmPhase1ToPhase2]->getFloat());                   \
-  interpPmPhase2ToPhase1.METHOD(pv[ID::pmPhase2ToPhase1]->getFloat());                   \
-  interpPmOsc1ToPhase2.METHOD(pv[ID::pmOsc1ToPhase2]->getFloat());                       \
-  interpPmOsc2ToPhase1.METHOD(pv[ID::pmOsc2ToPhase1]->getFloat());                       \
-  interpOscMix.METHOD(pv[ID::oscMix]->getFloat());                                       \
+    pv[ID::osc2Octave]->getDouble(), pv[ID::osc2FineTuneCent]->getDouble()));            \
+  interpOsc1WaveShape.METHOD(pv[ID::osc1WaveShape]->getDouble());                        \
+  interpOsc2WaveShape.METHOD(pv[ID::osc2WaveShape]->getDouble());                        \
+  interpOsc1SawPulse.METHOD(pv[ID::osc1SawPulseMix]->getDouble());                       \
+  interpOsc2SawPulse.METHOD(pv[ID::osc2SawPulseMix]->getDouble());                       \
+  interpPhaseModFromLowpassToOsc1.METHOD(                                                \
+    pv[ID::phaseModFromLowpassToOsc1]->getDouble());                                     \
+  interpPmPhase1ToPhase2.METHOD(pv[ID::pmPhase1ToPhase2]->getDouble());                  \
+  interpPmPhase2ToPhase1.METHOD(pv[ID::pmPhase2ToPhase1]->getDouble());                  \
+  interpPmOsc1ToPhase2.METHOD(pv[ID::pmOsc1ToPhase2]->getDouble());                      \
+  interpPmOsc2ToPhase1.METHOD(pv[ID::pmOsc2ToPhase1]->getDouble());                      \
+  interpOscMix.METHOD(pv[ID::oscMix]->getDouble());                                      \
                                                                                          \
   auto keyFollow                                                                         \
-    = float(1) + pv[ID::lowpassKeyFollow]->getFloat() * (noteNumber - float(1));         \
-  auto cutoff = keyFollow * pv[ID::lowpassCutoffHz]->getFloat() / upRate;                \
+    = double(1) + pv[ID::lowpassKeyFollow]->getDouble() * (notePitch - double(1));       \
+  auto cutoff = keyFollow * pv[ID::lowpassCutoffHz]->getDouble() / upRate;               \
   interpSvfG.METHOD(SVFTool::freqToG(cutoff));                                           \
-  interpSvfK.METHOD(SVFTool::qToK(pv[ID::lowpassQ]->getFloat()));                        \
+  interpSvfK.METHOD(SVFTool::qToK(pv[ID::lowpassQ]->getDouble()));                       \
                                                                                          \
-  interpRectificationMix.METHOD(pv[ID::rectificationMix]->getFloat());                   \
-  interpSaturationMix.METHOD(pv[ID::saturationMix]->getFloat());                         \
-  interpSustain.METHOD(pv[ID::gainSustainAmplitude]->getFloat());                        \
+  interpRectificationMix.METHOD(pv[ID::rectificationMix]->getDouble());                  \
+  interpSaturationMix.METHOD(pv[ID::saturationMix]->getDouble());                        \
+  interpSustain.METHOD(pv[ID::gainSustainAmplitude]->getDouble());                       \
                                                                                          \
-  releaseEnvelope.prepare(upRate, pv[ID::gainReleaseSecond]->getFloat());                \
-  svf.setSmootherSecond(upRate, pv[ID::lowpassCutoffAttackSecond]->getFloat());
+  releaseEnvelope.prepare(upRate, pv[ID::gainReleaseSecond]->getDouble());               \
+  svf.setSmootherSecond(upRate, pv[ID::lowpassCutoffAttackSecond]->getDouble());
 
 void DSPCore::reset()
 {
+  noteNumber = 69.0;
+  velocity = 0;
+
   ASSIGN_PARAMETER(reset);
 
-  interpPitch.reset(float(1));
+  lfoSmootherB.reset();
+  lfoSmootherP.reset();
 
   attackEnvelope.reset();
   decayEnvelope.reset();
@@ -128,6 +136,7 @@ void DSPCore::reset()
 
 void DSPCore::startup()
 {
+  lfoPhase.offset = 0;
   synchronizer.reset(sampleRate, tempo, getTempoSyncInterval());
 
   resetBuffer();
@@ -137,7 +146,7 @@ void DSPCore::setParameters() { ASSIGN_PARAMETER(push); }
 
 template<typename Sample> inline Sample processOsc(Sample phase, Sample shape, Sample mix)
 {
-  return float(-0.5)
+  return Sample(-0.5)
     + (phase < 0 ? lerp(-phase / (Sample(1) - shape), Sample(0), mix)
                  : lerp(phase / shape, Sample(1), mix));
 }
@@ -147,8 +156,8 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
   using ID = ParameterID::ID;
   const auto &pv = param.value;
 
-  SmootherCommon<float>::setBufferSize(float(length));
-  SmootherCommon<float>::setSampleRate(upRate);
+  SmootherCommon<double>::setBufferSize(double(length));
+  SmootherCommon<double>::setSampleRate(upRate);
 
   // When tempo-sync is off, use defaultTempo BPM.
   bool isTempoSyncing = pv[ID::lfoTempoSync]->getInt();
@@ -159,7 +168,7 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
   for (size_t i = 0; i < length; ++i) {
     processMidiNote(i);
 
-    constexpr auto eps = std::numeric_limits<float>::epsilon();
+    constexpr auto eps = std::numeric_limits<double>::epsilon();
     // if (releaseEnvelope.isResting()) {
     //   out0[i] = 0;
     //   out1[i] = 0;
@@ -167,8 +176,8 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
     // }
 
     auto lfoPhi = lfoPhase.process(synchronizer.process());
-    auto lfoBipolar = std::sin(float(twopi) * lfoPhi);
-    auto lfoPositive = float(0.25) + float(0.25) * lfoBipolar;
+    auto lfoBipolar = std::sin(double(twopi) * lfoPhi);
+    auto lfoPositive = double(0.25) + double(0.25) * lfoBipolar;
     lfoPositive *= lfoPositive;
     lfoPositive *= lfoPositive;
 
@@ -185,16 +194,15 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
         auto lfoP = lfoSmootherP.processKp(lfoPositive, 0.1);
 
         auto pitch
-          = (float(1) + lfoToPitch * lfoB) * interpPitch.process(pitchSmoothingKp);
+          = (double(1) + lfoToPitch * lfoB) * interpPitch.process(pitchSmoothingKp);
         auto freq = interpFrequencyHz.process();
         auto osc1Freq = freq * pitch * interpOsc1FrequencyOffsetPitch.process();
         auto osc2Freq = freq * pitch * interpOsc2FrequencyOffsetPitch.process();
 
-        auto wsLfo = lfoToOsc1WaveShape * lfoB;
-        auto ws1
-          = std::clamp<double>(interpOsc1WaveShape.process() + wsLfo, eps, 1 - eps);
-        auto ws2
-          = std::clamp<double>(interpOsc2WaveShape.process() + wsLfo, eps, 1 - eps);
+        auto ws1 = std::clamp<double>(
+          interpOsc1WaveShape.process() + lfoToOsc1WaveShape * lfoB, eps, 1 - eps);
+        auto ws2 = std::clamp<double>(
+          interpOsc2WaveShape.process() + lfoToOsc2WaveShape * lfoB, eps, 1 - eps);
 
         auto spMix1 = interpOsc1SawPulse.process();
         auto spMix2 = interpOsc2SawPulse.process();
@@ -222,7 +230,7 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
         o2 = processOsc<double>(ws2 - phase2, ws2, spMix2);
 
         // Saturation.
-        oscMix = std::clamp(oscMix + lfoToOscMix * float(lfoB), float(0), float(1));
+        oscMix = std::clamp(oscMix + lfoToOscMix * double(lfoB), double(0), double(1));
         auto sig = o1 + oscMix * (o2 - o1);
         sig *= lerp<double>(1.0, lfoB, lfoToPreSaturation);
         sig = lerp<double>(sig, std::abs(sig), rectMix);
@@ -236,7 +244,8 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
 
         // Gain.
         sig *= attackEnvelope.processKp(
-          decayEnvelope.processKp(sustain, gainDecayKp) * releaseEnvelope.process(),
+          decayEnvelope.processKp(velocity * sustain, gainDecayKp)
+            * releaseEnvelope.process(),
           gainAttackKp);
 
         feedback = sig;
@@ -247,7 +256,8 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
       halfBandInput[j] = firstStageLowpass.output();
     }
 
-    auto out = interpOutputGain.process(baseRateKp) * halfbandIir.process(halfBandInput);
+    auto out
+      = float(interpOutputGain.process(baseRateKp) * halfbandIir.process(halfBandInput));
     out0[i] = out;
     out1[i] = out;
   }
@@ -264,18 +274,21 @@ void DSPCore::noteOn(NoteInfo &info)
     resetBuffer();
   }
 
-  noteNumber = calcNotePitch(info.noteNumber);
-  interpPitch.push(noteNumber);
+  noteNumber = info.noteNumber;
+  auto notePitch = calcNotePitch(info.noteNumber);
+  interpPitch.push(notePitch);
 
-  decayEnvelope.reset(float(1));
+  velocity = velocityMap.map(info.velocity);
+
+  decayEnvelope.reset(velocity);
   releaseEnvelope.trigger();
 
-  auto cutoffHz = pv[ID::lowpassCutoffHz]->getFloat();
-  auto cutoffEnvAmount = pv[ID::lowpassCutoffEnvelopeAmount]->getFloat();
+  auto cutoffHz = pv[ID::lowpassCutoffHz]->getDouble();
+  auto cutoffEnvAmount = pv[ID::lowpassCutoffEnvelopeAmount]->getDouble();
   auto keyFollow
-    = float(1) + pv[ID::lowpassKeyFollow]->getFloat() * (noteNumber - float(1));
+    = double(1) + pv[ID::lowpassKeyFollow]->getDouble() * (notePitch - double(1));
   svf.noteOn(
-    keyFollow * cutoffHz * cutoffEnvAmount / upRate, pv[ID::lowpassQ]->getFloat());
+    keyFollow * cutoffHz * cutoffEnvAmount / upRate, pv[ID::lowpassQ]->getDouble());
 
   noteStack.push_back(info);
 }
@@ -291,33 +304,34 @@ void DSPCore::noteOff(int_fast32_t noteId)
   if (noteStack.empty()) {
     releaseEnvelope.release();
   } else {
-    interpPitch.push(calcNotePitch(noteStack.back().noteNumber));
+    noteNumber = noteStack.back().noteNumber;
+    interpPitch.push(calcNotePitch(noteNumber));
   }
 }
 
-float DSPCore::calcNotePitch(float noteNumber)
+double DSPCore::calcNotePitch(double note)
 {
   using ID = ParameterID::ID;
   auto &pv = param.value;
 
-  auto semitone = pv[ID::tuningSemitone]->getInt() - float(semitoneOffset + 69);
-  auto cent = pv[ID::tuningCent]->getFloat() / float(100);
+  auto semitone = pv[ID::tuningSemitone]->getInt() - double(semitoneOffset + 69);
+  auto cent = pv[ID::tuningCent]->getDouble() / double(100);
   auto equalTemperament = pv[ID::tuningET]->getInt() + 1;
-  return std::exp2((noteNumber + semitone + cent) / equalTemperament);
+  return std::exp2((note + semitone + cent) / equalTemperament);
 }
 
-float DSPCore::getTempoSyncInterval()
+double DSPCore::getTempoSyncInterval()
 {
   using ID = ParameterID::ID;
   const auto &pv = param.value;
 
-  auto lfoRate = pv[ID::lfoRate]->getFloat();
+  auto lfoRate = pv[ID::lfoRate]->getDouble();
   if (lfoRate > Scales::lfoRate.getMax()) return 0;
 
   // Multiplying with 4 because 1 beat is 1/4 bar.
-  auto upper = pv[ID::lfoTempoUpper]->getFloat() + float(1);
-  auto lower = pv[ID::lfoTempoLower]->getFloat() + float(1);
-  return float(4) * upper / lower / lfoRate;
+  auto upper = pv[ID::lfoTempoUpper]->getDouble() + double(1);
+  auto lower = pv[ID::lfoTempoLower]->getDouble() + double(1);
+  return double(4) * upper / lower / lfoRate;
 }
 
 void DSPCore::resetBuffer()

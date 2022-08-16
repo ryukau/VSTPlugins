@@ -63,6 +63,8 @@ public:
 
   void reset()
   {
+    g.reset();
+    k.reset();
     gSmoother.reset(SVFTool::freqToG(Sample(0.49)));
     kSmoother.reset(Sample(1));
     ic1eq = 0;

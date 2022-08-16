@@ -120,6 +120,8 @@ struct Scales {
   static SomeDSP::UIntScale<double> lfoTempoUpper;
   static SomeDSP::UIntScale<double> lfoTempoLower;
   static SomeDSP::DecibelScale<double> lfoRate;
+  static SomeDSP::DecibelScale<double> lfoToPitch;
+  static SomeDSP::DecibelScale<double> lfoToCutoff;
 
   static SomeDSP::UIntScale<double> semitone;
   static SomeDSP::LinearScale<double> cent;
@@ -227,12 +229,12 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::lfoRetrigger] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "lfoRetrigger", Info::kCanAutomate);
 
-    value[ID::lfoToPitch] = std::make_unique<LinearValue>(
-      0.0, Scales::defaultScale, "lfoToPitch", Info::kCanAutomate);
+    value[ID::lfoToPitch] = std::make_unique<DecibelValue>(
+      0.0, Scales::lfoToPitch, "lfoToPitch", Info::kCanAutomate);
     value[ID::lfoToOscMix] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "lfoToOscMix", Info::kCanAutomate);
-    value[ID::lfoToCutoff] = std::make_unique<LinearValue>(
-      0.0, Scales::defaultScale, "lfoToCutoff", Info::kCanAutomate);
+    value[ID::lfoToCutoff] = std::make_unique<DecibelValue>(
+      0.0, Scales::lfoToCutoff, "lfoToCutoff", Info::kCanAutomate);
     value[ID::lfoToPreSaturation] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "lfoToPreSaturation", Info::kCanAutomate);
     value[ID::lfoToOsc1WaveShape] = std::make_unique<LinearValue>(

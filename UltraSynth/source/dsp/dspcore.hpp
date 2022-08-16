@@ -47,8 +47,8 @@ public:
 
   GlobalParameter param;
   bool isPlaying = false;
-  float tempo = 120.0f;
-  double beatsElapsed = 0.0f;
+  double tempo = 120.0;
+  double beatsElapsed = 0.0;
 
   void setup(double sampleRate);
   void reset();
@@ -97,46 +97,49 @@ private:
   std::vector<NoteInfo> midiNotes;
   std::vector<NoteInfo> noteStack;
 
-  float sampleRate = 44100.0f;
-  float upRate = upFold * 44100.0f;
+  DecibelScale<double> velocityMap{-36, 0, true};
+  double velocity = 0;
 
-  float noteNumber = 60.0f;
-  float pitchSmoothingKp = 1.0f;
-  float lowpassCutoffDecayKp = 1.0f;
-  ExpSmootherLocal<float> interpPitch;
+  double sampleRate = 44100.0;
+  double upRate = upFold * 44100.0;
 
-  float baseRateKp = 1.0f;
-  ExpSmootherLocal<float> interpOutputGain;
-  ExpSmootherLocal<float> interpLfoToPitch;
-  ExpSmootherLocal<float> interpLfoToOscMix;
-  ExpSmootherLocal<float> interpLfoToCutoff;
-  ExpSmootherLocal<float> interpLfoToPreSaturation;
-  ExpSmootherLocal<float> interpLfoToOsc1WaveShape;
-  ExpSmootherLocal<float> interpLfoToOsc2WaveShape;
+  double noteNumber = 69.0;
+  double pitchSmoothingKp = 1.0;
+  double lowpassCutoffDecayKp = 1.0;
+  ExpSmootherLocal<double> interpPitch;
 
-  LinearTempoSynchronizer<float> synchronizer;
-  LFOPhase<float> lfoPhase;
+  double baseRateKp = 1.0;
+  ExpSmootherLocal<double> interpOutputGain;
+  ExpSmootherLocal<double> interpLfoToPitch;
+  ExpSmootherLocal<double> interpLfoToOscMix;
+  ExpSmootherLocal<double> interpLfoToCutoff;
+  ExpSmootherLocal<double> interpLfoToPreSaturation;
+  ExpSmootherLocal<double> interpLfoToOsc1WaveShape;
+  ExpSmootherLocal<double> interpLfoToOsc2WaveShape;
+
+  LinearTempoSynchronizer<double> synchronizer;
+  LFOPhase<double> lfoPhase;
   DoubleEMAFilter<double> lfoSmootherB;
   DoubleEMAFilter<double> lfoSmootherP;
 
-  ExpSmoother<float> interpFrequencyHz;
-  ExpSmoother<float> interpOsc1FrequencyOffsetPitch;
-  ExpSmoother<float> interpOsc2FrequencyOffsetPitch;
-  ExpSmoother<float> interpOsc1WaveShape;
-  ExpSmoother<float> interpOsc2WaveShape;
-  ExpSmoother<float> interpOsc1SawPulse;
-  ExpSmoother<float> interpOsc2SawPulse;
-  ExpSmoother<float> interpPhaseModFromLowpassToOsc1;
-  ExpSmoother<float> interpPmPhase1ToPhase2;
-  ExpSmoother<float> interpPmPhase2ToPhase1;
-  ExpSmoother<float> interpPmOsc1ToPhase2;
-  ExpSmoother<float> interpPmOsc2ToPhase1;
-  ExpSmoother<float> interpOscMix;
-  ExpSmoother<float> interpSvfG;
-  ExpSmoother<float> interpSvfK;
-  ExpSmoother<float> interpRectificationMix;
-  ExpSmoother<float> interpSaturationMix;
-  ExpSmoother<float> interpSustain;
+  ExpSmoother<double> interpFrequencyHz;
+  ExpSmoother<double> interpOsc1FrequencyOffsetPitch;
+  ExpSmoother<double> interpOsc2FrequencyOffsetPitch;
+  ExpSmoother<double> interpOsc1WaveShape;
+  ExpSmoother<double> interpOsc2WaveShape;
+  ExpSmoother<double> interpOsc1SawPulse;
+  ExpSmoother<double> interpOsc2SawPulse;
+  ExpSmoother<double> interpPhaseModFromLowpassToOsc1;
+  ExpSmoother<double> interpPmPhase1ToPhase2;
+  ExpSmoother<double> interpPmPhase2ToPhase1;
+  ExpSmoother<double> interpPmOsc1ToPhase2;
+  ExpSmoother<double> interpPmOsc2ToPhase1;
+  ExpSmoother<double> interpOscMix;
+  ExpSmoother<double> interpSvfG;
+  ExpSmoother<double> interpSvfK;
+  ExpSmoother<double> interpRectificationMix;
+  ExpSmoother<double> interpSaturationMix;
+  ExpSmoother<double> interpSustain;
 
   double feedback = 0;
   double phase1 = 0;
@@ -144,19 +147,19 @@ private:
   double o1 = 0;
   double o2 = 0;
 
-  double gainAttackKp = 1.0f;
-  double gainDecayKp = 1.0f;
+  double gainAttackKp = 1.0;
+  double gainDecayKp = 1.0;
   DoubleEMAFilter<double> attackEnvelope;
   DoubleEMAFilter<double> decayEnvelope;
   NoteGate<double> releaseEnvelope;
 
   SerialSVF<double> svf;
 
-  DecimationLowpass<float, Sos64FoldFirstStage<float>> firstStageLowpass;
-  std::array<float, 2> halfBandInput;
-  HalfBandIIR<float, HalfBandCoefficient<float>> halfbandIir;
+  DecimationLowpass<double, Sos64FoldFirstStage<double>> firstStageLowpass;
+  std::array<double, 2> halfBandInput;
+  HalfBandIIR<double, HalfBandCoefficient<double>> halfbandIir;
 
-  float calcNotePitch(float note);
-  float getTempoSyncInterval();
+  double calcNotePitch(double note);
+  double getTempoSyncInterval();
   void resetBuffer();
 };

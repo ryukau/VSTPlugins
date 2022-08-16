@@ -106,7 +106,7 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 
   uint64_t state = data.processContext->state;
   if (state & Vst::ProcessContext::kTempoValid) {
-    dsp.tempo = float(data.processContext->tempo);
+    dsp.tempo = data.processContext->tempo;
   }
   if (state & Vst::ProcessContext::kProjectTimeMusicValid) {
     dsp.beatsElapsed = data.processContext->projectTimeMusic;
