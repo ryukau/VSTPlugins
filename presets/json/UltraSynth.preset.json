@@ -1,0 +1,962 @@
+[
+  {
+    "name": "LfoFree",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "rectificationMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "saturationMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainAttackSecond",
+        "type": "d",
+        "value": 0.07525749891599531
+      },
+      {
+        "name": "gainDecaySecond",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainSustainAmplitude",
+        "type": "d",
+        "value": 0.85
+      },
+      {
+        "name": "gainReleaseSecond",
+        "type": "d",
+        "value": 0.25
+      },
+      {
+        "name": "osc1Octave",
+        "type": "I",
+        "value": 8
+      },
+      {
+        "name": "osc2Octave",
+        "type": "I",
+        "value": 8
+      },
+      {
+        "name": "osc1FineTuneCent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2FineTuneCent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1WaveShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2WaveShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1SawPulseMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2SawPulseMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "phaseModFromLowpassToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pmPhase1ToPhase2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pmPhase2ToPhase1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pmOsc1ToPhase2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pmOsc2ToPhase1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lowpassCutoffAttackSecond",
+        "type": "d",
+        "value": 0.16666666666666666
+      },
+      {
+        "name": "lowpassCutoffDecaySecond",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lowpassCutoffHz",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassQ",
+        "type": "d",
+        "value": 0.46237125054200234
+      },
+      {
+        "name": "lowpassCutoffEnvelopeAmount",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lowpassKeyFollow",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoUpper",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoLower",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoRate",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoRetrigger",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.3319999873638153
+      },
+      {
+        "name": "lfoToOscMix",
+        "type": "d",
+        "value": 0.2359999120235443
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.28399989008903503
+      },
+      {
+        "name": "lfoToPreSaturation",
+        "type": "d",
+        "value": 0.11600001156330109
+      },
+      {
+        "name": "lfoToOsc1WaveShape",
+        "type": "d",
+        "value": 0.1839999407529831
+      },
+      {
+        "name": "lfoToOsc2WaveShape",
+        "type": "d",
+        "value": 0.23599986732006073
+      },
+      {
+        "name": "tuningSemitone",
+        "type": "I",
+        "value": 96
+      },
+      {
+        "name": "tuningCent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tuningET",
+        "type": "I",
+        "value": 11
+      },
+      {
+        "name": "tuningA4Hz",
+        "type": "I",
+        "value": 340
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchBendRange",
+        "type": "d",
+        "value": 0.016666666666666666
+      },
+      {
+        "name": "resetPhaseAtNoteOn",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "noteSlideTimeSecond",
+        "type": "d",
+        "value": 0.0
+      }
+    ]
+  },
+  {
+    "name": "LfoFreeRetrigger",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "rectificationMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "saturationMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainAttackSecond",
+        "type": "d",
+        "value": 0.07525749891599531
+      },
+      {
+        "name": "gainDecaySecond",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainSustainAmplitude",
+        "type": "d",
+        "value": 0.85
+      },
+      {
+        "name": "gainReleaseSecond",
+        "type": "d",
+        "value": 0.25
+      },
+      {
+        "name": "osc1Octave",
+        "type": "I",
+        "value": 8
+      },
+      {
+        "name": "osc2Octave",
+        "type": "I",
+        "value": 8
+      },
+      {
+        "name": "osc1FineTuneCent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2FineTuneCent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1WaveShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2WaveShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1SawPulseMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2SawPulseMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "phaseModFromLowpassToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pmPhase1ToPhase2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pmPhase2ToPhase1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pmOsc1ToPhase2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pmOsc2ToPhase1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lowpassCutoffAttackSecond",
+        "type": "d",
+        "value": 0.16666666666666666
+      },
+      {
+        "name": "lowpassCutoffDecaySecond",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lowpassCutoffHz",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassQ",
+        "type": "d",
+        "value": 0.46237125054200234
+      },
+      {
+        "name": "lowpassCutoffEnvelopeAmount",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lowpassKeyFollow",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoUpper",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoLower",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoRate",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.3319999873638153
+      },
+      {
+        "name": "lfoToOscMix",
+        "type": "d",
+        "value": 0.2359999120235443
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.28399989008903503
+      },
+      {
+        "name": "lfoToPreSaturation",
+        "type": "d",
+        "value": 0.11600001156330109
+      },
+      {
+        "name": "lfoToOsc1WaveShape",
+        "type": "d",
+        "value": 0.1839999407529831
+      },
+      {
+        "name": "lfoToOsc2WaveShape",
+        "type": "d",
+        "value": 0.23599986732006073
+      },
+      {
+        "name": "tuningSemitone",
+        "type": "I",
+        "value": 96
+      },
+      {
+        "name": "tuningCent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tuningET",
+        "type": "I",
+        "value": 11
+      },
+      {
+        "name": "tuningA4Hz",
+        "type": "I",
+        "value": 340
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchBendRange",
+        "type": "d",
+        "value": 0.016666666666666666
+      },
+      {
+        "name": "resetPhaseAtNoteOn",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "noteSlideTimeSecond",
+        "type": "d",
+        "value": 0.0
+      }
+    ]
+  },
+  {
+    "name": "LfoSync",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "rectificationMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "saturationMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainAttackSecond",
+        "type": "d",
+        "value": 0.07525749891599531
+      },
+      {
+        "name": "gainDecaySecond",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainSustainAmplitude",
+        "type": "d",
+        "value": 0.85
+      },
+      {
+        "name": "gainReleaseSecond",
+        "type": "d",
+        "value": 0.25
+      },
+      {
+        "name": "osc1Octave",
+        "type": "I",
+        "value": 8
+      },
+      {
+        "name": "osc2Octave",
+        "type": "I",
+        "value": 8
+      },
+      {
+        "name": "osc1FineTuneCent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2FineTuneCent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1WaveShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2WaveShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1SawPulseMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2SawPulseMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "phaseModFromLowpassToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pmPhase1ToPhase2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pmPhase2ToPhase1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pmOsc1ToPhase2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pmOsc2ToPhase1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lowpassCutoffAttackSecond",
+        "type": "d",
+        "value": 0.16666666666666666
+      },
+      {
+        "name": "lowpassCutoffDecaySecond",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lowpassCutoffHz",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassQ",
+        "type": "d",
+        "value": 0.46237125054200234
+      },
+      {
+        "name": "lowpassCutoffEnvelopeAmount",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lowpassKeyFollow",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoTempoUpper",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoLower",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoRate",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoRetrigger",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.3319999873638153
+      },
+      {
+        "name": "lfoToOscMix",
+        "type": "d",
+        "value": 0.2359999120235443
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.28399989008903503
+      },
+      {
+        "name": "lfoToPreSaturation",
+        "type": "d",
+        "value": 0.11600001156330109
+      },
+      {
+        "name": "lfoToOsc1WaveShape",
+        "type": "d",
+        "value": 0.1839999407529831
+      },
+      {
+        "name": "lfoToOsc2WaveShape",
+        "type": "d",
+        "value": 0.23599986732006073
+      },
+      {
+        "name": "tuningSemitone",
+        "type": "I",
+        "value": 96
+      },
+      {
+        "name": "tuningCent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tuningET",
+        "type": "I",
+        "value": 11
+      },
+      {
+        "name": "tuningA4Hz",
+        "type": "I",
+        "value": 340
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchBendRange",
+        "type": "d",
+        "value": 0.016666666666666666
+      },
+      {
+        "name": "resetPhaseAtNoteOn",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "noteSlideTimeSecond",
+        "type": "d",
+        "value": 0.0
+      }
+    ]
+  },
+  {
+    "name": "LfoSyncRetrigger",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "rectificationMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "saturationMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gainAttackSecond",
+        "type": "d",
+        "value": 0.07525749891599531
+      },
+      {
+        "name": "gainDecaySecond",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainSustainAmplitude",
+        "type": "d",
+        "value": 0.85
+      },
+      {
+        "name": "gainReleaseSecond",
+        "type": "d",
+        "value": 0.25
+      },
+      {
+        "name": "osc1Octave",
+        "type": "I",
+        "value": 8
+      },
+      {
+        "name": "osc2Octave",
+        "type": "I",
+        "value": 8
+      },
+      {
+        "name": "osc1FineTuneCent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2FineTuneCent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1WaveShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc2WaveShape",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "osc1SawPulseMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "osc2SawPulseMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "phaseModFromLowpassToOsc1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pmPhase1ToPhase2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pmPhase2ToPhase1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pmOsc1ToPhase2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pmOsc2ToPhase1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "oscMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lowpassCutoffAttackSecond",
+        "type": "d",
+        "value": 0.16666666666666666
+      },
+      {
+        "name": "lowpassCutoffDecaySecond",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lowpassCutoffHz",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassQ",
+        "type": "d",
+        "value": 0.46237125054200234
+      },
+      {
+        "name": "lowpassCutoffEnvelopeAmount",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lowpassKeyFollow",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoTempoUpper",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoLower",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoRate",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoRetrigger",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.3319999873638153
+      },
+      {
+        "name": "lfoToOscMix",
+        "type": "d",
+        "value": 0.2359999120235443
+      },
+      {
+        "name": "lfoToCutoff",
+        "type": "d",
+        "value": 0.28399989008903503
+      },
+      {
+        "name": "lfoToPreSaturation",
+        "type": "d",
+        "value": 0.11600001156330109
+      },
+      {
+        "name": "lfoToOsc1WaveShape",
+        "type": "d",
+        "value": 0.1839999407529831
+      },
+      {
+        "name": "lfoToOsc2WaveShape",
+        "type": "d",
+        "value": 0.23599986732006073
+      },
+      {
+        "name": "tuningSemitone",
+        "type": "I",
+        "value": 96
+      },
+      {
+        "name": "tuningCent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tuningET",
+        "type": "I",
+        "value": 11
+      },
+      {
+        "name": "tuningA4Hz",
+        "type": "I",
+        "value": 340
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchBendRange",
+        "type": "d",
+        "value": 0.016666666666666666
+      },
+      {
+        "name": "resetPhaseAtNoteOn",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "noteSlideTimeSecond",
+        "type": "d",
+        "value": 0.0
+      }
+    ]
+  }
+]

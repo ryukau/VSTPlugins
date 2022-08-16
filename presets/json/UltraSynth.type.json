@@ -1,0 +1,378 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "outputGain",
+    "type": "d",
+    "default": "Scales::outputGain.invmap(1.0)",
+    "scale": "Scales::outputGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "rectificationMix",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "saturationMix",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "gainAttackSecond",
+    "type": "d",
+    "default": "Scales::envelopeSecond.invmap(0.002)",
+    "scale": "Scales::envelopeSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "gainDecaySecond",
+    "type": "d",
+    "default": "Scales::envelopeSecond.invmap(0.1)",
+    "scale": "Scales::envelopeSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "gainSustainAmplitude",
+    "type": "d",
+    "default": "Scales::gainSustainAmplitude.invmapDB(-6.0)",
+    "scale": "Scales::gainSustainAmplitude",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "gainReleaseSecond",
+    "type": "d",
+    "default": "Scales::envelopeSecond.invmap(0.01)",
+    "scale": "Scales::envelopeSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "osc1Octave",
+    "type": "I",
+    "default": "octaveOffset",
+    "scale": "Scales::octave",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "osc2Octave",
+    "type": "I",
+    "default": "octaveOffset",
+    "scale": "Scales::octave",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "osc1FineTuneCent",
+    "type": "d",
+    "default": "Scales::fineTuneCent.invmap(0.0)",
+    "scale": "Scales::fineTuneCent",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "osc2FineTuneCent",
+    "type": "d",
+    "default": "Scales::fineTuneCent.invmap(0.0)",
+    "scale": "Scales::fineTuneCent",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "osc1WaveShape",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::waveShape",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "osc2WaveShape",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::waveShape",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "osc1SawPulseMix",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "osc2SawPulseMix",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "phaseModFromLowpassToOsc1",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::phaseMod",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "pmPhase1ToPhase2",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::phaseMod",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "pmPhase2ToPhase1",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::phaseMod",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "pmOsc1ToPhase2",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::phaseMod",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "pmOsc2ToPhase1",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::phaseMod",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "oscMix",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 22,
+    "name": "lowpassCutoffAttackSecond",
+    "type": "d",
+    "default": "Scales::envelopeAttackSecond.invmap(0.0001)",
+    "scale": "Scales::envelopeAttackSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 23,
+    "name": "lowpassCutoffDecaySecond",
+    "type": "d",
+    "default": "Scales::envelopeSecond.invmap(0.1)",
+    "scale": "Scales::envelopeSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 24,
+    "name": "lowpassCutoffHz",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 25,
+    "name": "lowpassQ",
+    "type": "d",
+    "default": "Scales::lowpassQ.invmap(SomeDSP::halfSqrt2)",
+    "scale": "Scales::lowpassQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 26,
+    "name": "lowpassCutoffEnvelopeAmount",
+    "type": "d",
+    "default": "Scales::lowpassCutoffEnvelopeAmount.invmap(1.0)",
+    "scale": "Scales::lowpassCutoffEnvelopeAmount",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 27,
+    "name": "lowpassKeyFollow",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 28,
+    "name": "lfoTempoSync",
+    "type": "I",
+    "default": 1,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 29,
+    "name": "lfoTempoUpper",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::lfoTempoUpper",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 30,
+    "name": "lfoTempoLower",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::lfoTempoLower",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 31,
+    "name": "lfoRate",
+    "type": "d",
+    "default": "Scales::lfoRate.invmap(1.0)",
+    "scale": "Scales::lfoRate",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 32,
+    "name": "lfoRetrigger",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 33,
+    "name": "lfoToPitch",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::lfoToPitch",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 34,
+    "name": "lfoToOscMix",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 35,
+    "name": "lfoToCutoff",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::lfoToCutoff",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 36,
+    "name": "lfoToPreSaturation",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 37,
+    "name": "lfoToOsc1WaveShape",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 38,
+    "name": "lfoToOsc2WaveShape",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 39,
+    "name": "tuningSemitone",
+    "type": "I",
+    "default": "semitoneOffset",
+    "scale": "Scales::semitone",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 40,
+    "name": "tuningCent",
+    "type": "d",
+    "default": "Scales::cent.invmap(0.0)",
+    "scale": "Scales::cent",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 41,
+    "name": "tuningET",
+    "type": "I",
+    "default": 11,
+    "scale": "Scales::equalTemperament",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 42,
+    "name": "tuningA4Hz",
+    "type": "I",
+    "default": "440 - a4HzOffset",
+    "scale": "Scales::a4Hz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 43,
+    "name": "pitchBend",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 44,
+    "name": "pitchBendRange",
+    "type": "d",
+    "default": "Scales::pitchBendRange.invmap(2.0)",
+    "scale": "Scales::pitchBendRange",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 45,
+    "name": "resetPhaseAtNoteOn",
+    "type": "I",
+    "default": 1,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 46,
+    "name": "noteSlideTimeSecond",
+    "type": "d",
+    "default": "Scales::noteSlideTimeSecond.invmap(0.0)",
+    "scale": "Scales::noteSlideTimeSecond",
+    "flags": "Info::kCanAutomate"
+  }
+]

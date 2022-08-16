@@ -167,9 +167,18 @@ public:
         bool success = sequencer.process(currentFrame, note);
         if (success) {
           switch (note.type) {
-            case NoteEventType::noteOn:
+            case NoteEventType::noteOn: {
               dsp->noteOn(note.id, note.pitch, note.tuning, note.velocity);
-              break;
+
+              // // UltraSynth requires this. Maybe refactor at some point.
+              // DSP_CLASS::NoteInfo info;
+              // info.isNoteOn = true;
+              // info.frame = uint32_t(currentFrame);
+              // info.id = note.id;
+              // info.noteNumber = note.pitch + note.tuning;
+              // info.velocity = note.velocity;
+              // dsp->noteOn(info);
+            } break;
             case NoteEventType::noteOff:
               dsp->noteOff(note.id);
               break;
