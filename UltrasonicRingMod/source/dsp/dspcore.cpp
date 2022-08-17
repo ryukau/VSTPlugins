@@ -25,10 +25,10 @@ template<typename T> inline T lerp(T a, T b, T t) { return a + t * (b - a); }
 
 void DSPCore::setup(double sampleRate)
 {
-  this->sampleRate = float(sampleRate);
-  auto upRate = float(sampleRate) * upFold;
+  this->sampleRate = double(sampleRate);
+  upRate = double(sampleRate) * upFold;
 
-  SmootherCommon<float>::setSampleRate(upRate);
+  SmootherCommon<double>::setSampleRate(upRate);
 
   reset();
   startup();
@@ -40,27 +40,27 @@ size_t DSPCore::getLatency() { return 0; }
   using ID = ParameterID::ID;                                                            \
   const auto &pv = param.value;                                                          \
                                                                                          \
-  SmootherCommon<float>::setTime(pv[ID::parameterSmoothingSecond]->getFloat());          \
+  SmootherCommon<double>::setTime(pv[ID::parameterSmoothingSecond]->getDouble());        \
                                                                                          \
-  pitchSmoothingKp = float(                                                              \
-    EMAFilter<double>::secondToP(upRate, pv[ID::noteSlideTimeSecond]->getFloat()));      \
+  pitchSmoothingKp = double(                                                             \
+    EMAFilter<double>::secondToP(upRate, pv[ID::noteSlideTimeSecond]->getDouble()));     \
                                                                                          \
-  interpPreClipGain.METHOD(pv[ID::preClipGain]->getFloat());                             \
-  interpOutputGain.METHOD(pv[ID::outputGain]->getFloat());                               \
+  interpPreClipGain.METHOD(pv[ID::preClipGain]->getDouble());                            \
+  interpOutputGain.METHOD(pv[ID::outputGain]->getDouble());                              \
                                                                                          \
-  interpMix.METHOD(pv[ID::mix]->getFloat());                                             \
-  interpFrequencyHz.METHOD(pv[ID::frequencyHz]->getFloat());                             \
-  interpDCOffset.METHOD(pv[ID::dcOffset]->getFloat());                                   \
-  interpFeedbackGain.METHOD(pv[ID::feedbackGain]->getFloat());                           \
-  interpModFrequencyScaling.METHOD(pv[ID::modFrequencyScaling]->getFloat());             \
-  interpModWrapMix.METHOD(pv[ID::modWrapMix]->getFloat());                               \
-  interpHardclipMix.METHOD(pv[ID::hardclipMix]->getFloat());
+  interpMix.METHOD(pv[ID::mix]->getDouble());                                            \
+  interpFrequencyHz.METHOD(pv[ID::frequencyHz]->getDouble());                            \
+  interpDCOffset.METHOD(pv[ID::dcOffset]->getDouble());                                  \
+  interpFeedbackGain.METHOD(pv[ID::feedbackGain]->getDouble());                          \
+  interpModFrequencyScaling.METHOD(pv[ID::modFrequencyScaling]->getDouble());            \
+  interpModWrapMix.METHOD(pv[ID::modWrapMix]->getDouble());                              \
+  interpHardclipMix.METHOD(pv[ID::hardclipMix]->getDouble());
 
 void DSPCore::reset()
 {
   ASSIGN_PARAMETER(reset);
 
-  interpPitch.reset(float(1));
+  interpPitch.reset(double(1));
 
   for (auto &us : upSampler) us.reset();
   for (auto &lp : firstStageLowpass) lp.reset();
@@ -78,7 +78,7 @@ void DSPCore::setParameters() { ASSIGN_PARAMETER(push); }
 void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(float(length));
+  SmootherCommon<double>::setBufferSize(double(length));
 
   for (size_t i = 0; i < length; ++i) {
     processMidiNote(i);
@@ -103,12 +103,12 @@ void DSPCore::process(
 
         // Sine.
         auto fb = feedback[0] + feedback[1];
-        auto mod = std::sin(float(twopi) * phase + fbGain * fb);
-        auto gain = (dc + mod) * (float(1) - float(0.5) * dc);
+        auto mod = std::sin(double(twopi) * phase + fbGain * fb);
+        auto gain = (dc + mod) * (double(1) - double(0.5) * dc);
 
-        gain *= lerp(float(1), freq, modScale);
+        gain *= lerp(double(1), freq, modScale);
         gain -= modWrap * std::floor(gain);
-        gain = lerp(float(1), gain, mix);
+        gain = lerp(double(1), gain, mix);
 
         size_t index = k + firstStateFold * j;
 
@@ -116,8 +116,8 @@ void DSPCore::process(
         double s1 = gain * upSampler[1].output[index];
         double h0 = std::clamp(preClipGain * s0, double(-1), double(1));
         double h1 = std::clamp(preClipGain * s1, double(-1), double(1));
-        feedback[0] = float(s0 + hardclip * (h0 - s0));
-        feedback[1] = float(s1 + hardclip * (h1 - s1));
+        feedback[0] = double(s0 + hardclip * (h0 - s0));
+        feedback[1] = double(s1 + hardclip * (h1 - s1));
 
         firstStageLowpass[0].push(outputGain * feedback[0]);
         firstStageLowpass[1].push(outputGain * feedback[1]);
@@ -147,19 +147,19 @@ void DSPCore::noteOff(int_fast32_t noteId)
   noteStack.erase(it);
 
   if (noteStack.empty()) {
-    interpPitch.push(float(1));
+    interpPitch.push(double(1));
   } else {
     interpPitch.push(calcNotePitch(noteStack.back().pitch));
   }
 }
 
-float DSPCore::calcNotePitch(float note, float equalTemperament)
+double DSPCore::calcNotePitch(double note, double equalTemperament)
 {
   using ID = ParameterID::ID;
   auto &pv = param.value;
 
-  auto offset = pv[ID::noteOffset]->getFloat();
-  auto scale = pv[ID::noteScaling]->getFloat();
+  auto offset = pv[ID::noteOffset]->getDouble();
+  auto scale = pv[ID::noteScaling]->getDouble();
   if (pv[ID::noteScalingNegative]->getInt()) scale = -scale;
   return std::exp2(scale * (note + offset - 69) / equalTemperament);
 }

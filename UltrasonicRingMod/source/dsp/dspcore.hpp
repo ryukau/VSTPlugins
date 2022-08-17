@@ -89,34 +89,34 @@ public:
 
 private:
   static constexpr size_t upFold = 64;
-  static constexpr size_t firstStateFold = Sos64FoldFirstStage<float>::fold;
+  static constexpr size_t firstStateFold = Sos64FoldFirstStage<double>::fold;
 
   std::vector<NoteInfo> midiNotes;
   std::vector<NoteInfo> noteStack;
 
-  float sampleRate = 44100.0f;
-  float upRate = upFold * 44100.0f;
+  double sampleRate = 44100;
+  double upRate = upFold * 44100;
 
-  float pitchSmoothingKp = 1.0f;
-  ExpSmootherLocal<float> interpPitch;
+  double pitchSmoothingKp = 1;
+  ExpSmootherLocal<double> interpPitch;
 
-  ExpSmoother<float> interpPreClipGain;
-  ExpSmoother<float> interpOutputGain;
-  ExpSmoother<float> interpMix;
-  ExpSmoother<float> interpFrequencyHz;
-  ExpSmoother<float> interpDCOffset;
-  ExpSmoother<float> interpFeedbackGain;
-  ExpSmoother<float> interpModFrequencyScaling;
-  ExpSmoother<float> interpModWrapMix;
-  ExpSmoother<float> interpHardclipMix;
+  ExpSmoother<double> interpPreClipGain;
+  ExpSmoother<double> interpOutputGain;
+  ExpSmoother<double> interpMix;
+  ExpSmoother<double> interpFrequencyHz;
+  ExpSmoother<double> interpDCOffset;
+  ExpSmoother<double> interpFeedbackGain;
+  ExpSmoother<double> interpModFrequencyScaling;
+  ExpSmoother<double> interpModWrapMix;
+  ExpSmoother<double> interpHardclipMix;
 
-  std::array<LinearUpSampler<float, upFold>, 2> upSampler;
-  std::array<DecimationLowpass<float, Sos64FoldFirstStage<float>>, 2> firstStageLowpass;
-  std::array<float, 2> feedback;
-  std::array<std::array<float, 2>, 2> halfBandInput;
-  std::array<HalfBandIIR<float, HalfBandCoefficient<float>>, 2> halfbandIir;
+  std::array<LinearUpSampler<double, upFold>, 2> upSampler;
+  std::array<DecimationLowpass<double, Sos64FoldFirstStage<double>>, 2> firstStageLowpass;
+  std::array<double, 2> feedback;
+  std::array<std::array<double, 2>, 2> halfBandInput;
+  std::array<HalfBandIIR<double, HalfBandCoefficient<double>>, 2> halfbandIir;
 
-  float phase = 0;
+  double phase = 0;
 
-  float calcNotePitch(float note, float equalTemperament = 12.0f);
+  double calcNotePitch(double note, double equalTemperament = 12);
 };

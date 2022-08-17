@@ -41,7 +41,7 @@ void DSPCore::setup(double sampleRate)
   noteStack.resize(0);
 
   this->sampleRate = sampleRate;
-  auto upRate = sampleRate * upFold;
+  upRate = sampleRate * upFold;
 
   constexpr auto smoothingTimeSecond = 0.2;
 
