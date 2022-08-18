@@ -1,8 +1,9 @@
 {
   "LatticeReverb": {
-    "latest_version": "0.1.13",
+    "latest_version": "0.1.14",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.45.0/LatticeReverb_0.1.14.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/LatticeReverb_0.1.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/LatticeReverb_0.1.12.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/LatticeReverb_0.1.11.zip",
@@ -19,6 +20,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverbPresets.zip"
     },
     "changelog": {
+      "0.1.14": {
+        "en": [
+          "Changed to reduce pitch down after reset."
+        ],
+        "ja": [
+          "リセット直後にピッチが下がらないように変更。"
+        ]
+      },
       "0.1.13": {
         "en": [
           "Changed BarBox to get focus on mouse down, and release focus on mouse exit."

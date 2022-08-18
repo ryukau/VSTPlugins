@@ -62,16 +62,23 @@ void DSPCORE_NAME::reset()
   auto outerOffsetMul = param.value[ID::outerFeedOffsetMultiply]->getFloat();
   auto innerOffsetMul = param.value[ID::innerFeedOffsetMultiply]->getFloat();
   auto timeLfoLowpassKp = param.value[ID::timeLfoLowpass]->getFloat();
+
+  std::uniform_real_distribution<float> dist(0.0f, 1.0f);
   for (size_t idx = 0; idx < nestingDepth; ++idx) {
     auto timeOffset
       = calcOffset(param.value[ID::timeOffset0 + idx]->getFloat(), timeOffsetMul);
     auto time = param.value[ID::time0 + idx]->getFloat();
-    interpTime[0][idx].reset(timeOffset[0] * timeMul * time);
-    interpTime[1][idx].reset(timeOffset[1] * timeMul * time);
-    lowpassLfoTime[0][idx].reset();
-    lowpassLfoTime[1][idx].reset();
+    auto timeLfo = param.value[ID::timeLfoAmount0 + idx]->getFloat();
     lowpassLfoTime[0][idx].kp = timeLfoLowpassKp;
     lowpassLfoTime[1][idx].kp = timeLfoLowpassKp;
+    lowpassLfoTime[0][idx].reset(dist(rng));
+    lowpassLfoTime[1][idx].reset(dist(rng));
+    interpTime[0][idx].push(std::clamp<float>(
+      timeOffset[0] * timeMul * time + timeLfo * lowpassLfoTime[0][idx].value, 0.0f,
+      1.0f));
+    interpTime[1][idx].push(std::clamp<float>(
+      timeOffset[1] * timeMul * time + timeLfo * lowpassLfoTime[1][idx].value, 0.0f,
+      1.0f));
 
     auto outerOffset
       = calcOffset(param.value[ID::outerFeedOffset0 + idx]->getFloat(), outerOffsetMul);
