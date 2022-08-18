@@ -1,4 +1,4 @@
-// (c) 2021 Takamitsu Endo
+// (c) 2021-2022 Takamitsu Endo
 //
 // This file is part of Uhhyou Plugins.
 //
@@ -75,6 +75,7 @@ private:
 
 public:
   float borderWidth = 2.0f;
+  double wheelSensitivity = 0.0001;
 
   explicit XYPad(
     Steinberg::Vst::VSTGUIEditor *editor,
@@ -222,6 +223,17 @@ public:
     isMouseDown = false;
     isMouseEntered = false;
     invalid();
+    event.consumed = true;
+  }
+
+  virtual void onMouseWheelEvent(MouseWheelEvent &event) override
+  {
+    if (event.deltaY == 0) return;
+
+    size_t index = event.modifiers.has(ModifierKey::Shift) ? 1 : 0;
+    value[index] += event.deltaY * float(wheelSensitivity);
+    updateValueAt(index);
+
     event.consumed = true;
   }
 };
