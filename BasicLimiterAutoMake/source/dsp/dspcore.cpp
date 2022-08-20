@@ -46,7 +46,7 @@ void DSPCORE_NAME::setup(double sampleRate)
   this->sampleRate = float(sampleRate);
 
   SmootherCommon<float>::setSampleRate(this->sampleRate);
-  SmootherCommon<float>::setTime(0.2f);
+  SmootherCommon<float>::setTime(0.5f);
 
   auto bufferSize
     = size_t(UpSamplerFir::upfold * maxAttackSeconds * this->sampleRate) + 1;
@@ -83,7 +83,7 @@ void DSPCORE_NAME::reset()
 
   pv[ID::overshoot]->setFromFloat(1.0);
 
-  for (auto &lm : limiter) lm.reset();
+  for (auto &lm : limiter) lm.reset(interpThreshold.getValue());
   for (auto &he : highEliminatorMain) he.reset();
   for (auto &he : highEliminatorSide) he.reset();
   for (auto &us : upSamplerMain) us.reset();
@@ -109,7 +109,7 @@ void DSPCORE_NAME::setParameters()
     lm.prepare(
       upfold * sampleRate, pv[ID::limiterAttack]->getFloat(),
       pv[ID::limiterSustain]->getFloat(), pv[ID::limiterRelease]->getFloat(),
-      pv[ID::limiterGate]->getFloat());
+      limiterThreshold, pv[ID::limiterGate]->getFloat());
   }
 
   autoMakeUp.prepare(

@@ -78,7 +78,7 @@ void DSPCORE_NAME::reset()
 
   pv[ID::overshoot]->setFromFloat(1.0);
 
-  for (auto &lm : limiter) lm.reset();
+  for (auto &lm : limiter) lm.reset(pv[ID::limiterThreshold]->getFloat());
   for (auto &he : highEliminator) he.reset();
   for (auto &us : upSampler) us.reset();
   for (auto &ds : downSampler) ds.reset();

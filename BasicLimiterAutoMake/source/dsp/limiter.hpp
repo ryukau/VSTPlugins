@@ -271,7 +271,6 @@ template<typename Sample> class Limiter {
 private:
   size_t attackFrames = 0;
   size_t sustainFrames = 0;
-  // Sample thresholdAmp = Sample(1); // thresholdAmp > 0.
   Sample gateAmp = 0; // gateAmp >= 0.
 
   PeakHold<Sample> peakhold;
@@ -295,11 +294,11 @@ public:
     lookaheadDelay.resize(size);
   }
 
-  void reset()
+  void reset(Sample thresholdAmplitude)
   {
     peakhold.reset();
     smoother.reset();
-    releaseFilter.reset();
+    releaseFilter.reset(thresholdAmplitude);
     lookaheadDelay.reset();
   }
 
@@ -308,6 +307,7 @@ public:
     Sample attackSeconds,
     Sample sustainSeconds,
     Sample releaseSeconds,
+    Sample thresholdAmplitude,
     Sample gateAmplitude)
   {
     auto prevAttack = attackFrames;
@@ -317,7 +317,8 @@ public:
     auto prevSustain = sustainFrames;
     sustainFrames = size_t(sampleRate * sustainSeconds);
 
-    if (prevAttack != attackFrames || prevSustain != sustainFrames) reset();
+    if (prevAttack != attackFrames || prevSustain != sustainFrames)
+      reset(thresholdAmplitude);
 
     releaseFilter.setCutoff(sampleRate, Sample(1) / releaseSeconds);
 
@@ -341,13 +342,13 @@ public:
 
   Sample process(const Sample input, Sample inAbs, Sample thresholdAmplitude)
   {
-    auto &&peakAmp = peakhold.process(inAbs);
-    auto &&candidate = applyCharacteristicCurve(thresholdAmplitude, peakAmp);
-    auto &&released = processRelease(candidate);
-    auto &&gainAmp = std::min(released, candidate);
-    auto &&targetAmp = peakAmp < gateAmp ? 0 : gainAmp;
-    auto &&smoothed = smoother.process(targetAmp);
-    auto &&delayed = lookaheadDelay.process(input);
+    auto peakAmp = peakhold.process(inAbs);
+    auto candidate = applyCharacteristicCurve(thresholdAmplitude, peakAmp);
+    auto released = processRelease(candidate);
+    auto gainAmp = std::min(released, candidate);
+    auto targetAmp = peakAmp < gateAmp ? 0 : gainAmp;
+    auto smoothed = smoother.process(targetAmp);
+    auto delayed = lookaheadDelay.process(input);
     return smoothed * delayed;
   }
 };

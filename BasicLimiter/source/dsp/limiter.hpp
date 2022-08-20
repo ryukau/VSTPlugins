@@ -294,11 +294,11 @@ public:
     lookaheadDelay.resize(size);
   }
 
-  void reset()
+  void reset(Sample thresholdAmplitude)
   {
     peakhold.reset();
     smoother.reset();
-    releaseFilter.reset();
+    releaseFilter.reset(Sample(thresholdAmplitude));
     lookaheadDelay.reset();
   }
 
@@ -317,7 +317,8 @@ public:
     auto prevSustain = sustainFrames;
     sustainFrames = size_t(sampleRate * sustainSeconds);
 
-    if (prevAttack != attackFrames || prevSustain != sustainFrames) reset();
+    if (prevAttack != attackFrames || prevSustain != sustainFrames)
+      reset(thresholdAmplitude);
 
     releaseFilter.setCutoff(sampleRate, Sample(1) / releaseSeconds);
 
@@ -342,13 +343,13 @@ public:
 
   Sample process(const Sample input, Sample inAbs)
   {
-    auto &&peakAmp = peakhold.process(inAbs);
-    auto &&candidate = applyCharacteristicCurve(peakAmp);
-    auto &&released = processRelease(candidate);
-    auto &&gainAmp = std::min(released, candidate);
-    auto &&targetAmp = peakAmp < gateAmp ? 0 : gainAmp;
-    auto &&smoothed = smoother.process(targetAmp);
-    auto &&delayed = lookaheadDelay.process(input);
+    auto peakAmp = peakhold.process(inAbs);
+    auto candidate = applyCharacteristicCurve(peakAmp);
+    auto released = processRelease(candidate);
+    auto gainAmp = std::min(released, candidate);
+    auto targetAmp = peakAmp < gateAmp ? 0 : gainAmp;
+    auto smoothed = smoother.process(targetAmp);
+    auto delayed = lookaheadDelay.process(input);
     return smoothed * delayed;
   }
 };
