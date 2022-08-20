@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-08-13" />
+<meta name="dcterms.date" content="2022-08-20" />
 <title>BasicLimiter_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-08-13
+  Update: 2022-08-20
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -330,7 +330,7 @@ footer {
 は名前の通りベーシックなシングルバンドリミッタです。目新しい音は出ませんが、トゥルーピークモードはやや贅沢に設計しています。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/BasicLimiter_0.1.9.zip">BasicLimiter
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.45.0/BasicLimiter_0.1.10.zip">BasicLimiter
 0.1.9 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
@@ -345,7 +345,7 @@ href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN6
 負荷は 1.5 倍強に上がります。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/BasicLimiterAutoMake_0.1.9.zip">BasicLimiterAutoMake
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.45.0/BasicLimiterAutoMake_0.1.10.zip">BasicLimiterAutoMake
 0.1.9 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
@@ -728,6 +728,10 @@ BasicLimiterAutoMake
 <h2 id="チェンジログ">チェンジログ</h2>
 <h3 id="basiclimiter-1">BasicLimiter</h3>
 <ul>
+<li>0.1.10
+<ul>
+<li>リリースフィルタのリセットを修正。リリース時間が長めに設定されているとき、リセット直後にフェードインする効果が出なくなった。</li>
+</ul></li>
 <li>0.1.9
 <ul>
 <li>内部で使われているディレイのバッファ長とアタック時間が一致したときに、巻き戻しによってリミッタの動作が壊れる潜在的な不具合を修正。</li>
@@ -763,6 +767,11 @@ BasicLimiterAutoMake
 </ul>
 <h3 id="basiclimiterautomake">BasicLimiterAutoMake</h3>
 <ul>
+<li>0.1.10
+<ul>
+<li>パラメータ平滑化時間を 0.2 秒から 0.5 秒に変更。</li>
+<li>リリースフィルタのリセットを修正。リリース時間が長めに設定されているとき、リセット直後にフェードインする効果が出なくなった。</li>
+</ul></li>
 <li>0.1.9
 <ul>
 <li>内部で使われているディレイのバッファ長とアタック時間が一致したときに、巻き戻しによってリミッタの動作が壊れる潜在的な不具合を修正。</li>
@@ -793,6 +802,9 @@ BasicLimiterAutoMake
 <h3 id="basiclimiter-2">BasicLimiter</h3>
 <ul>
 <li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/BasicLimiter_0.1.9.zip">BasicLimiter
+0.1.9 - VST 3 (github.com)</a></li>
+<li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiter_0.1.8.zip">BasicLimiter
 0.1.8 - VST 3 (github.com)</a></li>
 <li><a
@@ -810,6 +822,9 @@ href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN6
 </ul>
 <h3 id="basiclimiterautomake-1">BasicLimiterAutoMake</h3>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/BasicLimiterAutoMake_0.1.9.zip">BasicLimiterAutoMake
+0.1.9 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiterAutoMake_0.1.8.zip">BasicLimiterAutoMake
 0.1.8 - VST 3 (github.com)</a></li>
