@@ -66,6 +66,7 @@ void DSPCore::setup(double sampleRate)
   interpPitch.METHOD(notePitch);                                                         \
                                                                                          \
   interpOutputGain.METHOD(pv[ID::outputGain]->getDouble());                              \
+  interpLfoWaveShape.METHOD(pv[ID::lfoWaveShape]->getDouble());                          \
   interpLfoToPitch.METHOD(pv[ID::lfoToPitch]->getDouble());                              \
   interpLfoToOscMix.METHOD(pv[ID::lfoToOscMix]->getDouble());                            \
   interpLfoToCutoff.METHOD(pv[ID::lfoToCutoff]->getDouble());                            \
@@ -175,8 +176,10 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
     //   continue;
     // }
 
+    auto lfoShape = interpLfoWaveShape.process(baseRateKp);
     auto lfoPhi = lfoPhase.process(synchronizer.process());
-    auto lfoBipolar = std::sin(double(twopi) * lfoPhi);
+    auto lfoBipolar
+      = std::clamp(lfoShape * std::sin(double(twopi) * lfoPhi), double(-1), double(1));
     auto lfoPositive = double(0.25) + double(0.25) * lfoBipolar;
     lfoPositive *= lfoPositive;
     lfoPositive *= lfoPositive;
@@ -331,7 +334,9 @@ double DSPCore::getTempoSyncInterval()
   // Multiplying with 4 because 1 beat is 1/4 bar.
   auto upper = pv[ID::lfoTempoUpper]->getDouble() + double(1);
   auto lower = pv[ID::lfoTempoLower]->getDouble() + double(1);
-  return double(4) * upper / lower / lfoRate;
+  return pv[ID::lfoTempoSync]->getInt()
+    ? (4 * timeSigUpper * upper) / (timeSigLower * lower * lfoRate)
+    : (4 * upper) / (lower * lfoRate);
 }
 
 void DSPCore::resetBuffer()

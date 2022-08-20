@@ -49,6 +49,8 @@ public:
   bool isPlaying = false;
   double tempo = 120.0;
   double beatsElapsed = 0.0;
+  double timeSigUpper = 1.0;
+  double timeSigLower = 4.0;
 
   void setup(double sampleRate);
   void reset();
@@ -110,6 +112,7 @@ private:
 
   double baseRateKp = 1.0;
   ExpSmootherLocal<double> interpOutputGain;
+  ExpSmootherLocal<double> interpLfoWaveShape;
   ExpSmootherLocal<double> interpLfoToPitch;
   ExpSmootherLocal<double> interpLfoToOscMix;
   ExpSmootherLocal<double> interpLfoToCutoff;

@@ -197,7 +197,10 @@ bool Editor::prepareUI()
   constexpr auto lfoLeft2 = lfoLeft1 + knobX;
   constexpr auto lfoLeft3 = lfoLeft2 + knobX;
   addSmallKnob(
-    lfoLeft0, top6, labelWidth, labelHeight, margin, uiTextSize, "Rate", ID::lfoRate);
+    lfoLeft0, top6, knobX, labelHeight, margin, uiTextSize, "Rate", ID::lfoRate);
+  addSmallKnob(
+    lfoLeft1 + margin, top6, knobX - margin, labelHeight, margin, uiTextSize, "Sq.",
+    ID::lfoWaveShape);
   addCheckbox(
     lfoLeft0, top7, labelWidth, labelHeight, uiTextSize, "Retrigger", ID::lfoRetrigger);
   addCheckbox(

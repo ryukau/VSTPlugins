@@ -63,7 +63,8 @@ uint32 PLUGIN_API PlugProcessor::getProcessContextRequirements()
 {
   using Rq = Vst::IProcessContextRequirements;
 
-  return Rq::kNeedProjectTimeMusic & Rq::kNeedTempo & Rq::kNeedTransportState;
+  return Rq::kNeedProjectTimeMusic & Rq::kNeedTempo & Rq::kNeedTransportState
+    & Rq::kNeedTimeSignature;
 }
 
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
@@ -110,6 +111,10 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   }
   if (state & Vst::ProcessContext::kProjectTimeMusicValid) {
     dsp.beatsElapsed = data.processContext->projectTimeMusic;
+  }
+  if (state & Vst::ProcessContext::kTimeSigValid) {
+    dsp.timeSigLower = data.processContext->timeSigDenominator;
+    dsp.timeSigUpper = data.processContext->timeSigNumerator;
   }
   if (!dsp.isPlaying && (state & Vst::ProcessContext::kPlaying) != 0) {
     dsp.startup();

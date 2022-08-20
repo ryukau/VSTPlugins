@@ -76,6 +76,7 @@ enum ID {
   lfoTempoLower,
   lfoRate,
   lfoRetrigger,
+  lfoWaveShape,
   lfoToPitch,
   lfoToOscMix,
   lfoToCutoff,
@@ -120,6 +121,7 @@ struct Scales {
   static SomeDSP::UIntScale<double> lfoTempoUpper;
   static SomeDSP::UIntScale<double> lfoTempoLower;
   static SomeDSP::DecibelScale<double> lfoRate;
+  static SomeDSP::DecibelScale<double> lfoWaveShape;
   static SomeDSP::DecibelScale<double> lfoToPitch;
   static SomeDSP::DecibelScale<double> lfoToCutoff;
 
@@ -228,6 +230,9 @@ struct GlobalParameter : public ParameterInterface {
       Scales::lfoRate.invmap(1.0), Scales::lfoRate, "lfoRate", Info::kCanAutomate);
     value[ID::lfoRetrigger] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "lfoRetrigger", Info::kCanAutomate);
+    value[ID::lfoWaveShape] = std::make_unique<DecibelValue>(
+      Scales::lfoWaveShape.invmapDB(0.0), Scales::lfoWaveShape, "lfoWaveShape",
+      Info::kCanAutomate);
 
     value[ID::lfoToPitch] = std::make_unique<DecibelValue>(
       0.0, Scales::lfoToPitch, "lfoToPitch", Info::kCanAutomate);

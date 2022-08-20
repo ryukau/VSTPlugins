@@ -47,6 +47,7 @@ DecibelScale<double> Scales::lowpassCutoffEnvelopeAmount(-80.0, 80.0, false);
 UIntScale<double> Scales::lfoTempoUpper(255);
 UIntScale<double> Scales::lfoTempoLower(255);
 DecibelScale<double> Scales::lfoRate(-60.0, 60.0, true);
+DecibelScale<double> Scales::lfoWaveShape(0.0, 20.0, false);
 DecibelScale<double> Scales::lfoToPitch(-60.0, 0.0, true);
 DecibelScale<double> Scales::lfoToCutoff(-80.0, 0.0, true);
 
