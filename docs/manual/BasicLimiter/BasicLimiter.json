@@ -1,6 +1,6 @@
 {
   "BasicLimiter": {
-    "latest_version": "0.1.9",
+    "latest_version": "0.1.10",
     "urls": {
       "plugin_url": [
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.45.0/BasicLimiter_0.1.10.zip",
@@ -83,7 +83,7 @@
     }
   },
   "BasicLimiterAutoMake": {
-    "latest_version": "0.1.9",
+    "latest_version": "0.1.10",
     "urls": {
       "plugin_url": [
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.45.0/BasicLimiterAutoMake_0.1.10.zip",
