@@ -21,6 +21,8 @@
 #include "public.sdk/source/vst/vstguieditor.h"
 #include "vstgui/vstgui.h"
 
+#include <algorithm>
+
 namespace VSTGUI {
 
 struct ArrayControl : public CView, public IFocusDrawing {
@@ -29,6 +31,7 @@ public:
   std::vector<Steinberg::Vst::ParamID> id;
   std::vector<double> value;
   std::vector<double> defaultValue;
+  std::vector<bool> isEditing;
 
   explicit ArrayControl(
     Steinberg::Vst::VSTGUIEditor *editor,
@@ -38,6 +41,8 @@ public:
     std::vector<double> defaultValue)
     : CView(size), editor(editor), id(id), value(value), defaultValue(defaultValue)
   {
+    isEditing.resize(id.size(), false);
+
     setTransparency(false);
     setMouseEnabled(true);
 
@@ -65,28 +70,72 @@ public:
     return true;
   }
 
+  void beginEdit()
+  {
+    if (!getFrame()) return;
+    for (size_t i = 0; i < id.size(); ++i) {
+      if (isEditing[i]) continue;
+      isEditing[i] = true;
+      getFrame()->beginEdit(id[i]);
+    }
+  }
+
+  void beginEdit(size_t index)
+  {
+    if (index >= isEditing.size() || !getFrame()) return;
+    if (isEditing[index]) return;
+    isEditing[index] = true;
+    getFrame()->beginEdit(id[index]);
+  }
+
+  void endEdit()
+  {
+    if (getFrame()) {
+      for (size_t i = 0; i < id.size(); ++i) {
+        if (isEditing[i]) getFrame()->endEdit(id[i]);
+      }
+    }
+    std::fill(isEditing.begin(), isEditing.end(), false);
+  }
+
+  void endEdit(size_t index)
+  {
+    if (index >= isEditing.size() || !getFrame()) return;
+    if (!isEditing[index]) return;
+    isEditing[index] = false;
+    getFrame()->beginEdit(id[index]);
+  }
+
   void setValueAt(size_t index, double normalized)
   {
     if (index >= value.size()) return;
     value[index] = normalized < 0.0 ? 0.0 : normalized > 1.0 ? 1.0 : normalized;
   }
 
+  void editAndUpdateValue()
+  {
+    beginEdit();
+    updateValue();
+    endEdit();
+  }
+
   void updateValue()
   {
     if (id.size() != value.size()) return;
-    for (size_t i = 0; i < id.size(); ++i) updateValueAt(i);
+    for (size_t i = 0; i < id.size(); ++i) {
+      if (isEditing[i]) updateValueAt(i);
+    }
   }
 
   void updateValueAt(size_t index)
   {
     if (index >= id.size() || !getFrame() || editor == nullptr) return;
-    getFrame()->beginEdit(id[index]);
+    if (!isEditing[index]) return;
     auto controller = editor->getController();
     if (controller != nullptr) {
       controller->setParamNormalized(id[index], value[index]);
       controller->performEdit(id[index], value[index]);
     }
-    getFrame()->endEdit(id[index]);
   }
 
   void grabFocus()

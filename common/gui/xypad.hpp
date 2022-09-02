@@ -70,7 +70,9 @@ private:
   {
     if (lock != AxisLock::x) value[0] = defaultValue[0];
     if (lock != AxisLock::y) value[1] = defaultValue[1];
+    beginEdit();
     updateValue();
+    endEdit();
   }
 
 public:
@@ -185,6 +187,7 @@ public:
     } else {
       mousePosition = translatePoint(event.mousePosition);
       isMouseDown = true;
+      beginEdit();
       updateValueFromPos(mousePosition, getLockState(event));
     }
 
@@ -198,6 +201,7 @@ public:
   {
     if (isMouseDown) {
       updateValueFromPos(translatePoint(event.mousePosition), getLockState(event));
+      endEdit();
       isMouseDown = false;
       invalid();
       event.consumed = true;
@@ -232,7 +236,10 @@ public:
 
     size_t index = event.modifiers.has(ModifierKey::Shift) ? 1 : 0;
     value[index] += event.deltaY * float(wheelSensitivity);
+
+    beginEdit(index);
     updateValueAt(index);
+    endEdit(index);
 
     event.consumed = true;
   }

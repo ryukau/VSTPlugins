@@ -250,6 +250,7 @@ public:
   void onMouseUpEvent(MouseUpEvent &event) override
   {
     updateValue();
+    endEdit();
     pushUndoValue();
     event.consumed = true;
   }
@@ -287,6 +288,7 @@ public:
   {
     if (isDirty()) {
       updateValue();
+      endEdit();
       pushUndoValue();
       invalid();
     }
@@ -310,7 +312,9 @@ public:
     } else {
       setValueAt(index, value[index] + event.deltaY * scrollSensitivity);
     }
+    beginEdit(index);
     updateValueAt(index);
+    endEdit(index);
     invalid();
     event.consumed = true;
   }
@@ -371,13 +375,13 @@ public:
       randomize(index, 0.02);
     } else if (shift && event.character == 'z') { // Redo
       redo();
-      ArrayControl::updateValue();
+      ArrayControl::editAndUpdateValue();
       invalid();
       event.consumed = true;
       return;
     } else if (event.character == 'z') { // Undo
       undo();
-      ArrayControl::updateValue();
+      ArrayControl::editAndUpdateValue();
       invalid();
       event.consumed = true;
       return;
@@ -411,7 +415,7 @@ public:
       return;
     }
     invalid();
-    updateValue();
+    editAndUpdateValue();
     pushUndoValue();
     event.consumed = true;
   }
@@ -514,6 +518,7 @@ private:
   void setValueAt(size_t index, double normalized)
   {
     if (barState[index] != BarState::active) return;
+    beginEdit(index);
     ArrayControl::setValueAt(index, normalized);
   }
 

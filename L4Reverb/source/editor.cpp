@@ -222,7 +222,6 @@ bool Editor::prepareUI()
   auto barboxTime = addBarBox(
     tabInsideLeft1, tabInsideTop0, 2 * nDepth1, barboxHeight, ID::time0, nDepth1,
     Scales::time, "Time");
-  barboxTime->liveUpdateLineEdit = false;
   addScrollBar(
     tabInsideLeft1, tabInsideTop0 + barboxHeight - 1, 2 * nDepth1, scrollBarHeight,
     barboxTime);
@@ -233,7 +232,6 @@ bool Editor::prepareUI()
     tabInsideLeft1, tabInsideTop1, 2 * nDepth1, barboxHeight, ID::innerFeed0, nDepth1,
     Scales::feed, "InnerFeed");
   barboxInnerFeed->sliderZero = 0.5f;
-  barboxInnerFeed->liveUpdateLineEdit = false;
   addScrollBar(
     tabInsideLeft1, tabInsideTop1 + barboxHeight - 1, 2 * nDepth1, scrollBarHeight,
     barboxInnerFeed);
@@ -244,7 +242,6 @@ bool Editor::prepareUI()
     tabInsideLeft1, tabInsideTop2, 2 * nDepth1, barboxHeight, ID::d1Feed0, nDepth1,
     Scales::feed, "D1 Feed");
   barboxD1Feed->sliderZero = 0.5f;
-  barboxD1Feed->liveUpdateLineEdit = false;
   addScrollBar(
     tabInsideLeft1, tabInsideTop2 + barboxHeight - 1, 2 * nDepth1, scrollBarHeight,
     barboxD1Feed);
@@ -258,7 +255,6 @@ bool Editor::prepareUI()
     tabInsideLeft3, tabInsideTop0, barboxWidthSmall, barboxHeight, ID::d2Feed0, nDepth2,
     Scales::feed, "D2 Feed");
   barboxD2Feed->sliderZero = 0.5f;
-  barboxD2Feed->liveUpdateLineEdit = false;
 
   addGroupVerticalLabel(
     tabInsideLeft2, tabInsideTop1, barboxHeight, labelHeight, midTextSize, "D3 Feed");
