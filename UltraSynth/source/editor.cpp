@@ -38,9 +38,11 @@ constexpr float splashHeight = labelY;
 
 constexpr float barboxWidth = 500.0f;
 constexpr float barboxHeight = 160.0f;
+constexpr float smallKnobWidth = labelHeight;
+constexpr float smallKnobX = smallKnobWidth + 2 * margin;
 
 constexpr int_least32_t defaultWidth
-  = int_least32_t(2 * uiMargin + 10 * knobX + 2 * margin);
+  = int_least32_t(2 * uiMargin + 10 * knobX + 3 * smallKnobX + 2 * margin);
 constexpr int_least32_t defaultHeight
   = int_least32_t(2 * uiMargin + 4 * knobY + 7 * labelY - 2 * margin);
 
@@ -57,18 +59,23 @@ Editor::Editor(void *controller) : PlugEditor(controller)
   setRect(viewRect);
 }
 
-ParamValue Editor::getPlainValue(ParamID id)
+void Editor::syncUI(ParamID id, float normalized)
 {
-  auto normalized = controller->getParamNormalized(id);
-  return controller->normalizedParamToPlain(id, normalized);
+  auto syncer = xyControlMap.find(id);
+  if (syncer == xyControlMap.end()) return;
+  syncer->second->sync(normalized);
 }
 
 void Editor::valueChanged(CControl *pControl)
 {
-  ParamID id = pControl->getTag();
-  ParamValue value = pControl->getValueNormalized();
-  controller->setParamNormalized(id, value);
-  controller->performEdit(id, value);
+  PlugEditor::valueChanged(pControl);
+  syncUI(pControl->getTag(), pControl->getValueNormalized());
+}
+
+void Editor::updateUI(ParamID id, ParamValue normalized)
+{
+  PlugEditor::updateUI(id, normalized);
+  syncUI(id, normalized);
 }
 
 bool Editor::prepareUI()
@@ -92,11 +99,11 @@ bool Editor::prepareUI()
   constexpr auto left1 = left0 + knobX;
   constexpr auto left2 = left1 + knobX + 2 * margin;
   constexpr auto left3 = left2 + knobX;
-  constexpr auto left4 = left3 + knobX;
+  constexpr auto left4 = left3 + knobX + smallKnobX;
   constexpr auto left5 = left4 + knobX;
-  constexpr auto left6 = left5 + knobX;
+  constexpr auto left6 = left5 + knobX + smallKnobX;
   constexpr auto left7 = left6 + knobX;
-  constexpr auto left8 = left7 + knobX + 2 * margin;
+  constexpr auto left8 = left7 + knobX + 2 * margin + smallKnobX;
   constexpr auto left9 = left8 + knobX;
 
   // Gain.
@@ -114,39 +121,41 @@ bool Editor::prepareUI()
   // Oscillator.
   constexpr auto oscLeft1Half = left2 + int(knobX / 2);
   addGroupLabel(
-    left2, top0, 6 * knobX - 2 * margin, labelHeight, uiTextSize, "Oscillator");
+    left2, top0, 6 * knobX + 3 * smallKnobX - 2 * margin, labelHeight, uiTextSize,
+    "Oscillator");
 
   addLabel(left2, top1, labelWidth, labelHeight, uiTextSize, "Pitch");
-  addXYPad(
-    left2, top1 + labelY, 2 * knobX - 2 * margin, 2 * knobX - 2 * margin,
+  addXYControls(
+    left2, top1 + labelY, 2 * knobX - 2 * margin, smallKnobWidth, margin, uiTextSize,
     ID::osc1FineTuneCent, ID::osc2FineTuneCent);
 
   addNumberKnob(
-    left2, top3, knobWidth, margin, uiTextSize, "O1 Oct.", ID::osc1Octave, Scales::octave,
+    left2, top3, knobWidth, margin, uiTextSize, "X Oct.", ID::osc1Octave, Scales::octave,
     -octaveOffset);
   addNumberKnob(
-    left3, top3, knobWidth, margin, uiTextSize, "O2 Oct.", ID::osc2Octave, Scales::octave,
+    left3, top3, knobWidth, margin, uiTextSize, "Y Oct.", ID::osc2Octave, Scales::octave,
     -octaveOffset);
   addKnob(left2, top4, knobWidth, margin, uiTextSize, "Mix", ID::oscMix);
   addKnob(
-    left3, top4, knobWidth, margin, uiTextSize, "LP>O1", ID::phaseModFromLowpassToOsc1);
+    left3, top4, knobWidth, margin, uiTextSize, "LP>Osc.X",
+    ID::phaseModFromLowpassToOsc1);
 
   addLabel(left4, top1, labelWidth, labelHeight, uiTextSize, "Wave Shape");
-  addXYPad(
-    left4, top1 + labelY, 2 * knobX - 2 * margin, 2 * knobX - 2 * margin,
+  addXYControls(
+    left4, top1 + labelY, 2 * knobX - 2 * margin, smallKnobWidth, margin, uiTextSize,
     ID::osc1WaveShape, ID::osc2WaveShape);
   addLabel(left6, top1, labelWidth, labelHeight, uiTextSize, "Saw-Pulse");
-  addXYPad(
-    left6, top1 + labelY, 2 * knobX - 2 * margin, 2 * knobX - 2 * margin,
+  addXYControls(
+    left6, top1 + labelY, 2 * knobX - 2 * margin, smallKnobWidth, margin, uiTextSize,
     ID::osc1SawPulseMix, ID::osc2SawPulseMix);
 
   addLabel(left4, top3, labelWidth, labelHeight, uiTextSize, "Cross PM");
-  addXYPad(
-    left4, top3 + labelY, 2 * knobX - 2 * margin, 2 * knobX - 2 * margin,
+  addXYControls(
+    left4, top3 + labelY, 2 * knobX - 2 * margin, smallKnobWidth, margin, uiTextSize,
     ID::pmPhase1ToPhase2, ID::pmPhase2ToPhase1);
   addLabel(left6, top3, labelWidth, labelHeight, uiTextSize, "Feedback PM");
-  addXYPad(
-    left6, top3 + labelY, 2 * knobX - 2 * margin, 2 * knobX - 2 * margin,
+  addXYControls(
+    left6, top3 + labelY, 2 * knobX - 2 * margin, smallKnobWidth, margin, uiTextSize,
     ID::pmOsc1ToPhase2, ID::pmOsc2ToPhase1);
 
   // Filter.
@@ -191,15 +200,16 @@ bool Editor::prepareUI()
 
   // LFO.
   constexpr auto lfoLeft0 = left4;
-  addGroupLabel(lfoLeft0, top5, 4 * knobX - 2 * margin, labelHeight, uiTextSize, "LFO");
+  addGroupLabel(
+    lfoLeft0, top5, 4 * knobX + smallKnobX - 2 * margin, labelHeight, uiTextSize, "LFO");
 
   constexpr auto lfoLeft1 = lfoLeft0 + knobX;
-  constexpr auto lfoLeft2 = lfoLeft1 + knobX;
+  constexpr auto lfoLeft2 = lfoLeft1 + knobX + smallKnobX;
   constexpr auto lfoLeft3 = lfoLeft2 + knobX;
   addSmallKnob(
     lfoLeft0, top6, knobX, labelHeight, margin, uiTextSize, "Rate", ID::lfoRate);
   addSmallKnob(
-    lfoLeft1 + margin, top6, knobX - margin, labelHeight, margin, uiTextSize, "Sq.",
+    lfoLeft1 + 2 * margin, top6, knobX, labelHeight, margin, uiTextSize, "Shape",
     ID::lfoWaveShape);
   addCheckbox(
     lfoLeft0, top7, labelWidth, labelHeight, uiTextSize, "Retrigger", ID::lfoRetrigger);
