@@ -332,9 +332,9 @@ public:
 
   SplitConvolver()
   {
-    firstFftConvolver.init(blockSize);
+    firstFftConvolver.init(blockSize, blockSize / nBlock);
     for (size_t idx = 0; idx < nFftConvolver; ++idx) {
-      size_t offset = (idx + 1) * blockSize / nBlock;
+      size_t offset = (idx + 2) * blockSize / nBlock;
       fftConvolver[idx].init(blockSize, offset);
       outputDelay[idx].resize((idx + 1) * blockSize + 1);
     }
