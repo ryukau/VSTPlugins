@@ -34,7 +34,7 @@ public:
   Editor(void *controller);
 
   void valueChanged(CControl *pControl) override;
-  void Editor::updateUI(ParamID id, ParamValue normalized) override;
+  void updateUI(ParamID id, ParamValue normalized) override;
 
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
