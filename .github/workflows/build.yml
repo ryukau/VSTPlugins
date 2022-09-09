@@ -82,6 +82,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
+          body: ${{ github.event.head_commit.message }}
           files: |
             ${{ env.package_path }}/pack/*.zip
             ${{ env.package_path }}/pack/*.png
