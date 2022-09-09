@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-08-13" />
+<meta name="dcterms.date" content="2022-09-09" />
 <title>ClangSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-08-13
+  Update: 2022-09-09
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -351,8 +351,8 @@ Oscillator is static wavetalble with controls specialized to make pulse
 train.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/ClangSynth_0.0.1.zip">Download
-ClangSynth 0.0.1 - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/ClangSynth_0.0.2.zip">Download
+ClangSynth 0.0.2 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -365,8 +365,8 @@ more suitable to make cymbal sounds. It can also make sound of manhole
 dragged on asphalt.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.42.0/ClangCymbal_0.0.2.zip">Download
-ClangCymbal 0.0.2 - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/ClangCymbal_0.0.3.zip">Download
+ClangCymbal 0.0.3 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -1444,6 +1444,14 @@ lower harmonics and right side represents higher harmonics.</p>
 <h2 id="change-log">Change Log</h2>
 <h3 id="clangsynth-3">ClangSynth</h3>
 <ul>
+<li>0.0.2
+<ul>
+<li>Updated VST 3 SDK to version 3.7.6. This also fixes the crash when
+opening multiple GUI of same plugin on Linux.</li>
+<li>Change BarBox to only send modified parameter values to host. This
+prevents to overwrite unchanged parameter automation on the same
+BarBox.</li>
+</ul></li>
 <li>0.0.1
 <ul>
 <li>β release.</li>
@@ -1451,6 +1459,14 @@ lower harmonics and right side represents higher harmonics.</p>
 </ul>
 <h3 id="clangcymbal-2">ClangCymbal</h3>
 <ul>
+<li>0.0.3
+<ul>
+<li>Updated VST 3 SDK to version 3.7.6. This also fixes the crash when
+opening multiple GUI of same plugin on Linux.</li>
+<li>Change BarBox to only send modified parameter values to host. This
+prevents to overwrite unchanged parameter automation on the same
+BarBox.</li>
+</ul></li>
 <li>0.0.2
 <ul>
 <li>Fix initialization failure on Bitwig and Live 11. Previously,
@@ -1464,9 +1480,16 @@ is changed.</li>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
 <h3 id="clangsynth-4">ClangSynth</h3>
-<p>N/A.</p>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/ClangSynth_0.0.1.zip">ClangSynth
+0.0.1 - VST 3 (github.com)</a></li>
+</ul>
 <h3 id="clangcymbal-3">ClangCymbal</h3>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.42.0/ClangCymbal_0.0.2.zip">ClangCymbal
+0.0.2 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/ClangCymbal_0.0.1.zip">ClangCymbal
 0.0.1 - VST 3 (github.com)</a></li>

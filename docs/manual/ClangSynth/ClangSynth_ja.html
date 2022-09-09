@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-08-13" />
+<meta name="dcterms.date" content="2022-09-09" />
 <title>ClangSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-08-13
+  Update: 2022-09-09
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -349,8 +349,8 @@ footer {
 WaveCymbal や FDNCymbal よりはシンバルに似た音が出ます。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/ClangSynth_0.0.1.zip">ClangSynth
-0.0.1 をダウンロード - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/ClangSynth_0.0.2.zip">ClangSynth
+0.0.2 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -362,8 +362,8 @@ style="display: inline-block; vertical-align: middle;"></li>
 負荷も増えているのでモノフォニックです。オシレータはシンバルの合成に適したノイズとパルス列の混合に変更されています。マンホールをアスファルトの上で引きずったような音も出せます。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.42.0/ClangCymbal_0.0.2.zip">ClangCymbal
-0.0.2 をダウンロード - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/ClangCymbal_0.0.3.zip">ClangCymbal
+0.0.3 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -1423,6 +1423,14 @@ CPU 負荷も上がっています。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <h3 id="clangsynth-3">ClangSynth</h3>
 <ul>
+<li>0.0.2
+<ul>
+<li>VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux
+で同一プラグインの GUI を複数開くとクラッシュするバグを修正。</li>
+<li>BarBox
+が変更されたパラメータの値のみをホストに送るように変更。編集中の BarBox
+上の変更されていないパラメータのオートメーションが上書きされないようになった。</li>
+</ul></li>
 <li>0.0.1
 <ul>
 <li>β リリース。</li>
@@ -1430,6 +1438,14 @@ CPU 負荷も上がっています。</p>
 </ul>
 <h3 id="clangcymbal-2">ClangCymbal</h3>
 <ul>
+<li>0.0.3
+<ul>
+<li>VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux
+で同一プラグインの GUI を複数開くとクラッシュするバグを修正。</li>
+<li>BarBox
+が変更されたパラメータの値のみをホストに送るように変更。編集中の BarBox
+上の変更されていないパラメータのオートメーションが上書きされないようになった。</li>
+</ul></li>
 <li>0.0.2
 <ul>
 <li>Bitwig と Live 11
@@ -1443,9 +1459,16 @@ CPU 負荷も上がっています。</p>
 </ul>
 <h2 id="旧バージョン">旧バージョン</h2>
 <h3 id="clangsynth-4">ClangSynth</h3>
-<p>旧バージョンはありません。</p>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/ClangSynth_0.0.1.zip">ClangSynth
+0.0.1 - VST 3 (github.com)</a></li>
+</ul>
 <h3 id="clangcymbal-3">ClangCymbal</h3>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.42.0/ClangCymbal_0.0.2.zip">ClangCymbal
+0.0.2 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/ClangCymbal_0.0.1.zip">ClangCymbal
 0.0.1 - VST 3 (github.com)</a></li>

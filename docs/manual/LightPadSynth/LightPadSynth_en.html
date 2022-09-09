@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-08-13" />
+<meta name="dcterms.date" content="2022-09-09" />
 <title>LightPadSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-08-13
+  Update: 2022-09-09
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -345,8 +345,8 @@ efficiency, interpolation is changed to linear. Also pitch modulation is
 omitted. Instead, a delay is added for each voice.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/LightPadSynth_0.1.15.zip">Download
-LightPadSynth 0.1.15 - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/LightPadSynth_0.1.16.zip">Download
+LightPadSynth 0.1.16 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -1117,6 +1117,14 @@ Wavetable tab.</p>
 notes.</p>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.16
+<ul>
+<li>Updated VST 3 SDK to version 3.7.6. This also fixes the crash when
+opening multiple GUI of same plugin on Linux.</li>
+<li>Change BarBox to only send modified parameter values to host. This
+prevents to overwrite unchanged parameter automation on the same
+BarBox.</li>
+</ul></li>
 <li>0.1.15
 <ul>
 <li>Changed BarBox to get focus on mouse down, and release focus on
@@ -1205,6 +1213,9 @@ to VST parameter.</li>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/LightPadSynth_0.1.15.zip">LightPadSynth
+0.1.15 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/LightPadSynth_0.1.14.zip">LightPadSynth
 0.1.14 - VST 3 (github.com)</a></li>

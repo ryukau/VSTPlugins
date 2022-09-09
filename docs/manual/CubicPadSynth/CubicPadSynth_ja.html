@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-08-13" />
+<meta name="dcterms.date" content="2022-09-09" />
 <title>CubicPadSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-08-13
+  Update: 2022-09-09
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -348,8 +348,8 @@ PADsynth
 LFO もついています</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/CubicPadSynth_0.1.17.zip">CubicPadSynth
-0.1.17 をダウンロード - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/CubicPadSynth_0.1.18.zip">CubicPadSynth
+0.1.18 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -1173,6 +1173,14 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
 <p>ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.18
+<ul>
+<li>VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux
+で同一プラグインの GUI を複数開くとクラッシュするバグを修正。</li>
+<li>BarBox
+が変更されたパラメータの値のみをホストに送るように変更。編集中の BarBox
+上の変更されていないパラメータのオートメーションが上書きされないようになった。</li>
+</ul></li>
 <li>0.1.17
 <ul>
 <li>BarBox
@@ -1273,6 +1281,9 @@ VST 3 の <code>bypass</code>
 </ul>
 <h2 id="旧バージョン">旧バージョン</h2>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/CubicPadSynth_0.1.17.zip">CubicPadSynth
+0.1.17 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.38.0/CubicPadSynth_0.1.16.zip">CubicPadSynth
 0.1.16 - VST 3 (github.com)</a></li>

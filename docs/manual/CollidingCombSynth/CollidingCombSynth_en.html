@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-08-13" />
+<meta name="dcterms.date" content="2022-09-09" />
 <title>CollidingCombSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-08-13
+  Update: 2022-09-09
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -327,8 +327,8 @@ collide to each other. Tuning of pitch is possible, but difficult. So
 mostly suitable for sound effects.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/CollidingCombSynth_0.1.8.zip">Download
-CollidingCombSynth 0.1.8 - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/CollidingCombSynth_0.1.9.zip">Download
+CollidingCombSynth 0.1.9 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
@@ -940,6 +940,14 @@ stringFrequency = Frequency * noteFrequency</code></pre>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.9
+<ul>
+<li>Updated VST 3 SDK to version 3.7.6. This also fixes the crash when
+opening multiple GUI of same plugin on Linux.</li>
+<li>Change BarBox to only send modified parameter values to host. This
+prevents to overwrite unchanged parameter automation on the same
+BarBox.</li>
+</ul></li>
 <li>0.1.8
 <ul>
 <li>Changed BarBox to get focus on mouse down, and release focus on
@@ -986,6 +994,9 @@ while muting. This bug was only happening on the hosts which respect VST
 </ul>
 <h2 id="old-versions">Old Versions</h2>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/CollidingCombSynth_0.1.8.zip">CollidingCombSynth
+0.1.8 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/CollidingCombSynth_0.1.7.zip">CollidingCombSynth
 0.1.7 - VST 3 (github.com)</a></li>
