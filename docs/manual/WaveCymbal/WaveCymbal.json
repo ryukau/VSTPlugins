@@ -1,8 +1,9 @@
 {
   "WaveCymbal": {
-    "latest_version": "0.1.19",
+    "latest_version": "0.1.20",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/WaveCymbal_0.1.20.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/WaveCymbal_0.1.19.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/WaveCymbal_0.1.18.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/WaveCymbal_0.1.17.zip",
@@ -22,6 +23,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/WaveCymbalPresets.zip"
     },
     "changelog": {
+      "0.1.20": {
+        "en": [
+          "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux."
+        ],
+        "ja": [
+          "VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux で同一プラグインの GUI を複数開くとクラッシュするバグを修正。"
+        ]
+      },
       "0.1.19": {
         "en": [
           "Resume macOS build."

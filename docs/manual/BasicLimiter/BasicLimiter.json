@@ -1,8 +1,9 @@
 {
   "BasicLimiter": {
-    "latest_version": "0.1.10",
+    "latest_version": "0.1.11",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/BasicLimiter_0.1.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.45.0/BasicLimiter_0.1.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/BasicLimiter_0.1.9.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiter_0.1.8.zip",
@@ -14,6 +15,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterPresets.zip"
     },
     "changelog": {
+      "0.1.11": {
+        "en": [
+          "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux."
+        ],
+        "ja": [
+          "VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux で同一プラグインの GUI を複数開くとクラッシュするバグを修正。"
+        ]
+      },
       "0.1.10": {
         "en": [
           "Fixed resetting of release filter coefficient. This fix removes fade-in effect after resetting when release time is long."
@@ -83,9 +92,10 @@
     }
   },
   "BasicLimiterAutoMake": {
-    "latest_version": "0.1.10",
+    "latest_version": "0.1.11",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/BasicLimiterAutoMake_0.1.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.45.0/BasicLimiterAutoMake_0.1.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/BasicLimiterAutoMake_0.1.9.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiterAutoMake_0.1.8.zip",
@@ -96,6 +106,14 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.1.11": {
+        "en": [
+          "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux."
+        ],
+        "ja": [
+          "VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux で同一プラグインの GUI を複数開くとクラッシュするバグを修正。"
+        ]
+      },
       "0.1.10": {
         "en": [
           "Changed parameter smoothing time from 0.2 seconds to 0.5 seconds.",

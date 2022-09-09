@@ -1,8 +1,9 @@
 {
   "MiniCliffEQ": {
-    "latest_version": "0.1.7",
+    "latest_version": "0.1.8",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/MiniCliffEQ_0.1.8.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.40.0/MiniCliffEQ_0.1.7.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.38.0/MiniCliffEQ_0.1.5.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.36.0/MiniCliffEQ_0.1.4.zip"
@@ -10,6 +11,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/MiniCliffEQPresets.zip"
     },
     "changelog": {
+      "0.1.8": {
+        "en": [
+          "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux."
+        ],
+        "ja": [
+          "VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux で同一プラグインの GUI を複数開くとクラッシュするバグを修正。"
+        ]
+      },
       "0.1.7": {
         "en": [
           "Fixed crash when FIR filter is refreshed at the same time on 2 or more instances of MiniCliffEQ."

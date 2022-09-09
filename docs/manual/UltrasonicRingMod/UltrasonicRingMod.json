@@ -1,14 +1,23 @@
 {
   "UltrasonicRingMod": {
-    "latest_version": "0.0.3",
+    "latest_version": "0.0.4",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/UltrasonicRingMod_0.0.4.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.44.0/UltrasonicRingMod_0.0.3.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.43.0/UltrasonicRingMod_0.0.2.zip"
       ],
       "preset_url": ""
     },
     "changelog": {
+      "0.0.4": {
+        "en": [
+          "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux."
+        ],
+        "ja": [
+          "VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux で同一プラグインの GUI を複数開くとクラッシュするバグを修正。"
+        ]
+      },
       "0.0.3": {
         "en": [
           "Changed to use double precision for entire DSP.",

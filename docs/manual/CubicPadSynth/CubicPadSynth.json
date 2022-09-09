@@ -1,8 +1,9 @@
 {
   "CubicPadSynth": {
-    "latest_version": "0.1.17",
+    "latest_version": "0.1.18",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/CubicPadSynth_0.1.18.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/CubicPadSynth_0.1.17.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.38.0/CubicPadSynth_0.1.16.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/CubicPadSynth_0.1.15.zip",
@@ -23,6 +24,16 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynthPresets.zip"
     },
     "changelog": {
+      "0.1.18": {
+        "en": [
+          "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux.",
+          "Change BarBox to only send modified parameter values to host. This prevents to overwrite unchanged parameter automation on the same BarBox."
+        ],
+        "ja": [
+          "VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux で同一プラグインの GUI を複数開くとクラッシュするバグを修正。",
+          "BarBox が変更されたパラメータの値のみをホストに送るように変更。編集中の BarBox 上の変更されていないパラメータのオートメーションが上書きされないようになった。"
+        ]
+      },
       "0.1.17": {
         "en": [
           "Changed BarBox to get focus on mouse down, and release focus on mouse exit."
