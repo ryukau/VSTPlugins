@@ -15,14 +15,9 @@ cd vst3sdk || exit
 
 # Patch vst3sdk.
 # - https://github.com/ryukau/VSTPlugins/issues/3
-patch \
-  vstgui4/vstgui/lib/platform/linux/cairocontext.cpp \
-  "$GITHUB_WORKSPACE"/ci/linux_patch/cairocontext.cpp.diff
-
-# - https://github.com/steinbergmedia/vstgui/issues/249
-patch \
-  vstgui4/vstgui/lib/platform/linux/x11frame.cpp \
-  "$GITHUB_WORKSPACE"/ci/linux_patch/x11frame.cpp.diff
+cp \
+  "$GITHUB_WORKSPACE"/ci/linux_patch/cairocontext.cpp \
+  vstgui4/vstgui/lib/platform/linux/
 
 mkdir build
 cd build || exit
