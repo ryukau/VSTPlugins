@@ -13,10 +13,12 @@
     "changelog": {
       "0.1.8": {
         "en": [
-          "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux."
+          "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux.",
+          "Changed convolution algorithm to further distribute CPU load."
         ],
         "ja": [
-          "VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux で同一プラグインの GUI を複数開くとクラッシュするバグを修正。"
+          "VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux で同一プラグインの GUI を複数開くとクラッシュするバグを修正。",
+          "畳み込みの CPU 負荷をさらに分散するように変更。"
         ]
       },
       "0.1.7": {
