@@ -28,7 +28,10 @@ namespace SomeDSP {
 template<typename T> class UIntScale {
 public:
   UIntScale(uint32_t max) : max(max) {}
-  uint32_t map(T input) const { return uint32_t(std::min<T>(max, input * (max + 1))); }
+  uint32_t map(T input) const
+  {
+    return uint32_t(std::min<T>(max, input * (uint64_t(max) + 1)));
+  }
   uint32_t reverseMap(T input) const { return map(T(1.0) - input); }
   T invmap(uint32_t input) const { return input / T(max); }
   uint32_t getMin() const { return 0; }
