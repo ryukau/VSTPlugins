@@ -1,0 +1,498 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "outputGain",
+    "type": "d",
+    "default": "Scales::outputGain.invmap(0.1)",
+    "scale": "Scales::outputGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "gainNormalization",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "overSampling",
+    "type": "I",
+    "default": 1,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "pulseAmplitude",
+    "type": "d",
+    "default": "Scales::pulseAmplitude.invmap(8.0)",
+    "scale": "Scales::pulseAmplitude",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "pulseDecaySeconds",
+    "type": "d",
+    "default": "Scales::pulseDecaySeconds.invmap(0.01)",
+    "scale": "Scales::pulseDecaySeconds",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "impactCenterRimPosition",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "fdnMatrixIdentityAmount",
+    "type": "d",
+    "default": "Scales::fdnMatrixIdentityAmount.invmap(0.5)",
+    "scale": "Scales::fdnMatrixIdentityAmount",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "fdnFeedback",
+    "type": "d",
+    "default": "Scales::fdnFeedback.invmap(0.96)",
+    "scale": "Scales::fdnFeedback",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "fdnModulation",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "fdnInterpRate",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::fdnInterpRate",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "fdnMaxModulation",
+    "type": "d",
+    "default": "Scales::fdnMaxModulation.invmap(0.33)",
+    "scale": "Scales::fdnMaxModulation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "fdnShape",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "fdnSeed",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::seed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "fdnRandomMatrix",
+    "type": "d",
+    "default": 0.001,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "fdnRandomOvertone",
+    "type": "d",
+    "default": 0.001,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "fdnLowpassCutoffHz",
+    "type": "d",
+    "default": "Scales::filterCutoffHz.invmap(2000)",
+    "scale": "Scales::filterCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "fdnHighpassCutoffHz",
+    "type": "d",
+    "default": "Scales::filterCutoffHz.invmap(20)",
+    "scale": "Scales::filterCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "fdnLowpassQ0",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "fdnLowpassQ1",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "fdnLowpassQ2",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "fdnLowpassQ3",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 22,
+    "name": "fdnLowpassQ4",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 23,
+    "name": "fdnLowpassQ5",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 24,
+    "name": "fdnLowpassQ6",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 25,
+    "name": "fdnLowpassQ7",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 26,
+    "name": "fdnLowpassQ8",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 27,
+    "name": "fdnLowpassQ9",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 28,
+    "name": "fdnLowpassQ10",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 29,
+    "name": "fdnLowpassQ11",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 30,
+    "name": "fdnLowpassQ12",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 31,
+    "name": "fdnLowpassQ13",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 32,
+    "name": "fdnLowpassQ14",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 33,
+    "name": "fdnLowpassQ15",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 34,
+    "name": "fdnHighpassQ0",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 35,
+    "name": "fdnHighpassQ1",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 36,
+    "name": "fdnHighpassQ2",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 37,
+    "name": "fdnHighpassQ3",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 38,
+    "name": "fdnHighpassQ4",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 39,
+    "name": "fdnHighpassQ5",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 40,
+    "name": "fdnHighpassQ6",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 41,
+    "name": "fdnHighpassQ7",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 42,
+    "name": "fdnHighpassQ8",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 43,
+    "name": "fdnHighpassQ9",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 44,
+    "name": "fdnHighpassQ10",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 45,
+    "name": "fdnHighpassQ11",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 46,
+    "name": "fdnHighpassQ12",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 47,
+    "name": "fdnHighpassQ13",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 48,
+    "name": "fdnHighpassQ14",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 49,
+    "name": "fdnHighpassQ15",
+    "type": "d",
+    "default": "Scales::filterQ.invmap(0.7)",
+    "scale": "Scales::filterQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 50,
+    "name": "enableModEnv",
+    "type": "I",
+    "default": 1,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 51,
+    "name": "modEnvSustainSeconds",
+    "type": "d",
+    "default": "Scales::envelopeSeconds.invmap(0.001)",
+    "scale": "Scales::envelopeSeconds",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 52,
+    "name": "modEnvReleaseSeconds",
+    "type": "d",
+    "default": "Scales::envelopeSeconds.invmap(1.0)",
+    "scale": "Scales::envelopeSeconds",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 53,
+    "name": "tuningSemitone",
+    "type": "I",
+    "default": "semitoneOffset - 24",
+    "scale": "Scales::semitone",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 54,
+    "name": "tuningCent",
+    "type": "d",
+    "default": "Scales::cent.invmap(0.0)",
+    "scale": "Scales::cent",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 55,
+    "name": "tuningET",
+    "type": "I",
+    "default": 11,
+    "scale": "Scales::equalTemperament",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 56,
+    "name": "tuningA4Hz",
+    "type": "I",
+    "default": "440 - a4HzOffset",
+    "scale": "Scales::a4Hz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 57,
+    "name": "pitchBend",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 58,
+    "name": "pitchBendRange",
+    "type": "d",
+    "default": "Scales::pitchBendRange.invmap(2.0)",
+    "scale": "Scales::pitchBendRange",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 59,
+    "name": "noteSlideTimeSecond",
+    "type": "d",
+    "default": "Scales::noteSlideTimeSecond.invmap(0.0)",
+    "scale": "Scales::noteSlideTimeSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 60,
+    "name": "slideAtNoteOn",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 61,
+    "name": "slideAtNoteOff",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  }
+]
