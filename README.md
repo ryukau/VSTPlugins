@@ -8,17 +8,20 @@ Packaged plugins are available at [Releases · ryukau/VSTPlugins](https://github
 You can fund the development via [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau). Primary goal is to get ARM mac for macOS port.
 
 ## Build Instruction
-See [build_instruction.md](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md) for building plugin.
+See [build_instruction.md](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
+
+## Audio Demo
+Album on the link below is almost entirely made from Uhhyou Plugins.
+
+- [Animals | Ryukau](https://ryukau.bandcamp.com/album/animals)
 
 ## Experimental Plugins
-Following plugins are experimental, or in α stage. They lacks character and/or parameter tuning. Breaking changes might be introduced.
+Following plugins are experimental, or in α stage. They lack character and/or parameter tuning. Breaking changes might be introduced.
 
 - FoldShaper, ModuloShaper, OddPowShaper, SoftClipper
   - Naive waveshapers with 16-fold oversampling.
 - MatrixShifter
   - AM frequency shifter and chorus in a plugin.
-- UltraSynth
-  - Naive synthesizer with 64-fold oversampling.
 
 ## Files and Directories
 - `.github/workflows` and `ci`: Continuous integration (CI) scripts for GitHub Actions.
@@ -26,6 +29,7 @@ Following plugins are experimental, or in α stage. They lacks character and/or 
 - `docs`: Contents of [documentation](https://ryukau.github.io/VSTPlugins/).
 - `lib`: External libraries.
 - `License`: License texts.
+- `package`: Data and scripts to create zip packages from artifacts made by GitHub Actions.
 - `presets`: Plugin presets and related scripts.
 - `test`: Tests to check reset behavior.
 
