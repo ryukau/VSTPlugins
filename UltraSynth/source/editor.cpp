@@ -237,10 +237,10 @@ bool Editor::prepareUI()
     lfoLeft2, top8, labelWidth, labelHeight, margin, uiTextSize, ">Pre Sat.",
     ID::lfoToPreSaturation);
   addSmallKnob(
-    lfoLeft2, top9, labelWidth, labelHeight, margin, uiTextSize, ">O1 Shape",
+    lfoLeft2, top9, labelWidth, labelHeight, margin, uiTextSize, ">X Shape",
     ID::lfoToOsc1WaveShape);
   addSmallKnob(
-    lfoLeft2, top10, labelWidth, labelHeight, margin, uiTextSize, ">O2 Shape",
+    lfoLeft2, top10, labelWidth, labelHeight, margin, uiTextSize, ">Y Shape",
     ID::lfoToOsc2WaveShape);
 
   // Misc.
