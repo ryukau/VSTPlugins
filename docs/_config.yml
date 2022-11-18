@@ -26,6 +26,8 @@ exclude:
 - manual/LatticeReverb/LatticeReverb_ja.md
 - manual/LightPadSynth/LightPadSynth_en.md
 - manual/LightPadSynth/LightPadSynth_ja.md
+- manual/MembraneSynth/MembraneSynth_en.md
+- manual/MembraneSynth/MembraneSynth_ja.md
 - manual/MiniCliffEQ/MiniCliffEQ_en.md
 - manual/MiniCliffEQ/MiniCliffEQ_ja.md
 - manual/ParallelComb/ParallelComb_en.md
@@ -38,6 +40,8 @@ exclude:
 - manual/SyncSawSynth/SyncSawSynth_ja.md
 - manual/TrapezoidSynth/TrapezoidSynth_en.md
 - manual/TrapezoidSynth/TrapezoidSynth_ja.md
+- manual/UltraSynth/UltraSynth_en.md
+- manual/UltraSynth/UltraSynth_ja.md
 - manual/UltrasonicRingMod/UltrasonicRingMod_en.md
 - manual/UltrasonicRingMod/UltrasonicRingMod_ja.md
 - manual/WaveCymbal/WaveCymbal_en.md

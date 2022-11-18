@@ -75,9 +75,9 @@ void DSPCore::setup(double sampleRate)
                                                                                          \
   fdnShape.METHOD(pv[ID::fdnShape]->getDouble());                                        \
   fdnFeedback.METHOD(pv[ID::fdnFeedback]->getDouble());                                  \
-  fdnModulation.METHOD(pv[ID::fdnModulation]->getDouble());                              \
+  fdnModulation.METHOD(pv[ID::fdnModulationAmount]->getDouble());                        \
   fdnInterpRate.METHOD(pv[ID::fdnInterpRate]->getDouble());                              \
-  fdnMinModulation.METHOD(double(1) - pv[ID::fdnMaxModulation]->getDouble());            \
+  fdnMinModulation.METHOD(double(1) - pv[ID::fdnMaxModulationRatio]->getDouble());       \
                                                                                          \
   for (size_t idx = 0; idx < fdnSize; ++idx) {                                           \
     fdn.lowpass.METHOD##CutoffAt(                                                        \

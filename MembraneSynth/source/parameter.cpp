@@ -39,7 +39,7 @@ DecibelScale<double> Scales::pulseDecaySeconds(-80.0, 20.0, false);
 DecibelScale<double> Scales::fdnMatrixIdentityAmount(-60.0, 60.0, false);
 NegativeDecibelScale<double> Scales::fdnFeedback(-60.0, 0.0, 1.0, true);
 DecibelScale<double> Scales::fdnInterpRate(-40.0, 40.0, true);
-LinearScale<double> Scales::fdnMaxModulation(0.0, 0.9);
+LinearScale<double> Scales::fdnMaxModulationRatio(0.0, 0.9);
 DecibelScale<double>
   Scales::filterCutoffHz(0.0, 86.02059991327963, false); // 1 to 20000 Hz.
 LinearScale<double> Scales::filterQ(0.01, halfSqrt2);

@@ -91,13 +91,12 @@ bool Editor::prepareUI()
   // Gain.
   addGroupLabel(left0, top0, groupLabelWidth, labelHeight, uiTextSize, "Gain");
 
-  addLabel(left0, top1, labelWidth, labelHeight, uiTextSize, "Gain [dB]");
+  addLabel(left0, top1, labelWidth, labelHeight, uiTextSize, "Output [dB]");
   addTextKnob(
     left2, top1, labelWidth, labelHeight, uiTextSize, ID::outputGain, Scales::outputGain,
     true, 5);
   addCheckbox(
-    left0, top2, labelWidth, labelHeight, uiTextSize, "Normalize Gain",
-    ID::gainNormalization);
+    left0, top2, labelWidth, labelHeight, uiTextSize, "Normalize", ID::gainNormalization);
   addCheckbox(
     left2, top2, labelWidth, labelHeight, uiTextSize, "2x Sampling", ID::overSampling);
 
@@ -136,18 +135,18 @@ bool Editor::prepareUI()
   // FDN Modulation.
   addGroupLabel(left4, top4, groupLabelWidth, labelHeight, uiTextSize, "Modulation");
 
-  addLabel(left4, top5, labelWidth, labelHeight, uiTextSize, "Modulation");
+  addLabel(left4, top5, labelWidth, labelHeight, uiTextSize, "Amount");
   addTextKnob<Style::warning>(
-    left6, top5, labelWidth, labelHeight, uiTextSize, ID::fdnModulation,
+    left6, top5, labelWidth, labelHeight, uiTextSize, ID::fdnModulationAmount,
     Scales::defaultScale, false, 5);
   addLabel(left4, top6, labelWidth, labelHeight, uiTextSize, "Interp. Rate");
   addTextKnob<Style::warning>(
     left6, top6, labelWidth, labelHeight, uiTextSize, ID::fdnInterpRate,
     Scales::fdnInterpRate, false, 5);
-  addLabel(left4, top7, labelWidth, labelHeight, uiTextSize, "Max Mod.");
+  addLabel(left4, top7, labelWidth, labelHeight, uiTextSize, "Max Ratio");
   addTextKnob(
-    left6, top7, labelWidth, labelHeight, uiTextSize, ID::fdnMaxModulation,
-    Scales::fdnMaxModulation, false, 5);
+    left6, top7, labelWidth, labelHeight, uiTextSize, ID::fdnMaxModulationRatio,
+    Scales::fdnMaxModulationRatio, false, 5);
 
   addToggleButton(
     left4, top8, groupLabelWidth, labelHeight, uiTextSize, "Envelope", ID::enableModEnv);
@@ -182,7 +181,7 @@ bool Editor::prepareUI()
     Scales::filterCutoffHz, false, 5);
   addBarBox(
     left8, top2, barboxWidth, barboxHeight, ID::fdnLowpassQ0, fdnSize, Scales::filterQ,
-    "Lowpass Q");
+    "LP Q");
 
   addLabel(left8, top7, labelWidth, labelHeight, uiTextSize, "HP Cut [Hz]");
   addTextKnob(
@@ -190,7 +189,7 @@ bool Editor::prepareUI()
     Scales::filterCutoffHz, false, 5);
   addBarBox(
     left8, top8, barboxWidth, barboxHeight, ID::fdnHighpassQ0, fdnSize, Scales::filterQ,
-    "Highpass Q");
+    "HP Q");
 
   // Tuning.
   addGroupLabel(left0, top7, groupLabelWidth, labelHeight, uiTextSize, "Tuning");

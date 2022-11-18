@@ -52,9 +52,9 @@ enum ID {
 
   fdnMatrixIdentityAmount,
   fdnFeedback,
-  fdnModulation,
+  fdnModulationAmount,
   fdnInterpRate,
-  fdnMaxModulation,
+  fdnMaxModulationRatio,
   fdnShape,
 
   fdnSeed,
@@ -99,7 +99,7 @@ struct Scales {
   static SomeDSP::DecibelScale<double> fdnMatrixIdentityAmount;
   static SomeDSP::NegativeDecibelScale<double> fdnFeedback;
   static SomeDSP::DecibelScale<double> fdnInterpRate;
-  static SomeDSP::LinearScale<double> fdnMaxModulation;
+  static SomeDSP::LinearScale<double> fdnMaxModulationRatio;
   static SomeDSP::DecibelScale<double> filterCutoffHz;
   static SomeDSP::LinearScale<double> filterQ;
 
@@ -153,13 +153,13 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::fdnFeedback] = std::make_unique<NegativeDecibelValue>(
       Scales::fdnFeedback.invmap(0.96), Scales::fdnFeedback, "fdnFeedback",
       Info::kCanAutomate);
-    value[ID::fdnModulation] = std::make_unique<LinearValue>(
-      1.0, Scales::defaultScale, "fdnModulation", Info::kCanAutomate);
+    value[ID::fdnModulationAmount] = std::make_unique<LinearValue>(
+      1.0, Scales::defaultScale, "fdnModulationAmount", Info::kCanAutomate);
     value[ID::fdnInterpRate] = std::make_unique<DecibelValue>(
       0.5, Scales::fdnInterpRate, "fdnInterpRate", Info::kCanAutomate);
-    value[ID::fdnMaxModulation] = std::make_unique<LinearValue>(
-      Scales::fdnMaxModulation.invmap(0.33), Scales::fdnMaxModulation, "fdnMaxModulation",
-      Info::kCanAutomate);
+    value[ID::fdnMaxModulationRatio] = std::make_unique<LinearValue>(
+      Scales::fdnMaxModulationRatio.invmap(0.33), Scales::fdnMaxModulationRatio,
+      "fdnMaxModulationRatio", Info::kCanAutomate);
     value[ID::fdnShape] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "fdnShape", Info::kCanAutomate);
 

@@ -1,0 +1,21 @@
+{
+  "MembraneSynth": {
+    "latest_version": "0.1.0",
+    "urls": {
+      "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.47.0/MembraneSynth_0.1.0.zip"
+      ],
+      "preset_url": ""
+    },
+    "changelog": {
+      "0.1.0": {
+        "en": [
+          "Initial release."
+        ],
+        "ja": [
+          "初期リリース。"
+        ]
+      }
+    }
+  }
+}
