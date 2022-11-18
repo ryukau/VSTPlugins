@@ -168,9 +168,6 @@ public:
   }
 };
 
-/**
-If `length` is too long, compiler (MSVC) might silently fail to allocate stack.
-*/
 template<typename Sample, size_t length> class FeedbackDelayNetwork {
 private:
   std::array<std::array<Sample, length>, length> matrix{};
@@ -296,7 +293,7 @@ public:
     Sample depth,
     Sample mix)
   {
-    auto timeMod = lfo + timeOffsetSmoother.process(timeModOffset);
+    auto timeMod = lfo * depth / Sample(4) + timeOffsetSmoother.process(timeModOffset);
     auto delayOut = delay.process(input, timeInSample * timeMod);
     auto gain = Sample(1) + depth * (lfo - Sample(1));
     return input + mix * (gain * delayOut - input);

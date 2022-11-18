@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-09-09" />
+<meta name="dcterms.date" content="2022-11-18" />
 <title>ClangSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-09-09
+  Update: 2022-11-18
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -365,16 +365,13 @@ more suitable to make cymbal sounds. It can also make sound of manhole
 dragged on asphalt.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/ClangCymbal_0.0.3.zip">Download
-ClangCymbal 0.0.3 - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.47.0/ClangCymbal_0.1.0.zip">Download
+ClangCymbal 0.1.0 - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
 </ul>
-<p><strong>Important</strong>: ClangSynth and ClangCymbal are β version.
-Breaking change might be introduced. Recommend to render the result to
-file after using.</p>
 <p>The package includes following builds:</p>
 <ul>
 <li>Windows 64bit</li>
@@ -801,7 +798,7 @@ or “View Image” on right click menu to scale.</p>
 <h3 id="clangsynth-1">ClangSynth</h3>
 <p><img src="img/ClangSynth.svg" /></p>
 <h3 id="clangcymbal">ClangCymbal</h3>
-<p><img src="img/clangcymbal.svg" /></p>
+<p><img src="img/ClangCymbal.svg" /></p>
 <h2 id="parameters">Parameters</h2>
 <p>Characters inside of square brackets [] represents unit. Following is
 a list of units used in ClangSynth.</p>
@@ -1272,9 +1269,8 @@ while <code>&gt; FDN Pitch</code> moves entire pitch.</p>
 <h3 id="clangcymbal-1">ClangCymbal</h3>
 <p>This section only lists the parameters different to ClangSynth.</p>
 <h4 id="tremolo">Tremolo</h4>
-<p>Modulation source of tremolo is the output of oscillator. Intention
-is to crudely imitate the distance from vibrating object to
-microphone.</p>
+<p>Intention of tremolo is to crudely imitate the distance from
+vibrating object to microphone. Modulation signal is sine wave.</p>
 <dl>
 <dt>Mix</dt>
 <dd>
@@ -1296,14 +1292,13 @@ signal.</p>
 <p>On top of <code>Misc.-&gt;Smoothing</code>, extra smoothing is
 applied to <code>Delay Offset</code>.</p>
 </dd>
-<dt>Smooth [Hz]</dt>
+<dt>Rate [Hz]</dt>
 <dd>
-<p>Cutoff frequency of a lowpass filter which applies to modulation
-source.</p>
+<p>Frequency of modulation sine wave.</p>
 </dd>
 </dl>
 <h4 id="misc.-1">Misc.</h4>
-<p>Pitch slide options are added.</p>
+<p>Pitch slide options are the difference to ClangSynth.</p>
 <dl>
 <dt>Slide [s]</dt>
 <dd>
@@ -1322,6 +1317,16 @@ same as other 2 options. On release, slide time follows the value of
 <code>Gain-&gt;Release</code>, instead of
 <code>Misc.-&gt;Slide</code>.</li>
 </ul>
+</dd>
+<dt>2x Sampling</dt>
+<dd>
+<p>When checked, it enables 2-fold oversampling.</p>
+<p>Recommend to turn on for better metallic texture. However it doubles
+the CPU load.</p>
+<p>When turned off, it reduces CPU load. However it also degrades
+metallic texture because of the high frequency loss caused by linear
+interpolation used in delays inside of FDN. It might be better to use
+external equalizer to compensate the high frequency loss.</p>
 </dd>
 </dl>
 <h4 id="oscillator-1">Oscillator</h4>
@@ -1459,6 +1464,14 @@ BarBox.</li>
 </ul>
 <h3 id="clangcymbal-2">ClangCymbal</h3>
 <ul>
+<li>0.1.0
+<ul>
+<li>Added “2x Sampling” parameter.</li>
+<li>Changed tremolo modulation signal from FDN output ot sine wave.</li>
+<li>Changed plugin GUID. This change breaks backward compatibility.</li>
+<li>Fixed a bug that the solver used in envelope doesn’t terminate when
+reached to maximum iteration count.</li>
+</ul></li>
 <li>0.0.3
 <ul>
 <li>Updated VST 3 SDK to version 3.7.6. This also fixes the crash when
@@ -1487,6 +1500,9 @@ href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0
 </ul>
 <h3 id="clangcymbal-3">ClangCymbal</h3>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/ClangCymbal_0.0.3.zip">ClangCymbal
+0.0.3 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.42.0/ClangCymbal_0.0.2.zip">ClangCymbal
 0.0.2 - VST 3 (github.com)</a></li>

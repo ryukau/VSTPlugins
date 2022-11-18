@@ -56,6 +56,7 @@ enum ID {
   commonSmoothingTimeSecond,
   slideTimeSecond,
   slideType,
+  overSampling,
 
   impulseGain,
   oscGain,
@@ -115,7 +116,7 @@ enum ID {
   tremoloDepth,
   tremoloDelayTime,
   tremoloModulationToDelayTimeOffset,
-  tremoloModulationSmoothingHz,
+  tremoloModulationRateHz,
 
   ID_ENUM_LENGTH,
 };
@@ -171,9 +172,9 @@ struct Scales {
   static SomeDSP::LinearScale<double> lfoToPitchAmount;
   static SomeDSP::DecibelScale<double> modEnvelopeTime;
 
-  static SomeDSP::LinearScale<double> tremoloDepth;
+  static SomeDSP::DecibelScale<double> tremoloDepth;
   static SomeDSP::DecibelScale<double> tremoloDelayTime;
-  static SomeDSP::DecibelScale<double> tremoloModulationSmoothingHz;
+  static SomeDSP::DecibelScale<double> tremoloModulationRateHz;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -228,6 +229,8 @@ struct GlobalParameter : public ParameterInterface {
       0.0, Scales::smoothingTimeSecond, "slideTimeSecond", Info::kCanAutomate);
     value[ID::slideType] = std::make_unique<UIntValue>(
       0, Scales::slideType, "slideType", Info::kCanAutomate);
+    value[ID::overSampling] = std::make_unique<UIntValue>(
+      true, Scales::boolScale, "overSampling", Info::kCanAutomate);
 
     value[ID::impulseGain] = std::make_unique<DecibelValue>(
       1.0, Scales::impulseGain, "impulseGain", Info::kCanAutomate);
@@ -378,19 +381,18 @@ struct GlobalParameter : public ParameterInterface {
 
     value[ID::tremoloMix] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "tremoloMix", Info::kCanAutomate);
-    value[ID::tremoloDepth] = std::make_unique<LinearValue>(
-      Scales::tremoloDepth.invmap(2.0), Scales::tremoloDepth, "tremoloDepth",
+    value[ID::tremoloDepth] = std::make_unique<DecibelValue>(
+      Scales::tremoloDepth.invmap(0.25), Scales::tremoloDepth, "tremoloDepth",
       Info::kCanAutomate);
     value[ID::tremoloDelayTime] = std::make_unique<DecibelValue>(
       Scales::tremoloDelayTime.invmapDB(-60.0), Scales::tremoloDelayTime,
       "tremoloDelayTime", Info::kCanAutomate);
     value[ID::tremoloModulationToDelayTimeOffset] = std::make_unique<LinearValue>(
-      0.1, Scales::defaultScale, "tremoloModulationToDelayTimeOffset",
+      0.06, Scales::defaultScale, "tremoloModulationToDelayTimeOffset",
       Info::kCanAutomate);
-    value[ID::tremoloModulationSmoothingHz] = std::make_unique<DecibelValue>(
-      Scales::tremoloModulationSmoothingHz.invmap(10.0),
-      Scales::tremoloModulationSmoothingHz, "tremoloModulationSmoothingHz",
-      Info::kCanAutomate);
+    value[ID::tremoloModulationRateHz] = std::make_unique<DecibelValue>(
+      Scales::tremoloModulationRateHz.invmap(3.7), Scales::tremoloModulationRateHz,
+      "tremoloModulationRateHz", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

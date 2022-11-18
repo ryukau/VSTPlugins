@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-09-09" />
+<meta name="dcterms.date" content="2022-11-18" />
 <title>ClangSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-09-09
+  Update: 2022-11-18
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -362,15 +362,13 @@ style="display: inline-block; vertical-align: middle;"></li>
 負荷も増えているのでモノフォニックです。オシレータはシンバルの合成に適したノイズとパルス列の混合に変更されています。マンホールをアスファルトの上で引きずったような音も出せます。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/ClangCymbal_0.0.3.zip">ClangCymbal
-0.0.3 をダウンロード - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.47.0/ClangCymbal_0.1.0.zip">ClangCymbal
+0.1.0 をダウンロード - VST® 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="60px"
 style="display: inline-block; vertical-align: middle;"></li>
 </ul>
-<p><strong>重要</strong>: ClangSynth と ClangCymbal は β
-版です。後方互換のない変更が行われる可能性があるので注意してください。使用後は結果をファイルにレンダリングすることを強く推奨します。</p>
 <p>パッケージには次のビルドが含まれています。</p>
 <ul>
 <li>Windows 64bit</li>
@@ -805,7 +803,7 @@ issue を開いてください。</p>
 <h3 id="clangsynth-1">ClangSynth</h3>
 <p><img src="img/ClangSynth.svg" /></p>
 <h3 id="clangcymbal">ClangCymbal</h3>
-<p><img src="img/clangcymbal.svg" /></p>
+<p><img src="img/ClangCymbal.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
 <p>角かっこ [] で囲まれているのは単位です。以下は単位の一覧です。</p>
 <ul>
@@ -1259,7 +1257,7 @@ LFO セクションの <code>Wave Interp.</code> を参照してください。<
 <h3 id="clangcymbal-1">ClangCymbal</h3>
 <p>ClangSynth と異なるパラメータだけをリストしています。</p>
 <h4 id="tremolo">Tremolo</h4>
-<p>トレモロは振動する物体とマイクとの距離をざっくりと表現するために追加されました。変調信号としてオシレータ出力が使われています。</p>
+<p>トレモロは振動する物体とマイクとの距離をざっくりと表現するために追加されました。変調信号はサイン波です。</p>
 <dl>
 <dt>Mix</dt>
 <dd>
@@ -1281,13 +1279,14 @@ LFO セクションの <code>Wave Interp.</code> を参照してください。<
 <p><code>Delay Offset</code> の値は <code>Misc.-&gt;Smoothing</code>
 に加えてさらなる平滑化が行われています。追加された平滑化によって、値を変えるといつでもフランジャーのような効果を出すことができます。</p>
 </dd>
-<dt>Smooth [Hz]</dt>
+<dt>Rate [Hz]</dt>
 <dd>
-<p>変調信号にかかるローパスフィルタのカットオフ周波数です。</p>
+<p>変調信号のサイン波の周波数です。</p>
 </dd>
 </dl>
 <h4 id="misc.-1">Misc.</h4>
-<p>ピッチスライドが追加されています。</p>
+<p>ClangSynth
+と比べるとピッチスライドが追加されている点が異なります。</p>
 <dl>
 <dt>Slide [s]</dt>
 <dd>
@@ -1308,6 +1307,14 @@ LFO セクションの <code>Wave Interp.</code> を参照してください。<
 になるときのスライド時間は <code>Gain-&gt;Release</code>
 の値が使われます。</li>
 </ul>
+</dd>
+<dt>2x Sampling</dt>
+<dd>
+<p>チェックを入れると 2 倍のオーバーサンプリングを有効にします。</p>
+<p>よりシンバルらしい質感を得るためにはチェックを入れることを推奨します。ただし
+CPU 負荷は 2 倍になります。</p>
+<p>チェックを外すと CPU 負荷は下がりますが、 FDN
+のディレイで行われる線形補間による高域の損失が大きくなるため、金属的な質感が損なわれます。外部のイコライザなどで高域を上げることで、いくらかは対処できます。</p>
 </dd>
 </dl>
 <h4 id="oscillator-1">Oscillator</h4>
@@ -1438,6 +1445,14 @@ CPU 負荷も上がっています。</p>
 </ul>
 <h3 id="clangcymbal-2">ClangCymbal</h3>
 <ul>
+<li>0.1.0
+<ul>
+<li>オーバーサンプリングの設定を追加。</li>
+<li>トレモロの変調信号を FDN の出力からサイン波に変更。</li>
+<li>プラグインの GUID
+を変更。以前のバージョンとは後方互換性がないので注意。</li>
+<li>エンベロープで使用しているソルバが最大反復数に到達しても探索を終了しないバグを修正。</li>
+</ul></li>
 <li>0.0.3
 <ul>
 <li>VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux
@@ -1466,6 +1481,9 @@ href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0
 </ul>
 <h3 id="clangcymbal-3">ClangCymbal</h3>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/ClangCymbal_0.0.3.zip">ClangCymbal
+0.0.3 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.42.0/ClangCymbal_0.0.2.zip">ClangCymbal
 0.0.2 - VST 3 (github.com)</a></li>

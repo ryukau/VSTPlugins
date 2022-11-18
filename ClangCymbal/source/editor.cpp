@@ -158,10 +158,10 @@ bool Editor::prepareUI()
   addTextKnob<Style::accent>(
     tremoloLeft1, tremoloTop4, labelWidth, labelHeight, uiTextSize,
     ID::tremoloModulationToDelayTimeOffset, Scales::defaultScale, false, 5);
-  addLabel(tremoloLeft0, tremoloTop5, labelWidth, labelHeight, uiTextSize, "Smooth [Hz]");
+  addLabel(tremoloLeft0, tremoloTop5, labelWidth, labelHeight, uiTextSize, "Rate [Hz]");
   addTextKnob<Style::accent>(
     tremoloLeft1, tremoloTop5, labelWidth, labelHeight, uiTextSize,
-    ID::tremoloModulationSmoothingHz, Scales::tremoloModulationSmoothingHz, false, 5);
+    ID::tremoloModulationRateHz, Scales::tremoloModulationRateHz, false, 5);
 
   // Misc.
   constexpr auto miscLeft0 = tuningLeft0;
@@ -170,6 +170,7 @@ bool Editor::prepareUI()
   constexpr auto miscTop1 = miscTop0 + labelY;
   constexpr auto miscTop2 = miscTop1 + labelY;
   constexpr auto miscTop3 = miscTop2 + labelY;
+  constexpr auto miscTop4 = miscTop3 + labelY;
 
   addGroupLabel(miscLeft0, miscTop0, 2 * labelWidth, labelHeight, uiTextSize, "Misc.");
 
@@ -186,6 +187,9 @@ bool Editor::prepareUI()
   addOptionMenu(
     miscLeft1, miscTop3, labelWidth, labelHeight, uiTextSize, ID::slideType,
     slideTypeItems);
+  addCheckbox(
+    miscLeft0 + int(labelWidth / 2), miscTop4, labelWidth, labelHeight, uiTextSize,
+    "2x Sampling", ID::overSampling);
 
   // Oscillator.
   constexpr auto oscLeft0 = gainLeft0 + 2 * labelWidth + 4 * margin;

@@ -66,7 +66,7 @@ private:
   ExpSmoother<float> tremoloDepth;
   ExpSmoother<float> tremoloDelayTime;
   ExpSmoother<float> tremoloModToDelayTimeOffset;
-  ExpSmoother<float> tremoloModSmoothingKp;
+  ExpSmoother<float> tremoloModDeltaPhase;
 
   TableLFO<float, nModEnvelopeWavetable + 1, 1024, TableLFOType::envelope> envelopeTable;
   EnvelopePhase<float> modEnvelopePhase;
@@ -83,8 +83,8 @@ private:
   std::array<float, fdnMatrixSize> overtoneRandomness{};
   FeedbackDelayNetwork<float, fdnMatrixSize> fdn;
 
+  float tremoloPhase = 0;
   Tremolo<float> tremolo;
-  DoubleEMAFilter<float> tremoloSmoother;
 
   NoteGate<float> gate;
   DoubleEMAFilter<float> gateSmoother;

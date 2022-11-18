@@ -130,8 +130,7 @@ void DSPCore::setup(double sampleRate)
   tremoloDelayTime.METHOD(sampleRate *pv[ID::tremoloDelayTime]->getFloat());             \
   tremoloModToDelayTimeOffset.METHOD(                                                    \
     pv[ID::tremoloModulationToDelayTimeOffset]->getFloat());                             \
-  tremoloModSmoothingKp.METHOD(float(EMAFilter<double>::cutoffToP(                       \
-    sampleRate, pv[ID::tremoloModulationSmoothingHz]->getFloat())));                     \
+  tremoloModDeltaPhase.METHOD(pv[ID::tremoloModulationRateHz]->getFloat() / sampleRate); \
                                                                                          \
   auto fdnFreq = fdnFreqOffset.getValue() * fdnPitch.getValue();                         \
                                                                                          \
@@ -211,7 +210,7 @@ void Note::reset(float sampleRate, GlobalParameter &param)
   fdn.reset();
 
   tremolo.reset(pv[ID::tremoloModulationToDelayTimeOffset]->getFloat());
-  tremoloSmoother.reset();
+  tremoloPhase = 0;
 
   auto gateAttackSecond = pv[ID::gateAttackSecond]->getFloat();
   gateSmoother.setCutoff(
@@ -325,7 +324,7 @@ float Note::process(float sampleRate)
   tremoloDepth.process();
   tremoloDelayTime.process();
   tremoloModToDelayTimeOffset.process();
-  tremoloModSmoothingKp.process();
+  tremoloModDeltaPhase.process();
 
   fdnPitch.process(pitchSlideKp);
 
@@ -377,14 +376,14 @@ float Note::process(float sampleRate)
       overtone = ot;
     }
 
-    // TODO: FDN gain.
     sig = float(0.01 * pi) * fdn.process(sig, fdnFeedback.getValue());
   }
 
-  auto tremoloMod = tremoloSmoother.processKp(oscOut, tremoloModSmoothingKp.getValue());
+  tremoloPhase += tremoloModDeltaPhase.getValue();
+  tremoloPhase -= std::floor(tremoloPhase);
   sig = tremolo.process(
-    sig, tremoloMod, tremoloModToDelayTimeOffset.getValue(), tremoloDelayTime.getValue(),
-    tremoloDepth.getValue(), tremoloMix.getValue());
+    sig, std::sin(float(twopi) * tremoloPhase), tremoloModToDelayTimeOffset.getValue(),
+    tremoloDelayTime.getValue(), tremoloDepth.getValue(), tremoloMix.getValue());
 
   auto outputGain = gateSmoother.process(gate.process());
   sig *= outputGain;
@@ -399,33 +398,57 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
   using ID = ParameterID::ID;
   const auto &pv = param.value;
 
+  SmootherCommon<double>::setSampleRate(upRate);
   SmootherCommon<float>::setTime(pv[ID::commonSmoothingTimeSecond]->getFloat());
   SmootherCommon<float>::setBufferSize(float(length));
+
+  bool overSampling = pv[ID::overSampling]->getInt();
 
   for (size_t i = 0; i < length; ++i) {
     processMidiNote(i);
 
-    halfIn.fill({});
+    if (overSampling) {
+      halfIn.fill({});
 
-    for (size_t j = 0; j < upFold; ++j) {
+      for (size_t j = 0; j < upFold; ++j) {
+        if (note.state != NoteState::rest) {
+          halfIn[j] += note.process(upRate);
+        }
+
+        if (isTransitioning) {
+          halfIn[j] += transitionBuffer[trIndex];
+          transitionBuffer[trIndex] = 0;
+          trIndex = (trIndex + 1) % transitionBuffer.size();
+          if (trIndex == trStop) isTransitioning = false;
+        }
+
+        const auto masterGain = interpMasterGain.process();
+        halfIn[j] *= masterGain;
+      }
+
+      auto folded = halfbandIir.process(halfIn);
+      out0[i] = folded;
+      out1[i] = folded;
+    } else {
+      float sig = 0;
+
       if (note.state != NoteState::rest) {
-        halfIn[j] += note.process(upRate);
+        sig += note.process(upRate);
       }
 
       if (isTransitioning) {
-        halfIn[j] += transitionBuffer[trIndex];
+        sig += transitionBuffer[trIndex];
         transitionBuffer[trIndex] = 0;
         trIndex = (trIndex + 1) % transitionBuffer.size();
         if (trIndex == trStop) isTransitioning = false;
       }
 
       const auto masterGain = interpMasterGain.process();
-      halfIn[j] *= masterGain;
-    }
+      sig *= masterGain;
 
-    auto folded = halfbandIir.process(halfIn);
-    out0[i] = folded;
-    out1[i] = folded;
+      out0[i] = sig;
+      out1[i] = sig;
+    }
   }
 }
 
@@ -509,7 +532,6 @@ void Note::noteOn(
     }
 
     tremolo.reset(pv[ID::tremoloModulationToDelayTimeOffset]->getFloat());
-    tremoloSmoother.reset();
 
     gateSmoother.reset();
   } else {

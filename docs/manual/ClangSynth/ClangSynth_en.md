@@ -27,8 +27,6 @@ ClangCymbal is a spin off of ClangSynth. FDN size is expended to 64 * 64 to prov
 - [Download Presets (github.com)]({{ preset_download_url["ClangCymbal"] }})
 {%- endif %}
 
-**Important**: ClangSynth and ClangCymbal are β version. Breaking change might be introduced. Recommend to render the result to file after using.
-
 The package includes following builds:
 
 - Windows 64bit
@@ -70,7 +68,7 @@ Diagram only shows overview. It's not exact implementation.
 ![](img/ClangSynth.svg)
 
 ### ClangCymbal
-![](img/clangcymbal.svg)
+![](img/ClangCymbal.svg)
 
 ## Parameters
 Characters inside of square brackets \[\] represents unit. Following is a list of units used in ClangSynth.
@@ -522,7 +520,7 @@ Wave Interp.
 This section only lists the parameters different to ClangSynth.
 
 #### Tremolo
-Modulation source of tremolo is the output of oscillator. Intention is to crudely imitate the distance from vibrating object to microphone.
+Intention of tremolo is to crudely imitate the distance from vibrating object to microphone. Modulation signal is sine wave.
 
 Mix
 
@@ -544,12 +542,12 @@ Delay Offset
 
     On top of `Misc.->Smoothing`, extra smoothing is applied to `Delay Offset`.
 
-Smooth \[Hz\]
+Rate \[Hz\]
 
-:   Cutoff frequency of a lowpass filter which applies to modulation source.
+:   Frequency of modulation sine wave.
 
 #### Misc.
-Pitch slide options are added.
+Pitch slide options are the difference to ClangSynth.
 
 Slide \[s\]
 
@@ -562,6 +560,14 @@ Slide Type
     - `Always` : Always slide from the pitch of last note.
     - `Sustain` : Only slide when 2 or more keys are pressed.
     - `Reset to 0` : When number of pressed key is changed from 0 to 1, or 1 to 0, pitch will be slide to 0 Hz. Otherwise, slide behaves same as other 2 options. On release, slide time follows the value of `Gain->Release`, instead of `Misc.->Slide`.
+
+2x Sampling
+
+:   When checked, it enables 2-fold oversampling.
+
+    Recommend to turn on for better metallic texture. However it doubles the CPU load.
+
+    When turned off, it reduces CPU load. However it also degrades metallic texture because of the high frequency loss caused by linear interpolation used in delays inside of FDN. It might be better to use external equalizer to compensate the high frequency loss.
 
 #### Oscillator
 ClangCymbal uses mix of noise and pulse train as an oscillator.

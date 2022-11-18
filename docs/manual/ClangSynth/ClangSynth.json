@@ -30,9 +30,10 @@
     }
   },
   "ClangCymbal": {
-    "latest_version": "0.0.3",
+    "latest_version": "0.1.0",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.47.0/ClangCymbal_0.1.0.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/ClangCymbal_0.0.3.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.42.0/ClangCymbal_0.0.2.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/ClangCymbal_0.0.1.zip"
@@ -40,6 +41,20 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.1.0": {
+        "en": [
+          "Added \"2x Sampling\" parameter.",
+          "Changed tremolo modulation signal from FDN output ot sine wave.",
+          "Changed plugin GUID. This change breaks backward compatibility.",
+          "Fixed a bug that the solver used in envelope doesn't terminate when reached to maximum iteration count."
+        ],
+        "ja": [
+          "オーバーサンプリングの設定を追加。",
+          "トレモロの変調信号を FDN の出力からサイン波に変更。",
+          "プラグインの GUID を変更。以前のバージョンとは後方互換性がないので注意。",
+          "エンベロープで使用しているソルバが最大反復数に到達しても探索を終了しないバグを修正。"
+        ]
+      },
       "0.0.3": {
         "en": [
           "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux.",

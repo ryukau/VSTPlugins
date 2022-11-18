@@ -53,7 +53,7 @@ template<typename T, typename F> std::pair<T, T> minimizeScalarBrent(F func)
   auto fc = func(xc);
   size_t iter = 0;
 
-  while (fc < fb && iter <= maxiterBracket) {
+  while (fc < fb) {
     auto tmp1 = (xb - xa) * (fb - fc);
     auto tmp2 = (xb - xc) * (fb - fa);
     auto val = tmp2 - tmp1;
@@ -62,6 +62,9 @@ template<typename T, typename F> std::pair<T, T> minimizeScalarBrent(F func)
 
     auto w = xb - ((xb - xc) * tmp2 - (xb - xa) * tmp1) / denom;
     auto wlim = xb + grow_limit * (xc - xb);
+
+    if (iter > maxiterBracket) break;
+    ++iter;
 
     T fw;
     if ((w - xc) * (xb - w) > 0) {

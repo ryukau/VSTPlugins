@@ -73,9 +73,9 @@ UIntScale<double> Scales::wavetableInterpolation(2);
 LinearScale<double> Scales::lfoToPitchAmount(-120.0, 120.0);
 DecibelScale<double> Scales::modEnvelopeTime(-80.0, 40.0, false);
 
-LinearScale<double> Scales::tremoloDepth(-10.0, 10.0);
+DecibelScale<double> Scales::tremoloDepth(-80.0, 0.0, true);
 DecibelScale<double> Scales::tremoloDelayTime(-100.0, -20.0, false);
-DecibelScale<double> Scales::tremoloModulationSmoothingHz(-40.0, 40.0, false);
+DecibelScale<double> Scales::tremoloModulationRateHz(-40.0, 40.0, false);
 
 } // namespace Synth
 } // namespace Steinberg
