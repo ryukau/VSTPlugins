@@ -5,7 +5,7 @@ lang: en
 # MembraneSynth
 ![](img/MembraneSynth.png)
 
-MembraneSynth is a synthesizer that resembles sound of percussions with membrane, like bass drum or tom tom. Some strange noise can also be made by utilizing oscillation caused by self modulation.
+MembraneSynth is a synthesizer that resembles sound of percussions with membrane, like bass drum or tom tom. Some strange noise can also be made by utilizing oscillation caused by self-modulation.
 
 - [Download MembraneSynth {{ latest_version["MembraneSynth"] }} - VST® 3 (github.com)]({{ latest_download_url["MembraneSynth"] }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
@@ -148,7 +148,7 @@ Shape
     When `Shape` is 0, the multipliers use string modes and it becomes 1, 2, 3, and so on. When `Shape` is 1, the multipliers use circular membrane modes and it becomes 1, 1.59, 2.13, and so on.
 
 ### Modulation
-Modulation section provides parameters related to self modulation of FDN.
+Modulation section provides parameters related to self-modulation of FDN.
 
 Amount
 

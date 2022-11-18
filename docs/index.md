@@ -52,6 +52,9 @@ All the plugin download link can be found at release page on following link.
 <div class="pluginlist"><a href="#iterativesincluster">
 <ruby>IterativeSinCluster<rt>イテレイティブ サイン クラスタ</rt></ruby>
 </a></div>
+<div class="pluginlist"><a href="#membranesynth">
+<ruby>MembraneSynth<rt>メンブレイン シンセ</rt></ruby>
+</a></div>
 <div class="pluginlist"><a href="#lightpadsynth">
 <ruby>LightPadSynth<rt>ライト パッド シンセ</rt></ruby>
 </a></div>
@@ -60,6 +63,9 @@ All the plugin download link can be found at release page on following link.
 </a></div>
 <div class="pluginlist"><a href="#trapezoidsynth">
 <ruby>TrapezoidSynth<rt>トラピゾイド シンセ</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#ultrasynth">
+<ruby>UltraSynth<rt>ウルトラ シンセ</rt></ruby>
 </a></div>
 <div class="pluginlist"><a href="#wavecymbal">
 <ruby>WaveCymbal<rt>ウェイブ シンバル</rt></ruby>
@@ -96,6 +102,32 @@ All the plugin download link can be found at release page on following link.
 <div class="pluginlist"><a href="#ultrasonicringmod">
 <ruby>UltrasonicRingMod<rt>ウルトラソニック リング モッド</rt></ruby>
 </a></div>
+
+## MembraneSynth
+<figure>
+<img src="manual/MembraneSynth/img/MembraneSynth.png" alt="Image of MembraneSynth graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+
+<ruby>MembraneSynth<rt>メンブレイン シンセ</rt></ruby> は自己変調するフィードバック・ディレイ・ネットワーク (FDN) を用いた膜を張った打楽器のような音がでるシンセサイザです。バスドラムやタムタムのような低めの打楽器の音が得意ですが、自己変調による発振によって変な音を作ることもできます。
+
+- [MembraneSynth のマニュアル (日本語)](manual/MembraneSynth/MembraneSynth_ja.html)
+
+MembraneSynth is a synthesizer that resembles sound of percussions with membrane, like bass drum or tom tom. The texture comes from self-modulating feedback delay network (FDN). Some strange noise can also be made by utilizing oscillation caused by self-modulation.
+
+- [MembraneSynth Manual (English)](manual/MembraneSynth/MembraneSynth_en.html)
+
+## UltraSynth
+<figure>
+<img src="manual/UltraSynth/img/UltraSynth.png" alt="Image of UltraSynth graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+
+<ruby>UltraSynth<rt>ウルトラ シンセ</rt></ruby> は UltrasonicRingMod と同じく 64 倍のオーバーサンプリングを行っていることを除けば、これといった特長のないモノフォニックのシンセサイザです。オーバーサンプリングの倍率が高いので変調をかけた音が得意ですが、 CPU 負荷は高めです。
+
+- [UltraSynth のマニュアル (日本語)](manual/UltraSynth/UltraSynth_ja.html)
+
+UltraSynth is an ordinary synthesizer except 64-fold oversampling that is the same one used in UltrasonicRingMod. Because of the high oversampling ratio, modulation sound is okay. However CPU load is high.
+
+- [UltraSynth Manual (English)](manual/UltraSynth/UltraSynth_en.html)
 
 ## UltrasonicRingMod
 <figure>

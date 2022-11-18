@@ -5,7 +5,7 @@ lang: en
 # UltraSynth
 ![](img/UltraSynth.png)
 
-UltraSynth is an ordinary synthesizer except 64-fold oversampling that is the same one used in  UltrasonicRingMod. Because of the high oversampling ratio, modulation sound is okay. However CPU load is high.
+UltraSynth is an ordinary synthesizer except 64-fold oversampling that is the same one used in UltrasonicRingMod. Because of the high oversampling ratio, modulation sound is okay. However CPU load is high.
 
 - [Download UltraSynth {{ latest_version["UltraSynth"] }} - VST® 3 (github.com)]({{ latest_download_url["UltraSynth"] }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
