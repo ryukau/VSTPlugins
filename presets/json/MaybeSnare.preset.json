@@ -1,0 +1,572 @@
+[
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.5714285714285714
+      },
+      {
+        "name": "fdnMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "gainNormalization",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "overSampling",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "impactAmplitude",
+        "type": "d",
+        "value": 0.47577249674798594
+      },
+      {
+        "name": "impactDecaySeconds",
+        "type": "d",
+        "value": 0.4
+      },
+      {
+        "name": "impactCenterRimPosition",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "impactNoiseMix",
+        "type": "d",
+        "value": 0.05
+      },
+      {
+        "name": "impactNoiseDecaySeconds",
+        "type": "d",
+        "value": 0.4
+      },
+      {
+        "name": "impactNoiseLowpassHz",
+        "type": "d",
+        "value": 0.6275171312585461
+      },
+      {
+        "name": "snareSideOctaveOffset",
+        "type": "d",
+        "value": 0.3
+      },
+      {
+        "name": "couplingAmount",
+        "type": "d",
+        "value": 0.6602059991327962
+      },
+      {
+        "name": "couplingDecaySeconds",
+        "type": "d",
+        "value": 0.6
+      },
+      {
+        "name": "couplingSafetyReduction",
+        "type": "d",
+        "value": 0.6666666666666665
+      },
+      {
+        "name": "batterFdnMatrixIdentityAmount",
+        "type": "d",
+        "value": 0.44982833405600314
+      },
+      {
+        "name": "batterFdnFeedback",
+        "type": "d",
+        "value": 0.4659800028906792
+      },
+      {
+        "name": "batterFdnShape",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "batterFdnModulationAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "batterFdnInterpRate",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "batterFdnMaxModulationRatio",
+        "type": "d",
+        "value": 0.3666666666666667
+      },
+      {
+        "name": "batterModEnvSustainSeconds",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "batterModEnvReleaseSeconds",
+        "type": "d",
+        "value": 0.6666666666666666
+      },
+      {
+        "name": "batterFdnLowpassCutoffHz",
+        "type": "d",
+        "value": 0.7674975526773505
+      },
+      {
+        "name": "batterFdnHighpassCutoffHz",
+        "type": "d",
+        "value": 0.38876684413301416
+      },
+      {
+        "name": "batterFdnLowpassQ0",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnLowpassQ1",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnLowpassQ2",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnLowpassQ3",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnLowpassQ4",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnLowpassQ5",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnLowpassQ6",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnLowpassQ7",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnLowpassQ8",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnLowpassQ9",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnLowpassQ10",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnLowpassQ11",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnLowpassQ12",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnLowpassQ13",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnLowpassQ14",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnLowpassQ15",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnHighpassQ0",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnHighpassQ1",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnHighpassQ2",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnHighpassQ3",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnHighpassQ4",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnHighpassQ5",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnHighpassQ6",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnHighpassQ7",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnHighpassQ8",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnHighpassQ9",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnHighpassQ10",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnHighpassQ11",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnHighpassQ12",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnHighpassQ13",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnHighpassQ14",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "batterFdnHighpassQ15",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnMatrixIdentityAmount",
+        "type": "d",
+        "value": 0.5864189899796479
+      },
+      {
+        "name": "snareFdnFeedback",
+        "type": "d",
+        "value": 0.4659800028906792
+      },
+      {
+        "name": "snareFdnShape",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "snareFdnModulationAmount",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "snareFdnInterpRate",
+        "type": "d",
+        "value": 0.6790008359086999
+      },
+      {
+        "name": "snareFdnMaxModulationRatio",
+        "type": "d",
+        "value": 0.2777777777777778
+      },
+      {
+        "name": "snareModEnvSustainSeconds",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "snareModEnvReleaseSeconds",
+        "type": "d",
+        "value": 0.6666666666666666
+      },
+      {
+        "name": "snareFdnLowpassCutoffHz",
+        "type": "d",
+        "value": 0.9300097892905979
+      },
+      {
+        "name": "snareFdnHighpassCutoffHz",
+        "type": "d",
+        "value": 0.4134245174240263
+      },
+      {
+        "name": "snareFdnLowpassQ0",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnLowpassQ1",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnLowpassQ2",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnLowpassQ3",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnLowpassQ4",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnLowpassQ5",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnLowpassQ6",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnLowpassQ7",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnLowpassQ8",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnLowpassQ9",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnLowpassQ10",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnLowpassQ11",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnLowpassQ12",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnLowpassQ13",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnLowpassQ14",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnLowpassQ15",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnHighpassQ0",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnHighpassQ1",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnHighpassQ2",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnHighpassQ3",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnHighpassQ4",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnHighpassQ5",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnHighpassQ6",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnHighpassQ7",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnHighpassQ8",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnHighpassQ9",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnHighpassQ10",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnHighpassQ11",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnHighpassQ12",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnHighpassQ13",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnHighpassQ14",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "snareFdnHighpassQ15",
+        "type": "d",
+        "value": 0.9898053191012557
+      },
+      {
+        "name": "fdnSeed",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fdnRandomMatrix",
+        "type": "d",
+        "value": 0.001
+      },
+      {
+        "name": "fdnRandomOvertone",
+        "type": "d",
+        "value": 0.001
+      },
+      {
+        "name": "enableBatterModEnv",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "enableSnareModEnv",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "tuningSemitone",
+        "type": "I",
+        "value": 72
+      },
+      {
+        "name": "tuningCent",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "tuningET",
+        "type": "I",
+        "value": 11
+      },
+      {
+        "name": "tuningA4Hz",
+        "type": "I",
+        "value": 340
+      },
+      {
+        "name": "pitchBend",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "pitchBendRange",
+        "type": "d",
+        "value": 0.016666666666666666
+      },
+      {
+        "name": "noteSlideTimeSecond",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "slideAtNoteOn",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "slideAtNoteOff",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  }
+]

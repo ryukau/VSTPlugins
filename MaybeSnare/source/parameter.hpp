@@ -70,9 +70,9 @@ enum ID {
   batterFdnLowpassCutoffHz,
   batterFdnHighpassCutoffHz,
   batterFdnLowpassQ0,
-  batterFdnHighpassQ0 = batterFdnLowpassQ0 + fdnSize,
+  batterFdnHighpassQ0 = 41, // batterFdnLowpassQ0 + fdnSize,
 
-  snareFdnMatrixIdentityAmount = batterFdnHighpassQ0 + fdnSize,
+  snareFdnMatrixIdentityAmount = 57, // batterFdnHighpassQ0 + fdnSize,
   snareFdnFeedback,
   snareFdnShape,
   snareFdnModulationAmount,
@@ -83,9 +83,9 @@ enum ID {
   snareFdnLowpassCutoffHz,
   snareFdnHighpassCutoffHz,
   snareFdnLowpassQ0,
-  snareFdnHighpassQ0 = snareFdnLowpassQ0 + fdnSize,
+  snareFdnHighpassQ0 = 83, // snareFdnLowpassQ0 + fdnSize,
 
-  fdnSeed = snareFdnHighpassQ0 + fdnSize,
+  fdnSeed = 99, // snareFdnHighpassQ0 + fdnSize,
   fdnRandomMatrix,
   fdnRandomOvertone,
 
@@ -103,7 +103,7 @@ enum ID {
   slideAtNoteOff,
 
   ID_ENUM_LENGTH,
-  ID_ENUM_GUI_START = ID_ENUM_LENGTH,
+  // ID_ENUM_GUI_START = ID_ENUM_LENGTH,
 };
 } // namespace ParameterID
 
