@@ -122,57 +122,62 @@ bool Editor::prepareUI()
     gainLeft1, gainTop3, labelWidth, labelHeight, uiTextSize, "2x Sampling",
     ID::overSampling);
 
-  // Coupling
-  constexpr auto couplingTop0 = top0 + 4 * labelY;
-  constexpr auto couplingTop1 = couplingTop0 + 1 * labelY;
-  constexpr auto couplingTop2 = couplingTop0 + 2 * labelY;
-  constexpr auto couplingTop3 = couplingTop0 + 3 * labelY;
-  constexpr auto couplingTop4 = couplingTop0 + 4 * labelY;
-  constexpr auto couplingLeft0 = left0;
-  constexpr auto couplingLeft1 = couplingLeft0 + labelWidth + 2 * margin;
+  // Tuning.
+  constexpr auto tuningTop0 = top0 + 4 * labelY;
+  constexpr auto tuningTop1 = tuningTop0 + 1 * labelY;
+  constexpr auto tuningTop2 = tuningTop0 + 2 * labelY;
+  constexpr auto tuningTop3 = tuningTop0 + 3 * labelY;
+  constexpr auto tuningTop4 = tuningTop0 + 4 * labelY;
+  constexpr auto tuningTop5 = tuningTop0 + 5 * labelY;
+  constexpr auto tuningTop6 = tuningTop0 + 6 * labelY;
+  constexpr auto tuningTop7 = tuningTop0 + 7 * labelY;
+  constexpr auto tuningTop8 = tuningTop0 + 8 * labelY;
+  constexpr auto tuningLeft0 = left0;
+  constexpr auto tuningLeft1 = tuningLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
-    couplingLeft0, couplingTop0, groupLabelWidth, labelHeight, uiTextSize, "Coupling");
+    tuningLeft0, tuningTop0, groupLabelWidth, labelHeight, uiTextSize, "Tuning");
 
-  addLabel(couplingLeft0, couplingTop1, labelWidth, labelHeight, uiTextSize, "Amount");
-  addTextKnob<Style::warning>(
-    couplingLeft1, couplingTop1, labelWidth, labelHeight, uiTextSize, ID::couplingAmount,
-    Scales::couplingAmount, false, 5);
-  addLabel(couplingLeft0, couplingTop2, labelWidth, labelHeight, uiTextSize, "Decay [s]");
-  addTextKnob<Style::warning>(
-    couplingLeft1, couplingTop2, labelWidth, labelHeight, uiTextSize,
-    ID::couplingDecaySeconds, Scales::couplingDecaySeconds, false, 5);
-  addLabel(couplingLeft0, couplingTop3, labelWidth, labelHeight, uiTextSize, "Reduction");
-  addTextKnob<Style::warning>(
-    couplingLeft1, couplingTop3, labelWidth, labelHeight, uiTextSize,
-    ID::couplingSafetyReduction, Scales::fdnFeedback, false, 5);
   addLabel(
-    couplingLeft0, couplingTop4, labelWidth, labelHeight, uiTextSize, "Snare Side Oct.");
+    tuningLeft0, tuningTop1, labelWidth, labelHeight, uiTextSize, "Snare Side Octave");
   addTextKnob(
-    couplingLeft1, couplingTop4, labelWidth, labelHeight, uiTextSize,
+    tuningLeft1, tuningTop1, labelWidth, labelHeight, uiTextSize,
     ID::snareSideOctaveOffset, Scales::snareSideOctaveOffset, false, 5);
-
-  // Randomization.
-  constexpr auto randomTop0 = top0 + 9 * labelY;
-  constexpr auto randomTop1 = randomTop0 + 1 * labelY;
-  constexpr auto randomTop2 = randomTop0 + 2 * labelY;
-  constexpr auto randomTop3 = randomTop0 + 3 * labelY;
-  constexpr auto randomLeft0 = left0;
-  constexpr auto randomLeft1 = randomLeft0 + labelWidth + 2 * margin;
-  addGroupLabel(
-    randomLeft0, randomTop0, groupLabelWidth, labelHeight, uiTextSize, "Random");
-
-  addLabel(randomLeft0, randomTop1, labelWidth, labelHeight, uiTextSize, "Seed");
+  addLabel(tuningLeft0, tuningTop2, labelWidth, labelHeight, uiTextSize, "Semitone");
   addTextKnob(
-    randomLeft1, randomTop1, labelWidth, labelHeight, uiTextSize, ID::fdnSeed,
-    Scales::seed);
-  addLabel(randomLeft0, randomTop2, labelWidth, labelHeight, uiTextSize, "Matrix Rnd.");
+    tuningLeft1, tuningTop2, labelWidth, labelHeight, uiTextSize, ID::tuningSemitone,
+    Scales::semitone, false, 0, -semitoneOffset);
+  addLabel(tuningLeft0, tuningTop3, labelWidth, labelHeight, uiTextSize, "Cent");
   addTextKnob(
-    randomLeft1, randomTop2, labelWidth, labelHeight, uiTextSize, ID::fdnRandomMatrix,
-    Scales::defaultScale, false, 5);
-  addLabel(randomLeft0, randomTop3, labelWidth, labelHeight, uiTextSize, "Overtone Rnd.");
+    tuningLeft1, tuningTop3, labelWidth, labelHeight, uiTextSize, ID::tuningCent,
+    Scales::cent, false, 5);
+  addLabel(tuningLeft0, tuningTop4, labelWidth, labelHeight, uiTextSize, "Equal Temp.");
   addTextKnob(
-    randomLeft1, randomTop3, labelWidth, labelHeight, uiTextSize, ID::fdnRandomOvertone,
-    Scales::defaultScale, false, 5);
+    tuningLeft1, tuningTop4, labelWidth, labelHeight, uiTextSize, ID::tuningET,
+    Scales::equalTemperament, false, 0, 1);
+  addLabel(tuningLeft0, tuningTop5, labelWidth, labelHeight, uiTextSize, "A4 [Hz]");
+  addTextKnob(
+    tuningLeft1, tuningTop5, labelWidth, labelHeight, uiTextSize, ID::tuningA4Hz,
+    Scales::a4Hz, false, 0, a4HzOffset);
+  addLabel(
+    tuningLeft0, tuningTop6, labelWidth, labelHeight, uiTextSize, "P.Bend Range [st.]");
+  addTextKnob(
+    tuningLeft1, tuningTop6, labelWidth, labelHeight, uiTextSize, ID::pitchBendRange,
+    Scales::pitchBendRange, false, 5);
+  addLabel(
+    tuningLeft0, tuningTop7, labelWidth, labelHeight, uiTextSize, "Slide Time [s]");
+  addTextKnob(
+    tuningLeft1, tuningTop7, labelWidth, labelHeight, uiTextSize, ID::noteSlideTimeSecond,
+    Scales::noteSlideTimeSecond, false, 5);
+  constexpr auto slideAtWidth = int(groupLabelWidth / 3);
+  constexpr auto slideAtLeft1 = tuningLeft0 + 1 * slideAtWidth;
+  constexpr auto slideAtLeft2 = tuningLeft0 + 2 * slideAtWidth;
+  addLabel(tuningLeft0, tuningTop8, slideAtWidth, labelHeight, uiTextSize, "Slide at");
+  addCheckbox(
+    slideAtLeft1, tuningTop8, slideAtWidth, labelHeight, uiTextSize, "Note-on",
+    ID::slideAtNoteOn);
+  addCheckbox(
+    slideAtLeft2, tuningTop8, slideAtWidth, labelHeight, uiTextSize, "Note-off",
+    ID::slideAtNoteOff);
 
   // Impact.
   constexpr auto impactTop0 = top0 + 0 * labelY;
@@ -214,56 +219,51 @@ bool Editor::prepareUI()
     impactLeft1, impactTop6, labelWidth, labelHeight, uiTextSize,
     ID::impactNoiseLowpassHz, Scales::filterCutoffHz, false, 5);
 
-  // Tuning.
-  constexpr auto tuningTop0 = top0 + 7 * labelY;
-  constexpr auto tuningTop1 = tuningTop0 + 1 * labelY;
-  constexpr auto tuningTop2 = tuningTop0 + 2 * labelY;
-  constexpr auto tuningTop3 = tuningTop0 + 3 * labelY;
-  constexpr auto tuningTop4 = tuningTop0 + 4 * labelY;
-  constexpr auto tuningTop5 = tuningTop0 + 5 * labelY;
-  constexpr auto tuningTop6 = tuningTop0 + 6 * labelY;
-  constexpr auto tuningTop7 = tuningTop0 + 7 * labelY;
-  constexpr auto tuningLeft0 = left4;
-  constexpr auto tuningLeft1 = tuningLeft0 + labelWidth + 2 * margin;
+  // Coupling
+  constexpr auto couplingTop0 = top0 + 7 * labelY;
+  constexpr auto couplingTop1 = couplingTop0 + 1 * labelY;
+  constexpr auto couplingTop2 = couplingTop0 + 2 * labelY;
+  constexpr auto couplingTop3 = couplingTop0 + 3 * labelY;
+  constexpr auto couplingLeft0 = left4;
+  constexpr auto couplingLeft1 = couplingLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
-    tuningLeft0, tuningTop0, groupLabelWidth, labelHeight, uiTextSize, "Tuning");
+    couplingLeft0, couplingTop0, groupLabelWidth, labelHeight, uiTextSize, "Coupling");
 
-  addLabel(tuningLeft0, tuningTop1, labelWidth, labelHeight, uiTextSize, "Semitone");
+  addLabel(couplingLeft0, couplingTop1, labelWidth, labelHeight, uiTextSize, "Amount");
+  addTextKnob<Style::warning>(
+    couplingLeft1, couplingTop1, labelWidth, labelHeight, uiTextSize, ID::couplingAmount,
+    Scales::couplingAmount, false, 5);
+  addLabel(couplingLeft0, couplingTop2, labelWidth, labelHeight, uiTextSize, "Decay [s]");
+  addTextKnob<Style::warning>(
+    couplingLeft1, couplingTop2, labelWidth, labelHeight, uiTextSize,
+    ID::couplingDecaySeconds, Scales::couplingDecaySeconds, false, 5);
+  addLabel(couplingLeft0, couplingTop3, labelWidth, labelHeight, uiTextSize, "Reduction");
+  addTextKnob<Style::warning>(
+    couplingLeft1, couplingTop3, labelWidth, labelHeight, uiTextSize,
+    ID::couplingSafetyReduction, Scales::fdnFeedback, false, 5);
+
+  // Randomization.
+  constexpr auto randomTop0 = top0 + 11 * labelY;
+  constexpr auto randomTop1 = randomTop0 + 1 * labelY;
+  constexpr auto randomTop2 = randomTop0 + 2 * labelY;
+  constexpr auto randomTop3 = randomTop0 + 3 * labelY;
+  constexpr auto randomLeft0 = left4;
+  constexpr auto randomLeft1 = randomLeft0 + labelWidth + 2 * margin;
+  addGroupLabel(
+    randomLeft0, randomTop0, groupLabelWidth, labelHeight, uiTextSize, "Random");
+
+  addLabel(randomLeft0, randomTop1, labelWidth, labelHeight, uiTextSize, "Seed");
   addTextKnob(
-    tuningLeft1, tuningTop1, labelWidth, labelHeight, uiTextSize, ID::tuningSemitone,
-    Scales::semitone, false, 0, -semitoneOffset);
-  addLabel(tuningLeft0, tuningTop2, labelWidth, labelHeight, uiTextSize, "Cent");
+    randomLeft1, randomTop1, labelWidth, labelHeight, uiTextSize, ID::fdnSeed,
+    Scales::seed);
+  addLabel(randomLeft0, randomTop2, labelWidth, labelHeight, uiTextSize, "Matrix Rnd.");
   addTextKnob(
-    tuningLeft1, tuningTop2, labelWidth, labelHeight, uiTextSize, ID::tuningCent,
-    Scales::cent, false, 5);
-  addLabel(tuningLeft0, tuningTop3, labelWidth, labelHeight, uiTextSize, "Equal Temp.");
+    randomLeft1, randomTop2, labelWidth, labelHeight, uiTextSize, ID::fdnRandomMatrix,
+    Scales::defaultScale, false, 5);
+  addLabel(randomLeft0, randomTop3, labelWidth, labelHeight, uiTextSize, "Overtone Rnd.");
   addTextKnob(
-    tuningLeft1, tuningTop3, labelWidth, labelHeight, uiTextSize, ID::tuningET,
-    Scales::equalTemperament, false, 0, 1);
-  addLabel(tuningLeft0, tuningTop4, labelWidth, labelHeight, uiTextSize, "A4 [Hz]");
-  addTextKnob(
-    tuningLeft1, tuningTop4, labelWidth, labelHeight, uiTextSize, ID::tuningA4Hz,
-    Scales::a4Hz, false, 0, a4HzOffset);
-  addLabel(
-    tuningLeft0, tuningTop5, labelWidth, labelHeight, uiTextSize, "P.Bend Range [st.]");
-  addTextKnob(
-    tuningLeft1, tuningTop5, labelWidth, labelHeight, uiTextSize, ID::pitchBendRange,
-    Scales::pitchBendRange, false, 5);
-  addLabel(
-    tuningLeft0, tuningTop6, labelWidth, labelHeight, uiTextSize, "Slide Time [s]");
-  addTextKnob(
-    tuningLeft1, tuningTop6, labelWidth, labelHeight, uiTextSize, ID::noteSlideTimeSecond,
-    Scales::noteSlideTimeSecond, false, 5);
-  constexpr auto slideAtWidth = int(groupLabelWidth / 3);
-  constexpr auto slideAtLeft1 = tuningLeft0 + 1 * slideAtWidth;
-  constexpr auto slideAtLeft2 = tuningLeft0 + 2 * slideAtWidth;
-  addLabel(tuningLeft0, tuningTop7, slideAtWidth, labelHeight, uiTextSize, "Slide at");
-  addCheckbox(
-    slideAtLeft1, tuningTop7, slideAtWidth, labelHeight, uiTextSize, "Note-on",
-    ID::slideAtNoteOn);
-  addCheckbox(
-    slideAtLeft2, tuningTop7, slideAtWidth, labelHeight, uiTextSize, "Note-off",
-    ID::slideAtNoteOff);
+    randomLeft1, randomTop3, labelWidth, labelHeight, uiTextSize, ID::fdnRandomOvertone,
+    Scales::defaultScale, false, 5);
 
   // Tab view.
   std::vector<std::string> tabs{"Batter Side", "Snare Side"};

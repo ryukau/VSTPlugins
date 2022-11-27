@@ -276,9 +276,12 @@ void DSPCore::noteOn(NoteInfo &info)
 
   velocity = velocityMap.map(info.velocity);
 
-  pulseAmp = pv[ID::gainNormalization]->getInt()
-    ? pv[ID::impactAmplitude]->getDouble() * pv[ID::couplingAmount]->getDouble()
-    : double(1);
+  if (pv[ID::gainNormalization]->getInt()) {
+    pulseAmp = pv[ID::impactAmplitude]->getDouble()
+      * std::max(pv[ID::couplingAmount]->getDouble(), double(1));
+  } else {
+    pulseAmp = double(1);
+  }
   if (pulseAmp < eps) pulseAmp = eps;
   outputGain.reset(pv[ID::outputGain]->getDouble() / pulseAmp);
 

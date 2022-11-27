@@ -157,7 +157,7 @@ struct GlobalParameter : public ParameterInterface {
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     value[ID::outputGain] = std::make_unique<DecibelValue>(
-      Scales::outputGain.invmap(0.1), Scales::outputGain, "outputGain",
+      Scales::outputGain.invmap(1.0), Scales::outputGain, "outputGain",
       Info::kCanAutomate);
     value[ID::fdnMix] = std::make_unique<LinearValue>(
       0.5, Scales::defaultScale, "fdnMix", Info::kCanAutomate);
@@ -167,7 +167,7 @@ struct GlobalParameter : public ParameterInterface {
       1, Scales::boolScale, "overSampling", Info::kCanAutomate);
 
     value[ID::impactAmplitude] = std::make_unique<DecibelValue>(
-      Scales::impactAmplitude.invmap(8.0), Scales::impactAmplitude, "impactAmplitude",
+      Scales::impactAmplitude.invmap(10.0), Scales::impactAmplitude, "impactAmplitude",
       Info::kCanAutomate);
     value[ID::impactDecaySeconds] = std::make_unique<DecibelValue>(
       Scales::impactDecaySeconds.invmap(0.01), Scales::impactDecaySeconds,
@@ -200,7 +200,7 @@ struct GlobalParameter : public ParameterInterface {
       Scales::fdnMatrixIdentityAmount.invmap(0.5), Scales::fdnMatrixIdentityAmount,
       "batterFdnMatrixIdentityAmount", Info::kCanAutomate);
     value[ID::batterFdnFeedback] = std::make_unique<NegativeDecibelValue>(
-      Scales::fdnFeedback.invmap(0.96), Scales::fdnFeedback, "batterFdnFeedback",
+      Scales::fdnFeedback.invmap(0.92), Scales::fdnFeedback, "batterFdnFeedback",
       Info::kCanAutomate);
     value[ID::batterFdnShape] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "batterFdnShape", Info::kCanAutomate);
@@ -219,10 +219,10 @@ struct GlobalParameter : public ParameterInterface {
       Scales::envelopeSeconds.invmap(1.0), Scales::envelopeSeconds,
       "batterModEnvReleaseSeconds", Info::kCanAutomate);
     value[ID::batterFdnLowpassCutoffHz] = std::make_unique<DecibelValue>(
-      Scales::filterCutoffHz.invmap(2000), Scales::filterCutoffHz,
+      Scales::filterCutoffHz.invmap(4000), Scales::filterCutoffHz,
       "batterFdnLowpassCutoffHz", Info::kCanAutomate);
     value[ID::batterFdnHighpassCutoffHz] = std::make_unique<DecibelValue>(
-      Scales::filterCutoffHz.invmap(47), Scales::filterCutoffHz,
+      Scales::filterCutoffHz.invmap(90), Scales::filterCutoffHz,
       "batterFdnHighpassCutoffHz", Info::kCanAutomate);
     std::string batterFdnLowpassQLabel("batterFdnLowpassQ");
     std::string batterFdnHighpassQLabel("batterFdnHighpassQ");
