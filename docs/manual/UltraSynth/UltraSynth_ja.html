@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-11-18" />
+<meta name="dcterms.date" content="2022-11-28" />
 <title>UltraSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-11-18
+  Update: 2022-11-28
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -559,180 +559,6 @@ href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
 <li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
 <li><kbd>ホイールクリック</kbd> :
 最小値、デフォルト値、最大値の切り替え。</li>
-</ul>
-<p>青い縦棒が並んだコントロール (BarBox)
-ではショートカットが使えます。ショートカットは BarBox
-を左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを
-BarBox
-の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。</p>
-<p>左下のプラグイン名をクリックすると、よく使いそうな一部のショートカットを見ることができます。利用できる全てのショートカットを次の表に掲載しています。</p>
-<table>
-<colgroup>
-<col style="width: 61%" />
-<col style="width: 38%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>入力</th>
-<th>操作</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><kbd>左ドラッグ</kbd></td>
-<td>値の変更</td>
-</tr>
-<tr class="even">
-<td><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd></td>
-<td>値の変更 (スナップ)</td>
-</tr>
-<tr class="odd">
-<td><kbd>Ctrl</kbd> + <kbd>左ドラッグ</kbd></td>
-<td>デフォルト値にリセット</td>
-</tr>
-<tr class="even">
-<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd></td>
-<td>値の変更 (フレーム間の補間が無効)</td>
-</tr>
-<tr class="odd">
-<td><kbd>ホイールドラッグ</kbd></td>
-<td>直線の描画</td>
-</tr>
-<tr class="even">
-<td><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd></td>
-<td>1 つのバーを編集</td>
-</tr>
-<tr class="odd">
-<td><kbd>Ctrl</kbd> + <kbd>ホイールドラッグ</kbd></td>
-<td>デフォルト値にリセット</td>
-</tr>
-<tr class="even">
-<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> +
-<kbd>ホイールドラッグ</kbd></td>
-<td>ロックの切り替え</td>
-</tr>
-<tr class="odd">
-<td><kbd>a</kbd></td>
-<td>符号を交互に入れ替え</td>
-</tr>
-<tr class="even">
-<td><kbd>d</kbd></td>
-<td>すべての値をデフォルト値にリセット</td>
-</tr>
-<tr class="odd">
-<td><kbd>D</kbd></td>
-<td>最小値・中央値・最大値の切り替え</td>
-</tr>
-<tr class="even">
-<td><kbd>e</kbd></td>
-<td>低域の強調</td>
-</tr>
-<tr class="odd">
-<td><kbd>E</kbd></td>
-<td>高域の強調</td>
-</tr>
-<tr class="even">
-<td><kbd>f</kbd></td>
-<td>ローパスフィルタ</td>
-</tr>
-<tr class="odd">
-<td><kbd>F</kbd></td>
-<td>ハイパスフィルタ</td>
-</tr>
-<tr class="even">
-<td><kbd>i</kbd></td>
-<td>値の反転 (最小値を保存)</td>
-</tr>
-<tr class="odd">
-<td><kbd>I</kbd></td>
-<td>値の反転 (最小値を 0 に設定)</td>
-</tr>
-<tr class="even">
-<td><kbd>l</kbd></td>
-<td>マウスカーソル下のバーのロックの切り替え</td>
-</tr>
-<tr class="odd">
-<td><kbd>L</kbd></td>
-<td>全てのバーのロックを切り替え</td>
-</tr>
-<tr class="even">
-<td><kbd>n</kbd></td>
-<td>最大値を 1 に正規化 (最小値を保存)</td>
-</tr>
-<tr class="odd">
-<td><kbd>N</kbd></td>
-<td>最大値を 1 に正規化 (最小値を 0 に設定)</td>
-</tr>
-<tr class="even">
-<td><kbd>p</kbd></td>
-<td>ランダムに並べ替え</td>
-</tr>
-<tr class="odd">
-<td><kbd>r</kbd></td>
-<td>ランダマイズ</td>
-</tr>
-<tr class="even">
-<td><kbd>R</kbd></td>
-<td>まばらなランダマイズ</td>
-</tr>
-<tr class="odd">
-<td><kbd>s</kbd></td>
-<td>降順にソート</td>
-</tr>
-<tr class="even">
-<td><kbd>S</kbd></td>
-<td>昇順にソート</td>
-</tr>
-<tr class="odd">
-<td><kbd>t</kbd></td>
-<td>少しだけランダマイズ (ランダムウォーク)</td>
-</tr>
-<tr class="even">
-<td><kbd>T</kbd></td>
-<td>少しだけランダマイズ (0 に収束)</td>
-</tr>
-<tr class="odd">
-<td><kbd>z</kbd></td>
-<td>アンドゥ</td>
-</tr>
-<tr class="even">
-<td><kbd>Z</kbd></td>
-<td>リドゥ</td>
-</tr>
-<tr class="odd">
-<td><kbd>,</kbd> (Comma)</td>
-<td>左に回転</td>
-</tr>
-<tr class="even">
-<td><kbd>.</kbd> (Period)</td>
-<td>右に回転</td>
-</tr>
-<tr class="odd">
-<td><kbd>1</kbd></td>
-<td>すべての値を低減</td>
-</tr>
-<tr class="even">
-<td><kbd>2</kbd>-<kbd>9</kbd></td>
-<td>インデックスが 2n-9n の値を低減</td>
-</tr>
-</tbody>
-</table>
-<p><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> のスナップは一部の BarBox
-だけで有効になっています。特定の BarBox
-にスナップを追加したいという要望があれば、気軽に <a
-href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に
-issue を開いてください。</p>
-<p><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> による 1
-つのバーを編集は、マウスホイールが押された時点でカーソルの下にあるバーだけを編集します。マウスホイールが押されている間はカーソルの左右の位置に関わらず、選択したバーのみを編集できます。</p>
-<p><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd>
-によるロックの切り替えでは、マウスホイールが押された時点でカーソルの下にあるバーの反対の状態が残り全てに適用されます。例えばカーソルの下のバーがアクティブだったときはロックに切り替えます。</p>
-<p>いくつかの BarBox
-の下にはスクロールバーがついています。細かい調整を行うときはスクロールバーの左右のハンドルを
-<kbd>左ドラッグ</kbd>
-で動かすことで表示範囲を変更できます。スクロールバーでは次の操作が行えます。</p>
-<ul>
-<li><kbd>右クリック</kbd> : 表示範囲のリセット</li>
-<li><kbd>マウスホイール</kbd> : ズームイン・ズームアウト</li>
 </ul>
 <h2 id="ブロック線図">ブロック線図</h2>
 <p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> +

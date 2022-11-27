@@ -16,8 +16,6 @@ MembraneSynth is a synthesizer that resembles sound of percussions with membrane
 - [Download Presets (github.com)]({{ preset_download_url["MembraneSynth"] }})
 {%- endif %}
 
-ClangCymbal is a spin off of MembraneSynth. FDN size is expended to 64 * 64 to provide more rich harmonics. However it is monophonic due to increased CPU load. Oscillator is changed for noise/pulse mix which is more suitable to make cymbal sounds. It can also make sound of manhole dragged on asphalt.
-
 The package includes following builds:
 
 - Windows 64bit

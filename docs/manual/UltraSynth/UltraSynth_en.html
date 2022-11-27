@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-11-18" />
+<meta name="dcterms.date" content="2022-11-28" />
 <title>UltraSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-11-18
+  Update: 2022-11-28
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -552,180 +552,6 @@ provided by DAW.</p>
 <li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
 <li><kbd>Middle Click</kbd> : Rotate through minimum, default and
 maximum value.</li>
-</ul>
-<p>Control with many blue vertical bars (BarBox) have some keyboard
-shortcuts. <code>LFO Wave</code> on Main tab and <code>Gain</code>,
-<code>Width</code>, <code>Pitch</code>, <code>Phase</code> on Wavetable
-tab are using BarBox. Shortcuts are enabled after left clicking BarBox
-and mouse cursor is on the inside of BarBox. Cheat sheet is available on
-Infomation tab.</p>
-<table>
-<colgroup>
-<col style="width: 63%" />
-<col style="width: 36%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Input</th>
-<th>Control</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><kbd>Left Drag</kbd></td>
-<td>Change Value</td>
-</tr>
-<tr class="even">
-<td><kbd>Shift</kbd> + <kbd>Left Drag</kbd></td>
-<td>Change Value (Snapped)</td>
-</tr>
-<tr class="odd">
-<td><kbd>Ctrl</kbd> + <kbd>Left Drag</kbd></td>
-<td>Reset to Default</td>
-</tr>
-<tr class="even">
-<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Left Drag</kbd></td>
-<td>Change Value (Skip Between Frames)</td>
-</tr>
-<tr class="odd">
-<td><kbd>Right Drag</kbd></td>
-<td>Draw Line</td>
-</tr>
-<tr class="even">
-<td><kbd>Shift</kbd> + <kbd>Right Drag</kbd></td>
-<td>Edit One Bar</td>
-</tr>
-<tr class="odd">
-<td><kbd>Ctrl</kbd> + <kbd>Right Drag</kbd></td>
-<td>Reset to Default</td>
-</tr>
-<tr class="even">
-<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Right Drag</kbd></td>
-<td>Toggle Lock</td>
-</tr>
-<tr class="odd">
-<td><kbd>a</kbd></td>
-<td>Alternate Sign</td>
-</tr>
-<tr class="even">
-<td><kbd>d</kbd></td>
-<td>Reset Everything to Default</td>
-</tr>
-<tr class="odd">
-<td><kbd>D</kbd></td>
-<td>Toggle Min/Mid/Max</td>
-</tr>
-<tr class="even">
-<td><kbd>e</kbd></td>
-<td>Emphasize Low</td>
-</tr>
-<tr class="odd">
-<td><kbd>E</kbd></td>
-<td>Emphasize High</td>
-</tr>
-<tr class="even">
-<td><kbd>f</kbd></td>
-<td>Low-pass Filter</td>
-</tr>
-<tr class="odd">
-<td><kbd>F</kbd></td>
-<td>High-pass Filter</td>
-</tr>
-<tr class="even">
-<td><kbd>i</kbd></td>
-<td>Invert Value (Preserve minimum)</td>
-</tr>
-<tr class="odd">
-<td><kbd>I</kbd></td>
-<td>Invert Value (Minimum to 0)</td>
-</tr>
-<tr class="even">
-<td><kbd>l</kbd></td>
-<td>Toggle Lock under Mouse Cursor</td>
-</tr>
-<tr class="odd">
-<td><kbd>L</kbd></td>
-<td>Toggle Lock for All</td>
-</tr>
-<tr class="even">
-<td><kbd>n</kbd></td>
-<td>Normalize (Preserve minimum)</td>
-</tr>
-<tr class="odd">
-<td><kbd>N</kbd></td>
-<td>Normalize (Minimum to 0)</td>
-</tr>
-<tr class="even">
-<td><kbd>p</kbd></td>
-<td>Permute</td>
-</tr>
-<tr class="odd">
-<td><kbd>r</kbd></td>
-<td>Randomize</td>
-</tr>
-<tr class="even">
-<td><kbd>R</kbd></td>
-<td>Sparse Randomize</td>
-</tr>
-<tr class="odd">
-<td><kbd>s</kbd></td>
-<td>Sort Descending Order</td>
-</tr>
-<tr class="even">
-<td><kbd>S</kbd></td>
-<td>Sort Ascending Order</td>
-</tr>
-<tr class="odd">
-<td><kbd>t</kbd></td>
-<td>Subtle Randomize (Random walk)</td>
-</tr>
-<tr class="even">
-<td><kbd>T</kbd></td>
-<td>Subtle Randomize (Converge to 0)</td>
-</tr>
-<tr class="odd">
-<td><kbd>z</kbd></td>
-<td>Undo</td>
-</tr>
-<tr class="even">
-<td><kbd>Z</kbd></td>
-<td>Redo</td>
-</tr>
-<tr class="odd">
-<td><kbd>,</kbd> (Comma)</td>
-<td>Rotate Back</td>
-</tr>
-<tr class="even">
-<td><kbd>.</kbd> (Period)</td>
-<td>Rotate Forward</td>
-</tr>
-<tr class="odd">
-<td><kbd>1</kbd></td>
-<td>Decrease</td>
-</tr>
-<tr class="even">
-<td><kbd>2</kbd>-<kbd>9</kbd></td>
-<td>Decrease 2n-9n</td>
-</tr>
-</tbody>
-</table>
-<p>Snapping is not available for all BarBox. If you’d like to have
-snapping for certain BarBox, feel free to open issue to <a
-href="https://github.com/ryukau/VSTPlugins">GitHub repository</a>.</p>
-<p>Edit One Bar with <kbd>Shift</kbd> + <kbd>Right Drag</kbd> holds a
-bar under the cursor when mouse right button is pressed. Then only
-changes that one bar while holding down mouse right button.</p>
-<p>Toggle Lock with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Right
-Drag</kbd> behaves as line edit. When right mouse button (RMB) is
-pressed, it holds the opposite state of the bar below mouse cursor, then
-use the state for the rest of bars. For example, if RMB is pressed on a
-locked bar, dragging unlocks bars while holding down RMB.</p>
-<p>Some BarBox has scroll bar to zoom in. Scroll bar has handles on left
-end and right end. To control zoom, use <kbd>Left Drag</kbd> on one of
-the handle. Scroll bar also has following controls:</p>
-<ul>
-<li><kbd>Right Click</kbd> : Reset zoom.</li>
-<li><kbd>Mouse Wheel</kbd> : Zoom in/out.</li>
 </ul>
 <h2 id="block-diagram">Block Diagram</h2>
 <p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd>

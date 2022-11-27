@@ -31,8 +31,6 @@ Linux build is built on Ubuntu 20.04. If you are using distribution other than U
 
 {{ section["gui_knob"] }}
 
-{{ section["gui_barbox"] }}
-
 ## Block Diagram
 If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Image" on right click menu to scale.
 
