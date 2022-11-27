@@ -26,6 +26,8 @@ exclude:
 - manual/LatticeReverb/LatticeReverb_ja.md
 - manual/LightPadSynth/LightPadSynth_en.md
 - manual/LightPadSynth/LightPadSynth_ja.md
+- manual/MaybeSnare/MaybeSnare_en.md
+- manual/MaybeSnare/MaybeSnare_ja.md
 - manual/MembraneSynth/MembraneSynth_en.md
 - manual/MembraneSynth/MembraneSynth_ja.md
 - manual/MiniCliffEQ/MiniCliffEQ_en.md
