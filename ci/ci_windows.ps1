@@ -10,6 +10,11 @@ mkdir build
 mkdir target
 $SRC_ROOT = (Get-Item .).FullName
 
+# https://github.com/steinbergmedia/vst3sdk/issues/96
+Copy-Item `
+  "$SRC_ROOT\VSTPlugins\ci\windows_patch\CMakeLists.txt" `
+  "$SRC_ROOT\vst3sdk\vstgui4\vstgui\uidescription\CMakeLists.txt"
+
 cmake --version
 
 # SMTG_PLUGIN_TARGET_USER_PATH must be set for GitHub Actions. Because cmake can't
