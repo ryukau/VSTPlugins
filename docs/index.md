@@ -53,6 +53,9 @@ All the plugin download link can be found at release page on following link.
 <ruby>IterativeSinCluster<rt>イテレイティブ サイン クラスタ</rt></ruby>
 </a></div>
 <div class="pluginlist"><a href="#membranesynth">
+<ruby>MaybeSnare<rt>メイビー スネア</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#membranesynth">
 <ruby>MembraneSynth<rt>メンブレイン シンセ</rt></ruby>
 </a></div>
 <div class="pluginlist"><a href="#lightpadsynth">
@@ -103,12 +106,25 @@ All the plugin download link can be found at release page on following link.
 <ruby>UltrasonicRingMod<rt>ウルトラソニック リング モッド</rt></ruby>
 </a></div>
 
+## MaybeSnare
+<figure>
+<img src="manual/MaybeSnare/img/MaybeSnare.png" alt="Image of MaybeSnare graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+
+MaybeSnare はスネアドラムのような音が出るシンセサイザです。中身は 2 つの MembraneSynth が相互にフィードバックをかけるような構造になっています。スナッピーはついていませんが、変調のかけすぎによるノイズによって似たような音が出ます。
+
+- [MaybeSnare のマニュアル (日本語)](manual/MaybeSnare/MaybeSnare_ja.html)
+
+MaybeSnare is a synthesizer that resembles sound of snare drum. This is basically 2 MembraneSynth coupled by cross feedback. Snare wire is not included. However, the noise of modulation adds rattling texture similar to snare wire.
+
+- [MaybeSnare Manual (English)](manual/MaybeSnare/MaybeSnare_en.html)
+
 ## MembraneSynth
 <figure>
 <img src="manual/MembraneSynth/img/MembraneSynth.png" alt="Image of MembraneSynth graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
-<ruby>MembraneSynth<rt>メンブレイン シンセ</rt></ruby> は自己変調するフィードバック・ディレイ・ネットワーク (FDN) を用いた膜を張った打楽器のような音がでるシンセサイザです。バスドラムやタムタムのような低めの打楽器の音が得意ですが、自己変調による発振によって変な音を作ることもできます。
+MembraneSynth は自己変調するフィードバック・ディレイ・ネットワーク (FDN) を用いた膜を張った打楽器のような音がでるシンセサイザです。バスドラムやタムタムのような低めの打楽器の音が得意ですが、自己変調による発振によって変な音を作ることもできます。
 
 - [MembraneSynth のマニュアル (日本語)](manual/MembraneSynth/MembraneSynth_ja.html)
 
@@ -121,7 +137,7 @@ MembraneSynth is a synthesizer that resembles sound of percussions with membrane
 <img src="manual/UltraSynth/img/UltraSynth.png" alt="Image of UltraSynth graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
 
-<ruby>UltraSynth<rt>ウルトラ シンセ</rt></ruby> は UltrasonicRingMod と同じく 64 倍のオーバーサンプリングを行っていることを除けば、これといった特長のないモノフォニックのシンセサイザです。オーバーサンプリングの倍率が高いので変調をかけた音が得意ですが、 CPU 負荷は高めです。
+UltraSynth は UltrasonicRingMod と同じく 64 倍のオーバーサンプリングを行っていることを除けば、これといった特長のないモノフォニックのシンセサイザです。オーバーサンプリングの倍率が高いので変調をかけた音が得意ですが、 CPU 負荷は高めです。
 
 - [UltraSynth のマニュアル (日本語)](manual/UltraSynth/UltraSynth_ja.html)
 
@@ -389,6 +405,17 @@ SevenDelay is a stereo delay using 7th order lagurange interpolated fractional d
 
 - [SevenDelay Manual (English)](manual/SevenDelay/SevenDelay_en.html)
 
+# Web シンセサイザ | Web Synthesizers
+以下のリンク先ではブラウザ上で動作するサンプルに特化したシンセサイザが使えます。 ClangCymbal 、 FDN64Reverb 、 L4Reverb などの重たいプラグインの移植版も使えます。
+
+- [UhhyouWebSynthsizers](https://ryukau.github.io/UhhyouWebSynthesizers/)
+- [ソースコード](https://github.com/ryukau/UhhyouWebSynthesizers)
+
+Following link is a list of sample generators that run on web browser. Ported version of heavy plugins like ClangCymbal, FDN64Reverb, and L4Reverb are available.
+
+- [UhhyouWebSynthsizers](https://ryukau.github.io/UhhyouWebSynthesizers/)
+- [Source Code](https://github.com/ryukau/UhhyouWebSynthesizers)
+
 # 開発ノート
 VST3 の開発中に分かりにくかったことをまとめました。あまり整理されていません。何かあれば issue を作ってもらえれば対応します。 DAW ごとの問題やワークアラウンドについては追加情報を歓迎します。
 
@@ -398,10 +425,16 @@ VST3 の開発中に分かりにくかったことをまとめました。あま
 
 - [波ノート](https://ryukau.github.io/filter_notes/index.html)
 
-These links are notes I took while development. All are written in Japanese.
+These links are notes I took while development. Written in Japanese.
 
-# ブログ
+# ブログ | Blog
+主にリリースのアナウンスを行うブログです。リンク先のページ下部から Atom/RSS フィードの登録ができます。
+
 - [Uhhyou (ブログ)](https://ryukau.blogspot.com/)
+
+This blog is mostly used for release announcement. Atom/RSS feed is available on the bottom of following link.
+
+- [Uhhyou (blog)](https://ryukau.blogspot.com/)
 
 # VST について
 <a name="vst_logo"></a>

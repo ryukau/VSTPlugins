@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-11-18" />
+<meta name="dcterms.date" content="2022-11-30" />
 <title>index</title>
 <style>
 code { white-space: pre-wrap; }
@@ -196,7 +196,7 @@ footer {
 <body>
 <header>
       <p>
-  Update: 2022-11-18
+  Update: 2022-11-30
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -210,6 +210,7 @@ footer {
   <li><a href="#synthesizers"
   id="toc-synthesizers">Synthesizers</a></li>
   <li><a href="#effects" id="toc-effects">Effects</a></li>
+  <li><a href="#maybesnare" id="toc-maybesnare">MaybeSnare</a></li>
   <li><a href="#membranesynth"
   id="toc-membranesynth">MembraneSynth</a></li>
   <li><a href="#ultrasynth" id="toc-ultrasynth">UltraSynth</a></li>
@@ -246,8 +247,11 @@ footer {
   id="toc-syncsawsynth">SyncSawSynth</a></li>
   <li><a href="#sevendelay" id="toc-sevendelay">SevenDelay</a></li>
   </ul></li>
+  <li><a href="#web-シンセサイザ-web-synthesizers"
+  id="toc-web-シンセサイザ-web-synthesizers">Web シンセサイザ | Web
+  Synthesizers</a></li>
   <li><a href="#開発ノート" id="toc-開発ノート">開発ノート</a></li>
-  <li><a href="#ブログ" id="toc-ブログ">ブログ</a></li>
+  <li><a href="#ブログ-blog" id="toc-ブログ-blog">ブログ | Blog</a></li>
   <li><a href="#vst-について" id="toc-vst-について">VST
   について</a></li>
   </ul>
@@ -316,6 +320,10 @@ ryukau/VSTPlugins · GitHub</a></li>
 </a>
 </div>
 <div class="pluginlist">
+<a href="#membranesynth"> <ruby>MaybeSnare<rt>メイビー
+スネア</rt></ruby> </a>
+</div>
+<div class="pluginlist">
 <a href="#membranesynth"> <ruby>MembraneSynth<rt>メンブレイン
 シンセ</rt></ruby> </a>
 </div>
@@ -380,12 +388,31 @@ ryukau/VSTPlugins · GitHub</a></li>
 <ruby>UltrasonicRingMod<rt>ウルトラソニック リング モッド</rt></ruby>
 </a>
 </div>
+<h2 id="maybesnare">MaybeSnare</h2>
+<figure>
+<img src="manual/MaybeSnare/img/MaybeSnare.png" alt="Image of MaybeSnare graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+<p>MaybeSnare はスネアドラムのような音が出るシンセサイザです。中身は 2
+つの MembraneSynth
+が相互にフィードバックをかけるような構造になっています。スナッピーはついていませんが、変調のかけすぎによるノイズによって似たような音が出ます。</p>
+<ul>
+<li><a href="manual/MaybeSnare/MaybeSnare_ja.html">MaybeSnare
+のマニュアル (日本語)</a></li>
+</ul>
+<p>MaybeSnare is a synthesizer that resembles sound of snare drum. This
+is basically 2 MembraneSynth coupled by cross feedback. Snare wire is
+not included. However, the noise of modulation adds rattling texture
+similar to snare wire.</p>
+<ul>
+<li><a href="manual/MaybeSnare/MaybeSnare_en.html">MaybeSnare Manual
+(English)</a></li>
+</ul>
 <h2 id="membranesynth">MembraneSynth</h2>
 <figure>
 <img src="manual/MembraneSynth/img/MembraneSynth.png" alt="Image of MembraneSynth graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
-<p><ruby>MembraneSynth<rt>メンブレイン シンセ</rt></ruby>
-は自己変調するフィードバック・ディレイ・ネットワーク (FDN)
+<p>MembraneSynth は自己変調するフィードバック・ディレイ・ネットワーク
+(FDN)
 を用いた膜を張った打楽器のような音がでるシンセサイザです。バスドラムやタムタムのような低めの打楽器の音が得意ですが、自己変調による発振によって変な音を作ることもできます。</p>
 <ul>
 <li><a href="manual/MembraneSynth/MembraneSynth_ja.html">MembraneSynth
@@ -403,8 +430,7 @@ Manual (English)</a></li>
 <figure>
 <img src="manual/UltraSynth/img/UltraSynth.png" alt="Image of UltraSynth graphical user interface." style="padding-bottom: 12px;"/>
 </figure>
-<p><ruby>UltraSynth<rt>ウルトラ シンセ</rt></ruby> は UltrasonicRingMod
-と同じく 64
+<p>UltraSynth は UltrasonicRingMod と同じく 64
 倍のオーバーサンプリングを行っていることを除けば、これといった特長のないモノフォニックのシンセサイザです。オーバーサンプリングの倍率が高いので変調をかけた音が得意ですが、
 CPU 負荷は高めです。</p>
 <ul>
@@ -794,6 +820,26 @@ with actively changing delay time by hand or DAW automation.</p>
 <li><a href="manual/SevenDelay/SevenDelay_en.html">SevenDelay Manual
 (English)</a></li>
 </ul>
+<h1 id="web-シンセサイザ-web-synthesizers">Web シンセサイザ | Web
+Synthesizers</h1>
+<p>以下のリンク先ではブラウザ上で動作するサンプルに特化したシンセサイザが使えます。
+ClangCymbal 、 FDN64Reverb 、 L4Reverb
+などの重たいプラグインの移植版も使えます。</p>
+<ul>
+<li><a
+href="https://ryukau.github.io/UhhyouWebSynthesizers/">UhhyouWebSynthsizers</a></li>
+<li><a
+href="https://github.com/ryukau/UhhyouWebSynthesizers">ソースコード</a></li>
+</ul>
+<p>Following link is a list of sample generators that run on web
+browser. Ported version of heavy plugins like ClangCymbal, FDN64Reverb,
+and L4Reverb are available.</p>
+<ul>
+<li><a
+href="https://ryukau.github.io/UhhyouWebSynthesizers/">UhhyouWebSynthsizers</a></li>
+<li><a href="https://github.com/ryukau/UhhyouWebSynthesizers">Source
+Code</a></li>
+</ul>
 <h1 id="開発ノート">開発ノート</h1>
 <p>VST3
 の開発中に分かりにくかったことをまとめました。あまり整理されていません。何かあれば
@@ -807,11 +853,18 @@ issue を作ってもらえれば対応します。 DAW
 <li><a
 href="https://ryukau.github.io/filter_notes/index.html">波ノート</a></li>
 </ul>
-<p>These links are notes I took while development. All are written in
+<p>These links are notes I took while development. Written in
 Japanese.</p>
-<h1 id="ブログ">ブログ</h1>
+<h1 id="ブログ-blog">ブログ | Blog</h1>
+<p>主にリリースのアナウンスを行うブログです。リンク先のページ下部から
+Atom/RSS フィードの登録ができます。</p>
 <ul>
 <li><a href="https://ryukau.blogspot.com/">Uhhyou (ブログ)</a></li>
+</ul>
+<p>This blog is mostly used for release announcement. Atom/RSS feed is
+available on the bottom of following link.</p>
+<ul>
+<li><a href="https://ryukau.blogspot.com/">Uhhyou (blog)</a></li>
 </ul>
 <h1 id="vst-について">VST について</h1>
 <p><a name="vst_logo"></a> VST is a trademark of Steinberg Media
