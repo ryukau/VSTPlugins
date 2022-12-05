@@ -408,12 +408,12 @@ SevenDelay is a stereo delay using 7th order lagurange interpolated fractional d
 # Web シンセサイザ | Web Synthesizers
 以下のリンク先ではブラウザ上で動作するサンプルに特化したシンセサイザが使えます。 ClangCymbal 、 FDN64Reverb 、 L4Reverb などの重たいプラグインの移植版も使えます。
 
-- [UhhyouWebSynthsizers](https://ryukau.github.io/UhhyouWebSynthesizers/)
+- [UhhyouWebSynthesizers](https://ryukau.github.io/UhhyouWebSynthesizers/)
 - [ソースコード](https://github.com/ryukau/UhhyouWebSynthesizers)
 
 Following link is a list of sample generators that run on web browser. Ported version of heavy plugins like ClangCymbal, FDN64Reverb, and L4Reverb are available.
 
-- [UhhyouWebSynthsizers](https://ryukau.github.io/UhhyouWebSynthesizers/)
+- [UhhyouWebSynthesizers](https://ryukau.github.io/UhhyouWebSynthesizers/)
 - [Source Code](https://github.com/ryukau/UhhyouWebSynthesizers)
 
 # 開発ノート
