@@ -120,6 +120,7 @@ void DSPCore::setParameters()
   auto seed = pv[ID::fdnSeed]->getInt();
   if (previousSeed != seed) {
     previousSeed = seed;
+    rng.seed(previousSeed);
 
     std::normal_distribution<float> dist{};
     for (auto &row : fdnMatrixRandomBase) {

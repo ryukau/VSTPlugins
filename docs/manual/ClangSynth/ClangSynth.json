@@ -30,9 +30,10 @@
     }
   },
   "ClangCymbal": {
-    "latest_version": "0.1.0",
+    "latest_version": "0.1.1",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.49.0/ClangCymbal_0.1.1.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.47.0/ClangCymbal_0.1.0.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/ClangCymbal_0.0.3.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.42.0/ClangCymbal_0.0.2.zip",
@@ -41,6 +42,14 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.1.1": {
+        "en": [
+          "Changed to reset random number generator when `Seed` is changed. With this change, the same sound comes out when `Seed` is changed and when full reset is done."
+        ],
+        "ja": [
+          "`Seed` 変更時に乱数生成器をリセットするように変更。この変更により `Seed` 変更時と、フルリセット時に同じ音が出るようになった。"
+        ]
+      },
       "0.1.0": {
         "en": [
           "Added \"2x Sampling\" parameter.",
