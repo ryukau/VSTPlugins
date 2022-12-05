@@ -23,7 +23,7 @@ def get_missing_on_mac_os():
     with open("../CMakeLists.txt", "r", encoding="utf-8") as fi:
         root_cmake_text = fi.read()
 
-    mt = re.findall(r"if\(NOT APPLE\)(.*?)endif\(\)",
+    mt = re.findall(r"if\(NOT APPLE AND NOT DISABLE_X86_64_PLUGINS\)(.*?)endif\(\)",
                     root_cmake_text,
                     flags=re.MULTILINE | re.DOTALL)
     return re.findall(r"add_subdirectory\((.+?)\)", mt[0])
