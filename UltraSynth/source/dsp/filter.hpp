@@ -61,12 +61,12 @@ public:
     smootherKp = Sample(EMAFilter<double>::secondToP(sampleRate, second));
   }
 
-  void reset()
+  void reset(Sample gValue, Sample kValue)
   {
-    g.reset();
-    k.reset();
-    gSmoother.reset(SVFTool::freqToG(Sample(0.49)));
-    kSmoother.reset(Sample(1));
+    g.reset(gValue);
+    k.reset(kValue);
+    gSmoother.reset(gValue);
+    kSmoother.reset(kValue);
     ic1eq = 0;
     ic2eq = 0;
   }

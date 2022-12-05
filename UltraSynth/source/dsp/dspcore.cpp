@@ -126,7 +126,7 @@ void DSPCore::reset()
   decayEnvelope.reset();
   releaseEnvelope.rest();
 
-  svf.reset();
+  svf.reset(interpSvfG.getValue(), interpSvfK.getValue());
 
   firstStageLowpass.reset();
   halfBandInput.fill({});
