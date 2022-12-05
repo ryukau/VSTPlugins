@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 
 add_subdirectory(common)
 
-if(NOT APPLE)
+if(NOT APPLE AND NOT DISABLE_X86_64_PLUGINS)
   # These plugins are dependent on x86_64 specific SIMD.
   add_subdirectory(CubicPadSynth)
   add_subdirectory(EnvelopedSine)

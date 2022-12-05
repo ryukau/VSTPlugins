@@ -53,6 +53,28 @@ dnf install              \
   libxkbcommon-x11-devel \
 ```
 
+### Building for non x86_64 CPU
+Following plugins are only available for x86_64 because of SIMD instructions.
+
+- CubicPadSynth
+- EnvelopedSine
+- EsPhaser
+- IterativeSinCluster
+
+There's a switch `DISABLE_X86_64_PLUGINS` to disable the build of above plugins. Following is an example `cmake` command.
+
+```bash
+cmake \
+  -DDISABLE_X86_64_PLUGINS=TRUE \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DSMTG_MYPLUGINS_SRC_PATH="../../VSTPlugins" \
+  -DSMTG_ADD_VST3_HOSTING_SAMPLES=FALSE \
+  -DSMTG_ADD_VST3_PLUGINS_SAMPLES=FALSE \
+  ..
+```
+
+- [Build failure on aarch64 · Issue #21 · ryukau/VSTPlugins · GitHub](https://github.com/ryukau/VSTPlugins/issues/21)
+
 ## Windows
 Install following applications.
 
