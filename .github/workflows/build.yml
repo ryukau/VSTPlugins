@@ -67,7 +67,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          path:
+          ref: ${{ github.ref }}
       - name: Download Artifacts
         uses: actions/download-artifact@v3
         with:
@@ -79,10 +79,12 @@ jobs:
           python3 pack.py
           echo "Run studiorack.py"
           python3 studiorack.py
+      - name: Get Release Notes
+        run: 'echo "$(git tag -l --format="%(contents:body)" $GITHUB_REF_NAME)" > RELEASE_NOTES'
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          body: ${{ github.event.head_commit.message }}
+          body_path: RELEASE_NOTES
           files: |
             ${{ env.package_path }}/pack/*.zip
             ${{ env.package_path }}/pack/*.png
