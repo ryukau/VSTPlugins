@@ -67,6 +67,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
+          path:
           ref: ${{ github.ref }}
       - name: Download Artifacts
         uses: actions/download-artifact@v3
