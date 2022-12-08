@@ -17,7 +17,7 @@
 
 #pragma once
 
-#if __arm64
+#if defined(__arm64__) || defined(__aarch64__)
   #include "sse2neon/sse2neon.h"
   #define MAX_VECTOR_SIZE 128
   #define _mm_getcsr() 1
