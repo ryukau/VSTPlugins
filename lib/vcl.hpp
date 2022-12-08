@@ -18,11 +18,11 @@
 #pragma once
 
 #if __arm64
-  #include "../../../lib/sse2neon/sse2neon.h"
+  #include "sse2neon/sse2neon.h"
   #define MAX_VECTOR_SIZE 128
   #define _mm_getcsr() 1
   #define __X86INTRIN_H
   #define INSTRSET 6 // Use SSE4.2 for VCL. sse2neon doesn't support AVX or later.
 #endif
 
-#include "../../../lib/vcl/vectorclass.h"
+#include "vcl/vectorclass.h"
