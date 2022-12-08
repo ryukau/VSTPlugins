@@ -19,7 +19,7 @@
 
 #if defined(__arm64__) || defined(__aarch64__)
   #include "sse2neon/sse2neon.h"
-  #define MAX_VECTOR_SIZE 128
+  #define MAX_VECTOR_SIZE 512
   #define _mm_getcsr() 1
   #define __X86INTRIN_H
   #define INSTRSET 6 // Use SSE4.2 for VCL. sse2neon doesn't support AVX or later.
