@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2022 Takamitsu Endo
 //
 // This file is part of EnvelopedSine.
 //
@@ -19,7 +19,7 @@
 
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/smoother.hpp"
-#include "../../../lib/vcl/vectorclass.h"
+#include "../../../lib/vcl.hpp"
 #include "../../../lib/vcl/vectormath_exp.h"
 #include "../parameter.hpp"
 #include "envelope.hpp"
@@ -130,10 +130,6 @@ struct NoteProcessInfo {
     void reset(GlobalParameter &param);                                                  \
   };
 
-PROCESSING_UNIT_CLASS(AVX512)
-PROCESSING_UNIT_CLASS(AVX2)
-PROCESSING_UNIT_CLASS(AVX)
-
 #define NOTE_CLASS(INSTRSET)                                                             \
   class Note_##INSTRSET {                                                                \
   public:                                                                                \
@@ -161,10 +157,6 @@ PROCESSING_UNIT_CLASS(AVX)
     bool isAttacking(std::array<ProcessingUnit_##INSTRSET, nUnit> &units);               \
     float getGain(std::array<ProcessingUnit_##INSTRSET, nUnit> &units);                  \
   };
-
-NOTE_CLASS(AVX512)
-NOTE_CLASS(AVX2)
-NOTE_CLASS(AVX)
 
 class DSPInterface {
 public:
@@ -290,6 +282,6 @@ public:
     TableOsc<tableSize> trOsc;                                                           \
   };
 
-DSPCORE_CLASS(AVX512)
-DSPCORE_CLASS(AVX2)
-DSPCORE_CLASS(AVX)
+PROCESSING_UNIT_CLASS(FixedInstruction)
+NOTE_CLASS(FixedInstruction)
+DSPCORE_CLASS(FixedInstruction)

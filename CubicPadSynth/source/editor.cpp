@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2022 Takamitsu Endo
 //
 // This file is part of CubicPadSynth.
 //
@@ -788,7 +788,7 @@ Press following button to apply changes.
     tabInfo,
     addTextView(
       tabInfoLeft1, tabInfoBottom - 100.0f, 400.0f, 400.0f, infoTextSize,
-      "© 2020 Takamitsu Endo (ryukau@gmail.com)\n\nHave a nice day!"));
+      "© 2020-2022 Takamitsu Endo (ryukau@gmail.com)\n\nHave a nice day!"));
 
   tabview->refreshTab();
 

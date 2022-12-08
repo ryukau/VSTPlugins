@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.20)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-include(../common/cmake/runtime_simd_switch.cmake)
+include(../common/cmake/simd_x86_64_and_aarch64.cmake)
 
 if(TEST_PLUGIN)
   build_test()

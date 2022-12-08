@@ -2,7 +2,7 @@
 // (c) 2018, Steinberg Media Technologies GmbH, All Rights Reserved
 //
 // Modified by:
-// (c) 2019-2020 Takamitsu Endo
+// (c) 2019-2022 Takamitsu Endo
 //
 // This file is part of EsPhaser.
 //
@@ -29,11 +29,11 @@
 #define SUB_VERSION_STR "1"
 #define SUB_VERSION_INT 1
 
-#define RELEASE_NUMBER_STR "13"
-#define RELEASE_NUMBER_INT 13
+#define RELEASE_NUMBER_STR "14"
+#define RELEASE_NUMBER_INT 14
 
-#define BUILD_NUMBER_STR "13"
-#define BUILD_NUMBER_INT 13
+#define BUILD_NUMBER_STR "14"
+#define BUILD_NUMBER_INT 14
 
 #define FULL_VERSION_STR                                                                 \
   MAJOR_VERSION_STR "." SUB_VERSION_STR "." RELEASE_NUMBER_STR "." BUILD_NUMBER_STR
@@ -44,13 +44,13 @@
 
 #define stringOriginalFilename "EsPhaser.vst3"
 #if SMTG_PLATFORM_64
-#define stringFileDescription stringPluginName " VST3-SDK (64Bit)"
+  #define stringFileDescription stringPluginName " VST3-SDK (64Bit)"
 #else
-#define stringFileDescription stringPluginName " VST3-SDK"
+  #define stringFileDescription stringPluginName " VST3-SDK"
 #endif
 #define stringCompanyName "Uhhyou\0"
 #define stringCompanyWeb ""
 #define stringCompanyEmail "ryukau@gmail.com"
 
-#define stringLegalCopyright "Copyright 2019-2020 Takamitsu Endo"
+#define stringLegalCopyright "Copyright 2019-2022 Takamitsu Endo"
 #define stringLegalTrademarks "VST is a trademark of Steinberg Media Technologies GmbH"

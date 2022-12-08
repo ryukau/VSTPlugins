@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2022 Takamitsu Endo
 //
 // This file is part of CubicPadSynth.
 //
@@ -26,21 +26,9 @@
 
 #include <iostream>
 
-#if INSTRSET >= 10
-#define PROCESSING_UNIT_NAME ProcessingUnit_AVX512
-#define NOTE_NAME Note_AVX512
-#define DSPCORE_NAME DSPCore_AVX512
-#elif INSTRSET >= 8
-#define PROCESSING_UNIT_NAME ProcessingUnit_AVX2
-#define NOTE_NAME Note_AVX2
-#define DSPCORE_NAME DSPCore_AVX2
-#elif INSTRSET >= 7
-#define PROCESSING_UNIT_NAME ProcessingUnit_AVX
-#define NOTE_NAME Note_AVX
-#define DSPCORE_NAME DSPCore_AVX
-#else
-#error Unsupported instruction set
-#endif
+#define PROCESSING_UNIT_NAME ProcessingUnit_FixedInstruction
+#define NOTE_NAME Note_FixedInstruction
+#define DSPCORE_NAME DSPCore_FixedInstruction
 
 inline float clamp(float value, float min, float max)
 {

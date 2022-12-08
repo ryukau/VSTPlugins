@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2022 Takamitsu Endo
 //
 // This file is part of CubicPadSynth.
 //
@@ -19,7 +19,7 @@
 
 #include "../../../common/dsp/constants.hpp"
 #include "../../../lib/fftw3/fftw3.h"
-#include "../../../lib/vcl/vectorclass.h"
+#include "../../../lib/vcl.hpp"
 
 #include <algorithm>
 #include <array>

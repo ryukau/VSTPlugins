@@ -1,4 +1,4 @@
-// (c) 2019-2020 Takamitsu Endo
+// (c) 2019-2022 Takamitsu Endo
 //
 // This file is part of EnvelopedSine.
 //
@@ -46,7 +46,7 @@ void CreditView::draw(CDrawContext *pContext)
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
   pContext->drawString(
-    "© 2019-2020 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0, 90.0));
+    "© 2019-2022 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0, 90.0));
 
   std::string leftText = R"(- Overtone -
 Ctrl + Left Drag|Reset to Default

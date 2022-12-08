@@ -1,4 +1,4 @@
-// (c) 2019-2020 Takamitsu Endo
+// (c) 2019-2022 Takamitsu Endo
 //
 // This file is part of EsPhaser.
 //
@@ -17,10 +17,11 @@
 
 #pragma once
 
+#include "../../../lib/vcl.hpp"
+#include "../../../lib/vcl/vectormath_trig.h"
+
 #include "../../../common/dsp/smoother.hpp"
 #include "../../../lib/juce_FastMathApproximations.h"
-#include "../../../lib/vcl/vectorclass.h"
-#include "../../../lib/vcl/vectormath_trig.h"
 
 #include <array>
 #include <iostream>

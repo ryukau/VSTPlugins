@@ -1,4 +1,4 @@
-// (c) 2019-2020 Takamitsu Endo
+// (c) 2019-2022 Takamitsu Endo
 //
 // This file is part of IterativeSinCluster.
 //
@@ -18,7 +18,7 @@
 #pragma once
 
 #include "../../../common/dsp/constants.hpp"
-#include "../../../lib/vcl/vectorclass.h"
+#include "../../../lib/vcl.hpp"
 #include "../../../lib/vcl/vectormath_trig.h"
 
 #include <array>

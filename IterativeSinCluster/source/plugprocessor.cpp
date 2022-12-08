@@ -2,7 +2,7 @@
 // (c) 2018, Steinberg Media Technologies GmbH, All Rights Reserved
 //
 // Modified by:
-// (c) 2019-2020 Takamitsu Endo
+// (c) 2019-2022 Takamitsu Endo
 //
 // This file is part of IterativeSinCluster.
 //
@@ -37,17 +37,7 @@ namespace Synth {
 
 PlugProcessor::PlugProcessor()
 {
-  auto iset = instrset_detect();
-  if (iset >= 10) {
-    dsp = std::make_unique<DSPCore_AVX512>();
-  } else if (iset >= 8) {
-    dsp = std::make_unique<DSPCore_AVX2>();
-  } else if (iset >= 7) {
-    dsp = std::make_unique<DSPCore_AVX>();
-  } else {
-    std::cerr << "\nError: Instruction set SSE2 not supported on this computer";
-    exit(EXIT_FAILURE);
-  }
+  dsp = std::make_unique<DSPCore_FixedInstruction>();
 
   setControllerClass(ControllerUID);
 }
@@ -124,7 +114,8 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   uint64_t state = data.processContext->state;
   if (
     (lastState & Vst::ProcessContext::kPlaying) == 0
-    && (state & Vst::ProcessContext::kPlaying) != 0) {
+    && (state & Vst::ProcessContext::kPlaying) != 0)
+  {
     dsp->startup();
   }
   lastState = state;

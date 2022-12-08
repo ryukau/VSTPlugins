@@ -1,4 +1,4 @@
-// (c) 2019-2020 Takamitsu Endo
+// (c) 2019-2022 Takamitsu Endo
 //
 // This file is part of IterativeSinCluster.
 //
@@ -17,22 +17,10 @@
 
 #include "dspcore.hpp"
 #include "../../../lib/juce_FastMathApproximations.h"
-#include "../../../lib/vcl/vectorclass.h"
+#include "../../../lib/vcl.hpp"
 
-#if INSTRSET >= 10
-#define NOTE_NAME Note_AVX512
-#define DSPCORE_NAME DSPCore_AVX512
-#elif INSTRSET >= 8
-#define NOTE_NAME Note_AVX2
-#define DSPCORE_NAME DSPCore_AVX2
-#elif INSTRSET >= 7
-#define NOTE_NAME Note_AVX
-#define DSPCORE_NAME DSPCore_AVX
-#else
-#error Unsupported instruction set
-#endif
-
-#include <iostream> // debug
+#define NOTE_NAME Note_FixedInstruction
+#define DSPCORE_NAME DSPCore_FixedInstruction
 
 inline float clamp(float value, float min, float max)
 {

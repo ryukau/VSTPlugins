@@ -1,4 +1,4 @@
-// (c) 2020 Takamitsu Endo
+// (c) 2020-2022 Takamitsu Endo
 //
 // This file is part of CubicPadSynth.
 //
@@ -18,7 +18,7 @@
 #pragma once
 
 #include "../../../common/dsp/smoother.hpp"
-#include "../../../lib/vcl/vectorclass.h"
+#include "../../../lib/vcl.hpp"
 #include "../../../lib/vcl/vectormath_exp.h"
 #include "../../../lib/vcl/vectormath_hyp.h"
 

@@ -1,4 +1,4 @@
-// (c) 2019-2020 Takamitsu Endo
+// (c) 2019-2022 Takamitsu Endo
 //
 // This file is part of EnvelopedSine.
 //
@@ -24,7 +24,7 @@
 #include "oscillator.hpp"
 #include "phaser.hpp"
 
-#include "../../../lib/vcl/vectorclass.h"
+#include "../../../lib/vcl.hpp"
 
 #include <array>
 #include <cmath>
@@ -70,10 +70,6 @@ enum class NoteState { active, release, rest };
     void rest();                                                                         \
     std::array<Sample, 2> process();                                                     \
   };
-
-NOTE_CLASS(AVX512)
-NOTE_CLASS(AVX2)
-NOTE_CLASS(AVX)
 
 class DSPInterface {
 public:
@@ -190,6 +186,5 @@ transitionBuffer is used to store a release of a note to reduce pop noise.
     size_t trStop = 0;                                                                   \
   };
 
-DSPCORE_CLASS(AVX512)
-DSPCORE_CLASS(AVX2)
-DSPCORE_CLASS(AVX)
+NOTE_CLASS(FixedInstruction)
+DSPCORE_CLASS(FixedInstruction)

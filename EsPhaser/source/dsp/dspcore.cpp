@@ -1,4 +1,4 @@
-// (c) 2019-2020 Takamitsu Endo
+// (c) 2019-2022 Takamitsu Endo
 //
 // This file is part of EsPhaser.
 //
@@ -22,15 +22,7 @@
 #include <algorithm>
 #include <numeric>
 
-#if INSTRSET >= 10
-#define DSPCORE_NAME DSPCore_AVX512
-#elif INSTRSET >= 8
-#define DSPCORE_NAME DSPCore_AVX2
-#elif INSTRSET >= 7
-#define DSPCORE_NAME DSPCore_AVX
-#else
-#error Unsupported instruction set
-#endif
+#define DSPCORE_NAME DSPCore_FixedInstruction
 
 void DSPCORE_NAME::setup(double sampleRate)
 {

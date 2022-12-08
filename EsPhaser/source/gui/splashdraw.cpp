@@ -1,4 +1,4 @@
-// (c) 2019-2020 Takamitsu Endo
+// (c) 2019-2022 Takamitsu Endo
 //
 // This file is part of EsPhaser.
 //
@@ -46,7 +46,7 @@ void CreditView::draw(CDrawContext *pContext)
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
   pContext->drawString(
-    "© 2019-2020 Takamitsu Endo (ryukau@gmail.com)", CPoint(270.0, 30.0));
+    "© 2019-2022 Takamitsu Endo (ryukau@gmail.com)", CPoint(270.0, 30.0));
 
   pContext->drawString("Shift + Left Drag: Fine Adjustment", CPoint(20.0f, 50.0f));
   pContext->drawString("Ctrl + Left Click: Reset to Default", CPoint(20.0f, 70.0f));

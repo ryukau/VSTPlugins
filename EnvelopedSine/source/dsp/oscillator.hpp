@@ -1,4 +1,4 @@
-// (c) 2019-2020 Takamitsu Endo
+// (c) 2019-2022 Takamitsu Endo
 //
 // This file is part of EnvelopedSine.
 //
@@ -19,7 +19,7 @@
 
 #include "../../../common/dsp/constants.hpp"
 #include "../../../lib/juce_FastMathApproximations.h"
-#include "../../../lib/vcl/vectorclass.h"
+#include "../../../lib/vcl.hpp"
 #include "../../../lib/vcl/vectormath_exp.h"
 #include "../../../lib/vcl/vectormath_trig.h"
 

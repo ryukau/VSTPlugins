@@ -1,4 +1,4 @@
-// (c) 2019-2020 Takamitsu Endo
+// (c) 2019-2022 Takamitsu Endo
 //
 // This file is part of EsPhaser.
 //
@@ -21,8 +21,6 @@
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
 #include "phaser.hpp"
-
-#include "../../../lib/vcl/vectorclass.h"
 
 #include <array>
 #include <cmath>
@@ -47,11 +45,6 @@ public:
     = 0;
 };
 
-/*
-# About transitionBuffer
-Transition happens when synth is playing all notes and user send a new note on.
-transitionBuffer is used to store a release of a note to reduce pop noise.
-*/
 #define DSPCORE_CLASS(INSTRSET)                                                          \
   class DSPCore_##INSTRSET final : public DSPInterface {                                 \
   public:                                                                                \
@@ -82,6 +75,4 @@ transitionBuffer is used to store a release of a note to reduce pop noise.
     LinearSmoother<float> interpCascadeOffset;                                           \
   };
 
-DSPCORE_CLASS(AVX512)
-DSPCORE_CLASS(AVX2)
-DSPCORE_CLASS(AVX)
+DSPCORE_CLASS(FixedInstruction)
