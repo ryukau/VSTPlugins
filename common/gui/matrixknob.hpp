@@ -105,7 +105,7 @@ public:
     for (uint32_t i = 0; i < id.size(); ++i) idMap.emplace(std::pair(id[i], i));
   }
 
-  ~MatrixKnob()
+  virtual ~MatrixKnob()
   {
     if (textView) textView->forget();
   }

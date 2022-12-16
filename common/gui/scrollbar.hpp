@@ -38,7 +38,7 @@ public:
     parent->remember();
   }
 
-  ~ScrollBar() { parent->forget(); }
+  virtual ~ScrollBar() { parent->forget(); }
 
   CLASS_METHODS(ScrollBar, CControl);
 

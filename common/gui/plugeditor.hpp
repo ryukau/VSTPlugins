@@ -60,7 +60,7 @@ public:
     loadFont();
   }
 
-  ~PlugEditor()
+  virtual ~PlugEditor()
   {
     for (auto &ctrl : controlMap)
       if (ctrl.second) ctrl.second->forget();

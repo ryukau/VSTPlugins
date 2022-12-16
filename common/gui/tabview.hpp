@@ -77,7 +77,7 @@ public:
     widgets.resize(tabs.size());
   }
 
-  ~TabView()
+  virtual ~TabView()
   {
     for (auto &tab : widgets) {
       for (auto &wdgt : tab) {

@@ -43,7 +43,7 @@ class PlugController : public Vst::EditController,
 public:
   std::vector<EditorType *> editor;
 
-  ~PlugController()
+  virtual ~PlugController()
   {
     for (auto &edi : editor) edi->forget();
   }

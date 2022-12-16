@@ -103,7 +103,7 @@ public:
     if (splashView != nullptr) splashView->remember();
   }
 
-  ~SplashLabel()
+  virtual ~SplashLabel()
   {
     if (splashView != nullptr) splashView->forget();
   }

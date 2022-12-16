@@ -213,7 +213,7 @@ public:
     if (controller != nullptr) controller->addRef();
   }
 
-  ~MessageButton()
+  virtual ~MessageButton()
   {
     if (controller != nullptr) controller->release();
   }
