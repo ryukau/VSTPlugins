@@ -3,6 +3,18 @@ Building this repository requires C++17 compatible compiler and CPU with AVX or 
 
 **If this instruction doesn't work, please open issue.**
 
+## General
+Following plugins are only available for x86_64 or aarch64.
+
+- CubicPadSynth
+- EnvelopedSine
+- EsPhaser
+- IterativeSinCluster
+
+To disable building them, comment out those plugins in top level `CMakeLists.txt`.
+
+To target a specific x86_64 SIMD instructions, see `common/cmake/simd_x86_64_and_aarch64.cmake`.
+
 ## Linux
 Install required packages. See `Package Requirements` section of the link below.
 
@@ -19,14 +31,9 @@ git clone --recursive https://github.com/ryukau/VSTPlugins.git
 
 # Patch vst3sdk.
 # - https://github.com/ryukau/VSTPlugins/issues/3
-patch \
-  vst3sdk/vstgui4/vstgui/lib/platform/linux/cairocontext.cpp \
-  VSTPlugins/ci/linux_patch/cairocontext.cpp.diff
-
-# - https://github.com/steinbergmedia/vstgui/issues/249
-patch \
-  vst3sdk/vstgui4/vstgui/lib/platform/linux/x11frame.cpp \
-  VSTPlugins/ci/linux_patch/x11frame.cpp.diff
+cp \
+  VSTPlugins/ci/linux_patch/cairocontext.cpp \
+  vst3sdk/vstgui4/vstgui/lib/platform/linux/cairocontext.cpp
 
 mkdir vst3sdk/build
 cd vst3sdk/build
@@ -111,17 +118,6 @@ error MSB3073: mklink "C:\Program Files\Common Files\VST3\SomePlugin.vst3"  C:\<
 In this case, add `-DSMTG_CREATE_PLUGIN_LINK=FALSE` to cmake option.
 
 ## macOS
-**Important**: Build of following plugins are disabled on macOS.
-
-- CubicPadSynth
-- EnvelopedSine
-- EsPhaser
-- IterativeSinCluster
-
-See [macosarmbuild.md](https://github.com/ryukau/VSTPlugins/blob/master/macarmbuild.md) for more details.
-
----
-
 Note that I don't have mac, so I can't test this instruction. This instruction is based on build script for [GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions). If you find something wrong, feel free to open issue.
 
 Install following applications.
