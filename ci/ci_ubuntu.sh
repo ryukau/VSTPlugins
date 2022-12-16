@@ -19,6 +19,11 @@ cp \
   "$GITHUB_WORKSPACE"/ci/linux_patch/cairocontext.cpp \
   vstgui4/vstgui/lib/platform/linux/
 
+# - https://github.com/steinbergmedia/vst3sdk/issues/99
+cp \
+  "$GITHUB_WORKSPACE"/ci/linux_patch/moduleinfoparser.cpp \
+  public.sdk/source/vst/moduleinfo/
+
 mkdir build
 cd build || exit
 cmake -DCMAKE_BUILD_TYPE=Release \
