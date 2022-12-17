@@ -15,6 +15,11 @@ Copy-Item `
   "$SRC_ROOT\VSTPlugins\ci\windows_patch\CMakeLists.txt" `
   "$SRC_ROOT\vst3sdk\vstgui4\vstgui\uidescription\CMakeLists.txt"
 
+# Disable to build VST3Inspector.
+Copy-Item `
+  "$SRC_ROOT\VSTPlugins\ci\windows_patch\inspectorapp\CMakeLists.txt" `
+  "$SRC_ROOT\vst3sdk\public.sdk\samples\vst-hosting\inspectorapp\CMakeLists.txt"
+
 cmake --version
 
 # SMTG_PLUGIN_TARGET_USER_PATH must be set for GitHub Actions. Because cmake can't
