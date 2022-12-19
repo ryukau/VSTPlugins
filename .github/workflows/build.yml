@@ -87,6 +87,7 @@ jobs:
         with:
           body_path: RELEASE_NOTES
           files: |
+            ${{ env.package_path }}/pack_macOS/*.zip
             ${{ env.package_path }}/pack/*.zip
             ${{ env.package_path }}/pack/*.png
             ${{ env.package_path }}/pack/plugins.json
