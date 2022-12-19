@@ -1,4 +1,4 @@
-include(../common/cmake/add_fftw3.cmake)
+include(../common/cmake/common.cmake)
 
 function(get_plugin_name NAME_VAR)
   get_filename_component(PLUGIN_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
@@ -74,8 +74,7 @@ function(build_vst3 plug_sources)
     smtg_target_add_plugin_resource(${target} "${snapshot_path}" "Snapshots")
   endif()
 
-  smtg_target_add_plugin_resource(${target} "../common/resource/Fonts/Tinos-BoldItalic.ttf" "Fonts")
-  smtg_target_add_plugin_resource(${target} "../common/resource/Fonts/LICENSE.txt" "Fonts")
+  add_common_resources(${target})
 
   if(SMTG_MAC)
     smtg_target_set_bundle(${target}
