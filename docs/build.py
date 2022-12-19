@@ -34,7 +34,7 @@ def extractVersion(url):
     return mt.groups()[0]
 
 def insertString(source, index, substitute):
-    return f"{source[:index]}{substitute}{source[:index]}"
+    return f"{source[:index]}{substitute}{source[index:]}"
 
 def loadManualJson(manual_dir, dest):
     manual = manual_dir.name
