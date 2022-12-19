@@ -7,22 +7,18 @@ lang: en
 
 MiniCliffEQ is a linear phase FIR filter with 2^15 = 32768 taps. Latency is improved from initial version, however it still exceeds 0.34 seconds in 48000 Hz sampling rate. The primary purpose is to suppress direct current. It can also be used as very sharp low-pass, high-pass, low-shelf, and high-shelf filter.
 
-- [Download MiniCliffEQ {{ latest_version["MiniCliffEQ"] }} - VST® 3 (github.com)]({{ latest_download_url["MiniCliffEQ"] }}) <img
+{% for target, download_url in latest_download_url["MiniCliffEQ"].items() %}
+- [Download MiniCliffEQ {{ latest_version["MiniCliffEQ"] }} `{{ target }}` - VST 3 (github.com)]({{ download_url }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
-  width="60px"
+  width="30px"
   style="display: inline-block; vertical-align: middle;">
+{%- endfor %}
 {%- if preset_download_url["MiniCliffEQ"]|length != 0%}
 - [Download Presets (github.com)]({{ preset_download_url["MiniCliffEQ"] }})
 {%- endif %}
 
-The package includes following builds:
-
-- Windows 64bit
-- Linux 64bit
-- macOS universal binary
-
-Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely to run. In this case, please take a look at [build instruction](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
+{{ section["package"] }}
 
 {{ section["contact_installation_guiconfig"] }}
 

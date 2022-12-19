@@ -7,22 +7,18 @@ lang: en
 
 LatticeReverb is a reverb using lattice structure. Equipped with 16 delays per channel.
 
-- [Download LatticeReverb {{ latest_version["LatticeReverb"] }} - VST® 3 (github.com)]({{ latest_download_url["LatticeReverb"] }}) <img
+{% for target, download_url in latest_download_url["LatticeReverb"].items() %}
+- [Download LatticeReverb {{ latest_version["LatticeReverb"] }} `{{ target }}` - VST 3 (github.com)]({{ download_url }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
-  width="60px"
+  width="30px"
   style="display: inline-block; vertical-align: middle;">
+{%- endfor %}
 {%- if preset_download_url["LatticeReverb"]|length != 0%}
 - [Download Presets (github.com)]({{ preset_download_url["LatticeReverb"] }})
 {%- endif %}
 
-The package includes following builds:
-
-- Windows 64bit
-- Linux 64bit
-- macOS universal binary
-
-Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely to run. In this case, please take a look at [build instruction](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
+{{ section["package"] }}
 
 {{ section["contact_installation_guiconfig"] }}
 

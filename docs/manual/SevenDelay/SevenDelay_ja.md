@@ -7,22 +7,18 @@ lang: ja
 
 <ruby>SevenDelay<rt>セブン ディレイ</rt></ruby> は7次のラグランジュ補間による分数ディレイと7倍のオーバーサンプリングを使ったステレオディレイです。
 
-- [SevenDelay {{ latest_version["SevenDelay"] }} をダウンロード - VST® 3 (github.com)]({{ latest_download_url["SevenDelay"] }}) <img
+{% for target, download_url in latest_download_url["SevenDelay"].items() %}
+- [SevenDelay {{ latest_version["SevenDelay"] }} `{{ target }}` - VST 3 をダウンロード (github.com)]({{ download_url }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
-  width="60px"
+  width="30px"
   style="display: inline-block; vertical-align: middle;">
+{%- endfor %}
 {%- if preset_download_url["SevenDelay"]|length != 0%}
 - [プリセットをダウンロード (github.com)]({{ preset_download_url["SevenDelay"] }})
 {%- endif %}
 
-パッケージには次のビルドが含まれています。
-
-- Windows 64bit
-- Linux 64bit
-- macOS universal binary
-
-Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は[ビルド手順](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md)に沿ってソースコードからビルドしてください。
+{{ section["package"] }}
 
 {{ section["contact_installation_guiconfig"] }}
 

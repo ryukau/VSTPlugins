@@ -7,22 +7,18 @@ lang: ja
 
 <ruby>MiniCliffEQ<rt>ミニ クリフ イーキュー</rt></ruby> はタップ数 2^15 = 32768 の FIR フィルタです。初期バージョンからは改善しましたが、それでもタップ数が多いのでレイテンシがサンプリング周波数 48000 Hz のときに 0.34 秒を超えます。主な用途は直流信号 (DC) の抑制ですが、とても急峻なローパス、ハイパス、ローシェルフ、ハイシェルフフィルタとしても使えます。
 
-- [MiniCliffEQ {{ latest_version["MiniCliffEQ"] }} をダウンロード - VST® 3 (github.com)]({{ latest_download_url["MiniCliffEQ"] }}) <img
+{% for target, download_url in latest_download_url["MiniCliffEQ"].items() %}
+- [MiniCliffEQ {{ latest_version["MiniCliffEQ"] }} `{{ target }}` - VST 3 をダウンロード (github.com)]({{ download_url }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
-  width="60px"
+  width="30px"
   style="display: inline-block; vertical-align: middle;">
+{%- endfor %}
 {%- if preset_download_url["MiniCliffEQ"]|length != 0%}
 - [プリセットをダウンロード (github.com)]({{ preset_download_url["MiniCliffEQ"] }})
 {%- endif %}
 
-パッケージには次のビルドが含まれています。
-
-- Windows 64bit
-- Linux 64bit
-- macOS universal binary
-
-Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は[ビルド手順](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md)に沿ってソースコードからビルドしてください。
+{{ section["package"] }}
 
 {{ section["contact_installation_guiconfig"] }}
 

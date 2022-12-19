@@ -7,25 +7,20 @@ lang: ja
 
 <ruby>IterativeSinCluster<rt>イテレイティブ サイン クラスタ</rt></ruby>はノート 1 つあたり 512 のサイン波を計算する加算合成シンセサイザです。一体、何を考えていたのか iterative sin という言葉を名前に使っていますが、アルゴリズムの種類を表す正しい言葉は recursive sine です。
 
-- [IterativeSinCluster {{ latest_version["IterativeSinCluster"] }} をダウンロード - VST® 3 (github.com)]({{ latest_download_url["IterativeSinCluster"] }}) <img
+{% for target, download_url in latest_download_url["IterativeSinCluster"].items() %}
+- [IterativeSinCluster {{ latest_version["IterativeSinCluster"] }} `{{ target }}` - VST 3 をダウンロード (github.com)]({{ download_url }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
-  width="60px"
+  width="30px"
   style="display: inline-block; vertical-align: middle;">
+{%- endfor %}
 {%- if preset_download_url["IterativeSinCluster"]|length != 0%}
 - [プリセットをダウンロード (github.com)]({{ preset_download_url["IterativeSinCluster"] }})
 {%- endif %}
 
-IterativeSinCluster を使うには CPU が AVX 以降の SIMD 命令セットをサポートしている必要があります。
+x86_64 環境で IterativeSinCluster を使うには AVX 以降の SIMD 命令セットをサポートする CPU が必要です。
 
-パッケージには次のビルドが含まれています。
-
-- Windows 64bit
-- Linux 64bit
-
-{{ section["macos_warning"] }}
-
-Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は[ビルド手順](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md)に沿ってソースコードからビルドしてください。
+{{ section["package"] }}
 
 {{ section["contact_installation_guiconfig"] }}
 

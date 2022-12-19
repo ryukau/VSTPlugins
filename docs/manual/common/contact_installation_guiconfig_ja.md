@@ -9,7 +9,7 @@
 
 - Windows では `/Program Files/Common Files/VST3/` に配置します。
 - Linux では `$HOME/.vst3/` に配置します。
-- macOS では `/Users/$USERNAME/Library/Audio/Plug-ins/VST3/` に配置します。
+- macOS では `/Library/Audio/Plug-ins/VST3/` あるいは `/Users/$USERNAME/Library/Audio/Plug-ins/VST3/` に配置します。
 
 DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。
 
@@ -41,28 +41,44 @@ sudo apt install libxcb-cursor0  libxkbcommon-x11-0
 REAPER の Linux 版がプラグインを認識しないときは `~/.config/REAPER/reaper-vstplugins64.ini` を削除して REAPER を再起動してみてください。
 
 ### macOS
-**注意**: この節は英語で macOS を使用しているユーザからの報告によって作成されました。日本語でのエラーメッセージが分からなかったので曖昧な書き方になっています。
+**重要**: `full` パッケージは動作未確認です。以下のファイルは `codesign` されていないので削除する必要があるかもしれません。
 
-プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した `.vst3` ディレクトリに次のコマンドを適用してみてください。
+- `Contents/Resources/Documentation`
+- `Contents/x86_64-linux`
+- `Contents/x86_64-win`
+
+`macOS` パッケージでは上記のファイルの削除は不要です。また、すべてのパッケージは `codesign` コマンドの ad-hoc signing の状態になっています。
+
+#### 隔離の解除
+プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した `.vst3` ディレクトリに次のコマンドのどちらか、あるいは両方を適用してみてください。 `/path/to/PluginName.vst3` の部分はインストールしたプラグインのパスに置き換えてください。
 
 ```sh
+xattr -rd com.apple.quarantine /path/to/PluginName.vst3
 xattr -rc /path/to/PluginName.vst3
 ```
 
-プラグインは署名されていない (unsigned) 、または公証されていない (un-notarized) アプリケーションとして認識されることがあります。この場合は以下の手順を試してみてください。
+#### Gatekeeper の迂回
+プラグインは署名されていない (unsigned) 、または公証されていない (un-notarized) アプリケーションとして認識されることがあります。この場合は、警告メッセージが表示された後に、システム環境設定を開いて「セキュリティとプライバシー」 → 「一般」の「このまま開く」ボタンを押してください。以下にリンクした Apple 公式のヘルプページにスクリーンショット付きで同じ手順が掲載されています。「ノータリゼーションを受けていない App や未確認の開発元の App を開きたい場合」を参照してください。
+
+- [Mac で App を安全に開く - Apple サポート (日本)](https://support.apple.com/ja-jp/HT202491)
+
+ここまでの手順を経てまだ動かないときはインストール先を `/Library/Audio/Plug-ins/VST3/` あるいは `/Users/$USERNAME/Library/Audio/Plug-ins/VST3/` のいずれか使っていなかったほうに変えてみてください。
+
+上記の方法がすべて上手くいかなかったときは以下の手順を試してみてください。
 
 1. ターミナルを開いて `sudo spctl --master-disable` を実行。
-2. システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「全てのアプリケーションを許可」 を選択。
+2. システム環境設定を開いて「セキュリティとプライバシー」 → 「一般」 → 「ダウンロードしたアプリケーションの実行許可」と辿り、「全てのアプリケーションを許可」を選択。
 
 上記の手順を実行するとシステムのセキュリティが弱くなるので注意してください。元に戻すには以下の手順を実行してください。
 
-1. システム環境設定 → セキュリティとプライバシー → 一般 → ダウンロードしたアプリケーションの実行許可、を開いて 「App Store と認証済みの開発元からのアプリケーションを許可」 を選択。
+1. システム環境設定を開いて「セキュリティとプライバシー」 → 「一般」 → 「ダウンロードしたアプリケーションの実行許可」と辿り、「App Store と認証済みの開発元からのアプリケーションを許可」を選択。
 2. ターミナルを開いて `sudo spctl --master-enable` を実行。
 
 #### 参考リンク
+- [Safely open apps on your Mac - Apple Support](https://support.apple.com/en-us/HT202491)
+- [java - “libprism_sw.dylib” cannot be opened because the developer cannot be verified. on mac JAVAFX - Stack Overflow](https://stackoverflow.com/questions/66891065/libprism-sw-dylib-cannot-be-opened-because-the-developer-cannot-be-verified-o)
 - [How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac](https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/)
 - [Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio](https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/)
-- [Safely open apps on your Mac - Apple Support](https://support.apple.com/en-us/HT202491)
 
 ## GUI の見た目の設定
 初回設定時は手動で次のファイルを作成してください。

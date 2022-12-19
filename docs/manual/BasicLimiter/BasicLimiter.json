@@ -1,8 +1,9 @@
 {
   "BasicLimiter": {
-    "latest_version": "0.1.11",
+    "latest_version": "0.1.12",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/BasicLimiter_0.1.12.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/BasicLimiter_0.1.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.45.0/BasicLimiter_0.1.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/BasicLimiter_0.1.9.zip",
@@ -15,6 +16,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterPresets.zip"
     },
     "changelog": {
+      "0.1.12": {
+        "en": [
+          "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak."
+        ],
+        "ja": [
+          "クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。"
+        ]
+      },
       "0.1.11": {
         "en": [
           "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux."
@@ -92,9 +101,10 @@
     }
   },
   "BasicLimiterAutoMake": {
-    "latest_version": "0.1.11",
+    "latest_version": "0.1.12",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/BasicLimiterAutoMake_0.1.12.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/BasicLimiterAutoMake_0.1.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.45.0/BasicLimiterAutoMake_0.1.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/BasicLimiterAutoMake_0.1.9.zip",
@@ -106,6 +116,14 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.1.12": {
+        "en": [
+          "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak."
+        ],
+        "ja": [
+          "クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。"
+        ]
+      },
       "0.1.11": {
         "en": [
           "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux."

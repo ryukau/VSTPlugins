@@ -7,25 +7,20 @@ lang: en
 
 IterativeSinCluster is an additive synthesizer. This synth computes 512 sine waves for each note to make tone cluster. I somehow thought "iterative sin" is a valid term. Correct term is "recursive sine".
 
-- [Download IterativeSinCluster {{ latest_version["IterativeSinCluster"] }} - VST® 3 (github.com)]({{ latest_download_url["IterativeSinCluster"] }}) <img
+{% for target, download_url in latest_download_url["IterativeSinCluster"].items() %}
+- [Download IterativeSinCluster {{ latest_version["IterativeSinCluster"] }} `{{ target }}` - VST 3 (github.com)]({{ download_url }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
-  width="60px"
+  width="30px"
   style="display: inline-block; vertical-align: middle;">
+{%- endfor %}
 {%- if preset_download_url["IterativeSinCluster"]|length != 0%}
 - [Download Presets (github.com)]({{ preset_download_url["IterativeSinCluster"] }})
 {%- endif %}
 
-IterativeSinCluster requires CPU which supports AVX or later SIMD instructions.
+IterativeSinCluster requires AVX or later SIMD instructions on x86_64 environment.
 
-The package includes following builds:
-
-- Windows 64bit
-- Linux 64bit
-
-{{ section["macos_warning"] }}
-
-Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely to run. In this case, please take a look at [build instruction](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
+{{ section["package"] }}
 
 {{ section["contact_installation_guiconfig"] }}
 

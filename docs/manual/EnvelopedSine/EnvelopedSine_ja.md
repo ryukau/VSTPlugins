@@ -7,25 +7,20 @@ lang: ja
 
 <ruby>EnvelopedSine<rt>エンベロープド サイン</rt></ruby> はノート 1 つあたり 64 のサイン波を計算する加算合成シンセサイザです。各サイン波に AD エンベロープとサチュレータがついているので IterativeSinCluster よりもパーカッシブな音が得意です。
 
-- [EnvelopedSine {{ latest_version["EnvelopedSine"] }} をダウンロード - VST® 3 (github.com)]({{ latest_download_url["EnvelopedSine"] }}) <img
+{% for target, download_url in latest_download_url["EnvelopedSine"].items() %}
+- [EnvelopedSine {{ latest_version["EnvelopedSine"] }} `{{ target }}` - VST 3 をダウンロード (github.com)]({{ download_url }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
-  width="60px"
+  width="30px"
   style="display: inline-block; vertical-align: middle;">
+{%- endfor %}
 {%- if preset_download_url["EnvelopedSine"]|length != 0%}
 - [プリセットをダウンロード (github.com)]({{ preset_download_url["EnvelopedSine"] }})
 {%- endif %}
 
-EnvelopedSine を使うには CPU が AVX 以降の SIMD 命令セットをサポートしている必要があります。
+x86_64 環境で EnvelopedSine を使うには AVX 以降の SIMD 命令セットをサポートする CPU が必要です。
 
-パッケージには次のビルドが含まれています。
-
-- Windows 64bit
-- Linux 64bit
-
-{{ section["macos_warning"] }}
-
-Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は[ビルド手順](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md)に沿ってソースコードからビルドしてください。
+{{ section["package"] }}
 
 {{ section["contact_installation_guiconfig"] }}
 

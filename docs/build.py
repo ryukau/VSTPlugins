@@ -15,7 +15,7 @@ def loadCommonSection(language):
         return text
 
     names = [
-        "macos_warning",
+        "package",
         "contact_installation_guiconfig",
         "gui_common",
         "gui_barbox",
@@ -32,6 +32,9 @@ def getLanguages(ref_filename="manual/common/gui_common"):
 def extractVersion(url):
     mt = re.search(r"(\d+\.\d+\.\d+)\.zip", url)
     return mt.groups()[0]
+
+def insertString(source, index, substitute):
+    return f"{source[:index]}{substitute}{source[:index]}"
 
 def loadManualJson(manual_dir, dest):
     manual = manual_dir.name
@@ -51,7 +54,13 @@ def loadManualJson(manual_dir, dest):
     }
     for plugin, src in full_data.items():
         dest[manual]["latest_version"][plugin] = src["latest_version"]
-        dest[manual]["latest_download_url"][plugin] = src["urls"]["plugin_url"][0]
+
+        plugin_url = src["urls"]["plugin_url"][0]
+        dest[manual]["latest_download_url"][plugin] = {
+            "full": plugin_url,
+            "macOS": insertString(plugin_url, plugin_url.rfind(".zip"), "_macOS"),
+        }
+
         dest[manual]["preset_download_url"][plugin] = src["urls"]["preset_url"]
 
         dest[manual]["old_download_link"][plugin] = [{

@@ -7,33 +7,31 @@ lang: ja
 
 <ruby>L4Reverb<rt>エル フォー リバーブ</rt></ruby> は LatticeReverb の拡張版です。今回の格子構造はチャンネル毎に 4 * 4 * 4 * 4 = 256 のセクションが設けてあります。
 
-- [L4Reverb {{ latest_version["L4Reverb"] }} をダウンロード - VST® 3 (github.com)]({{ latest_download_url["L4Reverb"] }}) <img
+{% for target, download_url in latest_download_url["L4Reverb"].items() %}
+- [L4Reverb {{ latest_version["L4Reverb"] }} `{{ target }}` - VST 3 をダウンロード (github.com)]({{ download_url }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
-  width="60px"
+  width="30px"
   style="display: inline-block; vertical-align: middle;">
+{%- endfor %}
 {%- if preset_download_url["L4Reverb"]|length != 0%}
 - [プリセットをダウンロード (github.com)]({{ preset_download_url["L4Reverb"] }})
 {%- endif %}
 
 もし L4Reverb が重たすぎるときは L3Reverb を試してみてください。 <ruby>L3Reverb<rt>エル スリー リバーブ</rt></ruby> は L4Reverb の軽量版です。格子構造はチャンネル毎に 3 * 3 * 3 * 5 = 135 のセクションが設けてあります。
 
-- [L3Reverb {{ latest_version["L3Reverb"] }} をダウンロード - VST® 3 (github.com)]({{ latest_download_url["L3Reverb"] }}) <img
+{% for target, download_url in latest_download_url["L3Reverb"].items() %}
+- [L3Reverb {{ latest_version["L3Reverb"] }} `{{ target }}` - VST 3 をダウンロード (github.com)]({{ download_url }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
-  width="60px"
+  width="30px"
   style="display: inline-block; vertical-align: middle;">
+{%- endfor %}
 {%- if preset_download_url["L3Reverb"]|length != 0%}
 - [プリセットをダウンロード (github.com)]({{ preset_download_url["L3Reverb"] }})
 {%- endif %}
 
-パッケージには次のビルドが含まれています。
-
-- Windows 64bit
-- Linux 64bit
-- macOS universal binary
-
-Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は[ビルド手順](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md)に沿ってソースコードからビルドしてください。
+{{ section["package"] }}
 
 {{ section["contact_installation_guiconfig"] }}
 

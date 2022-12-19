@@ -56,6 +56,6 @@ exclude:
 - manual/common/gui_common_ja.md
 - manual/common/gui_knob_en.md
 - manual/common/gui_knob_ja.md
-- manual/common/macos_warning_en.md
-- manual/common/macos_warning_ja.md
+- manual/common/package_en.md
+- manual/common/package_ja.md
 - rewrite/README.md

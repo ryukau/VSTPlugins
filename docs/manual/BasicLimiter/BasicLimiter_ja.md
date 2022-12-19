@@ -7,33 +7,31 @@ lang: ja
 
 <ruby>BasicLimiter<rt>ベーシック リミッタ</rt></ruby> は名前の通りベーシックなシングルバンドリミッタです。目新しい音は出ませんが、トゥルーピークモードはやや贅沢に設計しています。
 
-- [BasicLimiter {{ latest_version["BasicLimiter"] }} をダウンロード - VST® 3 (github.com)]({{ latest_download_url["BasicLimiter"] }}) <img
+{% for target, download_url in latest_download_url["BasicLimiter"].items() %}
+- [BasicLimiter {{ latest_version["BasicLimiter"] }} `{{ target }}` - VST 3 をダウンロード (github.com)]({{ download_url }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
-  width="60px"
+  width="30px"
   style="display: inline-block; vertical-align: middle;">
+{%- endfor %}
 {%- if preset_download_url["BasicLimiter"]|length != 0%}
 - [プリセットをダウンロード (github.com)]({{ preset_download_url["BasicLimiter"] }})
 {%- endif %}
 
 自動メイクアップゲイン、サイドチェイン、左右 (L-R) とミッド-サイド (M-S) の切り替えを追加した BasicLimiterAutoMake もあります。ただし CPU 負荷は 1.5 倍強に上がります。
 
-- [BasicLimiterAutoMake {{ latest_version["BasicLimiterAutoMake"] }} をダウンロード - VST® 3 (github.com)]({{ latest_download_url["BasicLimiterAutoMake"] }}) <img
+{% for target, download_url in latest_download_url["BasicLimiterAutoMake"].items() %}
+- [BasicLimiterAutoMake {{ latest_version["BasicLimiterAutoMake"] }} `{{ target }}` - VST 3 をダウンロード (github.com)]({{ download_url }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
-  width="60px"
+  width="30px"
   style="display: inline-block; vertical-align: middle;">
+{%- endfor %}
 {%- if preset_download_url["BasicLimiterAutoMake"]|length != 0%}
 - [プリセットをダウンロード (github.com)]({{ preset_download_url["BasicLimiterAutoMake"] }})
 {%- endif %}
 
-パッケージには次のビルドが含まれています。
-
-- Windows 64bit
-- Linux 64bit
-- macOS universal binary
-
-Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は[ビルド手順](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md)に沿ってソースコードからビルドしてください。
+{{ section["package"] }}
 
 {{ section["contact_installation_guiconfig"] }}
 

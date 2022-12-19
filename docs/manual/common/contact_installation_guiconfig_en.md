@@ -41,20 +41,36 @@ If DAW doesn't recognize the plugin, take a look at `Package Requirements` secti
 REAPER on Linux may not recognize the plugin. A workaround is to delete a file `~/.config/REAPER/reaper-vstplugins64.ini` and restart REAPER.
 
 ### macOS Specific
+**Important**: `full` package is not confirmed working. When using `full`, try removing following files.
+
+- `Contents/Resources/Documentation`
+- `Contents/x86_64-linux`
+- `Contents/x86_64-win`
+
+`macOS` package doesn't contain above files. Also, all packages are in "ad-hoc signing" state set by `codesign` command.
+
+#### Remove Quarantine
 When trying to run plugin first time, following message may appear on macOS.
 
 ```
-<PluginName>.vst3 is damaged and can't be opened. You should move it to
-the Trash"
+<PluginName>.vst3 is damaged and can't be opened. You should move it to the Trash.
 ```
 
-In this case, open terminal and try running following command to unzipped `.vst3` directory.
+In this case, open terminal and try running one or both of following command to unzipped `.vst3` directory. Replace `/path/to/PluginName.vst3` according to your install location.
 
 ```sh
+xattr -rd com.apple.quarantine /path/to/PluginName.vst3
 xattr -rc /path/to/PluginName.vst3
 ```
 
-Plugin may be considered as unsigned/un-notarized application. In this case, try following the steps below.
+#### Bypass Gatekeeper
+Plugin may be considered as unsigned/un-notarized application. In this case, open System Preferences, go to Security & Privacy → General, then click the Open Anyway button. The offcial Apple help page linked below has screenshots for the procedure. See "If you want to open an app that hasn’t been notarized or is from an unidentified developer" section.
+
+- [Safely open apps on your Mac - Apple Support](https://support.apple.com/en-us/HT202491)
+
+If the plugin is still not working, try changing install location to `/Library/Audio/Plug-ins/VST3/` or `/Users/$USERNAME/Library/Audio/Plug-ins/VST3/` whichever still haven't tried.
+
+If all the above methods do not work, try following the steps below.
 
 1. Open terminal and run `sudo spctl --master-disable`.
 2. Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select "Anywhere".
@@ -65,9 +81,10 @@ Beware that steps above degrades security of your system. To revert the settings
 2. Open terminal and run `sudo spctl --master-enable`.
 
 #### Reference
+- [Safely open apps on your Mac - Apple Support](https://support.apple.com/en-us/HT202491)
+- [java - “libprism_sw.dylib” cannot be opened because the developer cannot be verified. on mac JAVAFX - Stack Overflow](https://stackoverflow.com/questions/66891065/libprism-sw-dylib-cannot-be-opened-because-the-developer-cannot-be-verified-o)
 - [How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac](https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/)
 - [Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio](https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/)
-- [Safely open apps on your Mac - Apple Support](https://support.apple.com/en-us/HT202491)
 
 ## GUI Style Configuration
 At first time, create color config file to:

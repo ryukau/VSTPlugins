@@ -1,8 +1,9 @@
 {
   "CollidingCombSynth": {
-    "latest_version": "0.1.9",
+    "latest_version": "0.1.10",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/CollidingCombSynth_0.1.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/CollidingCombSynth_0.1.9.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/CollidingCombSynth_0.1.8.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/CollidingCombSynth_0.1.7.zip",
@@ -16,6 +17,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CollidingCombSynthPresets.zip"
     },
     "changelog": {
+      "0.1.10": {
+        "en": [
+          "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak."
+        ],
+        "ja": [
+          "クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。"
+        ]
+      },
       "0.1.9": {
         "en": [
           "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux.",

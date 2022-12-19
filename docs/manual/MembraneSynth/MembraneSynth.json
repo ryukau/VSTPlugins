@@ -1,14 +1,23 @@
 {
   "MembraneSynth": {
-    "latest_version": "0.1.1",
+    "latest_version": "0.1.2",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/MembraneSynth_0.1.2.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.49.0/MembraneSynth_0.1.1.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.47.0/MembraneSynth_0.1.0.zip"
       ],
       "preset_url": ""
     },
     "changelog": {
+      "0.1.2": {
+        "en": [
+          "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak."
+        ],
+        "ja": [
+          "クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。"
+        ]
+      },
       "0.1.1": {
         "en": [
           "Changed to reset random number generator when `Seed` is changed. With this change, the same sound comes out when `Seed` is changed and when full reset is done."

@@ -7,22 +7,18 @@ lang: ja
 
 <ruby>MembraneSynth<rt>メンブレイン シンセ</rt></ruby> は膜を張った打楽器のような音がでるシンセサイザです。バスドラムやタムタムのような低めの打楽器の音が得意ですが、自己変調による発振によって変な音を作ることもできます。
 
-- [MembraneSynth {{ latest_version["MembraneSynth"] }} をダウンロード - VST® 3 (github.com)]({{ latest_download_url["MembraneSynth"] }}) <img
+{% for target, download_url in latest_download_url["MembraneSynth"].items() %}
+- [MembraneSynth {{ latest_version["MembraneSynth"] }} `{{ target }}` - VST 3 をダウンロード (github.com)]({{ download_url }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
-  width="60px"
+  width="30px"
   style="display: inline-block; vertical-align: middle;">
+{%- endfor %}
 {%- if preset_download_url["MembraneSynth"]|length != 0%}
 - [プリセットをダウンロード (github.com)]({{ preset_download_url["MembraneSynth"] }})
 {%- endif %}
 
-パッケージには次のビルドが含まれています。
-
-- Windows 64bit
-- Linux 64bit
-- macOS universal binary
-
-Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は[ビルド手順](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md)に沿ってソースコードからビルドしてください。
+{{ section["package"] }}
 
 {{ section["contact_installation_guiconfig"] }}
 

@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-09-09" />
+<meta name="dcterms.date" content="2022-12-19" />
 <title>ParallelComb_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-09-09
+  Update: 2022-12-19
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -279,6 +279,9 @@ footer {
   <li><a href="#linux" id="toc-linux">Linux</a></li>
   <li><a href="#macos" id="toc-macos">macOS</a>
   <ul>
+  <li><a href="#隔離の解除" id="toc-隔離の解除">隔離の解除</a></li>
+  <li><a href="#gatekeeper-の迂回" id="toc-gatekeeper-の迂回">Gatekeeper
+  の迂回</a></li>
   <li><a href="#参考リンク" id="toc-参考リンク">参考リンク</a></li>
   </ul></li>
   </ul></li>
@@ -323,22 +326,35 @@ footer {
 つの時点をフィードバックするコムフィルタです。フィードバック経路にリミッタが挟んであるので、それなりにクリーンな音が出ます。フィードバックの振幅でディレイ時間を変調することで、変な歪みを出すこともできます。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/ParallelComb_0.2.4.zip">ParallelComb
-0.2.4 をダウンロード - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/ParallelComb_0.2.5.zip">ParallelComb
+0.2.5 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
-width="60px"
+width="30px"
+style="display: inline-block; vertical-align: middle;"></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/ParallelComb_0.2.5_macOShttps://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/ParallelComb_0.2.5">ParallelComb
+0.2.5 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 </ul>
-<p>パッケージには次のビルドが含まれています。</p>
+<p><code>full</code> パッケージには次のビルドが含まれています。</p>
 <ul>
-<li>Windows 64bit</li>
-<li>Linux 64bit</li>
-<li>macOS universal binary</li>
+<li>Windows (x86_64)</li>
+<li>Linux (x86_64)</li>
+<li>macOS (Universal 2)</li>
 </ul>
 <p>Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.04
 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a
 href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
+<p>macOS で使用するときは <code>macOS</code>
+パッケージのダウンロードを推奨します。また Apple Developer Program
+に加入していないので、インストール時に Gatekeeper
+を迂回するように設定する必要があります。詳細は
+<a href="#macos">インストール -&gt; macOS</a>
+の節を参照してください。</p>
 <h2 id="連絡先">連絡先</h2>
 <p>何かあれば <a href="https://github.com/ryukau/VSTPlugins">GitHub
 のリポジトリ</a>に issue を作るか <code>ryukau@gmail.com</code>
@@ -354,7 +370,7 @@ href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビ
 <li>Windows では <code>/Program Files/Common Files/VST3/</code>
 に配置します。</li>
 <li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
-<li>macOS では
+<li>macOS では <code>/Library/Audio/Plug-ins/VST3/</code> あるいは
 <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code>
 に配置します。</li>
 </ul>
@@ -398,32 +414,65 @@ Setup</a></li>
 <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER
 を再起動してみてください。</p>
 <h3 id="macos">macOS</h3>
-<p><strong>注意</strong>: この節は英語で macOS
-を使用しているユーザからの報告によって作成されました。日本語でのエラーメッセージが分からなかったので曖昧な書き方になっています。</p>
+<p><strong>重要</strong>: <code>full</code>
+パッケージは動作未確認です。以下のファイルは <code>codesign</code>
+されていないので削除する必要があるかもしれません。</p>
+<ul>
+<li><code>Contents/Resources/Documentation</code></li>
+<li><code>Contents/x86_64-linux</code></li>
+<li><code>Contents/x86_64-win</code></li>
+</ul>
+<p><code>macOS</code>
+パッケージでは上記のファイルの削除は不要です。また、すべてのパッケージは
+<code>codesign</code> コマンドの ad-hoc signing
+の状態になっています。</p>
+<h4 id="隔離の解除">隔離の解除</h4>
 <p>プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した
 <code>.vst3</code>
-ディレクトリに次のコマンドを適用してみてください。</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rc</span> /path/to/PluginName.vst3</span></code></pre></div>
+ディレクトリに次のコマンドのどちらか、あるいは両方を適用してみてください。
+<code>/path/to/PluginName.vst3</code>
+の部分はインストールしたプラグインのパスに置き換えてください。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rd</span> com.apple.quarantine /path/to/PluginName.vst3</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rc</span> /path/to/PluginName.vst3</span></code></pre></div>
+<h4 id="gatekeeper-の迂回">Gatekeeper の迂回</h4>
 <p>プラグインは署名されていない (unsigned) 、または公証されていない
 (un-notarized)
-アプリケーションとして認識されることがあります。この場合は以下の手順を試してみてください。</p>
+アプリケーションとして認識されることがあります。この場合は、警告メッセージが表示された後に、システム環境設定を開いて「セキュリティとプライバシー」
+→ 「一般」の「このまま開く」ボタンを押してください。以下にリンクした
+Apple
+公式のヘルプページにスクリーンショット付きで同じ手順が掲載されています。「ノータリゼーションを受けていない
+App や未確認の開発元の App を開きたい場合」を参照してください。</p>
+<ul>
+<li><a href="https://support.apple.com/ja-jp/HT202491">Mac で App
+を安全に開く - Apple サポート (日本)</a></li>
+</ul>
+<p>ここまでの手順を経てまだ動かないときはインストール先を
+<code>/Library/Audio/Plug-ins/VST3/</code> あるいは
+<code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code>
+のいずれか使っていなかったほうに変えてみてください。</p>
+<p>上記の方法がすべて上手くいかなかったときは以下の手順を試してみてください。</p>
 <ol type="1">
 <li>ターミナルを開いて <code>sudo spctl --master-disable</code>
 を実行。</li>
-<li>システム環境設定 → セキュリティとプライバシー → 一般 →
-ダウンロードしたアプリケーションの実行許可、を開いて
-「全てのアプリケーションを許可」 を選択。</li>
+<li>システム環境設定を開いて「セキュリティとプライバシー」 → 「一般」 →
+「ダウンロードしたアプリケーションの実行許可」と辿り、「全てのアプリケーションを許可」を選択。</li>
 </ol>
 <p>上記の手順を実行するとシステムのセキュリティが弱くなるので注意してください。元に戻すには以下の手順を実行してください。</p>
 <ol type="1">
-<li>システム環境設定 → セキュリティとプライバシー → 一般 →
-ダウンロードしたアプリケーションの実行許可、を開いて 「App Store
-と認証済みの開発元からのアプリケーションを許可」 を選択。</li>
+<li>システム環境設定を開いて「セキュリティとプライバシー」 → 「一般」 →
+「ダウンロードしたアプリケーションの実行許可」と辿り、「App Store
+と認証済みの開発元からのアプリケーションを許可」を選択。</li>
 <li>ターミナルを開いて <code>sudo spctl --master-enable</code>
 を実行。</li>
 </ol>
 <h4 id="参考リンク">参考リンク</h4>
 <ul>
+<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps
+on your Mac - Apple Support</a></li>
+<li><a
+href="https://stackoverflow.com/questions/66891065/libprism-sw-dylib-cannot-be-opened-because-the-developer-cannot-be-verified-o">java
+- “libprism_sw.dylib” cannot be opened because the developer cannot be
+verified. on mac JAVAFX - Stack Overflow</a></li>
 <li><a
 href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How
 to Fix App “is damaged and can’t be opened. You should move it to the
@@ -432,8 +481,6 @@ Trash” Error on Mac</a></li>
 href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
 unsigned/un-notarized applications/plugins in Mac OS | Venn
 Audio</a></li>
-<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps
-on your Mac - Apple Support</a></li>
 </ul>
 <h2 id="gui-の見た目の設定">GUI の見た目の設定</h2>
 <p>初回設定時は手動で次のファイルを作成してください。</p>
@@ -866,6 +913,11 @@ delayTimeR = time * leanR;</code></pre>
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.2.5
+<ul>
+<li>クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに
+<code>virtual</code> を追加。</li>
+</ul></li>
 <li>0.2.4
 <ul>
 <li>VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux
@@ -893,6 +945,9 @@ delayTimeR = time * leanR;</code></pre>
 <h2 id="旧バージョン">旧バージョン</h2>
 <h3 id="parallelcomb-1">ParallelComb</h3>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/ParallelComb_0.2.4.zip">ParallelComb
+0.2.4 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/ParallelComb_0.2.3.zip">ParallelComb
 0.2.3 - VST 3 (github.com)</a></li>

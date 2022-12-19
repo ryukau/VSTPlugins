@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-09-09" />
+<meta name="dcterms.date" content="2022-12-19" />
 <title>WaveCymbal_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-09-09
+  Update: 2022-12-19
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -282,6 +282,10 @@ footer {
   <li><a href="#macos-specific" id="toc-macos-specific">macOS
   Specific</a>
   <ul>
+  <li><a href="#remove-quarantine" id="toc-remove-quarantine">Remove
+  Quarantine</a></li>
+  <li><a href="#bypass-gatekeeper" id="toc-bypass-gatekeeper">Bypass
+  Gatekeeper</a></li>
   <li><a href="#reference" id="toc-reference">Reference</a></li>
   </ul></li>
   </ul></li>
@@ -328,27 +332,39 @@ wave-guide model. The result is more like dragging bunch of empty cans
 or thin metal plate on asphalt rather than cymbal.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/WaveCymbal_0.1.20.zip">Download
-WaveCymbal 0.1.20 - VST® 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/WaveCymbal_0.1.21.zip">Download
+WaveCymbal 0.1.21 <code>full</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
-width="60px"
+width="30px"
+style="display: inline-block; vertical-align: middle;"></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/WaveCymbal_0.1.21_macOShttps://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/WaveCymbal_0.1.21">Download
+WaveCymbal 0.1.21 <code>macOS</code> - VST 3 (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/WaveCymbalPresets.zip">Download
 Presets (github.com)</a></li>
 </ul>
-<p>The package includes following builds:</p>
+<p><code>full</code> package contains following builds.</p>
 <ul>
-<li>Windows 64bit</li>
-<li>Linux 64bit</li>
-<li>macOS universal binary</li>
+<li>Windows (x86_64)</li>
+<li>Linux (x86_64)</li>
+<li>macOS (Universal 2)</li>
 </ul>
 <p>Linux build is built on Ubuntu 20.04. If you are using distribution
 other than Ubuntu 20.04, plugin will not likely to run. In this case,
 please take a look at <a
 href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">build
 instruction</a>.</p>
+<p><code>macOS</code> package is recommended for macOS user. I can’t
+purchase Apple Developer Program, therefore installation requires a
+workaround to bypass Gatekeeper. Details of workaround are written in
+<a href="#macos-specific">Installation -&gt; macOS Specific</a>
+section.</p>
 <h2 id="contact">Contact</h2>
 <p>Feel free to contact me on <a
 href="https://github.com/ryukau/VSTPlugins/commits/master">GitHub
@@ -404,15 +420,44 @@ Setup</a></li>
 delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and
 restart REAPER.</p>
 <h3 id="macos-specific">macOS Specific</h3>
+<p><strong>Important</strong>: <code>full</code> package is not
+confirmed working. When using <code>full</code>, try removing following
+files.</p>
+<ul>
+<li><code>Contents/Resources/Documentation</code></li>
+<li><code>Contents/x86_64-linux</code></li>
+<li><code>Contents/x86_64-win</code></li>
+</ul>
+<p><code>macOS</code> package doesn’t contain above files. Also, all
+packages are in “ad-hoc signing” state set by <code>codesign</code>
+command.</p>
+<h4 id="remove-quarantine">Remove Quarantine</h4>
 <p>When trying to run plugin first time, following message may appear on
 macOS.</p>
-<pre><code>&lt;PluginName&gt;.vst3 is damaged and can&#39;t be opened. You should move it to
-the Trash&quot;</code></pre>
-<p>In this case, open terminal and try running following command to
-unzipped <code>.vst3</code> directory.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rc</span> /path/to/PluginName.vst3</span></code></pre></div>
+<pre><code>&lt;PluginName&gt;.vst3 is damaged and can&#39;t be opened. You should move it to the Trash.</code></pre>
+<p>In this case, open terminal and try running one or both of following
+command to unzipped <code>.vst3</code> directory. Replace
+<code>/path/to/PluginName.vst3</code> according to your install
+location.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rd</span> com.apple.quarantine /path/to/PluginName.vst3</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rc</span> /path/to/PluginName.vst3</span></code></pre></div>
+<h4 id="bypass-gatekeeper">Bypass Gatekeeper</h4>
 <p>Plugin may be considered as unsigned/un-notarized application. In
-this case, try following the steps below.</p>
+this case, open System Preferences, go to Security &amp; Privacy →
+General, then click the Open Anyway button. The offcial Apple help page
+linked below has screenshots for the procedure. See “If you want to open
+an app that hasn’t been notarized or is from an unidentified developer”
+section.</p>
+<ul>
+<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps
+on your Mac - Apple Support</a></li>
+</ul>
+<p>If the plugin is still not working, try changing install location to
+<code>/Library/Audio/Plug-ins/VST3/</code> or
+<code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> whichever
+still haven’t tried.</p>
+<p>If all the above methods do not work, try following the steps
+below.</p>
 <ol type="1">
 <li>Open terminal and run <code>sudo spctl --master-disable</code>.</li>
 <li>Go to System Preferences → Security and Privacy → General → Allow
@@ -428,6 +473,12 @@ developers”.</li>
 </ol>
 <h4 id="reference">Reference</h4>
 <ul>
+<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps
+on your Mac - Apple Support</a></li>
+<li><a
+href="https://stackoverflow.com/questions/66891065/libprism-sw-dylib-cannot-be-opened-because-the-developer-cannot-be-verified-o">java
+- “libprism_sw.dylib” cannot be opened because the developer cannot be
+verified. on mac JAVAFX - Stack Overflow</a></li>
 <li><a
 href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How
 to Fix App “is damaged and can’t be opened. You should move it to the
@@ -436,8 +487,6 @@ Trash” Error on Mac</a></li>
 href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
 unsigned/un-notarized applications/plugins in Mac OS | Venn
 Audio</a></li>
-<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps
-on your Mac - Apple Support</a></li>
 </ul>
 <h2 id="gui-style-configuration">GUI Style Configuration</h2>
 <p>At first time, create color config file to:</p>
@@ -696,6 +745,11 @@ respect to pitch of note. Kind of like dragging cymbal on asphalt.</li>
 <code>Smoothness</code>.</p>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.21
+<ul>
+<li>Added to <code>virtual</code> to destructor of common components.
+This may prevent some cause of crash or memory leak.</li>
+</ul></li>
 <li>0.1.20
 <ul>
 <li>Updated VST 3 SDK to version 3.7.6. This also fixes the crash when
@@ -798,6 +852,9 @@ instances.</li>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/WaveCymbal_0.1.20.zip">WaveCymbal
+0.1.20 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/WaveCymbal_0.1.19.zip">WaveCymbal
 0.1.19 - VST 3 (github.com)</a></li>

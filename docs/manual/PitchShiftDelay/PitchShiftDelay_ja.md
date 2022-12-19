@@ -7,22 +7,18 @@ lang: ja
 
 <ruby>PitchShiftDelay<rt>ピッチ シフト ディレイ</rt></ruby> はディレイを使った時間領域ピッチシフタです。 16 倍のオーバーサンプリングによってピッチシフタ特有の癖を多少抑えています。また内部のバッファ長をリアルタイムで変更できます。フォルマント補正がないので、声に使うとヘリウムを吸ったときのような音になります。
 
-- [PitchShiftDelay {{ latest_version["PitchShiftDelay"] }} をダウンロード - VST® 3 (github.com)]({{ latest_download_url["PitchShiftDelay"] }}) <img
+{% for target, download_url in latest_download_url["PitchShiftDelay"].items() %}
+- [PitchShiftDelay {{ latest_version["PitchShiftDelay"] }} `{{ target }}` - VST 3 をダウンロード (github.com)]({{ download_url }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
-  width="60px"
+  width="30px"
   style="display: inline-block; vertical-align: middle;">
+{%- endfor %}
 {%- if preset_download_url["PitchShiftDelay"]|length != 0%}
 - [プリセットをダウンロード (github.com)]({{ preset_download_url["PitchShiftDelay"] }})
 {%- endif %}
 
-パッケージには次のビルドが含まれています。
-
-- Windows 64bit
-- Linux 64bit
-- macOS universal binary
-
-Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は[ビルド手順](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md)に沿ってソースコードからビルドしてください。
+{{ section["package"] }}
 
 {{ section["contact_installation_guiconfig"] }}
 

@@ -98,14 +98,12 @@ if __name__ == "__main__":
     with open("../../package/manual.json", "r", encoding="utf-8") as fi:
         alias = json.load(fi)
 
-    release_name = "UhhyouPlugins0.46.0"
+    release_name = "UhhyouPlugins0.50.0"
     changelog_en = [
-        "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux.",
-        "Change BarBox to only send modified parameter values to host. This prevents to overwrite unchanged parameter automation on the same BarBox.",
+        "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak.",
     ]
     changelog_ja = [
-        "VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux で同一プラグインの GUI を複数開くとクラッシュするバグを修正。",
-        "BarBox が変更されたパラメータの値のみをホストに送るように変更。編集中の BarBox 上の変更されていないパラメータのオートメーションが上書きされないようになった。",
+        "クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。",
     ]
     for target in targets:
         updateVersion(target, alias, changelog_en, changelog_ja, release_name)

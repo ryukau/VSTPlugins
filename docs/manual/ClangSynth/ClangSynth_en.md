@@ -7,33 +7,31 @@ lang: en
 
 ClangSynth is a synthesizer suitable for percussion sounds. Each voice equips an 8 * 8 feedback delay network (FDN) as a resonator. Oscillator is static wavetalble with controls specialized to make pulse train.
 
-- [Download ClangSynth {{ latest_version["ClangSynth"] }} - VST® 3 (github.com)]({{ latest_download_url["ClangSynth"] }}) <img
+{% for target, download_url in latest_download_url["ClangSynth"].items() %}
+- [Download ClangSynth {{ latest_version["ClangSynth"] }} `{{ target }}` - VST 3 (github.com)]({{ download_url }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
-  width="60px"
+  width="30px"
   style="display: inline-block; vertical-align: middle;">
+{%- endfor %}
 {%- if preset_download_url["ClangSynth"]|length != 0%}
 - [Download Presets (github.com)]({{ preset_download_url["ClangSynth"] }})
 {%- endif %}
 
 ClangCymbal is a spin off of ClangSynth. FDN size is expended to 64 * 64 to provide more rich harmonics. However it is monophonic due to increased CPU load. Oscillator is changed for noise/pulse mix which is more suitable to make cymbal sounds. It can also make sound of manhole dragged on asphalt.
 
-- [Download ClangCymbal {{ latest_version["ClangCymbal"] }} - VST® 3 (github.com)]({{ latest_download_url["ClangCymbal"] }}) <img
+{% for target, download_url in latest_download_url["ClangCymbal"].items() %}
+- [Download ClangCymbal {{ latest_version["ClangCymbal"] }} `{{ target }}` - VST 3 (github.com)]({{ download_url }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
-  width="60px"
+  width="30px"
   style="display: inline-block; vertical-align: middle;">
+{%- endfor %}
 {%- if preset_download_url["ClangCymbal"]|length != 0%}
 - [Download Presets (github.com)]({{ preset_download_url["ClangCymbal"] }})
 {%- endif %}
 
-The package includes following builds:
-
-- Windows 64bit
-- Linux 64bit
-- macOS universal binary
-
-Linux build is built on Ubuntu 20.04. If you are using distribution other than Ubuntu 20.04, plugin will not likely to run. In this case, please take a look at [build instruction](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
+{{ section["package"] }}
 
 {{ section["contact_installation_guiconfig"] }}
 

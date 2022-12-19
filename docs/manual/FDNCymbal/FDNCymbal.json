@@ -1,8 +1,9 @@
 {
   "FDNCymbal": {
-    "latest_version": "0.2.13",
+    "latest_version": "0.2.14",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/FDNCymbal_0.2.14.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/FDNCymbal_0.2.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/FDNCymbal_0.2.12.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/FDNCymbal_0.2.11.zip",
@@ -23,6 +24,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/FDNCymbalPresets.zip"
     },
     "changelog": {
+      "0.2.14": {
+        "en": [
+          "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak."
+        ],
+        "ja": [
+          "クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。"
+        ]
+      },
       "0.2.13": {
         "en": [
           "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux."

@@ -7,33 +7,31 @@ lang: ja
 
 <ruby>ClangSynth<rt>クラング シンセ</rt></ruby> は金属的なパーカッションの音が得意なシンセサイザです。金属的な質感はフィードバック・ディレイ・ネットワーク (FDN) を用いたディレイ間のクロスフィードバックによるものです。 WaveCymbal や FDNCymbal よりはシンバルに似た音が出ます。
 
-- [ClangSynth {{ latest_version["ClangSynth"] }} をダウンロード - VST® 3 (github.com)]({{ latest_download_url["ClangSynth"] }}) <img
+{% for target, download_url in latest_download_url["ClangSynth"].items() %}
+- [ClangSynth {{ latest_version["ClangSynth"] }} `{{ target }}` - VST 3 をダウンロード (github.com)]({{ download_url }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
-  width="60px"
+  width="30px"
   style="display: inline-block; vertical-align: middle;">
+{%- endfor %}
 {%- if preset_download_url["ClangSynth"]|length != 0%}
 - [プリセットをダウンロード (github.com)]({{ preset_download_url["ClangSynth"] }})
 {%- endif %}
 
 <ruby>ClangCymbal<rt>クラング シンバル</rt></ruby> は ClangSynth のスピンオフです。 FDN の大きさが 64 * 64 に増えているので、よりリッチな倍音が出ます。ただし CPU 負荷も増えているのでモノフォニックです。オシレータはシンバルの合成に適したノイズとパルス列の混合に変更されています。マンホールをアスファルトの上で引きずったような音も出せます。
 
-- [ClangCymbal {{ latest_version["ClangCymbal"] }} をダウンロード - VST® 3 (github.com)]({{ latest_download_url["ClangCymbal"] }}) <img
+{% for target, download_url in latest_download_url["ClangCymbal"].items() %}
+- [ClangCymbal {{ latest_version["ClangCymbal"] }} `{{ target }}` - VST 3 をダウンロード (github.com)]({{ download_url }}) <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
-  width="60px"
+  width="30px"
   style="display: inline-block; vertical-align: middle;">
+{%- endfor %}
 {%- if preset_download_url["ClangCymbal"]|length != 0%}
 - [プリセットをダウンロード (github.com)]({{ preset_download_url["ClangCymbal"] }})
 {%- endif %}
 
-パッケージには次のビルドが含まれています。
-
-- Windows 64bit
-- Linux 64bit
-- macOS universal binary
-
-Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.04 以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は[ビルド手順](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md)に沿ってソースコードからビルドしてください。
+{{ section["package"] }}
 
 {{ section["contact_installation_guiconfig"] }}
 
