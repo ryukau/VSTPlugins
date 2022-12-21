@@ -44,34 +44,6 @@ public:
   }
 };
 
-template<typename Sample> class RateLimiter {
-private:
-  Sample target = 0;
-  Sample value = 0;
-
-public:
-  void reset(Sample value = 0)
-  {
-    this->value = value;
-    this->target = value;
-  }
-
-  void push(Sample target) { this->target = target; }
-
-  Sample process(Sample rate)
-  {
-    auto diff = target - value;
-    if (diff > rate) {
-      value += rate;
-    } else if (diff < -rate) {
-      value -= rate;
-    } else {
-      value = target;
-    }
-    return value;
-  }
-};
-
 template<typename Sample, size_t nValue> class ParallelCombSmoother {
 private:
   std::array<RateLimiter<Sample>, nValue> limiter;

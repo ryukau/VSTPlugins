@@ -302,4 +302,40 @@ private:
   Sample max = 1;
 };
 
+template<typename Sample> class RateLimiter {
+private:
+  Sample target = 0;
+  Sample value = 0;
+
+public:
+  inline Sample getValue() { return value; }
+
+  void reset(Sample value = 0)
+  {
+    this->value = value;
+    this->target = value;
+  }
+
+  void push(Sample target) { this->target = target; }
+
+  Sample process(Sample rate)
+  {
+    auto diff = target - value;
+    if (diff > rate) {
+      value += rate;
+    } else if (diff < -rate) {
+      value -= rate;
+    } else {
+      value = target;
+    }
+    return value;
+  }
+
+  Sample process(Sample value, Sample rate)
+  {
+    push(value);
+    return process(rate);
+  }
+};
+
 } // namespace SomeDSP
