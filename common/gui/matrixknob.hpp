@@ -1,4 +1,4 @@
-// (c) 2021 Takamitsu Endo
+// (c) 2021-2022 Takamitsu Endo
 //
 // This file is part of Uhhyou Plugins.
 //
@@ -231,6 +231,7 @@ public:
     if (event.buttonState.isLeft()) {
       isMouseLeftDown = true;
       setFocus(cursor);
+      beginEdit();
       if (event.modifiers.is(ModifierKey::Control)) {
         uint32_t idx = getIndex(focusRow, focusCol);
         value[idx] = defaultValue[idx];
@@ -250,6 +251,7 @@ public:
     isMouseLeftDown = false;
     isGrabbing = false;
     updateValueWithUndo();
+    endEdit();
     event.consumed = true;
   }
 
@@ -295,6 +297,7 @@ public:
       updateValueWithUndo();
       invalid();
     }
+    endEdit();
     event.consumed = true;
   }
 
@@ -424,7 +427,9 @@ public:
       event.consumed = true;
       return;
     }
+    beginEdit();
     updateValueWithUndo();
+    endEdit();
     invalid();
     event.consumed = true;
   }

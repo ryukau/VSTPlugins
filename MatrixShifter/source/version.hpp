@@ -2,7 +2,7 @@
 // (c) 2018, Steinberg Media Technologies GmbH, All Rights Reserved
 //
 // Modified by:
-// (c) 2021 Takamitsu Endo
+// (c) 2021-2022 Takamitsu Endo
 //
 // This file is part of MatrixShifter.
 //
@@ -29,11 +29,11 @@
 #define SUB_VERSION_STR "0"
 #define SUB_VERSION_INT 0
 
-#define RELEASE_NUMBER_STR "11"
-#define RELEASE_NUMBER_INT 11
+#define RELEASE_NUMBER_STR "12"
+#define RELEASE_NUMBER_INT 12
 
-#define BUILD_NUMBER_STR "11"
-#define BUILD_NUMBER_INT 11
+#define BUILD_NUMBER_STR "12"
+#define BUILD_NUMBER_INT 12
 
 #define FULL_VERSION_STR                                                                 \
   MAJOR_VERSION_STR "." SUB_VERSION_STR "." RELEASE_NUMBER_STR "." BUILD_NUMBER_STR
@@ -52,5 +52,5 @@
 #define stringCompanyWeb ""
 #define stringCompanyEmail "ryukau@gmail.com"
 
-#define stringLegalCopyright "Copyright 2021 Takamitsu Endo"
+#define stringLegalCopyright "Copyright 2021-2022 Takamitsu Endo"
 #define stringLegalTrademarks "VST is a trademark of Steinberg Media Technologies GmbH"
