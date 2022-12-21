@@ -40,6 +40,7 @@ namespace ParameterID {
 enum ID {
   bypass,
 
+  outputGain,
   mix,
   feedback,
   cutoffSpread,
@@ -50,6 +51,8 @@ enum ID {
   delayTimeSeconds,
   lfoToDelayAmount,
   lfoToDelayTuningType,
+
+  lfoToAmplitude,
 
   lfoWavetable0,
   lfoInterpolation = lfoWavetable0 + nLfoWavetable,
@@ -74,6 +77,7 @@ struct Scales {
 
   static SomeDSP::UIntScale<double> stage;
 
+  static SomeDSP::DecibelScale<double> outputGain;
   static SomeDSP::DecibelScale<double> gain;
   static SomeDSP::DecibelScale<double> cutoffHz;
   static SomeDSP::DecibelScale<double> delayTimeSeconds;
@@ -103,6 +107,9 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::bypass] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
+    value[ID::outputGain] = std::make_unique<DecibelValue>(
+      Scales::outputGain.invmapDB(0.0), Scales::outputGain, "outputGain",
+      Info::kCanAutomate);
     value[ID::mix] = std::make_unique<LinearValue>(
       0.5, Scales::defaultScale, "mix", Info::kCanAutomate);
     value[ID::feedback] = std::make_unique<LinearValue>(
@@ -118,12 +125,15 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::stage]
       = std::make_unique<UIntValue>(15, Scales::stage, "stage", Info::kCanAutomate);
     value[ID::delayTimeSeconds] = std::make_unique<DecibelValue>(
-      Scales::delayTimeSeconds.invmap(0.005), Scales::delayTimeSeconds,
+      Scales::delayTimeSeconds.invmap(0.0002), Scales::delayTimeSeconds,
       "delayTimeSeconds", Info::kCanAutomate);
     value[ID::lfoToDelayAmount] = std::make_unique<DecibelValue>(
       0.1, Scales::delayTimeSeconds, "lfoToDelayAmount", Info::kCanAutomate);
     value[ID::lfoToDelayTuningType] = std::make_unique<UIntValue>(
       0, Scales::lfoToDelayTuningType, "lfoToDelayTuningType", Info::kCanAutomate);
+
+    value[ID::lfoToAmplitude] = std::make_unique<LinearValue>(
+      0.5, Scales::bipolarScale, "lfoToAmplitude", Info::kCanAutomate);
 
     std::string lfoWavetableLabel("lfoWavetable");
     for (size_t idx = 0; idx < nLfoWavetable; ++idx) {

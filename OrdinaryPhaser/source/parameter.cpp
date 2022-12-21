@@ -31,6 +31,7 @@ LinearScale<double> Scales::bipolarScale(-1.0, 1.0);
 
 UIntScale<double> Scales::stage(maxAllpass - 1);
 
+DecibelScale<double> Scales::outputGain(-60.0, 20.0, true);
 DecibelScale<double> Scales::gain(-60.0, 60.0, true);
 DecibelScale<double> Scales::cutoffHz(0.0, 100.0, false);
 DecibelScale<double> Scales::delayTimeSeconds(-100.0, 0.0, true);

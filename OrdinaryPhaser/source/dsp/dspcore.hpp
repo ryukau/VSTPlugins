@@ -55,6 +55,7 @@ private:
   double upRate = upFold * 44100;
 
   RotarySmoother<double> lfoPhaseConstant;
+  ExpSmoother<double> outputGain;
   ExpSmoother<double> mix;
   ExpSmoother<double> lfoPhaseOffset;
   ExpSmoother<double> cutoffSpread;
@@ -63,6 +64,7 @@ private:
   ExpSmoother<double> feedback;
   ExpSmoother<double> delayTimeSamples;
   ExpSmoother<double> lfoToDelay;
+  ExpSmoother<double> lfoToAmplitude;
 
   size_t currentAllpassStage = 0;
   size_t previousAllpassStage = 0;

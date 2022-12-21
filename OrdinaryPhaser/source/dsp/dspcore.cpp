@@ -54,6 +54,7 @@ size_t DSPCore::getLatency() { return 0; }
     lfo.source[idx + 1] = pv[ID::lfoWavetable0 + idx]->getFloat();                       \
   }                                                                                      \
                                                                                          \
+  outputGain.METHOD(pv[ID::outputGain]->getDouble());                                    \
   mix.METHOD(pv[ID::mix]->getDouble());                                                  \
   lfoPhaseOffset.METHOD(pv[ID::lfoPhaseOffset]->getDouble());                            \
   lfoPhaseConstant.METHOD(pv[ID::lfoPhaseConstant]->getDouble());                        \
@@ -62,7 +63,8 @@ size_t DSPCore::getLatency() { return 0; }
   cutoffMaxHz.METHOD(pv[ID::cutoffMaxHz]->getDouble());                                  \
   feedback.METHOD(pv[ID::feedback]->getDouble());                                        \
   delayTimeSamples.METHOD(pv[ID::delayTimeSeconds]->getDouble() * upRate);               \
-  lfoToDelay.METHOD(pv[ID::lfoToDelayAmount]->getDouble());
+  lfoToDelay.METHOD(pv[ID::lfoToDelayAmount]->getDouble());                              \
+  lfoToAmplitude.METHOD(pv[ID::lfoToAmplitude]->getDouble());
 
 void DSPCore::reset()
 {
@@ -132,6 +134,7 @@ void DSPCore::process(
 
     for (size_t j = 0; j < upFold; ++j) {
       lfoPhaseConstant.process();
+      outputGain.process();
       mix.process();
       lfoPhaseOffset.process();
       cutoffSpread.process();
@@ -140,6 +143,7 @@ void DSPCore::process(
       feedback.process();
       auto baseTime = delayTimeSamples.process();
       lfoToDelay.process();
+      lfoToAmplitude.process();
 
       lfo.offset[0] = lfoPhaseConstant.getValue() + lfoPhaseOffset.getValue();
       lfo.offset[1] = lfoPhaseConstant.getValue() - lfoPhaseOffset.getValue();
@@ -201,11 +205,14 @@ void DSPCore::process(
         apOut1 += ratio * (allpass[1][previousAllpassStage].output() - apOut1);
       }
 
-      feedbackBuffer[0] = lerp(double(in0[i]), apOut0, mix.getValue());
-      feedbackBuffer[1] = lerp(double(in1[i]), apOut1, mix.getValue());
+      auto am0 = lerp(double(1), lfo.output[0], lfoToAmplitude.getValue());
+      auto am1 = lerp(double(1), lfo.output[1], lfoToAmplitude.getValue());
 
-      frame[0][j] = feedbackBuffer[0];
-      frame[1][j] = feedbackBuffer[1];
+      feedbackBuffer[0] = lerp(double(in0[i]), am0 * apOut0, mix.getValue());
+      feedbackBuffer[1] = lerp(double(in1[i]), am1 * apOut1, mix.getValue());
+
+      frame[0][j] = feedbackBuffer[0] * outputGain.getValue();
+      frame[1][j] = feedbackBuffer[1] * outputGain.getValue();
     }
 
     out0[i] = halfbandIir[0].process(frame[0]);
