@@ -400,16 +400,16 @@ public:
       multiplySkip(index, 3);
     } else if (event.character == '4') { // Decrease 4n.
       multiplySkip(index, 4);
-    } else if (event.character == '5') { // Decrease 5n.
-      multiplySkip(index, 5);
-    } else if (event.character == '6') { // Decrease 6n.
-      multiplySkip(index, 6);
-    } else if (event.character == '7') { // Decrease 7n.
-      multiplySkip(index, 7);
-    } else if (event.character == '8') { // Decrease 8n.
-      multiplySkip(index, 8);
-    } else if (event.character == '9') { // Decrease 9n.
-      multiplySkip(index, 9);
+    } else if (event.character == '5') { // Decimate and hold 2 samples.
+      decimateHold(index, 2);
+    } else if (event.character == '6') { // Decimate and hold 3 samples.
+      decimateHold(index, 3);
+    } else if (event.character == '7') { // Decimate and hold 4 samples.
+      decimateHold(index, 4);
+    } else if (event.character == '8') { // Decimate and hold 5 samples.
+      decimateHold(index, 5);
+    } else if (event.character == '9') { // Decimate and hold 6 samples.
+      decimateHold(index, 6);
     } else {
       event.consumed = true;
       return;
@@ -884,6 +884,19 @@ private:
     for (size_t i = start; i < value.size(); i += interval) {
       if (barState[i] != BarState::active) continue;
       setValueAt(i, (value[i] - sliderZero) * 0.9 + sliderZero);
+    }
+  }
+
+  void decimateHold(size_t start, size_t interval)
+  {
+    size_t counter = 0;
+    double hold = 0;
+    for (size_t i = start; i < value.size(); ++i) {
+      if (barState[i] != BarState::active) continue;
+
+      if (counter == 0) hold = value[i];
+      counter = (counter + 1) % interval;
+      setValueAt(i, hold);
     }
   }
 
