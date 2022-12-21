@@ -140,10 +140,10 @@ bool Editor::prepareUI()
   addCheckbox(
     lfoLeft2, lfoTop2, knobWidth, labelHeight, uiTextSize, "Sync.", ID::lfoTempoSync);
   addTextKnob(
-    lfoLeft3, lfoTop2 + 2 * margin, knobWidth, labelHeight, uiTextSize, ID::lfoTempoUpper,
+    lfoLeft3, lfoTop2 - 2 * margin, knobWidth, labelHeight, uiTextSize, ID::lfoTempoUpper,
     Scales::lfoTempoUpper, false, 0, 1);
   addTextKnob(
-    lfoLeft3, lfoTop2 - 2 * margin, knobWidth, labelHeight, uiTextSize, ID::lfoTempoLower,
+    lfoLeft3, lfoTop2 + 2 * margin, knobWidth, labelHeight, uiTextSize, ID::lfoTempoLower,
     Scales::lfoTempoLower, false, 0, 1);
   addKnob(lfoLeft4, lfoTop1, knobWidth, margin, uiTextSize, "Rate", ID::lfoRate);
 
