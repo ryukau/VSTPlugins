@@ -64,7 +64,7 @@ size_t DSPCore::getLatency() { return 0; }
   feedback.METHOD(pv[ID::feedback]->getDouble());                                        \
   delayTimeSamples.METHOD(pv[ID::delayTimeSeconds]->getDouble() * upRate);               \
   lfoToDelay.METHOD(pv[ID::lfoToDelayAmount]->getDouble());                              \
-  lfoToAmplitude.METHOD(pv[ID::lfoToAmplitude]->getDouble());
+  inputToDelayTime.METHOD(pv[ID::inputToDelayTime]->getDouble());
 
 void DSPCore::reset()
 {
@@ -141,9 +141,9 @@ void DSPCore::process(
       auto cutMinHz = cutoffMinHz.process();
       auto cutMaxHz = cutoffMaxHz.process();
       feedback.process();
-      auto baseTime = delayTimeSamples.process();
+      delayTimeSamples.process();
       lfoToDelay.process();
-      lfoToAmplitude.process();
+      inputToDelayTime.process();
 
       lfo.offset[0] = lfoPhaseConstant.getValue() + lfoPhaseOffset.getValue();
       lfo.offset[1] = lfoPhaseConstant.getValue() - lfoPhaseOffset.getValue();
@@ -156,31 +156,38 @@ void DSPCore::process(
       auto apCut1 = (centerHz + rangeHz * lfo.output[1]) / upRate;
 
       std::array<double, 2> dt{};
+      auto baseTime0 = delayTimeSamples.process()
+        * lerp(double(1), std::abs(frame[0][j]), inputToDelayTime.getValue());
+      auto baseTime1 = delayTimeSamples.process()
+        * lerp(double(1), std::abs(frame[1][j]), inputToDelayTime.getValue());
       switch (lfoToDelayTuningType) {
         case 0: { // Exp Mul.
           auto amount = double(8) * lfoToDelay.getValue();
-          dt[0] = baseTime * std::exp2(amount * lfo.output[0]);
-          dt[1] = baseTime * std::exp2(amount * lfo.output[1]);
+          dt[0] = baseTime0 * std::exp2(amount * lfo.output[0]);
+          dt[1] = baseTime1 * std::exp2(amount * lfo.output[1]);
         } break;
         case 1: { // Linear Mul.
-          dt[0] = baseTime * (double(1) + lfoToDelay.getValue() * lfo.output[0]);
-          dt[1] = baseTime * (double(1) + lfoToDelay.getValue() * lfo.output[1]);
+          dt[0] = baseTime0 * (double(1) + lfoToDelay.getValue() * lfo.output[0]);
+          dt[1] = baseTime1 * (double(1) + lfoToDelay.getValue() * lfo.output[1]);
         } break;
         case 2: { // Add
           auto range = lfoToDelay.getValue() * maxDelayTime * upRate;
-          dt[0] = baseTime + lfo.output[0] * range;
-          dt[1] = baseTime + lfo.output[1] * range;
+          dt[0] = baseTime0 + lfo.output[0] * range;
+          dt[1] = baseTime1 + lfo.output[1] * range;
         } break;
         case 3: { // Fill Lower
-          auto range = lfoToDelay.getValue() * double(0.5) * baseTime;
-          dt[0] = baseTime - range + lfo.output[0] * range;
-          dt[1] = baseTime - range + lfo.output[1] * range;
+          auto range0 = lfoToDelay.getValue() * double(0.5) * baseTime0;
+          auto range1 = lfoToDelay.getValue() * double(0.5) * baseTime1;
+          dt[0] = baseTime0 - range0 + lfo.output[0] * range0;
+          dt[1] = baseTime1 - range1 + lfo.output[1] * range1;
         } break;
         case 4: { // Fill Higher
-          auto range
-            = lfoToDelay.getValue() * double(0.5) * (maxDelayTime * upRate - baseTime);
-          dt[0] = baseTime + range + lfo.output[0] * range;
-          dt[1] = baseTime + range + lfo.output[1] * range;
+          auto range0
+            = lfoToDelay.getValue() * double(0.5) * (maxDelayTime * upRate - baseTime0);
+          auto range1
+            = lfoToDelay.getValue() * double(0.5) * (maxDelayTime * upRate - baseTime1);
+          dt[0] = baseTime0 + range0 + lfo.output[0] * range0;
+          dt[1] = baseTime1 + range1 + lfo.output[1] * range1;
         } break;
       }
       frame[0][j]
@@ -205,11 +212,8 @@ void DSPCore::process(
         apOut1 += ratio * (allpass[1][previousAllpassStage].output() - apOut1);
       }
 
-      auto am0 = lerp(double(1), lfo.output[0], lfoToAmplitude.getValue());
-      auto am1 = lerp(double(1), lfo.output[1], lfoToAmplitude.getValue());
-
-      feedbackBuffer[0] = lerp(double(in0[i]), am0 * apOut0, mix.getValue());
-      feedbackBuffer[1] = lerp(double(in1[i]), am1 * apOut1, mix.getValue());
+      feedbackBuffer[0] = lerp(double(in0[i]), apOut0, mix.getValue());
+      feedbackBuffer[1] = lerp(double(in1[i]), apOut1, mix.getValue());
 
       frame[0][j] = feedbackBuffer[0] * outputGain.getValue();
       frame[1][j] = feedbackBuffer[1] * outputGain.getValue();

@@ -64,7 +64,7 @@ private:
   ExpSmoother<double> feedback;
   ExpSmoother<double> delayTimeSamples;
   ExpSmoother<double> lfoToDelay;
-  ExpSmoother<double> lfoToAmplitude;
+  ExpSmoother<double> inputToDelayTime;
 
   size_t currentAllpassStage = 0;
   size_t previousAllpassStage = 0;

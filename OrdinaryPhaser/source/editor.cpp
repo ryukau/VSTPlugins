@@ -110,10 +110,10 @@ bool Editor::prepareUI()
   addOptionMenu(
     apLeftHalf, apTop5, apSectionHalfWidth, labelHeight, uiTextSize,
     ID::lfoToDelayTuningType, lfoToDelayTuningTypeItems);
-  addLabel(apLeft0, apTop6, apSectionHalfWidth, labelHeight, uiTextSize, "AM");
+  addLabel(apLeft0, apTop6, apSectionHalfWidth, labelHeight, uiTextSize, "FM");
   addTextKnob(
-    apLeftHalf, apTop6, apSectionHalfWidth, labelHeight, uiTextSize, ID::lfoToAmplitude,
-    Scales::bipolarScale, false, 5);
+    apLeftHalf, apTop6, apSectionHalfWidth, labelHeight, uiTextSize, ID::inputToDelayTime,
+    Scales::defaultScale, false, 5);
   addLabel(apLeft0, apTop7, apSectionHalfWidth, labelHeight, uiTextSize, "Stage");
   addTextKnob(
     apLeftHalf, apTop7, apSectionHalfWidth, labelHeight, uiTextSize, ID::stage,

@@ -52,7 +52,7 @@ enum ID {
   lfoToDelayAmount,
   lfoToDelayTuningType,
 
-  lfoToAmplitude,
+  inputToDelayTime,
 
   lfoWavetable0,
   lfoInterpolation = lfoWavetable0 + nLfoWavetable,
@@ -132,8 +132,8 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::lfoToDelayTuningType] = std::make_unique<UIntValue>(
       0, Scales::lfoToDelayTuningType, "lfoToDelayTuningType", Info::kCanAutomate);
 
-    value[ID::lfoToAmplitude] = std::make_unique<LinearValue>(
-      0.5, Scales::bipolarScale, "lfoToAmplitude", Info::kCanAutomate);
+    value[ID::inputToDelayTime] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "inputToDelayTime", Info::kCanAutomate);
 
     std::string lfoWavetableLabel("lfoWavetable");
     for (size_t idx = 0; idx < nLfoWavetable; ++idx) {
