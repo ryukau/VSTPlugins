@@ -131,7 +131,7 @@ public:
   }
 };
 
-template<typename Sample> class LinearTempoSynchronizer {
+template<typename Sample, size_t _transitionTime_ = 1024> class LinearTempoSynchronizer {
 private:
   enum class State { free, steady, catchingUp };
 
@@ -142,7 +142,7 @@ private:
   Sample lastSync = 0;
   double lastElapsedBeats = 0;
 
-  static constexpr Sample transitionTime = Sample(1024); // In samples.
+  static constexpr Sample transitionTime = Sample(_transitionTime_); // In samples.
   Sample v2 = 0;
   Sample counter = 0;
 
