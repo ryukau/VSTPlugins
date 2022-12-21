@@ -22,6 +22,8 @@ Following plugins are experimental, or in α stage. They lack character and/or p
   - Naive waveshapers with 16-fold oversampling.
 - MatrixShifter
   - AM frequency shifter and chorus in a plugin.
+- LongPhaser, OrdinaryPhaser
+  - Some phasers.
 
 ## Files and Directories
 - `.github/workflows` and `ci`: Continuous integration (CI) scripts for GitHub Actions.
