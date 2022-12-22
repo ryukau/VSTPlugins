@@ -159,15 +159,15 @@ public:
 
   void reset() { buf.fill(Sample(0)); }
 
+  // 3rd order Lagrange Interpolation.
   // Range of t is in [0, 1]. Interpolates between y1 and y2.
   inline Sample cubicInterp(const std::array<Sample, 4> &y, Sample t)
   {
-    auto t2 = t * t;
-    auto c0 = y[1] - y[2];
-    auto c1 = (y[2] - y[0]) * 0.5f;
-    auto c2 = c0 + c1;
-    auto c3 = c0 + c2 + (y[3] - y[1]) * 0.5f;
-    return c3 * t * t2 - (c2 + c3) * t2 + c1 * t + y[1];
+    auto u = 1 + t;
+    auto d0 = y[0] - y[1];
+    auto d1 = d0 - (y[1] - y[2]);
+    auto d2 = d1 - ((y[1] - y[2]) - (y[2] - y[3]));
+    return y[0] - u * (d0 + (1 - u) / 2 * (d1 + (2 - u) / 3 * d2));
   }
 
   void process(Sample input)
