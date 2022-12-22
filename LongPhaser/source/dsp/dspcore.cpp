@@ -146,8 +146,8 @@ void DSPCore::process(
       lfo.offset[1] = lfoPhaseConstant.getValue() - lfoPhaseOffset.getValue();
       lfo.process(synchronizer.process());
 
-      frame[0][j] += outerFeed.getValue() * feedbackBuffer[0];
-      frame[1][j] += outerFeed.getValue() * feedbackBuffer[1];
+      auto sig0 = frame[0][j] + outerFeed.getValue() * feedbackBuffer[0];
+      auto sig1 = frame[1][j] + outerFeed.getValue() * feedbackBuffer[1];
 
       auto upRange = double(1) - std::abs(innerFeed.getValue());
       auto downRange = double(2) - upRange;
@@ -166,10 +166,10 @@ void DSPCore::process(
         for (size_t idx = 0; idx < maxAllpass; ++idx) {
           auto base = delayTimeCenterSamples.getValue()
             / (double(1) + idx * delayTimeSpread.getValue());
-          frame[0][j] = allpass[0][idx].process(
-            frame[0][j], dlyTimeLfo0 * base, delayTimeRateLimit.getValue(), innerFeed0);
-          frame[1][j] = allpass[1][idx].process(
-            frame[1][j], dlyTimeLfo1 * base, delayTimeRateLimit.getValue(), innerFeed1);
+          sig0 = allpass[0][idx].process(
+            sig0, dlyTimeLfo0 * base, delayTimeRateLimit.getValue(), innerFeed0);
+          sig1 = allpass[1][idx].process(
+            sig1, dlyTimeLfo1 * base, delayTimeRateLimit.getValue(), innerFeed1);
         }
       } else { // Add
         auto dlyTimeLfo0 = lfo.output[0] * delayTimeModAmount.getValue() * upRate / 8.0;
@@ -177,10 +177,10 @@ void DSPCore::process(
         for (size_t idx = 0; idx < maxAllpass; ++idx) {
           auto base = delayTimeCenterSamples.getValue()
             / (double(1) + idx * delayTimeSpread.getValue());
-          frame[0][j] = allpass[0][idx].process(
-            frame[0][j], dlyTimeLfo0 + base, delayTimeRateLimit.getValue(), innerFeed0);
-          frame[1][j] = allpass[1][idx].process(
-            frame[1][j], dlyTimeLfo1 + base, delayTimeRateLimit.getValue(), innerFeed1);
+          sig0 = allpass[0][idx].process(
+            sig0, dlyTimeLfo0 + base, delayTimeRateLimit.getValue(), innerFeed0);
+          sig1 = allpass[1][idx].process(
+            sig1, dlyTimeLfo1 + base, delayTimeRateLimit.getValue(), innerFeed1);
         }
       }
 
@@ -195,8 +195,8 @@ void DSPCore::process(
         apOut1 += ratio * (allpass[1][previousAllpassStage].output - apOut1);
       }
 
-      feedbackBuffer[0] = lerp(double(in0[i]), apOut0, mix.getValue());
-      feedbackBuffer[1] = lerp(double(in1[i]), apOut1, mix.getValue());
+      feedbackBuffer[0] = lerp(double(frame[0][j]), apOut0, mix.getValue());
+      feedbackBuffer[1] = lerp(double(frame[1][j]), apOut1, mix.getValue());
 
       frame[0][j] = feedbackBuffer[0] * outputGain.getValue();
       frame[1][j] = feedbackBuffer[1] * outputGain.getValue();

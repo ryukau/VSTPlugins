@@ -186,15 +186,15 @@ void DSPCore::process(
           dt[1] = baseTime1 + range1 + lfo.output[1] * range1;
         } break;
       }
-      frame[0][j]
-        += feedbackDelay[0].process(feedback.getValue() * feedbackBuffer[0], dt[0]);
-      frame[1][j]
-        += feedbackDelay[1].process(feedback.getValue() * feedbackBuffer[1], dt[1]);
+      auto sig0 = frame[0][j]
+        + feedbackDelay[0].process(feedback.getValue() * feedbackBuffer[0], dt[0]);
+      auto sig1 = frame[1][j]
+        + feedbackDelay[1].process(feedback.getValue() * feedbackBuffer[1], dt[1]);
 
       for (size_t idx = 0; idx < maxAllpass; ++idx) {
         auto multiplier = double(1) + idx * cutoffSpread.getValue();
-        frame[0][j] = allpass[0][idx].process(frame[0][j], apCut0 * multiplier);
-        frame[1][j] = allpass[1][idx].process(frame[1][j], apCut1 * multiplier);
+        sig0 = allpass[0][idx].process(sig0, apCut0 * multiplier);
+        sig1 = allpass[1][idx].process(sig1, apCut1 * multiplier);
       }
 
       auto apOut0 = allpass[0][currentAllpassStage].output();
@@ -208,8 +208,8 @@ void DSPCore::process(
         apOut1 += ratio * (allpass[1][previousAllpassStage].output() - apOut1);
       }
 
-      feedbackBuffer[0] = lerp(double(in0[i]), apOut0, mix.getValue());
-      feedbackBuffer[1] = lerp(double(in1[i]), apOut1, mix.getValue());
+      feedbackBuffer[0] = lerp(double(frame[0][j]), apOut0, mix.getValue());
+      feedbackBuffer[1] = lerp(double(frame[1][j]), apOut1, mix.getValue());
 
       frame[0][j] = feedbackBuffer[0] * outputGain.getValue();
       frame[1][j] = feedbackBuffer[1] * outputGain.getValue();
