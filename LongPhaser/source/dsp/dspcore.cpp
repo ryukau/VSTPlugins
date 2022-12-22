@@ -89,11 +89,7 @@ void DSPCore::reset()
   startup();
 }
 
-void DSPCore::startup()
-{
-  synchronizer.reset(upRate, tempo, getTempoSyncInterval());
-  phase = 0;
-}
+void DSPCore::startup() { synchronizer.reset(upRate, tempo, getTempoSyncInterval()); }
 
 void DSPCore::setParameters() { ASSIGN_PARAMETER(push); }
 

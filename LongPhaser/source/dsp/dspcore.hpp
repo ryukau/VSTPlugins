@@ -77,7 +77,6 @@ private:
   std::array<double, 2> previousInput{};
   std::array<double, 2> feedbackBuffer{};
   std::array<std::array<double, 2>, 2> frame{};
-  double phase = 0;
   std::array<std::array<LongAllpass<double>, maxAllpass>, 2> allpass;
   std::array<HalfBandIIR<double, HalfBandCoefficient<double>>, 2> halfbandIir;
 };

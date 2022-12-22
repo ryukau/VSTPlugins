@@ -77,7 +77,6 @@ private:
   std::array<double, 2> feedbackBuffer{};
   std::array<double, 2> previousInput{};
   std::array<std::array<double, 2>, 2> frame{};
-  double phase = 0;
   std::array<std::array<ZDFOnePoleAllpass<double>, maxAllpass>, 2> allpass;
   std::array<Delay<double>, 2> feedbackDelay;
   std::array<HalfBandIIR<double, HalfBandCoefficient<double>>, 2> halfbandIir;
