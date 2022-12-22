@@ -76,8 +76,8 @@ bool Editor::prepareUI()
   constexpr auto apTop7 = apTop6 + labelY;
 
   constexpr auto apLeft0 = left0;
-  constexpr auto apLeft1 = apLeft0 + 1 * knobX;
-  constexpr auto apLeft2 = apLeft0 + 2 * knobX;
+  constexpr auto apLeft1 = apLeft0 + knobX;
+  constexpr auto apLeft2 = apLeft1 + knobX;
 
   constexpr auto apSectionHalfWidth = int(1.5 * knobX) - margin;
   constexpr auto apLeftHalf = apLeft0 + apSectionHalfWidth;
@@ -121,7 +121,7 @@ bool Editor::prepareUI()
 
   // LFO.
   constexpr auto lfoTop0 = top0;
-  constexpr auto lfoTop1 = lfoTop0 + 1 * labelY;
+  constexpr auto lfoTop1 = lfoTop0 + labelY;
   constexpr auto lfoTop2 = lfoTop1 + 5 * margin;
   constexpr auto lfoTop3 = lfoTop1 + knobY;
   constexpr auto lfoLeft0 = apLeft2 + knobX + 2 * margin;
