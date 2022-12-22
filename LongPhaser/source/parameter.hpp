@@ -149,7 +149,7 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::lfoTempoLower] = std::make_unique<UIntValue>(
       0, Scales::lfoTempoLower, "lfoTempoLower", Info::kCanAutomate);
     value[ID::lfoRate] = std::make_unique<DecibelValue>(
-      Scales::lfoRate.invmap(1.0), Scales::gain, "lfoRate", Info::kCanAutomate);
+      Scales::lfoRate.invmap(1.0), Scales::lfoRate, "lfoRate", Info::kCanAutomate);
     value[ID::lfoPhaseOffset] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "lfoPhaseOffset", Info::kCanAutomate);
     value[ID::lfoPhaseConstant] = std::make_unique<LinearValue>(
