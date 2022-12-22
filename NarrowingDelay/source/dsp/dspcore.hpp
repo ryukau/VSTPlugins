@@ -49,7 +49,7 @@ public:
 private:
   double getTempoSyncInterval();
 
-  static constexpr size_t upFold = 2;
+  static constexpr size_t upFold = 8;
 
   double sampleRate = 44100;
   double upRate = upFold * 44100;
@@ -71,13 +71,12 @@ private:
 
   LinearTempoSynchronizer<double, 32768> synchronizer;
 
-  std::array<double, 2> previousInput{};
   std::array<double, 2> feedbackBuffer{};
-  std::array<double, 2> secondaryBuffer{};
-  std::array<std::array<double, 2>, 2> frame{};
+  std::array<CubicUpSampler<double, upFold>, 2> upSampler;
   std::array<SVF<double>, 2> feedbackHighpass;
   std::array<SVF<double>, 2> feedbackLowpass;
   std::array<AMFrequencyShifter<double>, 2> frequencyShifter;
   std::array<PitchShiftDelay<double>, 2> pitchShifter;
+  std::array<DecimationLowpass<double, Sos8FoldFirstStage<double>>, 2> decimationLowpass;
   std::array<HalfBandIIR<double, HalfBandCoefficient<double>>, 2> halfbandIir;
 };

@@ -31,7 +31,7 @@ LinearScale<double> Scales::bipolarScale(-1.0, 1.0);
 
 DecibelScale<double> Scales::gain(-60.0, 20.0, true);
 DecibelScale<double> Scales::delayTimeSeconds(-80.0, 20 * std::log10(maxDelayTime), true);
-LinearScale<double> Scales::shiftPitch(-8.0, 3.0);
+LinearScale<double> Scales::shiftPitch(-4.0, 4.0);
 DecibelScale<double> Scales::shiftHz(-40.0, 100.0, true);
 DecibelScale<double> Scales::cutoffHz(0.0, 100.0, false);
 LinearScale<double> Scales::lfoToPrimary(-4.0, 4.0);

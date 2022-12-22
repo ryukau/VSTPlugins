@@ -79,16 +79,14 @@ void DSPCore::reset()
 {
   ASSIGN_PARAMETER(reset);
 
-  previousInput.fill(0);
-  frame.fill({});
-
   feedbackBuffer.fill({});
-  secondaryBuffer.fill({});
-  for (auto &hp : feedbackHighpass) hp.reset();
-  for (auto &lp : feedbackLowpass) lp.reset();
-  for (auto &fs : frequencyShifter) fs.reset();
-  for (auto &ps : pitchShifter) ps.reset();
-  for (auto &hb : halfbandIir) hb.reset();
+  for (auto &x : upSampler) x.reset();
+  for (auto &x : feedbackHighpass) x.reset();
+  for (auto &x : feedbackLowpass) x.reset();
+  for (auto &x : frequencyShifter) x.reset();
+  for (auto &x : pitchShifter) x.reset();
+  for (auto &x : decimationLowpass) x.reset();
+  for (auto &x : halfbandIir) x.reset();
 
   startup();
 }
@@ -113,10 +111,8 @@ void DSPCore::process(
 
   for (size_t i = 0; i < length; ++i) {
     // Crude up-sampling with linear interpolation.
-    frame[0][0] = double(0.5) * (previousInput[0] + in0[i]);
-    frame[1][0] = double(0.5) * (previousInput[1] + in1[i]);
-    frame[0][1] = in0[i];
-    frame[1][1] = in1[i];
+    upSampler[0].process(in0[i]);
+    upSampler[1].process(in1[i]);
 
     for (size_t j = 0; j < upFold; ++j) {
       lfoPhaseConstant.process();
@@ -145,9 +141,9 @@ void DSPCore::process(
 
       // Primary feedback shifter.
       auto fb0 = feedbackLowpass[0].lowpass(feedbackHighpass[0].highpass(
-        frame[0][j] - feedback.getValue() * feedbackBuffer[0]));
+        upSampler[0].output[j] - feedback.getValue() * feedbackBuffer[0]));
       auto fb1 = feedbackLowpass[1].lowpass(feedbackHighpass[1].highpass(
-        frame[1][j] - feedback.getValue() * feedbackBuffer[1]));
+        upSampler[1].output[j] - feedback.getValue() * feedbackBuffer[1]));
 
       auto modHz0 = std::exp2(lfoOut0 * lfoToPrimaryShiftHz.getValue());
       auto modHz1 = std::exp2(lfoOut1 * lfoToPrimaryShiftHz.getValue());
@@ -164,17 +160,19 @@ void DSPCore::process(
         fs1, shiftPitch.getValue() * modPitch1, delayTimeSamples.getValue() * modTime1);
 
       // Output mix.
-      frame[0][j]
-        = dryGain.getValue() * frame[0][j] + wetGain.getValue() * feedbackBuffer[0];
-      frame[1][j]
-        = dryGain.getValue() * frame[1][j] + wetGain.getValue() * feedbackBuffer[1];
+      decimationLowpass[0].push(
+        dryGain.getValue() * upSampler[0].output[j]
+        + wetGain.getValue() * feedbackBuffer[0]);
+      decimationLowpass[1].push(
+        dryGain.getValue() * upSampler[1].output[j]
+        + wetGain.getValue() * feedbackBuffer[1]);
+
+      upSampler[0].output[j] = decimationLowpass[0].output();
+      upSampler[1].output[j] = decimationLowpass[1].output();
     }
 
-    out0[i] = halfbandIir[0].process(frame[0]);
-    out1[i] = halfbandIir[1].process(frame[1]);
-
-    previousInput[0] = in0[i];
-    previousInput[1] = in1[i];
+    out0[i] = halfbandIir[0].process({upSampler[0].output[0], upSampler[0].output[4]});
+    out1[i] = halfbandIir[1].process({upSampler[1].output[0], upSampler[1].output[4]});
   }
 }
 
