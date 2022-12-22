@@ -157,7 +157,7 @@ public:
   }
 };
 
-template<typename Sample, size_t nParallel> class AMPitchShiter {
+template<typename Sample, size_t nParallel> class AMFrequencyShifter {
 public:
   void reset()
   {
@@ -227,7 +227,7 @@ private:
   std::array<Sample, 8> y2{};
 };
 
-template<typename Sample, size_t nParallel> class AMPitchShiterFixed {
+template<typename Sample, size_t nParallel> class AMFrequencyShifterFixed {
 private:
   constexpr static std::array<Sample, 4> coRe{
     Sample(0.16175849836770106), Sample(0.7330289323414905), Sample(0.9453497003291133),
@@ -311,7 +311,7 @@ public:
 
 template<typename Sample, size_t nParallel, size_t nSerial> class MultiShifter {
 public:
-  std::array<AMPitchShiterFixed<Sample, nParallel>, nSerial> shifter;
+  std::array<AMFrequencyShifterFixed<Sample, nParallel>, nSerial> shifter;
   std::array<Delay<Sample>, nSerial> delay;
   SVF<Sample, 7> svf;
   Sample buf = 0;
