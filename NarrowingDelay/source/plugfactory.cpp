@@ -30,7 +30,7 @@
 #include "version.hpp"
 
 // Subcategory for this Plug-in (see PlugType in ivstaudioprocessor.h)
-#define stringSubCategory Steinberg::Vst::PlugType::kFxModulation
+#define stringSubCategory Steinberg::Vst::PlugType::kFxDelay
 
 BEGIN_FACTORY_DEF(stringCompanyName, stringCompanyWeb, stringCompanyEmail)
 

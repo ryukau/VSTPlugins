@@ -161,12 +161,17 @@ bool Editor::prepareUI()
 
   // Misc.
   constexpr auto miscTop0 = lfoTop0 + labelY + knobY + barboxHeight + 4 * margin;
-  constexpr auto miscLeft0 = left0 + int(3.75 * knobX);
+  constexpr auto miscLeft0 = lfoLeft0 + int(0.25 * knobX);
   constexpr auto miscLeft1 = miscLeft0 + labelWidth;
+  constexpr auto miscLeft2 = miscLeft1 + labelWidth + 4 * margin;
   addLabel(miscLeft0, miscTop0, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
   addTextKnob(
     miscLeft1, miscTop0, labelWidth, labelHeight, uiTextSize,
     ID::parameterSmoothingSecond, Scales::parameterSmoothingSecond, false, 5);
+
+  addCheckbox<Style::warning>(
+    miscLeft2, miscTop0, labelWidth, labelHeight, uiTextSize, "2x Sampling",
+    ID::oversampling);
 
   // Plugin name.
   constexpr auto splashMargin = uiMargin;

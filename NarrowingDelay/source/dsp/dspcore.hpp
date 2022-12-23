@@ -47,12 +47,14 @@ public:
     const size_t length, const float *in0, const float *in1, float *out0, float *out1);
 
 private:
+  void updateUpRate();
+  std::array<double, 2> processFrame(double in0, double in1);
   double getTempoSyncInterval();
 
-  static constexpr size_t upFold = 8;
+  static constexpr size_t maxUpFold = 8;
 
   double sampleRate = 44100;
-  double upRate = upFold * 44100;
+  double upRate = maxUpFold * 44100;
 
   RotarySmoother<double> lfoPhaseConstant;
   ExpSmoother<double> lfoPhaseOffset;
@@ -69,10 +71,12 @@ private:
   ExpSmoother<double> lfoToPrimaryShiftPitch;
   ExpSmoother<double> lfoToPrimaryShiftHz;
 
+  size_t oversampling = 2;
+
   LinearTempoSynchronizer<double, 32768> synchronizer;
 
   std::array<double, 2> feedbackBuffer{};
-  std::array<CubicUpSampler<double, upFold>, 2> upSampler;
+  std::array<CubicUpSampler<double, maxUpFold>, 2> upSampler;
   std::array<SVF<double>, 2> feedbackHighpass;
   std::array<SVF<double>, 2> feedbackLowpass;
   std::array<AMFrequencyShifter<double>, 2> frequencyShifter;

@@ -34,13 +34,9 @@ template<typename T> inline T processLfoWave(T phase, T clip, T skew) noexcept
 void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = double(sampleRate);
-  upRate = double(sampleRate) * upFold;
 
-  SmootherCommon<double>::setSampleRate(upRate);
-
-  synchronizer.reset(upRate, defaultTempo, double(1));
-
-  for (auto &ps : pitchShifter) ps.setup(size_t(upRate * maxDelayTime));
+  for (auto &ps : pitchShifter)
+    ps.setup(size_t(this->sampleRate * maxUpFold * maxDelayTime));
 
   reset();
   startup();
@@ -75,8 +71,24 @@ size_t DSPCore::getLatency() { return 0; }
     lp.METHOD##Cutoff(pv[ID::lowpassHz]->getDouble() / upRate, double(0.7));             \
   }
 
+void DSPCore::updateUpRate()
+{
+  size_t newOversampling = param.value[ParameterID::ID::oversampling]->getInt();
+
+  if (oversampling != newOversampling) {
+    constexpr std::array<size_t, 3> fold{1, 2, 8};
+    upRate = double(sampleRate) * fold[newOversampling];
+
+    SmootherCommon<double>::setSampleRate(upRate);
+
+    synchronizer.reset(upRate, defaultTempo, double(1));
+  }
+  oversampling = newOversampling;
+}
+
 void DSPCore::reset()
 {
+  updateUpRate();
   ASSIGN_PARAMETER(reset);
 
   feedbackBuffer.fill({});
@@ -93,7 +105,64 @@ void DSPCore::reset()
 
 void DSPCore::startup() { synchronizer.reset(upRate, tempo, getTempoSyncInterval()); }
 
-void DSPCore::setParameters() { ASSIGN_PARAMETER(push); }
+void DSPCore::setParameters()
+{
+  updateUpRate();
+  ASSIGN_PARAMETER(push);
+}
+
+std::array<double, 2> DSPCore::processFrame(double in0, double in1)
+{
+  lfoPhaseConstant.process();
+  lfoPhaseOffset.process();
+  lfoShapeClip.process();
+  lfoShapeSkew.process();
+  outputGain.process();
+  dryGain.process();
+  wetGain.process();
+  feedback.process();
+  delayTimeSamples.process();
+  shiftPitch.process();
+  shiftFreq.process();
+  lfoToPrimaryDelayTime.process();
+  lfoToPrimaryShiftPitch.process();
+  lfoToPrimaryShiftHz.process();
+
+  // LFO.
+  auto lfoPhase = synchronizer.process() + lfoPhaseConstant.getValue();
+  auto lfoOut0 = processLfoWave(
+    lfoPhase + lfoPhaseOffset.getValue(), lfoShapeClip.getValue(),
+    lfoShapeSkew.getValue());
+  auto lfoOut1 = processLfoWave(
+    lfoPhase - lfoPhaseOffset.getValue(), lfoShapeClip.getValue(),
+    lfoShapeSkew.getValue());
+
+  // Primary feedback shifter.
+  auto fb0 = feedbackLowpass[0].lowpass(
+    feedbackHighpass[0].highpass(in0 - feedback.getValue() * feedbackBuffer[0]));
+  auto fb1 = feedbackLowpass[1].lowpass(
+    feedbackHighpass[1].highpass(in1 - feedback.getValue() * feedbackBuffer[1]));
+
+  auto modHz0 = std::exp2(lfoOut0 * lfoToPrimaryShiftHz.getValue());
+  auto modHz1 = std::exp2(lfoOut1 * lfoToPrimaryShiftHz.getValue());
+  auto fs0 = frequencyShifter[0].process(fb0, shiftFreq.getValue() * modHz0);
+  auto fs1 = frequencyShifter[1].process(fb1, shiftFreq.getValue() * modHz1);
+
+  auto modPitch0 = std::exp2(lfoOut0 * lfoToPrimaryShiftPitch.getValue());
+  auto modPitch1 = std::exp2(lfoOut1 * lfoToPrimaryShiftPitch.getValue());
+  auto modTime0 = std::exp2(lfoOut0 * lfoToPrimaryDelayTime.getValue());
+  auto modTime1 = std::exp2(lfoOut1 * lfoToPrimaryDelayTime.getValue());
+  feedbackBuffer[0] = pitchShifter[0].process(
+    fs0, shiftPitch.getValue() * modPitch0, delayTimeSamples.getValue() * modTime0);
+  feedbackBuffer[1] = pitchShifter[1].process(
+    fs1, shiftPitch.getValue() * modPitch1, delayTimeSamples.getValue() * modTime1);
+
+  // Output mix.
+  in0 = dryGain.getValue() * in0 + wetGain.getValue() * feedbackBuffer[0];
+  in1 = dryGain.getValue() * in1 + wetGain.getValue() * feedbackBuffer[1];
+
+  return {in0, in1};
+}
 
 void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
@@ -110,69 +179,32 @@ void DSPCore::process(
     !isTempoSyncing || !isPlaying);
 
   for (size_t i = 0; i < length; ++i) {
-    // Crude up-sampling with linear interpolation.
     upSampler[0].process(in0[i]);
     upSampler[1].process(in1[i]);
 
-    for (size_t j = 0; j < upFold; ++j) {
-      lfoPhaseConstant.process();
-      lfoPhaseOffset.process();
-      lfoShapeClip.process();
-      lfoShapeSkew.process();
-      outputGain.process();
-      dryGain.process();
-      wetGain.process();
-      feedback.process();
-      delayTimeSamples.process();
-      shiftPitch.process();
-      shiftFreq.process();
-      lfoToPrimaryDelayTime.process();
-      lfoToPrimaryShiftPitch.process();
-      lfoToPrimaryShiftHz.process();
-
-      // LFO.
-      auto lfoPhase = synchronizer.process() + lfoPhaseConstant.getValue();
-      auto lfoOut0 = processLfoWave(
-        lfoPhase + lfoPhaseOffset.getValue(), lfoShapeClip.getValue(),
-        lfoShapeSkew.getValue());
-      auto lfoOut1 = processLfoWave(
-        lfoPhase - lfoPhaseOffset.getValue(), lfoShapeClip.getValue(),
-        lfoShapeSkew.getValue());
-
-      // Primary feedback shifter.
-      auto fb0 = feedbackLowpass[0].lowpass(feedbackHighpass[0].highpass(
-        upSampler[0].output[j] - feedback.getValue() * feedbackBuffer[0]));
-      auto fb1 = feedbackLowpass[1].lowpass(feedbackHighpass[1].highpass(
-        upSampler[1].output[j] - feedback.getValue() * feedbackBuffer[1]));
-
-      auto modHz0 = std::exp2(lfoOut0 * lfoToPrimaryShiftHz.getValue());
-      auto modHz1 = std::exp2(lfoOut1 * lfoToPrimaryShiftHz.getValue());
-      auto fs0 = frequencyShifter[0].process(fb0, shiftFreq.getValue() * modHz0);
-      auto fs1 = frequencyShifter[1].process(fb1, shiftFreq.getValue() * modHz1);
-
-      auto modPitch0 = std::exp2(lfoOut0 * lfoToPrimaryShiftPitch.getValue());
-      auto modPitch1 = std::exp2(lfoOut1 * lfoToPrimaryShiftPitch.getValue());
-      auto modTime0 = std::exp2(lfoOut0 * lfoToPrimaryDelayTime.getValue());
-      auto modTime1 = std::exp2(lfoOut1 * lfoToPrimaryDelayTime.getValue());
-      feedbackBuffer[0] = pitchShifter[0].process(
-        fs0, shiftPitch.getValue() * modPitch0, delayTimeSamples.getValue() * modTime0);
-      feedbackBuffer[1] = pitchShifter[1].process(
-        fs1, shiftPitch.getValue() * modPitch1, delayTimeSamples.getValue() * modTime1);
-
-      // Output mix.
-      decimationLowpass[0].push(
-        dryGain.getValue() * upSampler[0].output[j]
-        + wetGain.getValue() * feedbackBuffer[0]);
-      decimationLowpass[1].push(
-        dryGain.getValue() * upSampler[1].output[j]
-        + wetGain.getValue() * feedbackBuffer[1]);
-
-      upSampler[0].output[j] = decimationLowpass[0].output();
-      upSampler[1].output[j] = decimationLowpass[1].output();
+    if (oversampling == 0) { // 1x.
+      auto frame = processFrame(upSampler[0].output[0], upSampler[1].output[0]);
+      out0[i] = frame[0];
+      out1[i] = frame[1];
+    } else if (oversampling == 1) { // 2x.
+      for (size_t j = 0; j < 8; j += 4) {
+        auto frame = processFrame(upSampler[0].output[j], upSampler[1].output[j]);
+        upSampler[0].output[j] = frame[0];
+        upSampler[1].output[j] = frame[1];
+      }
+      out0[i] = halfbandIir[0].process({upSampler[0].output[0], upSampler[0].output[4]});
+      out1[i] = halfbandIir[1].process({upSampler[1].output[0], upSampler[1].output[4]});
+    } else { // `oversampling == 2`, or 8x.
+      for (size_t j = 0; j < maxUpFold; ++j) {
+        auto frame = processFrame(upSampler[0].output[j], upSampler[1].output[j]);
+        decimationLowpass[0].push(frame[0]);
+        decimationLowpass[1].push(frame[1]);
+        upSampler[0].output[j] = decimationLowpass[0].output();
+        upSampler[1].output[j] = decimationLowpass[1].output();
+      }
+      out0[i] = halfbandIir[0].process({upSampler[0].output[0], upSampler[0].output[4]});
+      out1[i] = halfbandIir[1].process({upSampler[1].output[0], upSampler[1].output[4]});
     }
-
-    out0[i] = halfbandIir[0].process({upSampler[0].output[0], upSampler[0].output[4]});
-    out1[i] = halfbandIir[1].process({upSampler[1].output[0], upSampler[1].output[4]});
   }
 }
 

@@ -47,6 +47,8 @@ public:
     const size_t length, const float *in0, const float *in1, float *out0, float *out1);
 
 private:
+  void updateUpRate();
+  void processFrame(std::array<double, 2> &input);
   double getTempoSyncInterval();
 
   static constexpr size_t upFold = 2;
@@ -66,6 +68,9 @@ private:
   ExpSmoother<double> innerFeed;
   ExpSmoother<double> lfoToInnerFeed;
 
+  bool oversampling = true;
+  size_t delayTimeModType = 0;
+
   size_t currentAllpassStage = 0;
   size_t previousAllpassStage = 0;
   size_t transitionSamples = 2048;
@@ -76,7 +81,7 @@ private:
 
   std::array<double, 2> previousInput{};
   std::array<double, 2> feedbackBuffer{};
-  std::array<std::array<double, 2>, 2> frame{};
+  std::array<std::array<double, 2>, 2> upsampleBuffer{};
   std::array<std::array<LongAllpass<double>, maxAllpass>, 2> allpass;
   std::array<HalfBandIIR<double, HalfBandCoefficient<double>>, 2> halfbandIir;
 };

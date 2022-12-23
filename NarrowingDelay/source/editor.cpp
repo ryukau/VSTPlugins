@@ -42,7 +42,7 @@ constexpr float barboxHeight = 200.0f;
 constexpr int_least32_t defaultWidth
   = int_least32_t(2 * uiMargin + 4 * knobX - 2 * margin);
 constexpr int_least32_t defaultHeight
-  = int_least32_t(2 * uiMargin + 8 * labelY + 3 * knobY - 4 * margin);
+  = int_least32_t(2 * uiMargin + 9 * labelY + 3 * knobY - 4 * margin);
 
 namespace Steinberg {
 namespace Vst {
@@ -66,7 +66,7 @@ bool Editor::prepareUI()
   constexpr auto top0 = uiMargin;
   constexpr auto left0 = uiMargin;
 
-  // Primary Shifter.
+  // Shifter.
   constexpr auto psTop0 = top0;
   constexpr auto psTop1 = psTop0 + labelY;
   constexpr auto psTop2 = psTop1 + knobY;
@@ -79,7 +79,7 @@ bool Editor::prepareUI()
   constexpr auto psLabelWidth = int(1.5 * knobX) - margin;
   constexpr auto psLabelLeft1 = psLeft0 + psLabelWidth;
   addGroupLabel(
-    psLeft0, psTop0, 4 * knobX - 2 * margin, labelHeight, uiTextSize, "Primary Shifter");
+    psLeft0, psTop0, 4 * knobX - 2 * margin, labelHeight, uiTextSize, "Shifter");
 
   addKnob<Style::accent>(
     psLeft0, psTop1, knobWidth, margin, uiTextSize, "Dry", ID::dryGain);
@@ -151,6 +151,7 @@ bool Editor::prepareUI()
 
   // Misc.
   constexpr auto miscTop0 = lfoTop0 + labelY + 2 * knobY;
+  constexpr auto miscTop1 = miscTop0 + labelY;
   constexpr auto miscLeft0 = left0;
   constexpr auto miscLeft1 = miscLeft0 + labelWidth;
   addLabel(miscLeft0, miscTop0, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
@@ -158,11 +159,17 @@ bool Editor::prepareUI()
     miscLeft1, miscTop0, labelWidth, labelHeight, uiTextSize,
     ID::parameterSmoothingSecond, Scales::parameterSmoothingSecond, false, 5);
 
+  addLabel(miscLeft0, miscTop1, labelWidth, labelHeight, uiTextSize, "Over-sampling");
+  std::vector<std::string> oversamplingItems{"1x", "2x", "8x"};
+  addOptionMenu<Style::warning>(
+    miscLeft1, miscTop1, labelWidth, labelHeight, uiTextSize, ID::oversampling,
+    oversamplingItems);
+
   // Plugin name.
   constexpr auto splashMargin = uiMargin;
   constexpr auto splashWidth = 2 * knobX - 2 * margin;
   constexpr auto splashHeight = labelY;
-  constexpr auto splashTop = miscTop0 + labelY + 2 * margin;
+  constexpr auto splashTop = miscTop0 + 2 * labelY + 2 * margin;
   constexpr auto splashLeft = left0 + knobX;
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,

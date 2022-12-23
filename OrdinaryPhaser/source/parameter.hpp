@@ -64,6 +64,7 @@ enum ID {
   lfoPhaseConstant,
 
   parameterSmoothingSecond,
+  oversampling,
 
   ID_ENUM_LENGTH,
   ID_ENUM_GUI_START = ID_ENUM_LENGTH,
@@ -160,6 +161,8 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::parameterSmoothingSecond] = std::make_unique<DecibelValue>(
       Scales::parameterSmoothingSecond.invmap(0.2), Scales::parameterSmoothingSecond,
       "parameterSmoothingSecond", Info::kCanAutomate);
+    value[ID::oversampling] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "oversampling", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

@@ -43,6 +43,7 @@ DecibelScale<double> Scales::lfoShapeClip(0.0, 20.0, false);
 DecibelScale<double> Scales::lfoShapeSkew(-20.0, 20.0, false);
 
 DecibelScale<double> Scales::parameterSmoothingSecond(-120.0, 40.0, true);
+UIntScale<double> Scales::oversampling(2);
 
 } // namespace Synth
 } // namespace Steinberg
