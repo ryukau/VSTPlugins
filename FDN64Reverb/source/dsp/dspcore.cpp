@@ -167,7 +167,7 @@ void DSPCORE_NAME::process(
     auto stereoCross = interpStereoCross.process();
     auto feedback = interpFeedback.process();
 
-    auto &&gateOut = gate.process(std::max(std::fabs(in0[i]), std::fabs(in1[i])));
+    auto gateOut = gate.process(std::max(std::fabs(in0[i]), std::fabs(in1[i])));
     stereoCross = std::min(1.0f, stereoCross + (1.0f - stereoCross) * gateOut);
 
     auto fdnBuf0 = feedbackDelayNetwork[0].preProcess(splitPhaseOffset, splitSkew);

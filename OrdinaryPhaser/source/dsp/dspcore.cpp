@@ -64,29 +64,28 @@ size_t DSPCore::getLatency() { return 0; }
 
 void DSPCore::updateUpRate()
 {
-  bool newOversampling = param.value[ParameterID::ID::oversampling]->getInt();
+  auto fold = oversampling ? upFold : size_t(1);
+  upRate = double(sampleRate) * fold;
 
-  if (oversampling != newOversampling) {
-    auto fold = newOversampling ? upFold : size_t(1);
-    upRate = double(sampleRate) * fold;
+  SmootherCommon<double>::setSampleRate(upRate);
 
-    SmootherCommon<double>::setSampleRate(upRate);
-
-    synchronizer.reset(upRate, defaultTempo, double(1));
-    lfo.setup(upRate, double(0.1) * fold);
-  }
-  oversampling = newOversampling;
+  synchronizer.reset(upRate, defaultTempo, double(1));
+  lfo.setup(upRate, double(0.1) * fold);
 }
 
 void DSPCore::reset()
 {
+  oversampling = param.value[ParameterID::ID::oversampling]->getInt();
   updateUpRate();
+
   ASSIGN_PARAMETER(reset);
 
   currentAllpassStage = pv[ID::stage]->getInt();
   previousAllpassStage = currentAllpassStage;
   transitionSamples = size_t(upRate * pv[ID::parameterSmoothingSecond]->getDouble());
   transitionCounter = 0;
+
+  lfo.reset();
 
   previousInput.fill({});
   upsampleBuffer.fill({});
@@ -104,7 +103,12 @@ void DSPCore::startup() { synchronizer.reset(upRate, tempo, getTempoSyncInterval
 
 void DSPCore::setParameters()
 {
-  updateUpRate();
+  bool newOversampling = param.value[ParameterID::ID::oversampling]->getInt();
+  if (oversampling != newOversampling) {
+    oversampling = newOversampling;
+    updateUpRate();
+  }
+
   ASSIGN_PARAMETER(push);
 }
 

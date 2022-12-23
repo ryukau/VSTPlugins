@@ -290,7 +290,7 @@ private:
   std::array<DoubleEMAFilterKp<Sample>, length> lowpass;
   std::array<EMAHighpass<Sample>, length> highpass;
 
-  std::array<Sample, length> splitGain;
+  std::array<Sample, length> splitGain{};
   size_t cycle = 100000;
   size_t counter = 0;
   size_t bufIndex = 0;
@@ -742,6 +742,8 @@ public:
     for (auto &dl : delay) dl.reset();
     for (auto &lp : lowpass) lp.reset();
     for (auto &hp : highpass) hp.reset();
+
+    counter = 0;
   }
 
   /**
@@ -751,7 +753,7 @@ public:
   void fillSplitGain(Sample offset, Sample skew)
   {
     for (size_t idx = 0; idx < splitGain.size(); ++idx) {
-      auto &&phase = offset + Sample(idx) / Sample(splitGain.size());
+      auto phase = offset + Sample(idx) / Sample(splitGain.size());
       splitGain[idx] = std::exp(skew * std::sin(Sample(twopi) * phase));
     }
     auto sum = std::accumulate(splitGain.begin(), splitGain.end(), Sample(0));
@@ -780,10 +782,10 @@ public:
 
     crossIn /= -Sample(length);
     for (size_t idx = 0; idx < length; ++idx) {
-      auto &&crossed = front[idx] + stereoCross * (crossIn - front[idx]);
-      auto &&sig = splitGain[idx] * input + feedback * crossed;
-      auto &&delayed = delay[idx].process(sig, delayTimeSample[idx].process(rate));
-      auto &&lowpassed = lowpass[idx].process(delayed, lowpassKp[idx]);
+      auto crossed = front[idx] + stereoCross * (crossIn - front[idx]);
+      auto sig = splitGain[idx] * input + feedback * crossed;
+      auto delayed = delay[idx].process(sig, delayTimeSample[idx].process(rate));
+      auto lowpassed = lowpass[idx].process(delayed, lowpassKp[idx]);
       front[idx] = highpass[idx].process(lowpassed, highpassKp[idx]);
     }
 

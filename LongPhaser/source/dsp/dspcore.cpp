@@ -50,39 +50,36 @@ size_t DSPCore::getLatency() { return 0; }
     lfo.source[idx + 1] = pv[ID::lfoWavetable0 + idx]->getFloat();                       \
   }                                                                                      \
                                                                                          \
-  lfoPhaseOffset.METHOD(pv[ID::lfoPhaseOffset]->getDouble());                            \
   lfoPhaseConstant.METHOD(pv[ID::lfoPhaseConstant]->getDouble());                        \
+  lfoPhaseOffset.METHOD(pv[ID::lfoPhaseOffset]->getDouble());                            \
+  outputGain.METHOD(pv[ID::outputGain]->getDouble());                                    \
+  mix.METHOD(pv[ID::mix]->getDouble());                                                  \
+  outerFeed.METHOD(pv[ID::outerFeed]->getDouble());                                      \
+  innerFeed.METHOD(pv[ID::innerFeed]->getDouble());                                      \
+  lfoToInnerFeed.METHOD(pv[ID::lfoToInnerFeed]->getDouble());                            \
   delayTimeSpread.METHOD(pv[ID::delayTimeSpread]->getDouble());                          \
   delayTimeCenterSamples.METHOD(pv[ID::delayTimeCenterSeconds]->getDouble() * upRate);   \
   delayTimeRateLimit.METHOD(pv[ID::delayTimeRateLimit]->getDouble());                    \
   delayTimeModAmount.METHOD(pv[ID::delayTimeModOctave]->getDouble());                    \
-  innerFeed.METHOD(pv[ID::innerFeed]->getDouble());                                      \
-  lfoToInnerFeed.METHOD(pv[ID::lfoToInnerFeed]->getDouble());                            \
-  mix.METHOD(pv[ID::mix]->getDouble());                                                  \
-  outerFeed.METHOD(pv[ID::outerFeed]->getDouble());                                      \
-  outputGain.METHOD(pv[ID::outputGain]->getDouble());                                    \
                                                                                          \
-  size_t delayTimeModType = pv[ID::delayTimeModType]->getInt();
+  delayTimeModType = pv[ID::delayTimeModType]->getInt();
 
 void DSPCore::updateUpRate()
 {
-  bool newOversampling = param.value[ParameterID::ID::oversampling]->getInt();
+  auto fold = oversampling ? upFold : size_t(1);
+  upRate = double(sampleRate) * fold;
 
-  if (oversampling != newOversampling) {
-    auto fold = newOversampling ? upFold : size_t(1);
-    upRate = double(sampleRate) * fold;
+  SmootherCommon<double>::setSampleRate(upRate);
 
-    SmootherCommon<double>::setSampleRate(upRate);
-
-    synchronizer.reset(upRate, defaultTempo, double(1));
-    lfo.setup(upRate, double(0.1) * fold);
-  }
-  oversampling = newOversampling;
+  synchronizer.reset(upRate, defaultTempo, double(1));
+  lfo.setup(upRate, double(0.1) * fold);
 }
 
 void DSPCore::reset()
 {
+  oversampling = param.value[ParameterID::ID::oversampling]->getInt();
   updateUpRate();
+
   ASSIGN_PARAMETER(reset);
 
   currentAllpassStage = pv[ID::stage]->getInt();
@@ -90,9 +87,11 @@ void DSPCore::reset()
   transitionSamples = size_t(upRate * pv[ID::parameterSmoothingSecond]->getDouble());
   transitionCounter = 0;
 
+  lfo.reset();
+
   previousInput.fill({});
-  upsampleBuffer.fill({});
   feedbackBuffer.fill({});
+  upsampleBuffer.fill({});
   for (auto &channel : allpass) {
     for (auto &ap : channel) ap.reset();
   }
@@ -105,7 +104,12 @@ void DSPCore::startup() { synchronizer.reset(upRate, tempo, getTempoSyncInterval
 
 void DSPCore::setParameters()
 {
-  updateUpRate();
+  bool newOversampling = param.value[ParameterID::ID::oversampling]->getInt();
+  if (oversampling != newOversampling) {
+    oversampling = newOversampling;
+    updateUpRate();
+  }
+
   ASSIGN_PARAMETER(push);
 }
 
@@ -116,12 +120,12 @@ void DSPCore::processFrame(std::array<double, 2> &frame)
   outputGain.process();
   mix.process();
   outerFeed.process();
+  innerFeed.process();
+  lfoToInnerFeed.process();
   delayTimeSpread.process();
   delayTimeCenterSamples.process();
   delayTimeRateLimit.process();
   delayTimeModAmount.process();
-  innerFeed.process();
-  lfoToInnerFeed.process();
 
   lfo.offset[0] = lfoPhaseConstant.getValue() + lfoPhaseOffset.getValue();
   lfo.offset[1] = lfoPhaseConstant.getValue() - lfoPhaseOffset.getValue();

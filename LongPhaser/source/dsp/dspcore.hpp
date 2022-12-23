@@ -61,12 +61,12 @@ private:
   ExpSmoother<double> outputGain;
   ExpSmoother<double> mix;
   ExpSmoother<double> outerFeed;
+  ExpSmoother<double> innerFeed;
+  ExpSmoother<double> lfoToInnerFeed;
   ExpSmoother<double> delayTimeSpread;
   ExpSmoother<double> delayTimeCenterSamples;
   ExpSmoother<double> delayTimeRateLimit;
   ExpSmoother<double> delayTimeModAmount;
-  ExpSmoother<double> innerFeed;
-  ExpSmoother<double> lfoToInnerFeed;
 
   bool oversampling = true;
   size_t delayTimeModType = 0;

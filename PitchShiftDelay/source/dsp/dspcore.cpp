@@ -117,6 +117,8 @@ void DSPCORE_NAME::reset()
 {
   ASSIGN_PARAMETER(reset);
 
+  lfo.reset();
+
   shifterMainOut.fill({});
   shifterUnisonOut.fill({});
   for (auto &os : overSampler) os.reset();

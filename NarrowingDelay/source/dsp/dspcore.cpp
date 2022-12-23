@@ -27,6 +27,7 @@ template<typename T> inline T lerp(T a, T b, T t) { return a + t * (b - a); }
 
 template<typename T> inline T processLfoWave(T phase, T clip, T skew) noexcept
 {
+  phase -= std::floor(phase);
   auto sn = std::sin(T(twopi) * std::pow(phase, skew));
   return std::clamp(clip * sn, T(-1), T(1));
 }
@@ -73,22 +74,19 @@ size_t DSPCore::getLatency() { return 0; }
 
 void DSPCore::updateUpRate()
 {
-  size_t newOversampling = param.value[ParameterID::ID::oversampling]->getInt();
+  constexpr std::array<size_t, 3> fold{1, 2, 8};
+  upRate = double(sampleRate) * fold[oversampling];
 
-  if (oversampling != newOversampling) {
-    constexpr std::array<size_t, 3> fold{1, 2, 8};
-    upRate = double(sampleRate) * fold[newOversampling];
+  SmootherCommon<double>::setSampleRate(upRate);
 
-    SmootherCommon<double>::setSampleRate(upRate);
-
-    synchronizer.reset(upRate, defaultTempo, double(1));
-  }
-  oversampling = newOversampling;
+  synchronizer.reset(upRate, defaultTempo, double(1));
 }
 
 void DSPCore::reset()
 {
+  oversampling = param.value[ParameterID::ID::oversampling]->getInt();
   updateUpRate();
+
   ASSIGN_PARAMETER(reset);
 
   feedbackBuffer.fill({});
@@ -107,7 +105,12 @@ void DSPCore::startup() { synchronizer.reset(upRate, tempo, getTempoSyncInterval
 
 void DSPCore::setParameters()
 {
-  updateUpRate();
+  size_t newOversampling = param.value[ParameterID::ID::oversampling]->getInt();
+  if (oversampling != newOversampling) {
+    oversampling = newOversampling;
+    updateUpRate();
+  }
+
   ASSIGN_PARAMETER(push);
 }
 
