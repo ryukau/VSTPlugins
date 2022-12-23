@@ -1,0 +1,122 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "mix",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "preClipGain",
+    "type": "d",
+    "default": "Scales::gain.invmapDB(0.0)",
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "outputGain",
+    "type": "d",
+    "default": "Scales::gain.invmapDB(0.0)",
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "frequencyHz",
+    "type": "d",
+    "default": "Scales::frequencyHz.invmap(10000.0)",
+    "scale": "Scales::frequencyHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "dcOffset",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "feedbackGain",
+    "type": "d",
+    "default": "Scales::feedbackGain.invmap(1.0)",
+    "scale": "Scales::feedbackGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "modFrequencyScaling",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::modFrequencyScaling",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "modWrapMix",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::modWrapMix",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "hardclipMix",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "noteScaling",
+    "type": "d",
+    "default": "Scales::noteScaling.invmap(1.0)",
+    "scale": "Scales::noteScaling",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "noteScalingNegative",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "noteOffset",
+    "type": "d",
+    "default": "Scales::noteOffset.invmap(0.0)",
+    "scale": "Scales::noteOffset",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "noteSlideTimeSecond",
+    "type": "d",
+    "default": "Scales::noteSlideTimeSecond.invmap(0.02)",
+    "scale": "Scales::noteSlideTimeSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "parameterSmoothingSecond",
+    "type": "d",
+    "default": "Scales::noteSlideTimeSecond.invmap(0.2)",
+    "scale": "Scales::noteSlideTimeSecond",
+    "flags": "Info::kCanAutomate"
+  }
+]

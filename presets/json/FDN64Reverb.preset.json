@@ -1,0 +1,8132 @@
+[
+  {
+    "name": "CirculantLFO",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "delayTime0",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime3",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime4",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime5",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime6",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime7",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime8",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime9",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime10",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime11",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime12",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime13",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime14",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime15",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime16",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime17",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime18",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime19",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime20",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime21",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime22",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime23",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime24",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime25",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime26",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime27",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime28",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime29",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime30",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime31",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime32",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime33",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime34",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime35",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime36",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime37",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime38",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime39",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime40",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime41",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime42",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime43",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime44",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime45",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime46",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime47",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime48",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime49",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime50",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime51",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime52",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime53",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime54",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime55",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime56",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime57",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime58",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime59",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime60",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime61",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime62",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "delayTime63",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount0",
+        "type": "d",
+        "value": 0.6625
+      },
+      {
+        "name": "timeLfoAmount1",
+        "type": "d",
+        "value": 0.66875
+      },
+      {
+        "name": "timeLfoAmount2",
+        "type": "d",
+        "value": 0.6683913946151734
+      },
+      {
+        "name": "timeLfoAmount3",
+        "type": "d",
+        "value": 0.66767418384552
+      },
+      {
+        "name": "timeLfoAmount4",
+        "type": "d",
+        "value": 0.6669569730758667
+      },
+      {
+        "name": "timeLfoAmount5",
+        "type": "d",
+        "value": 0.6662397623062134
+      },
+      {
+        "name": "timeLfoAmount6",
+        "type": "d",
+        "value": 0.66552255153656
+      },
+      {
+        "name": "timeLfoAmount7",
+        "type": "d",
+        "value": 0.6648053407669068
+      },
+      {
+        "name": "timeLfoAmount8",
+        "type": "d",
+        "value": 0.6640881299972534
+      },
+      {
+        "name": "timeLfoAmount9",
+        "type": "d",
+        "value": 0.6633709192276
+      },
+      {
+        "name": "timeLfoAmount10",
+        "type": "d",
+        "value": 0.6626537084579468
+      },
+      {
+        "name": "timeLfoAmount11",
+        "type": "d",
+        "value": 0.6619364976882934
+      },
+      {
+        "name": "timeLfoAmount12",
+        "type": "d",
+        "value": 0.6612192869186402
+      },
+      {
+        "name": "timeLfoAmount13",
+        "type": "d",
+        "value": 0.6605020761489868
+      },
+      {
+        "name": "timeLfoAmount14",
+        "type": "d",
+        "value": 0.6597848653793335
+      },
+      {
+        "name": "timeLfoAmount15",
+        "type": "d",
+        "value": 0.6590676546096802
+      },
+      {
+        "name": "timeLfoAmount16",
+        "type": "d",
+        "value": 0.6583504438400268
+      },
+      {
+        "name": "timeLfoAmount17",
+        "type": "d",
+        "value": 0.6576332330703736
+      },
+      {
+        "name": "timeLfoAmount18",
+        "type": "d",
+        "value": 0.6569160223007202
+      },
+      {
+        "name": "timeLfoAmount19",
+        "type": "d",
+        "value": 0.6561988115310669
+      },
+      {
+        "name": "timeLfoAmount20",
+        "type": "d",
+        "value": 0.6554816007614136
+      },
+      {
+        "name": "timeLfoAmount21",
+        "type": "d",
+        "value": 0.6547643899917602
+      },
+      {
+        "name": "timeLfoAmount22",
+        "type": "d",
+        "value": 0.654047179222107
+      },
+      {
+        "name": "timeLfoAmount23",
+        "type": "d",
+        "value": 0.6533299684524536
+      },
+      {
+        "name": "timeLfoAmount24",
+        "type": "d",
+        "value": 0.6526127576828002
+      },
+      {
+        "name": "timeLfoAmount25",
+        "type": "d",
+        "value": 0.651895546913147
+      },
+      {
+        "name": "timeLfoAmount26",
+        "type": "d",
+        "value": 0.6511783361434936
+      },
+      {
+        "name": "timeLfoAmount27",
+        "type": "d",
+        "value": 0.6504611253738404
+      },
+      {
+        "name": "timeLfoAmount28",
+        "type": "d",
+        "value": 0.649743914604187
+      },
+      {
+        "name": "timeLfoAmount29",
+        "type": "d",
+        "value": 0.6490267038345336
+      },
+      {
+        "name": "timeLfoAmount30",
+        "type": "d",
+        "value": 0.6483094930648804
+      },
+      {
+        "name": "timeLfoAmount31",
+        "type": "d",
+        "value": 0.647592282295227
+      },
+      {
+        "name": "timeLfoAmount32",
+        "type": "d",
+        "value": 0.6468750715255738
+      },
+      {
+        "name": "timeLfoAmount33",
+        "type": "d",
+        "value": 0.6461578607559204
+      },
+      {
+        "name": "timeLfoAmount34",
+        "type": "d",
+        "value": 0.645440649986267
+      },
+      {
+        "name": "timeLfoAmount35",
+        "type": "d",
+        "value": 0.6447234392166138
+      },
+      {
+        "name": "timeLfoAmount36",
+        "type": "d",
+        "value": 0.6440062284469604
+      },
+      {
+        "name": "timeLfoAmount37",
+        "type": "d",
+        "value": 0.6432890176773072
+      },
+      {
+        "name": "timeLfoAmount38",
+        "type": "d",
+        "value": 0.6425718069076538
+      },
+      {
+        "name": "timeLfoAmount39",
+        "type": "d",
+        "value": 0.6418545961380004
+      },
+      {
+        "name": "timeLfoAmount40",
+        "type": "d",
+        "value": 0.6411373853683472
+      },
+      {
+        "name": "timeLfoAmount41",
+        "type": "d",
+        "value": 0.6404201745986938
+      },
+      {
+        "name": "timeLfoAmount42",
+        "type": "d",
+        "value": 0.6397029638290406
+      },
+      {
+        "name": "timeLfoAmount43",
+        "type": "d",
+        "value": 0.6389857530593872
+      },
+      {
+        "name": "timeLfoAmount44",
+        "type": "d",
+        "value": 0.6382685422897338
+      },
+      {
+        "name": "timeLfoAmount45",
+        "type": "d",
+        "value": 0.6375513315200806
+      },
+      {
+        "name": "timeLfoAmount46",
+        "type": "d",
+        "value": 0.6368341207504272
+      },
+      {
+        "name": "timeLfoAmount47",
+        "type": "d",
+        "value": 0.636116909980774
+      },
+      {
+        "name": "timeLfoAmount48",
+        "type": "d",
+        "value": 0.6353996992111206
+      },
+      {
+        "name": "timeLfoAmount49",
+        "type": "d",
+        "value": 0.6346824884414672
+      },
+      {
+        "name": "timeLfoAmount50",
+        "type": "d",
+        "value": 0.633965277671814
+      },
+      {
+        "name": "timeLfoAmount51",
+        "type": "d",
+        "value": 0.6332480669021606
+      },
+      {
+        "name": "timeLfoAmount52",
+        "type": "d",
+        "value": 0.6325308561325074
+      },
+      {
+        "name": "timeLfoAmount53",
+        "type": "d",
+        "value": 0.631813645362854
+      },
+      {
+        "name": "timeLfoAmount54",
+        "type": "d",
+        "value": 0.6310964345932006
+      },
+      {
+        "name": "timeLfoAmount55",
+        "type": "d",
+        "value": 0.6303792238235474
+      },
+      {
+        "name": "timeLfoAmount56",
+        "type": "d",
+        "value": 0.629662013053894
+      },
+      {
+        "name": "timeLfoAmount57",
+        "type": "d",
+        "value": 0.6289448022842408
+      },
+      {
+        "name": "timeLfoAmount58",
+        "type": "d",
+        "value": 0.6282275915145874
+      },
+      {
+        "name": "timeLfoAmount59",
+        "type": "d",
+        "value": 0.627510380744934
+      },
+      {
+        "name": "timeLfoAmount60",
+        "type": "d",
+        "value": 0.6267931699752808
+      },
+      {
+        "name": "timeLfoAmount61",
+        "type": "d",
+        "value": 0.6260759592056274
+      },
+      {
+        "name": "timeLfoAmount62",
+        "type": "d",
+        "value": 0.6253587484359742
+      },
+      {
+        "name": "timeLfoAmount63",
+        "type": "d",
+        "value": 0.625
+      },
+      {
+        "name": "lowpassCutoffHz0",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz1",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz2",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz3",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz4",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz5",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz6",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz7",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz8",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz9",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz10",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz11",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz12",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz13",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz14",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz15",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz16",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz17",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz18",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz19",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz20",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz21",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz22",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz23",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz24",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz25",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz26",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz27",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz28",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz29",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz30",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz31",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz32",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz33",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz34",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz35",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz36",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz37",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz38",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz39",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz40",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz41",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz42",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz43",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz44",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz45",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz46",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz47",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz48",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz49",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz50",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz51",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz52",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz53",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz54",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz55",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz56",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz57",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz58",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz59",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz60",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz61",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz62",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz63",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz0",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz1",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz2",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz3",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz4",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz5",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz6",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz7",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz8",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz9",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz10",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz11",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz12",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz13",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz14",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz15",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz16",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz17",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz18",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz19",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz20",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz21",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz22",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz23",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz24",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz25",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz26",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz27",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz28",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz29",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz30",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz31",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz32",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz33",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz34",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz35",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz36",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz37",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz38",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz39",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz40",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz41",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz42",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz43",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz44",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz45",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz46",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz47",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz48",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz49",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz50",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz51",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz52",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz53",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz54",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz55",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz56",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz57",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz58",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz59",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz60",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz61",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz62",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz63",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "timeMultiplier",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "delayTimeInterpRate",
+        "type": "d",
+        "value": 0.3446040749549866
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 5465110
+      },
+      {
+        "name": "matrixType",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "gateThreshold",
+        "type": "d",
+        "value": 0.007999993860721588
+      },
+      {
+        "name": "dry",
+        "type": "d",
+        "value": 0.7142857142857143
+      },
+      {
+        "name": "wet",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stereoCross",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "splitRotationHz",
+        "type": "d",
+        "value": 0.5840033888816833
+      },
+      {
+        "name": "splitPhaseOffset",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "splitSkew",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "refreshMatrix",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "name": "CombRotation",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "delayTime0",
+        "type": "d",
+        "value": 0.68125
+      },
+      {
+        "name": "delayTime1",
+        "type": "d",
+        "value": 0.6375
+      },
+      {
+        "name": "delayTime2",
+        "type": "d",
+        "value": 0.56875
+      },
+      {
+        "name": "delayTime3",
+        "type": "d",
+        "value": 0.51875
+      },
+      {
+        "name": "delayTime4",
+        "type": "d",
+        "value": 0.475
+      },
+      {
+        "name": "delayTime5",
+        "type": "d",
+        "value": 0.41874999999999996
+      },
+      {
+        "name": "delayTime6",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "delayTime7",
+        "type": "d",
+        "value": 0.29374999999999996
+      },
+      {
+        "name": "delayTime8",
+        "type": "d",
+        "value": 0.26249999999999996
+      },
+      {
+        "name": "delayTime9",
+        "type": "d",
+        "value": 0.22499999999999998
+      },
+      {
+        "name": "delayTime10",
+        "type": "d",
+        "value": 0.1875
+      },
+      {
+        "name": "delayTime11",
+        "type": "d",
+        "value": 0.16874999999999996
+      },
+      {
+        "name": "delayTime12",
+        "type": "d",
+        "value": 0.15625
+      },
+      {
+        "name": "delayTime13",
+        "type": "d",
+        "value": 0.14375000000000004
+      },
+      {
+        "name": "delayTime14",
+        "type": "d",
+        "value": 0.17500000000000004
+      },
+      {
+        "name": "delayTime15",
+        "type": "d",
+        "value": 0.17500000000000004
+      },
+      {
+        "name": "delayTime16",
+        "type": "d",
+        "value": 0.16874999999999996
+      },
+      {
+        "name": "delayTime17",
+        "type": "d",
+        "value": 0.15000000000000002
+      },
+      {
+        "name": "delayTime18",
+        "type": "d",
+        "value": 0.14375000000000004
+      },
+      {
+        "name": "delayTime19",
+        "type": "d",
+        "value": 0.14375000000000004
+      },
+      {
+        "name": "delayTime20",
+        "type": "d",
+        "value": 0.13749999999999996
+      },
+      {
+        "name": "delayTime21",
+        "type": "d",
+        "value": 0.13749999999999996
+      },
+      {
+        "name": "delayTime22",
+        "type": "d",
+        "value": 0.13749999999999996
+      },
+      {
+        "name": "delayTime23",
+        "type": "d",
+        "value": 0.13749999999999996
+      },
+      {
+        "name": "delayTime24",
+        "type": "d",
+        "value": 0.13749999999999996
+      },
+      {
+        "name": "delayTime25",
+        "type": "d",
+        "value": 0.13124999999999998
+      },
+      {
+        "name": "delayTime26",
+        "type": "d",
+        "value": 0.13124999999999998
+      },
+      {
+        "name": "delayTime27",
+        "type": "d",
+        "value": 0.13124999999999998
+      },
+      {
+        "name": "delayTime28",
+        "type": "d",
+        "value": 0.13124999999999998
+      },
+      {
+        "name": "delayTime29",
+        "type": "d",
+        "value": 0.13124999999999998
+      },
+      {
+        "name": "delayTime30",
+        "type": "d",
+        "value": 0.13124999999999998
+      },
+      {
+        "name": "delayTime31",
+        "type": "d",
+        "value": 0.13124999999999998
+      },
+      {
+        "name": "delayTime32",
+        "type": "d",
+        "value": 0.13124999999999998
+      },
+      {
+        "name": "delayTime33",
+        "type": "d",
+        "value": 0.13124999999999998
+      },
+      {
+        "name": "delayTime34",
+        "type": "d",
+        "value": 0.125
+      },
+      {
+        "name": "delayTime35",
+        "type": "d",
+        "value": 0.125
+      },
+      {
+        "name": "delayTime36",
+        "type": "d",
+        "value": 0.11875000000000002
+      },
+      {
+        "name": "delayTime37",
+        "type": "d",
+        "value": 0.11875000000000002
+      },
+      {
+        "name": "delayTime38",
+        "type": "d",
+        "value": 0.11875000000000002
+      },
+      {
+        "name": "delayTime39",
+        "type": "d",
+        "value": 0.11875000000000002
+      },
+      {
+        "name": "delayTime40",
+        "type": "d",
+        "value": 0.125
+      },
+      {
+        "name": "delayTime41",
+        "type": "d",
+        "value": 0.125
+      },
+      {
+        "name": "delayTime42",
+        "type": "d",
+        "value": 0.13124999999999998
+      },
+      {
+        "name": "delayTime43",
+        "type": "d",
+        "value": 0.13124999999999998
+      },
+      {
+        "name": "delayTime44",
+        "type": "d",
+        "value": 0.13124999999999998
+      },
+      {
+        "name": "delayTime45",
+        "type": "d",
+        "value": 0.13749999999999996
+      },
+      {
+        "name": "delayTime46",
+        "type": "d",
+        "value": 0.13749999999999996
+      },
+      {
+        "name": "delayTime47",
+        "type": "d",
+        "value": 0.14375000000000004
+      },
+      {
+        "name": "delayTime48",
+        "type": "d",
+        "value": 0.15625
+      },
+      {
+        "name": "delayTime49",
+        "type": "d",
+        "value": 0.15625
+      },
+      {
+        "name": "delayTime50",
+        "type": "d",
+        "value": 0.16249999999999998
+      },
+      {
+        "name": "delayTime51",
+        "type": "d",
+        "value": 0.16874999999999996
+      },
+      {
+        "name": "delayTime52",
+        "type": "d",
+        "value": 0.18125000000000002
+      },
+      {
+        "name": "delayTime53",
+        "type": "d",
+        "value": 0.1875
+      },
+      {
+        "name": "delayTime54",
+        "type": "d",
+        "value": 0.20625000000000004
+      },
+      {
+        "name": "delayTime55",
+        "type": "d",
+        "value": 0.22499999999999998
+      },
+      {
+        "name": "delayTime56",
+        "type": "d",
+        "value": 0.24375000000000002
+      },
+      {
+        "name": "delayTime57",
+        "type": "d",
+        "value": 0.275
+      },
+      {
+        "name": "delayTime58",
+        "type": "d",
+        "value": 0.30000000000000004
+      },
+      {
+        "name": "delayTime59",
+        "type": "d",
+        "value": 0.33125000000000004
+      },
+      {
+        "name": "delayTime60",
+        "type": "d",
+        "value": 0.36875
+      },
+      {
+        "name": "delayTime61",
+        "type": "d",
+        "value": 0.4
+      },
+      {
+        "name": "delayTime62",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "delayTime63",
+        "type": "d",
+        "value": 0.525
+      },
+      {
+        "name": "timeLfoAmount0",
+        "type": "d",
+        "value": 0.05625000000000002
+      },
+      {
+        "name": "timeLfoAmount1",
+        "type": "d",
+        "value": 0.05640125274658203
+      },
+      {
+        "name": "timeLfoAmount2",
+        "type": "d",
+        "value": 0.05670366287231443
+      },
+      {
+        "name": "timeLfoAmount3",
+        "type": "d",
+        "value": 0.05700607299804683
+      },
+      {
+        "name": "timeLfoAmount4",
+        "type": "d",
+        "value": 0.05730848312377934
+      },
+      {
+        "name": "timeLfoAmount5",
+        "type": "d",
+        "value": 0.05761089324951174
+      },
+      {
+        "name": "timeLfoAmount6",
+        "type": "d",
+        "value": 0.05791330337524414
+      },
+      {
+        "name": "timeLfoAmount7",
+        "type": "d",
+        "value": 0.05821571350097654
+      },
+      {
+        "name": "timeLfoAmount8",
+        "type": "d",
+        "value": 0.05851812362670894
+      },
+      {
+        "name": "timeLfoAmount9",
+        "type": "d",
+        "value": 0.05882053375244145
+      },
+      {
+        "name": "timeLfoAmount10",
+        "type": "d",
+        "value": 0.05912294387817385
+      },
+      {
+        "name": "timeLfoAmount11",
+        "type": "d",
+        "value": 0.05942535400390625
+      },
+      {
+        "name": "timeLfoAmount12",
+        "type": "d",
+        "value": 0.05972776412963865
+      },
+      {
+        "name": "timeLfoAmount13",
+        "type": "d",
+        "value": 0.06003017425537105
+      },
+      {
+        "name": "timeLfoAmount14",
+        "type": "d",
+        "value": 0.06033258438110356
+      },
+      {
+        "name": "timeLfoAmount15",
+        "type": "d",
+        "value": 0.06063499450683596
+      },
+      {
+        "name": "timeLfoAmount16",
+        "type": "d",
+        "value": 0.06093740463256836
+      },
+      {
+        "name": "timeLfoAmount17",
+        "type": "d",
+        "value": 0.06123981475830076
+      },
+      {
+        "name": "timeLfoAmount18",
+        "type": "d",
+        "value": 0.06154222488403316
+      },
+      {
+        "name": "timeLfoAmount19",
+        "type": "d",
+        "value": 0.06184463500976567
+      },
+      {
+        "name": "timeLfoAmount20",
+        "type": "d",
+        "value": 0.06214704513549807
+      },
+      {
+        "name": "timeLfoAmount21",
+        "type": "d",
+        "value": 0.06244945526123047
+      },
+      {
+        "name": "timeLfoAmount22",
+        "type": "d",
+        "value": 0.06275186538696287
+      },
+      {
+        "name": "timeLfoAmount23",
+        "type": "d",
+        "value": 0.06305427551269527
+      },
+      {
+        "name": "timeLfoAmount24",
+        "type": "d",
+        "value": 0.06335668563842778
+      },
+      {
+        "name": "timeLfoAmount25",
+        "type": "d",
+        "value": 0.06365909576416018
+      },
+      {
+        "name": "timeLfoAmount26",
+        "type": "d",
+        "value": 0.06396150588989258
+      },
+      {
+        "name": "timeLfoAmount27",
+        "type": "d",
+        "value": 0.06426391601562498
+      },
+      {
+        "name": "timeLfoAmount28",
+        "type": "d",
+        "value": 0.06456632614135738
+      },
+      {
+        "name": "timeLfoAmount29",
+        "type": "d",
+        "value": 0.06486873626708989
+      },
+      {
+        "name": "timeLfoAmount30",
+        "type": "d",
+        "value": 0.06517114639282229
+      },
+      {
+        "name": "timeLfoAmount31",
+        "type": "d",
+        "value": 0.06547355651855469
+      },
+      {
+        "name": "timeLfoAmount32",
+        "type": "d",
+        "value": 0.06577596664428709
+      },
+      {
+        "name": "timeLfoAmount33",
+        "type": "d",
+        "value": 0.06607837677001949
+      },
+      {
+        "name": "timeLfoAmount34",
+        "type": "d",
+        "value": 0.066380786895752
+      },
+      {
+        "name": "timeLfoAmount35",
+        "type": "d",
+        "value": 0.0666831970214844
+      },
+      {
+        "name": "timeLfoAmount36",
+        "type": "d",
+        "value": 0.0669856071472168
+      },
+      {
+        "name": "timeLfoAmount37",
+        "type": "d",
+        "value": 0.0672880172729492
+      },
+      {
+        "name": "timeLfoAmount38",
+        "type": "d",
+        "value": 0.0675904273986816
+      },
+      {
+        "name": "timeLfoAmount39",
+        "type": "d",
+        "value": 0.0678928375244141
+      },
+      {
+        "name": "timeLfoAmount40",
+        "type": "d",
+        "value": 0.0681952476501465
+      },
+      {
+        "name": "timeLfoAmount41",
+        "type": "d",
+        "value": 0.0684976577758789
+      },
+      {
+        "name": "timeLfoAmount42",
+        "type": "d",
+        "value": 0.0688000679016113
+      },
+      {
+        "name": "timeLfoAmount43",
+        "type": "d",
+        "value": 0.0691024780273437
+      },
+      {
+        "name": "timeLfoAmount44",
+        "type": "d",
+        "value": 0.06940488815307622
+      },
+      {
+        "name": "timeLfoAmount45",
+        "type": "d",
+        "value": 0.06970729827880862
+      },
+      {
+        "name": "timeLfoAmount46",
+        "type": "d",
+        "value": 0.07000970840454102
+      },
+      {
+        "name": "timeLfoAmount47",
+        "type": "d",
+        "value": 0.07031211853027342
+      },
+      {
+        "name": "timeLfoAmount48",
+        "type": "d",
+        "value": 0.07061452865600581
+      },
+      {
+        "name": "timeLfoAmount49",
+        "type": "d",
+        "value": 0.07091693878173833
+      },
+      {
+        "name": "timeLfoAmount50",
+        "type": "d",
+        "value": 0.07121934890747073
+      },
+      {
+        "name": "timeLfoAmount51",
+        "type": "d",
+        "value": 0.07152175903320312
+      },
+      {
+        "name": "timeLfoAmount52",
+        "type": "d",
+        "value": 0.07182416915893552
+      },
+      {
+        "name": "timeLfoAmount53",
+        "type": "d",
+        "value": 0.07212657928466792
+      },
+      {
+        "name": "timeLfoAmount54",
+        "type": "d",
+        "value": 0.07242898941040044
+      },
+      {
+        "name": "timeLfoAmount55",
+        "type": "d",
+        "value": 0.07273139953613283
+      },
+      {
+        "name": "timeLfoAmount56",
+        "type": "d",
+        "value": 0.07303380966186523
+      },
+      {
+        "name": "timeLfoAmount57",
+        "type": "d",
+        "value": 0.07333621978759763
+      },
+      {
+        "name": "timeLfoAmount58",
+        "type": "d",
+        "value": 0.07363862991333003
+      },
+      {
+        "name": "timeLfoAmount59",
+        "type": "d",
+        "value": 0.07394104003906254
+      },
+      {
+        "name": "timeLfoAmount60",
+        "type": "d",
+        "value": 0.07424345016479494
+      },
+      {
+        "name": "timeLfoAmount61",
+        "type": "d",
+        "value": 0.07454586029052734
+      },
+      {
+        "name": "timeLfoAmount62",
+        "type": "d",
+        "value": 0.07484827041625974
+      },
+      {
+        "name": "timeLfoAmount63",
+        "type": "d",
+        "value": 0.07499999999999996
+      },
+      {
+        "name": "lowpassCutoffHz0",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz1",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz2",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz3",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz4",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz5",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz6",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz7",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz8",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz9",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz10",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz11",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz12",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz13",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz14",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz15",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz16",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz17",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz18",
+        "type": "d",
+        "value": 0.963671875
+      },
+      {
+        "name": "lowpassCutoffHz19",
+        "type": "d",
+        "value": 0.9175781249999999
+      },
+      {
+        "name": "lowpassCutoffHz20",
+        "type": "d",
+        "value": 0.871484375
+      },
+      {
+        "name": "lowpassCutoffHz21",
+        "type": "d",
+        "value": 0.825390625
+      },
+      {
+        "name": "lowpassCutoffHz22",
+        "type": "d",
+        "value": 0.779296875
+      },
+      {
+        "name": "lowpassCutoffHz23",
+        "type": "d",
+        "value": 0.75625
+      },
+      {
+        "name": "lowpassCutoffHz24",
+        "type": "d",
+        "value": 0.7625
+      },
+      {
+        "name": "lowpassCutoffHz25",
+        "type": "d",
+        "value": 0.7885416746139526
+      },
+      {
+        "name": "lowpassCutoffHz26",
+        "type": "d",
+        "value": 0.840624988079071
+      },
+      {
+        "name": "lowpassCutoffHz27",
+        "type": "d",
+        "value": 0.8927083134651184
+      },
+      {
+        "name": "lowpassCutoffHz28",
+        "type": "d",
+        "value": 0.9447916507720948
+      },
+      {
+        "name": "lowpassCutoffHz29",
+        "type": "d",
+        "value": 0.9968749791383744
+      },
+      {
+        "name": "lowpassCutoffHz30",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz31",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz32",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz33",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz34",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz35",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz36",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz37",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz38",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz39",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz40",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz41",
+        "type": "d",
+        "value": 0.9754464298486709
+      },
+      {
+        "name": "lowpassCutoffHz42",
+        "type": "d",
+        "value": 0.9299107193946838
+      },
+      {
+        "name": "lowpassCutoffHz43",
+        "type": "d",
+        "value": 0.884375
+      },
+      {
+        "name": "lowpassCutoffHz44",
+        "type": "d",
+        "value": 0.8388392925262451
+      },
+      {
+        "name": "lowpassCutoffHz45",
+        "type": "d",
+        "value": 0.7933035850524902
+      },
+      {
+        "name": "lowpassCutoffHz46",
+        "type": "d",
+        "value": 0.7477678775787353
+      },
+      {
+        "name": "lowpassCutoffHz47",
+        "type": "d",
+        "value": 0.725
+      },
+      {
+        "name": "lowpassCutoffHz48",
+        "type": "d",
+        "value": 0.7375
+      },
+      {
+        "name": "lowpassCutoffHz49",
+        "type": "d",
+        "value": 0.75625
+      },
+      {
+        "name": "lowpassCutoffHz50",
+        "type": "d",
+        "value": 0.79375
+      },
+      {
+        "name": "lowpassCutoffHz51",
+        "type": "d",
+        "value": 0.83125
+      },
+      {
+        "name": "lowpassCutoffHz52",
+        "type": "d",
+        "value": 0.86875
+      },
+      {
+        "name": "lowpassCutoffHz53",
+        "type": "d",
+        "value": 0.90625
+      },
+      {
+        "name": "lowpassCutoffHz54",
+        "type": "d",
+        "value": 0.9437500000000001
+      },
+      {
+        "name": "lowpassCutoffHz55",
+        "type": "d",
+        "value": 0.98125
+      },
+      {
+        "name": "lowpassCutoffHz56",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz57",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz58",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz59",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz60",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz61",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz62",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz63",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz0",
+        "type": "d",
+        "value": 0.95625
+      },
+      {
+        "name": "highpassCutoffHz1",
+        "type": "d",
+        "value": 0.9437499999999999
+      },
+      {
+        "name": "highpassCutoffHz2",
+        "type": "d",
+        "value": 0.9312500000000001
+      },
+      {
+        "name": "highpassCutoffHz3",
+        "type": "d",
+        "value": 0.9124999999999999
+      },
+      {
+        "name": "highpassCutoffHz4",
+        "type": "d",
+        "value": 0.9000000000000001
+      },
+      {
+        "name": "highpassCutoffHz5",
+        "type": "d",
+        "value": 0.8875
+      },
+      {
+        "name": "highpassCutoffHz6",
+        "type": "d",
+        "value": 0.8687500000000001
+      },
+      {
+        "name": "highpassCutoffHz7",
+        "type": "d",
+        "value": 0.85625
+      },
+      {
+        "name": "highpassCutoffHz8",
+        "type": "d",
+        "value": 0.84375
+      },
+      {
+        "name": "highpassCutoffHz9",
+        "type": "d",
+        "value": 0.83125
+      },
+      {
+        "name": "highpassCutoffHz10",
+        "type": "d",
+        "value": 0.8125
+      },
+      {
+        "name": "highpassCutoffHz11",
+        "type": "d",
+        "value": 0.8062500000000001
+      },
+      {
+        "name": "highpassCutoffHz12",
+        "type": "d",
+        "value": 0.79375
+      },
+      {
+        "name": "highpassCutoffHz13",
+        "type": "d",
+        "value": 0.7874999999999999
+      },
+      {
+        "name": "highpassCutoffHz14",
+        "type": "d",
+        "value": 0.78125
+      },
+      {
+        "name": "highpassCutoffHz15",
+        "type": "d",
+        "value": 0.7625
+      },
+      {
+        "name": "highpassCutoffHz16",
+        "type": "d",
+        "value": 0.7562499999999999
+      },
+      {
+        "name": "highpassCutoffHz17",
+        "type": "d",
+        "value": 0.7437500000000001
+      },
+      {
+        "name": "highpassCutoffHz18",
+        "type": "d",
+        "value": 0.73125
+      },
+      {
+        "name": "highpassCutoffHz19",
+        "type": "d",
+        "value": 0.7249999999999999
+      },
+      {
+        "name": "highpassCutoffHz20",
+        "type": "d",
+        "value": 0.7125000000000001
+      },
+      {
+        "name": "highpassCutoffHz21",
+        "type": "d",
+        "value": 0.70625
+      },
+      {
+        "name": "highpassCutoffHz22",
+        "type": "d",
+        "value": 0.7
+      },
+      {
+        "name": "highpassCutoffHz23",
+        "type": "d",
+        "value": 0.6875
+      },
+      {
+        "name": "highpassCutoffHz24",
+        "type": "d",
+        "value": 0.6812500000000001
+      },
+      {
+        "name": "highpassCutoffHz25",
+        "type": "d",
+        "value": 0.675
+      },
+      {
+        "name": "highpassCutoffHz26",
+        "type": "d",
+        "value": 0.6625000000000001
+      },
+      {
+        "name": "highpassCutoffHz27",
+        "type": "d",
+        "value": 0.65625
+      },
+      {
+        "name": "highpassCutoffHz28",
+        "type": "d",
+        "value": 0.65
+      },
+      {
+        "name": "highpassCutoffHz29",
+        "type": "d",
+        "value": 0.65
+      },
+      {
+        "name": "highpassCutoffHz30",
+        "type": "d",
+        "value": 0.64375
+      },
+      {
+        "name": "highpassCutoffHz31",
+        "type": "d",
+        "value": 0.6375
+      },
+      {
+        "name": "highpassCutoffHz32",
+        "type": "d",
+        "value": 0.6312499999999999
+      },
+      {
+        "name": "highpassCutoffHz33",
+        "type": "d",
+        "value": 0.625
+      },
+      {
+        "name": "highpassCutoffHz34",
+        "type": "d",
+        "value": 0.625
+      },
+      {
+        "name": "highpassCutoffHz35",
+        "type": "d",
+        "value": 0.61875
+      },
+      {
+        "name": "highpassCutoffHz36",
+        "type": "d",
+        "value": 0.61875
+      },
+      {
+        "name": "highpassCutoffHz37",
+        "type": "d",
+        "value": 0.61875
+      },
+      {
+        "name": "highpassCutoffHz38",
+        "type": "d",
+        "value": 0.61875
+      },
+      {
+        "name": "highpassCutoffHz39",
+        "type": "d",
+        "value": 0.61875
+      },
+      {
+        "name": "highpassCutoffHz40",
+        "type": "d",
+        "value": 0.61875
+      },
+      {
+        "name": "highpassCutoffHz41",
+        "type": "d",
+        "value": 0.61875
+      },
+      {
+        "name": "highpassCutoffHz42",
+        "type": "d",
+        "value": 0.61875
+      },
+      {
+        "name": "highpassCutoffHz43",
+        "type": "d",
+        "value": 0.61875
+      },
+      {
+        "name": "highpassCutoffHz44",
+        "type": "d",
+        "value": 0.61875
+      },
+      {
+        "name": "highpassCutoffHz45",
+        "type": "d",
+        "value": 0.6062500000000001
+      },
+      {
+        "name": "highpassCutoffHz46",
+        "type": "d",
+        "value": 0.6062500000000001
+      },
+      {
+        "name": "highpassCutoffHz47",
+        "type": "d",
+        "value": 0.6062500000000001
+      },
+      {
+        "name": "highpassCutoffHz48",
+        "type": "d",
+        "value": 0.6000000000000001
+      },
+      {
+        "name": "highpassCutoffHz49",
+        "type": "d",
+        "value": 0.5937500000000001
+      },
+      {
+        "name": "highpassCutoffHz50",
+        "type": "d",
+        "value": 0.5937500000000001
+      },
+      {
+        "name": "highpassCutoffHz51",
+        "type": "d",
+        "value": 0.5875000000000002
+      },
+      {
+        "name": "highpassCutoffHz52",
+        "type": "d",
+        "value": 0.5875000000000002
+      },
+      {
+        "name": "highpassCutoffHz53",
+        "type": "d",
+        "value": 0.5812500000000002
+      },
+      {
+        "name": "highpassCutoffHz54",
+        "type": "d",
+        "value": 0.5812500000000002
+      },
+      {
+        "name": "highpassCutoffHz55",
+        "type": "d",
+        "value": 0.5687500000000001
+      },
+      {
+        "name": "highpassCutoffHz56",
+        "type": "d",
+        "value": 0.5562500000000001
+      },
+      {
+        "name": "highpassCutoffHz57",
+        "type": "d",
+        "value": 0.55
+      },
+      {
+        "name": "highpassCutoffHz58",
+        "type": "d",
+        "value": 0.54375
+      },
+      {
+        "name": "highpassCutoffHz59",
+        "type": "d",
+        "value": 0.53125
+      },
+      {
+        "name": "highpassCutoffHz60",
+        "type": "d",
+        "value": 0.53125
+      },
+      {
+        "name": "highpassCutoffHz61",
+        "type": "d",
+        "value": 0.51875
+      },
+      {
+        "name": "highpassCutoffHz62",
+        "type": "d",
+        "value": 0.5000000000000001
+      },
+      {
+        "name": "highpassCutoffHz63",
+        "type": "d",
+        "value": 0.5000000000000001
+      },
+      {
+        "name": "timeMultiplier",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "delayTimeInterpRate",
+        "type": "d",
+        "value": 0.5946035385131836
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 2389786
+      },
+      {
+        "name": "matrixType",
+        "type": "I",
+        "value": 4
+      },
+      {
+        "name": "gateThreshold",
+        "type": "d",
+        "value": 0.003999999724328518
+      },
+      {
+        "name": "dry",
+        "type": "d",
+        "value": 0.7142857142857143
+      },
+      {
+        "name": "wet",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stereoCross",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "splitRotationHz",
+        "type": "d",
+        "value": 0.6560028195381165
+      },
+      {
+        "name": "splitPhaseOffset",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "splitSkew",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "refreshMatrix",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "delayTime0",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime1",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime2",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime3",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime4",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime5",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime6",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime7",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime8",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime9",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime10",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime11",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime12",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime13",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime14",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime15",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime16",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime17",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime18",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime19",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime20",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime21",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime22",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime23",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime24",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime25",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime26",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime27",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime28",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime29",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime30",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime31",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime32",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime33",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime34",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime35",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime36",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime37",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime38",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime39",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime40",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime41",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime42",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime43",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime44",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime45",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime46",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime47",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime48",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime49",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime50",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime51",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime52",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime53",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime54",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime55",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime56",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime57",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime58",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime59",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime60",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime61",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime62",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "delayTime63",
+        "type": "d",
+        "value": 0.5869779495764822
+      },
+      {
+        "name": "timeLfoAmount0",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount3",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount4",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount5",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount6",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount7",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount8",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount9",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount10",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount11",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount12",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount13",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount14",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount15",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount16",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount17",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount18",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount19",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount20",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount21",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount22",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount23",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount24",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount25",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount26",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount27",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount28",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount29",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount30",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount31",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount32",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount33",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount34",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount35",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount36",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount37",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount38",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount39",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount40",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount41",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount42",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount43",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount44",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount45",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount46",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount47",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount48",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount49",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount50",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount51",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount52",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount53",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount54",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount55",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount56",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount57",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount58",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount59",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount60",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount61",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount62",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount63",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lowpassCutoffHz0",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz1",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz2",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz3",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz4",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz5",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz6",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz7",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz8",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz9",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz10",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz11",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz12",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz13",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz14",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz15",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz16",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz17",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz18",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz19",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz20",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz21",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz22",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz23",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz24",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz25",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz26",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz27",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz28",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz29",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz30",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz31",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz32",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz33",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz34",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz35",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz36",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz37",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz38",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz39",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz40",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz41",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz42",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz43",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz44",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz45",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz46",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz47",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz48",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz49",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz50",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz51",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz52",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz53",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz54",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz55",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz56",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz57",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz58",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz59",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz60",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz61",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz62",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz63",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "highpassCutoffHz0",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz1",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz2",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz3",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz4",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz5",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz6",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz7",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz8",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz9",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz10",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz11",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz12",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz13",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz14",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz15",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz16",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz17",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz18",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz19",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz20",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz21",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz22",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz23",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz24",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz25",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz26",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz27",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz28",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz29",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz30",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz31",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz32",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz33",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz34",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz35",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz36",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz37",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz38",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz39",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz40",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz41",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz42",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz43",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz44",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz45",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz46",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz47",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz48",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz49",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz50",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz51",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz52",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz53",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz54",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz55",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz56",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz57",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz58",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz59",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz60",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz61",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz62",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "highpassCutoffHz63",
+        "type": "d",
+        "value": 0.3030512827271535
+      },
+      {
+        "name": "timeMultiplier",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.49999999999999994
+      },
+      {
+        "name": "delayTimeInterpRate",
+        "type": "d",
+        "value": 0.5946035575013605
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "matrixType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "gateThreshold",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "dry",
+        "type": "d",
+        "value": 0.7142857142857143
+      },
+      {
+        "name": "wet",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stereoCross",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "splitRotationHz",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "splitPhaseOffset",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "splitSkew",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "refreshMatrix",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "name": "LongConference",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "delayTime0",
+        "type": "d",
+        "value": 0.03749999999999998
+      },
+      {
+        "name": "delayTime1",
+        "type": "d",
+        "value": 0.050000000000000044
+      },
+      {
+        "name": "delayTime2",
+        "type": "d",
+        "value": 0.05625000000000002
+      },
+      {
+        "name": "delayTime3",
+        "type": "d",
+        "value": 0.06874999999999998
+      },
+      {
+        "name": "delayTime4",
+        "type": "d",
+        "value": 0.08125000000000004
+      },
+      {
+        "name": "delayTime5",
+        "type": "d",
+        "value": 0.08750000000000002
+      },
+      {
+        "name": "delayTime6",
+        "type": "d",
+        "value": 0.08750000000000002
+      },
+      {
+        "name": "delayTime7",
+        "type": "d",
+        "value": 0.09999999999999998
+      },
+      {
+        "name": "delayTime8",
+        "type": "d",
+        "value": 0.10624999999999996
+      },
+      {
+        "name": "delayTime9",
+        "type": "d",
+        "value": 0.11875000000000002
+      },
+      {
+        "name": "delayTime10",
+        "type": "d",
+        "value": 0.125
+      },
+      {
+        "name": "delayTime11",
+        "type": "d",
+        "value": 0.13749999999999996
+      },
+      {
+        "name": "delayTime12",
+        "type": "d",
+        "value": 0.14375000000000004
+      },
+      {
+        "name": "delayTime13",
+        "type": "d",
+        "value": 0.14375000000000004
+      },
+      {
+        "name": "delayTime14",
+        "type": "d",
+        "value": 0.15625
+      },
+      {
+        "name": "delayTime15",
+        "type": "d",
+        "value": 0.15625
+      },
+      {
+        "name": "delayTime16",
+        "type": "d",
+        "value": 0.16874999999999996
+      },
+      {
+        "name": "delayTime17",
+        "type": "d",
+        "value": 0.17500000000000004
+      },
+      {
+        "name": "delayTime18",
+        "type": "d",
+        "value": 0.18125000000000002
+      },
+      {
+        "name": "delayTime19",
+        "type": "d",
+        "value": 0.1875
+      },
+      {
+        "name": "delayTime20",
+        "type": "d",
+        "value": 0.1875
+      },
+      {
+        "name": "delayTime21",
+        "type": "d",
+        "value": 0.20625000000000004
+      },
+      {
+        "name": "delayTime22",
+        "type": "d",
+        "value": 0.20625000000000004
+      },
+      {
+        "name": "delayTime23",
+        "type": "d",
+        "value": 0.21250000000000002
+      },
+      {
+        "name": "delayTime24",
+        "type": "d",
+        "value": 0.21875
+      },
+      {
+        "name": "delayTime25",
+        "type": "d",
+        "value": 0.21875
+      },
+      {
+        "name": "delayTime26",
+        "type": "d",
+        "value": 0.22499999999999998
+      },
+      {
+        "name": "delayTime27",
+        "type": "d",
+        "value": 0.23750000000000004
+      },
+      {
+        "name": "delayTime28",
+        "type": "d",
+        "value": 0.24375000000000002
+      },
+      {
+        "name": "delayTime29",
+        "type": "d",
+        "value": 0.25
+      },
+      {
+        "name": "delayTime30",
+        "type": "d",
+        "value": 0.25625
+      },
+      {
+        "name": "delayTime31",
+        "type": "d",
+        "value": 0.25625
+      },
+      {
+        "name": "delayTime32",
+        "type": "d",
+        "value": 0.26875000000000004
+      },
+      {
+        "name": "delayTime33",
+        "type": "d",
+        "value": 0.275
+      },
+      {
+        "name": "delayTime34",
+        "type": "d",
+        "value": 0.28125
+      },
+      {
+        "name": "delayTime35",
+        "type": "d",
+        "value": 0.2875
+      },
+      {
+        "name": "delayTime36",
+        "type": "d",
+        "value": 0.2875
+      },
+      {
+        "name": "delayTime37",
+        "type": "d",
+        "value": 0.29374999999999996
+      },
+      {
+        "name": "delayTime38",
+        "type": "d",
+        "value": 0.29374999999999996
+      },
+      {
+        "name": "delayTime39",
+        "type": "d",
+        "value": 0.30625
+      },
+      {
+        "name": "delayTime40",
+        "type": "d",
+        "value": 0.3125
+      },
+      {
+        "name": "delayTime41",
+        "type": "d",
+        "value": 0.31875
+      },
+      {
+        "name": "delayTime42",
+        "type": "d",
+        "value": 0.31875
+      },
+      {
+        "name": "delayTime43",
+        "type": "d",
+        "value": 0.32499999999999996
+      },
+      {
+        "name": "delayTime44",
+        "type": "d",
+        "value": 0.32499999999999996
+      },
+      {
+        "name": "delayTime45",
+        "type": "d",
+        "value": 0.32499999999999996
+      },
+      {
+        "name": "delayTime46",
+        "type": "d",
+        "value": 0.33125000000000004
+      },
+      {
+        "name": "delayTime47",
+        "type": "d",
+        "value": 0.33125000000000004
+      },
+      {
+        "name": "delayTime48",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "delayTime49",
+        "type": "d",
+        "value": 0.35624999999999996
+      },
+      {
+        "name": "delayTime50",
+        "type": "d",
+        "value": 0.36250000000000004
+      },
+      {
+        "name": "delayTime51",
+        "type": "d",
+        "value": 0.36250000000000004
+      },
+      {
+        "name": "delayTime52",
+        "type": "d",
+        "value": 0.38125
+      },
+      {
+        "name": "delayTime53",
+        "type": "d",
+        "value": 0.38749999999999996
+      },
+      {
+        "name": "delayTime54",
+        "type": "d",
+        "value": 0.39375000000000004
+      },
+      {
+        "name": "delayTime55",
+        "type": "d",
+        "value": 0.39375000000000004
+      },
+      {
+        "name": "delayTime56",
+        "type": "d",
+        "value": 0.39375000000000004
+      },
+      {
+        "name": "delayTime57",
+        "type": "d",
+        "value": 0.40625
+      },
+      {
+        "name": "delayTime58",
+        "type": "d",
+        "value": 0.4125
+      },
+      {
+        "name": "delayTime59",
+        "type": "d",
+        "value": 0.4125
+      },
+      {
+        "name": "delayTime60",
+        "type": "d",
+        "value": 0.42500000000000004
+      },
+      {
+        "name": "delayTime61",
+        "type": "d",
+        "value": 0.42500000000000004
+      },
+      {
+        "name": "delayTime62",
+        "type": "d",
+        "value": 0.43125
+      },
+      {
+        "name": "delayTime63",
+        "type": "d",
+        "value": 0.43125
+      },
+      {
+        "name": "timeLfoAmount0",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount1",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount2",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount3",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount4",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount5",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount6",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount7",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount8",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount9",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount10",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount11",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount12",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount13",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount14",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount15",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount16",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount17",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount18",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount19",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount20",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount21",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount22",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount23",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount24",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount25",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount26",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount27",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount28",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount29",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount30",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount31",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount32",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount33",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount34",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount35",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount36",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount37",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "timeLfoAmount38",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount39",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount40",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount41",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "timeLfoAmount42",
+        "type": "d",
+        "value": 0.475
+      },
+      {
+        "name": "timeLfoAmount43",
+        "type": "d",
+        "value": 0.475
+      },
+      {
+        "name": "timeLfoAmount44",
+        "type": "d",
+        "value": 0.48124999999999996
+      },
+      {
+        "name": "timeLfoAmount45",
+        "type": "d",
+        "value": 0.49375
+      },
+      {
+        "name": "timeLfoAmount46",
+        "type": "d",
+        "value": 0.49375
+      },
+      {
+        "name": "timeLfoAmount47",
+        "type": "d",
+        "value": 0.49375
+      },
+      {
+        "name": "timeLfoAmount48",
+        "type": "d",
+        "value": 0.49375
+      },
+      {
+        "name": "timeLfoAmount49",
+        "type": "d",
+        "value": 0.49375
+      },
+      {
+        "name": "timeLfoAmount50",
+        "type": "d",
+        "value": 0.48750000000000004
+      },
+      {
+        "name": "timeLfoAmount51",
+        "type": "d",
+        "value": 0.48750000000000004
+      },
+      {
+        "name": "timeLfoAmount52",
+        "type": "d",
+        "value": 0.48750000000000004
+      },
+      {
+        "name": "timeLfoAmount53",
+        "type": "d",
+        "value": 0.48750000000000004
+      },
+      {
+        "name": "timeLfoAmount54",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "timeLfoAmount55",
+        "type": "d",
+        "value": 0.5125
+      },
+      {
+        "name": "timeLfoAmount56",
+        "type": "d",
+        "value": 0.5125
+      },
+      {
+        "name": "timeLfoAmount57",
+        "type": "d",
+        "value": 0.51875
+      },
+      {
+        "name": "timeLfoAmount58",
+        "type": "d",
+        "value": 0.51875
+      },
+      {
+        "name": "timeLfoAmount59",
+        "type": "d",
+        "value": 0.525
+      },
+      {
+        "name": "timeLfoAmount60",
+        "type": "d",
+        "value": 0.53125
+      },
+      {
+        "name": "timeLfoAmount61",
+        "type": "d",
+        "value": 0.53125
+      },
+      {
+        "name": "timeLfoAmount62",
+        "type": "d",
+        "value": 0.5375
+      },
+      {
+        "name": "timeLfoAmount63",
+        "type": "d",
+        "value": 0.5375
+      },
+      {
+        "name": "lowpassCutoffHz0",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz1",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz2",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz3",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz4",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz5",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz6",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz7",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz8",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz9",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz10",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz11",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz12",
+        "type": "d",
+        "value": 0.9875
+      },
+      {
+        "name": "lowpassCutoffHz13",
+        "type": "d",
+        "value": 0.9875
+      },
+      {
+        "name": "lowpassCutoffHz14",
+        "type": "d",
+        "value": 0.9875
+      },
+      {
+        "name": "lowpassCutoffHz15",
+        "type": "d",
+        "value": 0.98125
+      },
+      {
+        "name": "lowpassCutoffHz16",
+        "type": "d",
+        "value": 0.98125
+      },
+      {
+        "name": "lowpassCutoffHz17",
+        "type": "d",
+        "value": 0.98125
+      },
+      {
+        "name": "lowpassCutoffHz18",
+        "type": "d",
+        "value": 0.98125
+      },
+      {
+        "name": "lowpassCutoffHz19",
+        "type": "d",
+        "value": 0.9750000000000001
+      },
+      {
+        "name": "lowpassCutoffHz20",
+        "type": "d",
+        "value": 0.96875
+      },
+      {
+        "name": "lowpassCutoffHz21",
+        "type": "d",
+        "value": 0.9624999999999999
+      },
+      {
+        "name": "lowpassCutoffHz22",
+        "type": "d",
+        "value": 0.9624999999999999
+      },
+      {
+        "name": "lowpassCutoffHz23",
+        "type": "d",
+        "value": 0.9624999999999999
+      },
+      {
+        "name": "lowpassCutoffHz24",
+        "type": "d",
+        "value": 0.9624999999999999
+      },
+      {
+        "name": "lowpassCutoffHz25",
+        "type": "d",
+        "value": 0.9624999999999999
+      },
+      {
+        "name": "lowpassCutoffHz26",
+        "type": "d",
+        "value": 0.95625
+      },
+      {
+        "name": "lowpassCutoffHz27",
+        "type": "d",
+        "value": 0.95625
+      },
+      {
+        "name": "lowpassCutoffHz28",
+        "type": "d",
+        "value": 0.95625
+      },
+      {
+        "name": "lowpassCutoffHz29",
+        "type": "d",
+        "value": 0.95625
+      },
+      {
+        "name": "lowpassCutoffHz30",
+        "type": "d",
+        "value": 0.95625
+      },
+      {
+        "name": "lowpassCutoffHz31",
+        "type": "d",
+        "value": 0.95625
+      },
+      {
+        "name": "lowpassCutoffHz32",
+        "type": "d",
+        "value": 0.95625
+      },
+      {
+        "name": "lowpassCutoffHz33",
+        "type": "d",
+        "value": 0.95625
+      },
+      {
+        "name": "lowpassCutoffHz34",
+        "type": "d",
+        "value": 0.95625
+      },
+      {
+        "name": "lowpassCutoffHz35",
+        "type": "d",
+        "value": 0.95
+      },
+      {
+        "name": "lowpassCutoffHz36",
+        "type": "d",
+        "value": 0.95
+      },
+      {
+        "name": "lowpassCutoffHz37",
+        "type": "d",
+        "value": 0.9375
+      },
+      {
+        "name": "lowpassCutoffHz38",
+        "type": "d",
+        "value": 0.9312499999999999
+      },
+      {
+        "name": "lowpassCutoffHz39",
+        "type": "d",
+        "value": 0.925
+      },
+      {
+        "name": "lowpassCutoffHz40",
+        "type": "d",
+        "value": 0.925
+      },
+      {
+        "name": "lowpassCutoffHz41",
+        "type": "d",
+        "value": 0.91875
+      },
+      {
+        "name": "lowpassCutoffHz42",
+        "type": "d",
+        "value": 0.91875
+      },
+      {
+        "name": "lowpassCutoffHz43",
+        "type": "d",
+        "value": 0.91875
+      },
+      {
+        "name": "lowpassCutoffHz44",
+        "type": "d",
+        "value": 0.91875
+      },
+      {
+        "name": "lowpassCutoffHz45",
+        "type": "d",
+        "value": 0.9125
+      },
+      {
+        "name": "lowpassCutoffHz46",
+        "type": "d",
+        "value": 0.9125
+      },
+      {
+        "name": "lowpassCutoffHz47",
+        "type": "d",
+        "value": 0.9125
+      },
+      {
+        "name": "lowpassCutoffHz48",
+        "type": "d",
+        "value": 0.9125
+      },
+      {
+        "name": "lowpassCutoffHz49",
+        "type": "d",
+        "value": 0.9125
+      },
+      {
+        "name": "lowpassCutoffHz50",
+        "type": "d",
+        "value": 0.9125
+      },
+      {
+        "name": "lowpassCutoffHz51",
+        "type": "d",
+        "value": 0.90625
+      },
+      {
+        "name": "lowpassCutoffHz52",
+        "type": "d",
+        "value": 0.8999999999999999
+      },
+      {
+        "name": "lowpassCutoffHz53",
+        "type": "d",
+        "value": 0.8875
+      },
+      {
+        "name": "lowpassCutoffHz54",
+        "type": "d",
+        "value": 0.88125
+      },
+      {
+        "name": "lowpassCutoffHz55",
+        "type": "d",
+        "value": 0.86875
+      },
+      {
+        "name": "lowpassCutoffHz56",
+        "type": "d",
+        "value": 0.8625
+      },
+      {
+        "name": "lowpassCutoffHz57",
+        "type": "d",
+        "value": 0.8499999999999999
+      },
+      {
+        "name": "lowpassCutoffHz58",
+        "type": "d",
+        "value": 0.83125
+      },
+      {
+        "name": "lowpassCutoffHz59",
+        "type": "d",
+        "value": 0.8125
+      },
+      {
+        "name": "lowpassCutoffHz60",
+        "type": "d",
+        "value": 0.79375
+      },
+      {
+        "name": "lowpassCutoffHz61",
+        "type": "d",
+        "value": 0.775
+      },
+      {
+        "name": "lowpassCutoffHz62",
+        "type": "d",
+        "value": 0.7625
+      },
+      {
+        "name": "lowpassCutoffHz63",
+        "type": "d",
+        "value": 0.74375
+      },
+      {
+        "name": "highpassCutoffHz0",
+        "type": "d",
+        "value": 0.03750000000000006
+      },
+      {
+        "name": "highpassCutoffHz1",
+        "type": "d",
+        "value": 0.043750000000000275
+      },
+      {
+        "name": "highpassCutoffHz2",
+        "type": "d",
+        "value": 0.05624999999999994
+      },
+      {
+        "name": "highpassCutoffHz3",
+        "type": "d",
+        "value": 0.0625
+      },
+      {
+        "name": "highpassCutoffHz4",
+        "type": "d",
+        "value": 0.06875000000000021
+      },
+      {
+        "name": "highpassCutoffHz5",
+        "type": "d",
+        "value": 0.06875000000000021
+      },
+      {
+        "name": "highpassCutoffHz6",
+        "type": "d",
+        "value": 0.06875000000000021
+      },
+      {
+        "name": "highpassCutoffHz7",
+        "type": "d",
+        "value": 0.06875000000000021
+      },
+      {
+        "name": "highpassCutoffHz8",
+        "type": "d",
+        "value": 0.06875000000000021
+      },
+      {
+        "name": "highpassCutoffHz9",
+        "type": "d",
+        "value": 0.06875000000000021
+      },
+      {
+        "name": "highpassCutoffHz10",
+        "type": "d",
+        "value": 0.08125000000000018
+      },
+      {
+        "name": "highpassCutoffHz11",
+        "type": "d",
+        "value": 0.10625000000000012
+      },
+      {
+        "name": "highpassCutoffHz12",
+        "type": "d",
+        "value": 0.11874999999999994
+      },
+      {
+        "name": "highpassCutoffHz13",
+        "type": "d",
+        "value": 0.125
+      },
+      {
+        "name": "highpassCutoffHz14",
+        "type": "d",
+        "value": 0.14999999999999994
+      },
+      {
+        "name": "highpassCutoffHz15",
+        "type": "d",
+        "value": 0.16250000000000006
+      },
+      {
+        "name": "highpassCutoffHz16",
+        "type": "d",
+        "value": 0.17500000000000002
+      },
+      {
+        "name": "highpassCutoffHz17",
+        "type": "d",
+        "value": 0.19999999999999998
+      },
+      {
+        "name": "highpassCutoffHz18",
+        "type": "d",
+        "value": 0.20625000000000018
+      },
+      {
+        "name": "highpassCutoffHz19",
+        "type": "d",
+        "value": 0.21875
+      },
+      {
+        "name": "highpassCutoffHz20",
+        "type": "d",
+        "value": 0.23125000000000012
+      },
+      {
+        "name": "highpassCutoffHz21",
+        "type": "d",
+        "value": 0.23750000000000002
+      },
+      {
+        "name": "highpassCutoffHz22",
+        "type": "d",
+        "value": 0.25
+      },
+      {
+        "name": "highpassCutoffHz23",
+        "type": "d",
+        "value": 0.26249999999999996
+      },
+      {
+        "name": "highpassCutoffHz24",
+        "type": "d",
+        "value": 0.27499999999999997
+      },
+      {
+        "name": "highpassCutoffHz25",
+        "type": "d",
+        "value": 0.28750000000000003
+      },
+      {
+        "name": "highpassCutoffHz26",
+        "type": "d",
+        "value": 0.3125
+      },
+      {
+        "name": "highpassCutoffHz27",
+        "type": "d",
+        "value": 0.33749999999999997
+      },
+      {
+        "name": "highpassCutoffHz28",
+        "type": "d",
+        "value": 0.36250000000000004
+      },
+      {
+        "name": "highpassCutoffHz29",
+        "type": "d",
+        "value": 0.38125000000000003
+      },
+      {
+        "name": "highpassCutoffHz30",
+        "type": "d",
+        "value": 0.38749999999999984
+      },
+      {
+        "name": "highpassCutoffHz31",
+        "type": "d",
+        "value": 0.40625
+      },
+      {
+        "name": "highpassCutoffHz32",
+        "type": "d",
+        "value": 0.4187500000000001
+      },
+      {
+        "name": "highpassCutoffHz33",
+        "type": "d",
+        "value": 0.4187500000000001
+      },
+      {
+        "name": "highpassCutoffHz34",
+        "type": "d",
+        "value": 0.43124999999999997
+      },
+      {
+        "name": "highpassCutoffHz35",
+        "type": "d",
+        "value": 0.44375000000000003
+      },
+      {
+        "name": "highpassCutoffHz36",
+        "type": "d",
+        "value": 0.45625000000000004
+      },
+      {
+        "name": "highpassCutoffHz37",
+        "type": "d",
+        "value": 0.46875
+      },
+      {
+        "name": "highpassCutoffHz38",
+        "type": "d",
+        "value": 0.47500000000000014
+      },
+      {
+        "name": "highpassCutoffHz39",
+        "type": "d",
+        "value": 0.48124999999999996
+      },
+      {
+        "name": "highpassCutoffHz40",
+        "type": "d",
+        "value": 0.5062500000000001
+      },
+      {
+        "name": "highpassCutoffHz41",
+        "type": "d",
+        "value": 0.5125000000000001
+      },
+      {
+        "name": "highpassCutoffHz42",
+        "type": "d",
+        "value": 0.53125
+      },
+      {
+        "name": "highpassCutoffHz43",
+        "type": "d",
+        "value": 0.5375
+      },
+      {
+        "name": "highpassCutoffHz44",
+        "type": "d",
+        "value": 0.55
+      },
+      {
+        "name": "highpassCutoffHz45",
+        "type": "d",
+        "value": 0.5687500000000001
+      },
+      {
+        "name": "highpassCutoffHz46",
+        "type": "d",
+        "value": 0.5812500000000002
+      },
+      {
+        "name": "highpassCutoffHz47",
+        "type": "d",
+        "value": 0.5937500000000001
+      },
+      {
+        "name": "highpassCutoffHz48",
+        "type": "d",
+        "value": 0.6000000000000001
+      },
+      {
+        "name": "highpassCutoffHz49",
+        "type": "d",
+        "value": 0.61875
+      },
+      {
+        "name": "highpassCutoffHz50",
+        "type": "d",
+        "value": 0.6375
+      },
+      {
+        "name": "highpassCutoffHz51",
+        "type": "d",
+        "value": 0.65
+      },
+      {
+        "name": "highpassCutoffHz52",
+        "type": "d",
+        "value": 0.675
+      },
+      {
+        "name": "highpassCutoffHz53",
+        "type": "d",
+        "value": 0.6937499999999999
+      },
+      {
+        "name": "highpassCutoffHz54",
+        "type": "d",
+        "value": 0.71875
+      },
+      {
+        "name": "highpassCutoffHz55",
+        "type": "d",
+        "value": 0.7437500000000001
+      },
+      {
+        "name": "highpassCutoffHz56",
+        "type": "d",
+        "value": 0.76875
+      },
+      {
+        "name": "highpassCutoffHz57",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "highpassCutoffHz58",
+        "type": "d",
+        "value": 0.8187499999999999
+      },
+      {
+        "name": "highpassCutoffHz59",
+        "type": "d",
+        "value": 0.83125
+      },
+      {
+        "name": "highpassCutoffHz60",
+        "type": "d",
+        "value": 0.84375
+      },
+      {
+        "name": "highpassCutoffHz61",
+        "type": "d",
+        "value": 0.8499999999999998
+      },
+      {
+        "name": "highpassCutoffHz62",
+        "type": "d",
+        "value": 0.8687500000000001
+      },
+      {
+        "name": "highpassCutoffHz63",
+        "type": "d",
+        "value": 0.875
+      },
+      {
+        "name": "timeMultiplier",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.9920000433921813
+      },
+      {
+        "name": "delayTimeInterpRate",
+        "type": "d",
+        "value": 0.5000125765800476
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "matrixType",
+        "type": "I",
+        "value": 16
+      },
+      {
+        "name": "gateThreshold",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "dry",
+        "type": "d",
+        "value": 0.7142857142857143
+      },
+      {
+        "name": "wet",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stereoCross",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "splitRotationHz",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "splitPhaseOffset",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "splitSkew",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "refreshMatrix",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "name": "Orthogonal",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "delayTime0",
+        "type": "d",
+        "value": 0.17130312668968822
+      },
+      {
+        "name": "delayTime1",
+        "type": "d",
+        "value": 0.28117092999510085
+      },
+      {
+        "name": "delayTime2",
+        "type": "d",
+        "value": 0.25534049345760146
+      },
+      {
+        "name": "delayTime3",
+        "type": "d",
+        "value": 0.2688476776473093
+      },
+      {
+        "name": "delayTime4",
+        "type": "d",
+        "value": 0.2914556998746391
+      },
+      {
+        "name": "delayTime5",
+        "type": "d",
+        "value": 0.23457968627166603
+      },
+      {
+        "name": "delayTime6",
+        "type": "d",
+        "value": 0.2738418077212053
+      },
+      {
+        "name": "delayTime7",
+        "type": "d",
+        "value": 0.32284965123461107
+      },
+      {
+        "name": "delayTime8",
+        "type": "d",
+        "value": 0.26915029811743546
+      },
+      {
+        "name": "delayTime9",
+        "type": "d",
+        "value": 0.21340723148335355
+      },
+      {
+        "name": "delayTime10",
+        "type": "d",
+        "value": 0.2546941116839422
+      },
+      {
+        "name": "delayTime11",
+        "type": "d",
+        "value": 0.31690979038863026
+      },
+      {
+        "name": "delayTime12",
+        "type": "d",
+        "value": 0.33029202488671744
+      },
+      {
+        "name": "delayTime13",
+        "type": "d",
+        "value": 0.29282969269749076
+      },
+      {
+        "name": "delayTime14",
+        "type": "d",
+        "value": 0.27848905592631434
+      },
+      {
+        "name": "delayTime15",
+        "type": "d",
+        "value": 0.3320002013168394
+      },
+      {
+        "name": "delayTime16",
+        "type": "d",
+        "value": 0.304391201052542
+      },
+      {
+        "name": "delayTime17",
+        "type": "d",
+        "value": 0.3138437857695701
+      },
+      {
+        "name": "delayTime18",
+        "type": "d",
+        "value": 0.21821306925514658
+      },
+      {
+        "name": "delayTime19",
+        "type": "d",
+        "value": 0.25309485844966073
+      },
+      {
+        "name": "delayTime20",
+        "type": "d",
+        "value": 0.3011809027921683
+      },
+      {
+        "name": "delayTime21",
+        "type": "d",
+        "value": 0.24362838710985743
+      },
+      {
+        "name": "delayTime22",
+        "type": "d",
+        "value": 0.35870905261083447
+      },
+      {
+        "name": "delayTime23",
+        "type": "d",
+        "value": 0.21417726110398694
+      },
+      {
+        "name": "delayTime24",
+        "type": "d",
+        "value": 0.2633656273209854
+      },
+      {
+        "name": "delayTime25",
+        "type": "d",
+        "value": 0.2605215111453753
+      },
+      {
+        "name": "delayTime26",
+        "type": "d",
+        "value": 0.2820527604819262
+      },
+      {
+        "name": "delayTime27",
+        "type": "d",
+        "value": 0.22629102847985264
+      },
+      {
+        "name": "delayTime28",
+        "type": "d",
+        "value": 0.2982158406466094
+      },
+      {
+        "name": "delayTime29",
+        "type": "d",
+        "value": 0.31036476242506483
+      },
+      {
+        "name": "delayTime30",
+        "type": "d",
+        "value": 0.35397972989765036
+      },
+      {
+        "name": "delayTime31",
+        "type": "d",
+        "value": 0.30705034878410825
+      },
+      {
+        "name": "delayTime32",
+        "type": "d",
+        "value": 0.2758385097323864
+      },
+      {
+        "name": "delayTime33",
+        "type": "d",
+        "value": 0.3234998423648254
+      },
+      {
+        "name": "delayTime34",
+        "type": "d",
+        "value": 0.3512620947344472
+      },
+      {
+        "name": "delayTime35",
+        "type": "d",
+        "value": 0.394361827003191
+      },
+      {
+        "name": "delayTime36",
+        "type": "d",
+        "value": 0.24896874304327077
+      },
+      {
+        "name": "delayTime37",
+        "type": "d",
+        "value": 0.23349535563295423
+      },
+      {
+        "name": "delayTime38",
+        "type": "d",
+        "value": 0.2745910953951195
+      },
+      {
+        "name": "delayTime39",
+        "type": "d",
+        "value": 0.28681326709055177
+      },
+      {
+        "name": "delayTime40",
+        "type": "d",
+        "value": 0.2718733378279578
+      },
+      {
+        "name": "delayTime41",
+        "type": "d",
+        "value": 0.3443653379686312
+      },
+      {
+        "name": "delayTime42",
+        "type": "d",
+        "value": 0.35709926321013513
+      },
+      {
+        "name": "delayTime43",
+        "type": "d",
+        "value": 0.29250957457482474
+      },
+      {
+        "name": "delayTime44",
+        "type": "d",
+        "value": 0.3230061274834922
+      },
+      {
+        "name": "delayTime45",
+        "type": "d",
+        "value": 0.3476390097709369
+      },
+      {
+        "name": "delayTime46",
+        "type": "d",
+        "value": 0.38514719683217685
+      },
+      {
+        "name": "delayTime47",
+        "type": "d",
+        "value": 0.24873669746617627
+      },
+      {
+        "name": "delayTime48",
+        "type": "d",
+        "value": 0.29661850093557957
+      },
+      {
+        "name": "delayTime49",
+        "type": "d",
+        "value": 0.31338503457703415
+      },
+      {
+        "name": "delayTime50",
+        "type": "d",
+        "value": 0.3396945503536838
+      },
+      {
+        "name": "delayTime51",
+        "type": "d",
+        "value": 0.2768217784015086
+      },
+      {
+        "name": "delayTime52",
+        "type": "d",
+        "value": 0.1973888772470149
+      },
+      {
+        "name": "delayTime53",
+        "type": "d",
+        "value": 0.25382585709948596
+      },
+      {
+        "name": "delayTime54",
+        "type": "d",
+        "value": 0.28963656668725507
+      },
+      {
+        "name": "delayTime55",
+        "type": "d",
+        "value": 0.30387629972081664
+      },
+      {
+        "name": "delayTime56",
+        "type": "d",
+        "value": 0.4014565276940523
+      },
+      {
+        "name": "delayTime57",
+        "type": "d",
+        "value": 0.34083180036052624
+      },
+      {
+        "name": "delayTime58",
+        "type": "d",
+        "value": 0.35932384514729543
+      },
+      {
+        "name": "delayTime59",
+        "type": "d",
+        "value": 0.37504354283258795
+      },
+      {
+        "name": "delayTime60",
+        "type": "d",
+        "value": 0.2982496702263039
+      },
+      {
+        "name": "delayTime61",
+        "type": "d",
+        "value": 0.4768805703143194
+      },
+      {
+        "name": "delayTime62",
+        "type": "d",
+        "value": 0.3928251972656513
+      },
+      {
+        "name": "delayTime63",
+        "type": "d",
+        "value": 0.42847458791328275
+      },
+      {
+        "name": "timeLfoAmount0",
+        "type": "d",
+        "value": 0.40625
+      },
+      {
+        "name": "timeLfoAmount1",
+        "type": "d",
+        "value": 0.4035786151885986
+      },
+      {
+        "name": "timeLfoAmount2",
+        "type": "d",
+        "value": 0.3982358932495117
+      },
+      {
+        "name": "timeLfoAmount3",
+        "type": "d",
+        "value": 0.3928931713104248
+      },
+      {
+        "name": "timeLfoAmount4",
+        "type": "d",
+        "value": 0.38755044937133787
+      },
+      {
+        "name": "timeLfoAmount5",
+        "type": "d",
+        "value": 0.38220772743225095
+      },
+      {
+        "name": "timeLfoAmount6",
+        "type": "d",
+        "value": 0.37686500549316404
+      },
+      {
+        "name": "timeLfoAmount7",
+        "type": "d",
+        "value": 0.3715222835540771
+      },
+      {
+        "name": "timeLfoAmount8",
+        "type": "d",
+        "value": 0.3661795616149902
+      },
+      {
+        "name": "timeLfoAmount9",
+        "type": "d",
+        "value": 0.3608368396759033
+      },
+      {
+        "name": "timeLfoAmount10",
+        "type": "d",
+        "value": 0.3554941177368164
+      },
+      {
+        "name": "timeLfoAmount11",
+        "type": "d",
+        "value": 0.35015139579772947
+      },
+      {
+        "name": "timeLfoAmount12",
+        "type": "d",
+        "value": 0.34480867385864256
+      },
+      {
+        "name": "timeLfoAmount13",
+        "type": "d",
+        "value": 0.33946595191955564
+      },
+      {
+        "name": "timeLfoAmount14",
+        "type": "d",
+        "value": 0.33412322998046873
+      },
+      {
+        "name": "timeLfoAmount15",
+        "type": "d",
+        "value": 0.3287805080413818
+      },
+      {
+        "name": "timeLfoAmount16",
+        "type": "d",
+        "value": 0.3234377861022949
+      },
+      {
+        "name": "timeLfoAmount17",
+        "type": "d",
+        "value": 0.318095064163208
+      },
+      {
+        "name": "timeLfoAmount18",
+        "type": "d",
+        "value": 0.31275234222412107
+      },
+      {
+        "name": "timeLfoAmount19",
+        "type": "d",
+        "value": 0.30740962028503416
+      },
+      {
+        "name": "timeLfoAmount20",
+        "type": "d",
+        "value": 0.30206689834594724
+      },
+      {
+        "name": "timeLfoAmount21",
+        "type": "d",
+        "value": 0.29672417640686033
+      },
+      {
+        "name": "timeLfoAmount22",
+        "type": "d",
+        "value": 0.2913814544677734
+      },
+      {
+        "name": "timeLfoAmount23",
+        "type": "d",
+        "value": 0.2860387325286865
+      },
+      {
+        "name": "timeLfoAmount24",
+        "type": "d",
+        "value": 0.2806960105895996
+      },
+      {
+        "name": "timeLfoAmount25",
+        "type": "d",
+        "value": 0.2753532886505127
+      },
+      {
+        "name": "timeLfoAmount26",
+        "type": "d",
+        "value": 0.27001056671142576
+      },
+      {
+        "name": "timeLfoAmount27",
+        "type": "d",
+        "value": 0.26466784477233884
+      },
+      {
+        "name": "timeLfoAmount28",
+        "type": "d",
+        "value": 0.25932512283325193
+      },
+      {
+        "name": "timeLfoAmount29",
+        "type": "d",
+        "value": 0.253982400894165
+      },
+      {
+        "name": "timeLfoAmount30",
+        "type": "d",
+        "value": 0.2486396789550781
+      },
+      {
+        "name": "timeLfoAmount31",
+        "type": "d",
+        "value": 0.2432969570159912
+      },
+      {
+        "name": "timeLfoAmount32",
+        "type": "d",
+        "value": 0.23795423507690427
+      },
+      {
+        "name": "timeLfoAmount33",
+        "type": "d",
+        "value": 0.23261151313781736
+      },
+      {
+        "name": "timeLfoAmount34",
+        "type": "d",
+        "value": 0.22726879119873045
+      },
+      {
+        "name": "timeLfoAmount35",
+        "type": "d",
+        "value": 0.22192606925964353
+      },
+      {
+        "name": "timeLfoAmount36",
+        "type": "d",
+        "value": 0.21658334732055662
+      },
+      {
+        "name": "timeLfoAmount37",
+        "type": "d",
+        "value": 0.2112406253814697
+      },
+      {
+        "name": "timeLfoAmount38",
+        "type": "d",
+        "value": 0.2058979034423828
+      },
+      {
+        "name": "timeLfoAmount39",
+        "type": "d",
+        "value": 0.20055518150329588
+      },
+      {
+        "name": "timeLfoAmount40",
+        "type": "d",
+        "value": 0.19521245956420896
+      },
+      {
+        "name": "timeLfoAmount41",
+        "type": "d",
+        "value": 0.1898696899414063
+      },
+      {
+        "name": "timeLfoAmount42",
+        "type": "d",
+        "value": 0.18452692031860352
+      },
+      {
+        "name": "timeLfoAmount43",
+        "type": "d",
+        "value": 0.17918415069580074
+      },
+      {
+        "name": "timeLfoAmount44",
+        "type": "d",
+        "value": 0.17384138107299807
+      },
+      {
+        "name": "timeLfoAmount45",
+        "type": "d",
+        "value": 0.1684986114501953
+      },
+      {
+        "name": "timeLfoAmount46",
+        "type": "d",
+        "value": 0.16315584182739262
+      },
+      {
+        "name": "timeLfoAmount47",
+        "type": "d",
+        "value": 0.15781307220458984
+      },
+      {
+        "name": "timeLfoAmount48",
+        "type": "d",
+        "value": 0.15247030258178706
+      },
+      {
+        "name": "timeLfoAmount49",
+        "type": "d",
+        "value": 0.1471275329589844
+      },
+      {
+        "name": "timeLfoAmount50",
+        "type": "d",
+        "value": 0.14178476333618162
+      },
+      {
+        "name": "timeLfoAmount51",
+        "type": "d",
+        "value": 0.13644199371337895
+      },
+      {
+        "name": "timeLfoAmount52",
+        "type": "d",
+        "value": 0.13109922409057617
+      },
+      {
+        "name": "timeLfoAmount53",
+        "type": "d",
+        "value": 0.1257564544677734
+      },
+      {
+        "name": "timeLfoAmount54",
+        "type": "d",
+        "value": 0.12041368484497073
+      },
+      {
+        "name": "timeLfoAmount55",
+        "type": "d",
+        "value": 0.11507091522216795
+      },
+      {
+        "name": "timeLfoAmount56",
+        "type": "d",
+        "value": 0.10972814559936528
+      },
+      {
+        "name": "timeLfoAmount57",
+        "type": "d",
+        "value": 0.1043853759765625
+      },
+      {
+        "name": "timeLfoAmount58",
+        "type": "d",
+        "value": 0.09904260635375972
+      },
+      {
+        "name": "timeLfoAmount59",
+        "type": "d",
+        "value": 0.09369983673095705
+      },
+      {
+        "name": "timeLfoAmount60",
+        "type": "d",
+        "value": 0.08835706710815427
+      },
+      {
+        "name": "timeLfoAmount61",
+        "type": "d",
+        "value": 0.0830142974853516
+      },
+      {
+        "name": "timeLfoAmount62",
+        "type": "d",
+        "value": 0.07767152786254883
+      },
+      {
+        "name": "timeLfoAmount63",
+        "type": "d",
+        "value": 0.07499999999999996
+      },
+      {
+        "name": "lowpassCutoffHz0",
+        "type": "d",
+        "value": 0.8577162896082677
+      },
+      {
+        "name": "lowpassCutoffHz1",
+        "type": "d",
+        "value": 0.9904235253786933
+      },
+      {
+        "name": "lowpassCutoffHz2",
+        "type": "d",
+        "value": 0.9680202145927247
+      },
+      {
+        "name": "lowpassCutoffHz3",
+        "type": "d",
+        "value": 0.8128778427455152
+      },
+      {
+        "name": "lowpassCutoffHz4",
+        "type": "d",
+        "value": 0.915991402558044
+      },
+      {
+        "name": "lowpassCutoffHz5",
+        "type": "d",
+        "value": 0.8891687735524131
+      },
+      {
+        "name": "lowpassCutoffHz6",
+        "type": "d",
+        "value": 0.8816187249476987
+      },
+      {
+        "name": "lowpassCutoffHz7",
+        "type": "d",
+        "value": 0.8679057690576538
+      },
+      {
+        "name": "lowpassCutoffHz8",
+        "type": "d",
+        "value": 0.8159914221791257
+      },
+      {
+        "name": "lowpassCutoffHz9",
+        "type": "d",
+        "value": 0.8930774548683535
+      },
+      {
+        "name": "lowpassCutoffHz10",
+        "type": "d",
+        "value": 0.9688589729166814
+      },
+      {
+        "name": "lowpassCutoffHz11",
+        "type": "d",
+        "value": 0.9185157188176135
+      },
+      {
+        "name": "lowpassCutoffHz12",
+        "type": "d",
+        "value": 0.9769625797167857
+      },
+      {
+        "name": "lowpassCutoffHz13",
+        "type": "d",
+        "value": 0.9451962258159892
+      },
+      {
+        "name": "lowpassCutoffHz14",
+        "type": "d",
+        "value": 0.9830548262277032
+      },
+      {
+        "name": "lowpassCutoffHz15",
+        "type": "d",
+        "value": 0.9573082395446557
+      },
+      {
+        "name": "lowpassCutoffHz16",
+        "type": "d",
+        "value": 0.9120252931441566
+      },
+      {
+        "name": "lowpassCutoffHz17",
+        "type": "d",
+        "value": 0.8457501583615818
+      },
+      {
+        "name": "lowpassCutoffHz18",
+        "type": "d",
+        "value": 0.962240406888411
+      },
+      {
+        "name": "lowpassCutoffHz19",
+        "type": "d",
+        "value": 0.9155085343378219
+      },
+      {
+        "name": "lowpassCutoffHz20",
+        "type": "d",
+        "value": 0.9313584829333893
+      },
+      {
+        "name": "lowpassCutoffHz21",
+        "type": "d",
+        "value": 0.9499824815680269
+      },
+      {
+        "name": "lowpassCutoffHz22",
+        "type": "d",
+        "value": 0.8363465310022443
+      },
+      {
+        "name": "lowpassCutoffHz23",
+        "type": "d",
+        "value": 0.8519112016987462
+      },
+      {
+        "name": "lowpassCutoffHz24",
+        "type": "d",
+        "value": 0.9697304650365675
+      },
+      {
+        "name": "lowpassCutoffHz25",
+        "type": "d",
+        "value": 0.8843414058705407
+      },
+      {
+        "name": "lowpassCutoffHz26",
+        "type": "d",
+        "value": 0.9074310004434932
+      },
+      {
+        "name": "lowpassCutoffHz27",
+        "type": "d",
+        "value": 0.9679982798491066
+      },
+      {
+        "name": "lowpassCutoffHz28",
+        "type": "d",
+        "value": 0.9951829133194606
+      },
+      {
+        "name": "lowpassCutoffHz29",
+        "type": "d",
+        "value": 0.9758532023453883
+      },
+      {
+        "name": "lowpassCutoffHz30",
+        "type": "d",
+        "value": 0.876964819399627
+      },
+      {
+        "name": "lowpassCutoffHz31",
+        "type": "d",
+        "value": 0.9183738611820855
+      },
+      {
+        "name": "lowpassCutoffHz32",
+        "type": "d",
+        "value": 0.9227582461277588
+      },
+      {
+        "name": "lowpassCutoffHz33",
+        "type": "d",
+        "value": 0.9914125360883687
+      },
+      {
+        "name": "lowpassCutoffHz34",
+        "type": "d",
+        "value": 0.9967277061195675
+      },
+      {
+        "name": "lowpassCutoffHz35",
+        "type": "d",
+        "value": 0.8150653141102919
+      },
+      {
+        "name": "lowpassCutoffHz36",
+        "type": "d",
+        "value": 0.9838814179019939
+      },
+      {
+        "name": "lowpassCutoffHz37",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz38",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz39",
+        "type": "d",
+        "value": 0.9310365815781834
+      },
+      {
+        "name": "lowpassCutoffHz40",
+        "type": "d",
+        "value": 0.9235838940631625
+      },
+      {
+        "name": "lowpassCutoffHz41",
+        "type": "d",
+        "value": 0.9051311263515157
+      },
+      {
+        "name": "lowpassCutoffHz42",
+        "type": "d",
+        "value": 0.9674389277709364
+      },
+      {
+        "name": "lowpassCutoffHz43",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lowpassCutoffHz44",
+        "type": "d",
+        "value": 0.9218066511178614
+      },
+      {
+        "name": "lowpassCutoffHz45",
+        "type": "d",
+        "value": 0.9527148936329068
+      },
+      {
+        "name": "lowpassCutoffHz46",
+        "type": "d",
+        "value": 0.8697451002733664
+      },
+      {
+        "name": "lowpassCutoffHz47",
+        "type": "d",
+        "value": 0.9572901279073512
+      },
+      {
+        "name": "lowpassCutoffHz48",
+        "type": "d",
+        "value": 0.9777152407215822
+      },
+      {
+        "name": "lowpassCutoffHz49",
+        "type": "d",
+        "value": 0.9498573348766852
+      },
+      {
+        "name": "lowpassCutoffHz50",
+        "type": "d",
+        "value": 0.9989891995124723
+      },
+      {
+        "name": "lowpassCutoffHz51",
+        "type": "d",
+        "value": 0.9734814511377443
+      },
+      {
+        "name": "lowpassCutoffHz52",
+        "type": "d",
+        "value": 0.8930742880063561
+      },
+      {
+        "name": "lowpassCutoffHz53",
+        "type": "d",
+        "value": 0.8623898777061624
+      },
+      {
+        "name": "lowpassCutoffHz54",
+        "type": "d",
+        "value": 0.9254460541160006
+      },
+      {
+        "name": "lowpassCutoffHz55",
+        "type": "d",
+        "value": 0.901136360265106
+      },
+      {
+        "name": "lowpassCutoffHz56",
+        "type": "d",
+        "value": 0.8523298108299008
+      },
+      {
+        "name": "lowpassCutoffHz57",
+        "type": "d",
+        "value": 0.9270936209331005
+      },
+      {
+        "name": "lowpassCutoffHz58",
+        "type": "d",
+        "value": 0.936306106045219
+      },
+      {
+        "name": "lowpassCutoffHz59",
+        "type": "d",
+        "value": 0.9343220990937369
+      },
+      {
+        "name": "lowpassCutoffHz60",
+        "type": "d",
+        "value": 0.8505195900484177
+      },
+      {
+        "name": "lowpassCutoffHz61",
+        "type": "d",
+        "value": 0.9317330727891238
+      },
+      {
+        "name": "lowpassCutoffHz62",
+        "type": "d",
+        "value": 0.8865269118245759
+      },
+      {
+        "name": "lowpassCutoffHz63",
+        "type": "d",
+        "value": 0.8264329056777177
+      },
+      {
+        "name": "highpassCutoffHz0",
+        "type": "d",
+        "value": 0.34375
+      },
+      {
+        "name": "highpassCutoffHz1",
+        "type": "d",
+        "value": 0.375
+      },
+      {
+        "name": "highpassCutoffHz2",
+        "type": "d",
+        "value": 0.39999999999999997
+      },
+      {
+        "name": "highpassCutoffHz3",
+        "type": "d",
+        "value": 0.42500000000000004
+      },
+      {
+        "name": "highpassCutoffHz4",
+        "type": "d",
+        "value": 0.45625000000000004
+      },
+      {
+        "name": "highpassCutoffHz5",
+        "type": "d",
+        "value": 0.47500000000000014
+      },
+      {
+        "name": "highpassCutoffHz6",
+        "type": "d",
+        "value": 0.5062500000000001
+      },
+      {
+        "name": "highpassCutoffHz7",
+        "type": "d",
+        "value": 0.525
+      },
+      {
+        "name": "highpassCutoffHz8",
+        "type": "d",
+        "value": 0.54375
+      },
+      {
+        "name": "highpassCutoffHz9",
+        "type": "d",
+        "value": 0.5562500000000001
+      },
+      {
+        "name": "highpassCutoffHz10",
+        "type": "d",
+        "value": 0.5625
+      },
+      {
+        "name": "highpassCutoffHz11",
+        "type": "d",
+        "value": 0.5687500000000001
+      },
+      {
+        "name": "highpassCutoffHz12",
+        "type": "d",
+        "value": 0.5687500000000001
+      },
+      {
+        "name": "highpassCutoffHz13",
+        "type": "d",
+        "value": 0.5687500000000001
+      },
+      {
+        "name": "highpassCutoffHz14",
+        "type": "d",
+        "value": 0.5687500000000001
+      },
+      {
+        "name": "highpassCutoffHz15",
+        "type": "d",
+        "value": 0.5687500000000001
+      },
+      {
+        "name": "highpassCutoffHz16",
+        "type": "d",
+        "value": 0.5687500000000001
+      },
+      {
+        "name": "highpassCutoffHz17",
+        "type": "d",
+        "value": 0.5562500000000001
+      },
+      {
+        "name": "highpassCutoffHz18",
+        "type": "d",
+        "value": 0.5375
+      },
+      {
+        "name": "highpassCutoffHz19",
+        "type": "d",
+        "value": 0.53125
+      },
+      {
+        "name": "highpassCutoffHz20",
+        "type": "d",
+        "value": 0.51875
+      },
+      {
+        "name": "highpassCutoffHz21",
+        "type": "d",
+        "value": 0.5000000000000001
+      },
+      {
+        "name": "highpassCutoffHz22",
+        "type": "d",
+        "value": 0.47500000000000014
+      },
+      {
+        "name": "highpassCutoffHz23",
+        "type": "d",
+        "value": 0.45625000000000004
+      },
+      {
+        "name": "highpassCutoffHz24",
+        "type": "d",
+        "value": 0.43124999999999997
+      },
+      {
+        "name": "highpassCutoffHz25",
+        "type": "d",
+        "value": 0.41250000000000003
+      },
+      {
+        "name": "highpassCutoffHz26",
+        "type": "d",
+        "value": 0.38125000000000003
+      },
+      {
+        "name": "highpassCutoffHz27",
+        "type": "d",
+        "value": 0.36250000000000004
+      },
+      {
+        "name": "highpassCutoffHz28",
+        "type": "d",
+        "value": 0.35000000000000003
+      },
+      {
+        "name": "highpassCutoffHz29",
+        "type": "d",
+        "value": 0.33125000000000004
+      },
+      {
+        "name": "highpassCutoffHz30",
+        "type": "d",
+        "value": 0.31875000000000003
+      },
+      {
+        "name": "highpassCutoffHz31",
+        "type": "d",
+        "value": 0.3125
+      },
+      {
+        "name": "highpassCutoffHz32",
+        "type": "d",
+        "value": 0.30000000000000016
+      },
+      {
+        "name": "highpassCutoffHz33",
+        "type": "d",
+        "value": 0.28125
+      },
+      {
+        "name": "highpassCutoffHz34",
+        "type": "d",
+        "value": 0.27499999999999997
+      },
+      {
+        "name": "highpassCutoffHz35",
+        "type": "d",
+        "value": 0.27499999999999997
+      },
+      {
+        "name": "highpassCutoffHz36",
+        "type": "d",
+        "value": 0.2687499999999999
+      },
+      {
+        "name": "highpassCutoffHz37",
+        "type": "d",
+        "value": 0.2687499999999999
+      },
+      {
+        "name": "highpassCutoffHz38",
+        "type": "d",
+        "value": 0.28750000000000003
+      },
+      {
+        "name": "highpassCutoffHz39",
+        "type": "d",
+        "value": 0.30000000000000016
+      },
+      {
+        "name": "highpassCutoffHz40",
+        "type": "d",
+        "value": 0.31875000000000003
+      },
+      {
+        "name": "highpassCutoffHz41",
+        "type": "d",
+        "value": 0.34375
+      },
+      {
+        "name": "highpassCutoffHz42",
+        "type": "d",
+        "value": 0.36250000000000004
+      },
+      {
+        "name": "highpassCutoffHz43",
+        "type": "d",
+        "value": 0.39375000000000016
+      },
+      {
+        "name": "highpassCutoffHz44",
+        "type": "d",
+        "value": 0.42500000000000004
+      },
+      {
+        "name": "highpassCutoffHz45",
+        "type": "d",
+        "value": 0.45625000000000004
+      },
+      {
+        "name": "highpassCutoffHz46",
+        "type": "d",
+        "value": 0.5000000000000001
+      },
+      {
+        "name": "highpassCutoffHz47",
+        "type": "d",
+        "value": 0.525
+      },
+      {
+        "name": "highpassCutoffHz48",
+        "type": "d",
+        "value": 0.55
+      },
+      {
+        "name": "highpassCutoffHz49",
+        "type": "d",
+        "value": 0.575
+      },
+      {
+        "name": "highpassCutoffHz50",
+        "type": "d",
+        "value": 0.6000000000000001
+      },
+      {
+        "name": "highpassCutoffHz51",
+        "type": "d",
+        "value": 0.6125
+      },
+      {
+        "name": "highpassCutoffHz52",
+        "type": "d",
+        "value": 0.625
+      },
+      {
+        "name": "highpassCutoffHz53",
+        "type": "d",
+        "value": 0.625
+      },
+      {
+        "name": "highpassCutoffHz54",
+        "type": "d",
+        "value": 0.625
+      },
+      {
+        "name": "highpassCutoffHz55",
+        "type": "d",
+        "value": 0.625
+      },
+      {
+        "name": "highpassCutoffHz56",
+        "type": "d",
+        "value": 0.61875
+      },
+      {
+        "name": "highpassCutoffHz57",
+        "type": "d",
+        "value": 0.6125
+      },
+      {
+        "name": "highpassCutoffHz58",
+        "type": "d",
+        "value": 0.6000000000000001
+      },
+      {
+        "name": "highpassCutoffHz59",
+        "type": "d",
+        "value": 0.5812500000000002
+      },
+      {
+        "name": "highpassCutoffHz60",
+        "type": "d",
+        "value": 0.5625
+      },
+      {
+        "name": "highpassCutoffHz61",
+        "type": "d",
+        "value": 0.55
+      },
+      {
+        "name": "highpassCutoffHz62",
+        "type": "d",
+        "value": 0.5125000000000001
+      },
+      {
+        "name": "highpassCutoffHz63",
+        "type": "d",
+        "value": 0.5000000000000001
+      },
+      {
+        "name": "timeMultiplier",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.9159961342811583
+      },
+      {
+        "name": "delayTimeInterpRate",
+        "type": "d",
+        "value": 0.7070022225379944
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 694989
+      },
+      {
+        "name": "matrixType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "gateThreshold",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "dry",
+        "type": "d",
+        "value": 0.7142857142857143
+      },
+      {
+        "name": "wet",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stereoCross",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "splitRotationHz",
+        "type": "d",
+        "value": 0.3140001893043518
+      },
+      {
+        "name": "splitPhaseOffset",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "splitSkew",
+        "type": "d",
+        "value": 0.007999999448657036
+      },
+      {
+        "name": "refreshMatrix",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "name": "SoundsMonophonic",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "delayTime0",
+        "type": "d",
+        "value": 0.15000000000000002
+      },
+      {
+        "name": "delayTime1",
+        "type": "d",
+        "value": 0.15000000000000002
+      },
+      {
+        "name": "delayTime2",
+        "type": "d",
+        "value": 0.15000000000000002
+      },
+      {
+        "name": "delayTime3",
+        "type": "d",
+        "value": 0.15000000000000002
+      },
+      {
+        "name": "delayTime4",
+        "type": "d",
+        "value": 0.15000000000000002
+      },
+      {
+        "name": "delayTime5",
+        "type": "d",
+        "value": 0.15000000000000002
+      },
+      {
+        "name": "delayTime6",
+        "type": "d",
+        "value": 0.16249999999999998
+      },
+      {
+        "name": "delayTime7",
+        "type": "d",
+        "value": 0.16249999999999998
+      },
+      {
+        "name": "delayTime8",
+        "type": "d",
+        "value": 0.16874999999999996
+      },
+      {
+        "name": "delayTime9",
+        "type": "d",
+        "value": 0.17500000000000004
+      },
+      {
+        "name": "delayTime10",
+        "type": "d",
+        "value": 0.18125000000000002
+      },
+      {
+        "name": "delayTime11",
+        "type": "d",
+        "value": 0.1875
+      },
+      {
+        "name": "delayTime12",
+        "type": "d",
+        "value": 0.19999999999999996
+      },
+      {
+        "name": "delayTime13",
+        "type": "d",
+        "value": 0.203125
+      },
+      {
+        "name": "delayTime14",
+        "type": "d",
+        "value": 0.20625000000000004
+      },
+      {
+        "name": "delayTime15",
+        "type": "d",
+        "value": 0.21250000000000002
+      },
+      {
+        "name": "delayTime16",
+        "type": "d",
+        "value": 0.21250000000000002
+      },
+      {
+        "name": "delayTime17",
+        "type": "d",
+        "value": 0.22499999999999998
+      },
+      {
+        "name": "delayTime18",
+        "type": "d",
+        "value": 0.23124999999999996
+      },
+      {
+        "name": "delayTime19",
+        "type": "d",
+        "value": 0.23124999999999996
+      },
+      {
+        "name": "delayTime20",
+        "type": "d",
+        "value": 0.23750000000000004
+      },
+      {
+        "name": "delayTime21",
+        "type": "d",
+        "value": 0.23750000000000004
+      },
+      {
+        "name": "delayTime22",
+        "type": "d",
+        "value": 0.23750000000000004
+      },
+      {
+        "name": "delayTime23",
+        "type": "d",
+        "value": 0.24375000000000002
+      },
+      {
+        "name": "delayTime24",
+        "type": "d",
+        "value": 0.25625
+      },
+      {
+        "name": "delayTime25",
+        "type": "d",
+        "value": 0.26249999999999996
+      },
+      {
+        "name": "delayTime26",
+        "type": "d",
+        "value": 0.26249999999999996
+      },
+      {
+        "name": "delayTime27",
+        "type": "d",
+        "value": 0.26875000000000004
+      },
+      {
+        "name": "delayTime28",
+        "type": "d",
+        "value": 0.26875000000000004
+      },
+      {
+        "name": "delayTime29",
+        "type": "d",
+        "value": 0.275
+      },
+      {
+        "name": "delayTime30",
+        "type": "d",
+        "value": 0.2875
+      },
+      {
+        "name": "delayTime31",
+        "type": "d",
+        "value": 0.2875
+      },
+      {
+        "name": "delayTime32",
+        "type": "d",
+        "value": 0.29374999999999996
+      },
+      {
+        "name": "delayTime33",
+        "type": "d",
+        "value": 0.30000000000000004
+      },
+      {
+        "name": "delayTime34",
+        "type": "d",
+        "value": 0.30625
+      },
+      {
+        "name": "delayTime35",
+        "type": "d",
+        "value": 0.31875
+      },
+      {
+        "name": "delayTime36",
+        "type": "d",
+        "value": 0.32499999999999996
+      },
+      {
+        "name": "delayTime37",
+        "type": "d",
+        "value": 0.33125000000000004
+      },
+      {
+        "name": "delayTime38",
+        "type": "d",
+        "value": 0.3375
+      },
+      {
+        "name": "delayTime39",
+        "type": "d",
+        "value": 0.3375
+      },
+      {
+        "name": "delayTime40",
+        "type": "d",
+        "value": 0.34375
+      },
+      {
+        "name": "delayTime41",
+        "type": "d",
+        "value": 0.35
+      },
+      {
+        "name": "delayTime42",
+        "type": "d",
+        "value": 0.35624999999999996
+      },
+      {
+        "name": "delayTime43",
+        "type": "d",
+        "value": 0.35624999999999996
+      },
+      {
+        "name": "delayTime44",
+        "type": "d",
+        "value": 0.36875
+      },
+      {
+        "name": "delayTime45",
+        "type": "d",
+        "value": 0.375
+      },
+      {
+        "name": "delayTime46",
+        "type": "d",
+        "value": 0.375
+      },
+      {
+        "name": "delayTime47",
+        "type": "d",
+        "value": 0.38125
+      },
+      {
+        "name": "delayTime48",
+        "type": "d",
+        "value": 0.38125
+      },
+      {
+        "name": "delayTime49",
+        "type": "d",
+        "value": 0.38749999999999996
+      },
+      {
+        "name": "delayTime50",
+        "type": "d",
+        "value": 0.39375000000000004
+      },
+      {
+        "name": "delayTime51",
+        "type": "d",
+        "value": 0.4
+      },
+      {
+        "name": "delayTime52",
+        "type": "d",
+        "value": 0.4125
+      },
+      {
+        "name": "delayTime53",
+        "type": "d",
+        "value": 0.42500000000000004
+      },
+      {
+        "name": "delayTime54",
+        "type": "d",
+        "value": 0.43125
+      },
+      {
+        "name": "delayTime55",
+        "type": "d",
+        "value": 0.44375
+      },
+      {
+        "name": "delayTime56",
+        "type": "d",
+        "value": 0.45625000000000004
+      },
+      {
+        "name": "delayTime57",
+        "type": "d",
+        "value": 0.4625
+      },
+      {
+        "name": "delayTime58",
+        "type": "d",
+        "value": 0.48124999999999996
+      },
+      {
+        "name": "delayTime59",
+        "type": "d",
+        "value": 0.48750000000000004
+      },
+      {
+        "name": "delayTime60",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "delayTime61",
+        "type": "d",
+        "value": 0.51875
+      },
+      {
+        "name": "delayTime62",
+        "type": "d",
+        "value": 0.53125
+      },
+      {
+        "name": "delayTime63",
+        "type": "d",
+        "value": 0.55
+      },
+      {
+        "name": "timeLfoAmount0",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount1",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount2",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount3",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount4",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount5",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount6",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount7",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount8",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount9",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount10",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount11",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount12",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount13",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount14",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount15",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount16",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount17",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount18",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount19",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount20",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount21",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount22",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount23",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount24",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount25",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount26",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount27",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount28",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount29",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount30",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount31",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount32",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount33",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount34",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount35",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount36",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount37",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount38",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount39",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount40",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount41",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount42",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount43",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount44",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount45",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount46",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount47",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount48",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount49",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount50",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount51",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount52",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount53",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount54",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount55",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount56",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount57",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount58",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount59",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount60",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount61",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount62",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "timeLfoAmount63",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lowpassCutoffHz0",
+        "type": "d",
+        "value": 0.575
+      },
+      {
+        "name": "lowpassCutoffHz1",
+        "type": "d",
+        "value": 0.6
+      },
+      {
+        "name": "lowpassCutoffHz2",
+        "type": "d",
+        "value": 0.61875
+      },
+      {
+        "name": "lowpassCutoffHz3",
+        "type": "d",
+        "value": 0.63125
+      },
+      {
+        "name": "lowpassCutoffHz4",
+        "type": "d",
+        "value": 0.64375
+      },
+      {
+        "name": "lowpassCutoffHz5",
+        "type": "d",
+        "value": 0.65625
+      },
+      {
+        "name": "lowpassCutoffHz6",
+        "type": "d",
+        "value": 0.6625
+      },
+      {
+        "name": "lowpassCutoffHz7",
+        "type": "d",
+        "value": 0.675
+      },
+      {
+        "name": "lowpassCutoffHz8",
+        "type": "d",
+        "value": 0.69375
+      },
+      {
+        "name": "lowpassCutoffHz9",
+        "type": "d",
+        "value": 0.7
+      },
+      {
+        "name": "lowpassCutoffHz10",
+        "type": "d",
+        "value": 0.70625
+      },
+      {
+        "name": "lowpassCutoffHz11",
+        "type": "d",
+        "value": 0.70625
+      },
+      {
+        "name": "lowpassCutoffHz12",
+        "type": "d",
+        "value": 0.68125
+      },
+      {
+        "name": "lowpassCutoffHz13",
+        "type": "d",
+        "value": 0.65625
+      },
+      {
+        "name": "lowpassCutoffHz14",
+        "type": "d",
+        "value": 0.64375
+      },
+      {
+        "name": "lowpassCutoffHz15",
+        "type": "d",
+        "value": 0.61875
+      },
+      {
+        "name": "lowpassCutoffHz16",
+        "type": "d",
+        "value": 0.6125
+      },
+      {
+        "name": "lowpassCutoffHz17",
+        "type": "d",
+        "value": 0.60625
+      },
+      {
+        "name": "lowpassCutoffHz18",
+        "type": "d",
+        "value": 0.60625
+      },
+      {
+        "name": "lowpassCutoffHz19",
+        "type": "d",
+        "value": 0.60625
+      },
+      {
+        "name": "lowpassCutoffHz20",
+        "type": "d",
+        "value": 0.60625
+      },
+      {
+        "name": "lowpassCutoffHz21",
+        "type": "d",
+        "value": 0.60625
+      },
+      {
+        "name": "lowpassCutoffHz22",
+        "type": "d",
+        "value": 0.60625
+      },
+      {
+        "name": "lowpassCutoffHz23",
+        "type": "d",
+        "value": 0.60625
+      },
+      {
+        "name": "lowpassCutoffHz24",
+        "type": "d",
+        "value": 0.60625
+      },
+      {
+        "name": "lowpassCutoffHz25",
+        "type": "d",
+        "value": 0.60625
+      },
+      {
+        "name": "lowpassCutoffHz26",
+        "type": "d",
+        "value": 0.60625
+      },
+      {
+        "name": "lowpassCutoffHz27",
+        "type": "d",
+        "value": 0.60625
+      },
+      {
+        "name": "lowpassCutoffHz28",
+        "type": "d",
+        "value": 0.60625
+      },
+      {
+        "name": "lowpassCutoffHz29",
+        "type": "d",
+        "value": 0.6125
+      },
+      {
+        "name": "lowpassCutoffHz30",
+        "type": "d",
+        "value": 0.6125
+      },
+      {
+        "name": "lowpassCutoffHz31",
+        "type": "d",
+        "value": 0.61875
+      },
+      {
+        "name": "lowpassCutoffHz32",
+        "type": "d",
+        "value": 0.61875
+      },
+      {
+        "name": "lowpassCutoffHz33",
+        "type": "d",
+        "value": 0.61875
+      },
+      {
+        "name": "lowpassCutoffHz34",
+        "type": "d",
+        "value": 0.625
+      },
+      {
+        "name": "lowpassCutoffHz35",
+        "type": "d",
+        "value": 0.625
+      },
+      {
+        "name": "lowpassCutoffHz36",
+        "type": "d",
+        "value": 0.6375
+      },
+      {
+        "name": "lowpassCutoffHz37",
+        "type": "d",
+        "value": 0.65
+      },
+      {
+        "name": "lowpassCutoffHz38",
+        "type": "d",
+        "value": 0.65625
+      },
+      {
+        "name": "lowpassCutoffHz39",
+        "type": "d",
+        "value": 0.66875
+      },
+      {
+        "name": "lowpassCutoffHz40",
+        "type": "d",
+        "value": 0.68125
+      },
+      {
+        "name": "lowpassCutoffHz41",
+        "type": "d",
+        "value": 0.69375
+      },
+      {
+        "name": "lowpassCutoffHz42",
+        "type": "d",
+        "value": 0.70625
+      },
+      {
+        "name": "lowpassCutoffHz43",
+        "type": "d",
+        "value": 0.7125
+      },
+      {
+        "name": "lowpassCutoffHz44",
+        "type": "d",
+        "value": 0.73125
+      },
+      {
+        "name": "lowpassCutoffHz45",
+        "type": "d",
+        "value": 0.73125
+      },
+      {
+        "name": "lowpassCutoffHz46",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "lowpassCutoffHz47",
+        "type": "d",
+        "value": 0.75625
+      },
+      {
+        "name": "lowpassCutoffHz48",
+        "type": "d",
+        "value": 0.76875
+      },
+      {
+        "name": "lowpassCutoffHz49",
+        "type": "d",
+        "value": 0.76875
+      },
+      {
+        "name": "lowpassCutoffHz50",
+        "type": "d",
+        "value": 0.775
+      },
+      {
+        "name": "lowpassCutoffHz51",
+        "type": "d",
+        "value": 0.7875
+      },
+      {
+        "name": "lowpassCutoffHz52",
+        "type": "d",
+        "value": 0.79375
+      },
+      {
+        "name": "lowpassCutoffHz53",
+        "type": "d",
+        "value": 0.8
+      },
+      {
+        "name": "lowpassCutoffHz54",
+        "type": "d",
+        "value": 0.80625
+      },
+      {
+        "name": "lowpassCutoffHz55",
+        "type": "d",
+        "value": 0.8125
+      },
+      {
+        "name": "lowpassCutoffHz56",
+        "type": "d",
+        "value": 0.79375
+      },
+      {
+        "name": "lowpassCutoffHz57",
+        "type": "d",
+        "value": 0.79375
+      },
+      {
+        "name": "lowpassCutoffHz58",
+        "type": "d",
+        "value": 0.7875
+      },
+      {
+        "name": "lowpassCutoffHz59",
+        "type": "d",
+        "value": 0.76875
+      },
+      {
+        "name": "lowpassCutoffHz60",
+        "type": "d",
+        "value": 0.75625
+      },
+      {
+        "name": "lowpassCutoffHz61",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "lowpassCutoffHz62",
+        "type": "d",
+        "value": 0.7375
+      },
+      {
+        "name": "lowpassCutoffHz63",
+        "type": "d",
+        "value": 0.71875
+      },
+      {
+        "name": "highpassCutoffHz0",
+        "type": "d",
+        "value": 0.11250000000000018
+      },
+      {
+        "name": "highpassCutoffHz1",
+        "type": "d",
+        "value": 0.11250000000000018
+      },
+      {
+        "name": "highpassCutoffHz2",
+        "type": "d",
+        "value": 0.11250000000000018
+      },
+      {
+        "name": "highpassCutoffHz3",
+        "type": "d",
+        "value": 0.11250000000000018
+      },
+      {
+        "name": "highpassCutoffHz4",
+        "type": "d",
+        "value": 0.11250000000000018
+      },
+      {
+        "name": "highpassCutoffHz5",
+        "type": "d",
+        "value": 0.11874999999999994
+      },
+      {
+        "name": "highpassCutoffHz6",
+        "type": "d",
+        "value": 0.11874999999999994
+      },
+      {
+        "name": "highpassCutoffHz7",
+        "type": "d",
+        "value": 0.13125000000000006
+      },
+      {
+        "name": "highpassCutoffHz8",
+        "type": "d",
+        "value": 0.13125000000000006
+      },
+      {
+        "name": "highpassCutoffHz9",
+        "type": "d",
+        "value": 0.13125000000000006
+      },
+      {
+        "name": "highpassCutoffHz10",
+        "type": "d",
+        "value": 0.13750000000000012
+      },
+      {
+        "name": "highpassCutoffHz11",
+        "type": "d",
+        "value": 0.13750000000000012
+      },
+      {
+        "name": "highpassCutoffHz12",
+        "type": "d",
+        "value": 0.13750000000000012
+      },
+      {
+        "name": "highpassCutoffHz13",
+        "type": "d",
+        "value": 0.14375000000000002
+      },
+      {
+        "name": "highpassCutoffHz14",
+        "type": "d",
+        "value": 0.14999999999999994
+      },
+      {
+        "name": "highpassCutoffHz15",
+        "type": "d",
+        "value": 0.14999999999999994
+      },
+      {
+        "name": "highpassCutoffHz16",
+        "type": "d",
+        "value": 0.16250000000000006
+      },
+      {
+        "name": "highpassCutoffHz17",
+        "type": "d",
+        "value": 0.16874999999999998
+      },
+      {
+        "name": "highpassCutoffHz18",
+        "type": "d",
+        "value": 0.18124999999999994
+      },
+      {
+        "name": "highpassCutoffHz19",
+        "type": "d",
+        "value": 0.18124999999999994
+      },
+      {
+        "name": "highpassCutoffHz20",
+        "type": "d",
+        "value": 0.19375000000000006
+      },
+      {
+        "name": "highpassCutoffHz21",
+        "type": "d",
+        "value": 0.19999999999999998
+      },
+      {
+        "name": "highpassCutoffHz22",
+        "type": "d",
+        "value": 0.20625000000000018
+      },
+      {
+        "name": "highpassCutoffHz23",
+        "type": "d",
+        "value": 0.21249999999999994
+      },
+      {
+        "name": "highpassCutoffHz24",
+        "type": "d",
+        "value": 0.23125000000000012
+      },
+      {
+        "name": "highpassCutoffHz25",
+        "type": "d",
+        "value": 0.23750000000000002
+      },
+      {
+        "name": "highpassCutoffHz26",
+        "type": "d",
+        "value": 0.24374999999999994
+      },
+      {
+        "name": "highpassCutoffHz27",
+        "type": "d",
+        "value": 0.25
+      },
+      {
+        "name": "highpassCutoffHz28",
+        "type": "d",
+        "value": 0.26249999999999996
+      },
+      {
+        "name": "highpassCutoffHz29",
+        "type": "d",
+        "value": 0.2687499999999999
+      },
+      {
+        "name": "highpassCutoffHz30",
+        "type": "d",
+        "value": 0.28750000000000003
+      },
+      {
+        "name": "highpassCutoffHz31",
+        "type": "d",
+        "value": 0.29374999999999996
+      },
+      {
+        "name": "highpassCutoffHz32",
+        "type": "d",
+        "value": 0.29374999999999996
+      },
+      {
+        "name": "highpassCutoffHz33",
+        "type": "d",
+        "value": 0.30000000000000016
+      },
+      {
+        "name": "highpassCutoffHz34",
+        "type": "d",
+        "value": 0.30624999999999997
+      },
+      {
+        "name": "highpassCutoffHz35",
+        "type": "d",
+        "value": 0.31875000000000003
+      },
+      {
+        "name": "highpassCutoffHz36",
+        "type": "d",
+        "value": 0.3250000000000001
+      },
+      {
+        "name": "highpassCutoffHz37",
+        "type": "d",
+        "value": 0.33749999999999997
+      },
+      {
+        "name": "highpassCutoffHz38",
+        "type": "d",
+        "value": 0.35000000000000003
+      },
+      {
+        "name": "highpassCutoffHz39",
+        "type": "d",
+        "value": 0.375
+      },
+      {
+        "name": "highpassCutoffHz40",
+        "type": "d",
+        "value": 0.39375000000000016
+      },
+      {
+        "name": "highpassCutoffHz41",
+        "type": "d",
+        "value": 0.41250000000000003
+      },
+      {
+        "name": "highpassCutoffHz42",
+        "type": "d",
+        "value": 0.4375
+      },
+      {
+        "name": "highpassCutoffHz43",
+        "type": "d",
+        "value": 0.44999999999999996
+      },
+      {
+        "name": "highpassCutoffHz44",
+        "type": "d",
+        "value": 0.4625000000000001
+      },
+      {
+        "name": "highpassCutoffHz45",
+        "type": "d",
+        "value": 0.48124999999999996
+      },
+      {
+        "name": "highpassCutoffHz46",
+        "type": "d",
+        "value": 0.5062500000000001
+      },
+      {
+        "name": "highpassCutoffHz47",
+        "type": "d",
+        "value": 0.51875
+      },
+      {
+        "name": "highpassCutoffHz48",
+        "type": "d",
+        "value": 0.54375
+      },
+      {
+        "name": "highpassCutoffHz49",
+        "type": "d",
+        "value": 0.5625
+      },
+      {
+        "name": "highpassCutoffHz50",
+        "type": "d",
+        "value": 0.575
+      },
+      {
+        "name": "highpassCutoffHz51",
+        "type": "d",
+        "value": 0.6000000000000001
+      },
+      {
+        "name": "highpassCutoffHz52",
+        "type": "d",
+        "value": 0.6125
+      },
+      {
+        "name": "highpassCutoffHz53",
+        "type": "d",
+        "value": 0.625
+      },
+      {
+        "name": "highpassCutoffHz54",
+        "type": "d",
+        "value": 0.65
+      },
+      {
+        "name": "highpassCutoffHz55",
+        "type": "d",
+        "value": 0.65625
+      },
+      {
+        "name": "highpassCutoffHz56",
+        "type": "d",
+        "value": 0.675
+      },
+      {
+        "name": "highpassCutoffHz57",
+        "type": "d",
+        "value": 0.6875
+      },
+      {
+        "name": "highpassCutoffHz58",
+        "type": "d",
+        "value": 0.70625
+      },
+      {
+        "name": "highpassCutoffHz59",
+        "type": "d",
+        "value": 0.71875
+      },
+      {
+        "name": "highpassCutoffHz60",
+        "type": "d",
+        "value": 0.73125
+      },
+      {
+        "name": "highpassCutoffHz61",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "highpassCutoffHz62",
+        "type": "d",
+        "value": 0.76875
+      },
+      {
+        "name": "highpassCutoffHz63",
+        "type": "d",
+        "value": 0.78125
+      },
+      {
+        "name": "timeMultiplier",
+        "type": "d",
+        "value": 0.11600346863269806
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.9240006804466248
+      },
+      {
+        "name": "delayTimeInterpRate",
+        "type": "d",
+        "value": 0.5946035385131836
+      },
+      {
+        "name": "seed",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "matrixType",
+        "type": "I",
+        "value": 15
+      },
+      {
+        "name": "gateThreshold",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "dry",
+        "type": "d",
+        "value": 0.7142857142857143
+      },
+      {
+        "name": "wet",
+        "type": "d",
+        "value": 0.5679993629455566
+      },
+      {
+        "name": "stereoCross",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "splitRotationHz",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "splitPhaseOffset",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "splitSkew",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "refreshMatrix",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  }
+]

@@ -32,7 +32,6 @@
 namespace Steinberg {
 namespace Synth {
 
-constexpr size_t nLfoWavetable = 64;
 constexpr double maxDelayTime = 4.0;
 
 namespace ParameterID {

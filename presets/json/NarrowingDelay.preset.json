@@ -1,0 +1,347 @@
+[
+  {
+    "name": "test1x",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "dryGain",
+        "type": "d",
+        "value": 0.6659998297691345
+      },
+      {
+        "name": "wetGain",
+        "type": "d",
+        "value": 0.6139997243881226
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.7900000810623169
+      },
+      {
+        "name": "delayTimeSeconds",
+        "type": "d",
+        "value": 0.651881992816925
+      },
+      {
+        "name": "shiftPitch",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "shiftHz",
+        "type": "d",
+        "value": 0.47200047969818115
+      },
+      {
+        "name": "highpassHz",
+        "type": "d",
+        "value": 0.2559998631477356
+      },
+      {
+        "name": "lowpassHz",
+        "type": "d",
+        "value": 0.703999400138855
+      },
+      {
+        "name": "lfoToPrimaryDelayTime",
+        "type": "d",
+        "value": 0.6320002675056458
+      },
+      {
+        "name": "lfoToPrimaryShiftPitch",
+        "type": "d",
+        "value": 0.3279998004436493
+      },
+      {
+        "name": "lfoToPrimaryShiftHz",
+        "type": "d",
+        "value": 0.43599992990493774
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoTempoUpper",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "lfoTempoLower",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoRate",
+        "type": "d",
+        "value": 0.4479999244213104
+      },
+      {
+        "name": "lfoPhaseOffset",
+        "type": "d",
+        "value": 0.8479996919631958
+      },
+      {
+        "name": "lfoPhaseConstant",
+        "type": "d",
+        "value": 0.07600000500679016
+      },
+      {
+        "name": "lfoShapeClip",
+        "type": "d",
+        "value": 0.23599988222122192
+      },
+      {
+        "name": "lfoShapeSkew",
+        "type": "d",
+        "value": 0.5840001702308655
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.6626287494579977
+      },
+      {
+        "name": "oversampling",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "name": "test2x",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "dryGain",
+        "type": "d",
+        "value": 0.6659998297691345
+      },
+      {
+        "name": "wetGain",
+        "type": "d",
+        "value": 0.6139997243881226
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.7900000810623169
+      },
+      {
+        "name": "delayTimeSeconds",
+        "type": "d",
+        "value": 0.651881992816925
+      },
+      {
+        "name": "shiftPitch",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "shiftHz",
+        "type": "d",
+        "value": 0.47200047969818115
+      },
+      {
+        "name": "highpassHz",
+        "type": "d",
+        "value": 0.2559998631477356
+      },
+      {
+        "name": "lowpassHz",
+        "type": "d",
+        "value": 0.703999400138855
+      },
+      {
+        "name": "lfoToPrimaryDelayTime",
+        "type": "d",
+        "value": 0.6320002675056458
+      },
+      {
+        "name": "lfoToPrimaryShiftPitch",
+        "type": "d",
+        "value": 0.3279998004436493
+      },
+      {
+        "name": "lfoToPrimaryShiftHz",
+        "type": "d",
+        "value": 0.43599992990493774
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoTempoUpper",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "lfoTempoLower",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoRate",
+        "type": "d",
+        "value": 0.4479999244213104
+      },
+      {
+        "name": "lfoPhaseOffset",
+        "type": "d",
+        "value": 0.8479996919631958
+      },
+      {
+        "name": "lfoPhaseConstant",
+        "type": "d",
+        "value": 0.07600000500679016
+      },
+      {
+        "name": "lfoShapeClip",
+        "type": "d",
+        "value": 0.23599988222122192
+      },
+      {
+        "name": "lfoShapeSkew",
+        "type": "d",
+        "value": 0.5840001702308655
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.6626287494579977
+      },
+      {
+        "name": "oversampling",
+        "type": "I",
+        "value": 1
+      }
+    ]
+  },
+  {
+    "name": "test8x",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "dryGain",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "wetGain",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "delayTimeSeconds",
+        "type": "d",
+        "value": 0.6518819845141404
+      },
+      {
+        "name": "shiftPitch",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "shiftHz",
+        "type": "d",
+        "value": 0.47200047969818115
+      },
+      {
+        "name": "highpassHz",
+        "type": "d",
+        "value": 0.2559998631477356
+      },
+      {
+        "name": "lowpassHz",
+        "type": "d",
+        "value": 0.703999400138855
+      },
+      {
+        "name": "lfoToPrimaryDelayTime",
+        "type": "d",
+        "value": 0.6320002675056458
+      },
+      {
+        "name": "lfoToPrimaryShiftPitch",
+        "type": "d",
+        "value": 0.3279998004436493
+      },
+      {
+        "name": "lfoToPrimaryShiftHz",
+        "type": "d",
+        "value": 0.43599992990493774
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoTempoUpper",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "lfoTempoLower",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoRate",
+        "type": "d",
+        "value": 0.4479999244213104
+      },
+      {
+        "name": "lfoPhaseOffset",
+        "type": "d",
+        "value": 0.8479996919631958
+      },
+      {
+        "name": "lfoPhaseConstant",
+        "type": "d",
+        "value": 0.07600000500679016
+      },
+      {
+        "name": "lfoShapeClip",
+        "type": "d",
+        "value": 0.23599988222122192
+      },
+      {
+        "name": "lfoShapeSkew",
+        "type": "d",
+        "value": 0.5840001702308655
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.6626287494579977
+      },
+      {
+        "name": "oversampling",
+        "type": "I",
+        "value": 2
+      }
+    ]
+  }
+]

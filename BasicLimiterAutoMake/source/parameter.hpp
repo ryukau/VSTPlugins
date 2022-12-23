@@ -24,9 +24,9 @@
 #include "../../common/parameterInterface.hpp"
 
 #ifdef TEST_DSP
-#include "../../test/value.hpp"
+  #include "../../test/value.hpp"
 #else
-#include "../../common/value.hpp"
+  #include "../../common/value.hpp"
 #endif
 
 constexpr float maxAttackSeconds = 1.0f;

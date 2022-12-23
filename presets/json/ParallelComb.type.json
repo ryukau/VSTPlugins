@@ -1,0 +1,162 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "delayTime0",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "delayTime1",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "delayTime2",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "delayTime3",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "timeMultiplier",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "feedback",
+    "type": "d",
+    "default": "Scales::feedback.invmap(1.0 / double(nCombTaps))",
+    "scale": "Scales::feedback",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "feedbackHighpassCutoffHz",
+    "type": "d",
+    "default": "Scales::feedbackHighpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::feedbackHighpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "feedbackLimiterRelease",
+    "type": "d",
+    "default": "Scales::feedbackLimiterRelease.invmap(0.2)",
+    "scale": "Scales::feedbackLimiterRelease",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "delayTimeInterpRate",
+    "type": "d",
+    "default": "Scales::delayTimeInterpRate.invmap(0.5)",
+    "scale": "Scales::delayTimeInterpRate",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "delayTimeInterpLowpassSeconds",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTimeInterpLowpassSeconds",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "stereoLean",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::stereoLean",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "stereoCross",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "feedbackToDelayTime",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::feedbackToDelayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "gateThreshold",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::gateThreshold",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "gateRelease",
+    "type": "d",
+    "default": "Scales::gateRelease.invmap(0.01)",
+    "scale": "Scales::gateRelease",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "dry",
+    "type": "d",
+    "default": "Scales::dry.invmapDB(0.0)",
+    "scale": "Scales::dry",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "wet",
+    "type": "d",
+    "default": "Scales::wet.invmapDB(0.0)",
+    "scale": "Scales::wet",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "channelType",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "overSampling",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  }
+]

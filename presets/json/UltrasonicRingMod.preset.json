@@ -1,0 +1,82 @@
+[
+  {
+    "name": "test",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "preClipGain",
+        "type": "d",
+        "value": 0.6440002918243408
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "frequencyHz",
+        "type": "d",
+        "value": 0.7306668162345886
+      },
+      {
+        "name": "dcOffset",
+        "type": "d",
+        "value": 0.32799991965293884
+      },
+      {
+        "name": "feedbackGain",
+        "type": "d",
+        "value": 0.6480002999305725
+      },
+      {
+        "name": "modFrequencyScaling",
+        "type": "d",
+        "value": 0.5440000891685486
+      },
+      {
+        "name": "modWrapMix",
+        "type": "d",
+        "value": 0.4079999625682831
+      },
+      {
+        "name": "hardclipMix",
+        "type": "d",
+        "value": 0.947999894618988
+      },
+      {
+        "name": "noteScaling",
+        "type": "d",
+        "value": 0.25
+      },
+      {
+        "name": "noteScalingNegative",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "noteOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "noteSlideTimeSecond",
+        "type": "d",
+        "value": 0.5376287494579977
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.6626287494579977
+      }
+    ]
+  }
+]

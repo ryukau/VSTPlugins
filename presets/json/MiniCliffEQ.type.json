@@ -1,0 +1,42 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "cutoffHz",
+    "type": "d",
+    "default": "Scales::cutoffHz.invmap(20.0)",
+    "scale": "Scales::cutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "highpassGain",
+    "type": "d",
+    "default": "Scales::gain.invmapDB(0.0)",
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "lowpassGain",
+    "type": "d",
+    "default": "Scales::gain.invmapDB(0.0)",
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "refreshFir",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  }
+]

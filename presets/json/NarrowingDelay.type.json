@@ -1,0 +1,178 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "dryGain",
+    "type": "d",
+    "default": "Scales::gain.invmapDB(0.0)",
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "wetGain",
+    "type": "d",
+    "default": "Scales::gain.invmapDB(0.0)",
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "feedback",
+    "type": "d",
+    "default": 0.75,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "delayTimeSeconds",
+    "type": "d",
+    "default": "Scales::delayTimeSeconds.invmap(0.1)",
+    "scale": "Scales::delayTimeSeconds",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "shiftPitch",
+    "type": "d",
+    "default": "Scales::shiftPitch.invmap(0.0)",
+    "scale": "Scales::shiftPitch",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "shiftHz",
+    "type": "d",
+    "default": "Scales::shiftHz.invmap(0.0)",
+    "scale": "Scales::shiftHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "highpassHz",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::cutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "lowpassHz",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::cutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "lfoToPrimaryDelayTime",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::lfoToPrimary",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "lfoToPrimaryShiftPitch",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::lfoToPrimary",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "lfoToPrimaryShiftHz",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::lfoToPrimary",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "lfoTempoSync",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "lfoTempoUpper",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::lfoTempoUpper",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "lfoTempoLower",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::lfoTempoLower",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "lfoRate",
+    "type": "d",
+    "default": "Scales::lfoRate.invmap(1.0)",
+    "scale": "Scales::lfoRate",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "lfoPhaseOffset",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "lfoPhaseConstant",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "lfoShapeClip",
+    "type": "d",
+    "default": "Scales::lfoShapeClip.invmap(1.0)",
+    "scale": "Scales::lfoShapeClip",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "lfoShapeSkew",
+    "type": "d",
+    "default": "Scales::lfoShapeSkew.invmap(1.0)",
+    "scale": "Scales::lfoShapeSkew",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "parameterSmoothingSecond",
+    "type": "d",
+    "default": "Scales::parameterSmoothingSecond.invmap(0.2)",
+    "scale": "Scales::parameterSmoothingSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "oversampling",
+    "type": "I",
+    "default": 2,
+    "scale": "Scales::oversampling",
+    "flags": "Info::kCanAutomate"
+  }
+]

@@ -1,0 +1,142 @@
+[
+  {
+    "name": "test1x",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "limiterThreshold",
+        "type": "d",
+        "value": 0.15532879531383514
+      },
+      {
+        "name": "limiterGate",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "limiterAttack",
+        "type": "d",
+        "value": 0.47666018449389697
+      },
+      {
+        "name": "limiterRelease",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "limiterSustain",
+        "type": "d",
+        "value": 0.09346788614796514
+      },
+      {
+        "name": "limiterStereoLink",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "autoMakeupToggle",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "autoMakeupTargetGain",
+        "type": "d",
+        "value": 0.4983333333333333
+      },
+      {
+        "name": "truePeak",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "overshoot",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "sidechain",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "channelType",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "name": "testTruePeak",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "limiterThreshold",
+        "type": "d",
+        "value": 0.15532879531383514
+      },
+      {
+        "name": "limiterGate",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "limiterAttack",
+        "type": "d",
+        "value": 0.47666018449389697
+      },
+      {
+        "name": "limiterRelease",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "limiterSustain",
+        "type": "d",
+        "value": 0.09346788614796514
+      },
+      {
+        "name": "limiterStereoLink",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "autoMakeupToggle",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "autoMakeupTargetGain",
+        "type": "d",
+        "value": 0.4983333333333333
+      },
+      {
+        "name": "truePeak",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "overshoot",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "sidechain",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "channelType",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  }
+]

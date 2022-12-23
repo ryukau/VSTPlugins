@@ -1,0 +1,317 @@
+[
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "delayTime0",
+        "type": "d",
+        "value": 0.3294062900063279
+      },
+      {
+        "name": "delayTime1",
+        "type": "d",
+        "value": 0.3294062900063279
+      },
+      {
+        "name": "delayTime2",
+        "type": "d",
+        "value": 0.3294062900063279
+      },
+      {
+        "name": "delayTime3",
+        "type": "d",
+        "value": 0.3294062900063279
+      },
+      {
+        "name": "timeMultiplier",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.03543105712398433
+      },
+      {
+        "name": "feedbackHighpassCutoffHz",
+        "type": "d",
+        "value": 0.3157812821854046
+      },
+      {
+        "name": "feedbackLimiterRelease",
+        "type": "d",
+        "value": 0.334370152488211
+      },
+      {
+        "name": "delayTimeInterpRate",
+        "type": "d",
+        "value": 0.5946035575013605
+      },
+      {
+        "name": "delayTimeInterpLowpassSeconds",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stereoLean",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stereoCross",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "feedbackToDelayTime",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gateThreshold",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "gateRelease",
+        "type": "d",
+        "value": 0.4
+      },
+      {
+        "name": "dry",
+        "type": "d",
+        "value": 0.7142857142857143
+      },
+      {
+        "name": "wet",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "channelType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "overSampling",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "name": "test16x",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "delayTime0",
+        "type": "d",
+        "value": 0.13749999999999996
+      },
+      {
+        "name": "delayTime1",
+        "type": "d",
+        "value": 0.23750000000000004
+      },
+      {
+        "name": "delayTime2",
+        "type": "d",
+        "value": 0.2875
+      },
+      {
+        "name": "delayTime3",
+        "type": "d",
+        "value": 0.2875
+      },
+      {
+        "name": "timeMultiplier",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.03543105712398433
+      },
+      {
+        "name": "feedbackHighpassCutoffHz",
+        "type": "d",
+        "value": 0.3157812821854046
+      },
+      {
+        "name": "feedbackLimiterRelease",
+        "type": "d",
+        "value": 0.334370152488211
+      },
+      {
+        "name": "delayTimeInterpRate",
+        "type": "d",
+        "value": 0.5946035575013605
+      },
+      {
+        "name": "delayTimeInterpLowpassSeconds",
+        "type": "d",
+        "value": 0.21000002324581146
+      },
+      {
+        "name": "stereoLean",
+        "type": "d",
+        "value": 0.3639998435974121
+      },
+      {
+        "name": "stereoCross",
+        "type": "d",
+        "value": 0.432000070810318
+      },
+      {
+        "name": "feedbackToDelayTime",
+        "type": "d",
+        "value": 0.4160003960132599
+      },
+      {
+        "name": "gateThreshold",
+        "type": "d",
+        "value": 0.07399999350309372
+      },
+      {
+        "name": "gateRelease",
+        "type": "d",
+        "value": 0.7019989490509033
+      },
+      {
+        "name": "dry",
+        "type": "d",
+        "value": 0.7142857142857143
+      },
+      {
+        "name": "wet",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "channelType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "overSampling",
+        "type": "I",
+        "value": 1
+      }
+    ]
+  },
+  {
+    "name": "test1x",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "delayTime0",
+        "type": "d",
+        "value": 0.13749999999999996
+      },
+      {
+        "name": "delayTime1",
+        "type": "d",
+        "value": 0.23750000000000004
+      },
+      {
+        "name": "delayTime2",
+        "type": "d",
+        "value": 0.2875
+      },
+      {
+        "name": "delayTime3",
+        "type": "d",
+        "value": 0.2875
+      },
+      {
+        "name": "timeMultiplier",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.03543105712398433
+      },
+      {
+        "name": "feedbackHighpassCutoffHz",
+        "type": "d",
+        "value": 0.3157812821854046
+      },
+      {
+        "name": "feedbackLimiterRelease",
+        "type": "d",
+        "value": 0.334370152488211
+      },
+      {
+        "name": "delayTimeInterpRate",
+        "type": "d",
+        "value": 0.5946035575013605
+      },
+      {
+        "name": "delayTimeInterpLowpassSeconds",
+        "type": "d",
+        "value": 0.21000002324581146
+      },
+      {
+        "name": "stereoLean",
+        "type": "d",
+        "value": 0.3639998435974121
+      },
+      {
+        "name": "stereoCross",
+        "type": "d",
+        "value": 0.432000070810318
+      },
+      {
+        "name": "feedbackToDelayTime",
+        "type": "d",
+        "value": 0.4160003960132599
+      },
+      {
+        "name": "gateThreshold",
+        "type": "d",
+        "value": 0.07399999350309372
+      },
+      {
+        "name": "gateRelease",
+        "type": "d",
+        "value": 0.7019989490509033
+      },
+      {
+        "name": "dry",
+        "type": "d",
+        "value": 0.7142857142857143
+      },
+      {
+        "name": "wet",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "channelType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "overSampling",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  }
+]

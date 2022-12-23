@@ -22,20 +22,13 @@
 
 // CMake provides this macro, but just in case.
 #ifndef UHHYOU_PLUGIN_NAME
-#define UHHYOU_PLUGIN_NAME "ParallelComb"
+  #define UHHYOU_PLUGIN_NAME "ParallelComb"
 #endif
 
 #define OUT_DIR_PATH "snd/" UHHYOU_PLUGIN_NAME
 
 int main()
 {
-#ifdef __linux__
-  FxTesterSimdRuntimeDispatch<DSPInterface, DSPCore_AVX512, DSPCore_AVX2, DSPCore_AVX>
-    tester(UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
-#else
-  FxTesterSimdRuntimeDispatch<DSPInterface, DSPCore_AVX2, DSPCore_AVX> tester(
-    UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
-#endif
-
+  FxTester<DSPCore_Plain> tester(UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
   return tester.isFinished ? EXIT_SUCCESS : EXIT_FAILURE;
 }

@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "cutoffHz",
+        "type": "d",
+        "value": 0.2970244866901881
+      },
+      {
+        "name": "highpassGain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lowpassGain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "refreshFir",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "name": "DirectCurrentSuppressor",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "cutoffHz",
+        "type": "d",
+        "value": 0.2970244866901881
+      },
+      {
+        "name": "highpassGain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lowpassGain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "refreshFir",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "name": "Lowpass",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "cutoffHz",
+        "type": "d",
+        "value": 0.9597987532615662
+      },
+      {
+        "name": "highpassGain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lowpassGain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "refreshFir",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  }
+]

@@ -1,0 +1,912 @@
+[
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoWavetable0",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoWavetable1",
+        "type": "d",
+        "value": 0.5490085701647803
+      },
+      {
+        "name": "lfoWavetable2",
+        "type": "d",
+        "value": 0.5975451610080641
+      },
+      {
+        "name": "lfoWavetable3",
+        "type": "d",
+        "value": 0.6451423386272311
+      },
+      {
+        "name": "lfoWavetable4",
+        "type": "d",
+        "value": 0.6913417161825449
+      },
+      {
+        "name": "lfoWavetable5",
+        "type": "d",
+        "value": 0.7356983684129988
+      },
+      {
+        "name": "lfoWavetable6",
+        "type": "d",
+        "value": 0.7777851165098011
+      },
+      {
+        "name": "lfoWavetable7",
+        "type": "d",
+        "value": 0.8171966420818227
+      },
+      {
+        "name": "lfoWavetable8",
+        "type": "d",
+        "value": 0.8535533905932737
+      },
+      {
+        "name": "lfoWavetable9",
+        "type": "d",
+        "value": 0.8865052266813684
+      },
+      {
+        "name": "lfoWavetable10",
+        "type": "d",
+        "value": 0.9157348061512727
+      },
+      {
+        "name": "lfoWavetable11",
+        "type": "d",
+        "value": 0.9409606321741775
+      },
+      {
+        "name": "lfoWavetable12",
+        "type": "d",
+        "value": 0.9619397662556434
+      },
+      {
+        "name": "lfoWavetable13",
+        "type": "d",
+        "value": 0.9784701678661045
+      },
+      {
+        "name": "lfoWavetable14",
+        "type": "d",
+        "value": 0.9903926402016152
+      },
+      {
+        "name": "lfoWavetable15",
+        "type": "d",
+        "value": 0.9975923633360984
+      },
+      {
+        "name": "lfoWavetable16",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "lfoWavetable17",
+        "type": "d",
+        "value": 0.9975923633360985
+      },
+      {
+        "name": "lfoWavetable18",
+        "type": "d",
+        "value": 0.9903926402016152
+      },
+      {
+        "name": "lfoWavetable19",
+        "type": "d",
+        "value": 0.9784701678661045
+      },
+      {
+        "name": "lfoWavetable20",
+        "type": "d",
+        "value": 0.9619397662556434
+      },
+      {
+        "name": "lfoWavetable21",
+        "type": "d",
+        "value": 0.9409606321741775
+      },
+      {
+        "name": "lfoWavetable22",
+        "type": "d",
+        "value": 0.9157348061512727
+      },
+      {
+        "name": "lfoWavetable23",
+        "type": "d",
+        "value": 0.8865052266813686
+      },
+      {
+        "name": "lfoWavetable24",
+        "type": "d",
+        "value": 0.8535533905932737
+      },
+      {
+        "name": "lfoWavetable25",
+        "type": "d",
+        "value": 0.8171966420818227
+      },
+      {
+        "name": "lfoWavetable26",
+        "type": "d",
+        "value": 0.7777851165098011
+      },
+      {
+        "name": "lfoWavetable27",
+        "type": "d",
+        "value": 0.735698368412999
+      },
+      {
+        "name": "lfoWavetable28",
+        "type": "d",
+        "value": 0.6913417161825449
+      },
+      {
+        "name": "lfoWavetable29",
+        "type": "d",
+        "value": 0.6451423386272312
+      },
+      {
+        "name": "lfoWavetable30",
+        "type": "d",
+        "value": 0.5975451610080643
+      },
+      {
+        "name": "lfoWavetable31",
+        "type": "d",
+        "value": 0.5490085701647804
+      },
+      {
+        "name": "lfoWavetable32",
+        "type": "d",
+        "value": 0.5000000000000001
+      },
+      {
+        "name": "lfoWavetable33",
+        "type": "d",
+        "value": 0.4509914298352197
+      },
+      {
+        "name": "lfoWavetable34",
+        "type": "d",
+        "value": 0.4024548389919358
+      },
+      {
+        "name": "lfoWavetable35",
+        "type": "d",
+        "value": 0.354857661372769
+      },
+      {
+        "name": "lfoWavetable36",
+        "type": "d",
+        "value": 0.3086582838174552
+      },
+      {
+        "name": "lfoWavetable37",
+        "type": "d",
+        "value": 0.26430163158700115
+      },
+      {
+        "name": "lfoWavetable38",
+        "type": "d",
+        "value": 0.22221488349019902
+      },
+      {
+        "name": "lfoWavetable39",
+        "type": "d",
+        "value": 0.18280335791817737
+      },
+      {
+        "name": "lfoWavetable40",
+        "type": "d",
+        "value": 0.14644660940672627
+      },
+      {
+        "name": "lfoWavetable41",
+        "type": "d",
+        "value": 0.11349477331863167
+      },
+      {
+        "name": "lfoWavetable42",
+        "type": "d",
+        "value": 0.08426519384872738
+      },
+      {
+        "name": "lfoWavetable43",
+        "type": "d",
+        "value": 0.05903936782582253
+      },
+      {
+        "name": "lfoWavetable44",
+        "type": "d",
+        "value": 0.03806023374435674
+      },
+      {
+        "name": "lfoWavetable45",
+        "type": "d",
+        "value": 0.021529832133895588
+      },
+      {
+        "name": "lfoWavetable46",
+        "type": "d",
+        "value": 0.00960735979838484
+      },
+      {
+        "name": "lfoWavetable47",
+        "type": "d",
+        "value": 0.0024076366639015356
+      },
+      {
+        "name": "lfoWavetable48",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoWavetable49",
+        "type": "d",
+        "value": 0.0024076366639015356
+      },
+      {
+        "name": "lfoWavetable50",
+        "type": "d",
+        "value": 0.009607359798384785
+      },
+      {
+        "name": "lfoWavetable51",
+        "type": "d",
+        "value": 0.021529832133895532
+      },
+      {
+        "name": "lfoWavetable52",
+        "type": "d",
+        "value": 0.038060233744356686
+      },
+      {
+        "name": "lfoWavetable53",
+        "type": "d",
+        "value": 0.059039367825822475
+      },
+      {
+        "name": "lfoWavetable54",
+        "type": "d",
+        "value": 0.08426519384872727
+      },
+      {
+        "name": "lfoWavetable55",
+        "type": "d",
+        "value": 0.11349477331863156
+      },
+      {
+        "name": "lfoWavetable56",
+        "type": "d",
+        "value": 0.14644660940672616
+      },
+      {
+        "name": "lfoWavetable57",
+        "type": "d",
+        "value": 0.18280335791817703
+      },
+      {
+        "name": "lfoWavetable58",
+        "type": "d",
+        "value": 0.2222148834901989
+      },
+      {
+        "name": "lfoWavetable59",
+        "type": "d",
+        "value": 0.26430163158700104
+      },
+      {
+        "name": "lfoWavetable60",
+        "type": "d",
+        "value": 0.3086582838174548
+      },
+      {
+        "name": "lfoWavetable61",
+        "type": "d",
+        "value": 0.35485766137276875
+      },
+      {
+        "name": "lfoWavetable62",
+        "type": "d",
+        "value": 0.4024548389919356
+      },
+      {
+        "name": "lfoWavetable63",
+        "type": "d",
+        "value": 0.4509914298352197
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "lfoInterpolation",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoUpper",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoLower",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoRate",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoStereoOffset",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoUnisonOffset",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "lfoToUnison",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitch",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unisonPitchOffset",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "pitchCross",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "shifterMainReverse",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "shifterUnisonReverse",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "mirrorUnisonPitch",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "delayTime",
+        "type": "d",
+        "value": 0.6666666666666666
+      },
+      {
+        "name": "stereoLean",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "stereoCross",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "highpassCutoffHz",
+        "type": "d",
+        "value": 0.1849793543918989
+      },
+      {
+        "name": "dry",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "wet",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unisonMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "channelType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothingTime",
+        "type": "d",
+        "value": 0.3252574989159953
+      }
+    ]
+  },
+  {
+    "name": "test",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoWavetable0",
+        "type": "d",
+        "value": 0.05882352941176472
+      },
+      {
+        "name": "lfoWavetable1",
+        "type": "d",
+        "value": 0.06608159682329962
+      },
+      {
+        "name": "lfoWavetable2",
+        "type": "d",
+        "value": 0.08059773164636952
+      },
+      {
+        "name": "lfoWavetable3",
+        "type": "d",
+        "value": 0.09511386646943931
+      },
+      {
+        "name": "lfoWavetable4",
+        "type": "d",
+        "value": 0.10963000129250922
+      },
+      {
+        "name": "lfoWavetable5",
+        "type": "d",
+        "value": 0.12414613611557901
+      },
+      {
+        "name": "lfoWavetable6",
+        "type": "d",
+        "value": 0.1386622709386489
+      },
+      {
+        "name": "lfoWavetable7",
+        "type": "d",
+        "value": 0.1531784057617187
+      },
+      {
+        "name": "lfoWavetable8",
+        "type": "d",
+        "value": 0.1676945405847886
+      },
+      {
+        "name": "lfoWavetable9",
+        "type": "d",
+        "value": 0.1822106754078584
+      },
+      {
+        "name": "lfoWavetable10",
+        "type": "d",
+        "value": 0.1967268102309283
+      },
+      {
+        "name": "lfoWavetable11",
+        "type": "d",
+        "value": 0.2112429450539982
+      },
+      {
+        "name": "lfoWavetable12",
+        "type": "d",
+        "value": 0.225759079877068
+      },
+      {
+        "name": "lfoWavetable13",
+        "type": "d",
+        "value": 0.2402752147001379
+      },
+      {
+        "name": "lfoWavetable14",
+        "type": "d",
+        "value": 0.2547913495232077
+      },
+      {
+        "name": "lfoWavetable15",
+        "type": "d",
+        "value": 0.2693074843462776
+      },
+      {
+        "name": "lfoWavetable16",
+        "type": "d",
+        "value": 0.2838236191693474
+      },
+      {
+        "name": "lfoWavetable17",
+        "type": "d",
+        "value": 0.2983397539924173
+      },
+      {
+        "name": "lfoWavetable18",
+        "type": "d",
+        "value": 0.3128558888154871
+      },
+      {
+        "name": "lfoWavetable19",
+        "type": "d",
+        "value": 0.327372023638557
+      },
+      {
+        "name": "lfoWavetable20",
+        "type": "d",
+        "value": 0.3418881584616268
+      },
+      {
+        "name": "lfoWavetable21",
+        "type": "d",
+        "value": 0.3564042932846967
+      },
+      {
+        "name": "lfoWavetable22",
+        "type": "d",
+        "value": 0.3709204281077666
+      },
+      {
+        "name": "lfoWavetable23",
+        "type": "d",
+        "value": 0.3854365629308364
+      },
+      {
+        "name": "lfoWavetable24",
+        "type": "d",
+        "value": 0.3999526977539063
+      },
+      {
+        "name": "lfoWavetable25",
+        "type": "d",
+        "value": 0.4144688325769761
+      },
+      {
+        "name": "lfoWavetable26",
+        "type": "d",
+        "value": 0.428984967400046
+      },
+      {
+        "name": "lfoWavetable27",
+        "type": "d",
+        "value": 0.4435011022231158
+      },
+      {
+        "name": "lfoWavetable28",
+        "type": "d",
+        "value": 0.4580172370461857
+      },
+      {
+        "name": "lfoWavetable29",
+        "type": "d",
+        "value": 0.4725333718692555
+      },
+      {
+        "name": "lfoWavetable30",
+        "type": "d",
+        "value": 0.4870495066923254
+      },
+      {
+        "name": "lfoWavetable31",
+        "type": "d",
+        "value": 0.5015656415153953
+      },
+      {
+        "name": "lfoWavetable32",
+        "type": "d",
+        "value": 0.5160817763384651
+      },
+      {
+        "name": "lfoWavetable33",
+        "type": "d",
+        "value": 0.5305979111615349
+      },
+      {
+        "name": "lfoWavetable34",
+        "type": "d",
+        "value": 0.5451140459846048
+      },
+      {
+        "name": "lfoWavetable35",
+        "type": "d",
+        "value": 0.5596301808076747
+      },
+      {
+        "name": "lfoWavetable36",
+        "type": "d",
+        "value": 0.5741463156307445
+      },
+      {
+        "name": "lfoWavetable37",
+        "type": "d",
+        "value": 0.5886624504538143
+      },
+      {
+        "name": "lfoWavetable38",
+        "type": "d",
+        "value": 0.6031785852768842
+      },
+      {
+        "name": "lfoWavetable39",
+        "type": "d",
+        "value": 0.6176947200999541
+      },
+      {
+        "name": "lfoWavetable40",
+        "type": "d",
+        "value": 0.6322108549230239
+      },
+      {
+        "name": "lfoWavetable41",
+        "type": "d",
+        "value": 0.6467269897460938
+      },
+      {
+        "name": "lfoWavetable42",
+        "type": "d",
+        "value": 0.6612431245691637
+      },
+      {
+        "name": "lfoWavetable43",
+        "type": "d",
+        "value": 0.6757592593922335
+      },
+      {
+        "name": "lfoWavetable44",
+        "type": "d",
+        "value": 0.6902753942153033
+      },
+      {
+        "name": "lfoWavetable45",
+        "type": "d",
+        "value": 0.7047915290383732
+      },
+      {
+        "name": "lfoWavetable46",
+        "type": "d",
+        "value": 0.7193076638614431
+      },
+      {
+        "name": "lfoWavetable47",
+        "type": "d",
+        "value": 0.7338237986845129
+      },
+      {
+        "name": "lfoWavetable48",
+        "type": "d",
+        "value": 0.7483399335075827
+      },
+      {
+        "name": "lfoWavetable49",
+        "type": "d",
+        "value": 0.7628560683306526
+      },
+      {
+        "name": "lfoWavetable50",
+        "type": "d",
+        "value": 0.7773722031537225
+      },
+      {
+        "name": "lfoWavetable51",
+        "type": "d",
+        "value": 0.7918883379767923
+      },
+      {
+        "name": "lfoWavetable52",
+        "type": "d",
+        "value": 0.8064044727998622
+      },
+      {
+        "name": "lfoWavetable53",
+        "type": "d",
+        "value": 0.820920607622932
+      },
+      {
+        "name": "lfoWavetable54",
+        "type": "d",
+        "value": 0.8354367424460019
+      },
+      {
+        "name": "lfoWavetable55",
+        "type": "d",
+        "value": 0.8499528772690716
+      },
+      {
+        "name": "lfoWavetable56",
+        "type": "d",
+        "value": 0.8644690120921416
+      },
+      {
+        "name": "lfoWavetable57",
+        "type": "d",
+        "value": 0.8789851469152115
+      },
+      {
+        "name": "lfoWavetable58",
+        "type": "d",
+        "value": 0.8935012817382812
+      },
+      {
+        "name": "lfoWavetable59",
+        "type": "d",
+        "value": 0.908017416561351
+      },
+      {
+        "name": "lfoWavetable60",
+        "type": "d",
+        "value": 0.9225335401647231
+      },
+      {
+        "name": "lfoWavetable61",
+        "type": "d",
+        "value": 0.937049674987793
+      },
+      {
+        "name": "lfoWavetable62",
+        "type": "d",
+        "value": 0.951565798591165
+      },
+      {
+        "name": "lfoWavetable63",
+        "type": "d",
+        "value": 0.9588235294117647
+      },
+      {
+        "name": "lfoTempoSync",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "lfoInterpolation",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "lfoTempoUpper",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoTempoLower",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "lfoRate",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "lfoStereoOffset",
+        "type": "d",
+        "value": 0.5859991908073425
+      },
+      {
+        "name": "lfoUnisonOffset",
+        "type": "d",
+        "value": 0.18000002205371857
+      },
+      {
+        "name": "lfoToPitch",
+        "type": "d",
+        "value": 0.08399997651576996
+      },
+      {
+        "name": "lfoToUnison",
+        "type": "d",
+        "value": 0.046000003814697266
+      },
+      {
+        "name": "pitch",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unisonPitchOffset",
+        "type": "d",
+        "value": 0.15799996256828308
+      },
+      {
+        "name": "pitchCross",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "shifterMainReverse",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "shifterUnisonReverse",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "mirrorUnisonPitch",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "delayTime",
+        "type": "d",
+        "value": 0.6666666865348816
+      },
+      {
+        "name": "stereoLean",
+        "type": "d",
+        "value": 0.43599992990493774
+      },
+      {
+        "name": "stereoCross",
+        "type": "d",
+        "value": 0.036000002175569534
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.24400004744529719
+      },
+      {
+        "name": "highpassCutoffHz",
+        "type": "d",
+        "value": 0.1849793543918989
+      },
+      {
+        "name": "dry",
+        "type": "d",
+        "value": 0.27400004863739014
+      },
+      {
+        "name": "wet",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "unisonMix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "channelType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "smoothingTime",
+        "type": "d",
+        "value": 0.3252574989159953
+      }
+    ]
+  }
+]

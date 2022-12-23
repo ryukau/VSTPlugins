@@ -1,0 +1,2162 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "delayTime0",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "delayTime1",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "delayTime2",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "delayTime3",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "delayTime4",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "delayTime5",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "delayTime6",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "delayTime7",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "delayTime8",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "delayTime9",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "delayTime10",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "delayTime11",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "delayTime12",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "delayTime13",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "delayTime14",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "delayTime15",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "delayTime16",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "delayTime17",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "delayTime18",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "delayTime19",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "delayTime20",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 22,
+    "name": "delayTime21",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 23,
+    "name": "delayTime22",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 24,
+    "name": "delayTime23",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 25,
+    "name": "delayTime24",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 26,
+    "name": "delayTime25",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 27,
+    "name": "delayTime26",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 28,
+    "name": "delayTime27",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 29,
+    "name": "delayTime28",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 30,
+    "name": "delayTime29",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 31,
+    "name": "delayTime30",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 32,
+    "name": "delayTime31",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 33,
+    "name": "delayTime32",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 34,
+    "name": "delayTime33",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 35,
+    "name": "delayTime34",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 36,
+    "name": "delayTime35",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 37,
+    "name": "delayTime36",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 38,
+    "name": "delayTime37",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 39,
+    "name": "delayTime38",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 40,
+    "name": "delayTime39",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 41,
+    "name": "delayTime40",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 42,
+    "name": "delayTime41",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 43,
+    "name": "delayTime42",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 44,
+    "name": "delayTime43",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 45,
+    "name": "delayTime44",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 46,
+    "name": "delayTime45",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 47,
+    "name": "delayTime46",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 48,
+    "name": "delayTime47",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 49,
+    "name": "delayTime48",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 50,
+    "name": "delayTime49",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 51,
+    "name": "delayTime50",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 52,
+    "name": "delayTime51",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 53,
+    "name": "delayTime52",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 54,
+    "name": "delayTime53",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 55,
+    "name": "delayTime54",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 56,
+    "name": "delayTime55",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 57,
+    "name": "delayTime56",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 58,
+    "name": "delayTime57",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 59,
+    "name": "delayTime58",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 60,
+    "name": "delayTime59",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 61,
+    "name": "delayTime60",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 62,
+    "name": "delayTime61",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 63,
+    "name": "delayTime62",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 64,
+    "name": "delayTime63",
+    "type": "d",
+    "default": "Scales::delayTime.invmap(0.1)",
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 65,
+    "name": "timeLfoAmount0",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 66,
+    "name": "timeLfoAmount1",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 67,
+    "name": "timeLfoAmount2",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 68,
+    "name": "timeLfoAmount3",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 69,
+    "name": "timeLfoAmount4",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 70,
+    "name": "timeLfoAmount5",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 71,
+    "name": "timeLfoAmount6",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 72,
+    "name": "timeLfoAmount7",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 73,
+    "name": "timeLfoAmount8",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 74,
+    "name": "timeLfoAmount9",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 75,
+    "name": "timeLfoAmount10",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 76,
+    "name": "timeLfoAmount11",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 77,
+    "name": "timeLfoAmount12",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 78,
+    "name": "timeLfoAmount13",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 79,
+    "name": "timeLfoAmount14",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 80,
+    "name": "timeLfoAmount15",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 81,
+    "name": "timeLfoAmount16",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 82,
+    "name": "timeLfoAmount17",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 83,
+    "name": "timeLfoAmount18",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 84,
+    "name": "timeLfoAmount19",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 85,
+    "name": "timeLfoAmount20",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 86,
+    "name": "timeLfoAmount21",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 87,
+    "name": "timeLfoAmount22",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 88,
+    "name": "timeLfoAmount23",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 89,
+    "name": "timeLfoAmount24",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 90,
+    "name": "timeLfoAmount25",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 91,
+    "name": "timeLfoAmount26",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 92,
+    "name": "timeLfoAmount27",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 93,
+    "name": "timeLfoAmount28",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 94,
+    "name": "timeLfoAmount29",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 95,
+    "name": "timeLfoAmount30",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 96,
+    "name": "timeLfoAmount31",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 97,
+    "name": "timeLfoAmount32",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 98,
+    "name": "timeLfoAmount33",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 99,
+    "name": "timeLfoAmount34",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 100,
+    "name": "timeLfoAmount35",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 101,
+    "name": "timeLfoAmount36",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 102,
+    "name": "timeLfoAmount37",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 103,
+    "name": "timeLfoAmount38",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 104,
+    "name": "timeLfoAmount39",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 105,
+    "name": "timeLfoAmount40",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 106,
+    "name": "timeLfoAmount41",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 107,
+    "name": "timeLfoAmount42",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 108,
+    "name": "timeLfoAmount43",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 109,
+    "name": "timeLfoAmount44",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 110,
+    "name": "timeLfoAmount45",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 111,
+    "name": "timeLfoAmount46",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 112,
+    "name": "timeLfoAmount47",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 113,
+    "name": "timeLfoAmount48",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 114,
+    "name": "timeLfoAmount49",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 115,
+    "name": "timeLfoAmount50",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 116,
+    "name": "timeLfoAmount51",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 117,
+    "name": "timeLfoAmount52",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 118,
+    "name": "timeLfoAmount53",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 119,
+    "name": "timeLfoAmount54",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 120,
+    "name": "timeLfoAmount55",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 121,
+    "name": "timeLfoAmount56",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 122,
+    "name": "timeLfoAmount57",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 123,
+    "name": "timeLfoAmount58",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 124,
+    "name": "timeLfoAmount59",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 125,
+    "name": "timeLfoAmount60",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 126,
+    "name": "timeLfoAmount61",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 127,
+    "name": "timeLfoAmount62",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 128,
+    "name": "timeLfoAmount63",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::delayTime",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 129,
+    "name": "lowpassCutoffHz0",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 130,
+    "name": "lowpassCutoffHz1",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 131,
+    "name": "lowpassCutoffHz2",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 132,
+    "name": "lowpassCutoffHz3",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 133,
+    "name": "lowpassCutoffHz4",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 134,
+    "name": "lowpassCutoffHz5",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 135,
+    "name": "lowpassCutoffHz6",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 136,
+    "name": "lowpassCutoffHz7",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 137,
+    "name": "lowpassCutoffHz8",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 138,
+    "name": "lowpassCutoffHz9",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 139,
+    "name": "lowpassCutoffHz10",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 140,
+    "name": "lowpassCutoffHz11",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 141,
+    "name": "lowpassCutoffHz12",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 142,
+    "name": "lowpassCutoffHz13",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 143,
+    "name": "lowpassCutoffHz14",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 144,
+    "name": "lowpassCutoffHz15",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 145,
+    "name": "lowpassCutoffHz16",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 146,
+    "name": "lowpassCutoffHz17",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 147,
+    "name": "lowpassCutoffHz18",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 148,
+    "name": "lowpassCutoffHz19",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 149,
+    "name": "lowpassCutoffHz20",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 150,
+    "name": "lowpassCutoffHz21",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 151,
+    "name": "lowpassCutoffHz22",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 152,
+    "name": "lowpassCutoffHz23",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 153,
+    "name": "lowpassCutoffHz24",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 154,
+    "name": "lowpassCutoffHz25",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 155,
+    "name": "lowpassCutoffHz26",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 156,
+    "name": "lowpassCutoffHz27",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 157,
+    "name": "lowpassCutoffHz28",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 158,
+    "name": "lowpassCutoffHz29",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 159,
+    "name": "lowpassCutoffHz30",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 160,
+    "name": "lowpassCutoffHz31",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 161,
+    "name": "lowpassCutoffHz32",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 162,
+    "name": "lowpassCutoffHz33",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 163,
+    "name": "lowpassCutoffHz34",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 164,
+    "name": "lowpassCutoffHz35",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 165,
+    "name": "lowpassCutoffHz36",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 166,
+    "name": "lowpassCutoffHz37",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 167,
+    "name": "lowpassCutoffHz38",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 168,
+    "name": "lowpassCutoffHz39",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 169,
+    "name": "lowpassCutoffHz40",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 170,
+    "name": "lowpassCutoffHz41",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 171,
+    "name": "lowpassCutoffHz42",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 172,
+    "name": "lowpassCutoffHz43",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 173,
+    "name": "lowpassCutoffHz44",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 174,
+    "name": "lowpassCutoffHz45",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 175,
+    "name": "lowpassCutoffHz46",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 176,
+    "name": "lowpassCutoffHz47",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 177,
+    "name": "lowpassCutoffHz48",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 178,
+    "name": "lowpassCutoffHz49",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 179,
+    "name": "lowpassCutoffHz50",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 180,
+    "name": "lowpassCutoffHz51",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 181,
+    "name": "lowpassCutoffHz52",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 182,
+    "name": "lowpassCutoffHz53",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 183,
+    "name": "lowpassCutoffHz54",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 184,
+    "name": "lowpassCutoffHz55",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 185,
+    "name": "lowpassCutoffHz56",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 186,
+    "name": "lowpassCutoffHz57",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 187,
+    "name": "lowpassCutoffHz58",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 188,
+    "name": "lowpassCutoffHz59",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 189,
+    "name": "lowpassCutoffHz60",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 190,
+    "name": "lowpassCutoffHz61",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 191,
+    "name": "lowpassCutoffHz62",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 192,
+    "name": "lowpassCutoffHz63",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 193,
+    "name": "highpassCutoffHz0",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 194,
+    "name": "highpassCutoffHz1",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 195,
+    "name": "highpassCutoffHz2",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 196,
+    "name": "highpassCutoffHz3",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 197,
+    "name": "highpassCutoffHz4",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 198,
+    "name": "highpassCutoffHz5",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 199,
+    "name": "highpassCutoffHz6",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 200,
+    "name": "highpassCutoffHz7",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 201,
+    "name": "highpassCutoffHz8",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 202,
+    "name": "highpassCutoffHz9",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 203,
+    "name": "highpassCutoffHz10",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 204,
+    "name": "highpassCutoffHz11",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 205,
+    "name": "highpassCutoffHz12",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 206,
+    "name": "highpassCutoffHz13",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 207,
+    "name": "highpassCutoffHz14",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 208,
+    "name": "highpassCutoffHz15",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 209,
+    "name": "highpassCutoffHz16",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 210,
+    "name": "highpassCutoffHz17",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 211,
+    "name": "highpassCutoffHz18",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 212,
+    "name": "highpassCutoffHz19",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 213,
+    "name": "highpassCutoffHz20",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 214,
+    "name": "highpassCutoffHz21",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 215,
+    "name": "highpassCutoffHz22",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 216,
+    "name": "highpassCutoffHz23",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 217,
+    "name": "highpassCutoffHz24",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 218,
+    "name": "highpassCutoffHz25",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 219,
+    "name": "highpassCutoffHz26",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 220,
+    "name": "highpassCutoffHz27",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 221,
+    "name": "highpassCutoffHz28",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 222,
+    "name": "highpassCutoffHz29",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 223,
+    "name": "highpassCutoffHz30",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 224,
+    "name": "highpassCutoffHz31",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 225,
+    "name": "highpassCutoffHz32",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 226,
+    "name": "highpassCutoffHz33",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 227,
+    "name": "highpassCutoffHz34",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 228,
+    "name": "highpassCutoffHz35",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 229,
+    "name": "highpassCutoffHz36",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 230,
+    "name": "highpassCutoffHz37",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 231,
+    "name": "highpassCutoffHz38",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 232,
+    "name": "highpassCutoffHz39",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 233,
+    "name": "highpassCutoffHz40",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 234,
+    "name": "highpassCutoffHz41",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 235,
+    "name": "highpassCutoffHz42",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 236,
+    "name": "highpassCutoffHz43",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 237,
+    "name": "highpassCutoffHz44",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 238,
+    "name": "highpassCutoffHz45",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 239,
+    "name": "highpassCutoffHz46",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 240,
+    "name": "highpassCutoffHz47",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 241,
+    "name": "highpassCutoffHz48",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 242,
+    "name": "highpassCutoffHz49",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 243,
+    "name": "highpassCutoffHz50",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 244,
+    "name": "highpassCutoffHz51",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 245,
+    "name": "highpassCutoffHz52",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 246,
+    "name": "highpassCutoffHz53",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 247,
+    "name": "highpassCutoffHz54",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 248,
+    "name": "highpassCutoffHz55",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 249,
+    "name": "highpassCutoffHz56",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 250,
+    "name": "highpassCutoffHz57",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 251,
+    "name": "highpassCutoffHz58",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 252,
+    "name": "highpassCutoffHz59",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 253,
+    "name": "highpassCutoffHz60",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 254,
+    "name": "highpassCutoffHz61",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 255,
+    "name": "highpassCutoffHz62",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 256,
+    "name": "highpassCutoffHz63",
+    "type": "d",
+    "default": "Scales::highpassCutoffHz.invmap(5.0)",
+    "scale": "Scales::highpassCutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 257,
+    "name": "timeMultiplier",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 258,
+    "name": "feedback",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedback",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 259,
+    "name": "delayTimeInterpRate",
+    "type": "d",
+    "default": "Scales::delayTimeInterpRate.invmap(0.5)",
+    "scale": "Scales::delayTimeInterpRate",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 260,
+    "name": "seed",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::seed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 261,
+    "name": "matrixType",
+    "type": "I",
+    "default": "SomeDSP::FeedbackMatrixType::specialOrthogonal",
+    "scale": "Scales::matrixType",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 262,
+    "name": "gateThreshold",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::gateThreshold",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 263,
+    "name": "dry",
+    "type": "d",
+    "default": "Scales::dry.invmapDB(0.0)",
+    "scale": "Scales::dry",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 264,
+    "name": "wet",
+    "type": "d",
+    "default": "Scales::wet.invmapDB(0.0)",
+    "scale": "Scales::wet",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 265,
+    "name": "stereoCross",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 266,
+    "name": "splitRotationHz",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::splitRotationHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 267,
+    "name": "splitPhaseOffset",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate | Info::kIsWrapAround"
+  },
+  {
+    "id": 268,
+    "name": "splitSkew",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::splitSkew",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 269,
+    "name": "refreshMatrix",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  }
+]

@@ -1,0 +1,106 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "limiterThreshold",
+    "type": "d",
+    "default": "Scales::limiterThreshold.invmapDB(-0.1)",
+    "scale": "Scales::limiterThreshold",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "limiterGate",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::limiterGate",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "limiterAttack",
+    "type": "d",
+    "default": "Scales::limiterAttack.invmap(0.001333333333333333)",
+    "scale": "Scales::limiterAttack",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "limiterRelease",
+    "type": "d",
+    "default": "Scales::limiterRelease.invmap(0.0)",
+    "scale": "Scales::limiterRelease",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "limiterSustain",
+    "type": "d",
+    "default": "Scales::limiterSustain.invmap(0.0016666666666666666)",
+    "scale": "Scales::limiterSustain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "limiterStereoLink",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "autoMakeupToggle",
+    "type": "I",
+    "default": 1,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "autoMakeupTargetGain",
+    "type": "d",
+    "default": "Scales::limiterThreshold.invmapDB(-0.1)",
+    "scale": "Scales::limiterThreshold",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "truePeak",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "overshoot",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::overshoot",
+    "flags": "Info::kIsReadOnly"
+  },
+  {
+    "id": 11,
+    "name": "sidechain",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "channelType",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::channelType",
+    "flags": "Info::kCanAutomate"
+  }
+]
