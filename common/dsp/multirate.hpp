@@ -167,7 +167,7 @@ public:
     auto d0 = y[0] - y[1];
     auto d1 = d0 - (y[1] - y[2]);
     auto d2 = d1 - ((y[1] - y[2]) - (y[2] - y[3]));
-    return y[0] - u * (d0 + (1 - u) / 2 * (d1 + (2 - u) / 3 * d2));
+    return y[0] - ((d2 * (2 - u) / 3 + d1) * (1 - u) / 2 + d0) * u;
   }
 
   void process(Sample input)
