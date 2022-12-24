@@ -17,27 +17,13 @@
 
 #include "dspcore.hpp"
 
-#ifdef USE_VECTORCLASS
-  #if INSTRSET >= 10
-    #define DSPCORE_NAME DSPCore_AVX512
-  #elif INSTRSET >= 8
-    #define DSPCORE_NAME DSPCore_AVX2
-  #elif INSTRSET >= 7
-    #define DSPCORE_NAME DSPCore_AVX
-  #else
-    #error Unsupported instruction set
-  #endif
-#else
-  #define DSPCORE_NAME DSPCore_Plain
-#endif
-
 inline std::array<float, 2> calcPhaseOffset(float offset)
 {
   if (offset < 0) return {-offset, 0};
   return {0, offset};
 }
 
-float DSPCORE_NAME::getTempoSyncInterval()
+float DSPCore::getTempoSyncInterval()
 {
   // Multiplying with 4 because a beat is 1/4.
   auto lfoRate = param.value[ParameterID::lfoRate]->getFloat();
@@ -46,7 +32,7 @@ float DSPCORE_NAME::getTempoSyncInterval()
     / (param.value[ParameterID::lfoSyncLower]->getFloat() + 1);
 }
 
-void DSPCORE_NAME::setup(double sampleRate)
+void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = float(sampleRate);
 
@@ -87,7 +73,7 @@ void DSPCORE_NAME::setup(double sampleRate)
                                                                                          \
   SmootherCommon<float>::setTime(param.value[ID::smoothness]->getFloat());
 
-void DSPCORE_NAME::reset()
+void DSPCore::reset()
 {
   using ID = ParameterID::ID;
 
@@ -102,16 +88,16 @@ void DSPCORE_NAME::reset()
   ASSIGN_PARAMETER(reset);
 }
 
-void DSPCORE_NAME::startup() { syncer.reset(sampleRate, tempo, getTempoSyncInterval()); }
+void DSPCore::startup() { syncer.reset(sampleRate, tempo, getTempoSyncInterval()); }
 
-void DSPCORE_NAME::setParameters()
+void DSPCore::setParameters()
 {
   using ID = ParameterID::ID;
 
   ASSIGN_PARAMETER(push);
 }
 
-void DSPCORE_NAME::process(
+void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
   SmootherCommon<float>::setBufferSize(float(length));

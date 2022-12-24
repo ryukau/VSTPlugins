@@ -24,36 +24,10 @@
 #include "pluginterfaces/vst/ivstevents.h"
 #include "pluginterfaces/vst/ivstparameterchanges.h"
 
-#ifdef USE_VECTORCLASS
-  #include "../../lib/vcl/vectorclass.h"
-#endif
-
-#include <cstring>
-#include <iostream>
-
 namespace Steinberg {
 namespace Synth {
 
-PlugProcessor::PlugProcessor()
-{
-#ifdef USE_VECTORCLASS
-  auto iset = instrset_detect();
-  if (iset >= 10) {
-    dsp = std::make_unique<DSPCore_AVX512>();
-  } else if (iset >= 8) {
-    dsp = std::make_unique<DSPCore_AVX2>();
-  } else if (iset >= 7) {
-    dsp = std::make_unique<DSPCore_AVX>();
-  } else {
-    std::cerr << "\nError: Instruction set AVX or later not supported on this computer";
-    exit(EXIT_FAILURE);
-  }
-#else
-  dsp = std::make_unique<DSPCore_Plain>();
-#endif
-
-  setControllerClass(ControllerUID);
-}
+PlugProcessor::PlugProcessor() { setControllerClass(ControllerUID); }
 
 tresult PLUGIN_API PlugProcessor::initialize(FUnknown *context)
 {
@@ -87,26 +61,22 @@ uint32 PLUGIN_API PlugProcessor::getProcessContextRequirements()
 
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 {
-  if (dsp == nullptr) return kNotInitialized;
-  dsp->setup(processSetup.sampleRate);
+  dsp.setup(processSetup.sampleRate);
   return AudioEffect::setupProcessing(setup);
 }
 
 tresult PLUGIN_API PlugProcessor::setActive(TBool state)
 {
-  if (dsp == nullptr) return kResultFalse;
   if (state) {
-    dsp->setup(processSetup.sampleRate);
+    dsp.setup(processSetup.sampleRate);
   } else {
-    dsp->reset();
+    dsp.reset();
   }
   return AudioEffect::setActive(state);
 }
 
 tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 {
-  if (dsp == nullptr) return kNotInitialized;
-
   // Read inputs parameter changes.
   if (data.inputParameterChanges) {
     int32 parameterCount = data.inputParameterChanges->getParameterCount();
@@ -118,7 +88,7 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
       if (queue->getPoint(queue->getPointCount() - 1, sampleOffset, value) != kResultTrue)
         continue;
       size_t id = queue->getParameterId();
-      if (id < dsp->param.value.size()) dsp->param.value[id]->setFromNormalized(value);
+      if (id < dsp.param.value.size()) dsp.param.value[id]->setFromNormalized(value);
     }
   }
 
@@ -126,17 +96,17 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 
   uint64_t state = data.processContext->state;
   if (state & Vst::ProcessContext::kTempoValid) {
-    dsp->tempo = float(data.processContext->tempo);
+    dsp.tempo = float(data.processContext->tempo);
   }
   if (state & Vst::ProcessContext::kProjectTimeMusicValid) {
-    dsp->beatsElapsed = data.processContext->projectTimeMusic;
+    dsp.beatsElapsed = data.processContext->projectTimeMusic;
   }
-  if (!dsp->isPlaying && (state & Vst::ProcessContext::kPlaying) != 0) {
-    dsp->startup();
+  if (!dsp.isPlaying && (state & Vst::ProcessContext::kPlaying) != 0) {
+    dsp.startup();
   }
-  dsp->isPlaying = state & Vst::ProcessContext::kPlaying;
+  dsp.isPlaying = state & Vst::ProcessContext::kPlaying;
 
-  dsp->setParameters();
+  dsp.setParameters();
 
   if (data.numOutputs == 0) return kResultOk;
   if (data.numSamples <= 0) return kResultOk;
@@ -148,15 +118,13 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   float *out0 = data.outputs[0].channelBuffers32[0];
   float *out1 = data.outputs[0].channelBuffers32[1];
   size_t length = data.numSamples < 0 ? 0 : size_t(data.numSamples);
-  dsp->process(length, out0, out1);
+  dsp.process(length, out0, out1);
 
   return kResultOk;
 }
 
 void PlugProcessor::handleEvent(Vst::ProcessData &data)
 {
-  if (dsp == nullptr) return;
-
   for (int32 index = 0; index < data.inputEvents->getEventCount(); ++index) {
     Vst::Event event;
     if (data.inputEvents->getEvent(index, event) != kResultOk) continue;
@@ -164,7 +132,7 @@ void PlugProcessor::handleEvent(Vst::ProcessData &data)
       case Vst::Event::kNoteOnEvent: {
         auto noteId
           = event.noteOn.noteId == -1 ? event.noteOn.pitch : event.noteOn.noteId;
-        dsp->pushMidiNote(
+        dsp.pushMidiNote(
           true, event.sampleOffset, noteId, event.noteOn.pitch, event.noteOn.tuning,
           event.noteOn.velocity);
       } break;
@@ -172,7 +140,7 @@ void PlugProcessor::handleEvent(Vst::ProcessData &data)
       case Vst::Event::kNoteOffEvent: {
         auto noteId
           = event.noteOff.noteId == -1 ? event.noteOff.pitch : event.noteOff.noteId;
-        dsp->pushMidiNote(false, event.sampleOffset, noteId, 0, 0, 0);
+        dsp.pushMidiNote(false, event.sampleOffset, noteId, 0, 0, 0);
       } break;
 
         // Add other event type here.
@@ -182,21 +150,13 @@ void PlugProcessor::handleEvent(Vst::ProcessData &data)
 
 tresult PLUGIN_API PlugProcessor::setState(IBStream *state)
 {
-  if (dsp == nullptr) return kNotInitialized;
   if (!state) return kResultFalse;
-  return dsp->param.setState(state);
+  return dsp.param.setState(state);
 }
 
 tresult PLUGIN_API PlugProcessor::getState(IBStream *state)
 {
-  if (dsp == nullptr) return kNotInitialized;
-  return dsp->param.getState(state);
-}
-
-tresult PlugProcessor::receiveText(const char8 *text)
-{
-  if (dsp == nullptr) return kNotInitialized;
-  return kResultOk;
+  return dsp.param.getState(state);
 }
 
 } // namespace Synth

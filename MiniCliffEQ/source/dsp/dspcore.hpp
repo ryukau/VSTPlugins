@@ -17,10 +17,6 @@
 
 #pragma once
 
-#ifdef USE_VECTORCLASS
-  #include "../../../lib/vcl/vectorclass.h"
-#endif
-
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/lightlimiter.hpp"
 #include "../../../common/dsp/smoother.hpp"
@@ -37,53 +33,26 @@ constexpr size_t blockSizeInPow2 = 11;
 constexpr size_t nBlock = size_t(1) << (firLengthInPow2 - blockSizeInPow2);
 constexpr size_t fftconvLatency = (size_t(1) << firLengthInPow2) / 2 - 1;
 
-class DSPInterface {
+class DSPCore {
 public:
-  virtual ~DSPInterface(){};
-
   GlobalParameter param;
 
-  virtual void setup(double sampleRate) = 0;
-  virtual void reset() = 0;   // Stop sounds.
-  virtual void startup() = 0; // Reset phase, random seed etc.
-  virtual size_t getLatency() = 0;
-  virtual void setParameters() = 0;
-  virtual void process(
-    const size_t length, const float *in0, const float *in1, float *out0, float *out1)
-    = 0;
+  void setup(double sampleRate);
+  void reset();
+  void startup();
+  size_t getLatency();
+  void setParameters();
+  void process(
+    const size_t length, const float *in0, const float *in1, float *out0, float *out1);
+
+private:
+  float sampleRate = 44100.0f;
+  bool prepareRefresh = false;
+  bool isFirRefreshed = false;
+
+  ExpSmoother<float> interpHighpassGain;
+  ExpSmoother<float> interpLowpassGain;
+
+  std::array<SplitConvolver<nBlock, blockSizeInPow2>, 2> convolver;
+  std::array<FixedIntDelay<float, fftconvLatency>, 2> delay;
 };
-
-#define DSPCORE_CLASS(INSTRSET)                                                          \
-  class DSPCore_##INSTRSET final : public DSPInterface {                                 \
-  public:                                                                                \
-    void setup(double sampleRate) override;                                              \
-    void reset() override;                                                               \
-    void startup() override;                                                             \
-    size_t getLatency() override;                                                        \
-    void setParameters() override;                                                       \
-    void process(                                                                        \
-      const size_t length,                                                               \
-      const float *in0,                                                                  \
-      const float *in1,                                                                  \
-      float *out0,                                                                       \
-      float *out1) override;                                                             \
-                                                                                         \
-  private:                                                                               \
-    float sampleRate = 44100.0f;                                                         \
-    bool prepareRefresh = false;                                                         \
-    bool isFirRefreshed = false;                                                         \
-                                                                                         \
-    ExpSmoother<float> interpHighpassGain;                                               \
-    ExpSmoother<float> interpLowpassGain;                                                \
-                                                                                         \
-    std::array<SplitConvolver<nBlock, blockSizeInPow2>, 2> convolver;                    \
-    std::array<FixedIntDelay<float, fftconvLatency>, 2> delay;                           \
-  };
-
-#ifdef USE_VECTORCLASS
-DSPCORE_CLASS(AVX512)
-DSPCORE_CLASS(AVX2)
-DSPCORE_CLASS(AVX)
-#else
-DSPCORE_CLASS(Plain)
-#endif

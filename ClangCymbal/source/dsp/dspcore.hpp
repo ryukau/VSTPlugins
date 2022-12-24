@@ -29,7 +29,6 @@
 
 #include <array>
 #include <cmath>
-#include <memory>
 #include <random>
 
 using namespace SomeDSP;

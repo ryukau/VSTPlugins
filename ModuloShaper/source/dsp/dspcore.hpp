@@ -17,10 +17,6 @@
 
 #pragma once
 
-#ifdef USE_VECTORCLASS
-  #include "../../../lib/vcl/vectorclass.h"
-#endif
-
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/lightlimiter.hpp"
 #include "../../../common/dsp/smoother.hpp"
@@ -33,62 +29,34 @@
 using namespace SomeDSP;
 using namespace Steinberg::Synth;
 
-class DSPInterface {
+class DSPCore {
 public:
-  virtual ~DSPInterface(){};
-
-  static const size_t maxVoice = 32;
   GlobalParameter param;
 
-  virtual void setup(double sampleRate) = 0;
-  virtual void reset() = 0;   // Stop sounds.
-  virtual void startup() = 0; // Reset phase, random seed etc.
-  virtual size_t getLatency() = 0;
-  virtual void setParameters() = 0;
-  virtual void process(
-    const size_t length, const float *in0, const float *in1, float *out0, float *out1)
-    = 0;
+  void setup(double sampleRate);
+  void reset();
+  void startup();
+  size_t getLatency();
+  void setParameters();
+  void process(
+    const size_t length, const float *in0, const float *in1, float *out0, float *out1);
+
+private:
+  float sampleRate = 44100.0f;
+  float maxGain = 0.0f;
+
+  std::array<ModuloShaper<float>, 2> shaperNaive;
+  std::array<ModuloShaperPolyBLEP<double>, 2> shaperBlep;
+  std::array<Butter8Lowpass<float>, 2> lowpass;
+  std::array<LightLimiter<float, 64>, 2> limiter;
+
+  size_t shaperType = 0; /* 0: naive, 1: oversample, 2: P-BLEP4, 3: P-BLEP8 */
+  bool activateLowpass = true;
+  bool activateLimiter = true;
+  ExpSmoother<float> interpInputGain;
+  ExpSmoother<float> interpClipGain;
+  ExpSmoother<float> interpOutputGain;
+  ExpSmoother<float> interpAdd;
+  ExpSmoother<float> interpMul;
+  ExpSmoother<float> interpCutoff;
 };
-
-#define DSPCORE_CLASS(INSTRSET)                                                          \
-  class DSPCore_##INSTRSET final : public DSPInterface {                                 \
-  public:                                                                                \
-    void setup(double sampleRate) override;                                              \
-    void reset() override;                                                               \
-    void startup() override;                                                             \
-    size_t getLatency() override;                                                        \
-    void setParameters() override;                                                       \
-    void process(                                                                        \
-      const size_t length,                                                               \
-      const float *in0,                                                                  \
-      const float *in1,                                                                  \
-      float *out0,                                                                       \
-      float *out1) override;                                                             \
-                                                                                         \
-  private:                                                                               \
-    float sampleRate = 44100.0f;                                                         \
-    float maxGain = 0.0f;                                                                \
-                                                                                         \
-    std::array<ModuloShaper<float>, 2> shaperNaive;                                      \
-    std::array<ModuloShaperPolyBLEP<double>, 2> shaperBlep;                              \
-    std::array<Butter8Lowpass<float>, 2> lowpass;                                        \
-    std::array<LightLimiter<float, 64>, 2> limiter;                                      \
-                                                                                         \
-    size_t shaperType = 0; /* 0: naive, 1: oversample, 2: P-BLEP4, 3: P-BLEP8 */         \
-    bool activateLowpass = true;                                                         \
-    bool activateLimiter = true;                                                         \
-    ExpSmoother<float> interpInputGain;                                                  \
-    ExpSmoother<float> interpClipGain;                                                   \
-    ExpSmoother<float> interpOutputGain;                                                 \
-    ExpSmoother<float> interpAdd;                                                        \
-    ExpSmoother<float> interpMul;                                                        \
-    ExpSmoother<float> interpCutoff;                                                     \
-  };
-
-#ifdef USE_VECTORCLASS
-DSPCORE_CLASS(AVX512)
-DSPCORE_CLASS(AVX2)
-DSPCORE_CLASS(AVX)
-#else
-DSPCORE_CLASS(Plain)
-#endif

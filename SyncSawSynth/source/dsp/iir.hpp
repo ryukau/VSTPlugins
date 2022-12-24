@@ -23,7 +23,6 @@
 #include <cmath>
 
 #include <array>
-#include <memory>
 
 namespace SomeDSP {
 

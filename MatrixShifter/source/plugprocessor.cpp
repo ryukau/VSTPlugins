@@ -28,35 +28,10 @@
 #include "pluginterfaces/vst/ivstevents.h"
 #include "pluginterfaces/vst/ivstparameterchanges.h"
 
-#ifdef USE_VECTORCLASS
-  #include "../../lib/vcl/vectorclass.h"
-#endif
-
-#include <iostream>
-
 namespace Steinberg {
 namespace Synth {
 
-PlugProcessor::PlugProcessor()
-{
-#ifdef USE_VECTORCLASS
-  auto iset = instrset_detect();
-  if (iset >= 10) {
-    dsp = std::make_unique<DSPCore_AVX512>();
-  } else if (iset >= 8) {
-    dsp = std::make_unique<DSPCore_AVX2>();
-  } else if (iset >= 7) {
-    dsp = std::make_unique<DSPCore_AVX>();
-  } else {
-    std::cerr << "\nError: Instruction set AVX or later not supported on this computer";
-    exit(EXIT_FAILURE);
-  }
-#else
-  dsp = std::make_unique<DSPCore_Plain>();
-#endif
-
-  setControllerClass(ControllerUID);
-}
+PlugProcessor::PlugProcessor() { setControllerClass(ControllerUID); }
 
 tresult PLUGIN_API PlugProcessor::initialize(FUnknown *context)
 {
@@ -90,25 +65,21 @@ uint32 PLUGIN_API PlugProcessor::getProcessContextRequirements()
 
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 {
-  if (dsp == nullptr) return kNotInitialized;
-  dsp->setup(processSetup.sampleRate);
+  dsp.setup(processSetup.sampleRate);
   return AudioEffect::setupProcessing(setup);
 }
 
 tresult PLUGIN_API PlugProcessor::setActive(TBool state)
 {
-  if (dsp == nullptr) return kResultFalse;
   if (state)
-    dsp->setup(processSetup.sampleRate);
+    dsp.setup(processSetup.sampleRate);
   else
-    dsp->reset();
+    dsp.reset();
   return AudioEffect::setActive(state);
 }
 
 tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 {
-  if (dsp == nullptr) return kNotInitialized;
-
   // Read inputs parameter changes.
   if (data.inputParameterChanges) {
     int32 parameterCount = data.inputParameterChanges->getParameterCount();
@@ -120,7 +91,7 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
       if (queue->getPoint(queue->getPointCount() - 1, sampleOffset, value) != kResultTrue)
         continue;
       size_t id = queue->getParameterId();
-      if (id < dsp->param.value.size()) dsp->param.value[id]->setFromNormalized(value);
+      if (id < dsp.param.value.size()) dsp.param.value[id]->setFromNormalized(value);
     }
   }
 
@@ -128,17 +99,17 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 
   uint64_t state = data.processContext->state;
   if (state & Vst::ProcessContext::kTempoValid) {
-    dsp->tempo = float(data.processContext->tempo);
+    dsp.tempo = float(data.processContext->tempo);
   }
   if (state & Vst::ProcessContext::kProjectTimeMusicValid) {
-    dsp->beatsElapsed = float(data.processContext->projectTimeMusic);
+    dsp.beatsElapsed = float(data.processContext->projectTimeMusic);
   }
-  if (!dsp->isPlaying && (state & Vst::ProcessContext::kPlaying) != 0) {
-    dsp->startup();
+  if (!dsp.isPlaying && (state & Vst::ProcessContext::kPlaying) != 0) {
+    dsp.startup();
   }
-  dsp->isPlaying = state & Vst::ProcessContext::kPlaying;
+  dsp.isPlaying = state & Vst::ProcessContext::kPlaying;
 
-  dsp->setParameters();
+  dsp.setParameters();
 
   if (data.numInputs == 0) return kResultOk;
   if (data.numOutputs == 0) return kResultOk;
@@ -147,16 +118,16 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   if (data.outputs[0].numChannels < 2) return kResultOk;
   if (data.symbolicSampleSize == Vst::kSample64) return kResultOk;
 
-  auto isBypassing = dsp->param.value[ParameterID::bypass]->getInt();
+  auto isBypassing = dsp.param.value[ParameterID::bypass]->getInt();
   if (isBypassing) {
-    if (!wasBypassing) dsp->reset();
+    if (!wasBypassing) dsp.reset();
     processBypass(data);
   } else {
     float *in0 = data.inputs[0].channelBuffers32[0];
     float *in1 = data.inputs[0].channelBuffers32[1];
     float *out0 = data.outputs[0].channelBuffers32[0];
     float *out1 = data.outputs[0].channelBuffers32[1];
-    dsp->process((size_t)data.numSamples, in0, in1, out0, out1);
+    dsp.process((size_t)data.numSamples, in0, in1, out0, out1);
   }
   wasBypassing = isBypassing;
 
@@ -174,15 +145,13 @@ void PlugProcessor::processBypass(Vst::ProcessData &data)
 
 tresult PLUGIN_API PlugProcessor::setState(IBStream *state)
 {
-  if (dsp == nullptr) return kNotInitialized;
   if (!state) return kResultFalse;
-  return dsp->param.setState(state);
+  return dsp.param.setState(state);
 }
 
 tresult PLUGIN_API PlugProcessor::getState(IBStream *state)
 {
-  if (dsp == nullptr) return kNotInitialized;
-  return dsp->param.getState(state);
+  return dsp.param.getState(state);
 }
 
 } // namespace Synth

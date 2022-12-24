@@ -17,10 +17,6 @@
 
 #pragma once
 
-#ifdef USE_VECTORCLASS
-  #include "../../../lib/vcl/vectorclass.h"
-#endif
-
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/multirate.hpp"
 #include "../../../common/dsp/smoother.hpp"
@@ -35,75 +31,48 @@ using namespace Steinberg::Synth;
 
 using OverSampler = OverSampler16<float>;
 
-class DSPInterface {
+class DSPCore {
 public:
-  virtual ~DSPInterface(){};
-
   GlobalParameter param;
   bool isPlaying = false;
   float tempo = 120.0f;
   double beatsElapsed = 0.0f;
 
-  virtual void setup(double sampleRate) = 0;
-  virtual void reset() = 0;   // Stop sounds.
-  virtual void startup() = 0; // Reset phase, random seed etc.
-  virtual size_t getLatency() = 0;
-  virtual void setParameters() = 0;
-  virtual void process(
-    const size_t length, const float *in0, const float *in1, float *out0, float *out1)
-    = 0;
+  void setup(double sampleRate);
+  void reset();
+  void startup();
+  size_t getLatency();
+  void setParameters();
+  void process(
+    const size_t length, const float *in0, const float *in1, float *out0, float *out1);
+
+private:
+  float getTempoSyncInterval();
+
+  float sampleRate = 44100.0f;
+  float phaseSyncCutoffKp = 1e-5f;
+
+  ExpSmoother<float> interpPitchMain;
+  ExpSmoother<float> interpPitchUnison;
+  ExpSmoother<float> interpLfoStereoOffset;
+  ExpSmoother<float> interpLfoUnisonOffset;
+  ExpSmoother<float> interpLfoToPitch;
+  ExpSmoother<float> interpLfoToUnison;
+  ExpSmoother<float> interpDelayTime;
+  ExpSmoother<float> interpStereoLean;
+  ExpSmoother<float> interpFeedback;
+  ExpSmoother<float> interpHighpassCutoffKp;
+  ExpSmoother<float> interpPitchCross;
+  ExpSmoother<float> interpStereoCross;
+  ExpSmoother<float> interpUnisonMix;
+  ExpSmoother<float> interpDry;
+  ExpSmoother<float> interpWet;
+
+  LightTempoSynchronizer<float> synchronizer;
+  TableLFO<float, nLfoWavetable, 2048, 4> lfo;
+  std::array<float, 2> shifterMainOut{};
+  std::array<float, 2> shifterUnisonOut{};
+  std::array<OverSampler, 2> overSampler;
+  std::array<PitchShiftDelay<float>, 2> shifterMain;
+  std::array<PitchShiftDelay<float>, 2> shifterUnison;
 };
-
-#define DSPCORE_CLASS(INSTRSET)                                                          \
-  class DSPCore_##INSTRSET final : public DSPInterface {                                 \
-  public:                                                                                \
-    void setup(double sampleRate) override;                                              \
-    void reset() override;                                                               \
-    void startup() override;                                                             \
-    size_t getLatency() override;                                                        \
-    void setParameters() override;                                                       \
-    void process(                                                                        \
-      const size_t length,                                                               \
-      const float *in0,                                                                  \
-      const float *in1,                                                                  \
-      float *out0,                                                                       \
-      float *out1) override;                                                             \
-                                                                                         \
-  private:                                                                               \
-    float getTempoSyncInterval();                                                        \
-                                                                                         \
-    float sampleRate = 44100.0f;                                                         \
-    float phaseSyncCutoffKp = 1e-5f;                                                     \
-                                                                                         \
-    ExpSmoother<float> interpPitchMain;                                                  \
-    ExpSmoother<float> interpPitchUnison;                                                \
-    ExpSmoother<float> interpLfoStereoOffset;                                            \
-    ExpSmoother<float> interpLfoUnisonOffset;                                            \
-    ExpSmoother<float> interpLfoToPitch;                                                 \
-    ExpSmoother<float> interpLfoToUnison;                                                \
-    ExpSmoother<float> interpDelayTime;                                                  \
-    ExpSmoother<float> interpStereoLean;                                                 \
-    ExpSmoother<float> interpFeedback;                                                   \
-    ExpSmoother<float> interpHighpassCutoffKp;                                           \
-    ExpSmoother<float> interpPitchCross;                                                 \
-    ExpSmoother<float> interpStereoCross;                                                \
-    ExpSmoother<float> interpUnisonMix;                                                  \
-    ExpSmoother<float> interpDry;                                                        \
-    ExpSmoother<float> interpWet;                                                        \
-                                                                                         \
-    LightTempoSynchronizer<float> synchronizer;                                          \
-    TableLFO<float, nLfoWavetable, 2048, 4> lfo;                                         \
-    std::array<float, 2> shifterMainOut{};                                               \
-    std::array<float, 2> shifterUnisonOut{};                                             \
-    std::array<OverSampler, 2> overSampler;                                              \
-    std::array<PitchShiftDelay<float>, 2> shifterMain;                                   \
-    std::array<PitchShiftDelay<float>, 2> shifterUnison;                                 \
-  };
-
-#ifdef USE_VECTORCLASS
-DSPCORE_CLASS(AVX512)
-DSPCORE_CLASS(AVX2)
-DSPCORE_CLASS(AVX)
-#else
-DSPCORE_CLASS(Plain)
-#endif

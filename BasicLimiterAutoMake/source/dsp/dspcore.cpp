@@ -20,20 +20,6 @@
 #include <algorithm>
 #include <numeric>
 
-#ifdef USE_VECTORCLASS
-  #if INSTRSET >= 10
-    #define DSPCORE_NAME DSPCore_AVX512
-  #elif INSTRSET >= 8
-    #define DSPCORE_NAME DSPCore_AVX2
-  #elif INSTRSET >= 7
-    #define DSPCORE_NAME DSPCore_AVX
-  #else
-    #error Unsupported instruction set
-  #endif
-#else
-  #define DSPCORE_NAME DSPCore_Plain
-#endif
-
 inline float maxAbs(const size_t length, const float *buffer)
 {
   float max = 0.0f;
@@ -41,7 +27,7 @@ inline float maxAbs(const size_t length, const float *buffer)
   return max;
 }
 
-void DSPCORE_NAME::setup(double sampleRate)
+void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = float(sampleRate);
 
@@ -59,7 +45,7 @@ void DSPCORE_NAME::setup(double sampleRate)
   startup();
 }
 
-size_t DSPCORE_NAME::getLatency()
+size_t DSPCore::getLatency()
 {
   bool truepeak = param.value[ParameterID::truePeak]->getInt();
   auto latency = limiter[0].latency(truepeak ? UpSamplerFir::upfold : 1);
@@ -77,7 +63,7 @@ size_t DSPCORE_NAME::getLatency()
   interpStereoLink.METHOD(pv[ID::limiterStereoLink]->getFloat());                        \
   interpThreshold.METHOD(pv[ID::limiterThreshold]->getFloat());
 
-void DSPCORE_NAME::reset()
+void DSPCore::reset()
 {
   ASSIGN_PARAMETER(reset);
 
@@ -97,9 +83,9 @@ void DSPCORE_NAME::reset()
   startup();
 }
 
-void DSPCORE_NAME::startup() {}
+void DSPCore::startup() {}
 
-void DSPCORE_NAME::setParameters()
+void DSPCore::setParameters()
 {
   ASSIGN_PARAMETER(push);
 
@@ -119,7 +105,7 @@ void DSPCORE_NAME::setParameters()
 
 template<typename T> inline T lerp(T a, T b, T t) { return a + t * (b - a); }
 
-std::array<float, 2> DSPCORE_NAME::processStereoLink(float in0, float in1)
+std::array<float, 2> DSPCore::processStereoLink(float in0, float in1)
 {
   auto &&stereoLink = interpStereoLink.process();
   auto &&abs0 = std::fabs(in0);
@@ -144,7 +130,7 @@ inline void convertToLeftRight(float &mid, float &side)
   side = right;
 }
 
-void DSPCORE_NAME::process(
+void DSPCore::process(
   const size_t length,
   const float *in0,
   const float *in1,

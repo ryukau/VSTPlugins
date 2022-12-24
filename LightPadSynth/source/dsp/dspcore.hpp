@@ -17,10 +17,6 @@
 
 #pragma once
 
-#ifdef USE_VECTORCLASS
-  #include "../../../lib/vcl/vectorclass.h"
-#endif
-
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
@@ -30,7 +26,6 @@
 
 #include <array>
 #include <cmath>
-#include <memory>
 #include <random>
 
 using namespace SomeDSP;
@@ -137,71 +132,47 @@ struct NoteProcessInfo {
   }
 };
 
-#define NOTE_CLASS(INSTRSET)                                                             \
-  class Note_##INSTRSET {                                                                \
-  public:                                                                                \
-    NoteState state = NoteState::rest;                                                   \
-                                                                                         \
-    int32_t id = -1;                                                                     \
-    float velocity = 0;                                                                  \
-    float noteFreq = 1;                                                                  \
-    float pan = 0.5f;                                                                    \
-    float gain = 0;                                                                      \
-                                                                                         \
-    ExpADSREnvelope<float> gainEnvelope;                                                 \
-    LinearADSREnvelope<float> filterEnvelope;                                            \
-    AttackGate<float> delayGate;                                                         \
-    TableOsc osc;                                                                        \
-    LP3<float> filter;                                                                   \
-    Delay<float> delay;                                                                  \
-    float delaySeconds = 0;                                                              \
-                                                                                         \
-    void setup(float sampleRate);                                                        \
-    void noteOn(                                                                         \
-      int32_t noteId,                                                                    \
-      float notePitch,                                                                   \
-      float velocity,                                                                    \
-      float pan,                                                                         \
-      float phase,                                                                       \
-      float sampleRate,                                                                  \
-      Wavetable &wavetable,                                                              \
-      NoteProcessInfo &info,                                                             \
-      GlobalParameter &param);                                                           \
-    void release();                                                                      \
-    void release(float seconds);                                                         \
-    void rest();                                                                         \
-    void reset();                                                                        \
-    bool isAttacking();                                                                  \
-    float getGain();                                                                     \
-    std::array<float, 2>                                                                 \
-    process(float sampleRate, Wavetable &wavetable, NoteProcessInfo &info);              \
-  };
-
-#ifdef USE_VECTORCLASS
-NOTE_CLASS(AVX512)
-NOTE_CLASS(AVX2)
-NOTE_CLASS(AVX)
-#else
-NOTE_CLASS(Plain)
-#endif
-
-class DSPInterface {
+class Note {
 public:
-  virtual ~DSPInterface(){};
+  NoteState state = NoteState::rest;
 
-  static const size_t maxVoice = 128;
-  GlobalParameter param;
+  int32_t id = -1;
+  float velocity = 0;
+  float noteFreq = 1;
+  float pan = 0.5f;
+  float gain = 0;
 
-  virtual void setup(double sampleRate) = 0;
-  virtual void reset() = 0;   // Stop sounds.
-  virtual void startup() = 0; // Reset phase, random seed etc.
-  virtual void setParameters(float tempo) = 0;
-  virtual void process(const size_t length, float *out0, float *out1) = 0;
-  virtual void noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity) = 0;
-  virtual void noteOff(int32_t noteId) = 0;
-  virtual void refreshTable() = 0;
-  virtual void refreshLfo() = 0;
+  ExpADSREnvelope<float> gainEnvelope;
+  LinearADSREnvelope<float> filterEnvelope;
+  AttackGate<float> delayGate;
+  TableOsc osc;
+  LP3<float> filter;
+  Delay<float> delay;
+  float delaySeconds = 0;
 
+  void setup(float sampleRate);
+  void noteOn(
+    int32_t noteId,
+    float notePitch,
+    float velocity,
+    float pan,
+    float phase,
+    float sampleRate,
+    Wavetable &wavetable,
+    NoteProcessInfo &info,
+    GlobalParameter &param);
+  void release();
+  void release(float seconds);
+  void rest();
+  void reset();
+  bool isAttacking();
+  float getGain();
+  std::array<float, 2>
+  process(float sampleRate, Wavetable &wavetable, NoteProcessInfo &info);
+};
+
+class DSPCore {
+public:
   struct MidiNote {
     bool isNoteOn;
     uint32_t frame;
@@ -211,102 +182,82 @@ public:
     float velocity;
   };
 
+  static constexpr size_t maxVoice = 128;
+  GlobalParameter param;
+
   std::vector<MidiNote> midiNotes;
 
-  virtual void pushMidiNote(
+  DSPCore();
+
+  void setup(double sampleRate);
+  void reset();
+  void startup();
+  void setParameters(float tempo);
+  void process(const size_t length, float *out0, float *out1);
+  void noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity);
+  void fillTransitionBuffer(size_t noteIndex);
+  void noteOff(int32_t noteId);
+  void refreshTable();
+  void refreshLfo();
+
+  void pushMidiNote(
     bool isNoteOn,
     uint32_t frame,
     int32_t noteId,
     int16_t pitch,
     float tuning,
     float velocity)
-    = 0;
-  virtual void processMidiNote(uint32_t frame) = 0;
+  {
+    MidiNote note;
+    note.isNoteOn = isNoteOn;
+    note.frame = frame;
+    note.id = noteId;
+    note.pitch = pitch;
+    note.tuning = tuning;
+    note.velocity = velocity;
+    midiNotes.push_back(note);
+  }
+
+  void processMidiNote(uint32_t frame)
+  {
+    while (true) {
+      auto it = std::find_if(midiNotes.begin(), midiNotes.end(), [&](const MidiNote &nt) {
+        return nt.frame == frame;
+      });
+      if (it == std::end(midiNotes)) return;
+      if (it->isNoteOn)
+        noteOn(it->id, it->pitch, it->tuning, it->velocity);
+      else
+        noteOff(it->id);
+      midiNotes.erase(it);
+    }
+  }
+
+private:
+  void setUnisonPan(size_t nUnison);
+
+  float sampleRate = 44100.0f;
+
+  std::vector<PeakInfo<float>> peakInfos;
+
+  bool prepareRefresh = true;
+  bool isTableRefeshed = false;
+  bool isLFORefreshed = false;
+  Wavetable wavetable;
+  LfoWavetable<lfoTableSize> lfoWavetable;
+
+  size_t nVoice = 32;
+  int32_t panCounter = 0;
+  std::vector<size_t> noteIndices;
+  std::vector<size_t> voiceIndices;
+  std::vector<float> unisonPan;
+  std::array<Note, maxVoice> notes;
+
+  NoteProcessInfo info;
+  LinearSmoother<float> interpMasterGain;
+
+  std::vector<std::array<float, 2>> transitionBuffer{};
+  bool isTransitioning = false;
+  size_t trIndex = 0;
+  size_t trStop = 0;
 };
-
-#define DSPCORE_CLASS(INSTRSET)                                                          \
-  class DSPCore_##INSTRSET final : public DSPInterface {                                 \
-  public:                                                                                \
-    DSPCore_##INSTRSET();                                                                \
-                                                                                         \
-    void setup(double sampleRate) override;                                              \
-    void reset() override;                                                               \
-    void startup() override;                                                             \
-    void setParameters(float tempo) override;                                            \
-    void process(const size_t length, float *out0, float *out1) override;                \
-    void noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity) override;   \
-    void fillTransitionBuffer(size_t noteIndex);                                         \
-    void noteOff(int32_t noteId) override;                                               \
-    void refreshTable() override;                                                        \
-    void refreshLfo() override;                                                          \
-                                                                                         \
-    void pushMidiNote(                                                                   \
-      bool isNoteOn,                                                                     \
-      uint32_t frame,                                                                    \
-      int32_t noteId,                                                                    \
-      int16_t pitch,                                                                     \
-      float tuning,                                                                      \
-      float velocity) override                                                           \
-    {                                                                                    \
-      MidiNote note;                                                                     \
-      note.isNoteOn = isNoteOn;                                                          \
-      note.frame = frame;                                                                \
-      note.id = noteId;                                                                  \
-      note.pitch = pitch;                                                                \
-      note.tuning = tuning;                                                              \
-      note.velocity = velocity;                                                          \
-      midiNotes.push_back(note);                                                         \
-    }                                                                                    \
-                                                                                         \
-    void processMidiNote(uint32_t frame) override                                        \
-    {                                                                                    \
-      while (true) {                                                                     \
-        auto it                                                                          \
-          = std::find_if(midiNotes.begin(), midiNotes.end(), [&](const MidiNote &nt) {   \
-              return nt.frame == frame;                                                  \
-            });                                                                          \
-        if (it == std::end(midiNotes)) return;                                           \
-        if (it->isNoteOn)                                                                \
-          noteOn(it->id, it->pitch, it->tuning, it->velocity);                           \
-        else                                                                             \
-          noteOff(it->id);                                                               \
-        midiNotes.erase(it);                                                             \
-      }                                                                                  \
-    }                                                                                    \
-                                                                                         \
-  private:                                                                               \
-    void setUnisonPan(size_t nUnison);                                                   \
-                                                                                         \
-    float sampleRate = 44100.0f;                                                         \
-                                                                                         \
-    std::vector<PeakInfo<float>> peakInfos;                                              \
-                                                                                         \
-    bool prepareRefresh = true;                                                          \
-    bool isTableRefeshed = false;                                                        \
-    bool isLFORefreshed = false;                                                         \
-    Wavetable wavetable;                                                                 \
-    LfoWavetable<lfoTableSize> lfoWavetable;                                             \
-                                                                                         \
-    size_t nVoice = 32;                                                                  \
-    int32_t panCounter = 0;                                                              \
-    std::vector<size_t> noteIndices;                                                     \
-    std::vector<size_t> voiceIndices;                                                    \
-    std::vector<float> unisonPan;                                                        \
-    std::array<Note_##INSTRSET, maxVoice> notes;                                         \
-                                                                                         \
-    NoteProcessInfo info;                                                                \
-    LinearSmoother<float> interpMasterGain;                                              \
-                                                                                         \
-    std::vector<std::array<float, 2>> transitionBuffer{};                                \
-    bool isTransitioning = false;                                                        \
-    size_t trIndex = 0;                                                                  \
-    size_t trStop = 0;                                                                   \
-  };
-
-#ifdef USE_VECTORCLASS
-DSPCORE_CLASS(AVX512)
-DSPCORE_CLASS(AVX2)
-DSPCORE_CLASS(AVX)
-#else
-DSPCORE_CLASS(Plain)
-#endif

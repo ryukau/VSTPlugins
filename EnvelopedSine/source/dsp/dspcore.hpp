@@ -28,7 +28,6 @@
 
 #include <array>
 #include <cmath>
-#include <memory>
 
 using namespace SomeDSP;
 using namespace Steinberg::Synth;

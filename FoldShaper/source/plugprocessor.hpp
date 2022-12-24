@@ -25,8 +25,6 @@
 
 #include "dsp/dspcore.hpp"
 
-#include <memory>
-
 namespace Steinberg {
 namespace Synth {
 
@@ -66,7 +64,7 @@ protected:
 
   uint64_t lastState = 0;
   uint32_t wasBypassing = 0;
-  std::unique_ptr<DSPInterface> dsp;
+  DSPCore dsp;
 };
 
 } // namespace Synth

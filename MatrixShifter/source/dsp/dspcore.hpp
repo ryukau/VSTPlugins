@@ -17,10 +17,6 @@
 
 #pragma once
 
-#ifdef USE_VECTORCLASS
-  #include "../../../lib/vcl/vectorclass.h"
-#endif
-
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
@@ -29,76 +25,49 @@
 
 #include <array>
 #include <cmath>
-#include <memory>
 
 using namespace SomeDSP;
 using namespace Steinberg::Synth;
 
-class DSPInterface {
+class DSPCore {
 public:
-  virtual ~DSPInterface(){};
-
   GlobalParameter param;
   bool isPlaying = false;
   float tempo = 120.0f;
   float beatsElapsed = 0.0f;
 
-  virtual void setup(double sampleRate) = 0;
-  virtual void reset() = 0;   // Stop sounds.
-  virtual void startup() = 0; // Reset phase, random seed etc.
-  virtual void setParameters() = 0;
-  virtual void process(
-    const size_t length, const float *in0, const float *in1, float *out0, float *out1)
-    = 0;
+  void setup(double sampleRate);
+  void reset();
+  void startup();
+  void setParameters();
+  void process(
+    const size_t length, const float *in0, const float *in1, float *out0, float *out1);
+
+private:
+  float getTempoSyncInterval();
+
+  float sampleRate = 44100.0f;
+
+  // Temporary variables.
+  std::array<float, 2> lfoOut{};
+  std::array<float, 2> lfoDelay{};
+  std::array<float, 2> feedbackCutoffHz{};
+  std::array<float, 2> lfoHz{};
+
+  ExpSmoother<float> interpGain;
+  ExpSmoother<float> interpShiftFeedbackGain;
+  ExpSmoother<float> interpShiftFeedbackCutoff;
+  ExpSmoother<float> interpSectionGain;
+  ExpSmoother<float> interpLfoLrPhaseOffset;
+  ExpSmoother<float> interpLfoToDelay;
+  ExpSmoother<float> interpLfoSkew;
+  ExpSmoother<float> interpLfoToPitchShift;
+  ExpSmoother<float> interpLfoToFeedbackCutoff;
+  std::array<std::array<ExpSmoother<float>, nParallel>, nSerial> interpShiftHz;
+  std::array<ExpSmoother<float>, nSerial> interpShiftDelay;
+  std::array<ExpSmoother<float>, nSerial + 1> interpShiftGain;
+
+  TempoSynchronizer<float> syncer;
+  std::array<LFO<float>, 2> lfo;
+  std::array<MultiShifter<float, nParallel, nSerial>, 2> shifter;
 };
-
-#define DSPCORE_CLASS(INSTRSET)                                                          \
-  class DSPCore_##INSTRSET final : public DSPInterface {                                 \
-  public:                                                                                \
-    void setup(double sampleRate) override;                                              \
-    void reset() override;                                                               \
-    void startup() override;                                                             \
-    void setParameters() override;                                                       \
-    void process(                                                                        \
-      const size_t length,                                                               \
-      const float *in0,                                                                  \
-      const float *in1,                                                                  \
-      float *out0,                                                                       \
-      float *out1) override;                                                             \
-                                                                                         \
-  private:                                                                               \
-    float getTempoSyncInterval();                                                        \
-                                                                                         \
-    float sampleRate = 44100.0f;                                                         \
-                                                                                         \
-    /* Temporary variables. */                                                           \
-    std::array<float, 2> lfoOut{};                                                       \
-    std::array<float, 2> lfoDelay{};                                                     \
-    std::array<float, 2> feedbackCutoffHz{};                                             \
-    std::array<float, 2> lfoHz{};                                                        \
-                                                                                         \
-    ExpSmoother<float> interpGain;                                                       \
-    ExpSmoother<float> interpShiftFeedbackGain;                                          \
-    ExpSmoother<float> interpShiftFeedbackCutoff;                                        \
-    ExpSmoother<float> interpSectionGain;                                                \
-    ExpSmoother<float> interpLfoLrPhaseOffset;                                           \
-    ExpSmoother<float> interpLfoToDelay;                                                 \
-    ExpSmoother<float> interpLfoSkew;                                                    \
-    ExpSmoother<float> interpLfoToPitchShift;                                            \
-    ExpSmoother<float> interpLfoToFeedbackCutoff;                                        \
-    std::array<std::array<ExpSmoother<float>, nParallel>, nSerial> interpShiftHz;        \
-    std::array<ExpSmoother<float>, nSerial> interpShiftDelay;                            \
-    std::array<ExpSmoother<float>, nSerial + 1> interpShiftGain;                         \
-                                                                                         \
-    TempoSynchronizer<float> syncer;                                                     \
-    std::array<LFO<float>, 2> lfo;                                                       \
-    std::array<MultiShifter<float, nParallel, nSerial>, 2> shifter;                      \
-  };
-
-#ifdef USE_VECTORCLASS
-DSPCORE_CLASS(AVX512)
-DSPCORE_CLASS(AVX2)
-DSPCORE_CLASS(AVX)
-#else
-DSPCORE_CLASS(Plain)
-#endif

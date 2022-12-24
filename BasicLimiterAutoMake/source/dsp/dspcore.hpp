@@ -35,67 +35,37 @@ using namespace Steinberg::Synth;
 using UpSamplerFir = UpSamplerFir8Fold<float>;
 using DownSamplerFir = DownSamplerFir8Fold<float>;
 
-class DSPInterface {
+class DSPCore {
 public:
-  virtual ~DSPInterface(){};
-
   GlobalParameter param;
-
-  virtual void setup(double sampleRate) = 0;
-  virtual void reset() = 0;   // Stop sounds.
-  virtual void startup() = 0; // Reset phase, random seed etc.
-  virtual size_t getLatency() = 0;
-  virtual void setParameters() = 0;
-  virtual void process(
+  void setup(double sampleRate);
+  void reset();
+  void startup();
+  size_t getLatency();
+  void setParameters();
+  void process(
     const size_t length,
     const float *in0,
     const float *in1,
     const float *in2,
     const float *in3,
     float *out0,
-    float *out1)
-    = 0;
+    float *out1);
+
+private:
+  std::array<float, 2> processStereoLink(float in0, float in1);
+
+  float sampleRate = 44100.0f;
+  std::array<std::array<float, UpSamplerFir::upfold>, 2> expanded{};
+
+  ExpSmoother<float> interpStereoLink;
+  ExpSmoother<float> interpThreshold;
+
+  std::array<Limiter<float>, 2> limiter;
+  std::array<NaiveConvolver<float, HighEliminationFir<float>>, 2> highEliminatorMain;
+  std::array<NaiveConvolver<float, HighEliminationFir<float>>, 2> highEliminatorSide;
+  std::array<FirPolyPhaseUpSampler<float, UpSamplerFir>, 2> upSamplerMain;
+  std::array<FirPolyPhaseUpSampler<float, UpSamplerFir>, 2> upSamplerSide;
+  std::array<FirDownSampler<float, DownSamplerFir>, 2> downSampler;
+  AutoMakeUp<float> autoMakeUp;
 };
-
-#define DSPCORE_CLASS(INSTRSET)                                                          \
-  class DSPCore_##INSTRSET final : public DSPInterface {                                 \
-  public:                                                                                \
-    void setup(double sampleRate) override;                                              \
-    void reset() override;                                                               \
-    void startup() override;                                                             \
-    size_t getLatency() override;                                                        \
-    void setParameters() override;                                                       \
-    void process(                                                                        \
-      const size_t length,                                                               \
-      const float *in0,                                                                  \
-      const float *in1,                                                                  \
-      const float *in2,                                                                  \
-      const float *in3,                                                                  \
-      float *out0,                                                                       \
-      float *out1) override;                                                             \
-                                                                                         \
-  private:                                                                               \
-    std::array<float, 2> processStereoLink(float in0, float in1);                        \
-                                                                                         \
-    float sampleRate = 44100.0f;                                                         \
-    std::array<std::array<float, UpSamplerFir::upfold>, 2> expanded{};                   \
-                                                                                         \
-    ExpSmoother<float> interpStereoLink;                                                 \
-    ExpSmoother<float> interpThreshold;                                                  \
-                                                                                         \
-    std::array<Limiter<float>, 2> limiter;                                               \
-    std::array<NaiveConvolver<float, HighEliminationFir<float>>, 2> highEliminatorMain;  \
-    std::array<NaiveConvolver<float, HighEliminationFir<float>>, 2> highEliminatorSide;  \
-    std::array<FirPolyPhaseUpSampler<float, UpSamplerFir>, 2> upSamplerMain;             \
-    std::array<FirPolyPhaseUpSampler<float, UpSamplerFir>, 2> upSamplerSide;             \
-    std::array<FirDownSampler<float, DownSamplerFir>, 2> downSampler;                    \
-    AutoMakeUp<float> autoMakeUp;                                                        \
-  };
-
-#ifdef USE_VECTORCLASS
-DSPCORE_CLASS(AVX512)
-DSPCORE_CLASS(AVX2)
-DSPCORE_CLASS(AVX)
-#else
-DSPCORE_CLASS(Plain)
-#endif

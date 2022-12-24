@@ -17,21 +17,7 @@
 
 #include "dspcore.hpp"
 
-#ifdef USE_VECTORCLASS
-  #if INSTRSET >= 10
-    #define DSPCORE_NAME DSPCore_AVX512
-  #elif INSTRSET >= 8
-    #define DSPCORE_NAME DSPCore_AVX2
-  #elif INSTRSET >= 7
-    #define DSPCORE_NAME DSPCore_AVX
-  #else
-    #error Unsupported instruction set
-  #endif
-#else
-  #define DSPCORE_NAME DSPCore_Plain
-#endif
-
-void DSPCORE_NAME::setup(double sampleRate)
+void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = float(sampleRate);
 
@@ -49,7 +35,7 @@ inline std::array<float, 2> calcOffset(float offset, float mul)
   return {1.0f + mul * offset, 1.0f};
 }
 
-void DSPCORE_NAME::reset()
+void DSPCore::reset()
 {
   using ID = ParameterID::ID;
 
@@ -100,9 +86,9 @@ void DSPCORE_NAME::reset()
   interpWet.reset(param.value[ID::wet]->getFloat());
 }
 
-void DSPCORE_NAME::startup() { rng.seed(0); }
+void DSPCore::startup() { rng.seed(0); }
 
-void DSPCORE_NAME::setParameters()
+void DSPCore::setParameters()
 {
   using ID = ParameterID::ID;
 
@@ -153,7 +139,7 @@ void DSPCORE_NAME::setParameters()
   interpWet.push(param.value[ID::wet]->getFloat());
 }
 
-void DSPCORE_NAME::process(
+void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
   SmootherCommon<float>::setBufferSize(float(length));

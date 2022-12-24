@@ -23,24 +23,6 @@
 
 #include <iostream>
 
-#ifdef USE_VECTORCLASS
-  #if INSTRSET >= 10
-    #define NOTE_NAME Note_AVX512
-    #define DSPCORE_NAME DSPCore_AVX512
-  #elif INSTRSET >= 8
-    #define NOTE_NAME Note_AVX2
-    #define DSPCORE_NAME DSPCore_AVX2
-  #elif INSTRSET >= 7
-    #define NOTE_NAME Note_AVX
-    #define DSPCORE_NAME DSPCore_AVX
-  #else
-    #error Unsupported instruction set
-  #endif
-#else
-  #define NOTE_NAME Note_Plain
-  #define DSPCORE_NAME DSPCore_Plain
-#endif
-
 constexpr float delayMaxTime = 1.0f;
 
 // Approximation of `440 * powf(2, x * 10 - 5.75);`.
@@ -53,9 +35,9 @@ inline float mapCutoff(float x)
        + float(0.4872433705867005) * x * x + float(-0.13155292689641543) * x * x * x);
 }
 
-void NOTE_NAME::setup(float sampleRate) { delay.setup(sampleRate, 0.0f, delayMaxTime); }
+void Note::setup(float sampleRate) { delay.setup(sampleRate, 0.0f, delayMaxTime); }
 
-void NOTE_NAME::noteOn(
+void Note::noteOn(
   int32_t noteId,
   float notePitch,
   float velocity,
@@ -108,7 +90,7 @@ void NOTE_NAME::noteOn(
   delayGate.reset(sampleRate, param.value[ID::delayAttack]->getFloat(), noteFreq);
 }
 
-void NOTE_NAME::release()
+void Note::release()
 {
   if (state == NoteState::rest) return;
   state = NoteState::release;
@@ -116,19 +98,19 @@ void NOTE_NAME::release()
   filterEnvelope.release();
 }
 
-void NOTE_NAME::rest()
+void Note::rest()
 {
   state = NoteState::rest;
   id = -1;
   gain = 0;
 }
 
-bool NOTE_NAME::isAttacking() { return gainEnvelope.isAttacking(); }
+bool Note::isAttacking() { return gainEnvelope.isAttacking(); }
 
-float NOTE_NAME::getGain() { return gain; }
+float Note::getGain() { return gain; }
 
 std::array<float, 2>
-NOTE_NAME::process(float sampleRate, Wavetable &wavetable, NoteProcessInfo &info)
+Note::process(float sampleRate, Wavetable &wavetable, NoteProcessInfo &info)
 {
   gain = velocity * gainEnvelope.process();
   if (gainEnvelope.isTerminated()) state = NoteState::rest;
@@ -154,7 +136,7 @@ NOTE_NAME::process(float sampleRate, Wavetable &wavetable, NoteProcessInfo &info
   return {gain0 * mix, gain1 * mix};
 }
 
-DSPCORE_NAME::DSPCORE_NAME()
+DSPCore::DSPCore()
 {
   unisonPan.reserve(maxVoice);
   noteIndices.reserve(maxVoice);
@@ -165,7 +147,7 @@ DSPCORE_NAME::DSPCORE_NAME()
   midiNotes.reserve(maxVoice);
 }
 
-void DSPCORE_NAME::setup(double sampleRate)
+void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = float(sampleRate);
 
@@ -183,7 +165,7 @@ void DSPCORE_NAME::setup(double sampleRate)
   prepareRefresh = true;
 }
 
-void DSPCORE_NAME::reset()
+void DSPCore::reset()
 {
   using ID = ParameterID::ID;
 
@@ -201,9 +183,9 @@ void DSPCORE_NAME::reset()
   startup();
 }
 
-void DSPCORE_NAME::startup() { info.rng.seed(param.value[ParameterID::seed]->getInt()); }
+void DSPCore::startup() { info.rng.seed(param.value[ParameterID::seed]->getInt()); }
 
-void DSPCORE_NAME::setParameters(float tempo)
+void DSPCore::setParameters(float tempo)
 {
   using ID = ParameterID::ID;
 
@@ -266,7 +248,7 @@ void DSPCORE_NAME::setParameters(float tempo)
   prepareRefresh = false;
 }
 
-void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
+void DSPCore::process(const size_t length, float *out0, float *out1)
 {
   SmootherCommon<float>::setBufferSize(float(length));
 
@@ -299,7 +281,7 @@ void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
   }
 }
 
-void DSPCORE_NAME::setUnisonPan(size_t nUnison)
+void DSPCore::setUnisonPan(size_t nUnison)
 {
   enum UnisonPanType {
     unisonPanAlternateLR,
@@ -410,7 +392,7 @@ void DSPCORE_NAME::setUnisonPan(size_t nUnison)
   }
 }
 
-void DSPCORE_NAME::noteOn(int32_t identifier, int16_t pitch, float tuning, float velocity)
+void DSPCore::noteOn(int32_t identifier, int16_t pitch, float tuning, float velocity)
 {
   using ID = ParameterID::ID;
 
@@ -466,7 +448,7 @@ void DSPCORE_NAME::noteOn(int32_t identifier, int16_t pitch, float tuning, float
   }
 }
 
-void DSPCORE_NAME::fillTransitionBuffer(size_t noteIndex)
+void DSPCore::fillTransitionBuffer(size_t noteIndex)
 {
   isTransitioning = true;
 
@@ -492,13 +474,13 @@ void DSPCORE_NAME::fillTransitionBuffer(size_t noteIndex)
   }
 }
 
-void DSPCORE_NAME::noteOff(int32_t noteId)
+void DSPCore::noteOff(int32_t noteId)
 {
   for (size_t i = 0; i < notes.size(); ++i)
     if (notes[i].id == noteId) notes[i].release();
 }
 
-void DSPCORE_NAME::refreshTable()
+void DSPCore::refreshTable()
 {
   using ID = ParameterID::ID;
 
@@ -536,7 +518,7 @@ void DSPCORE_NAME::refreshTable()
     param.value[ID::uniformPhaseProfile]->getInt());
 }
 
-void DSPCORE_NAME::refreshLfo()
+void DSPCore::refreshLfo()
 {
   using ID = ParameterID::ID;
 

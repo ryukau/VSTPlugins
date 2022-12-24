@@ -17,21 +17,7 @@
 
 #include "dspcore.hpp"
 
-#ifdef USE_VECTORCLASS
-  #if INSTRSET >= 10
-    #define DSPCORE_NAME DSPCore_AVX512
-  #elif INSTRSET >= 8
-    #define DSPCORE_NAME DSPCore_AVX2
-  #elif INSTRSET >= 7
-    #define DSPCORE_NAME DSPCore_AVX
-  #else
-    #error Unsupported instruction set
-  #endif
-#else
-  #define DSPCORE_NAME DSPCore_Plain
-#endif
-
-void DSPCORE_NAME::setup(double sampleRate)
+void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = float(sampleRate);
 
@@ -136,7 +122,7 @@ inline std::array<float, 2> calcOffset(float offset, float mul)
   interpDry.METHOD(param.value[ID::dry]->getFloat());                                    \
   interpWet.METHOD(param.value[ID::wet]->getFloat());
 
-void DSPCORE_NAME::reset()
+void DSPCore::reset()
 {
   using ID = ParameterID::ID;
 
@@ -148,7 +134,7 @@ void DSPCORE_NAME::reset()
   ASSIGN_ALLPASS_PARAMETER(reset);
 }
 
-void DSPCORE_NAME::startup()
+void DSPCore::startup()
 {
   refreshSeed();
 
@@ -160,7 +146,7 @@ void DSPCORE_NAME::startup()
   d4FeedRng.seed(d4FeedSeed);
 }
 
-void DSPCORE_NAME::setParameters()
+void DSPCore::setParameters()
 {
   using ID = ParameterID::ID;
 
@@ -178,7 +164,7 @@ void DSPCORE_NAME::setParameters()
   ASSIGN_ALLPASS_PARAMETER(push);
 }
 
-void DSPCORE_NAME::process(
+void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
   SmootherCommon<float>::setBufferSize(float(length));
@@ -203,7 +189,7 @@ void DSPCORE_NAME::process(
   }
 }
 
-void DSPCORE_NAME::refreshSeed()
+void DSPCore::refreshSeed()
 {
   std::minstd_rand rng{param.value[ParameterID::seed]->getInt()};
   std::uniform_int_distribution<uint_fast32_t> dist(0, UINT32_MAX);

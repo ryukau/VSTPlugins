@@ -29,7 +29,6 @@
 #include "pluginterfaces/vst/ivstparameterchanges.h"
 
 #include <cstring>
-#include <iostream>
 
 namespace Steinberg {
 namespace Synth {

@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include <memory>
+#include <array>
 #include <numeric>
 #include <vector>
 

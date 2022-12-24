@@ -21,24 +21,6 @@
 #include <numeric>
 #include <random>
 
-#ifdef USE_VECTORCLASS
-  #if INSTRSET >= 10
-    #define NOTE_NAME Note_AVX512
-    #define DSPCORE_NAME DSPCore_AVX512
-  #elif INSTRSET >= 8
-    #define NOTE_NAME Note_AVX2
-    #define DSPCORE_NAME DSPCore_AVX2
-  #elif INSTRSET >= 7
-    #define NOTE_NAME Note_AVX
-    #define DSPCORE_NAME DSPCore_AVX
-  #else
-    #error Unsupported instruction set
-  #endif
-#else
-  #define NOTE_NAME Note_Plain
-  #define DSPCORE_NAME DSPCore_Plain
-#endif
-
 constexpr float maxDelayTime = float(4);
 constexpr float defaultTempo = float(120);
 
@@ -59,16 +41,16 @@ semitoneToHz(float notePitch, float equalTemperament = float(12), float a4Hz = f
   return a4Hz * std::exp2((notePitch - float(69)) / equalTemperament);
 }
 
-DSPCORE_NAME::DSPCORE_NAME()
+DSPCore::DSPCore()
 {
   unisonPan.reserve(maximumVoice);
   noteIndices.reserve(maximumVoice);
   voiceIndices.reserve(maximumVoice);
 }
 
-void NOTE_NAME::setup(float sampleRate) { fdn.setup(sampleRate, maxDelayTime); }
+void Note::setup(float sampleRate) { fdn.setup(sampleRate, maxDelayTime); }
 
-void DSPCORE_NAME::setup(double sampleRate)
+void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = float(sampleRate);
   upRate = upFold * this->sampleRate;
@@ -102,7 +84,7 @@ void DSPCORE_NAME::setup(double sampleRate)
     : semitoneToHz(pv[ID::highpassCutoffSemi]->getFloat());                              \
   fdnHighpassCutoff.METHOD(std::clamp(highpassCutoffHz, float(1), nyquist) / sampleRate);
 
-void NOTE_NAME::reset(float sampleRate, NoteProcessInfo &info, GlobalParameter &param)
+void Note::reset(float sampleRate, NoteProcessInfo &info, GlobalParameter &param)
 {
   using ID = ParameterID::ID;
   auto &pv = param.value;
@@ -138,7 +120,7 @@ void NOTE_NAME::reset(float sampleRate, NoteProcessInfo &info, GlobalParameter &
                                                                                          \
   interpMasterGain.METHOD(pv[ID::gain]->getFloat());
 
-void DSPCORE_NAME::reset()
+void DSPCore::reset()
 {
   using ID = ParameterID::ID;
   auto &pv = param.value;
@@ -158,7 +140,7 @@ void DSPCORE_NAME::reset()
   panCounter = 0;
 }
 
-float DSPCORE_NAME::getTempoSyncInterval()
+float DSPCore::getTempoSyncInterval()
 {
   using ID = ParameterID::ID;
   const auto &pv = param.value;
@@ -172,13 +154,12 @@ float DSPCORE_NAME::getTempoSyncInterval()
   return float(4) * upper / lower / lfoRate;
 }
 
-void DSPCORE_NAME::startup()
+void DSPCore::startup()
 {
   info.synchronizer.reset(upRate, tempo, getTempoSyncInterval());
 }
 
-void NOTE_NAME::setParameters(
-  float sampleRate, NoteProcessInfo &info, GlobalParameter &param)
+void Note::setParameters(float sampleRate, NoteProcessInfo &info, GlobalParameter &param)
 {
   using ID = ParameterID::ID;
   auto &pv = param.value;
@@ -201,7 +182,7 @@ void NOTE_NAME::setParameters(
   SET_NOTE_FILTER_CUTOFF(push);
 }
 
-void DSPCORE_NAME::setParameters()
+void DSPCore::setParameters()
 {
   using ID = ParameterID::ID;
   auto &pv = param.value;
@@ -240,7 +221,7 @@ inline float alignModValue(float amount, float alignment, float value)
   return alignment * std::floor(value * amount / alignment + float(0.5));
 }
 
-std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
+std::array<float, 2> Note::process(float sampleRate, NoteProcessInfo &info)
 {
   constexpr auto eps = std::numeric_limits<float>::epsilon();
 
@@ -319,7 +300,7 @@ std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
   return {(float(1) - panGain) * sig, panGain * sig};
 }
 
-void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
+void DSPCore::process(const size_t length, float *out0, float *out1)
 {
   using ID = ParameterID::ID;
   const auto &pv = param.value;
@@ -366,7 +347,7 @@ void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
   }
 }
 
-void NOTE_NAME::noteOn(
+void Note::noteOn(
   int_fast32_t noteId,
   float notePitch,
   float velocity,
@@ -461,7 +442,7 @@ void NOTE_NAME::noteOn(
   state = NoteState::active;
 }
 
-void NOTE_NAME::release(float sampleRate)
+void Note::release(float sampleRate)
 {
   if (state == NoteState::rest) return;
   state = NoteState::release;
@@ -472,13 +453,13 @@ void NOTE_NAME::release(float sampleRate)
   releaseSwitch *= float(1) - std::numeric_limits<float>::epsilon();
 }
 
-void NOTE_NAME::rest() { state = NoteState::rest; }
+void Note::rest() { state = NoteState::rest; }
 
-bool NOTE_NAME::isAttacking() { return false; }
+bool Note::isAttacking() { return false; }
 
-float NOTE_NAME::getGain() { return gain; }
+float Note::getGain() { return gain; }
 
-void DSPCORE_NAME::noteOn(
+void DSPCore::noteOn(
   int_fast32_t noteId, int_fast16_t pitch, float tuning, float velocity)
 {
   using ID = ParameterID::ID;
@@ -550,13 +531,13 @@ void DSPCORE_NAME::noteOn(
   }
 }
 
-void DSPCORE_NAME::noteOff(int_fast32_t noteId)
+void DSPCore::noteOff(int_fast32_t noteId)
 {
   for (auto &note : notes)
     if (note.id == noteId) note.release(upRate);
 }
 
-void DSPCORE_NAME::fillTransitionBuffer(size_t noteIndex)
+void DSPCore::fillTransitionBuffer(size_t noteIndex)
 {
   auto &note = notes[noteIndex];
   if (note.state == NoteState::rest) return;

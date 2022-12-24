@@ -21,24 +21,6 @@
 #include <numeric>
 #include <random>
 
-#ifdef USE_VECTORCLASS
-  #if INSTRSET >= 10
-    #define NOTE_NAME Note_AVX512
-    #define DSPCORE_NAME DSPCore_AVX512
-  #elif INSTRSET >= 8
-    #define NOTE_NAME Note_AVX2
-    #define DSPCORE_NAME DSPCore_AVX2
-  #elif INSTRSET >= 7
-    #define NOTE_NAME Note_AVX
-    #define DSPCORE_NAME DSPCore_AVX
-  #else
-    #error Unsupported instruction set
-  #endif
-#else
-  #define NOTE_NAME Note_Plain
-  #define DSPCORE_NAME DSPCore_Plain
-#endif
-
 inline float calcMasterPitch(
   int32_t octave, int32_t semi, int32_t milli, float bend, float equalTemperament)
 {
@@ -75,14 +57,14 @@ template<typename T> T onepoleHighpassPoleApprox(T x)
     / (T(5.479174921068828) + T(20.63587495820437) * x + T(36.02138404173517) * x * x);
 }
 
-void NOTE_NAME::setup(float sampleRate)
+void Note::setup(float sampleRate)
 {
   cymbalLowpassEnvelope.setup(sampleRate);
   cymbal.setup(sampleRate);
   for (auto &cmb : comb) cmb.reset();
 }
 
-void NOTE_NAME::noteOn(
+void Note::noteOn(
   int32_t noteId,
   float notePitch,
   float velocity,
@@ -154,20 +136,20 @@ void NOTE_NAME::noteOn(
   compressor.reset();
 }
 
-void NOTE_NAME::release(float sampleRate)
+void Note::release(float sampleRate)
 {
   if (state == NoteState::rest) return;
   state = NoteState::release;
   cymbalLowpassEnvelope.release(sampleRate);
 }
 
-void NOTE_NAME::rest() { state = NoteState::rest; }
+void Note::rest() { state = NoteState::rest; }
 
-bool NOTE_NAME::isAttacking() { return cymbalLowpassEnvelope.isAttacking(); }
+bool Note::isAttacking() { return cymbalLowpassEnvelope.isAttacking(); }
 
-float NOTE_NAME::getGain() { return gain; }
+float Note::getGain() { return gain; }
 
-std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
+std::array<float, 2> Note::process(float sampleRate, NoteProcessInfo &info)
 {
   float sig = noise.isTerminated
     ? 0
@@ -195,7 +177,7 @@ std::array<float, 2> NOTE_NAME::process(float sampleRate, NoteProcessInfo &info)
   return {(1.0f - pan) * sig, pan * sig};
 }
 
-void DSPCORE_NAME::setup(double sampleRate)
+void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = float(sampleRate);
 
@@ -210,14 +192,14 @@ void DSPCORE_NAME::setup(double sampleRate)
   reset();
 }
 
-DSPCORE_NAME::DSPCORE_NAME()
+DSPCore::DSPCore()
 {
   unisonPan.reserve(maxVoice);
   noteIndices.reserve(maxVoice);
   voiceIndices.reserve(maxVoice);
 }
 
-void DSPCORE_NAME::reset()
+void DSPCore::reset()
 {
   using ID = ParameterID::ID;
   auto &pv = param.value;
@@ -242,9 +224,9 @@ void DSPCORE_NAME::reset()
   trStop = 0;
 }
 
-void DSPCORE_NAME::startup() {}
+void DSPCore::startup() {}
 
-void DSPCORE_NAME::setParameters(float /* tempo */)
+void DSPCore::setParameters(float /* tempo */)
 {
   using ID = ParameterID::ID;
   auto &pv = param.value;
@@ -263,7 +245,7 @@ void DSPCORE_NAME::setParameters(float /* tempo */)
   }
 }
 
-void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
+void DSPCore::process(const size_t length, float *out0, float *out1)
 {
   SmootherCommon<float>::setBufferSize(float(length));
 
@@ -296,7 +278,7 @@ void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
   }
 }
 
-void DSPCORE_NAME::setUnisonPan(size_t nUnison)
+void DSPCore::setUnisonPan(size_t nUnison)
 {
   using ID = ParameterID::ID;
 
@@ -310,7 +292,7 @@ void DSPCORE_NAME::setUnisonPan(size_t nUnison)
     unisonPan[idx] = panRange * idx + panOffset;
 }
 
-void DSPCORE_NAME::noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity)
+void DSPCore::noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity)
 {
   using ID = ParameterID::ID;
   auto &pv = param.value;
@@ -374,13 +356,13 @@ void DSPCORE_NAME::noteOn(int32_t noteId, int16_t pitch, float tuning, float vel
   }
 }
 
-void DSPCORE_NAME::noteOff(int32_t noteId)
+void DSPCore::noteOff(int32_t noteId)
 {
   for (size_t i = 0; i < notes.size(); ++i)
     if (notes[i].id == noteId) notes[i].release(sampleRate);
 }
 
-void DSPCORE_NAME::fillTransitionBuffer(size_t noteIndex)
+void DSPCore::fillTransitionBuffer(size_t noteIndex)
 {
   auto &note = notes[noteIndex];
   if (note.state == NoteState::rest) return;

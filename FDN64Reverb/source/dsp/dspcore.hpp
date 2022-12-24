@@ -17,10 +17,6 @@
 
 #pragma once
 
-#ifdef USE_VECTORCLASS
-  #include "../../../lib/vcl/vectorclass.h"
-#endif
-
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/smoother.hpp"
 #include "../parameter.hpp"
@@ -31,66 +27,40 @@
 using namespace SomeDSP;
 using namespace Steinberg::Synth;
 
-class DSPInterface {
-public:
-  virtual ~DSPInterface(){};
 
+class DSPCore {
+public:
   GlobalParameter param;
 
-  virtual void setup(double sampleRate) = 0;
-  virtual void reset() = 0;   // Stop sounds.
-  virtual void startup() = 0; // Reset phase, random seed etc.
-  virtual size_t getLatency() = 0;
-  virtual void setParameters() = 0;
-  virtual void process(
-    const size_t length, const float *in0, const float *in1, float *out0, float *out1)
-    = 0;
+  void setup(double sampleRate);
+  void reset();
+  void startup();
+  size_t getLatency();
+  void setParameters();
+  void process(
+    const size_t length, const float *in0, const float *in1, float *out0, float *out1);
+
+private:
+  bool prepareRefresh = true;
+  bool isMatrixRefeshed = false;
+  unsigned previousSeed = 0;
+  unsigned previousMatrixType = 0;
+  pcg64 rng;
+
+  float sampleRate = 44100.0f;
+  std::array<float, 2> crossBuffer{};
+
+  std::array<std::array<EMAFilter<float>, nDelay>, 2> lowpassLfoTime;
+
+  std::array<ExpSmoother<float>, nDelay> interpLowpassCutoff;
+  std::array<ExpSmoother<float>, nDelay> interpHighpassCutoff;
+  RotarySmoother<float> interpSplitPhaseOffset;
+  ExpSmoother<float> interpSplitSkew;
+  ExpSmoother<float> interpStereoCross;
+  ExpSmoother<float> interpFeedback;
+  ExpSmoother<float> interpDry;
+  ExpSmoother<float> interpWet;
+
+  EasyGate<float> gate;
+  std::array<FeedbackDelayNetwork<float, nDelay>, 2> feedbackDelayNetwork;
 };
-
-#define DSPCORE_CLASS(INSTRSET)                                                          \
-  class DSPCore_##INSTRSET final : public DSPInterface {                                 \
-  public:                                                                                \
-    void setup(double sampleRate) override;                                              \
-    void reset() override;                                                               \
-    void startup() override;                                                             \
-    size_t getLatency() override;                                                        \
-    void setParameters() override;                                                       \
-    void process(                                                                        \
-      const size_t length,                                                               \
-      const float *in0,                                                                  \
-      const float *in1,                                                                  \
-      float *out0,                                                                       \
-      float *out1) override;                                                             \
-                                                                                         \
-  private:                                                                               \
-    bool prepareRefresh = true;                                                          \
-    bool isMatrixRefeshed = false;                                                       \
-    unsigned previousSeed = 0;                                                           \
-    unsigned previousMatrixType = 0;                                                     \
-    pcg64 rng;                                                                           \
-                                                                                         \
-    float sampleRate = 44100.0f;                                                         \
-    std::array<float, 2> crossBuffer{};                                                  \
-                                                                                         \
-    std::array<std::array<EMAFilter<float>, nDelay>, 2> lowpassLfoTime;                  \
-                                                                                         \
-    std::array<ExpSmoother<float>, nDelay> interpLowpassCutoff;                          \
-    std::array<ExpSmoother<float>, nDelay> interpHighpassCutoff;                         \
-    RotarySmoother<float> interpSplitPhaseOffset;                                        \
-    ExpSmoother<float> interpSplitSkew;                                                  \
-    ExpSmoother<float> interpStereoCross;                                                \
-    ExpSmoother<float> interpFeedback;                                                   \
-    ExpSmoother<float> interpDry;                                                        \
-    ExpSmoother<float> interpWet;                                                        \
-                                                                                         \
-    EasyGate<float> gate;                                                                \
-    std::array<FeedbackDelayNetwork<float, nDelay>, 2> feedbackDelayNetwork;             \
-  };
-
-#ifdef USE_VECTORCLASS
-DSPCORE_CLASS(AVX512)
-DSPCORE_CLASS(AVX2)
-DSPCORE_CLASS(AVX)
-#else
-DSPCORE_CLASS(Plain)
-#endif

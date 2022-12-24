@@ -25,8 +25,6 @@
 
 #include "dsp/dspcore.hpp"
 
-#include <memory>
-
 namespace Steinberg {
 namespace Synth {
 
@@ -49,8 +47,6 @@ public:
   tresult PLUGIN_API setState(IBStream *state) SMTG_OVERRIDE;
   tresult PLUGIN_API getState(IBStream *state) SMTG_OVERRIDE;
 
-  tresult receiveText(const char8 *text) SMTG_OVERRIDE;
-
   static FUnknown *createInstance(void *)
   {
     return (Vst::IAudioProcessor *)new PlugProcessor();
@@ -59,7 +55,7 @@ public:
   void handleEvent(Vst::ProcessData &data);
 
 protected:
-  std::unique_ptr<DSPInterface> dsp;
+  DSPCore dsp;
 };
 
 } // namespace Synth

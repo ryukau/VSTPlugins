@@ -23,7 +23,6 @@
 #include "iir.hpp"
 
 #include <array>
-#include <memory>
 
 using namespace SomeDSP;
 using namespace Steinberg::Synth;

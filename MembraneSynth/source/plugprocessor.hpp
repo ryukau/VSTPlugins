@@ -25,8 +25,6 @@
 
 #include "dsp/dspcore.hpp"
 
-#include <memory>
-
 namespace Steinberg {
 namespace Synth {
 

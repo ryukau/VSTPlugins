@@ -26,8 +26,6 @@
 
 #include "dsp/dspcore.hpp"
 
-#include <memory>
-
 namespace Steinberg {
 namespace Synth {
 
@@ -62,7 +60,7 @@ public:
 protected:
   uint64_t lastState = 0;
   float tempo = 120.0f;
-  std::unique_ptr<DSPInterface> dsp;
+  DSPCore dsp;
 };
 
 } // namespace Synth

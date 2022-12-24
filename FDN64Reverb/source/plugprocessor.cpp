@@ -37,26 +37,7 @@
 namespace Steinberg {
 namespace Synth {
 
-PlugProcessor::PlugProcessor()
-{
-#ifdef USE_VECTORCLASS
-  auto iset = instrset_detect();
-  if (iset >= 10) {
-    dsp = std::make_unique<DSPCore_AVX512>();
-  } else if (iset >= 8) {
-    dsp = std::make_unique<DSPCore_AVX2>();
-  } else if (iset >= 7) {
-    dsp = std::make_unique<DSPCore_AVX>();
-  } else {
-    std::cerr << "\nError: Instruction set AVX or later not supported on this computer";
-    exit(EXIT_FAILURE);
-  }
-#else
-  dsp = std::make_unique<DSPCore_Plain>();
-#endif
-
-  setControllerClass(ControllerUID);
-}
+PlugProcessor::PlugProcessor() { setControllerClass(ControllerUID); }
 
 tresult PLUGIN_API PlugProcessor::initialize(FUnknown *context)
 {
@@ -90,18 +71,16 @@ uint32 PLUGIN_API PlugProcessor::getProcessContextRequirements()
 
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 {
-  if (dsp == nullptr) return kNotInitialized;
-  dsp->setup(processSetup.sampleRate);
+  dsp.setup(processSetup.sampleRate);
   return AudioEffect::setupProcessing(setup);
 }
 
 tresult PLUGIN_API PlugProcessor::setActive(TBool state)
 {
-  if (dsp == nullptr) return kResultFalse;
   if (state) {
-    dsp->setup(processSetup.sampleRate);
+    dsp.setup(processSetup.sampleRate);
   } else {
-    dsp->reset();
+    dsp.reset();
     lastState = 0;
   }
   return AudioEffect::setActive(state);
@@ -110,8 +89,6 @@ tresult PLUGIN_API PlugProcessor::setActive(TBool state)
 tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 {
   using ID = ParameterID::ID;
-
-  if (dsp == nullptr) return kNotInitialized;
 
   // Read inputs parameter changes.
   if (data.inputParameterChanges) {
@@ -124,7 +101,7 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
       if (queue->getPoint(queue->getPointCount() - 1, sampleOffset, value) != kResultTrue)
         continue;
       size_t id = queue->getParameterId();
-      if (id < dsp->param.value.size()) dsp->param.value[id]->setFromNormalized(value);
+      if (id < dsp.param.value.size()) dsp.param.value[id]->setFromNormalized(value);
     }
   }
 
@@ -135,11 +112,11 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
     (lastState & Vst::ProcessContext::kPlaying) == 0
     && (state & Vst::ProcessContext::kPlaying) != 0)
   {
-    dsp->startup();
+    dsp.startup();
   }
   lastState = state;
 
-  dsp->setParameters();
+  dsp.setParameters();
 
   if (data.numInputs == 0) return kResultOk;
   if (data.numOutputs == 0) return kResultOk;
@@ -148,16 +125,16 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   if (data.outputs[0].numChannels < 2) return kResultOk;
   if (data.symbolicSampleSize == Vst::kSample64) return kResultOk;
 
-  auto isBypassing = dsp->param.value[ParameterID::bypass]->getInt();
+  auto isBypassing = dsp.param.value[ParameterID::bypass]->getInt();
   if (isBypassing) {
-    if (!wasBypassing) dsp->reset();
+    if (!wasBypassing) dsp.reset();
     processBypass(data);
   } else {
     float *in0 = data.inputs[0].channelBuffers32[0];
     float *in1 = data.inputs[0].channelBuffers32[1];
     float *out0 = data.outputs[0].channelBuffers32[0];
     float *out1 = data.outputs[0].channelBuffers32[1];
-    dsp->process((size_t)data.numSamples, in0, in1, out0, out1);
+    dsp.process((size_t)data.numSamples, in0, in1, out0, out1);
   }
   wasBypassing = isBypassing;
 
@@ -167,7 +144,7 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   for (uint32 id = ID::ID_ENUM_GUI_START; id < ID::ID_ENUM_LENGTH; ++id) {
     auto queue = data.outputParameterChanges->addParameterData(id, index);
     if (!queue) continue;
-    queue->addPoint(0, dsp->param.value[id]->getNormalized(), index);
+    queue->addPoint(0, dsp.param.value[id]->getNormalized(), index);
   }
 
   return kResultOk;
@@ -184,15 +161,13 @@ void PlugProcessor::processBypass(Vst::ProcessData &data)
 
 tresult PLUGIN_API PlugProcessor::setState(IBStream *state)
 {
-  if (dsp == nullptr) return kNotInitialized;
   if (!state) return kResultFalse;
-  return dsp->param.setState(state);
+  return dsp.param.setState(state);
 }
 
 tresult PLUGIN_API PlugProcessor::getState(IBStream *state)
 {
-  if (dsp == nullptr) return kNotInitialized;
-  return dsp->param.getState(state);
+  return dsp.param.getState(state);
 }
 
 } // namespace Synth

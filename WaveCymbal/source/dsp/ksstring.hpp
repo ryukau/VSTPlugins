@@ -24,7 +24,6 @@
 
 #include <array>
 #include <cmath>
-#include <memory>
 
 namespace SomeDSP {
 

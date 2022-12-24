@@ -21,25 +21,11 @@
 #include <limits>
 #include <numeric>
 
-#ifdef USE_VECTORCLASS
-  #if INSTRSET >= 10
-    #define DSPCORE_NAME DSPCore_AVX512
-  #elif INSTRSET >= 8
-    #define DSPCORE_NAME DSPCore_AVX2
-  #elif INSTRSET >= 7
-    #define DSPCORE_NAME DSPCore_AVX
-  #else
-    #error Unsupported instruction set
-  #endif
-#else
-  #define DSPCORE_NAME DSPCore_Plain
-#endif
-
 constexpr float feedbackLimiterAttackSeconds = 64.0f / 48000.0f;
 
 template<typename T> T lerp(T a, T b, T t) { return a + t * (b - a); }
 
-void DSPCORE_NAME::setup(double sampleRate)
+void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = float(sampleRate);
 
@@ -51,7 +37,7 @@ void DSPCORE_NAME::setup(double sampleRate)
   prepareRefresh = true;
 }
 
-size_t DSPCORE_NAME::getLatency() { return fftconvLatency; }
+size_t DSPCore::getLatency() { return fftconvLatency; }
 
 #define ASSIGN_PARAMETER(METHOD)                                                         \
   using ID = ParameterID::ID;                                                            \
@@ -60,7 +46,7 @@ size_t DSPCORE_NAME::getLatency() { return fftconvLatency; }
   interpHighpassGain.METHOD(pv[ID::highpassGain]->getFloat());                           \
   interpLowpassGain.METHOD(pv[ID::lowpassGain]->getFloat());
 
-void DSPCORE_NAME::reset()
+void DSPCore::reset()
 {
   ASSIGN_PARAMETER(reset);
 
@@ -70,9 +56,9 @@ void DSPCORE_NAME::reset()
   startup();
 }
 
-void DSPCORE_NAME::startup() {}
+void DSPCore::startup() {}
 
-void DSPCORE_NAME::setParameters()
+void DSPCore::setParameters()
 {
   ASSIGN_PARAMETER(push);
 
@@ -84,7 +70,7 @@ void DSPCORE_NAME::setParameters()
   prepareRefresh = false;
 }
 
-void DSPCORE_NAME::process(
+void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
   SmootherCommon<float>::setBufferSize(float(length));

@@ -20,20 +20,6 @@
 #include <algorithm>
 #include <numeric>
 
-#ifdef USE_VECTORCLASS
-  #if INSTRSET >= 10
-    #define DSPCORE_NAME DSPCore_AVX512
-  #elif INSTRSET >= 8
-    #define DSPCORE_NAME DSPCore_AVX2
-  #elif INSTRSET >= 7
-    #define DSPCORE_NAME DSPCore_AVX
-  #else
-    #error Unsupported instruction set
-  #endif
-#else
-  #define DSPCORE_NAME DSPCore_Plain
-#endif
-
 inline float maxAbs(const size_t length, const float *buffer)
 {
   float max = 0.0f;
@@ -41,7 +27,7 @@ inline float maxAbs(const size_t length, const float *buffer)
   return max;
 }
 
-void DSPCORE_NAME::setup(double sampleRate)
+void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = float(sampleRate);
 
@@ -67,23 +53,23 @@ void DSPCORE_NAME::setup(double sampleRate)
   interpRatio.METHOD(param.value[ID::ratio]->getFloat());                                \
   interpSlope.METHOD(param.value[ID::slope]->getFloat());
 
-void DSPCORE_NAME::reset()
+void DSPCore::reset()
 {
   for (auto &shpr : shaper) shpr.reset();
   startup();
 }
 
-void DSPCORE_NAME::startup() { ASSIGN_PARAMETER(reset); }
+void DSPCore::startup() { ASSIGN_PARAMETER(reset); }
 
-size_t DSPCORE_NAME::getLatency() { return oversample ? shaper[0].latency() : 0; }
+size_t DSPCore::getLatency() { return oversample ? shaper[0].latency() : 0; }
 
-void DSPCORE_NAME::setParameters()
+void DSPCore::setParameters()
 {
   ASSIGN_PARAMETER(push);
   oversample = param.value[ID::oversample]->getInt();
 }
 
-void DSPCORE_NAME::process(
+void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
   SmootherCommon<float>::setBufferSize(float(length));

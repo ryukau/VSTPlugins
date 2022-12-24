@@ -21,25 +21,11 @@
 #include <limits>
 #include <numeric>
 
-#ifdef USE_VECTORCLASS
-  #if INSTRSET >= 10
-    #define DSPCORE_NAME DSPCore_AVX512
-  #elif INSTRSET >= 8
-    #define DSPCORE_NAME DSPCore_AVX2
-  #elif INSTRSET >= 7
-    #define DSPCORE_NAME DSPCore_AVX
-  #else
-    #error Unsupported instruction set
-  #endif
-#else
-  #define DSPCORE_NAME DSPCore_Plain
-#endif
-
 constexpr float defaultTempo = 120.0f;
 
 template<typename T> T lerp(T a, T b, T t) { return a + t * (b - a); }
 
-float DSPCORE_NAME::getTempoSyncInterval()
+float DSPCore::getTempoSyncInterval()
 {
   using ID = ParameterID::ID;
   const auto &pv = param.value;
@@ -53,7 +39,7 @@ float DSPCORE_NAME::getTempoSyncInterval()
   return float(4) * upper / lower / lfoRate;
 }
 
-void DSPCORE_NAME::setup(double sampleRate)
+void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = float(sampleRate);
 
@@ -73,7 +59,7 @@ void DSPCORE_NAME::setup(double sampleRate)
   startup();
 }
 
-size_t DSPCORE_NAME::getLatency() { return 0; }
+size_t DSPCore::getLatency() { return 0; }
 
 #define ASSIGN_PARAMETER(METHOD)                                                         \
   using ID = ParameterID::ID;                                                            \
@@ -113,7 +99,7 @@ size_t DSPCORE_NAME::getLatency() { return 0; }
   interpDry.METHOD(pv[ID::dry]->getFloat());                                             \
   interpWet.METHOD(pv[ID::wet]->getFloat());
 
-void DSPCORE_NAME::reset()
+void DSPCore::reset()
 {
   ASSIGN_PARAMETER(reset);
 
@@ -128,12 +114,12 @@ void DSPCORE_NAME::reset()
   startup();
 }
 
-void DSPCORE_NAME::startup()
+void DSPCore::startup()
 {
   synchronizer.reset(sampleRate * OverSampler::fold, tempo, getTempoSyncInterval());
 }
 
-void DSPCORE_NAME::setParameters() { ASSIGN_PARAMETER(push); }
+void DSPCore::setParameters() { ASSIGN_PARAMETER(push); }
 
 inline void convertToMidSide(float &left, float &right)
 {
@@ -157,7 +143,7 @@ inline std::array<float, 2> getStereoLean(float value, float lean)
   return {value, value * (float(1) - lean)};
 }
 
-void DSPCORE_NAME::process(
+void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
   using ID = ParameterID::ID;
