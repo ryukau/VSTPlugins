@@ -72,7 +72,7 @@ void DSPCore::updateUpRate()
   SmootherCommon<double>::setSampleRate(upRate);
 
   synchronizer.reset(upRate, defaultTempo, double(1));
-  lfo.setup(upRate, double(0.1) * fold);
+  lfo.setup(upRate, double(0.1));
 }
 
 void DSPCore::reset()

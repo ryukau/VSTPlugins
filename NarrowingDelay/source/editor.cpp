@@ -22,7 +22,6 @@
 #include <algorithm>
 #include <random>
 
-// 480 + 20
 constexpr float uiTextSize = 12.0f;
 constexpr float pluginNameTextSize = 14.0f;
 constexpr float margin = 5.0f;
