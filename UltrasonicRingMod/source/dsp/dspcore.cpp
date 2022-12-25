@@ -60,6 +60,9 @@ void DSPCore::reset()
 {
   ASSIGN_PARAMETER(reset);
 
+  midiNotes.clear();
+  noteStack.clear();
+
   interpPitch.reset(double(1));
 
   for (auto &us : upSampler) us.reset();

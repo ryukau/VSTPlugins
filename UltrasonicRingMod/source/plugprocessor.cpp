@@ -28,12 +28,6 @@
 #include "pluginterfaces/vst/ivstevents.h"
 #include "pluginterfaces/vst/ivstparameterchanges.h"
 
-#ifdef USE_VECTORCLASS
-  #include "../../lib/vcl/vectorclass.h"
-#endif
-
-#include <iostream>
-
 namespace Steinberg {
 namespace Synth {
 
