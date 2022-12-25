@@ -197,9 +197,9 @@ bool Editor::prepareUI()
 
   // Plugin name.
   constexpr auto splashMargin = uiMargin;
-  constexpr auto splashWidth = int(1.5 * labelWidth) + margin;
+  constexpr auto splashWidth = int(1.75 * labelWidth);
   constexpr auto splashHeight = labelY;
-  constexpr auto splashTop = miscTop0 - 1 * margin;
+  constexpr auto splashTop = miscTop1;
   constexpr auto splashLeft = defaultWidth - uiMargin - splashWidth;
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
