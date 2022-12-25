@@ -29,6 +29,9 @@ void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = double(sampleRate);
 
+  pitchSmoothingKp = EMAFilter<double>::secondToP(upRate, double(0.05));
+  pitchReleaseKp = EMAFilter<double>::secondToP(upRate, double(4));
+
   for (auto &dly : feedbackDelay) dly.setup(this->sampleRate * upFold, maxDelayTime);
 
   reset();
@@ -58,6 +61,7 @@ size_t DSPCore::getLatency() { return 0; }
   feedback.METHOD(pv[ID::feedback]->getDouble());                                        \
   delayTimeSamples.METHOD(pv[ID::delayTimeSeconds]->getDouble() * upRate);               \
   lfoToDelay.METHOD(pv[ID::lfoToDelayAmount]->getDouble());                              \
+  inputToFeedbackGain.METHOD(pv[ID::inputToFeedbackGain]->getDouble());                  \
   inputToDelayTime.METHOD(pv[ID::inputToDelayTime]->getDouble());                        \
                                                                                          \
   lfoToDelayTuningType = pv[ID::lfoToDelayTuningType]->getInt();
@@ -79,6 +83,14 @@ void DSPCore::reset()
   updateUpRate();
 
   ASSIGN_PARAMETER(reset);
+
+  midiNotes.clear();
+  noteStack.clear();
+
+  notePitchToDelayTime.reset(double(1));
+  notePitchToAllpassCutoff.reset(double(1));
+  notePitchToDelayTimeRelease.reset(double(1));
+  notePitchToAllpassCutoffRelease.reset(double(1));
 
   currentAllpassStage = pv[ID::stage]->getInt();
   previousAllpassStage = currentAllpassStage;
@@ -114,16 +126,23 @@ void DSPCore::setParameters()
 
 void DSPCore::processFrame(std::array<double, 2> &frame)
 {
+  notePitchToDelayTimeRelease.processKp(
+    notePitchToDelayTime.process(pitchSmoothingKp), pitchReleaseKp);
+  notePitchToAllpassCutoffRelease.processKp(
+    notePitchToAllpassCutoff.process(pitchSmoothingKp), pitchReleaseKp);
+
   lfoPhaseConstant.process();
+  lfoPhaseOffset.process();
+
   outputGain.process();
   mix.process();
-  lfoPhaseOffset.process();
   cutoffSpread.process();
   auto cutMinHz = cutoffMinHz.process();
   auto cutMaxHz = cutoffMaxHz.process();
   feedback.process();
   delayTimeSamples.process();
   lfoToDelay.process();
+  inputToFeedbackGain.process();
   inputToDelayTime.process();
 
   lfo.offset[0] = lfoPhaseConstant.getValue() + lfoPhaseOffset.getValue();
@@ -137,10 +156,11 @@ void DSPCore::processFrame(std::array<double, 2> &frame)
   auto apCut1 = (centerHz + rangeHz * lfo.output[1]) / upRate;
 
   std::array<double, 2> dt{};
-  auto baseTime0 = delayTimeSamples.process()
-    * lerp(double(1), std::abs(frame[0]), inputToDelayTime.getValue());
-  auto baseTime1 = delayTimeSamples.process()
-    * lerp(double(1), std::abs(frame[1]), inputToDelayTime.getValue());
+  auto delayTimeBase = delayTimeSamples.process() * notePitchToDelayTimeRelease.v2;
+  auto baseTime0
+    = delayTimeBase * lerp(double(1), std::abs(frame[0]), inputToDelayTime.getValue());
+  auto baseTime1
+    = delayTimeBase * lerp(double(1), std::abs(frame[1]), inputToDelayTime.getValue());
   switch (lfoToDelayTuningType) {
     case 0: { // Exp Mul.
       auto amount = double(8) * lfoToDelay.getValue();
@@ -171,13 +191,20 @@ void DSPCore::processFrame(std::array<double, 2> &frame)
       dt[1] = baseTime1 + range1 + lfo.output[1] * range1;
     } break;
   }
-  auto sig0
-    = frame[0] + feedbackDelay[0].process(feedback.getValue() * feedbackBuffer[0], dt[0]);
-  auto sig1
-    = frame[1] + feedbackDelay[1].process(feedback.getValue() * feedbackBuffer[1], dt[1]);
+
+  auto clippedIn0 = std::tanh(frame[0]);
+  auto clippedIn1 = std::tanh(frame[1]);
+  auto am0 = lerp(double(1), clippedIn0, inputToFeedbackGain.getValue());
+  auto am1 = lerp(double(1), clippedIn1, inputToFeedbackGain.getValue());
+
+  auto sig0 = frame[0]
+    + am0 * feedbackDelay[0].process(feedback.getValue() * feedbackBuffer[0], dt[0]);
+  auto sig1 = frame[1]
+    + am1 * feedbackDelay[1].process(feedback.getValue() * feedbackBuffer[1], dt[1]);
 
   for (size_t idx = 0; idx < maxAllpass; ++idx) {
-    auto multiplier = double(1) + idx * cutoffSpread.getValue();
+    auto multiplier
+      = notePitchToAllpassCutoffRelease.v2 * (double(1) + idx * cutoffSpread.getValue());
     sig0 = allpass[0][idx].process(sig0, apCut0 * multiplier);
     sig1 = allpass[1][idx].process(sig1, apCut1 * multiplier);
   }
@@ -228,6 +255,8 @@ void DSPCore::process(
   }
 
   for (size_t i = 0; i < length; ++i) {
+    processMidiNote(i);
+
     if (oversampling) {
       // Crude up-sampling with linear interpolation.
       upsampleBuffer[0] = {
@@ -253,6 +282,57 @@ void DSPCore::process(
   }
 
   if (transitionCounter == 0) previousAllpassStage = currentAllpassStage;
+}
+
+void DSPCore::noteOn(NoteInfo &info)
+{
+  using ID = ParameterID::ID;
+  auto &pv = param.value;
+
+  auto pitchToTime
+    = calcNotePitch(info.pitch, -pv[ID::notePitchToDelayTime]->getDouble());
+  notePitchToDelayTime.push(pitchToTime);
+  notePitchToDelayTimeRelease.reset(pitchToTime);
+
+  auto pitchToCutoff
+    = calcNotePitch(info.pitch, pv[ID::notePitchToAllpassCutoff]->getDouble());
+  notePitchToAllpassCutoff.push(pitchToCutoff);
+  notePitchToAllpassCutoffRelease.reset(pitchToCutoff);
+
+  noteStack.push_back(info);
+}
+
+void DSPCore::noteOff(int_fast32_t noteId)
+{
+  using ID = ParameterID::ID;
+  auto &pv = param.value;
+
+  auto it = std::find_if(noteStack.begin(), noteStack.end(), [&](const NoteInfo &info) {
+    return info.id == noteId;
+  });
+  if (it == noteStack.end()) return;
+  noteStack.erase(it);
+
+  if (noteStack.empty()) {
+    notePitchToDelayTime.push(double(1));
+    notePitchToAllpassCutoff.push(double(1));
+  } else {
+    notePitchToDelayTime.push(
+      calcNotePitch(noteStack.back().pitch, pv[ID::notePitchToDelayTime]->getDouble()));
+    notePitchToAllpassCutoff.push(calcNotePitch(
+      noteStack.back().pitch, pv[ID::notePitchToAllpassCutoff]->getDouble()));
+  }
+}
+
+double DSPCore::calcNotePitch(double note, double scale, double equalTemperament)
+{
+  using ID = ParameterID::ID;
+  auto &pv = param.value;
+
+  auto center = pv[ID::notePitchOrigin]->getDouble();
+  return std::max(
+    std::exp2(scale * (note - center) / equalTemperament),
+    std::numeric_limits<double>::epsilon());
 }
 
 double DSPCore::getTempoSyncInterval()

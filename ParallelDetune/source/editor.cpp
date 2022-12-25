@@ -95,9 +95,16 @@ bool Editor::prepareUI()
     psLabelLeft1, psTop2, psLabelWidth, labelHeight, uiTextSize, ID::delayTimeSeconds,
     Scales::delayTimeSeconds, false, 5);
   addLabel(psLeft0, psTop3, psLabelWidth, labelHeight, uiTextSize, "Transpose [st.]");
-  addTextKnob(
+  auto textKnobShiftTransposeSemitone = addTextKnob(
     psLabelLeft1, psTop3, psLabelWidth, labelHeight, uiTextSize,
-    ID::shiftTransposeSemitone, Scales::shiftSemitone, false, 5);
+    ID::shiftTransposeSemitone, Scales::shiftTransposeSemitone, false, 5);
+  if (textKnobShiftTransposeSemitone) {
+    double range
+      = Scales::shiftTransposeSemitone.getMax() - Scales::shiftTransposeSemitone.getMin();
+    textKnobShiftTransposeSemitone->sensitivity = 0.25 / range;
+    textKnobShiftTransposeSemitone->lowSensitivity = 0.001 / range;
+    textKnobShiftTransposeSemitone->wheelSensitivity = 1.0 / range;
+  }
   addLabel(psLeft0, psTop4, psLabelWidth, labelHeight, uiTextSize, "Pan. Spread");
   addTextKnob(
     psLabelLeft1, psTop4, psLabelWidth, labelHeight, uiTextSize, ID::panSpread,

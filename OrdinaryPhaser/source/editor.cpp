@@ -40,7 +40,7 @@ constexpr float barboxHeight = 200.0f;
 constexpr int_least32_t defaultWidth
   = int_least32_t(2 * uiMargin + 3 * knobX + barboxWidth + 2 * margin);
 constexpr int_least32_t defaultHeight
-  = int_least32_t(2 * uiMargin + 3 * labelY - 3 * margin + knobY + barboxHeight);
+  = int_least32_t(2 * uiMargin + 4 * labelY - 3 * margin + knobY + barboxHeight);
 
 namespace Steinberg {
 namespace Vst {
@@ -73,6 +73,7 @@ bool Editor::prepareUI()
   constexpr auto apTop5 = apTop4 + labelY;
   constexpr auto apTop6 = apTop5 + labelY;
   constexpr auto apTop7 = apTop6 + labelY;
+  constexpr auto apTop8 = apTop7 + labelY;
 
   constexpr auto apLeft0 = left0;
   constexpr auto apLeft1 = apLeft0 + knobX;
@@ -92,7 +93,7 @@ bool Editor::prepareUI()
 
   addKnob(apLeft0, apTop2, knobWidth, margin, uiTextSize, "Delay", ID::delayTimeSeconds);
   addKnob(
-    apLeft1, apTop2, knobWidth, margin, uiTextSize, "Time Mod.", ID::lfoToDelayAmount);
+    apLeft1, apTop2, knobWidth, margin, uiTextSize, "LFO>Time", ID::lfoToDelayAmount);
   addKnob(apLeft2, apTop2, knobWidth, margin, uiTextSize, "Cut Spread", ID::cutoffSpread);
 
   addLabel(apLeft0, apTop3, apSectionHalfWidth, labelHeight, uiTextSize, "Min [Hz]");
@@ -103,19 +104,23 @@ bool Editor::prepareUI()
   addTextKnob(
     apLeftHalf, apTop4, apSectionHalfWidth, labelHeight, uiTextSize, ID::cutoffMaxHz,
     Scales::cutoffHz, false, 5);
-  addLabel(apLeft0, apTop5, apSectionHalfWidth, labelHeight, uiTextSize, "Delay Tuning");
-  std::vector<std::string> lfoToDelayTuningTypeItems{
-    "Exp. Mul.", "Linear Mul.", "Add", "Fill Lower", "Fill Higher"};
-  addOptionMenu(
+  addLabel(apLeft0, apTop5, apSectionHalfWidth, labelHeight, uiTextSize, "AM");
+  addTextKnob(
     apLeftHalf, apTop5, apSectionHalfWidth, labelHeight, uiTextSize,
-    ID::lfoToDelayTuningType, lfoToDelayTuningTypeItems);
+    ID::inputToFeedbackGain, Scales::defaultScale, false, 5);
   addLabel(apLeft0, apTop6, apSectionHalfWidth, labelHeight, uiTextSize, "FM");
   addTextKnob(
     apLeftHalf, apTop6, apSectionHalfWidth, labelHeight, uiTextSize, ID::inputToDelayTime,
     Scales::defaultScale, false, 5);
-  addLabel(apLeft0, apTop7, apSectionHalfWidth, labelHeight, uiTextSize, "Stage");
+  addLabel(apLeft0, apTop7, apSectionHalfWidth, labelHeight, uiTextSize, "Delay Tuning");
+  std::vector<std::string> lfoToDelayTuningTypeItems{
+    "Exp. Mul.", "Linear Mul.", "Add", "Fill Lower", "Fill Higher"};
+  addOptionMenu(
+    apLeftHalf, apTop7, apSectionHalfWidth, labelHeight, uiTextSize,
+    ID::lfoToDelayTuningType, lfoToDelayTuningTypeItems);
+  addLabel(apLeft0, apTop8, apSectionHalfWidth, labelHeight, uiTextSize, "Stage");
   addTextKnob(
-    apLeftHalf, apTop7, apSectionHalfWidth, labelHeight, uiTextSize, ID::stage,
+    apLeftHalf, apTop8, apSectionHalfWidth, labelHeight, uiTextSize, ID::stage,
     Scales::stage, false, 0, 1);
 
   // LFO.
@@ -160,16 +165,34 @@ bool Editor::prepareUI()
 
   // Misc.
   constexpr auto miscTop0 = lfoTop0 + labelY + knobY + barboxHeight + 4 * margin;
+  constexpr auto miscTop1 = miscTop0 + labelY;
   constexpr auto miscLeft0 = lfoLeft0 + int(0.25 * knobX);
   constexpr auto miscLeft1 = miscLeft0 + labelWidth;
   constexpr auto miscLeft2 = miscLeft1 + labelWidth + 4 * margin;
-  addLabel(miscLeft0, miscTop0, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
+  constexpr auto miscLeft3 = miscLeft2 + labelWidth;
+  constexpr auto smallLabelWidth = int(0.75 * labelWidth);
+  addLabel(miscLeft0, miscTop0, labelWidth, labelHeight, uiTextSize, "Note Origin");
   addTextKnob(
-    miscLeft1, miscTop0, labelWidth, labelHeight, uiTextSize,
+    miscLeft1, miscTop0, labelWidth, labelHeight, uiTextSize, ID::notePitchOrigin,
+    Scales::notePitchOrigin, false, 5);
+
+  addLabel(miscLeft0, miscTop1, smallLabelWidth, labelHeight, uiTextSize, "Note>Cut");
+  addSmallKnob(
+    miscLeft0 + smallLabelWidth, miscTop1, labelHeight, labelHeight,
+    ID::notePitchToAllpassCutoff);
+
+  addLabel(miscLeft1, miscTop1, smallLabelWidth, labelHeight, uiTextSize, "Note>Time");
+  addSmallKnob(
+    miscLeft1 + smallLabelWidth, miscTop1, labelHeight, labelHeight,
+    ID::notePitchToDelayTime);
+
+  addLabel(miscLeft2, miscTop0, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
+  addTextKnob(
+    miscLeft3, miscTop0, labelWidth, labelHeight, uiTextSize,
     ID::parameterSmoothingSecond, Scales::parameterSmoothingSecond, false, 5);
 
   addCheckbox<Style::warning>(
-    miscLeft2, miscTop0, labelWidth, labelHeight, uiTextSize, "2x Sampling",
+    miscLeft2, miscTop1, labelWidth, labelHeight, uiTextSize, "2x Sampling",
     ID::oversampling);
 
   // Plugin name.

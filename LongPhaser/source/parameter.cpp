@@ -45,6 +45,7 @@ UIntScale<double> Scales::lfoTempoLower(255);
 DecibelScale<double> Scales::lfoRate(-60.0, 60.0, true);
 
 DecibelScale<double> Scales::parameterSmoothingSecond(-120.0, 40.0, true);
+LinearScale<double> Scales::notePitchOrigin(0.0, 136.0);
 
 } // namespace Synth
 } // namespace Steinberg

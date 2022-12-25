@@ -38,6 +38,8 @@ void DSPCore::setup(double sampleRate)
   this->sampleRate = double(sampleRate);
   upRate = double(sampleRate) * upFold;
 
+  pitchSmoothingKp = EMAFilter<double>::secondToP(upRate, double(0.01));
+
   for (auto &ps : pitchShifter) ps.setup(size_t(upRate * maxDelayTime));
 
   SmootherCommon<double>::setSampleRate(upRate);
@@ -100,6 +102,11 @@ void DSPCore::reset()
 {
   ASSIGN_PARAMETER(reset);
 
+  midiNotes.clear();
+  noteStack.clear();
+
+  notePitch.reset(double(1));
+
   lfo.reset();
 
   feedbackBuffer.fill({});
@@ -121,8 +128,11 @@ void DSPCore::setParameters() { ASSIGN_PARAMETER(push); }
 
 std::array<double, 2> DSPCore::processFrame(double in0, double in1)
 {
+  notePitch.process(pitchSmoothingKp);
+
   lfoPhaseConstant.process();
   lfoPhaseOffset.process();
+
   outputGain.process();
   dryGain.process();
   wetGain.process();
@@ -158,8 +168,10 @@ std::array<double, 2> DSPCore::processFrame(double in0, double in1)
   for (auto &lp : feedbackLowpass[0]) lp.lowpass(feedbackBuffer[0], lowpassG.value);
   for (auto &lp : feedbackLowpass[1]) lp.lowpass(feedbackBuffer[1], lowpassG.value);
 
-  auto modPitch0 = std::exp2(lfo.output[0] * lfoToShiftPitch.getValue());
-  auto modPitch1 = std::exp2(lfo.output[1] * lfoToShiftPitch.getValue());
+  auto modPitch0
+    = notePitch.getValue() * std::exp2(lfo.output[0] * lfoToShiftPitch.getValue());
+  auto modPitch1
+    = notePitch.getValue() * std::exp2(lfo.output[1] * lfoToShiftPitch.getValue());
   auto modTime0 = std::exp2(lfo.output[0] * lfoToDelayTime.getValue());
   auto modTime1 = std::exp2(lfo.output[1] * lfoToDelayTime.getValue());
   pitchShifter[0].process(
@@ -226,9 +238,10 @@ void DSPCore::process(
     !isTempoSyncing || !isPlaying);
 
   for (size_t i = 0; i < length; ++i) {
+    processMidiNote(i);
+
     upSampler[0].process(in0[i]);
     upSampler[1].process(in1[i]);
-
     for (size_t j = 0; j < 2; ++j) {
       auto frame = processFrame(upSampler[0].output[j], upSampler[1].output[j]);
       upSampler[0].output[j] = frame[0];
@@ -237,6 +250,36 @@ void DSPCore::process(
     out0[i] = halfbandIir[0].process(upSampler[0].output);
     out1[i] = halfbandIir[1].process(upSampler[1].output);
   }
+}
+
+void DSPCore::noteOn(NoteInfo &info)
+{
+  notePitch.push(calcNotePitch(info.pitch));
+
+  noteStack.push_back(info);
+}
+
+void DSPCore::noteOff(int_fast32_t noteId)
+{
+  auto it = std::find_if(noteStack.begin(), noteStack.end(), [&](const NoteInfo &info) {
+    return info.id == noteId;
+  });
+  if (it == noteStack.end()) return;
+  noteStack.erase(it);
+
+  if (noteStack.empty()) {
+    notePitch.push(double(1));
+  } else {
+    notePitch.push(calcNotePitch(noteStack.back().pitch));
+  }
+}
+
+double DSPCore::calcNotePitch(double note, double equalTemperament)
+{
+  // using ID = ParameterID::ID;
+  // auto &pv = param.value;
+
+  return std::exp2((note - 69) / equalTemperament);
 }
 
 double DSPCore::getTempoSyncInterval()

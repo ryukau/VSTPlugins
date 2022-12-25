@@ -36,6 +36,8 @@ void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = double(sampleRate);
 
+  pitchSmoothingKp = EMAFilter<double>::secondToP(upRate, double(0.01));
+
   for (auto &ps : pitchShifter)
     ps.setup(size_t(this->sampleRate * maxUpFold * maxDelayTime));
 
@@ -89,6 +91,11 @@ void DSPCore::reset()
 
   ASSIGN_PARAMETER(reset);
 
+  midiNotes.clear();
+  noteStack.clear();
+
+  notePitch.reset(double(1));
+
   feedbackBuffer.fill({});
   for (auto &x : upSampler) x.reset();
   for (auto &x : feedbackHighpass) x.reset();
@@ -116,8 +123,11 @@ void DSPCore::setParameters()
 
 std::array<double, 2> DSPCore::processFrame(double in0, double in1)
 {
+  notePitch.process(pitchSmoothingKp);
+
   lfoPhaseConstant.process();
   lfoPhaseOffset.process();
+
   lfoShapeClip.process();
   lfoShapeSkew.process();
   outputGain.process();
@@ -146,8 +156,10 @@ std::array<double, 2> DSPCore::processFrame(double in0, double in1)
   auto fb1 = feedbackLowpass[1].lowpass(
     feedbackHighpass[1].highpass(in1 - feedback.getValue() * feedbackBuffer[1]));
 
-  auto modHz0 = std::exp2(lfoOut0 * lfoToPrimaryShiftHz.getValue());
-  auto modHz1 = std::exp2(lfoOut1 * lfoToPrimaryShiftHz.getValue());
+  auto modHz0
+    = notePitch.getValue() * std::exp2(lfoOut0 * lfoToPrimaryShiftHz.getValue());
+  auto modHz1
+    = notePitch.getValue() * std::exp2(lfoOut1 * lfoToPrimaryShiftHz.getValue());
   auto fs0 = frequencyShifter[0].process(fb0, shiftFreq.getValue() * modHz0);
   auto fs1 = frequencyShifter[1].process(fb1, shiftFreq.getValue() * modHz1);
 
@@ -182,6 +194,8 @@ void DSPCore::process(
     !isTempoSyncing || !isPlaying);
 
   for (size_t i = 0; i < length; ++i) {
+    processMidiNote(i);
+
     upSampler[0].process(in0[i]);
     upSampler[1].process(in1[i]);
 
@@ -209,6 +223,36 @@ void DSPCore::process(
       out1[i] = halfbandIir[1].process({upSampler[1].output[0], upSampler[1].output[4]});
     }
   }
+}
+
+void DSPCore::noteOn(NoteInfo &info)
+{
+  notePitch.push(calcNotePitch(info.pitch));
+
+  noteStack.push_back(info);
+}
+
+void DSPCore::noteOff(int_fast32_t noteId)
+{
+  auto it = std::find_if(noteStack.begin(), noteStack.end(), [&](const NoteInfo &info) {
+    return info.id == noteId;
+  });
+  if (it == noteStack.end()) return;
+  noteStack.erase(it);
+
+  if (noteStack.empty()) {
+    notePitch.push(double(1));
+  } else {
+    notePitch.push(calcNotePitch(noteStack.back().pitch));
+  }
+}
+
+double DSPCore::calcNotePitch(double note, double equalTemperament)
+{
+  // using ID = ParameterID::ID;
+  // auto &pv = param.value;
+
+  return std::exp2((note - 69) / equalTemperament);
 }
 
 double DSPCore::getTempoSyncInterval()

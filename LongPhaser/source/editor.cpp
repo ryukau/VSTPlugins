@@ -40,7 +40,7 @@ constexpr float barboxHeight = 200.0f;
 constexpr int_least32_t defaultWidth
   = int_least32_t(2 * uiMargin + 3 * knobX + barboxWidth + 2 * margin);
 constexpr int_least32_t defaultHeight
-  = int_least32_t(2 * uiMargin + 3 * labelY - 3 * margin + knobY + barboxHeight);
+  = int_least32_t(2 * uiMargin + 4 * labelY - 3 * margin + knobY + barboxHeight);
 
 namespace Steinberg {
 namespace Vst {
@@ -73,6 +73,7 @@ bool Editor::prepareUI()
   constexpr auto apTop5 = apTop4 + labelY;
   constexpr auto apTop6 = apTop5 + labelY;
   constexpr auto apTop7 = apTop6 + labelY;
+  constexpr auto apTop8 = apTop7 + labelY;
 
   constexpr auto apLeft0 = left0;
   constexpr auto apLeft1 = apLeft0 + 1 * knobX;
@@ -100,22 +101,26 @@ bool Editor::prepareUI()
   addTextKnob(
     apLeftHalf, apTop3, apSectionHalfWidth, labelHeight, uiTextSize,
     ID::delayTimeCenterSeconds, Scales::delayTimeSeconds, false, 5);
-  addLabel(apLeft0, apTop4, apSectionHalfWidth, labelHeight, uiTextSize, "Time Mod.");
+  addLabel(apLeft0, apTop4, apSectionHalfWidth, labelHeight, uiTextSize, "LFO > Time");
   addTextKnob(
     apLeftHalf, apTop4, apSectionHalfWidth, labelHeight, uiTextSize,
-    ID::delayTimeModOctave, Scales::delayTimeModOctave, false, 5);
-  addLabel(apLeft0, apTop5, apSectionHalfWidth, labelHeight, uiTextSize, "Mod. Type");
+    ID::lfoToDelayTimeOctave, Scales::delayTimeModOctave, false, 5);
+  addLabel(apLeft0, apTop5, apSectionHalfWidth, labelHeight, uiTextSize, "Input > Time");
+  addTextKnob(
+    apLeftHalf, apTop5, apSectionHalfWidth, labelHeight, uiTextSize, ID::inputToDelayTime,
+    Scales::defaultScale, false, 5);
+  addLabel(apLeft0, apTop6, apSectionHalfWidth, labelHeight, uiTextSize, "Mod. Type");
   std::vector<std::string> delayTimeModTypeItems{"Multiply", "Add"};
   addOptionMenu(
-    apLeftHalf, apTop5, apSectionHalfWidth, labelHeight, uiTextSize, ID::delayTimeModType,
+    apLeftHalf, apTop6, apSectionHalfWidth, labelHeight, uiTextSize, ID::delayTimeModType,
     delayTimeModTypeItems);
-  addLabel(apLeft0, apTop6, apSectionHalfWidth, labelHeight, uiTextSize, "Interp. Rate");
+  addLabel(apLeft0, apTop7, apSectionHalfWidth, labelHeight, uiTextSize, "Interp. Rate");
   addTextKnob(
-    apLeftHalf, apTop6, apSectionHalfWidth, labelHeight, uiTextSize,
+    apLeftHalf, apTop7, apSectionHalfWidth, labelHeight, uiTextSize,
     ID::delayTimeRateLimit, Scales::delayTimeRateLimit, false, 5);
-  addLabel(apLeft0, apTop7, apSectionHalfWidth, labelHeight, uiTextSize, "Stage");
+  addLabel(apLeft0, apTop8, apSectionHalfWidth, labelHeight, uiTextSize, "Stage");
   addTextKnob(
-    apLeftHalf, apTop7, apSectionHalfWidth, labelHeight, uiTextSize, ID::stage,
+    apLeftHalf, apTop8, apSectionHalfWidth, labelHeight, uiTextSize, ID::stage,
     Scales::stage, false, 0, 1);
 
   // LFO.
@@ -161,23 +166,34 @@ bool Editor::prepareUI()
 
   // Misc.
   constexpr auto miscTop0 = lfoTop0 + labelY + knobY + barboxHeight + 4 * margin;
+  constexpr auto miscTop1 = miscTop0 + labelY;
   constexpr auto miscLeft0 = lfoLeft0 + int(0.25 * knobX);
   constexpr auto miscLeft1 = miscLeft0 + labelWidth;
   constexpr auto miscLeft2 = miscLeft1 + labelWidth + 4 * margin;
-  addLabel(miscLeft0, miscTop0, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
+  constexpr auto miscLeft3 = miscLeft2 + labelWidth;
+  addLabel(miscLeft0, miscTop0, labelWidth, labelHeight, uiTextSize, "Note Origin");
   addTextKnob(
-    miscLeft1, miscTop0, labelWidth, labelHeight, uiTextSize,
+    miscLeft1, miscTop0, labelWidth, labelHeight, uiTextSize, ID::notePitchOrigin,
+    Scales::notePitchOrigin, false, 5);
+  addLabel(miscLeft0, miscTop1, labelWidth, labelHeight, uiTextSize, "Note Scale");
+  addTextKnob(
+    miscLeft1, miscTop1, labelWidth, labelHeight, uiTextSize, ID::notePitchScaling,
+    Scales::bipolarScale, false, 5);
+
+  addLabel(miscLeft2, miscTop0, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
+  addTextKnob(
+    miscLeft3, miscTop0, labelWidth, labelHeight, uiTextSize,
     ID::parameterSmoothingSecond, Scales::parameterSmoothingSecond, false, 5);
 
   addCheckbox<Style::warning>(
-    miscLeft2, miscTop0, labelWidth, labelHeight, uiTextSize, "2x Sampling",
+    miscLeft2, miscTop1, labelWidth, labelHeight, uiTextSize, "2x Sampling",
     ID::oversampling);
 
   // Plugin name.
   constexpr auto splashMargin = uiMargin;
-  constexpr auto splashWidth = int(1.5 * labelWidth) + margin;
+  constexpr auto splashWidth = int(1.75 * labelWidth);
   constexpr auto splashHeight = labelY;
-  constexpr auto splashTop = miscTop0 - 1 * margin;
+  constexpr auto splashTop = miscTop1;
   constexpr auto splashLeft = defaultWidth - uiMargin - splashWidth;
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,

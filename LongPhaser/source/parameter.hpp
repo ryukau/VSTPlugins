@@ -47,7 +47,8 @@ enum ID {
   delayTimeSpread,
   delayTimeCenterSeconds,
   delayTimeRateLimit,
-  delayTimeModOctave,
+  lfoToDelayTimeOctave,
+  inputToDelayTime,
   delayTimeModType,
   innerFeed,
   lfoToInnerFeed,
@@ -63,6 +64,9 @@ enum ID {
 
   parameterSmoothingSecond,
   oversampling,
+
+  notePitchOrigin,
+  notePitchScaling,
 
   ID_ENUM_LENGTH,
   ID_ENUM_GUI_START = ID_ENUM_LENGTH,
@@ -90,6 +94,7 @@ struct Scales {
   static SomeDSP::DecibelScale<double> lfoRate;
 
   static SomeDSP::DecibelScale<double> parameterSmoothingSecond;
+  static SomeDSP::LinearScale<double> notePitchOrigin;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -125,8 +130,10 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::delayTimeRateLimit] = std::make_unique<DecibelValue>(
       Scales::delayTimeRateLimit.invmap(0.5), Scales::delayTimeRateLimit,
       "delayTimeRateLimit", Info::kCanAutomate);
-    value[ID::delayTimeModOctave] = std::make_unique<LinearValue>(
-      0.0, Scales::delayTimeModOctave, "delayTimeModOctave", Info::kCanAutomate);
+    value[ID::lfoToDelayTimeOctave] = std::make_unique<LinearValue>(
+      0.0, Scales::delayTimeModOctave, "lfoToDelayTimeOctave", Info::kCanAutomate);
+    value[ID::inputToDelayTime] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "inputToDelayTime", Info::kCanAutomate);
     value[ID::delayTimeModType] = std::make_unique<UIntValue>(
       0, Scales::delayTimeModType, "delayTimeModType", Info::kCanAutomate);
     value[ID::innerFeed] = std::make_unique<LinearValue>(
@@ -161,6 +168,12 @@ struct GlobalParameter : public ParameterInterface {
       "parameterSmoothingSecond", Info::kCanAutomate);
     value[ID::oversampling] = std::make_unique<UIntValue>(
       1, Scales::boolScale, "oversampling", Info::kCanAutomate);
+
+    value[ID::notePitchOrigin] = std::make_unique<LinearValue>(
+      Scales::notePitchOrigin.invmap(60.0), Scales::notePitchOrigin, "notePitchOrigin",
+      Info::kCanAutomate);
+    value[ID::notePitchScaling] = std::make_unique<LinearValue>(
+      1.0, Scales::bipolarScale, "notePitchScaling", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

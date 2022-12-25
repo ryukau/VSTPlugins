@@ -36,6 +36,7 @@ DecibelScale<double> Scales::delayTimeMultiplier(
   -12.041199826559248, 12.041199826559248, false); // Range is [1/4, 4].
 LinearScale<double> Scales::shiftOctave(-4.0, 4.0);
 LinearScale<double> Scales::shiftSemitone(-12.0, 12.0);
+LinearScale<double> Scales::shiftTransposeSemitone(-120.0, 48.0);
 LinearScale<double> Scales::shiftFineTuningCent(-10.0, 10.0);
 DecibelScale<double> Scales::cutoffHz(0.0, 100.0, false);
 DecibelScale<double> Scales::normalizedCutoff(-60, -6.021, false);

@@ -28,12 +28,6 @@
 #include "pluginterfaces/vst/ivstevents.h"
 #include "pluginterfaces/vst/ivstparameterchanges.h"
 
-#ifdef USE_VECTORCLASS
-  #include "../../lib/vcl/vectorclass.h"
-#endif
-
-#include <iostream>
-
 namespace Steinberg {
 namespace Synth {
 
@@ -46,6 +40,7 @@ tresult PLUGIN_API PlugProcessor::initialize(FUnknown *context)
 
   addAudioInput(STR16("StereoInput"), Vst::SpeakerArr::kStereo);
   addAudioOutput(STR16("StereoOutput"), Vst::SpeakerArr::kStereo);
+  addEventInput(STR16("EventInput"), 1);
 
   return result;
 }
@@ -133,18 +128,15 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   if (data.outputs[0].numChannels < 2) return kResultOk;
   if (data.symbolicSampleSize == Vst::kSample64) return kResultOk;
 
-  auto isBypassing = dsp.param.value[ParameterID::bypass]->getInt();
-  if (isBypassing) {
-    if (!wasBypassing) dsp.reset();
-    processBypass(data);
-  } else {
-    float *in0 = data.inputs[0].channelBuffers32[0];
-    float *in1 = data.inputs[0].channelBuffers32[1];
-    float *out0 = data.outputs[0].channelBuffers32[0];
-    float *out1 = data.outputs[0].channelBuffers32[1];
-    dsp.process((size_t)data.numSamples, in0, in1, out0, out1);
-  }
-  wasBypassing = isBypassing;
+  if (data.inputEvents != nullptr) handleEvent(data);
+
+  float *in0 = data.inputs[0].channelBuffers32[0];
+  float *in1 = data.inputs[0].channelBuffers32[1];
+  float *out0 = data.outputs[0].channelBuffers32[0];
+  float *out1 = data.outputs[0].channelBuffers32[1];
+  dsp.process((size_t)data.numSamples, in0, in1, out0, out1);
+
+  if (dsp.param.value[ParameterID::bypass]->getInt()) processBypass(data);
 
   return kResultOk;
 }
@@ -155,6 +147,31 @@ void PlugProcessor::processBypass(Vst::ProcessData &data)
   float **out = data.outputs[0].channelBuffers32;
   for (int32_t ch = 0; ch < data.inputs[0].numChannels; ch++) {
     if (in[ch] != out[ch]) memcpy(out[ch], in[ch], data.numSamples * sizeof(float));
+  }
+}
+
+void PlugProcessor::handleEvent(Vst::ProcessData &data)
+{
+  for (int32 index = 0; index < data.inputEvents->getEventCount(); ++index) {
+    Vst::Event event;
+    if (data.inputEvents->getEvent(index, event) != kResultOk) continue;
+    switch (event.type) {
+      case Vst::Event::kNoteOnEvent: {
+        dsp.pushMidiNote(
+          true, event.sampleOffset,
+          event.noteOn.noteId == -1 ? event.noteOn.pitch : event.noteOn.noteId,
+          event.noteOn.pitch, event.noteOn.tuning, event.noteOn.velocity);
+      } break;
+
+      case Vst::Event::kNoteOffEvent: {
+        dsp.pushMidiNote(
+          false, event.sampleOffset,
+          event.noteOff.noteId == -1 ? event.noteOff.pitch : event.noteOff.noteId, 0, 0,
+          0);
+      } break;
+
+        // Add other event type here.
+    }
   }
 }
 

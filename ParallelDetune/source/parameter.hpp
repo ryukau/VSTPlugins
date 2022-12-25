@@ -90,6 +90,7 @@ struct Scales {
   static SomeDSP::DecibelScale<double> delayTimeMultiplier;
   static SomeDSP::LinearScale<double> shiftOctave;
   static SomeDSP::LinearScale<double> shiftSemitone;
+  static SomeDSP::LinearScale<double> shiftTransposeSemitone;
   static SomeDSP::LinearScale<double> shiftFineTuningCent;
   static SomeDSP::DecibelScale<double> cutoffHz;
   static SomeDSP::DecibelScale<double> normalizedCutoff;
@@ -139,8 +140,8 @@ struct GlobalParameter : public ParameterInterface {
       Scales::delayTimeSeconds.invmap(0.1), Scales::delayTimeSeconds, "delayTimeSeconds",
       Info::kCanAutomate);
     value[ID::shiftTransposeSemitone] = std::make_unique<LinearValue>(
-      Scales::shiftSemitone.invmap(0.0), Scales::shiftSemitone, "shiftTransposeSemitone",
-      Info::kCanAutomate);
+      Scales::shiftTransposeSemitone.invmap(0.0), Scales::shiftTransposeSemitone,
+      "shiftTransposeSemitone", Info::kCanAutomate);
     std::string shiftSemitoneLabel("shiftSemitone");
     std::string shiftFineTuningCentLabel("shiftFineTuningCent");
     std::string shifterDelayTimeOffsetLabel("shifterDelayTimeOffset");

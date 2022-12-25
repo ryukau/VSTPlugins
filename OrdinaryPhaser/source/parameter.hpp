@@ -52,6 +52,7 @@ enum ID {
   lfoToDelayAmount,
   lfoToDelayTuningType,
 
+  inputToFeedbackGain,
   inputToDelayTime,
 
   lfoWavetable0,
@@ -65,6 +66,10 @@ enum ID {
 
   parameterSmoothingSecond,
   oversampling,
+
+  notePitchOrigin,
+  notePitchToAllpassCutoff,
+  notePitchToDelayTime,
 
   ID_ENUM_LENGTH,
   ID_ENUM_GUI_START = ID_ENUM_LENGTH,
@@ -90,6 +95,7 @@ struct Scales {
   static SomeDSP::DecibelScale<double> lfoRate;
 
   static SomeDSP::DecibelScale<double> parameterSmoothingSecond;
+  static SomeDSP::LinearScale<double> notePitchOrigin;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -133,6 +139,8 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::lfoToDelayTuningType] = std::make_unique<UIntValue>(
       0, Scales::lfoToDelayTuningType, "lfoToDelayTuningType", Info::kCanAutomate);
 
+    value[ID::inputToFeedbackGain] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "inputToFeedbackGain", Info::kCanAutomate);
     value[ID::inputToDelayTime] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "inputToDelayTime", Info::kCanAutomate);
 
@@ -163,6 +171,14 @@ struct GlobalParameter : public ParameterInterface {
       "parameterSmoothingSecond", Info::kCanAutomate);
     value[ID::oversampling] = std::make_unique<UIntValue>(
       1, Scales::boolScale, "oversampling", Info::kCanAutomate);
+
+    value[ID::notePitchOrigin] = std::make_unique<LinearValue>(
+      Scales::notePitchOrigin.invmap(60.0), Scales::notePitchOrigin, "notePitchOrigin",
+      Info::kCanAutomate);
+    value[ID::notePitchToAllpassCutoff] = std::make_unique<LinearValue>(
+      0.5, Scales::bipolarScale, "notePitchToAllpassCutoff", Info::kCanAutomate);
+    value[ID::notePitchToDelayTime] = std::make_unique<LinearValue>(
+      0.5, Scales::bipolarScale, "notePitchToDelayTime", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

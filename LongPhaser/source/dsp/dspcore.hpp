@@ -29,7 +29,19 @@ using namespace Steinberg::Synth;
 
 class DSPCore {
 public:
-  DSPCore() {}
+  struct NoteInfo {
+    bool isNoteOn;
+    uint32_t frame;
+    int32_t id;
+    float pitch;
+    float velocity;
+  };
+
+  DSPCore()
+  {
+    midiNotes.reserve(1024);
+    noteStack.reserve(1024);
+  }
 
   GlobalParameter param;
   bool isPlaying = false;
@@ -45,19 +57,61 @@ public:
   void setParameters();
   void process(
     const size_t length, const float *in0, const float *in1, float *out0, float *out1);
+  void noteOn(NoteInfo &info);
+  void noteOff(int_fast32_t noteId);
+
+  void pushMidiNote(
+    bool isNoteOn,
+    uint32_t frame,
+    int32_t noteId,
+    int16_t pitch,
+    float tuning,
+    float velocity)
+  {
+    NoteInfo note;
+    note.isNoteOn = isNoteOn;
+    note.frame = frame;
+    note.id = noteId;
+    note.pitch = pitch + tuning;
+    note.velocity = velocity;
+    midiNotes.push_back(note);
+  }
+
+  void processMidiNote(size_t frame)
+  {
+    while (true) {
+      auto it = std::find_if(midiNotes.begin(), midiNotes.end(), [&](const NoteInfo &nt) {
+        return nt.frame == frame;
+      });
+      if (it == std::end(midiNotes)) return;
+      if (it->isNoteOn)
+        noteOn(*it);
+      else
+        noteOff(it->id);
+      midiNotes.erase(it);
+    }
+  }
 
 private:
   void updateUpRate();
   void processFrame(std::array<double, 2> &input);
+  double calcNotePitch(double note, double equalTemperament = 12);
   double getTempoSyncInterval();
 
   static constexpr size_t upFold = 2;
 
+  std::vector<NoteInfo> midiNotes;
+  std::vector<NoteInfo> noteStack;
+
   double sampleRate = 44100;
   double upRate = upFold * 44100;
 
+  double pitchSmoothingKp = 1;
+  ExpSmootherLocal<double> notePitchInv;
+
   RotarySmoother<double> lfoPhaseConstant;
-  ExpSmoother<double> lfoPhaseOffset;
+  RotarySmoother<double> lfoPhaseOffset;
+
   ExpSmoother<double> outputGain;
   ExpSmoother<double> mix;
   ExpSmoother<double> outerFeed;
@@ -66,7 +120,8 @@ private:
   ExpSmoother<double> delayTimeSpread;
   ExpSmoother<double> delayTimeCenterSamples;
   ExpSmoother<double> delayTimeRateLimit;
-  ExpSmoother<double> delayTimeModAmount;
+  ExpSmoother<double> lfoToDelayTimeOctave;
+  ExpSmoother<double> inputToDelayTime;
 
   bool oversampling = true;
   size_t delayTimeModType = 0;

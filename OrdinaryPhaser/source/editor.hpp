@@ -33,6 +33,19 @@ public:
 
 protected:
   bool prepareUI() override;
+
+  template<Uhhyou::Style style = Uhhyou::Style::common>
+  auto addSmallKnob(CCoord left, CCoord top, CCoord width, CCoord height, ParamID tag)
+  {
+    auto knob = new Knob<style>(
+      CRect(left, top, left + height, top + height), this, tag, palette);
+    knob->setSlitWidth(2.0);
+    knob->setValueNormalized(controller->getParamNormalized(tag));
+    knob->setDefaultValue(param->getDefaultNormalized(tag));
+    frame->addView(knob);
+    addToControlMap(tag, knob);
+    return knob;
+  }
 };
 
 } // namespace Vst
