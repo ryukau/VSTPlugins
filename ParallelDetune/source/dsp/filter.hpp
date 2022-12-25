@@ -97,6 +97,8 @@ public:
     for (auto &bf : buffer) bf.resize(minSize);
   }
 
+  std::array<Sample, length> &getPhase() { return phase; }
+
   // bufferSize must be less than 2^24 for single precision float.
   void setup(size_t bufferSize)
   {
@@ -111,15 +113,17 @@ public:
     for (auto &bf : buffer) std::fill(bf.begin(), bf.end(), Sample(0));
   }
 
-  void syncPhase(Sample target, Sample kp)
+  void syncPhase(const std::array<Sample, length> &target, Sample kp)
   {
-    auto d1 = target - phase;
-    if (d1 < 0) {
-      auto d2 = d1 + Sample(1);
-      phase += kp * (d2 < -d1 ? d2 : d1);
-    } else {
-      auto d2 = d1 - Sample(1);
-      phase += kp * (-d2 < d1 ? d2 : d1);
+    for (size_t idx = 0; idx < length; ++idx) {
+      auto d1 = target[idx] - phase[idx];
+      if (d1 < 0) {
+        auto d2 = d1 + Sample(1);
+        phase[idx] += kp * (d2 < -d1 ? d2 : d1);
+      } else {
+        auto d2 = d1 - Sample(1);
+        phase[idx] += kp * (-d2 < d1 ? d2 : d1);
+      }
     }
   }
 

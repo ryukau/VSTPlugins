@@ -260,46 +260,48 @@ public:
 
   void push(Sample newTarget)
   {
-    this->target = newTarget;
+    target = newTarget;
     if (Common::timeInSamples < Common::bufferSize) {
-      this->value = this->target;
+      value = target;
       return;
     }
 
-    auto dist1 = this->target - this->value;
+    auto dist1 = target - value;
 
     if (dist1 < 0) {
-      auto dist2 = this->target + max - this->value;
+      auto dist2 = target + max - value;
       if (std::fabs(dist1) > dist2) {
-        this->ramp = dist2 / Common::timeInSamples;
+        ramp = std::max(dist2 / Common::timeInSamples, max * eps);
         return;
       }
     } else {
-      auto dist2 = this->target - max - this->value;
+      auto dist2 = target - max - value;
       if (dist1 > std::fabs(dist2)) {
-        this->ramp = dist2 / Common::timeInSamples;
+        ramp = std::min(dist2 / Common::timeInSamples, -max * eps);
         return;
       }
     }
-    this->ramp = dist1 / Common::timeInSamples;
+    ramp = dist1 / Common::timeInSamples;
   }
 
   Sample process()
   {
-    if (this->value == this->target) return this->value;
-    this->value += this->ramp;
-    this->value -= max * std::floor(this->value / max);
+    if (value == target) return value;
+    value += ramp;
+    value -= max * std::floor(value / max);
 
-    auto diff = this->value - this->target;
-    if (std::fabs(diff) < 1e-5) this->value = this->target;
-    return this->value;
+    auto diff = value - target;
+    if (std::fabs(diff) < Sample(0.0000152587890625)) value = target;
+    return value;
   }
 
 private:
-  Sample value = 1.0;
-  Sample target = 1.0;
-  Sample ramp = 0.0;
-  Sample max = 1;
+  static constexpr Sample eps = std::numeric_limits<Sample>::epsilon();
+
+  Sample value = Sample(1);
+  Sample target = Sample(1);
+  Sample ramp = Sample(0);
+  Sample max = Sample(1);
 };
 
 template<typename Sample> class RateLimiter {

@@ -99,6 +99,7 @@ private:
   double sampleRate = 44100;
   double upRate = upFold * 44100;
 
+  double phaseSyncKp = 1;
   double pitchSmoothingKp = 1;
   ExpSmootherLocal<double> notePitch;
 

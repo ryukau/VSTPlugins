@@ -61,12 +61,10 @@ public:
     delayedIm = 0;
   }
 
-  //
   // `shiftFreqeuncy` is normalized frequency in [0, 0.5). Negative and beyond Nyquist
   // frequency can be used.
   //
   // Note: output may exceed the amplitude of input.
-  //
   Sample process(const Sample input, Sample shiftFreqeuncy)
   {
     auto sigRe = input;
@@ -165,6 +163,8 @@ private:
 
 public:
   PitchShiftDelay() : buf(minSize) {}
+
+  inline Sample getPhase() { return phase; }
 
   // bufferSize must be less than 2^24 for single precision float.
   void setup(size_t bufferSize)

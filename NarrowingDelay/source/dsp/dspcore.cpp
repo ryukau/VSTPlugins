@@ -37,6 +37,7 @@ void DSPCore::setup(double sampleRate)
   this->sampleRate = double(sampleRate);
 
   pitchSmoothingKp = EMAFilter<double>::secondToP(upRate, double(0.01));
+  phaseSyncKp = EMAFilter<double>::secondToP(upRate, double(1));
 
   for (auto &ps : pitchShifter)
     ps.setup(size_t(this->sampleRate * maxUpFold * maxDelayTime));
@@ -162,6 +163,13 @@ std::array<double, 2> DSPCore::processFrame(double in0, double in1)
     = notePitch.getValue() * std::exp2(lfoOut1 * lfoToPrimaryShiftHz.getValue());
   auto fs0 = frequencyShifter[0].process(fb0, shiftFreq.getValue() * modHz0);
   auto fs1 = frequencyShifter[1].process(fb1, shiftFreq.getValue() * modHz1);
+
+  constexpr double eps = std::numeric_limits<double>::epsilon();
+  if (lfoPhaseOffset.getValue() <= eps || lfoPhaseOffset.getValue() >= double(1) - eps) {
+    if (pitchShifter[0].getPhase() != pitchShifter[1].getPhase()) {
+      pitchShifter[1].syncPhase(pitchShifter[0].getPhase(), phaseSyncKp);
+    }
+  }
 
   auto modPitch0 = std::exp2(lfoOut0 * lfoToPrimaryShiftPitch.getValue());
   auto modPitch1 = std::exp2(lfoOut1 * lfoToPrimaryShiftPitch.getValue());
