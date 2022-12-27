@@ -5,7 +5,7 @@ function(get_plugin_name NAME_VAR)
   set(${NAME_VAR} ${PLUGIN_NAME} PARENT_SCOPE)
 endfunction()
 
-function(build_test)
+function(build_test additional_sources)
   find_package(SndFile CONFIG REQUIRED)
 
   get_plugin_name(PLUGIN_NAME)
@@ -19,6 +19,7 @@ function(build_test)
   set(src "${target}_source")
   add_fftw3()
   add_library(${src}
+    ${additional_sources}
     source/parameter.cpp
     source/dsp/dspcore.cpp)
   target_link_libraries(${target} PRIVATE

@@ -24,7 +24,9 @@
 #include <array>
 #include <cmath>
 #include <complex>
+#include <mutex>
 #include <numeric>
+#include <vector>
 
 namespace SomeDSP {
 
@@ -97,6 +99,9 @@ public:
 
 class OverlapSaveConvolver {
 private:
+  // `fftwMutex` is used to lock FFTW3 calls except `fftw*_execute`.
+  static std::mutex fftwMutex;
+
   static constexpr size_t nBuffer = 2;
 
   size_t half = 1;
@@ -121,6 +126,8 @@ private:
 public:
   void init(size_t nTap, size_t delay = 0)
   {
+    const std::lock_guard<std::mutex> fftwLock(fftwMutex);
+
     offset = delay;
 
     half = nTap;
@@ -151,6 +158,8 @@ public:
 
   ~OverlapSaveConvolver()
   {
+    const std::lock_guard<std::mutex> fftwLock(fftwMutex);
+
     for (auto &fp : forwardPlan) fftwf_destroy_plan(fp);
     fftwf_destroy_plan(inversePlan);
     fftwf_destroy_plan(firPlan);

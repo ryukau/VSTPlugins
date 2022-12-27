@@ -25,6 +25,7 @@
 #include <array>
 #include <cstring>
 #include <deque>
+#include <mutex>
 #include <random>
 
 namespace SomeDSP {
@@ -75,6 +76,9 @@ table is 2d array which has extra padding for interpolation.
 - Padded last 3 row is silence.
 */
 template<size_t tableSize, size_t nPeak> struct WaveTable {
+  // `fftwMutex` is used to lock FFTW3 calls except `fftw*_execute`.
+  static std::mutex fftwMutex;
+
   static constexpr size_t spectrumSize = tableSize / 2 + 1;
   static constexpr size_t paddedSize = tableSize + 3;
   fftwf_complex *spectrum;
@@ -88,6 +92,8 @@ template<size_t tableSize, size_t nPeak> struct WaveTable {
 
   WaveTable()
   {
+    const std::lock_guard<std::mutex> fftwLock(fftwMutex);
+
     spectrum = (fftwf_complex *)fftwf_malloc(sizeof(fftwf_complex) * spectrumSize);
     bandLimited = (fftwf_complex *)fftwf_malloc(sizeof(fftwf_complex) * spectrumSize);
     tmpSpec = (fftwf_complex *)fftwf_malloc(sizeof(fftwf_complex) * spectrumSize);
@@ -112,6 +118,8 @@ template<size_t tableSize, size_t nPeak> struct WaveTable {
 
   ~WaveTable()
   {
+    const std::lock_guard<std::mutex> fftwLock(fftwMutex);
+
     for (auto &pln : plan) fftwf_destroy_plan(pln);
     for (auto &tbl : table) fftwf_free(tbl);
     fftwf_free(tmpSpec);
@@ -283,6 +291,9 @@ template<size_t tableSize, size_t nPeak> struct WaveTable {
     refreshTable();
   }
 };
+
+template<size_t tableSize, size_t nPeak>
+std::mutex WaveTable<tableSize, nPeak>::fftwMutex;
 
 template<size_t tableSize> struct TableOsc {
   static constexpr size_t paddedLast = tableSize + 1;

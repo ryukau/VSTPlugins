@@ -1,4 +1,4 @@
-// (c) 2021 Takamitsu Endo
+// (c) 2022 Takamitsu Endo
 //
 // This file is part of Uhhyou Plugins.
 //
@@ -15,20 +15,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Uhhyou Plugins.  If not, see <https://www.gnu.org/licenses/>.
 
-#define SET_PARAMETERS dsp->setParameters(tempo);
+#pragma once
 
-#include "../../test/synthtester.hpp"
-#include "../source/dsp/dspcore.hpp"
+#include "fftconvolver.hpp"
 
-// CMake provides this macro, but just in case.
-#ifndef UHHYOU_PLUGIN_NAME
-  #define UHHYOU_PLUGIN_NAME "CubicPadSynth"
-#endif
+namespace SomeDSP {
 
-#define OUT_DIR_PATH "snd/" UHHYOU_PLUGIN_NAME
+std::mutex OverlapSaveConvolver::fftwMutex;
 
-int main()
-{
-  SynthTester<DSPCore_FixedInstruction> tester(UHHYOU_PLUGIN_NAME, OUT_DIR_PATH, 1);
-  return tester.isFinished ? EXIT_SUCCESS : EXIT_FAILURE;
-}
+} // namespace SomeDSP

@@ -81,30 +81,6 @@ public:
 
   void testSequence(std::shared_ptr<PresetQueue> queue)
   {
-    /*
-    - TODO: Clean up after finding a solution.
-
-    Dirty workaround for MiniCliffEQ that must not exist.
-
-    On FFTW3, everything other than `fftw_execute` is NOT thread safe. If 2 or more DSP
-    `dsp->setup` or `dsp->reset` are called at the same time, FFTW3 might do double
-    allocation or double free, and the program crashes. Adding random sleep changes the
-    timing of allocation or free in FFTW3, and the program might work if we get lucky.
-
-    `fftw_make_planner_thread_safe` should be used here. However, it's not available on
-    the FFTW3 static library included in this repository.
-
-    With debug build on Windows, following assertion is failed.
-
-    ```
-    fftw/fftw-3.3.8/kernel/planner.c:261: assertion failed: SLVNDX(slot) == slvndx
-    ```
-    */
-    // std::random_device dev;
-    // std::mt19937_64 rng(dev());
-    // std::uniform_int_distribution<int> sleepDist(10, 1000);
-    // std::this_thread::sleep_for(std::chrono::milliseconds(sleepDist(rng)));
-
     constexpr float sampleRate = 48000;
     constexpr size_t nFrame = size_t(5 * sampleRate);
     constexpr float tempo = 120.0f;
