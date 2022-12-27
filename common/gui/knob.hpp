@@ -98,8 +98,9 @@ public:
         valueChanged();
         invalid();
       }
-      endEdit();
     }
+    endEdit();
+
     isMouseDown = false;
     isMouseEntered = false;
     event.consumed = true;
@@ -285,11 +286,18 @@ public:
       anchorPoint = event.mousePosition;
       event.consumed = true;
     } else if (event.buttonState.isMiddle()) {
-      auto mid = getDefaultValue();
-      value = value >= getMax() ? getMin() : value < mid ? mid : getMax();
-      bounceValue();
-      if (value != getOldValue()) valueChanged();
-      if (isDirty()) invalid();
+      if (event.modifiers.has(ModifierKey::Shift)) {
+        beginEdit();
+        value = scale.invmap(std::floor(scale.map(value)));
+        valueChanged();
+        endEdit();
+      } else {
+        auto mid = getDefaultValue();
+        value = value >= getMax() ? getMin() : value < mid ? mid : getMax();
+        bounceValue();
+        if (value != getOldValue()) valueChanged();
+        if (isDirty()) invalid();
+      }
       event.consumed = true;
     }
   }
