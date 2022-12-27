@@ -1,0 +1,192 @@
+[
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "feedbackHighpassHz",
+        "type": "d",
+        "value": 0.25
+      },
+      {
+        "name": "feedbackLowpassHz",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "delayTimeSeconds",
+        "type": "d",
+        "value": 0.26020599913279624
+      },
+      {
+        "name": "amMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "amClipGain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "amClipGainNegative",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "fmAmount",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "fmClip",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.6626287494579977
+      },
+      {
+        "name": "oversampling",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "notePitchOrigin",
+        "type": "d",
+        "value": 0.4411764705882353
+      },
+      {
+        "name": "notePitchToDelayTime",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "noteReleaseSeconds",
+        "type": "d",
+        "value": 0.8252574989159953
+      }
+    ]
+  },
+  {
+    "name": "test",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.7080004215240479
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.8360006809234619
+      },
+      {
+        "name": "feedbackHighpassHz",
+        "type": "d",
+        "value": 0.25
+      },
+      {
+        "name": "feedbackLowpassHz",
+        "type": "d",
+        "value": 0.712001621723175
+      },
+      {
+        "name": "delayTimeSeconds",
+        "type": "d",
+        "value": 0.5202062129974365
+      },
+      {
+        "name": "amMix",
+        "type": "d",
+        "value": 0.16599999368190765
+      },
+      {
+        "name": "amClipGain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "amClipGainNegative",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "fmMix",
+        "type": "d",
+        "value": 0.3000001609325409
+      },
+      {
+        "name": "fmAmount",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "fmClip",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.6626287494579977
+      },
+      {
+        "name": "oversampling",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "notePitchOrigin",
+        "type": "d",
+        "value": 0.4411764705882353
+      },
+      {
+        "name": "notePitchToDelayTime",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "noteReleaseSeconds",
+        "type": "d",
+        "value": 0.8252574989159953
+      }
+    ]
+  }
+]

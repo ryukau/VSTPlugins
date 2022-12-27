@@ -1,0 +1,146 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "outputGain",
+    "type": "d",
+    "default": "Scales::outputGain.invmapDB(0.0)",
+    "scale": "Scales::outputGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "mix",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "feedback",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedback",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "feedbackHighpassHz",
+    "type": "d",
+    "default": "Scales::highpassHz.invmap(10.0)",
+    "scale": "Scales::highpassHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "feedbackLowpassHz",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::lowpassHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "delayTimeSeconds",
+    "type": "d",
+    "default": "Scales::delayTimeSeconds.invmap(0.0002)",
+    "scale": "Scales::delayTimeSeconds",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "amMix",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "amClipGain",
+    "type": "d",
+    "default": "Scales::gain.invmap(1.0)",
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "amClipGainNegative",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "fmMix",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "fmAmount",
+    "type": "d",
+    "default": "Scales::gain.invmap(1.0)",
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "fmClip",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "parameterSmoothingSecond",
+    "type": "d",
+    "default": "Scales::parameterSmoothingSecond.invmap(0.2)",
+    "scale": "Scales::parameterSmoothingSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "oversampling",
+    "type": "I",
+    "default": 2,
+    "scale": "Scales::oversampling",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "notePitchOrigin",
+    "type": "d",
+    "default": "Scales::notePitchOrigin.invmap(60.0)",
+    "scale": "Scales::notePitchOrigin",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "notePitchToDelayTime",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "noteReleaseSeconds",
+    "type": "d",
+    "default": "Scales::parameterSmoothingSecond.invmap(4)",
+    "scale": "Scales::parameterSmoothingSecond",
+    "flags": "Info::kCanAutomate"
+  }
+]

@@ -188,8 +188,6 @@ struct GlobalParameter : public ParameterInterface {
         Scales::bipolarScale.invmap(sin(SomeDSP::twopi * idx / double(nLfoWavetable))),
         Scales::bipolarScale, (lfoWavetableLabel + indexStr).c_str(), Info::kCanAutomate);
     }
-    value[ID::lfoTempoSync] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "lfoTempoSync", Info::kCanAutomate);
     value[ID::lfoInterpolation] = std::make_unique<UIntValue>(
       2, Scales::lfoInterpolation, "lfoInterpolation", Info::kCanAutomate);
     value[ID::lfoTempoSync] = std::make_unique<UIntValue>(
