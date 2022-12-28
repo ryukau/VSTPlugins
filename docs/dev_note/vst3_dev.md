@@ -61,9 +61,9 @@ VSTGUI4 のドキュメンテーションが 404 ですが、次のリンクが�
 
 - [sdk.steinberg.net - Index page](https://sdk.steinberg.net/index.php)
 
-外部のリソースとしてはうつぼかずらさんによる[C++でVST作り](http://vstcpp.wpblog.jp/)がとても参考になります。
+外部のリソースとしてはうつぼかずらさんによる[C++でVST作り](https://www.utsbox.com/)がとても参考になります。
 
-- [C++でVST作り](http://vstcpp.wpblog.jp/)
+- [C++でVST作り](https://www.utsbox.com/)
 
 ## プラグインホストについて
 VST 3 はホストによっては実装が中途半端なようです。ここではホストごとの特徴的な挙動や不具合をまとめています。
@@ -1057,9 +1057,9 @@ IController *PlugController::createSubController(
 ### コードでGUI
 `VSTGUIEditor` をベースにしてコードでGUIを作ります。
 
-`VSTGUIEditor` を使った GUI の作成についてはうつぼかずらさんによる[C++でVST作り](http://vstcpp.wpblog.jp/)が参考になります。ここではC++でVST作りで紹介されていない内容について扱っています。
+`VSTGUIEditor` を使った GUI の作成についてはうつぼかずらさんによる[C++でVST作り](https://www.utsbox.com/)が参考になります。ここではC++でVST作りで紹介されていない内容について扱っています。
 
-- [C++でVST作り](http://vstcpp.wpblog.jp/)
+- [C++でVST作り](https://www.utsbox.com/)
 
 #### カスタムフォント
 VSTGUI でカスタムフォントを使うにはプラグインバンドルの `Contents/Resources/Fonts` に `*.ttf` ファイルを配置します。
