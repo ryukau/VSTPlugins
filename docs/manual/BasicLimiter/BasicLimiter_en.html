@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-12-19" />
+<meta name="dcterms.date" content="2022-12-28" />
 <title>BasicLimiter_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-12-19
+  Update: 2022-12-28
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -336,15 +336,15 @@ footer {
 new, but the design of true peak mode is a bit luxurious.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/BasicLimiter_0.1.12.zip">Download
-BasicLimiter 0.1.12 <code>full</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/BasicLimiter_0.1.13.zip">Download
+BasicLimiter 0.1.13 <code>full</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/BasicLimiter_0.1.12_macOS.zip">Download
-BasicLimiter 0.1.12 <code>macOS</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/BasicLimiter_0.1.13_macOS.zip">Download
+BasicLimiter 0.1.13 <code>macOS</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -359,15 +359,15 @@ left-right (L-R) and mid-side (M-S). Note that CPU load is over 1.5
 times heavier than BasicLimiter.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/BasicLimiterAutoMake_0.1.12.zip">Download
-BasicLimiterAutoMake 0.1.12 full - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/BasicLimiterAutoMake_0.1.13.zip">Download
+BasicLimiterAutoMake 0.1.13 full - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/BasicLimiterAutoMake_0.1.12_macOS.zip">Download
-BasicLimiterAutoMake 0.1.12 macOS - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/BasicLimiterAutoMake_0.1.13_macOS.zip">Download
+BasicLimiterAutoMake 0.1.13 macOS - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -631,6 +631,12 @@ provided by DAW.</p>
 <li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
 <li><kbd>Middle Click</kbd> : Rotate through minimum, default and
 maximum value.</li>
+<li><kbd>Shift</kbd> + <kbd>Middle Click</kbd> : Take floor of current
+value.
+<ul>
+<li><strong>Note</strong>: For decibel (<code>dB</code>) parameters,
+floor is applied after the value is converted to amplitude.</li>
+</ul></li>
 </ul>
 <h2 id="caution">Caution</h2>
 <p>The algorithm used in BasicLimiter causes over-limiting when input
@@ -777,6 +783,11 @@ comparing <code>L-R</code> and <code>M-S</code>.</p>
 <h2 id="change-log">Change Log</h2>
 <h3 id="basiclimiter-1">BasicLimiter</h3>
 <ul>
+<li>0.1.13
+<ul>
+<li>Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd>
++ <kbd>Middle Click</kbd>.</li>
+</ul></li>
 <li>0.1.12
 <ul>
 <li>Added to <code>virtual</code> to destructor of common components.
@@ -827,6 +838,11 @@ dB.</li>
 </ul>
 <h3 id="basiclimiterautomake">BasicLimiterAutoMake</h3>
 <ul>
+<li>0.1.13
+<ul>
+<li>Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd>
++ <kbd>Middle Click</kbd>.</li>
+</ul></li>
 <li>0.1.12
 <ul>
 <li>Added to <code>virtual</code> to destructor of common components.
@@ -876,6 +892,9 @@ unintentional muting on sidechain in REAPER.</li>
 <h3 id="basiclimiter-2">BasicLimiter</h3>
 <ul>
 <li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/BasicLimiter_0.1.12.zip">BasicLimiter
+0.1.12 - VST 3 (github.com)</a></li>
+<li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/BasicLimiter_0.1.11.zip">BasicLimiter
 0.1.11 - VST 3 (github.com)</a></li>
 <li><a
@@ -902,6 +921,9 @@ href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN6
 </ul>
 <h3 id="basiclimiterautomake-1">BasicLimiterAutoMake</h3>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/BasicLimiterAutoMake_0.1.12.zip">BasicLimiterAutoMake
+0.1.12 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/BasicLimiterAutoMake_0.1.11.zip">BasicLimiterAutoMake
 0.1.11 - VST 3 (github.com)</a></li>

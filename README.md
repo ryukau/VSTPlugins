@@ -22,8 +22,15 @@ Following plugins are experimental, or in α stage. They lack character and/or p
   - Naive waveshapers with 16-fold oversampling.
 - MatrixShifter
   - AM frequency shifter and chorus in a plugin.
+
+Following plugins are in β stage. They are almost finished, but lacking documentation.
+
 - LongPhaser, OrdinaryPhaser
   - Some phasers.
+- CombDistortion
+  - Distiortion effect using self-modulating feedback comb filter.
+- NarrowingDelay, ParallelDetune
+  - Some pitch shifters.
 
 ## Files and Directories
 - `.github/workflows` and `ci`: Continuous integration (CI) scripts for GitHub Actions.

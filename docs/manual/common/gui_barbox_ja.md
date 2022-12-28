@@ -37,7 +37,8 @@
 | <kbd>,</kbd> (Comma)                                             | 左に回転                                 |
 | <kbd>.</kbd> (Period)                                            | 右に回転                                 |
 | <kbd>1</kbd>                                                     | すべての値を低減                         |
-| <kbd>2</kbd>-<kbd>9</kbd>                                        | インデックスが 2n-9n の値を低減          |
+| <kbd>2</kbd>-<kbd>4</kbd>                                        | インデックスが 2n-4n の値を低減          |
+| <kbd>5</kbd>-<kbd>9</kbd>                                        | インデックスが 2n-5n の値をホールド |
 
 <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> のスナップは一部の BarBox だけで有効になっています。特定の BarBox にスナップを追加したいという要望があれば、気軽に [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を開いてください。
 

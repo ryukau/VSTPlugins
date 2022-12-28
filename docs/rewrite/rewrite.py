@@ -98,12 +98,14 @@ if __name__ == "__main__":
     with open("../../package/manual.json", "r", encoding="utf-8") as fi:
         alias = json.load(fi)
 
-    release_name = "UhhyouPlugins0.50.0"
+    release_name = "UhhyouPlugins0.51.0"
     changelog_en = [
-        "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak.",
+        "Added decimation by holding shortcut to BarBox. Shortcut is <kbd>5</kbd>-<kbd>9</kbd>.",
+        "Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>.",
     ]
     changelog_ja = [
-        "クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。",
+        "BarBox にホールドのショートカットを追加。ショートカットキーは <kbd>5</kbd>-<kbd>9</kbd> 。",
+        "数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> による値の切り捨てのショートカットを追加。",
     ]
     for target in targets:
         updateVersion(target, alias, changelog_en, changelog_ja, release_name)

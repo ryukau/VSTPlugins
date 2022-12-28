@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-12-19" />
+<meta name="dcterms.date" content="2022-12-28" />
 <title>MaybeSnare_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-12-19
+  Update: 2022-12-28
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -337,15 +337,15 @@ MembraneSynth
 が相互にフィードバックをかけるような構造になっています。スナッピーはついていませんが、変調のかけすぎによるノイズによって似たような音が出ます。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/MaybeSnare_0.1.2.zip">MaybeSnare
-0.1.2 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/MaybeSnare_0.1.3.zip">MaybeSnare
+0.1.3 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/MaybeSnare_0.1.2_macOS.zip">MaybeSnare
-0.1.2 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/MaybeSnare_0.1.3_macOS.zip">MaybeSnare
+0.1.3 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -616,6 +616,12 @@ href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
 <li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
 <li><kbd>ホイールクリック</kbd> :
 最小値、デフォルト値、最大値の切り替え。</li>
+<li><kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> :
+現在値の小数点以下を切り捨て。
+<ul>
+<li><strong>注意</strong>:
+デシベル表記のパラメータは、振幅に変換された後の値について切り捨て。</li>
+</ul></li>
 </ul>
 <p>青い縦棒が並んだコントロール (BarBox)
 ではショートカットが使えます。ショートカットは BarBox
@@ -769,8 +775,12 @@ BarBox
 <td>すべての値を低減</td>
 </tr>
 <tr class="even">
-<td><kbd>2</kbd>-<kbd>9</kbd></td>
-<td>インデックスが 2n-9n の値を低減</td>
+<td><kbd>2</kbd>-<kbd>4</kbd></td>
+<td>インデックスが 2n-4n の値を低減</td>
+</tr>
+<tr class="odd">
+<td><kbd>5</kbd>-<kbd>9</kbd></td>
+<td>インデックスが 2n-5n の値をホールド</td>
 </tr>
 </tbody>
 </table>
@@ -1077,6 +1087,13 @@ MaybeSnare では指数関数的に減衰する信号 (以降ではディケイ�
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.3
+<ul>
+<li>BarBox にホールドのショートカットを追加。ショートカットキーは
+<kbd>5</kbd>-<kbd>9</kbd> 。</li>
+<li>数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd>
+による値の切り捨てのショートカットを追加。</li>
+</ul></li>
 <li>0.1.2
 <ul>
 <li>クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに
@@ -1096,6 +1113,9 @@ MaybeSnare では指数関数的に減衰する信号 (以降ではディケイ�
 </ul>
 <h2 id="旧バージョン">旧バージョン</h2>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/MaybeSnare_0.1.2.zip">MaybeSnare
+0.1.2 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.49.0/MaybeSnare_0.1.1.zip">MaybeSnare
 0.1.1 - VST 3 (github.com)</a></li>

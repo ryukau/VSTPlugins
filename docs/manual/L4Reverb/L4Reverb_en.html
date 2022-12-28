@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-12-19" />
+<meta name="dcterms.date" content="2022-12-28" />
 <title>L4Reverb_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-12-19
+  Update: 2022-12-28
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -334,15 +334,15 @@ footer {
 structure has 4 * 4 * 4 * 4 = 256 sections per channel.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/L4Reverb_0.1.13.zip">Download
-L4Reverb 0.1.13 <code>full</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/L4Reverb_0.1.14.zip">Download
+L4Reverb 0.1.14 <code>full</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/L4Reverb_0.1.13_macOS.zip">Download
-L4Reverb 0.1.13 <code>macOS</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/L4Reverb_0.1.14_macOS.zip">Download
+L4Reverb 0.1.14 <code>macOS</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -356,15 +356,15 @@ available. L3Reverb is a trimmed down version of L4Reverb. The lattice
 structure has 3 * 3 * 3 * 5 = 135 sections per channel.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/L3Reverb_0.1.13.zip">Download
-L3Reverb 0.1.13 <code>full</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/L3Reverb_0.1.14.zip">Download
+L3Reverb 0.1.14 <code>full</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/L3Reverb_0.1.13_macOS.zip">Download
-L3Reverb 0.1.13 <code>macOS</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/L3Reverb_0.1.14_macOS.zip">Download
+L3Reverb 0.1.14 <code>macOS</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -631,6 +631,12 @@ provided by DAW.</p>
 <li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
 <li><kbd>Middle Click</kbd> : Rotate through minimum, default and
 maximum value.</li>
+<li><kbd>Shift</kbd> + <kbd>Middle Click</kbd> : Take floor of current
+value.
+<ul>
+<li><strong>Note</strong>: For decibel (<code>dB</code>) parameters,
+floor is applied after the value is converted to amplitude.</li>
+</ul></li>
 </ul>
 <p>Control with many blue vertical bars (BarBox) have some keyboard
 shortcuts. <code>LFO Wave</code> on Main tab and <code>Gain</code>,
@@ -783,8 +789,12 @@ Infomation tab.</p>
 <td>Decrease</td>
 </tr>
 <tr class="even">
-<td><kbd>2</kbd>-<kbd>9</kbd></td>
-<td>Decrease 2n-9n</td>
+<td><kbd>2</kbd>-<kbd>4</kbd></td>
+<td>Decrease 2n-4n</td>
+</tr>
+<tr class="odd">
+<td><kbd>5</kbd>-<kbd>9</kbd></td>
+<td>Decimate by holding 2n-5n</td>
 </tr>
 </tbody>
 </table>
@@ -927,6 +937,13 @@ second.</p>
 <h2 id="change-log">Change Log</h2>
 <h3 id="l4reverb-1">L4Reverb</h3>
 <ul>
+<li>0.1.14
+<ul>
+<li>Added decimation by holding shortcut to BarBox. Shortcut is
+<kbd>5</kbd>-<kbd>9</kbd>.</li>
+<li>Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd>
++ <kbd>Middle Click</kbd>.</li>
+</ul></li>
 <li>0.1.13
 <ul>
 <li>Added to <code>virtual</code> to destructor of common components.
@@ -1003,6 +1020,13 @@ while muting. This bug was only happening on the hosts which respect VST
 </ul>
 <h3 id="l3reverb">L3Reverb</h3>
 <ul>
+<li>0.1.14
+<ul>
+<li>Added decimation by holding shortcut to BarBox. Shortcut is
+<kbd>5</kbd>-<kbd>9</kbd>.</li>
+<li>Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd>
++ <kbd>Middle Click</kbd>.</li>
+</ul></li>
 <li>0.1.13
 <ul>
 <li>Added to <code>virtual</code> to destructor of common components.
@@ -1077,6 +1101,9 @@ while muting. This bug was only happening on the hosts which respect VST
 <h3 id="l4reverb-2">L4Reverb</h3>
 <ul>
 <li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/L4Reverb_0.1.13.zip">L4Reverb
+0.1.13 - VST 3 (github.com)</a></li>
+<li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/L4Reverb_0.1.12.zip">L4Reverb
 0.1.12 - VST 3 (github.com)</a></li>
 <li><a
@@ -1112,6 +1139,9 @@ href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4Rev
 </ul>
 <h3 id="l3reverb-1">L3Reverb</h3>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/L3Reverb_0.1.13.zip">L3Reverb
+0.1.13 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/L3Reverb_0.1.12.zip">L3Reverb
 0.1.12 - VST 3 (github.com)</a></li>

@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-05-25" />
+<meta name="dcterms.date" content="2022-12-28" />
 <title>vst3_dev</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-05-25
+  Update: 2022-12-28
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -638,11 +638,16 @@ class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-
 <li><a href="https://github.com/steinbergmedia/vst3sdk">GitHub -
 steinbergmedia/vst3sdk: VST 3 Plug-In SDK</a></li>
 <li><a
-href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/cmakeUse.html">VST
-3 Interfaces: How to use cmake for Building VST 3 Plug-ins</a></li>
+href="https://steinbergmedia.github.io/vst3_dev_portal/pages/Tutorials/Using+cmake+for+building+plug-ins.html">Using
+cmake for building VST 3 plug-ins - VST 3 Developer Portal</a></li>
+</ul>
+<p>新規プラグインの作り方は変わったようです (2022-12-28)
+。以下のドキュメンテーションについては検証していません。</p>
+<ul>
 <li><a
-href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/addownplugs.html">VST
-3 Interfaces: How to add/create your own VST 3 Plug-ins</a></li>
+href="https://steinbergmedia.github.io/vst3_dev_portal/pages/Tutorials/Generate+new+plug-in+with+Project+Generator.html">Generate
+a new plug-in with the Project Generator App - VST 3 Developer
+Portal</a></li>
 </ul>
 <h3 id="windows-10-1">Windows 10</h3>
 <p><code>my_plugins/helloworld</code>
@@ -717,8 +722,8 @@ Studio 16 2019 — CMake 3.15.0-rc4 Documentation</a></li>
 という名前のディレクトリにパッケージされています。</p>
 <p>VST 3 プラグインは OS
 ごとにインストールする場所が決まっています。詳細は <a
-href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/vst3loc.html">VST
-3 Interfaces: VST 3 Locations / Format</a> に書いてあります。 Windows 10
+href="https://steinbergmedia.github.io/vst3_dev_portal/pages/Technical+Documentation/Locations+Format/Plugin+Locations.html">Plug-in
+Locations - VST 3 Developer Portal</a> に書いてあります。 Windows 10
 では <code>C:\Program Files\Common Files\VST3</code>
 に配置すれば使えるようになります。</p>
 <p>PowerShell
@@ -799,9 +804,6 @@ class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb18-1"><a hre
 <span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">target_compile_options</span>(<span class="dv">${target}</span> <span class="bn">PRIVATE</span> -O3 -fPIC -mfma -mavx2)</span>
 <span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">endif</span>()</span>
 <span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="kw">endif</span>()</span></code></pre></div>
-<p>VST 3 SDK のコンパイラオプションは <a
-href="https://github.com/steinbergmedia/vst3_cmake/blob/master/modules/PlatformToolset.cmake"><code>cmake/modules/PlatformToolset.cmake</code></a>
-で指定されています。</p>
 <h2 id="テスト">テスト</h2>
 <p>ビルドを終えたらプラグインの動作をテストします。</p>
 <h3 id="自動テスト">自動テスト</h3>
@@ -1603,8 +1605,8 @@ id="ホストのオートメーションに応じて表示を更新">ホスト�
 <ul>
 <li><p>TODO 実装の追加</p></li>
 <li><p><a
-href="https://steinbergmedia.github.io/vst3_doc/vstinterfaces/vst3Automation.html#vst3automationPlayback">VST
-3 Interfaces: Parameters and Automation</a></p></li>
+href="https://steinbergmedia.github.io/vst3_dev_portal/pages/Technical+Documentation/Parameters+Automation/Index.html">Parameters
+and Automation - VST 3 Developer Portal</a></p></li>
 <li><p><a
 href="https://sdk.steinberg.net/viewtopic.php?f=4&amp;t=714">Clarification
 of parameter handling in VST 3 - sdk.steinberg.net</a></p></li>

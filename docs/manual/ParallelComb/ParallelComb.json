@@ -1,8 +1,9 @@
 {
   "ParallelComb": {
-    "latest_version": "0.2.5",
+    "latest_version": "0.2.6",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/ParallelComb_0.2.6.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/ParallelComb_0.2.5.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/ParallelComb_0.2.4.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/ParallelComb_0.2.3.zip",
@@ -11,6 +12,16 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.2.6": {
+        "en": [
+          "Added decimation by holding shortcut to BarBox. Shortcut is <kbd>5</kbd>-<kbd>9</kbd>.",
+          "Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>."
+        ],
+        "ja": [
+          "BarBox にホールドのショートカットを追加。ショートカットキーは <kbd>5</kbd>-<kbd>9</kbd> 。",
+          "数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> による値の切り捨てのショートカットを追加。"
+        ]
+      },
       "0.2.5": {
         "en": [
           "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak."

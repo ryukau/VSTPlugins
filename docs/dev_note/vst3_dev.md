@@ -163,8 +163,11 @@ rg -h
 ビルド方法はドキュメンテーションと vst3sdk リポジトリの README.md に書いてあります。
 
 - [GitHub - steinbergmedia/vst3sdk: VST 3 Plug-In SDK](https://github.com/steinbergmedia/vst3sdk)
-- [VST 3 Interfaces: How to use cmake for Building VST 3 Plug-ins](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/cmakeUse.html)
-- [VST 3 Interfaces: How to add/create your own VST 3 Plug-ins](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/addownplugs.html)
+- [Using cmake for building VST 3 plug-ins - VST 3 Developer Portal](https://steinbergmedia.github.io/vst3_dev_portal/pages/Tutorials/Using+cmake+for+building+plug-ins.html)
+
+新規プラグインの作り方は変わったようです (2022-12-28) 。以下のドキュメンテーションについては検証していません。
+
+- [Generate a new plug-in with the Project Generator App - VST 3 Developer Portal](https://steinbergmedia.github.io/vst3_dev_portal/pages/Tutorials/Generate+new+plug-in+with+Project+Generator.html)
 
 ### Windows 10
 `my_plugins/helloworld` にテンプレートが入っているのでコピーして適当に名前を付けることでプロジェクトを作成します。 `my_plugins` は `VST3_SDK` の1階層上のディレクトリに入っています。
@@ -237,7 +240,7 @@ cmake --build .
 #### デプロイ
 VST 3 プラグインのデバッグビルドは `build\VST3\Debug` 、リリースビルドは `build\VST3\Release` に配置されます。ビルドされたプラグインは `*.vst3` という名前のディレクトリにパッケージされています。
 
-VST 3 プラグインは OS ごとにインストールする場所が決まっています。詳細は [VST 3 Interfaces: VST 3 Locations / Format](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/vst3loc.html) に書いてあります。 Windows 10 では `C:\Program Files\Common Files\VST3` に配置すれば使えるようになります。
+VST 3 プラグインは OS ごとにインストールする場所が決まっています。詳細は [Plug-in Locations - VST 3 Developer Portal](https://steinbergmedia.github.io/vst3_dev_portal/pages/Technical+Documentation/Locations+Format/Plugin+Locations.html) に書いてあります。 Windows 10 では `C:\Program Files\Common Files\VST3` に配置すれば使えるようになります。
 
 PowerShell で関数を作って任意のプラグインをコマンド一つでデプロイできるようにします。 `$PROFILE` を開きます。 `$PROFILE` は bash の `.bashrc` に相当します。
 
@@ -318,8 +321,6 @@ elseif(UNIX)
   endif()
 endif()
 ```
-
-VST 3 SDK のコンパイラオプションは [`cmake/modules/PlatformToolset.cmake`](https://github.com/steinbergmedia/vst3_cmake/blob/master/modules/PlatformToolset.cmake) で指定されています。
 
 ## テスト
 ビルドを終えたらプラグインの動作をテストします。
@@ -1093,7 +1094,7 @@ SharedPointer<CFontDesc> font = new CFontDesc(
 
 - TODO 実装の追加
 
-- [VST 3 Interfaces: Parameters and Automation](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/vst3Automation.html#vst3automationPlayback)
+- [Parameters and Automation - VST 3 Developer Portal](https://steinbergmedia.github.io/vst3_dev_portal/pages/Technical+Documentation/Parameters+Automation/Index.html)
 - [Clarification of parameter handling in VST 3 - sdk.steinberg.net](https://sdk.steinberg.net/viewtopic.php?f=4&t=714)
 
 #### リフレッシュレートの設定

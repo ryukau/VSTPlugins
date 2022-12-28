@@ -1,8 +1,9 @@
 {
   "CollidingCombSynth": {
-    "latest_version": "0.1.10",
+    "latest_version": "0.1.11",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/CollidingCombSynth_0.1.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/CollidingCombSynth_0.1.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/CollidingCombSynth_0.1.9.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/CollidingCombSynth_0.1.8.zip",
@@ -17,6 +18,16 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CollidingCombSynthPresets.zip"
     },
     "changelog": {
+      "0.1.11": {
+        "en": [
+          "Added decimation by holding shortcut to BarBox. Shortcut is <kbd>5</kbd>-<kbd>9</kbd>.",
+          "Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>."
+        ],
+        "ja": [
+          "BarBox にホールドのショートカットを追加。ショートカットキーは <kbd>5</kbd>-<kbd>9</kbd> 。",
+          "数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> による値の切り捨てのショートカットを追加。"
+        ]
+      },
       "0.1.10": {
         "en": [
           "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak."

@@ -1,8 +1,9 @@
 {
   "EsPhaser": {
-    "latest_version": "0.1.14",
+    "latest_version": "0.1.15",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/EsPhaser_0.1.15.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/EsPhaser_0.1.14.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/EsPhaser_0.1.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/EsPhaser_0.1.12.zip",
@@ -20,6 +21,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EsPhaserPresets.zip"
     },
     "changelog": {
+      "0.1.15": {
+        "en": [
+          "Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>."
+        ],
+        "ja": [
+          "数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> による値の切り捨てのショートカットを追加。"
+        ]
+      },
       "0.1.14": {
         "en": [
           "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak.",

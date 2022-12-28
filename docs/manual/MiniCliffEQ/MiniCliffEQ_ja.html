@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-12-19" />
+<meta name="dcterms.date" content="2022-12-28" />
 <title>MiniCliffEQ_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-12-19
+  Update: 2022-12-28
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -323,15 +323,15 @@ footer {
 の抑制ですが、とても急峻なローパス、ハイパス、ローシェルフ、ハイシェルフフィルタとしても使えます。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/MiniCliffEQ_0.1.9.zip">MiniCliffEQ
-0.1.9 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/MiniCliffEQ_0.1.10.zip">MiniCliffEQ
+0.1.10 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/MiniCliffEQ_0.1.9_macOS.zip">MiniCliffEQ
-0.1.9 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/MiniCliffEQ_0.1.10_macOS.zip">MiniCliffEQ
+0.1.10 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -605,6 +605,12 @@ href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
 <li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
 <li><kbd>ホイールクリック</kbd> :
 最小値、デフォルト値、最大値の切り替え。</li>
+<li><kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> :
+現在値の小数点以下を切り捨て。
+<ul>
+<li><strong>注意</strong>:
+デシベル表記のパラメータは、振幅に変換された後の値について切り捨て。</li>
+</ul></li>
 </ul>
 <h2 id="注意">注意</h2>
 <p><code>2^15 / 2 - 1 = 16383</code> サンプルのレイテンシが加わります。
@@ -662,6 +668,14 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a hr
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.10
+<ul>
+<li>数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd>
+による値の切り捨てのショートカットを追加。</li>
+<li>FFTW3
+のスレッドセーフでない関数呼び出しによるクラッシュを防止するために mutex
+を追加。</li>
+</ul></li>
 <li>0.1.9
 <ul>
 <li>クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに
@@ -717,6 +731,9 @@ CPU 負荷が向上。 FIR フィルタによるレイテンシは据え置き�
 <h2 id="旧バージョン">旧バージョン</h2>
 <h3 id="minicliffeq-1">MiniCliffEQ</h3>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/MiniCliffEQ_0.1.9.zip">MiniCliffEQ
+0.1.9 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/MiniCliffEQ_0.1.8.zip">MiniCliffEQ
 0.1.8 - VST 3 (github.com)</a></li>

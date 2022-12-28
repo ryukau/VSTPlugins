@@ -1,8 +1,9 @@
 {
   "UltrasonicRingMod": {
-    "latest_version": "0.0.5",
+    "latest_version": "0.0.6",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/UltrasonicRingMod_0.0.6.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/UltrasonicRingMod_0.0.5.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/UltrasonicRingMod_0.0.4.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.44.0/UltrasonicRingMod_0.0.3.zip",
@@ -11,6 +12,14 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.0.6": {
+        "en": [
+          "Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>."
+        ],
+        "ja": [
+          "数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> による値の切り捨てのショートカットを追加。"
+        ]
+      },
       "0.0.5": {
         "en": [
           "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak."

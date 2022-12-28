@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-12-19" />
+<meta name="dcterms.date" content="2022-12-28" />
 <title>CollidingCombSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-12-19
+  Update: 2022-12-28
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -331,16 +331,16 @@ collide to each other. Tuning of pitch is possible, but difficult. So
 mostly suitable for sound effects.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/CollidingCombSynth_0.1.10.zip">Download
-CollidingCombSynth 0.1.10 <code>full</code> - VST 3 (github.com)</a>
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/CollidingCombSynth_0.1.11.zip">Download
+CollidingCombSynth 0.1.11 <code>full</code> - VST 3 (github.com)</a>
 <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/CollidingCombSynth_0.1.10_macOS.zip">Download
-CollidingCombSynth 0.1.10 <code>macOS</code> - VST 3 (github.com)</a>
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/CollidingCombSynth_0.1.11_macOS.zip">Download
+CollidingCombSynth 0.1.11 <code>macOS</code> - VST 3 (github.com)</a>
 <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
@@ -608,6 +608,12 @@ provided by DAW.</p>
 <li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
 <li><kbd>Middle Click</kbd> : Rotate through minimum, default and
 maximum value.</li>
+<li><kbd>Shift</kbd> + <kbd>Middle Click</kbd> : Take floor of current
+value.
+<ul>
+<li><strong>Note</strong>: For decibel (<code>dB</code>) parameters,
+floor is applied after the value is converted to amplitude.</li>
+</ul></li>
 </ul>
 <p>Control with many blue vertical bars (BarBox) have some keyboard
 shortcuts. <code>LFO Wave</code> on Main tab and <code>Gain</code>,
@@ -760,8 +766,12 @@ Infomation tab.</p>
 <td>Decrease</td>
 </tr>
 <tr class="even">
-<td><kbd>2</kbd>-<kbd>9</kbd></td>
-<td>Decrease 2n-9n</td>
+<td><kbd>2</kbd>-<kbd>4</kbd></td>
+<td>Decrease 2n-4n</td>
+</tr>
+<tr class="odd">
+<td><kbd>5</kbd>-<kbd>9</kbd></td>
+<td>Decimate by holding 2n-5n</td>
 </tr>
 </tbody>
 </table>
@@ -991,6 +1001,13 @@ stringFrequency = Frequency * noteFrequency</code></pre>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.11
+<ul>
+<li>Added decimation by holding shortcut to BarBox. Shortcut is
+<kbd>5</kbd>-<kbd>9</kbd>.</li>
+<li>Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd>
++ <kbd>Middle Click</kbd>.</li>
+</ul></li>
 <li>0.1.10
 <ul>
 <li>Added to <code>virtual</code> to destructor of common components.
@@ -1050,6 +1067,9 @@ while muting. This bug was only happening on the hosts which respect VST
 </ul>
 <h2 id="old-versions">Old Versions</h2>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/CollidingCombSynth_0.1.10.zip">CollidingCombSynth
+0.1.10 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/CollidingCombSynth_0.1.9.zip">CollidingCombSynth
 0.1.9 - VST 3 (github.com)</a></li>

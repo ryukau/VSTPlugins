@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-12-19" />
+<meta name="dcterms.date" content="2022-12-28" />
 <title>ParallelComb_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-12-19
+  Update: 2022-12-28
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -326,15 +326,15 @@ footer {
 つの時点をフィードバックするコムフィルタです。フィードバック経路にリミッタが挟んであるので、それなりにクリーンな音が出ます。フィードバックの振幅でディレイ時間を変調することで、変な歪みを出すこともできます。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/ParallelComb_0.2.5.zip">ParallelComb
-0.2.5 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/ParallelComb_0.2.6.zip">ParallelComb
+0.2.6 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/ParallelComb_0.2.5_macOS.zip">ParallelComb
-0.2.5 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/ParallelComb_0.2.6_macOS.zip">ParallelComb
+0.2.6 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -605,6 +605,12 @@ href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
 <li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
 <li><kbd>ホイールクリック</kbd> :
 最小値、デフォルト値、最大値の切り替え。</li>
+<li><kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> :
+現在値の小数点以下を切り捨て。
+<ul>
+<li><strong>注意</strong>:
+デシベル表記のパラメータは、振幅に変換された後の値について切り捨て。</li>
+</ul></li>
 </ul>
 <p>青い縦棒が並んだコントロール (BarBox)
 ではショートカットが使えます。ショートカットは BarBox
@@ -758,8 +764,12 @@ BarBox
 <td>すべての値を低減</td>
 </tr>
 <tr class="even">
-<td><kbd>2</kbd>-<kbd>9</kbd></td>
-<td>インデックスが 2n-9n の値を低減</td>
+<td><kbd>2</kbd>-<kbd>4</kbd></td>
+<td>インデックスが 2n-4n の値を低減</td>
+</tr>
+<tr class="odd">
+<td><kbd>5</kbd>-<kbd>9</kbd></td>
+<td>インデックスが 2n-5n の値をホールド</td>
 </tr>
 </tbody>
 </table>
@@ -913,6 +923,13 @@ delayTimeR = time * leanR;</code></pre>
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.2.6
+<ul>
+<li>BarBox にホールドのショートカットを追加。ショートカットキーは
+<kbd>5</kbd>-<kbd>9</kbd> 。</li>
+<li>数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd>
+による値の切り捨てのショートカットを追加。</li>
+</ul></li>
 <li>0.2.5
 <ul>
 <li>クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに
@@ -945,6 +962,9 @@ delayTimeR = time * leanR;</code></pre>
 <h2 id="旧バージョン">旧バージョン</h2>
 <h3 id="parallelcomb-1">ParallelComb</h3>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/ParallelComb_0.2.5.zip">ParallelComb
+0.2.5 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/ParallelComb_0.2.4.zip">ParallelComb
 0.2.4 - VST 3 (github.com)</a></li>

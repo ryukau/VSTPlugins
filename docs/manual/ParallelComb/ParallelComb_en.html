@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-12-19" />
+<meta name="dcterms.date" content="2022-12-28" />
 <title>ParallelComb_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-12-19
+  Update: 2022-12-28
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -326,15 +326,15 @@ somewhat clean. Weird distorsion can be added by modulating delay time
 using feedback signal amplitude.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/ParallelComb_0.2.5.zip">Download
-ParallelComb 0.2.5 <code>full</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/ParallelComb_0.2.6.zip">Download
+ParallelComb 0.2.6 <code>full</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/ParallelComb_0.2.5_macOS.zip">Download
-ParallelComb 0.2.5 <code>macOS</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/ParallelComb_0.2.6_macOS.zip">Download
+ParallelComb 0.2.6 <code>macOS</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -598,6 +598,12 @@ provided by DAW.</p>
 <li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
 <li><kbd>Middle Click</kbd> : Rotate through minimum, default and
 maximum value.</li>
+<li><kbd>Shift</kbd> + <kbd>Middle Click</kbd> : Take floor of current
+value.
+<ul>
+<li><strong>Note</strong>: For decibel (<code>dB</code>) parameters,
+floor is applied after the value is converted to amplitude.</li>
+</ul></li>
 </ul>
 <p>Control with many blue vertical bars (BarBox) have some keyboard
 shortcuts. <code>LFO Wave</code> on Main tab and <code>Gain</code>,
@@ -750,8 +756,12 @@ Infomation tab.</p>
 <td>Decrease</td>
 </tr>
 <tr class="even">
-<td><kbd>2</kbd>-<kbd>9</kbd></td>
-<td>Decrease 2n-9n</td>
+<td><kbd>2</kbd>-<kbd>4</kbd></td>
+<td>Decrease 2n-4n</td>
+</tr>
+<tr class="odd">
+<td><kbd>5</kbd>-<kbd>9</kbd></td>
+<td>Decimate by holding 2n-5n</td>
 </tr>
 </tbody>
 </table>
@@ -904,6 +914,13 @@ computation on top of it.</p>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.2.6
+<ul>
+<li>Added decimation by holding shortcut to BarBox. Shortcut is
+<kbd>5</kbd>-<kbd>9</kbd>.</li>
+<li>Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd>
++ <kbd>Middle Click</kbd>.</li>
+</ul></li>
 <li>0.2.5
 <ul>
 <li>Added to <code>virtual</code> to destructor of common components.
@@ -936,6 +953,9 @@ refreshes when oversampling is turned on.</li>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/ParallelComb_0.2.5.zip">ParallelComb
+0.2.5 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/ParallelComb_0.2.4.zip">ParallelComb
 0.2.4 - VST 3 (github.com)</a></li>

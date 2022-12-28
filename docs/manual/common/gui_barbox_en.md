@@ -35,7 +35,8 @@ Control with many blue vertical bars (BarBox) have some keyboard shortcuts. `LFO
 | <kbd>,</kbd> (Comma)                                       | Rotate Back                        |
 | <kbd>.</kbd> (Period)                                      | Rotate Forward                     |
 | <kbd>1</kbd>                                               | Decrease                           |
-| <kbd>2</kbd>-<kbd>9</kbd>                                  | Decrease 2n-9n                     |
+| <kbd>2</kbd>-<kbd>4</kbd>                                  | Decrease 2n-4n                     |
+| <kbd>5</kbd>-<kbd>9</kbd>                                  | Decimate by holding 2n-5n          |
 
 Snapping is not available for all BarBox. If you'd like to have snapping for certain BarBox, feel free to open issue to [GitHub repository](https://github.com/ryukau/VSTPlugins).
 
