@@ -61,6 +61,13 @@ Shift + Left Drag|Fine Adjustment
 Ctrl + Left Click|Reset to Default
 Middle Click|Flip Min/Mid/Max
 
+Output may blow up when:
+- `Mix is rightmost,`
+- `Feedback` is leftmost or rightmost,
+- `Delay` is close to leftmost,
+- `Highpass` is around 20 Hz or lower,
+- `FM Mix` and `FM Amount` are not 0.
+
 Have a nice day!)";
 
   const float top0 = 100.0f;
