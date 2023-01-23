@@ -1,4 +1,4 @@
-// (c) 2022 Takamitsu Endo
+// (c) Takamitsu Endo
 //
 // This file is part of ParallelDetune.
 //
@@ -48,7 +48,7 @@ constexpr int_least32_t defaultWidth
 constexpr int_least32_t defaultHeight
   = int_least32_t(2 * uiMargin + 10 * labelY + 2 * knobY);
 
-enum tabIndex { tabTuning, tabGainAndTime, tabFilter };
+enum tabIndex { tabTuning, tabTime, tabGain, tabHighpass, tabLowpass };
 
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
@@ -82,7 +82,8 @@ bool Editor::prepareUI()
   constexpr auto psLabelWidth = int(1.5 * knobX) - margin;
   constexpr auto psLabelLeft1 = psLeft0 + psLabelWidth;
   addGroupLabel(
-    psLeft0, psTop0, 4 * knobX - 2 * margin, labelHeight, uiTextSize, "Shifter");
+    psLeft0, psTop0, 4 * knobX + 2 * margin + barboxWidth, labelHeight, uiTextSize,
+    "Shifter");
 
   addKnob<Style::accent>(
     psLeft0, psTop1, knobWidth, margin, uiTextSize, "Dry", ID::dryGain);
@@ -145,26 +146,12 @@ bool Editor::prepareUI()
   constexpr auto tabInsideLeft0 = tabViewLeft + uiMargin;
   constexpr auto tabInsideLeft1 = tabInsideLeft0 + barboxWidth + uiMargin;
 
-  std::vector<std::string> tabs{"Tuning", "Gain & Time", "Filter Cutoff"};
-  auto tabview = addTabView(
-    tabViewLeft, tabViewTop, 3 * uiMargin + 2 * barboxWidth,
+  std::vector<std::string> tabs{"Tuning", "Time", "Gain", "HP", "LP"};
+  auto tabView = addTabView(
+    tabViewLeft + uiMargin + barboxWidth, tabViewTop, 2 * uiMargin + barboxWidth,
     labelY + 2 * uiMargin + barboxHeight, uiTextSize, labelY, tabs);
 
   // Tuning tab.
-  auto barboxShiftOctave = addBarBox(
-    tabInsideLeft0, tabInsideTop0, barboxWidth, barboxHeight, ID::shiftSemitone0,
-    Synth::nShifter, Scales::shiftSemitone, "Pitch Shift [st.]");
-  if (barboxShiftOctave) {
-    barboxShiftOctave->sliderZero = 0.5f;
-
-    size_t nOctave = size_t(
-      std::ceil(Scales::shiftSemitone.getMax() - Scales::shiftSemitone.getMin()));
-    for (size_t idx = 0; idx < nOctave; ++idx) {
-      barboxShiftOctave->snapValue.push_back(double(idx) / double(nOctave));
-    }
-  }
-  tabview->addWidget(tabTuning, barboxShiftOctave);
-
   auto barboxShiftFineTuningCent = addBarBox(
     tabInsideLeft1, tabInsideTop0, barboxWidth, barboxHeight, ID::shiftFineTuningCent0,
     Synth::nShifter, Scales::shiftFineTuningCent, "Fine Tuning [cent]");
@@ -177,13 +164,7 @@ bool Editor::prepareUI()
       barboxShiftFineTuningCent->snapValue.push_back(double(idx) / double(nCent));
     }
   }
-  tabview->addWidget(tabTuning, barboxShiftFineTuningCent);
-
-  // Gain & Time tab.
-  auto barboxShifterGain = addBarBox(
-    tabInsideLeft0, tabInsideTop0, barboxWidth, barboxHeight, ID::shifterGain0,
-    Synth::nShifter, Scales::tremoloMix, "Gain");
-  tabview->addWidget(tabGainAndTime, barboxShifterGain);
+  tabView->addWidget(tabTuning, barboxShiftFineTuningCent);
 
   auto barboxShifterDelayTime = addBarBox(
     tabInsideLeft1, tabInsideTop0, barboxWidth, barboxHeight,
@@ -197,16 +178,20 @@ bool Editor::prepareUI()
       barboxShifterDelayTime->snapValue.push_back(double(idx) / double(nSnap));
     }
   }
-  tabview->addWidget(tabGainAndTime, barboxShifterDelayTime);
+  tabView->addWidget(tabTime, barboxShifterDelayTime);
 
-  // Filter Cutoff tab.
+  auto barboxShifterGain = addBarBox(
+    tabInsideLeft1, tabInsideTop0, barboxWidth, barboxHeight, ID::shifterGain0,
+    Synth::nShifter, Scales::tremoloMix, "Gain");
+  tabView->addWidget(tabGain, barboxShifterGain);
+
   auto barboxShifterHighpassOffset = addBarBox(
-    tabInsideLeft0, tabInsideTop0, barboxWidth, barboxHeight, ID::shifterHighpassOffset0,
+    tabInsideLeft1, tabInsideTop0, barboxWidth, barboxHeight, ID::shifterHighpassOffset0,
     Synth::nShifter, Scales::shiftOctave, "HP Offset [oct.]");
   if (barboxShifterHighpassOffset) {
     barboxShifterHighpassOffset->sliderZero = 0.5f;
   }
-  tabview->addWidget(tabFilter, barboxShifterHighpassOffset);
+  tabView->addWidget(tabHighpass, barboxShifterHighpassOffset);
 
   auto barboxShifterLowpassOffset = addBarBox(
     tabInsideLeft1, tabInsideTop0, barboxWidth, barboxHeight, ID::shifterLowpassOffset0,
@@ -214,7 +199,21 @@ bool Editor::prepareUI()
   if (barboxShifterLowpassOffset) {
     barboxShifterLowpassOffset->sliderZero = 0.5f;
   }
-  tabview->addWidget(tabFilter, barboxShifterLowpassOffset);
+  tabView->addWidget(tabLowpass, barboxShifterLowpassOffset);
+
+  // `barboxShiftOctave` is drawn over `tabView`.
+  auto barboxShiftOctave = addBarBox(
+    tabInsideLeft0 - uiMargin, tabInsideTop0, barboxWidth, barboxHeight,
+    ID::shiftSemitone0, Synth::nShifter, Scales::shiftSemitone, "Pitch Shift [st.]");
+  if (barboxShiftOctave) {
+    barboxShiftOctave->sliderZero = 0.5f;
+
+    size_t nOctave = size_t(
+      std::ceil(Scales::shiftSemitone.getMax() - Scales::shiftSemitone.getMin()));
+    for (size_t idx = 0; idx < nOctave; ++idx) {
+      barboxShiftOctave->snapValue.push_back(double(idx) / double(nOctave));
+    }
+  }
 
   // LFO.
   constexpr auto lfoTop0 = psTop0 + labelY + barboxHeight + 2 * uiMargin + 2 * margin;
@@ -284,7 +283,7 @@ bool Editor::prepareUI()
   // Probably this restartComponent() is redundant, but to make sure.
   controller->getComponentHandler()->restartComponent(kLatencyChanged);
 
-  tabview->refreshTab();
+  tabView->refreshTab();
 
   return true;
 }
