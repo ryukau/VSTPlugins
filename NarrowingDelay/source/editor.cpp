@@ -158,7 +158,7 @@ bool Editor::prepareUI()
     miscLeft1, miscTop0, labelWidth, labelHeight, uiTextSize,
     ID::parameterSmoothingSecond, Scales::parameterSmoothingSecond, false, 5);
 
-  addLabel(miscLeft0, miscTop1, labelWidth, labelHeight, uiTextSize, "Over-sampling");
+  addLabel(miscLeft0, miscTop1, labelWidth, labelHeight, uiTextSize, "Oversampling");
   std::vector<std::string> oversamplingItems{"1x", "2x", "8x"};
   addOptionMenu<Style::warning>(
     miscLeft1, miscTop1, labelWidth, labelHeight, uiTextSize, ID::oversampling,
