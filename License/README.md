@@ -1,4 +1,4 @@
-(c) 2019-2020 Takamitsu Endo <ryukau@gmail.com>
+(c) 2019-2023 Takamitsu Endo <ryukau@gmail.com>
 
 (c) 2020 Konstantin Voinov <konstantin.voinov@gmail.com>
 
