@@ -1,8 +1,9 @@
 {
   "L4Reverb": {
-    "latest_version": "0.1.14",
+    "latest_version": "0.1.15",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/L4Reverb_0.1.15.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/L4Reverb_0.1.14.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/L4Reverb_0.1.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/L4Reverb_0.1.12.zip",
@@ -20,6 +21,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4ReverbPresets.zip"
     },
     "changelog": {
+      "0.1.15": {
+        "en": [
+          "Updated splash screen text."
+        ],
+        "ja": [
+          "スプラッシュ画面のテキストを更新。"
+        ]
+      },
       "0.1.14": {
         "en": [
           "Added decimation by holding shortcut to BarBox. Shortcut is <kbd>5</kbd>-<kbd>9</kbd>.",
@@ -147,9 +156,10 @@
     }
   },
   "L3Reverb": {
-    "latest_version": "0.1.14",
+    "latest_version": "0.1.15",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/L3Reverb_0.1.15.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/L3Reverb_0.1.14.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/L3Reverb_0.1.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/L3Reverb_0.1.12.zip",
@@ -164,6 +174,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L3ReverbPresets.zip"
     },
     "changelog": {
+      "0.1.15": {
+        "en": [
+          "Updated splash screen text."
+        ],
+        "ja": [
+          "スプラッシュ画面のテキストを更新。"
+        ]
+      },
       "0.1.14": {
         "en": [
           "Added decimation by holding shortcut to BarBox. Shortcut is <kbd>5</kbd>-<kbd>9</kbd>.",

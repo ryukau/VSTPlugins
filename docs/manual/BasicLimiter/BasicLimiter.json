@@ -1,8 +1,9 @@
 {
   "BasicLimiter": {
-    "latest_version": "0.1.13",
+    "latest_version": "0.1.14",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/BasicLimiter_0.1.14.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/BasicLimiter_0.1.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/BasicLimiter_0.1.12.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/BasicLimiter_0.1.11.zip",
@@ -17,6 +18,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterPresets.zip"
     },
     "changelog": {
+      "0.1.14": {
+        "en": [
+          "Updated splash screen text."
+        ],
+        "ja": [
+          "スプラッシュ画面のテキストを更新。"
+        ]
+      },
       "0.1.13": {
         "en": [
           "Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>."
@@ -110,9 +119,10 @@
     }
   },
   "BasicLimiterAutoMake": {
-    "latest_version": "0.1.13",
+    "latest_version": "0.1.14",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/BasicLimiterAutoMake_0.1.14.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/BasicLimiterAutoMake_0.1.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/BasicLimiterAutoMake_0.1.12.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/BasicLimiterAutoMake_0.1.11.zip",
@@ -126,6 +136,14 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.1.14": {
+        "en": [
+          "Updated splash screen text."
+        ],
+        "ja": [
+          "スプラッシュ画面のテキストを更新。"
+        ]
+      },
       "0.1.13": {
         "en": [
           "Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>."

@@ -1,8 +1,9 @@
 {
   "CollidingCombSynth": {
-    "latest_version": "0.1.11",
+    "latest_version": "0.1.12",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/CollidingCombSynth_0.1.12.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/CollidingCombSynth_0.1.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/CollidingCombSynth_0.1.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/CollidingCombSynth_0.1.9.zip",
@@ -18,6 +19,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CollidingCombSynthPresets.zip"
     },
     "changelog": {
+      "0.1.12": {
+        "en": [
+          "Updated splash screen text."
+        ],
+        "ja": [
+          "スプラッシュ画面のテキストを更新。"
+        ]
+      },
       "0.1.11": {
         "en": [
           "Added decimation by holding shortcut to BarBox. Shortcut is <kbd>5</kbd>-<kbd>9</kbd>.",

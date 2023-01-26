@@ -134,7 +134,7 @@ Channel Type
 
 16x OverSampling
 
-:   When checked, 16 fold over-sampling is enabled. Note that over-sampling increases CPU load for 16 times, and adds resampler computation on top of it.
+:   When checked, 16 fold oversampling is enabled. Note that oversampling increases CPU load for 16 times, and adds resampler computation on top of it.
 
 Panic!
 

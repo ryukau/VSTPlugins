@@ -27,6 +27,8 @@ UltraSynth is an ordinary synthesizer except 64-fold oversampling that is the sa
 
 {{ section["gui_knob"] }}
 
+{{ section["gui_xypad"] }}
+
 ## Block Diagram
 If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Image" on right click menu to scale.
 

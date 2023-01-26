@@ -1,4 +1,4 @@
-Knob and slider can do:
+Knob and slider provides following controls:
 
 - <kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.
 - <kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.

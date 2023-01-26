@@ -1,8 +1,9 @@
 {
   "FDN64Reverb": {
-    "latest_version": "0.1.10",
+    "latest_version": "0.1.11",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/FDN64Reverb_0.1.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/FDN64Reverb_0.1.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/FDN64Reverb_0.1.9.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/FDN64Reverb_0.1.8.zip",
@@ -17,6 +18,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/FDN64ReverbPresets.zip"
     },
     "changelog": {
+      "0.1.11": {
+        "en": [
+          "Updated splash screen text."
+        ],
+        "ja": [
+          "スプラッシュ画面のテキストを更新。"
+        ]
+      },
       "0.1.10": {
         "en": [
           "Added decimation by holding shortcut to BarBox. Shortcut is <kbd>5</kbd>-<kbd>9</kbd>.",

@@ -1,8 +1,9 @@
 {
   "UltrasonicRingMod": {
-    "latest_version": "0.0.6",
+    "latest_version": "0.1.0",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/UltrasonicRingMod_0.1.0.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/UltrasonicRingMod_0.0.6.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/UltrasonicRingMod_0.0.5.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/UltrasonicRingMod_0.0.4.zip",
@@ -12,6 +13,14 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.1.0": {
+        "en": [
+          "Updated splash screen text."
+        ],
+        "ja": [
+          "スプラッシュ画面のテキストを更新。"
+        ]
+      },
       "0.0.6": {
         "en": [
           "Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>."

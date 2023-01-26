@@ -1,8 +1,9 @@
 {
   "PitchShiftDelay": {
-    "latest_version": "0.2.4",
+    "latest_version": "0.2.5",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/PitchShiftDelay_0.2.5.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/PitchShiftDelay_0.2.4.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/PitchShiftDelay_0.2.3.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/PitchShiftDelay_0.2.2.zip",
@@ -12,6 +13,14 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.2.5": {
+        "en": [
+          "Updated splash screen text."
+        ],
+        "ja": [
+          "スプラッシュ画面のテキストを更新。"
+        ]
+      },
       "0.2.4": {
         "en": [
           "Added decimation by holding shortcut to BarBox. Shortcut is <kbd>5</kbd>-<kbd>9</kbd>.",

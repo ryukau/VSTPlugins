@@ -27,6 +27,8 @@ lang: ja
 
 {{ section["gui_knob"] }}
 
+{{ section["gui_xypad"] }}
+
 ## ブロック線図
 図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> + <kbd>マウスホイール</kbd> や、右クリックから「画像だけを表示」などで拡大できます。
 

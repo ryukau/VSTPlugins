@@ -1,8 +1,9 @@
 {
   "MaybeSnare": {
-    "latest_version": "0.1.3",
+    "latest_version": "0.1.4",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/MaybeSnare_0.1.4.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/MaybeSnare_0.1.3.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/MaybeSnare_0.1.2.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.49.0/MaybeSnare_0.1.1.zip",
@@ -11,6 +12,14 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.1.4": {
+        "en": [
+          "Updated splash screen text."
+        ],
+        "ja": [
+          "スプラッシュ画面のテキストを更新。"
+        ]
+      },
       "0.1.3": {
         "en": [
           "Added decimation by holding shortcut to BarBox. Shortcut is <kbd>5</kbd>-<kbd>9</kbd>.",

@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" >
+
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="dcterms.date" content="2023-01-26" />
+<title>OrdinaryPhaser_ja</title>
+<style>
+code { white-space: pre-wrap; }
+span.smallcaps { font-variant: small-caps; }
+span.underline { text-decoration: underline; }
+div.column { display: inline-block; vertical-align: top; width: 50%; }
+</style>
+<style>
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style>body {
+  max-width: 704px;
+  margin: auto;
+  padding: 32px 8px;
+}
+
+img {
+  max-width: 100%;
+}
+
+video {
+  max-width: 100%;
+}
+
+details.list>summary {
+  line-height: 3em;
+}
+
+kbd {
+  font-family: inherit;
+  border-style: outset;
+  border-width: 1px 2px 2px 1px;
+  border-radius: 2px;
+  padding: 2px 4px;
+  margin: 2px;
+  line-height: calc(1em + 16px);
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  background-color: #ffe590;
+}
+
+h1 {
+  background-color: #163eac;
+  color: #ffffff;
+  padding-left: 8px;
+}
+
+h2 {
+  border-left: solid 32px #2851c2;
+  padding-left: 24px;
+}
+
+h3 {
+  border-left: solid 20px #4d74dd;
+  padding-left: 16px;
+}
+
+h4 {
+  border-left: solid 12px #6a88da;
+  padding-left: 8px;
+  margin-bottom: 0.5em;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+  margin-bottom: 0.5em;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
+  margin-bottom: 0.5em;
+}
+
+table {
+  border-spacing: 0px;
+  border-collapse: separate;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
+}
+
+tr:nth-child(odd) {
+  background: #eeeeee;
+}
+
+tr:nth-child(even) {
+  background: #ffffff;
+}
+
+th {
+  height: 2em;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+td {
+  height: 1.5em;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  margin-bottom: 2em;
+  padding-left: 1em;
+}
+
+audio {
+  vertical-align: middle;
+}
+
+label {
+  vertical-align: middle;
+}
+
+:not(.sourceCode)>pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre>code.sourceCode>span>a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre)>code {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+  color: #705020;
+}
+
+li {
+  margin: 8px;
+}
+
+summary:hover {
+  background-color: #eeeeee;
+}
+
+header {
+  border-bottom: 1px gray solid;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
+
+footer {
+  border-top: 1px gray solid;
+  padding: 0.5em;
+  margin-top: 1em;
+}
+
+</style>
+</head>
+
+<body>
+<header>
+    <p><a href="..\..\index.html">Back to Index</a></p>
+      <p>
+  Update: 2023-01-26
+  </p>
+      <details>
+  <summary translate="yes">Table of Contents</summary>
+  <nav id="TOC" role="doc-toc">
+  <ul>
+  <li><a href="#ordinaryphaser"
+  id="toc-ordinaryphaser">OrdinaryPhaser</a>
+  <ul>
+  <li><a href="#連絡先" id="toc-連絡先">連絡先</a></li>
+  <li><a href="#インストール" id="toc-インストール">インストール</a>
+  <ul>
+  <li><a href="#プラグイン" id="toc-プラグイン">プラグイン</a></li>
+  <li><a href="#プリセット" id="toc-プリセット">プリセット</a></li>
+  <li><a href="#windows" id="toc-windows">Windows</a></li>
+  <li><a href="#linux" id="toc-linux">Linux</a></li>
+  <li><a href="#macos" id="toc-macos">macOS</a>
+  <ul>
+  <li><a href="#隔離の解除" id="toc-隔離の解除">隔離の解除</a></li>
+  <li><a href="#gatekeeper-の迂回" id="toc-gatekeeper-の迂回">Gatekeeper
+  の迂回</a></li>
+  <li><a href="#参考リンク" id="toc-参考リンク">参考リンク</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#gui-の見た目の設定" id="toc-gui-の見た目の設定">GUI
+  の見た目の設定</a>
+  <ul>
+  <li><a href="#フォントオプション"
+  id="toc-フォントオプション">フォントオプション</a></li>
+  <li><a href="#色のオプション"
+  id="toc-色のオプション">色のオプション</a></li>
+  </ul></li>
+  <li><a href="#操作" id="toc-操作">操作</a></li>
+  <li><a href="#ブロック線図"
+  id="toc-ブロック線図">ブロック線図</a></li>
+  <li><a href="#ノートイベントの入力"
+  id="toc-ノートイベントの入力">ノートイベントの入力</a></li>
+  <li><a href="#パラメータ" id="toc-パラメータ">パラメータ</a>
+  <ul>
+  <li><a href="#allpass" id="toc-allpass">Allpass</a></li>
+  <li><a href="#lfo" id="toc-lfo">LFO</a></li>
+  <li><a href="#misc." id="toc-misc.">Misc.</a></li>
+  </ul></li>
+  <li><a href="#チェンジログ"
+  id="toc-チェンジログ">チェンジログ</a></li>
+  <li><a href="#旧バージョン" id="toc-旧バージョン">旧バージョン</a>
+  <ul>
+  <li><a href="#ordinaryphaser-1"
+  id="toc-ordinaryphaser-1">OrdinaryPhaser</a></li>
+  </ul></li>
+  <li><a href="#ライセンス" id="toc-ライセンス">ライセンス</a>
+  <ul>
+  <li><a href="#vst-について" id="toc-vst-について">VST®
+  について</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+  </nav>
+  </details>
+  </header>
+<h1 id="ordinaryphaser">OrdinaryPhaser</h1>
+<p><img src="img/OrdinaryPhaser.png" /></p>
+<p><ruby>OrdinaryPhaser<rt>オーディナリ フェイザ</rt></ruby>
+はフィードバック経路にディレイが搭載されている点を除けば、普通のフェイザです。ノートイベントによってオールパスフィルタのカットオフ周波数とディレイ時間を制御できます。</p>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/OrdinaryPhaser_0.1.0.zip">OrdinaryPhaser
+0.1.0 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="30px"
+style="display: inline-block; vertical-align: middle;"></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/OrdinaryPhaser_0.1.0_macOS.zip">OrdinaryPhaser
+0.1.0 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="30px"
+style="display: inline-block; vertical-align: middle;"></li>
+</ul>
+<p><code>full</code> パッケージには次のビルドが含まれています。</p>
+<ul>
+<li>Windows (x86_64)</li>
+<li>Linux (x86_64)</li>
+<li>macOS (Universal 2)</li>
+</ul>
+<p>Linux ビルドは Ubuntu 20.04 でビルドしています。もし Ubuntu 20.04
+以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a
+href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
+<p>macOS で使用するときは <code>macOS</code>
+パッケージのダウンロードを推奨します。また Apple Developer Program
+に加入していないので、インストール時に Gatekeeper
+を迂回するように設定する必要があります。詳細は
+<a href="#macos">インストール -&gt; macOS</a>
+の節を参照してください。</p>
+<h2 id="連絡先">連絡先</h2>
+<p>何かあれば <a href="https://github.com/ryukau/VSTPlugins">GitHub
+のリポジトリ</a>に issue を作るか <code>ryukau@gmail.com</code>
+までお気軽にどうぞ。</p>
+<p><a href="https://www.paypal.com/paypalme/ryukau">paypal.me/ryukau</a>
+から開発資金を投げ銭することもできます。現在の目標はよりよい macOS
+サポートのための M1 mac の購入資金を作ることです。 💸💻</p>
+<h2 id="インストール">インストール</h2>
+<h3 id="プラグイン">プラグイン</h3>
+<p>名前が <code>.vst3</code> で終わるディレクトリを OS
+ごとに決められた位置に配置してください。</p>
+<ul>
+<li>Windows では <code>/Program Files/Common Files/VST3/</code>
+に配置します。</li>
+<li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
+<li>macOS では <code>/Library/Audio/Plug-ins/VST3/</code> あるいは
+<code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code>
+に配置します。</li>
+</ul>
+<p>DAW によっては上記とは別に VST3
+をインストールできるディレクトリを提供していることがあります。詳しくは利用している
+DAW のマニュアルを参照してください。</p>
+<h3 id="プリセット">プリセット</h3>
+<p>解凍して出てきたディレクトリを OS
+ごとに決められた位置に配置すると使えるようになります。</p>
+<ul>
+<li>Windows :
+<code>/Users/$USERNAME/Documents/VST3 Presets/Uhhyou</code></li>
+<li>Linux : <code>$HOME/.vst3/presets/Uhhyou</code></li>
+<li>macOS :
+<code>/Users/$USERNAME/Library/Audio/Presets/Uhhyou</code></li>
+</ul>
+<p>プリセットディレクトリの名前はプラグインと同じである必要があります。
+<code>Uhhyou</code> ディレクトリが無いときは作成してください。</p>
+<h3 id="windows">Windows</h3>
+<p>プラグインが DAW に認識されないときは C++ redistributable
+をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は
+<code>vc_redist.x64.exe</code> です。</p>
+<ul>
+<li><a
+href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The
+latest supported Visual C++ downloads</a></li>
+</ul>
+<h3 id="linux">Linux</h3>
+<p>Ubuntu 18.0.4 では次のパッケージのインストールが必要です。</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+<p>もし DAW がプラグインを認識しないときは、下のリンクの
+<code>Package Requirements</code> を参考にして VST3
+に必要なパッケージがすべてインストールされているか確認してください。</p>
+<ul>
+<li><a
+href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI:
+Setup</a></li>
+</ul>
+<p>REAPER の Linux 版がプラグインを認識しないときは
+<code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して REAPER
+を再起動してみてください。</p>
+<h3 id="macos">macOS</h3>
+<p><strong>重要</strong>: <code>full</code>
+パッケージは動作未確認です。以下のファイルは <code>codesign</code>
+されていないので削除する必要があるかもしれません。</p>
+<ul>
+<li><code>Contents/Resources/Documentation</code></li>
+<li><code>Contents/x86_64-linux</code></li>
+<li><code>Contents/x86_64-win</code></li>
+</ul>
+<p><code>macOS</code>
+パッケージでは上記のファイルの削除は不要です。また、すべてのパッケージは
+<code>codesign</code> コマンドの ad-hoc signing
+の状態になっています。</p>
+<h4 id="隔離の解除">隔離の解除</h4>
+<p>プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した
+<code>.vst3</code>
+ディレクトリに次のコマンドのどちらか、あるいは両方を適用してみてください。
+<code>/path/to/PluginName.vst3</code>
+の部分はインストールしたプラグインのパスに置き換えてください。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rd</span> com.apple.quarantine /path/to/PluginName.vst3</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rc</span> /path/to/PluginName.vst3</span></code></pre></div>
+<h4 id="gatekeeper-の迂回">Gatekeeper の迂回</h4>
+<p>プラグインは署名されていない (unsigned) 、または公証されていない
+(un-notarized)
+アプリケーションとして認識されることがあります。この場合は、警告メッセージが表示された後に、システム環境設定を開いて「セキュリティとプライバシー」
+→ 「一般」の「このまま開く」ボタンを押してください。以下にリンクした
+Apple
+公式のヘルプページにスクリーンショット付きで同じ手順が掲載されています。「ノータリゼーションを受けていない
+App や未確認の開発元の App を開きたい場合」を参照してください。</p>
+<ul>
+<li><a href="https://support.apple.com/ja-jp/HT202491">Mac で App
+を安全に開く - Apple サポート (日本)</a></li>
+</ul>
+<p>ここまでの手順を経てまだ動かないときはインストール先を
+<code>/Library/Audio/Plug-ins/VST3/</code> あるいは
+<code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code>
+のいずれか使っていなかったほうに変えてみてください。</p>
+<p>上記の方法がすべて上手くいかなかったときは以下の手順を試してみてください。</p>
+<ol type="1">
+<li>ターミナルを開いて <code>sudo spctl --master-disable</code>
+を実行。</li>
+<li>システム環境設定を開いて「セキュリティとプライバシー」 → 「一般」 →
+「ダウンロードしたアプリケーションの実行許可」と辿り、「全てのアプリケーションを許可」を選択。</li>
+</ol>
+<p>上記の手順を実行するとシステムのセキュリティが弱くなるので注意してください。元に戻すには以下の手順を実行してください。</p>
+<ol type="1">
+<li>システム環境設定を開いて「セキュリティとプライバシー」 → 「一般」 →
+「ダウンロードしたアプリケーションの実行許可」と辿り、「App Store
+と認証済みの開発元からのアプリケーションを許可」を選択。</li>
+<li>ターミナルを開いて <code>sudo spctl --master-enable</code>
+を実行。</li>
+</ol>
+<h4 id="参考リンク">参考リンク</h4>
+<ul>
+<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps
+on your Mac - Apple Support</a></li>
+<li><a
+href="https://stackoverflow.com/questions/66891065/libprism-sw-dylib-cannot-be-opened-because-the-developer-cannot-be-verified-o">java
+- “libprism_sw.dylib” cannot be opened because the developer cannot be
+verified. on mac JAVAFX - Stack Overflow</a></li>
+<li><a
+href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How
+to Fix App “is damaged and can’t be opened. You should move it to the
+Trash” Error on Mac</a></li>
+<li><a
+href="https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
+unsigned/un-notarized applications/plugins in Mac OS | Venn
+Audio</a></li>
+</ul>
+<h2 id="gui-の見た目の設定">GUI の見た目の設定</h2>
+<p>初回設定時は手動で次のファイルを作成してください。</p>
+<ul>
+<li>Windows では
+<code>/Users/ユーザ名/AppData/Roaming/UhhyouPlugins/style/style.json</code>
+。</li>
+<li>Linux では
+<code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> 。
+<ul>
+<li><code>$XDG_CONFIG_HOME</code> が空のときは
+<code>$HOME/.config/UhhyouPlugins/style/style.json</code> 。</li>
+</ul></li>
+<li>macOS では
+<code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code>
+。</li>
+</ul>
+<p>プラグインのウィンドウを開くたびに <code>style.json</code>
+が読み込まれて更新されます。</p>
+<p>既存の色のテーマを次のリンクに掲載しています。
+<code>style.json</code> にコピペして使ってください。</p>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/tree/master/package/style/themes">VSTPlugins/package/style/themes
+at master · ryukau/VSTPlugins</a></li>
+</ul>
+<p><code>style.json</code> の設定例です。</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontFamily&quot;</span><span class="fu">:</span> <span class="st">&quot;Tinos&quot;</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontBold&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontItalic&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span><span class="fu">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;background&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;boxBackground&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;border&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderCheckbox&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderLabel&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;unfocused&quot;</span><span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span><span class="fu">,</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightMain&quot;</span><span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span><span class="fu">,</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightAccent&quot;</span><span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span><span class="fu">,</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightButton&quot;</span><span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span><span class="fu">,</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 id="フォントオプション">フォントオプション</h3>
+<p>以下はフォントオプションの一覧です。</p>
+<ul>
+<li><code>fontFamily</code>: フォントファミリ名。</li>
+<li><code>fontBold</code>: ボールドスタイル (太字) を <code>true</code>
+で有効、 <code>false</code> で無効。</li>
+<li><code>fontItalic</code>: イタリックスタイル (斜体) を
+<code>true</code> で有効、 <code>false</code> で無効。</li>
+</ul>
+<p>カスタムフォントを使用するには、プラグインディレクトリの
+<code>*.vst3/Contents/Resources/Fonts</code> に <code>*.ttf</code>
+ファイルを配置します。</p>
+<p><strong>注意</strong>: <code>fontFamily</code> 、
+<code>fontBold</code> 、 <code>fontItalic</code>
+で設定したフォントファミリ名とスタイルの組み合わせが
+<code>*.vst3/Contents/Resources/Fonts</code> 以下のいずれかの
+<code>*.ttf</code> ファイルに含まれていないときは VSTGUI
+が指定するデフォルトフォントが使用されます。</p>
+<p><code>fontFamily</code> が長さ 0 の文字列 <code>""</code>
+のときはフォールバックとして <a
+href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
+に設定されます。長さが 1
+以上かつ、存在しないフォントファミリ名が指定されると VSTGUI
+が指定するデフォルトフォントが使用されます。</p>
+<p>ボールドあるいはイタリック以外のスタイルは VSTGUI
+がサポートしていないので動作確認していません。該当する例としては Noto
+フォントの Demi Light や、 Roboto フォントの Thin や Black
+などがあります。</p>
+<h3 id="色のオプション">色のオプション</h3>
+<p>16 進数カラーコードを使っています。</p>
+<ul>
+<li>6 桁の色は RGB 。</li>
+<li>8 桁の色は RGBA 。</li>
+</ul>
+<p>プラグインはカラーコードの 1 文字目を無視します。よって
+<code>?102938</code> や <code>\n11335577</code>
+も有効なカラーコードです。</p>
+<p>2 文字目以降のカラーコードの値に <code>0-9a-f</code>
+以外の文字を使わないでください。</p>
+<p>以下は設定できる色の一覧です。設定に抜けがあるとデフォルトの色が使われます。</p>
+<ul>
+<li><code>foreground</code>: 文字の色。</li>
+<li><code>foregroundButtonOn</code>: オンになっているボタンの文字の色。
+<code>foreground</code> か <code>boxBackground</code>
+のいずれかと同じ値にすることを推奨します。</li>
+<li><code>foregroundInactive</code>: 非アクティブなタブの文字の色。</li>
+<li><code>background</code>: 背景色。</li>
+<li><code>boxBackground</code>: 矩形の UI 部品の内側の背景色。</li>
+<li><code>border</code>: <ruby>縁<rt>ふち</rt></ruby>の色。</li>
+<li><code>borderCheckbox</code>: チェックボックスの縁の色。</li>
+<li><code>borderLabel</code>:
+パラメータセクションのラベルの左右の直線の色。</li>
+<li><code>unfocused</code>:
+つまみがフォーカスされていないときの色。</li>
+<li><code>highlightMain</code>:
+フォーカスされたときの色。スライダの値の表示にも使用されます。</li>
+<li><code>highlightAccent</code>:
+フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。</li>
+<li><code>highlightButton</code>:
+ボタンがフォーカスされたときの色。</li>
+<li><code>highlightWarning</code>: 変更に注意を要する UI
+がフォーカスされたときの色。</li>
+<li><code>overlay</code>: オーバーレイの色。</li>
+<li><code>overlayHighlight</code>:
+フォーカスを示すオーバーレイの色。</li>
+</ul>
+<h2 id="操作">操作</h2>
+<p>パラメータが割り当てられているコントロールの上で
+<kbd>右クリック</kbd> すると、 DAW
+から提供されるコンテキストメニューが開きます。</p>
+<p>つまみと数値スライダでは次の操作ができます。</p>
+<ul>
+<li><kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。</li>
+<li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
+<li><kbd>ホイールクリック</kbd> :
+最小値、デフォルト値、最大値の切り替え。</li>
+<li><kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> :
+現在値の小数点以下を切り捨て。
+<ul>
+<li><strong>注意</strong>:
+デシベル表記のパラメータは、振幅に変換された後の値について切り捨て。</li>
+</ul></li>
+</ul>
+<p>青い縦棒が並んだコントロール (BarBox)
+ではショートカットが使えます。ショートカットは BarBox
+を左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを
+BarBox
+の領域外に移動させると、ショートカットが一時的に無効になります。ショートカットによって変更されるパラメータはカーソルの位置によって変更できます。</p>
+<p>左下のプラグイン名をクリックすると、よく使いそうな一部のショートカットを見ることができます。利用できる全てのショートカットを次の表に掲載しています。</p>
+<table>
+<colgroup>
+<col style="width: 61%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>入力</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><kbd>左ドラッグ</kbd></td>
+<td>値の変更</td>
+</tr>
+<tr class="even">
+<td><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd></td>
+<td>値の変更 (スナップ)</td>
+</tr>
+<tr class="odd">
+<td><kbd>Ctrl</kbd> + <kbd>左ドラッグ</kbd></td>
+<td>デフォルト値にリセット</td>
+</tr>
+<tr class="even">
+<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>左ドラッグ</kbd></td>
+<td>値の変更 (フレーム間の補間が無効)</td>
+</tr>
+<tr class="odd">
+<td><kbd>ホイールドラッグ</kbd></td>
+<td>直線の描画</td>
+</tr>
+<tr class="even">
+<td><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd></td>
+<td>1 つのバーを編集</td>
+</tr>
+<tr class="odd">
+<td><kbd>Ctrl</kbd> + <kbd>ホイールドラッグ</kbd></td>
+<td>デフォルト値にリセット</td>
+</tr>
+<tr class="even">
+<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> +
+<kbd>ホイールドラッグ</kbd></td>
+<td>ロックの切り替え</td>
+</tr>
+<tr class="odd">
+<td><kbd>a</kbd></td>
+<td>符号を交互に入れ替え</td>
+</tr>
+<tr class="even">
+<td><kbd>d</kbd></td>
+<td>すべての値をデフォルト値にリセット</td>
+</tr>
+<tr class="odd">
+<td><kbd>D</kbd></td>
+<td>最小値・中央値・最大値の切り替え</td>
+</tr>
+<tr class="even">
+<td><kbd>e</kbd></td>
+<td>低域の強調</td>
+</tr>
+<tr class="odd">
+<td><kbd>E</kbd></td>
+<td>高域の強調</td>
+</tr>
+<tr class="even">
+<td><kbd>f</kbd></td>
+<td>ローパスフィルタ</td>
+</tr>
+<tr class="odd">
+<td><kbd>F</kbd></td>
+<td>ハイパスフィルタ</td>
+</tr>
+<tr class="even">
+<td><kbd>i</kbd></td>
+<td>値の反転 (最小値を保存)</td>
+</tr>
+<tr class="odd">
+<td><kbd>I</kbd></td>
+<td>値の反転 (最小値を 0 に設定)</td>
+</tr>
+<tr class="even">
+<td><kbd>l</kbd></td>
+<td>マウスカーソル下のバーのロックの切り替え</td>
+</tr>
+<tr class="odd">
+<td><kbd>L</kbd></td>
+<td>全てのバーのロックを切り替え</td>
+</tr>
+<tr class="even">
+<td><kbd>n</kbd></td>
+<td>最大値を 1 に正規化 (最小値を保存)</td>
+</tr>
+<tr class="odd">
+<td><kbd>N</kbd></td>
+<td>最大値を 1 に正規化 (最小値を 0 に設定)</td>
+</tr>
+<tr class="even">
+<td><kbd>p</kbd></td>
+<td>ランダムに並べ替え</td>
+</tr>
+<tr class="odd">
+<td><kbd>r</kbd></td>
+<td>ランダマイズ</td>
+</tr>
+<tr class="even">
+<td><kbd>R</kbd></td>
+<td>まばらなランダマイズ</td>
+</tr>
+<tr class="odd">
+<td><kbd>s</kbd></td>
+<td>降順にソート</td>
+</tr>
+<tr class="even">
+<td><kbd>S</kbd></td>
+<td>昇順にソート</td>
+</tr>
+<tr class="odd">
+<td><kbd>t</kbd></td>
+<td>少しだけランダマイズ (ランダムウォーク)</td>
+</tr>
+<tr class="even">
+<td><kbd>T</kbd></td>
+<td>少しだけランダマイズ (0 に収束)</td>
+</tr>
+<tr class="odd">
+<td><kbd>z</kbd></td>
+<td>アンドゥ</td>
+</tr>
+<tr class="even">
+<td><kbd>Z</kbd></td>
+<td>リドゥ</td>
+</tr>
+<tr class="odd">
+<td><kbd>,</kbd> (Comma)</td>
+<td>左に回転</td>
+</tr>
+<tr class="even">
+<td><kbd>.</kbd> (Period)</td>
+<td>右に回転</td>
+</tr>
+<tr class="odd">
+<td><kbd>1</kbd></td>
+<td>すべての値を低減</td>
+</tr>
+<tr class="even">
+<td><kbd>2</kbd>-<kbd>4</kbd></td>
+<td>インデックスが 2n-4n の値を低減</td>
+</tr>
+<tr class="odd">
+<td><kbd>5</kbd>-<kbd>9</kbd></td>
+<td>インデックスが 2n-5n の値をホールド</td>
+</tr>
+</tbody>
+</table>
+<p><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> のスナップは一部の BarBox
+だけで有効になっています。特定の BarBox
+にスナップを追加したいという要望があれば、気軽に <a
+href="https://github.com/ryukau/VSTPlugins">GitHub のリポジトリ</a>に
+issue を開いてください。</p>
+<p><kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd> による 1
+つのバーを編集は、マウスホイールが押された時点でカーソルの下にあるバーだけを編集します。マウスホイールが押されている間はカーソルの左右の位置に関わらず、選択したバーのみを編集できます。</p>
+<p><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>ホイールドラッグ</kbd>
+によるロックの切り替えでは、マウスホイールが押された時点でカーソルの下にあるバーの反対の状態が残り全てに適用されます。例えばカーソルの下のバーがアクティブだったときはロックに切り替えます。</p>
+<p>いくつかの BarBox
+の下にはスクロールバーがついています。細かい調整を行うときはスクロールバーの左右のハンドルを
+<kbd>左ドラッグ</kbd>
+で動かすことで表示範囲を変更できます。スクロールバーでは次の操作が行えます。</p>
+<ul>
+<li><kbd>右クリック</kbd> : 表示範囲のリセット</li>
+<li><kbd>マウスホイール</kbd> : ズームイン・ズームアウト</li>
+</ul>
+<h2 id="ブロック線図">ブロック線図</h2>
+<p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> +
+<kbd>マウスホイール</kbd>
+や、右クリックから「画像だけを表示」などで拡大できます。</p>
+<p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
+<p><img src="img/OrdinaryPhaser.svg" /></p>
+<h2 id="ノートイベントの入力">ノートイベントの入力</h2>
+<p>OrdinaryPhaser
+はノートイベントによって以下の値を制御することができます。</p>
+<ul>
+<li>オールパスフィルタのカットオフ周波数</li>
+<li>フィードバックのディレイ時間</li>
+</ul>
+<p>起動直後は <code>Note&gt;Cut</code> と <code>Note&gt;Time</code>
+の値が両方とも 0
+になっていることに注意してください。少なくとも片方の値を 0
+以外に設定しなければ変調はかかりません。</p>
+<h2 id="パラメータ">パラメータ</h2>
+<p>角かっこ [] で囲まれているのは単位です。以下は OrdinaryPhaser
+のパラメータで使われている単位の一覧です。</p>
+<ul>
+<li>[s]: 秒 (second) 。</li>
+<li>[Hz]: 周波数 (Herz) 。</li>
+</ul>
+<h3 id="allpass">Allpass</h3>
+<dl>
+<dt>Output</dt>
+<dd>
+<p>出力ゲインです。</p>
+</dd>
+<dt>Mix</dt>
+<dd>
+<p>入力信号とフェイザを通過した信号を混ぜる比率です。</p>
+<p>左いっぱいにすると入力信号をバイパスするだけになります。右いっぱいに近づくほどフィードバックが強くかかるようになります。</p>
+</dd>
+<dt>Feedback</dt>
+<dd>
+<p>フィードバックのゲインです。</p>
+</dd>
+<dt>Delay</dt>
+<dd>
+<p>フィードバック信号のディレイ時間です。</p>
+</dd>
+<dt>LFO&gt;Time</dt>
+<dd>
+<p>LFO によるディレイ時間の変調量です。</p>
+<p><code>Delay Tuning</code> によって変調のかかり方を変更できます。</p>
+</dd>
+<dt>Cut Spread</dt>
+<dd>
+<p>オールパスフィルタのカットオフ周波数の倍率を
+<code>[1, 1, 1, ...]</code> と <code>[1, 2, 3, ...]</code>
+の間で調整します。</p>
+<p>フェイザは複数のオールパスフィルタを直列に繋いだエフェクタです。
+<code>Cut Spread</code>
+が左いっぱいのときは、このオールパスフィルタのカットオフ周波数をすべて同じにします。
+<code>Cut Spread</code>
+が右いっぱいのときは、オールパスフィルタのカットオフ周波数が前から順に 1
+倍、 2 倍、 3 倍、と設定されます。</p>
+</dd>
+<dt>Min [Hz]</dt>
+<dd>
+<p>オールパスフィルタのカットオフ周波数が LFO
+によって変調されたときの最小値です。</p>
+</dd>
+<dt>Max [Hz]</dt>
+<dd>
+<p>オールパスフィルタのカットオフ周波数が LFO
+によって変調されたときの最大値です。</p>
+<p><code>Max</code> が <code>Min</code>
+より小さいときは、値を入れ替えて計算が続けられます。つまり、この 2
+つのパラメータの値を入れ替えても挙動は変わりません。</p>
+</dd>
+<dt>AM</dt>
+<dd>
+<p>入力信号によってフィードバック信号に振幅変調をかける量です。</p>
+<p>発散を防ぐため、 AM に使われる信号は <code>tanh</code>
+によって値の範囲が制限されます。つまり、入力信号の振幅に応じて変調のかかり方が非線形に変化します。</p>
+</dd>
+<dt>FM</dt>
+<dd>
+<p>入力信号によってフィードバック経路のディレイ時間を変調する量です。</p>
+<p>負のディレイ時間を設定することを避けるため、 FM に使われる信号は
+<code>abs</code> で全波整流されます。</p>
+</dd>
+<dt>Delay Tuning</dt>
+<dd>
+<p>LFO によるディレイ時間への変調のかけ方です。</p>
+<ul>
+<li><code>Exp Mul.</code>: 変調信号を <code>exp2</code>
+を通した上でディレイ時間に乗算します。人間の耳には自然な変調のかかり方です。</li>
+<li><code>Linear Mul.</code>:
+変調信号をそのままディレイ時間に乗算します。</li>
+<li><code>Add</code>: 変調信号をディレイ時間に加算します。 LFO
+と組み合わせてグリッチビートを作るときには適しています。</li>
+<li><code>Fill Lower</code>: <code>Delay</code> の値を下回る範囲で
+<code>Add</code> と同様の変調をかけます。</li>
+<li><code>Fill Higher</code>: <code>Delay</code> の値を上回る範囲で
+<code>Add</code> と同様の変調をかけます。</li>
+</ul>
+</dd>
+<dt>Stage</dt>
+<dd>
+<p>直列に接続するオールパスフィルタの数です。</p>
+</dd>
+</dl>
+<h3 id="lfo">LFO</h3>
+<dl>
+<dt>L-R Offset</dt>
+<dd>
+<p>ステレオチャンネル間で LFO の位相をずらす量です。</p>
+</dd>
+<dt>Phase</dt>
+<dd>
+<p>LFO の位相に加算される値です。</p>
+<p><code>Rate</code> を左いっぱいに回して LFO の位相を止めているときに
+<code>Phase</code> の値を変更することで、 LFO
+の位相を制御することができます。また <code>Smoothing</code> の値によって
+<code>Phase</code> を動かしたときの応答速度を変えることができます。</p>
+</dd>
+<dt>Sync.</dt>
+<dd>
+<p>チェックを入れるとテンポ同期を有効にします。また同期間隔が変わったときに再生開始時点から導かれる位相へと同期します。</p>
+<p>チェックが外れているときは 120 BPM
+に同期した状態と同じになります。ただし、同期間隔が変わったときに位相を調整しなくなります。</p>
+</dd>
+<dt>Tempo Upper</dt>
+<dd>
+<p>テンポ同期が有効な時の同期間隔を表す分数の分子です。</p>
+<p><code>1/1</code> のときに 1 小節、 4/4拍子であれば <code>1/4</code>
+のときに 1 拍で LFO が 1 周します。 <code>Rate</code>
+が乗算されて周期が変わる点に注意してください。</p>
+<p>以下は同期間隔の計算式です。</p>
+<pre><code>syncInterval = (Rate) * (Tempo Upper) / (Tempo Lower);</code></pre>
+</dd>
+<dt>Tempo Lower</dt>
+<dd>
+<p>テンポ同期が有効な時の同期間隔を表す分数の分母です。</p>
+<p><code>Rate</code> が乗算されて周期が変わる点に注意してください。</p>
+</dd>
+<dt>Rate</dt>
+<dd>
+<p>同期間隔に乗算される係数です。</p>
+<p><code>Tempo Upper</code> と <code>Tempo Lower</code> を変えずに LFO
+の同期間隔を変えたいときに使えます。</p>
+</dd>
+<dt>Wave Interp.</dt>
+<dd>
+<p>LFO の波形の補間方法です。</p>
+<ul>
+<li><code>Step</code>: ホールド。</li>
+<li><code>Linear</code>: 線形補間。</li>
+<li><code>PCHIP</code>: 単調な 3 次補間。</li>
+</ul>
+<p><code>Step</code> を選ぶと LFO をシーケンサのように使えます。
+<code>Linear</code> は <code>PCHIP</code>
+と似たような音になりますが、計算がすこし速いです。デフォルトの
+<code>PCHIP</code> はサンプル間をだいたい滑らかに補間します。</p>
+</dd>
+<dt>LFO Wave</dt>
+<dd>
+<p>LFO の波形です。</p>
+</dd>
+</dl>
+<h3 id="misc.">Misc.</h3>
+<dl>
+<dt>Note Origin</dt>
+<dd>
+<p>変調量が 1 倍となる MIDI ノート番号です。</p>
+<p>例えば <code>Note Origin</code> が 60
+であれば、入力されたノート番号が 60 のときに音が変わらなくなります。</p>
+</dd>
+<dt>Note&gt;Cut</dt>
+<dd>
+<p>ノートイベントによるオールパスフィルタのカットオフ周波数の変調量です。</p>
+<p>右いっぱいでノートのピッチに完全に追従します。左いっぱいにするとピッチの高低が逆転します。</p>
+</dd>
+<dt>Note&gt;Time</dt>
+<dd>
+<p>ノートイベントによるディレイ時間の変調量です。</p>
+<p>右いっぱいでノートのピッチに完全に追従します。左いっぱいにするとピッチの高低が逆転します。</p>
+</dd>
+<dt>Smoothing [s]</dt>
+<dd>
+<p>パラメータのスムーシング時間です。</p>
+<p>例えば <code>Smoothing</code> の値を <code>0.01</code>
+と短くするとパラメータの変更がほぼ瞬時に適用されます。ただし
+<code>Smoothing</code>
+の値を小さくするとパラメータ変更時のポップノイズが目立つようになります。逆に
+<code>Smoothing</code> の値を <code>1.0</code>
+などと長くするとパラメータの値がゆっくりと切り替わるようになります。</p>
+</dd>
+<dt>2x Sampling</dt>
+<dd>
+<p>チェックを入れると 2 倍のオーバーサンプリングを行います。</p>
+</dd>
+</dl>
+<h2 id="チェンジログ">チェンジログ</h2>
+<ul>
+<li>0.1.0
+<ul>
+<li>スプラッシュ画面のテキストを更新。</li>
+</ul></li>
+<li>0.0.4
+<ul>
+<li>初期リリース。</li>
+</ul></li>
+</ul>
+<h2 id="旧バージョン">旧バージョン</h2>
+<h3 id="ordinaryphaser-1">OrdinaryPhaser</h3>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/OrdinaryPhaser_0.0.4.zip">OrdinaryPhaser
+0.0.4 - VST 3 (github.com)</a></li>
+</ul>
+<h2 id="ライセンス">ライセンス</h2>
+<p>OrdinaryPhaser のライセンスは GPLv3 です。 GPLv3
+の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+</ul>
+<p>リンクが切れているときは <code>ryukau@gmail.com</code>
+にメールを送ってください。</p>
+<h3 id="vst-について">VST® について</h3>
+<p>VST is a trademark of Steinberg Media Technologies GmbH, registered
+in Europe and other countries.</p>
+
+<footer>
+    <p><a href="..\..\index.html">Back to Index</a></p>
+  </footer>
+</body>
+
+</html>
