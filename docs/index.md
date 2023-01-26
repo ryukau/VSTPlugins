@@ -78,6 +78,9 @@ All the plugin download link can be found at release page on following link.
 <div class="pluginlist"><a href="#basiclimiter">
 <ruby>BasicLimiter<rt>ベーシック リミッタ</rt></ruby>
 </a></div>
+<div class="pluginlist"><a href="#combdistortion">
+<ruby>CombDistortion<rt>コム ディストーション</rt></ruby>
+</a></div>
 <div class="pluginlist"><a href="#esphaser">
 <ruby>EsPhaser<rt>エス フェイザ</rt></ruby>
 </a></div>
@@ -90,11 +93,23 @@ All the plugin download link can be found at release page on following link.
 <div class="pluginlist"><a href="#latticereverb">
 <ruby>LatticeReverb<rt>ラティス リバーブ</rt></ruby>
 </a></div>
+<div class="pluginlist"><a href="#longphaser">
+<ruby>LongPhaser<rt>ロング フェイザ</rt></ruby>
+</a></div>
 <div class="pluginlist"><a href="#minicliffeq">
 <ruby>MiniCliffEQ<rt>ミニ クリフ イーキュー</rt></ruby>
 </a></div>
+<div class="pluginlist"><a href="#narrowingdelay">
+<ruby>NarrowingDelay<rt>ナロウイング ディレイ</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#ordinaryphaser">
+<ruby>OrdinaryPhaser<rt>オーディナリ フェイザ</rt></ruby>
+</a></div>
 <div class="pluginlist"><a href="#parallelcomb">
 <ruby>ParallelComb<rt>パラレル コム</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#paralleldetune">
+<ruby>ParallelDetune<rt>パラレル デチューン</rt></ruby>
 </a></div>
 <div class="pluginlist"><a href="#pitchshiftdelay">
 <ruby>PitchShiftDelay<rt>ピッチ シフト ディレイ</rt></ruby>
@@ -105,6 +120,71 @@ All the plugin download link can be found at release page on following link.
 <div class="pluginlist"><a href="#ultrasonicringmod">
 <ruby>UltrasonicRingMod<rt>ウルトラソニック リング モッド</rt></ruby>
 </a></div>
+
+## ParallelDetune
+<figure>
+<img src="manual/ParallelDetune/img/ParallelDetune.png" alt="Image of ParallelDetune graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+
+ParallelDetune は 8 つのピッチシフタを並列につないだエフェクタです。モノラルの音に薄くかけてコーラスのようにパンを左右に広げることもできます。
+
+- [ParallelDetune のマニュアル (日本語)](manual/ParallelDetune/ParallelDetune_ja.html)
+
+ParallelDetune is a detuning effect with 8 pitch shifters connected in parallel. It can be used to spread stereo image similar to chorus effect.
+
+- [ParallelDetune Manual (English)](manual/ParallelDetune/ParallelDetune_en.html)
+
+## OrdinaryPhaser
+<figure>
+<img src="manual/OrdinaryPhaser/img/OrdinaryPhaser.png" alt="Image of OrdinaryPhaser graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+
+OrdinaryPhaser はフィードバック経路にディレイが搭載されている点を除けば、普通のフェイザです。ノートイベントによってオールパスフィルタのカットオフ周波数とディレイ時間を制御できます。
+
+- [OrdinaryPhaser のマニュアル (日本語)](manual/OrdinaryPhaser/OrdinaryPhaser_ja.html)
+
+OrdinaryPhaser is an ordinary phaser with a delay on feedback path. Note events can be used to control all-pass cutoff frequencies and delay time.
+
+- [OrdinaryPhaser Manual (English)](manual/OrdinaryPhaser/OrdinaryPhaser_en.html)
+
+## NarrowingDelay
+<figure>
+<img src="manual/NarrowingDelay/img/NarrowingDelay.png" alt="Image of NarrowingDelay graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+
+NarrowingDelay は直列につないだピッチシフタと周波数シフタがフィードバック経路に設けられたディレイです。フィードバックのたびに音のスペクトラムを周波数軸の方向に広げる、あるいは狭めることができます。どちらかと言えばピッチが一定しない音との相性がいいです。ノートイベントで周波数シフタのシフト量を制御することもできます。
+
+- [NarrowingDelay のマニュアル (日本語)](manual/NarrowingDelay/NarrowingDelay_ja.html)
+
+NarrowingDelay is a delay with serially connected pitch shifter and frequency shifter on feedback path. The spectrum of input signal can be narrowed or expanded for each feedback. It is more suitable for sound without stable pitch. Note event can be used to control frequency shift amount.
+
+- [NarrowingDelay Manual (English)](manual/NarrowingDelay/NarrowingDelay_en.html)
+
+## LongPhaser
+<figure>
+<img src="manual/LongPhaser/img/LongPhaser.png" alt="Image of LongPhaser graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+
+LongPhaser は遅延時間を長くできる Schroeder オールパスフィルタを使ったフェイザです。ディレイとフェイザを足して 2 で割ったような音が出ます。 2 で割った物足りなさを補うために LFO やノートイベントで変調をかけることができます。
+
+- [LongPhaser のマニュアル (日本語)](manual/LongPhaser/LongPhaser_ja.html)
+
+LongPhaser is a phaser using Schroeder all-pass filters which is able to set some long delay time. The sound is like somewhere between delay and phaser. It feels a bit underwhelming, however modulation with LFO and note events may be used to compensate the lack of character.
+
+- [LongPhaser Manual (English)](manual/LongPhaser/LongPhaser_en.html)
+
+## CombDistortion
+<figure>
+<img src="manual/CombDistortion/img/CombDistortion.png" alt="Image of CombDistortion graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+
+CombDistortion は自己変調するコムフィルタを使ったディストーションです。そのままの出力はざらざらと耳障りなので、キャビネットのインパルス応答と併せて使うことを想定しています。ノートイベントでコムフィルタのディレイ時間を制御できます。
+
+- [CombDistortion のマニュアル (日本語)](manual/CombDistortion/CombDistortion_ja.html)
+
+CombDistortion is a distortion using self-modulating comb filter. Raw output sounds harsh, and it is better to use with external cabinet impulse response. Note event can be used to control delay time of comb filter.
+
+- [CombDistortion Manual (English)](manual/CombDistortion/CombDistortion_en.html)
 
 ## MaybeSnare
 <figure>

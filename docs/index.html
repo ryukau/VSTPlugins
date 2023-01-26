@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-12-05" />
+<meta name="dcterms.date" content="2023-01-26" />
 <title>index</title>
 <style>
 code { white-space: pre-wrap; }
@@ -196,7 +196,7 @@ footer {
 <body>
 <header>
       <p>
-  Update: 2022-12-05
+  Update: 2023-01-26
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -210,6 +210,15 @@ footer {
   <li><a href="#synthesizers"
   id="toc-synthesizers">Synthesizers</a></li>
   <li><a href="#effects" id="toc-effects">Effects</a></li>
+  <li><a href="#paralleldetune"
+  id="toc-paralleldetune">ParallelDetune</a></li>
+  <li><a href="#ordinaryphaser"
+  id="toc-ordinaryphaser">OrdinaryPhaser</a></li>
+  <li><a href="#narrowingdelay"
+  id="toc-narrowingdelay">NarrowingDelay</a></li>
+  <li><a href="#longphaser" id="toc-longphaser">LongPhaser</a></li>
+  <li><a href="#combdistortion"
+  id="toc-combdistortion">CombDistortion</a></li>
   <li><a href="#maybesnare" id="toc-maybesnare">MaybeSnare</a></li>
   <li><a href="#membranesynth"
   id="toc-membranesynth">MembraneSynth</a></li>
@@ -353,6 +362,10 @@ ryukau/VSTPlugins · GitHub</a></li>
 リミッタ</rt></ruby> </a>
 </div>
 <div class="pluginlist">
+<a href="#combdistortion"> <ruby>CombDistortion<rt>コム
+ディストーション</rt></ruby> </a>
+</div>
+<div class="pluginlist">
 <a href="#esphaser"> <ruby>EsPhaser<rt>エス フェイザ</rt></ruby> </a>
 </div>
 <div class="pluginlist">
@@ -368,12 +381,28 @@ ryukau/VSTPlugins · GitHub</a></li>
 リバーブ</rt></ruby> </a>
 </div>
 <div class="pluginlist">
+<a href="#longphaser"> <ruby>LongPhaser<rt>ロング フェイザ</rt></ruby>
+</a>
+</div>
+<div class="pluginlist">
 <a href="#minicliffeq"> <ruby>MiniCliffEQ<rt>ミニ クリフ
 イーキュー</rt></ruby> </a>
 </div>
 <div class="pluginlist">
+<a href="#narrowingdelay"> <ruby>NarrowingDelay<rt>ナロウイング
+ディレイ</rt></ruby> </a>
+</div>
+<div class="pluginlist">
+<a href="#ordinaryphaser"> <ruby>OrdinaryPhaser<rt>オーディナリ
+フェイザ</rt></ruby> </a>
+</div>
+<div class="pluginlist">
 <a href="#parallelcomb"> <ruby>ParallelComb<rt>パラレル コム</rt></ruby>
 </a>
+</div>
+<div class="pluginlist">
+<a href="#paralleldetune"> <ruby>ParallelDetune<rt>パラレル
+デチューン</rt></ruby> </a>
 </div>
 <div class="pluginlist">
 <a href="#pitchshiftdelay"> <ruby>PitchShiftDelay<rt>ピッチ シフト
@@ -388,6 +417,105 @@ ryukau/VSTPlugins · GitHub</a></li>
 <ruby>UltrasonicRingMod<rt>ウルトラソニック リング モッド</rt></ruby>
 </a>
 </div>
+<h2 id="paralleldetune">ParallelDetune</h2>
+<figure>
+<img src="manual/ParallelDetune/img/ParallelDetune.png" alt="Image of ParallelDetune graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+<p>ParallelDetune は 8
+つのピッチシフタを並列につないだエフェクタです。モノラルの音に薄くかけてコーラスのようにパンを左右に広げることもできます。</p>
+<ul>
+<li><a
+href="manual/ParallelDetune/ParallelDetune_ja.html">ParallelDetune
+のマニュアル (日本語)</a></li>
+</ul>
+<p>ParallelDetune is a detuning effect with 8 pitch shifters connected
+in parallel. It can be used to spread stereo image similar to chorus
+effect.</p>
+<ul>
+<li><a
+href="manual/ParallelDetune/ParallelDetune_en.html">ParallelDetune
+Manual (English)</a></li>
+</ul>
+<h2 id="ordinaryphaser">OrdinaryPhaser</h2>
+<figure>
+<img src="manual/OrdinaryPhaser/img/OrdinaryPhaser.png" alt="Image of OrdinaryPhaser graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+<p>OrdinaryPhaser
+はフィードバック経路にディレイが搭載されている点を除けば、普通のフェイザです。ノートイベントによってオールパスフィルタのカットオフ周波数とディレイ時間を制御できます。</p>
+<ul>
+<li><a
+href="manual/OrdinaryPhaser/OrdinaryPhaser_ja.html">OrdinaryPhaser
+のマニュアル (日本語)</a></li>
+</ul>
+<p>OrdinaryPhaser is an ordinary phaser with a delay on feedback path.
+Note events can be used to control all-pass cutoff frequencies and delay
+time.</p>
+<ul>
+<li><a
+href="manual/OrdinaryPhaser/OrdinaryPhaser_en.html">OrdinaryPhaser
+Manual (English)</a></li>
+</ul>
+<h2 id="narrowingdelay">NarrowingDelay</h2>
+<figure>
+<img src="manual/NarrowingDelay/img/NarrowingDelay.png" alt="Image of NarrowingDelay graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+<p>NarrowingDelay
+は直列につないだピッチシフタと周波数シフタがフィードバック経路に設けられたディレイです。フィードバックのたびに音のスペクトラムを周波数軸の方向に広げる、あるいは狭めることができます。どちらかと言えばピッチが一定しない音との相性がいいです。ノートイベントで周波数シフタのシフト量を制御することもできます。</p>
+<ul>
+<li><a
+href="manual/NarrowingDelay/NarrowingDelay_ja.html">NarrowingDelay
+のマニュアル (日本語)</a></li>
+</ul>
+<p>NarrowingDelay is a delay with serially connected pitch shifter and
+frequency shifter on feedback path. The spectrum of input signal can be
+narrowed or expanded for each feedback. It is more suitable for sound
+without stable pitch. Note event can be used to control frequency shift
+amount.</p>
+<ul>
+<li><a
+href="manual/NarrowingDelay/NarrowingDelay_en.html">NarrowingDelay
+Manual (English)</a></li>
+</ul>
+<h2 id="longphaser">LongPhaser</h2>
+<figure>
+<img src="manual/LongPhaser/img/LongPhaser.png" alt="Image of LongPhaser graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+<p>LongPhaser は遅延時間を長くできる Schroeder
+オールパスフィルタを使ったフェイザです。ディレイとフェイザを足して 2
+で割ったような音が出ます。 2 で割った物足りなさを補うために LFO
+やノートイベントで変調をかけることができます。</p>
+<ul>
+<li><a href="manual/LongPhaser/LongPhaser_ja.html">LongPhaser
+のマニュアル (日本語)</a></li>
+</ul>
+<p>LongPhaser is a phaser using Schroeder all-pass filters which is able
+to set some long delay time. The sound is like somewhere between delay
+and phaser. It feels a bit underwhelming, however modulation with LFO
+and note events may be used to compensate the lack of character.</p>
+<ul>
+<li><a href="manual/LongPhaser/LongPhaser_en.html">LongPhaser Manual
+(English)</a></li>
+</ul>
+<h2 id="combdistortion">CombDistortion</h2>
+<figure>
+<img src="manual/CombDistortion/img/CombDistortion.png" alt="Image of CombDistortion graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+<p>CombDistortion
+は自己変調するコムフィルタを使ったディストーションです。そのままの出力はざらざらと耳障りなので、キャビネットのインパルス応答と併せて使うことを想定しています。ノートイベントでコムフィルタのディレイ時間を制御できます。</p>
+<ul>
+<li><a
+href="manual/CombDistortion/CombDistortion_ja.html">CombDistortion
+のマニュアル (日本語)</a></li>
+</ul>
+<p>CombDistortion is a distortion using self-modulating comb filter. Raw
+output sounds harsh, and it is better to use with external cabinet
+impulse response. Note event can be used to control delay time of comb
+filter.</p>
+<ul>
+<li><a
+href="manual/CombDistortion/CombDistortion_en.html">CombDistortion
+Manual (English)</a></li>
+</ul>
 <h2 id="maybesnare">MaybeSnare</h2>
 <figure>
 <img src="manual/MaybeSnare/img/MaybeSnare.png" alt="Image of MaybeSnare graphical user interface." style="padding-bottom: 12px;"/>
