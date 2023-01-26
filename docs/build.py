@@ -20,6 +20,7 @@ def loadCommonSection(language):
         "gui_common",
         "gui_barbox",
         "gui_knob",
+        "gui_xypad",
     ]
     return {name: load(name, language) for name in names}
 
