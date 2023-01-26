@@ -60,13 +60,12 @@ void CreditView::draw(CDrawContext *pContext)
 Shift + Left Drag|Fine Adjustment
 Ctrl + Left Click|Reset to Default
 Middle Click|Flip Min/Mid/Max
+Shift + Middle Click|Take Floor
 
-Output may blow up when:
-- `Mix is rightmost,`
-- `Feedback` is leftmost or rightmost,
-- `Delay` is close to leftmost,
-- `Highpass` is around 20 Hz or lower,
-- `FM Mix` and `FM Amount` are not 0.
+Note event can be used to control delay time.
+
+Output may blow up when `Feedback` is leftmost or rightmost,
+`Delay` is close to leftmost, and `FM Mix` is not 0.
 
 Have a nice day!)";
 

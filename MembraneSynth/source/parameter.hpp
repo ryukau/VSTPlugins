@@ -131,10 +131,10 @@ struct GlobalParameter : public ParameterInterface {
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
 
     value[ID::outputGain] = std::make_unique<DecibelValue>(
-      Scales::outputGain.invmap(0.1), Scales::outputGain, "outputGain",
+      Scales::outputGain.invmap(1.0), Scales::outputGain, "outputGain",
       Info::kCanAutomate);
     value[ID::gainNormalization] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "gainNormalization", Info::kCanAutomate);
+      1, Scales::boolScale, "gainNormalization", Info::kCanAutomate);
     value[ID::overSampling] = std::make_unique<UIntValue>(
       1, Scales::boolScale, "overSampling", Info::kCanAutomate);
 

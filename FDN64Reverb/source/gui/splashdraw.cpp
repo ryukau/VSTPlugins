@@ -70,8 +70,8 @@ Z|Undo
 Shift + Z|Redo
 , (Comma)|Rotate Back
 . (Period)|Rotate Forward
-1|Decrease
-2-9|Decrease 2n-9n
+1-4|Decrease 1n-4n
+5-9|Hold 2n-5n
 
 And more! Refer to the manual for full list
 of shortcuts.)";
@@ -80,6 +80,7 @@ of shortcuts.)";
 Shift + Left Drag|Fine Adjustment
 Ctrl + Left Click|Reset to Default
 Middle Click|Flip Min/Mid/Max
+Shift + Middle Click|Take Floor
 
 Time Multi. and Feedback can be used to quickly
 shorten or lengthen reverb time.

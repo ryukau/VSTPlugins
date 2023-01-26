@@ -58,7 +58,7 @@ void CreditView::draw(CDrawContext *pContext)
 
   std::string leftText = R"(- BarBox -
 Ctrl + Left Drag|Reset to Default
-Right Drag|Draw Line
+Middle Drag|Draw Line
 Shift + D|Toggle Min/Mid/Max
 I|Invert Value
 P|Permute
@@ -70,19 +70,17 @@ Z|Undo
 Shift + Z|Redo
 , (Comma)|Rotate Back
 . (Period)|Rotate Forward
-1|Decrease
-2-9|Decrease 2n-9n
+1-4|Decrease 1n-4n
+5-9|Hold 2n-5n
 
 And more! Refer to the manual for full list
 of shortcuts.)";
 
-  std::string rightText = R"(- Knob -
+  std::string rightText = R"(- Number & Knob -
 Shift + Left Drag|Fine Adjustment
 Ctrl + Left Click|Reset to Default
-
-- Number -
-Shares same controls with knob, and:
-Right Click|Flip Min/Mid/Max
+Middle Click|Flip Min/Mid/Max
+Shift + Middle Click|Take Floor
 
 Changing InnerFeed or OuterFeed may
 outputs loud signal.

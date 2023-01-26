@@ -60,6 +60,15 @@ void CreditView::draw(CDrawContext *pContext)
 Shift + Left Drag|Fine Adjustment
 Ctrl + Left Click|Reset to Default
 Middle Click|Flip Min/Mid/Max
+Shift + Middle Click|Take Floor
+
+Note event can be used to control
+frequency shift amount.
+
+Shift [oct] is pitch shift.
+Shift [Hz] is frequency shift.
+
+Clip can be used to make square wave LFO.
 
 Have a nice day!)";
 

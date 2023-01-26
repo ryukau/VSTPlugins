@@ -31,8 +31,15 @@ void CreditView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
-  const double borderWidth = 8.0;
+  const double borderWidth = 2.0;
   const double halfBorderWidth = borderWidth / 2.0;
+
+  const float top0 = 50.0f;
+  const float topTextBlock = 140.0f;
+  const float lineHeight = 20.0f;
+  const float blockWidth = 180.0f;
+  const float mid = 20 + width / 2;
+  const float left = mid - 2 * blockWidth;
 
   // Background.
   pContext->setLineWidth(borderWidth);
@@ -41,17 +48,18 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("ClangCymbal " VERSION_STR, CPoint(20.0, 50.0));
+  pContext->drawString("ClangCymbal " VERSION_STR, CPoint(left, top0));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("© 2021 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0, 90.0));
+  pContext->drawString(
+    "© 2021 Takamitsu Endo (ryukau@gmail.com)", CPoint(left, top0 + 40.0));
 
-  std::string leftText = R"(- Overtone -
+  std::string leftText = R"(- BarBox -
 Ctrl + Left Drag|Reset to Default
 Ctrl + Shift + Left Drag|Skip Between Frames
-Right Drag|Draw Line
-Ctrl + Shift + Right Drag|Toggle Lock
+Middle Drag|Draw Line
+Ctrl + Shift + Middle Drag|Toggle Lock
 D|Reset to Default
 Shift + D|Toggle Min/Mid/Max
 E|Emphasize Low
@@ -70,20 +78,20 @@ Shift + R|Sparse Randomize
 S|Sort Decending Order
 Shift + S|Sort Ascending Order
 T|Random Walk
-Shift + T|Random Walk to 0)";
-
-  std::string rightText = R"(
+Shift + T|Random Walk to 0
 Z|Undo
 Shift + Z|Redo
-, (Comma)|Rotate Back
-. (Period)|Rotate Forward
-1|Decrease
-2-9|Decrease 2n-9n
+, (Comma)|Rotate Back)";
 
-- Number Knob -
+  std::string rightText = R"(. (Period)|Rotate Forward
+1-4|Decrease 1n-4n
+5-9|Hold 2n-5n
+
+- Number & Knob -
 Shift + Left Drag|Fine Adjustment
 Ctrl + Left Click|Reset to Default
-Right Click|Toggle Min/Mid/Max
+Middle Click|Toggle Min/Mid/Max
+Shift + Middle Click|Take Floor
 
 
 ClangCymbal outputs peaky signal.
@@ -92,12 +100,8 @@ Recommend to use with limiter.
 
 Have a nice day!)";
 
-  const float top0 = 140.0f;
-  const float mid = 20 + (790 - 2 * 20) / 2; // 790 is defaultWidth in `../editor.cpp`.
-  const float lineHeight = 20.0f;
-  const float blockWidth = 180.0f;
-  drawTextBlock(pContext, 20.0f, top0, lineHeight, blockWidth, leftText);
-  drawTextBlock(pContext, mid, top0, lineHeight, blockWidth, rightText);
+  drawTextBlock(pContext, left, topTextBlock, lineHeight, blockWidth, leftText);
+  drawTextBlock(pContext, mid, topTextBlock, lineHeight, blockWidth, rightText);
 
   // Border.
   pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());

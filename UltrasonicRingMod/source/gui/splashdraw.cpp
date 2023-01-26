@@ -60,6 +60,7 @@ void CreditView::draw(CDrawContext *pContext)
 Shift + Left Drag|Fine Adjustment
 Ctrl + Left Click|Reset to Default
 Middle Click|Flip Min/Mid/Max
+Shift + Middle Click|Take Floor
 
 Note-on and note-off can be used to modulate
 Frequency.

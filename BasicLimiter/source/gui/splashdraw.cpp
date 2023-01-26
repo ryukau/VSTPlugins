@@ -45,17 +45,19 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("© 2021-2022 Takamitsu Endo", CPoint(20.0, 50.0));
+  pContext->drawString("© 2021 Takamitsu Endo", CPoint(20.0, 50.0));
   pContext->drawString("  (ryukau@gmail.com)", CPoint(20.0, 70.0));
 
   pContext->drawString("- Shift + Left Drag: Fine Adjustment", CPoint(20.0f, 100.0f));
   pContext->drawString("- Ctrl + Left Click: Reset to Default", CPoint(20.0f, 120.0f));
+  pContext->drawString("- Middle Click: Toggle Min/Mid/Max", CPoint(20.0f, 140.0f));
+  pContext->drawString("- Shift + Middle Click: Take Floor", CPoint(20.0f, 160.0f));
 
-  pContext->drawString("If Overshoot is greater than 0 dB,", CPoint(20.0f, 160.0f));
-  pContext->drawString("lower Threshold to avoid clipping.", CPoint(20.0f, 180.0f));
-  pContext->drawString("It shows max sample peak over 0 dB.", CPoint(20.0f, 200.0f));
+  pContext->drawString("If Overshoot is greater than 0 dB,", CPoint(20.0f, 190.0f));
+  pContext->drawString("lower Threshold to avoid clipping.", CPoint(20.0f, 210.0f));
+  pContext->drawString("It shows max sample peak over 0 dB.", CPoint(20.0f, 230.0f));
 
-  pContext->drawString("Have a nice day!", CPoint(20.0f, 240.0f));
+  pContext->drawString("Have a nice day!", CPoint(20.0f, 260.0f));
 
   // Border.
   pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());

@@ -713,10 +713,10 @@ bool Editor::prepareUI()
       otGainLeft0, otPhaseTop + barboxHeight - 1, barboxWidth, scrollBarHeight,
       barboxOtPhase));
 
-  auto textOvertoneControl = R"(- Overtone & LFO Wave -
+  auto textOvertoneControl = R"(- BarBox -
 Ctrl + Left Drag|Reset to Default
 Shift + Left Drag|Skip Between Frames
-Right Drag|Draw Line
+Middle Drag|Draw Line
 D|Reset to Default
 Shift + D|Toggle Min/Mid/Max
 E|Emphasize Low
@@ -738,8 +738,8 @@ Z|Undo
 Shift + Z|Redo
 , (Comma)|Rotate Back
 . (Period)|Rotate Forward
-1|Decrease
-2-9|Decrease 2n-9n)";
+1-4|Decrease 1n-4n
+5-9|Hold 2n-5n)";
   tabview->addWidget(
     tabInfo,
     addTextTableView(
@@ -748,23 +748,16 @@ Shift + Z|Redo
 
   const auto tabInfoLeft1 = tabInsideLeft0 + tabWidth / 2.0f;
 
-  auto textKnobControl = R"(- Knob -
+  auto textKnobControl = R"(- Number & Knob -
 Shift + Left Drag|Fine Adjustment
-Ctrl + Left Click|Reset to Default)";
+Ctrl + Left Click|Reset to Default
+Middle Click|Flip Min/Mid/Max
+Shift + Middle Click|Take Floor)";
   tabview->addWidget(
     tabInfo,
     addTextTableView(
       tabInfoLeft1, tabInsideTop0, 400.0f, 400.0f, infoTextSize, textKnobControl,
       150.0f));
-
-  auto textNumberControl = R"(- Number -
-Shares same controls with knob, and:
-Right Click|Toggle Min/Mid/Max)";
-  tabview->addWidget(
-    tabInfo,
-    addTextTableView(
-      tabInfoLeft1, tabInsideTop0 + 80.0f, 400.0f, 400.0f, infoTextSize,
-      textNumberControl, 150.0f));
 
   auto textRefreshNotice = R"(Wavetables do not refresh automatically.
 Press following button to apply changes.

@@ -61,8 +61,12 @@ Shift + Left Drag|Fine Adjustment
 Ctrl + Left Click|Reset to Default
 Middle Click|Flip Min/Mid/Max
 
-Note-on and note-off can be used to modulate
-Frequency.
+- XY Pad -
+Ctrl + Left Click|Reset to Default
+Middle Drag|Only Change X
+Mouse Wheel|Fine Adjustment X
+Shift + Middle Drag|Only Change Y
+Shift + Mouse Wheel|Fine Adjustment Y
 
 Have a nice day!)";
 

@@ -31,8 +31,15 @@ void CreditView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
-  const double borderWidth = 8.0;
+  const double borderWidth = 2.0;
   const double halfBorderWidth = borderWidth / 2.0;
+
+  const float top0 = 50.0f;
+  const float topTextBlock = 140.0f;
+  const float lineHeight = 20.0f;
+  const float blockWidth = 180.0f;
+  const float mid = 20 + width / 2;
+  const float left = mid - 2 * blockWidth;
 
   // Background.
   pContext->setLineWidth(borderWidth);
@@ -41,26 +48,40 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("IterativeSinCluster " VERSION_STR, CPoint(20.0, 50.0));
+  pContext->drawString("IterativeSinCluster " VERSION_STR, CPoint(left, top0));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
   pContext->drawString(
-    "© 2019-2022 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0, 90.0));
+    "© 2019-2022 Takamitsu Endo (ryukau@gmail.com)", CPoint(left, top0 + 40.0));
 
-  pContext->drawString("- Knob -", CPoint(20.0, 150.0));
-  pContext->drawString("Shift + Left Drag: Fine Adjustment", CPoint(20.0, 180.0));
-  pContext->drawString("Ctrl + Left Click: Reset to Default", CPoint(20.0, 210.0));
+  std::string leftText = R"(- BarBox -
+Ctrl + Left Drag|Reset to Default
+Middle Drag|Draw Line
+P|Permute
+R|Randomize
+S|Sort Decending Order
+T|Random Walk
+Z|Undo
+Shift + Z|Redo
+, (Comma)|Rotate Back
+. (Period)|Rotate Forward
+1-4|Decrease 1n-4n
+5-9|Hold 2n-5n
 
-  pContext->drawString("- Number -", CPoint(20.0, 270.0));
-  pContext->drawString("Shares same controls with knob, and:", CPoint(20.0, 300.0));
-  pContext->drawString("Middle Click: Flip Minimum and Maximum", CPoint(20.0, 330.0));
+And more! Refer to the manual for full list
+of shortcuts.)";
 
-  pContext->drawString("- Overtone -", CPoint(380.0, 150.0));
-  pContext->drawString("Ctrl + Left Drag: Reset to Default", CPoint(380.0, 180.0));
-  pContext->drawString("Middle Drag: Draw Line", CPoint(380.0, 210.0));
+  std::string rightText = R"(- Number & Knob -
+Shift + Left Drag|Fine Adjustment
+Ctrl + Left Click|Reset to Default
+Middle Click|Flip Min/Mid/Max
+Shift + Middle Click|Take Floor
 
-  pContext->drawString("Have a nice day!", CPoint(380.0, 300.0));
+Have a nice day!)";
+
+  drawTextBlock(pContext, left, topTextBlock, lineHeight, blockWidth, leftText);
+  drawTextBlock(pContext, mid, topTextBlock, lineHeight, blockWidth, rightText);
 
   // Border.
   pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());

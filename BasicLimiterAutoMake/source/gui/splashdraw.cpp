@@ -51,17 +51,17 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->drawString("- Shift + Left Drag: Fine Adjustment", CPoint(20.0f, 120.0f));
   pContext->drawString("- Ctrl + Left Click: Reset to Default", CPoint(20.0f, 140.0f));
+  pContext->drawString("- Middle Click: Toggle Min/Mid/Max", CPoint(20.0f, 160.0f));
+  pContext->drawString("- Shift + Middle Click: Take Floor", CPoint(20.0f, 180.0f));
 
-  pContext->drawString("If Overshoot is greater than 0 dB,", CPoint(20.0f, 180.0f));
-  pContext->drawString("lower Threshold to avoid clipping.", CPoint(20.0f, 200.0f));
-  pContext->drawString("It shows max sample peak over 0 dB.", CPoint(20.0f, 220.0f));
+  pContext->drawString("If Overshoot is greater than 0 dB,", CPoint(20.0f, 210.0f));
+  pContext->drawString("lower Threshold to avoid clipping.", CPoint(20.0f, 230.0f));
+  pContext->drawString("It shows max sample peak over 0 dB.", CPoint(20.0f, 250.0f));
 
-  pContext->drawString("Sidechain disables Auto Make Up.", CPoint(20.0f, 250.0f));
+  pContext->drawString("Sidechain disables Auto Make Up.", CPoint(20.0f, 280.0f));
 
-  pContext->drawString("Set Auto Make Up to -6.1 dB or lower", CPoint(20.0f, 280.0f));
-  pContext->drawString("when comparing L-R and M-S.", CPoint(20.0f, 300.0f));
-
-  pContext->drawString("Have a nice day!", CPoint(20.0f, 330.0f));
+  pContext->drawString("Set Auto Make Up to -6.1 dB or lower", CPoint(20.0f, 310.0f));
+  pContext->drawString("when comparing L-R and M-S.", CPoint(20.0f, 330.0f));
 
   // Border.
   pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());
