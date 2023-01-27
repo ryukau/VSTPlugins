@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 include(../common/cmake/non_simd.cmake)
 
 if(TEST_PLUGIN)
-  build_test()
+  build_test("")
 else()
   set(plug_sources
     source/parameter.cpp
