@@ -58,6 +58,11 @@
         "value": 0
       },
       {
+        "name": "inputToFeedbackGain",
+        "type": "d",
+        "value": 0.0
+      },
+      {
         "name": "inputToDelayTime",
         "type": "d",
         "value": 0.10799995064735413
@@ -383,12 +388,12 @@
         "value": 0.4651367124634564
       },
       {
-        "name": "lfoTempoSync",
+        "name": "lfoInterpolation",
         "type": "I",
         "value": 2
       },
       {
-        "name": "lfoInterpolation",
+        "name": "lfoTempoSync",
         "type": "I",
         "value": 1
       },
@@ -426,6 +431,21 @@
         "name": "oversampling",
         "type": "I",
         "value": 1
+      },
+      {
+        "name": "notePitchOrigin",
+        "type": "d",
+        "value": 0.4411764705882353
+      },
+      {
+        "name": "notePitchToAllpassCutoff",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "notePitchToDelayTime",
+        "type": "d",
+        "value": 0.5
       }
     ]
   }

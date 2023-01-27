@@ -22,20 +22,13 @@
 
 // CMake provides this macro, but just in case.
 #ifndef UHHYOU_PLUGIN_NAME
-#define UHHYOU_PLUGIN_NAME "IterativeSinCluster"
+  #define UHHYOU_PLUGIN_NAME "IterativeSinCluster"
 #endif
 
 #define OUT_DIR_PATH "snd/" UHHYOU_PLUGIN_NAME
 
 int main()
 {
-#ifdef __linux__
-  SynthTesterSimdRuntimeDispatch<DSPInterface, DSPCore_AVX512, DSPCore_AVX2, DSPCore_AVX>
-    tester(UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
-#else
-  SynthTesterSimdRuntimeDispatch<DSPInterface, DSPCore_AVX2, DSPCore_AVX> tester(
-    UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
-#endif
-
+  SynthTester<DSPCore_FixedInstruction> tester(UHHYOU_PLUGIN_NAME, OUT_DIR_PATH, 1);
   return tester.isFinished ? EXIT_SUCCESS : EXIT_FAILURE;
 }

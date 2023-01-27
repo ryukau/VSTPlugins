@@ -43,9 +43,14 @@
         "value": 0.13979400086720375
       },
       {
-        "name": "delayTimeModOctave",
+        "name": "lfoToDelayTimeOctave",
         "type": "d",
         "value": 0.20399999618530273
+      },
+      {
+        "name": "inputToDelayTime",
+        "type": "d",
+        "value": 0.0
       },
       {
         "name": "delayTimeModType",
@@ -426,6 +431,16 @@
         "name": "oversampling",
         "type": "I",
         "value": 1
+      },
+      {
+        "name": "notePitchOrigin",
+        "type": "d",
+        "value": 0.4411764705882353
+      },
+      {
+        "name": "notePitchScaling",
+        "type": "d",
+        "value": 1.0
       }
     ]
   }
