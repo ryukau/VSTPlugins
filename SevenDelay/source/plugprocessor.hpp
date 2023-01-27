@@ -57,6 +57,7 @@ public:
 protected:
   uint32_t lastState = 0;
   uint32_t wasBypassing = 0;
+  float tempo = 120.0f;
   DSPCore dsp;
 };
 

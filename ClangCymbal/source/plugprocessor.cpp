@@ -95,13 +95,13 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
     }
   }
 
-  if (data.processContext == nullptr) return kResultOk;
-
-  uint64_t state = data.processContext->state;
-  if (!dsp.isPlaying && (state & Vst::ProcessContext::kPlaying) != 0) {
-    dsp.startup();
+  if (data.processContext != nullptr) {
+    uint64_t state = data.processContext->state;
+    if (!dsp.isPlaying && (state & Vst::ProcessContext::kPlaying) != 0) {
+      dsp.startup();
+    }
+    dsp.isPlaying = state & Vst::ProcessContext::kPlaying;
   }
-  dsp.isPlaying = state & Vst::ProcessContext::kPlaying;
 
   if (data.numOutputs == 0) return kResultOk;
   if (data.numSamples <= 0) return kResultOk;

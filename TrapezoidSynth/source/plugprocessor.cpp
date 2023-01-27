@@ -97,22 +97,26 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
     }
   }
 
-  if (data.processContext == nullptr) return kResultOk;
-
-  uint64_t state = data.processContext->state;
-  if (
-    (lastState & Vst::ProcessContext::kPlaying) == 0
-    && (state & Vst::ProcessContext::kPlaying) != 0) {
-    dsp.startup();
+  if (data.processContext != nullptr) {
+    uint64_t state = data.processContext->state;
+    if (state & Vst::ProcessContext::kTempoValid) {
+      tempo = float(data.processContext->tempo);
+    }
+    if (
+      (lastState & Vst::ProcessContext::kPlaying) == 0
+      && (state & Vst::ProcessContext::kPlaying) != 0)
+    {
+      dsp.startup();
+    }
+    lastState = state;
   }
-  lastState = state;
 
   if (data.numOutputs == 0) return kResultOk;
   if (data.numSamples <= 0) return kResultOk;
   if (data.outputs[0].numChannels < 2) return kResultOk;
   if (data.symbolicSampleSize == Vst::kSample64) return kResultOk;
 
-  dsp.setParameters(data.processContext->tempo);
+  dsp.setParameters(tempo);
   if (data.inputEvents != nullptr) handleEvent(data);
 
   float *out0 = data.outputs[0].channelBuffers32[0];

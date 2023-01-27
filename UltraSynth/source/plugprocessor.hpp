@@ -52,8 +52,6 @@ public:
     return (Vst::IAudioProcessor *)new PlugProcessor();
   }
 
-  void processBypass(Vst::ProcessData &data);
-
 protected:
   void handleEvent(Vst::ProcessData &data);
 

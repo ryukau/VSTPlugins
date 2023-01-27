@@ -110,6 +110,9 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 
   if (data.processContext != nullptr) {
     uint64_t state = data.processContext->state;
+    if (state & Vst::ProcessContext::kTempoValid) {
+      tempo = float(data.processContext->tempo);
+    }
     if (
       (lastState & Vst::ProcessContext::kPlaying) == 0
       && (state & Vst::ProcessContext::kPlaying) != 0)
@@ -117,7 +120,6 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
       dsp->startup();
     }
     lastState = state;
-    tempo = data.processContext->tempo;
   }
   dsp->setParameters(tempo);
 

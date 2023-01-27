@@ -74,7 +74,7 @@ void DSPCORE_NAME::startup()
   }
 }
 
-void DSPCORE_NAME::setParameters(float /* tempo */)
+void DSPCORE_NAME::setParameters()
 {
   using ID = ParameterID::ID;
 

@@ -103,23 +103,23 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
     }
   }
 
-  if (data.processContext == nullptr) return kResultOk;
-
-  uint64_t state = data.processContext->state;
-  if (state & Vst::ProcessContext::kTempoValid) {
-    dsp.tempo = data.processContext->tempo;
+  if (data.processContext != nullptr) {
+    uint64_t state = data.processContext->state;
+    if (state & Vst::ProcessContext::kTempoValid) {
+      dsp.tempo = data.processContext->tempo;
+    }
+    if (state & Vst::ProcessContext::kProjectTimeMusicValid) {
+      dsp.beatsElapsed = data.processContext->projectTimeMusic;
+    }
+    if (state & Vst::ProcessContext::kTimeSigValid) {
+      dsp.timeSigLower = data.processContext->timeSigDenominator;
+      dsp.timeSigUpper = data.processContext->timeSigNumerator;
+    }
+    if (!dsp.isPlaying && (state & Vst::ProcessContext::kPlaying) != 0) {
+      dsp.startup();
+    }
+    dsp.isPlaying = state & Vst::ProcessContext::kPlaying;
   }
-  if (state & Vst::ProcessContext::kProjectTimeMusicValid) {
-    dsp.beatsElapsed = data.processContext->projectTimeMusic;
-  }
-  if (state & Vst::ProcessContext::kTimeSigValid) {
-    dsp.timeSigLower = data.processContext->timeSigDenominator;
-    dsp.timeSigUpper = data.processContext->timeSigNumerator;
-  }
-  if (!dsp.isPlaying && (state & Vst::ProcessContext::kPlaying) != 0) {
-    dsp.startup();
-  }
-  dsp.isPlaying = state & Vst::ProcessContext::kPlaying;
 
   dsp.setParameters();
 
@@ -134,18 +134,7 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   float *out1 = data.outputs[0].channelBuffers32[1];
   dsp.process((size_t)data.numSamples, out0, out1);
 
-  if (dsp.param.value[ParameterID::bypass]->getInt()) processBypass(data);
-
   return kResultOk;
-}
-
-void PlugProcessor::processBypass(Vst::ProcessData &data)
-{
-  float **in = data.inputs[0].channelBuffers32;
-  float **out = data.outputs[0].channelBuffers32;
-  for (int32_t ch = 0; ch < data.inputs[0].numChannels; ch++) {
-    if (in[ch] != out[ch]) memcpy(out[ch], in[ch], data.numSamples * sizeof(float));
-  }
 }
 
 void PlugProcessor::handleEvent(Vst::ProcessData &data)

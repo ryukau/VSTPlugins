@@ -56,6 +56,7 @@ public:
 
 protected:
   uint64_t lastState = 0;
+  float tempo = 120.0f;
   DSPCore dsp;
 };
 

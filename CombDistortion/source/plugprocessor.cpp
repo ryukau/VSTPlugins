@@ -101,23 +101,23 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
     }
   }
 
-  if (data.processContext == nullptr) return kResultOk;
-
-  uint64_t state = data.processContext->state;
-  if (state & Vst::ProcessContext::kTempoValid) {
-    dsp.tempo = data.processContext->tempo;
+  if (data.processContext != nullptr) {
+    uint64_t state = data.processContext->state;
+    if (state & Vst::ProcessContext::kTempoValid) {
+      dsp.tempo = data.processContext->tempo;
+    }
+    if (state & Vst::ProcessContext::kProjectTimeMusicValid) {
+      dsp.beatsElapsed = data.processContext->projectTimeMusic;
+    }
+    if (state & Vst::ProcessContext::kTimeSigValid) {
+      dsp.timeSigLower = data.processContext->timeSigDenominator;
+      dsp.timeSigUpper = data.processContext->timeSigNumerator;
+    }
+    if (!dsp.isPlaying && (state & Vst::ProcessContext::kPlaying) != 0) {
+      dsp.startup();
+    }
+    dsp.isPlaying = state & Vst::ProcessContext::kPlaying;
   }
-  if (state & Vst::ProcessContext::kProjectTimeMusicValid) {
-    dsp.beatsElapsed = data.processContext->projectTimeMusic;
-  }
-  if (state & Vst::ProcessContext::kTimeSigValid) {
-    dsp.timeSigLower = data.processContext->timeSigDenominator;
-    dsp.timeSigUpper = data.processContext->timeSigNumerator;
-  }
-  if (!dsp.isPlaying && (state & Vst::ProcessContext::kPlaying) != 0) {
-    dsp.startup();
-  }
-  dsp.isPlaying = state & Vst::ProcessContext::kPlaying;
 
   dsp.setParameters();
 

@@ -23,7 +23,16 @@ namespace SomeDSP {
 
 // 2x oversampled, linear interpolated delay.
 template<typename Sample> class Delay {
+private:
+  Sample rFraction = 0;
+  Sample w1 = 0;
+  int wptr = 0;
+  int rptr = 0;
+  std::vector<Sample> buf;
+
 public:
+  Sample sampleRate = 44100;
+
   void setup(Sample sampleRate, Sample time, Sample maxTime)
   {
     this->sampleRate = Sample(2) * sampleRate;
@@ -36,14 +45,13 @@ public:
 
   void setTime(Sample seconds)
   {
-    auto timeInSample = std::clamp(sampleRate * seconds, Sample(0), Sample(buf.size()));
+    auto timeInSample = std::clamp<Sample>(sampleRate * seconds, 0, buf.size());
 
-    size_t timeInt = size_t(timeInSample);
+    int timeInt = int(timeInSample);
     rFraction = timeInSample - Sample(timeInt);
 
-    // Possible negative overflow. rptr must be in [0, buf.size()).
     rptr = wptr - timeInt;
-    while (rptr >= buf.size()) rptr += buf.size();
+    if (rptr < 0) rptr += int(buf.size());
   }
 
   void reset()
@@ -54,36 +62,26 @@ public:
 
   Sample process(const Sample input)
   {
+    const int size = int(buf.size());
+
     // Write to buffer.
     buf[wptr] = input - Sample(0.5) * (input - w1);
-    wptr += 1;
-    if (wptr >= buf.size()) wptr -= buf.size();
+    if (++wptr >= size) wptr -= size;
 
     buf[wptr] = input;
-    wptr += 1;
-    if (wptr >= buf.size()) wptr -= buf.size();
+    if (++wptr >= size) wptr -= size;
 
     w1 = input;
 
     // Read from buffer.
-    const size_t i1 = rptr;
-    rptr += 1;
-    if (rptr >= buf.size()) rptr -= buf.size();
+    const int i1 = rptr;
+    if (++rptr >= size) rptr -= size;
 
-    const size_t i0 = rptr;
-    rptr += 1;
-    if (rptr >= buf.size()) rptr -= buf.size();
+    const int i0 = rptr;
+    if (++rptr >= size) rptr -= size;
 
     return buf[i0] - rFraction * (buf[i0] - buf[i1]);
   }
-
-protected:
-  Sample sampleRate = 44100;
-  Sample rFraction = 0;
-  Sample w1 = 0;
-  size_t wptr = 0;
-  size_t rptr = 0;
-  std::vector<Sample> buf{2};
 };
 
 } // namespace SomeDSP
