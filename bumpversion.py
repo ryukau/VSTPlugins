@@ -32,5 +32,5 @@ for path in Path(".").glob("*"):
     text = re_build_number_str.sub(f"#define BUILD_NUMBER_STR \"{build}\"", text, count=1)
     text = re_build_number_int.sub(f"#define BUILD_NUMBER_INT {build}", text, count=1)
 
-    with open(version_hpp, "w", encoding="utf-8") as fi:
+    with open(version_hpp, "w", encoding="utf-8", newline="\n") as fi:
         fi.write(text)
