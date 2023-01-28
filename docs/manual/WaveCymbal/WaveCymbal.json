@@ -1,8 +1,9 @@
 {
   "WaveCymbal": {
-    "latest_version": "0.1.21",
+    "latest_version": "0.1.22",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/WaveCymbal_0.1.22.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/WaveCymbal_0.1.21.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/WaveCymbal_0.1.20.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/WaveCymbal_0.1.19.zip",
@@ -24,6 +25,16 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/WaveCymbalPresets.zip"
     },
     "changelog": {
+      "0.1.22": {
+        "en": [
+          "Fixed stuttering on Audacity where `processContext` is `nullptr`.",
+          "Fixed a bug in delay time computation. This may fix freeze or crash in some cases."
+        ],
+        "ja": [
+          "`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。",
+          "クラッシュやフリーズの原因となっていたディレイ時間の計算を修正。"
+        ]
+      },
       "0.1.21": {
         "en": [
           "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak."

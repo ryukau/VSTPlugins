@@ -1,8 +1,9 @@
 {
   "BasicLimiter": {
-    "latest_version": "0.1.14",
+    "latest_version": "0.1.15",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/BasicLimiter_0.1.15.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/BasicLimiter_0.1.14.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/BasicLimiter_0.1.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/BasicLimiter_0.1.12.zip",
@@ -18,6 +19,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterPresets.zip"
     },
     "changelog": {
+      "0.1.15": {
+        "en": [
+          "Fixed stuttering on Audacity where `processContext` is `nullptr`."
+        ],
+        "ja": [
+          "`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"
+        ]
+      },
       "0.1.14": {
         "en": [
           "Updated splash screen text."
@@ -119,9 +128,10 @@
     }
   },
   "BasicLimiterAutoMake": {
-    "latest_version": "0.1.14",
+    "latest_version": "0.1.15",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/BasicLimiterAutoMake_0.1.15.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/BasicLimiterAutoMake_0.1.14.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/BasicLimiterAutoMake_0.1.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/BasicLimiterAutoMake_0.1.12.zip",
@@ -136,6 +146,14 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.1.15": {
+        "en": [
+          "Fixed stuttering on Audacity where `processContext` is `nullptr`."
+        ],
+        "ja": [
+          "`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"
+        ]
+      },
       "0.1.14": {
         "en": [
           "Updated splash screen text."

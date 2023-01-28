@@ -1,14 +1,25 @@
 {
   "LongPhaser": {
-    "latest_version": "0.1.0",
+    "latest_version": "0.1.1",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/LongPhaser_0.1.1.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/LongPhaser_0.1.0.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/LongPhaser_0.0.3.zip"
       ],
       "preset_url": ""
     },
     "changelog": {
+      "0.1.1": {
+        "en": [
+          "Fixed stuttering on Audacity where `processContext` is `nullptr`.",
+          "Fixed a bug in delay time computation. This may fix freeze or crash in some cases."
+        ],
+        "ja": [
+          "`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。",
+          "クラッシュやフリーズの原因となっていたディレイ時間の計算を修正。"
+        ]
+      },
       "0.1.0": {
         "en": [
           "Updated splash screen text."

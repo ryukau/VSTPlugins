@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2023-01-26" />
+<meta name="dcterms.date" content="2023-01-27" />
 <title>MembraneSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2023-01-26
+  Update: 2023-01-27
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -330,15 +330,15 @@ with membrane, like bass drum or tom tom. Some strange noise can also be
 made by utilizing oscillation caused by self-modulation.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/MembraneSynth_0.1.4.zip">Download
-MembraneSynth 0.1.4 <code>full</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/MembraneSynth_0.1.5.zip">Download
+MembraneSynth 0.1.5 <code>full</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/MembraneSynth_0.1.4_macOS.zip">Download
-MembraneSynth 0.1.4 <code>macOS</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/MembraneSynth_0.1.5_macOS.zip">Download
+MembraneSynth 0.1.5 <code>macOS</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -1010,6 +1010,13 @@ frequency of the output sound.</p>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.5
+<ul>
+<li>Fixed stuttering on Audacity where <code>processContext</code> is
+<code>nullptr</code>.</li>
+<li>Removed bypass processing that is causing crash. Parameter is still
+available, but it has no effect.</li>
+</ul></li>
 <li>0.1.4
 <ul>
 <li>Updated splash screen text.</li>
@@ -1039,6 +1046,9 @@ changed. With this change, the same sound comes out when
 </ul>
 <h2 id="old-versions">Old Versions</h2>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/MembraneSynth_0.1.4.zip">MembraneSynth
+0.1.4 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/MembraneSynth_0.1.3.zip">MembraneSynth
 0.1.3 - VST 3 (github.com)</a></li>

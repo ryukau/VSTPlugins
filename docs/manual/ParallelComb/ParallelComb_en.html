@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-12-28" />
+<meta name="dcterms.date" content="2023-01-27" />
 <title>ParallelComb_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-12-28
+  Update: 2023-01-27
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -326,15 +326,15 @@ somewhat clean. Weird distorsion can be added by modulating delay time
 using feedback signal amplitude.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/ParallelComb_0.2.6.zip">Download
-ParallelComb 0.2.6 <code>full</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/ParallelComb_0.2.7.zip">Download
+ParallelComb 0.2.7 <code>full</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/ParallelComb_0.2.6_macOS.zip">Download
-ParallelComb 0.2.6 <code>macOS</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/ParallelComb_0.2.7_macOS.zip">Download
+ParallelComb 0.2.7 <code>macOS</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -592,7 +592,7 @@ focus.</li>
 <h2 id="controls">Controls</h2>
 <p><kbd>Right Click</kbd> on the controls pops up a context menu
 provided by DAW.</p>
-<p>Knob and slider can do:</p>
+<p>Knob and slider provides following controls:</p>
 <ul>
 <li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
 <li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
@@ -640,19 +640,19 @@ Infomation tab.</p>
 <td>Change Value (Skip Between Frames)</td>
 </tr>
 <tr class="odd">
-<td><kbd>Right Drag</kbd></td>
+<td><kbd>Middle Drag</kbd></td>
 <td>Draw Line</td>
 </tr>
 <tr class="even">
-<td><kbd>Shift</kbd> + <kbd>Right Drag</kbd></td>
+<td><kbd>Shift</kbd> + <kbd>Middle Drag</kbd></td>
 <td>Edit One Bar</td>
 </tr>
 <tr class="odd">
-<td><kbd>Ctrl</kbd> + <kbd>Right Drag</kbd></td>
+<td><kbd>Ctrl</kbd> + <kbd>Middle Drag</kbd></td>
 <td>Reset to Default</td>
 </tr>
 <tr class="even">
-<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Right Drag</kbd></td>
+<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Middle Drag</kbd></td>
 <td>Toggle Lock</td>
 </tr>
 <tr class="odd">
@@ -903,9 +903,9 @@ mid-side (<code>M-S</code>).</p>
 </dd>
 <dt>16x OverSampling</dt>
 <dd>
-<p>When checked, 16 fold oversampling is enabled. Note that
-oversampling increases CPU load for 16 times, and adds resampler
-computation on top of it.</p>
+<p>When checked, 16 fold oversampling is enabled. Note that oversampling
+increases CPU load for 16 times, and adds resampler computation on top
+of it.</p>
 </dd>
 <dt>Panic!</dt>
 <dd>
@@ -914,6 +914,11 @@ computation on top of it.</p>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.2.7
+<ul>
+<li>Fixed stuttering on Audacity where <code>processContext</code> is
+<code>nullptr</code>.</li>
+</ul></li>
 <li>0.2.6
 <ul>
 <li>Added decimation by holding shortcut to BarBox. Shortcut is
@@ -953,6 +958,9 @@ refreshes when oversampling is turned on.</li>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/ParallelComb_0.2.6.zip">ParallelComb
+0.2.6 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/ParallelComb_0.2.5.zip">ParallelComb
 0.2.5 - VST 3 (github.com)</a></li>

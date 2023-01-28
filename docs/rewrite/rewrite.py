@@ -98,12 +98,12 @@ if __name__ == "__main__":
     with open("../../package/manual.json", "r", encoding="utf-8") as fi:
         alias = json.load(fi)
 
-    release_name = "UhhyouPlugins0.51.1"
+    release_name = "UhhyouPlugins0.52.0"
     changelog_en = [
-        "Updated splash screen text.",
+        "Fixed stuttering on Audacity where `processContext` is `nullptr`.",
     ]
     changelog_ja = [
-        "スプラッシュ画面のテキストを更新。",
+        "`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。",
     ]
     for target in targets:
         updateVersion(target, alias, changelog_en, changelog_ja, release_name)

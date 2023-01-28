@@ -1,8 +1,9 @@
 {
   "ParallelComb": {
-    "latest_version": "0.2.6",
+    "latest_version": "0.2.7",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/ParallelComb_0.2.7.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/ParallelComb_0.2.6.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/ParallelComb_0.2.5.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/ParallelComb_0.2.4.zip",
@@ -12,6 +13,14 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.2.7": {
+        "en": [
+          "Fixed stuttering on Audacity where `processContext` is `nullptr`."
+        ],
+        "ja": [
+          "`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"
+        ]
+      },
       "0.2.6": {
         "en": [
           "Added decimation by holding shortcut to BarBox. Shortcut is <kbd>5</kbd>-<kbd>9</kbd>.",
