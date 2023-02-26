@@ -52,7 +52,6 @@ private:
   std::vector<std::vector<double>> undoValue;
   std::vector<double> copyRow;
   std::vector<double> copyCol;
-  std::unordered_map<uint32_t, uint32_t> idMap;
 
   const uint32_t nRow;
   const uint32_t nCol; // col is short for column.
@@ -93,7 +92,7 @@ public:
     , lineStyle(CLineStyle::kLineCapRound, CLineStyle::kLineJoinRound)
     , pal(palette)
   {
-    assert(nRow * nCol != id.size());
+    assert(nRow * nCol == id.size());
 
     setWantsFocus(true);
 
@@ -102,7 +101,6 @@ public:
     for (size_t i = 0; i < 4; ++i) undoValue.emplace_back(defaultValue);
     copyRow.resize(nRow);
     copyCol.resize(nCol);
-    for (uint32_t i = 0; i < id.size(); ++i) idMap.emplace(std::pair(id[i], i));
   }
 
   virtual ~MatrixKnob()
@@ -189,8 +187,6 @@ public:
 
   void onMouseEnterEvent(MouseEnterEvent &event) override
   {
-    grabFocus();
-
     isMouseEntered = true;
     invalid();
     event.consumed = true;
@@ -227,6 +223,8 @@ public:
       event.consumed = true;
       return;
     }
+
+    grabFocus();
 
     if (event.buttonState.isLeft()) {
       isMouseLeftDown = true;
@@ -336,7 +334,7 @@ public:
 
     if (colMode) {
       for (uint32_t row = 0; row < nRow; ++row) {
-        auto idx = row * nCol + focusCol;
+        auto idx = getIndex(row, focusCol);
         if (idx == focusIndex) continue;
         if (idx >= value.size()) break;
         value[idx] = std::clamp(value[idx] + delta, 0.0, 1.0);
@@ -344,25 +342,13 @@ public:
     }
     if (rowMode) {
       for (uint32_t col = 0; col < nCol; ++col) {
-        auto idx = focusRow * nCol + col;
+        auto idx = getIndex(focusRow, col);
         if (idx == focusIndex) continue;
         if (idx >= value.size()) break;
         value[idx] = std::clamp(value[idx] + delta, 0.0, 1.0);
       }
     }
     updateValueWithUndo();
-  }
-
-  virtual void setValueFromId(int id, double normalized)
-  {
-    auto idPair = idMap.find(id);
-    if (idPair == idMap.end()) return;
-    auto index = idPair->second;
-    if (index < value.size()) {
-      auto tmp = std::clamp(normalized, 0.0, 1.0);
-      if (std::fabs(tmp - defaultValue[index]) < FLT_EPSILON) tmp = defaultValue[index];
-      value[index] = tmp;
-    }
   }
 
   void onKeyboardEvent(KeyboardEvent &event) override
@@ -383,12 +369,6 @@ public:
     } else if (event.character == 'd') {
       resetToDefault();
       updateTextView("d: Reset to default: Done.");
-    } else if (event.character == 'l') {
-      mode ^= modeLink;
-      updateTextView("l: Toggle link mode.");
-    } else if (event.character == 'q') {
-      mode ^= modeColumn;
-      updateTextView("q: Toggle column mode.");
     } else if (event.character == 'r') {
       totalRandomize();
       updateTextView("r: Randomize: Done.");
@@ -404,9 +384,6 @@ public:
       }
       paste();
       updateTextView("v: Paste: Done.");
-    } else if (event.character == 'w') {
-      mode ^= modeRow;
-      updateTextView("w: Toggle row mode.");
     } else if (shift && event.character == 'z') { // Redo
       redo();
       ArrayControl::updateValue();
@@ -421,6 +398,15 @@ public:
       invalid();
       event.consumed = true;
       return;
+    } else if (event.character == '1') {
+      mode ^= modeRow;
+      updateTextView("1: Toggle row mode.");
+    } else if (event.character == '2') {
+      mode ^= modeColumn;
+      updateTextView("2: Toggle column mode.");
+    } else if (event.character == '3') {
+      mode ^= modeLink;
+      updateTextView("3: Toggle link mode.");
     } else {
       std::string str("No bind on key ");
       updateTextView(str + std::to_string(event.character));
@@ -467,14 +453,14 @@ private:
   {
     if (mode & modeColumn && copyCol.size() >= nCol) {
       for (uint32_t row = 0; row < nRow; ++row) {
-        auto index = row * nCol + focusCol;
+        auto index = getIndex(row, focusCol);
         if (index >= value.size()) break;
         copyRow[row] = value[index];
       }
     }
     if (mode & modeRow && copyRow.size() >= nRow) {
       for (uint32_t col = 0; col < nCol; ++col) {
-        auto index = focusRow * nCol + col;
+        auto index = getIndex(focusRow, col);
         if (index >= value.size()) break;
         copyCol[col] = value[index];
       }
@@ -485,14 +471,14 @@ private:
   {
     if (mode & modeColumn && copyCol.size() >= nCol) {
       for (uint32_t row = 0; row < nRow; ++row) {
-        auto index = row * nCol + focusCol;
+        auto index = getIndex(row, focusCol);
         if (index >= value.size()) break;
         value[index] = copyRow[row];
       }
     }
     if (mode & modeRow && copyRow.size() >= nRow) {
       for (uint32_t col = 0; col < nCol; ++col) {
-        auto index = focusRow * nCol + col;
+        auto index = getIndex(focusRow, col);
         if (index >= value.size()) break;
         value[index] = copyCol[col];
       }
@@ -507,14 +493,14 @@ private:
     }
     if (mode & modeColumn && copyCol.size() >= nCol) {
       for (uint32_t row = 0; row < nRow; ++row) {
-        auto index = row * nCol + focusCol;
+        auto index = getIndex(row, focusCol);
         if (index >= value.size()) break;
         value[index] = func(value[index]);
       }
     }
     if (mode & modeRow && copyRow.size() >= nRow) {
       for (uint32_t col = 0; col < nCol; ++col) {
-        auto index = focusRow * nCol + col;
+        auto index = getIndex(focusRow, col);
         if (index >= value.size()) break;
         value[index] = func(value[index]);
       }
@@ -564,7 +550,7 @@ private:
     cursor = where - CPoint(view.left, view.top);
   }
 
-  uint32_t getIndex(uint32_t row, uint32_t col) { return row * nCol + col; }
+  inline uint32_t getIndex(uint32_t row, uint32_t col) { return row * nCol + col; }
 };
 
 } // namespace VSTGUI

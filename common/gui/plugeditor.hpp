@@ -60,14 +60,7 @@ public:
     loadFont();
   }
 
-  virtual ~PlugEditor()
-  {
-    for (auto &ctrl : controlMap)
-      if (ctrl.second) ctrl.second->forget();
-
-    for (auto &ctrl : arrayControlInstances)
-      if (ctrl.second) ctrl.second->forget();
-  }
+  virtual ~PlugEditor() {}
 
   bool PLUGIN_API open(
     void *parent,
@@ -128,7 +121,7 @@ public:
 
     auto aCtrl = arrayControlMap.find(id);
     if (aCtrl != arrayControlMap.end()) {
-      aCtrl->second->setValueAt(id - aCtrl->second->id.front(), normalized);
+      aCtrl->second->setValueAt(id, normalized);
       aCtrl->second->invalid();
       return;
     }
@@ -166,7 +159,7 @@ public:
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
   template<typename Scale>
-  BarBox<Scale> *addBarBox(
+  auto addBarBox(
     CCoord left,
     CCoord top,
     CCoord width,
@@ -195,8 +188,9 @@ public:
 
     addToArrayControlInstances(id0, barBox);
 
-    for (ParamID i = 0; i < id.size(); ++i)
+    for (ParamID i = 0; i < id.size(); ++i) {
       arrayControlMap.emplace(std::make_pair(id0 + i, barBox));
+    }
     return barBox;
   }
 
@@ -741,19 +735,14 @@ protected:
   void addToArrayControlInstances(Vst::ParamID id0, ArrayControl *control)
   {
     auto iter = arrayControlInstances.find(id0);
-    if (iter != arrayControlInstances.end()) {
-      iter->second->forget();
-      arrayControlInstances.erase(iter);
-    }
-    control->remember();
-    arrayControlInstances.emplace(std::make_pair(id0, control));
+    if (iter != arrayControlInstances.end()) arrayControlInstances.erase(iter);
+    arrayControlInstances.emplace(
+      std::make_pair(id0, SharedPointer<ArrayControl>{control}));
   }
 
   void addToControlMap(Vst::ParamID id, CControl *control)
   {
     auto iter = controlMap.find(id);
-    if (iter != controlMap.end()) iter->second->forget();
-    control->remember();
     controlMap.insert({id, control});
   }
 
@@ -781,9 +770,9 @@ protected:
 
   std::unique_ptr<ParameterInterface> param;
 
-  std::unordered_map<Vst::ParamID, CControl *> controlMap;
-  std::unordered_map<Vst::ParamID, ArrayControl *> arrayControlMap;
-  std::unordered_map<Vst::ParamID, ArrayControl *> arrayControlInstances;
+  std::unordered_map<Vst::ParamID, SharedPointer<CControl>> controlMap;
+  std::unordered_map<Vst::ParamID, SharedPointer<ArrayControl>> arrayControlMap;
+  std::unordered_map<Vst::ParamID, SharedPointer<ArrayControl>> arrayControlInstances;
 
   ViewRect viewRect{0, 0, 512, 512};
 

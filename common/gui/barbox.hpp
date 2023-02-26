@@ -308,9 +308,9 @@ public:
     }
 
     if (event.modifiers.has(ModifierKey::Shift)) {
-      setValueAt(index, value[index] + event.deltaY * altScrollSensitivity);
+      setValueAtIndex(index, value[index] + event.deltaY * altScrollSensitivity);
     } else {
-      setValueAt(index, value[index] + event.deltaY * scrollSensitivity);
+      setValueAtIndex(index, value[index] + event.deltaY * scrollSensitivity);
     }
     beginEdit(index);
     updateValueAt(index);
@@ -505,21 +505,23 @@ private:
     if (barState[index] != BarState::active) return;
 
     if (ctrl && !shift)
-      setValueAt(index, defaultValue[index]);
+      setValueAtIndex(index, defaultValue[index]);
     else if (!ctrl && shift)
-      setValueAt(index, snap(1.0 - position.y / getHeight()));
+      setValueAtIndex(index, snap(1.0 - position.y / getHeight()));
     else
-      setValueAt(index, 1.0 - position.y / getHeight());
+      setValueAtIndex(index, 1.0 - position.y / getHeight());
 
     updateValueAt(index);
     invalid();
   }
 
-  void setValueAt(size_t index, double normalized)
+  void setValueAtIndex(size_t index, double normalized)
   {
     if (barState[index] != BarState::active) return;
     beginEdit(index);
-    ArrayControl::setValueAt(index, normalized);
+
+    if (index >= value.size()) return;
+    value[index] = normalized < 0.0 ? 0.0 : normalized > 1.0 ? 1.0 : normalized;
   }
 
   void setValueFromLine(CPoint p0, CPoint p1, const Modifiers &modifiers)
@@ -537,11 +539,11 @@ private:
       if (barState[left] != BarState::active) return;
 
       if (modifiers.has(ModifierKey::Control))
-        setValueAt(left, defaultValue[left]);
+        setValueAtIndex(left, defaultValue[left]);
       else if (modifiers.has(ModifierKey::Shift))
-        setValueAt(left, snap(1.0f - anchor.y / getHeight()));
+        setValueAtIndex(left, snap(1.0f - anchor.y / getHeight()));
       else
-        setValueAt(left, 1.0f - anchor.y / getHeight());
+        setValueAtIndex(left, 1.0f - anchor.y / getHeight());
 
       updateValueAt(left);
       invalid();
@@ -549,7 +551,7 @@ private:
     } else if (modifiers.has(ModifierKey::Control)) {
       for (size_t idx = left; idx >= 0 && idx <= right; ++idx) {
         if (barState[left] != BarState::active) return;
-        setValueAt(idx, defaultValue[idx]);
+        setValueAtIndex(idx, defaultValue[idx]);
       }
       if (liveUpdateLineEdit) updateValue();
       return;
@@ -559,11 +561,11 @@ private:
 
     if (barState[left] == BarState::active) {
       auto val = 1.0f - p0y / getHeight();
-      setValueAt(left, isSnapping ? snap(val) : val);
+      setValueAtIndex(left, isSnapping ? snap(val) : val);
     }
     if (barState[right] == BarState::active) {
       auto val = 1.0f - p1y / getHeight();
-      setValueAt(right, isSnapping ? snap(val) : val);
+      setValueAtIndex(right, isSnapping ? snap(val) : val);
     }
 
     // In between.
@@ -582,7 +584,7 @@ private:
     float y = slope * (sliderWidth * (left + 1) - p0x) + p0y;
     for (size_t idx = left + 1; idx < right; ++idx) {
       auto val = 1.0f - (y + 0.5f * yInc) / getHeight();
-      setValueAt(idx, isSnapping ? snap(val) : val);
+      setValueAtIndex(idx, isSnapping ? snap(val) : val);
       y += yInc;
     }
 
@@ -668,7 +670,7 @@ private:
   {
     for (size_t i = start; i < value.size(); i += 2) {
       if (barState[i] != BarState::active) continue;
-      setValueAt(i, 2 * sliderZero - value[i]);
+      setValueAtIndex(i, 2 * sliderZero - value[i]);
     }
   }
 
@@ -685,7 +687,7 @@ private:
         if (index >= value.size()) continue;
         result[i] += value[index] - sliderZero;
       }
-      setValueAt(i, sliderZero + result[i] / double(2 * range + 1));
+      setValueAtIndex(i, sliderZero + result[i] / double(2 * range + 1));
     }
   }
 
@@ -705,7 +707,7 @@ private:
       result[i] -= (i >= 1) ? value[i - 1] - sliderZero : val;
       result[i] -= (i < last) ? value[i + 1] - sliderZero : val;
       result[i] = val + 0.5f * result[i];
-      setValueAt(i, sliderZero + result[i]);
+      setValueAtIndex(i, sliderZero + result[i]);
     }
   }
 
@@ -728,7 +730,7 @@ private:
     for (size_t i = start; i < value.size(); ++i) {
       if (barState[i] != BarState::active) continue;
       std::uniform_real_distribution<double> dist(value[i] - amount, value[i] + amount);
-      setValueAt(i, dist(rng));
+      setValueAtIndex(i, dist(rng));
     }
   }
 
@@ -739,7 +741,7 @@ private:
     std::uniform_real_distribution<double> dist(sliderZero - 0.5, sliderZero + 0.5);
     for (size_t i = start; i < value.size(); ++i) {
       if (barState[i] != BarState::active) continue;
-      setValueAt(i, value[i] + mix * (dist(rng) - value[i]));
+      setValueAtIndex(i, value[i] + mix * (dist(rng) - value[i]));
     }
   }
 
@@ -796,7 +798,7 @@ private:
       if (barState[i] != BarState::active) continue;
       double val
         = value[i] >= sliderZero ? 1.0 - value[i] + sliderZero : sliderZero - value[i];
-      setValueAt(i, val);
+      setValueAtIndex(i, val);
     }
   }
 
@@ -812,7 +814,7 @@ private:
         : std::clamp<double>(
           2.0 * sliderZero + pk.maxPos - value[i] + pk.minPos, sliderZero,
           pk.maxPos + sliderZero);
-      setValueAt(i, val);
+      setValueAtIndex(i, val);
     }
   }
 
@@ -846,7 +848,7 @@ private:
           (value[i] - sliderZero + pk.minNeg) * mulNeg + fixNeg, sliderZero)
         : std::max<double>(
           (value[i] - sliderZero - pk.minPos) * mulPos + fixPos, sliderZero);
-      setValueAt(i, val);
+      setValueAtIndex(i, val);
     }
   }
 
@@ -875,7 +877,7 @@ private:
       auto val = value[i] < sliderZero
         ? (value[i] - sliderZero + pk.minNeg) * mulNeg + sliderZero - pk.minNeg
         : (value[i] - sliderZero - pk.minPos) * mulPos + sliderZero + pk.minPos;
-      setValueAt(i, val);
+      setValueAtIndex(i, val);
     }
   }
 
@@ -883,7 +885,7 @@ private:
   {
     for (size_t i = start; i < value.size(); i += interval) {
       if (barState[i] != BarState::active) continue;
-      setValueAt(i, (value[i] - sliderZero) * 0.9 + sliderZero);
+      setValueAtIndex(i, (value[i] - sliderZero) * 0.9 + sliderZero);
     }
   }
 
@@ -896,7 +898,7 @@ private:
 
       if (counter == 0) hold = value[i];
       counter = (counter + 1) % interval;
-      setValueAt(i, hold);
+      setValueAtIndex(i, hold);
     }
   }
 
@@ -904,7 +906,7 @@ private:
   {
     for (size_t i = start; i < value.size(); ++i) {
       if (barState[i] != BarState::active) continue;
-      setValueAt(i, (value[i] - sliderZero) / pow(i + 1, 0.0625) + sliderZero);
+      setValueAtIndex(i, (value[i] - sliderZero) / pow(i + 1, 0.0625) + sliderZero);
     }
   }
 
@@ -913,7 +915,7 @@ private:
     for (size_t i = start; i < value.size(); ++i) {
       if (barState[i] != BarState::active) continue;
       auto &&emphasis = 0.9 + 0.1 * double(i + 1) / value.size();
-      setValueAt(i, (value[i] - sliderZero) * emphasis + sliderZero);
+      setValueAtIndex(i, (value[i] - sliderZero) * emphasis + sliderZero);
     }
   }
 };

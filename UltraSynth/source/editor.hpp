@@ -51,7 +51,7 @@ private:
 
     void sync(float normalized)
     {
-      xypad->setValueAt(index, normalized);
+      xypad->setValueAt(xypad->id[index], normalized);
       xypad->invalid();
       control->setValue(normalized);
     }

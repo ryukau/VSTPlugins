@@ -22,13 +22,16 @@
 #include "vstgui/vstgui.h"
 
 #include <algorithm>
+#include <unordered_map>
+#include <vector>
 
 namespace VSTGUI {
 
 struct ArrayControl : public CView, public IFocusDrawing {
 public:
   Steinberg::Vst::VSTGUIEditor *editor = nullptr;
-  std::vector<Steinberg::Vst::ParamID> id;
+  std::vector<Steinberg::Vst::ParamID> id;                     // For index to id.
+  std::unordered_map<Steinberg::Vst::ParamID, uint32_t> idMap; // For id to index.
   std::vector<double> value;
   std::vector<double> defaultValue;
   std::vector<bool> isEditing;
@@ -41,6 +44,8 @@ public:
     std::vector<double> defaultValue)
     : CView(size), editor(editor), id(id), value(value), defaultValue(defaultValue)
   {
+    for (uint32_t i = 0; i < id.size(); ++i) idMap.emplace(std::pair(id[i], i));
+
     isEditing.resize(id.size(), false);
 
     setTransparency(false);
@@ -106,10 +111,11 @@ public:
     getFrame()->beginEdit(id[index]);
   }
 
-  void setValueAt(size_t index, double normalized)
+  virtual void setValueAt(Steinberg::Vst::ParamID id, double normalized)
   {
-    if (index >= value.size()) return;
-    value[index] = normalized < 0.0 ? 0.0 : normalized > 1.0 ? 1.0 : normalized;
+    auto index = idMap.find(id);
+    if (index == idMap.end()) return;
+    value[index->second] = std::clamp(normalized, 0.0, 1.0);
   }
 
   void editAndUpdateValue()
