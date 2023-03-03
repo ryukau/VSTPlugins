@@ -1,8 +1,9 @@
 {
   "FDNCymbal": {
-    "latest_version": "0.2.15",
+    "latest_version": "0.2.16",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/FDNCymbal_0.2.16.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/FDNCymbal_0.2.15.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/FDNCymbal_0.2.14.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/FDNCymbal_0.2.13.zip",
@@ -25,6 +26,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/FDNCymbalPresets.zip"
     },
     "changelog": {
+      "0.2.16": {
+        "en": [
+          "Fixed crash on Renoise. Previous code was trying to access freed memory of GUI widgets, and it was causing the crash."
+        ],
+        "ja": [
+          "Renoise で GUI がクラッシュするバグを修正。 GUI 要素のメモリが解放された後にアクセスを行おうとしていたことがクラッシュの原因。"
+        ]
+      },
       "0.2.15": {
         "en": [
           "Fixed stuttering on Audacity where `processContext` is `nullptr`.",

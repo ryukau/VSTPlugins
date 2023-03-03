@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2022-12-28" />
+<meta name="dcterms.date" content="2023-03-03" />
 <title>SyncSawSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2022-12-28
+  Update: 2023-03-03
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -328,15 +328,15 @@ order PTR sawtooth oscillator. Just a basic synthesizer but very easy to
 make a noise similar to low battery sound of some toys.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/SyncSawSynth_0.1.25.zip">Download
-SyncSawSynth 0.1.25 <code>full</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/SyncSawSynth_0.1.26.zip">Download
+SyncSawSynth 0.1.26 <code>full</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/SyncSawSynth_0.1.25_macOS.zip">Download
-SyncSawSynth 0.1.25 <code>macOS</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/SyncSawSynth_0.1.26_macOS.zip">Download
+SyncSawSynth 0.1.26 <code>macOS</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -597,7 +597,7 @@ focus.</li>
 <h2 id="controls">Controls</h2>
 <p><kbd>Right Click</kbd> on the controls pops up a context menu
 provided by DAW.</p>
-<p>Knob and slider can do:</p>
+<p>Knob and slider provides following controls:</p>
 <ul>
 <li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
 <li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
@@ -915,6 +915,11 @@ to 1.0.</p>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.26
+<ul>
+<li>Fixed crash on Renoise. Previous code was trying to access freed
+memory of GUI widgets, and it was causing the crash.</li>
+</ul></li>
 <li>0.1.25
 <ul>
 <li>Added to <code>virtual</code> to destructor of common components.
@@ -1039,6 +1044,9 @@ output value of gain envelope to sustain level.</li>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/SyncSawSynth_0.1.25.zip">SyncSawSynth
+0.1.25 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/SyncSawSynth_0.1.24.zip">SyncSawSynth
 0.1.24 - VST 3 (github.com)</a></li>

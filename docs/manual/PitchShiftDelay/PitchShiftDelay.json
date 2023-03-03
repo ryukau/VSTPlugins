@@ -1,8 +1,9 @@
 {
   "PitchShiftDelay": {
-    "latest_version": "0.2.6",
+    "latest_version": "0.2.7",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/PitchShiftDelay_0.2.7.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/PitchShiftDelay_0.2.6.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/PitchShiftDelay_0.2.5.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/PitchShiftDelay_0.2.4.zip",
@@ -11,9 +12,19 @@
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/PitchShiftDelay_0.2.1.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/PitchShiftDelay_0.2.0.zip"
       ],
-      "preset_url": ""
+      "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/PitchShiftDelayPresets.zip"
     },
     "changelog": {
+      "0.2.7": {
+        "en": [
+          "Added presets.",
+          "Fixed crash on Renoise. Previous code was trying to access freed memory of GUI widgets, and it was causing the crash."
+        ],
+        "ja": [
+          "プリセットを追加。",
+          "Renoise で GUI がクラッシュするバグを修正。 GUI 要素のメモリが解放された後にアクセスを行おうとしていたことがクラッシュの原因。"
+        ]
+      },
       "0.2.6": {
         "en": [
           "Fixed stuttering on Audacity where `processContext` is `nullptr`."

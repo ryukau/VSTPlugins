@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2023-01-27" />
+<meta name="dcterms.date" content="2023-03-03" />
 <title>BasicLimiter_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2023-01-27
+  Update: 2023-03-03
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -336,15 +336,15 @@ footer {
 new, but the design of true peak mode is a bit luxurious.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/BasicLimiter_0.1.15.zip">Download
-BasicLimiter 0.1.15 <code>full</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/BasicLimiter_0.1.16.zip">Download
+BasicLimiter 0.1.16 <code>full</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/BasicLimiter_0.1.15_macOS.zip">Download
-BasicLimiter 0.1.15 <code>macOS</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/BasicLimiter_0.1.16_macOS.zip">Download
+BasicLimiter 0.1.16 <code>macOS</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -359,15 +359,15 @@ left-right (L-R) and mid-side (M-S). Note that CPU load is over 1.5
 times heavier than BasicLimiter.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/BasicLimiterAutoMake_0.1.15.zip">Download
-BasicLimiterAutoMake 0.1.15 full - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/BasicLimiterAutoMake_0.1.16.zip">Download
+BasicLimiterAutoMake 0.1.16 full - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/BasicLimiterAutoMake_0.1.15_macOS.zip">Download
-BasicLimiterAutoMake 0.1.15 macOS - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/BasicLimiterAutoMake_0.1.16_macOS.zip">Download
+BasicLimiterAutoMake 0.1.16 macOS - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -783,6 +783,11 @@ comparing <code>L-R</code> and <code>M-S</code>.</p>
 <h2 id="change-log">Change Log</h2>
 <h3 id="basiclimiter-1">BasicLimiter</h3>
 <ul>
+<li>0.1.16
+<ul>
+<li>Fixed crash on Renoise. Previous code was trying to access freed
+memory of GUI widgets, and it was causing the crash.</li>
+</ul></li>
 <li>0.1.15
 <ul>
 <li>Fixed stuttering on Audacity where <code>processContext</code> is
@@ -847,6 +852,11 @@ dB.</li>
 </ul>
 <h3 id="basiclimiterautomake">BasicLimiterAutoMake</h3>
 <ul>
+<li>0.1.16
+<ul>
+<li>Fixed crash on Renoise. Previous code was trying to access freed
+memory of GUI widgets, and it was causing the crash.</li>
+</ul></li>
 <li>0.1.15
 <ul>
 <li>Fixed stuttering on Audacity where <code>processContext</code> is
@@ -910,6 +920,9 @@ unintentional muting on sidechain in REAPER.</li>
 <h3 id="basiclimiter-2">BasicLimiter</h3>
 <ul>
 <li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/BasicLimiter_0.1.15.zip">BasicLimiter
+0.1.15 - VST 3 (github.com)</a></li>
+<li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/BasicLimiter_0.1.14.zip">BasicLimiter
 0.1.14 - VST 3 (github.com)</a></li>
 <li><a
@@ -945,6 +958,9 @@ href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN6
 </ul>
 <h3 id="basiclimiterautomake-1">BasicLimiterAutoMake</h3>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/BasicLimiterAutoMake_0.1.15.zip">BasicLimiterAutoMake
+0.1.15 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/BasicLimiterAutoMake_0.1.14.zip">BasicLimiterAutoMake
 0.1.14 - VST 3 (github.com)</a></li>

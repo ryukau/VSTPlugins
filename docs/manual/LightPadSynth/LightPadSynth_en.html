@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2023-01-27" />
+<meta name="dcterms.date" content="2023-03-03" />
 <title>LightPadSynth_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2023-01-27
+  Update: 2023-03-03
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -349,15 +349,15 @@ efficiency, interpolation is changed to linear. Also pitch modulation is
 omitted. Instead, a delay is added for each voice.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/LightPadSynth_0.1.20.zip">Download
-LightPadSynth 0.1.20 <code>full</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/LightPadSynth_0.1.21.zip">Download
+LightPadSynth 0.1.21 <code>full</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/LightPadSynth_0.1.20_macOS.zip">Download
-LightPadSynth 0.1.20 <code>macOS</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/LightPadSynth_0.1.21_macOS.zip">Download
+LightPadSynth 0.1.21 <code>macOS</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -1176,6 +1176,11 @@ Wavetable tab.</p>
 notes.</p>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.21
+<ul>
+<li>Fixed crash on Renoise. Previous code was trying to access freed
+memory of GUI widgets, and it was causing the crash.</li>
+</ul></li>
 <li>0.1.20
 <ul>
 <li>Fixed stuttering on Audacity where <code>processContext</code> is
@@ -1293,6 +1298,9 @@ to VST parameter.</li>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/LightPadSynth_0.1.20.zip">LightPadSynth
+0.1.20 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/LightPadSynth_0.1.19.zip">LightPadSynth
 0.1.19 - VST 3 (github.com)</a></li>

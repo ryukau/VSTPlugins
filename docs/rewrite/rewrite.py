@@ -98,12 +98,12 @@ if __name__ == "__main__":
     with open("../../package/manual.json", "r", encoding="utf-8") as fi:
         alias = json.load(fi)
 
-    release_name = "UhhyouPlugins0.52.0"
+    release_name = "UhhyouPlugins0.53.0"
     changelog_en = [
-        "Fixed stuttering on Audacity where `processContext` is `nullptr`.",
+        "Fixed crash on Renoise. Previous code was trying to access freed memory of GUI widgets, and it was causing the crash.",
     ]
     changelog_ja = [
-        "`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。",
+        "Renoise で GUI がクラッシュするバグを修正。 GUI 要素のメモリが解放された後にアクセスを行おうとしていたことがクラッシュの原因。",
     ]
     for target in targets:
         updateVersion(target, alias, changelog_en, changelog_ja, release_name)

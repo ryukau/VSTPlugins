@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2023-01-27" />
+<meta name="dcterms.date" content="2023-03-03" />
 <title>ClangSynth_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2023-01-27
+  Update: 2023-03-03
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -352,19 +352,22 @@ footer {
 WaveCymbal や FDNCymbal よりはシンバルに似た音が出ます。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/ClangSynth_0.1.5.zip">ClangSynth
-0.1.5 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ClangSynth_0.1.6.zip">ClangSynth
+0.1.6 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/ClangSynth_0.1.5_macOS.zip">ClangSynth
-0.1.5 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ClangSynth_0.1.6_macOS.zip">ClangSynth
+0.1.6 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ClangSynthPresets.zip">プリセットをダウンロード
+(github.com)</a></li>
 </ul>
 <p><ruby>ClangCymbal<rt>クラング シンバル</rt></ruby> は ClangSynth
 のスピンオフです。 FDN の大きさが 64 * 64
@@ -372,15 +375,15 @@ style="display: inline-block; vertical-align: middle;"></li>
 負荷も増えているのでモノフォニックです。オシレータはシンバルの合成に適したノイズとパルス列の混合に変更されています。マンホールをアスファルトの上で引きずったような音も出せます。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/ClangCymbal_0.1.5.zip">ClangCymbal
-0.1.5 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ClangCymbal_0.1.6.zip">ClangCymbal
+0.1.6 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/ClangCymbal_0.1.5_macOS.zip">ClangCymbal
-0.1.5 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ClangCymbal_0.1.6_macOS.zip">ClangCymbal
+0.1.6 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -1494,6 +1497,12 @@ CPU 負荷も上がっています。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <h3 id="clangsynth-3">ClangSynth</h3>
 <ul>
+<li>0.1.6
+<ul>
+<li>プリセットを追加。</li>
+<li>Renoise で GUI がクラッシュするバグを修正。 GUI
+要素のメモリが解放された後にアクセスを行おうとしていたことがクラッシュの原因。</li>
+</ul></li>
 <li>0.1.5
 <ul>
 <li><code>processContext</code> が <code>nullptr</code> であるために
@@ -1530,6 +1539,11 @@ Audacity で音が正しく出力されなかったバグを修正。</li>
 </ul>
 <h3 id="clangcymbal-2">ClangCymbal</h3>
 <ul>
+<li>0.1.6
+<ul>
+<li>Renoise で GUI がクラッシュするバグを修正。 GUI
+要素のメモリが解放された後にアクセスを行おうとしていたことがクラッシュの原因。</li>
+</ul></li>
 <li>0.1.5
 <ul>
 <li><code>processContext</code> が <code>nullptr</code> であるために
@@ -1589,6 +1603,9 @@ Audacity で音が正しく出力されなかったバグを修正。</li>
 <h3 id="clangsynth-4">ClangSynth</h3>
 <ul>
 <li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/ClangSynth_0.1.5.zip">ClangSynth
+0.1.5 - VST 3 (github.com)</a></li>
+<li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/ClangSynth_0.1.4.zip">ClangSynth
 0.1.4 - VST 3 (github.com)</a></li>
 <li><a
@@ -1606,6 +1623,9 @@ href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0
 </ul>
 <h3 id="clangcymbal-3">ClangCymbal</h3>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/ClangCymbal_0.1.5.zip">ClangCymbal
+0.1.5 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/ClangCymbal_0.1.4.zip">ClangCymbal
 0.1.4 - VST 3 (github.com)</a></li>

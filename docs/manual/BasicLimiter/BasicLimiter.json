@@ -1,8 +1,9 @@
 {
   "BasicLimiter": {
-    "latest_version": "0.1.15",
+    "latest_version": "0.1.16",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/BasicLimiter_0.1.16.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/BasicLimiter_0.1.15.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/BasicLimiter_0.1.14.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/BasicLimiter_0.1.13.zip",
@@ -19,6 +20,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterPresets.zip"
     },
     "changelog": {
+      "0.1.16": {
+        "en": [
+          "Fixed crash on Renoise. Previous code was trying to access freed memory of GUI widgets, and it was causing the crash."
+        ],
+        "ja": [
+          "Renoise で GUI がクラッシュするバグを修正。 GUI 要素のメモリが解放された後にアクセスを行おうとしていたことがクラッシュの原因。"
+        ]
+      },
       "0.1.15": {
         "en": [
           "Fixed stuttering on Audacity where `processContext` is `nullptr`."
@@ -128,9 +137,10 @@
     }
   },
   "BasicLimiterAutoMake": {
-    "latest_version": "0.1.15",
+    "latest_version": "0.1.16",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/BasicLimiterAutoMake_0.1.16.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/BasicLimiterAutoMake_0.1.15.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/BasicLimiterAutoMake_0.1.14.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/BasicLimiterAutoMake_0.1.13.zip",
@@ -146,6 +156,14 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.1.16": {
+        "en": [
+          "Fixed crash on Renoise. Previous code was trying to access freed memory of GUI widgets, and it was causing the crash."
+        ],
+        "ja": [
+          "Renoise で GUI がクラッシュするバグを修正。 GUI 要素のメモリが解放された後にアクセスを行おうとしていたことがクラッシュの原因。"
+        ]
+      },
       "0.1.15": {
         "en": [
           "Fixed stuttering on Audacity where `processContext` is `nullptr`."

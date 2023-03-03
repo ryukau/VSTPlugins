@@ -1,8 +1,9 @@
 {
   "CollidingCombSynth": {
-    "latest_version": "0.1.12",
+    "latest_version": "0.1.13",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/CollidingCombSynth_0.1.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/CollidingCombSynth_0.1.12.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/CollidingCombSynth_0.1.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/CollidingCombSynth_0.1.10.zip",
@@ -19,6 +20,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CollidingCombSynthPresets.zip"
     },
     "changelog": {
+      "0.1.13": {
+        "en": [
+          "Fixed crash on Renoise. Previous code was trying to access freed memory of GUI widgets, and it was causing the crash."
+        ],
+        "ja": [
+          "Renoise で GUI がクラッシュするバグを修正。 GUI 要素のメモリが解放された後にアクセスを行おうとしていたことがクラッシュの原因。"
+        ]
+      },
       "0.1.12": {
         "en": [
           "Updated splash screen text."

@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2023-01-27" />
+<meta name="dcterms.date" content="2023-03-03" />
 <title>ParallelComb_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2023-01-27
+  Update: 2023-03-03
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -326,15 +326,15 @@ somewhat clean. Weird distorsion can be added by modulating delay time
 using feedback signal amplitude.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/ParallelComb_0.2.7.zip">Download
-ParallelComb 0.2.7 <code>full</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ParallelComb_0.2.8.zip">Download
+ParallelComb 0.2.8 <code>full</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/ParallelComb_0.2.7_macOS.zip">Download
-ParallelComb 0.2.7 <code>macOS</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ParallelComb_0.2.8_macOS.zip">Download
+ParallelComb 0.2.8 <code>macOS</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -914,6 +914,11 @@ of it.</p>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.2.8
+<ul>
+<li>Fixed crash on Renoise. Previous code was trying to access freed
+memory of GUI widgets, and it was causing the crash.</li>
+</ul></li>
 <li>0.2.7
 <ul>
 <li>Fixed stuttering on Audacity where <code>processContext</code> is
@@ -958,6 +963,9 @@ refreshes when oversampling is turned on.</li>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/ParallelComb_0.2.7.zip">ParallelComb
+0.2.7 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/ParallelComb_0.2.6.zip">ParallelComb
 0.2.6 - VST 3 (github.com)</a></li>

@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2023-01-27" />
+<meta name="dcterms.date" content="2023-03-03" />
 <title>WaveCymbal_en</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2023-01-27
+  Update: 2023-03-03
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -332,15 +332,15 @@ wave-guide model. The result is more like dragging bunch of empty cans
 or thin metal plate on asphalt rather than cymbal.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/WaveCymbal_0.1.22.zip">Download
-WaveCymbal 0.1.22 <code>full</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/WaveCymbal_0.1.23.zip">Download
+WaveCymbal 0.1.23 <code>full</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/WaveCymbal_0.1.22_macOS.zip">Download
-WaveCymbal 0.1.22 <code>macOS</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/WaveCymbal_0.1.23_macOS.zip">Download
+WaveCymbal 0.1.23 <code>macOS</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -751,6 +751,11 @@ respect to pitch of note. Kind of like dragging cymbal on asphalt.</li>
 <code>Smoothness</code>.</p>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>0.1.23
+<ul>
+<li>Fixed crash on Renoise. Previous code was trying to access freed
+memory of GUI widgets, and it was causing the crash.</li>
+</ul></li>
 <li>0.1.22
 <ul>
 <li>Fixed stuttering on Audacity where <code>processContext</code> is
@@ -865,6 +870,9 @@ instances.</li>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/WaveCymbal_0.1.22.zip">WaveCymbal
+0.1.22 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/WaveCymbal_0.1.21.zip">WaveCymbal
 0.1.21 - VST 3 (github.com)</a></li>
