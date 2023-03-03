@@ -28,7 +28,7 @@ If DAW doesn't recognize the plugin, try installing C++ redistributable (`vc_red
 - [The latest supported Visual C++ downloads](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 
 ### Linux Specific
-On Ubuntu 18.0.4, those packages are required.
+On Ubuntu 22.04, those packages are required.
 
 ```bash
 sudo apt install libxcb-cursor0  libxkbcommon-x11-0

@@ -28,7 +28,7 @@ DAW によっては上記とは別に VST3 をインストールできるディ�
 - [The latest supported Visual C++ downloads](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 
 ### Linux
-Ubuntu 18.0.4 では次のパッケージのインストールが必要です。
+Ubuntu 22.04 では次のパッケージのインストールが必要です。
 
 ```bash
 sudo apt install libxcb-cursor0  libxkbcommon-x11-0
