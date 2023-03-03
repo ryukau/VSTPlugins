@@ -74,11 +74,23 @@ xattr -rc /path/to/PluginName.vst3
 1. システム環境設定を開いて「セキュリティとプライバシー」 → 「一般」 → 「ダウンロードしたアプリケーションの実行許可」と辿り、「App Store と認証済みの開発元からのアプリケーションを許可」を選択。
 2. ターミナルを開いて `sudo spctl --master-enable` を実行。
 
+#### `codesign` の適用
+**注意** この節の内容は `macOS` パッケージには関連しないと考えられますが未検証です。 ([GitHub の issue](https://github.com/ryukau/VSTPlugins/issues/27))
+
+`full` パッケージを利用する場合は以下のコマンドを適用することで利用できるかもしれません。
+
+```sh
+sudo codesign --force --deep -s - /path/to/PluginName.vst3
+```
+
+`codesign` の利用には [Xcode](https://developer.apple.com/xcode/) のインストールが必要となるかもしれません。
+
 #### 参考リンク
 - [Safely open apps on your Mac - Apple Support](https://support.apple.com/en-us/HT202491)
 - [java - “libprism_sw.dylib” cannot be opened because the developer cannot be verified. on mac JAVAFX - Stack Overflow](https://stackoverflow.com/questions/66891065/libprism-sw-dylib-cannot-be-opened-because-the-developer-cannot-be-verified-o)
 - [How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac](https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/)
 - [Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio](https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/)
+- [codesign Man Page - macOS - SS64.com](https://ss64.com/osx/codesign.html)
 
 ## GUI の見た目の設定
 初回設定時は手動で次のファイルを作成してください。

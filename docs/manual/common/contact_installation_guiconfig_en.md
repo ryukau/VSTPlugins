@@ -80,6 +80,17 @@ Beware that steps above degrades security of your system. To revert the settings
 1. Go to System Preferences → Security and Privacy → General → Allow apps downloaded from, then select option to "App Store and identified developers".
 2. Open terminal and run `sudo spctl --master-enable`.
 
+#### Applying `codesign`
+**Note** This section may not relevant to `macOS` packages. However it's not verified. ([GitHub issue](https://github.com/ryukau/VSTPlugins/issues/27))
+
+To use `full` package, following command might be used.
+
+```sh
+sudo codesign --force --deep -s - /path/to/PluginName.vst3
+```
+
+`codesign` might not be available without installing [Xcode](https://developer.apple.com/xcode/).
+
 #### Reference
 - [Safely open apps on your Mac - Apple Support](https://support.apple.com/en-us/HT202491)
 - [java - “libprism_sw.dylib” cannot be opened because the developer cannot be verified. on mac JAVAFX - Stack Overflow](https://stackoverflow.com/questions/66891065/libprism-sw-dylib-cannot-be-opened-because-the-developer-cannot-be-verified-o)
