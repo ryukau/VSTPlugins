@@ -79,26 +79,28 @@ size_t DSPCore::getLatency() { return 0; }
   stereoPhaseCross.METHOD(pv[ID::stereoPhaseCross]->getDouble());                        \
   stereoPhaseOffset.METHOD(pv[ID::stereoPhaseOffset]->getDouble());                      \
                                                                                          \
-  inputPhaseMod.METHOD(pv[ID::inputPhaseMod]->getDouble() / double(fold[oversampling])); \
+  auto phaseModCorrection = double(48000) / upRate;                                      \
+  inputPhaseMod.METHOD(pv[ID::inputPhaseMod]->getDouble() * phaseModCorrection);         \
+  sidePhaseMod.METHOD(pv[ID::sideChainPhaseMod]->getDouble() * phaseModCorrection);      \
+                                                                                         \
   auto inPreAsym = pv[ID::inputPreAsymmetryAmount]->getDouble();                         \
   inputPreAsymmetry.METHOD(                                                              \
     pv[ID::inputPreAsymmetryHarsh]->getInt() ? freqToSvfG(inPreAsym / double(2))         \
                                              : inPreAsym);                               \
-  inputLowpassG.METHOD(freqToSvfG(pv[ID::inputLowpassHz]->getDouble() / upRate));        \
-  inputHighpassG.METHOD(freqToSvfG(pv[ID::inputHighpassHz]->getDouble() / upRate));      \
-  auto inPostAsym = pv[ID::inputPostAsymmetryAmount]->getDouble();                       \
-  inputPostAsymmetry.METHOD(                                                             \
-    pv[ID::inputPostAsymmetryHarsh]->getInt() ? freqToSvfG(inPostAsym / double(2))       \
-                                              : inPostAsym);                             \
-                                                                                         \
-  sidePhaseMod.METHOD(                                                                   \
-    pv[ID::sideChainPhaseMod]->getDouble() / double(fold[oversampling]));                \
   auto sidePreAsym = pv[ID::sideChainPreAsymmetryAmount]->getDouble();                   \
   sidePreAsymmetry.METHOD(                                                               \
     pv[ID::sideChainPreAsymmetryHarsh]->getInt() ? freqToSvfG(sidePreAsym / double(2))   \
                                                  : sidePreAsym);                         \
+                                                                                         \
+  inputLowpassG.METHOD(freqToSvfG(pv[ID::inputLowpassHz]->getDouble() / upRate));        \
   sideLowpassG.METHOD(freqToSvfG(pv[ID::sideChainLowpassHz]->getDouble() / upRate));     \
+  inputHighpassG.METHOD(freqToSvfG(pv[ID::inputHighpassHz]->getDouble() / upRate));      \
   sideHighpassG.METHOD(freqToSvfG(pv[ID::sideChainHighpassHz]->getDouble() / upRate));   \
+                                                                                         \
+  auto inPostAsym = pv[ID::inputPostAsymmetryAmount]->getDouble();                       \
+  inputPostAsymmetry.METHOD(                                                             \
+    pv[ID::inputPostAsymmetryHarsh]->getInt() ? freqToSvfG(inPostAsym / double(2))       \
+                                              : inPostAsym);                             \
   auto sidePostAsym = pv[ID::sideChainPostAsymmetryAmount]->getDouble();                 \
   sidePostAsymmetry.METHOD(                                                              \
     pv[ID::sideChainPostAsymmetryHarsh]->getInt() ? freqToSvfG(sidePostAsym / double(2)) \
