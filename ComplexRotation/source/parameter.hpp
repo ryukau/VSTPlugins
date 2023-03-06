@@ -38,15 +38,33 @@ enum ID {
 
   outputGain,
   mix,
+
+  stereoPhaseLinkHz,
+  stereoPhaseCross,
+  stereoPhaseOffset,
+
   inputPhaseMod,
   inputLowpassHz,
+  inputHighpassHz,
+  inputEnvelopeEnable,
+  inputEnvelopeReleaseSecond,
+  inputPreAsymmetryAmount,
+  inputPostAsymmetryAmount,
+  inputPreAsymmetryHarsh,
+  inputPostAsymmetryHarsh,
+
+  sideChainPhaseMod,
+  sideChainLowpassHz,
+  sideChainHighpassHz,
+  sideChainEnvelopeEnable,
+  sideChainEnvelopeReleaseSecond,
+  sideChainPreAsymmetryAmount,
+  sideChainPostAsymmetryAmount,
+  sideChainPreAsymmetryHarsh,
+  sideChainPostAsymmetryHarsh,
 
   parameterSmoothingSecond,
   oversampling,
-
-  notePitchOrigin,
-  notePitchToAllpassCutoff,
-  notePitchToDelayTime,
 
   ID_ENUM_LENGTH,
   ID_ENUM_GUI_START = ID_ENUM_LENGTH,
@@ -59,12 +77,13 @@ struct Scales {
   static SomeDSP::LinearScale<double> bipolarScale;
 
   static SomeDSP::DecibelScale<double> outputGain;
-
+  static SomeDSP::DecibelScale<double> stereoPhaseLinkHz;
   static SomeDSP::DecibelScale<double> modulation;
   static SomeDSP::DecibelScale<double> cutoffHz;
+  static SomeDSP::DecibelScale<double> envelopeSecond;
 
+  static SomeDSP::UIntScale<double> oversampling;
   static SomeDSP::DecibelScale<double> parameterSmoothingSecond;
-  static SomeDSP::LinearScale<double> notePitchOrigin;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -87,25 +106,65 @@ struct GlobalParameter : public ParameterInterface {
       Scales::outputGain.invmapDB(0.0), Scales::outputGain, "outputGain",
       Info::kCanAutomate);
     value[ID::mix] = std::make_unique<LinearValue>(
-      0.5, Scales::defaultScale, "mix", Info::kCanAutomate);
+      1.0, Scales::defaultScale, "mix", Info::kCanAutomate);
+
+    value[ID::stereoPhaseLinkHz] = std::make_unique<DecibelValue>(
+      Scales::stereoPhaseLinkHz.invmap(1.0), Scales::stereoPhaseLinkHz, "stereoLink",
+      Info::kCanAutomate);
+    value[ID::stereoPhaseCross] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "stereoPhaseCross", Info::kCanAutomate);
+    value[ID::stereoPhaseOffset] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "stereoPhaseOffset", Info::kCanAutomate);
+
     value[ID::inputPhaseMod] = std::make_unique<DecibelValue>(
-      1.0, Scales::modulation, "inputPhaseMod", Info::kCanAutomate);
+      Scales::modulation.invmap(0.01), Scales::modulation, "inputPhaseMod",
+      Info::kCanAutomate);
     value[ID::inputLowpassHz] = std::make_unique<DecibelValue>(
       1.0, Scales::cutoffHz, "inputLowpassHz", Info::kCanAutomate);
+    value[ID::inputHighpassHz] = std::make_unique<DecibelValue>(
+      Scales::cutoffHz.invmap(5.0), Scales::cutoffHz, "inputHighpassHz",
+      Info::kCanAutomate);
+    value[ID::inputEnvelopeEnable] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "inputEnvelopeEnable", Info::kCanAutomate);
+    value[ID::inputEnvelopeReleaseSecond] = std::make_unique<DecibelValue>(
+      Scales::envelopeSecond.invmap(0.5), Scales::envelopeSecond,
+      "inputEnvelopeReleaseSecond", Info::kCanAutomate);
+    value[ID::inputPreAsymmetryAmount] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "inputPreAsymmetryAmount", Info::kCanAutomate);
+    value[ID::inputPostAsymmetryAmount] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "inputPostAsymmetryAmount", Info::kCanAutomate);
+    value[ID::inputPreAsymmetryHarsh] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "inputPreAsymmetryHarsh", Info::kCanAutomate);
+    value[ID::inputPostAsymmetryHarsh] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "inputPostAsymmetryHarsh", Info::kCanAutomate);
+
+    value[ID::sideChainPhaseMod] = std::make_unique<DecibelValue>(
+      Scales::modulation.invmap(0.0), Scales::modulation, "sideChainPhaseMod",
+      Info::kCanAutomate);
+    value[ID::sideChainLowpassHz] = std::make_unique<DecibelValue>(
+      1.0, Scales::cutoffHz, "sideChainLowpassHz", Info::kCanAutomate);
+    value[ID::sideChainHighpassHz] = std::make_unique<DecibelValue>(
+      Scales::cutoffHz.invmap(5.0), Scales::cutoffHz, "sideChainHighpassHz",
+      Info::kCanAutomate);
+    value[ID::sideChainEnvelopeEnable] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "sideChainEnvelopeEnable", Info::kCanAutomate);
+    value[ID::sideChainEnvelopeReleaseSecond] = std::make_unique<DecibelValue>(
+      Scales::envelopeSecond.invmap(0.5), Scales::envelopeSecond,
+      "sideChainEnvelopeReleaseSecond", Info::kCanAutomate);
+    value[ID::sideChainPreAsymmetryAmount] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "sideChainPreAsymmetryAmount", Info::kCanAutomate);
+    value[ID::sideChainPostAsymmetryAmount] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "sideChainPostAsymmetryAmount", Info::kCanAutomate);
+    value[ID::sideChainPreAsymmetryHarsh] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "sideChainPreAsymmetryHarsh", Info::kCanAutomate);
+    value[ID::sideChainPostAsymmetryHarsh] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "sideChainPostAsymmetryHarsh", Info::kCanAutomate);
 
     value[ID::parameterSmoothingSecond] = std::make_unique<DecibelValue>(
       Scales::parameterSmoothingSecond.invmap(0.2), Scales::parameterSmoothingSecond,
       "parameterSmoothingSecond", Info::kCanAutomate);
     value[ID::oversampling] = std::make_unique<UIntValue>(
-      1, Scales::boolScale, "oversampling", Info::kCanAutomate);
-
-    value[ID::notePitchOrigin] = std::make_unique<LinearValue>(
-      Scales::notePitchOrigin.invmap(60.0), Scales::notePitchOrigin, "notePitchOrigin",
-      Info::kCanAutomate);
-    value[ID::notePitchToAllpassCutoff] = std::make_unique<LinearValue>(
-      0.5, Scales::bipolarScale, "notePitchToAllpassCutoff", Info::kCanAutomate);
-    value[ID::notePitchToDelayTime] = std::make_unique<LinearValue>(
-      0.5, Scales::bipolarScale, "notePitchToDelayTime", Info::kCanAutomate);
+      2, Scales::oversampling, "oversampling", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

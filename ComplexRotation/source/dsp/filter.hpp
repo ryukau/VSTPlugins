@@ -19,42 +19,9 @@
 
 #include "../../../common/dsp/constants.hpp"
 
+#include <limits>
+
 namespace SomeDSP {
-
-template<typename Sample> class ZDFOnePoleAllpass {
-private:
-  Sample s = 0;
-  Sample out = 0;
-
-public:
-  void reset()
-  {
-    s = 0;
-    out = 0;
-  }
-
-  Sample output() { return out; }
-
-  // `cutoff` is normalized in [0, 1), where 1 is Nyquist frequency.
-  Sample process(Sample x0, Sample cutoff)
-  {
-    auto xs = x0 - s;
-    s += xs * Sample(2) * cutoff / (Sample(1.0 / pi) + cutoff);
-    return out = s - xs;
-  }
-};
-
-template<typename Sample> struct EMAHighpass {
-  Sample v1 = 0;
-
-  void reset(Sample value = 0) { v1 = value; }
-
-  Sample process(Sample input, Sample kp)
-  {
-    v1 += kp * (input - v1);
-    return input - v1;
-  }
-};
 
 template<typename Sample> class SVF {
 private:
@@ -90,42 +57,33 @@ public:
   }
 };
 
-template<typename Sample> class Delay {
+/**
+This implementation takes raw value instead of absolute value of input. It's a
+specialization specific to ComplexRotation, to skip a call to `std::abs()`.
+*/
+template<typename Sample> class EnvelopeFollower {
+private:
+  Sample value = 0;
+  Sample release = Sample(1);
+
 public:
-  int wptr = 0;
-  std::vector<Sample> buf;
-
-  void setup(Sample sampleRate, Sample maxTime)
+  void reset(Sample resetValue = 0)
   {
-    auto size = size_t(sampleRate * maxTime) + 2;
-    buf.resize(size < 4 ? 4 : size);
-
-    reset();
+    value = resetValue;
+    release = Sample(1);
   }
 
-  void reset() { std::fill(buf.begin(), buf.end(), Sample(0)); }
-
-  Sample process(Sample input, Sample timeInSample)
+  void prepare(Sample releaseSamples)
   {
-    const int size = int(buf.size());
+    constexpr Sample eps = Sample(std::numeric_limits<float>::epsilon());
+    release = std::pow(eps, Sample(1) / releaseSamples);
+  }
 
-    // Set delay time.
-    Sample clamped = std::clamp(timeInSample, Sample(0), Sample(size - 1));
-    int timeInt = int(clamped);
-    Sample rFraction = clamped - Sample(timeInt);
-
-    int rptr0 = wptr - timeInt;
-    if (rptr0 < 0) rptr0 += size;
-
-    int rptr1 = rptr0 - 1;
-    if (rptr1 < 0) rptr1 += size;
-
-    // Write to buffer.
-    buf[wptr] = input;
-    if (++wptr >= size) wptr -= size;
-
-    // Read from buffer.
-    return buf[rptr0] + rFraction * (buf[rptr1] - buf[rptr0]);
+  Sample process(Sample input)
+  {
+    // Gate at 0.0625 ~= -24 dB.
+    if (input > Sample(0.0625) && input > value) value = input;
+    return value *= release;
   }
 };
 

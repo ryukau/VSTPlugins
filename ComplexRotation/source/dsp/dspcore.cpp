@@ -32,18 +32,32 @@ template<typename T> inline T freqToSvfG(T normalizedFreq)
   return std::tan(std::clamp(normalizedFreq, minCutoff, nyquist) * T(pi));
 }
 
-template<typename T> inline T addAsymmetry(T value, T asym)
+template<typename T> inline void syncPhase(T &phase0, T &phase1, T kp)
 {
-  auto mult = value * asym;
-  return mult > 0 ? std::copysign(mult, value) : value;
+  auto d1 = phase1 - phase0;
+  if (d1 < 0) {
+    auto d2 = d1 + double(1);
+    phase0 += kp * (d2 < -d1 ? d2 : d1);
+  } else {
+    auto d2 = d1 - double(1);
+    phase0 += kp * (-d2 < d1 ? d2 : d1);
+  }
+}
+
+template<typename T> inline T crossPhase(T phase0, T phase1, T ratio)
+{
+  auto d1 = phase1 - phase0;
+  if (d1 < 0) {
+    auto d2 = d1 + double(1);
+    return phase0 + ratio * (d2 < -d1 ? d2 : d1);
+  }
+  auto d2 = d1 - double(1);
+  return phase0 + ratio * (-d2 < d1 ? d2 : d1);
 }
 
 void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = double(sampleRate);
-
-  pitchSmoothingKp = EMAFilter<double>::secondToP(upRate, double(0.05));
-  pitchReleaseKp = EMAFilter<double>::secondToP(upRate, double(4));
 
   reset();
   startup();
@@ -59,13 +73,48 @@ size_t DSPCore::getLatency() { return 0; }
                                                                                          \
   outputGain.METHOD(pv[ID::outputGain]->getDouble());                                    \
   mix.METHOD(pv[ID::mix]->getDouble());                                                  \
-  inputPhaseMod.METHOD(pv[ID::inputPhaseMod]->getDouble());                              \
-  inputLowpassG.METHOD(freqToSvfG(pv[ID::inputLowpassHz]->getDouble() / upRate));
+                                                                                         \
+  stereoPhaseLinkKp.METHOD(                                                              \
+    EMAFilter<double>::cutoffToP(upRate, pv[ID::stereoPhaseLinkHz]->getDouble()));       \
+  stereoPhaseCross.METHOD(pv[ID::stereoPhaseCross]->getDouble());                        \
+  stereoPhaseOffset.METHOD(pv[ID::stereoPhaseOffset]->getDouble());                      \
+                                                                                         \
+  inputPhaseMod.METHOD(pv[ID::inputPhaseMod]->getDouble() / double(fold[oversampling])); \
+  auto inPreAsym = pv[ID::inputPreAsymmetryAmount]->getDouble();                         \
+  inputPreAsymmetry.METHOD(                                                              \
+    pv[ID::inputPreAsymmetryHarsh]->getInt() ? freqToSvfG(inPreAsym / double(2))         \
+                                             : inPreAsym);                               \
+  inputLowpassG.METHOD(freqToSvfG(pv[ID::inputLowpassHz]->getDouble() / upRate));        \
+  inputHighpassG.METHOD(freqToSvfG(pv[ID::inputHighpassHz]->getDouble() / upRate));      \
+  auto inPostAsym = pv[ID::inputPostAsymmetryAmount]->getDouble();                       \
+  inputPostAsymmetry.METHOD(                                                             \
+    pv[ID::inputPostAsymmetryHarsh]->getInt() ? freqToSvfG(inPostAsym / double(2))       \
+                                              : inPostAsym);                             \
+                                                                                         \
+  sidePhaseMod.METHOD(                                                                   \
+    pv[ID::sideChainPhaseMod]->getDouble() / double(fold[oversampling]));                \
+  auto sidePreAsym = pv[ID::sideChainPreAsymmetryAmount]->getDouble();                   \
+  sidePreAsymmetry.METHOD(                                                               \
+    pv[ID::sideChainPreAsymmetryHarsh]->getInt() ? freqToSvfG(sidePreAsym / double(2))   \
+                                                 : sidePreAsym);                         \
+  sideLowpassG.METHOD(freqToSvfG(pv[ID::sideChainLowpassHz]->getDouble() / upRate));     \
+  sideHighpassG.METHOD(freqToSvfG(pv[ID::sideChainHighpassHz]->getDouble() / upRate));   \
+  auto sidePostAsym = pv[ID::sideChainPostAsymmetryAmount]->getDouble();                 \
+  sidePostAsymmetry.METHOD(                                                              \
+    pv[ID::sideChainPostAsymmetryHarsh]->getInt() ? freqToSvfG(sidePostAsym / double(2)) \
+                                                  : sidePostAsym);                       \
+                                                                                         \
+  auto inputReleaseSamples = upRate * pv[ID::inputEnvelopeReleaseSecond]->getDouble();   \
+  auto sideReleaseSamples                                                                \
+    = upRate * pv[ID::sideChainEnvelopeReleaseSecond]->getDouble();                      \
+  inputEnvelope[0].prepare(inputReleaseSamples);                                         \
+  inputEnvelope[1].prepare(inputReleaseSamples);                                         \
+  inputEnvelope[2].prepare(sideReleaseSamples);                                          \
+  inputEnvelope[3].prepare(sideReleaseSamples);
 
 void DSPCore::updateUpRate()
 {
-  auto fold = oversampling ? upFold : size_t(1);
-  upRate = double(sampleRate) * fold;
+  upRate = double(sampleRate) * fold[oversampling];
 
   SmootherCommon<double>::setSampleRate(upRate);
 }
@@ -77,19 +126,16 @@ void DSPCore::reset()
 
   ASSIGN_PARAMETER(reset);
 
-  midiNotes.clear();
-  noteStack.clear();
-
-  notePitchToDelayTime.reset(double(1));
-  notePitchToAllpassCutoff.reset(double(1));
-  notePitchToDelayTimeRelease.reset(double(1));
-  notePitchToAllpassCutoffRelease.reset(double(1));
+  enableInputEnvelope = pv[ID::inputEnvelopeEnable]->getInt();
+  enableSideEnvelope = pv[ID::sideChainEnvelopeEnable]->getInt();
 
   phase.fill({});
   for (auto &x : inputLowpass) x.reset();
+  for (auto &x : inputHighpass) x.reset();
+  for (auto &x : inputEnvelope) x.reset();
 
-  previousInput.fill({});
-  upsampleBuffer.fill({});
+  for (auto &x : upSampler) x.reset();
+  for (auto &x : decimationLowpass) x.reset();
   for (auto &x : halfbandIir) x.reset();
 
   startup();
@@ -99,41 +145,106 @@ void DSPCore::startup() {}
 
 void DSPCore::setParameters()
 {
-  bool newOversampling = param.value[ParameterID::ID::oversampling]->getInt();
+  size_t newOversampling = param.value[ParameterID::ID::oversampling]->getInt();
   if (oversampling != newOversampling) {
     oversampling = newOversampling;
     updateUpRate();
   }
 
   ASSIGN_PARAMETER(push);
+
+  enableInputEnvelope = pv[ID::inputEnvelopeEnable]->getInt();
+  if (!enableInputEnvelope) {
+    inputEnvelope[0].reset();
+    inputEnvelope[1].reset();
+  }
+  enableSideEnvelope = pv[ID::sideChainEnvelopeEnable]->getInt();
+  if (!enableSideEnvelope) {
+    inputEnvelope[2].reset();
+    inputEnvelope[3].reset();
+  }
 }
 
-void DSPCore::processFrame(std::array<double, 2> &frame)
+std::array<double, 2> DSPCore::processFrame(const std::array<double, 4> &frame)
 {
   outputGain.process();
   mix.process();
+
+  stereoPhaseLinkKp.process();
+  stereoPhaseCross.process();
+  stereoPhaseOffset.process();
+
   inputPhaseMod.process();
+  inputPreAsymmetry.process();
   inputLowpassG.process();
+  inputHighpassG.process();
+  inputPostAsymmetry.process();
+
+  sidePhaseMod.process();
+  sidePreAsymmetry.process();
+  sideLowpassG.process();
+  sideHighpassG.process();
+  sidePostAsymmetry.process();
 
   constexpr double eps = (double)std::numeric_limits<float>::epsilon();
 
-  auto inLp0 = inputLowpass[0].lowpass(frame[0], inputLowpassG.getValue());
-  auto inLp1 = inputLowpass[1].lowpass(frame[1], inputLowpassG.getValue());
+  auto sig0 = frame[0]; // Main L.
+  auto sig1 = frame[1]; // Main R.
+  auto sig2 = frame[2]; // Side L.
+  auto sig3 = frame[3]; // Side R.
+  sig0 = lerp(sig0, std::abs(sig0), inputPreAsymmetry.getValue());
+  sig1 = lerp(sig1, std::abs(sig1), inputPreAsymmetry.getValue());
+  sig2 = lerp(sig2, std::abs(sig2), sidePreAsymmetry.getValue());
+  sig3 = lerp(sig3, std::abs(sig3), sidePreAsymmetry.getValue());
+  sig0 = inputLowpass[0].lowpass(sig0, inputLowpassG.getValue());
+  sig1 = inputLowpass[1].lowpass(sig1, inputLowpassG.getValue());
+  sig2 = inputLowpass[2].lowpass(sig2, sideLowpassG.getValue());
+  sig3 = inputLowpass[3].lowpass(sig3, sideLowpassG.getValue());
+  sig0 = inputHighpass[0].highpass(sig0, inputHighpassG.getValue());
+  sig1 = inputHighpass[1].highpass(sig1, inputHighpassG.getValue());
+  sig2 = inputHighpass[2].highpass(sig2, sideHighpassG.getValue());
+  sig3 = inputHighpass[3].highpass(sig3, sideHighpassG.getValue());
+  sig0 = lerp(sig0, std::abs(sig0), inputPostAsymmetry.getValue());
+  sig1 = lerp(sig1, std::abs(sig1), inputPostAsymmetry.getValue());
+  sig2 = lerp(sig2, std::abs(sig2), sidePostAsymmetry.getValue());
+  sig3 = lerp(sig3, std::abs(sig3), sidePostAsymmetry.getValue());
 
-  phase[0] += inputPhaseMod.getValue() * inLp0;
-  phase[1] += inputPhaseMod.getValue() * inLp1;
+  if (enableInputEnvelope) {
+    sig0 = inputEnvelope[0].process(sig0);
+    sig1 = inputEnvelope[1].process(sig1);
+  }
+  if (enableSideEnvelope) {
+    sig2 = inputEnvelope[2].process(sig2);
+    sig3 = inputEnvelope[3].process(sig3);
+  }
+
+  syncPhase(phase[0], phase[1], stereoPhaseLinkKp.getValue());
+
+  phase[0] += inputPhaseMod.getValue() * sig0 + sidePhaseMod.getValue() * sig2;
+  phase[1] += inputPhaseMod.getValue() * sig1 + sidePhaseMod.getValue() * sig3;
   phase[0] -= std::floor(phase[0]);
   phase[1] -= std::floor(phase[1]);
 
-  auto rot0 = frame[0] * std::cos(double(twopi) * phase[0]);
-  auto rot1 = frame[1] * std::cos(double(twopi) * phase[1]);
+  auto mod0 = std::cos(double(twopi) * (phase[0] + stereoPhaseOffset.getValue()));
+  auto mod1 = std::cos(double(twopi) * (phase[1] - stereoPhaseOffset.getValue()));
 
-  frame[0] = outputGain.process() * lerp(frame[0], rot0, mix.getValue());
-  frame[1] = outputGain.process() * lerp(frame[1], rot1, mix.getValue());
+  auto rot0 = frame[0] * lerp(mod0, mod1, stereoPhaseCross.getValue());
+  auto rot1 = frame[1] * lerp(mod1, mod0, stereoPhaseCross.getValue());
+
+  return {
+    outputGain.process() * lerp(frame[0], rot0, mix.getValue()),
+    outputGain.process() * lerp(frame[1], rot1, mix.getValue()),
+  };
 }
 
 void DSPCore::process(
-  const size_t length, const float *in0, const float *in1, float *out0, float *out1)
+  const size_t length,
+  const float *in0,
+  const float *in1,
+  const float *in2,
+  const float *in3,
+  float *out0,
+  float *out1)
 {
   using ID = ParameterID::ID;
   const auto &pv = param.value;
@@ -141,80 +252,53 @@ void DSPCore::process(
   SmootherCommon<double>::setBufferSize(double(length));
 
   for (size_t i = 0; i < length; ++i) {
-    processMidiNote(i);
+    upSampler[0].process(in0[i]);
+    upSampler[1].process(in1[i]);
+    upSampler[2].process(in2[i]);
+    upSampler[3].process(in3[i]);
 
-    if (oversampling) {
-      // Crude up-sampling with linear interpolation.
-      upsampleBuffer[0] = {
-        double(0.5) * (previousInput[0] + in0[i]),
-        double(0.5) * (previousInput[1] + in1[i])};
-      upsampleBuffer[1] = {double(in0[i]), double(in1[i])};
-
-      for (size_t j = 0; j < upFold; ++j) processFrame(upsampleBuffer[j]);
-
-      out0[i] = halfbandIir[0].process({upsampleBuffer[0][0], upsampleBuffer[1][0]});
-      out1[i] = halfbandIir[1].process({upsampleBuffer[0][1], upsampleBuffer[1][1]});
-    } else {
-      upsampleBuffer[0] = {double(in0[i]), double(in1[i])};
-
-      processFrame(upsampleBuffer[0]);
-
-      out0[i] = upsampleBuffer[0][0];
-      out1[i] = upsampleBuffer[0][1];
+    if (oversampling == 2) { // 16x.
+      for (size_t j = 0; j < upFold; ++j) {
+        auto frame = processFrame({
+          upSampler[0].output[j],
+          upSampler[1].output[j],
+          upSampler[2].output[j],
+          upSampler[3].output[j],
+        });
+        decimationLowpass[0].push(frame[0]);
+        decimationLowpass[1].push(frame[1]);
+        upSampler[0].output[j] = decimationLowpass[0].output();
+        upSampler[1].output[j] = decimationLowpass[1].output();
+      }
+      out0[i] = halfbandIir[0].process(
+        {upSampler[0].output[0], upSampler[0].output[upFold / 2]});
+      out1[i] = halfbandIir[1].process(
+        {upSampler[1].output[0], upSampler[1].output[upFold / 2]});
+    } else if (oversampling == 1) { // 2x.
+      const size_t mid = upFold / 2;
+      for (size_t j = 0; j < upFold; j += mid) {
+        auto frame = processFrame({
+          upSampler[0].output[j],
+          upSampler[1].output[j],
+          upSampler[2].output[j],
+          upSampler[3].output[j],
+        });
+        upSampler[0].output[j] = frame[0];
+        upSampler[1].output[j] = frame[1];
+      }
+      out0[i]
+        = halfbandIir[0].process({upSampler[0].output[0], upSampler[0].output[mid]});
+      out1[i]
+        = halfbandIir[1].process({upSampler[1].output[0], upSampler[1].output[mid]});
+    } else { // 1x.
+      auto frame = processFrame({
+        upSampler[0].output[0],
+        upSampler[1].output[0],
+        upSampler[2].output[0],
+        upSampler[3].output[0],
+      });
+      out0[i] = frame[0];
+      out1[i] = frame[1];
     }
-
-    previousInput[0] = in0[i];
-    previousInput[1] = in1[i];
   }
-}
-
-void DSPCore::noteOn(NoteInfo &info)
-{
-  using ID = ParameterID::ID;
-  auto &pv = param.value;
-
-  auto pitchToTime
-    = calcNotePitch(info.pitch, -pv[ID::notePitchToDelayTime]->getDouble());
-  notePitchToDelayTime.push(pitchToTime);
-  notePitchToDelayTimeRelease.reset(pitchToTime);
-
-  auto pitchToCutoff
-    = calcNotePitch(info.pitch, pv[ID::notePitchToAllpassCutoff]->getDouble());
-  notePitchToAllpassCutoff.push(pitchToCutoff);
-  notePitchToAllpassCutoffRelease.reset(pitchToCutoff);
-
-  noteStack.push_back(info);
-}
-
-void DSPCore::noteOff(int_fast32_t noteId)
-{
-  using ID = ParameterID::ID;
-  auto &pv = param.value;
-
-  auto it = std::find_if(noteStack.begin(), noteStack.end(), [&](const NoteInfo &info) {
-    return info.id == noteId;
-  });
-  if (it == noteStack.end()) return;
-  noteStack.erase(it);
-
-  if (noteStack.empty()) {
-    notePitchToDelayTime.push(double(1));
-    notePitchToAllpassCutoff.push(double(1));
-  } else {
-    notePitchToDelayTime.push(
-      calcNotePitch(noteStack.back().pitch, pv[ID::notePitchToDelayTime]->getDouble()));
-    notePitchToAllpassCutoff.push(calcNotePitch(
-      noteStack.back().pitch, pv[ID::notePitchToAllpassCutoff]->getDouble()));
-  }
-}
-
-double DSPCore::calcNotePitch(double note, double scale, double equalTemperament)
-{
-  using ID = ParameterID::ID;
-  auto &pv = param.value;
-
-  auto center = pv[ID::notePitchOrigin]->getDouble();
-  return std::max(
-    std::exp2(scale * (note - center) / equalTemperament),
-    std::numeric_limits<double>::epsilon());
 }

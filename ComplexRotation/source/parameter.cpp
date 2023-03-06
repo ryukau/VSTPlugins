@@ -30,11 +30,13 @@ LinearScale<double> Scales::defaultScale(0.0, 1.0);
 LinearScale<double> Scales::bipolarScale(-1.0, 1.0);
 
 DecibelScale<double> Scales::outputGain(-60.0, 20.0, true);
-DecibelScale<double> Scales::modulation(-60.0, 0.0, true);
+DecibelScale<double> Scales::stereoPhaseLinkHz(-40.0, 100.0, true);
+DecibelScale<double> Scales::modulation(-80.0, 40.0, true);
 DecibelScale<double> Scales::cutoffHz(-20.0, 100.0, false);
+DecibelScale<double> Scales::envelopeSecond(-100.0, 40.0, true);
 
+UIntScale<double> Scales::oversampling(2);
 DecibelScale<double> Scales::parameterSmoothingSecond(-120.0, 40.0, true);
-LinearScale<double> Scales::notePitchOrigin(0.0, 136.0);
 
 } // namespace Synth
 } // namespace Steinberg

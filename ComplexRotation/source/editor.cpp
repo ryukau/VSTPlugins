@@ -26,21 +26,15 @@ constexpr float uiTextSize = 12.0f;
 constexpr float pluginNameTextSize = 14.0f;
 constexpr float margin = 5.0f;
 constexpr float uiMargin = 20.0f;
+constexpr float labelWidth = 80.0f;
 constexpr float labelHeight = 20.0f;
-constexpr float knobWidth = 60.0f;
-constexpr float knobX = knobWidth + 2 * margin;
-constexpr float knobY = knobWidth + labelHeight + 2 * margin;
 constexpr float labelY = labelHeight + 2 * margin;
-constexpr float labelWidth = 100.0f;
-constexpr float labelX = labelWidth + margin;
-
-constexpr float barboxWidth = 512.0f;
-constexpr float barboxHeight = 200.0f;
+constexpr float halfLabelWidth = int(labelWidth / 2);
 
 constexpr int_least32_t defaultWidth
-  = int_least32_t(2 * uiMargin + 3 * knobX + barboxWidth + 2 * margin);
+  = int_least32_t(2 * uiMargin + 6 * labelWidth + 14 * margin);
 constexpr int_least32_t defaultHeight
-  = int_least32_t(2 * uiMargin + 4 * labelY - 3 * margin + knobY + barboxHeight);
+  = int_least32_t(2 * uiMargin + 8 * labelY + 2 * labelWidth + 2 * margin);
 
 namespace Steinberg {
 namespace Vst {
@@ -55,6 +49,25 @@ Editor::Editor(void *controller) : PlugEditor(controller)
   setRect(viewRect);
 }
 
+void Editor::syncUI(ParamID id, float normalized)
+{
+  auto syncer = xyControlMap.find(id);
+  if (syncer == xyControlMap.end()) return;
+  syncer->second->sync(normalized);
+}
+
+void Editor::valueChanged(CControl *pControl)
+{
+  PlugEditor::valueChanged(pControl);
+  syncUI(pControl->getTag(), pControl->getValueNormalized());
+}
+
+void Editor::updateUI(ParamID id, ParamValue normalized)
+{
+  PlugEditor::updateUI(id, normalized);
+  syncUI(id, normalized);
+}
+
 bool Editor::prepareUI()
 {
   using ID = Synth::ParameterID::ID;
@@ -64,115 +77,144 @@ bool Editor::prepareUI()
   constexpr auto top0 = uiMargin;
   constexpr auto left0 = uiMargin;
 
-  // Allpass.
-  constexpr auto apTop0 = top0;
-  constexpr auto apTop1 = apTop0 + labelY;
-  constexpr auto apTop2 = apTop1 + labelY;
-  constexpr auto apTop3 = apTop2 + labelY;
-  constexpr auto apTop4 = apTop3 + labelY;
-  constexpr auto apTop5 = apTop4 + labelY;
-  constexpr auto apTop6 = apTop5 + labelY;
-  constexpr auto apTop7 = apTop6 + labelY;
-  constexpr auto apTop8 = apTop7 + labelY;
-
-  constexpr auto apLeft0 = left0;
-  constexpr auto apLeft1 = apLeft0 + knobX;
-  constexpr auto apLeft2 = apLeft1 + knobX;
-
-  constexpr auto apSectionHalfWidth = int(1.5 * knobX) - margin;
-  constexpr auto apLeftHalf = apLeft0 + apSectionHalfWidth;
-
-  addGroupLabel(apLeft0, apTop0, 3 * knobX - 2 * margin, labelHeight, uiTextSize, "Mod.");
-
-  addLabel(apLeft0, apTop1, apSectionHalfWidth, labelHeight, uiTextSize, "Output [dB]");
-  addTextKnob(
-    apLeftHalf, apTop1, apSectionHalfWidth, labelHeight, uiTextSize, ID::outputGain,
-    Scales::outputGain, false, 5);
-  addLabel(apLeft0, apTop2, apSectionHalfWidth, labelHeight, uiTextSize, "Mix");
-  addTextKnob(
-    apLeftHalf, apTop2, apSectionHalfWidth, labelHeight, uiTextSize, ID::mix,
-    Scales::defaultScale, false, 5);
-  addLabel(apLeft0, apTop3, apSectionHalfWidth, labelHeight, uiTextSize, "Input Mod.");
-  addTextKnob(
-    apLeftHalf, apTop3, apSectionHalfWidth, labelHeight, uiTextSize, ID::inputPhaseMod,
-    Scales::modulation, false, 5);
-  addLabel(apLeft0, apTop4, apSectionHalfWidth, labelHeight, uiTextSize, "Input LP [Hz]");
-  addTextKnob(
-    apLeftHalf, apTop4, apSectionHalfWidth, labelHeight, uiTextSize, ID::inputLowpassHz,
-    Scales::cutoffHz, false, 5);
-
-  // Modulation.
-  constexpr auto modTop0 = top0;
-  constexpr auto modTop1 = modTop0 + labelY;
-  constexpr auto modTop2 = modTop1 + labelY;
-  constexpr auto modTop3 = modTop2 + labelY;
-  constexpr auto modTop4 = modTop3 + labelY;
-  constexpr auto modTop5 = modTop4 + labelY;
-  constexpr auto modTop6 = modTop5 + labelY;
-  constexpr auto modTop7 = modTop6 + labelY;
-  constexpr auto modTop8 = modTop7 + labelY;
-  constexpr auto modLeft0 = apLeft2 + knobX + 2 * margin;
-  constexpr auto modLeft1 = modLeft0 + knobX;
-  constexpr auto modLeft2 = modLeft1 + knobX;
-  constexpr auto modLeftHalf = modLeft0 + apSectionHalfWidth;
-  addGroupLabel(
-    modLeft0, modTop0, 3 * knobX - 2 * margin, labelHeight, uiTextSize, "Modulation");
-
-  /// TODO: Remove LFO section.
-  // LFO.
-  constexpr auto lfoTop0 = top0;
-  constexpr auto lfoTop1 = lfoTop0 + labelY;
-  constexpr auto lfoTop2 = lfoTop1 + 5 * margin;
-  constexpr auto lfoTop3 = lfoTop1 + knobY;
-  constexpr auto lfoLeft0 = apLeft2 + knobX + 2 * margin;
-  constexpr auto lfoLeft1 = lfoLeft0 + knobX;
-  constexpr auto lfoLeft2 = lfoLeft1 + knobX + 2 * margin;
-  constexpr auto lfoLeft3 = lfoLeft2 + knobX;
-  constexpr auto lfoLeft4 = lfoLeft3 + knobX;
-  constexpr auto lfoLeft5 = lfoLeft4 + knobX + 3 * margin;
-
   // Misc.
-  constexpr auto miscTop0 = lfoTop0 + labelY + knobY + barboxHeight + 4 * margin;
+  constexpr auto miscTop0 = top0;
   constexpr auto miscTop1 = miscTop0 + labelY;
-  constexpr auto miscLeft0 = lfoLeft0 + int(0.25 * knobX);
-  constexpr auto miscLeft1 = miscLeft0 + labelWidth;
-  constexpr auto miscLeft2 = miscLeft1 + labelWidth + 4 * margin;
-  constexpr auto miscLeft3 = miscLeft2 + labelWidth;
-  constexpr auto smallLabelWidth = int(0.75 * labelWidth);
-  addLabel(miscLeft0, miscTop0, labelWidth, labelHeight, uiTextSize, "Note Origin");
+  constexpr auto miscTop2 = miscTop1 + labelWidth;
+  constexpr auto miscTop3 = miscTop2 + labelY;
+  constexpr auto miscTop4 = miscTop3 + labelY;
+  constexpr auto miscTop5 = miscTop4 + labelY;
+  constexpr auto miscTop6 = miscTop5 + labelY;
+  constexpr auto miscTop7 = miscTop6 + labelY;
+  constexpr auto miscTop8 = miscTop7 + labelY;
+  constexpr auto miscTop9 = miscTop8 + labelY;
+  constexpr auto miscLeft0 = left0;
+  constexpr auto miscLeft1 = miscLeft0 + labelWidth + 2 * margin;
+
+  addGroupLabel(
+    miscLeft0, miscTop0, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Gain");
+  addKnob(miscLeft0, miscTop1, labelWidth, margin, uiTextSize, "Output", ID::outputGain);
+  addKnob(miscLeft1, miscTop1, labelWidth, margin, uiTextSize, "Mix", ID::mix);
+
+  addGroupLabel(
+    miscLeft0, miscTop3, 2 * (labelWidth + margin), labelHeight, uiTextSize,
+    "Stereo Phase");
+  addLabel(miscLeft0, miscTop4, labelWidth, labelHeight, uiTextSize, "Link [Hz]");
   addTextKnob(
-    miscLeft1, miscTop0, labelWidth, labelHeight, uiTextSize, ID::notePitchOrigin,
-    Scales::notePitchOrigin, false, 5);
-
-  addLabel(miscLeft0, miscTop1, smallLabelWidth, labelHeight, uiTextSize, "Note>Cut");
-  addSmallKnob(
-    miscLeft0 + smallLabelWidth, miscTop1, labelHeight, labelHeight,
-    ID::notePitchToAllpassCutoff);
-
-  addLabel(miscLeft1, miscTop1, smallLabelWidth, labelHeight, uiTextSize, "Note>Time");
-  addSmallKnob(
-    miscLeft1 + smallLabelWidth, miscTop1, labelHeight, labelHeight,
-    ID::notePitchToDelayTime);
-
-  addLabel(miscLeft2, miscTop0, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
+    miscLeft1, miscTop4, labelWidth, labelHeight, uiTextSize, ID::stereoPhaseLinkHz,
+    Scales::stereoPhaseLinkHz, false, 5);
+  addLabel(miscLeft0, miscTop5, labelWidth, labelHeight, uiTextSize, "Cross");
   addTextKnob(
-    miscLeft3, miscTop0, labelWidth, labelHeight, uiTextSize,
+    miscLeft1, miscTop5, labelWidth, labelHeight, uiTextSize, ID::stereoPhaseCross,
+    Scales::defaultScale, false, 5);
+  addLabel(miscLeft0, miscTop6, labelWidth, labelHeight, uiTextSize, "Offset");
+  addRotaryTextKnob(
+    miscLeft1, miscTop6, labelWidth, labelHeight, uiTextSize, ID::stereoPhaseOffset,
+    Scales::defaultScale, 5);
+
+  addGroupLabel(
+    miscLeft0, miscTop7, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Misc.");
+  addLabel(miscLeft0, miscTop8, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
+  addTextKnob(
+    miscLeft1, miscTop8, labelWidth, labelHeight, uiTextSize,
     ID::parameterSmoothingSecond, Scales::parameterSmoothingSecond, false, 5);
+  addLabel(miscLeft0, miscTop9, labelWidth, labelHeight, uiTextSize, "Oversampling");
+  std::vector<std::string> oversamplingItems{"1x", "2x", "16x"};
+  addOptionMenu(
+    miscLeft1, miscTop9, labelWidth, labelHeight, uiTextSize, ID::oversampling,
+    oversamplingItems);
 
-  addCheckbox<Style::warning>(
-    miscLeft2, miscTop1, labelWidth, labelHeight, uiTextSize, "2x Sampling",
-    ID::oversampling);
+  // Input Modulation.
+  constexpr auto inTop0 = top0;
+  constexpr auto inTop1 = inTop0 + labelY;
+  constexpr auto inTop2 = inTop1 + labelY;
+  constexpr auto inTop3 = inTop2 + labelY;
+  constexpr auto inTop4 = inTop3 + labelY;
+  constexpr auto inTop5 = inTop4 + labelY;
+  constexpr auto inTop6 = inTop5 + labelY;
+  constexpr auto inLeft0 = miscLeft0 + 2 * labelWidth + 6 * margin;
+  constexpr auto inLeft1 = inLeft0 + labelWidth + 2 * margin;
+
+  addGroupLabel(inLeft0, inTop0, 2 * labelWidth, labelHeight, uiTextSize, "Main Input");
+
+  addLabel(inLeft0, inTop1, labelWidth, labelHeight, uiTextSize, "Modulation");
+  addTextKnob(
+    inLeft1, inTop1, labelWidth, labelHeight, uiTextSize, ID::inputPhaseMod,
+    Scales::modulation, false, 5);
+  addLabel(inLeft0, inTop2, labelWidth, labelHeight, uiTextSize, "Lowpass [Hz]");
+  addTextKnob(
+    inLeft1, inTop2, labelWidth, labelHeight, uiTextSize, ID::inputLowpassHz,
+    Scales::cutoffHz, false, 3);
+  addLabel(inLeft0, inTop3, labelWidth, labelHeight, uiTextSize, "Highpass [Hz]");
+  addTextKnob(
+    inLeft1, inTop3, labelWidth, labelHeight, uiTextSize, ID::inputHighpassHz,
+    Scales::cutoffHz, false, 3);
+  addToggleButton(
+    inLeft0, inTop4, labelWidth, labelHeight, uiTextSize, "Envelope [s]",
+    ID::inputEnvelopeEnable);
+  addTextKnob(
+    inLeft1, inTop4, labelWidth, labelHeight, uiTextSize, ID::inputEnvelopeReleaseSecond,
+    Scales::envelopeSecond, false, 5);
+
+  addLabel(
+    inLeft0, inTop5, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Asymmetry");
+  addAsymXYControls(
+    inLeft0, inTop6, labelWidth, labelHeight, margin, uiTextSize,
+    ID::inputPreAsymmetryAmount, ID::inputPostAsymmetryAmount, ID::inputPreAsymmetryHarsh,
+    ID::inputPostAsymmetryHarsh, Scales::defaultScale);
+
+  // Side chain Modulation.
+  constexpr auto sideTop0 = top0;
+  constexpr auto sideTop1 = sideTop0 + labelY;
+  constexpr auto sideTop2 = sideTop1 + labelY;
+  constexpr auto sideTop3 = sideTop2 + labelY;
+  constexpr auto sideTop4 = sideTop3 + labelY;
+  constexpr auto sideTop5 = sideTop4 + labelY;
+  constexpr auto sideTop6 = sideTop5 + labelY;
+  constexpr auto sideLeft0 = inLeft0 + 2 * labelWidth + 6 * margin;
+  constexpr auto sideLeft1 = sideLeft0 + labelWidth + 2 * margin;
+
+  addGroupLabel(
+    sideLeft0, sideTop0, 2 * (labelWidth + margin), labelHeight, uiTextSize,
+    "Side Chain");
+
+  addLabel(sideLeft0, sideTop1, labelWidth, labelHeight, uiTextSize, "Modulation");
+  addTextKnob(
+    sideLeft1, sideTop1, labelWidth, labelHeight, uiTextSize, ID::sideChainPhaseMod,
+    Scales::modulation, false, 5);
+  addLabel(sideLeft0, sideTop2, labelWidth, labelHeight, uiTextSize, "Lowpass [Hz]");
+  addTextKnob(
+    sideLeft1, sideTop2, labelWidth, labelHeight, uiTextSize, ID::sideChainLowpassHz,
+    Scales::cutoffHz, false, 3);
+  addLabel(sideLeft0, sideTop3, labelWidth, labelHeight, uiTextSize, "Highpass [Hz]");
+  addTextKnob(
+    sideLeft1, sideTop3, labelWidth, labelHeight, uiTextSize, ID::sideChainHighpassHz,
+    Scales::cutoffHz, false, 3);
+  addToggleButton(
+    sideLeft0, sideTop4, labelWidth, labelHeight, uiTextSize, "Envelope [s]",
+    ID::sideChainEnvelopeEnable);
+  addTextKnob(
+    sideLeft1, sideTop4, labelWidth, labelHeight, uiTextSize,
+    ID::sideChainEnvelopeReleaseSecond, Scales::envelopeSecond, false, 5);
+
+  addLabel(
+    sideLeft0, sideTop5, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Asymmetry");
+  addAsymXYControls(
+    sideLeft0, sideTop6, labelWidth, labelHeight, margin, uiTextSize,
+    ID::sideChainPreAsymmetryAmount, ID::sideChainPostAsymmetryAmount,
+    ID::sideChainPreAsymmetryHarsh, ID::sideChainPostAsymmetryHarsh,
+    Scales::defaultScale);
 
   // Plugin name.
   constexpr auto splashMargin = uiMargin;
-  constexpr auto splashWidth = int(1.75 * labelWidth);
-  constexpr auto splashHeight = labelY;
-  constexpr auto splashTop = miscTop1;
-  constexpr auto splashLeft = defaultWidth - uiMargin - splashWidth;
+  constexpr auto splashWidth = int(2 * labelWidth - 4 * margin);
+  constexpr auto splashHeight = labelHeight + margin;
+  constexpr auto splashTop = defaultHeight - uiMargin - splashHeight;
+  constexpr auto splashLeft = left0 + 3 * margin;
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,
-    "ComplexRotation");
+    "ComplexRotation", true);
 
   // Probably this restartComponent() is redundant, but to make sure.
   controller->getComponentHandler()->restartComponent(kLatencyChanged);

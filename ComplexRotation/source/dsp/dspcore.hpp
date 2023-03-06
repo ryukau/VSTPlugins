@@ -28,19 +28,7 @@ using namespace Steinberg::Synth;
 
 class DSPCore {
 public:
-  struct NoteInfo {
-    bool isNoteOn;
-    uint32_t frame;
-    int32_t id;
-    float pitch;
-    float velocity;
-  };
-
-  DSPCore()
-  {
-    midiNotes.reserve(1024);
-    noteStack.reserve(1024);
-  }
+  DSPCore() {}
 
   GlobalParameter param;
   bool isPlaying = false;
@@ -55,72 +43,50 @@ public:
   size_t getLatency();
   void setParameters();
   void process(
-    const size_t length, const float *in0, const float *in1, float *out0, float *out1);
-  void noteOn(NoteInfo &info);
-  void noteOff(int_fast32_t noteId);
-
-  void pushMidiNote(
-    bool isNoteOn,
-    uint32_t frame,
-    int32_t noteId,
-    int16_t pitch,
-    float tuning,
-    float velocity)
-  {
-    NoteInfo note;
-    note.isNoteOn = isNoteOn;
-    note.frame = frame;
-    note.id = noteId;
-    note.pitch = pitch + tuning;
-    note.velocity = velocity;
-    midiNotes.push_back(note);
-  }
-
-  void processMidiNote(size_t frame)
-  {
-    while (true) {
-      auto it = std::find_if(midiNotes.begin(), midiNotes.end(), [&](const NoteInfo &nt) {
-        return nt.frame == frame;
-      });
-      if (it == std::end(midiNotes)) return;
-      if (it->isNoteOn)
-        noteOn(*it);
-      else
-        noteOff(it->id);
-      midiNotes.erase(it);
-    }
-  }
+    const size_t length,
+    const float *in0,
+    const float *in1,
+    const float *in2,
+    const float *in3,
+    float *out0,
+    float *out1);
 
 private:
   void updateUpRate();
-  void processFrame(std::array<double, 2> &input);
-  double calcNotePitch(double note, double scale, double equalTemperament = 12);
+  std::array<double, 2> processFrame(const std::array<double, 4> &frame);
 
-  static constexpr size_t upFold = 2;
-
-  std::vector<NoteInfo> midiNotes;
-  std::vector<NoteInfo> noteStack;
+  static constexpr size_t upFold = 16;
+  static constexpr std::array<size_t, 3> fold{1, 2, upFold};
 
   double sampleRate = 44100;
   double upRate = upFold * 44100;
 
-  double pitchSmoothingKp = 1;
-  double pitchReleaseKp = 1;
-  ExpSmootherLocal<double> notePitchToDelayTime;
-  ExpSmootherLocal<double> notePitchToAllpassCutoff;
-  DoubleEMAFilter<double> notePitchToDelayTimeRelease;
-  DoubleEMAFilter<double> notePitchToAllpassCutoffRelease;
-
+  RotarySmoother<double> stereoPhaseOffset;
   ExpSmoother<double> outputGain;
   ExpSmoother<double> mix;
+  ExpSmoother<double> stereoPhaseLinkKp;
+  ExpSmoother<double> stereoPhaseCross;
   ExpSmoother<double> inputPhaseMod;
+  ExpSmoother<double> inputPreAsymmetry;
   ExpSmoother<double> inputLowpassG;
+  ExpSmoother<double> inputHighpassG;
+  ExpSmoother<double> inputPostAsymmetry;
+  ExpSmoother<double> sidePhaseMod;
+  ExpSmoother<double> sidePreAsymmetry;
+  ExpSmoother<double> sideLowpassG;
+  ExpSmoother<double> sideHighpassG;
+  ExpSmoother<double> sidePostAsymmetry;
 
-  bool oversampling = true;
+  size_t oversampling = 2;
+  bool enableInputEnvelope = false;
+  bool enableSideEnvelope = false;
 
   std::array<double, 2> phase{};
-  std::array<SVF<double>, 2> inputLowpass{};
-  std::array<double, 2> previousInput{};
-  std::array<std::array<double, 2>, 2> upsampleBuffer{};
+  std::array<SVF<double>, 4> inputLowpass{};
+  std::array<SVF<double>, 4> inputHighpass{};
+  std::array<EnvelopeFollower<double>, 4> inputEnvelope{};
+
+  std::array<CubicUpSampler<double, upFold>, 4> upSampler;
+  std::array<DecimationLowpass<double, Sos16FoldFirstStage<double>>, 2> decimationLowpass;
   std::array<HalfBandIIR<double, HalfBandCoefficient<double>>, 2> halfbandIir;
 };
