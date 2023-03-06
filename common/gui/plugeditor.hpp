@@ -614,7 +614,8 @@ public:
     CCoord splashWidth,
     CCoord splashHeight,
     CCoord buttonTextSize,
-    std::string pluginName)
+    std::string pluginName,
+    bool showCreditAtStartUp = false)
   {
     auto credit = new CreditView(
       CRect(splashLeft, splashTop, splashLeft + splashWidth, splashTop + splashHeight),
@@ -624,6 +625,8 @@ public:
       this, 0, credit, pluginName, getFont(buttonTextSize), palette);
     frame->addView(splash);
     frame->addView(credit);
+
+    if (showCreditAtStartUp) credit->setVisible(true);
   }
 
   TextView *addTextView(
