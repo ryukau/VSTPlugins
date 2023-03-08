@@ -33,6 +33,7 @@ DecibelScale<double> Scales::outputGain(-60.0, 20.0, true);
 DecibelScale<double> Scales::stereoPhaseLinkHz(-40.0, 100.0, true);
 DecibelScale<double> Scales::modulation(-80.0, 40.0, true);
 DecibelScale<double> Scales::cutoffHz(-20.0, 100.0, false);
+DecibelScale<double> Scales::gateThreshold(-140.0, 0.0, true);
 DecibelScale<double> Scales::envelopeSecond(-100.0, 40.0, true);
 
 UIntScale<double> Scales::oversampling(2);

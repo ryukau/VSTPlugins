@@ -42,10 +42,12 @@ enum ID {
   stereoPhaseLinkHz,
   stereoPhaseCross,
   stereoPhaseOffset,
+  phaseWarp,
 
   inputPhaseMod,
   inputLowpassHz,
   inputHighpassHz,
+  inputGateThreshold,
   inputEnvelopeEnable,
   inputEnvelopeReleaseSecond,
   inputPreAsymmetryAmount,
@@ -56,6 +58,7 @@ enum ID {
   sideChainPhaseMod,
   sideChainLowpassHz,
   sideChainHighpassHz,
+  sideChainGateThreshold,
   sideChainEnvelopeEnable,
   sideChainEnvelopeReleaseSecond,
   sideChainPreAsymmetryAmount,
@@ -80,6 +83,7 @@ struct Scales {
   static SomeDSP::DecibelScale<double> stereoPhaseLinkHz;
   static SomeDSP::DecibelScale<double> modulation;
   static SomeDSP::DecibelScale<double> cutoffHz;
+  static SomeDSP::DecibelScale<double> gateThreshold;
   static SomeDSP::DecibelScale<double> envelopeSecond;
 
   static SomeDSP::UIntScale<double> oversampling;
@@ -115,6 +119,8 @@ struct GlobalParameter : public ParameterInterface {
       0.0, Scales::defaultScale, "stereoPhaseCross", Info::kCanAutomate);
     value[ID::stereoPhaseOffset] = std::make_unique<LinearValue>(
       0.0, Scales::defaultScale, "stereoPhaseOffset", Info::kCanAutomate);
+    value[ID::phaseWarp] = std::make_unique<LinearValue>(
+      0.0, Scales::defaultScale, "phaseWarp", Info::kCanAutomate);
 
     value[ID::inputPhaseMod] = std::make_unique<DecibelValue>(
       Scales::modulation.invmap(0.01), Scales::modulation, "inputPhaseMod",
@@ -124,6 +130,8 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::inputHighpassHz] = std::make_unique<DecibelValue>(
       Scales::cutoffHz.invmap(5.0), Scales::cutoffHz, "inputHighpassHz",
       Info::kCanAutomate);
+    value[ID::inputGateThreshold] = std::make_unique<DecibelValue>(
+      0.0, Scales::gateThreshold, "inputGateThreshold", Info::kCanAutomate);
     value[ID::inputEnvelopeEnable] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "inputEnvelopeEnable", Info::kCanAutomate);
     value[ID::inputEnvelopeReleaseSecond] = std::make_unique<DecibelValue>(
@@ -146,6 +154,8 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::sideChainHighpassHz] = std::make_unique<DecibelValue>(
       Scales::cutoffHz.invmap(5.0), Scales::cutoffHz, "sideChainHighpassHz",
       Info::kCanAutomate);
+    value[ID::sideChainGateThreshold] = std::make_unique<DecibelValue>(
+      0.0, Scales::gateThreshold, "sideChainGateThreshold", Info::kCanAutomate);
     value[ID::sideChainEnvelopeEnable] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "sideChainEnvelopeEnable", Info::kCanAutomate);
     value[ID::sideChainEnvelopeReleaseSecond] = std::make_unique<DecibelValue>(

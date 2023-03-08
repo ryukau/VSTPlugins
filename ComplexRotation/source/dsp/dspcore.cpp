@@ -78,6 +78,7 @@ size_t DSPCore::getLatency() { return 0; }
     EMAFilter<double>::cutoffToP(upRate, pv[ID::stereoPhaseLinkHz]->getDouble()));       \
   stereoPhaseCross.METHOD(pv[ID::stereoPhaseCross]->getDouble());                        \
   stereoPhaseOffset.METHOD(pv[ID::stereoPhaseOffset]->getDouble());                      \
+  phaseWarp.METHOD(pv[ID::phaseWarp]->getDouble());                                      \
                                                                                          \
   auto phaseModCorrection = double(48000) / upRate;                                      \
   inputPhaseMod.METHOD(pv[ID::inputPhaseMod]->getDouble() * phaseModCorrection);         \
@@ -119,6 +120,8 @@ void DSPCore::updateUpRate()
   upRate = double(sampleRate) * fold[oversampling];
 
   SmootherCommon<double>::setSampleRate(upRate);
+
+  for (auto &x : inputGate) x.setup(upRate, double(0.001));
 }
 
 void DSPCore::reset()
@@ -134,6 +137,7 @@ void DSPCore::reset()
   phase.fill({});
   for (auto &x : inputLowpass) x.reset();
   for (auto &x : inputHighpass) x.reset();
+  for (auto &x : inputGate) x.reset();
   for (auto &x : inputEnvelope) x.reset();
 
   for (auto &x : upSampler) x.reset();
@@ -155,6 +159,13 @@ void DSPCore::setParameters()
 
   ASSIGN_PARAMETER(push);
 
+  auto inputGateThreshold = pv[ID::inputGateThreshold]->getDouble();
+  inputGate[0].prepare(upRate, inputGateThreshold);
+  inputGate[1].prepare(upRate, inputGateThreshold);
+  auto sideGateThreshold = pv[ID::sideChainGateThreshold]->getDouble();
+  inputGate[2].prepare(upRate, sideGateThreshold);
+  inputGate[3].prepare(upRate, sideGateThreshold);
+
   enableInputEnvelope = pv[ID::inputEnvelopeEnable]->getInt();
   if (!enableInputEnvelope) {
     inputEnvelope[0].reset();
@@ -175,6 +186,7 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 4> &frame)
   stereoPhaseLinkKp.process();
   stereoPhaseCross.process();
   stereoPhaseOffset.process();
+  phaseWarp.process();
 
   inputPhaseMod.process();
   inputPreAsymmetry.process();
@@ -187,8 +199,6 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 4> &frame)
   sideLowpassG.process();
   sideHighpassG.process();
   sidePostAsymmetry.process();
-
-  constexpr double eps = (double)std::numeric_limits<float>::epsilon();
 
   auto sig0 = frame[0]; // Main L.
   auto sig1 = frame[1]; // Main R.
@@ -206,6 +216,10 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 4> &frame)
   sig1 = inputHighpass[1].highpass(sig1, inputHighpassG.getValue());
   sig2 = inputHighpass[2].highpass(sig2, sideHighpassG.getValue());
   sig3 = inputHighpass[3].highpass(sig3, sideHighpassG.getValue());
+  sig0 *= inputGate[0].process(std::abs(sig0));
+  sig1 *= inputGate[1].process(std::abs(sig1));
+  sig2 *= inputGate[2].process(std::abs(sig2));
+  sig3 *= inputGate[3].process(std::abs(sig3));
   sig0 = lerp(sig0, std::abs(sig0), inputPostAsymmetry.getValue());
   sig1 = lerp(sig1, std::abs(sig1), inputPostAsymmetry.getValue());
   sig2 = lerp(sig2, std::abs(sig2), sidePostAsymmetry.getValue());
@@ -226,6 +240,10 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 4> &frame)
   phase[1] += inputPhaseMod.getValue() * sig1 + sidePhaseMod.getValue() * sig3;
   phase[0] -= std::floor(phase[0]);
   phase[1] -= std::floor(phase[1]);
+  if (phaseWarp.getValue() > std::numeric_limits<double>::epsilon()) {
+    phase[0] *= lerp(double(1), std::pow(phase[0], 48000 / upRate), phaseWarp.getValue());
+    phase[1] *= lerp(double(1), std::pow(phase[1], 48000 / upRate), phaseWarp.getValue());
+  }
 
   auto mod0 = std::cos(double(twopi) * (phase[0] + stereoPhaseOffset.getValue()));
   auto mod1 = std::cos(double(twopi) * (phase[1] - stereoPhaseOffset.getValue()));
@@ -277,7 +295,7 @@ void DSPCore::process(
       out1[i] = halfbandIir[1].process(
         {upSampler[1].output[0], upSampler[1].output[upFold / 2]});
     } else if (oversampling == 1) { // 2x.
-      const size_t mid = upFold / 2;
+      constexpr size_t mid = upFold / 2;
       for (size_t j = 0; j < upFold; j += mid) {
         auto frame = processFrame({
           upSampler[0].output[j],

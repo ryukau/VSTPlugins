@@ -60,7 +60,6 @@ protected:
     return int32(std::min<double>(stepCount, normalized * (stepCount + 1.0)));
   }
 
-  uint64_t lastState = 0;
   DSPCore dsp;
 };
 

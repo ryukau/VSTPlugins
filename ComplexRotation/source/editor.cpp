@@ -34,7 +34,7 @@ constexpr float halfLabelWidth = int(labelWidth / 2);
 constexpr int_least32_t defaultWidth
   = int_least32_t(2 * uiMargin + 6 * labelWidth + 14 * margin);
 constexpr int_least32_t defaultHeight
-  = int_least32_t(2 * uiMargin + 8 * labelY + 2 * labelWidth + 2 * margin);
+  = int_least32_t(2 * uiMargin + 9 * labelY + 2 * labelWidth + 2 * margin);
 
 namespace Steinberg {
 namespace Vst {
@@ -88,6 +88,7 @@ bool Editor::prepareUI()
   constexpr auto miscTop7 = miscTop6 + labelY;
   constexpr auto miscTop8 = miscTop7 + labelY;
   constexpr auto miscTop9 = miscTop8 + labelY;
+  constexpr auto miscTop10 = miscTop9 + labelY;
   constexpr auto miscLeft0 = left0;
   constexpr auto miscLeft1 = miscLeft0 + labelWidth + 2 * margin;
 
@@ -111,17 +112,21 @@ bool Editor::prepareUI()
   addRotaryTextKnob(
     miscLeft1, miscTop6, labelWidth, labelHeight, uiTextSize, ID::stereoPhaseOffset,
     Scales::defaultScale, 5);
+  addLabel(miscLeft0, miscTop7, labelWidth, labelHeight, uiTextSize, "Warp");
+  addTextKnob<Style::warning>(
+    miscLeft1, miscTop7, labelWidth, labelHeight, uiTextSize, ID::phaseWarp,
+    Scales::defaultScale, false, 5);
 
   addGroupLabel(
-    miscLeft0, miscTop7, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Misc.");
-  addLabel(miscLeft0, miscTop8, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
+    miscLeft0, miscTop8, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Misc.");
+  addLabel(miscLeft0, miscTop9, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
   addTextKnob(
-    miscLeft1, miscTop8, labelWidth, labelHeight, uiTextSize,
+    miscLeft1, miscTop9, labelWidth, labelHeight, uiTextSize,
     ID::parameterSmoothingSecond, Scales::parameterSmoothingSecond, false, 5);
-  addLabel(miscLeft0, miscTop9, labelWidth, labelHeight, uiTextSize, "Oversampling");
+  addLabel(miscLeft0, miscTop10, labelWidth, labelHeight, uiTextSize, "Oversampling");
   std::vector<std::string> oversamplingItems{"1x", "2x", "16x"};
   addOptionMenu(
-    miscLeft1, miscTop9, labelWidth, labelHeight, uiTextSize, ID::oversampling,
+    miscLeft1, miscTop10, labelWidth, labelHeight, uiTextSize, ID::oversampling,
     oversamplingItems);
 
   // Input Modulation.
@@ -132,6 +137,7 @@ bool Editor::prepareUI()
   constexpr auto inTop4 = inTop3 + labelY;
   constexpr auto inTop5 = inTop4 + labelY;
   constexpr auto inTop6 = inTop5 + labelY;
+  constexpr auto inTop7 = inTop6 + labelY;
   constexpr auto inLeft0 = miscLeft0 + 2 * labelWidth + 6 * margin;
   constexpr auto inLeft1 = inLeft0 + labelWidth + 2 * margin;
 
@@ -149,17 +155,21 @@ bool Editor::prepareUI()
   addTextKnob(
     inLeft1, inTop3, labelWidth, labelHeight, uiTextSize, ID::inputHighpassHz,
     Scales::cutoffHz, false, 3);
+  addLabel(inLeft0, inTop4, labelWidth, labelHeight, uiTextSize, "Gate [dB]");
+  addTextKnob(
+    inLeft1, inTop4, labelWidth, labelHeight, uiTextSize, ID::inputGateThreshold,
+    Scales::gateThreshold, true, 5);
   addToggleButton(
-    inLeft0, inTop4, labelWidth, labelHeight, uiTextSize, "Envelope [s]",
+    inLeft0, inTop5, labelWidth, labelHeight, uiTextSize, "Envelope [s]",
     ID::inputEnvelopeEnable);
   addTextKnob(
-    inLeft1, inTop4, labelWidth, labelHeight, uiTextSize, ID::inputEnvelopeReleaseSecond,
+    inLeft1, inTop5, labelWidth, labelHeight, uiTextSize, ID::inputEnvelopeReleaseSecond,
     Scales::envelopeSecond, false, 5);
 
   addLabel(
-    inLeft0, inTop5, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Asymmetry");
+    inLeft0, inTop6, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Asymmetry");
   addAsymXYControls(
-    inLeft0, inTop6, labelWidth, labelHeight, margin, uiTextSize,
+    inLeft0, inTop7, labelWidth, labelHeight, margin, uiTextSize,
     ID::inputPreAsymmetryAmount, ID::inputPostAsymmetryAmount, ID::inputPreAsymmetryHarsh,
     ID::inputPostAsymmetryHarsh, Scales::defaultScale);
 
@@ -171,6 +181,7 @@ bool Editor::prepareUI()
   constexpr auto sideTop4 = sideTop3 + labelY;
   constexpr auto sideTop5 = sideTop4 + labelY;
   constexpr auto sideTop6 = sideTop5 + labelY;
+  constexpr auto sideTop7 = sideTop6 + labelY;
   constexpr auto sideLeft0 = inLeft0 + 2 * labelWidth + 6 * margin;
   constexpr auto sideLeft1 = sideLeft0 + labelWidth + 2 * margin;
 
@@ -190,17 +201,21 @@ bool Editor::prepareUI()
   addTextKnob(
     sideLeft1, sideTop3, labelWidth, labelHeight, uiTextSize, ID::sideChainHighpassHz,
     Scales::cutoffHz, false, 3);
+  addLabel(sideLeft0, sideTop4, labelWidth, labelHeight, uiTextSize, "Gate [dB]");
+  addTextKnob(
+    sideLeft1, sideTop4, labelWidth, labelHeight, uiTextSize, ID::sideChainGateThreshold,
+    Scales::gateThreshold, true, 5);
   addToggleButton(
-    sideLeft0, sideTop4, labelWidth, labelHeight, uiTextSize, "Envelope [s]",
+    sideLeft0, sideTop5, labelWidth, labelHeight, uiTextSize, "Envelope [s]",
     ID::sideChainEnvelopeEnable);
   addTextKnob(
-    sideLeft1, sideTop4, labelWidth, labelHeight, uiTextSize,
+    sideLeft1, sideTop5, labelWidth, labelHeight, uiTextSize,
     ID::sideChainEnvelopeReleaseSecond, Scales::envelopeSecond, false, 5);
 
   addLabel(
-    sideLeft0, sideTop5, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Asymmetry");
+    sideLeft0, sideTop6, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Asymmetry");
   addAsymXYControls(
-    sideLeft0, sideTop6, labelWidth, labelHeight, margin, uiTextSize,
+    sideLeft0, sideTop7, labelWidth, labelHeight, margin, uiTextSize,
     ID::sideChainPreAsymmetryAmount, ID::sideChainPostAsymmetryAmount,
     ID::sideChainPreAsymmetryHarsh, ID::sideChainPostAsymmetryHarsh,
     Scales::defaultScale);

@@ -17,7 +17,9 @@
 
 #pragma once
 
+#include "../../../common/dsp/basiclimiter.hpp"
 #include "../../../common/dsp/constants.hpp"
+#include "../../../common/dsp/smoother.hpp"
 
 #include <limits>
 
@@ -84,6 +86,47 @@ public:
     // Gate at 0.0625 ~= -24 dB.
     if (input > Sample(0.0625) && input > value) value = input;
     return value *= release;
+  }
+};
+
+/**
+If `threshold <= 0`, gate will always open.
+*/
+template<typename Sample> class EasyGate {
+private:
+  PeakHold<Sample> peakhold;
+  DoubleEMAFilter<Sample> smoother;
+  Sample threshold = 0;
+
+public:
+  void setup(Sample sampleRate, Sample holdSeconds)
+  {
+    auto holdSamples = size_t(sampleRate * holdSeconds);
+    peakhold.resize(holdSamples);
+    peakhold.setFrames(holdSamples);
+
+    smoother.setCutoff(sampleRate, Sample(200));
+  }
+
+  void reset()
+  {
+    peakhold.reset();
+    smoother.reset(Sample(0));
+  }
+
+  void prepare(Sample sampleRate, Sample gateThresholdAmp)
+  {
+    threshold = gateThresholdAmp;
+    if (threshold <= 0) smoother.reset(Sample(0));
+
+    smoother.setCutoff(sampleRate, Sample(1000));
+  }
+
+  Sample process(Sample inAbs)
+  {
+    if (threshold <= 0) return Sample(1);
+    return threshold <= peakhold.process(inAbs) ? smoother.process(Sample(1))
+                                                : smoother.process(Sample(0));
   }
 };
 

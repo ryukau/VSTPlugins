@@ -66,6 +66,7 @@ private:
   ExpSmoother<double> mix;
   ExpSmoother<double> stereoPhaseLinkKp;
   ExpSmoother<double> stereoPhaseCross;
+  ExpSmoother<double> phaseWarp;
   ExpSmoother<double> inputPhaseMod;
   ExpSmoother<double> inputPreAsymmetry;
   ExpSmoother<double> inputLowpassG;
@@ -84,6 +85,7 @@ private:
   std::array<double, 2> phase{};
   std::array<SVF<double>, 4> inputLowpass{};
   std::array<SVF<double>, 4> inputHighpass{};
+  std::array<EasyGate<double>, 4> inputGate{};
   std::array<EnvelopeFollower<double>, 4> inputEnvelope{};
 
   std::array<CubicUpSampler<double, upFold>, 4> upSampler;
