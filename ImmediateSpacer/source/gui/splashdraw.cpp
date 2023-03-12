@@ -50,19 +50,16 @@ void CreditView::draw(CDrawContext *pContext)
   // Text.
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("ImmediateSpacer " VERSION_STR, CPoint(20.0, 40.0));
+  pContext->drawString("ImmediateSpacer " VERSION_STR, CPoint(20.0, 30.0));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("© 2023 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0f, 60.0f));
+  pContext->drawString("© 2023 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0f, 50.0f));
 
-  std::string leftText = R"(
-This plugin is alpha version.
-
-- Do not use for production.
-- Do not save your project with this plugin.
-
-Click to dismiss this message.)";
+  std::string leftText = R"(This plugin mixes input and side chain signal
+with distortion, while keeping peak amplitude
+under 0 dB. To remove side chain signal, set
+Side Mix to 0.)";
 
   std::string rightText = R"(- Number & Knob -
 Shift + Left Drag|Fine Adjustment
@@ -72,11 +69,9 @@ Shift + Middle Click|Take Floor
 
 Have a nice day!)";
 
-  const float top0 = 100.0f;
   const float lineHeight = 20.0f;
-  const float blockWidth = 160.0f;
-  drawTextBlock(pContext, 20.0f, top0, lineHeight, blockWidth, leftText);
-  drawTextBlock(pContext, 400.0f, 40.0f, lineHeight, blockWidth, rightText);
+  drawTextBlock(pContext, 20.0f, 90.0f, lineHeight, 200.0f, leftText);
+  drawTextBlock(pContext, 280.0f, 30.0f, lineHeight, 140.0f, rightText);
 
   setDirty(false);
 }

@@ -29,6 +29,8 @@ class Editor : public PlugEditor {
 public:
   Editor(void *controller);
 
+  virtual void valueChanged(CControl *pControl) override;
+
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
 private:

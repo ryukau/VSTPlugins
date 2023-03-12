@@ -34,7 +34,7 @@ constexpr float halfLabelWidth = int(labelWidth / 2);
 constexpr int_least32_t defaultWidth
   = int_least32_t(2 * uiMargin + 6 * labelWidth + 14 * margin);
 constexpr int_least32_t defaultHeight
-  = int_least32_t(2 * uiMargin + 9 * labelY + 2 * labelWidth + 2 * margin);
+  = int_least32_t(2 * uiMargin + 6 * labelY - 2 * margin);
 
 namespace Steinberg {
 namespace Vst {
@@ -49,6 +49,23 @@ Editor::Editor(void *controller) : PlugEditor(controller)
   setRect(viewRect);
 }
 
+void Editor::valueChanged(CControl *pControl)
+{
+  using ID = Synth::ParameterID::ID;
+
+  ParamID id = pControl->getTag();
+
+  switch (id) {
+    case ID::inputLimiterAttackSeconds:
+    case ID::sideLimiterAttackSeconds:
+      controller->getComponentHandler()->restartComponent(kLatencyChanged);
+  }
+
+  ParamValue value = pControl->getValueNormalized();
+  controller->setParamNormalized(id, value);
+  controller->performEdit(id, value);
+}
+
 bool Editor::prepareUI()
 {
   using ID = Synth::ParameterID::ID;
@@ -58,6 +75,8 @@ bool Editor::prepareUI()
   constexpr auto top0 = uiMargin;
   constexpr auto left0 = uiMargin;
 
+  const auto gainRange = Scales::gain.getRangeDB();
+
   // Misc.
   constexpr auto miscTop0 = top0;
   constexpr auto miscTop1 = miscTop0 + labelY;
@@ -65,11 +84,6 @@ bool Editor::prepareUI()
   constexpr auto miscTop3 = miscTop2 + labelY;
   constexpr auto miscTop4 = miscTop3 + labelY;
   constexpr auto miscTop5 = miscTop4 + labelY;
-  constexpr auto miscTop6 = miscTop5 + labelY;
-  constexpr auto miscTop7 = miscTop6 + labelY;
-  constexpr auto miscTop8 = miscTop7 + labelY;
-  constexpr auto miscTop9 = miscTop8 + labelY;
-  constexpr auto miscTop10 = miscTop9 + labelY;
   constexpr auto miscLeft0 = left0;
   constexpr auto miscLeft1 = miscLeft0 + labelWidth + 2 * margin;
 
@@ -77,21 +91,29 @@ bool Editor::prepareUI()
     miscLeft0, miscTop0, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Gain");
 
   addLabel(miscLeft0, miscTop1, labelWidth, labelHeight, uiTextSize, "Output [dB]");
-  addTextKnob(
+  auto outputGainTextKnob = addTextKnob(
     miscLeft1, miscTop1, labelWidth, labelHeight, uiTextSize, ID::outputGain,
     Scales::gain, true, 5);
+  if (outputGainTextKnob) {
+    outputGainTextKnob->sensitivity = 0.1 / gainRange;
+    outputGainTextKnob->lowSensitivity = 0.01 / gainRange;
+    outputGainTextKnob->wheelSensitivity = 0.1 / gainRange;
+  }
   addLabel(miscLeft0, miscTop2, labelWidth, labelHeight, uiTextSize, "Side Mix");
   addTextKnob(
     miscLeft1, miscTop2, labelWidth, labelHeight, uiTextSize, ID::sideMix,
     Scales::defaultScale, false, 5);
-  addLabel(miscLeft0, miscTop3, labelWidth, labelHeight, uiTextSize, "Ring <-> Sub.");
+  addLabel(miscLeft0, miscTop3, labelWidth, labelHeight, uiTextSize, "Ring-Sub. Mix");
   addTextKnob(
     miscLeft1, miscTop3, labelWidth, labelHeight, uiTextSize, ID::ringSubtractMix,
     Scales::defaultScale, false, 5);
 
-  addLabel(miscLeft0, miscTop9, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
+  addGroupLabel(
+    miscLeft0, miscTop4, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Misc.");
+
+  addLabel(miscLeft0, miscTop5, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
   addTextKnob(
-    miscLeft1, miscTop9, labelWidth, labelHeight, uiTextSize,
+    miscLeft1, miscTop5, labelWidth, labelHeight, uiTextSize,
     ID::parameterSmoothingSecond, Scales::parameterSmoothingSecond, false, 5);
 
   // Misc.
@@ -99,13 +121,6 @@ bool Editor::prepareUI()
   constexpr auto inputTop1 = inputTop0 + labelY;
   constexpr auto inputTop2 = inputTop1 + labelY;
   constexpr auto inputTop3 = inputTop2 + labelY;
-  constexpr auto inputTop4 = inputTop3 + labelY;
-  constexpr auto inputTop5 = inputTop4 + labelY;
-  constexpr auto inputTop6 = inputTop5 + labelY;
-  constexpr auto inputTop7 = inputTop6 + labelY;
-  constexpr auto inputTop8 = inputTop7 + labelY;
-  constexpr auto inputTop9 = inputTop8 + labelY;
-  constexpr auto inputTop10 = inputTop9 + labelY;
   constexpr auto inputLeft0 = miscLeft0 + 2 * labelWidth + 6 * margin;
   constexpr auto inputLeft1 = inputLeft0 + labelWidth + 2 * margin;
 
@@ -113,9 +128,15 @@ bool Editor::prepareUI()
     inputLeft0, inputTop0, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Input");
 
   addLabel(inputLeft0, inputTop1, labelWidth, labelHeight, uiTextSize, "Gain [dB]");
-  addTextKnob(
+  auto inputGainTextKnob = addTextKnob(
     inputLeft1, inputTop1, labelWidth, labelHeight, uiTextSize, ID::inputGain,
     Scales::gain, true, 5);
+  if (inputGainTextKnob) {
+    inputGainTextKnob->liveUpdate = false;
+    inputGainTextKnob->sensitivity = 0.1 / gainRange;
+    inputGainTextKnob->lowSensitivity = 0.01 / gainRange;
+    inputGainTextKnob->wheelSensitivity = 0.1 / gainRange;
+  }
   addLabel(inputLeft0, inputTop2, labelWidth, labelHeight, uiTextSize, "Attack [s]");
   addTextKnob<Style::warning>(
     inputLeft1, inputTop2, labelWidth, labelHeight, uiTextSize,
@@ -130,13 +151,6 @@ bool Editor::prepareUI()
   constexpr auto sideTop1 = sideTop0 + labelY;
   constexpr auto sideTop2 = sideTop1 + labelY;
   constexpr auto sideTop3 = sideTop2 + labelY;
-  constexpr auto sideTop4 = sideTop3 + labelY;
-  constexpr auto sideTop5 = sideTop4 + labelY;
-  constexpr auto sideTop6 = sideTop5 + labelY;
-  constexpr auto sideTop7 = sideTop6 + labelY;
-  constexpr auto sideTop8 = sideTop7 + labelY;
-  constexpr auto sideTop9 = sideTop8 + labelY;
-  constexpr auto sideTop10 = sideTop9 + labelY;
   constexpr auto sideLeft0 = inputLeft0 + 2 * labelWidth + 6 * margin;
   constexpr auto sideLeft1 = sideLeft0 + labelWidth + 2 * margin;
 
@@ -144,9 +158,15 @@ bool Editor::prepareUI()
     sideLeft0, sideTop0, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Side");
 
   addLabel(sideLeft0, sideTop1, labelWidth, labelHeight, uiTextSize, "Gain [dB]");
-  addTextKnob(
+  auto sideGainTextKnob = addTextKnob(
     sideLeft1, sideTop1, labelWidth, labelHeight, uiTextSize, ID::sideGain, Scales::gain,
     true, 5);
+  if (sideGainTextKnob) {
+    sideGainTextKnob->liveUpdate = false;
+    sideGainTextKnob->sensitivity = 0.1 / gainRange;
+    sideGainTextKnob->lowSensitivity = 0.01 / gainRange;
+    sideGainTextKnob->wheelSensitivity = 0.1 / gainRange;
+  }
   addLabel(sideLeft0, sideTop2, labelWidth, labelHeight, uiTextSize, "Attack [s]");
   addTextKnob<Style::warning>(
     sideLeft1, sideTop2, labelWidth, labelHeight, uiTextSize,
@@ -158,14 +178,14 @@ bool Editor::prepareUI()
 
   // Plugin name.
   constexpr auto splashMargin = uiMargin;
-  constexpr auto splashWidth = int(2 * labelWidth - 4 * margin);
+  constexpr auto splashWidth = int(2 * labelWidth + 4 * margin);
   constexpr auto splashHeight = labelHeight + margin;
   constexpr auto splashTop = defaultHeight - uiMargin - splashHeight;
-  constexpr auto splashLeft = left0 + 3 * margin;
+  constexpr auto splashLeft = inputLeft1;
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,
-    "ImmediateSpacer", true);
+    "ImmediateSpacer");
 
   // Probably this restartComponent() is redundant, but to make sure.
   controller->getComponentHandler()->restartComponent(kLatencyChanged);
