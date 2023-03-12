@@ -158,9 +158,10 @@ bool Editor::prepareUI()
   addLabel(
     leftLimiter0, topLimiter04, limiterLabelWidth, labelHeight, uiTextSize, "Attack [s]",
     kLeftText);
-  addTextKnob<Uhhyou::Style::warning>(
+  auto textKnobAttack = addTextKnob<Uhhyou::Style::warning>(
     leftLimiter1, topLimiter04, limiterLabelWidth, labelHeight, uiTextSize,
     ID::limiterAttack, Scales::limiterAttack, false, 5);
+  if (textKnobAttack) textKnobAttack->liveUpdate = false;
   addLabel(
     leftLimiter0, topLimiter05, limiterLabelWidth, labelHeight, uiTextSize, "Release [s]",
     kLeftText);
