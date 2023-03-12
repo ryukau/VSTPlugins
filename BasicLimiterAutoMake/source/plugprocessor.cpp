@@ -39,7 +39,7 @@ tresult PLUGIN_API PlugProcessor::initialize(FUnknown *context)
   if (result != kResultTrue) return result;
 
   addAudioInput(STR16("StereoInput"), Vst::SpeakerArr::kStereo);
-  addAudioInput(STR16("StereoInput"), Vst::SpeakerArr::kStereo);
+  addAudioInput(STR16("SideChainInput"), Vst::SpeakerArr::kStereo, Vst::BusTypes::kAux);
   addAudioOutput(STR16("StereoOutput"), Vst::SpeakerArr::kStereo);
 
   return result;
