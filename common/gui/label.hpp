@@ -57,6 +57,8 @@ public:
     setDirty(false);
   }
 
+  void setText(std::string content) { label = content; }
+
 protected:
   std::string label;
 
