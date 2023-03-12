@@ -60,8 +60,6 @@ private:
   std::unordered_map<ParamID, std::shared_ptr<XYPadAxis>> xyControlMap;
   void syncUI(ParamID id, float normalized);
 
-  ParamValue getPlainValue(ParamID id);
-
   bool prepareUI() override;
 
   template<Uhhyou::Style style = Uhhyou::Style::common>
