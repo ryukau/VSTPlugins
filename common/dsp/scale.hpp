@@ -306,6 +306,8 @@ public:
   T getMin() { return minToZero ? 0 : minAmp; }
   T getMax() { return maxAmp; }
 
+  T getRangeDB() { return scaleDB; }
+
   inline T dbToAmp(T dB) { return std::pow(T(10), dB / T(20)); }
   inline T ampToDB(T amplitude) { return T(20) * std::log10(amplitude); }
 
