@@ -229,7 +229,7 @@ bool Editor::prepareUI()
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,
-    "ComplexRotation", true);
+    "ComplexRotation");
 
   // Probably this restartComponent() is redundant, but to make sure.
   controller->getComponentHandler()->restartComponent(kLatencyChanged);
