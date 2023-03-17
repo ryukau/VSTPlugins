@@ -1,4 +1,4 @@
-// (c) 2022 Takamitsu Endo
+// (c) 2023 Takamitsu Endo
 //
 // This file is part of AccumulativeRingMod.
 //
@@ -54,7 +54,7 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("© 2022 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0f, 60.0f));
+  pContext->drawString("© 2023 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0f, 60.0f));
 
   std::string leftText = R"(
 This plugin is alpha version.

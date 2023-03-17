@@ -1,4 +1,4 @@
-// (c) 2022 Takamitsu Endo
+// (c) 2023 Takamitsu Endo
 //
 // This file is part of RingModSpacer.
 //

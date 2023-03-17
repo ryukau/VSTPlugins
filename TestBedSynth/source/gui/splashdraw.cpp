@@ -1,4 +1,4 @@
-// (c) 2021 Takamitsu Endo
+// (c) 2023 Takamitsu Endo
 //
 // This file is part of TestBedSynth.
 //
@@ -45,7 +45,7 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("© 2021 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0, 90.0));
+  pContext->drawString("© 2023 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0, 90.0));
 
   std::string leftText = R"(- Overtone -
 Ctrl + Left Drag|Reset to Default

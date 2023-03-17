@@ -2,7 +2,7 @@
 // (c) 2018, Steinberg Media Technologies GmbH, All Rights Reserved
 //
 // Modified by:
-// (c) 2021 Takamitsu Endo
+// (c) 2023 Takamitsu Endo
 //
 // This file is part of TestBedSynth.
 //
@@ -52,5 +52,5 @@
 #define stringCompanyWeb ""
 #define stringCompanyEmail "ryukau@gmail.com"
 
-#define stringLegalCopyright "Copyright 2021 Takamitsu Endo"
+#define stringLegalCopyright "Copyright 2023 Takamitsu Endo"
 #define stringLegalTrademarks "VST is a trademark of Steinberg Media Technologies GmbH"

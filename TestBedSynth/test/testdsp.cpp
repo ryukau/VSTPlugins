@@ -1,4 +1,4 @@
-// (c) 2021 Takamitsu Endo
+// (c) 2023 Takamitsu Endo
 //
 // This file is part of Uhhyou Plugins.
 //
@@ -22,7 +22,7 @@
 
 // CMake provides this macro, but just in case.
 #ifndef UHHYOU_PLUGIN_NAME
-#define UHHYOU_PLUGIN_NAME "TestBedSynth"
+  #define UHHYOU_PLUGIN_NAME "TestBedSynth"
 #endif
 
 #define OUT_DIR_PATH "snd/" UHHYOU_PLUGIN_NAME

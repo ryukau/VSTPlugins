@@ -2,7 +2,7 @@
 // (c) 2018, Steinberg Media Technologies GmbH, All Rights Reserved
 //
 // Modified by:
-// (c) 2021 Takamitsu Endo
+// (c) 2023 Takamitsu Endo
 //
 // This file is part of TestBedSynth.
 //
