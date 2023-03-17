@@ -1,19 +1,19 @@
 // (c) 2022 Takamitsu Endo
 //
-// This file is part of ComplexRotation.
+// This file is part of AccumulativeRingMod.
 //
-// ComplexRotation is free software: you can redistribute it and/or modify
+// AccumulativeRingMod is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// ComplexRotation is distributed in the hope that it will be useful,
+// AccumulativeRingMod is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with ComplexRotation.  If not, see <https://www.gnu.org/licenses/>.
+// along with AccumulativeRingMod.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "editor.hpp"
 #include "../../lib/pcg-cpp/pcg_random.hpp"
@@ -89,6 +89,7 @@ bool Editor::prepareUI()
   constexpr auto miscTop8 = miscTop7 + labelY;
   constexpr auto miscTop9 = miscTop8 + labelY;
   constexpr auto miscTop10 = miscTop9 + labelY;
+  constexpr auto miscTop11 = miscTop10 + labelY;
   constexpr auto miscLeft0 = left0;
   constexpr auto miscLeft1 = miscLeft0 + labelWidth + 2 * margin;
 
@@ -98,8 +99,7 @@ bool Editor::prepareUI()
   addKnob(miscLeft1, miscTop1, labelWidth, margin, uiTextSize, "Mix", ID::mix);
 
   addGroupLabel(
-    miscLeft0, miscTop3, 2 * (labelWidth + margin), labelHeight, uiTextSize,
-    "Stereo Phase");
+    miscLeft0, miscTop3, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Stereo");
   addLabel(miscLeft0, miscTop4, labelWidth, labelHeight, uiTextSize, "Link [Hz]");
   addTextKnob(
     miscLeft1, miscTop4, labelWidth, labelHeight, uiTextSize, ID::stereoPhaseLinkHz,
@@ -112,21 +112,24 @@ bool Editor::prepareUI()
   addRotaryTextKnob(
     miscLeft1, miscTop6, labelWidth, labelHeight, uiTextSize, ID::stereoPhaseOffset,
     Scales::defaultScale, 5);
-  addLabel(miscLeft0, miscTop7, labelWidth, labelHeight, uiTextSize, "Warp");
+
+  addGroupLabel(
+    miscLeft0, miscTop7, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Warp");
+  addLabel(miscLeft0, miscTop8, labelWidth, labelHeight, uiTextSize, "Amount");
   addTextKnob<Style::warning>(
-    miscLeft1, miscTop7, labelWidth, labelHeight, uiTextSize, ID::phaseWarp,
+    miscLeft1, miscTop8, labelWidth, labelHeight, uiTextSize, ID::phaseWarp,
     Scales::defaultScale, false, 5);
 
   addGroupLabel(
-    miscLeft0, miscTop8, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Misc.");
-  addLabel(miscLeft0, miscTop9, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
+    miscLeft0, miscTop9, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Misc.");
+  addLabel(miscLeft0, miscTop10, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
   addTextKnob(
-    miscLeft1, miscTop9, labelWidth, labelHeight, uiTextSize,
+    miscLeft1, miscTop10, labelWidth, labelHeight, uiTextSize,
     ID::parameterSmoothingSecond, Scales::parameterSmoothingSecond, false, 5);
-  addLabel(miscLeft0, miscTop10, labelWidth, labelHeight, uiTextSize, "Oversampling");
+  addLabel(miscLeft0, miscTop11, labelWidth, labelHeight, uiTextSize, "Oversampling");
   std::vector<std::string> oversamplingItems{"1x", "2x", "16x"};
   addOptionMenu(
-    miscLeft1, miscTop10, labelWidth, labelHeight, uiTextSize, ID::oversampling,
+    miscLeft1, miscTop11, labelWidth, labelHeight, uiTextSize, ID::oversampling,
     oversamplingItems);
 
   // Input Modulation.
@@ -222,14 +225,14 @@ bool Editor::prepareUI()
 
   // Plugin name.
   constexpr auto splashMargin = uiMargin;
-  constexpr auto splashWidth = int(2 * labelWidth - 4 * margin);
+  constexpr auto splashWidth = int(2 * labelWidth + 2 * margin);
   constexpr auto splashHeight = labelHeight + margin;
   constexpr auto splashTop = defaultHeight - uiMargin - splashHeight;
-  constexpr auto splashLeft = left0 + 3 * margin;
+  constexpr auto splashLeft = left0;
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,
-    "ComplexRotation");
+    "AccumulativeRingMod");
 
   // Probably this restartComponent() is redundant, but to make sure.
   controller->getComponentHandler()->restartComponent(kLatencyChanged);

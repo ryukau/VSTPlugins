@@ -4,20 +4,20 @@
 // Modified by:
 // (c) 2023 Takamitsu Endo
 //
-// This file is part of ComplexRotation.
+// This file is part of AccumulativeRingMod.
 //
-// ComplexRotation is free software: you can redistribute it and/or modify
+// AccumulativeRingMod is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// ComplexRotation is distributed in the hope that it will be useful,
+// AccumulativeRingMod is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with ComplexRotation.  If not, see <https://www.gnu.org/licenses/>.
+// along with AccumulativeRingMod.  If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 
@@ -26,23 +26,23 @@
 #define MAJOR_VERSION_STR "0"
 #define MAJOR_VERSION_INT 0
 
-#define SUB_VERSION_STR "0"
-#define SUB_VERSION_INT 0
+#define SUB_VERSION_STR "1"
+#define SUB_VERSION_INT 1
 
-#define RELEASE_NUMBER_STR "4"
-#define RELEASE_NUMBER_INT 4
+#define RELEASE_NUMBER_STR "0"
+#define RELEASE_NUMBER_INT 0
 
-#define BUILD_NUMBER_STR "4"
-#define BUILD_NUMBER_INT 4
+#define BUILD_NUMBER_STR "5"
+#define BUILD_NUMBER_INT 5
 
 #define FULL_VERSION_STR                                                                 \
   MAJOR_VERSION_STR "." SUB_VERSION_STR "." RELEASE_NUMBER_STR "." BUILD_NUMBER_STR
 
 #define VERSION_STR MAJOR_VERSION_STR "." SUB_VERSION_STR "." RELEASE_NUMBER_STR
 
-#define stringPluginName "ComplexRotation"
+#define stringPluginName "AccumulativeRingMod"
 
-#define stringOriginalFilename "ComplexRotation.vst3"
+#define stringOriginalFilename "AccumulativeRingMod.vst3"
 #if SMTG_PLATFORM_64
   #define stringFileDescription stringPluginName " VST3-SDK (64Bit)"
 #else

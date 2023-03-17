@@ -1,19 +1,19 @@
 // (c) 2022 Takamitsu Endo
 //
-// This file is part of ComplexRotation.
+// This file is part of AccumulativeRingMod.
 //
-// ComplexRotation is free software: you can redistribute it and/or modify
+// AccumulativeRingMod is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// ComplexRotation is distributed in the hope that it will be useful,
+// AccumulativeRingMod is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with ComplexRotation.  If not, see <https://www.gnu.org/licenses/>.
+// along with AccumulativeRingMod.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "../../../common/gui/splash.hpp"
 #include "../version.hpp"
@@ -50,7 +50,7 @@ void CreditView::draw(CDrawContext *pContext)
   // Text.
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("ComplexRotation " VERSION_STR, CPoint(20.0, 40.0));
+  pContext->drawString("AccumulativeRingMod " VERSION_STR, CPoint(20.0, 40.0));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
