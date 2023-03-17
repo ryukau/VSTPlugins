@@ -4,20 +4,20 @@
 // Modified by:
 // (c) 2023 Takamitsu Endo
 //
-// This file is part of ImmediateSpacer.
+// This file is part of RingModSpacer.
 //
-// ImmediateSpacer is free software: you can redistribute it and/or modify
+// RingModSpacer is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// ImmediateSpacer is distributed in the hope that it will be useful,
+// RingModSpacer is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with ImmediateSpacer.  If not, see <https://www.gnu.org/licenses/>.
+// along with RingModSpacer.  If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 
@@ -40,9 +40,9 @@
 
 #define VERSION_STR MAJOR_VERSION_STR "." SUB_VERSION_STR "." RELEASE_NUMBER_STR
 
-#define stringPluginName "ImmediateSpacer"
+#define stringPluginName "RingModSpacer"
 
-#define stringOriginalFilename "ImmediateSpacer.vst3"
+#define stringOriginalFilename "RingModSpacer.vst3"
 #if SMTG_PLATFORM_64
   #define stringFileDescription stringPluginName " VST3-SDK (64Bit)"
 #else
