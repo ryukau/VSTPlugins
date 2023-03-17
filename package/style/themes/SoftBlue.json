@@ -1,0 +1,20 @@
+{
+  "fontFamily": "VT323",
+  "fontBold": false,
+  "fontItalic": false,
+  "foreground": "#ffffff",
+  "foregroundButtonOn": "#ffffff",
+  "foregroundInactive": "#c0cad8",
+  "background": "#8e99b9",
+  "boxBackground": "#66748f",
+  "border": "#66748f",
+  "borderCheckbox": "#66748f",
+  "borderLabel": "#66748f",
+  "unfocused": "#dddddd",
+  "highlightMain": "#c0cad8",
+  "highlightAccent": "#3ecbd8",
+  "highlightButton": "#ffb380",
+  "highlightWarning": "#ffaaaa",
+  "overlay": "#ffffffc0",
+  "overlayHighlight": "#3ecbd840"
+}
