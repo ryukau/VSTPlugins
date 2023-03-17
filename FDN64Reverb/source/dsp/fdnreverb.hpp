@@ -67,7 +67,7 @@ public:
 
 template<typename Sample> class Delay {
 public:
-  size_t wptr = 0;
+  int wptr = 0;
   std::vector<Sample> buf;
 
   void setup(Sample sampleRate, Sample maxTime)
@@ -82,19 +82,21 @@ public:
 
   Sample process(Sample input, Sample timeInSample)
   {
+    const int bufSize = buf.size();
+
     // Set delay time.
-    Sample clamped = std::clamp(timeInSample, Sample(0), Sample(buf.size() - 1));
-    size_t &&timeInt = size_t(clamped);
+    Sample clamped = std::clamp(timeInSample, Sample(0), Sample(bufSize - 1));
+    int timeInt = int(clamped);
     Sample rFraction = clamped - Sample(timeInt);
 
-    size_t rptr0 = wptr - timeInt;
-    size_t rptr1 = rptr0 - 1;
-    if (rptr0 >= buf.size()) rptr0 += buf.size(); // Unsigned negative overflow case.
-    if (rptr1 >= buf.size()) rptr1 += buf.size(); // Unsigned negative overflow case.
+    int rptr0 = wptr - timeInt;
+    int rptr1 = rptr0 - 1;
+    if (rptr0 < 0) rptr0 += bufSize; // Unsigned negative overflow case.
+    if (rptr1 < 0) rptr1 += bufSize; // Unsigned negative overflow case.
 
     // Write to buffer.
     buf[wptr] = input;
-    if (++wptr >= buf.size()) wptr -= buf.size();
+    if (++wptr >= bufSize) wptr = 0;
 
     // Read from buffer.
     return buf[rptr0] + rFraction * (buf[rptr1] - buf[rptr0]);

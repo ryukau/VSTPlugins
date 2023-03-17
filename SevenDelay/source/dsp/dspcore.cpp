@@ -39,6 +39,12 @@ inline std::array<float, 2> calcPan(float inL, float inR, float pan, float sprea
   };
 }
 
+template<typename T> inline T calcNotePitch(T note)
+{
+  auto pitch = std::exp2((note - T(69)) / T(12));
+  return T(1) / std::max(pitch, std::numeric_limits<float>::epsilon());
+}
+
 void DSPCore::setup(double sampleRate)
 {
   SmootherCommon<float>::setSampleRate(float(sampleRate));
@@ -57,6 +63,10 @@ void DSPCore::setup(double sampleRate)
 
 void DSPCore::reset()
 {
+  midiNotes.clear();
+  noteStack.clear();
+  notePitchMultiplier = float(1);
+
   for (size_t i = 0; i < channel; ++i) {
     delay[i].reset();
     filter[i].reset();
@@ -72,13 +82,13 @@ void DSPCore::startup()
   lfoPhase = param.value[ParameterID::lfoInitialPhase]->getFloat();
 }
 
-void DSPCore::setParameters(double tempo)
+void DSPCore::setParameters()
 {
   SmootherCommon<float>::setTime(param.value[ParameterID::smoothness]->getFloat());
 
   // This won't work if sync is on and tempo < 15. Up to 8 sec or 8/16 beat.
   // 15.0 comes from (60 sec per minute) * (4 beat) / (16 beat).
-  auto time = param.value[ParameterID::time]->getFloat();
+  auto time = param.value[ParameterID::time]->getFloat() * notePitchMultiplier;
   if (param.value[ParameterID::tempoSync]->getInt()) {
     if (time < 1.0f)
       time *= 15.0f / float(tempo);
@@ -123,6 +133,8 @@ void DSPCore::process(
 
   const bool lfoHold = !param.value[ParameterID::lfoHold]->getInt();
   for (size_t i = 0; i < length; ++i) {
+    processMidiNote(i);
+
     auto sign = (pi < lfoPhase) - (lfoPhase < pi);
     const float lfo = sign * powf(fabsf(float(sin(lfoPhase))), interpLfoShape.process());
     const float lfoTime = interpLfoTimeAmount.process() * (1.0f + lfo);
@@ -170,4 +182,46 @@ void DSPCore::process(
       if (lfoPhase > 2.0f * pi) lfoPhase -= 2.0f * pi;
     }
   }
+}
+
+void DSPCore::noteOn(NoteInfo &info)
+{
+  notePitchMultiplier = calcNotePitch(info.pitch);
+  updateDelayTime();
+
+  noteStack.push_back(info);
+}
+
+void DSPCore::noteOff(int_fast32_t noteId)
+{
+  auto it = std::find_if(noteStack.begin(), noteStack.end(), [&](const NoteInfo &info) {
+    return info.id == noteId;
+  });
+  if (it == noteStack.end()) return;
+  noteStack.erase(it);
+
+  if (noteStack.empty()) {
+    notePitchMultiplier = float(1);
+  } else {
+    notePitchMultiplier = calcNotePitch(noteStack.back().pitch);
+  }
+  updateDelayTime();
+}
+
+void DSPCore::updateDelayTime()
+{
+  using ID = ParameterID::ID;
+  const auto &pv = param.value;
+
+  auto time = param.value[ParameterID::time]->getFloat() * notePitchMultiplier;
+  if (param.value[ParameterID::tempoSync]->getInt()) {
+    if (time < 1.0f)
+      time *= 15.0f / float(tempo);
+    else
+      time = std::floor(2.0f * time) * 7.5f / float(tempo);
+  }
+
+  auto offset = param.value[ParameterID::offset]->getFloat();
+  interpTime[0].push(offset < 0.0f ? time * (1.0f + offset) : time);
+  interpTime[1].push(offset > 0.0f ? time * (1.0f - offset) : time);
 }

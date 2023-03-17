@@ -35,8 +35,14 @@ inline std::array<float, 2> calcOffset(float offset, float mul)
   return {(1.0f + offset) * mul, mul};
 }
 
+template<typename T> inline T calcNotePitch(T note)
+{
+  auto pitch = std::exp2((note - T(69)) / T(12));
+  return T(1) / std::max(pitch, std::numeric_limits<float>::epsilon());
+}
+
 #define ASSIGN_ALLPASS_PARAMETER(METHOD)                                                 \
-  auto timeMul = param.value[ID::timeMultiply]->getFloat();                              \
+  auto timeMul = param.value[ID::timeMultiply]->getFloat() * notePitchMultiplier;        \
   auto innerMul = param.value[ID::innerFeedMultiply]->getFloat();                        \
   auto d1FeedMul = param.value[ID::d1FeedMultiply]->getFloat();                          \
   auto d2FeedMul = param.value[ID::d2FeedMultiply]->getFloat();                          \
@@ -126,6 +132,10 @@ void DSPCore::reset()
 {
   using ID = ParameterID::ID;
 
+  midiNotes.clear();
+  noteStack.clear();
+  notePitchMultiplier = float(1);
+
   startup();
 
   for (auto &dly : delay) dly.reset();
@@ -170,6 +180,8 @@ void DSPCore::process(
   SmootherCommon<float>::setBufferSize(float(length));
 
   for (size_t i = 0; i < length; ++i) {
+    processMidiNote(i);
+
     const auto cross = interpStereoCross.process();
     const auto delayOut0 = delayOut[0];
     const auto delayOut1 = delayOut[1];
@@ -189,6 +201,30 @@ void DSPCore::process(
   }
 }
 
+void DSPCore::noteOn(NoteInfo &info)
+{
+  notePitchMultiplier = calcNotePitch(info.pitch);
+  updateDelayTime();
+
+  noteStack.push_back(info);
+}
+
+void DSPCore::noteOff(int_fast32_t noteId)
+{
+  auto it = std::find_if(noteStack.begin(), noteStack.end(), [&](const NoteInfo &info) {
+    return info.id == noteId;
+  });
+  if (it == noteStack.end()) return;
+  noteStack.erase(it);
+
+  if (noteStack.empty()) {
+    notePitchMultiplier = float(1);
+  } else {
+    notePitchMultiplier = calcNotePitch(noteStack.back().pitch);
+  }
+  updateDelayTime();
+}
+
 void DSPCore::refreshSeed()
 {
   std::minstd_rand rng{param.value[ParameterID::seed]->getInt()};
@@ -200,4 +236,49 @@ void DSPCore::refreshSeed()
   d2FeedSeed = dist(rng);
   d3FeedSeed = dist(rng);
   d4FeedSeed = dist(rng);
+}
+
+void DSPCore::updateDelayTime()
+{
+  using ID = ParameterID::ID;
+  const auto &pv = param.value;
+
+  auto timeMul = param.value[ID::timeMultiply]->getFloat() * notePitchMultiplier;
+
+  auto timeOfs = param.value[ID::timeOffsetRange]->getFloat();
+
+  std::uniform_real_distribution<float> timeOffsetDist(-timeOfs, timeOfs);
+
+  uint16_t i1 = 0;
+  uint16_t i2 = 0;
+  uint16_t i3 = 0;
+  uint16_t i4 = 0;
+
+  auto &ap4L = delay[0];
+  auto &ap4R = delay[1];
+  for (uint8_t d4 = 0; d4 < nSection4; ++d4) {
+    auto &ap3L = ap4L.allpass[d4];
+    auto &ap3R = ap4R.allpass[d4];
+    for (uint8_t d3 = 0; d3 < nSection3; ++d3) {
+      auto &ap2L = ap3L.allpass[d3];
+      auto &ap2R = ap3R.allpass[d3];
+      for (uint8_t d2 = 0; d2 < nSection2; ++d2) {
+        auto &ap1L = ap2L.allpass[d2];
+        auto &ap1R = ap2R.allpass[d2];
+        for (uint8_t d1 = 0; d1 < nSection1; ++d1) {
+          auto d1TimeOffset = calcOffset(timeOffsetDist(timeRng), timeMul);
+
+          ap1L.seconds[d1].push(
+            param.value[ID::time0 + i1]->getFloat() * d1TimeOffset[0]);
+          ap1R.seconds[d1].push(
+            param.value[ID::time0 + i1]->getFloat() * d1TimeOffset[1]);
+
+          ++i1;
+        }
+        ++i2;
+      }
+      ++i3;
+    }
+    ++i4;
+  }
 }

@@ -25,6 +25,12 @@ constexpr float defaultTempo = 120.0f;
 
 template<typename T> T lerp(T a, T b, T t) { return a + t * (b - a); }
 
+template<typename T> inline T calcNotePitch(T note)
+{
+  auto pitch = std::exp2((note - T(69)) / T(12));
+  return T(1) / std::max(pitch, std::numeric_limits<float>::epsilon());
+}
+
 float DSPCore::getTempoSyncInterval()
 {
   using ID = ParameterID::ID;
@@ -88,7 +94,8 @@ size_t DSPCore::getLatency() { return 0; }
   interpLfoToPitch.METHOD(pv[ID::lfoToPitch]->getFloat());                               \
   interpLfoToUnison.METHOD(pv[ID::lfoToUnison]->getFloat());                             \
   interpDelayTime.METHOD(                                                                \
-    pv[ID::delayTime]->getFloat() * sampleRate * OverSampler::fold);                     \
+    pv[ID::delayTime]->getFloat() * sampleRate * OverSampler::fold                       \
+    * notePitchMultiplier);                                                              \
   interpStereoLean.METHOD(pv[ID::stereoLean]->getFloat());                               \
   interpFeedback.METHOD(pv[ID::feedback]->getFloat());                                   \
   interpHighpassCutoffKp.METHOD(float(                                                   \
@@ -102,6 +109,10 @@ size_t DSPCore::getLatency() { return 0; }
 void DSPCore::reset()
 {
   ASSIGN_PARAMETER(reset);
+
+  midiNotes.clear();
+  noteStack.clear();
+  notePitchMultiplier = float(1);
 
   lfo.reset();
 
@@ -160,6 +171,8 @@ void DSPCore::process(
   bool enableMidSide = pv[ID::channelType]->getInt();
 
   for (size_t i = 0; i < length; ++i) {
+    processMidiNote(i);
+
     float sig0 = in0[i];
     float sig1 = in1[i];
     if (enableMidSide) convertToMidSide(sig0, sig1);
@@ -243,4 +256,37 @@ void DSPCore::process(
     out0[i] = sig0;
     out1[i] = sig1;
   }
+}
+
+void DSPCore::noteOn(NoteInfo &info)
+{
+  notePitchMultiplier = calcNotePitch(info.pitch);
+  updateDelayTime();
+
+  noteStack.push_back(info);
+}
+
+void DSPCore::noteOff(int_fast32_t noteId)
+{
+  auto it = std::find_if(noteStack.begin(), noteStack.end(), [&](const NoteInfo &info) {
+    return info.id == noteId;
+  });
+  if (it == noteStack.end()) return;
+  noteStack.erase(it);
+
+  if (noteStack.empty()) {
+    notePitchMultiplier = float(1);
+  } else {
+    notePitchMultiplier = calcNotePitch(noteStack.back().pitch);
+  }
+  updateDelayTime();
+}
+
+void DSPCore::updateDelayTime()
+{
+  using ID = ParameterID::ID;
+  const auto &pv = param.value;
+
+  interpDelayTime.push(
+    pv[ID::delayTime]->getFloat() * sampleRate * OverSampler::fold * notePitchMultiplier);
 }

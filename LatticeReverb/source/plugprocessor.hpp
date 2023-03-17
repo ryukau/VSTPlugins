@@ -55,6 +55,8 @@ public:
   void processBypass(Vst::ProcessData &data);
 
 protected:
+  void handleEvent(Vst::ProcessData &data);
+
   inline int32 toDiscrete(Vst::ParamValue normalized, int32 stepCount)
   {
     return int32(std::min<double>(stepCount, normalized * (stepCount + 1.0)));

@@ -23,6 +23,12 @@
 
 template<typename T> T lerp(T a, T b, T t) { return a + t * (b - a); }
 
+template<typename T> inline T calcNotePitch(T note)
+{
+  auto pitch = std::exp2((note - T(69)) / T(12));
+  return T(1) / std::max(pitch, std::numeric_limits<float>::epsilon());
+}
+
 void DSPCore::setup(double sampleRate)
 {
   this->sampleRate = float(sampleRate);
@@ -53,7 +59,7 @@ size_t DSPCore::getLatency() { return 0; }
     fdn.rate = pv[ID::delayTimeInterpRate]->getFloat();                                  \
   }                                                                                      \
                                                                                          \
-  auto timeMul = pv[ID::timeMultiplier]->getFloat();                                     \
+  auto timeMul = pv[ID::timeMultiplier]->getFloat() * notePitchMultiplier;               \
   for (size_t idx = 0; idx < nDelay; ++idx) {                                            \
     auto time = timeMul * sampleRate * pv[ID::delayTime0 + idx]->getFloat();             \
     auto timeLfo = sampleRate * pv[ID::timeLfoAmount0 + idx]->getFloat();                \
@@ -84,6 +90,10 @@ size_t DSPCore::getLatency() { return 0; }
 void DSPCore::reset()
 {
   rng.seed(9999991);
+
+  midiNotes.clear();
+  noteStack.clear();
+  notePitchMultiplier = float(1);
 
   std::uniform_real_distribution<float> timeLfoDist(0.0f, 1.0f);
   for (size_t idx = 0; idx < nDelay; ++idx) {
@@ -139,6 +149,8 @@ void DSPCore::process(
   SmootherCommon<float>::setBufferSize(float(length));
 
   for (size_t i = 0; i < length; ++i) {
+    processMidiNote(i);
+
     for (size_t idx = 0; idx < nDelay; ++idx) {
       auto lowpassCutoff = interpLowpassCutoff[idx].process();
       auto highpassCutoff = interpHighpassCutoff[idx].process();
@@ -167,5 +179,46 @@ void DSPCore::process(
     auto wet = interpWet.process();
     out0[i] = dry * in0[i] + wet * crossBuffer[0];
     out1[i] = dry * in1[i] + wet * crossBuffer[1];
+  }
+}
+
+void DSPCore::noteOn(NoteInfo &info)
+{
+  notePitchMultiplier = calcNotePitch(info.pitch);
+  updateDelayTime();
+
+  noteStack.push_back(info);
+}
+
+void DSPCore::noteOff(int_fast32_t noteId)
+{
+  auto it = std::find_if(noteStack.begin(), noteStack.end(), [&](const NoteInfo &info) {
+    return info.id == noteId;
+  });
+  if (it == noteStack.end()) return;
+  noteStack.erase(it);
+
+  if (noteStack.empty()) {
+    notePitchMultiplier = float(1);
+  } else {
+    notePitchMultiplier = calcNotePitch(noteStack.back().pitch);
+  }
+  updateDelayTime();
+}
+
+void DSPCore::updateDelayTime()
+{
+  using ID = ParameterID::ID;
+  const auto &pv = param.value;
+
+  auto timeMul = pv[ID::timeMultiplier]->getFloat() * notePitchMultiplier;
+  for (size_t idx = 0; idx < nDelay; ++idx) {
+    auto time = timeMul * sampleRate * pv[ID::delayTime0 + idx]->getFloat();
+    auto timeLfo = sampleRate * pv[ID::timeLfoAmount0 + idx]->getFloat();
+
+    feedbackDelayNetwork[0].delayTimeSample[idx].push(
+      time + timeLfo * lowpassLfoTime[0][idx].value);
+    feedbackDelayNetwork[1].delayTimeSample[idx].push(
+      time + timeLfo * lowpassLfoTime[1][idx].value);
   }
 }

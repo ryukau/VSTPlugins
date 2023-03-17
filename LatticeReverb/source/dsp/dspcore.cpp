@@ -39,9 +39,13 @@ void DSPCore::reset()
 {
   using ID = ParameterID::ID;
 
+  midiNotes.clear();
+  noteStack.clear();
+  notePitchMultiplier = float(1);
+
   delay.reset();
 
-  auto timeMul = param.value[ID::timeMultiply]->getFloat();
+  auto timeMul = notePitchMultiplier * param.value[ID::timeMultiply]->getFloat();
   auto outerMul = param.value[ID::outerFeedMultiply]->getFloat();
   auto innerMul = param.value[ID::innerFeedMultiply]->getFloat();
   auto timeOffsetMul = param.value[ID::timeOffsetMultiply]->getFloat();
@@ -94,7 +98,7 @@ void DSPCore::setParameters()
 
   SmootherCommon<float>::setTime(param.value[ID::smoothness]->getFloat());
 
-  auto timeMul = param.value[ID::timeMultiply]->getFloat();
+  auto timeMul = notePitchMultiplier * param.value[ID::timeMultiply]->getFloat();
   auto outerMul = param.value[ID::outerFeedMultiply]->getFloat();
   auto innerMul = param.value[ID::innerFeedMultiply]->getFloat();
   auto timeOffsetMul = param.value[ID::timeOffsetMultiply]->getFloat();
@@ -145,6 +149,8 @@ void DSPCore::process(
   SmootherCommon<float>::setBufferSize(float(length));
 
   for (size_t i = 0; i < length; ++i) {
+    processMidiNote(i);
+
     for (size_t idx = 0; idx < nestingDepth; ++idx) {
       auto lpCut = interpLowpassCutoff[idx].process();
 
@@ -172,5 +178,62 @@ void DSPCore::process(
     const auto wet = interpWet.process();
     out0[i] = dry * in0[i] + wet * delayOut[0];
     out1[i] = dry * in1[i] + wet * delayOut[1];
+  }
+}
+
+template<typename T> inline T calcNotePitch(T note)
+{
+  auto pitch = std::exp2((note - T(69)) / T(12));
+  return T(1) / std::max(pitch, std::numeric_limits<float>::epsilon());
+}
+
+void DSPCore::noteOn(NoteInfo &info)
+{
+  notePitchMultiplier = calcNotePitch(info.pitch);
+  updateDelayTime();
+
+  noteStack.push_back(info);
+}
+
+void DSPCore::noteOff(int_fast32_t noteId)
+{
+  auto it = std::find_if(noteStack.begin(), noteStack.end(), [&](const NoteInfo &info) {
+    return info.id == noteId;
+  });
+  if (it == noteStack.end()) return;
+  noteStack.erase(it);
+
+  if (noteStack.empty()) {
+    notePitchMultiplier = float(1);
+  } else {
+    notePitchMultiplier = calcNotePitch(noteStack.back().pitch);
+  }
+  updateDelayTime();
+}
+
+void DSPCore::updateDelayTime()
+{
+  using ID = ParameterID::ID;
+
+  auto timeMul = notePitchMultiplier * param.value[ID::timeMultiply]->getFloat();
+  auto timeOffsetMul = param.value[ID::timeOffsetMultiply]->getFloat();
+  auto timeLfoLowpassKp = param.value[ID::timeLfoLowpass]->getFloat();
+
+  std::uniform_real_distribution<float> dist(0.0f, 1.0f);
+  for (size_t idx = 0; idx < nestingDepth; ++idx) {
+    auto timeOffset
+      = calcOffset(param.value[ID::timeOffset0 + idx]->getFloat(), timeOffsetMul);
+    auto time = param.value[ID::time0 + idx]->getFloat();
+    auto timeLfo = param.value[ID::timeLfoAmount0 + idx]->getFloat();
+    lowpassLfoTime[0][idx].kp = timeLfoLowpassKp;
+    lowpassLfoTime[1][idx].kp = timeLfoLowpassKp;
+    interpTime[0][idx].push(std::clamp<float>(
+      timeOffset[0] * timeMul * time
+        + timeLfo * lowpassLfoTime[0][idx].process(dist(rng)),
+      0.0f, 1.0f));
+    interpTime[1][idx].push(std::clamp<float>(
+      timeOffset[1] * timeMul * time
+        + timeLfo * lowpassLfoTime[1][idx].process(dist(rng)),
+      0.0f, 1.0f));
   }
 }

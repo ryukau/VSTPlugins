@@ -34,17 +34,73 @@ using DCKillerTypeName = SomeDSP::BiquadHighPass<float>;
 
 class DSPCore {
 public:
+  struct NoteInfo {
+    bool isNoteOn;
+    uint32_t frame;
+    int32_t id;
+    float pitch;
+    float velocity;
+  };
+
+  DSPCore()
+  {
+    midiNotes.reserve(1024);
+    noteStack.reserve(1024);
+  }
+
   GlobalParameter param;
+  float tempo = 120.0f; // tempo is beat per minutes.
 
   void setup(double sampleRate);
-  void reset();                     // Stop sounds.
-  void startup();                   // Reset phase, random seed etc.
-  void setParameters(double tempo); // tempo is beat per minutes.
+  void reset();   // Stop sounds.
+  void startup(); // Reset phase, random seed etc.
+  void setParameters();
 
   void process(
     const size_t length, const float *in0, const float *in1, float *out0, float *out1);
 
+  void noteOn(NoteInfo &info);
+  void noteOff(int_fast32_t noteId);
+
+  void pushMidiNote(
+    bool isNoteOn,
+    uint32_t frame,
+    int32_t noteId,
+    int16_t pitch,
+    float tuning,
+    float velocity)
+  {
+    NoteInfo note;
+    note.isNoteOn = isNoteOn;
+    note.frame = frame;
+    note.id = noteId;
+    note.pitch = pitch + tuning;
+    note.velocity = velocity;
+    midiNotes.push_back(note);
+  }
+
+  void processMidiNote(size_t frame)
+  {
+    while (true) {
+      auto it = std::find_if(midiNotes.begin(), midiNotes.end(), [&](const NoteInfo &nt) {
+        return nt.frame == frame;
+      });
+      if (it == std::end(midiNotes)) return;
+      if (it->isNoteOn)
+        noteOn(*it);
+      else
+        noteOff(it->id);
+      midiNotes.erase(it);
+    }
+  }
+
 protected:
+  void updateDelayTime();
+
+  std::vector<NoteInfo> midiNotes;
+  std::vector<NoteInfo> noteStack;
+  float notePitchMultiplier = float(1);
+
   std::array<LinearSmoother<float>, 2> interpTime{};
   LinearSmoother<float> interpWetMix;
   LinearSmoother<float> interpDryMix;

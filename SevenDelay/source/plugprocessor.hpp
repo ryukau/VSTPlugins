@@ -55,6 +55,8 @@ public:
   void processBypass(Vst::ProcessData &data);
 
 protected:
+  void handleEvent(Vst::ProcessData &data);
+
   uint32_t lastState = 0;
   uint32_t wasBypassing = 0;
   float tempo = 120.0f;
