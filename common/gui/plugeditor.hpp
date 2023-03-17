@@ -217,6 +217,17 @@ public:
     return xyPad;
   }
 
+  /**
+  `id` is row major order. For example, if row is 4, and column is 3, then:
+
+  ```
+  id = [
+    id00, id01, id02, id03,
+    id10, id11, id12, id13,
+    id20, id21, id22, id23,
+  ];
+  ```
+  */
   auto addMatrixKnob(
     CCoord left,
     CCoord top,

@@ -372,6 +372,12 @@ public:
     } else if (event.character == 'r') {
       totalRandomize();
       updateTextView("r: Randomize: Done.");
+    } else if (shift && event.character == 's') {
+      scaleValue(1.0352649238413776);
+      updateTextView("s: Scale up: Done.");
+    } else if (event.character == 's') {
+      scaleValue(0.9659363289248456);
+      updateTextView("s: Scale down: Done.");
     } else if (event.character == 't') { // subTle randomize. Random walk.
       randomize(0.02);
       updateTextView("t: Subtle Randomize: Done.");
@@ -444,11 +450,6 @@ private:
     value = undoValue.back();
   }
 
-  void resetToDefault()
-  {
-    for (size_t i = 0; i < value.size(); ++i) value[i] = defaultValue[i];
-  }
-
   void copy()
   {
     if (mode & modeColumn && copyCol.size() >= nCol) {
@@ -485,26 +486,41 @@ private:
     }
   }
 
-  void applyRandomize(std::function<double(double)> func)
+  void applyAction(std::function<double(size_t)> func)
   {
     if (mode == modeNeutral) {
-      for (size_t i = 0; i < value.size(); ++i) value[i] = func(value[i]);
+      for (size_t i = 0; i < value.size(); ++i) value[i] = func(i);
       return;
     }
     if (mode & modeColumn && copyCol.size() >= nCol) {
       for (uint32_t row = 0; row < nRow; ++row) {
         auto index = getIndex(row, focusCol);
         if (index >= value.size()) break;
-        value[index] = func(value[index]);
+        value[index] = func(index);
       }
     }
     if (mode & modeRow && copyRow.size() >= nRow) {
       for (uint32_t col = 0; col < nCol; ++col) {
         auto index = getIndex(focusRow, col);
         if (index >= value.size()) break;
-        value[index] = func(value[index]);
+        value[index] = func(index);
       }
     }
+  }
+
+  void resetToDefault()
+  {
+    applyAction([&](size_t index) { return defaultValue[index]; });
+  }
+
+  void scaleValue(double scalar)
+  {
+    applyAction([&](size_t index) {
+      const auto &def = defaultValue[index];
+      const auto &val = value[index];
+      return val < def ? std::max(def - scalar * (def - val), 0.0)
+                       : std::min(def + scalar * (val - def), 1.0);
+    });
   }
 
   void totalRandomize()
@@ -512,7 +528,7 @@ private:
     std::random_device dev;
     std::mt19937_64 rng(dev());
     std::uniform_real_distribution<double> dist(0.0, 1.0);
-    applyRandomize([&](double /* val */) { return dist(rng); });
+    applyAction([&](size_t /* index */) { return dist(rng); });
   }
 
   void randomize(double amount)
@@ -520,7 +536,8 @@ private:
     std::random_device dev;
     std::mt19937_64 rng(dev());
     amount /= 2;
-    applyRandomize([&](double val) {
+    applyAction([&](size_t index) {
+      const auto &val = value[index];
       std::uniform_real_distribution<double> dist(val - amount, val + amount);
       return std::clamp(dist(rng), 0.0, 1.0);
     });
@@ -540,8 +557,8 @@ private:
 
   void setFocus(const CPoint &pos)
   {
-    focusCol = pos.x * nCol / getWidth();
-    focusRow = pos.y * nRow / getHeight();
+    focusCol = nCol * std::clamp(pos.x / getWidth(), 0.0, 1.0);
+    focusRow = nRow * std::clamp(pos.y / getHeight(), 0.0, 1.0);
   }
 
   void setMousePosition(CPoint &where)

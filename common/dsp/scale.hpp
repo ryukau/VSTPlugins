@@ -19,6 +19,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <limits>
 
 #include "constants.hpp"
 
@@ -306,6 +307,8 @@ public:
   T getMin() { return minToZero ? 0 : minAmp; }
   T getMax() { return maxAmp; }
 
+  T getMinDB() { return minDB; }
+  T getMaxDB() { return maxDB; }
   T getRangeDB() { return scaleDB; }
 
   inline T dbToAmp(T dB) { return std::pow(T(10), dB / T(20)); }
@@ -350,6 +353,59 @@ public:
 protected:
   DecibelScale<T> scale;
   T offset;
+};
+
+// DecibelScale, but can have negative values when normalized value is below `center`.
+//
+// - `center` is fixed to 0.5.
+// - When normalized value is in `center`, `map()` outputs 0.
+// - Same decibel range is used for positive and negative values.
+//
+// This scale is added for FM or PM amount.
+template<typename T> class BipolarDecibelScale {
+public:
+  BipolarDecibelScale(T minDB, T maxDB) : scale(minDB, maxDB, false) {}
+
+  void set(T minDB, T maxDB) { scale.set(minDB, maxDB, false); }
+
+  T map(T normalized)
+  {
+    if (normalized >= upperRangeStart) {
+      return scale.map((normalized - upperRangeStart) / (T(1) - upperRangeStart));
+    } else if (normalized <= lowerRangeEnd) {
+      return scale.map(T(1) - normalized / lowerRangeEnd);
+    }
+    return 0;
+  }
+
+  T reverseMap(T input) const { return map(T(1) - input); }
+
+  T invmap(T amplitude)
+  {
+    if (amplitude > 0) {
+      return scale.invmap(amplitude) * (T(1) - upperRangeStart) + upperRangeStart;
+    } else if (amplitude < 0) {
+      return (T(1) - scale.invmap(-amplitude)) * lowerRangeEnd;
+    }
+    return center;
+  }
+
+  T invmapDB(T dB, T sign)
+  {
+    if (sign == 0 || dB < scale.getMinDB()) return center;
+    return invmap(std::copysign(scale.dbToAmp(dB), sign));
+  }
+
+  T getMin() { return 0; }
+  T getMax() { return scale.getMax(); }
+
+private:
+  static constexpr T tolerance = std::numeric_limits<T>::epsilon();
+  static constexpr T center = T(0.5);
+  static constexpr T upperRangeStart = center * (T(1) + tolerance);
+  static constexpr T lowerRangeEnd = center * (T(1) - tolerance);
+
+  DecibelScale<T> scale;
 };
 
 } // namespace SomeDSP

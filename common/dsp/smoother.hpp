@@ -160,6 +160,27 @@ public:
   Sample process(Sample kp) { return value += kp * (target - value); }
 };
 
+template<typename Sample, size_t nValue> class ParallelExpSmoother {
+public:
+  std::array<Sample, nValue> value{};
+  std::array<Sample, nValue> target{};
+
+  void resetAt(size_t index, Sample resetValue = 0)
+  {
+    value[index] = resetValue;
+    target[index] = resetValue;
+  }
+
+  void pushAt(size_t index, Sample newTarget) { target[index] = newTarget; }
+
+  void process()
+  {
+    for (size_t i = 0; i < nValue; ++i) {
+      value[i] += SmootherCommon<Sample>::kp * (target[i] - value[i]);
+    }
+  }
+};
+
 /**
 Legacy smoother for LightPadSynth or earlier plugins. Use ExpSmoother instead.
 
