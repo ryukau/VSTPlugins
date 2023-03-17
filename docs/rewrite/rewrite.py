@@ -98,12 +98,12 @@ if __name__ == "__main__":
     with open("../../package/manual.json", "r", encoding="utf-8") as fi:
         alias = json.load(fi)
 
-    release_name = "UhhyouPlugins0.53.0"
+    release_name = "UhhyouPlugins0.54.0"
     changelog_en = [
-        "Fixed crash on Renoise. Previous code was trying to access freed memory of GUI widgets, and it was causing the crash.",
+        "Added note event input to control delay times.",
     ]
     changelog_ja = [
-        "Renoise で GUI がクラッシュするバグを修正。 GUI 要素のメモリが解放された後にアクセスを行おうとしていたことがクラッシュの原因。",
+        "ディレイ時間を制御するためのノートイベント入力を追加。",
     ]
     for target in targets:
         updateVersion(target, alias, changelog_en, changelog_ja, release_name)

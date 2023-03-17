@@ -29,11 +29,11 @@
 #define SUB_VERSION_STR "1"
 #define SUB_VERSION_INT 1
 
-#define RELEASE_NUMBER_STR "25"
-#define RELEASE_NUMBER_INT 25
+#define RELEASE_NUMBER_STR "26"
+#define RELEASE_NUMBER_INT 26
 
-#define BUILD_NUMBER_STR "25"
-#define BUILD_NUMBER_INT 25
+#define BUILD_NUMBER_STR "26"
+#define BUILD_NUMBER_INT 26
 
 #define FULL_VERSION_STR                                                                 \
   MAJOR_VERSION_STR "." SUB_VERSION_STR "." RELEASE_NUMBER_STR "." BUILD_NUMBER_STR
@@ -44,9 +44,9 @@
 
 #define stringOriginalFilename "SevenDelay.vst3"
 #if SMTG_PLATFORM_64
-#define stringFileDescription stringPluginName " VST3-SDK (64Bit)"
+  #define stringFileDescription stringPluginName " VST3-SDK (64Bit)"
 #else
-#define stringFileDescription stringPluginName " VST3-SDK"
+  #define stringFileDescription stringPluginName " VST3-SDK"
 #endif
 #define stringCompanyName "Uhhyou\0"
 #define stringCompanyWeb ""

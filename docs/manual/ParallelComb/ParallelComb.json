@@ -1,8 +1,9 @@
 {
   "ParallelComb": {
-    "latest_version": "0.2.8",
+    "latest_version": "0.2.9",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/ParallelComb_0.2.9.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ParallelComb_0.2.8.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/ParallelComb_0.2.7.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/ParallelComb_0.2.6.zip",
@@ -14,6 +15,14 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.2.9": {
+        "en": [
+          "Added note event input to control delay times."
+        ],
+        "ja": [
+          "ディレイ時間を制御するためのノートイベント入力を追加。"
+        ]
+      },
       "0.2.8": {
         "en": [
           "Fixed crash on Renoise. Previous code was trying to access freed memory of GUI widgets, and it was causing the crash."
