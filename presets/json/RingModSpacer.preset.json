@@ -1,0 +1,242 @@
+[
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "sideMix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "ringSubtractMix",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inputGain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "inputLimiterAttackSeconds",
+        "type": "d",
+        "value": 0.531234684152075
+      },
+      {
+        "name": "inputLimiterReleaseSeconds",
+        "type": "d",
+        "value": 0.25
+      },
+      {
+        "name": "sideGain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "sideLimiterAttackSeconds",
+        "type": "d",
+        "value": 0.531234684152075
+      },
+      {
+        "name": "sideLimiterReleaseSeconds",
+        "type": "d",
+        "value": 0.25
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.6626287494579977
+      }
+    ]
+  },
+  {
+    "name": "TestRandom0",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.2030518352985382
+      },
+      {
+        "name": "sideMix",
+        "type": "d",
+        "value": 0.9324630498886108
+      },
+      {
+        "name": "ringSubtractMix",
+        "type": "d",
+        "value": 0.43401166796684265
+      },
+      {
+        "name": "inputGain",
+        "type": "d",
+        "value": 0.34727349877357483
+      },
+      {
+        "name": "inputLimiterAttackSeconds",
+        "type": "d",
+        "value": 0.8564597368240356
+      },
+      {
+        "name": "inputLimiterReleaseSeconds",
+        "type": "d",
+        "value": 0.9431920051574707
+      },
+      {
+        "name": "sideGain",
+        "type": "d",
+        "value": 0.46293994784355164
+      },
+      {
+        "name": "sideLimiterAttackSeconds",
+        "type": "d",
+        "value": 0.6525126099586487
+      },
+      {
+        "name": "sideLimiterReleaseSeconds",
+        "type": "d",
+        "value": 0.6065427660942078
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.9175366759300232
+      }
+    ]
+  },
+  {
+    "name": "TestRandom1",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.7591477632522583
+      },
+      {
+        "name": "sideMix",
+        "type": "d",
+        "value": 0.22633609175682068
+      },
+      {
+        "name": "ringSubtractMix",
+        "type": "d",
+        "value": 0.06018755957484245
+      },
+      {
+        "name": "inputGain",
+        "type": "d",
+        "value": 0.5389649271965027
+      },
+      {
+        "name": "inputLimiterAttackSeconds",
+        "type": "d",
+        "value": 0.5896759033203125
+      },
+      {
+        "name": "inputLimiterReleaseSeconds",
+        "type": "d",
+        "value": 0.4020242691040039
+      },
+      {
+        "name": "sideGain",
+        "type": "d",
+        "value": 0.5158615112304688
+      },
+      {
+        "name": "sideLimiterAttackSeconds",
+        "type": "d",
+        "value": 0.5460413694381714
+      },
+      {
+        "name": "sideLimiterReleaseSeconds",
+        "type": "d",
+        "value": 0.0938817486166954
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.9956767559051514
+      }
+    ]
+  },
+  {
+    "name": "TestRandom2",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "sideMix",
+        "type": "d",
+        "value": 0.592690646648407
+      },
+      {
+        "name": "ringSubtractMix",
+        "type": "d",
+        "value": 0.5209694504737854
+      },
+      {
+        "name": "inputGain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "inputLimiterAttackSeconds",
+        "type": "d",
+        "value": 0.5208548307418823
+      },
+      {
+        "name": "inputLimiterReleaseSeconds",
+        "type": "d",
+        "value": 0.9899531602859497
+      },
+      {
+        "name": "sideGain",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "sideLimiterAttackSeconds",
+        "type": "d",
+        "value": 0.7436819672584534
+      },
+      {
+        "name": "sideLimiterReleaseSeconds",
+        "type": "d",
+        "value": 0.574891984462738
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.678972601890564
+      }
+    ]
+  }
+]

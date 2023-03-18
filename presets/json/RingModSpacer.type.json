@@ -1,0 +1,90 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "outputGain",
+    "type": "d",
+    "default": "Scales::gain.invmapDB(0.0)",
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "sideMix",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "ringSubtractMix",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "inputGain",
+    "type": "d",
+    "default": "Scales::gain.invmapDB(0.0)",
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "inputLimiterAttackSeconds",
+    "type": "d",
+    "default": "Scales::limiterAttackSeconds.invmap(64.0 / 48000.0)",
+    "scale": "Scales::limiterAttackSeconds",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "inputLimiterReleaseSeconds",
+    "type": "d",
+    "default": "Scales::limiterReleaseSeconds.invmap(0.001)",
+    "scale": "Scales::limiterReleaseSeconds",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "sideGain",
+    "type": "d",
+    "default": "Scales::gain.invmapDB(0.0)",
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "sideLimiterAttackSeconds",
+    "type": "d",
+    "default": "Scales::limiterAttackSeconds.invmap(64.0 / 48000.0)",
+    "scale": "Scales::limiterAttackSeconds",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "sideLimiterReleaseSeconds",
+    "type": "d",
+    "default": "Scales::limiterReleaseSeconds.invmap(0.001)",
+    "scale": "Scales::limiterReleaseSeconds",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "parameterSmoothingSecond",
+    "type": "d",
+    "default": "Scales::parameterSmoothingSecond.invmap(0.2)",
+    "scale": "Scales::parameterSmoothingSecond",
+    "flags": "Info::kCanAutomate"
+  }
+]

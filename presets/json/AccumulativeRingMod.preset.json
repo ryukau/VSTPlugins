@@ -1,0 +1,602 @@
+[
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stereoPhaseLinkHz",
+        "type": "d",
+        "value": 0.2857142857142857
+      },
+      {
+        "name": "stereoPhaseCross",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stereoPhaseOffset",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "phaseWarp",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inputPhaseMod",
+        "type": "d",
+        "value": 0.3333333333333333
+      },
+      {
+        "name": "inputLowpassHz",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "inputHighpassHz",
+        "type": "d",
+        "value": 0.28316166738933646
+      },
+      {
+        "name": "inputGateThreshold",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inputEnvelopeEnable",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "inputEnvelopeReleaseSecond",
+        "type": "d",
+        "value": 0.6712814291908599
+      },
+      {
+        "name": "inputPreAsymmetryAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inputPostAsymmetryAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inputPreAsymmetryHarsh",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "inputPostAsymmetryHarsh",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "sideChainPhaseMod",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "sideChainLowpassHz",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "sideChainHighpassHz",
+        "type": "d",
+        "value": 0.28316166738933646
+      },
+      {
+        "name": "sideChainGateThreshold",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "sideChainEnvelopeEnable",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "sideChainEnvelopeReleaseSecond",
+        "type": "d",
+        "value": 0.6712814291908599
+      },
+      {
+        "name": "sideChainPreAsymmetryAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "sideChainPostAsymmetryAmount",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "sideChainPreAsymmetryHarsh",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "sideChainPostAsymmetryHarsh",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.6626287494579977
+      },
+      {
+        "name": "oversampling",
+        "type": "I",
+        "value": 2
+      }
+    ]
+  },
+  {
+    "name": "TestRandom0",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.6513539552688599
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.6399924755096436
+      },
+      {
+        "name": "stereoPhaseLinkHz",
+        "type": "d",
+        "value": 0.13793492317199707
+      },
+      {
+        "name": "stereoPhaseCross",
+        "type": "d",
+        "value": 0.129178985953331
+      },
+      {
+        "name": "stereoPhaseOffset",
+        "type": "d",
+        "value": 0.4819745421409607
+      },
+      {
+        "name": "phaseWarp",
+        "type": "d",
+        "value": 0.9234085083007812
+      },
+      {
+        "name": "inputPhaseMod",
+        "type": "d",
+        "value": 0.24075928330421448
+      },
+      {
+        "name": "inputLowpassHz",
+        "type": "d",
+        "value": 0.24292071163654327
+      },
+      {
+        "name": "inputHighpassHz",
+        "type": "d",
+        "value": 0.903274655342102
+      },
+      {
+        "name": "inputGateThreshold",
+        "type": "d",
+        "value": 0.565327525138855
+      },
+      {
+        "name": "inputEnvelopeEnable",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "inputEnvelopeReleaseSecond",
+        "type": "d",
+        "value": 0.4963919520378113
+      },
+      {
+        "name": "inputPreAsymmetryAmount",
+        "type": "d",
+        "value": 0.27079617977142334
+      },
+      {
+        "name": "inputPostAsymmetryAmount",
+        "type": "d",
+        "value": 0.19184792041778564
+      },
+      {
+        "name": "inputPreAsymmetryHarsh",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "inputPostAsymmetryHarsh",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "sideChainPhaseMod",
+        "type": "d",
+        "value": 0.49259039759635925
+      },
+      {
+        "name": "sideChainLowpassHz",
+        "type": "d",
+        "value": 0.5861458778381348
+      },
+      {
+        "name": "sideChainHighpassHz",
+        "type": "d",
+        "value": 0.674026608467102
+      },
+      {
+        "name": "sideChainGateThreshold",
+        "type": "d",
+        "value": 0.36360400915145874
+      },
+      {
+        "name": "sideChainEnvelopeEnable",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "sideChainEnvelopeReleaseSecond",
+        "type": "d",
+        "value": 0.033140964806079865
+      },
+      {
+        "name": "sideChainPreAsymmetryAmount",
+        "type": "d",
+        "value": 0.7891432046890259
+      },
+      {
+        "name": "sideChainPostAsymmetryAmount",
+        "type": "d",
+        "value": 0.5732915997505188
+      },
+      {
+        "name": "sideChainPreAsymmetryHarsh",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "sideChainPostAsymmetryHarsh",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.8381960988044739
+      },
+      {
+        "name": "oversampling",
+        "type": "I",
+        "value": 1
+      }
+    ]
+  },
+  {
+    "name": "TestRandom1",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.7794325351715088
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.8615887761116028
+      },
+      {
+        "name": "stereoPhaseLinkHz",
+        "type": "d",
+        "value": 0.046219583600759506
+      },
+      {
+        "name": "stereoPhaseCross",
+        "type": "d",
+        "value": 0.8935539722442627
+      },
+      {
+        "name": "stereoPhaseOffset",
+        "type": "d",
+        "value": 0.275785356760025
+      },
+      {
+        "name": "phaseWarp",
+        "type": "d",
+        "value": 0.7880310416221619
+      },
+      {
+        "name": "inputPhaseMod",
+        "type": "d",
+        "value": 0.9711585640907288
+      },
+      {
+        "name": "inputLowpassHz",
+        "type": "d",
+        "value": 0.3285658061504364
+      },
+      {
+        "name": "inputHighpassHz",
+        "type": "d",
+        "value": 0.2358281910419464
+      },
+      {
+        "name": "inputGateThreshold",
+        "type": "d",
+        "value": 0.1801556944847107
+      },
+      {
+        "name": "inputEnvelopeEnable",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "inputEnvelopeReleaseSecond",
+        "type": "d",
+        "value": 0.751613974571228
+      },
+      {
+        "name": "inputPreAsymmetryAmount",
+        "type": "d",
+        "value": 0.46193474531173706
+      },
+      {
+        "name": "inputPostAsymmetryAmount",
+        "type": "d",
+        "value": 0.7351336479187012
+      },
+      {
+        "name": "inputPreAsymmetryHarsh",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "inputPostAsymmetryHarsh",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "sideChainPhaseMod",
+        "type": "d",
+        "value": 0.5890020132064819
+      },
+      {
+        "name": "sideChainLowpassHz",
+        "type": "d",
+        "value": 0.9416588544845581
+      },
+      {
+        "name": "sideChainHighpassHz",
+        "type": "d",
+        "value": 0.478777676820755
+      },
+      {
+        "name": "sideChainGateThreshold",
+        "type": "d",
+        "value": 0.5728505849838257
+      },
+      {
+        "name": "sideChainEnvelopeEnable",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "sideChainEnvelopeReleaseSecond",
+        "type": "d",
+        "value": 0.2559126615524292
+      },
+      {
+        "name": "sideChainPreAsymmetryAmount",
+        "type": "d",
+        "value": 0.17462217807769775
+      },
+      {
+        "name": "sideChainPostAsymmetryAmount",
+        "type": "d",
+        "value": 0.8341309428215027
+      },
+      {
+        "name": "sideChainPreAsymmetryHarsh",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "sideChainPostAsymmetryHarsh",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.49109089374542236
+      },
+      {
+        "name": "oversampling",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "name": "TestRandom2",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "stereoPhaseLinkHz",
+        "type": "d",
+        "value": 0.7097146511077881
+      },
+      {
+        "name": "stereoPhaseCross",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "stereoPhaseOffset",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "phaseWarp",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inputPhaseMod",
+        "type": "d",
+        "value": 0.2853332459926605
+      },
+      {
+        "name": "inputLowpassHz",
+        "type": "d",
+        "value": 0.9980000257492065
+      },
+      {
+        "name": "inputHighpassHz",
+        "type": "d",
+        "value": 0.6271612644195557
+      },
+      {
+        "name": "inputGateThreshold",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "inputEnvelopeEnable",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "inputEnvelopeReleaseSecond",
+        "type": "d",
+        "value": 0.6712814291908599
+      },
+      {
+        "name": "inputPreAsymmetryAmount",
+        "type": "d",
+        "value": 0.5588235259056091
+      },
+      {
+        "name": "inputPostAsymmetryAmount",
+        "type": "d",
+        "value": 0.47058823704719543
+      },
+      {
+        "name": "inputPreAsymmetryHarsh",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "inputPostAsymmetryHarsh",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "sideChainPhaseMod",
+        "type": "d",
+        "value": 0.5420002341270447
+      },
+      {
+        "name": "sideChainLowpassHz",
+        "type": "d",
+        "value": 0.8280015587806702
+      },
+      {
+        "name": "sideChainHighpassHz",
+        "type": "d",
+        "value": 0.539161741733551
+      },
+      {
+        "name": "sideChainGateThreshold",
+        "type": "d",
+        "value": 0.0
+      },
+      {
+        "name": "sideChainEnvelopeEnable",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "sideChainEnvelopeReleaseSecond",
+        "type": "d",
+        "value": 0.6712814291908599
+      },
+      {
+        "name": "sideChainPreAsymmetryAmount",
+        "type": "d",
+        "value": 0.8176470398902893
+      },
+      {
+        "name": "sideChainPostAsymmetryAmount",
+        "type": "d",
+        "value": 0.5176470875740051
+      },
+      {
+        "name": "sideChainPreAsymmetryHarsh",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "sideChainPostAsymmetryHarsh",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.6626287494579977
+      },
+      {
+        "name": "oversampling",
+        "type": "I",
+        "value": 2
+      }
+    ]
+  }
+]

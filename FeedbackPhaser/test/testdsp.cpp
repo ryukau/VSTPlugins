@@ -16,6 +16,7 @@
 // along with Uhhyou Plugins.  If not, see <https://www.gnu.org/licenses/>.
 
 #define SET_PARAMETERS dsp->setParameters();
+#define HAS_SIDECHAIN 1;
 
 #include "../../test/fxtester.hpp"
 #include "../source/dsp/dspcore.hpp"

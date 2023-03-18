@@ -1,0 +1,234 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "outputGain",
+    "type": "d",
+    "default": "Scales::outputGain.invmapDB(0.0)",
+    "scale": "Scales::outputGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "mix",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "stereoPhaseLinkHz",
+    "type": "d",
+    "default": "Scales::stereoPhaseLinkHz.invmap(1.0)",
+    "scale": "Scales::stereoPhaseLinkHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "stereoPhaseCross",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "stereoPhaseOffset",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "phaseWarp",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "inputPhaseMod",
+    "type": "d",
+    "default": "Scales::modulation.invmap(0.01)",
+    "scale": "Scales::modulation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "inputLowpassHz",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::cutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "inputHighpassHz",
+    "type": "d",
+    "default": "Scales::cutoffHz.invmap(5.0)",
+    "scale": "Scales::cutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "inputGateThreshold",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::gateThreshold",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "inputEnvelopeEnable",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "inputEnvelopeReleaseSecond",
+    "type": "d",
+    "default": "Scales::envelopeSecond.invmap(0.5)",
+    "scale": "Scales::envelopeSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "inputPreAsymmetryAmount",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "inputPostAsymmetryAmount",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "inputPreAsymmetryHarsh",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "inputPostAsymmetryHarsh",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "sideChainPhaseMod",
+    "type": "d",
+    "default": "Scales::modulation.invmap(0.0)",
+    "scale": "Scales::modulation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "sideChainLowpassHz",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::cutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "sideChainHighpassHz",
+    "type": "d",
+    "default": "Scales::cutoffHz.invmap(5.0)",
+    "scale": "Scales::cutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "sideChainGateThreshold",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::gateThreshold",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "sideChainEnvelopeEnable",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 22,
+    "name": "sideChainEnvelopeReleaseSecond",
+    "type": "d",
+    "default": "Scales::envelopeSecond.invmap(0.5)",
+    "scale": "Scales::envelopeSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 23,
+    "name": "sideChainPreAsymmetryAmount",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 24,
+    "name": "sideChainPostAsymmetryAmount",
+    "type": "d",
+    "default": 0.0,
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 25,
+    "name": "sideChainPreAsymmetryHarsh",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 26,
+    "name": "sideChainPostAsymmetryHarsh",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 27,
+    "name": "parameterSmoothingSecond",
+    "type": "d",
+    "default": "Scales::parameterSmoothingSecond.invmap(0.2)",
+    "scale": "Scales::parameterSmoothingSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 28,
+    "name": "oversampling",
+    "type": "I",
+    "default": 2,
+    "scale": "Scales::oversampling",
+    "flags": "Info::kCanAutomate"
+  }
+]

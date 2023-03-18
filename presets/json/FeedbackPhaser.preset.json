@@ -1,0 +1,462 @@
+[
+  {
+    "name": "Default",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.8787878787878788
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "feedbackClip",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "feedbackHighpassHz",
+        "type": "d",
+        "value": 0.28316166738933646
+      },
+      {
+        "name": "outputHighpassHz",
+        "type": "d",
+        "value": 0.28316166738933646
+      },
+      {
+        "name": "stage",
+        "type": "I",
+        "value": 15
+      },
+      {
+        "name": "allpassSpread",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpassCenterHz",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modSideChain",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "modType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "modAmount",
+        "type": "d",
+        "value": 0.42857142857142855
+      },
+      {
+        "name": "modAsymmetry",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLowpassHz",
+        "type": "d",
+        "value": 0.7168383326106635
+      },
+      {
+        "name": "notePitchCenter",
+        "type": "d",
+        "value": 0.4411764705882353
+      },
+      {
+        "name": "notePitchToAllpassCutoff",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "notePitchSlideSecond",
+        "type": "d",
+        "value": 0.375
+      },
+      {
+        "name": "notePitchReleaseSecond",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.6626287494579977
+      },
+      {
+        "name": "oversampling",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "tooMuchFeedback",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "name": "TestRandom0",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.9395883083343506
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.9213972091674805
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.8945602774620056
+      },
+      {
+        "name": "feedbackClip",
+        "type": "d",
+        "value": 0.4025020897388458
+      },
+      {
+        "name": "feedbackHighpassHz",
+        "type": "d",
+        "value": 0.010508746840059757
+      },
+      {
+        "name": "outputHighpassHz",
+        "type": "d",
+        "value": 0.9303601980209351
+      },
+      {
+        "name": "stage",
+        "type": "I",
+        "value": 55
+      },
+      {
+        "name": "allpassSpread",
+        "type": "d",
+        "value": 0.23231029510498047
+      },
+      {
+        "name": "allpassCenterHz",
+        "type": "d",
+        "value": 0.39312270283699036
+      },
+      {
+        "name": "modSideChain",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "modType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "modAmount",
+        "type": "d",
+        "value": 0.26805397868156433
+      },
+      {
+        "name": "modAsymmetry",
+        "type": "d",
+        "value": 0.2854098379611969
+      },
+      {
+        "name": "modLowpassHz",
+        "type": "d",
+        "value": 0.8511207103729248
+      },
+      {
+        "name": "notePitchCenter",
+        "type": "d",
+        "value": 0.2581712603569031
+      },
+      {
+        "name": "notePitchToAllpassCutoff",
+        "type": "d",
+        "value": 0.35509464144706726
+      },
+      {
+        "name": "notePitchSlideSecond",
+        "type": "d",
+        "value": 0.2440115064382553
+      },
+      {
+        "name": "notePitchReleaseSecond",
+        "type": "d",
+        "value": 0.43983200192451477
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.0737970769405365
+      },
+      {
+        "name": "oversampling",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "tooMuchFeedback",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "name": "TestRandom1",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.8787878751754761
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 0.3256632685661316
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.036277242004871355
+      },
+      {
+        "name": "feedbackClip",
+        "type": "d",
+        "value": 0.06702373921871185
+      },
+      {
+        "name": "feedbackHighpassHz",
+        "type": "d",
+        "value": 0.3828210234642029
+      },
+      {
+        "name": "outputHighpassHz",
+        "type": "d",
+        "value": 0.8905395865440369
+      },
+      {
+        "name": "stage",
+        "type": "I",
+        "value": 58
+      },
+      {
+        "name": "allpassSpread",
+        "type": "d",
+        "value": 0.9250215888023376
+      },
+      {
+        "name": "allpassCenterHz",
+        "type": "d",
+        "value": 0.9705539345741272
+      },
+      {
+        "name": "modSideChain",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "modType",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modAmount",
+        "type": "d",
+        "value": 0.8053226470947266
+      },
+      {
+        "name": "modAsymmetry",
+        "type": "d",
+        "value": 0.6611512899398804
+      },
+      {
+        "name": "modLowpassHz",
+        "type": "d",
+        "value": 0.5737919807434082
+      },
+      {
+        "name": "notePitchCenter",
+        "type": "d",
+        "value": 0.5762115120887756
+      },
+      {
+        "name": "notePitchToAllpassCutoff",
+        "type": "d",
+        "value": 0.3930310606956482
+      },
+      {
+        "name": "notePitchSlideSecond",
+        "type": "d",
+        "value": 0.7939521074295044
+      },
+      {
+        "name": "notePitchReleaseSecond",
+        "type": "d",
+        "value": 0.09873801469802856
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.95389324426651
+      },
+      {
+        "name": "oversampling",
+        "type": "I",
+        "value": 2
+      },
+      {
+        "name": "tooMuchFeedback",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "name": "TestSidechain",
+    "parameter": [
+      {
+        "name": "bypass",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "outputGain",
+        "type": "d",
+        "value": 0.8787878787878788
+      },
+      {
+        "name": "mix",
+        "type": "d",
+        "value": 1.0
+      },
+      {
+        "name": "feedback",
+        "type": "d",
+        "value": 0.7219980359077454
+      },
+      {
+        "name": "feedbackClip",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "feedbackHighpassHz",
+        "type": "d",
+        "value": 0.28316166738933646
+      },
+      {
+        "name": "outputHighpassHz",
+        "type": "d",
+        "value": 0.28316166738933646
+      },
+      {
+        "name": "stage",
+        "type": "I",
+        "value": 15
+      },
+      {
+        "name": "allpassSpread",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "allpassCenterHz",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modSideChain",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "modType",
+        "type": "I",
+        "value": 0
+      },
+      {
+        "name": "modAmount",
+        "type": "d",
+        "value": 0.42857142857142855
+      },
+      {
+        "name": "modAsymmetry",
+        "type": "d",
+        "value": 0.5
+      },
+      {
+        "name": "modLowpassHz",
+        "type": "d",
+        "value": 0.7168383326106635
+      },
+      {
+        "name": "notePitchCenter",
+        "type": "d",
+        "value": 0.4411764705882353
+      },
+      {
+        "name": "notePitchToAllpassCutoff",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "notePitchSlideSecond",
+        "type": "d",
+        "value": 0.375
+      },
+      {
+        "name": "notePitchReleaseSecond",
+        "type": "d",
+        "value": 0.75
+      },
+      {
+        "name": "parameterSmoothingSecond",
+        "type": "d",
+        "value": 0.6626287494579977
+      },
+      {
+        "name": "oversampling",
+        "type": "I",
+        "value": 1
+      },
+      {
+        "name": "tooMuchFeedback",
+        "type": "I",
+        "value": 0
+      }
+    ]
+  }
+]

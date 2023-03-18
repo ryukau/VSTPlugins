@@ -1,0 +1,178 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "outputGain",
+    "type": "d",
+    "default": "Scales::outputGain.invmapDB(0.0)",
+    "scale": "Scales::outputGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "mix",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "feedback",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::feedback",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "feedbackClip",
+    "type": "d",
+    "default": "Scales::feedbackClip.invmap(1.0)",
+    "scale": "Scales::feedbackClip",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "feedbackHighpassHz",
+    "type": "d",
+    "default": "Scales::cutoffHz.invmap(5.0)",
+    "scale": "Scales::cutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "outputHighpassHz",
+    "type": "d",
+    "default": "Scales::cutoffHz.invmap(5.0)",
+    "scale": "Scales::cutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "stage",
+    "type": "I",
+    "default": 15,
+    "scale": "Scales::stage",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "allpassSpread",
+    "type": "d",
+    "default": "Scales::allpassSpread.invmap(1.0)",
+    "scale": "Scales::allpassSpread",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "allpassCenterHz",
+    "type": "d",
+    "default": "Scales::cutoffHz.invmap(100.0)",
+    "scale": "Scales::cutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "modSideChain",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "modType",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::modType",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "modAmount",
+    "type": "d",
+    "default": "Scales::modulation.invmap(1.0)",
+    "scale": "Scales::modulation",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "modAsymmetry",
+    "type": "d",
+    "default": "Scales::modAsymmetry.invmap(0.0)",
+    "scale": "Scales::modAsymmetry",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "modLowpassHz",
+    "type": "d",
+    "default": "Scales::cutoffHz.invmap(2000.0)",
+    "scale": "Scales::cutoffHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "notePitchCenter",
+    "type": "d",
+    "default": "Scales::notePitchCenter.invmap(60.0)",
+    "scale": "Scales::notePitchCenter",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "notePitchToAllpassCutoff",
+    "type": "d",
+    "default": "Scales::notePitchToAllpassCutoff.invmap(1.0)",
+    "scale": "Scales::notePitchToAllpassCutoff",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "notePitchSlideSecond",
+    "type": "d",
+    "default": "Scales::notePitchEnvelopeSecond.invmap(0.001)",
+    "scale": "Scales::notePitchEnvelopeSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "notePitchReleaseSecond",
+    "type": "d",
+    "default": "Scales::notePitchEnvelopeSecond.invmap(1.0)",
+    "scale": "Scales::notePitchEnvelopeSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "parameterSmoothingSecond",
+    "type": "d",
+    "default": "Scales::parameterSmoothingSecond.invmap(0.2)",
+    "scale": "Scales::parameterSmoothingSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "oversampling",
+    "type": "I",
+    "default": 1,
+    "scale": "Scales::oversampling",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "tooMuchFeedback",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kIsReadOnly"
+  }
+]
