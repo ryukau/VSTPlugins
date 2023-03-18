@@ -36,7 +36,7 @@ cmake `
   -DSMTG_ADD_VST3_PLUGINS_SAMPLES=FALSE `
   -DSMTG_CREATE_PLUGIN_LINK=FALSE
 
-cmake --build build -j --config Release
+cmake --build build -j1 --config Release
 
 # https://gitlab.com/gitlab-org/gitlab-runner/issues/3194#note_196458158
 if (!$?) { Exit $LASTEXITCODE }
