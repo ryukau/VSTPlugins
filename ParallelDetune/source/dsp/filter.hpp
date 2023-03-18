@@ -22,29 +22,6 @@
 
 namespace SomeDSP {
 
-template<typename Sample, size_t length> class ParallelExpSmoother {
-public:
-  std::array<Sample, length> value{};
-  std::array<Sample, length> target{};
-
-  inline Sample getValueAt(size_t index) { return value[index]; }
-
-  void resetAt(size_t index, Sample resetValue = 0)
-  {
-    value[index] = resetValue;
-    target[index] = resetValue;
-  }
-
-  void pushAt(size_t index, Sample newTarget) { target[index] = newTarget; }
-
-  void process()
-  {
-    for (size_t i = 0; i < length; ++i) {
-      value[i] += SmootherCommon<Sample>::kp * (target[i] - value[i]);
-    }
-  }
-};
-
 template<typename Sample, size_t length> class ParallelSVF {
 private:
   std::array<Sample, length> ic1eq{};

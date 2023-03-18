@@ -160,10 +160,12 @@ public:
   Sample process(Sample kp) { return value += kp * (target - value); }
 };
 
-template<typename Sample, size_t nValue> class ParallelExpSmoother {
+template<typename Sample, size_t length> class ParallelExpSmoother {
 public:
-  std::array<Sample, nValue> value{};
-  std::array<Sample, nValue> target{};
+  std::array<Sample, length> value{};
+  std::array<Sample, length> target{};
+
+  inline Sample getValueAt(size_t index) { return value[index]; }
 
   void resetAt(size_t index, Sample resetValue = 0)
   {
@@ -175,7 +177,7 @@ public:
 
   void process()
   {
-    for (size_t i = 0; i < nValue; ++i) {
+    for (size_t i = 0; i < length; ++i) {
       value[i] += SmootherCommon<Sample>::kp * (target[i] - value[i]);
     }
   }
