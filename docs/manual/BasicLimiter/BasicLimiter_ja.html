@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2023-03-04" />
+<meta name="dcterms.date" content="2023-03-19" />
 <title>BasicLimiter_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2023-03-04
+  Update: 2023-03-19
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -335,15 +335,15 @@ footer {
 は名前の通りベーシックなシングルバンドリミッタです。目新しい音は出ませんが、トゥルーピークモードはやや贅沢に設計しています。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/BasicLimiter_0.1.16.zip">BasicLimiter
-0.1.16 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/BasicLimiter_0.1.17.zip">BasicLimiter
+0.1.17 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/BasicLimiter_0.1.16_macOS.zip">BasicLimiter
-0.1.16 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/BasicLimiter_0.1.17_macOS.zip">BasicLimiter
+0.1.17 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -357,15 +357,15 @@ href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN6
 負荷は 1.5 倍強に上がります。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/BasicLimiterAutoMake_0.1.16.zip">BasicLimiterAutoMake
-0.1.16 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/BasicLimiterAutoMake_0.1.17.zip">BasicLimiterAutoMake
+0.1.17 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/BasicLimiterAutoMake_0.1.16_macOS.zip">BasicLimiterAutoMake
-0.1.16 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/BasicLimiterAutoMake_0.1.17_macOS.zip">BasicLimiterAutoMake
+0.1.17 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -803,6 +803,11 @@ BasicLimiterAutoMake
 <h2 id="チェンジログ">チェンジログ</h2>
 <h3 id="basiclimiter-1">BasicLimiter</h3>
 <ul>
+<li>0.1.17
+<ul>
+<li><code>Attack</code>
+の数値スライダが値を更新するタイミングを、マウスボタンを押下しながら動かしている間から、マウスボタンの押下を止めた時点に変更。</li>
+</ul></li>
 <li>0.1.16
 <ul>
 <li>Renoise で GUI がクラッシュするバグを修正。 GUI
@@ -871,6 +876,14 @@ Audacity で音が正しく出力されなかったバグを修正。</li>
 </ul>
 <h3 id="basiclimiterautomake">BasicLimiterAutoMake</h3>
 <ul>
+<li>0.1.17
+<ul>
+<li><code>Attack</code>
+の数値スライダが値を更新するタイミングを、マウスボタンを押下しながら動かしている間から、マウスボタンの押下を止めた時点に変更。</li>
+<li>Renoise でサイドチェイン入力が認識されていなかったバグを修正。
+<code>Vst::BusTypes::kAux</code>
+フラグをサイドチェイン入力に追加した。</li>
+</ul></li>
 <li>0.1.16
 <ul>
 <li>Renoise で GUI がクラッシュするバグを修正。 GUI
@@ -935,6 +948,9 @@ Audacity で音が正しく出力されなかったバグを修正。</li>
 <h3 id="basiclimiter-2">BasicLimiter</h3>
 <ul>
 <li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/BasicLimiter_0.1.16.zip">BasicLimiter
+0.1.16 - VST 3 (github.com)</a></li>
+<li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/BasicLimiter_0.1.15.zip">BasicLimiter
 0.1.15 - VST 3 (github.com)</a></li>
 <li><a
@@ -973,6 +989,9 @@ href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN6
 </ul>
 <h3 id="basiclimiterautomake-1">BasicLimiterAutoMake</h3>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/BasicLimiterAutoMake_0.1.16.zip">BasicLimiterAutoMake
+0.1.16 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/BasicLimiterAutoMake_0.1.15.zip">BasicLimiterAutoMake
 0.1.15 - VST 3 (github.com)</a></li>
