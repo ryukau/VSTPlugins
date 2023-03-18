@@ -29,6 +29,6 @@
 
 int main()
 {
-  FxTester<DSPCore_Plain> tester(UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
+  FxTester<DSPCore> tester(UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
   return tester.isFinished ? EXIT_SUCCESS : EXIT_FAILURE;
 }

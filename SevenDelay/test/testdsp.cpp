@@ -15,14 +15,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Uhhyou Plugins.  If not, see <https://www.gnu.org/licenses/>.
 
-#define SET_PARAMETERS dsp->setParameters(tempo);
+#define SET_PARAMETERS dsp->setParameters();
 
 #include "../../test/fxtester.hpp"
 #include "../source/dsp/dspcore.hpp"
 
 // CMake provides this macro, but just in case.
 #ifndef UHHYOU_PLUGIN_NAME
-#define UHHYOU_PLUGIN_NAME "SevenDelay"
+  #define UHHYOU_PLUGIN_NAME "SevenDelay"
 #endif
 
 #define OUT_DIR_PATH "snd/" UHHYOU_PLUGIN_NAME
