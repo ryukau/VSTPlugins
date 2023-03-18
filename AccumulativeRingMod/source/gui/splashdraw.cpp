@@ -56,27 +56,37 @@ void CreditView::draw(CDrawContext *pContext)
   pContext->setFontColor(pal.foreground());
   pContext->drawString("© 2023 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0f, 60.0f));
 
-  std::string leftText = R"(
-This plugin is alpha version.
-
-- Do not use for production.
-- Do not save your project with this plugin.
-
-Click to dismiss this message.)";
-
-  std::string rightText = R"(- Number & Knob -
+  std::string leftText = R"(- Number & Knob -
 Shift + Left Drag|Fine Adjustment
 Ctrl + Left Click|Reset to Default
 Middle Click|Flip Min/Mid/Max
 Shift + Middle Click|Take Floor
 
+- XY Pad -
+Ctrl + Left Click|Reset value.
+Middle Drag|Only Change X value.
+Mouse Wheel|Fine Adjustment X value.
+Shift + Middle Drag|Only Change Y value.
+Shift + Mouse Wheel|Fine Adjustment Y value.
+)";
+
+  std::string rightText = R"(Some DAW copies main input signal to side
+chain when side chain is not activated.
+
+When stereo image becomes strange, make
+sure to set Stereo Link to greater than 1,
+and set Cross and Offset to 0.
+
+CPU load rises when Phase Warp is not 0.
+
 Have a nice day!)";
 
-  const float top0 = 100.0f;
-  const float lineHeight = 20.0f;
-  const float blockWidth = 160.0f;
+  constexpr float top0 = 100.0f;
+  constexpr float lineHeight = 20.0f;
+  constexpr float blockWidth = 120.0f;
   drawTextBlock(pContext, 20.0f, top0, lineHeight, blockWidth, leftText);
-  drawTextBlock(pContext, 400.0f, 40.0f, lineHeight, blockWidth, rightText);
+  drawTextBlock(
+    pContext, int(width / 2) + 20.0f, top0, lineHeight, blockWidth, rightText);
 
   setDirty(false);
 }
