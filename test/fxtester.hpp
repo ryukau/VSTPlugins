@@ -23,6 +23,12 @@
 #include <random>
 #include <thread>
 
+#ifndef HAS_SIDECHAIN
+  #define HAS_SIDECHAIN 0
+#endif
+
+constexpr uint64_t hasSidechain = HAS_SIDECHAIN;
+
 template<typename Sample>
 inline std::vector<std::vector<Sample>> generateTestNoise(size_t nFrame)
 {
@@ -76,7 +82,13 @@ public:
     std::vector<std::vector<float>> &wav,
     std::unique_ptr<DSP_CLASS> &dsp)
   {
-    dsp->process(nFrame, in[0].data(), in[1].data(), wav[0].data(), wav[1].data());
+    if constexpr (hasSidechain) {
+      dsp->process(
+        nFrame, in[0].data(), in[1].data(), in[0].data(), in[1].data(), wav[0].data(),
+        wav[1].data());
+    } else {
+      dsp->process(nFrame, in[0].data(), in[1].data() wav[0].data(), wav[1].data());
+    }
   }
 
   void testSequence(std::shared_ptr<PresetQueue> queue)
@@ -230,7 +242,13 @@ public:
     std::vector<std::vector<float>> &wav,
     std::unique_ptr<DSP_IF> &dsp)
   {
-    dsp->process(nFrame, in[0].data(), in[1].data(), wav[0].data(), wav[1].data());
+    if constexpr (hasSidechain) {
+      dsp->process(
+        nFrame, in[0].data(), in[1].data(), in[0].data(), in[1].data(), wav[0].data(),
+        wav[1].data());
+    } else {
+      dsp->process(nFrame, in[0].data(), in[1].data() wav[0].data(), wav[1].data());
+    }
   }
 
   void testSequence(std::shared_ptr<PresetQueue> queue)

@@ -16,6 +16,7 @@
 // along with Uhhyou Plugins.  If not, see <https://www.gnu.org/licenses/>.
 
 #define SET_PARAMETERS dsp->setParameters();
+#define HAS_SIDECHAIN 1;
 
 #include "../../test/fxtester.hpp"
 #include "../source/dsp/dspcore.hpp"
@@ -29,6 +30,6 @@
 
 int main()
 {
-  FxTester<DSPCore_Plain> tester(UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
+  FxTester<DSPCore> tester(UHHYOU_PLUGIN_NAME, OUT_DIR_PATH);
   return tester.isFinished ? EXIT_SUCCESS : EXIT_FAILURE;
 }
