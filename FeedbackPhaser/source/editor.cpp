@@ -65,8 +65,10 @@ void Editor::valueChanged(CControl *pControl)
   if (id != ID::tooMuchFeedback) {
     controller->setParamNormalized(ID::tooMuchFeedback, 0.0);
     controller->performEdit(ID::tooMuchFeedback, 0.0);
-    infoLabel->setText(outputCleanText);
-    infoLabel->setDirty();
+    if (infoLabel.get()) {
+      infoLabel->setText(outputCleanText);
+      infoLabel->setDirty();
+    }
   }
 
   ParamValue value = pControl->getValueNormalized();
@@ -80,7 +82,7 @@ void Editor::updateUI(ParamID id, ParamValue normalized)
 
   PlugEditor::updateUI(id, normalized);
 
-  if (id == ID::tooMuchFeedback) {
+  if (infoLabel.get() && id == ID::tooMuchFeedback) {
     if (getPlainValue(ID::tooMuchFeedback)) {
       infoLabel->setText("Too much feedback.");
     } else {
