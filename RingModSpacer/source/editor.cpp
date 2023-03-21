@@ -116,7 +116,6 @@ bool Editor::prepareUI()
     miscLeft1, miscTop5, labelWidth, labelHeight, uiTextSize,
     ID::parameterSmoothingSecond, Scales::parameterSmoothingSecond, false, 5);
 
-  // Misc.
   constexpr auto inputTop0 = top0;
   constexpr auto inputTop1 = inputTop0 + labelY;
   constexpr auto inputTop2 = inputTop1 + labelY;
@@ -132,21 +131,22 @@ bool Editor::prepareUI()
     inputLeft1, inputTop1, labelWidth, labelHeight, uiTextSize, ID::inputGain,
     Scales::gain, true, 5);
   if (inputGainTextKnob) {
-    inputGainTextKnob->liveUpdate = false;
     inputGainTextKnob->sensitivity = 0.1 / gainRange;
     inputGainTextKnob->lowSensitivity = 0.01 / gainRange;
     inputGainTextKnob->wheelSensitivity = 0.1 / gainRange;
   }
   addLabel(inputLeft0, inputTop2, labelWidth, labelHeight, uiTextSize, "Attack [s]");
-  addTextKnob<Style::warning>(
+  auto inputAttackTextKnob = addTextKnob<Style::warning>(
     inputLeft1, inputTop2, labelWidth, labelHeight, uiTextSize,
     ID::inputLimiterAttackSeconds, Scales::limiterAttackSeconds, false, 5);
+  if (inputAttackTextKnob) {
+    inputAttackTextKnob->liveUpdate = false;
+  }
   addLabel(inputLeft0, inputTop3, labelWidth, labelHeight, uiTextSize, "Release [s]");
   addTextKnob(
     inputLeft1, inputTop3, labelWidth, labelHeight, uiTextSize,
     ID::inputLimiterReleaseSeconds, Scales::limiterReleaseSeconds, false, 5);
 
-  // Misc.
   constexpr auto sideTop0 = top0;
   constexpr auto sideTop1 = sideTop0 + labelY;
   constexpr auto sideTop2 = sideTop1 + labelY;
@@ -162,15 +162,17 @@ bool Editor::prepareUI()
     sideLeft1, sideTop1, labelWidth, labelHeight, uiTextSize, ID::sideGain, Scales::gain,
     true, 5);
   if (sideGainTextKnob) {
-    sideGainTextKnob->liveUpdate = false;
     sideGainTextKnob->sensitivity = 0.1 / gainRange;
     sideGainTextKnob->lowSensitivity = 0.01 / gainRange;
     sideGainTextKnob->wheelSensitivity = 0.1 / gainRange;
   }
   addLabel(sideLeft0, sideTop2, labelWidth, labelHeight, uiTextSize, "Attack [s]");
-  addTextKnob<Style::warning>(
+  auto sideAttackTextKnob = addTextKnob<Style::warning>(
     sideLeft1, sideTop2, labelWidth, labelHeight, uiTextSize,
     ID::sideLimiterAttackSeconds, Scales::limiterAttackSeconds, false, 5);
+  if (sideAttackTextKnob) {
+    sideAttackTextKnob->liveUpdate = false;
+  }
   addLabel(sideLeft0, sideTop3, labelWidth, labelHeight, uiTextSize, "Release [s]");
   addTextKnob(
     sideLeft1, sideTop3, labelWidth, labelHeight, uiTextSize,
