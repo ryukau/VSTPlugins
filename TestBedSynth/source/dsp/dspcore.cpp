@@ -21,25 +21,9 @@
 #include <numeric>
 #include <random>
 
-inline float calcMasterPitch(
-  int_fast32_t octave,
-  int_fast32_t semi,
-  int_fast32_t milli,
-  float bend,
-  float equalTemperament)
-{
-  return equalTemperament * octave + semi + milli / 1000.0f + (bend - 0.5f) * 4.0f;
-}
-
-inline float
-notePitchToFrequency(float notePitch, float equalTemperament = 12.0f, float a4Hz = 440.0f)
-{
-  return a4Hz * powf(2.0f, (notePitch - 69.0f) / equalTemperament);
-}
-
 inline float calcNotePitch(float notePitch, float equalTemperament = 12.0f)
 {
-  return powf(2.0f, (notePitch - 69.0f) / equalTemperament);
+  return std::exp2((notePitch - 69.0f) / equalTemperament);
 }
 
 void Note::setup(float sampleRate)
@@ -47,10 +31,27 @@ void Note::setup(float sampleRate)
   for (auto &osc : oscillator) osc.setup(sampleRate);
 }
 
+#define ASSIGN_NOTE_PARAMETER(METHOD)                                                    \
+  for (size_t idx = 0; idx < nOscillator; ++idx) {                                       \
+    lfoPitch[idx].METHOD(                                                                \
+      std::exp2(pv[ID::lfoKeyFollow0 + idx]->getFloat() * notePitch / info.eqTemp));     \
+  }                                                                                      \
+                                                                                         \
+  for (size_t i0 = 0; i0 < nOscillator; ++i0) {                                          \
+    for (size_t i1 = 0; i1 < nOscWavetable; ++i1) {                                      \
+      size_t offset = nOscWavetable * i0 + i1;                                           \
+      waveModDelay[i0][i1].setFrames(pv[ID::waveMod0Delay0 + offset]->getInt());         \
+    }                                                                                    \
+  }
+
 void Note::setParameters(float sampleRate, NoteProcessInfo &info, GlobalParameter &param)
 {
   using ID = ParameterID::ID;
   auto &pv = param.value;
+
+  if (state == NoteState::rest) return;
+
+  ASSIGN_NOTE_PARAMETER(push);
 
   gainEnvelope.prepare(info.gainAttackKp, info.gainDecayKp, info.gainReleaseKp);
   for (size_t idx = 0; idx < nOscillator; ++idx) {
@@ -74,16 +75,14 @@ void Note::noteOn(
   state = NoteState::active;
   id = noteId;
 
+  this->notePitch = notePitch;
   this->velocity = velocity;
   this->pan = pan;
 
-  const float eqTemp = pv[ID::equalTemperament]->getFloat() + 1;
-  const auto semitone = int_fast32_t(pv[ID::semitone]->getInt()) - 120;
-  const auto octave = eqTemp * (int_fast32_t(pv[ID::octave]->getInt()) - 12);
-  const auto milli = 0.001f * (int_fast32_t(pv[ID::milli]->getInt()) - 1000);
-  const float a4Hz = pv[ID::pitchA4Hz]->getFloat() + 100;
-  const auto pitch = calcNotePitch(octave + semitone + milli + notePitch, eqTemp);
-  noteHz = std::min(a4Hz * pitch, info.tableParam[0].baseNyquistHz);
+  noteHz = std::min(
+    float(440) * calcNotePitch(notePitch, info.eqTemp), info.tableParam[0].baseNyquistHz);
+
+  ASSIGN_NOTE_PARAMETER(reset);
 
   modulation.fill({});
   feedback.fill({});
@@ -120,7 +119,12 @@ void Note::reset()
   feedback.fill({});
   gainEnvelope.reset();
   for (auto &x : envelope) x.reset();
+  for (auto &x : lfoPitch) x.reset();
   for (auto &x : lfo) x.reset();
+  for (auto &ch : waveModDelay) {
+    for (auto &x : ch) x.reset();
+  }
+  wavetable.fill({});
   for (auto &x : oscillator) x.reset();
 }
 
@@ -140,17 +144,37 @@ std::array<float, 2> Note::process(float sampleRate, NoteProcessInfo &info)
     return {0.0f, 0.0f};
   }
 
-  for (size_t idx = 0; idx < nOscillator; ++idx) {
-    modulation[ModID::env0 + idx]
-      = envelope[idx].process(info.envelopeSustainAmplitude[idx].getValue());
-    modulation[ModID::lfo0 + idx] = lfo[idx].process(
-      info.lfoPhaseDelta[idx].getValue(), 1.0f, info.lfoWavetable[idx].value);
+  for (size_t i0 = 0; i0 < nOscillator; ++i0) {
+    modulation[ModID::env0 + i0]
+      = envelope[i0].process(info.envelopeSustainAmplitude[i0].getValue());
+    modulation[ModID::lfo0 + i0] = lfo[i0].process(
+      lfoPitch[i0].process() * info.lfoPhaseDelta[i0].getValue(),
+      info.lfoLowpassKp[i0].getValue(), info.lfoWavetable[i0].value);
+    modulation[ModID::ext0 + i0] = info.externalInput[i0].getValue();
   }
 
-  for (size_t idx = 0; idx < nOscillator; ++idx) {
-    feedback[idx] = oscillator[idx].process(
-      sampleRate, noteHz, feedback, modulation, info.oscWavetable[idx].value,
-      info.tableParam[idx]);
+  for (size_t i0 = 0; i0 < nOscillator; ++i0) {
+    const auto &wmIn = info.waveModInput[i0];
+    if (oscillator[i0].isRefreshing()) {
+      const auto sum = std::accumulate(
+        wmIn.begin(), wmIn.end(), 0.0f, [](float x, float y) { return x + std::abs(y); });
+      const auto dot
+        = std::inner_product(wmIn.begin(), wmIn.end() - 1, modulation.begin(), 0.0f);
+      const auto amount = sum < std::numeric_limits<float>::epsilon()
+        ? wmIn.back()
+        : (wmIn.back() + dot) / sum;
+
+      for (size_t i1 = 0; i1 < nOscWavetable; ++i1) {
+        const auto &base = info.oscWavetable[i0].value[i1];
+        const auto mod
+          = info.oscWaveModGain[i0].value[i1] * waveModDelay[i0][i1].process(amount);
+        wavetable[i0][i1] = lerp(base, mod, sum / nWaveModInput);
+      }
+    }
+
+    feedback[i0] = oscillator[i0].process(
+      sampleRate, noteHz * info.mainPitch.getValue(), feedback, modulation, wavetable[i0],
+      info.tableParam[i0]);
   }
 
   float sig = gainEnvelope.value() * velocity
@@ -226,7 +250,7 @@ void DSPCore::setParameters()
 
 void DSPCore::processSample(std::array<float, 2> &frame)
 {
-  frame.fill(0.0f);
+  frame.fill({});
 
   for (auto &note : notes) {
     if (note.state == NoteState::rest) continue;
@@ -261,7 +285,7 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
 
   SmootherCommon<float>::setBufferSize(float(length));
 
-  bool oversampling = pv[ID::oversampling]->getInt();
+  size_t oversampling = pv[ID::oversampling]->getInt();
 
   std::array<float, 2> frame{};
   for (uint_fast32_t i = 0; i < length; ++i) {
@@ -269,7 +293,7 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
 
     info.process();
 
-    if (oversampling) {
+    if (oversampling == 2) { // 16x.
       for (size_t j = 0; j < downSampler[0].fold; ++j) {
         processSample(frame);
         downSampler[0].inputBuffer[j] = frame[0];
@@ -277,6 +301,14 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
       }
       out0[i] = downSampler[0].process();
       out1[i] = downSampler[1].process();
+    } else if (oversampling == 1) { // 2x.
+      for (size_t j = 0; j < 2; ++j) {
+        processSample(frame);
+        downSampler[0].inputBuffer[j] = frame[0];
+        downSampler[1].inputBuffer[j] = frame[1];
+      }
+      out0[i] = downSampler[0].process2x();
+      out1[i] = downSampler[1].process2x();
     } else {
       processSample(frame);
       out0[i] = frame[0];
@@ -360,8 +392,8 @@ inline void DSPCore::updateSampleRate(bool reset)
   auto &pv = param.value;
 
   auto previousRate = upRate;
-  upRate = pv[ID::oversampling]->getInt() ? float(downSampler[0].fold * sampleRate)
-                                          : float(sampleRate);
+  auto oversampling = std::min<size_t>(pv[ID::oversampling]->getInt(), fold.size() - 1);
+  upRate = float(fold[oversampling] * sampleRate);
 
   SmootherCommon<float>::setSampleRate(upRate);
   SmootherCommon<float>::setTime(pv[ID::parameterSmoothingSecond]->getFloat());

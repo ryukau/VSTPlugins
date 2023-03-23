@@ -231,9 +231,8 @@ template<typename Sample> struct OverSampler16 {
   }
 };
 
-template<typename Sample, size_t nFold, typename FirstStageSosCoefficient>
-struct DownSampler {
-  static constexpr size_t fold = nFold;
+template<typename Sample, typename FirstStageSosCoefficient> struct DownSampler {
+  static constexpr size_t fold = 2 * FirstStageSosCoefficient::fold;
 
   std::array<Sample, fold> inputBuffer{};
   DecimationLowpass<Sample, FirstStageSosCoefficient> lowpass;
@@ -255,6 +254,8 @@ struct DownSampler {
     halfBandInput[1] = lowpass.output();
     return halfbandIir.process(halfBandInput);
   }
+
+  Sample process2x() { return halfbandIir.process({inputBuffer[0], inputBuffer[1]}); }
 };
 
 } // namespace SomeDSP

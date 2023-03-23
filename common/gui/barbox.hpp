@@ -62,7 +62,7 @@ private:
   Scale &scale;
 
 public:
-  float sliderZero = 0.0f;
+  double sliderZero = 0;
   int32_t indexOffset = 0;
   bool liveUpdateLineEdit = true; // Set this false when line edit is slow.
   double scrollSensitivity = 0.01;
@@ -299,6 +299,8 @@ public:
   {
     if (event.deltaY == 0) return;
 
+    grabFocus();
+
     size_t index = calcIndex(mousePosition);
     if (index >= value.size()) return;
 
@@ -342,9 +344,9 @@ public:
     } else if (event.character == 'f') {
       averageLowpass(index);
     } else if (shift && event.character == 'i') {
-      invertFull(index);
-    } else if (event.character == 'i') {
       invertInRange(index);
+    } else if (event.character == 'i') {
+      invertFull(index);
     } else if (shift && event.character == 'l') {
       lockAll(index);
     } else if (event.character == 'l') {
@@ -792,7 +794,7 @@ private:
     return pk;
   }
 
-  void invertFull(size_t start)
+  void invertInRange(size_t start)
   {
     for (size_t i = start; i < value.size(); ++i) {
       if (barState[i] != BarState::active) continue;
@@ -802,19 +804,21 @@ private:
     }
   }
 
-  void invertInRange(size_t start)
+  void invertFull(size_t start)
   {
     auto pk = getValuePeak(start, false);
     for (size_t i = start; i < value.size(); ++i) {
       if (barState[i] != BarState::active) continue;
-      double val = value[i] < sliderZero
-        ? std::clamp<double>(
-          2.0 * sliderZero - pk.maxNeg - value[i] - pk.minNeg, sliderZero - pk.maxNeg,
-          sliderZero)
-        : std::clamp<double>(
-          2.0 * sliderZero + pk.maxPos - value[i] + pk.minPos, sliderZero,
-          pk.maxPos + sliderZero);
-      setValueAtIndex(i, val);
+
+      if (value[i] < sliderZero) {
+        auto x = 1.0 + value[i] - (value[i] / sliderZero);
+        setValueAtIndex(i, std::clamp(x, sliderZero, 1.0));
+      } else {
+        auto x = sliderZero - sliderZero * (value[i] - sliderZero) / (1.0 - sliderZero);
+        setValueAtIndex(i, std::clamp(x, 0.0, sliderZero));
+      }
+
+      // setValueAtIndex(i, 1.0 - value[i]);
     }
   }
 
@@ -906,7 +910,7 @@ private:
   {
     for (size_t i = start; i < value.size(); ++i) {
       if (barState[i] != BarState::active) continue;
-      setValueAtIndex(i, (value[i] - sliderZero) / pow(i + 1, 0.0625) + sliderZero);
+      setValueAtIndex(i, (value[i] - sliderZero) / std::pow(i + 1, 0.0625) + sliderZero);
     }
   }
 

@@ -47,57 +47,21 @@ void CreditView::draw(CDrawContext *pContext)
   pContext->setFontColor(pal.foreground());
   pContext->drawString("© 2023 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0, 90.0));
 
-  std::string leftText = R"(- Overtone -
-Ctrl + Left Drag|Reset to Default
-Ctrl + Shift + Left Drag|Skip Between Frames
-Right Drag|Draw Line
-Ctrl + Shift + Right Drag|Toggle Lock
-D|Reset to Default
-Shift + D|Toggle Min/Mid/Max
-E|Emphasize Low
-Shift + E|Emphasize High
-F|Low-pass Filter
-Shift + F|High-pass Filter
-I|Invert
-Shift + I|Full Invert
-L|Toggle Lock
-Shift + L|Toggle Lock for All
-N|Normalize (Preserve Min)
-Shift + N|Normalize
-P|Permute
-R|Randomize
-Shift + R|Sparse Randomize
-S|Sort Decending Order
-Shift + S|Sort Ascending Order
-T|Random Walk
-Shift + T|Random Walk to 0)";
+  std::string leftText = R"(
+This plugin is in active development.
+Breaking changes will be introduced.
 
-  std::string rightText = R"(
-Z|Undo
-Shift + Z|Redo
-, (Comma)|Rotate Back
-. (Period)|Rotate Forward
-1|Decrease
-2-9|Decrease 2n-9n
+- Do not use for production.
+- Do not save your project with this plugin.
 
-- Knob -
-Shift + Left Drag|Fine Adjustment
-Ctrl + Left Click|Reset to Default
-
-- Number -
-Shares same controls with knob, and:
-Right Click|Toggle Min/Mid/Max
-
-
-TestBedSynth outputs peaky signal.
-Recommend to insert limiter, even if
-compressor is turned on.
-
+Click to dismiss this message.
 
 Have a nice day!)";
 
+  std::string rightText = R"()";
+
   const float top0 = 140.0f;
-  const float mid = 20 + (790 - 2 * 20) / 2; // 790 is defaultWidth in `../editor.cpp`.
+  const float mid = 20 + (790 - 2 * 20) / 2;
   const float lineHeight = 20.0f;
   const float blockWidth = 180.0f;
   drawTextBlock(pContext, 20.0f, top0, lineHeight, blockWidth, leftText);

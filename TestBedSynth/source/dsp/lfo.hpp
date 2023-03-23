@@ -26,6 +26,38 @@
 
 namespace SomeDSP {
 
+// Integer sample delay.
+template<typename Sample, size_t length> class FixedIntDelay {
+private:
+  std::array<Sample, length> buf{};
+  size_t wptr = 0;
+  size_t rptr = 0;
+
+public:
+  void reset()
+  {
+    buf.fill({});
+    wptr = 0;
+    rptr = 0;
+  }
+
+  void setFrames(size_t delayFrames)
+  {
+    if (delayFrames >= length) delayFrames = length;
+    rptr = wptr - delayFrames;
+    if (rptr >= length) rptr += length; // Unsigned negative overflow case.
+  }
+
+  Sample process(Sample input)
+  {
+    if (++wptr >= buf.size()) wptr = 0;
+    buf[wptr] = input;
+
+    if (++rptr >= buf.size()) rptr = 0;
+    return buf[rptr];
+  }
+};
+
 template<typename Sample> struct EMAHighpass {
   Sample v1 = 0;
 

@@ -30,28 +30,14 @@
 
 namespace SomeDSP {
 
+// `fftwMutex` is used to lock FFTW3 calls except `fftw*_execute`. In other words, FFTW3
+// isn't thread safe except `fftw*_execute` call.
+extern std::mutex fftwMutex;
+
 template<typename T> inline T lerp(T y0, T y1, T t) { return y0 + t * (y1 - y0); }
 
-template<typename T> inline T signedPower(T x, T y)
-{
-  return std::copysign(std::pow(std::abs(x), y), x);
-}
-
-// Range of t is in [0, 1]. Interpolates between y1 and y2.
-template<typename T> inline T cubicInterp(T y0, T y1, T y2, T y3, T t)
-{
-  auto t2 = t * t;
-  auto c0 = y1 - y2;
-  auto c1 = (y2 - y0) / T(2);
-  auto c2 = c0 + c1;
-  auto c3 = c0 + c2 + (y3 - y1) / T(2);
-  return c3 * t * t2 - (c2 + c3) * t2 + c1 * t + y1;
-}
-
-/**
-Range of t is in [0, 1]. Interpoltes between y1 and y2.
-y0 is current, y3 is earlier sample.
-*/
+// Range of t is in [0, 1]. Interpoltes between y1 and y2.
+// y0 is current, y3 is earlier sample.
 template<typename T> inline T lagrange3Interp(T y0, T y1, T y2, T y3, T t)
 {
   T u = 1 + t;
@@ -64,14 +50,19 @@ template<typename T> inline T lagrange3Interp(T y0, T y1, T y2, T y3, T t)
 struct WavetableParameter {
   float baseNyquistHz = 0;
 
+  size_t waveInterpType = 2; // 0: Step, 1: Linear, 2: Cubic.
+
   ExpSmoother<float> oscPitch;
   ExpSmoother<float> sumMix;
   ExpSmoother<float> feedbackLowpassKp;
   ExpSmoother<float> sumToImmediatePm;
   ExpSmoother<float> sumToAccumulatePm;
   ExpSmoother<float> sumToFm;
+  ExpSmoother<float> sumToAm;
 
   float hardSync = 1;
+  float phaseSkew = 0;
+  float distortion = 0;
   float spectralSpread = 1;
   float phaseSlope = 0;
   float spectralLowpass = 1;
@@ -83,6 +74,8 @@ struct WavetableParameter {
   ParallelExpSmoother<float, ModID::MODID_ENUM_LENGTH> fm;
 
   std::array<float, ModID::MODID_ENUM_LENGTH> modHardSync{};
+  std::array<float, ModID::MODID_ENUM_LENGTH> modPhaseSkew{};
+  std::array<float, ModID::MODID_ENUM_LENGTH> modDistortion{};
   std::array<float, ModID::MODID_ENUM_LENGTH> modSpectralSpread{};
   std::array<float, ModID::MODID_ENUM_LENGTH> modPhaseSlope{};
   std::array<float, ModID::MODID_ENUM_LENGTH> modSpectralLowpass{};
@@ -97,15 +90,36 @@ inline float mixModulation(
 }
 
 template<size_t tableSize> struct WaveForm {
-  float *table;
+  float *table = nullptr;
 
-  void init()
+  WaveForm()
   {
+    const std::lock_guard<std::mutex> fftwLock(fftwMutex);
+
     table = (float *)fftwf_malloc(sizeof(float) * tableSize);
     std::fill(table, table + tableSize, 0.0f);
   }
 
-  void free() { fftwf_free(table); }
+  ~WaveForm()
+  {
+    const std::lock_guard<std::mutex> fftwLock(fftwMutex);
+
+    if (table) fftwf_free(table);
+  }
+
+  inline float phaseSkewFunc(float x) { return x * x * x * x * x * x * x * x; }
+
+  inline float distortionFunc(float x)
+  {
+    // (125 * x^3) / 32 - (825 * x^2) / 128 + (535 * x) / 512 + 1485 / 2048.
+
+    auto y = (float(125) * x * x * x) / float(32) //
+      - (float(825) * x * x) / float(128)         //
+      + (float(535) * x) / float(512)             //
+      + float(1485) / float(2048);
+
+    return y < float(-2) ? x : y;
+  }
 
   void draw(
     const std::array<float, ModID::MODID_ENUM_LENGTH> &mod,
@@ -113,17 +127,39 @@ template<size_t tableSize> struct WaveForm {
     WavetableParameter &param)
   {
     auto modHardSync = mixModulation(mod, param.modHardSync);
+    auto modPhaseSkew = mixModulation(mod, param.modPhaseSkew);
+    auto modDistortion = mixModulation(mod, param.modDistortion);
 
     auto hardSync = std::exp2(modHardSync) * param.hardSync;
+    auto phaseSkew = std::clamp(modPhaseSkew + param.phaseSkew, float(0), float(1));
+    auto distortion = std::clamp(modDistortion + param.distortion, float(0), float(1));
 
     for (size_t idx = 0; idx < tableSize; ++idx) {
       auto phase = hardSync * float(idx) / float(tableSize);
       phase -= std::floor(phase);
 
-      auto pos = nOscWavetable * phase;
-      size_t i0 = size_t(pos);
-      size_t i1 = (i0 + 1) & (nOscWavetable - 1);
-      table[idx] = lerp(wavetable[i0], wavetable[i1], pos - float(i0));
+      phase = lerp(phase, phaseSkewFunc(phase), phaseSkew);
+
+      if (param.waveInterpType == 0) { // Step interpolation.
+        table[idx] = wavetable[size_t(nOscWavetable * phase)];
+      } else if (param.waveInterpType == 1) { // Linear interpolation.
+        auto pos = nOscWavetable * phase;
+        size_t i0 = size_t(pos);
+        size_t i1 = (i0 + 1) & (nOscWavetable - 1);
+        table[idx] = lerp(wavetable[i0], wavetable[i1], pos - float(i0));
+      } else { // Cubic interpolation.
+        auto pos = nOscWavetable * phase;
+        size_t i0 = size_t(pos);
+        size_t i1 = (i0 + 1) & (nOscWavetable - 1);
+        size_t i2 = (i0 + 2) & (nOscWavetable - 1);
+        size_t i3 = (i0 + 3) & (nOscWavetable - 1);
+        table[idx] = lagrange3Interp(
+          wavetable[i0], wavetable[i1], wavetable[i2], wavetable[i3], pos - float(i0));
+      }
+    }
+
+    for (size_t idx = 0; idx < tableSize; ++idx) {
+      table[idx] = lerp(table[idx], distortionFunc(table[idx]), distortion);
     }
   }
 };
@@ -132,19 +168,23 @@ template<size_t tableSize> struct Spectrum {
   static constexpr size_t spectrumSize = tableSize / 2 + 1;
   static constexpr float bendRange = 1.7320508075688772f; // sqrt(3).
 
-  std::complex<float> *src; // source.
-  std::complex<float> *dst; // destination.
+  std::complex<float> *src = nullptr; // source.
+  std::complex<float> *dst = nullptr; // destination.
 
-  void init()
+  Spectrum()
   {
+    const std::lock_guard<std::mutex> fftwLock(fftwMutex);
+
     src = (std::complex<float> *)fftwf_malloc(sizeof(std::complex<float>) * spectrumSize);
     dst = (std::complex<float> *)fftwf_malloc(sizeof(std::complex<float>) * spectrumSize);
   }
 
-  void free()
+  ~Spectrum()
   {
-    fftwf_free(src);
-    fftwf_free(dst);
+    const std::lock_guard<std::mutex> fftwLock(fftwMutex);
+
+    if (src) fftwf_free(src);
+    if (dst) fftwf_free(dst);
   }
 
   void prepare(
@@ -161,6 +201,8 @@ template<size_t tableSize> struct Spectrum {
     auto modSpectralHighpass = mixModulation(mod, param.modSpectralHighpass);
 
     auto spectralSpread = std::exp2(modSpectralSpread) * param.spectralSpread;
+    auto spcSpreadGain = std::sqrt(spectralSpread);
+    if (spectralSpread > 1) spcSpreadGain *= spectralSpread;
     auto phaseSlope = modPhaseSlope + param.phaseSlope;
     auto spcLpPitch = std::exp2(modSpectralLowpass) * param.spectralLowpass;
     auto spcHpPitch = std::exp2(modSpectralHighpass) * param.spectralHighpass;
@@ -172,27 +214,22 @@ template<size_t tableSize> struct Spectrum {
       size_t index = size_t(target);
       if (index >= spectrumSize) break;
 
-      auto input = src[index] / float(tableSize);
+      auto frac = target - float(index);
+      auto gain = spcSpreadGain * std::abs(float(1) - float(2) * frac);
+      dst[idx] = gain * src[index] / float(tableSize);
 
-      auto len = std::abs(input);
-      auto arg = std::arg(input);
-
+      auto len = std::abs(dst[idx]);
+      if (len < float(tableSize) * std::numeric_limits<float>::epsilon()) continue;
+      auto arg = std::arg(dst[idx]);
       auto moddedPhase = arg + phaseSlope * len;
       dst[idx].real(len * std::cos(moddedPhase));
       dst[idx].imag(len * std::sin(moddedPhase));
-
-      auto frac = target - float(index);
-      auto gain = spectralSpread * std::abs(float(1) - float(2) * frac);
-      dst[idx] *= gain;
     }
   }
 };
 
 struct VariableWaveTableOscillator {
-  // `fftwMutex` is used to lock FFTW3 calls except `fftw*_execute`.
-  static std::mutex fftwMutex;
-
-  static constexpr size_t tableSize = 8192;
+  static constexpr size_t tableSize = 4096;
   static constexpr size_t paddedSize = tableSize + 3; // +1 for linear, +3 for cubic.
   static constexpr size_t spectrumSize = tableSize / 2 + 1;
 
@@ -215,9 +252,6 @@ struct VariableWaveTableOscillator {
   {
     const std::lock_guard<std::mutex> fftwLock(fftwMutex);
 
-    waveform.init();
-    spectrum.init();
-
     forwardPlan = fftwf_plan_dft_r2c_1d(
       tableSize, waveform.table, reinterpret_cast<fftwf_complex *>(spectrum.src),
       FFTW_ESTIMATE);
@@ -239,9 +273,6 @@ struct VariableWaveTableOscillator {
     for (auto &pln : inversePlan) fftwf_destroy_plan(pln);
     for (auto &tbl : table) fftwf_free(tbl);
     fftwf_destroy_plan(forwardPlan);
-
-    spectrum.free();
-    waveform.free();
   }
 
   void reset()
@@ -286,6 +317,9 @@ struct VariableWaveTableOscillator {
     table[tableIndex][paddedSize - 1] = table[tableIndex][2];
   }
 
+  // Call this before `process()`.
+  bool isRefreshing() { return fadeCounter <= 0; }
+
   float process(
     float sampleRate,
     float noteHz,
@@ -315,7 +349,6 @@ struct VariableWaveTableOscillator {
     const auto fm = mixModulation(mod, param.fm.value) + param.sumToFm.getValue();
 
     phase += accumulatePm * oscSum
-      // + std::fmod(std::exp2(fm * oscSum + modPitch) * noteHz / sampleRate, float(0.5));
       + std::min(std::exp2(fm * oscSum + modPitch) * noteHz / sampleRate, float(0.5));
     phase -= std::floor(phase);
     auto phs = phase + immediatePm * oscSum;
@@ -333,12 +366,8 @@ struct VariableWaveTableOscillator {
 
     float fade
       = 0.5f + 0.5f * std::cos(float(pi) * float(fadeCounter) / float(fadeSamples));
-    return vf + fade * (vb - vf);
+    return lerp(1.0f, oscSum, param.sumToAm.getValue()) * (vf + fade * (vb - vf));
   }
 };
-
-//// TODO: Remove this if template is not required.
-// template<size_t nModulation>
-// std::mutex VariableWaveTableOscillator<nModulation>::fftwMutex;
 
 } // namespace SomeDSP

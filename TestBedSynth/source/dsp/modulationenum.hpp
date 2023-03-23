@@ -36,4 +36,5 @@ enum ModID : size_t {
 
 } // namespace ModID
 
+constexpr size_t nWaveModInput = ModID::lfo1 + 2;
 constexpr size_t nModulation = nOscillator * ModID::MODID_ENUM_LENGTH;

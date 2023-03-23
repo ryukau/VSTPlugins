@@ -53,13 +53,15 @@ protected:
     }
   };
 
-  std::unordered_map<ParamID, std::shared_ptr<XYPadAxis>> xyControlMap;
+  std::unordered_map<ParamID, std::unique_ptr<XYPadAxis>> xyControlMap;
   void syncUI(ParamID id, float normalized);
 
   bool prepareUI() override;
 
   template<Uhhyou::Style style = Uhhyou::Style::common>
   auto addSmallKnobVert(
+    TabView *tabView,
+    int tabIndex,
     CCoord left,
     CCoord top,
     CCoord size,
@@ -78,10 +80,16 @@ protected:
 
     auto label = addLabel(
       left, top + size, size, size, textSize, name, CHoriTxtAlign::kCenterText);
+
+    tabView->addWidget(tabIndex, knob);
+    tabView->addWidget(tabIndex, label);
+
     return knob;
   }
 
   void addXYControls(
+    TabView *tabView,
+    int tabIndex,
     CCoord left,
     CCoord top,
     CCoord width,
@@ -93,13 +101,16 @@ protected:
   {
     auto xypad = addXYPad(left, top, width, width, idX, idY);
     auto xKnob = addSmallKnobVert(
-      left + width + margin, top + margin, smallKnobWidth, margin, textSize, "0", idX);
+      tabView, tabIndex, left + width + margin, top + margin, smallKnobWidth, margin,
+      textSize, "0", idX);
     auto yKnob = addSmallKnobVert(
-      left + width + margin, top + margin + int(width / 2), smallKnobWidth, margin,
-      textSize, "1", idY);
+      tabView, tabIndex, left + width + margin, top + margin + int(width / 2),
+      smallKnobWidth, margin, textSize, "1", idY);
 
-    xyControlMap.emplace(idX, std::make_shared<XYPadAxis>(0, xypad, xKnob));
-    xyControlMap.emplace(idY, std::make_shared<XYPadAxis>(1, xypad, yKnob));
+    tabView->addWidget(tabIndex, xypad);
+
+    xyControlMap.emplace(idX, std::make_unique<XYPadAxis>(0, xypad, xKnob));
+    xyControlMap.emplace(idY, std::make_unique<XYPadAxis>(1, xypad, yKnob));
   }
 };
 

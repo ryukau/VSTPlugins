@@ -21,6 +21,6 @@
 
 namespace SomeDSP {
 
-std::mutex VariableWaveTableOscillator::fftwMutex;
+std::mutex fftwMutex;
 
 } // namespace SomeDSP

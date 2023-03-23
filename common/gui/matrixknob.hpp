@@ -194,6 +194,8 @@ public:
 
   void onMouseExitEvent(MouseExitEvent &event) override
   {
+    releaseFocus();
+
     isMouseEntered = false;
     invalid();
     event.consumed = true;
@@ -302,6 +304,9 @@ public:
   void onMouseWheelEvent(MouseWheelEvent &event) override
   {
     if (event.deltaY == 0) return;
+
+    grabFocus();
+
     auto sensi
       = event.modifiers.has(ModifierKey::Shift) ? lowSensitivity : 8.0 * sensitivity;
     setValueFromDelta(event.deltaY * sensi);

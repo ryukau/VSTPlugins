@@ -373,7 +373,7 @@ public:
     if (normalized >= upperRangeStart) {
       return scale.map((normalized - upperRangeStart) / (T(1) - upperRangeStart));
     } else if (normalized <= lowerRangeEnd) {
-      return scale.map(T(1) - normalized / lowerRangeEnd);
+      return -scale.map(T(1) - normalized / lowerRangeEnd);
     }
     return 0;
   }

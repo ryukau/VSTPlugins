@@ -32,8 +32,9 @@
   #include "../../common/value.hpp"
 #endif
 
+constexpr size_t maxWaveModDelay = 256;
 constexpr size_t nLfoWavetable = 64;
-constexpr static size_t maxVoice = 4;
+constexpr size_t maxVoice = 16;
 
 namespace Steinberg {
 namespace Synth {
@@ -47,11 +48,14 @@ enum ID {
 
   oscMix = osc1Waveform0 + nOscWavetable,
 
-  oscPitchSemitone0,
+  oscInterpolationType0,
+  oscPitchSemitone0 = oscInterpolationType0 + nOscillator,
   sumMix0 = oscPitchSemitone0 + nOscillator,
   feedbackLowpassHz0 = sumMix0 + nOscillator,
   hardSync0 = feedbackLowpassHz0 + nOscillator,
-  spectralSpread0 = hardSync0 + nOscillator,
+  phaseSkew0 = hardSync0 + nOscillator,
+  distortion0 = phaseSkew0 + nOscillator,
+  spectralSpread0 = distortion0 + nOscillator,
   phaseSlope0 = spectralSpread0 + nOscillator,
   spectralLowpass0 = phaseSlope0 + nOscillator,
   spectralHighpass0 = spectralLowpass0 + nOscillator,
@@ -62,7 +66,9 @@ enum ID {
   modAccumulatePm0 = modImmediatePm0 + nModulation,
   modFm0 = modAccumulatePm0 + nModulation,
   modHardSync0 = modFm0 + nModulation,
-  modSpectralSpread0 = modHardSync0 + nModulation,
+  modPhaseSkew0 = modHardSync0 + nModulation,
+  modDistortion0 = modPhaseSkew0 + nModulation,
+  modSpectralSpread0 = modDistortion0 + nModulation,
   modPhaseSlope0 = modSpectralSpread0 + nModulation,
   modSpectralLowpass0 = modPhaseSlope0 + nModulation,
   modSpectralHighpass0 = modSpectralLowpass0 + nModulation,
@@ -70,17 +76,29 @@ enum ID {
   sumToImmediatePm0 = modSpectralHighpass0 + nModulation,
   sumToAccumulatePm0 = sumToImmediatePm0 + nOscillator,
   sumToFm0 = sumToAccumulatePm0 + nOscillator,
+  sumToAm0 = sumToFm0 + nOscillator,
 
-  envelopeAttackSecond0 = sumToFm0 + nOscillator,
+  envelopeAttackSecond0 = sumToAm0 + nOscillator,
   envelopeDecaySecond0 = envelopeAttackSecond0 + nOscillator,
   envelopeSustainAmplitude0 = envelopeDecaySecond0 + nOscillator,
   envelopeReleaseSecond0 = envelopeSustainAmplitude0 + nOscillator,
 
   lfoRate0 = envelopeReleaseSecond0 + nOscillator,
-  lfo0Waveform0 = lfoRate0 + nOscillator,
+  lfoKeyFollow0 = lfoRate0 + nOscillator,
+  lfoLowpassHz0 = lfoKeyFollow0 + nOscillator,
+  lfo0Waveform0 = lfoLowpassHz0 + nOscillator,
   lfo1Waveform0 = lfo0Waveform0 + nLfoWavetable,
 
-  gain = lfo1Waveform0 + nLfoWavetable,
+  externalInput0 = lfo1Waveform0 + nLfoWavetable,
+
+  waveMod0Input0 = externalInput0 + nOscillator,
+  waveMod1Input0 = waveMod0Input0 + nWaveModInput,
+  waveMod0Gain0 = waveMod1Input0 + nWaveModInput,
+  waveMod1Gain0 = waveMod0Gain0 + nOscWavetable,
+  waveMod0Delay0 = waveMod1Gain0 + nOscWavetable,
+  waveMod1Delay0 = waveMod0Delay0 + nOscWavetable,
+
+  gain = waveMod1Delay0 + nOscWavetable,
   gainAttackSecond,
   gainDecaySecond,
   gainSustainAmplitude,
@@ -112,6 +130,7 @@ struct Scales {
 
   static SomeDSP::LinearScale<double> waveform;
 
+  static SomeDSP::UIntScale<double> oscInterpolationType;
   static SomeDSP::LinearScale<double> oscPitchSemitone;
   static SomeDSP::DecibelScale<double> hardSync;
 
@@ -121,13 +140,18 @@ struct Scales {
 
   static SomeDSP::LinearScale<double> modSpectralFilterCutoff;
 
-  static SomeDSP::BipolarDecibelScale<double> sumToPm;
+  static SomeDSP::BipolarDecibelScale<double> sumToImmediatePm;
+  static SomeDSP::BipolarDecibelScale<double> sumToAccumulatePm;
   static SomeDSP::LinearScale<double> sumToFm;
 
   static SomeDSP::DecibelScale<double> envelopeSecond;
   static SomeDSP::DecibelScale<double> envelopeSustainAmplitude;
 
   static SomeDSP::DecibelScale<double> lfoRate;
+  static SomeDSP::LinearScale<double> lfoKeyFollow;
+  static SomeDSP::DecibelScale<double> lfoLowpassHz;
+
+  static SomeDSP::UIntScale<double> waveModDelay;
 
   static SomeDSP::DecibelScale<double> gain;
   static SomeDSP::DecibelScale<double> cutoffHz;
@@ -180,6 +204,9 @@ struct GlobalParameter : public ParameterInterface {
     for (size_t idx = 0; idx < nOscillator; ++idx) {
       auto indexStr = std::to_string(idx);
 
+      value[ID::oscInterpolationType0 + idx] = std::make_unique<UIntValue>(
+        2, Scales::oscInterpolationType, ("oscInterpolationType" + indexStr).c_str(),
+        Info::kCanAutomate);
       value[ID::oscPitchSemitone0 + idx] = std::make_unique<LinearValue>(
         Scales::oscPitchSemitone.invmap(0.0), Scales::oscPitchSemitone,
         ("oscPitchSemitone" + indexStr).c_str(), Info::kCanAutomate);
@@ -191,6 +218,10 @@ struct GlobalParameter : public ParameterInterface {
       value[ID::hardSync0 + idx] = std::make_unique<DecibelValue>(
         Scales::hardSync.invmap(1.0), Scales::hardSync, ("hardSync" + indexStr).c_str(),
         Info::kCanAutomate);
+      value[ID::phaseSkew0 + idx] = std::make_unique<LinearValue>(
+        0.0, Scales::defaultScale, ("phaseSkew" + indexStr).c_str(), Info::kCanAutomate);
+      value[ID::distortion0 + idx] = std::make_unique<LinearValue>(
+        0.0, Scales::defaultScale, ("distortion" + indexStr).c_str(), Info::kCanAutomate);
       value[ID::spectralSpread0 + idx] = std::make_unique<DecibelValue>(
         Scales::spectralSpread.invmap(1.0), Scales::spectralSpread,
         ("spectralSpread" + indexStr).c_str(), Info::kCanAutomate);
@@ -217,10 +248,10 @@ struct GlobalParameter : public ParameterInterface {
         Scales::bipolarScale.invmap(0.0), Scales::bipolarScale,
         (prefix + "FeedbackMix" + indexStr).c_str(), Info::kCanAutomate);
       value[ID::modImmediatePm0 + idx] = std::make_unique<BipolarDecibelValue>(
-        Scales::sumToPm.invmap(0.0), Scales::sumToPm,
+        Scales::sumToImmediatePm.invmap(0.0), Scales::sumToImmediatePm,
         (prefix + "ImmediatePm" + indexStr).c_str(), Info::kCanAutomate);
       value[ID::modAccumulatePm0 + idx] = std::make_unique<BipolarDecibelValue>(
-        Scales::sumToPm.invmap(0.0), Scales::sumToPm,
+        Scales::sumToAccumulatePm.invmap(0.0), Scales::sumToAccumulatePm,
         (prefix + "AccumulatePm" + indexStr).c_str(), Info::kCanAutomate);
       value[ID::modFm0 + idx] = std::make_unique<LinearValue>(
         Scales::sumToFm.invmap(0.0), Scales::sumToFm, (prefix + "Fm" + indexStr).c_str(),
@@ -228,6 +259,12 @@ struct GlobalParameter : public ParameterInterface {
       value[ID::modHardSync0 + idx] = std::make_unique<LinearValue>(
         Scales::bipolarScale.invmap(0.0), Scales::bipolarScale,
         (prefix + "HardSync" + indexStr).c_str(), Info::kCanAutomate);
+      value[ID::modPhaseSkew0 + idx] = std::make_unique<LinearValue>(
+        Scales::bipolarScale.invmap(0.0), Scales::bipolarScale,
+        (prefix + "PhaseSkew" + indexStr).c_str(), Info::kCanAutomate);
+      value[ID::modDistortion0 + idx] = std::make_unique<LinearValue>(
+        Scales::bipolarScale.invmap(0.0), Scales::bipolarScale,
+        (prefix + "Distortion" + indexStr).c_str(), Info::kCanAutomate);
       value[ID::modSpectralSpread0 + idx] = std::make_unique<LinearValue>(
         Scales::bipolarScale.invmap(0.0), Scales::bipolarScale,
         (prefix + "SpectralSpread" + indexStr).c_str(), Info::kCanAutomate);
@@ -246,14 +283,16 @@ struct GlobalParameter : public ParameterInterface {
       auto indexStr = std::to_string(idx);
 
       value[ID::sumToImmediatePm0 + idx] = std::make_unique<BipolarDecibelValue>(
-        Scales::sumToPm.invmap(0.0), Scales::sumToPm,
+        Scales::sumToImmediatePm.invmap(0.0), Scales::sumToImmediatePm,
         ("sumToImmediatePm" + indexStr).c_str(), Info::kCanAutomate);
       value[ID::sumToAccumulatePm0 + idx] = std::make_unique<BipolarDecibelValue>(
-        Scales::sumToPm.invmap(0.0), Scales::sumToPm,
+        Scales::sumToAccumulatePm.invmap(0.0), Scales::sumToAccumulatePm,
         ("sumToAccumulatePm" + indexStr).c_str(), Info::kCanAutomate);
       value[ID::sumToFm0 + idx] = std::make_unique<LinearValue>(
         Scales::sumToFm.invmap(0.0), Scales::sumToFm, ("sumToFm" + indexStr).c_str(),
         Info::kCanAutomate);
+      value[ID::sumToAm0 + idx] = std::make_unique<LinearValue>(
+        0.0, Scales::defaultScale, ("sumToAm" + indexStr).c_str(), Info::kCanAutomate);
 
       value[ID::envelopeAttackSecond0 + idx] = std::make_unique<DecibelValue>(
         Scales::envelopeSecond.invmap(0.002), Scales::envelopeSecond,
@@ -262,7 +301,7 @@ struct GlobalParameter : public ParameterInterface {
         Scales::envelopeSecond.invmap(1.0), Scales::envelopeSecond,
         ("envelopeDecaySecond" + indexStr).c_str(), Info::kCanAutomate);
       value[ID::envelopeSustainAmplitude0 + idx] = std::make_unique<DecibelValue>(
-        Scales::envelopeSustainAmplitude.invmap(0.25), Scales::envelopeSustainAmplitude,
+        Scales::envelopeSustainAmplitude.invmap(0.0), Scales::envelopeSustainAmplitude,
         ("envelopeSustainAmplitude" + indexStr).c_str(), Info::kCanAutomate);
       value[ID::envelopeReleaseSecond0 + idx] = std::make_unique<DecibelValue>(
         1.0, Scales::envelopeSecond, ("envelopeReleaseSecond" + indexStr).c_str(),
@@ -271,6 +310,12 @@ struct GlobalParameter : public ParameterInterface {
       value[ID::lfoRate0 + idx] = std::make_unique<DecibelValue>(
         Scales::lfoRate.invmap(1.0), Scales::lfoRate, ("lfoRate" + indexStr).c_str(),
         Info::kCanAutomate);
+      value[ID::lfoKeyFollow0 + idx] = std::make_unique<LinearValue>(
+        Scales::lfoKeyFollow.invmap(0.0), Scales::lfoKeyFollow,
+        ("lfoKeyFollow" + indexStr).c_str(), Info::kCanAutomate);
+      value[ID::lfoLowpassHz0 + idx] = std::make_unique<DecibelValue>(
+        Scales::lfoLowpassHz.invmap(100.0), Scales::lfoLowpassHz,
+        ("lfoLowpassHz" + indexStr).c_str(), Info::kCanAutomate);
     }
 
     for (size_t idx = 0; idx < nLfoWavetable; ++idx) {
@@ -286,8 +331,48 @@ struct GlobalParameter : public ParameterInterface {
         Scales::bipolarScale, ("lfo1Waveform" + indexStr).c_str(), Info::kCanAutomate);
     }
 
-    value[ID::gain]
-      = std::make_unique<DecibelValue>(0.5, Scales::gain, "gain", Info::kCanAutomate);
+    for (size_t idx = 0; idx < nOscillator; ++idx) {
+      auto indexStr = std::to_string(idx);
+
+      value[ID::externalInput0 + idx] = std::make_unique<LinearValue>(
+        Scales::bipolarScale.invmap(0.0), Scales::bipolarScale,
+        ("externalInput" + indexStr).c_str(), Info::kCanAutomate);
+    }
+
+    std::array<std::string, ModID::MODID_ENUM_LENGTH> waveModInputName{
+      "env0To", "env1To", "lfo0To", "lfo1To", "externalTo"};
+    for (size_t idx = 0; idx < nWaveModInput; ++idx) {
+      auto indexStr = std::to_string(idx);
+
+      value[ID::waveMod0Input0 + idx] = std::make_unique<LinearValue>(
+        Scales::bipolarScale.invmap(0.0), Scales::bipolarScale,
+        (waveModInputName[idx] + "waveModInput" + indexStr).c_str(), Info::kCanAutomate);
+      value[ID::waveMod1Input0 + idx] = std::make_unique<LinearValue>(
+        Scales::bipolarScale.invmap(0.0), Scales::bipolarScale,
+        (waveModInputName[idx] + "waveModInput" + indexStr).c_str(), Info::kCanAutomate);
+    }
+
+    for (size_t idx = 0; idx < nLfoWavetable; ++idx) {
+      auto indexStr = std::to_string(idx);
+
+      value[ID::waveMod0Gain0 + idx] = std::make_unique<LinearValue>(
+        Scales::bipolarScale.invmap(
+          std::sin(SomeDSP::twopi * idx / double(nLfoWavetable))),
+        Scales::bipolarScale, ("waveMod0Gain" + indexStr).c_str(), Info::kCanAutomate);
+      value[ID::waveMod1Gain0 + idx] = std::make_unique<LinearValue>(
+        Scales::bipolarScale.invmap(
+          std::sin(SomeDSP::twopi * idx / double(nLfoWavetable))),
+        Scales::bipolarScale, ("waveMod1Gain" + indexStr).c_str(), Info::kCanAutomate);
+      value[ID::waveMod0Delay0 + idx] = std::make_unique<UIntValue>(
+        idx / double(nLfoWavetable - 1), Scales::waveModDelay,
+        ("waveMod0Delay" + indexStr).c_str(), Info::kCanAutomate);
+      value[ID::waveMod1Delay0 + idx] = std::make_unique<UIntValue>(
+        idx / double(nLfoWavetable - 1), Scales::waveModDelay,
+        ("waveMod1Delay" + indexStr).c_str(), Info::kCanAutomate);
+    }
+
+    value[ID::gain] = std::make_unique<DecibelValue>(
+      Scales::gain.invmapDB(0.0), Scales::gain, "gain", Info::kCanAutomate);
     value[ID::gainAttackSecond] = std::make_unique<DecibelValue>(
       Scales::envelopeSecond.invmap(0.002), Scales::envelopeSecond, "gainAttackSecond",
       Info::kCanAutomate);
@@ -327,9 +412,9 @@ struct GlobalParameter : public ParameterInterface {
       Scales::parameterSmoothingSecond.invmap(0.01), Scales::parameterSmoothingSecond,
       "parameterSmoothingSecond", Info::kCanAutomate);
     value[ID::oversampling] = std::make_unique<UIntValue>(
-      0, Scales::oversampling, "oversampling", Info::kCanAutomate);
-    value[ID::nVoice] = std::make_unique<UIntValue>(
-      Scales::nVoice.getMax(), Scales::nVoice, "nVoice", Info::kCanAutomate);
+      1, Scales::oversampling, "oversampling", Info::kCanAutomate);
+    value[ID::nVoice]
+      = std::make_unique<UIntValue>(3, Scales::nVoice, "nVoice", Info::kCanAutomate);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

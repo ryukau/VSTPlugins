@@ -35,6 +35,7 @@ sos = signal.butter(16, samplerate / 4, output="sos", fs=uprate)
 ```
 */
 template<typename Sample> struct Sos64FoldFirstStage {
+  constexpr static size_t upfold = 64;
   static constexpr size_t fold = 32;
 
   constexpr static std::array<std::array<Sample, 5>, 8> co{{
@@ -72,6 +73,9 @@ sos = signal.butter(16, samplerate / 1.8, output="sos", fs=uprate)
 ```
 */
 template<typename Sample> struct Sos16FoldFirstStage {
+  constexpr static size_t upfold = 16;
+  constexpr static size_t fold = 8;
+
   constexpr static std::array<std::array<Sample, 5>, 8> co{{
     {Sample(3.5903469155931847e-12), Sample(7.1806938311863695e-12),
      Sample(3.5903469155931847e-12), Sample(-1.2759657610561284),
@@ -107,6 +111,9 @@ sos = signal.butter(10, samplerate / 1.9, output="sos", fs=uprate)
 ```
 */
 template<typename Sample> struct Sos8FoldFirstStage {
+  constexpr static size_t upfold = 8;
+  constexpr static size_t fold = 4;
+
   constexpr static std::array<std::array<Sample, 5>, 5> co{{
     {Sample(1.6921576928941614e-05), Sample(3.384315385788323e-05),
      Sample(1.6921576928941614e-05), Sample(-0.7844963643040177),
