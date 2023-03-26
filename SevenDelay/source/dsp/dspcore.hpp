@@ -28,9 +28,9 @@ using namespace SomeDSP;
 using namespace Steinberg::Synth;
 
 // Lagrange delay is very slow at debug build. If that's the case set Order to 1.
-using DelayTypeName = DelayLagrange<float, 7>;
-using FilterTypeName = SomeDSP::SVF<float>;
-using DCKillerTypeName = SomeDSP::BiquadHighPass<float>;
+using DelayTypeName = DelayLagrange<double, 7>;
+using FilterTypeName = SomeDSP::SVF<double>;
+using DCKillerTypeName = SomeDSP::BiquadHighPass<double>;
 
 class DSPCore {
 public:
@@ -49,7 +49,7 @@ public:
   }
 
   GlobalParameter param;
-  float tempo = 120.0f; // tempo is beat per minutes.
+  double tempo = 120.0f; // tempo is beat per minutes.
 
   void setup(double sampleRate);
   void reset();   // Stop sounds.
@@ -99,29 +99,29 @@ protected:
 
   std::vector<NoteInfo> midiNotes;
   std::vector<NoteInfo> noteStack;
-  float notePitchMultiplier = float(1);
+  double notePitchMultiplier = double(1);
 
-  std::array<LinearSmoother<float>, 2> interpTime{};
-  LinearSmoother<float> interpWetMix;
-  LinearSmoother<float> interpDryMix;
-  LinearSmoother<float> interpFeedback;
-  LinearSmoother<float> interpLfoTimeAmount;
-  LinearSmoother<float> interpLfoToneAmount;
-  LinearSmoother<float> interpLfoFrequency;
-  LinearSmoother<float> interpLfoShape;
-  LinearSmoother<float> interpPanIn;
-  LinearSmoother<float> interpSpreadIn;
-  LinearSmoother<float> interpPanOut;
-  LinearSmoother<float> interpSpreadOut;
-  LinearSmoother<float> interpToneCutoff;
-  LinearSmoother<float> interpToneQ;
-  LinearSmoother<float> interpToneMix;
-  LinearSmoother<float> interpDCKill;
-  LinearSmoother<float> interpDCKillMix;
+  std::array<LinearSmoother<double>, 2> interpTime{};
+  LinearSmoother<double> interpWetMix;
+  LinearSmoother<double> interpDryMix;
+  LinearSmoother<double> interpFeedback;
+  LinearSmoother<double> interpLfoTimeAmount;
+  LinearSmoother<double> interpLfoToneAmount;
+  LinearSmoother<double> interpLfoFrequency;
+  LinearSmoother<double> interpLfoShape;
+  LinearSmoother<double> interpPanIn;
+  LinearSmoother<double> interpSpreadIn;
+  LinearSmoother<double> interpPanOut;
+  LinearSmoother<double> interpSpreadOut;
+  LinearSmoother<double> interpToneCutoff;
+  LinearSmoother<double> interpToneQ;
+  LinearSmoother<double> interpToneMix;
+  LinearSmoother<double> interpDCKill;
+  LinearSmoother<double> interpDCKillMix;
 
   double lfoPhase;
   double lfoPhaseTick;
-  std::array<float, 2> delayOut{};
+  std::array<double, 2> delayOut{};
   std::array<DelayTypeName, 2> delay;
   std::array<FilterTypeName, 2> filter;
   std::array<DCKillerTypeName, 2> dcKiller;

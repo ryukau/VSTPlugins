@@ -19,23 +19,23 @@
 
 constexpr size_t channel = 2;
 
-inline std::array<float, 2> calcPan(float inL, float inR, float pan, float spread)
+template<typename T> inline std::array<T, 2> calcPan(T inL, T inR, T pan, T spread)
 {
-  float balanceL = std::clamp<float>(spread, 0.0f, 1.0f);
-  float balanceR = std::clamp<float>(1.0f - spread, 0.0f, 1.0f);
-  float sigL = inL + balanceL * (inR - inL);
-  float sigR = inL + balanceR * (inR - inL);
+  T balanceL = std::clamp<T>(spread, T(0), T(1));
+  T balanceR = std::clamp<T>(T(1) - spread, T(0), T(1));
+  T sigL = inL + balanceL * (inR - inL);
+  T sigR = inL + balanceR * (inR - inL);
 
-  pan = std::clamp<float>(pan, 0.0f, 1.0f);
-  if (pan < 0.5f) {
+  pan = std::clamp<T>(pan, T(0), T(1));
+  if (pan < T(0.5)) {
     return {
-      (0.5f + pan) * sigL + (0.5f - pan) * sigR,
-      sigR * 2.0f * pan,
+      (T(0.5) + pan) * sigL + (T(0.5) - pan) * sigR,
+      sigR * T(2) * pan,
     };
   }
   return {
-    sigL * (2.0f - 2.0f * pan),
-    (pan - 0.5f) * sigL + (1.5f - pan) * sigR,
+    sigL * (T(2) - T(2) * pan),
+    (pan - T(0.5)) * sigL + (T(1.5) - pan) * sigR,
   };
 }
 
@@ -47,16 +47,18 @@ template<typename T> inline T calcNotePitch(T note)
 
 void DSPCore::setup(double sampleRate)
 {
-  SmootherCommon<float>::setSampleRate(float(sampleRate));
+  SmootherCommon<double>::setSampleRate(double(sampleRate));
 
   for (size_t i = 0; i < delay.size(); ++i)
-    delay[i].setup(float(sampleRate), 1.0f, maxDelayTime);
+    delay[i].setup(double(sampleRate), double(1), maxDelayTime);
 
-  for (size_t i = 0; i < filter.size(); ++i) filter[i].setup(float(sampleRate));
+  for (size_t i = 0; i < filter.size(); ++i) filter[i].setup(double(sampleRate));
 
-  for (size_t i = 0; i < dcKiller.size(); ++i) dcKiller[i].setup(float(sampleRate), 0.1f);
+  for (size_t i = 0; i < dcKiller.size(); ++i) {
+    dcKiller[i].setup(double(sampleRate), double(0.1));
+  }
 
-  lfoPhaseTick = 2.0 * pi / sampleRate;
+  lfoPhaseTick = double(twopi) / sampleRate;
 
   startup();
 }
@@ -65,7 +67,7 @@ void DSPCore::reset()
 {
   midiNotes.clear();
   noteStack.clear();
-  notePitchMultiplier = float(1);
+  notePitchMultiplier = double(1);
 
   for (size_t i = 0; i < channel; ++i) {
     delay[i].reset();
@@ -77,109 +79,110 @@ void DSPCore::reset()
 
 void DSPCore::startup()
 {
-  delayOut[0] = 0.0f;
-  delayOut[1] = 0.0f;
-  lfoPhase = param.value[ParameterID::lfoInitialPhase]->getFloat();
+  delayOut.fill({});
+  lfoPhase = param.value[ParameterID::lfoInitialPhase]->getDouble();
 }
 
 void DSPCore::setParameters()
 {
-  SmootherCommon<float>::setTime(param.value[ParameterID::smoothness]->getFloat());
+  SmootherCommon<double>::setTime(param.value[ParameterID::smoothness]->getDouble());
 
   // This won't work if sync is on and tempo < 15. Up to 8 sec or 8/16 beat.
   // 15.0 comes from (60 sec per minute) * (4 beat) / (16 beat).
-  auto time = param.value[ParameterID::time]->getFloat() * notePitchMultiplier;
+  auto time = param.value[ParameterID::time]->getDouble() * notePitchMultiplier;
   if (param.value[ParameterID::tempoSync]->getInt()) {
-    if (time < 1.0f)
-      time *= 15.0f / float(tempo);
+    if (time < double(1))
+      time *= double(15) / double(tempo);
     else
-      time = std::floor(2.0f * time) * 7.5f / float(tempo);
+      time = std::floor(double(2) * time) * double(7.5) / double(tempo);
   }
 
-  auto offset = param.value[ParameterID::offset]->getFloat();
-  interpTime[0].push(offset < 0.0f ? time * (1.0f + offset) : time);
-  interpTime[1].push(offset > 0.0f ? time * (1.0f - offset) : time);
+  auto offset = param.value[ParameterID::offset]->getDouble();
+  interpTime[0].push(offset < double(0) ? time * (double(1) + offset) : time);
+  interpTime[1].push(offset > double(0) ? time * (double(1) - offset) : time);
 
-  interpWetMix.push(param.value[ParameterID::wetMix]->getFloat());
-  interpDryMix.push(param.value[ParameterID::dryMix]->getFloat());
+  interpWetMix.push(param.value[ParameterID::wetMix]->getDouble());
+  interpDryMix.push(param.value[ParameterID::dryMix]->getDouble());
   interpFeedback.push(
     param.value[ParameterID::negativeFeedback]->getInt()
-      ? -param.value[ParameterID::feedback]->getFloat()
-      : param.value[ParameterID::feedback]->getFloat());
-  interpLfoTimeAmount.push(param.value[ParameterID::lfoTimeAmount]->getFloat());
-  interpLfoToneAmount.push(param.value[ParameterID::lfoToneAmount]->getFloat());
-  interpLfoFrequency.push(param.value[ParameterID::lfoFrequency]->getFloat());
-  interpLfoShape.push(param.value[ParameterID::lfoShape]->getFloat());
+      ? -param.value[ParameterID::feedback]->getDouble()
+      : param.value[ParameterID::feedback]->getDouble());
+  interpLfoTimeAmount.push(param.value[ParameterID::lfoTimeAmount]->getDouble());
+  interpLfoToneAmount.push(param.value[ParameterID::lfoToneAmount]->getDouble());
+  interpLfoFrequency.push(param.value[ParameterID::lfoFrequency]->getDouble());
+  interpLfoShape.push(param.value[ParameterID::lfoShape]->getDouble());
 
-  interpPanIn.push(param.value[ParameterID::inPan]->getFloat());
-  interpSpreadIn.push(param.value[ParameterID::inSpread]->getFloat());
-  interpPanOut.push(param.value[ParameterID::outPan]->getFloat());
-  interpSpreadOut.push(param.value[ParameterID::outSpread]->getFloat());
+  interpPanIn.push(param.value[ParameterID::inPan]->getDouble());
+  interpSpreadIn.push(param.value[ParameterID::inSpread]->getDouble());
+  interpPanOut.push(param.value[ParameterID::outPan]->getDouble());
+  interpSpreadOut.push(param.value[ParameterID::outSpread]->getDouble());
 
-  interpToneCutoff.push(param.value[ParameterID::toneCutoff]->getFloat());
-  interpToneQ.push(param.value[ParameterID::toneQ]->getFloat());
+  interpToneCutoff.push(param.value[ParameterID::toneCutoff]->getDouble());
+  interpToneQ.push(param.value[ParameterID::toneQ]->getDouble());
   interpToneMix.push(
-    float(Scales::toneMix.map(param.value[ParameterID::toneCutoff]->getNormalized())));
+    double(Scales::toneMix.map(param.value[ParameterID::toneCutoff]->getNormalized())));
 
-  interpDCKill.push(param.value[ParameterID::dckill]->getFloat());
-  interpDCKillMix.push(float(
+  interpDCKill.push(param.value[ParameterID::dckill]->getDouble());
+  interpDCKillMix.push(double(
     Scales::dckillMix.reverseMap(param.value[ParameterID::dckill]->getNormalized())));
 }
 
 void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
-  SmootherCommon<float>::setBufferSize(float(length));
+  SmootherCommon<double>::setBufferSize(double(length));
 
   const bool lfoHold = !param.value[ParameterID::lfoHold]->getInt();
   for (size_t i = 0; i < length; ++i) {
     processMidiNote(i);
 
     auto sign = (pi < lfoPhase) - (lfoPhase < pi);
-    const float lfo = sign * powf(fabsf(float(sin(lfoPhase))), interpLfoShape.process());
-    const float lfoTime = interpLfoTimeAmount.process() * (1.0f + lfo);
+    const auto lfo
+      = sign * std::pow(std::abs(std::sin(lfoPhase)), interpLfoShape.process());
+    const auto lfoTime = interpLfoTimeAmount.process() * (double(1) + lfo);
 
     delay[0].setTime(interpTime[0].process() + lfoTime);
     delay[1].setTime(interpTime[1].process() + lfoTime);
 
-    const float feedback = interpFeedback.process();
-    const auto inDelay
-      = calcPan(in0[i], in1[i], interpPanIn.process(), interpSpreadIn.process());
+    const auto feedback = interpFeedback.process();
+    const auto inDelay = calcPan(
+      double(in0[i]), double(in1[i]), interpPanIn.process(), interpSpreadIn.process());
     delayOut[0] = delay[0].process(inDelay[0] + feedback * delayOut[0]);
     delayOut[1] = delay[1].process(inDelay[1] + feedback * delayOut[1]);
 
-    const float lfoTone = interpLfoToneAmount.process() * (0.5f * lfo + 0.5f);
-    float toneCutoff = interpToneCutoff.process() * lfoTone * lfoTone;
-    if (toneCutoff < 20.0f) toneCutoff = 20.0f;
-    const float toneQ = interpToneQ.process();
+    const auto lfoTone
+      = interpLfoToneAmount.process() * (double(0.5) * lfo + double(0.5));
+    auto toneCutoff = interpToneCutoff.process() * lfoTone * lfoTone;
+    if (toneCutoff < double(20)) toneCutoff = double(20);
+    const auto toneQ = interpToneQ.process();
     filter[0].setCutoffQ(toneCutoff, toneQ);
     filter[1].setCutoffQ(toneCutoff, toneQ);
-    float filterOutL = filter[0].process(delayOut[0]);
-    float filterOutR = filter[1].process(delayOut[1]);
-    const float toneMix = interpToneMix.process();
+    auto filterOutL = filter[0].process(delayOut[0]);
+    auto filterOutR = filter[1].process(delayOut[1]);
+    const auto toneMix = interpToneMix.process();
     delayOut[0] = filterOutL + toneMix * (delayOut[0] - filterOutL);
     delayOut[1] = filterOutR + toneMix * (delayOut[1] - filterOutR);
 
-    const float dckill = interpDCKill.process();
+    const auto dckill = interpDCKill.process();
     dcKiller[0].setCutoff(dckill);
     dcKiller[1].setCutoff(dckill);
     filterOutL = dcKiller[0].process(delayOut[0]);
     filterOutR = dcKiller[1].process(delayOut[1]);
-    const float dckillMix = interpDCKillMix.process();
+    const auto dckillMix = interpDCKillMix.process();
     // dckillmix == 1 -> delayout
     delayOut[0] = filterOutL + dckillMix * (delayOut[0] - filterOutL);
     delayOut[1] = filterOutR + dckillMix * (delayOut[1] - filterOutR);
     delayOut = calcPan(
       delayOut[0], delayOut[1], interpPanOut.process(), interpSpreadOut.process());
 
-    const float wet = interpWetMix.process();
-    const float dry = interpDryMix.process();
-    out0[i] = dry * in0[i] + wet * delayOut[0];
-    out1[i] = dry * in1[i] + wet * delayOut[1];
+    const auto wet = interpWetMix.process();
+    const auto dry = interpDryMix.process();
+    out0[i] = float(dry * in0[i] + wet * delayOut[0]);
+    out1[i] = float(dry * in1[i] + wet * delayOut[1]);
 
     if (lfoHold) {
       lfoPhase += interpLfoFrequency.process() * lfoPhaseTick;
-      if (lfoPhase > 2.0f * pi) lfoPhase -= 2.0f * pi;
+      if (lfoPhase > double(2) * pi) lfoPhase -= double(2) * pi;
     }
   }
 }
@@ -201,7 +204,7 @@ void DSPCore::noteOff(int_fast32_t noteId)
   noteStack.erase(it);
 
   if (noteStack.empty()) {
-    notePitchMultiplier = float(1);
+    notePitchMultiplier = double(1);
   } else {
     notePitchMultiplier = calcNotePitch(noteStack.back().pitch);
   }
@@ -215,13 +218,13 @@ void DSPCore::updateDelayTime()
 
   auto time = param.value[ParameterID::time]->getFloat() * notePitchMultiplier;
   if (param.value[ParameterID::tempoSync]->getInt()) {
-    if (time < 1.0f)
-      time *= 15.0f / float(tempo);
+    if (time < double(1))
+      time *= double(15) / double(tempo);
     else
-      time = std::floor(2.0f * time) * 7.5f / float(tempo);
+      time = std::floor(double(2) * time) * double(7.5) / double(tempo);
   }
 
   auto offset = param.value[ParameterID::offset]->getFloat();
-  interpTime[0].push(offset < 0.0f ? time * (1.0f + offset) : time);
-  interpTime[1].push(offset > 0.0f ? time * (1.0f - offset) : time);
+  interpTime[0].push(offset < double(0) ? time * (double(1) + offset) : time);
+  interpTime[1].push(offset > double(0) ? time * (double(1) - offset) : time);
 }
