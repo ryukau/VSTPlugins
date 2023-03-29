@@ -6,7 +6,7 @@
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <meta name="dcterms.date" content="2023-03-29" />
-<title>SevenDelay_en</title>
+<title>RingModSpacer_en</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -268,7 +268,7 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#sevendelay" id="toc-sevendelay">SevenDelay</a>
+  <li><a href="#ringmodspacer" id="toc-ringmodspacer">RingModSpacer</a>
   <ul>
   <li><a href="#contact" id="toc-contact">Contact</a></li>
   <li><a href="#installation" id="toc-installation">Installation</a>
@@ -300,13 +300,14 @@ footer {
   Options</a></li>
   </ul></li>
   <li><a href="#controls" id="toc-controls">Controls</a></li>
-  <li><a href="#caution" id="toc-caution">Caution</a></li>
+  <li><a href="#usage" id="toc-usage">Usage</a></li>
   <li><a href="#block-diagram" id="toc-block-diagram">Block
   Diagram</a></li>
   <li><a href="#parameters" id="toc-parameters">Parameters</a>
   <ul>
-  <li><a href="#delay" id="toc-delay">Delay</a></li>
-  <li><a href="#lfo" id="toc-lfo">LFO</a></li>
+  <li><a href="#gain" id="toc-gain">Gain</a></li>
+  <li><a href="#misc." id="toc-misc.">Misc.</a></li>
+  <li><a href="#input-side" id="toc-input-side">Input, Side</a></li>
   </ul></li>
   <li><a href="#change-log" id="toc-change-log">Change Log</a></li>
   <li><a href="#old-versions" id="toc-old-versions">Old
@@ -320,27 +321,31 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="sevendelay">SevenDelay</h1>
-<p><img src="img/SevenDelay.png" /></p>
-<p>SevenDelay is a stereo delay with 7th order lagrange interpolated
-fractional delay and 7x oversampling.</p>
+<h1 id="ringmodspacer">RingModSpacer</h1>
+<p><img src="img/RingModSpacer.png" /></p>
+<p>RingModSpacer is a sidechain limiter that adds severe distortion.
+First, full-wave rectification is applied to sidechain input. Then
+rectified signal modulates amplitude of main input. The sum of modulated
+main signal and raw sidechain signal won’t clip, when both peak
+amplitudes are under 0 dB. That’s the theory. The hard part is to figure
+out when to use this effect.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/SevenDelay_0.1.27.zip">Download
-SevenDelay 0.1.27 <code>full</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/RingModSpacer_0.1.1.zip">Download
+RingModSpacer 0.1.1 <code>full</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/SevenDelay_0.1.27_macOS.zip">Download
-SevenDelay 0.1.27 <code>macOS</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/RingModSpacer_0.1.1_macOS.zip">Download
+RingModSpacer 0.1.1 <code>macOS</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/SevenDelayPresets.zip">Download
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/RingModSpacerPresets.zip">Download
 Presets (github.com)</a></li>
 </ul>
 <p><code>full</code> package contains following builds.</p>
@@ -618,287 +623,78 @@ value.
 floor is applied after the value is converted to amplitude.</li>
 </ul></li>
 </ul>
-<h2 id="caution">Caution</h2>
-<p>When the value of <code>Smooth</code> is near zero and change the
-value of <code>Allpass Cut</code> too fast, SevenDelay may output very
-loud click noise. This is caused by the filter which becomes unstable
-when cutoff frequency moves too fast. Recommendation is not to set
-<code>Smooth</code> parameter too low unless you have some specific
-purpose.</p>
-<p>When the value of <code>Time</code> is set to minimum and the value
-of <code>Feedback</code> is set to maximum, SevenDelay outputs direct
-current (DC). To remove DC, Set <code>DC Kill</code> to be greater than
-1.0.</p>
+<h2 id="usage">Usage</h2>
+<p>First, prepare the main input and the sidechain input. Feed the
+signal you want to keep clean into the sidechain. Main will be
+distorted. Please refer to your DAW manual for instructions on how to
+route to sidechain.</p>
+<p>Next, increase <code>Gain</code> in Input and Gain section to set
+peak amplitude of both inputs to 0 dB. This step ensures maximum effect,
+but can be skipped.</p>
+<p>Finally, change <code>Ring-Sub. Mix</code>, <code>Attack</code>, and
+<code>Release</code> to adjust the texture. Setting is complete after
+that.</p>
+<p>RingModSpacer is a kind of distortion effect. If distortion is
+undesirable, typical sidechain limiter with threshold set to -∞ dB is a
+better fit.</p>
 <h2 id="block-diagram">Block Diagram</h2>
 <p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd>
 or “View Image” on right click menu to scale.</p>
 <p>Diagram only shows overview. It’s not exact implementation.</p>
-<p><img src="img/SevenDelay.svg" /></p>
+<p><img src="img/RingModSpacer.svg" /></p>
 <h2 id="parameters">Parameters</h2>
-<h3 id="delay">Delay</h3>
+<p>Characters inside of square brackets [] represents unit. Following is
+a list of units used in RingModSpacer.</p>
+<ul>
+<li>[dB] : Decibel.</li>
+<li>[s] : Second.</li>
+</ul>
+<h3 id="gain">Gain</h3>
 <dl>
-<dt>Time</dt>
+<dt>Output [dB]</dt>
 <dd>
-<p>Delay time. Range is 0.0001 to 8.0.</p>
-<ul>
-<li>If <code>Sync</code> is on and <code>Time</code> is less than 1.0,
-then delay time is set to <code>Time / 16</code> beats.</li>
-<li>If <code>Sync</code> is on and <code>Time</code> is greater or equal
-to 1.0, then delay time is set to <code>floor(2 * Time) / 32</code>
-beats.</li>
-<li>Otherwise, delay time is set to <code>Time</code> seconds.</li>
-</ul>
+<p>Output gain.</p>
 </dd>
-<dt>Feedback</dt>
+<dt>Side Mix</dt>
 <dd>
-<p>Delay feedback. Range is 0.0 to 1.0.</p>
+<p>Amount to mix sidechain input into output.</p>
 </dd>
-<dt>Stereo</dt>
+<dt>Ring-Sub. Mix</dt>
 <dd>
-<p>L/R stereo offset. Range is -1.0 to 1.0.</p>
-<ul>
-<li>If <code>Stereo</code> is less than 0.0, then left channel delay
-time is modified to <code>timeL * (1.0 + Stereo)</code>.</li>
-<li>Otherwise, right channel delay time is modified to
-<code>timeR * (1.0 - Stereo)</code>.</li>
-</ul>
-</dd>
-<dt>Wet</dt>
-<dd>
-<p>Output volume of delayed signal. Range is 0.0 to 1.0.</p>
-</dd>
-<dt>Dry</dt>
-<dd>
-<p>Output volume of input signal. Range is 0.0 to 1.0.</p>
-</dd>
-<dt>Sync</dt>
-<dd>
-<p>Toggle tempo sync.</p>
-</dd>
-<dt>Negative</dt>
-<dd>
-<p>Toggle negative feedback. This may be useful when delay time is very
-short.</p>
-</dd>
-<dt>In/Out Spread/Pan</dt>
-<dd>
-<p>Panning controls. Range is 0.0 to 1.0.</p>
-<p><code>In/Out Spread</code> controls stereo spread.
-<code>In/Out Pan</code> controls stereo panning.</p>
-<p>These parameter can be used for inverse panning, ping-pong delay
-etc.</p>
-<ul>
-<li>For inverse panning, set
-<code>[InSpread, InPan, OutSpread, OutPan]</code> to
-<code>[0.0, 0.5, 1.0, 0.5]</code>.</li>
-<li>For ping-pong delay, set
-<code>[InSpread, InPan, OutSpread, OutPan]</code> to
-<code>[1.0, 0.5, 0.0, 0.5]</code>.</li>
-</ul>
-<pre><code>signalL = inL + spread * (inR - inL)
-signalR = inL + (1.0f - spread) * (inR - inL)
-
-if (pan &lt; 0.5f) {
-  outL = (0.5f + pan) * signalL + (0.5f - pan) * signalR,
-  outR = signalR * 2.0f * pan,
-}
-else {
-  outL = signalL * (2.0f - 2.0f * pan)
-  outR = (pan - 0.5f) * signalL + (1.5f - pan) * signalR
-}</code></pre>
-</dd>
-<dt>Allpass Cut</dt>
-<dd>
-<p>SFV allpass filter cutoff frequency. Range is 90.0 to 20000.0.</p>
-<p>If <code>Allpass Cut</code> is 20000.0, filter will be bypassed.</p>
-</dd>
-<dt>Allpass Q</dt>
-<dd>
-<p>SFV allpass filter resonance. Range is 0.00001 to 1.0.</p>
-</dd>
-<dt>DC Kill</dt>
-<dd>
-<p>Cutoff frequency of biquad highpass filter. Range is 1.0 to
-120.0.</p>
-<p><code>DC Kill</code> removes direct current from delay feedback when
-the value is set to be greater than 1.0.</p>
-</dd>
-<dt>Smooth</dt>
-<dd>
-<p>Parameter smoothing. Range is 0.0 to 1.0. Unit is seconds.</p>
-<p>Some parameter may produce noise when the value is changed too fast.
-Increasing <code>Smooth</code> reduces those noise.</p>
+<p>Mixing amount between ring modulation and differential methods of
+creating gaps in the waveform.</p>
+<p>When <code>Ring-Sub. Mix</code> is 0, ring modulation method is used.
+When <code>Ring-Sub. Mix</code> is 1, difference method is used.</p>
 </dd>
 </dl>
-<h3 id="lfo">LFO</h3>
+<h3 id="misc.">Misc.</h3>
 <dl>
-<dt>To Time</dt>
+<dt>Smoothing [s]</dt>
 <dd>
-<p>LFO modulation amount to delay time. Range is 0.0 to 1.0.</p>
+<p>Time to reach new value after change of parameter.</p>
 </dd>
-<dt>To Allpass</dt>
+</dl>
+<h3 id="input-side">Input, Side</h3>
+<dl>
+<dt>Gain[dB]</dt>
 <dd>
-<p>LFO modulation amount to allpass cutoff frequency. Range is 0.0 to
-1.0.</p>
+<p>Limiter make up gain.</p>
 </dd>
-<dt>Freq</dt>
+<dt>Attack [s]</dt>
 <dd>
-<p>LFO frequency. Range is 0.01 to 100.0.</p>
+<p>Limiter attack time.</p>
 </dd>
-<dt>Shape</dt>
+<dt>Release [s]</dt>
 <dd>
-<p>LFO waveform shape. Range is 0.01 to 10.0.</p>
-<pre><code>sign = 1 if (phase &gt; π),
-      -1 if (phase &lt; π),
-       0 if (phase == π)
-lfo = sign * abs(sin(phase))^shape</code></pre>
-</dd>
-<dt>Phase</dt>
-<dd>
-<p>LFO initial phase. Range is 0.0 to 2π.</p>
-<p>LFO phase is reset to <code>Phase</code> for each time host starts
-playing.</p>
-</dd>
-<dt>Hold</dt>
-<dd>
-<p>Toggle LFO phase hold. This may be useful for live performance.</p>
+<p>Limiter release time.</p>
 </dd>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
-<li>0.1.27
-<ul>
-<li>Changed to use double precision floating point number.</li>
-<li>Fixed presets. <code>Bypass</code> parameter was enabled in old
-presets.</li>
-</ul></li>
-<li>0.1.26
-<ul>
-<li>Added note event input to control delay times.</li>
-</ul></li>
-<li>0.1.25
-<ul>
-<li>Fixed crash on Renoise. Previous code was trying to access freed
-memory of GUI widgets, and it was causing the crash.</li>
-</ul></li>
-<li>0.1.24
-<ul>
-<li>Fixed stuttering on Audacity where <code>processContext</code> is
-<code>nullptr</code>.</li>
-</ul></li>
-<li>0.1.23
-<ul>
-<li>Added to <code>virtual</code> to destructor of common components.
-This may prevent some cause of crash or memory leak.</li>
-</ul></li>
-<li>0.1.22
-<ul>
-<li>Updated VST 3 SDK to version 3.7.6. This also fixes the crash when
-opening multiple GUI of same plugin on Linux.</li>
-</ul></li>
-<li>0.1.21
-<ul>
-<li>Resume macOS build.</li>
-</ul></li>
-<li>0.1.20
-<ul>
-<li>Fixed crash on Linux.</li>
-</ul></li>
-<li>0.1.19
-<ul>
-<li>Fixed the condition of acceptable channel count. This is a fix for
-unintentional muting on sidechain in REAPER.</li>
-</ul></li>
-<li>0.1.18
-<ul>
-<li>Added custom font options for <code>style.json</code>.</li>
-</ul></li>
-<li>0.1.17
-<ul>
-<li>Updated VSTGUI from 4.10 to 4.11.</li>
-</ul></li>
-<li>0.1.16
-<ul>
-<li>Changed font to Tinos.</li>
-<li>Fixed the clipping of knob.</li>
-</ul></li>
-<li>0.1.15
-<ul>
-<li>Fixed to reset properly.</li>
-<li>Fixed <code>bypass</code> parameter behavior. This fixes playing all
-the notes at the moment of unmute, even if host sends note to plugin
-while muting. This bug was only happening on the hosts which respect VST
-3 <code>bypass</code> parameter.</li>
-</ul></li>
-<li>0.1.14
-<ul>
-<li>Changed <code>In Pan</code> and <code>Out Pan</code> from stereo
-balance to stereo panning.</li>
-<li>Added time readout display.</li>
-</ul></li>
-<li>0.1.13
-<ul>
-<li>Implemented process context requirements.</li>
-</ul></li>
-<li>0.1.12
-<ul>
-<li>Added check that DSP is initialized or not.</li>
-</ul></li>
-<li>0.1.11
-<ul>
-<li>Added color configuration.</li>
-</ul></li>
-<li>0.1.10
-<ul>
-<li>Reverted parameter smoother to the old one which works with variable
-size audio buffer.</li>
-</ul></li>
-<li>0.1.9
-<ul>
-<li>Fixed a bug that cause crash when drawing string.</li>
-</ul></li>
-<li>0.1.8
-<ul>
-<li>Changed display method for pop-up which shows up by clicking plugin
-title.</li>
-</ul></li>
-<li>0.1.7
-<ul>
-<li>Fixed to stop sounds when deactivated.</li>
-</ul></li>
-<li>0.1.6
-<ul>
-<li>Enabled GUI for Linux build.</li>
-</ul></li>
-<li>0.1.5
-<ul>
-<li>Fixed wobbling knob bug.</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li>Added support for synchronization between multiple GUI
-instances.</li>
-<li>Fixed a bug that opening splash screen causes crash.</li>
-<li>Fixed a bug that crash plugin when reloading.</li>
-<li>Fixed GUI to follow host automation.</li>
-</ul></li>
-<li>0.1.3
-<ul>
-<li>Fixed smoothing algorithm to prevent blow up.</li>
-<li>Fixed a bug that LFO Hold on/off was inverted.</li>
-<li>Removed a modulation from LFO to allpass mixing.</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>Changed internal parameter structure.</li>
-<li>Changed UI looks.</li>
-</ul></li>
 <li>0.1.1
 <ul>
-<li>Disabled GUI for Linux build. This is a makeshift change while
-tracking down a bug related to VSTGUI.</li>
-<li>Changed tuning of <code>To Allpass</code> of LFO.</li>
-<li>Changed minimal value of <code>DC Kill</code> to 5.0 Hz.</li>
+<li>Changed update timing of <code>Gain</code> parameters to mouse
+up.</li>
 </ul></li>
 <li>0.1.0
 <ul>
@@ -906,73 +702,9 @@ tracking down a bug related to VSTGUI.</li>
 </ul></li>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
-<ul>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/SevenDelay_0.1.26.zip">SevenDelay
-0.1.26 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/SevenDelay_0.1.25.zip">SevenDelay
-0.1.25 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/SevenDelay_0.1.24.zip">SevenDelay
-0.1.24 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/SevenDelay_0.1.23.zip">SevenDelay
-0.1.23 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/SevenDelay_0.1.22.zip">SevenDelay
-0.1.22 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/SevenDelay_0.1.21.zip">SevenDelay
-0.1.21 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/SevenDelay_0.1.20.zip">SevenDelay
-0.1.20 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/SevenDelay_0.1.19.zip">SevenDelay
-0.1.19 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/SevenDelay_0.1.18.zip">SevenDelay
-0.1.18 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/SevenDelay_0.1.16.zip">SevenDelay
-0.1.16 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/SevenDelay_0.1.15.zip">SevenDelay
-0.1.15 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.14/SevenDelay0.1.14.zip">SevenDelay
-0.1.14 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SevenDelay0.1.13.zip">SevenDelay
-0.1.13 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/SevenDelay0.1.12.zip">SevenDelay
-0.1.12 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SevenDelay0.1.11.zip">SevenDelay
-0.1.11 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SevenDelay0.1.10.zip">SevenDelay
-0.1.10 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SevenDelay0.1.9.zip">SevenDelay
-0.1.9 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip">SevenDelay
-0.1.7 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip">SevenDelay
-0.1.6 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelay0.1.5.zip">SevenDelay
-0.1.5 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SevenDelay0.1.4.zip">SevenDelay
-0.1.4 - VST 3 (github.com)</a></li>
-</ul>
+<p>N/A.</p>
 <h2 id="license">License</h2>
-<p>SevenDelay is licensed under GPLv3. Complete licenses are linked
+<p>RingModSpacer is licensed under GPLv3. Complete licenses are linked
 below.</p>
 <ul>
 <li><a

@@ -1,0 +1,29 @@
+{
+  "FeedbackPhaser": {
+    "latest_version": "0.1.1",
+    "urls": {
+      "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/FeedbackPhaser_0.1.1.zip"
+      ],
+      "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/FeedbackPhaserPresets.zip"
+    },
+    "changelog": {
+      "0.1.1": {
+        "en": [
+          "Fixed a bug that sending sound before opening GUI cause crash on Renoise."
+        ],
+        "ja": [
+          "Renoise で GUI を開く前に音を入力するとクラッシュするバグを修正。"
+        ]
+      },
+      "0.1.0": {
+        "en": [
+          "Initial release."
+        ],
+        "ja": [
+          "初期リリース。"
+        ]
+      }
+    }
+  }
+}

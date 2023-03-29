@@ -2,6 +2,8 @@ exclude:
 - README.md
 - dev_note/vst3_dev.md
 - index.md
+- manual/AccumulativeRingMod/AccumulativeRingMod_en.md
+- manual/AccumulativeRingMod/AccumulativeRingMod_ja.md
 - manual/BasicLimiter/BasicLimiter_en.md
 - manual/BasicLimiter/BasicLimiter_ja.md
 - manual/ClangSynth/ClangSynth_en.md
@@ -20,6 +22,8 @@ exclude:
 - manual/FDN64Reverb/FDN64Reverb_ja.md
 - manual/FDNCymbal/FDNCymbal_en.md
 - manual/FDNCymbal/FDNCymbal_ja.md
+- manual/FeedbackPhaser/FeedbackPhaser_en.md
+- manual/FeedbackPhaser/FeedbackPhaser_ja.md
 - manual/IterativeSinCluster/IterativeSinCluster_en.md
 - manual/IterativeSinCluster/IterativeSinCluster_ja.md
 - manual/L4Reverb/L4Reverb_en.md
@@ -46,6 +50,8 @@ exclude:
 - manual/ParallelDetune/ParallelDetune_ja.md
 - manual/PitchShiftDelay/PitchShiftDelay_en.md
 - manual/PitchShiftDelay/PitchShiftDelay_ja.md
+- manual/RingModSpacer/RingModSpacer_en.md
+- manual/RingModSpacer/RingModSpacer_ja.md
 - manual/SevenDelay/SevenDelay_en.md
 - manual/SevenDelay/SevenDelay_ja.md
 - manual/SyncSawSynth/SyncSawSynth_en.md

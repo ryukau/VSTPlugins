@@ -6,7 +6,7 @@
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <meta name="dcterms.date" content="2023-03-29" />
-<title>SevenDelay_en</title>
+<title>FeedbackPhaser_en</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -268,7 +268,8 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#sevendelay" id="toc-sevendelay">SevenDelay</a>
+  <li><a href="#feedbackphaser"
+  id="toc-feedbackphaser">FeedbackPhaser</a>
   <ul>
   <li><a href="#contact" id="toc-contact">Contact</a></li>
   <li><a href="#installation" id="toc-installation">Installation</a>
@@ -301,12 +302,24 @@ footer {
   </ul></li>
   <li><a href="#controls" id="toc-controls">Controls</a></li>
   <li><a href="#caution" id="toc-caution">Caution</a></li>
+  <li><a href="#usage" id="toc-usage">Usage</a>
+  <ul>
+  <li><a href="#quick-start" id="toc-quick-start">Quick Start</a></li>
+  <li><a href="#taming-feedback" id="toc-taming-feedback">Taming
+  Feedback</a></li>
+  <li><a href="#where-to-automate" id="toc-where-to-automate">Where to
+  Automate</a></li>
+  </ul></li>
   <li><a href="#block-diagram" id="toc-block-diagram">Block
   Diagram</a></li>
   <li><a href="#parameters" id="toc-parameters">Parameters</a>
   <ul>
-  <li><a href="#delay" id="toc-delay">Delay</a></li>
-  <li><a href="#lfo" id="toc-lfo">LFO</a></li>
+  <li><a href="#gain" id="toc-gain">Gain</a></li>
+  <li><a href="#feedback" id="toc-feedback">Feedback</a></li>
+  <li><a href="#allpass" id="toc-allpass">Allpass</a></li>
+  <li><a href="#modulation" id="toc-modulation">Modulation</a></li>
+  <li><a href="#note" id="toc-note">Note</a></li>
+  <li><a href="#misc." id="toc-misc.">Misc.</a></li>
   </ul></li>
   <li><a href="#change-log" id="toc-change-log">Change Log</a></li>
   <li><a href="#old-versions" id="toc-old-versions">Old
@@ -320,27 +333,28 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="sevendelay">SevenDelay</h1>
-<p><img src="img/SevenDelay.png" /></p>
-<p>SevenDelay is a stereo delay with 7th order lagrange interpolated
-fractional delay and 7x oversampling.</p>
+<h1 id="feedbackphaser">FeedbackPhaser</h1>
+<p><img src="img/FeedbackPhaser.png" /></p>
+<p>FeedbackPhaser is a phaser but the modulation source is feedback
+signal rather than an LFO. It sounds more like a distortion rather than
+a phaser most of times.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/SevenDelay_0.1.27.zip">Download
-SevenDelay 0.1.27 <code>full</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/FeedbackPhaser_0.1.1.zip">Download
+FeedbackPhaser 0.1.1 <code>full</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/SevenDelay_0.1.27_macOS.zip">Download
-SevenDelay 0.1.27 <code>macOS</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/FeedbackPhaser_0.1.1_macOS.zip">Download
+FeedbackPhaser 0.1.1 <code>macOS</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/SevenDelayPresets.zip">Download
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/FeedbackPhaserPresets.zip">Download
 Presets (github.com)</a></li>
 </ul>
 <p><code>full</code> package contains following builds.</p>
@@ -619,286 +633,220 @@ floor is applied after the value is converted to amplitude.</li>
 </ul></li>
 </ul>
 <h2 id="caution">Caution</h2>
-<p>When the value of <code>Smooth</code> is near zero and change the
-value of <code>Allpass Cut</code> too fast, SevenDelay may output very
-loud click noise. This is caused by the filter which becomes unstable
-when cutoff frequency moves too fast. Recommendation is not to set
-<code>Smooth</code> parameter too low unless you have some specific
-purpose.</p>
-<p>When the value of <code>Time</code> is set to minimum and the value
-of <code>Feedback</code> is set to maximum, SevenDelay outputs direct
-current (DC). To remove DC, Set <code>DC Kill</code> to be greater than
-1.0.</p>
+<p>It is recommended to always insert limiter after FeedbackPhaser.
+Output amplitude can exceed +140 dB, depending on the values of Feedback
+<code>Amount</code> and <code>Safety Clip</code>.</p>
+<h2 id="usage">Usage</h2>
+<h3 id="quick-start">Quick Start</h3>
+<p>Below is an example setup steps.</p>
+<ol type="1">
+<li>Launch FeedbackPhaser.</li>
+<li>Lower <code>Output</code> depending on the amplitude of input.</li>
+<li>Change Feedback <code>Amount</code>.</li>
+<li>Change Modulation <code>Amount</code>.</li>
+<li>Change <code>Safety Clip</code>.</li>
+</ol>
+<p>Output amplitude is mostly determined by above steps. After that,
+start changing other parameters.</p>
+<p>Note that the character of Modulation <code>Amount</code> changes
+depending on Modulation <code>Type</code>. It consequently changes the
+output amplitude.</p>
+<h3 id="taming-feedback">Taming Feedback</h3>
+<p><code>Safety Clip</code> is the most important parameter to limit
+output amplitude. if feedback amplitude exceeds <code>Safety Clip</code>
+amplitude, the text indicator:</p>
+<pre><code>Output is clean.</code></pre>
+<p>changes to:</p>
+<pre><code>Too much feedback.</code></pre>
+<p>Distortion will be added when “Too much feedback.” is displayed. If
+distortion is not desired, increase <code>Safety Clip</code>, and
+decrease <code>Output</code>.</p>
+<p>Sometimes increasing <code>Safety Clip</code> can’t stop distortion.
+In this case, reduce Feedback <code>Amount</code> and/or Modulation
+<code>Amount</code>.</p>
+<h3 id="where-to-automate">Where to Automate</h3>
+<p>Following parameters might be fun to automate.</p>
+<ul>
+<li>Allpass
+<ul>
+<li><code>Spread</code>.</li>
+<li><code>Center</code>.</li>
+</ul></li>
+<li>Modulation
+<ul>
+<li><code>Mod. Asym.</code>.</li>
+</ul></li>
+</ul>
+<p>Also, note event can be used to control Allpass
+<code>Center</code>.</p>
+<p>More Allpass <code>Stage</code> adds more resonance for feedback.
+However, it also dilutes the texture of input signal.</p>
 <h2 id="block-diagram">Block Diagram</h2>
 <p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd>
 or “View Image” on right click menu to scale.</p>
 <p>Diagram only shows overview. It’s not exact implementation.</p>
-<p><img src="img/SevenDelay.svg" /></p>
+<p><img src="img/FeedbackPhaser.svg" /></p>
 <h2 id="parameters">Parameters</h2>
-<h3 id="delay">Delay</h3>
+<p>Characters inside of square brackets [] represents unit. Following is
+a list of units used in FeedbackPhaser.</p>
+<ul>
+<li>[dB] : Decibel.</li>
+<li>[s] : Second.</li>
+<li>[st.] : Semitone.</li>
+<li>[Hz] : Frequency in Hertz.</li>
+</ul>
+<h3 id="gain">Gain</h3>
 <dl>
-<dt>Time</dt>
+<dt>Output [dB]</dt>
 <dd>
-<p>Delay time. Range is 0.0001 to 8.0.</p>
-<ul>
-<li>If <code>Sync</code> is on and <code>Time</code> is less than 1.0,
-then delay time is set to <code>Time / 16</code> beats.</li>
-<li>If <code>Sync</code> is on and <code>Time</code> is greater or equal
-to 1.0, then delay time is set to <code>floor(2 * Time) / 32</code>
-beats.</li>
-<li>Otherwise, delay time is set to <code>Time</code> seconds.</li>
-</ul>
+<p>Output gain.</p>
 </dd>
-<dt>Feedback</dt>
+<dt>Highpass [Hz]</dt>
 <dd>
-<p>Delay feedback. Range is 0.0 to 1.0.</p>
+<p>Cutoff frequency of highpass filter that is applied right before
+output.</p>
+<p>This highpass filter is used to remove direct current.</p>
 </dd>
-<dt>Stereo</dt>
+<dt>Mix</dt>
 <dd>
-<p>L/R stereo offset. Range is -1.0 to 1.0.</p>
-<ul>
-<li>If <code>Stereo</code> is less than 0.0, then left channel delay
-time is modified to <code>timeL * (1.0 + Stereo)</code>.</li>
-<li>Otherwise, right channel delay time is modified to
-<code>timeR * (1.0 - Stereo)</code>.</li>
-</ul>
-</dd>
-<dt>Wet</dt>
-<dd>
-<p>Output volume of delayed signal. Range is 0.0 to 1.0.</p>
-</dd>
-<dt>Dry</dt>
-<dd>
-<p>Output volume of input signal. Range is 0.0 to 1.0.</p>
-</dd>
-<dt>Sync</dt>
-<dd>
-<p>Toggle tempo sync.</p>
-</dd>
-<dt>Negative</dt>
-<dd>
-<p>Toggle negative feedback. This may be useful when delay time is very
-short.</p>
-</dd>
-<dt>In/Out Spread/Pan</dt>
-<dd>
-<p>Panning controls. Range is 0.0 to 1.0.</p>
-<p><code>In/Out Spread</code> controls stereo spread.
-<code>In/Out Pan</code> controls stereo panning.</p>
-<p>These parameter can be used for inverse panning, ping-pong delay
-etc.</p>
-<ul>
-<li>For inverse panning, set
-<code>[InSpread, InPan, OutSpread, OutPan]</code> to
-<code>[0.0, 0.5, 1.0, 0.5]</code>.</li>
-<li>For ping-pong delay, set
-<code>[InSpread, InPan, OutSpread, OutPan]</code> to
-<code>[1.0, 0.5, 0.0, 0.5]</code>.</li>
-</ul>
-<pre><code>signalL = inL + spread * (inR - inL)
-signalR = inL + (1.0f - spread) * (inR - inL)
-
-if (pan &lt; 0.5f) {
-  outL = (0.5f + pan) * signalL + (0.5f - pan) * signalR,
-  outR = signalR * 2.0f * pan,
-}
-else {
-  outL = signalL * (2.0f - 2.0f * pan)
-  outR = (pan - 0.5f) * signalL + (1.5f - pan) * signalR
-}</code></pre>
-</dd>
-<dt>Allpass Cut</dt>
-<dd>
-<p>SFV allpass filter cutoff frequency. Range is 90.0 to 20000.0.</p>
-<p>If <code>Allpass Cut</code> is 20000.0, filter will be bypassed.</p>
-</dd>
-<dt>Allpass Q</dt>
-<dd>
-<p>SFV allpass filter resonance. Range is 0.00001 to 1.0.</p>
-</dd>
-<dt>DC Kill</dt>
-<dd>
-<p>Cutoff frequency of biquad highpass filter. Range is 1.0 to
-120.0.</p>
-<p><code>DC Kill</code> removes direct current from delay feedback when
-the value is set to be greater than 1.0.</p>
-</dd>
-<dt>Smooth</dt>
-<dd>
-<p>Parameter smoothing. Range is 0.0 to 1.0. Unit is seconds.</p>
-<p>Some parameter may produce noise when the value is changed too fast.
-Increasing <code>Smooth</code> reduces those noise.</p>
+<p>Mixing ratio of input and output.</p>
+<p>Intensity of Feedback -&gt; <code>Amount</code> changes depending on
+value of <code>Mix</code>.</p>
 </dd>
 </dl>
-<h3 id="lfo">LFO</h3>
+<h3 id="feedback">Feedback</h3>
 <dl>
-<dt>To Time</dt>
+<dt>Amount</dt>
 <dd>
-<p>LFO modulation amount to delay time. Range is 0.0 to 1.0.</p>
+<p>Amount of feedback.</p>
+<p>Feedback signal may be hard clipped when absolute value of Feedback
+-&gt; <code>Amount</code> is high.</p>
+</dd>
+<dt>Safety Clip [dB]</dt>
+<dd>
+<p>When amplitude of feedback signal exceeds <code>Safety Clip</code>,
+feedback signal will be hard clipped internally.</p>
+<p>FeedbackPhaser applies hard clipping on feedback signal to prevent
+blowing up. Distortion will occur when hard clipping is engaged.</p>
+<p>To get clean sound, increase <code>Safety Clip</code> until text
+indicator in the Feedback section stays to
+<code>Output is clean.</code>, and no longer changes to
+<code>Too much feedback.</code> Beware that increasing
+<code>Safety Clip</code> sometimes drastically increases output
+amplitude. To compensate, turn down <code>Output</code> at the same
+time.</p>
+</dd>
+<dt>Highpass [Hz]</dt>
+<dd>
+<p>Cutoff frequency of highpass filter that is applied to feedback
+signal.</p>
+</dd>
+</dl>
+<h3 id="allpass">Allpass</h3>
+<dl>
+<dt>Stage</dt>
+<dd>
+<p>Number of allpass filters to serially connect.</p>
+</dd>
+<dt>Spread</dt>
+<dd>
+<p>Value to determine allpass filter cutoff frequency distribution.</p>
+<p>When <code>Spread</code> is 0, all of cutoff frequencies become as
+same as <code>Center</code>. When <code>Spread</code> is 1, cutoff
+frequencies becomes higher for later index, as in
+<code>Center * 1</code>, <code>Center * 2</code>,
+<code>Center * 3</code>, and so on.</p>
+<p>Below is the formula to calculate cutoff frequency of allpass
+filter.</p>
+<pre><code>allpassCutoffHz = modulation * Center * (1 - Spread * (index - 1)).</code></pre>
+</dd>
+<dt>Center [Hz]</dt>
+<dd>
+<p>Cutoff frequency of allpass filters when not modulated.</p>
+</dd>
+</dl>
+<h3 id="modulation">Modulation</h3>
+<dl>
+<dt>Type</dt>
+<dd>
+<p>Type of modulation scaling.</p>
+<ul>
+<li><code>Exp. Mul.</code> : Exponentially multiplies modulation amount
+as <code>Center * 2^modulation</code>.</li>
+<li><code>Lin. Mul.</code> : Linearly multiplies modulation amount as
+<code>Center * modulation</code>.</li>
+<li><code>Add</code> : Adds modulation amount as
+<code>Center + modulation</code>.</li>
+</ul>
+<p>The formulas on the list above aren’t directly used in
+implementation. Range restrictions and other things are also performed
+to avoid invalid values.</p>
+</dd>
+<dt>Amount</dt>
+<dd>
+<p>Amount of modulation by feedback signal.</p>
+<p>Modulation is applied to cutoff frequency of allpass filter.</p>
+</dd>
+<dt>Mod. Asym.</dt>
+<dd>
+<p>Mixing ratio between raw and full-wave rectified modulation
+signal.</p>
+</dd>
+<dt>Post LP [Hz]</dt>
+<dd>
+<p>Lowpass filter cutoff frequency.</p>
+<p>This lowpass filter applies to allpass filter cutoff frequencies
+after modulation.</p>
+</dd>
+</dl>
+<h3 id="note">Note</h3>
+<dl>
+<dt>Transpose [st.]</dt>
+<dd>
+<p>Note event transpose amount in semitones.</p>
 </dd>
 <dt>To Allpass</dt>
 <dd>
-<p>LFO modulation amount to allpass cutoff frequency. Range is 0.0 to
-1.0.</p>
+<p>Multiplier to pitch of a note.</p>
+<p>When <code>To Allpass</code> is 1, pitch is used without scaling.</p>
+<p>Note that FeedbackPhaser uses relative pitch represented by note, not
+absolute frequency represented by note.</p>
 </dd>
-<dt>Freq</dt>
+<dt>Slide [s]</dt>
 <dd>
-<p>LFO frequency. Range is 0.01 to 100.0.</p>
+<p>Pitch slide time when receiving a note-on before receiving a note-off
+of another note.</p>
 </dd>
-<dt>Shape</dt>
+<dt>Release [s]</dt>
 <dd>
-<p>LFO waveform shape. Range is 0.01 to 10.0.</p>
-<pre><code>sign = 1 if (phase &gt; π),
-      -1 if (phase &lt; π),
-       0 if (phase == π)
-lfo = sign * abs(sin(phase))^shape</code></pre>
+<p>Approximate time to return to <code>Center</code> from pitch of last
+note.</p>
 </dd>
-<dt>Phase</dt>
+</dl>
+<h3 id="misc.">Misc.</h3>
+<dl>
+<dt>Side Chain</dt>
 <dd>
-<p>LFO initial phase. Range is 0.0 to 2π.</p>
-<p>LFO phase is reset to <code>Phase</code> for each time host starts
-playing.</p>
+<p>When lit, uses sidechain input as modulating signal.</p>
 </dd>
-<dt>Hold</dt>
+<dt>Smoothing [s]</dt>
 <dd>
-<p>Toggle LFO phase hold. This may be useful for live performance.</p>
+<p>Time to reach new value after change of parameter.</p>
+</dd>
+<dt>Oversampling</dt>
+<dd>
+<p>Oversampling ratio.</p>
+<p>Increasing oversampling ratio may suppress gritty noise that appears
+when modulation is high. However, CPU load increases with higher
+oversampling ratio.</p>
 </dd>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
-<li>0.1.27
-<ul>
-<li>Changed to use double precision floating point number.</li>
-<li>Fixed presets. <code>Bypass</code> parameter was enabled in old
-presets.</li>
-</ul></li>
-<li>0.1.26
-<ul>
-<li>Added note event input to control delay times.</li>
-</ul></li>
-<li>0.1.25
-<ul>
-<li>Fixed crash on Renoise. Previous code was trying to access freed
-memory of GUI widgets, and it was causing the crash.</li>
-</ul></li>
-<li>0.1.24
-<ul>
-<li>Fixed stuttering on Audacity where <code>processContext</code> is
-<code>nullptr</code>.</li>
-</ul></li>
-<li>0.1.23
-<ul>
-<li>Added to <code>virtual</code> to destructor of common components.
-This may prevent some cause of crash or memory leak.</li>
-</ul></li>
-<li>0.1.22
-<ul>
-<li>Updated VST 3 SDK to version 3.7.6. This also fixes the crash when
-opening multiple GUI of same plugin on Linux.</li>
-</ul></li>
-<li>0.1.21
-<ul>
-<li>Resume macOS build.</li>
-</ul></li>
-<li>0.1.20
-<ul>
-<li>Fixed crash on Linux.</li>
-</ul></li>
-<li>0.1.19
-<ul>
-<li>Fixed the condition of acceptable channel count. This is a fix for
-unintentional muting on sidechain in REAPER.</li>
-</ul></li>
-<li>0.1.18
-<ul>
-<li>Added custom font options for <code>style.json</code>.</li>
-</ul></li>
-<li>0.1.17
-<ul>
-<li>Updated VSTGUI from 4.10 to 4.11.</li>
-</ul></li>
-<li>0.1.16
-<ul>
-<li>Changed font to Tinos.</li>
-<li>Fixed the clipping of knob.</li>
-</ul></li>
-<li>0.1.15
-<ul>
-<li>Fixed to reset properly.</li>
-<li>Fixed <code>bypass</code> parameter behavior. This fixes playing all
-the notes at the moment of unmute, even if host sends note to plugin
-while muting. This bug was only happening on the hosts which respect VST
-3 <code>bypass</code> parameter.</li>
-</ul></li>
-<li>0.1.14
-<ul>
-<li>Changed <code>In Pan</code> and <code>Out Pan</code> from stereo
-balance to stereo panning.</li>
-<li>Added time readout display.</li>
-</ul></li>
-<li>0.1.13
-<ul>
-<li>Implemented process context requirements.</li>
-</ul></li>
-<li>0.1.12
-<ul>
-<li>Added check that DSP is initialized or not.</li>
-</ul></li>
-<li>0.1.11
-<ul>
-<li>Added color configuration.</li>
-</ul></li>
-<li>0.1.10
-<ul>
-<li>Reverted parameter smoother to the old one which works with variable
-size audio buffer.</li>
-</ul></li>
-<li>0.1.9
-<ul>
-<li>Fixed a bug that cause crash when drawing string.</li>
-</ul></li>
-<li>0.1.8
-<ul>
-<li>Changed display method for pop-up which shows up by clicking plugin
-title.</li>
-</ul></li>
-<li>0.1.7
-<ul>
-<li>Fixed to stop sounds when deactivated.</li>
-</ul></li>
-<li>0.1.6
-<ul>
-<li>Enabled GUI for Linux build.</li>
-</ul></li>
-<li>0.1.5
-<ul>
-<li>Fixed wobbling knob bug.</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li>Added support for synchronization between multiple GUI
-instances.</li>
-<li>Fixed a bug that opening splash screen causes crash.</li>
-<li>Fixed a bug that crash plugin when reloading.</li>
-<li>Fixed GUI to follow host automation.</li>
-</ul></li>
-<li>0.1.3
-<ul>
-<li>Fixed smoothing algorithm to prevent blow up.</li>
-<li>Fixed a bug that LFO Hold on/off was inverted.</li>
-<li>Removed a modulation from LFO to allpass mixing.</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>Changed internal parameter structure.</li>
-<li>Changed UI looks.</li>
-</ul></li>
 <li>0.1.1
 <ul>
-<li>Disabled GUI for Linux build. This is a makeshift change while
-tracking down a bug related to VSTGUI.</li>
-<li>Changed tuning of <code>To Allpass</code> of LFO.</li>
-<li>Changed minimal value of <code>DC Kill</code> to 5.0 Hz.</li>
+<li>Fixed a bug that sending sound before opening GUI cause crash on
+Renoise.</li>
 </ul></li>
 <li>0.1.0
 <ul>
@@ -906,73 +854,9 @@ tracking down a bug related to VSTGUI.</li>
 </ul></li>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
-<ul>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/SevenDelay_0.1.26.zip">SevenDelay
-0.1.26 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/SevenDelay_0.1.25.zip">SevenDelay
-0.1.25 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/SevenDelay_0.1.24.zip">SevenDelay
-0.1.24 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/SevenDelay_0.1.23.zip">SevenDelay
-0.1.23 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/SevenDelay_0.1.22.zip">SevenDelay
-0.1.22 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/SevenDelay_0.1.21.zip">SevenDelay
-0.1.21 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/SevenDelay_0.1.20.zip">SevenDelay
-0.1.20 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/SevenDelay_0.1.19.zip">SevenDelay
-0.1.19 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/SevenDelay_0.1.18.zip">SevenDelay
-0.1.18 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/SevenDelay_0.1.16.zip">SevenDelay
-0.1.16 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/SevenDelay_0.1.15.zip">SevenDelay
-0.1.15 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/SevenDelay0.1.14/SevenDelay0.1.14.zip">SevenDelay
-0.1.14 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/SevenDelay0.1.13.zip">SevenDelay
-0.1.13 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/SevenDelay0.1.12.zip">SevenDelay
-0.1.12 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/SevenDelay0.1.11.zip">SevenDelay
-0.1.11 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/SevenDelay0.1.10.zip">SevenDelay
-0.1.10 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/SevenDelay0.1.9.zip">SevenDelay
-0.1.9 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelay0.1.7.zip">SevenDelay
-0.1.7 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/SevenDelay0.1.6.zip">SevenDelay
-0.1.6 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelay0.1.5.zip">SevenDelay
-0.1.5 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SevenDelay0.1.4.zip">SevenDelay
-0.1.4 - VST 3 (github.com)</a></li>
-</ul>
+<p>N/A.</p>
 <h2 id="license">License</h2>
-<p>SevenDelay is licensed under GPLv3. Complete licenses are linked
+<p>FeedbackPhaser is licensed under GPLv3. Complete licenses are linked
 below.</p>
 <ul>
 <li><a

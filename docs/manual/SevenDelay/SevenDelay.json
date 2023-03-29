@@ -1,8 +1,9 @@
 {
   "SevenDelay": {
-    "latest_version": "0.1.26",
+    "latest_version": "0.1.27",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/SevenDelay_0.1.27.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/SevenDelay_0.1.26.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/SevenDelay_0.1.25.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/SevenDelay_0.1.24.zip",
@@ -25,9 +26,19 @@
         "https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SevenDelay0.1.5.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/SevenDelay0.1.4.zip"
       ],
-      "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/SevenDelayPresets.zip"
+      "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/SevenDelayPresets.zip"
     },
     "changelog": {
+      "0.1.27": {
+        "en": [
+          "Changed to use double precision floating point number.",
+          "Fixed presets. `Bypass` parameter was enabled in old presets."
+        ],
+        "ja": [
+          "倍精度浮動小数点数を使うように変更。",
+          "プリセットを修正。古いプリセットでは `Bypass` パラメータが有効になっていた。"
+        ]
+      },
       "0.1.26": {
         "en": [
           "Added note event input to control delay times."

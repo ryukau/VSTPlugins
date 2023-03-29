@@ -75,6 +75,9 @@ All the plugin download link can be found at release page on following link.
 </a></div>
 
 #### Effects
+<div class="pluginlist"><a href="#accumulativeringmod">
+<ruby>AccumulativeRingMod<rt>アキュミュレーティブ リング モッド</rt></ruby>
+</a></div>
 <div class="pluginlist"><a href="#basiclimiter">
 <ruby>BasicLimiter<rt>ベーシック リミッタ</rt></ruby>
 </a></div>
@@ -86,6 +89,9 @@ All the plugin download link can be found at release page on following link.
 </a></div>
 <div class="pluginlist"><a href="#fdn64reverb">
 <ruby>FDN64Reverb<rt>エフディーエヌ 64 リバーブ</rt></ruby>
+</a></div>
+<div class="pluginlist"><a href="#feedbackphaser">
+<ruby>FeedbackPhaser<rt>フィードバック フェイザ</rt></ruby>
 </a></div>
 <div class="pluginlist"><a href="#l4reverb">
 <ruby>L4Reverb<rt>エル フォー リバーブ</rt></ruby>
@@ -114,12 +120,54 @@ All the plugin download link can be found at release page on following link.
 <div class="pluginlist"><a href="#pitchshiftdelay">
 <ruby>PitchShiftDelay<rt>ピッチ シフト ディレイ</rt></ruby>
 </a></div>
+<div class="pluginlist"><a href="#ringmodspacer">
+<ruby>RingModSpacer<rt>リング モッド スペーサ</rt></ruby>
+</a></div>
 <div class="pluginlist"><a href="#sevendelay">
 <ruby>SevenDelay<rt>セブン ディレイ</rt></ruby>
 </a></div>
 <div class="pluginlist"><a href="#ultrasonicringmod">
 <ruby>UltrasonicRingMod<rt>ウルトラソニック リング モッド</rt></ruby>
 </a></div>
+
+## FeedbackPhaser
+<figure>
+<img src="manual/FeedbackPhaser/img/FeedbackPhaser.png" alt="Image of FeedbackPhaser graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+
+FeedbackPhaser は LFO ではなくフィードバックによってオールパスフィルタのカットオフ周波数を変調するフェイザです。主に歪み系の音が出ます。
+
+- [FeedbackPhaser のマニュアル (日本語)](manual/FeedbackPhaser/FeedbackPhaser_ja.html)
+
+FeedbackPhaser is a phaser but the modulation source is feedback signal rather than an LFO. It sounds more like a distortion rather than a phaser most of times.
+
+- [FeedbackPhaser Manual (English)](manual/FeedbackPhaser/FeedbackPhaser_en.html)
+
+## AccumulativeRingMod
+<figure>
+<img src="manual/AccumulativeRingMod/img/AccumulativeRingMod.png" alt="Image of AccumulativeRingMod graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+
+AccumulativeRingMod は入力信号の振幅を積算した値を位相として使うリングモジュレータです。サイン波のようなシンプルな波形にかけると FM のような音がでます。
+
+- [AccumulativeRingMod のマニュアル (日本語)](manual/AccumulativeRingMod/AccumulativeRingMod_ja.html)
+
+AccumulativeRingMod is a ring modulator that uses accumulated amplitude of input signal as the phase. When applied to simple waveforms like a sine wave, it sounds similar to FM.
+
+- [AccumulativeRingMod Manual (English)](manual/AccumulativeRingMod/AccumulativeRingMod_en.html)
+
+## RingModSpacer
+<figure>
+<img src="manual/RingModSpacer/img/RingModSpacer.png" alt="Image of RingModSpacer graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+
+RingModSpacer は激しい歪みを生じるサイドチェインリミッタです。全波整流したサイドチェイン入力によってメインの入力を振幅変調することで、サイドチェインを足し合わせてもクリッピングしないような隙間をメインの入力にこじ開けることができます。当然、隙間をこじ開けられたメインの入力は歪むので使いどころが難しいです。
+
+- [RingModSpacer のマニュアル (日本語)](manual/RingModSpacer/RingModSpacer_ja.html)
+
+RingModSpacer is a sidechain limiter that adds severe distortion. First, full-wave rectification is applied to sidechain input. Then rectified signal modulates amplitude of main input. The sum of modulated main signal and raw sidechain signal won't clip, when both peak amplitudes are under 0 dB. That's the theory. The hard part is to figure out when to use this effect.
+
+- [RingModSpacer Manual (English)](manual/RingModSpacer/RingModSpacer_en.html)
 
 ## ParallelDetune
 <figure>
