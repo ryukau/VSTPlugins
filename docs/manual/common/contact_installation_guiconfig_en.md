@@ -14,7 +14,15 @@ Place `*.vst3` directory to:
 DAW may provides additional VST3 directory. For more information, please refer to the manual of the DAW.
 
 ### Presets
-Extract preset zip, then place preset directory to the OS specific path:
+**Notice**: Some plugins don't have presets provided by Uhhyou Plugins.
+
+To install presets, follow the steps below.
+
+1. Download presets from a link at the top of this page.
+2. Extract `*Presets.zip`. `*` here is [wildcard character](https://en.wikipedia.org/wiki/Wildcard_character).
+3. Place unzipped directory into an OS specific preset directory (see below).
+
+Below is a list of preset directories for each OS.
 
 - Windows : `/Users/$USERNAME/Documents/VST3 Presets/Uhhyou`
 - Linux : `$HOME/.vst3/presets/Uhhyou`
