@@ -3,7 +3,7 @@
     "latest_version": "0.1.1",
     "urls": {
       "plugin_url": [
-        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/FeedbackPhaser_0.1.1.zip"
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.1/FeedbackPhaser_0.1.1.zip"
       ],
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/FeedbackPhaserPresets.zip"
     },

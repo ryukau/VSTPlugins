@@ -3,7 +3,7 @@
     "latest_version": "0.1.0",
     "urls": {
       "plugin_url": [
-        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/AccumulativeRingMod_0.1.0.zip"
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/AccumulativeRingMod_0.1.0.zip"
       ],
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/AccumulativeRingModPresets.zip"
     },
