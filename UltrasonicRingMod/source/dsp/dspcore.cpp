@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with UltrasonicRingMod.  If not, see <https://www.gnu.org/licenses/>.
 
+#include "../../../lib/juce_ScopedNoDenormal.hpp"
+
 #include "dspcore.hpp"
 
 #include <algorithm>
@@ -81,6 +83,8 @@ void DSPCore::setParameters() { ASSIGN_PARAMETER(push); }
 void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
+  ScopedNoDenormals scopedDenormals;
+
   SmootherCommon<double>::setBufferSize(double(length));
 
   for (size_t i = 0; i < length; ++i) {
