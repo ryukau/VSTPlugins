@@ -57,7 +57,7 @@ function(add_common_resources target)
     "../License/lib/json/LICENSE.MIT"
     "License/lib/json")
   smtg_target_add_plugin_resource(${target}
-    "../License/lib/juce/LICENSE_juce_FastMathApproximations"
+    "../License/lib/juce/LICENSE.md"
     "License/lib/juce")
   smtg_target_add_plugin_resource(${target}
     "../License/lib/pcg-cpp/LICENSE-MIT.txt"
