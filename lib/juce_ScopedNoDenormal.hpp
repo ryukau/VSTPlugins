@@ -64,7 +64,9 @@ Below is list of original JUCE 7 source files.
   #include <float.h>
 #endif
 
-#include <immintrin.h>
+#if INTEL_CPU
+  #include <immintrin.h>
+#endif
 
 namespace SomeDSP {
 
