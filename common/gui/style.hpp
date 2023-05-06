@@ -56,7 +56,7 @@ private:
   int _fontFace{VSTGUI::CTxtFace::kBoldFace | VSTGUI::CTxtFace::kItalicFace};
   VSTGUI::CColor _foreground{0x00, 0x00, 0x00};
   VSTGUI::CColor _foregroundButtonOn{0x00, 0x00, 0x00};
-  VSTGUI::CColor _foregroundInactive{0x00, 0x00, 0x00};
+  VSTGUI::CColor _foregroundInactive{0x8a, 0x8a, 0x8a};
   VSTGUI::CColor _background{0xff, 0xff, 0xff};
   VSTGUI::CColor _boxBackground{0xff, 0xff, 0xff};
   VSTGUI::CColor _border{0x00, 0x00, 0x00};
