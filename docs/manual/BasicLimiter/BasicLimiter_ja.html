@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2023-03-30" />
+<meta name="dcterms.date" content="2023-05-06" />
 <title>BasicLimiter_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -52,7 +52,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -65,7 +65,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2023-03-30
+  Update: 2023-05-06
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -335,15 +335,15 @@ footer {
 は名前の通りベーシックなシングルバンドリミッタです。目新しい音は出ませんが、トゥルーピークモードはやや贅沢に設計しています。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/BasicLimiter_0.1.17.zip">BasicLimiter
-0.1.17 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/BasicLimiter_0.1.18.zip">BasicLimiter
+0.1.18 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/BasicLimiter_0.1.17_macOS.zip">BasicLimiter
-0.1.17 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/BasicLimiter_0.1.18_macOS.zip">BasicLimiter
+0.1.18 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -357,15 +357,15 @@ href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN6
 負荷は 1.5 倍強に上がります。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/BasicLimiterAutoMake_0.1.17.zip">BasicLimiterAutoMake
-0.1.17 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/BasicLimiterAutoMake_0.1.18.zip">BasicLimiterAutoMake
+0.1.18 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/BasicLimiterAutoMake_0.1.17_macOS.zip">BasicLimiterAutoMake
-0.1.17 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/BasicLimiterAutoMake_0.1.18_macOS.zip">BasicLimiterAutoMake
+0.1.18 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -810,6 +810,11 @@ BasicLimiterAutoMake
 <h2 id="チェンジログ">チェンジログ</h2>
 <h3 id="basiclimiter-1">BasicLimiter</h3>
 <ul>
+<li>0.1.18
+<ul>
+<li>デフォルトの <code>foregroundInactive</code> の色を変更。</li>
+<li>サブノーマル数によるパフォーマンスの低下を修正。</li>
+</ul></li>
 <li>0.1.17
 <ul>
 <li><code>Attack</code>
@@ -883,6 +888,11 @@ Audacity で音が正しく出力されなかったバグを修正。</li>
 </ul>
 <h3 id="basiclimiterautomake">BasicLimiterAutoMake</h3>
 <ul>
+<li>0.1.18
+<ul>
+<li>デフォルトの <code>foregroundInactive</code> の色を変更。</li>
+<li>サブノーマル数によるパフォーマンスの低下を修正。</li>
+</ul></li>
 <li>0.1.17
 <ul>
 <li><code>Attack</code>
@@ -955,6 +965,9 @@ Audacity で音が正しく出力されなかったバグを修正。</li>
 <h3 id="basiclimiter-2">BasicLimiter</h3>
 <ul>
 <li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/BasicLimiter_0.1.17.zip">BasicLimiter
+0.1.17 - VST 3 (github.com)</a></li>
+<li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/BasicLimiter_0.1.16.zip">BasicLimiter
 0.1.16 - VST 3 (github.com)</a></li>
 <li><a
@@ -996,6 +1009,9 @@ href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN6
 </ul>
 <h3 id="basiclimiterautomake-1">BasicLimiterAutoMake</h3>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/BasicLimiterAutoMake_0.1.17.zip">BasicLimiterAutoMake
+0.1.17 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/BasicLimiterAutoMake_0.1.16.zip">BasicLimiterAutoMake
 0.1.16 - VST 3 (github.com)</a></li>

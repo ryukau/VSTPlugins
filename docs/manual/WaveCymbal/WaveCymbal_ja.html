@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2023-03-30" />
+<meta name="dcterms.date" content="2023-05-06" />
 <title>WaveCymbal_ja</title>
 <style>
 code { white-space: pre-wrap; }
@@ -52,7 +52,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -65,7 +65,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -262,7 +262,7 @@ footer {
 <header>
     <p><a href="..\..\index.html">Back to Index</a></p>
       <p>
-  Update: 2023-03-30
+  Update: 2023-05-06
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -332,15 +332,15 @@ wave-guide
 という手法を用いてシンバルの音が鳴るはずだったシンセサイザです。実際のところはシンバルというよりも、アスファルトの上でトタン板や紐につないだ空き缶を引きずったときのような音が出ます。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/WaveCymbal_0.1.23.zip">WaveCymbal
-0.1.23 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/WaveCymbal_0.1.24.zip">WaveCymbal
+0.1.24 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/WaveCymbal_0.1.23_macOS.zip">WaveCymbal
-0.1.23 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/WaveCymbal_0.1.24_macOS.zip">WaveCymbal
+0.1.24 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
@@ -778,6 +778,11 @@ Karplus-Strong アルゴリズムによる弦の数を変更できます。</p>
 で調整できます。</p>
 <h2 id="チェンジログ">チェンジログ</h2>
 <ul>
+<li>0.1.24
+<ul>
+<li>デフォルトの <code>foregroundInactive</code> の色を変更。</li>
+<li>サブノーマル数によるパフォーマンスの低下を修正。</li>
+</ul></li>
 <li>0.1.23
 <ul>
 <li>Renoise で GUI がクラッシュするバグを修正。 GUI
@@ -893,6 +898,9 @@ VST 3 の <code>bypass</code>
 </ul>
 <h2 id="旧バージョン">旧バージョン</h2>
 <ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/WaveCymbal_0.1.23.zip">WaveCymbal
+0.1.23 - VST 3 (github.com)</a></li>
 <li><a
 href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/WaveCymbal_0.1.22.zip">WaveCymbal
 0.1.22 - VST 3 (github.com)</a></li>

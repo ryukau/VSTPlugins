@@ -1,8 +1,9 @@
 {
   "ParallelComb": {
-    "latest_version": "0.2.9",
+    "latest_version": "0.2.10",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/ParallelComb_0.2.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/ParallelComb_0.2.9.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ParallelComb_0.2.8.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/ParallelComb_0.2.7.zip",
@@ -15,6 +16,16 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.2.10": {
+        "en": [
+          "Changed default style color of `foregroundInactive`.",
+          "Fixed performance drop caused by subnormal floating point numbers."
+        ],
+        "ja": [
+          "デフォルトの `foregroundInactive` の色を変更。",
+          "サブノーマル数によるパフォーマンスの低下を修正。"
+        ]
+      },
       "0.2.9": {
         "en": [
           "Added note event input to control delay times."

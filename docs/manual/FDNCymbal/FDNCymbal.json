@@ -1,8 +1,9 @@
 {
   "FDNCymbal": {
-    "latest_version": "0.2.16",
+    "latest_version": "0.2.17",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/FDNCymbal_0.2.17.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/FDNCymbal_0.2.16.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/FDNCymbal_0.2.15.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/FDNCymbal_0.2.14.zip",
@@ -26,6 +27,16 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/FDNCymbalPresets.zip"
     },
     "changelog": {
+      "0.2.17": {
+        "en": [
+          "Changed default style color of `foregroundInactive`.",
+          "Fixed performance drop caused by subnormal floating point numbers."
+        ],
+        "ja": [
+          "デフォルトの `foregroundInactive` の色を変更。",
+          "サブノーマル数によるパフォーマンスの低下を修正。"
+        ]
+      },
       "0.2.16": {
         "en": [
           "Fixed crash on Renoise. Previous code was trying to access freed memory of GUI widgets, and it was causing the crash."

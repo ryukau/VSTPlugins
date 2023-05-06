@@ -98,12 +98,14 @@ if __name__ == "__main__":
     with open("../../package/manual.json", "r", encoding="utf-8") as fi:
         alias = json.load(fi)
 
-    release_name = "UhhyouPlugins0.54.0"
+    release_name = "UhhyouPlugins0.55.0"
     changelog_en = [
-        "Added note event input to control delay times.",
+        "Changed default style color of `foregroundInactive`.",
+        "Fixed performance drop caused by subnormal floating point numbers.",
     ]
     changelog_ja = [
-        "ディレイ時間を制御するためのノートイベント入力を追加。",
+        "デフォルトの `foregroundInactive` の色を変更。",
+        "サブノーマル数によるパフォーマンスの低下を修正。",
     ]
     for target in targets:
         updateVersion(target, alias, changelog_en, changelog_ja, release_name)

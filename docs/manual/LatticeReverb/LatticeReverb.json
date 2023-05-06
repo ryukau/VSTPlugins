@@ -1,8 +1,9 @@
 {
   "LatticeReverb": {
-    "latest_version": "0.1.21",
+    "latest_version": "0.1.22",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/LatticeReverb_0.1.22.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/LatticeReverb_0.1.21.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/LatticeReverb_0.1.20.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/LatticeReverb_0.1.19.zip",
@@ -27,6 +28,16 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverbPresets.zip"
     },
     "changelog": {
+      "0.1.22": {
+        "en": [
+          "Changed default style color of `foregroundInactive`.",
+          "Fixed performance drop caused by subnormal floating point numbers."
+        ],
+        "ja": [
+          "デフォルトの `foregroundInactive` の色を変更。",
+          "サブノーマル数によるパフォーマンスの低下を修正。"
+        ]
+      },
       "0.1.21": {
         "en": [
           "Added note event input to control delay times."

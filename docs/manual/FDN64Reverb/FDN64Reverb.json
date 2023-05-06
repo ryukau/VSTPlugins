@@ -1,8 +1,9 @@
 {
   "FDN64Reverb": {
-    "latest_version": "0.1.14",
+    "latest_version": "0.1.15",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/FDN64Reverb_0.1.15.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/FDN64Reverb_0.1.14.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/FDN64Reverb_0.1.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/FDN64Reverb_0.1.12.zip",
@@ -21,6 +22,16 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/FDN64ReverbPresets.zip"
     },
     "changelog": {
+      "0.1.15": {
+        "en": [
+          "Changed default style color of `foregroundInactive`.",
+          "Fixed performance drop caused by subnormal floating point numbers."
+        ],
+        "ja": [
+          "デフォルトの `foregroundInactive` の色を変更。",
+          "サブノーマル数によるパフォーマンスの低下を修正。"
+        ]
+      },
       "0.1.14": {
         "en": [
           "Added note event input to control delay times."

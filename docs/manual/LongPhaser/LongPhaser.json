@@ -1,8 +1,9 @@
 {
   "LongPhaser": {
-    "latest_version": "0.1.2",
+    "latest_version": "0.1.3",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/LongPhaser_0.1.3.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/LongPhaser_0.1.2.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/LongPhaser_0.1.1.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/LongPhaser_0.1.0.zip",
@@ -11,6 +12,16 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/LongPhaserPresets.zip"
     },
     "changelog": {
+      "0.1.3": {
+        "en": [
+          "Changed default style color of `foregroundInactive`.",
+          "Fixed performance drop caused by subnormal floating point numbers."
+        ],
+        "ja": [
+          "デフォルトの `foregroundInactive` の色を変更。",
+          "サブノーマル数によるパフォーマンスの低下を修正。"
+        ]
+      },
       "0.1.2": {
         "en": [
           "Added presets.",
