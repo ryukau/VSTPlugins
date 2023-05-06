@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with EnvelopedSine.  If not, see <https://www.gnu.org/licenses/>.
 
+#include "../../../lib/juce_ScopedNoDenormal.hpp"
+
 #include "dspcore.hpp"
 
 #include "../../../lib/vcl/vectormath_exp.h"
@@ -281,6 +283,8 @@ void DSPCORE_NAME::setParameters()
 
 void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
 {
+  ScopedNoDenormals scopedDenormals;
+
   SmootherCommon<float>::setBufferSize(float(length));
 
   std::array<float, 2> frame{};

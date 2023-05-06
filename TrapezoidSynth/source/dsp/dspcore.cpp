@@ -15,8 +15,10 @@
 // You should have received a copy of the GNU General Public License
 // along with TrapezoidSynth.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "dspcore.hpp"
 #include "../../../lib/juce_FastMathApproximations.h"
+#include "../../../lib/juce_ScopedNoDenormal.hpp"
+
+#include "dspcore.hpp"
 
 inline float clamp(float value, float min, float max)
 {
@@ -209,7 +211,8 @@ void TpzMono<Sample>::noteOn(
   this->normalizedKey = normalizedKey;
   if (
     param.value[ParameterID::gainEnvRetrigger]->getInt() || gainEnvelope.isTerminated()
-    || gainEnvelope.isReleasing()) {
+    || gainEnvelope.isReleasing())
+  {
     gainEnvelope.reset(
       param.value[ParameterID::gainA]->getFloat(),
       param.value[ParameterID::gainD]->getFloat(),
@@ -220,7 +223,8 @@ void TpzMono<Sample>::noteOn(
 
   if (
     param.value[ParameterID::filterEnvRetrigger]->getInt()
-    || filterEnvelope.isTerminated() || filterEnvelope.isReleasing()) {
+    || filterEnvelope.isTerminated() || filterEnvelope.isReleasing())
+  {
     filterEnvelope.reset(
       param.value[ParameterID::filterA]->getFloat(),
       param.value[ParameterID::filterD]->getFloat(),
@@ -386,6 +390,8 @@ void DSPCore::setParameters(double tempo)
 
 void DSPCore::process(const size_t length, float *out0, float *out1)
 {
+  ScopedNoDenormals scopedDenormals;
+
   SmootherCommon<float>::setBufferSize(float(length));
 
   float sample = 1.0;

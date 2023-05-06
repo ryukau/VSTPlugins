@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with TestBedSynth.  If not, see <https://www.gnu.org/licenses/>.
 
+#include "../../../lib/juce_ScopedNoDenormal.hpp"
+
 #include "dspcore.hpp"
 
 #include <algorithm>
@@ -388,6 +390,8 @@ inline void DSPCore::fillTransitionBuffer(size_t noteIndex)
 
 inline void DSPCore::updateSampleRate(bool reset)
 {
+  ScopedNoDenormals scopedDenormals;
+
   using ID = ParameterID::ID;
   auto &pv = param.value;
 

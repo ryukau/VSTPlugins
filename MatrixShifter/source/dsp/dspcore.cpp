@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with MatrixShifter.  If not, see <https://www.gnu.org/licenses/>.
 
+#include "../../../lib/juce_ScopedNoDenormal.hpp"
+
 #include "dspcore.hpp"
 
 inline std::array<float, 2> calcPhaseOffset(float offset)
@@ -100,6 +102,8 @@ void DSPCore::setParameters()
 void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
+  ScopedNoDenormals scopedDenormals;
+
   SmootherCommon<float>::setBufferSize(float(length));
 
   // When tempo-sync is off, use 120 BPM.

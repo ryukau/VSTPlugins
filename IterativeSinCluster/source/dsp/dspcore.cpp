@@ -15,9 +15,11 @@
 // You should have received a copy of the GNU General Public License
 // along with IterativeSinCluster.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "dspcore.hpp"
 #include "../../../lib/juce_FastMathApproximations.h"
+#include "../../../lib/juce_ScopedNoDenormal.hpp"
 #include "../../../lib/vcl.hpp"
+
+#include "dspcore.hpp"
 
 #define NOTE_NAME Note_FixedInstruction
 #define DSPCORE_NAME DSPCore_FixedInstruction
@@ -303,6 +305,8 @@ void DSPCORE_NAME::setParameters()
 
 void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
 {
+  ScopedNoDenormals scopedDenormals;
+
   SmootherCommon<float>::setBufferSize(float(length));
 
   std::array<float, 2> frame{};

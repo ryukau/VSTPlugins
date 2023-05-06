@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with SyncSawSynth.  If not, see <https://www.gnu.org/licenses/>.
 
+#include "../../../lib/juce_ScopedNoDenormal.hpp"
+
 #include "dspcore.hpp"
 
 inline float clamp(float value, float min, float max)
@@ -403,6 +405,8 @@ void DSPCore::setParameters()
 
 void DSPCore::process(const size_t length, float *out0, float *out1)
 {
+  ScopedNoDenormals scopedDenormals;
+
   SmootherCommon<float>::setBufferSize(float(length));
 
   bool unison = param.value[ParameterID::unison]->getFloat();
@@ -553,7 +557,8 @@ void DSPCore::noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity
       float sample = notes[i][0]->process(noteInfo);
       if (
         param.value[ParameterID::unison]->getFloat()
-        && notes[i][1]->state != NoteState::rest) {
+        && notes[i][1]->state != NoteState::rest)
+      {
         sample += notes[i][1]->process(noteInfo);
       }
       transitionBuffer[(trIndex + j) % transitionBuffer.size()] += sample

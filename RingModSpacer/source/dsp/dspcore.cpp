@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with RingModSpacer.  If not, see <https://www.gnu.org/licenses/>.
 
+#include "../../../lib/juce_ScopedNoDenormal.hpp"
+
 #include "dspcore.hpp"
 
 #include <algorithm>
@@ -162,6 +164,8 @@ void DSPCore::process(
   float *out0,
   float *out1)
 {
+  ScopedNoDenormals scopedDenormals;
+
   using ID = ParameterID::ID;
   const auto &pv = param.value;
 

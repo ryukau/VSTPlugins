@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with BasicLimiter.  If not, see <https://www.gnu.org/licenses/>.
 
+#include "../../../lib/juce_ScopedNoDenormal.hpp"
+
 #include "dspcore.hpp"
 
 #include <algorithm>
@@ -102,6 +104,8 @@ std::array<float, 2> DSPCore::processStereoLink(float in0, float in1)
 void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
+  ScopedNoDenormals scopedDenormals;
+
   SmootherCommon<float>::setBufferSize(float(length));
 
   if (param.value[ParameterID::truePeak]->getInt()) {

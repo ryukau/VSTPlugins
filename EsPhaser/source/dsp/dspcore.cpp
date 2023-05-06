@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with EsPhaser.  If not, see <https://www.gnu.org/licenses/>.
 
+#include "../../../lib/juce_ScopedNoDenormal.hpp"
+
 #include "dspcore.hpp"
 
 #include "../../../lib/vcl/vectormath_exp.h"
@@ -88,6 +90,8 @@ void DSPCORE_NAME::setParameters()
 void DSPCORE_NAME::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
+  ScopedNoDenormals scopedDenormals;
+
   auto len_f = float(length);
   SmootherCommon<float>::setBufferSize(float(len_f));
   phaser[0].interpStage.setBufferSize(float(len_f));

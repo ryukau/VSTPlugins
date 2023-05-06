@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with CubicPadSynth.  If not, see <https://www.gnu.org/licenses/>.
 
+#include "../../../lib/juce_ScopedNoDenormal.hpp"
+
 #include "dspcore.hpp"
 
 #include "../../../lib/juce_FastMathApproximations.h"
@@ -319,6 +321,8 @@ std::array<float, 2> PROCESSING_UNIT_NAME::process(
 
 void DSPCORE_NAME::process(const size_t length, float *out0, float *out1)
 {
+  ScopedNoDenormals scopedDenormals;
+
   if (wavetable.isRefreshing) {
     for (int i = 0; i < length; ++i) {
       processMidiNote(i);

@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with WaveCymbal.  If not, see <https://www.gnu.org/licenses/>.
 
+#include "../../../lib/juce_ScopedNoDenormal.hpp"
+
 #include "dspcore.hpp"
 
 inline float clamp(float value, float min, float max)
@@ -127,6 +129,8 @@ void DSPCore::setParameters()
 void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
+  ScopedNoDenormals scopedDenormals;
+
   SmootherCommon<float>::setBufferSize(float(length));
 
   const bool excitation = param.value[ParameterID::excitation]->getInt();

@@ -15,8 +15,10 @@
 // You should have received a copy of the GNU General Public License
 // along with FDNCymbal.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "dspcore.hpp"
 #include "../../../lib/juce_FastMathApproximations.h"
+#include "../../../lib/juce_ScopedNoDenormal.hpp"
+
+#include "dspcore.hpp"
 
 inline float clamp(float value, float min, float max)
 {
@@ -169,6 +171,8 @@ void DSPCore::setParameters()
 void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
+  ScopedNoDenormals scopedDenormals;
+
   SmootherCommon<float>::setBufferSize(float(length));
 
   for (auto &fdn : fdnCascade)

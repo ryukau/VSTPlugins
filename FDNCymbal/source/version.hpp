@@ -29,11 +29,11 @@
 #define SUB_VERSION_STR "2"
 #define SUB_VERSION_INT 2
 
-#define RELEASE_NUMBER_STR "16"
-#define RELEASE_NUMBER_INT 16
+#define RELEASE_NUMBER_STR "17"
+#define RELEASE_NUMBER_INT 17
 
-#define BUILD_NUMBER_STR "23"
-#define BUILD_NUMBER_INT 23
+#define BUILD_NUMBER_STR "24"
+#define BUILD_NUMBER_INT 24
 
 #define FULL_VERSION_STR                                                                 \
   MAJOR_VERSION_STR "." SUB_VERSION_STR "." RELEASE_NUMBER_STR "." BUILD_NUMBER_STR
@@ -44,9 +44,9 @@
 
 #define stringOriginalFilename "FDNCymbal.vst3"
 #if SMTG_PLATFORM_64
-#define stringFileDescription stringPluginName " VST3-SDK (64Bit)"
+  #define stringFileDescription stringPluginName " VST3-SDK (64Bit)"
 #else
-#define stringFileDescription stringPluginName " VST3-SDK"
+  #define stringFileDescription stringPluginName " VST3-SDK"
 #endif
 #define stringCompanyName "Uhhyou\0"
 #define stringCompanyWeb ""

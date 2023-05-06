@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with MembraneSynth.  If not, see <https://www.gnu.org/licenses/>.
 
+#include "../../../lib/juce_ScopedNoDenormal.hpp"
+
 #include "dspcore.hpp"
 
 #include <algorithm>
@@ -160,6 +162,8 @@ double DSPCore::processSample()
 
 void DSPCore::process(const size_t length, float *out0, float *out1)
 {
+  ScopedNoDenormals scopedDenormals;
+
   using ID = ParameterID::ID;
   const auto &pv = param.value;
 

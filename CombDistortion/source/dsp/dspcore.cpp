@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with CombDistortion.  If not, see <https://www.gnu.org/licenses/>.
 
+#include "../../../lib/juce_ScopedNoDenormal.hpp"
+
 #include "dspcore.hpp"
 
 #include <algorithm>
@@ -166,6 +168,8 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &frame)
 void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
+  ScopedNoDenormals scopedDenormals;
+
   using ID = ParameterID::ID;
   const auto &pv = param.value;
 

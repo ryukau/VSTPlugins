@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with L3Reverb.  If not, see <https://www.gnu.org/licenses/>.
 
+#include "../../../lib/juce_ScopedNoDenormal.hpp"
+
 #include "dspcore.hpp"
 
 void DSPCore::setup(double sampleRate)
@@ -177,6 +179,8 @@ void DSPCore::setParameters()
 void DSPCore::process(
   const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
+  ScopedNoDenormals scopedDenormals;
+
   SmootherCommon<float>::setBufferSize(float(length));
 
   for (size_t i = 0; i < length; ++i) {

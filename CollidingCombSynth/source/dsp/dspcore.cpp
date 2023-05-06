@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with CollidingCombSynth.  If not, see <https://www.gnu.org/licenses/>.
 
+#include "../../../lib/juce_ScopedNoDenormal.hpp"
+
 #include "dspcore.hpp"
 
 #include <algorithm>
@@ -247,6 +249,8 @@ void DSPCore::setParameters(float /* tempo */)
 
 void DSPCore::process(const size_t length, float *out0, float *out1)
 {
+  ScopedNoDenormals scopedDenormals;
+
   SmootherCommon<float>::setBufferSize(float(length));
 
   std::array<float, 2> frame{};
