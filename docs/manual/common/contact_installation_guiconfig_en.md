@@ -103,7 +103,7 @@ sudo codesign --force --deep -s - /path/to/PluginName.vst3
 - [Safely open apps on your Mac - Apple Support](https://support.apple.com/en-us/HT202491)
 - [java - “libprism_sw.dylib” cannot be opened because the developer cannot be verified. on mac JAVAFX - Stack Overflow](https://stackoverflow.com/questions/66891065/libprism-sw-dylib-cannot-be-opened-because-the-developer-cannot-be-verified-o)
 - [How to Fix App “is damaged and can’t be opened. You should move it to the Trash” Error on Mac](https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/)
-- [Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio](https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/)
+- [Allowing unsigned/un-notarized applications/plugins in Mac OS | Venn Audio](https://web.archive.org/web/20221223004334/https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/)
 
 ## GUI Style Configuration
 At first time, create color config file to:
