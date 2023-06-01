@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(UHHYOU_USE_FFTW True)
 include(../common/cmake/non_simd.cmake)

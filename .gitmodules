@@ -6,3 +6,6 @@
 	path = lib/vcl
 	url = https://github.com/ryukau/vcl_version2.git
 	branch = sse2neon_hack
+[submodule "lib/vst3sdk"]
+	path = lib/vst3sdk
+	url = https://github.com/steinbergmedia/vst3sdk.git

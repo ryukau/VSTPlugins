@@ -41,12 +41,9 @@ function(build_vst3 plug_sources)
     ## Too many warnings are emitted from VST 3 SDK.
     # target_compile_options(${target} PRIVATE /W4)
   endif()
-  set_target_properties(${target} PROPERTIES ${SDK_IDE_MYPLUGINS_FOLDER})
-  target_include_directories(${target} PUBLIC ${VSTGUI_ROOT}/vstgui4)
   include_directories(../common)
   target_link_libraries(${target} PRIVATE
     UhhyouCommon
-    base
     sdk
     vstgui_support)
   if(UHHYOU_USE_FFTW)
