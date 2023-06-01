@@ -33,8 +33,7 @@
 #include <algorithm>
 #include <vector>
 
-namespace Steinberg {
-namespace Synth {
+namespace Steinberg::Synth {
 
 template<typename EditorType, typename ParameterType>
 class PlugController : public Vst::EditController,
@@ -94,7 +93,7 @@ public:
 
 template<typename EditorType, typename ParameterType>
 tresult PLUGIN_API
-PlugController<EditorType, ParameterType>::initialize(FUnknown *context)
+PlugController<EditorType, ParameterType>::initialize(Steinberg::FUnknown *context)
 {
   if (EditController::initialize(context) != kResultTrue) return kResultTrue;
   ParameterType param;
@@ -152,5 +151,4 @@ tresult PLUGIN_API PlugController<EditorType, ParameterType>::setParamNormalized
   return kResultFalse;
 }
 
-} // namespace Synth
-} // namespace Steinberg
+} // namespace Steinberg::Synth

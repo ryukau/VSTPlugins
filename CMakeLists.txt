@@ -1,6 +1,20 @@
 cmake_minimum_required(VERSION 3.20)
 
+set(CMAKE_OSX_ARCHITECTURES arm64 x86_64)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+project(UhhyouPlugins
+  VERSION 0.55.0)
+
+option(SMTG_ADD_VST3_HOSTING_SAMPLES OFF)
+option(SMTG_ENABLE_VST3_PLUGIN_EXAMPLES OFF)
+option(SMTG_ENABLE_VST3_HOSTING_EXAMPLES OFF)
+
 add_subdirectory(common)
+add_subdirectory(lib/vst3sdk)
+smtg_enable_vst3_sdk()
 
 add_subdirectory(AccumulativeRingMod)
 add_subdirectory(BasicLimiter)
@@ -42,5 +56,5 @@ add_subdirectory(UltraSynth)
 add_subdirectory(UltrasonicRingMod)
 add_subdirectory(WaveCymbal)
 
-## TestBedSynth is a prototype. Breaking changes will be introduced.
+# ## TestBedSynth is a prototype. Breaking changes will be introduced.
 # add_subdirectory(TestBedSynth)

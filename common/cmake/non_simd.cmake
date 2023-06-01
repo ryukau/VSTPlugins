@@ -35,32 +35,35 @@ function(build_vst3 plug_sources)
   smtg_add_vst3plugin(${target}
     source/dsp/dspcore.cpp
     ${plug_sources})
+
   if(APPLE)
     target_compile_options(${target} PRIVATE -fno-aligned-allocation)
   elseif(MSVC)
-    ## Too many warnings are emitted from VST 3 SDK.
+    # # Too many warnings are emitted from VST 3 SDK.
     # target_compile_options(${target} PRIVATE /W4)
   endif()
-  set_target_properties(${target} PROPERTIES ${SDK_IDE_MYPLUGINS_FOLDER})
-  target_include_directories(${target} PUBLIC ${VSTGUI_ROOT}/vstgui4)
+
   include_directories(../common)
   target_link_libraries(${target} PRIVATE
     UhhyouCommon
-    base
     sdk
     vstgui_support)
+
   if(UHHYOU_USE_FFTW)
     add_fftw3()
     target_link_libraries(${target} PRIVATE fftw3)
   endif()
 
-  file(GLOB  snapshots "resource/*_snapshot.png")
+  file(GLOB snapshots "resource/*_snapshot.png")
   list(LENGTH snapshots length)
+
   if(length GREATER 0)
     list(GET snapshots 0 snapshot_path)
+
     if(length GREATER 1)
       message(WARNING "Several snapshots found. Using ${snapshot_path}")
     endif()
+
     smtg_target_add_plugin_resource(${target} "${snapshot_path}" "Snapshots")
   endif()
 

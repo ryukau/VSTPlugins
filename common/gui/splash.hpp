@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include "vstgui/vstgui.h"
+#include "vstgui4/vstgui/vstgui.h"
 
 #include "style.hpp"
 
