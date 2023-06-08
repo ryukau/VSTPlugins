@@ -12,3 +12,5 @@ cmake --build build --config Release
 mkdir "$GITHUB_WORKSPACE"/vst_macOS
 mv build/VST3/Release/*.vst3 "$GITHUB_WORKSPACE"/vst_macOS
 xattr -rc "$GITHUB_WORKSPACE"/vst_macOS
+
+find "$GITHUB_WORKSPACE"/vst_macOS # debug

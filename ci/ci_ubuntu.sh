@@ -19,3 +19,5 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j
 
 mv build/VST3/Release "$GITHUB_WORKSPACE"/vst_ubuntu
+
+find "$GITHUB_WORKSPACE"/vst_ubuntu # debug
