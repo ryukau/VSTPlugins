@@ -16,7 +16,7 @@ cp \
   lib/vst3sdk/vstgui4/vstgui/lib/platform/linux/cairocontext.cpp
 
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build -j
+cmake --build build
 
 mv build/VST3/Release "$GITHUB_WORKSPACE"/vst_ubuntu
 
