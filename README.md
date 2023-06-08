@@ -5,6 +5,8 @@ This repository is publishing VST 3 plugins under GPLv3.
 
 Packaged plugins are available at [Releases · ryukau/VSTPlugins](https://github.com/ryukau/VSTPlugins/releases).
 
+If you have something related to plugin development, but not a bug report, feel free to use [discussion](https://github.com/ryukau/VSTPlugins/discussions) in this repository.
+
 You can fund the development via [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau). Primary goal is to get ARM mac for macOS port.
 
 ## Build Instruction
