@@ -40,6 +40,13 @@ public:
     return -y + std::sqrt((y + Sample(2)) * y);
   }
 
+  static Sample cutoffToP(Sample normalizedFreq)
+  {
+    auto omega_c = Sample(twopi) * normalizedFreq;
+    auto y = Sample(1) - std::cos(omega_c);
+    return -y + std::sqrt((y + Sample(2)) * y);
+  }
+
   static Sample secondToP(Sample sampleRate, Sample second)
   {
     if (second < std::numeric_limits<Sample>::epsilon()) return Sample(1);
