@@ -192,6 +192,7 @@ void DSPCore::setup(double sampleRate)
 
   for (size_t idx = 0; idx < nOscillator; ++idx) {
     info.tableParam[idx].baseNyquistHz = sampleRate / float(2);
+    info.tableParam[idx].upNyquistHz = upRate / float(2);
   }
 
   reset();

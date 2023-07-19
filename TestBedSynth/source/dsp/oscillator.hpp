@@ -48,7 +48,8 @@ template<typename T> inline T lagrange3Interp(T y0, T y1, T y2, T y3, T t)
 }
 
 struct WavetableParameter {
-  float baseNyquistHz = 0;
+  float baseNyquistHz = 20000;
+  float upNyquistHz = 20000;
 
   size_t waveInterpType = 2; // 0: Step, 1: Linear, 2: Cubic.
 
@@ -206,7 +207,9 @@ template<size_t tableSize> struct Spectrum {
     auto phaseSlope = modPhaseSlope + param.phaseSlope;
     auto spcLpPitch = std::exp2(modSpectralLowpass) * param.spectralLowpass;
     auto spcHpPitch = std::exp2(modSpectralHighpass) * param.spectralHighpass;
-    size_t end = std::clamp(size_t(spcLpPitch * spectrumSize), size_t(2), spectrumSize);
+    size_t end = std::clamp(
+      size_t(spcLpPitch * spectrumSize), size_t(2),
+      float(spectrumSize) * noteHz / param.upNyquistHz);
     size_t start = std::max(size_t(spcHpPitch * spectrumSize), size_t(1));
 
     for (size_t idx = start; idx < end; ++idx) {
