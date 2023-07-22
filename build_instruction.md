@@ -1,5 +1,5 @@
 # Build Instruction
-Building this repository requires C++17 compatible compiler and CPU with AVX or later instruction set support. Some plugins use [vector class library](https://github.com/vectorclass/version2) (vcl) to write SIMD code, and vcl version 2 requires C++17 support.
+Building this repository requires C++20 compatible compiler.
 
 **If this instruction doesn't work, please open issue.**
 
