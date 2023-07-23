@@ -133,8 +133,7 @@ private:
   EnvelopedNoise<double> breathNoise;
   NoiseFormant<double, decltype(formantRng)> breathFormant;
   ModCombScaler<double, decltype(rng), nModDelay> modCombScaler;
-  MultiTapDelay<double, nModDelay> spreadDelay;
-  std::array<ModComb<double>, nModDelay> modComb;
+  ParallelModComb<double, decltype(formantRng), nModDelay> modComb;
   NoteGate<double> noteGate;
   HalfBandIIR<double, HalfBandCoefficient<double>> halfbandIir;
   SVFHighpass<double> safetyHighpass;

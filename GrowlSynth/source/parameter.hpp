@@ -79,7 +79,7 @@ enum ID {
   combFeedbackFollowEnvelope,
   combDelayTimeMod,
   combDelayTimeSlewRate,
-  maxTimeSpreadSamples,
+  maxTimeSpreadSeconds,
 
   tuningSemitone,
   tuningCent,
@@ -119,7 +119,7 @@ struct Scales {
   static SomeDSP::LinearScale<double> randomOctave;
   static SomeDSP::NegativeDecibelScale<double> feedbackGain;
   static SomeDSP::DecibelScale<double> slewRate;
-  static SomeDSP::DecibelScale<double> maxTimeSpreadSamples;
+  static SomeDSP::DecibelScale<double> maxTimeSpreadSeconds;
 
   static SomeDSP::UIntScale<double> semitone;
   static SomeDSP::LinearScale<double> cent;
@@ -237,9 +237,9 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::combDelayTimeSlewRate] = std::make_unique<DecibelValue>(
       Scales::slewRate.invmap(0.25), Scales::slewRate, "combDelayTimeSlewRate",
       Info::kCanAutomate);
-    value[ID::maxTimeSpreadSamples] = std::make_unique<DecibelValue>(
-      Scales::maxTimeSpreadSamples.invmap(0.001), Scales::maxTimeSpreadSamples,
-      "maxTimeSpreadSamples", Info::kCanAutomate);
+    value[ID::maxTimeSpreadSeconds] = std::make_unique<DecibelValue>(
+      Scales::maxTimeSpreadSeconds.invmap(0.001), Scales::maxTimeSpreadSeconds,
+      "maxTimeSpreadSeconds", Info::kCanAutomate);
 
     value[ID::tuningSemitone] = std::make_unique<UIntValue>(
       semitoneOffset - 24, Scales::semitone, "tuningSemitone", Info::kCanAutomate);

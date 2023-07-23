@@ -51,7 +51,7 @@ DecibelScale<double> Scales::frequencyHz(20.0, 80.0, false);
 LinearScale<double> Scales::randomOctave(0, 2.0);
 NegativeDecibelScale<double> Scales::feedbackGain(-80.0, 0.0, 1.0, true);
 DecibelScale<double> Scales::slewRate(-40.0, 40.0, false);
-DecibelScale<double> Scales::maxTimeSpreadSamples(-80.0, ampToDB(0.2), true);
+DecibelScale<double> Scales::maxTimeSpreadSeconds(-80.0, ampToDB(0.2), true);
 
 UIntScale<double> Scales::semitone(semitoneOffset + 48);
 LinearScale<double> Scales::cent(-100.0, 100.0);

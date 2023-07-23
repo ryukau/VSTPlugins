@@ -49,10 +49,7 @@ void DSPCore::setup(double sampleRate)
   SmootherCommon<double>::setTime(smoothingTimeSecond);
 
   for (auto &x : blitFormant.lpComb) x.setup(upRate, double(1));
-  spreadDelay.setup(upRate, double(Scales::maxTimeSpreadSamples.getMax()));
-  for (auto &x : modComb) {
-    x.setup(upRate, double(0.5));
-  }
+  modComb.setup(upRate, double(0.5), double(Scales::maxTimeSpreadSeconds.getMax()));
 
   reset();
   startup();
@@ -107,21 +104,11 @@ void DSPCore::setup(double sampleRate)
   const auto combFeedbackGain = pv[ID::combFeedbackGain]->getDouble();                   \
   const auto combDelayTimeMod = std::exp2(pv[ID::combDelayTimeMod]->getDouble());        \
   const auto combDelayTimeSlewRate = pv[ID::combDelayTimeSlewRate]->getDouble();         \
-  const auto maxTimeSpreadSamples = upRate * pv[ID::maxTimeSpreadSamples]->getDouble();  \
-  for (size_t idx = 0; idx < modComb.size(); ++idx) {                                    \
-    modComb[idx].METHOD(                                                                 \
-      modCombScaler.lowpassCut[idx] * combLowpassHz,                                     \
-      modCombScaler.highpassCut[idx] * combHighpassHz,                                   \
-      modCombScaler.allpassCut[idx] * combAllpassCut, combAllpassMod,                    \
-      modCombScaler.allpassQ[idx] * combAllpassQ, combEnergyLossThreshold,               \
-      modCombScaler.combSamples[idx] * combSamples,                                      \
-      modCombScaler.combFeedbaackGain[idx] * combFeedbackGain, combDelayTimeMod,         \
-      combDelayTimeSlewRate);                                                            \
-  }                                                                                      \
-  for (size_t idx = 0; idx < spreadDelay.size(); ++idx) {                                \
-    spreadDelay.timeInSamples.METHOD##At(                                                \
-      idx, modCombScaler.timeSpread[idx] * maxTimeSpreadSamples);                        \
-  }
+  const auto maxTimeSpreadSamples = upRate * pv[ID::maxTimeSpreadSeconds]->getDouble();  \
+  modComb.METHOD(                                                                        \
+    modCombScaler, combLowpassHz, combHighpassHz, combAllpassCut, combAllpassMod,        \
+    combAllpassQ, combEnergyLossThreshold, combSamples, combFeedbackGain,                \
+    combDelayTimeMod, combDelayTimeSlewRate, maxTimeSpreadSamples);
 
 void DSPCore::reset()
 {
@@ -138,7 +125,6 @@ void DSPCore::reset()
   blitOsc.reset();
   breathFormant.reset();
   modCombScaler.reset();
-  spreadDelay.reset();
   ASSIGN_MOD_COMB_PARAMETER(reset);
   noteGate.reset();
   halfbandIir.reset();
@@ -186,15 +172,11 @@ double DSPCore::processSample()
     envAm * breathGain.getValue() * breathNoise.process(pulsePitchRatio * frequency),
     std::exp2(pulseBendOctave.getValue() * envOut) * breathFormantOctave.getValue());
 
-  spreadDelay.process(s0 + noise);
   auto fbMod = std::lerp(double(1), envOut, combFeedbackFollowEnvelope.getValue());
   auto combInvPitchRatio
     = double(1) / std::lerp(double(1), interpPitch.getValue(), combFollowNote.getValue());
-  for (size_t idx = 0; idx < nModDelay; ++idx) {
-    spreadDelay.output[idx]
-      = modComb[idx].process(spreadDelay.output[idx], combInvPitchRatio, -envAm, fbMod);
-  }
-  return outputGain.getValue() * noteGate.process() * spreadDelay.sum();
+  auto sig = modComb.process(s0 + noise, combInvPitchRatio, -envAm, fbMod);
+  return outputGain.getValue() * noteGate.process() * sig;
 }
 
 void DSPCore::process(const size_t length, float *out0, float *out1)

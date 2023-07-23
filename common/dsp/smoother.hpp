@@ -174,13 +174,13 @@ public:
 
   inline Sample getValueAt(size_t index) { return value[index]; }
 
-  void resetAt(size_t index, Sample resetValue = 0)
+  inline void resetAt(size_t index, Sample resetValue = 0)
   {
     value[index] = resetValue;
     target[index] = resetValue;
   }
 
-  void pushAt(size_t index, Sample newTarget) { target[index] = newTarget; }
+  inline void pushAt(size_t index, Sample newTarget) { target[index] = newTarget; }
 
   void process()
   {

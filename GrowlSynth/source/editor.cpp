@@ -303,8 +303,8 @@ bool Editor::prepareUI()
 
   addLabel(combLeft0, combTop3, labelWidth, labelHeight, uiTextSize, "Time Spread [s]");
   addTextKnob(
-    combLeft1, combTop3, labelWidth, labelHeight, uiTextSize, ID::maxTimeSpreadSamples,
-    Scales::maxTimeSpreadSamples, false, 5);
+    combLeft1, combTop3, labelWidth, labelHeight, uiTextSize, ID::maxTimeSpreadSeconds,
+    Scales::maxTimeSpreadSeconds, false, 5);
   addLabel(combLeft0, combTop4, labelWidth, labelHeight, uiTextSize, "Random [octave]");
   addTextKnob(
     combLeft1, combTop4, labelWidth, labelHeight, uiTextSize,
