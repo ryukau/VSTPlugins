@@ -301,15 +301,15 @@ bool Editor::prepareUI()
     combLeft1, combTop1, labelWidth, labelHeight, uiTextSize, ID::combFollowNote,
     Scales::defaultScale, false, 5);
 
-  addLabel(combLeft0, combTop3, labelWidth, labelHeight, uiTextSize, "Jitter [s]");
+  addLabel(combLeft0, combTop3, labelWidth, labelHeight, uiTextSize, "Time Spread [s]");
   addTextKnob(
-    combLeft1, combTop3, labelWidth, labelHeight, uiTextSize, ID::maxJitterSeconds,
-    Scales::maxJitterSeconds, false, 5);
+    combLeft1, combTop3, labelWidth, labelHeight, uiTextSize, ID::maxTimeSpreadSamples,
+    Scales::maxTimeSpreadSamples, false, 5);
   addLabel(combLeft0, combTop4, labelWidth, labelHeight, uiTextSize, "Random [octave]");
   addTextKnob(
     combLeft1, combTop4, labelWidth, labelHeight, uiTextSize,
     ID::combDelayFrequencyRandom, Scales::randomOctave, false, 5);
-  /// TODO: add jitter modulation.
+  /// TODO: add time spread modulation.
   addLabel(combLeft0, combTop5, labelWidth, labelHeight, uiTextSize, "Frequency [Hz]");
   addTextKnob(
     combLeft1, combTop5, labelWidth, labelHeight, uiTextSize, ID::combDelayFrequencyHz,

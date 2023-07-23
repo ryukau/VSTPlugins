@@ -24,6 +24,7 @@
 #include <cmath>
 #include <cstddef>
 #include <numbers>
+#include <numeric>
 #include <random>
 #include <vector>
 
@@ -289,10 +290,11 @@ public:
 };
 
 template<typename Sample> class Delay {
-public:
+private:
   int wptr = 0;
   std::vector<Sample> buf{Sample(0), Sample(0)};
 
+public:
   void setup(Sample sampleRate, Sample maxTimeSeconds)
   {
     buf.resize(std::max(size_t(2), size_t(sampleRate * maxTimeSeconds) + 1));
@@ -305,21 +307,19 @@ public:
   {
     const int size = int(buf.size());
 
-    // Set delay time.
-    Sample clamped = std::clamp(timeInSamples, Sample(0), Sample(size - 1));
+    // Set delay time. Min delay is set to 1 sample to avoid artifact of feedback.
+    Sample clamped = std::clamp(timeInSamples, Sample(1), Sample(size - 1));
     const int timeInt = int(clamped);
     Sample rFraction = clamped - Sample(timeInt);
-
-    int rptr0 = wptr - timeInt;
-    if (rptr0 < 0) rptr0 += size;
 
     // Write to buffer.
     buf[wptr] = input;
     if (++wptr >= size) wptr = 0;
 
     // Read from buffer.
-    const int rptr1 = (rptr0 != 0 ? rptr0 : size) - 1;
-    return std::lerp(buf[rptr0], buf[rptr1], rFraction);
+    int rptr0 = wptr - timeInt;
+    if (rptr0 < 0) rptr0 += size;
+    return std::lerp(buf[rptr0], buf[(rptr0 != 0 ? rptr0 : size) - 1], rFraction);
   }
 };
 
@@ -536,7 +536,7 @@ public:
   std::array<T, size> allpassQ{};
   std::array<T, size> combSamples{};
   std::array<T, size> combFeedbaackGain{};
-  std::array<T, size> jitter{};
+  std::array<T, size> timeSpread{};
 
   void reset()
   {
@@ -546,7 +546,7 @@ public:
     allpassQ.fill(T(1));
     combFeedbaackGain.fill(T(1));
     combSamples.fill(T(1));
-    jitter.fill(T(0));
+    timeSpread.fill(T(0));
   }
 
   void refresh(RandomNumberGenerator &rng, T combFreqRangeOctave)
@@ -557,11 +557,56 @@ public:
     for (auto &x : allpassCut) x = expMap(dist(rng), T(-1), T(1));
     for (auto &x : allpassQ) x = expMap(dist(rng), T(-1), T(1));
     for (auto &x : combFeedbaackGain) x = expMap(dist(rng), T(-0.03), T(0));
-    for (auto &x : jitter) x = dist(rng);
+    for (auto &x : timeSpread) x = dist(rng);
 
     std::uniform_real_distribution<T> randomOctaveDist{
       -combFreqRangeOctave, combFreqRangeOctave};
     for (auto &x : combSamples) x = std::exp2(randomOctaveDist(rng));
+  }
+};
+
+template<typename Sample, size_t nTap> class MultiTapDelay {
+private:
+  int wptr = 0;
+  std::vector<Sample> buf{Sample(0), Sample(0)};
+
+public:
+  std::array<Sample, nTap> output{};
+  ParallelExpSmoother<Sample, nTap> timeInSamples;
+
+  inline size_t size() { return nTap; }
+  inline Sample sum() { return std::accumulate(output.begin(), output.end(), Sample(0)); }
+
+  void setup(Sample sampleRate, Sample maxTimeSeconds)
+  {
+    buf.resize(std::max(size_t(2), size_t(sampleRate * maxTimeSeconds) + 1));
+    reset();
+  }
+
+  void reset()
+  {
+    output.fill({});
+    std::fill(buf.begin(), buf.end(), Sample(0));
+  }
+
+  void process(Sample input)
+  {
+    timeInSamples.process();
+
+    const int size = int(buf.size());
+    buf[wptr] = input;
+    if (++wptr >= size) wptr = 0;
+
+    for (size_t idx = 0; idx < nTap; ++idx) {
+      Sample clamped = std::clamp(timeInSamples.value[idx], Sample(0), Sample(size - 1));
+      const int timeInt = int(clamped);
+      Sample rFraction = clamped - Sample(timeInt);
+
+      int rptr0 = wptr - timeInt;
+      if (rptr0 < 0) rptr0 += size;
+      output[idx]
+        = std::lerp(buf[rptr0], buf[(rptr0 != 0 ? rptr0 : size) - 1], rFraction);
+    }
   }
 };
 
@@ -579,14 +624,12 @@ private:
   ExpSmoother<Sample> feedbackGain;
   ExpSmoother<Sample> timeMod;
   ExpSmoother<Sample> timeRate;
-  ExpSmoother<Sample> jitterTime;
   ImmediateRateLimiter<Sample> timeLimiter;
 
   LP1<Sample> lowpass;
   HP1<Sample> highpass;
   std::array<SVF<Sample, SVFTool::allpass>, nAllpass> allpass;
   Delay<Sample> delay;
-  Delay<Sample> jitterDelay; // Maybe better to use IntDelay.
 
   inline void resetDSP(Sample delayTimeSamples_)
   {
@@ -594,14 +637,12 @@ private:
     timeLimiter.reset(delayTimeSamples_);
     for (auto &x : allpass) x.reset();
     delay.reset();
-    jitterDelay.reset();
   }
 
 public:
-  void setup(Sample sampleRate, Sample maxCombSeconds, Sample maxJitterSeconds)
+  void setup(Sample sampleRate, Sample maxCombSeconds)
   {
     delay.setup(sampleRate, maxCombSeconds);
-    jitterDelay.setup(sampleRate, maxJitterSeconds);
   }
 
 #define ASSIGN_MOD_COMB_PARAMETERS(METHOD, EXTRA_CODE)                                   \
@@ -609,7 +650,7 @@ public:
     Sample lowpassCutoffNormalized, Sample highpassCutoffNormalized,                     \
     Sample allpassCutoffNormalized, Sample allpassMod_, Sample allpassQ_,                \
     Sample lossThreshold_, Sample delayTimeSamples_, Sample feedbackGain_,               \
-    Sample delayTimeMod_, Sample delayTimeSlewRate_, Sample jitterTimeSamples_)          \
+    Sample delayTimeMod_, Sample delayTimeSlewRate_)                                     \
   {                                                                                      \
     lowpass.METHOD(lowpassCutoffNormalized);                                             \
     highpass.METHOD(highpassCutoffNormalized);                                           \
@@ -624,8 +665,6 @@ public:
     feedbackGain.METHOD(feedbackGain_);                                                  \
     timeMod.METHOD(delayTimeMod_);                                                       \
     timeRate.METHOD(delayTimeSlewRate_);                                                 \
-                                                                                         \
-    jitterTime.METHOD(jitterTimeSamples_);                                               \
                                                                                          \
     EXTRA_CODE; /* Do nothing when EXTRA_CODE is empty. */                               \
   }
@@ -653,7 +692,7 @@ public:
       * std::exp2(std::min(timeMod.process() * (x0 + delayModIn), Sample(1)));
     fbSig = std::min(feedbackGain.process() * feedbackModIn, Sample(1))
       * delay.process(x0, timeLimiter.process(time * invPitchRatio, timeRate.process()));
-    return jitterDelay.process(x0, jitterTime.process());
+    return x0;
   }
 };
 
