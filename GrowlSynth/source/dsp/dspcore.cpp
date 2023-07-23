@@ -74,7 +74,7 @@ void DSPCore::setup(double sampleRate)
     (pv[ID::tuningA4Hz]->getInt() + a4HzOffset) * pitchBend / upRate);                   \
                                                                                          \
   outputGain.METHOD(pv[ID::outputGain]->getDouble());                                    \
-  envelopeAM.METHOD(pv[ID::envelopeAM]->getDouble());                                    \
+  envelopeAM.METHOD(pv[ID::envelopeAM]->getDouble() * double(48000) / upRate);           \
   pulseGain.METHOD(pv[ID::pulseGain]->getDouble());                                      \
   pulsePitchOctave.METHOD(pv[ID::pulsePitchOctave]->getDouble());                        \
   pulseBendOctave.METHOD(pv[ID::pulseBendOctave]->getDouble());                          \
