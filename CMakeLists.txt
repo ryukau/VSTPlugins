@@ -58,4 +58,5 @@ smtg_enable_vst3_sdk()
 
 # ## Below are prototype plugins. Breaking changes will be introduced.
 # add_subdirectory(TestBedSynth)
-add_subdirectory(GrowlSynth)
+# add_subdirectory(GrowlSynth)
+add_subdirectory(GenericDrum)

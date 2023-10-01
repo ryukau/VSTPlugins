@@ -147,6 +147,10 @@ public:
   }
 
   void push(Sample newTarget) { target = newTarget; }
+
+  // Intended to be used after `push`.
+  void catchUp() { value = target; }
+
   Sample process() { return value += SmootherCommon<Sample>::kp * (target - value); }
 };
 
@@ -181,6 +185,9 @@ public:
   }
 
   inline void pushAt(size_t index, Sample newTarget) { target[index] = newTarget; }
+
+  void catchUp() { value = target; }
+  void catchUpAt(size_t index) { value[index] = target[index]; }
 
   void process()
   {
