@@ -134,6 +134,15 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
   float *out1 = data.outputs[0].channelBuffers32[1];
   dsp.process((size_t)data.numSamples, out0, out1);
 
+  // Send parameter changes for GUI.
+  if (!data.outputParameterChanges) return kResultOk;
+  int32 index = 0;
+  for (uint32 id = ID::ID_ENUM_GUI_START; id < ID::ID_ENUM_LENGTH; ++id) {
+    auto queue = data.outputParameterChanges->addParameterData(id, index);
+    if (!queue) continue;
+    queue->addPoint(0, dsp.param.value[id]->getNormalized(), index);
+  }
+
   return kResultOk;
 }
 

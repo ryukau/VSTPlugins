@@ -33,10 +33,17 @@ class Editor : public PlugEditor {
 public:
   Editor(void *controller);
 
+  virtual void valueChanged(CControl *pControl) override;
+  void updateUI(Vst::ParamID id, ParamValue normalized) override;
+
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
 private:
+  ParamValue getPlainValue(ParamID id);
   bool prepareUI() override;
+
+  SharedPointer<Label> labelWireCollision;
+  SharedPointer<Label> labelMembraneCollision;
 };
 
 } // namespace Vst

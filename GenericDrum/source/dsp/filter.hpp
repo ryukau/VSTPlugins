@@ -502,13 +502,10 @@ public:
     auto &front = buf[bufIndex];
     auto &back = buf[bufIndex ^ 1];
     front.fill({});
-    // feedbackMatrix.process();
     for (size_t i = 0; i < length; ++i) {
-      feedbackMatrix.matrix[i].process();
       for (size_t j = 0; j < length; ++j) front[i] += feedbackMatrix.at(i, j) * back[j];
     }
 
-    // input /= Sample(length);
     const auto feedbackGain = safetyGain * crossGain;
     for (size_t i = 0; i < length; ++i) front[i] = input + feedbackGain * front[i];
 
@@ -521,6 +518,8 @@ public:
     const auto sum = std::accumulate(front.begin(), front.end(), Sample(0));
     if (Sample(length) < sum) {
       safetyGain *= sum <= Sample(100) ? crossDecayGentle : crossDecaySteep;
+    } else {
+      safetyGain = std::min(safetyGain + Sample(0.001), Sample(1));
     }
     return sum;
   }

@@ -44,16 +44,19 @@ enum ID {
   outputGain,
   safetyHighpassEnable,
   safetyHighpassHz,
+  resetSeedAtNoteOn,
   overSampling,
 
+  stereoEnable,
+  stereoBalance,
+  stereoMerge,
+
+  notePitchAmount,
   tuningSemitone,
   tuningCent,
-  tuningET,
   pitchBend,
   pitchBendRange,
   noteSlideTimeSecond,
-  slideAtNoteOn,
-  slideAtNoteOff,
 
   seed,
   noiseDecaySeconds,
@@ -89,8 +92,11 @@ enum ID {
   secondaryQOffset,
   secondaryDistance,
 
+  isWireCollided,
+  isSecondaryCollided,
+
   ID_ENUM_LENGTH,
-  // ID_ENUM_GUI_START = ID_ENUM_LENGTH,
+  ID_ENUM_GUI_START = isWireCollided,
 };
 } // namespace ParameterID
 
@@ -105,7 +111,6 @@ struct Scales {
 
   static SomeDSP::UIntScale<double> semitone;
   static SomeDSP::LinearScale<double> cent;
-  static SomeDSP::UIntScale<double> equalTemperament;
   static SomeDSP::LinearScale<double> pitchBendRange;
   static SomeDSP::DecibelScale<double> noteSlideTimeSecond;
 
@@ -149,31 +154,39 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::outputGain] = std::make_unique<DecibelValue>(
       Scales::gain.invmap(1.0), Scales::gain, "outputGain", Info::kCanAutomate);
     value[ID::safetyHighpassEnable] = std::make_unique<UIntValue>(
-      1, Scales::boolScale, "safetyHighpassEnable", Info::kCanAutomate);
+      0, Scales::boolScale, "safetyHighpassEnable", Info::kCanAutomate);
     value[ID::safetyHighpassHz] = std::make_unique<DecibelValue>(
-      Scales::safetyHighpassHz.invmap(4.0), Scales::safetyHighpassHz, "safetyHighpassHz",
+      Scales::safetyHighpassHz.invmap(15.0), Scales::safetyHighpassHz, "safetyHighpassHz",
       Info::kCanAutomate);
+    value[ID::resetSeedAtNoteOn] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "resetSeedAtNoteOn", Info::kCanAutomate);
     value[ID::overSampling] = std::make_unique<UIntValue>(
       1, Scales::boolScale, "overSampling", Info::kCanAutomate);
 
+    value[ID::stereoEnable] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "stereoEnable", Info::kCanAutomate);
+    value[ID::stereoBalance] = std::make_unique<LinearValue>(
+      Scales::bipolarScale.invmap(0.0), Scales::bipolarScale, "stereoBalance",
+      Info::kCanAutomate);
+    value[ID::stereoMerge] = std::make_unique<LinearValue>(
+      Scales::defaultScale.invmap(0.75), Scales::defaultScale, "stereoMerge",
+      Info::kCanAutomate);
+
+    value[ID::notePitchAmount] = std::make_unique<LinearValue>(
+      Scales::bipolarScale.invmap(0.0), Scales::bipolarScale, "notePitchAmount",
+      Info::kCanAutomate);
     value[ID::tuningSemitone] = std::make_unique<UIntValue>(
       semitoneOffset, Scales::semitone, "tuningSemitone", Info::kCanAutomate);
     value[ID::tuningCent] = std::make_unique<LinearValue>(
       Scales::cent.invmap(0.0), Scales::cent, "tuningCent", Info::kCanAutomate);
-    value[ID::tuningET] = std::make_unique<UIntValue>(
-      11, Scales::equalTemperament, "tuningET", Info::kCanAutomate);
     value[ID::pitchBend] = std::make_unique<LinearValue>(
       0.5, Scales::bipolarScale, "pitchBend", Info::kCanAutomate);
     value[ID::pitchBendRange] = std::make_unique<LinearValue>(
       Scales::pitchBendRange.invmap(2.0), Scales::pitchBendRange, "pitchBendRange",
       Info::kCanAutomate);
     value[ID::noteSlideTimeSecond] = std::make_unique<DecibelValue>(
-      Scales::noteSlideTimeSecond.invmap(0.0001), Scales::noteSlideTimeSecond,
+      Scales::noteSlideTimeSecond.invmap(0.01), Scales::noteSlideTimeSecond,
       "noteSlideTimeSecond", Info::kCanAutomate);
-    value[ID::slideAtNoteOn] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "slideAtNoteOn", Info::kCanAutomate);
-    value[ID::slideAtNoteOff] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "slideAtNoteOff", Info::kCanAutomate);
 
     value[ID::seed]
       = std::make_unique<UIntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
@@ -207,8 +220,7 @@ struct GlobalParameter : public ParameterInterface {
       Info::kCanAutomate);
 
     value[ID::crossFeedbackGain] = std::make_unique<DecibelValue>(
-      Scales::crossFeedbackGain.invmapDB(-1), Scales::crossFeedbackGain,
-      "crossFeedbackGain", Info::kCanAutomate);
+      0.9, Scales::crossFeedbackGain, "crossFeedbackGain", Info::kCanAutomate);
     for (size_t idx = 0; idx < maxFdnSize; ++idx) {
       auto indexStr = std::to_string(idx);
 
@@ -262,6 +274,11 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::secondaryDistance] = std::make_unique<DecibelValue>(
       Scales::collisionDistance.invmap(0.0008), Scales::collisionDistance,
       "secondaryDistance", Info::kCanAutomate);
+
+    value[ID::isWireCollided] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "isWireCollided", Info::kIsReadOnly);
+    value[ID::isSecondaryCollided] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "isSecondaryCollided", Info::kIsReadOnly);
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

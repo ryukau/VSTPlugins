@@ -93,8 +93,19 @@ public:
   }
 
 private:
+  void updateUpRate();
+  void resetCollision();
+  double calcNotePitch(double note);
+  double processSample();
+  std::array<double, 2> processFrame();
+  double processDrum(
+    size_t index, double noise, double wireGain, double crossGain, double timeModAmt);
+
   std::vector<NoteInfo> midiNotes;
   std::vector<NoteInfo> noteStack;
+
+  bool isWireCollided = false;
+  bool isSecondaryCollided = false;
 
   DecibelScale<double> velocityMap{-60, 0, true};
   DecibelScale<double> velocityToCouplingDecayMap{-40, 0, false};
@@ -118,39 +129,41 @@ private:
   ExpSmoother<double> delayTimeModAmount;
   ExpSmoother<double> secondaryFdnMix;
   ExpSmoother<double> membraneWireMix;
+  ExpSmoother<double> stereoBalance;
+  ExpSmoother<double> stereoMerge;
   ExpSmoother<double> outputGain;
+
+  static constexpr size_t nDrum = 2;
+  static constexpr size_t nAllpass = 4;
 
   std::minstd_rand noiseRng{0};
   std::minstd_rand paramRng{0};
   double noiseGain = 0;
   double noiseDecay = 0;
-  ComplexLowpass<double> noiseLowpass;
-  SerialAllpass<double, 4> noiseAllpass;
+  std::array<ComplexLowpass<double>, nDrum> noiseLowpass;
+  std::array<SerialAllpass<double, nAllpass>, nDrum> noiseAllpass;
 
-  SerialAllpass<double, 4> wireAllpass;
-  EnergyStoreDecay<double> wireEnergyDecay;
-  EnergyStoreNoise<double, std::minstd_rand> wireEnergyNoise;
-  double wirePosition = 0;
-  double wireVelocity = 0;
+  std::array<SerialAllpass<double, nAllpass>, 2> wireAllpass;
+  std::array<EnergyStoreDecay<double>, 2> wireEnergyDecay;
+  std::array<EnergyStoreNoise<double, std::minstd_rand>, 2> wireEnergyNoise;
+  std::array<double, nDrum> wirePosition{};
+  std::array<double, nDrum> wireVelocity{};
   double wireGain = 0;
   double wireDecay = 0;
 
   DoubleEmaADEnvelope<double> envelope;
   TransitionReleaseSmoother<double> releaseSmoother;
   FeedbackMatrix<double, maxFdnSize> feedbackMatrix;
-  double membrane1Position = 0;
-  double membrane1Velocity = 0;
-  double membrane2Position = 0;
-  double membrane2Velocity = 0;
-  EnergyStoreDecay<double> membrane1EnergyDecay;
-  EnergyStoreDecay<double> membrane2EnergyDecay;
-  EasyFDN<double, maxFdnSize> membrane1;
-  EasyFDN<double, maxFdnSize> membrane2;
+  std::array<double, nDrum> membrane1Position{};
+  std::array<double, nDrum> membrane1Velocity{};
+  std::array<double, nDrum> membrane2Position{};
+  std::array<double, nDrum> membrane2Velocity{};
+  std::array<EnergyStoreDecay<double>, 2> membrane1EnergyDecay;
+  std::array<EnergyStoreDecay<double>, 2> membrane2EnergyDecay;
+  std::array<EasyFDN<double, maxFdnSize>, 2> membrane1;
+  std::array<EasyFDN<double, maxFdnSize>, 2> membrane2;
 
-  HalfBandIIR<double, HalfBandCoefficient<double>> halfbandIir;
-  SVFHighpass<double> safetyHighpass;
-
-  void updateUpRate();
-  double calcNotePitch(double note);
-  double processSample();
+  std::array<std::array<double, 2>, 2> halfbandInput{};
+  std::array<HalfBandIIR<double, HalfBandCoefficient<double>>, 2> halfbandIir;
+  std::array<SVFHighpass<double>, 2> safetyHighpass;
 };

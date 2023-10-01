@@ -136,13 +136,13 @@ void DSPCore::setup(double sampleRate)
   SmootherCommon<double>::setTime(double(0.2));
 
   const auto maxDelayTimeSamples = upRate;
-  noiseAllpass.setup(maxDelayTimeSamples);
-  wireAllpass.setup(maxDelayTimeSamples);
-  wireEnergyDecay.setup(upRate * double(0.001));
-  membrane1EnergyDecay.setup(upRate * double(0.001));
-  membrane2EnergyDecay.setup(upRate * double(0.001));
-  membrane1.setup(maxDelayTimeSamples);
-  membrane2.setup(maxDelayTimeSamples);
+  for (auto &x : noiseAllpass) x.setup(maxDelayTimeSamples);
+  for (auto &x : wireAllpass) x.setup(maxDelayTimeSamples);
+  for (auto &x : wireEnergyDecay) x.setup(upRate * double(0.001));
+  for (auto &x : membrane1EnergyDecay) x.setup(upRate * double(0.001));
+  for (auto &x : membrane2EnergyDecay) x.setup(upRate * double(0.001));
+  for (auto &x : membrane1) x.setup(maxDelayTimeSamples);
+  for (auto &x : membrane2) x.setup(maxDelayTimeSamples);
 
   reset();
   startup();
@@ -168,20 +168,17 @@ void DSPCore::setup(double sampleRate)
     pv[ID::delayTimeModAmount]->getDouble() * upRate / double(48000));                   \
   secondaryFdnMix.METHOD(pv[ID::secondaryFdnMix]->getDouble());                          \
   membraneWireMix.METHOD(pv[ID::membraneWireMix]->getDouble());                          \
+  stereoBalance.METHOD(pv[ID::stereoBalance]->getDouble());                              \
+  stereoMerge.METHOD(pv[ID::stereoMerge]->getDouble() / double(2));                      \
   outputGain.METHOD(pv[ID::outputGain]->getDouble());                                    \
                                                                                          \
-  safetyHighpass.METHOD(                                                                 \
-    pv[ID::safetyHighpassHz]->getDouble() / sampleRate,                                  \
-    std::numbers::sqrt2_v<double> / double(2));                                          \
+  constexpr auto highpassQ = std::numbers::sqrt2_v<double> / double(2);                  \
+  const auto highpassCut = pv[ID::safetyHighpassHz]->getDouble() / sampleRate;           \
+  for (size_t ch = 0; ch < 2; ++ch) {                                                    \
+    safetyHighpass[ch].METHOD(highpassCut, highpassQ);                                   \
+  }                                                                                      \
                                                                                          \
-  noiseLowpass.METHOD(pv[ID::noiseLowpassHz]->getDouble() / upRate);                     \
   paramRng.seed(pv[ID::seed]->getInt());                                                 \
-  noiseAllpass.timeInSamples.METHOD(                                                     \
-    prepareSerialAllpassTime<decltype(noiseAllpass)::size>(                              \
-      upRate, pv[ID::noiseAllpassMaxTimeHz]->getDouble(), paramRng));                    \
-  wireAllpass.timeInSamples.METHOD(                                                      \
-    prepareSerialAllpassTime<decltype(wireAllpass)::size>(                               \
-      upRate, pv[ID::wireFrequencyHz]->getDouble(), paramRng));                          \
                                                                                          \
   for (size_t idx = 0; idx < maxFdnSize; ++idx) {                                        \
     const auto crossFeedbackRatio = pv[ID::crossFeedbackRatio0 + idx]->getDouble();      \
@@ -189,6 +186,9 @@ void DSPCore::setup(double sampleRate)
   }                                                                                      \
   feedbackMatrix.constructHouseholder();                                                 \
                                                                                          \
+  const auto noiseLowpassHz = pv[ID::noiseLowpassHz]->getDouble() / upRate;              \
+  const auto noiseAllpassMaxTimeHz = pv[ID::noiseAllpassMaxTimeHz]->getDouble();         \
+  const auto wireFrequencyHz = pv[ID::wireFrequencyHz]->getDouble();                     \
   const auto secondaryPitchOffset = pv[ID::secondaryPitchOffset]->getDouble();           \
   const auto delayTimeFreq1 = pv[ID::delayTimeHz]->getDouble() / upRate;                 \
   const auto delayTimeFreq2 = delayTimeFreq1 * std::exp2(secondaryPitchOffset);          \
@@ -198,36 +198,58 @@ void DSPCore::setup(double sampleRate)
   const auto bandpassCutSpread = pv[ID::bandpassCutSpread]->getDouble();                 \
   const auto pitchRandomCent = pv[ID::pitchRandomCent]->getDouble();                     \
   const size_t pitchType = pv[ID::pitchType]->getInt();                                  \
-  for (size_t idx = 0; idx < maxFdnSize; ++idx) {                                        \
-    const auto pitch = pitchFunc(pitchType, idx);                                        \
+  for (size_t drm = 0; drm < nDrum; ++drm) {                                             \
+    noiseLowpass[drm].METHOD(noiseLowpassHz);                                            \
+    noiseAllpass[drm].timeInSamples.METHOD(                                              \
+      prepareSerialAllpassTime<nAllpass>(upRate, noiseAllpassMaxTimeHz, paramRng));      \
+    wireAllpass[drm].timeInSamples.METHOD(                                               \
+      prepareSerialAllpassTime<nAllpass>(upRate, wireFrequencyHz, paramRng));            \
                                                                                          \
-    const auto delayCutRatio1                                                            \
-      = pitchRatio(pitch, delayTimeSpread, pitchRandomCent, paramRng);                   \
-    membrane1.delayTimeSamples[idx] = double(1) / (delayTimeFreq1 * delayCutRatio1);     \
+    for (size_t idx = 0; idx < maxFdnSize; ++idx) {                                      \
+      const auto pitch = pitchFunc(pitchType, idx);                                      \
                                                                                          \
-    const auto bpCutRatio1 = bandpassCutRatio                                            \
-      * pitchRatio(pitch, bandpassCutSpread, pitchRandomCent, paramRng);                 \
-    membrane1.bandpassCutoff.METHOD##At(idx, delayTimeFreq1 *bpCutRatio1);               \
+      const auto delayCutRatio1                                                          \
+        = pitchRatio(pitch, delayTimeSpread, pitchRandomCent, paramRng);                 \
+      membrane1[drm].delayTimeSamples[idx]                                               \
+        = double(1) / (delayTimeFreq1 * delayCutRatio1);                                 \
                                                                                          \
-    const auto delayCutRatio2                                                            \
-      = pitchRatio(pitch, delayTimeSpread, pitchRandomCent, paramRng);                   \
-    membrane2.delayTimeSamples[idx] = double(1) / (delayTimeFreq2 * delayCutRatio2);     \
+      const auto bpCutRatio1 = bandpassCutRatio                                          \
+        * pitchRatio(pitch, bandpassCutSpread, pitchRandomCent, paramRng);               \
+      membrane1[drm].bandpassCutoff.METHOD##At(idx, delayTimeFreq1 *bpCutRatio1);        \
                                                                                          \
-    const auto bpCutRatio2 = bandpassCutRatio                                            \
-      * pitchRatio(pitch, bandpassCutSpread, pitchRandomCent, paramRng);                 \
-    membrane2.bandpassCutoff.METHOD##At(idx, delayTimeFreq2 *bpCutRatio2);               \
-  }                                                                                      \
-  const auto bandpassQ = pv[ID::bandpassQ]->getDouble();                                 \
-  membrane1.bandpassQ.METHOD(bandpassQ);                                                 \
-  membrane2.bandpassQ.METHOD(                                                            \
-    std::clamp(bandpassQ *std::exp2(secondaryQOffset), double(0.1), double(100)));
+      const auto delayCutRatio2                                                          \
+        = pitchRatio(pitch, delayTimeSpread, pitchRandomCent, paramRng);                 \
+      membrane2[drm].delayTimeSamples[idx]                                               \
+        = double(1) / (delayTimeFreq2 * delayCutRatio2);                                 \
+                                                                                         \
+      const auto bpCutRatio2 = bandpassCutRatio                                          \
+        * pitchRatio(pitch, bandpassCutSpread, pitchRandomCent, paramRng);               \
+      membrane2[drm].bandpassCutoff.METHOD##At(idx, delayTimeFreq2 *bpCutRatio2);        \
+    }                                                                                    \
+    const auto bandpassQ = pv[ID::bandpassQ]->getDouble();                               \
+    membrane1[drm].bandpassQ.METHOD(bandpassQ);                                          \
+    membrane2[drm].bandpassQ.METHOD(                                                     \
+      std::clamp(bandpassQ *std::exp2(secondaryQOffset), double(0.1), double(100)));     \
+  }
 
 void DSPCore::updateUpRate()
 {
   upRate = sampleRate * fold[overSampling];
   SmootherCommon<double>::setSampleRate(upRate);
-  membrane1.onSampleRateChange(upRate);
-  membrane2.onSampleRateChange(upRate);
+  for (auto &x : membrane1) x.onSampleRateChange(upRate);
+  for (auto &x : membrane2) x.onSampleRateChange(upRate);
+}
+
+void DSPCore::resetCollision()
+{
+  using ID = ParameterID::ID;
+  const auto &pv = param.value;
+
+  pv[ID::isWireCollided]->setFromInt(0);
+  isWireCollided = false;
+
+  pv[ID::isSecondaryCollided]->setFromInt(0);
+  isSecondaryCollided = false;
 }
 
 void DSPCore::reset()
@@ -238,35 +260,36 @@ void DSPCore::reset()
   ASSIGN_PARAMETER(reset);
 
   startup();
+  resetCollision();
 
   noteNumber = 69.0;
   velocity = 0;
 
   noiseGain = 0;
   noiseDecay = 0;
-  noiseAllpass.reset();
+  for (auto &x : noiseAllpass) x.reset();
 
-  wireAllpass.reset();
-  wireEnergyDecay.reset();
-  wireEnergyNoise.reset();
-  wirePosition = 0;
-  wireVelocity = 0;
+  for (auto &x : wireAllpass) x.reset();
+  for (auto &x : wireEnergyDecay) x.reset();
+  for (auto &x : wireEnergyNoise) x.reset();
+  wirePosition.fill({});
+  wireVelocity.fill({});
   wireGain = 0;
   wireDecay = 0;
 
   envelope.reset();
   releaseSmoother.reset();
 
-  membrane1Position = 0;
-  membrane1Velocity = 0;
-  membrane2Position = 0;
-  membrane2Velocity = 0;
-  membrane1EnergyDecay.reset();
-  membrane2EnergyDecay.reset();
-  membrane1.reset();
-  membrane2.reset();
+  membrane1Position.fill({});
+  membrane1Velocity.fill({});
+  membrane2Position.fill({});
+  membrane2Velocity.fill({});
+  for (auto &x : membrane1EnergyDecay) x.reset();
+  for (auto &x : membrane2EnergyDecay) x.reset();
+  for (auto &x : membrane1) x.reset();
+  for (auto &x : membrane2) x.reset();
 
-  halfbandIir.reset();
+  for (auto &x : halfbandIir) x.reset();
 }
 
 void DSPCore::startup()
@@ -284,90 +307,135 @@ void DSPCore::setParameters()
     updateUpRate();
   }
   ASSIGN_PARAMETER(push);
+
+  isWireCollided = pv[ID::isWireCollided]->getInt();
+  isSecondaryCollided = pv[ID::isSecondaryCollided]->getInt();
 }
 
 // Overwrites `p0` and `p1`.
 inline void solveCollision(double &p0, double &p1, double v0, double v1, double distance)
 {
-  const auto diff = p0 - p1 + distance;
+  auto diff = p0 - p1 + distance;
   if (diff >= 0) {
     p0 = 0;
     p1 = 0;
     return;
   }
 
-  auto sum = -diff;
   const auto r0 = std::abs(v0);
   const auto r1 = std::abs(v1);
-  if (r0 + r1 >= std::numeric_limits<double>::epsilon()) sum /= r0 + r1;
-  p0 = sum * r1;
-  p1 = -sum * r0;
+  if (r0 + r1 > std::numeric_limits<double>::epsilon()) diff /= r0 + r1;
+  p0 = -diff * r1;
+  p1 = diff * r0;
 }
 
-double DSPCore::processSample()
+double DSPCore::processDrum(
+  size_t index, double noise, double wireGain, double crossGain, double timeModAmt)
 {
-  wireDistance.process();
-  wireCollisionTypeMix.process();
-  impactWireMix.process();
-  secondaryDistance.process();
-  const auto crossGain = crossFeedbackGain.process();
-  const auto timeModAmt = delayTimeModAmount.process();
-  secondaryFdnMix.process();
-  membraneWireMix.process();
-  outputGain.process();
-
+  // Impact.
   constexpr auto eps = std::numeric_limits<double>::epsilon();
   double sig = 0;
-  if (noiseGain > eps) {
-    std::uniform_real_distribution<double> dist{double(-1), double(1)};
-    const auto noise = noiseGain * dist(noiseRng);
-    noiseGain *= noiseDecay;
-    sig += noiseLowpass.process(noise);
-  }
-  sig = std::tanh(noiseAllpass.process(sig, double(0.95)));
+  sig += noiseLowpass[index].process(noise);
+  sig = std::tanh(noiseAllpass[index].process(sig, double(0.95)));
 
+  // Wire and membrane processing goes like:
+  // 1. solve collision,
+  // 2. update GUI status,
+  // 3. process delays,
+  // 4. update collision parameters.
+
+  // Wire.
   solveCollision(
-    wirePosition, membrane1Position, wireVelocity, membrane1Velocity,
-    wireDistance.getValue());
+    wirePosition[index], membrane1Position[index], wireVelocity[index],
+    membrane1Velocity[index], wireDistance.getValue());
 
-  // TODO: Send wire-membrane1 collision status to GUI.
+  if (!isWireCollided && wirePosition[index] != 0) isWireCollided = true;
 
   auto wireCollision = std::lerp(
-    wireEnergyNoise.process(wirePosition, noiseRng),
-    wireEnergyDecay.process(wirePosition), wireCollisionTypeMix.getValue());
+    wireEnergyNoise[index].process(wirePosition[index], noiseRng),
+    wireEnergyDecay[index].process(wirePosition[index]), wireCollisionTypeMix.getValue());
   wireCollision = double(8) * std::tanh(double(0.125) * wireCollision);
   const auto wireIn = double(0.995) * (sig + wireCollision);
-  const auto wirePos = wireAllpass.process(wireIn, double(0.5)) * wireGain;
-  wireGain *= wireDecay;
-  wireVelocity = wirePos - wirePosition;
-  wirePosition = wirePos;
+  const auto wirePos = wireAllpass[index].process(wireIn, double(0.5)) * wireGain;
+  wireVelocity[index] = wirePos - wirePosition[index];
+  wirePosition[index] = wirePos;
 
-  const auto wireOut = std::lerp(sig, wirePosition, impactWireMix.getValue());
+  const auto wireOut = std::lerp(sig, wirePosition[index], impactWireMix.getValue());
   sig = wireOut;
 
+  // Membranes.
   solveCollision(
-    membrane1Position, membrane2Position, membrane1Velocity, membrane2Velocity,
-    secondaryDistance.getValue());
+    membrane1Position[index], membrane2Position[index], membrane1Velocity[index],
+    membrane2Velocity[index], secondaryDistance.getValue());
 
-  // TODO: Send membrane1-membrane2 collision status to GUI.
+  if (!isSecondaryCollided && membrane2Position[index] != 0) isSecondaryCollided = true;
 
   const auto env = std::exp2(envelope.process() + releaseSmoother.process());
   const auto pitch = env * interpPitch.process(pitchSmoothingKp);
+  feedbackMatrix.process();
 
-  const auto collision1 = membrane1EnergyDecay.process(membrane1Position);
-  const auto p1 = membrane1.process(sig, crossGain, pitch, timeModAmt, feedbackMatrix);
-  membrane1Velocity = p1 - membrane1Position;
-  membrane1Position = p1;
+  const auto collision1
+    = membrane1EnergyDecay[index].process(membrane1Position[index]) / double(maxFdnSize);
+  const auto p1 = membrane1[index].process(
+    sig + collision1, crossGain, pitch, timeModAmt, feedbackMatrix);
+  membrane1Velocity[index] = p1 - membrane1Position[index];
+  membrane1Position[index] = p1;
 
-  const auto collision2 = membrane2EnergyDecay.process(membrane2Position);
-  const auto p2 = membrane2.process(sig, crossGain, pitch, timeModAmt, feedbackMatrix);
-  membrane2Velocity = p2 - membrane2Position;
-  membrane2Position = p2;
+  const auto collision2
+    = membrane2EnergyDecay[index].process(membrane2Position[index]) / double(maxFdnSize);
+  const auto p2 = membrane2[index].process(
+    sig + collision2, crossGain, pitch, timeModAmt, feedbackMatrix);
+  membrane2Velocity[index] = p2 - membrane2Position[index];
+  membrane2Position[index] = p2;
 
+  // Mix.
   sig = std::lerp(p1, p2, secondaryFdnMix.getValue());
   sig = std::lerp(sig, wireOut, membraneWireMix.getValue());
+  return sig;
+}
 
-  return outputGain.getValue() * sig;
+#define PROCESS_COMMON                                                                   \
+  wireDistance.process();                                                                \
+  wireCollisionTypeMix.process();                                                        \
+  impactWireMix.process();                                                               \
+  secondaryDistance.process();                                                           \
+  const auto crossGain = crossFeedbackGain.process();                                    \
+  const auto timeModAmt = delayTimeModAmount.process();                                  \
+  secondaryFdnMix.process();                                                             \
+  membraneWireMix.process();                                                             \
+  const auto balance = stereoBalance.process();                                          \
+  const auto merge = stereoMerge.process();                                              \
+  const auto outGain = outputGain.process();                                             \
+                                                                                         \
+  std::uniform_real_distribution<double> dist{double(-1), double(1)};                    \
+  const auto noise = noiseGain * dist(noiseRng);                                         \
+  noiseGain *= noiseDecay;                                                               \
+  wireGain *= wireDecay;
+
+double DSPCore::processSample()
+{
+  PROCESS_COMMON;
+
+  return outGain * processDrum(0, noise, wireGain, crossGain, timeModAmt);
+}
+
+std::array<double, 2> DSPCore::processFrame()
+{
+  PROCESS_COMMON;
+
+  auto drum0 = processDrum(0, noise, wireGain, crossGain, timeModAmt);
+  auto drum1 = processDrum(1, noise, wireGain, crossGain, timeModAmt);
+
+  constexpr auto eps = std::numeric_limits<double>::epsilon();
+  if (balance < -eps) {
+    drum0 *= double(1) + balance;
+  } else if (balance > eps) {
+    drum1 *= double(1) - balance;
+  }
+  return {
+    outGain * std::lerp(drum0, drum1, merge),
+    outGain * std::lerp(drum1, drum0, merge),
+  };
 }
 
 void DSPCore::process(const size_t length, float *out0, float *out1)
@@ -380,25 +448,56 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
   SmootherCommon<double>::setBufferSize(double(length));
   SmootherCommon<double>::setSampleRate(upRate);
 
+  bool isStereo = pv[ID::stereoEnable]->getInt();
   bool isSafetyHighpassEnabled = pv[ID::safetyHighpassEnable]->getInt();
 
-  std::array<double, 2> halfbandInput{};
+  std::array<double, 2> frame{};
   for (size_t i = 0; i < length; ++i) {
     processMidiNote(i);
 
-    if (overSampling) {
-      for (size_t j = 0; j < upFold; ++j) halfbandInput[j] = processSample();
-      auto sig = float(halfbandIir.process(halfbandInput));
-      if (isSafetyHighpassEnabled) sig = safetyHighpass.process(sig);
-      out0[i] = sig;
-      out1[i] = sig;
+    if (isStereo) {
+      if (overSampling) {
+        for (size_t j = 0; j < upFold; ++j) {
+          frame = processFrame();
+          halfbandInput[0][j] = frame[0];
+          halfbandInput[1][j] = frame[1];
+        }
+        frame[0] = halfbandIir[0].process(halfbandInput[0]);
+        frame[1] = halfbandIir[1].process(halfbandInput[1]);
+        if (isSafetyHighpassEnabled) {
+          frame[0] = safetyHighpass[0].process(frame[0]);
+          frame[1] = safetyHighpass[1].process(frame[1]);
+        }
+        out0[i] = float(frame[0]);
+        out1[i] = float(frame[1]);
+      } else {
+        frame = processFrame();
+        if (isSafetyHighpassEnabled) {
+          frame[0] = safetyHighpass[0].process(frame[0]);
+          frame[1] = safetyHighpass[1].process(frame[1]);
+        }
+        out0[i] = float(frame[0]);
+        out1[i] = float(frame[1]);
+      }
     } else {
-      auto sig = float(processSample());
-      if (isSafetyHighpassEnabled) sig = safetyHighpass.process(sig);
-      out0[i] = sig;
-      out1[i] = sig;
+      if (overSampling) {
+        for (size_t j = 0; j < upFold; ++j) halfbandInput[0][j] = processSample();
+        frame[0] = halfbandIir[0].process(halfbandInput[0]);
+        if (isSafetyHighpassEnabled) frame[0] = safetyHighpass[0].process(frame[0]);
+        out0[i] = float(frame[0]);
+        out1[i] = float(frame[0]);
+      } else {
+        frame[0] = processSample();
+        if (isSafetyHighpassEnabled) frame[0] = safetyHighpass[0].process(frame[0]);
+        out0[i] = float(frame[0]);
+        out1[i] = float(frame[0]);
+      }
     }
   }
+
+  // Send a value to GUI.
+  if (isWireCollided) pv[ID::isWireCollided]->setFromInt(1);
+  if (isSecondaryCollided) pv[ID::isSecondaryCollided]->setFromInt(1);
 }
 
 void DSPCore::noteOn(NoteInfo &info)
@@ -414,13 +513,11 @@ void DSPCore::noteOn(NoteInfo &info)
   auto notePitch = calcNotePitch(info.noteNumber);
   auto pitchBend
     = calcPitch(pv[ID::pitchBendRange]->getDouble() * pv[ID::pitchBend]->getDouble());
-  if (pv[ID::slideAtNoteOn]->getInt()) {
-    interpPitch.push(notePitch);
-  } else {
-    interpPitch.reset(notePitch);
-  }
+  interpPitch.push(notePitch);
 
   velocity = velocityMap.map(info.velocity);
+
+  if (pv[ID::resetSeedAtNoteOn]->getInt()) noiseRng.seed(pv[ID::seed]->getInt());
 
   noiseGain = velocity;
   noiseDecay = std::pow(
@@ -435,9 +532,10 @@ void DSPCore::noteOn(NoteInfo &info)
     pv[ID::envelopeAttackSeconds]->getDouble() * upRate,
     pv[ID::envelopeDecaySeconds]->getDouble() * upRate);
 
-  const auto crossFeedbackGain = pv[ID::crossFeedbackGain]->getDouble();
-  membrane1.noteOn();
-  membrane2.noteOn();
+  // membrane1.noteOn();
+  // membrane2.noteOn();
+
+  resetCollision();
 }
 
 void DSPCore::noteOff(int_fast32_t noteId)
@@ -451,7 +549,7 @@ void DSPCore::noteOff(int_fast32_t noteId)
   if (it == noteStack.end()) return;
   noteStack.erase(it);
 
-  if (!noteStack.empty() && pv[ID::slideAtNoteOff]->getInt()) {
+  if (!noteStack.empty()) {
     noteNumber = noteStack.back().noteNumber;
     interpPitch.push(calcNotePitch(noteNumber));
   }
@@ -464,6 +562,6 @@ double DSPCore::calcNotePitch(double note)
 
   auto semitone = pv[ID::tuningSemitone]->getInt() - double(semitoneOffset + 57);
   auto cent = pv[ID::tuningCent]->getDouble() / double(100);
-  auto equalTemperament = pv[ID::tuningET]->getInt() + 1;
-  return std::exp2((note + semitone + cent) / equalTemperament);
+  auto notePitchAmount = pv[ID::notePitchAmount]->getDouble();
+  return std::exp2(notePitchAmount * (note + semitone + cent) / double(12));
 }

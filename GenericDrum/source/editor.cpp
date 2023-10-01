@@ -48,7 +48,8 @@ constexpr int_least32_t defaultWidth = int_least32_t(4 * uiMargin + 3 * groupLab
 constexpr int_least32_t defaultHeight
   = int_least32_t(2 * uiMargin + 20 * labelY - 2 * margin);
 
-enum tabIndex { tabBatter, tabSnare };
+constexpr const char *wireDidntCollidedText = "Wire didn't collide.";
+constexpr const char *membraneDidntCollidedText = "Membrane didn't collide.";
 
 namespace Steinberg {
 namespace Vst {
@@ -61,6 +62,80 @@ Editor::Editor(void *controller) : PlugEditor(controller)
 
   viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
   setRect(viewRect);
+}
+
+ParamValue Editor::getPlainValue(ParamID id)
+{
+  auto normalized = controller->getParamNormalized(id);
+  return controller->normalizedParamToPlain(id, normalized);
+}
+
+template<typename ControllerPtr, typename LabelPtr>
+inline void resetStatusText(
+  ControllerPtr controller, LabelPtr label, Synth::ParameterID::ID id, const char *text)
+{
+  controller->setParamNormalized(id, 0.0);
+  controller->performEdit(id, 0.0);
+  if (label.get()) {
+    label->setText(text);
+    label->setDirty();
+  }
+}
+
+void Editor::valueChanged(CControl *pControl)
+{
+  using ID = Synth::ParameterID::ID;
+
+  ParamID id = pControl->getTag();
+
+  if (id != ID::isWireCollided && id != ID::isSecondaryCollided) {
+    // controller->setParamNormalized(ID::isWireCollided, 0.0);
+    // controller->performEdit(ID::isWireCollided, 0.0);
+    // if (labelWireCollision.get()) {
+    //   labelWireCollision->setText(wireDidntCollidedText);
+    //   labelWireCollision->setDirty();
+    // }
+
+    // controller->setParamNormalized(ID::isSecondaryCollided, 0.0);
+    // controller->performEdit(ID::isSecondaryCollided, 0.0);
+    // if (labelMembraneCollision.get()) {
+    //   labelMembraneCollision->setText(membraneDidntCollidedText);
+    //   labelMembraneCollision->setDirty();
+    // }
+
+    resetStatusText(
+      controller, labelWireCollision, ID::isWireCollided, wireDidntCollidedText);
+    resetStatusText(
+      controller, labelMembraneCollision, ID::isSecondaryCollided,
+      membraneDidntCollidedText);
+  }
+
+  ParamValue value = pControl->getValueNormalized();
+  controller->setParamNormalized(id, value);
+  controller->performEdit(id, value);
+}
+
+void Editor::updateUI(ParamID id, ParamValue normalized)
+{
+  using ID = Synth::ParameterID::ID;
+
+  PlugEditor::updateUI(id, normalized);
+
+  if (labelWireCollision.get() && id == ID::isWireCollided) {
+    if (getPlainValue(ID::isWireCollided)) {
+      labelWireCollision->setText("Wire collided.");
+    } else {
+      labelWireCollision->setText(wireDidntCollidedText);
+    }
+    labelWireCollision->setDirty();
+  } else if (labelMembraneCollision.get() && id == ID::isSecondaryCollided) {
+    if (getPlainValue(ID::isSecondaryCollided)) {
+      labelMembraneCollision->setText("Membrane collided.");
+    } else {
+      labelMembraneCollision->setText(membraneDidntCollidedText);
+    }
+    labelMembraneCollision->setDirty();
+  }
 }
 
 bool Editor::prepareUI()
@@ -102,6 +177,9 @@ bool Editor::prepareUI()
   constexpr auto mixTop1 = mixTop0 + 1 * labelY;
   constexpr auto mixTop2 = mixTop0 + 2 * labelY;
   constexpr auto mixTop3 = mixTop0 + 3 * labelY;
+  constexpr auto mixTop4 = mixTop0 + 4 * labelY;
+  constexpr auto mixTop5 = mixTop0 + 5 * labelY;
+  constexpr auto mixTop6 = mixTop0 + 6 * labelY;
   constexpr auto mixLeft0 = left0;
   constexpr auto mixLeft1 = mixLeft0 + labelWidth + 2 * margin;
   addGroupLabel(mixLeft0, mixTop0, groupLabelWidth, labelHeight, uiTextSize, "Mix");
@@ -117,34 +195,48 @@ bool Editor::prepareUI()
     mixLeft1, mixTop2, labelWidth, labelHeight, uiTextSize, ID::safetyHighpassHz,
     Scales::safetyHighpassHz, false, 5);
   addCheckbox(
+    mixLeft0, mixTop3, labelWidth, labelHeight, uiTextSize, "Reset Seed at Note-on",
+    ID::resetSeedAtNoteOn);
+  addCheckbox(
     mixLeft1, mixTop3, labelWidth, labelHeight, uiTextSize, "2x Sampling",
     ID::overSampling);
+  addLabel(mixLeft0, mixTop4, labelWidth, labelHeight, uiTextSize, "Channel");
+  addOptionMenu(
+    mixLeft1, mixTop4, labelWidth, labelHeight, uiTextSize, ID::stereoEnable,
+    {"Mono", "Stereo"});
+  addLabel(mixLeft0, mixTop5, labelWidth, labelHeight, uiTextSize, "Stereo Balance");
+  addTextKnob(
+    mixLeft1, mixTop5, labelWidth, labelHeight, uiTextSize, ID::stereoBalance,
+    Scales::bipolarScale, false, 5);
+  addLabel(mixLeft0, mixTop6, labelWidth, labelHeight, uiTextSize, "Stereo Merge");
+  addTextKnob(
+    mixLeft1, mixTop6, labelWidth, labelHeight, uiTextSize, ID::stereoMerge,
+    Scales::defaultScale, false, 5);
 
   // Tuning.
-  constexpr auto tuningTop0 = top0 + 4 * labelY;
+  constexpr auto tuningTop0 = top0 + 7 * labelY;
   constexpr auto tuningTop1 = tuningTop0 + 1 * labelY;
   constexpr auto tuningTop2 = tuningTop0 + 2 * labelY;
   constexpr auto tuningTop3 = tuningTop0 + 3 * labelY;
   constexpr auto tuningTop4 = tuningTop0 + 4 * labelY;
   constexpr auto tuningTop5 = tuningTop0 + 5 * labelY;
-  constexpr auto tuningTop6 = tuningTop0 + 6 * labelY;
   constexpr auto tuningLeft0 = left0;
   constexpr auto tuningLeft1 = tuningLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     tuningLeft0, tuningTop0, groupLabelWidth, labelHeight, uiTextSize, "Tuning");
 
-  addLabel(tuningLeft0, tuningTop1, labelWidth, labelHeight, uiTextSize, "Semitone");
+  addLabel(tuningLeft0, tuningTop1, labelWidth, labelHeight, uiTextSize, "Note -> Pitch");
   addTextKnob(
-    tuningLeft1, tuningTop1, labelWidth, labelHeight, uiTextSize, ID::tuningSemitone,
+    tuningLeft1, tuningTop1, labelWidth, labelHeight, uiTextSize, ID::notePitchAmount,
+    Scales::bipolarScale, false, 5);
+  addLabel(tuningLeft0, tuningTop2, labelWidth, labelHeight, uiTextSize, "Semitone");
+  addTextKnob(
+    tuningLeft1, tuningTop2, labelWidth, labelHeight, uiTextSize, ID::tuningSemitone,
     Scales::semitone, false, 0, -semitoneOffset);
-  addLabel(tuningLeft0, tuningTop2, labelWidth, labelHeight, uiTextSize, "Cent");
+  addLabel(tuningLeft0, tuningTop3, labelWidth, labelHeight, uiTextSize, "Cent");
   addTextKnob(
-    tuningLeft1, tuningTop2, labelWidth, labelHeight, uiTextSize, ID::tuningCent,
+    tuningLeft1, tuningTop3, labelWidth, labelHeight, uiTextSize, ID::tuningCent,
     Scales::cent, false, 5);
-  addLabel(tuningLeft0, tuningTop3, labelWidth, labelHeight, uiTextSize, "Equal Temp.");
-  addTextKnob(
-    tuningLeft1, tuningTop3, labelWidth, labelHeight, uiTextSize, ID::tuningET,
-    Scales::equalTemperament, false, 0, 1);
   addLabel(
     tuningLeft0, tuningTop4, labelWidth, labelHeight, uiTextSize,
     "Pitch Bend Range [st.]");
@@ -156,16 +248,6 @@ bool Editor::prepareUI()
   addTextKnob(
     tuningLeft1, tuningTop5, labelWidth, labelHeight, uiTextSize, ID::noteSlideTimeSecond,
     Scales::noteSlideTimeSecond, false, 5);
-  constexpr auto slideAtWidth = int(groupLabelWidth / 3);
-  constexpr auto slideAtLeft1 = tuningLeft0 + 1 * slideAtWidth;
-  constexpr auto slideAtLeft2 = tuningLeft0 + 2 * slideAtWidth;
-  addLabel(tuningLeft0, tuningTop6, slideAtWidth, labelHeight, uiTextSize, "Slide at");
-  addCheckbox(
-    slideAtLeft1, tuningTop6, slideAtWidth, labelHeight, uiTextSize, "Note-on",
-    ID::slideAtNoteOn);
-  addCheckbox(
-    slideAtLeft2, tuningTop6, slideAtWidth, labelHeight, uiTextSize, "Note-off",
-    ID::slideAtNoteOff);
 
   // Impact.
   constexpr auto impactTop0 = top0 + 0 * labelY;
@@ -239,7 +321,7 @@ bool Editor::prepareUI()
   addTextKnob(
     wireLeft1, wireTop6, labelWidth, labelHeight, uiTextSize, ID::wireCollisionTypeMix,
     Scales::defaultScale, false, 5);
-  addLabel(
+  labelWireCollision = addLabel(
     wireLeft0, wireTop7, 2 * labelWidth, labelHeight, uiTextSize,
     "Wire collision status.");
 
@@ -326,17 +408,6 @@ bool Editor::prepareUI()
     mainLeft0, mainTop0, groupLabelWidth, labelHeight, uiTextSize, "Pitch Main");
 
   addLabel(mainLeft0, mainTop1, labelWidth, labelHeight, uiTextSize, "Pitch Type");
-  std::vector<std::string> pitchTypeItems{
-    "Harmonic",
-    "Harmonic+12",
-    "Harmonic*5",
-    "Harmonic Cycle(1, 5)",
-    "Harmonic Odd",
-    "Semitone (1, 2, 7, 9)",
-    "Circular Membrane Mode",
-    "Prime Number",
-    "Octave",
-  };
   addOptionMenu(
     mainLeft1, mainTop1, labelWidth, labelHeight, uiTextSize, ID::pitchType,
     {"Harmonic", "Harmonic+12", "Harmonic*5", "Harmonic Cycle(1, 5)", "Harmonic Odd",
@@ -394,7 +465,7 @@ bool Editor::prepareUI()
   addTextKnob(
     secondaryLeft1, secondaryTop4, labelWidth, labelHeight, uiTextSize,
     ID::secondaryDistance, Scales::collisionDistance, false, 5);
-  addLabel(
+  labelMembraneCollision = addLabel(
     secondaryLeft0, secondaryTop5, 2 * labelWidth, labelHeight, uiTextSize,
     "Membrane collision status.");
 
