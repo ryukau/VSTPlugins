@@ -152,6 +152,8 @@ void DSPCore::setup(double sampleRate)
   using ID = ParameterID::ID;                                                            \
   const auto &pv = param.value;                                                          \
                                                                                          \
+  preventBlowUp = pv[ID::preventBlowUp]->getInt();                                       \
+                                                                                         \
   pitchSmoothingKp                                                                       \
     = EMAFilter<double>::secondToP(upRate, pv[ID::noteSlideTimeSecond]->getDouble());    \
   auto pitchBend                                                                         \
@@ -170,7 +172,6 @@ void DSPCore::setup(double sampleRate)
   membraneWireMix.METHOD(pv[ID::membraneWireMix]->getDouble());                          \
   stereoBalance.METHOD(pv[ID::stereoBalance]->getDouble());                              \
   stereoMerge.METHOD(pv[ID::stereoMerge]->getDouble() / double(2));                      \
-  outputGain.METHOD(pv[ID::outputGain]->getDouble());                                    \
                                                                                          \
   constexpr auto highpassQ = std::numbers::sqrt2_v<double> / double(2);                  \
   const auto highpassCut = pv[ID::safetyHighpassHz]->getDouble() / sampleRate;           \
@@ -186,7 +187,7 @@ void DSPCore::setup(double sampleRate)
   }                                                                                      \
   feedbackMatrix.constructHouseholder();                                                 \
                                                                                          \
-  const auto noiseLowpassHz = pv[ID::noiseLowpassHz]->getDouble() / upRate;              \
+  const auto noiseLowpassFreq = pv[ID::noiseLowpassHz]->getDouble() / upRate;            \
   const auto noiseAllpassMaxTimeHz = pv[ID::noiseAllpassMaxTimeHz]->getDouble();         \
   const auto wireFrequencyHz = pv[ID::wireFrequencyHz]->getDouble();                     \
   const auto secondaryPitchOffset = pv[ID::secondaryPitchOffset]->getDouble();           \
@@ -198,8 +199,15 @@ void DSPCore::setup(double sampleRate)
   const auto bandpassCutSpread = pv[ID::bandpassCutSpread]->getDouble();                 \
   const auto pitchRandomCent = pv[ID::pitchRandomCent]->getDouble();                     \
   const size_t pitchType = pv[ID::pitchType]->getInt();                                  \
+                                                                                         \
+  auto gain = pv[ID::outputGain]->getDouble();                                           \
+  if (pv[ID::normalizeGainWrtNoiseLowpassHz]->getInt()) {                                \
+    gain *= approxNormalizeGain(noiseLowpassFreq);                                       \
+  }                                                                                      \
+  outputGain.METHOD(gain);                                                               \
+                                                                                         \
   for (size_t drm = 0; drm < nDrum; ++drm) {                                             \
-    noiseLowpass[drm].METHOD(noiseLowpassHz);                                            \
+    noiseLowpass[drm].METHOD(noiseLowpassFreq);                                          \
     noiseAllpass[drm].timeInSamples.METHOD(                                              \
       prepareSerialAllpassTime<nAllpass>(upRate, noiseAllpassMaxTimeHz, paramRng));      \
     wireAllpass[drm].timeInSamples.METHOD(                                               \
@@ -338,12 +346,6 @@ double DSPCore::processDrum(
   sig += noiseLowpass[index].process(noise);
   sig = std::tanh(noiseAllpass[index].process(sig, double(0.95)));
 
-  // Wire and membrane processing goes like:
-  // 1. solve collision,
-  // 2. update GUI status,
-  // 3. process delays,
-  // 4. update collision parameters.
-
   // Wire.
   solveCollision(
     wirePosition[index], membrane1Position[index], wireVelocity[index],
@@ -352,8 +354,9 @@ double DSPCore::processDrum(
   if (!isWireCollided && wirePosition[index] != 0) isWireCollided = true;
 
   auto wireCollision = std::lerp(
-    wireEnergyNoise[index].process(wirePosition[index], noiseRng),
-    wireEnergyDecay[index].process(wirePosition[index]), wireCollisionTypeMix.getValue());
+    wireEnergyNoise[index].process(wirePosition[index], preventBlowUp, noiseRng),
+    wireEnergyDecay[index].process(wirePosition[index], preventBlowUp),
+    wireCollisionTypeMix.getValue());
   wireCollision = double(8) * std::tanh(double(0.125) * wireCollision);
   const auto wireIn = double(0.995) * (sig + wireCollision);
   const auto wirePos = wireAllpass[index].process(wireIn, double(0.5)) * wireGain;
@@ -375,14 +378,16 @@ double DSPCore::processDrum(
   feedbackMatrix.process();
 
   const auto collision1
-    = membrane1EnergyDecay[index].process(membrane1Position[index]) / double(maxFdnSize);
+    = membrane1EnergyDecay[index].process(membrane1Position[index], false)
+    / double(maxFdnSize);
   const auto p1 = membrane1[index].process(
     sig + collision1, crossGain, pitch, timeModAmt, feedbackMatrix);
   membrane1Velocity[index] = p1 - membrane1Position[index];
   membrane1Position[index] = p1;
 
   const auto collision2
-    = membrane2EnergyDecay[index].process(membrane2Position[index]) / double(maxFdnSize);
+    = membrane2EnergyDecay[index].process(membrane2Position[index], false)
+    / double(maxFdnSize);
   const auto p2 = membrane2[index].process(
     sig + collision2, crossGain, pitch, timeModAmt, feedbackMatrix);
   membrane2Velocity[index] = p2 - membrane2Position[index];
@@ -407,8 +412,8 @@ double DSPCore::processDrum(
   const auto merge = stereoMerge.process();                                              \
   const auto outGain = outputGain.process();                                             \
                                                                                          \
-  std::uniform_real_distribution<double> dist{double(-1), double(1)};                    \
-  const auto noise = noiseGain * dist(noiseRng);                                         \
+  std::uniform_real_distribution<double> dist{double(-0.5), double(0.5)};                \
+  const auto noise = noiseGain * (dist(noiseRng) + dist(noiseRng));                      \
   noiseGain *= noiseDecay;                                                               \
   wireGain *= wireDecay;
 

@@ -89,20 +89,6 @@ void Editor::valueChanged(CControl *pControl)
   ParamID id = pControl->getTag();
 
   if (id != ID::isWireCollided && id != ID::isSecondaryCollided) {
-    // controller->setParamNormalized(ID::isWireCollided, 0.0);
-    // controller->performEdit(ID::isWireCollided, 0.0);
-    // if (labelWireCollision.get()) {
-    //   labelWireCollision->setText(wireDidntCollidedText);
-    //   labelWireCollision->setDirty();
-    // }
-
-    // controller->setParamNormalized(ID::isSecondaryCollided, 0.0);
-    // controller->performEdit(ID::isSecondaryCollided, 0.0);
-    // if (labelMembraneCollision.get()) {
-    //   labelMembraneCollision->setText(membraneDidntCollidedText);
-    //   labelMembraneCollision->setDirty();
-    // }
-
     resetStatusText(
       controller, labelWireCollision, ID::isWireCollided, wireDidntCollidedText);
     resetStatusText(
@@ -180,6 +166,7 @@ bool Editor::prepareUI()
   constexpr auto mixTop4 = mixTop0 + 4 * labelY;
   constexpr auto mixTop5 = mixTop0 + 5 * labelY;
   constexpr auto mixTop6 = mixTop0 + 6 * labelY;
+  constexpr auto mixTop7 = mixTop0 + 7 * labelY;
   constexpr auto mixLeft0 = left0;
   constexpr auto mixLeft1 = mixLeft0 + labelWidth + 2 * margin;
   addGroupLabel(mixLeft0, mixTop0, groupLabelWidth, labelHeight, uiTextSize, "Mix");
@@ -195,26 +182,31 @@ bool Editor::prepareUI()
     mixLeft1, mixTop2, labelWidth, labelHeight, uiTextSize, ID::safetyHighpassHz,
     Scales::safetyHighpassHz, false, 5);
   addCheckbox(
-    mixLeft0, mixTop3, labelWidth, labelHeight, uiTextSize, "Reset Seed at Note-on",
+    mixLeft0, mixTop3, labelWidth, labelHeight, uiTextSize, "2x Sampling",
+    ID::overSampling);
+  addCheckbox(
+    mixLeft1, mixTop3, labelWidth, labelHeight, uiTextSize, "Normalize Gain",
+    ID::normalizeGainWrtNoiseLowpassHz);
+  addCheckbox(
+    mixLeft0, mixTop4, labelWidth, labelHeight, uiTextSize, "Reset Seed at Note-on",
     ID::resetSeedAtNoteOn);
   addCheckbox(
-    mixLeft1, mixTop3, labelWidth, labelHeight, uiTextSize, "2x Sampling",
-    ID::overSampling);
-  addLabel(mixLeft0, mixTop4, labelWidth, labelHeight, uiTextSize, "Channel");
-  addOptionMenu(
-    mixLeft1, mixTop4, labelWidth, labelHeight, uiTextSize, ID::stereoEnable,
-    {"Mono", "Stereo"});
-  addLabel(mixLeft0, mixTop5, labelWidth, labelHeight, uiTextSize, "Stereo Balance");
+    mixLeft1, mixTop4, labelWidth, labelHeight, uiTextSize, "Prevent Blow Up",
+    ID::preventBlowUp);
+  addToggleButton(
+    mixLeft0, mixTop5, groupLabelWidth, labelHeight, uiTextSize, "Stereo Unison",
+    ID::stereoEnable);
+  addLabel(mixLeft0, mixTop6, labelWidth, labelHeight, uiTextSize, "Stereo Balance");
   addTextKnob(
-    mixLeft1, mixTop5, labelWidth, labelHeight, uiTextSize, ID::stereoBalance,
+    mixLeft1, mixTop6, labelWidth, labelHeight, uiTextSize, ID::stereoBalance,
     Scales::bipolarScale, false, 5);
-  addLabel(mixLeft0, mixTop6, labelWidth, labelHeight, uiTextSize, "Stereo Merge");
+  addLabel(mixLeft0, mixTop7, labelWidth, labelHeight, uiTextSize, "Stereo Merge");
   addTextKnob(
-    mixLeft1, mixTop6, labelWidth, labelHeight, uiTextSize, ID::stereoMerge,
+    mixLeft1, mixTop7, labelWidth, labelHeight, uiTextSize, ID::stereoMerge,
     Scales::defaultScale, false, 5);
 
   // Tuning.
-  constexpr auto tuningTop0 = top0 + 7 * labelY;
+  constexpr auto tuningTop0 = top0 + 8 * labelY;
   constexpr auto tuningTop1 = tuningTop0 + 1 * labelY;
   constexpr auto tuningTop2 = tuningTop0 + 2 * labelY;
   constexpr auto tuningTop3 = tuningTop0 + 3 * labelY;
@@ -322,7 +314,7 @@ bool Editor::prepareUI()
     wireLeft1, wireTop6, labelWidth, labelHeight, uiTextSize, ID::wireCollisionTypeMix,
     Scales::defaultScale, false, 5);
   labelWireCollision = addLabel(
-    wireLeft0, wireTop7, 2 * labelWidth, labelHeight, uiTextSize,
+    wireLeft0, wireTop7, groupLabelWidth, labelHeight, uiTextSize,
     "Wire collision status.");
 
   // Primary Membrane.
@@ -466,12 +458,12 @@ bool Editor::prepareUI()
     secondaryLeft1, secondaryTop4, labelWidth, labelHeight, uiTextSize,
     ID::secondaryDistance, Scales::collisionDistance, false, 5);
   labelMembraneCollision = addLabel(
-    secondaryLeft0, secondaryTop5, 2 * labelWidth, labelHeight, uiTextSize,
+    secondaryLeft0, secondaryTop5, groupLabelWidth, labelHeight, uiTextSize,
     "Membrane collision status.");
 
   // Plugin name.
   constexpr auto splashMargin = uiMargin;
-  constexpr auto splashTop = top0 + 13 * labelY + int(labelHeight / 4) + 2 * margin;
+  constexpr auto splashTop = top0 + 18 * labelY + int(labelHeight / 4) + 2 * margin;
   constexpr auto splashLeft = left0 + int(labelWidth / 4);
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,

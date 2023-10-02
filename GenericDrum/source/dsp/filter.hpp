@@ -29,6 +29,20 @@
 
 namespace SomeDSP {
 
+// Normalize gain for `ComplexLowpass`.
+// `x` is normalzied cutoff in [0, 0.5).
+template<typename Sample> inline Sample approxNormalizeGain(Sample x)
+{
+  constexpr std::array<Sample, 4> b{
+    Sample(812352066809.4705), Sample(3.094123212331795e+16),
+    Sample(2.3874703361354637e+19), Sample(4.274664722153258e+20)};
+  constexpr std::array<Sample, 4> a{
+    Sample(-1650067658.2394962), Sample(1417724332731251.8),
+    Sample(2.7196907485733147e+19), Sample(1.1852026355744978e+22)};
+  return x * (b[1] + x * (b[2] + x * (b[3] + x * b[4])))
+    / (Sample(1) + x * (a[1] + x * (a[2] + x * (a[3] + x * a[4]))));
+}
+
 template<typename Sample> class ComplexLowpass {
 private:
   Sample x1 = 0;
@@ -190,7 +204,7 @@ public:
 
   void reset() { std::fill(buf.begin(), buf.end(), Sample(0)); }
 
-  Sample process(Sample input, Sample timeInSamples)
+  Sample processLinterp(Sample input, Sample timeInSamples)
   {
     const int size = int(buf.size());
 
@@ -207,6 +221,23 @@ public:
     int rptr0 = wptr - timeInt;
     if (rptr0 < 0) rptr0 += size;
     return std::lerp(buf[rptr0], buf[(rptr0 != 0 ? rptr0 : size) - 1], rFraction);
+  }
+
+  Sample process(Sample input, Sample timeInSamples)
+  {
+    const int size = int(buf.size());
+
+    // Set delay time. Min delay is set to 1 sample to avoid artifact of feedback.
+    const int timeInt = int(std::clamp(timeInSamples, Sample(1), Sample(size - 1)));
+
+    // Write to buffer.
+    buf[wptr] = input;
+    if (++wptr >= size) wptr = 0;
+
+    // Read from buffer.
+    int rptr0 = wptr - timeInt;
+    if (rptr0 < 0) rptr0 += size;
+    return buf[rptr0];
   }
 };
 
@@ -294,10 +325,11 @@ public:
 
   void reset() { sum = 0; }
 
-  Sample process(Sample value)
+  Sample process(Sample value, bool preventBlowUp)
   {
     const auto absed = std::abs(value);
     if (absed > eps) sum = (sum + value) * decay;
+    if (preventBlowUp) sum = std::min(Sample(1) / Sample(4), sum);
     return sum *= gain;
   }
 };
@@ -309,10 +341,11 @@ private:
 public:
   void reset() { sum = 0; }
 
-  Sample process(Sample value, Rng &rng)
+  Sample process(Sample value, bool preventBlowUp, Rng &rng)
   {
     sum += std::abs(value);
-    std::uniform_real_distribution<Sample> dist{Sample(-sum), Sample(sum)};
+    const auto range = preventBlowUp ? std::min(Sample(1) / Sample(64), sum) : sum;
+    std::uniform_real_distribution<Sample> dist{Sample(-range), Sample(range)};
     const auto out = dist(rng);
     sum -= std::abs(out);
     return out;
@@ -344,7 +377,7 @@ public:
     for (auto &bf : buffer) std::fill(bf.begin(), bf.end(), Sample(0));
   }
 
-  void process(
+  void processLinterp(
     std::array<Sample, length> &input,
     const std::array<Sample, length> &timeInSamples,
     Sample timeScaler)
@@ -367,6 +400,30 @@ public:
       int rptr0 = wptr[idx] - timeInt;
       if (rptr0 < 0) rptr0 += size;
       input[idx] = std::lerp(bf[rptr0], bf[(rptr0 != 0 ? rptr0 : size) - 1], rFraction);
+    }
+  }
+
+  void process(
+    std::array<Sample, length> &input,
+    const std::array<Sample, length> &timeInSamples,
+    Sample timeScaler)
+  {
+    for (size_t idx = 0; idx < length; ++idx) {
+      auto &bf = buffer[idx];
+      const int size = int(bf.size());
+
+      // Set delay time. Min delay is set to 1 sample to avoid artifact of feedback.
+      int timeInt
+        = int(std::clamp(timeInSamples[idx] / timeScaler, Sample(1), Sample(size - 1)));
+
+      // Write to buffer.
+      bf[wptr[idx]] = input[idx];
+      if (++wptr[idx] >= size) wptr[idx] = 0;
+
+      // Read from buffer.
+      int rptr0 = wptr[idx] - timeInt;
+      if (rptr0 < 0) rptr0 += size;
+      input[idx] = bf[rptr0];
     }
   }
 };

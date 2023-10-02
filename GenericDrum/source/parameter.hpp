@@ -44,8 +44,10 @@ enum ID {
   outputGain,
   safetyHighpassEnable,
   safetyHighpassHz,
-  resetSeedAtNoteOn,
   overSampling,
+  normalizeGainWrtNoiseLowpassHz,
+  resetSeedAtNoteOn,
+  preventBlowUp,
 
   stereoEnable,
   stereoBalance,
@@ -158,10 +160,14 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::safetyHighpassHz] = std::make_unique<DecibelValue>(
       Scales::safetyHighpassHz.invmap(15.0), Scales::safetyHighpassHz, "safetyHighpassHz",
       Info::kCanAutomate);
-    value[ID::resetSeedAtNoteOn] = std::make_unique<UIntValue>(
-      1, Scales::boolScale, "resetSeedAtNoteOn", Info::kCanAutomate);
     value[ID::overSampling] = std::make_unique<UIntValue>(
       1, Scales::boolScale, "overSampling", Info::kCanAutomate);
+    value[ID::normalizeGainWrtNoiseLowpassHz] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "normalizeGainWrtNoiseLowpassHz", Info::kCanAutomate);
+    value[ID::resetSeedAtNoteOn] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "resetSeedAtNoteOn", Info::kCanAutomate);
+    value[ID::preventBlowUp] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "preventBlowUp", Info::kCanAutomate);
 
     value[ID::stereoEnable] = std::make_unique<UIntValue>(
       1, Scales::boolScale, "stereoEnable", Info::kCanAutomate);
@@ -185,7 +191,7 @@ struct GlobalParameter : public ParameterInterface {
       Scales::pitchBendRange.invmap(2.0), Scales::pitchBendRange, "pitchBendRange",
       Info::kCanAutomate);
     value[ID::noteSlideTimeSecond] = std::make_unique<DecibelValue>(
-      Scales::noteSlideTimeSecond.invmap(0.01), Scales::noteSlideTimeSecond,
+      Scales::noteSlideTimeSecond.invmap(0.1), Scales::noteSlideTimeSecond,
       "noteSlideTimeSecond", Info::kCanAutomate);
 
     value[ID::seed]

@@ -143,6 +143,7 @@ private:
   std::array<ComplexLowpass<double>, nDrum> noiseLowpass;
   std::array<SerialAllpass<double, nAllpass>, nDrum> noiseAllpass;
 
+  bool preventBlowUp = false;
   std::array<SerialAllpass<double, nAllpass>, 2> wireAllpass;
   std::array<EnergyStoreDecay<double>, 2> wireEnergyDecay;
   std::array<EnergyStoreNoise<double, std::minstd_rand>, 2> wireEnergyNoise;

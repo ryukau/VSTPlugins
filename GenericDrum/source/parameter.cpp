@@ -40,7 +40,7 @@ DecibelScale<double> Scales::safetyHighpassHz(ampToDB(0.1), ampToDB(100.0), fals
 UIntScale<double> Scales::semitone(semitoneOffset + 48);
 LinearScale<double> Scales::cent(-100.0, 100.0);
 LinearScale<double> Scales::pitchBendRange(0.0, 120.0);
-DecibelScale<double> Scales::noteSlideTimeSecond(-100.0, 40.0, true);
+DecibelScale<double> Scales::noteSlideTimeSecond(-40.0, 40.0, false);
 
 DecibelScale<double> Scales::noiseDecaySeconds(-40, ampToDB(0.5), false);
 
