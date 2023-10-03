@@ -139,6 +139,7 @@ void DSPCore::setup(double sampleRate)
   for (auto &x : noiseAllpass) x.setup(maxDelayTimeSamples);
   for (auto &x : wireAllpass) x.setup(maxDelayTimeSamples);
   for (auto &x : wireEnergyDecay) x.setup(upRate * double(0.001));
+  releaseSmoother.setup(double(0.1) * upRate);
   for (auto &x : membrane1EnergyDecay) x.setup(upRate * double(0.001));
   for (auto &x : membrane2EnergyDecay) x.setup(upRate * double(0.001));
   for (auto &x : membrane1) x.setup(maxDelayTimeSamples);
@@ -202,7 +203,7 @@ void DSPCore::setup(double sampleRate)
                                                                                          \
   auto gain = pv[ID::outputGain]->getDouble();                                           \
   if (pv[ID::normalizeGainWrtNoiseLowpassHz]->getInt()) {                                \
-    gain *= approxNormalizeGain(noiseLowpassFreq);                                       \
+    gain *= approxNormalizeGain(noiseLowpassFreq) / interpPitch.getValue();              \
   }                                                                                      \
   outputGain.METHOD(gain);                                                               \
                                                                                          \
@@ -338,7 +339,12 @@ inline void solveCollision(double &p0, double &p1, double v0, double v1, double 
 }
 
 double DSPCore::processDrum(
-  size_t index, double noise, double wireGain, double crossGain, double timeModAmt)
+  size_t index,
+  double noise,
+  double wireGain,
+  double pitchEnv,
+  double crossGain,
+  double timeModAmt)
 {
   // Impact.
   constexpr auto eps = std::numeric_limits<double>::epsilon();
@@ -373,8 +379,7 @@ double DSPCore::processDrum(
 
   if (!isSecondaryCollided && membrane2Position[index] != 0) isSecondaryCollided = true;
 
-  const auto env = std::exp2(envelope.process() + releaseSmoother.process());
-  const auto pitch = env * interpPitch.process(pitchSmoothingKp);
+  const auto pitch = pitchEnv * interpPitch.process(pitchSmoothingKp);
   feedbackMatrix.process();
 
   const auto collision1
@@ -415,21 +420,23 @@ double DSPCore::processDrum(
   std::uniform_real_distribution<double> dist{double(-0.5), double(0.5)};                \
   const auto noise = noiseGain * (dist(noiseRng) + dist(noiseRng));                      \
   noiseGain *= noiseDecay;                                                               \
-  wireGain *= wireDecay;
+  wireGain *= wireDecay;                                                                 \
+                                                                                         \
+  const auto pitchEnv = std::exp2(envelope.process() + releaseSmoother.process());
 
 double DSPCore::processSample()
 {
   PROCESS_COMMON;
 
-  return outGain * processDrum(0, noise, wireGain, crossGain, timeModAmt);
+  return outGain * processDrum(0, noise, wireGain, pitchEnv, crossGain, timeModAmt);
 }
 
 std::array<double, 2> DSPCore::processFrame()
 {
   PROCESS_COMMON;
 
-  auto drum0 = processDrum(0, noise, wireGain, crossGain, timeModAmt);
-  auto drum1 = processDrum(1, noise, wireGain, crossGain, timeModAmt);
+  auto drum0 = processDrum(0, noise, wireGain, pitchEnv, crossGain, timeModAmt);
+  auto drum1 = processDrum(1, noise, wireGain, pitchEnv, crossGain, timeModAmt);
 
   constexpr auto eps = std::numeric_limits<double>::epsilon();
   if (balance < -eps) {
@@ -453,7 +460,7 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
   SmootherCommon<double>::setBufferSize(double(length));
   SmootherCommon<double>::setSampleRate(upRate);
 
-  bool isStereo = pv[ID::stereoEnable]->getInt();
+  bool isStereo = pv[ID::stereoUnison]->getInt();
   bool isSafetyHighpassEnabled = pv[ID::safetyHighpassEnable]->getInt();
 
   std::array<double, 2> frame{};
@@ -531,7 +538,7 @@ void DSPCore::noteOn(NoteInfo &info)
   wireGain = double(2);
   wireDecay = std::pow(eps, double(1) / (upRate * pv[ID::wireDecaySeconds]->getDouble()));
 
-  releaseSmoother.prepare(envelope.process(), double(0.002) * upRate);
+  releaseSmoother.prepare(envelope.process());
   envelope.noteOn(
     pv[ID::envelopeModAmount]->getDouble(),
     pv[ID::envelopeAttackSeconds]->getDouble() * upRate,

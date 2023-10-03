@@ -195,7 +195,7 @@ bool Editor::prepareUI()
     ID::preventBlowUp);
   addToggleButton(
     mixLeft0, mixTop5, groupLabelWidth, labelHeight, uiTextSize, "Stereo Unison",
-    ID::stereoEnable);
+    ID::stereoUnison);
   addLabel(mixLeft0, mixTop6, labelWidth, labelHeight, uiTextSize, "Stereo Balance");
   addTextKnob(
     mixLeft1, mixTop6, labelWidth, labelHeight, uiTextSize, ID::stereoBalance,

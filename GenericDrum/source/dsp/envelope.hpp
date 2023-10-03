@@ -121,15 +121,14 @@ private:
   Sample decay = 0;
 
 public:
-  void reset() { v0 = 0; }
-
   // decaySamples = sampleRate * seconds.
-  void prepare(Sample value, Sample decaySamples)
+  void setup(Sample decaySamples)
   {
-    v0 += value;
     decay = std::pow(std::numeric_limits<Sample>::epsilon(), Sample(1) / decaySamples);
   }
 
+  void reset() { v0 = 0; }
+  void prepare(Sample value) { v0 += value; }
   Sample process() { return v0 *= decay; }
 };
 

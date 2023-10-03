@@ -49,7 +49,7 @@ enum ID {
   resetSeedAtNoteOn,
   preventBlowUp,
 
-  stereoEnable,
+  stereoUnison,
   stereoBalance,
   stereoMerge,
 
@@ -169,8 +169,8 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::preventBlowUp] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "preventBlowUp", Info::kCanAutomate);
 
-    value[ID::stereoEnable] = std::make_unique<UIntValue>(
-      1, Scales::boolScale, "stereoEnable", Info::kCanAutomate);
+    value[ID::stereoUnison] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "stereoUnison", Info::kCanAutomate);
     value[ID::stereoBalance] = std::make_unique<LinearValue>(
       Scales::bipolarScale.invmap(0.0), Scales::bipolarScale, "stereoBalance",
       Info::kCanAutomate);

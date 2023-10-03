@@ -74,10 +74,8 @@ Shift + Middle Click|Take Floor
 GenericDrum can output very loud signal.
 Recommend to use with limiter.
 
-Breath.Gain and Pulse.Gain are fed into non-linear
-component. Those two affect the character of sound.
-To change loudness without affecting the character,
-use Mix.Output.
+Pitch envelope may cause pop noise when at least
+one of Attack or Decay is less than 0.01.
 
 Have a nice day!)";
 

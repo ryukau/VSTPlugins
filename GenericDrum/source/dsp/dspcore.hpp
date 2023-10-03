@@ -99,7 +99,12 @@ private:
   double processSample();
   std::array<double, 2> processFrame();
   double processDrum(
-    size_t index, double noise, double wireGain, double crossGain, double timeModAmt);
+    size_t index,
+    double noise,
+    double wireGain,
+    double pitchEnv,
+    double crossGain,
+    double timeModAmt);
 
   std::vector<NoteInfo> midiNotes;
   std::vector<NoteInfo> noteStack;
