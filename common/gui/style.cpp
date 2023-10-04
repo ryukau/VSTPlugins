@@ -21,6 +21,8 @@ This source is splitted because nlohmann/json.hpp is slow to compile.
 */
 #include "style.hpp"
 #include "../../lib/ghc/fs_std.hpp"
+
+#define JSON_DIAGNOSTICS 1
 #include "../../lib/json.hpp"
 
 #include <algorithm>
@@ -80,7 +82,13 @@ inline nlohmann::json loadStyleJson()
     return data;
   }
 
-  ifs >> data;
+  try {
+    data = nlohmann::json::parse(ifs);
+  } catch (const nlohmann::json::parse_error &e) {
+    // output exception information
+    std::cerr << "Failed to parse `style.json`. Diagnostic message is below.\n"
+              << e.what() << std::endl;
+  }
   return data;
 }
 
