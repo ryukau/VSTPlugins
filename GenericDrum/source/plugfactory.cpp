@@ -29,7 +29,7 @@
 #include "version.hpp"
 
 // Subcategory for this Plug-in (see PlugType in ivstaudioprocessor.h)
-#define stringSubCategory Steinberg::Vst::PlugType::kInstrumentSynth
+#define stringSubCategory Steinberg::Vst::PlugType::kFxInstrument
 
 BEGIN_FACTORY_DEF(stringCompanyName, stringCompanyWeb, stringCompanyEmail)
 

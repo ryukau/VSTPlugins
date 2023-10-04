@@ -20,7 +20,9 @@
 #include "version.hpp"
 
 #include <algorithm>
-#include <random>
+#include <iomanip>
+#include <sstream>
+#include <string>
 
 constexpr float uiTextSize = 12.0f;
 constexpr float pluginNameTextSize = 14.0f;
@@ -107,7 +109,35 @@ void Editor::updateUI(ParamID id, ParamValue normalized)
 
   PlugEditor::updateUI(id, normalized);
 
-  if (labelWireCollision.get() && id == ID::isWireCollided) {
+  if (labelExternalInputAmplitude.get() && id == ID::externalInputAmplitudeMeter) {
+    if (getPlainValue(ID::useExternalInput) == 0) {
+      labelExternalInputAmplitude->setText("External input is disabled.");
+      labelExternalInputAmplitude->setDirty();
+      extInPeakDecibel = -std::numeric_limits<double>::infinity();
+    } else {
+      const auto decibel
+        = 20 * std::log10(getPlainValue(ID::externalInputAmplitudeMeter));
+      if (extInPeakDecibel < decibel) {
+        extInPeakDecibel = decibel;
+        extInPeakHoldCounter = 60; // Bad, because display refresh rate isn't considered.
+      }
+
+      std::ostringstream os;
+      os.precision(5);
+      os << std::fixed << "Ext. Peak: " << extInPeakDecibel << " [dB]";
+      labelExternalInputAmplitude->setText(os.str());
+      labelExternalInputAmplitude->setDirty();
+
+      if (extInPeakHoldCounter == 0) {
+        extInPeakDecibel -= double(0.1);
+        if (extInPeakDecibel < -60) {
+          extInPeakDecibel = -std::numeric_limits<double>::infinity();
+        }
+      } else {
+        --extInPeakHoldCounter;
+      }
+    }
+  } else if (labelWireCollision.get() && id == ID::isWireCollided) {
     if (getPlainValue(ID::isWireCollided)) {
       labelWireCollision->setText("Wire collided.");
     } else {
@@ -167,9 +197,14 @@ bool Editor::prepareUI()
   constexpr auto mixTop5 = mixTop0 + 5 * labelY;
   constexpr auto mixTop6 = mixTop0 + 6 * labelY;
   constexpr auto mixTop7 = mixTop0 + 7 * labelY;
+  constexpr auto mixTop8 = mixTop0 + 8 * labelY;
+  constexpr auto mixTop9 = mixTop0 + 9 * labelY;
+  constexpr auto mixTop10 = mixTop0 + 10 * labelY;
+  constexpr auto mixTop11 = mixTop0 + 11 * labelY;
   constexpr auto mixLeft0 = left0;
   constexpr auto mixLeft1 = mixLeft0 + labelWidth + 2 * margin;
-  addGroupLabel(mixLeft0, mixTop0, groupLabelWidth, labelHeight, uiTextSize, "Mix");
+  addGroupLabel(
+    mixLeft0, mixTop0, groupLabelWidth, labelHeight, uiTextSize, "Mix & Options");
 
   addLabel(mixLeft0, mixTop1, labelWidth, labelHeight, uiTextSize, "Output [dB]");
   addTextKnob(
@@ -193,6 +228,7 @@ bool Editor::prepareUI()
   addCheckbox(
     mixLeft1, mixTop4, labelWidth, labelHeight, uiTextSize, "Prevent Blow Up",
     ID::preventBlowUp);
+
   addToggleButton(
     mixLeft0, mixTop5, groupLabelWidth, labelHeight, uiTextSize, "Stereo Unison",
     ID::stereoUnison);
@@ -205,8 +241,26 @@ bool Editor::prepareUI()
     mixLeft1, mixTop7, labelWidth, labelHeight, uiTextSize, ID::stereoMerge,
     Scales::defaultScale, false, 5);
 
+  addToggleButton(
+    mixLeft0, mixTop8, groupLabelWidth, labelHeight, uiTextSize, "External Input",
+    ID::useExternalInput);
+  addLabel(mixLeft0, mixTop9, labelWidth, labelHeight, uiTextSize, "External Gain [dB]");
+  addTextKnob(
+    mixLeft1, mixTop9, labelWidth, labelHeight, uiTextSize, ID::externalInputGain,
+    Scales::gain, true, 5);
+  addLabel(
+    mixLeft0, mixTop10, labelWidth, labelHeight, uiTextSize, "Trigger Threshold [dB]");
+  addTextKnob(
+    mixLeft1, mixTop10, labelWidth, labelHeight, uiTextSize,
+    ID::automaticTriggerThreshold, Scales::gain, true, 5);
+  addCheckbox(
+    mixLeft0, mixTop11, labelWidth, labelHeight, uiTextSize, "Automatic Trigger",
+    ID::useAutomaticTrigger);
+  labelExternalInputAmplitude
+    = addLabel(mixLeft1, mixTop11, labelWidth, labelHeight, uiTextSize, "Initialized.");
+
   // Tuning.
-  constexpr auto tuningTop0 = top0 + 8 * labelY;
+  constexpr auto tuningTop0 = top0 + 12 * labelY;
   constexpr auto tuningTop1 = tuningTop0 + 1 * labelY;
   constexpr auto tuningTop2 = tuningTop0 + 2 * labelY;
   constexpr auto tuningTop3 = tuningTop0 + 3 * labelY;

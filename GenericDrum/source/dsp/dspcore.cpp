@@ -135,6 +135,8 @@ void DSPCore::setup(double sampleRate)
 
   SmootherCommon<double>::setTime(double(0.2));
 
+  triggerDetector.setup(upRate * double(0.125));
+
   const auto maxDelayTimeSamples = upRate;
   for (auto &x : noiseAllpass) x.setup(maxDelayTimeSamples);
   for (auto &x : wireAllpass) x.setup(maxDelayTimeSamples);
@@ -153,6 +155,8 @@ void DSPCore::setup(double sampleRate)
   using ID = ParameterID::ID;                                                            \
   const auto &pv = param.value;                                                          \
                                                                                          \
+  useExternalInput = pv[ID::useExternalInput]->getInt();                                 \
+  useAutomaticTrigger = pv[ID::useAutomaticTrigger]->getInt() && useExternalInput;       \
   preventBlowUp = pv[ID::preventBlowUp]->getInt();                                       \
                                                                                          \
   pitchSmoothingKp                                                                       \
@@ -162,6 +166,7 @@ void DSPCore::setup(double sampleRate)
   auto notePitch = calcNotePitch(pitchBend * noteNumber);                                \
   interpPitch.METHOD(notePitch);                                                         \
                                                                                          \
+  externalInputGain.METHOD(pv[ID::externalInputGain]->getDouble());                      \
   wireDistance.METHOD(pv[ID::wireDistance]->getDouble());                                \
   wireCollisionTypeMix.METHOD(pv[ID::wireCollisionTypeMix]->getDouble());                \
   impactWireMix.METHOD(pv[ID::impactWireMix]->getDouble());                              \
@@ -180,7 +185,18 @@ void DSPCore::setup(double sampleRate)
     safetyHighpass[ch].METHOD(highpassCut, highpassQ);                                   \
   }                                                                                      \
                                                                                          \
+  triggerDetector.prepare(pv[ID::automaticTriggerThreshold]->getDouble());               \
+                                                                                         \
   paramRng.seed(pv[ID::seed]->getInt());                                                 \
+                                                                                         \
+  const auto noiseLowpassFreq = pv[ID::noiseLowpassHz]->getDouble() / upRate;            \
+  noiseLowpass.METHOD(noiseLowpassFreq);                                                 \
+                                                                                         \
+  auto gain = pv[ID::outputGain]->getDouble();                                           \
+  if (pv[ID::normalizeGainWrtNoiseLowpassHz]->getInt()) {                                \
+    gain *= approxNormalizeGain(noiseLowpassFreq) / interpPitch.getValue();              \
+  }                                                                                      \
+  outputGain.METHOD(gain);                                                               \
                                                                                          \
   for (size_t idx = 0; idx < maxFdnSize; ++idx) {                                        \
     const auto crossFeedbackRatio = pv[ID::crossFeedbackRatio0 + idx]->getDouble();      \
@@ -188,7 +204,6 @@ void DSPCore::setup(double sampleRate)
   }                                                                                      \
   feedbackMatrix.constructHouseholder();                                                 \
                                                                                          \
-  const auto noiseLowpassFreq = pv[ID::noiseLowpassHz]->getDouble() / upRate;            \
   const auto noiseAllpassMaxTimeHz = pv[ID::noiseAllpassMaxTimeHz]->getDouble();         \
   const auto wireFrequencyHz = pv[ID::wireFrequencyHz]->getDouble();                     \
   const auto secondaryPitchOffset = pv[ID::secondaryPitchOffset]->getDouble();           \
@@ -201,14 +216,7 @@ void DSPCore::setup(double sampleRate)
   const auto pitchRandomCent = pv[ID::pitchRandomCent]->getDouble();                     \
   const size_t pitchType = pv[ID::pitchType]->getInt();                                  \
                                                                                          \
-  auto gain = pv[ID::outputGain]->getDouble();                                           \
-  if (pv[ID::normalizeGainWrtNoiseLowpassHz]->getInt()) {                                \
-    gain *= approxNormalizeGain(noiseLowpassFreq) / interpPitch.getValue();              \
-  }                                                                                      \
-  outputGain.METHOD(gain);                                                               \
-                                                                                         \
   for (size_t drm = 0; drm < nDrum; ++drm) {                                             \
-    noiseLowpass[drm].METHOD(noiseLowpassFreq);                                          \
     noiseAllpass[drm].timeInSamples.METHOD(                                              \
       prepareSerialAllpassTime<nAllpass>(upRate, noiseAllpassMaxTimeHz, paramRng));      \
     wireAllpass[drm].timeInSamples.METHOD(                                               \
@@ -274,6 +282,8 @@ void DSPCore::reset()
   noteNumber = 69.0;
   velocity = 0;
 
+  triggerDetector.reset();
+
   noiseGain = 0;
   noiseDecay = 0;
   for (auto &x : noiseAllpass) x.reset();
@@ -289,6 +299,7 @@ void DSPCore::reset()
   envelope.reset();
   releaseSmoother.reset();
 
+  feedbackMatrix.reset();
   membrane1Position.fill({});
   membrane1Velocity.fill({});
   membrane2Position.fill({});
@@ -298,6 +309,7 @@ void DSPCore::reset()
   for (auto &x : membrane1) x.reset();
   for (auto &x : membrane2) x.reset();
 
+  for (auto &x : halfbandInput) x.fill({});
   for (auto &x : halfbandIir) x.reset();
 }
 
@@ -340,17 +352,14 @@ inline void solveCollision(double &p0, double &p1, double v0, double v1, double 
 
 double DSPCore::processDrum(
   size_t index,
-  double noise,
+  double excitation,
   double wireGain,
   double pitchEnv,
   double crossGain,
   double timeModAmt)
 {
-  // Impact.
-  constexpr auto eps = std::numeric_limits<double>::epsilon();
-  double sig = 0;
-  sig += noiseLowpass[index].process(noise);
-  sig = std::tanh(noiseAllpass[index].process(sig, double(0.95)));
+  // Impact & Echo.
+  double sig = std::tanh(noiseAllpass[index].process(excitation, double(0.95)));
 
   // Wire.
   solveCollision(
@@ -365,7 +374,8 @@ double DSPCore::processDrum(
     wireCollisionTypeMix.getValue());
   wireCollision = double(8) * std::tanh(double(0.125) * wireCollision);
   const auto wireIn = double(0.995) * (sig + wireCollision);
-  const auto wirePos = wireAllpass[index].process(wireIn, double(0.5)) * wireGain;
+  auto wirePos = wireAllpass[index].process(wireIn, double(0.5)) * wireGain;
+  if (preventBlowUp) wirePos /= double(nAllpass);
   wireVelocity[index] = wirePos - wirePosition[index];
   wirePosition[index] = wirePos;
 
@@ -405,6 +415,7 @@ double DSPCore::processDrum(
 }
 
 #define PROCESS_COMMON                                                                   \
+  externalInputGain.process();                                                           \
   wireDistance.process();                                                                \
   wireCollisionTypeMix.process();                                                        \
   impactWireMix.process();                                                               \
@@ -418,25 +429,45 @@ double DSPCore::processDrum(
   const auto outGain = outputGain.process();                                             \
                                                                                          \
   std::uniform_real_distribution<double> dist{double(-0.5), double(0.5)};                \
-  const auto noise = noiseGain * (dist(noiseRng) + dist(noiseRng));                      \
+  const auto noise                                                                       \
+    = noiseLowpass.process(noiseGain * (dist(noiseRng) + dist(noiseRng)));               \
   noiseGain *= noiseDecay;                                                               \
   wireGain *= wireDecay;                                                                 \
                                                                                          \
   const auto pitchEnv = std::exp2(envelope.process() + releaseSmoother.process());
 
-double DSPCore::processSample()
+inline void DSPCore::processExternalInput(double absed)
 {
-  PROCESS_COMMON;
-
-  return outGain * processDrum(0, noise, wireGain, pitchEnv, crossGain, timeModAmt);
+  if (maxExtInAmplitude < absed) maxExtInAmplitude = absed;
+  if (useAutomaticTrigger && triggerDetector.process(absed)) wireGain = double(2);
 }
 
-std::array<double, 2> DSPCore::processFrame()
+double DSPCore::processSample(double externalInput)
 {
   PROCESS_COMMON;
 
-  auto drum0 = processDrum(0, noise, wireGain, pitchEnv, crossGain, timeModAmt);
-  auto drum1 = processDrum(1, noise, wireGain, pitchEnv, crossGain, timeModAmt);
+  const auto excitation
+    = useExternalInput ? externalInput * externalInputGain.getValue() : noise;
+  if (useExternalInput) {
+    processExternalInput(std::abs(excitation));
+  }
+
+  return outGain * processDrum(0, excitation, wireGain, pitchEnv, crossGain, timeModAmt);
+}
+
+std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externalInput)
+{
+  PROCESS_COMMON;
+
+  const auto &extGain = externalInputGain.getValue();
+  const auto excitation0 = useExternalInput ? externalInput[0] * extGain : noise;
+  const auto excitation1 = useExternalInput ? externalInput[1] * extGain : noise;
+  if (useExternalInput) {
+    processExternalInput(double(0.5) * (std::abs(excitation0) + std::abs(excitation1)));
+  }
+
+  auto drum0 = processDrum(0, excitation0, wireGain, pitchEnv, crossGain, timeModAmt);
+  auto drum1 = processDrum(1, excitation1, wireGain, pitchEnv, crossGain, timeModAmt);
 
   constexpr auto eps = std::numeric_limits<double>::epsilon();
   if (balance < -eps) {
@@ -450,7 +481,8 @@ std::array<double, 2> DSPCore::processFrame()
   };
 }
 
-void DSPCore::process(const size_t length, float *out0, float *out1)
+void DSPCore::process(
+  const size_t length, const float *in0, const float *in1, float *out0, float *out1)
 {
   ScopedNoDenormals scopedDenormals;
 
@@ -463,17 +495,29 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
   bool isStereo = pv[ID::stereoUnison]->getInt();
   bool isSafetyHighpassEnabled = pv[ID::safetyHighpassEnable]->getInt();
 
+  maxExtInAmplitude = 0;
+
+  std::array<double, 2> prevExtIn = halfbandInput[0];
   std::array<double, 2> frame{};
   for (size_t i = 0; i < length; ++i) {
     processMidiNote(i);
 
+    const double extIn0 = in0 == nullptr ? 0 : in0[i];
+    const double extIn1 = in1 == nullptr ? 0 : in1[i];
+
     if (isStereo) {
       if (overSampling) {
-        for (size_t j = 0; j < upFold; ++j) {
-          frame = processFrame();
-          halfbandInput[0][j] = frame[0];
-          halfbandInput[1][j] = frame[1];
-        }
+        frame = processFrame({
+          double(0.5) * (prevExtIn[0] + extIn0),
+          double(0.5) * (prevExtIn[1] + extIn1),
+        });
+        halfbandInput[0][0] = frame[0];
+        halfbandInput[1][0] = frame[1];
+
+        frame = processFrame({extIn0, extIn1});
+        halfbandInput[0][1] = frame[0];
+        halfbandInput[1][1] = frame[1];
+
         frame[0] = halfbandIir[0].process(halfbandInput[0]);
         frame[1] = halfbandIir[1].process(halfbandInput[1]);
         if (isSafetyHighpassEnabled) {
@@ -483,7 +527,7 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
         out0[i] = float(frame[0]);
         out1[i] = float(frame[1]);
       } else {
-        frame = processFrame();
+        frame = processFrame({extIn0, extIn1});
         if (isSafetyHighpassEnabled) {
           frame[0] = safetyHighpass[0].process(frame[0]);
           frame[1] = safetyHighpass[1].process(frame[1]);
@@ -492,22 +536,31 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
         out1[i] = float(frame[1]);
       }
     } else {
+      const double extInMixed = double(0.5) * (extIn0 + extIn1);
       if (overSampling) {
-        for (size_t j = 0; j < upFold; ++j) halfbandInput[0][j] = processSample();
+        halfbandInput[0][0]
+          = processSample(extInMixed + double(0.5) * (prevExtIn[0] + prevExtIn[1]));
+        halfbandInput[0][1] = processSample(extInMixed);
         frame[0] = halfbandIir[0].process(halfbandInput[0]);
         if (isSafetyHighpassEnabled) frame[0] = safetyHighpass[0].process(frame[0]);
         out0[i] = float(frame[0]);
         out1[i] = float(frame[0]);
       } else {
-        frame[0] = processSample();
+        frame[0] = processSample(extInMixed);
         if (isSafetyHighpassEnabled) frame[0] = safetyHighpass[0].process(frame[0]);
         out0[i] = float(frame[0]);
         out1[i] = float(frame[0]);
       }
     }
+
+    prevExtIn = {extIn0, extIn1};
   }
 
+  // Propagate last input to next cycle.
+  halfbandInput[0] = prevExtIn;
+
   // Send a value to GUI.
+  pv[ID::externalInputAmplitudeMeter]->setFromFloat(maxExtInAmplitude);
   if (isWireCollided) pv[ID::isWireCollided]->setFromInt(1);
   if (isSecondaryCollided) pv[ID::isSecondaryCollided]->setFromInt(1);
 }

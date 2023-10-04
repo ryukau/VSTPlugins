@@ -42,6 +42,9 @@ private:
   ParamValue getPlainValue(ParamID id);
   bool prepareUI() override;
 
+  size_t extInPeakHoldCounter = 0;
+  double extInPeakDecibel = 0;
+  SharedPointer<Label> labelExternalInputAmplitude;
   SharedPointer<Label> labelWireCollision;
   SharedPointer<Label> labelMembraneCollision;
 };

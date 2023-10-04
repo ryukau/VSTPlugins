@@ -20,6 +20,7 @@
 #include "../../../common/dsp/smoother.hpp"
 #include <algorithm>
 #include <array>
+#include <cmath>
 #include <complex>
 #include <limits>
 #include <numbers>
@@ -28,6 +29,29 @@
 #include <vector>
 
 namespace SomeDSP {
+
+template<typename Sample> class TriggerDetector {
+private:
+  Sample v0 = 0;
+  Sample decay = 0;
+  Sample threshold = 0;
+
+public:
+  void setup(Sample decayTimeSamples)
+  {
+    decay = std::pow(Sample(1e-3), Sample(1) / decayTimeSamples);
+  }
+
+  void reset() { v0 = 0; }
+  void prepare(Sample newThreshold) { threshold = newThreshold; }
+
+  bool process(Sample absed)
+  {
+    const auto v1 = v0;
+    v0 = v0 < absed ? absed : v0 * decay;
+    return v0 >= threshold && v1 < threshold;
+  }
+};
 
 // Normalize gain for `ComplexLowpass`.
 // `x` is normalzied cutoff in [0, 0.5).
@@ -329,7 +353,7 @@ public:
   {
     const auto absed = std::abs(value);
     if (absed > eps) sum = (sum + value) * decay;
-    if (preventBlowUp) sum = std::min(Sample(1) / Sample(4), sum);
+    if (preventBlowUp) sum = std::min(Sample(1) / Sample(8), sum);
     return sum *= gain;
   }
 };
@@ -344,8 +368,8 @@ public:
   Sample process(Sample value, bool preventBlowUp, Rng &rng)
   {
     sum += std::abs(value);
-    const auto range = preventBlowUp ? std::min(Sample(1) / Sample(64), sum) : sum;
-    std::uniform_real_distribution<Sample> dist{Sample(-range), Sample(range)};
+    if (preventBlowUp) sum = std::min(Sample(1) / Sample(4), sum);
+    std::uniform_real_distribution<Sample> dist{Sample(-sum), Sample(sum)};
     const auto out = dist(rng);
     sum -= std::abs(out);
     return out;

@@ -53,6 +53,11 @@ enum ID {
   stereoBalance,
   stereoMerge,
 
+  useExternalInput,
+  externalInputGain,
+  useAutomaticTrigger,
+  automaticTriggerThreshold,
+
   notePitchAmount,
   tuningSemitone,
   tuningCent,
@@ -94,11 +99,12 @@ enum ID {
   secondaryQOffset,
   secondaryDistance,
 
+  externalInputAmplitudeMeter,
   isWireCollided,
   isSecondaryCollided,
 
   ID_ENUM_LENGTH,
-  ID_ENUM_GUI_START = isWireCollided,
+  ID_ENUM_GUI_START = externalInputAmplitudeMeter,
 };
 } // namespace ParameterID
 
@@ -135,6 +141,8 @@ struct Scales {
   static SomeDSP::DecibelScale<double> bandpassQ;
 
   static SomeDSP::DecibelScale<double> collisionDistance;
+
+  static SomeDSP::LinearScale<double> amplitudeMeter;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -176,6 +184,16 @@ struct GlobalParameter : public ParameterInterface {
       Info::kCanAutomate);
     value[ID::stereoMerge] = std::make_unique<LinearValue>(
       Scales::defaultScale.invmap(0.75), Scales::defaultScale, "stereoMerge",
+      Info::kCanAutomate);
+
+    value[ID::useExternalInput] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "useExternalInput", Info::kCanAutomate);
+    value[ID::externalInputGain] = std::make_unique<DecibelValue>(
+      Scales::gain.invmap(1.0), Scales::gain, "externalInputGain", Info::kCanAutomate);
+    value[ID::useAutomaticTrigger] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "useAutomaticTrigger", Info::kCanAutomate);
+    value[ID::automaticTriggerThreshold] = std::make_unique<DecibelValue>(
+      Scales::gain.invmap(0.1), Scales::gain, "automaticTriggerThreshold",
       Info::kCanAutomate);
 
     value[ID::notePitchAmount] = std::make_unique<LinearValue>(
@@ -281,6 +299,9 @@ struct GlobalParameter : public ParameterInterface {
       Scales::collisionDistance.invmap(0.0008), Scales::collisionDistance,
       "secondaryDistance", Info::kCanAutomate);
 
+    value[ID::externalInputAmplitudeMeter] = std::make_unique<LinearValue>(
+      Scales::amplitudeMeter.invmap(0.0), Scales::amplitudeMeter,
+      "externalInputAmplitudeMeter", Info::kIsReadOnly);
     value[ID::isWireCollided] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "isWireCollided", Info::kIsReadOnly);
     value[ID::isSecondaryCollided] = std::make_unique<UIntValue>(

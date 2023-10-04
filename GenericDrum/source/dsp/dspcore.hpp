@@ -56,7 +56,8 @@ public:
   void reset();
   void startup();
   void setParameters();
-  void process(const size_t length, float *out0, float *out1);
+  void process(
+    const size_t length, const float *in0, const float *in1, float *out0, float *out1);
   void noteOn(NoteInfo &info);
   void noteOff(int_fast32_t noteId);
 
@@ -96,8 +97,8 @@ private:
   void updateUpRate();
   void resetCollision();
   double calcNotePitch(double note);
-  double processSample();
-  std::array<double, 2> processFrame();
+  double processSample(double externalInput);
+  std::array<double, 2> processFrame(const std::array<double, 2> &externalInput);
   double processDrum(
     size_t index,
     double noise,
@@ -105,10 +106,12 @@ private:
     double pitchEnv,
     double crossGain,
     double timeModAmt);
+  inline void processExternalInput(double absed);
 
   std::vector<NoteInfo> midiNotes;
   std::vector<NoteInfo> noteStack;
 
+  double maxExtInAmplitude = 0;
   bool isWireCollided = false;
   bool isSecondaryCollided = false;
 
@@ -126,6 +129,7 @@ private:
   double pitchSmoothingKp = 1.0;
   ExpSmootherLocal<double> interpPitch;
 
+  ExpSmoother<double> externalInputGain;
   ExpSmoother<double> wireDistance;
   ExpSmoother<double> wireCollisionTypeMix;
   ExpSmoother<double> impactWireMix;
@@ -141,11 +145,15 @@ private:
   static constexpr size_t nDrum = 2;
   static constexpr size_t nAllpass = 4;
 
+  bool useExternalInput = false;
+  bool useAutomaticTrigger = false;
+  TriggerDetector<double> triggerDetector;
+
   std::minstd_rand noiseRng{0};
   std::minstd_rand paramRng{0};
   double noiseGain = 0;
   double noiseDecay = 0;
-  std::array<ComplexLowpass<double>, nDrum> noiseLowpass;
+  ComplexLowpass<double> noiseLowpass;
   std::array<SerialAllpass<double, nAllpass>, nDrum> noiseAllpass;
 
   bool preventBlowUp = false;
