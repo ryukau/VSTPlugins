@@ -25,7 +25,7 @@
 #include <string>
 
 constexpr float uiTextSize = 12.0f;
-constexpr float pluginNameTextSize = 14.0f;
+constexpr float pluginNameTextSize = 16.0f;
 constexpr float margin = 5.0f;
 constexpr float uiMargin = 20.0f;
 constexpr float labelHeight = 20.0f;
@@ -497,7 +497,7 @@ bool Editor::prepareUI()
     Scales::delayTimeHz, false, 5);
   addLabel(
     mainLeft0, mainTop3, labelWidth, labelHeight, uiTextSize,
-    "Delay Moddulation [sample]");
+    "Delay Modulation [sample]");
   addTextKnob(
     mainLeft1, mainTop3, labelWidth, labelHeight, uiTextSize, ID::delayTimeModAmount,
     Scales::delayTimeModAmount, false, 5);
