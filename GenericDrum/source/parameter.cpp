@@ -54,7 +54,7 @@ LinearScale<double> Scales::pitchRandomCent(0, 1200);
 DecibelScale<double> Scales::envelopeSeconds(-60, 40, false);
 DecibelScale<double> Scales::envelopeModAmount(-20, 20, true);
 
-UIntScale<double> Scales::pitchType(8);
+UIntScale<double> Scales::pitchType(32);
 DecibelScale<double> Scales::delayTimeHz(ampToDB(2), ampToDB(10000), false);
 DecibelScale<double> Scales::delayTimeModAmount(-20, 100, true);
 LinearScale<double> Scales::bandpassCutRatio(-8, 8);

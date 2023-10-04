@@ -456,8 +456,41 @@ bool Editor::prepareUI()
   addLabel(mainLeft0, mainTop1, labelWidth, labelHeight, uiTextSize, "Pitch Type");
   addOptionMenu(
     mainLeft1, mainTop1, labelWidth, labelHeight, uiTextSize, ID::pitchType,
-    {"Harmonic", "Harmonic+12", "Harmonic*5", "Harmonic Cycle(1, 5)", "Harmonic Odd",
-     "Semitone (1, 2, 7, 9)", "Circular Membrane Mode", "Prime Number", "Octave"});
+    {
+      "Harmonic",
+      "Harmonic+12",
+      "Harmonic*5",
+      "Harmonic Cycle(1, 5)",
+      "Harmonic Odd",
+      "Semitone (1, 2, 7, 9)",
+      "Circular Membrane Mode",
+      "Prime Number",
+      "Octave",
+      "- Reserved 09 -",
+      "- Reserved 10 -",
+      "- Reserved 11 -",
+      "- Reserved 12 -",
+      "- Reserved 13 -",
+      "- Reserved 14 -",
+      "- Reserved 15 -",
+      "- Reserved 16 -",
+      "- Reserved 17 -",
+      "- Reserved 18 -",
+      "- Reserved 19 -",
+      "- Reserved 20 -",
+      "- Reserved 21 -",
+      "- Reserved 22 -",
+      "- Reserved 23 -",
+      "- Reserved 24 -",
+      "- Reserved 25 -",
+      "- Reserved 26 -",
+      "- Reserved 27 -",
+      "- Reserved 28 -",
+      "- Reserved 29 -",
+      "- Reserved 30 -",
+      "- Reserved 31 -",
+      "- Reserved 32 -",
+    });
   addLabel(mainLeft0, mainTop2, labelWidth, labelHeight, uiTextSize, "Delay [Hz]");
   addTextKnob(
     mainLeft1, mainTop2, labelWidth, labelHeight, uiTextSize, ID::delayTimeHz,

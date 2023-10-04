@@ -34,6 +34,9 @@ constexpr int octaveOffset = 8;
 constexpr int semitoneOffset = 96;
 constexpr size_t maxFdnSize = 5;
 
+constexpr size_t nReservedParameter = 64;
+constexpr size_t nReservedGuiParameter = 16;
+
 namespace Steinberg {
 namespace Synth {
 
@@ -99,11 +102,15 @@ enum ID {
   secondaryQOffset,
   secondaryDistance,
 
-  externalInputAmplitudeMeter,
+  reservedParameter0,
+
+  externalInputAmplitudeMeter = reservedParameter0 + nReservedParameter,
   isWireCollided,
   isSecondaryCollided,
 
-  ID_ENUM_LENGTH,
+  reservedGuiParameter0,
+
+  ID_ENUM_LENGTH = reservedGuiParameter0 + nReservedGuiParameter,
   ID_ENUM_GUI_START = externalInputAmplitudeMeter,
 };
 } // namespace ParameterID
@@ -299,6 +306,13 @@ struct GlobalParameter : public ParameterInterface {
       Scales::collisionDistance.invmap(0.0008), Scales::collisionDistance,
       "secondaryDistance", Info::kCanAutomate);
 
+    for (size_t idx = 0; idx < nReservedParameter; ++idx) {
+      auto indexStr = std::to_string(idx);
+      value[ID::reservedParameter0 + idx] = std::make_unique<LinearValue>(
+        Scales::defaultScale.invmap(1.0), Scales::defaultScale,
+        ("reservedParameter" + indexStr).c_str(), Info::kIsHidden);
+    }
+
     value[ID::externalInputAmplitudeMeter] = std::make_unique<LinearValue>(
       Scales::amplitudeMeter.invmap(0.0), Scales::amplitudeMeter,
       "externalInputAmplitudeMeter", Info::kIsReadOnly);
@@ -306,6 +320,13 @@ struct GlobalParameter : public ParameterInterface {
       0, Scales::boolScale, "isWireCollided", Info::kIsReadOnly);
     value[ID::isSecondaryCollided] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "isSecondaryCollided", Info::kIsReadOnly);
+
+    for (size_t idx = 0; idx < nReservedGuiParameter; ++idx) {
+      auto indexStr = std::to_string(idx);
+      value[ID::reservedGuiParameter0 + idx] = std::make_unique<LinearValue>(
+        Scales::defaultScale.invmap(1.0), Scales::defaultScale,
+        ("reservedGuiParameter" + indexStr).c_str(), Info::kIsHidden);
+    }
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }
