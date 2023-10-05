@@ -3,6 +3,7 @@ import json
 import sys
 from pathlib import Path
 
+
 def convert_string(string: str):
     try:
         value = int(string)
@@ -18,11 +19,13 @@ def convert_string(string: str):
                 return False
             return string
 
+
 def get_enum_range(code):
     # Sort parameter by the order defined in enum ParameterID::ID.
     found = re.findall(
         r"namespace ParameterID \{\nenum ID.*\{([\s\S]*)\};\n\} // namespace ParameterID",
-        code)
+        code,
+    )
 
     enum = []
     for line in found[0].split("\n"):
@@ -48,13 +51,14 @@ def get_enum_range(code):
     index = 0
     for idx in range(len(enum) - 1):
         temp[idx]["range"] = temp[idx + 1]["index"] - temp[idx]["index"]
-    temp.pop() # Delete ID_ENUM_LENGTH
+    temp.pop()  # Delete ID_ENUM_LENGTH
 
     enum = {}
     for elem in temp:
         name = elem.pop("name")
         enum[name] = elem
     return enum
+
 
 def extract_plugin_parameter(parameter_hpp_path):
     with open(parameter_hpp_path, "r", encoding="utf-8") as fi:
@@ -69,8 +73,8 @@ def extract_plugin_parameter(parameter_hpp_path):
     index = 0
     data = []
     for matched in re.findall(
-            r"value\[.*ID::(.*)\]\s*=\s*std::make_unique<(.*)>\(\s*([^,]*),\s*([^,]*),\s*[^,]*,\s*([^\)]*)\);",
-            code,
+        r"value\[.*ID::(.*)\]\s*=\s*std::make_unique<(.*)>\(\s*([^,]*),\s*([^,]*),\s*[^,]*,\s*([^\)]*)\);",
+        code,
     ):
         datatype = None
         if matched[1] == "UIntValue":
@@ -78,29 +82,33 @@ def extract_plugin_parameter(parameter_hpp_path):
         else:
             datatype = "d"
 
-        if matched[0].find(" + i") != -1:                 # TODO: Change this to regex.
+        if matched[0].find(" + i") != -1:  # TODO: Change this to regex.
             name, _, _ = matched[0].rpartition(" + i")
-            basename = name[0:-1]                         # remove '0'.
+            basename = name[0:-1]  # remove '0'.
             for i in range(enum[name]["range"]):
                 default = matched[2].replace("idx", str(i))
-                data.append({
-                    "id": index,
-                    "name": f"{basename}{i}",
-                    "type": datatype,
-                    "default": convert_string(default),
-                    "scale": matched[3],
-                    "flags": matched[4],
-                })
+                data.append(
+                    {
+                        "id": index,
+                        "name": f"{basename}{i}",
+                        "type": datatype,
+                        "default": convert_string(default),
+                        "scale": matched[3],
+                        "flags": matched[4],
+                    }
+                )
                 index += 1
         else:
-            data.append({
-                "id": index,
-                "name": matched[0],
-                "type": datatype,
-                "default": convert_string(matched[2]),
-                "scale": matched[3],
-                "flags": matched[4],
-            })
+            data.append(
+                {
+                    "id": index,
+                    "name": matched[0],
+                    "type": datatype,
+                    "default": convert_string(matched[2]),
+                    "scale": matched[3],
+                    "flags": matched[4],
+                }
+            )
             index += 1
 
     json_dir = Path(__file__).parent / Path("json")
@@ -108,18 +116,21 @@ def extract_plugin_parameter(parameter_hpp_path):
     with open(json_dir / Path(f"{plugin_name}.type.json"), "w", encoding="utf-8") as fi:
         json.dump(data, fi, indent=2)
 
+
 def extract_parameter():
     for path in Path("..").glob("**/parameter.hpp"):
         if path.parts[1] == "_dump":
             continue
-        if path.parts[1] != "FeedbackPhaser":
+        if path.parts[1] != "GenericDrum":
             continue
         print(path)
         extract_plugin_parameter(path)
 
+
 def extract_guid():
     re_processor_guid = re.compile(
-        r"static const FUID ProcessorUID\(0x(.*), 0x(.*), 0x(.*), 0x(.*)\);")
+        r"static const FUID ProcessorUID\(0x(.*), 0x(.*), 0x(.*), 0x(.*)\);"
+    )
 
     data = {}
     for path in Path("..").glob("**/fuid.hpp"):
@@ -136,6 +147,7 @@ def extract_guid():
 
     with open("json/GUID.json", "w", encoding="utf-8") as fi:
         json.dump(data, fi)
+
 
 if __name__ == "__main__":
     extract_guid()

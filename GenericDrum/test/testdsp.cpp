@@ -16,6 +16,8 @@
 // along with Uhhyou Plugins.  If not, see <https://www.gnu.org/licenses/>.
 
 #define SET_PARAMETERS dsp->setParameters();
+#define HAS_INPUT 1
+#define NO_DSP_INTERFACE
 
 #include "../../test/synthtester.hpp"
 #include "../source/dsp/dspcore.hpp"

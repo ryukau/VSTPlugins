@@ -1,0 +1,1082 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "outputGain",
+    "type": "d",
+    "default": "Scales::gain.invmap(1.0)",
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "safetyHighpassEnable",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "safetyHighpassHz",
+    "type": "d",
+    "default": "Scales::safetyHighpassHz.invmap(15.0)",
+    "scale": "Scales::safetyHighpassHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "overSampling",
+    "type": "I",
+    "default": 1,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "normalizeGainWrtNoiseLowpassHz",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "resetSeedAtNoteOn",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "preventBlowUp",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "stereoUnison",
+    "type": "I",
+    "default": 1,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "stereoBalance",
+    "type": "d",
+    "default": "Scales::bipolarScale.invmap(0.0)",
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "stereoMerge",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.75)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "useExternalInput",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "externalInputGain",
+    "type": "d",
+    "default": "Scales::gain.invmap(1.0)",
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "useAutomaticTrigger",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "automaticTriggerThreshold",
+    "type": "d",
+    "default": "Scales::gain.invmap(0.1)",
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "notePitchAmount",
+    "type": "d",
+    "default": "Scales::bipolarScale.invmap(0.0)",
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "tuningSemitone",
+    "type": "I",
+    "default": "semitoneOffset",
+    "scale": "Scales::semitone",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "tuningCent",
+    "type": "d",
+    "default": "Scales::cent.invmap(0.0)",
+    "scale": "Scales::cent",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "pitchBend",
+    "type": "d",
+    "default": 0.5,
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "pitchBendRange",
+    "type": "d",
+    "default": "Scales::pitchBendRange.invmap(2.0)",
+    "scale": "Scales::pitchBendRange",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "noteSlideTimeSecond",
+    "type": "d",
+    "default": "Scales::noteSlideTimeSecond.invmap(0.1)",
+    "scale": "Scales::noteSlideTimeSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "seed",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::seed",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 22,
+    "name": "noiseDecaySeconds",
+    "type": "d",
+    "default": "Scales::noiseDecaySeconds.invmap(0.08)",
+    "scale": "Scales::noiseDecaySeconds",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 23,
+    "name": "noiseLowpassHz",
+    "type": "d",
+    "default": "Scales::delayTimeHz.invmap(200.0)",
+    "scale": "Scales::delayTimeHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 24,
+    "name": "noiseAllpassMaxTimeHz",
+    "type": "d",
+    "default": "Scales::delayTimeHz.invmap(3000.0)",
+    "scale": "Scales::delayTimeHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 25,
+    "name": "impactWireMix",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.75)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 26,
+    "name": "membraneWireMix",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 27,
+    "name": "wireFrequencyHz",
+    "type": "d",
+    "default": "Scales::wireFrequencyHz.invmap(100.0)",
+    "scale": "Scales::wireFrequencyHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 28,
+    "name": "wireDecaySeconds",
+    "type": "d",
+    "default": "Scales::wireDecaySeconds.invmap(1.0)",
+    "scale": "Scales::wireDecaySeconds",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 29,
+    "name": "wireDistance",
+    "type": "d",
+    "default": "Scales::collisionDistance.invmap(0.15)",
+    "scale": "Scales::collisionDistance",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 30,
+    "name": "wireCollisionTypeMix",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.5)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 31,
+    "name": "crossFeedbackGain",
+    "type": "d",
+    "default": "Scales::crossFeedbackGain.invmap(0.9)",
+    "scale": "Scales::crossFeedbackGain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 32,
+    "name": "crossFeedbackRatio0",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 33,
+    "name": "crossFeedbackRatio1",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 34,
+    "name": "crossFeedbackRatio2",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 35,
+    "name": "crossFeedbackRatio3",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 36,
+    "name": "crossFeedbackRatio4",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 37,
+    "name": "delayTimeSpread",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.5)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 38,
+    "name": "bandpassCutSpread",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.5)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 39,
+    "name": "pitchRandomCent",
+    "type": "d",
+    "default": "Scales::pitchRandomCent.invmap(21.5)",
+    "scale": "Scales::pitchRandomCent",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 40,
+    "name": "envelopeAttackSeconds",
+    "type": "d",
+    "default": "Scales::envelopeSeconds.invmap(0.01)",
+    "scale": "Scales::envelopeSeconds",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 41,
+    "name": "envelopeDecaySeconds",
+    "type": "d",
+    "default": "Scales::envelopeSeconds.invmap(0.01)",
+    "scale": "Scales::envelopeSeconds",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 42,
+    "name": "envelopeModAmount",
+    "type": "d",
+    "default": 0,
+    "scale": "Scales::envelopeModAmount",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 43,
+    "name": "pitchType",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::pitchType",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 44,
+    "name": "delayTimeHz",
+    "type": "d",
+    "default": "Scales::delayTimeHz.invmap(110.0)",
+    "scale": "Scales::delayTimeHz",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 45,
+    "name": "delayTimeModAmount",
+    "type": "d",
+    "default": "Scales::delayTimeModAmount.invmap(0.0)",
+    "scale": "Scales::delayTimeModAmount",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 46,
+    "name": "bandpassCutRatio",
+    "type": "d",
+    "default": "Scales::bandpassCutRatio.invmap(0.0)",
+    "scale": "Scales::bandpassCutRatio",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 47,
+    "name": "bandpassQ",
+    "type": "d",
+    "default": "Scales::bandpassQ.invmap(std::numbers::sqrt2_v<double> / double(2))",
+    "scale": "Scales::bandpassQ",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 48,
+    "name": "secondaryFdnMix",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 49,
+    "name": "secondaryPitchOffset",
+    "type": "d",
+    "default": "Scales::bandpassCutRatio.invmap(0.0)",
+    "scale": "Scales::bandpassCutRatio",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 50,
+    "name": "secondaryQOffset",
+    "type": "d",
+    "default": "Scales::bandpassCutRatio.invmap(0)",
+    "scale": "Scales::bandpassCutRatio",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 51,
+    "name": "secondaryDistance",
+    "type": "d",
+    "default": 1.0,
+    "scale": "Scales::collisionDistance",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 52,
+    "name": "reservedParameter0",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 53,
+    "name": "reservedParameter1",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 54,
+    "name": "reservedParameter2",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 55,
+    "name": "reservedParameter3",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 56,
+    "name": "reservedParameter4",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 57,
+    "name": "reservedParameter5",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 58,
+    "name": "reservedParameter6",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 59,
+    "name": "reservedParameter7",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 60,
+    "name": "reservedParameter8",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 61,
+    "name": "reservedParameter9",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 62,
+    "name": "reservedParameter10",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 63,
+    "name": "reservedParameter11",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 64,
+    "name": "reservedParameter12",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 65,
+    "name": "reservedParameter13",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 66,
+    "name": "reservedParameter14",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 67,
+    "name": "reservedParameter15",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 68,
+    "name": "reservedParameter16",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 69,
+    "name": "reservedParameter17",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 70,
+    "name": "reservedParameter18",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 71,
+    "name": "reservedParameter19",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 72,
+    "name": "reservedParameter20",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 73,
+    "name": "reservedParameter21",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 74,
+    "name": "reservedParameter22",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 75,
+    "name": "reservedParameter23",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 76,
+    "name": "reservedParameter24",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 77,
+    "name": "reservedParameter25",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 78,
+    "name": "reservedParameter26",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 79,
+    "name": "reservedParameter27",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 80,
+    "name": "reservedParameter28",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 81,
+    "name": "reservedParameter29",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 82,
+    "name": "reservedParameter30",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 83,
+    "name": "reservedParameter31",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 84,
+    "name": "reservedParameter32",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 85,
+    "name": "reservedParameter33",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 86,
+    "name": "reservedParameter34",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 87,
+    "name": "reservedParameter35",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 88,
+    "name": "reservedParameter36",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 89,
+    "name": "reservedParameter37",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 90,
+    "name": "reservedParameter38",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 91,
+    "name": "reservedParameter39",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 92,
+    "name": "reservedParameter40",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 93,
+    "name": "reservedParameter41",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 94,
+    "name": "reservedParameter42",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 95,
+    "name": "reservedParameter43",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 96,
+    "name": "reservedParameter44",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 97,
+    "name": "reservedParameter45",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 98,
+    "name": "reservedParameter46",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 99,
+    "name": "reservedParameter47",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 100,
+    "name": "reservedParameter48",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 101,
+    "name": "reservedParameter49",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 102,
+    "name": "reservedParameter50",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 103,
+    "name": "reservedParameter51",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 104,
+    "name": "reservedParameter52",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 105,
+    "name": "reservedParameter53",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 106,
+    "name": "reservedParameter54",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 107,
+    "name": "reservedParameter55",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 108,
+    "name": "reservedParameter56",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 109,
+    "name": "reservedParameter57",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 110,
+    "name": "reservedParameter58",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 111,
+    "name": "reservedParameter59",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 112,
+    "name": "reservedParameter60",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 113,
+    "name": "reservedParameter61",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 114,
+    "name": "reservedParameter62",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 115,
+    "name": "reservedParameter63",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 116,
+    "name": "externalInputAmplitudeMeter",
+    "type": "d",
+    "default": "Scales::amplitudeMeter.invmap(0.0)",
+    "scale": "Scales::amplitudeMeter",
+    "flags": "Info::kIsReadOnly"
+  },
+  {
+    "id": 117,
+    "name": "isWireCollided",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kIsReadOnly"
+  },
+  {
+    "id": 118,
+    "name": "isSecondaryCollided",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kIsReadOnly"
+  },
+  {
+    "id": 119,
+    "name": "reservedGuiParameter0",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 120,
+    "name": "reservedGuiParameter1",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 121,
+    "name": "reservedGuiParameter2",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 122,
+    "name": "reservedGuiParameter3",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 123,
+    "name": "reservedGuiParameter4",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 124,
+    "name": "reservedGuiParameter5",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 125,
+    "name": "reservedGuiParameter6",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 126,
+    "name": "reservedGuiParameter7",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 127,
+    "name": "reservedGuiParameter8",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 128,
+    "name": "reservedGuiParameter9",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 129,
+    "name": "reservedGuiParameter10",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 130,
+    "name": "reservedGuiParameter11",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 131,
+    "name": "reservedGuiParameter12",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 132,
+    "name": "reservedGuiParameter13",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 133,
+    "name": "reservedGuiParameter14",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 134,
+    "name": "reservedGuiParameter15",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  }
+]

@@ -3,6 +3,10 @@ function(add_subdir plugin_name)
 endfunction()
 
 cmake_minimum_required(VERSION 3.20)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
 project(TestPlugins)
 set(TEST_PLUGIN True)
 
@@ -18,8 +22,10 @@ set(TEST_PLUGIN True)
 # add_subdir(EsPhaser)
 # add_subdir(FDNCymbal)
 # add_subdir(FDN64Reverb)
-add_subdir(FeedbackPhaser)
+# add_subdir(FeedbackPhaser)
 # add_subdir(FoldShaper)
+add_subdir(GenericDrum)
+
 # add_subdir(IterativeSinCluster)
 # add_subdir(L3Reverb)
 # add_subdir(L4Reverb)

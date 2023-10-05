@@ -171,7 +171,7 @@ public:
               // dsp->noteOn(note.id, note.pitch, note.tuning, note.velocity);
 
               // UltraSynth requires this. Maybe refactor at some point.
-              DSP_CLASS::NoteInfo info;
+              typename DSP_CLASS::NoteInfo info;
               info.isNoteOn = true;
               info.frame = uint32_t(currentFrame);
               info.id = note.id;
@@ -258,11 +258,12 @@ public:
   }
 };
 
-#ifdef __linux__
+#ifndef NO_DSP_INTERFACE
+  #ifdef __linux__
 template<typename DSP_IF, typename DSP_AVX512, typename DSP_AVX2, typename DSP_AVX>
-#else
+  #else
 template<typename DSP_IF, typename DSP_AVX2, typename DSP_AVX>
-#endif
+  #endif
 class SynthTesterSimdRuntimeDispatch : public TesterCommon {
 public:
   // n_thread is used to disable multithreading. Useful for plugin using FFTW3.
@@ -284,16 +285,16 @@ public:
     queue = std::make_shared<PresetQueue>(plugin_name);
 
     for (size_t i = 0; i < n_thread; ++i) {
-#ifdef __linux__
+  #ifdef __linux__
       std::thread th(
         &SynthTesterSimdRuntimeDispatch<
           DSPInterface, DSP_AVX512, DSP_AVX2, DSP_AVX>::testSequence,
         this, queue);
-#else
+  #else
       std::thread th(
         &SynthTesterSimdRuntimeDispatch<DSPInterface, DSP_AVX2, DSP_AVX>::testSequence,
         this, queue);
-#endif
+  #endif
       threads.push_back(std::move(th));
     }
     for (auto &th : threads) th.join();
@@ -305,12 +306,12 @@ public:
   {
     auto iset = instrset_detect();
 
-#ifdef __linux__
+  #ifdef __linux__
     if (iset >= 10) {
       std::cout << "AVX512 is selected.\n";
       return true;
     } else
-#endif
+  #endif
       if (iset >= 8)
     {
       std::cout << "AVX2 is selected.\n";
@@ -328,11 +329,11 @@ public:
   {
     auto iset = instrset_detect();
 
-#ifdef __linux__
+  #ifdef __linux__
     if (iset >= 10) {
       return std::make_unique<DSPCore_AVX512>();
     } else
-#endif
+  #endif
       if (iset >= 8)
     {
       return std::make_unique<DSPCore_AVX2>();
@@ -348,13 +349,13 @@ public:
     std::vector<std::vector<float>> &wav,
     std::unique_ptr<DSP_IF> &dsp)
   {
-#ifdef HAS_INPUT
+  #ifdef HAS_INPUT
     dsp->process(
       length, wav[0].data() + currentFrame, wav[1].data() + currentFrame,
       wav[0].data() + currentFrame, wav[1].data() + currentFrame);
-#else
+  #else
     dsp->process(length, wav[0].data() + currentFrame, wav[1].data() + currentFrame);
-#endif
+  #endif
   }
 
   void render(
@@ -454,3 +455,4 @@ public:
     }
   }
 };
+#endif

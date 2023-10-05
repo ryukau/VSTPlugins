@@ -9,6 +9,8 @@ The current goal of the tests is to ensure that:
 - The output only contains finite floating point values.
 
 ## Setup
+Testing requires presets in JSON format. See `presets` directory on the top level of this repository.
+
 ### Windows
 Install vcpkg.
 

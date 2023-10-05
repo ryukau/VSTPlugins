@@ -383,7 +383,7 @@ bool Editor::prepareUI()
 
   addLabel(
     primaryLeft0, primaryTop1, labelWidth, labelHeight, uiTextSize,
-    "Cross Feedback Gain [dB]");
+    "Cross Feedback Gain");
   addTextKnob(
     primaryLeft1, primaryTop1, labelWidth, labelHeight, uiTextSize, ID::crossFeedbackGain,
     Scales::crossFeedbackGain, false, 5);

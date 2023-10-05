@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
 
-
 include(../common/cmake/non_simd.cmake)
 
 if(TEST_PLUGIN)

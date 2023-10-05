@@ -271,6 +271,9 @@ void DSPCore::resetCollision()
 
 void DSPCore::reset()
 {
+  noteNumber = 57.0;
+  velocity = 0;
+
   overSampling = param.value[ParameterID::ID::overSampling]->getInt();
   updateUpRate();
 
@@ -278,9 +281,6 @@ void DSPCore::reset()
 
   startup();
   resetCollision();
-
-  noteNumber = 69.0;
-  velocity = 0;
 
   triggerDetector.reset();
 

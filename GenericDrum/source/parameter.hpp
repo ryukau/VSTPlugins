@@ -18,6 +18,7 @@
 #pragma once
 
 #include <memory>
+#include <numbers>
 #include <string>
 #include <vector>
 
@@ -178,9 +179,9 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::overSampling] = std::make_unique<UIntValue>(
       1, Scales::boolScale, "overSampling", Info::kCanAutomate);
     value[ID::normalizeGainWrtNoiseLowpassHz] = std::make_unique<UIntValue>(
-      1, Scales::boolScale, "normalizeGainWrtNoiseLowpassHz", Info::kCanAutomate);
+      0, Scales::boolScale, "normalizeGainWrtNoiseLowpassHz", Info::kCanAutomate);
     value[ID::resetSeedAtNoteOn] = std::make_unique<UIntValue>(
-      1, Scales::boolScale, "resetSeedAtNoteOn", Info::kCanAutomate);
+      0, Scales::boolScale, "resetSeedAtNoteOn", Info::kCanAutomate);
     value[ID::preventBlowUp] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "preventBlowUp", Info::kCanAutomate);
 
@@ -225,23 +226,23 @@ struct GlobalParameter : public ParameterInterface {
       Scales::noiseDecaySeconds.invmap(0.08), Scales::noiseDecaySeconds,
       "noiseDecaySeconds", Info::kCanAutomate);
     value[ID::noiseLowpassHz] = std::make_unique<DecibelValue>(
-      Scales::delayTimeHz.invmap(50.0), Scales::delayTimeHz, "noiseLowpassHz",
+      Scales::delayTimeHz.invmap(200.0), Scales::delayTimeHz, "noiseLowpassHz",
       Info::kCanAutomate);
     value[ID::noiseAllpassMaxTimeHz] = std::make_unique<DecibelValue>(
       Scales::delayTimeHz.invmap(3000.0), Scales::delayTimeHz, "noiseAllpassMaxTimeHz",
       Info::kCanAutomate);
 
     value[ID::impactWireMix] = std::make_unique<LinearValue>(
-      Scales::defaultScale.invmap(0.9), Scales::defaultScale, "impactWireMix",
+      Scales::defaultScale.invmap(0.75), Scales::defaultScale, "impactWireMix",
       Info::kCanAutomate);
     value[ID::membraneWireMix] = std::make_unique<LinearValue>(
-      Scales::defaultScale.invmap(0), Scales::defaultScale, "membraneWireMix",
+      Scales::defaultScale.invmap(0.0), Scales::defaultScale, "membraneWireMix",
       Info::kCanAutomate);
     value[ID::wireFrequencyHz] = std::make_unique<DecibelValue>(
       Scales::wireFrequencyHz.invmap(100.0), Scales::wireFrequencyHz, "wireFrequencyHz",
       Info::kCanAutomate);
     value[ID::wireDecaySeconds] = std::make_unique<DecibelValue>(
-      Scales::wireDecaySeconds.invmap(2.0), Scales::wireDecaySeconds, "wireDecaySeconds",
+      Scales::wireDecaySeconds.invmap(1.0), Scales::wireDecaySeconds, "wireDecaySeconds",
       Info::kCanAutomate);
     value[ID::wireDistance] = std::make_unique<DecibelValue>(
       Scales::collisionDistance.invmap(0.15), Scales::collisionDistance, "wireDistance",
@@ -251,17 +252,18 @@ struct GlobalParameter : public ParameterInterface {
       Info::kCanAutomate);
 
     value[ID::crossFeedbackGain] = std::make_unique<DecibelValue>(
-      0.9, Scales::crossFeedbackGain, "crossFeedbackGain", Info::kCanAutomate);
+      Scales::crossFeedbackGain.invmap(0.9), Scales::crossFeedbackGain,
+      "crossFeedbackGain", Info::kCanAutomate);
     for (size_t idx = 0; idx < maxFdnSize; ++idx) {
       auto indexStr = std::to_string(idx);
 
       value[ID::crossFeedbackRatio0 + idx] = std::make_unique<LinearValue>(
-        Scales::defaultScale.invmap(1.0), Scales::defaultScale,
+        Scales::defaultScale.invmap(0.0), Scales::defaultScale,
         ("crossFeedbackRatio" + indexStr).c_str(), Info::kCanAutomate);
     }
 
     value[ID::delayTimeSpread] = std::make_unique<LinearValue>(
-      Scales::defaultScale.invmap(0.1), Scales::defaultScale, "delayTimeSpread",
+      Scales::defaultScale.invmap(0.5), Scales::defaultScale, "delayTimeSpread",
       Info::kCanAutomate);
     value[ID::bandpassCutSpread] = std::make_unique<LinearValue>(
       Scales::defaultScale.invmap(0.5), Scales::defaultScale, "bandpassCutSpread",
@@ -280,31 +282,31 @@ struct GlobalParameter : public ParameterInterface {
       0, Scales::envelopeModAmount, "envelopeModAmount", Info::kCanAutomate);
 
     value[ID::pitchType] = std::make_unique<UIntValue>(
-      7, Scales::pitchType, "pitchType", Info::kCanAutomate);
+      0, Scales::pitchType, "pitchType", Info::kCanAutomate);
     value[ID::delayTimeHz] = std::make_unique<DecibelValue>(
       Scales::delayTimeHz.invmap(110.0), Scales::delayTimeHz, "delayTimeHz",
       Info::kCanAutomate);
     value[ID::delayTimeModAmount] = std::make_unique<DecibelValue>(
-      Scales::delayTimeModAmount.invmap(1150.0), Scales::delayTimeModAmount,
+      Scales::delayTimeModAmount.invmap(0.0), Scales::delayTimeModAmount,
       "delayTimeModAmount", Info::kCanAutomate);
     value[ID::bandpassCutRatio] = std::make_unique<LinearValue>(
-      Scales::bandpassCutRatio.invmap(0.7), Scales::bandpassCutRatio, "bandpassCutRatio",
+      Scales::bandpassCutRatio.invmap(0.0), Scales::bandpassCutRatio, "bandpassCutRatio",
       Info::kCanAutomate);
     value[ID::bandpassQ] = std::make_unique<DecibelValue>(
-      Scales::bandpassQ.invmap(0.1), Scales::bandpassQ, "bandpassQ", Info::kCanAutomate);
+      Scales::bandpassQ.invmap(std::numbers::sqrt2_v<double> / double(2)),
+      Scales::bandpassQ, "bandpassQ", Info::kCanAutomate);
 
     value[ID::secondaryFdnMix] = std::make_unique<LinearValue>(
-      Scales::defaultScale.invmap(0.25), Scales::defaultScale, "secondaryFdnMix",
+      Scales::defaultScale.invmap(0.0), Scales::defaultScale, "secondaryFdnMix",
       Info::kCanAutomate);
     value[ID::secondaryPitchOffset] = std::make_unique<LinearValue>(
-      Scales::bandpassCutRatio.invmap(0.65), Scales::bandpassCutRatio,
+      Scales::bandpassCutRatio.invmap(0.0), Scales::bandpassCutRatio,
       "secondaryPitchOffset", Info::kCanAutomate);
     value[ID::secondaryQOffset] = std::make_unique<LinearValue>(
-      Scales::bandpassCutRatio.invmap(-2), Scales::bandpassCutRatio, "secondaryQOffset",
+      Scales::bandpassCutRatio.invmap(0), Scales::bandpassCutRatio, "secondaryQOffset",
       Info::kCanAutomate);
     value[ID::secondaryDistance] = std::make_unique<DecibelValue>(
-      Scales::collisionDistance.invmap(0.0008), Scales::collisionDistance,
-      "secondaryDistance", Info::kCanAutomate);
+      1.0, Scales::collisionDistance, "secondaryDistance", Info::kCanAutomate);
 
     for (size_t idx = 0; idx < nReservedParameter; ++idx) {
       auto indexStr = std::to_string(idx);

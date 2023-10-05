@@ -13,6 +13,7 @@ import sys
 
 from pathlib import Path
 
+
 def print_data(data):
     """
     data = {
@@ -30,6 +31,7 @@ def print_data(data):
         else:
             print(chunk)
         print()
+
 
 def read_vstpreset(path, endian):
     """
@@ -64,11 +66,13 @@ def read_vstpreset(path, endian):
             offset = int.from_bytes(fi.read(8), endian)
             size = int.from_bytes(fi.read(8), endian)
 
-            entry.append({
-                "id": section,
-                "offset": offset,
-                "size": size,
-            })
+            entry.append(
+                {
+                    "id": section,
+                    "offset": offset,
+                    "size": size,
+                }
+            )
 
             info[f"{section}_id"] = section
             info[f"{section}_offset"] = offset
@@ -88,10 +92,10 @@ def read_vstpreset(path, endian):
                 data[ent["id"]] = fi.read(ent["size"])
     return data
 
-def vstpreset_to_json(preset_plugin_dir,
-                      endian="little",
-                      dump_json=True,
-                      debug_print_data=False):
+
+def vstpreset_to_json(
+    preset_plugin_dir, endian="little", dump_json=True, debug_print_data=False
+):
     """
     preset_list["data"] is optional debug info.
 
@@ -109,13 +113,14 @@ def vstpreset_to_json(preset_plugin_dir,
     for vstpreset_path in sorted(preset_plugin_dir.glob("**/*.vstpreset")):
         print(vstpreset_path)
         data = read_vstpreset(vstpreset_path, endian)
-        if debug_print_data: # For debug.
+        if debug_print_data:  # For debug.
             print(f"-- filename\n{vstpreset_path}\n")
             print_data(data)
 
         # type_data = [{"id":, "name":, "type":, "default":, "scale":, "flags":,}, ... ]
-        with open(json_dir / Path(f"{plugin_name}.type.json"), "r",
-                  encoding="utf-8") as fi:
+        with open(
+            json_dir / Path(f"{plugin_name}.type.json"), "r", encoding="utf-8"
+        ) as fi:
             type_data = json.load(fi)
 
         comp_data = data["Comp"]
@@ -135,13 +140,15 @@ def vstpreset_to_json(preset_plugin_dir,
 
             type_char = info["type"]
             n_byte = struct.calcsize(type_char)
-            value = struct.unpack(type_char, comp_data[idx:idx + n_byte])[0]
+            value = struct.unpack(type_char, comp_data[idx : idx + n_byte])[0]
             idx += n_byte
-            param.append({
-                "name": info["name"],
-                "type": info["type"],
-                "value": value,
-            })
+            param.append(
+                {
+                    "name": info["name"],
+                    "type": info["type"],
+                    "value": value,
+                }
+            )
 
         preset = {}
         preset["name"] = vstpreset_path.stem
@@ -149,14 +156,16 @@ def vstpreset_to_json(preset_plugin_dir,
         preset_list.append(preset)
 
     if dump_json:
-        with open(json_dir / Path(f"{plugin_name}.preset.json"), "w",
-                  encoding="utf-8") as fi:
+        with open(
+            json_dir / Path(f"{plugin_name}.preset.json"), "w", encoding="utf-8"
+        ) as fi:
             json.dump(preset_list, fi, indent=2)
     return preset_list
+
 
 if __name__ == "__main__":
     # for path in Path("Uhhyou").glob("*"):
     #     if not path.is_dir():
     #         continue
     #     vstpreset_to_json(path, "little")
-    vstpreset_to_json(Path("Uhhyou/FeedbackPhaser"), "little", debug_print_data=True)
+    vstpreset_to_json(Path("Uhhyou/GenericDrum"), "little", debug_print_data=True)
