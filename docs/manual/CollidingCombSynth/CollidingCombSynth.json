@@ -1,8 +1,9 @@
 {
   "CollidingCombSynth": {
-    "latest_version": "0.1.14",
+    "latest_version": "0.1.15",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/CollidingCombSynth_0.1.15.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/CollidingCombSynth_0.1.14.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/CollidingCombSynth_0.1.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/CollidingCombSynth_0.1.12.zip",
@@ -21,6 +22,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CollidingCombSynthPresets.zip"
     },
     "changelog": {
+      "0.1.15": {
+        "en": [
+          "Fixed a bug that invalid `style.json` crashes plugin."
+        ],
+        "ja": [
+          "不正な `style.json` によりプラグインがクラッシュするバグを修正。"
+        ]
+      },
       "0.1.14": {
         "en": [
           "Changed default style color of `foregroundInactive`.",

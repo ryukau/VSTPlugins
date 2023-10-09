@@ -1,8 +1,9 @@
 {
   "UltraSynth": {
-    "latest_version": "0.1.7",
+    "latest_version": "0.1.8",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/UltraSynth_0.1.8.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/UltraSynth_0.1.7.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/UltraSynth_0.1.6.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/UltraSynth_0.1.5.zip",
@@ -14,6 +15,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/UltraSynthPresets.zip"
     },
     "changelog": {
+      "0.1.8": {
+        "en": [
+          "Fixed a bug that invalid `style.json` crashes plugin."
+        ],
+        "ja": [
+          "不正な `style.json` によりプラグインがクラッシュするバグを修正。"
+        ]
+      },
       "0.1.7": {
         "en": [
           "Changed default style color of `foregroundInactive`.",

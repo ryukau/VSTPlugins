@@ -1,8 +1,9 @@
 {
   "IterativeSinCluster": {
-    "latest_version": "0.1.25",
+    "latest_version": "0.1.26",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/IterativeSinCluster_0.1.26.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/IterativeSinCluster_0.1.25.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/IterativeSinCluster_0.1.24.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/IterativeSinCluster_0.1.23.zip",
@@ -31,6 +32,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/IterativeSinClusterPresets.zip"
     },
     "changelog": {
+      "0.1.26": {
+        "en": [
+          "Fixed a bug that invalid `style.json` crashes plugin."
+        ],
+        "ja": [
+          "不正な `style.json` によりプラグインがクラッシュするバグを修正。"
+        ]
+      },
       "0.1.25": {
         "en": [
           "Changed default style color of `foregroundInactive`.",

@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 
+
 def writePluginList():
     # It's better to use TOML because it has comment, but waiting for python 3.11.
     root = Path("../..")
@@ -13,6 +14,7 @@ def writePluginList():
         plugins.append(path.name)
     with open("rewrite_target_plugins.json", "w", encoding="utf-8") as fi:
         json.dump(plugins, fi, indent=2)
+
 
 def updateVersion(
     target: str,
@@ -57,6 +59,7 @@ def updateVersion(
         json.dump(data, fi, ensure_ascii=False, indent=2)
         fi.write("\n")
 
+
 def appendChangeLog(
     target: str,
     alias: dict[str, str],
@@ -88,6 +91,7 @@ def appendChangeLog(
     #     json.dump(data, fi, ensure_ascii=False, indent=2)
     #     fi.write("\n")
 
+
 if __name__ == "__main__":
     ## Use `writePluginList` to re-generate `rewrite_target_plugins.json`.
     # writePluginList()
@@ -98,14 +102,12 @@ if __name__ == "__main__":
     with open("../../package/manual.json", "r", encoding="utf-8") as fi:
         alias = json.load(fi)
 
-    release_name = "UhhyouPlugins0.55.0"
+    release_name = "UhhyouPlugins0.57.0"
     changelog_en = [
-        "Changed default style color of `foregroundInactive`.",
-        "Fixed performance drop caused by subnormal floating point numbers.",
+        "Fixed a bug that invalid `style.json` crashes plugin.",
     ]
     changelog_ja = [
-        "デフォルトの `foregroundInactive` の色を変更。",
-        "サブノーマル数によるパフォーマンスの低下を修正。",
+        "不正な `style.json` によりプラグインがクラッシュするバグを修正。",
     ]
     for target in targets:
         updateVersion(target, alias, changelog_en, changelog_ja, release_name)

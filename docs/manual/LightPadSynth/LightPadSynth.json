@@ -1,8 +1,9 @@
 {
   "LightPadSynth": {
-    "latest_version": "0.1.22",
+    "latest_version": "0.1.23",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/LightPadSynth_0.1.23.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/LightPadSynth_0.1.22.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/LightPadSynth_0.1.21.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/LightPadSynth_0.1.20.zip",
@@ -28,6 +29,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynthPresets.zip"
     },
     "changelog": {
+      "0.1.23": {
+        "en": [
+          "Fixed a bug that invalid `style.json` crashes plugin."
+        ],
+        "ja": [
+          "不正な `style.json` によりプラグインがクラッシュするバグを修正。"
+        ]
+      },
       "0.1.22": {
         "en": [
           "Changed default style color of `foregroundInactive`.",

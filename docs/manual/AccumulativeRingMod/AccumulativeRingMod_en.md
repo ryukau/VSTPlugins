@@ -30,8 +30,6 @@ AccumulativeRingMod is a ring modulator that uses accumulated amplitude of input
 ## Caution
 In some DAW, main input is fed to sidechain input, when sidechain input is not routed.
 
-- TODO 図
-
 ## Usage
 AccumulativeRingMod is good at adding variation to simple waveforms such as sine wave and sawtooth wave. It is recommended to lower `Modulation` and Warp -> `Amount` when applying to recorded instrument sounds.
 

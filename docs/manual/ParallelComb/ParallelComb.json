@@ -1,8 +1,9 @@
 {
   "ParallelComb": {
-    "latest_version": "0.2.10",
+    "latest_version": "0.2.11",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/ParallelComb_0.2.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/ParallelComb_0.2.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/ParallelComb_0.2.9.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ParallelComb_0.2.8.zip",
@@ -16,6 +17,14 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.2.11": {
+        "en": [
+          "Fixed a bug that invalid `style.json` crashes plugin."
+        ],
+        "ja": [
+          "不正な `style.json` によりプラグインがクラッシュするバグを修正。"
+        ]
+      },
       "0.2.10": {
         "en": [
           "Changed default style color of `foregroundInactive`.",

@@ -6,7 +6,7 @@
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <meta name="dcterms.date" content="2023-10-09" />
-<title>BasicLimiter_ja</title>
+<title>GenericDrum_ja</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -268,7 +268,7 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#basiclimiter" id="toc-basiclimiter">BasicLimiter</a>
+  <li><a href="#genericdrum" id="toc-genericdrum">GenericDrum</a>
   <ul>
   <li><a href="#連絡先" id="toc-連絡先">連絡先</a></li>
   <li><a href="#インストール" id="toc-インストール">インストール</a>
@@ -297,28 +297,35 @@ footer {
   </ul></li>
   <li><a href="#操作" id="toc-操作">操作</a></li>
   <li><a href="#注意" id="toc-注意">注意</a></li>
+  <li><a href="#仕組み" id="toc-仕組み">仕組み</a></li>
   <li><a href="#ブロック線図"
   id="toc-ブロック線図">ブロック線図</a></li>
   <li><a href="#パラメータ" id="toc-パラメータ">パラメータ</a>
   <ul>
-  <li><a href="#basiclimiterautomake-の固有パラメータ"
-  id="toc-basiclimiterautomake-の固有パラメータ">BasicLimiterAutoMake
-  の固有パラメータ</a></li>
+  <li><a href="#mix-options" id="toc-mix-options">Mix &amp;
+  Options</a></li>
+  <li><a href="#stereo-unison" id="toc-stereo-unison">Stereo
+  Unison</a></li>
+  <li><a href="#external-input" id="toc-external-input">External
+  Input</a></li>
+  <li><a href="#tuning" id="toc-tuning">Tuning</a></li>
+  <li><a href="#impact" id="toc-impact">Impact</a></li>
+  <li><a href="#wire" id="toc-wire">Wire</a></li>
+  <li><a href="#membrane-tone" id="toc-membrane-tone">Membrane
+  Tone</a></li>
+  <li><a href="#pitch-texture" id="toc-pitch-texture">Pitch
+  Texture</a></li>
+  <li><a href="#pitch-envelope" id="toc-pitch-envelope">Pitch
+  Envelope</a></li>
+  <li><a href="#primary-membrane" id="toc-primary-membrane">Primary
+  Membrane</a></li>
+  <li><a href="#secondary-membrane"
+  id="toc-secondary-membrane">Secondary Membrane</a></li>
   </ul></li>
-  <li><a href="#チェンジログ" id="toc-チェンジログ">チェンジログ</a>
-  <ul>
-  <li><a href="#basiclimiter-1"
-  id="toc-basiclimiter-1">BasicLimiter</a></li>
-  <li><a href="#basiclimiterautomake"
-  id="toc-basiclimiterautomake">BasicLimiterAutoMake</a></li>
-  </ul></li>
-  <li><a href="#旧バージョン" id="toc-旧バージョン">旧バージョン</a>
-  <ul>
-  <li><a href="#basiclimiter-2"
-  id="toc-basiclimiter-2">BasicLimiter</a></li>
-  <li><a href="#basiclimiterautomake-1"
-  id="toc-basiclimiterautomake-1">BasicLimiterAutoMake</a></li>
-  </ul></li>
+  <li><a href="#チェンジログ"
+  id="toc-チェンジログ">チェンジログ</a></li>
+  <li><a href="#旧バージョン"
+  id="toc-旧バージョン">旧バージョン</a></li>
   <li><a href="#ライセンス" id="toc-ライセンス">ライセンス</a>
   <ul>
   <li><a href="#vst-について" id="toc-vst-について">VST®
@@ -329,48 +336,31 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="basiclimiter">BasicLimiter</h1>
-<p><img src="img/BasicLimiter.png" /></p>
-<p><ruby>BasicLimiter<rt>ベーシック リミッタ</rt></ruby>
-は名前の通りベーシックなシングルバンドリミッタです。目新しい音は出ませんが、トゥルーピークモードはやや贅沢に設計しています。</p>
+<h1 id="genericdrum">GenericDrum</h1>
+<p><img src="img/GenericDrum.png" /></p>
+<p><ruby>GenericDrum<rt>ジェネリック ドラム</rt></ruby>
+はディレイを使った汎用ドラムシンセサイザです。バスドラムやスネアドラムについては良い音が出ます。シンバルの音も出せますが、低いドラムの音ほど良くはありません。</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/BasicLimiter_0.1.19.zip">BasicLimiter
-0.1.19 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/GenericDrum_0.1.0.zip">GenericDrum
+0.1.1 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/BasicLimiter_0.1.19_macOS.zip">BasicLimiter
-0.1.19 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/GenericDrum_0.1.0_macOS.zip">GenericDrum
+0.1.1 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterPresets.zip">プリセットをダウンロード
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/GenericDrumPresets.zip">プリセットをダウンロード
 (github.com)</a></li>
 </ul>
-<p>自動メイクアップゲイン、サイドチェイン、左右 (L-R) とミッド-サイド
-(M-S) の切り替えを追加した BasicLimiterAutoMake もあります。ただし CPU
-負荷は 1.5 倍強に上がります。</p>
-<ul>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/BasicLimiterAutoMake_0.1.19.zip">BasicLimiterAutoMake
-0.1.19 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
-src="img/VST_Compatible_Logo_Steinberg_negative.svg"
-alt="VST compatible logo."
-width="30px"
-style="display: inline-block; vertical-align: middle;"></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/BasicLimiterAutoMake_0.1.19_macOS.zip">BasicLimiterAutoMake
-0.1.19 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
-src="img/VST_Compatible_Logo_Steinberg_negative.svg"
-alt="VST compatible logo."
-width="30px"
-style="display: inline-block; vertical-align: middle;"></li>
-</ul>
+<p><strong>重要</strong>: プリセットはサンプリング周波数が 48000 Hz
+でなければ想定された音が出ないことがあります。</p>
 <p><code>full</code> パッケージには次のビルドが含まれています。</p>
 <ul>
 <li>Windows (x86_64)</li>
@@ -664,409 +654,439 @@ href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
 </ul></li>
 </ul>
 <h2 id="注意">注意</h2>
-<p>アルゴリズムの問題で、入力振幅がとんでもなく大きいと過剰に振幅が制限されることがあります
-(オーバーリミッティング)
-。オーバーリミッティングが起こると、入力振幅が大きくなるほど出力振幅が小さくなります。振幅が
-<code>2^53</code> 、つまり約 319 dB
-を超えたときに問題が起こることが想定されます。</p>
+<p>外部のリミッタと共に使用してください。パラメータの変更や、演奏時のベロシティによって大きくゲインが変わります。</p>
+<p>パラメータの設定によっては発振あるいは発散することがあります。発振とは振幅が一定となって音が止まらない状態、発散とは時間とともに音が大きくなり続ける状態のことです。</p>
+<p>発散すると最大で +40 dB ほどの振幅になることがあります。 GenericDrum
+は発散を検知すると自動でフィードバックを下げます。この仕組みはプライマリあるいはセカンダリの振幅が
++40 dB を超えたときに起動します。</p>
+<p><code>Prevent Blow Up</code>
+を有効にするとワイヤとプライマリの衝突による発散を大きく抑えることができます。ただし音の質感も大きく変わります。</p>
+<p><code>Prevent Blow Up</code>
+が有効でも、ディレイ時間が短く、バンドパスの Q
+が高く、フィードバックが大きいと発散します。以下は関連するパラメータの一覧です。</p>
+<ul>
+<li><code>Note -&gt; Pitch</code></li>
+<li><code>Cross Feedback Gain</code></li>
+<li><code>Cross Feedback Ratio</code></li>
+<li><code>Delay</code></li>
+<li><code>BP Q</code></li>
+</ul>
+<h2 id="仕組み">仕組み</h2>
+<p>GenericDrum
+は物理モデルではありません。対応する物理現象が説明されていないからです。では何なのかというと、バイオリンで鳥の鳴き声をまねるように、ディレイでドラムの音をまねた芸術作品です。ここでの芸術とは人間が感覚でパラメータを設定したということを意味しています。</p>
+<p>GenericDrum
+はバスドラムやスネアドラムなどの筒に膜が張ってある低めのドラムの音は得意ですが、シンバルのような薄い金属板の質感は苦手です。ドラムの膜の上に手を置いて擦るような演奏や、ハイハットのクローズのような衝撃とともに音を止める表現には対応していません。これは今後の課題です。</p>
+<p>ドラムの音をまねるには、本物のドラムと似たような構造を作ればいいわけです。
+GenericDrum は大まかに以下の部品に分けることができます。 () は対応する
+GUI 上のセクションを示しています。</p>
+<ul>
+<li>ばちと打面の衝突 (Impact)</li>
+<li>ワイヤ (Wire)</li>
+<li>プライマリの打面 (Primary Membrane)</li>
+<li>セカンダリの打面 (Secondary Membrane)</li>
+</ul>
+<p>ドラムは手やばちで打面を叩くことで音が出ます。 Impact
+セクションでは、この叩く動作によって起きるノイズを生成します。音としてはホワイトノイズにローパスがかかった信号を生成します。また
+<code>Echo</code>
+によってドラムが揺れてスタンドなどと接触するときにでるカチャカチャという音をまねることができます。</p>
+<p>ワイヤはスネアドラムのスナッピーを想定した部品で、プライマリと衝突するようになっています。中身は直列につながったディレイです。
+<code>Collision Distance</code>
+でプライマリとの衝突が起こる距離を変えることができます。これはスナッピーを裏面に近づけたり離したりという調節をまねています。また
+<code>Rattle-Squeak Mix</code>
+によって衝突の質感を変えることができます。特に squeak 側 (1.0)
+に寄せるとクイーカに似た音が出せることがありますが、擦る量をうまく制御する仕組みはありません。</p>
+<p>プライマリとセカンダリの打面には impact
+セクションからの衝突が等しく伝わります。この挙動は非現実的ですが、楽器としてはいい音が出ます。
+1 つの打面は 1 つのフィードバックディレイネットワーク (FDN)
+からなります。 FDN
+のフィードバック経路にはバンドパスフィルタが設けられており、このバンドパスのカットオフ周波数と
+Q
+、またディレイ時間の組み合わせによって打面の質感を変えることができます。特に
+Q を下げると明るい音になります。</p>
+<p>FDN
+内のフィードバック信号によってディレイ時間を変調することで、薄い膜の振動の非線形性をまねています。膜は揺れているときに伸び縮みしますが、定常状態から離れた分だけ内部的なストレスによって張力が一時的に増えるはずです。そして、張力が増えるということは音のピッチが上がることを意味します。これを
+FDN
+に当てはめると、フィードバックされた信号の振幅に応じてディレイ時間を短くすることでピッチを上げるという実装が考えられます。</p>
+<p>衝突の計算には質量が等しい場合の完全弾性衝突を使っています。衝突後に通る
+FDN
+のフィードバック係数やバンドパスで振幅が減衰するので、衝突時に減衰を行わなくても音は止まります。また、衝突直後の振幅を溜め込んで、少しずつシステムに還流させることで、スネアドラムと似たような音が出るようにチューニングしています。ディレイは波の伝搬を近似できますが、伝搬の途中の状態は表現できません。したがって伝搬の途中で起こる衝突も表現できません。波の伝搬の途中で衝突が起こらないという癖は
+<code>Delay</code> の値を低くすると顕著に現れます。</p>
 <h2 id="ブロック線図">ブロック線図</h2>
 <p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> +
 <kbd>マウスホイール</kbd>
 や、右クリックから「画像だけを表示」などで拡大できます。</p>
 <p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
-<p><img src="img/BasicLimiter.svg" /></p>
+<p><img src="img/GenericDrum.svg" /></p>
 <h2 id="パラメータ">パラメータ</h2>
+<p>角かっこ [] で囲まれているのは単位です。以下は単位の一覧です。</p>
+<ul>
+<li>[dB] : デシベル (decibel) 。</li>
+<li>[s] : 秒 (second) 。</li>
+<li>[Hz] : 周波数 (Hertz) 。</li>
+<li>[sample] : サンプル数。 1 サンプルは
+<code>1 / (サンプリング周波数)</code> 秒。</li>
+<li>[oct] : オクターブ (octave) 。</li>
+<li>[st.] : 半音 (semitone)。 1 半音は <code>1 / 12</code>
+オクターブ。</li>
+<li>[cent] : セント。 1 セントは <code>1 / 100</code> 半音。</li>
+</ul>
+<h3 id="mix-options">Mix &amp; Options</h3>
 <dl>
-<dt>Threshold [dB]</dt>
+<dt>Output [dB]</dt>
 <dd>
-<p>リミッタのしきい値です。</p>
-<p><code>True Peak</code>
-がオフのとき、出力振幅はしきい値以下に制限されます。</p>
-<p><code>True Peak</code>
-がオンのとき、出力振幅は完全にしきい値以下に制限されません。これはリアルタイムで使えるアルゴリズムには限界があるからです。</p>
+<p>出力ゲインです。</p>
 </dd>
-<dt>Gate [dB]</dt>
+<dt>Highpass [Hz]</dt>
 <dd>
-<p>ゲートのしきい値です。 <code>Attack</code>
-で指定した時間を超えて入力振幅が <code>Gate</code>
-の値を下回ると、出力振幅が 0 になります。</p>
+<p>出力の直前に通すことができるハイパスフィルタです。</p>
+<p><strong>警告</strong>: <code>Highpass</code>
+のオン・オフを切り替えるとポップノイズが出ることがあります。</p>
 </dd>
-<dt>Attack [s]</dt>
+<dt>2x Sampling [Hz]</dt>
 <dd>
-<p>リミッタのエンベロープを滑らかにするフィルタの遷移時間です。
-<code>Attack</code> の値はそのままレイテンシに加算されます。</p>
-<p>ドラムなどの振幅の変化が急峻な音にかけるときは 0.02
-秒以下に設定することを推奨します。 0.02 秒という値は<a
-href="https://web.archive.org/web/20210624083625/http://ccrma.stanford.edu:80/~bosse/proj/node21.html">継時マスキング</a>という人間の耳の聞こえ方の性質に基づいています。</p>
+<p>有効時に 2 倍のオーバーサンプリングを行います。</p>
+<p><strong>警告</strong>:
+値を変更するとポップノイズが出ることがあります。</p>
 </dd>
-<dt>Release [s]</dt>
+<dt>Normalize Gain</dt>
 <dd>
-<p>リミッタのエンベロープが振幅を制限しない状態に戻るときの滑らかさです。</p>
-<p>内部では <code>Release</code>
-で設定された時間の逆数をカットオフ周波数として使っているので、表示されている値はあくまでも目安です。普段は
-<code>Sustain</code> と足し合わせた値が 0.2
-秒以下になるよう設定することを推奨します。この値は継時マスキングに基づいています。</p>
+<p>有効時に以下の値に応じてゲインを自動的に調節します。</p>
+<ul>
+<li>ノートの音程。</li>
+<li>Impact セクションの <code>Noise Lowpass</code> 。</li>
+</ul>
 </dd>
-<dt>Sustain [s]</dt>
+<dt>Reset Seed at Note-on</dt>
 <dd>
-<p>リミッタのエンベロープが <code>Attack</code>
-で設定した時間に加えて振幅のピークをホールドする時間です。</p>
-<p>ドラムなどにかけると <code>Release</code>
-よりもダッキングが目立つ傾向があります。歪ませたギターやサステイン中のシンセサイザなど、振幅が一定な音に対してはオートゲインと同じように働くので
-<code>Release</code> よりクリーンな出力が得られます。普段は
-<code>Sustain</code> と足し合わせた値が 0.2
-秒以下になるよう設定することを推奨します。サステインを長くすると継時マスキングの曲線から乖離するので注意してください。</p>
+<p>有効時にノートオンのたびに衝突のノイズに使われる乱数のシードをリセットします。</p>
+<p>チェックを外すと音がよれて人間味が出ます。</p>
 </dd>
-<dt>Stereo Link</dt>
+<dt>Prevent Blow Up</dt>
 <dd>
-<p><code>Stereo Link</code> が 0.0
-のとき、左右のリミッタは独立して動作します。 1.0
-のとき、すべてのチャンネルの振幅の最大値がすべてのリミッタに入力されます。以下は
-<code>Stereo Link</code> の計算式です。</p>
-<pre><code>absL = fabs(leftInput).
-absR = fabs(rightInput).
-
-absMax = max(absL, absR).
-
-amplitudeL = absL + stereoLink * (absMax - absL).
-amplitudeR = absR + stereoLink * (absMax - absR).</code></pre>
-<p>細かく設定するときは、まず <code>Stereo Link</code> を 0.0
-に設定します。すると左右のどちらかに偏った信号が入力されたときに、中央に位置する信号が押し出されて、パンがふらつくように聞こえることがあります。このようなパンのふらつきが聞き取れなくなるまで
-<code>Stereo Link</code>
-の値を少しづつ増やしていけば、そのうち適切な値にたどり着きます。</p>
-</dd>
-<dt>True Peak</dt>
-<dd>
-<p>チェックを入れるとトゥルーピークモードがオンになります。トゥルーピークモードがオンのときは
-94 サンプルのレイテンシが加わります。</p>
-<p>トゥルーピークモードがオンのときはナイキスト周波数に近い成分を落とすためのローパスフィルタがかかります。サンプリング周波数が
-48000 Hz のときに、およそ 18000 Hz
-以下の成分についてはローパスフィルタの影響が及ばないように設計しています。</p>
-<p>サンプルピークが <code>Threshold</code>
-で指定した値を超えることがあります。特にサンプルピークが 0 dB
-を超えたときは <code>Overshoot</code> の値が 0
-でなくなります。このときは <code>Threshold</code>
-の値を下げてください。</p>
-<p>ナイキスト周波数のトゥルーピークの復元には無限の長さの FIR
-フィルタが必要です (sinc 補間)
-。したがってリアルタイムでの厳密な復元は不可能です。ローパスをかけていたり、トゥルーピークモードでオーバーシュートが起こったりと問題点があるのは、この無理をなんとかしようとしていることが原因です。</p>
-</dd>
-<dt>Reset Overshoot</dt>
-<dd>
-<p>クリックすると <code>Overshoot</code> の値を 0 にリセットします。</p>
-<p>出力のサンプルピークが 0 dB を超えると <code>Overshoot</code> の値が
-0 でなくなり、 <code>Reset Overshoot</code> が点灯します。</p>
+<p>有効時にワイヤ周りのゲインを下げることで内部的な発散を抑えます。</p>
+<p>ワイヤが発散すると爆発するように大きな音が出ます。
+<code>Prevent Blow Up</code>
+はこの爆発を抑えますが、副作用としてざらついた質感が消えた迫力のない音になりがちです。
+Wire
+セクションで以下の操作を行えば、多少ざらつきを出すことができます。</p>
+<ul>
+<li><code>Decay</code> を上げる。</li>
+<li><code>Collision Distance</code> を下げる。</li>
+<li><code>Rattle-Squeak Mix</code> を下げる。</li>
+</ul>
+<p>上記の操作を行った後に <code>Prevent Blow Up</code>
+を無効にすると発散しやすい状態となっているので注意してください。</p>
 </dd>
 </dl>
-<h3 id="basiclimiterautomake-の固有パラメータ">BasicLimiterAutoMake
-の固有パラメータ</h3>
+<h3 id="stereo-unison">Stereo Unison</h3>
+<p><code>Stereo Unison</code>
+を有効にすると、左右のチャンネルで異なるワイヤ、プライマリ、セカンダリを使って計算を行います。ただし
+CPU 負荷が約 2 倍に増えます。</p>
 <dl>
-<dt>Auto Make Up</dt>
+<dt>Stereo Balance</dt>
 <dd>
-<p>チェックを入れると自動メイクアップゲインが有効になります。</p>
-<p>自動メイクアップゲインが有効のときに <code>Threshold</code> の値が
-<code>Auto Make Up Target Gain</code>
-を超えると出力振幅が小さくなります。</p>
-<p>自動メイクアップゲインが有効のときに、手やオートメーションで
-<code>Threshold</code>
-を上げると、オーバーシュートすることがあります。オーバーシュートでの歪みを防ぐためには
-<code>Auto Make Up Target Gain</code> を -0.1 dB
-以下に設定することを推奨します。</p>
-<p>入力信号があるときに <code>Threshold</code> を動かすのであれば
-BasicLimiterAutoMake
-の後にお守りとしてさらにもう一つリミッタを挿入することを推奨します。</p>
+<p>左右のチャンネルのゲインを調整します。</p>
+<p>パンとは異なり、左右のチャンネルはミックスされません。</p>
 </dd>
-<dt>Auto Make Up Target Gain</dt>
+<dt>Stereo Merge</dt>
 <dd>
-<p>自動メイクアップゲインが適用された後の最大振幅です。
-<code>Auto Make Up</code>
-の右側に配置されているコントロールで、単位はデシベルです。</p>
-<p><code>Channel Type</code> が <code>M-S</code> のときは設定値の +6 dB
-が最大振幅となります。</p>
+<p>ステレオの広がりを調整します。</p>
 </dd>
-<dt>Sidechain</dt>
-<dd>
-<p>チェックを入れるとサイドチェインが有効になります。サイドチェインが有効のとき、ソース信号の振幅は
-<code>Threshold</code> に影響されないので <code>Auto Make Up</code>
-は無効になります。</p>
-<p>BasicLimiterAutoMake は 2 つのステレオ入力を備えています。 1
-番がソース信号、 2
-番がサイドチェイン信号の入力です。ルーティングについてはお使いの DAW
+</dl>
+<h3 id="external-input">External Input</h3>
+<p>External Input
+セクションには外部入力に関する設定が配置されています。</p>
+<p>外部入力の使用には 2 つの場合分けがあります。</p>
+<ul>
+<li>マイクからの入力を使う場合。</li>
+<li>他のシンセサイザを使う場合。</li>
+</ul>
+<p>マイクからの入力を使う場合は <code>Automatic Trigger</code>
+を有効にして、 <code>Trigger Threshold</code>
+の値を調節してください。</p>
+<p>他のシンセサイザを使う場合は、外部入力と共にノートイベントを
+GenericDrum
+と共有するようにルーティングすることで正確にノートオンを合わせることができます。このとき
+<code>Automatic Trigger</code> は無効にしてください。</p>
+<p>外部入力やノートイベントのルーティングは使用している DAW
 のマニュアルを参照してください。</p>
-</dd>
-<dt>Channel Type</dt>
+<dl>
+<dt>External Gain [dB]</dt>
 <dd>
-<p>ステレオチャンネルの種類を左右 (<code>L-R</code>) とミッド-サイド
-(<code>M-S</code>) で切り替えます。</p>
-<p>種類を <code>M-S</code> に設定すると、サンプルピークが
-<code>Threshold</code> の 2 倍 (+6.02 dB) に達することがあります。そこで
-<code>Auto Make Up</code> を有効にして <code>M-S</code> を使うときは、
-<code>Auto Make Up Target Gain</code> の値を -6.1 dB
-以下に設定することを推奨します。この仕様は <code>L-R</code> と
-<code>M-S</code>
-を切り替えて比較するときに聴感上の音の大きさが同じになることを狙っています。</p>
+<p>外部入力のゲインです。</p>
+</dd>
+<dt>Trigger Threshold [dB]</dt>
+<dd>
+<p>自動トリガのしきい値です。</p>
+</dd>
+<dt>Automatic Trigger</dt>
+<dd>
+<p>有効時に自動トリガを有効にします。</p>
+</dd>
+</dl>
+<h3 id="tuning">Tuning</h3>
+<p>Tuning
+セクションにはノートとピッチベンドに関するパラメータが配置されています。</p>
+<dl>
+<dt>Note -&gt; Pitch</dt>
+<dd>
+<p>ノートの音程によるピッチの変調量です。</p>
+<p><code>Note -&gt; Pitch</code> の値によらず、音程が A3 (MIDI
+ノート番号でいうと 57) のときにピッチの変調量が 0 となります。</p>
+<p><code>Note -&gt; Pitch</code> の値が 0.0
+のとき、ノートのピッチは無視されます。</p>
+<p><code>Note -&gt; Pitch</code> の値が 1.0
+のときに音程がピッチにそのまま反映されます。ただしドラムの音ははっきりとした音程を持たないのでチューニングがあっていないように聞こえることがあります。また、実装の都合により音が高くなるほどチューニングが狂います。</p>
+<p><code>Note -&gt; Pitch</code> の値が -1.0
+のとき、音程の上下が逆転します。</p>
+</dd>
+<dt>Semitone</dt>
+<dd>
+<p>半音単位でノートの音程をトランスポーズします。</p>
+<p><strong>注意</strong>: <code>Note -&gt; Pitch</code> が 0.0
+のときは無効です。</p>
+</dd>
+<dt>Cent</dt>
+<dd>
+<p>セント単位でノートの音程をトランスポーズします。</p>
+<p><strong>注意</strong>: <code>Note -&gt; Pitch</code> が 0.0
+のときは無効です。</p>
+</dd>
+<dt>Pitch Bend Range [st.]</dt>
+<dd>
+<p>ピッチベンドの範囲です。単位は半音です。</p>
+</dd>
+<dt>Slide Time [s]</dt>
+<dd>
+<p>2
+つ以上のノートが同時に演奏されたときにピッチをスライドする大まかな時間です。</p>
+</dd>
+</dl>
+<h3 id="impact">Impact</h3>
+<p>Impact
+セクションには、ばちと打面の衝突を模倣する部分のパラメータが配置されています。</p>
+<dl>
+<dt>Seed</dt>
+<dd>
+<p>乱数のシードです。</p>
+<p>シードを変更すると、大まかな質感を維持しながら音を変えることができます。</p>
+<p>GenericDrum
+は衝突のノイズの生成と、内部的なパラメータの設定に使うための 2
+つの乱数生成器を備えています。ノイズの生成については
+<code>Reset Seed at Note-on</code>
+によってノートオンごとにシードをリセットすることができます。</p>
+</dd>
+<dt>Noise Decay [s]</dt>
+<dd>
+<p>ノイズの大まかな減衰時間です。</p>
+</dd>
+<dt>Noise Lowpass [Hz]</dt>
+<dd>
+<p>ノイズが通過するローパスフィルタのカットオフ周波数です。</p>
+<p><code>Normalize Gain</code> の有効時は <code>Noise Lowpass</code>
+の値が大きいほど音が小さくなります。</p>
+</dd>
+<dt>Echo [Hz]</dt>
+<dd>
+<p>ノイズにかけるエコーの全長を表す周波数です。</p>
+<p>このエコーはドラムとスタンドの衝突によるカチャカチャという音の表現のために備えられています。</p>
+</dd>
+</dl>
+<h3 id="wire">Wire</h3>
+<p>Wire
+セクションにはスナッピーのような打面に接するワイヤを模倣する部分のパラメータが配置されています。</p>
+<dl>
+<dt>Impact-Wire Mix</dt>
+<dd>
+<p>衝突のノイズと、ワイヤからの出力を混ぜる比率です。</p>
+<p>0.0 で衝突のノイズのみ、 1.0 でワイヤからの出力のみとなります。</p>
+</dd>
+<dt>Membrane-Wire Mix</dt>
+<dd>
+<p>プライマリの打面と、ワイヤからの出力を混ぜる比率です。</p>
+<p>0.0 でプライマリの出力のみ、 1.0
+でワイヤからの出力のみとなります。</p>
+</dd>
+<dt>Frequency [Hz]</dt>
+<dd>
+<p>ワイヤ全体の周波数です。</p>
+<p>ワイヤは 4 つの区間に分割されて計算されるので <code>Frequency</code>
+で設定した周波数だけが得られるわけではありません。</p>
+</dd>
+<dt>Decay [s]</dt>
+<dd>
+<p>ワイヤ出力の大まかな減衰時間です。</p>
+<p><strong>警告</strong>: <code>Prevent Blow Up</code> の無効時は
+<code>Decay</code> の値を上げると発散しやすくなります。</p>
+</dd>
+<dt>Collision Distance</dt>
+<dd>
+<p>ワイヤとプライマリの衝突を判定するときに使われるしきい値です。</p>
+<p><strong>警告</strong>: <code>Collision Distance</code>
+の値が小さいときは <code>Decay</code>
+による十分な減衰がかかるまで、一時的に発散することがあります。発散を防ぐためには値を上げてください。</p>
+</dd>
+<dt>Rattle-Squeak Mix</dt>
+<dd>
+<p>衝突の質感です。</p>
+<p><code>Rattle-Squeak Mix</code> の値が 0.0
+のときはスナッピーがぶつかるざらついた音、 1.0
+のときは打面を擦るような音が出ます。</p>
+<p><strong>警告</strong>: <code>Prevent Blow Up</code> の無効時は
+<code>Rattle-Squeak Mix</code> の値が 0.0
+に近づくほど発散しやすくなります。</p>
+</dd>
+</dl>
+<h3 id="membrane-tone">Membrane Tone</h3>
+<p>Membrane Tone セクションには打面を表す FDN
+のフィードバックに関するパラメータが配置されています。 Membrane Tone
+セクションの設定はプライマリとセカンダリの両方で共有されます。</p>
+<dl>
+<dt>Cross Feedback Gain</dt>
+<dd>
+<p>打面の音の減衰の速さを調整するゲインです。</p>
+<p><strong>警告</strong>: `<code>Cross Feedback Gain</code> が 1.0
+に近づくと発振あるいは発散しやすくなります。</p>
+</dd>
+<dt>Cross Feedback Ratio</dt>
+<dd>
+<p>打面のトーンを調整する値です。</p>
+<p><code>Cross Feedback Ratio</code> の値はハウスホルダー変換によって
+FDN のフィードバック行列へと変換されます。</p>
+<p><code>Cross Feedback Ratio</code> の値がすべて 0.0 のとき FDN
+内のディレイは互いにフィードバックをかけなくなります。このとき音のピッチは聞き取りやすくなりますが、薄い膜や板を叩いたような音としての質感は薄くなります。</p>
+<p><code>Cross Feedback Ratio</code> の値がすべて 1.0
+のとき、薄い膜の振動のような質感に近くなります。ただし Primary Membrane
+セクションの各値に応じて質感は大きく変わります。</p>
+<p><code>Cross Feedback Gain</code> や <code>Collision Distance</code>
+の値をできる限り変えずに発振や発散を防ぐときは
+<code>Cross Feedback Ratio</code> の値を変えると効果的です。</p>
+</dd>
+</dl>
+<h3 id="pitch-texture">Pitch Texture</h3>
+<p>Pitch Texture セクションには打面を表す FDN
+の内部的なピッチに関するパラメータが配置されています。</p>
+<dl>
+<dt>Delay Time Spread</dt>
+<dd>
+<p>FDN のディレイ時間の分布の幅です。</p>
+</dd>
+<dt>BP Cut Spread</dt>
+<dd>
+<p>FDN
+のフィードバック経路に位置するバンドパスフィルタのカットオフ周波数の分布の幅です。</p>
+</dd>
+<dt>Pitch Random [cent]</dt>
+<dd>
+<p>ランダムにピッチを変更する量です。</p>
+</dd>
+</dl>
+<h3 id="pitch-envelope">Pitch Envelope</h3>
+<p>ピッチエンベロープは FDN
+のディレイ時間とバンドパスのカットオフ周波数を変調します。</p>
+<dl>
+<dt>Attack [s]</dt>
+<dd>
+<p>エンベロープの大まかな立ち上がり時間です。</p>
+<p><strong>注意</strong>: <code>Decay</code>
+の値より立ち上がりが長くなることはありません。</p>
+</dd>
+<dt>Decay [s]</dt>
+<dd>
+<p>エンベロープの大まかな減衰時間です。</p>
+</dd>
+<dt>Amount [oct]</dt>
+<dd>
+<p>エンベロープによるピッチの変調量です。</p>
+</dd>
+</dl>
+<h3 id="primary-membrane">Primary Membrane</h3>
+<dl>
+<dt>Pitch Type</dt>
+<dd>
+<p>FDN のディレイ時間の分布の種類です。</p>
+<p><strong>注意</strong>: <code>- Reserved * -</code>
+を選択しないでください。 <code>- Reserved * -</code> は後で異なる
+<code>Pitch Type</code> を追加するために予約された空のオプションです。
+<code>- Reserved * -</code> が選択されたときは <code>Harmonic</code>
+にフォールバックします。</p>
+</dd>
+<dt>Delay [Hz]</dt>
+<dd>
+<p>FDN のディレイ時間の基準値です。</p>
+<p>FDN 内では <code>Delay</code>
+の周波数となるフィードバック経路が必ず一つは用意されますが、あくまでも目安となる値であり、正確なピッチを表すわけではありません。これは
+FDN
+内でフィードバックが交差することによるカオスな挙動が原因です。ピッチの変化は
+<code>Cross Feedback Ratio</code> の設定に依存します。</p>
+</dd>
+<dt>Delay Modulation [sample]</dt>
+<dd>
+<p>FDN のフィードバックの振幅に応じてディレイ時間を変調する量です。</p>
+<p><strong>警告</strong>: <code>Delay Modulation</code>
+の値が大きくなるほど発振あるいは発散しやすくなります。</p>
+</dd>
+<dt>BP Cut [oct]</dt>
+<dd>
+<p><code>Delay</code>
+で設定された周波数に対するプライマリのバンドパスのカットオフ周波数の比率です。</p>
+<p>シンバルのような高い音を作るときには <code>BP Cut</code>
+を上げると効果的です。</p>
+<p><code>Delay Modulation</code> によるバリつきをなめすには
+<code>BP Cut</code> を下げると効果的です。</p>
+</dd>
+<dt>BP Q</dt>
+<dd>
+<p>プライマリのバンドパスの Q 値です。</p>
+<p><code>BP Q</code>
+が小さいと帯域幅が広くなるため、高く、長い音になります。ただし発振しやすくなります。逆に
+<code>BP Q</code>
+が大きいと帯域幅が狭くなるため、低く、短い音になります。</p>
+<p><strong>警告</strong>: <code>BP Q</code>
+の値が大きくなるほど発振あるいは発散しやすくなります。</p>
+</dd>
+</dl>
+<h3 id="secondary-membrane">Secondary Membrane</h3>
+<p>セカンダリは原則として Primary Membrane
+セクションの値を継承します。</p>
+<dl>
+<dt>Mix</dt>
+<dd>
+<p>プライマリと混ぜる比率です。 1.0
+のときセカンダリからの出力だけが聞こえるようになります。</p>
+<p><strong>注意</strong>: 値を 0.0 あるいは 1.0
+に設定しても衝突の計算は行われます。衝突を止めるには
+<code>Collision Distance</code> の値を上げてください。</p>
+</dd>
+<dt>Pitch Offset [oct]</dt>
+<dd>
+<p>プライマリに対するピッチの比率です。</p>
+<p>0.0 のときは Primary Membrane セクションと同じ値が使われます。</p>
+<p><code>Pitch Offset</code> と <code>Q Offset</code>
+の調整は、スネアドラムの片面のチューニングをずらすような操作と似ています。</p>
+</dd>
+<dt>Q Offset [oct]</dt>
+<dd>
+<p>プライマリに対するバンドパスの Q の比率です。</p>
+</dd>
+<dt>Collision Distance</dt>
+<dd>
+<p>プライマリとセカンダリの衝突を判定するときに使われるしきい値です。</p>
+<p><strong>警告</strong>: <code>Collision Distance</code>
+の値が小さいときは発振することがあります。発振を防ぐためには値を上げてください。</p>
 </dd>
 </dl>
 <h2 id="チェンジログ">チェンジログ</h2>
-<h3 id="basiclimiter-1">BasicLimiter</h3>
 <ul>
-<li>0.1.19
-<ul>
-<li>不正な <code>style.json</code>
-によりプラグインがクラッシュするバグを修正。</li>
-</ul></li>
-<li>0.1.18
-<ul>
-<li>デフォルトの <code>foregroundInactive</code> の色を変更。</li>
-<li>サブノーマル数によるパフォーマンスの低下を修正。</li>
-</ul></li>
-<li>0.1.17
-<ul>
-<li><code>Attack</code>
-の数値スライダが値を更新するタイミングを、マウスボタンを押下しながら動かしている間から、マウスボタンの押下を止めた時点に変更。</li>
-</ul></li>
-<li>0.1.16
-<ul>
-<li>Renoise で GUI がクラッシュするバグを修正。 GUI
-要素のメモリが解放された後にアクセスを行おうとしていたことがクラッシュの原因。</li>
-</ul></li>
-<li>0.1.15
-<ul>
-<li><code>processContext</code> が <code>nullptr</code> であるために
-Audacity で音が正しく出力されなかったバグを修正。</li>
-</ul></li>
-<li>0.1.14
-<ul>
-<li>スプラッシュ画面のテキストを更新。</li>
-</ul></li>
-<li>0.1.13
-<ul>
-<li>数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd>
-による値の切り捨てのショートカットを追加。</li>
-</ul></li>
-<li>0.1.12
-<ul>
-<li>クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに
-<code>virtual</code> を追加。</li>
-</ul></li>
-<li>0.1.11
-<ul>
-<li>VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux
-で同一プラグインの GUI を複数開くとクラッシュするバグを修正。</li>
-</ul></li>
-<li>0.1.10
-<ul>
-<li>リリースフィルタのリセットを修正。リリース時間が長めに設定されているとき、リセット直後にフェードインする効果が出なくなった。</li>
-</ul></li>
-<li>0.1.9
-<ul>
-<li>内部で使われているディレイのバッファ長とアタック時間が一致したときに、巻き戻しによってリミッタの動作が壊れる潜在的な不具合を修正。</li>
-</ul></li>
-<li>0.1.8
-<ul>
-<li>x86_64 固有の SIMD 命令への依存を除去。</li>
-</ul></li>
-<li>0.1.6
-<ul>
-<li>Linux でのクラッシュを修正。</li>
-</ul></li>
-<li>0.1.5
-<ul>
-<li>プラグインが許可するチャネル数の条件を修正。この修正は REAPER
-のサイドチェインで意図しないミュートがかかることを防ぐために行った。</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li><code>style.json</code>
-でカスタムフォントを設定するオプションを追加。</li>
-<li><code>Gate</code> が -inf dB
-のときにゲートがかからないように変更。</li>
-</ul></li>
-<li>0.1.3
-<ul>
-<li>VSTGUI を 4.10 から 4.11 にアップデート。</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>初期リリース。</li>
-</ul></li>
-</ul>
-<h3 id="basiclimiterautomake">BasicLimiterAutoMake</h3>
-<ul>
-<li>0.1.19
-<ul>
-<li>不正な <code>style.json</code>
-によりプラグインがクラッシュするバグを修正。</li>
-</ul></li>
-<li>0.1.18
-<ul>
-<li>デフォルトの <code>foregroundInactive</code> の色を変更。</li>
-<li>サブノーマル数によるパフォーマンスの低下を修正。</li>
-</ul></li>
-<li>0.1.17
-<ul>
-<li><code>Attack</code>
-の数値スライダが値を更新するタイミングを、マウスボタンを押下しながら動かしている間から、マウスボタンの押下を止めた時点に変更。</li>
-<li>Renoise でサイドチェイン入力が認識されていなかったバグを修正。
-<code>Vst::BusTypes::kAux</code>
-フラグをサイドチェイン入力に追加した。</li>
-</ul></li>
-<li>0.1.16
-<ul>
-<li>Renoise で GUI がクラッシュするバグを修正。 GUI
-要素のメモリが解放された後にアクセスを行おうとしていたことがクラッシュの原因。</li>
-</ul></li>
-<li>0.1.15
-<ul>
-<li><code>processContext</code> が <code>nullptr</code> であるために
-Audacity で音が正しく出力されなかったバグを修正。</li>
-</ul></li>
-<li>0.1.14
-<ul>
-<li>スプラッシュ画面のテキストを更新。</li>
-</ul></li>
-<li>0.1.13
-<ul>
-<li>数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd>
-による値の切り捨てのショートカットを追加。</li>
-</ul></li>
-<li>0.1.12
-<ul>
-<li>クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに
-<code>virtual</code> を追加。</li>
-</ul></li>
-<li>0.1.11
-<ul>
-<li>VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux
-で同一プラグインの GUI を複数開くとクラッシュするバグを修正。</li>
-</ul></li>
-<li>0.1.10
-<ul>
-<li>パラメータ平滑化時間を 0.2 秒から 0.5 秒に変更。</li>
-<li>リリースフィルタのリセットを修正。リリース時間が長めに設定されているとき、リセット直後にフェードインする効果が出なくなった。</li>
-</ul></li>
-<li>0.1.9
-<ul>
-<li>内部で使われているディレイのバッファ長とアタック時間が一致したときに、巻き戻しによってリミッタの動作が壊れる潜在的な不具合を修正。</li>
-</ul></li>
-<li>0.1.8
-<ul>
-<li>x86_64 固有の SIMD 命令への依存を除去。</li>
-</ul></li>
-<li>0.1.7
-<ul>
-<li>Linux でのクラッシュを修正。</li>
-</ul></li>
-<li>0.1.6
-<ul>
-<li>トゥルーピークモードのオーバーシュートを減らすために、サイドチェイン入力の高域除去フィルタを追加。</li>
-</ul></li>
-<li>0.1.5
-<ul>
-<li>プラグインが許可するチャネル数の条件を修正。この修正は REAPER
-のサイドチェインで意図しないミュートがかかることを防ぐために行った。</li>
-</ul></li>
-<li>0.1.4
+<li>0.1.0
 <ul>
 <li>初期リリース。</li>
 </ul></li>
 </ul>
 <h2 id="旧バージョン">旧バージョン</h2>
-<h3 id="basiclimiter-2">BasicLimiter</h3>
-<ul>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/BasicLimiter_0.1.18.zip">BasicLimiter
-0.1.18 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/BasicLimiter_0.1.17.zip">BasicLimiter
-0.1.17 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/BasicLimiter_0.1.16.zip">BasicLimiter
-0.1.16 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/BasicLimiter_0.1.15.zip">BasicLimiter
-0.1.15 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/BasicLimiter_0.1.14.zip">BasicLimiter
-0.1.14 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/BasicLimiter_0.1.13.zip">BasicLimiter
-0.1.13 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/BasicLimiter_0.1.12.zip">BasicLimiter
-0.1.12 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/BasicLimiter_0.1.11.zip">BasicLimiter
-0.1.11 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.45.0/BasicLimiter_0.1.10.zip">BasicLimiter
-0.1.10 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/BasicLimiter_0.1.9.zip">BasicLimiter
-0.1.9 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiter_0.1.8.zip">BasicLimiter
-0.1.8 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/BasicLimiter_0.1.6.zip">BasicLimiter
-0.1.6 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiter_0.1.5.zip">BasicLimiter
-0.1.5 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiter_0.1.4.zip">BasicLimiter
-0.1.4 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiter_0.1.2.zip">BasicLimiter
-0.1.2 - VST 3 (github.com)</a></li>
-</ul>
-<h3 id="basiclimiterautomake-1">BasicLimiterAutoMake</h3>
-<ul>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/BasicLimiterAutoMake_0.1.18.zip">BasicLimiterAutoMake
-0.1.18 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/BasicLimiterAutoMake_0.1.17.zip">BasicLimiterAutoMake
-0.1.17 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/BasicLimiterAutoMake_0.1.16.zip">BasicLimiterAutoMake
-0.1.16 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/BasicLimiterAutoMake_0.1.15.zip">BasicLimiterAutoMake
-0.1.15 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/BasicLimiterAutoMake_0.1.14.zip">BasicLimiterAutoMake
-0.1.14 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/BasicLimiterAutoMake_0.1.13.zip">BasicLimiterAutoMake
-0.1.13 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/BasicLimiterAutoMake_0.1.12.zip">BasicLimiterAutoMake
-0.1.12 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/BasicLimiterAutoMake_0.1.11.zip">BasicLimiterAutoMake
-0.1.11 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.45.0/BasicLimiterAutoMake_0.1.10.zip">BasicLimiterAutoMake
-0.1.10 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.37.0/BasicLimiterAutoMake_0.1.9.zip">BasicLimiterAutoMake
-0.1.9 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/BasicLimiterAutoMake_0.1.8.zip">BasicLimiterAutoMake
-0.1.8 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/BasicLimiterAutoMake_0.1.7.zip">BasicLimiterAutoMake
-0.1.7 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/BasicLimiterAutoMake_0.1.5.zip">BasicLimiterAutoMake
-0.1.5 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/BasicLimiterAutoMake_0.1.4.zip">BasicLimiterAutoMake
-0.1.4 - VST 3 (github.com)</a></li>
-</ul>
+<p>旧バージョンはありません。</p>
 <h2 id="ライセンス">ライセンス</h2>
-<p>BasicLimiter のライセンスは GPLv3 です。 GPLv3
+<p>GenericDrum のライセンスは GPLv3 です。 GPLv3
 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
 <ul>
 <li><a

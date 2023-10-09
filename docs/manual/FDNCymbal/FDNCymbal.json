@@ -1,8 +1,9 @@
 {
   "FDNCymbal": {
-    "latest_version": "0.2.17",
+    "latest_version": "0.2.18",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/FDNCymbal_0.2.18.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/FDNCymbal_0.2.17.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/FDNCymbal_0.2.16.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/FDNCymbal_0.2.15.zip",
@@ -27,6 +28,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/FDNCymbalPresets.zip"
     },
     "changelog": {
+      "0.2.18": {
+        "en": [
+          "Fixed a bug that invalid `style.json` crashes plugin."
+        ],
+        "ja": [
+          "不正な `style.json` によりプラグインがクラッシュするバグを修正。"
+        ]
+      },
       "0.2.17": {
         "en": [
           "Changed default style color of `foregroundInactive`.",

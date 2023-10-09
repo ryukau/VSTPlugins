@@ -6,7 +6,7 @@
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <meta name="dcterms.date" content="2023-10-09" />
-<title>LatticeReverb_en</title>
+<title>GenericDrum_en</title>
 <style>
 code { white-space: pre-wrap; }
 span.smallcaps { font-variant: small-caps; }
@@ -268,7 +268,7 @@ footer {
   <summary translate="yes">Table of Contents</summary>
   <nav id="TOC" role="doc-toc">
   <ul>
-  <li><a href="#latticereverb" id="toc-latticereverb">LatticeReverb</a>
+  <li><a href="#genericdrum" id="toc-genericdrum">GenericDrum</a>
   <ul>
   <li><a href="#contact" id="toc-contact">Contact</a></li>
   <li><a href="#installation" id="toc-installation">Installation</a>
@@ -301,18 +301,31 @@ footer {
   </ul></li>
   <li><a href="#controls" id="toc-controls">Controls</a></li>
   <li><a href="#caution" id="toc-caution">Caution</a></li>
+  <li><a href="#mechanism-overview"
+  id="toc-mechanism-overview">Mechanism Overview</a></li>
   <li><a href="#block-diagram" id="toc-block-diagram">Block
   Diagram</a></li>
   <li><a href="#parameters" id="toc-parameters">Parameters</a>
   <ul>
-  <li><a href="#multiplier" id="toc-multiplier">Multiplier</a></li>
-  <li><a href="#panic" id="toc-panic">Panic!</a></li>
-  <li><a href="#mix" id="toc-mix">Mix</a></li>
-  <li><a href="#stereo" id="toc-stereo">Stereo</a></li>
-  <li><a href="#misc." id="toc-misc.">Misc.</a></li>
-  <li><a href="#base" id="toc-base">Base</a></li>
-  <li><a href="#offset" id="toc-offset">Offset</a></li>
-  <li><a href="#modulation" id="toc-modulation">Modulation</a></li>
+  <li><a href="#mix-options" id="toc-mix-options">Mix &amp;
+  Options</a></li>
+  <li><a href="#stereo-unison" id="toc-stereo-unison">Stereo
+  Unison</a></li>
+  <li><a href="#external-input" id="toc-external-input">External
+  Input</a></li>
+  <li><a href="#tuning" id="toc-tuning">Tuning</a></li>
+  <li><a href="#impact" id="toc-impact">Impact</a></li>
+  <li><a href="#wire" id="toc-wire">Wire</a></li>
+  <li><a href="#membrane-tone" id="toc-membrane-tone">Membrane
+  Tone</a></li>
+  <li><a href="#pitch-texture" id="toc-pitch-texture">Pitch
+  Texture</a></li>
+  <li><a href="#pitch-envelope" id="toc-pitch-envelope">Pitch
+  Envelope</a></li>
+  <li><a href="#primary-membrane" id="toc-primary-membrane">Primary
+  Membrane</a></li>
+  <li><a href="#secondary-membrane"
+  id="toc-secondary-membrane">Secondary Membrane</a></li>
   </ul></li>
   <li><a href="#change-log" id="toc-change-log">Change Log</a></li>
   <li><a href="#old-versions" id="toc-old-versions">Old
@@ -326,29 +339,32 @@ footer {
   </nav>
   </details>
   </header>
-<h1 id="latticereverb">LatticeReverb</h1>
-<p><img src="img/LatticeReverb.png" /></p>
-<p>LatticeReverb is a reverb using lattice structure. Equipped with 16
-delays per channel.</p>
+<h1 id="genericdrum">GenericDrum</h1>
+<p><img src="img/GenericDrum.png" /></p>
+<p>GenericDrum is a generic drum synthesizer using delays. This one can
+make convincing snare and bass drum sounds. Cymbal sounds can be made,
+but it’s not good as good as more lower drum sounds.</p>
 <ul>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/LatticeReverb_0.1.23.zip">Download
-LatticeReverb 0.1.23 <code>full</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/GenericDrum_0.1.0.zip">Download
+GenericDrum 0.1.1 <code>full</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/LatticeReverb_0.1.23_macOS.zip">Download
-LatticeReverb 0.1.23 <code>macOS</code> - VST 3 (github.com)</a> <img
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/GenericDrum_0.1.0_macOS.zip">Download
+GenericDrum 0.1.1 <code>macOS</code> - VST 3 (github.com)</a> <img
 src="img/VST_Compatible_Logo_Steinberg_negative.svg"
 alt="VST compatible logo."
 width="30px"
 style="display: inline-block; vertical-align: middle;"></li>
 <li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverbPresets.zip">Download
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/GenericDrumPresets.zip">Download
 Presets (github.com)</a></li>
 </ul>
+<p><strong>Important</strong>: Presets may not produce the expected
+sound if sample rate is not 48000 Hz.</p>
 <p><code>full</code> package contains following builds.</p>
 <ul>
 <li>Windows (x86_64)</li>
@@ -634,498 +650,484 @@ value.
 floor is applied after the value is converted to amplitude.</li>
 </ul></li>
 </ul>
-<p>Control with many blue vertical bars (BarBox) have some keyboard
-shortcuts. <code>LFO Wave</code> on Main tab and <code>Gain</code>,
-<code>Width</code>, <code>Pitch</code>, <code>Phase</code> on Wavetable
-tab are using BarBox. Shortcuts are enabled after left clicking BarBox
-and mouse cursor is on the inside of BarBox. Cheat sheet is available on
-Infomation tab.</p>
-<table>
-<colgroup>
-<col style="width: 63%" />
-<col style="width: 36%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Input</th>
-<th>Control</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><kbd>Left Drag</kbd></td>
-<td>Change Value</td>
-</tr>
-<tr class="even">
-<td><kbd>Shift</kbd> + <kbd>Left Drag</kbd></td>
-<td>Change Value (Snapped)</td>
-</tr>
-<tr class="odd">
-<td><kbd>Ctrl</kbd> + <kbd>Left Drag</kbd></td>
-<td>Reset to Default</td>
-</tr>
-<tr class="even">
-<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Left Drag</kbd></td>
-<td>Change Value (Skip Between Frames)</td>
-</tr>
-<tr class="odd">
-<td><kbd>Middle Drag</kbd></td>
-<td>Draw Line</td>
-</tr>
-<tr class="even">
-<td><kbd>Shift</kbd> + <kbd>Middle Drag</kbd></td>
-<td>Edit One Bar</td>
-</tr>
-<tr class="odd">
-<td><kbd>Ctrl</kbd> + <kbd>Middle Drag</kbd></td>
-<td>Reset to Default</td>
-</tr>
-<tr class="even">
-<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Middle Drag</kbd></td>
-<td>Toggle Lock</td>
-</tr>
-<tr class="odd">
-<td><kbd>a</kbd></td>
-<td>Alternate Sign</td>
-</tr>
-<tr class="even">
-<td><kbd>d</kbd></td>
-<td>Reset Everything to Default</td>
-</tr>
-<tr class="odd">
-<td><kbd>D</kbd></td>
-<td>Toggle Min/Mid/Max</td>
-</tr>
-<tr class="even">
-<td><kbd>e</kbd></td>
-<td>Emphasize Low</td>
-</tr>
-<tr class="odd">
-<td><kbd>E</kbd></td>
-<td>Emphasize High</td>
-</tr>
-<tr class="even">
-<td><kbd>f</kbd></td>
-<td>Low-pass Filter</td>
-</tr>
-<tr class="odd">
-<td><kbd>F</kbd></td>
-<td>High-pass Filter</td>
-</tr>
-<tr class="even">
-<td><kbd>i</kbd></td>
-<td>Invert Value (Preserve minimum)</td>
-</tr>
-<tr class="odd">
-<td><kbd>I</kbd></td>
-<td>Invert Value (Minimum to 0)</td>
-</tr>
-<tr class="even">
-<td><kbd>l</kbd></td>
-<td>Toggle Lock under Mouse Cursor</td>
-</tr>
-<tr class="odd">
-<td><kbd>L</kbd></td>
-<td>Toggle Lock for All</td>
-</tr>
-<tr class="even">
-<td><kbd>n</kbd></td>
-<td>Normalize (Preserve minimum)</td>
-</tr>
-<tr class="odd">
-<td><kbd>N</kbd></td>
-<td>Normalize (Minimum to 0)</td>
-</tr>
-<tr class="even">
-<td><kbd>p</kbd></td>
-<td>Permute</td>
-</tr>
-<tr class="odd">
-<td><kbd>r</kbd></td>
-<td>Randomize</td>
-</tr>
-<tr class="even">
-<td><kbd>R</kbd></td>
-<td>Sparse Randomize</td>
-</tr>
-<tr class="odd">
-<td><kbd>s</kbd></td>
-<td>Sort Descending Order</td>
-</tr>
-<tr class="even">
-<td><kbd>S</kbd></td>
-<td>Sort Ascending Order</td>
-</tr>
-<tr class="odd">
-<td><kbd>t</kbd></td>
-<td>Subtle Randomize (Random walk)</td>
-</tr>
-<tr class="even">
-<td><kbd>T</kbd></td>
-<td>Subtle Randomize (Converge to 0)</td>
-</tr>
-<tr class="odd">
-<td><kbd>z</kbd></td>
-<td>Undo</td>
-</tr>
-<tr class="even">
-<td><kbd>Z</kbd></td>
-<td>Redo</td>
-</tr>
-<tr class="odd">
-<td><kbd>,</kbd> (Comma)</td>
-<td>Rotate Back</td>
-</tr>
-<tr class="even">
-<td><kbd>.</kbd> (Period)</td>
-<td>Rotate Forward</td>
-</tr>
-<tr class="odd">
-<td><kbd>1</kbd></td>
-<td>Decrease</td>
-</tr>
-<tr class="even">
-<td><kbd>2</kbd>-<kbd>4</kbd></td>
-<td>Decrease 2n-4n</td>
-</tr>
-<tr class="odd">
-<td><kbd>5</kbd>-<kbd>9</kbd></td>
-<td>Decimate by holding 2n-5n</td>
-</tr>
-</tbody>
-</table>
-<p>Snapping is not available for all BarBox. If you’d like to have
-snapping for certain BarBox, feel free to open issue to <a
-href="https://github.com/ryukau/VSTPlugins">GitHub repository</a>.</p>
-<p>Edit One Bar with <kbd>Shift</kbd> + <kbd>Right Drag</kbd> holds a
-bar under the cursor when mouse right button is pressed. Then only
-changes that one bar while holding down mouse right button.</p>
-<p>Toggle Lock with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Right
-Drag</kbd> behaves as line edit. When right mouse button (RMB) is
-pressed, it holds the opposite state of the bar below mouse cursor, then
-use the state for the rest of bars. For example, if RMB is pressed on a
-locked bar, dragging unlocks bars while holding down RMB.</p>
-<p>Some BarBox has scroll bar to zoom in. Scroll bar has handles on left
-end and right end. To control zoom, use <kbd>Left Drag</kbd> on one of
-the handle. Scroll bar also has following controls:</p>
-<ul>
-<li><kbd>Right Click</kbd> : Reset zoom.</li>
-<li><kbd>Mouse Wheel</kbd> : Zoom in/out.</li>
-</ul>
 <h2 id="caution">Caution</h2>
-<p>Output may change with different sample rate or buffer size.</p>
-<p>Output may become loud when following steps are performed.</p>
-<ol type="1">
-<li>Set some of the <code>OuterFeed</code> or <code>InnerFeed</code> to
-close to minimum or maximum.</li>
-<li>Input signals.</li>
-<li>Change the value of <code>OuterFeed</code> or <code>InnerFeed</code>
-which was set at step 1.</li>
-</ol>
+<p>Recommend to use with external limiter. Gain changes greatly
+depending on parameter values and note velocity.</p>
+<p>Oscillation or blow up may occur depending on the parameter settings.
+Oscillation is a state in which the amplitude remains constant and the
+sound does not stop. Blow up (or divergence) is a state in which the
+sound continues to grow louder over time.</p>
+<p>Blow up can result in amplitudes of up to +40 dB. GenericDrum
+automatically lowers the feedback when it detects blow up. This
+mechanism is activated when primary or secondary membrane output exceeds
++40 dB.</p>
+<p>Enabling <code>Prevent Blow Up</code> can mostly prevent the blow up
+caused by collisions between wire and primary. However, the texture of
+the sound may also change significantly.</p>
+<p>Even with <code>Prevent Blow Up</code> enabled, combinations of short
+delay time, high bandpass Q, and high feedback may cause blow up. Below
+is a list of relevant parameters.</p>
+<ul>
+<li><code>Note -&gt; Pitch</code></li>
+<li><code>Cross Feedback Gain</code></li>
+<li><code>Cross Feedback Ratio</code></li>
+<li><code>Delay</code></li>
+<li><code>BP Q</code></li>
+</ul>
+<h2 id="mechanism-overview">Mechanism Overview</h2>
+<p>GenericDrum is not a physical model. Because the corresponding
+physical phenomena are not described. So what is this? It’s a work of
+art that uses delays to imitate the sound of drums, like using a violin
+to imitate bird songs. Art here means that a human set the parameters
+from experimentations, mostly relying on their senses.</p>
+<p>GenericDrum is good at making the sound of drums that have 1 or 2
+membranes on a cylinder, such as bass drums and snare drums, but It’s
+not good at the sound of thin metal plates like cymbals. It also does
+not support expressions like rubbing the drum membrane, or expressions
+that stop the sound with an impact, such as closing a hi-hat.</p>
+<p>To imitate the sound of a drum, it’s better to start from a structure
+similar to a real drum. GenericDrum can be roughly divided into the
+following parts.</p>
+<ul>
+<li>Impact</li>
+<li>Wire</li>
+<li>Primary Membrane</li>
+<li>Secondary Membrane</li>
+</ul>
+<p>Drums produce sound by hitting a membrane with a hand or a stick.
+Impact section generates a noise that resembles the impact of a hit. The
+sound is white noise followed by a lowpass. <code>Echo</code> can
+imitate the clanking sound made by collisions between a drum and
+something like a stand.</p>
+<p>Wire is a part intended for the snare drum, and it collides only to
+primary. It consists of delays connected in series.
+<code>Collision Distance</code> controls the distance between wire and
+primary. <code>Rattle-Squeak Mix</code> changes the texture of the
+collision. It can produce a sound similar to a cuíca, especially when
+the value is set closer to the squeak side (1.0), but there is no
+mechanism to control the rubbing.</p>
+<p>An impact hits both the primary and secondary membranes at the same
+time. This behavior is unrealistic, but makes a nice sound. One membrane
+consists of a feedback delay network (FDN). A bandpass filter is placed
+for each feedback path on the FDN. The texture of membranes can be
+changed by the combination of bandpass cutoff, bandpass Q, and delay
+times. In particular, lowering the Q produces a brighter sound.</p>
+<p>A nonlinearity of thin plate vibrations is imitated by modulating
+delay time in FDN with their feedback signal. When a plate vibrates, it
+stretches or shrinks which add a bit more tension to the plate. For
+sound, more tension means higher pitch. So my idea was to reduce the
+delay time of FDN depending on the amplitude of feedback signal.</p>
+<p>For collisions, perfectly elastic collisions of 2 equal masses is
+used. The sound decays within FDN, because of
+<code>Cross Feedback Gain</code> and bandpass filters. So, there is no
+need to consider energy loss of collisions. In addition, the amplitude
+after the collision is stored and gradually returned to the system, in
+order to resemble a sound of a snare drum. A delay can approximate a
+wave propagation, but it can’t represent the state during propagation.
+In consequence, collisions that occur during propagation also can’t be
+represented. The fact that collisions do not occur during wave
+propagation becomes more noticeable when the value of <code>Delay</code>
+is lowered.</p>
 <h2 id="block-diagram">Block Diagram</h2>
 <p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd>
 or “View Image” on right click menu to scale.</p>
 <p>Diagram only shows overview. It’s not exact implementation.</p>
-<p><img src="img/LatticeReverb.svg" /></p>
+<p><img src="img/GenericDrum.svg" /></p>
 <h2 id="parameters">Parameters</h2>
-<p><code>Base</code> is value used in both left and right channel.
-<code>Base</code> value determines the character of reverb.</p>
-<p><code>Offset</code> is ratio of value between left and right channel.
-Changing <code>Offset</code> spreads reverb to stereo.</p>
-<pre><code>if (Offset &gt;= 0) {
-  valueL = Base
-  valueR = Base * (1 - Offset)
-}
-else {
-  valueL = Base * (1 + Offset)
-  valueR = Base
-}</code></pre>
+<p>Characters inside of square brackets [] represents unit. Following is
+a list of units used in GenericDrum.</p>
+<ul>
+<li>[dB] : Decibel.</li>
+<li>[s] : Second.</li>
+<li>[Hz] : Frequency in Hertz.</li>
+<li>[sample] : Time in samples. 1 sample is
+<code>1 / (sampling rate)</code> seconds.</li>
+<li>[oct] : Octave.</li>
+<li>[st.] : Ssemitone. 1 semitone is <code>1 / 12</code> octave.</li>
+<li>[cent] : Cent. 1 cent is <code>1 / 100</code> semitone.</li>
+</ul>
+<h3 id="mix-options">Mix &amp; Options</h3>
 <dl>
-<dt>Time</dt>
+<dt>Output [dB]</dt>
 <dd>
-<p>Delay time of all-pass filter.</p>
+<p>Output gain.</p>
 </dd>
-<dt>OuterFeed</dt>
+<dt>Highpass [Hz]</dt>
 <dd>
-<p>Feedback and feedforward gain of lattice structure.</p>
+<p>A highpass filter that can be passed just before the output. The
+number slider controls cutoff frequency of highpass.</p>
+<p><strong>Warning</strong>: Enabling or disabling <code>Highpass</code>
+may cause a pop noise.</p>
 </dd>
-<dt>InnerFeed</dt>
+<dt>2x Sampling [Hz]</dt>
 <dd>
-<p>Feedback and feedforward gain of an all-pass filter.</p>
+<p>Performs 2-fold oversampling when enabled.</p>
+<p><strong>Warning</strong>: Enabling or disabling
+<code>2x Sampling</code> may cause a pop noise.</p>
+</dd>
+<dt>Normalize Gain</dt>
+<dd>
+<p>When enabled, the gain is automatically adjusted according to the
+following values.</p>
+<ul>
+<li>Note pitch.</li>
+<li><code>Noise Lowpass</code> in Impact section.</li>
+</ul>
+</dd>
+<dt>Reset Seed at Note-on</dt>
+<dd>
+<p>When enabled, resets the random number seed on every note-on. This
+seed is used for noises of impact and collision.</p>
+<p>When disabled, the sound becomes inconsistent. It might be useful for
+a kind of “humanization” effect.</p>
+</dd>
+<dt>Prevent Blow Up</dt>
+<dd>
+<p>When enabled, it tries to prevent blow up by lowering internal gains
+around wire.</p>
+<p>When wire blows up, it makes a loud explosion-like sound.
+<code>Prevent Blow Up</code> suppresses this explosion, but as a side
+effect it tends to result in a less powerful sound without rattling
+texture. To bring back rattling, try changing parameters on the list
+below. They are in Wire sections.</p>
+<ul>
+<li>Raise <code>Decay</code>.</li>
+<li>Lower <code>Collision Distance</code>.</li>
+<li>Lower <code>Rattle-Squeak Mix</code>.</li>
+</ul>
+<p>Note that if <code>Prevent Blow Up</code> is disabled after making
+the above changes, the system will be likely in an unstable state that
+is easy to blow up.</p>
 </dd>
 </dl>
-<h3 id="multiplier">Multiplier</h3>
-<p>Multiplier for <code>Time</code>, <code>OuterFeed</code>,
-<code>InnerFeed</code>. Useful to shorten or lengthen reverb without
-changing much of the character.</p>
-<h3 id="panic">Panic!</h3>
-<p>Pressing <code>Panic!</code> button stops reverb output by setting
-multiplier of <code>Time</code>, <code>OuterFeed</code>,
-<code>InnerFeed</code> to 0.</p>
-<p>Useful to stop sounds in case of blow up.</p>
-<h3 id="mix">Mix</h3>
+<h3 id="stereo-unison">Stereo Unison</h3>
+<p>Enabling <code>Stereo Unison</code> will double the number of drums.
+This means that 2 different instances will be placed in each channels.
+Also the CPU load will be doubled.</p>
 <dl>
-<dt>Dry</dt>
+<dt>Stereo Balance</dt>
 <dd>
-<p>Gain of input signal.</p>
+<p>Adjust the gain of the left and right channels.</p>
+<p>Unlike panning, the left and right channels won’t be mixed.</p>
 </dd>
-<dt>Wet</dt>
+<dt>Stereo Merge</dt>
 <dd>
-<p>Gain of reverb signal.</p>
+<p>Adjust the stereo spread.</p>
 </dd>
 </dl>
-<h3 id="stereo">Stereo</h3>
+<h3 id="external-input">External Input</h3>
+<p>There are two cases when using external input.</p>
+<ul>
+<li>Using audio from a microphone.</li>
+<li>Using audio from other synthesizers.</li>
+</ul>
+<p>When using audio from a microphone, enable
+<code>Automatic Trigger</code> and adjust the
+<code>Trigger Threshold</code>.</p>
+<p>When using audio from other synthesizers (source), it’s recommended
+to share the note events to GenericDrum, so that envelopes in
+GenericDrum starts precisely at the timing of note-ons. When sharing
+note events, <code>Automatic Trigger</code> is better to be
+disabled.</p>
+<p>Please refer to your DAW’s manual for external audio input and note
+event routing.</p>
 <dl>
-<dt>Cross</dt>
+<dt>External Gain [dB]</dt>
 <dd>
-<p>Mixing ratio of stereo signal for odd stage in lattice structure.</p>
-<p>If the value is 0, signal from other channel will not be mixed. If
-the value is 0.5, mixing ratio of current channel and other channel
-becomes 1:1.</p>
+<p>Gain of external input.</p>
 </dd>
-<dt>Spread</dt>
+<dt>Trigger Threshold [dB]</dt>
 <dd>
-<p>Mid-side (M-S) signal ratio.</p>
-<p>Following equations are used to calculate mid-side signal.</p>
-<pre><code>mid  = left + right
-side = left - right
-
-left  = mid - Spread * (mid - side)
-right = mid - Spread * (mid + side)</code></pre>
+<p>Threshold amplitude of automatic trigger.</p>
+</dd>
+<dt>Automatic Trigger</dt>
+<dd>
+<p>Engages automatic triggering when enabled.</p>
 </dd>
 </dl>
-<h3 id="misc.">Misc.</h3>
+<h3 id="tuning">Tuning</h3>
+<p>The Tuning section contains note event and pitch bend related
+parameters.</p>
 <dl>
-<dt>Smooth</dt>
+<dt>Note -&gt; Pitch</dt>
 <dd>
-<p>Transition time to change parameter value to current one. Unit is in
-second.</p>
+<p>Amount of pitch modulation applied from the pitch of a note-on
+event.</p>
+<p>Regardless of the value of <code>Note -&gt; Pitch</code>, the amount
+of pitch modulation will be 0 when the pitch is A3 (57 in MIDI note
+number).</p>
+<p>When the value of <code>Note -&gt; Pitch</code> is 0.0, the pitch of
+the note is ignored.</p>
+<p>When the value of <code>Note -&gt; Pitch</code> is 1.0, the pitch of
+a note is directly applied to the pitch of the synthesizer. Some drum
+sounds do not have a clear pitch, so it may sound out of tune in some
+cases. Also, higher the pitch, more out of tune it becomes. This is
+because delays doesn’t use interpolations to be more efficient, and to
+avoid lowpass in feedback path.</p>
+<p>When the value of <code>Note -&gt; Pitch</code> is -1.0, the pitch is
+reversed.</p>
+</dd>
+<dt>Semitone</dt>
+<dd>
+<p>Transposes the pitch of the note in semitone steps.</p>
+<p><strong>Note</strong>: No effect when <code>Note -&gt; Pitch</code>
+is 0.0.</p>
+</dd>
+<dt>Cent</dt>
+<dd>
+<p>Transposes the pitch of notes in cents.</p>
+<p><strong>Note</strong>: No effect when <code>Note -&gt; Pitch</code>
+is 0.0.</p>
+</dd>
+<dt>Pitch Bend Range [st.]</dt>
+<dd>
+<p>Pitch bend range in semitones.</p>
+</dd>
+<dt>Slide Time [s]</dt>
+<dd>
+<p>Pitch slide time.</p>
+<p>The pitch starts sliding when 2 or more notes are played at the same
+time.</p>
 </dd>
 </dl>
-<h3 id="base">Base</h3>
-<p><img src="img/LatticeReverb.png" /></p>
-<p><code>Base</code> tab provides controls for common values used in
-both channels.</p>
-<p>Character of reverb is mostly determined by <code>Base</code>
-values.</p>
-<h3 id="offset">Offset</h3>
-<p><img src="img/LatticeReverb_offset_tab.png" /></p>
-<p><code>Offset</code> tab provides controls for ratio of value between
-left and right channel.</p>
-<p>Changing values in <code>Offset</code> tab spreads reverb to
-stereo.</p>
-<h3 id="modulation">Modulation</h3>
-<p><img src="img/LatticeReverb_modulation_tab.png" /></p>
+<h3 id="impact">Impact</h3>
+<p>Impact section contains parameters that imitates the collision
+between the a stick and a membrane.</p>
 <dl>
-<dt>Time LFO</dt>
+<dt>Seed</dt>
 <dd>
-<p>LFO modulation amount to <code>Time</code>.</p>
-<p>LFO waveform is noise (uniform pseudo random number). Smoothness of
-LFO is changed by <code>Time LFO Cutoff</code> and
-<code>Smooth</code>.</p>
+<p>A random number seed.</p>
+<p>Changing the seed allows you to change the sound while maintaining
+the similar texture.</p>
+<p>GenericDrum has two random number generators for generating collision
+noise and for setting internal parameters. For noise generation, you can
+reset the seed on each note-on using
+<code>Reset Seed at Note-on</code>.</p>
 </dd>
-<dt>Time LFO Cutoff</dt>
+<dt>Noise Decay [s]</dt>
 <dd>
-<p>Low-pass filter cutoff frequency for LFO.</p>
+<p>Decay time of impact noise.</p>
 </dd>
-<dt>Lowpass Cutoff</dt>
+<dt>Noise Lowpass [Hz]</dt>
 <dd>
-<p>Cutoff frequency of low-pass filters placed for each stage of lattice
-structure.</p>
-<p>Useful to change the brightness of reverb.</p>
+<p>Cutoff frequency of a low-pass filter applied to impact noise.</p>
+<p>When <code>Normalize Gain</code> is enabled, the gain is reduced when
+<code>Noise Lowpass</code> becomes higher.</p>
+</dd>
+<dt>Echo [Hz]</dt>
+<dd>
+<p>Frequency that represents the total length of echoes applied to the
+noise.</p>
+<p>Echo has 4 delays with feedback, so the value specified in
+<code>Echo</code> doesn’t represent the exact frequency.</p>
+<p>Echo is provided to represent the clanking sound caused by the
+collision between drum and drum stand.</p>
+</dd>
+</dl>
+<h3 id="wire">Wire</h3>
+<p>Wire section contains parameters that imitates a snare wire.</p>
+<dl>
+<dt>Impact-Wire Mix</dt>
+<dd>
+<p>Mixing ratio between impact noise and wire output.</p>
+<p>0.0 only mixes impact noise, and 1.0 only mixes wire output.</p>
+</dd>
+<dt>Membrane-Wire Mix</dt>
+<dd>
+<p>Mixing ratio between primary membrane and wire output.</p>
+<p>0.0 only mixes primary membrane output, and 1.0 only mixes wire
+output.</p>
+</dd>
+<dt>Frequency [Hz]</dt>
+<dd>
+<p>Frequency of the entire wire.</p>
+<p>Wire has four sections, so the value specified in
+<code>Frequency</code> doesn’t represetn the exact frequency.</p>
+</dd>
+<dt>Decay [s]</dt>
+<dd>
+<p>Decay time of the wire output.</p>
+<p><strong>Warning</strong>: When <code>Prevent Blow Up</code> is
+disabled, increasing the value of <code>Decay</code> will make it easier
+to blow up.</p>
+</dd>
+<dt>Collision Distance</dt>
+<dd>
+<p>Threshold value used to determine collision between wire and primary
+membrane.</p>
+<p><strong>Warning</strong>: When the value of
+<code>Collision Distance</code> is small, there may be a temporary blow
+up until sufficient gain reduction by <code>Decay</code> is applied.
+Increasing this value reduces the chance of blow up.</p>
+</dd>
+<dt>Rattle-Squeak Mix</dt>
+<dd>
+<p>Texture of collision.</p>
+<p>0.0 gives a full rattling texture, 1.0 gives a full squeak texture.
+Rattle here means a sound like a snare wire, and squeak means a sound
+like friction on rubbing.</p>
+<p><strong>Warning</strong>: When <code>Prevent Blow Up</code> is
+disabled, and the value of <code>Rattle-Squeak Mix</code> is close to
+0.0, the system becomes more unstable which means easier to blow up.</p>
+</dd>
+</dl>
+<h3 id="membrane-tone">Membrane Tone</h3>
+<p>Membrane Tone section contains parameters related to the feedbacks of
+FDNs. An FDN produces a sound of a membrane. The values in the Membrane
+Tone section are shared by both the primary and secondary membranes.</p>
+<dl>
+<dt>Cross Feedback Gain</dt>
+<dd>
+<p>Gain that adjusts how fast the vibration decays.</p>
+<p><strong>Warning</strong>: When <code>Cross Feedback Gain</code>
+approaches 1.0, oscillation or blow up is likely to happen.</p>
+</dd>
+<dt>Cross Feedback Ratio</dt>
+<dd>
+<p>Adjusts the tone of membranes.</p>
+<p>The value of <code>Cross Feedback Ratio</code> is converted to a
+feedback matrix used in both FDNs. Householder transformation is
+used.</p>
+<p>When all <code>Cross Feedback Ratio</code> values are 0.0, the
+feedbacks won’t be crossed into other delays. In this case, the pitch of
+the sound becomes easier to hear, but the texture of the sound becomes
+more like a 1D string vibration, rather than 2D plate vibration.</p>
+<p>When all <code>Cross Feedback Ratio</code> values are 1.0, the
+texture becomes similar to the vibration of a thin plate. The texture
+varies depending on the values in Primary Membrane section.</p>
+<p>To prevent oscillation or blow up without changing the
+<code>Cross Feedback Gain</code> or <code>Collision Distance</code>,
+changing <code>Cross Feedback Ratio</code> is an option.</p>
+</dd>
+</dl>
+<h3 id="pitch-texture">Pitch Texture</h3>
+<p>Pitch Texture section contains parameters related to the internal
+pitch of FDNs that represents membranes.</p>
+<dl>
+<dt>Delay Time Spread</dt>
+<dd>
+<p>Spread width of the FDN delay time distribution.</p>
+</dd>
+<dt>BP Cut Spread</dt>
+<dd>
+<p>Width of the cutoff frequency distribution of the bandpass filters in
+FDN.</p>
+</dd>
+<dt>Pitch Random [cent]</dt>
+<dd>
+<p>Amount of randomization to change the pitches of the delays.</p>
+</dd>
+</dl>
+<h3 id="pitch-envelope">Pitch Envelope</h3>
+<p>Pitch envelope modulates delay times and bandpass cutoff frequencies
+in FDNs.</p>
+<dl>
+<dt>Attack [s]</dt>
+<dd>
+<p>Attack time of the pitch envelope.</p>
+<p><strong>Note</strong>: Attack time won’t be longer than the value of
+<code>Decay</code>.</p>
+</dd>
+<dt>Decay [s]</dt>
+<dd>
+<p>Decay time of the pitch envelope.</p>
+</dd>
+<dt>Amount [oct]</dt>
+<dd>
+<p>Amount of modulation by the pitch envelope.</p>
+</dd>
+</dl>
+<h3 id="primary-membrane">Primary Membrane</h3>
+<dl>
+<dt>Pitch Type</dt>
+<dd>
+<p>Type of FDN delay time distribution.</p>
+<p><strong>Note</strong>: Do not select <code>- Reserved * -</code>.
+<code>- Reserved * -</code> is an empty option reserved for adding a
+different <code>Pitch Type</code> later. Fallback to
+<code>Harmonic</code> when <code>- Reserved * -</code> is selected.</p>
+</dd>
+<dt>Delay [Hz]</dt>
+<dd>
+<p>Reference value for the FDN delay time.</p>
+<p>In FDN, there is always one feedback path with the frequency
+specified as the value of <code>Delay</code>, but it’s only a guideline
+and does not represent the exact pitch. The reason is the chaos caused
+by cross feedbacks. So the actual pitch depends on the
+<code>Cross Feedback Ratio</code> setting.</p>
+</dd>
+<dt>Delay Modulation [sample]</dt>
+<dd>
+<p>Amount of the delay time modulation with respect to the amplitude of
+a feedback signal.</p>
+<p><strong>Warning</strong>: Increasing <code>Delay Modulation</code>
+increase the chance of oscillation or blow up.</p>
+</dd>
+<dt>BP Cut [oct]</dt>
+<dd>
+<p>Bandpass cutoff frequency with respect to the frequency set by
+<code>Delay</code>.</p>
+<p>Raising <code>BP Cut</code> is effective when making high-pitched
+sounds like cymbals.</p>
+<p>Lowering <code>BP Cut</code> is effective to smooth out the noise
+caused by <code>Delay Modulation</code>.</p>
+</dd>
+<dt>BP Q</dt>
+<dd>
+<p>Bandpass Q value. Q means quality factor in filter.</p>
+<p>When <code>BP Q</code> is low, the bandwidth becomes wider. This
+results in a higher and longer sound, but it also becomes easier to
+oscillate.</p>
+<p>When <code>BP Q</code> is high, the bandwidth becomes narrower. This
+results in a lower and shorter sound.</p>
+<p><strong>Warning</strong>: Increasing <code>BP Q</code> increase the
+chance of oscillation or blow up.</p>
+</dd>
+</dl>
+<h3 id="secondary-membrane">Secondary Membrane</h3>
+<p>Secondary membrane inherits most of the values from the Primary
+Membrane section.</p>
+<dl>
+<dt>Mix</dt>
+<dd>
+<p>Mixing ratio between primary and secondary membrane. When set to 1.0,
+only the output from the secondary will be mixed.</p>
+<p><strong>Note</strong>: Collisions will be calculated even if
+<code>Mix</code> is set to 0.0 or 1.0. To stop collision, increase the
+value of <code>Collision Distance</code>.</p>
+</dd>
+<dt>Pitch Offset [oct]</dt>
+<dd>
+<p>Secondary membrane pitch with respect to primary.</p>
+<p>When set to 0.0, the related values are copied from Primary Membrane
+section.</p>
+<p>Adjusting <code>Pitch Offset</code> and <code>Q Offset</code> is
+similar to detuning one side of a snare drum.</p>
+</dd>
+<dt>Q Offset [oct]</dt>
+<dd>
+<p>Bandpass Q of secondary membrane with respect to primary.</p>
+</dd>
+<dt>Collision Distance</dt>
+<dd>
+<p>Threshold value used to determine collision between primary and
+secondary membrane.</p>
+<p><strong>Warning</strong>: Oscillation may occur when the value of
+<code>Collision Distance</code> is small. To prevent oscillation,
+increase the value.</p>
 </dd>
 </dl>
 <h2 id="change-log">Change Log</h2>
 <ul>
-<li>0.1.23
-<ul>
-<li>Fixed a bug that invalid <code>style.json</code> crashes
-plugin.</li>
-</ul></li>
-<li>0.1.22
-<ul>
-<li>Changed default style color of <code>foregroundInactive</code>.</li>
-<li>Fixed performance drop caused by subnormal floating point
-numbers.</li>
-</ul></li>
-<li>0.1.21
-<ul>
-<li>Added note event input to control delay times.</li>
-</ul></li>
-<li>0.1.20
-<ul>
-<li>Fixed crash on Renoise. Previous code was trying to access freed
-memory of GUI widgets, and it was causing the crash.</li>
-</ul></li>
-<li>0.1.19
-<ul>
-<li>Fixed stuttering on Audacity where <code>processContext</code> is
-<code>nullptr</code>.</li>
-</ul></li>
-<li>0.1.18
-<ul>
-<li>Updated splash screen text.</li>
-</ul></li>
-<li>0.1.17
-<ul>
-<li>Added decimation by holding shortcut to BarBox. Shortcut is
-<kbd>5</kbd>-<kbd>9</kbd>.</li>
-<li>Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd>
-+ <kbd>Middle Click</kbd>.</li>
-</ul></li>
-<li>0.1.16
-<ul>
-<li>Added to <code>virtual</code> to destructor of common components.
-This may prevent some cause of crash or memory leak.</li>
-</ul></li>
-<li>0.1.15
-<ul>
-<li>Updated VST 3 SDK to version 3.7.6. This also fixes the crash when
-opening multiple GUI of same plugin on Linux.</li>
-<li>Change BarBox to only send modified parameter values to host. This
-prevents to overwrite unchanged parameter automation on the same
-BarBox.</li>
-</ul></li>
-<li>0.1.14
-<ul>
-<li>Changed to reduce pitch down after reset.</li>
-</ul></li>
-<li>0.1.13
-<ul>
-<li>Changed BarBox to get focus on mouse down, and release focus on
-mouse exit.</li>
-</ul></li>
-<li>0.1.12
-<ul>
-<li>Removed dependency to x86_64 specific SIMD instructions.</li>
-</ul></li>
-<li>0.1.11
-<ul>
-<li>Fixed crash on Linux.</li>
-<li>Fixed BarBox to receive shift key.</li>
-</ul></li>
-<li>0.1.10
-<ul>
-<li>Fixed the condition of acceptable channel count. This is a fix for
-unintentional muting on sidechain in REAPER.</li>
-</ul></li>
-<li>0.1.9
-<ul>
-<li>Added custom font options for <code>style.json</code>.</li>
-</ul></li>
-<li>0.1.8
-<ul>
-<li>Updated VSTGUI from 4.10 to 4.11.</li>
-</ul></li>
-<li>0.1.7
-<ul>
-<li>Changed font to Tinos.</li>
-</ul></li>
-<li>0.1.6
-<ul>
-<li>Fixed to reset properly.</li>
-<li>Fixed <code>bypass</code> parameter behavior. This fixes playing all
-the notes at the moment of unmute, even if host sends note to plugin
-while muting. This bug was only happening on the hosts which respect VST
-3 <code>bypass</code> parameter.</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li>Implemented process context requirements.</li>
-<li>Added/Changed BarBox functionality to match LV2 version.
-<ul>
-<li>Edit one bar.</li>
-<li>Lock.</li>
-<li>Internal mouse wheel sensitivitly.</li>
-<li>Snapping (implemented, but not used).</li>
-<li>Starting bar of line edit is now fixed to anchor point.</li>
-</ul></li>
-</ul></li>
-<li>0.1.3
-<ul>
-<li>Added check that DSP is initialized or not.</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>Added undo/redo to BarBox.</li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>Added color configuration.</li>
-</ul></li>
 <li>0.1.0
 <ul>
 <li>Initial release.</li>
 </ul></li>
 </ul>
 <h2 id="old-versions">Old Versions</h2>
-<ul>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/LatticeReverb_0.1.22.zip">LatticeReverb
-0.1.22 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/LatticeReverb_0.1.21.zip">LatticeReverb
-0.1.21 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/LatticeReverb_0.1.20.zip">LatticeReverb
-0.1.20 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/LatticeReverb_0.1.19.zip">LatticeReverb
-0.1.19 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/LatticeReverb_0.1.18.zip">LatticeReverb
-0.1.18 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/LatticeReverb_0.1.17.zip">LatticeReverb
-0.1.17 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/LatticeReverb_0.1.16.zip">LatticeReverb
-0.1.16 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/LatticeReverb_0.1.15.zip">LatticeReverb
-0.1.15 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.45.0/LatticeReverb_0.1.14.zip">LatticeReverb
-0.1.14 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/LatticeReverb_0.1.13.zip">LatticeReverb
-0.1.13 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/LatticeReverb_0.1.12.zip">LatticeReverb
-0.1.12 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/LatticeReverb_0.1.11.zip">LatticeReverb
-0.1.11 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/LatticeReverb_0.1.10.zip">LatticeReverb
-0.1.10 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/LatticeReverb_0.1.9.zip">LatticeReverb
-0.1.9 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/LatticeReverb_0.1.7.zip">LatticeReverb
-0.1.7 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/LatticeReverb_0.1.6.zip">LatticeReverb
-0.1.6 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/LatticeReverb0.1.4.zip">LatticeReverb
-0.1.4 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/LatticeReverb0.1.3.zip">LatticeReverb
-0.1.3 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/LatticeReverb0.1.2.zip">LatticeReverb
-0.1.2 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/LatticeReverb0.1.1.zip">LatticeReverb
-0.1.1 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LatticeReverb0.1.0.zip">LatticeReverb
-0.1.0 - VST 3 (github.com)</a></li>
-</ul>
+<p>N/A.</p>
 <h2 id="license">License</h2>
-<p>LatticeReverb is licensed under GPLv3. Complete licenses are linked
+<p>GenericDrum is licensed under GPLv3. Complete licenses are linked
 below.</p>
 <ul>
 <li><a
