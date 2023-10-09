@@ -142,7 +142,7 @@ GenericDrum はディレイを使った汎用ドラムシンセサイザです�
 
 - [GenericDrum のマニュアル (日本語)](manual/GenericDrum/GenericDrum_ja.html)
 
-GenericDrum is a generic drum synthesizer using delays. This one can make convincing snare and bass drum sounds. Cymbal sounds can be made, but it's not good as good as more lower drum sounds.
+GenericDrum is a generic drum synthesizer using delays. This one can make convincing snare and bass drum sounds. Cymbal sounds can be made, but it's not as good as more lower drum sounds.
 
 - [GenericDrum Manual (English)](manual/GenericDrum/GenericDrum_en.html)
 

@@ -5,7 +5,7 @@ lang: en
 # GenericDrum
 ![](img/GenericDrum.png)
 
-GenericDrum is a generic drum synthesizer using delays. This one can make convincing snare and bass drum sounds. Cymbal sounds can be made, but it's not good as good as more lower drum sounds.
+GenericDrum is a generic drum synthesizer using delays. This one can make convincing snare and bass drum sounds. Cymbal sounds can be made, but it's not as good as more lower drum sounds.
 
 {% for target, download_url in latest_download_url["GenericDrum"].items() %}
 - [Download GenericDrum {{ latest_version["GenericDrum"] }} `{{ target }}` - VST 3 (github.com)]({{ download_url }}) <img
