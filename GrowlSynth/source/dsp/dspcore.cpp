@@ -90,7 +90,7 @@ void DSPCore::setup(double sampleRate)
     pv[ID::breathAMLowpassCutoffHz]->getDouble() / upRate);                              \
   noteGate.prepare(upRate, pv[ID::envelopeReleaseSeconds]->getDouble());                 \
   safetyHighpass.METHOD(                                                                 \
-    pv[ID::safetyHighpassHz]->getDouble() / upRate,                                      \
+    pv[ID::safetyHighpassHz]->getDouble() / sampleRate,                                  \
     std::numbers::sqrt2_v<double> / double(2));
 
 #define ASSIGN_MOD_COMB_PARAMETER(METHOD)                                                \
