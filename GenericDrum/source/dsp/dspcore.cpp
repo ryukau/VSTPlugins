@@ -113,8 +113,10 @@ inline double pitchFunc(size_t pitchType, size_t index)
     return pitchCircularMembraneMode[index];
   } else if (pitchType == primeNumber) {
     return pitchPrimeNumber[index];
+  } else if (pitchType == octave) {
+    return double(size_t(1) << index);
   }
-  return double(size_t(1) << index); // `pitchType == octave`.
+  return double(index + 1); // Fallback to `harmonic`.
 }
 
 template<typename Rng>
@@ -597,8 +599,9 @@ void DSPCore::noteOn(NoteInfo &info)
     pv[ID::envelopeAttackSeconds]->getDouble() * upRate,
     pv[ID::envelopeDecaySeconds]->getDouble() * upRate);
 
-  // membrane1.noteOn();
-  // membrane2.noteOn();
+  // // Maybe provide an option to change more acute gain reduction in case of blow up.
+  // for (auto &x : membrane1) x.noteOn();
+  // for (auto &x : membrane2) x.noteOn();
 
   resetCollision();
 }

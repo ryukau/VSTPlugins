@@ -161,29 +161,6 @@ bool Editor::prepareUI()
   using Style = Uhhyou::Style;
 
   constexpr auto top0 = uiMargin;
-  constexpr auto top1 = top0 + 1 * labelY;
-  constexpr auto top2 = top0 + 2 * labelY;
-  constexpr auto top3 = top0 + 3 * labelY;
-  constexpr auto top4 = top0 + 4 * labelY;
-  constexpr auto top5 = top0 + 5 * labelY;
-  constexpr auto top6 = top0 + 6 * labelY;
-  constexpr auto top7 = top0 + 7 * labelY;
-  constexpr auto top8 = top0 + 8 * labelY;
-  constexpr auto top9 = top0 + 9 * labelY;
-  constexpr auto top10 = top0 + 10 * labelY;
-  constexpr auto top11 = top0 + 11 * labelY;
-  constexpr auto top12 = top0 + 12 * labelY;
-  constexpr auto top13 = top0 + 13 * labelY;
-  constexpr auto top14 = top0 + 14 * labelY;
-  constexpr auto top15 = top0 + 15 * labelY;
-  constexpr auto top16 = top0 + 16 * labelY;
-  constexpr auto top17 = top0 + 17 * labelY;
-  constexpr auto top18 = top0 + 18 * labelY;
-  constexpr auto top19 = top0 + 19 * labelY;
-  constexpr auto top20 = top0 + 20 * labelY;
-  constexpr auto top21 = top0 + 21 * labelY;
-  constexpr auto top22 = top0 + 22 * labelY;
-  constexpr auto top23 = top0 + 23 * labelY;
   constexpr auto left0 = uiMargin;
   constexpr auto left4 = left0 + 1 * groupLabelWidth + 4 * margin;
   constexpr auto left8 = left0 + 2 * groupLabelWidth + 4 * margin + uiMargin;
@@ -363,7 +340,7 @@ bool Editor::prepareUI()
   addTextKnob(
     wireLeft1, wireTop5, labelWidth, labelHeight, uiTextSize, ID::wireDistance,
     Scales::collisionDistance, false, 5);
-  addLabel(wireLeft0, wireTop6, labelWidth, labelHeight, uiTextSize, "Ruttle-Squeak Mix");
+  addLabel(wireLeft0, wireTop6, labelWidth, labelHeight, uiTextSize, "Rattle-Squeak Mix");
   addTextKnob(
     wireLeft1, wireTop6, labelWidth, labelHeight, uiTextSize, ID::wireCollisionTypeMix,
     Scales::defaultScale, false, 5);
@@ -371,25 +348,23 @@ bool Editor::prepareUI()
     wireLeft0, wireTop7, groupLabelWidth, labelHeight, uiTextSize,
     "Wire collision status.");
 
-  // Primary Membrane.
-  constexpr auto primaryTop0 = top0 + 13 * labelY;
-  constexpr auto primaryTop1 = primaryTop0 + 1 * labelY;
-  constexpr auto primaryTop2 = primaryTop0 + 2 * labelY;
-  constexpr auto primaryLeft0 = left4;
-  constexpr auto primaryLeft1 = primaryLeft0 + labelWidth + 2 * margin;
+  // Membrane Tone.
+  constexpr auto toneTop0 = top0 + 13 * labelY;
+  constexpr auto toneTop1 = toneTop0 + 1 * labelY;
+  constexpr auto toneTop2 = toneTop0 + 2 * labelY;
+  constexpr auto toneLeft0 = left4;
+  constexpr auto toneLeft1 = toneLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
-    primaryLeft0, primaryTop0, groupLabelWidth, labelHeight, uiTextSize,
-    "Primary Membrane");
+    toneLeft0, toneTop0, groupLabelWidth, labelHeight, uiTextSize, "Membrane Tone");
 
   addLabel(
-    primaryLeft0, primaryTop1, labelWidth, labelHeight, uiTextSize,
-    "Cross Feedback Gain");
+    toneLeft0, toneTop1, labelWidth, labelHeight, uiTextSize, "Cross Feedback Gain");
   addTextKnob(
-    primaryLeft1, primaryTop1, labelWidth, labelHeight, uiTextSize, ID::crossFeedbackGain,
+    toneLeft1, toneTop1, labelWidth, labelHeight, uiTextSize, ID::crossFeedbackGain,
     Scales::crossFeedbackGain, false, 5);
   addBarBox(
-    primaryLeft0, primaryTop2, barBoxWidth, barBoxHeight, ID::crossFeedbackRatio0,
-    maxFdnSize, Scales::defaultScale, "Cross Feedback Ratio");
+    toneLeft0, toneTop2, barBoxWidth, barBoxHeight, ID::crossFeedbackRatio0, maxFdnSize,
+    Scales::defaultScale, "Cross Feedback Ratio");
 
   // Pitch Texture.
   constexpr auto textureTop0 = top0;
@@ -441,7 +416,7 @@ bool Editor::prepareUI()
     envLeft1, envTop3, labelWidth, labelHeight, uiTextSize, ID::envelopeModAmount,
     Scales::envelopeModAmount, false, 5);
 
-  // Pitch Main.
+  // Primary Membrane.
   constexpr auto mainTop0 = top0 + 8 * labelY;
   constexpr auto mainTop1 = mainTop0 + 1 * labelY;
   constexpr auto mainTop2 = mainTop0 + 2 * labelY;
@@ -451,7 +426,7 @@ bool Editor::prepareUI()
   constexpr auto mainLeft0 = left8;
   constexpr auto mainLeft1 = mainLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
-    mainLeft0, mainTop0, groupLabelWidth, labelHeight, uiTextSize, "Pitch Main");
+    mainLeft0, mainTop0, groupLabelWidth, labelHeight, uiTextSize, "Primary Membrane");
 
   addLabel(mainLeft0, mainTop1, labelWidth, labelHeight, uiTextSize, "Pitch Type");
   addOptionMenu(
@@ -555,7 +530,7 @@ bool Editor::prepareUI()
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,
-    "GenericDrum", true);
+    "GenericDrum", false);
 
   return true;
 }
