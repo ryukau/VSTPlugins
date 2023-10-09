@@ -49,6 +49,9 @@ All the plugin download link can be found at release page on following link.
 <div class="pluginlist"><a href="#fdncymbal">
 <ruby>FDNCymbal<rt>エフディーエヌ シンバル</rt></ruby>
 </a></div>
+<div class="pluginlist"><a href="#genericdrum">
+<ruby>GenericDrum<rt>ジェネリック ドラム</rt></ruby>
+</a></div>
 <div class="pluginlist"><a href="#iterativesincluster">
 <ruby>IterativeSinCluster<rt>イテレイティブ サイン クラスタ</rt></ruby>
 </a></div>
@@ -129,6 +132,19 @@ All the plugin download link can be found at release page on following link.
 <div class="pluginlist"><a href="#ultrasonicringmod">
 <ruby>UltrasonicRingMod<rt>ウルトラソニック リング モッド</rt></ruby>
 </a></div>
+
+## GenericDrum
+<figure>
+<img src="manual/GenericDrum/img/GenericDrum.png" alt="Image of GenericDrum graphical user interface." style="padding-bottom: 12px;"/>
+</figure>
+
+GenericDrum はディレイを使った汎用ドラムシンセサイザです。バスドラムやスネアドラムについては良い音が出ます。シンバルの音も出せますが、低いドラムの音ほど良くはありません。
+
+- [GenericDrum のマニュアル (日本語)](manual/GenericDrum/GenericDrum_ja.html)
+
+GenericDrum is a generic drum synthesizer using delays. This one can make convincing snare and bass drum sounds. Cymbal sounds can be made, but it's not good as good as more lower drum sounds.
+
+- [GenericDrum Manual (English)](manual/GenericDrum/GenericDrum_en.html)
 
 ## FeedbackPhaser
 <figure>

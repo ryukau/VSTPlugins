@@ -24,6 +24,8 @@ exclude:
 - manual/FDNCymbal/FDNCymbal_ja.md
 - manual/FeedbackPhaser/FeedbackPhaser_en.md
 - manual/FeedbackPhaser/FeedbackPhaser_ja.md
+- manual/GenericDrum/GenericDrum_en.md
+- manual/GenericDrum/GenericDrum_ja.md
 - manual/IterativeSinCluster/IterativeSinCluster_en.md
 - manual/IterativeSinCluster/IterativeSinCluster_ja.md
 - manual/L4Reverb/L4Reverb_en.md
