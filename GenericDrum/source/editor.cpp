@@ -17,6 +17,7 @@
 
 #include "editor.hpp"
 #include "../../lib/pcg-cpp/pcg_random.hpp"
+#include "gui/randomizebutton.hpp"
 #include "version.hpp"
 
 #include <algorithm>
@@ -36,7 +37,7 @@ constexpr float labelY = labelHeight + 2 * margin;
 constexpr float labelWidth = 2 * knobWidth;
 constexpr float groupLabelWidth = 2 * labelWidth + 2 * margin;
 constexpr float splashWidth = int(labelWidth * 3 / 2) + 2 * margin;
-constexpr float splashHeight = int(labelHeight * 3 / 2);
+constexpr float splashHeight = int(2 * labelHeight + 2 * margin);
 
 constexpr float barBoxWidth = groupLabelWidth;
 constexpr float barBoxHeight = 5 * labelY - 2 * margin;
@@ -523,12 +524,22 @@ bool Editor::prepareUI()
     secondaryLeft0, secondaryTop5, groupLabelWidth, labelHeight, uiTextSize,
     "Membrane collision status.");
 
+  // Randomize button.
+  const auto randomButtonTop = top0 + 18 * labelY;
+  const auto randomButtonLeft = left0 + labelWidth + 2 * margin;
+  auto panicButton = new RandomizeButton(
+    CRect(
+      randomButtonLeft, randomButtonTop, randomButtonLeft + labelWidth,
+      randomButtonTop + splashHeight),
+    this, 0, "Random", getFont(pluginNameTextSize), palette, this);
+  frame->addView(panicButton);
+
   // Plugin name.
   constexpr auto splashMargin = uiMargin;
-  constexpr auto splashTop = top0 + 18 * labelY + int(labelHeight / 4) + 2 * margin;
-  constexpr auto splashLeft = left0 + int(labelWidth / 4);
+  constexpr auto splashTop = top0 + 18 * labelY;
+  constexpr auto splashLeft = left0;
   addSplashScreen(
-    splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
+    splashLeft, splashTop, labelWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,
     "GenericDrum", false);
 
