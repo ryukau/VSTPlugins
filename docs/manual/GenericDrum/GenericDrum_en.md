@@ -60,7 +60,7 @@ To imitate the sound of a drum, it's better to start from a structure similar to
 
 Drums produce sound by hitting a membrane with a hand or a stick. Impact section generates a noise that resembles the impact of a hit. The sound is white noise followed by a lowpass. `Echo` can imitate the clanking sound made by collisions between a drum and something like a stand.
 
-Wire is a part intended for the snare drum, and it collides only to primary. It consists of delays connected in series. `Collision Distance` controls the distance between wire and primary. `Rattle-Squeak Mix` changes the texture of the collision. It can produce a sound similar to a cuíca, especially when the value is set closer to the squeak side (1.0), but there is no mechanism to control the rubbing.
+Wire is a part intended for snare drums, and it collides only to primary. It consists of delays connected in series. `Collision Distance` controls the distance between wire and primary. `Rattle-Squeak Mix` changes the texture of the collision. It can produce a sound similar to a cuíca, especially when the value is set closer to the squeak side (1.0), but there is no mechanism to control the rubbing.
 
 An impact hits both the primary and secondary membranes at the same time. This behavior is unrealistic, but makes a nice sound. One membrane consists of a feedback delay network (FDN). A bandpass filter is placed for each feedback path on the FDN. The texture of membranes can be changed by the combination of bandpass cutoff, bandpass Q, and delay times. In particular, lowering the Q produces a brighter sound.
 
