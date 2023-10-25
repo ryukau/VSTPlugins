@@ -16,6 +16,7 @@
 // along with ClangCymbal.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "editor.hpp"
+#include "gui/randomizebutton.hpp"
 #include "version.hpp"
 
 #include <algorithm>
@@ -188,8 +189,18 @@ bool Editor::prepareUI()
     miscLeft1, miscTop3, labelWidth, labelHeight, uiTextSize, ID::slideType,
     slideTypeItems);
   addCheckbox(
-    miscLeft0 + int(labelWidth / 2), miscTop4, labelWidth, labelHeight, uiTextSize,
-    "2x Sampling", ID::overSampling);
+    miscLeft1, miscTop4, labelWidth, labelHeight, uiTextSize, "2x Sampling",
+    ID::overSampling);
+
+  // Randomize button.
+  const auto randomButtonTop = miscTop4;
+  const auto randomButtonLeft = miscLeft0;
+  auto panicButton = new RandomizeButton(
+    CRect(
+      randomButtonLeft, randomButtonTop, randomButtonLeft + labelWidth - 2 * margin,
+      randomButtonTop + labelHeight),
+    this, 0, "Random", getFont(uiTextSize), palette, this);
+  frame->addView(panicButton);
 
   // Oscillator.
   constexpr auto oscLeft0 = gainLeft0 + 2 * labelWidth + 4 * margin;
