@@ -33,6 +33,72 @@
 namespace VSTGUI {
 
 class RandomizeButton : public CControl {
+  // Note: GCC and Clang can't deduce template when `generateFilterTable` and
+  // `generateEnvTable` is defined before use.
+private:
+  template<typename Rng> inline auto generateFilterTable(Rng &rng)
+  {
+    using Pv = Steinberg::Vst::ParamValue;
+    constexpr int length = int(fdnMatrixSize);
+
+    std::array<Pv, length> table{};
+
+    std::uniform_real_distribution<Pv> uniform{Pv(-1), Pv(1)};
+    std::generate(table.begin(), table.end(), [&]() { return uniform(rng); });
+
+    // Bidirectional filtering.
+    Pv v1 = 0;
+    for (int idx = 0; idx < length; ++idx) {
+      v1 += Pv(0.3) * (table[idx] - v1);
+      table[idx] = v1;
+    }
+    v1 = 0;
+    for (int idx = length - 1; idx >= 0; --idx) {
+      v1 += Pv(0.3) * (table[idx] - v1);
+      table[idx] = v1;
+    }
+
+    // Random scaling.
+    Pv max = 0;
+    for (int i = 0; i < length; ++i) max = std::max(max, std::abs(table[i]));
+    std::uniform_real_distribution<Pv> uniform01{Pv(0), Pv(1)};
+    if (max != 0) {
+      auto scaler = uniform01(rng) / max;
+      for (int i = 0; i < length; ++i) table[i] *= scaler;
+    }
+
+    // Normalze range from [-1, 1] to [0, 1].
+    for (int i = 0; i < length; ++i) table[i] = Pv(0.5) * (Pv(1) + table[i]);
+
+    return table;
+  }
+
+  template<typename Rng> inline auto generateEnvTable(Rng &rng)
+  {
+    using Pv = Steinberg::Vst::ParamValue;
+
+    std::array<Pv, nModEnvelopeWavetable> table{};
+
+    std::uniform_real_distribution<Pv> uniform{Pv(0), Pv(1)};
+    std::generate(table.begin(), table.end(), [&]() { return uniform(rng); });
+
+    Pv v1 = 0;
+    Pv v2 = 0;
+    for (int idx = nModEnvelopeWavetable - 1; idx >= 0; --idx) {
+      v1 += Pv(0.3) * (table[idx] - v1);
+      v2 += Pv(0.3) * (v1 - v2);
+      table[idx] = v2;
+    }
+
+    const auto iter = std::max_element(table.begin(), table.end());
+    if (iter == table.end()) return table;
+    auto max = *iter;
+    if (max == 0) return table;
+    for (int idx = 0; idx < nModEnvelopeWavetable; ++idx) table[idx] /= max;
+
+    return table;
+  }
+
 public:
   std::string label;
 
@@ -232,69 +298,6 @@ private:
   {
     editor->valueChanged(id, value);
     editor->updateUI(id, value);
-  }
-
-  template<typename Rng> inline auto generateFilterTable(Rng &rng)
-  {
-    using Pv = Steinberg::Vst::ParamValue;
-    constexpr int length = int(fdnMatrixSize);
-
-    std::array<Pv, length> table{};
-
-    std::uniform_real_distribution<Pv> uniform{Pv(-1), Pv(1)};
-    std::generate(table.begin(), table.end(), [&]() { return uniform(rng); });
-
-    // Bidirectional filtering.
-    Pv v1 = 0;
-    for (int idx = 0; idx < length; ++idx) {
-      v1 += Pv(0.3) * (table[idx] - v1);
-      table[idx] = v1;
-    }
-    v1 = 0;
-    for (int idx = length - 1; idx >= 0; --idx) {
-      v1 += Pv(0.3) * (table[idx] - v1);
-      table[idx] = v1;
-    }
-
-    // Random scaling.
-    Pv max = 0;
-    for (int i = 0; i < length; ++i) max = std::max(max, std::abs(table[i]));
-    std::uniform_real_distribution<Pv> uniform01{Pv(0), Pv(1)};
-    if (max != 0) {
-      auto scaler = uniform01(rng) / max;
-      for (int i = 0; i < length; ++i) table[i] *= scaler;
-    }
-
-    // Normalze range from [-1, 1] to [0, 1].
-    for (int i = 0; i < length; ++i) table[i] = Pv(0.5) * (Pv(1) + table[i]);
-
-    return table;
-  }
-
-  template<typename Rng> inline auto generateEnvTable(Rng &rng)
-  {
-    using Pv = Steinberg::Vst::ParamValue;
-
-    std::array<Pv, nModEnvelopeWavetable> table{};
-
-    std::uniform_real_distribution<Pv> uniform{Pv(0), Pv(1)};
-    std::generate(table.begin(), table.end(), [&]() { return uniform(rng); });
-
-    Pv v1 = 0;
-    Pv v2 = 0;
-    for (int idx = nModEnvelopeWavetable - 1; idx >= 0; --idx) {
-      v1 += Pv(0.3) * (table[idx] - v1);
-      v2 += Pv(0.3) * (v1 - v2);
-      table[idx] = v2;
-    }
-
-    const auto iter = std::max_element(table.begin(), table.end());
-    if (iter == table.end()) return table;
-    auto max = *iter;
-    if (max == 0) return table;
-    for (int idx = 0; idx < nModEnvelopeWavetable; ++idx) table[idx] /= max;
-
-    return table;
   }
 
   Steinberg::Vst::PlugEditor *editor = nullptr;
