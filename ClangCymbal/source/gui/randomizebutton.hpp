@@ -34,9 +34,10 @@ namespace VSTGUI {
 
 class RandomizeButton : public CControl {
   // Note: GCC and Clang can't deduce template when `generateFilterTable` and
-  // `generateEnvTable` is defined before use.
+  // `generateEnvTable` are defined before use.
 private:
-  template<typename Rng> inline auto generateFilterTable(Rng &rng)
+  template<typename Rng>
+  inline auto generateFilterTable(Rng &rng, Steinberg::Vst::ParamValue maxValue)
   {
     using Pv = Steinberg::Vst::ParamValue;
     constexpr int length = int(fdnMatrixSize);
@@ -61,7 +62,7 @@ private:
     // Random scaling.
     Pv max = 0;
     for (int i = 0; i < length; ++i) max = std::max(max, std::abs(table[i]));
-    std::uniform_real_distribution<Pv> uniform01{Pv(0), Pv(1)};
+    std::uniform_real_distribution<Pv> uniform01{Pv(0), Pv(maxValue)};
     if (max != 0) {
       auto scaler = uniform01(rng) / max;
       for (int i = 0; i < length; ++i) table[i] *= scaler;
@@ -82,12 +83,16 @@ private:
     std::uniform_real_distribution<Pv> uniform{Pv(0), Pv(1)};
     std::generate(table.begin(), table.end(), [&]() { return uniform(rng); });
 
-    Pv v1 = 0;
-    Pv v2 = 0;
-    for (int idx = nModEnvelopeWavetable - 1; idx >= 0; --idx) {
-      v1 += Pv(0.3) * (table[idx] - v1);
-      v2 += Pv(0.3) * (v1 - v2);
-      table[idx] = v2;
+    Pv v1 = Pv(0);
+    Pv v2 = Pv(1);
+    std::uniform_real_distribution<Pv> uniformLower{Pv(0), Pv(0.25)};
+    Pv k1 = std::pow(uniformLower(rng), Pv(1.25));
+    Pv k2 = uniform(rng) * Pv(0.5);
+    k2 *= k2;
+    for (int idx = 0; idx < nModEnvelopeWavetable; ++idx) {
+      v1 += k1 * (Pv(1) - v1);
+      v2 += k2 * (Pv(0) - v2);
+      table[idx] = v1 * v2;
     }
 
     const auto iter = std::max_element(table.begin(), table.end());
@@ -190,13 +195,19 @@ public:
       std::uniform_real_distribution<Pv> uniform{Pv(0), Pv(1)};
       std::uniform_real_distribution<Pv> uniformUpperHalf{Pv(0.5), Pv(1)};
       std::uniform_real_distribution<Pv> uniformLowerHalf{Pv(0), Pv(0.5)};
-      setParam(ID::impulseGain, uniform(rng));
-      // setParam(ID::oscGain, uniform(rng));
+      if (uniform(rng) < Pv(0.5)) {
+        setParam(ID::impulseGain, Pv(1));
+        setParam(ID::oscGain, uniform(rng));
+      } else {
+        setParam(ID::impulseGain, uniform(rng));
+        setParam(ID::oscGain, Pv(1));
+      }
       setParam(ID::oscNoisePulseRatio, uniform(rng));
       setParam(ID::oscAttack, uniformLowerHalf(rng));
       setParam(ID::oscDecay, uniformUpperHalf(rng));
-      setParam(ID::oscDensityHz, uniformUpperHalf(rng));
-      setParam(ID::oscDensityKeyFollow, uniform(rng));
+      std::uniform_real_distribution<Pv> uniformOscDensityHz{Pv(0.5), Pv(5) / Pv(6)};
+      setParam(ID::oscDensityHz, uniformOscDensityHz(rng));
+      // setParam(ID::oscDensityKeyFollow, uniform(rng));
       setParam(ID::oscNoiseDecay, uniform(rng));
       setParam(ID::oscBounce, uniform(rng));
       setParam(ID::oscBounceCurve, uniform(rng));
@@ -207,21 +218,25 @@ public:
       setParam(ID::oscLowpassKeyFollow, uniform(rng));
 
       setParam(ID::fdnMatrixIdentityAmount, uniform(rng));
-      setParam(ID::fdnFeedback, uniform(rng));
+      // setParam(ID::fdnFeedback, uniform(rng));
       setParam(ID::fdnOvertoneAdd, uniform(rng));
-      setParam(ID::fdnOvertoneMul, uniform(rng));
+      std::uniform_real_distribution<Pv> uniformFdnOvertoneMul{Pv(0), Pv(0.6)};
+      setParam(ID::fdnOvertoneMul, uniformFdnOvertoneMul(rng));
       setParam(ID::fdnOvertoneOffset, uniform(rng));
       setParam(ID::fdnOvertoneModulo, uniform(rng));
-      // setParam(ID::fdnOvertoneRandomness, uniform(rng));
-      setParam(ID::fdnInterpRate, uniform(rng));
+      std::uniform_real_distribution<Pv> uniformFdnOvertoneRandomness{Pv(0), Pv(0.01)};
+      setParam(ID::fdnOvertoneRandomness, uniformFdnOvertoneRandomness(rng));
+      std::uniform_real_distribution<Pv> uniformFdnInterpRate{Pv(0.25), Pv(0.75)};
+      setParam(ID::fdnInterpRate, uniformFdnInterpRate(rng));
       setParam(ID::fdnInterpLowpassSecond, uniform(rng));
       setParam(ID::fdnSeed, uniform(rng));
-      // setParam(ID::fdnRandomizeRatio, uniform(rng));
+      std::uniform_real_distribution<Pv> uniformFdnRandomizeRatio{Pv(0), Pv(0.2)};
+      setParam(ID::fdnRandomizeRatio, uniformFdnRandomizeRatio(rng));
 
-      auto lpCut = generateFilterTable(rng);
-      auto lpQ = generateFilterTable(rng);
-      auto hpCut = generateFilterTable(rng);
-      auto hpQ = generateFilterTable(rng);
+      auto lpCut = generateFilterTable(rng, Pv(1));
+      auto lpQ = generateFilterTable(rng, Pv(1));
+      auto hpCut = generateFilterTable(rng, Pv(0.1));
+      auto hpQ = generateFilterTable(rng, Pv(1));
       for (int idx = 0; idx < fdnMatrixSize; ++idx) {
         setParam(ID::fdnLowpassCutoffSemiOffset0 + idx, lpCut[idx]);
         setParam(ID::fdnLowpassQOffset0 + idx, lpQ[idx]);
@@ -229,18 +244,16 @@ public:
         setParam(ID::fdnHighpassQOffset0 + idx, hpQ[idx]);
       }
 
-      auto lpSemi = uniform(rng);
-      auto hpSemi = uniform(rng);
-      if (lpSemi < hpSemi) std::swap(lpSemi, hpSemi);
-
-      setParam(ID::fdnLowpassCutoffSemi, lpSemi);
-      setParam(ID::fdnLowpassCutoffSlope, uniform(rng));
-      setParam(ID::fdnLowpassQ, uniform(rng));
+      std::uniform_real_distribution<Pv> uniformLpSemi{Pv(0.6), Pv(1)};
+      setParam(ID::fdnLowpassCutoffSemi, uniformLpSemi(rng));
+      // setParam(ID::fdnLowpassCutoffSlope, uniform(rng));
+      // setParam(ID::fdnLowpassQ, uniform(rng));
       setParam(ID::fdnLowpassQSlope, uniform(rng));
       // setParam(ID::fdnLowpassKeyFollow, uniform(rng));
-      setParam(ID::fdnHighpassCutoffSemi, hpSemi);
-      setParam(ID::fdnHighpassCutoffSlope, uniform(rng));
-      setParam(ID::fdnHighpassQ, uniform(rng));
+      std::uniform_real_distribution<Pv> uniformHpSemi{Pv(0), Pv(0.55)};
+      setParam(ID::fdnHighpassCutoffSemi, uniformHpSemi(rng));
+      // setParam(ID::fdnHighpassCutoffSlope, uniform(rng));
+      // setParam(ID::fdnHighpassQ, uniform(rng));
       setParam(ID::fdnHighpassQSlope, uniform(rng));
       // setParam(ID::fdnHighpassKeyFollow, uniform(rng));
 
@@ -249,10 +262,20 @@ public:
         setParam(ID::modEnvelopeWavetable0 + idx, table[idx]);
       }
       setParam(ID::modEnvelopeTime, uniform(rng));
-      setParam(ID::modEnvelopeToFdnLowpassCutoff, uniform(rng));
-      setParam(ID::modEnvelopeToFdnHighpassCutoff, uniform(rng));
-      setParam(ID::modEnvelopeToFdnPitch, uniform(rng));
-      setParam(ID::modEnvelopeToFdnOvertoneAdd, uniform(rng));
+      if (uniform(rng) < Pv(0.25)) {
+        setParam(ID::modEnvelopeToFdnLowpassCutoff, uniform(rng));
+        setParam(ID::modEnvelopeToFdnHighpassCutoff, uniform(rng));
+      } else {
+        setParam(ID::modEnvelopeToFdnLowpassCutoff, Pv(0.5));
+        setParam(ID::modEnvelopeToFdnHighpassCutoff, Pv(0.5));
+      }
+      if (uniform(rng) < Pv(0.33)) {
+        setParam(ID::modEnvelopeToFdnPitch, uniform(rng));
+        setParam(ID::modEnvelopeToFdnOvertoneAdd, uniform(rng));
+      } else {
+        setParam(ID::modEnvelopeToFdnPitch, Pv(0.5));
+        setParam(ID::modEnvelopeToFdnOvertoneAdd, Pv(0));
+      }
       setParam(ID::modEnvelopeToOscJitter, uniform(rng));
       setParam(ID::modEnvelopeToOscNoisePulseRatio, uniform(rng));
 
