@@ -432,8 +432,9 @@ FIR polyphase lowpass coefficients for 8 fold upsampling.
 nTaps = 64
 nPhase = 8
 fir = signal.firwin(nTaps * nPhase - 1, 20000, window=("dpss", 4), fs=8 * 48000)
+fir *= nPhase
 fir = np.hstack((fir, [0]))[::1]
-poly = fir.reshape((nTaps, nPhase)).T
+poly = fir.reshape((nTaps, nPhase)).T[::-1]
 for i, p in enumerate(poly):
     poly[i] = p[::-1]
 ```
