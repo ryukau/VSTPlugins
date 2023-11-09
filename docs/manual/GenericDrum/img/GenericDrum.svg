@@ -5,6 +5,7 @@
   <font id="EmbeddedFont_1" horiz-adv-x="2048">
    <font-face font-family="Go Mono embedded" units-per-em="2048" font-weight="normal" font-style="normal" ascent="1931" descent="423"/>
    <missing-glyph horiz-adv-x="2048" d="M 0,0 L 2047,0 2047,2047 0,2047 0,0 Z"/>
+   <glyph unicode="⋮" horiz-adv-x="239" d="M 567,20 C 599,20 626,10 647,-11 669,-32 680,-58 680,-90 680,-120 669,-146 646,-168 624,-190 598,-201 567,-201 537,-201 511,-190 489,-168 468,-145 457,-119 457,-90 457,-61 468,-35 489,-12 510,9 536,20 567,20 Z M 567,702 C 598,702 625,692 646,671 669,650 680,625 680,594 680,564 669,538 646,515 623,492 597,481 567,481 538,481 512,492 489,515 468,538 457,565 457,594 457,666 494,702 567,702 Z M 567,1386 C 599,1386 626,1376 647,1355 669,1334 680,1308 680,1276 680,1246 669,1220 646,1198 624,1176 598,1165 567,1165 537,1165 511,1176 489,1198 468,1221 457,1247 457,1276 457,1305 468,1331 489,1354 510,1375 536,1386 567,1386 Z"/>
    <glyph unicode="}" horiz-adv-x="847" d="M 227,1579 L 358,1579 C 473,1579 566,1547 639,1484 712,1420 749,1338 749,1237 749,1200 745,1157 736,1107 L 715,986 C 710,955 707,925 707,896 707,767 783,703 934,703 L 1046,703 1046,580 934,580 C 783,580 707,514 707,383 707,356 710,327 715,297 L 736,177 C 745,128 749,83 749,42 749,-57 712,-138 638,-201 565,-264 471,-296 358,-296 L 227,-296 227,-173 286,-173 C 471,-173 564,-104 564,33 564,61 561,90 556,120 L 534,245 C 529,272 527,300 527,330 527,415 553,487 604,546 634,580 678,612 736,642 674,674 627,709 596,748 550,805 527,874 527,957 527,984 529,1011 534,1038 L 556,1163 C 561,1193 564,1223 564,1254 564,1389 471,1456 286,1456 L 227,1456 227,1579 Z"/>
    <glyph unicode="{" horiz-adv-x="847" d="M 1002,-296 L 871,-296 C 756,-296 663,-264 590,-201 517,-138 480,-55 480,47 480,82 484,125 493,176 L 514,297 C 519,328 522,358 522,387 522,516 446,580 295,580 L 183,580 183,703 295,703 C 446,703 522,769 522,900 522,926 519,955 514,986 L 493,1107 C 484,1158 480,1202 480,1241 480,1340 517,1422 591,1485 664,1548 758,1579 871,1579 L 1002,1579 1002,1456 943,1456 C 758,1456 665,1387 665,1249 665,1222 668,1194 673,1163 L 695,1038 C 700,1007 703,979 703,954 703,868 677,796 625,737 594,703 550,671 493,642 556,610 603,575 634,536 679,479 702,409 702,326 702,299 700,272 695,245 L 673,120 C 668,89 665,59 665,29 665,-106 758,-173 943,-173 L 1002,-173 1002,-296 Z"/>
    <glyph unicode="y" horiz-adv-x="1139" d="M 514,0 L 129,962 55,962 55,1086 502,1086 502,962 342,962 653,184 655,184 966,962 806,962 806,1086 1173,1086 1173,962 1099,962 714,0 606,-271 754,-271 754,-395 275,-395 275,-271 473,-271 581,0 514,0 Z"/>
@@ -172,13 +173,6 @@
  </defs>
  <defs>
   <font id="EmbeddedFont_5" horiz-adv-x="2048">
-   <font-face font-family="Noto Sans Mono CJK JP Regular embedded" units-per-em="2048" font-weight="normal" font-style="normal" ascent="1508" descent="529"/>
-   <missing-glyph horiz-adv-x="2048" d="M 0,0 L 2047,0 2047,2047 0,2047 0,0 Z"/>
-   <glyph unicode="⋮" horiz-adv-x="239" d="M 567,20 C 599,20 626,10 647,-11 669,-32 680,-58 680,-90 680,-120 669,-146 646,-168 624,-190 598,-201 567,-201 537,-201 511,-190 489,-168 468,-145 457,-119 457,-90 457,-61 468,-35 489,-12 510,9 536,20 567,20 Z M 567,702 C 598,702 625,692 646,671 669,650 680,625 680,594 680,564 669,538 646,515 623,492 597,481 567,481 538,481 512,492 489,515 468,538 457,565 457,594 457,666 494,702 567,702 Z M 567,1386 C 599,1386 626,1376 647,1355 669,1334 680,1308 680,1276 680,1246 669,1220 646,1198 624,1176 598,1165 567,1165 537,1165 511,1176 489,1198 468,1221 457,1247 457,1276 457,1305 468,1331 489,1354 510,1375 536,1386 567,1386 Z"/>
-  </font>
- </defs>
- <defs>
-  <font id="EmbeddedFont_6" horiz-adv-x="2048">
    <font-face font-family="OpenSymbol embedded" units-per-em="2048" font-weight="normal" font-style="normal" ascent="1402" descent="450"/>
    <missing-glyph horiz-adv-x="2048" d="M 0,0 L 2047,0 2047,2047 0,2047 0,0 Z"/>
    <glyph unicode="√" horiz-adv-x="1059" d="M 569,0 L 233,668 90,582 66,623 301,764 608,145 1061,1647 1109,1647 613,0 569,0 Z"/>
@@ -704,13 +698,13 @@
   <g class="TextShape">
    <g id="id74">
     <rect class="BoundingBox" stroke="none" fill="none" x="30210" y="24900" width="926" height="866"/>
-    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Noto Sans Mono CJK JP Regular, sans-serif" font-size="423px" font-weight="400"><tspan class="TextPosition" x="30460" y="25389"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">⋮</tspan></tspan></tspan></text>
+    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="30460" y="25423"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">⋮</tspan></tspan></tspan></text>
    </g>
   </g>
   <g class="TextShape">
    <g id="id75">
     <rect class="BoundingBox" stroke="none" fill="none" x="36052" y="24900" width="926" height="866"/>
-    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Noto Sans Mono CJK JP Regular, sans-serif" font-size="423px" font-weight="400"><tspan class="TextPosition" x="36302" y="25389"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">⋮</tspan></tspan></tspan></text>
+    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="36302" y="25423"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">⋮</tspan></tspan></tspan></text>
    </g>
   </g>
   <g class="com.sun.star.drawing.LineShape">
@@ -1021,7 +1015,7 @@
   </g>
   <g class="com.sun.star.drawing.CustomShape">
    <g id="id121">
-    <rect class="BoundingBox" stroke="none" fill="none" x="26273" y="28178" width="256" height="257"/>
+    <rect class="BoundingBox" stroke="none" fill="none" x="26273" y="28178" width="257" height="257"/>
     <path fill="rgb(0,0,0)" stroke="none" d="M 26528,28306 C 26528,28328 26522,28350 26511,28369 26500,28389 26484,28405 26464,28416 26445,28427 26423,28433 26401,28433 26378,28433 26356,28427 26337,28416 26317,28405 26301,28389 26290,28369 26279,28350 26273,28328 26273,28306 26273,28283 26279,28261 26290,28242 26301,28222 26317,28206 26337,28195 26356,28184 26378,28178 26401,28178 26423,28178 26445,28184 26464,28195 26484,28206 26500,28222 26511,28242 26522,28261 26528,28283 26528,28306 L 26528,28306 Z"/>
    </g>
   </g>
@@ -1092,25 +1086,25 @@
   <g class="TextShape">
    <g id="id132">
     <rect class="BoundingBox" stroke="none" fill="none" x="26019" y="31734" width="926" height="866"/>
-    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Noto Sans Mono CJK JP Regular, sans-serif" font-size="423px" font-weight="400"><tspan class="TextPosition" x="26269" y="32223"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">⋮</tspan></tspan></tspan></text>
+    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="26269" y="32257"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">⋮</tspan></tspan></tspan></text>
    </g>
   </g>
   <g class="TextShape">
    <g id="id133">
     <rect class="BoundingBox" stroke="none" fill="none" x="33639" y="31734" width="926" height="866"/>
-    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Noto Sans Mono CJK JP Regular, sans-serif" font-size="423px" font-weight="400"><tspan class="TextPosition" x="33889" y="32223"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">⋮</tspan></tspan></tspan></text>
+    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="33889" y="32257"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">⋮</tspan></tspan></tspan></text>
    </g>
   </g>
   <g class="TextShape">
    <g id="id134">
     <rect class="BoundingBox" stroke="none" fill="none" x="38719" y="31631" width="926" height="866"/>
-    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Noto Sans Mono CJK JP Regular, sans-serif" font-size="423px" font-weight="400"><tspan class="TextPosition" x="38969" y="32120"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">⋮</tspan></tspan></tspan></text>
+    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="38969" y="32154"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">⋮</tspan></tspan></tspan></text>
    </g>
   </g>
   <g class="TextShape">
    <g id="id135">
     <rect class="BoundingBox" stroke="none" fill="none" x="30210" y="24901" width="926" height="866"/>
-    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Noto Sans Mono CJK JP Regular, sans-serif" font-size="423px" font-weight="400"><tspan class="TextPosition" x="30460" y="25390"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">⋮</tspan></tspan></tspan></text>
+    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="30460" y="25424"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">⋮</tspan></tspan></tspan></text>
    </g>
   </g>
   <g class="TextShape">
@@ -1143,7 +1137,7 @@
   </g>
   <g class="com.sun.star.drawing.CustomShape">
    <g id="id140">
-    <rect class="BoundingBox" stroke="none" fill="none" x="26908" y="38973" width="257" height="256"/>
+    <rect class="BoundingBox" stroke="none" fill="none" x="26908" y="38973" width="257" height="257"/>
     <path fill="rgb(0,0,0)" stroke="none" d="M 27163,39101 C 27163,39123 27157,39145 27146,39164 27135,39184 27119,39200 27099,39211 27080,39222 27058,39228 27036,39228 27013,39228 26991,39222 26972,39211 26952,39200 26936,39184 26925,39164 26914,39145 26908,39123 26908,39101 26908,39078 26914,39056 26925,39037 26936,39017 26952,39001 26972,38990 26991,38979 27013,38973 27036,38973 27058,38973 27080,38979 27099,38990 27119,39001 27135,39017 27146,39037 27157,39056 27163,39078 27163,39101 L 27163,39101 Z"/>
    </g>
   </g>
@@ -1326,7 +1320,7 @@
   <g class="TextShape">
    <g id="id166">
     <rect class="BoundingBox" stroke="none" fill="none" x="2270" y="45450" width="12949" height="4524"/>
-    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2520" y="45973"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">Energy spreader accumulates the amplitude</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2520" y="46460"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">of input signal, then spread through out time.</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2520" y="47370"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">In the code on right side:</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2520" y="47857"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">- acc is accumulated amplitude.</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2520" y="48344"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">- random() generates a number between [0.0, 1.0).</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2520" y="48831"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">- eps is machine epsilon.</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2520" y="49318"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">- dt is decay time in samples.</tspan></tspan></tspan></text>
+    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2520" y="45973"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">Energy spreader accumulates the amplitude</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2520" y="46460"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">of input signal, then spread through out time.</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2520" y="47434"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">In the code of energy spreaders:</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2520" y="47921"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">- acc is accumulated amplitude.</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2520" y="48408"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">- random() generates a number between [0.0, 1.0).</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2520" y="48895"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">- eps is machine epsilon.</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2520" y="49382"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">- dt is decay time in samples.</tspan></tspan></tspan></text>
    </g>
   </g>
   <g class="com.sun.star.drawing.CustomShape">
@@ -1899,7 +1893,7 @@
   <g class="TextShape">
    <g id="id239">
     <rect class="BoundingBox" stroke="none" fill="none" x="2276" y="32812" width="15997" height="4994"/>
-    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2526" y="33335"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">Parameters of `solveC</tspan><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">ollision` function on the right:</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2526" y="33822"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">- p is position, that is an amplitude of a signal.</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2526" y="34309"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">- v is velocity, that is `p[n] - p[n-1]`.</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2526" y="34796"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">- distance is a difference of positions to trigger collision.</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2526" y="35706"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">For example, if there are system S0 and S1, p0 is set from</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2526" y="36193"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">the output amplitude of S0. And p1 is the same for S1.</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2526" y="37103"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">In implementation, Membrane 1 provides p0 and v0 for both</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2526" y="37590"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">collisions.</tspan></tspan></tspan></text>
+    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2526" y="33335"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">Parameters of `solveC</tspan><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">ollision` function:</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2526" y="33822"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">- p is position, that is an amplitude of a signal.</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2526" y="34309"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">- v is velocity, that is `p[n] - p[n-1]`.</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2526" y="34796"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">- distance is a difference of positions to trigger collision.</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2526" y="35770"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">For example, if there are system S0 and S1, p0 is set from</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2526" y="36257"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">the output amplitude of S0. And p1 is the same for S1.</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2526" y="37231"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">In implementation, Membrane 1 provides p0 and v0 for both</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Go Mono, monospace" font-size="423px" font-weight="400"><tspan class="TextPosition" x="2526" y="37718"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">collisions.</tspan></tspan></tspan></text>
    </g>
   </g>
   <g class="com.sun.star.drawing.CustomShape">
@@ -1990,7 +1984,7 @@
   </g>
   <g class="com.sun.star.drawing.CustomShape">
    <g id="id252">
-    <rect class="BoundingBox" stroke="none" fill="none" x="8493" y="18653" width="257" height="257"/>
+    <rect class="BoundingBox" stroke="none" fill="none" x="8493" y="18653" width="256" height="257"/>
     <path fill="rgb(0,0,0)" stroke="none" d="M 8748,18781 C 8748,18803 8742,18825 8731,18844 8720,18864 8704,18880 8684,18891 8665,18902 8643,18908 8621,18908 8598,18908 8576,18902 8557,18891 8537,18880 8521,18864 8510,18844 8499,18825 8493,18803 8493,18781 8493,18758 8499,18736 8510,18717 8521,18697 8537,18681 8557,18670 8576,18659 8598,18653 8621,18653 8643,18653 8665,18659 8684,18670 8704,18681 8720,18697 8731,18717 8742,18736 8748,18758 8748,18781 L 8748,18781 Z"/>
    </g>
   </g>
@@ -2138,7 +2132,7 @@
   </g>
   <g class="com.sun.star.drawing.CustomShape">
    <g id="id274">
-    <rect class="BoundingBox" stroke="none" fill="none" x="7864" y="27541" width="257" height="256"/>
+    <rect class="BoundingBox" stroke="none" fill="none" x="7864" y="27541" width="257" height="257"/>
     <path fill="rgb(0,0,0)" stroke="none" d="M 8119,27669 C 8119,27691 8113,27713 8102,27732 8091,27752 8075,27768 8055,27779 8036,27790 8014,27796 7992,27796 7969,27796 7947,27790 7928,27779 7908,27768 7892,27752 7881,27732 7870,27713 7864,27691 7864,27669 7864,27646 7870,27624 7881,27605 7892,27585 7908,27569 7928,27558 7947,27547 7969,27541 7992,27541 8014,27541 8036,27547 8055,27558 8075,27569 8091,27585 8102,27605 8113,27624 8119,27646 8119,27669 L 8119,27669 Z"/>
    </g>
   </g>
