@@ -5,7 +5,7 @@ You can fund the development through [paypal.me/ryukau](https://www.paypal.com/p
 
 ## Installation
 ### Plugin
-Place `*.vst3` directory to:
+Move `*.vst3` directory to:
 
 - `/Program Files/Common Files/VST3/` for Windows.
 - `$HOME/.vst3/` for Linux.
@@ -16,19 +16,22 @@ DAW may provides additional VST3 directory. For more information, please refer t
 ### Presets
 **Notice**: Some plugins don't have presets provided by Uhhyou Plugins.
 
-To install presets, follow the steps below.
+Presets are included in the plugin package linked at the top of this page. To install presets, follow the steps below.
 
-1. Download presets from a link at the top of this page.
-2. Extract `*Presets.zip`. `*` here is [wildcard character](https://en.wikipedia.org/wiki/Wildcard_character).
-3. Place unzipped directory into an OS specific preset directory (see below).
+1. Download plugin from a link at the top of this page.
+2. Extract downloaded zip file.
+3. Open `presets` directory placed in extracted package.
+4. Move `Uhhyou` directory into an OS specific preset directory (see below).
 
 Below is a list of preset directories for each OS.
 
-- Windows : `/Users/$USERNAME/Documents/VST3 Presets/Uhhyou`
-- Linux : `$HOME/.vst3/presets/Uhhyou`
-- macOS : `/Users/$USERNAME/Library/Audio/Presets/Uhhyou`
+- Windows : `/Users/$USERNAME/Documents/VST3 Presets`
+- Linux : `$HOME/.vst3/presets`
+- macOS : `/Users/$USERNAME/Library/Audio/Presets`
 
-Preset directory name must be the same as the plugin. Make `Uhhyou` directory if it does not exist.
+Preset directory name must be the same as the plugin. If preset directory does not exist, create it.
+
+- [Preset Locations - VST 3 Developer Portal](https://steinbergmedia.github.io/vst3_dev_portal/pages/Technical+Documentation/Locations+Format/Preset+Locations.html)
 
 ### Windows Specific
 If DAW doesn't recognize the plugin, try installing C++ redistributable (`vc_redist.x64.exe`). Installer can be found in the link below.

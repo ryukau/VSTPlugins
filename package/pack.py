@@ -3,6 +3,7 @@ import json
 import shutil
 from pathlib import Path
 
+
 def copy_resource(src, dst, error_msg):
     dst.mkdir(parents=True, exist_ok=True)
     if src.exists():
@@ -10,11 +11,13 @@ def copy_resource(src, dst, error_msg):
     else:
         print(error_msg)
 
+
 def check_file(file_path):
     """Check existence of a file."""
     if not file_path.is_file():
         print(f"{file_path} does not exist")
         exit(1)
+
 
 def create_full_archive_from_github_actions_artifact(version):
     with open("manual.json", "r", encoding="utf-8") as fi:
@@ -43,8 +46,9 @@ def create_full_archive_from_github_actions_artifact(version):
     for vst3_dir in pack_dir.glob("*.vst3"):
         plugin_name = vst3_dir.stem
 
-        manual_name = (plugin_name
-                       if not plugin_name in manual_dict else manual_dict[plugin_name])
+        manual_name = (
+            plugin_name if not plugin_name in manual_dict else manual_dict[plugin_name]
+        )
 
         # Do not make package if a plugin doesn't have manual.
         if not Path(f"../docs/manual/{manual_name}").exists():
@@ -62,12 +66,13 @@ def create_full_archive_from_github_actions_artifact(version):
         check_file(vst3_dir / Path(f"Contents/x86_64-linux/{plugin_name}.so"))
         check_file(vst3_dir / Path(f"Contents/MacOS/{plugin_name}"))
 
-        packed_path_str = shutil.make_archive(
-            str(vst3_dir.parent / Path(f"{plugin_name}_{version[plugin_name]}")),
-            "zip",
-            pack_dir,
-            vst3_dir.name,
+        create_zip_archive(
+            vst3_dir.parent / Path(f"{plugin_name}_{version[plugin_name]}"),
+            plugin_name,
+            vst3_dir,
+            Path(f"../presets/Uhhyou/{plugin_name}"),
         )
+
 
 def create_macos_archive_from_github_actions_artifact(version):
     """
@@ -96,8 +101,9 @@ def create_macos_archive_from_github_actions_artifact(version):
     for vst3_dir in pack_dir.glob("*.vst3"):
         plugin_name = vst3_dir.stem
 
-        manual_name = (plugin_name
-                       if not plugin_name in manual_dict else manual_dict[plugin_name])
+        manual_name = (
+            plugin_name if not plugin_name in manual_dict else manual_dict[plugin_name]
+        )
 
         # Do not make package if a plugin doesn't have manual.
         if not Path(f"../docs/manual/{manual_name}").exists():
@@ -107,20 +113,44 @@ def create_macos_archive_from_github_actions_artifact(version):
         # Ensuring that no binary is missing.
         check_file(vst3_dir / Path(f"Contents/MacOS/{plugin_name}"))
 
-        packed_path_str = shutil.make_archive(
-            str(vst3_dir.parent / Path(f"{plugin_name}_{version[plugin_name]}_macOS")),
-            "zip",
-            pack_dir,
-            vst3_dir.name,
+        create_zip_archive(
+            vst3_dir.parent / Path(f"{plugin_name}_{version[plugin_name]}_macOS"),
+            plugin_name,
+            vst3_dir,
+            Path(f"../presets/Uhhyou/{plugin_name}"),
         )
 
+
+def create_zip_archive(archive_dir, plugin_name, vst3_dir, presets_dir):
+    archive_dir.mkdir(parents=True, exist_ok=True)
+
+    archive_vst3_dir = archive_dir / vst3_dir.name
+    if archive_vst3_dir.exists():
+        shutil.rmtree(archive_vst3_dir)
+    shutil.move(vst3_dir, archive_dir)
+
+    presets_dir = Path(f"../presets/Uhhyou/{plugin_name}")
+    if presets_dir.exists():
+        target_dir = Path(*presets_dir.parts[1:])  # Remove relative part.
+        shutil.copytree(presets_dir, archive_dir / target_dir, dirs_exist_ok=True)
+
+    packed_path_str = shutil.make_archive(
+        archive_dir,
+        "zip",
+        archive_dir,
+    )
+
+
 def get_version():
-    re_major_version = re.compile(r"^#define MAJOR_VERSION_INT ([0-9]+)",
-                                  flags=re.MULTILINE | re.DOTALL)
-    re_minor_version = re.compile(r"^#define SUB_VERSION_INT ([0-9]+)",
-                                  flags=re.MULTILINE | re.DOTALL)
-    re_patch_version = re.compile(r"^#define RELEASE_NUMBER_INT ([0-9]+)",
-                                  flags=re.MULTILINE | re.DOTALL)
+    re_major_version = re.compile(
+        r"^#define MAJOR_VERSION_INT ([0-9]+)", flags=re.MULTILINE | re.DOTALL
+    )
+    re_minor_version = re.compile(
+        r"^#define SUB_VERSION_INT ([0-9]+)", flags=re.MULTILINE | re.DOTALL
+    )
+    re_patch_version = re.compile(
+        r"^#define RELEASE_NUMBER_INT ([0-9]+)", flags=re.MULTILINE | re.DOTALL
+    )
 
     with open("../CMakeLists.txt", "r", encoding="utf-8") as fi:
         top_level_cmake_text = fi.read()
@@ -142,6 +172,7 @@ def get_version():
 
         version[plugin_name] = f"{major}.{minor}.{patch}"
     return version
+
 
 if __name__ == "__main__":
     version = get_version()

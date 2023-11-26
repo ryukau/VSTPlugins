@@ -14,21 +14,23 @@
 DAW によっては上記とは別に VST3 をインストールできるディレクトリを提供していることがあります。詳しくは利用している DAW のマニュアルを参照してください。
 
 ### プリセット
-**注意**: プラグインによっては Uhhyou Plugins が提供するプリセットがないものがあります。
+**注意**: プリセットの無いプラグインもあります。
 
-以下はプリセットのインストール手順です。
+プリセットはページの最上部のリンクからダウンロードできるプラグインパッケージに含まれています。以下はプリセットのインストール手順です。
 
-1. ページの最上部のリンクからプリセットをダウンロード。
-2. ダウンロードした `*Presets.zip` を解凍。
-3. 解凍したディレクトリを OS ごとに決められたディレクトリに配置。
+1. ページの最上部のリンクからプラグインをダウンロード。
+2. ダウンロードした zip ファイルを解凍。
+3. `presets` ディレクトリ内の `Uhhyou` ディレクトリを OS ごとに決められたディレクトリに配置。
 
 以下は OS ごとのプリセットの配置先の一覧です。
 
-- Windows : `/Users/$USERNAME/Documents/VST3 Presets/Uhhyou`
-- Linux : `$HOME/.vst3/presets/Uhhyou`
-- macOS : `/Users/$USERNAME/Library/Audio/Presets/Uhhyou`
+- Windows : `/Users/$USERNAME/Documents/VST3 Presets`
+- Linux : `$HOME/.vst3/presets`
+- macOS : `/Users/$USERNAME/Library/Audio/Presets`
 
-プリセットディレクトリの名前はプラグインと同じである必要があります。 `Uhhyou` ディレクトリが無いときは作成してください。
+プリセットディレクトリの名前はプラグインと同じである必要があります。配置先のディレクトリが無いときは作成してください。
+
+- [Preset Locations - VST 3 Developer Portal](https://steinbergmedia.github.io/vst3_dev_portal/pages/Technical+Documentation/Locations+Format/Preset+Locations.html)
 
 ### Windows
 プラグインが DAW に認識されないときは C++ redistributable をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は `vc_redist.x64.exe` です。
