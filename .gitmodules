@@ -9,3 +9,7 @@
 [submodule "lib/vst3sdk"]
 	path = lib/vst3sdk
 	url = https://github.com/steinbergmedia/vst3sdk.git
+[submodule "docs"]
+	path = docs
+	url = git@github.com:ryukau/UhhyouManuals.git
+	branch = main
