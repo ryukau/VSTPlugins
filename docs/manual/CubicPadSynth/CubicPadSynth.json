@@ -1,0 +1,270 @@
+{
+  "CubicPadSynth": {
+    "latest_version": "0.1.25",
+    "urls": {
+      "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/CubicPadSynth_0.1.25.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/CubicPadSynth_0.1.24.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/CubicPadSynth_0.1.23.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/CubicPadSynth_0.1.22.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/CubicPadSynth_0.1.21.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/CubicPadSynth_0.1.20.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/CubicPadSynth_0.1.19.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/CubicPadSynth_0.1.18.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/CubicPadSynth_0.1.17.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.38.0/CubicPadSynth_0.1.16.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/CubicPadSynth_0.1.15.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/CubicPadSynth_0.1.14.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/CubicPadSynth_0.1.13.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/CubicPadSynth_0.1.11.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/CubicPadSynth_0.1.10.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CubicPadSynth0.1.9.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/CubicPadSynth0.1.8.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/CubicPadSynth0.1.7.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/CubicPadSynth0.1.6.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/CubicPadSynth0.1.5.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/CubicPadSynth0.1.4.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/CubicPadSynth0.1.3.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynth0.1.2.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/CubicPadSynth0.1.1.zip"
+      ],
+      "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynthPresets.zip"
+    },
+    "changelog": {
+      "0.1.25": {
+        "en": [
+          "Changed to include presets in plugin zip package.",
+          "Fixed a bug that invalid `style.json` crashes plugin."
+        ],
+        "ja": [
+          "Zip パッケージにプリセットを同梱するよう変更。",
+          "不正な `style.json` によりプラグインがクラッシュするバグを修正。"
+        ]
+      },
+      "0.1.24": {
+        "en": [
+          "Changed default style color of `foregroundInactive`.",
+          "Fixed performance drop caused by subnormal floating point numbers."
+        ],
+        "ja": [
+          "デフォルトの `foregroundInactive` の色を変更。",
+          "サブノーマル数によるパフォーマンスの低下を修正。"
+        ]
+      },
+      "0.1.23": {
+        "en": [
+          "Fixed crash on Renoise. Previous code was trying to access freed memory of GUI widgets, and it was causing the crash."
+        ],
+        "ja": [
+          "Renoise で GUI がクラッシュするバグを修正。 GUI 要素のメモリが解放された後にアクセスを行おうとしていたことがクラッシュの原因。"
+        ]
+      },
+      "0.1.22": {
+        "en": [
+          "Fixed stuttering on Audacity where `processContext` is `nullptr`."
+        ],
+        "ja": [
+          "`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"
+        ]
+      },
+      "0.1.21": {
+        "en": [
+          "Updated splash screen text."
+        ],
+        "ja": [
+          "スプラッシュ画面のテキストを更新。"
+        ]
+      },
+      "0.1.20": {
+        "en": [
+          "Added decimation by holding shortcut to BarBox. Shortcut is <kbd>5</kbd>-<kbd>9</kbd>.",
+          "Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>.",
+          "Added mutex around FFTW3. This may prevent crash by the call of thread unsafe functions in FFTW3."
+        ],
+        "ja": [
+          "BarBox にホールドのショートカットを追加。ショートカットキーは <kbd>5</kbd>-<kbd>9</kbd> 。",
+          "数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> による値の切り捨てのショートカットを追加。",
+          "FFTW3 のスレッドセーフでない関数呼び出しによるクラッシュを防止するために mutex を追加。"
+        ]
+      },
+      "0.1.19": {
+        "en": [
+          "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak.",
+          "Added code path for 64-bit ARM CPU (aarch64).",
+          "Removed x86_64 SIMD run-time dispatching. Supported instruction set is now fixed to AVX."
+        ],
+        "ja": [
+          "クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。",
+          "64 ビット ARM CPU (aarch64) に対応するコードパスを追加。",
+          "x86_64 CPU の SIMD 命令セットに関するランタイム・ディスパッチを削除。サポートする命令セットを AVX に固定。"
+        ]
+      },
+      "0.1.18": {
+        "en": [
+          "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux.",
+          "Change BarBox to only send modified parameter values to host. This prevents to overwrite unchanged parameter automation on the same BarBox."
+        ],
+        "ja": [
+          "VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux で同一プラグインの GUI を複数開くとクラッシュするバグを修正。",
+          "BarBox が変更されたパラメータの値のみをホストに送るように変更。編集中の BarBox 上の変更されていないパラメータのオートメーションが上書きされないようになった。"
+        ]
+      },
+      "0.1.17": {
+        "en": [
+          "Changed BarBox to get focus on mouse down, and release focus on mouse exit."
+        ],
+        "ja": [
+          "BarBox がマウス押下でフォーカスを取得、マウスカーソルが範囲外に移動するとフォーカスを開放するように変更。"
+        ]
+      },
+      "0.1.16": {
+        "en": [
+          "Fixed crash at plugin scan on some Windows environment. FFTW3 static library for Windows is changed to build without SIMD flags."
+        ],
+        "ja": [
+          "一部の Windows 環境で発生していたプラグインスキャン時のクラッシュを修正。Windows 用の FFTW3 静的ライブラリを SIMD フラグなしでビルドするように変更。"
+        ]
+      },
+      "0.1.15": {
+        "en": [
+          "Fixed crash on Linux.",
+          "Fixed BarBox to receive shift key."
+        ],
+        "ja": [
+          "Linux でのクラッシュを修正。",
+          "BarBox が <kbd>Shift</kbd> キーを受け取るように修正。"
+        ]
+      },
+      "0.1.14": {
+        "en": [
+          "Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER."
+        ],
+        "ja": [
+          "プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。"
+        ]
+      },
+      "0.1.13": {
+        "en": [
+          "Added custom font options for `style.json`."
+        ],
+        "ja": [
+          "`style.json` でカスタムフォントを設定するオプションを追加。"
+        ]
+      },
+      "0.1.12": {
+        "en": [
+          "Updated VSTGUI from 4.10 to 4.11."
+        ],
+        "ja": [
+          "VSTGUI を 4.10 から 4.11 にアップデート。"
+        ]
+      },
+      "0.1.11": {
+        "en": [
+          "Changed font to Tinos."
+        ],
+        "ja": [
+          "フォントを Tinos に変更。"
+        ]
+      },
+      "0.1.10": {
+        "en": [
+          "Fixed to reset properly.",
+          "Fixed `bypass` parameter behavior. This fixes playing all the notes at the moment of unmute, even if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3 `bypass` parameter."
+        ],
+        "ja": [
+          "リセットが正しく行われるように修正。",
+          "`bypass` パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の `bypass` パラメータを正しく実装しているホストでのみ発生していた。"
+        ]
+      },
+      "0.1.9": {
+        "en": [
+          "Implemented process context requirements.",
+          "Added/Changed BarBox functionality to match LV2 version.\n    - Edit one bar.\n    - Lock.\n    - Internal mouse wheel sensitivitly.\n    - Snapping (implemented, but not used).\n    - Starting bar of line edit is now fixed to anchor point."
+        ],
+        "ja": [
+          "Process context requirements を実装。",
+          "BarBox の機能が LV2 版と同等になるように更新。\n    - 1 つのバーを編集を追加。\n    - ロックを追加。\n    - 内部的なマウスホイールの感度を追加。\n    - スナップを追加 (未使用) 。\n    - 直線の描画での開始点の値をアンカーポイントに固定するように変更。"
+        ]
+      },
+      "0.1.8": {
+        "en": [
+          "Added check that DSP is initialized or not."
+        ],
+        "ja": [
+          "DSP が初期化されているかどうかのチェックを追加。"
+        ]
+      },
+      "0.1.7": {
+        "en": [
+          "Added scroll bar to dense BarBox.",
+          "Added undo/redo to BarBox."
+        ],
+        "ja": [
+          "いくつかの BarBox にスクロールバーを追加。",
+          "BarBox に アンドゥ・リドゥの機能を追加。"
+        ]
+      },
+      "0.1.6": {
+        "en": [
+          "Added color configuration."
+        ],
+        "ja": [
+          "カラーコンフィグを追加。"
+        ]
+      },
+      "0.1.5": {
+        "en": [
+          "Reverted parameter smoother to the old one which works with variable size audio buffer."
+        ],
+        "ja": [
+          "パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。"
+        ]
+      },
+      "0.1.4": {
+        "en": [
+          "Fixed a bug that refreshing wavetable before parameters are loaded at launch.",
+          "Fixed off by one error in LFO wavetable with cubic interpolation."
+        ],
+        "ja": [
+          "起動時にパラメータがロードされる前にウェーブテーブルが更新されるバグを修正。",
+          "LFO ウェーブテーブルの補間が Cubic のときにインデックスが 1 つずれていたバグを修正。"
+        ]
+      },
+      "0.1.3": {
+        "en": [
+          "Fixed a bug that some shortcuts are disabled for BarBox."
+        ],
+        "ja": [
+          "BarBox のショートカットが効かないバグを修正。"
+        ]
+      },
+      "0.1.2": {
+        "en": [
+          "Changed `Refresh Table` and `Refresh LFO` from VST message to parameter. This enables automation and midi mapping.",
+          "Changed BarBox shortcuts to be disabled when mouse cursor is on the outside of BarBox."
+        ],
+        "ja": [
+          "オートメーションと MIDI マッピングを利用できるように `Refresh Table` と `Refresh LFO` を VST のメッセージからパラメータへと変更。",
+          "BarBox にフォーカスした後、マウスカーソルが領域外にあるときはショートカットが無効になるように変更。"
+        ]
+      },
+      "0.1.1": {
+        "en": [
+          "Fixed a bug that cause crash when drawing string."
+        ],
+        "ja": [
+          "文字列の描画でクラッシュするバグを修正。"
+        ]
+      },
+      "0.1.0": {
+        "en": [
+          "Initial release."
+        ],
+        "ja": [
+          "初期リリース。"
+        ]
+      }
+    }
+  }
+}

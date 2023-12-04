@@ -1,0 +1,279 @@
+{
+  "IterativeSinCluster": {
+    "latest_version": "0.1.26",
+    "urls": {
+      "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/IterativeSinCluster_0.1.26.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/IterativeSinCluster_0.1.25.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/IterativeSinCluster_0.1.24.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/IterativeSinCluster_0.1.23.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/IterativeSinCluster_0.1.22.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/IterativeSinCluster_0.1.21.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/IterativeSinCluster_0.1.20.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/IterativeSinCluster_0.1.19.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/IterativeSinCluster_0.1.18.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/IterativeSinCluster_0.1.17.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/IterativeSinCluster_0.1.16.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/IterativeSinCluster_0.1.15.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/IterativeSinCluster_0.1.13.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/IterativeSinCluster_0.1.12.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/IterativeSinCluster0.1.11.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/IterativeSinCluster0.1.10.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/IterativeSinCluster0.1.9.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/IterativeSinCluster0.1.8.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/IterativeSinCluster0.1.7.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/IterativeSinCluster0.1.6.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/DrawStringFix/IterativeSinCluster0.1.5.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/IterativeSinCluster0.1.3.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/LinuxGUIFix/IterativeSinCluster0.1.2.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/IterativeSinCluster0.1.1.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/IterativeSinCluster0.1.0/IterativeSinCluster0.1.0.zip"
+      ],
+      "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/IterativeSinClusterPresets.zip"
+    },
+    "changelog": {
+      "0.1.26": {
+        "en": [
+          "Changed to include presets in plugin zip package.",
+          "Fixed a bug that invalid `style.json` crashes plugin."
+        ],
+        "ja": [
+          "Zip パッケージにプリセットを同梱するよう変更。",
+          "不正な `style.json` によりプラグインがクラッシュするバグを修正。"
+        ]
+      },
+      "0.1.25": {
+        "en": [
+          "Changed default style color of `foregroundInactive`.",
+          "Fixed performance drop caused by subnormal floating point numbers."
+        ],
+        "ja": [
+          "デフォルトの `foregroundInactive` の色を変更。",
+          "サブノーマル数によるパフォーマンスの低下を修正。"
+        ]
+      },
+      "0.1.24": {
+        "en": [
+          "Fixed crash on Renoise. Previous code was trying to access freed memory of GUI widgets, and it was causing the crash."
+        ],
+        "ja": [
+          "Renoise で GUI がクラッシュするバグを修正。 GUI 要素のメモリが解放された後にアクセスを行おうとしていたことがクラッシュの原因。"
+        ]
+      },
+      "0.1.23": {
+        "en": [
+          "Fixed stuttering on Audacity where `processContext` is `nullptr`.",
+          "Fixed a bug in delay time computation. This may fix freeze or crash in some cases."
+        ],
+        "ja": [
+          "`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。",
+          "クラッシュやフリーズの原因となっていたディレイ時間の計算を修正。"
+        ]
+      },
+      "0.1.22": {
+        "en": [
+          "Updated splash screen text."
+        ],
+        "ja": [
+          "スプラッシュ画面のテキストを更新。"
+        ]
+      },
+      "0.1.21": {
+        "en": [
+          "Added decimation by holding shortcut to BarBox. Shortcut is <kbd>5</kbd>-<kbd>9</kbd>.",
+          "Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>."
+        ],
+        "ja": [
+          "BarBox にホールドのショートカットを追加。ショートカットキーは <kbd>5</kbd>-<kbd>9</kbd> 。",
+          "数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> による値の切り捨てのショートカットを追加。"
+        ]
+      },
+      "0.1.20": {
+        "en": [
+          "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak.",
+          "Added code path for 64-bit ARM CPU (aarch64).",
+          "Removed x86_64 SIMD run-time dispatching. Supported instruction set is now fixed to AVX."
+        ],
+        "ja": [
+          "クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。",
+          "64 ビット ARM CPU (aarch64) に対応するコードパスを追加。",
+          "x86_64 CPU の SIMD 命令セットに関するランタイム・ディスパッチを削除。サポートする命令セットを AVX に固定。"
+        ]
+      },
+      "0.1.19": {
+        "en": [
+          "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux.",
+          "Change BarBox to only send modified parameter values to host. This prevents to overwrite unchanged parameter automation on the same BarBox."
+        ],
+        "ja": [
+          "VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux で同一プラグインの GUI を複数開くとクラッシュするバグを修正。",
+          "BarBox が変更されたパラメータの値のみをホストに送るように変更。編集中の BarBox 上の変更されていないパラメータのオートメーションが上書きされないようになった。"
+        ]
+      },
+      "0.1.18": {
+        "en": [
+          "Changed BarBox to get focus on mouse down, and release focus on mouse exit."
+        ],
+        "ja": [
+          "BarBox がマウス押下でフォーカスを取得、マウスカーソルが範囲外に移動するとフォーカスを開放するように変更。"
+        ]
+      },
+      "0.1.17": {
+        "en": [
+          "Fixed crash on Linux.",
+          "Fixed BarBox to receive shift key.",
+          "Fixed `equalTemperament` default display value from 11 to 12. Display parameter name is `ET`."
+        ],
+        "ja": [
+          "Linux でのクラッシュを修正。",
+          "BarBox が <kbd>Shift</kbd> キーを受け取るように修正。",
+          "`equalTemperament` の GUI で表示されるデフォルト値を 11 から 12 に修正。対象パラメータの GUI 上での名前は `ET`."
+        ]
+      },
+      "0.1.16": {
+        "en": [
+          "Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER."
+        ],
+        "ja": [
+          "プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。"
+        ]
+      },
+      "0.1.15": {
+        "en": [
+          "Added custom font options for `style.json`."
+        ],
+        "ja": [
+          "`style.json` でカスタムフォントを設定するオプションを追加。"
+        ]
+      },
+      "0.1.14": {
+        "en": [
+          "Updated VSTGUI from 4.10 to 4.11."
+        ],
+        "ja": [
+          "VSTGUI を 4.10 から 4.11 にアップデート。"
+        ]
+      },
+      "0.1.13": {
+        "en": [
+          "Changed font to Tinos."
+        ],
+        "ja": [
+          "フォントを Tinos に変更。"
+        ]
+      },
+      "0.1.12": {
+        "en": [
+          "Fixed to reset properly.",
+          "Fixed `bypass` parameter behavior. This fixes playing all the notes at the moment of unmute, even if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3 `bypass` parameter."
+        ],
+        "ja": [
+          "リセットが正しく行われるように修正。",
+          "`bypass` パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の `bypass` パラメータを正しく実装しているホストでのみ発生していた。"
+        ]
+      },
+      "0.1.11": {
+        "en": [
+          "Implemented process context requirements."
+        ],
+        "ja": [
+          "Process context requirements を実装。"
+        ]
+      },
+      "0.1.10": {
+        "en": [
+          "Added check that DSP is initialized or not."
+        ],
+        "ja": [
+          "DSP が初期化されているかどうかのチェックを追加。"
+        ]
+      },
+      "0.1.9": {
+        "en": [
+          "Added undo/redo to BarBox."
+        ],
+        "ja": [
+          "BarBox に アンドゥ・リドゥの機能を追加。"
+        ]
+      },
+      "0.1.8": {
+        "en": [
+          "Added color configuration."
+        ],
+        "ja": [
+          "カラーコンフィグを追加。"
+        ]
+      },
+      "0.1.7": {
+        "en": [
+          "Reverted parameter smoother to the old one which works with variable size audio buffer.",
+          "Enabled pitch bend."
+        ],
+        "ja": [
+          "パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。",
+          "ピッチベンドを有効化。"
+        ]
+      },
+      "0.1.6": {
+        "en": [
+          "Changed BarBox shortcuts to be disabled when mouse cursor is on the outside of BarBox."
+        ],
+        "ja": [
+          "BarBox にフォーカスした後、マウスカーソルを領域外に動かしている間はショートカットが無効になるように変更。"
+        ]
+      },
+      "0.1.5": {
+        "en": [
+          "Fixed a bug that cause crash when drawing string."
+        ],
+        "ja": [
+          "文字列の描画でクラッシュするバグを修正。"
+        ]
+      },
+      "0.1.4": {
+        "en": [
+          "Changed display method for pop-up which shows up by clicking plugin title."
+        ],
+        "ja": [
+          "プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。"
+        ]
+      },
+      "0.1.3": {
+        "en": [
+          "Fixed a bug that was causing noise on PreSonus Studio One 4.6.1."
+        ],
+        "ja": [
+          "PreSonus Studio One 4.6.1 で出力にノイズが乗るバグを修正。"
+        ]
+      },
+      "0.1.2": {
+        "en": [
+          "Enabled GUI for Linux build."
+        ],
+        "ja": [
+          "Linux ビルドの GUI を有効化。"
+        ]
+      },
+      "0.1.1": {
+        "en": [
+          "Fixed macOS build.",
+          "Added code paths for AVX and AVX512 instructions.",
+          "Fixed wobbling knob bug."
+        ],
+        "ja": [
+          "macOS ビルドの修正。",
+          "AVX, AVX512 命令セットのコードパスを追加。",
+          "Ableton Live 10.1.6 で特定のノブが揺れ戻るバグを修正。"
+        ]
+      },
+      "0.1.0": {
+        "en": [
+          "Initial release."
+        ],
+        "ja": [
+          "初期リリース。"
+        ]
+      }
+    }
+  }
+}

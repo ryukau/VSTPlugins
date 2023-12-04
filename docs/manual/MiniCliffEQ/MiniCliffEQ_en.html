@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
+
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="dcterms.date" content="2023-12-02" />
+<title>MiniCliffEQ_en</title>
+<style>
+code { white-space: pre-wrap; }
+span.smallcaps { font-variant: small-caps; }
+span.underline { text-decoration: underline; }
+div.column { display: inline-block; vertical-align: top; width: 50%; }
+</style>
+<style>
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style>body {
+  max-width: 704px;
+  margin: auto;
+  padding: 32px 8px;
+}
+
+img {
+  max-width: 100%;
+}
+
+video {
+  max-width: 100%;
+}
+
+details.list>summary {
+  line-height: 3em;
+}
+
+kbd {
+  font-family: inherit;
+  border-style: outset;
+  border-width: 1px 2px 2px 1px;
+  border-radius: 2px;
+  padding: 2px 4px;
+  margin: 2px;
+  line-height: calc(1em + 16px);
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  background-color: #ffe590;
+}
+
+h1 {
+  background-color: #163eac;
+  color: #ffffff;
+  padding-left: 8px;
+}
+
+h2 {
+  border-left: solid 32px #2851c2;
+  padding-left: 24px;
+}
+
+h3 {
+  border-left: solid 20px #4d74dd;
+  padding-left: 16px;
+}
+
+h4 {
+  border-left: solid 12px #6a88da;
+  padding-left: 8px;
+  margin-bottom: 0.5em;
+}
+
+h5 {
+  border-left: solid 4px #8ca4e7;
+  padding-left: 4px;
+  margin-bottom: 0.5em;
+}
+
+h6 {
+  border-left: solid 2px #a8bcf5;
+  padding-left: 2px;
+  margin-bottom: 0.5em;
+}
+
+table {
+  border-spacing: 0px;
+  border-collapse: separate;
+  border-left: 1px solid #888888;
+  border-right: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: hidden;
+}
+
+tr:nth-child(odd) {
+  background: #eeeeee;
+}
+
+tr:nth-child(even) {
+  background: #ffffff;
+}
+
+th {
+  height: 2em;
+  padding: 4px 1em 4px 1em;
+  background: #ffffff;
+  border-bottom: 1px solid #888888;
+}
+
+th:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+td {
+  height: 1.5em;
+  padding: 4px 1em 4px 1em;
+  border-bottom: 1px solid #888888;
+}
+
+td:not(:first-child) {
+  border-left: 1px solid #888888;
+}
+
+dl {
+  padding-left: 2em;
+}
+
+dt {
+  font-weight: bold;
+  border-bottom: 1px dashed #000000;
+}
+
+dd {
+  border-left: 1px dotted #000000;
+  margin-left: 1em;
+  margin-bottom: 2em;
+  padding-left: 1em;
+}
+
+audio {
+  vertical-align: middle;
+}
+
+label {
+  vertical-align: middle;
+}
+
+:not(.sourceCode)>pre {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+div.sourceCode {
+  overflow: auto;
+  border: 1px solid #888888;
+  padding: 8px;
+}
+
+pre>code.sourceCode>span>a:first-child::before {
+  border-right: 1px solid #888888;
+  padding-right: 1em;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+:not(pre)>code {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+  color: #705020;
+}
+
+li {
+  margin: 8px;
+}
+
+summary:hover {
+  background-color: #eeeeee;
+}
+
+header {
+  border-bottom: 1px gray solid;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
+
+footer {
+  border-top: 1px gray solid;
+  padding: 0.5em;
+  margin-top: 1em;
+}
+
+</style>
+</head>
+
+<body>
+<header>
+    <p><a href="..\..\index.html">Back to Index</a></p>
+      <p>
+  Update: 2023-12-02
+  </p>
+      <details>
+  <summary translate="yes">Table of Contents</summary>
+  <nav id="TOC" role="doc-toc">
+  <ul>
+  <li><a href="#minicliffeq" id="toc-minicliffeq">MiniCliffEQ</a>
+  <ul>
+  <li><a href="#contact" id="toc-contact">Contact</a></li>
+  <li><a href="#installation" id="toc-installation">Installation</a>
+  <ul>
+  <li><a href="#plugin" id="toc-plugin">Plugin</a></li>
+  <li><a href="#presets" id="toc-presets">Presets</a></li>
+  <li><a href="#windows-specific" id="toc-windows-specific">Windows
+  Specific</a></li>
+  <li><a href="#linux-specific" id="toc-linux-specific">Linux
+  Specific</a></li>
+  <li><a href="#macos-specific" id="toc-macos-specific">macOS
+  Specific</a>
+  <ul>
+  <li><a href="#remove-quarantine" id="toc-remove-quarantine">Remove
+  Quarantine</a></li>
+  <li><a href="#bypass-gatekeeper" id="toc-bypass-gatekeeper">Bypass
+  Gatekeeper</a></li>
+  <li><a href="#applying-codesign" id="toc-applying-codesign">Applying
+  <code>codesign</code></a></li>
+  <li><a href="#reference" id="toc-reference">Reference</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#gui-style-configuration"
+  id="toc-gui-style-configuration">GUI Style Configuration</a>
+  <ul>
+  <li><a href="#font-options" id="toc-font-options">Font
+  Options</a></li>
+  <li><a href="#color-options" id="toc-color-options">Color
+  Options</a></li>
+  </ul></li>
+  <li><a href="#controls" id="toc-controls">Controls</a></li>
+  <li><a href="#caution" id="toc-caution">Caution</a></li>
+  <li><a href="#usage" id="toc-usage">Usage</a></li>
+  <li><a href="#parameters" id="toc-parameters">Parameters</a></li>
+  <li><a href="#change-log" id="toc-change-log">Change Log</a></li>
+  <li><a href="#old-versions" id="toc-old-versions">Old
+  Versions</a></li>
+  <li><a href="#license" id="toc-license">License</a>
+  <ul>
+  <li><a href="#about-vst" id="toc-about-vst">About VST</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+  </nav>
+  </details>
+  </header>
+<h1 id="minicliffeq">MiniCliffEQ</h1>
+<p><img src="img/MiniCliffEQ.png" /></p>
+<p>MiniCliffEQ is a linear phase FIR filter with 2^15 = 32768 taps.
+Latency is improved from initial version, however it still exceeds 0.34
+seconds in 48000 Hz sampling rate. The primary purpose is to suppress
+direct current. It can also be used as very sharp low-pass, high-pass,
+low-shelf, and high-shelf filter.</p>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/MiniCliffEQ_0.1.14.zip">Download
+MiniCliffEQ 0.1.14 <code>full</code> - VST 3 (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="30px"
+style="display: inline-block; vertical-align: middle;"></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/MiniCliffEQ_0.1.14_macOS.zip">Download
+MiniCliffEQ 0.1.14 <code>macOS</code> - VST 3 (github.com)</a> <img
+src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+alt="VST compatible logo."
+width="30px"
+style="display: inline-block; vertical-align: middle;"></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/MiniCliffEQPresets.zip">Download
+Presets (github.com)</a></li>
+</ul>
+<p><code>full</code> package contains following builds.</p>
+<ul>
+<li>Windows (x86_64)</li>
+<li>Linux (x86_64)</li>
+<li>macOS (Universal 2)</li>
+</ul>
+<p>Linux build is built on Ubuntu 22.04. If you are using distribution
+other than Ubuntu 22.04, plugin will not likely to run. In this case,
+please take a look at <a
+href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">build
+instruction</a>.</p>
+<p><code>macOS</code> package is recommended for macOS user. I can’t
+purchase Apple Developer Program, therefore installation requires a
+workaround to bypass Gatekeeper. Details of workaround are written in
+<a href="#macos-specific">Installation -&gt; macOS Specific</a>
+section.</p>
+<h2 id="contact">Contact</h2>
+<p>Feel free to contact me on <a
+href="https://github.com/ryukau/VSTPlugins/commits/master">GitHub
+repository</a> or <code>ryukau@gmail.com.</code></p>
+<p>You can fund the development through <a
+href="https://www.paypal.com/paypalme/ryukau">paypal.me/ryukau</a>.
+Current goal is to purchase M1 mac for better macOS support. 💸💻</p>
+<h2 id="installation">Installation</h2>
+<h3 id="plugin">Plugin</h3>
+<p>Move <code>*.vst3</code> directory to:</p>
+<ul>
+<li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
+<li><code>$HOME/.vst3/</code> for Linux.</li>
+<li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for
+macOS.</li>
+</ul>
+<p>DAW may provides additional VST3 directory. For more information,
+please refer to the manual of the DAW.</p>
+<h3 id="presets">Presets</h3>
+<p><strong>Notice</strong>: Some plugins don’t have presets provided by
+Uhhyou Plugins.</p>
+<p>Presets are included in the plugin package linked at the top of this
+page. To install presets, follow the steps below.</p>
+<ol type="1">
+<li>Download plugin from a link at the top of this page.</li>
+<li>Extract downloaded zip file.</li>
+<li>Open <code>presets</code> directory placed in extracted
+package.</li>
+<li>Move <code>Uhhyou</code> directory into an OS specific preset
+directory (see below).</li>
+</ol>
+<p>Below is a list of preset directories for each OS.</p>
+<ul>
+<li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets</code></li>
+<li>Linux : <code>$HOME/.vst3/presets</code></li>
+<li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets</code></li>
+</ul>
+<p>Preset directory name must be the same as the plugin. If preset
+directory does not exist, create it.</p>
+<ul>
+<li><a
+href="https://steinbergmedia.github.io/vst3_dev_portal/pages/Technical+Documentation/Locations+Format/Preset+Locations.html">Preset
+Locations - VST 3 Developer Portal</a></li>
+</ul>
+<h3 id="windows-specific">Windows Specific</h3>
+<p>If DAW doesn’t recognize the plugin, try installing C++
+redistributable (<code>vc_redist.x64.exe</code>). Installer can be found
+in the link below.</p>
+<ul>
+<li><a
+href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The
+latest supported Visual C++ downloads</a></li>
+</ul>
+<h3 id="linux-specific">Linux Specific</h3>
+<p>On Ubuntu 22.04, those packages are required.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+<p>If DAW doesn’t recognize the plugin, take a look at
+<code>Package Requirements</code> section of the link below and make
+sure all the VST3 related package is installed.</p>
+<ul>
+<li><a
+href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI:
+Setup</a></li>
+</ul>
+<p>REAPER on Linux may not recognize the plugin. A workaround is to
+delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and
+restart REAPER.</p>
+<h3 id="macos-specific">macOS Specific</h3>
+<p><strong>Important</strong>: <code>full</code> package is not
+confirmed working. When using <code>full</code>, try removing following
+files.</p>
+<ul>
+<li><code>Contents/Resources/Documentation</code></li>
+<li><code>Contents/x86_64-linux</code></li>
+<li><code>Contents/x86_64-win</code></li>
+</ul>
+<p><code>macOS</code> package doesn’t contain above files. Also, all
+packages are in “ad-hoc signing” state set by <code>codesign</code>
+command.</p>
+<h4 id="remove-quarantine">Remove Quarantine</h4>
+<p>When trying to run plugin first time, following message may appear on
+macOS.</p>
+<pre><code>&lt;PluginName&gt;.vst3 is damaged and can&#39;t be opened. You should move it to the Trash.</code></pre>
+<p>In this case, open terminal and try running one or both of following
+command to unzipped <code>.vst3</code> directory. Replace
+<code>/path/to/PluginName.vst3</code> according to your install
+location.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rd</span> com.apple.quarantine /path/to/PluginName.vst3</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rc</span> /path/to/PluginName.vst3</span></code></pre></div>
+<h4 id="bypass-gatekeeper">Bypass Gatekeeper</h4>
+<p>Plugin may be considered as unsigned/un-notarized application. In
+this case, open System Preferences, go to Security &amp; Privacy →
+General, then click the Open Anyway button. The offcial Apple help page
+linked below has screenshots for the procedure. See “If you want to open
+an app that hasn’t been notarized or is from an unidentified developer”
+section.</p>
+<ul>
+<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps
+on your Mac - Apple Support</a></li>
+</ul>
+<p>If the plugin is still not working, try changing install location to
+<code>/Library/Audio/Plug-ins/VST3/</code> or
+<code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> whichever
+still haven’t tried.</p>
+<p>If all the above methods do not work, try following the steps
+below.</p>
+<ol type="1">
+<li>Open terminal and run <code>sudo spctl --master-disable</code>.</li>
+<li>Go to System Preferences → Security and Privacy → General → Allow
+apps downloaded from, then select “Anywhere”.</li>
+</ol>
+<p>Beware that steps above degrades security of your system. To revert
+the settings, follow the steps below.</p>
+<ol type="1">
+<li>Go to System Preferences → Security and Privacy → General → Allow
+apps downloaded from, then select option to “App Store and identified
+developers”.</li>
+<li>Open terminal and run <code>sudo spctl --master-enable</code>.</li>
+</ol>
+<h4 id="applying-codesign">Applying <code>codesign</code></h4>
+<p><strong>Note</strong> This section may not relevant to
+<code>macOS</code> packages. However it’s not verified. (<a
+href="https://github.com/ryukau/VSTPlugins/issues/27">GitHub
+issue</a>)</p>
+<p>To use <code>full</code> package, following command might be
+used.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> codesign <span class="at">--force</span> <span class="at">--deep</span> <span class="at">-s</span> <span class="at">-</span> /path/to/PluginName.vst3</span></code></pre></div>
+<p><code>codesign</code> might not be available without installing <a
+href="https://developer.apple.com/xcode/">Xcode</a>.</p>
+<h4 id="reference">Reference</h4>
+<ul>
+<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps
+on your Mac - Apple Support</a></li>
+<li><a
+href="https://stackoverflow.com/questions/66891065/libprism-sw-dylib-cannot-be-opened-because-the-developer-cannot-be-verified-o">java
+- “libprism_sw.dylib” cannot be opened because the developer cannot be
+verified. on mac JAVAFX - Stack Overflow</a></li>
+<li><a
+href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How
+to Fix App “is damaged and can’t be opened. You should move it to the
+Trash” Error on Mac</a></li>
+<li><a
+href="https://web.archive.org/web/20221223004334/https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
+unsigned/un-notarized applications/plugins in Mac OS | Venn
+Audio</a></li>
+</ul>
+<h2 id="gui-style-configuration">GUI Style Configuration</h2>
+<p>At first time, create color config file to:</p>
+<ul>
+<li><code>/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json</code>
+on Windows.</li>
+<li><code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> on
+Linux.
+<ul>
+<li>If <code>$XDG_CONFIG_HOME</code> is empty, make
+<code>$HOME/.config/UhhyouPlugins/style/style.json</code>.</li>
+</ul></li>
+<li><code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code>
+on macOS.</li>
+</ul>
+<p><code>style.json</code> will be loaded for each time a plugin window
+opens.</p>
+<p>Several color themes are available on the link below.</p>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/tree/master/package/style/themes">VSTPlugins/package/style/themes
+at master · ryukau/VSTPlugins</a></li>
+</ul>
+<p>Below is a example of <code>style.json</code>.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontFamily&quot;</span><span class="fu">:</span> <span class="st">&quot;Tinos&quot;</span><span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontBold&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontItalic&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span><span class="fu">,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;background&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;boxBackground&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;border&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderCheckbox&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderLabel&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;unfocused&quot;</span><span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span><span class="fu">,</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightMain&quot;</span><span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span><span class="fu">,</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightAccent&quot;</span><span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span><span class="fu">,</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightButton&quot;</span><span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span><span class="fu">,</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 id="font-options">Font Options</h3>
+<p>Following is a list of font options.</p>
+<ul>
+<li><code>fontFamily</code>: Font family name.</li>
+<li><code>fontBold</code>: Enable <strong>bold</strong> style when
+<code>true</code>, disable when <code>false</code>.</li>
+<li><code>fontItalic</code>: Enable <em>italic</em> style when
+<code>true</code>, disable when <code>false</code>.</li>
+</ul>
+<p>To use custom font, place <code>*.ttf</code> file into custom font
+path: <code>*.vst3/Contents/Resources/Fonts</code>.</p>
+<p><strong>Notice</strong>: If the combination of
+<code>fontFamily</code>, <code>fontBold</code>, <code>fontItalic</code>
+is not exists in custom font path, default font of VSTGUI is used.</p>
+<p>If <code>fontFamily</code> is set to empty string <code>""</code>,
+then <a
+href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
+is used as fallback. If the length is greater than 1 and the font family
+name doesn’t exists, default font of VSTGUI is used.</p>
+<p>Styles other than bold, italic or bold-italic are not supported by
+VSTGUI. For example, “Thin”, “Light”, “Medium”, and “Black” weights
+cannot be used.</p>
+<h3 id="color-options">Color Options</h3>
+<p>Hex color codes are used.</p>
+<ul>
+<li>6 digit color is RGB.</li>
+<li>8 digit color is RGBA.</li>
+</ul>
+<p>First letter <code>#</code> is conventional. Plugins ignore the first
+letter of color code, thus <code>?102938</code>, <code>\n11335577</code>
+are valid.</p>
+<p>Do not use characters outside of <code>0-9a-f</code> for color
+value.</p>
+<p>Following is a list of color options. If an option is missing,
+default color will be used.</p>
+<ul>
+<li><code>foreground</code>: Text color.</li>
+<li><code>foregroundButtonOn</code>: Text color of active toggle button.
+Recommend to use the same value of <code>foreground</code> or
+<code>boxBackground</code>.</li>
+<li><code>foregroundInactive</code>: Text color of inactive components.
+Currently, only used for TabView.</li>
+<li><code>background</code>: Background color.</li>
+<li><code>boxBackground</code>: Background color of inside of box shaped
+components (Barbox, Button, Checkbox, OptionMenu, TextKnob,
+VSlider).</li>
+<li><code>border</code>: Border color of box shaped components.</li>
+<li><code>borderCheckbox</code>: Border color of CheckBox.</li>
+<li><code>borderLabel</code>: Line color of parameter section
+label.</li>
+<li><code>unfocused</code>: Color to fill unfocused components.
+Currently, only used for knobs.</li>
+<li><code>highlightMain</code>: Color to indicate focus is on a
+component. Highlight colors are also used for value of slider components
+(BarBox and VSlider).</li>
+<li><code>highlightAccent</code>: Same as <code>highlightMain</code>.
+Used for cosmetics.</li>
+<li><code>highlightButton</code>: Color to indicate focus is on a
+button.</li>
+<li><code>highlightWarning</code>: Same as <code>highlightMain</code>,
+but only used for parameters which requires extra caution.</li>
+<li><code>overlay</code>: Overlay color. Used to overlay texts and
+indicators.</li>
+<li><code>overlayHighlight</code>: Overlay color to highlight current
+focus.</li>
+</ul>
+<h2 id="controls">Controls</h2>
+<p><kbd>Right Click</kbd> on the controls pops up a context menu
+provided by DAW.</p>
+<p>Knob and slider provides following controls:</p>
+<ul>
+<li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
+<li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
+<li><kbd>Middle Click</kbd> : Rotate through minimum, default and
+maximum value.</li>
+<li><kbd>Shift</kbd> + <kbd>Middle Click</kbd> : Take floor of current
+value.
+<ul>
+<li><strong>Note</strong>: For decibel (<code>dB</code>) parameters,
+floor is applied after the value is converted to amplitude.</li>
+</ul></li>
+</ul>
+<h2 id="caution">Caution</h2>
+<p>Latency is <code>2^15 / 2 - 1 = 16383</code> samples. Signal to noise
+ratio is around -120 dB.</p>
+<h2 id="usage">Usage</h2>
+<p>Primary usage of MiniCliffEQ is direct current (DC) suppression. It
+can also be used for detecting subtle noises. The filter is linear
+phase, so band-splitting is another application. If possible, it is
+always better to replace MiniCliffEQ for more lightweight EQ, because
+the high latency degrades your workflow.</p>
+<p>To suppress DC, click <code>LP Gain</code> twice by mouse wheel. It
+sets the value to <code>-inf</code>. For ordinary speakers, it is better
+to stay <code>Cutoff</code> at initial value of 20 Hz. When
+<code>Cutoff</code> is set to below 10 Hz, the accuracy of cutoff
+frequency and steepness of roll-off will degrade. For example, when
+<code>Cutoff</code> is set to 1 Hz, amplitude response is -16.25 dB at 1
+Hz, and -60 dB at 0.1 Hz.</p>
+<p>To detect subtle noise, follow the steps below:</p>
+<ol type="1">
+<li>Insert limiter after MiniCliffEQ.</li>
+<li>Set <code>LP Gain</code> to <code>-inf</code>.</li>
+<li>Rise <code>Cutoff</code> to eliminate input signal. Don’t forget to
+<code>Refresh FIR</code>!</li>
+<li>Set <code>HP Gain</code> to <code>144.5</code>.</li>
+</ol>
+<p>For example, consider to set <code>Cutoff</code> to 200 Hz, and input
+100 Hz sine wave to the above setting. If the output is not silent, then
+the input sine wave contains some noise. Note that the noise that can be
+heard when applying 144.5 dB gain is definitely not perceived by human
+ear. This procedure is useful to investigate plugin algorithm, rather
+than to measure the quality of sound.</p>
+<p>The filter design algorithm used in MiniCliffEQ is the same one as
+following Python 3 code:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.signal <span class="im">as</span> signal</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>samplerate <span class="op">=</span> <span class="dv">48000</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>cutoffHz <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>fir <span class="op">=</span> signal.firwin(<span class="dv">2</span><span class="op">**</span><span class="dv">15</span> <span class="op">-</span> <span class="dv">1</span>, cutoffHz, window<span class="op">=</span><span class="st">&quot;nuttall&quot;</span>, fs<span class="op">=</span>samplerate)</span></code></pre></div>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt>Refresh FIR</dt>
+<dd>
+<p>Click <code>Refresh FIR</code> to refresh filter coefficients after
+changing <code>Cutoff</code>. Note that clicking
+<code>Refresh FIR</code> resets internal states, and stops sound for the
+length of latency.</p>
+</dd>
+<dt>Cutoff [Hz]</dt>
+<dd>
+<p>FIR filter cutoff frequency.</p>
+</dd>
+<dt>HP Gain [dB]</dt>
+<dd>
+<p>Gain of highpass output.</p>
+</dd>
+<dt>LP Gain [dB]</dt>
+<dd>
+<p>Gain of lowpass output.</p>
+</dd>
+</dl>
+<h2 id="change-log">Change Log</h2>
+<ul>
+<li>0.1.14
+<ul>
+<li>Changed to include presets in plugin zip package.</li>
+<li>Fixed a bug that invalid <code>style.json</code> crashes
+plugin.</li>
+</ul></li>
+<li>0.1.13
+<ul>
+<li>Changed default style color of <code>foregroundInactive</code>.</li>
+<li>Fixed performance drop caused by subnormal floating point
+numbers.</li>
+</ul></li>
+<li>0.1.12
+<ul>
+<li>Fixed crash on Renoise. Previous code was trying to access freed
+memory of GUI widgets, and it was causing the crash.</li>
+</ul></li>
+<li>0.1.11
+<ul>
+<li>Fixed stuttering on Audacity where <code>processContext</code> is
+<code>nullptr</code>.</li>
+</ul></li>
+<li>0.1.10
+<ul>
+<li>Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd>
++ <kbd>Middle Click</kbd>.</li>
+<li>Added mutex around FFTW3. This may prevent crash by the call of
+thread unsafe functions in FFTW3.</li>
+</ul></li>
+<li>0.1.9
+<ul>
+<li>Added to <code>virtual</code> to destructor of common components.
+This may prevent some cause of crash or memory leak.</li>
+</ul></li>
+<li>0.1.8
+<ul>
+<li>Updated VST 3 SDK to version 3.7.6. This also fixes the crash when
+opening multiple GUI of same plugin on Linux.</li>
+<li>Changed convolution algorithm to further distribute CPU load.</li>
+</ul></li>
+<li>0.1.7
+<ul>
+<li>Fixed crash when FIR filter is refreshed at the same time on 2 or
+more instances of MiniCliffEQ.</li>
+</ul></li>
+<li>0.1.6
+<ul>
+<li>Changed convolution algorithm to reduce CPU load spikes.</li>
+</ul></li>
+<li>0.1.5
+<ul>
+<li>Fixed crash at plugin scan on some Windows environment. FFTW3 static
+library for Windows is changed to build without SIMD flags.</li>
+</ul></li>
+<li>0.1.4
+<ul>
+<li>Fixed a bug where one of the output of partial convolution was off
+by one sample.</li>
+</ul></li>
+<li>0.1.3
+<ul>
+<li>Changed convolution algorithm from overlap-add to overlap-save for
+slightly less noise and also slightly better performance.</li>
+</ul></li>
+<li>0.1.2
+<ul>
+<li>Changed convolution algorithm not to introduce latency. Average CPU
+load is increased due to trade-off. Latency from FIR filter still
+remains.</li>
+</ul></li>
+<li>0.1.1
+<ul>
+<li>Changed to use <code>std::accumulate</code> to improve acculacy of
+FIR filter nomalization.</li>
+</ul></li>
+<li>0.1.0
+<ul>
+<li>Initial release.</li>
+</ul></li>
+</ul>
+<h2 id="old-versions">Old Versions</h2>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/MiniCliffEQ_0.1.13.zip">MiniCliffEQ
+0.1.13 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/MiniCliffEQ_0.1.12.zip">MiniCliffEQ
+0.1.12 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/MiniCliffEQ_0.1.11.zip">MiniCliffEQ
+0.1.11 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/MiniCliffEQ_0.1.10.zip">MiniCliffEQ
+0.1.10 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/MiniCliffEQ_0.1.9.zip">MiniCliffEQ
+0.1.9 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/MiniCliffEQ_0.1.8.zip">MiniCliffEQ
+0.1.8 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.40.0/MiniCliffEQ_0.1.7.zip">MiniCliffEQ
+0.1.7 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.38.0/MiniCliffEQ_0.1.5.zip">MiniCliffEQ
+0.1.5 - VST 3 (github.com)</a></li>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.36.0/MiniCliffEQ_0.1.4.zip">MiniCliffEQ
+0.1.4 - VST 3 (github.com)</a></li>
+</ul>
+<h2 id="license">License</h2>
+<p>MiniCliffEQ is licensed under GPLv3. Complete licenses are linked
+below.</p>
+<ul>
+<li><a
+href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+</ul>
+<p>If the link above doesn’t work, please send email to
+<code>ryukau@gmail.com</code>.</p>
+<h3 id="about-vst">About VST</h3>
+<p>VST is a trademark of Steinberg Media Technologies GmbH, registered
+in Europe and other countries.</p>
+
+<footer>
+    <p><a href="..\..\index.html">Back to Index</a></p>
+  </footer>
+</body>
+
+</html>
