@@ -1,8 +1,11 @@
 on:
   workflow_dispatch:
   push:
-    branches:
-      - '*'
+    branches-ignore:
+      - 'master'
+      - 'docs'
+    paths-ignore:
+      - 'docs/**'
     tags:
       - '*'
 
