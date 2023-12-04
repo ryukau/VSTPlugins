@@ -19,7 +19,7 @@ def check_file(file_path):
         exit(1)
 
 
-def create_full_archive_from_github_actions_artifact(version):
+def create_full_archive_from_github_actions_artifact(version, manual_root_dir: Path):
     with open("manual.json", "r", encoding="utf-8") as fi:
         manual_dict = json.load(fi)
 
@@ -51,12 +51,13 @@ def create_full_archive_from_github_actions_artifact(version):
         )
 
         # Do not make package if a plugin doesn't have manual.
-        if not Path(f"../docs/manual/{manual_name}").exists():
+        plugin_manual_dir = manual_root_dir / Path(f"{manual_name}")
+        if not plugin_manual_dir.exists():
             print(f"Skipping {plugin_name}: manual not found")
             continue
 
         copy_resource(
-            Path(f"../docs/manual/{manual_name}"),
+            plugin_manual_dir,
             vst3_dir / Path("Contents/Resources/Documentation"),
             f"{plugin_name} manual was not found",
         )
@@ -74,7 +75,7 @@ def create_full_archive_from_github_actions_artifact(version):
         )
 
 
-def create_macos_archive_from_github_actions_artifact(version):
+def create_macos_archive_from_github_actions_artifact(version, manual_root_dir: Path):
     """
     Ad-hoc method. Merge this to `create_full_archive_from_github_actions_artifact`
     in future. Also remove `pack_macOS` line from `.github/workflows/build.yml`.
@@ -106,7 +107,8 @@ def create_macos_archive_from_github_actions_artifact(version):
         )
 
         # Do not make package if a plugin doesn't have manual.
-        if not Path(f"../docs/manual/{manual_name}").exists():
+        plugin_manual_dir = manual_root_dir / Path(f"{manual_name}")
+        if not plugin_manual_dir.exists():
             print(f"Skipping {plugin_name}: manual not found")
             continue
 
@@ -176,5 +178,6 @@ def get_version():
 
 if __name__ == "__main__":
     version = get_version()
-    create_macos_archive_from_github_actions_artifact(version)
-    create_full_archive_from_github_actions_artifact(version)
+    manual_root_dir = "../docs/manual/"
+    create_macos_archive_from_github_actions_artifact(version, manual_root_dir)
+    create_full_archive_from_github_actions_artifact(version, manual_root_dir)
