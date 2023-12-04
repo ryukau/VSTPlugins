@@ -25,6 +25,15 @@ Following plugins are experimental, or in α stage. They lack character and/or p
 - MatrixShifter
   - AM frequency shifter and chorus in a plugin.
 
+## Git Branches
+Following branches are active.
+
+- `master`: Release is published from here.
+- `develop`: Changes are gathered here before being released on `master`.
+- `docs`: Documentation is published from here.
+
+This branch structure is specific to GitHub Actions and GitHub Pages. When a release tag is pushed, a CI action is triggered to upload zip files. `docs` is separated to verify the links to those zip files before publishing the updated documentation.
+
 ## Files and Directories
 - `.github/workflows` and `ci`: Continuous integration (CI) scripts for GitHub Actions.
 - `common`: Common components across plugins. Including GUI widgets, VST 3 controller, and some DSP code.
