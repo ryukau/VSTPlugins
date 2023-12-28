@@ -29,69 +29,69 @@ jobs:
         name: vst_ubuntu
         path: vst_ubuntu
 
-  build-windows:
-    runs-on: windows-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        submodules: recursive
-    - name: Run script
-      run: ci/ci_windows.ps1
-    - name: Upload
-      if: ${{ startsWith(github.ref, 'refs/tags/') }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: vst_windows
-        path: vst_windows
+  # build-windows:
+  #   runs-on: windows-latest
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v3
+  #     with:
+  #       submodules: recursive
+  #   - name: Run script
+  #     run: ci/ci_windows.ps1
+  #   - name: Upload
+  #     if: ${{ startsWith(github.ref, 'refs/tags/') }}
+  #     uses: actions/upload-artifact@v3
+  #     with:
+  #       name: vst_windows
+  #       path: vst_windows
 
-  build-macOS:
-    runs-on: macos-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        submodules: recursive
-    - name: Run script
-      run: ci/ci_macOS.sh
-    - name: Upload
-      if: ${{ startsWith(github.ref, 'refs/tags/') }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: vst_macOS
-        path: vst_macOS
+  # build-macOS:
+  #   runs-on: macos-latest
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v3
+  #     with:
+  #       submodules: recursive
+  #   - name: Run script
+  #     run: ci/ci_macOS.sh
+  #   - name: Upload
+  #     if: ${{ startsWith(github.ref, 'refs/tags/') }}
+  #     uses: actions/upload-artifact@v3
+  #     with:
+  #       name: vst_macOS
+  #       path: vst_macOS
 
-  release-packaging:
-    needs: [build-ubuntu, build-windows, build-macOS]
-    runs-on: ubuntu-latest
-    if: ${{ startsWith(github.ref, 'refs/tags/UhhyouPlugins') }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          path:
-          ref: ${{ github.ref }}
-          submodules: recursive
-      - name: Download Artifacts
-        uses: actions/download-artifact@v3
-        with:
-          path: ${{ env.package_path }}
-      - name: Run package script
-        run: |
-          cd ${{ env.package_path }}
-          echo "Run pack.py"
-          python3 pack.py
-          echo "Run studiorack.py"
-          python3 studiorack.py
-      - name: Get Release Notes
-        run: 'echo "$(git tag -l --format="%(contents:body)" $GITHUB_REF_NAME)" > RELEASE_NOTES'
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: RELEASE_NOTES
-          files: |
-            ${{ env.package_path }}/pack_macOS/*.zip
-            ${{ env.package_path }}/pack/*.zip
-            ${{ env.package_path }}/pack/*.png
-            ${{ env.package_path }}/pack/plugins.json
-            ${{ env.package_path }}/audiosample/*.flac
+  # release-packaging:
+  #   needs: [build-ubuntu, build-windows, build-macOS]
+  #   runs-on: ubuntu-latest
+  #   if: ${{ startsWith(github.ref, 'refs/tags/UhhyouPlugins') }}
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+  #       with:
+  #         path:
+  #         ref: ${{ github.ref }}
+  #         submodules: recursive
+  #     - name: Download Artifacts
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         path: ${{ env.package_path }}
+  #     - name: Run package script
+  #       run: |
+  #         cd ${{ env.package_path }}
+  #         echo "Run pack.py"
+  #         python3 pack.py
+  #         echo "Run studiorack.py"
+  #         python3 studiorack.py
+  #     - name: Get Release Notes
+  #       run: 'echo "$(git tag -l --format="%(contents:body)" $GITHUB_REF_NAME)" > RELEASE_NOTES'
+  #     - name: Release
+  #       uses: softprops/action-gh-release@v1
+  #       with:
+  #         body_path: RELEASE_NOTES
+  #         files: |
+  #           ${{ env.package_path }}/pack_macOS/*.zip
+  #           ${{ env.package_path }}/pack/*.zip
+  #           ${{ env.package_path }}/pack/*.png
+  #           ${{ env.package_path }}/pack/plugins.json
+  #           ${{ env.package_path }}/audiosample/*.flac
