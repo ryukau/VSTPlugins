@@ -11,7 +11,7 @@ Following plugins are only available for x86_64 or aarch64.
 - EsPhaser
 - IterativeSinCluster
 
-To disable building them, comment out those plugins in top level `CMakeLists.txt`.
+To stop building these plugins, comment out these plugins in top level `CMakeLists.txt`.
 
 To target a specific x86_64 SIMD instructions, see `common/cmake/simd_x86_64_and_aarch64.cmake`.
 
@@ -31,10 +31,11 @@ git clone --recursive https://github.com/ryukau/VSTPlugins.git
 cd VSTPlugins
 
 # Patch vst3sdk.
-# - https://github.com/ryukau/VSTPlugins/issues/3
-cp \
-  ci/linux_patch/cairocontext.cpp \
-  lib/vst3sdk/vstgui4/vstgui/lib/platform/linux/cairocontext.cpp
+# - https://github.com/ryukau/VSTPlugins/issues/48
+# - https://github.com/steinbergmedia/vstgui/issues/126
+cd lib/vst3sdk/vstgui4/
+git apply ../../../ci/linux_patch/cairographicscontext.patch
+cd ../../../
 
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j
@@ -132,6 +133,12 @@ cmake --build build --config Release
 ```
 
 Plugins are built into `~/code/vst/VSTPlugins/build/VST3/Release`. To install plugins, copy them to `/Users/$USERNAME/Library/Audio/Plug-ins/VST3/`.
+
+If CMake is installed from Homebrew, `cmake -S . -B build -GXcode` may fail. In this case, try running following command.
+
+```
+sudo xcode-select --reset
+```
 
 ## Reference
 Steinberg's vst3sdk repository on GitHub.

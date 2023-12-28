@@ -1,0 +1,54 @@
+diff --git a/vstgui/lib/platform/linux/cairographicscontext.cpp b/vstgui/lib/platform/linux/cairographicscontext.cpp
+index ab620cc9..f9b735bf 100644
+--- a/vstgui/lib/platform/linux/cairographicscontext.cpp
++++ b/vstgui/lib/platform/linux/cairographicscontext.cpp
+@@ -406,15 +406,11 @@ bool CairoGraphicsDeviceContext::drawPolygon (const PointList& polygonPointList,
+ 	vstgui_assert (polygonPointList.empty () == false);
+ 	impl->doInContext ([&] () {
+ 		bool doPixelAlign = impl->state.drawMode.integralMode ();
+-		auto last = polygonPointList.back ();
+-		if (doPixelAlign)
+-			last = pixelAlign (impl->state.tm, last);
+-		cairo_move_to (impl->context, last.x, last.y);
+-		for (auto p : polygonPointList)
++		auto first = polygonPointList.front ();
++		cairo_move_to (impl->context, first.x, first.y);
++		for (auto p = polygonPointList.begin () + 1; p != polygonPointList.end (); ++p)
+ 		{
+-			if (doPixelAlign)
+-				p = pixelAlign (impl->state.tm, p);
+-			cairo_line_to (impl->context, p.x, p.y);
++			cairo_line_to (impl->context, (*p).x, (*p).y);
+ 		}
+ 		impl->draw (drawStyle);
+ 	});
+@@ -448,15 +444,17 @@ bool CairoGraphicsDeviceContext::drawRect (CRect rect, PlatformGraphicsDrawStyle
+ 	return true;
+ }
+ 
+-//------------------------------------------------------------------------
++//------------------------------cairo_restore (------------------------------------------
+ bool CairoGraphicsDeviceContext::drawArc (CRect rect, double startAngle1, double endAngle2,
+ 										  PlatformGraphicsDrawStyle drawStyle) const
+ {
+ 	impl->doInContext ([&] () {
++		cairo_save (impl->context);
+ 		CPoint center = rect.getCenter ();
+ 		cairo_translate (impl->context, center.x, center.y);
+-		cairo_scale (impl->context, 2.0 / rect.getWidth (), 2.0 / rect.getHeight ());
+-		cairo_arc (impl->context, 0, 0, 1, startAngle1, endAngle2);
++		cairo_scale (impl->context, rect.getWidth () /2.0 , rect.getHeight () / 2.0);
++		cairo_arc (impl->context, 0, 0, 1, startAngle1 / 180.0 * M_PI, endAngle2 / 180.0 * M_PI);
++		cairo_restore (impl->context);
+ 		impl->draw (drawStyle);
+ 	});
+ 	return true;
+@@ -468,7 +466,7 @@ bool CairoGraphicsDeviceContext::drawEllipse (CRect rect, PlatformGraphicsDrawSt
+ 	impl->doInContext ([&] () {
+ 		CPoint center = rect.getCenter ();
+ 		cairo_translate (impl->context, center.x, center.y);
+-		cairo_scale (impl->context, 2.0 / rect.getWidth (), 2.0 / rect.getHeight ());
++		cairo_scale (impl->context, rect.getWidth () / 2.0, rect.getHeight () / 2.0);
+ 		cairo_arc (impl->context, 0, 0, 1, 0, 2 * M_PI);
+ 		impl->draw (drawStyle);
+ 	});
