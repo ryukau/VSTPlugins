@@ -1,8 +1,9 @@
 {
   "FDNCymbal": {
-    "latest_version": "0.2.18",
+    "latest_version": "0.2.19",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/FDNCymbal_0.2.19.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/FDNCymbal_0.2.18.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/FDNCymbal_0.2.17.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/FDNCymbal_0.2.16.zip",
@@ -28,6 +29,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/FDNCymbalPresets.zip"
     },
     "changelog": {
+      "0.2.19": {
+        "en": [
+          "Fixed GUI on Linux."
+        ],
+        "ja": [
+          "Linux での GUI を修正。"
+        ]
+      },
       "0.2.18": {
         "en": [
           "Changed to include presets in plugin zip package.",

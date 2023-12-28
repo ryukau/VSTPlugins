@@ -1,8 +1,9 @@
 {
   "ParallelDetune": {
-    "latest_version": "0.1.4",
+    "latest_version": "0.1.5",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/ParallelDetune_0.1.5.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/ParallelDetune_0.1.4.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/ParallelDetune_0.1.3.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ParallelDetune_0.1.2.zip",
@@ -13,6 +14,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ParallelDetunePresets.zip"
     },
     "changelog": {
+      "0.1.5": {
+        "en": [
+          "Fixed GUI on Linux."
+        ],
+        "ja": [
+          "Linux での GUI を修正。"
+        ]
+      },
       "0.1.4": {
         "en": [
           "Changed to include presets in plugin zip package.",

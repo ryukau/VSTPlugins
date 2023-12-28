@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2023-12-02" />
+<meta name="dcterms.date" content="2023-12-28" />
 <title>vst3_dev</title>
 <style>
 code { white-space: pre-wrap; }
@@ -15,7 +15,7 @@ div.column { display: inline-block; vertical-align: top; width: 50%; }
 </style>
 <style>
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -260,9 +260,9 @@ footer {
 
 <body>
 <header>
-    <p><a href="..\index.html">Back to Index</a></p>
+    <p><a href="../index.html">Back to Index</a></p>
       <p>
-  Update: 2023-12-02
+  Update: 2023-12-28
   </p>
       <details>
   <summary translate="yes">Table of Contents</summary>
@@ -690,7 +690,7 @@ class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb8-
 <p>ビルドのコンフィグを変更するときは <code>cmake-gui</code>
 が使えます。</p>
 <div class="sourceCode" id="cb9"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cmake<span class="op">-</span>gui <span class="co"># build ディレクトリ内で実行する。</span></span></code></pre></div>
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cmake-gui <span class="co"># build ディレクトリ内で実行する。</span></span></code></pre></div>
 <h4 id="リリースビルド">リリースビルド</h4>
 <p><code>--config Release</code> を追加します。</p>
 <div class="sourceCode" id="cb10"><pre
@@ -734,9 +734,9 @@ Locations - VST 3 Developer Portal</a> に書いてあります。 Windows 10
 class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>code <span class="va">$PROFILE</span></span></code></pre></div>
 <p>次のコードを <code>$PROFILE</code> に追加します。</p>
 <div class="sourceCode" id="cb13"><pre
-class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> cpvst<span class="op">(</span><span class="va">$name</span><span class="op">,</span> <span class="op">[</span><span class="kw">switch</span><span class="op">]</span> <span class="va">$release</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="va">$target_dir</span> <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="va">$release</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;Release&quot;</span> <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span> <span class="st">&quot;Debug&quot;</span> <span class="op">}</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="va">$vst_path</span> <span class="op">=</span> <span class="st">&quot;.\VST3\$target_dir\$name.vst3&quot;</span></span>
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> cpvst<span class="op">(</span><span class="va">$name</span><span class="op">,</span> <span class="op">[</span><span class="dt">switch</span><span class="op">]</span> <span class="va">$release</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="va">$target_dir</span> <span class="op">=</span> <span class="cf">if</span> <span class="op">(</span><span class="va">$release</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;Release&quot;</span> <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span> <span class="st">&quot;Debug&quot;</span> <span class="op">}</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="va">$vst_path</span> <span class="op">=</span> <span class="st">&quot;.\VST3\</span><span class="va">$target_dir</span><span class="st">\</span><span class="va">$name</span><span class="st">.vst3&quot;</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Copy-Item</span> <span class="va">$vst_path</span> <span class="op">-</span>Destination <span class="st">&quot;C:\Program Files\Common Files\VST3&quot;</span> <span class="op">-</span>Force <span class="op">-</span>Recurse</span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p><code>$PROFILE</code> を読み込んで更新します。 bash の
@@ -1389,7 +1389,7 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb36-1"><a href="#
 <span id="cb36-83"><a href="#cb36-83" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></span>
 <span id="cb36-84"><a href="#cb36-84" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb36-85"><a href="#cb36-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-86"><a href="#cb36-86" aria-hidden="true" tabindex="-1"></a>  IViewCreator<span class="op">::</span>AttrType getAttributeType<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>string<span class="op"> &amp;</span>attributeName<span class="op">)</span> <span class="at">const</span></span>
+<span id="cb36-86"><a href="#cb36-86" aria-hidden="true" tabindex="-1"></a>  IViewCreator<span class="op">::</span>AttrType getAttributeType<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>string <span class="op">&amp;</span>attributeName<span class="op">)</span> <span class="at">const</span></span>
 <span id="cb36-87"><a href="#cb36-87" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span></span>
 <span id="cb36-88"><a href="#cb36-88" aria-hidden="true" tabindex="-1"></a>    <span class="co">// uidesc の属性を C++ で受け取るときの型を設定。</span></span>
 <span id="cb36-89"><a href="#cb36-89" aria-hidden="true" tabindex="-1"></a></span>
@@ -1404,8 +1404,8 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb36-1"><a href="#
 <span id="cb36-98"><a href="#cb36-98" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-99"><a href="#cb36-99" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bool</span> getAttributeValue<span class="op">(</span></span>
 <span id="cb36-100"><a href="#cb36-100" aria-hidden="true" tabindex="-1"></a>    CView <span class="op">*</span>view<span class="op">,</span></span>
-<span id="cb36-101"><a href="#cb36-101" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> <span class="bu">std::</span>string<span class="op"> &amp;</span>attributeName<span class="op">,</span></span>
-<span id="cb36-102"><a href="#cb36-102" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string<span class="op"> &amp;</span>stringValue<span class="op">,</span></span>
+<span id="cb36-101"><a href="#cb36-101" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> <span class="bu">std::</span>string <span class="op">&amp;</span>attributeName<span class="op">,</span></span>
+<span id="cb36-102"><a href="#cb36-102" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string <span class="op">&amp;</span>stringValue<span class="op">,</span></span>
 <span id="cb36-103"><a href="#cb36-103" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> IUIDescription <span class="op">*</span>desc<span class="op">)</span> <span class="at">const</span></span>
 <span id="cb36-104"><a href="#cb36-104" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span></span>
 <span id="cb36-105"><a href="#cb36-105" aria-hidden="true" tabindex="-1"></a>    <span class="co">// UI エディタで設定された属性を uidesc に書き込む文字列に変換。</span></span>
@@ -1424,7 +1424,7 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb36-1"><a href="#
 <span id="cb36-118"><a href="#cb36-118" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-119"><a href="#cb36-119" aria-hidden="true" tabindex="-1"></a><span class="kw">protected</span><span class="op">:</span></span>
 <span id="cb36-120"><a href="#cb36-120" aria-hidden="true" tabindex="-1"></a>  <span class="at">static</span> <span class="dt">bool</span></span>
-<span id="cb36-121"><a href="#cb36-121" aria-hidden="true" tabindex="-1"></a>  getViewAttributeString<span class="op">(</span>CView <span class="op">*</span>view<span class="op">,</span> <span class="at">const</span> CViewAttributeID attrID<span class="op">,</span> <span class="bu">std::</span>string<span class="op"> &amp;</span>value<span class="op">)</span></span>
+<span id="cb36-121"><a href="#cb36-121" aria-hidden="true" tabindex="-1"></a>  getViewAttributeString<span class="op">(</span>CView <span class="op">*</span>view<span class="op">,</span> <span class="at">const</span> CViewAttributeID attrID<span class="op">,</span> <span class="bu">std::</span>string <span class="op">&amp;</span>value<span class="op">)</span></span>
 <span id="cb36-122"><a href="#cb36-122" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span></span>
 <span id="cb36-123"><a href="#cb36-123" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint32_t</span> attrSize <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb36-124"><a href="#cb36-124" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>view<span class="op">-&gt;</span>getAttributeSize<span class="op">(</span>attrID<span class="op">,</span> attrSize<span class="op">))</span> <span class="op">{</span></span>
@@ -2392,7 +2392,7 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb64-1"><a href="#
 に実装例があります。</p>
 
 <footer>
-    <p><a href="..\index.html">Back to Index</a></p>
+    <p><a href="../index.html">Back to Index</a></p>
   </footer>
 </body>
 

@@ -102,12 +102,12 @@ if __name__ == "__main__":
     with open("../../package/manual.json", "r", encoding="utf-8") as fi:
         alias = json.load(fi)
 
-    release_name = "UhhyouPlugins0.57.0"
+    release_name = "UhhyouPlugins0.61.0"
     changelog_en = [
-        "Fixed a bug that invalid `style.json` crashes plugin.",
+        "Fixed GUI on Linux.",
     ]
     changelog_ja = [
-        "不正な `style.json` によりプラグインがクラッシュするバグを修正。",
+        "Linux での GUI を修正。",
     ]
     for target in targets:
         updateVersion(target, alias, changelog_en, changelog_ja, release_name)
