@@ -12,9 +12,7 @@ sudo apt-get install cmake gcc "libstdc++6" libx11-xcb-dev libxcb-util-dev libxc
 # Patch vst3sdk.
 # - https://github.com/ryukau/VSTPlugins/issues/48
 # - https://github.com/steinbergmedia/vstgui/issues/126
-cd lib/vst3sdk/vstgui4/
-git apply ../../../ci/linux_patch/cairographicscontext.patch
-cd ../../../
+git apply --directory=lib/vst3sdk/vstgui4/ ci/linux_patch/cairographicscontext.patch
 
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
