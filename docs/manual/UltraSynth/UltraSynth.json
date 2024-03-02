@@ -1,8 +1,9 @@
 {
   "UltraSynth": {
-    "latest_version": "0.1.8",
+    "latest_version": "0.1.9",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/UltraSynth_0.1.9.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/UltraSynth_0.1.8.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/UltraSynth_0.1.7.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/UltraSynth_0.1.6.zip",
@@ -15,6 +16,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/UltraSynthPresets.zip"
     },
     "changelog": {
+      "0.1.9": {
+        "en": [
+          "Fixed GUI on Linux."
+        ],
+        "ja": [
+          "Linux での GUI を修正。"
+        ]
+      },
       "0.1.8": {
         "en": [
           "Changed to include presets in plugin zip package.",

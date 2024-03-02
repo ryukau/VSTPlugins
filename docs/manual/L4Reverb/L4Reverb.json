@@ -1,8 +1,9 @@
 {
   "L4Reverb": {
-    "latest_version": "0.1.20",
+    "latest_version": "0.1.21",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/L4Reverb_0.1.21.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/L4Reverb_0.1.20.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/L4Reverb_0.1.19.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/L4Reverb_0.1.18.zip",
@@ -26,6 +27,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/L4ReverbPresets.zip"
     },
     "changelog": {
+      "0.1.21": {
+        "en": [
+          "Fixed GUI on Linux."
+        ],
+        "ja": [
+          "Linux での GUI を修正。"
+        ]
+      },
       "0.1.20": {
         "en": [
           "Changed to include presets in plugin zip package.",
@@ -205,9 +214,10 @@
     }
   },
   "L3Reverb": {
-    "latest_version": "0.1.20",
+    "latest_version": "0.1.21",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/L3Reverb_0.1.21.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/L3Reverb_0.1.20.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/L3Reverb_0.1.19.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/L3Reverb_0.1.18.zip",
@@ -228,6 +238,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/L3ReverbPresets.zip"
     },
     "changelog": {
+      "0.1.21": {
+        "en": [
+          "Fixed GUI on Linux."
+        ],
+        "ja": [
+          "Linux での GUI を修正。"
+        ]
+      },
       "0.1.20": {
         "en": [
           "Changed to include presets in plugin zip package.",

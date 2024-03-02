@@ -1,8 +1,9 @@
 {
   "PitchShiftDelay": {
-    "latest_version": "0.2.10",
+    "latest_version": "0.2.11",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/PitchShiftDelay_0.2.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/PitchShiftDelay_0.2.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/PitchShiftDelay_0.2.9.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.0/PitchShiftDelay_0.2.8.zip",
@@ -18,6 +19,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/PitchShiftDelayPresets.zip"
     },
     "changelog": {
+      "0.2.11": {
+        "en": [
+          "Fixed GUI on Linux."
+        ],
+        "ja": [
+          "Linux での GUI を修正。"
+        ]
+      },
       "0.2.10": {
         "en": [
           "Changed to include presets in plugin zip package.",

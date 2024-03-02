@@ -1,14 +1,23 @@
 {
   "GenericDrum": {
-    "latest_version": "0.1.1",
+    "latest_version": "0.1.2",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/GenericDrum_0.1.2.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/GenericDrum_0.1.1.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/GenericDrum_0.1.0.zip"
       ],
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/GenericDrumPresets.zip"
     },
     "changelog": {
+      "0.1.2": {
+        "en": [
+          "Fixed GUI on Linux."
+        ],
+        "ja": [
+          "Linux での GUI を修正。"
+        ]
+      },
       "0.1.1": {
         "en": [
           "Changed to include presets in plugin zip package.",
