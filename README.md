@@ -7,7 +7,7 @@ Packaged plugins are available at [Releases · ryukau/VSTPlugins](https://github
 
 If you have something related to plugin development, but not a bug report, feel free to use [discussion](https://github.com/ryukau/VSTPlugins/discussions) in this repository.
 
-You can fund the development via [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau). Primary goal is to get ARM mac for macOS port.
+You can fund the development via [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).
 
 ## Build Instruction
 See [build_instruction.md](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
