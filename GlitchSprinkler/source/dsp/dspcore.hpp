@@ -34,7 +34,8 @@ public:
     bool isNoteOn;
     uint32_t frame;
     int32_t id;
-    float noteNumber;
+    int noteNumber;
+    float cent;
     float velocity;
   };
 
@@ -71,7 +72,8 @@ public:
     note.isNoteOn = isNoteOn;
     note.frame = frame;
     note.id = noteId;
-    note.noteNumber = noteNumber + tuning;
+    note.noteNumber = noteNumber;
+    note.cent = tuning;
     note.velocity = velocity;
     midiNotes.push_back(note);
   }
@@ -108,13 +110,12 @@ private:
   std::minstd_rand paramRng{0};
 
   bool scheduleUpdateNote = false;
-  bool isReleasing = false;
   uint_fast32_t phasePeriod = 0;
-  uint_fast32_t phaseCounter = std::numeric_limits<uint_fast32_t>::max();
+  uint_fast32_t phaseCounter = 0;
   double oscSync = double(1);
   double fmIndex = double(0);
-  double decayGain = double(1);
+  double saturationGain = double(1);
+  double decayGain = double(0);
   double decayRatio = double(1);
-
   PolynomialCoefficientSolver<double, nPolyOscControl> polynomial;
 };

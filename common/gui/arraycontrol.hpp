@@ -108,7 +108,7 @@ public:
     if (index >= isEditing.size() || !getFrame()) return;
     if (!isEditing[index]) return;
     isEditing[index] = false;
-    getFrame()->beginEdit(id[index]);
+    getFrame()->endEdit(id[index]);
   }
 
   virtual void setValueAt(Steinberg::Vst::ParamID id, double normalized)
@@ -123,6 +123,17 @@ public:
     beginEdit();
     updateValue();
     endEdit();
+  }
+
+  void editAndUpdateValueAt(Steinberg::Vst::ParamID id, double normalized)
+  {
+    auto iter = idMap.find(id);
+    if (iter == idMap.end()) return;
+    auto index = iter->second;
+    beginEdit(index);
+    setValueAt(id, normalized);
+    updateValueAt(index);
+    endEdit(index);
   }
 
   void updateValue()

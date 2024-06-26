@@ -5,7 +5,7 @@ on:
       - 'master'
       - 'docs'
     paths-ignore:
-      - 'README.md'
+      - '**.md'
       - 'docs/**'
     tags:
       - '*'

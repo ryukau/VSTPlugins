@@ -41,5 +41,10 @@ DecibelScale<double> Scales::fmIndex(-60.0, 40.0, true);
 
 LinearScale<double> Scales::polynomialPointY(-0.5, 0.5);
 
+UIntScale<double> Scales::transposeOctave(2 * transposeOctaveOffset);
+UIntScale<double> Scales::transposeSemitone(2 * transposeSemitoneOffset);
+LinearScale<double> Scales::transposeCent(-3600, 3600);
+UIntScale<double> Scales::tuning(31);
+
 } // namespace Synth
 } // namespace Steinberg

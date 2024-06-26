@@ -32,22 +32,60 @@
 
 namespace VSTGUI {
 
-class PolynomialXYPad : public CControl {
+class PolynomialXYPad : public ArrayControl {
+private:
+  Uhhyou::Palette &pal;
+
+  static constexpr double twopi = double(2) * std::numbers::pi_v<double>;
+  static constexpr CCoord controlRadiusHalfOuter = 8.0;
+  static constexpr CCoord controlRadiusHalfInner = controlRadiusHalfOuter / 2;
+  static constexpr CCoord controlRadiusFull = 2 * controlRadiusHalfOuter;
+  CCoord borderWidth = 1.0;
+
+  CPoint mousePosition{-1.0, -1.0};
+  bool isMouseDown = false;
+  bool isMouseEntered = false;
+
+  static constexpr size_t nControlPoint = nPolyOscControl;
+  std::array<CPoint, nControlPoint> controlPoints;
+  int focusedPoint = -1;
+  int grabbedPoint = -1;
+
+  bool requireUpdate = false;
+  SomeDSP::PolynomialCoefficientSolver<double, nControlPoint> polynomial;
+
 public:
   PolynomialXYPad(
+    Steinberg::Vst::VSTGUIEditor *editor,
     const CRect &size,
-    IControlListener *listener,
-    int32_t tag,
-    Uhhyou::Palette &palette,
-    Steinberg::Vst::PlugEditor *editor)
-    : CControl(size, listener, tag), pal(palette), editor(editor), requireUpdate(true)
+    std::vector<Steinberg::Vst::ParamID> id,
+    std::vector<double> value,
+    std::vector<double> defaultValue,
+    Uhhyou::Palette &palette)
+    : ArrayControl(editor, size, id, value, defaultValue)
+    , pal(palette)
+    , requireUpdate(true)
   {
-    if (editor) editor->remember();
+    setWantsFocus(true);
+
+    updateControlPoints();
   }
 
-  ~PolynomialXYPad()
+  virtual void setValueAt(Steinberg::Vst::ParamID id_, double normalized) override
   {
-    if (editor) editor->forget();
+    ArrayControl::setValueAt(id_, normalized);
+
+    using ID = Steinberg::Synth::ParameterID::ID;
+
+    auto iter = idMap.find(id_);
+    if (iter == idMap.end()) return;
+    auto index = iter->second;
+
+    if (index < nControlPoint) {
+      setXAt(index, normalized);
+    } else {
+      setYAt(index % nControlPoint, normalized);
+    }
   }
 
   void draw(CDrawContext *pContext) override
@@ -178,8 +216,8 @@ public:
       }
 
       using ID = Steinberg::Synth::ParameterID::ID;
-      setParam(ID::polynomialPointX0 + grabbedPoint, point.x / getWidth());
-      setParam(ID::polynomialPointY0 + grabbedPoint, point.y / getHeight());
+      editAndUpdateValueAt(ID::polynomialPointX0 + grabbedPoint, point.x / getWidth());
+      editAndUpdateValueAt(ID::polynomialPointY0 + grabbedPoint, point.y / getHeight());
 
       requireUpdate = true;
     } else {
@@ -201,8 +239,12 @@ public:
     event.consumed = true;
   }
 
-  void scheduleUpdate() { requireUpdate = true; }
   void setBorderWidth(CCoord width) { borderWidth = width < 0 ? 0 : width; }
+
+  CLASS_METHODS(PolynomialXYPad, CControl);
+
+private:
+  void scheduleUpdate() { requireUpdate = true; }
 
   void setXAt(size_t index, double x)
   {
@@ -218,12 +260,12 @@ public:
     scheduleUpdate();
   }
 
-  CLASS_METHODS(PolynomialXYPad, CControl);
-
-private:
-  inline void setParam(Steinberg::Vst::ParamID id, Steinberg::Vst::ParamValue value)
+  void updateControlPoints()
   {
-    if (editor) editor->valueChanged(id, value);
+    for (size_t idx = 0; idx < nControlPoint; ++idx) {
+      setXAt(idx, value[idx]);
+      setYAt(idx, value[idx + nControlPoint]);
+    }
   }
 
   void setMousePosition(CPoint &pos)
@@ -252,28 +294,6 @@ private:
     }
     polynomial.updateCoefficients();
   }
-
-  Steinberg::Vst::PlugEditor *editor = nullptr;
-
-  Uhhyou::Palette &pal;
-
-  static constexpr double twopi = double(2) * std::numbers::pi_v<double>;
-  static constexpr CCoord controlRadiusHalfOuter = 8.0;
-  static constexpr CCoord controlRadiusHalfInner = controlRadiusHalfOuter / 2;
-  static constexpr CCoord controlRadiusFull = 2 * controlRadiusHalfOuter;
-  CCoord borderWidth = 1.0;
-
-  CPoint mousePosition{-1.0, -1.0};
-  bool isMouseDown = false;
-  bool isMouseEntered = false;
-
-  static constexpr size_t nControlPoint = nPolyOscControl;
-  std::array<CPoint, nControlPoint> controlPoints;
-  int focusedPoint = -1;
-  int grabbedPoint = -1;
-
-  bool requireUpdate = false;
-  SomeDSP::PolynomialCoefficientSolver<double, nControlPoint> polynomial;
 };
 
 } // namespace VSTGUI

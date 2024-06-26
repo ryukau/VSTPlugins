@@ -88,15 +88,6 @@ void Editor::updateUI(ParamID id, ParamValue normalized)
   PlugEditor::updateUI(id, normalized);
 
   using ID = Synth::ParameterID::ID;
-
-  if (id >= ID::polynomialPointX0 && id < ID::polynomialPointX0 + nPolyOscControl) {
-    polynomialXYPad->setXAt(id - ID::polynomialPointX0, normalized);
-    polynomialXYPad->setDirty();
-  } else if (id >= ID::polynomialPointY0 && id < ID::polynomialPointY0 + nPolyOscControl)
-  {
-    polynomialXYPad->setYAt(id - ID::polynomialPointY0, normalized);
-    polynomialXYPad->setDirty();
-  }
 }
 
 bool Editor::prepareUI()
@@ -123,6 +114,7 @@ bool Editor::prepareUI()
   constexpr auto mixTop9 = mixTop0 + 9 * labelY;
   constexpr auto mixTop10 = mixTop0 + 10 * labelY;
   constexpr auto mixTop11 = mixTop0 + 11 * labelY;
+  constexpr auto mixTop12 = mixTop0 + 12 * labelY;
   constexpr auto mixLeft0 = left0;
   constexpr auto mixLeft1 = mixLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
@@ -132,15 +124,6 @@ bool Editor::prepareUI()
   addTextKnob(
     mixLeft1, mixTop1, labelWidth, labelHeight, uiTextSize, ID::outputGain, Scales::gain,
     true, 5);
-
-  addLabel(mixLeft0, mixTop2, labelWidth, labelHeight, uiTextSize, "Seed");
-  auto seedTextKnob = addTextKnob(
-    mixLeft1, mixTop2, labelWidth, labelHeight, uiTextSize, ID::seed, Scales::seed, false,
-    0);
-  if (seedTextKnob) {
-    seedTextKnob->sensitivity = 2048.0 / double(1 << 24);
-    seedTextKnob->lowSensitivity = 1.0 / double(1 << 24);
-  }
 
   addLabel(mixLeft0, mixTop3, labelWidth, labelHeight, uiTextSize, "Decay [s]");
   addTextKnob(
@@ -154,6 +137,47 @@ bool Editor::prepareUI()
   addTextKnob(
     mixLeft1, mixTop5, labelWidth, labelHeight, uiTextSize, ID::fmIndex, Scales::fmIndex,
     false, 5);
+  addLabel(mixLeft0, mixTop6, labelWidth, labelHeight, uiTextSize, "Saturation [dB]");
+  addTextKnob(
+    mixLeft1, mixTop6, labelWidth, labelHeight, uiTextSize, ID::saturationGain,
+    Scales::gain, true, 5);
+
+  addLabel(mixLeft0, mixTop8, labelWidth, labelHeight, uiTextSize, "Seed");
+  auto seedTextKnob = addTextKnob(
+    mixLeft1, mixTop8, labelWidth, labelHeight, uiTextSize, ID::seed, Scales::seed, false,
+    0);
+  if (seedTextKnob) {
+    seedTextKnob->sensitivity = 2048.0 / double(1 << 24);
+    seedTextKnob->lowSensitivity = 1.0 / double(1 << 24);
+  }
+  addLabel(mixLeft0, mixTop9, labelWidth, labelHeight, uiTextSize, "Octave");
+  addTextKnob(
+    mixLeft1, mixTop9, labelWidth, labelHeight, uiTextSize, ID::transposeOctave,
+    Scales::transposeOctave, false, 0, -transposeOctaveOffset);
+  addLabel(mixLeft0, mixTop10, labelWidth, labelHeight, uiTextSize, "Semitone");
+  addTextKnob(
+    mixLeft1, mixTop10, labelWidth, labelHeight, uiTextSize, ID::transposeSemitone,
+    Scales::transposeSemitone, false, 0, -transposeSemitoneOffset);
+  addLabel(mixLeft0, mixTop11, labelWidth, labelHeight, uiTextSize, "Cent");
+  addTextKnob(
+    mixLeft1, mixTop11, labelWidth, labelHeight, uiTextSize, ID::transposeCent,
+    Scales::transposeCent, false, 5);
+  addLabel(mixLeft0, mixTop12, labelWidth, labelHeight, uiTextSize, "Tuning");
+  addOptionMenu(
+    mixLeft1, mixTop12, labelWidth, labelHeight, uiTextSize, ID::tuning,
+    {
+      "Equal Temperament 12", "Equal Temperament 5", "Just Intonation 5-limit Major",
+      "- Reserved 03 -",      "- Reserved 04 -",     "- Reserved 05 -",
+      "- Reserved 06 -",      "- Reserved 07 -",     "- Reserved 08 -",
+      "- Reserved 09 -",      "- Reserved 10 -",     "- Reserved 11 -",
+      "- Reserved 12 -",      "- Reserved 13 -",     "- Reserved 14 -",
+      "- Reserved 15 -",      "- Reserved 16 -",     "- Reserved 17 -",
+      "- Reserved 18 -",      "- Reserved 19 -",     "- Reserved 20 -",
+      "- Reserved 21 -",      "- Reserved 22 -",     "- Reserved 23 -",
+      "- Reserved 24 -",      "- Reserved 25 -",     "- Reserved 26 -",
+      "- Reserved 27 -",      "- Reserved 28 -",     "- Reserved 29 -",
+      "- Reserved 30 -",      "- Reserved 31 -",     "- Reserved 32 -",
+    });
 
   // Waveform.
   constexpr auto waveformTop0 = top0 + 0 * labelY;
@@ -162,18 +186,31 @@ bool Editor::prepareUI()
   addGroupLabel(
     waveformLeft0, waveformTop0, groupLabelWidth, labelHeight, uiTextSize, "Waveform");
 
-  polynomialXYPad = new PolynomialXYPad(
-    CRect(
-      waveformLeft0, waveformTop1, waveformLeft0 + barBoxWidth,
-      waveformTop1 + barBoxWidth),
-    this, 0, palette, this);
-  for (size_t idx = 0; idx < nPolyOscControl; ++idx) {
-    polynomialXYPad->setXAt(
-      idx, controller->getParamNormalized(ID::polynomialPointX0 + idx));
-    polynomialXYPad->setYAt(
-      idx, controller->getParamNormalized(ID::polynomialPointY0 + idx));
+  {
+    std::vector<ParamID> id(2 * nPolyOscControl);
+    for (size_t i = 0; i < id.size(); ++i) id[i] = ID::polynomialPointX0 + ParamID(i);
+    std::vector<double> value(id.size());
+    for (size_t i = 0; i < value.size(); ++i) {
+      value[i] = controller->getParamNormalized(id[i]);
+    }
+    std::vector<double> defaultValue(id.size());
+    for (size_t i = 0; i < defaultValue.size(); ++i) {
+      defaultValue[i] = param->getDefaultNormalized(id[i]);
+    }
+    polynomialXYPad = new PolynomialXYPad(
+      this,
+      CRect(
+        waveformLeft0, waveformTop1, waveformLeft0 + barBoxWidth,
+        waveformTop1 + barBoxWidth),
+      id, value, defaultValue, palette);
+
+    addToArrayControlInstances(id[0], polynomialXYPad);
+
+    for (ParamID i = 0; i < id.size(); ++i) {
+      arrayControlMap.emplace(std::make_pair(id[i], polynomialXYPad));
+    }
+    frame->addView(polynomialXYPad);
   }
-  frame->addView(polynomialXYPad);
 
   // Randomize button.
   const auto randomButtonTop = top0 + 18 * labelY;

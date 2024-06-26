@@ -32,6 +32,9 @@ Solve `A x = b` for `x`.
 memory allocation for each call.
 */
 template<typename T, size_t size> class Solver {
+private:
+  static constexpr T epsilon = std::numeric_limits<T>::epsilon();
+
 public:
   std::array<std::array<T, size>, size> lu{};
   std::array<T, size> y{};
@@ -43,10 +46,10 @@ public:
   {
     lu = A;
     for (int i = 0; i < size; ++i) {
-      if (std::abs(A[i][i]) <= std::numeric_limits<T>::epsilon()) { // Pivoting.
+      if (std::abs(A[i][i]) <= epsilon) { // Pivoting.
         int j = i + 1;
         for (; j < size; ++j) {
-          if (std::abs(A[j][i]) <= std::numeric_limits<T>::epsilon()) continue;
+          if (std::abs(A[j][i]) <= epsilon) continue;
           std::swap(A[i], A[j]);
           std::swap(b[i], b[j]);
           break;
@@ -63,6 +66,10 @@ public:
         for (int k = 0; k < i; ++k) sum += lu[i][k] * lu[k][j];
         lu[i][j] = A[i][j] - sum;
       }
+
+      // Avoid division by 0. This is only suitable for this application.
+      if (std::abs(lu[i][i]) < epsilon) lu[i][i] = std::copysign(epsilon, lu[i][i]);
+
       for (int j = i + 1; j < size; ++j) {
         T sum = T(0);
         for (int k = 0; k < i; ++k) sum += lu[j][k] * lu[k][i];
@@ -113,7 +120,10 @@ public:
   std::array<Sample, nPolynomialPoint> coefficients{};
   Sample normalizeGain = Sample(1);
 
-  Sample evaluate(Sample x) { return computePolynomial(x, coefficients); }
+  Sample evaluate(Sample x)
+  {
+    return computePolynomial<Sample, nPolynomialPoint>(x, coefficients);
+  }
 
   void updateCoefficients(bool normalize = false)
   {
@@ -152,7 +162,8 @@ public:
     for (size_t i = 0; i < d1.size(); ++i) d1[i] = Sample(i + 1) * coefficients[i + 1];
 
     auto getPeakPoint = [&](Sample x) {
-      return std::array<Sample, 2>{x, std::abs(computePolynomial(x, coefficients))};
+      return std::array<Sample, 2>{
+        x, std::abs(computePolynomial<Sample, nPolynomialPoint>(x, coefficients))};
     };
     auto sgn = [](Sample x) { return x > 0 ? Sample(1) : x < 0 ? Sample(-1) : x; };
     constexpr size_t maxIteration = 53; // Number of significand bits.
@@ -164,8 +175,8 @@ public:
 
       size_t iter = 0;
       do {
-        Sample yL = computePolynomial(xL, d1);
-        Sample yR = computePolynomial(xR, d1);
+        Sample yL = computePolynomial<Sample, nFirstDerivative>(xL, d1);
+        Sample yR = computePolynomial<Sample, nFirstDerivative>(xR, d1);
 
         Sample signL = sgn(yL);
         Sample signR = sgn(yR);
@@ -177,7 +188,7 @@ public:
         }
 
         xM = 0.5 * (xR + xL);
-        Sample yM = computePolynomial(xM, d1);
+        Sample yM = computePolynomial<Sample, nFirstDerivative>(xM, d1);
 
         Sample signM = sgn(yM);
         if (signM == 0) {

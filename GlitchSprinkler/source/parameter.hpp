@@ -36,8 +36,19 @@ static constexpr size_t nPolyOscControl = 13;
 constexpr size_t nReservedParameter = 256;
 constexpr size_t nReservedGuiParameter = 64;
 
+constexpr int transposeOctaveOffset = 10;
+constexpr int transposeSemitoneOffset = 36;
+
 namespace Steinberg {
 namespace Synth {
+
+enum Tuning {
+  equalTemperament12,
+  equalTemperament5,
+  justIntonation5LimitMajor,
+
+  Tuning_ENUM_LENGTH,
+};
 
 namespace ParameterID {
 enum ID {
@@ -48,8 +59,13 @@ enum ID {
   decaySeconds,
   oscSync,
   fmIndex,
+  saturationGain,
 
   seed,
+  transposeOctave,
+  transposeSemitone,
+  transposeCent,
+  tuning,
 
   polynomialPointX0,
   polynomialPointY0 = polynomialPointX0 + nPolyOscControl,
@@ -74,6 +90,11 @@ struct Scales {
   static SomeDSP::DecibelScale<double> fmIndex;
 
   static SomeDSP::LinearScale<double> polynomialPointY;
+
+  static SomeDSP::UIntScale<double> transposeOctave;
+  static SomeDSP::UIntScale<double> transposeSemitone;
+  static SomeDSP::LinearScale<double> transposeCent;
+  static SomeDSP::UIntScale<double> tuning;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -103,9 +124,22 @@ struct GlobalParameter : public ParameterInterface {
       Info::kCanAutomate);
     value[ID::fmIndex] = std::make_unique<DecibelValue>(
       Scales::fmIndex.invmap(0.0), Scales::fmIndex, "fmIndex", Info::kCanAutomate);
+    value[ID::saturationGain] = std::make_unique<DecibelValue>(
+      Scales::gain.invmap(1.0), Scales::gain, "saturationGain", Info::kCanAutomate);
 
     value[ID::seed]
       = std::make_unique<UIntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
+    value[ID::transposeOctave] = std::make_unique<UIntValue>(
+      transposeOctaveOffset, Scales::transposeOctave, "transposeOctave",
+      Info::kCanAutomate);
+    value[ID::transposeSemitone] = std::make_unique<UIntValue>(
+      transposeSemitoneOffset, Scales::transposeSemitone, "transposeSemitone",
+      Info::kCanAutomate);
+    value[ID::transposeCent] = std::make_unique<LinearValue>(
+      Scales::transposeCent.invmap(0.0), Scales::transposeCent, "transposeCent",
+      Info::kCanAutomate);
+    value[ID::tuning]
+      = std::make_unique<UIntValue>(0, Scales::tuning, "tuning", Info::kCanAutomate);
 
     for (size_t idx = 0; idx < nPolyOscControl; ++idx) {
       auto indexStr = std::to_string(idx);
