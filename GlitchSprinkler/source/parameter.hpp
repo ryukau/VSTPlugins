@@ -45,9 +45,22 @@ namespace Synth {
 enum Tuning {
   equalTemperament12,
   equalTemperament5,
+  equalTemperament10Major, // TODO
+  equalTemperament10Minor, // TODO
   justIntonation5LimitMajor,
+  justIntonation5LimitMinor, // TODO
 
   Tuning_ENUM_LENGTH,
+};
+
+enum PitchScale {
+  octave,
+  et5Chromatic,
+  et12Major,
+  et12Minor,
+  overtone32,
+
+  PitchScale_ENUM_LENGTH,
 };
 
 namespace ParameterID {
@@ -61,6 +74,8 @@ enum ID {
   fmIndex,
   saturationGain,
 
+  randomizeFmIndex,
+
   seed,
   transposeOctave,
   transposeSemitone,
@@ -70,7 +85,16 @@ enum ID {
   polynomialPointX0,
   polynomialPointY0 = polynomialPointX0 + nPolyOscControl,
 
-  reservedParameter0 = polynomialPointY0 + nPolyOscControl,
+  arpeggioSwitch = polynomialPointY0 + nPolyOscControl,
+  arpeggioNotesPerBeat,
+  arpeggioLoopLengthInBeat,
+  arpeggioDurationVariation, // TODO
+  arpeggioRestChance,        // TODO
+  arpeggioScale,
+  arpeggioPicthDriftCent,
+  arpeggioOctave,
+
+  reservedParameter0,
   reservedGuiParameter0 = reservedParameter0 + nReservedParameter,
 
   ID_ENUM_LENGTH = reservedGuiParameter0 + nReservedGuiParameter,
@@ -88,6 +112,7 @@ struct Scales {
 
   static SomeDSP::DecibelScale<double> decaySeconds;
   static SomeDSP::DecibelScale<double> fmIndex;
+  static SomeDSP::LinearScale<double> randomizeFmIndex;
 
   static SomeDSP::LinearScale<double> polynomialPointY;
 
@@ -95,6 +120,13 @@ struct Scales {
   static SomeDSP::UIntScale<double> transposeSemitone;
   static SomeDSP::LinearScale<double> transposeCent;
   static SomeDSP::UIntScale<double> tuning;
+
+  static SomeDSP::UIntScale<double> arpeggioNotesPerBeat;
+  static SomeDSP::UIntScale<double> arpeggioLoopLengthInBeat;
+  static SomeDSP::UIntScale<double> arpeggioDurationVariation;
+  static SomeDSP::UIntScale<double> arpeggioScale;
+  static SomeDSP::LinearScale<double> arpeggioPicthDriftCent;
+  static SomeDSP::UIntScale<double> arpeggioOctave;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -127,6 +159,10 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::saturationGain] = std::make_unique<DecibelValue>(
       Scales::gain.invmap(1.0), Scales::gain, "saturationGain", Info::kCanAutomate);
 
+    value[ID::randomizeFmIndex] = std::make_unique<LinearValue>(
+      Scales::randomizeFmIndex.invmap(0.0), Scales::randomizeFmIndex, "randomizeFmIndex",
+      Info::kCanAutomate);
+
     value[ID::seed]
       = std::make_unique<UIntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
     value[ID::transposeOctave] = std::make_unique<UIntValue>(
@@ -152,6 +188,27 @@ struct GlobalParameter : public ParameterInterface {
         Scales::polynomialPointY, ("polynomialPointY" + indexStr).c_str(),
         Info::kCanAutomate);
     }
+
+    value[ID::arpeggioSwitch] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "arpeggioSwitch", Info::kCanAutomate);
+    value[ID::arpeggioNotesPerBeat] = std::make_unique<UIntValue>(
+      3, Scales::arpeggioNotesPerBeat, "arpeggioNotesPerBeat", Info::kCanAutomate);
+    value[ID::arpeggioLoopLengthInBeat] = std::make_unique<UIntValue>(
+      4, Scales::arpeggioLoopLengthInBeat, "arpeggioLoopLengthInBeat",
+      Info::kCanAutomate);
+    value[ID::arpeggioDurationVariation] = std::make_unique<UIntValue>(
+      0, Scales::arpeggioDurationVariation, "arpeggioDurationVariation",
+      Info::kCanAutomate);
+    value[ID::arpeggioRestChance] = std::make_unique<LinearValue>(
+      Scales::defaultScale.invmap(0.0), Scales::defaultScale, "arpeggioRestChance",
+      Info::kCanAutomate);
+    value[ID::arpeggioScale] = std::make_unique<UIntValue>(
+      0, Scales::arpeggioScale, "arpeggioScale", Info::kCanAutomate);
+    value[ID::arpeggioPicthDriftCent] = std::make_unique<LinearValue>(
+      Scales::arpeggioPicthDriftCent.invmap(0), Scales::arpeggioPicthDriftCent,
+      "arpeggioPicthDriftCent", Info::kCanAutomate);
+    value[ID::arpeggioOctave] = std::make_unique<UIntValue>(
+      1, Scales::arpeggioOctave, "arpeggioOctave", Info::kCanAutomate);
 
     for (size_t idx = 0; idx < nReservedParameter; ++idx) {
       auto indexStr = std::to_string(idx);

@@ -186,8 +186,6 @@ public:
     barBox->setName(name);
     frame->addView(barBox);
 
-    addToArrayControlInstances(id0, barBox);
-
     for (ParamID i = 0; i < id.size(); ++i) {
       arrayControlMap.emplace(std::make_pair(id0 + i, barBox));
     }
@@ -209,8 +207,6 @@ public:
       this, CRect(left, top, left + width, top + height), id, value, defaultValue,
       palette);
     frame->addView(xyPad);
-
-    addToArrayControlInstances(id0, xyPad);
 
     arrayControlMap.emplace(std::make_pair(id0, xyPad));
     arrayControlMap.emplace(std::make_pair(id1, xyPad));
@@ -249,8 +245,6 @@ public:
       this, CRect(left, top, left + width, top + height), id, value, defaultValue, nRow,
       nColumn, textView, palette);
     frame->addView(matrix);
-
-    addToArrayControlInstances(id[0], matrix);
 
     for (const auto &ident : id) arrayControlMap.emplace(std::make_pair(ident, matrix));
     return matrix;
@@ -746,14 +740,6 @@ public:
   }
 
 protected:
-  void addToArrayControlInstances(Vst::ParamID id0, ArrayControl *control)
-  {
-    auto iter = arrayControlInstances.find(id0);
-    if (iter != arrayControlInstances.end()) arrayControlInstances.erase(iter);
-    arrayControlInstances.emplace(
-      std::make_pair(id0, SharedPointer<ArrayControl>{control}));
-  }
-
   void addToControlMap(Vst::ParamID id, CControl *control)
   {
     auto iter = controlMap.find(id);
@@ -786,7 +772,6 @@ protected:
 
   std::unordered_map<Vst::ParamID, SharedPointer<CControl>> controlMap;
   std::unordered_map<Vst::ParamID, SharedPointer<ArrayControl>> arrayControlMap;
-  std::unordered_map<Vst::ParamID, SharedPointer<ArrayControl>> arrayControlInstances;
 
   ViewRect viewRect{0, 0, 512, 512};
 

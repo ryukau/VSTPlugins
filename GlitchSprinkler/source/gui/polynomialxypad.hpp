@@ -29,13 +29,13 @@
 #include <array>
 #include <cmath>
 #include <numbers>
+#include <random>
+#include <string>
 
 namespace VSTGUI {
 
 class PolynomialXYPad : public ArrayControl {
 private:
-  Uhhyou::Palette &pal;
-
   static constexpr double twopi = double(2) * std::numbers::pi_v<double>;
   static constexpr CCoord controlRadiusHalfOuter = 8.0;
   static constexpr CCoord controlRadiusHalfInner = controlRadiusHalfOuter / 2;
@@ -54,6 +54,23 @@ private:
   bool requireUpdate = false;
   SomeDSP::PolynomialCoefficientSolver<double, nControlPoint> polynomial;
 
+  Uhhyou::Palette &pal;
+
+  SharedPointer<Label> polyXLabel;
+  SharedPointer<Label> polyYLabel;
+  SharedPointer<CControl> polyXControl;
+  SharedPointer<CControl> polyYControl;
+
+  enum class AxisLock { none, x, y };
+
+  AxisLock getLockState(MouseEvent &event)
+  {
+    if (event.buttonState.isMiddle()) {
+      return event.modifiers.has(ModifierKey::Shift) ? AxisLock::x : AxisLock::y;
+    }
+    return AxisLock::none;
+  }
+
 public:
   PolynomialXYPad(
     Steinberg::Vst::VSTGUIEditor *editor,
@@ -61,10 +78,18 @@ public:
     std::vector<Steinberg::Vst::ParamID> id,
     std::vector<double> value,
     std::vector<double> defaultValue,
-    Uhhyou::Palette &palette)
+    Uhhyou::Palette &palette,
+    SharedPointer<Label> polyXLabel,
+    SharedPointer<Label> polyYLabel,
+    SharedPointer<CControl> polyXControl,
+    SharedPointer<CControl> polyYControl)
     : ArrayControl(editor, size, id, value, defaultValue)
     , pal(palette)
     , requireUpdate(true)
+    , polyXLabel(polyXLabel)
+    , polyYLabel(polyYLabel)
+    , polyXControl(polyXControl)
+    , polyYControl(polyYControl)
   {
     setWantsFocus(true);
 
@@ -81,7 +106,7 @@ public:
     if (iter == idMap.end()) return;
     auto index = iter->second;
 
-    if (index < nControlPoint) {
+    if (index >= 0 && index < nControlPoint) {
       setXAt(index, normalized);
     } else {
       setYAt(index % nControlPoint, normalized);
@@ -169,6 +194,7 @@ public:
   {
     isMouseDown = false;
     isMouseEntered = false;
+    releaseFocus();
     invalid();
     event.consumed = true;
   }
@@ -177,11 +203,16 @@ public:
   {
     using ID = Steinberg::Synth::ParameterID::ID;
 
-    if (!event.buttonState.isLeft()) return;
+    if (!event.buttonState.isLeft() && !event.buttonState.isMiddle()) return;
     isMouseDown = true;
+    grabFocus();
 
     setMousePosition(event.mousePosition);
     grabbedPoint = hitTest(mousePosition);
+
+    if (grabbedPoint >= 0) {
+      linkControl(grabbedPoint);
+    }
 
     invalid();
     event.consumed = true;
@@ -204,20 +235,27 @@ public:
     if (isMouseDown) {
       if (grabbedPoint < 0) return;
 
-      auto &point = controlPoints[grabbedPoint];
-      point.x = std::clamp(mousePosition.x, CCoord(1), getWidth() - 1);
-      point.y = std::clamp(mousePosition.y, CCoord(1), getHeight() - 1);
-
-      for (size_t idx = 0; idx < controlPoints.size(); ++idx) {
-        if (idx == grabbedPoint) continue;
-        if (std::abs(controlPoints[idx].x - point.x) > 1e-5) continue;
-        point.x += 0.1;
-        break;
-      }
+      auto lock = getLockState(event);
 
       using ID = Steinberg::Synth::ParameterID::ID;
-      editAndUpdateValueAt(ID::polynomialPointX0 + grabbedPoint, point.x / getWidth());
-      editAndUpdateValueAt(ID::polynomialPointY0 + grabbedPoint, point.y / getHeight());
+      auto &point = controlPoints[grabbedPoint];
+      if (lock != AxisLock::x) {
+        point.x = std::clamp(mousePosition.x, CCoord(1), getWidth() - 1);
+
+        for (size_t idx = 0; idx < controlPoints.size(); ++idx) {
+          if (idx == grabbedPoint) continue;
+          if (std::abs(controlPoints[idx].x - point.x) > double(1e-5)) continue;
+          point.x += 0.1;
+          break;
+        }
+
+        editAndUpdateValueAt(ID::polynomialPointX0 + grabbedPoint, point.x / getWidth());
+      }
+      if (lock != AxisLock::y) {
+        point.y = std::clamp(mousePosition.y, CCoord(1), getHeight() - 1);
+        editAndUpdateValueAt(ID::polynomialPointY0 + grabbedPoint, point.y / getHeight());
+      }
+      linkControl(grabbedPoint);
 
       requireUpdate = true;
     } else {
@@ -239,25 +277,122 @@ public:
     event.consumed = true;
   }
 
+  template<typename xFunc, typename yFunc> void setControlPoints(xFunc fx, yFunc fy)
+  {
+    using ID = Steinberg::Synth::ParameterID::ID;
+
+    for (size_t idx = 0; idx < nControlPoint; ++idx) {
+      const auto ratio = double(idx + 1) / double(nControlPoint + 1);
+      setValueAt(ID::polynomialPointX0 + idx, fx(ratio));
+      setValueAt(ID::polynomialPointY0 + idx, fy(ratio));
+    }
+
+    invalid();
+    editAndUpdateValue();
+  }
+
+  double triangle(double t)
+  {
+    t += double(0.75);
+    t -= std::floor(t);
+    return std::abs(double(2) * t - double(1));
+  }
+
+  void onKeyboardEvent(KeyboardEvent &event) override
+  {
+    if (!isMouseEntered || event.type == EventType::KeyUp) return;
+
+    constexpr auto pi = std::numbers::pi_v<double>;
+    constexpr auto twopi = double(2) * pi;
+
+    if (event.character == '1') { // Preset: sine.
+      setControlPoints(
+        [&](double ratio) { return ratio; },
+        [&](double ratio) {
+          return double(0.5) * (std::sin(twopi * ratio) + double(1));
+        });
+    } else if (event.character == '2') { // Preset: fmA.
+      setControlPoints(
+        [&](double ratio) { return ratio; },
+        [&](double ratio) {
+          return double(0.5)
+            * (std::sin(twopi * ratio + double(4) * std::sin(twopi * ratio)) + double(1));
+        });
+    } else if (event.character == '3') { // Preset: fmB.
+      setControlPoints(
+        [&](double ratio) { return ratio; },
+        [&](double ratio) {
+          return double(0.5)
+            * (std::sin(twopi * ratio + std::sin(twopi * ratio)) + double(1));
+        });
+    } else if (event.character == '4') { // Preset: sawtooth.
+      setControlPoints(
+        [&](double ratio) { return ratio; }, [&](double ratio) { return ratio; });
+    } else if (event.character == '5') { // Preset: triangle.
+      setControlPoints(
+        [&](double ratio) { return ratio; },
+        [&](double ratio) { return triangle(ratio); });
+    } else if (event.character == '6') { // Preset: trapezoid.
+      setControlPoints(
+        [&](double ratio) { return ratio; },
+        [&](double ratio) {
+          return std::clamp(
+            double(1.5) * triangle(ratio) - double(0.25), double(0), double(1));
+        });
+    } else if (event.character == '7') { // Preset: alternate.
+      setControlPoints(
+        [&](double ratio) { return ratio; },
+        [&](double ratio) {
+          double i = ratio * double(nControlPoint) + double(0.5);
+          return std::fmod(i, double(2)) < double(1) ? double(0.4) : double(0.6);
+        });
+    } else if (event.character == '8') { // Preset: pulse.
+      setControlPoints(
+        [&](double ratio) { return ratio; },
+        [&](double ratio) { return ratio < double(0.5) ? double(0.25) : double(0.75); });
+    } else if (event.character == '9') { // Preset: saturated sine.
+      setControlPoints(
+        [&](double ratio) { return ratio; },
+        [&](double ratio) {
+          return double(0.5) + double(0.5) * std::tanh(std::sin(twopi * ratio));
+        });
+    } else if (event.character == 'r') { // Randomize.
+      setControlPoints(
+        [&](double ratio) { return ratio; },
+        [&](double ratio) {
+          std::random_device dev;
+          std::uniform_real_distribution<double> dist{double(0), double(1)};
+          return dist(dev);
+        });
+    }
+
+    event.consumed = true;
+  }
+
   void setBorderWidth(CCoord width) { borderWidth = width < 0 ? 0 : width; }
+
+  void linkControlFromId(Steinberg::Vst::ParamID id)
+  {
+    auto iter = idMap.find(id);
+    if (iter == idMap.end()) return;
+    linkControl(iter->second);
+  }
 
   CLASS_METHODS(PolynomialXYPad, CControl);
 
 private:
-  void scheduleUpdate() { requireUpdate = true; }
-
   void setXAt(size_t index, double x)
   {
     x = std::clamp(x, double(0), double(1));
     controlPoints[index].x = x * getWidth();
-    scheduleUpdate();
+    requireUpdate = true;
   }
 
   void setYAt(size_t index, double y)
   {
     y = std::clamp(y, double(0), double(1));
     controlPoints[index].y = y * getHeight();
-    scheduleUpdate();
+    requireUpdate = true;
   }
 
   void updateControlPoints()
@@ -266,6 +401,25 @@ private:
       setXAt(idx, value[idx]);
       setYAt(idx, value[idx + nControlPoint]);
     }
+  }
+
+  void linkControl(size_t index)
+  {
+    const auto indexX = index % nPolyOscControl;
+    polyXControl->setTag(id[indexX]);
+    polyXControl->setValueNormalized(value[indexX]);
+    polyXControl->invalid();
+
+    const auto indexY = indexX + nPolyOscControl;
+    polyYControl->setTag(id[indexY]);
+    polyYControl->setValueNormalized(value[indexY]);
+    polyYControl->invalid();
+
+    polyXLabel->setText("X" + std::to_string(indexX));
+    polyXLabel->invalid();
+
+    polyYLabel->setText("Y" + std::to_string(indexX));
+    polyYLabel->invalid();
   }
 
   void setMousePosition(CPoint &pos)

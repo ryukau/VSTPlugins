@@ -49,6 +49,7 @@ public:
   bool isPlaying = false;
   double tempo = 120.0;
   double beatsElapsed = 0.0;
+  double previousBeatsElapsed = 0.0;
   double timeSigUpper = 1.0;
   double timeSigLower = 4.0;
 
@@ -94,8 +95,9 @@ public:
   }
 
 private:
-  std::array<double, 2> processFrame();
+  std::array<double, 2> processFrame(double currentBeat);
   void updateNote();
+  void resetArpeggio();
 
   std::vector<NoteInfo> midiNotes;
   std::vector<NoteInfo> noteStack;
@@ -107,7 +109,14 @@ private:
 
   ExpSmoother<double> outputGain;
 
-  std::minstd_rand paramRng{0};
+  std::minstd_rand rngParam{0};
+  std::minstd_rand rngArpeggio{0};
+
+  uint_fast32_t arpeggioDuration = std::numeric_limits<uint_fast32_t>::max();
+  uint_fast32_t arpeggioTie = 1;
+  uint_fast32_t arpeggioTimer = 0;
+  uint_fast32_t arpeggioLoopLength = std::numeric_limits<uint_fast32_t>::max();
+  uint_fast32_t arpeggioLoopCounter = 0;
 
   bool scheduleUpdateNote = false;
   uint_fast32_t phasePeriod = 0;

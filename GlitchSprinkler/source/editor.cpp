@@ -51,9 +51,6 @@ constexpr int_least32_t defaultWidth = int_least32_t(4 * uiMargin + 3 * groupLab
 constexpr int_least32_t defaultHeight
   = int_least32_t(2 * uiMargin + 20 * labelY - 2 * margin);
 
-constexpr const char *wireDidntCollidedText = "Wire didn't collide.";
-constexpr const char *membraneDidntCollidedText = "Membrane didn't collide.";
-
 namespace Steinberg {
 namespace Vst {
 
@@ -67,27 +64,14 @@ Editor::Editor(void *controller) : PlugEditor(controller)
   setRect(viewRect);
 }
 
-ParamValue Editor::getPlainValue(ParamID id)
-{
-  auto normalized = controller->getParamNormalized(id);
-  return controller->normalizedParamToPlain(id, normalized);
-}
-
-void Editor::valueChanged(CControl *pControl)
-{
-  using ID = Synth::ParameterID::ID;
-
-  ParamID id = pControl->getTag();
-  ParamValue value = pControl->getValueNormalized();
-  controller->setParamNormalized(id, value);
-  controller->performEdit(id, value);
-}
-
-void Editor::updateUI(ParamID id, ParamValue normalized)
+void Editor::updateUI(Vst::ParamID id, ParamValue normalized)
 {
   PlugEditor::updateUI(id, normalized);
 
   using ID = Synth::ParameterID::ID;
+  if (id >= ID::polynomialPointX0 && id < ID::polynomialPointY0 + nPolyOscControl) {
+    polyXYPad->linkControlFromId(id);
+  }
 }
 
 bool Editor::prepareUI()
@@ -142,6 +126,11 @@ bool Editor::prepareUI()
     mixLeft1, mixTop6, labelWidth, labelHeight, uiTextSize, ID::saturationGain,
     Scales::gain, true, 5);
 
+  addLabel(mixLeft0, mixTop7, labelWidth, labelHeight, uiTextSize, "Random FM Index");
+  addTextKnob(
+    mixLeft1, mixTop7, labelWidth, labelHeight, uiTextSize, ID::randomizeFmIndex,
+    Scales::randomizeFmIndex, false, 5);
+
   addLabel(mixLeft0, mixTop8, labelWidth, labelHeight, uiTextSize, "Seed");
   auto seedTextKnob = addTextKnob(
     mixLeft1, mixTop8, labelWidth, labelHeight, uiTextSize, ID::seed, Scales::seed, false,
@@ -182,11 +171,31 @@ bool Editor::prepareUI()
   // Waveform.
   constexpr auto waveformTop0 = top0 + 0 * labelY;
   constexpr auto waveformTop1 = waveformTop0 + 1 * labelY;
+  constexpr auto waveformTop2 = waveformTop1 + barBoxWidth;
   constexpr auto waveformLeft0 = left4;
+  constexpr auto waveformLeft1 = left4 + labelWidth + 2 * margin;
   addGroupLabel(
     waveformLeft0, waveformTop0, groupLabelWidth, labelHeight, uiTextSize, "Waveform");
 
   {
+    constexpr auto halfLabelWidth = int(labelWidth / 2);
+    polyXControl = addTextKnob(
+      waveformLeft0 + halfLabelWidth, waveformTop2, halfLabelWidth, labelHeight,
+      uiTextSize, ID::polynomialPointX0, Scales::defaultScale, false, 5);
+    polyYControl = addTextKnob(
+      waveformLeft1 + halfLabelWidth, waveformTop2, halfLabelWidth, labelHeight,
+      uiTextSize, ID::polynomialPointY0, Scales::polynomialPointY, false, 5);
+
+    // A wasteful hack to avoid shadowing. Using `polyXYPad->linkControlFromId()` in
+    // `updateUI` for linking parameters.
+    controlMap.erase(ID::polynomialPointX0);
+    controlMap.erase(ID::polynomialPointY0);
+
+    polyXLabel = addLabel(
+      waveformLeft0, waveformTop2, halfLabelWidth, labelHeight, uiTextSize, "X0");
+    polyYLabel = addLabel(
+      waveformLeft1, waveformTop2, halfLabelWidth, labelHeight, uiTextSize, "Y0");
+
     std::vector<ParamID> id(2 * nPolyOscControl);
     for (size_t i = 0; i < id.size(); ++i) id[i] = ID::polynomialPointX0 + ParamID(i);
     std::vector<double> value(id.size());
@@ -197,20 +206,79 @@ bool Editor::prepareUI()
     for (size_t i = 0; i < defaultValue.size(); ++i) {
       defaultValue[i] = param->getDefaultNormalized(id[i]);
     }
-    polynomialXYPad = new PolynomialXYPad(
+    polyXYPad = new PolynomialXYPad(
       this,
       CRect(
         waveformLeft0, waveformTop1, waveformLeft0 + barBoxWidth,
         waveformTop1 + barBoxWidth),
-      id, value, defaultValue, palette);
-
-    addToArrayControlInstances(id[0], polynomialXYPad);
+      id, value, defaultValue, palette, polyXLabel, polyYLabel, polyXControl,
+      polyYControl);
 
     for (ParamID i = 0; i < id.size(); ++i) {
-      arrayControlMap.emplace(std::make_pair(id[i], polynomialXYPad));
+      arrayControlMap.emplace(std::make_pair(id[i], polyXYPad));
     }
-    frame->addView(polynomialXYPad);
+    frame->addView(polyXYPad);
   }
+
+  // Arpeggio.
+  constexpr auto arpTop0 = top0;
+  constexpr auto arpTop1 = arpTop0 + 1 * labelY;
+  constexpr auto arpTop2 = arpTop0 + 2 * labelY;
+  constexpr auto arpTop3 = arpTop0 + 3 * labelY;
+  constexpr auto arpTop4 = arpTop0 + 4 * labelY;
+  constexpr auto arpTop5 = arpTop0 + 5 * labelY;
+  constexpr auto arpTop6 = arpTop0 + 6 * labelY;
+  constexpr auto arpTop7 = arpTop0 + 7 * labelY;
+  constexpr auto arpTop8 = arpTop0 + 8 * labelY;
+  constexpr auto arpTop9 = arpTop0 + 9 * labelY;
+  constexpr auto arpTop10 = arpTop0 + 10 * labelY;
+  constexpr auto arpTop11 = arpTop0 + 11 * labelY;
+  constexpr auto arpTop12 = arpTop0 + 12 * labelY;
+  constexpr auto arpLeft0 = left8;
+  constexpr auto arpLeft1 = arpLeft0 + labelWidth + 2 * margin;
+  addToggleButton(
+    arpLeft0, arpTop0, groupLabelWidth, labelHeight, uiTextSize, "Arpeggio",
+    ID::arpeggioSwitch);
+
+  addLabel(arpLeft0, arpTop1, labelWidth, labelHeight, uiTextSize, "Note / Beat");
+  addTextKnob(
+    arpLeft1, arpTop1, labelWidth, labelHeight, uiTextSize, ID::arpeggioNotesPerBeat,
+    Scales::arpeggioNotesPerBeat, false, 0, 1);
+  addLabel(arpLeft0, arpTop2, labelWidth, labelHeight, uiTextSize, "Loop Length [beat]");
+  addTextKnob(
+    arpLeft1, arpTop2, labelWidth, labelHeight, uiTextSize, ID::arpeggioLoopLengthInBeat,
+    Scales::arpeggioLoopLengthInBeat, false, 0, 0);
+  addLabel(arpLeft0, arpTop3, labelWidth, labelHeight, uiTextSize, "Duration Variation");
+  addTextKnob(
+    arpLeft1, arpTop3, labelWidth, labelHeight, uiTextSize, ID::arpeggioDurationVariation,
+    Scales::arpeggioDurationVariation, false, 0, 1);
+  addLabel(arpLeft0, arpTop4, labelWidth, labelHeight, uiTextSize, "Rest Chance");
+  addTextKnob(
+    arpLeft1, arpTop4, labelWidth, labelHeight, uiTextSize, ID::arpeggioRestChance,
+    Scales::defaultScale, false, 5);
+
+  addLabel(arpLeft0, arpTop7, labelWidth, labelHeight, uiTextSize, "Scale");
+  addOptionMenu(
+    arpLeft1, arpTop7, labelWidth, labelHeight, uiTextSize, ID::arpeggioScale,
+    {
+      "Octave",          "ET 5 Chromatic",  "ET 12 Major",     "ET 12 Minor",
+      "Overtone 32",     "- Reserved 05 -", "- Reserved 06 -", "- Reserved 07 -",
+      "- Reserved 08 -", "- Reserved 09 -", "- Reserved 10 -", "- Reserved 11 -",
+      "- Reserved 12 -", "- Reserved 13 -", "- Reserved 14 -", "- Reserved 15 -",
+      "- Reserved 16 -", "- Reserved 17 -", "- Reserved 18 -", "- Reserved 19 -",
+      "- Reserved 20 -", "- Reserved 21 -", "- Reserved 22 -", "- Reserved 23 -",
+      "- Reserved 24 -", "- Reserved 25 -", "- Reserved 26 -", "- Reserved 27 -",
+      "- Reserved 28 -", "- Reserved 29 -", "- Reserved 30 -", "- Reserved 31 -",
+      "- Reserved 32 -",
+    });
+  addLabel(arpLeft0, arpTop8, labelWidth, labelHeight, uiTextSize, "Pitch Drift [cent]");
+  addTextKnob(
+    arpLeft1, arpTop8, labelWidth, labelHeight, uiTextSize, ID::arpeggioPicthDriftCent,
+    Scales::arpeggioPicthDriftCent, false, 5);
+  addLabel(arpLeft0, arpTop9, labelWidth, labelHeight, uiTextSize, "Octave Range");
+  addTextKnob(
+    arpLeft1, arpTop9, labelWidth, labelHeight, uiTextSize, ID::arpeggioOctave,
+    Scales::arpeggioOctave, false, 0, 1);
 
   // Randomize button.
   const auto randomButtonTop = top0 + 18 * labelY;

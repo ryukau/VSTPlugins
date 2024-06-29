@@ -1,4 +1,4 @@
-// (c) 2023 Takamitsu Endo
+// (c) 2024 Takamitsu Endo
 //
 // This file is part of GlitchSprinkler.
 //
@@ -18,61 +18,12 @@
 #include "../../../lib/juce_ScopedNoDenormal.hpp"
 
 #include "dspcore.hpp"
+#include "tuning.hpp"
 
 #include <algorithm>
 #include <limits>
 #include <numbers>
 #include <numeric>
-
-// `for (let i = 0; i < 12; ++i) console.log(2**(i / 12));`
-std::array<double, 12> tuningRatioEt12 = {
-  double(1.00000000000000),   double(1.0594630943592953), double(1.122462048309373),
-  double(1.189207115002721),  double(1.2599210498948732), double(1.3348398541700344),
-  double(1.4142135623730951), double(1.4983070768766815), double(1.5874010519681994),
-  double(1.681792830507429),  double(1.7817974362806785), double(1.887748625363387),
-};
-
-// ```javascript
-// var cents = [0, 20, 240, 260, 360, 480, 500, 720, 740, 960, 980, 1180];
-// console.log(cents.map(v => 2**(v / 1200)));
-// ```
-std::array<double, 12> tuningRatioEt5 = {
-  double(1.0000000000000),    double(1.0116194403019225), double(1.148698354997035),
-  double(1.1620455869578397), double(1.2311444133449163), double(1.3195079107728942),
-  double(1.3348398541700344), double(1.515716566510398),  double(1.5333283446696007),
-  double(1.7411011265922482), double(1.761331747192297),  double(1.9770280407057923),
-};
-
-// cents = [0, 120, 240, 300, 360, 480, 600, 720, 840, 960, 1020, 1080];
-std::array<double, 12> tuningRatioEt10Minor = {
-  double(1.0000000000000),    double(1.0717734625362931), double(1.148698354997035),
-  double(1.189207115002721),  double(1.2311444133449163), double(1.3195079107728942),
-  double(1.4142135623730951), double(1.515716566510398),  double(1.624504792712471),
-  double(1.7411011265922482), double(1.8025009252216604), double(1.8660659830736148),
-};
-
-std::array<double, 12> tuningRatioJust5Major = {
-  double(1) / double(1),   double(16) / double(15), double(9) / double(8),
-  double(6) / double(5),   double(5) / double(4),   double(4) / double(3),
-  double(45) / double(32), double(3) / double(2),   double(8) / double(5),
-  double(5) / double(3),   double(16) / double(9),  double(15) / double(8),
-};
-
-std::array<double, 12> tuningRatioJust5Minor = {
-  double(1) / double(1),   double(16) / double(15), double(10) / double(9),
-  double(6) / double(5),   double(5) / double(4),   double(4) / double(3),
-  double(64) / double(45), double(3) / double(2),   double(8) / double(5),
-  double(5) / double(3),   double(9) / double(5),   double(15) / double(8),
-};
-
-// TODO: remove 1 element if possible.
-std::array<double, 13> tuningRatioJust7 = {
-  double(1) / double(1), double(8) / double(7),  double(7) / double(6),
-  double(6) / double(5), double(5) / double(4),  double(4) / double(3),
-  double(7) / double(5), double(10) / double(7), double(3) / double(2),
-  double(8) / double(5), double(5) / double(3),  double(12) / double(7),
-  double(7) / double(4),
-};
 
 void DSPCore::setup(double sampleRate)
 {
@@ -93,7 +44,14 @@ void DSPCore::setup(double sampleRate)
                                                                                          \
   outputGain.METHOD(pv[ID::outputGain]->getDouble());                                    \
                                                                                          \
-  paramRng.seed(pv[ID::seed]->getInt());                                                 \
+  const auto samplesPerBeat = (double(60) * sampleRate) / tempo;                         \
+  const auto arpeggioNotesPerBeat = pv[ID::arpeggioNotesPerBeat]->getInt() + 1;          \
+  arpeggioDuration = int_fast32_t(samplesPerBeat / double(arpeggioNotesPerBeat));        \
+  arpeggioLoopLength                                                                     \
+    = (pv[ID::arpeggioLoopLengthInBeat]->getInt()) * arpeggioNotesPerBeat;               \
+  if (arpeggioLoopLength == 0) {                                                         \
+    arpeggioLoopLength = std::numeric_limits<decltype(arpeggioLoopLength)>::max();       \
+  }                                                                                      \
                                                                                          \
   for (size_t idx = 0; idx < nPolyOscControl; ++idx) {                                   \
     polynomial.polyX[idx + 1] = pv[ID::polynomialPointX0 + idx]->getDouble();            \
@@ -104,7 +62,18 @@ void DSPCore::reset()
 {
   velocity = 0;
 
+  previousBeatsElapsed = 0;
+
   ASSIGN_PARAMETER(reset);
+
+  rngParam.seed(pv[ID::seed]->getInt());
+  rngArpeggio.seed(pv[ID::seed]->getInt());
+
+  arpeggioDuration = std::numeric_limits<decltype(arpeggioDuration)>::max();
+  arpeggioTie = 1;
+  arpeggioTimer = 0;
+  arpeggioLoopLength = std::numeric_limits<decltype(arpeggioLoopLength)>::max();
+  arpeggioLoopCounter = 0;
 
   scheduleUpdateNote = false;
   phaseCounter = 0;
@@ -118,16 +87,36 @@ void DSPCore::startup()
 {
   using ID = ParameterID::ID;
   const auto &pv = param.value;
+
+  resetArpeggio();
 }
 
 void DSPCore::setParameters() { ASSIGN_PARAMETER(push); }
 
-std::array<double, 2> DSPCore::processFrame()
+std::array<double, 2> DSPCore::processFrame(double currentBeat)
 {
+  using ID = ParameterID::ID;
+  const auto &pv = param.value;
+
   const auto outGain = outputGain.process();
 
-  constexpr double epsF32 = double(std::numeric_limits<float>::epsilon());
-  if (decayGain < epsF32 || (noteStack.empty() && phaseCounter == 0)) {
+  // Arpeggio.
+  if (pv[ID::arpeggioSwitch]->getInt()) {
+    if (arpeggioTimer < arpeggioTie * arpeggioDuration) {
+      ++arpeggioTimer;
+    } else {
+      scheduleUpdateNote = true;
+
+      arpeggioTimer = 0;
+
+      if (++arpeggioLoopCounter >= arpeggioLoopLength) {
+        arpeggioLoopCounter = 0;
+        rngArpeggio.seed(pv[ID::seed]->getInt());
+      }
+    }
+  }
+
+  if (noteStack.empty() && phaseCounter == 0) {
     return {double(0), double(0)};
   }
 
@@ -145,7 +134,7 @@ std::array<double, 2> DSPCore::processFrame()
 
   // Envelope.
   decayGain *= decayRatio;
-  const auto gain = decayGain * outGain;
+  const auto gain = decayGain * outGain * velocity;
 
   if (++phaseCounter >= phasePeriod) {
     phaseCounter = 0;
@@ -165,12 +154,17 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
   using ID = ParameterID::ID;
   const auto &pv = param.value;
 
+  if (previousBeatsElapsed > beatsElapsed) resetArpeggio();
+
   SmootherCommon<double>::setBufferSize(double(length));
 
+  const auto beatPerSample = tempo / (double(60) * sampleRate);
   for (size_t i = 0; i < length; ++i) {
     processMidiNote(i);
 
-    auto frame = processFrame();
+    const auto currentBeat = beatsElapsed + double(i) * beatPerSample;
+
+    auto frame = processFrame(currentBeat);
     out0[i] = float(frame[0]);
     out1[i] = float(frame[1]);
   }
@@ -180,10 +174,12 @@ void DSPCore::noteOn(NoteInfo &info)
 {
   noteStack.push_back(info);
 
-  constexpr double epsF32 = double(std::numeric_limits<float>::epsilon());
-  if (decayGain < epsF32 || (noteStack.size() == 1 && phaseCounter == 0)) {
+  if (noteStack.size() == 1 && phaseCounter == 0) {
+    arpeggioTimer = 0;
+    arpeggioLoopCounter = 0;
+
     updateNote();
-  } else {
+  } else if (!param.value[ParameterID::arpeggioSwitch]->getInt()) {
     scheduleUpdateNote = true;
   }
 }
@@ -212,13 +208,25 @@ inline double getPitchRatio(Tuning tuning, int semitone, double octave, double c
   return tuningTable[index] * std::exp2(octave + cent / double(1200));
 }
 
+template<typename Rng, typename Scale, typename Tuning>
+inline double getRandomPitch(Rng &rng, const Scale &scale, const Tuning &tuning)
+{
+  std::uniform_int_distribution<size_t> indexDist{0, scale.size() - 1};
+  return tuning[scale[indexDist(rng)]];
+}
+
 void DSPCore::updateNote()
 {
   using ID = ParameterID::ID;
   auto &pv = param.value;
 
   if (noteStack.empty()) return;
-  const auto &info = noteStack.back();
+
+  const auto isArpeggioEnabled
+    = pv[ID::arpeggioSwitch]->getInt() && arpeggioLoopCounter >= 1;
+  std::uniform_int_distribution<size_t> indexDist{0, noteStack.size() - 1};
+  const auto &info
+    = isArpeggioEnabled ? noteStack[indexDist(rngArpeggio)] : noteStack.back();
 
   velocity = velocityMap.map(info.velocity);
 
@@ -231,6 +239,36 @@ void DSPCore::updateNote()
     static_cast<Tuning>(pv[ID::tuning]->getInt()),
     transposeSemitone + info.noteNumber - 69, transposeOctave, transposeCent);
   auto freqHz = std::min(double(0.5) * sampleRate, transposeRatio * double(440));
+  if (isArpeggioEnabled) {
+    auto pitchDriftCent = pv[ID::arpeggioPicthDriftCent]->getDouble();
+    auto octaveRange = pv[ID::arpeggioOctave]->getInt();
+    using octaveType = decltype(octaveRange);
+    std::uniform_int_distribution<uint32_t> octaveDist{0, octaveRange};
+    std::uniform_real_distribution<double> centDist{-pitchDriftCent, pitchDriftCent};
+
+    auto arpRatio
+      = std::exp2(double(octaveDist(rngArpeggio)) + centDist(rngArpeggio) / double(1200));
+
+    const auto arpeggioScale = pv[ID::arpeggioScale]->getInt();
+    if (arpeggioScale == PitchScale::octave) {
+      // Do nothing.
+    } else if (arpeggioScale == PitchScale::et5Chromatic) {
+      arpRatio *= getRandomPitch(rngArpeggio, scaleEt5, tuningRatioEt5);
+    } else if (arpeggioScale == PitchScale::et12Major) {
+      arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Major, tuningRatioEt12);
+    } else if (arpeggioScale == PitchScale::et12Minor) {
+      arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Minor, tuningRatioEt12);
+    } else if (arpeggioScale == PitchScale::overtone32) {
+      std::uniform_int_distribution<int> dist{1, 32};
+      arpRatio *= double(dist(rngArpeggio));
+    }
+
+    freqHz *= arpRatio;
+
+    auto durationVar = pv[ID::arpeggioDurationVariation]->getInt() + 1;
+    std::uniform_int_distribution<decltype(durationVar)> durVarDist{1, durationVar};
+    arpeggioTie = durVarDist(rngArpeggio);
+  }
 
   phasePeriod = uint_fast32_t(sampleRate / freqHz);
   phaseCounter = 0;
@@ -239,13 +277,21 @@ void DSPCore::updateNote()
   polynomial.updateCoefficients(true);
 
   oscSync = pv[ID::oscSync]->getDouble();
-  fmIndex = pv[ID::fmIndex]->getDouble();
+
+  const auto rndFmIndexOct = pv[ID::randomizeFmIndex]->getDouble();
+  std::uniform_real_distribution<double> fmIndexDist{-rndFmIndexOct, rndFmIndexOct};
+  fmIndex = pv[ID::fmIndex]->getDouble() * std::exp2(fmIndexDist(rngArpeggio));
   saturationGain = pv[ID::saturationGain]->getDouble();
 
   // Envelope.
   const auto decaySeconds = pv[ID::decaySeconds]->getDouble();
   decayRatio = std::pow(double(1e-3), double(1) / (decaySeconds * sampleRate));
-  decayGain = double(1) / decayRatio;
+
+  const auto restChance = pv[ID::arpeggioRestChance]->getDouble();
+  std::uniform_real_distribution<double> restDist{double(0), double(1)};
+  decayGain = isArpeggioEnabled && restDist(rngParam) < restChance
+    ? double(0)
+    : double(1) / decayRatio;
 }
 
 void DSPCore::noteOff(int_fast32_t noteId)
@@ -258,4 +304,14 @@ void DSPCore::noteOff(int_fast32_t noteId)
   });
   if (it == noteStack.end()) return;
   noteStack.erase(it);
+
+  if (noteStack.empty()) resetArpeggio();
+}
+
+void DSPCore::resetArpeggio()
+{
+  rngArpeggio.seed(param.value[ParameterID::seed]->getInt());
+  arpeggioTie = 0;
+  arpeggioTimer = 0;
+  arpeggioLoopCounter = 0;
 }

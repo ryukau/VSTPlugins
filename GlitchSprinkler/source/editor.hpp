@@ -34,16 +34,18 @@ class Editor : public PlugEditor {
 public:
   Editor(void *controller);
 
-  virtual void valueChanged(CControl *pControl) override;
-  void updateUI(Vst::ParamID id, ParamValue normalized) override;
+  virtual void updateUI(Vst::ParamID id, ParamValue normalized) override;
 
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
 private:
-  ParamValue getPlainValue(ParamID id);
   bool prepareUI() override;
 
-  SharedPointer<PolynomialXYPad> polynomialXYPad;
+  SharedPointer<PolynomialXYPad> polyXYPad;
+  SharedPointer<Label> polyXLabel;
+  SharedPointer<Label> polyYLabel;
+  SharedPointer<CControl> polyXControl;
+  SharedPointer<CControl> polyYControl;
 };
 
 } // namespace Vst

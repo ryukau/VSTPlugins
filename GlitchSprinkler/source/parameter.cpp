@@ -38,6 +38,7 @@ DecibelScale<double> Scales::gain(-100.0, 60.0, true);
 
 DecibelScale<double> Scales::decaySeconds(-100.0, 40.0, false);
 DecibelScale<double> Scales::fmIndex(-60.0, 40.0, true);
+LinearScale<double> Scales::randomizeFmIndex(0.0, 4.0);
 
 LinearScale<double> Scales::polynomialPointY(-0.5, 0.5);
 
@@ -45,6 +46,13 @@ UIntScale<double> Scales::transposeOctave(2 * transposeOctaveOffset);
 UIntScale<double> Scales::transposeSemitone(2 * transposeSemitoneOffset);
 LinearScale<double> Scales::transposeCent(-3600, 3600);
 UIntScale<double> Scales::tuning(31);
+
+UIntScale<double> Scales::arpeggioNotesPerBeat(15);
+UIntScale<double> Scales::arpeggioLoopLengthInBeat(256);
+UIntScale<double> Scales::arpeggioDurationVariation(15);
+UIntScale<double> Scales::arpeggioScale(31);
+LinearScale<double> Scales::arpeggioPicthDriftCent(0, 100);
+UIntScale<double> Scales::arpeggioOctave(7);
 
 } // namespace Synth
 } // namespace Steinberg
