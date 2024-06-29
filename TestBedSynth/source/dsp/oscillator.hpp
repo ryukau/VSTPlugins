@@ -34,8 +34,6 @@ namespace SomeDSP {
 // isn't thread safe except `fftw*_execute` call.
 extern std::mutex fftwMutex;
 
-template<typename T> inline T lerp(T y0, T y1, T t) { return y0 + t * (y1 - y0); }
-
 // Range of t is in [0, 1]. Interpoltes between y1 and y2.
 // y0 is current, y3 is earlier sample.
 template<typename T> inline T lagrange3Interp(T y0, T y1, T y2, T y3, T t)
@@ -139,7 +137,7 @@ template<size_t tableSize> struct WaveForm {
       auto phase = hardSync * float(idx) / float(tableSize);
       phase -= std::floor(phase);
 
-      phase = lerp(phase, phaseSkewFunc(phase), phaseSkew);
+      phase = std::lerp(phase, phaseSkewFunc(phase), phaseSkew);
 
       if (param.waveInterpType == 0) { // Step interpolation.
         table[idx] = wavetable[size_t(nOscWavetable * phase)];
@@ -147,7 +145,7 @@ template<size_t tableSize> struct WaveForm {
         auto pos = nOscWavetable * phase;
         size_t i0 = size_t(pos);
         size_t i1 = (i0 + 1) & (nOscWavetable - 1);
-        table[idx] = lerp(wavetable[i0], wavetable[i1], pos - float(i0));
+        table[idx] = std::lerp(wavetable[i0], wavetable[i1], pos - float(i0));
       } else { // Cubic interpolation.
         auto pos = nOscWavetable * phase;
         size_t i0 = size_t(pos);
@@ -160,7 +158,7 @@ template<size_t tableSize> struct WaveForm {
     }
 
     for (size_t idx = 0; idx < tableSize; ++idx) {
-      table[idx] = lerp(table[idx], distortionFunc(table[idx]), distortion);
+      table[idx] = std::lerp(table[idx], distortionFunc(table[idx]), distortion);
     }
   }
 };
@@ -209,7 +207,7 @@ template<size_t tableSize> struct Spectrum {
     auto spcHpPitch = std::exp2(modSpectralHighpass) * param.spectralHighpass;
     size_t end = std::clamp(
       size_t(spcLpPitch * spectrumSize), size_t(2),
-      float(spectrumSize) * noteHz / param.upNyquistHz);
+      size_t(float(spectrumSize) * noteHz / param.upNyquistHz));
     size_t start = std::max(size_t(spcHpPitch * spectrumSize), size_t(1));
 
     for (size_t idx = start; idx < end; ++idx) {
@@ -342,7 +340,7 @@ struct VariableWaveTableOscillator {
     }
 
     const auto oscSum = feedbackLowpass.processKp(
-      lerp(feedback[0], feedback[1], param.sumMix.getValue()),
+      std::lerp(feedback[0], feedback[1], param.sumMix.getValue()),
       param.feedbackLowpassKp.getValue());
     const auto modPitch = mixModulation(mod, param.pitch.value);
     const auto immediatePm
@@ -369,7 +367,7 @@ struct VariableWaveTableOscillator {
 
     float fade
       = 0.5f + 0.5f * std::cos(float(pi) * float(fadeCounter) / float(fadeSamples));
-    return lerp(1.0f, oscSum, param.sumToAm.getValue()) * (vf + fade * (vb - vf));
+    return std::lerp(1.0f, oscSum, param.sumToAm.getValue()) * (vf + fade * (vb - vf));
   }
 };
 

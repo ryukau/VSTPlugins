@@ -170,7 +170,7 @@ std::array<float, 2> Note::process(float sampleRate, NoteProcessInfo &info)
         const auto &base = info.oscWavetable[i0].value[i1];
         const auto mod
           = info.oscWaveModGain[i0].value[i1] * waveModDelay[i0][i1].process(amount);
-        wavetable[i0][i1] = lerp(base, mod, sum / nWaveModInput);
+        wavetable[i0][i1] = std::lerp(base, mod, sum / nWaveModInput);
       }
     }
 
@@ -180,7 +180,7 @@ std::array<float, 2> Note::process(float sampleRate, NoteProcessInfo &info)
   }
 
   float sig = gainEnvelope.value() * velocity
-    * lerp(feedback[0], feedback[1], info.oscMix.getValue());
+    * std::lerp(feedback[0], feedback[1], info.oscMix.getValue());
   return {(1.0f - pan) * sig, pan * sig};
 }
 
