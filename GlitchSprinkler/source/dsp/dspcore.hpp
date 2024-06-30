@@ -1,4 +1,4 @@
-// (c) 2023 Takamitsu Endo
+// (c) 2024 Takamitsu Endo
 //
 // This file is part of GlitchSprinkler.
 //
@@ -34,6 +34,7 @@ public:
     bool isNoteOn;
     uint32_t frame;
     int32_t id;
+    int channel;
     int noteNumber;
     float cent;
     float velocity;
@@ -42,7 +43,8 @@ public:
   DSPCore()
   {
     midiNotes.reserve(1024);
-    noteStack.reserve(1024);
+    activeNote.reserve(1024);
+    activeModifier.reserve(1024);
   }
 
   GlobalParameter param;
@@ -65,6 +67,7 @@ public:
     bool isNoteOn,
     uint32_t frame,
     int32_t noteId,
+    int16_t channel,
     int16_t noteNumber,
     float tuning,
     float velocity)
@@ -73,9 +76,17 @@ public:
     note.isNoteOn = isNoteOn;
     note.frame = frame;
     note.id = noteId;
+    note.channel = channel;
     note.noteNumber = noteNumber;
     note.cent = tuning;
     note.velocity = velocity;
+
+    if (
+      midiNotes.back().channel == pitchModifierChannel && midiNotes.back().frame == frame
+      && channel != pitchModifierChannel)
+    {
+      std::swap(note, midiNotes.back());
+    }
     midiNotes.push_back(note);
   }
 
@@ -99,8 +110,12 @@ private:
   void updateNote();
   void resetArpeggio();
 
+  // Maybe make it possible to change the pitch modifier channel.
+  static constexpr size_t pitchModifierChannel = 15;
+
   std::vector<NoteInfo> midiNotes;
-  std::vector<NoteInfo> noteStack;
+  std::vector<NoteInfo> activeNote;
+  std::vector<NoteInfo> activeModifier;
 
   DecibelScale<double> velocityMap{-60, 0, true};
   double velocity = 0;

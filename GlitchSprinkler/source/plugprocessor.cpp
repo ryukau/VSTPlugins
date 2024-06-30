@@ -156,14 +156,15 @@ void PlugProcessor::handleEvent(Vst::ProcessData &data)
         dsp.pushMidiNote(
           true, event.sampleOffset,
           event.noteOn.noteId == -1 ? event.noteOn.pitch : event.noteOn.noteId,
-          event.noteOn.pitch, event.noteOn.tuning, event.noteOn.velocity);
+          event.noteOn.channel, event.noteOn.pitch, event.noteOn.tuning,
+          event.noteOn.velocity);
       } break;
 
       case Vst::Event::kNoteOffEvent: {
         dsp.pushMidiNote(
           false, event.sampleOffset,
-          event.noteOff.noteId == -1 ? event.noteOff.pitch : event.noteOff.noteId, 0, 0,
-          0);
+          event.noteOff.noteId == -1 ? event.noteOff.pitch : event.noteOff.noteId,
+          event.noteOn.channel, 0, 0, 0);
       } break;
 
         // Add other event type here.

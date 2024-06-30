@@ -27,8 +27,11 @@
 
 void DSPCore::setup(double sampleRate)
 {
-  noteStack.reserve(1024);
-  noteStack.resize(0);
+  activeNote.reserve(1024);
+  activeNote.resize(0);
+
+  activeModifier.reserve(1024);
+  activeModifier.resize(0);
 
   this->sampleRate = sampleRate;
 
@@ -116,7 +119,7 @@ std::array<double, 2> DSPCore::processFrame(double currentBeat)
     }
   }
 
-  if (noteStack.empty() && phaseCounter == 0) {
+  if (activeNote.empty() && phaseCounter == 0) {
     return {double(0), double(0)};
   }
 
@@ -172,9 +175,14 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
 
 void DSPCore::noteOn(NoteInfo &info)
 {
-  noteStack.push_back(info);
+  if (info.channel == pitchModifierChannel) {
+    activeModifier.push_back(info);
+    return;
+  }
 
-  if (noteStack.size() == 1 && phaseCounter == 0) {
+  activeNote.push_back(info);
+
+  if (activeNote.size() == 1 && phaseCounter == 0) {
     arpeggioTimer = 0;
     arpeggioLoopCounter = 0;
 
@@ -220,13 +228,13 @@ void DSPCore::updateNote()
   using ID = ParameterID::ID;
   auto &pv = param.value;
 
-  if (noteStack.empty()) return;
+  if (activeNote.empty()) return;
 
   const auto isArpeggioEnabled
     = pv[ID::arpeggioSwitch]->getInt() && arpeggioLoopCounter >= 1;
-  std::uniform_int_distribution<size_t> indexDist{0, noteStack.size() - 1};
+  std::uniform_int_distribution<size_t> indexDist{0, activeNote.size() - 1};
   const auto &info
-    = isArpeggioEnabled ? noteStack[indexDist(rngArpeggio)] : noteStack.back();
+    = isArpeggioEnabled ? activeNote[indexDist(rngArpeggio)] : activeNote.back();
 
   velocity = velocityMap.map(info.velocity);
 
@@ -239,6 +247,11 @@ void DSPCore::updateNote()
     static_cast<Tuning>(pv[ID::tuning]->getInt()),
     transposeSemitone + info.noteNumber - 69, transposeOctave, transposeCent);
   auto freqHz = std::min(double(0.5) * sampleRate, transposeRatio * double(440));
+
+  if (!activeModifier.empty()) {
+    freqHz *= double(activeModifier.back().noteNumber + activeModifier.back().cent);
+  }
+
   if (isArpeggioEnabled) {
     auto pitchDriftCent = pv[ID::arpeggioPicthDriftCent]->getDouble();
     auto octaveRange = pv[ID::arpeggioOctave]->getInt();
@@ -289,7 +302,7 @@ void DSPCore::updateNote()
 
   const auto restChance = pv[ID::arpeggioRestChance]->getDouble();
   std::uniform_real_distribution<double> restDist{double(0), double(1)};
-  decayGain = isArpeggioEnabled && restDist(rngParam) < restChance
+  decayGain = isArpeggioEnabled && restDist(rngParam) < restChance || freqHz == 0
     ? double(0)
     : double(1) / decayRatio;
 }
@@ -299,13 +312,27 @@ void DSPCore::noteOff(int_fast32_t noteId)
   using ID = ParameterID::ID;
   auto &pv = param.value;
 
-  auto it = std::find_if(noteStack.begin(), noteStack.end(), [&](const NoteInfo &info) {
-    return info.id == noteId;
-  });
-  if (it == noteStack.end()) return;
-  noteStack.erase(it);
+  { // Handling pitch modifiers.
+    auto it = std::find_if(
+      activeModifier.begin(), activeModifier.end(),
+      [&](const NoteInfo &info) { return info.id == noteId; });
+    if (it != activeModifier.end()) {
+      activeModifier.erase(it);
+      return;
+    }
+  }
 
-  if (noteStack.empty()) resetArpeggio();
+  { // Handling notes.
+    auto it
+      = std::find_if(activeNote.begin(), activeNote.end(), [&](const NoteInfo &info) {
+          return info.id == noteId;
+        });
+    if (it != activeNote.end()) {
+      activeNote.erase(it);
+
+      if (activeNote.empty()) resetArpeggio();
+    }
+  }
 }
 
 void DSPCore::resetArpeggio()
