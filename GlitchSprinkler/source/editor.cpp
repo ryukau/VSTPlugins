@@ -126,34 +126,21 @@ bool Editor::prepareUI()
     mixLeft1, mixTop6, labelWidth, labelHeight, uiTextSize, ID::saturationGain,
     Scales::gain, true, 5);
 
-  addLabel(mixLeft0, mixTop7, labelWidth, labelHeight, uiTextSize, "Random FM Index");
+  addLabel(mixLeft0, mixTop8, labelWidth, labelHeight, uiTextSize, "Octave");
   addTextKnob(
-    mixLeft1, mixTop7, labelWidth, labelHeight, uiTextSize, ID::randomizeFmIndex,
-    Scales::randomizeFmIndex, false, 5);
-
-  addLabel(mixLeft0, mixTop8, labelWidth, labelHeight, uiTextSize, "Seed");
-  auto seedTextKnob = addTextKnob(
-    mixLeft1, mixTop8, labelWidth, labelHeight, uiTextSize, ID::seed, Scales::seed, false,
-    0);
-  if (seedTextKnob) {
-    seedTextKnob->sensitivity = 2048.0 / double(1 << 24);
-    seedTextKnob->lowSensitivity = 1.0 / double(1 << 24);
-  }
-  addLabel(mixLeft0, mixTop9, labelWidth, labelHeight, uiTextSize, "Octave");
-  addTextKnob(
-    mixLeft1, mixTop9, labelWidth, labelHeight, uiTextSize, ID::transposeOctave,
+    mixLeft1, mixTop8, labelWidth, labelHeight, uiTextSize, ID::transposeOctave,
     Scales::transposeOctave, false, 0, -transposeOctaveOffset);
-  addLabel(mixLeft0, mixTop10, labelWidth, labelHeight, uiTextSize, "Semitone");
+  addLabel(mixLeft0, mixTop9, labelWidth, labelHeight, uiTextSize, "Semitone");
   addTextKnob(
-    mixLeft1, mixTop10, labelWidth, labelHeight, uiTextSize, ID::transposeSemitone,
+    mixLeft1, mixTop9, labelWidth, labelHeight, uiTextSize, ID::transposeSemitone,
     Scales::transposeSemitone, false, 0, -transposeSemitoneOffset);
-  addLabel(mixLeft0, mixTop11, labelWidth, labelHeight, uiTextSize, "Cent");
+  addLabel(mixLeft0, mixTop10, labelWidth, labelHeight, uiTextSize, "Cent");
   addTextKnob(
-    mixLeft1, mixTop11, labelWidth, labelHeight, uiTextSize, ID::transposeCent,
+    mixLeft1, mixTop10, labelWidth, labelHeight, uiTextSize, ID::transposeCent,
     Scales::transposeCent, false, 5);
-  addLabel(mixLeft0, mixTop12, labelWidth, labelHeight, uiTextSize, "Tuning");
+  addLabel(mixLeft0, mixTop11, labelWidth, labelHeight, uiTextSize, "Tuning");
   addOptionMenu(
-    mixLeft1, mixTop12, labelWidth, labelHeight, uiTextSize, ID::tuning,
+    mixLeft1, mixTop11, labelWidth, labelHeight, uiTextSize, ID::tuning,
     {
       "Equal Temperament 12", "Equal Temperament 5", "Just Intonation 5-limit Major",
       "- Reserved 03 -",      "- Reserved 04 -",     "- Reserved 05 -",
@@ -167,6 +154,12 @@ bool Editor::prepareUI()
       "- Reserved 27 -",      "- Reserved 28 -",     "- Reserved 29 -",
       "- Reserved 30 -",      "- Reserved 31 -",     "- Reserved 32 -",
     });
+
+  addCheckbox(
+    mixLeft0, mixTop12, labelWidth, labelHeight, uiTextSize, "Polyphonic",
+    ID::polyphonic);
+  addCheckbox(
+    mixLeft1, mixTop12, labelWidth, labelHeight, uiTextSize, "Release", ID::release);
 
   // Waveform.
   constexpr auto waveformTop0 = top0 + 0 * labelY;
@@ -239,27 +232,35 @@ bool Editor::prepareUI()
   addToggleButton(
     arpLeft0, arpTop0, groupLabelWidth, labelHeight, uiTextSize, "Arpeggio",
     ID::arpeggioSwitch);
+  addLabel(arpLeft0, arpTop1, labelWidth, labelHeight, uiTextSize, "Seed");
+  auto seedTextKnob = addTextKnob(
+    arpLeft1, arpTop1, labelWidth, labelHeight, uiTextSize, ID::seed, Scales::seed, false,
+    0);
+  if (seedTextKnob) {
+    seedTextKnob->sensitivity = 2048.0 / double(1 << 24);
+    seedTextKnob->lowSensitivity = 1.0 / double(1 << 24);
+  }
 
-  addLabel(arpLeft0, arpTop1, labelWidth, labelHeight, uiTextSize, "Note / Beat");
+  addLabel(arpLeft0, arpTop3, labelWidth, labelHeight, uiTextSize, "Note / Beat");
   addTextKnob(
-    arpLeft1, arpTop1, labelWidth, labelHeight, uiTextSize, ID::arpeggioNotesPerBeat,
+    arpLeft1, arpTop3, labelWidth, labelHeight, uiTextSize, ID::arpeggioNotesPerBeat,
     Scales::arpeggioNotesPerBeat, false, 0, 1);
-  addLabel(arpLeft0, arpTop2, labelWidth, labelHeight, uiTextSize, "Loop Length [beat]");
+  addLabel(arpLeft0, arpTop4, labelWidth, labelHeight, uiTextSize, "Loop Length [beat]");
   addTextKnob(
-    arpLeft1, arpTop2, labelWidth, labelHeight, uiTextSize, ID::arpeggioLoopLengthInBeat,
+    arpLeft1, arpTop4, labelWidth, labelHeight, uiTextSize, ID::arpeggioLoopLengthInBeat,
     Scales::arpeggioLoopLengthInBeat, false, 0, 0);
-  addLabel(arpLeft0, arpTop3, labelWidth, labelHeight, uiTextSize, "Duration Variation");
+  addLabel(arpLeft0, arpTop5, labelWidth, labelHeight, uiTextSize, "Duration Variation");
   addTextKnob(
-    arpLeft1, arpTop3, labelWidth, labelHeight, uiTextSize, ID::arpeggioDurationVariation,
+    arpLeft1, arpTop5, labelWidth, labelHeight, uiTextSize, ID::arpeggioDurationVariation,
     Scales::arpeggioDurationVariation, false, 0, 1);
-  addLabel(arpLeft0, arpTop4, labelWidth, labelHeight, uiTextSize, "Rest Chance");
+  addLabel(arpLeft0, arpTop6, labelWidth, labelHeight, uiTextSize, "Rest Chance");
   addTextKnob(
-    arpLeft1, arpTop4, labelWidth, labelHeight, uiTextSize, ID::arpeggioRestChance,
+    arpLeft1, arpTop6, labelWidth, labelHeight, uiTextSize, ID::arpeggioRestChance,
     Scales::defaultScale, false, 5);
 
-  addLabel(arpLeft0, arpTop7, labelWidth, labelHeight, uiTextSize, "Scale");
+  addLabel(arpLeft0, arpTop8, labelWidth, labelHeight, uiTextSize, "Scale");
   addOptionMenu(
-    arpLeft1, arpTop7, labelWidth, labelHeight, uiTextSize, ID::arpeggioScale,
+    arpLeft1, arpTop8, labelWidth, labelHeight, uiTextSize, ID::arpeggioScale,
     {
       "Octave",          "ET 5 Chromatic",  "ET 12 Major",     "ET 12 Minor",
       "Overtone 32",     "- Reserved 05 -", "- Reserved 06 -", "- Reserved 07 -",
@@ -271,14 +272,19 @@ bool Editor::prepareUI()
       "- Reserved 28 -", "- Reserved 29 -", "- Reserved 30 -", "- Reserved 31 -",
       "- Reserved 32 -",
     });
-  addLabel(arpLeft0, arpTop8, labelWidth, labelHeight, uiTextSize, "Pitch Drift [cent]");
+  addLabel(arpLeft0, arpTop9, labelWidth, labelHeight, uiTextSize, "Pitch Drift [cent]");
   addTextKnob(
-    arpLeft1, arpTop8, labelWidth, labelHeight, uiTextSize, ID::arpeggioPicthDriftCent,
+    arpLeft1, arpTop9, labelWidth, labelHeight, uiTextSize, ID::arpeggioPicthDriftCent,
     Scales::arpeggioPicthDriftCent, false, 5);
-  addLabel(arpLeft0, arpTop9, labelWidth, labelHeight, uiTextSize, "Octave Range");
+  addLabel(arpLeft0, arpTop10, labelWidth, labelHeight, uiTextSize, "Octave Range");
   addTextKnob(
-    arpLeft1, arpTop9, labelWidth, labelHeight, uiTextSize, ID::arpeggioOctave,
+    arpLeft1, arpTop10, labelWidth, labelHeight, uiTextSize, ID::arpeggioOctave,
     Scales::arpeggioOctave, false, 0, 1);
+
+  addLabel(arpLeft0, arpTop12, labelWidth, labelHeight, uiTextSize, "Random FM Index");
+  addTextKnob(
+    arpLeft1, arpTop12, labelWidth, labelHeight, uiTextSize, ID::randomizeFmIndex,
+    Scales::randomizeFmIndex, false, 5);
 
   // Randomize button.
   const auto randomButtonTop = top0 + 18 * labelY;

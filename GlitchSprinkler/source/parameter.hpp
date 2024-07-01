@@ -82,6 +82,9 @@ enum ID {
   transposeCent,
   tuning,
 
+  polyphonic,
+  release,
+
   polynomialPointX0,
   polynomialPointY0 = polynomialPointX0 + nPolyOscControl,
 
@@ -176,6 +179,11 @@ struct GlobalParameter : public ParameterInterface {
       Info::kCanAutomate);
     value[ID::tuning]
       = std::make_unique<UIntValue>(0, Scales::tuning, "tuning", Info::kCanAutomate);
+
+    value[ID::polyphonic] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "polyphonic", Info::kCanAutomate);
+    value[ID::release]
+      = std::make_unique<UIntValue>(1, Scales::boolScale, "release", Info::kCanAutomate);
 
     for (size_t idx = 0; idx < nPolyOscControl; ++idx) {
       auto indexStr = std::to_string(idx);

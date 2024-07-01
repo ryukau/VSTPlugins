@@ -25,10 +25,7 @@
 #include <numbers>
 #include <numeric>
 
-static constexpr bool isPolyphonic__ = true; // TODO
-static constexpr bool doRelease = true;      // TODO
-
-void DSPCore::setup(double sampleRate)
+void DSPCore::setup(double sampleRate_)
 {
   activeNote.reserve(1024);
   activeNote.resize(0);
@@ -36,7 +33,7 @@ void DSPCore::setup(double sampleRate)
   activeModifier.reserve(1024);
   activeModifier.resize(0);
 
-  sampleRate = sampleRate;
+  sampleRate = sampleRate_;
 
   SmootherCommon<double>::setTime(double(0.2));
 
@@ -48,8 +45,16 @@ void DSPCore::setup(double sampleRate)
   using ID = ParameterID::ID;                                                            \
   const auto &pv = param.value;                                                          \
                                                                                          \
-  isPolyphonic = isPolyphonic__;                                                         \
-  noteOffState = doRelease ? Voice::State::release : Voice::State::terminate;            \
+  isPolyphonic = pv[ID::polyphonic]->getInt();                                           \
+                                                                                         \
+  auto newNoteOffState                                                                   \
+    = pv[ID::release]->getInt() ? Voice::State::release : Voice::State::terminate;       \
+  if (noteOffState != newNoteOffState) {                                                 \
+    for (auto &x : voices) {                                                             \
+      if (x.state == noteOffState) x.state = newNoteOffState;                            \
+    }                                                                                    \
+  }                                                                                      \
+  noteOffState = newNoteOffState;                                                        \
                                                                                          \
   const auto samplesPerBeat = (double(60) * sampleRate) / tempo;                         \
   const auto arpeggioNotesPerBeat = pv[ID::arpeggioNotesPerBeat]->getInt() + 1;          \
