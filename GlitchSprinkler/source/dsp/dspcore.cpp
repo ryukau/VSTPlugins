@@ -25,6 +25,9 @@
 #include <numbers>
 #include <numeric>
 
+static constexpr bool isPolyphonic__ = true; // TODO
+static constexpr bool doRelease = true;      // TODO
+
 void DSPCore::setup(double sampleRate)
 {
   activeNote.reserve(1024);
@@ -33,7 +36,7 @@ void DSPCore::setup(double sampleRate)
   activeModifier.reserve(1024);
   activeModifier.resize(0);
 
-  this->sampleRate = sampleRate;
+  sampleRate = sampleRate;
 
   SmootherCommon<double>::setTime(double(0.2));
 
@@ -41,11 +44,12 @@ void DSPCore::setup(double sampleRate)
   startup();
 }
 
-#define ASSIGN_PARAMETER(METHOD)                                                         \
+#define ASSIGN_PARAMETER_CORE(METHOD)                                                    \
   using ID = ParameterID::ID;                                                            \
   const auto &pv = param.value;                                                          \
                                                                                          \
-  outputGain.METHOD(pv[ID::outputGain]->getDouble());                                    \
+  isPolyphonic = isPolyphonic__;                                                         \
+  noteOffState = doRelease ? Voice::State::release : Voice::State::terminate;            \
                                                                                          \
   const auto samplesPerBeat = (double(60) * sampleRate) / tempo;                         \
   const auto arpeggioNotesPerBeat = pv[ID::arpeggioNotesPerBeat]->getInt() + 1;          \
@@ -56,32 +60,55 @@ void DSPCore::setup(double sampleRate)
     arpeggioLoopLength = std::numeric_limits<decltype(arpeggioLoopLength)>::max();       \
   }                                                                                      \
                                                                                          \
+  outputGain.METHOD(pv[ID::outputGain]->getDouble());                                    \
+                                                                                         \
   for (size_t idx = 0; idx < nPolyOscControl; ++idx) {                                   \
     polynomial.polyX[idx + 1] = pv[ID::polynomialPointX0 + idx]->getDouble();            \
     polynomial.polyY[idx + 1] = pv[ID::polynomialPointY0 + idx]->getDouble();            \
   }
 
-void DSPCore::reset()
+#define ASSIGN_PARAMETER_VOICE(METHOD)                                                   \
+  using ID = ParameterID::ID;                                                            \
+  const auto &pv = core.param.value;
+
+void Voice::reset()
 {
-  velocity = 0;
+  ASSIGN_PARAMETER_VOICE(reset);
 
-  previousBeatsElapsed = 0;
+  state = State::rest;
 
-  ASSIGN_PARAMETER(reset);
+  noteId = -1;
+  noteNumber = 0;
+  noteCent = 0;
+  noteVelocity = 0;
 
-  rngParam.seed(pv[ID::seed]->getInt());
   rngArpeggio.seed(pv[ID::seed]->getInt());
 
-  arpeggioDuration = std::numeric_limits<decltype(arpeggioDuration)>::max();
   arpeggioTie = 1;
   arpeggioTimer = 0;
-  arpeggioLoopLength = std::numeric_limits<decltype(arpeggioLoopLength)>::max();
   arpeggioLoopCounter = 0;
 
   scheduleUpdateNote = false;
+  phasePeriod = 0;
   phaseCounter = 0;
+  oscSync = double(1);
+  fmIndex = double(0);
+  saturationGain = double(1);
   decayGain = double(0);
+  decayRatio = double(1);
+  polynomialCoefficients.fill({});
+}
+
+void DSPCore::reset()
+{
+  ASSIGN_PARAMETER_CORE(reset);
+
+  previousBeatsElapsed = 0;
+
   polynomial.updateCoefficients(true);
+  isPolynomialUpdated = true;
+
+  for (auto &x : voices) x.reset();
 
   startup();
 }
@@ -91,63 +118,79 @@ void DSPCore::startup()
   using ID = ParameterID::ID;
   const auto &pv = param.value;
 
-  resetArpeggio();
+  for (auto &x : voices) x.resetArpeggio(pv[ID::seed]->getInt());
 }
 
-void DSPCore::setParameters() { ASSIGN_PARAMETER(push); }
+void Voice::setParameters() { ASSIGN_PARAMETER_VOICE(push); }
 
-std::array<double, 2> DSPCore::processFrame(double currentBeat)
+void DSPCore::setParameters()
+{
+  ASSIGN_PARAMETER_CORE(push);
+
+  for (auto &x : voices) x.setParameters();
+}
+
+std::array<double, 2> Voice::processFrame()
 {
   using ID = ParameterID::ID;
-  const auto &pv = param.value;
-
-  const auto outGain = outputGain.process();
+  const auto &pv = core.param.value;
 
   // Arpeggio.
   if (pv[ID::arpeggioSwitch]->getInt()) {
-    if (arpeggioTimer < arpeggioTie * arpeggioDuration) {
+    if (arpeggioTimer < arpeggioTie * core.arpeggioDuration) {
       ++arpeggioTimer;
-    } else {
+    } else if (state != State::release && state != State::terminate) {
       scheduleUpdateNote = true;
 
       arpeggioTimer = 0;
 
-      if (++arpeggioLoopCounter >= arpeggioLoopLength) {
+      if (++arpeggioLoopCounter >= core.arpeggioLoopLength) {
         arpeggioLoopCounter = 0;
         rngArpeggio.seed(pv[ID::seed]->getInt());
       }
     }
   }
 
-  if (activeNote.empty() && phaseCounter == 0) {
+  constexpr double epsf32 = double(std::numeric_limits<float>::epsilon());
+  if (
+    (state == State::terminate && phaseCounter == 0)
+    || (state == State::release && lastGain <= epsf32))
+  {
+    state = State::rest;
     return {double(0), double(0)};
   }
 
   // Oscillator.
+  auto oscFunc = [&](double phase) {
+    return computePolynomial<double, PolySolver::nPolynomialPoint>(
+      phase, polynomialCoefficients);
+  };
+
   const auto phase = oscSync * double(phaseCounter) / double(phasePeriod);
-  auto sig = polynomial.evaluate(phase);
+  auto sig = oscFunc(phase);
 
   // FM.
   auto modPhase = (fmIndex * sig + double(1)) * phase;
   modPhase -= std::floor(modPhase);
-  sig = polynomial.evaluate(modPhase);
+  sig = oscFunc(modPhase);
 
   // Saturation.
   sig = std::clamp(saturationGain * sig, double(-1), double(1));
 
   // Envelope.
   decayGain *= decayRatio;
-  const auto gain = decayGain * outGain * velocity;
+  lastGain = decayGain * noteVelocity;
+  sig *= lastGain;
 
   if (++phaseCounter >= phasePeriod) {
     phaseCounter = 0;
     if (scheduleUpdateNote) {
       scheduleUpdateNote = false;
-      updateNote();
+      if (state != State::release && state != State::terminate) updateNote();
     }
   }
 
-  return {gain * sig, gain * sig};
+  return {sig, sig};
 }
 
 void DSPCore::process(const size_t length, float *out0, float *out1)
@@ -157,19 +200,36 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
   using ID = ParameterID::ID;
   const auto &pv = param.value;
 
-  if (previousBeatsElapsed > beatsElapsed) resetArpeggio();
+  if (previousBeatsElapsed > beatsElapsed) {
+    for (auto &x : voices) x.resetArpeggio(pv[ID::seed]->getInt());
+  }
+
+  isPolynomialUpdated = false;
 
   SmootherCommon<double>::setBufferSize(double(length));
 
   const auto beatPerSample = tempo / (double(60) * sampleRate);
+  std::array<double, 2> frame{};
   for (size_t i = 0; i < length; ++i) {
     processMidiNote(i);
 
-    const auto currentBeat = beatsElapsed + double(i) * beatPerSample;
+    currentBeat = beatsElapsed + double(i) * beatPerSample;
+    pitchModifier = activeModifier.empty()
+      ? double(1)
+      : double(activeModifier.back().noteNumber + activeModifier.back().cent);
 
-    auto frame = processFrame(currentBeat);
-    out0[i] = float(frame[0]);
-    out1[i] = float(frame[1]);
+    frame.fill({});
+
+    for (auto &vc : voices) {
+      if (vc.state == Voice::State::rest) continue;
+      auto voiceOut = vc.processFrame();
+      frame[0] += voiceOut[0];
+      frame[1] += voiceOut[1];
+    }
+
+    const auto outGain = outputGain.process();
+    out0[i] = float(outGain * frame[0]);
+    out1[i] = float(outGain * frame[1]);
   }
 }
 
@@ -182,13 +242,37 @@ void DSPCore::noteOn(NoteInfo &info)
 
   activeNote.push_back(info);
 
-  if (activeNote.size() == 1 && phaseCounter == 0) {
-    arpeggioTimer = 0;
-    arpeggioLoopCounter = 0;
+  size_t replaceIndex = 0;
+  if (isPolyphonic) {
+    double mostQuiet = std::numeric_limits<double>::max();
+    for (size_t idx = 0; idx < voices.size(); ++idx) {
+      if (voices[idx].state == Voice::State::rest) {
+        replaceIndex = idx;
+        break;
+      }
+      if (mostQuiet > voices[idx].lastGain) {
+        mostQuiet = voices[idx].lastGain;
+        replaceIndex = idx;
+      }
+    }
+    voices[replaceIndex].noteId = info.id;
+    voices[replaceIndex].noteNumber = info.noteNumber;
+    voices[replaceIndex].noteCent = info.cent;
+    voices[replaceIndex].noteVelocity = velocityMap.map(info.velocity);
+    voices[replaceIndex].state = Voice::State::active;
+  } else {
+    voices[replaceIndex].noteId = -1;
+    voices[replaceIndex].state = Voice::State::active;
+  }
 
-    updateNote();
+  auto &newVoice = voices[replaceIndex];
+  if (newVoice.state == Voice::State::rest && newVoice.phaseCounter == 0) {
+    newVoice.arpeggioTimer = 0;
+    newVoice.arpeggioLoopCounter = 0;
+
+    newVoice.updateNote();
   } else if (!param.value[ParameterID::arpeggioSwitch]->getInt()) {
-    scheduleUpdateNote = true;
+    newVoice.scheduleUpdateNote = true;
   }
 }
 
@@ -223,20 +307,25 @@ inline double getRandomPitch(Rng &rng, const Scale &scale, const Tuning &tuning)
   return tuning[scale[indexDist(rng)]];
 }
 
-void DSPCore::updateNote()
+void Voice::updateNote()
 {
   using ID = ParameterID::ID;
-  auto &pv = param.value;
+  auto &pv = core.param.value;
 
-  if (activeNote.empty()) return;
+  if (core.activeNote.empty()) return;
 
-  const auto isArpeggioEnabled
+  const auto useArpeggiator
     = pv[ID::arpeggioSwitch]->getInt() && arpeggioLoopCounter >= 1;
-  std::uniform_int_distribution<size_t> indexDist{0, activeNote.size() - 1};
-  const auto &info
-    = isArpeggioEnabled ? activeNote[indexDist(rngArpeggio)] : activeNote.back();
 
-  velocity = velocityMap.map(info.velocity);
+  if (!core.isPolyphonic) {
+    std::uniform_int_distribution<size_t> indexDist{0, core.activeNote.size() - 1};
+    const auto &note
+      = useArpeggiator ? core.activeNote[indexDist(rngArpeggio)] : core.activeNote.back();
+
+    noteVelocity = core.velocityMap.map(note.velocity);
+    noteNumber = note.noteNumber;
+    noteCent = note.cent;
+  }
 
   // Pitch & phase.
   auto transposeOctave = int(pv[ID::transposeOctave]->getInt()) - transposeOctaveOffset;
@@ -244,15 +333,11 @@ void DSPCore::updateNote()
     = int(pv[ID::transposeSemitone]->getInt()) - transposeSemitoneOffset;
   auto transposeCent = pv[ID::transposeCent]->getDouble();
   auto transposeRatio = getPitchRatio(
-    static_cast<Tuning>(pv[ID::tuning]->getInt()),
-    transposeSemitone + info.noteNumber - 69, transposeOctave, transposeCent);
-  auto freqHz = std::min(double(0.5) * sampleRate, transposeRatio * double(440));
+    static_cast<Tuning>(pv[ID::tuning]->getInt()), transposeSemitone + noteNumber - 69,
+    transposeOctave, transposeCent + noteCent);
+  auto freqHz = core.pitchModifier * transposeRatio * double(440);
 
-  if (!activeModifier.empty()) {
-    freqHz *= double(activeModifier.back().noteNumber + activeModifier.back().cent);
-  }
-
-  if (isArpeggioEnabled) {
+  if (useArpeggiator) {
     auto pitchDriftCent = pv[ID::arpeggioPicthDriftCent]->getDouble();
     auto octaveRange = pv[ID::arpeggioOctave]->getInt();
     using octaveType = decltype(octaveRange);
@@ -283,11 +368,16 @@ void DSPCore::updateNote()
     arpeggioTie = durVarDist(rngArpeggio);
   }
 
-  phasePeriod = uint_fast32_t(sampleRate / freqHz);
+  freqHz = std::min(double(0.5) * core.sampleRate, freqHz);
+  phasePeriod = uint_fast32_t(core.sampleRate / freqHz);
   phaseCounter = 0;
 
   // Oscillator.
-  polynomial.updateCoefficients(true);
+  if (!core.isPolynomialUpdated) {
+    core.polynomial.updateCoefficients(true);
+    core.isPolynomialUpdated = true;
+  }
+  polynomialCoefficients = core.polynomial.coefficients;
 
   oscSync = pv[ID::oscSync]->getDouble();
 
@@ -298,13 +388,14 @@ void DSPCore::updateNote()
 
   // Envelope.
   const auto decaySeconds = pv[ID::decaySeconds]->getDouble();
-  decayRatio = std::pow(double(1e-3), double(1) / (decaySeconds * sampleRate));
+  decayRatio = std::pow(double(1e-3), double(1) / (decaySeconds * core.sampleRate));
 
   const auto restChance = pv[ID::arpeggioRestChance]->getDouble();
   std::uniform_real_distribution<double> restDist{double(0), double(1)};
-  decayGain = isArpeggioEnabled && restDist(rngParam) < restChance || freqHz == 0
+  decayGain = useArpeggiator && restDist(rngArpeggio) < restChance || freqHz == 0
     ? double(0)
     : double(1) / decayRatio;
+  lastGain = decayGain;
 }
 
 void DSPCore::noteOff(int_fast32_t noteId)
@@ -323,21 +414,32 @@ void DSPCore::noteOff(int_fast32_t noteId)
   }
 
   { // Handling notes.
-    auto it
+    auto itNote
       = std::find_if(activeNote.begin(), activeNote.end(), [&](const NoteInfo &info) {
           return info.id == noteId;
         });
-    if (it != activeNote.end()) {
-      activeNote.erase(it);
+    if (itNote == activeNote.end()) return;
+    activeNote.erase(itNote);
 
-      if (activeNote.empty()) resetArpeggio();
+    if (isPolyphonic) {
+      auto itVoice = std::find_if(voices.begin(), voices.end(), [&](const Voice &vc) {
+        return vc.noteId == noteId;
+      });
+      if (itVoice != voices.end()) {
+        auto &voice = *itVoice;
+        voice.state = noteOffState;
+        voice.resetArpeggio(pv[ID::seed]->getInt());
+      }
+    } else if (activeNote.empty()) {
+      voices[0].state = noteOffState;
+      voices[0].resetArpeggio(pv[ID::seed]->getInt());
     }
   }
 }
 
-void DSPCore::resetArpeggio()
+void Voice::resetArpeggio(unsigned seed)
 {
-  rngArpeggio.seed(param.value[ParameterID::seed]->getInt());
+  rngArpeggio.seed(seed);
   arpeggioTie = 0;
   arpeggioTimer = 0;
   arpeggioLoopCounter = 0;

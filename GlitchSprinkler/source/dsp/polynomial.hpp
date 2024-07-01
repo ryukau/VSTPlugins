@@ -104,8 +104,10 @@ template<typename T, int size> inline T computePolynomial(T x, std::array<T, siz
 }
 
 template<typename Sample, size_t nControlPoint> class PolynomialCoefficientSolver {
-private:
+public:
   static constexpr size_t nPolynomialPoint = nControlPoint + 2;
+
+private:
   Solver<Sample, nPolynomialPoint> solver;
   std::array<std::array<Sample, nPolynomialPoint>, nPolynomialPoint> A{};
 
