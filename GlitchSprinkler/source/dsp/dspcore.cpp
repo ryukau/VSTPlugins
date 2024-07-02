@@ -45,9 +45,7 @@ void DSPCore::setup(double sampleRate_)
   using ID = ParameterID::ID;                                                            \
   const auto &pv = param.value;                                                          \
                                                                                          \
-  isPolyphonic = pv[ID::polyphonic]->getInt();                                           \
-                                                                                         \
-  auto newNoteOffState                                                                   \
+  const auto newNoteOffState                                                             \
     = pv[ID::release]->getInt() ? Voice::State::release : Voice::State::terminate;       \
   if (noteOffState != newNoteOffState) {                                                 \
     for (auto &x : voices) {                                                             \
@@ -55,6 +53,14 @@ void DSPCore::setup(double sampleRate_)
     }                                                                                    \
   }                                                                                      \
   noteOffState = newNoteOffState;                                                        \
+                                                                                         \
+  const auto newIsPolyphonic = pv[ID::polyphonic]->getInt() != 0;                        \
+  if (isPolyphonic != newIsPolyphonic) {                                                 \
+    for (size_t idx = 1; idx < voices.size(); ++idx) {                                   \
+      voices[idx].state = noteOffState;                                                  \
+    }                                                                                    \
+  }                                                                                      \
+  isPolyphonic = newIsPolyphonic;                                                        \
                                                                                          \
   const auto samplesPerBeat = (double(60) * sampleRate) / tempo;                         \
   const auto arpeggioNotesPerBeat = pv[ID::arpeggioNotesPerBeat]->getInt() + 1;          \
@@ -144,7 +150,7 @@ std::array<double, 2> Voice::processFrame()
   if (pv[ID::arpeggioSwitch]->getInt()) {
     if (arpeggioTimer < arpeggioTie * core.arpeggioDuration) {
       ++arpeggioTimer;
-    } else if (state != State::release && state != State::terminate) {
+    } else if (state == State::active) {
       scheduleUpdateNote = true;
 
       arpeggioTimer = 0;
@@ -191,7 +197,7 @@ std::array<double, 2> Voice::processFrame()
     phaseCounter = 0;
     if (scheduleUpdateNote) {
       scheduleUpdateNote = false;
-      if (state != State::release && state != State::terminate) updateNote();
+      if (state == State::active) updateNote();
     }
   }
 
@@ -281,21 +287,10 @@ void DSPCore::noteOn(NoteInfo &info)
   }
 }
 
-inline double getPitchRatio(Tuning tuning, int semitone, double octave, double cent)
+template<size_t length>
+double getPitchRatioFromArray(
+  int semitone, double octave, double cent, const std::array<double, length> &tuningTable)
 {
-  auto getTuning = [&](Tuning tuning) {
-    switch (tuning) {
-      default:
-      case Tuning::equalTemperament12:
-        return tuningRatioEt12;
-      case Tuning::equalTemperament5:
-        return tuningRatioEt5;
-      case Tuning::justIntonation5LimitMajor:
-        return tuningRatioJust5Major;
-    }
-  };
-  auto tuningTable = getTuning(tuning);
-
   int size = int(tuningTable.size());
   int index = semitone % size;
   if (index < 0) index += size;
@@ -303,6 +298,24 @@ inline double getPitchRatio(Tuning tuning, int semitone, double octave, double c
   octave += double((semitone - index) / size);
 
   return tuningTable[index] * std::exp2(octave + cent / double(1200));
+}
+
+inline double getPitchRatio(int semitone, double octave, double cent, Tuning tuning)
+{
+  switch (tuning) {
+    default:
+    case Tuning::et12:
+      return getPitchRatioFromArray(semitone, octave, cent, tuningRatioEt12);
+    case Tuning::et5:
+      return getPitchRatioFromArray(semitone, octave, cent, tuningRatioEt5);
+    case Tuning::just5Major:
+      return getPitchRatioFromArray(semitone, octave, cent, tuningRatioJust5Major);
+    case Tuning::just5Minor:
+      return getPitchRatioFromArray(semitone, octave, cent, tuningRatioJust5Minor);
+    case Tuning::just7:
+      return getPitchRatioFromArray(semitone, octave, cent, tuningRatioJust7);
+  }
+  // Shouldn't reach here.
 }
 
 template<typename Rng, typename Scale, typename Tuning>
@@ -319,8 +332,7 @@ void Voice::updateNote()
 
   if (core.activeNote.empty()) return;
 
-  const auto useArpeggiator
-    = pv[ID::arpeggioSwitch]->getInt() && arpeggioLoopCounter >= 1;
+  const auto useArpeggiator = pv[ID::arpeggioSwitch]->getInt();
 
   if (!core.isPolyphonic) {
     std::uniform_int_distribution<size_t> indexDist{0, core.activeNote.size() - 1};
@@ -338,8 +350,8 @@ void Voice::updateNote()
     = int(pv[ID::transposeSemitone]->getInt()) - transposeSemitoneOffset;
   auto transposeCent = pv[ID::transposeCent]->getDouble();
   auto transposeRatio = getPitchRatio(
-    static_cast<Tuning>(pv[ID::tuning]->getInt()), transposeSemitone + noteNumber - 69,
-    transposeOctave, transposeCent + noteCent);
+    transposeSemitone + noteNumber - 69, transposeOctave, transposeCent + noteCent,
+    static_cast<Tuning>(pv[ID::tuning]->getInt()));
   auto freqHz = core.pitchModifier * transposeRatio * double(440);
 
   if (useArpeggiator) {
@@ -432,10 +444,12 @@ void DSPCore::noteOff(int_fast32_t noteId)
       });
       if (itVoice != voices.end()) {
         auto &voice = *itVoice;
+        voice.noteId = -1;
         voice.state = noteOffState;
         voice.resetArpeggio(pv[ID::seed]->getInt());
       }
     } else if (activeNote.empty()) {
+      voices[0].noteId = -1;
       voices[0].state = noteOffState;
       voices[0].resetArpeggio(pv[ID::seed]->getInt());
     }

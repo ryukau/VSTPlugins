@@ -31,7 +31,7 @@
   #include "../../common/value.hpp"
 #endif
 
-static constexpr size_t nPolyOscControl = 13;
+static constexpr size_t nPolyOscControl = 11;
 
 constexpr size_t nReservedParameter = 256;
 constexpr size_t nReservedGuiParameter = 64;
@@ -43,12 +43,13 @@ namespace Steinberg {
 namespace Synth {
 
 enum Tuning {
-  equalTemperament12,
-  equalTemperament5,
-  equalTemperament10Major, // TODO
-  equalTemperament10Minor, // TODO
-  justIntonation5LimitMajor,
-  justIntonation5LimitMinor, // TODO
+  et12,
+  et5,
+  // et10Major, // TODO
+  // et10Minor, // TODO
+  just5Major,
+  just5Minor,
+  just7,
 
   Tuning_ENUM_LENGTH,
 };

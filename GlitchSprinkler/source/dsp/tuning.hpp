@@ -80,7 +80,6 @@ std::array<double, 12> tuningRatioJust5Minor{
   double(5) / double(3),   double(9) / double(5),   double(15) / double(8),
 };
 
-// TODO: remove 1 element if possible.
 std::array<double, 13> tuningRatioJust7{
   double(1) / double(1), double(8) / double(7),  double(7) / double(6),
   double(6) / double(5), double(5) / double(4),  double(4) / double(3),

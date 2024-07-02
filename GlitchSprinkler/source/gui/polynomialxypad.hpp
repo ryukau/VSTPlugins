@@ -406,20 +406,28 @@ private:
   void linkControl(size_t index)
   {
     const auto indexX = index % nPolyOscControl;
-    polyXControl->setTag(id[indexX]);
-    polyXControl->setValueNormalized(value[indexX]);
-    polyXControl->invalid();
+    if (polyXControl != nullptr) {
+      polyXControl->setTag(id[indexX]);
+      polyXControl->setValueNormalized(value[indexX]);
+      polyXControl->invalid();
+    }
 
-    const auto indexY = indexX + nPolyOscControl;
-    polyYControl->setTag(id[indexY]);
-    polyYControl->setValueNormalized(value[indexY]);
-    polyYControl->invalid();
+    if (polyYControl != nullptr) {
+      const auto indexY = indexX + nPolyOscControl;
+      polyYControl->setTag(id[indexY]);
+      polyYControl->setValueNormalized(value[indexY]);
+      polyYControl->invalid();
+    }
 
-    polyXLabel->setText("X" + std::to_string(indexX));
-    polyXLabel->invalid();
+    if (polyXLabel != nullptr) {
+      polyXLabel->setText("X" + std::to_string(indexX));
+      polyXLabel->invalid();
+    }
 
-    polyYLabel->setText("Y" + std::to_string(indexX));
-    polyYLabel->invalid();
+    if (polyYLabel != nullptr) {
+      polyYLabel->setText("Y" + std::to_string(indexX));
+      polyYLabel->invalid();
+    }
   }
 
   void setMousePosition(CPoint &pos)

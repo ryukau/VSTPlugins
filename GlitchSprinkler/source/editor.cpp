@@ -70,7 +70,7 @@ void Editor::updateUI(Vst::ParamID id, ParamValue normalized)
 
   using ID = Synth::ParameterID::ID;
   if (id >= ID::polynomialPointX0 && id < ID::polynomialPointY0 + nPolyOscControl) {
-    polyXYPad->linkControlFromId(id);
+    if (polyXYPad != nullptr) polyXYPad->linkControlFromId(id);
   }
 }
 
@@ -142,17 +142,22 @@ bool Editor::prepareUI()
   addOptionMenu(
     mixLeft1, mixTop11, labelWidth, labelHeight, uiTextSize, ID::tuning,
     {
-      "Equal Temperament 12", "Equal Temperament 5", "Just Intonation 5-limit Major",
-      "- Reserved 03 -",      "- Reserved 04 -",     "- Reserved 05 -",
-      "- Reserved 06 -",      "- Reserved 07 -",     "- Reserved 08 -",
-      "- Reserved 09 -",      "- Reserved 10 -",     "- Reserved 11 -",
-      "- Reserved 12 -",      "- Reserved 13 -",     "- Reserved 14 -",
-      "- Reserved 15 -",      "- Reserved 16 -",     "- Reserved 17 -",
-      "- Reserved 18 -",      "- Reserved 19 -",     "- Reserved 20 -",
-      "- Reserved 21 -",      "- Reserved 22 -",     "- Reserved 23 -",
-      "- Reserved 24 -",      "- Reserved 25 -",     "- Reserved 26 -",
-      "- Reserved 27 -",      "- Reserved 28 -",     "- Reserved 29 -",
-      "- Reserved 30 -",      "- Reserved 31 -",     "- Reserved 32 -",
+      "ET 12",           "ET 5",
+      "Just 5 Major",    "Just 5 Minor",
+      "Just 7",          "- Reserved 05 -",
+      "- Reserved 06 -", "- Reserved 07 -",
+      "- Reserved 08 -", "- Reserved 09 -",
+      "- Reserved 10 -", "- Reserved 11 -",
+      "- Reserved 12 -", "- Reserved 13 -",
+      "- Reserved 14 -", "- Reserved 15 -",
+      "- Reserved 16 -", "- Reserved 17 -",
+      "- Reserved 18 -", "- Reserved 19 -",
+      "- Reserved 20 -", "- Reserved 21 -",
+      "- Reserved 22 -", "- Reserved 23 -",
+      "- Reserved 24 -", "- Reserved 25 -",
+      "- Reserved 26 -", "- Reserved 27 -",
+      "- Reserved 28 -", "- Reserved 29 -",
+      "- Reserved 30 -", "- Reserved 31 -",
     });
 
   addCheckbox(
@@ -270,7 +275,6 @@ bool Editor::prepareUI()
       "- Reserved 20 -", "- Reserved 21 -", "- Reserved 22 -", "- Reserved 23 -",
       "- Reserved 24 -", "- Reserved 25 -", "- Reserved 26 -", "- Reserved 27 -",
       "- Reserved 28 -", "- Reserved 29 -", "- Reserved 30 -", "- Reserved 31 -",
-      "- Reserved 32 -",
     });
   addLabel(arpLeft0, arpTop9, labelWidth, labelHeight, uiTextSize, "Pitch Drift [cent]");
   addTextKnob(
