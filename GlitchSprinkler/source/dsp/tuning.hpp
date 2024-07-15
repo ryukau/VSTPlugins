@@ -33,8 +33,24 @@ std::array<double, 12> tuningRatioEt12{
   double(1.4142135623730951), double(1.4983070768766815), double(1.5874010519681994),
   double(1.681792830507429),  double(1.7817974362806785), double(1.887748625363387),
 };
-std::array<size_t, 7> scaleEt12Major{0, 2, 4, 5, 7, 9, 11};
-std::array<size_t, 7> scaleEt12Minor{0, 2, 3, 5, 7, 8, 10};
+std::array<size_t, 7> scaleEt12ChurchC{0, 2, 4, 5, 7, 9, 11}; // Ionic, Major
+std::array<size_t, 7> scaleEt12ChurchD{0, 2, 3, 5, 7, 9, 10}; // Dorian
+std::array<size_t, 7> scaleEt12ChurchE{0, 1, 3, 5, 7, 8, 10}; // Frygian
+std::array<size_t, 7> scaleEt12ChurchF{0, 2, 4, 6, 7, 9, 11}; // Lydian
+std::array<size_t, 7> scaleEt12ChurchG{0, 2, 4, 5, 7, 9, 10}; // Mixolydian
+std::array<size_t, 7> scaleEt12ChurchA{0, 2, 3, 5, 7, 8, 10}; // Aeolian, Minor
+std::array<size_t, 7> scaleEt12ChurchB{0, 1, 3, 5, 6, 8, 10}; // Locrian
+std::array<size_t, 3> scaleEt12Sus2{0, 2, 7};
+std::array<size_t, 3> scaleEt12Sus4{0, 5, 7};
+std::array<size_t, 6> scaleEt12Chord2_4_7_9_11{0, 2, 4, 7, 9, 11};
+std::array<size_t, 4> scaleEt12Maj7{0, 4, 7, 11};
+std::array<size_t, 4> scaleEt12Min7{0, 3, 7, 10};
+std::array<size_t, 8> scaleEt12MajHillege{0, 4, 7, 11, 14, 18, 21, 25};
+std::array<size_t, 8> scaleEt12MinHillege{0, 3, 7, 10, 14, 17, 21, 24};
+std::array<size_t, 6> scaleEt12WholeTone2{0, 2, 4, 6, 8, 10};
+std::array<size_t, 4> scaleEt12WholeTone3{0, 3, 6, 9};
+std::array<size_t, 3> scaleEt12WholeTone4{0, 4, 8};
+std::array<size_t, 6> scaleEt12Blues{0, 3, 5, 6, 7, 10};
 
 /**
 ```javascript

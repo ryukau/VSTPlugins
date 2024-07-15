@@ -93,7 +93,12 @@ void Voice::reset()
   noteCent = 0;
   noteVelocity = 0;
 
-  rngArpeggio.seed(pv[ID::seed]->getInt());
+  unisonIndex = 1;
+  unisonPan = double(0.5);
+  unisonPanNext = double(0.5);
+  unisonCentNext = double(0);
+
+  rngArpeggio.seed(pv[ID::seed]->getInt() + unisonIndex);
 
   arpeggioTie = 1;
   arpeggioTimer = 0;
@@ -119,6 +124,7 @@ void DSPCore::reset()
   polynomial.updateCoefficients(true);
   isPolynomialUpdated = true;
 
+  nextSteal = 0;
   for (auto &x : voices) x.reset();
 
   startup();
@@ -157,7 +163,7 @@ std::array<double, 2> Voice::processFrame()
 
       if (++arpeggioLoopCounter >= core.arpeggioLoopLength) {
         arpeggioLoopCounter = 0;
-        rngArpeggio.seed(pv[ID::seed]->getInt());
+        rngArpeggio.seed(pv[ID::seed]->getInt() + unisonIndex);
       }
     }
   }
@@ -201,7 +207,7 @@ std::array<double, 2> Voice::processFrame()
     }
   }
 
-  return {sig, sig};
+  return {(double(1) - unisonPan) * sig, unisonPan * sig};
 }
 
 void DSPCore::process(const size_t length, float *out0, float *out1)
@@ -246,44 +252,61 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
 
 void DSPCore::noteOn(NoteInfo &info)
 {
+  using ID = ParameterID::ID;
+  auto &pv = param.value;
+
   if (info.channel == pitchModifierChannel) {
     activeModifier.push_back(info);
     return;
   }
-
   activeNote.push_back(info);
 
-  size_t replaceIndex = 0;
+  const size_t nUnison = 1 + pv[ID::unisonVoice]->getInt();
+  noteIndices.resize(nUnison);
   if (isPolyphonic) {
-    double mostQuiet = std::numeric_limits<double>::max();
-    for (size_t idx = 0; idx < voices.size(); ++idx) {
-      if (voices[idx].state == Voice::State::rest) {
-        replaceIndex = idx;
-        break;
-      }
-      if (mostQuiet > voices[idx].lastGain) {
-        mostQuiet = voices[idx].lastGain;
-        replaceIndex = idx;
-      }
+    for (auto &idx : noteIndices) {
+      idx = nextSteal;
+      if (++nextSteal >= voices.size()) nextSteal = 0;
     }
-    voices[replaceIndex].noteId = info.id;
-    voices[replaceIndex].noteNumber = info.noteNumber;
-    voices[replaceIndex].noteCent = info.cent;
-    voices[replaceIndex].noteVelocity = velocityMap.map(info.velocity);
-    voices[replaceIndex].state = Voice::State::active;
   } else {
-    voices[replaceIndex].noteId = -1;
-    voices[replaceIndex].state = Voice::State::active;
+    std::iota(noteIndices.begin(), noteIndices.end(), size_t(0));
   }
 
-  auto &newVoice = voices[replaceIndex];
-  if (newVoice.state == Voice::State::rest && newVoice.phaseCounter == 0) {
-    newVoice.arpeggioTimer = 0;
-    newVoice.arpeggioLoopCounter = 0;
+  const auto unisonDetuneCent = pv[ID::unisonDetuneCent]->getDouble();
+  const auto unisonPanSpread = pv[ID::unisonPanSpread]->getDouble();
+  const auto unisonPanOffset = (double(1) - unisonPanSpread) / double(2);
+  for (unsigned idx = 0; idx < noteIndices.size(); ++idx) {
+    auto &vc = voices[noteIndices[idx]];
 
-    newVoice.updateNote();
-  } else if (!param.value[ParameterID::arpeggioSwitch]->getInt()) {
-    newVoice.scheduleUpdateNote = true;
+    if (isPolyphonic) {
+      vc.noteId = info.id;
+      vc.noteNumber = info.noteNumber;
+      vc.noteCent = info.cent;
+      vc.noteVelocity = velocityMap.map(info.velocity);
+    } else {
+      vc.noteId = -1;
+    }
+    vc.unisonGain = double(1) / double(nUnison);
+    vc.state = Voice::State::active;
+    vc.unisonIndex = idx + 1;
+    vc.rngArpeggio.seed(seed + vc.unisonIndex);
+
+    if (nUnison <= 1) {
+      vc.unisonPanNext = double(0.5);
+      vc.unisonCentNext = double(0);
+    } else {
+      const double ratio = double(idx) / double(nUnison - 1);
+      vc.unisonPanNext = ratio * unisonPanSpread + unisonPanOffset;
+      vc.unisonCentNext = ratio * unisonDetuneCent;
+    }
+
+    if (vc.state == Voice::State::rest && vc.phaseCounter == 0) {
+      vc.arpeggioTimer = 0;
+      vc.arpeggioLoopCounter = 0;
+      vc.updateNote();
+    } else if (!param.value[ParameterID::arpeggioSwitch]->getInt()) {
+      vc.scheduleUpdateNote = true;
+    }
   }
 }
 
@@ -344,15 +367,40 @@ void Voice::updateNote()
     noteCent = note.cent;
   }
 
+  unisonPan = unisonPanNext;
+
   // Pitch & phase.
+  const auto tuning = static_cast<Tuning>(pv[ID::tuning]->getInt());
   auto transposeOctave = int(pv[ID::transposeOctave]->getInt()) - transposeOctaveOffset;
   auto transposeSemitone
     = int(pv[ID::transposeSemitone]->getInt()) - transposeSemitoneOffset;
   auto transposeCent = pv[ID::transposeCent]->getDouble();
-  auto transposeRatio = getPitchRatio(
-    transposeSemitone + noteNumber - 69, transposeOctave, transposeCent + noteCent,
-    static_cast<Tuning>(pv[ID::tuning]->getInt()));
-  auto freqHz = core.pitchModifier * transposeRatio * double(440);
+
+  auto getNaturalFreq = [&]() {
+    auto transposeRatio = getPitchRatio(
+      transposeSemitone + noteNumber - 69, transposeOctave,
+      transposeCent + noteCent + unisonCentNext, tuning);
+    return core.pitchModifier * transposeRatio * double(440);
+  };
+  auto getDiscreteFreq = [&]() {
+    auto semitones = transposeSemitone + double(noteNumber - 127) / double(12);
+    auto cents = (transposeCent + noteCent) / double(1200);
+    auto transposeRatio = std::exp2(transposeOctave + semitones + cents);
+    auto freqHz = core.pitchModifier * transposeRatio * core.sampleRate;
+    switch (tuning) {
+      default:
+      case Tuning::discrete2:
+        return freqHz / double(2);
+      case Tuning::discrete3:
+        return freqHz / double(3);
+      case Tuning::discrete5:
+        return freqHz / double(5);
+      case Tuning::discrete7:
+        return freqHz / double(7);
+    }
+  };
+
+  auto freqHz = tuning >= Tuning::discrete2 ? getDiscreteFreq() : getNaturalFreq();
 
   if (useArpeggiator) {
     auto pitchDriftCent = pv[ID::arpeggioPicthDriftCent]->getDouble();
@@ -370,9 +418,9 @@ void Voice::updateNote()
     } else if (arpeggioScale == PitchScale::et5Chromatic) {
       arpRatio *= getRandomPitch(rngArpeggio, scaleEt5, tuningRatioEt5);
     } else if (arpeggioScale == PitchScale::et12Major) {
-      arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Major, tuningRatioEt12);
+      arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchC, tuningRatioEt12);
     } else if (arpeggioScale == PitchScale::et12Minor) {
-      arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Minor, tuningRatioEt12);
+      arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchA, tuningRatioEt12);
     } else if (arpeggioScale == PitchScale::overtone32) {
       std::uniform_int_distribution<int> dist{1, 32};
       arpRatio *= double(dist(rngArpeggio));
@@ -386,7 +434,7 @@ void Voice::updateNote()
   }
 
   freqHz = std::min(double(0.5) * core.sampleRate, freqHz);
-  phasePeriod = uint_fast32_t(core.sampleRate / freqHz);
+  phasePeriod = uint_fast32_t(std::ceil(core.sampleRate / freqHz));
   phaseCounter = 0;
 
   // Oscillator.
@@ -411,7 +459,7 @@ void Voice::updateNote()
   std::uniform_real_distribution<double> restDist{double(0), double(1)};
   decayGain = useArpeggiator && restDist(rngArpeggio) < restChance || freqHz == 0
     ? double(0)
-    : double(1) / decayRatio;
+    : unisonGain / decayRatio;
   lastGain = decayGain;
 }
 
@@ -438,27 +486,20 @@ void DSPCore::noteOff(int_fast32_t noteId)
     if (itNote == activeNote.end()) return;
     activeNote.erase(itNote);
 
-    if (isPolyphonic) {
-      auto itVoice = std::find_if(voices.begin(), voices.end(), [&](const Voice &vc) {
-        return vc.noteId == noteId;
-      });
-      if (itVoice != voices.end()) {
-        auto &voice = *itVoice;
-        voice.noteId = -1;
-        voice.state = noteOffState;
-        voice.resetArpeggio(pv[ID::seed]->getInt());
-      }
-    } else if (activeNote.empty()) {
-      voices[0].noteId = -1;
-      voices[0].state = noteOffState;
-      voices[0].resetArpeggio(pv[ID::seed]->getInt());
+    if (!isPolyphonic && !activeNote.empty()) return;
+    const auto targetId = isPolyphonic ? noteId : -1;
+    for (auto &vc : voices) {
+      if (vc.noteId != targetId) continue;
+      vc.noteId = -1;
+      vc.state = noteOffState;
+      vc.resetArpeggio(pv[ID::seed]->getInt() + vc.unisonIndex);
     }
   }
 }
 
 void Voice::resetArpeggio(unsigned seed)
 {
-  rngArpeggio.seed(seed);
+  rngArpeggio.seed(seed + unisonIndex);
   arpeggioTie = 0;
   arpeggioTimer = 0;
   arpeggioLoopCounter = 0;

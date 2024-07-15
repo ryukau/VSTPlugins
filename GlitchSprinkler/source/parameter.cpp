@@ -54,5 +54,8 @@ UIntScale<double> Scales::arpeggioScale(31);
 LinearScale<double> Scales::arpeggioPicthDriftCent(0, 100);
 UIntScale<double> Scales::arpeggioOctave(7);
 
+UIntScale<double> Scales::unisonVoice(127);
+LinearScale<double> Scales::unisonDetuneCent(0, 1200);
+
 } // namespace Synth
 } // namespace Steinberg

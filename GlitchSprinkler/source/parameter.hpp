@@ -42,7 +42,7 @@ constexpr int transposeSemitoneOffset = 36;
 namespace Steinberg {
 namespace Synth {
 
-enum Tuning {
+enum Tuning : uint32_t {
   et12,
   et5,
   // et10Major, // TODO
@@ -50,6 +50,10 @@ enum Tuning {
   just5Major,
   just5Minor,
   just7,
+  discrete2,
+  discrete3,
+  discrete5,
+  discrete7,
 
   Tuning_ENUM_LENGTH,
 };
@@ -77,7 +81,6 @@ enum ID {
 
   randomizeFmIndex,
 
-  seed,
   transposeOctave,
   transposeSemitone,
   transposeCent,
@@ -89,14 +92,19 @@ enum ID {
   polynomialPointX0,
   polynomialPointY0 = polynomialPointX0 + nPolyOscControl,
 
-  arpeggioSwitch = polynomialPointY0 + nPolyOscControl,
+  seed = polynomialPointY0 + nPolyOscControl,
+  arpeggioSwitch,
   arpeggioNotesPerBeat,
   arpeggioLoopLengthInBeat,
-  arpeggioDurationVariation, // TODO
-  arpeggioRestChance,        // TODO
+  arpeggioDurationVariation,
+  arpeggioRestChance,
   arpeggioScale,
   arpeggioPicthDriftCent,
   arpeggioOctave,
+
+  unisonVoice,
+  unisonDetuneCent,
+  unisonPanSpread,
 
   reservedParameter0,
   reservedGuiParameter0 = reservedParameter0 + nReservedParameter,
@@ -131,6 +139,9 @@ struct Scales {
   static SomeDSP::UIntScale<double> arpeggioScale;
   static SomeDSP::LinearScale<double> arpeggioPicthDriftCent;
   static SomeDSP::UIntScale<double> arpeggioOctave;
+
+  static SomeDSP::UIntScale<double> unisonVoice;
+  static SomeDSP::LinearScale<double> unisonDetuneCent;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -167,8 +178,6 @@ struct GlobalParameter : public ParameterInterface {
       Scales::randomizeFmIndex.invmap(0.0), Scales::randomizeFmIndex, "randomizeFmIndex",
       Info::kCanAutomate);
 
-    value[ID::seed]
-      = std::make_unique<UIntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
     value[ID::transposeOctave] = std::make_unique<UIntValue>(
       transposeOctaveOffset, Scales::transposeOctave, "transposeOctave",
       Info::kCanAutomate);
@@ -198,6 +207,8 @@ struct GlobalParameter : public ParameterInterface {
         Info::kCanAutomate);
     }
 
+    value[ID::seed]
+      = std::make_unique<UIntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
     value[ID::arpeggioSwitch] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "arpeggioSwitch", Info::kCanAutomate);
     value[ID::arpeggioNotesPerBeat] = std::make_unique<UIntValue>(
@@ -218,6 +229,15 @@ struct GlobalParameter : public ParameterInterface {
       "arpeggioPicthDriftCent", Info::kCanAutomate);
     value[ID::arpeggioOctave] = std::make_unique<UIntValue>(
       1, Scales::arpeggioOctave, "arpeggioOctave", Info::kCanAutomate);
+
+    value[ID::unisonVoice] = std::make_unique<UIntValue>(
+      0, Scales::unisonVoice, "unisonVoice", Info::kCanAutomate);
+    value[ID::unisonDetuneCent] = std::make_unique<LinearValue>(
+      Scales::unisonDetuneCent.invmap(0.0), Scales::unisonDetuneCent, "unisonDetuneCent",
+      Info::kCanAutomate);
+    value[ID::unisonPanSpread] = std::make_unique<LinearValue>(
+      Scales::defaultScale.invmap(1.0), Scales::defaultScale, "unisonPanSpread",
+      Info::kCanAutomate);
 
     for (size_t idx = 0; idx < nReservedParameter; ++idx) {
       auto indexStr = std::to_string(idx);

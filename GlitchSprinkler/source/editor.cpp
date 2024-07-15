@@ -144,9 +144,9 @@ bool Editor::prepareUI()
     {
       "ET 12",           "ET 5",
       "Just 5 Major",    "Just 5 Minor",
-      "Just 7",          "- Reserved 05 -",
-      "- Reserved 06 -", "- Reserved 07 -",
-      "- Reserved 08 -", "- Reserved 09 -",
+      "Just 7",          "Discrete 2",
+      "Discrete 3",      "Discrete 5",
+      "Discrete 7",      "- Reserved 09 -",
       "- Reserved 10 -", "- Reserved 11 -",
       "- Reserved 12 -", "- Reserved 13 -",
       "- Reserved 14 -", "- Reserved 15 -",
@@ -289,6 +289,29 @@ bool Editor::prepareUI()
   addTextKnob(
     arpLeft1, arpTop12, labelWidth, labelHeight, uiTextSize, ID::randomizeFmIndex,
     Scales::randomizeFmIndex, false, 5);
+
+  // Unison.
+  constexpr auto unisonTop0 = arpTop12 + labelY;
+  constexpr auto unisonTop1 = unisonTop0 + 1 * labelY;
+  constexpr auto unisonTop2 = unisonTop0 + 2 * labelY;
+  constexpr auto unisonTop3 = unisonTop0 + 3 * labelY;
+  constexpr auto unisonLeft0 = left8;
+  constexpr auto unisonLeft1 = unisonLeft0 + labelWidth + 2 * margin;
+  addGroupLabel(
+    unisonLeft0, unisonTop0, groupLabelWidth, labelHeight, uiTextSize, "Unison");
+
+  addLabel(unisonLeft0, unisonTop1, labelWidth, labelHeight, uiTextSize, "nVoice");
+  addTextKnob(
+    unisonLeft1, unisonTop1, labelWidth, labelHeight, uiTextSize, ID::unisonVoice,
+    Scales::unisonVoice, false, 0, 1);
+  addLabel(unisonLeft0, unisonTop2, labelWidth, labelHeight, uiTextSize, "Detune [cent]");
+  addTextKnob(
+    unisonLeft1, unisonTop2, labelWidth, labelHeight, uiTextSize, ID::unisonDetuneCent,
+    Scales::unisonDetuneCent, false, 5);
+  addLabel(unisonLeft0, unisonTop3, labelWidth, labelHeight, uiTextSize, "Pan Spread");
+  addTextKnob(
+    unisonLeft1, unisonTop3, labelWidth, labelHeight, uiTextSize, ID::unisonPanSpread,
+    Scales::defaultScale, false, 5);
 
   // Randomize button.
   const auto randomButtonTop = top0 + 18 * labelY;

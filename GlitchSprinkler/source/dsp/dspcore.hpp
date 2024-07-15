@@ -56,6 +56,7 @@ public:
   int32_t noteNumber = 0;
   double noteCent = 0;
   double noteVelocity = 0;
+  double notePan = 0.5;
 
   std::minstd_rand rngArpeggio{0};
 
@@ -66,6 +67,12 @@ public:
   bool scheduleUpdateNote = false;
   uint_fast32_t phasePeriod = 0;
   uint_fast32_t phaseCounter = 0;
+
+  unsigned unisonIndex = 1;
+  double unisonGain = double(1);
+  double unisonPan = double(0.5);
+  double unisonPanNext = double(0.5);
+  double unisonCentNext = double(0);
 
   double oscSync = double(1);
   double fmIndex = double(0);
@@ -115,6 +122,9 @@ public:
   std::vector<NoteInfo> midiNotes;
   std::vector<NoteInfo> activeNote;
   std::vector<NoteInfo> activeModifier;
+  std::vector<size_t> noteIndices;
+
+  unsigned nextSteal = 0;
   std::vector<Voice> voices;
 
   DSPCore()
@@ -122,6 +132,9 @@ public:
     midiNotes.reserve(2048);
     activeNote.reserve(2048);
     activeModifier.reserve(2048);
+
+    noteIndices.reserve(2048);
+    std::fill(noteIndices.begin(), noteIndices.end(), size_t(0));
 
     voices.reserve(256);
     for (size_t i = 0; i < 256; ++i) voices.emplace_back(*this);
