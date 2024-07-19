@@ -37,6 +37,8 @@ void DSPCore::setup(double sampleRate_)
 
   SmootherCommon<double>::setTime(double(0.2));
 
+  lowpassInterpRate = sampleRate / double(48000 * 64);
+
   reset();
   startup();
 }
@@ -94,9 +96,9 @@ void Voice::reset()
   noteVelocity = 0;
 
   unisonIndex = 1;
+  unisonRatio = double(0);
   unisonPan = double(0.5);
-  unisonPanNext = double(0.5);
-  unisonCentNext = double(0);
+  unisonGain = double(1);
 
   rngArpeggio.seed(pv[ID::seed]->getInt() + unisonIndex);
 
@@ -110,9 +112,19 @@ void Voice::reset()
   oscSync = double(1);
   fmIndex = double(0);
   saturationGain = double(1);
-  decayGain = double(0);
   decayRatio = double(1);
+  decayGain = double(0);
   polynomialCoefficients.fill({});
+
+  filterDecayRatio = double(1);
+  filterDecayGain = double(0);
+  cutoffBase = double(1);
+  cutoffMod = double(0);
+  resonanceBase = double(0);
+  resonanceMod = double(0);
+  notchBase = double(1);
+  notchMod = double(0);
+  lowpass.reset();
 }
 
 void DSPCore::reset()
@@ -199,6 +211,15 @@ std::array<double, 2> Voice::processFrame()
   lastGain = decayGain * noteVelocity;
   sig *= lastGain;
 
+  // Lowpass.
+  if (pv[ID::filterSwitch]->getInt()) {
+    sig = lowpass.process(
+      sig, core.lowpassInterpRate, cutoffBase + cutoffMod * filterDecayRatio,
+      resonanceBase + resonanceMod * filterDecayRatio,
+      notchBase + notchMod * filterDecayRatio);
+    filterDecayRatio *= filterDecayGain;
+  }
+
   if (++phaseCounter >= phasePeriod) {
     phaseCounter = 0;
     if (scheduleUpdateNote) {
@@ -272,9 +293,6 @@ void DSPCore::noteOn(NoteInfo &info)
     std::iota(noteIndices.begin(), noteIndices.end(), size_t(0));
   }
 
-  const auto unisonDetuneCent = pv[ID::unisonDetuneCent]->getDouble();
-  const auto unisonPanSpread = pv[ID::unisonPanSpread]->getDouble();
-  const auto unisonPanOffset = (double(1) - unisonPanSpread) / double(2);
   for (unsigned idx = 0; idx < noteIndices.size(); ++idx) {
     auto &vc = voices[noteIndices[idx]];
 
@@ -286,27 +304,28 @@ void DSPCore::noteOn(NoteInfo &info)
     } else {
       vc.noteId = -1;
     }
-    vc.unisonGain = double(1) / double(nUnison);
-    vc.state = Voice::State::active;
-    vc.unisonIndex = idx + 1;
-    vc.rngArpeggio.seed(seed + vc.unisonIndex);
 
     if (nUnison <= 1) {
-      vc.unisonPanNext = double(0.5);
-      vc.unisonCentNext = double(0);
+      vc.unisonIndex = 0;
+      vc.unisonRatio = double(0);
     } else {
-      const double ratio = double(idx) / double(nUnison - 1);
-      vc.unisonPanNext = ratio * unisonPanSpread + unisonPanOffset;
-      vc.unisonCentNext = ratio * unisonDetuneCent;
+      auto scatterArp = pv[ID::unisonScatterArpeggio]->getInt();
+      vc.unisonIndex = scatterArp ? idx + 1 : 1;
+      vc.unisonRatio = double(idx) / double(nUnison - 1);
     }
+
+    vc.unisonGain = double(1) / double(nUnison);
+    vc.rngArpeggio.seed(pv[ID::seed]->getInt() + vc.unisonIndex);
 
     if (vc.state == Voice::State::rest && vc.phaseCounter == 0) {
       vc.arpeggioTimer = 0;
       vc.arpeggioLoopCounter = 0;
+      vc.lowpass.reset();
       vc.updateNote();
     } else if (!param.value[ParameterID::arpeggioSwitch]->getInt()) {
       vc.scheduleUpdateNote = true;
     }
+    vc.state = Voice::State::active;
   }
 }
 
@@ -367,19 +386,27 @@ void Voice::updateNote()
     noteCent = note.cent;
   }
 
-  unisonPan = unisonPanNext;
+  if (unisonIndex <= 0) {
+    unisonPan = double(0.5);
+  } else {
+    const auto unisonPanSpread = pv[ID::unisonPanSpread]->getDouble();
+    const auto unisonPanOffset = (double(1) - unisonPanSpread) / double(2);
+    unisonPan = unisonRatio * unisonPanSpread + unisonPanOffset;
+  }
 
   // Pitch & phase.
   const auto tuning = static_cast<Tuning>(pv[ID::tuning]->getInt());
-  auto transposeOctave = int(pv[ID::transposeOctave]->getInt()) - transposeOctaveOffset;
-  auto transposeSemitone
+  const auto transposeOctave
+    = int(pv[ID::transposeOctave]->getInt()) - transposeOctaveOffset;
+  const auto transposeSemitone
     = int(pv[ID::transposeSemitone]->getInt()) - transposeSemitoneOffset;
-  auto transposeCent = pv[ID::transposeCent]->getDouble();
+  const auto transposeCent = pv[ID::transposeCent]->getDouble();
+  const auto unisonDetuneCent = unisonRatio * pv[ID::unisonDetuneCent]->getDouble();
 
   auto getNaturalFreq = [&]() {
     auto transposeRatio = getPitchRatio(
       transposeSemitone + noteNumber - 69, transposeOctave,
-      transposeCent + noteCent + unisonCentNext, tuning);
+      transposeCent + noteCent + unisonDetuneCent, tuning);
     return core.pitchModifier * transposeRatio * double(440);
   };
   auto getDiscreteFreq = [&]() {
@@ -412,18 +439,57 @@ void Voice::updateNote()
     auto arpRatio
       = std::exp2(double(octaveDist(rngArpeggio)) + centDist(rngArpeggio) / double(1200));
 
-    const auto arpeggioScale = pv[ID::arpeggioScale]->getInt();
-    if (arpeggioScale == PitchScale::octave) {
-      // Do nothing.
-    } else if (arpeggioScale == PitchScale::et5Chromatic) {
-      arpRatio *= getRandomPitch(rngArpeggio, scaleEt5, tuningRatioEt5);
-    } else if (arpeggioScale == PitchScale::et12Major) {
-      arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchC, tuningRatioEt12);
-    } else if (arpeggioScale == PitchScale::et12Minor) {
-      arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchA, tuningRatioEt12);
-    } else if (arpeggioScale == PitchScale::overtone32) {
-      std::uniform_int_distribution<int> dist{1, 32};
-      arpRatio *= double(dist(rngArpeggio));
+    if (arpeggioTimer != 0 || arpeggioLoopCounter != 0) {
+      const auto arpeggioScale = pv[ID::arpeggioScale]->getInt();
+      if (arpeggioScale == PitchScale::et5Chromatic) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt5, tuningRatioEt5);
+      } else if (arpeggioScale == PitchScale::et12ChurchC) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchC, tuningRatioEt12);
+      } else if (arpeggioScale == PitchScale::et12ChurchD) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchD, tuningRatioEt12);
+      } else if (arpeggioScale == PitchScale::et12ChurchE) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchE, tuningRatioEt12);
+      } else if (arpeggioScale == PitchScale::et12ChurchF) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchF, tuningRatioEt12);
+      } else if (arpeggioScale == PitchScale::et12ChurchG) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchG, tuningRatioEt12);
+      } else if (arpeggioScale == PitchScale::et12ChurchA) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchA, tuningRatioEt12);
+      } else if (arpeggioScale == PitchScale::et12ChurchB) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchB, tuningRatioEt12);
+      } else if (arpeggioScale == PitchScale::et12Sus2) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Sus2, tuningRatioEt12);
+      } else if (arpeggioScale == PitchScale::et12Sus4) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Sus4, tuningRatioEt12);
+      } else if (arpeggioScale == PitchScale::et12Maj7) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Maj7, tuningRatioEt12);
+      } else if (arpeggioScale == PitchScale::et12Min7) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Min7, tuningRatioEt12);
+      } else if (arpeggioScale == PitchScale::et12MajExtended) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12MajExtended, tuningRatioEt12);
+      } else if (arpeggioScale == PitchScale::et12MinExtended) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12MinExtended, tuningRatioEt12);
+      } else if (arpeggioScale == PitchScale::et12WholeTone2) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12WholeTone2, tuningRatioEt12);
+      } else if (arpeggioScale == PitchScale::et12WholeTone3) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12WholeTone3, tuningRatioEt12);
+      } else if (arpeggioScale == PitchScale::et12WholeTone4) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12WholeTone4, tuningRatioEt12);
+      } else if (arpeggioScale == PitchScale::et12Blues) {
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Blues, tuningRatioEt12);
+      } else if (arpeggioScale == PitchScale::overtone32) {
+        std::uniform_int_distribution<int> dist{1, 32};
+        arpRatio *= double(dist(rngArpeggio));
+      } else if (arpeggioScale == PitchScale::overtone42Melody) {
+        constexpr std::array<double, 7> melody{2, 8, 10, 32, 34, 40, 42};
+        std::uniform_int_distribution<size_t> dist{0, melody.size() - 1};
+        arpRatio *= melody[dist(rngArpeggio)];
+      } else if (arpeggioScale == PitchScale::overtoneOdd16) {
+        constexpr std::array<double, 8> melody{1, 3, 5, 7, 9, 11, 13, 15};
+        std::uniform_int_distribution<size_t> dist{0, melody.size() - 1};
+        arpRatio *= melody[dist(rngArpeggio)];
+      }
+      // Defaults to `arpeggioScale == PitchScale::octave`.
     }
 
     freqHz *= arpRatio;
@@ -431,6 +497,8 @@ void Voice::updateNote()
     auto durationVar = pv[ID::arpeggioDurationVariation]->getInt() + 1;
     std::uniform_int_distribution<decltype(durationVar)> durVarDist{1, durationVar};
     arpeggioTie = durVarDist(rngArpeggio);
+  } else {
+    arpeggioTie = 1;
   }
 
   freqHz = std::min(double(0.5) * core.sampleRate, freqHz);
@@ -452,8 +520,9 @@ void Voice::updateNote()
   saturationGain = pv[ID::saturationGain]->getDouble();
 
   // Envelope.
-  const auto decaySeconds = pv[ID::decaySeconds]->getDouble();
-  decayRatio = std::pow(double(1e-3), double(1) / (decaySeconds * core.sampleRate));
+  const auto decayTargetGain = pv[ID::decayTargetGain]->getDouble();
+  decayRatio
+    = std::pow(decayTargetGain, double(1) / (arpeggioTie * core.arpeggioDuration));
 
   const auto restChance = pv[ID::arpeggioRestChance]->getDouble();
   std::uniform_real_distribution<double> restDist{double(0), double(1)};
@@ -461,6 +530,27 @@ void Voice::updateNote()
     ? double(0)
     : unisonGain / decayRatio;
   lastGain = decayGain;
+
+  // Filter.
+  if (pv[ID::filterSwitch]->getInt()) {
+    const auto cutoffBaseOctave = pv[ID::filterCutoffBaseOctave]->getDouble();
+    const auto cutoffModOctave = pv[ID::filterCutoffBaseOctave]->getDouble();
+    cutoffBase = std::clamp(
+      freqHz / core.sampleRate * std::exp2(cutoffBaseOctave), double(0), double(0.4999));
+    cutoffMod = cutoffModOctave <= Scales::filterCutoffModOctave.getMin()
+      ? double(0)
+      : std::min(cutoffBase * std::exp2(cutoffModOctave), double(0.4999) - cutoffBase);
+    resonanceBase = pv[ID::filterResonanceBase]->getDouble();
+    resonanceMod = pv[ID::filterResonanceMod]->getDouble() * (double(1) - resonanceBase);
+    notchBase = std::exp2(pv[ID::filterNotchBaseOctave]->getDouble());
+    const auto notchModOctave = std::exp2(pv[ID::filterNotchModOctave]->getDouble());
+    notchMod = notchModOctave <= Scales::filterNotchModOctave.getMin()
+      ? double(0)
+      : std::exp2(notchModOctave);
+    filterDecayRatio = double(1);
+    filterDecayGain
+      = std::pow(decayRatio, std::exp2(-pv[ID::filterDecayRatio]->getDouble()));
+  }
 }
 
 void DSPCore::noteOff(int_fast32_t noteId)

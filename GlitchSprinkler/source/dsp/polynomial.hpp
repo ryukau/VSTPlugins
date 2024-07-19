@@ -21,6 +21,7 @@
 #include <array>
 #include <cmath>
 #include <limits>
+#include <numbers>
 #include <numeric>
 
 namespace SomeDSP {
@@ -215,6 +216,57 @@ public:
     normalizeGain = maxPeak > minNormalized ? Sample(0.5) / maxPeak : Sample(1);
 
     for (auto &v : coefficients) v *= normalizeGain;
+  }
+};
+
+template<typename Sample> class ResonantEmaLowpass1A1 {
+private:
+  Sample cutValue = Sample(1);
+  Sample apsValue = Sample(1);
+  Sample resValue = Sample(0);
+
+  Sample v1 = 0;
+  Sample u1 = 0;
+  Sample u2 = 0;
+
+public:
+  void reset()
+  {
+    cutValue = 0;
+    resValue = 0;
+    v1 = 0;
+    u1 = 0;
+    u2 = 0;
+  }
+
+  Sample process(
+    Sample input,
+    Sample interpRate,
+    Sample cutoffNormalized,
+    Sample resonance,
+    Sample apScale)
+  {
+    cutValue += interpRate * (cutoffNormalized - cutValue);
+
+    constexpr Sample pi = std::numbers::pi_v<Sample>;
+    const auto freq = pi * std::clamp(cutValue, Sample(0), Sample(0.4999));
+
+    const auto s = 1 - std::cos(Sample(2) * freq);
+    const auto c1 = std::sqrt(s * s + Sample(2) * s) - s;
+
+    apsValue += interpRate * (apScale - apsValue);
+    const auto t = std::tan(std::clamp(apsValue * freq, Sample(0), Sample(0.4999)));
+    const auto c2 = (t - 1) / (t + 1);
+
+    resValue += interpRate * (resonance - resValue);
+    const auto q = resValue * (c2 - c1 * c2 + Sample(1));
+
+    // Bilinear allpass, order 1.
+    v1 = c2 * (u1 - v1) + u2;
+    u2 = u1;
+
+    // Exponential moving average (EMA) lowpass.
+    return u1 += c1 * (input - u1) - q * v1;
   }
 };
 

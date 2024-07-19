@@ -61,9 +61,27 @@ enum Tuning : uint32_t {
 enum PitchScale {
   octave,
   et5Chromatic,
-  et12Major,
-  et12Minor,
+  et12ChurchC, // Major
+  et12ChurchD,
+  et12ChurchE,
+  et12ChurchF,
+  et12ChurchG,
+  et12ChurchA, // Minor
+  et12ChurchB,
+  et12Sus2,
+  et12Sus4,
+  et12Maj7,
+  et12Min7,
+  et12MajExtended,
+  et12MinExtended,
+  et12WholeTone2,
+  et12WholeTone3,
+  et12WholeTone4,
+  et12Blues,
+
   overtone32,
+  overtone42Melody,
+  overtoneOdd16,
 
   PitchScale_ENUM_LENGTH,
 };
@@ -74,7 +92,7 @@ enum ID {
 
   outputGain,
 
-  decaySeconds,
+  decayTargetGain,
   oscSync,
   fmIndex,
   saturationGain,
@@ -88,6 +106,15 @@ enum ID {
 
   polyphonic,
   release,
+
+  filterSwitch,
+  filterDecayRatio,
+  filterCutoffBaseOctave,
+  filterCutoffModOctave,
+  filterResonanceBase,
+  filterResonanceMod,
+  filterNotchBaseOctave,
+  filterNotchModOctave,
 
   polynomialPointX0,
   polynomialPointY0 = polynomialPointX0 + nPolyOscControl,
@@ -105,6 +132,7 @@ enum ID {
   unisonVoice,
   unisonDetuneCent,
   unisonPanSpread,
+  unisonScatterArpeggio,
 
   reservedParameter0,
   reservedGuiParameter0 = reservedParameter0 + nReservedParameter,
@@ -122,9 +150,15 @@ struct Scales {
 
   static SomeDSP::DecibelScale<double> gain;
 
-  static SomeDSP::DecibelScale<double> decaySeconds;
+  static SomeDSP::DecibelScale<double> decayTargetGain;
   static SomeDSP::DecibelScale<double> fmIndex;
   static SomeDSP::LinearScale<double> randomizeFmIndex;
+
+  static SomeDSP::LinearScale<double> filterDecayRatio;
+  static SomeDSP::LinearScale<double> filterCutoffBaseOctave;
+  static SomeDSP::LinearScale<double> filterCutoffModOctave;
+  static SomeDSP::LinearScale<double> filterNotchBaseOctave;
+  static SomeDSP::LinearScale<double> filterNotchModOctave;
 
   static SomeDSP::LinearScale<double> polynomialPointY;
 
@@ -163,8 +197,8 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::outputGain] = std::make_unique<DecibelValue>(
       Scales::gain.invmap(1.0), Scales::gain, "outputGain", Info::kCanAutomate);
 
-    value[ID::decaySeconds] = std::make_unique<DecibelValue>(
-      Scales::decaySeconds.invmap(1.0), Scales::decaySeconds, "decaySeconds",
+    value[ID::decayTargetGain] = std::make_unique<DecibelValue>(
+      Scales::decayTargetGain.invmapDB(-1.0), Scales::decayTargetGain, "decayTargetGain",
       Info::kCanAutomate);
     value[ID::oscSync] = std::make_unique<LinearValue>(
       Scales::defaultScale.invmap(1.0), Scales::defaultScale, "oscSync",
@@ -194,6 +228,29 @@ struct GlobalParameter : public ParameterInterface {
       1, Scales::boolScale, "polyphonic", Info::kCanAutomate);
     value[ID::release]
       = std::make_unique<UIntValue>(1, Scales::boolScale, "release", Info::kCanAutomate);
+
+    value[ID::filterSwitch] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "filterSwitch", Info::kCanAutomate);
+    value[ID::filterDecayRatio] = std::make_unique<LinearValue>(
+      Scales::filterDecayRatio.invmap(0.0), Scales::filterDecayRatio, "filterDecayRatio",
+      Info::kCanAutomate);
+    value[ID::filterCutoffBaseOctave] = std::make_unique<LinearValue>(
+      Scales::filterCutoffBaseOctave.invmap(0.0), Scales::filterCutoffBaseOctave,
+      "filterCutoffBaseOctave", Info::kCanAutomate);
+    value[ID::filterCutoffModOctave] = std::make_unique<LinearValue>(
+      Scales::filterCutoffModOctave.invmap(0.0), Scales::filterCutoffModOctave,
+      "filterCutoffModOctave", Info::kCanAutomate);
+    value[ID::filterResonanceBase] = std::make_unique<LinearValue>(
+      Scales::defaultScale.invmap(0.1), Scales::defaultScale, "filterResonanceBase",
+      Info::kCanAutomate);
+    value[ID::filterResonanceMod] = std::make_unique<LinearValue>(
+      Scales::defaultScale.invmap(0.0), Scales::defaultScale, "filterResonanceMod",
+      Info::kCanAutomate);
+    value[ID::filterNotchBaseOctave] = std::make_unique<LinearValue>(
+      Scales::filterNotchBaseOctave.invmap(1.0), Scales::filterNotchBaseOctave,
+      "filterNotchBaseOctave", Info::kCanAutomate);
+    value[ID::filterNotchModOctave] = std::make_unique<LinearValue>(
+      0.0, Scales::filterNotchModOctave, "filterNotchModOctave", Info::kCanAutomate);
 
     for (size_t idx = 0; idx < nPolyOscControl; ++idx) {
       auto indexStr = std::to_string(idx);
@@ -238,6 +295,8 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::unisonPanSpread] = std::make_unique<LinearValue>(
       Scales::defaultScale.invmap(1.0), Scales::defaultScale, "unisonPanSpread",
       Info::kCanAutomate);
+    value[ID::unisonScatterArpeggio] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "unisonScatterArpeggio", Info::kCanAutomate);
 
     for (size_t idx = 0; idx < nReservedParameter; ++idx) {
       auto indexStr = std::to_string(idx);

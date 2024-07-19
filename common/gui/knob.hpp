@@ -288,7 +288,11 @@ public:
     } else if (event.buttonState.isMiddle()) {
       if (event.modifiers.has(ModifierKey::Shift)) {
         beginEdit();
-        value = scale.invmap(std::floor(scale.map(value)));
+        if (isDecibel) {
+          value = scale.invmap(dbToAmp(std::floor(ampToDB(scale.map(value)))));
+        } else {
+          value = scale.invmap(std::floor(scale.map(value)));
+        }
         valueChanged();
         endEdit();
       } else {
@@ -305,6 +309,9 @@ public:
   void setPrecision(uint32_t precision) { this->precision = precision; }
 
 protected:
+  template<typename T> inline T dbToAmp(T dB) { return std::pow(T(10), dB / T(20)); }
+  template<typename T> inline T ampToDB(T amp) { return T(20) * std::log10(amp); }
+
   float borderWidth = 1.0f;
   uint32_t precision = 0;
 

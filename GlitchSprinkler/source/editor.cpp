@@ -49,7 +49,7 @@ constexpr float tabViewHeight = 20 * labelY - 2 * margin + 2 * uiMargin;
 
 constexpr int_least32_t defaultWidth = int_least32_t(4 * uiMargin + 3 * groupLabelWidth);
 constexpr int_least32_t defaultHeight
-  = int_least32_t(2 * uiMargin + 20 * labelY - 2 * margin);
+  = int_least32_t(2 * uiMargin + 19 * labelY - 2 * margin);
 
 namespace Steinberg {
 namespace Vst {
@@ -102,17 +102,17 @@ bool Editor::prepareUI()
   constexpr auto mixLeft0 = left0;
   constexpr auto mixLeft1 = mixLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
-    mixLeft0, mixTop0, groupLabelWidth, labelHeight, uiTextSize, "Mix & Options");
+    mixLeft0, mixTop0, groupLabelWidth, labelHeight, uiTextSize, "Oscillator");
 
   addLabel(mixLeft0, mixTop1, labelWidth, labelHeight, uiTextSize, "Output [dB]");
   addTextKnob(
     mixLeft1, mixTop1, labelWidth, labelHeight, uiTextSize, ID::outputGain, Scales::gain,
     true, 5);
 
-  addLabel(mixLeft0, mixTop3, labelWidth, labelHeight, uiTextSize, "Decay [s]");
+  addLabel(mixLeft0, mixTop3, labelWidth, labelHeight, uiTextSize, "Decay to [dB]");
   addTextKnob(
-    mixLeft1, mixTop3, labelWidth, labelHeight, uiTextSize, ID::decaySeconds,
-    Scales::decaySeconds, false, 5);
+    mixLeft1, mixTop3, labelWidth, labelHeight, uiTextSize, ID::decayTargetGain,
+    Scales::decayTargetGain, true, 5);
   addLabel(mixLeft0, mixTop4, labelWidth, labelHeight, uiTextSize, "Osc. Sync.");
   addTextKnob(
     mixLeft1, mixTop4, labelWidth, labelHeight, uiTextSize, ID::oscSync,
@@ -165,6 +165,58 @@ bool Editor::prepareUI()
     ID::polyphonic);
   addCheckbox(
     mixLeft1, mixTop12, labelWidth, labelHeight, uiTextSize, "Release", ID::release);
+
+  // Filter.
+  constexpr auto filterLabelWidth = 100.0f;
+  constexpr auto filterTop0 = mixTop12 + labelY;
+  constexpr auto filterTop1 = filterTop0 + 1 * labelY;
+  constexpr auto filterTop2 = filterTop0 + 2 * labelY;
+  constexpr auto filterTop3 = filterTop0 + 3 * labelY;
+  constexpr auto filterTop4 = filterTop0 + 4 * labelY;
+  constexpr auto filterTop5 = filterTop0 + 5 * labelY;
+  constexpr auto filterLeft0 = left0;
+  constexpr auto filterLeft1 = filterLeft0 + 1 * filterLabelWidth + 3 * margin;
+  constexpr auto filterLeft2 = filterLeft0 + 2 * filterLabelWidth + 6 * margin;
+  addToggleButton(
+    filterLeft0, filterTop0, groupLabelWidth, labelHeight, uiTextSize, "Filter",
+    ID::filterSwitch);
+
+  addLabel(
+    filterLeft0, filterTop1, labelWidth, labelHeight, uiTextSize, "Decay Time Ratio");
+  addTextKnob(
+    filterLeft0 + labelWidth + 2 * margin, filterTop1, labelWidth, labelHeight,
+    uiTextSize, ID::filterDecayRatio, Scales::filterDecayRatio, false, 5);
+
+  addLabel(filterLeft1, filterTop2, filterLabelWidth, labelHeight, uiTextSize, "Base");
+  addLabel(
+    filterLeft2, filterTop2, filterLabelWidth, labelHeight, uiTextSize, "Env. Mod");
+
+  addLabel(
+    filterLeft0, filterTop3, filterLabelWidth, labelHeight, uiTextSize, "Cutoff [oct.]");
+  addTextKnob(
+    filterLeft1, filterTop3, filterLabelWidth, labelHeight, uiTextSize,
+    ID::filterCutoffBaseOctave, Scales::filterCutoffBaseOctave, false, 5);
+  addTextKnob(
+    filterLeft2, filterTop3, filterLabelWidth, labelHeight, uiTextSize,
+    ID::filterCutoffModOctave, Scales::filterCutoffModOctave, false, 5);
+
+  addLabel(
+    filterLeft0, filterTop4, filterLabelWidth, labelHeight, uiTextSize, "Resonance");
+  addTextKnob(
+    filterLeft1, filterTop4, filterLabelWidth, labelHeight, uiTextSize,
+    ID::filterResonanceBase, Scales::defaultScale, false, 5);
+  addTextKnob(
+    filterLeft2, filterTop4, filterLabelWidth, labelHeight, uiTextSize,
+    ID::filterResonanceMod, Scales::defaultScale, false, 5);
+
+  addLabel(
+    filterLeft0, filterTop5, filterLabelWidth, labelHeight, uiTextSize, "Notch [oct.]");
+  addTextKnob(
+    filterLeft1, filterTop5, filterLabelWidth, labelHeight, uiTextSize,
+    ID::filterNotchBaseOctave, Scales::filterNotchBaseOctave, false, 5);
+  addTextKnob(
+    filterLeft2, filterTop5, filterLabelWidth, labelHeight, uiTextSize,
+    ID::filterNotchModOctave, Scales::filterNotchModOctave, false, 5);
 
   // Waveform.
   constexpr auto waveformTop0 = top0 + 0 * labelY;
@@ -267,14 +319,38 @@ bool Editor::prepareUI()
   addOptionMenu(
     arpLeft1, arpTop8, labelWidth, labelHeight, uiTextSize, ID::arpeggioScale,
     {
-      "Octave",          "ET 5 Chromatic",  "ET 12 Major",     "ET 12 Minor",
-      "Overtone 32",     "- Reserved 05 -", "- Reserved 06 -", "- Reserved 07 -",
-      "- Reserved 08 -", "- Reserved 09 -", "- Reserved 10 -", "- Reserved 11 -",
-      "- Reserved 12 -", "- Reserved 13 -", "- Reserved 14 -", "- Reserved 15 -",
-      "- Reserved 16 -", "- Reserved 17 -", "- Reserved 18 -", "- Reserved 19 -",
-      "- Reserved 20 -", "- Reserved 21 -", "- Reserved 22 -", "- Reserved 23 -",
-      "- Reserved 24 -", "- Reserved 25 -", "- Reserved 26 -", "- Reserved 27 -",
-      "- Reserved 28 -", "- Reserved 29 -", "- Reserved 30 -", "- Reserved 31 -",
+      "Octave",
+      "ET 5 Chromatic",
+      "ET 12 Church C (Major Scale)",
+      "ET 12 Church D",
+      "ET 12 Church E",
+      "ET 12 Church F",
+      "ET 12 Church G",
+      "ET 12 Church A (Minor Scale)",
+      "ET 12 Church B",
+      "ET 12 Suspended 2",
+      "ET 12 Suspended 4",
+      "ET 12 Major 7",
+      "ET 12 Minor 7",
+      "ET 12 Major 7 Extended",
+      "ET 12 Minor 7 Extended",
+      "ET 12 Whole Tone 2",
+      "ET 12 Whole Tone 3",
+      "ET 12 Whole Tone 4",
+      "ET 12 Blues",
+      "Overtone 32",
+      "The 42 Melody",
+      "Overtone Odd 16",
+      "- Reserved 22 -",
+      "- Reserved 23 -",
+      "- Reserved 24 -",
+      "- Reserved 25 -",
+      "- Reserved 26 -",
+      "- Reserved 27 -",
+      "- Reserved 28 -",
+      "- Reserved 29 -",
+      "- Reserved 30 -",
+      "- Reserved 31 -",
     });
   addLabel(arpLeft0, arpTop9, labelWidth, labelHeight, uiTextSize, "Pitch Drift [cent]");
   addTextKnob(
@@ -295,6 +371,7 @@ bool Editor::prepareUI()
   constexpr auto unisonTop1 = unisonTop0 + 1 * labelY;
   constexpr auto unisonTop2 = unisonTop0 + 2 * labelY;
   constexpr auto unisonTop3 = unisonTop0 + 3 * labelY;
+  constexpr auto unisonTop4 = unisonTop0 + 4 * labelY;
   constexpr auto unisonLeft0 = left8;
   constexpr auto unisonLeft1 = unisonLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
@@ -305,32 +382,39 @@ bool Editor::prepareUI()
     unisonLeft1, unisonTop1, labelWidth, labelHeight, uiTextSize, ID::unisonVoice,
     Scales::unisonVoice, false, 0, 1);
   addLabel(unisonLeft0, unisonTop2, labelWidth, labelHeight, uiTextSize, "Detune [cent]");
-  addTextKnob(
+  auto unisonDetuneCentTextKnob = addTextKnob(
     unisonLeft1, unisonTop2, labelWidth, labelHeight, uiTextSize, ID::unisonDetuneCent,
     Scales::unisonDetuneCent, false, 5);
+  if (unisonDetuneCentTextKnob) {
+    unisonDetuneCentTextKnob->sensitivity = 1.0 / 1200.0;
+    unisonDetuneCentTextKnob->lowSensitivity = 1.0 / 120000.0;
+  }
   addLabel(unisonLeft0, unisonTop3, labelWidth, labelHeight, uiTextSize, "Pan Spread");
   addTextKnob(
     unisonLeft1, unisonTop3, labelWidth, labelHeight, uiTextSize, ID::unisonPanSpread,
     Scales::defaultScale, false, 5);
-
-  // Randomize button.
-  const auto randomButtonTop = top0 + 18 * labelY;
-  const auto randomButtonLeft = left0 + labelWidth + 2 * margin;
-  auto panicButton = new RandomizeButton(
-    CRect(
-      randomButtonLeft, randomButtonTop, randomButtonLeft + labelWidth,
-      randomButtonTop + splashHeight),
-    this, 0, "Random", getFont(pluginNameTextSize), palette, this);
-  frame->addView(panicButton);
+  addCheckbox(
+    unisonLeft0, unisonTop4, labelWidth, labelHeight, uiTextSize, "Scatter Arpeggio",
+    ID::unisonScatterArpeggio);
 
   // Plugin name.
   constexpr auto splashMargin = uiMargin;
-  constexpr auto splashTop = top0 + 18 * labelY;
-  constexpr auto splashLeft = left0;
+  constexpr auto splashTop = top0 + 17 * labelY;
+  constexpr auto splashLeft = left4;
   addSplashScreen(
     splashLeft, splashTop, labelWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,
     "GlitchSprinkler", false);
+
+  // Randomize button.
+  const auto randomButtonTop = splashTop;
+  const auto randomButtonLeft = splashLeft + labelWidth + 2 * margin;
+  auto panicButton = new RandomizeButton(
+    CRect(
+      randomButtonLeft, randomButtonTop, randomButtonLeft + labelWidth,
+      randomButtonTop + splashHeight),
+    this, 0, "Randomize", getFont(pluginNameTextSize), palette, this);
+  frame->addView(panicButton);
 
   return true;
 }

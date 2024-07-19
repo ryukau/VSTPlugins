@@ -119,7 +119,18 @@ public:
       Rng rng(seeds);
 
       std::uniform_real_distribution<Steinberg::Vst::ParamValue> uniform{0.0, 1.0};
+      setParam(ID::fmIndex, uniform(rng));
+      setParam(
+        ID::saturationGain,
+        std::clamp(
+          (double(10) + double(6) * uniform(rng)) / double(16), double(0), double(1)));
+      setParam(ID::randomizeFmIndex, uniform(rng));
+      for (size_t i = 0; i < nPolyOscControl; ++i) {
+        setParam(ID::polynomialPointX0 + i, double(i + 1) / double(nPolyOscControl + 2));
+        setParam(ID::polynomialPointY0 + i, uniform(rng));
+      }
       setParam(ID::seed, uniform(rng));
+      setParam(ID::arpeggioOctave, uniform(rng));
     }
 
     invalid();

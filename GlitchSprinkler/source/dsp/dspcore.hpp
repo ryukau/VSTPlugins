@@ -58,6 +58,11 @@ public:
   double noteVelocity = 0;
   double notePan = 0.5;
 
+  unsigned unisonIndex = 1;
+  double unisonRatio = double(0);
+  double unisonPan = double(0.5);
+  double unisonGain = double(1);
+
   std::minstd_rand rngArpeggio{0};
 
   uint_fast32_t arpeggioTie = 1;
@@ -67,19 +72,22 @@ public:
   bool scheduleUpdateNote = false;
   uint_fast32_t phasePeriod = 0;
   uint_fast32_t phaseCounter = 0;
-
-  unsigned unisonIndex = 1;
-  double unisonGain = double(1);
-  double unisonPan = double(0.5);
-  double unisonPanNext = double(0.5);
-  double unisonCentNext = double(0);
-
   double oscSync = double(1);
   double fmIndex = double(0);
   double saturationGain = double(1);
-  double decayGain = double(0);
   double decayRatio = double(1);
+  double decayGain = double(0);
   std::array<double, PolySolver::nPolynomialPoint> polynomialCoefficients{};
+
+  double filterDecayRatio = double(1);
+  double filterDecayGain = double(0);
+  double cutoffBase = double(1);
+  double cutoffMod = double(0);
+  double resonanceBase = double(0);
+  double resonanceMod = double(0);
+  double notchBase = double(1);
+  double notchMod = double(0);
+  ResonantEmaLowpass1A1<double> lowpass;
 
   void reset();
   void setParameters();
@@ -92,7 +100,7 @@ class DSPCore {
 public:
   GlobalParameter param;
 
-  double sampleRate = 44100.0;
+  double sampleRate = 48000.0;
 
   bool isPlaying = false;
   double tempo = 120.0;
@@ -101,7 +109,6 @@ public:
   double timeSigUpper = 1.0;
   double timeSigLower = 4.0;
 
-  unsigned seed = 0;
   double currentBeat = 0;
   double pitchModifier = double(1);
   bool isPolyphonic = true;
@@ -110,6 +117,7 @@ public:
   uint_fast32_t arpeggioDuration = std::numeric_limits<uint_fast32_t>::max();
   uint_fast32_t arpeggioLoopLength = std::numeric_limits<uint_fast32_t>::max();
 
+  double lowpassInterpRate = double(1) / double(64);
   DecibelScale<double> velocityMap{-60, 0, true};
   ExpSmoother<double> outputGain;
 

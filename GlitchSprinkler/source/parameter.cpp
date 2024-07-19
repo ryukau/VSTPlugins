@@ -36,9 +36,15 @@ UIntScale<double> Scales::seed(1 << 23);
 
 DecibelScale<double> Scales::gain(-100.0, 60.0, true);
 
-DecibelScale<double> Scales::decaySeconds(-100.0, 40.0, false);
+DecibelScale<double> Scales::decayTargetGain(-150.0, 0.0, false);
 DecibelScale<double> Scales::fmIndex(-60.0, 40.0, true);
 LinearScale<double> Scales::randomizeFmIndex(0.0, 4.0);
+
+LinearScale<double> Scales::filterDecayRatio(-10.0, 10.0);
+LinearScale<double> Scales::filterCutoffBaseOctave(0.0, 10.0);
+LinearScale<double> Scales::filterCutoffModOctave(-10, 10);
+LinearScale<double> Scales::filterNotchBaseOctave(-4, 4);
+LinearScale<double> Scales::filterNotchModOctave(-4, 4);
 
 LinearScale<double> Scales::polynomialPointY(-0.5, 0.5);
 
