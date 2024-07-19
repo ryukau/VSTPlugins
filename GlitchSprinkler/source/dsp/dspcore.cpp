@@ -37,6 +37,7 @@ void DSPCore::setup(double sampleRate_)
 
   SmootherCommon<double>::setTime(double(0.2));
 
+  terminationLength = uint_fast32_t(double(0.002) * sampleRate);
   lowpassInterpRate = sampleRate / double(48000 * 64);
 
   reset();
@@ -105,6 +106,7 @@ void Voice::reset()
   arpeggioTie = 1;
   arpeggioTimer = 0;
   arpeggioLoopCounter = 0;
+  terminationCounter = 0;
 
   scheduleUpdateNote = false;
   phasePeriod = 0;
@@ -132,6 +134,9 @@ void DSPCore::reset()
   ASSIGN_PARAMETER_CORE(reset);
 
   previousBeatsElapsed = 0;
+
+  currentBeat = 0;
+  pitchModifier = double(1);
 
   polynomial.updateCoefficients(true);
   isPolynomialUpdated = true;
@@ -183,10 +188,15 @@ std::array<double, 2> Voice::processFrame()
   constexpr double epsf32 = double(std::numeric_limits<float>::epsilon());
   if (
     (state == State::terminate && phaseCounter == 0)
-    || (state == State::release && lastGain <= epsf32))
+    || (state == State::release && lastGain <= epsf32) || (terminationCounter > 0))
   {
-    state = State::rest;
-    return {double(0), double(0)};
+    if (terminationCounter < core.terminationLength && pv[ID::filterSwitch]->getInt()) {
+      ++terminationCounter;
+    } else {
+      terminationCounter = core.terminationLength;
+      state = State::rest;
+      return {double(0), double(0)};
+    }
   }
 
   // Oscillator.
@@ -206,11 +216,6 @@ std::array<double, 2> Voice::processFrame()
   // Saturation.
   sig = std::clamp(saturationGain * sig, double(-1), double(1));
 
-  // Envelope.
-  decayGain *= decayRatio;
-  lastGain = decayGain * noteVelocity;
-  sig *= lastGain;
-
   // Lowpass.
   if (pv[ID::filterSwitch]->getInt()) {
     sig = lowpass.process(
@@ -219,6 +224,13 @@ std::array<double, 2> Voice::processFrame()
       notchBase + notchMod * filterDecayRatio);
     filterDecayRatio *= filterDecayGain;
   }
+
+  // Envelope.
+  decayGain *= decayRatio;
+  const auto terminationDecay = double(core.terminationLength - terminationCounter)
+    / double(core.terminationLength);
+  lastGain = decayGain * noteVelocity * terminationDecay;
+  sig *= lastGain;
 
   if (++phaseCounter >= phasePeriod) {
     phaseCounter = 0;
@@ -314,10 +326,12 @@ void DSPCore::noteOn(NoteInfo &info)
       vc.unisonRatio = double(idx) / double(nUnison - 1);
     }
 
-    vc.unisonGain = double(1) / double(nUnison);
+    vc.unisonGain = pv[ID::unisonGainSqrt]->getInt()
+      ? std::sqrt(double(1) / double(nUnison))
+      : double(1) / double(nUnison);
     vc.rngArpeggio.seed(pv[ID::seed]->getInt() + vc.unisonIndex);
 
-    if (vc.state == Voice::State::rest && vc.phaseCounter == 0) {
+    if (vc.state == Voice::State::rest) {
       vc.arpeggioTimer = 0;
       vc.arpeggioLoopCounter = 0;
       vc.lowpass.reset();
@@ -325,6 +339,7 @@ void DSPCore::noteOn(NoteInfo &info)
     } else if (!param.value[ParameterID::arpeggioSwitch]->getInt()) {
       vc.scheduleUpdateNote = true;
     }
+    vc.terminationCounter = 0;
     vc.state = Voice::State::active;
   }
 }
@@ -364,7 +379,9 @@ template<typename Rng, typename Scale, typename Tuning>
 inline double getRandomPitch(Rng &rng, const Scale &scale, const Tuning &tuning)
 {
   std::uniform_int_distribution<size_t> indexDist{0, scale.size() - 1};
-  return tuning[scale[indexDist(rng)]];
+  const size_t index = scale[indexDist(rng)];
+  const size_t octave = size_t(1) << (index / tuning.size());
+  return octave * tuning[index % tuning.size()];
 }
 
 void Voice::updateNote()

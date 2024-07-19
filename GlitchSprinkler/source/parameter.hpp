@@ -133,6 +133,7 @@ enum ID {
   unisonDetuneCent,
   unisonPanSpread,
   unisonScatterArpeggio,
+  unisonGainSqrt,
 
   reservedParameter0,
   reservedGuiParameter0 = reservedParameter0 + nReservedParameter,
@@ -297,6 +298,8 @@ struct GlobalParameter : public ParameterInterface {
       Info::kCanAutomate);
     value[ID::unisonScatterArpeggio] = std::make_unique<UIntValue>(
       1, Scales::boolScale, "unisonScatterArpeggio", Info::kCanAutomate);
+    value[ID::unisonGainSqrt] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "unisonGainSqrt", Info::kCanAutomate);
 
     for (size_t idx = 0; idx < nReservedParameter; ++idx) {
       auto indexStr = std::to_string(idx);

@@ -68,6 +68,7 @@ public:
   uint_fast32_t arpeggioTie = 1;
   uint_fast32_t arpeggioTimer = 0;
   uint_fast32_t arpeggioLoopCounter = 0;
+  uint_fast32_t terminationCounter = 0;
 
   bool scheduleUpdateNote = false;
   uint_fast32_t phasePeriod = 0;
@@ -116,6 +117,7 @@ public:
 
   uint_fast32_t arpeggioDuration = std::numeric_limits<uint_fast32_t>::max();
   uint_fast32_t arpeggioLoopLength = std::numeric_limits<uint_fast32_t>::max();
+  uint_fast32_t terminationLength = 0;
 
   double lowpassInterpRate = double(1) / double(64);
   DecibelScale<double> velocityMap{-60, 0, true};

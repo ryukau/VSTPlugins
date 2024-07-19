@@ -396,6 +396,9 @@ bool Editor::prepareUI()
   addCheckbox(
     unisonLeft0, unisonTop4, labelWidth, labelHeight, uiTextSize, "Scatter Arpeggio",
     ID::unisonScatterArpeggio);
+  addCheckbox(
+    unisonLeft1, unisonTop4, labelWidth, labelHeight, uiTextSize, "Gain Sqrt.",
+    ID::unisonGainSqrt);
 
   // Plugin name.
   constexpr auto splashMargin = uiMargin;
