@@ -356,7 +356,7 @@ public:
         [&](double ratio) {
           return double(0.5) + double(0.5) * std::tanh(std::sin(twopi * ratio));
         });
-    } else if (event.character == '0') { // Preset: saturated sine.
+    } else if (event.character == '0') { // Preset: Silent.
       setControlPoints(
         [&](double ratio) { return ratio; }, [&](double ratio) { return double(0.5); });
     } else if (event.character == 'r') { // Randomize.

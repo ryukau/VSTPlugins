@@ -346,31 +346,44 @@ void DSPCore::noteOn(NoteInfo &info)
 
 template<size_t length>
 double getPitchRatioFromArray(
-  int semitone, double octave, double cent, const std::array<double, length> &tuningTable)
+  int semitone,
+  int rootShift,
+  double octave,
+  double cent,
+  const std::array<double, length> &tuningTable)
 {
   int size = int(tuningTable.size());
-  int index = semitone % size;
-  if (index < 0) index += size;
 
-  octave += double((semitone - index) / size);
+  int rootIndex = rootShift % size;
+  if (rootIndex < 0) rootIndex += size;
 
-  return tuningTable[index] * std::exp2(octave + cent / double(1200));
+  semitone += rootIndex;
+  int stIndex = semitone % size;
+  if (stIndex < 0) stIndex += size;
+
+  octave += double((semitone - stIndex) / size);
+
+  return std::exp2(octave + cent / double(1200)) * tuningTable[stIndex]
+    / tuningTable[rootIndex];
 }
 
-inline double getPitchRatio(int semitone, double octave, double cent, Tuning tuning)
+inline double
+getPitchRatio(int semitone, int rootShift, double octave, double cent, Tuning tuning)
 {
   switch (tuning) {
     default:
     case Tuning::et12:
-      return getPitchRatioFromArray(semitone, octave, cent, tuningRatioEt12);
+      return getPitchRatioFromArray(semitone, rootShift, octave, cent, tuningRatioEt12);
     case Tuning::et5:
-      return getPitchRatioFromArray(semitone, octave, cent, tuningRatioEt5);
+      return getPitchRatioFromArray(semitone, rootShift, octave, cent, tuningRatioEt5);
     case Tuning::just5Major:
-      return getPitchRatioFromArray(semitone, octave, cent, tuningRatioJust5Major);
+      return getPitchRatioFromArray(
+        semitone, rootShift, octave, cent, tuningRatioJust5Major);
     case Tuning::just5Minor:
-      return getPitchRatioFromArray(semitone, octave, cent, tuningRatioJust5Minor);
+      return getPitchRatioFromArray(
+        semitone, rootShift, octave, cent, tuningRatioJust5Minor);
     case Tuning::just7:
-      return getPitchRatioFromArray(semitone, octave, cent, tuningRatioJust7);
+      return getPitchRatioFromArray(semitone, rootShift, octave, cent, tuningRatioJust7);
   }
   // Shouldn't reach here.
 }
@@ -412,17 +425,18 @@ void Voice::updateNote()
   }
 
   // Pitch & phase.
-  const auto tuning = static_cast<Tuning>(pv[ID::tuning]->getInt());
+  const auto tuning = static_cast<Tuning>(pv[ID::tuningType]->getInt());
   const auto transposeOctave
     = int(pv[ID::transposeOctave]->getInt()) - transposeOctaveOffset;
   const auto transposeSemitone
     = int(pv[ID::transposeSemitone]->getInt()) - transposeSemitoneOffset;
   const auto transposeCent = pv[ID::transposeCent]->getDouble();
   const auto unisonDetuneCent = unisonRatio * pv[ID::unisonDetuneCent]->getDouble();
+  const auto tuningRootSemitone = int(pv[ID::tuningRootSemitone]->getInt());
 
   auto getNaturalFreq = [&]() {
     auto transposeRatio = getPitchRatio(
-      transposeSemitone + noteNumber - 69, transposeOctave,
+      transposeSemitone + noteNumber - 69, tuningRootSemitone, transposeOctave,
       transposeCent + noteCent + unisonDetuneCent, tuning);
     return core.pitchModifier * transposeRatio * double(440);
   };
@@ -461,7 +475,7 @@ void Voice::updateNote()
       if (arpeggioScale == PitchScale::et5Chromatic) {
         arpRatio *= getRandomPitch(rngArpeggio, scaleEt5, tuningRatioEt5);
       } else if (arpeggioScale == PitchScale::et12ChurchC) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchC, tuningRatioEt12);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchC, tuningRatioJust5Major);
       } else if (arpeggioScale == PitchScale::et12ChurchD) {
         arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchD, tuningRatioEt12);
       } else if (arpeggioScale == PitchScale::et12ChurchE) {
@@ -471,7 +485,7 @@ void Voice::updateNote()
       } else if (arpeggioScale == PitchScale::et12ChurchG) {
         arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchG, tuningRatioEt12);
       } else if (arpeggioScale == PitchScale::et12ChurchA) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchA, tuningRatioEt12);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchA, tuningRatioJust5Minor);
       } else if (arpeggioScale == PitchScale::et12ChurchB) {
         arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchB, tuningRatioEt12);
       } else if (arpeggioScale == PitchScale::et12Sus2) {

@@ -102,7 +102,8 @@ enum ID {
   transposeOctave,
   transposeSemitone,
   transposeCent,
-  tuning,
+  tuningType,
+  tuningRootSemitone,
 
   polyphonic,
   release,
@@ -166,7 +167,8 @@ struct Scales {
   static SomeDSP::UIntScale<double> transposeOctave;
   static SomeDSP::UIntScale<double> transposeSemitone;
   static SomeDSP::LinearScale<double> transposeCent;
-  static SomeDSP::UIntScale<double> tuning;
+  static SomeDSP::UIntScale<double> tuningType;
+  static SomeDSP::UIntScale<double> tuningRootSemitone;
 
   static SomeDSP::UIntScale<double> arpeggioNotesPerBeat;
   static SomeDSP::UIntScale<double> arpeggioLoopLengthInBeat;
@@ -222,8 +224,10 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::transposeCent] = std::make_unique<LinearValue>(
       Scales::transposeCent.invmap(0.0), Scales::transposeCent, "transposeCent",
       Info::kCanAutomate);
-    value[ID::tuning]
-      = std::make_unique<UIntValue>(0, Scales::tuning, "tuning", Info::kCanAutomate);
+    value[ID::tuningType] = std::make_unique<UIntValue>(
+      0, Scales::tuningType, "tuningType", Info::kCanAutomate);
+    value[ID::tuningRootSemitone] = std::make_unique<UIntValue>(
+      0, Scales::tuningRootSemitone, "tuningRootSemitone", Info::kCanAutomate);
 
     value[ID::polyphonic] = std::make_unique<UIntValue>(
       1, Scales::boolScale, "polyphonic", Info::kCanAutomate);

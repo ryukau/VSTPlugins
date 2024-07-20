@@ -37,7 +37,7 @@ constexpr float labelY = labelHeight + 2 * margin;
 constexpr float labelWidth = 2 * knobWidth;
 constexpr float groupLabelWidth = 2 * labelWidth + 2 * margin;
 constexpr float splashWidth = int(labelWidth * 3 / 2) + 2 * margin;
-constexpr float splashHeight = int(2 * labelHeight + 2 * margin);
+constexpr float splashHeight = int(labelHeight + 2 * margin);
 
 constexpr float barBoxWidth = groupLabelWidth;
 constexpr float barBoxHeight = 5 * labelY - 2 * margin;
@@ -113,58 +113,41 @@ bool Editor::prepareUI()
   addTextKnob(
     mixLeft1, mixTop3, labelWidth, labelHeight, uiTextSize, ID::decayTargetGain,
     Scales::decayTargetGain, true, 5);
-  addLabel(mixLeft0, mixTop4, labelWidth, labelHeight, uiTextSize, "Osc. Sync.");
-  addTextKnob(
-    mixLeft1, mixTop4, labelWidth, labelHeight, uiTextSize, ID::oscSync,
-    Scales::defaultScale, false, 5);
-  addLabel(mixLeft0, mixTop5, labelWidth, labelHeight, uiTextSize, "FM Index");
-  addTextKnob(
-    mixLeft1, mixTop5, labelWidth, labelHeight, uiTextSize, ID::fmIndex, Scales::fmIndex,
-    false, 5);
-  addLabel(mixLeft0, mixTop6, labelWidth, labelHeight, uiTextSize, "Saturation [dB]");
-  addTextKnob(
-    mixLeft1, mixTop6, labelWidth, labelHeight, uiTextSize, ID::saturationGain,
-    Scales::gain, true, 5);
 
-  addLabel(mixLeft0, mixTop8, labelWidth, labelHeight, uiTextSize, "Octave");
+  addLabel(mixLeft0, mixTop5, labelWidth, labelHeight, uiTextSize, "Octave");
   addTextKnob(
-    mixLeft1, mixTop8, labelWidth, labelHeight, uiTextSize, ID::transposeOctave,
+    mixLeft1, mixTop5, labelWidth, labelHeight, uiTextSize, ID::transposeOctave,
     Scales::transposeOctave, false, 0, -transposeOctaveOffset);
-  addLabel(mixLeft0, mixTop9, labelWidth, labelHeight, uiTextSize, "Semitone");
+  addLabel(mixLeft0, mixTop6, labelWidth, labelHeight, uiTextSize, "Semitone");
   addTextKnob(
-    mixLeft1, mixTop9, labelWidth, labelHeight, uiTextSize, ID::transposeSemitone,
+    mixLeft1, mixTop6, labelWidth, labelHeight, uiTextSize, ID::transposeSemitone,
     Scales::transposeSemitone, false, 0, -transposeSemitoneOffset);
-  addLabel(mixLeft0, mixTop10, labelWidth, labelHeight, uiTextSize, "Cent");
+  addLabel(mixLeft0, mixTop7, labelWidth, labelHeight, uiTextSize, "Cent");
   addTextKnob(
-    mixLeft1, mixTop10, labelWidth, labelHeight, uiTextSize, ID::transposeCent,
+    mixLeft1, mixTop7, labelWidth, labelHeight, uiTextSize, ID::transposeCent,
     Scales::transposeCent, false, 5);
-  addLabel(mixLeft0, mixTop11, labelWidth, labelHeight, uiTextSize, "Tuning");
+
+  addLabel(mixLeft0, mixTop8, labelWidth, labelHeight, uiTextSize, "Tuning");
+  std::vector<std::string> tuningItems{
+    "ET 12",      "ET 5",       "Just 5 Major", "Just 5 Minor", "Just 7",
+    "Discrete 2", "Discrete 3", "Discrete 5",   "Discrete 7",
+  };
+  for (size_t idx = tuningItems.size(); idx <= Scales::tuningType.getMax(); ++idx) {
+    tuningItems.push_back("- Reserved " + std::to_string(idx) + " -");
+  }
   addOptionMenu(
-    mixLeft1, mixTop11, labelWidth, labelHeight, uiTextSize, ID::tuning,
-    {
-      "ET 12",           "ET 5",
-      "Just 5 Major",    "Just 5 Minor",
-      "Just 7",          "Discrete 2",
-      "Discrete 3",      "Discrete 5",
-      "Discrete 7",      "- Reserved 09 -",
-      "- Reserved 10 -", "- Reserved 11 -",
-      "- Reserved 12 -", "- Reserved 13 -",
-      "- Reserved 14 -", "- Reserved 15 -",
-      "- Reserved 16 -", "- Reserved 17 -",
-      "- Reserved 18 -", "- Reserved 19 -",
-      "- Reserved 20 -", "- Reserved 21 -",
-      "- Reserved 22 -", "- Reserved 23 -",
-      "- Reserved 24 -", "- Reserved 25 -",
-      "- Reserved 26 -", "- Reserved 27 -",
-      "- Reserved 28 -", "- Reserved 29 -",
-      "- Reserved 30 -", "- Reserved 31 -",
-    });
+    mixLeft1, mixTop8, labelWidth, labelHeight, uiTextSize, ID::tuningType, tuningItems);
+
+  addLabel(mixLeft0, mixTop9, labelWidth, labelHeight, uiTextSize, "Tuning Root [st.]");
+  addTextKnob(
+    mixLeft1, mixTop9, labelWidth, labelHeight, uiTextSize, ID::tuningRootSemitone,
+    Scales::tuningRootSemitone, false, 0);
 
   addCheckbox(
-    mixLeft0, mixTop12, labelWidth, labelHeight, uiTextSize, "Polyphonic",
+    mixLeft0, mixTop10, labelWidth, labelHeight, uiTextSize, "Polyphonic",
     ID::polyphonic);
   addCheckbox(
-    mixLeft1, mixTop12, labelWidth, labelHeight, uiTextSize, "Release", ID::release);
+    mixLeft1, mixTop10, labelWidth, labelHeight, uiTextSize, "Release", ID::release);
 
   // Filter.
   constexpr auto filterLabelWidth = 100.0f;
@@ -222,6 +205,9 @@ bool Editor::prepareUI()
   constexpr auto waveformTop0 = top0 + 0 * labelY;
   constexpr auto waveformTop1 = waveformTop0 + 1 * labelY;
   constexpr auto waveformTop2 = waveformTop1 + barBoxWidth;
+  constexpr auto waveformTop3 = waveformTop2 + 2 * labelY;
+  constexpr auto waveformTop4 = waveformTop2 + 3 * labelY;
+  constexpr auto waveformTop5 = waveformTop2 + 4 * labelY;
   constexpr auto waveformLeft0 = left4;
   constexpr auto waveformLeft1 = left4 + labelWidth + 2 * margin;
   addGroupLabel(
@@ -270,6 +256,21 @@ bool Editor::prepareUI()
     frame->addView(polyXYPad);
   }
 
+  addLabel(
+    waveformLeft0, waveformTop3, labelWidth, labelHeight, uiTextSize, "Osc. Sync.");
+  addTextKnob(
+    waveformLeft1, waveformTop3, labelWidth, labelHeight, uiTextSize, ID::oscSync,
+    Scales::defaultScale, false, 5);
+  addLabel(waveformLeft0, waveformTop4, labelWidth, labelHeight, uiTextSize, "FM Index");
+  addTextKnob(
+    waveformLeft1, waveformTop4, labelWidth, labelHeight, uiTextSize, ID::fmIndex,
+    Scales::fmIndex, false, 5);
+  addLabel(
+    waveformLeft0, waveformTop5, labelWidth, labelHeight, uiTextSize, "Saturation [dB]");
+  addTextKnob(
+    waveformLeft1, waveformTop5, labelWidth, labelHeight, uiTextSize, ID::saturationGain,
+    Scales::gain, true, 5);
+
   // Arpeggio.
   constexpr auto arpTop0 = top0;
   constexpr auto arpTop1 = arpTop0 + 1 * labelY;
@@ -315,43 +316,40 @@ bool Editor::prepareUI()
     arpLeft1, arpTop6, labelWidth, labelHeight, uiTextSize, ID::arpeggioRestChance,
     Scales::defaultScale, false, 5);
 
+  std::vector<std::string> arpeggioScaleItems{
+    "Octave",
+    "ET 5 Chromatic",
+    "ET 12 Church C (Major Scale)",
+    "ET 12 Church D",
+    "ET 12 Church E",
+    "ET 12 Church F",
+    "ET 12 Church G",
+    "ET 12 Church A (Minor Scale)",
+    "ET 12 Church B",
+    "ET 12 Suspended 2",
+    "ET 12 Suspended 4",
+    "ET 12 Major 7",
+    "ET 12 Minor 7",
+    "ET 12 Major 7 Extended",
+    "ET 12 Minor 7 Extended",
+    "ET 12 Whole Tone 2",
+    "ET 12 Whole Tone 3",
+    "ET 12 Whole Tone 4",
+    "ET 12 Blues",
+    "Overtone 32",
+    "The 42 Melody",
+    "Overtone Odd 16",
+  };
+  for (size_t idx = arpeggioScaleItems.size(); idx <= Scales::arpeggioScale.getMax();
+       ++idx)
+  {
+    arpeggioScaleItems.push_back("- Reserved " + std::to_string(idx) + " -");
+  }
   addLabel(arpLeft0, arpTop8, labelWidth, labelHeight, uiTextSize, "Scale");
   addOptionMenu(
     arpLeft1, arpTop8, labelWidth, labelHeight, uiTextSize, ID::arpeggioScale,
-    {
-      "Octave",
-      "ET 5 Chromatic",
-      "ET 12 Church C (Major Scale)",
-      "ET 12 Church D",
-      "ET 12 Church E",
-      "ET 12 Church F",
-      "ET 12 Church G",
-      "ET 12 Church A (Minor Scale)",
-      "ET 12 Church B",
-      "ET 12 Suspended 2",
-      "ET 12 Suspended 4",
-      "ET 12 Major 7",
-      "ET 12 Minor 7",
-      "ET 12 Major 7 Extended",
-      "ET 12 Minor 7 Extended",
-      "ET 12 Whole Tone 2",
-      "ET 12 Whole Tone 3",
-      "ET 12 Whole Tone 4",
-      "ET 12 Blues",
-      "Overtone 32",
-      "The 42 Melody",
-      "Overtone Odd 16",
-      "- Reserved 22 -",
-      "- Reserved 23 -",
-      "- Reserved 24 -",
-      "- Reserved 25 -",
-      "- Reserved 26 -",
-      "- Reserved 27 -",
-      "- Reserved 28 -",
-      "- Reserved 29 -",
-      "- Reserved 30 -",
-      "- Reserved 31 -",
-    });
+    arpeggioScaleItems);
+
   addLabel(arpLeft0, arpTop9, labelWidth, labelHeight, uiTextSize, "Pitch Drift [cent]");
   addTextKnob(
     arpLeft1, arpTop9, labelWidth, labelHeight, uiTextSize, ID::arpeggioPicthDriftCent,
@@ -400,16 +398,10 @@ bool Editor::prepareUI()
     unisonLeft1, unisonTop4, labelWidth, labelHeight, uiTextSize, "Gain Sqrt.",
     ID::unisonGainSqrt);
 
-  // Plugin name.
+  // Plugin name and randomize button.
   constexpr auto splashMargin = uiMargin;
-  constexpr auto splashTop = top0 + 17 * labelY;
+  constexpr auto splashTop = top0 + 18 * labelY - 2 * margin;
   constexpr auto splashLeft = left4;
-  addSplashScreen(
-    splashLeft, splashTop, labelWidth, splashHeight, splashMargin, splashMargin,
-    defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,
-    "GlitchSprinkler", false);
-
-  // Randomize button.
   const auto randomButtonTop = splashTop;
   const auto randomButtonLeft = splashLeft + labelWidth + 2 * margin;
   auto panicButton = new RandomizeButton(
@@ -418,6 +410,11 @@ bool Editor::prepareUI()
       randomButtonTop + splashHeight),
     this, 0, "Randomize", getFont(pluginNameTextSize), palette, this);
   frame->addView(panicButton);
+
+  addSplashScreen(
+    splashLeft, splashTop, labelWidth, splashHeight, splashMargin, splashMargin,
+    defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,
+    "GlitchSprinkler", false);
 
   return true;
 }
