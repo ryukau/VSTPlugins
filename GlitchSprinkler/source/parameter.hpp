@@ -45,11 +45,13 @@ namespace Synth {
 enum Tuning : uint32_t {
   et12,
   et5,
-  // et10Major, // TODO
-  // et10Minor, // TODO
+  et10,
   just5Major,
   just5Minor,
   just7,
+  mtPythagorean,
+  mtThirdComma,
+  mtQuarterComma,
   discrete2,
   discrete3,
   discrete5,
@@ -110,6 +112,7 @@ enum ID {
 
   filterSwitch,
   filterDecayRatio,
+  filterCutoffKeyFollow,
   filterCutoffBaseOctave,
   filterCutoffModOctave,
   filterResonanceBase,
@@ -238,6 +241,9 @@ struct GlobalParameter : public ParameterInterface {
       0, Scales::boolScale, "filterSwitch", Info::kCanAutomate);
     value[ID::filterDecayRatio] = std::make_unique<LinearValue>(
       Scales::filterDecayRatio.invmap(0.0), Scales::filterDecayRatio, "filterDecayRatio",
+      Info::kCanAutomate);
+    value[ID::filterCutoffKeyFollow] = std::make_unique<LinearValue>(
+      Scales::defaultScale.invmap(1.0), Scales::defaultScale, "filterCutoffKeyFollow",
       Info::kCanAutomate);
     value[ID::filterCutoffBaseOctave] = std::make_unique<LinearValue>(
       Scales::filterCutoffBaseOctave.invmap(0.0), Scales::filterCutoffBaseOctave,

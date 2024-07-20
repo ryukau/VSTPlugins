@@ -368,14 +368,16 @@ double getPitchRatioFromArray(
 }
 
 inline double
-getPitchRatio(int semitone, int rootShift, double octave, double cent, Tuning tuning)
+getPitchRatio(int semitone, int rootShift, double octave, double cent, Tuning tuningIndex)
 {
-  switch (tuning) {
+  switch (tuningIndex) {
     default:
     case Tuning::et12:
       return getPitchRatioFromArray(semitone, rootShift, octave, cent, tuningRatioEt12);
     case Tuning::et5:
       return getPitchRatioFromArray(semitone, rootShift, octave, cent, tuningRatioEt5);
+    case Tuning::et10:
+      return getPitchRatioFromArray(semitone, rootShift, octave, cent, tuningRatioEt10);
     case Tuning::just5Major:
       return getPitchRatioFromArray(
         semitone, rootShift, octave, cent, tuningRatioJust5Major);
@@ -384,17 +386,49 @@ getPitchRatio(int semitone, int rootShift, double octave, double cent, Tuning tu
         semitone, rootShift, octave, cent, tuningRatioJust5Minor);
     case Tuning::just7:
       return getPitchRatioFromArray(semitone, rootShift, octave, cent, tuningRatioJust7);
+    case Tuning::mtPythagorean:
+      return getPitchRatioFromArray(
+        semitone, rootShift, octave, cent, tuningRatioMtPythagorean);
+    case Tuning::mtThirdComma:
+      return getPitchRatioFromArray(
+        semitone, rootShift, octave, cent, tuningRatioMtThirdComma);
+    case Tuning::mtQuarterComma:
+      return getPitchRatioFromArray(
+        semitone, rootShift, octave, cent, tuningRatioMtQuarterComma);
   }
   // Shouldn't reach here.
 }
 
 template<typename Rng, typename Scale, typename Tuning>
-inline double getRandomPitch(Rng &rng, const Scale &scale, const Tuning &tuning)
+inline double getRandomPitchFixed(Rng &rng, const Scale &scale, const Tuning &tuningTable)
 {
   std::uniform_int_distribution<size_t> indexDist{0, scale.size() - 1};
   const size_t index = scale[indexDist(rng)];
-  const size_t octave = size_t(1) << (index / tuning.size());
-  return octave * tuning[index % tuning.size()];
+  const size_t octave = size_t(1) << (index / tuningTable.size());
+  return octave * tuningTable[index % tuningTable.size()];
+}
+
+template<typename Rng, typename Scale>
+inline double getRandomPitch(Rng &rng, const Scale &scale, const Tuning tuningIndex)
+{
+  switch (tuningIndex) {
+    default:
+    case Tuning::et12:
+      return getRandomPitchFixed(rng, scale, tuningRatioEt12);
+    case Tuning::just5Major:
+      return getRandomPitchFixed(rng, scale, tuningRatioJust5Major);
+    case Tuning::just5Minor:
+      return getRandomPitchFixed(rng, scale, tuningRatioJust5Minor);
+    case Tuning::just7:
+      return getRandomPitchFixed(rng, scale, tuningRatioJust7);
+    case Tuning::mtPythagorean:
+      return getRandomPitchFixed(rng, scale, tuningRatioMtPythagorean);
+    case Tuning::mtThirdComma:
+      return getRandomPitchFixed(rng, scale, tuningRatioMtThirdComma);
+    case Tuning::mtQuarterComma:
+      return getRandomPitchFixed(rng, scale, tuningRatioMtQuarterComma);
+  }
+  // Shouldn't reach here.
 }
 
 void Voice::updateNote()
@@ -473,41 +507,41 @@ void Voice::updateNote()
     if (arpeggioTimer != 0 || arpeggioLoopCounter != 0) {
       const auto arpeggioScale = pv[ID::arpeggioScale]->getInt();
       if (arpeggioScale == PitchScale::et5Chromatic) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt5, tuningRatioEt5);
+        arpRatio *= getRandomPitchFixed(rngArpeggio, scaleEt5, tuningRatioEt5);
       } else if (arpeggioScale == PitchScale::et12ChurchC) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchC, tuningRatioJust5Major);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchC, tuning);
       } else if (arpeggioScale == PitchScale::et12ChurchD) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchD, tuningRatioEt12);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchD, tuning);
       } else if (arpeggioScale == PitchScale::et12ChurchE) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchE, tuningRatioEt12);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchE, tuning);
       } else if (arpeggioScale == PitchScale::et12ChurchF) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchF, tuningRatioEt12);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchF, tuning);
       } else if (arpeggioScale == PitchScale::et12ChurchG) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchG, tuningRatioEt12);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchG, tuning);
       } else if (arpeggioScale == PitchScale::et12ChurchA) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchA, tuningRatioJust5Minor);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchA, tuning);
       } else if (arpeggioScale == PitchScale::et12ChurchB) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchB, tuningRatioEt12);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12ChurchB, tuning);
       } else if (arpeggioScale == PitchScale::et12Sus2) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Sus2, tuningRatioEt12);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Sus2, tuning);
       } else if (arpeggioScale == PitchScale::et12Sus4) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Sus4, tuningRatioEt12);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Sus4, tuning);
       } else if (arpeggioScale == PitchScale::et12Maj7) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Maj7, tuningRatioEt12);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Maj7, tuning);
       } else if (arpeggioScale == PitchScale::et12Min7) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Min7, tuningRatioEt12);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Min7, tuning);
       } else if (arpeggioScale == PitchScale::et12MajExtended) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12MajExtended, tuningRatioEt12);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12MajExtended, tuning);
       } else if (arpeggioScale == PitchScale::et12MinExtended) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12MinExtended, tuningRatioEt12);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12MinExtended, tuning);
       } else if (arpeggioScale == PitchScale::et12WholeTone2) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12WholeTone2, tuningRatioEt12);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12WholeTone2, tuning);
       } else if (arpeggioScale == PitchScale::et12WholeTone3) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12WholeTone3, tuningRatioEt12);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12WholeTone3, tuning);
       } else if (arpeggioScale == PitchScale::et12WholeTone4) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12WholeTone4, tuningRatioEt12);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12WholeTone4, tuning);
       } else if (arpeggioScale == PitchScale::et12Blues) {
-        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Blues, tuningRatioEt12);
+        arpRatio *= getRandomPitch(rngArpeggio, scaleEt12Blues, tuning);
       } else if (arpeggioScale == PitchScale::overtone32) {
         std::uniform_int_distribution<int> dist{1, 32};
         arpRatio *= double(dist(rngArpeggio));
@@ -565,14 +599,22 @@ void Voice::updateNote()
   // Filter.
   if (pv[ID::filterSwitch]->getInt()) {
     const auto cutoffBaseOctave = pv[ID::filterCutoffBaseOctave]->getDouble();
-    const auto cutoffModOctave = pv[ID::filterCutoffBaseOctave]->getDouble();
-    cutoffBase = std::clamp(
-      freqHz / core.sampleRate * std::exp2(cutoffBaseOctave), double(0), double(0.4999));
+    const auto cutoffKeyFollow = pv[ID::filterCutoffKeyFollow]->getDouble();
+    const auto baseFreq
+      = std::lerp(double(20), freqHz, cutoffKeyFollow) / core.sampleRate;
+    cutoffBase
+      = std::clamp(baseFreq * std::exp2(cutoffBaseOctave), double(0), double(0.4999));
+
+    const auto cutoffModOctave = pv[ID::filterCutoffModOctave]->getDouble();
     cutoffMod = cutoffModOctave <= Scales::filterCutoffModOctave.getMin()
       ? double(0)
-      : std::min(cutoffBase * std::exp2(cutoffModOctave), double(0.4999) - cutoffBase);
+      : std::clamp(
+          cutoffBase * std::exp2(cutoffModOctave), double(0),
+          double(0.4999) - cutoffBase);
+
     resonanceBase = pv[ID::filterResonanceBase]->getDouble();
     resonanceMod = pv[ID::filterResonanceMod]->getDouble() * (double(1) - resonanceBase);
+
     notchBase = std::exp2(pv[ID::filterNotchBaseOctave]->getDouble());
     const auto notchModOctave = std::exp2(pv[ID::filterNotchModOctave]->getDouble());
     notchMod = notchModOctave <= Scales::filterNotchModOctave.getMin()

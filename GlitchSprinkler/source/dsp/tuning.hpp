@@ -18,6 +18,10 @@
 /*
 This file can be shorter if the compiler supports C++26. C++26 provides constexpr
 everywhere for <cmath>.
+
+- ET or Et : Equal temperament.
+- MT or Mt : Meantone temperament.
+- Just : Just intonation.
 */
 
 #pragma once
@@ -54,7 +58,7 @@ std::array<size_t, 6> scaleEt12Blues{0, 3, 5, 6, 7, 10};
 
 /**
 ```javascript
-var cents = [0, 1, 240, 241, 400, 480, 481, 720, 721, 900, 960, 961];
+var cents = [0, 0, 240, 240, 400, 480, 480, 720, 720, 900, 960, 960];
 console.log(cents.map(v => 2**(v / 1200)));
 ```
 */
@@ -74,12 +78,20 @@ std::array<double, 12> tuningRatioEt5{
 };
 std::array<size_t, 5> scaleEt5{0, 2, 5, 7, 10};
 
-// cents = [0, 120, 240, 300, 360, 480, 600, 720, 840, 960, 1020, 1080];
-std::array<double, 12> tuningRatioEt10Minor{
-  double(1.0000000000000),    double(1.0717734625362931), double(1.148698354997035),
-  double(1.189207115002721),  double(1.2311444133449163), double(1.3195079107728942),
-  double(1.4142135623730951), double(1.515716566510398),  double(1.624504792712471),
-  double(1.7411011265922482), double(1.8025009252216604), double(1.8660659830736148),
+// cents = [0, 120, 240, 300, 360, 480, 600, 720, 840, 900, 960, 1080];
+std::array<double, 12> tuningRatioEt10{
+  double(1),                  //  0:    0
+  double(1.0717734625362931), //  1:  120
+  double(1.148698354997035),  //  2:  240
+  double(1.189207115002721),  //  3:  300
+  double(1.2311444133449163), //  4:  360
+  double(1.3195079107728942), //  5:  480
+  double(1.4142135623730951), //  6:  600
+  double(1.515716566510398),  //  7:  720
+  double(1.624504792712471),  //  8:  840
+  double(1.681792830507429),  //  9:  900
+  double(1.7411011265922482), // 10:  960
+  double(1.8660659830736148), // 11: 1080
 };
 
 std::array<double, 12> tuningRatioJust5Major{
@@ -102,6 +114,56 @@ std::array<double, 13> tuningRatioJust7{
   double(7) / double(5), double(10) / double(7), double(3) / double(2),
   double(8) / double(5), double(5) / double(3),  double(12) / double(7),
   double(7) / double(4),
+};
+
+std::array<double, 12> tuningRatioMtPythagorean{
+  double(1) / double(1),     //  0:
+  double(256) / double(243), //  1:
+  double(9) / double(8),     //  2:
+  double(32) / double(27),   //  3:
+  double(81) / double(64),   //  4:
+  double(4) / double(3),     //  5:
+  // double(1024) / double(729), //  6: pairs with 1.
+  double(729) / double(512), //  6: pairs with 11.
+  double(3) / double(2),     //  7:
+  double(128) / double(81),  //  8:
+  double(27) / double(16),   //  9:
+  double(16) / double(9),    // 10:
+  double(243) / double(128), // 11:
+};
+
+// Commented numbers indicate pitches in 12 ET semitone.
+std::array<double, 12> tuningRatioMtThirdComma{
+  double(1.00000000000000), //  0.00000000000000
+  double(1.07553713917372), //  1.26068811667588
+  double(1.11572158347028), //  1.89572475332965
+  double(1.20000000000000), //  3.15641287000552
+  double(1.24483465182143), //  3.79144950665930
+  double(1.33886590016434), //  5.05213762333518
+  // double(1.38888888888889), //  5.68717425998895
+  double(1.44000000000000), //  6.31282574001105
+  double(1.49380158218572), //  6.94786237666482
+  double(1.60663908019721), //  8.20855049334070
+  double(1.66666666666667), //  8.84358712999448
+  double(1.79256189862287), // 10.10427524667035
+  double(1.85953597245047), // 10.73931188332413
+};
+
+// Commented numbers indicate pitches in 12 ET semitone.
+std::array<double, 12> tuningRatioMtQuarterComma{
+  double(1.00000000000000), //  0.00000000000000
+  double(1.06998448796228), //  1.17107857668956
+  double(1.11803398874989), //  1.93156856932417
+  double(1.19627902497698), //  3.10264714601374
+  double(1.25000000000000), //  3.86313713864835
+  double(1.33748060995284), //  5.03421571533791
+  // double(1.39754248593737), //  5.79470570797252
+  double(1.43108350559987), //  6.20529429202748
+  double(1.49534878122122), //  6.96578428466209
+  double(1.60000000000000), //  8.13686286135165
+  double(1.67185076244106), //  8.89735285398626
+  double(1.78885438199983), // 10.06843143067583
+  double(1.86918597652653), // 10.82892142331043
 };
 
 } // namespace SomeDSP

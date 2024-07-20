@@ -129,8 +129,9 @@ bool Editor::prepareUI()
 
   addLabel(mixLeft0, mixTop8, labelWidth, labelHeight, uiTextSize, "Tuning");
   std::vector<std::string> tuningItems{
-    "ET 12",      "ET 5",       "Just 5 Major", "Just 5 Minor", "Just 7",
-    "Discrete 2", "Discrete 3", "Discrete 5",   "Discrete 7",
+    "ET 12",      "ET 5",           "ET 10",        "Just 5 Major", "Just 5 Minor",
+    "Just 7",     "MT Pythagorean", "MT 1/3 Comma", "MT 1/4 Comma", "Discrete 2",
+    "Discrete 3", "Discrete 5",     "Discrete 7",
   };
   for (size_t idx = tuningItems.size(); idx <= Scales::tuningType.getMax(); ++idx) {
     tuningItems.push_back("- Reserved " + std::to_string(idx) + " -");
@@ -151,12 +152,13 @@ bool Editor::prepareUI()
 
   // Filter.
   constexpr auto filterLabelWidth = 100.0f;
-  constexpr auto filterTop0 = mixTop12 + labelY;
+  constexpr auto filterTop0 = mixTop11 + labelY;
   constexpr auto filterTop1 = filterTop0 + 1 * labelY;
   constexpr auto filterTop2 = filterTop0 + 2 * labelY;
   constexpr auto filterTop3 = filterTop0 + 3 * labelY;
   constexpr auto filterTop4 = filterTop0 + 4 * labelY;
   constexpr auto filterTop5 = filterTop0 + 5 * labelY;
+  constexpr auto filterTop6 = filterTop0 + 6 * labelY;
   constexpr auto filterLeft0 = left0;
   constexpr auto filterLeft1 = filterLeft0 + 1 * filterLabelWidth + 3 * margin;
   constexpr auto filterLeft2 = filterLeft0 + 2 * filterLabelWidth + 6 * margin;
@@ -169,36 +171,40 @@ bool Editor::prepareUI()
   addTextKnob(
     filterLeft0 + labelWidth + 2 * margin, filterTop1, labelWidth, labelHeight,
     uiTextSize, ID::filterDecayRatio, Scales::filterDecayRatio, false, 5);
-
-  addLabel(filterLeft1, filterTop2, filterLabelWidth, labelHeight, uiTextSize, "Base");
-  addLabel(
-    filterLeft2, filterTop2, filterLabelWidth, labelHeight, uiTextSize, "Env. Mod");
-
-  addLabel(
-    filterLeft0, filterTop3, filterLabelWidth, labelHeight, uiTextSize, "Cutoff [oct.]");
+  addLabel(filterLeft0, filterTop2, labelWidth, labelHeight, uiTextSize, "Key Follow");
   addTextKnob(
-    filterLeft1, filterTop3, filterLabelWidth, labelHeight, uiTextSize,
+    filterLeft0 + labelWidth + 2 * margin, filterTop2, labelWidth, labelHeight,
+    uiTextSize, ID::filterCutoffKeyFollow, Scales::defaultScale, false, 5);
+
+  addLabel(filterLeft1, filterTop3, filterLabelWidth, labelHeight, uiTextSize, "Base");
+  addLabel(
+    filterLeft2, filterTop3, filterLabelWidth, labelHeight, uiTextSize, "Env. Mod");
+
+  addLabel(
+    filterLeft0, filterTop4, filterLabelWidth, labelHeight, uiTextSize, "Cutoff [oct.]");
+  addTextKnob(
+    filterLeft1, filterTop4, filterLabelWidth, labelHeight, uiTextSize,
     ID::filterCutoffBaseOctave, Scales::filterCutoffBaseOctave, false, 5);
   addTextKnob(
-    filterLeft2, filterTop3, filterLabelWidth, labelHeight, uiTextSize,
+    filterLeft2, filterTop4, filterLabelWidth, labelHeight, uiTextSize,
     ID::filterCutoffModOctave, Scales::filterCutoffModOctave, false, 5);
 
   addLabel(
-    filterLeft0, filterTop4, filterLabelWidth, labelHeight, uiTextSize, "Resonance");
+    filterLeft0, filterTop5, filterLabelWidth, labelHeight, uiTextSize, "Resonance");
   addTextKnob(
-    filterLeft1, filterTop4, filterLabelWidth, labelHeight, uiTextSize,
+    filterLeft1, filterTop5, filterLabelWidth, labelHeight, uiTextSize,
     ID::filterResonanceBase, Scales::defaultScale, false, 5);
   addTextKnob(
-    filterLeft2, filterTop4, filterLabelWidth, labelHeight, uiTextSize,
+    filterLeft2, filterTop5, filterLabelWidth, labelHeight, uiTextSize,
     ID::filterResonanceMod, Scales::defaultScale, false, 5);
 
   addLabel(
-    filterLeft0, filterTop5, filterLabelWidth, labelHeight, uiTextSize, "Notch [oct.]");
+    filterLeft0, filterTop6, filterLabelWidth, labelHeight, uiTextSize, "Notch [oct.]");
   addTextKnob(
-    filterLeft1, filterTop5, filterLabelWidth, labelHeight, uiTextSize,
+    filterLeft1, filterTop6, filterLabelWidth, labelHeight, uiTextSize,
     ID::filterNotchBaseOctave, Scales::filterNotchBaseOctave, false, 5);
   addTextKnob(
-    filterLeft2, filterTop5, filterLabelWidth, labelHeight, uiTextSize,
+    filterLeft2, filterTop6, filterLabelWidth, labelHeight, uiTextSize,
     ID::filterNotchModOctave, Scales::filterNotchModOctave, false, 5);
 
   // Waveform.

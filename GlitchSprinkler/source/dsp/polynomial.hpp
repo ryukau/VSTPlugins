@@ -251,7 +251,7 @@ public:
     constexpr Sample pi = std::numbers::pi_v<Sample>;
     const auto freq = pi * std::clamp(cutValue, Sample(0), Sample(0.4999));
 
-    const auto s = 1 - std::cos(Sample(2) * freq);
+    const auto s = Sample(1) - std::cos(Sample(2) * freq);
     const auto c1 = std::sqrt(s * s + Sample(2) * s) - s;
 
     apsValue += interpRate * (apScale - apsValue);

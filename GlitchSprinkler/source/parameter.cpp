@@ -41,8 +41,8 @@ DecibelScale<double> Scales::fmIndex(-60.0, 40.0, true);
 LinearScale<double> Scales::randomizeFmIndex(0.0, 4.0);
 
 LinearScale<double> Scales::filterDecayRatio(-10.0, 10.0);
-LinearScale<double> Scales::filterCutoffBaseOctave(0.0, 10.0);
-LinearScale<double> Scales::filterCutoffModOctave(-10, 10);
+LinearScale<double> Scales::filterCutoffBaseOctave(-8.0, 16.0);
+LinearScale<double> Scales::filterCutoffModOctave(-16, 16);
 LinearScale<double> Scales::filterNotchBaseOctave(-4, 4);
 LinearScale<double> Scales::filterNotchModOctave(-4, 4);
 
