@@ -221,6 +221,8 @@ public:
 
 template<typename Sample> class ResonantEmaLowpass1A1 {
 private:
+  static constexpr Sample nyquist = Sample(0.4999);
+
   Sample cutValue = Sample(1);
   Sample apsValue = Sample(1);
   Sample resValue = Sample(0);
@@ -249,13 +251,13 @@ public:
     cutValue += interpRate * (cutoffNormalized - cutValue);
 
     constexpr Sample pi = std::numbers::pi_v<Sample>;
-    const auto freq = pi * std::clamp(cutValue, Sample(0), Sample(0.4999));
+    const auto freq = pi * std::clamp(cutValue, Sample(0), nyquist);
 
     const auto s = Sample(1) - std::cos(Sample(2) * freq);
     const auto c1 = std::sqrt(s * s + Sample(2) * s) - s;
 
     apsValue += interpRate * (apScale - apsValue);
-    const auto t = std::tan(std::clamp(apsValue * freq, Sample(0), Sample(0.4999)));
+    const auto t = std::tan(std::clamp(apsValue * freq, Sample(0), nyquist));
     const auto c2 = (t - 1) / (t + 1);
 
     resValue += interpRate * (resonance - resValue);
@@ -267,6 +269,43 @@ public:
 
     // Exponential moving average (EMA) lowpass.
     return u1 += c1 * (input - u1) - q * v1;
+  }
+};
+
+// Bilinear transformed 1-pole highpass.
+template<typename Sample> class SafetyFilter {
+private:
+  Sample b = Sample(1);
+  Sample a1 = Sample(1);
+  Sample x1 = Sample(0);
+  Sample y1 = Sample(0);
+
+public:
+  void reset()
+  {
+    x1 = 0;
+    y1 = 0;
+  }
+
+  void setup(Sample sampleRate)
+  {
+    constexpr Sample pi = std::numbers::pi_v<Sample>;
+    constexpr Sample minCutoff = Sample(0.00001);
+    constexpr Sample nyquist = Sample(0.49998);
+    constexpr Sample highpassCutoffHz = Sample(16);
+
+    const auto k = Sample(1)
+      / std::tan(pi * std::clamp(highpassCutoffHz / sampleRate, minCutoff, nyquist));
+    const auto a0 = Sample(1) + k;
+    b = k / a0;
+    a1 = (Sample(1) - k) / a0;
+  }
+
+  Sample process(Sample input)
+  {
+    y1 = b * (input - x1) - a1 * y1;
+    x1 = input;
+    return y1;
   }
 };
 

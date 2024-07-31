@@ -85,12 +85,24 @@ Refer to the manual for a full list of shortcuts.)";
 When `Decay to` is set to 0, and `Release` is on,
 sound won't stop after note-off.
 
+When `Pulse Width / Bit Mask` is 1.0, and `Pulse
+Width Modulation` is on, output becomes silent.
+
+When both of `Pulse Width Modulation` and
+`Bitwise And` is on, aliasing may be noticeable.
+
 When `Resonance` is near 1.0, `Polyphonic` is
 turned off, and fast sequence is played,
 amplitude may change for each note-on.
 
 Maximum voice number is 256. If CPU load is too
-high, lower `Decay to`.)";
+high, lower `Decay to`.
+
+This synthesizer is using integer pitch tuning.
+Because of this, higher pitches are increasingly
+out of tune. `Discrete *` tunings are the most
+clear, but they aren't compatible with
+traditional tunings.)";
 
   const float top0 = 100.0f;
   const float lineHeight = 20.0f;

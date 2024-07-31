@@ -71,6 +71,10 @@ public:
   uint_fast32_t terminationCounter = 0;
 
   bool scheduleUpdateNote = false;
+  uint_fast32_t pwmLower = 0;
+  uint_fast32_t pwmPoint = 0;
+  uint_fast32_t pwmBitMask = 0;
+  int_fast32_t pwmDirection = 1;
   uint_fast32_t phasePeriod = 0;
   uint_fast32_t phaseCounter = 0;
   double oscSync = double(1);
@@ -78,6 +82,8 @@ public:
   double saturationGain = double(1);
   double decayRatio = double(1);
   double decayGain = double(0);
+  double decayEmaRatio = double(1);
+  double decayEmaValue = double(0);
   std::array<double, PolySolver::nPolynomialPoint> polynomialCoefficients{};
 
   double filterDecayRatio = double(1);
@@ -115,12 +121,15 @@ public:
   bool isPolyphonic = true;
   Voice::State noteOffState = Voice::State::terminate;
 
-  uint_fast32_t arpeggioDuration = std::numeric_limits<uint_fast32_t>::max();
+  uint_fast32_t arpeggioNoteDuration = std::numeric_limits<uint_fast32_t>::max();
   uint_fast32_t arpeggioLoopLength = std::numeric_limits<uint_fast32_t>::max();
   uint_fast32_t terminationLength = 0;
 
   double lowpassInterpRate = double(1) / double(64);
+  double softAttackEmaRatio = double(1);
+  double pwmRatio = double(1);
   DecibelScale<double> velocityMap{-60, 0, true};
+  ExpSmoother<double> safetyFilterMix;
   ExpSmoother<double> outputGain;
 
   bool isPolynomialUpdated = false;
@@ -136,6 +145,8 @@ public:
 
   unsigned nextSteal = 0;
   std::vector<Voice> voices;
+
+  std::array<SafetyFilter<double>, 2> safetyFilter;
 
   DSPCore()
   {

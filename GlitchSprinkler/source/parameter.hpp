@@ -93,11 +93,16 @@ enum ID {
   bypass,
 
   outputGain,
+  safetyFilterMix,
 
   decayTargetGain,
+  decaySoftAttack,
   oscSync,
   fmIndex,
   saturationGain,
+  pulseWidthRatio,
+  pulseWidthModulation,
+  pulseWidthBitwiseAnd,
 
   randomizeFmIndex,
 
@@ -132,6 +137,8 @@ enum ID {
   arpeggioScale,
   arpeggioPicthDriftCent,
   arpeggioOctave,
+  arpeggioStartFromRoot,
+  arpeggioResetModulation,
 
   unisonVoice,
   unisonDetuneCent,
@@ -202,10 +209,15 @@ struct GlobalParameter : public ParameterInterface {
 
     value[ID::outputGain] = std::make_unique<DecibelValue>(
       Scales::gain.invmap(1.0), Scales::gain, "outputGain", Info::kCanAutomate);
+    value[ID::safetyFilterMix] = std::make_unique<LinearValue>(
+      Scales::defaultScale.invmap(1.0), Scales::defaultScale, "safetyFilterMix",
+      Info::kCanAutomate);
 
     value[ID::decayTargetGain] = std::make_unique<DecibelValue>(
       Scales::decayTargetGain.invmapDB(-1.0), Scales::decayTargetGain, "decayTargetGain",
       Info::kCanAutomate);
+    value[ID::decaySoftAttack] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "decaySoftAttack", Info::kCanAutomate);
     value[ID::oscSync] = std::make_unique<LinearValue>(
       Scales::defaultScale.invmap(1.0), Scales::defaultScale, "oscSync",
       Info::kCanAutomate);
@@ -213,6 +225,13 @@ struct GlobalParameter : public ParameterInterface {
       Scales::fmIndex.invmap(0.0), Scales::fmIndex, "fmIndex", Info::kCanAutomate);
     value[ID::saturationGain] = std::make_unique<DecibelValue>(
       Scales::gain.invmap(1.0), Scales::gain, "saturationGain", Info::kCanAutomate);
+    value[ID::pulseWidthRatio] = std::make_unique<LinearValue>(
+      Scales::defaultScale.invmap(0.0), Scales::defaultScale, "pulseWidthRatio",
+      Info::kCanAutomate);
+    value[ID::pulseWidthModulation] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "pulseWidthModulation", Info::kCanAutomate);
+    value[ID::pulseWidthBitwiseAnd] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "pulseWidthBitwiseAnd", Info::kCanAutomate);
 
     value[ID::randomizeFmIndex] = std::make_unique<LinearValue>(
       Scales::randomizeFmIndex.invmap(0.0), Scales::randomizeFmIndex, "randomizeFmIndex",
@@ -258,7 +277,7 @@ struct GlobalParameter : public ParameterInterface {
       Scales::defaultScale.invmap(0.0), Scales::defaultScale, "filterResonanceMod",
       Info::kCanAutomate);
     value[ID::filterNotchBaseOctave] = std::make_unique<LinearValue>(
-      Scales::filterNotchBaseOctave.invmap(1.0), Scales::filterNotchBaseOctave,
+      Scales::filterNotchBaseOctave.invmap(0.0), Scales::filterNotchBaseOctave,
       "filterNotchBaseOctave", Info::kCanAutomate);
     value[ID::filterNotchModOctave] = std::make_unique<LinearValue>(
       0.0, Scales::filterNotchModOctave, "filterNotchModOctave", Info::kCanAutomate);
@@ -297,6 +316,10 @@ struct GlobalParameter : public ParameterInterface {
       "arpeggioPicthDriftCent", Info::kCanAutomate);
     value[ID::arpeggioOctave] = std::make_unique<UIntValue>(
       1, Scales::arpeggioOctave, "arpeggioOctave", Info::kCanAutomate);
+    value[ID::arpeggioStartFromRoot] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "arpeggioStartFromRoot", Info::kCanAutomate);
+    value[ID::arpeggioResetModulation] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "arpeggioResetModulation", Info::kCanAutomate);
 
     value[ID::unisonVoice] = std::make_unique<UIntValue>(
       0, Scales::unisonVoice, "unisonVoice", Info::kCanAutomate);
@@ -314,7 +337,7 @@ struct GlobalParameter : public ParameterInterface {
     for (size_t idx = 0; idx < nReservedParameter; ++idx) {
       auto indexStr = std::to_string(idx);
       value[ID::reservedParameter0 + idx] = std::make_unique<LinearValue>(
-        Scales::defaultScale.invmap(1.0), Scales::defaultScale,
+        Scales::defaultScale.invmap(0.0), Scales::defaultScale,
         ("reservedParameter" + indexStr).c_str(), Info::kIsHidden);
     }
 

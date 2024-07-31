@@ -108,26 +108,38 @@ bool Editor::prepareUI()
   addTextKnob(
     mixLeft1, mixTop1, labelWidth, labelHeight, uiTextSize, ID::outputGain, Scales::gain,
     true, 5);
-
-  addLabel(mixLeft0, mixTop3, labelWidth, labelHeight, uiTextSize, "Decay to [dB]");
+  addLabel(mixLeft0, mixTop2, labelWidth, labelHeight, uiTextSize, "Safety Filter Mix");
   addTextKnob(
-    mixLeft1, mixTop3, labelWidth, labelHeight, uiTextSize, ID::decayTargetGain,
+    mixLeft1, mixTop2, labelWidth, labelHeight, uiTextSize, ID::safetyFilterMix,
+    Scales::defaultScale, false, 5);
+
+  addLabel(mixLeft0, mixTop4, labelWidth, labelHeight, uiTextSize, "Decay to [dB]");
+  addTextKnob<Uhhyou::Style::warning>(
+    mixLeft1, mixTop4, labelWidth, labelHeight, uiTextSize, ID::decayTargetGain,
     Scales::decayTargetGain, true, 5);
+  addCheckbox(
+    mixLeft0, mixTop5, labelWidth, labelHeight, uiTextSize, "Soft Attack",
+    ID::decaySoftAttack);
 
-  addLabel(mixLeft0, mixTop5, labelWidth, labelHeight, uiTextSize, "Octave");
+  addLabel(mixLeft0, mixTop6, labelWidth, labelHeight, uiTextSize, "Octave");
   addTextKnob(
-    mixLeft1, mixTop5, labelWidth, labelHeight, uiTextSize, ID::transposeOctave,
+    mixLeft1, mixTop6, labelWidth, labelHeight, uiTextSize, ID::transposeOctave,
     Scales::transposeOctave, false, 0, -transposeOctaveOffset);
-  addLabel(mixLeft0, mixTop6, labelWidth, labelHeight, uiTextSize, "Semitone");
+  addLabel(mixLeft0, mixTop7, labelWidth, labelHeight, uiTextSize, "Semitone");
   addTextKnob(
-    mixLeft1, mixTop6, labelWidth, labelHeight, uiTextSize, ID::transposeSemitone,
+    mixLeft1, mixTop7, labelWidth, labelHeight, uiTextSize, ID::transposeSemitone,
     Scales::transposeSemitone, false, 0, -transposeSemitoneOffset);
-  addLabel(mixLeft0, mixTop7, labelWidth, labelHeight, uiTextSize, "Cent");
-  addTextKnob(
-    mixLeft1, mixTop7, labelWidth, labelHeight, uiTextSize, ID::transposeCent,
+  addLabel(mixLeft0, mixTop8, labelWidth, labelHeight, uiTextSize, "Cent");
+  auto transposeCentTextKnob = addTextKnob(
+    mixLeft1, mixTop8, labelWidth, labelHeight, uiTextSize, ID::transposeCent,
     Scales::transposeCent, false, 5);
+  if (transposeCentTextKnob) {
+    transposeCentTextKnob->sensitivity = 1.0 / 7200.0;
+    transposeCentTextKnob->lowSensitivity = 1.0 / 72000.0;
+    transposeCentTextKnob->wheelSensitivity = 1.0 / 7200.0;
+  }
 
-  addLabel(mixLeft0, mixTop8, labelWidth, labelHeight, uiTextSize, "Tuning");
+  addLabel(mixLeft0, mixTop9, labelWidth, labelHeight, uiTextSize, "Tuning");
   std::vector<std::string> tuningItems{
     "ET 12",      "ET 5",           "ET 10",        "Just 5 Major", "Just 5 Minor",
     "Just 7",     "MT Pythagorean", "MT 1/3 Comma", "MT 1/4 Comma", "Discrete 2",
@@ -137,18 +149,18 @@ bool Editor::prepareUI()
     tuningItems.push_back("- Reserved " + std::to_string(idx) + " -");
   }
   addOptionMenu(
-    mixLeft1, mixTop8, labelWidth, labelHeight, uiTextSize, ID::tuningType, tuningItems);
+    mixLeft1, mixTop9, labelWidth, labelHeight, uiTextSize, ID::tuningType, tuningItems);
 
-  addLabel(mixLeft0, mixTop9, labelWidth, labelHeight, uiTextSize, "Tuning Root [st.]");
+  addLabel(mixLeft0, mixTop10, labelWidth, labelHeight, uiTextSize, "Tuning Root [st.]");
   addTextKnob(
-    mixLeft1, mixTop9, labelWidth, labelHeight, uiTextSize, ID::tuningRootSemitone,
+    mixLeft1, mixTop10, labelWidth, labelHeight, uiTextSize, ID::tuningRootSemitone,
     Scales::tuningRootSemitone, false, 0);
 
   addCheckbox(
-    mixLeft0, mixTop10, labelWidth, labelHeight, uiTextSize, "Polyphonic",
+    mixLeft0, mixTop11, labelWidth, labelHeight, uiTextSize, "Polyphonic",
     ID::polyphonic);
   addCheckbox(
-    mixLeft1, mixTop10, labelWidth, labelHeight, uiTextSize, "Release", ID::release);
+    mixLeft1, mixTop11, labelWidth, labelHeight, uiTextSize, "Release", ID::release);
 
   // Filter.
   constexpr auto filterLabelWidth = 100.0f;
@@ -211,9 +223,12 @@ bool Editor::prepareUI()
   constexpr auto waveformTop0 = top0 + 0 * labelY;
   constexpr auto waveformTop1 = waveformTop0 + 1 * labelY;
   constexpr auto waveformTop2 = waveformTop1 + barBoxWidth;
-  constexpr auto waveformTop3 = waveformTop2 + 2 * labelY;
-  constexpr auto waveformTop4 = waveformTop2 + 3 * labelY;
-  constexpr auto waveformTop5 = waveformTop2 + 4 * labelY;
+  constexpr auto waveformTop3 = waveformTop2 + 1 * labelY;
+  constexpr auto waveformTop4 = waveformTop2 + 2 * labelY;
+  constexpr auto waveformTop5 = waveformTop2 + 3 * labelY;
+  constexpr auto waveformTop6 = waveformTop2 + 4 * labelY;
+  constexpr auto waveformTop7 = waveformTop2 + 5 * labelY;
+  constexpr auto waveformTop8 = waveformTop2 + 6 * labelY;
   constexpr auto waveformLeft0 = left4;
   constexpr auto waveformLeft1 = left4 + labelWidth + 2 * margin;
   addGroupLabel(
@@ -263,19 +278,31 @@ bool Editor::prepareUI()
   }
 
   addLabel(
-    waveformLeft0, waveformTop3, labelWidth, labelHeight, uiTextSize, "Osc. Sync.");
+    waveformLeft0, waveformTop4, labelWidth, labelHeight, uiTextSize, "Osc. Sync.");
   addTextKnob(
-    waveformLeft1, waveformTop3, labelWidth, labelHeight, uiTextSize, ID::oscSync,
+    waveformLeft1, waveformTop4, labelWidth, labelHeight, uiTextSize, ID::oscSync,
     Scales::defaultScale, false, 5);
-  addLabel(waveformLeft0, waveformTop4, labelWidth, labelHeight, uiTextSize, "FM Index");
+  addLabel(waveformLeft0, waveformTop5, labelWidth, labelHeight, uiTextSize, "FM Index");
   addTextKnob(
-    waveformLeft1, waveformTop4, labelWidth, labelHeight, uiTextSize, ID::fmIndex,
+    waveformLeft1, waveformTop5, labelWidth, labelHeight, uiTextSize, ID::fmIndex,
     Scales::fmIndex, false, 5);
   addLabel(
-    waveformLeft0, waveformTop5, labelWidth, labelHeight, uiTextSize, "Saturation [dB]");
+    waveformLeft0, waveformTop6, labelWidth, labelHeight, uiTextSize, "Saturation [dB]");
   addTextKnob(
-    waveformLeft1, waveformTop5, labelWidth, labelHeight, uiTextSize, ID::saturationGain,
+    waveformLeft1, waveformTop6, labelWidth, labelHeight, uiTextSize, ID::saturationGain,
     Scales::gain, true, 5);
+  addLabel(
+    waveformLeft0, waveformTop7, labelWidth, labelHeight, uiTextSize,
+    "Pulse Width / Bit Mask");
+  addTextKnob<Uhhyou::Style::warning>(
+    waveformLeft1, waveformTop7, labelWidth, labelHeight, uiTextSize, ID::pulseWidthRatio,
+    Scales::defaultScale, false, 5);
+  addCheckbox<Uhhyou::Style::warning>(
+    waveformLeft0, waveformTop8, labelWidth, labelHeight, uiTextSize,
+    "Pulse Width Modulation", ID::pulseWidthModulation);
+  addCheckbox(
+    waveformLeft1, waveformTop8, labelWidth, labelHeight, uiTextSize, "Bitwise And",
+    ID::pulseWidthBitwiseAnd);
 
   // Arpeggio.
   constexpr auto arpTop0 = top0;
@@ -297,7 +324,7 @@ bool Editor::prepareUI()
     arpLeft0, arpTop0, groupLabelWidth, labelHeight, uiTextSize, "Arpeggio",
     ID::arpeggioSwitch);
   addLabel(arpLeft0, arpTop1, labelWidth, labelHeight, uiTextSize, "Seed");
-  auto seedTextKnob = addTextKnob(
+  auto seedTextKnob = addTextKnob<Uhhyou::Style::accent>(
     arpLeft1, arpTop1, labelWidth, labelHeight, uiTextSize, ID::seed, Scales::seed, false,
     0);
   if (seedTextKnob) {
@@ -325,23 +352,23 @@ bool Editor::prepareUI()
   std::vector<std::string> arpeggioScaleItems{
     "Octave",
     "ET 5 Chromatic",
-    "ET 12 Church C (Major Scale)",
-    "ET 12 Church D",
-    "ET 12 Church E",
-    "ET 12 Church F",
-    "ET 12 Church G",
-    "ET 12 Church A (Minor Scale)",
-    "ET 12 Church B",
-    "ET 12 Suspended 2",
-    "ET 12 Suspended 4",
-    "ET 12 Major 7",
-    "ET 12 Minor 7",
-    "ET 12 Major 7 Extended",
-    "ET 12 Minor 7 Extended",
-    "ET 12 Whole Tone 2",
-    "ET 12 Whole Tone 3",
-    "ET 12 Whole Tone 4",
-    "ET 12 Blues",
+    "Church C (Major Scale)",
+    "Church D",
+    "Church E",
+    "Church F",
+    "Church G",
+    "Church A (Minor Scale)",
+    "Church B",
+    "Suspended 2",
+    "Suspended 4",
+    "Major 7",
+    "Minor 7",
+    "Major 7 Extended",
+    "Minor 7 Extended",
+    "Whole Tone 2",
+    "Whole Tone 3",
+    "Whole Tone 4",
+    "Blues",
     "Overtone 32",
     "The 42 Melody",
     "Overtone Odd 16",
@@ -364,6 +391,12 @@ bool Editor::prepareUI()
   addTextKnob(
     arpLeft1, arpTop10, labelWidth, labelHeight, uiTextSize, ID::arpeggioOctave,
     Scales::arpeggioOctave, false, 0, 1);
+  addCheckbox(
+    arpLeft0, arpTop11, labelWidth, labelHeight, uiTextSize, "Start From Root",
+    ID::arpeggioStartFromRoot);
+  addCheckbox(
+    arpLeft1, arpTop11, labelWidth, labelHeight, uiTextSize, "Reset Modulation",
+    ID::arpeggioResetModulation);
 
   addLabel(arpLeft0, arpTop12, labelWidth, labelHeight, uiTextSize, "Random FM Index");
   addTextKnob(
@@ -382,7 +415,7 @@ bool Editor::prepareUI()
     unisonLeft0, unisonTop0, groupLabelWidth, labelHeight, uiTextSize, "Unison");
 
   addLabel(unisonLeft0, unisonTop1, labelWidth, labelHeight, uiTextSize, "nVoice");
-  addTextKnob(
+  addTextKnob<Uhhyou::Style::warning>(
     unisonLeft1, unisonTop1, labelWidth, labelHeight, uiTextSize, ID::unisonVoice,
     Scales::unisonVoice, false, 0, 1);
   addLabel(unisonLeft0, unisonTop2, labelWidth, labelHeight, uiTextSize, "Detune [cent]");
@@ -406,10 +439,10 @@ bool Editor::prepareUI()
 
   // Plugin name and randomize button.
   constexpr auto splashMargin = uiMargin;
-  constexpr auto splashTop = top0 + 18 * labelY - 2 * margin;
-  constexpr auto splashLeft = left4;
+  constexpr auto splashTop = top0 + 18 * labelY;
+  constexpr auto splashLeft = left8;
   const auto randomButtonTop = splashTop;
-  const auto randomButtonLeft = splashLeft + labelWidth + 2 * margin;
+  const auto randomButtonLeft = splashLeft;
   auto panicButton = new RandomizeButton(
     CRect(
       randomButtonLeft, randomButtonTop, randomButtonLeft + labelWidth,
@@ -418,9 +451,9 @@ bool Editor::prepareUI()
   frame->addView(panicButton);
 
   addSplashScreen(
-    splashLeft, splashTop, labelWidth, splashHeight, splashMargin, splashMargin,
-    defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,
-    "GlitchSprinkler", false);
+    splashLeft + labelWidth + 2 * margin, splashTop, labelWidth, splashHeight,
+    splashMargin, splashMargin, defaultWidth - 2 * splashMargin,
+    defaultHeight - 2 * splashMargin, pluginNameTextSize, "GlitchSprinkler", false);
 
   return true;
 }

@@ -51,7 +51,7 @@ LinearScale<double> Scales::polynomialPointY(-0.5, 0.5);
 UIntScale<double> Scales::transposeOctave(2 * transposeOctaveOffset);
 UIntScale<double> Scales::transposeSemitone(2 * transposeSemitoneOffset);
 LinearScale<double> Scales::transposeCent(-3600, 3600);
-UIntScale<double> Scales::tuningType(31);
+UIntScale<double> Scales::tuningType(63);
 UIntScale<double> Scales::tuningRootSemitone(63);
 
 UIntScale<double> Scales::arpeggioNotesPerBeat(15);

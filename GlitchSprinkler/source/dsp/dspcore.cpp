@@ -39,6 +39,9 @@ void DSPCore::setup(double sampleRate_)
 
   terminationLength = uint_fast32_t(double(0.002) * sampleRate);
   lowpassInterpRate = sampleRate / double(48000 * 64);
+  softAttackEmaRatio = EMAFilter<double>::cutoffToP(double(50) / sampleRate);
+
+  for (auto &x : safetyFilter) x.setup(sampleRate);
 
   reset();
   startup();
@@ -67,13 +70,15 @@ void DSPCore::setup(double sampleRate_)
                                                                                          \
   const auto samplesPerBeat = (double(60) * sampleRate) / tempo;                         \
   const auto arpeggioNotesPerBeat = pv[ID::arpeggioNotesPerBeat]->getInt() + 1;          \
-  arpeggioDuration = int_fast32_t(samplesPerBeat / double(arpeggioNotesPerBeat));        \
+  arpeggioNoteDuration = int_fast32_t(samplesPerBeat / double(arpeggioNotesPerBeat));    \
   arpeggioLoopLength                                                                     \
     = (pv[ID::arpeggioLoopLengthInBeat]->getInt()) * arpeggioNotesPerBeat;               \
   if (arpeggioLoopLength == 0) {                                                         \
     arpeggioLoopLength = std::numeric_limits<decltype(arpeggioLoopLength)>::max();       \
   }                                                                                      \
                                                                                          \
+  pwmRatio = double(1) - pv[ID::pulseWidthRatio]->getDouble();                           \
+  safetyFilterMix.METHOD(pv[ID::safetyFilterMix]->getDouble());                          \
   outputGain.METHOD(pv[ID::outputGain]->getDouble());                                    \
                                                                                          \
   for (size_t idx = 0; idx < nPolyOscControl; ++idx) {                                   \
@@ -109,6 +114,10 @@ void Voice::reset()
   terminationCounter = 0;
 
   scheduleUpdateNote = false;
+  pwmLower = 0;
+  pwmPoint = 0;
+  pwmBitMask = 0;
+  pwmDirection = 1;
   phasePeriod = 0;
   phaseCounter = 0;
   oscSync = double(1);
@@ -116,6 +125,8 @@ void Voice::reset()
   saturationGain = double(1);
   decayRatio = double(1);
   decayGain = double(0);
+  decayEmaRatio = double(1);
+  decayEmaValue = double(0);
   polynomialCoefficients.fill({});
 
   filterDecayRatio = double(1);
@@ -144,6 +155,8 @@ void DSPCore::reset()
   nextSteal = 0;
   for (auto &x : voices) x.reset();
 
+  for (auto &x : safetyFilter) x.reset();
+
   startup();
 }
 
@@ -171,7 +184,7 @@ std::array<double, 2> Voice::processFrame()
 
   // Arpeggio.
   if (pv[ID::arpeggioSwitch]->getInt()) {
-    if (arpeggioTimer < arpeggioTie * core.arpeggioDuration) {
+    if (arpeggioTimer < arpeggioTie * core.arpeggioNoteDuration) {
       ++arpeggioTimer;
     } else if (state == State::active) {
       scheduleUpdateNote = true;
@@ -201,11 +214,12 @@ std::array<double, 2> Voice::processFrame()
 
   // Oscillator.
   auto oscFunc = [&](double phase) {
+    if (phaseCounter > (pwmPoint | ~pwmBitMask)) return double(0);
     return computePolynomial<double, PolySolver::nPolynomialPoint>(
       phase, polynomialCoefficients);
   };
 
-  const auto phase = oscSync * double(phaseCounter) / double(phasePeriod);
+  const auto phase = oscSync * double(phaseCounter & pwmBitMask) / double(phasePeriod);
   auto sig = oscFunc(phase);
 
   // FM.
@@ -227,13 +241,30 @@ std::array<double, 2> Voice::processFrame()
 
   // Envelope.
   decayGain *= decayRatio;
+  decayEmaValue += decayEmaRatio * (decayGain - decayEmaValue);
   const auto terminationDecay = double(core.terminationLength - terminationCounter)
     / double(core.terminationLength);
-  lastGain = decayGain * noteVelocity * terminationDecay;
+  lastGain = decayEmaValue * noteVelocity * terminationDecay;
   sig *= lastGain;
 
   if (++phaseCounter >= phasePeriod) {
     phaseCounter = 0;
+
+    if (pv[ID::pulseWidthModulation]->getInt()) {
+      pwmPoint = std::min(pwmPoint + pwmDirection, phasePeriod);
+      if (pwmPoint <= pwmLower) {
+        pwmDirection = 1;
+      } else if (pwmPoint == phasePeriod) {
+        pwmDirection = -1;
+      }
+    } else {
+      pwmPoint = uint_fast32_t(phasePeriod * core.pwmRatio);
+    }
+
+    pwmBitMask = pv[ID::pulseWidthBitwiseAnd]->getInt()
+      ? pwmPoint
+      : std::numeric_limits<uint_fast32_t>::max();
+
     if (scheduleUpdateNote) {
       scheduleUpdateNote = false;
       if (state == State::active) updateNote();
@@ -276,6 +307,10 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
       frame[0] += voiceOut[0];
       frame[1] += voiceOut[1];
     }
+
+    const auto safetyFiltMix = safetyFilterMix.process();
+    frame[0] = std::lerp(frame[0], safetyFilter[0].process(frame[0]), safetyFiltMix);
+    frame[1] = std::lerp(frame[1], safetyFilter[1].process(frame[1]), safetyFiltMix);
 
     const auto outGain = outputGain.process();
     out0[i] = float(outGain * frame[0]);
@@ -334,11 +369,15 @@ void DSPCore::noteOn(NoteInfo &info)
     if (vc.state == Voice::State::rest) {
       vc.arpeggioTimer = 0;
       vc.arpeggioLoopCounter = 0;
+      vc.decayEmaRatio
+        = pv[ID::decaySoftAttack]->getInt() ? softAttackEmaRatio : double(1);
+      vc.decayEmaValue = 0;
       vc.lowpass.reset();
       vc.updateNote();
     } else if (!param.value[ParameterID::arpeggioSwitch]->getInt()) {
       vc.scheduleUpdateNote = true;
     }
+
     vc.terminationCounter = 0;
     vc.state = Voice::State::active;
   }
@@ -475,8 +514,8 @@ void Voice::updateNote()
     return core.pitchModifier * transposeRatio * double(440);
   };
   auto getDiscreteFreq = [&]() {
-    auto semitones = transposeSemitone + double(noteNumber - 127) / double(12);
-    auto cents = (transposeCent + noteCent) / double(1200);
+    auto semitones = double(transposeSemitone + noteNumber - 127) / double(12);
+    auto cents = (transposeCent + noteCent + unisonDetuneCent) / double(1200);
     auto transposeRatio = std::exp2(transposeOctave + semitones + cents);
     auto freqHz = core.pitchModifier * transposeRatio * core.sampleRate;
     switch (tuning) {
@@ -504,7 +543,8 @@ void Voice::updateNote()
     auto arpRatio
       = std::exp2(double(octaveDist(rngArpeggio)) + centDist(rngArpeggio) / double(1200));
 
-    if (arpeggioTimer != 0 || arpeggioLoopCounter != 0) {
+    const auto arpeggioStartFromRoot = bool(pv[ID::arpeggioStartFromRoot]->getInt());
+    if (!(arpeggioStartFromRoot && arpeggioTimer == 0 && arpeggioLoopCounter == 0)) {
       const auto arpeggioScale = pv[ID::arpeggioScale]->getInt();
       if (arpeggioScale == PitchScale::et5Chromatic) {
         arpRatio *= getRandomPitchFixed(rngArpeggio, scaleEt5, tuningRatioEt5);
@@ -577,6 +617,19 @@ void Voice::updateNote()
   }
   polynomialCoefficients = core.polynomial.coefficients;
 
+  pwmLower = uint_fast32_t(phasePeriod * core.pwmRatio);
+  if (
+    state == State::rest || core.pwmRatio >= 1
+    || pv[ID::arpeggioResetModulation]->getInt())
+  {
+    pwmPoint = pv[ID::pulseWidthModulation]->getInt() ? phasePeriod : pwmLower;
+    pwmDirection = 1;
+
+    pwmBitMask = pv[ID::pulseWidthBitwiseAnd]->getInt()
+      ? pwmPoint
+      : std::numeric_limits<uint_fast32_t>::max();
+  }
+
   oscSync = pv[ID::oscSync]->getDouble();
 
   const auto rndFmIndexOct = pv[ID::randomizeFmIndex]->getDouble();
@@ -587,9 +640,11 @@ void Voice::updateNote()
   // Envelope.
   const auto decayTargetGain = pv[ID::decayTargetGain]->getDouble();
   decayRatio
-    = std::pow(decayTargetGain, double(1) / (arpeggioTie * core.arpeggioDuration));
+    = std::pow(decayTargetGain, double(1) / (arpeggioTie * core.arpeggioNoteDuration));
 
-  const auto restChance = pv[ID::arpeggioRestChance]->getDouble();
+  const auto restChance = arpeggioTimer == 0 && arpeggioLoopCounter == 0
+    ? double(0)
+    : pv[ID::arpeggioRestChance]->getDouble();
   std::uniform_real_distribution<double> restDist{double(0), double(1)};
   decayGain = useArpeggiator && restDist(rngArpeggio) < restChance || freqHz == 0
     ? double(0)
