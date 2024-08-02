@@ -31,7 +31,8 @@
   #include "../../common/value.hpp"
 #endif
 
-static constexpr size_t nPolyOscControl = 11;
+constexpr size_t nPolyOscControl = 11;
+constexpr int_fast32_t pwmOneCyclePoint = 256;
 
 constexpr size_t nReservedParameter = 256;
 constexpr size_t nReservedGuiParameter = 64;
@@ -96,12 +97,14 @@ enum ID {
   safetyFilterMix,
 
   decayTargetGain,
-  decaySoftAttack,
+  softEnvelopeSwitch,
   oscSync,
   fmIndex,
   saturationGain,
   pulseWidthRatio,
+  pulseWidthModRate,
   pulseWidthModulation,
+  pulseWidthModBidirectionSwitch,
   pulseWidthBitwiseAnd,
 
   randomizeFmIndex,
@@ -164,6 +167,7 @@ struct Scales {
 
   static SomeDSP::DecibelScale<double> decayTargetGain;
   static SomeDSP::DecibelScale<double> fmIndex;
+  static SomeDSP::UIntScale<double> pulseWidthModRate;
   static SomeDSP::LinearScale<double> randomizeFmIndex;
 
   static SomeDSP::LinearScale<double> filterDecayRatio;
@@ -216,8 +220,8 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::decayTargetGain] = std::make_unique<DecibelValue>(
       Scales::decayTargetGain.invmapDB(-1.0), Scales::decayTargetGain, "decayTargetGain",
       Info::kCanAutomate);
-    value[ID::decaySoftAttack] = std::make_unique<UIntValue>(
-      1, Scales::boolScale, "decaySoftAttack", Info::kCanAutomate);
+    value[ID::softEnvelopeSwitch] = std::make_unique<UIntValue>(
+      0, Scales::boolScale, "softEnvelopeSwitch", Info::kCanAutomate);
     value[ID::oscSync] = std::make_unique<LinearValue>(
       Scales::defaultScale.invmap(1.0), Scales::defaultScale, "oscSync",
       Info::kCanAutomate);
@@ -228,8 +232,13 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::pulseWidthRatio] = std::make_unique<LinearValue>(
       Scales::defaultScale.invmap(0.0), Scales::defaultScale, "pulseWidthRatio",
       Info::kCanAutomate);
+    value[ID::pulseWidthModRate] = std::make_unique<UIntValue>(
+      pwmOneCyclePoint, Scales::pulseWidthModRate, "pulseWidthModRate",
+      Info::kCanAutomate);
     value[ID::pulseWidthModulation] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "pulseWidthModulation", Info::kCanAutomate);
+    value[ID::pulseWidthModBidirectionSwitch] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "pulseWidthModBidirectionSwitch", Info::kCanAutomate);
     value[ID::pulseWidthBitwiseAnd] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "pulseWidthBitwiseAnd", Info::kCanAutomate);
 

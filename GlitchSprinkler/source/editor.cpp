@@ -36,6 +36,7 @@ constexpr float knobY = knobWidth + labelHeight + 2 * margin;
 constexpr float labelY = labelHeight + 2 * margin;
 constexpr float labelWidth = 2 * knobWidth;
 constexpr float groupLabelWidth = 2 * labelWidth + 2 * margin;
+constexpr float labelWidthOneThird = int(groupLabelWidth / 3);
 constexpr float splashWidth = int(labelWidth * 3 / 2) + 2 * margin;
 constexpr float splashHeight = int(labelHeight + 2 * margin);
 
@@ -118,8 +119,14 @@ bool Editor::prepareUI()
     mixLeft1, mixTop4, labelWidth, labelHeight, uiTextSize, ID::decayTargetGain,
     Scales::decayTargetGain, true, 5);
   addCheckbox(
-    mixLeft0, mixTop5, labelWidth, labelHeight, uiTextSize, "Soft Attack",
-    ID::decaySoftAttack);
+    mixLeft0, mixTop5, labelWidthOneThird, labelHeight, uiTextSize, "Polyphonic",
+    ID::polyphonic);
+  addCheckbox(
+    mixLeft0 + labelWidthOneThird * 1, mixTop5, labelWidthOneThird, labelHeight,
+    uiTextSize, "Release", ID::release);
+  addCheckbox(
+    mixLeft0 + labelWidthOneThird * 2, mixTop5, labelWidthOneThird, labelHeight,
+    uiTextSize, "Soft Envelope", ID::softEnvelopeSwitch);
 
   addLabel(mixLeft0, mixTop6, labelWidth, labelHeight, uiTextSize, "Octave");
   addTextKnob(
@@ -155,12 +162,6 @@ bool Editor::prepareUI()
   addTextKnob(
     mixLeft1, mixTop10, labelWidth, labelHeight, uiTextSize, ID::tuningRootSemitone,
     Scales::tuningRootSemitone, false, 0);
-
-  addCheckbox(
-    mixLeft0, mixTop11, labelWidth, labelHeight, uiTextSize, "Polyphonic",
-    ID::polyphonic);
-  addCheckbox(
-    mixLeft1, mixTop11, labelWidth, labelHeight, uiTextSize, "Release", ID::release);
 
   // Filter.
   constexpr auto filterLabelWidth = 100.0f;
@@ -278,31 +279,40 @@ bool Editor::prepareUI()
   }
 
   addLabel(
-    waveformLeft0, waveformTop4, labelWidth, labelHeight, uiTextSize, "Osc. Sync.");
+    waveformLeft0, waveformTop3, labelWidth, labelHeight, uiTextSize, "Osc. Sync.");
   addTextKnob(
-    waveformLeft1, waveformTop4, labelWidth, labelHeight, uiTextSize, ID::oscSync,
+    waveformLeft1, waveformTop3, labelWidth, labelHeight, uiTextSize, ID::oscSync,
     Scales::defaultScale, false, 5);
-  addLabel(waveformLeft0, waveformTop5, labelWidth, labelHeight, uiTextSize, "FM Index");
+  addLabel(waveformLeft0, waveformTop4, labelWidth, labelHeight, uiTextSize, "FM Index");
   addTextKnob(
-    waveformLeft1, waveformTop5, labelWidth, labelHeight, uiTextSize, ID::fmIndex,
+    waveformLeft1, waveformTop4, labelWidth, labelHeight, uiTextSize, ID::fmIndex,
     Scales::fmIndex, false, 5);
   addLabel(
-    waveformLeft0, waveformTop6, labelWidth, labelHeight, uiTextSize, "Saturation [dB]");
+    waveformLeft0, waveformTop5, labelWidth, labelHeight, uiTextSize, "Saturation [dB]");
   addTextKnob(
-    waveformLeft1, waveformTop6, labelWidth, labelHeight, uiTextSize, ID::saturationGain,
+    waveformLeft1, waveformTop5, labelWidth, labelHeight, uiTextSize, ID::saturationGain,
     Scales::gain, true, 5);
   addLabel(
-    waveformLeft0, waveformTop7, labelWidth, labelHeight, uiTextSize,
+    waveformLeft0, waveformTop6, labelWidth, labelHeight, uiTextSize,
     "Pulse Width / Bit Mask");
   addTextKnob<Uhhyou::Style::warning>(
-    waveformLeft1, waveformTop7, labelWidth, labelHeight, uiTextSize, ID::pulseWidthRatio,
+    waveformLeft1, waveformTop6, labelWidth, labelHeight, uiTextSize, ID::pulseWidthRatio,
     Scales::defaultScale, false, 5);
+  addLabel(
+    waveformLeft0, waveformTop7, labelWidth, labelHeight, uiTextSize, "Modulation Rate");
+  addTextKnob(
+    waveformLeft1, waveformTop7, labelWidth, labelHeight, uiTextSize,
+    ID::pulseWidthModRate, Scales::pulseWidthModRate, false, 0, -pwmOneCyclePoint);
+
   addCheckbox<Uhhyou::Style::warning>(
-    waveformLeft0, waveformTop8, labelWidth, labelHeight, uiTextSize,
-    "Pulse Width Modulation", ID::pulseWidthModulation);
+    waveformLeft0, waveformTop8, labelWidthOneThird, labelHeight, uiTextSize, "PWM",
+    ID::pulseWidthModulation);
   addCheckbox(
-    waveformLeft1, waveformTop8, labelWidth, labelHeight, uiTextSize, "Bitwise And",
-    ID::pulseWidthBitwiseAnd);
+    waveformLeft0 + labelWidthOneThird * 1, waveformTop8, labelWidthOneThird, labelHeight,
+    uiTextSize, "Bidirection", ID::pulseWidthModBidirectionSwitch);
+  addCheckbox(
+    waveformLeft0 + labelWidthOneThird * 2, waveformTop8, labelWidthOneThird, labelHeight,
+    uiTextSize, "Bitwise And", ID::pulseWidthBitwiseAnd);
 
   // Arpeggio.
   constexpr auto arpTop0 = top0;

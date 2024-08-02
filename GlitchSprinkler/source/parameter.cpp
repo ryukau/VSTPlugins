@@ -38,6 +38,7 @@ DecibelScale<double> Scales::gain(-100.0, 60.0, true);
 
 DecibelScale<double> Scales::decayTargetGain(-150.0, 0.0, false);
 DecibelScale<double> Scales::fmIndex(-60.0, 40.0, true);
+UIntScale<double> Scales::pulseWidthModRate(511);
 LinearScale<double> Scales::randomizeFmIndex(0.0, 4.0);
 
 LinearScale<double> Scales::filterDecayRatio(-10.0, 10.0);
@@ -58,7 +59,7 @@ UIntScale<double> Scales::arpeggioNotesPerBeat(15);
 UIntScale<double> Scales::arpeggioLoopLengthInBeat(256);
 UIntScale<double> Scales::arpeggioDurationVariation(15);
 UIntScale<double> Scales::arpeggioScale(255);
-LinearScale<double> Scales::arpeggioPicthDriftCent(0, 100);
+LinearScale<double> Scales::arpeggioPicthDriftCent(0, 200);
 UIntScale<double> Scales::arpeggioOctave(7);
 
 UIntScale<double> Scales::unisonVoice(255);

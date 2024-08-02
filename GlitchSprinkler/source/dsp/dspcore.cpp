@@ -37,7 +37,7 @@ void DSPCore::setup(double sampleRate_)
 
   SmootherCommon<double>::setTime(double(0.2));
 
-  terminationLength = uint_fast32_t(double(0.002) * sampleRate);
+  terminationLength = int_fast32_t(double(0.002) * sampleRate);
   lowpassInterpRate = sampleRate / double(48000 * 64);
   softAttackEmaRatio = EMAFilter<double>::cutoffToP(double(50) / sampleRate);
 
@@ -77,7 +77,23 @@ void DSPCore::setup(double sampleRate_)
     arpeggioLoopLength = std::numeric_limits<decltype(arpeggioLoopLength)>::max();       \
   }                                                                                      \
                                                                                          \
+  arpeggioSwitch = pv[ID::arpeggioSwitch]->getInt();                                     \
+  filterSwitch = pv[ID::filterSwitch]->getInt();                                         \
+  softEnvelopeSwitch = pv[ID::softEnvelopeSwitch]->getInt();                             \
+  pwmSwitch = pv[ID::pulseWidthModulation]->getInt();                                    \
+  pwmBidrection = pv[ID::pulseWidthModBidirectionSwitch]->getInt();                      \
+  bitmaskSwitch = pv[ID::pulseWidthBitwiseAnd]->getInt();                                \
   pwmRatio = double(1) - pv[ID::pulseWidthRatio]->getDouble();                           \
+                                                                                         \
+  const auto pulseWidthModRate = pv[ID::pulseWidthModRate]->getInt();                    \
+  if (pulseWidthModRate < pwmOneCyclePoint) {                                            \
+    pwmChangeCycle = 1;                                                                  \
+    pwmAmount = pwmOneCyclePoint - pulseWidthModRate + 1;                                \
+  } else {                                                                               \
+    pwmChangeCycle = 1 + pulseWidthModRate - pwmOneCyclePoint;                           \
+    pwmAmount = 1;                                                                       \
+  }                                                                                      \
+                                                                                         \
   safetyFilterMix.METHOD(pv[ID::safetyFilterMix]->getDouble());                          \
   outputGain.METHOD(pv[ID::outputGain]->getDouble());                                    \
                                                                                          \
@@ -118,6 +134,7 @@ void Voice::reset()
   pwmPoint = 0;
   pwmBitMask = 0;
   pwmDirection = 1;
+  pwmChangeCounter = 1;
   phasePeriod = 0;
   phaseCounter = 0;
   oscSync = double(1);
@@ -183,7 +200,7 @@ std::array<double, 2> Voice::processFrame()
   const auto &pv = core.param.value;
 
   // Arpeggio.
-  if (pv[ID::arpeggioSwitch]->getInt()) {
+  if (core.arpeggioSwitch) {
     if (arpeggioTimer < arpeggioTie * core.arpeggioNoteDuration) {
       ++arpeggioTimer;
     } else if (state == State::active) {
@@ -203,7 +220,10 @@ std::array<double, 2> Voice::processFrame()
     (state == State::terminate && phaseCounter == 0)
     || (state == State::release && lastGain <= epsf32) || (terminationCounter > 0))
   {
-    if (terminationCounter < core.terminationLength && pv[ID::filterSwitch]->getInt()) {
+    if (
+      terminationCounter < core.terminationLength
+      && (core.filterSwitch || core.softEnvelopeSwitch))
+    {
       ++terminationCounter;
     } else {
       terminationCounter = core.terminationLength;
@@ -231,7 +251,7 @@ std::array<double, 2> Voice::processFrame()
   sig = std::clamp(saturationGain * sig, double(-1), double(1));
 
   // Lowpass.
-  if (pv[ID::filterSwitch]->getInt()) {
+  if (core.filterSwitch) {
     sig = lowpass.process(
       sig, core.lowpassInterpRate, cutoffBase + cutoffMod * filterDecayRatio,
       resonanceBase + resonanceMod * filterDecayRatio,
@@ -250,20 +270,31 @@ std::array<double, 2> Voice::processFrame()
   if (++phaseCounter >= phasePeriod) {
     phaseCounter = 0;
 
-    if (pv[ID::pulseWidthModulation]->getInt()) {
-      pwmPoint = std::min(pwmPoint + pwmDirection, phasePeriod);
-      if (pwmPoint <= pwmLower) {
-        pwmDirection = 1;
-      } else if (pwmPoint == phasePeriod) {
-        pwmDirection = -1;
-      }
-    } else {
-      pwmPoint = uint_fast32_t(phasePeriod * core.pwmRatio);
-    }
+    if (pwmChangeCounter <= 0) {
+      pwmChangeCounter = core.pwmChangeCycle;
 
-    pwmBitMask = pv[ID::pulseWidthBitwiseAnd]->getInt()
-      ? pwmPoint
-      : std::numeric_limits<uint_fast32_t>::max();
+      if (core.pwmSwitch) {
+        pwmPoint = std::clamp(
+          pwmPoint + pwmDirection, int_fast32_t(0), int_fast32_t(phasePeriod));
+
+        if (pwmPoint <= pwmLower) {
+          if (core.pwmBidrection) {
+            pwmDirection = core.pwmAmount;
+          } else {
+            pwmPoint = phasePeriod;
+          }
+        } else if (pwmPoint >= phasePeriod) {
+          pwmDirection = -core.pwmAmount;
+        }
+      } else {
+        pwmPoint = int_fast32_t(phasePeriod * core.pwmRatio);
+      }
+
+      pwmBitMask
+        = core.bitmaskSwitch ? pwmPoint : std::numeric_limits<uint_fast32_t>::max();
+    } else {
+      --pwmChangeCounter;
+    }
 
     if (scheduleUpdateNote) {
       scheduleUpdateNote = false;
@@ -369,8 +400,8 @@ void DSPCore::noteOn(NoteInfo &info)
     if (vc.state == Voice::State::rest) {
       vc.arpeggioTimer = 0;
       vc.arpeggioLoopCounter = 0;
-      vc.decayEmaRatio
-        = pv[ID::decaySoftAttack]->getInt() ? softAttackEmaRatio : double(1);
+      vc.pwmChangeCounter = pwmChangeCycle;
+      vc.decayEmaRatio = softEnvelopeSwitch ? softAttackEmaRatio : double(1);
       vc.decayEmaValue = 0;
       vc.lowpass.reset();
       vc.updateNote();
@@ -477,7 +508,7 @@ void Voice::updateNote()
 
   if (core.activeNote.empty()) return;
 
-  const auto useArpeggiator = pv[ID::arpeggioSwitch]->getInt();
+  const auto useArpeggiator = core.arpeggioSwitch;
 
   if (!core.isPolyphonic) {
     std::uniform_int_distribution<size_t> indexDist{0, core.activeNote.size() - 1};
@@ -617,17 +648,16 @@ void Voice::updateNote()
   }
   polynomialCoefficients = core.polynomial.coefficients;
 
-  pwmLower = uint_fast32_t(phasePeriod * core.pwmRatio);
+  pwmLower = int_fast32_t(phasePeriod * core.pwmRatio);
   if (
     state == State::rest || core.pwmRatio >= 1
     || pv[ID::arpeggioResetModulation]->getInt())
   {
-    pwmPoint = pv[ID::pulseWidthModulation]->getInt() ? phasePeriod : pwmLower;
-    pwmDirection = 1;
+    pwmPoint = core.pwmSwitch ? phasePeriod : pwmLower;
+    pwmDirection = core.pwmAmount;
 
-    pwmBitMask = pv[ID::pulseWidthBitwiseAnd]->getInt()
-      ? pwmPoint
-      : std::numeric_limits<uint_fast32_t>::max();
+    pwmBitMask
+      = core.bitmaskSwitch ? pwmPoint : std::numeric_limits<uint_fast32_t>::max();
   }
 
   oscSync = pv[ID::oscSync]->getDouble();
@@ -652,7 +682,7 @@ void Voice::updateNote()
   lastGain = decayGain;
 
   // Filter.
-  if (pv[ID::filterSwitch]->getInt()) {
+  if (core.filterSwitch) {
     const auto cutoffBaseOctave = pv[ID::filterCutoffBaseOctave]->getDouble();
     const auto cutoffKeyFollow = pv[ID::filterCutoffKeyFollow]->getDouble();
     const auto baseFreq

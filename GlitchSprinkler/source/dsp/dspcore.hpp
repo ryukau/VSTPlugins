@@ -65,18 +65,19 @@ public:
 
   std::minstd_rand rngArpeggio{0};
 
-  uint_fast32_t arpeggioTie = 1;
-  uint_fast32_t arpeggioTimer = 0;
-  uint_fast32_t arpeggioLoopCounter = 0;
-  uint_fast32_t terminationCounter = 0;
+  int_fast32_t arpeggioTie = 1;
+  int_fast32_t arpeggioTimer = 0;
+  int_fast32_t arpeggioLoopCounter = 0;
+  int_fast32_t terminationCounter = 0;
 
   bool scheduleUpdateNote = false;
-  uint_fast32_t pwmLower = 0;
-  uint_fast32_t pwmPoint = 0;
+  int_fast32_t pwmLower = 0;
+  int_fast32_t pwmPoint = 0;
   uint_fast32_t pwmBitMask = 0;
   int_fast32_t pwmDirection = 1;
-  uint_fast32_t phasePeriod = 0;
-  uint_fast32_t phaseCounter = 0;
+  int_fast32_t pwmChangeCounter = 1;
+  int_fast32_t phasePeriod = 0;
+  int_fast32_t phaseCounter = 0;
   double oscSync = double(1);
   double fmIndex = double(0);
   double saturationGain = double(1);
@@ -121,13 +122,21 @@ public:
   bool isPolyphonic = true;
   Voice::State noteOffState = Voice::State::terminate;
 
-  uint_fast32_t arpeggioNoteDuration = std::numeric_limits<uint_fast32_t>::max();
-  uint_fast32_t arpeggioLoopLength = std::numeric_limits<uint_fast32_t>::max();
-  uint_fast32_t terminationLength = 0;
+  int_fast32_t arpeggioNoteDuration = std::numeric_limits<int_fast32_t>::max();
+  int_fast32_t arpeggioLoopLength = std::numeric_limits<int_fast32_t>::max();
+  int_fast32_t terminationLength = 0;
 
+  bool arpeggioSwitch = false;
+  bool filterSwitch = false;
+  bool softEnvelopeSwitch = false;
+  bool pwmSwitch = false;
+  bool pwmBidrection = false;
+  bool bitmaskSwitch = false;
   double lowpassInterpRate = double(1) / double(64);
   double softAttackEmaRatio = double(1);
   double pwmRatio = double(1);
+  int_fast32_t pwmChangeCycle = 1;
+  int_fast32_t pwmAmount = 1;
   DecibelScale<double> velocityMap{-60, 0, true};
   ExpSmoother<double> safetyFilterMix;
   ExpSmoother<double> outputGain;
