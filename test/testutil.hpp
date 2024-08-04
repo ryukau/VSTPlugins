@@ -21,6 +21,7 @@
 
 #include <algorithm>
 #include <deque>
+#include <filesystem>
 #include <iostream>
 #include <limits>
 #include <memory>

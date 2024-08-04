@@ -120,6 +120,7 @@ public:
     test_dir[0] = out_dir + "/run1_init/";
     test_dir[1] = out_dir + "/run2_reset/";
 
+    fs::create_directories(ref_dir);
     fs::create_directories(test_dir[0]);
     fs::create_directories(test_dir[1]);
 
@@ -231,6 +232,14 @@ public:
 
       std::string filename = preset["name"].get<std::string>() + ".wav";
       std::stringstream error_stream;
+
+      if (!std::filesystem::exists(ref_dir + filename)) {
+        render(nFrame, sequencer, wav, dsp);
+        writeWaveWithLock(ref_dir + filename, wav, int(sampleRate));
+
+        for (auto &wv : wav) std::fill(wv.begin(), wv.end(), 0.0f);
+        dsp->reset();
+      }
       SoundFile ref = readReferenceWave(ref_dir + filename);
 
       render(nFrame, sequencer, wav, dsp);
@@ -429,6 +438,14 @@ public:
 
       std::string filename = preset["name"].get<std::string>() + ".wav";
       std::stringstream error_stream;
+
+      if (!std::filesystem::exists(ref_dir + filename)) {
+        render(nFrame, sequencer, wav, dsp);
+        writeWaveWithLock(ref_dir + filename, wav, int(sampleRate));
+
+        for (auto &wv : wav) std::fill(wv.begin(), wv.end(), 0.0f);
+        dsp->reset();
+      }
       SoundFile ref = readReferenceWave(ref_dir + filename);
 
       render(nFrame, sequencer, wav, dsp);

@@ -69,7 +69,7 @@ void DSPCore::setup(double sampleRate_)
   isPolyphonic = newIsPolyphonic;                                                        \
                                                                                          \
   const auto samplesPerBeat = (double(60) * sampleRate) / tempo;                         \
-  const auto arpeggioNotesPerBeat = pv[ID::arpeggioNotesPerBeat]->getInt() + 1;          \
+  const auto arpeggioNotesPerBeat = 1 + pv[ID::arpeggioNotesPerBeat]->getInt();          \
   arpeggioNoteDuration = int_fast32_t(samplesPerBeat / double(arpeggioNotesPerBeat));    \
   arpeggioLoopLength                                                                     \
     = (pv[ID::arpeggioLoopLengthInBeat]->getInt()) * arpeggioNotesPerBeat;               \
@@ -135,7 +135,7 @@ void Voice::reset()
   pwmBitMask = 0;
   pwmDirection = 1;
   pwmChangeCounter = 1;
-  phasePeriod = 0;
+  phasePeriod = 1;
   phaseCounter = 0;
   oscSync = double(1);
   fmIndex = double(0);
@@ -163,11 +163,15 @@ void DSPCore::reset()
 
   previousBeatsElapsed = 0;
 
-  currentBeat = 0;
   pitchModifier = double(1);
 
   polynomial.updateCoefficients(true);
   isPolynomialUpdated = true;
+
+  midiNotes.resize(0);
+  activeNote.resize(0);
+  activeModifier.resize(0);
+  noteIndices.resize(0);
 
   nextSteal = 0;
   for (auto &x : voices) x.reset();
@@ -325,7 +329,6 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
   for (size_t i = 0; i < length; ++i) {
     processMidiNote(i);
 
-    currentBeat = beatsElapsed + double(i) * beatPerSample;
     pitchModifier = activeModifier.empty()
       ? double(1)
       : double(activeModifier.back().noteNumber + activeModifier.back().cent);
@@ -638,7 +641,7 @@ void Voice::updateNote()
   }
 
   freqHz = std::min(double(0.5) * core.sampleRate, freqHz);
-  phasePeriod = uint_fast32_t(std::ceil(core.sampleRate / freqHz));
+  phasePeriod = freqHz <= 0 ? 1 : int_fast32_t(std::ceil(core.sampleRate / freqHz));
   phaseCounter = 0;
 
   // Oscillator.

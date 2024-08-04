@@ -221,7 +221,7 @@ struct GlobalParameter : public ParameterInterface {
       Scales::decayTargetGain.invmapDB(-1.0), Scales::decayTargetGain, "decayTargetGain",
       Info::kCanAutomate);
     value[ID::softEnvelopeSwitch] = std::make_unique<UIntValue>(
-      0, Scales::boolScale, "softEnvelopeSwitch", Info::kCanAutomate);
+      1, Scales::boolScale, "softEnvelopeSwitch", Info::kCanAutomate);
     value[ID::oscSync] = std::make_unique<LinearValue>(
       Scales::defaultScale.invmap(1.0), Scales::defaultScale, "oscSync",
       Info::kCanAutomate);

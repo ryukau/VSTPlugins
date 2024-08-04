@@ -223,9 +223,9 @@ template<typename Sample> class ResonantEmaLowpass1A1 {
 private:
   static constexpr Sample nyquist = Sample(0.4999);
 
-  Sample cutValue = Sample(1);
-  Sample apsValue = Sample(1);
-  Sample resValue = Sample(0);
+  Sample cutValue = 0;
+  Sample apsValue = 0;
+  Sample resValue = 0;
 
   Sample v1 = 0;
   Sample u1 = 0;
@@ -235,6 +235,7 @@ public:
   void reset()
   {
     cutValue = 0;
+    apsValue = 0;
     resValue = 0;
     v1 = 0;
     u1 = 0;

@@ -1,5 +1,5 @@
 # Test
-This is kind of a mess. I'll probably forget what I was doing, so wrote this text.
+Tests are not well organized.
 
 The current goal of the tests is to ensure that:
 

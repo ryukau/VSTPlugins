@@ -28,16 +28,6 @@
 using namespace SomeDSP;
 using namespace Steinberg::Synth;
 
-struct NoteInfo {
-  bool isNoteOn;
-  uint32_t frame;
-  int32_t id;
-  int32_t channel;
-  int32_t noteNumber;
-  float cent;
-  float velocity;
-};
-
 class DSPCore;
 using PolySolver = PolynomialCoefficientSolver<double, nPolyOscControl>;
 
@@ -56,7 +46,6 @@ public:
   int32_t noteNumber = 0;
   double noteCent = 0;
   double noteVelocity = 0;
-  double notePan = 0.5;
 
   unsigned unisonIndex = 1;
   double unisonRatio = double(0);
@@ -76,7 +65,7 @@ public:
   uint_fast32_t pwmBitMask = 0;
   int_fast32_t pwmDirection = 1;
   int_fast32_t pwmChangeCounter = 1;
-  int_fast32_t phasePeriod = 0;
+  int_fast32_t phasePeriod = 1;
   int_fast32_t phaseCounter = 0;
   double oscSync = double(1);
   double fmIndex = double(0);
@@ -106,6 +95,16 @@ public:
 
 class DSPCore {
 public:
+  struct NoteInfo {
+    bool isNoteOn;
+    uint32_t frame;
+    int32_t id;
+    int32_t channel;
+    int32_t noteNumber;
+    float cent;
+    float velocity;
+  };
+
   GlobalParameter param;
 
   double sampleRate = 48000.0;

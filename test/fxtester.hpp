@@ -128,6 +128,14 @@ public:
 
       std::string filename = preset["name"].get<std::string>() + ".wav";
       std::stringstream error_stream;
+
+      if (!std::filesystem::exists(ref_dir + filename)) {
+        render(nFrame, sequencer, wav, dsp);
+        writeWaveWithLock(ref_dir + filename, wav, int(sampleRate));
+
+        for (auto &wv : wav) std::fill(wv.begin(), wv.end(), 0.0f);
+        dsp->reset();
+      }
       SoundFile ref = readReferenceWave(ref_dir + filename);
 
       render(nFrame, input, wav, dsp);
@@ -288,6 +296,14 @@ public:
 
       std::string filename = preset["name"].get<std::string>() + ".wav";
       std::stringstream error_stream;
+
+      if (!std::filesystem::exists(ref_dir + filename)) {
+        render(nFrame, sequencer, wav, dsp);
+        writeWaveWithLock(ref_dir + filename, wav, int(sampleRate));
+
+        for (auto &wv : wav) std::fill(wv.begin(), wv.end(), 0.0f);
+        dsp->reset();
+      }
       SoundFile ref = readReferenceWave(ref_dir + filename);
 
       render(nFrame, input, wav, dsp);
