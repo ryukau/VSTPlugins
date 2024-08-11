@@ -2,76 +2,323 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="$lang$" xml:lang="$lang$" $if(dir)$ dir="$dir$" $endif$>
 
 <head>
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-$for(author-meta)$
-<meta name="author" content="$author-meta$" />
-$endfor$
-$if(date-meta)$
-<meta name="dcterms.date" content="$date-meta$" />
-$endif$
-$if(keywords)$
-<meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$" />
-$endif$
-<title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</title>
-<style>
-code { white-space: pre-wrap; }
-span.smallcaps { font-variant: small-caps; }
-span.underline { text-decoration: underline; }
-div.column { display: inline-block; vertical-align: top; width: 50%; }
-$if(quotes)$
-q { quotes: "“""”""‘""’"; }
-$endif$
-</style>
-$if(highlighting-css)$
-<style>
-$highlighting-css$
-</style>
-$endif$
-$for(css)$
-<link rel="stylesheet" href="$css$" />
-$endfor$
-$if(math)$
-$math$
-$endif$
-$for(header-includes)$
-$header-includes$
-$endfor$
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  $for(author-meta)$
+  <meta name="author" content="$author-meta$" />
+  $endfor$
+  $if(date-meta)$
+  <meta name="dcterms.date" content="$date-meta$" />
+  $endif$
+  $if(keywords)$
+  <meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$" />
+  $endif$
+  <title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$ – Uhhyou Plugins</title>
+  <link rel="icon" type="image/svg+xml" href="$favicon-svg-path$">
+  <link rel="icon" type="image/png" href="$favicon-png-path$">
+  <style>
+    :root {
+      --foreground-color: #000000;
+      --background-color: #ffffff;
+      --link-color: #0000ee;
+      --link-visited-color: #551a8b;
+      --link-active-color: #ff0000;
+      --link-hover-background-color: #ffe590;
+      --border-dark-color: #444444;
+      --border-color: #888888;
+      --border-light-color: #bbbbbb;
+      --table-odd-color: #eeeeee;
+      --code-inline-color: #705020;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --foreground-color: #dfdfdf;
+        --background-color: #202020;
+        --link-color: #dfdf2c;
+        --link-visited-color: #9fcb76;
+        --link-active-color: #20dfdf;
+        --link-hover-background-color: #203373;
+        --border-dark-color: #acacac;
+        --border-color: #797979;
+        --border-light-color: #525252;
+        --table-odd-color: #2c2c2c;
+        --code-inline-color: #8ba3c7;
+      }
+
+      img:not(.staySameInDark) {
+        filter: invert(0.8745);
+      }
+
+      h1::after {
+        filter: invert(0.8745);
+      }
+    }
+
+    body {
+      max-width: 704px;
+      margin: auto;
+      padding: 32px 8px;
+      color: var(--foreground-color);
+      background-color: var(--background-color);
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    video {
+      max-width: 100%;
+    }
+
+    details.list>summary {
+      line-height: 3em;
+    }
+
+    kbd {
+      font-family: inherit;
+      border-style: outset;
+      border-width: 1px 2px 2px 1px;
+      border-radius: 2px;
+      padding: 2px 4px;
+      margin: 2px;
+      line-height: calc(1em + 16px);
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:hover {
+      background-color: var(--link-hover-background-color);
+    }
+
+    :link {
+      color: var(--link-color);
+    }
+
+    :visited {
+      color: var(--link-visited-color);
+    }
+
+    :link:active,
+    :visited:active {
+      color: var(--link-active-color);
+    }
+
+    .header-anchor:hover {
+      color: var(--link-color);
+    }
+
+    :is(h1, h2, h3, h4, h5, h6)>:is(a:link, a:visited, a:link:active, a:visited:active) {
+      color: var(--foreground-color);
+    }
+
+    h1 {
+      padding-left: 8px;
+      vertical-align: middle;
+    }
+
+    h1::after {
+      display: inline-block;
+      content: url('$favicon-svg-path$');
+      zoom: 0.5;
+      vertical-align: middle;
+      margin-left: 4rem;
+    }
+
+    h2 {
+      border-bottom: 1px solid var(--border-dark-color);
+    }
+
+    h3 {
+      text-decoration: underline var(--border-light-color);
+      text-underline-offset: 0.5rem;
+    }
+
+    h4 {
+      text-decoration: underline dashed var(--border-light-color);
+      text-underline-offset: 0.5rem;
+      margin-bottom: 0.5em;
+    }
+
+    h5 {
+      margin-bottom: 0.5em;
+    }
+
+    h6 {
+      margin-bottom: 0.5em;
+    }
+
+    table {
+      border-spacing: 0px;
+      border-collapse: separate;
+      border-left: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      border-top: 1px solid var(--border-color);
+      border-bottom: hidden;
+    }
+
+    tr:nth-child(odd) {
+      background: var(--table-odd-color);
+    }
+
+    tr:nth-child(even) {
+      background: var(--background-color);
+    }
+
+    th {
+      height: 2em;
+      padding: 4px 1em 4px 1em;
+      background: var(--background-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th:not(:first-child) {
+      border-left: 1px solid var(--border-color);
+    }
+
+    td {
+      height: 1.5em;
+      padding: 4px 1em 4px 1em;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    td:not(:first-child) {
+      border-left: 1px solid var(--border-color);
+    }
+
+    dl {
+      padding-left: 2em;
+    }
+
+    dt {
+      font-weight: bold;
+      border-bottom: 1px dashed var(--foreground-color);
+    }
+
+    dd {
+      border-left: 1px dotted var(--foreground-color);
+      margin-left: 1em;
+      margin-bottom: 2em;
+      padding-left: 1em;
+    }
+
+    audio {
+      vertical-align: middle;
+    }
+
+    label {
+      vertical-align: middle;
+    }
+
+    :not(.sourceCode)>pre {
+      overflow: auto;
+      border: 1px solid var(--border-color);
+      padding: 8px;
+    }
+
+    div.sourceCode {
+      overflow: auto;
+      border: 1px solid var(--border-color);
+      padding: 8px;
+    }
+
+    pre>code.sourceCode>span>a:first-child::before {
+      border-right: 1px solid var(--border-color);
+      padding-right: 1em;
+      margin-right: 1em;
+      text-decoration: none;
+    }
+
+    :not(pre)>code {
+      margin-left: 0.25em;
+      margin-right: 0.25em;
+      color: var(--code-inline-color);
+    }
+
+    li {
+      margin: 8px;
+    }
+
+    summary:hover {
+      background-color: var(--table-odd-color);
+    }
+
+    header {
+      border-bottom: 1px var(--border-color) solid;
+      padding: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    footer {
+      border-top: 1px var(--border-color) solid;
+      padding: 0.5em;
+      margin-top: 1em;
+    }
+
+    code {
+      white-space: pre-wrap;
+    }
+
+    span.smallcaps {
+      font-variant: small-caps;
+    }
+
+    span.underline {
+      text-decoration: underline;
+    }
+
+    div.column {
+      display: inline-block;
+      vertical-align: top;
+      width: 50%;
+    }
+  </style>
+  $for(css)$
+  <link rel="stylesheet" href="$css$" />
+  $endfor$
+  $if(math)$
+  $math$
+  $endif$
+  $for(header-includes)$
+  $header-includes$
+  $endfor$
 </head>
 
 <body>
-$for(include-before)$
-$include-before$
-$endfor$
-<header>
-  $if(index-relative-path)$
-  <p><a href="$index-relative-path$">Back to Index</a></p>
-  $endif$
-  $if(date-meta)$
-  <p>
-  Update: $date-meta$
-  </p>
-  $endif$
-  $if(toc)$
-  <details>
-  <summary translate="yes">Table of Contents</summary>
-  <nav id="$idprefix$TOC" role="doc-toc">
-  $table-of-contents$
-  </nav>
-  </details>
-  $endif$
-</header>
-$body$
+  $for(include-before)$
+  $include-before$
+  $endfor$
+  <header>
+    $if(index-relative-path)$
+    <p><a href="$index-relative-path$">Back to Index</a></p>
+    $endif$
+    $if(date-meta)$
+    <p>
+      Update: $date-meta$
+    </p>
+    $endif$
+    $if(toc)$
+    <details>
+      <summary translate="yes">Table of Contents</summary>
+      <nav id="$idprefix$TOC" role="doc-toc">
+        $table-of-contents$
+      </nav>
+    </details>
+    $endif$
+  </header>
+  $body$
 
-<footer>
-  $if(index-relative-path)$
-  <p><a href="$index-relative-path$">Back to Index</a></p>
-  $endif$
-</footer>
-$for(include-after)$
-$include-after$
-$endfor$
+  <footer>
+    $if(index-relative-path)$
+    <p><a href="$index-relative-path$">Back to Index</a></p>
+    $endif$
+  </footer>
+  $for(include-after)$
+  $include-after$
+  $endfor$
 </body>
 
 </html>

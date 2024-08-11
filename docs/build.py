@@ -123,6 +123,11 @@ def dump_config_yml():
         yaml.dump({"exclude": md_list}, outfile, default_flow_style=False)
 
 
+def get_relpath(source, target):
+    """Ensure forward slashes."""
+    return os.path.relpath(source, target).replace(os.sep, "/")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-r", "--rebuild", action="store_true", help="rebuild all file")
@@ -134,10 +139,12 @@ if __name__ == "__main__":
     dump_config_yml()
 
     index_path = Path("index.html").resolve()
-    css_path = Path("style.css").resolve()
+    # css_path = Path("style.css").resolve()
     template_path = Path("template.html").resolve()
+    favicon_svg_path = Path("img/favicon/favicon.svg").resolve()
+    favicon_png_path = Path("img/favicon/favicon.svg").resolve()
     if os == "nt":
-        css_path = css_path.as_uri()
+        # css_path = css_path.as_uri()
         template_path = template_path.as_uri()
 
     section = {lang: loadCommonSection(lang) for lang in getLanguages()}
@@ -159,12 +166,16 @@ if __name__ == "__main__":
 
         print(f"Processing {md}")
 
-        index_relpath = os.path.relpath(str(index_path), str(md.parent.resolve()))
+        favicon_svg_relpath = get_relpath(favicon_svg_path, md.parent.resolve())
+        favicon_png_relpath = get_relpath(favicon_png_path, md.parent.resolve())
+        index_relpath = get_relpath(index_path, md.parent.resolve())
         if index_relpath == "index.html":
             index_relpath = ""
 
         pandoc_command = [
             "pandoc",
+            "--lua-filter",
+            "./pandocfilter.lua",
             "--standalone",
             "--toc",
             "--toc-depth=4",
@@ -174,8 +185,13 @@ if __name__ == "__main__":
             f"date-meta={time.strftime('%F')}",
             "--metadata",
             f"index-relative-path={index_relpath}",
+            "--metadata",
+            f"favicon-svg-path={favicon_svg_relpath}",
+            "--metadata",
+            f"favicon-png-path={favicon_png_relpath}"
+            f"index-relative-path={index_relpath}",
             f"--template={str(template_path)}",
-            f"--include-in-header={str(css_path)}",
+            # f"--include-in-header={str(css_path)}",
             f"--output={html}",
         ]
 

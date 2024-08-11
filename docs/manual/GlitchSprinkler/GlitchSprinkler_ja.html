@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2024-08-11" />
+      <title>GlitchSprinkler_ja – Uhhyou Plugins</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
+  <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
+  <style>
+    :root {
+      --foreground-color: #000000;
+      --background-color: #ffffff;
+      --link-color: #0000ee;
+      --link-visited-color: #551a8b;
+      --link-active-color: #ff0000;
+      --link-hover-background-color: #ffe590;
+      --border-dark-color: #444444;
+      --border-color: #888888;
+      --border-light-color: #bbbbbb;
+      --table-odd-color: #eeeeee;
+      --code-inline-color: #705020;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --foreground-color: #dfdfdf;
+        --background-color: #202020;
+        --link-color: #dfdf2c;
+        --link-visited-color: #9fcb76;
+        --link-active-color: #20dfdf;
+        --link-hover-background-color: #203373;
+        --border-dark-color: #acacac;
+        --border-color: #797979;
+        --border-light-color: #525252;
+        --table-odd-color: #2c2c2c;
+        --code-inline-color: #8ba3c7;
+      }
+
+      img:not(.staySameInDark) {
+        filter: invert(0.8745);
+      }
+
+      h1::after {
+        filter: invert(0.8745);
+      }
+    }
+
+    body {
+      max-width: 704px;
+      margin: auto;
+      padding: 32px 8px;
+      color: var(--foreground-color);
+      background-color: var(--background-color);
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    video {
+      max-width: 100%;
+    }
+
+    details.list>summary {
+      line-height: 3em;
+    }
+
+    kbd {
+      font-family: inherit;
+      border-style: outset;
+      border-width: 1px 2px 2px 1px;
+      border-radius: 2px;
+      padding: 2px 4px;
+      margin: 2px;
+      line-height: calc(1em + 16px);
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:hover {
+      background-color: var(--link-hover-background-color);
+    }
+
+    :link {
+      color: var(--link-color);
+    }
+
+    :visited {
+      color: var(--link-visited-color);
+    }
+
+    :link:active,
+    :visited:active {
+      color: var(--link-active-color);
+    }
+
+    .header-anchor:hover {
+      color: var(--link-color);
+    }
+
+    :is(h1, h2, h3, h4, h5, h6)>:is(a:link, a:visited, a:link:active, a:visited:active) {
+      color: var(--foreground-color);
+    }
+
+    h1 {
+      padding-left: 8px;
+      vertical-align: middle;
+    }
+
+    h1::after {
+      display: inline-block;
+      content: url('../../img/favicon/favicon.svg');
+      zoom: 0.5;
+      vertical-align: middle;
+      margin-left: 4rem;
+    }
+
+    h2 {
+      border-bottom: 1px solid var(--border-dark-color);
+    }
+
+    h3 {
+      text-decoration: underline var(--border-light-color);
+      text-underline-offset: 0.5rem;
+    }
+
+    h4 {
+      text-decoration: underline dashed var(--border-light-color);
+      text-underline-offset: 0.5rem;
+      margin-bottom: 0.5em;
+    }
+
+    h5 {
+      margin-bottom: 0.5em;
+    }
+
+    h6 {
+      margin-bottom: 0.5em;
+    }
+
+    table {
+      border-spacing: 0px;
+      border-collapse: separate;
+      border-left: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      border-top: 1px solid var(--border-color);
+      border-bottom: hidden;
+    }
+
+    tr:nth-child(odd) {
+      background: var(--table-odd-color);
+    }
+
+    tr:nth-child(even) {
+      background: var(--background-color);
+    }
+
+    th {
+      height: 2em;
+      padding: 4px 1em 4px 1em;
+      background: var(--background-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th:not(:first-child) {
+      border-left: 1px solid var(--border-color);
+    }
+
+    td {
+      height: 1.5em;
+      padding: 4px 1em 4px 1em;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    td:not(:first-child) {
+      border-left: 1px solid var(--border-color);
+    }
+
+    dl {
+      padding-left: 2em;
+    }
+
+    dt {
+      font-weight: bold;
+      border-bottom: 1px dashed var(--foreground-color);
+    }
+
+    dd {
+      border-left: 1px dotted var(--foreground-color);
+      margin-left: 1em;
+      margin-bottom: 2em;
+      padding-left: 1em;
+    }
+
+    audio {
+      vertical-align: middle;
+    }
+
+    label {
+      vertical-align: middle;
+    }
+
+    :not(.sourceCode)>pre {
+      overflow: auto;
+      border: 1px solid var(--border-color);
+      padding: 8px;
+    }
+
+    div.sourceCode {
+      overflow: auto;
+      border: 1px solid var(--border-color);
+      padding: 8px;
+    }
+
+    pre>code.sourceCode>span>a:first-child::before {
+      border-right: 1px solid var(--border-color);
+      padding-right: 1em;
+      margin-right: 1em;
+      text-decoration: none;
+    }
+
+    :not(pre)>code {
+      margin-left: 0.25em;
+      margin-right: 0.25em;
+      color: var(--code-inline-color);
+    }
+
+    li {
+      margin: 8px;
+    }
+
+    summary:hover {
+      background-color: var(--table-odd-color);
+    }
+
+    header {
+      border-bottom: 1px var(--border-color) solid;
+      padding: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    footer {
+      border-top: 1px var(--border-color) solid;
+      padding: 0.5em;
+      margin-top: 1em;
+    }
+
+    code {
+      white-space: pre-wrap;
+    }
+
+    span.smallcaps {
+      font-variant: small-caps;
+    }
+
+    span.underline {
+      text-decoration: underline;
+    }
+
+    div.column {
+      display: inline-block;
+      vertical-align: top;
+      width: 50%;
+    }
+  </style>
+      </head>
+
+<body>
+    <header>
+        <p><a href="../../index.html">Back to Index</a></p>
+            <p>
+      Update: 2024-08-11
+    </p>
+            <details>
+      <summary translate="yes">Table of Contents</summary>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#glitchsprinkler"
+        id="toc-glitchsprinkler">GlitchSprinkler</a>
+        <ul>
+        <li><a href="#連絡先" id="toc-連絡先">連絡先</a></li>
+        <li><a href="#インストール"
+        id="toc-インストール">インストール</a>
+        <ul>
+        <li><a href="#プラグイン"
+        id="toc-プラグイン">プラグイン</a></li>
+        <li><a href="#プリセット"
+        id="toc-プリセット">プリセット</a></li>
+        <li><a href="#windows" id="toc-windows">Windows</a></li>
+        <li><a href="#linux" id="toc-linux">Linux</a></li>
+        <li><a href="#macos" id="toc-macos">macOS</a>
+        <ul>
+        <li><a href="#隔離の解除"
+        id="toc-隔離の解除">隔離の解除</a></li>
+        <li><a href="#gatekeeper-の迂回"
+        id="toc-gatekeeper-の迂回">Gatekeeper の迂回</a></li>
+        <li><a href="#codesign-の適用"
+        id="toc-codesign-の適用"><code>codesign</code> の適用</a></li>
+        <li><a href="#参考リンク"
+        id="toc-参考リンク">参考リンク</a></li>
+        </ul></li>
+        </ul></li>
+        <li><a href="#gui-の見た目の設定"
+        id="toc-gui-の見た目の設定">GUI の見た目の設定</a>
+        <ul>
+        <li><a href="#フォントオプション"
+        id="toc-フォントオプション">フォントオプション</a></li>
+        <li><a href="#色のオプション"
+        id="toc-色のオプション">色のオプション</a></li>
+        </ul></li>
+        <li><a href="#操作" id="toc-操作">操作</a></li>
+        <li><a href="#注意" id="toc-注意">注意</a></li>
+        <li><a href="#midi-チャンネル-16-について"
+        id="toc-midi-チャンネル-16-について">MIDI チャンネル 16
+        について</a></li>
+        <li><a href="#ブロック線図"
+        id="toc-ブロック線図">ブロック線図</a></li>
+        <li><a href="#パラメータ" id="toc-パラメータ">パラメータ</a>
+        <ul>
+        <li><a href="#oscillator"
+        id="toc-oscillator">Oscillator</a></li>
+        <li><a href="#filter" id="toc-filter">Filter</a></li>
+        <li><a href="#waveform" id="toc-waveform">Waveform</a></li>
+        <li><a href="#arpeggio" id="toc-arpeggio">Arpeggio</a></li>
+        <li><a href="#unison" id="toc-unison">Unison</a></li>
+        </ul></li>
+        <li><a href="#チェンジログ"
+        id="toc-チェンジログ">チェンジログ</a></li>
+        <li><a href="#旧バージョン"
+        id="toc-旧バージョン">旧バージョン</a></li>
+        <li><a href="#ライセンス" id="toc-ライセンス">ライセンス</a>
+        <ul>
+        <li><a href="#vst-について" id="toc-vst-について">VST®
+        について</a></li>
+        </ul></li>
+        </ul></li>
+        </ul>
+      </nav>
+    </details>
+      </header>
+  <h1 id="glitchsprinkler"><a href="#glitchsprinkler"
+  class="header-anchor" aria-hidden="true">GlitchSprinkler</a></h1>
+  <p><img src="img/GlitchSprinkler.png" /></p>
+  <p><ruby>GlitchSprinkler<rt>グリッチ スプリンクラー</rt></ruby>
+  は速いアルペジオに特化したシンセサイザです。オシレータの周期を整数のサンプル数のみとすることで安価にアンチエイリアシングを行っています。このアンチエイリアシングの副作用により、特に音程が高いときにピッチがずれて独特の音律が現れます。</p>
+  <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.62.0/GlitchSprinkler_0.1.0.zip">GlitchSprinkler
+  0.1.0 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="30px"
+  style="display: inline-block; vertical-align: middle;"></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.62.0/GlitchSprinkler_0.1.0_macOS.zip">GlitchSprinkler
+  0.1.0 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="30px"
+  style="display: inline-block; vertical-align: middle;"></li>
+  </ul>
+  <p><strong>注意</strong>: プリセットはサンプリング周波数が 48000 Hz
+  でなければ想定された音が出ません。</p>
+  <p><code>full</code> パッケージには次のビルドが含まれています。</p>
+  <ul>
+  <li>Windows (x86_64)</li>
+  <li>Linux (x86_64)</li>
+  <li>macOS (Universal 2)</li>
+  </ul>
+  <p>Linux ビルドは Ubuntu 22.04 でビルドしています。もし Ubuntu 22.04
+  以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a
+  href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
+  <p>macOS で使用するときは <code>macOS</code>
+  パッケージのダウンロードを推奨します。また Apple Developer Program
+  に加入していないので、インストール時に Gatekeeper
+  を迂回するように設定する必要があります。詳細は
+  <a href="#macos">インストール -&gt; macOS</a>
+  の節を参照してください。</p>
+  <h2 id="連絡先"><a href="#連絡先" class="header-anchor"
+  aria-hidden="true">連絡先</a></h2>
+  <p>何かあれば <a href="https://github.com/ryukau/VSTPlugins">GitHub
+  のリポジトリ</a>に issue を作るか <code>ryukau@gmail.com</code>
+  までお気軽にどうぞ。</p>
+  <p><a
+  href="https://www.paypal.com/paypalme/ryukau">paypal.me/ryukau</a>
+  から開発資金を投げ銭することもできます。</p>
+  <h2 id="インストール"><a href="#インストール" class="header-anchor"
+  aria-hidden="true">インストール</a></h2>
+  <h3 id="プラグイン"><a href="#プラグイン" class="header-anchor"
+  aria-hidden="true">プラグイン</a></h3>
+  <p>名前が <code>.vst3</code> で終わるディレクトリを OS
+  ごとに決められた位置に配置してください。</p>
+  <ul>
+  <li>Windows では <code>/Program Files/Common Files/VST3/</code>
+  に配置します。</li>
+  <li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
+  <li>macOS では <code>/Library/Audio/Plug-ins/VST3/</code> あるいは
+  <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code>
+  に配置します。</li>
+  </ul>
+  <p>DAW によっては上記とは別に VST3
+  をインストールできるディレクトリを提供していることがあります。詳しくは利用している
+  DAW のマニュアルを参照してください。</p>
+  <h3 id="プリセット"><a href="#プリセット" class="header-anchor"
+  aria-hidden="true">プリセット</a></h3>
+  <p><strong>注意</strong>: プリセットの無いプラグインもあります。</p>
+  <p>プリセットはページの最上部のリンクからダウンロードできるプラグインパッケージに含まれています。以下はプリセットのインストール手順です。</p>
+  <ol type="1">
+  <li>ページの最上部のリンクからプラグインをダウンロード。</li>
+  <li>ダウンロードした zip ファイルを解凍。</li>
+  <li><code>presets</code> ディレクトリ内の <code>Uhhyou</code>
+  ディレクトリを OS ごとに決められたディレクトリに配置。</li>
+  </ol>
+  <p>以下は OS ごとのプリセットの配置先の一覧です。</p>
+  <ul>
+  <li>Windows :
+  <code>/Users/$USERNAME/Documents/VST3 Presets</code></li>
+  <li>Linux : <code>$HOME/.vst3/presets</code></li>
+  <li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets</code></li>
+  </ul>
+  <p>プリセットディレクトリの名前はプラグインと同じである必要があります。配置先のディレクトリが無いときは作成してください。</p>
+  <ul>
+  <li><a
+  href="https://steinbergmedia.github.io/vst3_dev_portal/pages/Technical+Documentation/Locations+Format/Preset+Locations.html">Preset
+  Locations - VST 3 Developer Portal</a></li>
+  </ul>
+  <h3 id="windows"><a href="#windows" class="header-anchor"
+  aria-hidden="true">Windows</a></h3>
+  <p>プラグインが DAW に認識されないときは C++ redistributable
+  をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は
+  <code>vc_redist.x64.exe</code> です。</p>
+  <ul>
+  <li><a
+  href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The
+  latest supported Visual C++ downloads</a></li>
+  </ul>
+  <h3 id="linux"><a href="#linux" class="header-anchor"
+  aria-hidden="true">Linux</a></h3>
+  <p>Ubuntu 22.04 では次のパッケージのインストールが必要です。</p>
+  <div class="sourceCode" id="cb1"><pre
+  class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+  <p>もし DAW がプラグインを認識しないときは、下のリンクの
+  <code>Package Requirements</code> を参考にして VST3
+  に必要なパッケージがすべてインストールされているか確認してください。</p>
+  <ul>
+  <li><a
+  href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI:
+  Setup</a></li>
+  </ul>
+  <p>REAPER の Linux 版がプラグインを認識しないときは
+  <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して
+  REAPER を再起動してみてください。</p>
+  <h3 id="macos"><a href="#macos" class="header-anchor"
+  aria-hidden="true">macOS</a></h3>
+  <p><strong>重要</strong>: <code>full</code>
+  パッケージは動作未確認です。以下のファイルは <code>codesign</code>
+  されていないので削除する必要があるかもしれません。</p>
+  <ul>
+  <li><code>Contents/Resources/Documentation</code></li>
+  <li><code>Contents/x86_64-linux</code></li>
+  <li><code>Contents/x86_64-win</code></li>
+  </ul>
+  <p><code>macOS</code>
+  パッケージでは上記のファイルの削除は不要です。また、すべてのパッケージは
+  <code>codesign</code> コマンドの ad-hoc signing
+  の状態になっています。</p>
+  <h4 id="隔離の解除"><a href="#隔離の解除" class="header-anchor"
+  aria-hidden="true">隔離の解除</a></h4>
+  <p>プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した
+  <code>.vst3</code>
+  ディレクトリに次のコマンドのどちらか、あるいは両方を適用してみてください。
+  <code>/path/to/PluginName.vst3</code>
+  の部分はインストールしたプラグインのパスに置き換えてください。</p>
+  <div class="sourceCode" id="cb2"><pre
+  class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rd</span> com.apple.quarantine /path/to/PluginName.vst3</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rc</span> /path/to/PluginName.vst3</span></code></pre></div>
+  <h4 id="gatekeeper-の迂回"><a href="#gatekeeper-の迂回"
+  class="header-anchor" aria-hidden="true">Gatekeeper の迂回</a></h4>
+  <p>プラグインは署名されていない (unsigned) 、または公証されていない
+  (un-notarized)
+  アプリケーションとして認識されることがあります。この場合は、警告メッセージが表示された後に、システム環境設定を開いて「セキュリティとプライバシー」
+  → 「一般」の「このまま開く」ボタンを押してください。以下にリンクした
+  Apple
+  公式のヘルプページにスクリーンショット付きで同じ手順が掲載されています。「ノータリゼーションを受けていない
+  App や未確認の開発元の App を開きたい場合」を参照してください。</p>
+  <ul>
+  <li><a href="https://support.apple.com/ja-jp/HT202491">Mac で App
+  を安全に開く - Apple サポート (日本)</a></li>
+  </ul>
+  <p>ここまでの手順を経てまだ動かないときはインストール先を
+  <code>/Library/Audio/Plug-ins/VST3/</code> あるいは
+  <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code>
+  のいずれか使っていなかったほうに変えてみてください。</p>
+  <p>上記の方法がすべて上手くいかなかったときは以下の手順を試してみてください。</p>
+  <ol type="1">
+  <li>ターミナルを開いて <code>sudo spctl --master-disable</code>
+  を実行。</li>
+  <li>システム環境設定を開いて「セキュリティとプライバシー」 → 「一般」
+  →
+  「ダウンロードしたアプリケーションの実行許可」と辿り、「全てのアプリケーションを許可」を選択。</li>
+  </ol>
+  <p>上記の手順を実行するとシステムのセキュリティが弱くなるので注意してください。元に戻すには以下の手順を実行してください。</p>
+  <ol type="1">
+  <li>システム環境設定を開いて「セキュリティとプライバシー」 → 「一般」
+  → 「ダウンロードしたアプリケーションの実行許可」と辿り、「App Store
+  と認証済みの開発元からのアプリケーションを許可」を選択。</li>
+  <li>ターミナルを開いて <code>sudo spctl --master-enable</code>
+  を実行。</li>
+  </ol>
+  <h4 id="codesign-の適用"><a href="#codesign-の適用"
+  class="header-anchor" aria-hidden="true"><code>codesign</code>
+  の適用</a></h4>
+  <p><strong>注意</strong> この節の内容は <code>macOS</code>
+  パッケージには関連しないと考えられますが未検証です。 (<a
+  href="https://github.com/ryukau/VSTPlugins/issues/27">GitHub の
+  issue</a>)</p>
+  <p><code>full</code>
+  パッケージを利用する場合は以下のコマンドを適用することで利用できるかもしれません。</p>
+  <div class="sourceCode" id="cb3"><pre
+  class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> codesign <span class="at">--force</span> <span class="at">--deep</span> <span class="at">-s</span> <span class="at">-</span> /path/to/PluginName.vst3</span></code></pre></div>
+  <p><code>codesign</code> の利用には <a
+  href="https://developer.apple.com/xcode/">Xcode</a>
+  のインストールが必要となるかもしれません。</p>
+  <h4 id="参考リンク"><a href="#参考リンク" class="header-anchor"
+  aria-hidden="true">参考リンク</a></h4>
+  <ul>
+  <li><a href="https://support.apple.com/en-us/HT202491">Safely open
+  apps on your Mac - Apple Support</a></li>
+  <li><a
+  href="https://stackoverflow.com/questions/66891065/libprism-sw-dylib-cannot-be-opened-because-the-developer-cannot-be-verified-o">java
+  - “libprism_sw.dylib” cannot be opened because the developer cannot be
+  verified. on mac JAVAFX - Stack Overflow</a></li>
+  <li><a
+  href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How
+  to Fix App “is damaged and can’t be opened. You should move it to the
+  Trash” Error on Mac</a></li>
+  <li><a
+  href="https://web.archive.org/web/20221223004334/https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
+  unsigned/un-notarized applications/plugins in Mac OS | Venn
+  Audio</a></li>
+  <li><a href="https://ss64.com/osx/codesign.html">codesign Man Page -
+  macOS - SS64.com</a></li>
+  </ul>
+  <h2 id="gui-の見た目の設定"><a href="#gui-の見た目の設定"
+  class="header-anchor" aria-hidden="true">GUI の見た目の設定</a></h2>
+  <p>初回設定時は手動で次のファイルを作成してください。</p>
+  <ul>
+  <li>Windows では
+  <code>/Users/ユーザ名/AppData/Roaming/UhhyouPlugins/style/style.json</code>
+  。</li>
+  <li>Linux では
+  <code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> 。
+  <ul>
+  <li><code>$XDG_CONFIG_HOME</code> が空のときは
+  <code>$HOME/.config/UhhyouPlugins/style/style.json</code> 。</li>
+  </ul></li>
+  <li>macOS では
+  <code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code>
+  。</li>
+  </ul>
+  <p>プラグインのウィンドウを開くたびに <code>style.json</code>
+  が読み込まれて更新されます。</p>
+  <p>既存の色のテーマを次のリンクに掲載しています。
+  <code>style.json</code> にコピペして使ってください。</p>
+  <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/tree/master/package/style/themes">VSTPlugins/package/style/themes
+  at master · ryukau/VSTPlugins</a></li>
+  </ul>
+  <p><code>style.json</code> の設定例です。</p>
+  <div class="sourceCode" id="cb4"><pre
+  class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontFamily&quot;</span><span class="fu">:</span> <span class="st">&quot;Tinos&quot;</span><span class="fu">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontBold&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontItalic&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span><span class="fu">,</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;background&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;boxBackground&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;border&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderCheckbox&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderLabel&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;unfocused&quot;</span><span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span><span class="fu">,</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightMain&quot;</span><span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span><span class="fu">,</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightAccent&quot;</span><span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span><span class="fu">,</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightButton&quot;</span><span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span><span class="fu">,</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+  <h3 id="フォントオプション"><a href="#フォントオプション"
+  class="header-anchor" aria-hidden="true">フォントオプション</a></h3>
+  <p>以下はフォントオプションの一覧です。</p>
+  <ul>
+  <li><code>fontFamily</code>: フォントファミリ名。</li>
+  <li><code>fontBold</code>: ボールドスタイル (太字) を
+  <code>true</code> で有効、 <code>false</code> で無効。</li>
+  <li><code>fontItalic</code>: イタリックスタイル (斜体) を
+  <code>true</code> で有効、 <code>false</code> で無効。</li>
+  </ul>
+  <p>カスタムフォントを使用するには、プラグインディレクトリの
+  <code>*.vst3/Contents/Resources/Fonts</code> に <code>*.ttf</code>
+  ファイルを配置します。</p>
+  <p><strong>注意</strong>: <code>fontFamily</code> 、
+  <code>fontBold</code> 、 <code>fontItalic</code>
+  で設定したフォントファミリ名とスタイルの組み合わせが
+  <code>*.vst3/Contents/Resources/Fonts</code> 以下のいずれかの
+  <code>*.ttf</code> ファイルに含まれていないときは VSTGUI
+  が指定するデフォルトフォントが使用されます。</p>
+  <p><code>fontFamily</code> が長さ 0 の文字列 <code>""</code>
+  のときはフォールバックとして <a
+  href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
+  に設定されます。長さが 1
+  以上かつ、存在しないフォントファミリ名が指定されると VSTGUI
+  が指定するデフォルトフォントが使用されます。</p>
+  <p>ボールドあるいはイタリック以外のスタイルは VSTGUI
+  がサポートしていないので動作確認していません。該当する例としては Noto
+  フォントの Demi Light や、 Roboto フォントの Thin や Black
+  などがあります。</p>
+  <h3 id="色のオプション"><a href="#色のオプション"
+  class="header-anchor" aria-hidden="true">色のオプション</a></h3>
+  <p>16 進数カラーコードを使っています。</p>
+  <ul>
+  <li>6 桁の色は RGB 。</li>
+  <li>8 桁の色は RGBA 。</li>
+  </ul>
+  <p>プラグインはカラーコードの 1 文字目を無視します。よって
+  <code>?102938</code> や <code>\n11335577</code>
+  も有効なカラーコードです。</p>
+  <p>2 文字目以降のカラーコードの値に <code>0-9a-f</code>
+  以外の文字を使わないでください。</p>
+  <p>以下は設定できる色の一覧です。設定に抜けがあるとデフォルトの色が使われます。</p>
+  <ul>
+  <li><code>foreground</code>: 文字の色。</li>
+  <li><code>foregroundButtonOn</code>:
+  オンになっているボタンの文字の色。 <code>foreground</code> か
+  <code>boxBackground</code>
+  のいずれかと同じ値にすることを推奨します。</li>
+  <li><code>foregroundInactive</code>:
+  非アクティブなタブの文字の色。</li>
+  <li><code>background</code>: 背景色。</li>
+  <li><code>boxBackground</code>: 矩形の UI 部品の内側の背景色。</li>
+  <li><code>border</code>: <ruby>縁<rt>ふち</rt></ruby>の色。</li>
+  <li><code>borderCheckbox</code>: チェックボックスの縁の色。</li>
+  <li><code>borderLabel</code>:
+  パラメータセクションのラベルの左右の直線の色。</li>
+  <li><code>unfocused</code>:
+  つまみがフォーカスされていないときの色。</li>
+  <li><code>highlightMain</code>:
+  フォーカスされたときの色。スライダの値の表示にも使用されます。</li>
+  <li><code>highlightAccent</code>:
+  フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。</li>
+  <li><code>highlightButton</code>:
+  ボタンがフォーカスされたときの色。</li>
+  <li><code>highlightWarning</code>: 変更に注意を要する UI
+  がフォーカスされたときの色。</li>
+  <li><code>overlay</code>: オーバーレイの色。</li>
+  <li><code>overlayHighlight</code>:
+  フォーカスを示すオーバーレイの色。</li>
+  </ul>
+  <h2 id="操作"><a href="#操作" class="header-anchor"
+  aria-hidden="true">操作</a></h2>
+  <p>パラメータが割り当てられているコントロールの上で
+  <kbd>右クリック</kbd> すると、 DAW
+  から提供されるコンテキストメニューが開きます。</p>
+  <p>つまみと数値スライダでは次の操作ができます。</p>
+  <ul>
+  <li><kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。</li>
+  <li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
+  <li><kbd>ホイールクリック</kbd> :
+  最小値、デフォルト値、最大値の切り替え。</li>
+  <li><kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> :
+  現在値の小数点以下を切り捨て。
+  <ul>
+  <li><strong>注意</strong>:
+  デシベル表記のパラメータは、振幅に変換された後の値について切り捨て。</li>
+  </ul></li>
+  </ul>
+  <h2 id="注意"><a href="#注意" class="header-anchor"
+  aria-hidden="true">注意</a></h2>
+  <p>音程が高くなるほどピッチがずれます。これは GlitchSprinkler
+  で使われているアンチエイリアシングの副作用です。</p>
+  <p>直流が乗ります。 <code>Safety Filter Mix</code> を 1
+  にすると直流を切る -6 dB/oct
+  のハイパスフィルタがかかります。音の開始時点での振幅の跳ね上がりが大きいときは、より切れ味の鋭い外部のハイパスフィルタを使ってください。</p>
+  <h2 id="midi-チャンネル-16-について"><a
+  href="#midi-チャンネル-16-について" class="header-anchor"
+  aria-hidden="true">MIDI チャンネル 16 について</a></h2>
+  <p>MIDI チャンネル 16
+  のノートイベントは、通常のノートのように音が出ません。代わりに次に演奏する音程を変化させます。発音中のノートの周波数は変更されません。</p>
+  <p>音程の変化は、発音されるノートの周波数に MIDI チャンネル 16
+  で最後に演奏されたノート番号を乗算する形で行われます。つまり 0
+  以上の整数の倍音を演奏することができます。以下は計算式です。</p>
+  <pre><code>noteFrequency = baseFrequency * lastNoteNumberOnChannel16;</code></pre>
+  <h2 id="ブロック線図"><a href="#ブロック線図" class="header-anchor"
+  aria-hidden="true">ブロック線図</a></h2>
+  <p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> +
+  <kbd>マウスホイール</kbd>
+  や、右クリックから「画像だけを表示」などで拡大できます。</p>
+  <p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
+  <p><img src="img/GlitchSprinkler.svg" /></p>
+  <h2 id="パラメータ"><a href="#パラメータ" class="header-anchor"
+  aria-hidden="true">パラメータ</a></h2>
+  <p>角かっこ [] で囲まれているのは単位です。以下は単位の一覧です。</p>
+  <ul>
+  <li>[beat] : 拍数。</li>
+  <li>[dB] : デシベル (decibel) 。</li>
+  <li>[oct] : オクターブ (octave) 。</li>
+  <li>[st.] : 半音 (semitone)。 1 半音は <code>1 / 12</code>
+  オクターブ。</li>
+  <li>[cent] : セント。 1 セントは <code>1 / 100</code> 半音。</li>
+  </ul>
+  <h3 id="oscillator"><a href="#oscillator" class="header-anchor"
+  aria-hidden="true">Oscillator</a></h3>
+  <dl>
+  <dt>Output [dB]</dt>
+  <dd>
+  <p>出力ゲインです。</p>
+  </dd>
+  <dt>Safety Filter Mix</dt>
+  <dd>
+  <p>直接の出力と、ハイパスフィルタをかけた出力を混ぜる比率です。 1
+  のときにハイパスフィルタをかけた出力が 100% になります。</p>
+  <p>このハイパスフィルタは -6 dB/oct
+  の減衰を持ち、簡易に直流を取り除くために備えられています。直流が大きいときは音の開始時点（トランジエント）の部分に癖が残ることがあるので、より切れ味のいい外部のハイパスフィルタに切り替えることを推奨します。</p>
+  <p>以下は信号の流れの概要です。</p>
+  <pre><code>hp = highpass(input);
+output = input + (Safety Filter Mix) * (hp - input);</code></pre>
+  </dd>
+  <dt>Decay to [dB]</dt>
+  <dd>
+  <p>アルペジオのノート 1 つ分の時間でエンベロープが減衰する量です。</p>
+  <p>アルペジオのノート 1 つ分の時間の時間は、 DAW で設定されたテンポと
+  <code>Note / Beat</code> に依存します。以下は計算式です。</p>
+  <pre><code>samplesPerBeat = 60 * sampleRate / tempo;
+noteDurationInSamples = samplesPerBeat / (`Note / Beat`);</code></pre>
+  </dd>
+  <dt>Polyphonic</dt>
+  <dd>
+  <p>コードを弾くときはオン、単旋律を弾くときはオフにしてください。</p>
+  <p>オンにすると最大 256 音まで同時発音します。オフのときは
+  <code>Unison</code> セクションの <code>nVoice</code>
+  の数だけ同時発音します。</p>
+  </dd>
+  <dt>Release</dt>
+  <dd>
+  <p>オンにするとノートオフの後もエンベロープによる減衰が続きます。オフにするとノートオフの後に波形が
+  1
+  周するのを待ってから音を止めます。オフのときでも音程が低いとしばらく音が残ります。</p>
+  <p>ピアノのサステインペダルと似たようなスイッチです。</p>
+  </dd>
+  <dt>Soft Envelope</dt>
+  <dd>
+  <p>エンベロープにスムーシングフィルタをかけて音の始まりと終わりに出るポップノイズを抑えます。</p>
+  <p>ポップノイズは <code>Filter</code>
+  がオンのときや、音程が低いときに、特に目立ちます。</p>
+  </dd>
+  <dt>Octave</dt>
+  <dd>
+  <p>オクターブ単位でのトランスポーズです。</p>
+  </dd>
+  <dt>Semitone</dt>
+  <dd>
+  <p>半音単位でのトランスポーズです。 <code>Tuning</code>
+  によって半音の比率が変わります。</p>
+  </dd>
+  <dt>Cent</dt>
+  <dd>
+  <p>セント単位でのトランスポーズです。 <code>Semitone</code>
+  とは異なり、 <code>Tuning</code> によらず 12
+  平均律の比率が使われます。以下は n セントの計算式です。</p>
+  <pre><code>ratio = 2^(n / 1200);</code></pre>
+  </dd>
+  <dt>Tuning</dt>
+  <dd>
+  <p>音律です。</p>
+  <ul>
+  <li><code>ET N</code> : N 平均律。</li>
+  <li><code>Just N</code> : N-limit 音律。
+  <ul>
+  <li><code>Just 5 Major</code> : いわゆる純正律。 +4
+  半音のうなりを減らすように調整。</li>
+  <li><code>Just 5 Minor</code> : いわゆる純正律。 +3
+  半音のうなりを減らすように調整。</li>
+  </ul></li>
+  <li><code>MT Pythagorean</code> : ピタゴラス音律。</li>
+  <li><code>MT 1/3 Comma</code> : 1 / 3 コンマのミーントーン。</li>
+  <li><code>MT 1/4 Comma</code> : 1 / 4 コンマのミーントーン。</li>
+  <li>Discrete N<code>: サンプリング周波数を</code>N`
+  で割った周波数を中央周波数とする 12 平均律。</li>
+  </ul>
+  <p><code>Discrete</code>
+  の音律はサンプリング周波数によって大きくピッチが変わります。</p>
+  <p><code>Discrete 2</code> はサンプリング周波数が 48000 Hz のときに 1
+  半音上にトランスポーズすると <code>ET 12</code>
+  と似たようなピッチになります。</p>
+  </dd>
+  <dt>Tuning Root [st.]</dt>
+  <dd>
+  <p>平均律でない音律のルートです。</p>
+  <p>例えば以下のような 3 音の音律があるとします。</p>
+  <pre><code>[1, 5/4, 4/3]</code></pre>
+  <p><code>Tuning Root</code> が 0
+  のときは上の比率をそのまま使います。</p>
+  <p><code>Tuning Root</code> が 1 のときは上の比率のリストを左に 1
+  だけシフトして、オクターブの巻き戻しをかけます。</p>
+  <pre><code>   [           1,            5/4,         4/3]
+-&gt; [         5/4,            4/3,           1] // 左シフト。
+-&gt; [(5/4) / (4/5), (4/3) / (4/5), (1) / (4/5)] // 最も左の比率が 1 となるように調整。
+-&gt; [            1,         16/15,         4/5]
+-&gt; [            1,         16/15,         8/5] // オクターブの巻き戻し。</code></pre>
+  </dd>
+  </dl>
+  <h3 id="filter"><a href="#filter" class="header-anchor"
+  aria-hidden="true">Filter</a></h3>
+  <p>レゾナンスのついた -6 dB/oct のローパスフィルタです。有効にすると
+  CPU 負荷が増えるので注意してください。</p>
+  <p>フィルタの癖によってカットオフ周波数をいくら上げてもレゾナンスが fs
+  / 6 付近より高くなりません。ここで fs
+  はサンプリング周波数です。つまり、サンプリング周波数によってレゾナンスの質感が大きく変わります。</p>
+  <dl>
+  <dt>Decay Time Ratio [dB]</dt>
+  <dd>
+  <p>フィルタのエンベロープのディケイ時間です。 <code>Oscillator</code>
+  セクションの <code>Decay to</code> からの比率として計算されます。</p>
+  </dd>
+  <dt>Key Follow</dt>
+  <dd>
+  <p>カットオフ周波数をノートの音程と合わせる度合いです</p>
+  <p><code>Cutoff</code> が 0 かつ <code>Key Follow</code> が 1
+  のとき、ノートの音程の周波数と、フィルタのエンベロープが減衰しきったときのカットオフ周波数が一致します。</p>
+  <p><code>Cutoff</code> が 0 かつ <code>Key Follow</code> が 0
+  のとき、フィルタのエンベロープが減衰しきったときのカットオフ周波数は
+  20 Hz になります。</p>
+  <p>以下はフィルタのエンベロープが減衰しきったときのカットオフ周波数
+  (<code>adjustedCutoffHz</code>) の計算式です。</p>
+  <pre><code>baseCutoffHz = 20 + (Key Follow) * (freqHz - 20);
+adjustedCutoffHz = baseCutoffHz * 2^(Cutoff);</code></pre>
+  </dd>
+  <dt>Cutoff [oct.]</dt>
+  <dd>
+  <p>フィルタのカットオフ周波数です。</p>
+  </dd>
+  <dt>Resonance</dt>
+  <dd>
+  <p>フィルタのレゾナンスです。</p>
+  </dd>
+  <dt>Notch [oct.]</dt>
+  <dd>
+  <p>フィルタによくわからない癖をつけます。</p>
+  <p>この値はフィードバック経路に用意されたオールパスフィルタのカットオフ周波数を変更します。振幅特性を見るとノッチが現れるように見えます。またレゾナンスの強さも変わります。</p>
+  </dd>
+  </dl>
+  <h3 id="waveform"><a href="#waveform" class="header-anchor"
+  aria-hidden="true">Waveform</a></h3>
+  <p>GlitchSprinkler では、 <code>Pulse Width / Bit Mask</code>
+  を除く波形のパラメータはノートオンの時点で固定されます。これは速いアルペジオの演奏でノイズを抑えるための意図的なチューニングです。</p>
+  <dl>
+  <dt>(Waveform Editor), Xn, Yn</dt>
+  <dd>
+  <p>多項式オシレータの制御点です。</p>
+  <p>多項式近似の性質より波形がくねります。ランダマイズを優先して使い、人手による調整は避けることをお勧めします。</p>
+  <p>以下はショートカットの一覧です。ショートカットは波形エディタを左クリックしてフォーカスすると有効になります。フォーカス後にマウスカーソルを波形エディタの領域外に移動させると、ショートカットが無効になります。右下のプラグイン名をクリックことでもショートカットの一覧を表示できます。</p>
+  <table>
+  <thead>
+  <tr class="header">
+  <th>入力</th>
+  <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="odd">
+  <td><kbd>r</kbd></td>
+  <td>ランダマイズ</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>t</kbd></td>
+  <td>y 軸方向に少しだけランダマイズ</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>0</kbd></td>
+  <td>プリセット波形 : 無音 (横一列)</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>1</kbd></td>
+  <td>プリセット波形 : サイン波</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>2</kbd></td>
+  <td>プリセット波形 : FM A</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>3</kbd></td>
+  <td>プリセット波形 : FM B</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>4</kbd></td>
+  <td>プリセット波形 : のこぎり波</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>5</kbd></td>
+  <td>プリセット波形 : 三角波</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>6</kbd></td>
+  <td>プリセット波形 : 台形</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>7</kbd></td>
+  <td>プリセット波形 : 交互</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>8</kbd></td>
+  <td>プリセット波形 : パルス</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>9</kbd></td>
+  <td>プリセット波形 : 歪んだサイン波</td>
+  </tr>
+  </tbody>
+  </table>
+  </dd>
+  <dt>Osc. Sync.</dt>
+  <dd>
+  <p>ハードシンクの比率です。</p>
+  </dd>
+  <dt>FM Index</dt>
+  <dd>
+  <p>FM の強さです。</p>
+  <p>FM の接続は 1
+  オペレータのフィードフォワードです。つまり、波形の多項式を 1
+  回計算したあと、得られた値を一時的に位相に加えて、もう一度多項式を計算しています。</p>
+  </dd>
+  <dt>Saturation [dB]</dt>
+  <dd>
+  <p>ハードクリッピングに波形を入力するときのゲインです。</p>
+  <p>矩形波を作るときは <code>Saturation</code>
+  の値を上げてください。</p>
+  </dd>
+  <dt>Pulse Width / Bit Mask</dt>
+  <dd>
+  <p>波形に乗算する矩形波のデューティ比です。</p>
+  <p><code>Bitwise And</code> がオンのときは矩形窓の乗算の代わりに、
+  <code>Pulse Width / Bit Mask</code>
+  の値を基にした整数でオシレータの位相にビット論理積をかけます。</p>
+  <p><strong>注意</strong>: <code>Pulse Width / Bit Mask</code> が 1
+  かつ <code>PWM</code> がオフのとき、デューティ比が 0
+  となり音が止まります。</p>
+  </dd>
+  <dt>Modulation Rate</dt>
+  <dd>
+  <p>パルス幅変調 (PWM) の速さです。</p>
+  <p>0
+  以上のときに変調が遅くなり、負の方向に進むほど変調が速くなります。</p>
+  <p>ノートのピッチに応じて変調の速さが変わります。</p>
+  </dd>
+  <dt>PWM</dt>
+  <dd>
+  <p>オンにするとパルス幅変調 (PWM) をかけます。</p>
+  <p>PWM は <code>Pulse Width / Bit Mask</code> が 1
+  に近いほど深くかかります。</p>
+  </dd>
+  <dt>Bidirectional</dt>
+  <dd>
+  <p>オンでは三角波、オフでは鋸歯波によって PWM が行われます。</p>
+  <p><code>PWM</code> がオフのときは効果がありません。</p>
+  </dd>
+  <dt>Bitwise And</dt>
+  <dd>
+  <p>オンにすると内部的に整数で表されているオシレータの位相に
+  <code>Pulse Width / Bit Mask</code>
+  を基にした別の整数でビット論理積をかけます。</p>
+  <p><code>Modulation Rate</code>
+  が速いと波形の切り替わりで生じるノイズによってがさがさとした音になりがちです。</p>
+  </dd>
+  </dl>
+  <h3 id="arpeggio"><a href="#arpeggio" class="header-anchor"
+  aria-hidden="true">Arpeggio</a></h3>
+  <p>GlitchSprinkler は <code>Oscillator</code> セクションの
+  <code>Polyphonic</code> と <code>Soft Envelope</code> をオフ、
+  <code>Unison</code> セクションの <code>nVoice</code> を 2
+  にして速いアルペジオを演奏することに特化して作られています。</p>
+  <dl>
+  <dt>Seed</dt>
+  <dd>
+  <p>乱数のシード値です。シード値が変わると旋律が変わります。</p>
+  </dd>
+  <dt>Note / Beat</dt>
+  <dd>
+  <p>アルペジオのノート 1 つの長さの最小値です。</p>
+  <p>デフォルトの 4 では 1 拍あたりに 4
+  つのノートが演奏されます。つまり最小の長さは 16 分音符となります。</p>
+  </dd>
+  <dt>Loop Length [beat]</dt>
+  <dd>
+  <p>アルペジオが 1 周する長さです。</p>
+  <p>0 のときは明示的には繰り返しませんが、実装の都合で 2^32 (≈ 4.3 億)
+  個のノートが演奏されるごとに 1 周します。</p>
+  </dd>
+  <dt>Duration Variation</dt>
+  <dd>
+  <p>アルペジオのノートの長さをランダマイズする幅です。</p>
+  <p>例えば <code>Note / Beat</code> が 4 かつ、
+  <code>Duration Variation</code> が 3 のとき、ノートの長さが 1 / 16, 2
+  / 16, 3 / 16 の中からランダムに選ばれます。</p>
+  </dd>
+  <dt>Rest Chance</dt>
+  <dd>
+  <p>アルペジオに休符を挟む確率です。</p>
+  <p><code>Unison</code> セクションの <code>nVoice</code>
+  が多いときに使うと雰囲気がでます。</p>
+  <p><strong>注意</strong>: 1 にすると 100%
+  休符となるため音が止まります。</p>
+  </dd>
+  <dt>Scale</dt>
+  <dd>
+  <p>アルペジオで使われる音程の組 (スケール) です。</p>
+  </dd>
+  <dt>Pitch Drift [cent]</dt>
+  <dd>
+  <p>ノートのピッチをランダマイズする量です。</p>
+  </dd>
+  <dt>Octave Range</dt>
+  <dd>
+  <p>アルペジオが使うオクターブの幅です。</p>
+  <p>一部のスケールは 1
+  オクターブを超えるので、指定した値よりも広い幅で演奏されることがあります。</p>
+  </dd>
+  <dt>Start From Root</dt>
+  <dd>
+  <p>オンのとき、アルペジオの 1
+  つめの音程をノートオンで指定された音程にそろえます。</p>
+  </dd>
+  <dt>Reset Modulation</dt>
+  <dd>
+  <p>オンのとき、新しくノートが発音されるたびに PWM
+  の位相をリセットします。</p>
+  </dd>
+  <dt>Random FM Index</dt>
+  <dd>
+  <p>新しくノートが発音されるたびに <code>FM Index</code>
+  をランダマイズする比率です。</p>
+  </dd>
+  </dl>
+  <h3 id="unison"><a href="#unison" class="header-anchor"
+  aria-hidden="true">Unison</a></h3>
+  <dl>
+  <dt>nVoice</dt>
+  <dd>
+  <p>1 つのノートオンで同時に発音するボイス数です。</p>
+  <p>値を大きくすると CPU 負荷が高くなります。特に <code>Release</code>
+  がオンのときは注意してください。高い音程を演奏するときは少なめ、低い音程を演奏するときは多めに設定すると
+  CPU 負荷の節約につながります。</p>
+  </dd>
+  <dt>Detune [cent]</dt>
+  <dd>
+  <p>ユニゾンに使うボイスのピッチをずらす量です。</p>
+  </dd>
+  <dt>Pan Spread</dt>
+  <dd>
+  <p>ユニゾンに使うボイスを左右に広げる量です。</p>
+  </dd>
+  <dt>Scatter Arpeggio</dt>
+  <dd>
+  <p><code>Arpeggio</code>
+  がオンのときのみ有効です。オンのときはボイスごとに異なる旋律を演奏します。オフのときはすべてのボイスで同じ旋律を演奏します。</p>
+  </dd>
+  <dt>Gain Sqrt.</dt>
+  <dd>
+  <p><code>nVoice</code> に応じたゲインの調整方法を変更します。</p>
+  <p>オンのときは 1 ボイスあたりのゲインを <code>sqrt(nVoice)</code>
+  とします。オフのときは 1 ボイスあたりのゲインを
+  <code>1 / (nVoice)</code> とします。</p>
+  <p>オンにしたほうが自然に聞こえるので <code>nVoice</code>
+  を変更するときに耳での比較がしやすいですが、ピーク振幅がかなり大きくなります。</p>
+  </dd>
+  </dl>
+  <h2 id="チェンジログ"><a href="#チェンジログ" class="header-anchor"
+  aria-hidden="true">チェンジログ</a></h2>
+  <ul>
+  <li>0.1.0
+  <ul>
+  <li>初期リリース。</li>
+  </ul></li>
+  </ul>
+  <h2 id="旧バージョン"><a href="#旧バージョン" class="header-anchor"
+  aria-hidden="true">旧バージョン</a></h2>
+  <p>旧バージョンはありません。</p>
+  <h2 id="ライセンス"><a href="#ライセンス" class="header-anchor"
+  aria-hidden="true">ライセンス</a></h2>
+  <p>GlitchSprinkler のライセンスは GPLv3 です。 GPLv3
+  の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
+  <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+  </ul>
+  <p>リンクが切れているときは <code>ryukau@gmail.com</code>
+  にメールを送ってください。</p>
+  <h3 id="vst-について"><a href="#vst-について" class="header-anchor"
+  aria-hidden="true">VST® について</a></h3>
+  <p>VST is a trademark of Steinberg Media Technologies GmbH, registered
+  in Europe and other countries.</p>
+
+  <footer>
+        <p><a href="../../index.html">Back to Index</a></p>
+      </footer>
+  </body>
+
+</html>

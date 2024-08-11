@@ -2,537 +2,572 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
 
 <head>
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="dcterms.date" content="2024-01-02" />
-<title>ParallelDetune_en</title>
-<style>
-code { white-space: pre-wrap; }
-span.smallcaps { font-variant: small-caps; }
-span.underline { text-decoration: underline; }
-div.column { display: inline-block; vertical-align: top; width: 50%; }
-</style>
-<style>
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-<style>body {
-  max-width: 704px;
-  margin: auto;
-  padding: 32px 8px;
-}
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2024-08-11" />
+      <title>ParallelDetune_en – Uhhyou Plugins</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
+  <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
+  <style>
+    :root {
+      --foreground-color: #000000;
+      --background-color: #ffffff;
+      --link-color: #0000ee;
+      --link-visited-color: #551a8b;
+      --link-active-color: #ff0000;
+      --link-hover-background-color: #ffe590;
+      --border-dark-color: #444444;
+      --border-color: #888888;
+      --border-light-color: #bbbbbb;
+      --table-odd-color: #eeeeee;
+      --code-inline-color: #705020;
+    }
 
-img {
-  max-width: 100%;
-}
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --foreground-color: #dfdfdf;
+        --background-color: #202020;
+        --link-color: #dfdf2c;
+        --link-visited-color: #9fcb76;
+        --link-active-color: #20dfdf;
+        --link-hover-background-color: #203373;
+        --border-dark-color: #acacac;
+        --border-color: #797979;
+        --border-light-color: #525252;
+        --table-odd-color: #2c2c2c;
+        --code-inline-color: #8ba3c7;
+      }
 
-video {
-  max-width: 100%;
-}
+      img:not(.staySameInDark) {
+        filter: invert(0.8745);
+      }
 
-details.list>summary {
-  line-height: 3em;
-}
+      h1::after {
+        filter: invert(0.8745);
+      }
+    }
 
-kbd {
-  font-family: inherit;
-  border-style: outset;
-  border-width: 1px 2px 2px 1px;
-  border-radius: 2px;
-  padding: 2px 4px;
-  margin: 2px;
-  line-height: calc(1em + 16px);
-}
+    body {
+      max-width: 704px;
+      margin: auto;
+      padding: 32px 8px;
+      color: var(--foreground-color);
+      background-color: var(--background-color);
+    }
 
-a {
-  text-decoration: none;
-}
+    img {
+      max-width: 100%;
+    }
 
-a:hover {
-  background-color: #ffe590;
-}
+    video {
+      max-width: 100%;
+    }
 
-h1 {
-  background-color: #163eac;
-  color: #ffffff;
-  padding-left: 8px;
-}
+    details.list>summary {
+      line-height: 3em;
+    }
 
-h2 {
-  border-left: solid 32px #2851c2;
-  padding-left: 24px;
-}
+    kbd {
+      font-family: inherit;
+      border-style: outset;
+      border-width: 1px 2px 2px 1px;
+      border-radius: 2px;
+      padding: 2px 4px;
+      margin: 2px;
+      line-height: calc(1em + 16px);
+    }
 
-h3 {
-  border-left: solid 20px #4d74dd;
-  padding-left: 16px;
-}
+    a {
+      text-decoration: none;
+    }
 
-h4 {
-  border-left: solid 12px #6a88da;
-  padding-left: 8px;
-  margin-bottom: 0.5em;
-}
+    a:hover {
+      background-color: var(--link-hover-background-color);
+    }
 
-h5 {
-  border-left: solid 4px #8ca4e7;
-  padding-left: 4px;
-  margin-bottom: 0.5em;
-}
+    :link {
+      color: var(--link-color);
+    }
 
-h6 {
-  border-left: solid 2px #a8bcf5;
-  padding-left: 2px;
-  margin-bottom: 0.5em;
-}
+    :visited {
+      color: var(--link-visited-color);
+    }
 
-table {
-  border-spacing: 0px;
-  border-collapse: separate;
-  border-left: 1px solid #888888;
-  border-right: 1px solid #888888;
-  border-top: 1px solid #888888;
-  border-bottom: hidden;
-}
+    :link:active,
+    :visited:active {
+      color: var(--link-active-color);
+    }
 
-tr:nth-child(odd) {
-  background: #eeeeee;
-}
+    .header-anchor:hover {
+      color: var(--link-color);
+    }
 
-tr:nth-child(even) {
-  background: #ffffff;
-}
+    :is(h1, h2, h3, h4, h5, h6)>:is(a:link, a:visited, a:link:active, a:visited:active) {
+      color: var(--foreground-color);
+    }
 
-th {
-  height: 2em;
-  padding: 4px 1em 4px 1em;
-  background: #ffffff;
-  border-bottom: 1px solid #888888;
-}
+    h1 {
+      padding-left: 8px;
+      vertical-align: middle;
+    }
 
-th:not(:first-child) {
-  border-left: 1px solid #888888;
-}
+    h1::after {
+      display: inline-block;
+      content: url('../../img/favicon/favicon.svg');
+      zoom: 0.5;
+      vertical-align: middle;
+      margin-left: 4rem;
+    }
 
-td {
-  height: 1.5em;
-  padding: 4px 1em 4px 1em;
-  border-bottom: 1px solid #888888;
-}
+    h2 {
+      border-bottom: 1px solid var(--border-dark-color);
+    }
 
-td:not(:first-child) {
-  border-left: 1px solid #888888;
-}
+    h3 {
+      text-decoration: underline var(--border-light-color);
+      text-underline-offset: 0.5rem;
+    }
 
-dl {
-  padding-left: 2em;
-}
+    h4 {
+      text-decoration: underline dashed var(--border-light-color);
+      text-underline-offset: 0.5rem;
+      margin-bottom: 0.5em;
+    }
 
-dt {
-  font-weight: bold;
-  border-bottom: 1px dashed #000000;
-}
+    h5 {
+      margin-bottom: 0.5em;
+    }
 
-dd {
-  border-left: 1px dotted #000000;
-  margin-left: 1em;
-  margin-bottom: 2em;
-  padding-left: 1em;
-}
+    h6 {
+      margin-bottom: 0.5em;
+    }
 
-audio {
-  vertical-align: middle;
-}
+    table {
+      border-spacing: 0px;
+      border-collapse: separate;
+      border-left: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      border-top: 1px solid var(--border-color);
+      border-bottom: hidden;
+    }
 
-label {
-  vertical-align: middle;
-}
+    tr:nth-child(odd) {
+      background: var(--table-odd-color);
+    }
 
-:not(.sourceCode)>pre {
-  overflow: auto;
-  border: 1px solid #888888;
-  padding: 8px;
-}
+    tr:nth-child(even) {
+      background: var(--background-color);
+    }
 
-div.sourceCode {
-  overflow: auto;
-  border: 1px solid #888888;
-  padding: 8px;
-}
+    th {
+      height: 2em;
+      padding: 4px 1em 4px 1em;
+      background: var(--background-color);
+      border-bottom: 1px solid var(--border-color);
+    }
 
-pre>code.sourceCode>span>a:first-child::before {
-  border-right: 1px solid #888888;
-  padding-right: 1em;
-  margin-right: 1em;
-  text-decoration: none;
-}
+    th:not(:first-child) {
+      border-left: 1px solid var(--border-color);
+    }
 
-:not(pre)>code {
-  margin-left: 0.25em;
-  margin-right: 0.25em;
-  color: #705020;
-}
+    td {
+      height: 1.5em;
+      padding: 4px 1em 4px 1em;
+      border-bottom: 1px solid var(--border-color);
+    }
 
-li {
-  margin: 8px;
-}
+    td:not(:first-child) {
+      border-left: 1px solid var(--border-color);
+    }
 
-summary:hover {
-  background-color: #eeeeee;
-}
+    dl {
+      padding-left: 2em;
+    }
 
-header {
-  border-bottom: 1px gray solid;
-  padding: 0.5em;
-  margin-bottom: 1em;
-}
+    dt {
+      font-weight: bold;
+      border-bottom: 1px dashed var(--foreground-color);
+    }
 
-footer {
-  border-top: 1px gray solid;
-  padding: 0.5em;
-  margin-top: 1em;
-}
+    dd {
+      border-left: 1px dotted var(--foreground-color);
+      margin-left: 1em;
+      margin-bottom: 2em;
+      padding-left: 1em;
+    }
 
-</style>
-</head>
+    audio {
+      vertical-align: middle;
+    }
+
+    label {
+      vertical-align: middle;
+    }
+
+    :not(.sourceCode)>pre {
+      overflow: auto;
+      border: 1px solid var(--border-color);
+      padding: 8px;
+    }
+
+    div.sourceCode {
+      overflow: auto;
+      border: 1px solid var(--border-color);
+      padding: 8px;
+    }
+
+    pre>code.sourceCode>span>a:first-child::before {
+      border-right: 1px solid var(--border-color);
+      padding-right: 1em;
+      margin-right: 1em;
+      text-decoration: none;
+    }
+
+    :not(pre)>code {
+      margin-left: 0.25em;
+      margin-right: 0.25em;
+      color: var(--code-inline-color);
+    }
+
+    li {
+      margin: 8px;
+    }
+
+    summary:hover {
+      background-color: var(--table-odd-color);
+    }
+
+    header {
+      border-bottom: 1px var(--border-color) solid;
+      padding: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    footer {
+      border-top: 1px var(--border-color) solid;
+      padding: 0.5em;
+      margin-top: 1em;
+    }
+
+    code {
+      white-space: pre-wrap;
+    }
+
+    span.smallcaps {
+      font-variant: small-caps;
+    }
+
+    span.underline {
+      text-decoration: underline;
+    }
+
+    div.column {
+      display: inline-block;
+      vertical-align: top;
+      width: 50%;
+    }
+  </style>
+      </head>
 
 <body>
-<header>
-    <p><a href="../../index.html">Back to Index</a></p>
-      <p>
-  Update: 2024-01-02
-  </p>
-      <details>
-  <summary translate="yes">Table of Contents</summary>
-  <nav id="TOC" role="doc-toc">
+    <header>
+        <p><a href="../../index.html">Back to Index</a></p>
+            <p>
+      Update: 2024-08-11
+    </p>
+            <details>
+      <summary translate="yes">Table of Contents</summary>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#paralleldetune"
+        id="toc-paralleldetune">ParallelDetune</a>
+        <ul>
+        <li><a href="#contact" id="toc-contact">Contact</a></li>
+        <li><a href="#installation"
+        id="toc-installation">Installation</a>
+        <ul>
+        <li><a href="#plugin" id="toc-plugin">Plugin</a></li>
+        <li><a href="#presets" id="toc-presets">Presets</a></li>
+        <li><a href="#windows-specific"
+        id="toc-windows-specific">Windows Specific</a></li>
+        <li><a href="#linux-specific" id="toc-linux-specific">Linux
+        Specific</a></li>
+        <li><a href="#macos-specific" id="toc-macos-specific">macOS
+        Specific</a>
+        <ul>
+        <li><a href="#remove-quarantine"
+        id="toc-remove-quarantine">Remove Quarantine</a></li>
+        <li><a href="#bypass-gatekeeper"
+        id="toc-bypass-gatekeeper">Bypass Gatekeeper</a></li>
+        <li><a href="#applying-codesign"
+        id="toc-applying-codesign">Applying
+        <code>codesign</code></a></li>
+        <li><a href="#reference" id="toc-reference">Reference</a></li>
+        </ul></li>
+        </ul></li>
+        <li><a href="#gui-style-configuration"
+        id="toc-gui-style-configuration">GUI Style Configuration</a>
+        <ul>
+        <li><a href="#font-options" id="toc-font-options">Font
+        Options</a></li>
+        <li><a href="#color-options" id="toc-color-options">Color
+        Options</a></li>
+        </ul></li>
+        <li><a href="#controls" id="toc-controls">Controls</a></li>
+        <li><a href="#block-diagram" id="toc-block-diagram">Block
+        Diagram</a></li>
+        <li><a href="#note-event-input" id="toc-note-event-input">Note
+        Event Input</a></li>
+        <li><a href="#parameters" id="toc-parameters">Parameters</a>
+        <ul>
+        <li><a href="#shifter" id="toc-shifter">Shifter</a></li>
+        <li><a href="#lfo" id="toc-lfo">LFO</a></li>
+        </ul></li>
+        <li><a href="#change-log" id="toc-change-log">Change
+        Log</a></li>
+        <li><a href="#old-versions" id="toc-old-versions">Old
+        Versions</a></li>
+        <li><a href="#license" id="toc-license">License</a>
+        <ul>
+        <li><a href="#about-vst" id="toc-about-vst">About VST</a></li>
+        </ul></li>
+        </ul></li>
+        </ul>
+      </nav>
+    </details>
+      </header>
+  <h1 id="paralleldetune"><a href="#paralleldetune"
+  class="header-anchor" aria-hidden="true">ParallelDetune</a></h1>
+  <p><img src="img/ParallelDetune.png" /></p>
+  <p>ParallelDetune is a detuning effect with 8 pitch shifters connected
+  in parallel. It can be used to spread stereo image similar to chorus
+  effect.</p>
   <ul>
-  <li><a href="#paralleldetune"
-  id="toc-paralleldetune">ParallelDetune</a>
-  <ul>
-  <li><a href="#contact" id="toc-contact">Contact</a></li>
-  <li><a href="#installation" id="toc-installation">Installation</a>
-  <ul>
-  <li><a href="#plugin" id="toc-plugin">Plugin</a></li>
-  <li><a href="#presets" id="toc-presets">Presets</a></li>
-  <li><a href="#windows-specific" id="toc-windows-specific">Windows
-  Specific</a></li>
-  <li><a href="#linux-specific" id="toc-linux-specific">Linux
-  Specific</a></li>
-  <li><a href="#macos-specific" id="toc-macos-specific">macOS
-  Specific</a>
-  <ul>
-  <li><a href="#remove-quarantine" id="toc-remove-quarantine">Remove
-  Quarantine</a></li>
-  <li><a href="#bypass-gatekeeper" id="toc-bypass-gatekeeper">Bypass
-  Gatekeeper</a></li>
-  <li><a href="#applying-codesign" id="toc-applying-codesign">Applying
-  <code>codesign</code></a></li>
-  <li><a href="#reference" id="toc-reference">Reference</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#gui-style-configuration"
-  id="toc-gui-style-configuration">GUI Style Configuration</a>
-  <ul>
-  <li><a href="#font-options" id="toc-font-options">Font
-  Options</a></li>
-  <li><a href="#color-options" id="toc-color-options">Color
-  Options</a></li>
-  </ul></li>
-  <li><a href="#controls" id="toc-controls">Controls</a></li>
-  <li><a href="#block-diagram" id="toc-block-diagram">Block
-  Diagram</a></li>
-  <li><a href="#note-event-input" id="toc-note-event-input">Note Event
-  Input</a></li>
-  <li><a href="#parameters" id="toc-parameters">Parameters</a>
-  <ul>
-  <li><a href="#shifter" id="toc-shifter">Shifter</a></li>
-  <li><a href="#lfo" id="toc-lfo">LFO</a></li>
-  </ul></li>
-  <li><a href="#change-log" id="toc-change-log">Change Log</a></li>
-  <li><a href="#old-versions" id="toc-old-versions">Old
-  Versions</a></li>
-  <li><a href="#license" id="toc-license">License</a>
-  <ul>
-  <li><a href="#about-vst" id="toc-about-vst">About VST</a></li>
-  </ul></li>
-  </ul></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/ParallelDetune_0.1.5.zip">Download
+  ParallelDetune 0.1.5 <code>full</code> - VST 3 (github.com)</a> <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="30px"
+  style="display: inline-block; vertical-align: middle;"></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/ParallelDetune_0.1.5_macOS.zip">Download
+  ParallelDetune 0.1.5 <code>macOS</code> - VST 3 (github.com)</a> <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="30px"
+  style="display: inline-block; vertical-align: middle;"></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ParallelDetunePresets.zip">Download
+  Presets (github.com)</a></li>
   </ul>
-  </nav>
-  </details>
-  </header>
-<h1 id="paralleldetune">ParallelDetune</h1>
-<p><img src="img/ParallelDetune.png" /></p>
-<p>ParallelDetune is a detuning effect with 8 pitch shifters connected
-in parallel. It can be used to spread stereo image similar to chorus
-effect.</p>
-<ul>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/ParallelDetune_0.1.5.zip">Download
-ParallelDetune 0.1.5 <code>full</code> - VST 3 (github.com)</a> <img
-src="img/VST_Compatible_Logo_Steinberg_negative.svg"
-alt="VST compatible logo."
-width="30px"
-style="display: inline-block; vertical-align: middle;"></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/ParallelDetune_0.1.5_macOS.zip">Download
-ParallelDetune 0.1.5 <code>macOS</code> - VST 3 (github.com)</a> <img
-src="img/VST_Compatible_Logo_Steinberg_negative.svg"
-alt="VST compatible logo."
-width="30px"
-style="display: inline-block; vertical-align: middle;"></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ParallelDetunePresets.zip">Download
-Presets (github.com)</a></li>
-</ul>
-<p><code>full</code> package contains following builds.</p>
-<ul>
-<li>Windows (x86_64)</li>
-<li>Linux (x86_64)</li>
-<li>macOS (Universal 2)</li>
-</ul>
-<p>Linux build is built on Ubuntu 22.04. If you are using distribution
-other than Ubuntu 22.04, plugin will not likely to run. In this case,
-please take a look at <a
-href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">build
-instruction</a>.</p>
-<p><code>macOS</code> package is recommended for macOS user. I can’t
-purchase Apple Developer Program, therefore installation requires a
-workaround to bypass Gatekeeper. Details of workaround are written in
-<a href="#macos-specific">Installation -&gt; macOS Specific</a>
-section.</p>
-<h2 id="contact">Contact</h2>
-<p>Feel free to contact me on <a
-href="https://github.com/ryukau/VSTPlugins/commits/master">GitHub
-repository</a> or <code>ryukau@gmail.com.</code></p>
-<p>You can fund the development through <a
-href="https://www.paypal.com/paypalme/ryukau">paypal.me/ryukau</a>.</p>
-<h2 id="installation">Installation</h2>
-<h3 id="plugin">Plugin</h3>
-<p>Move <code>*.vst3</code> directory to:</p>
-<ul>
-<li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
-<li><code>$HOME/.vst3/</code> for Linux.</li>
-<li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for
-macOS.</li>
-</ul>
-<p>DAW may provides additional VST3 directory. For more information,
-please refer to the manual of the DAW.</p>
-<h3 id="presets">Presets</h3>
-<p><strong>Notice</strong>: Some plugins don’t have presets provided by
-Uhhyou Plugins.</p>
-<p>Presets are included in the plugin package linked at the top of this
-page. To install presets, follow the steps below.</p>
-<ol type="1">
-<li>Download plugin from a link at the top of this page.</li>
-<li>Extract downloaded zip file.</li>
-<li>Open <code>presets</code> directory placed in extracted
-package.</li>
-<li>Move <code>Uhhyou</code> directory into an OS specific preset
-directory (see below).</li>
-</ol>
-<p>Below is a list of preset directories for each OS.</p>
-<ul>
-<li>Windows : <code>/Users/$USERNAME/Documents/VST3 Presets</code></li>
-<li>Linux : <code>$HOME/.vst3/presets</code></li>
-<li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets</code></li>
-</ul>
-<p>Preset directory name must be the same as the plugin. If preset
-directory does not exist, create it.</p>
-<ul>
-<li><a
-href="https://steinbergmedia.github.io/vst3_dev_portal/pages/Technical+Documentation/Locations+Format/Preset+Locations.html">Preset
-Locations - VST 3 Developer Portal</a></li>
-</ul>
-<h3 id="windows-specific">Windows Specific</h3>
-<p>If DAW doesn’t recognize the plugin, try installing C++
-redistributable (<code>vc_redist.x64.exe</code>). Installer can be found
-in the link below.</p>
-<ul>
-<li><a
-href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The
-latest supported Visual C++ downloads</a></li>
-</ul>
-<h3 id="linux-specific">Linux Specific</h3>
-<p>On Ubuntu 22.04, those packages are required.</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
-<p>If DAW doesn’t recognize the plugin, take a look at
-<code>Package Requirements</code> section of the link below and make
-sure all the VST3 related package is installed.</p>
-<ul>
-<li><a
-href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI:
-Setup</a></li>
-</ul>
-<p>REAPER on Linux may not recognize the plugin. A workaround is to
-delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code> and
-restart REAPER.</p>
-<h3 id="macos-specific">macOS Specific</h3>
-<p><strong>Important</strong>: <code>full</code> package is not
-confirmed working. When using <code>full</code>, try removing following
-files.</p>
-<ul>
-<li><code>Contents/Resources/Documentation</code></li>
-<li><code>Contents/x86_64-linux</code></li>
-<li><code>Contents/x86_64-win</code></li>
-</ul>
-<p><code>macOS</code> package doesn’t contain above files. Also, all
-packages are in “ad-hoc signing” state set by <code>codesign</code>
-command.</p>
-<h4 id="remove-quarantine">Remove Quarantine</h4>
-<p>When trying to run plugin first time, following message may appear on
-macOS.</p>
-<pre><code>&lt;PluginName&gt;.vst3 is damaged and can&#39;t be opened. You should move it to the Trash.</code></pre>
-<p>In this case, open terminal and try running one or both of following
-command to unzipped <code>.vst3</code> directory. Replace
-<code>/path/to/PluginName.vst3</code> according to your install
-location.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rd</span> com.apple.quarantine /path/to/PluginName.vst3</span>
+  <p><code>full</code> package contains following builds.</p>
+  <ul>
+  <li>Windows (x86_64)</li>
+  <li>Linux (x86_64)</li>
+  <li>macOS (Universal 2)</li>
+  </ul>
+  <p>Linux build is built on Ubuntu 22.04. If you are using distribution
+  other than Ubuntu 22.04, plugin will not likely to run. In this case,
+  please take a look at <a
+  href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">build
+  instruction</a>.</p>
+  <p><code>macOS</code> package is recommended for macOS user. I can’t
+  purchase Apple Developer Program, therefore installation requires a
+  workaround to bypass Gatekeeper. Details of workaround are written in
+  <a href="#macos-specific">Installation -&gt; macOS Specific</a>
+  section.</p>
+  <h2 id="contact"><a href="#contact" class="header-anchor"
+  aria-hidden="true">Contact</a></h2>
+  <p>Feel free to contact me on <a
+  href="https://github.com/ryukau/VSTPlugins/commits/master">GitHub
+  repository</a> or <code>ryukau@gmail.com.</code></p>
+  <p>You can fund the development through <a
+  href="https://www.paypal.com/paypalme/ryukau">paypal.me/ryukau</a>.</p>
+  <h2 id="installation"><a href="#installation" class="header-anchor"
+  aria-hidden="true">Installation</a></h2>
+  <h3 id="plugin"><a href="#plugin" class="header-anchor"
+  aria-hidden="true">Plugin</a></h3>
+  <p>Move <code>*.vst3</code> directory to:</p>
+  <ul>
+  <li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
+  <li><code>$HOME/.vst3/</code> for Linux.</li>
+  <li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for
+  macOS.</li>
+  </ul>
+  <p>DAW may provides additional VST3 directory. For more information,
+  please refer to the manual of the DAW.</p>
+  <h3 id="presets"><a href="#presets" class="header-anchor"
+  aria-hidden="true">Presets</a></h3>
+  <p><strong>Notice</strong>: Some plugins don’t have presets provided
+  by Uhhyou Plugins.</p>
+  <p>Presets are included in the plugin package linked at the top of
+  this page. To install presets, follow the steps below.</p>
+  <ol type="1">
+  <li>Download plugin from a link at the top of this page.</li>
+  <li>Extract downloaded zip file.</li>
+  <li>Open <code>presets</code> directory placed in extracted
+  package.</li>
+  <li>Move <code>Uhhyou</code> directory into an OS specific preset
+  directory (see below).</li>
+  </ol>
+  <p>Below is a list of preset directories for each OS.</p>
+  <ul>
+  <li>Windows :
+  <code>/Users/$USERNAME/Documents/VST3 Presets</code></li>
+  <li>Linux : <code>$HOME/.vst3/presets</code></li>
+  <li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets</code></li>
+  </ul>
+  <p>Preset directory name must be the same as the plugin. If preset
+  directory does not exist, create it.</p>
+  <ul>
+  <li><a
+  href="https://steinbergmedia.github.io/vst3_dev_portal/pages/Technical+Documentation/Locations+Format/Preset+Locations.html">Preset
+  Locations - VST 3 Developer Portal</a></li>
+  </ul>
+  <h3 id="windows-specific"><a href="#windows-specific"
+  class="header-anchor" aria-hidden="true">Windows Specific</a></h3>
+  <p>If DAW doesn’t recognize the plugin, try installing C++
+  redistributable (<code>vc_redist.x64.exe</code>). Installer can be
+  found in the link below.</p>
+  <ul>
+  <li><a
+  href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The
+  latest supported Visual C++ downloads</a></li>
+  </ul>
+  <h3 id="linux-specific"><a href="#linux-specific"
+  class="header-anchor" aria-hidden="true">Linux Specific</a></h3>
+  <p>On Ubuntu 22.04, those packages are required.</p>
+  <div class="sourceCode" id="cb1"><pre
+  class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+  <p>If DAW doesn’t recognize the plugin, take a look at
+  <code>Package Requirements</code> section of the link below and make
+  sure all the VST3 related package is installed.</p>
+  <ul>
+  <li><a
+  href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI:
+  Setup</a></li>
+  </ul>
+  <p>REAPER on Linux may not recognize the plugin. A workaround is to
+  delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code>
+  and restart REAPER.</p>
+  <h3 id="macos-specific"><a href="#macos-specific"
+  class="header-anchor" aria-hidden="true">macOS Specific</a></h3>
+  <p><strong>Important</strong>: <code>full</code> package is not
+  confirmed working. When using <code>full</code>, try removing
+  following files.</p>
+  <ul>
+  <li><code>Contents/Resources/Documentation</code></li>
+  <li><code>Contents/x86_64-linux</code></li>
+  <li><code>Contents/x86_64-win</code></li>
+  </ul>
+  <p><code>macOS</code> package doesn’t contain above files. Also, all
+  packages are in “ad-hoc signing” state set by <code>codesign</code>
+  command.</p>
+  <h4 id="remove-quarantine"><a href="#remove-quarantine"
+  class="header-anchor" aria-hidden="true">Remove Quarantine</a></h4>
+  <p>When trying to run plugin first time, following message may appear
+  on macOS.</p>
+  <pre><code>&lt;PluginName&gt;.vst3 is damaged and can&#39;t be opened. You should move it to the Trash.</code></pre>
+  <p>In this case, open terminal and try running one or both of
+  following command to unzipped <code>.vst3</code> directory. Replace
+  <code>/path/to/PluginName.vst3</code> according to your install
+  location.</p>
+  <div class="sourceCode" id="cb3"><pre
+  class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rd</span> com.apple.quarantine /path/to/PluginName.vst3</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rc</span> /path/to/PluginName.vst3</span></code></pre></div>
-<h4 id="bypass-gatekeeper">Bypass Gatekeeper</h4>
-<p>Plugin may be considered as unsigned/un-notarized application. In
-this case, open System Preferences, go to Security &amp; Privacy →
-General, then click the Open Anyway button. The offcial Apple help page
-linked below has screenshots for the procedure. See “If you want to open
-an app that hasn’t been notarized or is from an unidentified developer”
-section.</p>
-<ul>
-<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps
-on your Mac - Apple Support</a></li>
-</ul>
-<p>If the plugin is still not working, try changing install location to
-<code>/Library/Audio/Plug-ins/VST3/</code> or
-<code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> whichever
-still haven’t tried.</p>
-<p>If all the above methods do not work, try following the steps
-below.</p>
-<ol type="1">
-<li>Open terminal and run <code>sudo spctl --master-disable</code>.</li>
-<li>Go to System Preferences → Security and Privacy → General → Allow
-apps downloaded from, then select “Anywhere”.</li>
-</ol>
-<p>Beware that steps above degrades security of your system. To revert
-the settings, follow the steps below.</p>
-<ol type="1">
-<li>Go to System Preferences → Security and Privacy → General → Allow
-apps downloaded from, then select option to “App Store and identified
-developers”.</li>
-<li>Open terminal and run <code>sudo spctl --master-enable</code>.</li>
-</ol>
-<h4 id="applying-codesign">Applying <code>codesign</code></h4>
-<p><strong>Note</strong> This section may not relevant to
-<code>macOS</code> packages. However it’s not verified. (<a
-href="https://github.com/ryukau/VSTPlugins/issues/27">GitHub
-issue</a>)</p>
-<p>To use <code>full</code> package, following command might be
-used.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> codesign <span class="at">--force</span> <span class="at">--deep</span> <span class="at">-s</span> <span class="at">-</span> /path/to/PluginName.vst3</span></code></pre></div>
-<p><code>codesign</code> might not be available without installing <a
-href="https://developer.apple.com/xcode/">Xcode</a>.</p>
-<h4 id="reference">Reference</h4>
-<ul>
-<li><a href="https://support.apple.com/en-us/HT202491">Safely open apps
-on your Mac - Apple Support</a></li>
-<li><a
-href="https://stackoverflow.com/questions/66891065/libprism-sw-dylib-cannot-be-opened-because-the-developer-cannot-be-verified-o">java
-- “libprism_sw.dylib” cannot be opened because the developer cannot be
-verified. on mac JAVAFX - Stack Overflow</a></li>
-<li><a
-href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How
-to Fix App “is damaged and can’t be opened. You should move it to the
-Trash” Error on Mac</a></li>
-<li><a
-href="https://web.archive.org/web/20221223004334/https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
-unsigned/un-notarized applications/plugins in Mac OS | Venn
-Audio</a></li>
-</ul>
-<h2 id="gui-style-configuration">GUI Style Configuration</h2>
-<p>At first time, create color config file to:</p>
-<ul>
-<li><code>/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json</code>
-on Windows.</li>
-<li><code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> on
-Linux.
-<ul>
-<li>If <code>$XDG_CONFIG_HOME</code> is empty, make
-<code>$HOME/.config/UhhyouPlugins/style/style.json</code>.</li>
-</ul></li>
-<li><code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code>
-on macOS.</li>
-</ul>
-<p><code>style.json</code> will be loaded for each time a plugin window
-opens.</p>
-<p>Several color themes are available on the link below.</p>
-<ul>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/tree/master/package/style/themes">VSTPlugins/package/style/themes
-at master · ryukau/VSTPlugins</a></li>
-</ul>
-<p>Below is a example of <code>style.json</code>.</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+  <h4 id="bypass-gatekeeper"><a href="#bypass-gatekeeper"
+  class="header-anchor" aria-hidden="true">Bypass Gatekeeper</a></h4>
+  <p>Plugin may be considered as unsigned/un-notarized application. In
+  this case, open System Preferences, go to Security &amp; Privacy →
+  General, then click the Open Anyway button. The offcial Apple help
+  page linked below has screenshots for the procedure. See “If you want
+  to open an app that hasn’t been notarized or is from an unidentified
+  developer” section.</p>
+  <ul>
+  <li><a href="https://support.apple.com/en-us/HT202491">Safely open
+  apps on your Mac - Apple Support</a></li>
+  </ul>
+  <p>If the plugin is still not working, try changing install location
+  to <code>/Library/Audio/Plug-ins/VST3/</code> or
+  <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> whichever
+  still haven’t tried.</p>
+  <p>If all the above methods do not work, try following the steps
+  below.</p>
+  <ol type="1">
+  <li>Open terminal and run
+  <code>sudo spctl --master-disable</code>.</li>
+  <li>Go to System Preferences → Security and Privacy → General → Allow
+  apps downloaded from, then select “Anywhere”.</li>
+  </ol>
+  <p>Beware that steps above degrades security of your system. To revert
+  the settings, follow the steps below.</p>
+  <ol type="1">
+  <li>Go to System Preferences → Security and Privacy → General → Allow
+  apps downloaded from, then select option to “App Store and identified
+  developers”.</li>
+  <li>Open terminal and run
+  <code>sudo spctl --master-enable</code>.</li>
+  </ol>
+  <h4 id="applying-codesign"><a href="#applying-codesign"
+  class="header-anchor" aria-hidden="true">Applying
+  <code>codesign</code></a></h4>
+  <p><strong>Note</strong> This section may not relevant to
+  <code>macOS</code> packages. However it’s not verified. (<a
+  href="https://github.com/ryukau/VSTPlugins/issues/27">GitHub
+  issue</a>)</p>
+  <p>To use <code>full</code> package, following command might be
+  used.</p>
+  <div class="sourceCode" id="cb4"><pre
+  class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> codesign <span class="at">--force</span> <span class="at">--deep</span> <span class="at">-s</span> <span class="at">-</span> /path/to/PluginName.vst3</span></code></pre></div>
+  <p><code>codesign</code> might not be available without installing <a
+  href="https://developer.apple.com/xcode/">Xcode</a>.</p>
+  <h4 id="reference"><a href="#reference" class="header-anchor"
+  aria-hidden="true">Reference</a></h4>
+  <ul>
+  <li><a href="https://support.apple.com/en-us/HT202491">Safely open
+  apps on your Mac - Apple Support</a></li>
+  <li><a
+  href="https://stackoverflow.com/questions/66891065/libprism-sw-dylib-cannot-be-opened-because-the-developer-cannot-be-verified-o">java
+  - “libprism_sw.dylib” cannot be opened because the developer cannot be
+  verified. on mac JAVAFX - Stack Overflow</a></li>
+  <li><a
+  href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How
+  to Fix App “is damaged and can’t be opened. You should move it to the
+  Trash” Error on Mac</a></li>
+  <li><a
+  href="https://web.archive.org/web/20221223004334/https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
+  unsigned/un-notarized applications/plugins in Mac OS | Venn
+  Audio</a></li>
+  </ul>
+  <h2 id="gui-style-configuration"><a href="#gui-style-configuration"
+  class="header-anchor" aria-hidden="true">GUI Style
+  Configuration</a></h2>
+  <p>At first time, create color config file to:</p>
+  <ul>
+  <li><code>/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json</code>
+  on Windows.</li>
+  <li><code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> on
+  Linux.
+  <ul>
+  <li>If <code>$XDG_CONFIG_HOME</code> is empty, make
+  <code>$HOME/.config/UhhyouPlugins/style/style.json</code>.</li>
+  </ul></li>
+  <li><code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code>
+  on macOS.</li>
+  </ul>
+  <p><code>style.json</code> will be loaded for each time a plugin
+  window opens.</p>
+  <p>Several color themes are available on the link below.</p>
+  <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/tree/master/package/style/themes">VSTPlugins/package/style/themes
+  at master · ryukau/VSTPlugins</a></li>
+  </ul>
+  <p>Below is a example of <code>style.json</code>.</p>
+  <div class="sourceCode" id="cb5"><pre
+  class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontFamily&quot;</span><span class="fu">:</span> <span class="st">&quot;Tinos&quot;</span><span class="fu">,</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontBold&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontItalic&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
@@ -552,517 +587,529 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<h3 id="font-options">Font Options</h3>
-<p>Following is a list of font options.</p>
-<ul>
-<li><code>fontFamily</code>: Font family name.</li>
-<li><code>fontBold</code>: Enable <strong>bold</strong> style when
-<code>true</code>, disable when <code>false</code>.</li>
-<li><code>fontItalic</code>: Enable <em>italic</em> style when
-<code>true</code>, disable when <code>false</code>.</li>
-</ul>
-<p>To use custom font, place <code>*.ttf</code> file into custom font
-path: <code>*.vst3/Contents/Resources/Fonts</code>.</p>
-<p><strong>Notice</strong>: If the combination of
-<code>fontFamily</code>, <code>fontBold</code>, <code>fontItalic</code>
-is not exists in custom font path, default font of VSTGUI is used.</p>
-<p>If <code>fontFamily</code> is set to empty string <code>""</code>,
-then <a
-href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
-is used as fallback. If the length is greater than 1 and the font family
-name doesn’t exists, default font of VSTGUI is used.</p>
-<p>Styles other than bold, italic or bold-italic are not supported by
-VSTGUI. For example, “Thin”, “Light”, “Medium”, and “Black” weights
-cannot be used.</p>
-<h3 id="color-options">Color Options</h3>
-<p>Hex color codes are used.</p>
-<ul>
-<li>6 digit color is RGB.</li>
-<li>8 digit color is RGBA.</li>
-</ul>
-<p>First letter <code>#</code> is conventional. Plugins ignore the first
-letter of color code, thus <code>?102938</code>, <code>\n11335577</code>
-are valid.</p>
-<p>Do not use characters outside of <code>0-9a-f</code> for color
-value.</p>
-<p>Following is a list of color options. If an option is missing,
-default color will be used.</p>
-<ul>
-<li><code>foreground</code>: Text color.</li>
-<li><code>foregroundButtonOn</code>: Text color of active toggle button.
-Recommend to use the same value of <code>foreground</code> or
-<code>boxBackground</code>.</li>
-<li><code>foregroundInactive</code>: Text color of inactive components.
-Currently, only used for TabView.</li>
-<li><code>background</code>: Background color.</li>
-<li><code>boxBackground</code>: Background color of inside of box shaped
-components (Barbox, Button, Checkbox, OptionMenu, TextKnob,
-VSlider).</li>
-<li><code>border</code>: Border color of box shaped components.</li>
-<li><code>borderCheckbox</code>: Border color of CheckBox.</li>
-<li><code>borderLabel</code>: Line color of parameter section
-label.</li>
-<li><code>unfocused</code>: Color to fill unfocused components.
-Currently, only used for knobs.</li>
-<li><code>highlightMain</code>: Color to indicate focus is on a
-component. Highlight colors are also used for value of slider components
-(BarBox and VSlider).</li>
-<li><code>highlightAccent</code>: Same as <code>highlightMain</code>.
-Used for cosmetics.</li>
-<li><code>highlightButton</code>: Color to indicate focus is on a
-button.</li>
-<li><code>highlightWarning</code>: Same as <code>highlightMain</code>,
-but only used for parameters which requires extra caution.</li>
-<li><code>overlay</code>: Overlay color. Used to overlay texts and
-indicators.</li>
-<li><code>overlayHighlight</code>: Overlay color to highlight current
-focus.</li>
-</ul>
-<h2 id="controls">Controls</h2>
-<p><kbd>Right Click</kbd> on the controls pops up a context menu
-provided by DAW.</p>
-<p>Knob and slider provides following controls:</p>
-<ul>
-<li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
-<li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
-<li><kbd>Middle Click</kbd> : Rotate through minimum, default and
-maximum value.</li>
-<li><kbd>Shift</kbd> + <kbd>Middle Click</kbd> : Take floor of current
-value.
-<ul>
-<li><strong>Note</strong>: For decibel (<code>dB</code>) parameters,
-floor is applied after the value is converted to amplitude.</li>
-</ul></li>
-</ul>
-<p>Control with many blue vertical bars (BarBox) have some keyboard
-shortcuts. <code>LFO Wave</code> on Main tab and <code>Gain</code>,
-<code>Width</code>, <code>Pitch</code>, <code>Phase</code> on Wavetable
-tab are using BarBox. Shortcuts are enabled after left clicking BarBox
-and mouse cursor is on the inside of BarBox. Cheat sheet is available on
-Infomation tab.</p>
-<table>
-<colgroup>
-<col style="width: 63%" />
-<col style="width: 36%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Input</th>
-<th>Control</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><kbd>Left Drag</kbd></td>
-<td>Change Value</td>
-</tr>
-<tr class="even">
-<td><kbd>Shift</kbd> + <kbd>Left Drag</kbd></td>
-<td>Change Value (Snapped)</td>
-</tr>
-<tr class="odd">
-<td><kbd>Ctrl</kbd> + <kbd>Left Drag</kbd></td>
-<td>Reset to Default</td>
-</tr>
-<tr class="even">
-<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Left Drag</kbd></td>
-<td>Change Value (Skip Between Frames)</td>
-</tr>
-<tr class="odd">
-<td><kbd>Middle Drag</kbd></td>
-<td>Draw Line</td>
-</tr>
-<tr class="even">
-<td><kbd>Shift</kbd> + <kbd>Middle Drag</kbd></td>
-<td>Edit One Bar</td>
-</tr>
-<tr class="odd">
-<td><kbd>Ctrl</kbd> + <kbd>Middle Drag</kbd></td>
-<td>Reset to Default</td>
-</tr>
-<tr class="even">
-<td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Middle Drag</kbd></td>
-<td>Toggle Lock</td>
-</tr>
-<tr class="odd">
-<td><kbd>a</kbd></td>
-<td>Alternate Sign</td>
-</tr>
-<tr class="even">
-<td><kbd>d</kbd></td>
-<td>Reset Everything to Default</td>
-</tr>
-<tr class="odd">
-<td><kbd>D</kbd></td>
-<td>Toggle Min/Mid/Max</td>
-</tr>
-<tr class="even">
-<td><kbd>e</kbd></td>
-<td>Emphasize Low</td>
-</tr>
-<tr class="odd">
-<td><kbd>E</kbd></td>
-<td>Emphasize High</td>
-</tr>
-<tr class="even">
-<td><kbd>f</kbd></td>
-<td>Low-pass Filter</td>
-</tr>
-<tr class="odd">
-<td><kbd>F</kbd></td>
-<td>High-pass Filter</td>
-</tr>
-<tr class="even">
-<td><kbd>i</kbd></td>
-<td>Invert Value (Preserve minimum)</td>
-</tr>
-<tr class="odd">
-<td><kbd>I</kbd></td>
-<td>Invert Value (Minimum to 0)</td>
-</tr>
-<tr class="even">
-<td><kbd>l</kbd></td>
-<td>Toggle Lock under Mouse Cursor</td>
-</tr>
-<tr class="odd">
-<td><kbd>L</kbd></td>
-<td>Toggle Lock for All</td>
-</tr>
-<tr class="even">
-<td><kbd>n</kbd></td>
-<td>Normalize (Preserve minimum)</td>
-</tr>
-<tr class="odd">
-<td><kbd>N</kbd></td>
-<td>Normalize (Minimum to 0)</td>
-</tr>
-<tr class="even">
-<td><kbd>p</kbd></td>
-<td>Permute</td>
-</tr>
-<tr class="odd">
-<td><kbd>r</kbd></td>
-<td>Randomize</td>
-</tr>
-<tr class="even">
-<td><kbd>R</kbd></td>
-<td>Sparse Randomize</td>
-</tr>
-<tr class="odd">
-<td><kbd>s</kbd></td>
-<td>Sort Descending Order</td>
-</tr>
-<tr class="even">
-<td><kbd>S</kbd></td>
-<td>Sort Ascending Order</td>
-</tr>
-<tr class="odd">
-<td><kbd>t</kbd></td>
-<td>Subtle Randomize (Random walk)</td>
-</tr>
-<tr class="even">
-<td><kbd>T</kbd></td>
-<td>Subtle Randomize (Converge to 0)</td>
-</tr>
-<tr class="odd">
-<td><kbd>z</kbd></td>
-<td>Undo</td>
-</tr>
-<tr class="even">
-<td><kbd>Z</kbd></td>
-<td>Redo</td>
-</tr>
-<tr class="odd">
-<td><kbd>,</kbd> (Comma)</td>
-<td>Rotate Back</td>
-</tr>
-<tr class="even">
-<td><kbd>.</kbd> (Period)</td>
-<td>Rotate Forward</td>
-</tr>
-<tr class="odd">
-<td><kbd>1</kbd></td>
-<td>Decrease</td>
-</tr>
-<tr class="even">
-<td><kbd>2</kbd>-<kbd>4</kbd></td>
-<td>Decrease 2n-4n</td>
-</tr>
-<tr class="odd">
-<td><kbd>5</kbd>-<kbd>9</kbd></td>
-<td>Decimate by holding 2n-5n</td>
-</tr>
-</tbody>
-</table>
-<p>Snapping is not available for all BarBox. If you’d like to have
-snapping for certain BarBox, feel free to open issue to <a
-href="https://github.com/ryukau/VSTPlugins">GitHub repository</a>.</p>
-<p>Edit One Bar with <kbd>Shift</kbd> + <kbd>Right Drag</kbd> holds a
-bar under the cursor when mouse right button is pressed. Then only
-changes that one bar while holding down mouse right button.</p>
-<p>Toggle Lock with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Right
-Drag</kbd> behaves as line edit. When right mouse button (RMB) is
-pressed, it holds the opposite state of the bar below mouse cursor, then
-use the state for the rest of bars. For example, if RMB is pressed on a
-locked bar, dragging unlocks bars while holding down RMB.</p>
-<p>Some BarBox has scroll bar to zoom in. Scroll bar has handles on left
-end and right end. To control zoom, use <kbd>Left Drag</kbd> on one of
-the handle. Scroll bar also has following controls:</p>
-<ul>
-<li><kbd>Right Click</kbd> : Reset zoom.</li>
-<li><kbd>Mouse Wheel</kbd> : Zoom in/out.</li>
-</ul>
-<h2 id="block-diagram">Block Diagram</h2>
-<p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd>
-or “View Image” on right click menu to scale.</p>
-<p>Diagram only shows overview. It’s not exact implementation.</p>
-<p><img src="img/ParallelDetune.svg" /></p>
-<h2 id="note-event-input">Note Event Input</h2>
-<p>ParallelDetune can receive note events to control pitch shift
-amount.</p>
-<h2 id="parameters">Parameters</h2>
-<p>Characters inside of square brackets [] represents unit. Following is
-a list of units used in ParallelDetune.</p>
-<ul>
-<li>[s]: second.</li>
-<li>[oct.]: octave.</li>
-<li>[st.]: semitone.</li>
-<li>[cent]: 1/100 of a semitone.</li>
-</ul>
-<h3 id="shifter">Shifter</h3>
-<dl>
-<dt>Dry</dt>
-<dd>
-<p>Gain for bypassing input signal.</p>
-</dd>
-<dt>Wet</dt>
-<dd>
-<p>Gain for output signal comes out from ParallelDetune.</p>
-</dd>
-<dt>Feedback</dt>
-<dd>
-<p>Pitch shifter feedback gain.</p>
-</dd>
-<dt>HP, LP</dt>
-<dd>
-<p>Cutoff frequency of highpass (<code>HP</code>) or lowpass
-(<code>LP</code>) filter on feedback path.</p>
-</dd>
-<dt>Delay Time [s]</dt>
-<dd>
-<p>Buffer length of pitch shifter. The value is not exact, but a rough
-indication.</p>
-<p>When the value of <code>Shift \[oct.\]</code> is not 0.0, delay time
-is doesn’t match the displayed value because of the change of buffer
-playback speed.</p>
-<p>LFO can be applied by turning the knob on the right side of number
-slider.</p>
-</dd>
-<dt>Transpose [st.]</dt>
-<dd>
-<p>Pitch shift amount used for all the pitch shifters.</p>
-<p>This might be convenient when changing all the pitch shift at
-once.</p>
-<p>LFO can be applied by turning the knob on the right side of number
-slider.</p>
-</dd>
-<dt>Pan. Spread</dt>
-<dd>
-<p>Amount of stereo spread.</p>
-<p>When <code>Pan. Spread</code> is 0.0, left and right channels are
-processed without affecting other. When <code>Pan. Spread</code> is 1.0,
-the output of the pitch shifters with same index on left and right
-channel are summed, then stereo panning is applied from left to right in
-order from lowest index to highest.</p>
-<p>When LFO is applied, it rotates the pan. Note that waveform of LFO is
-fixed to sine wave for <code>Pan. Spread</code>.</p>
-<p>Tremolo can be used in combination of <code>Pan. Spread</code> to add
-character to stereo spread.</p>
-</dd>
-<dt>Tremolo Mix, Tremolo Lean</dt>
-<dd>
-<p>Tremolo parameters.</p>
-<p>Tremolo is disabled when <code>Tremolo Lean</code> is set to 12
-o’clock, or <code>Tremolo Mix</code> is set to leftmost.</p>
-<p>Tremolo is fully applied when <code>Tremolo Lean</code> is set to
-leftmost or rightmost, and <code>Tremolo Mix</code> is set to
-rightmost.</p>
-<p>When <code>Pan. Spread</code> is not 0.0, stereo image leans left or
-right depending on the value of <code>Tremolo Lean</code>.</p>
-</dd>
-<dt>Pitch Shift [st.], Fine Tuning [cent]</dt>
-<dd>
-<p>Amount of pitch shift.</p>
-<p><code>Pitch Shift</code> is suitable to change large amount of pitch,
-and <code>Fine Tuning</code> is suitable to change small amount. The
-range of <code>Pitch Shift</code> is 1 octave, and the range of
-<code>Fine Tuning</code> is 10 cents.</p>
-</dd>
-<dt>Gain</dt>
-<dd>
-<p>Gain for each pitch shifter.</p>
-</dd>
-<dt>Time Multiplier</dt>
-<dd>
-<p>Buffer length for each pitch shifter. The value is relative to
-<code>Delay Time</code>.</p>
-</dd>
-<dt>HP Offset [oct.], LP Offset [oct.]</dt>
-<dd>
-<p>Highpass or lowpass filter cutoff frequency for each pitch shifter.
-The value is relative to the value of <code>HP</code> or
-<code>LP</code>.</p>
-</dd>
-</dl>
-<h3 id="lfo">LFO</h3>
-<dl>
-<dt>L-R Offset</dt>
-<dd>
-<p>LFO phase offset between stereo channels.</p>
-</dd>
-<dt>Phase</dt>
-<dd>
-<p>A value that is added to LFO phase.</p>
-<p>To manually control LFO phase, set <code>Rate</code> to leftmost to
-stop LFO, then change the value of <code>Phase</code>. Also, the value
-of <code>Smoothing</code> affects the response time when
-<code>Phase</code> is changed.</p>
-</dd>
-<dt>Sync.</dt>
-<dd>
-<p>When checked, it enables tempo synchronization (tempo sync). LFO
-phase also synchronize to the exact position derived from sync interval,
-and time passed from the start of playback.</p>
-<p>When not checked, LFO behaves as same as if synchronizing to 120 BPM.
-It also disables LFO phase sync.</p>
-</dd>
-<dt>Tempo Upper</dt>
-<dd>
-<p>Numerator of sync interval.</p>
-<p>LFO synchronizes to 1 bar when
-<code>(Tempo Upper) / (Tempo Lower)</code> is <code>1/1</code>.
-<code>1/4</code> synchronizes to 1 beat when time signature of
-<code>4/4</code>. Note that <code>Rate</code> multiplies the sync
-interval.</p>
-<p>Following is the equation to calculate sync interval.</p>
-<pre><code>syncInterval = (Rate) * (Tempo Upper) / (Tempo Lower);</code></pre>
-</dd>
-<dt>Tempo Lower</dt>
-<dd>
-<p>Denominator of sync interval.</p>
-<p>Note that <code>Rate</code> multiplies the sync interval.</p>
-</dd>
-<dt>Rate</dt>
-<dd>
-<p>Multiplier to sync interval.</p>
-<p><code>Rate</code> is convenient when changing sync interval while
-keeping the values of <code>Tempo Upper</code> and
-<code>Tempo Lower</code>.</p>
-</dd>
-<dt>Wave Interp.</dt>
-<dd>
-<p>LFO wave form interpolation method.</p>
-<ul>
-<li><code>Step</code>: Holding.</li>
-<li><code>Linear</code>: Linear interpolation.</li>
-<li><code>PCHIP</code>: Monotonic cubic interpolation.</li>
-</ul>
-<p><code>Step</code> makes LFO to act like a sequencer.
-<code>Linear</code> sounds similar to <code>PCHIP</code>, and the
-computation cost is lower. <code>PCHIP</code> is the most smooth among
-all 3.</p>
-</dd>
-<dt>LFO Wave</dt>
-<dd>
-<p>LFO waveform.</p>
-</dd>
-<dt>Smoothing [s]</dt>
-<dd>
-<p>Paramter smoothing time in seconds.</p>
-<p>For example, if the value of <code>Smoothing</code> is set to
-<code>0.01</code> or something short, the change of parameter almost
-immediately applies. So it sounds more snappy, but may introduce audible
-pop noise. On the other hand, if the value of <code>Smoothing</code> is
-set to <code>1.0</code> for example, the change of parameter is only
-slowly followed.</p>
-</dd>
-</dl>
-<h2 id="change-log">Change Log</h2>
-<ul>
-<li>0.1.5
-<ul>
-<li>Fixed GUI on Linux.</li>
-</ul></li>
-<li>0.1.4
-<ul>
-<li>Changed to include presets in plugin zip package.</li>
-<li>Fixed a bug that invalid <code>style.json</code> crashes
-plugin.</li>
-</ul></li>
-<li>0.1.3
-<ul>
-<li>Changed default style color of <code>foregroundInactive</code>.</li>
-<li>Fixed performance drop caused by subnormal floating point
-numbers.</li>
-</ul></li>
-<li>0.1.2
-<ul>
-<li>Added presets.</li>
-<li>Fixed crash on Renoise. Previous code was trying to access freed
-memory of GUI widgets, and it was causing the crash.</li>
-</ul></li>
-<li>0.1.1
-<ul>
-<li>Fixed stuttering on Audacity where <code>processContext</code> is
-<code>nullptr</code>.</li>
-</ul></li>
-<li>0.1.0
-<ul>
-<li>Updated splash screen text.</li>
-<li>Changed GUI.</li>
-</ul></li>
-<li>0.0.1
-<ul>
-<li>Initial release.</li>
-</ul></li>
-</ul>
-<h2 id="old-versions">Old Versions</h2>
-<ul>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/ParallelDetune_0.1.4.zip">ParallelDetune
-0.1.4 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/ParallelDetune_0.1.3.zip">ParallelDetune
-0.1.3 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ParallelDetune_0.1.2.zip">ParallelDetune
-0.1.2 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/ParallelDetune_0.1.1.zip">ParallelDetune
-0.1.1 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/ParallelDetune_0.1.0.zip">ParallelDetune
-0.1.0 - VST 3 (github.com)</a></li>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/ParallelDetune_0.0.1.zip">ParallelDetune
-0.0.1 - VST 3 (github.com)</a></li>
-</ul>
-<h2 id="license">License</h2>
-<p>ParallelDetune is licensed under GPLv3. Complete licenses are linked
-below.</p>
-<ul>
-<li><a
-href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
-</ul>
-<p>If the link above doesn’t work, please send email to
-<code>ryukau@gmail.com</code>.</p>
-<h3 id="about-vst">About VST</h3>
-<p>VST is a trademark of Steinberg Media Technologies GmbH, registered
-in Europe and other countries.</p>
+  <h3 id="font-options"><a href="#font-options" class="header-anchor"
+  aria-hidden="true">Font Options</a></h3>
+  <p>Following is a list of font options.</p>
+  <ul>
+  <li><code>fontFamily</code>: Font family name.</li>
+  <li><code>fontBold</code>: Enable <strong>bold</strong> style when
+  <code>true</code>, disable when <code>false</code>.</li>
+  <li><code>fontItalic</code>: Enable <em>italic</em> style when
+  <code>true</code>, disable when <code>false</code>.</li>
+  </ul>
+  <p>To use custom font, place <code>*.ttf</code> file into custom font
+  path: <code>*.vst3/Contents/Resources/Fonts</code>.</p>
+  <p><strong>Notice</strong>: If the combination of
+  <code>fontFamily</code>, <code>fontBold</code>,
+  <code>fontItalic</code> is not exists in custom font path, default
+  font of VSTGUI is used.</p>
+  <p>If <code>fontFamily</code> is set to empty string <code>""</code>,
+  then <a
+  href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
+  is used as fallback. If the length is greater than 1 and the font
+  family name doesn’t exists, default font of VSTGUI is used.</p>
+  <p>Styles other than bold, italic or bold-italic are not supported by
+  VSTGUI. For example, “Thin”, “Light”, “Medium”, and “Black” weights
+  cannot be used.</p>
+  <h3 id="color-options"><a href="#color-options" class="header-anchor"
+  aria-hidden="true">Color Options</a></h3>
+  <p>Hex color codes are used.</p>
+  <ul>
+  <li>6 digit color is RGB.</li>
+  <li>8 digit color is RGBA.</li>
+  </ul>
+  <p>First letter <code>#</code> is conventional. Plugins ignore the
+  first letter of color code, thus <code>?102938</code>,
+  <code>\n11335577</code> are valid.</p>
+  <p>Do not use characters outside of <code>0-9a-f</code> for color
+  value.</p>
+  <p>Following is a list of color options. If an option is missing,
+  default color will be used.</p>
+  <ul>
+  <li><code>foreground</code>: Text color.</li>
+  <li><code>foregroundButtonOn</code>: Text color of active toggle
+  button. Recommend to use the same value of <code>foreground</code> or
+  <code>boxBackground</code>.</li>
+  <li><code>foregroundInactive</code>: Text color of inactive
+  components. Currently, only used for TabView.</li>
+  <li><code>background</code>: Background color.</li>
+  <li><code>boxBackground</code>: Background color of inside of box
+  shaped components (Barbox, Button, Checkbox, OptionMenu, TextKnob,
+  VSlider).</li>
+  <li><code>border</code>: Border color of box shaped components.</li>
+  <li><code>borderCheckbox</code>: Border color of CheckBox.</li>
+  <li><code>borderLabel</code>: Line color of parameter section
+  label.</li>
+  <li><code>unfocused</code>: Color to fill unfocused components.
+  Currently, only used for knobs.</li>
+  <li><code>highlightMain</code>: Color to indicate focus is on a
+  component. Highlight colors are also used for value of slider
+  components (BarBox and VSlider).</li>
+  <li><code>highlightAccent</code>: Same as <code>highlightMain</code>.
+  Used for cosmetics.</li>
+  <li><code>highlightButton</code>: Color to indicate focus is on a
+  button.</li>
+  <li><code>highlightWarning</code>: Same as <code>highlightMain</code>,
+  but only used for parameters which requires extra caution.</li>
+  <li><code>overlay</code>: Overlay color. Used to overlay texts and
+  indicators.</li>
+  <li><code>overlayHighlight</code>: Overlay color to highlight current
+  focus.</li>
+  </ul>
+  <h2 id="controls"><a href="#controls" class="header-anchor"
+  aria-hidden="true">Controls</a></h2>
+  <p><kbd>Right Click</kbd> on the controls pops up a context menu
+  provided by DAW.</p>
+  <p>Knob and slider provides following controls:</p>
+  <ul>
+  <li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
+  <li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
+  <li><kbd>Middle Click</kbd> : Rotate through minimum, default and
+  maximum value.</li>
+  <li><kbd>Shift</kbd> + <kbd>Middle Click</kbd> : Take floor of current
+  value.
+  <ul>
+  <li><strong>Note</strong>: For decibel (<code>dB</code>) parameters,
+  floor is applied after the value is converted to amplitude.</li>
+  </ul></li>
+  </ul>
+  <p>Control with many blue vertical bars (BarBox) have some keyboard
+  shortcuts. Shortcuts are enabled after left clicking BarBox and mouse
+  cursor is on the inside of BarBox.</p>
+  <table>
+  <colgroup>
+  <col style="width: 62%" />
+  <col style="width: 37%" />
+  </colgroup>
+  <thead>
+  <tr class="header">
+  <th>Input</th>
+  <th>Control</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="odd">
+  <td><kbd>Left Drag</kbd></td>
+  <td>Change Value</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>Shift</kbd> + <kbd>Left Drag</kbd></td>
+  <td>Change Value (Snapped)</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>Ctrl</kbd> + <kbd>Left Drag</kbd></td>
+  <td>Reset to Default</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Left Drag</kbd></td>
+  <td>Change Value (Skip Between Frames)</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>Middle Drag</kbd></td>
+  <td>Draw Line</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>Shift</kbd> + <kbd>Middle Drag</kbd></td>
+  <td>Edit One Bar</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>Ctrl</kbd> + <kbd>Middle Drag</kbd></td>
+  <td>Reset to Default</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Middle Drag</kbd></td>
+  <td>Toggle Lock</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>a</kbd></td>
+  <td>Alternate Sign</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>d</kbd></td>
+  <td>Reset Everything to Default</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>D</kbd></td>
+  <td>Toggle Min/Mid/Max</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>e</kbd></td>
+  <td>Emphasize Low</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>E</kbd></td>
+  <td>Emphasize High</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>f</kbd></td>
+  <td>Low-pass Filter</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>F</kbd></td>
+  <td>High-pass Filter</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>i</kbd></td>
+  <td>Invert Value (Preserve minimum)</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>I</kbd></td>
+  <td>Invert Value (Minimum to 0)</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>l</kbd></td>
+  <td>Toggle Lock under Mouse Cursor</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>L</kbd></td>
+  <td>Toggle Lock for All</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>n</kbd></td>
+  <td>Normalize (Preserve minimum)</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>N</kbd></td>
+  <td>Normalize (Minimum to 0)</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>p</kbd></td>
+  <td>Permute</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>r</kbd></td>
+  <td>Randomize</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>R</kbd></td>
+  <td>Sparse Randomize</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>s</kbd></td>
+  <td>Sort Descending Order</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>S</kbd></td>
+  <td>Sort Ascending Order</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>t</kbd></td>
+  <td>Subtle Randomize (Random walk)</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>T</kbd></td>
+  <td>Subtle Randomize (Converge to 0)</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>z</kbd></td>
+  <td>Undo</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>Z</kbd></td>
+  <td>Redo</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>,</kbd> (Comma)</td>
+  <td>Rotate Back</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>.</kbd> (Period)</td>
+  <td>Rotate Forward</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>1</kbd></td>
+  <td>Decrease</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>2</kbd>-<kbd>4</kbd></td>
+  <td>Decrease 2n-4n</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>5</kbd>-<kbd>9</kbd></td>
+  <td>Decimate by holding 2n-5n</td>
+  </tr>
+  </tbody>
+  </table>
+  <p>Snapping is not available for all BarBox. If you’d like to have
+  snapping for certain BarBox, feel free to open issue to <a
+  href="https://github.com/ryukau/VSTPlugins">GitHub repository</a>.</p>
+  <p>Edit One Bar with <kbd>Shift</kbd> + <kbd>Right Drag</kbd> holds a
+  bar under the cursor when mouse right button is pressed. Then only
+  changes that one bar while holding down mouse right button.</p>
+  <p>Toggle Lock with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Right
+  Drag</kbd> behaves as line edit. When right mouse button (RMB) is
+  pressed, it holds the opposite state of the bar below mouse cursor,
+  then use the state for the rest of bars. For example, if RMB is
+  pressed on a locked bar, dragging unlocks bars while holding down
+  RMB.</p>
+  <p>Some BarBox has scroll bar to zoom in. Scroll bar has handles on
+  left end and right end. To control zoom, use <kbd>Left Drag</kbd> on
+  one of the handle. Scroll bar also has following controls:</p>
+  <ul>
+  <li><kbd>Right Click</kbd> : Reset zoom.</li>
+  <li><kbd>Mouse Wheel</kbd> : Zoom in/out.</li>
+  </ul>
+  <h2 id="block-diagram"><a href="#block-diagram" class="header-anchor"
+  aria-hidden="true">Block Diagram</a></h2>
+  <p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd>
+  or “View Image” on right click menu to scale.</p>
+  <p>Diagram only shows overview. It’s not exact implementation.</p>
+  <p><img src="img/ParallelDetune.svg" /></p>
+  <h2 id="note-event-input"><a href="#note-event-input"
+  class="header-anchor" aria-hidden="true">Note Event Input</a></h2>
+  <p>ParallelDetune can receive note events to control pitch shift
+  amount.</p>
+  <h2 id="parameters"><a href="#parameters" class="header-anchor"
+  aria-hidden="true">Parameters</a></h2>
+  <p>Characters inside of square brackets [] represents unit. Following
+  is a list of units used in ParallelDetune.</p>
+  <ul>
+  <li>[s]: second.</li>
+  <li>[oct.]: octave.</li>
+  <li>[st.]: semitone.</li>
+  <li>[cent]: 1/100 of a semitone.</li>
+  </ul>
+  <h3 id="shifter"><a href="#shifter" class="header-anchor"
+  aria-hidden="true">Shifter</a></h3>
+  <dl>
+  <dt>Dry</dt>
+  <dd>
+  <p>Gain for bypassing input signal.</p>
+  </dd>
+  <dt>Wet</dt>
+  <dd>
+  <p>Gain for output signal comes out from ParallelDetune.</p>
+  </dd>
+  <dt>Feedback</dt>
+  <dd>
+  <p>Pitch shifter feedback gain.</p>
+  </dd>
+  <dt>HP, LP</dt>
+  <dd>
+  <p>Cutoff frequency of highpass (<code>HP</code>) or lowpass
+  (<code>LP</code>) filter on feedback path.</p>
+  </dd>
+  <dt>Delay Time [s]</dt>
+  <dd>
+  <p>Buffer length of pitch shifter. The value is not exact, but a rough
+  indication.</p>
+  <p>When the value of <code>Shift \[oct.\]</code> is not 0.0, delay
+  time is doesn’t match the displayed value because of the change of
+  buffer playback speed.</p>
+  <p>LFO can be applied by turning the knob on the right side of number
+  slider.</p>
+  </dd>
+  <dt>Transpose [st.]</dt>
+  <dd>
+  <p>Pitch shift amount used for all the pitch shifters.</p>
+  <p>This might be convenient when changing all the pitch shift at
+  once.</p>
+  <p>LFO can be applied by turning the knob on the right side of number
+  slider.</p>
+  </dd>
+  <dt>Pan. Spread</dt>
+  <dd>
+  <p>Amount of stereo spread.</p>
+  <p>When <code>Pan. Spread</code> is 0.0, left and right channels are
+  processed without affecting other. When <code>Pan. Spread</code> is
+  1.0, the output of the pitch shifters with same index on left and
+  right channel are summed, then stereo panning is applied from left to
+  right in order from lowest index to highest.</p>
+  <p>When LFO is applied, it rotates the pan. Note that waveform of LFO
+  is fixed to sine wave for <code>Pan. Spread</code>.</p>
+  <p>Tremolo can be used in combination of <code>Pan. Spread</code> to
+  add character to stereo spread.</p>
+  </dd>
+  <dt>Tremolo Mix, Tremolo Lean</dt>
+  <dd>
+  <p>Tremolo parameters.</p>
+  <p>Tremolo is disabled when <code>Tremolo Lean</code> is set to 12
+  o’clock, or <code>Tremolo Mix</code> is set to leftmost.</p>
+  <p>Tremolo is fully applied when <code>Tremolo Lean</code> is set to
+  leftmost or rightmost, and <code>Tremolo Mix</code> is set to
+  rightmost.</p>
+  <p>When <code>Pan. Spread</code> is not 0.0, stereo image leans left
+  or right depending on the value of <code>Tremolo Lean</code>.</p>
+  </dd>
+  <dt>Pitch Shift [st.], Fine Tuning [cent]</dt>
+  <dd>
+  <p>Amount of pitch shift.</p>
+  <p><code>Pitch Shift</code> is suitable to change large amount of
+  pitch, and <code>Fine Tuning</code> is suitable to change small
+  amount. The range of <code>Pitch Shift</code> is 1 octave, and the
+  range of <code>Fine Tuning</code> is 10 cents.</p>
+  </dd>
+  <dt>Gain</dt>
+  <dd>
+  <p>Gain for each pitch shifter.</p>
+  </dd>
+  <dt>Time Multiplier</dt>
+  <dd>
+  <p>Buffer length for each pitch shifter. The value is relative to
+  <code>Delay Time</code>.</p>
+  </dd>
+  <dt>HP Offset [oct.], LP Offset [oct.]</dt>
+  <dd>
+  <p>Highpass or lowpass filter cutoff frequency for each pitch shifter.
+  The value is relative to the value of <code>HP</code> or
+  <code>LP</code>.</p>
+  </dd>
+  </dl>
+  <h3 id="lfo"><a href="#lfo" class="header-anchor"
+  aria-hidden="true">LFO</a></h3>
+  <dl>
+  <dt>L-R Offset</dt>
+  <dd>
+  <p>LFO phase offset between stereo channels.</p>
+  </dd>
+  <dt>Phase</dt>
+  <dd>
+  <p>A value that is added to LFO phase.</p>
+  <p>To manually control LFO phase, set <code>Rate</code> to leftmost to
+  stop LFO, then change the value of <code>Phase</code>. Also, the value
+  of <code>Smoothing</code> affects the response time when
+  <code>Phase</code> is changed.</p>
+  </dd>
+  <dt>Sync.</dt>
+  <dd>
+  <p>When checked, it enables tempo synchronization (tempo sync). LFO
+  phase also synchronize to the exact position derived from sync
+  interval, and time passed from the start of playback.</p>
+  <p>When not checked, LFO behaves as same as if synchronizing to 120
+  BPM. It also disables LFO phase sync.</p>
+  </dd>
+  <dt>Tempo Upper</dt>
+  <dd>
+  <p>Numerator of sync interval.</p>
+  <p>LFO synchronizes to 1 bar when
+  <code>(Tempo Upper) / (Tempo Lower)</code> is <code>1/1</code>.
+  <code>1/4</code> synchronizes to 1 beat when time signature of
+  <code>4/4</code>. Note that <code>Rate</code> multiplies the sync
+  interval.</p>
+  <p>Following is the equation to calculate sync interval.</p>
+  <pre><code>syncInterval = (Rate) * (Tempo Upper) / (Tempo Lower);</code></pre>
+  </dd>
+  <dt>Tempo Lower</dt>
+  <dd>
+  <p>Denominator of sync interval.</p>
+  <p>Note that <code>Rate</code> multiplies the sync interval.</p>
+  </dd>
+  <dt>Rate</dt>
+  <dd>
+  <p>Multiplier to sync interval.</p>
+  <p><code>Rate</code> is convenient when changing sync interval while
+  keeping the values of <code>Tempo Upper</code> and
+  <code>Tempo Lower</code>.</p>
+  </dd>
+  <dt>Wave Interp.</dt>
+  <dd>
+  <p>LFO wave form interpolation method.</p>
+  <ul>
+  <li><code>Step</code>: Holding.</li>
+  <li><code>Linear</code>: Linear interpolation.</li>
+  <li><code>PCHIP</code>: Monotonic cubic interpolation.</li>
+  </ul>
+  <p><code>Step</code> makes LFO to act like a sequencer.
+  <code>Linear</code> sounds similar to <code>PCHIP</code>, and the
+  computation cost is lower. <code>PCHIP</code> is the most smooth among
+  all 3.</p>
+  </dd>
+  <dt>LFO Wave</dt>
+  <dd>
+  <p>LFO waveform.</p>
+  </dd>
+  <dt>Smoothing [s]</dt>
+  <dd>
+  <p>Paramter smoothing time in seconds.</p>
+  <p>For example, if the value of <code>Smoothing</code> is set to
+  <code>0.01</code> or something short, the change of parameter almost
+  immediately applies. So it sounds more snappy, but may introduce
+  audible pop noise. On the other hand, if the value of
+  <code>Smoothing</code> is set to <code>1.0</code> for example, the
+  change of parameter is only slowly followed.</p>
+  </dd>
+  </dl>
+  <h2 id="change-log"><a href="#change-log" class="header-anchor"
+  aria-hidden="true">Change Log</a></h2>
+  <ul>
+  <li>0.1.5
+  <ul>
+  <li>Fixed GUI on Linux.</li>
+  </ul></li>
+  <li>0.1.4
+  <ul>
+  <li>Changed to include presets in plugin zip package.</li>
+  <li>Fixed a bug that invalid <code>style.json</code> crashes
+  plugin.</li>
+  </ul></li>
+  <li>0.1.3
+  <ul>
+  <li>Changed default style color of
+  <code>foregroundInactive</code>.</li>
+  <li>Fixed performance drop caused by subnormal floating point
+  numbers.</li>
+  </ul></li>
+  <li>0.1.2
+  <ul>
+  <li>Added presets.</li>
+  <li>Fixed crash on Renoise. Previous code was trying to access freed
+  memory of GUI widgets, and it was causing the crash.</li>
+  </ul></li>
+  <li>0.1.1
+  <ul>
+  <li>Fixed stuttering on Audacity where <code>processContext</code> is
+  <code>nullptr</code>.</li>
+  </ul></li>
+  <li>0.1.0
+  <ul>
+  <li>Updated splash screen text.</li>
+  <li>Changed GUI.</li>
+  </ul></li>
+  <li>0.0.1
+  <ul>
+  <li>Initial release.</li>
+  </ul></li>
+  </ul>
+  <h2 id="old-versions"><a href="#old-versions" class="header-anchor"
+  aria-hidden="true">Old Versions</a></h2>
+  <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/ParallelDetune_0.1.4.zip">ParallelDetune
+  0.1.4 - VST 3 (github.com)</a></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/ParallelDetune_0.1.3.zip">ParallelDetune
+  0.1.3 - VST 3 (github.com)</a></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ParallelDetune_0.1.2.zip">ParallelDetune
+  0.1.2 - VST 3 (github.com)</a></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/ParallelDetune_0.1.1.zip">ParallelDetune
+  0.1.1 - VST 3 (github.com)</a></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/ParallelDetune_0.1.0.zip">ParallelDetune
+  0.1.0 - VST 3 (github.com)</a></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/ParallelDetune_0.0.1.zip">ParallelDetune
+  0.0.1 - VST 3 (github.com)</a></li>
+  </ul>
+  <h2 id="license"><a href="#license" class="header-anchor"
+  aria-hidden="true">License</a></h2>
+  <p>ParallelDetune is licensed under GPLv3. Complete licenses are
+  linked below.</p>
+  <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+  </ul>
+  <p>If the link above doesn’t work, please send email to
+  <code>ryukau@gmail.com</code>.</p>
+  <h3 id="about-vst"><a href="#about-vst" class="header-anchor"
+  aria-hidden="true">About VST</a></h3>
+  <p>VST is a trademark of Steinberg Media Technologies GmbH, registered
+  in Europe and other countries.</p>
 
-<footer>
-    <p><a href="../../index.html">Back to Index</a></p>
-  </footer>
-</body>
+  <footer>
+        <p><a href="../../index.html">Back to Index</a></p>
+      </footer>
+  </body>
 
 </html>

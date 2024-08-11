@@ -6,7 +6,7 @@ For details, see GUI Style Configuration section on `docs/manual/common/contact_
 
 - [VSTPlugins/contact_installation_guiconfig_en.md at master · ryukau/VSTPlugins](https://github.com/ryukau/VSTPlugins/blob/master/docs/manual/common/contact_installation_guiconfig_en.md#gui-style-configuration)
 
-Default `style.json` is `LightOnDark.json`.
+Default `style.json` is `BlackOnWhite.json`.
 
 ## Color Config Source Code
 This section describes how to modify source code to add/change colors. Source code is available on following link.

@@ -1,0 +1,17 @@
+{
+  "foreground"        : "#dfdfdf"  ,
+  "foregroundButtonOn": "#dfdfdf"  ,
+  "foregroundInactive": "#777777"  ,
+  "background"        : "#202020"  ,
+  "boxBackground"     : "#202020"  ,
+  "border"            : "#dfdfdf"  ,
+  "borderCheckbox"    : "#dfdfdf"  ,
+  "borderLabel"       : "#dfdfdf"  ,
+  "unfocused"         : "#393939"  ,
+  "highlightMain"     : "#d6642a"  ,
+  "highlightAccent"   : "#d04eb6"  ,
+  "highlightButton"   : "#224fa3"  ,
+  "highlightWarning"  : "#227f7f"  ,
+  "overlay"           : "#dfdfdf88",
+  "overlayHighlight"  : "#df20df33"
+}

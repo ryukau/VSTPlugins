@@ -1,7 +1,7 @@
-Control with many blue vertical bars (BarBox) have some keyboard shortcuts. `LFO Wave` on Main tab and `Gain`, `Width`, `Pitch`, `Phase` on Wavetable tab are using BarBox. Shortcuts are enabled after left clicking BarBox and mouse cursor is on the inside of BarBox. Cheat sheet is available on Infomation tab.
+Control with many blue vertical bars (BarBox) have some keyboard shortcuts. Shortcuts are enabled after left clicking BarBox and mouse cursor is on the inside of BarBox.
 
 | Input                                                       | Control                            |
-| ----------------------------------------------------------- | ---------------------------------- |
+|-------------------------------------------------------------|------------------------------------|
 | <kbd>Left Drag</kbd>                                        | Change Value                       |
 | <kbd>Shift</kbd> + <kbd>Left Drag</kbd>                     | Change Value (Snapped)             |
 | <kbd>Ctrl</kbd> + <kbd>Left Drag</kbd>                      | Reset to Default                   |

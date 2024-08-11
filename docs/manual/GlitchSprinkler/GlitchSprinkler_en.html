@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2024-08-11" />
+      <title>GlitchSprinkler_en – Uhhyou Plugins</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
+  <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
+  <style>
+    :root {
+      --foreground-color: #000000;
+      --background-color: #ffffff;
+      --link-color: #0000ee;
+      --link-visited-color: #551a8b;
+      --link-active-color: #ff0000;
+      --link-hover-background-color: #ffe590;
+      --border-dark-color: #444444;
+      --border-color: #888888;
+      --border-light-color: #bbbbbb;
+      --table-odd-color: #eeeeee;
+      --code-inline-color: #705020;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --foreground-color: #dfdfdf;
+        --background-color: #202020;
+        --link-color: #dfdf2c;
+        --link-visited-color: #9fcb76;
+        --link-active-color: #20dfdf;
+        --link-hover-background-color: #203373;
+        --border-dark-color: #acacac;
+        --border-color: #797979;
+        --border-light-color: #525252;
+        --table-odd-color: #2c2c2c;
+        --code-inline-color: #8ba3c7;
+      }
+
+      img:not(.staySameInDark) {
+        filter: invert(0.8745);
+      }
+
+      h1::after {
+        filter: invert(0.8745);
+      }
+    }
+
+    body {
+      max-width: 704px;
+      margin: auto;
+      padding: 32px 8px;
+      color: var(--foreground-color);
+      background-color: var(--background-color);
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    video {
+      max-width: 100%;
+    }
+
+    details.list>summary {
+      line-height: 3em;
+    }
+
+    kbd {
+      font-family: inherit;
+      border-style: outset;
+      border-width: 1px 2px 2px 1px;
+      border-radius: 2px;
+      padding: 2px 4px;
+      margin: 2px;
+      line-height: calc(1em + 16px);
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:hover {
+      background-color: var(--link-hover-background-color);
+    }
+
+    :link {
+      color: var(--link-color);
+    }
+
+    :visited {
+      color: var(--link-visited-color);
+    }
+
+    :link:active,
+    :visited:active {
+      color: var(--link-active-color);
+    }
+
+    .header-anchor:hover {
+      color: var(--link-color);
+    }
+
+    :is(h1, h2, h3, h4, h5, h6)>:is(a:link, a:visited, a:link:active, a:visited:active) {
+      color: var(--foreground-color);
+    }
+
+    h1 {
+      padding-left: 8px;
+      vertical-align: middle;
+    }
+
+    h1::after {
+      display: inline-block;
+      content: url('../../img/favicon/favicon.svg');
+      zoom: 0.5;
+      vertical-align: middle;
+      margin-left: 4rem;
+    }
+
+    h2 {
+      border-bottom: 1px solid var(--border-dark-color);
+    }
+
+    h3 {
+      text-decoration: underline var(--border-light-color);
+      text-underline-offset: 0.5rem;
+    }
+
+    h4 {
+      text-decoration: underline dashed var(--border-light-color);
+      text-underline-offset: 0.5rem;
+      margin-bottom: 0.5em;
+    }
+
+    h5 {
+      margin-bottom: 0.5em;
+    }
+
+    h6 {
+      margin-bottom: 0.5em;
+    }
+
+    table {
+      border-spacing: 0px;
+      border-collapse: separate;
+      border-left: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      border-top: 1px solid var(--border-color);
+      border-bottom: hidden;
+    }
+
+    tr:nth-child(odd) {
+      background: var(--table-odd-color);
+    }
+
+    tr:nth-child(even) {
+      background: var(--background-color);
+    }
+
+    th {
+      height: 2em;
+      padding: 4px 1em 4px 1em;
+      background: var(--background-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th:not(:first-child) {
+      border-left: 1px solid var(--border-color);
+    }
+
+    td {
+      height: 1.5em;
+      padding: 4px 1em 4px 1em;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    td:not(:first-child) {
+      border-left: 1px solid var(--border-color);
+    }
+
+    dl {
+      padding-left: 2em;
+    }
+
+    dt {
+      font-weight: bold;
+      border-bottom: 1px dashed var(--foreground-color);
+    }
+
+    dd {
+      border-left: 1px dotted var(--foreground-color);
+      margin-left: 1em;
+      margin-bottom: 2em;
+      padding-left: 1em;
+    }
+
+    audio {
+      vertical-align: middle;
+    }
+
+    label {
+      vertical-align: middle;
+    }
+
+    :not(.sourceCode)>pre {
+      overflow: auto;
+      border: 1px solid var(--border-color);
+      padding: 8px;
+    }
+
+    div.sourceCode {
+      overflow: auto;
+      border: 1px solid var(--border-color);
+      padding: 8px;
+    }
+
+    pre>code.sourceCode>span>a:first-child::before {
+      border-right: 1px solid var(--border-color);
+      padding-right: 1em;
+      margin-right: 1em;
+      text-decoration: none;
+    }
+
+    :not(pre)>code {
+      margin-left: 0.25em;
+      margin-right: 0.25em;
+      color: var(--code-inline-color);
+    }
+
+    li {
+      margin: 8px;
+    }
+
+    summary:hover {
+      background-color: var(--table-odd-color);
+    }
+
+    header {
+      border-bottom: 1px var(--border-color) solid;
+      padding: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    footer {
+      border-top: 1px var(--border-color) solid;
+      padding: 0.5em;
+      margin-top: 1em;
+    }
+
+    code {
+      white-space: pre-wrap;
+    }
+
+    span.smallcaps {
+      font-variant: small-caps;
+    }
+
+    span.underline {
+      text-decoration: underline;
+    }
+
+    div.column {
+      display: inline-block;
+      vertical-align: top;
+      width: 50%;
+    }
+  </style>
+      </head>
+
+<body>
+    <header>
+        <p><a href="../../index.html">Back to Index</a></p>
+            <p>
+      Update: 2024-08-11
+    </p>
+            <details>
+      <summary translate="yes">Table of Contents</summary>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#glitchsprinkler"
+        id="toc-glitchsprinkler">GlitchSprinkler</a>
+        <ul>
+        <li><a href="#contact" id="toc-contact">Contact</a></li>
+        <li><a href="#installation"
+        id="toc-installation">Installation</a>
+        <ul>
+        <li><a href="#plugin" id="toc-plugin">Plugin</a></li>
+        <li><a href="#presets" id="toc-presets">Presets</a></li>
+        <li><a href="#windows-specific"
+        id="toc-windows-specific">Windows Specific</a></li>
+        <li><a href="#linux-specific" id="toc-linux-specific">Linux
+        Specific</a></li>
+        <li><a href="#macos-specific" id="toc-macos-specific">macOS
+        Specific</a>
+        <ul>
+        <li><a href="#remove-quarantine"
+        id="toc-remove-quarantine">Remove Quarantine</a></li>
+        <li><a href="#bypass-gatekeeper"
+        id="toc-bypass-gatekeeper">Bypass Gatekeeper</a></li>
+        <li><a href="#applying-codesign"
+        id="toc-applying-codesign">Applying
+        <code>codesign</code></a></li>
+        <li><a href="#reference" id="toc-reference">Reference</a></li>
+        </ul></li>
+        </ul></li>
+        <li><a href="#gui-style-configuration"
+        id="toc-gui-style-configuration">GUI Style Configuration</a>
+        <ul>
+        <li><a href="#font-options" id="toc-font-options">Font
+        Options</a></li>
+        <li><a href="#color-options" id="toc-color-options">Color
+        Options</a></li>
+        </ul></li>
+        <li><a href="#controls" id="toc-controls">Controls</a></li>
+        <li><a href="#caution" id="toc-caution">Caution</a></li>
+        <li><a href="#mechanism-overview"
+        id="toc-mechanism-overview">Mechanism Overview</a></li>
+        <li><a href="#block-diagram" id="toc-block-diagram">Block
+        Diagram</a></li>
+        <li><a href="#parameters" id="toc-parameters">Parameters</a>
+        <ul>
+        <li><a href="#oscillator"
+        id="toc-oscillator">Oscillator</a></li>
+        <li><a href="#filter" id="toc-filter">Filter</a></li>
+        <li><a href="#waveform" id="toc-waveform">Waveform</a></li>
+        <li><a href="#arpeggio" id="toc-arpeggio">Arpeggio</a></li>
+        <li><a href="#unison" id="toc-unison">Unison</a></li>
+        </ul></li>
+        <li><a href="#change-log" id="toc-change-log">Change
+        Log</a></li>
+        <li><a href="#old-versions" id="toc-old-versions">Old
+        Versions</a></li>
+        <li><a href="#license" id="toc-license">License</a>
+        <ul>
+        <li><a href="#about-vst" id="toc-about-vst">About VST</a></li>
+        </ul></li>
+        </ul></li>
+        </ul>
+      </nav>
+    </details>
+      </header>
+  <h1 id="glitchsprinkler"><a href="#glitchsprinkler"
+  class="header-anchor" aria-hidden="true">GlitchSprinkler</a></h1>
+  <p><img src="img/GlitchSprinkler.png" /></p>
+  <p>GlitchSprinkler is a synthesizer specialized to play fast
+  arpeggios. It is using a cheap anti-aliasing trick that is to restrict
+  the oscillator period only to integer sample counts. This
+  anti-aliasing has a side effect to make the pitches out of tune,
+  especially at higher notes, which makes a unique texture.</p>
+  <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.62.0/GlitchSprinkler_0.1.0.zip">Download
+  GlitchSprinkler 0.1.0 <code>full</code> - VST 3 (github.com)</a> <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="30px"
+  style="display: inline-block; vertical-align: middle;"></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.62.0/GlitchSprinkler_0.1.0_macOS.zip">Download
+  GlitchSprinkler 0.1.0 <code>macOS</code> - VST 3 (github.com)</a> <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="30px"
+  style="display: inline-block; vertical-align: middle;"></li>
+  </ul>
+  <p><strong>Note</strong>: Presets produce the expected sound only if
+  the sampling rate is 48000 Hz.</p>
+  <p><code>full</code> package contains following builds.</p>
+  <ul>
+  <li>Windows (x86_64)</li>
+  <li>Linux (x86_64)</li>
+  <li>macOS (Universal 2)</li>
+  </ul>
+  <p>Linux build is built on Ubuntu 22.04. If you are using distribution
+  other than Ubuntu 22.04, plugin will not likely to run. In this case,
+  please take a look at <a
+  href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">build
+  instruction</a>.</p>
+  <p><code>macOS</code> package is recommended for macOS user. I can’t
+  purchase Apple Developer Program, therefore installation requires a
+  workaround to bypass Gatekeeper. Details of workaround are written in
+  <a href="#macos-specific">Installation -&gt; macOS Specific</a>
+  section.</p>
+  <h2 id="contact"><a href="#contact" class="header-anchor"
+  aria-hidden="true">Contact</a></h2>
+  <p>Feel free to contact me on <a
+  href="https://github.com/ryukau/VSTPlugins/commits/master">GitHub
+  repository</a> or <code>ryukau@gmail.com.</code></p>
+  <p>You can fund the development through <a
+  href="https://www.paypal.com/paypalme/ryukau">paypal.me/ryukau</a>.</p>
+  <h2 id="installation"><a href="#installation" class="header-anchor"
+  aria-hidden="true">Installation</a></h2>
+  <h3 id="plugin"><a href="#plugin" class="header-anchor"
+  aria-hidden="true">Plugin</a></h3>
+  <p>Move <code>*.vst3</code> directory to:</p>
+  <ul>
+  <li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
+  <li><code>$HOME/.vst3/</code> for Linux.</li>
+  <li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for
+  macOS.</li>
+  </ul>
+  <p>DAW may provides additional VST3 directory. For more information,
+  please refer to the manual of the DAW.</p>
+  <h3 id="presets"><a href="#presets" class="header-anchor"
+  aria-hidden="true">Presets</a></h3>
+  <p><strong>Notice</strong>: Some plugins don’t have presets provided
+  by Uhhyou Plugins.</p>
+  <p>Presets are included in the plugin package linked at the top of
+  this page. To install presets, follow the steps below.</p>
+  <ol type="1">
+  <li>Download plugin from a link at the top of this page.</li>
+  <li>Extract downloaded zip file.</li>
+  <li>Open <code>presets</code> directory placed in extracted
+  package.</li>
+  <li>Move <code>Uhhyou</code> directory into an OS specific preset
+  directory (see below).</li>
+  </ol>
+  <p>Below is a list of preset directories for each OS.</p>
+  <ul>
+  <li>Windows :
+  <code>/Users/$USERNAME/Documents/VST3 Presets</code></li>
+  <li>Linux : <code>$HOME/.vst3/presets</code></li>
+  <li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets</code></li>
+  </ul>
+  <p>Preset directory name must be the same as the plugin. If preset
+  directory does not exist, create it.</p>
+  <ul>
+  <li><a
+  href="https://steinbergmedia.github.io/vst3_dev_portal/pages/Technical+Documentation/Locations+Format/Preset+Locations.html">Preset
+  Locations - VST 3 Developer Portal</a></li>
+  </ul>
+  <h3 id="windows-specific"><a href="#windows-specific"
+  class="header-anchor" aria-hidden="true">Windows Specific</a></h3>
+  <p>If DAW doesn’t recognize the plugin, try installing C++
+  redistributable (<code>vc_redist.x64.exe</code>). Installer can be
+  found in the link below.</p>
+  <ul>
+  <li><a
+  href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The
+  latest supported Visual C++ downloads</a></li>
+  </ul>
+  <h3 id="linux-specific"><a href="#linux-specific"
+  class="header-anchor" aria-hidden="true">Linux Specific</a></h3>
+  <p>On Ubuntu 22.04, those packages are required.</p>
+  <div class="sourceCode" id="cb1"><pre
+  class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+  <p>If DAW doesn’t recognize the plugin, take a look at
+  <code>Package Requirements</code> section of the link below and make
+  sure all the VST3 related package is installed.</p>
+  <ul>
+  <li><a
+  href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI:
+  Setup</a></li>
+  </ul>
+  <p>REAPER on Linux may not recognize the plugin. A workaround is to
+  delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code>
+  and restart REAPER.</p>
+  <h3 id="macos-specific"><a href="#macos-specific"
+  class="header-anchor" aria-hidden="true">macOS Specific</a></h3>
+  <p><strong>Important</strong>: <code>full</code> package is not
+  confirmed working. When using <code>full</code>, try removing
+  following files.</p>
+  <ul>
+  <li><code>Contents/Resources/Documentation</code></li>
+  <li><code>Contents/x86_64-linux</code></li>
+  <li><code>Contents/x86_64-win</code></li>
+  </ul>
+  <p><code>macOS</code> package doesn’t contain above files. Also, all
+  packages are in “ad-hoc signing” state set by <code>codesign</code>
+  command.</p>
+  <h4 id="remove-quarantine"><a href="#remove-quarantine"
+  class="header-anchor" aria-hidden="true">Remove Quarantine</a></h4>
+  <p>When trying to run plugin first time, following message may appear
+  on macOS.</p>
+  <pre><code>&lt;PluginName&gt;.vst3 is damaged and can&#39;t be opened. You should move it to the Trash.</code></pre>
+  <p>In this case, open terminal and try running one or both of
+  following command to unzipped <code>.vst3</code> directory. Replace
+  <code>/path/to/PluginName.vst3</code> according to your install
+  location.</p>
+  <div class="sourceCode" id="cb3"><pre
+  class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rd</span> com.apple.quarantine /path/to/PluginName.vst3</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rc</span> /path/to/PluginName.vst3</span></code></pre></div>
+  <h4 id="bypass-gatekeeper"><a href="#bypass-gatekeeper"
+  class="header-anchor" aria-hidden="true">Bypass Gatekeeper</a></h4>
+  <p>Plugin may be considered as unsigned/un-notarized application. In
+  this case, open System Preferences, go to Security &amp; Privacy →
+  General, then click the Open Anyway button. The offcial Apple help
+  page linked below has screenshots for the procedure. See “If you want
+  to open an app that hasn’t been notarized or is from an unidentified
+  developer” section.</p>
+  <ul>
+  <li><a href="https://support.apple.com/en-us/HT202491">Safely open
+  apps on your Mac - Apple Support</a></li>
+  </ul>
+  <p>If the plugin is still not working, try changing install location
+  to <code>/Library/Audio/Plug-ins/VST3/</code> or
+  <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> whichever
+  still haven’t tried.</p>
+  <p>If all the above methods do not work, try following the steps
+  below.</p>
+  <ol type="1">
+  <li>Open terminal and run
+  <code>sudo spctl --master-disable</code>.</li>
+  <li>Go to System Preferences → Security and Privacy → General → Allow
+  apps downloaded from, then select “Anywhere”.</li>
+  </ol>
+  <p>Beware that steps above degrades security of your system. To revert
+  the settings, follow the steps below.</p>
+  <ol type="1">
+  <li>Go to System Preferences → Security and Privacy → General → Allow
+  apps downloaded from, then select option to “App Store and identified
+  developers”.</li>
+  <li>Open terminal and run
+  <code>sudo spctl --master-enable</code>.</li>
+  </ol>
+  <h4 id="applying-codesign"><a href="#applying-codesign"
+  class="header-anchor" aria-hidden="true">Applying
+  <code>codesign</code></a></h4>
+  <p><strong>Note</strong> This section may not relevant to
+  <code>macOS</code> packages. However it’s not verified. (<a
+  href="https://github.com/ryukau/VSTPlugins/issues/27">GitHub
+  issue</a>)</p>
+  <p>To use <code>full</code> package, following command might be
+  used.</p>
+  <div class="sourceCode" id="cb4"><pre
+  class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> codesign <span class="at">--force</span> <span class="at">--deep</span> <span class="at">-s</span> <span class="at">-</span> /path/to/PluginName.vst3</span></code></pre></div>
+  <p><code>codesign</code> might not be available without installing <a
+  href="https://developer.apple.com/xcode/">Xcode</a>.</p>
+  <h4 id="reference"><a href="#reference" class="header-anchor"
+  aria-hidden="true">Reference</a></h4>
+  <ul>
+  <li><a href="https://support.apple.com/en-us/HT202491">Safely open
+  apps on your Mac - Apple Support</a></li>
+  <li><a
+  href="https://stackoverflow.com/questions/66891065/libprism-sw-dylib-cannot-be-opened-because-the-developer-cannot-be-verified-o">java
+  - “libprism_sw.dylib” cannot be opened because the developer cannot be
+  verified. on mac JAVAFX - Stack Overflow</a></li>
+  <li><a
+  href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How
+  to Fix App “is damaged and can’t be opened. You should move it to the
+  Trash” Error on Mac</a></li>
+  <li><a
+  href="https://web.archive.org/web/20221223004334/https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
+  unsigned/un-notarized applications/plugins in Mac OS | Venn
+  Audio</a></li>
+  </ul>
+  <h2 id="gui-style-configuration"><a href="#gui-style-configuration"
+  class="header-anchor" aria-hidden="true">GUI Style
+  Configuration</a></h2>
+  <p>At first time, create color config file to:</p>
+  <ul>
+  <li><code>/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json</code>
+  on Windows.</li>
+  <li><code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> on
+  Linux.
+  <ul>
+  <li>If <code>$XDG_CONFIG_HOME</code> is empty, make
+  <code>$HOME/.config/UhhyouPlugins/style/style.json</code>.</li>
+  </ul></li>
+  <li><code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code>
+  on macOS.</li>
+  </ul>
+  <p><code>style.json</code> will be loaded for each time a plugin
+  window opens.</p>
+  <p>Several color themes are available on the link below.</p>
+  <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/tree/master/package/style/themes">VSTPlugins/package/style/themes
+  at master · ryukau/VSTPlugins</a></li>
+  </ul>
+  <p>Below is a example of <code>style.json</code>.</p>
+  <div class="sourceCode" id="cb5"><pre
+  class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontFamily&quot;</span><span class="fu">:</span> <span class="st">&quot;Tinos&quot;</span><span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontBold&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontItalic&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span><span class="fu">,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;background&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;boxBackground&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;border&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderCheckbox&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderLabel&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;unfocused&quot;</span><span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span><span class="fu">,</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightMain&quot;</span><span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span><span class="fu">,</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightAccent&quot;</span><span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span><span class="fu">,</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightButton&quot;</span><span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span><span class="fu">,</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+  <h3 id="font-options"><a href="#font-options" class="header-anchor"
+  aria-hidden="true">Font Options</a></h3>
+  <p>Following is a list of font options.</p>
+  <ul>
+  <li><code>fontFamily</code>: Font family name.</li>
+  <li><code>fontBold</code>: Enable <strong>bold</strong> style when
+  <code>true</code>, disable when <code>false</code>.</li>
+  <li><code>fontItalic</code>: Enable <em>italic</em> style when
+  <code>true</code>, disable when <code>false</code>.</li>
+  </ul>
+  <p>To use custom font, place <code>*.ttf</code> file into custom font
+  path: <code>*.vst3/Contents/Resources/Fonts</code>.</p>
+  <p><strong>Notice</strong>: If the combination of
+  <code>fontFamily</code>, <code>fontBold</code>,
+  <code>fontItalic</code> is not exists in custom font path, default
+  font of VSTGUI is used.</p>
+  <p>If <code>fontFamily</code> is set to empty string <code>""</code>,
+  then <a
+  href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
+  is used as fallback. If the length is greater than 1 and the font
+  family name doesn’t exists, default font of VSTGUI is used.</p>
+  <p>Styles other than bold, italic or bold-italic are not supported by
+  VSTGUI. For example, “Thin”, “Light”, “Medium”, and “Black” weights
+  cannot be used.</p>
+  <h3 id="color-options"><a href="#color-options" class="header-anchor"
+  aria-hidden="true">Color Options</a></h3>
+  <p>Hex color codes are used.</p>
+  <ul>
+  <li>6 digit color is RGB.</li>
+  <li>8 digit color is RGBA.</li>
+  </ul>
+  <p>First letter <code>#</code> is conventional. Plugins ignore the
+  first letter of color code, thus <code>?102938</code>,
+  <code>\n11335577</code> are valid.</p>
+  <p>Do not use characters outside of <code>0-9a-f</code> for color
+  value.</p>
+  <p>Following is a list of color options. If an option is missing,
+  default color will be used.</p>
+  <ul>
+  <li><code>foreground</code>: Text color.</li>
+  <li><code>foregroundButtonOn</code>: Text color of active toggle
+  button. Recommend to use the same value of <code>foreground</code> or
+  <code>boxBackground</code>.</li>
+  <li><code>foregroundInactive</code>: Text color of inactive
+  components. Currently, only used for TabView.</li>
+  <li><code>background</code>: Background color.</li>
+  <li><code>boxBackground</code>: Background color of inside of box
+  shaped components (Barbox, Button, Checkbox, OptionMenu, TextKnob,
+  VSlider).</li>
+  <li><code>border</code>: Border color of box shaped components.</li>
+  <li><code>borderCheckbox</code>: Border color of CheckBox.</li>
+  <li><code>borderLabel</code>: Line color of parameter section
+  label.</li>
+  <li><code>unfocused</code>: Color to fill unfocused components.
+  Currently, only used for knobs.</li>
+  <li><code>highlightMain</code>: Color to indicate focus is on a
+  component. Highlight colors are also used for value of slider
+  components (BarBox and VSlider).</li>
+  <li><code>highlightAccent</code>: Same as <code>highlightMain</code>.
+  Used for cosmetics.</li>
+  <li><code>highlightButton</code>: Color to indicate focus is on a
+  button.</li>
+  <li><code>highlightWarning</code>: Same as <code>highlightMain</code>,
+  but only used for parameters which requires extra caution.</li>
+  <li><code>overlay</code>: Overlay color. Used to overlay texts and
+  indicators.</li>
+  <li><code>overlayHighlight</code>: Overlay color to highlight current
+  focus.</li>
+  </ul>
+  <h2 id="controls"><a href="#controls" class="header-anchor"
+  aria-hidden="true">Controls</a></h2>
+  <p><kbd>Right Click</kbd> on the controls pops up a context menu
+  provided by DAW.</p>
+  <p>Knob and slider provides following controls:</p>
+  <ul>
+  <li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
+  <li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
+  <li><kbd>Middle Click</kbd> : Rotate through minimum, default and
+  maximum value.</li>
+  <li><kbd>Shift</kbd> + <kbd>Middle Click</kbd> : Take floor of current
+  value.
+  <ul>
+  <li><strong>Note</strong>: For decibel (<code>dB</code>) parameters,
+  floor is applied after the value is converted to amplitude.</li>
+  </ul></li>
+  </ul>
+  <h2 id="caution"><a href="#caution" class="header-anchor"
+  aria-hidden="true">Caution</a></h2>
+  <p>The pitch becomes more out of tune for higher notes. This is a side
+  effect of anti-aliasing used in GlitchSprinkler.</p>
+  <p>Direct current may appear. Setting <code>Safety Filter Mix</code>
+  to 1 applies a high-pass filter with -6 dB/oct slope. If the spike on
+  the transient is too large, it is recommended to use external
+  high-pass filter with steeper slope.</p>
+  <h2 id="mechanism-overview"><a href="#mechanism-overview"
+  class="header-anchor" aria-hidden="true">Mechanism Overview</a></h2>
+  <p>Note events come from MIDI channel 16 doesn’t make any sound.
+  Instead, those ch.16 notes change the pitch of incoming notes. Note
+  that the pitch of the notes can’t be changed when they are already
+  being played.</p>
+  <p>The modification of a note pitch is shown below. It is a
+  multiplication of the note number to a note frequency, which can be
+  used to play integer harmonic series.</p>
+  <pre><code>noteFrequency = baseFrequency * lastNoteNumberOnChannel16;</code></pre>
+  <h2 id="block-diagram"><a href="#block-diagram" class="header-anchor"
+  aria-hidden="true">Block Diagram</a></h2>
+  <p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd>
+  or “View Image” on right click menu to scale.</p>
+  <p>Diagram only shows overview. It’s not exact implementation.</p>
+  <p><img src="img/GlitchSprinkler.svg" /></p>
+  <h2 id="parameters"><a href="#parameters" class="header-anchor"
+  aria-hidden="true">Parameters</a></h2>
+  <p>Characters inside of square brackets [] represents unit. Following
+  is a list of units used in GlitchSprinkler.</p>
+  <ul>
+  <li>[dB] : Decibel.</li>
+  <li>[oct] : Octave.</li>
+  <li>[st.] : Ssemitone. 1 semitone is <code>1 / 12</code> octave.</li>
+  <li>[cent] : Cent. 1 cent is <code>1 / 100</code> semitone.</li>
+  </ul>
+  <h3 id="oscillator"><a href="#oscillator" class="header-anchor"
+  aria-hidden="true">Oscillator</a></h3>
+  <dl>
+  <dt>Output [dB]</dt>
+  <dd>
+  <p>Output gain.</p>
+  </dd>
+  <dt>Safety Filter Mix</dt>
+  <dd>
+  <p>Ratio between the direct output and the high-pass filtered output.
+  The value 1 means 100% high-pass filtered output.</p>
+  <p>This -6 dB/oct high-pass filter is used to remove direct current
+  (DC). When the DC is high, it may cause an amplitude spike at the
+  beginning of the sound (transient). In this case, it may be better to
+  switching to an external high-pass filter with steeper
+  attenuation.</p>
+  <p>Below is an overview of the signal flow:</p>
+  <pre><code>hp = highpass(input);
+output = input + (Safety Filter Mix) * (hp - input);</code></pre>
+  </dd>
+  <dt>Decay to [dB]</dt>
+  <dd>
+  <p>Target gain of the decay envelope after the minimum duration of a
+  note in the arpeggio.</p>
+  <p>The minimum duration of a note in the arpeggio depends on the tempo
+  specified on DAW, and the value of <code>Note / Beat</code>. The
+  formula is as follows:</p>
+  <pre><code>samplesPerBeat = 60 * sampleRate / tempo;
+noteDurationInSamples = samplesPerBeat / (`Note / Beat`);</code></pre>
+  </dd>
+  <dt>Polyphonic</dt>
+  <dd>
+  <p>Turn it on when playing chords. Turn it off when playing a
+  monophonic melody.</p>
+  <p>When turned on, up to 256 voices can be played simultaneously. When
+  turned off, <code>nVoice</code> in the <code>Unison</code> section
+  becomes the number of voices played simultaneously.</p>
+  </dd>
+  <dt>Release</dt>
+  <dd>
+  <p>When turned on, the envelope continues to decay even after the
+  note-off.</p>
+  <p>When turned off, the sound stops after the waveform completes the
+  current cycle after the note-off. If the pitch is low, the sound will
+  persist for a while, even when <code>Release</code> is turned off.</p>
+  <p>This is a switch similar to the sustain pedal on a piano.</p>
+  </dd>
+  <dt>Soft Envelope</dt>
+  <dd>
+  <p>When turned on, reduces pop noise at the beginning and end of the
+  sound.</p>
+  <p>The pop noise is especially noticeable when <code>Filter</code> is
+  on and at low pitches.</p>
+  </dd>
+  <dt>Octave</dt>
+  <dd>
+  <p>Transpose in octave.</p>
+  </dd>
+  <dt>Semitone</dt>
+  <dd>
+  <p>Transpose in semitone. <code>Tuning</code> changes the ratio of
+  semitone.</p>
+  </dd>
+  <dt>Cent</dt>
+  <dd>
+  <p>Transpose in cent. Unlike <code>Semitone</code>, <code>Cent</code>
+  always uses the ratio of 12 equal temperament.</p>
+  </dd>
+  <dt>Tuning</dt>
+  <dd>
+  <p>Musical tunings.</p>
+  <ul>
+  <li><code>ET N</code> : N equal temperament.</li>
+  <li><code>Just N</code> : N-limit tuning.
+  <ul>
+  <li><code>Just 5 Major</code> : So-called just intonation. Adjusted to
+  reduce the beat of +4 semitones.</li>
+  <li><code>Just 5 Minor</code> : So-called just intonation. Adjusted to
+  reduce the beat of +3 semitones.</li>
+  </ul></li>
+  <li><code>MT Pythagorean</code> : Pythagorean tuning.</li>
+  <li><code>MT 1/3 Comma</code> : 1 / 3 comma mean tone.</li>
+  <li><code>MT 1/4 Comma</code> : 1 / 4 comma mean tone.</li>
+  <li>Discrete
+  N<code>: 12-tone equal temperament with the sampling rate divided by</code>N`
+  as the center frequency.</li>
+  </ul>
+  <p>The pitches of the <code>Discrete</code> scales change
+  significantly depending on the sampling rate.</p>
+  <p><code>Discrete 2</code> has a similar pitch to <code>ET 12</code>
+  when transposed +1 semitone when the sampling rate is 48000 Hz.</p>
+  </dd>
+  <dt>Tuning Root [st.]</dt>
+  <dd>
+  <p>Root of non-equal temperament scales.</p>
+  <p>For example, suppose we have the following three-tone scale:</p>
+  <pre><code>[1, 5/4, 4/3]</code></pre>
+  <p>When <code>Tuning Root</code> is 0, the above scale is used as
+  is.</p>
+  <p>When <code>Tuning Root</code> is 1, the above scale is shifted to
+  the left by 1, then it is wrapped around to an octave.</p>
+  <pre><code>   [           1,            5/4,         4/3]
+-&gt; [         5/4,            4/3,           1] // Left shift.
+-&gt; [(5/4) / (4/5), (4/3) / (4/5), (1) / (4/5)] // Divide all the values with the leftmost ratio.
+-&gt; [            1,         16/15,         4/5]
+-&gt; [            1,         16/15,         8/5] // Wrap around to an octave.</code></pre>
+  </dd>
+  </dl>
+  <h3 id="filter"><a href="#filter" class="header-anchor"
+  aria-hidden="true">Filter</a></h3>
+  <p>The filter is a resonant low-pass with -6 dB/oct slope. Note that
+  enabling the filter increases CPU load.</p>
+  <p>Due to the nature of the filter, the resonance will never be higher
+  than around <code>fs / 6</code> where <code>fs</code> is the sampling
+  rate. In other words, the texture of the resonance changes depending
+  on the sampling rate.</p>
+  <dl>
+  <dt>Decay Time Ratio [dB]</dt>
+  <dd>
+  <p>Decay time of the filter envelope, calculated as a ratio from
+  <code>Decay to</code> in the <code>Oscillator</code> section.</p>
+  </dd>
+  <dt>Key Follow</dt>
+  <dd>
+  <p>Ratio to match the cutoff frequency to the pitch of the note.</p>
+  <p>When <code>Cutoff</code> is 0 and <code>Key Follow</code> is 1, the
+  frequency of the note matches the cutoff frequency when the filter
+  envelope is fully decayed.</p>
+  <p>When <code>Cutoff</code> is 0 and <code>Key Follow</code> is 0, the
+  cutoff frequency will be 20 Hz when the filter envelope is fully
+  decayed.</p>
+  <p>The following is the formula for calculating the cutoff frequency
+  (<code>adjustedCutoffHz</code>) when the filter envelope is fully
+  decayed.</p>
+  <pre><code>baseCutoffHz = 20 + (Key Follow) * (freqHz - 20);
+adjustedCutoffHz = baseCutoffHz * 2^(Cutoff);</code></pre>
+  </dd>
+  <dt>Cutoff [oct.]</dt>
+  <dd>
+  <p>Cutoff frequency of low-pass filter.</p>
+  </dd>
+  <dt>Resonance</dt>
+  <dd>
+  <p>Resonance of low-pass filter.</p>
+  </dd>
+  <dt>Notch [oct.]</dt>
+  <dd>
+  <p>This one changes some character of low-pass filter.</p>
+  <p>Technically, this parameter changes the cutoff frequency of
+  all-pass filter placed on the feedback path. On amplitude response, it
+  makes some notch and changes the intensity of the resonance.</p>
+  </dd>
+  </dl>
+  <h3 id="waveform"><a href="#waveform" class="header-anchor"
+  aria-hidden="true">Waveform</a></h3>
+  <p>In GlitchSprinkler, all waveform parameters except
+  <code>Pulse Width / Bit Mask</code> will be fixed at note-on. This is
+  intentional tuning to suppress noise when playing fast arpeggios.</p>
+  <dl>
+  <dt>(Waveform Editor), Xn, Yn</dt>
+  <dd>
+  <p>Control points of the polynomial oscillator.</p>
+  <p>Due to the nature of polynomial approximation, the waveform will be
+  wavy. Recommend to use randomization, and avoid manual adjustments as
+  much as possible.</p>
+  <p>Below is a list of shortcuts of Waveform Editor. Shortcuts are
+  enabled after left clicking Waveform Editor and only enabled when
+  mouse cursor is stayed on Waveform Editor.</p>
+  <table>
+  <thead>
+  <tr class="header">
+  <th>Shortcut</th>
+  <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="odd">
+  <td><kbd>r</kbd></td>
+  <td>Randomize</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>t</kbd></td>
+  <td>Small randomize only for Y axis.</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>0</kbd></td>
+  <td>Preset : Silence</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>1</kbd></td>
+  <td>Preset : Sine</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>2</kbd></td>
+  <td>Preset : FM A</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>3</kbd></td>
+  <td>Preset : FM B</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>4</kbd></td>
+  <td>Preset : Sawtooth</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>5</kbd></td>
+  <td>Preset : Triangle</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>6</kbd></td>
+  <td>Preset : Trapezoid</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>7</kbd></td>
+  <td>Preset : Alternate</td>
+  </tr>
+  <tr class="odd">
+  <td><kbd>8</kbd></td>
+  <td>Preset : Pulse</td>
+  </tr>
+  <tr class="even">
+  <td><kbd>9</kbd></td>
+  <td>Preset : Saturated sine</td>
+  </tr>
+  </tbody>
+  </table>
+  </dd>
+  <dt>Osc. Sync.</dt>
+  <dd>
+  <p>Ratio of hard sync.</p>
+  </dd>
+  <dt>FM Index</dt>
+  <dd>
+  <p>Intensity of frequency modulation (FM).</p>
+  <p>FM algorithm is 1 operator feedforward. It means that the waveform
+  is computed once, then that computed value is temporary added to
+  phase, then that phase is used to compute the FM waveform.</p>
+  </dd>
+  <dt>Saturation [dB]</dt>
+  <dd>
+  <p>Gain before hard clipping.</p>
+  <p>This can be used to make square waves.</p>
+  </dd>
+  <dt>Pulse Width / Bit Mask</dt>
+  <dd>
+  <p>Duty ratio of pulse wave. The pulse wave is multiplied to the
+  waveform.</p>
+  <p>When <code>Bitwise And</code> is on, bitwise and operation is
+  applied to the phase of the oscillator instead of the pulse wave
+  multiplication.</p>
+  <p><strong>Caution</strong> : If <code>Pulse Width / Bit Mask</code>
+  is 1, and <code>PWM</code> is off, the output becomes silent due to
+  the duty ratio becomes 0.</p>
+  </dd>
+  <dt>Modulation Rate</dt>
+  <dd>
+  <p>Rate of pulse width modulation (PWM).</p>
+  <p>Higher the value, the modulation becomes slower. Negative numbers
+  make the modulation faster.</p>
+  <p>The modulation rate changes depending on the pitch of the note.</p>
+  </dd>
+  <dt>PWM</dt>
+  <dd>
+  <p>When turned on, pulse width modulation (PWM) will be activated.</p>
+  <p>PWM becomes deeper when <code>Pulse Width / Bit Mask</code>
+  approaches to 1.</p>
+  </dd>
+  <dt>Bidirectional</dt>
+  <dd>
+  <p>When turned on, triangular wave is used for PWM. When turned off,
+  sawtooth wave is used.</p>
+  <p>When <code>PWM</code> is off, <code>Bidirectional</code> does
+  nothing.</p>
+  </dd>
+  <dt>Bitwise And</dt>
+  <dd>
+  <p>When turned on, the value of <code>Pulse Width / Bit Mask</code>
+  will be used to apply bitwise and operation to the phase of the
+  oscillator.</p>
+  <p>When <code>Modulation Rate</code> is fast, bitwise and operation
+  adds noisy texture to the sound.</p>
+  </dd>
+  </dl>
+  <h3 id="arpeggio"><a href="#arpeggio" class="header-anchor"
+  aria-hidden="true">Arpeggio</a></h3>
+  <p>GlitchSprinkler is designed specifically for playing fast
+  arpeggios, with <code>Polyphonic</code> and <code>Soft Envelope</code>
+  in the <code>Oscillator</code> section turned off, and
+  <code>nVoice</code> in the <code>Unison</code> section set to 2.</p>
+  <dl>
+  <dt>Seed</dt>
+  <dd>
+  <p>Seed value of the random number. Different <code>Seed</code> makes
+  different melody.</p>
+  </dd>
+  <dt>Note / Beat</dt>
+  <dd>
+  <p>Minimum duration of a note in the arpeggio.</p>
+  <p>The default setting of 4 will play 4 notes per beat, which means
+  that the minimum duration becomes 16th note.</p>
+  </dd>
+  <dt>Loop Length [beat]</dt>
+  <dd>
+  <p>Loop length of arpeggio.</p>
+  <p>Setting <code>Loop Length</code> to 0 practically disables looping.
+  The actual loop length becomes 2^32 beats in this case.</p>
+  </dd>
+  <dt>Duration Variation</dt>
+  <dd>
+  <p>Range of randomization of the length of the notes in the
+  arpeggio.</p>
+  <p>For example, when <code>Note / Beat</code> is 4, and
+  <code>Duration Variation</code> is 3, the note lengths will be
+  randomly chosen from 1 / 16, 2 / 16, and 3 / 16.</p>
+  </dd>
+  <dt>Rest Chance</dt>
+  <dd>
+  <p>Chance to put a rest in the arpeggio.</p>
+  <p>It works well with higher <code>nVoice</code>.</p>
+  <p><strong>Caution</strong>: Setting <code>Rest Chance</code> to 1
+  stops the sound, because the note will rest 100% of times.</p>
+  </dd>
+  <dt>Scale</dt>
+  <dd>
+  <p>Musical scale used for arpeggator.</p>
+  </dd>
+  <dt>Pitch Drift [cent]</dt>
+  <dd>
+  <p>Amount of randomization of the pitch of a note.</p>
+  </dd>
+  <dt>Octave Range</dt>
+  <dd>
+  <p>Octave range used by the arpeggio.。</p>
+  <p>Some scales span more than an octave, so the octave range may be
+  wider than the specified value.</p>
+  </dd>
+  <dt>Start From Root</dt>
+  <dd>
+  <p>When turned on, the first note of the arpeggio will be set to the
+  pitch specified by the note-on.</p>
+  </dd>
+  <dt>Reset Modulation</dt>
+  <dd>
+  <p>When turned on, resets the PWM phase every time a new note is
+  played.</p>
+  </dd>
+  <dt>Random FM Index</dt>
+  <dd>
+  <p>Amount of randomization for <code>FM Index</code>. Randomization
+  amount changes for each note.</p>
+  </dd>
+  </dl>
+  <h3 id="unison"><a href="#unison" class="header-anchor"
+  aria-hidden="true">Unison</a></h3>
+  <dl>
+  <dt>nVoice</dt>
+  <dd>
+  <p>Number of voices that is played with a note-on.</p>
+  <p>Higher values ​​can be more CPU intensive, especially when
+  <code>Release</code> is on. To save some CPU load, it’s better to
+  reduce <code>nVoice</code> when playing higher notes.</p>
+  </dd>
+  <dt>Detune [cent]</dt>
+  <dd>
+  <p>Amount of detune for unison voices.</p>
+  </dd>
+  <dt>Pan Spread</dt>
+  <dd>
+  <p>Amount of left/right spread of the unison voices.</p>
+  </dd>
+  <dt>Scatter Arpeggio</dt>
+  <dd>
+  <p>Only effective when <code>Arpeggio</code> is on. When turned on,
+  each voice plays a different melody. When turned off, all voices play
+  the same melody.</p>
+  </dd>
+  <dt>Gain Sqrt.</dt>
+  <dd>
+  <p>Changes how the gain is adjusted according to
+  <code>nVoice</code>.</p>
+  <p>When turned on, the gain for each voice is set to
+  <code>sqrt(nVoice)</code>. When turned off, the gain for each voice is
+  set to <code>1 / (nVoice)</code>.</p>
+  <p>It sounds more natural when turned on, but the peak amplitude may
+  become quite loud.</p>
+  </dd>
+  </dl>
+  <h2 id="change-log"><a href="#change-log" class="header-anchor"
+  aria-hidden="true">Change Log</a></h2>
+  <ul>
+  <li>0.1.0
+  <ul>
+  <li>Initial release.</li>
+  </ul></li>
+  </ul>
+  <h2 id="old-versions"><a href="#old-versions" class="header-anchor"
+  aria-hidden="true">Old Versions</a></h2>
+  <p>N/A.</p>
+  <h2 id="license"><a href="#license" class="header-anchor"
+  aria-hidden="true">License</a></h2>
+  <p>GlitchSprinkler is licensed under GPLv3. Complete licenses are
+  linked below.</p>
+  <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+  </ul>
+  <p>If the link above doesn’t work, please send email to
+  <code>ryukau@gmail.com</code>.</p>
+  <h3 id="about-vst"><a href="#about-vst" class="header-anchor"
+  aria-hidden="true">About VST</a></h3>
+  <p>VST is a trademark of Steinberg Media Technologies GmbH, registered
+  in Europe and other countries.</p>
+
+  <footer>
+        <p><a href="../../index.html">Back to Index</a></p>
+      </footer>
+  </body>
+
+</html>

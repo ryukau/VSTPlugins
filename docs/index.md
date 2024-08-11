@@ -2,6 +2,25 @@
 lang: ja
 ...
 
+<style>
+span.pluginlist {
+  display: inline-flex;
+  margin: auto 0.25em;
+  padding: 0.25em;
+}
+
+.colorThemeThumbnail {
+  display: inline-block;
+  width: 131.25px;
+  margin: 0 0 0.5rem 0;
+  padding: 0;
+}
+
+.colorThemeThumbnail>figcaption {
+  text-align: center;
+}
+</style>
+
 # Uhhyou Plugins
 [VST®](#vst_logo) 3 プラグインを公開しています。
 
@@ -11,20 +30,59 @@ lang: ja
 
 This page is publishing [VST®](#vst_logo) 3 plugins.
 
-If you found some part of manual is not clear and/or found typo, please file issue at [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`. Note that I'm not native in English and it's most likely that the manual contains some weird sentences. I'd like to fix it, so feel free to report those issues.
+If you find a bug, feel free to report the issue at [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`. Note that I'm not native in English.
 
 You can fund the development via [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).
 
-# プラグイン一覧 | Plugin List
+## GUI の色について | Color Configuration
+<div style="">
+<figure class="colorThemeThumbnail">
+<img src="img/thumbnail_ArcDark.png"/ class="staySameInDark">
+<figcaption>ArcDark</figcaption>
+</figure>
+<figure class="colorThemeThumbnail">
+<img src="img/thumbnail_BB.png"/ class="staySameInDark">
+<figcaption>BB</figcaption>
+</figure>
+<figure class="colorThemeThumbnail">
+<img src="img/thumbnail_BlackOnWhite.png"/ class="staySameInDark">
+<figcaption>BlackOnWhite</figcaption>
+</figure>
+<figure class="colorThemeThumbnail">
+<img src="img/thumbnail_BlackOnWhiteInvert.png"/ class="staySameInDark">
+<figcaption>BlackOnWhiteInvert</figcaption>
+</figure>
+<figure class="colorThemeThumbnail">
+<img src="img/thumbnail_Leaf.png"/ class="staySameInDark">
+<figcaption>Leaf</figcaption>
+</figure>
+<figure class="colorThemeThumbnail">
+<img src="img/thumbnail_LightOnDark.png"/ class="staySameInDark">
+<figcaption>LightOnDark</figcaption>
+</figure>
+<figure class="colorThemeThumbnail">
+<img src="img/thumbnail_OrangeOnBlack.png"/ class="staySameInDark">
+<figcaption>OrangeOnBlack</figcaption>
+</figure>
+<figure class="colorThemeThumbnail">
+<img src="img/thumbnail_Orbit.png"/ class="staySameInDark">
+<figcaption>Orbit</figcaption>
+</figure>
+<figure class="colorThemeThumbnail">
+<img src="img/thumbnail_SoftBlue.png"/ class="staySameInDark">
+<figcaption>SoftBlue</figcaption>
+</figure>
+<figure class="colorThemeThumbnail">
+<img src="img/thumbnail_Warmth.png"/ class="staySameInDark">
+<figcaption>Warmth</figcaption>
+</figure>
+</div>
 
-<style>
-div.pluginlist {
-  margin: auto 0.25em;
-  padding: 0.25em;
-  display: inline-flex;
-}
-</style>
+GUI の色は変更できます。マニュアルの「GUI の見た目の設定」を参照してください。上はプリセットのテーマの一覧です。
 
+GUI colors can be configured. Refer to "GUI Style Configuration" section in the manual. Above is the list of preset themes.
+
+## プラグイン一覧 | Plugin List
 以下のリリースページからプラグインをまとめてダウンロードできます。
 
 - [Releases · ryukau/VSTPlugins · GitHub](https://github.com/ryukau/VSTPlugins/releases)
@@ -34,108 +92,128 @@ All the plugin download link can be found at release page on following link.
 - [Releases · ryukau/VSTPlugins · GitHub](https://github.com/ryukau/VSTPlugins/releases)
 
 #### Synthesizers
-<div class="pluginlist"><a href="#clangsynth">
+<p style="word-spacing: normal;">
+<span class="pluginlist"><a href="#clangsynth">
 <ruby>ClangSynthh<rt>クラング シンセ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#collidingcombsynth">
+</a></span>
+<span class="pluginlist"><a href="#collidingcombsynth">
 <ruby>CollidingCombSynth<rt>コライディング コム シンセ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#cubicpadsynth">
+</a></span>
+<span class="pluginlist"><a href="#cubicpadsynth">
 <ruby>CubicPadSynth<rt>キュービック パッドシンセ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#envelopedsine">
+</a></span>
+<span class="pluginlist"><a href="#envelopedsine">
 <ruby>EnvelopedSine<rt>エンベロープド サイン</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#fdncymbal">
+</a></span>
+<span class="pluginlist"><a href="#fdncymbal">
 <ruby>FDNCymbal<rt>エフディーエヌ シンバル</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#genericdrum">
+</a></span>
+<span class="pluginlist"><a href="#genericdrum">
 <ruby>GenericDrum<rt>ジェネリック ドラム</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#iterativesincluster">
+</a></span>
+<span class="pluginlist"><a href="#genericdrum">
+<ruby>GlitchSprinkler<rt>グリッチ スプリンクラー</rt></ruby>
+</a></span>
+<span class="pluginlist"><a href="#iterativesincluster">
 <ruby>IterativeSinCluster<rt>イテレイティブ サイン クラスタ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#membranesynth">
+</a></span>
+<span class="pluginlist"><a href="#membranesynth">
 <ruby>MaybeSnare<rt>メイビー スネア</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#membranesynth">
+</a></span>
+<span class="pluginlist"><a href="#membranesynth">
 <ruby>MembraneSynth<rt>メンブレイン シンセ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#lightpadsynth">
+</a></span>
+<span class="pluginlist"><a href="#lightpadsynth">
 <ruby>LightPadSynth<rt>ライト パッド シンセ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#syncsawsynth">
+</a></span>
+<span class="pluginlist"><a href="#syncsawsynth">
 <ruby>SyncSawSynth<rt>シンク ソウ シンセ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#trapezoidsynth">
+</a></span>
+<span class="pluginlist"><a href="#trapezoidsynth">
 <ruby>TrapezoidSynth<rt>トラピゾイド シンセ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#ultrasynth">
+</a></span>
+<span class="pluginlist"><a href="#ultrasynth">
 <ruby>UltraSynth<rt>ウルトラ シンセ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#wavecymbal">
+</a></span>
+<span class="pluginlist"><a href="#wavecymbal">
 <ruby>WaveCymbal<rt>ウェイブ シンバル</rt></ruby>
-</a></div>
+</a></span>
+</p>
 
 #### Effects
-<div class="pluginlist"><a href="#accumulativeringmod">
+<p>
+<span class="pluginlist"><a href="#accumulativeringmod">
 <ruby>AccumulativeRingMod<rt>アキュミュレーティブ リング モッド</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#basiclimiter">
+</a></span>
+<span class="pluginlist"><a href="#basiclimiter">
 <ruby>BasicLimiter<rt>ベーシック リミッタ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#combdistortion">
+</a></span>
+<span class="pluginlist"><a href="#combdistortion">
 <ruby>CombDistortion<rt>コム ディストーション</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#esphaser">
+</a></span>
+<span class="pluginlist"><a href="#esphaser">
 <ruby>EsPhaser<rt>エス フェイザ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#fdn64reverb">
+</a></span>
+<span class="pluginlist"><a href="#fdn64reverb">
 <ruby>FDN64Reverb<rt>エフディーエヌ 64 リバーブ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#feedbackphaser">
+</a></span>
+<span class="pluginlist"><a href="#feedbackphaser">
 <ruby>FeedbackPhaser<rt>フィードバック フェイザ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#l4reverb">
+</a></span>
+<span class="pluginlist"><a href="#l4reverb">
 <ruby>L4Reverb<rt>エル フォー リバーブ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#latticereverb">
+</a></span>
+<span class="pluginlist"><a href="#latticereverb">
 <ruby>LatticeReverb<rt>ラティス リバーブ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#longphaser">
+</a></span>
+<span class="pluginlist"><a href="#longphaser">
 <ruby>LongPhaser<rt>ロング フェイザ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#minicliffeq">
+</a></span>
+<span class="pluginlist"><a href="#minicliffeq">
 <ruby>MiniCliffEQ<rt>ミニ クリフ イーキュー</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#narrowingdelay">
+</a></span>
+<span class="pluginlist"><a href="#narrowingdelay">
 <ruby>NarrowingDelay<rt>ナロウイング ディレイ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#ordinaryphaser">
+</a></span>
+<span class="pluginlist"><a href="#ordinaryphaser">
 <ruby>OrdinaryPhaser<rt>オーディナリ フェイザ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#parallelcomb">
+</a></span>
+<span class="pluginlist"><a href="#parallelcomb">
 <ruby>ParallelComb<rt>パラレル コム</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#paralleldetune">
+</a></span>
+<span class="pluginlist"><a href="#paralleldetune">
 <ruby>ParallelDetune<rt>パラレル デチューン</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#pitchshiftdelay">
+</a></span>
+<span class="pluginlist"><a href="#pitchshiftdelay">
 <ruby>PitchShiftDelay<rt>ピッチ シフト ディレイ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#ringmodspacer">
+</a></span>
+<span class="pluginlist"><a href="#ringmodspacer">
 <ruby>RingModSpacer<rt>リング モッド スペーサ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#sevendelay">
+</a></span>
+<span class="pluginlist"><a href="#sevendelay">
 <ruby>SevenDelay<rt>セブン ディレイ</rt></ruby>
-</a></div>
-<div class="pluginlist"><a href="#ultrasonicringmod">
+</a></span>
+<span class="pluginlist"><a href="#ultrasonicringmod">
 <ruby>UltrasonicRingMod<rt>ウルトラソニック リング モッド</rt></ruby>
-</a></div>
+</a></span>
+</p>
 
-## GenericDrum
+### GlitchSprinkler
 <figure>
-<img src="manual/GenericDrum/img/GenericDrum.png" alt="Image of GenericDrum graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/GlitchSprinkler/img/GlitchSprinkler.png" alt="Image of GlitchSprinkler graphical user interface."/>
+</figure>
+
+GlitchSprinkler は速いアルペジオに特化したシンセサイザです。オシレータの周期を整数のサンプル数のみとすることで安価にアンチエイリアシングを行っています。このアンチエイリアシングの副作用により、特に音程が高いときにピッチがずれて独特の音律が現れます。
+
+- [GlitchSprinkler のマニュアル (日本語)](manual/GlitchSprinkler/GlitchSprinkler_ja.html)
+
+GlitchSprinkler is a synthesizer specialized to play fast arpeggios. It is using a cheap anti-aliasing trick that is to restrict the oscillator period only to integer sample counts. This anti-aliasing has a side effect to make the pitches out of tune, especially at higher notes, which makes a unique texture.
+
+- [GlitchSprinkler Manual (English)](manual/GlitchSprinkler/GlitchSprinkler_en.html)
+
+### GenericDrum
+<figure>
+<img src="manual/GenericDrum/img/GenericDrum.png" alt="Image of GenericDrum graphical user interface."/>
 </figure>
 
 GenericDrum はディレイを使った汎用ドラムシンセサイザです。バスドラムやスネアドラムについては良い音が出ます。シンバルの音も出せますが、低いドラムの音ほど良くはありません。
@@ -146,9 +224,9 @@ GenericDrum is a generic drum synthesizer using delays. This one can make convin
 
 - [GenericDrum Manual (English)](manual/GenericDrum/GenericDrum_en.html)
 
-## FeedbackPhaser
+### FeedbackPhaser
 <figure>
-<img src="manual/FeedbackPhaser/img/FeedbackPhaser.png" alt="Image of FeedbackPhaser graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/FeedbackPhaser/img/FeedbackPhaser.png" alt="Image of FeedbackPhaser graphical user interface."/>
 </figure>
 
 FeedbackPhaser は LFO ではなくフィードバックによってオールパスフィルタのカットオフ周波数を変調するフェイザです。主に歪み系の音が出ます。
@@ -159,9 +237,9 @@ FeedbackPhaser is a phaser but the modulation source is feedback signal rather t
 
 - [FeedbackPhaser Manual (English)](manual/FeedbackPhaser/FeedbackPhaser_en.html)
 
-## AccumulativeRingMod
+### AccumulativeRingMod
 <figure>
-<img src="manual/AccumulativeRingMod/img/AccumulativeRingMod.png" alt="Image of AccumulativeRingMod graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/AccumulativeRingMod/img/AccumulativeRingMod.png" alt="Image of AccumulativeRingMod graphical user interface."/>
 </figure>
 
 AccumulativeRingMod は入力信号の振幅を積算した値を位相として使うリングモジュレータです。サイン波のようなシンプルな波形にかけると FM のような音がでます。
@@ -172,9 +250,9 @@ AccumulativeRingMod is a ring modulator that uses accumulated amplitude of input
 
 - [AccumulativeRingMod Manual (English)](manual/AccumulativeRingMod/AccumulativeRingMod_en.html)
 
-## RingModSpacer
+### RingModSpacer
 <figure>
-<img src="manual/RingModSpacer/img/RingModSpacer.png" alt="Image of RingModSpacer graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/RingModSpacer/img/RingModSpacer.png" alt="Image of RingModSpacer graphical user interface."/>
 </figure>
 
 RingModSpacer は激しい歪みを生じるサイドチェインリミッタです。全波整流したサイドチェイン入力によってメインの入力を振幅変調することで、サイドチェインを足し合わせてもクリッピングしないような隙間をメインの入力にこじ開けることができます。当然、隙間をこじ開けられたメインの入力は歪むので使いどころが難しいです。
@@ -185,9 +263,9 @@ RingModSpacer is a sidechain limiter that adds severe distortion. First, full-wa
 
 - [RingModSpacer Manual (English)](manual/RingModSpacer/RingModSpacer_en.html)
 
-## ParallelDetune
+### ParallelDetune
 <figure>
-<img src="manual/ParallelDetune/img/ParallelDetune.png" alt="Image of ParallelDetune graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/ParallelDetune/img/ParallelDetune.png" alt="Image of ParallelDetune graphical user interface."/>
 </figure>
 
 ParallelDetune は 8 つのピッチシフタを並列につないだエフェクタです。モノラルの音に薄くかけてコーラスのようにパンを左右に広げることもできます。
@@ -198,9 +276,9 @@ ParallelDetune is a detuning effect with 8 pitch shifters connected in parallel.
 
 - [ParallelDetune Manual (English)](manual/ParallelDetune/ParallelDetune_en.html)
 
-## OrdinaryPhaser
+### OrdinaryPhaser
 <figure>
-<img src="manual/OrdinaryPhaser/img/OrdinaryPhaser.png" alt="Image of OrdinaryPhaser graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/OrdinaryPhaser/img/OrdinaryPhaser.png" alt="Image of OrdinaryPhaser graphical user interface."/>
 </figure>
 
 OrdinaryPhaser はフィードバック経路にディレイが搭載されている点を除けば、普通のフェイザです。ノートイベントによってオールパスフィルタのカットオフ周波数とディレイ時間を制御できます。
@@ -211,9 +289,9 @@ OrdinaryPhaser is an ordinary phaser with a delay on feedback path. Note events 
 
 - [OrdinaryPhaser Manual (English)](manual/OrdinaryPhaser/OrdinaryPhaser_en.html)
 
-## NarrowingDelay
+### NarrowingDelay
 <figure>
-<img src="manual/NarrowingDelay/img/NarrowingDelay.png" alt="Image of NarrowingDelay graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/NarrowingDelay/img/NarrowingDelay.png" alt="Image of NarrowingDelay graphical user interface."/>
 </figure>
 
 NarrowingDelay は直列につないだピッチシフタと周波数シフタがフィードバック経路に設けられたディレイです。フィードバックのたびに音のスペクトラムを周波数軸の方向に広げる、あるいは狭めることができます。どちらかと言えばピッチが一定しない音との相性がいいです。ノートイベントで周波数シフタのシフト量を制御することもできます。
@@ -224,9 +302,9 @@ NarrowingDelay is a delay with serially connected pitch shifter and frequency sh
 
 - [NarrowingDelay Manual (English)](manual/NarrowingDelay/NarrowingDelay_en.html)
 
-## LongPhaser
+### LongPhaser
 <figure>
-<img src="manual/LongPhaser/img/LongPhaser.png" alt="Image of LongPhaser graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/LongPhaser/img/LongPhaser.png" alt="Image of LongPhaser graphical user interface."/>
 </figure>
 
 LongPhaser は遅延時間を長くできる Schroeder オールパスフィルタを使ったフェイザです。ディレイとフェイザを足して 2 で割ったような音が出ます。 2 で割った物足りなさを補うために LFO やノートイベントで変調をかけることができます。
@@ -237,9 +315,9 @@ LongPhaser is a phaser using Schroeder all-pass filters which is able to set som
 
 - [LongPhaser Manual (English)](manual/LongPhaser/LongPhaser_en.html)
 
-## CombDistortion
+### CombDistortion
 <figure>
-<img src="manual/CombDistortion/img/CombDistortion.png" alt="Image of CombDistortion graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/CombDistortion/img/CombDistortion.png" alt="Image of CombDistortion graphical user interface."/>
 </figure>
 
 CombDistortion は自己変調するコムフィルタを使ったディストーションです。そのままの出力はざらざらと耳障りなので、キャビネットのインパルス応答と併せて使うことを想定しています。ノートイベントでコムフィルタのディレイ時間を制御できます。
@@ -250,9 +328,9 @@ CombDistortion is a distortion using self-modulating comb filter. Raw output sou
 
 - [CombDistortion Manual (English)](manual/CombDistortion/CombDistortion_en.html)
 
-## MaybeSnare
+### MaybeSnare
 <figure>
-<img src="manual/MaybeSnare/img/MaybeSnare.png" alt="Image of MaybeSnare graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/MaybeSnare/img/MaybeSnare.png" alt="Image of MaybeSnare graphical user interface."/>
 </figure>
 
 MaybeSnare はスネアドラムのような音が出るシンセサイザです。中身は 2 つの MembraneSynth が相互にフィードバックをかけるような構造になっています。スナッピーはついていませんが、変調のかけすぎによるノイズによって似たような音が出ます。
@@ -263,9 +341,9 @@ MaybeSnare is a synthesizer that resembles sound of snare drum. This is basicall
 
 - [MaybeSnare Manual (English)](manual/MaybeSnare/MaybeSnare_en.html)
 
-## MembraneSynth
+### MembraneSynth
 <figure>
-<img src="manual/MembraneSynth/img/MembraneSynth.png" alt="Image of MembraneSynth graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/MembraneSynth/img/MembraneSynth.png" alt="Image of MembraneSynth graphical user interface."/>
 </figure>
 
 MembraneSynth は自己変調するフィードバック・ディレイ・ネットワーク (FDN) を用いた膜を張った打楽器のような音がでるシンセサイザです。バスドラムやタムタムのような低めの打楽器の音が得意ですが、自己変調による発振によって変な音を作ることもできます。
@@ -276,9 +354,9 @@ MembraneSynth is a synthesizer that resembles sound of percussions with membrane
 
 - [MembraneSynth Manual (English)](manual/MembraneSynth/MembraneSynth_en.html)
 
-## UltraSynth
+### UltraSynth
 <figure>
-<img src="manual/UltraSynth/img/UltraSynth.png" alt="Image of UltraSynth graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/UltraSynth/img/UltraSynth.png" alt="Image of UltraSynth graphical user interface."/>
 </figure>
 
 UltraSynth は UltrasonicRingMod と同じく 64 倍のオーバーサンプリングを行っていることを除けば、これといった特長のないモノフォニックのシンセサイザです。オーバーサンプリングの倍率が高いので変調をかけた音が得意ですが、 CPU 負荷は高めです。
@@ -289,9 +367,9 @@ UltraSynth is an ordinary synthesizer except 64-fold oversampling that is the sa
 
 - [UltraSynth Manual (English)](manual/UltraSynth/UltraSynth_en.html)
 
-## UltrasonicRingMod
+### UltrasonicRingMod
 <figure>
-<img src="manual/UltrasonicRingMod/img/UltrasonicRingMod.png" alt="Image of UltrasonicRingMod graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/UltrasonicRingMod/img/UltrasonicRingMod.png" alt="Image of UltrasonicRingMod graphical user interface."/>
 </figure>
 
 UltrasonicRingMod は 64 倍のオーバーサンプリングを行うリングモジュレータで、最高 1 MHz のサイン波による変調をかけることができます。とは言っても単に変調すると可聴域外なので何も聞こえなくなってしまいますが、フィードバックによる位相変調やハードクリッピングができるので、いくらかノイズが出せます。
@@ -302,9 +380,9 @@ UltrasonicRingMod is a ring modulator with 64-fold oversampling. Maximum modulat
 
 - [UltrasonicRingMod Manual (English)](manual/UltrasonicRingMod/UltrasonicRingMod_en.html)
 
-## ClangSynth
+### ClangSynth
 <figure>
-<img src="manual/ClangSynth/img/ClangSynth.png" alt="Image of ClangSynth graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/ClangSynth/img/ClangSynth.png" alt="Image of ClangSynth graphical user interface."/>
 </figure>
 
 ClangSynth は金属的なパーカッションの音が得意なシンセサイザです。金属的な質感はフィードバック・ディレイ・ネットワーク (FDN) を用いたディレイ間のクロスフィードバックによるものです。 WaveCymbal や FDNCymbal よりはシンバルに似た音が出ます。 FDN をより大きくしてシンバルの合成に特化した ClangCymbal もあります。
@@ -315,9 +393,9 @@ ClangSynth is a synthesizer suitable for percussion sounds. Each voice equips an
 
 - [ClangSynth Manual (English)](manual/ClangSynth/ClangSynth_en.html)
 
-## MiniCliffEQ
+### MiniCliffEQ
 <figure>
-<img src="manual/MiniCliffEQ/img/MiniCliffEQ.png" alt="Image of MiniCliffEQ graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/MiniCliffEQ/img/MiniCliffEQ.png" alt="Image of MiniCliffEQ graphical user interface."/>
 </figure>
 
 MiniCliffEQ はタップ数 2^15 = 32768 の FIR フィルタです。初期バージョンからは改善しましたが、それでもタップ数が多いのでレイテンシがサンプリング周波数 48000 Hz のときに 0.34 秒を超えます。主な用途は直流信号 (DC) の抑制ですが、とても急峻なローパス、ハイパス、ローシェルフ、ハイシェルフフィルタとしても使えます。
@@ -328,9 +406,9 @@ MiniCliffEQ is a linear phase FIR filter with 2^15 = 32768 taps. Latency is impr
 
 - [MiniCliffEQ Manual (English)](manual/MiniCliffEQ/MiniCliffEQ_en.html)
 
-## PitchShiftDelay
+### PitchShiftDelay
 <figure>
-<img src="manual/PitchShiftDelay/img/PitchShiftDelay.png" alt="Image of PitchShiftDelay graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/PitchShiftDelay/img/PitchShiftDelay.png" alt="Image of PitchShiftDelay graphical user interface."/>
 </figure>
 
 PitchShiftDelay はディレイを使った時間領域ピッチシフタです。 16 倍のオーバーサンプリングによってピッチシフタ特有の癖を多少抑えています。また内部のバッファ長をリアルタイムで変更できます。フォルマント補正がないので、声に使うとヘリウムを吸ったときのような音になります。
@@ -341,9 +419,9 @@ PitchShiftDelay is a time domain pitch shifter based on usual delay. The quirk o
 
 - [PitchShiftDelay Manual (English)](manual/PitchShiftDelay/PitchShiftDelay_en.html)
 
-## ParallelComb
+### ParallelComb
 <figure>
-<img src="manual/ParallelComb/img/ParallelComb.png" alt="Image of ParallelComb graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/ParallelComb/img/ParallelComb.png" alt="Image of ParallelComb graphical user interface."/>
 </figure>
 
 ParallelComb は 1 つバッファの異なる 4 つの時点をフィードバックするコムフィルタです。フィードバック経路にリミッタが挟んであるので、それなりにクリーンな音が出ます。フィードバックの振幅でディレイ時間を変調することで、変な歪みを出すこともできます。
@@ -354,9 +432,9 @@ ParallelComb is a comb filter which has 4 different delay time and 1 shared buff
 
 - [ParallelComb Manual (English)](manual/ParallelComb/ParallelComb_en.html)
 
-## FDN64Reverb
+### FDN64Reverb
 <figure>
-<img src="manual/FDN64Reverb/img/FDN64Reverb.png" alt="Image of FDN64Reverb graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/FDN64Reverb/img/FDN64Reverb.png" alt="Image of FDN64Reverb graphical user interface."/>
 </figure>
 
 FDN64Reverb はフィードバック・ディレイ・ネットワーク (FDN) を 1 つだけ搭載したリバーブです。しかしながら、フィードバック行列の大きさは 64 です。
@@ -367,9 +445,9 @@ FDN64Reverb is a reverb equipped with a feedback delay network (FDN). However, t
 
 - [FDN64Reverb Manual (English)](manual/FDN64Reverb/FDN64Reverb_en.html)
 
-## BasicLimiter
+### BasicLimiter
 <figure>
-<img src="manual/BasicLimiter/img/BasicLimiter.png" alt="Image of BasicLimiter graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/BasicLimiter/img/BasicLimiter.png" alt="Image of BasicLimiter graphical user interface."/>
 </figure>
 
 BasicLimiter は名前の通りベーシックなシングルバンドリミッタです。目新しい音は出ませんが、トゥルーピークモードはやや贅沢に設計しています。
@@ -380,9 +458,9 @@ BasicLimiter is a basic single band limiter. The sound is nothing new, but the d
 
 - [BasicLimiter Manual (English)](manual/BasicLimiter/BasicLimiter_en.html)
 
-## CollidingCombSynth
+### CollidingCombSynth
 <figure>
-<img src="manual/CollidingCombSynth/img/CollidingCombSynth.png" alt="Image of CollidingCombSynth graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/CollidingCombSynth/img/CollidingCombSynth.png" alt="Image of CollidingCombSynth graphical user interface."/>
 </figure>
 
 CollidingCombSynth は Karplus-Strong アルゴリズムによる弦の物理モデルをぶつけることで、弦を擦ったときのような音が出る実験的なシンセサイザです。音程はでますがチューニングが難しいので、どちらかと言うと効果音に向いています。
@@ -393,9 +471,9 @@ CollidingCombSynth is an experimental synthesizer which sounds like bowed string
 
 - [CollidingCombSynth Manual (English)](manual/CollidingCombSynth/CollidingCombSynth_en.html)
 
-## L4Reverb
+### L4Reverb
 <figure>
-<img src="manual/L4Reverb/img/L4Reverb.png" alt="Image of L4Reverb graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/L4Reverb/img/L4Reverb.png" alt="Image of L4Reverb graphical user interface."/>
 </figure>
 
 L4Reverb は LatticeReverb の拡張版です。今回の格子構造はチャンネル毎に 4 * 4 * 4 * 4 = 256 のセクションが設けてあります。
@@ -406,9 +484,9 @@ L4Reverb is an extended version of LatticeReverb. This time, lattice structure h
 
 - [L4Reverb Manual (English)](manual/L4Reverb/L4Reverb_en.html)
 
-## LatticeReverb
+### LatticeReverb
 <figure>
-<img src="manual/LatticeReverb/img/LatticeReverb.png" alt="Image of LatticeReverb graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/LatticeReverb/img/LatticeReverb.png" alt="Image of LatticeReverb graphical user interface."/>
 </figure>
 
 LatticeReverb はディレイを使った高次のオールパスフィルタを格子状につないで入れ子にしたリバーブです。 1 チャンネルあたり 16 のオールパスフィルタを備えています。
@@ -419,9 +497,9 @@ LatticeReverb is a reverb using lattice structure. Equipped with 16 delays per c
 
 - [LatticeReverb Manual (English)](manual/LatticeReverb/LatticeReverb_en.html)
 
-## LightPadSynth
+### LightPadSynth
 <figure>
-<img src="manual/LightPadSynth/img/LightPadSynth.png" alt="Image of LightPadSynth graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/LightPadSynth/img/LightPadSynth.png" alt="Image of LightPadSynth graphical user interface."/>
 </figure>
 
 LightPadSynth はピッチ変調を無くして補間を線形補完に変えた CubicPadSynth の軽量版です。ピッチ変調ができなくなった代わりに、各ボイスにディレイを追加しています。
@@ -432,9 +510,9 @@ LightPadSynth is a lightweight version of CubicPadSynth. For efficiency, interpo
 
 - [LightPadSynth Manual (English)](manual/LightPadSynth/LightPadSynth_en.html)
 
-## CubicPadSynth
+### CubicPadSynth
 <figure>
-<img src="manual/CubicPadSynth/img/CubicPadSynth.png" alt="Image of CubicPadSynth graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/CubicPadSynth/img/CubicPadSynth.png" alt="Image of CubicPadSynth graphical user interface."/>
 </figure>
 
 CubicPadSynth は PADsynth アルゴリズムを使ってオシレータのウェーブテーブルを生成するシンセサイザです。キュービック補間を使っているので、可聴域以下の低い周波数でもわりと滑らかな音が出ます。波形を直接描画できる LFO もついています。
@@ -445,9 +523,9 @@ CubicPadSynth is a wavetable synthesizer which uses PADsynth algorithm to genera
 
 - [CubicPadSynth Manual (English)](manual/CubicPadSynth/CubicPadSynth_en.html)
 
-## EsPhaser
+### EsPhaser
 <figure>
-<img src="manual/EsPhaser/img/EsPhaser.png" alt="Image of EsPhaser graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/EsPhaser/img/EsPhaser.png" alt="Image of EsPhaser graphical user interface."/>
 </figure>
 
 EsPhaser は最大 4096 の 2 次 Thiran オールパスフィルタを直列につなぐことができるフェイザです。 EnvelopedSine のフェイザと同じアルゴリズムを使っています。
@@ -458,9 +536,9 @@ EsPhaser is a phaser with up to 4096 stages of order 2 Thiran all-pass filters. 
 
 - [EsPhaser Manual (English)](manual/EsPhaser/EsPhaser_en.html)
 
-## EnvelopedSine
+### EnvelopedSine
 <figure>
-<img src="manual/EnvelopedSine/img/EnvelopedSine.png" alt="Image of EnvelopedSine graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/EnvelopedSine/img/EnvelopedSine.png" alt="Image of EnvelopedSine graphical user interface."/>
 </figure>
 
 EnvelopedSineはノート 1 つあたり 64 のサイン波を計算する加算合成シンセサイザです。各サイン波に AD エンベロープとサチュレータがついているので IterativeSinCluster よりもパーカッシブな音が得意です。
@@ -471,9 +549,9 @@ EnvelopedSine is an additive synthesizer that computes 64 sine waves for each no
 
 - [EnvelopedSine Manual (English)](manual/EnvelopedSine/EnvelopedSine_en.html)
 
-## IterativeSinCluster
+### IterativeSinCluster
 <figure>
-<img src="manual/IterativeSinCluster/img/IterativeSinCluster.png" alt="Image of IterativeSinCluster graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/IterativeSinCluster/img/IterativeSinCluster.png" alt="Image of IterativeSinCluster graphical user interface."/>
 </figure>
 
 IterativeSinCluster はノート 1 つあたりで 512 のサイン波を計算する加算合成シンセサイザです。このページで配布しているバイナリを利用するには AVX2 をサポートしている CPU が必要です。
@@ -484,9 +562,9 @@ IterativeSinCluster is an additive synthesizer. This synth computes 512 sine wav
 
 - [IterativeSinCluster Manual (English)](manual/IterativeSinCluster/IterativeSinCluster_en.html)
 
-## TrapezoidSynth
+### TrapezoidSynth
 <figure>
-<img src="manual/TrapezoidSynth/img/TrapezoidSynth.png" alt="Image of TrapezoidSynth graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/TrapezoidSynth/img/TrapezoidSynth.png" alt="Image of TrapezoidSynth graphical user interface."/>
 </figure>
 
 TrapezoidSynth は 4 つの PTR ランプ関数を継ぎ接ぎした台形オシレータを使ったモノフォニックシンセサイザです。継ぎ接ぎしたのが仇をなしてピッチが高くなるとノイズが乗る欠点があったので8倍にオーバーサンプリングしました。結果としてやたら重たくなっています。
@@ -497,9 +575,9 @@ TrapezoidSynth is a monophonic synthesizer equipped with trapezoid oscillator wh
 
 - [TrapezoidSynth Manual (English)](manual/TrapezoidSynth/TrapezoidSynth_en.html)
 
-## FDNCymbal
+### FDNCymbal
 <figure>
-<img src="manual/FDNCymbal/img/FDNCymbal.png" alt="Image of FDNCymbal graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/FDNCymbal/img/FDNCymbal.png" alt="Image of FDNCymbal graphical user interface."/>
 </figure>
 
 FDNCymbal は WaveCymbal に続いてシンバルのような音を作ろうとしたプラグインです。今回は FDN (Feedback Delay Network) と Schroeder allpass を使っています。名前とは裏腹に、金属的な質感はほとんど Schroeder allpass によって加えられています。シンバルの揺れをシミュレートするためにトレモロもついています。
@@ -510,9 +588,9 @@ FDNCymbal is another attempt to make cymbal sound. This time FDN (Feedback Delay
 
 - [FDNCymbal Manual (English)](manual/FDNCymbal/FDNCymbal_en.html)
 
-## WaveCymbal
+### WaveCymbal
 <figure>
-<img src="manual/WaveCymbal/img/WaveCymbal.png" alt="Image of WaveCymbal graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/WaveCymbal/img/WaveCymbal.png" alt="Image of WaveCymbal graphical user interface."/>
 </figure>
 
 WaveCymbal は banded wave-guide という物理モデリングの手法でシンバルの音を作ろうとしたプラグインです。シンバルというよりも、薄い金属板をアスファルトの上で引きずったときのような音が出ます。シンセサイザ、エフェクトのどちらとしても使えます。
@@ -523,9 +601,9 @@ WaveCymbal is an attempt to make cymbal sound with banded wave-guide which is a 
 
 - [WaveCymbal Manual (English)](manual/WaveCymbal/WaveCymbal_en.html)
 
-## SyncSawSynth
+### SyncSawSynth
 <figure>
-<img src="manual/SyncSawSynth/img/SyncSawSynth.png" alt="Image of SyncSawSynth graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/SyncSawSynth/img/SyncSawSynth.png" alt="Image of SyncSawSynth graphical user interface."/>
 </figure>
 
 SyncSawSynthは10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。
@@ -536,9 +614,9 @@ SyncSawSynth is a 32 voice polyphonic synthesizer using up to 10th order PTR saw
 
 - [SyncSawSynth Manual (English)](manual/SyncSawSynth/SyncSawSynth_en.html)
 
-## SevenDelay
+### SevenDelay
 <figure>
-<img src="manual/SevenDelay/img/SevenDelay.png" alt="Image of SevenDelay graphical user interface." style="padding-bottom: 12px;"/>
+<img src="manual/SevenDelay/img/SevenDelay.png" alt="Image of SevenDelay graphical user interface."/>
 </figure>
 
 SevenDelayはステレオディレイです。分数ディレイに7次のラグランジュ補間を使って7倍のオーバーサンプリングをしています。オートメーションなどでディレイ時間を積極的に動かして音を作る用途に向いています。
@@ -549,7 +627,7 @@ SevenDelay is a stereo delay using 7th order lagurange interpolated fractional d
 
 - [SevenDelay Manual (English)](manual/SevenDelay/SevenDelay_en.html)
 
-# Web シンセサイザ | Web Synthesizers
+## Web シンセサイザ | Web Synthesizers
 以下のリンク先ではブラウザ上で動作するサンプルに特化したシンセサイザが使えます。 ClangCymbal 、 FDN64Reverb 、 L4Reverb などの重たいプラグインの移植版も使えます。
 
 - [UhhyouWebSynthesizers](https://ryukau.github.io/UhhyouWebSynthesizers/)
@@ -560,7 +638,7 @@ Following link is a list of sample generators that run on web browser. Ported ve
 - [UhhyouWebSynthesizers](https://ryukau.github.io/UhhyouWebSynthesizers/)
 - [Source Code](https://github.com/ryukau/UhhyouWebSynthesizers)
 
-# 開発ノート
+## 開発ノート
 VST3 の開発中に分かりにくかったことをまとめました。あまり整理されていません。何かあれば issue を作ってもらえれば対応します。 DAW ごとの問題やワークアラウンドについては追加情報を歓迎します。
 
 - [VST3 の開発](dev_note/vst3_dev.html)
@@ -571,7 +649,7 @@ VST3 の開発中に分かりにくかったことをまとめました。あま
 
 These links are notes I took while development. Written in Japanese.
 
-# ブログ | Blog
+## ブログ | Blog
 主にリリースのアナウンスを行うブログです。リンク先のページ下部から Atom/RSS フィードの登録ができます。
 
 - [Uhhyou (ブログ)](https://ryukau.blogspot.com/)
@@ -580,6 +658,6 @@ This blog is mostly used for release announcement. Atom/RSS feed is available on
 
 - [Uhhyou (blog)](https://ryukau.blogspot.com/)
 
-# VST について
+## VST について
 <a name="vst_logo"></a>
 VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.
