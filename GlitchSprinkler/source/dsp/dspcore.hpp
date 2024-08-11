@@ -146,6 +146,7 @@ public:
   // Maybe make it possible to change the pitch modifier channel.
   static constexpr size_t pitchModifierChannel = 15;
 
+  std::vector<NoteInfo> modifierNotes;
   std::vector<NoteInfo> midiNotes;
   std::vector<NoteInfo> activeNote;
   std::vector<NoteInfo> activeModifier;
@@ -158,6 +159,7 @@ public:
 
   DSPCore()
   {
+    modifierNotes.reserve(2048);
     midiNotes.reserve(2048);
     activeNote.reserve(2048);
     activeModifier.reserve(2048);
@@ -176,6 +178,8 @@ public:
   void process(const size_t length, float *out0, float *out1);
   void noteOn(NoteInfo &info);
   void noteOff(int_fast32_t noteId);
+  void modNoteOn(NoteInfo &info);
+  void modNoteOff(int_fast32_t noteId);
 
   void pushMidiNote(
     bool isNoteOn,
@@ -195,27 +199,30 @@ public:
     note.cent = tuning;
     note.velocity = velocity;
 
-    if (
-      midiNotes.back().channel == pitchModifierChannel && midiNotes.back().frame == frame
-      && channel != pitchModifierChannel)
-    {
-      std::swap(note, midiNotes.back());
+    if (note.channel == pitchModifierChannel) {
+      modifierNotes.push_back(note);
+    } else {
+      midiNotes.push_back(note);
     }
-    midiNotes.push_back(note);
   }
 
-  void processMidiNote(size_t frame)
-  {
-    while (true) {
-      auto it = std::find_if(midiNotes.begin(), midiNotes.end(), [&](const NoteInfo &nt) {
-        return nt.frame == frame;
-      });
-      if (it == std::end(midiNotes)) return;
-      if (it->isNoteOn)
-        noteOn(*it);
-      else
-        noteOff(it->id);
-      midiNotes.erase(it);
-    }
+#define DEFINE_NOTE_PROC_FUNC(FUNC_NAME, VECTOR, ON_FUNC, OFF_FUNC)                      \
+  void FUNC_NAME(size_t frame)                                                           \
+  {                                                                                      \
+    while (true) {                                                                       \
+      auto it = std::find_if(VECTOR.begin(), VECTOR.end(), [&](const NoteInfo &nt) {     \
+        return nt.frame == frame;                                                        \
+      });                                                                                \
+      if (it == std::end(VECTOR)) return;                                                \
+      if (it->isNoteOn) {                                                                \
+        ON_FUNC(*it);                                                                    \
+      } else {                                                                           \
+        OFF_FUNC(it->id);                                                                \
+      }                                                                                  \
+      VECTOR.erase(it);                                                                  \
+    }                                                                                    \
   }
+
+  DEFINE_NOTE_PROC_FUNC(processMidiNote, midiNotes, noteOn, noteOff);
+  DEFINE_NOTE_PROC_FUNC(processModifierNote, modifierNotes, modNoteOn, modNoteOff);
 };

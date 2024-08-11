@@ -104,7 +104,7 @@ enum ID {
   pulseWidthRatio,
   pulseWidthModRate,
   pulseWidthModulation,
-  pulseWidthModBidirectionSwitch,
+  pulseWidthModBidirectionalSwitch,
   pulseWidthBitwiseAnd,
 
   randomizeFmIndex,
@@ -237,8 +237,8 @@ struct GlobalParameter : public ParameterInterface {
       Info::kCanAutomate);
     value[ID::pulseWidthModulation] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "pulseWidthModulation", Info::kCanAutomate);
-    value[ID::pulseWidthModBidirectionSwitch] = std::make_unique<UIntValue>(
-      1, Scales::boolScale, "pulseWidthModBidirectionSwitch", Info::kCanAutomate);
+    value[ID::pulseWidthModBidirectionalSwitch] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "pulseWidthModBidirectionalSwitch", Info::kCanAutomate);
     value[ID::pulseWidthBitwiseAnd] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "pulseWidthBitwiseAnd", Info::kCanAutomate);
 

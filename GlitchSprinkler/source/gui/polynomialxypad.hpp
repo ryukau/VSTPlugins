@@ -291,6 +291,22 @@ public:
     editAndUpdateValue();
   }
 
+  template<typename xFunc, typename yFunc>
+  void setControlPointsRelative(xFunc fx, yFunc fy)
+  {
+    using ID = Steinberg::Synth::ParameterID::ID;
+
+    for (size_t idx = 0; idx < nControlPoint; ++idx) {
+      auto &point = controlPoints[idx];
+      const auto ratio = double(idx + 1) / double(nControlPoint + 1);
+      setValueAt(ID::polynomialPointX0 + idx, fx(ratio) + point.x / getWidth());
+      setValueAt(ID::polynomialPointY0 + idx, fy(ratio) + point.y / getHeight());
+    }
+
+    invalid();
+    editAndUpdateValue();
+  }
+
   double triangle(double t)
   {
     t += double(0.75);
@@ -365,6 +381,14 @@ public:
         [&](double ratio) {
           std::random_device dev;
           std::uniform_real_distribution<double> dist{double(0), double(1)};
+          return dist(dev);
+        });
+    } else if (event.character == 't') { // Subtle randomize.
+      setControlPointsRelative(
+        [&](double ratio) { return 0; },
+        [&](double ratio) {
+          std::random_device dev;
+          std::uniform_real_distribution<double> dist{double(-0.01), double(0.01)};
           return dist(dev);
         });
     }

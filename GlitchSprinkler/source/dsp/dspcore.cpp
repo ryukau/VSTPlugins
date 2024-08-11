@@ -81,7 +81,7 @@ void DSPCore::setup(double sampleRate_)
   filterSwitch = pv[ID::filterSwitch]->getInt();                                         \
   softEnvelopeSwitch = pv[ID::softEnvelopeSwitch]->getInt();                             \
   pwmSwitch = pv[ID::pulseWidthModulation]->getInt();                                    \
-  pwmBidrection = pv[ID::pulseWidthModBidirectionSwitch]->getInt();                      \
+  pwmBidrection = pv[ID::pulseWidthModBidirectionalSwitch]->getInt();                    \
   bitmaskSwitch = pv[ID::pulseWidthBitwiseAnd]->getInt();                                \
   pwmRatio = double(1) - pv[ID::pulseWidthRatio]->getDouble();                           \
                                                                                          \
@@ -168,6 +168,7 @@ void DSPCore::reset()
   polynomial.updateCoefficients(true);
   isPolynomialUpdated = true;
 
+  modifierNotes.resize(0);
   midiNotes.resize(0);
   activeNote.resize(0);
   activeModifier.resize(0);
@@ -327,6 +328,7 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
   const auto beatPerSample = tempo / (double(60) * sampleRate);
   std::array<double, 2> frame{};
   for (size_t i = 0; i < length; ++i) {
+    processModifierNote(i);
     processMidiNote(i);
 
     pitchModifier = activeModifier.empty()
@@ -357,10 +359,6 @@ void DSPCore::noteOn(NoteInfo &info)
   using ID = ParameterID::ID;
   auto &pv = param.value;
 
-  if (info.channel == pitchModifierChannel) {
-    activeModifier.push_back(info);
-    return;
-  }
   activeNote.push_back(info);
 
   const size_t nUnison = 1 + pv[ID::unisonVoice]->getInt();
@@ -545,13 +543,13 @@ void Voice::updateNote()
     auto transposeRatio = getPitchRatio(
       transposeSemitone + noteNumber - 69, tuningRootSemitone, transposeOctave,
       transposeCent + noteCent + unisonDetuneCent, tuning);
-    return core.pitchModifier * transposeRatio * double(440);
+    return transposeRatio * double(440);
   };
   auto getDiscreteFreq = [&]() {
     auto semitones = double(transposeSemitone + noteNumber - 127) / double(12);
     auto cents = (transposeCent + noteCent + unisonDetuneCent) / double(1200);
     auto transposeRatio = std::exp2(transposeOctave + semitones + cents);
-    auto freqHz = core.pitchModifier * transposeRatio * core.sampleRate;
+    auto freqHz = transposeRatio * core.sampleRate;
     switch (tuning) {
       default:
       case Tuning::discrete2:
@@ -640,7 +638,7 @@ void Voice::updateNote()
     arpeggioTie = 1;
   }
 
-  freqHz = std::min(double(0.5) * core.sampleRate, freqHz);
+  freqHz = std::min(double(0.5) * core.sampleRate, core.pitchModifier * freqHz);
   phasePeriod = freqHz <= 0 ? 1 : int_fast32_t(std::ceil(core.sampleRate / freqHz));
   phaseCounter = 0;
 
@@ -719,32 +717,36 @@ void DSPCore::noteOff(int_fast32_t noteId)
   using ID = ParameterID::ID;
   auto &pv = param.value;
 
-  { // Handling pitch modifiers.
-    auto it = std::find_if(
-      activeModifier.begin(), activeModifier.end(),
-      [&](const NoteInfo &info) { return info.id == noteId; });
-    if (it != activeModifier.end()) {
-      activeModifier.erase(it);
-      return;
-    }
+  auto itNote
+    = std::find_if(activeNote.begin(), activeNote.end(), [&](const NoteInfo &info) {
+        return info.id == noteId;
+      });
+  if (itNote == activeNote.end()) return;
+  activeNote.erase(itNote);
+
+  if (!isPolyphonic && !activeNote.empty()) return;
+  const auto targetId = isPolyphonic ? noteId : -1;
+  for (auto &vc : voices) {
+    if (vc.noteId != targetId) continue;
+    vc.noteId = -1;
+    vc.state = noteOffState;
+    vc.resetArpeggio(pv[ID::seed]->getInt() + vc.unisonIndex);
   }
+}
 
-  { // Handling notes.
-    auto itNote
-      = std::find_if(activeNote.begin(), activeNote.end(), [&](const NoteInfo &info) {
-          return info.id == noteId;
-        });
-    if (itNote == activeNote.end()) return;
-    activeNote.erase(itNote);
+void DSPCore::modNoteOn(NoteInfo &info) { activeModifier.push_back(info); }
 
-    if (!isPolyphonic && !activeNote.empty()) return;
-    const auto targetId = isPolyphonic ? noteId : -1;
-    for (auto &vc : voices) {
-      if (vc.noteId != targetId) continue;
-      vc.noteId = -1;
-      vc.state = noteOffState;
-      vc.resetArpeggio(pv[ID::seed]->getInt() + vc.unisonIndex);
-    }
+void DSPCore::modNoteOff(int_fast32_t noteId)
+{
+  using ID = ParameterID::ID;
+  auto &pv = param.value;
+
+  auto it = std::find_if(
+    activeModifier.begin(), activeModifier.end(),
+    [&](const NoteInfo &info) { return info.id == noteId; });
+  if (it != activeModifier.end()) {
+    activeModifier.erase(it);
+    return;
   }
 }
 

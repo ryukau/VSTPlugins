@@ -180,7 +180,8 @@ bool Editor::prepareUI()
     ID::filterSwitch);
 
   addLabel(
-    filterLeft0, filterTop1, labelWidth, labelHeight, uiTextSize, "Decay Time Ratio");
+    filterLeft0, filterTop1, labelWidth, labelHeight, uiTextSize,
+    "Decay Time Ratio [dB]");
   addTextKnob(
     filterLeft0 + labelWidth + 2 * margin, filterTop1, labelWidth, labelHeight,
     uiTextSize, ID::filterDecayRatio, Scales::filterDecayRatio, false, 5);
@@ -309,7 +310,7 @@ bool Editor::prepareUI()
     ID::pulseWidthModulation);
   addCheckbox(
     waveformLeft0 + labelWidthOneThird * 1, waveformTop8, labelWidthOneThird, labelHeight,
-    uiTextSize, "Bidirection", ID::pulseWidthModBidirectionSwitch);
+    uiTextSize, "Bidirectional", ID::pulseWidthModBidirectionalSwitch);
   addCheckbox(
     waveformLeft0 + labelWidthOneThird * 2, waveformTop8, labelWidthOneThird, labelHeight,
     uiTextSize, "Bitwise And", ID::pulseWidthBitwiseAnd);
