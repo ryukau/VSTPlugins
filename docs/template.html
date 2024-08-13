@@ -122,10 +122,21 @@
 
     h1::after {
       display: inline-block;
-      content: url('$favicon-svg-path$');
-      zoom: 0.5;
+      background-image: url('img/favicon/favicon.svg');
+      content: "";
       vertical-align: middle;
-      margin-left: 4rem;
+      background-size: 128px 128px;
+      width: 128px;
+      height: 128px;
+      margin-left: 1rem;
+    }
+
+    @media all and (max-width: 704px) {
+      h1::after {
+        background-size: 2em 2em;
+        width: 2em;
+        height: 2em;
+      }
     }
 
     h2 {

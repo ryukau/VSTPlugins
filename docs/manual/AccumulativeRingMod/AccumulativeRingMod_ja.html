@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2024-08-11" />
+      <meta name="dcterms.date" content="2024-08-13" />
       <title>AccumulativeRingMod_ja – Uhhyou Plugins</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
   <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
@@ -114,10 +114,21 @@
 
     h1::after {
       display: inline-block;
-      content: url('../../img/favicon/favicon.svg');
-      zoom: 0.5;
+      background-image: url('img/favicon/favicon.svg');
+      content: "";
       vertical-align: middle;
-      margin-left: 4rem;
+      background-size: 128px 128px;
+      width: 128px;
+      height: 128px;
+      margin-left: 1rem;
+    }
+
+    @media all and (max-width: 704px) {
+      h1::after {
+        background-size: 2em 2em;
+        width: 2em;
+        height: 2em;
+      }
     }
 
     h2 {
@@ -274,7 +285,7 @@
     <header>
         <p><a href="../../index.html">Back to Index</a></p>
             <p>
-      Update: 2024-08-11
+      Update: 2024-08-13
     </p>
             <details>
       <summary translate="yes">Table of Contents</summary>
