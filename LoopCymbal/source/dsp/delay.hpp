@@ -19,6 +19,7 @@
 #include <array>
 #include <cmath>
 #include <limits>
+#include <numeric>
 #include <random>
 #include <vector>
 
@@ -30,14 +31,14 @@ private:
   Sample alpha = Sample(0);
 
 public:
-  void setTime(Sample decayTimeInSamples)
+  void setTime(Sample decayTimeInSamples, bool sustain = false)
   {
-    alpha = std::pow(
-      Sample(std::numeric_limits<float>::epsilon()), Sample(1) / decayTimeInSamples);
+    constexpr auto eps = Sample(std::numeric_limits<float>::epsilon());
+    alpha = sustain ? Sample(1) : std::pow(eps, Sample(1) / decayTimeInSamples);
   }
 
   void reset() { value = Sample(0); }
-  void noteOn() { value = Sample(1); }
+  void noteOn(Sample gain = Sample(1)) { value = gain; }
   Sample process() { return value *= alpha; }
 };
 
@@ -89,6 +90,59 @@ public:
   }
 };
 
+/**
+Unused. This is a drop in replacement of `Delay`, but doubles the CPU load.
+
+- Sustain of the sound becomes shorter. Perhaps second allpass loop is required.
+- Rotating `phase` at right frequency makes better sound. It adds artifact due to AM.
+- `inputRatio` is better to be controled by user.
+*/
+template<typename Sample> class FDN2 {
+public:
+  static constexpr size_t size = 2;
+
+  Sample phase = 0;
+  std::array<Sample, size> buffer;
+  std::array<Delay<Sample>, size> delay;
+
+  void setup(Sample maxTimeSamples)
+  {
+    for (auto &x : delay) x.setup(maxTimeSamples);
+  }
+
+  void reset()
+  {
+    buffer.fill({});
+    for (auto &x : delay) x.reset();
+  }
+
+  Sample process(Sample input, Sample timeInSamples)
+  {
+    // Fixed parameters. [a, b] is the range of the value.
+    constexpr auto phaseRatio = Sample(1) / Sample(3); // [positive small, +inf].
+    constexpr auto feedback = Sample(1);               // [-1, 1].
+    constexpr auto timeRatio = Sample(4) / Sample(3);  // [0, +inf].
+    constexpr auto inputRatio = Sample(0.5);           // [0, 1].
+
+    constexpr auto twopi = Sample(2) * std::numbers::pi_v<Sample>;
+    const auto cs = std::cos(twopi * phase);
+    const auto sn = std::sin(twopi * phase);
+
+    phase += phaseRatio / timeInSamples;
+    phase -= std::floor(phase);
+
+    const auto sig0 = feedback * (cs * buffer[0] - sn * buffer[1]);
+    const auto sig1 = feedback * (sn * buffer[0] + cs * buffer[1]);
+
+    constexpr auto g1 = inputRatio;
+    constexpr auto g2 = Sample(1) - inputRatio;
+    buffer[0] = delay[0].process(g1 * input + sig0, timeInSamples);
+    buffer[1] = delay[1].process(g2 * input + sig1, timeInSamples * timeRatio);
+
+    return buffer[0] + buffer[1];
+  }
+};
+
 // Unused. `SerialAllpass` became unstable when used.
 template<typename Sample> class NyquistLowpass {
 private:
@@ -129,11 +183,26 @@ public:
   }
 };
 
+template<typename Sample> class EmaLowShelf {
+private:
+  Sample value = 0;
+
+public:
+  void reset() { value = 0; }
+
+  Sample process(Sample input, Sample kp, Sample shelvingGain)
+  {
+    value += kp * (input - value);
+    return std::lerp(input - value, input, shelvingGain);
+  }
+};
+
 template<typename Sample, size_t nAllpass> class SerialAllpass {
 private:
   std::array<Sample, nAllpass> buffer{};
   std::array<Delay<Sample>, nAllpass> delay;
   std::array<EmaHighShelf<Sample>, nAllpass> lowpass;
+  std::array<EmaLowShelf<Sample>, nAllpass> highpass;
 
 public:
   static constexpr size_t size = nAllpass;
@@ -149,22 +218,40 @@ public:
     buffer.fill({});
     for (auto &x : delay) x.reset();
     for (auto &x : lowpass) x.reset();
+    for (auto &x : highpass) x.reset();
+  }
+
+  Sample sum(Sample altSignMix)
+  {
+    Sample sumAlt = Sample(0);
+    Sample sign = Sample(1);
+    for (const auto &x : buffer) {
+      sumAlt += x * sign;
+      sign = -sign;
+    }
+    Sample sumDirect = std::accumulate(buffer.begin(), buffer.end(), Sample(0));
+    return std::lerp(sumDirect, sumAlt, altSignMix) / (Sample(2) * nAllpass);
   }
 
   Sample process(
     Sample input,
     Sample highShelfCut,
     Sample highShelfGain,
+    Sample lowShelfCut,
+    Sample lowShelfGain,
     Sample gain,
+    Sample pitchRatio,
     Sample timeModAmount)
   {
     for (size_t idx = 0; idx < nAllpass; ++idx) {
       auto x0 = lowpass[idx].process(input, highShelfCut, highShelfGain);
+      x0 = highpass[idx].process(x0, lowShelfCut, lowShelfGain);
       x0 -= gain * buffer[idx];
       input = buffer[idx] + gain * x0;
-      buffer[idx]
-        = delay[idx].process(x0, timeInSamples[idx] - timeModAmount * std::abs(x0));
+      buffer[idx] = delay[idx].process(
+        x0, timeInSamples[idx] / pitchRatio - timeModAmount * std::abs(x0));
     }
+    // buffer.back() = highpass.process(buffer.back(), lowShelfCut, lowShelfGain);
     return input;
   }
 };

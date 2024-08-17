@@ -129,6 +129,8 @@ bool Editor::prepareUI()
   addCheckbox(
     mixLeft0, mixTop4, labelWidth, labelHeight, uiTextSize, "Reset Seed at Note-on",
     ID::resetSeedAtNoteOn);
+  addCheckbox(
+    mixLeft1, mixTop3, labelWidth, labelHeight, uiTextSize, "Release", ID::release);
 
   addLabel(mixLeft0, mixTop6, labelWidth, labelHeight, uiTextSize, "Stereo Balance");
   addTextKnob(
@@ -163,20 +165,17 @@ bool Editor::prepareUI()
   addTextKnob(
     tuningLeft1, tuningTop1, labelWidth, labelHeight, uiTextSize, ID::notePitchAmount,
     Scales::bipolarScale, false, 5);
-  addLabel(tuningLeft0, tuningTop2, labelWidth, labelHeight, uiTextSize, "Semitone");
-  addTextKnob(
-    tuningLeft1, tuningTop2, labelWidth, labelHeight, uiTextSize, ID::tuningSemitone,
-    Scales::semitone, false, 0, -semitoneOffset);
-  addLabel(tuningLeft0, tuningTop3, labelWidth, labelHeight, uiTextSize, "Cent");
+  addLabel(
+    tuningLeft0, tuningTop3, labelWidth, labelHeight, uiTextSize, "Transpose [cent]");
   addTextKnob(
     tuningLeft1, tuningTop3, labelWidth, labelHeight, uiTextSize, ID::tuningCent,
     Scales::cent, false, 5);
   addLabel(
     tuningLeft0, tuningTop4, labelWidth, labelHeight, uiTextSize,
-    "Pitch Bend Range [st.]");
+    "Pitch Bend Range [cent]");
   addTextKnob(
     tuningLeft1, tuningTop4, labelWidth, labelHeight, uiTextSize, ID::pitchBendRange,
-    Scales::pitchBendRange, false, 5);
+    Scales::cent, false, 5);
   addLabel(
     tuningLeft0, tuningTop5, labelWidth, labelHeight, uiTextSize, "Slide Time [s]");
   addTextKnob(
@@ -192,6 +191,12 @@ bool Editor::prepareUI()
   constexpr auto impactTop5 = impactTop0 + 5 * labelY;
   constexpr auto impactTop6 = impactTop0 + 6 * labelY;
   constexpr auto impactTop7 = impactTop0 + 7 * labelY;
+  constexpr auto impactTop8 = impactTop0 + 8 * labelY;
+  constexpr auto impactTop9 = impactTop0 + 9 * labelY;
+  constexpr auto impactTop10 = impactTop0 + 10 * labelY;
+  constexpr auto impactTop11 = impactTop0 + 11 * labelY;
+  constexpr auto impactTop12 = impactTop0 + 12 * labelY;
+  constexpr auto impactTop13 = impactTop0 + 13 * labelY;
   constexpr auto impactLeft0 = left4;
   constexpr auto impactLeft1 = impactLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
@@ -227,12 +232,63 @@ bool Editor::prepareUI()
     Scales::delayTimeModAmount, false, 5);
   addLabel(impactLeft0, impactTop6, labelWidth, labelHeight, uiTextSize, "Feed");
   addTextKnob(
-    impactLeft1, impactTop6, labelWidth, labelHeight, uiTextSize, ID::allpassFeed,
+    impactLeft1, impactTop6, labelWidth, labelHeight, uiTextSize, ID::allpassFeed1,
     Scales::bipolarScale, false, 5);
-  addLabel(impactLeft0, impactTop7, labelWidth, labelHeight, uiTextSize, "Distance");
+
+  addLabel(
+    impactLeft0, impactTop8, labelWidth, labelHeight, uiTextSize,
+    "High Shelf Cutoff [Hz]");
   addTextKnob(
-    impactLeft1, impactTop7, labelWidth, labelHeight, uiTextSize, ID::hihatDistance,
-    Scales::hihatDistance, false, 5);
+    impactLeft1, impactTop8, labelWidth, labelHeight, uiTextSize,
+    ID::highShelfFrequencyHz, Scales::cutoffFrequencyHz, false, 5);
+  addLabel(
+    impactLeft0, impactTop9, labelWidth, labelHeight, uiTextSize, "High Shelf Gain [dB]");
+  addTextKnob(
+    impactLeft1, impactTop9, labelWidth, labelHeight, uiTextSize, ID::highShelfGain,
+    Scales::shelvingGain, true, 5);
+  addLabel(
+    impactLeft0, impactTop10, labelWidth, labelHeight, uiTextSize,
+    "Low Shelf Cutoff [Hz]");
+  addTextKnob(
+    impactLeft1, impactTop10, labelWidth, labelHeight, uiTextSize,
+    ID::lowShelfFrequencyHz, Scales::cutoffFrequencyHz, false, 5);
+  addLabel(
+    impactLeft0, impactTop11, labelWidth, labelHeight, uiTextSize, "Low Shelf Gain [dB]");
+  addTextKnob(
+    impactLeft1, impactTop11, labelWidth, labelHeight, uiTextSize, ID::lowShelfGain,
+    Scales::shelvingGain, true, 5);
+  addLabel(impactLeft0, impactTop12, labelWidth, labelHeight, uiTextSize, "Mix Spike");
+  addTextKnob(
+    impactLeft1, impactTop12, labelWidth, labelHeight, uiTextSize, ID::allpassMixSpike,
+    Scales::defaultScale, false, 5);
+  addLabel(
+    impactLeft0, impactTop13, labelWidth, labelHeight, uiTextSize, "Mix Alt. Sign");
+  addTextKnob(
+    impactLeft1, impactTop13, labelWidth, labelHeight, uiTextSize, ID::allpassMixAltSign,
+    Scales::defaultScale, false, 5);
+
+  // Secondary.
+  constexpr auto secondTop0 = top0 + 0 * labelY;
+  constexpr auto secondTop1 = secondTop0 + 1 * labelY;
+  constexpr auto secondTop2 = secondTop0 + 2 * labelY;
+  constexpr auto secondTop3 = secondTop0 + 3 * labelY;
+  constexpr auto secondTop4 = secondTop0 + 4 * labelY;
+  constexpr auto secondTop5 = secondTop0 + 5 * labelY;
+  constexpr auto secondTop6 = secondTop0 + 6 * labelY;
+  constexpr auto secondTop7 = secondTop0 + 7 * labelY;
+  constexpr auto secondTop8 = secondTop0 + 8 * labelY;
+  constexpr auto secondTop9 = secondTop0 + 9 * labelY;
+  constexpr auto secondTop10 = secondTop0 + 10 * labelY;
+  constexpr auto secondTop11 = secondTop0 + 11 * labelY;
+  constexpr auto secondLeft0 = left8;
+  constexpr auto secondLeft1 = secondLeft0 + labelWidth + 2 * margin;
+  addGroupLabel(
+    secondLeft0, secondTop0, groupLabelWidth, labelHeight, uiTextSize, "Loop 2");
+
+  addLabel(secondLeft0, secondTop6, labelWidth, labelHeight, uiTextSize, "Feed");
+  addTextKnob(
+    secondLeft1, secondTop6, labelWidth, labelHeight, uiTextSize, ID::allpassFeed2,
+    Scales::bipolarScale, false, 5);
 
   // Randomize button.
   const auto randomButtonTop = top0 + 18 * labelY;

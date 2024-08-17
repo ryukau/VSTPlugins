@@ -1,4 +1,4 @@
-// (c) 2023 Takamitsu Endo
+// (c) 2024 Takamitsu Endo
 //
 // This file is part of LoopCymbal.
 //
@@ -25,16 +25,7 @@
 #include <numeric>
 
 constexpr double defaultTempo = double(120);
-
-inline double calcOscillatorPitch(double octave, double cent)
-{
-  return std::exp2(octave - octaveOffset + cent / 1200.0);
-}
-
-inline double calcPitch(double semitone, double equalTemperament = 12.0)
-{
-  return std::exp2(semitone / equalTemperament);
-}
+constexpr double releaseTimeSecond = double(0.05);
 
 template<size_t nAllpass, typename Rng>
 inline auto prepareSerialAllpassTime(double upRate, double allpassMaxTimeHz, Rng &rng)
@@ -77,7 +68,8 @@ void DSPCore::setup(double sampleRate)
   SmootherCommon<double>::setTime(double(0.2));
 
   const auto maxDelayTimeSamples = upRate * 2 * Scales::delayTimeSecond.getMax();
-  for (auto &x : serialAllpass) x.setup(maxDelayTimeSamples);
+  for (auto &x : serialAllpass1) x.setup(maxDelayTimeSamples);
+  for (auto &x : serialAllpass2) x.setup(maxDelayTimeSamples);
 
   reset();
   startup();
@@ -91,39 +83,60 @@ void DSPCore::setup(double sampleRate)
                                                                                          \
   pitchSmoothingKp                                                                       \
     = EMAFilter<double>::secondToP(upRate, pv[ID::noteSlideTimeSecond]->getDouble());    \
-  auto pitchBend                                                                         \
-    = calcPitch(pv[ID::pitchBendRange]->getDouble() * pv[ID::pitchBend]->getDouble());   \
-  auto notePitch = calcNotePitch(pitchBend * noteNumber);                                \
+  auto notePitch = calcNotePitch(noteNumber);                                            \
   interpPitch.METHOD(notePitch);                                                         \
                                                                                          \
   externalInputGain.METHOD(pv[ID::externalInputGain]->getDouble());                      \
   delayTimeModAmount.METHOD(                                                             \
     pv[ID::delayTimeModAmount]->getDouble() * upRate / double(48000));                   \
-  allpassFeed.METHOD(pv[ID::allpassFeed]->getDouble());                                  \
-  hihatDistance.METHOD(pv[ID::hihatDistance]->getDouble());                              \
+  allpassFeed1.METHOD(                                                                   \
+    std::clamp(pv[ID::allpassFeed1]->getDouble(), double(-0.99999), double(0.99999)));   \
+  allpassFeed2.METHOD(                                                                   \
+    std::clamp(pv[ID::allpassFeed2]->getDouble(), double(-0.99999), double(0.99999)));   \
+  allpassMixSpike.METHOD(pv[ID::allpassMixSpike]->getDouble());                          \
+  allpassMixAltSign.METHOD(pv[ID::allpassMixAltSign]->getDouble());                      \
+  highShelfCutoff.METHOD(                                                                \
+    EMAFilter<double>::cutoffToP(upRate, pv[ID::highShelfFrequencyHz]->getDouble()));    \
+  highShelfGain.METHOD(pv[ID::highShelfGain]->getDouble());                              \
+  lowShelfCutoff.METHOD(                                                                 \
+    EMAFilter<double>::cutoffToP(upRate, pv[ID::lowShelfFrequencyHz]->getDouble()));     \
+  lowShelfGain.METHOD(pv[ID::lowShelfGain]->getDouble());                                \
   stereoBalance.METHOD(pv[ID::stereoBalance]->getDouble());                              \
   stereoMerge.METHOD(pv[ID::stereoMerge]->getDouble() / double(2));                      \
                                                                                          \
   auto gain = pv[ID::outputGain]->getDouble();                                           \
   outputGain.METHOD(gain);                                                               \
                                                                                          \
-  envelope.setTime(pv[ID::noiseDecaySeconds]->getDouble() * upRate);                     \
+  envelopeNoise.setTime(pv[ID::noiseDecaySeconds]->getDouble() * upRate);                \
+  if (!pv[ID::release]->getInt() && noteStack.empty()) {                                 \
+    envelopeRelease.setTime(releaseTimeSecond *upRate);                                  \
+  }                                                                                      \
                                                                                          \
-  paramRng.seed(pv[ID::seed]->getInt());                                                 \
-  const auto delayTimeBase = pv[ID::delayTimeBaseSecond]->getDouble() * upRate;          \
-  const auto delayTimeRandom = pv[ID::delayTimeRandomSecond]->getDouble() * upRate;      \
-  std::uniform_real_distribution<double> delayTimeDist{                                  \
-    double(0), double(delayTimeRandom)};                                                 \
-  for (auto &ap : serialAllpass) {                                                       \
-    for (size_t idx = 0; idx < nAllpass; ++idx) {                                        \
-      ap.timeInSamples[idx] = delayTimeBase / double(idx + 1) + delayTimeDist(paramRng); \
-    }                                                                                    \
-  }
+  updateDelayTime();
 
 void DSPCore::updateUpRate()
 {
   upRate = sampleRate * fold[overSampling];
   SmootherCommon<double>::setSampleRate(upRate);
+}
+
+void DSPCore::updateDelayTime()
+{
+  using ID = ParameterID::ID;
+  const auto &pv = param.value;
+
+  paramRng.seed(pv[ID::seed]->getInt());
+  const auto delayTimeBase = pv[ID::delayTimeBaseSecond]->getDouble() * upRate;
+  const auto delayTimeRandom = pv[ID::delayTimeRandomSecond]->getDouble() * upRate;
+  std::uniform_real_distribution<double> delayTimeDist{
+    double(0), double(delayTimeRandom)};
+  for (size_t idx = 0; idx < nAllpass; ++idx) {
+    const auto timeHarmonics = delayTimeBase / double(idx + 1);
+    serialAllpass1[0].timeInSamples[idx] = timeHarmonics + delayTimeDist(paramRng);
+    serialAllpass1[1].timeInSamples[idx] = timeHarmonics + delayTimeDist(paramRng);
+    serialAllpass2[0].timeInSamples[idx] = timeHarmonics + delayTimeDist(paramRng);
+    serialAllpass2[1].timeInSamples[idx] = timeHarmonics + delayTimeDist(paramRng);
+  }
 }
 
 void DSPCore::reset()
@@ -139,11 +152,12 @@ void DSPCore::reset()
   startup();
 
   impulse = 0;
-  noiseGain = 0;
-  noiseDecay = 0;
-  envelope.reset();
-  feedbackBuffer.fill(double(0));
-  for (auto &x : serialAllpass) x.reset();
+  envelopeNoise.reset();
+  envelopeRelease.reset();
+  feedbackBuffer1.fill(double(0));
+  feedbackBuffer2.fill(double(0));
+  for (auto &x : serialAllpass1) x.reset();
+  for (auto &x : serialAllpass2) x.reset();
 
   for (auto &x : halfbandInput) x.fill({});
   for (auto &x : halfbandIir) x.reset();
@@ -166,33 +180,32 @@ void DSPCore::setParameters()
   ASSIGN_PARAMETER(push);
 }
 
-// Overwrites `p0` and `p1`.
-inline void solveCollision(double &p0, double &p1, double v0, double v1, double distance)
-{
-  auto diff = p0 - p1 + distance;
-  if (diff >= 0) return;
-
-  const auto r0 = std::abs(v0);
-  const auto r1 = std::abs(v1);
-  if (r0 + r1 > std::numeric_limits<double>::epsilon()) diff /= r0 + r1;
-  p0 = -diff * r1;
-  p1 = diff * r0;
-}
-
 std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externalInput)
 {
+  const auto envRelease = envelopeRelease.process();
+
   const auto extGain = externalInputGain.process();
   const auto timeModAmt = delayTimeModAmount.process();
-  const auto apGain = allpassFeed.process();
-  const auto distance = hihatDistance.process();
+
+  auto apGain1 = allpassFeed1.process();
+  auto apGain2 = allpassFeed2.process();
+  apGain1 = std::lerp(apGain1 * double(0.5), apGain1, envRelease);
+  apGain2 = std::lerp(apGain2 * double(0.5), apGain2, envRelease);
+
+  const auto apMixSpike = allpassMixSpike.process();
+  const auto apMixSign = allpassMixAltSign.process();
+  const auto hsCut = highShelfCutoff.process();
+  const auto hsGain = highShelfGain.process() * envRelease;
+  const auto lsCut = lowShelfCutoff.process();
+  const auto lsGain = lowShelfGain.process();
   const auto balance = stereoBalance.process();
   const auto merge = stereoMerge.process();
-  const auto outGain = outputGain.process();
+  const auto outGain = outputGain.process() * envRelease;
 
   std::uniform_real_distribution<double> dist{double(-1), double(1)};
-  const auto noiseEnv = envelope.process();
+  const auto noiseEnv = envelopeNoise.process();
   std::array<double, 2> excitation{
-    -apGain * feedbackBuffer[0], -apGain * feedbackBuffer[1]};
+    -apGain1 * feedbackBuffer1[0], -apGain1 * feedbackBuffer1[1]};
   if (impulse != 0) {
     excitation[0] += impulse;
     excitation[1] += impulse;
@@ -207,17 +220,34 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externa
     excitation[1] += externalInput[1] * extGain;
   }
 
-  auto cymbal0 = feedbackBuffer[0];
-  auto cymbal1 = feedbackBuffer[1];
-  feedbackBuffer[0]
-    = serialAllpass[0].process(excitation[0], double(1), double(1), apGain, timeModAmt);
-  feedbackBuffer[1]
-    = serialAllpass[1].process(excitation[1], double(1), double(1), apGain, timeModAmt);
+  // Normalize amplitude.
+  const auto pitchRatio = interpPitch.process(pitchSmoothingKp);
+  const auto normalizeGain = nAllpass
+    * std::lerp(double(1) / std::sqrt(hsCut / (double(2) - hsCut)), hsGain, hsGain);
+  auto ap1Out0
+    = std::lerp(serialAllpass1[0].sum(apMixSign), feedbackBuffer1[0], apMixSpike)
+    * normalizeGain;
+  auto ap1Out1
+    = std::lerp(serialAllpass1[1].sum(apMixSign), feedbackBuffer1[1], apMixSpike)
+    * normalizeGain;
 
-  // TODO
-  solveCollision(
-    feedbackBuffer[0], feedbackBuffer[1], feedbackBuffer[0] - cymbal0,
-    feedbackBuffer[1] - cymbal1, distance);
+  feedbackBuffer1[0] = serialAllpass1[0].process(
+    excitation[0], hsCut, hsGain, lsCut, lsGain, apGain1, pitchRatio, timeModAmt);
+  feedbackBuffer1[1] = serialAllpass1[1].process(
+    excitation[1], hsCut, hsGain, lsCut, lsGain, apGain1, pitchRatio, timeModAmt);
+
+  auto cymbal0
+    = std::lerp(serialAllpass2[0].sum(apMixSign), feedbackBuffer2[0], apMixSpike)
+    * normalizeGain;
+  auto cymbal1
+    = std::lerp(serialAllpass2[1].sum(apMixSign), feedbackBuffer2[1], apMixSpike)
+    * normalizeGain;
+  feedbackBuffer2[0] = serialAllpass2[0].process(
+    ap1Out0 - apGain2 * feedbackBuffer2[0], hsCut, hsGain, lsCut, lsGain, apGain2,
+    pitchRatio, timeModAmt);
+  feedbackBuffer2[1] = serialAllpass2[1].process(
+    ap1Out1 - apGain2 * feedbackBuffer2[1], hsCut, hsGain, lsCut, lsGain, apGain2,
+    pitchRatio, timeModAmt);
 
   constexpr auto eps = std::numeric_limits<double>::epsilon();
   if (balance < -eps) {
@@ -287,20 +317,16 @@ void DSPCore::noteOn(NoteInfo &info)
 
   noteNumber = info.noteNumber;
   auto notePitch = calcNotePitch(info.noteNumber);
-  auto pitchBend
-    = calcPitch(pv[ID::pitchBendRange]->getDouble() * pv[ID::pitchBend]->getDouble());
   interpPitch.push(notePitch);
 
   velocity = velocityMap.map(info.velocity);
 
   if (pv[ID::resetSeedAtNoteOn]->getInt()) noiseRng.seed(pv[ID::seed]->getInt());
 
-  impulse = double(1);
-  noiseGain = velocity;
-  noiseDecay = std::pow(
-    double(1e-3), double(1) / (upRate * pv[ID::noiseDecaySeconds]->getDouble()));
-
-  envelope.noteOn();
+  impulse = velocity;
+  envelopeNoise.noteOn(velocity);
+  envelopeRelease.noteOn(double(1));
+  envelopeRelease.setTime(1, true);
 }
 
 void DSPCore::noteOff(int_fast32_t noteId)
@@ -317,6 +343,8 @@ void DSPCore::noteOff(int_fast32_t noteId)
   if (!noteStack.empty()) {
     noteNumber = noteStack.back().noteNumber;
     interpPitch.push(calcNotePitch(noteNumber));
+  } else {
+    if (!pv[ID::release]->getInt()) envelopeRelease.setTime(releaseTimeSecond * upRate);
   }
 }
 
@@ -325,8 +353,11 @@ double DSPCore::calcNotePitch(double note)
   using ID = ParameterID::ID;
   auto &pv = param.value;
 
-  auto semitone = pv[ID::tuningSemitone]->getInt() - double(semitoneOffset + 57);
+  constexpr auto centerNote = double(60);
+  auto pitchBendCent
+    = pv[ID::pitchBendRange]->getDouble() * pv[ID::pitchBend]->getDouble() / double(1200);
   auto cent = pv[ID::tuningCent]->getDouble() / double(100);
   auto notePitchAmount = pv[ID::notePitchAmount]->getDouble();
-  return std::exp2(notePitchAmount * (note + semitone + cent) / double(12));
+  return std::exp2(
+    pitchBendCent + (notePitchAmount * (note - centerNote) + cent) / double(12));
 }

@@ -31,9 +31,7 @@
   #include "../../common/value.hpp"
 #endif
 
-constexpr int octaveOffset = 8;
-constexpr int semitoneOffset = 96;
-constexpr size_t maxFdnSize = 5;
+constexpr size_t nAllpass = 16;
 
 constexpr size_t nReservedParameter = 64;
 constexpr size_t nReservedGuiParameter = 16;
@@ -48,6 +46,7 @@ enum ID {
   outputGain,
   overSampling,
   resetSeedAtNoteOn,
+  release,
 
   stereoBalance,
   stereoMerge,
@@ -56,7 +55,6 @@ enum ID {
   externalInputGain,
 
   notePitchAmount,
-  tuningSemitone,
   tuningCent,
   pitchBend,
   pitchBendRange,
@@ -68,9 +66,15 @@ enum ID {
   delayTimeBaseSecond,
   delayTimeRandomSecond,
   delayTimeModAmount,
-  allpassFeed,
+  allpassFeed1,
+  allpassFeed2,
+  allpassMixSpike,
+  allpassMixAltSign,
 
-  hihatDistance,
+  highShelfFrequencyHz,
+  highShelfGain,
+  lowShelfFrequencyHz,
+  lowShelfGain,
 
   reservedParameter0,
   reservedGuiParameter0 = reservedParameter0 + nReservedParameter,
@@ -88,14 +92,15 @@ struct Scales {
 
   static SomeDSP::DecibelScale<double> gain;
 
-  static SomeDSP::UIntScale<double> semitone;
   static SomeDSP::LinearScale<double> cent;
-  static SomeDSP::LinearScale<double> pitchBendRange;
   static SomeDSP::DecibelScale<double> noteSlideTimeSecond;
 
   static SomeDSP::DecibelScale<double> noiseDecaySeconds;
   static SomeDSP::DecibelScale<double> delayTimeSecond;
   static SomeDSP::DecibelScale<double> delayTimeModAmount;
+
+  static SomeDSP::DecibelScale<double> cutoffFrequencyHz;
+  static SomeDSP::DecibelScale<double> shelvingGain;
 
   static SomeDSP::DecibelScale<double> hihatDistance;
 };
@@ -122,6 +127,8 @@ struct GlobalParameter : public ParameterInterface {
       1, Scales::boolScale, "overSampling", Info::kCanAutomate);
     value[ID::resetSeedAtNoteOn] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "resetSeedAtNoteOn", Info::kCanAutomate);
+    value[ID::release]
+      = std::make_unique<UIntValue>(1, Scales::boolScale, "release", Info::kCanAutomate);
 
     value[ID::stereoBalance] = std::make_unique<LinearValue>(
       Scales::bipolarScale.invmap(0.0), Scales::bipolarScale, "stereoBalance",
@@ -138,17 +145,14 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::notePitchAmount] = std::make_unique<LinearValue>(
       Scales::bipolarScale.invmap(0.0), Scales::bipolarScale, "notePitchAmount",
       Info::kCanAutomate);
-    value[ID::tuningSemitone] = std::make_unique<UIntValue>(
-      semitoneOffset, Scales::semitone, "tuningSemitone", Info::kCanAutomate);
     value[ID::tuningCent] = std::make_unique<LinearValue>(
       Scales::cent.invmap(0.0), Scales::cent, "tuningCent", Info::kCanAutomate);
     value[ID::pitchBend] = std::make_unique<LinearValue>(
       0.5, Scales::bipolarScale, "pitchBend", Info::kCanAutomate);
     value[ID::pitchBendRange] = std::make_unique<LinearValue>(
-      Scales::pitchBendRange.invmap(2.0), Scales::pitchBendRange, "pitchBendRange",
-      Info::kCanAutomate);
+      Scales::cent.invmap(1200.0), Scales::cent, "pitchBendRange", Info::kCanAutomate);
     value[ID::noteSlideTimeSecond] = std::make_unique<DecibelValue>(
-      Scales::noteSlideTimeSecond.invmap(0.1), Scales::noteSlideTimeSecond,
+      Scales::noteSlideTimeSecond.invmap(0.0001), Scales::noteSlideTimeSecond,
       "noteSlideTimeSecond", Info::kCanAutomate);
 
     value[ID::seed]
@@ -162,15 +166,34 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::delayTimeRandomSecond] = std::make_unique<DecibelValue>(
       Scales::delayTimeSecond.invmap(0.001), Scales::delayTimeSecond,
       "delayTimeRandomSecond", Info::kCanAutomate);
+
     value[ID::delayTimeModAmount] = std::make_unique<DecibelValue>(
       Scales::delayTimeModAmount.invmap(0.0), Scales::delayTimeModAmount,
       "delayTimeModAmount", Info::kCanAutomate);
-    value[ID::allpassFeed] = std::make_unique<LinearValue>(
-      Scales::bipolarScale.invmap(0.98), Scales::bipolarScale, "allpassFeed",
+    value[ID::allpassFeed1] = std::make_unique<LinearValue>(
+      Scales::bipolarScale.invmap(0.98), Scales::bipolarScale, "allpassFeed1",
+      Info::kCanAutomate);
+    value[ID::allpassFeed2] = std::make_unique<LinearValue>(
+      Scales::bipolarScale.invmap(0.98), Scales::bipolarScale, "allpassFeed2",
+      Info::kCanAutomate);
+    value[ID::allpassMixSpike] = std::make_unique<LinearValue>(
+      Scales::defaultScale.invmap(2.0 / 3.0), Scales::defaultScale, "allpassMixSpike",
+      Info::kCanAutomate);
+    value[ID::allpassMixAltSign] = std::make_unique<LinearValue>(
+      Scales::defaultScale.invmap(0), Scales::defaultScale, "allpassMixAltSign",
       Info::kCanAutomate);
 
-    value[ID::hihatDistance] = std::make_unique<DecibelValue>(
-      Scales::hihatDistance.invmap(10.0), Scales::hihatDistance, "hihatDistance",
+    value[ID::highShelfFrequencyHz] = std::make_unique<DecibelValue>(
+      Scales::cutoffFrequencyHz.invmap(8000.0), Scales::cutoffFrequencyHz,
+      "highShelfFrequencyHz", Info::kCanAutomate);
+    value[ID::highShelfGain] = std::make_unique<DecibelValue>(
+      Scales::shelvingGain.invmapDB(-1.0), Scales::shelvingGain, "highShelfGain",
+      Info::kCanAutomate);
+    value[ID::lowShelfFrequencyHz] = std::make_unique<DecibelValue>(
+      Scales::cutoffFrequencyHz.invmap(20.0), Scales::cutoffFrequencyHz,
+      "lowShelfFrequencyHz", Info::kCanAutomate);
+    value[ID::lowShelfGain] = std::make_unique<DecibelValue>(
+      Scales::shelvingGain.invmapDB(-1.0), Scales::shelvingGain, "lowShelfGain",
       Info::kCanAutomate);
 
     for (size_t idx = 0; idx < nReservedParameter; ++idx) {

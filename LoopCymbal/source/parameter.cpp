@@ -36,14 +36,15 @@ UIntScale<double> Scales::seed(1 << 23);
 
 DecibelScale<double> Scales::gain(-100.0, 60.0, true);
 
-UIntScale<double> Scales::semitone(semitoneOffset + 48);
-LinearScale<double> Scales::cent(-100.0, 100.0);
-LinearScale<double> Scales::pitchBendRange(0.0, 120.0);
-DecibelScale<double> Scales::noteSlideTimeSecond(-40.0, 40.0, false);
+LinearScale<double> Scales::cent(-6000.0, 6000.0);
+DecibelScale<double> Scales::noteSlideTimeSecond(-100.0, 40.0, true);
 
 DecibelScale<double> Scales::noiseDecaySeconds(-100, 40, false);
 DecibelScale<double> Scales::delayTimeSecond(-100, -20, false);
 DecibelScale<double> Scales::delayTimeModAmount(-20, 60, true);
+
+DecibelScale<double> Scales::cutoffFrequencyHz(0, 100, false);
+DecibelScale<double> Scales::shelvingGain(-60, 0, true);
 
 DecibelScale<double> Scales::hihatDistance(-80, 20, true);
 

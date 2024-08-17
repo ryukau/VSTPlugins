@@ -1,4 +1,4 @@
-// (c) 2023 Takamitsu Endo
+// (c) 2024 Takamitsu Endo
 //
 // This file is part of LoopCymbal.
 //
@@ -94,6 +94,7 @@ public:
 
 private:
   void updateUpRate();
+  void updateDelayTime();
   double calcNotePitch(double note);
   std::array<double, 2> processFrame(const std::array<double, 2> &externalInput);
 
@@ -116,24 +117,29 @@ private:
 
   ExpSmoother<double> externalInputGain;
   ExpSmoother<double> delayTimeModAmount;
-  ExpSmoother<double> allpassFeed;
-  ExpSmoother<double> hihatDistance;
+  ExpSmoother<double> allpassFeed1;
+  ExpSmoother<double> allpassFeed2;
+  ExpSmoother<double> allpassMixSpike;
+  ExpSmoother<double> allpassMixAltSign;
+  ExpSmoother<double> highShelfCutoff;
+  ExpSmoother<double> highShelfGain;
+  ExpSmoother<double> lowShelfCutoff;
+  ExpSmoother<double> lowShelfGain;
   ExpSmoother<double> stereoBalance;
   ExpSmoother<double> stereoMerge;
   ExpSmoother<double> outputGain;
-
-  static constexpr size_t nAllpass = 18;
 
   bool useExternalInput = false;
 
   std::minstd_rand noiseRng{0};
   std::minstd_rand paramRng{0};
   double impulse = 0;
-  double noiseGain = 0;
-  double noiseDecay = 0;
-  ExpDecay<double> envelope;
-  std::array<double, 2> feedbackBuffer{};
-  std::array<SerialAllpass<double, nAllpass>, 2> serialAllpass;
+  ExpDecay<double> envelopeNoise;
+  ExpDecay<double> envelopeRelease;
+  std::array<double, 2> feedbackBuffer1{};
+  std::array<double, 2> feedbackBuffer2{};
+  std::array<SerialAllpass<double, nAllpass>, 2> serialAllpass1;
+  std::array<SerialAllpass<double, nAllpass>, 2> serialAllpass2;
 
   std::array<std::array<double, 2>, 2> halfbandInput{};
   std::array<HalfBandIIR<double, HalfBandCoefficient<double>>, 2> halfbandIir;
