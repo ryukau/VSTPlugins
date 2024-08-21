@@ -118,32 +118,32 @@ At first time, create color config file to:
 
 `style.json` will be loaded for each time a plugin window opens.
 
-Several color themes are available on the link below.
+Several color themes are available on the link below. To use, copy the text to `style.json`.
 
 - [VSTPlugins/package/style/themes at master · ryukau/VSTPlugins](https://github.com/ryukau/VSTPlugins/tree/master/package/style/themes)
 
-Below is a example of `style.json`.
+Below is an example of `style.json`.
 
 ```json
 {
-  "fontFamily": "Tinos",
-  "fontBold": true,
-  "fontItalic": true,
-  "foreground": "#000000",
-  "foregroundButtonOn": "#000000",
-  "foregroundInactive": "#8a8a8a",
-  "background": "#ffffff",
-  "boxBackground": "#ffffff",
-  "border": "#000000",
-  "borderCheckbox": "#000000",
-  "borderLabel": "#000000",
-  "unfocused": "#dddddd",
-  "highlightMain": "#0ba4f1",
-  "highlightAccent": "#13c136",
-  "highlightButton": "#fcc04f",
-  "highlightWarning": "#fc8080",
-  "overlay": "#00000088",
-  "overlayHighlight": "#00ff0033"
+  "fontFamily"        : "Tinos"    ,
+  "fontBold"          : true       ,
+  "fontItalic"        : true       ,
+  "foreground"        : "#000000"  ,
+  "foregroundButtonOn": "#000000"  ,
+  "foregroundInactive": "#8a8a8a"  ,
+  "background"        : "#ffffff"  ,
+  "boxBackground"     : "#ffffff"  ,
+  "border"            : "#000000"  ,
+  "borderCheckbox"    : "#000000"  ,
+  "borderLabel"       : "#000000"  ,
+  "unfocused"         : "#dddddd"  ,
+  "highlightMain"     : "#0ba4f1"  ,
+  "highlightAccent"   : "#13c136"  ,
+  "highlightButton"   : "#fcc04f"  ,
+  "highlightWarning"  : "#fc8080"  ,
+  "overlay"           : "#00000088",
+  "overlayHighlight"  : "#00ff0033"
 }
 ```
 
@@ -154,11 +154,11 @@ Following is a list of font options.
 - `fontBold`: Enable **bold** style when `true`, disable when `false`.
 - `fontItalic`: Enable *italic* style when `true`, disable when `false`.
 
-To use custom font, place `*.ttf` file into custom font path: `*.vst3/Contents/Resources/Fonts`.
+System font can be used as `fontFamily`. To use different fonts for different plugins, place `*.ttf` file into custom font path: `*.vst3/Contents/Resources/Fonts`.
 
-**Notice**: If the combination of `fontFamily`, `fontBold`, `fontItalic` is not exists in custom font path, default font of VSTGUI is used.
+**Notice**: If the combination of `fontFamily`, `fontBold`, `fontItalic` does not exist in custom font path, default font of VSTGUI is used.
 
-If `fontFamily` is set to empty string `""`, then [`"Tinos"`](https://fonts.google.com/specimen/Tinos) is used as fallback. If the length is greater than 1 and the font family name doesn't exists, default font of VSTGUI is used.
+If `fontFamily` is set to empty string `""`, then [`"Tinos"`](https://fonts.google.com/specimen/Tinos) is used as fallback. If the length is greater than 1 and the font family name doesn't exist, default font of VSTGUI is used.
 
 Styles other than bold, italic or bold-italic are not supported by VSTGUI. For example, "Thin", "Light", "Medium", and "Black" weights cannot be used.
 

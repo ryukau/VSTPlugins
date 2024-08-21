@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2024-08-13" />
+      <meta name="dcterms.date" content="2024-08-21" />
       <title>CubicPadSynth_en – Uhhyou Plugins</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
   <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
@@ -114,7 +114,7 @@
 
     h1::after {
       display: inline-block;
-      background-image: url('img/favicon/favicon.svg');
+      background-image: url('../../img/favicon/favicon.svg');
       content: "";
       vertical-align: middle;
       background-size: 128px 128px;
@@ -285,7 +285,7 @@
     <header>
         <p><a href="../../index.html">Back to Index</a></p>
             <p>
-      Update: 2024-08-13
+      Update: 2024-08-21
     </p>
             <details>
       <summary translate="yes">Table of Contents</summary>
@@ -600,33 +600,34 @@
   </ul>
   <p><code>style.json</code> will be loaded for each time a plugin
   window opens.</p>
-  <p>Several color themes are available on the link below.</p>
+  <p>Several color themes are available on the link below. To use, copy
+  the text to <code>style.json</code>.</p>
   <ul>
   <li><a
   href="https://github.com/ryukau/VSTPlugins/tree/master/package/style/themes">VSTPlugins/package/style/themes
   at master · ryukau/VSTPlugins</a></li>
   </ul>
-  <p>Below is a example of <code>style.json</code>.</p>
+  <p>Below is an example of <code>style.json</code>.</p>
   <div class="sourceCode" id="cb5"><pre
   class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontFamily&quot;</span><span class="fu">:</span> <span class="st">&quot;Tinos&quot;</span><span class="fu">,</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontBold&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontItalic&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span><span class="fu">,</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;background&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;boxBackground&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;border&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderCheckbox&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderLabel&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;unfocused&quot;</span><span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span><span class="fu">,</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightMain&quot;</span><span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span><span class="fu">,</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightAccent&quot;</span><span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span><span class="fu">,</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightButton&quot;</span><span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span><span class="fu">,</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontFamily&quot;</span>        <span class="fu">:</span> <span class="st">&quot;Tinos&quot;</span>    <span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontBold&quot;</span>          <span class="fu">:</span> <span class="kw">true</span>       <span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontItalic&quot;</span>        <span class="fu">:</span> <span class="kw">true</span>       <span class="fu">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foreground&quot;</span>        <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;background&quot;</span>        <span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;boxBackground&quot;</span>     <span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;border&quot;</span>            <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderCheckbox&quot;</span>    <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderLabel&quot;</span>       <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;unfocused&quot;</span>         <span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightMain&quot;</span>     <span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightAccent&quot;</span>   <span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightButton&quot;</span>   <span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightWarning&quot;</span>  <span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlay&quot;</span>           <span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlayHighlight&quot;</span>  <span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
   <h3 id="font-options"><a href="#font-options" class="header-anchor"
   aria-hidden="true">Font Options</a></h3>
@@ -638,17 +639,19 @@
   <li><code>fontItalic</code>: Enable <em>italic</em> style when
   <code>true</code>, disable when <code>false</code>.</li>
   </ul>
-  <p>To use custom font, place <code>*.ttf</code> file into custom font
-  path: <code>*.vst3/Contents/Resources/Fonts</code>.</p>
+  <p>System font can be used as <code>fontFamily</code>. To use
+  different fonts for different plugins, place <code>*.ttf</code> file
+  into custom font path:
+  <code>*.vst3/Contents/Resources/Fonts</code>.</p>
   <p><strong>Notice</strong>: If the combination of
   <code>fontFamily</code>, <code>fontBold</code>,
-  <code>fontItalic</code> is not exists in custom font path, default
+  <code>fontItalic</code> does not exist in custom font path, default
   font of VSTGUI is used.</p>
   <p>If <code>fontFamily</code> is set to empty string <code>""</code>,
   then <a
   href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
   is used as fallback. If the length is greater than 1 and the font
-  family name doesn’t exists, default font of VSTGUI is used.</p>
+  family name doesn’t exist, default font of VSTGUI is used.</p>
   <p>Styles other than bold, italic or bold-italic are not supported by
   VSTGUI. For example, “Thin”, “Light”, “Medium”, and “Black” weights
   cannot be used.</p>
