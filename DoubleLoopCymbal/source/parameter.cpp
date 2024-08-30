@@ -1,19 +1,19 @@
 // (c) 2023 Takamitsu Endo
 //
-// This file is part of LoopCymbal.
+// This file is part of DoubleLoopCymbal.
 //
-// LoopCymbal is free software: you can redistribute it and/or modify
+// DoubleLoopCymbal is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// LoopCymbal is distributed in the hope that it will be useful,
+// DoubleLoopCymbal is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with LoopCymbal.  If not, see <https://www.gnu.org/licenses/>.
+// along with DoubleLoopCymbal.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "parameter.hpp"
 
@@ -36,7 +36,7 @@ UIntScale<double> Scales::seed(1 << 23);
 
 DecibelScale<double> Scales::gain(-100.0, 60.0, true);
 
-LinearScale<double> Scales::cent(-6000.0, 6000.0);
+LinearScale<double> Scales::semitone(-60.0, 60.0);
 DecibelScale<double> Scales::noteSlideTimeSecond(-100.0, 40.0, true);
 
 DecibelScale<double> Scales::noiseDecaySeconds(-100, 40, false);
@@ -46,7 +46,8 @@ DecibelScale<double> Scales::delayTimeModAmount(-20, 60, true);
 DecibelScale<double> Scales::cutoffFrequencyHz(0, 100, false);
 DecibelScale<double> Scales::shelvingGain(-60, 0, true);
 
-DecibelScale<double> Scales::hihatDistance(-80, 20, true);
+UIntScale<double> Scales::nAdaptiveNotch(nNotch);
+NegativeDecibelScale<double> Scales::adaptiveNotchNarrowness(-60, 0, 1, false);
 
 } // namespace Synth
 } // namespace Steinberg

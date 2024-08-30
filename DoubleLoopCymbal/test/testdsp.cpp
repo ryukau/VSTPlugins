@@ -24,7 +24,7 @@
 
 // CMake provides this macro, but just in case.
 #ifndef UHHYOU_PLUGIN_NAME
-  #define UHHYOU_PLUGIN_NAME "LoopCymbal"
+  #define UHHYOU_PLUGIN_NAME "DoubleLoopCymbal"
 #endif
 
 #define OUT_DIR_PATH "snd/" UHHYOU_PLUGIN_NAME

@@ -1,19 +1,19 @@
 // (c) 2021-2023 Takamitsu Endo
 //
-// This file is part of LoopCymbal.
+// This file is part of DoubleLoopCymbal.
 //
-// LoopCymbal is free software: you can redistribute it and/or modify
+// DoubleLoopCymbal is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// LoopCymbal is distributed in the hope that it will be useful,
+// DoubleLoopCymbal is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with LoopCymbal.  If not, see <https://www.gnu.org/licenses/>.
+// along with DoubleLoopCymbal.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "editor.hpp"
 #include "../../lib/pcg-cpp/pcg_random.hpp"
@@ -166,16 +166,16 @@ bool Editor::prepareUI()
     tuningLeft1, tuningTop1, labelWidth, labelHeight, uiTextSize, ID::notePitchAmount,
     Scales::bipolarScale, false, 5);
   addLabel(
-    tuningLeft0, tuningTop3, labelWidth, labelHeight, uiTextSize, "Transpose [cent]");
+    tuningLeft0, tuningTop3, labelWidth, labelHeight, uiTextSize, "Transpose [st.]");
   addTextKnob(
-    tuningLeft1, tuningTop3, labelWidth, labelHeight, uiTextSize, ID::tuningCent,
-    Scales::cent, false, 5);
+    tuningLeft1, tuningTop3, labelWidth, labelHeight, uiTextSize, ID::transposeSemitone,
+    Scales::semitone, false, 5);
   addLabel(
     tuningLeft0, tuningTop4, labelWidth, labelHeight, uiTextSize,
-    "Pitch Bend Range [cent]");
+    "Pitch Bend Range [st.]");
   addTextKnob(
     tuningLeft1, tuningTop4, labelWidth, labelHeight, uiTextSize, ID::pitchBendRange,
-    Scales::cent, false, 5);
+    Scales::semitone, false, 5);
   addLabel(
     tuningLeft0, tuningTop5, labelWidth, labelHeight, uiTextSize, "Slide Time [s]");
   addTextKnob(
@@ -211,29 +211,15 @@ bool Editor::prepareUI()
     seedTextKnob->lowSensitivity = 1.0 / double(1 << 24);
   }
   addLabel(
-    impactLeft0, impactTop2, labelWidth, labelHeight, uiTextSize, "Noise Decay [s]");
+    impactLeft0, impactTop2, labelWidth, labelHeight, uiTextSize, "Noise Gain [dB]");
   addTextKnob(
-    impactLeft1, impactTop2, labelWidth, labelHeight, uiTextSize, ID::noiseDecaySeconds,
+    impactLeft1, impactTop2, labelWidth, labelHeight, uiTextSize, ID::noiseGain,
+    Scales::gain, true, 5);
+  addLabel(
+    impactLeft0, impactTop3, labelWidth, labelHeight, uiTextSize, "Noise Decay [s]");
+  addTextKnob(
+    impactLeft1, impactTop3, labelWidth, labelHeight, uiTextSize, ID::noiseDecaySeconds,
     Scales::noiseDecaySeconds, false, 5);
-  addLabel(
-    impactLeft0, impactTop3, labelWidth, labelHeight, uiTextSize, "Delay Base [s]");
-  addTextKnob(
-    impactLeft1, impactTop3, labelWidth, labelHeight, uiTextSize, ID::delayTimeBaseSecond,
-    Scales::delayTimeSecond, false, 5);
-  addLabel(
-    impactLeft0, impactTop4, labelWidth, labelHeight, uiTextSize, "Delay Random [s]");
-  addTextKnob(
-    impactLeft1, impactTop4, labelWidth, labelHeight, uiTextSize,
-    ID::delayTimeRandomSecond, Scales::delayTimeSecond, false, 5);
-  addLabel(
-    impactLeft0, impactTop5, labelWidth, labelHeight, uiTextSize, "Modulation [sample]");
-  addTextKnob(
-    impactLeft1, impactTop5, labelWidth, labelHeight, uiTextSize, ID::delayTimeModAmount,
-    Scales::delayTimeModAmount, false, 5);
-  addLabel(impactLeft0, impactTop6, labelWidth, labelHeight, uiTextSize, "Feed");
-  addTextKnob(
-    impactLeft1, impactTop6, labelWidth, labelHeight, uiTextSize, ID::allpassFeed1,
-    Scales::bipolarScale, false, 5);
 
   addLabel(
     impactLeft0, impactTop8, labelWidth, labelHeight, uiTextSize,
@@ -283,11 +269,49 @@ bool Editor::prepareUI()
   constexpr auto secondLeft0 = left8;
   constexpr auto secondLeft1 = secondLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
-    secondLeft0, secondTop0, groupLabelWidth, labelHeight, uiTextSize, "Loop 2");
+    secondLeft0, secondTop0, groupLabelWidth, labelHeight, uiTextSize, "Allpass Loop");
 
-  addLabel(secondLeft0, secondTop6, labelWidth, labelHeight, uiTextSize, "Feed");
+  addLabel(secondLeft0, secondTop1, labelWidth, labelHeight, uiTextSize, "Shape");
   addTextKnob(
-    secondLeft1, secondTop6, labelWidth, labelHeight, uiTextSize, ID::allpassFeed2,
+    secondLeft1, secondTop1, labelWidth, labelHeight, uiTextSize, ID::delayTimeShape,
+    Scales::defaultScale, false, 5);
+  addLabel(
+    secondLeft0, secondTop2, labelWidth, labelHeight, uiTextSize, "Delay Base [s]");
+  addTextKnob(
+    secondLeft1, secondTop2, labelWidth, labelHeight, uiTextSize, ID::delayTimeBaseSecond,
+    Scales::delayTimeSecond, false, 5);
+  addLabel(
+    secondLeft0, secondTop3, labelWidth, labelHeight, uiTextSize, "Delay Random [s]");
+  addTextKnob(
+    secondLeft1, secondTop3, labelWidth, labelHeight, uiTextSize,
+    ID::delayTimeRandomSecond, Scales::delayTimeSecond, false, 5);
+  addLabel(
+    secondLeft0, secondTop4, labelWidth, labelHeight, uiTextSize, "Modulation [sample]");
+  addTextKnob(
+    secondLeft1, secondTop4, labelWidth, labelHeight, uiTextSize, ID::delayTimeModAmount,
+    Scales::delayTimeModAmount, false, 5);
+
+  addLabel(secondLeft0, secondTop6, labelWidth, labelHeight, uiTextSize, "nNotch");
+  addTextKnob(
+    secondLeft1, secondTop6, labelWidth, labelHeight, uiTextSize, ID::nAdaptiveNotch,
+    Scales::nAdaptiveNotch, false, 0, 0);
+  addLabel(secondLeft0, secondTop7, labelWidth, labelHeight, uiTextSize, "Notch Mix");
+  addTextKnob(
+    secondLeft1, secondTop7, labelWidth, labelHeight, uiTextSize, ID::adaptiveNotchMix,
+    Scales::defaultScale, false, 5);
+  addLabel(
+    secondLeft0, secondTop8, labelWidth, labelHeight, uiTextSize, "Notch Narrowness");
+  addTextKnob(
+    secondLeft1, secondTop8, labelWidth, labelHeight, uiTextSize,
+    ID::adaptiveNotchNarrowness, Scales::adaptiveNotchNarrowness, false, 5);
+
+  addLabel(secondLeft0, secondTop10, labelWidth, labelHeight, uiTextSize, "Feed 1");
+  addTextKnob(
+    secondLeft1, secondTop10, labelWidth, labelHeight, uiTextSize, ID::allpassFeed1,
+    Scales::bipolarScale, false, 5);
+  addLabel(secondLeft0, secondTop11, labelWidth, labelHeight, uiTextSize, "Feed 2");
+  addTextKnob(
+    secondLeft1, secondTop11, labelWidth, labelHeight, uiTextSize, ID::allpassFeed2,
     Scales::bipolarScale, false, 5);
 
   // Randomize button.
@@ -307,7 +331,7 @@ bool Editor::prepareUI()
   addSplashScreen(
     splashLeft, splashTop, labelWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,
-    "LoopCymbal", false);
+    "DoubleLoopCymbal", false);
 
   return true;
 }

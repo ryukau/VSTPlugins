@@ -1,19 +1,19 @@
 // (c) 2024 Takamitsu Endo
 //
-// This file is part of LoopCymbal.
+// This file is part of DoubleLoopCymbal.
 //
-// LoopCymbal is free software: you can redistribute it and/or modify
+// DoubleLoopCymbal is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// LoopCymbal is distributed in the hope that it will be useful,
+// DoubleLoopCymbal is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with LoopCymbal.  If not, see <https://www.gnu.org/licenses/>.
+// along with DoubleLoopCymbal.  If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 
@@ -125,6 +125,8 @@ private:
   ExpSmoother<double> highShelfGain;
   ExpSmoother<double> lowShelfCutoff;
   ExpSmoother<double> lowShelfGain;
+  ExpSmoother<double> notchMix;
+  ExpSmoother<double> notchNarrowness;
   ExpSmoother<double> stereoBalance;
   ExpSmoother<double> stereoMerge;
   ExpSmoother<double> outputGain;
@@ -134,12 +136,13 @@ private:
   std::minstd_rand noiseRng{0};
   std::minstd_rand paramRng{0};
   double impulse = 0;
+  TransitionReleaseSmoother<double> releaseSmoother;
   ExpDecay<double> envelopeNoise;
   ExpDecay<double> envelopeRelease;
   std::array<double, 2> feedbackBuffer1{};
   std::array<double, 2> feedbackBuffer2{};
-  std::array<SerialAllpass<double, nAllpass>, 2> serialAllpass1;
-  std::array<SerialAllpass<double, nAllpass>, 2> serialAllpass2;
+  std::array<SerialAllpass<double, nAllpass, nNotch>, 2> serialAllpass1;
+  std::array<SerialAllpass<double, nAllpass, nNotch>, 2> serialAllpass2;
 
   std::array<std::array<double, 2>, 2> halfbandInput{};
   std::array<HalfBandIIR<double, HalfBandCoefficient<double>>, 2> halfbandIir;

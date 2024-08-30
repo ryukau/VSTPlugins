@@ -1,19 +1,19 @@
 // (c) 2023 Takamitsu Endo
 //
-// This file is part of LoopCymbal.
+// This file is part of DoubleLoopCymbal.
 //
-// LoopCymbal is free software: you can redistribute it and/or modify
+// DoubleLoopCymbal is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// LoopCymbal is distributed in the hope that it will be useful,
+// DoubleLoopCymbal is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with LoopCymbal.  If not, see <https://www.gnu.org/licenses/>.
+// along with DoubleLoopCymbal.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "../../../common/gui/splash.hpp"
 #include "../version.hpp"
@@ -50,7 +50,7 @@ void CreditView::draw(CDrawContext *pContext)
   // Text.
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("LoopCymbal " VERSION_STR, CPoint(20.0, 40.0));
+  pContext->drawString("DoubleLoopCymbal " VERSION_STR, CPoint(20.0, 40.0));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
@@ -81,7 +81,7 @@ Shift + Z|Redo
 
 Refer to the manual for a full list of shortcuts.)";
 
-  std::string textColumn1 = R"(LoopCymbal can output very loud signal.
+  std::string textColumn1 = R"(DoubleLoopCymbal can output very loud signal.
 Recommend to use with limiter.
 
 There are 3 places to cause oscillation or blow up:

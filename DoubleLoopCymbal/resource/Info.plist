@@ -7,11 +7,11 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>English</string>
 		<key>CFBundleExecutable</key>
-		<string>LoopCymbal</string>
+		<string>DoubleLoopCymbal</string>
 		<key>CFBundleIconFile</key>
 		<string></string>
 		<key>CFBundleIdentifier</key>
-		<string>com.steinberg.vst3.LoopCymbal</string>
+		<string>com.steinberg.vst3.DoubleLoopCymbal</string>
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
 		<key>CFBundlePackageType</key>

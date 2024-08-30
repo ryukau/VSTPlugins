@@ -1,19 +1,19 @@
 // (c) 2023 Takamitsu Endo
 //
-// This file is part of LoopCymbal.
+// This file is part of DoubleLoopCymbal.
 //
-// LoopCymbal is free software: you can redistribute it and/or modify
+// DoubleLoopCymbal is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// LoopCymbal is distributed in the hope that it will be useful,
+// DoubleLoopCymbal is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with LoopCymbal.  If not, see <https://www.gnu.org/licenses/>.
+// along with DoubleLoopCymbal.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <algorithm>
 #include <array>
@@ -197,7 +197,159 @@ public:
   }
 };
 
-template<typename Sample, size_t nAllpass> class SerialAllpass {
+// Unused.
+template<typename Sample> class AdaptiveNotchAM {
+public:
+  static constexpr Sample mu = Sample(2) / Sample(256);
+  Sample alpha = Sample(-2);
+
+  Sample x1 = 0;
+  Sample x2 = 0;
+  Sample y1 = 0;
+  Sample y2 = 0;
+
+  void reset()
+  {
+    alpha = Sample(-2); // 0 Hz as initial guess.
+
+    x1 = 0;
+    x2 = 0;
+    y1 = 0;
+    y2 = 0;
+  }
+
+  Sample process(Sample input, Sample narrowness)
+  {
+    const auto a1 = narrowness * alpha;
+    const auto a2 = narrowness * narrowness;
+    const auto gain = alpha >= 0 ? (Sample(1) + a1 + a2) / (Sample(2) + alpha)
+                                 : (Sample(1) - a1 + a2) / (Sample(2) - alpha);
+
+    constexpr auto clip = Sample(1) / std::numeric_limits<Sample>::epsilon();
+    const auto y0 = std::clamp(input + alpha * x1 + x2 - a1 * y1 - a2 * y2, -clip, clip);
+    const auto s0 = x1 * (Sample(1) - narrowness * y0);
+    constexpr auto bound = Sample(2);
+    alpha += Sample(0.0625) * (std::clamp(alpha - mu * y0 * s0, -bound, bound) - alpha);
+
+    x2 = x1;
+    x1 = input;
+    y2 = y1;
+    y1 = y0;
+
+    return y0 * gain;
+  }
+};
+
+// Unused. Unstable when put in feedback loop.
+template<typename Sample> class AdaptiveNotchAP1 {
+public:
+  Sample alpha = Sample(-2);
+
+  Sample v1 = 0;
+  Sample v2 = 0;
+  Sample q1 = 0;
+  Sample r1 = 0;
+
+  void reset()
+  {
+    alpha = Sample(-2); // 0 Hz as initial guess.
+
+    v1 = 0;
+    v2 = 0;
+    q1 = 0;
+    r1 = 0;
+  }
+
+  inline Sample approxAtoK(Sample x)
+  {
+    constexpr std::array<Sample, 3> b{
+      Sample(0.24324073816096012), Sample(-0.2162512785673542),
+      Sample(0.0473854827531673)};
+    constexpr std::array<Sample, 3> a{
+      Sample(-0.9569399371569998), Sample(0.23899241566503945),
+      Sample(-0.005191170339007643)};
+
+    const auto z = std::abs(x);
+    const auto y
+      = z * (b[0] + z * (b[1] + z * b[2])) / (1 + z * (a[0] + z * (a[1] + z * a[2])));
+    return std::copysign(y, x);
+  }
+
+  Sample process(Sample input, Sample narrowness)
+  {
+    const auto a1 = narrowness * alpha;
+    const auto a2 = narrowness * narrowness;
+    const auto gain = alpha >= 0 ? (Sample(1) + a1 + a2) / (Sample(2) + alpha)
+                                 : (Sample(1) - a1 + a2) / (Sample(2) - alpha);
+
+    constexpr auto clip = Sample(1024);
+    const auto x0 = std::clamp(input, -clip, clip);
+    auto v0 = x0 - a1 * v1 - a2 * v2;
+    const auto y0 = v0 + alpha * v1 + v2;
+    const auto s0
+      = (Sample(1) - narrowness) * v0 - narrowness * (Sample(1) - narrowness) * v2;
+    const auto alphaCpz = y0 * s0;
+
+    const auto omega_a = std::numbers::pi_v<Sample> - std::acos(alpha / 2);
+    const auto t = std::tan(omega_a / Sample(2));
+    const auto k_ap = (t - Sample(1)) / (t + Sample(1));
+    // const auto k_ap = approxAtoK(alpha);
+    r1 = k_ap * (x0 - r1) + q1;
+    q1 = x0;
+    const auto alphaAM = std::min(std::abs(y0), Sample(1)) * x0 * r1;
+
+    constexpr auto bound = Sample(2);
+    constexpr auto mu = Sample(1) / Sample(256);
+    alpha = std::clamp(alpha - mu * alphaAM, -bound, bound);
+    // alpha = std::clamp(alpha - mu * (alphaCpz + alphaAM), -bound, bound);
+
+    v2 = v1;
+    v1 = v0;
+
+    return y0 * gain;
+  }
+};
+
+template<typename Sample> class AdaptiveNotchCPZ {
+public:
+  static constexpr Sample mu = Sample(2) / Sample(1024);
+  Sample alpha = Sample(-2);
+
+  Sample v1 = 0;
+  Sample v2 = 0;
+
+  void reset()
+  {
+    alpha = Sample(-2); // 0 Hz as initial guess.
+
+    v1 = 0;
+    v2 = 0;
+  }
+
+  Sample process(Sample input, Sample narrowness)
+  {
+    const auto a1 = narrowness * alpha;
+    const auto a2 = narrowness * narrowness;
+    auto gain = alpha >= 0 ? (Sample(1) + a1 + a2) / (Sample(2) + alpha)
+                           : (Sample(1) - a1 + a2) / (Sample(2) - alpha);
+
+    constexpr auto clip = Sample(1) / std::numeric_limits<Sample>::epsilon();
+    const auto x0 = std::clamp(input, -clip, clip);
+    auto v0 = x0 - a1 * v1 - a2 * v2;
+    const auto y0 = v0 + alpha * v1 + v2;
+    const auto s0
+      = (Sample(1) - narrowness) * v0 - narrowness * (Sample(1) - narrowness) * v2;
+    constexpr auto bound = Sample(2);
+    alpha = std::clamp(alpha - y0 * s0 * mu, -bound, bound);
+
+    v2 = v1;
+    v1 = v0;
+
+    return y0 * gain;
+  }
+};
+
+template<typename Sample, size_t nAllpass, size_t nAdaptiveNotch> class SerialAllpass {
 private:
   std::array<Sample, nAllpass> buffer{};
   std::array<Delay<Sample>, nAllpass> delay;
@@ -205,6 +357,7 @@ private:
   std::array<EmaLowShelf<Sample>, nAllpass> highpass;
 
 public:
+  std::array<AdaptiveNotchCPZ<Sample>, nAdaptiveNotch> notch;
   static constexpr size_t size = nAllpass;
   std::array<Sample, nAllpass> timeInSamples{};
 
@@ -219,6 +372,7 @@ public:
     for (auto &x : delay) x.reset();
     for (auto &x : lowpass) x.reset();
     for (auto &x : highpass) x.reset();
+    for (auto &x : notch) x.reset();
   }
 
   Sample sum(Sample altSignMix)
@@ -241,19 +395,53 @@ public:
     Sample lowShelfGain,
     Sample gain,
     Sample pitchRatio,
-    Sample timeModAmount)
+    Sample timeModAmount,
+    size_t nNotch,
+    Sample notchMix,
+    Sample notchNarrowness)
   {
     for (size_t idx = 0; idx < nAllpass; ++idx) {
-      auto x0 = lowpass[idx].process(input, highShelfCut, highShelfGain);
+      constexpr auto sign = 1;
+      auto x0 = lowpass[idx].process(sign * input, highShelfCut, highShelfGain);
+      // auto x0 = sign * input;
       x0 = highpass[idx].process(x0, lowShelfCut, lowShelfGain);
       x0 -= gain * buffer[idx];
       input = buffer[idx] + gain * x0;
       buffer[idx] = delay[idx].process(
         x0, timeInSamples[idx] / pitchRatio - timeModAmount * std::abs(x0));
     }
-    // buffer.back() = highpass.process(buffer.back(), lowShelfCut, lowShelfGain);
+
+    // input = lowpass[0].process(input, highShelfCut, highShelfGain);
+
+    for (size_t idx = 0; idx < nNotch; ++idx) {
+      input += notchMix * (notch[idx].process(input, notchNarrowness) - input);
+    }
+
     return input;
   }
+};
+
+template<typename Sample> class TransitionReleaseSmoother {
+private:
+  Sample v0 = 0;
+  Sample decay = 0;
+
+public:
+  // decaySamples = sampleRate * seconds.
+  void setup(Sample decaySamples)
+  {
+    decay = std::pow(std::numeric_limits<Sample>::epsilon(), Sample(1) / decaySamples);
+  }
+
+  void reset() { v0 = 0; }
+
+  void prepare(Sample value, Sample decaySamples)
+  {
+    v0 += value;
+    decay = std::pow(std::numeric_limits<Sample>::epsilon(), Sample(1) / decaySamples);
+  }
+
+  Sample process() { return v0 *= decay; }
 };
 
 } // namespace SomeDSP
