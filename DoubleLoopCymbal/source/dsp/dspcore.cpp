@@ -26,6 +26,7 @@
 
 constexpr double defaultTempo = double(120);
 constexpr double releaseTimeSecond = double(4.0);
+constexpr double closeReleaseSecond = double(1.0);
 
 constexpr const std::array<double, 256> circularModes = {
   double(1.000000000000000),  double(1.5933405056951118), double(2.135548786649403),
@@ -157,6 +158,7 @@ void DSPCore::setup(double sampleRate)
   SmootherCommon<double>::setTime(double(0.2));
 
   releaseSmoother.setup(double(2) * upRate);
+  envelopeClose.setup(EMAFilter<double>::secondToP(upRate, double(0.004)));
 
   const auto maxDelayTimeSamples = upRate * 2 * Scales::delayTimeSecond.getMax();
   for (auto &x : serialAllpass1) x.setup(maxDelayTimeSamples);
@@ -178,6 +180,7 @@ void DSPCore::setup(double sampleRate)
   interpPitch.METHOD(notePitch);                                                         \
                                                                                          \
   externalInputGain.METHOD(pv[ID::externalInputGain]->getDouble());                      \
+  noiseSustainLevel.METHOD(pv[ID::noiseSustainLevel]->getDouble());                      \
   delayTimeModAmount.METHOD(                                                             \
     pv[ID::delayTimeModAmount]->getDouble() * upRate / double(48000));                   \
   allpassFeed1.METHOD(                                                                   \
@@ -201,8 +204,12 @@ void DSPCore::setup(double sampleRate)
   outputGain.METHOD(gain);                                                               \
                                                                                          \
   envelopeNoise.setTime(pv[ID::noiseDecaySeconds]->getDouble() * upRate);                \
+  envelopeClose.update(                                                                  \
+    upRate, pv[ID::closeAttackSeconds]->getDouble(), closeReleaseSecond,                 \
+    pv[ID::closeGain]->getDouble());                                                     \
   if (!pv[ID::release]->getInt() && noteStack.empty()) {                                 \
-    envelopeRelease.setTime(releaseTimeSecond *upRate);                                  \
+    envelopeRelease.setTime(                                                             \
+      double(8) * pv[ID::closeAttackSeconds]->getDouble() * upRate);                     \
   }                                                                                      \
                                                                                          \
   updateDelayTime();
@@ -252,6 +259,7 @@ void DSPCore::reset()
   releaseSmoother.reset();
   envelopeNoise.reset();
   envelopeRelease.reset();
+  envelopeClose.reset();
   feedbackBuffer1.fill(double(0));
   feedbackBuffer2.fill(double(0));
   for (auto &x : serialAllpass1) x.reset();
@@ -281,10 +289,13 @@ void DSPCore::setParameters()
 std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externalInput)
 {
   const auto envRelease = envelopeRelease.process();
+  const auto terminationGain = envRelease < double(1e-3) ? double(0) : double(1);
 
   const auto extGain = externalInputGain.process();
+  const auto noiseSustain = noiseSustainLevel.process();
+
   auto timeModAmt = delayTimeModAmount.process();
-  timeModAmt += (double(1) - envRelease) * (double(1000) * upRate / double(48000));
+  // timeModAmt += (double(1) - envRelease) * (double(200) * upRate / double(48000));
 
   auto apGain1 = allpassFeed1.process();
   auto apGain2 = allpassFeed2.process();
@@ -294,7 +305,7 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externa
   const auto apMixSpike = allpassMixSpike.process();
   const auto apMixSign = allpassMixAltSign.process();
   const auto hsCut = highShelfCutoff.process();
-  const auto hsGain = highShelfGain.process() * envRelease;
+  const auto hsGain = highShelfGain.process(); //* envRelease;
   const auto lsCut = lowShelfCutoff.process();
   const auto lsGain = lowShelfGain.process();
   const size_t nNotch = param.value[ParameterID::nAdaptiveNotch]->getInt();
@@ -305,9 +316,16 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externa
   const auto outGain = outputGain.process() * envRelease;
 
   std::uniform_real_distribution<double> dist{double(-1), double(1)};
-  const auto noiseEnv = releaseSmoother.process() + envelopeNoise.process();
+  auto noiseEnv = releaseSmoother.process() + envelopeNoise.process();
+  if (!noteStack.empty()) noiseEnv += noiseSustain;
+  if (!param.value[ParameterID::release]->getInt() && noteStack.empty()) {
+    // TODO: simplify condition.
+    noiseEnv += envelopeClose.process();
+  }
+
   std::array<double, 2> excitation{
-    -apGain1 * feedbackBuffer1[0], -apGain1 * feedbackBuffer1[1]};
+    -terminationGain * apGain1 * feedbackBuffer1[0],
+    -terminationGain * apGain1 * feedbackBuffer1[1]};
   if (impulse != 0) {
     excitation[0] += impulse;
     excitation[1] += impulse;
@@ -348,11 +366,11 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externa
     = std::lerp(serialAllpass2[1].sum(apMixSign), feedbackBuffer2[1], apMixSpike)
     * normalizeGain;
   feedbackBuffer2[0] = serialAllpass2[0].process(
-    ap1Out0 - apGain2 * feedbackBuffer2[0], hsCut, hsGain, lsCut, lsGain, apGain2,
-    pitchRatio, timeModAmt, nNotch, ntMix, ntNarrowness);
+    ap1Out0 - terminationGain * apGain2 * feedbackBuffer2[0], hsCut, hsGain, lsCut,
+    lsGain, apGain2, pitchRatio, timeModAmt, nNotch, ntMix, ntNarrowness);
   feedbackBuffer2[1] = serialAllpass2[1].process(
-    ap1Out1 - apGain2 * feedbackBuffer2[1], hsCut, hsGain, lsCut, lsGain, apGain2,
-    pitchRatio, timeModAmt, nNotch, ntMix, ntNarrowness);
+    ap1Out1 - terminationGain * apGain2 * feedbackBuffer2[1], hsCut, hsGain, lsCut,
+    lsGain, apGain2, pitchRatio, timeModAmt, nNotch, ntMix, ntNarrowness);
 
   constexpr auto eps = std::numeric_limits<double>::epsilon();
   if (balance < -eps) {
@@ -436,6 +454,9 @@ void DSPCore::noteOn(NoteInfo &info)
   envelopeNoise.noteOn(oscGain);
   envelopeRelease.noteOn(double(1));
   envelopeRelease.setTime(1, true);
+  envelopeClose.noteOn(
+    upRate, pv[ID::closeAttackSeconds]->getDouble(), closeReleaseSecond,
+    pv[ID::closeGain]->getDouble());
 }
 
 void DSPCore::noteOff(int_fast32_t noteId)

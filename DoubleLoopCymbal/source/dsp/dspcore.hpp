@@ -116,6 +116,7 @@ private:
   ExpSmootherLocal<double> interpPitch;
 
   ExpSmoother<double> externalInputGain;
+  ExpSmoother<double> noiseSustainLevel;
   ExpSmoother<double> delayTimeModAmount;
   ExpSmoother<double> allpassFeed1;
   ExpSmoother<double> allpassFeed2;
@@ -139,6 +140,7 @@ private:
   TransitionReleaseSmoother<double> releaseSmoother;
   ExpDecay<double> envelopeNoise;
   ExpDecay<double> envelopeRelease;
+  ExpADEnvelope<double> envelopeClose;
   std::array<double, 2> feedbackBuffer1{};
   std::array<double, 2> feedbackBuffer2{};
   std::array<SerialAllpass<double, nAllpass, nNotch>, 2> serialAllpass1;

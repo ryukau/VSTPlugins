@@ -1,4 +1,4 @@
-// (c) 2023 Takamitsu Endo
+// (c) 2024 Takamitsu Endo
 //
 // This file is part of DoubleLoopCymbal.
 //
@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with DoubleLoopCymbal.  If not, see <https://www.gnu.org/licenses/>.
 
+#include "../../lib/LambertW/LambertW.hpp"
+
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -27,8 +29,8 @@ namespace SomeDSP {
 
 template<typename Sample> class ExpDecay {
 private:
-  Sample value = Sample(0);
-  Sample alpha = Sample(0);
+  Sample value = 0;
+  Sample alpha = 0;
 
 public:
   void setTime(Sample decayTimeInSamples, bool sustain = false)
@@ -37,9 +39,39 @@ public:
     alpha = sustain ? Sample(1) : std::pow(eps, Sample(1) / decayTimeInSamples);
   }
 
-  void reset() { value = Sample(0); }
+  void reset() { value = 0; }
   void noteOn(Sample gain = Sample(1)) { value = gain; }
   Sample process() { return value *= alpha; }
+};
+
+template<typename Sample> class LinearDecay {
+private:
+  Sample gain = Sample(1);
+  Sample counter = 0;
+  Sample decayRatio = Sample(1);
+
+public:
+  void setTime(Sample decayTimeInSamples, bool sustain = false)
+  {
+    constexpr auto eps = Sample(std::numeric_limits<float>::epsilon());
+    counter = decayTimeInSamples;
+    decayRatio = Sample(1) / std::max(Sample(1), decayTimeInSamples);
+  }
+
+  void reset()
+  {
+    gain = Sample(1);
+    counter = 0;
+    decayRatio = Sample(1);
+  }
+
+  void noteOn(Sample gain_ = Sample(1)) { gain = gain_; }
+
+  Sample process()
+  {
+    if (counter <= 0) return 0;
+    return gain * (--counter * decayRatio);
+  }
 };
 
 template<typename T> inline T lagrange3Interp(T y0, T y1, T y2, T y3, T t)
@@ -442,6 +474,67 @@ public:
   }
 
   Sample process() { return v0 *= decay; }
+};
+
+template<typename Sample> class ExpADEnvelope {
+private:
+  static constexpr Sample epsilon = std::numeric_limits<Sample>::epsilon();
+  Sample targetGain = 0;
+  Sample gain = Sample(1);
+  Sample smoo = Sample(1);
+  Sample valueA = 0;
+  Sample alphaA = 0;
+  Sample valueD = 0;
+  Sample alphaD = 0;
+
+public:
+  void setup(Sample smoothingKp) { smoo = smoothingKp; }
+
+  void reset()
+  {
+    targetGain = 0;
+    gain = Sample(1);
+    valueA = 0;
+    alphaA = 0;
+    valueD = 0;
+    alphaD = 0;
+  }
+
+  void
+  update(Sample sampleRate, Sample peakSeconds, Sample releaseSeconds, Sample peakGain)
+  {
+    const auto decaySeconds = releaseSeconds - std::log(epsilon) * peakSeconds;
+    const auto d_ = std::log(epsilon) / decaySeconds;
+    const auto x_ = d_ * peakSeconds;
+    const auto a_ = Sample(utl::LambertW(-1, x_ * std::exp(x_))) / peakSeconds - d_;
+
+    const auto attackSeconds = -std::log(epsilon) / std::log(-a_);
+    alphaA = std::exp(a_ / sampleRate);
+    alphaD = std::exp(d_ / sampleRate);
+
+    // `area` is obtained by solving `integrate((1-%e^(-a*t))*%e^(-d*t), t, 0, +inf);`.
+    const auto area = -a_ / (d_ * (d_ + a_));
+
+    // targetGain = peakGain
+    //   / ((Sample(1) - std::exp(a_ * peakSeconds)) * std::exp(d_ * peakSeconds));
+    targetGain = Sample(1e-3) * peakGain / area;
+  }
+
+  void
+  noteOn(Sample sampleRate, Sample peakSeconds, Sample releaseSeconds, Sample peakGain)
+  {
+    valueA = Sample(1);
+    valueD = Sample(1);
+    update(sampleRate, peakSeconds, releaseSeconds, peakGain);
+  }
+
+  Sample process()
+  {
+    gain += smoo * (targetGain - gain);
+    valueA *= alphaA;
+    valueD *= alphaD;
+    return gain * (Sample(1) - (valueA)) * valueD;
+  }
 };
 
 } // namespace SomeDSP

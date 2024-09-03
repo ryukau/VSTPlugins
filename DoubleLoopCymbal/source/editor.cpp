@@ -220,6 +220,21 @@ bool Editor::prepareUI()
   addTextKnob(
     impactLeft1, impactTop3, labelWidth, labelHeight, uiTextSize, ID::noiseDecaySeconds,
     Scales::noiseDecaySeconds, false, 5);
+  addLabel(
+    impactLeft0, impactTop4, labelWidth, labelHeight, uiTextSize, "Noise Sustain [dB]");
+  addTextKnob(
+    impactLeft1, impactTop4, labelWidth, labelHeight, uiTextSize, ID::noiseSustainLevel,
+    Scales::gain, true, 5);
+  addLabel(
+    impactLeft0, impactTop5, labelWidth, labelHeight, uiTextSize, "Close Gain [dB]");
+  addTextKnob(
+    impactLeft1, impactTop5, labelWidth, labelHeight, uiTextSize, ID::closeGain,
+    Scales::gain, true, 5);
+  addLabel(
+    impactLeft0, impactTop6, labelWidth, labelHeight, uiTextSize, "Close Attack [s]");
+  addTextKnob(
+    impactLeft1, impactTop6, labelWidth, labelHeight, uiTextSize, ID::closeAttackSeconds,
+    Scales::noiseDecaySeconds, false, 5);
 
   addLabel(
     impactLeft0, impactTop8, labelWidth, labelHeight, uiTextSize,
