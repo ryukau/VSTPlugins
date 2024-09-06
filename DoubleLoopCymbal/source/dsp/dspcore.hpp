@@ -20,6 +20,7 @@
 #include "../../../common/dsp/constants.hpp"
 #include "../../../common/dsp/multirate.hpp"
 #include "../../../common/dsp/smoother.hpp"
+#include "../../../lib/pcg-cpp/pcg_random.hpp"
 #include "../parameter.hpp"
 #include "delay.hpp"
 
@@ -116,7 +117,8 @@ private:
   ExpSmootherLocal<double> interpPitch;
 
   ExpSmoother<double> externalInputGain;
-  ExpSmoother<double> noiseSustainLevel;
+  ExpSmoother<double> halfClosedGain;
+  ExpSmoother<double> halfClosedDensity;
   ExpSmoother<double> delayTimeModAmount;
   ExpSmoother<double> allpassFeed1;
   ExpSmoother<double> allpassFeed2;
@@ -134,13 +136,15 @@ private:
 
   bool useExternalInput = false;
 
-  std::minstd_rand noiseRng{0};
-  std::minstd_rand paramRng{0};
+  pcg64 noiseRng{0};
+  pcg64 paramRng{0};
   double impulse = 0;
   TransitionReleaseSmoother<double> releaseSmoother;
   ExpDecay<double> envelopeNoise;
   ExpDecay<double> envelopeRelease;
+  LinearDecay<double> envelopeHalfClosed;
   ExpADEnvelope<double> envelopeClose;
+  std::array<HalfClosedNoise<double>, 2> halfClosedNoise;
   std::array<double, 2> feedbackBuffer1{};
   std::array<double, 2> feedbackBuffer2{};
   std::array<SerialAllpass<double, nAllpass, nNotch>, 2> serialAllpass1;

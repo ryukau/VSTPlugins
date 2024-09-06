@@ -64,10 +64,14 @@ enum ID {
   seed,
   noiseGain,
   noiseDecaySeconds,
-  noiseSustainLevel,
+
+  halfClosedGain,
+  halfClosedDensity,
+  halfClosedDecaySeconds,
 
   closeGain,
   closeAttackSeconds,
+  lossGain,
 
   delayTimeShape,
   delayTimeBaseSecond,
@@ -107,6 +111,8 @@ struct Scales {
   static SomeDSP::DecibelScale<double> noteSlideTimeSecond;
 
   static SomeDSP::DecibelScale<double> noiseDecaySeconds;
+  static SomeDSP::DecibelScale<double> halfClosedGain;
+  static SomeDSP::DecibelScale<double> halfClosedDensity;
   static SomeDSP::DecibelScale<double> delayTimeSecond;
   static SomeDSP::DecibelScale<double> delayTimeModAmount;
 
@@ -140,7 +146,7 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::resetSeedAtNoteOn] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "resetSeedAtNoteOn", Info::kCanAutomate);
     value[ID::release]
-      = std::make_unique<UIntValue>(1, Scales::boolScale, "release", Info::kCanAutomate);
+      = std::make_unique<UIntValue>(0, Scales::boolScale, "release", Info::kCanAutomate);
 
     value[ID::stereoBalance] = std::make_unique<LinearValue>(
       Scales::bipolarScale.invmap(0.0), Scales::bipolarScale, "stereoBalance",
@@ -176,13 +182,25 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::noiseDecaySeconds] = std::make_unique<DecibelValue>(
       Scales::noiseDecaySeconds.invmap(0.001), Scales::noiseDecaySeconds,
       "noiseDecaySeconds", Info::kCanAutomate);
-    value[ID::noiseSustainLevel] = std::make_unique<DecibelValue>(
-      Scales::gain.invmap(1e-3), Scales::gain, "noiseSustainLevel", Info::kCanAutomate);
+
+    value[ID::halfClosedGain] = std::make_unique<DecibelValue>(
+      Scales::halfClosedGain.invmapDB(-40), Scales::halfClosedGain, "halfClosedGain",
+      Info::kCanAutomate);
+    value[ID::halfClosedDensity] = std::make_unique<DecibelValue>(
+      Scales::halfClosedDensity.invmap(1000), Scales::halfClosedDensity,
+      "halfClosedDensity", Info::kCanAutomate);
+    value[ID::halfClosedDecaySeconds] = std::make_unique<DecibelValue>(
+      Scales::noiseDecaySeconds.invmap(10.0), Scales::noiseDecaySeconds,
+      "halfClosedDecaySeconds", Info::kCanAutomate);
+
     value[ID::closeGain] = std::make_unique<DecibelValue>(
       Scales::gain.invmap(1.0), Scales::gain, "closeGain", Info::kCanAutomate);
     value[ID::closeAttackSeconds] = std::make_unique<DecibelValue>(
       Scales::noiseDecaySeconds.invmap(0.05), Scales::noiseDecaySeconds,
       "closeAttackSeconds", Info::kCanAutomate);
+    value[ID::lossGain] = std::make_unique<DecibelValue>(
+      Scales::halfClosedGain.invmap(0.125), Scales::halfClosedGain, "lossGain",
+      Info::kCanAutomate);
 
     value[ID::delayTimeShape] = std::make_unique<LinearValue>(
       Scales::defaultScale.invmap(0.0), Scales::defaultScale, "delayTimeShape",

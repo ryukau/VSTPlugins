@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with DoubleLoopCymbal.  If not, see <https://www.gnu.org/licenses/>.
 
+#include "../../../lib/pcg-cpp/pcg_random.hpp"
 #include "../../lib/LambertW/LambertW.hpp"
 
 #include <algorithm>
@@ -44,33 +45,56 @@ public:
   Sample process() { return value *= alpha; }
 };
 
-template<typename Sample> class LinearDecay {
+template<typename Sample> class ExpRise {
 private:
-  Sample gain = Sample(1);
-  Sample counter = 0;
-  Sample decayRatio = Sample(1);
+  static constexpr auto eps = Sample(std::numeric_limits<float>::epsilon());
+  Sample value = eps;
+  Sample alpha = 0;
 
 public:
-  void setTime(Sample decayTimeInSamples, bool sustain = false)
+  void setTime(Sample decayTimeInSamples)
+  {
+    alpha = std::pow(Sample(1) / eps, Sample(1) / decayTimeInSamples);
+  }
+
+  void reset() { value = eps; }
+  void noteOn(Sample gain = eps) { value = gain; }
+  Sample process() { return value = std::min(value * alpha, Sample(1)); }
+};
+
+template<typename Sample> class LinearDecay {
+private:
+  Sample decaySamples = Sample(1);
+  Sample gain = Sample(1);
+  int counter = 0;
+
+public:
+  void setTime(Sample decayTimeInSamples)
   {
     constexpr auto eps = Sample(std::numeric_limits<float>::epsilon());
-    counter = decayTimeInSamples;
-    decayRatio = Sample(1) / std::max(Sample(1), decayTimeInSamples);
+    decaySamples = std::max(Sample(1), decayTimeInSamples);
   }
 
   void reset()
   {
+    decaySamples = Sample(1);
     gain = Sample(1);
     counter = 0;
-    decayRatio = Sample(1);
   }
 
-  void noteOn(Sample gain_ = Sample(1)) { gain = gain_; }
+  void noteOn(Sample gain_ = Sample(1))
+  {
+    gain = gain_ / decaySamples;
+    counter = int(decaySamples);
+  }
+
+  void noteOff() { counter = 0; }
 
   Sample process()
   {
     if (counter <= 0) return 0;
-    return gain * (--counter * decayRatio);
+    --counter;
+    return gain * Sample(counter);
   }
 };
 
@@ -96,6 +120,11 @@ public:
   }
 
   void reset() { std::fill(buf.begin(), buf.end(), Sample(0)); }
+
+  void applyGain(Sample gain)
+  {
+    for (auto &x : buf) x *= gain;
+  }
 
   Sample process(Sample input, Sample timeInSamples)
   {
@@ -198,6 +227,32 @@ public:
     ic1eq = Sample(2) * v1 - ic1eq;
     ic2eq = Sample(2) * v2 - ic2eq;
     return v2;
+  }
+};
+
+// Unused. `SerialAllpass` became unstable when used.
+template<typename Sample> class FixedHighpass {
+private:
+  static constexpr Sample g = Sample(0.02);               // ~= tan(pi * 300 / 48000).
+  static constexpr Sample k = Sample(0.7071067811865476); // 2 / sqrt(2).
+
+  Sample ic1eq = 0;
+  Sample ic2eq = 0;
+
+public:
+  void reset()
+  {
+    ic1eq = 0;
+    ic2eq = 0;
+  }
+
+  Sample process(Sample input)
+  {
+    const auto v1 = (ic1eq + g * (input - ic2eq)) / (1 + g * (g + k));
+    const auto v2 = ic2eq + g * v1;
+    ic1eq = Sample(2) * v1 - ic1eq;
+    ic2eq = Sample(2) * v2 - ic2eq;
+    return input - k * v1 - v2;
   }
 };
 
@@ -407,6 +462,11 @@ public:
     for (auto &x : notch) x.reset();
   }
 
+  void applyGain(Sample gain)
+  {
+    for (auto &x : delay) x.applyGain(gain);
+  }
+
   Sample sum(Sample altSignMix)
   {
     Sample sumAlt = Sample(0);
@@ -488,6 +548,8 @@ private:
   Sample alphaD = 0;
 
 public:
+  bool isTerminated() { return valueD <= Sample(1e-3); }
+
   void setup(Sample smoothingKp) { smoo = smoothingKp; }
 
   void reset()
@@ -534,6 +596,50 @@ public:
     valueA *= alphaA;
     valueD *= alphaD;
     return gain * (Sample(1) - (valueA)) * valueD;
+  }
+};
+
+template<typename Sample> class HalfClosedNoise {
+private:
+  Sample phase = 0;
+  Sample gain = Sample(1);
+  Sample decay = 0;
+
+  FixedHighpass<Sample> highpass;
+
+public:
+  void reset()
+  {
+    phase = 0;
+    gain = Sample(1);
+
+    highpass.reset();
+  }
+
+  void setDecay(Sample timeInSample)
+  {
+    constexpr Sample eps = std::numeric_limits<Sample>::epsilon();
+    decay = timeInSample < Sample(1) ? 0 : std::pow(eps, Sample(1) / timeInSample);
+  }
+
+  // `density` is inverse of average samples between impulses.
+  // `randomGain` is in [0, 1].
+  Sample process(Sample density, Sample randomGain, pcg64 &rng)
+  {
+    std::uniform_real_distribution<Sample> jitter(Sample(0), Sample(1));
+    phase += jitter(rng) * density;
+    if (phase >= Sample(1)) {
+      phase -= std::floor(phase);
+
+      std::normal_distribution<Sample> distGain(Sample(0), Sample(1) / Sample(3));
+      gain = Sample(1) + randomGain * (distGain(rng) - Sample(1));
+    } else {
+      gain *= decay;
+    }
+
+    std::uniform_real_distribution<Sample> distNoise(-Sample(1), Sample(1));
+    const auto noise = distNoise(rng);
+    return highpass.process(noise * noise * noise * gain);
   }
 };
 

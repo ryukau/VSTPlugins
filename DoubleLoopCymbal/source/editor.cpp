@@ -47,7 +47,7 @@ constexpr float smallKnobX = smallKnobWidth + 2 * margin;
 constexpr float tabViewWidth = 2 * groupLabelWidth + 4 * margin + 2 * uiMargin;
 constexpr float tabViewHeight = 20 * labelY - 2 * margin + 2 * uiMargin;
 
-constexpr int_least32_t defaultWidth = int_least32_t(4 * uiMargin + 3 * groupLabelWidth);
+constexpr int_least32_t defaultWidth = int_least32_t(4 * uiMargin + 4 * groupLabelWidth);
 constexpr int_least32_t defaultHeight
   = int_least32_t(2 * uiMargin + 20 * labelY - 2 * margin);
 
@@ -100,6 +100,7 @@ bool Editor::prepareUI()
   constexpr auto left0 = uiMargin;
   constexpr auto left4 = left0 + 1 * groupLabelWidth + 4 * margin;
   constexpr auto left8 = left0 + 2 * groupLabelWidth + 4 * margin + uiMargin;
+  constexpr auto left12 = left0 + 3 * groupLabelWidth + 4 * margin + uiMargin;
 
   // Mix.
   constexpr auto mixTop0 = top0;
@@ -220,114 +221,154 @@ bool Editor::prepareUI()
   addTextKnob(
     impactLeft1, impactTop3, labelWidth, labelHeight, uiTextSize, ID::noiseDecaySeconds,
     Scales::noiseDecaySeconds, false, 5);
-  addLabel(
-    impactLeft0, impactTop4, labelWidth, labelHeight, uiTextSize, "Noise Sustain [dB]");
-  addTextKnob(
-    impactLeft1, impactTop4, labelWidth, labelHeight, uiTextSize, ID::noiseSustainLevel,
-    Scales::gain, true, 5);
-  addLabel(
-    impactLeft0, impactTop5, labelWidth, labelHeight, uiTextSize, "Close Gain [dB]");
-  addTextKnob(
-    impactLeft1, impactTop5, labelWidth, labelHeight, uiTextSize, ID::closeGain,
-    Scales::gain, true, 5);
-  addLabel(
-    impactLeft0, impactTop6, labelWidth, labelHeight, uiTextSize, "Close Attack [s]");
-  addTextKnob(
-    impactLeft1, impactTop6, labelWidth, labelHeight, uiTextSize, ID::closeAttackSeconds,
-    Scales::noiseDecaySeconds, false, 5);
 
   addLabel(
-    impactLeft0, impactTop8, labelWidth, labelHeight, uiTextSize,
+    impactLeft0, impactTop5, labelWidth, labelHeight, uiTextSize,
+    "Half Closed Gain [dB]");
+  addTextKnob(
+    impactLeft1, impactTop5, labelWidth, labelHeight, uiTextSize, ID::halfClosedGain,
+    Scales::halfClosedGain, true, 5);
+  addLabel(
+    impactLeft0, impactTop6, labelWidth, labelHeight, uiTextSize,
+    "Half Closed Density [Hz]");
+  addTextKnob(
+    impactLeft1, impactTop6, labelWidth, labelHeight, uiTextSize, ID::halfClosedDensity,
+    Scales::halfClosedDensity, false, 5);
+  addLabel(
+    impactLeft0, impactTop7, labelWidth, labelHeight, uiTextSize,
+    "Half Closed Decay [s]");
+  addTextKnob(
+    impactLeft1, impactTop7, labelWidth, labelHeight, uiTextSize,
+    ID::halfClosedDecaySeconds, Scales::noiseDecaySeconds, false, 5);
+
+  addLabel(
+    impactLeft0, impactTop10, labelWidth, labelHeight, uiTextSize, "Close Gain [dB]");
+  addTextKnob(
+    impactLeft1, impactTop10, labelWidth, labelHeight, uiTextSize, ID::closeGain,
+    Scales::gain, true, 5);
+  addLabel(
+    impactLeft0, impactTop11, labelWidth, labelHeight, uiTextSize, "Close Attack [s]");
+  addTextKnob(
+    impactLeft1, impactTop11, labelWidth, labelHeight, uiTextSize, ID::closeAttackSeconds,
+    Scales::noiseDecaySeconds, false, 5);
+  addLabel(
+    impactLeft0, impactTop12, labelWidth, labelHeight, uiTextSize, "Loss Gain [dB]");
+  addTextKnob(
+    impactLeft1, impactTop12, labelWidth, labelHeight, uiTextSize, ID::lossGain,
+    Scales::halfClosedGain, true, 5);
+
+  // TODO: Delays.
+  constexpr auto filterTop0 = top0 + 0 * labelY;
+  constexpr auto filterTop1 = filterTop0 + 1 * labelY;
+  constexpr auto filterTop2 = filterTop0 + 2 * labelY;
+  constexpr auto filterTop3 = filterTop0 + 3 * labelY;
+  constexpr auto filterTop4 = filterTop0 + 4 * labelY;
+  constexpr auto filterTop5 = filterTop0 + 5 * labelY;
+  constexpr auto filterTop6 = filterTop0 + 6 * labelY;
+  constexpr auto filterTop7 = filterTop0 + 7 * labelY;
+  constexpr auto filterTop8 = filterTop0 + 8 * labelY;
+  constexpr auto filterTop9 = filterTop0 + 9 * labelY;
+  constexpr auto filterTop10 = filterTop0 + 10 * labelY;
+  constexpr auto filterTop11 = filterTop0 + 11 * labelY;
+  constexpr auto filterLeft0 = left8;
+  constexpr auto filterLeft1 = filterLeft0 + labelWidth + 2 * margin;
+  addGroupLabel(
+    filterLeft0, filterTop0, groupLabelWidth, labelHeight, uiTextSize, "Filter");
+
+  addLabel(
+    filterLeft0, filterTop8, labelWidth, labelHeight, uiTextSize,
     "High Shelf Cutoff [Hz]");
   addTextKnob(
-    impactLeft1, impactTop8, labelWidth, labelHeight, uiTextSize,
+    filterLeft1, filterTop8, labelWidth, labelHeight, uiTextSize,
     ID::highShelfFrequencyHz, Scales::cutoffFrequencyHz, false, 5);
   addLabel(
-    impactLeft0, impactTop9, labelWidth, labelHeight, uiTextSize, "High Shelf Gain [dB]");
+    filterLeft0, filterTop9, labelWidth, labelHeight, uiTextSize, "High Shelf Gain [dB]");
   addTextKnob(
-    impactLeft1, impactTop9, labelWidth, labelHeight, uiTextSize, ID::highShelfGain,
+    filterLeft1, filterTop9, labelWidth, labelHeight, uiTextSize, ID::highShelfGain,
     Scales::shelvingGain, true, 5);
   addLabel(
-    impactLeft0, impactTop10, labelWidth, labelHeight, uiTextSize,
+    filterLeft0, filterTop10, labelWidth, labelHeight, uiTextSize,
     "Low Shelf Cutoff [Hz]");
   addTextKnob(
-    impactLeft1, impactTop10, labelWidth, labelHeight, uiTextSize,
+    filterLeft1, filterTop10, labelWidth, labelHeight, uiTextSize,
     ID::lowShelfFrequencyHz, Scales::cutoffFrequencyHz, false, 5);
   addLabel(
-    impactLeft0, impactTop11, labelWidth, labelHeight, uiTextSize, "Low Shelf Gain [dB]");
+    filterLeft0, filterTop11, labelWidth, labelHeight, uiTextSize, "Low Shelf Gain [dB]");
   addTextKnob(
-    impactLeft1, impactTop11, labelWidth, labelHeight, uiTextSize, ID::lowShelfGain,
+    filterLeft1, filterTop11, labelWidth, labelHeight, uiTextSize, ID::lowShelfGain,
     Scales::shelvingGain, true, 5);
-  addLabel(impactLeft0, impactTop12, labelWidth, labelHeight, uiTextSize, "Mix Spike");
-  addTextKnob(
-    impactLeft1, impactTop12, labelWidth, labelHeight, uiTextSize, ID::allpassMixSpike,
-    Scales::defaultScale, false, 5);
-  addLabel(
-    impactLeft0, impactTop13, labelWidth, labelHeight, uiTextSize, "Mix Alt. Sign");
-  addTextKnob(
-    impactLeft1, impactTop13, labelWidth, labelHeight, uiTextSize, ID::allpassMixAltSign,
-    Scales::defaultScale, false, 5);
 
-  // Secondary.
-  constexpr auto secondTop0 = top0 + 0 * labelY;
-  constexpr auto secondTop1 = secondTop0 + 1 * labelY;
-  constexpr auto secondTop2 = secondTop0 + 2 * labelY;
-  constexpr auto secondTop3 = secondTop0 + 3 * labelY;
-  constexpr auto secondTop4 = secondTop0 + 4 * labelY;
-  constexpr auto secondTop5 = secondTop0 + 5 * labelY;
-  constexpr auto secondTop6 = secondTop0 + 6 * labelY;
-  constexpr auto secondTop7 = secondTop0 + 7 * labelY;
-  constexpr auto secondTop8 = secondTop0 + 8 * labelY;
-  constexpr auto secondTop9 = secondTop0 + 9 * labelY;
-  constexpr auto secondTop10 = secondTop0 + 10 * labelY;
-  constexpr auto secondTop11 = secondTop0 + 11 * labelY;
-  constexpr auto secondLeft0 = left8;
-  constexpr auto secondLeft1 = secondLeft0 + labelWidth + 2 * margin;
+  // TODO: Delays.
+  constexpr auto thirdTop0 = top0 + 0 * labelY;
+  constexpr auto thirdTop1 = thirdTop0 + 1 * labelY;
+  constexpr auto thirdTop2 = thirdTop0 + 2 * labelY;
+  constexpr auto thirdTop3 = thirdTop0 + 3 * labelY;
+  constexpr auto thirdTop4 = thirdTop0 + 4 * labelY;
+  constexpr auto thirdTop5 = thirdTop0 + 5 * labelY;
+  constexpr auto thirdTop6 = thirdTop0 + 6 * labelY;
+  constexpr auto thirdTop7 = thirdTop0 + 7 * labelY;
+  constexpr auto thirdTop8 = thirdTop0 + 8 * labelY;
+  constexpr auto thirdTop9 = thirdTop0 + 9 * labelY;
+  constexpr auto thirdTop10 = thirdTop0 + 10 * labelY;
+  constexpr auto thirdTop11 = thirdTop0 + 11 * labelY;
+  constexpr auto thirdTop12 = thirdTop0 + 12 * labelY;
+  constexpr auto thirdTop13 = thirdTop0 + 13 * labelY;
+  constexpr auto thirdTop14 = thirdTop0 + 14 * labelY;
+  constexpr auto thirdLeft0 = left12;
+  constexpr auto thirdLeft1 = thirdLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
-    secondLeft0, secondTop0, groupLabelWidth, labelHeight, uiTextSize, "Allpass Loop");
+    thirdLeft0, thirdTop0, groupLabelWidth, labelHeight, uiTextSize, "Allpass Loop");
 
-  addLabel(secondLeft0, secondTop1, labelWidth, labelHeight, uiTextSize, "Shape");
+  addLabel(thirdLeft0, thirdTop1, labelWidth, labelHeight, uiTextSize, "Shape");
   addTextKnob(
-    secondLeft1, secondTop1, labelWidth, labelHeight, uiTextSize, ID::delayTimeShape,
+    thirdLeft1, thirdTop1, labelWidth, labelHeight, uiTextSize, ID::delayTimeShape,
     Scales::defaultScale, false, 5);
-  addLabel(
-    secondLeft0, secondTop2, labelWidth, labelHeight, uiTextSize, "Delay Base [s]");
+  addLabel(thirdLeft0, thirdTop2, labelWidth, labelHeight, uiTextSize, "Delay Base [s]");
   addTextKnob(
-    secondLeft1, secondTop2, labelWidth, labelHeight, uiTextSize, ID::delayTimeBaseSecond,
+    thirdLeft1, thirdTop2, labelWidth, labelHeight, uiTextSize, ID::delayTimeBaseSecond,
     Scales::delayTimeSecond, false, 5);
   addLabel(
-    secondLeft0, secondTop3, labelWidth, labelHeight, uiTextSize, "Delay Random [s]");
+    thirdLeft0, thirdTop3, labelWidth, labelHeight, uiTextSize, "Delay Random [s]");
   addTextKnob(
-    secondLeft1, secondTop3, labelWidth, labelHeight, uiTextSize,
-    ID::delayTimeRandomSecond, Scales::delayTimeSecond, false, 5);
+    thirdLeft1, thirdTop3, labelWidth, labelHeight, uiTextSize, ID::delayTimeRandomSecond,
+    Scales::delayTimeSecond, false, 5);
   addLabel(
-    secondLeft0, secondTop4, labelWidth, labelHeight, uiTextSize, "Modulation [sample]");
+    thirdLeft0, thirdTop4, labelWidth, labelHeight, uiTextSize, "Modulation [sample]");
   addTextKnob(
-    secondLeft1, secondTop4, labelWidth, labelHeight, uiTextSize, ID::delayTimeModAmount,
+    thirdLeft1, thirdTop4, labelWidth, labelHeight, uiTextSize, ID::delayTimeModAmount,
     Scales::delayTimeModAmount, false, 5);
 
-  addLabel(secondLeft0, secondTop6, labelWidth, labelHeight, uiTextSize, "nNotch");
+  addLabel(thirdLeft0, thirdTop6, labelWidth, labelHeight, uiTextSize, "nNotch");
   addTextKnob(
-    secondLeft1, secondTop6, labelWidth, labelHeight, uiTextSize, ID::nAdaptiveNotch,
+    thirdLeft1, thirdTop6, labelWidth, labelHeight, uiTextSize, ID::nAdaptiveNotch,
     Scales::nAdaptiveNotch, false, 0, 0);
-  addLabel(secondLeft0, secondTop7, labelWidth, labelHeight, uiTextSize, "Notch Mix");
+  addLabel(thirdLeft0, thirdTop7, labelWidth, labelHeight, uiTextSize, "Notch Mix");
   addTextKnob(
-    secondLeft1, secondTop7, labelWidth, labelHeight, uiTextSize, ID::adaptiveNotchMix,
+    thirdLeft1, thirdTop7, labelWidth, labelHeight, uiTextSize, ID::adaptiveNotchMix,
     Scales::defaultScale, false, 5);
   addLabel(
-    secondLeft0, secondTop8, labelWidth, labelHeight, uiTextSize, "Notch Narrowness");
+    thirdLeft0, thirdTop8, labelWidth, labelHeight, uiTextSize, "Notch Narrowness");
   addTextKnob(
-    secondLeft1, secondTop8, labelWidth, labelHeight, uiTextSize,
+    thirdLeft1, thirdTop8, labelWidth, labelHeight, uiTextSize,
     ID::adaptiveNotchNarrowness, Scales::adaptiveNotchNarrowness, false, 5);
 
-  addLabel(secondLeft0, secondTop10, labelWidth, labelHeight, uiTextSize, "Feed 1");
+  addLabel(thirdLeft0, thirdTop10, labelWidth, labelHeight, uiTextSize, "Feed 1");
   addTextKnob(
-    secondLeft1, secondTop10, labelWidth, labelHeight, uiTextSize, ID::allpassFeed1,
+    thirdLeft1, thirdTop10, labelWidth, labelHeight, uiTextSize, ID::allpassFeed1,
     Scales::bipolarScale, false, 5);
-  addLabel(secondLeft0, secondTop11, labelWidth, labelHeight, uiTextSize, "Feed 2");
+  addLabel(thirdLeft0, thirdTop11, labelWidth, labelHeight, uiTextSize, "Feed 2");
   addTextKnob(
-    secondLeft1, secondTop11, labelWidth, labelHeight, uiTextSize, ID::allpassFeed2,
+    thirdLeft1, thirdTop11, labelWidth, labelHeight, uiTextSize, ID::allpassFeed2,
     Scales::bipolarScale, false, 5);
+
+  addLabel(thirdLeft0, thirdTop13, labelWidth, labelHeight, uiTextSize, "Mix Spike");
+  addTextKnob(
+    thirdLeft1, thirdTop13, labelWidth, labelHeight, uiTextSize, ID::allpassMixSpike,
+    Scales::defaultScale, false, 5);
+  addLabel(thirdLeft0, thirdTop14, labelWidth, labelHeight, uiTextSize, "Mix Alt. Sign");
+  addTextKnob(
+    thirdLeft1, thirdTop14, labelWidth, labelHeight, uiTextSize, ID::allpassMixAltSign,
+    Scales::defaultScale, false, 5);
 
   // Randomize button.
   const auto randomButtonTop = top0 + 18 * labelY;
