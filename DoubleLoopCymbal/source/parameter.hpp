@@ -32,7 +32,7 @@
 #endif
 
 constexpr size_t nAllpass = 16;
-constexpr size_t nNotch = 4;
+constexpr size_t nNotch = 1;
 
 constexpr size_t nReservedParameter = 64;
 constexpr size_t nReservedGuiParameter = 16;
@@ -66,8 +66,11 @@ enum ID {
   noiseDecaySeconds,
 
   halfClosedGain,
-  halfClosedDensity,
-  halfClosedDecaySeconds,
+  halfCloseDecaySecond,
+  halfCloseSustainLevel,
+  halfClosedPulseSecond,
+  halfClosedDensityHz,
+  halfClosedHighpassHz,
 
   closeGain,
   closeAttackSeconds,
@@ -112,7 +115,7 @@ struct Scales {
 
   static SomeDSP::DecibelScale<double> noiseDecaySeconds;
   static SomeDSP::DecibelScale<double> halfClosedGain;
-  static SomeDSP::DecibelScale<double> halfClosedDensity;
+  static SomeDSP::DecibelScale<double> halfClosedDensityHz;
   static SomeDSP::DecibelScale<double> delayTimeSecond;
   static SomeDSP::DecibelScale<double> delayTimeModAmount;
 
@@ -135,6 +138,7 @@ struct GlobalParameter : public ParameterInterface {
     using LinearValue = DoubleValue<SomeDSP::LinearScale<double>>;
     using DecibelValue = DoubleValue<SomeDSP::DecibelScale<double>>;
     using NegativeDecibelValue = DoubleValue<SomeDSP::NegativeDecibelScale<double>>;
+    using NegativeDoubleExpValue = DoubleValue<SomeDSP::NegativeDoubleExpScale<double>>;
 
     value[ID::bypass] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "bypass", Info::kCanAutomate | Info::kIsBypass);
@@ -178,28 +182,40 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::seed]
       = std::make_unique<UIntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
     value[ID::noiseGain] = std::make_unique<DecibelValue>(
-      Scales::gain.invmap(0.25), Scales::gain, "noiseGain", Info::kCanAutomate);
+      Scales::halfClosedGain.invmap(0.25), Scales::halfClosedGain, "noiseGain",
+      Info::kCanAutomate);
     value[ID::noiseDecaySeconds] = std::make_unique<DecibelValue>(
       Scales::noiseDecaySeconds.invmap(0.001), Scales::noiseDecaySeconds,
       "noiseDecaySeconds", Info::kCanAutomate);
 
     value[ID::halfClosedGain] = std::make_unique<DecibelValue>(
-      Scales::halfClosedGain.invmapDB(-40), Scales::halfClosedGain, "halfClosedGain",
+      Scales::halfClosedGain.invmapDB(-20), Scales::halfClosedGain, "halfClosedGain",
       Info::kCanAutomate);
-    value[ID::halfClosedDensity] = std::make_unique<DecibelValue>(
-      Scales::halfClosedDensity.invmap(1000), Scales::halfClosedDensity,
-      "halfClosedDensity", Info::kCanAutomate);
-    value[ID::halfClosedDecaySeconds] = std::make_unique<DecibelValue>(
-      Scales::noiseDecaySeconds.invmap(10.0), Scales::noiseDecaySeconds,
-      "halfClosedDecaySeconds", Info::kCanAutomate);
+    value[ID::halfCloseDecaySecond] = std::make_unique<DecibelValue>(
+      Scales::noiseDecaySeconds.invmap(1.0), Scales::noiseDecaySeconds,
+      "halfCloseDecaySecond", Info::kCanAutomate);
+    value[ID::halfCloseSustainLevel] = std::make_unique<DecibelValue>(
+      Scales::halfClosedGain.invmapDB(-20), Scales::halfClosedGain,
+      "halfCloseSustainLevel", Info::kCanAutomate);
+    value[ID::halfClosedPulseSecond] = std::make_unique<DecibelValue>(
+      Scales::noiseDecaySeconds.invmap(0.01), Scales::noiseDecaySeconds,
+      "halfClosedPulseSecond", Info::kCanAutomate);
+    value[ID::halfClosedDensityHz] = std::make_unique<DecibelValue>(
+      Scales::halfClosedDensityHz.invmap(500), Scales::halfClosedDensityHz,
+      "halfClosedDensityHz", Info::kCanAutomate);
+    value[ID::halfClosedHighpassHz] = std::make_unique<DecibelValue>(
+      Scales::halfClosedDensityHz.invmap(300), Scales::halfClosedDensityHz,
+      "halfClosedHighpassHz", Info::kCanAutomate);
 
     value[ID::closeGain] = std::make_unique<DecibelValue>(
-      Scales::gain.invmap(1.0), Scales::gain, "closeGain", Info::kCanAutomate);
+      Scales::halfClosedGain.invmap(0.1), Scales::halfClosedGain, "closeGain",
+      Info::kCanAutomate);
     value[ID::closeAttackSeconds] = std::make_unique<DecibelValue>(
       Scales::noiseDecaySeconds.invmap(0.05), Scales::noiseDecaySeconds,
       "closeAttackSeconds", Info::kCanAutomate);
+
     value[ID::lossGain] = std::make_unique<DecibelValue>(
-      Scales::halfClosedGain.invmap(0.125), Scales::halfClosedGain, "lossGain",
+      Scales::halfClosedGain.invmap(1.0), Scales::halfClosedGain, "lossGain",
       Info::kCanAutomate);
 
     value[ID::delayTimeShape] = std::make_unique<LinearValue>(
@@ -219,7 +235,7 @@ struct GlobalParameter : public ParameterInterface {
       Scales::bipolarScale.invmap(0.98), Scales::bipolarScale, "allpassFeed1",
       Info::kCanAutomate);
     value[ID::allpassFeed2] = std::make_unique<LinearValue>(
-      Scales::bipolarScale.invmap(0.98), Scales::bipolarScale, "allpassFeed2",
+      Scales::bipolarScale.invmap(-0.5), Scales::bipolarScale, "allpassFeed2",
       Info::kCanAutomate);
     value[ID::allpassMixSpike] = std::make_unique<LinearValue>(
       Scales::defaultScale.invmap(2.0 / 3.0), Scales::defaultScale, "allpassMixSpike",
@@ -229,10 +245,10 @@ struct GlobalParameter : public ParameterInterface {
       Info::kCanAutomate);
 
     value[ID::highShelfFrequencyHz] = std::make_unique<DecibelValue>(
-      Scales::cutoffFrequencyHz.invmap(8000.0), Scales::cutoffFrequencyHz,
+      Scales::cutoffFrequencyHz.invmap(12000.0), Scales::cutoffFrequencyHz,
       "highShelfFrequencyHz", Info::kCanAutomate);
     value[ID::highShelfGain] = std::make_unique<DecibelValue>(
-      Scales::shelvingGain.invmapDB(-1.0), Scales::shelvingGain, "highShelfGain",
+      Scales::shelvingGain.invmapDB(-0.5), Scales::shelvingGain, "highShelfGain",
       Info::kCanAutomate);
     value[ID::lowShelfFrequencyHz] = std::make_unique<DecibelValue>(
       Scales::cutoffFrequencyHz.invmap(20.0), Scales::cutoffFrequencyHz,

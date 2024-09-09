@@ -41,8 +41,8 @@ DecibelScale<double> Scales::noteSlideTimeSecond(-100.0, 40.0, true);
 
 DecibelScale<double> Scales::noiseDecaySeconds(-100, 40, false);
 DecibelScale<double> Scales::halfClosedGain(-100.0, 0.0, true);
-DecibelScale<double> Scales::halfClosedDensity(0.0, 80.0, true);
-DecibelScale<double> Scales::delayTimeSecond(-100, -20, false);
+DecibelScale<double> Scales::halfClosedDensityHz(0.0, 80.0, true);
+DecibelScale<double> Scales::delayTimeSecond(-100, -30, false);
 DecibelScale<double> Scales::delayTimeModAmount(-40, 60, true);
 
 DecibelScale<double> Scales::cutoffFrequencyHz(0, 100, false);

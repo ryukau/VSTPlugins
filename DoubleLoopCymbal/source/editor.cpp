@@ -198,6 +198,8 @@ bool Editor::prepareUI()
   constexpr auto impactTop11 = impactTop0 + 11 * labelY;
   constexpr auto impactTop12 = impactTop0 + 12 * labelY;
   constexpr auto impactTop13 = impactTop0 + 13 * labelY;
+  constexpr auto impactTop14 = impactTop0 + 14 * labelY;
+  constexpr auto impactTop15 = impactTop0 + 15 * labelY;
   constexpr auto impactLeft0 = left4;
   constexpr auto impactLeft1 = impactLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
@@ -215,7 +217,7 @@ bool Editor::prepareUI()
     impactLeft0, impactTop2, labelWidth, labelHeight, uiTextSize, "Noise Gain [dB]");
   addTextKnob(
     impactLeft1, impactTop2, labelWidth, labelHeight, uiTextSize, ID::noiseGain,
-    Scales::gain, true, 5);
+    Scales::halfClosedGain, true, 5);
   addLabel(
     impactLeft0, impactTop3, labelWidth, labelHeight, uiTextSize, "Noise Decay [s]");
   addTextKnob(
@@ -230,31 +232,50 @@ bool Editor::prepareUI()
     Scales::halfClosedGain, true, 5);
   addLabel(
     impactLeft0, impactTop6, labelWidth, labelHeight, uiTextSize,
-    "Half Closed Density [Hz]");
-  addTextKnob(
-    impactLeft1, impactTop6, labelWidth, labelHeight, uiTextSize, ID::halfClosedDensity,
-    Scales::halfClosedDensity, false, 5);
-  addLabel(
-    impactLeft0, impactTop7, labelWidth, labelHeight, uiTextSize,
     "Half Closed Decay [s]");
   addTextKnob(
+    impactLeft1, impactTop6, labelWidth, labelHeight, uiTextSize,
+    ID::halfCloseDecaySecond, Scales::noiseDecaySeconds, false, 5);
+  addLabel(
+    impactLeft0, impactTop7, labelWidth, labelHeight, uiTextSize,
+    "Half Closed Sustain [dB]");
+  addTextKnob(
     impactLeft1, impactTop7, labelWidth, labelHeight, uiTextSize,
-    ID::halfClosedDecaySeconds, Scales::noiseDecaySeconds, false, 5);
+    ID::halfCloseSustainLevel, Scales::halfClosedGain, true, 5);
+  addLabel(
+    impactLeft0, impactTop8, labelWidth, labelHeight, uiTextSize,
+    "Half Closed Pulse Duration [s]");
+  addTextKnob(
+    impactLeft1, impactTop8, labelWidth, labelHeight, uiTextSize,
+    ID::halfClosedPulseSecond, Scales::noiseDecaySeconds, false, 5);
+  addLabel(
+    impactLeft0, impactTop9, labelWidth, labelHeight, uiTextSize,
+    "Half Closed Density [Hz]");
+  addTextKnob(
+    impactLeft1, impactTop9, labelWidth, labelHeight, uiTextSize, ID::halfClosedDensityHz,
+    Scales::halfClosedDensityHz, false, 5);
+  addLabel(
+    impactLeft0, impactTop10, labelWidth, labelHeight, uiTextSize,
+    "Half Closed Highpass [Hz]");
+  addTextKnob(
+    impactLeft1, impactTop10, labelWidth, labelHeight, uiTextSize,
+    ID::halfClosedHighpassHz, Scales::halfClosedDensityHz, false, 5);
 
   addLabel(
-    impactLeft0, impactTop10, labelWidth, labelHeight, uiTextSize, "Close Gain [dB]");
+    impactLeft0, impactTop12, labelWidth, labelHeight, uiTextSize, "Close Gain [dB]");
   addTextKnob(
-    impactLeft1, impactTop10, labelWidth, labelHeight, uiTextSize, ID::closeGain,
-    Scales::gain, true, 5);
+    impactLeft1, impactTop12, labelWidth, labelHeight, uiTextSize, ID::closeGain,
+    Scales::halfClosedGain, true, 5);
   addLabel(
-    impactLeft0, impactTop11, labelWidth, labelHeight, uiTextSize, "Close Attack [s]");
+    impactLeft0, impactTop13, labelWidth, labelHeight, uiTextSize, "Close Attack [s]");
   addTextKnob(
-    impactLeft1, impactTop11, labelWidth, labelHeight, uiTextSize, ID::closeAttackSeconds,
+    impactLeft1, impactTop13, labelWidth, labelHeight, uiTextSize, ID::closeAttackSeconds,
     Scales::noiseDecaySeconds, false, 5);
+
   addLabel(
-    impactLeft0, impactTop12, labelWidth, labelHeight, uiTextSize, "Loss Gain [dB]");
+    impactLeft0, impactTop14, labelWidth, labelHeight, uiTextSize, "Loss Gain [dB]");
   addTextKnob(
-    impactLeft1, impactTop12, labelWidth, labelHeight, uiTextSize, ID::lossGain,
+    impactLeft1, impactTop14, labelWidth, labelHeight, uiTextSize, ID::lossGain,
     Scales::halfClosedGain, true, 5);
 
   // TODO: Delays.
@@ -263,40 +284,39 @@ bool Editor::prepareUI()
   constexpr auto filterTop2 = filterTop0 + 2 * labelY;
   constexpr auto filterTop3 = filterTop0 + 3 * labelY;
   constexpr auto filterTop4 = filterTop0 + 4 * labelY;
-  constexpr auto filterTop5 = filterTop0 + 5 * labelY;
-  constexpr auto filterTop6 = filterTop0 + 6 * labelY;
-  constexpr auto filterTop7 = filterTop0 + 7 * labelY;
-  constexpr auto filterTop8 = filterTop0 + 8 * labelY;
-  constexpr auto filterTop9 = filterTop0 + 9 * labelY;
-  constexpr auto filterTop10 = filterTop0 + 10 * labelY;
-  constexpr auto filterTop11 = filterTop0 + 11 * labelY;
   constexpr auto filterLeft0 = left8;
   constexpr auto filterLeft1 = filterLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     filterLeft0, filterTop0, groupLabelWidth, labelHeight, uiTextSize, "Filter");
 
   addLabel(
-    filterLeft0, filterTop8, labelWidth, labelHeight, uiTextSize,
+    filterLeft0, filterTop1, labelWidth, labelHeight, uiTextSize,
     "High Shelf Cutoff [Hz]");
   addTextKnob(
-    filterLeft1, filterTop8, labelWidth, labelHeight, uiTextSize,
+    filterLeft1, filterTop1, labelWidth, labelHeight, uiTextSize,
     ID::highShelfFrequencyHz, Scales::cutoffFrequencyHz, false, 5);
   addLabel(
-    filterLeft0, filterTop9, labelWidth, labelHeight, uiTextSize, "High Shelf Gain [dB]");
-  addTextKnob(
-    filterLeft1, filterTop9, labelWidth, labelHeight, uiTextSize, ID::highShelfGain,
+    filterLeft0, filterTop2, labelWidth, labelHeight, uiTextSize, "High Shelf Gain [dB]");
+  auto highShelfGainTextKnob = addTextKnob(
+    filterLeft1, filterTop2, labelWidth, labelHeight, uiTextSize, ID::highShelfGain,
     Scales::shelvingGain, true, 5);
+  if (highShelfGainTextKnob) {
+    highShelfGainTextKnob->lowSensitivity = 1.0 / 30000.0;
+  }
   addLabel(
-    filterLeft0, filterTop10, labelWidth, labelHeight, uiTextSize,
+    filterLeft0, filterTop3, labelWidth, labelHeight, uiTextSize,
     "Low Shelf Cutoff [Hz]");
   addTextKnob(
-    filterLeft1, filterTop10, labelWidth, labelHeight, uiTextSize,
-    ID::lowShelfFrequencyHz, Scales::cutoffFrequencyHz, false, 5);
+    filterLeft1, filterTop3, labelWidth, labelHeight, uiTextSize, ID::lowShelfFrequencyHz,
+    Scales::cutoffFrequencyHz, false, 5);
   addLabel(
-    filterLeft0, filterTop11, labelWidth, labelHeight, uiTextSize, "Low Shelf Gain [dB]");
-  addTextKnob(
-    filterLeft1, filterTop11, labelWidth, labelHeight, uiTextSize, ID::lowShelfGain,
+    filterLeft0, filterTop4, labelWidth, labelHeight, uiTextSize, "Low Shelf Gain [dB]");
+  auto lowShelfGainTextKnob = addTextKnob(
+    filterLeft1, filterTop4, labelWidth, labelHeight, uiTextSize, ID::lowShelfGain,
     Scales::shelvingGain, true, 5);
+  if (highShelfGainTextKnob) {
+    lowShelfGainTextKnob->lowSensitivity = 1.0 / 30000.0;
+  }
 
   // TODO: Delays.
   constexpr auto thirdTop0 = top0 + 0 * labelY;

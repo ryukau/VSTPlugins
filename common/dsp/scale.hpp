@@ -20,8 +20,7 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
-
-#include "constants.hpp"
+#include <numbers>
 
 namespace SomeDSP {
 
@@ -127,6 +126,9 @@ protected:
 
 // Based on superellipse. min < max. power > 0.
 template<typename T> class EllipticScale {
+private:
+  static constexpr T pi = std::numbers::pi_v<T>;
+
 public:
   EllipticScale(T min, T max, T power = T(2.0)) { set(min, max, power); }
 
@@ -258,6 +260,9 @@ public:
   T getMin() { return minToZero ? 0 : minFreq; }
   T getMax() { return maxFreq; }
 
+  inline T noteToFreq(T note) { return T(440) * std::exp2((note - 69) / T(12)); }
+  inline T freqToNote(T freq) { return T(69) + T(12) * std::log2(freq / T(440)); }
+
 protected:
   bool minToZero;
   T minNote;
@@ -353,6 +358,50 @@ public:
 protected:
   DecibelScale<T> scale;
   T offset;
+};
+
+// Maps linear normalized value in [0, 1] to an exponential of exponential curve. It's too
+// peaky and hard to use. The idea was something like: linear -> decibel -> decibel of
+// decibel.
+//
+// Added to use for feedback or resonance. Increasing normalized value makes the raw value
+// to be close to 1.
+template<typename T> class NegativeDoubleExpScale {
+public:
+  NegativeDoubleExpScale(T minDB, bool maxToOne_)
+  {
+    const auto minAmp = std::pow(T(10), minDB / T(20));
+    maxAmp = maxToOne_ ? T(0) : T(1) - minAmp;
+    minLog = std::log(minAmp);
+    maxToOne = maxToOne_;
+  }
+
+  T map(T normalized)
+  {
+    if (maxToOne && normalized >= T(1)) return T(1);
+    return -std::expm1(-std::expm1(normalized * minLog) * minLog);
+  }
+
+  T reverseMap(T input) const { return map(T(1) - input); }
+
+  T invmap(T amplitude)
+  {
+    if (maxToOne && amplitude >= T(1)) return T(1);
+    return std::log1p(-std::log1p(-amplitude) / minLog) / minLog;
+  }
+
+  T invmapDB(T dB)
+  {
+    return invmap(std::clamp(std::pow(T(10), dB / T(20)), getMin(), getMax()));
+  }
+
+  T getMin() { return T(0); }
+  T getMax() { return maxToOne ? T(1) : maxAmp; }
+
+protected:
+  bool maxToOne;
+  T maxAmp;
+  T minLog;
 };
 
 // DecibelScale, but can have negative values when normalized value is below `center`.

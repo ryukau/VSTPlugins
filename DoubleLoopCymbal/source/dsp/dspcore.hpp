@@ -119,6 +119,7 @@ private:
   ExpSmoother<double> externalInputGain;
   ExpSmoother<double> halfClosedGain;
   ExpSmoother<double> halfClosedDensity;
+  ExpSmoother<double> halfClosedHighpassCutoff;
   ExpSmoother<double> delayTimeModAmount;
   ExpSmoother<double> allpassFeed1;
   ExpSmoother<double> allpassFeed2;
@@ -141,8 +142,8 @@ private:
   double impulse = 0;
   TransitionReleaseSmoother<double> releaseSmoother;
   ExpDecay<double> envelopeNoise;
+  ExpDSREnvelope<double> envelopeHalfClosed;
   ExpDecay<double> envelopeRelease;
-  LinearDecay<double> envelopeHalfClosed;
   ExpADEnvelope<double> envelopeClose;
   std::array<HalfClosedNoise<double>, 2> halfClosedNoise;
   std::array<double, 2> feedbackBuffer1{};

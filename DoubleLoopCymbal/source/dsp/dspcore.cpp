@@ -159,7 +159,6 @@ void DSPCore::setup(double sampleRate)
 
   releaseSmoother.setup(double(2) * upRate);
   envelopeClose.setup(EMAFilter<double>::secondToP(upRate, double(0.004)));
-  for (auto &x : halfClosedNoise) x.setDecay(double(0.1) * upRate);
 
   const auto maxDelayTimeSamples = upRate * 2 * Scales::delayTimeSecond.getMax();
   for (auto &x : serialAllpass1) x.setup(maxDelayTimeSamples);
@@ -182,7 +181,8 @@ void DSPCore::setup(double sampleRate)
                                                                                          \
   externalInputGain.METHOD(pv[ID::externalInputGain]->getDouble());                      \
   halfClosedGain.METHOD(pv[ID::halfClosedGain]->getDouble());                            \
-  halfClosedDensity.METHOD(pv[ID::halfClosedDensity]->getDouble() / upRate);             \
+  halfClosedDensity.METHOD(pv[ID::halfClosedDensityHz]->getDouble() / upRate);           \
+  halfClosedHighpassCutoff.METHOD(pv[ID::halfClosedHighpassHz]->getDouble() / upRate);   \
   delayTimeModAmount.METHOD(                                                             \
     pv[ID::delayTimeModAmount]->getDouble() * upRate / double(48000));                   \
   allpassFeed1.METHOD(                                                                   \
@@ -206,13 +206,21 @@ void DSPCore::setup(double sampleRate)
   outputGain.METHOD(gain);                                                               \
                                                                                          \
   envelopeNoise.setTime(pv[ID::noiseDecaySeconds]->getDouble() * upRate);                \
-  envelopeHalfClosed.setTime(pv[ID::halfClosedDecaySeconds]->getDouble() * upRate);      \
-  envelopeClose.update(                                                                  \
-    upRate, pv[ID::closeAttackSeconds]->getDouble(), closeReleaseSecond,                 \
-    pv[ID::closeGain]->getDouble());                                                     \
+                                                                                         \
+  const auto halfCloseDecaySecond = pv[ID::halfCloseDecaySecond]->getDouble();           \
+  envelopeHalfClosed.setTime(halfCloseDecaySecond *upRate, closeReleaseSecond *upRate);  \
+                                                                                         \
   if (!pv[ID::release]->getInt() && noteStack.empty()) {                                 \
     envelopeRelease.setTime(                                                             \
       double(8) * pv[ID::closeAttackSeconds]->getDouble() * upRate);                     \
+  }                                                                                      \
+                                                                                         \
+  envelopeClose.update(                                                                  \
+    upRate, pv[ID::closeAttackSeconds]->getDouble(), closeReleaseSecond,                 \
+    pv[ID::closeGain]->getDouble());                                                     \
+                                                                                         \
+  for (auto &x : halfClosedNoise) {                                                      \
+    x.setDecay(pv[ID::halfClosedPulseSecond]->getDouble() * upRate);                     \
   }                                                                                      \
                                                                                          \
   updateDelayTime();
@@ -261,8 +269,8 @@ void DSPCore::reset()
   impulse = 0;
   releaseSmoother.reset();
   envelopeNoise.reset();
-  envelopeRelease.reset();
   envelopeHalfClosed.reset();
+  envelopeRelease.reset();
   envelopeClose.reset();
   for (auto &x : halfClosedNoise) x.reset();
   feedbackBuffer1.fill(double(0));
@@ -293,15 +301,18 @@ void DSPCore::setParameters()
 
 std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externalInput)
 {
+  using ID = ParameterID::ID;
+  const auto &pv = param.value;
+
   const auto envRelease = envelopeRelease.process();
-  const auto terminationGain = envRelease < double(1e-3) ? double(0) : double(1);
 
   const auto extGain = externalInputGain.process();
-  const auto hcGain = halfClosedGain.process();
+  const auto hcGain = halfClosedGain.process() * envelopeHalfClosed.process();
   const auto hcDensity = halfClosedDensity.process();
+  const auto hcCutoff = halfClosedHighpassCutoff.process();
 
   auto timeModAmt = delayTimeModAmount.process();
-  timeModAmt += (double(1) - envRelease) * (double(10) * upRate / double(48000));
+  // timeModAmt += (double(1) - envRelease) * (double(10) * upRate / double(48000));
 
   auto apGain1 = allpassFeed1.process();
   auto apGain2 = allpassFeed2.process();
@@ -323,14 +334,12 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externa
 
   std::uniform_real_distribution<double> dist{double(-1), double(1)};
   auto noiseEnv = releaseSmoother.process() + envelopeNoise.process();
-  if (!param.value[ParameterID::release]->getInt() && noteStack.empty()) {
-    // TODO: simplify condition.
+  if (!pv[ID::release]->getInt() && noteStack.empty()) {
     noiseEnv += envelopeClose.process();
   }
 
   std::array<double, 2> excitation{
-    -terminationGain * apGain1 * feedbackBuffer1[0],
-    -terminationGain * apGain1 * feedbackBuffer1[1]};
+    -apGain1 * feedbackBuffer1[0], -apGain1 * feedbackBuffer1[1]};
   if (impulse != 0) {
     excitation[0] += impulse;
     excitation[1] += impulse;
@@ -340,11 +349,11 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externa
     excitation[0] += noiseEnv * ipow(dist(noiseRng));
     excitation[1] += noiseEnv * ipow(dist(noiseRng));
 
-    const auto hcEnv = envelopeHalfClosed.process();
-    const auto density = hcDensity * std::exp2(double(8) - double(8) * hcEnv);
-    const auto gn = hcGain * velocity * hcEnv * hcEnv;
-    excitation[0] += gn * halfClosedNoise[0].process(density, double(1), noiseRng);
-    excitation[1] += gn * halfClosedNoise[1].process(density, double(1), noiseRng);
+    const auto g = hcGain * velocity;
+    excitation[0]
+      += g * halfClosedNoise[0].process(hcDensity, double(1), hcCutoff, noiseRng);
+    excitation[1]
+      += g * halfClosedNoise[1].process(hcDensity, double(1), hcCutoff, noiseRng);
   }
 
   if (useExternalInput) {
@@ -377,11 +386,11 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externa
     = std::lerp(serialAllpass2[1].sum(apMixSign), feedbackBuffer2[1], apMixSpike)
     * normalizeGain;
   feedbackBuffer2[0] = serialAllpass2[0].process(
-    ap1Out0 - terminationGain * apGain2 * feedbackBuffer2[0], hsCut, hsGain, lsCut,
-    lsGain, apGain2, pitchRatio, timeModAmt, nNotch, ntMix, ntNarrowness);
+    ap1Out0 - apGain2 * feedbackBuffer2[0], hsCut, hsGain, lsCut, lsGain, apGain2,
+    pitchRatio, timeModAmt, nNotch, ntMix, ntNarrowness);
   feedbackBuffer2[1] = serialAllpass2[1].process(
-    ap1Out1 - terminationGain * apGain2 * feedbackBuffer2[1], hsCut, hsGain, lsCut,
-    lsGain, apGain2, pitchRatio, timeModAmt, nNotch, ntMix, ntNarrowness);
+    ap1Out1 - apGain2 * feedbackBuffer2[1], hsCut, hsGain, lsCut, lsGain, apGain2,
+    pitchRatio, timeModAmt, nNotch, ntMix, ntNarrowness);
 
   constexpr auto eps = std::numeric_limits<double>::epsilon();
   if (balance < -eps) {
@@ -447,8 +456,6 @@ void DSPCore::noteOn(NoteInfo &info)
 
   constexpr auto eps = std::numeric_limits<double>::epsilon();
 
-  noteStack.push_back(info);
-
   noteNumber = info.noteNumber;
   auto notePitch = calcNotePitch(info.noteNumber);
   interpPitch.push(notePitch);
@@ -457,24 +464,30 @@ void DSPCore::noteOn(NoteInfo &info)
 
   if (pv[ID::resetSeedAtNoteOn]->getInt()) noiseRng.seed(pv[ID::seed]->getInt());
 
-  // if (envelopeClose.isTerminated() && !pv[ID::release]->getInt()) {
-  const auto lossGain = pv[ID::lossGain]->getDouble();
+  const auto lossGain = !pv[ID::release]->getInt() && noteStack.empty()
+    ? envelopeRelease.value
+    : pv[ID::lossGain]->getDouble();
   for (auto &x : serialAllpass1) x.applyGain(lossGain);
   for (auto &x : serialAllpass2) x.applyGain(lossGain);
-  // }
 
-  const auto oscGain = velocity * pv[ID::noiseGain]->getDouble();
   releaseSmoother.prepare(
     double(0.1) * envelopeNoise.process(),
     upRate * pv[ID::noiseDecaySeconds]->getDouble());
+
+  const auto oscGain = velocity * pv[ID::noiseGain]->getDouble();
   impulse = oscGain;
-  envelopeNoise.noteOn(oscGain);
-  envelopeHalfClosed.noteOn();
-  envelopeRelease.noteOn(double(1));
-  envelopeRelease.setTime(1, true);
-  envelopeClose.noteOn(
+  envelopeNoise.trigger(oscGain);
+
+  envelopeHalfClosed.trigger(pv[ID::halfCloseSustainLevel]->getDouble());
+
+  envelopeRelease.trigger(double(1));
+  envelopeRelease.setTime(double(1), true);
+
+  envelopeClose.trigger(
     upRate, pv[ID::closeAttackSeconds]->getDouble(), closeReleaseSecond,
-    velocity * pv[ID::closeGain]->getDouble());
+    pv[ID::closeGain]->getDouble(), velocity);
+
+  noteStack.push_back(info);
 }
 
 void DSPCore::noteOff(int_fast32_t noteId)
@@ -492,10 +505,10 @@ void DSPCore::noteOff(int_fast32_t noteId)
     noteNumber = noteStack.back().noteNumber;
     interpPitch.push(calcNotePitch(noteNumber));
   } else {
+    velocity = 0;
+    envelopeHalfClosed.release();
     if (!pv[ID::release]->getInt()) {
       envelopeRelease.setTime(releaseTimeSecond * upRate);
-    } else {
-      envelopeHalfClosed.noteOff();
     }
   }
 }

@@ -29,11 +29,10 @@
 namespace SomeDSP {
 
 template<typename Sample> class ExpDecay {
-private:
+public:
   Sample value = 0;
   Sample alpha = 0;
 
-public:
   void setTime(Sample decayTimeInSamples, bool sustain = false)
   {
     constexpr auto eps = Sample(std::numeric_limits<float>::epsilon());
@@ -41,60 +40,158 @@ public:
   }
 
   void reset() { value = 0; }
-  void noteOn(Sample gain = Sample(1)) { value = gain; }
+  void trigger(Sample gain = Sample(1)) { value = gain; }
   Sample process() { return value *= alpha; }
 };
 
-template<typename Sample> class ExpRise {
+template<typename Sample> class ExpDSREnvelope {
+public:
+  enum class State { decay, release };
+
 private:
-  static constexpr auto eps = Sample(std::numeric_limits<float>::epsilon());
-  Sample value = eps;
-  Sample alpha = 0;
+  Sample value = 0;
+  Sample alphaD = 0;
+  Sample alphaR = 0;
+  Sample offset = 0;
+  State state = State::release;
 
 public:
-  void setTime(Sample decayTimeInSamples)
-  {
-    alpha = std::pow(Sample(1) / eps, Sample(1) / decayTimeInSamples);
-  }
-
-  void reset() { value = eps; }
-  void noteOn(Sample gain = eps) { value = gain; }
-  Sample process() { return value = std::min(value * alpha, Sample(1)); }
-};
-
-template<typename Sample> class LinearDecay {
-private:
-  Sample decaySamples = Sample(1);
-  Sample gain = Sample(1);
-  int counter = 0;
-
-public:
-  void setTime(Sample decayTimeInSamples)
+  void setTime(Sample decayTimeInSamples, Sample releaseTimeInSamples)
   {
     constexpr auto eps = Sample(std::numeric_limits<float>::epsilon());
-    decaySamples = std::max(Sample(1), decayTimeInSamples);
+    alphaD = std::pow(eps, Sample(1) / decayTimeInSamples);
+    alphaR = std::pow(eps, Sample(1) / releaseTimeInSamples);
   }
 
   void reset()
   {
-    decaySamples = Sample(1);
-    gain = Sample(1);
-    counter = 0;
+    value = 0;
+    alphaD = 0;
+    alphaR = 0;
+    offset = 0;
+    state = State::release;
   }
 
-  void noteOn(Sample gain_ = Sample(1))
+  void trigger(Sample sustainLevel)
   {
-    gain = gain_ / decaySamples;
-    counter = int(decaySamples);
+    state = State::decay;
+    value = Sample(1) - sustainLevel;
+    offset = sustainLevel;
   }
 
-  void noteOff() { counter = 0; }
+  void release()
+  {
+    state = State::release;
+    offset = 0;
+  }
 
   Sample process()
   {
-    if (counter <= 0) return 0;
-    --counter;
-    return gain * Sample(counter);
+    if (state == State::decay) {
+      value *= alphaD;
+      return offset + value;
+    }
+    return value *= alphaR;
+  }
+};
+
+template<typename Sample> class TransitionReleaseSmoother {
+private:
+  Sample v0 = 0;
+  Sample decay = 0;
+
+public:
+  // decaySamples = sampleRate * seconds.
+  void setup(Sample decaySamples)
+  {
+    decay = std::pow(std::numeric_limits<Sample>::epsilon(), Sample(1) / decaySamples);
+  }
+
+  void reset() { v0 = 0; }
+
+  void prepare(Sample value, Sample decaySamples)
+  {
+    v0 += value;
+    decay = std::pow(std::numeric_limits<Sample>::epsilon(), Sample(1) / decaySamples);
+  }
+
+  Sample process() { return v0 *= decay; }
+};
+
+template<typename Sample> class ExpADEnvelope {
+private:
+  static constexpr Sample epsilon = std::numeric_limits<Sample>::epsilon();
+  Sample targetGain = 0;
+  Sample velocity = 0;
+  Sample gain = Sample(1);
+  Sample smoo = Sample(1);
+  Sample valueA = 0;
+  Sample alphaA = 0;
+  Sample valueD = 0;
+  Sample alphaD = 0;
+
+public:
+  bool isTerminated() { return valueD <= Sample(1e-3); }
+
+  void setup(Sample smoothingKp) { smoo = smoothingKp; }
+
+  void reset()
+  {
+    targetGain = 0;
+    gain = Sample(1);
+    valueA = 0;
+    alphaA = 0;
+    valueD = 0;
+    alphaD = 0;
+  }
+
+  enum class NormalizationType { peak, energy };
+
+  void update(
+    Sample sampleRate,
+    Sample peakSeconds,
+    Sample releaseSeconds,
+    Sample peakGain,
+    NormalizationType normalization = NormalizationType::energy)
+  {
+    const auto decaySeconds = releaseSeconds - std::log(epsilon) * peakSeconds;
+    const auto d_ = std::log(epsilon) / decaySeconds;
+    const auto x_ = d_ * peakSeconds;
+    const auto a_ = Sample(utl::LambertW(-1, x_ * std::exp(x_))) / peakSeconds - d_;
+
+    const auto attackSeconds = -std::log(epsilon) / std::log(-a_);
+    alphaA = std::exp(a_ / sampleRate);
+    alphaD = std::exp(d_ / sampleRate);
+
+    if (normalization == NormalizationType::energy) {
+      // `area` is obtained by solving `integrate((1-%e^(-a*t))*%e^(-d*t), t, 0, +inf);`.
+      const auto area = -a_ / (d_ * (d_ + a_));
+      targetGain = Sample(1e-1) * peakGain / area;
+    } else { // `normalization == NormalizationType::peak`.
+      targetGain
+        = peakGain / (-std::expm1(a_ * peakSeconds) * std::exp(d_ * peakSeconds));
+    }
+  }
+
+  void trigger(
+    Sample sampleRate,
+    Sample peakSeconds,
+    Sample releaseSeconds,
+    Sample peakGain,
+    Sample velocity_)
+  {
+    velocity = velocity_;
+    valueA = Sample(1);
+    valueD = Sample(1);
+    update(sampleRate, peakSeconds, releaseSeconds, peakGain);
+  }
+
+  Sample process()
+  {
+    gain += smoo * (targetGain - gain);
+    valueA *= alphaA;
+    valueD *= alphaD;
+    return velocity * gain * (Sample(1) - (valueA)) * valueD;
   }
 };
 
@@ -151,63 +248,9 @@ public:
   }
 };
 
-/**
-Unused. This is a drop in replacement of `Delay`, but doubles the CPU load.
-
-- Sustain of the sound becomes shorter. Perhaps second allpass loop is required.
-- Rotating `phase` at right frequency makes better sound. It adds artifact due to AM.
-- `inputRatio` is better to be controled by user.
-*/
-template<typename Sample> class FDN2 {
-public:
-  static constexpr size_t size = 2;
-
-  Sample phase = 0;
-  std::array<Sample, size> buffer;
-  std::array<Delay<Sample>, size> delay;
-
-  void setup(Sample maxTimeSamples)
-  {
-    for (auto &x : delay) x.setup(maxTimeSamples);
-  }
-
-  void reset()
-  {
-    buffer.fill({});
-    for (auto &x : delay) x.reset();
-  }
-
-  Sample process(Sample input, Sample timeInSamples)
-  {
-    // Fixed parameters. [a, b] is the range of the value.
-    constexpr auto phaseRatio = Sample(1) / Sample(3); // [positive small, +inf].
-    constexpr auto feedback = Sample(1);               // [-1, 1].
-    constexpr auto timeRatio = Sample(4) / Sample(3);  // [0, +inf].
-    constexpr auto inputRatio = Sample(0.5);           // [0, 1].
-
-    constexpr auto twopi = Sample(2) * std::numbers::pi_v<Sample>;
-    const auto cs = std::cos(twopi * phase);
-    const auto sn = std::sin(twopi * phase);
-
-    phase += phaseRatio / timeInSamples;
-    phase -= std::floor(phase);
-
-    const auto sig0 = feedback * (cs * buffer[0] - sn * buffer[1]);
-    const auto sig1 = feedback * (sn * buffer[0] + cs * buffer[1]);
-
-    constexpr auto g1 = inputRatio;
-    constexpr auto g2 = Sample(1) - inputRatio;
-    buffer[0] = delay[0].process(g1 * input + sig0, timeInSamples);
-    buffer[1] = delay[1].process(g2 * input + sig1, timeInSamples * timeRatio);
-
-    return buffer[0] + buffer[1];
-  }
-};
-
-// Unused. `SerialAllpass` became unstable when used.
-template<typename Sample> class NyquistLowpass {
+template<typename Sample> class Highpass2 {
 private:
-  static constexpr Sample g = Sample(15915.494288237813); // tan(0.49998 * pi).
+  // static constexpr Sample g = Sample(0.02);               // ~= tan(pi * 300 / 48000).
   static constexpr Sample k = Sample(0.7071067811865476); // 2 / sqrt(2).
 
   Sample ic1eq = 0;
@@ -220,34 +263,11 @@ public:
     ic2eq = 0;
   }
 
-  Sample process(Sample input)
+  Sample process(Sample input, Sample cutoffNormalized)
   {
-    const auto v1 = (ic1eq + g * (input - ic2eq)) / (1 + g * (g + k));
-    const auto v2 = ic2eq + g * v1;
-    ic1eq = Sample(2) * v1 - ic1eq;
-    ic2eq = Sample(2) * v2 - ic2eq;
-    return v2;
-  }
-};
-
-// Unused. `SerialAllpass` became unstable when used.
-template<typename Sample> class FixedHighpass {
-private:
-  static constexpr Sample g = Sample(0.02);               // ~= tan(pi * 300 / 48000).
-  static constexpr Sample k = Sample(0.7071067811865476); // 2 / sqrt(2).
-
-  Sample ic1eq = 0;
-  Sample ic2eq = 0;
-
-public:
-  void reset()
-  {
-    ic1eq = 0;
-    ic2eq = 0;
-  }
-
-  Sample process(Sample input)
-  {
+    const auto g = std::tan(
+      std::numbers::pi_v<Sample>
+      * std::clamp(cutoffNormalized, Sample(0.00001), Sample(0.49998)));
     const auto v1 = (ic1eq + g * (input - ic2eq)) / (1 + g * (g + k));
     const auto v2 = ic2eq + g * v1;
     ic1eq = Sample(2) * v1 - ic1eq;
@@ -281,119 +301,6 @@ public:
   {
     value += kp * (input - value);
     return std::lerp(input - value, input, shelvingGain);
-  }
-};
-
-// Unused.
-template<typename Sample> class AdaptiveNotchAM {
-public:
-  static constexpr Sample mu = Sample(2) / Sample(256);
-  Sample alpha = Sample(-2);
-
-  Sample x1 = 0;
-  Sample x2 = 0;
-  Sample y1 = 0;
-  Sample y2 = 0;
-
-  void reset()
-  {
-    alpha = Sample(-2); // 0 Hz as initial guess.
-
-    x1 = 0;
-    x2 = 0;
-    y1 = 0;
-    y2 = 0;
-  }
-
-  Sample process(Sample input, Sample narrowness)
-  {
-    const auto a1 = narrowness * alpha;
-    const auto a2 = narrowness * narrowness;
-    const auto gain = alpha >= 0 ? (Sample(1) + a1 + a2) / (Sample(2) + alpha)
-                                 : (Sample(1) - a1 + a2) / (Sample(2) - alpha);
-
-    constexpr auto clip = Sample(1) / std::numeric_limits<Sample>::epsilon();
-    const auto y0 = std::clamp(input + alpha * x1 + x2 - a1 * y1 - a2 * y2, -clip, clip);
-    const auto s0 = x1 * (Sample(1) - narrowness * y0);
-    constexpr auto bound = Sample(2);
-    alpha += Sample(0.0625) * (std::clamp(alpha - mu * y0 * s0, -bound, bound) - alpha);
-
-    x2 = x1;
-    x1 = input;
-    y2 = y1;
-    y1 = y0;
-
-    return y0 * gain;
-  }
-};
-
-// Unused. Unstable when put in feedback loop.
-template<typename Sample> class AdaptiveNotchAP1 {
-public:
-  Sample alpha = Sample(-2);
-
-  Sample v1 = 0;
-  Sample v2 = 0;
-  Sample q1 = 0;
-  Sample r1 = 0;
-
-  void reset()
-  {
-    alpha = Sample(-2); // 0 Hz as initial guess.
-
-    v1 = 0;
-    v2 = 0;
-    q1 = 0;
-    r1 = 0;
-  }
-
-  inline Sample approxAtoK(Sample x)
-  {
-    constexpr std::array<Sample, 3> b{
-      Sample(0.24324073816096012), Sample(-0.2162512785673542),
-      Sample(0.0473854827531673)};
-    constexpr std::array<Sample, 3> a{
-      Sample(-0.9569399371569998), Sample(0.23899241566503945),
-      Sample(-0.005191170339007643)};
-
-    const auto z = std::abs(x);
-    const auto y
-      = z * (b[0] + z * (b[1] + z * b[2])) / (1 + z * (a[0] + z * (a[1] + z * a[2])));
-    return std::copysign(y, x);
-  }
-
-  Sample process(Sample input, Sample narrowness)
-  {
-    const auto a1 = narrowness * alpha;
-    const auto a2 = narrowness * narrowness;
-    const auto gain = alpha >= 0 ? (Sample(1) + a1 + a2) / (Sample(2) + alpha)
-                                 : (Sample(1) - a1 + a2) / (Sample(2) - alpha);
-
-    constexpr auto clip = Sample(1024);
-    const auto x0 = std::clamp(input, -clip, clip);
-    auto v0 = x0 - a1 * v1 - a2 * v2;
-    const auto y0 = v0 + alpha * v1 + v2;
-    const auto s0
-      = (Sample(1) - narrowness) * v0 - narrowness * (Sample(1) - narrowness) * v2;
-    const auto alphaCpz = y0 * s0;
-
-    const auto omega_a = std::numbers::pi_v<Sample> - std::acos(alpha / 2);
-    const auto t = std::tan(omega_a / Sample(2));
-    const auto k_ap = (t - Sample(1)) / (t + Sample(1));
-    // const auto k_ap = approxAtoK(alpha);
-    r1 = k_ap * (x0 - r1) + q1;
-    q1 = x0;
-    const auto alphaAM = std::min(std::abs(y0), Sample(1)) * x0 * r1;
-
-    constexpr auto bound = Sample(2);
-    constexpr auto mu = Sample(1) / Sample(256);
-    alpha = std::clamp(alpha - mu * alphaAM, -bound, bound);
-    // alpha = std::clamp(alpha - mu * (alphaCpz + alphaAM), -bound, bound);
-
-    v2 = v1;
-    v1 = v0;
-
-    return y0 * gain;
   }
 };
 
@@ -513,99 +420,13 @@ public:
   }
 };
 
-template<typename Sample> class TransitionReleaseSmoother {
-private:
-  Sample v0 = 0;
-  Sample decay = 0;
-
-public:
-  // decaySamples = sampleRate * seconds.
-  void setup(Sample decaySamples)
-  {
-    decay = std::pow(std::numeric_limits<Sample>::epsilon(), Sample(1) / decaySamples);
-  }
-
-  void reset() { v0 = 0; }
-
-  void prepare(Sample value, Sample decaySamples)
-  {
-    v0 += value;
-    decay = std::pow(std::numeric_limits<Sample>::epsilon(), Sample(1) / decaySamples);
-  }
-
-  Sample process() { return v0 *= decay; }
-};
-
-template<typename Sample> class ExpADEnvelope {
-private:
-  static constexpr Sample epsilon = std::numeric_limits<Sample>::epsilon();
-  Sample targetGain = 0;
-  Sample gain = Sample(1);
-  Sample smoo = Sample(1);
-  Sample valueA = 0;
-  Sample alphaA = 0;
-  Sample valueD = 0;
-  Sample alphaD = 0;
-
-public:
-  bool isTerminated() { return valueD <= Sample(1e-3); }
-
-  void setup(Sample smoothingKp) { smoo = smoothingKp; }
-
-  void reset()
-  {
-    targetGain = 0;
-    gain = Sample(1);
-    valueA = 0;
-    alphaA = 0;
-    valueD = 0;
-    alphaD = 0;
-  }
-
-  void
-  update(Sample sampleRate, Sample peakSeconds, Sample releaseSeconds, Sample peakGain)
-  {
-    const auto decaySeconds = releaseSeconds - std::log(epsilon) * peakSeconds;
-    const auto d_ = std::log(epsilon) / decaySeconds;
-    const auto x_ = d_ * peakSeconds;
-    const auto a_ = Sample(utl::LambertW(-1, x_ * std::exp(x_))) / peakSeconds - d_;
-
-    const auto attackSeconds = -std::log(epsilon) / std::log(-a_);
-    alphaA = std::exp(a_ / sampleRate);
-    alphaD = std::exp(d_ / sampleRate);
-
-    // `area` is obtained by solving `integrate((1-%e^(-a*t))*%e^(-d*t), t, 0, +inf);`.
-    const auto area = -a_ / (d_ * (d_ + a_));
-
-    // targetGain = peakGain
-    //   / ((Sample(1) - std::exp(a_ * peakSeconds)) * std::exp(d_ * peakSeconds));
-    targetGain = Sample(1e-3) * peakGain / area;
-  }
-
-  void
-  noteOn(Sample sampleRate, Sample peakSeconds, Sample releaseSeconds, Sample peakGain)
-  {
-    valueA = Sample(1);
-    valueD = Sample(1);
-    update(sampleRate, peakSeconds, releaseSeconds, peakGain);
-  }
-
-  Sample process()
-  {
-    gain += smoo * (targetGain - gain);
-    valueA *= alphaA;
-    valueD *= alphaD;
-    return gain * (Sample(1) - (valueA)) * valueD;
-  }
-};
-
 template<typename Sample> class HalfClosedNoise {
 private:
   Sample phase = 0;
   Sample gain = Sample(1);
   Sample decay = 0;
 
-  FixedHighpass<Sample> highpass;
+  Highpass2<Sample> highpass;
 
 public:
   void reset()
@@ -624,7 +445,7 @@ public:
 
   // `density` is inverse of average samples between impulses.
   // `randomGain` is in [0, 1].
-  Sample process(Sample density, Sample randomGain, pcg64 &rng)
+  Sample process(Sample density, Sample randomGain, Sample highpassNormalized, pcg64 &rng)
   {
     std::uniform_real_distribution<Sample> jitter(Sample(0), Sample(1));
     phase += jitter(rng) * density;
@@ -639,7 +460,7 @@ public:
 
     std::uniform_real_distribution<Sample> distNoise(-Sample(1), Sample(1));
     const auto noise = distNoise(rng);
-    return highpass.process(noise * noise * noise * gain);
+    return highpass.process(noise * noise * noise * gain, highpassNormalized);
   }
 };
 
