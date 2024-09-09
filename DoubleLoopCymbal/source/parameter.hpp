@@ -31,8 +31,7 @@
   #include "../../common/value.hpp"
 #endif
 
-constexpr size_t nAllpass = 16;
-constexpr size_t nNotch = 1;
+constexpr uint32_t nAllpass = 16;
 
 constexpr size_t nReservedParameter = 64;
 constexpr size_t nReservedGuiParameter = 16;
@@ -79,7 +78,10 @@ enum ID {
   delayTimeShape,
   delayTimeBaseSecond,
   delayTimeRandomSecond,
+  delayTimeRatio,
   delayTimeModAmount,
+  allpassDelayCount1,
+  allpassDelayCount2,
   allpassFeed1,
   allpassFeed2,
   allpassMixSpike,
@@ -89,10 +91,6 @@ enum ID {
   highShelfGain,
   lowShelfFrequencyHz,
   lowShelfGain,
-
-  nAdaptiveNotch,
-  adaptiveNotchMix,
-  adaptiveNotchNarrowness,
 
   reservedParameter0,
   reservedGuiParameter0 = reservedParameter0 + nReservedParameter,
@@ -119,11 +117,10 @@ struct Scales {
   static SomeDSP::DecibelScale<double> delayTimeSecond;
   static SomeDSP::DecibelScale<double> delayTimeModAmount;
 
+  static SomeDSP::UIntScale<double> allpassDelayCount;
+
   static SomeDSP::DecibelScale<double> cutoffFrequencyHz;
   static SomeDSP::DecibelScale<double> shelvingGain;
-
-  static SomeDSP::UIntScale<double> nAdaptiveNotch;
-  static SomeDSP::NegativeDecibelScale<double> adaptiveNotchNarrowness;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -227,10 +224,19 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::delayTimeRandomSecond] = std::make_unique<DecibelValue>(
       Scales::delayTimeSecond.invmap(0.001), Scales::delayTimeSecond,
       "delayTimeRandomSecond", Info::kCanAutomate);
-
+    value[ID::delayTimeRatio] = std::make_unique<LinearValue>(
+      Scales::semitone.invmap(0.0), Scales::semitone, "delayTimeRatio",
+      Info::kCanAutomate);
     value[ID::delayTimeModAmount] = std::make_unique<DecibelValue>(
       Scales::delayTimeModAmount.invmap(0.0), Scales::delayTimeModAmount,
       "delayTimeModAmount", Info::kCanAutomate);
+
+    value[ID::allpassDelayCount1] = std::make_unique<UIntValue>(
+      Scales::allpassDelayCount.getMax(), Scales::allpassDelayCount, "allpassDelayCount1",
+      Info::kCanAutomate);
+    value[ID::allpassDelayCount2] = std::make_unique<UIntValue>(
+      Scales::allpassDelayCount.getMax(), Scales::allpassDelayCount, "allpassDelayCount2",
+      Info::kCanAutomate);
     value[ID::allpassFeed1] = std::make_unique<LinearValue>(
       Scales::bipolarScale.invmap(0.98), Scales::bipolarScale, "allpassFeed1",
       Info::kCanAutomate);
@@ -256,15 +262,6 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::lowShelfGain] = std::make_unique<DecibelValue>(
       Scales::shelvingGain.invmapDB(-1.0), Scales::shelvingGain, "lowShelfGain",
       Info::kCanAutomate);
-
-    value[ID::nAdaptiveNotch] = std::make_unique<UIntValue>(
-      0, Scales::nAdaptiveNotch, "nAdaptiveNotch", Info::kCanAutomate);
-    value[ID::adaptiveNotchMix] = std::make_unique<LinearValue>(
-      Scales::defaultScale.invmap(0.25), Scales::defaultScale, "adaptiveNotchMix",
-      Info::kCanAutomate);
-    value[ID::adaptiveNotchNarrowness] = std::make_unique<NegativeDecibelValue>(
-      Scales::adaptiveNotchNarrowness.invmap(0.99), Scales::adaptiveNotchNarrowness,
-      "adaptiveNotchNarrowness", Info::kCanAutomate);
 
     for (size_t idx = 0; idx < nReservedParameter; ++idx) {
       auto indexStr = std::to_string(idx);

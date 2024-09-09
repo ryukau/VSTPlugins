@@ -45,11 +45,10 @@ DecibelScale<double> Scales::halfClosedDensityHz(0.0, 80.0, true);
 DecibelScale<double> Scales::delayTimeSecond(-100, -30, false);
 DecibelScale<double> Scales::delayTimeModAmount(-40, 60, true);
 
+UIntScale<double> Scales::allpassDelayCount(nAllpass - 1);
+
 DecibelScale<double> Scales::cutoffFrequencyHz(0, 100, false);
 DecibelScale<double> Scales::shelvingGain(-60, 0, true);
-
-UIntScale<double> Scales::nAdaptiveNotch(nNotch);
-NegativeDecibelScale<double> Scales::adaptiveNotchNarrowness(-60, 0, 1, false);
 
 } // namespace Synth
 } // namespace Steinberg

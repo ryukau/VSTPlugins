@@ -191,14 +191,12 @@ void DSPCore::setup(double sampleRate)
     std::clamp(pv[ID::allpassFeed2]->getDouble(), double(-0.99999), double(0.99999)));   \
   allpassMixSpike.METHOD(pv[ID::allpassMixSpike]->getDouble());                          \
   allpassMixAltSign.METHOD(pv[ID::allpassMixAltSign]->getDouble());                      \
-  highShelfCutoff.METHOD(EMAFilter<double>::cutoffToP(std::clamp(                        \
-    pv[ID::highShelfFrequencyHz]->getDouble() / upRate, double(0), double(0.5))));       \
+  highShelfCutoff.METHOD(EMAFilter<double>::cutoffToP(                                   \
+    std::min(pv[ID::highShelfFrequencyHz]->getDouble() / upRate, double(0.5))));         \
   highShelfGain.METHOD(pv[ID::highShelfGain]->getDouble());                              \
-  lowShelfCutoff.METHOD(EMAFilter<double>::cutoffToP(std::clamp(                         \
-    pv[ID::lowShelfFrequencyHz]->getDouble() / upRate, double(0), double(0.5))));        \
+  lowShelfCutoff.METHOD(EMAFilter<double>::cutoffToP(                                    \
+    std::min(pv[ID::lowShelfFrequencyHz]->getDouble() / upRate, double(0.5))));          \
   lowShelfGain.METHOD(pv[ID::lowShelfGain]->getDouble());                                \
-  notchMix.METHOD(pv[ID::adaptiveNotchMix]->getDouble());                                \
-  notchNarrowness.METHOD(pv[ID::adaptiveNotchNarrowness]->getDouble());                  \
   stereoBalance.METHOD(pv[ID::stereoBalance]->getDouble());                              \
   stereoMerge.METHOD(pv[ID::stereoMerge]->getDouble() / double(2));                      \
                                                                                          \
@@ -212,7 +210,7 @@ void DSPCore::setup(double sampleRate)
                                                                                          \
   if (!pv[ID::release]->getInt() && noteStack.empty()) {                                 \
     envelopeRelease.setTime(                                                             \
-      double(8) * pv[ID::closeAttackSeconds]->getDouble() * upRate);                     \
+      double(8) * pv[ID::closeAttackSeconds]->getDouble() * upRate, false);              \
   }                                                                                      \
                                                                                          \
   envelopeClose.update(                                                                  \
@@ -240,18 +238,23 @@ void DSPCore::updateDelayTime()
   const auto delayTimeBase = pv[ID::delayTimeBaseSecond]->getDouble() * upRate;
   const auto delayTimeRandom = pv[ID::delayTimeRandomSecond]->getDouble() * upRate;
   const auto shape = pv[ID::delayTimeShape]->getDouble();
-  std::uniform_real_distribution<double> delayTimeDist{
-    double(0), double(delayTimeRandom)};
+  const auto pitchRatio = std::exp2(pv[ID::delayTimeRatio]->getDouble() / double(-12));
+  std::uniform_real_distribution<double> timeDist{double(0), double(delayTimeRandom)};
   for (size_t idx = 0; idx < nAllpass; ++idx) {
     static_assert(nAllpass >= 1);
     const auto t1 = delayTimeBase / double(idx + 1);
     const auto t2 = delayTimeBase * (circularModes[idx] / circularModes[nAllpass - 1]);
-    const auto timeHarmonics = std::lerp(t1, t2, shape);
-    serialAllpass1[0].timeInSamples[idx] = timeHarmonics + delayTimeDist(paramRng);
-    serialAllpass1[1].timeInSamples[idx] = timeHarmonics + delayTimeDist(paramRng);
-    serialAllpass2[0].timeInSamples[idx] = timeHarmonics + delayTimeDist(paramRng);
-    serialAllpass2[1].timeInSamples[idx] = timeHarmonics + delayTimeDist(paramRng);
+    const auto harmonics = std::lerp(t1, t2, shape);
+    serialAllpass1[0].timeInSamples[idx] = harmonics + timeDist(paramRng);
+    serialAllpass1[1].timeInSamples[idx] = harmonics + timeDist(paramRng);
+    serialAllpass2[0].timeInSamples[idx] = pitchRatio * (harmonics + timeDist(paramRng));
+    serialAllpass2[1].timeInSamples[idx] = pitchRatio * (harmonics + timeDist(paramRng));
   }
+
+  const size_t nDelay1 = 1 + pv[ID::allpassDelayCount1]->getInt();
+  const size_t nDelay2 = 1 + pv[ID::allpassDelayCount2]->getInt();
+  for (auto &x : serialAllpass1) x.nDelay = nDelay1;
+  for (auto &x : serialAllpass2) x.nDelay = nDelay2;
 }
 
 void DSPCore::reset()
@@ -325,9 +328,6 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externa
   const auto hsGain = highShelfGain.process(); //* envRelease;
   const auto lsCut = lowShelfCutoff.process();
   const auto lsGain = lowShelfGain.process();
-  const size_t nNotch = param.value[ParameterID::nAdaptiveNotch]->getInt();
-  const auto ntMix = notchMix.process();
-  const auto ntNarrowness = notchNarrowness.process();
   const auto balance = stereoBalance.process();
   const auto merge = stereoMerge.process();
   const auto outGain = outputGain.process() * envRelease;
@@ -373,11 +373,9 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externa
     * normalizeGain;
 
   feedbackBuffer1[0] = serialAllpass1[0].process(
-    excitation[0], hsCut, hsGain, lsCut, lsGain, apGain1, pitchRatio, timeModAmt, nNotch,
-    ntMix, ntNarrowness);
+    excitation[0], hsCut, hsGain, lsCut, lsGain, apGain1, pitchRatio, timeModAmt);
   feedbackBuffer1[1] = serialAllpass1[1].process(
-    excitation[1], hsCut, hsGain, lsCut, lsGain, apGain1, pitchRatio, timeModAmt, nNotch,
-    ntMix, ntNarrowness);
+    excitation[1], hsCut, hsGain, lsCut, lsGain, apGain1, pitchRatio, timeModAmt);
 
   auto cymbal0
     = std::lerp(serialAllpass2[0].sum(apMixSign), feedbackBuffer2[0], apMixSpike)
@@ -387,10 +385,10 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externa
     * normalizeGain;
   feedbackBuffer2[0] = serialAllpass2[0].process(
     ap1Out0 - apGain2 * feedbackBuffer2[0], hsCut, hsGain, lsCut, lsGain, apGain2,
-    pitchRatio, timeModAmt, nNotch, ntMix, ntNarrowness);
+    pitchRatio, timeModAmt);
   feedbackBuffer2[1] = serialAllpass2[1].process(
     ap1Out1 - apGain2 * feedbackBuffer2[1], hsCut, hsGain, lsCut, lsGain, apGain2,
-    pitchRatio, timeModAmt, nNotch, ntMix, ntNarrowness);
+    pitchRatio, timeModAmt);
 
   constexpr auto eps = std::numeric_limits<double>::epsilon();
   if (balance < -eps) {
@@ -508,7 +506,7 @@ void DSPCore::noteOff(int_fast32_t noteId)
     velocity = 0;
     envelopeHalfClosed.release();
     if (!pv[ID::release]->getInt()) {
-      envelopeRelease.setTime(releaseTimeSecond * upRate);
+      envelopeRelease.setTime(releaseTimeSecond * upRate, false);
     }
   }
 }

@@ -30,10 +30,29 @@ namespace SomeDSP {
 
 template<typename Sample> class ExpDecay {
 public:
+  // static constexpr Sample alpha = Sample(1.1920928955078125e-7);      // 2^-23.
+  // static constexpr Sample normalizeGain = Sample(15.942385152878742); // -log(2^-23).
+
   Sample value = 0;
   Sample alpha = 0;
 
-  void setTime(Sample decayTimeInSamples, bool sustain = false)
+  void setTime(Sample decayTimeInSamples)
+  {
+    constexpr auto eps = Sample(std::numeric_limits<float>::epsilon());
+    alpha = std::pow(eps, Sample(1) / decayTimeInSamples);
+  }
+
+  void reset() { value = 0; }
+  void trigger(Sample gain = Sample(1)) { value = gain; }
+  Sample process() { return value *= alpha; }
+};
+
+template<typename Sample> class ExpSREnvelope {
+public:
+  Sample value = 0;
+  Sample alpha = 0;
+
+  void setTime(Sample decayTimeInSamples, bool sustain)
   {
     constexpr auto eps = Sample(std::numeric_limits<float>::epsilon());
     alpha = sustain ? Sample(1) : std::pow(eps, Sample(1) / decayTimeInSamples);
@@ -304,46 +323,7 @@ public:
   }
 };
 
-template<typename Sample> class AdaptiveNotchCPZ {
-public:
-  static constexpr Sample mu = Sample(2) / Sample(1024);
-  Sample alpha = Sample(-2);
-
-  Sample v1 = 0;
-  Sample v2 = 0;
-
-  void reset()
-  {
-    alpha = Sample(-2); // 0 Hz as initial guess.
-
-    v1 = 0;
-    v2 = 0;
-  }
-
-  Sample process(Sample input, Sample narrowness)
-  {
-    const auto a1 = narrowness * alpha;
-    const auto a2 = narrowness * narrowness;
-    auto gain = alpha >= 0 ? (Sample(1) + a1 + a2) / (Sample(2) + alpha)
-                           : (Sample(1) - a1 + a2) / (Sample(2) - alpha);
-
-    constexpr auto clip = Sample(1) / std::numeric_limits<Sample>::epsilon();
-    const auto x0 = std::clamp(input, -clip, clip);
-    auto v0 = x0 - a1 * v1 - a2 * v2;
-    const auto y0 = v0 + alpha * v1 + v2;
-    const auto s0
-      = (Sample(1) - narrowness) * v0 - narrowness * (Sample(1) - narrowness) * v2;
-    constexpr auto bound = Sample(2);
-    alpha = std::clamp(alpha - y0 * s0 * mu, -bound, bound);
-
-    v2 = v1;
-    v1 = v0;
-
-    return y0 * gain;
-  }
-};
-
-template<typename Sample, size_t nAllpass, size_t nAdaptiveNotch> class SerialAllpass {
+template<typename Sample, size_t nAllpass> class SerialAllpass {
 private:
   std::array<Sample, nAllpass> buffer{};
   std::array<Delay<Sample>, nAllpass> delay;
@@ -351,8 +331,8 @@ private:
   std::array<EmaLowShelf<Sample>, nAllpass> highpass;
 
 public:
-  std::array<AdaptiveNotchCPZ<Sample>, nAdaptiveNotch> notch;
   static constexpr size_t size = nAllpass;
+  size_t nDelay = nAllpass;
   std::array<Sample, nAllpass> timeInSamples{};
 
   void setup(Sample maxTimeSamples)
@@ -366,7 +346,6 @@ public:
     for (auto &x : delay) x.reset();
     for (auto &x : lowpass) x.reset();
     for (auto &x : highpass) x.reset();
-    for (auto &x : notch) x.reset();
   }
 
   void applyGain(Sample gain)
@@ -376,14 +355,25 @@ public:
 
   Sample sum(Sample altSignMix)
   {
+    // // TODO
+    // Sample sumAlt = Sample(0);
+    // Sample sign = Sample(1);
+    // for (const auto &x : buffer) {
+    //   sumAlt += x * sign;
+    //   sign = -sign;
+    // }
+    // Sample sumDirect = std::accumulate(buffer.begin(), buffer.end(), Sample(0));
+    // return std::lerp(sumDirect, sumAlt, altSignMix) / (Sample(2) * nAllpass);
+
     Sample sumAlt = Sample(0);
     Sample sign = Sample(1);
-    for (const auto &x : buffer) {
-      sumAlt += x * sign;
+    for (size_t i = 0; i < nDelay; ++i) {
+      sumAlt += buffer[i] * sign;
       sign = -sign;
     }
-    Sample sumDirect = std::accumulate(buffer.begin(), buffer.end(), Sample(0));
-    return std::lerp(sumDirect, sumAlt, altSignMix) / (Sample(2) * nAllpass);
+    Sample sumDirect
+      = std::accumulate(buffer.begin(), buffer.begin() + nDelay, Sample(0));
+    return std::lerp(sumDirect, sumAlt, altSignMix) / (Sample(2) * nDelay);
   }
 
   Sample process(
@@ -394,12 +384,9 @@ public:
     Sample lowShelfGain,
     Sample gain,
     Sample pitchRatio,
-    Sample timeModAmount,
-    size_t nNotch,
-    Sample notchMix,
-    Sample notchNarrowness)
+    Sample timeModAmount)
   {
-    for (size_t idx = 0; idx < nAllpass; ++idx) {
+    for (size_t idx = 0; idx < nDelay; ++idx) {
       constexpr auto sign = 1;
       auto x0 = lowpass[idx].process(sign * input, highShelfCut, highShelfGain);
       // auto x0 = sign * input;
@@ -411,11 +398,6 @@ public:
     }
 
     // input = lowpass[0].process(input, highShelfCut, highShelfGain);
-
-    for (size_t idx = 0; idx < nNotch; ++idx) {
-      input += notchMix * (notch[idx].process(input, notchNarrowness) - input);
-    }
-
     return input;
   }
 };

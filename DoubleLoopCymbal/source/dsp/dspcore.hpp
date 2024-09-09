@@ -129,8 +129,6 @@ private:
   ExpSmoother<double> highShelfGain;
   ExpSmoother<double> lowShelfCutoff;
   ExpSmoother<double> lowShelfGain;
-  ExpSmoother<double> notchMix;
-  ExpSmoother<double> notchNarrowness;
   ExpSmoother<double> stereoBalance;
   ExpSmoother<double> stereoMerge;
   ExpSmoother<double> outputGain;
@@ -143,13 +141,13 @@ private:
   TransitionReleaseSmoother<double> releaseSmoother;
   ExpDecay<double> envelopeNoise;
   ExpDSREnvelope<double> envelopeHalfClosed;
-  ExpDecay<double> envelopeRelease;
+  ExpSREnvelope<double> envelopeRelease;
   ExpADEnvelope<double> envelopeClose;
   std::array<HalfClosedNoise<double>, 2> halfClosedNoise;
   std::array<double, 2> feedbackBuffer1{};
   std::array<double, 2> feedbackBuffer2{};
-  std::array<SerialAllpass<double, nAllpass, nNotch>, 2> serialAllpass1;
-  std::array<SerialAllpass<double, nAllpass, nNotch>, 2> serialAllpass2;
+  std::array<SerialAllpass<double, nAllpass>, 2> serialAllpass1;
+  std::array<SerialAllpass<double, nAllpass>, 2> serialAllpass2;
 
   std::array<std::array<double, 2>, 2> halfbandInput{};
   std::array<HalfBandIIR<double, HalfBandCoefficient<double>>, 2> halfbandIir;

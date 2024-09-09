@@ -353,25 +353,24 @@ bool Editor::prepareUI()
     thirdLeft1, thirdTop3, labelWidth, labelHeight, uiTextSize, ID::delayTimeRandomSecond,
     Scales::delayTimeSecond, false, 5);
   addLabel(
-    thirdLeft0, thirdTop4, labelWidth, labelHeight, uiTextSize, "Modulation [sample]");
+    thirdLeft0, thirdTop4, labelWidth, labelHeight, uiTextSize, "Pitch Ratio [st.]");
   addTextKnob(
-    thirdLeft1, thirdTop4, labelWidth, labelHeight, uiTextSize, ID::delayTimeModAmount,
+    thirdLeft1, thirdTop4, labelWidth, labelHeight, uiTextSize, ID::delayTimeRatio,
+    Scales::semitone, false, 5);
+  addLabel(
+    thirdLeft0, thirdTop5, labelWidth, labelHeight, uiTextSize, "Modulation [sample]");
+  addTextKnob(
+    thirdLeft1, thirdTop5, labelWidth, labelHeight, uiTextSize, ID::delayTimeModAmount,
     Scales::delayTimeModAmount, false, 5);
 
-  addLabel(thirdLeft0, thirdTop6, labelWidth, labelHeight, uiTextSize, "nNotch");
+  addLabel(thirdLeft0, thirdTop8, labelWidth, labelHeight, uiTextSize, "Delay Count 1");
   addTextKnob(
-    thirdLeft1, thirdTop6, labelWidth, labelHeight, uiTextSize, ID::nAdaptiveNotch,
-    Scales::nAdaptiveNotch, false, 0, 0);
-  addLabel(thirdLeft0, thirdTop7, labelWidth, labelHeight, uiTextSize, "Notch Mix");
+    thirdLeft1, thirdTop8, labelWidth, labelHeight, uiTextSize, ID::allpassDelayCount1,
+    Scales::allpassDelayCount, false, 0, 1);
+  addLabel(thirdLeft0, thirdTop9, labelWidth, labelHeight, uiTextSize, "Delay Count 2");
   addTextKnob(
-    thirdLeft1, thirdTop7, labelWidth, labelHeight, uiTextSize, ID::adaptiveNotchMix,
-    Scales::defaultScale, false, 5);
-  addLabel(
-    thirdLeft0, thirdTop8, labelWidth, labelHeight, uiTextSize, "Notch Narrowness");
-  addTextKnob(
-    thirdLeft1, thirdTop8, labelWidth, labelHeight, uiTextSize,
-    ID::adaptiveNotchNarrowness, Scales::adaptiveNotchNarrowness, false, 5);
-
+    thirdLeft1, thirdTop9, labelWidth, labelHeight, uiTextSize, ID::allpassDelayCount2,
+    Scales::allpassDelayCount, false, 0, 1);
   addLabel(thirdLeft0, thirdTop10, labelWidth, labelHeight, uiTextSize, "Feed 1");
   addTextKnob(
     thirdLeft1, thirdTop10, labelWidth, labelHeight, uiTextSize, ID::allpassFeed1,
