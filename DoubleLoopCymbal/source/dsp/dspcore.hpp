@@ -97,13 +97,11 @@ private:
   void updateUpRate();
   void updateDelayTime();
   double calcNotePitch(double note);
-  std::array<double, 2> processFrame(const std::array<double, 2> &externalInput);
+  double processFrame(const std::array<double, 2> &externalInput);
 
   std::vector<NoteInfo> midiNotes;
   std::vector<NoteInfo> noteStack;
 
-  DecibelScale<double> velocityMap{-60, 0, true};
-  DecibelScale<double> velocityToCouplingDecayMap{-40, 0, false};
   double velocity = 0;
 
   static constexpr size_t upFold = 2;
@@ -129,11 +127,12 @@ private:
   ExpSmoother<double> highShelfGain;
   ExpSmoother<double> lowShelfCutoff;
   ExpSmoother<double> lowShelfGain;
-  ExpSmoother<double> stereoBalance;
-  ExpSmoother<double> stereoMerge;
   ExpSmoother<double> outputGain;
 
   bool useExternalInput = false;
+  double halfClosedDensityScaler = double(1);
+  double halfClosedHighpassScaler = double(1);
+  double delayTimeModOffset = 0;
 
   pcg64 noiseRng{0};
   pcg64 paramRng{0};
@@ -143,12 +142,17 @@ private:
   ExpDSREnvelope<double> envelopeHalfClosed;
   ExpSREnvelope<double> envelopeRelease;
   ExpADEnvelope<double> envelopeClose;
-  std::array<HalfClosedNoise<double>, 2> halfClosedNoise;
-  std::array<double, 2> feedbackBuffer1{};
-  std::array<double, 2> feedbackBuffer2{};
-  std::array<SerialAllpass<double, nAllpass>, 2> serialAllpass1;
-  std::array<SerialAllpass<double, nAllpass>, 2> serialAllpass2;
+  HalfClosedNoise<double> halfClosedNoise;
+  double feedbackBuffer1 = 0;
+  double feedbackBuffer2 = 0;
+  SerialAllpass<double, nAllpass> serialAllpass1;
+  SerialAllpass<double, nAllpass> serialAllpass2;
 
-  std::array<std::array<double, 2>, 2> halfbandInput{};
-  std::array<HalfBandIIR<double, HalfBandCoefficient<double>>, 2> halfbandIir;
+  double baseSampleRateKp = double(1);
+  ExpSmootherLocal<double> spreaderSplit;
+  ExpSmootherLocal<double> spreaderSpread;
+  Spreader<double> spreader;
+
+  std::array<double, 2> prevExtIn{};
+  HalfBandIIR<double, HalfBandCoefficient<double>> halfbandIir;
 };

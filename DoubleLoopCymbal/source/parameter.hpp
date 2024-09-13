@@ -48,8 +48,8 @@ enum ID {
   resetSeedAtNoteOn,
   release,
 
-  stereoBalance,
-  stereoMerge,
+  spreaderSpread,
+  spreaderSplitHz,
 
   useExternalInput,
   externalInputGain,
@@ -92,6 +92,12 @@ enum ID {
   lowShelfFrequencyHz,
   lowShelfGain,
 
+  // useNoteOffVelocityForClose, // TODO
+  velocityToOutputGain,
+  velocityToHalfClosedDensity,
+  velocityToHalfClosedHighpass,
+  velocityToDelayTimeMod,
+
   reservedParameter0,
   reservedGuiParameter0 = reservedParameter0 + nReservedParameter,
 
@@ -121,6 +127,8 @@ struct Scales {
 
   static SomeDSP::DecibelScale<double> cutoffFrequencyHz;
   static SomeDSP::DecibelScale<double> shelvingGain;
+
+  static SomeDSP::LinearScale<double> velocityRangeDecibel;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -149,12 +157,12 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::release]
       = std::make_unique<UIntValue>(0, Scales::boolScale, "release", Info::kCanAutomate);
 
-    value[ID::stereoBalance] = std::make_unique<LinearValue>(
-      Scales::bipolarScale.invmap(0.0), Scales::bipolarScale, "stereoBalance",
+    value[ID::spreaderSpread] = std::make_unique<LinearValue>(
+      Scales::defaultScale.invmap(0.5), Scales::defaultScale, "spreaderSpread",
       Info::kCanAutomate);
-    value[ID::stereoMerge] = std::make_unique<LinearValue>(
-      Scales::defaultScale.invmap(0.75), Scales::defaultScale, "stereoMerge",
-      Info::kCanAutomate);
+    value[ID::spreaderSplitHz] = std::make_unique<DecibelValue>(
+      Scales::cutoffFrequencyHz.invmap(500.0), Scales::cutoffFrequencyHz,
+      "spreaderSplitHz", Info::kCanAutomate);
 
     value[ID::useExternalInput] = std::make_unique<UIntValue>(
       0, Scales::boolScale, "useExternalInput", Info::kCanAutomate);
@@ -262,6 +270,19 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::lowShelfGain] = std::make_unique<DecibelValue>(
       Scales::shelvingGain.invmapDB(-1.0), Scales::shelvingGain, "lowShelfGain",
       Info::kCanAutomate);
+
+    value[ID::velocityToOutputGain] = std::make_unique<LinearValue>(
+      Scales::velocityRangeDecibel.invmap(-60.0), Scales::velocityRangeDecibel,
+      "velocityToOutputGain", Info::kCanAutomate);
+    value[ID::velocityToHalfClosedDensity] = std::make_unique<LinearValue>(
+      Scales::bipolarScale.invmap(0.5), Scales::bipolarScale,
+      "velocityToHalfClosedDensity", Info::kCanAutomate);
+    value[ID::velocityToHalfClosedHighpass] = std::make_unique<LinearValue>(
+      Scales::bipolarScale.invmap(0.4), Scales::bipolarScale,
+      "velocityToHalfClosedHighpass", Info::kCanAutomate);
+    value[ID::velocityToDelayTimeMod] = std::make_unique<DecibelValue>(
+      Scales::delayTimeModAmount.invmap(0.5), Scales::delayTimeModAmount,
+      "velocityToDelayTimeMod", Info::kCanAutomate);
 
     for (size_t idx = 0; idx < nReservedParameter; ++idx) {
       auto indexStr = std::to_string(idx);

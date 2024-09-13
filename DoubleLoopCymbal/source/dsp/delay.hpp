@@ -68,6 +68,8 @@ public:
   enum class State { decay, release };
 
 private:
+  static constexpr auto eps = Sample(std::numeric_limits<float>::epsilon());
+  Sample timeD = Sample(1);
   Sample value = 0;
   Sample alphaD = 0;
   Sample alphaR = 0;
@@ -77,8 +79,8 @@ private:
 public:
   void setTime(Sample decayTimeInSamples, Sample releaseTimeInSamples)
   {
-    constexpr auto eps = Sample(std::numeric_limits<float>::epsilon());
-    alphaD = std::pow(eps, Sample(1) / decayTimeInSamples);
+    // alphaD = std::pow(eps, Sample(1) / decayTimeInSamples);
+    timeD = decayTimeInSamples;
     alphaR = std::pow(eps, Sample(1) / releaseTimeInSamples);
   }
 
@@ -91,10 +93,12 @@ public:
     state = State::release;
   }
 
-  void trigger(Sample sustainLevel)
+  // `decayScaler` must be greater than 0.
+  void trigger(Sample sustainLevel, Sample decayScaler)
   {
     state = State::decay;
     value = Sample(1) - sustainLevel;
+    alphaD = std::pow(eps, Sample(1) / (timeD * decayScaler));
     offset = sustainLevel;
   }
 
@@ -443,6 +447,65 @@ public:
     std::uniform_real_distribution<Sample> distNoise(-Sample(1), Sample(1));
     const auto noise = distNoise(rng);
     return highpass.process(noise * noise * noise * gain, highpassNormalized);
+  }
+};
+
+// Stereo spreader.
+// 2-band splitter is made from bilinear transformed 1-pole filters.
+template<typename Sample> class Spreader {
+private:
+  Sample x1 = 0;
+  Sample y1Lp = 0;
+  Sample y2Lp = 0;
+  Sample y1Hp = 0;
+  Sample y2Hp = 0;
+
+  Sample baseTime = double(1);
+  Delay<Sample> delay;
+
+public:
+  void setup(Sample maxTimeSample) { delay.setup(maxTimeSample); }
+  void updateBaseTime(Sample maxTimeSample) { baseTime = Sample(0.5) * maxTimeSample; }
+
+  void reset()
+  {
+    x1 = 0;
+    y1Lp = 0;
+    y2Lp = 0;
+    y1Hp = 0;
+    y2Hp = 0;
+
+    delay.reset();
+  }
+
+  std::array<Sample, 2> process(Sample input, Sample splitFreqNormalized, Sample spread)
+  {
+    // 2-band splitter.
+    constexpr auto minFreq = Sample(0.00001);
+    constexpr auto nyquist = Sample(0.49998);
+    const auto cut = std::clamp(splitFreqNormalized, minFreq, nyquist);
+    const auto kp = Sample(1) / std::tan(std::numbers::pi_v<Sample> * cut);
+    const auto a0 = Sample(1) + kp;
+    const auto bLp = Sample(1) / a0;
+    const auto bHp = kp / a0;
+    const auto a1 = (Sample(1) - kp) / a0;
+
+    const auto x2Lp = y1Lp;
+    y1Lp = bLp * (input + x1) - a1 * y1Lp;
+    y2Lp = bLp * (y1Lp + x2Lp) - a1 * y2Lp;
+
+    const auto x2Hp = y1Hp;
+    y1Hp = bHp * (input - x1) - a1 * y1Hp;
+    y2Hp = bHp * (y1Hp - x2Hp) - a1 * y2Hp;
+
+    x1 = input;
+
+    // Spared stereo with delay.
+    constexpr auto sqrt2 = std::numbers::sqrt2_v<Sample>;
+    const auto delayed
+      = delay.process(y2Hp * spread / (-sqrt2), (spread + Sample(1)) * baseTime);
+    const auto merged = y2Lp - y2Hp;
+    return {merged + delayed, merged - delayed};
   }
 };
 

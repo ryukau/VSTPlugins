@@ -27,6 +27,15 @@
 constexpr double defaultTempo = double(120);
 constexpr double releaseTimeSecond = double(4.0);
 constexpr double closeReleaseSecond = double(0.5);
+constexpr double spreaderMaxTimeSecond = double(0.006);
+
+// `value` in [0, 1].
+template<typename T> inline T decibelMap(T value, T minDB, T maxDB, bool minToZero)
+{
+  if (minToZero && value <= T(0)) return T(0);
+  T dB = std::clamp(value * (maxDB - minDB) + minDB, minDB, maxDB);
+  return std::pow(T(10), dB / T(20));
+}
 
 constexpr const std::array<double, 256> circularModes = {
   double(1.000000000000000),  double(1.5933405056951118), double(2.135548786649403),
@@ -156,13 +165,16 @@ void DSPCore::setup(double sampleRate)
   upRate = sampleRate * upFold;
 
   SmootherCommon<double>::setTime(double(0.2));
+  baseSampleRateKp = EMAFilter<double>::secondToP(sampleRate, double(0.2));
 
   releaseSmoother.setup(double(2) * upRate);
   envelopeClose.setup(EMAFilter<double>::secondToP(upRate, double(0.004)));
 
   const auto maxDelayTimeSamples = upRate * 2 * Scales::delayTimeSecond.getMax();
-  for (auto &x : serialAllpass1) x.setup(maxDelayTimeSamples);
-  for (auto &x : serialAllpass2) x.setup(maxDelayTimeSamples);
+  serialAllpass1.setup(maxDelayTimeSamples);
+  serialAllpass2.setup(maxDelayTimeSamples);
+
+  spreader.setup(spreaderMaxTimeSecond * upRate);
 
   reset();
   startup();
@@ -179,7 +191,7 @@ void DSPCore::setup(double sampleRate)
   auto notePitch = calcNotePitch(noteNumber);                                            \
   interpPitch.METHOD(notePitch);                                                         \
                                                                                          \
-  externalInputGain.METHOD(pv[ID::externalInputGain]->getDouble());                      \
+  externalInputGain.METHOD(pv[ID::externalInputGain]->getDouble() * double(0.5));        \
   halfClosedGain.METHOD(pv[ID::halfClosedGain]->getDouble());                            \
   halfClosedDensity.METHOD(pv[ID::halfClosedDensityHz]->getDouble() / upRate);           \
   halfClosedHighpassCutoff.METHOD(pv[ID::halfClosedHighpassHz]->getDouble() / upRate);   \
@@ -197,16 +209,17 @@ void DSPCore::setup(double sampleRate)
   lowShelfCutoff.METHOD(EMAFilter<double>::cutoffToP(                                    \
     std::min(pv[ID::lowShelfFrequencyHz]->getDouble() / upRate, double(0.5))));          \
   lowShelfGain.METHOD(pv[ID::lowShelfGain]->getDouble());                                \
-  stereoBalance.METHOD(pv[ID::stereoBalance]->getDouble());                              \
-  stereoMerge.METHOD(pv[ID::stereoMerge]->getDouble() / double(2));                      \
+                                                                                         \
+  spreaderSplit.METHOD(pv[ID::spreaderSplitHz]->getDouble() / upRate);                   \
+  spreaderSpread.METHOD(pv[ID::spreaderSpread]->getDouble());                            \
                                                                                          \
   auto gain = pv[ID::outputGain]->getDouble();                                           \
   outputGain.METHOD(gain);                                                               \
                                                                                          \
   envelopeNoise.setTime(pv[ID::noiseDecaySeconds]->getDouble() * upRate);                \
                                                                                          \
-  const auto halfCloseDecaySecond = pv[ID::halfCloseDecaySecond]->getDouble();           \
-  envelopeHalfClosed.setTime(halfCloseDecaySecond *upRate, closeReleaseSecond *upRate);  \
+  envelopeHalfClosed.setTime(                                                            \
+    pv[ID::halfCloseDecaySecond]->getDouble() * upRate, closeReleaseSecond * upRate);    \
                                                                                          \
   if (!pv[ID::release]->getInt() && noteStack.empty()) {                                 \
     envelopeRelease.setTime(                                                             \
@@ -217,9 +230,7 @@ void DSPCore::setup(double sampleRate)
     upRate, pv[ID::closeAttackSeconds]->getDouble(), closeReleaseSecond,                 \
     pv[ID::closeGain]->getDouble());                                                     \
                                                                                          \
-  for (auto &x : halfClosedNoise) {                                                      \
-    x.setDecay(pv[ID::halfClosedPulseSecond]->getDouble() * upRate);                     \
-  }                                                                                      \
+  halfClosedNoise.setDecay(pv[ID::halfClosedPulseSecond]->getDouble() * upRate);         \
                                                                                          \
   updateDelayTime();
 
@@ -227,6 +238,7 @@ void DSPCore::updateUpRate()
 {
   upRate = sampleRate * fold[overSampling];
   SmootherCommon<double>::setSampleRate(upRate);
+  spreader.updateBaseTime(spreaderMaxTimeSecond * upRate);
 }
 
 void DSPCore::updateDelayTime()
@@ -245,16 +257,14 @@ void DSPCore::updateDelayTime()
     const auto t1 = delayTimeBase / double(idx + 1);
     const auto t2 = delayTimeBase * (circularModes[idx] / circularModes[nAllpass - 1]);
     const auto harmonics = std::lerp(t1, t2, shape);
-    serialAllpass1[0].timeInSamples[idx] = harmonics + timeDist(paramRng);
-    serialAllpass1[1].timeInSamples[idx] = harmonics + timeDist(paramRng);
-    serialAllpass2[0].timeInSamples[idx] = pitchRatio * (harmonics + timeDist(paramRng));
-    serialAllpass2[1].timeInSamples[idx] = pitchRatio * (harmonics + timeDist(paramRng));
+    serialAllpass1.timeInSamples[idx] = harmonics + timeDist(paramRng);
+    serialAllpass2.timeInSamples[idx] = pitchRatio * (harmonics + timeDist(paramRng));
   }
 
   const size_t nDelay1 = 1 + pv[ID::allpassDelayCount1]->getInt();
   const size_t nDelay2 = 1 + pv[ID::allpassDelayCount2]->getInt();
-  for (auto &x : serialAllpass1) x.nDelay = nDelay1;
-  for (auto &x : serialAllpass2) x.nDelay = nDelay2;
+  serialAllpass1.nDelay = nDelay1;
+  serialAllpass2.nDelay = nDelay2;
 }
 
 void DSPCore::reset()
@@ -269,20 +279,24 @@ void DSPCore::reset()
 
   startup();
 
+  halfClosedDensityScaler = double(1);
+  halfClosedHighpassScaler = double(1);
+  delayTimeModOffset = 0;
+
   impulse = 0;
   releaseSmoother.reset();
   envelopeNoise.reset();
   envelopeHalfClosed.reset();
   envelopeRelease.reset();
   envelopeClose.reset();
-  for (auto &x : halfClosedNoise) x.reset();
-  feedbackBuffer1.fill(double(0));
-  feedbackBuffer2.fill(double(0));
-  for (auto &x : serialAllpass1) x.reset();
-  for (auto &x : serialAllpass2) x.reset();
+  halfClosedNoise.reset();
+  feedbackBuffer1 = 0;
+  feedbackBuffer2 = 0;
+  serialAllpass1.reset();
+  serialAllpass2.reset();
 
-  for (auto &x : halfbandInput) x.fill({});
-  for (auto &x : halfbandIir) x.reset();
+  prevExtIn.fill({});
+  halfbandIir.reset();
 }
 
 void DSPCore::startup()
@@ -302,7 +316,7 @@ void DSPCore::setParameters()
   ASSIGN_PARAMETER(push);
 }
 
-std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externalInput)
+double DSPCore::processFrame(const std::array<double, 2> &externalInput)
 {
   using ID = ParameterID::ID;
   const auto &pv = param.value;
@@ -310,11 +324,11 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externa
   const auto envRelease = envelopeRelease.process();
 
   const auto extGain = externalInputGain.process();
-  const auto hcGain = halfClosedGain.process() * envelopeHalfClosed.process();
-  const auto hcDensity = halfClosedDensity.process();
+  const auto hcGain = velocity * halfClosedGain.process() * envelopeHalfClosed.process();
+  const auto hcDensity = halfClosedDensityScaler * halfClosedDensity.process();
   const auto hcCutoff = halfClosedHighpassCutoff.process();
 
-  auto timeModAmt = delayTimeModAmount.process();
+  auto timeModAmt = delayTimeModOffset + delayTimeModAmount.process();
   // timeModAmt += (double(1) - envRelease) * (double(10) * upRate / double(48000));
 
   auto apGain1 = allpassFeed1.process();
@@ -328,8 +342,6 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externa
   const auto hsGain = highShelfGain.process(); //* envRelease;
   const auto lsCut = lowShelfCutoff.process();
   const auto lsGain = lowShelfGain.process();
-  const auto balance = stereoBalance.process();
-  const auto merge = stereoMerge.process();
   const auto outGain = outputGain.process() * envRelease;
 
   std::uniform_real_distribution<double> dist{double(-1), double(1)};
@@ -338,68 +350,40 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externa
     noiseEnv += envelopeClose.process();
   }
 
-  std::array<double, 2> excitation{
-    -apGain1 * feedbackBuffer1[0], -apGain1 * feedbackBuffer1[1]};
+  double excitation = -apGain1 * feedbackBuffer1;
   if (impulse != 0) {
-    excitation[0] += impulse;
-    excitation[1] += impulse;
+    excitation += impulse;
     impulse = 0;
   } else {
     const auto ipow = [](double v) { return std::copysign(v * v * v, v); };
-    excitation[0] += noiseEnv * ipow(dist(noiseRng));
-    excitation[1] += noiseEnv * ipow(dist(noiseRng));
+    excitation += noiseEnv * ipow(dist(noiseRng));
 
-    const auto g = hcGain * velocity;
-    excitation[0]
-      += g * halfClosedNoise[0].process(hcDensity, double(1), hcCutoff, noiseRng);
-    excitation[1]
-      += g * halfClosedNoise[1].process(hcDensity, double(1), hcCutoff, noiseRng);
+    excitation += hcGain
+      * halfClosedNoise.process(
+        hcDensity, double(1), halfClosedHighpassScaler * hcCutoff, noiseRng);
   }
 
   if (useExternalInput) {
-    excitation[0] += externalInput[0] * extGain;
-    excitation[1] += externalInput[1] * extGain;
+    excitation += (externalInput[0] + externalInput[1]) * extGain;
   }
 
   // Normalize amplitude.
   const auto pitchRatio = interpPitch.process(pitchSmoothingKp);
   const auto normalizeGain = nAllpass
     * std::lerp(double(1) / std::sqrt(hsCut / (double(2) - hsCut)), hsGain, hsGain);
-  auto ap1Out0
-    = std::lerp(serialAllpass1[0].sum(apMixSign), feedbackBuffer1[0], apMixSpike)
-    * normalizeGain;
-  auto ap1Out1
-    = std::lerp(serialAllpass1[1].sum(apMixSign), feedbackBuffer1[1], apMixSpike)
+  auto ap1Out0 = std::lerp(serialAllpass1.sum(apMixSign), feedbackBuffer1, apMixSpike)
     * normalizeGain;
 
-  feedbackBuffer1[0] = serialAllpass1[0].process(
-    excitation[0], hsCut, hsGain, lsCut, lsGain, apGain1, pitchRatio, timeModAmt);
-  feedbackBuffer1[1] = serialAllpass1[1].process(
-    excitation[1], hsCut, hsGain, lsCut, lsGain, apGain1, pitchRatio, timeModAmt);
+  feedbackBuffer1 = serialAllpass1.process(
+    excitation, hsCut, hsGain, lsCut, lsGain, apGain1, pitchRatio, timeModAmt);
 
-  auto cymbal0
-    = std::lerp(serialAllpass2[0].sum(apMixSign), feedbackBuffer2[0], apMixSpike)
+  auto cymbal0 = std::lerp(serialAllpass2.sum(apMixSign), feedbackBuffer2, apMixSpike)
     * normalizeGain;
-  auto cymbal1
-    = std::lerp(serialAllpass2[1].sum(apMixSign), feedbackBuffer2[1], apMixSpike)
-    * normalizeGain;
-  feedbackBuffer2[0] = serialAllpass2[0].process(
-    ap1Out0 - apGain2 * feedbackBuffer2[0], hsCut, hsGain, lsCut, lsGain, apGain2,
-    pitchRatio, timeModAmt);
-  feedbackBuffer2[1] = serialAllpass2[1].process(
-    ap1Out1 - apGain2 * feedbackBuffer2[1], hsCut, hsGain, lsCut, lsGain, apGain2,
+  feedbackBuffer2 = serialAllpass2.process(
+    ap1Out0 - apGain2 * feedbackBuffer2, hsCut, hsGain, lsCut, lsGain, apGain2,
     pitchRatio, timeModAmt);
 
-  constexpr auto eps = std::numeric_limits<double>::epsilon();
-  if (balance < -eps) {
-    cymbal0 *= double(1) + balance;
-  } else if (balance > eps) {
-    cymbal1 *= double(1) - balance;
-  }
-  return {
-    outGain * std::lerp(cymbal0, cymbal1, merge),
-    outGain * std::lerp(cymbal1, cymbal0, merge),
-  };
+  return outGain * cymbal0;
 }
 
 void DSPCore::process(
@@ -413,8 +397,7 @@ void DSPCore::process(
   SmootherCommon<double>::setBufferSize(double(length));
   SmootherCommon<double>::setSampleRate(upRate);
 
-  std::array<double, 2> prevExtIn = halfbandInput[0];
-  std::array<double, 2> frame{};
+  double frame = 0;
   for (size_t i = 0; i < length; ++i) {
     processMidiNote(i);
 
@@ -422,26 +405,24 @@ void DSPCore::process(
     const double extIn1 = in1 == nullptr ? 0 : in1[i];
 
     if (overSampling) {
-      frame = processFrame({
+      const auto sig0 = processFrame({
         double(0.5) * (prevExtIn[0] + extIn0),
         double(0.5) * (prevExtIn[1] + extIn1),
       });
-      halfbandInput[0][0] = frame[0];
-      halfbandInput[1][0] = frame[1];
 
-      frame = processFrame({extIn0, extIn1});
-      halfbandInput[0][1] = frame[0];
-      halfbandInput[1][1] = frame[1];
+      const auto sig1 = processFrame({extIn0, extIn1});
 
-      frame[0] = halfbandIir[0].process(halfbandInput[0]);
-      frame[1] = halfbandIir[1].process(halfbandInput[1]);
-      out0[i] = float(frame[0]);
-      out1[i] = float(frame[1]);
+      frame = halfbandIir.process({sig0, sig1});
     } else {
       frame = processFrame({extIn0, extIn1});
-      out0[i] = float(frame[0]);
-      out1[i] = float(frame[1]);
     }
+
+    const auto spSplit = spreaderSplit.process(baseSampleRateKp);
+    const auto spSpread = spreaderSpread.process(baseSampleRateKp);
+    auto sig = spreader.process(frame, spSplit, spSpread);
+
+    out0[i] = float(sig[0]);
+    out1[i] = float(sig[1]);
 
     prevExtIn = {extIn0, extIn1};
   }
@@ -458,15 +439,17 @@ void DSPCore::noteOn(NoteInfo &info)
   auto notePitch = calcNotePitch(info.noteNumber);
   interpPitch.push(notePitch);
 
-  velocity = velocityMap.map(info.velocity);
+  const double velocityLin = info.velocity;
+  velocity = decibelMap(
+    double(info.velocity), pv[ID::velocityToOutputGain]->getDouble(), double(0), false);
 
   if (pv[ID::resetSeedAtNoteOn]->getInt()) noiseRng.seed(pv[ID::seed]->getInt());
 
   const auto lossGain = !pv[ID::release]->getInt() && noteStack.empty()
     ? envelopeRelease.value
     : pv[ID::lossGain]->getDouble();
-  for (auto &x : serialAllpass1) x.applyGain(lossGain);
-  for (auto &x : serialAllpass2) x.applyGain(lossGain);
+  serialAllpass1.applyGain(lossGain);
+  serialAllpass2.applyGain(lossGain);
 
   releaseSmoother.prepare(
     double(0.1) * envelopeNoise.process(),
@@ -476,7 +459,12 @@ void DSPCore::noteOn(NoteInfo &info)
   impulse = oscGain;
   envelopeNoise.trigger(oscGain);
 
-  envelopeHalfClosed.trigger(pv[ID::halfCloseSustainLevel]->getDouble());
+  halfClosedDensityScaler = std::exp2(
+    double(4) * velocityLin * pv[ID::velocityToHalfClosedDensity]->getDouble());
+  halfClosedHighpassScaler = std::exp2(
+    double(5) * velocityLin * pv[ID::velocityToHalfClosedHighpass]->getDouble());
+  envelopeHalfClosed.trigger(
+    pv[ID::halfCloseSustainLevel]->getDouble(), halfClosedDensityScaler);
 
   envelopeRelease.trigger(double(1));
   envelopeRelease.setTime(double(1), true);
@@ -484,6 +472,8 @@ void DSPCore::noteOn(NoteInfo &info)
   envelopeClose.trigger(
     upRate, pv[ID::closeAttackSeconds]->getDouble(), closeReleaseSecond,
     pv[ID::closeGain]->getDouble(), velocity);
+
+  delayTimeModOffset = pv[ID::velocityToDelayTimeMod]->getDouble();
 
   noteStack.push_back(info);
 }

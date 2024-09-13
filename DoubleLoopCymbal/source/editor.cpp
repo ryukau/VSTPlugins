@@ -133,14 +133,14 @@ bool Editor::prepareUI()
   addCheckbox(
     mixLeft1, mixTop3, labelWidth, labelHeight, uiTextSize, "Release", ID::release);
 
-  addLabel(mixLeft0, mixTop6, labelWidth, labelHeight, uiTextSize, "Stereo Balance");
+  addLabel(mixLeft0, mixTop6, labelWidth, labelHeight, uiTextSize, "Spread");
   addTextKnob(
-    mixLeft1, mixTop6, labelWidth, labelHeight, uiTextSize, ID::stereoBalance,
-    Scales::bipolarScale, false, 5);
-  addLabel(mixLeft0, mixTop7, labelWidth, labelHeight, uiTextSize, "Stereo Merge");
-  addTextKnob(
-    mixLeft1, mixTop7, labelWidth, labelHeight, uiTextSize, ID::stereoMerge,
+    mixLeft1, mixTop6, labelWidth, labelHeight, uiTextSize, ID::spreaderSpread,
     Scales::defaultScale, false, 5);
+  addLabel(mixLeft0, mixTop7, labelWidth, labelHeight, uiTextSize, "Split [Hz]");
+  addTextKnob(
+    mixLeft1, mixTop7, labelWidth, labelHeight, uiTextSize, ID::spreaderSplitHz,
+    Scales::cutoffFrequencyHz, false, 5);
 
   addToggleButton(
     mixLeft0, mixTop8, groupLabelWidth, labelHeight, uiTextSize, "External Input",
@@ -319,6 +319,43 @@ bool Editor::prepareUI()
   }
 
   // TODO: Delays.
+  constexpr auto velocityTop0 = filterTop4 + labelY;
+  constexpr auto velocityTop1 = velocityTop0 + 1 * labelY;
+  constexpr auto velocityTop2 = velocityTop0 + 2 * labelY;
+  constexpr auto velocityTop3 = velocityTop0 + 3 * labelY;
+  constexpr auto velocityTop4 = velocityTop0 + 4 * labelY;
+  constexpr auto velocityLeft0 = left8;
+  constexpr auto velocityLeft1 = velocityLeft0 + labelWidth + 2 * margin;
+  addGroupLabel(
+    velocityLeft0, velocityTop0, groupLabelWidth, labelHeight, uiTextSize,
+    "Velocity Sensitivity");
+
+  addLabel(
+    velocityLeft0, velocityTop1, labelWidth, labelHeight, uiTextSize,
+    "> Output Gain [dB]");
+  addTextKnob(
+    velocityLeft1, velocityTop1, labelWidth, labelHeight, uiTextSize,
+    ID::velocityToOutputGain, Scales::velocityRangeDecibel, false, 5);
+  addLabel(
+    velocityLeft0, velocityTop2, labelWidth, labelHeight, uiTextSize,
+    "> Half Closed Density");
+  addTextKnob(
+    velocityLeft1, velocityTop2, labelWidth, labelHeight, uiTextSize,
+    ID::velocityToHalfClosedDensity, Scales::bipolarScale, false, 5);
+  addLabel(
+    velocityLeft0, velocityTop3, labelWidth, labelHeight, uiTextSize,
+    "> Half Closed Highpass");
+  addTextKnob(
+    velocityLeft1, velocityTop3, labelWidth, labelHeight, uiTextSize,
+    ID::velocityToHalfClosedHighpass, Scales::bipolarScale, false, 5);
+  addLabel(
+    velocityLeft0, velocityTop4, labelWidth, labelHeight, uiTextSize,
+    "> Modulation [sample]");
+  addTextKnob(
+    velocityLeft1, velocityTop4, labelWidth, labelHeight, uiTextSize,
+    ID::velocityToDelayTimeMod, Scales::delayTimeModAmount, false, 5);
+
+  // TODO: Delays.
   constexpr auto thirdTop0 = top0 + 0 * labelY;
   constexpr auto thirdTop1 = thirdTop0 + 1 * labelY;
   constexpr auto thirdTop2 = thirdTop0 + 2 * labelY;
@@ -334,6 +371,9 @@ bool Editor::prepareUI()
   constexpr auto thirdTop12 = thirdTop0 + 12 * labelY;
   constexpr auto thirdTop13 = thirdTop0 + 13 * labelY;
   constexpr auto thirdTop14 = thirdTop0 + 14 * labelY;
+  constexpr auto thirdTop15 = thirdTop0 + 15 * labelY;
+  constexpr auto thirdTop16 = thirdTop0 + 16 * labelY;
+  constexpr auto thirdTop17 = thirdTop0 + 17 * labelY;
   constexpr auto thirdLeft0 = left12;
   constexpr auto thirdLeft1 = thirdLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
