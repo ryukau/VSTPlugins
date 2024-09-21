@@ -42,7 +42,8 @@ DecibelScale<double> Scales::noteSlideTimeSecond(-100.0, 40.0, true);
 DecibelScale<double> Scales::noiseDecaySeconds(-100, 40, false);
 DecibelScale<double> Scales::halfClosedGain(-100.0, 0.0, true);
 DecibelScale<double> Scales::halfClosedDensityHz(0.0, 80.0, true);
-DecibelScale<double> Scales::delayTimeSecond(-100, -30, false);
+DecibelScale<double> Scales::closingReleaseRatio(-60.0, 60.0, false);
+
 DecibelScale<double> Scales::delayTimeModAmount(-40, 60, true);
 
 UIntScale<double> Scales::allpassDelayCount(nAllpass - 1);

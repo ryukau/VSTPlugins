@@ -168,7 +168,7 @@ void PlugProcessor::handleEvent(Vst::ProcessData &data)
         dsp.pushMidiNote(
           false, event.sampleOffset,
           event.noteOff.noteId == -1 ? event.noteOff.pitch : event.noteOff.noteId, 0, 0,
-          0);
+          event.noteOff.velocity);
       } break;
 
         // Add other event type here.

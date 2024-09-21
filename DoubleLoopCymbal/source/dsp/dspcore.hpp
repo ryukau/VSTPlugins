@@ -59,7 +59,7 @@ public:
   void process(
     const size_t length, const float *in0, const float *in1, float *out0, float *out1);
   void noteOn(NoteInfo &info);
-  void noteOff(int_fast32_t noteId);
+  void noteOff(int_fast32_t noteId, double noteOffVelocity);
 
   void pushMidiNote(
     bool isNoteOn,
@@ -88,7 +88,7 @@ public:
       if (it->isNoteOn)
         noteOn(*it);
       else
-        noteOff(it->id);
+        noteOff(it->id, it->velocity);
       midiNotes.erase(it);
     }
   }
@@ -102,7 +102,7 @@ private:
   std::vector<NoteInfo> midiNotes;
   std::vector<NoteInfo> noteStack;
 
-  double velocity = 0;
+  double noteOnVelocity = 0;
 
   static constexpr size_t upFold = 2;
   static constexpr std::array<size_t, 2> fold{1, upFold};
@@ -115,6 +115,7 @@ private:
   ExpSmootherLocal<double> interpPitch;
 
   ExpSmoother<double> externalInputGain;
+  ExpSmoother<double> noiseTextureMix;
   ExpSmoother<double> halfClosedGain;
   ExpSmoother<double> halfClosedDensity;
   ExpSmoother<double> halfClosedHighpassCutoff;
@@ -132,10 +133,12 @@ private:
   bool useExternalInput = false;
   double halfClosedDensityScaler = double(1);
   double halfClosedHighpassScaler = double(1);
+  double allpassFilterScaler = double(1);
   double delayTimeModOffset = 0;
 
-  pcg64 noiseRng{0};
-  pcg64 paramRng{0};
+  pcg64 rngNoiseRolling{0};
+  pcg64 rngNoisePinned{0};
+  pcg64 rngParam{0};
   double impulse = 0;
   TransitionReleaseSmoother<double> releaseSmoother;
   ExpDecay<double> envelopeNoise;

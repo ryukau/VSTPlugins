@@ -30,9 +30,6 @@ namespace SomeDSP {
 
 template<typename Sample> class ExpDecay {
 public:
-  // static constexpr Sample alpha = Sample(1.1920928955078125e-7);      // 2^-23.
-  // static constexpr Sample normalizeGain = Sample(15.942385152878742); // -log(2^-23).
-
   Sample value = 0;
   Sample alpha = 0;
 
@@ -49,8 +46,12 @@ public:
 
 template<typename Sample> class ExpSREnvelope {
 public:
+  Sample smooth = 0;
+  Sample kp = Sample(1);
   Sample value = 0;
   Sample alpha = 0;
+
+  void setSmooth(Sample smoothKp) { kp = smoothKp; }
 
   void setTime(Sample decayTimeInSamples, bool sustain)
   {
@@ -58,9 +59,19 @@ public:
     alpha = sustain ? Sample(1) : std::pow(eps, Sample(1) / decayTimeInSamples);
   }
 
-  void reset() { value = 0; }
-  void trigger(Sample gain = Sample(1)) { value = gain; }
-  Sample process() { return value *= alpha; }
+  void reset()
+  {
+    value = 0;
+    smooth = 0;
+  }
+
+  void trigger() { value = Sample(1); }
+
+  Sample process()
+  {
+    value *= alpha;
+    return smooth += kp * (value - smooth);
+  }
 };
 
 template<typename Sample> class ExpDSREnvelope {
@@ -79,7 +90,7 @@ private:
 public:
   void setTime(Sample decayTimeInSamples, Sample releaseTimeInSamples)
   {
-    // alphaD = std::pow(eps, Sample(1) / decayTimeInSamples);
+    alphaD = std::pow(eps, Sample(1) / decayTimeInSamples);
     timeD = decayTimeInSamples;
     alphaR = std::pow(eps, Sample(1) / releaseTimeInSamples);
   }
@@ -98,7 +109,7 @@ public:
   {
     state = State::decay;
     value = Sample(1) - sustainLevel;
-    alphaD = std::pow(eps, Sample(1) / (timeD * decayScaler));
+    // alphaD = std::pow(eps, Sample(1) / (timeD * decayScaler));
     offset = sustainLevel;
   }
 
@@ -155,7 +166,6 @@ private:
 
 public:
   bool isTerminated() { return valueD <= Sample(1e-3); }
-
   void setup(Sample smoothingKp) { smoo = smoothingKp; }
 
   void reset()
@@ -359,16 +369,6 @@ public:
 
   Sample sum(Sample altSignMix)
   {
-    // // TODO
-    // Sample sumAlt = Sample(0);
-    // Sample sign = Sample(1);
-    // for (const auto &x : buffer) {
-    //   sumAlt += x * sign;
-    //   sign = -sign;
-    // }
-    // Sample sumDirect = std::accumulate(buffer.begin(), buffer.end(), Sample(0));
-    // return std::lerp(sumDirect, sumAlt, altSignMix) / (Sample(2) * nAllpass);
-
     Sample sumAlt = Sample(0);
     Sample sign = Sample(1);
     for (size_t i = 0; i < nDelay; ++i) {
@@ -386,22 +386,20 @@ public:
     Sample highShelfGain,
     Sample lowShelfCut,
     Sample lowShelfGain,
-    Sample gain,
+    Sample apGain,
+    Sample delayGain,
     Sample pitchRatio,
     Sample timeModAmount)
   {
     for (size_t idx = 0; idx < nDelay; ++idx) {
       constexpr auto sign = 1;
       auto x0 = lowpass[idx].process(sign * input, highShelfCut, highShelfGain);
-      // auto x0 = sign * input;
       x0 = highpass[idx].process(x0, lowShelfCut, lowShelfGain);
-      x0 -= gain * buffer[idx];
-      input = buffer[idx] + gain * x0;
+      x0 -= apGain * buffer[idx];
+      input = buffer[idx] + apGain * x0;
       buffer[idx] = delay[idx].process(
-        x0, timeInSamples[idx] / pitchRatio - timeModAmount * std::abs(x0));
+        delayGain * x0, timeInSamples[idx] / pitchRatio - timeModAmount * std::abs(x0));
     }
-
-    // input = lowpass[0].process(input, highShelfCut, highShelfGain);
     return input;
   }
 };
@@ -491,19 +489,19 @@ public:
     const auto a1 = (Sample(1) - kp) / a0;
 
     const auto x2Lp = y1Lp;
-    y1Lp = bLp * (input + x1) - a1 * y1Lp;
-    y2Lp = bLp * (y1Lp + x2Lp) - a1 * y2Lp;
-
     const auto x2Hp = y1Hp;
+
+    y1Lp = bLp * (input + x1) - a1 * y1Lp;
     y1Hp = bHp * (input - x1) - a1 * y1Hp;
+
+    y2Lp = bLp * (y1Lp + x2Lp) - a1 * y2Lp;
     y2Hp = bHp * (y1Hp - x2Hp) - a1 * y2Hp;
 
     x1 = input;
 
     // Spared stereo with delay.
-    constexpr auto sqrt2 = std::numbers::sqrt2_v<Sample>;
-    const auto delayed
-      = delay.process(y2Hp * spread / (-sqrt2), (spread + Sample(1)) * baseTime);
+    const auto delayed = delay.process(
+      y2Hp * spread / (-std::numbers::sqrt2_v<Sample>), (spread + Sample(1)) * baseTime);
     const auto merged = y2Lp - y2Hp;
     return {merged + delayed, merged - delayed};
   }

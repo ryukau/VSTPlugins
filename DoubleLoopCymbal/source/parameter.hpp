@@ -1,4 +1,4 @@
-// (c) 2023 Takamitsu Endo
+// (c) 2024 Takamitsu Endo
 //
 // This file is part of DoubleLoopCymbal.
 //
@@ -61,6 +61,7 @@ enum ID {
   noteSlideTimeSecond,
 
   seed,
+  noiseTextureMix,
   noiseGain,
   noiseDecaySeconds,
 
@@ -71,14 +72,12 @@ enum ID {
   halfClosedDensityHz,
   halfClosedHighpassHz,
 
-  closeGain,
-  closeAttackSeconds,
-  lossGain,
+  closingGain,
+  closingAttackSecond,
+  closingReleaseRatio,
 
-  delayTimeShape,
-  delayTimeBaseSecond,
-  delayTimeRandomSecond,
-  delayTimeRatio,
+  delayTimeRandomRatio,
+  delayTimeLoopRatio,
   delayTimeModAmount,
   allpassDelayCount1,
   allpassDelayCount2,
@@ -92,11 +91,17 @@ enum ID {
   lowShelfFrequencyHz,
   lowShelfGain,
 
-  // useNoteOffVelocityForClose, // TODO
+  randomHalfClosedHighpass,
+  randomAllpassFilter,
+
   velocityToOutputGain,
   velocityToHalfClosedDensity,
   velocityToHalfClosedHighpass,
   velocityToDelayTimeMod,
+
+  useNoteOffVelocityForClosing,
+  noteOffVelocityToClosingGain,
+  noteOffVelocityToClosingDuration,
 
   reservedParameter0,
   reservedGuiParameter0 = reservedParameter0 + nReservedParameter,
@@ -120,7 +125,8 @@ struct Scales {
   static SomeDSP::DecibelScale<double> noiseDecaySeconds;
   static SomeDSP::DecibelScale<double> halfClosedGain;
   static SomeDSP::DecibelScale<double> halfClosedDensityHz;
-  static SomeDSP::DecibelScale<double> delayTimeSecond;
+  static SomeDSP::DecibelScale<double> closingReleaseRatio;
+
   static SomeDSP::DecibelScale<double> delayTimeModAmount;
 
   static SomeDSP::UIntScale<double> allpassDelayCount;
@@ -186,6 +192,9 @@ struct GlobalParameter : public ParameterInterface {
 
     value[ID::seed]
       = std::make_unique<UIntValue>(0, Scales::seed, "seed", Info::kCanAutomate);
+    value[ID::noiseTextureMix] = std::make_unique<LinearValue>(
+      Scales::defaultScale.invmap(0.5), Scales::defaultScale, "noiseTextureMix",
+      Info::kCanAutomate);
     value[ID::noiseGain] = std::make_unique<DecibelValue>(
       Scales::halfClosedGain.invmap(0.25), Scales::halfClosedGain, "noiseGain",
       Info::kCanAutomate);
@@ -212,28 +221,21 @@ struct GlobalParameter : public ParameterInterface {
       Scales::halfClosedDensityHz.invmap(300), Scales::halfClosedDensityHz,
       "halfClosedHighpassHz", Info::kCanAutomate);
 
-    value[ID::closeGain] = std::make_unique<DecibelValue>(
-      Scales::halfClosedGain.invmap(0.1), Scales::halfClosedGain, "closeGain",
+    value[ID::closingGain] = std::make_unique<DecibelValue>(
+      Scales::halfClosedGain.invmap(0.1), Scales::halfClosedGain, "closingGain",
       Info::kCanAutomate);
-    value[ID::closeAttackSeconds] = std::make_unique<DecibelValue>(
+    value[ID::closingAttackSecond] = std::make_unique<DecibelValue>(
       Scales::noiseDecaySeconds.invmap(0.05), Scales::noiseDecaySeconds,
-      "closeAttackSeconds", Info::kCanAutomate);
+      "closingAttackSecond", Info::kCanAutomate);
+    value[ID::closingReleaseRatio] = std::make_unique<DecibelValue>(
+      Scales::closingReleaseRatio.invmap(8), Scales::closingReleaseRatio,
+      "closingReleaseRatio", Info::kCanAutomate);
 
-    value[ID::lossGain] = std::make_unique<DecibelValue>(
-      Scales::halfClosedGain.invmap(1.0), Scales::halfClosedGain, "lossGain",
+    value[ID::delayTimeRandomRatio] = std::make_unique<LinearValue>(
+      Scales::defaultScale.invmap(0.5), Scales::defaultScale, "delayTimeRandomRatio",
       Info::kCanAutomate);
-
-    value[ID::delayTimeShape] = std::make_unique<LinearValue>(
-      Scales::defaultScale.invmap(0.0), Scales::defaultScale, "delayTimeShape",
-      Info::kCanAutomate);
-    value[ID::delayTimeBaseSecond] = std::make_unique<DecibelValue>(
-      Scales::delayTimeSecond.invmap(0.001), Scales::delayTimeSecond,
-      "delayTimeBaseSecond", Info::kCanAutomate);
-    value[ID::delayTimeRandomSecond] = std::make_unique<DecibelValue>(
-      Scales::delayTimeSecond.invmap(0.001), Scales::delayTimeSecond,
-      "delayTimeRandomSecond", Info::kCanAutomate);
-    value[ID::delayTimeRatio] = std::make_unique<LinearValue>(
-      Scales::semitone.invmap(0.0), Scales::semitone, "delayTimeRatio",
+    value[ID::delayTimeLoopRatio] = std::make_unique<LinearValue>(
+      Scales::semitone.invmap(0.0), Scales::semitone, "delayTimeLoopRatio",
       Info::kCanAutomate);
     value[ID::delayTimeModAmount] = std::make_unique<DecibelValue>(
       Scales::delayTimeModAmount.invmap(0.0), Scales::delayTimeModAmount,
@@ -271,6 +273,13 @@ struct GlobalParameter : public ParameterInterface {
       Scales::shelvingGain.invmapDB(-1.0), Scales::shelvingGain, "lowShelfGain",
       Info::kCanAutomate);
 
+    value[ID::randomHalfClosedHighpass] = std::make_unique<LinearValue>(
+      Scales::defaultScale.invmap(0.0), Scales::defaultScale, "randomHalfClosedHighpass",
+      Info::kCanAutomate);
+    value[ID::randomAllpassFilter] = std::make_unique<LinearValue>(
+      Scales::defaultScale.invmap(0.0), Scales::defaultScale, "randomAllpassFilter",
+      Info::kCanAutomate);
+
     value[ID::velocityToOutputGain] = std::make_unique<LinearValue>(
       Scales::velocityRangeDecibel.invmap(-60.0), Scales::velocityRangeDecibel,
       "velocityToOutputGain", Info::kCanAutomate);
@@ -283,6 +292,15 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::velocityToDelayTimeMod] = std::make_unique<DecibelValue>(
       Scales::delayTimeModAmount.invmap(0.5), Scales::delayTimeModAmount,
       "velocityToDelayTimeMod", Info::kCanAutomate);
+
+    value[ID::useNoteOffVelocityForClosing] = std::make_unique<UIntValue>(
+      1, Scales::boolScale, "useNoteOffVelocityForClosing", Info::kCanAutomate);
+    value[ID::noteOffVelocityToClosingGain] = std::make_unique<LinearValue>(
+      Scales::velocityRangeDecibel.invmap(-60.0), Scales::velocityRangeDecibel,
+      "noteOffVelocityToClosingGain", Info::kCanAutomate);
+    value[ID::noteOffVelocityToClosingDuration] = std::make_unique<LinearValue>(
+      Scales::bipolarScale.invmap(0.0), Scales::bipolarScale,
+      "noteOffVelocityToClosingDuration", Info::kCanAutomate);
 
     for (size_t idx = 0; idx < nReservedParameter; ++idx) {
       auto indexStr = std::to_string(idx);
