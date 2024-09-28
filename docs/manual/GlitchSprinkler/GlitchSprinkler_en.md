@@ -34,7 +34,7 @@ The pitch becomes more out of tune for higher notes. This is a side effect of an
 
 Direct current may appear. Setting `Safety Filter Mix` to 1 applies a high-pass filter with -6 dB/oct slope. If the spike on the transient is too large, it is recommended to use external high-pass filter with steeper slope.
 
-## Mechanism Overview
+## MIDI Channel 16
 Note events come from MIDI channel 16 doesn't make any sound. Instead, those ch.16 notes change the pitch of incoming notes. Note that the pitch of the notes can't be changed when they are already being played.
 
 The modification of a note pitch is shown below. It is a multiplication of the note number to a note frequency, which can be used to play integer harmonic series.

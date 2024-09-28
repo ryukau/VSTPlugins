@@ -348,7 +348,7 @@ BP Cut \[oct\]
 
     シンバルのような高い音を作るときには `BP Cut` を上げると効果的です。
 
-    `Delay Modulation` によるバリつきをなめすには `BP Cut` を下げると効果的です。
+    `Delay Modulation` によるバリつきをとって滑らかするには `BP Cut` を下げると効果的です。
 
 BP Q
 
