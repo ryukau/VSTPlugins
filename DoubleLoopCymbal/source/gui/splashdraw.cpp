@@ -60,9 +60,29 @@ void CreditView::draw(CDrawContext *pContext)
 Shift + Left Drag|Fine Adjustment
 Ctrl + Left Click|Reset to Default
 Middle Click|Flip Min/Mid/Max
-Shift + Middle Click|Take Floor)";
+Shift + Middle Click|Take Floor
 
-  std::string textColumn1 = R"()";
+- Tip -
+At first, try focus on following parameters.
++ Transpose
++ Seed
++ Highpass in middle column (3 of them)
++ Pitch Ratio
++ Feed 2)";
+
+  std::string textColumn1 = R"(Too much Modulation may cause blow up.
+
+If Feed 1 or Feed 2 are exactly at +1 or -1,
+amplitude may slowly rise.
+
+To use External Input, note events are required
+to open gate.
+
+To reduce CPU load, uncheck `2x Sampling`.
+
+To get consistent sound, check `Fixed Noise`.
+
+`Release` disables Closing Noise section.)";
 
   const float top0 = 100.0f;
   const float lineHeight = 20.0f;

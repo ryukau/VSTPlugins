@@ -30,27 +30,13 @@ constexpr float pluginNameTextSize = 16.0f;
 constexpr float margin = 5.0f;
 constexpr float uiMargin = 20.0f;
 constexpr float labelHeight = 20.0f;
-constexpr float knobWidth = 80.0f;
-constexpr float knobX = knobWidth + 2 * margin;
-constexpr float knobY = knobWidth + labelHeight + 2 * margin;
 constexpr float labelY = labelHeight + 2 * margin;
-constexpr float labelWidth = 2 * knobWidth;
+constexpr float labelWidth = 160.0f;
+constexpr float labelWidthHalf = 80.0f;
 constexpr float groupLabelWidth = 2 * labelWidth + 2 * margin;
-constexpr float splashWidth = int(labelWidth * 3 / 2) + 2 * margin;
-
-constexpr float barBoxWidth = groupLabelWidth;
-constexpr float barBoxHeight = 5 * labelY - 2 * margin;
-constexpr float smallKnobWidth = labelHeight;
-constexpr float smallKnobX = smallKnobWidth + 2 * margin;
-
-constexpr float tabViewWidth = 2 * groupLabelWidth + 4 * margin + 2 * uiMargin;
-constexpr float tabViewHeight = 20 * labelY - 2 * margin + 2 * uiMargin;
 
 constexpr int_least32_t defaultWidth = int_least32_t(4 * uiMargin + 3 * groupLabelWidth);
-constexpr int_least32_t defaultHeight = int_least32_t(uiMargin + 19 * labelY);
-
-constexpr const char *wireDidntCollidedText = "Wire didn't collide.";
-constexpr const char *membraneDidntCollidedText = "Membrane didn't collide.";
+constexpr int_least32_t defaultHeight = int_least32_t(uiMargin + 18 * labelY);
 
 namespace Steinberg {
 namespace Vst {
@@ -106,12 +92,6 @@ bool Editor::prepareUI()
   constexpr auto mixTop3 = mixTop0 + 3 * labelY;
   constexpr auto mixTop4 = mixTop0 + 4 * labelY;
   constexpr auto mixTop5 = mixTop0 + 5 * labelY;
-  constexpr auto mixTop6 = mixTop0 + 6 * labelY;
-  constexpr auto mixTop7 = mixTop0 + 7 * labelY;
-  constexpr auto mixTop8 = mixTop0 + 8 * labelY;
-  constexpr auto mixTop9 = mixTop0 + 9 * labelY;
-  constexpr auto mixTop10 = mixTop0 + 10 * labelY;
-  constexpr auto mixTop11 = mixTop0 + 11 * labelY;
   constexpr auto mixLeft0 = left0;
   constexpr auto mixLeft1 = mixLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
@@ -181,169 +161,174 @@ bool Editor::prepareUI()
     tuningLeft1, tuningTop4, labelWidth, labelHeight, uiTextSize, ID::noteSlideTimeSecond,
     Scales::noteSlideTimeSecond, false, 5);
 
-  // Velocity sensitivity.
-  constexpr auto velocityTop0 = tuningTop4 + labelY;
+  // Velocity Map.
+  constexpr auto velocityTop0 = tuningTop4 + 1 * labelY;
   constexpr auto velocityTop1 = velocityTop0 + 1 * labelY;
   constexpr auto velocityTop2 = velocityTop0 + 2 * labelY;
   constexpr auto velocityTop3 = velocityTop0 + 3 * labelY;
   constexpr auto velocityTop4 = velocityTop0 + 4 * labelY;
   constexpr auto velocityTop5 = velocityTop0 + 5 * labelY;
   constexpr auto velocityTop6 = velocityTop0 + 6 * labelY;
-  constexpr auto velocityTop7 = velocityTop0 + 7 * labelY;
-  constexpr auto velocityTop8 = velocityTop0 + 8 * labelY;
   constexpr auto velocityLeft0 = left0;
-  constexpr auto velocityLeft1 = velocityLeft0 + labelWidth + 2 * margin;
+  constexpr auto velocityLeft1 = velocityLeft0 + labelWidthHalf;
+  constexpr auto velocityLeft2 = velocityLeft1 + labelWidthHalf + 2 * margin;
+  constexpr auto velocityLeft3 = velocityLeft2 + labelWidthHalf;
+
   addGroupLabel(
     velocityLeft0, velocityTop0, groupLabelWidth, labelHeight, uiTextSize,
-    "Velocity Sensitivity");
+    "Velocity Map");
 
   addLabel(
-    velocityLeft0, velocityTop1, labelWidth, labelHeight, uiTextSize, "> Output [dB]");
+    velocityLeft0, velocityTop1, labelWidthHalf, labelHeight, uiTextSize,
+    "Imp. Gain [dB]");
   addTextKnob(
-    velocityLeft1, velocityTop1, labelWidth, labelHeight, uiTextSize,
-    ID::velocityToOutputGain, Scales::velocityRangeDecibel, false, 5);
+    velocityLeft1, velocityTop1, labelWidthHalf, labelHeight, uiTextSize,
+    ID::velocityToImpactGain, Scales::velocityRangeDecibel, false, 5);
   addLabel(
-    velocityLeft0, velocityTop2, labelWidth, labelHeight, uiTextSize,
-    "> Half Closed Density");
+    velocityLeft0, velocityTop2, labelWidthHalf, labelHeight, uiTextSize,
+    "Imp. Highpass");
   addTextKnob(
-    velocityLeft1, velocityTop2, labelWidth, labelHeight, uiTextSize,
+    velocityLeft1, velocityTop2, labelWidthHalf, labelHeight, uiTextSize,
+    ID::velocityToImpactHighpass, Scales::bipolarScale, false, 5);
+
+  addLabel(
+    velocityLeft0, velocityTop3, labelWidthHalf, labelHeight, uiTextSize, "HC Density");
+  addTextKnob(
+    velocityLeft1, velocityTop3, labelWidthHalf, labelHeight, uiTextSize,
     ID::velocityToHalfClosedDensity, Scales::bipolarScale, false, 5);
   addLabel(
-    velocityLeft0, velocityTop3, labelWidth, labelHeight, uiTextSize,
-    "> Half Closed Highpass");
+    velocityLeft0, velocityTop4, labelWidthHalf, labelHeight, uiTextSize, "HC Highpass");
   addTextKnob(
-    velocityLeft1, velocityTop3, labelWidth, labelHeight, uiTextSize,
+    velocityLeft1, velocityTop4, labelWidthHalf, labelHeight, uiTextSize,
     ID::velocityToHalfClosedHighpass, Scales::bipolarScale, false, 5);
-  addLabel(
-    velocityLeft0, velocityTop4, labelWidth, labelHeight, uiTextSize,
-    "> Modulation [sample]");
-  addTextKnob(
-    velocityLeft1, velocityTop4, labelWidth, labelHeight, uiTextSize,
-    ID::velocityToDelayTimeMod, Scales::delayTimeModAmount, false, 5);
 
   addToggleButton(
-    velocityLeft0, velocityTop5, groupLabelWidth, labelHeight, uiTextSize,
-    "Use Note-off Velocity", ID::useNoteOffVelocityForClosing);
+    velocityLeft2, velocityTop1, labelWidth, labelHeight, uiTextSize, "Note-off Velocity",
+    ID::useNoteOffVelocityForClosing);
   addLabel(
-    velocityLeft0, velocityTop6, labelWidth, labelHeight, uiTextSize,
-    "> Closing Gain [dB]]");
+    velocityLeft2, velocityTop2, labelWidthHalf, labelHeight, uiTextSize,
+    "Cl. Gain [dB]");
   addTextKnob(
-    velocityLeft1, velocityTop6, labelWidth, labelHeight, uiTextSize,
+    velocityLeft3, velocityTop2, labelWidthHalf, labelHeight, uiTextSize,
     ID::noteOffVelocityToClosingGain, Scales::velocityRangeDecibel, false, 5);
   addLabel(
-    velocityLeft0, velocityTop7, labelWidth, labelHeight, uiTextSize,
-    "> Closing Duration");
+    velocityLeft2, velocityTop3, labelWidthHalf, labelHeight, uiTextSize, "Cl. Release");
   addTextKnob(
-    velocityLeft1, velocityTop7, labelWidth, labelHeight, uiTextSize,
-    ID::noteOffVelocityToClosingDuration, Scales::bipolarScale, false, 5);
+    velocityLeft3, velocityTop3, labelWidthHalf, labelHeight, uiTextSize,
+    ID::noteOffVelocityToClosingReleaseRatio, Scales::bipolarScale, false, 5);
+  addLabel(
+    velocityLeft2, velocityTop4, labelWidthHalf, labelHeight, uiTextSize, "Cl. Highpass");
+  addTextKnob(
+    velocityLeft3, velocityTop4, labelWidthHalf, labelHeight, uiTextSize,
+    ID::noteOffVelocityToClosingHighpass, Scales::bipolarScale, false, 5);
 
-  // Noise & Envelope.
-  constexpr auto envTop0 = top0 + 0 * labelY;
-  constexpr auto envTop1 = envTop0 + 1 * labelY;
-  constexpr auto envTop2 = envTop0 + 2 * labelY;
-  constexpr auto envTop3 = envTop0 + 3 * labelY;
-  constexpr auto envTop4 = envTop0 + 4 * labelY;
-  constexpr auto envTop5 = envTop0 + 5 * labelY;
-  constexpr auto envTop6 = envTop0 + 6 * labelY;
-  constexpr auto envTop7 = envTop0 + 7 * labelY;
-  constexpr auto envTop8 = envTop0 + 8 * labelY;
-  constexpr auto envTop9 = envTop0 + 9 * labelY;
-  constexpr auto envTop10 = envTop0 + 10 * labelY;
-  constexpr auto envTop11 = envTop0 + 11 * labelY;
-  constexpr auto envTop12 = envTop0 + 12 * labelY;
-  constexpr auto envTop13 = envTop0 + 13 * labelY;
-  constexpr auto envTop14 = envTop0 + 14 * labelY;
-  constexpr auto envTop15 = envTop0 + 15 * labelY;
-  constexpr auto envLeft0 = left4;
-  constexpr auto envLeft1 = envLeft0 + labelWidth + 2 * margin;
+  addLabel(
+    velocityLeft2, velocityTop6, labelWidthHalf, labelHeight, uiTextSize,
+    "AP Modulation");
+  addTextKnob(
+    velocityLeft3, velocityTop6, labelWidthHalf, labelHeight, uiTextSize,
+    ID::velocityToDelayTimeMod, Scales::delayTimeModAmount, false, 5);
+
+  // Impact Noise.
+  constexpr auto imTop0 = top0 + 0 * labelY;
+  constexpr auto imTop1 = imTop0 + 1 * labelY;
+  constexpr auto imTop2 = imTop0 + 2 * labelY;
+  constexpr auto imTop3 = imTop0 + 3 * labelY;
+  constexpr auto imTop4 = imTop0 + 4 * labelY;
+  constexpr auto imTop5 = imTop0 + 5 * labelY;
+  constexpr auto imLeft0 = left4;
+  constexpr auto imLeft1 = imLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
-    envLeft0, envTop0, groupLabelWidth, labelHeight, uiTextSize, "Impact Noise");
+    imLeft0, imTop0, groupLabelWidth, labelHeight, uiTextSize, "Impact Noise");
 
-  addLabel(envLeft0, envTop1, labelWidth, labelHeight, uiTextSize, "Seed");
+  addLabel(imLeft0, imTop1, labelWidth, labelHeight, uiTextSize, "Seed");
   auto seedTextKnob = addTextKnob(
-    envLeft1, envTop1, labelWidth, labelHeight, uiTextSize, ID::seed, Scales::seed, false,
+    imLeft1, imTop1, labelWidth, labelHeight, uiTextSize, ID::seed, Scales::seed, false,
     0);
   if (seedTextKnob) {
     seedTextKnob->sensitivity = 2048.0 / double(1 << 24);
     seedTextKnob->lowSensitivity = 1.0 / double(1 << 24);
   }
-  addLabel(envLeft0, envTop2, labelWidth, labelHeight, uiTextSize, "Texture Mix");
+  addLabel(imLeft0, imTop2, labelWidth, labelHeight, uiTextSize, "Texture Mix");
   addTextKnob(
-    envLeft1, envTop2, labelWidth, labelHeight, uiTextSize, ID::noiseTextureMix,
+    imLeft1, imTop2, labelWidth, labelHeight, uiTextSize, ID::impactTextureMix,
     Scales::defaultScale, false, 5);
-  addLabel(envLeft0, envTop3, labelWidth, labelHeight, uiTextSize, "Gain [dB]");
+  addLabel(imLeft0, imTop3, labelWidth, labelHeight, uiTextSize, "Gain [dB]");
   addTextKnob(
-    envLeft1, envTop3, labelWidth, labelHeight, uiTextSize, ID::noiseGain,
-    Scales::halfClosedGain, true, 5);
-  addLabel(envLeft0, envTop4, labelWidth, labelHeight, uiTextSize, "Decay [s]");
+    imLeft1, imTop3, labelWidth, labelHeight, uiTextSize, ID::impactGain,
+    Scales::noiseGain, true, 5);
+  addLabel(imLeft0, imTop4, labelWidth, labelHeight, uiTextSize, "Decay [s]");
   addTextKnob(
-    envLeft1, envTop4, labelWidth, labelHeight, uiTextSize, ID::noiseDecaySeconds,
+    imLeft1, imTop4, labelWidth, labelHeight, uiTextSize, ID::impactDecaySeconds,
     Scales::noiseDecaySeconds, false, 5);
-
-  addGroupLabel(
-    envLeft0, envTop5, groupLabelWidth, labelHeight, uiTextSize, "Half Closed Noise");
-  addLabel(envLeft0, envTop6, labelWidth, labelHeight, uiTextSize, "Gain [dB]");
+  addLabel(imLeft0, imTop5, labelWidth, labelHeight, uiTextSize, "Highpass [Hz]");
   addTextKnob(
-    envLeft1, envTop6, labelWidth, labelHeight, uiTextSize, ID::halfClosedGain,
-    Scales::halfClosedGain, true, 5);
-  addLabel(envLeft0, envTop7, labelWidth, labelHeight, uiTextSize, "Decay [s]");
-  addTextKnob(
-    envLeft1, envTop7, labelWidth, labelHeight, uiTextSize, ID::halfCloseDecaySecond,
-    Scales::noiseDecaySeconds, false, 5);
-  addLabel(envLeft0, envTop8, labelWidth, labelHeight, uiTextSize, "Sustain [dB]");
-  addTextKnob(
-    envLeft1, envTop8, labelWidth, labelHeight, uiTextSize, ID::halfCloseSustainLevel,
-    Scales::halfClosedGain, true, 5);
-  addLabel(envLeft0, envTop9, labelWidth, labelHeight, uiTextSize, "Pulse Duration [s]");
-  addTextKnob(
-    envLeft1, envTop9, labelWidth, labelHeight, uiTextSize, ID::halfClosedPulseSecond,
-    Scales::noiseDecaySeconds, false, 5);
-  addLabel(envLeft0, envTop10, labelWidth, labelHeight, uiTextSize, "Density [Hz]");
-  addTextKnob(
-    envLeft1, envTop10, labelWidth, labelHeight, uiTextSize, ID::halfClosedDensityHz,
-    Scales::halfClosedDensityHz, false, 5);
-  addLabel(envLeft0, envTop11, labelWidth, labelHeight, uiTextSize, "Highpass [Hz]");
-  addTextKnob(
-    envLeft1, envTop11, labelWidth, labelHeight, uiTextSize, ID::halfClosedHighpassHz,
+    imLeft1, imTop5, labelWidth, labelHeight, uiTextSize, ID::impactHighpassHz,
     Scales::halfClosedDensityHz, false, 5);
 
+  // Half Closed Noise.
+  constexpr auto hcTop0 = imTop5 + 1 * labelY;
+  constexpr auto hcTop1 = hcTop0 + 1 * labelY;
+  constexpr auto hcTop2 = hcTop0 + 2 * labelY;
+  constexpr auto hcTop3 = hcTop0 + 3 * labelY;
+  constexpr auto hcTop4 = hcTop0 + 4 * labelY;
+  constexpr auto hcTop5 = hcTop0 + 5 * labelY;
+  constexpr auto hcTop6 = hcTop0 + 6 * labelY;
+  constexpr auto hcLeft0 = left4;
+  constexpr auto hcLeft1 = hcLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
-    envLeft0, envTop12, groupLabelWidth, labelHeight, uiTextSize, "Closing Noise");
-  addLabel(envLeft0, envTop13, labelWidth, labelHeight, uiTextSize, "Gain [dB]");
+    hcLeft0, hcTop0, groupLabelWidth, labelHeight, uiTextSize, "Half Closed Noise");
+  addLabel(hcLeft0, hcTop1, labelWidth, labelHeight, uiTextSize, "Gain [dB]");
   addTextKnob(
-    envLeft1, envTop13, labelWidth, labelHeight, uiTextSize, ID::closingGain,
-    Scales::halfClosedGain, true, 5);
-  addLabel(envLeft0, envTop14, labelWidth, labelHeight, uiTextSize, "Attack [s]");
+    hcLeft1, hcTop1, labelWidth, labelHeight, uiTextSize, ID::halfClosedGain,
+    Scales::noiseGain, true, 5);
+  addLabel(hcLeft0, hcTop2, labelWidth, labelHeight, uiTextSize, "Decay [s]");
   addTextKnob(
-    envLeft1, envTop14, labelWidth, labelHeight, uiTextSize, ID::closingAttackSecond,
+    hcLeft1, hcTop2, labelWidth, labelHeight, uiTextSize, ID::halfClosedDecaySecond,
     Scales::noiseDecaySeconds, false, 5);
-  addLabel(envLeft0, envTop15, labelWidth, labelHeight, uiTextSize, "Release Ratio");
+  addLabel(hcLeft0, hcTop3, labelWidth, labelHeight, uiTextSize, "Sustain [dB]");
   addTextKnob(
-    envLeft1, envTop15, labelWidth, labelHeight, uiTextSize, ID::closingReleaseRatio,
+    hcLeft1, hcTop3, labelWidth, labelHeight, uiTextSize, ID::halfClosedSustainLevel,
+    Scales::noiseGain, true, 5);
+  addLabel(hcLeft0, hcTop4, labelWidth, labelHeight, uiTextSize, "Pulse Duration [s]");
+  addTextKnob(
+    hcLeft1, hcTop4, labelWidth, labelHeight, uiTextSize, ID::halfClosedPulseSecond,
+    Scales::noiseDecaySeconds, false, 5);
+  addLabel(hcLeft0, hcTop5, labelWidth, labelHeight, uiTextSize, "Density [Hz]");
+  addTextKnob(
+    hcLeft1, hcTop5, labelWidth, labelHeight, uiTextSize, ID::halfClosedDensityHz,
+    Scales::halfClosedDensityHz, false, 5);
+  addLabel(hcLeft0, hcTop6, labelWidth, labelHeight, uiTextSize, "Highpass [Hz]");
+  addTextKnob(
+    hcLeft1, hcTop6, labelWidth, labelHeight, uiTextSize, ID::halfClosedHighpassHz,
+    Scales::halfClosedDensityHz, false, 5);
+
+  // Closing Noise.
+  constexpr auto clTop0 = hcTop6 + 1 * labelY;
+  constexpr auto clTop1 = clTop0 + 1 * labelY;
+  constexpr auto clTop2 = clTop0 + 2 * labelY;
+  constexpr auto clTop3 = clTop0 + 3 * labelY;
+  constexpr auto clTop4 = clTop0 + 4 * labelY;
+  constexpr auto clLeft0 = left4;
+  constexpr auto clLeft1 = clLeft0 + labelWidth + 2 * margin;
+  addGroupLabel(
+    clLeft0, clTop0, groupLabelWidth, labelHeight, uiTextSize, "Closing Noise");
+  addLabel(clLeft0, clTop1, labelWidth, labelHeight, uiTextSize, "Gain [dB]");
+  addTextKnob(
+    clLeft1, clTop1, labelWidth, labelHeight, uiTextSize, ID::closingGain,
+    Scales::noiseGain, true, 5);
+  addLabel(clLeft0, clTop2, labelWidth, labelHeight, uiTextSize, "Attack [s]");
+  addTextKnob(
+    clLeft1, clTop2, labelWidth, labelHeight, uiTextSize, ID::closingAttackSecond,
+    Scales::noiseDecaySeconds, false, 5);
+  addLabel(clLeft0, clTop3, labelWidth, labelHeight, uiTextSize, "Release Ratio");
+  addTextKnob(
+    clLeft1, clTop3, labelWidth, labelHeight, uiTextSize, ID::closingReleaseRatio,
     Scales::closingReleaseRatio, false, 5);
-
-  // Randomize.
-  constexpr auto randomTop0 = envTop15 + labelY;
-  constexpr auto randomTop1 = randomTop0 + 1 * labelY;
-  constexpr auto randomTop2 = randomTop0 + 2 * labelY;
-  constexpr auto randomTop3 = randomTop0 + 3 * labelY;
-  constexpr auto randomTop4 = randomTop0 + 4 * labelY;
-  constexpr auto randomLeft0 = left4;
-  constexpr auto randomLeft1 = randomLeft0 + labelWidth + 2 * margin;
-  addGroupLabel(
-    randomLeft0, randomTop0, groupLabelWidth, labelHeight, uiTextSize, "Randomize");
-
-  addLabel(
-    randomLeft0, randomTop1, labelWidth, labelHeight, uiTextSize,
-    "> Half Closed Highpass");
+  addLabel(clLeft0, clTop4, labelWidth, labelHeight, uiTextSize, "Highpass [Hz]");
   addTextKnob(
-    randomLeft1, randomTop1, labelWidth, labelHeight, uiTextSize,
-    ID::randomHalfClosedHighpass, Scales::defaultScale, false, 5);
-  addLabel(
-    randomLeft0, randomTop2, labelWidth, labelHeight, uiTextSize, "> Filter Cutoff");
-  addTextKnob(
-    randomLeft1, randomTop2, labelWidth, labelHeight, uiTextSize, ID::randomAllpassFilter,
-    Scales::defaultScale, false, 5);
+    clLeft1, clTop4, labelWidth, labelHeight, uiTextSize, ID::closingHighpassHz,
+    Scales::halfClosedDensityHz, false, 5);
 
   // Allpass loop.
   constexpr auto loopTop0 = top0 + 0 * labelY;
@@ -357,13 +342,6 @@ bool Editor::prepareUI()
   constexpr auto loopTop8 = loopTop0 + 8 * labelY;
   constexpr auto loopTop9 = loopTop0 + 9 * labelY;
   constexpr auto loopTop10 = loopTop0 + 10 * labelY;
-  constexpr auto loopTop11 = loopTop0 + 11 * labelY;
-  constexpr auto loopTop12 = loopTop0 + 12 * labelY;
-  constexpr auto loopTop13 = loopTop0 + 13 * labelY;
-  constexpr auto loopTop14 = loopTop0 + 14 * labelY;
-  constexpr auto loopTop15 = loopTop0 + 15 * labelY;
-  constexpr auto loopTop16 = loopTop0 + 16 * labelY;
-  constexpr auto loopTop17 = loopTop0 + 17 * labelY;
   constexpr auto loopLeft0 = left8;
   constexpr auto loopLeft1 = loopLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
@@ -400,17 +378,17 @@ bool Editor::prepareUI()
     loopLeft1, loopTop8, labelWidth, labelHeight, uiTextSize, ID::allpassFeed2,
     Scales::bipolarScale, false, 5);
 
-  addLabel(loopLeft0, loopTop10, labelWidth, labelHeight, uiTextSize, "Mix Spike");
+  addLabel(loopLeft0, loopTop9, labelWidth, labelHeight, uiTextSize, "Mix Spike");
   addTextKnob(
-    loopLeft1, loopTop10, labelWidth, labelHeight, uiTextSize, ID::allpassMixSpike,
+    loopLeft1, loopTop9, labelWidth, labelHeight, uiTextSize, ID::allpassMixSpike,
     Scales::defaultScale, false, 5);
-  addLabel(loopLeft0, loopTop11, labelWidth, labelHeight, uiTextSize, "Mix Alt. Sign");
+  addLabel(loopLeft0, loopTop10, labelWidth, labelHeight, uiTextSize, "Mix Alt. Sign");
   addTextKnob(
-    loopLeft1, loopTop11, labelWidth, labelHeight, uiTextSize, ID::allpassMixAltSign,
+    loopLeft1, loopTop10, labelWidth, labelHeight, uiTextSize, ID::allpassMixAltSign,
     Scales::defaultScale, false, 5);
 
   // Filter.
-  constexpr auto filterTop0 = loopTop12 + 0 * labelY;
+  constexpr auto filterTop0 = loopTop10 + 1 * labelY;
   constexpr auto filterTop1 = filterTop0 + 1 * labelY;
   constexpr auto filterTop2 = filterTop0 + 2 * labelY;
   constexpr auto filterTop3 = filterTop0 + 3 * labelY;

@@ -15,8 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with DoubleLoopCymbal.  If not, see <https://www.gnu.org/licenses/>.
 
+#include "../../../lib/LambertW/LambertW.hpp"
 #include "../../../lib/pcg-cpp/pcg_random.hpp"
-#include "../../lib/LambertW/LambertW.hpp"
 
 #include <algorithm>
 #include <array>
@@ -84,7 +84,6 @@ private:
   Sample value = 0;
   Sample alphaD = 0;
   Sample alphaR = 0;
-  Sample offset = 0;
   State state = State::release;
 
 public:
@@ -100,7 +99,6 @@ public:
     value = 0;
     alphaD = 0;
     alphaR = 0;
-    offset = 0;
     state = State::release;
   }
 
@@ -110,20 +108,15 @@ public:
     state = State::decay;
     value = Sample(1) - sustainLevel;
     // alphaD = std::pow(eps, Sample(1) / (timeD * decayScaler));
-    offset = sustainLevel;
   }
 
-  void release()
-  {
-    state = State::release;
-    offset = 0;
-  }
+  void release() { state = State::release; }
 
-  Sample process()
+  Sample process(Sample sustainLevel)
   {
     if (state == State::decay) {
       value *= alphaD;
-      return offset + value;
+      return sustainLevel + value;
     }
     return value *= alphaR;
   }
@@ -300,7 +293,7 @@ public:
   {
     const auto g = std::tan(
       std::numbers::pi_v<Sample>
-      * std::clamp(cutoffNormalized, Sample(0.00001), Sample(0.49998)));
+      * std::clamp(cutoffNormalized, Sample(0.00001), Sample(0.498)));
     const auto v1 = (ic1eq + g * (input - ic2eq)) / (1 + g * (g + k));
     const auto v2 = ic2eq + g * v1;
     ic1eq = Sample(2) * v1 - ic1eq;
@@ -337,7 +330,7 @@ public:
   }
 };
 
-template<typename Sample, size_t nAllpass> class SerialAllpass {
+template<typename Sample, size_t nAllpass> class AllpassLoop {
 private:
   std::array<Sample, nAllpass> buffer{};
   std::array<Delay<Sample>, nAllpass> delay;
@@ -392,8 +385,7 @@ public:
     Sample timeModAmount)
   {
     for (size_t idx = 0; idx < nDelay; ++idx) {
-      constexpr auto sign = 1;
-      auto x0 = lowpass[idx].process(sign * input, highShelfCut, highShelfGain);
+      auto x0 = lowpass[idx].process(input, highShelfCut, highShelfGain);
       x0 = highpass[idx].process(x0, lowShelfCut, lowShelfGain);
       x0 -= apGain * buffer[idx];
       input = buffer[idx] + apGain * x0;
@@ -445,6 +437,46 @@ public:
     std::uniform_real_distribution<Sample> distNoise(-Sample(1), Sample(1));
     const auto noise = distNoise(rng);
     return highpass.process(noise * noise * noise * gain, highpassNormalized);
+  }
+};
+
+template<typename Sample> class ClosingNoise {
+private:
+  Sample phase = 0;
+  Sample gain = Sample(1);
+  Sample decay = 0;
+
+  Highpass2<Sample> highpass;
+
+public:
+  void reset()
+  {
+    phase = 0;
+    gain = Sample(1);
+
+    highpass.reset();
+  }
+
+  void setDecay(Sample timeInSample)
+  {
+    constexpr Sample eps = std::numeric_limits<Sample>::epsilon();
+    decay = timeInSample < Sample(1) ? 0 : std::pow(eps, Sample(1) / timeInSample);
+  }
+
+  // `density` is inverse of average samples between impulses.
+  // `randomGain` is in [0, 1].
+  Sample process(Sample density, Sample highpassNormalized, pcg64 &rng)
+  {
+    std::uniform_real_distribution<Sample> jitter(Sample(0), Sample(1));
+    phase += jitter(rng) * density;
+    if (phase >= Sample(1)) {
+      phase -= std::floor(phase);
+      std::normal_distribution<Sample> distGain(Sample(0), Sample(1) / Sample(3));
+      gain = distGain(rng);
+    } else {
+      gain *= decay;
+    }
+    return highpass.process(gain, highpassNormalized);
   }
 };
 

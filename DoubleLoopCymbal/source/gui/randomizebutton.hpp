@@ -103,6 +103,8 @@ public:
   void onMouseDownEvent(MouseDownEvent &event) override
   {
     using ID = Steinberg::Synth::ParameterID::ID;
+    using Scales = Steinberg::Synth::Scales;
+    using Value = Steinberg::Vst::ParamValue;
 
     if (!event.buttonState.isLeft()) return;
     isPressed = true;
@@ -118,8 +120,51 @@ public:
       std::seed_seq seeds(std::begin(random_data), std::end(random_data));
       Rng rng(seeds);
 
-      std::uniform_real_distribution<Steinberg::Vst::ParamValue> uniform{0.0, 1.0};
+      std::uniform_real_distribution<Value> uniform{Value(0), Value(1)};
       setParam(ID::seed, uniform(rng));
+
+      std::uniform_real_distribution<Value> highpassDist{Value(20), Value(80)};
+      const auto &hpScale = Scales::halfClosedDensityHz;
+      setParam(ID::impactHighpassHz, hpScale.invmapDB(highpassDist(rng)));
+      setParam(ID::halfClosedHighpassHz, hpScale.invmapDB(highpassDist(rng)));
+      setParam(ID::closingHighpassHz, hpScale.invmapDB(highpassDist(rng)));
+
+      std::uniform_real_distribution<Value> halfClosedDecaySecondDist{
+        Value(-20), Value(20)};
+      setParam(
+        ID::halfClosedDecaySecond,
+        Scales::noiseDecaySeconds.invmapDB(halfClosedDecaySecondDist(rng)));
+      std::uniform_real_distribution<Value> halfClosedSustainLevelDist{
+        Value(-40), Value(0)};
+      setParam(
+        ID::halfClosedSustainLevel,
+        Scales::noiseGain.invmapDB(halfClosedSustainLevelDist(rng)));
+      std::uniform_real_distribution<Value> halfClosedPulseSecondDist{
+        Value(-80), Value(0)};
+      setParam(
+        ID::halfClosedPulseSecond,
+        Scales::noiseDecaySeconds.invmapDB(halfClosedPulseSecondDist(rng)));
+      std::uniform_real_distribution<Value> halfClosedDensityHzDist{Value(0), Value(32)};
+      setParam(
+        ID::halfClosedDensityHz,
+        Scales::halfClosedDensityHz.invmapDB(halfClosedDensityHzDist(rng)));
+
+      std::uniform_real_distribution<Value> allpassMixSpikeDist{Value(0.333), Value(1)};
+      setParam(ID::allpassMixSpike, allpassMixSpikeDist(rng));
+      setParam(ID::allpassMixAltSign, uniform(rng));
+
+      std::uniform_real_distribution<Value> highShelfFrequencyHzDist{
+        Scales::cutoffFrequencyHz.invmap(4000), Scales::cutoffFrequencyHz.invmap(20000)};
+      setParam(ID::highShelfFrequencyHz, highShelfFrequencyHzDist(rng));
+      std::uniform_real_distribution<Value> highShelfGainDist{
+        Scales::shelvingGain.invmapDB(-1), Scales::shelvingGain.invmapDB(0)};
+      setParam(ID::highShelfGain, highShelfGainDist(rng));
+      std::uniform_real_distribution<Value> lowShelfFrequencyHzDist{Value(20), Value(86)};
+      setParam(
+        ID::lowShelfFrequencyHz,
+        Scales::cutoffFrequencyHz.invmapDB(lowShelfFrequencyHzDist(rng)));
+      std::uniform_real_distribution<Value> lowShelfGainDist{Value(-6), Value(0)};
+      setParam(ID::lowShelfGain, Scales::shelvingGain.invmapDB(lowShelfGainDist(rng)));
     }
 
     invalid();

@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2024-10-11" />
+      <title>DoubleLoopCymbal_ja – Uhhyou Plugins</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
+  <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
+  <style>
+    :root {
+      --foreground-color: #000000;
+      --background-color: #ffffff;
+      --link-color: #0000ee;
+      --link-visited-color: #551a8b;
+      --link-active-color: #ff0000;
+      --link-hover-background-color: #ffe590;
+      --border-dark-color: #444444;
+      --border-color: #888888;
+      --border-light-color: #bbbbbb;
+      --table-odd-color: #eeeeee;
+      --code-inline-color: #705020;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --foreground-color: #dfdfdf;
+        --background-color: #202020;
+        --link-color: #dfdf2c;
+        --link-visited-color: #9fcb76;
+        --link-active-color: #20dfdf;
+        --link-hover-background-color: #203373;
+        --border-dark-color: #acacac;
+        --border-color: #797979;
+        --border-light-color: #525252;
+        --table-odd-color: #2c2c2c;
+        --code-inline-color: #8ba3c7;
+      }
+
+      img:not(.staySameInDark) {
+        filter: invert(0.8745);
+      }
+
+      h1::after {
+        filter: invert(0.8745);
+      }
+    }
+
+    body {
+      max-width: 704px;
+      margin: auto;
+      padding: 32px 8px;
+      color: var(--foreground-color);
+      background-color: var(--background-color);
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    video {
+      max-width: 100%;
+    }
+
+    details.list>summary {
+      line-height: 3em;
+    }
+
+    kbd {
+      font-family: inherit;
+      border-style: outset;
+      border-width: 1px 2px 2px 1px;
+      border-radius: 2px;
+      padding: 2px 4px;
+      margin: 2px;
+      line-height: calc(1em + 16px);
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:hover {
+      background-color: var(--link-hover-background-color);
+    }
+
+    :link {
+      color: var(--link-color);
+    }
+
+    :visited {
+      color: var(--link-visited-color);
+    }
+
+    :link:active,
+    :visited:active {
+      color: var(--link-active-color);
+    }
+
+    .header-anchor:hover {
+      color: var(--link-color);
+    }
+
+    :is(h1, h2, h3, h4, h5, h6)>:is(a:link, a:visited, a:link:active, a:visited:active) {
+      color: var(--foreground-color);
+    }
+
+    h1 {
+      padding-left: 8px;
+      vertical-align: middle;
+    }
+
+    h1::after {
+      display: inline-block;
+      background-image: url('../../img/favicon/favicon.svg');
+      content: "";
+      vertical-align: middle;
+      background-size: 128px 128px;
+      width: 128px;
+      height: 128px;
+      margin-left: 1rem;
+    }
+
+    @media all and (max-width: 704px) {
+      h1::after {
+        background-size: 2em 2em;
+        width: 2em;
+        height: 2em;
+      }
+    }
+
+    h2 {
+      border-bottom: 1px solid var(--border-dark-color);
+    }
+
+    h3 {
+      text-decoration: underline var(--border-light-color);
+      text-underline-offset: 0.5rem;
+    }
+
+    h4 {
+      text-decoration: underline dashed var(--border-light-color);
+      text-underline-offset: 0.5rem;
+      margin-bottom: 0.5em;
+    }
+
+    h5 {
+      margin-bottom: 0.5em;
+    }
+
+    h6 {
+      margin-bottom: 0.5em;
+    }
+
+    table {
+      border-spacing: 0px;
+      border-collapse: separate;
+      border-left: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      border-top: 1px solid var(--border-color);
+      border-bottom: hidden;
+    }
+
+    tr:nth-child(odd) {
+      background: var(--table-odd-color);
+    }
+
+    tr:nth-child(even) {
+      background: var(--background-color);
+    }
+
+    th {
+      height: 2em;
+      padding: 4px 1em 4px 1em;
+      background: var(--background-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th:not(:first-child) {
+      border-left: 1px solid var(--border-color);
+    }
+
+    td {
+      height: 1.5em;
+      padding: 4px 1em 4px 1em;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    td:not(:first-child) {
+      border-left: 1px solid var(--border-color);
+    }
+
+    dl {
+      padding-left: 2em;
+    }
+
+    dt {
+      font-weight: bold;
+      border-bottom: 1px dashed var(--foreground-color);
+    }
+
+    dd {
+      border-left: 1px dotted var(--foreground-color);
+      margin-left: 1em;
+      margin-bottom: 2em;
+      padding-left: 1em;
+    }
+
+    audio {
+      vertical-align: middle;
+    }
+
+    label {
+      vertical-align: middle;
+    }
+
+    :not(.sourceCode)>pre {
+      overflow: auto;
+      border: 1px solid var(--border-color);
+      padding: 8px;
+    }
+
+    div.sourceCode {
+      overflow: auto;
+      border: 1px solid var(--border-color);
+      padding: 8px;
+    }
+
+    pre>code.sourceCode>span>a:first-child::before {
+      border-right: 1px solid var(--border-color);
+      padding-right: 1em;
+      margin-right: 1em;
+      text-decoration: none;
+    }
+
+    :not(pre)>code {
+      margin-left: 0.25em;
+      margin-right: 0.25em;
+      color: var(--code-inline-color);
+    }
+
+    li {
+      margin: 8px;
+    }
+
+    summary:hover {
+      background-color: var(--table-odd-color);
+    }
+
+    header {
+      border-bottom: 1px var(--border-color) solid;
+      padding: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    footer {
+      border-top: 1px var(--border-color) solid;
+      padding: 0.5em;
+      margin-top: 1em;
+    }
+
+    code {
+      white-space: pre-wrap;
+    }
+
+    span.smallcaps {
+      font-variant: small-caps;
+    }
+
+    span.underline {
+      text-decoration: underline;
+    }
+
+    div.column {
+      display: inline-block;
+      vertical-align: top;
+      width: 50%;
+    }
+  </style>
+      </head>
+
+<body>
+    <header>
+        <p><a href="../../index.html">Back to Index</a></p>
+            <p>
+      Update: 2024-10-11
+    </p>
+            <details>
+      <summary translate="yes">Table of Contents</summary>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#doubleloopcymbal"
+        id="toc-doubleloopcymbal">DoubleLoopCymbal</a>
+        <ul>
+        <li><a href="#連絡先" id="toc-連絡先">連絡先</a></li>
+        <li><a href="#インストール"
+        id="toc-インストール">インストール</a>
+        <ul>
+        <li><a href="#プラグイン"
+        id="toc-プラグイン">プラグイン</a></li>
+        <li><a href="#プリセット"
+        id="toc-プリセット">プリセット</a></li>
+        <li><a href="#windows" id="toc-windows">Windows</a></li>
+        <li><a href="#linux" id="toc-linux">Linux</a></li>
+        <li><a href="#macos" id="toc-macos">macOS</a>
+        <ul>
+        <li><a href="#隔離の解除"
+        id="toc-隔離の解除">隔離の解除</a></li>
+        <li><a href="#gatekeeper-の迂回"
+        id="toc-gatekeeper-の迂回">Gatekeeper の迂回</a></li>
+        <li><a href="#codesign-の適用"
+        id="toc-codesign-の適用"><code>codesign</code> の適用</a></li>
+        <li><a href="#参考リンク"
+        id="toc-参考リンク">参考リンク</a></li>
+        </ul></li>
+        </ul></li>
+        <li><a href="#gui-の見た目の設定"
+        id="toc-gui-の見た目の設定">GUI の見た目の設定</a>
+        <ul>
+        <li><a href="#フォントオプション"
+        id="toc-フォントオプション">フォントオプション</a></li>
+        <li><a href="#色のオプション"
+        id="toc-色のオプション">色のオプション</a></li>
+        </ul></li>
+        <li><a href="#操作" id="toc-操作">操作</a></li>
+        <li><a href="#注意" id="toc-注意">注意</a></li>
+        <li><a href="#ブロック線図"
+        id="toc-ブロック線図">ブロック線図</a></li>
+        <li><a href="#パラメータ" id="toc-パラメータ">パラメータ</a>
+        <ul>
+        <li><a href="#mix-options" id="toc-mix-options">Mix &amp;
+        Options</a></li>
+        <li><a href="#tuning" id="toc-tuning">Tuning</a></li>
+        <li><a href="#velocity-map" id="toc-velocity-map">Velocity
+        Map</a></li>
+        <li><a href="#impact-noise" id="toc-impact-noise">Impact
+        Noise</a></li>
+        <li><a href="#half-closed-noise" id="toc-half-closed-noise">Half
+        Closed Noise</a></li>
+        <li><a href="#closing-noise" id="toc-closing-noise">Closing
+        Noise</a></li>
+        <li><a href="#allpass-loop" id="toc-allpass-loop">Allpass
+        Loop</a></li>
+        <li><a href="#filter" id="toc-filter">Filter</a></li>
+        </ul></li>
+        <li><a href="#チェンジログ"
+        id="toc-チェンジログ">チェンジログ</a></li>
+        <li><a href="#旧バージョン"
+        id="toc-旧バージョン">旧バージョン</a></li>
+        <li><a href="#ライセンス" id="toc-ライセンス">ライセンス</a>
+        <ul>
+        <li><a href="#vst-について" id="toc-vst-について">VST®
+        について</a></li>
+        </ul></li>
+        </ul></li>
+        </ul>
+      </nav>
+    </details>
+      </header>
+  <h1 id="doubleloopcymbal"><a href="#doubleloopcymbal"
+  class="header-anchor" aria-hidden="true">DoubleLoopCymbal</a></h1>
+  <p><img src="img/DoubleLoopCymbal.png" /></p>
+  <p><ruby>DoubleLoopCymbal<rt>ダブル ループ シンバル</rt></ruby>
+  はハイハットのような音が出るシンセサイザです。オールパスループというディレイのつなぎ方を使って金属的な質感を出しています。</p>
+  <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.63.0/DoubleLoopCymbal_0.1.0.zip">DoubleLoopCymbal
+  0.1.0 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="30px"
+  style="display: inline-block; vertical-align: middle;"></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.63.0/DoubleLoopCymbal_0.1.0_macOS.zip">DoubleLoopCymbal
+  0.1.0 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="30px"
+  style="display: inline-block; vertical-align: middle;"></li>
+  </ul>
+  <p><strong>注意</strong>: プリセットはサンプリング周波数が 48000 Hz
+  でなければ想定された音が出ません。</p>
+  <p><code>full</code> パッケージには次のビルドが含まれています。</p>
+  <ul>
+  <li>Windows (x86_64)</li>
+  <li>Linux (x86_64)</li>
+  <li>macOS (Universal 2)</li>
+  </ul>
+  <p>Linux ビルドは Ubuntu 24.04 でビルドしています。もし Ubuntu 24.04
+  以外のディストリビューションを使っているときは、プラグインが読み込まれないなどの不具合が起こることがあります。この場合は<a
+  href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">ビルド手順</a>に沿ってソースコードからビルドしてください。</p>
+  <p>macOS で使用するときは <code>macOS</code>
+  パッケージのダウンロードを推奨します。また Apple Developer Program
+  に加入していないので、インストール時に Gatekeeper
+  を迂回するように設定する必要があります。詳細は
+  <a href="#macos">インストール -&gt; macOS</a>
+  の節を参照してください。</p>
+  <h2 id="連絡先"><a href="#連絡先" class="header-anchor"
+  aria-hidden="true">連絡先</a></h2>
+  <p>何かあれば <a href="https://github.com/ryukau/VSTPlugins">GitHub
+  のリポジトリ</a>に issue を作るか <code>ryukau@gmail.com</code>
+  までお気軽にどうぞ。</p>
+  <p><a
+  href="https://www.paypal.com/paypalme/ryukau">paypal.me/ryukau</a>
+  から開発資金を投げ銭することもできます。</p>
+  <h2 id="インストール"><a href="#インストール" class="header-anchor"
+  aria-hidden="true">インストール</a></h2>
+  <h3 id="プラグイン"><a href="#プラグイン" class="header-anchor"
+  aria-hidden="true">プラグイン</a></h3>
+  <p>名前が <code>.vst3</code> で終わるディレクトリを OS
+  ごとに決められた位置に配置してください。</p>
+  <ul>
+  <li>Windows では <code>/Program Files/Common Files/VST3/</code>
+  に配置します。</li>
+  <li>Linux では <code>$HOME/.vst3/</code> に配置します。</li>
+  <li>macOS では <code>/Library/Audio/Plug-ins/VST3/</code> あるいは
+  <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code>
+  に配置します。</li>
+  </ul>
+  <p>DAW によっては上記とは別に VST3
+  をインストールできるディレクトリを提供していることがあります。詳しくは利用している
+  DAW のマニュアルを参照してください。</p>
+  <h3 id="プリセット"><a href="#プリセット" class="header-anchor"
+  aria-hidden="true">プリセット</a></h3>
+  <p><strong>注意</strong>: プリセットの無いプラグインもあります。</p>
+  <p>プリセットはページの最上部のリンクからダウンロードできるプラグインパッケージに含まれています。以下はプリセットのインストール手順です。</p>
+  <ol type="1">
+  <li>ページの最上部のリンクからプラグインをダウンロード。</li>
+  <li>ダウンロードした zip ファイルを解凍。</li>
+  <li><code>presets</code> ディレクトリ内の <code>Uhhyou</code>
+  ディレクトリを OS ごとに決められたディレクトリに配置。</li>
+  </ol>
+  <p>以下は OS ごとのプリセットの配置先の一覧です。</p>
+  <ul>
+  <li>Windows :
+  <code>/Users/$USERNAME/Documents/VST3 Presets</code></li>
+  <li>Linux : <code>$HOME/.vst3/presets</code></li>
+  <li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets</code></li>
+  </ul>
+  <p>プリセットディレクトリの名前はプラグインと同じである必要があります。配置先のディレクトリが無いときは作成してください。</p>
+  <ul>
+  <li><a
+  href="https://steinbergmedia.github.io/vst3_dev_portal/pages/Technical+Documentation/Locations+Format/Preset+Locations.html">Preset
+  Locations - VST 3 Developer Portal</a></li>
+  </ul>
+  <h3 id="windows"><a href="#windows" class="header-anchor"
+  aria-hidden="true">Windows</a></h3>
+  <p>プラグインが DAW に認識されないときは C++ redistributable
+  をインストールしてみてください。インストーラは次のリンクからダウンロードできます。ファイル名は
+  <code>vc_redist.x64.exe</code> です。</p>
+  <ul>
+  <li><a
+  href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The
+  latest supported Visual C++ downloads</a></li>
+  </ul>
+  <h3 id="linux"><a href="#linux" class="header-anchor"
+  aria-hidden="true">Linux</a></h3>
+  <p>Ubuntu 24.04 では次のパッケージのインストールが必要です。</p>
+  <div class="sourceCode" id="cb1"><pre
+  class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+  <p>もし DAW がプラグインを認識しないときは、下のリンクの
+  <code>Package Requirements</code> を参考にして VST3
+  に必要なパッケージがすべてインストールされているか確認してください。</p>
+  <ul>
+  <li><a
+  href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI:
+  Setup</a></li>
+  </ul>
+  <p>REAPER の Linux 版がプラグインを認識しないときは
+  <code>~/.config/REAPER/reaper-vstplugins64.ini</code> を削除して
+  REAPER を再起動してみてください。</p>
+  <h3 id="macos"><a href="#macos" class="header-anchor"
+  aria-hidden="true">macOS</a></h3>
+  <p><strong>重要</strong>: <code>full</code>
+  パッケージは動作未確認です。以下のファイルは <code>codesign</code>
+  されていないので削除する必要があるかもしれません。</p>
+  <ul>
+  <li><code>Contents/Resources/Documentation</code></li>
+  <li><code>Contents/x86_64-linux</code></li>
+  <li><code>Contents/x86_64-win</code></li>
+  </ul>
+  <p><code>macOS</code>
+  パッケージでは上記のファイルの削除は不要です。また、すべてのパッケージは
+  <code>codesign</code> コマンドの ad-hoc signing
+  の状態になっています。</p>
+  <h4 id="隔離の解除"><a href="#隔離の解除" class="header-anchor"
+  aria-hidden="true">隔離の解除</a></h4>
+  <p>プラグインの初回起動時に「破損している」という趣旨のメッセージが表示されることがあります。この場合は、ターミナルを開いて、解凍した
+  <code>.vst3</code>
+  ディレクトリに次のコマンドのどちらか、あるいは両方を適用してみてください。
+  <code>/path/to/PluginName.vst3</code>
+  の部分はインストールしたプラグインのパスに置き換えてください。</p>
+  <div class="sourceCode" id="cb2"><pre
+  class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rd</span> com.apple.quarantine /path/to/PluginName.vst3</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rc</span> /path/to/PluginName.vst3</span></code></pre></div>
+  <h4 id="gatekeeper-の迂回"><a href="#gatekeeper-の迂回"
+  class="header-anchor" aria-hidden="true">Gatekeeper の迂回</a></h4>
+  <p>プラグインは署名されていない (unsigned) 、または公証されていない
+  (un-notarized)
+  アプリケーションとして認識されることがあります。この場合は、警告メッセージが表示された後に、システム環境設定を開いて「セキュリティとプライバシー」
+  → 「一般」の「このまま開く」ボタンを押してください。以下にリンクした
+  Apple
+  公式のヘルプページにスクリーンショット付きで同じ手順が掲載されています。「ノータリゼーションを受けていない
+  App や未確認の開発元の App を開きたい場合」を参照してください。</p>
+  <ul>
+  <li><a href="https://support.apple.com/ja-jp/HT202491">Mac で App
+  を安全に開く - Apple サポート (日本)</a></li>
+  </ul>
+  <p>ここまでの手順を経てまだ動かないときはインストール先を
+  <code>/Library/Audio/Plug-ins/VST3/</code> あるいは
+  <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code>
+  のいずれか使っていなかったほうに変えてみてください。</p>
+  <p>上記の方法がすべて上手くいかなかったときは以下の手順を試してみてください。</p>
+  <ol type="1">
+  <li>ターミナルを開いて <code>sudo spctl --master-disable</code>
+  を実行。</li>
+  <li>システム環境設定を開いて「セキュリティとプライバシー」 → 「一般」
+  →
+  「ダウンロードしたアプリケーションの実行許可」と辿り、「全てのアプリケーションを許可」を選択。</li>
+  </ol>
+  <p>上記の手順を実行するとシステムのセキュリティが弱くなるので注意してください。元に戻すには以下の手順を実行してください。</p>
+  <ol type="1">
+  <li>システム環境設定を開いて「セキュリティとプライバシー」 → 「一般」
+  → 「ダウンロードしたアプリケーションの実行許可」と辿り、「App Store
+  と認証済みの開発元からのアプリケーションを許可」を選択。</li>
+  <li>ターミナルを開いて <code>sudo spctl --master-enable</code>
+  を実行。</li>
+  </ol>
+  <h4 id="codesign-の適用"><a href="#codesign-の適用"
+  class="header-anchor" aria-hidden="true"><code>codesign</code>
+  の適用</a></h4>
+  <p><strong>注意</strong> この節の内容は <code>macOS</code>
+  パッケージには関連しないと考えられますが未検証です。 (<a
+  href="https://github.com/ryukau/VSTPlugins/issues/27">GitHub の
+  issue</a>)</p>
+  <p><code>full</code>
+  パッケージを利用する場合は以下のコマンドを適用することで利用できるかもしれません。</p>
+  <div class="sourceCode" id="cb3"><pre
+  class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> codesign <span class="at">--force</span> <span class="at">--deep</span> <span class="at">-s</span> <span class="at">-</span> /path/to/PluginName.vst3</span></code></pre></div>
+  <p><code>codesign</code> の利用には <a
+  href="https://developer.apple.com/xcode/">Xcode</a>
+  のインストールが必要となるかもしれません。</p>
+  <h4 id="参考リンク"><a href="#参考リンク" class="header-anchor"
+  aria-hidden="true">参考リンク</a></h4>
+  <ul>
+  <li><a href="https://support.apple.com/en-us/HT202491">Safely open
+  apps on your Mac - Apple Support</a></li>
+  <li><a
+  href="https://stackoverflow.com/questions/66891065/libprism-sw-dylib-cannot-be-opened-because-the-developer-cannot-be-verified-o">java
+  - “libprism_sw.dylib” cannot be opened because the developer cannot be
+  verified. on mac JAVAFX - Stack Overflow</a></li>
+  <li><a
+  href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How
+  to Fix App “is damaged and can’t be opened. You should move it to the
+  Trash” Error on Mac</a></li>
+  <li><a
+  href="https://web.archive.org/web/20221223004334/https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
+  unsigned/un-notarized applications/plugins in Mac OS | Venn
+  Audio</a></li>
+  <li><a href="https://ss64.com/osx/codesign.html">codesign Man Page -
+  macOS - SS64.com</a></li>
+  </ul>
+  <h2 id="gui-の見た目の設定"><a href="#gui-の見た目の設定"
+  class="header-anchor" aria-hidden="true">GUI の見た目の設定</a></h2>
+  <p>初回設定時は手動で次のファイルを作成してください。</p>
+  <ul>
+  <li>Windows では
+  <code>/Users/ユーザ名/AppData/Roaming/UhhyouPlugins/style/style.json</code>
+  。</li>
+  <li>Linux では
+  <code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> 。
+  <ul>
+  <li><code>$XDG_CONFIG_HOME</code> が空のときは
+  <code>$HOME/.config/UhhyouPlugins/style/style.json</code> 。</li>
+  </ul></li>
+  <li>macOS では
+  <code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code>
+  。</li>
+  </ul>
+  <p>プラグインのウィンドウを開くたびに <code>style.json</code>
+  が読み込まれて更新されます。</p>
+  <p>既存の色のテーマを次のリンクに掲載しています。
+  <code>style.json</code> にコピペして使ってください。</p>
+  <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/tree/master/package/style/themes">VSTPlugins/package/style/themes
+  at master · ryukau/VSTPlugins</a></li>
+  </ul>
+  <p><code>style.json</code> の設定例です。</p>
+  <div class="sourceCode" id="cb4"><pre
+  class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontFamily&quot;</span><span class="fu">:</span> <span class="st">&quot;Tinos&quot;</span><span class="fu">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontBold&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontItalic&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span><span class="fu">,</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;background&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;boxBackground&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;border&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderCheckbox&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderLabel&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;unfocused&quot;</span><span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span><span class="fu">,</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightMain&quot;</span><span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span><span class="fu">,</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightAccent&quot;</span><span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span><span class="fu">,</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightButton&quot;</span><span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span><span class="fu">,</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+  <h3 id="フォントオプション"><a href="#フォントオプション"
+  class="header-anchor" aria-hidden="true">フォントオプション</a></h3>
+  <p>以下はフォントオプションの一覧です。</p>
+  <ul>
+  <li><code>fontFamily</code>: フォントファミリ名。</li>
+  <li><code>fontBold</code>: ボールドスタイル (太字) を
+  <code>true</code> で有効、 <code>false</code> で無効。</li>
+  <li><code>fontItalic</code>: イタリックスタイル (斜体) を
+  <code>true</code> で有効、 <code>false</code> で無効。</li>
+  </ul>
+  <p>カスタムフォントを使用するには、プラグインディレクトリの
+  <code>*.vst3/Contents/Resources/Fonts</code> に <code>*.ttf</code>
+  ファイルを配置します。</p>
+  <p><strong>注意</strong>: <code>fontFamily</code> 、
+  <code>fontBold</code> 、 <code>fontItalic</code>
+  で設定したフォントファミリ名とスタイルの組み合わせが
+  <code>*.vst3/Contents/Resources/Fonts</code> 以下のいずれかの
+  <code>*.ttf</code> ファイルに含まれていないときは VSTGUI
+  が指定するデフォルトフォントが使用されます。</p>
+  <p><code>fontFamily</code> が長さ 0 の文字列 <code>""</code>
+  のときはフォールバックとして <a
+  href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
+  に設定されます。長さが 1
+  以上かつ、存在しないフォントファミリ名が指定されると VSTGUI
+  が指定するデフォルトフォントが使用されます。</p>
+  <p>ボールドあるいはイタリック以外のスタイルは VSTGUI
+  がサポートしていないので動作確認していません。該当する例としては Noto
+  フォントの Demi Light や、 Roboto フォントの Thin や Black
+  などがあります。</p>
+  <h3 id="色のオプション"><a href="#色のオプション"
+  class="header-anchor" aria-hidden="true">色のオプション</a></h3>
+  <p>16 進数カラーコードを使っています。</p>
+  <ul>
+  <li>6 桁の色は RGB 。</li>
+  <li>8 桁の色は RGBA 。</li>
+  </ul>
+  <p>プラグインはカラーコードの 1 文字目を無視します。よって
+  <code>?102938</code> や <code>\n11335577</code>
+  も有効なカラーコードです。</p>
+  <p>2 文字目以降のカラーコードの値に <code>0-9a-f</code>
+  以外の文字を使わないでください。</p>
+  <p>以下は設定できる色の一覧です。設定に抜けがあるとデフォルトの色が使われます。</p>
+  <ul>
+  <li><code>foreground</code>: 文字の色。</li>
+  <li><code>foregroundButtonOn</code>:
+  オンになっているボタンの文字の色。 <code>foreground</code> か
+  <code>boxBackground</code>
+  のいずれかと同じ値にすることを推奨します。</li>
+  <li><code>foregroundInactive</code>:
+  非アクティブなタブの文字の色。</li>
+  <li><code>background</code>: 背景色。</li>
+  <li><code>boxBackground</code>: 矩形の UI 部品の内側の背景色。</li>
+  <li><code>border</code>: <ruby>縁<rt>ふち</rt></ruby>の色。</li>
+  <li><code>borderCheckbox</code>: チェックボックスの縁の色。</li>
+  <li><code>borderLabel</code>:
+  パラメータセクションのラベルの左右の直線の色。</li>
+  <li><code>unfocused</code>:
+  つまみがフォーカスされていないときの色。</li>
+  <li><code>highlightMain</code>:
+  フォーカスされたときの色。スライダの値の表示にも使用されます。</li>
+  <li><code>highlightAccent</code>:
+  フォーカスされたときの色。一部のプラグインをカラフルにするために使用されます。</li>
+  <li><code>highlightButton</code>:
+  ボタンがフォーカスされたときの色。</li>
+  <li><code>highlightWarning</code>: 変更に注意を要する UI
+  がフォーカスされたときの色。</li>
+  <li><code>overlay</code>: オーバーレイの色。</li>
+  <li><code>overlayHighlight</code>:
+  フォーカスを示すオーバーレイの色。</li>
+  </ul>
+  <h2 id="操作"><a href="#操作" class="header-anchor"
+  aria-hidden="true">操作</a></h2>
+  <p>パラメータが割り当てられているコントロールの上で
+  <kbd>右クリック</kbd> すると、 DAW
+  から提供されるコンテキストメニューが開きます。</p>
+  <p>つまみと数値スライダでは次の操作ができます。</p>
+  <ul>
+  <li><kbd>Ctrl</kbd> + <kbd>左クリック</kbd> : 値のリセット。</li>
+  <li><kbd>Shift</kbd> + <kbd>左ドラッグ</kbd> : 細かい値の変更。</li>
+  <li><kbd>ホイールクリック</kbd> :
+  最小値、デフォルト値、最大値の切り替え。</li>
+  <li><kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> :
+  現在値の小数点以下を切り捨て。
+  <ul>
+  <li><strong>注意</strong>:
+  デシベル表記のパラメータは、振幅に変換された後の値について切り捨て。</li>
+  </ul></li>
+  </ul>
+  <h2 id="注意"><a href="#注意" class="header-anchor"
+  aria-hidden="true">注意</a></h2>
+  <p>音量の変化が大きいのでリミッタと併用してください。</p>
+  <h2 id="ブロック線図"><a href="#ブロック線図" class="header-anchor"
+  aria-hidden="true">ブロック線図</a></h2>
+  <p>図が小さいときはブラウザのショートカット <kbd>Ctrl</kbd> +
+  <kbd>マウスホイール</kbd>
+  や、右クリックから「画像だけを表示」などで拡大できます。</p>
+  <p>図で示されているのは大まかな信号の流れです。実装と厳密に対応しているわけではないので注意してください。</p>
+  <p><img src="img/DoubleLoopCymbal.svg" /></p>
+  <h2 id="パラメータ"><a href="#パラメータ" class="header-anchor"
+  aria-hidden="true">パラメータ</a></h2>
+  <p>角かっこ [] で囲まれているのは単位です。以下は単位の一覧です。</p>
+  <ul>
+  <li>[dB] : デシベル (decibel) 。</li>
+  <li>[s] : 秒 (second) 。</li>
+  <li>[Hz] : 周波数 (Hertz) 。</li>
+  <li>[sample] : サンプル数。 1 サンプルは
+  <code>1 / (サンプリング周波数)</code> 秒。</li>
+  <li>[st.] : 半音 (semitone)。 1 半音は <code>1 / 12</code>
+  オクターブ。</li>
+  </ul>
+  <h3 id="mix-options"><a href="#mix-options" class="header-anchor"
+  aria-hidden="true">Mix &amp; Options</a></h3>
+  <dl>
+  <dt>Output [dB]</dt>
+  <dd>
+  <p>出力ゲインです。</p>
+  </dd>
+  <dt>2x Sampling</dt>
+  <dd>
+  <p>チェックすると 2 倍のオーバーサンプリングを有効にします。</p>
+  </dd>
+  <dt>Release</dt>
+  <dd>
+  <p>チェックを入れると、</p>
+  <ul>
+  <li>ノートオフの後も音が止まらなくなります。</li>
+  <li><code>Closing Noise</code>
+  セクションの設定がすべて無視されます。</li>
+  </ul>
+  </dd>
+  <dt>Fixed Noise</dt>
+  <dd>
+  <p>チェックを入れるとノートオンごとの音の揺れを抑えます。</p>
+  <p>内部的にはノイズ信号の合成に使われる乱数のシードをノートオンごとにリセットします。</p>
+  </dd>
+  <dt>Spread</dt>
+  <dd>
+  <p>ステレオスプレッダのかかり具合です。値が 1
+  に近づくほど左右の広がりがでます。</p>
+  </dd>
+  <dt>Split [Hz]</dt>
+  <dd>
+  <p>ステレオスプレッダのクロスオーバー周波数です。</p>
+  <p>大まかには指定した周波数以上でのみステレオスプレッダの効果が出ます。ただしクロスオーバーフィルタの性質によって指定した周波数以下であっても効果が完全に無効とはなりません。</p>
+  </dd>
+  <dt>External Input [dB]</dt>
+  <dd>
+  <p>外部入力のゲインです。</p>
+  <p>DoubleLoopCymbal
+  は外部入力に金属的な質感を加えるエフェクタとして使うことができます。</p>
+  <p><strong>重要</strong>: エフェクタとして使うときでも
+  DoubleLoopCymbal
+  にノートイベントを送ってください。ノートが演奏されていないとき、外部入力はミュートされます。</p>
+  <p>ノートイベントはハイハットのオープン・クローズと似た表現を行うために使われます。例えば、片手で
+  MIDI
+  キーボードを抑えながら、もう片方の手で机などを叩いてマイクに音を入れるといったセットアップを想定しています。</p>
+  <p>マイクからの入力を使うのであれば外部入力を事前にイコライザで調整することを推奨します。プラスチックのような固い素材の衝突であればそのまま励起信号として使えますが、手で机をたたいた音などは低い周波数が強すぎることがあります。</p>
+  <p>DoubleLoopCymbal が生成する励起信号 (ノイズ)
+  を外部入力に置き換えるときは以下のパラメータをすべて最小 (-inf dB)
+  にしてください。</p>
+  <ul>
+  <li><code>Impact Noise</code> -&gt; <code>Gain</code></li>
+  <li><code>Half Closed Noise</code> -&gt; <code>Gain</code></li>
+  <li><code>Closing Noise</code> -&gt; <code>Gain</code></li>
+  </ul>
+  <p>外部入力やノートイベントをルーティングする方法はお使いの DAW
+  のマニュアルを参照してください。</p>
+  </dd>
+  </dl>
+  <h3 id="tuning"><a href="#tuning" class="header-anchor"
+  aria-hidden="true">Tuning</a></h3>
+  <dl>
+  <dt>Note -&gt; Pitch</dt>
+  <dd>
+  <p>ノートの音程によるピッチの変調量です。</p>
+  <p><code>Note -&gt; Pitch</code> の値によらず、音程が C4 (MIDI
+  ノート番号でいうと 60) のときにピッチの変調量が 0 となります。</p>
+  <p><code>Note -&gt; Pitch</code> の値が 0.0
+  のとき、ノートのピッチは無視されます。</p>
+  <p><code>Note -&gt; Pitch</code> の値が 1.0
+  のときに音程がピッチにそのまま反映されます。ただしドラムの音ははっきりとした音程を持たないのでチューニングがあっていないように聞こえることがあります。また、実装の都合により音が高くなるほどチューニングが狂います。</p>
+  <p><code>Note -&gt; Pitch</code> の値が -1.0
+  のとき、音程の上下が逆転します。</p>
+  </dd>
+  <dt>Transpose [st.]</dt>
+  <dd>
+  <p>半音単位でノートの音程をトランスポーズします。</p>
+  <p><strong>注意</strong>: <code>Note -&gt; Pitch</code> が 0.0
+  のときは無効です。</p>
+  </dd>
+  <dt>Pitch Bend Range [st.]</dt>
+  <dd>
+  <p>ピッチベンドの範囲です。単位は半音です。</p>
+  </dd>
+  <dt>Slide Time [s]</dt>
+  <dd>
+  <p>2
+  つ以上のノートが同時に演奏されたときにピッチをスライドする大まかな時間です。</p>
+  </dd>
+  </dl>
+  <h3 id="velocity-map"><a href="#velocity-map" class="header-anchor"
+  aria-hidden="true">Velocity Map</a></h3>
+  <p>以下は略語と対応するセクションの一覧です。</p>
+  <ul>
+  <li><code>Imp.</code> -&gt; Impulse Noise</li>
+  <li><code>HC</code> -&gt; Half Closed Noise</li>
+  <li><code>Cl.</code> -&gt; Closing Noise</li>
+  <li><code>AP</code> -&gt; Allpass Loop</li>
+  </ul>
+  <blockquote>
+  <p>Imp. Gain [dB]</p>
+  </blockquote>
+  <p>: ノートオン・ベロシティによって <code>Impact Noise</code>
+  セクションの <code>Gain</code> を変える量です。</p>
+  <pre><code>MIDI キーボードなどで演奏するときは -30 dB あたりまで範囲を狭めたほうが弾きやすいかもしれません。</code></pre>
+  <blockquote>
+  <p>Imp. Highpass</p>
+  </blockquote>
+  <p>: ノートオン・ベロシティによって <code>Impact Noise</code>
+  セクションの <code>Highpass</code> を変える量です。</p>
+  <pre><code>- 値が 0 より大きいと、ベロシティが大きくなるにつれてカットオフ周波数が高くなります。
+- 値が 0 より小さいと、ベロシティが大きくなるにつれてカットオフ周波数が低くなります。</code></pre>
+  <blockquote>
+  <p>HC Density</p>
+  </blockquote>
+  <p>: ノートオン・ベロシティによって <code>Half Closed Noise</code>
+  セクションの <code>Density</code> を変える量です。</p>
+  <pre><code>`&gt; Half Closed Highpass` と `&gt; Modulation` との組み合わせによって、ベロシティが大きいときにクラッシュシンバルのような音となるように変化させることを狙っています。ただし、本物のクラッシュシンバルのような音は出ません。
+
+`Half Closed Noise` セクションの `Decay` が短いときは、あまり効果がありません。</code></pre>
+  <blockquote>
+  <p>HC Highpass</p>
+  </blockquote>
+  <p>: ノートオン・ベロシティによって <code>Half Closed Noise</code>
+  セクションの <code>Highpass</code> を変える量です。</p>
+  <dl>
+  <dt>Note-off Velocity</dt>
+  <dd>
+  <p>ハイハットのクローズに使うベロシティの種類です。</p>
+  <p>チェックを入れるとノートオフ・ベロシティ、チェックを外すとノートオン・ベロシティが使われます。以下は
+  <code>Note-off Velocity</code>
+  によって影響を受けるパラメータの一覧です。</p>
+  <ul>
+  <li><code>&gt; Cl. Gain</code></li>
+  <li><code>&gt; Cl. Duration</code></li>
+  <li><code>&gt; Cl. Highpass</code></li>
+  </ul>
+  </dd>
+  <dt>&gt; Cl. Gain [dB]</dt>
+  <dd>
+  <p><code>Note-off Velocity</code> で指定されたベロシティによって
+  <code>Closing Noise</code> セクションの <code>Gain</code>
+  を変える量です。</p>
+  </dd>
+  <dt>&gt; Cl. Release</dt>
+  <dd>
+  <p><code>Note-off Velocity</code> で指定されたベロシティによって
+  <code>Closing Noise</code> セクションの <code>Release Ratio</code>
+  を変える量です。</p>
+  </dd>
+  <dt>&gt; Cl. Highpass</dt>
+  <dd>
+  <p>ノートオン・ベロシティによって <code>Closing Noise</code>
+  セクションの <code>Highpass</code> を変える量です。</p>
+  </dd>
+  <dt>&gt; AP Modulation</dt>
+  <dd>
+  <p>ノートオン・ベロシティによって <code>Allpass Loop</code>
+  セクションの <code>Modulation</code> を変える量です。</p>
+  </dd>
+  </dl>
+  <h3 id="impact-noise"><a href="#impact-noise" class="header-anchor"
+  aria-hidden="true">Impact Noise</a></h3>
+  <p>スティックとシンバルの衝突を模倣するノイズです。</p>
+  <dl>
+  <dt>Seed</dt>
+  <dd>
+  <p><code>Seed</code> を変えると全体の質感が大きく変わります。</p>
+  </dd>
+  <dt>Texture Mix</dt>
+  <dd>
+  <p>ノートオンごとにシードがリセットされる乱数と、そうでない乱数を混ぜる割合です。</p>
+  <p>値が 1.0
+  のときにシードがリセットされる乱数のみとなり、音の揺らぎが抑えられます。
+  <code>Fixed Noise</code> と似たような効果がありますが、
+  <code>Half Closed Noise</code> と <code>Closing Noise</code>
+  に影響を与えない点が異なります。</p>
+  </dd>
+  <dt>Gain [dB]</dt>
+  <dd>
+  <p>ノイズ信号のゲインです。</p>
+  </dd>
+  <dt>Decay [s]</dt>
+  <dd>
+  <p>ノイズ信号の減衰時間です。</p>
+  </dd>
+  <dt>Highpass [Hz]</dt>
+  <dd>
+  <p>ノイズ信号が通るハイパスフィルタのカットオフ周波数です。</p>
+  </dd>
+  </dl>
+  <h3 id="half-closed-noise"><a href="#half-closed-noise"
+  class="header-anchor" aria-hidden="true">Half Closed Noise</a></h3>
+  <p>ハイハットのハーフクローズを模倣するノイズです。</p>
+  <dl>
+  <dt>Gain [dB]</dt>
+  <dd>
+  <p>ノートオン直後のノイズ信号のゲインです。</p>
+  <p>ノイズ信号は時間とともに <code>Sustain</code>
+  で指定したゲインに向かって減衰します。</p>
+  </dd>
+  <dt>Decay [s]</dt>
+  <dd>
+  <p>ノイズ信号の減衰時間です。</p>
+  </dd>
+  <dt>Sustain [dB]</dt>
+  <dd>
+  <p><code>Decay</code>
+  で指定した時間が経過したあとのノイズ信号のゲインです。</p>
+  </dd>
+  <dt>Pulse Duration [s]</dt>
+  <dd>
+  <p>1 回の衝突あたりのノイズの減衰時間です。</p>
+  <p><code>Pulse Duration</code> と <code>Density</code>
+  の値がともに小さいとき、カラカラとした質感がでます。</p>
+  </dd>
+  <dt>Density [Hz]</dt>
+  <dd>
+  <p>大まかな衝突頻度です。</p>
+  <p><code>Density</code>
+  の値が大きいとき、衝突間隔が長くなったようなカラカラという質感に近づきます。値が小さいときはサーッという質感に近づきます。</p>
+  </dd>
+  <dt>Highpass [Hz]</dt>
+  <dd>
+  <p>ノイズ信号が通るハイパスフィルタのカットオフ周波数です。</p>
+  </dd>
+  </dl>
+  <h3 id="closing-noise"><a href="#closing-noise" class="header-anchor"
+  aria-hidden="true">Closing Noise</a></h3>
+  <p>ハイハットのクローズを模倣するノイズです。クローズは
+  <code>Mix &amp; Options</code> セクションの <code>Release</code>
+  が無効のときだけ行われます。</p>
+  <dl>
+  <dt>Gain [dB]</dt>
+  <dd>
+  <p>ノイズ信号のゲインです。</p>
+  </dd>
+  <dt>Attack [s]</dt>
+  <dd>
+  <p>ノイズ信号がおおよそ最大振幅に到達するまでの時間です。</p>
+  <p><code>Attack</code>
+  の値を大きくするとリリース時間が長くなり、最大振幅が小さくなります。</p>
+  </dd>
+  <dt>Release Ratio</dt>
+  <dd>
+  <p>ノイズ信号の大まかなリリース時間です。</p>
+  <p><strong>注意</strong>: <code>Attack</code> が小さいときに
+  <code>Release Ratio</code>
+  を上げると振幅がとても大きくなることがあります。</p>
+  </dd>
+  <dt>Highpass [Hz]</dt>
+  <dd>
+  <p>ノイズ信号が通るハイパスフィルタのカットオフ周波数です。</p>
+  </dd>
+  </dl>
+  <h3 id="allpass-loop"><a href="#allpass-loop" class="header-anchor"
+  aria-hidden="true">Allpass Loop</a></h3>
+  <p>金属的な質感はこのセクションで調整できます。オールパスループは板というよりは輪になったワイヤに近いので、どちらかと言えばシンバルよりもトライアングルに似た音になりがちです。</p>
+  <dl>
+  <dt>Character</dt>
+  <dd>
+  <p>内部的なディレイ時間を変えて質感を調整するパラメータです。</p>
+  <p>値が 0 のときは音程がはっきりした音、 1
+  のときは音程がはっきりしない音になります。</p>
+  <p>値が 0 のときのディレイ時間の比率は固定されています。値が 1
+  のときのディレイ時間の比率は <code>Impact Noise</code> セクションの
+  <code>Seed</code> に応じてランダムに決められます。</p>
+  </dd>
+  <dt>Pitch Ratio [st.]</dt>
+  <dd>
+  <p>2 つのオールパスループのディレイ時間をずらす量です。</p>
+  <p>ディレイ時間がずらされるのは 2 つ目のオールパスループのみです。</p>
+  </dd>
+  <dt>Modulation [sample]</dt>
+  <dd>
+  <p>フィードバック信号によるディレイ時間の変調量です。</p>
+  <p><strong>警告</strong>: <code>Modulation</code> の値が 0
+  でなければ発散によって大きな音が出ることがあります。</p>
+  </dd>
+  <dt>Delay Count 1</dt>
+  <dd>
+  <p>1 つ目のオールパスループのディレイの数です。</p>
+  </dd>
+  <dt>Delay Count 2</dt>
+  <dd>
+  <p>2 つ目のオールパスループのディレイの数です。</p>
+  </dd>
+  <dt>Feed 1</dt>
+  <dd>
+  <p>1 つ目のオールパスループのオールパスフィルタの係数です。</p>
+  <p>エフェクタのディレイのフィードバックと似たように扱えます。値が 1
+  あるいは -1 に近づくほど音が長く伸びるようになります。ちょうど 1
+  あるいはちょうど -1 にしてしまうと音が減衰しなくなります。</p>
+  </dd>
+  <dt>Feed 2</dt>
+  <dd>
+  <p>2 つ目のオールパスループのオールパスフィルタの係数です。</p>
+  </dd>
+  <dt>Mix Spike</dt>
+  <dd>
+  <p>大まかにノイズ信号を混ぜる比率です。</p>
+  <p>値が 0 のときにノイズ信号はほぼ消えます。 1
+  のときはオールパスループの出力とノイズ信号が足し合わさったような音になります。</p>
+  </dd>
+  <dt>Mix Alt. Sign</dt>
+  <dd>
+  <p>オールパスループの出力の質感を調整します。</p>
+  <p>値が 0
+  のとき、ループ内のすべてのオールパスの出力を単純に加算します。</p>
+  <pre><code>loopOutput = ap1 + ap2 + ap3 + ap4 + ap5 + ...</code></pre>
+  <p>値が 1
+  のとき、ループ内のオールパスごとに符号を反転した上で加算を行います。</p>
+  <pre><code>loopOutput = ap1 - ap2 + ap3 - ap4 + ap5 - ...</code></pre>
+  </dd>
+  </dl>
+  <h3 id="filter"><a href="#filter" class="header-anchor"
+  aria-hidden="true">Filter</a></h3>
+  <p>オールパスループ内のフィルタに関する設定です。</p>
+  <dl>
+  <dt>High Shelf Cutoff [Hz]</dt>
+  <dd>
+  <p>ハイシェルフフィルタのカットオフ周波数です。</p>
+  <p>シンバルの音を出すときは <code>High Shelf Cutoff</code> を 10000 Hz
+  あたり、 <code>High Shelf Gain</code> を -1 から 0 dB
+  の間にしてください。</p>
+  </dd>
+  <dt>High Shelf Gain [dB]</dt>
+  <dd>
+  <p>ハイシェルフフィルタのゲインです。</p>
+  </dd>
+  <dt>Low Shelf Cutoff [Hz]</dt>
+  <dd>
+  <p>ローシェルフフィルタのカットオフ周波数です。</p>
+  </dd>
+  <dt>Low Shelf Gain [dB]</dt>
+  <dd>
+  <p>ローシェルフフィルタのゲインです。</p>
+  <p><strong>注意</strong>: 0 dB にすると直流が乗ることがあります。</p>
+  </dd>
+  </dl>
+  <h2 id="チェンジログ"><a href="#チェンジログ" class="header-anchor"
+  aria-hidden="true">チェンジログ</a></h2>
+  <ul>
+  <li>0.1.0
+  <ul>
+  <li>初期リリース。</li>
+  </ul></li>
+  </ul>
+  <h2 id="旧バージョン"><a href="#旧バージョン" class="header-anchor"
+  aria-hidden="true">旧バージョン</a></h2>
+  <p>旧バージョンはありません。</p>
+  <h2 id="ライセンス"><a href="#ライセンス" class="header-anchor"
+  aria-hidden="true">ライセンス</a></h2>
+  <p>DoubleLoopCymbal のライセンスは GPLv3 です。 GPLv3
+  の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。</p>
+  <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+  </ul>
+  <p>リンクが切れているときは <code>ryukau@gmail.com</code>
+  にメールを送ってください。</p>
+  <h3 id="vst-について"><a href="#vst-について" class="header-anchor"
+  aria-hidden="true">VST® について</a></h3>
+  <p>VST is a trademark of Steinberg Media Technologies GmbH, registered
+  in Europe and other countries.</p>
+
+  <footer>
+        <p><a href="../../index.html">Back to Index</a></p>
+      </footer>
+  </body>
+
+</html>

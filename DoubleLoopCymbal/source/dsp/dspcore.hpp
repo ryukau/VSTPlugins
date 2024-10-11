@@ -102,23 +102,25 @@ private:
   std::vector<NoteInfo> midiNotes;
   std::vector<NoteInfo> noteStack;
 
-  double noteOnVelocity = 0;
-
   static constexpr size_t upFold = 2;
   static constexpr std::array<size_t, 2> fold{1, upFold};
   size_t overSampling = 2;
   double sampleRate = 44100.0;
   double upRate = upFold * 44100.0;
 
-  double noteNumber = 69.0;
+  double noteNumber = 60.0;
+  double noteOnVelocity = 0;
   double pitchSmoothingKp = 1.0;
   ExpSmootherLocal<double> interpPitch;
 
   ExpSmoother<double> externalInputGain;
-  ExpSmoother<double> noiseTextureMix;
+  ExpSmoother<double> impactTextureMix;
+  ExpSmoother<double> impactHighpassCutoff;
   ExpSmoother<double> halfClosedGain;
+  ExpSmoother<double> halfClosedSustain;
   ExpSmoother<double> halfClosedDensity;
   ExpSmoother<double> halfClosedHighpassCutoff;
+  ExpSmoother<double> closingHighpassCutoff;
   ExpSmoother<double> delayTimeModAmount;
   ExpSmoother<double> allpassFeed1;
   ExpSmoother<double> allpassFeed2;
@@ -131,9 +133,10 @@ private:
   ExpSmoother<double> outputGain;
 
   bool useExternalInput = false;
+  double impactHighpassScaler = double(1);
   double halfClosedDensityScaler = double(1);
   double halfClosedHighpassScaler = double(1);
-  double allpassFilterScaler = double(1);
+  double closingHighpassScaler = double(1);
   double delayTimeModOffset = 0;
 
   pcg64 rngNoiseRolling{0};
@@ -145,11 +148,13 @@ private:
   ExpDSREnvelope<double> envelopeHalfClosed;
   ExpSREnvelope<double> envelopeRelease;
   ExpADEnvelope<double> envelopeClose;
+  Highpass2<double> impactHighpass;
   HalfClosedNoise<double> halfClosedNoise;
+  ClosingNoise<double> closingNoise;
   double feedbackBuffer1 = 0;
   double feedbackBuffer2 = 0;
-  SerialAllpass<double, nAllpass> serialAllpass1;
-  SerialAllpass<double, nAllpass> serialAllpass2;
+  AllpassLoop<double, nAllpass> allpassLoop1;
+  AllpassLoop<double, nAllpass> allpassLoop2;
 
   double baseSampleRateKp = double(1);
   ExpSmootherLocal<double> spreaderSplit;

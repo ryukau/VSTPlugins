@@ -121,7 +121,7 @@ def extract_parameter():
     for path in Path("..").glob("**/parameter.hpp"):
         if path.parts[1] == "_dump":
             continue
-        if path.parts[1] != "GlitchSprinkler":
+        if path.parts[1] != "DoubleLoopCymbal":
             continue
         print(path)
         extract_plugin_parameter(path)

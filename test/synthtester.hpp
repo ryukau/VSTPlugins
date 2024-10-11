@@ -181,7 +181,8 @@ public:
               dsp->noteOn(info);
             } break;
             case NoteEventType::noteOff:
-              dsp->noteOff(note.id);
+              // dsp->noteOff(note.id);
+              dsp->noteOff(note.id, note.velocity);
               break;
           }
         }

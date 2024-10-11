@@ -303,7 +303,7 @@ public:
     return std::clamp(normalized, T(0), T(1));
   }
 
-  T invmapDB(T dB)
+  T invmapDB(T dB) const
   {
     T normalized = (dB - minDB) / scaleDB;
     return std::clamp(normalized, T(0), T(1));

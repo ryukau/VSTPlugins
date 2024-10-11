@@ -1,4 +1,4 @@
-// (c) 2023 Takamitsu Endo
+// (c) 2024 Takamitsu Endo
 //
 // This file is part of DoubleLoopCymbal.
 //
@@ -39,6 +39,32 @@ public:
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
 private:
+  template<Uhhyou::Style style = Uhhyou::Style::common>
+  auto addSmallKnob(
+    CCoord left,
+    CCoord top,
+    CCoord width,
+    CCoord height,
+    CCoord margin,
+    CCoord textSize,
+    std::string name,
+    ParamID tag)
+  {
+    auto knob = new Knob<style>(
+      CRect(left, top, left + height, top + height), this, tag, palette);
+    knob->setSlitWidth(2.0);
+    knob->setValueNormalized(controller->getParamNormalized(tag));
+    knob->setDefaultValue(param->getDefaultNormalized(tag));
+    frame->addView(knob);
+    addToControlMap(tag, knob);
+
+    auto offset = height + 2 * margin;
+    auto label = addLabel(
+      left + offset, top, width - offset, height, textSize, name,
+      CHoriTxtAlign::kLeftText);
+    return std::make_tuple(knob, label);
+  }
+
   ParamValue getPlainValue(ParamID id);
   bool prepareUI() override;
 };

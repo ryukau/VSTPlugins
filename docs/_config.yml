@@ -14,6 +14,8 @@ exclude:
 - manual/CombDistortion/CombDistortion_ja.md
 - manual/CubicPadSynth/CubicPadSynth_en.md
 - manual/CubicPadSynth/CubicPadSynth_ja.md
+- manual/DoubleLoopCymbal/DoubleLoopCymbal_en.md
+- manual/DoubleLoopCymbal/DoubleLoopCymbal_ja.md
 - manual/EnvelopedSine/EnvelopedSine_en.md
 - manual/EnvelopedSine/EnvelopedSine_ja.md
 - manual/EsPhaser/EsPhaser_en.md

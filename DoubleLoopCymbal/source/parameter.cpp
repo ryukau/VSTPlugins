@@ -40,7 +40,7 @@ LinearScale<double> Scales::semitone(-60.0, 60.0);
 DecibelScale<double> Scales::noteSlideTimeSecond(-100.0, 40.0, true);
 
 DecibelScale<double> Scales::noiseDecaySeconds(-100, 40, false);
-DecibelScale<double> Scales::halfClosedGain(-100.0, 0.0, true);
+DecibelScale<double> Scales::noiseGain(-100.0, 0.0, true);
 DecibelScale<double> Scales::halfClosedDensityHz(0.0, 80.0, true);
 DecibelScale<double> Scales::closingReleaseRatio(-60.0, 60.0, false);
 

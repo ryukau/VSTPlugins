@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2024-10-11" />
+      <title>DoubleLoopCymbal_en – Uhhyou Plugins</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
+  <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
+  <style>
+    :root {
+      --foreground-color: #000000;
+      --background-color: #ffffff;
+      --link-color: #0000ee;
+      --link-visited-color: #551a8b;
+      --link-active-color: #ff0000;
+      --link-hover-background-color: #ffe590;
+      --border-dark-color: #444444;
+      --border-color: #888888;
+      --border-light-color: #bbbbbb;
+      --table-odd-color: #eeeeee;
+      --code-inline-color: #705020;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --foreground-color: #dfdfdf;
+        --background-color: #202020;
+        --link-color: #dfdf2c;
+        --link-visited-color: #9fcb76;
+        --link-active-color: #20dfdf;
+        --link-hover-background-color: #203373;
+        --border-dark-color: #acacac;
+        --border-color: #797979;
+        --border-light-color: #525252;
+        --table-odd-color: #2c2c2c;
+        --code-inline-color: #8ba3c7;
+      }
+
+      img:not(.staySameInDark) {
+        filter: invert(0.8745);
+      }
+
+      h1::after {
+        filter: invert(0.8745);
+      }
+    }
+
+    body {
+      max-width: 704px;
+      margin: auto;
+      padding: 32px 8px;
+      color: var(--foreground-color);
+      background-color: var(--background-color);
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    video {
+      max-width: 100%;
+    }
+
+    details.list>summary {
+      line-height: 3em;
+    }
+
+    kbd {
+      font-family: inherit;
+      border-style: outset;
+      border-width: 1px 2px 2px 1px;
+      border-radius: 2px;
+      padding: 2px 4px;
+      margin: 2px;
+      line-height: calc(1em + 16px);
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:hover {
+      background-color: var(--link-hover-background-color);
+    }
+
+    :link {
+      color: var(--link-color);
+    }
+
+    :visited {
+      color: var(--link-visited-color);
+    }
+
+    :link:active,
+    :visited:active {
+      color: var(--link-active-color);
+    }
+
+    .header-anchor:hover {
+      color: var(--link-color);
+    }
+
+    :is(h1, h2, h3, h4, h5, h6)>:is(a:link, a:visited, a:link:active, a:visited:active) {
+      color: var(--foreground-color);
+    }
+
+    h1 {
+      padding-left: 8px;
+      vertical-align: middle;
+    }
+
+    h1::after {
+      display: inline-block;
+      background-image: url('../../img/favicon/favicon.svg');
+      content: "";
+      vertical-align: middle;
+      background-size: 128px 128px;
+      width: 128px;
+      height: 128px;
+      margin-left: 1rem;
+    }
+
+    @media all and (max-width: 704px) {
+      h1::after {
+        background-size: 2em 2em;
+        width: 2em;
+        height: 2em;
+      }
+    }
+
+    h2 {
+      border-bottom: 1px solid var(--border-dark-color);
+    }
+
+    h3 {
+      text-decoration: underline var(--border-light-color);
+      text-underline-offset: 0.5rem;
+    }
+
+    h4 {
+      text-decoration: underline dashed var(--border-light-color);
+      text-underline-offset: 0.5rem;
+      margin-bottom: 0.5em;
+    }
+
+    h5 {
+      margin-bottom: 0.5em;
+    }
+
+    h6 {
+      margin-bottom: 0.5em;
+    }
+
+    table {
+      border-spacing: 0px;
+      border-collapse: separate;
+      border-left: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      border-top: 1px solid var(--border-color);
+      border-bottom: hidden;
+    }
+
+    tr:nth-child(odd) {
+      background: var(--table-odd-color);
+    }
+
+    tr:nth-child(even) {
+      background: var(--background-color);
+    }
+
+    th {
+      height: 2em;
+      padding: 4px 1em 4px 1em;
+      background: var(--background-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th:not(:first-child) {
+      border-left: 1px solid var(--border-color);
+    }
+
+    td {
+      height: 1.5em;
+      padding: 4px 1em 4px 1em;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    td:not(:first-child) {
+      border-left: 1px solid var(--border-color);
+    }
+
+    dl {
+      padding-left: 2em;
+    }
+
+    dt {
+      font-weight: bold;
+      border-bottom: 1px dashed var(--foreground-color);
+    }
+
+    dd {
+      border-left: 1px dotted var(--foreground-color);
+      margin-left: 1em;
+      margin-bottom: 2em;
+      padding-left: 1em;
+    }
+
+    audio {
+      vertical-align: middle;
+    }
+
+    label {
+      vertical-align: middle;
+    }
+
+    :not(.sourceCode)>pre {
+      overflow: auto;
+      border: 1px solid var(--border-color);
+      padding: 8px;
+    }
+
+    div.sourceCode {
+      overflow: auto;
+      border: 1px solid var(--border-color);
+      padding: 8px;
+    }
+
+    pre>code.sourceCode>span>a:first-child::before {
+      border-right: 1px solid var(--border-color);
+      padding-right: 1em;
+      margin-right: 1em;
+      text-decoration: none;
+    }
+
+    :not(pre)>code {
+      margin-left: 0.25em;
+      margin-right: 0.25em;
+      color: var(--code-inline-color);
+    }
+
+    li {
+      margin: 8px;
+    }
+
+    summary:hover {
+      background-color: var(--table-odd-color);
+    }
+
+    header {
+      border-bottom: 1px var(--border-color) solid;
+      padding: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    footer {
+      border-top: 1px var(--border-color) solid;
+      padding: 0.5em;
+      margin-top: 1em;
+    }
+
+    code {
+      white-space: pre-wrap;
+    }
+
+    span.smallcaps {
+      font-variant: small-caps;
+    }
+
+    span.underline {
+      text-decoration: underline;
+    }
+
+    div.column {
+      display: inline-block;
+      vertical-align: top;
+      width: 50%;
+    }
+  </style>
+      </head>
+
+<body>
+    <header>
+        <p><a href="../../index.html">Back to Index</a></p>
+            <p>
+      Update: 2024-10-11
+    </p>
+            <details>
+      <summary translate="yes">Table of Contents</summary>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#doubleloopcymbal"
+        id="toc-doubleloopcymbal">DoubleLoopCymbal</a>
+        <ul>
+        <li><a href="#contact" id="toc-contact">Contact</a></li>
+        <li><a href="#installation"
+        id="toc-installation">Installation</a>
+        <ul>
+        <li><a href="#plugin" id="toc-plugin">Plugin</a></li>
+        <li><a href="#presets" id="toc-presets">Presets</a></li>
+        <li><a href="#windows-specific"
+        id="toc-windows-specific">Windows Specific</a></li>
+        <li><a href="#linux-specific" id="toc-linux-specific">Linux
+        Specific</a></li>
+        <li><a href="#macos-specific" id="toc-macos-specific">macOS
+        Specific</a>
+        <ul>
+        <li><a href="#remove-quarantine"
+        id="toc-remove-quarantine">Remove Quarantine</a></li>
+        <li><a href="#bypass-gatekeeper"
+        id="toc-bypass-gatekeeper">Bypass Gatekeeper</a></li>
+        <li><a href="#applying-codesign"
+        id="toc-applying-codesign">Applying
+        <code>codesign</code></a></li>
+        <li><a href="#reference" id="toc-reference">Reference</a></li>
+        </ul></li>
+        </ul></li>
+        <li><a href="#gui-style-configuration"
+        id="toc-gui-style-configuration">GUI Style Configuration</a>
+        <ul>
+        <li><a href="#font-options" id="toc-font-options">Font
+        Options</a></li>
+        <li><a href="#color-options" id="toc-color-options">Color
+        Options</a></li>
+        </ul></li>
+        <li><a href="#controls" id="toc-controls">Controls</a></li>
+        <li><a href="#caution" id="toc-caution">Caution</a></li>
+        <li><a href="#block-diagram" id="toc-block-diagram">Block
+        Diagram</a></li>
+        <li><a href="#parameters" id="toc-parameters">Parameters</a>
+        <ul>
+        <li><a href="#mix-options" id="toc-mix-options">Mix &amp;
+        Options</a></li>
+        <li><a href="#tuning" id="toc-tuning">Tuning</a></li>
+        <li><a href="#velocity-map" id="toc-velocity-map">Velocity
+        Map</a></li>
+        <li><a href="#impact-noise" id="toc-impact-noise">Impact
+        Noise</a></li>
+        <li><a href="#half-closed-noise" id="toc-half-closed-noise">Half
+        Closed Noise</a></li>
+        <li><a href="#closing-noise" id="toc-closing-noise">Closing
+        Noise</a></li>
+        <li><a href="#allpass-loop" id="toc-allpass-loop">Allpass
+        Loop</a></li>
+        <li><a href="#filter" id="toc-filter">Filter</a></li>
+        </ul></li>
+        <li><a href="#change-log" id="toc-change-log">Change
+        Log</a></li>
+        <li><a href="#old-versions" id="toc-old-versions">Old
+        Versions</a></li>
+        <li><a href="#license" id="toc-license">License</a>
+        <ul>
+        <li><a href="#about-vst" id="toc-about-vst">About VST</a></li>
+        </ul></li>
+        </ul></li>
+        </ul>
+      </nav>
+    </details>
+      </header>
+  <h1 id="doubleloopcymbal"><a href="#doubleloopcymbal"
+  class="header-anchor" aria-hidden="true">DoubleLoopCymbal</a></h1>
+  <p><img src="img/DoubleLoopCymbal.png" /></p>
+  <p>DoubleLoopCymbal is a synthesizer that imitates a sound of hi-hat.
+  Metallic texture comes from 2 all-pass loops.</p>
+  <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.63.0/DoubleLoopCymbal_0.1.0.zip">Download
+  DoubleLoopCymbal 0.1.0 <code>full</code> - VST 3 (github.com)</a> <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="30px"
+  style="display: inline-block; vertical-align: middle;"></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.63.0/DoubleLoopCymbal_0.1.0_macOS.zip">Download
+  DoubleLoopCymbal 0.1.0 <code>macOS</code> - VST 3 (github.com)</a>
+  <img
+  src="img/VST_Compatible_Logo_Steinberg_negative.svg"
+  alt="VST compatible logo."
+  width="30px"
+  style="display: inline-block; vertical-align: middle;"></li>
+  </ul>
+  <p><strong>Note</strong>: Presets produce the expected sound only if
+  the sampling rate is 48000 Hz.</p>
+  <p><code>full</code> package contains following builds.</p>
+  <ul>
+  <li>Windows (x86_64)</li>
+  <li>Linux (x86_64)</li>
+  <li>macOS (Universal 2)</li>
+  </ul>
+  <p>Linux build is built on Ubuntu 24.04. If you are using distribution
+  other than Ubuntu 24.04, plugin will not likely to run. In this case,
+  please take a look at <a
+  href="https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md">build
+  instruction</a>.</p>
+  <p><code>macOS</code> package is recommended for macOS user. I can’t
+  purchase Apple Developer Program, therefore installation requires a
+  workaround to bypass Gatekeeper. Details of workaround are written in
+  <a href="#macos-specific">Installation -&gt; macOS Specific</a>
+  section.</p>
+  <h2 id="contact"><a href="#contact" class="header-anchor"
+  aria-hidden="true">Contact</a></h2>
+  <p>Feel free to contact me on <a
+  href="https://github.com/ryukau/VSTPlugins/commits/master">GitHub
+  repository</a> or <code>ryukau@gmail.com.</code></p>
+  <p>You can fund the development through <a
+  href="https://www.paypal.com/paypalme/ryukau">paypal.me/ryukau</a>.</p>
+  <h2 id="installation"><a href="#installation" class="header-anchor"
+  aria-hidden="true">Installation</a></h2>
+  <h3 id="plugin"><a href="#plugin" class="header-anchor"
+  aria-hidden="true">Plugin</a></h3>
+  <p>Move <code>*.vst3</code> directory to:</p>
+  <ul>
+  <li><code>/Program Files/Common Files/VST3/</code> for Windows.</li>
+  <li><code>$HOME/.vst3/</code> for Linux.</li>
+  <li><code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> for
+  macOS.</li>
+  </ul>
+  <p>DAW may provides additional VST3 directory. For more information,
+  please refer to the manual of the DAW.</p>
+  <h3 id="presets"><a href="#presets" class="header-anchor"
+  aria-hidden="true">Presets</a></h3>
+  <p><strong>Notice</strong>: Some plugins don’t have presets provided
+  by Uhhyou Plugins.</p>
+  <p>Presets are included in the plugin package linked at the top of
+  this page. To install presets, follow the steps below.</p>
+  <ol type="1">
+  <li>Download plugin from a link at the top of this page.</li>
+  <li>Extract downloaded zip file.</li>
+  <li>Open <code>presets</code> directory placed in extracted
+  package.</li>
+  <li>Move <code>Uhhyou</code> directory into an OS specific preset
+  directory (see below).</li>
+  </ol>
+  <p>Below is a list of preset directories for each OS.</p>
+  <ul>
+  <li>Windows :
+  <code>/Users/$USERNAME/Documents/VST3 Presets</code></li>
+  <li>Linux : <code>$HOME/.vst3/presets</code></li>
+  <li>macOS : <code>/Users/$USERNAME/Library/Audio/Presets</code></li>
+  </ul>
+  <p>Preset directory name must be the same as the plugin. If preset
+  directory does not exist, create it.</p>
+  <ul>
+  <li><a
+  href="https://steinbergmedia.github.io/vst3_dev_portal/pages/Technical+Documentation/Locations+Format/Preset+Locations.html">Preset
+  Locations - VST 3 Developer Portal</a></li>
+  </ul>
+  <h3 id="windows-specific"><a href="#windows-specific"
+  class="header-anchor" aria-hidden="true">Windows Specific</a></h3>
+  <p>If DAW doesn’t recognize the plugin, try installing C++
+  redistributable (<code>vc_redist.x64.exe</code>). Installer can be
+  found in the link below.</p>
+  <ul>
+  <li><a
+  href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">The
+  latest supported Visual C++ downloads</a></li>
+  </ul>
+  <h3 id="linux-specific"><a href="#linux-specific"
+  class="header-anchor" aria-hidden="true">Linux Specific</a></h3>
+  <p>On Ubuntu 24.04, those packages are required.</p>
+  <div class="sourceCode" id="cb1"><pre
+  class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libxcb-cursor0  libxkbcommon-x11-0</span></code></pre></div>
+  <p>If DAW doesn’t recognize the plugin, take a look at
+  <code>Package Requirements</code> section of the link below and make
+  sure all the VST3 related package is installed.</p>
+  <ul>
+  <li><a
+  href="https://steinbergmedia.github.io/vst3_doc/vstgui/html/page_setup.html">VSTGUI:
+  Setup</a></li>
+  </ul>
+  <p>REAPER on Linux may not recognize the plugin. A workaround is to
+  delete a file <code>~/.config/REAPER/reaper-vstplugins64.ini</code>
+  and restart REAPER.</p>
+  <h3 id="macos-specific"><a href="#macos-specific"
+  class="header-anchor" aria-hidden="true">macOS Specific</a></h3>
+  <p><strong>Important</strong>: <code>full</code> package is not
+  confirmed working. When using <code>full</code>, try removing
+  following files.</p>
+  <ul>
+  <li><code>Contents/Resources/Documentation</code></li>
+  <li><code>Contents/x86_64-linux</code></li>
+  <li><code>Contents/x86_64-win</code></li>
+  </ul>
+  <p><code>macOS</code> package doesn’t contain above files. Also, all
+  packages are in “ad-hoc signing” state set by <code>codesign</code>
+  command.</p>
+  <h4 id="remove-quarantine"><a href="#remove-quarantine"
+  class="header-anchor" aria-hidden="true">Remove Quarantine</a></h4>
+  <p>When trying to run plugin first time, following message may appear
+  on macOS.</p>
+  <pre><code>&lt;PluginName&gt;.vst3 is damaged and can&#39;t be opened. You should move it to the Trash.</code></pre>
+  <p>In this case, open terminal and try running one or both of
+  following command to unzipped <code>.vst3</code> directory. Replace
+  <code>/path/to/PluginName.vst3</code> according to your install
+  location.</p>
+  <div class="sourceCode" id="cb3"><pre
+  class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rd</span> com.apple.quarantine /path/to/PluginName.vst3</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-rc</span> /path/to/PluginName.vst3</span></code></pre></div>
+  <h4 id="bypass-gatekeeper"><a href="#bypass-gatekeeper"
+  class="header-anchor" aria-hidden="true">Bypass Gatekeeper</a></h4>
+  <p>Plugin may be considered as unsigned/un-notarized application. In
+  this case, open System Preferences, go to Security &amp; Privacy →
+  General, then click the Open Anyway button. The offcial Apple help
+  page linked below has screenshots for the procedure. See “If you want
+  to open an app that hasn’t been notarized or is from an unidentified
+  developer” section.</p>
+  <ul>
+  <li><a href="https://support.apple.com/en-us/HT202491">Safely open
+  apps on your Mac - Apple Support</a></li>
+  </ul>
+  <p>If the plugin is still not working, try changing install location
+  to <code>/Library/Audio/Plug-ins/VST3/</code> or
+  <code>/Users/$USERNAME/Library/Audio/Plug-ins/VST3/</code> whichever
+  still haven’t tried.</p>
+  <p>If all the above methods do not work, try following the steps
+  below.</p>
+  <ol type="1">
+  <li>Open terminal and run
+  <code>sudo spctl --master-disable</code>.</li>
+  <li>Go to System Preferences → Security and Privacy → General → Allow
+  apps downloaded from, then select “Anywhere”.</li>
+  </ol>
+  <p>Beware that steps above degrades security of your system. To revert
+  the settings, follow the steps below.</p>
+  <ol type="1">
+  <li>Go to System Preferences → Security and Privacy → General → Allow
+  apps downloaded from, then select option to “App Store and identified
+  developers”.</li>
+  <li>Open terminal and run
+  <code>sudo spctl --master-enable</code>.</li>
+  </ol>
+  <h4 id="applying-codesign"><a href="#applying-codesign"
+  class="header-anchor" aria-hidden="true">Applying
+  <code>codesign</code></a></h4>
+  <p><strong>Note</strong> This section may not relevant to
+  <code>macOS</code> packages. However it’s not verified. (<a
+  href="https://github.com/ryukau/VSTPlugins/issues/27">GitHub
+  issue</a>)</p>
+  <p>To use <code>full</code> package, following command might be
+  used.</p>
+  <div class="sourceCode" id="cb4"><pre
+  class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> codesign <span class="at">--force</span> <span class="at">--deep</span> <span class="at">-s</span> <span class="at">-</span> /path/to/PluginName.vst3</span></code></pre></div>
+  <p><code>codesign</code> might not be available without installing <a
+  href="https://developer.apple.com/xcode/">Xcode</a>.</p>
+  <h4 id="reference"><a href="#reference" class="header-anchor"
+  aria-hidden="true">Reference</a></h4>
+  <ul>
+  <li><a href="https://support.apple.com/en-us/HT202491">Safely open
+  apps on your Mac - Apple Support</a></li>
+  <li><a
+  href="https://stackoverflow.com/questions/66891065/libprism-sw-dylib-cannot-be-opened-because-the-developer-cannot-be-verified-o">java
+  - “libprism_sw.dylib” cannot be opened because the developer cannot be
+  verified. on mac JAVAFX - Stack Overflow</a></li>
+  <li><a
+  href="https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/">How
+  to Fix App “is damaged and can’t be opened. You should move it to the
+  Trash” Error on Mac</a></li>
+  <li><a
+  href="https://web.archive.org/web/20221223004334/https://www.vennaudio.com/allowing-unsigned-un-notarized-applications-plugins-in-mac-os/">Allowing
+  unsigned/un-notarized applications/plugins in Mac OS | Venn
+  Audio</a></li>
+  </ul>
+  <h2 id="gui-style-configuration"><a href="#gui-style-configuration"
+  class="header-anchor" aria-hidden="true">GUI Style
+  Configuration</a></h2>
+  <p>At first time, create color config file to:</p>
+  <ul>
+  <li><code>/Users/USERNAME/AppData/Roaming/UhhyouPlugins/style/style.json</code>
+  on Windows.</li>
+  <li><code>$XDG_CONFIG_HOME/UhhyouPlugins/style/style.json</code> on
+  Linux.
+  <ul>
+  <li>If <code>$XDG_CONFIG_HOME</code> is empty, make
+  <code>$HOME/.config/UhhyouPlugins/style/style.json</code>.</li>
+  </ul></li>
+  <li><code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code>
+  on macOS.</li>
+  </ul>
+  <p><code>style.json</code> will be loaded for each time a plugin
+  window opens.</p>
+  <p>Several color themes are available on the link below. To use, copy
+  the text to <code>style.json</code>.</p>
+  <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/tree/master/package/style/themes">VSTPlugins/package/style/themes
+  at master · ryukau/VSTPlugins</a></li>
+  </ul>
+  <p>Below is an example of <code>style.json</code>.</p>
+  <div class="sourceCode" id="cb5"><pre
+  class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontFamily&quot;</span>        <span class="fu">:</span> <span class="st">&quot;Tinos&quot;</span>    <span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontBold&quot;</span>          <span class="fu">:</span> <span class="kw">true</span>       <span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontItalic&quot;</span>        <span class="fu">:</span> <span class="kw">true</span>       <span class="fu">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foreground&quot;</span>        <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;background&quot;</span>        <span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;boxBackground&quot;</span>     <span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;border&quot;</span>            <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderCheckbox&quot;</span>    <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderLabel&quot;</span>       <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;unfocused&quot;</span>         <span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightMain&quot;</span>     <span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightAccent&quot;</span>   <span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightButton&quot;</span>   <span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightWarning&quot;</span>  <span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlay&quot;</span>           <span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlayHighlight&quot;</span>  <span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+  <h3 id="font-options"><a href="#font-options" class="header-anchor"
+  aria-hidden="true">Font Options</a></h3>
+  <p>Following is a list of font options.</p>
+  <ul>
+  <li><code>fontFamily</code>: Font family name.</li>
+  <li><code>fontBold</code>: Enable <strong>bold</strong> style when
+  <code>true</code>, disable when <code>false</code>.</li>
+  <li><code>fontItalic</code>: Enable <em>italic</em> style when
+  <code>true</code>, disable when <code>false</code>.</li>
+  </ul>
+  <p>System font can be used as <code>fontFamily</code>. To use
+  different fonts for different plugins, place <code>*.ttf</code> file
+  into custom font path:
+  <code>*.vst3/Contents/Resources/Fonts</code>.</p>
+  <p><strong>Notice</strong>: If the combination of
+  <code>fontFamily</code>, <code>fontBold</code>,
+  <code>fontItalic</code> does not exist in custom font path, default
+  font of VSTGUI is used.</p>
+  <p>If <code>fontFamily</code> is set to empty string <code>""</code>,
+  then <a
+  href="https://fonts.google.com/specimen/Tinos"><code>"Tinos"</code></a>
+  is used as fallback. If the length is greater than 1 and the font
+  family name doesn’t exist, default font of VSTGUI is used.</p>
+  <p>Styles other than bold, italic or bold-italic are not supported by
+  VSTGUI. For example, “Thin”, “Light”, “Medium”, and “Black” weights
+  cannot be used.</p>
+  <h3 id="color-options"><a href="#color-options" class="header-anchor"
+  aria-hidden="true">Color Options</a></h3>
+  <p>Hex color codes are used.</p>
+  <ul>
+  <li>6 digit color is RGB.</li>
+  <li>8 digit color is RGBA.</li>
+  </ul>
+  <p>First letter <code>#</code> is conventional. Plugins ignore the
+  first letter of color code, thus <code>?102938</code>,
+  <code>\n11335577</code> are valid.</p>
+  <p>Do not use characters outside of <code>0-9a-f</code> for color
+  value.</p>
+  <p>Following is a list of color options. If an option is missing,
+  default color will be used.</p>
+  <ul>
+  <li><code>foreground</code>: Text color.</li>
+  <li><code>foregroundButtonOn</code>: Text color of active toggle
+  button. Recommend to use the same value of <code>foreground</code> or
+  <code>boxBackground</code>.</li>
+  <li><code>foregroundInactive</code>: Text color of inactive
+  components. Currently, only used for TabView.</li>
+  <li><code>background</code>: Background color.</li>
+  <li><code>boxBackground</code>: Background color of inside of box
+  shaped components (Barbox, Button, Checkbox, OptionMenu, TextKnob,
+  VSlider).</li>
+  <li><code>border</code>: Border color of box shaped components.</li>
+  <li><code>borderCheckbox</code>: Border color of CheckBox.</li>
+  <li><code>borderLabel</code>: Line color of parameter section
+  label.</li>
+  <li><code>unfocused</code>: Color to fill unfocused components.
+  Currently, only used for knobs.</li>
+  <li><code>highlightMain</code>: Color to indicate focus is on a
+  component. Highlight colors are also used for value of slider
+  components (BarBox and VSlider).</li>
+  <li><code>highlightAccent</code>: Same as <code>highlightMain</code>.
+  Used for cosmetics.</li>
+  <li><code>highlightButton</code>: Color to indicate focus is on a
+  button.</li>
+  <li><code>highlightWarning</code>: Same as <code>highlightMain</code>,
+  but only used for parameters which requires extra caution.</li>
+  <li><code>overlay</code>: Overlay color. Used to overlay texts and
+  indicators.</li>
+  <li><code>overlayHighlight</code>: Overlay color to highlight current
+  focus.</li>
+  </ul>
+  <h2 id="controls"><a href="#controls" class="header-anchor"
+  aria-hidden="true">Controls</a></h2>
+  <p><kbd>Right Click</kbd> on the controls pops up a context menu
+  provided by DAW.</p>
+  <p>Knob and slider provides following controls:</p>
+  <ul>
+  <li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd>: Reset value.</li>
+  <li><kbd>Shift</kbd> + <kbd>Left Drag</kbd>: Fine adjustment.</li>
+  <li><kbd>Middle Click</kbd> : Rotate through minimum, default and
+  maximum value.</li>
+  <li><kbd>Shift</kbd> + <kbd>Middle Click</kbd> : Take floor of current
+  value.
+  <ul>
+  <li><strong>Note</strong>: For decibel (<code>dB</code>) parameters,
+  floor is applied after the value is converted to amplitude.</li>
+  </ul></li>
+  </ul>
+  <h2 id="caution"><a href="#caution" class="header-anchor"
+  aria-hidden="true">Caution</a></h2>
+  <p>Output can be loud. Always use with limiter.</p>
+  <h2 id="block-diagram"><a href="#block-diagram" class="header-anchor"
+  aria-hidden="true">Block Diagram</a></h2>
+  <p>If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd>
+  or “View Image” on right click menu to scale.</p>
+  <p>Diagram only shows overview. It’s not exact implementation.</p>
+  <p><img src="img/DoubleLoopCymbal.svg" /></p>
+  <h2 id="parameters"><a href="#parameters" class="header-anchor"
+  aria-hidden="true">Parameters</a></h2>
+  <p>Characters inside of square brackets [] represents unit. Following
+  is a list of units used in DoubleLoopCymbal.</p>
+  <ul>
+  <li>[dB] : Decibel.</li>
+  <li>[s] : Second.</li>
+  <li>[Hz] : Frequency in Hertz.</li>
+  <li>[sample] : Time in samples. 1 sample is
+  <code>1 / (sampling rate)</code> seconds.</li>
+  <li>[st.] : Ssemitone. 1 semitone is <code>1 / 12</code> octave.</li>
+  </ul>
+  <h3 id="mix-options"><a href="#mix-options" class="header-anchor"
+  aria-hidden="true">Mix &amp; Options</a></h3>
+  <dl>
+  <dt>Output [dB]</dt>
+  <dd>
+  <p>Output gain.</p>
+  </dd>
+  <dt>2x Sampling</dt>
+  <dd>
+  <p>Enables 2x oversampling when checked.</p>
+  </dd>
+  <dt>Release</dt>
+  <dd>
+  <p>When checked,</p>
+  <ul>
+  <li>The sound will not stop after note-off.</li>
+  <li>All settings in the <code>Closing Noise</code> section will be
+  ignored.</li>
+  </ul>
+  </dd>
+  <dt>Fixed Noise</dt>
+  <dd>
+  <p>When checked, fluttering of sound will be reduced.</p>
+  <p>Internally, the random number seed used to synthesize the noise
+  signal will be reset at each note-on.</p>
+  </dd>
+  <dt>Spread</dt>
+  <dd>
+  <p>Amount of stereo spreading. More spreading when the value is close
+  to 1.</p>
+  </dd>
+  <dt>Split [Hz]</dt>
+  <dd>
+  <p>Crossover frequency of stereo spreader. Spreading effect is reduced
+  below this frequency.</p>
+  </dd>
+  <dt>External Input [dB]</dt>
+  <dd>
+  <p>External input gain.</p>
+  <p>DoubleLoopCymbal can be used as an FX to add metallic texture to
+  the external input.</p>
+  <p><strong>Important</strong>: DoubleLoopCymbal requires note events
+  even when using as an effector. External input is muted until a note
+  is played.</p>
+  <p>Note events are used for expressions similar to opening and closing
+  of a hi-hat. An example setup is to play a MIDI keyboard with one hand
+  and tap on a desk with the other hand to produce noise that is picked
+  up by a microphone.</p>
+  <p>When using a microphone as the source of external input, the
+  external input is better to be equalized. For example, tapping on a
+  desk with hands may contain too much low frequencies for
+  DoubleLoopCymbal. If it is a collision of hard materials such as a
+  drum stick and a plastic plate, it may be used without
+  equalization.</p>
+  <p>When replacing the excitation signal (noise) with the external
+  input, set all the following parameters to minimum (-inf dB).</p>
+  <ul>
+  <li><code>Impact Noise</code> -&gt; <code>Gain</code></li>
+  <li><code>Half Closed Noise</code> -&gt; <code>Gain</code></li>
+  <li><code>Closing Noise</code> -&gt; <code>Gain</code></li>
+  </ul>
+  <p>To route external inputs and note events, please refer to your
+  DAW’s manual.</p>
+  </dd>
+  </dl>
+  <h3 id="tuning"><a href="#tuning" class="header-anchor"
+  aria-hidden="true">Tuning</a></h3>
+  <dl>
+  <dt>Note -&gt; Pitch</dt>
+  <dd>
+  <p>Amount of pitch modulation applied from the pitch of a note-on
+  event.</p>
+  <p>Regardless of the value of <code>Note -&gt; Pitch</code>, the
+  amount of pitch modulation will be 0 when the pitch is A3 (57 in MIDI
+  note number).</p>
+  <p>When the value of <code>Note -&gt; Pitch</code> is 0.0, the pitch
+  of the note is ignored.</p>
+  <p>When the value of <code>Note -&gt; Pitch</code> is 1.0, the pitch
+  of a note is directly applied to the pitch of the synthesizer. Some
+  drum sounds do not have a clear pitch, so it may sound out of tune in
+  some cases. Also, higher the pitch, more out of tune it becomes. This
+  is because delays doesn’t use interpolations to be more efficient, and
+  to avoid lowpass in feedback path.</p>
+  <p>When the value of <code>Note -&gt; Pitch</code> is -1.0, the pitch
+  is reversed.</p>
+  </dd>
+  <dt>Transpose [st.]</dt>
+  <dd>
+  <p>Transposes pitch of note in semitone steps.</p>
+  <p><strong>Note</strong>: No effect when <code>Note -&gt; Pitch</code>
+  is 0.0.</p>
+  </dd>
+  <dt>Pitch Bend Range [st.]</dt>
+  <dd>
+  <p>Pitch bend range in semitones.</p>
+  </dd>
+  <dt>Slide Time [s]</dt>
+  <dd>
+  <p>Pitch slide time.</p>
+  <p>The pitch starts sliding when 2 or more notes are played at the
+  same time.</p>
+  </dd>
+  </dl>
+  <h3 id="velocity-map"><a href="#velocity-map" class="header-anchor"
+  aria-hidden="true">Velocity Map</a></h3>
+  <p>Below is a list of abbreviations used in this section.</p>
+  <ul>
+  <li><code>Imp.</code> -&gt; Impulse Noise</li>
+  <li><code>HC</code> -&gt; Half Closed Noise</li>
+  <li><code>Cl.</code> -&gt; Closing Noise</li>
+  <li><code>AP</code> -&gt; Allpass Loop</li>
+  </ul>
+  <blockquote>
+  <p>Imp. Gain [dB]</p>
+  </blockquote>
+  <p>: Amount of how much a note-on velocity changes the gain of impact
+  noises.</p>
+  <pre><code>When playing on a MIDI keyboard, it may become easier to play by narrowing the range to around -30 dB.</code></pre>
+  <blockquote>
+  <p>Imp. Highpass</p>
+  </blockquote>
+  <p>: Amount of how much a note-on velocity changes
+  <code>Highpass</code> in <code>Impact Noise</code>.</p>
+  <pre><code>- If the value is greater than 0, higher velocity leads to higher cutoff.
+- If the value is less than 0, higher velocity leads to lower cutoff.</code></pre>
+  <blockquote>
+  <p>HC Density</p>
+  </blockquote>
+  <p>: Amount of how much a note-on velocity changes
+  <code>Density</code> in <code>Half Closed Noise</code>.</p>
+  <pre><code>`&gt; Half Closed Highpass` and `&gt; Modulation` are there to make the sound more like a crash cymbal at higher velocities. However, it does not sound like a real crash cymbal in most cases.
+
+`&gt; Half Closed Density` has little effect when `Decay` in `Half Closed Noise` is short.</code></pre>
+  <blockquote>
+  <p>HC Highpass</p>
+  </blockquote>
+  <p>: Amount of how much a note-on velocity changes
+  <code>Highpass</code> in <code>Half Closed Noise</code>.</p>
+  <dl>
+  <dt>Note-off Velocity</dt>
+  <dd>
+  <p>Type of velocity used for hi-hat closing.</p>
+  <p>When turned on, note-off velocity is used. When turned off, note-on
+  velocity is used. Below is a list of parameters which is affected by
+  <code>Note-off Velocity</code>.</p>
+  <ul>
+  <li><code>&gt; Cl. Gain</code></li>
+  <li><code>&gt; Cl. Duration</code></li>
+  <li><code>&gt; Cl. Highpass</code></li>
+  </ul>
+  </dd>
+  <dt>&gt; Cl. Gain [dB]</dt>
+  <dd>
+  <p>Amount of how much a velocity changes <code>Gain</code> in
+  <code>Closing Noise</code>.</p>
+  </dd>
+  <dt>&gt; Cl. Release</dt>
+  <dd>
+  <p>Amount of how much a velocity changes <code>Release Ratio</code> in
+  <code>Closing Noise</code>.</p>
+  </dd>
+  <dt>&gt; Cl. Highpass</dt>
+  <dd>
+  <p>Amount of how much a note-on velocity changes <code>Highpass</code>
+  in <code>Closing Noise</code>.</p>
+  </dd>
+  <dt>&gt; AP Modulation</dt>
+  <dd>
+  <p>Amount of how much a note-on velocity changes
+  <code>Modulation</code> in <code>Allpass Loop</code>.</p>
+  </dd>
+  </dl>
+  <h3 id="impact-noise"><a href="#impact-noise" class="header-anchor"
+  aria-hidden="true">Impact Noise</a></h3>
+  <p>Impact noise imitates collision of a stick with a cymbal.</p>
+  <dl>
+  <dt>Seed</dt>
+  <dd>
+  <p><code>Seed</code> can dramatically change the overall texture.</p>
+  </dd>
+  <dt>Texture Mix</dt>
+  <dd>
+  <p>Ratio of mixing of 2 noises. One random number sequance is fixed
+  for each note. Another sequence changes for each note.</p>
+  <p>When the value is close to 1.0, fluttering of sound will be
+  reduced. It has a similar effect to <code>Fixed Noise</code>, except
+  that it does not affect <code>Half Closed Noise</code> and
+  <code>Closing Noise</code>.</p>
+  </dd>
+  <dt>Gain [dB]</dt>
+  <dd>
+  <p>Gain of noise.</p>
+  </dd>
+  <dt>Decay [s]</dt>
+  <dd>
+  <p>Decay time of noise.</p>
+  </dd>
+  <dt>Highpass [Hz]</dt>
+  <dd>
+  <p>Cutoff frequency of high-pass that is applied to noise.</p>
+  </dd>
+  </dl>
+  <h3 id="half-closed-noise"><a href="#half-closed-noise"
+  class="header-anchor" aria-hidden="true">Half Closed Noise</a></h3>
+  <p>Half closed noise imitates texture of half-closed hi-hat.</p>
+  <dl>
+  <dt>Gain [dB]</dt>
+  <dd>
+  <p>Gain of noise.</p>
+  </dd>
+  <dt>Decay [s]</dt>
+  <dd>
+  <p>Decay time of noise.</p>
+  </dd>
+  <dt>Sustain [dB]</dt>
+  <dd>
+  <p>Gain of noise after the time specified by <code>Decay</code> has
+  elapsed.</p>
+  </dd>
+  <dt>Pulse Duration [s]</dt>
+  <dd>
+  <p>Decay time of noise per collision.</p>
+  <p>When the value of <code>Pulse Duration</code> and
+  <code>Density</code> ​​are both small, a rattling texture is
+  produced.</p>
+  </dd>
+  <dt>Density [Hz]</dt>
+  <dd>
+  <p>Collision frequency.</p>
+  <p>Freqeuency here is how many collisions are likely to happen within
+  a duration (probabilistic frequency), rather than a frequency of a
+  musical tone (oscillation frequency).</p>
+  <p>When <code>Density</code> is high, the texture becomes more like a
+  rattling with a longer collision interval. When the value is small,
+  the texture becomes more like a hiss.</p>
+  </dd>
+  <dt>Highpass [Hz]</dt>
+  <dd>
+  <p>Cutoff frequency of high-pass that is applied to noise.</p>
+  </dd>
+  </dl>
+  <h3 id="closing-noise"><a href="#closing-noise" class="header-anchor"
+  aria-hidden="true">Closing Noise</a></h3>
+  <p>Closing noise imitates closing of a hi-hat. Closing is performed
+  only when <code>Release</code> is unchecked, which in the
+  <code>Mix &amp; Options</code> section.</p>
+  <dl>
+  <dt>Gain [dB]</dt>
+  <dd>
+  <p>Gain of noise.</p>
+  </dd>
+  <dt>Attack [s]</dt>
+  <dd>
+  <p>Time to reach maximum amplitude of noise.</p>
+  <p>Increasing <code>Attack</code> also increases the release time and
+  reduces the maximum amplitude.</p>
+  </dd>
+  <dt>Release Ratio</dt>
+  <dd>
+  <p>Release time of noise.</p>
+  <p><strong>Caution</strong>: When <code>Attack</code> is short,
+  increasing <code>Release Ratio</code> can produce loud signal.</p>
+  </dd>
+  <dt>Highpass [Hz]</dt>
+  <dd>
+  <p>Cutoff frequency of high-pass that is applied to noise.</p>
+  </dd>
+  </dl>
+  <h3 id="allpass-loop"><a href="#allpass-loop" class="header-anchor"
+  aria-hidden="true">Allpass Loop</a></h3>
+  <p>Metallic texture can be adjusted in this section. An allpass loop
+  is more like a loop of wire rather than a plate. So it sounds more
+  like a triangle rather than a cymbal.</p>
+  <dl>
+  <dt>Character</dt>
+  <dd>
+  <p>Adjusts texture by changing internal delay time.</p>
+  <p>When the value is 0, the pitch becomes clear. Fixed preset delay
+  times are used in this case.</p>
+  <p>When the value is 1, the pitch becomes unclear. Delay times are
+  randomly set from <code>Seed</code> in <code>Impact Noise</code>.</p>
+  </dd>
+  <dt>Pitch Ratio [st.]</dt>
+  <dd>
+  <p>Offset of pitch between 2 allpass loops.</p>
+  <p>Only the delay times in second allpass loop will be changed.</p>
+  </dd>
+  <dt>Modulation [sample]</dt>
+  <dd>
+  <p>Modulation of delay time from feedback signal.</p>
+  <p><strong>Caution</strong>: Feedback may cause loud noises when
+  <code>Modulation</code> is non-zero.</p>
+  </dd>
+  <dt>Delay Count 1</dt>
+  <dd>
+  <p>Number of delays in first allpass loop.</p>
+  </dd>
+  <dt>Delay Count 2</dt>
+  <dd>
+  <p>Number of delays in second allpass loop.</p>
+  </dd>
+  <dt>Feed 1</dt>
+  <dd>
+  <p>Allpass filter coefficients for first allpass loop.</p>
+  <p><code>Feed*</code> parameters works similar to the feedback of a
+  delay effect.</p>
+  <p>When the value is close to 1 or -1, the sound decays slower. When
+  the value is exactly 1 or exactly -1, the sound sustains and do not
+  decay.</p>
+  </dd>
+  <dt>Feed 2</dt>
+  <dd>
+  <p>Allpass filter coefficients for second allpass loop.</p>
+  </dd>
+  <dt>Mix Spike</dt>
+  <dd>
+  <p>Mixing ratio of noise.</p>
+  <p><code>Mix Spike</code> works similar to dry-wet ratio of a
+  reverb.</p>
+  <p>When the value is 0, the raw noise signal almost disappears. When
+  the value is 1, the raw noise signal is summed together with the
+  output from allpass loops.</p>
+  </dd>
+  <dt>Mix Alt. Sign</dt>
+  <dd>
+  <p>Adjusts the texture of output from allpass loop.</p>
+  <p>When the value is 0, the allpass outputs in a loop will be simply
+  summed together.</p>
+  <pre><code>loopOutput = ap1 + ap2 + ap3 + ap4 + ap5 + ...</code></pre>
+  <p>When the value is 1, the signs are flipped for each allpass.</p>
+  <pre><code>loopOutput = ap1 - ap2 + ap3 - ap4 + ap5 - ...</code></pre>
+  </dd>
+  </dl>
+  <h3 id="filter"><a href="#filter" class="header-anchor"
+  aria-hidden="true">Filter</a></h3>
+  <p>Settings related to the filters in the all-pass loop.</p>
+  <dl>
+  <dt>High Shelf Cutoff [Hz]</dt>
+  <dd>
+  <p>Cutoff frequency of high shelf filter.</p>
+  <p>To produce cymbal sounds, set <code>High Shelf Cutoff</code> to
+  around 10000 Hz, and <code>High Shelf Gain</code> to between -1 and 0
+  dB.</p>
+  </dd>
+  <dt>High Shelf Gain [dB]</dt>
+  <dd>
+  <p>Gain of high shelf filter.</p>
+  </dd>
+  <dt>Low Shelf Cutoff [Hz]</dt>
+  <dd>
+  <p>Cutoff frequency of low shelf filter.</p>
+  </dd>
+  <dt>Low Shelf Gain [dB]</dt>
+  <dd>
+  <p>Gain of low shelf filter.</p>
+  <p><strong>Caution</strong>: When the value is set to 0 dB, direct
+  current may appear.</p>
+  </dd>
+  </dl>
+  <h2 id="change-log"><a href="#change-log" class="header-anchor"
+  aria-hidden="true">Change Log</a></h2>
+  <ul>
+  <li>0.1.0
+  <ul>
+  <li>Initial release.</li>
+  </ul></li>
+  </ul>
+  <h2 id="old-versions"><a href="#old-versions" class="header-anchor"
+  aria-hidden="true">Old Versions</a></h2>
+  <p>N/A.</p>
+  <h2 id="license"><a href="#license" class="header-anchor"
+  aria-hidden="true">License</a></h2>
+  <p>DoubleLoopCymbal is licensed under GPLv3. Complete licenses are
+  linked below.</p>
+  <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/tree/master/License">https://github.com/ryukau/VSTPlugins/tree/master/License</a></li>
+  </ul>
+  <p>If the link above doesn’t work, please send email to
+  <code>ryukau@gmail.com</code>.</p>
+  <h3 id="about-vst"><a href="#about-vst" class="header-anchor"
+  aria-hidden="true">About VST</a></h3>
+  <p>VST is a trademark of Steinberg Media Technologies GmbH, registered
+  in Europe and other countries.</p>
+
+  <footer>
+        <p><a href="../../index.html">Back to Index</a></p>
+      </footer>
+  </body>
+
+</html>
