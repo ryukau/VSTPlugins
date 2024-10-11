@@ -331,7 +331,7 @@
     "id": 41,
     "name": "polynomialPointY0",
     "type": "d",
-    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(SomeDSP::twopi * ratio))",
+    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(double(2) * std::numbers::pi_v<double> * ratio))",
     "scale": "Scales::polynomialPointY",
     "flags": "Info::kCanAutomate"
   },
@@ -339,7 +339,7 @@
     "id": 42,
     "name": "polynomialPointY1",
     "type": "d",
-    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(SomeDSP::twopi * ratio))",
+    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(double(2) * std::numbers::pi_v<double> * ratio))",
     "scale": "Scales::polynomialPointY",
     "flags": "Info::kCanAutomate"
   },
@@ -347,7 +347,7 @@
     "id": 43,
     "name": "polynomialPointY2",
     "type": "d",
-    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(SomeDSP::twopi * ratio))",
+    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(double(2) * std::numbers::pi_v<double> * ratio))",
     "scale": "Scales::polynomialPointY",
     "flags": "Info::kCanAutomate"
   },
@@ -355,7 +355,7 @@
     "id": 44,
     "name": "polynomialPointY3",
     "type": "d",
-    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(SomeDSP::twopi * ratio))",
+    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(double(2) * std::numbers::pi_v<double> * ratio))",
     "scale": "Scales::polynomialPointY",
     "flags": "Info::kCanAutomate"
   },
@@ -363,7 +363,7 @@
     "id": 45,
     "name": "polynomialPointY4",
     "type": "d",
-    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(SomeDSP::twopi * ratio))",
+    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(double(2) * std::numbers::pi_v<double> * ratio))",
     "scale": "Scales::polynomialPointY",
     "flags": "Info::kCanAutomate"
   },
@@ -371,7 +371,7 @@
     "id": 46,
     "name": "polynomialPointY5",
     "type": "d",
-    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(SomeDSP::twopi * ratio))",
+    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(double(2) * std::numbers::pi_v<double> * ratio))",
     "scale": "Scales::polynomialPointY",
     "flags": "Info::kCanAutomate"
   },
@@ -379,7 +379,7 @@
     "id": 47,
     "name": "polynomialPointY6",
     "type": "d",
-    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(SomeDSP::twopi * ratio))",
+    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(double(2) * std::numbers::pi_v<double> * ratio))",
     "scale": "Scales::polynomialPointY",
     "flags": "Info::kCanAutomate"
   },
@@ -387,7 +387,7 @@
     "id": 48,
     "name": "polynomialPointY7",
     "type": "d",
-    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(SomeDSP::twopi * ratio))",
+    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(double(2) * std::numbers::pi_v<double> * ratio))",
     "scale": "Scales::polynomialPointY",
     "flags": "Info::kCanAutomate"
   },
@@ -395,7 +395,7 @@
     "id": 49,
     "name": "polynomialPointY8",
     "type": "d",
-    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(SomeDSP::twopi * ratio))",
+    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(double(2) * std::numbers::pi_v<double> * ratio))",
     "scale": "Scales::polynomialPointY",
     "flags": "Info::kCanAutomate"
   },
@@ -403,7 +403,7 @@
     "id": 50,
     "name": "polynomialPointY9",
     "type": "d",
-    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(SomeDSP::twopi * ratio))",
+    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(double(2) * std::numbers::pi_v<double> * ratio))",
     "scale": "Scales::polynomialPointY",
     "flags": "Info::kCanAutomate"
   },
@@ -411,7 +411,7 @@
     "id": 51,
     "name": "polynomialPointY10",
     "type": "d",
-    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(SomeDSP::twopi * ratio))",
+    "default": "Scales::polynomialPointY.invmap(0.5 * std::sin(double(2) * std::numbers::pi_v<double> * ratio))",
     "scale": "Scales::polynomialPointY",
     "flags": "Info::kCanAutomate"
   },

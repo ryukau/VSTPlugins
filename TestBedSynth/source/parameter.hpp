@@ -19,6 +19,7 @@
 
 #include <array>
 #include <memory>
+#include <numbers>
 #include <string>
 #include <vector>
 
@@ -190,11 +191,11 @@ struct GlobalParameter : public ParameterInterface {
 
       value[ID::osc0Waveform0 + idx] = std::make_unique<LinearValue>(
         Scales::bipolarScale.invmap(
-          std::sin(SomeDSP::twopi * idx / double(nOscWavetable))),
+          std::sin(double(2) * std::numbers::pi_v<double> * idx / double(nOscWavetable))),
         Scales::bipolarScale, ("lfo0Waveform" + indexStr).c_str(), Info::kCanAutomate);
       value[ID::osc1Waveform0 + idx] = std::make_unique<LinearValue>(
         Scales::bipolarScale.invmap(
-          std::sin(SomeDSP::twopi * idx / double(nOscWavetable))),
+          std::sin(double(2) * std::numbers::pi_v<double> * idx / double(nOscWavetable))),
         Scales::bipolarScale, ("lfo1Waveform" + indexStr).c_str(), Info::kCanAutomate);
     }
 
@@ -323,11 +324,11 @@ struct GlobalParameter : public ParameterInterface {
 
       value[ID::lfo0Waveform0 + idx] = std::make_unique<LinearValue>(
         Scales::bipolarScale.invmap(
-          std::sin(SomeDSP::twopi * idx / double(nLfoWavetable))),
+          std::sin(double(2) * std::numbers::pi_v<double> * idx / double(nLfoWavetable))),
         Scales::bipolarScale, ("lfo0Waveform" + indexStr).c_str(), Info::kCanAutomate);
       value[ID::lfo1Waveform0 + idx] = std::make_unique<LinearValue>(
         Scales::bipolarScale.invmap(
-          std::sin(SomeDSP::twopi * idx / double(nLfoWavetable))),
+          std::sin(double(2) * std::numbers::pi_v<double> * idx / double(nLfoWavetable))),
         Scales::bipolarScale, ("lfo1Waveform" + indexStr).c_str(), Info::kCanAutomate);
     }
 
@@ -357,11 +358,11 @@ struct GlobalParameter : public ParameterInterface {
 
       value[ID::waveMod0Gain0 + idx] = std::make_unique<LinearValue>(
         Scales::bipolarScale.invmap(
-          std::sin(SomeDSP::twopi * idx / double(nLfoWavetable))),
+          std::sin(double(2) * std::numbers::pi_v<double> * idx / double(nLfoWavetable))),
         Scales::bipolarScale, ("waveMod0Gain" + indexStr).c_str(), Info::kCanAutomate);
       value[ID::waveMod1Gain0 + idx] = std::make_unique<LinearValue>(
         Scales::bipolarScale.invmap(
-          std::sin(SomeDSP::twopi * idx / double(nLfoWavetable))),
+          std::sin(double(2) * std::numbers::pi_v<double> * idx / double(nLfoWavetable))),
         Scales::bipolarScale, ("waveMod1Gain" + indexStr).c_str(), Info::kCanAutomate);
       value[ID::waveMod0Delay0 + idx] = std::make_unique<UIntValue>(
         idx / double(nLfoWavetable - 1), Scales::waveModDelay,

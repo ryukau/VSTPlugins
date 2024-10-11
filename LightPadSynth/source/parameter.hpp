@@ -18,6 +18,7 @@
 #pragma once
 
 #include <memory>
+#include <numbers>
 #include <string>
 #include <vector>
 
@@ -25,9 +26,9 @@
 #include "../../common/parameterInterface.hpp"
 
 #ifdef TEST_DSP
-#include "../../test/value.hpp"
+  #include "../../test/value.hpp"
 #else
-#include "../../common/value.hpp"
+  #include "../../common/value.hpp"
 #endif
 
 constexpr int32_t nOvertone = 360;
@@ -216,7 +217,8 @@ struct GlobalParameter : public ParameterInterface {
     for (size_t idx = 0; idx < nLFOWavetable; ++idx) {
       auto indexStr = std::to_string(idx + 1);
       value[ID::lfoWavetable0 + idx] = std::make_unique<LinearValue>(
-        Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * idx / double(nLFOWavetable))),
+        Scales::lfoWavetable.invmap(
+          std::sin(double(2) * std::numbers::pi_v<double> * idx / double(nLFOWavetable))),
         Scales::lfoWavetable, (lfoWavetableLabel + indexStr).c_str(), Info::kCanAutomate);
     }
 

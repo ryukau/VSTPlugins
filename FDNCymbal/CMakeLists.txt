@@ -1,5 +1,5 @@
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+cmake_minimum_required(VERSION 3.20)
+
 
 include(../common/cmake/non_simd.cmake)
 

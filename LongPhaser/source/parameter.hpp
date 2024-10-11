@@ -18,6 +18,7 @@
 #pragma once
 
 #include <memory>
+#include <numbers>
 #include <string>
 #include <vector>
 
@@ -145,7 +146,8 @@ struct GlobalParameter : public ParameterInterface {
     for (size_t idx = 0; idx < nLfoWavetable; ++idx) {
       auto indexStr = std::to_string(idx);
       value[ID::lfoWavetable0 + idx] = std::make_unique<LinearValue>(
-        Scales::bipolarScale.invmap(sin(SomeDSP::twopi * idx / double(nLfoWavetable))),
+        Scales::bipolarScale.invmap(
+          std::sin(double(2) * std::numbers::pi_v<double> * idx / double(nLfoWavetable))),
         Scales::bipolarScale, (lfoWavetableLabel + indexStr).c_str(), Info::kCanAutomate);
     }
     value[ID::lfoTempoSync] = std::make_unique<UIntValue>(

@@ -75,7 +75,7 @@
     "id": 9,
     "name": "cascadeOffset",
     "type": "d",
-    "default": "Scales::cascadeOffset.invmap(SomeDSP::twopi / 16.0)",
+    "default": "Scales::cascadeOffset.invmap(double(2) * std::numbers::pi_v<double> / 16.0)",
     "scale": "Scales::cascadeOffset",
     "flags": "Info::kCanAutomate"
   },

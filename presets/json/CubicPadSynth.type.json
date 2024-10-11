@@ -11531,7 +11531,7 @@
     "id": 1441,
     "name": "lfoWavetable0",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 0 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 0 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11539,7 +11539,7 @@
     "id": 1442,
     "name": "lfoWavetable1",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 1 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 1 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11547,7 +11547,7 @@
     "id": 1443,
     "name": "lfoWavetable2",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 2 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 2 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11555,7 +11555,7 @@
     "id": 1444,
     "name": "lfoWavetable3",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 3 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 3 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11563,7 +11563,7 @@
     "id": 1445,
     "name": "lfoWavetable4",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 4 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 4 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11571,7 +11571,7 @@
     "id": 1446,
     "name": "lfoWavetable5",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 5 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 5 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11579,7 +11579,7 @@
     "id": 1447,
     "name": "lfoWavetable6",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 6 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 6 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11587,7 +11587,7 @@
     "id": 1448,
     "name": "lfoWavetable7",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 7 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 7 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11595,7 +11595,7 @@
     "id": 1449,
     "name": "lfoWavetable8",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 8 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 8 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11603,7 +11603,7 @@
     "id": 1450,
     "name": "lfoWavetable9",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 9 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 9 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11611,7 +11611,7 @@
     "id": 1451,
     "name": "lfoWavetable10",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 10 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 10 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11619,7 +11619,7 @@
     "id": 1452,
     "name": "lfoWavetable11",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 11 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 11 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11627,7 +11627,7 @@
     "id": 1453,
     "name": "lfoWavetable12",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 12 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 12 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11635,7 +11635,7 @@
     "id": 1454,
     "name": "lfoWavetable13",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 13 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 13 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11643,7 +11643,7 @@
     "id": 1455,
     "name": "lfoWavetable14",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 14 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 14 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11651,7 +11651,7 @@
     "id": 1456,
     "name": "lfoWavetable15",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 15 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 15 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11659,7 +11659,7 @@
     "id": 1457,
     "name": "lfoWavetable16",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 16 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 16 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11667,7 +11667,7 @@
     "id": 1458,
     "name": "lfoWavetable17",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 17 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 17 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11675,7 +11675,7 @@
     "id": 1459,
     "name": "lfoWavetable18",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 18 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 18 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11683,7 +11683,7 @@
     "id": 1460,
     "name": "lfoWavetable19",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 19 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 19 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11691,7 +11691,7 @@
     "id": 1461,
     "name": "lfoWavetable20",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 20 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 20 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11699,7 +11699,7 @@
     "id": 1462,
     "name": "lfoWavetable21",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 21 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 21 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11707,7 +11707,7 @@
     "id": 1463,
     "name": "lfoWavetable22",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 22 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 22 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11715,7 +11715,7 @@
     "id": 1464,
     "name": "lfoWavetable23",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 23 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 23 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11723,7 +11723,7 @@
     "id": 1465,
     "name": "lfoWavetable24",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 24 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 24 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11731,7 +11731,7 @@
     "id": 1466,
     "name": "lfoWavetable25",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 25 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 25 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11739,7 +11739,7 @@
     "id": 1467,
     "name": "lfoWavetable26",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 26 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 26 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11747,7 +11747,7 @@
     "id": 1468,
     "name": "lfoWavetable27",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 27 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 27 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11755,7 +11755,7 @@
     "id": 1469,
     "name": "lfoWavetable28",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 28 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 28 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11763,7 +11763,7 @@
     "id": 1470,
     "name": "lfoWavetable29",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 29 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 29 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11771,7 +11771,7 @@
     "id": 1471,
     "name": "lfoWavetable30",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 30 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 30 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11779,7 +11779,7 @@
     "id": 1472,
     "name": "lfoWavetable31",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 31 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 31 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11787,7 +11787,7 @@
     "id": 1473,
     "name": "lfoWavetable32",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 32 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 32 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11795,7 +11795,7 @@
     "id": 1474,
     "name": "lfoWavetable33",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 33 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 33 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11803,7 +11803,7 @@
     "id": 1475,
     "name": "lfoWavetable34",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 34 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 34 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11811,7 +11811,7 @@
     "id": 1476,
     "name": "lfoWavetable35",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 35 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 35 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11819,7 +11819,7 @@
     "id": 1477,
     "name": "lfoWavetable36",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 36 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 36 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11827,7 +11827,7 @@
     "id": 1478,
     "name": "lfoWavetable37",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 37 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 37 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11835,7 +11835,7 @@
     "id": 1479,
     "name": "lfoWavetable38",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 38 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 38 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11843,7 +11843,7 @@
     "id": 1480,
     "name": "lfoWavetable39",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 39 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 39 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11851,7 +11851,7 @@
     "id": 1481,
     "name": "lfoWavetable40",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 40 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 40 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11859,7 +11859,7 @@
     "id": 1482,
     "name": "lfoWavetable41",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 41 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 41 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11867,7 +11867,7 @@
     "id": 1483,
     "name": "lfoWavetable42",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 42 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 42 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11875,7 +11875,7 @@
     "id": 1484,
     "name": "lfoWavetable43",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 43 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 43 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11883,7 +11883,7 @@
     "id": 1485,
     "name": "lfoWavetable44",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 44 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 44 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11891,7 +11891,7 @@
     "id": 1486,
     "name": "lfoWavetable45",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 45 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 45 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11899,7 +11899,7 @@
     "id": 1487,
     "name": "lfoWavetable46",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 46 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 46 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11907,7 +11907,7 @@
     "id": 1488,
     "name": "lfoWavetable47",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 47 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 47 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11915,7 +11915,7 @@
     "id": 1489,
     "name": "lfoWavetable48",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 48 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 48 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11923,7 +11923,7 @@
     "id": 1490,
     "name": "lfoWavetable49",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 49 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 49 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11931,7 +11931,7 @@
     "id": 1491,
     "name": "lfoWavetable50",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 50 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 50 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11939,7 +11939,7 @@
     "id": 1492,
     "name": "lfoWavetable51",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 51 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 51 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11947,7 +11947,7 @@
     "id": 1493,
     "name": "lfoWavetable52",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 52 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 52 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11955,7 +11955,7 @@
     "id": 1494,
     "name": "lfoWavetable53",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 53 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 53 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11963,7 +11963,7 @@
     "id": 1495,
     "name": "lfoWavetable54",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 54 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 54 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11971,7 +11971,7 @@
     "id": 1496,
     "name": "lfoWavetable55",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 55 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 55 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11979,7 +11979,7 @@
     "id": 1497,
     "name": "lfoWavetable56",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 56 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 56 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11987,7 +11987,7 @@
     "id": 1498,
     "name": "lfoWavetable57",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 57 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 57 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -11995,7 +11995,7 @@
     "id": 1499,
     "name": "lfoWavetable58",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 58 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 58 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -12003,7 +12003,7 @@
     "id": 1500,
     "name": "lfoWavetable59",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 59 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 59 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -12011,7 +12011,7 @@
     "id": 1501,
     "name": "lfoWavetable60",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 60 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 60 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -12019,7 +12019,7 @@
     "id": 1502,
     "name": "lfoWavetable61",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 61 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 61 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -12027,7 +12027,7 @@
     "id": 1503,
     "name": "lfoWavetable62",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 62 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 62 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },
@@ -12035,7 +12035,7 @@
     "id": 1504,
     "name": "lfoWavetable63",
     "type": "d",
-    "default": "Scales::lfoWavetable.invmap(sin(SomeDSP::twopi * 63 / double(nLFOWavetable)))",
+    "default": "Scales::lfoWavetable.invmap(std::sin(double(2) * std::numbers::pi_v<double> * 63 / double(nLFOWavetable)))",
     "scale": "Scales::lfoWavetable",
     "flags": "Info::kCanAutomate"
   },

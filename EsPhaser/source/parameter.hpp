@@ -18,15 +18,16 @@
 #pragma once
 
 #include <memory>
+#include <numbers>
 #include <string>
 #include <vector>
 
 #include "../../common/parameterInterface.hpp"
 
 #ifdef TEST_DSP
-#include "../../test/value.hpp"
+  #include "../../test/value.hpp"
 #else
-#include "../../common/value.hpp"
+  #include "../../common/value.hpp"
 #endif
 
 namespace Steinberg {
@@ -102,8 +103,8 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::stereoOffset] = std::make_unique<LinearValue>(
       0.5, Scales::phase, "stereoOffset", Info::kCanAutomate);
     value[ID::cascadeOffset] = std::make_unique<LinearValue>(
-      Scales::cascadeOffset.invmap(SomeDSP::twopi / 16.0), Scales::cascadeOffset,
-      "cascadeOffset", Info::kCanAutomate);
+      Scales::cascadeOffset.invmap(double(2) * std::numbers::pi_v<double> / 16.0),
+      Scales::cascadeOffset, "cascadeOffset", Info::kCanAutomate);
     value[ID::stage]
       = std::make_unique<UIntValue>(15, Scales::stage, "stage", Info::kCanAutomate);
 

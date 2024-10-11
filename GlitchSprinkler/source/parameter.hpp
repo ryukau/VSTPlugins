@@ -298,7 +298,8 @@ struct GlobalParameter : public ParameterInterface {
         Scales::defaultScale.invmap(ratio), Scales::defaultScale,
         ("polynomialPointX" + indexStr).c_str(), Info::kCanAutomate);
       value[ID::polynomialPointY0 + idx] = std::make_unique<LinearValue>(
-        Scales::polynomialPointY.invmap(0.5 * std::sin(SomeDSP::twopi * ratio)),
+        Scales::polynomialPointY.invmap(
+          0.5 * std::sin(double(2) * std::numbers::pi_v<double> * ratio)),
         Scales::polynomialPointY, ("polynomialPointY" + indexStr).c_str(),
         Info::kCanAutomate);
     }

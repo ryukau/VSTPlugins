@@ -260,8 +260,8 @@ public:
   T getMin() { return minToZero ? 0 : minFreq; }
   T getMax() { return maxFreq; }
 
-  inline T noteToFreq(T note) { return T(440) * std::exp2((note - 69) / T(12)); }
-  inline T freqToNote(T freq) { return T(69) + T(12) * std::log2(freq / T(440)); }
+  inline T noteToFreq(T note) const { return T(440) * std::exp2((note - 69) / T(12)); }
+  inline T freqToNote(T freq) const { return T(69) + T(12) * std::log2(freq / T(440)); }
 
 protected:
   bool minToZero;
