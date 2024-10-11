@@ -206,11 +206,11 @@ All the plugin download link can be found at release page on following link.
 <img src="manual/DoubleLoopCymbal/img/DoubleLoopCymbal.png" alt="Image of DoubleLoopCymbal graphical user interface."/>
 </figure>
 
-DoubleLoopCymbal はハイハットのような音が出るシンセサイザです。オールパスループというディレイのつなぎ方を使って金属的な質感を出しています。
+DoubleLoopCymbal はハイハットとトライアングルの間のような音が出るシンセサイザです。オールパスループというディレイのつなぎ方を使って金属的な質感を出しています。
 
 - [DoubleLoopCymbal のマニュアル (日本語)](manual/DoubleLoopCymbal/DoubleLoopCymbal_ja.html)
 
-DoubleLoopCymbal is a synthesizer that imitates a sound of hi-hat. Metallic texture comes from 2 all-pass loops.
+DoubleLoopCymbal is a synthesizer that produces a sound somewhere between hi-hat and triangle. Metallic texture comes from 2 all-pass loops.
 
 - [DoubleLoopCymbal Manual (English)](manual/DoubleLoopCymbal/DoubleLoopCymbal_en.html)
 

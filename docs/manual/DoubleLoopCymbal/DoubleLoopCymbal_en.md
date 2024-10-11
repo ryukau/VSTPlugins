@@ -5,7 +5,7 @@ lang: en
 # DoubleLoopCymbal
 ![](img/DoubleLoopCymbal.png)
 
-DoubleLoopCymbal is a synthesizer that imitates a sound of hi-hat. Metallic texture comes from 2 all-pass loops.
+DoubleLoopCymbal is a synthesizer that produces a sound somewhere between hi-hat and triangle. Metallic texture comes from 2 all-pass loops.
 
 {% for target, download_url in latest_download_url["DoubleLoopCymbal"].items() %}
 - [Download DoubleLoopCymbal {{ latest_version["DoubleLoopCymbal"] }} `{{ target }}` - VST 3 (github.com)]({{ download_url }}) <img

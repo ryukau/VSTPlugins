@@ -5,7 +5,7 @@ lang: ja
 # DoubleLoopCymbal
 ![](img/DoubleLoopCymbal.png)
 
-<ruby>DoubleLoopCymbal<rt>ダブル ループ シンバル</rt></ruby> はハイハットのような音が出るシンセサイザです。オールパスループというディレイのつなぎ方を使って金属的な質感を出しています。
+<ruby>DoubleLoopCymbal<rt>ダブル ループ シンバル</rt></ruby> はハイハットとトライアングルの間のような音が出るシンセサイザです。オールパスループというディレイのつなぎ方を使って金属的な質感を出しています。
 
 {% for target, download_url in latest_download_url["DoubleLoopCymbal"].items() %}
 - [DoubleLoopCymbal {{ latest_version["DoubleLoopCymbal"] }} `{{ target }}` - VST 3 をダウンロード (github.com)]({{ download_url }}) <img
