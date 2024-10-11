@@ -279,6 +279,12 @@ Cross Feedback Gain
 
     **警告**: ``Cross Feedback Gain` が 1.0 に近づくと発振あるいは発散しやすくなります。
 
+Consistency
+
+:   `Cross Feedback Ratio` をノートオンごとにランダマイズする割合です。
+
+    0 のときは完全にランダム、 1 のときはランダマイズが無効になります。
+
 Cross Feedback Ratio
 
 :   打面のトーンを調整する値です。

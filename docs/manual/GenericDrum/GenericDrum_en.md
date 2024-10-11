@@ -281,6 +281,12 @@ Cross Feedback Gain
 
     **Warning**: When `Cross Feedback Gain` approaches 1.0, oscillation or blow up is likely to happen.
 
+Consistency
+
+:   Amount of randomization to `Cross Feedback Ratio`.
+
+    0 is totally random, 1 is totally consistent. Randomization is done for each note-on.
+
 Cross Feedback Ratio
 
 :   Adjusts the tone of membranes.

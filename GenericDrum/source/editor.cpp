@@ -49,7 +49,7 @@ constexpr float tabViewHeight = 20 * labelY - 2 * margin + 2 * uiMargin;
 
 constexpr int_least32_t defaultWidth = int_least32_t(4 * uiMargin + 3 * groupLabelWidth);
 constexpr int_least32_t defaultHeight
-  = int_least32_t(2 * uiMargin + 20 * labelY - 2 * margin);
+  = int_least32_t(2 * uiMargin + 21 * labelY - 2 * margin);
 
 constexpr const char *wireDidntCollidedText = "Wire didn't collide.";
 constexpr const char *membraneDidntCollidedText = "Membrane didn't collide.";
@@ -238,7 +238,7 @@ bool Editor::prepareUI()
     = addLabel(mixLeft1, mixTop11, labelWidth, labelHeight, uiTextSize, "Initialized.");
 
   // Tuning.
-  constexpr auto tuningTop0 = top0 + 12 * labelY;
+  constexpr auto tuningTop0 = top0 + 13 * labelY;
   constexpr auto tuningTop1 = tuningTop0 + 1 * labelY;
   constexpr auto tuningTop2 = tuningTop0 + 2 * labelY;
   constexpr auto tuningTop3 = tuningTop0 + 3 * labelY;
@@ -353,6 +353,7 @@ bool Editor::prepareUI()
   constexpr auto toneTop0 = top0 + 13 * labelY;
   constexpr auto toneTop1 = toneTop0 + 1 * labelY;
   constexpr auto toneTop2 = toneTop0 + 2 * labelY;
+  constexpr auto toneTop3 = toneTop0 + 3 * labelY;
   constexpr auto toneLeft0 = left4;
   constexpr auto toneLeft1 = toneLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
@@ -363,8 +364,12 @@ bool Editor::prepareUI()
   addTextKnob(
     toneLeft1, toneTop1, labelWidth, labelHeight, uiTextSize, ID::crossFeedbackGain,
     Scales::crossFeedbackGain, false, 5);
+  addLabel(toneLeft0, toneTop2, labelWidth, labelHeight, uiTextSize, "Consistency");
+  addTextKnob(
+    toneLeft1, toneTop2, labelWidth, labelHeight, uiTextSize,
+    ID::crossFeedbackConsistency, Scales::crossFeedbackConsistency, false, 5);
   addBarBox(
-    toneLeft0, toneTop2, barBoxWidth, barBoxHeight, ID::crossFeedbackRatio0, maxFdnSize,
+    toneLeft0, toneTop3, barBoxWidth, barBoxHeight, ID::crossFeedbackRatio0, maxFdnSize,
     Scales::defaultScale, "Cross Feedback Ratio");
 
   // Pitch Texture.

@@ -35,7 +35,7 @@ constexpr int octaveOffset = 8;
 constexpr int semitoneOffset = 96;
 constexpr size_t maxFdnSize = 5;
 
-constexpr size_t nReservedParameter = 64;
+constexpr size_t nReservedParameter = 63;
 constexpr size_t nReservedGuiParameter = 16;
 
 namespace Steinberg {
@@ -103,6 +103,8 @@ enum ID {
   secondaryQOffset,
   secondaryDistance,
 
+  crossFeedbackConsistency,
+
   reservedParameter0,
 
   externalInputAmplitudeMeter = reservedParameter0 + nReservedParameter,
@@ -136,6 +138,7 @@ struct Scales {
   static SomeDSP::DecibelScale<double> wireDecaySeconds;
 
   static SomeDSP::DecibelScale<double> crossFeedbackGain;
+  static SomeDSP::DecibelScale<double> crossFeedbackConsistency;
   static SomeDSP::DecibelScale<double> feedbackDecaySeconds;
 
   static SomeDSP::LinearScale<double> pitchRandomCent;
@@ -307,6 +310,10 @@ struct GlobalParameter : public ParameterInterface {
       Info::kCanAutomate);
     value[ID::secondaryDistance] = std::make_unique<DecibelValue>(
       1.0, Scales::collisionDistance, "secondaryDistance", Info::kCanAutomate);
+
+    value[ID::crossFeedbackConsistency] = std::make_unique<DecibelValue>(
+      Scales::crossFeedbackConsistency.invmap(1.0), Scales::crossFeedbackConsistency,
+      "crossFeedbackConsistency", Info::kCanAutomate);
 
     for (size_t idx = 0; idx < nReservedParameter; ++idx) {
       auto indexStr = std::to_string(idx);

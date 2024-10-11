@@ -151,6 +151,7 @@ private:
 
   std::minstd_rand noiseRng{0};
   std::minstd_rand paramRng{0};
+  std::minstd_rand matrixRng{0};
   double noiseGain = 0;
   double noiseDecay = 0;
   ComplexLowpass<double> noiseLowpass;
@@ -168,6 +169,7 @@ private:
   DoubleEmaADEnvelope<double> envelope;
   TransitionReleaseSmoother<double> releaseSmoother;
   FeedbackMatrix<double, maxFdnSize> feedbackMatrix;
+  std::array<double, maxFdnSize> matrixRandomizeAmount{};
   std::array<double, nDrum> membrane1Position{};
   std::array<double, nDrum> membrane1Velocity{};
   std::array<double, nDrum> membrane2Position{};

@@ -202,7 +202,8 @@ void DSPCore::setup(double sampleRate)
                                                                                          \
   for (size_t idx = 0; idx < maxFdnSize; ++idx) {                                        \
     const auto crossFeedbackRatio = pv[ID::crossFeedbackRatio0 + idx]->getDouble();      \
-    feedbackMatrix.seed[idx] = crossFeedbackRatio * crossFeedbackRatio;                  \
+    feedbackMatrix.seed[idx]                                                             \
+      = crossFeedbackRatio * crossFeedbackRatio + matrixRandomizeAmount[idx];            \
   }                                                                                      \
   feedbackMatrix.constructHouseholder();                                                 \
                                                                                          \
@@ -302,6 +303,7 @@ void DSPCore::reset()
   releaseSmoother.reset();
 
   feedbackMatrix.reset();
+  matrixRandomizeAmount.fill({});
   membrane1Position.fill({});
   membrane1Velocity.fill({});
   membrane2Position.fill({});
@@ -320,6 +322,7 @@ void DSPCore::startup()
   using ID = ParameterID::ID;
   const auto &pv = param.value;
   noiseRng.seed(pv[ID::seed]->getInt());
+  matrixRng.seed(pv[ID::seed]->getInt() + 17);
 }
 
 void DSPCore::setParameters()
@@ -602,6 +605,18 @@ void DSPCore::noteOn(NoteInfo &info)
   // // Maybe provide an option to change more acute gain reduction in case of blow up.
   // for (auto &x : membrane1) x.noteOn();
   // for (auto &x : membrane2) x.noteOn();
+
+  const auto crossFeedbackRandomize
+    = double(1) - pv[ID::crossFeedbackConsistency]->getDouble();
+  std::uniform_real_distribution<double> matrixDist(double(-1), double(1));
+  for (size_t idx = 0; idx < maxFdnSize; ++idx) {
+    matrixRandomizeAmount[idx] = crossFeedbackRandomize * matrixDist(matrixRng);
+
+    const auto crossFeedbackRatio = pv[ID::crossFeedbackRatio0 + idx]->getDouble();
+    feedbackMatrix.seed[idx]
+      = crossFeedbackRatio * crossFeedbackRatio + matrixRandomizeAmount[idx];
+  }
+  feedbackMatrix.constructHouseholder();
 
   resetCollision();
 }

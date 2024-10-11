@@ -48,6 +48,7 @@ DecibelScale<double> Scales::wireFrequencyHz(0, ampToDB(1000), false);
 DecibelScale<double> Scales::wireDecaySeconds(-40, 40, false);
 
 DecibelScale<double> Scales::crossFeedbackGain(-12, 0, false);
+DecibelScale<double> Scales::crossFeedbackConsistency(-60, 0, true);
 DecibelScale<double> Scales::feedbackDecaySeconds(-40, 20, false);
 
 LinearScale<double> Scales::pitchRandomCent(0, 1200);
