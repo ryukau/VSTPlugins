@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2024-09-28" />
+      <meta name="dcterms.date" content="2024-10-11" />
       <title>GlitchSprinkler_ja – Uhhyou Plugins</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
   <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
@@ -285,7 +285,7 @@
     <header>
         <p><a href="../../index.html">Back to Index</a></p>
             <p>
-      Update: 2024-09-28
+      Update: 2024-10-11
     </p>
             <details>
       <summary translate="yes">Table of Contents</summary>
@@ -361,15 +361,15 @@
   は速いアルペジオに特化したシンセサイザです。オシレータの周期を整数のサンプル数のみとすることで安価にアンチエイリアシングを行っています。このアンチエイリアシングの副作用により、特に音程が高いときにピッチがずれて独特の音律が現れます。</p>
   <ul>
   <li><a
-  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.62.0/GlitchSprinkler_0.0.1.zip">GlitchSprinkler
-  0.0.1 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.63.0/GlitchSprinkler_0.1.1.zip">GlitchSprinkler
+  0.1.1 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="30px"
   style="display: inline-block; vertical-align: middle;"></li>
   <li><a
-  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.62.0/GlitchSprinkler_0.0.1_macOS.zip">GlitchSprinkler
-  0.0.1 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.63.0/GlitchSprinkler_0.1.1_macOS.zip">GlitchSprinkler
+  0.1.1 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="30px"
@@ -1095,6 +1095,11 @@ adjustedCutoffHz = baseCutoffHz * 2^(Cutoff);</code></pre>
   <h2 id="チェンジログ"><a href="#チェンジログ" class="header-anchor"
   aria-hidden="true">チェンジログ</a></h2>
   <ul>
+  <li>0.1.1
+  <ul>
+  <li>MIDI チャンネル 16
+  のノートオンと、他のチャンネルのノートオンが同じタイミングで演奏されたとき、音程の変化が起こらなかったバグを修正。</li>
+  </ul></li>
   <li>0.0.1
   <ul>
   <li>初期リリース。</li>
@@ -1102,7 +1107,11 @@ adjustedCutoffHz = baseCutoffHz * 2^(Cutoff);</code></pre>
   </ul>
   <h2 id="旧バージョン"><a href="#旧バージョン" class="header-anchor"
   aria-hidden="true">旧バージョン</a></h2>
-  <p>旧バージョンはありません。</p>
+  <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.62.0/GlitchSprinkler_0.0.1.zip">GlitchSprinkler
+  0.0.1 - VST 3 (github.com)</a></li>
+  </ul>
   <h2 id="ライセンス"><a href="#ライセンス" class="header-anchor"
   aria-hidden="true">ライセンス</a></h2>
   <p>GlitchSprinkler のライセンスは GPLv3 です。 GPLv3

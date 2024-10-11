@@ -1,13 +1,22 @@
 {
   "GlitchSprinkler": {
-    "latest_version": "0.0.1",
+    "latest_version": "0.1.1",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.63.0/GlitchSprinkler_0.1.1.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.62.0/GlitchSprinkler_0.0.1.zip"
       ],
       "preset_url": []
     },
     "changelog": {
+      "0.1.1": {
+        "en": [
+          "Fixed a bug that first modifier note (MIDI ch. 16) didn't have effect when played at the same time as a voiced note."
+        ],
+        "ja": [
+          "MIDI チャンネル 16 のノートオンと、他のチャンネルのノートオンが同じタイミングで演奏されたとき、音程の変化が起こらなかったバグを修正。"
+        ]
+      },
       "0.0.1": { "en": ["Initial release."], "ja": ["初期リリース。"] }
     }
   }

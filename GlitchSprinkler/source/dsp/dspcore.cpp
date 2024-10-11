@@ -329,11 +329,11 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
   std::array<double, 2> frame{};
   for (size_t i = 0; i < length; ++i) {
     processModifierNote(i);
-    processMidiNote(i);
-
     pitchModifier = activeModifier.empty()
       ? double(1)
       : double(activeModifier.back().noteNumber + activeModifier.back().cent);
+
+    processMidiNote(i);
 
     frame.fill({});
 
