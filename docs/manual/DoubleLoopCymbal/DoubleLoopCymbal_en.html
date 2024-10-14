@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2024-10-12" />
+      <meta name="dcterms.date" content="2024-10-14" />
       <title>DoubleLoopCymbal_en – Uhhyou Plugins</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
   <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
@@ -285,7 +285,7 @@
     <header>
         <p><a href="../../index.html">Back to Index</a></p>
             <p>
-      Update: 2024-10-12
+      Update: 2024-10-14
     </p>
             <details>
       <summary translate="yes">Table of Contents</summary>
@@ -831,33 +831,41 @@
   <li><code>Cl.</code> -&gt; Closing Noise</li>
   <li><code>AP</code> -&gt; Allpass Loop</li>
   </ul>
-  <blockquote>
-  <p>Imp. Gain [dB]</p>
-  </blockquote>
-  <p>: Amount of how much a note-on velocity changes the gain of impact
-  noises.</p>
-  <pre><code>When playing on a MIDI keyboard, it may become easier to play by narrowing the range to around -30 dB.</code></pre>
-  <blockquote>
-  <p>Imp. Highpass</p>
-  </blockquote>
-  <p>: Amount of how much a note-on velocity changes
-  <code>Highpass</code> in <code>Impact Noise</code>.</p>
-  <pre><code>- If the value is greater than 0, higher velocity leads to higher cutoff.
-- If the value is less than 0, higher velocity leads to lower cutoff.</code></pre>
-  <blockquote>
-  <p>HC Density</p>
-  </blockquote>
-  <p>: Amount of how much a note-on velocity changes
-  <code>Density</code> in <code>Half Closed Noise</code>.</p>
-  <pre><code>`&gt; Half Closed Highpass` and `&gt; Modulation` are there to make the sound more like a crash cymbal at higher velocities. However, it does not sound like a real crash cymbal in most cases.
-
-`&gt; Half Closed Density` has little effect when `Decay` in `Half Closed Noise` is short.</code></pre>
-  <blockquote>
-  <p>HC Highpass</p>
-  </blockquote>
-  <p>: Amount of how much a note-on velocity changes
-  <code>Highpass</code> in <code>Half Closed Noise</code>.</p>
   <dl>
+  <dt>&gt; Imp. Gain [dB]</dt>
+  <dd>
+  <p>Amount of how much a note-on velocity changes the gain of impact
+  noises.</p>
+  <p>When playing on a MIDI keyboard, it may become easier to play by
+  narrowing the range to around -30 dB.</p>
+  </dd>
+  <dt>&gt; Imp. Highpass</dt>
+  <dd>
+  <p>Amount of how much a note-on velocity changes <code>Highpass</code>
+  in <code>Impact Noise</code>.</p>
+  <ul>
+  <li>If the value is greater than 0, higher velocity leads to higher
+  cutoff.</li>
+  <li>If the value is less than 0, higher velocity leads to lower
+  cutoff.</li>
+  </ul>
+  </dd>
+  <dt>&gt; HC Density</dt>
+  <dd>
+  <p>Amount of how much a note-on velocity changes <code>Density</code>
+  in <code>Half Closed Noise</code>.</p>
+  <p><code>&gt; Half Closed Highpass</code> and
+  <code>&gt; Modulation</code> are there to make the sound more like a
+  crash cymbal at higher velocities. However, it does not sound like a
+  real crash cymbal in most cases.</p>
+  <p><code>&gt; Half Closed Density</code> has little effect when
+  <code>Decay</code> in <code>Half Closed Noise</code> is short.</p>
+  </dd>
+  <dt>&gt; HC Highpass</dt>
+  <dd>
+  <p>Amount of how much a note-on velocity changes <code>Highpass</code>
+  in <code>Half Closed Noise</code>.</p>
+  </dd>
   <dt>Note-off Velocity</dt>
   <dd>
   <p>Type of velocity used for hi-hat closing.</p>

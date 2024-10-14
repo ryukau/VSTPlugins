@@ -135,20 +135,20 @@ Below is a list of abbreviations used in this section.
 - `Cl.` -> Closing Noise
 - `AP` -> Allpass Loop
 
-> Imp. Gain \[dB\]
+\> Imp. Gain \[dB\]
 
 :   Amount of how much a note-on velocity changes the gain of impact noises.
 
     When playing on a MIDI keyboard, it may become easier to play by narrowing the range to around -30 dB.
 
-> Imp. Highpass
+\> Imp. Highpass
 
 :   Amount of how much a note-on velocity changes `Highpass` in `Impact Noise`.
 
     - If the value is greater than 0, higher velocity leads to higher cutoff.
     - If the value is less than 0, higher velocity leads to lower cutoff.
 
-> HC Density
+\> HC Density
 
 :   Amount of how much a note-on velocity changes `Density` in `Half Closed Noise`.
 
@@ -156,7 +156,7 @@ Below is a list of abbreviations used in this section.
 
     `> Half Closed Density` has little effect when `Decay` in `Half Closed Noise` is short.
 
-> HC Highpass
+\> HC Highpass
 
 :   Amount of how much a note-on velocity changes `Highpass` in `Half Closed Noise`.
 
@@ -170,19 +170,19 @@ Note-off Velocity
     - `> Cl. Duration`
     - `> Cl. Highpass`
 
-> Cl. Gain \[dB\]
+\> Cl. Gain \[dB\]
 
 :   Amount of how much a velocity changes `Gain` in `Closing Noise`.
 
-> Cl. Release
+\> Cl. Release
 
 :   Amount of how much a velocity changes `Release Ratio` in `Closing Noise`.
 
-> Cl. Highpass
+\> Cl. Highpass
 
 :   Amount of how much a note-on velocity changes `Highpass` in `Closing Noise`.
 
-> AP Modulation
+\> AP Modulation
 
 :   Amount of how much a note-on velocity changes `Modulation` in `Allpass Loop`.
 

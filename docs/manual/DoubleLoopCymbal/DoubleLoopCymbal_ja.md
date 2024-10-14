@@ -135,20 +135,20 @@ Slide Time \[s\]
 - `Cl.` -> Closing Noise
 - `AP` -> Allpass Loop
 
-> Imp. Gain \[dB\]
+\> Imp. Gain \[dB\]
 
 :   ノートオン・ベロシティによって `Impact Noise` セクションの `Gain` を変える量です。
 
     MIDI キーボードなどで演奏するときは -30 dB あたりまで範囲を狭めたほうが弾きやすいかもしれません。
 
-> Imp. Highpass
+\> Imp. Highpass
 
 :   ノートオン・ベロシティによって `Impact Noise` セクションの `Highpass` を変える量です。
 
     - 値が 0 より大きいと、ベロシティが大きくなるにつれてカットオフ周波数が高くなります。
     - 値が 0 より小さいと、ベロシティが大きくなるにつれてカットオフ周波数が低くなります。
 
-> HC Density
+\> HC Density
 
 :   ノートオン・ベロシティによって `Half Closed Noise` セクションの `Density` を変える量です。
 
@@ -156,7 +156,7 @@ Slide Time \[s\]
 
     `Half Closed Noise` セクションの `Decay` が短いときは、あまり効果がありません。
 
-> HC Highpass
+\> HC Highpass
 
 :   ノートオン・ベロシティによって `Half Closed Noise` セクションの `Highpass` を変える量です。
 
@@ -170,19 +170,19 @@ Note-off Velocity
     - `> Cl. Duration`
     - `> Cl. Highpass`
 
-> Cl. Gain \[dB\]
+\> Cl. Gain \[dB\]
 
 :   `Note-off Velocity` で指定されたベロシティによって `Closing Noise` セクションの `Gain` を変える量です。
 
-> Cl. Release
+\> Cl. Release
 
 :   `Note-off Velocity` で指定されたベロシティによって `Closing Noise` セクションの `Release Ratio` を変える量です。
 
-> Cl. Highpass
+\> Cl. Highpass
 
 :   ノートオン・ベロシティによって `Closing Noise` セクションの `Highpass` を変える量です。
 
-> AP Modulation
+\> AP Modulation
 
 :   ノートオン・ベロシティによって `Allpass Loop` セクションの `Modulation` を変える量です。
 

@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2024-10-12" />
+      <meta name="dcterms.date" content="2024-10-14" />
       <title>DoubleLoopCymbal_ja – Uhhyou Plugins</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
   <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
@@ -285,7 +285,7 @@
     <header>
         <p><a href="../../index.html">Back to Index</a></p>
             <p>
-      Update: 2024-10-12
+      Update: 2024-10-14
     </p>
             <details>
       <summary translate="yes">Table of Contents</summary>
@@ -819,33 +819,40 @@
   <li><code>Cl.</code> -&gt; Closing Noise</li>
   <li><code>AP</code> -&gt; Allpass Loop</li>
   </ul>
-  <blockquote>
-  <p>Imp. Gain [dB]</p>
-  </blockquote>
-  <p>: ノートオン・ベロシティによって <code>Impact Noise</code>
-  セクションの <code>Gain</code> を変える量です。</p>
-  <pre><code>MIDI キーボードなどで演奏するときは -30 dB あたりまで範囲を狭めたほうが弾きやすいかもしれません。</code></pre>
-  <blockquote>
-  <p>Imp. Highpass</p>
-  </blockquote>
-  <p>: ノートオン・ベロシティによって <code>Impact Noise</code>
-  セクションの <code>Highpass</code> を変える量です。</p>
-  <pre><code>- 値が 0 より大きいと、ベロシティが大きくなるにつれてカットオフ周波数が高くなります。
-- 値が 0 より小さいと、ベロシティが大きくなるにつれてカットオフ周波数が低くなります。</code></pre>
-  <blockquote>
-  <p>HC Density</p>
-  </blockquote>
-  <p>: ノートオン・ベロシティによって <code>Half Closed Noise</code>
-  セクションの <code>Density</code> を変える量です。</p>
-  <pre><code>`&gt; Half Closed Highpass` と `&gt; Modulation` との組み合わせによって、ベロシティが大きいときにクラッシュシンバルのような音となるように変化させることを狙っています。ただし、本物のクラッシュシンバルのような音は出ません。
-
-`Half Closed Noise` セクションの `Decay` が短いときは、あまり効果がありません。</code></pre>
-  <blockquote>
-  <p>HC Highpass</p>
-  </blockquote>
-  <p>: ノートオン・ベロシティによって <code>Half Closed Noise</code>
-  セクションの <code>Highpass</code> を変える量です。</p>
   <dl>
+  <dt>&gt; Imp. Gain [dB]</dt>
+  <dd>
+  <p>ノートオン・ベロシティによって <code>Impact Noise</code>
+  セクションの <code>Gain</code> を変える量です。</p>
+  <p>MIDI キーボードなどで演奏するときは -30 dB
+  あたりまで範囲を狭めたほうが弾きやすいかもしれません。</p>
+  </dd>
+  <dt>&gt; Imp. Highpass</dt>
+  <dd>
+  <p>ノートオン・ベロシティによって <code>Impact Noise</code>
+  セクションの <code>Highpass</code> を変える量です。</p>
+  <ul>
+  <li>値が 0
+  より大きいと、ベロシティが大きくなるにつれてカットオフ周波数が高くなります。</li>
+  <li>値が 0
+  より小さいと、ベロシティが大きくなるにつれてカットオフ周波数が低くなります。</li>
+  </ul>
+  </dd>
+  <dt>&gt; HC Density</dt>
+  <dd>
+  <p>ノートオン・ベロシティによって <code>Half Closed Noise</code>
+  セクションの <code>Density</code> を変える量です。</p>
+  <p><code>&gt; Half Closed Highpass</code> と
+  <code>&gt; Modulation</code>
+  との組み合わせによって、ベロシティが大きいときにクラッシュシンバルのような音となるように変化させることを狙っています。ただし、本物のクラッシュシンバルのような音は出ません。</p>
+  <p><code>Half Closed Noise</code> セクションの <code>Decay</code>
+  が短いときは、あまり効果がありません。</p>
+  </dd>
+  <dt>&gt; HC Highpass</dt>
+  <dd>
+  <p>ノートオン・ベロシティによって <code>Half Closed Noise</code>
+  セクションの <code>Highpass</code> を変える量です。</p>
+  </dd>
   <dt>Note-off Velocity</dt>
   <dd>
   <p>ハイハットのクローズに使うベロシティの種類です。</p>
