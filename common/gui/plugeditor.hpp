@@ -440,7 +440,7 @@ public:
 
     auto knob = new Knob<style>(
       CRect(left, top + margin, left + width, top + width - margin), this, tag, palette);
-    knob->setSlitWidth(8.0);
+    knob->setArcWidth(8.0);
     knob->setValueNormalized(controller->getParamNormalized(tag));
     knob->setDefaultValue(param->getDefaultNormalized(tag));
     frame->addView(knob);
@@ -470,7 +470,7 @@ public:
     auto knob = new NumberKnob<Scale, style>(
       CRect(left, top + margin, left + width, top + width - margin), this, tag,
       getFont(textSize), palette, scale, offset);
-    knob->setSlitWidth(8.0);
+    knob->setArcWidth(8.0);
     knob->setValueNormalized(controller->getParamNormalized(tag));
     knob->setDefaultValue(param->getDefaultNormalized(tag));
     frame->addView(knob);
@@ -498,7 +498,7 @@ public:
     auto knob = new RotaryKnob<style>(
       CRect(left + margin, top + margin, left + width - margin, top + width - margin),
       this, tag, palette);
-    knob->setSlitWidth(8.0);
+    knob->setArcWidth(8.0);
     knob->setValueNormalized(controller->getParamNormalized(tag));
     knob->setDefaultValue(param->getDefaultNormalized(tag));
     frame->addView(knob);

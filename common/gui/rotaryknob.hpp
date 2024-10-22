@@ -153,7 +153,7 @@ public:
     pContext->setFillColor(pal.background());
     pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilled);
 
-    // Slit.
+    // Arc.
     auto radius = center.x > center.y ? center.y : center.x;
     if constexpr (style == Uhhyou::Style::accent) {
       pContext->setFrameColor(isMouseEntered ? pal.highlightAccent() : pal.unfocused());
@@ -163,22 +163,22 @@ public:
       pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.unfocused());
     }
     pContext->setLineStyle(lineStyle);
-    pContext->setLineWidth(halfSlitWidth * 2.0);
+    pContext->setLineWidth(halfArcWidth * 2.0);
     pContext->drawEllipse(
       CRect(
-        halfSlitWidth - center.x, halfSlitWidth - center.y, center.x - halfSlitWidth,
-        center.y - halfSlitWidth),
+        halfArcWidth - center.x, halfArcWidth - center.y, center.x - halfArcWidth,
+        center.y - halfArcWidth),
       kDrawStroked);
 
-    // Tick for default value. Sharing color and style with slit.
-    auto tipLength = halfSlitWidth - radius;
-    pContext->setLineWidth(halfSlitWidth / 2.0);
+    // Tick for default value. Sharing color and style with arc.
+    auto tipLength = halfArcWidth - radius;
+    pContext->setLineWidth(halfArcWidth / 2.0);
     pContext->drawLine(
-      mapValueToSlit(getDefaultValue() / getRange(), tipLength * defaultTickLength),
-      mapValueToSlit(getDefaultValue() / getRange(), tipLength));
+      mapValueToArc(getDefaultValue() / getRange(), tipLength * defaultTickLength),
+      mapValueToArc(getDefaultValue() / getRange(), tipLength));
 
     // Line from center to tip.
-    auto tip = mapValueToSlit(getValueNormalized(), tipLength);
+    auto tip = mapValueToArc(getValueNormalized(), tipLength);
     pContext->setFrameColor(pal.foreground());
     pContext->drawLine(CPoint(0.0, 0.0), tip);
 
@@ -186,18 +186,18 @@ public:
     pContext->setFillColor(pal.foreground());
     pContext->drawEllipse(
       CRect(
-        tip.x - halfSlitWidth, tip.y - halfSlitWidth, tip.x + halfSlitWidth,
-        tip.y + halfSlitWidth),
+        tip.x - halfArcWidth, tip.y - halfArcWidth, tip.x + halfArcWidth,
+        tip.y + halfArcWidth),
       kDrawFilled);
 
     setDirty(false);
   }
 
-  void setSlitWidth(double width) { halfSlitWidth = width / 2.0; }
+  void setArcWidth(double width) { halfArcWidth = width / 2.0; }
   void setDefaultTickLength(double length) { defaultTickLength = length; }
 
 protected:
-  CPoint mapValueToSlit(double normalized, double length)
+  CPoint mapValueToArc(double normalized, double length)
   {
     auto radian = 2.0 * normalized * Constants::pi;
     return CPoint(-sin(radian) * length, cos(radian) * length);
@@ -205,8 +205,7 @@ protected:
 
   const CLineStyle lineStyle{CLineStyle::kLineCapRound, CLineStyle::kLineJoinRound};
 
-  double halfSlitWidth = 4.0;
-  const double slitNotchHalf = 30.0; // Degree.
+  double halfArcWidth = 4.0;
   double defaultTickLength = 0.5;
 };
 

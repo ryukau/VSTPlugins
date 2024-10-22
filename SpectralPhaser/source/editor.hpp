@@ -1,19 +1,5 @@
-// (c) 2022 Takamitsu Endo
-//
-// This file is part of NarrowingDelay.
-//
-// NarrowingDelay is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// NarrowingDelay is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with NarrowingDelay.  If not, see <https://www.gnu.org/licenses/>.
+// Copyright Takamitsu Endo (ryukau@gmail.com).
+// SPDX-License-Identifier: GPL-3.0-only
 
 #pragma once
 
@@ -29,11 +15,12 @@ class Editor : public PlugEditor {
 public:
   Editor(void *controller);
 
+  void valueChanged(CControl *pControl) override;
+  void updateUI(Vst::ParamID id, ParamValue normalized) override;
+
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
 protected:
-  bool prepareUI() override;
-
   template<Uhhyou::Style style = Uhhyou::Style::common>
   auto addSmallKnob(CCoord left, CCoord top, CCoord width, CCoord height, ParamID tag)
   {
@@ -46,6 +33,9 @@ protected:
     addToControlMap(tag, knob);
     return knob;
   }
+
+  ParamValue getPlainValue(ParamID id);
+  bool prepareUI() override;
 };
 
 } // namespace Vst

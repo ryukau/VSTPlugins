@@ -118,7 +118,7 @@ public:
     event.consumed = true;
   }
 
-  void setSlitWidth(double width) { halfArcWidth = width / 2.0; }
+  void setArcWidth(double width) { halfArcWidth = width / 2.0; }
   void setDefaultTickLength(double length) { defaultTickLength = length; }
 
   void setSensitivity(double sensi, double lowSensi, double wheelSensi)
@@ -129,7 +129,7 @@ public:
   }
 
 protected:
-  CPoint mapValueToSlit(double normalized, double length)
+  CPoint mapValueToArc(double normalized, double length)
   {
     auto radian
       = (2.0 * normalized - 1.0) * Constants::pi * (180.0 - arcNotchHalf) / 180.0;
@@ -192,15 +192,15 @@ public:
         radius - halfArcWidth),
       (float)(90.0 + arcNotchHalf), (float)(90.0 - arcNotchHalf));
 
-    // Tick for default value. Sharing color and style with slit.
+    // Tick for default value. Sharing color and style with arc.
     auto tipLength = halfArcWidth - radius;
     pContext->setLineWidth(halfArcWidth / 2.0);
     pContext->drawLine(
-      mapValueToSlit(getDefaultValue() / getRange(), tipLength * defaultTickLength),
-      mapValueToSlit(getDefaultValue() / getRange(), tipLength));
+      mapValueToArc(getDefaultValue() / getRange(), tipLength * defaultTickLength),
+      mapValueToArc(getDefaultValue() / getRange(), tipLength));
 
     // Line from center to tip.
-    auto tip = mapValueToSlit(getValueNormalized(), tipLength);
+    auto tip = mapValueToArc(getValueNormalized(), tipLength);
     pContext->setFrameColor(pal.foreground());
     pContext->drawLine(CPoint(0.0, 0.0), tip);
 
@@ -370,12 +370,12 @@ public:
         radius - halfArcWidth),
       (float)(90.0 + arcNotchHalf), (float)(90.0 - arcNotchHalf));
 
-    // Tick for default value. Sharing color and style with slit.
+    // Tick for default value. Sharing color and style with arc.
     auto tipLength = halfArcWidth - radius;
     pContext->setLineWidth(halfArcWidth / 2.0);
     pContext->drawLine(
-      mapValueToSlit(getDefaultValue() / getRange(), tipLength * defaultTickLength),
-      mapValueToSlit(getDefaultValue() / getRange(), tipLength));
+      mapValueToArc(getDefaultValue() / getRange(), tipLength * defaultTickLength),
+      mapValueToArc(getDefaultValue() / getRange(), tipLength));
 
     // Text.
     pContext->setFont(fontId);
@@ -392,7 +392,7 @@ public:
       numberStr.c_str(), CRect(textLeft, textTop, textRight, textBottom));
 
     // Tip.
-    auto tip = mapValueToSlit(getValueNormalized(), tipLength);
+    auto tip = mapValueToArc(getValueNormalized(), tipLength);
     pContext->setFillColor(pal.foreground());
     pContext->drawEllipse(
       CRect(
