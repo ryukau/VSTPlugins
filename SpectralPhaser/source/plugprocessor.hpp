@@ -1,10 +1,10 @@
+// SPDX-License-Identifier: GPL-3.0-only
+//
 // Original by:
 // (c) 2018, Steinberg Media Technologies GmbH, All Rights Reserved
 //
 // Modified by:
-// Copyright Takamitsu Endo (ryukau@gmail.com).
-//
-// SPDX-License-Identifier: GPL-3.0-only
+// Takamitsu Endo (ryukau@gmail.com)
 
 #pragma once
 

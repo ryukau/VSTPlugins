@@ -1,19 +1,5 @@
-// (c) 2020 Takamitsu Endo
-//
-// This file is part of Uhhyou Plugins.
-//
-// Uhhyou Plugins is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Uhhyou Plugins is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Uhhyou Plugins.  If not, see <https://www.gnu.org/licenses/>.
+// SPDX-License-Identifier: GPL-3.0-only
+// Copyright Takamitsu Endo (ryukau@gmail.com)
 
 #pragma once
 
@@ -261,7 +247,8 @@ public:
     if (event.buttonState.isLeft()) {
       if (
         event.modifiers.has(ModifierKey::Control)
-        && event.modifiers.has(ModifierKey::Shift)) {
+        && event.modifiers.has(ModifierKey::Shift))
+      {
         setValueFromPosition(mousePosition, event.modifiers);
       } else {
         setValueFromLine(anchor, mousePosition, event.modifiers);
@@ -271,7 +258,8 @@ public:
     } else if (event.buttonState.isMiddle()) {
       if (
         event.modifiers.has(ModifierKey::Control)
-        && event.modifiers.has(ModifierKey::Shift)) {
+        && event.modifiers.has(ModifierKey::Shift))
+      {
         setStateFromLine(anchor, mousePosition, anchorState);
       } else if (event.modifiers.has(ModifierKey::Shift)) {
         mousePosition.x = anchor.x;
@@ -849,9 +837,9 @@ private:
       if (value[i] == sliderZero) continue;
       double val = value[i] < sliderZero
         ? std::min<double>(
-          (value[i] - sliderZero + pk.minNeg) * mulNeg + fixNeg, sliderZero)
+            (value[i] - sliderZero + pk.minNeg) * mulNeg + fixNeg, sliderZero)
         : std::max<double>(
-          (value[i] - sliderZero - pk.minPos) * mulPos + fixPos, sliderZero);
+            (value[i] - sliderZero - pk.minPos) * mulPos + fixPos, sliderZero);
       setValueAtIndex(i, val);
     }
   }
