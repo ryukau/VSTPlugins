@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2024-10-23" />
+      <meta name="dcterms.date" content="2024-10-24" />
       <title>SpectralPhaser_ja – Uhhyou Plugins</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
   <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
@@ -285,7 +285,7 @@
     <header>
         <p><a href="../../index.html">Back to Index</a></p>
             <p>
-      Update: 2024-10-23
+      Update: 2024-10-24
     </p>
             <details>
       <summary translate="yes">Table of Contents</summary>
@@ -824,6 +824,8 @@
   <p>周波数マスクの波形の周波数です。</p>
   <p><code>Freq.</code> が高くなるほど、ノッチの数が多くなります。</p>
   <p><code>Freq.</code> を 0 にすると周波数マスクが無効になります。</p>
+  <p><code>Waveform</code> が Noise
+  のときは波形の周波数が存在しないので、代わりに乱数のシード値を変えます。</p>
   </dd>
   <dt>Threshold</dt>
   <dd>
@@ -841,12 +843,11 @@
   <dd>
   <p>フィードバックごとに周波数成分をシフトする量です。</p>
   </dd>
-  <dt>Octave Down</dt>
+  <dt>Texture</dt>
   <dd>
-  <p>フィードバックごとに周波数成分を約 1
-  オクターブ下に移す割合です。</p>
-  <p>設定によっては効果があまり出ません。 <code>Feedback</code> を 1 、
-  <code>Octave Down</code> を 0.1 あたりに設定すると効果が出ます。</p>
+  <p>周波数マスクのノッチの位置を変えるスケーリングです。</p>
+  <p><code>Waveform</code> が Noise
+  のときは周波数マスクにローパスフィルタをかけて滑らかにします。</p>
   </dd>
   </dl>
   <h2 id="チェンジログ"><a href="#チェンジログ" class="header-anchor"

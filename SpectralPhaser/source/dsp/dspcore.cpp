@@ -53,17 +53,18 @@ size_t DSPCore::getLatency() { return spcParam.reportLatency ? spcParam.frmSize 
   feedback.METHOD(pv[ID::feedback]->getFloat());                                         \
   const auto spcShift = Sample(0.5) * pv[ID::spectralShift]->getFloat();                 \
   spectralShift.METHOD(spcShift - std::floor(spcShift));                                 \
-  octaveDown.METHOD(pv[ID::octaveDown]->getFloat());                                     \
                                                                                          \
   constexpr Sample twopi = Sample(2) * std::numbers::pi_v<Sample>;                       \
   maskMix.METHOD(pv[ID::maskMix]->getFloat());                                           \
   maskPhase.METHOD(pv[ID::maskPhase]->getFloat());                                       \
   maskFreq.METHOD(pv[ID::maskFreq]->getFloat() / spcParam.frmSize);                      \
+  maskChirp.METHOD(pv[ID::maskChirp]->getFloat());                                       \
   maskThreshold.METHOD(pv[ID::maskThreshold]->getFloat());                               \
   maskRotation.METHOD(pv[ID::maskRotation]->getFloat() * twopi);                         \
   lfoToMaskMix.METHOD(pv[ID::lfoToMaskMix]->getFloat());                                 \
   lfoToMaskPhase.METHOD(pv[ID::lfoToMaskPhase]->getFloat());                             \
   lfoToMaskFreq.METHOD(pv[ID::lfoToMaskFreq]->getFloat());                               \
+  lfoToMaskChirp.METHOD(pv[ID::lfoToMaskChirp]->getFloat() * Sample(2));                 \
   lfoToMaskThreshold.METHOD(pv[ID::lfoToMaskThreshold]->getFloat());                     \
   lfoToMaskRotation.METHOD(pv[ID::lfoToMaskRotation]->getFloat() * twopi);               \
   lfoToSpectralShift.METHOD(pv[ID::lfoToSpectralShift]->getFloat() * Sample(2));         \
@@ -127,19 +128,19 @@ DSPCore::processFrame(int frameIndex, Sample in0, Sample in1, Sample side0, Samp
   spcParam.dryWetMix = dryWetMix.process();
   spcParam.feedback = feedback.process();
   spectralShift.process();
-  octaveDown.process();
   maskMix.process();
   maskPhase.process();
   maskFreq.process();
+  maskChirp.process();
   maskThreshold.process();
   maskRotation.process();
+  lfoToSpectralShift.process();
   lfoToMaskMix.process();
   lfoToMaskPhase.process();
   lfoToMaskFreq.process();
+  lfoToMaskChirp.process();
   lfoToMaskThreshold.process();
   lfoToMaskRotation.process();
-  lfoToSpectralShift.process();
-  lfoToOctaveDown.process();
 
   const auto modulateParam = [&](Sample unipoler) {
     const auto bipoler = unipoler - Sample(0.5);
@@ -148,8 +149,8 @@ DSPCore::processFrame(int frameIndex, Sample in0, Sample in1, Sample side0, Samp
       = spectralShift.getValue() + lfoToSpectralShift.getValue() * bipoler;
     spcParam.spectralShift = spcParam.spectralShift - std::floor(spcParam.spectralShift);
 
-    spcParam.octaveDown = octaveDown.getValue() + lfoToOctaveDown.getValue() * unipoler;
-    spcParam.octaveDown -= std::floor(spcParam.octaveDown);
+    spcParam.maskChirp = maskChirp.getValue() + lfoToMaskChirp.getValue() * unipoler;
+    spcParam.maskChirp -= std::floor(spcParam.maskChirp);
 
     spcParam.maskMix = std::clamp(
       maskMix.getValue() + lfoToMaskMix.getValue() * bipoler, Sample(0), Sample(1));

@@ -22,10 +22,10 @@ struct SpectralParameter {
   float dryWetMix = float(1);
   float feedback = 0;
   float spectralShift = 0;
-  float octaveDown = 0;
   float maskMix = float(1);
   float maskPhase = 0;
   float maskFreq = 0;
+  float maskChirp = 0;
   float maskThreshold = 0;
   float maskRotation = 0;
 };
@@ -41,7 +41,8 @@ inline void fillMask(int maskSize, float *mask, SpectralParameter &prm)
         phase -= std::floor(phase);
         mask[idx] = std::cos(twopi * phase);
         mask[idx] = std::lerp(float(1), mask[idx], prm.maskMix);
-        phase += prm.maskFreq;
+        phase += prm.maskFreq
+          * std::lerp(float(1), float(idx) / float(maskSize), prm.maskChirp);
       }
     } break;
     case MaskWaveform::square: {
@@ -50,7 +51,8 @@ inline void fillMask(int maskSize, float *mask, SpectralParameter &prm)
         phase -= std::floor(phase);
         mask[idx] = phase < float(0.5) ? float(1) : float(-1);
         mask[idx] = std::lerp(float(1), mask[idx], prm.maskMix);
-        phase += prm.maskFreq;
+        phase += prm.maskFreq
+          * std::lerp(float(1), float(idx) / float(maskSize), prm.maskChirp);
       }
     } break;
     case MaskWaveform::sawtoothUp: {
@@ -59,7 +61,8 @@ inline void fillMask(int maskSize, float *mask, SpectralParameter &prm)
         phase -= std::floor(phase);
         mask[idx] = float(2) * phase - float(1);
         mask[idx] = std::lerp(float(1), mask[idx], prm.maskMix);
-        phase += prm.maskFreq;
+        phase += prm.maskFreq
+          * std::lerp(float(1), float(idx) / float(maskSize), prm.maskChirp);
       }
     } break;
     case MaskWaveform::sawtoothDown: {
@@ -68,7 +71,8 @@ inline void fillMask(int maskSize, float *mask, SpectralParameter &prm)
         phase -= std::floor(phase);
         mask[idx] = float(1) - float(2) * phase;
         mask[idx] = std::lerp(float(1), mask[idx], prm.maskMix);
-        phase += prm.maskFreq;
+        phase += prm.maskFreq
+          * std::lerp(float(1), float(idx) / float(maskSize), prm.maskChirp);
       }
     } break;
     case MaskWaveform::noise: {
@@ -79,6 +83,22 @@ inline void fillMask(int maskSize, float *mask, SpectralParameter &prm)
       int startIndex = int((prm.maskPhase - std::floor(prm.maskPhase)) * maskSize);
       for (int idx = startIndex; idx < maskSize; ++idx) mask[idx] = dist(rng);
       for (int idx = 0; idx < startIndex; ++idx) mask[idx] = dist(rng);
+
+      float kp = float(1) - prm.maskChirp * float(0.999);
+      float value = mask[maskSize - 1];
+      float maxAbs = 0;
+      for (int idx = maskSize - 1; idx >= 0; --idx) {
+        value += kp * (mask[idx] - value);
+        mask[idx] = value;
+        if (maxAbs < std::abs(value)) maxAbs = value;
+      }
+      // if (maxAbs >= std::numeric_limits<float>::epsilon()) {
+      //   for (int idx = 0; idx < maskSize; ++idx) mask[idx] /= maxAbs;
+      // } else {
+      for (int idx = 0; idx < maskSize; ++idx) {
+        mask[idx] = std::clamp(mask[idx], float(-1), float(1));
+      }
+      // }
     } break;
   }
 }

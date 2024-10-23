@@ -46,6 +46,7 @@ public:
     test_dir[0] = out_dir + "/run1_init/";
     test_dir[1] = out_dir + "/run2_reset/";
 
+    fs::create_directories(ref_dir);
     fs::create_directories(test_dir[0]);
     fs::create_directories(test_dir[1]);
 
@@ -68,13 +69,13 @@ public:
     std::vector<std::vector<float>> &wav,
     std::unique_ptr<DSP_CLASS> &dsp)
   {
-    if constexpr (hasSidechain) {
-      dsp->process(
-        nFrame, in[0].data(), in[1].data(), in[0].data(), in[1].data(), wav[0].data(),
-        wav[1].data());
-    } else {
-      dsp->process(nFrame, in[0].data(), in[1].data() wav[0].data(), wav[1].data());
-    }
+#ifdef HAS_SIDECHAIN
+    dsp->process(
+      nFrame, in[0].data(), in[1].data(), in[0].data(), in[1].data(), wav[0].data(),
+      wav[1].data());
+#else
+    dsp->process(nFrame, in[0].data(), in[1].data() wav[0].data(), wav[1].data());
+#endif
   }
 
   void testSequence(std::shared_ptr<PresetQueue> queue)
@@ -116,7 +117,7 @@ public:
       std::stringstream error_stream;
 
       if (!std::filesystem::exists(ref_dir + filename)) {
-        render(nFrame, sequencer, wav, dsp);
+        render(nFrame, input, wav, dsp);
         writeWaveWithLock(ref_dir + filename, wav, int(sampleRate));
 
         for (auto &wv : wav) std::fill(wv.begin(), wv.end(), 0.0f);
@@ -148,6 +149,7 @@ public:
   }
 };
 
+/*
 #ifdef __linux__
 template<typename DSP_IF, typename DSP_AVX512, typename DSP_AVX2, typename DSP_AVX>
 #else
@@ -167,6 +169,7 @@ public:
     test_dir[0] = out_dir + "/run1_init/";
     test_dir[1] = out_dir + "/run2_reset/";
 
+    fs::create_directories(ref_dir);
     fs::create_directories(test_dir[0]);
     fs::create_directories(test_dir[1]);
 
@@ -236,13 +239,13 @@ public:
     std::vector<std::vector<float>> &wav,
     std::unique_ptr<DSP_IF> &dsp)
   {
-    if constexpr (hasSidechain) {
-      dsp->process(
-        nFrame, in[0].data(), in[1].data(), in[0].data(), in[1].data(), wav[0].data(),
-        wav[1].data());
-    } else {
-      dsp->process(nFrame, in[0].data(), in[1].data() wav[0].data(), wav[1].data());
-    }
+#ifdef HAS_SIDECHAIN
+    dsp->process(
+      nFrame, in[0].data(), in[1].data(), in[0].data(), in[1].data(), wav[0].data(),
+      wav[1].data());
+#else
+    dsp->process(nFrame, in[0].data(), in[1].data() wav[0].data(), wav[1].data());
+#endif
   }
 
   void testSequence(std::shared_ptr<PresetQueue> queue)
@@ -284,7 +287,7 @@ public:
       std::stringstream error_stream;
 
       if (!std::filesystem::exists(ref_dir + filename)) {
-        render(nFrame, sequencer, wav, dsp);
+        render(nFrame, input, wav, dsp);
         writeWaveWithLock(ref_dir + filename, wav, int(sampleRate));
 
         for (auto &wv : wav) std::fill(wv.begin(), wv.end(), 0.0f);
@@ -315,3 +318,4 @@ public:
     }
   }
 };
+*/

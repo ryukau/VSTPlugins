@@ -135,12 +135,22 @@ bool Editor::prepareUI()
     lfoLeft1, lfoTop5, labelWidth, labelHeight, uiTextSize, ID::lfoRate, Scales::lfoRate,
     false, 5);
   addLabel(lfoLeft0, lfoTop6, labelWidth, labelHeight, uiTextSize, "Sync.");
-  addTextKnob(
+  auto lfoTempoUpperKnob = addTextKnob(
     lfoLeft1, lfoTop6, labelWidthHalf, labelHeight, uiTextSize, ID::lfoTempoUpper,
     Scales::lfoTempoSync, false, 0, 1);
-  addTextKnob(
+  if (lfoTempoUpperKnob) {
+    const auto denom = double(Scales::lfoTempoSync.getMax());
+    lfoTempoUpperKnob->sensitivity = 0.1 / denom;
+    lfoTempoUpperKnob->lowSensitivity = 0.0125 / denom;
+  }
+  auto lfoTempoLowerKnob = addTextKnob(
     lfoLeft1 + labelWidthHalf, lfoTop6, labelWidthHalf, labelHeight, uiTextSize,
     ID::lfoTempoLower, Scales::lfoTempoSync, false, 0, 1);
+  if (lfoTempoLowerKnob) {
+    const auto denom = double(Scales::lfoTempoSync.getMax());
+    lfoTempoLowerKnob->sensitivity = 0.1 / denom;
+    lfoTempoLowerKnob->lowSensitivity = 0.0125 / denom;
+  }
 
   constexpr auto dlyTop0 = top0;
   constexpr auto dlyTop1 = dlyTop0 + 1 * labelY;
@@ -230,11 +240,11 @@ bool Editor::prepareUI()
     maskLeft1, maskTop7, labelWidth, labelHeight, uiTextSize, ID::spectralShift,
     Scales::bipolarScale, false, 5);
   addSmallKnob(maskLeft2Knob, maskTop7, labelHeight, labelHeight, ID::lfoToSpectralShift);
-  addLabel(maskLeft0, maskTop8, labelWidth, labelHeight, uiTextSize, "Octave Down");
+  addLabel(maskLeft0, maskTop8, labelWidth, labelHeight, uiTextSize, "Texture");
   addTextKnob(
-    maskLeft1, maskTop8, labelWidth, labelHeight, uiTextSize, ID::octaveDown,
+    maskLeft1, maskTop8, labelWidth, labelHeight, uiTextSize, ID::maskChirp,
     Scales::defaultScale, false, 5);
-  addSmallKnob(maskLeft2Knob, maskTop8, labelHeight, labelHeight, ID::lfoToOctaveDown);
+  addSmallKnob(maskLeft2Knob, maskTop8, labelHeight, labelHeight, ID::lfoToMaskChirp);
 
   // Plugin name.
   constexpr auto splashMargin = uiMargin - margin;

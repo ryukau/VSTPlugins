@@ -60,11 +60,14 @@ def get_enum_range(code):
     return enum
 
 
-def extract_plugin_parameter(parameter_hpp_path):
+def extract_plugin_parameter(parameter_hpp_path: Path):
+    version_hpp_path = parameter_hpp_path.parent / Path("version.hpp")
+    with open(version_hpp_path, "r", encoding="utf-8") as fi:
+        code = fi.read()
+    plugin_name = re.findall(r"#define stringPluginName \"(.*)\"", code)[0]
+
     with open(parameter_hpp_path, "r", encoding="utf-8") as fi:
         code = fi.read()
-
-    plugin_name = re.findall(r"This file is part of (.*)\n", code)[0][:-1]
     enum = get_enum_range(code)
 
     # Using python struct module format character to represent type.
@@ -121,7 +124,7 @@ def extract_parameter():
     for path in Path("..").glob("**/parameter.hpp"):
         if path.parts[1] == "_dump":
             continue
-        if path.parts[1] != "DoubleLoopCymbal":
+        if path.parts[1] != "SpectralPhaser":
             continue
         print(path)
         extract_plugin_parameter(path)

@@ -152,6 +152,8 @@ Freq.
 
     `Freq.` を 0 にすると周波数マスクが無効になります。
 
+    `Waveform` が Noise のときは波形の周波数が存在しないので、代わりに乱数のシード値を変えます。
+
 Threshold
 
 :   周波数マスクの値が `Threshold` よりも小さいとき、その周波数を 0 にします。
@@ -166,11 +168,11 @@ Spectral Shift
 
 :   フィードバックごとに周波数成分をシフトする量です。
 
-Octave Down
+Texture
 
-:   フィードバックごとに周波数成分を約 1 オクターブ下に移す割合です。
+:   周波数マスクのノッチの位置を変えるスケーリングです。
 
-    設定によっては効果があまり出ません。 `Feedback` を 1 、 `Octave Down` を 0.1 あたりに設定すると効果が出ます。
+    `Waveform` が Noise のときは周波数マスクにローパスフィルタをかけて滑らかにします。
 
 ## チェンジログ
 {%- for version, logs in changelog["SpectralPhaser"].items() %}

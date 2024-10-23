@@ -82,7 +82,7 @@ enum ID {
   maskThreshold,
   maskRotation,
   spectralShift,
-  octaveDown,
+  maskChirp,
 
   lfoWaveform,
   lfoWaveMod,
@@ -98,7 +98,7 @@ enum ID {
   lfoToMaskThreshold,
   lfoToMaskRotation,
   lfoToSpectralShift,
-  lfoToOctaveDown,
+  lfoToMaskChirp,
 
   reservedParameter0,
   reservedGuiParameter0 = reservedParameter0 + nReservedParameter,
@@ -184,8 +184,8 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::spectralShift] = std::make_unique<LinearValue>(
       Scales::bipolarScale.invmap(0), Scales::bipolarScale, "spectralShift",
       Info::kCanAutomate);
-    value[ID::octaveDown] = std::make_unique<LinearValue>(
-      Scales::defaultScale.invmap(0), Scales::defaultScale, "octaveDown",
+    value[ID::maskChirp] = std::make_unique<LinearValue>(
+      Scales::defaultScale.invmap(0), Scales::defaultScale, "maskChirp",
       Info::kCanAutomate);
 
     value[ID::lfoWaveform] = std::make_unique<UIntValue>(
@@ -224,8 +224,8 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::lfoToSpectralShift] = std::make_unique<LinearValue>(
       Scales::bipolarScale.invmap(0), Scales::bipolarScale, "lfoToSpectralShift",
       Info::kCanAutomate);
-    value[ID::lfoToOctaveDown] = std::make_unique<LinearValue>(
-      Scales::bipolarScale.invmap(0), Scales::bipolarScale, "lfoToOctaveDown",
+    value[ID::lfoToMaskChirp] = std::make_unique<LinearValue>(
+      Scales::bipolarScale.invmap(0), Scales::bipolarScale, "lfoToMaskChirp",
       Info::kCanAutomate);
 
     for (size_t idx = 0; idx < nReservedParameter; ++idx) {
@@ -238,7 +238,7 @@ struct GlobalParameter : public ParameterInterface {
     for (size_t idx = 0; idx < nReservedGuiParameter; ++idx) {
       auto indexStr = std::to_string(idx);
       value[ID::reservedGuiParameter0 + idx] = std::make_unique<LinearValue>(
-        Scales::defaultScale.invmap(1.0), Scales::defaultScale,
+        Scales::defaultScale.invmap(0.0), Scales::defaultScale,
         ("reservedGuiParameter" + indexStr).c_str(), Info::kIsHidden);
     }
 

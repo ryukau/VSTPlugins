@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 #define SET_PARAMETERS dsp->setParameters();
+#define HAS_SIDECHAIN 1
 
 #include "../../test/fxtester.hpp"
 #include "../source/dsp/dspcore.hpp"

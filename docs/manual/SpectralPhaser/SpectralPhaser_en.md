@@ -155,6 +155,8 @@ Freq.
 
     Setting `Freq.` to 0 disables frequency masking.
 
+    When `Waveform` is Noise, there is no waveform frequency, so instead the random seed value is changed.
+
 Threshold
 
 :   When a value in a frequency mask is less than `Threshold`, the corresponding frequency is set to zero.
@@ -169,11 +171,11 @@ Spectral Shift
 
 :   Frequency shift amount for each feedback.
 
-Octave Down
+Texture
 
-:   Amount of octave down effect. Octave down is applied for each feedback.
+:   Scaling that changes the location of the notches in the frequency mask.
 
-    Depending on the settings, the effect may not be noticeable. To get the effect, try setting `Feedback` to 1 and `Octave Down` to around 0.1.
+    When `Waveform` is Noise, the frequency mask is smoothed by applying a low-pass filter.
 
 ## Change Log
 {%- for version, logs in changelog["SpectralPhaser"].items() %}

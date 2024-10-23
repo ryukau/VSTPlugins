@@ -279,27 +279,12 @@ public:
     const int spcShift = prm.spectralShift * spectrumSize;
     std::rotate(spcTmp, spcTmp + spcShift, spcTmp + spectrumSize);
 
-    spcTmp[0] *= float(1) - prm.octaveDown;
-
     for (int idx = 0; idx < spectrumSize; ++idx) {
       spcTmp[idx] *= prm.feedback;
-      const auto maskValue = mask[idx] > prm.maskThreshold
-        ? mask[idx] * std::polar(float(1), prm.maskRotation * mask[idx])
-        : float(0);
-
-      if ((idx & 1) == 0) {
-        auto value = spcTmp[idx];
-        spcTmp[idx] = (float(1) - prm.octaveDown) * value;
-        spcTmp[idx / 2] += prm.octaveDown * value;
-      } else {
-        auto value = spcTmp[idx];
-        spcTmp[idx] = (float(1) - prm.octaveDown) * value;
-        spcTmp[idx / 2] += prm.octaveDown * value / float(2);
-        spcTmp[idx / 2 + 1] += prm.octaveDown * value / float(2);
-      }
-
+      const auto maskValue = mask[idx] > prm.maskThreshold ? mask[idx] : float(0);
       spcTmp[idx] += spcSrc[idx] / float(prm.frmSize) * maskValue;
-      spcSrc[idx] = spcTmp[idx] * std::abs(maskValue);
+      spcSrc[idx]
+        = spcTmp[idx] * std::polar(std::abs(maskValue), prm.maskRotation * mask[idx]);
     }
 
     fftwf_execute(inversePlan[planIndex]);
@@ -330,24 +315,11 @@ public:
     rotation -= std::floor(rotation);
     int rotIdx = int(prm.frmSize * rotation);
 
-    bufR[0] *= float(1) - prm.octaveDown;
-
     for (int idx = 0; idx < prm.frmSize; ++idx) {
       // Using an implementation detail that `prm.frmSize` is always 2^n.
       const auto permSrc = (idx + rotIdx) & (prm.frmSize - 1);
       const auto permuted = binaryToGrayCode(bitReversal(permSrc, prm.frameSizeLog2));
       bufR[idx] *= prm.feedback;
-
-      if ((idx & 1) == 0) {
-        auto value = bufR[idx];
-        bufR[idx] = (float(1) - prm.octaveDown) * value;
-        bufR[idx / 2] += prm.octaveDown * value;
-      } else {
-        auto value = bufR[idx];
-        bufR[idx] = (float(1) - prm.octaveDown) * value;
-        bufR[idx / 2] += prm.octaveDown * value / float(2);
-        bufR[idx / 2 + 1] += prm.octaveDown * value / float(2);
-      }
 
       const auto maskValue = mask[idx] > prm.maskThreshold ? mask[idx] : 0;
       bufR[idx] += bufW[permuted] * maskValue / float(prm.frmSize);
@@ -380,22 +352,9 @@ public:
     rotation -= std::floor(rotation);
     int rotIdx = int(prm.frmSize * rotation);
 
-    bufR[0] *= float(1) - prm.octaveDown;
-
     fillMask(prm.frmSize, mask.data(), prm);
     for (int idx = 0; idx < prm.frmSize; ++idx) {
       bufR[idx] *= prm.feedback;
-
-      if ((idx & 1) == 0) {
-        auto value = bufR[idx];
-        bufR[idx] = (float(1) - prm.octaveDown) * value;
-        bufR[idx / 2] += prm.octaveDown * value;
-      } else {
-        auto value = bufR[idx];
-        bufR[idx] = (float(1) - prm.octaveDown) * value;
-        bufR[idx / 2] += prm.octaveDown * value / float(2);
-        bufR[idx / 2 + 1] += prm.octaveDown * value / float(2);
-      }
 
       const auto maskValue = mask[idx] > prm.maskThreshold ? mask[idx] : 0;
       bufR[idx] *= std::abs(maskValue);

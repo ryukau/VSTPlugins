@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2024-10-23" />
+      <meta name="dcterms.date" content="2024-10-24" />
       <title>SpectralPhaser_en – Uhhyou Plugins</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
   <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
@@ -285,7 +285,7 @@
     <header>
         <p><a href="../../index.html">Back to Index</a></p>
             <p>
-      Update: 2024-10-23
+      Update: 2024-10-24
     </p>
             <details>
       <summary translate="yes">Table of Contents</summary>
@@ -827,6 +827,8 @@
   <p>Frequency of frequency mask waveform.</p>
   <p>Higher the <code>Freq.</code>, more notches.</p>
   <p>Setting <code>Freq.</code> to 0 disables frequency masking.</p>
+  <p>When <code>Waveform</code> is Noise, there is no waveform
+  frequency, so instead the random seed value is changed.</p>
   </dd>
   <dt>Threshold</dt>
   <dd>
@@ -845,13 +847,12 @@
   <dd>
   <p>Frequency shift amount for each feedback.</p>
   </dd>
-  <dt>Octave Down</dt>
+  <dt>Texture</dt>
   <dd>
-  <p>Amount of octave down effect. Octave down is applied for each
-  feedback.</p>
-  <p>Depending on the settings, the effect may not be noticeable. To get
-  the effect, try setting <code>Feedback</code> to 1 and
-  <code>Octave Down</code> to around 0.1.</p>
+  <p>Scaling that changes the location of the notches in the frequency
+  mask.</p>
+  <p>When <code>Waveform</code> is Noise, the frequency mask is smoothed
+  by applying a low-pass filter.</p>
   </dd>
   </dl>
   <h2 id="change-log"><a href="#change-log" class="header-anchor"

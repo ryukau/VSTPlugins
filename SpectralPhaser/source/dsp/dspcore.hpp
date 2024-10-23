@@ -54,19 +54,19 @@ private:
   RotarySmoother<Sample> lfoInitialPhase;
   ExpSmoother<Sample> feedback;
   ExpSmoother<Sample> spectralShift;
-  ExpSmoother<Sample> octaveDown;
   ExpSmoother<Sample> maskMix;
   ExpSmoother<Sample> maskPhase;
   RotarySmoother<Sample> maskFreq;
+  ExpSmoother<Sample> maskChirp;
   ExpSmoother<Sample> maskThreshold;
   ExpSmoother<Sample> maskRotation;
+  ExpSmoother<Sample> lfoToSpectralShift;
   ExpSmoother<Sample> lfoToMaskMix;
   ExpSmoother<Sample> lfoToMaskPhase;
   ExpSmoother<Sample> lfoToMaskFreq;
+  ExpSmoother<Sample> lfoToMaskChirp;
   ExpSmoother<Sample> lfoToMaskThreshold;
   ExpSmoother<Sample> lfoToMaskRotation;
-  ExpSmoother<Sample> lfoToSpectralShift;
-  ExpSmoother<Sample> lfoToOctaveDown;
   ExpSmoother<Sample> outputGain;
   ExpSmoother<Sample> dryWetMix;
 

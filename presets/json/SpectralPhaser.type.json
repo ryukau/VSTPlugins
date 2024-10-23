@@ -1,0 +1,2810 @@
+[
+  {
+    "id": 0,
+    "name": "bypass",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate | Info::kIsBypass"
+  },
+  {
+    "id": 1,
+    "name": "parameterSmoothingSecond",
+    "type": "d",
+    "default": "Scales::parameterSmoothingSecond.invmap(0.1)",
+    "scale": "Scales::parameterSmoothingSecond",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 2,
+    "name": "outputGain",
+    "type": "d",
+    "default": "Scales::gain.invmap(1.0)",
+    "scale": "Scales::gain",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 3,
+    "name": "dryWetMix",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.75)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 4,
+    "name": "sideChainSwitch",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 5,
+    "name": "reportLatency",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 6,
+    "name": "transform",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::transform",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 7,
+    "name": "frameSize",
+    "type": "I",
+    "default": 10,
+    "scale": "Scales::frameSize",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 8,
+    "name": "feedback",
+    "type": "d",
+    "default": "Scales::feedback.invmap(0.5)",
+    "scale": "Scales::feedback",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 9,
+    "name": "maskWaveform",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::maskWaveform",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 10,
+    "name": "maskMix",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(1)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 11,
+    "name": "maskPhase",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 12,
+    "name": "maskFreq",
+    "type": "d",
+    "default": "Scales::maskFreq.invmap(8)",
+    "scale": "Scales::maskFreq",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 13,
+    "name": "maskThreshold",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 14,
+    "name": "maskRotation",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 15,
+    "name": "spectralShift",
+    "type": "d",
+    "default": "Scales::bipolarScale.invmap(0)",
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
+    "name": "maskChirp",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 17,
+    "name": "lfoWaveform",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::lfoWaveform",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 18,
+    "name": "lfoWaveMod",
+    "type": "d",
+    "default": "Scales::bipolarScale.invmap(0)",
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 19,
+    "name": "lfoTempoUpper",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::lfoTempoSync",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 20,
+    "name": "lfoTempoLower",
+    "type": "I",
+    "default": 0,
+    "scale": "Scales::lfoTempoSync",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 21,
+    "name": "lfoRate",
+    "type": "d",
+    "default": "Scales::lfoRate.invmap(1.0)",
+    "scale": "Scales::lfoRate",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 22,
+    "name": "lfoStereoPhaseOffset",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 23,
+    "name": "lfoInitialPhase",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 24,
+    "name": "lfoToMaskMix",
+    "type": "d",
+    "default": "Scales::bipolarScale.invmap(0)",
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 25,
+    "name": "lfoToMaskPhase",
+    "type": "d",
+    "default": "Scales::bipolarScale.invmap(0)",
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 26,
+    "name": "lfoToMaskFreq",
+    "type": "d",
+    "default": "Scales::bipolarScale.invmap(0)",
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 27,
+    "name": "lfoToMaskThreshold",
+    "type": "d",
+    "default": "Scales::bipolarScale.invmap(0)",
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 28,
+    "name": "lfoToMaskRotation",
+    "type": "d",
+    "default": "Scales::bipolarScale.invmap(0)",
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 29,
+    "name": "lfoToSpectralShift",
+    "type": "d",
+    "default": "Scales::bipolarScale.invmap(0)",
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 30,
+    "name": "lfoToMaskChirp",
+    "type": "d",
+    "default": "Scales::bipolarScale.invmap(0)",
+    "scale": "Scales::bipolarScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 31,
+    "name": "reservedParameter0",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 32,
+    "name": "reservedParameter1",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 33,
+    "name": "reservedParameter2",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 34,
+    "name": "reservedParameter3",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 35,
+    "name": "reservedParameter4",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 36,
+    "name": "reservedParameter5",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 37,
+    "name": "reservedParameter6",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 38,
+    "name": "reservedParameter7",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 39,
+    "name": "reservedParameter8",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 40,
+    "name": "reservedParameter9",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 41,
+    "name": "reservedParameter10",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 42,
+    "name": "reservedParameter11",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 43,
+    "name": "reservedParameter12",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 44,
+    "name": "reservedParameter13",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 45,
+    "name": "reservedParameter14",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 46,
+    "name": "reservedParameter15",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 47,
+    "name": "reservedParameter16",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 48,
+    "name": "reservedParameter17",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 49,
+    "name": "reservedParameter18",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 50,
+    "name": "reservedParameter19",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 51,
+    "name": "reservedParameter20",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 52,
+    "name": "reservedParameter21",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 53,
+    "name": "reservedParameter22",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 54,
+    "name": "reservedParameter23",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 55,
+    "name": "reservedParameter24",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 56,
+    "name": "reservedParameter25",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 57,
+    "name": "reservedParameter26",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 58,
+    "name": "reservedParameter27",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 59,
+    "name": "reservedParameter28",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 60,
+    "name": "reservedParameter29",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 61,
+    "name": "reservedParameter30",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 62,
+    "name": "reservedParameter31",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 63,
+    "name": "reservedParameter32",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 64,
+    "name": "reservedParameter33",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 65,
+    "name": "reservedParameter34",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 66,
+    "name": "reservedParameter35",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 67,
+    "name": "reservedParameter36",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 68,
+    "name": "reservedParameter37",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 69,
+    "name": "reservedParameter38",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 70,
+    "name": "reservedParameter39",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 71,
+    "name": "reservedParameter40",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 72,
+    "name": "reservedParameter41",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 73,
+    "name": "reservedParameter42",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 74,
+    "name": "reservedParameter43",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 75,
+    "name": "reservedParameter44",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 76,
+    "name": "reservedParameter45",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 77,
+    "name": "reservedParameter46",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 78,
+    "name": "reservedParameter47",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 79,
+    "name": "reservedParameter48",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 80,
+    "name": "reservedParameter49",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 81,
+    "name": "reservedParameter50",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 82,
+    "name": "reservedParameter51",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 83,
+    "name": "reservedParameter52",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 84,
+    "name": "reservedParameter53",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 85,
+    "name": "reservedParameter54",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 86,
+    "name": "reservedParameter55",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 87,
+    "name": "reservedParameter56",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 88,
+    "name": "reservedParameter57",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 89,
+    "name": "reservedParameter58",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 90,
+    "name": "reservedParameter59",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 91,
+    "name": "reservedParameter60",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 92,
+    "name": "reservedParameter61",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 93,
+    "name": "reservedParameter62",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 94,
+    "name": "reservedParameter63",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 95,
+    "name": "reservedParameter64",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 96,
+    "name": "reservedParameter65",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 97,
+    "name": "reservedParameter66",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 98,
+    "name": "reservedParameter67",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 99,
+    "name": "reservedParameter68",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 100,
+    "name": "reservedParameter69",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 101,
+    "name": "reservedParameter70",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 102,
+    "name": "reservedParameter71",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 103,
+    "name": "reservedParameter72",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 104,
+    "name": "reservedParameter73",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 105,
+    "name": "reservedParameter74",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 106,
+    "name": "reservedParameter75",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 107,
+    "name": "reservedParameter76",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 108,
+    "name": "reservedParameter77",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 109,
+    "name": "reservedParameter78",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 110,
+    "name": "reservedParameter79",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 111,
+    "name": "reservedParameter80",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 112,
+    "name": "reservedParameter81",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 113,
+    "name": "reservedParameter82",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 114,
+    "name": "reservedParameter83",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 115,
+    "name": "reservedParameter84",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 116,
+    "name": "reservedParameter85",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 117,
+    "name": "reservedParameter86",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 118,
+    "name": "reservedParameter87",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 119,
+    "name": "reservedParameter88",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 120,
+    "name": "reservedParameter89",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 121,
+    "name": "reservedParameter90",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 122,
+    "name": "reservedParameter91",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 123,
+    "name": "reservedParameter92",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 124,
+    "name": "reservedParameter93",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 125,
+    "name": "reservedParameter94",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 126,
+    "name": "reservedParameter95",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 127,
+    "name": "reservedParameter96",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 128,
+    "name": "reservedParameter97",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 129,
+    "name": "reservedParameter98",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 130,
+    "name": "reservedParameter99",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 131,
+    "name": "reservedParameter100",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 132,
+    "name": "reservedParameter101",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 133,
+    "name": "reservedParameter102",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 134,
+    "name": "reservedParameter103",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 135,
+    "name": "reservedParameter104",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 136,
+    "name": "reservedParameter105",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 137,
+    "name": "reservedParameter106",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 138,
+    "name": "reservedParameter107",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 139,
+    "name": "reservedParameter108",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 140,
+    "name": "reservedParameter109",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 141,
+    "name": "reservedParameter110",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 142,
+    "name": "reservedParameter111",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 143,
+    "name": "reservedParameter112",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 144,
+    "name": "reservedParameter113",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 145,
+    "name": "reservedParameter114",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 146,
+    "name": "reservedParameter115",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 147,
+    "name": "reservedParameter116",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 148,
+    "name": "reservedParameter117",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 149,
+    "name": "reservedParameter118",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 150,
+    "name": "reservedParameter119",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 151,
+    "name": "reservedParameter120",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 152,
+    "name": "reservedParameter121",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 153,
+    "name": "reservedParameter122",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 154,
+    "name": "reservedParameter123",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 155,
+    "name": "reservedParameter124",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 156,
+    "name": "reservedParameter125",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 157,
+    "name": "reservedParameter126",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 158,
+    "name": "reservedParameter127",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 159,
+    "name": "reservedParameter128",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 160,
+    "name": "reservedParameter129",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 161,
+    "name": "reservedParameter130",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 162,
+    "name": "reservedParameter131",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 163,
+    "name": "reservedParameter132",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 164,
+    "name": "reservedParameter133",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 165,
+    "name": "reservedParameter134",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 166,
+    "name": "reservedParameter135",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 167,
+    "name": "reservedParameter136",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 168,
+    "name": "reservedParameter137",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 169,
+    "name": "reservedParameter138",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 170,
+    "name": "reservedParameter139",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 171,
+    "name": "reservedParameter140",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 172,
+    "name": "reservedParameter141",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 173,
+    "name": "reservedParameter142",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 174,
+    "name": "reservedParameter143",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 175,
+    "name": "reservedParameter144",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 176,
+    "name": "reservedParameter145",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 177,
+    "name": "reservedParameter146",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 178,
+    "name": "reservedParameter147",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 179,
+    "name": "reservedParameter148",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 180,
+    "name": "reservedParameter149",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 181,
+    "name": "reservedParameter150",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 182,
+    "name": "reservedParameter151",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 183,
+    "name": "reservedParameter152",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 184,
+    "name": "reservedParameter153",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 185,
+    "name": "reservedParameter154",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 186,
+    "name": "reservedParameter155",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 187,
+    "name": "reservedParameter156",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 188,
+    "name": "reservedParameter157",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 189,
+    "name": "reservedParameter158",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 190,
+    "name": "reservedParameter159",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 191,
+    "name": "reservedParameter160",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 192,
+    "name": "reservedParameter161",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 193,
+    "name": "reservedParameter162",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 194,
+    "name": "reservedParameter163",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 195,
+    "name": "reservedParameter164",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 196,
+    "name": "reservedParameter165",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 197,
+    "name": "reservedParameter166",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 198,
+    "name": "reservedParameter167",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 199,
+    "name": "reservedParameter168",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 200,
+    "name": "reservedParameter169",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 201,
+    "name": "reservedParameter170",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 202,
+    "name": "reservedParameter171",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 203,
+    "name": "reservedParameter172",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 204,
+    "name": "reservedParameter173",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 205,
+    "name": "reservedParameter174",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 206,
+    "name": "reservedParameter175",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 207,
+    "name": "reservedParameter176",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 208,
+    "name": "reservedParameter177",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 209,
+    "name": "reservedParameter178",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 210,
+    "name": "reservedParameter179",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 211,
+    "name": "reservedParameter180",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 212,
+    "name": "reservedParameter181",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 213,
+    "name": "reservedParameter182",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 214,
+    "name": "reservedParameter183",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 215,
+    "name": "reservedParameter184",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 216,
+    "name": "reservedParameter185",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 217,
+    "name": "reservedParameter186",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 218,
+    "name": "reservedParameter187",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 219,
+    "name": "reservedParameter188",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 220,
+    "name": "reservedParameter189",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 221,
+    "name": "reservedParameter190",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 222,
+    "name": "reservedParameter191",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 223,
+    "name": "reservedParameter192",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 224,
+    "name": "reservedParameter193",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 225,
+    "name": "reservedParameter194",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 226,
+    "name": "reservedParameter195",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 227,
+    "name": "reservedParameter196",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 228,
+    "name": "reservedParameter197",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 229,
+    "name": "reservedParameter198",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 230,
+    "name": "reservedParameter199",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 231,
+    "name": "reservedParameter200",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 232,
+    "name": "reservedParameter201",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 233,
+    "name": "reservedParameter202",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 234,
+    "name": "reservedParameter203",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 235,
+    "name": "reservedParameter204",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 236,
+    "name": "reservedParameter205",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 237,
+    "name": "reservedParameter206",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 238,
+    "name": "reservedParameter207",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 239,
+    "name": "reservedParameter208",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 240,
+    "name": "reservedParameter209",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 241,
+    "name": "reservedParameter210",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 242,
+    "name": "reservedParameter211",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 243,
+    "name": "reservedParameter212",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 244,
+    "name": "reservedParameter213",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 245,
+    "name": "reservedParameter214",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 246,
+    "name": "reservedParameter215",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 247,
+    "name": "reservedParameter216",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 248,
+    "name": "reservedParameter217",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 249,
+    "name": "reservedParameter218",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 250,
+    "name": "reservedParameter219",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 251,
+    "name": "reservedParameter220",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 252,
+    "name": "reservedParameter221",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 253,
+    "name": "reservedParameter222",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 254,
+    "name": "reservedParameter223",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 255,
+    "name": "reservedParameter224",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 256,
+    "name": "reservedParameter225",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 257,
+    "name": "reservedParameter226",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 258,
+    "name": "reservedParameter227",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 259,
+    "name": "reservedParameter228",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 260,
+    "name": "reservedParameter229",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 261,
+    "name": "reservedParameter230",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 262,
+    "name": "reservedParameter231",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 263,
+    "name": "reservedParameter232",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 264,
+    "name": "reservedParameter233",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 265,
+    "name": "reservedParameter234",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 266,
+    "name": "reservedParameter235",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 267,
+    "name": "reservedParameter236",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 268,
+    "name": "reservedParameter237",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 269,
+    "name": "reservedParameter238",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 270,
+    "name": "reservedParameter239",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 271,
+    "name": "reservedParameter240",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 272,
+    "name": "reservedParameter241",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 273,
+    "name": "reservedParameter242",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 274,
+    "name": "reservedParameter243",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 275,
+    "name": "reservedParameter244",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 276,
+    "name": "reservedParameter245",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 277,
+    "name": "reservedParameter246",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 278,
+    "name": "reservedParameter247",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 279,
+    "name": "reservedParameter248",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 280,
+    "name": "reservedParameter249",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 281,
+    "name": "reservedParameter250",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 282,
+    "name": "reservedParameter251",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 283,
+    "name": "reservedParameter252",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 284,
+    "name": "reservedParameter253",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 285,
+    "name": "reservedParameter254",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 286,
+    "name": "reservedParameter255",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 287,
+    "name": "reservedGuiParameter0",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 288,
+    "name": "reservedGuiParameter1",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 289,
+    "name": "reservedGuiParameter2",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 290,
+    "name": "reservedGuiParameter3",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 291,
+    "name": "reservedGuiParameter4",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 292,
+    "name": "reservedGuiParameter5",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 293,
+    "name": "reservedGuiParameter6",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 294,
+    "name": "reservedGuiParameter7",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 295,
+    "name": "reservedGuiParameter8",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 296,
+    "name": "reservedGuiParameter9",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 297,
+    "name": "reservedGuiParameter10",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 298,
+    "name": "reservedGuiParameter11",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 299,
+    "name": "reservedGuiParameter12",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 300,
+    "name": "reservedGuiParameter13",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 301,
+    "name": "reservedGuiParameter14",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 302,
+    "name": "reservedGuiParameter15",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 303,
+    "name": "reservedGuiParameter16",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 304,
+    "name": "reservedGuiParameter17",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 305,
+    "name": "reservedGuiParameter18",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 306,
+    "name": "reservedGuiParameter19",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 307,
+    "name": "reservedGuiParameter20",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 308,
+    "name": "reservedGuiParameter21",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 309,
+    "name": "reservedGuiParameter22",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 310,
+    "name": "reservedGuiParameter23",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 311,
+    "name": "reservedGuiParameter24",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 312,
+    "name": "reservedGuiParameter25",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 313,
+    "name": "reservedGuiParameter26",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 314,
+    "name": "reservedGuiParameter27",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 315,
+    "name": "reservedGuiParameter28",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 316,
+    "name": "reservedGuiParameter29",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 317,
+    "name": "reservedGuiParameter30",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 318,
+    "name": "reservedGuiParameter31",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 319,
+    "name": "reservedGuiParameter32",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 320,
+    "name": "reservedGuiParameter33",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 321,
+    "name": "reservedGuiParameter34",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 322,
+    "name": "reservedGuiParameter35",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 323,
+    "name": "reservedGuiParameter36",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 324,
+    "name": "reservedGuiParameter37",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 325,
+    "name": "reservedGuiParameter38",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 326,
+    "name": "reservedGuiParameter39",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 327,
+    "name": "reservedGuiParameter40",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 328,
+    "name": "reservedGuiParameter41",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 329,
+    "name": "reservedGuiParameter42",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 330,
+    "name": "reservedGuiParameter43",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 331,
+    "name": "reservedGuiParameter44",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 332,
+    "name": "reservedGuiParameter45",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 333,
+    "name": "reservedGuiParameter46",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 334,
+    "name": "reservedGuiParameter47",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 335,
+    "name": "reservedGuiParameter48",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 336,
+    "name": "reservedGuiParameter49",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 337,
+    "name": "reservedGuiParameter50",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 338,
+    "name": "reservedGuiParameter51",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 339,
+    "name": "reservedGuiParameter52",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 340,
+    "name": "reservedGuiParameter53",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 341,
+    "name": "reservedGuiParameter54",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 342,
+    "name": "reservedGuiParameter55",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 343,
+    "name": "reservedGuiParameter56",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 344,
+    "name": "reservedGuiParameter57",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 345,
+    "name": "reservedGuiParameter58",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 346,
+    "name": "reservedGuiParameter59",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 347,
+    "name": "reservedGuiParameter60",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 348,
+    "name": "reservedGuiParameter61",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 349,
+    "name": "reservedGuiParameter62",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  },
+  {
+    "id": 350,
+    "name": "reservedGuiParameter63",
+    "type": "d",
+    "default": "Scales::defaultScale.invmap(0.0)",
+    "scale": "Scales::defaultScale",
+    "flags": "Info::kIsHidden"
+  }
+]
