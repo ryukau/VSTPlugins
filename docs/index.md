@@ -24,13 +24,13 @@ span.pluginlist {
 # Uhhyou Plugins
 [VST®](#vst_logo) 3 プラグインを公開しています。
 
-何かあれば [GitHub のリポジトリ](https://github.com/ryukau/VSTPlugins)に issue を投げるか `ryukau@gmail.com` にメールを送信してもらえれば対応します。お気軽にお問い合わせください。
+何かあれば [GitHub リポジトリの discussion に投稿](https://github.com/ryukau/VSTPlugins/discussions)するか、 `ryukau@gmail.com` にメールを送信してもらえれば対応します。バグ報告は [GitHub リポジトリの issue ](https://github.com/ryukau/VSTPlugins)にどうぞ。お気軽にお問い合わせください。
 
 [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau) から開発資金を投げ銭することもできます。
 
 This page is publishing [VST®](#vst_logo) 3 plugins.
 
-If you find a bug, feel free to report the issue at [GitHub repository](https://github.com/ryukau/VSTPlugins) or send email to `ryukau@gmail.com`. Note that I'm not native in English.
+To make a contact, feel free to [post on the discussion page on GitHub repository](https://github.com/ryukau/VSTPlugins/discussions). If you find a bug, [open a issue at GitHub repository](https://github.com/ryukau/VSTPlugins/issues) or send email to `ryukau@gmail.com`. Note that I'm not native in English.
 
 You can fund the development via [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).
 
@@ -196,10 +196,26 @@ All the plugin download link can be found at release page on following link.
 <span class="pluginlist"><a href="#sevendelay">
 <ruby>SevenDelay<rt>セブン ディレイ</rt></ruby>
 </a></span>
+<span class="pluginlist"><a href="#spectralphaser">
+<ruby>SpectralPhaser<rt>スペクトラル フェイザ</rt></ruby>
+</a></span>
 <span class="pluginlist"><a href="#ultrasonicringmod">
 <ruby>UltrasonicRingMod<rt>ウルトラソニック リング モッド</rt></ruby>
 </a></span>
 </p>
+
+### SpectralPhaser
+<figure>
+<img src="manual/SpectralPhaser/img/SpectralPhaser.png" alt="Image of SpectralPhaser graphical user interface."/>
+</figure>
+
+SpectralPhaser は周波数領域でマスクをかけることでフェイザのような音が出るエフェクタです。 FFT に加えて、高速 Walsh-Hadamard 変換 (FWHT) 、 Haar 変換が使えます。
+
+- [SpectralPhaser のマニュアル (日本語)](manual/SpectralPhaser/SpectralPhaser_ja.html)
+
+SpectralPhaser is an effect that produces a phaser-like sound by applying a mask in the frequency domain. In addition to FFT, fast Walsh-Hadamard transform (FWHT) and Haar transform are available.
+
+- [SpectralPhaser Manual (English)](manual/SpectralPhaser/SpectralPhaser_en.html)
 
 ### DoubleLoopCymbal
 <figure>

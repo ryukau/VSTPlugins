@@ -60,6 +60,8 @@ exclude:
 - manual/RingModSpacer/RingModSpacer_ja.md
 - manual/SevenDelay/SevenDelay_en.md
 - manual/SevenDelay/SevenDelay_ja.md
+- manual/SpectralPhaser/SpectralPhaser_en.md
+- manual/SpectralPhaser/SpectralPhaser_ja.md
 - manual/SyncSawSynth/SyncSawSynth_en.md
 - manual/SyncSawSynth/SyncSawSynth_ja.md
 - manual/TrapezoidSynth/TrapezoidSynth_en.md
