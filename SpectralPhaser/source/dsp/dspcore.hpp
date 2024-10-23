@@ -45,6 +45,7 @@ private:
   Sample getTempoSyncFrequency();
 
   Sample sampleRate = 44100;
+  TransformType previousTransform = TransformType::fft;
   LfoWaveform lfoWaveform = LfoWaveform::sine;
 
   ExpSmoother<Sample> lfoWaveMod;

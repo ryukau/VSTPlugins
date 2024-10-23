@@ -299,7 +299,7 @@ public:
       }
 
       spcTmp[idx] += spcSrc[idx] / float(prm.frmSize) * maskValue;
-      spcSrc[idx] = spcTmp[idx];
+      spcSrc[idx] = spcTmp[idx] * std::abs(maskValue);
     }
 
     fftwf_execute(inversePlan[planIndex]);
@@ -349,9 +349,9 @@ public:
         bufR[idx / 2 + 1] += prm.octaveDown * value / float(2);
       }
 
-      bufR[idx] += bufW[permuted] * (mask[idx] > prm.maskThreshold ? mask[idx] : 0)
-        / float(prm.frmSize);
-      bufW[permuted] = bufR[idx];
+      const auto maskValue = mask[idx] > prm.maskThreshold ? mask[idx] : 0;
+      bufR[idx] += bufW[permuted] * maskValue / float(prm.frmSize);
+      bufW[permuted] = bufR[idx] * std::abs(maskValue);
     }
 
     fwht(prm.frmSize, bufW, false);
@@ -397,9 +397,12 @@ public:
         bufR[idx / 2 + 1] += prm.octaveDown * value / float(2);
       }
 
+      const auto maskValue = mask[idx] > prm.maskThreshold ? mask[idx] : 0;
+      bufR[idx] *= std::abs(maskValue);
+
       const auto src
         = std::lerp(bufTmp[idx], bufTmp[(idx + rotIdx) & (prm.frmSize - 1)], rotation);
-      bufR[idx] += src * (mask[idx] > prm.maskThreshold ? mask[idx] : 0);
+      bufR[idx] += src * maskValue;
     }
 
     haarTransformBackward(prm.frmSize, bufR, bufW);

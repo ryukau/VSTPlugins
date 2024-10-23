@@ -35,7 +35,13 @@ size_t DSPCore::getLatency() { return spcParam.reportLatency ? spcParam.frmSize 
   spcParam.reportLatency = pv[ID::reportLatency]->getInt();                              \
   spcParam.frameSizeLog2 = pv[ID::frameSize]->getInt() + maxFrameSizeStart;              \
   spcParam.frmSize = int(1) << spcParam.frameSizeLog2;                                   \
+                                                                                         \
   spcParam.transform = static_cast<TransformType>(pv[ID::transform]->getInt());          \
+  if (spcParam.transform != previousTransform) {                                         \
+    for (auto &x : spc) x.reset(spcParam.frameSizeLog2);                                 \
+  }                                                                                      \
+  previousTransform = spcParam.transform;                                                \
+                                                                                         \
   spcParam.maskWaveform = static_cast<MaskWaveform>(pv[ID::maskWaveform]->getInt());     \
                                                                                          \
   lfoWaveform = static_cast<LfoWaveform>(pv[ID::lfoWaveform]->getInt());                 \
@@ -141,6 +147,7 @@ DSPCore::processFrame(int frameIndex, Sample in0, Sample in1, Sample side0, Samp
     spcParam.spectralShift
       = spectralShift.getValue() + lfoToSpectralShift.getValue() * bipoler;
     spcParam.spectralShift = spcParam.spectralShift - std::floor(spcParam.spectralShift);
+
     spcParam.octaveDown = octaveDown.getValue() + lfoToOctaveDown.getValue() * unipoler;
     spcParam.octaveDown -= std::floor(spcParam.octaveDown);
 
@@ -149,9 +156,12 @@ DSPCore::processFrame(int frameIndex, Sample in0, Sample in1, Sample side0, Samp
     spcParam.maskPhase = maskPhase.getValue() + lfoToMaskPhase.getValue() * unipoler;
     spcParam.maskFreq
       = maskFreq.getValue() * std::exp2(Sample(6) * lfoToMaskFreq.getValue() * unipoler);
-    spcParam.maskThreshold = std::clamp(
-      maskThreshold.getValue() + lfoToMaskThreshold.getValue() * unipoler, //
-      Sample(0), Sample(1));
+
+    spcParam.maskThreshold
+      = maskThreshold.getValue() + lfoToMaskThreshold.getValue() * unipoler;
+    spcParam.maskThreshold
+      = std::clamp(Sample(2) * spcParam.maskThreshold - Sample(1), Sample(-1), Sample(1));
+
     spcParam.maskRotation
       = maskRotation.getValue() + lfoToMaskRotation.getValue() * unipoler;
   };
