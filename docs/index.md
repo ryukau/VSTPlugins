@@ -83,11 +83,11 @@ GUI の色は変更できます。マニュアルの「GUI の見た目の設定
 GUI colors can be configured. Refer to "GUI Style Configuration" section in the manual. Above is the list of preset themes.
 
 ## プラグイン一覧 | Plugin List
-以下のリリースページからプラグインをまとめてダウンロードできます。
+以下のリリースページからプラグインをまとめてダウンロードできます。プラグイン全部入りを `UhhyouPlugins*.zip` として配布しています。
 
 - [Releases · ryukau/VSTPlugins · GitHub](https://github.com/ryukau/VSTPlugins/releases)
 
-All the plugin download link can be found at release page on following link.
+All the plugin download link can be found at release page on following link. `UhhyouPlugins*.zip` is the all-in-one package which contains everything.
 
 - [Releases · ryukau/VSTPlugins · GitHub](https://github.com/ryukau/VSTPlugins/releases)
 
