@@ -3,18 +3,17 @@ This repository is publishing VST 3 plugins under GPLv3.
 
 - [Uhhyou Plugins (Documentation)](https://ryukau.github.io/VSTPlugins/)
 
-The plugins are available at [release page](https://github.com/ryukau/VSTPlugins/releases) (github.com).
+The plugins are available at [release page](https://github.com/ryukau/VSTPlugins/releases). To install from a zip package, refer to [a section on the manual](https://ryukau.github.io/VSTPlugins/manual/SevenDelay/SevenDelay_en.html#installation).
 
-- `UhhyouPlugins*.zip` contains everything.
+- `UhhyouPlugins*.zip` contains everything. (`*` is a wildcard character.)
 - Other zip files are individual plugins.
 
-To install from a zip package, refer to [a section on the manual](https://ryukau.github.io/VSTPlugins/manual/SevenDelay/SevenDelay_en.html#installation) (`docs/manual/common/contact_installation_guiconfig_*.md`).
+To build from the source code, refer to [./build_instruction.md](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
 
-To build, refer to [./build_instruction.md](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
+## Contacts
+To report a bug, open an [issue](https://github.com/ryukau/VSTPlugins/issues).
 
-To report a bug, open an [issue](https://github.com/ryukau/VSTPlugins/issues) (github.com).
-
-Questions, suggestions, usage tips, and for anything else, feel free to open [dicussion](https://github.com/ryukau/VSTPlugins/discussions) (github.com).
+Questions, suggestions, usage tips, and for anything else, feel free to open [dicussion](https://github.com/ryukau/VSTPlugins/discussions).
 
 You can fund the development via [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).
 
