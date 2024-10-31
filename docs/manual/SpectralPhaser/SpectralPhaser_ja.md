@@ -5,7 +5,7 @@ lang: ja
 # SpectralPhaser
 ![](img/SpectralPhaser.png)
 
-<ruby>SpectralPhaser<rt>スペクトラル フェイザ</rt></ruby> は周波数領域でマスクをかけることでフェイザのような音が出るエフェクタです。 FFT に加えて、高速 Walsh-Hadamard 変換 (FWHT) 、 Haar 変換といった直行変換が使えます。
+<ruby>SpectralPhaser<rt>スペクトラル フェイザ</rt></ruby> は周波数領域でマスクをかけることでフェイザのような音が出るエフェクタです。 FFT に加えて、高速 Walsh-Hadamard 変換 (FWHT) 、 Haar 変換が使えます。
 
 {% for target, download_url in latest_download_url["SpectralPhaser"].items() %}
 - [SpectralPhaser {{ latest_version["SpectralPhaser"] }} `{{ target }}` - VST 3 をダウンロード (github.com)]({{ download_url }}) <img
@@ -105,7 +105,7 @@ Sync.
 ### Delay
 Transform
 
-:   直行変換の種類です。
+:   時間と周波数を入れ換える、変換の種類です。
 
     通常は FFT を選んでください。 FWHT と Haar はざらざらとした音になります。
 
@@ -113,7 +113,7 @@ Transform
 
 Frame Size
 
-:   直行変換を行うフレームの長さで、単位はサンプル数です。
+:   変換を行うフレームの長さで、単位はサンプル数です。
 
     この値がそのままディレイ時間になります。
 
@@ -162,7 +162,7 @@ Rotation
 
 :   周波数領域で位相を回転する量です。
 
-    というのは `Transform` が FFT のときだけで、他の直行変換が選択されているときは `Rotation` に応じて周波数成分の入れ替えが行われます。
+    というのは `Transform` が FFT のときだけで、他の変換が選択されているときは `Rotation` に応じて周波数成分の入れ替えが行われます。
 
 Spectral Shift
 

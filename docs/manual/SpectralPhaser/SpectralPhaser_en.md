@@ -165,7 +165,7 @@ Rotation
 
 :   Amount of phase rotation in the frequency domain.
 
-    This only applies when `Transform` is FFT; when other orthogonal transforms are selected, `Rotation` is used as an amount to swap frequency components.
+    This only applies when `Transform` is FFT; when other transforms are selected, `Rotation` is used as an amount to swap frequency components.
 
 Spectral Shift
 

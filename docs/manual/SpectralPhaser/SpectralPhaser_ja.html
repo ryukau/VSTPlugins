@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2024-10-24" />
+      <meta name="dcterms.date" content="2024-10-31" />
       <title>SpectralPhaser_ja – Uhhyou Plugins</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
   <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
@@ -285,7 +285,7 @@
     <header>
         <p><a href="../../index.html">Back to Index</a></p>
             <p>
-      Update: 2024-10-24
+      Update: 2024-10-31
     </p>
             <details>
       <summary translate="yes">Table of Contents</summary>
@@ -354,7 +354,7 @@
   <p><ruby>SpectralPhaser<rt>スペクトラル フェイザ</rt></ruby>
   は周波数領域でマスクをかけることでフェイザのような音が出るエフェクタです。
   FFT に加えて、高速 Walsh-Hadamard 変換 (FWHT) 、 Haar
-  変換といった直行変換が使えます。</p>
+  変換が使えます。</p>
   <ul>
   <li><a
   href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.64.0/SpectralPhaser_0.1.0.zip">SpectralPhaser
@@ -777,7 +777,7 @@
   <dl>
   <dt>Transform</dt>
   <dd>
-  <p>直行変換の種類です。</p>
+  <p>時間と周波数を入れ換える、変換の種類です。</p>
   <p>通常は FFT を選んでください。 FWHT と Haar
   はざらざらとした音になります。</p>
   <p><strong>注意</strong>: <code>Transform</code> を変更すると
@@ -786,7 +786,7 @@
   </dd>
   <dt>Frame Size</dt>
   <dd>
-  <p>直行変換を行うフレームの長さで、単位はサンプル数です。</p>
+  <p>変換を行うフレームの長さで、単位はサンプル数です。</p>
   <p>この値がそのままディレイ時間になります。</p>
   <p><code>Latency</code> を有効にしたときは <code>Frame Size</code>
   と同じサンプル数のレイテンシを DAW に伝えます。</p>
@@ -836,7 +836,7 @@
   <dd>
   <p>周波数領域で位相を回転する量です。</p>
   <p>というのは <code>Transform</code> が FFT
-  のときだけで、他の直行変換が選択されているときは <code>Rotation</code>
+  のときだけで、他の変換が選択されているときは <code>Rotation</code>
   に応じて周波数成分の入れ替えが行われます。</p>
   </dd>
   <dt>Spectral Shift</dt>
