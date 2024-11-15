@@ -43,9 +43,10 @@ public:
     Sample declickTime = Sample(0.001),
     Sample threshold = Sample(1e-5))
   {
+    if (state == State::terminated) sustain.reset(sustainLevel);
     state = State::attack;
+
     value = threshold;
-    sustain.reset(sustainLevel);
     set(attackTime, decayTime, sustainLevel, releaseTime, declickTime, threshold);
   }
 
@@ -107,12 +108,12 @@ public:
         releaseRange = value - value * sustain.getValue() + sustain.getValue();
         break;
 
-      case State::terminated:
-        return;
-
-      default:
+      case State::sustain:
         releaseRange = sustain.getValue();
         break;
+
+      default:
+        return;
     }
 
     value = Sample(1.0);

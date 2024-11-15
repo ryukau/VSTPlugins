@@ -1,8 +1,9 @@
 {
   "CollidingCombSynth": {
-    "latest_version": "0.1.16",
+    "latest_version": "0.1.17",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.65.0/CollidingCombSynth_0.1.17.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/CollidingCombSynth_0.1.16.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/CollidingCombSynth_0.1.15.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/CollidingCombSynth_0.1.14.zip",
@@ -23,6 +24,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/CollidingCombSynthPresets.zip"
     },
     "changelog": {
+      "0.1.17": {
+        "en": [
+          "Changed to reduce click at note-on when a note number is repeatedly played. This happened when proper note IDs are not provided from DAW. Bitwig, Live, REAPER are affected."
+        ],
+        "ja": [
+          "DAW から適切なノート ID が提供されないときに、同音連打するとノートオンで生じていたクリックを低減。 Bitwig, Live, REAPER での使用時に影響あり。"
+        ]
+      },
       "0.1.16": {
         "en": [
           "Fixed GUI on Linux."

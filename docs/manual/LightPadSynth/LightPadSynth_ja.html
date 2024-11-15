@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2024-09-28" />
+      <meta name="dcterms.date" content="2024-11-16" />
       <title>LightPadSynth_ja – Uhhyou Plugins</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
   <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
@@ -285,7 +285,7 @@
     <header>
         <p><a href="../../index.html">Back to Index</a></p>
             <p>
-      Update: 2024-09-28
+      Update: 2024-11-16
     </p>
             <details>
       <summary translate="yes">Table of Contents</summary>
@@ -381,15 +381,15 @@
   の軽量版です。ピッチ変調ができなくなった代わりに、各ボイスにディレイを追加しています。</p>
   <ul>
   <li><a
-  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/LightPadSynth_0.1.24.zip">LightPadSynth
-  0.1.24 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.65.0/LightPadSynth_0.1.25.zip">LightPadSynth
+  0.1.25 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="30px"
   style="display: inline-block; vertical-align: middle;"></li>
   <li><a
-  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/LightPadSynth_0.1.24_macOS.zip">LightPadSynth
-  0.1.24 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.65.0/LightPadSynth_0.1.25_macOS.zip">LightPadSynth
+  0.1.25 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="30px"
@@ -1282,6 +1282,67 @@ lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)<
   <h2 id="チェンジログ"><a href="#チェンジログ" class="header-anchor"
   aria-hidden="true">チェンジログ</a></h2>
   <ul>
+  <li>0.1.25
+  <ul>
+  <li>DAW から適切なノート ID
+  が提供されないときに、同音連打するとノートオンで生じていたクリックを低減。
+  Bitwig, Live, REAPER での使用時に影響あり。</li>
+  </ul></li>
+  <li>0.1.24
+  <ul>
+  <li>Linux での GUI を修正。</li>
+  </ul></li>
+  <li>0.1.23
+  <ul>
+  <li>Zip パッケージにプリセットを同梱するよう変更。</li>
+  <li>不正な <code>style.json</code>
+  によりプラグインがクラッシュするバグを修正。</li>
+  </ul></li>
+  <li>0.1.22
+  <ul>
+  <li>デフォルトの <code>foregroundInactive</code> の色を変更。</li>
+  <li>サブノーマル数によるパフォーマンスの低下を修正。</li>
+  </ul></li>
+  <li>0.1.21
+  <ul>
+  <li>Renoise で GUI がクラッシュするバグを修正。 GUI
+  要素のメモリが解放された後にアクセスを行おうとしていたことがクラッシュの原因。</li>
+  </ul></li>
+  <li>0.1.20
+  <ul>
+  <li><code>processContext</code> が <code>nullptr</code> であるために
+  Audacity で音が正しく出力されなかったバグを修正。</li>
+  </ul></li>
+  <li>0.1.19
+  <ul>
+  <li>スプラッシュ画面のテキストを更新。</li>
+  </ul></li>
+  <li>0.1.18
+  <ul>
+  <li>BarBox にホールドのショートカットを追加。ショートカットキーは
+  <kbd>5</kbd>-<kbd>9</kbd> 。</li>
+  <li>数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd>
+  による値の切り捨てのショートカットを追加。</li>
+  </ul></li>
+  <li>0.1.17
+  <ul>
+  <li>クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに
+  <code>virtual</code> を追加。</li>
+  </ul></li>
+  <li>0.1.16
+  <ul>
+  <li>VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux
+  で同一プラグインの GUI を複数開くとクラッシュするバグを修正。</li>
+  <li>BarBox
+  が変更されたパラメータの値のみをホストに送るように変更。編集中の
+  BarBox
+  上の変更されていないパラメータのオートメーションが上書きされないようになった。</li>
+  </ul></li>
+  <li>0.1.15
+  <ul>
+  <li>BarBox
+  がマウス押下でフォーカスを取得、マウスカーソルが範囲外に移動するとフォーカスを開放するように変更。</li>
+  </ul></li>
   <li>0.1.14
   <ul>
   <li>x86_64 固有の SIMD 命令への依存を除去。</li>
@@ -1365,6 +1426,39 @@ lfoFrequency = Multiply * (BPM / 240) / (TempoUpperNumeral / TempoLowerNumeral)<
   <h2 id="旧バージョン"><a href="#旧バージョン" class="header-anchor"
   aria-hidden="true">旧バージョン</a></h2>
   <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/LightPadSynth_0.1.24.zip">LightPadSynth
+  0.1.24 - VST 3 (github.com)</a></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/LightPadSynth_0.1.23.zip">LightPadSynth
+  0.1.23 - VST 3 (github.com)</a></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/LightPadSynth_0.1.22.zip">LightPadSynth
+  0.1.22 - VST 3 (github.com)</a></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/LightPadSynth_0.1.21.zip">LightPadSynth
+  0.1.21 - VST 3 (github.com)</a></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.52.0/LightPadSynth_0.1.20.zip">LightPadSynth
+  0.1.20 - VST 3 (github.com)</a></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.1/LightPadSynth_0.1.19.zip">LightPadSynth
+  0.1.19 - VST 3 (github.com)</a></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.51.0/LightPadSynth_0.1.18.zip">LightPadSynth
+  0.1.18 - VST 3 (github.com)</a></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.50.0/LightPadSynth_0.1.17.zip">LightPadSynth
+  0.1.17 - VST 3 (github.com)</a></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.46.0/LightPadSynth_0.1.16.zip">LightPadSynth
+  0.1.16 - VST 3 (github.com)</a></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.41.0/LightPadSynth_0.1.15.zip">LightPadSynth
+  0.1.15 - VST 3 (github.com)</a></li>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/LightPadSynth_0.1.14.zip">LightPadSynth
+  0.1.14 - VST 3 (github.com)</a></li>
   <li><a
   href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/LightPadSynth_0.1.13.zip">LightPadSynth
   0.1.13 - VST 3 (github.com)</a></li>

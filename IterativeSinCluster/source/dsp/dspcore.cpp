@@ -163,6 +163,7 @@ template<typename Sample> void NOTE_NAME<Sample>::rest()
   state = NoteState::rest;
   id = -1;
   gain = 0;
+  gainEnvelope.terminate();
 }
 
 template<typename Sample> std::array<Sample, 2> NOTE_NAME<Sample>::process()
@@ -340,7 +341,6 @@ void DSPCORE_NAME::noteOn(int32_t noteId, int16_t pitch, float tuning, float vel
   size_t mostSilent = 0;
   float gain = 1.0f;
   for (; noteIdx < nVoice; ++noteIdx) {
-    if (notes[noteIdx].id == noteId) break;
     if (notes[noteIdx].state == NoteState::rest) break;
     if (!notes[noteIdx].gainEnvelope.isAttacking() && notes[noteIdx].gain < gain) {
       gain = notes[noteIdx].gain;
@@ -383,11 +383,7 @@ void DSPCORE_NAME::noteOn(int32_t noteId, int16_t pitch, float tuning, float vel
 
 void DSPCORE_NAME::noteOff(int32_t noteId)
 {
-  size_t i = 0;
-  for (; i < notes.size(); ++i) {
-    if (notes[i].id == noteId) break;
+  for (auto &x : notes) {
+    if (x.id == noteId && x.state != NoteState::release) x.release();
   }
-  if (i >= notes.size()) return;
-
-  notes[i].release();
 }

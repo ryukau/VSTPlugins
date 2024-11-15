@@ -318,7 +318,6 @@ void DSPCore::noteOn(
 
   // Pick up note from resting one.
   for (size_t index = 0; index < nVoice; ++index) {
-    if (notes[index].id == noteId) noteIndices.push_back(index);
     if (notes[index].state == NoteState::rest) noteIndices.push_back(index);
     if (noteIndices.size() >= nUnison) break;
   }

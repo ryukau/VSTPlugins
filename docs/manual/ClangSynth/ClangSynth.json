@@ -1,8 +1,9 @@
 {
   "ClangSynth": {
-    "latest_version": "0.1.9",
+    "latest_version": "0.1.10",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.65.0/ClangSynth_0.1.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/ClangSynth_0.1.9.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/ClangSynth_0.1.8.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/ClangSynth_0.1.7.zip",
@@ -17,6 +18,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ClangSynthPresets.zip"
     },
     "changelog": {
+      "0.1.10": {
+        "en": [
+          "Changed to reduce click at note-on when a note number is repeatedly played. This happened when proper note IDs are not provided from DAW. Bitwig, Live, REAPER are affected."
+        ],
+        "ja": [
+          "DAW から適切なノート ID が提供されないときに、同音連打するとノートオンで生じていたクリックを低減。 Bitwig, Live, REAPER での使用時に影響あり。"
+        ]
+      },
       "0.1.9": {
         "en": [
           "Fixed GUI on Linux."

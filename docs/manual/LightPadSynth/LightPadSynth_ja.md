@@ -362,60 +362,21 @@ Width\*
 ウェーブテーブルの更新中は音が止まるので注意してください。発音中のノートも全て停止します。
 
 ## チェンジログ
-- 0.1.14
-  - x86_64 固有の SIMD 命令への依存を除去。
-- 0.1.13
-  - Linux でのクラッシュを修正。
-  - BarBox が <kbd>Shift</kbd> キーを受け取るように修正。
-- 0.1.12
-  - プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。
-- 0.1.11
-  - `style.json` でカスタムフォントを設定するオプションを追加。
-- 0.1.10
-  - VSTGUI を 4.10 から 4.11 にアップデート。
-- 0.1.9
-  - フォントを Tinos に変更。
-- 0.1.8
-  - リセットが正しく行われるように修正。
-  - `bypass` パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の `bypass` パラメータを正しく実装しているホストでのみ発生していた。
-- 0.1.7
-  - Process context requirements を実装。
-  - BarBox の機能が LV2 版と同等になるように更新。
-    - 1 つのバーを編集を追加。
-    - ロックを追加。
-    - 内部的なマウスホイールの感度を追加。
-    - スナップを追加 (未使用) 。
-    - 直線の描画での開始点の値をアンカーポイントに固定するように変更。
-- 0.1.6
-  - DSP が初期化されているかどうかのチェックを追加。
-- 0.1.5
-  - いくつかの BarBox にスクロールバーを追加。
-  - BarBox に アンドゥ・リドゥの機能を追加。
-- 0.1.4
-  - カラーコンフィグを追加。
-- 0.1.3
-  - パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。
-- 0.1.2
-  - 起動時にパラメータがロードされる前にウェーブテーブルが更新されるバグを修正。
-  - LFO ウェーブテーブルの補間が Cubic のときにインデックスが 1 つずれていたバグを修正。
-- 0.1.1
-  - Refresh LFO ボタンと Refresh Table ボタンをメッセージからパラメータに修正。
-- 0.1.0
-  - 初期リリース。
+{%- for version, logs in changelog["LightPadSynth"].items() %}
+- {{version}}
+  {%- for log in logs["ja"] %}
+  - {{ log }}
+  {%- endfor %}
+{%- endfor %}
 
 ## 旧バージョン
-- [LightPadSynth 0.1.13 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.33.0/LightPadSynth_0.1.13.zip)
-- [LightPadSynth 0.1.12 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins_0_31_0/LightPadSynth_0.1.12.zip)
-- [LightPadSynth 0.1.11 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CustomFontOptions/LightPadSynth_0.1.11.zip)
-- [LightPadSynth 0.1.9 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/LightPadSynth_0.1.9.zip)
-- [LightPadSynth 0.1.8 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ResetAndMuteFix/LightPadSynth_0.1.8.zip)
-- [LightPadSynth 0.1.7 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/CollidingCombSynth0.1.0/LightPadSynth0.1.7.zip)
-- [LightPadSynth 0.1.6 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L3Reverb0.1.0/LightPadSynth0.1.6.zip)
-- [LightPadSynth 0.1.5 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/L4Reverb0.1.0/LightPadSynth0.1.5.zip)
-- [LightPadSynth 0.1.4 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/ColorConfig/LightPadSynth0.1.4.zip)
-- [LightPadSynth 0.1.3 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LatticeReverb0.1.0/LightPadSynth0.1.3.zip)
-- [LightPadSynth 0.1.2 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/WavetableInitializationBugFix/LightPadSynth0.1.2.zip)
-- [LightPadSynth 0.1.0 - VST 3 (github.com)](https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynth0.1.0.zip)
+{%- if old_download_link["LightPadSynth"]|length == 0 %}
+旧バージョンはありません。
+{%- else %}
+  {%- for x in old_download_link["LightPadSynth"] %}
+- [LightPadSynth {{ x["version"] }} - VST 3 (github.com)]({{ x["url"] }})
+  {%- endfor %}
+{%- endif %}
 
 ## ライセンス
 LightPadSynth のライセンスは GPLv3 です。 GPLv3 の詳細と、利用したライブラリのライセンスは次のリンクにまとめています。リンクが切れているときは `ryukau@gmail.com` にメールを送ってください。

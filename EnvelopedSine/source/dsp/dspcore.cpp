@@ -329,7 +329,7 @@ void DSPCORE_NAME::noteOn(int32_t identifier, int16_t pitch, float tuning, float
   size_t index = 0;
   while (index < indices.size() && noteIndices.size() < nUnison) {
     const auto ndx = indices[index];
-    if (notes[ndx].id == identifier || notes[ndx].state == NoteState::rest) {
+    if (notes[ndx].state == NoteState::rest) {
       noteIndices.push_back(ndx);
       indices.erase(indices.begin() + index);
     } else {

@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2024-09-28" />
+      <meta name="dcterms.date" content="2024-11-16" />
       <title>CubicPadSynth_en – Uhhyou Plugins</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
   <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
@@ -285,7 +285,7 @@
     <header>
         <p><a href="../../index.html">Back to Index</a></p>
             <p>
-      Update: 2024-09-28
+      Update: 2024-11-16
     </p>
             <details>
       <summary translate="yes">Table of Contents</summary>
@@ -384,15 +384,15 @@
   waveform can be directly drawn.</p>
   <ul>
   <li><a
-  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/CubicPadSynth_0.1.26.zip">Download
-  CubicPadSynth 0.1.26 <code>full</code> - VST 3 (github.com)</a> <img
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.65.0/CubicPadSynth_0.1.27.zip">Download
+  CubicPadSynth 0.1.27 <code>full</code> - VST 3 (github.com)</a> <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="30px"
   style="display: inline-block; vertical-align: middle;"></li>
   <li><a
-  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/CubicPadSynth_0.1.26_macOS.zip">Download
-  CubicPadSynth 0.1.26 <code>macOS</code> - VST 3 (github.com)</a> <img
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.65.0/CubicPadSynth_0.1.27_macOS.zip">Download
+  CubicPadSynth 0.1.27 <code>macOS</code> - VST 3 (github.com)</a> <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="30px"
@@ -1332,6 +1332,12 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
   <h2 id="change-log"><a href="#change-log" class="header-anchor"
   aria-hidden="true">Change Log</a></h2>
   <ul>
+  <li>0.1.27
+  <ul>
+  <li>Changed to reduce click at note-on when a note number is
+  repeatedly played. This happened when proper note IDs are not provided
+  from DAW. Bitwig, Live, REAPER are affected.</li>
+  </ul></li>
   <li>0.1.26
   <ul>
   <li>Fixed GUI on Linux.</li>
@@ -1490,6 +1496,9 @@ invertedSpectrumIm = spectrumIm - sgn(spectrumIm) * maxIm</code></pre>
   <h2 id="old-versions"><a href="#old-versions" class="header-anchor"
   aria-hidden="true">Old Versions</a></h2>
   <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/CubicPadSynth_0.1.26.zip">CubicPadSynth
+  0.1.26 - VST 3 (github.com)</a></li>
   <li><a
   href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/CubicPadSynth_0.1.25.zip">CubicPadSynth
   0.1.25 - VST 3 (github.com)</a></li>

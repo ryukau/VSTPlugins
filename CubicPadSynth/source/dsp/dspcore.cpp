@@ -61,7 +61,7 @@ void NOTE_NAME::noteOn(
   unit.lfo.setFrequency(vecIndex, sampleRate, 1.0f);
   if (param.value[ID::lfoPhaseReset]->getInt()) unit.lfo.reset(vecIndex);
 
-  std::uniform_real_distribution<float> dist(0.0, 1.0);
+  std::uniform_real_distribution<float> dist(0.0f, 1.0f);
   unit.notePitch.insert(vecIndex, notePitch);
   if (param.value[ID::oscPhaseReset]->getInt()) {
     const auto phaseRnd
@@ -402,7 +402,6 @@ void DSPCORE_NAME::noteOn(int32_t identifier, int16_t pitch, float tuning, float
 
   // Pick up note from resting one.
   for (size_t index = 0; index < nVoice; ++index) {
-    if (notes[index].id == identifier) noteIndices.push_back(index);
     if (notes[index].state == NoteState::rest) noteIndices.push_back(index);
     if (noteIndices.size() >= nUnison) break;
   }
@@ -549,6 +548,12 @@ void DSPCORE_NAME::fillTransitionBuffer(size_t noteIndex)
 
   float gain0 = unit.gain0[vecIndex];
   float gain1 = unit.gain1[vecIndex];
+
+  // Don't write to `transitionBuffer` twice in a row. `noteOn` must be called for this
+  // voice after this method.
+  unit.gain0.insert(vecIndex, 0.0f);
+  unit.gain1.insert(vecIndex, 0.0f);
+
   float pitch = unit.lowpassPitch[vecIndex] + unit.pitch[vecIndex];
   trOsc.phase = unit.osc.phase.extract(vecIndex);
   trOsc.tick = unit.osc.tick.extract(vecIndex);

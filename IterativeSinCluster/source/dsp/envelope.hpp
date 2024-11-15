@@ -121,17 +121,15 @@ public:
     Sample sustainLevel,
     Sample releaseTime,
     Sample noteFreq,
-    Sample curve)
+    Sample curve_)
   {
-    if (declickCounter >= declickLength || state == State::terminated) declickCounter = 0;
+    declickCounter = 0;
     state = State::attack;
 
     sustain = std::max<Sample>(Sample(0.0), std::min<Sample>(sustainLevel, Sample(1.0)));
 
-    offset = value;
-    range = Sample(1.0) - value;
-
-    this->curve = curve;
+    range = Sample(1);
+    curve = curve_;
 
     attackTime = adaptTime(attackTime, noteFreq);
     atk.reset(sampleRate, attackTime);
@@ -182,7 +180,6 @@ public:
   {
     state = State::terminated;
     value = 0;
-    offset = 0;
     range = 1;
     sustain = 1;
   }
@@ -204,7 +201,7 @@ public:
       case State::attack: {
         const auto atkPos = atk.process();
         const auto atkMix = atkPos + curve * (atkNeg.process() - atkPos);
-        value = range * declickIn(atkMix) + offset;
+        value = range * atkMix;
         if (atk.isTerminated()) {
           state = State::decay;
           range = Sample(1.0) - sustain;
@@ -212,23 +209,23 @@ public:
       } break;
 
       case State::decay:
-        value = range * declickIn(dec.process()) + sustain;
+        value = range * dec.process() + sustain;
         if (value <= sustain) state = State::sustain;
         break;
 
       case State::sustain:
-        value = declickIn(sustain);
+        value = sustain;
         break;
 
       case State::release:
-        value = range * declickIn(rel.process());
+        value = range * rel.process();
         if (rel.isTerminated()) state = State::terminated;
         break;
 
       default:
         return 0;
     }
-    return value;
+    return declickIn(value);
   }
 
 protected:
@@ -246,7 +243,6 @@ protected:
   Sample value = 0;
   Sample curve = 0;
   Sample sampleRate = 44100;
-  Sample offset = 0;
   Sample range = 1;
   Sample sustain = 1;
 };

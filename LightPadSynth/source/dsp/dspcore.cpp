@@ -392,7 +392,6 @@ void DSPCore::noteOn(int32_t identifier, int16_t pitch, float tuning, float velo
 
   // Pick up note from resting one.
   for (size_t index = 0; index < nVoice; ++index) {
-    if (notes[index].id == identifier) noteIndices.push_back(index);
     if (notes[index].state == NoteState::rest) noteIndices.push_back(index);
     if (noteIndices.size() >= nUnison) break;
   }

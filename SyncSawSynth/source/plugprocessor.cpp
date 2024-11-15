@@ -121,17 +121,17 @@ void PlugProcessor::handleEvent(Vst::ProcessData &data)
         // List of DAW that doesn't support note ID. Probably more.
         // - Ableton Live 10.1.6
         // - PreSonus Studio One 4.6.1
+        auto noteId
+          = event.noteOn.noteId == -1 ? event.noteOn.pitch : event.noteOn.noteId;
         dsp.pushMidiNote(
-          true, event.sampleOffset,
-          event.noteOn.noteId == -1 ? event.noteOn.pitch : event.noteOn.noteId,
-          event.noteOn.pitch, event.noteOn.tuning, event.noteOn.velocity);
+          true, event.sampleOffset, noteId, event.noteOn.pitch, event.noteOn.tuning,
+          event.noteOn.velocity);
       } break;
 
       case Vst::Event::kNoteOffEvent: {
-        dsp.pushMidiNote(
-          false, event.sampleOffset,
-          event.noteOff.noteId == -1 ? event.noteOff.pitch : event.noteOff.noteId, 0, 0,
-          0);
+        auto noteId
+          = event.noteOff.noteId == -1 ? event.noteOff.pitch : event.noteOff.noteId;
+        dsp.pushMidiNote(false, event.sampleOffset, noteId, 0, 0, 0);
       } break;
 
         // Add other event type here.

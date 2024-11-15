@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2024-09-28" />
+      <meta name="dcterms.date" content="2024-11-16" />
       <title>SyncSawSynth_ja – Uhhyou Plugins</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
   <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
@@ -285,7 +285,7 @@
     <header>
         <p><a href="../../index.html">Back to Index</a></p>
             <p>
-      Update: 2024-09-28
+      Update: 2024-11-16
     </p>
             <details>
       <summary translate="yes">Table of Contents</summary>
@@ -359,15 +359,15 @@
   は10次までのPTR鋸歯波オシレータが使える32ボイスのポリフォニックシンセサイザです。主にハードシンクと周波数変調で電池が切れかけのおもちゃのような音を作る用途に向いています。もちろん普通の音も出ます。</p>
   <ul>
   <li><a
-  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/SyncSawSynth_0.1.29.zip">SyncSawSynth
-  0.1.29 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.65.0/SyncSawSynth_0.1.30.zip">SyncSawSynth
+  0.1.30 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="30px"
   style="display: inline-block; vertical-align: middle;"></li>
   <li><a
-  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/SyncSawSynth_0.1.29_macOS.zip">SyncSawSynth
-  0.1.29 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.65.0/SyncSawSynth_0.1.30_macOS.zip">SyncSawSynth
+  0.1.30 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="30px"
@@ -1001,6 +1001,12 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
   <h2 id="チェンジログ"><a href="#チェンジログ" class="header-anchor"
   aria-hidden="true">チェンジログ</a></h2>
   <ul>
+  <li>0.1.30
+  <ul>
+  <li>DAW から適切なノート ID
+  が提供されないときに、同音連打するとノートオンで生じていたクリックを低減。
+  Bitwig, Live, REAPER での使用時に影響あり。</li>
+  </ul></li>
   <li>0.1.29
   <ul>
   <li>Linux での GUI を修正。</li>
@@ -1141,6 +1147,9 @@ ShaperB(x)  := 0.7439087749328765 * x^3 * exp(-abs(x))</code></pre>
   <h2 id="旧バージョン"><a href="#旧バージョン" class="header-anchor"
   aria-hidden="true">旧バージョン</a></h2>
   <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/SyncSawSynth_0.1.29.zip">SyncSawSynth
+  0.1.29 - VST 3 (github.com)</a></li>
   <li><a
   href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/SyncSawSynth_0.1.28.zip">SyncSawSynth
   0.1.28 - VST 3 (github.com)</a></li>

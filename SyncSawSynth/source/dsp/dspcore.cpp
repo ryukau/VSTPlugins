@@ -485,7 +485,6 @@ void DSPCore::noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity
   size_t mostSilent = 0;
   float gain = 1.0f;
   for (; i < nVoice; ++i) {
-    if (notes[i][0]->id == noteId) break;
     if (notes[i][0]->state == NoteState::rest) break;
     if (!notes[i][0]->gainEnvelope.isAttacking() && notes[i][0]->gain < gain) {
       gain = notes[i][0]->gain;
@@ -566,12 +565,17 @@ void DSPCore::noteOn(int32_t noteId, int16_t pitch, float tuning, float velocity
 
 void DSPCore::noteOff(int32_t noteId)
 {
-  size_t i = 0;
-  for (; i < notes.size(); ++i) {
-    if (notes[i][0]->id == noteId) break;
-  }
-  if (i >= notes.size()) return;
+  // size_t i = 0;
+  // for (; i < notes.size(); ++i) {
+  //   if (notes[i][0]->id == noteId) break;
+  // }
+  // if (i >= notes.size()) return;
 
-  notes[i][0]->release();
-  notes[i][1]->release();
+  // notes[i][0]->release();
+  // notes[i][1]->release();
+
+  for (auto &x : notes) {
+    if (x[0]->id == noteId) x[0]->release();
+    if (x[1]->id == noteId) x[1]->release();
+  }
 }
