@@ -1,3 +1,9 @@
+> [!NOTE]
+> This repository is maintenance only ([more info](https://github.com/ryukau/VSTPlugins/issues/59)). New plugins will be added to the repository linked below.
+>
+> - https://github.com/ryukau/UhhyouPluginsJuce
+>
+
 # Uhhyou Plugins VST 3
 This repository is publishing VST 3 plugins under GPLv3.
 
@@ -10,12 +16,15 @@ The plugins are available at [release page](https://github.com/ryukau/VSTPlugins
 
 To build from the source code, refer to [./build_instruction.md](https://github.com/ryukau/VSTPlugins/blob/master/build_instruction.md).
 
+## Status
+- Windows: It works.
+- macOS: It worked on Sequoia (version 15). It probably won't work on older OS version as is.
+- Linux: DSP part works, but GUI isn't working.
+
 ## Contacts
 To report a bug, open an [issue](https://github.com/ryukau/VSTPlugins/issues).
 
 Questions, suggestions, usage tips, and for anything else, feel free to open [dicussion](https://github.com/ryukau/VSTPlugins/discussions).
-
-You can fund the development via [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).
 
 ## Audio Demo
 Album on the link below is almost entirely made from Uhhyou Plugins.
