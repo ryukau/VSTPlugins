@@ -209,6 +209,11 @@ bool Editor::prepareUI()
     ID::noteOffVelocityToClosingHighpass, Scales::bipolarScale, false, 5);
 
   addLabel(
+    velocityLeft0, velocityTop6, labelWidthHalf, labelHeight, uiTextSize, "AP Loop Gain");
+  addTextKnob(
+    velocityLeft1, velocityTop6, labelWidthHalf, labelHeight, uiTextSize,
+    ID::velocityToAllpassLoopGain, Scales::velocityToAllpassLoopGain, false, 5);
+  addLabel(
     velocityLeft2, velocityTop6, labelWidthHalf, labelHeight, uiTextSize,
     "AP Modulation");
   addTextKnob(
@@ -346,6 +351,11 @@ bool Editor::prepareUI()
   addTextKnob(
     loopLeft1, loopTop3, labelWidth, labelHeight, uiTextSize, ID::delayTimeModAmount,
     Scales::delayTimeModAmount, false, 5);
+
+  addLabel(loopLeft0, loopTop4, labelWidth, labelHeight, uiTextSize, "Loop Gain [dB]");
+  addTextKnob(
+    loopLeft1, loopTop4, labelWidth, labelHeight, uiTextSize, ID::allpassLoopGain,
+    Scales::allpassLoopGain, true, 5);
 
   addLabel(loopLeft0, loopTop5, labelWidth, labelHeight, uiTextSize, "Delay Count 1");
   addTextKnob(

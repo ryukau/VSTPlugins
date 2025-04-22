@@ -367,6 +367,7 @@ public:
     Sample highShelfGain,
     Sample lowShelfCut,
     Sample lowShelfGain,
+    Sample apLoopGain,
     Sample apGain,
     Sample delayGain,
     Sample pitchRatio,
@@ -376,7 +377,7 @@ public:
       auto x0 = lowpass[idx].process(input, highShelfCut, highShelfGain);
       x0 = highpass[idx].process(x0, lowShelfCut, lowShelfGain);
       x0 -= apGain * buffer[idx];
-      input = buffer[idx] + apGain * x0;
+      input = apLoopGain * (buffer[idx] + apGain * x0);
       buffer[idx] = delay[idx].process(
         delayGain * x0, timeInSamples[idx] / pitchRatio - timeModAmount * std::abs(x0));
     }

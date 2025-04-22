@@ -108,6 +108,7 @@ private:
   ExpSmoother<double> halfClosedHighpassCutoff;
   ExpSmoother<double> closingHighpassCutoff;
   ExpSmoother<double> delayTimeModAmount;
+  ExpSmoother<double> allpassLoopGain;
   ExpSmoother<double> allpassFeed1;
   ExpSmoother<double> allpassFeed2;
   ExpSmoother<double> allpassMixSpike;
@@ -123,6 +124,7 @@ private:
   double halfClosedDensityScaler = double(1);
   double halfClosedHighpassScaler = double(1);
   double closingHighpassScaler = double(1);
+  double allpassLoopGainScaler = double(1);
   double delayTimeModOffset = 0;
 
   pcg64 rngNoiseRolling{0};

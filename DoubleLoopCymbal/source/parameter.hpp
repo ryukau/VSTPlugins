@@ -19,7 +19,7 @@
 
 constexpr uint32_t nAllpass = 16;
 
-constexpr size_t nReservedParameter = 64;
+constexpr size_t nReservedParameter = 62;
 constexpr size_t nReservedGuiParameter = 16;
 
 namespace Steinberg {
@@ -90,6 +90,9 @@ enum ID {
   noteOffVelocityToClosingReleaseRatio,
   noteOffVelocityToClosingHighpass,
 
+  allpassLoopGain,
+  velocityToAllpassLoopGain,
+
   reservedParameter0,
   reservedGuiParameter0 = reservedParameter0 + nReservedParameter,
 
@@ -117,11 +120,13 @@ struct Scales {
   static SomeDSP::DecibelScale<double> delayTimeModAmount;
 
   static SomeDSP::UIntScale<double> allpassDelayCount;
+  static SomeDSP::DecibelScale<double> allpassLoopGain;
 
   static SomeDSP::DecibelScale<double> cutoffFrequencyHz;
   static SomeDSP::DecibelScale<double> shelvingGain;
 
   static SomeDSP::LinearScale<double> velocityRangeDecibel;
+  static SomeDSP::LinearScale<double> velocityToAllpassLoopGain;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -293,6 +298,13 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::noteOffVelocityToClosingHighpass] = std::make_unique<LinearValue>(
       Scales::bipolarScale.invmap(0.0), Scales::bipolarScale,
       "noteOffVelocityToClosingHighpass", Info::kCanAutomate);
+
+    value[ID::allpassLoopGain] = std::make_unique<DecibelValue>(
+      Scales::allpassLoopGain.invmapDB(0), Scales::allpassLoopGain, "allpassLoopGain",
+      Info::kCanAutomate);
+    value[ID::velocityToAllpassLoopGain] = std::make_unique<LinearValue>(
+      Scales::velocityToAllpassLoopGain.invmap(0), Scales::velocityToAllpassLoopGain,
+      "velocityToAllpassLoopGain", Info::kCanAutomate);
 
     for (size_t idx = 0; idx < nReservedParameter; ++idx) {
       auto indexStr = std::to_string(idx);

@@ -100,17 +100,20 @@ void DSPCore::setup(double sampleRate)
   closingHighpassCutoff.METHOD(pv[ID::closingHighpassHz]->getDouble() / upRate);         \
   delayTimeModAmount.METHOD(                                                             \
     pv[ID::delayTimeModAmount]->getDouble() * upRate / double(48000));                   \
+  allpassLoopGain.METHOD(pv[ID::allpassLoopGain]->getDouble());                          \
   allpassFeed1.METHOD(                                                                   \
     std::clamp(pv[ID::allpassFeed1]->getDouble(), double(-0.99999), double(0.99999)));   \
   allpassFeed2.METHOD(                                                                   \
     std::clamp(pv[ID::allpassFeed2]->getDouble(), double(-0.99999), double(0.99999)));   \
   allpassMixSpike.METHOD(pv[ID::allpassMixSpike]->getDouble());                          \
   allpassMixAltSign.METHOD(pv[ID::allpassMixAltSign]->getDouble());                      \
-  highShelfCutoff.METHOD(EMAFilter<double>::cutoffToP(                                   \
-    std::min(pv[ID::highShelfFrequencyHz]->getDouble() / upRate, double(0.5))));         \
+  highShelfCutoff.METHOD(                                                                \
+    EMAFilter<double>::cutoffToP(                                                        \
+      std::min(pv[ID::highShelfFrequencyHz]->getDouble() / upRate, double(0.5))));       \
   highShelfGain.METHOD(pv[ID::highShelfGain]->getDouble());                              \
-  lowShelfCutoff.METHOD(EMAFilter<double>::cutoffToP(                                    \
-    std::min(pv[ID::lowShelfFrequencyHz]->getDouble() / upRate, double(0.5))));          \
+  lowShelfCutoff.METHOD(                                                                 \
+    EMAFilter<double>::cutoffToP(                                                        \
+      std::min(pv[ID::lowShelfFrequencyHz]->getDouble() / upRate, double(0.5))));        \
   lowShelfGain.METHOD(pv[ID::lowShelfGain]->getDouble());                                \
                                                                                          \
   outputGain.METHOD(double(0.25) * pv[ID::outputGain]->getDouble());                     \
@@ -124,7 +127,7 @@ void DSPCore::setup(double sampleRate)
   if (!pv[ID::release]->getInt() & noteStack.empty()) {                                  \
     const auto releaseTime                                                               \
       = pv[ID::closingReleaseRatio]->getDouble() * closingAttackSecond;                  \
-    envelopeRelease.setTime(releaseTime *upRate, false);                                 \
+    envelopeRelease.setTime(releaseTime * upRate, false);                                \
   }                                                                                      \
                                                                                          \
   envelopeClose.update(                                                                  \
@@ -189,6 +192,7 @@ void DSPCore::reset()
   halfClosedDensityScaler = double(1);
   halfClosedHighpassScaler = double(1);
   closingHighpassScaler = double(1);
+  allpassLoopGainScaler = double(1);
   delayTimeModOffset = 0;
 
   impulse = 0;
@@ -247,6 +251,7 @@ double DSPCore::processFrame(const std::array<double, 2> &externalInput)
   const auto hcCutoff = halfClosedHighpassCutoff.process();
   const auto clCutoff = closingHighpassCutoff.process();
   const auto timeModAmt = delayTimeModOffset + delayTimeModAmount.process();
+  const auto apLoopGain = allpassLoopGainScaler * allpassLoopGain.process();
   const auto apGain1 = allpassFeed1.process();
   const auto apGain2 = allpassFeed2.process();
   const auto apMixSpike = allpassMixSpike.process();
@@ -294,13 +299,14 @@ double DSPCore::processFrame(const std::array<double, 2> &externalInput)
   auto ap1
     = std::lerp(allpassLoop1.sum(apMixSign), feedbackBuffer1, apMixSpike) * normalizeGain;
   feedbackBuffer1 = allpassLoop1.process(
-    excitation, hsCut, hsGain, lsCut, lsGain, apGain1, double(1), pitchRatio, timeModAmt);
+    excitation, hsCut, hsGain, lsCut, lsGain, apLoopGain, apGain1, double(1), pitchRatio,
+    timeModAmt);
 
   auto ap2
     = std::lerp(allpassLoop2.sum(apMixSign), feedbackBuffer2, apMixSpike) * normalizeGain;
   feedbackBuffer2 = allpassLoop2.process(
-    ap1 - apGain2 * feedbackBuffer2, hsCut, hsGain, lsCut, lsGain, apGain2, double(1),
-    pitchRatio, timeModAmt);
+    ap1 - apGain2 * feedbackBuffer2, hsCut, hsGain, lsCut, lsGain, apLoopGain, apGain2,
+    double(1), pitchRatio, timeModAmt);
 
   return outGain * ap2;
 }
@@ -380,6 +386,11 @@ void DSPCore::noteOn(NoteInfo &info)
     double(4) * velocityLin * pv[ID::velocityToHalfClosedDensity]->getDouble());
   halfClosedHighpassScaler = std::exp2(
     velToCutScaler * velocityLin * pv[ID::velocityToHalfClosedHighpass]->getDouble());
+
+  // 0.1660964047443681 ~= 1 / (20 * log10(2)). Changing the base of exp from 10 to 2.
+  allpassLoopGainScaler = std::exp2(
+    (double(1) - velocityLin) * double(0.1660964047443681)
+    * pv[ID::velocityToAllpassLoopGain]->getDouble());
 
   envelopeHalfClosed.trigger(halfClosedSustain.getValue(), halfClosedDensityScaler);
 

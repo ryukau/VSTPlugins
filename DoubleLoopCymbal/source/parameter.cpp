@@ -33,11 +33,13 @@ DecibelScale<double> Scales::closingReleaseRatio(-60.0, 60.0, false);
 DecibelScale<double> Scales::delayTimeModAmount(-40, 60, true);
 
 UIntScale<double> Scales::allpassDelayCount(nAllpass - 1);
+DecibelScale<double> Scales::allpassLoopGain(-3.0, 0.0, false);
 
 DecibelScale<double> Scales::cutoffFrequencyHz(0, 100, false);
 DecibelScale<double> Scales::shelvingGain(-60, 0, true);
 
 LinearScale<double> Scales::velocityRangeDecibel(-100.0, 0.0);
+LinearScale<double> Scales::velocityToAllpassLoopGain(-3.0, 0.0);
 
 } // namespace Synth
 } // namespace Steinberg
