@@ -354,8 +354,6 @@ void DSPCore::noteOn(NoteInfo &info)
   using ID = ParameterID::ID;
   auto &pv = param.value;
 
-  constexpr auto eps = std::numeric_limits<double>::epsilon();
-
   noteNumber = info.noteNumber;
   auto notePitch = calcNotePitch(info.noteNumber);
   interpPitch.push(notePitch);

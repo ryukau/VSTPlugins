@@ -88,6 +88,7 @@ public:
   {
     const auto width = getWidth();
     const auto height = getHeight();
+    const auto sc = pal.guiScale();
 
     pContext->setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));
     CDrawContext::Transform t(
@@ -114,7 +115,7 @@ public:
     pContext->setFrameColor(pal.highlightMain());
     pContext->setFont(indexFontID);
     pContext->setFontColor(pal.foreground());
-    if (sliderWidth >= 12.0) {
+    if (sliderWidth >= sc * 12.0) {
       for (int i = indexL; i < indexR; ++i) {
         auto left = (i - indexL) * sliderWidth;
         auto right = left + sliderWidth - barWidth;
@@ -134,9 +135,11 @@ public:
     }
 
     // Border.
-    pContext->setLineWidth(borderWidth);
+    const auto borderW = int(sc * borderWidth);
+    const auto halfBorderW = int(borderW / 2);
+    pContext->setLineWidth(borderW);
     pContext->setFrameColor(pal.border());
-    pContext->drawRect(CRect(0, 0, width, height), kDrawStroked);
+    pContext->drawRect(CRect(halfBorderW, halfBorderW, width, height), kDrawStroked);
 
     // Highlight.
     if (isMouseEntered) {

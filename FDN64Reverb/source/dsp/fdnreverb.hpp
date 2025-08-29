@@ -68,7 +68,7 @@ public:
 
   Sample process(Sample input, Sample timeInSample)
   {
-    const int bufSize = buf.size();
+    const int bufSize = int(buf.size());
 
     // Set delay time.
     Sample clamped = std::clamp(timeInSample, Sample(0), Sample(bufSize - 1));

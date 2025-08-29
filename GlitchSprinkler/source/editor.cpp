@@ -11,33 +11,6 @@
 #include <sstream>
 #include <string>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float pluginNameTextSize = 16.0f;
-constexpr float margin = 5.0f;
-constexpr float uiMargin = 20.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float knobWidth = 80.0f;
-constexpr float knobX = knobWidth + 2 * margin;
-constexpr float knobY = knobWidth + labelHeight + 2 * margin;
-constexpr float labelY = labelHeight + 2 * margin;
-constexpr float labelWidth = 2 * knobWidth;
-constexpr float groupLabelWidth = 2 * labelWidth + 2 * margin;
-constexpr float labelWidthOneThird = int(groupLabelWidth / 3);
-constexpr float splashWidth = int(labelWidth * 3 / 2) + 2 * margin;
-constexpr float splashHeight = int(labelHeight + 2 * margin);
-
-constexpr float barBoxWidth = groupLabelWidth;
-constexpr float barBoxHeight = 5 * labelY - 2 * margin;
-constexpr float smallKnobWidth = labelHeight;
-constexpr float smallKnobX = smallKnobWidth + 2 * margin;
-
-constexpr float tabViewWidth = 2 * groupLabelWidth + 4 * margin + 2 * uiMargin;
-constexpr float tabViewHeight = 20 * labelY - 2 * margin + 2 * uiMargin;
-
-constexpr int_least32_t defaultWidth = int_least32_t(4 * uiMargin + 3 * groupLabelWidth);
-constexpr int_least32_t defaultHeight
-  = int_least32_t(2 * uiMargin + 19 * labelY - 2 * margin);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -46,9 +19,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 void Editor::updateUI(Vst::ParamID id, ParamValue normalized)
@@ -67,27 +37,25 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  constexpr auto top0 = uiMargin;
-  constexpr auto left0 = uiMargin;
-  constexpr auto left4 = left0 + 1 * groupLabelWidth + 4 * margin;
-  constexpr auto left8 = left0 + 2 * groupLabelWidth + 4 * margin + uiMargin;
+  const auto top0 = uiMargin;
+  const auto left0 = uiMargin;
+  const auto left4 = left0 + 1 * groupLabelWidth + 4 * margin;
+  const auto left8 = left0 + 2 * groupLabelWidth + 4 * margin + uiMargin;
 
   // Mix.
-  constexpr auto mixTop0 = top0;
-  constexpr auto mixTop1 = mixTop0 + 1 * labelY;
-  constexpr auto mixTop2 = mixTop0 + 2 * labelY;
-  constexpr auto mixTop3 = mixTop0 + 3 * labelY;
-  constexpr auto mixTop4 = mixTop0 + 4 * labelY;
-  constexpr auto mixTop5 = mixTop0 + 5 * labelY;
-  constexpr auto mixTop6 = mixTop0 + 6 * labelY;
-  constexpr auto mixTop7 = mixTop0 + 7 * labelY;
-  constexpr auto mixTop8 = mixTop0 + 8 * labelY;
-  constexpr auto mixTop9 = mixTop0 + 9 * labelY;
-  constexpr auto mixTop10 = mixTop0 + 10 * labelY;
-  constexpr auto mixTop11 = mixTop0 + 11 * labelY;
-  constexpr auto mixTop12 = mixTop0 + 12 * labelY;
-  constexpr auto mixLeft0 = left0;
-  constexpr auto mixLeft1 = mixLeft0 + labelWidth + 2 * margin;
+  const auto mixTop0 = top0;
+  const auto mixTop1 = mixTop0 + 1 * labelY;
+  const auto mixTop2 = mixTop0 + 2 * labelY;
+  const auto mixTop4 = mixTop0 + 4 * labelY;
+  const auto mixTop5 = mixTop0 + 5 * labelY;
+  const auto mixTop6 = mixTop0 + 6 * labelY;
+  const auto mixTop7 = mixTop0 + 7 * labelY;
+  const auto mixTop8 = mixTop0 + 8 * labelY;
+  const auto mixTop9 = mixTop0 + 9 * labelY;
+  const auto mixTop10 = mixTop0 + 10 * labelY;
+  const auto mixTop11 = mixTop0 + 11 * labelY;
+  const auto mixLeft0 = left0;
+  const auto mixLeft1 = mixLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     mixLeft0, mixTop0, groupLabelWidth, labelHeight, uiTextSize, "Oscillator");
 
@@ -150,17 +118,17 @@ bool Editor::prepareUI()
     Scales::tuningRootSemitone, false, 0);
 
   // Filter.
-  constexpr auto filterLabelWidth = 100.0f;
-  constexpr auto filterTop0 = mixTop11 + labelY;
-  constexpr auto filterTop1 = filterTop0 + 1 * labelY;
-  constexpr auto filterTop2 = filterTop0 + 2 * labelY;
-  constexpr auto filterTop3 = filterTop0 + 3 * labelY;
-  constexpr auto filterTop4 = filterTop0 + 4 * labelY;
-  constexpr auto filterTop5 = filterTop0 + 5 * labelY;
-  constexpr auto filterTop6 = filterTop0 + 6 * labelY;
-  constexpr auto filterLeft0 = left0;
-  constexpr auto filterLeft1 = filterLeft0 + 1 * filterLabelWidth + 3 * margin;
-  constexpr auto filterLeft2 = filterLeft0 + 2 * filterLabelWidth + 6 * margin;
+  const auto filterLabelWidth = knobWidth + uiMargin;
+  const auto filterTop0 = mixTop11 + labelY;
+  const auto filterTop1 = filterTop0 + 1 * labelY;
+  const auto filterTop2 = filterTop0 + 2 * labelY;
+  const auto filterTop3 = filterTop0 + 3 * labelY;
+  const auto filterTop4 = filterTop0 + 4 * labelY;
+  const auto filterTop5 = filterTop0 + 5 * labelY;
+  const auto filterTop6 = filterTop0 + 6 * labelY;
+  const auto filterLeft0 = left0;
+  const auto filterLeft1 = filterLeft0 + 1 * filterLabelWidth + 3 * margin;
+  const auto filterLeft2 = filterLeft0 + 2 * filterLabelWidth + 6 * margin;
   addToggleButton(
     filterLeft0, filterTop0, groupLabelWidth, labelHeight, uiTextSize, "Filter",
     ID::filterSwitch);
@@ -208,22 +176,22 @@ bool Editor::prepareUI()
     ID::filterNotchModOctave, Scales::filterNotchModOctave, false, 5);
 
   // Waveform.
-  constexpr auto waveformTop0 = top0 + 0 * labelY;
-  constexpr auto waveformTop1 = waveformTop0 + 1 * labelY;
-  constexpr auto waveformTop2 = waveformTop1 + barBoxWidth;
-  constexpr auto waveformTop3 = waveformTop2 + 1 * labelY;
-  constexpr auto waveformTop4 = waveformTop2 + 2 * labelY;
-  constexpr auto waveformTop5 = waveformTop2 + 3 * labelY;
-  constexpr auto waveformTop6 = waveformTop2 + 4 * labelY;
-  constexpr auto waveformTop7 = waveformTop2 + 5 * labelY;
-  constexpr auto waveformTop8 = waveformTop2 + 6 * labelY;
-  constexpr auto waveformLeft0 = left4;
-  constexpr auto waveformLeft1 = left4 + labelWidth + 2 * margin;
+  const auto waveformTop0 = top0 + 0 * labelY;
+  const auto waveformTop1 = waveformTop0 + 1 * labelY;
+  const auto waveformTop2 = waveformTop1 + barBoxWidth;
+  const auto waveformTop3 = waveformTop2 + 1 * labelY;
+  const auto waveformTop4 = waveformTop2 + 2 * labelY;
+  const auto waveformTop5 = waveformTop2 + 3 * labelY;
+  const auto waveformTop6 = waveformTop2 + 4 * labelY;
+  const auto waveformTop7 = waveformTop2 + 5 * labelY;
+  const auto waveformTop8 = waveformTop2 + 6 * labelY;
+  const auto waveformLeft0 = left4;
+  const auto waveformLeft1 = left4 + labelWidth + 2 * margin;
   addGroupLabel(
     waveformLeft0, waveformTop0, groupLabelWidth, labelHeight, uiTextSize, "Waveform");
 
   {
-    constexpr auto halfLabelWidth = int(labelWidth / 2);
+    const auto halfLabelWidth = int(labelWidth / 2);
     polyXControl = addTextKnob(
       waveformLeft0 + halfLabelWidth, waveformTop2, halfLabelWidth, labelHeight,
       uiTextSize, ID::polynomialPointX0, Scales::defaultScale, false, 5);
@@ -302,21 +270,19 @@ bool Editor::prepareUI()
     uiTextSize, "Bitwise And", ID::pulseWidthBitwiseAnd);
 
   // Arpeggio.
-  constexpr auto arpTop0 = top0;
-  constexpr auto arpTop1 = arpTop0 + 1 * labelY;
-  constexpr auto arpTop2 = arpTop0 + 2 * labelY;
-  constexpr auto arpTop3 = arpTop0 + 3 * labelY;
-  constexpr auto arpTop4 = arpTop0 + 4 * labelY;
-  constexpr auto arpTop5 = arpTop0 + 5 * labelY;
-  constexpr auto arpTop6 = arpTop0 + 6 * labelY;
-  constexpr auto arpTop7 = arpTop0 + 7 * labelY;
-  constexpr auto arpTop8 = arpTop0 + 8 * labelY;
-  constexpr auto arpTop9 = arpTop0 + 9 * labelY;
-  constexpr auto arpTop10 = arpTop0 + 10 * labelY;
-  constexpr auto arpTop11 = arpTop0 + 11 * labelY;
-  constexpr auto arpTop12 = arpTop0 + 12 * labelY;
-  constexpr auto arpLeft0 = left8;
-  constexpr auto arpLeft1 = arpLeft0 + labelWidth + 2 * margin;
+  const auto arpTop0 = top0;
+  const auto arpTop1 = arpTop0 + 1 * labelY;
+  const auto arpTop3 = arpTop0 + 3 * labelY;
+  const auto arpTop4 = arpTop0 + 4 * labelY;
+  const auto arpTop5 = arpTop0 + 5 * labelY;
+  const auto arpTop6 = arpTop0 + 6 * labelY;
+  const auto arpTop8 = arpTop0 + 8 * labelY;
+  const auto arpTop9 = arpTop0 + 9 * labelY;
+  const auto arpTop10 = arpTop0 + 10 * labelY;
+  const auto arpTop11 = arpTop0 + 11 * labelY;
+  const auto arpTop12 = arpTop0 + 12 * labelY;
+  const auto arpLeft0 = left8;
+  const auto arpLeft1 = arpLeft0 + labelWidth + 2 * margin;
   addToggleButton(
     arpLeft0, arpTop0, groupLabelWidth, labelHeight, uiTextSize, "Arpeggio",
     ID::arpeggioSwitch);
@@ -401,13 +367,13 @@ bool Editor::prepareUI()
     Scales::randomizeFmIndex, false, 5);
 
   // Unison.
-  constexpr auto unisonTop0 = arpTop12 + labelY;
-  constexpr auto unisonTop1 = unisonTop0 + 1 * labelY;
-  constexpr auto unisonTop2 = unisonTop0 + 2 * labelY;
-  constexpr auto unisonTop3 = unisonTop0 + 3 * labelY;
-  constexpr auto unisonTop4 = unisonTop0 + 4 * labelY;
-  constexpr auto unisonLeft0 = left8;
-  constexpr auto unisonLeft1 = unisonLeft0 + labelWidth + 2 * margin;
+  const auto unisonTop0 = arpTop12 + labelY;
+  const auto unisonTop1 = unisonTop0 + 1 * labelY;
+  const auto unisonTop2 = unisonTop0 + 2 * labelY;
+  const auto unisonTop3 = unisonTop0 + 3 * labelY;
+  const auto unisonTop4 = unisonTop0 + 4 * labelY;
+  const auto unisonLeft0 = left8;
+  const auto unisonLeft1 = unisonLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     unisonLeft0, unisonTop0, groupLabelWidth, labelHeight, uiTextSize, "Unison");
 
@@ -435,9 +401,9 @@ bool Editor::prepareUI()
     ID::unisonGainSqrt);
 
   // Plugin name and randomize button.
-  constexpr auto splashMargin = uiMargin;
-  constexpr auto splashTop = top0 + 18 * labelY;
-  constexpr auto splashLeft = left8;
+  const auto splashMargin = uiMargin;
+  const auto splashTop = top0 + 18 * labelY;
+  const auto splashLeft = left8;
   const auto randomButtonTop = splashTop;
   const auto randomButtonLeft = splashLeft;
   auto panicButton = new RandomizeButton(

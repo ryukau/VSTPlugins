@@ -7,24 +7,6 @@
 #include <algorithm>
 #include <sstream>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float midTextSize = 12.0f;
-constexpr float pluginNameTextSize = 24.0f;
-constexpr float margin = 5.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float labelY = 30.0f;
-constexpr float knobWidth = 80.0f;
-constexpr float knobHeight = knobWidth - 2.0f * margin;
-constexpr float knobX = knobWidth; // With margin.
-constexpr float knobY = knobHeight + labelY + 2.0f * margin;
-constexpr float sliderWidth = 70.0f;
-constexpr float sliderHeight = 2.0f * (knobHeight + labelY) + 75.0f;
-constexpr float sliderX = 80.0f;
-constexpr float sliderY = sliderHeight + labelY;
-constexpr float checkboxWidth = 80.0f;
-constexpr uint32_t defaultWidth = uint32_t(2 * 20 + sliderX + 7 * knobX + 10 * margin);
-constexpr uint32_t defaultHeight = uint32_t(2 * 15 + 2 * knobY + 2 * labelHeight + 55);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -33,9 +15,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 bool Editor::prepareUI()
@@ -45,18 +24,18 @@ bool Editor::prepareUI()
   using Style = Uhhyou::Style;
 
   // Gain.
-  const auto left0 = 10.0f;
-  const auto top0 = 20.0f;
+  const auto left0 = 2 * margin;
+  const auto top0 = uiMargin;
 
-  const auto leftGain = left0 + 2.0f * margin;
+  const auto leftGain = left0 + 2 * margin;
   addVSlider(
     leftGain, top0, sliderWidth, sliderHeight, margin, labelHeight, uiTextSize, "Gain",
     ID::gain);
 
   // Excitation.
-  const auto leftExcitation = leftGain + sliderX + 2.0f * margin;
+  const auto leftExcitation = leftGain + sliderX + 2 * margin;
   addToggleButton(
-    leftExcitation, top0, 2.0f * knobX, labelHeight, midTextSize, "Excitation",
+    leftExcitation, top0, 2 * knobX, labelHeight, midTextSize, "Excitation",
     ID::excitation);
 
   const auto topExcitation = top0 + labelHeight + margin;
@@ -68,8 +47,8 @@ bool Editor::prepareUI()
     ID::pickCombTime);
 
   // Objects.
-  const auto leftObjects = leftExcitation + 2.0f * knobX + 4.0f * margin;
-  addGroupLabel(leftObjects, top0, 2.0f * knobX, labelHeight, midTextSize, "Objects");
+  const auto leftObjects = leftExcitation + 2 * knobX + 4 * margin;
+  addGroupLabel(leftObjects, top0, 2 * knobX, labelHeight, midTextSize, "Objects");
 
   const auto topObjects = top0 + labelHeight + margin;
   addNumberKnob(
@@ -80,8 +59,8 @@ bool Editor::prepareUI()
     Scales::stack, 1);
 
   // Wave.
-  const auto leftWave = leftObjects + 2.0f * knobX + 4.0f * margin;
-  addGroupLabel(leftWave, top0, 3.0f * knobX, labelHeight, midTextSize, "Wave");
+  const auto leftWave = leftObjects + 2 * knobX + 4 * margin;
+  addGroupLabel(leftWave, top0, 3 * knobX, labelHeight, midTextSize, "Wave");
 
   const auto topWave = top0 + labelHeight + margin;
   addKnob<Style::warning>(
@@ -90,11 +69,11 @@ bool Editor::prepareUI()
     leftWave + knobX, topWave, knobWidth, margin, uiTextSize, "PulsePosition",
     ID::pulsePosition);
   addKnob(
-    leftWave + 2.0f * knobX, topWave, knobWidth, margin, uiTextSize, "PulseWidth",
+    leftWave + 2 * knobX, topWave, knobWidth, margin, uiTextSize, "PulseWidth",
     ID::pulseWidth);
 
   // Collision.
-  const auto top1 = top0 + knobY + 3.0f * margin;
+  const auto top1 = top0 + knobY + 3 * margin;
 
   const auto leftCollision = leftExcitation;
   addToggleButton(
@@ -106,8 +85,8 @@ bool Editor::prepareUI()
     leftCollision, topCollision, knobWidth, margin, uiTextSize, "Distance", ID::distance);
 
   // Random.
-  const auto leftRandom = leftCollision + knobX + 4.0f * margin;
-  addGroupLabel(leftRandom, top1, 2.0f * knobX, labelHeight, midTextSize, "Random");
+  const auto leftRandom = leftCollision + knobX + 4 * margin;
+  addGroupLabel(leftRandom, top1, 2 * knobX, labelHeight, midTextSize, "Random");
 
   const auto topRandom = top1 + labelHeight + margin;
   addNumberKnob(
@@ -118,8 +97,8 @@ bool Editor::prepareUI()
     ID::randomAmount);
 
   // String.
-  const auto leftString = leftRandom + 2.0f * knobX + 4.0f * margin;
-  addGroupLabel(leftString, top1, 4.0f * knobX, labelHeight, midTextSize, "String");
+  const auto leftString = leftRandom + 2 * knobX + 4 * margin;
+  addGroupLabel(leftString, top1, 4 * knobX, labelHeight, midTextSize, "String");
 
   const auto topString = top1 + labelHeight + margin;
   addKnob(
@@ -128,18 +107,15 @@ bool Editor::prepareUI()
     leftString + knobX, topString, knobWidth, margin, uiTextSize, "MaxHz",
     ID::maxFrequency);
   addKnob(
-    leftString + 2.0f * knobX, topString, knobWidth, margin, uiTextSize, "Decay",
-    ID::decay);
+    leftString + 2 * knobX, topString, knobWidth, margin, uiTextSize, "Decay", ID::decay);
   addKnob(
-    leftString + 3.0f * knobX, topString, knobWidth, margin, uiTextSize, "Q",
-    ID::bandpassQ);
+    leftString + 3 * knobX, topString, knobWidth, margin, uiTextSize, "Q", ID::bandpassQ);
 
   // Oscillator.
   const auto top2 = top1 + labelHeight + knobY;
 
   addGroupLabel(
-    leftExcitation, top2, 3.0f * knobX + 2.0f * margin, labelHeight, midTextSize,
-    "Oscillator");
+    leftExcitation, top2, 3 * knobX + 2 * margin, labelHeight, midTextSize, "Oscillator");
 
   const auto topOscillator = top2 + labelHeight + margin;
   addCheckbox(
@@ -154,21 +130,21 @@ bool Editor::prepareUI()
 
   std::vector<std::string> itemCutoffMap = {"Log", "Linear"};
   addOptionMenu(
-    leftExcitation + 2.0f * knobX + 2.0f * margin, topOscillator, checkboxWidth,
-    labelHeight, uiTextSize, ID::cutoffMap, itemCutoffMap);
+    leftExcitation + 2 * knobX + 2 * margin, topOscillator, checkboxWidth, labelHeight,
+    uiTextSize, ID::cutoffMap, itemCutoffMap);
 
   // Smoothness.
-  const auto leftSmoothness = leftExcitation + 3.0f * knobX + 4.0f * margin;
+  const auto leftSmoothness = leftExcitation + 3 * knobX + 4 * margin;
   addKnob(
-    leftSmoothness + 22.5f, top2 - margin, 50.0f, margin, uiTextSize, "Smoothness",
-    ID::smoothness);
+    int(leftSmoothness + 22.5), top2 - margin, 10 * margin, margin, uiTextSize,
+    "Smoothness", ID::smoothness);
 
   // Plugin name.
-  const auto splashWidth = 3.0f * knobX;
+  const auto splashWidth = 3 * knobX;
   addSplashScreen(
-    defaultWidth - 20.0f - splashWidth, top2 + 2.0 * margin, splashWidth, 40.0f, 100.0f,
-    20.0f, defaultWidth - 200.0f, defaultHeight - 40.0f, pluginNameTextSize,
-    "WaveCymbal");
+    defaultWidth - uiMargin - splashWidth, top2 + 2 * margin, splashWidth, 2 * uiMargin,
+    knobWidth + uiMargin, uiMargin, defaultWidth - 2 * (knobWidth + uiMargin),
+    defaultHeight - 2 * uiMargin, pluginNameTextSize, "WaveCymbal");
 
   return true;
 }

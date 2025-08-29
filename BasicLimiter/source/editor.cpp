@@ -9,21 +9,6 @@
 #include <sstream>
 #include <string>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float midTextSize = 12.0f;
-constexpr float pluginNameTextSize = 14.0f;
-constexpr float margin = 5.0f;
-constexpr float uiMargin = 20.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float labelY = 30.0f;
-constexpr float splashHeight = 30.0f;
-
-constexpr float limiterLabelWidth = 100.0f;
-constexpr float checkboxWidth = 2.0f * limiterLabelWidth;
-
-constexpr uint32_t defaultWidth = uint32_t(2 * uiMargin + 2 * limiterLabelWidth);
-constexpr uint32_t defaultHeight = uint32_t(2 * uiMargin + 8 * labelY + splashHeight);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -32,9 +17,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 Editor::~Editor()

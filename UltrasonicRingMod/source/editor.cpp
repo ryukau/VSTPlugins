@@ -8,29 +8,6 @@
 #include <algorithm>
 #include <random>
 
-// 480 + 20
-constexpr float uiTextSize = 12.0f;
-constexpr float pluginNameTextSize = 14.0f;
-constexpr float margin = 5.0f;
-constexpr float uiMargin = 20.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float knobWidth = 100.0f;
-constexpr float knobX = knobWidth + 2 * margin;
-constexpr float knobY = knobWidth + labelHeight + 2 * margin;
-constexpr float labelY = labelHeight + 2 * margin;
-constexpr float labelWidth = knobWidth;
-constexpr float labelX = labelWidth + margin;
-constexpr float splashWidth = int(1.5 * labelWidth) + margin;
-constexpr float splashHeight = labelY;
-
-constexpr float barboxWidth = 500.0f;
-constexpr float barboxHeight = 160.0f;
-
-constexpr int_least32_t defaultWidth
-  = int_least32_t(2 * uiMargin + 4 * knobX - 2 * margin);
-constexpr int_least32_t defaultHeight
-  = int_least32_t(2 * uiMargin + 2 * knobY + 4 * labelY - 2 * margin);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -39,9 +16,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 ParamValue Editor::getPlainValue(ParamID id)
@@ -64,16 +38,16 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  constexpr auto top0 = uiMargin;
-  constexpr auto top1 = top0 + knobY;
-  constexpr auto top2 = top1 + knobY;
-  constexpr auto top3 = top2 + labelY;
-  constexpr auto top4 = top3 + labelY;
-  constexpr auto top5 = top4 + labelY;
-  constexpr auto left0 = uiMargin;
-  constexpr auto left1 = left0 + 1 * knobX;
-  constexpr auto left2 = left0 + 2 * knobX;
-  constexpr auto left3 = left0 + 3 * knobX;
+  const auto top0 = uiMargin;
+  const auto top1 = top0 + knobY;
+  const auto top2 = top1 + knobY;
+  const auto top3 = top2 + labelY;
+  const auto top4 = top3 + labelY;
+  const auto top5 = top4 + labelY;
+  const auto left0 = uiMargin;
+  const auto left1 = left0 + 1 * knobX;
+  const auto left2 = left0 + 2 * knobX;
+  const auto left3 = left0 + 3 * knobX;
 
   addKnob(left0, top0, knobWidth, margin, uiTextSize, "Mix", ID::mix);
   addKnob(left1, top0, knobWidth, margin, uiTextSize, "Frequency", ID::frequencyHz);
@@ -92,8 +66,8 @@ bool Editor::prepareUI()
   addKnob(left3, top1, knobWidth, margin, uiTextSize, "Hardclip", ID::hardclipMix);
 
   // Note.
-  constexpr auto noteLeft1 = left0 + int(knobWidth / 2);
-  constexpr auto negativeScaleOffset = 2 * margin;
+  const auto noteLeft1 = left0 + int(knobWidth / 2);
+  const auto negativeScaleOffset = 2 * margin;
 
   addGroupLabel(left0, top2, 2 * knobX - 2 * margin, labelHeight, uiTextSize, "Note");
   addToggleButton(
@@ -120,9 +94,9 @@ bool Editor::prepareUI()
     Scales::noteSlideTimeSecond, false, 5);
 
   // Plugin name.
-  constexpr auto splashMargin = uiMargin;
-  constexpr auto splashTop = defaultHeight - uiMargin - splashHeight;
-  constexpr auto splashLeft = defaultWidth - uiMargin - splashWidth - int(knobWidth / 4);
+  const auto splashMargin = uiMargin;
+  const auto splashTop = defaultHeight - uiMargin - splashHeight;
+  const auto splashLeft = defaultWidth - uiMargin - splashWidth - int(knobWidth / 4);
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,

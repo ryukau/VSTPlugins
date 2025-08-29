@@ -11,32 +11,6 @@
 #include <sstream>
 #include <string>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float pluginNameTextSize = 16.0f;
-constexpr float margin = 5.0f;
-constexpr float uiMargin = 20.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float knobWidth = 80.0f;
-constexpr float knobX = knobWidth + 2 * margin;
-constexpr float knobY = knobWidth + labelHeight + 2 * margin;
-constexpr float labelY = labelHeight + 2 * margin;
-constexpr float labelWidth = 2 * knobWidth;
-constexpr float groupLabelWidth = 2 * labelWidth + 2 * margin;
-constexpr float splashWidth = int(labelWidth * 3 / 2) + 2 * margin;
-constexpr float splashHeight = int(2 * labelHeight + 2 * margin);
-
-constexpr float barBoxWidth = groupLabelWidth;
-constexpr float barBoxHeight = 5 * labelY - 2 * margin;
-constexpr float smallKnobWidth = labelHeight;
-constexpr float smallKnobX = smallKnobWidth + 2 * margin;
-
-constexpr float tabViewWidth = 2 * groupLabelWidth + 4 * margin + 2 * uiMargin;
-constexpr float tabViewHeight = 20 * labelY - 2 * margin + 2 * uiMargin;
-
-constexpr int_least32_t defaultWidth = int_least32_t(4 * uiMargin + 3 * groupLabelWidth);
-constexpr int_least32_t defaultHeight
-  = int_least32_t(2 * uiMargin + 21 * labelY - 2 * margin);
-
 constexpr const char *wireDidntCollidedText = "Wire didn't collide.";
 constexpr const char *membraneDidntCollidedText = "Membrane didn't collide.";
 
@@ -48,9 +22,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 ParamValue Editor::getPlainValue(ParamID id)
@@ -147,26 +118,26 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  constexpr auto top0 = uiMargin;
-  constexpr auto left0 = uiMargin;
-  constexpr auto left4 = left0 + 1 * groupLabelWidth + 4 * margin;
-  constexpr auto left8 = left0 + 2 * groupLabelWidth + 4 * margin + uiMargin;
+  const auto top0 = uiMargin;
+  const auto left0 = uiMargin;
+  const auto left4 = left0 + 1 * groupLabelWidth + 4 * margin;
+  const auto left8 = left0 + 2 * groupLabelWidth + 4 * margin + uiMargin;
 
   // Mix.
-  constexpr auto mixTop0 = top0;
-  constexpr auto mixTop1 = mixTop0 + 1 * labelY;
-  constexpr auto mixTop2 = mixTop0 + 2 * labelY;
-  constexpr auto mixTop3 = mixTop0 + 3 * labelY;
-  constexpr auto mixTop4 = mixTop0 + 4 * labelY;
-  constexpr auto mixTop5 = mixTop0 + 5 * labelY;
-  constexpr auto mixTop6 = mixTop0 + 6 * labelY;
-  constexpr auto mixTop7 = mixTop0 + 7 * labelY;
-  constexpr auto mixTop8 = mixTop0 + 8 * labelY;
-  constexpr auto mixTop9 = mixTop0 + 9 * labelY;
-  constexpr auto mixTop10 = mixTop0 + 10 * labelY;
-  constexpr auto mixTop11 = mixTop0 + 11 * labelY;
-  constexpr auto mixLeft0 = left0;
-  constexpr auto mixLeft1 = mixLeft0 + labelWidth + 2 * margin;
+  const auto mixTop0 = top0;
+  const auto mixTop1 = mixTop0 + 1 * labelY;
+  const auto mixTop2 = mixTop0 + 2 * labelY;
+  const auto mixTop3 = mixTop0 + 3 * labelY;
+  const auto mixTop4 = mixTop0 + 4 * labelY;
+  const auto mixTop5 = mixTop0 + 5 * labelY;
+  const auto mixTop6 = mixTop0 + 6 * labelY;
+  const auto mixTop7 = mixTop0 + 7 * labelY;
+  const auto mixTop8 = mixTop0 + 8 * labelY;
+  const auto mixTop9 = mixTop0 + 9 * labelY;
+  const auto mixTop10 = mixTop0 + 10 * labelY;
+  const auto mixTop11 = mixTop0 + 11 * labelY;
+  const auto mixLeft0 = left0;
+  const auto mixLeft1 = mixLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     mixLeft0, mixTop0, groupLabelWidth, labelHeight, uiTextSize, "Mix & Options");
 
@@ -224,14 +195,14 @@ bool Editor::prepareUI()
     = addLabel(mixLeft1, mixTop11, labelWidth, labelHeight, uiTextSize, "Initialized.");
 
   // Tuning.
-  constexpr auto tuningTop0 = top0 + 13 * labelY;
-  constexpr auto tuningTop1 = tuningTop0 + 1 * labelY;
-  constexpr auto tuningTop2 = tuningTop0 + 2 * labelY;
-  constexpr auto tuningTop3 = tuningTop0 + 3 * labelY;
-  constexpr auto tuningTop4 = tuningTop0 + 4 * labelY;
-  constexpr auto tuningTop5 = tuningTop0 + 5 * labelY;
-  constexpr auto tuningLeft0 = left0;
-  constexpr auto tuningLeft1 = tuningLeft0 + labelWidth + 2 * margin;
+  const auto tuningTop0 = top0 + 13 * labelY;
+  const auto tuningTop1 = tuningTop0 + 1 * labelY;
+  const auto tuningTop2 = tuningTop0 + 2 * labelY;
+  const auto tuningTop3 = tuningTop0 + 3 * labelY;
+  const auto tuningTop4 = tuningTop0 + 4 * labelY;
+  const auto tuningTop5 = tuningTop0 + 5 * labelY;
+  const auto tuningLeft0 = left0;
+  const auto tuningLeft1 = tuningLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     tuningLeft0, tuningTop0, groupLabelWidth, labelHeight, uiTextSize, "Tuning");
 
@@ -260,13 +231,13 @@ bool Editor::prepareUI()
     Scales::noteSlideTimeSecond, false, 5);
 
   // Impact.
-  constexpr auto impactTop0 = top0 + 0 * labelY;
-  constexpr auto impactTop1 = impactTop0 + 1 * labelY;
-  constexpr auto impactTop2 = impactTop0 + 2 * labelY;
-  constexpr auto impactTop3 = impactTop0 + 3 * labelY;
-  constexpr auto impactTop4 = impactTop0 + 4 * labelY;
-  constexpr auto impactLeft0 = left4;
-  constexpr auto impactLeft1 = impactLeft0 + labelWidth + 2 * margin;
+  const auto impactTop0 = top0 + 0 * labelY;
+  const auto impactTop1 = impactTop0 + 1 * labelY;
+  const auto impactTop2 = impactTop0 + 2 * labelY;
+  const auto impactTop3 = impactTop0 + 3 * labelY;
+  const auto impactTop4 = impactTop0 + 4 * labelY;
+  const auto impactLeft0 = left4;
+  const auto impactLeft1 = impactLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     impactLeft0, impactTop0, groupLabelWidth, labelHeight, uiTextSize, "Impact");
 
@@ -294,16 +265,16 @@ bool Editor::prepareUI()
     ID::noiseAllpassMaxTimeHz, Scales::delayTimeHz, false, 5);
 
   // Wire.
-  constexpr auto wireTop0 = top0 + 5 * labelY;
-  constexpr auto wireTop1 = wireTop0 + 1 * labelY;
-  constexpr auto wireTop2 = wireTop0 + 2 * labelY;
-  constexpr auto wireTop3 = wireTop0 + 3 * labelY;
-  constexpr auto wireTop4 = wireTop0 + 4 * labelY;
-  constexpr auto wireTop5 = wireTop0 + 5 * labelY;
-  constexpr auto wireTop6 = wireTop0 + 6 * labelY;
-  constexpr auto wireTop7 = wireTop0 + 7 * labelY;
-  constexpr auto wireLeft0 = left4;
-  constexpr auto wireLeft1 = wireLeft0 + labelWidth + 2 * margin;
+  const auto wireTop0 = top0 + 5 * labelY;
+  const auto wireTop1 = wireTop0 + 1 * labelY;
+  const auto wireTop2 = wireTop0 + 2 * labelY;
+  const auto wireTop3 = wireTop0 + 3 * labelY;
+  const auto wireTop4 = wireTop0 + 4 * labelY;
+  const auto wireTop5 = wireTop0 + 5 * labelY;
+  const auto wireTop6 = wireTop0 + 6 * labelY;
+  const auto wireTop7 = wireTop0 + 7 * labelY;
+  const auto wireLeft0 = left4;
+  const auto wireLeft1 = wireLeft0 + labelWidth + 2 * margin;
   addGroupLabel(wireLeft0, wireTop0, groupLabelWidth, labelHeight, uiTextSize, "Wire");
 
   addLabel(wireLeft0, wireTop1, labelWidth, labelHeight, uiTextSize, "Impact-Wire Mix");
@@ -336,12 +307,12 @@ bool Editor::prepareUI()
     "Wire collision status.");
 
   // Membrane Tone.
-  constexpr auto toneTop0 = top0 + 13 * labelY;
-  constexpr auto toneTop1 = toneTop0 + 1 * labelY;
-  constexpr auto toneTop2 = toneTop0 + 2 * labelY;
-  constexpr auto toneTop3 = toneTop0 + 3 * labelY;
-  constexpr auto toneLeft0 = left4;
-  constexpr auto toneLeft1 = toneLeft0 + labelWidth + 2 * margin;
+  const auto toneTop0 = top0 + 13 * labelY;
+  const auto toneTop1 = toneTop0 + 1 * labelY;
+  const auto toneTop2 = toneTop0 + 2 * labelY;
+  const auto toneTop3 = toneTop0 + 3 * labelY;
+  const auto toneLeft0 = left4;
+  const auto toneLeft1 = toneLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     toneLeft0, toneTop0, groupLabelWidth, labelHeight, uiTextSize, "Membrane Tone");
 
@@ -359,12 +330,12 @@ bool Editor::prepareUI()
     Scales::defaultScale, "Cross Feedback Ratio");
 
   // Pitch Texture.
-  constexpr auto textureTop0 = top0;
-  constexpr auto textureTop1 = textureTop0 + 1 * labelY;
-  constexpr auto textureTop2 = textureTop0 + 2 * labelY;
-  constexpr auto textureTop3 = textureTop0 + 3 * labelY;
-  constexpr auto textureLeft0 = left8;
-  constexpr auto textureLeft1 = textureLeft0 + labelWidth + 2 * margin;
+  const auto textureTop0 = top0;
+  const auto textureTop1 = textureTop0 + 1 * labelY;
+  const auto textureTop2 = textureTop0 + 2 * labelY;
+  const auto textureTop3 = textureTop0 + 3 * labelY;
+  const auto textureLeft0 = left8;
+  const auto textureLeft1 = textureLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     textureLeft0, textureTop0, groupLabelWidth, labelHeight, uiTextSize, "Pitch Texture");
 
@@ -386,12 +357,12 @@ bool Editor::prepareUI()
     Scales::pitchRandomCent, false, 5);
 
   // Pitch Envelope.
-  constexpr auto envTop0 = top0 + 4 * labelY;
-  constexpr auto envTop1 = envTop0 + 1 * labelY;
-  constexpr auto envTop2 = envTop0 + 2 * labelY;
-  constexpr auto envTop3 = envTop0 + 3 * labelY;
-  constexpr auto envLeft0 = left8;
-  constexpr auto envLeft1 = envLeft0 + labelWidth + 2 * margin;
+  const auto envTop0 = top0 + 4 * labelY;
+  const auto envTop1 = envTop0 + 1 * labelY;
+  const auto envTop2 = envTop0 + 2 * labelY;
+  const auto envTop3 = envTop0 + 3 * labelY;
+  const auto envLeft0 = left8;
+  const auto envLeft1 = envLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     envLeft0, envTop0, groupLabelWidth, labelHeight, uiTextSize, "Pitch Envelope");
 
@@ -409,14 +380,14 @@ bool Editor::prepareUI()
     Scales::envelopeModAmount, false, 5);
 
   // Primary Membrane.
-  constexpr auto mainTop0 = top0 + 8 * labelY;
-  constexpr auto mainTop1 = mainTop0 + 1 * labelY;
-  constexpr auto mainTop2 = mainTop0 + 2 * labelY;
-  constexpr auto mainTop3 = mainTop0 + 3 * labelY;
-  constexpr auto mainTop4 = mainTop0 + 4 * labelY;
-  constexpr auto mainTop5 = mainTop0 + 5 * labelY;
-  constexpr auto mainLeft0 = left8;
-  constexpr auto mainLeft1 = mainLeft0 + labelWidth + 2 * margin;
+  const auto mainTop0 = top0 + 8 * labelY;
+  const auto mainTop1 = mainTop0 + 1 * labelY;
+  const auto mainTop2 = mainTop0 + 2 * labelY;
+  const auto mainTop3 = mainTop0 + 3 * labelY;
+  const auto mainTop4 = mainTop0 + 4 * labelY;
+  const auto mainTop5 = mainTop0 + 5 * labelY;
+  const auto mainLeft0 = left8;
+  const auto mainLeft1 = mainLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     mainLeft0, mainTop0, groupLabelWidth, labelHeight, uiTextSize, "Primary Membrane");
 
@@ -478,14 +449,14 @@ bool Editor::prepareUI()
     Scales::bandpassQ, false, 5);
 
   // Secondary Membrane.
-  constexpr auto secondaryTop0 = top0 + 14 * labelY;
-  constexpr auto secondaryTop1 = secondaryTop0 + 1 * labelY;
-  constexpr auto secondaryTop2 = secondaryTop0 + 2 * labelY;
-  constexpr auto secondaryTop3 = secondaryTop0 + 3 * labelY;
-  constexpr auto secondaryTop4 = secondaryTop0 + 4 * labelY;
-  constexpr auto secondaryTop5 = secondaryTop0 + 5 * labelY;
-  constexpr auto secondaryLeft0 = left8;
-  constexpr auto secondaryLeft1 = secondaryLeft0 + labelWidth + 2 * margin;
+  const auto secondaryTop0 = top0 + 14 * labelY;
+  const auto secondaryTop1 = secondaryTop0 + 1 * labelY;
+  const auto secondaryTop2 = secondaryTop0 + 2 * labelY;
+  const auto secondaryTop3 = secondaryTop0 + 3 * labelY;
+  const auto secondaryTop4 = secondaryTop0 + 4 * labelY;
+  const auto secondaryTop5 = secondaryTop0 + 5 * labelY;
+  const auto secondaryLeft0 = left8;
+  const auto secondaryLeft1 = secondaryLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     secondaryLeft0, secondaryTop0, groupLabelWidth, labelHeight, uiTextSize,
     "Secondary Membrane");
@@ -526,9 +497,9 @@ bool Editor::prepareUI()
   frame->addView(panicButton);
 
   // Plugin name.
-  constexpr auto splashMargin = uiMargin;
-  constexpr auto splashTop = top0 + 18 * labelY;
-  constexpr auto splashLeft = left0;
+  const auto splashMargin = uiMargin;
+  const auto splashTop = top0 + 18 * labelY;
+  const auto splashLeft = left0;
   addSplashScreen(
     splashLeft, splashTop, labelWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,

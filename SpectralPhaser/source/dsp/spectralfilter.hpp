@@ -386,7 +386,8 @@ public:
     latencyDelay.fill(0);
 
     const auto length = int(1) << frameSizeLog2;
-    for (int i = 0; i < spc.size(); ++i) spc[i].reset((i * length) / spc.size());
+    const auto size = int(spc.size());
+    for (int i = 0; i < size; ++i) spc[i].reset((i * length) / size);
   }
 
   float process(float input, float sideIn, SpectralParameter &prm)

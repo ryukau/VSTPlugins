@@ -7,29 +7,6 @@
 #include <algorithm>
 #include <sstream>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float midTextSize = 12.0f;
-constexpr float pluginNameTextSize = 14.0f;
-constexpr float margin = 5.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float labelY = 30.0f;
-constexpr float knobWidth = 50.0f;
-constexpr float knobHeight = 40.0f;
-constexpr float knobX = 60.0f; // With margin.
-constexpr float knobY = knobHeight + labelY;
-constexpr float checkboxWidth = 60.0f;
-constexpr float splashHeight = 30.0f;
-constexpr float indicatorHeight = 3 * labelY - 2 * margin;
-constexpr float indicatorWidth = 3 * knobX - margin;
-constexpr float infoTextSize = 12.0f;
-constexpr float infoTextCellWidth = 100.0f;
-
-constexpr float limiterLabelWidth = knobX + 3 * margin;
-
-constexpr uint32_t defaultWidth = uint32_t(6 * knobX + 30);
-constexpr uint32_t defaultHeight
-  = uint32_t(2 * knobY + 6 * margin + 3 * labelY + splashHeight + 30);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -38,9 +15,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 Editor::~Editor()
@@ -128,13 +102,14 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  const auto top0 = 15.0f;
+  const auto uiMargin = 3 * margin;
+  const auto top0 = uiMargin;
   const auto top1 = top0 + knobY + 2 * margin;
   const auto top2 = top1 + knobY + 2 * margin;
-  const auto left0 = 15.0f;
+  const auto left0 = uiMargin;
 
   // Indicator. `curveView` must be instanciated after `infoTextView`.
-  const auto marginInfo = std::floor(0.25f * knobX);
+  const auto marginInfo = int(0.25f * knobX);
   const auto leftInfo0 = left0;
   const auto leftInfo1 = leftInfo0 + marginInfo;
   const auto topInfo0 = top2 + 2 * margin;
@@ -168,17 +143,17 @@ bool Editor::prepareUI()
   addKnob<Style::warning>(
     left0 + 3 * knobX, top1, knobX, margin, uiTextSize, "More Mul", ID::moreMul);
 
-  const auto top1Checkbox = top1 + floor(2.5 * margin);
+  const auto top1Checkbox = top1 + int(2.5 * margin);
   const auto leftCheckbox = left0 + 4 * knobX + 2 * margin;
   addCheckbox(
-    leftCheckbox, top1Checkbox, 1.5f * knobX, labelHeight, uiTextSize, "Hardclip",
+    leftCheckbox, top1Checkbox, int(1.5 * knobX), labelHeight, uiTextSize, "Hardclip",
     ID::hardclip);
 
   addCheckbox(
-    leftCheckbox, top1Checkbox + labelY, 1.5f * knobX, labelHeight, uiTextSize, "Lowpass",
-    ID::lowpass);
+    leftCheckbox, top1Checkbox + labelY, int(1.5 * knobX), labelHeight, uiTextSize,
+    "Lowpass", ID::lowpass);
 
-  const auto antiAliasingWidth = 2.0f * knobX - 3.0f * margin;
+  const auto antiAliasingWidth = 2 * knobX - 3 * margin;
   const auto antiAliasingLeft = left0 + margin;
   addLabel(
     antiAliasingLeft, top1Checkbox, antiAliasingWidth, labelHeight, uiTextSize,
@@ -190,7 +165,7 @@ bool Editor::prepareUI()
     uiTextSize, ID::type, typeItems);
 
   // Limiter.
-  const auto leftLimiter0 = left0 + std::floor(3.25f * knobX);
+  const auto leftLimiter0 = left0 + int(3.25f * knobX);
   const auto leftLimiter1 = leftLimiter0 + limiterLabelWidth;
   const auto topLimiter0 = topInfo0;
   const auto topLimiter1 = topLimiter0 + 1 * labelY;
@@ -212,12 +187,13 @@ bool Editor::prepareUI()
     ID::limiterRelease, Scales::limiterRelease, false, 5);
 
   // Plugin name.
-  const auto splashTop = defaultHeight - splashHeight - 15.0f;
+  const auto splashTop = defaultHeight - splashHeight - uiMargin;
   const auto splashWidth = 2 * knobX - 2 * margin;
-  const auto splashLeft = defaultWidth + 2 * margin - std::floor(2.5f * knobX) - 15.0f;
+  const auto splashLeft = defaultWidth + 2 * margin - int(2.5f * knobX) - uiMargin;
   addSplashScreen(
-    splashLeft, splashTop, splashWidth, splashHeight, 15.0f, 15.0f, defaultWidth - 30.0f,
-    defaultHeight - 30.0f, pluginNameTextSize, "ModuloShaper");
+    splashLeft, splashTop, splashWidth, splashHeight, uiMargin, uiMargin,
+    defaultWidth - 2 * uiMargin, defaultHeight - 2 * uiMargin, pluginNameTextSize,
+    "ModuloShaper");
 
   // Probably this restartComponent() is redundant, but to make sure.
   controller->getComponentHandler()->restartComponent(kLatencyChanged);

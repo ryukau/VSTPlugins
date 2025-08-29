@@ -24,13 +24,14 @@ void WaveView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
+  const auto sc = pal.guiScale();
 
   // Background.
   pContext->setFillColor(pal.boxBackground());
   pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilled);
 
   // Waveform.
-  pContext->setLineWidth(1.0);
+  pContext->setLineWidth(int(sc));
   pContext->setLineStyle(lineStyle);
   pContext->setFrameColor(pal.highlightAccent());
   const size_t size = (size_t)(width + 1.0);
@@ -40,9 +41,10 @@ void WaveView::draw(CDrawContext *pContext)
   pContext->drawPolygon(points);
 
   // Always draw border at last. Otherwise, inner object will be drawn over border.
-  pContext->setLineWidth(1.0);
+  pContext->setLineWidth(int(sc));
   pContext->setFrameColor(pal.border());
-  pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawStroked);
+  const auto halfBorderW = int(sc / 2);
+  pContext->drawRect(CRect(halfBorderW, halfBorderW, width, height), kDrawStroked);
 
   setDirty(false);
 }

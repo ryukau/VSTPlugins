@@ -56,6 +56,8 @@ public:
 
     setIdleRate(1000 / 60);
 
+    setDimensions();
+
     frame = new CFrame(
       CRect(viewRect.left, viewRect.top, viewRect.right, viewRect.bottom), this);
     if (frame == nullptr) return false;
@@ -167,8 +169,9 @@ public:
     auto barBox = new BarBox<Scale>(
       this, CRect(left, top, left + width, top + height), id, scale, value, defaultValue,
       palette);
-    barBox->setIndexFont(getFont(10));
-    barBox->setNameFont(getFont(24));
+    const auto sc = palette.guiScale();
+    barBox->setIndexFont(getFont(int(sc * 10)));
+    barBox->setNameFont(getFont(int(sc * 24)));
     barBox->setName(name);
     frame->addView(barBox);
 
@@ -560,7 +563,7 @@ public:
 
     for (const auto &item : items) menu->addEntry(item.c_str());
     menu->setFont(getFont(textSize));
-    menu->setFrameWidth(1.0);
+    menu->setFrameWidth(int(palette.guiScale()));
     menu->setFontColor(palette.foreground());
     menu->setBackColor(palette.boxBackground());
     menu->setDefaultFrameColor(palette.border());
@@ -608,12 +611,14 @@ public:
     std::string pluginName,
     bool showCreditAtStartUp = false)
   {
+    const auto sc = palette.guiScale();
     auto credit = new CreditView(
       CRect(splashLeft, splashTop, splashLeft + splashWidth, splashTop + splashHeight),
-      this, getFont(18.0), getFont(12.0), palette);
+      this, getFont(int(sc * 18.0)), getFont(int(sc * 12.0)), palette);
     auto splash = new SplashLabel(
       CRect(buttonLeft, buttonTop, buttonLeft + buttonWidth, buttonTop + buttonHeight),
       this, 0, credit, pluginName, getFont(buttonTextSize), palette);
+    splash->setDefaultFrameWidth(int(palette.guiScale()));
     frame->addView(splash);
     frame->addView(credit);
 
@@ -696,6 +701,7 @@ public:
       CSlider::kDrawBack | CSlider::kDrawFrame | CSlider::kDrawValue
       | (drawFromCenter ? CSlider::kDrawValueFromCenter | CSlider::kDrawInverted : 0));
     slider->setBackColor(palette.boxBackground());
+    slider->setDefaultFrameWidth(int(palette.guiScale()));
     slider->setDefaultFrameColor(palette.border());
     if constexpr (style == Uhhyou::Style::accent) {
       slider->setValueColor(palette.highlightAccent());
@@ -753,6 +759,7 @@ protected:
   }
 
   virtual bool prepareUI() = 0;
+  virtual void setDimensions() = 0;
 
   std::unique_ptr<ParameterInterface> param;
 

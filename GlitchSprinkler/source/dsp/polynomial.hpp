@@ -32,23 +32,23 @@ public:
     std::array<T, size> &x)
   {
     lu = A;
-    for (int i = 0; i < size; ++i) {
+    for (int i = 0; i < int(size); ++i) {
       if (std::abs(A[i][i]) <= epsilon) { // Pivoting.
         int j = i + 1;
-        for (; j < size; ++j) {
+        for (; j < int(size); ++j) {
           if (std::abs(A[j][i]) <= epsilon) continue;
           std::swap(A[i], A[j]);
           std::swap(b[i], b[j]);
           break;
         }
-        if (j >= size) {
+        if (j >= int(size)) {
           // If something goes wrong, check this branch.
           x.fill(0);
           return;
         }
       }
 
-      for (int j = i; j < size; ++j) {
+      for (int j = i; j < int(size); ++j) {
         T sum = T(0);
         for (int k = 0; k < i; ++k) sum += lu[i][k] * lu[k][j];
         lu[i][j] = A[i][j] - sum;
@@ -57,22 +57,22 @@ public:
       // Avoid division by 0. This is only suitable for this application.
       if (std::abs(lu[i][i]) < epsilon) lu[i][i] = std::copysign(epsilon, lu[i][i]);
 
-      for (int j = i + 1; j < size; ++j) {
+      for (int j = i + 1; j < int(size); ++j) {
         T sum = T(0);
         for (int k = 0; k < i; ++k) sum += lu[j][k] * lu[k][i];
         lu[j][i] = (A[j][i] - sum) / lu[i][i];
       }
     }
 
-    for (int i = 0; i < size; ++i) {
+    for (int i = 0; i < int(size); ++i) {
       T sum = T(0);
       for (int j = 0; j < i; ++j) sum += lu[i][j] * y[j];
       y[i] = b[i] - sum;
     }
 
-    for (int i = size - 1; i >= 0; --i) {
+    for (int i = int(size) - 1; i >= 0; --i) {
       T sum = T(0);
-      for (int j = i + 1; j < size; ++j) sum += lu[i][j] * x[j];
+      for (int j = i + 1; j < int(size); ++j) sum += lu[i][j] * x[j];
       x[i] = (y[i] - sum) / lu[i][i];
     }
   }

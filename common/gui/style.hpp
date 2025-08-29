@@ -18,6 +18,7 @@ public:
   Palette() { load(); }
   void load();
 
+  const float &guiScale() { return _guiScale; }
   const VSTGUI::UTF8String &fontName() { return _fontName; }
   const int &fontFace() { return _fontFace; }
   const VSTGUI::CColor &foreground() { return _foreground; }
@@ -38,6 +39,7 @@ public:
   const VSTGUI::CColor &overlayFaint() { return _overlayFaint; }
 
 private:
+  float _guiScale = float(1);
   VSTGUI::UTF8String _fontName{"Tinos"};
   int _fontFace{VSTGUI::CTxtFace::kBoldFace | VSTGUI::CTxtFace::kItalicFace};
   VSTGUI::CColor _foreground{0x00, 0x00, 0x00};

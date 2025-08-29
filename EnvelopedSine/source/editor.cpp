@@ -7,26 +7,6 @@
 #include <algorithm>
 #include <sstream>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float midTextSize = 12.0f;
-constexpr float pluginNameTextSize = 18.0f;
-constexpr float margin = 5.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float labelY = 30.0f;
-constexpr float knobWidth = 50.0f;
-constexpr float knobHeight = 40.0f;
-constexpr float knobX = 60.0f; // With margin.
-constexpr float knobY = knobHeight + labelY;
-constexpr float barboxWidth = 704; // Approx. 12.0f * knobX;
-constexpr float barboxHeight = 2.0f * knobY;
-constexpr float barboxY = barboxHeight + 2.0f * margin;
-constexpr float checkboxWidth = 60.0f;
-constexpr float splashHeight = 40.0f;
-constexpr uint32_t defaultWidth
-  = uint32_t(barboxWidth + 2 * knobX + labelY + 4 * margin + 40);
-constexpr uint32_t defaultHeight
-  = uint32_t(40 + 2 * labelY + knobY + 4 * barboxY + 2 * margin);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -35,9 +15,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 bool Editor::prepareUI()
@@ -46,33 +23,33 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  const float top0 = 20.0f;
-  const float left0 = 20.0f;
+  const float top0 = uiMargin;
+  const float left0 = uiMargin;
 
   // Gain.
   const auto gainTop = top0;
   const auto gainLeft = left0;
-  addGroupLabel(gainLeft, gainTop, 2.0 * knobX, labelHeight, midTextSize, "Gain");
+  addGroupLabel(gainLeft, gainTop, 2 * knobX, labelHeight, midTextSize, "Gain");
   const auto gainKnobTop = gainTop + labelY;
   addKnob(
-    gainLeft + 0.0 * knobX, gainKnobTop, knobWidth, margin, uiTextSize, "Boost",
+    gainLeft + 0 * knobX, gainKnobTop, knobWidth, margin, uiTextSize, "Boost",
     ID::gainBoost);
   addKnob(
-    gainLeft + 1.0 * knobX, gainKnobTop, knobWidth, margin, uiTextSize, "Gain", ID::gain);
+    gainLeft + 1 * knobX, gainKnobTop, knobWidth, margin, uiTextSize, "Gain", ID::gain);
 
   // Pitch.
   const auto pitchTop0 = gainTop + labelY + knobY;
   const auto pitchLeft0 = left0;
-  addGroupLabel(pitchLeft0, pitchTop0, 2.0f * knobX, labelHeight, midTextSize, "Pitch");
+  addGroupLabel(pitchLeft0, pitchTop0, 2 * knobX, labelHeight, midTextSize, "Pitch");
   addCheckbox(
-    pitchLeft0, pitchTop0 + labelY - 2.0f * margin, 1.75f * knobX, labelHeight,
+    pitchLeft0, pitchTop0 + labelY - 2 * margin, int(1.75 * knobX), labelHeight,
     uiTextSize, "Add Aliasing", ID::aliasing);
 
-  const auto pitchLabelWidth = knobX - 2.0f * margin;
+  const auto pitchLabelWidth = knobX - 2 * margin;
   const auto pitchLeft1 = pitchLeft0 + margin;
   const auto pitchLeft2 = pitchLeft0 + knobX;
 
-  const auto pitchTop1 = pitchTop0 + 2.0f * labelY - 3.0f * margin;
+  const auto pitchTop1 = pitchTop0 + 2 * labelY - 3 * margin;
   addLabel(pitchLeft1, pitchTop1, pitchLabelWidth, labelHeight, uiTextSize, "Octave");
   addTextKnob(
     pitchLeft2, pitchTop1, knobX, labelHeight, uiTextSize, ID::masterOctave,
@@ -103,20 +80,18 @@ bool Editor::prepareUI()
     Scales::overtoneShift, false, 3);
 
   // Random.
-  const auto randomTop0 = pitchTop0 + labelHeight + 6.0 * labelY - margin;
+  const auto randomTop0 = pitchTop0 + labelHeight + 6 * labelY - margin;
   const auto randomLeft0 = left0;
   const auto randomLeft1 = randomLeft0 + knobX;
-  addGroupLabel(
-    randomLeft0, randomTop0, 2.0f * knobX, labelHeight, midTextSize, "Random");
+  addGroupLabel(randomLeft0, randomTop0, 2 * knobX, labelHeight, midTextSize, "Random");
   addCheckbox(
-    randomLeft0, randomTop0 + labelY - 2.0f * margin, 1.5f * knobX, labelHeight,
+    randomLeft0, randomTop0 + labelY - 2 * margin, int(1.5 * knobX), labelHeight,
     uiTextSize, "Retrigger", ID::randomRetrigger);
 
-  const auto randomTop1 = randomTop0 + 2.0f * labelY - 3.0f * margin;
-  addLabel(
-    randomLeft0, randomTop1, knobX - 2.0f * margin, labelHeight, uiTextSize, "Seed");
+  const auto randomTop1 = randomTop0 + 2 * labelY - 3 * margin;
+  addLabel(randomLeft0, randomTop1, knobX - 2 * margin, labelHeight, uiTextSize, "Seed");
   addTextKnob(
-    randomLeft1 - 2.0f * margin, randomTop1, knobX, labelHeight, uiTextSize, ID::seed,
+    randomLeft1 - 2 * margin, randomTop1, knobX, labelHeight, uiTextSize, ID::seed,
     Scales::seed);
 
   const auto randomTop2 = randomTop1 + labelY;
@@ -143,12 +118,12 @@ bool Editor::prepareUI()
   // Misc.
   const auto miscTop = randomTop4 + knobY;
   const auto miscLeft = left0;
-  addGroupLabel(miscLeft, miscTop, 2.0f * knobX, labelHeight, midTextSize, "Misc.");
+  addGroupLabel(miscLeft, miscTop, 2 * knobX, labelHeight, midTextSize, "Misc.");
 
   addKnob(
     miscLeft, miscTop + labelY, knobWidth, margin, uiTextSize, "Smooth", ID::smoothness);
 
-  const auto miscLeft0 = miscLeft + knobX - (checkboxWidth - knobWidth) / 2.0f;
+  const auto miscLeft0 = miscLeft + knobX - int((checkboxWidth - knobWidth) / 2);
   const auto miscTop0 = miscTop + labelY;
   std::vector<std::string> nVoiceOptions
     = {"Mono", "2 Voices", "4 Voices", "8 Voices", "16 Voices", "32 Voices"};
@@ -156,13 +131,13 @@ bool Editor::prepareUI()
     miscLeft0, miscTop0, checkboxWidth, labelHeight, uiTextSize, ID::nVoice,
     nVoiceOptions);
   addCheckbox(
-    miscLeft0, miscTop0 + labelY, 1.25f * checkboxWidth, labelHeight, uiTextSize,
+    miscLeft0, miscTop0 + labelY, int(1.25 * checkboxWidth), labelHeight, uiTextSize,
     "Unison", ID::unison);
 
   // Modifier.
-  const auto modTop = top0 + 4.0f * (barboxY + margin);
-  const auto modLeft = left0 + 2.0f * knobX + 4.0f * margin + labelY;
-  addGroupLabel(modLeft, modTop, 4.0f * knobX, labelHeight, midTextSize, "Modifier");
+  const auto modTop = top0 + 4 * (barboxY + margin);
+  const auto modLeft = left0 + 2 * knobX + 4 * margin + labelY;
+  addGroupLabel(modLeft, modTop, 4 * knobX, labelHeight, midTextSize, "Modifier");
 
   const auto modTop0 = modTop + labelY;
   addKnob(
@@ -171,22 +146,21 @@ bool Editor::prepareUI()
     modLeft + knobX, modTop0, knobWidth, margin, uiTextSize, "Decay*",
     ID::decayMultiplier);
   addKnob(
-    modLeft + 2.0f * knobX, modTop0, knobWidth, margin, uiTextSize, "Gain^",
-    ID::gainPower);
+    modLeft + 2 * knobX, modTop0, knobWidth, margin, uiTextSize, "Gain^", ID::gainPower);
   addKnob(
-    modLeft + 3.0f * knobX, modTop0, knobWidth, margin, uiTextSize, "Sat. Mix",
+    modLeft + 3 * knobX, modTop0, knobWidth, margin, uiTextSize, "Sat. Mix",
     ID::saturationMix);
 
   const auto modTop1 = modTop0 + knobY;
   addCheckbox(
-    modLeft + 0.4f * knobX, modTop1, 1.25f * checkboxWidth, labelHeight, uiTextSize,
-    "Declick", ID::declick);
+    int(modLeft + 0.4 * knobX), modTop1, int(1.25 * checkboxWidth), labelHeight,
+    uiTextSize, "Declick", ID::declick);
 
   // Phaser.
   const auto phaserTop = modTop;
-  const auto phaserLeft = modLeft + 4.0f * knobX + 4.0f * margin;
+  const auto phaserLeft = modLeft + 4 * knobX + 4 * margin;
   addGroupLabel(
-    phaserLeft, phaserTop, 7.0f * knobX + labelY, labelHeight, midTextSize, "Phaser");
+    phaserLeft, phaserTop, 7 * knobX + labelY, labelHeight, midTextSize, "Phaser");
 
   const auto phaserTop0 = phaserTop + labelY;
   addKnob(phaserLeft, phaserTop0, knobWidth, margin, uiTextSize, "Mix", ID::phaserMix);
@@ -194,20 +168,20 @@ bool Editor::prepareUI()
     phaserLeft + knobX, phaserTop0, knobWidth, margin, uiTextSize, "Freq",
     ID::phaserFrequency);
   addKnob<Style::warning>(
-    phaserLeft + 2.0f * knobX, phaserTop0, knobWidth, margin, uiTextSize, "Feedback",
+    phaserLeft + 2 * knobX, phaserTop0, knobWidth, margin, uiTextSize, "Feedback",
     ID::phaserFeedback); // Warning
   addKnob(
-    phaserLeft + 3.0f * knobX, phaserTop0, knobWidth, margin, uiTextSize, "Range",
+    phaserLeft + 3 * knobX, phaserTop0, knobWidth, margin, uiTextSize, "Range",
     ID::phaserRange);
   addKnob(
-    phaserLeft + 4.0f * knobX, phaserTop0, knobWidth, margin, uiTextSize, "Min",
+    phaserLeft + 4 * knobX, phaserTop0, knobWidth, margin, uiTextSize, "Min",
     ID::phaserMin);
   addKnob(
-    phaserLeft + 5.0f * knobX, phaserTop0, knobWidth, margin, uiTextSize, "Offset",
+    phaserLeft + 5 * knobX, phaserTop0, knobWidth, margin, uiTextSize, "Offset",
     ID::phaserOffset);
   addRotaryKnob(
-    phaserLeft + 6.0f * knobX, phaserTop0, knobWidth + labelY, margin, uiTextSize,
-    "Phase", ID::phaserPhase);
+    phaserLeft + 6 * knobX, phaserTop0, knobWidth + labelY, margin, uiTextSize, "Phase",
+    ID::phaserPhase);
 
   const auto phaserTop1 = phaserTop0 + knobY;
   std::vector<std::string> phaserStageItems{
@@ -220,7 +194,7 @@ bool Editor::prepareUI()
 
   // Attack.
   const auto attackTop = top0;
-  const auto attackLeft = left0 + 2.0f * knobX + 4.0f * margin;
+  const auto attackLeft = left0 + 2 * knobX + 4 * margin;
   addGroupVerticalLabel(
     attackLeft, attackTop, barboxHeight, labelHeight, midTextSize, "Attack");
 
@@ -263,10 +237,10 @@ bool Editor::prepareUI()
     Synth::nOvertone, Scales::saturation, "Saturation");
 
   // Plugin name.
-  const auto splashTop = defaultHeight - splashHeight - 20.0f;
+  const auto splashTop = defaultHeight - splashHeight - uiMargin;
   const auto splashLeft = left0;
   addSplashScreen(
-    splashLeft, splashTop, 2.5f * knobX, splashHeight, 20.0f, 20.0f,
+    splashLeft, splashTop, int(2.5 * knobX), splashHeight, uiMargin, uiMargin,
     defaultWidth - splashHeight, defaultHeight - splashHeight, pluginNameTextSize,
     "EnvelopedSine");
 

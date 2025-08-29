@@ -7,34 +7,6 @@
 #include <algorithm>
 #include <sstream>
 
-constexpr float uiMargin = 20.0f;
-constexpr float uiTextSize = 12.0f;
-constexpr float midTextSize = 12.0f;
-constexpr float pluginNameTextSize = 18.0f;
-constexpr float margin = 5.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float labelY = 30.0f;
-constexpr float knobWidth = 50.0f;
-constexpr float knobHeight = 40.0f;
-constexpr float knobX = 60.0f; // With margin.
-constexpr float knobY = knobHeight + labelY;
-constexpr float textKnobX = 80.0f;
-constexpr float splashHeight = 40.0f;
-constexpr float scrollBarHeight = 10.0f;
-constexpr float barboxWidth = 2 * nDepth1;
-constexpr float barboxHeight = 2 * knobY + labelY + scrollBarHeight;
-constexpr float barboxWidthSmall = 4 * nDepth2;
-
-constexpr float barboxSectionWidth = barboxWidth + barboxWidthSmall + 3 * labelY;
-constexpr float barboxSectionHeight
-  = 3 * scrollBarHeight + 3 * barboxHeight + 2 * labelHeight;
-
-constexpr float leftPanelWidth = 4 * textKnobX + 6 * margin;
-
-constexpr uint32_t defaultWidth
-  = uint32_t(leftPanelWidth + labelY + barboxSectionWidth + 2 * uiMargin);
-constexpr uint32_t defaultHeight = uint32_t(barboxSectionHeight + 2 * uiMargin);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -43,9 +15,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 bool Editor::prepareUI()
@@ -206,30 +175,30 @@ bool Editor::prepareUI()
   addGroupVerticalLabel(
     tabInsideLeft0, tabInsideTop0, barboxHeight, labelHeight, midTextSize, "Time");
   auto barboxTime = addBarBox(
-    tabInsideLeft1, tabInsideTop0, 2 * nDepth1, barboxHeight, ID::time0, nDepth1,
+    tabInsideLeft1, tabInsideTop0, barboxWidth, barboxHeight, ID::time0, nDepth1,
     Scales::time, "Time");
   addScrollBar(
-    tabInsideLeft1, tabInsideTop0 + barboxHeight - 1, 2 * nDepth1, scrollBarHeight,
+    tabInsideLeft1, tabInsideTop0 + barboxHeight - 1, barboxWidth, scrollBarHeight,
     barboxTime);
 
   addGroupVerticalLabel(
     tabInsideLeft0, tabInsideTop1, barboxHeight, labelHeight, midTextSize, "InnerFeed");
   auto barboxInnerFeed = addBarBox(
-    tabInsideLeft1, tabInsideTop1, 2 * nDepth1, barboxHeight, ID::innerFeed0, nDepth1,
+    tabInsideLeft1, tabInsideTop1, barboxWidth, barboxHeight, ID::innerFeed0, nDepth1,
     Scales::feed, "InnerFeed");
   barboxInnerFeed->sliderZero = 0.5f;
   addScrollBar(
-    tabInsideLeft1, tabInsideTop1 + barboxHeight - 1, 2 * nDepth1, scrollBarHeight,
+    tabInsideLeft1, tabInsideTop1 + barboxHeight - 1, barboxWidth, scrollBarHeight,
     barboxInnerFeed);
 
   addGroupVerticalLabel(
     tabInsideLeft0, tabInsideTop2, barboxHeight, labelHeight, midTextSize, "D1 Feed");
   auto barboxD1Feed = addBarBox(
-    tabInsideLeft1, tabInsideTop2, 2 * nDepth1, barboxHeight, ID::d1Feed0, nDepth1,
+    tabInsideLeft1, tabInsideTop2, barboxWidth, barboxHeight, ID::d1Feed0, nDepth1,
     Scales::feed, "D1 Feed");
   barboxD1Feed->sliderZero = 0.5f;
   addScrollBar(
-    tabInsideLeft1, tabInsideTop2 + barboxHeight - 1, 2 * nDepth1, scrollBarHeight,
+    tabInsideLeft1, tabInsideTop2 + barboxHeight - 1, barboxWidth, scrollBarHeight,
     barboxD1Feed);
 
   const auto tabInsideLeft2 = tabInsideLeft1 + barboxWidth + labelY;

@@ -8,30 +8,6 @@
 #include <algorithm>
 #include <random>
 
-// 480 + 20
-constexpr float uiTextSize = 12.0f;
-constexpr float pluginNameTextSize = 14.0f;
-constexpr float margin = 5.0f;
-constexpr float uiMargin = 20.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float knobWidth = 50.0f;
-constexpr float knobX = knobWidth + 2 * margin;
-constexpr float knobY = knobWidth + labelHeight + 2 * margin;
-constexpr float labelY = labelHeight + 2 * margin;
-constexpr float labelWidth = 2 * knobWidth;
-constexpr float splashWidth = labelWidth + margin;
-constexpr float splashHeight = labelY;
-
-constexpr float barboxWidth = 500.0f;
-constexpr float barboxHeight = 160.0f;
-constexpr float smallKnobWidth = labelHeight;
-constexpr float smallKnobX = smallKnobWidth + 2 * margin;
-
-constexpr int_least32_t defaultWidth
-  = int_least32_t(2 * uiMargin + 10 * knobX + 3 * smallKnobX + 2 * margin);
-constexpr int_least32_t defaultHeight
-  = int_least32_t(2 * uiMargin + 4 * knobY + 7 * labelY - 2 * margin);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -40,9 +16,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 void Editor::syncUI(ParamID id, float normalized)
@@ -70,27 +43,27 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  constexpr auto top0 = uiMargin;
-  constexpr auto top1 = top0 + labelY;
-  constexpr auto top2 = top1 + knobY;
-  constexpr auto top3 = top2 + knobY;
-  constexpr auto top4 = top3 + knobY;
-  constexpr auto top5 = top4 + knobY;
-  constexpr auto top6 = top5 + labelY;
-  constexpr auto top7 = top6 + labelY;
-  constexpr auto top8 = top7 + labelY;
-  constexpr auto top9 = top8 + labelY;
-  constexpr auto top10 = top9 + labelY;
-  constexpr auto left0 = uiMargin;
-  constexpr auto left1 = left0 + knobX;
-  constexpr auto left2 = left1 + knobX + 2 * margin;
-  constexpr auto left3 = left2 + knobX;
-  constexpr auto left4 = left3 + knobX + smallKnobX;
-  constexpr auto left5 = left4 + knobX;
-  constexpr auto left6 = left5 + knobX + smallKnobX;
-  constexpr auto left7 = left6 + knobX;
-  constexpr auto left8 = left7 + knobX + 2 * margin + smallKnobX;
-  constexpr auto left9 = left8 + knobX;
+  const auto top0 = uiMargin;
+  const auto top1 = top0 + labelY;
+  const auto top2 = top1 + knobY;
+  const auto top3 = top2 + knobY;
+  const auto top4 = top3 + knobY;
+  const auto top5 = top4 + knobY;
+  const auto top6 = top5 + labelY;
+  const auto top7 = top6 + labelY;
+  const auto top8 = top7 + labelY;
+  const auto top9 = top8 + labelY;
+  const auto top10 = top9 + labelY;
+  const auto left0 = uiMargin;
+  const auto left1 = left0 + knobX;
+  const auto left2 = left1 + knobX + 2 * margin;
+  const auto left3 = left2 + knobX;
+  const auto left4 = left3 + knobX + smallKnobX;
+  const auto left5 = left4 + knobX;
+  const auto left6 = left5 + knobX + smallKnobX;
+  const auto left7 = left6 + knobX;
+  const auto left8 = left7 + knobX + 2 * margin + smallKnobX;
+  const auto left9 = left8 + knobX;
 
   // Gain.
   addGroupLabel(left0, top0, 2 * knobX - 2 * margin, labelHeight, uiTextSize, "Gain");
@@ -105,7 +78,6 @@ bool Editor::prepareUI()
   addKnob(left1, top4, knobWidth, margin, uiTextSize, "R", ID::gainReleaseSecond);
 
   // Oscillator.
-  constexpr auto oscLeft1Half = left2 + int(knobX / 2);
   addGroupLabel(
     left2, top0, 6 * knobX + 3 * smallKnobX - 2 * margin, labelHeight, uiTextSize,
     "Oscillator");
@@ -145,8 +117,8 @@ bool Editor::prepareUI()
     ID::pmOsc1ToPhase2, ID::pmOsc2ToPhase1);
 
   // Filter.
-  constexpr auto filterTop1Half = top1 + int(knobY / 2);
-  constexpr auto filterTop2Half = filterTop1Half + knobY;
+  const auto filterTop1Half = top1 + int(knobY / 2);
+  const auto filterTop2Half = filterTop1Half + knobY;
   addGroupLabel(left8, top0, 2 * knobX - 2 * margin, labelHeight, uiTextSize, "Filter");
 
   addKnob(
@@ -185,13 +157,13 @@ bool Editor::prepareUI()
     Scales::pitchBendRange, false, 5);
 
   // LFO.
-  constexpr auto lfoLeft0 = left4;
+  const auto lfoLeft0 = left4;
   addGroupLabel(
     lfoLeft0, top5, 4 * knobX + smallKnobX - 2 * margin, labelHeight, uiTextSize, "LFO");
 
-  constexpr auto lfoLeft1 = lfoLeft0 + knobX;
-  constexpr auto lfoLeft2 = lfoLeft1 + knobX + smallKnobX;
-  constexpr auto lfoLeft3 = lfoLeft2 + knobX;
+  const auto lfoLeft1 = lfoLeft0 + knobX;
+  const auto lfoLeft2 = lfoLeft1 + knobX + smallKnobX;
+  const auto lfoLeft3 = lfoLeft2 + knobX;
   addSmallKnob(
     lfoLeft0, top6, knobX, labelHeight, margin, uiTextSize, "Rate", ID::lfoRate);
   addSmallKnob(
@@ -200,7 +172,7 @@ bool Editor::prepareUI()
   addCheckbox(
     lfoLeft0, top7, labelWidth, labelHeight, uiTextSize, "Retrigger", ID::lfoRetrigger);
   addCheckbox(
-    lfoLeft2, top6 + int(labelY) / 2, knobWidth, labelHeight, uiTextSize, "Sync.",
+    lfoLeft2, top6 + int(labelY / 2.0), knobWidth, labelHeight, uiTextSize, "Sync.",
     ID::lfoTempoSync);
   addTextKnob(
     lfoLeft3, top6 + margin, knobWidth, labelHeight, uiTextSize, ID::lfoTempoUpper,
@@ -230,8 +202,8 @@ bool Editor::prepareUI()
     ID::lfoToOsc2WaveShape);
 
   // Misc.
-  constexpr auto miscLeft0 = left8;
-  constexpr auto miscLeft0Half = miscLeft0 + int(knobX / 2);
+  const auto miscLeft0 = left8;
+  const auto miscLeft0Half = miscLeft0 + int(knobX / 2);
   addGroupLabel(
     miscLeft0, top5, 2 * knobX - 2 * margin, labelHeight, uiTextSize, "Misc.");
 
@@ -242,9 +214,9 @@ bool Editor::prepareUI()
     miscLeft0Half, top7, knobWidth, margin, uiTextSize, "Slide", ID::noteSlideTimeSecond);
 
   // Plugin name.
-  constexpr auto splashMargin = uiMargin;
-  constexpr auto splashTop = defaultHeight - uiMargin - splashHeight;
-  constexpr auto splashLeft = defaultWidth - uiMargin - splashWidth;
+  const auto splashMargin = uiMargin;
+  const auto splashTop = defaultHeight - uiMargin - splashHeight;
+  const auto splashLeft = defaultWidth - uiMargin - splashWidth;
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,

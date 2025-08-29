@@ -7,30 +7,6 @@
 #include <algorithm>
 #include <sstream>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float midTextSize = 12.0f;
-constexpr float pluginNameTextSize = 14.0f;
-constexpr float margin = 5.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float labelY = 30.0f;
-constexpr float knobWidth = 50.0f;
-constexpr float knobHeight = 40.0f;
-constexpr float knobX = 60.0f; // With margin.
-constexpr float knobY = knobHeight + labelY;
-constexpr float checkboxWidth = 90.0f;
-constexpr float splashHeight = 20.0f;
-
-constexpr float limiterLabelWidth = knobX + 3 * margin;
-
-constexpr float indicatorHeight = 3 * labelY - 2 * margin;
-constexpr float indicatorWidth = float(int(1.5f * knobX)) + checkboxWidth;
-constexpr float infoTextSize = 12.0f;
-constexpr float infoTextCellWidth = 100.0f;
-
-constexpr uint32_t defaultWidth = uint32_t(4 * knobX + checkboxWidth + 2 * margin + 30);
-constexpr uint32_t defaultHeight
-  = uint32_t(knobY + 4 * margin + 3 * labelY + splashHeight + 30);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -39,9 +15,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 Editor::~Editor()
@@ -125,8 +98,9 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  const auto top0 = 15.0f;
-  const auto left0 = 15.0f;
+  const auto uiMargin = 3 * margin;
+  const auto top0 = uiMargin;
+  const auto left0 = uiMargin;
 
   // Shaper.
   addKnob(left0 + 0 * knobX, top0, knobX, margin, uiTextSize, "Input", ID::inputGain);
@@ -146,7 +120,7 @@ bool Editor::prepareUI()
 
   // Indicator. `curveView` must be instanciated after `infoTextView`.
   const auto leftInfo0 = left0;
-  const auto leftInfo1 = left0 + std::floor(0.25 * knobX);
+  const auto leftInfo1 = left0 + int(0.25 * knobX);
   const auto topInfo0 = top0 + knobY + 4 * margin;
   const auto topInfo1 = topInfo0 + indicatorHeight + 2 * margin;
   if (infoTextView) infoTextView->forget();
@@ -183,12 +157,13 @@ bool Editor::prepareUI()
     ID::limiterRelease, Scales::limiterRelease, false, 5);
 
   // Plugin name.
-  const auto splashTop = defaultHeight - splashHeight - 15.0f;
+  const auto splashTop = defaultHeight - splashHeight - uiMargin;
   const auto splashWidth = 2 * knobX;
-  const auto splashLeft = defaultWidth - splashWidth - std::floor(0.25 * knobX) - 15.0f;
+  const auto splashLeft = defaultWidth - splashWidth - int(0.25 * knobX) - uiMargin;
   addSplashScreen(
-    splashLeft, splashTop, splashWidth, splashHeight, 15.0f, 15.0f, defaultWidth - 30.0f,
-    defaultHeight - 30.0f, pluginNameTextSize, "FoldShaper");
+    splashLeft, splashTop, splashWidth, splashHeight, uiMargin, uiMargin,
+    defaultWidth - 2 * uiMargin, defaultHeight - 2 * uiMargin, pluginNameTextSize,
+    "FoldShaper");
 
   // Probably this restartComponent() is redundant, but to make sure.
   controller->getComponentHandler()->restartComponent(kLatencyChanged);

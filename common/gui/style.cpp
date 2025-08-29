@@ -122,11 +122,20 @@ inline void loadFontFace(nlohmann::json &data, std::string key, int targetMask, 
   face = data[key] ? (face | targetMask) : (face & (~targetMask));
 }
 
+inline void loadFloat(nlohmann::json &data, std::string key, float &value)
+{
+  if (!data.contains(key)) return;
+  if (!data[key].is_number()) return;
+
+  value = data[key].get<float>();
+}
+
 void Uhhyou::Palette::load()
 {
   auto data = loadStyleJson();
   if (data.is_null()) return;
 
+  loadFloat(data, "guiScale", _guiScale);
   loadString(data, "fontFamily", _fontName);
   loadFontFace(data, "fontBold", VSTGUI::CTxtFace::kBoldFace, _fontFace);
   loadFontFace(data, "fontItalic", VSTGUI::CTxtFace::kItalicFace, _fontFace);

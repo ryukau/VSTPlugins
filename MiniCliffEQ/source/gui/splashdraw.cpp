@@ -17,8 +17,9 @@ void CreditView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
-  const double borderWidth = 2.0;
-  const double halfBorderWidth = borderWidth / 2.0;
+  const auto sc = pal.guiScale();
+  const double borderWidth = int(sc * 2);
+  const double halfBorderWidth = int(borderWidth / 2);
 
   // Background.
   pContext->setLineWidth(borderWidth);
@@ -36,17 +37,18 @@ void CreditView::draw(CDrawContext *pContext)
   // Text.
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("MiniCliffEQ", CPoint(20.0, 40.0));
-  pContext->drawString("  " VERSION_STR, CPoint(20.0, 60.0));
-  pContext->drawString("© 2022 Takamitsu Endo", CPoint(20.0f, 80.0f));
-  pContext->drawString("  (ryukau@gmail.com)", CPoint(20.0f, 100.0f));
+  pContext->drawString("MiniCliffEQ", CPoint(int(sc * 20), int(sc * 40)));
+  pContext->drawString("  " VERSION_STR, CPoint(int(sc * 20), int(sc * 60)));
+  pContext->drawString("© 2022 Takamitsu Endo", CPoint(int(sc * 20), int(sc * 80)));
+  pContext->drawString("  (ryukau@gmail.com)", CPoint(int(sc * 20), int(sc * 100)));
 
-  pContext->drawString("Press Refresh FIR button", CPoint(20.0f, 130.0f));
-  pContext->drawString("to apply Cutoff value.", CPoint(20.0f, 150.0f));
+  pContext->drawString("Press Refresh FIR button", CPoint(int(sc * 20), int(sc * 130)));
+  pContext->drawString("to apply Cutoff value.", CPoint(int(sc * 20), int(sc * 150)));
 
-  pContext->drawString("Beware the massive latency.", CPoint(20.0f, 180.0f));
+  pContext->drawString(
+    "Beware the massive latency.", CPoint(int(sc * 20), int(sc * 180)));
 
-  pContext->drawString("Have a nice day!", CPoint(20.0f, 210.0f));
+  pContext->drawString("Have a nice day!", CPoint(int(sc * 20), int(sc * 210)));
 
   setDirty(false);
 }

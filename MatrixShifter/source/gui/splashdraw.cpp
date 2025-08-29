@@ -17,8 +17,10 @@ void CreditView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
-  const double borderWidth = 2.0;
-  const double halfBorderWidth = borderWidth / 2.0;
+  const auto sc = pal.guiScale();
+  const double borderWidth = int(sc * 2);
+  const double halfBorderWidth = int(borderWidth / 2);
+  const auto left0 = int(sc * 20);
 
   // Background.
   pContext->setLineWidth(borderWidth);
@@ -27,16 +29,18 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("MatrixShifter " VERSION_STR, CPoint(20.0, 30.0));
+  pContext->drawString("MatrixShifter " VERSION_STR, CPoint(left0, int(sc * 30)));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("© 2021 Takamitsu Endo (ryukau@gmail.com)", CPoint(270.0, 30.0));
+  pContext->drawString(
+    "© 2021 Takamitsu Endo (ryukau@gmail.com)", CPoint(int(sc * 270), int(sc * 30)));
 
   pContext->drawString(
-    "This is an experimental plugin. Do not use in production!", CPoint(20.0f, 50.0f));
+    "This is an experimental plugin. Do not use in production!",
+    CPoint(left0, int(sc * 50)));
 
-  pContext->drawString("Have a nice day!", CPoint(450.0f, 70.0f));
+  pContext->drawString("Have a nice day!", CPoint(int(sc * 450), int(sc * 70)));
 
   // Border.
   pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());

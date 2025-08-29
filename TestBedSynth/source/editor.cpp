@@ -7,25 +7,6 @@
 #include <algorithm>
 #include <sstream>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float midTextSize = 12.0f;
-constexpr float pluginNameTextSize = 18.0f;
-constexpr float uiMargin = 20.0f;
-constexpr float margin = 5.0f;
-constexpr float labelWidth = 100.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float labelY = labelHeight + 2 * margin;
-constexpr float knobWidth = 50.0f;
-constexpr float smallKnobWidth = int(knobWidth / 2);
-constexpr float knobX = knobWidth + 2 * margin;
-constexpr float knobY = knobWidth + labelY;
-constexpr float barBoxWidth = 512.0f;
-constexpr float barBoxHeight = 200.0f;
-constexpr float innerWidth = 2 * labelWidth + 2 * margin + 2 * barBoxWidth + 6 * uiMargin;
-constexpr float innerHeight = 3 * labelY + 2 * knobY + 2 * barBoxHeight + 3 * uiMargin;
-constexpr uint32_t defaultWidth = uint32_t(innerWidth + 2 * uiMargin);
-constexpr uint32_t defaultHeight = uint32_t(innerHeight + 2 * uiMargin);
-
 enum tabIndexMod { tabOscMod, tabLfo };
 enum tabIndexWave { tabWavetable, tabWaveMod, tabModulation };
 
@@ -37,9 +18,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 void Editor::syncUI(ParamID id, float normalized)
@@ -67,22 +45,22 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  constexpr auto top0 = 20.0f;
-  constexpr auto left0 = 20.0f;
+  const auto top0 = uiMargin;
+  const auto left0 = uiMargin;
 
-  constexpr auto textKnobSectionWidth = 2 * labelWidth + 2 * margin;
+  const auto textKnobSectionWidth = 2 * labelWidth + 2 * margin;
 
   // Gain.
-  constexpr auto gainLeft0 = left0;
-  constexpr auto gainLeft1 = gainLeft0 + labelWidth + 2 * margin;
-  constexpr auto gainTop0 = top0;
-  constexpr auto gainTop1 = gainTop0 + labelY;
-  constexpr auto gainTop2 = gainTop1 + labelY;
-  constexpr auto gainTop3 = gainTop2 + labelY;
-  constexpr auto gainTop4 = gainTop3 + labelY;
-  constexpr auto gainTop5 = gainTop4 + labelY;
-  constexpr auto gainTop6 = gainTop5 + labelY;
-  constexpr auto gainTop7 = gainTop6 + knobY;
+  const auto gainLeft0 = left0;
+  const auto gainLeft1 = gainLeft0 + labelWidth + 2 * margin;
+  const auto gainTop0 = top0;
+  const auto gainTop1 = gainTop0 + labelY;
+  const auto gainTop2 = gainTop1 + labelY;
+  const auto gainTop3 = gainTop2 + labelY;
+  const auto gainTop4 = gainTop3 + labelY;
+  const auto gainTop5 = gainTop4 + labelY;
+  const auto gainTop6 = gainTop5 + labelY;
+  const auto gainTop7 = gainTop6 + knobY;
   addGroupLabel(
     gainLeft0, gainTop0, textKnobSectionWidth, labelHeight, midTextSize, "Gain");
   addLabel(gainLeft0, gainTop1, labelWidth, labelHeight, uiTextSize, "Gain [dB]");
@@ -118,15 +96,15 @@ bool Editor::prepareUI()
     Scales::cutoffHz, false, 3);
 
   // Tuning.
-  constexpr auto tuningLeft0 = left0;
-  constexpr auto tuningLeft1 = tuningLeft0 + labelWidth + 2 * margin;
-  constexpr auto tuningTop0 = gainTop7 + labelY;
-  constexpr auto tuningTop1 = tuningTop0 + labelY;
-  constexpr auto tuningTop2 = tuningTop1 + labelY;
-  constexpr auto tuningTop3 = tuningTop2 + labelY;
-  constexpr auto tuningTop4 = tuningTop3 + labelY;
-  constexpr auto tuningTop5 = tuningTop4 + labelY;
-  constexpr auto tuningTop6 = tuningTop5 + labelY;
+  const auto tuningLeft0 = left0;
+  const auto tuningLeft1 = tuningLeft0 + labelWidth + 2 * margin;
+  const auto tuningTop0 = gainTop7 + labelY;
+  const auto tuningTop1 = tuningTop0 + labelY;
+  const auto tuningTop2 = tuningTop1 + labelY;
+  const auto tuningTop3 = tuningTop2 + labelY;
+  const auto tuningTop4 = tuningTop3 + labelY;
+  const auto tuningTop5 = tuningTop4 + labelY;
+  const auto tuningTop6 = tuningTop5 + labelY;
   addGroupLabel(
     tuningLeft0, tuningTop0, textKnobSectionWidth, labelHeight, midTextSize, "Tuning");
 
@@ -165,12 +143,12 @@ bool Editor::prepareUI()
     Scales::pitchBendRange, false, 3);
 
   // Misc.
-  constexpr auto miscLeft0 = tuningLeft0;
-  constexpr auto miscLeft1 = miscLeft0 + labelWidth + 2 * margin;
-  constexpr auto miscTop0 = tuningTop6 + labelY;
-  constexpr auto miscTop1 = miscTop0 + labelY;
-  constexpr auto miscTop2 = miscTop1 + labelY;
-  constexpr auto miscTop3 = miscTop2 + labelY;
+  const auto miscLeft0 = tuningLeft0;
+  const auto miscLeft1 = miscLeft0 + labelWidth + 2 * margin;
+  const auto miscTop0 = tuningTop6 + labelY;
+  const auto miscTop1 = miscTop0 + labelY;
+  const auto miscTop2 = miscTop1 + labelY;
+  const auto miscTop3 = miscTop2 + labelY;
   addGroupLabel(
     miscLeft0, miscTop0, textKnobSectionWidth, labelHeight, midTextSize, "Misc.");
 
@@ -189,31 +167,31 @@ bool Editor::prepareUI()
     false, 0, 1);
 
   // TabView modulation.
-  constexpr auto tabViewModLeft = gainLeft0 + textKnobSectionWidth + 4 * margin;
-  constexpr auto tabViewModWidth = barBoxWidth + 2 * uiMargin;
+  const auto tabViewModLeft = gainLeft0 + textKnobSectionWidth + 4 * margin;
+  const auto tabViewModWidth = barBoxWidth + 2 * uiMargin;
 
   std::vector<std::string> modTabs{"Oscillator", "LFO"};
   auto tabViewMod = addTabView(
     tabViewModLeft, top0, tabViewModWidth, innerHeight, uiTextSize, labelY, modTabs);
 
-  constexpr auto modTabInsideLeft = tabViewModLeft + uiMargin;
-  constexpr auto modTabInsideTop = top0 + labelY + uiMargin;
-  constexpr auto modTabInsideWidth = tabViewModWidth - 2 * uiMargin;
+  const auto modTabInsideLeft = tabViewModLeft + uiMargin;
+  const auto modTabInsideTop = top0 + labelY + uiMargin;
+  const auto modTabInsideWidth = tabViewModWidth - 2 * uiMargin;
 
   // Oscillator.
-  constexpr auto xyPadWidth = 4 * smallKnobWidth;
-  constexpr auto xyPadX = xyPadWidth + smallKnobWidth + 4 * margin;
-  constexpr auto oscLeft0 = modTabInsideLeft;
-  constexpr auto oscLeft1 = oscLeft0 + xyPadX;
-  constexpr auto oscLeft2 = oscLeft1 + xyPadX;
-  constexpr auto oscTop1 = modTabInsideTop;
-  constexpr auto oscTop2 = oscTop1 + labelY;
-  constexpr auto oscTop3 = oscTop2 + xyPadWidth + 2 * margin;
-  constexpr auto oscTop4 = oscTop3 + labelY;
-  constexpr auto oscTop5 = oscTop4 + xyPadWidth + 2 * margin;
-  constexpr auto oscTop6 = oscTop5 + labelY;
-  constexpr auto oscTop7 = oscTop6 + xyPadWidth + 2 * margin;
-  constexpr auto oscTop8 = oscTop7 + labelY;
+  const auto xyPadWidth = 4 * smallKnobWidth;
+  const auto xyPadX = xyPadWidth + smallKnobWidth + 4 * margin;
+  const auto oscLeft0 = modTabInsideLeft;
+  const auto oscLeft1 = oscLeft0 + xyPadX;
+  const auto oscLeft2 = oscLeft1 + xyPadX;
+  const auto oscTop1 = modTabInsideTop;
+  const auto oscTop2 = oscTop1 + labelY;
+  const auto oscTop3 = oscTop2 + xyPadWidth + 2 * margin;
+  const auto oscTop4 = oscTop3 + labelY;
+  const auto oscTop5 = oscTop4 + xyPadWidth + 2 * margin;
+  const auto oscTop6 = oscTop5 + labelY;
+  const auto oscTop7 = oscTop6 + xyPadWidth + 2 * margin;
+  const auto oscTop8 = oscTop7 + labelY;
 
   tabViewMod->addWidget(
     tabOscMod,
@@ -296,15 +274,15 @@ bool Editor::prepareUI()
     uiTextSize, ID::phaseSlope0, ID::phaseSlope0 + 1);
 
   // LFO.
-  constexpr auto lfoLeft0 = modTabInsideLeft;
-  constexpr auto lfoLeft1 = lfoLeft0 + knobX;
-  constexpr auto lfoLeft2 = lfoLeft1 + knobX;
-  constexpr auto lfoTop0 = modTabInsideTop;
-  constexpr auto lfoTop1 = lfoTop0 + labelY;
-  constexpr auto lfoTop2 = lfoTop1 + knobY;
-  constexpr auto lfoTop3 = lfoTop2 + barBoxHeight + uiMargin;
-  constexpr auto lfoTop4 = lfoTop3 + labelY;
-  constexpr auto lfoTop5 = lfoTop4 + knobY;
+  const auto lfoLeft0 = modTabInsideLeft;
+  const auto lfoLeft1 = lfoLeft0 + knobX;
+  const auto lfoLeft2 = lfoLeft1 + knobX;
+  const auto lfoTop0 = modTabInsideTop;
+  const auto lfoTop1 = lfoTop0 + labelY;
+  const auto lfoTop2 = lfoTop1 + knobY;
+  const auto lfoTop3 = lfoTop2 + barBoxHeight + uiMargin;
+  const auto lfoTop4 = lfoTop3 + labelY;
+  const auto lfoTop5 = lfoTop4 + knobY;
 
   tabViewMod->addWidget(
     tabLfo,
@@ -357,32 +335,32 @@ bool Editor::prepareUI()
   tabViewMod->addWidget(tabLfo, barBoxLfo1Waveform);
 
   // TabView wave.
-  constexpr auto tabViewWaveLeft = tabViewModLeft + tabViewModWidth + uiMargin;
-  constexpr auto tabViewWaveWidth = barBoxWidth + 2 * uiMargin;
+  const auto tabViewWaveLeft = tabViewModLeft + tabViewModWidth + uiMargin;
+  const auto tabViewWaveWidth = barBoxWidth + 2 * uiMargin;
 
   std::vector<std::string> waveTabs{"Wavetable", "Wave Mod.", "Env. / Ext. / Matrix"};
   auto tabViewWave = addTabView(
     tabViewWaveLeft, top0, tabViewWaveWidth, innerHeight, uiTextSize, labelY, waveTabs);
 
-  constexpr auto waveTabInsideLeft = tabViewWaveLeft + uiMargin;
-  constexpr auto waveTabInsideTop = top0 + labelY + uiMargin;
-  constexpr auto waveTabInsideWidth = tabViewWaveWidth - 2 * uiMargin;
+  const auto waveTabInsideLeft = tabViewWaveLeft + uiMargin;
+  const auto waveTabInsideTop = top0 + labelY + uiMargin;
+  const auto waveTabInsideWidth = tabViewWaveWidth - 2 * uiMargin;
 
   // Wavetable.
-  constexpr auto waveLeft0 = waveTabInsideLeft;
-  constexpr auto waveLeft1 = waveLeft0 + knobX;
-  constexpr auto waveLeft2 = waveLeft1 + knobX;
-  constexpr auto waveLeft3 = waveLeft2 + knobX;
-  constexpr auto waveLeft4 = waveLeft3 + knobX;
-  constexpr auto waveLeft5 = waveLeft4 + knobX;
-  constexpr auto waveLeft6 = waveLeft5 + knobX;
-  constexpr auto waveLeft7 = waveLeft6 + knobX;
-  constexpr auto waveTop0 = waveTabInsideTop;
-  constexpr auto waveTop1 = waveTop0 + labelY;
-  constexpr auto waveTop2 = waveTop1 + knobY;
-  constexpr auto waveTop3 = waveTop2 + barBoxHeight + uiMargin;
-  constexpr auto waveTop4 = waveTop3 + labelY;
-  constexpr auto waveTop5 = waveTop4 + knobY;
+  const auto waveLeft0 = waveTabInsideLeft;
+  const auto waveLeft1 = waveLeft0 + knobX;
+  const auto waveLeft2 = waveLeft1 + knobX;
+  const auto waveLeft3 = waveLeft2 + knobX;
+  const auto waveLeft4 = waveLeft3 + knobX;
+  const auto waveLeft5 = waveLeft4 + knobX;
+  const auto waveLeft6 = waveLeft5 + knobX;
+  const auto waveLeft7 = waveLeft6 + knobX;
+  const auto waveTop0 = waveTabInsideTop;
+  const auto waveTop1 = waveTop0 + labelY;
+  const auto waveTop2 = waveTop1 + knobY;
+  const auto waveTop3 = waveTop2 + barBoxHeight + uiMargin;
+  const auto waveTop4 = waveTop3 + labelY;
+  const auto waveTop5 = waveTop4 + knobY;
 
   std::vector<std::string> oscInterpolationTypeItems{
     "Step Interp.", "Linear Interp.", "Cubic Interp."};
@@ -442,19 +420,19 @@ bool Editor::prepareUI()
   tabViewWave->addWidget(tabWavetable, barBoxOsc1Waveform);
 
   // Wave Mod.
-  constexpr auto wmLeft0 = waveTabInsideLeft;
-  constexpr auto wmLeft1 = wmLeft0 + knobX;
-  constexpr auto wmLeft2 = wmLeft1 + knobX;
-  constexpr auto wmLeft3 = wmLeft2 + knobX;
-  constexpr auto wmLeft4 = wmLeft3 + knobX;
-  constexpr auto wmTop0 = waveTabInsideTop;
-  constexpr auto wmTop1 = wmTop0 + labelY;
-  constexpr auto wmTop2 = wmTop1 + knobY;
-  constexpr auto wmTop3 = wmTop2 + int((barBoxHeight + uiMargin) / 2);
-  constexpr auto wmTop4 = wmTop3 + int((barBoxHeight + uiMargin) / 2);
-  constexpr auto wmTop5 = wmTop4 + labelY;
-  constexpr auto wmTop6 = wmTop5 + knobY;
-  constexpr auto wmTop7 = wmTop6 + int((barBoxHeight + uiMargin) / 2);
+  const auto wmLeft0 = waveTabInsideLeft;
+  const auto wmLeft1 = wmLeft0 + knobX;
+  const auto wmLeft2 = wmLeft1 + knobX;
+  const auto wmLeft3 = wmLeft2 + knobX;
+  const auto wmLeft4 = wmLeft3 + knobX;
+  const auto wmTop0 = waveTabInsideTop;
+  const auto wmTop1 = wmTop0 + labelY;
+  const auto wmTop2 = wmTop1 + knobY;
+  const auto wmTop3 = wmTop2 + int((barBoxHeight + uiMargin) / 2);
+  const auto wmTop4 = wmTop3 + int((barBoxHeight + uiMargin) / 2);
+  const auto wmTop5 = wmTop4 + labelY;
+  const auto wmTop6 = wmTop5 + knobY;
+  const auto wmTop7 = wmTop6 + int((barBoxHeight + uiMargin) / 2);
 
   tabViewWave->addWidget(
     tabWaveMod,
@@ -543,28 +521,28 @@ bool Editor::prepareUI()
   tabViewWave->addWidget(tabWaveMod, barBoxWm1Lp);
 
   // Modulation.
-  constexpr auto envLeft0 = waveTabInsideLeft;
-  constexpr auto envLeft1 = envLeft0 + labelWidth + 2 * margin;
-  constexpr auto envLeft2 = waveTabInsideLeft + int(waveTabInsideWidth / 2);
-  constexpr auto envLeft3 = envLeft2 + labelWidth + 2 * margin;
-  constexpr auto env0Top0 = waveTabInsideTop;
-  constexpr auto env0Top1 = env0Top0 + labelY;
-  constexpr auto env0Top2 = env0Top1 + labelY;
-  constexpr auto env0Top3 = env0Top2 + labelY;
-  constexpr auto env0Top4 = env0Top3 + labelY;
-  constexpr auto env1Top0 = env0Top0;
-  constexpr auto env1Top1 = env1Top0 + labelY;
-  constexpr auto env1Top2 = env1Top1 + labelY;
-  constexpr auto env1Top3 = env1Top2 + labelY;
-  constexpr auto env1Top4 = env1Top3 + labelY;
-  constexpr auto extTop0 = env1Top4 + labelY;
-  constexpr auto extTop1 = extTop0 + labelY;
-  constexpr auto modLeft0 = waveTabInsideLeft;
-  constexpr auto modLeft1 = modLeft0 + labelWidth + 2 * margin;
-  constexpr auto modTop0 = extTop1 + labelY;
-  constexpr auto modTop1 = modTop0 + labelY;
-  constexpr auto modTop2 = modTop1 + labelY;
-  constexpr auto modTop3 = modTop2 + labelY;
+  const auto envLeft0 = waveTabInsideLeft;
+  const auto envLeft1 = envLeft0 + labelWidth + 2 * margin;
+  const auto envLeft2 = waveTabInsideLeft + int(waveTabInsideWidth / 2);
+  const auto envLeft3 = envLeft2 + labelWidth + 2 * margin;
+  const auto env0Top0 = waveTabInsideTop;
+  const auto env0Top1 = env0Top0 + labelY;
+  const auto env0Top2 = env0Top1 + labelY;
+  const auto env0Top3 = env0Top2 + labelY;
+  const auto env0Top4 = env0Top3 + labelY;
+  const auto env1Top0 = env0Top0;
+  const auto env1Top1 = env1Top0 + labelY;
+  const auto env1Top2 = env1Top1 + labelY;
+  const auto env1Top3 = env1Top2 + labelY;
+  const auto env1Top4 = env1Top3 + labelY;
+  const auto extTop0 = env1Top4 + labelY;
+  const auto extTop1 = extTop0 + labelY;
+  const auto modLeft0 = waveTabInsideLeft;
+  const auto modLeft1 = modLeft0 + labelWidth + 2 * margin;
+  const auto modTop0 = extTop1 + labelY;
+  const auto modTop1 = modTop0 + labelY;
+  const auto modTop2 = modTop1 + labelY;
+  const auto modTop3 = modTop2 + labelY;
 
   tabViewWave->addWidget(
     tabModulation,
@@ -725,12 +703,12 @@ bool Editor::prepareUI()
   }
 
   // Plugin name.
-  constexpr auto splashWidth = 2 * labelWidth + 2 * margin;
-  constexpr float splashHeight = 2 * labelHeight;
-  constexpr auto splashTop = innerHeight - splashHeight + uiMargin;
-  constexpr auto splashLeft = left0;
+  const auto splashWidth = 2 * labelWidth + 2 * margin;
+  const float splashHeight = 2 * labelHeight;
+  const auto splashTop = innerHeight - splashHeight + uiMargin;
+  const auto splashLeft = left0;
   addSplashScreen(
-    splashLeft, splashTop, splashWidth, splashHeight, 20.0f, 20.0f,
+    splashLeft, splashTop, splashWidth, splashHeight, uiMargin, uiMargin,
     defaultWidth - splashHeight, defaultHeight - splashHeight, pluginNameTextSize,
     "TestBedSynth", true);
 

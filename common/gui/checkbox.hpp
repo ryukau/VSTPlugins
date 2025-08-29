@@ -41,6 +41,12 @@ public:
     const auto height = getHeight();
     const auto centerY = height / 2;
 
+    const auto sc = pal.guiScale();
+    auto boxSz = int(sc * boxSize);
+    boxSz += boxSz % 2;
+    auto borderW = int(sc) * int(borderWidth);
+    borderW += borderW % 2;
+
     // Background.
     if (drawBackground) {
       pContext->setFillColor(pal.background());
@@ -59,14 +65,14 @@ public:
       pContext->setFrameColor(
         isMouseEntered ? pal.highlightMain() : pal.borderCheckbox());
     }
-    pContext->setLineWidth(borderWidth);
-    const auto boxLeft = 2;
-    const auto boxTop = centerY - boxSize / 2;
+    pContext->setLineWidth(borderW);
+    const auto boxLeft = borderW;
+    const auto boxTop = int(centerY - boxSz / 2);
     pContext->drawRect(
-      CRect(boxLeft, boxTop, boxLeft + boxSize, boxTop + boxSize), kDrawFilledAndStroked);
+      CRect(boxLeft, boxTop, boxLeft + boxSz + 1, boxTop + boxSz + 1),
+      kDrawFilledAndStroked);
 
     if (value) {
-      auto innerBoxSize = boxSize - 4;
       if constexpr (style == Style::accent) {
         pContext->setFillColor(isMouseEntered ? pal.highlightAccent() : pal.foreground());
       } else if (style == Style::warning) {
@@ -75,13 +81,9 @@ public:
       } else {
         pContext->setFillColor(isMouseEntered ? pal.highlightMain() : pal.foreground());
       }
-      const auto checkLeft = 2 + (boxSize - innerBoxSize) / 2;
-      const auto checkTop = centerY - innerBoxSize / 2;
-#ifndef __linux__
-      --innerBoxSize;
-#endif
+      const auto gap = int(sc * borderWidth);
       pContext->drawRect(
-        CRect(checkLeft, checkTop, checkLeft + innerBoxSize, checkTop + innerBoxSize),
+        CRect(boxLeft + gap, boxTop + gap, boxLeft + boxSz - gap, boxTop + boxSz - gap),
         kDrawFilled);
     }
 
@@ -89,7 +91,7 @@ public:
     if (label.size() == 0) return;
     pContext->setFont(fontId);
     pContext->setFontColor(pal.foreground());
-    const auto textLeft = boxSize + textSize / 2.0f;
+    const auto textLeft = boxSize + sc * textSize / 2;
     pContext->drawString(label.c_str(), CRect(textLeft, 0, width, height), align, true);
   }
 

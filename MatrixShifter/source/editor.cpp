@@ -7,34 +7,6 @@
 #include <algorithm>
 #include <sstream>
 
-constexpr float margin = 5.0f;
-constexpr float uiMargin = 20.0f;
-constexpr float uiTextSize = 12.0f;
-constexpr float midTextSize = 12.0f;
-constexpr float pluginNameTextSize = 12.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float labelY = 30.0f;
-constexpr float knobWidth = 50.0f;
-constexpr float knobHeight = 40.0f;
-constexpr float matrixKnobSize = 40.0f;
-constexpr float knobX = 60.0f; // With margin.
-constexpr float knobY = knobHeight + labelY;
-constexpr float splashHeight = labelHeight;
-
-constexpr float halfKnobX = int(knobX / 2);
-
-constexpr float shiftMatrixWidth = nParallel * matrixKnobSize;
-constexpr float shiftMatrixHeight = nSerial * matrixKnobSize;
-constexpr float shiftBarBoxWidth = shiftMatrixWidth;
-constexpr float shiftBarBoxHeight = 2 * knobY;
-
-constexpr float innerWidth = shiftMatrixWidth + 8 * margin + 4 * knobX;
-constexpr float innerHeight
-  = labelY + shiftMatrixHeight + 2 * shiftBarBoxHeight + 4 * margin;
-
-constexpr uint32_t defaultWidth = uint32_t(2 * uiMargin + innerWidth);
-constexpr uint32_t defaultHeight = uint32_t(2 * uiMargin + innerHeight);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -43,9 +15,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 bool Editor::prepareUI()
@@ -85,7 +54,6 @@ bool Editor::prepareUI()
   const auto miscLeft1 = miscLeft0 + knobX;
   const auto miscLeft2 = miscLeft1 + knobX;
   const auto miscLeft3 = miscLeft2 + knobX;
-  const auto miscLeft4 = miscLeft3 + knobX;
 
   // Modulation.
   const auto modulationTop0 = top0;

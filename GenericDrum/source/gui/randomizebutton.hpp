@@ -49,17 +49,13 @@ public:
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
     // Border.
-    const double borderW = isMouseEntered ? 2 * borderWidth : borderWidth;
-    const double halfBorderWidth = int(borderW / 2.0);
+    auto borderW = int(pal.guiScale() * borderWidth * (isMouseEntered ? 2 : 1));
+    borderW += 1 ^ (borderW % 2); // Always odd number.
     pContext->setFillColor(isPressed ? pal.highlightButton() : pal.boxBackground());
     pContext->setFrameColor(
       isMouseEntered && !isPressed ? pal.highlightButton() : pal.border());
     pContext->setLineWidth(borderW);
-    pContext->drawRect(
-      CRect(
-        halfBorderWidth, halfBorderWidth, getWidth() - halfBorderWidth,
-        getHeight() - halfBorderWidth),
-      kDrawFilledAndStroked);
+    pContext->drawRect(CRect(0, 0, getWidth(), getHeight()), kDrawFilledAndStroked);
 
     // Text
     pContext->setFont(fontId);
@@ -118,7 +114,7 @@ public:
       setParam(ID::wireCollisionTypeMix, uniform(rng));
 
       // setParam(ID::crossFeedbackGain, uniform(rng));
-      for (int idx = 0; idx < maxFdnSize; ++idx) {
+      for (int idx = 0; idx < int(maxFdnSize); ++idx) {
         setParam(ID::crossFeedbackRatio0 + idx, uniform(rng));
       }
 

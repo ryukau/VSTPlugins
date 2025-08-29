@@ -11,19 +11,6 @@
 #include <sstream>
 #include <string>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float pluginNameTextSize = 16.0f;
-constexpr float margin = 5.0f;
-constexpr float uiMargin = 20.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float labelY = labelHeight + 2 * margin;
-constexpr float labelWidth = 160.0f;
-constexpr float labelWidthHalf = 80.0f;
-constexpr float groupLabelWidth = 2 * labelWidth + 2 * margin;
-
-constexpr int_least32_t defaultWidth = int_least32_t(4 * uiMargin + 3 * groupLabelWidth);
-constexpr int_least32_t defaultHeight = int_least32_t(uiMargin + 18 * labelY);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -32,9 +19,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 ParamValue Editor::getPlainValue(ParamID id)
@@ -66,20 +50,20 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  constexpr auto top0 = int(uiMargin / 2);
-  constexpr auto left0 = uiMargin;
-  constexpr auto left4 = left0 + 1 * groupLabelWidth + 4 * margin;
-  constexpr auto left8 = left0 + 2 * groupLabelWidth + 4 * margin + uiMargin;
+  const auto top0 = int(uiMargin / 2);
+  const auto left0 = uiMargin;
+  const auto left4 = left0 + 1 * groupLabelWidth + 4 * margin;
+  const auto left8 = left0 + 2 * groupLabelWidth + 4 * margin + uiMargin;
 
   // Mix.
-  constexpr auto mixTop0 = top0;
-  constexpr auto mixTop1 = mixTop0 + 1 * labelY;
-  constexpr auto mixTop2 = mixTop0 + 2 * labelY;
-  constexpr auto mixTop3 = mixTop0 + 3 * labelY;
-  constexpr auto mixTop4 = mixTop0 + 4 * labelY;
-  constexpr auto mixTop5 = mixTop0 + 5 * labelY;
-  constexpr auto mixLeft0 = left0;
-  constexpr auto mixLeft1 = mixLeft0 + labelWidth + 2 * margin;
+  const auto mixTop0 = top0;
+  const auto mixTop1 = mixTop0 + 1 * labelY;
+  const auto mixTop2 = mixTop0 + 2 * labelY;
+  const auto mixTop3 = mixTop0 + 3 * labelY;
+  const auto mixTop4 = mixTop0 + 4 * labelY;
+  const auto mixTop5 = mixTop0 + 5 * labelY;
+  const auto mixLeft0 = left0;
+  const auto mixLeft1 = mixLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     mixLeft0, mixTop0, groupLabelWidth, labelHeight, uiTextSize, "Mix & Options");
 
@@ -88,8 +72,8 @@ bool Editor::prepareUI()
     mixLeft1, mixTop1, labelWidth, labelHeight, uiTextSize, ID::outputGain, Scales::gain,
     true, 5);
 
-  constexpr auto mixLeft1_per_3 = mixLeft0 + int(groupLabelWidth * 1 / 3);
-  constexpr auto mixLeft2_per_3 = mixLeft0 + int(groupLabelWidth * 2 / 3);
+  const auto mixLeft1_per_3 = mixLeft0 + int(groupLabelWidth * 1 / 3);
+  const auto mixLeft2_per_3 = mixLeft0 + int(groupLabelWidth * 2 / 3);
   addCheckbox(
     mixLeft0, mixTop2, labelWidth, labelHeight, uiTextSize, "2x Sampling",
     ID::overSampling);
@@ -116,13 +100,13 @@ bool Editor::prepareUI()
     Scales::gain, true, 5);
 
   // Tuning.
-  constexpr auto tuningTop0 = mixTop5 + labelY;
-  constexpr auto tuningTop1 = tuningTop0 + 1 * labelY;
-  constexpr auto tuningTop2 = tuningTop0 + 2 * labelY;
-  constexpr auto tuningTop3 = tuningTop0 + 3 * labelY;
-  constexpr auto tuningTop4 = tuningTop0 + 4 * labelY;
-  constexpr auto tuningLeft0 = left0;
-  constexpr auto tuningLeft1 = tuningLeft0 + labelWidth + 2 * margin;
+  const auto tuningTop0 = mixTop5 + labelY;
+  const auto tuningTop1 = tuningTop0 + 1 * labelY;
+  const auto tuningTop2 = tuningTop0 + 2 * labelY;
+  const auto tuningTop3 = tuningTop0 + 3 * labelY;
+  const auto tuningTop4 = tuningTop0 + 4 * labelY;
+  const auto tuningLeft0 = left0;
+  const auto tuningLeft1 = tuningLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     tuningLeft0, tuningTop0, groupLabelWidth, labelHeight, uiTextSize, "Tuning");
 
@@ -148,17 +132,16 @@ bool Editor::prepareUI()
     Scales::noteSlideTimeSecond, false, 5);
 
   // Velocity Map.
-  constexpr auto velocityTop0 = tuningTop4 + 1 * labelY;
-  constexpr auto velocityTop1 = velocityTop0 + 1 * labelY;
-  constexpr auto velocityTop2 = velocityTop0 + 2 * labelY;
-  constexpr auto velocityTop3 = velocityTop0 + 3 * labelY;
-  constexpr auto velocityTop4 = velocityTop0 + 4 * labelY;
-  constexpr auto velocityTop5 = velocityTop0 + 5 * labelY;
-  constexpr auto velocityTop6 = velocityTop0 + 6 * labelY;
-  constexpr auto velocityLeft0 = left0;
-  constexpr auto velocityLeft1 = velocityLeft0 + labelWidthHalf;
-  constexpr auto velocityLeft2 = velocityLeft1 + labelWidthHalf + 2 * margin;
-  constexpr auto velocityLeft3 = velocityLeft2 + labelWidthHalf;
+  const auto velocityTop0 = tuningTop4 + 1 * labelY;
+  const auto velocityTop1 = velocityTop0 + 1 * labelY;
+  const auto velocityTop2 = velocityTop0 + 2 * labelY;
+  const auto velocityTop3 = velocityTop0 + 3 * labelY;
+  const auto velocityTop4 = velocityTop0 + 4 * labelY;
+  const auto velocityTop6 = velocityTop0 + 6 * labelY;
+  const auto velocityLeft0 = left0;
+  const auto velocityLeft1 = velocityLeft0 + labelWidthHalf;
+  const auto velocityLeft2 = velocityLeft1 + labelWidthHalf + 2 * margin;
+  const auto velocityLeft3 = velocityLeft2 + labelWidthHalf;
 
   addGroupLabel(
     velocityLeft0, velocityTop0, groupLabelWidth, labelHeight, uiTextSize,
@@ -221,14 +204,14 @@ bool Editor::prepareUI()
     ID::velocityToDelayTimeMod, Scales::delayTimeModAmount, false, 5);
 
   // Impact Noise.
-  constexpr auto imTop0 = top0 + 0 * labelY;
-  constexpr auto imTop1 = imTop0 + 1 * labelY;
-  constexpr auto imTop2 = imTop0 + 2 * labelY;
-  constexpr auto imTop3 = imTop0 + 3 * labelY;
-  constexpr auto imTop4 = imTop0 + 4 * labelY;
-  constexpr auto imTop5 = imTop0 + 5 * labelY;
-  constexpr auto imLeft0 = left4;
-  constexpr auto imLeft1 = imLeft0 + labelWidth + 2 * margin;
+  const auto imTop0 = top0 + 0 * labelY;
+  const auto imTop1 = imTop0 + 1 * labelY;
+  const auto imTop2 = imTop0 + 2 * labelY;
+  const auto imTop3 = imTop0 + 3 * labelY;
+  const auto imTop4 = imTop0 + 4 * labelY;
+  const auto imTop5 = imTop0 + 5 * labelY;
+  const auto imLeft0 = left4;
+  const auto imLeft1 = imLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     imLeft0, imTop0, groupLabelWidth, labelHeight, uiTextSize, "Impact Noise");
 
@@ -258,15 +241,15 @@ bool Editor::prepareUI()
     Scales::halfClosedDensityHz, false, 5);
 
   // Half Closed Noise.
-  constexpr auto hcTop0 = imTop5 + 1 * labelY;
-  constexpr auto hcTop1 = hcTop0 + 1 * labelY;
-  constexpr auto hcTop2 = hcTop0 + 2 * labelY;
-  constexpr auto hcTop3 = hcTop0 + 3 * labelY;
-  constexpr auto hcTop4 = hcTop0 + 4 * labelY;
-  constexpr auto hcTop5 = hcTop0 + 5 * labelY;
-  constexpr auto hcTop6 = hcTop0 + 6 * labelY;
-  constexpr auto hcLeft0 = left4;
-  constexpr auto hcLeft1 = hcLeft0 + labelWidth + 2 * margin;
+  const auto hcTop0 = imTop5 + 1 * labelY;
+  const auto hcTop1 = hcTop0 + 1 * labelY;
+  const auto hcTop2 = hcTop0 + 2 * labelY;
+  const auto hcTop3 = hcTop0 + 3 * labelY;
+  const auto hcTop4 = hcTop0 + 4 * labelY;
+  const auto hcTop5 = hcTop0 + 5 * labelY;
+  const auto hcTop6 = hcTop0 + 6 * labelY;
+  const auto hcLeft0 = left4;
+  const auto hcLeft1 = hcLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     hcLeft0, hcTop0, groupLabelWidth, labelHeight, uiTextSize, "Half Closed Noise");
   addLabel(hcLeft0, hcTop1, labelWidth, labelHeight, uiTextSize, "Gain [dB]");
@@ -295,13 +278,13 @@ bool Editor::prepareUI()
     Scales::halfClosedDensityHz, false, 5);
 
   // Closing Noise.
-  constexpr auto clTop0 = hcTop6 + 1 * labelY;
-  constexpr auto clTop1 = clTop0 + 1 * labelY;
-  constexpr auto clTop2 = clTop0 + 2 * labelY;
-  constexpr auto clTop3 = clTop0 + 3 * labelY;
-  constexpr auto clTop4 = clTop0 + 4 * labelY;
-  constexpr auto clLeft0 = left4;
-  constexpr auto clLeft1 = clLeft0 + labelWidth + 2 * margin;
+  const auto clTop0 = hcTop6 + 1 * labelY;
+  const auto clTop1 = clTop0 + 1 * labelY;
+  const auto clTop2 = clTop0 + 2 * labelY;
+  const auto clTop3 = clTop0 + 3 * labelY;
+  const auto clTop4 = clTop0 + 4 * labelY;
+  const auto clLeft0 = left4;
+  const auto clLeft1 = clLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     clLeft0, clTop0, groupLabelWidth, labelHeight, uiTextSize, "Closing Noise");
   addLabel(clLeft0, clTop1, labelWidth, labelHeight, uiTextSize, "Gain [dB]");
@@ -322,19 +305,19 @@ bool Editor::prepareUI()
     Scales::halfClosedDensityHz, false, 5);
 
   // Allpass loop.
-  constexpr auto loopTop0 = top0 + 0 * labelY;
-  constexpr auto loopTop1 = loopTop0 + 1 * labelY;
-  constexpr auto loopTop2 = loopTop0 + 2 * labelY;
-  constexpr auto loopTop3 = loopTop0 + 3 * labelY;
-  constexpr auto loopTop4 = loopTop0 + 4 * labelY;
-  constexpr auto loopTop5 = loopTop0 + 5 * labelY;
-  constexpr auto loopTop6 = loopTop0 + 6 * labelY;
-  constexpr auto loopTop7 = loopTop0 + 7 * labelY;
-  constexpr auto loopTop8 = loopTop0 + 8 * labelY;
-  constexpr auto loopTop9 = loopTop0 + 9 * labelY;
-  constexpr auto loopTop10 = loopTop0 + 10 * labelY;
-  constexpr auto loopLeft0 = left8;
-  constexpr auto loopLeft1 = loopLeft0 + labelWidth + 2 * margin;
+  const auto loopTop0 = top0 + 0 * labelY;
+  const auto loopTop1 = loopTop0 + 1 * labelY;
+  const auto loopTop2 = loopTop0 + 2 * labelY;
+  const auto loopTop3 = loopTop0 + 3 * labelY;
+  const auto loopTop4 = loopTop0 + 4 * labelY;
+  const auto loopTop5 = loopTop0 + 5 * labelY;
+  const auto loopTop6 = loopTop0 + 6 * labelY;
+  const auto loopTop7 = loopTop0 + 7 * labelY;
+  const auto loopTop8 = loopTop0 + 8 * labelY;
+  const auto loopTop9 = loopTop0 + 9 * labelY;
+  const auto loopTop10 = loopTop0 + 10 * labelY;
+  const auto loopLeft0 = left8;
+  const auto loopLeft1 = loopLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     loopLeft0, loopTop0, groupLabelWidth, labelHeight, uiTextSize, "Allpass Loop");
 
@@ -384,13 +367,13 @@ bool Editor::prepareUI()
     Scales::defaultScale, false, 5);
 
   // Filter.
-  constexpr auto filterTop0 = loopTop10 + 1 * labelY;
-  constexpr auto filterTop1 = filterTop0 + 1 * labelY;
-  constexpr auto filterTop2 = filterTop0 + 2 * labelY;
-  constexpr auto filterTop3 = filterTop0 + 3 * labelY;
-  constexpr auto filterTop4 = filterTop0 + 4 * labelY;
-  constexpr auto filterLeft0 = left8;
-  constexpr auto filterLeft1 = filterLeft0 + labelWidth + 2 * margin;
+  const auto filterTop0 = loopTop10 + 1 * labelY;
+  const auto filterTop1 = filterTop0 + 1 * labelY;
+  const auto filterTop2 = filterTop0 + 2 * labelY;
+  const auto filterTop3 = filterTop0 + 3 * labelY;
+  const auto filterTop4 = filterTop0 + 4 * labelY;
+  const auto filterLeft0 = left8;
+  const auto filterLeft1 = filterLeft0 + labelWidth + 2 * margin;
   addGroupLabel(
     filterLeft0, filterTop0, groupLabelWidth, labelHeight, uiTextSize, "Filter");
 
@@ -424,11 +407,11 @@ bool Editor::prepareUI()
   }
 
   // Plugin name & randomize button.
-  constexpr float splashHeight = int(labelHeight + 2 * margin);
-  constexpr auto splashMargin = int(uiMargin / 2);
-  constexpr auto splashTop = filterTop4 + labelY + int(labelHeight);
-  constexpr auto splashLeft0 = left8;
-  constexpr auto splashLeft1 = splashLeft0 + labelWidth + 2 * margin;
+  const float splashHeight = int(labelHeight + 2 * margin);
+  const auto splashMargin = int(uiMargin / 2);
+  const auto splashTop = filterTop4 + labelY + int(labelHeight);
+  const auto splashLeft0 = left8;
+  const auto splashLeft1 = splashLeft0 + labelWidth + 2 * margin;
   auto panicButton = new RandomizeButton(
     CRect(splashLeft0, splashTop, splashLeft0 + labelWidth, splashTop + splashHeight),
     this, 0, "Random", getFont(pluginNameTextSize), palette, this);

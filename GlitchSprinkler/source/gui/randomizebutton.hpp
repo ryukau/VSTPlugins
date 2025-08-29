@@ -49,17 +49,13 @@ public:
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
     // Border.
-    const double borderW = isMouseEntered ? 2 * borderWidth : borderWidth;
-    const double halfBorderWidth = int(borderW / 2.0);
+    auto borderW = int(pal.guiScale() * borderWidth * (isMouseEntered ? 2 : 1));
+    borderW += 1 ^ (borderW % 2); // Always odd number.
     pContext->setFillColor(isPressed ? pal.highlightButton() : pal.boxBackground());
     pContext->setFrameColor(
       isMouseEntered && !isPressed ? pal.highlightButton() : pal.border());
     pContext->setLineWidth(borderW);
-    pContext->drawRect(
-      CRect(
-        halfBorderWidth, halfBorderWidth, getWidth() - halfBorderWidth,
-        getHeight() - halfBorderWidth),
-      kDrawFilledAndStroked);
+    pContext->drawRect(CRect(0, 0, getWidth(), getHeight()), kDrawFilledAndStroked);
 
     // Text
     pContext->setFont(fontId);
@@ -111,7 +107,7 @@ public:
         std::clamp(
           (double(10) + double(6) * uniform(rng)) / double(16), double(0), double(1)));
       setParam(ID::randomizeFmIndex, uniform(rng));
-      for (size_t i = 0; i < nPolyOscControl; ++i) {
+      for (Steinberg::Vst::ParamID i = 0; i < nPolyOscControl; ++i) {
         setParam(ID::polynomialPointX0 + i, double(i + 1) / double(nPolyOscControl + 2));
         setParam(ID::polynomialPointY0 + i, uniform(rng));
       }

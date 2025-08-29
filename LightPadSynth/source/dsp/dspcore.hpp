@@ -105,8 +105,6 @@ struct NoteProcessInfo {
       param.value[ID::delayDetuneMilli]->getInt() - 1000, et));
     delayFeedback.reset(param.value[ID::delayFeedback]->getFloat());
 
-    const float beat = float(param.value[ID::lfoTempoNumerator]->getInt() + 1)
-      / float(param.value[ID::lfoTempoDenominator]->getInt() + 1);
     lfoFrequency.reset(1.0f);
     lfoAmount.reset(param.value[ID::lfoDelayAmount]->getFloat());
     lfoLowpass.reset(

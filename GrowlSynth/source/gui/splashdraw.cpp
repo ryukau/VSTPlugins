@@ -17,8 +17,10 @@ void CreditView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
-  const double borderWidth = 2.0;
-  const double halfBorderWidth = borderWidth / 2.0;
+  const auto sc = pal.guiScale();
+  const double borderWidth = int(sc * 2);
+  const double halfBorderWidth = int(borderWidth / 2);
+  const auto left0 = int(sc * 20);
 
   // Background.
   pContext->setLineWidth(borderWidth);
@@ -36,11 +38,12 @@ void CreditView::draw(CDrawContext *pContext)
   // Text.
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("GrowlSynth " VERSION_STR, CPoint(20.0, 40.0));
+  pContext->drawString("GrowlSynth " VERSION_STR, CPoint(left0, int(sc * 40)));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("© 2023 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0f, 60.0f));
+  pContext->drawString(
+    "© 2023 Takamitsu Endo (ryukau@gmail.com)", CPoint(left0, int(sc * 60)));
 
   std::string leftText = R"(This plugin is beta version.
 Breaking changes may be introduced.
@@ -69,12 +72,12 @@ Have a nice day!)";
 
   std::string rightText = R"()";
 
-  const float top0 = 100.0f;
-  const float lineHeight = 20.0f;
-  const float blockWidth = 115.0f;
-  drawTextBlock(pContext, 20.0f, top0, lineHeight, blockWidth, leftText);
-  drawTextBlock(pContext, 320.0f, top0, lineHeight, blockWidth, midText);
-  drawTextBlock(pContext, 620.0f, top0, lineHeight, blockWidth, rightText);
+  const float top0 = int(sc * 100);
+  const float lineHeight = left0;
+  const float blockWidth = int(sc * 115);
+  drawTextBlock(pContext, left0, top0, lineHeight, blockWidth, leftText);
+  drawTextBlock(pContext, int(sc * 320), top0, lineHeight, blockWidth, midText);
+  drawTextBlock(pContext, int(sc * 620), top0, lineHeight, blockWidth, rightText);
 
   setDirty(false);
 }

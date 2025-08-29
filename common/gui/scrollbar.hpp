@@ -21,6 +21,7 @@ public:
     Uhhyou::Palette &palette)
     : CControl(size, listener), parent(parent), pal(palette)
   {
+    handleWidth = int(10 * pal.guiScale());
     parent->remember();
   }
 
@@ -32,12 +33,14 @@ public:
   {
     const auto width = getWidth();
     const auto height = getHeight();
+    const auto sc = pal.guiScale();
+    const auto halfBorderW = int(sc / 2);
 
     pContext->setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));
     CDrawContext::Transform t(
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
-    pContext->setLineWidth(1.0);
+    pContext->setLineWidth(int(sc));
     pContext->setFrameColor(pal.border());
 
     // Bar.
@@ -52,7 +55,8 @@ public:
     // Left handle.
     pContext->setFillColor(
       pointed == Part::leftHandle ? pal.highlightButton() : pal.unfocused());
-    pContext->drawRect(CRect(left, 0, left + handleWidth, height), kDrawFilledAndStroked);
+    pContext->drawRect(
+      CRect(left + halfBorderW, 0, left + handleWidth, height), kDrawFilledAndStroked);
 
     // Right handle.
     pContext->setFillColor(

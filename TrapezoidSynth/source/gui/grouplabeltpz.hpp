@@ -29,6 +29,7 @@ public:
 
     const auto width = getWidth();
     const auto height = getHeight();
+    const auto sc = pal.guiScale();
 
     // Background.
     pContext->setFillColor(pal.background());
@@ -44,9 +45,9 @@ public:
 
     // Border.
     pContext->setFrameColor(pal.border());
-    pContext->setLineWidth(lineWidth);
+    pContext->setLineWidth(int(sc * lineWidth));
     pContext->drawLine(
-      CPoint(textWidth + margin, height * 0.5), CPoint(width - 5.0, height * 0.5));
+      CPoint(textWidth + margin, height * 0.5), CPoint(width - sc * 5.0, height * 0.5));
 
     setDirty(false);
   }

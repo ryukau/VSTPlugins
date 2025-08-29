@@ -17,8 +17,9 @@ void CreditView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
-  const double borderWidth = 2.0;
-  const double halfBorderWidth = borderWidth / 2.0;
+  const auto sc = pal.guiScale();
+  const double borderWidth = int(sc * 2);
+  const double halfBorderWidth = int(borderWidth / 2);
 
   // Background.
   pContext->setLineWidth(borderWidth);
@@ -27,17 +28,19 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("EsPhaser " VERSION_STR, CPoint(20.0, 30.0));
+  pContext->drawString("EsPhaser " VERSION_STR, CPoint(int(sc * 20), int(sc * 30)));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
   pContext->drawString(
-    "© 2019-2022 Takamitsu Endo (ryukau@gmail.com)", CPoint(270.0, 30.0));
+    "© 2019-2022 Takamitsu Endo (ryukau@gmail.com)", CPoint(int(sc * 270), int(sc * 30)));
 
-  pContext->drawString("Shift + Left Drag: Fine Adjustment", CPoint(20.0f, 50.0f));
-  pContext->drawString("Ctrl + Left Click: Reset to Default", CPoint(20.0f, 70.0f));
+  pContext->drawString(
+    "Shift + Left Drag: Fine Adjustment", CPoint(int(sc * 20), int(sc * 50)));
+  pContext->drawString(
+    "Ctrl + Left Click: Reset to Default", CPoint(int(sc * 20), int(sc * 70)));
 
-  pContext->drawString("Have a nice day!", CPoint(450.0f, 70.0f));
+  pContext->drawString("Have a nice day!", CPoint(int(sc * 450), int(sc * 70)));
 
   // Border.
   pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());

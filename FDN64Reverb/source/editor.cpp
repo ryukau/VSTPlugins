@@ -8,25 +8,6 @@
 #include <algorithm>
 #include <random>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float pluginNameTextSize = 14.0f;
-constexpr float margin = 5.0f;
-constexpr float uiMargin = 20.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float labelY = labelHeight + 2 * margin;
-constexpr float labelWidth = 75.0f;
-constexpr float labelX = labelWidth + margin;
-constexpr float splashWidth = 2 * labelX;
-constexpr float splashHeight = 30.0f;
-
-constexpr float barboxWidth = 320.0f;
-constexpr float barboxHeight = 160.0f;
-
-constexpr int_least32_t defaultWidth
-  = int_least32_t(2 * uiMargin + 2 * barboxWidth + 4 * margin);
-constexpr int_least32_t defaultHeight = int_least32_t(
-  2 * uiMargin + 2 * barboxHeight + 4 * margin + 4 * labelY + splashHeight);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -35,9 +16,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 ParamValue Editor::getPlainValue(ParamID id)
@@ -83,7 +61,6 @@ bool Editor::prepareUI()
   const auto top0 = uiMargin;
   const auto top1 = top0 + barboxHeight + 2 * margin;
   const auto top2 = top1 + barboxHeight + 2 * margin;
-  const auto top3 = top2 + barboxHeight + 2 * margin;
   const auto left0 = uiMargin;
   const auto left1 = left0 + barboxWidth + 4 * margin;
 

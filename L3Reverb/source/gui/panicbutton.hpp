@@ -47,16 +47,15 @@ public:
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
     // Border.
-    const double borderW = isMouseEntered ? 2 * borderWidth : borderWidth;
-    const double halfBorderWidth = int(borderW / 2.0);
+    const auto sc = pal.guiScale();
+    const double borderW = int(sc * (isMouseEntered ? 2 * borderWidth : borderWidth));
+    const double halfBorderWidth = int(borderW / 2);
     pContext->setFillColor(isPressed ? pal.highlightButton() : pal.boxBackground());
     pContext->setFrameColor(
       isMouseEntered && !isPressed ? pal.highlightButton() : pal.border());
     pContext->setLineWidth(borderW);
     pContext->drawRect(
-      CRect(
-        halfBorderWidth, halfBorderWidth, getWidth() - halfBorderWidth,
-        getHeight() - halfBorderWidth),
+      CRect(halfBorderWidth, halfBorderWidth, getWidth(), getHeight()),
       kDrawFilledAndStroked);
 
     // Text

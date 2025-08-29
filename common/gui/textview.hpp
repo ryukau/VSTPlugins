@@ -48,12 +48,12 @@ public:
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
     // Text.
+    const float lh = pal.guiScale() * lineHeight;
     pContext->setFont(fontId);
     pContext->setFontColor(pal.foreground());
     for (size_t idx = 0; idx < str.size(); ++idx) {
       pContext->drawString(
-        str[idx].c_str(), CRect(0, idx * lineHeight, getWidth(), (idx + 1) * lineHeight),
-        kLeftText);
+        str[idx].c_str(), CRect(0, idx * lh, getWidth(), (idx + 1) * lh), kLeftText);
     }
   }
 
@@ -117,13 +117,14 @@ public:
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
     // Text.
+    const float lh = pal.guiScale() * lineHeight;
     pContext->setFont(fontId);
     pContext->setFontColor(pal.foreground());
     for (size_t row = 0; row < table.size(); ++row) {
       for (size_t col = 0; col < table[row].size(); ++col) {
         const CCoord left = col * cellWidth;
-        const CCoord top = row * lineHeight;
-        const CRect rect = CRect(left, top, left + cellWidth, top + lineHeight);
+        const CCoord top = row * lh;
+        const CRect rect = CRect(left, top, left + cellWidth, top + lh);
         pContext->drawString(table[row][col].c_str(), rect, kLeftText);
       }
     }
@@ -165,13 +166,14 @@ public:
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
     // Text.
+    const float lh = pal.guiScale() * lineHeight;
     pContext->setFont(fontId);
     pContext->setFontColor(pal.foreground());
-    pContext->drawString(name_.c_str(), CRect(0, 0, getWidth(), lineHeight), kLeftText);
+    pContext->drawString(name_.c_str(), CRect(0, 0, getWidth(), lh), kLeftText);
 
     std::string value_str = std::to_string(scale.map(value));
     pContext->drawString(
-      value_str.c_str(), CRect(getWidth() / 2, 0, getWidth(), lineHeight), kLeftText);
+      value_str.c_str(), CRect(getWidth() / 2, 0, getWidth(), lh), kLeftText);
   }
 
   CLASS_METHODS(ValueTextView, CControl);

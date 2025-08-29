@@ -72,6 +72,10 @@ public:
     const auto width = getWidth();
     const auto height = getHeight();
 
+    const auto sc = pal.guiScale();
+    auto borderW = int(sc);
+    borderW += 1 ^ (borderW % 2); // Always odd number.
+
     pContext->setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));
     CDrawContext::Transform t(
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
@@ -112,7 +116,7 @@ public:
     pContext->drawRect(CRect(0.0, immediatePoint.y, immediateAmp, height), kDrawFilled);
 
     // Peak value.
-    pContext->setLineWidth(1.0);
+    pContext->setLineWidth(borderW);
     pContext->setFrameColor(pal.highlightAccent());
     auto &&peakWidth = ampToWidth(clip, holdValue);
     auto peakIndex = size_t(peakWidth);

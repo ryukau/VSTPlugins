@@ -21,6 +21,52 @@ public:
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
 protected:
+  float uiTextSize = 12.0f;
+  float midTextSize = 12.0f;
+  float pluginNameTextSize = 18.0f;
+  float uiMargin = 20.0f;
+  float margin = 5.0f;
+  float labelWidth = 100.0f;
+  float labelHeight = 20.0f;
+  float labelY = labelHeight + 2 * margin;
+  float knobWidth = 50.0f;
+  float smallKnobWidth = int(knobWidth / 2);
+  float knobX = knobWidth + 2 * margin;
+  float knobY = knobWidth + labelY;
+  float barBoxWidth = 512.0f;
+  float barBoxHeight = 200.0f;
+  float innerWidth = 2 * labelWidth + 2 * margin + 2 * barBoxWidth + 6 * uiMargin;
+  float innerHeight = 3 * labelY + 2 * knobY + 2 * barBoxHeight + 3 * uiMargin;
+  int32_t defaultWidth = int32_t(innerWidth + 2 * uiMargin);
+  int32_t defaultHeight = int32_t(innerHeight + 2 * uiMargin);
+
+  void setDimensions() override
+  {
+    const float sc = palette.guiScale();
+
+    uiTextSize = int(sc * 12);
+    midTextSize = int(sc * 12);
+    pluginNameTextSize = int(sc * 18);
+    uiMargin = int(sc * 20);
+    margin = int(sc * 5);
+    labelWidth = int(sc * 100);
+    labelHeight = int(sc * 20);
+    labelY = labelHeight + 2 * margin;
+    knobWidth = int(sc * 50);
+    smallKnobWidth = int(knobWidth / 2);
+    knobX = knobWidth + 2 * margin;
+    knobY = knobWidth + labelY;
+    barBoxWidth = int(sc * 512);
+    barBoxHeight = int(sc * 200);
+    innerWidth = 2 * labelWidth + 2 * margin + 2 * barBoxWidth + 6 * uiMargin;
+    innerHeight = 3 * labelY + 2 * knobY + 2 * barBoxHeight + 3 * uiMargin;
+    defaultWidth = int32_t(innerWidth + 2 * uiMargin);
+    defaultHeight = int32_t(innerHeight + 2 * uiMargin);
+
+    viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
+    setRect(viewRect);
+  }
+
   struct XYPadAxis {
     size_t index = 0;
     SharedPointer<XYPad> xypad;
@@ -58,7 +104,7 @@ protected:
   {
     auto knob
       = new Knob<style>(CRect(left, top, left + size, top + size), this, tag, palette);
-    knob->setArcWidth(2.0);
+    knob->setArcWidth(int(palette.guiScale() * 2));
     knob->setValueNormalized(controller->getParamNormalized(tag));
     knob->setDefaultValue(param->getDefaultNormalized(tag));
     frame->addView(knob);

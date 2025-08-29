@@ -52,7 +52,10 @@ public:
     Uhhyou::Palette &palette,
     float tabHeight,
     const CRect &size)
-    : CControl(size, nullptr, -1), tabFontID(tabFontID), pal(palette)
+    : CControl(size, nullptr, -1)
+    , tabHeight(tabHeight)
+    , tabFontID(tabFontID)
+    , pal(palette)
   {
     tabs.reserve(tabNames.size());
     const auto tabWidth = float(getWidth()) / tabNames.size();
@@ -104,6 +107,10 @@ public:
   {
     const auto width = getWidth();
     const auto height = getHeight();
+    const auto sc = pal.guiScale();
+    auto borderW = int(2 * sc);
+    borderW += borderW % 2;
+    const auto halfBorderW = int(borderW / 2);
 
     pContext->setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));
     CDrawContext::Transform t(
@@ -113,15 +120,19 @@ public:
     pContext->setFont(tabFontID);
     pContext->setFontColor(pal.foregroundInactive());
     pContext->setFrameColor(pal.border());
-    pContext->setLineWidth(1.0f);
+    pContext->setLineWidth(borderW);
     for (size_t idx = 0; idx < tabs.size(); ++idx) {
       if (idx == activeTabIndex) continue;
       const auto &tab = tabs[idx];
 
       pContext->setFillColor(
         tab.isMouseEntered ? pal.overlayHighlight() : pal.boxBackground());
+
+      const auto left = tab.left + (idx == 0 ? halfBorderW : 0);
+      const auto right = tab.right + (idx != tabs.size() - 1 ? halfBorderW : 0);
       pContext->drawRect(
-        CRect(tab.left, tab.top, tab.right, tab.height), kDrawFilledAndStroked);
+        CRect(left, tab.top + halfBorderW, right, tab.height + halfBorderW),
+        kDrawFilledAndStroked);
 
       pContext->drawString(
         tab.name.c_str(), CRect(tab.left, tab.top, tab.right, tab.bottom), kCenterText);
@@ -131,19 +142,23 @@ public:
     pContext->setFontColor(pal.foreground());
     pContext->setFillColor(pal.background());
     pContext->setFrameColor(pal.border());
-    pContext->setLineWidth(2.0f);
+    pContext->setLineWidth(borderW);
 
     const auto &activeTab = tabs[activeTabIndex];
+    const auto &hbW = halfBorderW;
+    const auto tabB = activeTab.height - halfBorderW;
+    const auto tabL = activeTab.left + (activeTabIndex == 0 ? hbW : 0);
+    const auto tabR = activeTab.right - (activeTabIndex == tabs.size() - 1 ? hbW : 0);
     CDrawContext::PointList activeTabPath = {
-      CPoint(0, activeTab.height),
-      CPoint(activeTab.left, activeTab.height),
-      CPoint(activeTab.left, 0),
-      CPoint(activeTab.right, 0),
-      CPoint(activeTab.right, activeTab.height),
-      CPoint(width, activeTab.height),
-      CPoint(width, height),
-      CPoint(0, height),
-      CPoint(0, activeTab.height),
+      CPoint(hbW, tabB),
+      CPoint(tabL, tabB),
+      CPoint(tabL, hbW),
+      CPoint(tabR, hbW),
+      CPoint(tabR, tabB),
+      CPoint(width - hbW, tabB),
+      CPoint(width - hbW, height - hbW),
+      CPoint(hbW, height - hbW),
+      CPoint(hbW, tabB),
     };
     pContext->drawPolygon(activeTabPath, kDrawFilledAndStroked);
 
@@ -222,7 +237,6 @@ protected:
   }
 
   float tabHeight = 30.0f;
-  float tabFontSize = 14.0f;
   SharedPointer<CFontDesc> tabFontID;
   Uhhyou::Palette &pal;
 

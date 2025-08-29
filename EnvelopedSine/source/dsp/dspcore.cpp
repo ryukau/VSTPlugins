@@ -130,7 +130,6 @@ void NOTE_NAME<Sample>::noteOn(
 
   // QuadOsc diverges around nyquist frequency.
   const auto maxFreq = nyquist * 0.999f;
-  const auto minFreq = nyquist * 0.001f;
 
   for (size_t idx = 0; idx < oscillatorSize; ++idx) {
     Vec16f rndPt = randFreq * rng.process();

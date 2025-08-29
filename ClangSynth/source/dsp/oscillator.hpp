@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <cmath>
 #include <complex>
+#include <numbers>
 #include <vector>
 
 namespace SomeDSP {
@@ -104,9 +105,8 @@ private:
 
   void generateSpectrum(size_t spectrumSize)
   {
-    constexpr double halfpi = 1.57079632679489661923;
-    constexpr double pi = 3.14159265358979323846;
-    constexpr double twopi = 6.28318530717958647692;
+    constexpr auto pi = std::numbers::pi_v<double>;
+    constexpr auto twopi = double(2.0 * pi);
     constexpr auto eps = std::numeric_limits<Sample>::epsilon();
 
     // Generate source spectrum amplitude.

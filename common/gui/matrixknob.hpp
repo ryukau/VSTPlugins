@@ -100,6 +100,7 @@ public:
   {
     const auto width = getWidth();
     const auto height = getHeight();
+    const auto sc = pal.guiScale();
 
     pContext->setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));
     CDrawContext::Transform t(
@@ -118,7 +119,7 @@ public:
     float centerY = 0;
     uint32_t focusIndex = focusRow * nCol + focusCol;
     pContext->setLineStyle(lineStyle);
-    pContext->setLineWidth(2.0);
+    pContext->setLineWidth(int(sc * 2));
     for (uint32_t row = 0; row < nRow; ++row) {
       for (uint32_t col = 0; col < nCol; ++col) {
         uint32_t idx = getIndex(row, col);

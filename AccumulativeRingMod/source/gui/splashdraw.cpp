@@ -17,8 +17,9 @@ void CreditView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
-  const double borderWidth = 2.0;
-  const double halfBorderWidth = borderWidth / 2.0;
+  const auto sc = pal.guiScale();
+  const double borderWidth = int(sc * 2);
+  const double halfBorderWidth = int(borderWidth / 2);
 
   // Background.
   pContext->setLineWidth(borderWidth);
@@ -36,11 +37,13 @@ void CreditView::draw(CDrawContext *pContext)
   // Text.
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("AccumulativeRingMod " VERSION_STR, CPoint(20.0, 40.0));
+  pContext->drawString(
+    "AccumulativeRingMod " VERSION_STR, CPoint(int(sc * 20), int(sc * 40)));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("© 2023 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0f, 60.0f));
+  pContext->drawString(
+    "© 2023 Takamitsu Endo (ryukau@gmail.com)", CPoint(int(sc * 20), int(sc * 60)));
 
   std::string leftText = R"(- Number & Knob -
 Shift + Left Drag|Fine Adjustment
@@ -67,12 +70,12 @@ CPU load rises when Phase Warp is not 0.
 
 Have a nice day!)";
 
-  constexpr float top0 = 100.0f;
-  constexpr float lineHeight = 20.0f;
-  constexpr float blockWidth = 120.0f;
-  drawTextBlock(pContext, 20.0f, top0, lineHeight, blockWidth, leftText);
+  const float top0 = int(sc * 100);
+  const float lineHeight = int(sc * 20);
+  const float blockWidth = int(sc * 120);
+  drawTextBlock(pContext, int(sc * 20), top0, lineHeight, blockWidth, leftText);
   drawTextBlock(
-    pContext, int(width / 2) + 20.0f, top0, lineHeight, blockWidth, rightText);
+    pContext, int(width / 2) + int(sc * 20), top0, lineHeight, blockWidth, rightText);
 
   setDirty(false);
 }

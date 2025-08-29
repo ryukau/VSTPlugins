@@ -7,20 +7,6 @@
 #include <algorithm>
 #include <random>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float pluginNameTextSize = 14.0f;
-constexpr float margin = 5.0f;
-constexpr float uiMargin = 20.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float labelY = labelHeight + 2 * margin;
-constexpr float labelWidth = 75.0f;
-constexpr float labelX = labelWidth + margin;
-constexpr float splashWidth = 2 * labelWidth + margin;
-constexpr float splashHeight = 30.0f;
-
-constexpr int_least32_t defaultWidth = int_least32_t(2 * uiMargin + 2 * labelX - margin);
-constexpr int_least32_t defaultHeight = int_least32_t(2 * uiMargin + 7 * labelY);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -29,9 +15,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 ParamValue Editor::getPlainValue(ParamID id)

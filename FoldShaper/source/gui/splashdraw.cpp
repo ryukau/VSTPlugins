@@ -17,8 +17,10 @@ void CreditView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
-  const double borderWidth = 2.0;
-  const double halfBorderWidth = borderWidth / 2.0;
+  const auto sc = pal.guiScale();
+  const double borderWidth = int(sc * 2);
+  const double halfBorderWidth = int(borderWidth / 2);
+  const auto left0 = int(sc * 20);
 
   // Background.
   pContext->setLineWidth(borderWidth);
@@ -27,14 +29,15 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("FoldShaper " VERSION_STR, CPoint(20.0, 20.0));
+  pContext->drawString("FoldShaper " VERSION_STR, CPoint(left0, int(sc * 30)));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("© 2020 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0, 40.0));
+  pContext->drawString(
+    "© 2020 Takamitsu Endo (ryukau@gmail.com)", CPoint(left0, int(sc * 50)));
 
   pContext->drawString(
-    "Caution! Tuning More* knobs may outputs loud signal.", CPoint(20.0f, 65.0f));
+    "Caution! Tuning More* knobs may outputs loud signal.", CPoint(left0, int(sc * 80)));
 
   // Border.
   pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());

@@ -221,7 +221,7 @@ void DSPCore::setup(double sampleRate)
                                                                                          \
       const auto bpCutRatio1 = bandpassCutRatio                                          \
         * pitchRatio(pitch, bandpassCutSpread, pitchRandomCent, paramRng);               \
-      membrane1[drm].bandpassCutoff.METHOD##At(idx, delayTimeFreq1 *bpCutRatio1);        \
+      membrane1[drm].bandpassCutoff.METHOD##At(idx, delayTimeFreq1 * bpCutRatio1);       \
                                                                                          \
       const auto delayCutRatio2                                                          \
         = pitchRatio(pitch, delayTimeSpread, pitchRandomCent, paramRng);                 \
@@ -230,12 +230,12 @@ void DSPCore::setup(double sampleRate)
                                                                                          \
       const auto bpCutRatio2 = bandpassCutRatio                                          \
         * pitchRatio(pitch, bandpassCutSpread, pitchRandomCent, paramRng);               \
-      membrane2[drm].bandpassCutoff.METHOD##At(idx, delayTimeFreq2 *bpCutRatio2);        \
+      membrane2[drm].bandpassCutoff.METHOD##At(idx, delayTimeFreq2 * bpCutRatio2);       \
     }                                                                                    \
     const auto bandpassQ = pv[ID::bandpassQ]->getDouble();                               \
     membrane1[drm].bandpassQ.METHOD(bandpassQ);                                          \
     membrane2[drm].bandpassQ.METHOD(                                                     \
-      std::clamp(bandpassQ *std::exp2(secondaryQOffset), double(0.1), double(100)));     \
+      std::clamp(bandpassQ * std::exp2(secondaryQOffset), double(0.1), double(100)));    \
   }
 
 void DSPCore::updateUpRate()
@@ -415,8 +415,8 @@ double DSPCore::processDrum(
   const auto timeModAmt = delayTimeModAmount.process();                                  \
   secondaryFdnMix.process();                                                             \
   membraneWireMix.process();                                                             \
-  const auto balance = stereoBalance.process();                                          \
-  const auto merge = stereoMerge.process();                                              \
+  stereoBalance.process();                                                               \
+  stereoMerge.process();                                                                 \
   const auto outGain = outputGain.process();                                             \
                                                                                          \
   std::uniform_real_distribution<double> dist{double(-0.5), double(0.5)};                \
@@ -461,11 +461,13 @@ std::array<double, 2> DSPCore::processFrame(const std::array<double, 2> &externa
   auto drum1 = processDrum(1, excitation1, wireGain, pitchEnv, crossGain, timeModAmt);
 
   constexpr auto eps = std::numeric_limits<double>::epsilon();
+  const auto &balance = stereoBalance.getValue();
   if (balance < -eps) {
     drum0 *= double(1) + balance;
   } else if (balance > eps) {
     drum1 *= double(1) - balance;
   }
+  const auto &merge = stereoMerge.getValue();
   return {
     outGain * std::lerp(drum0, drum1, merge),
     outGain * std::lerp(drum1, drum0, merge),
@@ -567,8 +569,6 @@ void DSPCore::noteOn(NoteInfo &info)
 
   noteNumber = info.noteNumber;
   auto notePitch = calcNotePitch(info.noteNumber);
-  auto pitchBend
-    = calcPitch(pv[ID::pitchBendRange]->getDouble() * pv[ID::pitchBend]->getDouble());
   interpPitch.push(notePitch);
 
   velocity = velocityMap.map(info.velocity);

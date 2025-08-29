@@ -127,15 +127,16 @@ public:
   {
     const auto width = getWidth();
     const auto height = getHeight();
-    const auto center = CPoint(width / 2.0, height / 2.0);
+    const auto center = CPoint(int(width / 2.0), int(height / 2.0));
+    const auto sc = pal.guiScale();
+    const auto halfArcW = std::max(int(1), int(sc * halfArcWidth));
 
     pContext->setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));
     CDrawContext::Transform t(
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft() + center));
 
     // Background.
-    const double borderWidth = 2.0;
-    pContext->setLineWidth(borderWidth);
+    pContext->setLineWidth(int(sc * 2.0));
     pContext->setFillColor(pal.background());
     pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilled);
 
@@ -149,16 +150,16 @@ public:
       pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.unfocused());
     }
     pContext->setLineStyle(lineStyle);
-    pContext->setLineWidth(halfArcWidth * 2.0);
+    pContext->setLineWidth(int(halfArcW * 2.0));
     pContext->drawEllipse(
       CRect(
-        halfArcWidth - center.x, halfArcWidth - center.y, center.x - halfArcWidth,
-        center.y - halfArcWidth),
+        halfArcW - center.x, halfArcW - center.y, center.x - halfArcW,
+        center.y - halfArcW),
       kDrawStroked);
 
     // Tick for default value. Sharing color and style with arc.
-    auto tipLength = halfArcWidth - radius;
-    pContext->setLineWidth(halfArcWidth / 2.0);
+    auto tipLength = halfArcW - radius;
+    pContext->setLineWidth(std::max(int(1), int(halfArcW / 2.0)));
     pContext->drawLine(
       mapValueToArc(getDefaultValue() / getRange(), tipLength * defaultTickLength),
       mapValueToArc(getDefaultValue() / getRange(), tipLength));
@@ -171,9 +172,7 @@ public:
     // Tip.
     pContext->setFillColor(pal.foreground());
     pContext->drawEllipse(
-      CRect(
-        tip.x - halfArcWidth, tip.y - halfArcWidth, tip.x + halfArcWidth,
-        tip.y + halfArcWidth),
+      CRect(tip.x - halfArcW, tip.y - halfArcW, tip.x + halfArcW, tip.y + halfArcW),
       kDrawFilled);
 
     setDirty(false);
@@ -220,6 +219,9 @@ public:
   {
     const auto width = getWidth();
     const auto height = getHeight();
+    const auto sc = pal.guiScale();
+    const auto borderW = int(sc * borderWidth);
+    const auto halfBorderW = int(borderW / 2);
 
     pContext->setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));
     CDrawContext::Transform t(
@@ -234,8 +236,9 @@ public:
       pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());
     }
     pContext->setFillColor(pal.boxBackground());
-    pContext->setLineWidth(borderWidth);
-    pContext->drawRect(CRect(0.0, 0.0, width, height), kDrawFilledAndStroked);
+    pContext->setLineWidth(borderW);
+    pContext->drawRect(
+      CRect(halfBorderW, halfBorderW, width, height), kDrawFilledAndStroked);
 
     // Text.
     pContext->setFont(fontId);

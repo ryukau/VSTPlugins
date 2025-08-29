@@ -13,35 +13,11 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-constexpr float uiTextSize = 12.0f;
-constexpr float pluginNameTextSize = 14.0f;
-constexpr float margin = 5.0f;
-constexpr float uiMargin = 20.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float knobWidth = 60.0f;
-constexpr float halfKnobWidth = int(knobWidth / 2);
-constexpr float knobX = knobWidth + 2 * margin;
-constexpr float knobY = knobWidth + labelHeight + 2 * margin;
-constexpr float labelY = labelHeight + 2 * margin;
-constexpr float labelWidth = 100.0f;
-constexpr float labelX = labelWidth + margin;
-
-constexpr float barboxWidth = 256.0f;
-constexpr float barboxHeight = 2 * knobY;
-
-constexpr int_least32_t defaultWidth
-  = int_least32_t(5 * uiMargin + 4 * knobX + 2 * barboxWidth + 2 * margin);
-constexpr int_least32_t defaultHeight
-  = int_least32_t(2 * uiMargin + 10 * labelY + 2 * knobY);
-
 enum tabIndex { tabTuning, tabTime, tabGain, tabHighpass, tabLowpass };
 
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 bool Editor::prepareUI()
@@ -50,23 +26,23 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  constexpr auto top0 = uiMargin;
-  constexpr auto left0 = uiMargin;
+  const auto top0 = uiMargin;
+  const auto left0 = uiMargin;
 
   // Shifter.
-  constexpr auto psTop0 = top0;
-  constexpr auto psTop1 = psTop0 + labelY;
-  constexpr auto psTop2 = psTop1 + knobY;
-  constexpr auto psTop3 = psTop2 + labelY;
-  constexpr auto psTop4 = psTop3 + labelY;
-  constexpr auto psTop5 = psTop4 + labelY + 2 * margin;
-  constexpr auto psLeft0 = left0;
-  constexpr auto psLeft1 = psLeft0 + knobX;
-  constexpr auto psLeft2 = psLeft1 + knobX;
-  constexpr auto psLeft3 = psLeft2 + knobX;
-  constexpr auto psLeft4 = psLeft3 + knobX;
-  constexpr auto psLabelWidth = int(1.5 * knobX) - margin;
-  constexpr auto psLabelLeft1 = psLeft0 + psLabelWidth;
+  const auto psTop0 = top0;
+  const auto psTop1 = psTop0 + labelY;
+  const auto psTop2 = psTop1 + knobY;
+  const auto psTop3 = psTop2 + labelY;
+  const auto psTop4 = psTop3 + labelY;
+  const auto psTop5 = psTop4 + labelY + 2 * margin;
+  const auto psLeft0 = left0;
+  const auto psLeft1 = psLeft0 + knobX;
+  const auto psLeft2 = psLeft1 + knobX;
+  const auto psLeft3 = psLeft2 + knobX;
+  const auto psLeft4 = psLeft3 + knobX;
+  const auto psLabelWidth = int(1.5 * knobX) - margin;
+  const auto psLabelLeft1 = psLeft0 + psLabelWidth;
   addGroupLabel(
     psLeft0, psTop0, 4 * knobX + 2 * margin + barboxWidth, labelHeight, uiTextSize,
     "Shifter");
@@ -97,7 +73,7 @@ bool Editor::prepareUI()
     psLabelLeft1, psTop4, psLabelWidth, labelHeight, uiTextSize, ID::panSpread,
     Scales::defaultScale, false, 5);
 
-  constexpr auto psSmallMargin = int(halfKnobWidth * 1 / 2 - labelHeight / 2);
+  const auto psSmallMargin = int(halfKnobWidth * 1 / 2 - labelHeight / 2);
   addLabel(psLeft3, psTop1, halfKnobWidth, labelHeight, uiTextSize, "HP");
   addSmallKnob(
     psLeft3 + psSmallMargin, psTop1 + labelHeight, labelHeight, labelHeight,
@@ -107,13 +83,13 @@ bool Editor::prepareUI()
     psLeft3 + psSmallMargin + halfKnobWidth, psTop1 + labelHeight, labelHeight,
     labelHeight, ID::lowpassNormalizedCutoff);
 
-  constexpr auto psSmallLeft = psLeft3 + int(knobWidth / 2 - labelHeight / 2);
+  const auto psSmallLeft = psLeft3 + int(knobWidth / 2 - labelHeight / 2);
   addLabel(psLeft3, psTop2 - labelY, knobWidth, labelHeight, uiTextSize, "LFO");
   addSmallKnob(psSmallLeft, psTop2, labelHeight, labelHeight, ID::lfoToDelayTime);
   addSmallKnob(psSmallLeft, psTop3, labelHeight, labelHeight, ID::lfoToShiftPitch);
   addSmallKnob(psSmallLeft, psTop4, labelHeight, labelHeight, ID::lfoToPan);
 
-  constexpr auto tremoloOffset = halfKnobWidth + psSmallMargin;
+  const auto tremoloOffset = halfKnobWidth + psSmallMargin;
   addLabel(psLeft0, psTop5, psLabelWidth, labelHeight, uiTextSize, "Tremolo");
 
   addLabel(
@@ -126,11 +102,11 @@ bool Editor::prepareUI()
     psLeft3 + psSmallMargin, psTop5, labelHeight, labelHeight, ID::tremoloLean);
 
   // Shifter TabView.
-  constexpr auto tabViewTop = psTop0;
-  constexpr auto tabViewLeft = psLeft4 + 2 * margin;
-  constexpr auto tabInsideTop0 = tabViewTop + labelY + uiMargin;
-  constexpr auto tabInsideLeft0 = tabViewLeft + uiMargin;
-  constexpr auto tabInsideLeft1 = tabInsideLeft0 + barboxWidth + uiMargin;
+  const auto tabViewTop = psTop0;
+  const auto tabViewLeft = psLeft4 + 2 * margin;
+  const auto tabInsideTop0 = tabViewTop + labelY + uiMargin;
+  const auto tabInsideLeft0 = tabViewLeft + uiMargin;
+  const auto tabInsideLeft1 = tabInsideLeft0 + barboxWidth + uiMargin;
 
   std::vector<std::string> tabs{"Tuning", "Time", "Gain", "HP", "LP"};
   auto tabView = addTabView(
@@ -159,7 +135,7 @@ bool Editor::prepareUI()
   if (barboxShifterDelayTime) {
     barboxShifterDelayTime->sliderZero = 0.5f;
 
-    constexpr size_t nSnap = 16;
+    const size_t nSnap = 16;
     for (size_t idx = 0; idx < nSnap; ++idx) {
       barboxShifterDelayTime->snapValue.push_back(double(idx) / double(nSnap));
     }
@@ -202,17 +178,17 @@ bool Editor::prepareUI()
   }
 
   // LFO.
-  constexpr auto lfoTop0 = psTop0 + labelY + barboxHeight + 2 * uiMargin + 2 * margin;
-  constexpr auto lfoTop1 = lfoTop0 + labelY;
-  constexpr auto lfoTop2 = lfoTop1 + knobY;
-  constexpr auto lfoTop3 = lfoTop2 + labelY;
-  constexpr auto lfoLeft0 = psLeft0;
-  constexpr auto lfoLeft1 = lfoLeft0 + knobX;
-  constexpr auto lfoLeft2 = lfoLeft1 + knobX;
-  constexpr auto lfoLeft3 = lfoLeft2 + knobX;
-  constexpr auto lfoLeft4 = lfoLeft3 + knobX + 2 * margin;
-  constexpr auto lfoLabelLeft0 = lfoLeft0 + halfKnobWidth;
-  constexpr auto lfoLabelLeft1 = lfoLabelLeft0 + psLabelWidth;
+  const auto lfoTop0 = psTop0 + labelY + barboxHeight + 2 * uiMargin + 2 * margin;
+  const auto lfoTop1 = lfoTop0 + labelY;
+  const auto lfoTop2 = lfoTop1 + knobY;
+  const auto lfoTop3 = lfoTop2 + labelY;
+  const auto lfoLeft0 = psLeft0;
+  const auto lfoLeft1 = lfoLeft0 + knobX;
+  const auto lfoLeft2 = lfoLeft1 + knobX;
+  const auto lfoLeft3 = lfoLeft2 + knobX;
+  const auto lfoLeft4 = lfoLeft3 + knobX + 2 * margin;
+  const auto lfoLabelLeft0 = lfoLeft0 + halfKnobWidth;
+  const auto lfoLabelLeft1 = lfoLabelLeft0 + psLabelWidth;
   addGroupLabel(
     lfoLeft0, lfoTop0, 4 * knobX - 2 * margin, labelHeight, uiTextSize, "LFO");
 
@@ -221,7 +197,7 @@ bool Editor::prepareUI()
   addRotaryKnob(
     lfoLeft1, lfoTop1, knobWidth, margin, uiTextSize, "Phase", ID::lfoPhaseConstant);
 
-  constexpr auto lfoTopSync = lfoTop1 + 2 * labelHeight;
+  const auto lfoTopSync = lfoTop1 + 2 * labelHeight;
   addCheckbox(
     lfoLeft2, lfoTop1, knobWidth, labelHeight, uiTextSize, "Sync.", ID::lfoTempoSync);
   addTextKnob(
@@ -249,18 +225,18 @@ bool Editor::prepareUI()
   if (barboxLfoWavetable) {
     barboxLfoWavetable->sliderZero = 0.5f;
 
-    constexpr size_t nSnap = 16;
+    const size_t nSnap = 16;
     for (size_t idx = 0; idx < nSnap; ++idx) {
       barboxLfoWavetable->snapValue.push_back(double(idx) / double(nSnap));
     }
   }
 
   // Plugin name.
-  constexpr auto splashMargin = uiMargin;
-  constexpr auto splashWidth = 2 * knobX - 2 * margin;
-  constexpr auto splashHeight = labelY;
-  constexpr auto splashTop = lfoTop3 + labelY + 2 * margin;
-  constexpr auto splashLeft = left0 + knobX;
+  const auto splashMargin = uiMargin;
+  const auto splashWidth = 2 * knobX - 2 * margin;
+  const auto splashHeight = labelY;
+  const auto splashTop = lfoTop3 + labelY + 2 * margin;
+  const auto splashLeft = left0 + knobX;
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,

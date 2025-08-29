@@ -13,27 +13,9 @@ namespace Vst {
 
 using namespace VSTGUI;
 
-constexpr float uiTextSize = 12.0f;
-constexpr float pluginNameTextSize = 16.0f;
-constexpr float margin = 5.0f;
-constexpr float uiMargin = 20.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float labelY = labelHeight + 2 * margin;
-constexpr float labelWidth = 120.0f;
-constexpr float labelWidthHalf = int(labelWidth / 2);
-constexpr float lfoKnobWidth = 2 * labelHeight;
-constexpr float groupLabelWidth = 2 * labelWidth + 2 * margin;
-
-constexpr int_least32_t defaultWidth
-  = int_least32_t(3 * uiMargin + 2 * groupLabelWidth + lfoKnobWidth);
-constexpr int_least32_t defaultHeight = int_least32_t(uiMargin + 13 * labelY);
-
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 ParamValue Editor::getPlainValue(ParamID id)
@@ -73,17 +55,16 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  constexpr auto top0 = int(uiMargin / 2);
-  constexpr auto left0 = uiMargin - margin;
-  constexpr auto left4 = left0 + 1 * groupLabelWidth + 4 * margin;
-  constexpr auto left8 = left0 + 2 * groupLabelWidth + 4 * margin + uiMargin;
+  const auto top0 = int(uiMargin / 2);
+  const auto left0 = uiMargin - margin;
+  const auto left4 = left0 + 1 * groupLabelWidth + 4 * margin;
 
-  constexpr auto mixTop0 = top0;
-  constexpr auto mixTop1 = mixTop0 + 1 * labelY;
-  constexpr auto mixTop2 = mixTop0 + 2 * labelY;
-  constexpr auto mixTop3 = mixTop0 + 3 * labelY;
-  constexpr auto mixLeft0 = left0;
-  constexpr auto mixLeft1 = mixLeft0 + labelWidth + 2 * margin;
+  const auto mixTop0 = top0;
+  const auto mixTop1 = mixTop0 + 1 * labelY;
+  const auto mixTop2 = mixTop0 + 2 * labelY;
+  const auto mixTop3 = mixTop0 + 3 * labelY;
+  const auto mixLeft0 = left0;
+  const auto mixLeft1 = mixLeft0 + labelWidth + 2 * margin;
   addGroupLabel(mixLeft0, mixTop0, groupLabelWidth, labelHeight, uiTextSize, "Mix");
 
   addLabel(mixLeft0, mixTop1, labelWidth, labelHeight, uiTextSize, "Output [dB]");
@@ -100,15 +81,15 @@ bool Editor::prepareUI()
   addToggleButton(
     mixLeft1, mixTop3, labelWidth, labelHeight, uiTextSize, "Latency", ID::reportLatency);
 
-  constexpr auto lfoTop0 = mixTop3 + 1 * labelY;
-  constexpr auto lfoTop1 = lfoTop0 + 1 * labelY;
-  constexpr auto lfoTop2 = lfoTop0 + 2 * labelY;
-  constexpr auto lfoTop3 = lfoTop0 + 3 * labelY;
-  constexpr auto lfoTop4 = lfoTop0 + 4 * labelY;
-  constexpr auto lfoTop5 = lfoTop0 + 5 * labelY;
-  constexpr auto lfoTop6 = lfoTop0 + 6 * labelY;
-  constexpr auto lfoLeft0 = left0;
-  constexpr auto lfoLeft1 = lfoLeft0 + labelWidth + 2 * margin;
+  const auto lfoTop0 = mixTop3 + 1 * labelY;
+  const auto lfoTop1 = lfoTop0 + 1 * labelY;
+  const auto lfoTop2 = lfoTop0 + 2 * labelY;
+  const auto lfoTop3 = lfoTop0 + 3 * labelY;
+  const auto lfoTop4 = lfoTop0 + 4 * labelY;
+  const auto lfoTop5 = lfoTop0 + 5 * labelY;
+  const auto lfoTop6 = lfoTop0 + 6 * labelY;
+  const auto lfoLeft0 = left0;
+  const auto lfoLeft1 = lfoLeft0 + labelWidth + 2 * margin;
   addGroupLabel(lfoLeft0, lfoTop0, groupLabelWidth, labelHeight, uiTextSize, "LFO");
 
   addLabel(lfoLeft0, lfoTop1, labelWidth, labelHeight, uiTextSize, "Waveform");
@@ -152,12 +133,12 @@ bool Editor::prepareUI()
     lfoTempoLowerKnob->lowSensitivity = 0.0125 / denom;
   }
 
-  constexpr auto dlyTop0 = top0;
-  constexpr auto dlyTop1 = dlyTop0 + 1 * labelY;
-  constexpr auto dlyTop2 = dlyTop0 + 2 * labelY;
-  constexpr auto dlyTop3 = dlyTop0 + 3 * labelY;
-  constexpr auto dlyLeft0 = left4;
-  constexpr auto dlyLeft1 = dlyLeft0 + labelWidth + 2 * margin;
+  const auto dlyTop0 = top0;
+  const auto dlyTop1 = dlyTop0 + 1 * labelY;
+  const auto dlyTop2 = dlyTop0 + 2 * labelY;
+  const auto dlyTop3 = dlyTop0 + 3 * labelY;
+  const auto dlyLeft0 = left4;
+  const auto dlyLeft1 = dlyLeft0 + labelWidth + 2 * margin;
   addGroupLabel(dlyLeft0, dlyTop0, groupLabelWidth, labelHeight, uiTextSize, "Delay");
   addLabel(dlyLeft0, dlyTop1, labelWidth, labelHeight, uiTextSize, "Transform");
   std::vector<std::string> transformItems{
@@ -185,20 +166,19 @@ bool Editor::prepareUI()
     dlyLeft1, dlyTop3, labelWidth, labelHeight, uiTextSize, ID::feedback,
     Scales::feedback, false, 5);
 
-  constexpr auto maskTop0 = dlyTop3 + labelY;
-  constexpr auto maskTop1 = maskTop0 + 1 * labelY;
-  constexpr auto maskTop2 = maskTop0 + 2 * labelY;
-  constexpr auto maskTop3 = maskTop0 + 3 * labelY;
-  constexpr auto maskTop4 = maskTop0 + 4 * labelY;
-  constexpr auto maskTop5 = maskTop0 + 5 * labelY;
-  constexpr auto maskTop6 = maskTop0 + 6 * labelY;
-  constexpr auto maskTop7 = maskTop0 + 7 * labelY;
-  constexpr auto maskTop8 = maskTop0 + 8 * labelY;
-  constexpr auto maskTop9 = maskTop0 + 9 * labelY;
-  constexpr auto maskLeft0 = left4;
-  constexpr auto maskLeft1 = maskLeft0 + labelWidth + 2 * margin;
-  constexpr auto maskLeft2 = maskLeft1 + labelWidth + 2 * margin;
-  constexpr auto maskLeft2Knob = maskLeft2 + 2 * margin;
+  const auto maskTop0 = dlyTop3 + labelY;
+  const auto maskTop1 = maskTop0 + 1 * labelY;
+  const auto maskTop2 = maskTop0 + 2 * labelY;
+  const auto maskTop3 = maskTop0 + 3 * labelY;
+  const auto maskTop4 = maskTop0 + 4 * labelY;
+  const auto maskTop5 = maskTop0 + 5 * labelY;
+  const auto maskTop6 = maskTop0 + 6 * labelY;
+  const auto maskTop7 = maskTop0 + 7 * labelY;
+  const auto maskTop8 = maskTop0 + 8 * labelY;
+  const auto maskLeft0 = left4;
+  const auto maskLeft1 = maskLeft0 + labelWidth + 2 * margin;
+  const auto maskLeft2 = maskLeft1 + labelWidth + 2 * margin;
+  const auto maskLeft2Knob = maskLeft2 + 2 * margin;
   addGroupLabel(maskLeft0, maskTop0, groupLabelWidth, labelHeight, uiTextSize, "Mask");
 
   addLabel(maskLeft2, maskTop1, lfoKnobWidth, labelHeight, uiTextSize, "LFO");
@@ -247,11 +227,11 @@ bool Editor::prepareUI()
   addSmallKnob(maskLeft2Knob, maskTop8, labelHeight, labelHeight, ID::lfoToMaskChirp);
 
   // Plugin name.
-  constexpr auto splashMargin = uiMargin - margin;
-  constexpr auto splashWidth = groupLabelWidth;
-  constexpr auto splashHeight = labelHeight;
-  constexpr auto splashTop = defaultHeight - splashHeight - uiMargin;
-  constexpr auto splashLeft = left0;
+  const auto splashMargin = uiMargin - margin;
+  const auto splashWidth = groupLabelWidth;
+  const auto splashHeight = labelHeight;
+  const auto splashTop = defaultHeight - splashHeight - uiMargin;
+  const auto splashLeft = left0;
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,

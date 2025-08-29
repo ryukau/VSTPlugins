@@ -82,6 +82,7 @@ public:
   {
     const auto width = getWidth();
     const auto height = getHeight();
+    const auto sc = pal.guiScale();
 
     pContext->setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));
     CDrawContext::Transform t(
@@ -92,42 +93,47 @@ public:
     pContext->drawRect(CRect(0, 0, width, height), kDrawFilled);
 
     // Grid.
+    const auto dotRadius = sc * 2.0;
     pContext->setFillColor(pal.foregroundInactive());
     for (size_t ix = 1; ix < nGrid; ++ix) {
       for (size_t iy = 1; iy < nGrid; ++iy) {
         auto cx = std::floor(ix * width / nGrid);
         auto cy = std::floor(iy * height / nGrid);
-        pContext->drawEllipse(CRect(cx - 2.0, cy - 2.0, cx + 2.0, cy + 2.0), kDrawFilled);
+        pContext->drawEllipse(
+          CRect(cx - dotRadius, cy - dotRadius, cx + dotRadius, cy + dotRadius),
+          kDrawFilled);
       }
     }
 
     // Cursor.
     if (isMouseEntered) {
       pContext->setFrameColor(pal.highlightMain());
-      pContext->setLineWidth(1.0);
+      pContext->setLineWidth(sc * 1.0);
       pContext->drawLine(CPoint(0, mousePosition.y), CPoint(width, mousePosition.y));
       pContext->drawLine(CPoint(mousePosition.x, 0), CPoint(mousePosition.x, height));
     }
 
     // Value.
-    double valueX = std::floor(value[0] * width);
-    double valueY = std::floor((1 - value[1]) * height);
-    constexpr double valR = 8.0; // Radius of value pointer circle.
+    auto valueX = std::floor(value[0] * width);
+    auto valueY = std::floor((1 - value[1]) * height);
+    const auto valR = sc * 8.0; // Radius of value pointer circle.
     pContext->setFrameColor(pal.foreground());
 
-    pContext->setLineWidth(2.0);
+    pContext->setLineWidth(sc * 2.0);
     pContext->drawEllipse(
       CRect(valueX - valR, valueY - valR, valueX + valR, valueY + valR), kDrawStroked);
 
-    pContext->setLineWidth(1.0);
+    pContext->setLineWidth(sc * 1.0);
     pContext->drawLine(CPoint(0, valueY), CPoint(width, valueY));
     pContext->drawLine(CPoint(valueX, 0), CPoint(valueX, height));
 
     // Border.
-    pContext->setLineWidth(borderWidth);
+    const auto borderW = int(sc * borderWidth);
+    const auto halfBorderW = int(borderW / 2);
+    pContext->setLineWidth(borderW);
     pContext->setFrameColor(
       isMouseEntered || isMouseDown ? pal.highlightMain() : pal.border());
-    pContext->drawRect(CRect(0, 0, width, height), kDrawStroked);
+    pContext->drawRect(CRect(halfBorderW, halfBorderW, width, height), kDrawStroked);
   }
 
   void onMouseEnterEvent(MouseEnterEvent &event) override

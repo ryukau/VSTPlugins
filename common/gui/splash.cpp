@@ -38,21 +38,18 @@ void SplashLabel::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
+  const auto sc = pal.guiScale();
 
-  const double borderWidth = isMouseEntered ? highlightFrameWidth : frameWidth;
-  const double halfBorderWidth = int(borderWidth / 2.0);
+  auto borderW = int(sc * (isMouseEntered ? highlightFrameWidth : frameWidth));
+  borderW += 1 ^ (borderW % 2); // Always odd number.
   pContext->setFillColor(pal.boxBackground());
   pContext->setFrameColor(isMouseEntered ? pal.highlightButton() : pal.border());
-  pContext->setLineWidth(borderWidth);
-  pContext->drawRect(
-    CRect(
-      halfBorderWidth, halfBorderWidth, width - halfBorderWidth,
-      height - halfBorderWidth),
-    kDrawFilledAndStroked);
+  pContext->setLineWidth(borderW);
+  pContext->drawRect(CRect(0, 0, width, height), kDrawFilledAndStroked);
 
   pContext->setFont(fontId);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString(label.c_str(), CRect(0.0, 0.0, width, height), kCenterText, true);
+  pContext->drawString(label.c_str(), CRect(0, 0, width, height), kCenterText, true);
 
   setDirty(false);
 }

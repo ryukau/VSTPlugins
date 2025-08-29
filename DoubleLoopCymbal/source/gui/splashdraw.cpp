@@ -17,8 +17,9 @@ void CreditView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
-  const double borderWidth = 2.0;
-  const double halfBorderWidth = borderWidth / 2.0;
+  const auto sc = pal.guiScale();
+  const double borderWidth = int(sc * 2);
+  const double halfBorderWidth = int(borderWidth / 2);
 
   // Background.
   pContext->setLineWidth(borderWidth);
@@ -36,11 +37,13 @@ void CreditView::draw(CDrawContext *pContext)
   // Text.
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("DoubleLoopCymbal " VERSION_STR, CPoint(20.0, 40.0));
+  pContext->drawString(
+    "DoubleLoopCymbal " VERSION_STR, CPoint(int(sc * 20), int(sc * 40)));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("© 2024 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0f, 60.0f));
+  pContext->drawString(
+    "© 2024 Takamitsu Endo (ryukau@gmail.com)", CPoint(int(sc * 20), int(sc * 60)));
 
   std::string textColumn0 = R"(- Number Sliders -
 Shift + Left Drag|Fine Adjustment
@@ -70,12 +73,13 @@ To get consistent sound, check `Fixed Noise`.
 
 `Release` disables Closing Noise section.)";
 
-  const float top0 = 100.0f;
-  const float lineHeight = 20.0f;
-  const float blockWidth = 115.0f;
-  drawTextBlock(pContext, 20.0f, top0, lineHeight, blockWidth, textColumn0);
-  drawTextBlock(pContext, 320.0f, top0, lineHeight, blockWidth, textColumn1);
-  drawTextBlock(pContext, 620.0f, top0, lineHeight, blockWidth, "Have a nice day!");
+  const float top0 = int(sc * 100);
+  const float lineHeight = int(sc * 20);
+  const float blockWidth = int(sc * 115);
+  drawTextBlock(pContext, int(sc * 20), top0, lineHeight, blockWidth, textColumn0);
+  drawTextBlock(pContext, int(sc * 320), top0, lineHeight, blockWidth, textColumn1);
+  drawTextBlock(
+    pContext, int(sc * 620), top0, lineHeight, blockWidth, "Have a nice day!");
 
   setDirty(false);
 }

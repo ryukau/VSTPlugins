@@ -7,21 +7,6 @@
 #include <algorithm>
 #include <random>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float pluginNameTextSize = 14.0f;
-constexpr float margin = 5.0f;
-constexpr float uiMargin = 20.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float knobWidth = 80.0f;
-constexpr float halfKnobWidth = knobWidth / 2;
-constexpr float knobX = knobWidth + 2 * margin;
-constexpr float knobY = knobWidth + labelHeight + 2 * margin;
-constexpr float labelY = labelHeight + 2 * margin;
-
-constexpr int_least32_t defaultWidth
-  = int_least32_t(2 * uiMargin + 4 * knobX - 2 * margin);
-constexpr int_least32_t defaultHeight = int_least32_t(2 * uiMargin + 8 * labelY + knobY);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -30,9 +15,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 bool Editor::prepareUI()
@@ -41,20 +23,20 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  constexpr auto top1 = uiMargin;
-  constexpr auto top2 = top1 + knobY + 2 * margin;
-  constexpr auto top3 = top2 + labelY;
-  constexpr auto top4 = top3 + labelY;
-  constexpr auto top5 = top4 + labelY;
-  constexpr auto top6 = top5 + labelY;
-  constexpr auto top7 = top6 + labelY;
-  constexpr auto top8 = top7 + labelY;
-  constexpr auto top9 = top8 + labelY;
+  const auto top1 = uiMargin;
+  const auto top2 = top1 + knobY + 2 * margin;
+  const auto top3 = top2 + labelY;
+  const auto top4 = top3 + labelY;
+  const auto top5 = top4 + labelY;
+  const auto top6 = top5 + labelY;
+  const auto top7 = top6 + labelY;
+  const auto top8 = top7 + labelY;
+  const auto top9 = top8 + labelY;
 
-  constexpr auto left0 = uiMargin;
-  constexpr auto left1 = left0 + knobX;
-  constexpr auto left2 = left1 + knobX;
-  constexpr auto left3 = left2 + knobX;
+  const auto left0 = uiMargin;
+  const auto left1 = left0 + knobX;
+  const auto left2 = left1 + knobX;
+  const auto left3 = left2 + knobX;
 
   // Distortion.
   addKnob<Style::accent>(
@@ -126,11 +108,11 @@ bool Editor::prepareUI()
     left3, top8, knobWidth, labelHeight, uiTextSize, ID::oversampling, oversamplingItems);
 
   // Plugin name.
-  constexpr auto splashMargin = uiMargin;
-  constexpr auto splashWidth = int(1.75 * knobWidth) + 2 * margin;
-  constexpr auto splashHeight = labelHeight;
-  constexpr auto splashTop = top9;
-  constexpr auto splashLeft = left2 + int(0.25 * knobWidth);
+  const auto splashMargin = uiMargin;
+  const auto splashWidth = int(1.75 * knobWidth) + 2 * margin;
+  const auto splashHeight = labelHeight;
+  const auto splashTop = top9;
+  const auto splashLeft = left2 + int(0.25 * knobWidth);
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,

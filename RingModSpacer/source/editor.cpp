@@ -8,20 +8,6 @@
 #include <algorithm>
 #include <random>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float pluginNameTextSize = 14.0f;
-constexpr float margin = 5.0f;
-constexpr float uiMargin = 20.0f;
-constexpr float labelWidth = 80.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float labelY = labelHeight + 2 * margin;
-constexpr float halfLabelWidth = int(labelWidth / 2);
-
-constexpr int_least32_t defaultWidth
-  = int_least32_t(2 * uiMargin + 6 * labelWidth + 14 * margin);
-constexpr int_least32_t defaultHeight
-  = int_least32_t(2 * uiMargin + 6 * labelY - 2 * margin);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -30,9 +16,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 void Editor::valueChanged(CControl *pControl)
@@ -58,20 +41,20 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  constexpr auto top0 = uiMargin;
-  constexpr auto left0 = uiMargin;
+  const auto top0 = uiMargin;
+  const auto left0 = uiMargin;
 
   const auto gainRange = Scales::gain.getRangeDB();
 
   // Misc.
-  constexpr auto miscTop0 = top0;
-  constexpr auto miscTop1 = miscTop0 + labelY;
-  constexpr auto miscTop2 = miscTop1 + labelY;
-  constexpr auto miscTop3 = miscTop2 + labelY;
-  constexpr auto miscTop4 = miscTop3 + labelY;
-  constexpr auto miscTop5 = miscTop4 + labelY;
-  constexpr auto miscLeft0 = left0;
-  constexpr auto miscLeft1 = miscLeft0 + labelWidth + 2 * margin;
+  const auto miscTop0 = top0;
+  const auto miscTop1 = miscTop0 + labelY;
+  const auto miscTop2 = miscTop1 + labelY;
+  const auto miscTop3 = miscTop2 + labelY;
+  const auto miscTop4 = miscTop3 + labelY;
+  const auto miscTop5 = miscTop4 + labelY;
+  const auto miscLeft0 = left0;
+  const auto miscLeft1 = miscLeft0 + labelWidth + 2 * margin;
 
   addGroupLabel(
     miscLeft0, miscTop0, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Gain");
@@ -102,12 +85,12 @@ bool Editor::prepareUI()
     miscLeft1, miscTop5, labelWidth, labelHeight, uiTextSize,
     ID::parameterSmoothingSecond, Scales::parameterSmoothingSecond, false, 5);
 
-  constexpr auto inputTop0 = top0;
-  constexpr auto inputTop1 = inputTop0 + labelY;
-  constexpr auto inputTop2 = inputTop1 + labelY;
-  constexpr auto inputTop3 = inputTop2 + labelY;
-  constexpr auto inputLeft0 = miscLeft0 + 2 * labelWidth + 6 * margin;
-  constexpr auto inputLeft1 = inputLeft0 + labelWidth + 2 * margin;
+  const auto inputTop0 = top0;
+  const auto inputTop1 = inputTop0 + labelY;
+  const auto inputTop2 = inputTop1 + labelY;
+  const auto inputTop3 = inputTop2 + labelY;
+  const auto inputLeft0 = miscLeft0 + 2 * labelWidth + 6 * margin;
+  const auto inputLeft1 = inputLeft0 + labelWidth + 2 * margin;
 
   addGroupLabel(
     inputLeft0, inputTop0, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Input");
@@ -133,12 +116,12 @@ bool Editor::prepareUI()
     inputLeft1, inputTop3, labelWidth, labelHeight, uiTextSize,
     ID::inputLimiterReleaseSeconds, Scales::limiterReleaseSeconds, false, 5);
 
-  constexpr auto sideTop0 = top0;
-  constexpr auto sideTop1 = sideTop0 + labelY;
-  constexpr auto sideTop2 = sideTop1 + labelY;
-  constexpr auto sideTop3 = sideTop2 + labelY;
-  constexpr auto sideLeft0 = inputLeft0 + 2 * labelWidth + 6 * margin;
-  constexpr auto sideLeft1 = sideLeft0 + labelWidth + 2 * margin;
+  const auto sideTop0 = top0;
+  const auto sideTop1 = sideTop0 + labelY;
+  const auto sideTop2 = sideTop1 + labelY;
+  const auto sideTop3 = sideTop2 + labelY;
+  const auto sideLeft0 = inputLeft0 + 2 * labelWidth + 6 * margin;
+  const auto sideLeft1 = sideLeft0 + labelWidth + 2 * margin;
 
   addGroupLabel(
     sideLeft0, sideTop0, 2 * (labelWidth + margin), labelHeight, uiTextSize, "Side");
@@ -165,11 +148,11 @@ bool Editor::prepareUI()
     ID::sideLimiterReleaseSeconds, Scales::limiterReleaseSeconds, false, 5);
 
   // Plugin name.
-  constexpr auto splashMargin = uiMargin;
-  constexpr auto splashWidth = int(2 * labelWidth + 4 * margin);
-  constexpr auto splashHeight = labelHeight + margin;
-  constexpr auto splashTop = defaultHeight - uiMargin - splashHeight;
-  constexpr auto splashLeft = inputLeft1;
+  const auto splashMargin = uiMargin;
+  const auto splashWidth = int(2 * labelWidth + 4 * margin);
+  const auto splashHeight = labelHeight + margin;
+  const auto splashTop = defaultHeight - uiMargin - splashHeight;
+  const auto splashLeft = inputLeft1;
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,

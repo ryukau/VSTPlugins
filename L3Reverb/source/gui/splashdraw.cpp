@@ -17,8 +17,9 @@ void CreditView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
-  const double borderWidth = 2.0;
-  const double halfBorderWidth = borderWidth / 2.0;
+  const auto sc = pal.guiScale();
+  const double borderWidth = int(sc * 2);
+  const double halfBorderWidth = int(borderWidth / 2);
 
   // Background.
   pContext->setLineWidth(borderWidth);
@@ -36,11 +37,12 @@ void CreditView::draw(CDrawContext *pContext)
   // Text.
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("L3Reverb " VERSION_STR, CPoint(20.0, 50.0));
+  pContext->drawString("L3Reverb " VERSION_STR, CPoint(int(sc * 20), int(sc * 50)));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("© 2020 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0, 90.0));
+  pContext->drawString(
+    "© 2020 Takamitsu Endo (ryukau@gmail.com)", CPoint(int(sc * 20), int(sc * 90)));
 
   std::string barboxTextLeft = R"(- BarBox -
 Ctrl + Left Drag|Reset to Default
@@ -86,12 +88,12 @@ Use Panic! button in case of blow up.
 
 Have a nice day!)";
 
-  const float top0 = 140.0f;
-  const float lineHeight = 20.0f;
-  const float blockWidth = 160.0f;
-  drawTextBlock(pContext, 20.0f, top0, lineHeight, blockWidth, barboxTextLeft);
-  drawTextBlock(pContext, 390.0f, top0, lineHeight, blockWidth, barboxTextRight);
-  drawTextBlock(pContext, 760.0f, top0, lineHeight, blockWidth, miscText);
+  const float top0 = int(sc * 140);
+  const float lineHeight = int(sc * 20);
+  const float blockWidth = int(sc * 160);
+  drawTextBlock(pContext, int(sc * 20), top0, lineHeight, blockWidth, barboxTextLeft);
+  drawTextBlock(pContext, int(sc * 390), top0, lineHeight, blockWidth, barboxTextRight);
+  drawTextBlock(pContext, int(sc * 760), top0, lineHeight, blockWidth, miscText);
 
   setDirty(false);
 }

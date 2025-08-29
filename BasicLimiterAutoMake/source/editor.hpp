@@ -23,6 +23,45 @@ public:
 
 protected:
   TextTableView *infoTextView = nullptr;
+
+  float uiTextSize = 12.0f;
+  float midTextSize = 12.0f;
+  float pluginNameTextSize = 14.0f;
+  float margin = 5.0f;
+  float uiMargin = 20.0f;
+  float labelHeight = 20.0f;
+  float labelY = 30.0f;
+  float splashHeight = 30.0f;
+
+  float limiterLabelWidth = 100.0f;
+  float checkboxWidth = 2.0f * limiterLabelWidth;
+
+  uint32_t defaultWidth = uint32_t(2 * uiMargin + 2 * limiterLabelWidth);
+  uint32_t defaultHeight = uint32_t(2 * uiMargin + 10 * labelY + splashHeight);
+
+  void setDimensions() override
+  {
+    const float sc = palette.guiScale();
+
+    uiTextSize = int(sc * 12);
+    midTextSize = int(sc * 12);
+    pluginNameTextSize = int(sc * 14);
+    margin = int(sc * 5);
+    uiMargin = int(sc * 20);
+    labelHeight = int(sc * 20);
+    labelY = int(sc * 30);
+    splashHeight = int(sc * 30);
+
+    limiterLabelWidth = int(sc * 100);
+    checkboxWidth = 2 * limiterLabelWidth;
+
+    defaultWidth = uint32_t(2 * uiMargin + 2 * limiterLabelWidth);
+    defaultHeight = uint32_t(2 * uiMargin + 10 * labelY + splashHeight);
+
+    viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
+    setRect(viewRect);
+  }
+
   ParamValue getPlainValue(ParamID id);
   bool prepareUI() override;
 };

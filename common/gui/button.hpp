@@ -47,14 +47,11 @@ public:
       pContext->setFillColor(value ? pal.highlightButton() : pal.boxBackground());
       pContext->setFrameColor(isMouseEntered ? pal.highlightButton() : pal.border());
     }
-    const double borderW = isMouseEntered ? 2 * borderWidth : borderWidth;
-    const double halfBorderWidth = int(borderW / 2.0);
+
+    auto borderW = int(pal.guiScale() * borderWidth * (isMouseEntered ? 2 : 1));
+    borderW += 1 ^ (borderW % 2); // Always odd number.
     pContext->setLineWidth(borderW);
-    pContext->drawRect(
-      CRect(
-        halfBorderWidth, halfBorderWidth, getWidth() - halfBorderWidth,
-        getHeight() - halfBorderWidth),
-      kDrawFilledAndStroked);
+    pContext->drawRect(CRect(0, 0, getWidth(), getHeight()), kDrawFilledAndStroked);
 
     // Text
     pContext->setFont(fontId);
@@ -213,7 +210,9 @@ public:
     // Border and background.
     pContext->setFillColor(isPressed ? pal.highlightButton() : pal.boxBackground());
     pContext->setFrameColor(isMouseEntered ? pal.highlightButton() : pal.border());
-    pContext->setLineWidth(isMouseEntered ? 2 * borderWidth : borderWidth);
+    auto borderW = int(pal.guiScale() * borderWidth);
+    borderW += 1 ^ (borderW % 2); // Always odd number.
+    pContext->setLineWidth(isMouseEntered ? 2 * borderW : borderW);
     pContext->drawRect(CRect(0, 0, getWidth(), getHeight()), kDrawFilledAndStroked);
 
     // Text

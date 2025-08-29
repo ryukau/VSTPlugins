@@ -17,8 +17,10 @@ void CreditView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
-  const double borderWidth = 2.0;
-  const double halfBorderWidth = borderWidth / 2.0;
+  const auto sc = pal.guiScale();
+  const double borderWidth = int(sc * 2);
+  const double halfBorderWidth = int(borderWidth / 2);
+  const auto left0 = int(sc * 20);
 
   // Background.
   pContext->setLineWidth(borderWidth);
@@ -27,16 +29,19 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("SoftClipper " VERSION_STR, CPoint(20.0, 20.0));
+  pContext->drawString("SoftClipper " VERSION_STR, CPoint(left0, int(sc * 30)));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("© 2020 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0, 40.0));
+  pContext->drawString(
+    "© 2020 Takamitsu Endo (ryukau@gmail.com)", CPoint(left0, int(sc * 50)));
 
-  pContext->drawString("- Shift + Left Drag: Fine Adjustment", CPoint(20.0f, 65.0f));
-  pContext->drawString("- Ctrl + Left Click: Reset to Default", CPoint(20.0f, 85.0f));
+  pContext->drawString(
+    "- Shift + Left Drag: Fine Adjustment", CPoint(left0, int(sc * 80)));
+  pContext->drawString(
+    "- Ctrl + Left Click: Reset to Default", CPoint(left0, int(sc * 100)));
 
-  pContext->drawString("Have a nice day!", CPoint(372.0f, 85.0f));
+  pContext->drawString("Have a nice day!", CPoint(left0, int(sc * 130)));
 
   // Border.
   pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());

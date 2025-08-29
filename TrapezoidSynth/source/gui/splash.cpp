@@ -17,29 +17,33 @@ void SplashLabelTpz::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
+  const auto sc = pal.guiScale();
 
   pContext->setFont(fontId);
   pContext->setFontColor(pal.foreground());
-  const auto textOffsetTop = 6.0;
-  const auto textOffsetLeft = 3.0;
+  const auto textOffsetTop = int(sc * 6);
+  const auto textOffsetLeft = int(sc * 3);
   pContext->drawString(
     label.c_str(), CRect(textOffsetLeft, textOffsetTop, width, height), kCenterText,
     true);
 
-  const double borderWidth = isMouseEntered ? highlightFrameWidth : frameWidth;
-  const double halfBorderWidth = int(borderWidth / 2.0);
+  const auto borderWidth = int(sc * (isMouseEntered ? highlightFrameWidth : frameWidth));
+  const auto trapezoidAdjuster = int(sc * 25);
   pContext->setFrameColor(isMouseEntered ? pal.highlightButton() : pal.border());
   pContext->setLineStyle(
     CLineStyle{CLineStyle::kLineCapRound, CLineStyle::kLineJoinRound});
   pContext->setLineWidth(borderWidth);
-  pContext->drawLine(CPoint(25.0, borderWidth), CPoint(width - 25.0, borderWidth));
+  pContext->drawLine(
+    CPoint(trapezoidAdjuster, borderWidth),
+    CPoint(width - trapezoidAdjuster, borderWidth));
   pContext->drawLine(
     CPoint(borderWidth, height - borderWidth),
     CPoint(width - borderWidth, height - borderWidth));
   pContext->drawLine(
-    CPoint(25.0, borderWidth), CPoint(borderWidth, height - borderWidth));
+    CPoint(trapezoidAdjuster, borderWidth), CPoint(borderWidth, height - borderWidth));
   pContext->drawLine(
-    CPoint(width - 25.0, borderWidth), CPoint(width - borderWidth, height - borderWidth));
+    CPoint(width - trapezoidAdjuster, borderWidth),
+    CPoint(width - borderWidth, height - borderWidth));
 
   setDirty(false);
 }

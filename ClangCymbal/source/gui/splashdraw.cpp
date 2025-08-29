@@ -17,14 +17,15 @@ void CreditView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
-  const double borderWidth = 2.0;
-  const double halfBorderWidth = borderWidth / 2.0;
+  const auto sc = pal.guiScale();
+  const double borderWidth = int(sc * 2);
+  const double halfBorderWidth = int(borderWidth / 2);
 
-  const float top0 = 50.0f;
-  const float topTextBlock = 140.0f;
-  const float lineHeight = 20.0f;
-  const float blockWidth = 180.0f;
-  const float mid = 20 + width / 2;
+  const float top0 = int(sc * 50);
+  const float topTextBlock = int(sc * 140);
+  const float lineHeight = int(sc * 20);
+  const float blockWidth = int(sc * 180);
+  const float mid = lineHeight + int(width / 2);
   const float left = mid - 2 * blockWidth;
 
   // Background.
@@ -39,7 +40,7 @@ void CreditView::draw(CDrawContext *pContext)
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
   pContext->drawString(
-    "© 2021 Takamitsu Endo (ryukau@gmail.com)", CPoint(left, top0 + 40.0));
+    "© 2021 Takamitsu Endo (ryukau@gmail.com)", CPoint(left, top0 + 2 * lineHeight));
 
   std::string leftText = R"(- BarBox -
 Ctrl + Left Drag|Reset to Default

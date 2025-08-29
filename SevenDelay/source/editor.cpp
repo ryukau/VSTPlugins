@@ -8,18 +8,6 @@
 #include <iomanip>
 #include <sstream>
 
-constexpr uint32_t defaultWidth = 960;
-constexpr uint32_t defaultHeight = 330;
-constexpr float pluginNameTextSize = 24.0f;
-constexpr float labelHeight = 30.0f;
-constexpr float midTextSize = 14.0f;
-constexpr float uiTextSize = 14.0f;
-constexpr float infoTextSize = 12.0f;
-constexpr float checkboxWidth = 80.0f;
-constexpr float sliderWidth = 70.0f;
-constexpr float sliderHeight = 230.0f;
-constexpr float margin = 0.0f;
-
 namespace Steinberg {
 namespace Vst {
 
@@ -28,9 +16,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 Editor::~Editor()
@@ -127,28 +112,31 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  const auto normalWidth = 80.0f;
-  const auto normalHeight = normalWidth + 40.0f;
-  const auto smallWidth = 40.0f;
-  const auto smallHeight = 50.0f;
-  const auto interval = 100.0f;
+  const auto sc = palette.guiScale();
+
+  const auto normalWidth = int(sc * 80);
+  const auto normalHeight = normalWidth + int(sc * 40);
+  const auto smallWidth = int(sc * 40);
+  const auto smallHeight = int(sc * 50);
+  const auto interval = int(sc * 100);
 
   // Delay.
-  const auto delayTop1 = 50.0f;
-  const auto delayLeft = 20.0f;
-  addGroupLabel(delayLeft, 10.0f, 480.0f, labelHeight, midTextSize, "Delay");
+  const auto delayTop1 = int(sc * 50);
+  const auto delayLeft = int(sc * 20);
+  addGroupLabel(
+    delayLeft, int(sc * 10), int(sc * 480), labelHeight, midTextSize, "Delay");
   addKnob(delayLeft, delayTop1, normalWidth, margin, uiTextSize, "Time", ID::time);
   addKnob(
-    1.0f * interval + delayLeft, delayTop1, normalWidth, margin, uiTextSize, "Feedback",
+    1 * interval + delayLeft, delayTop1, normalWidth, margin, uiTextSize, "Feedback",
     ID::feedback);
   addKnob(
-    2.0f * interval + delayLeft, delayTop1, normalWidth, margin, uiTextSize, "Stereo",
+    2 * interval + delayLeft, delayTop1, normalWidth, margin, uiTextSize, "Stereo",
     ID::offset);
   addKnob(
-    3.0f * interval + delayLeft, delayTop1, normalWidth, margin, uiTextSize, "Wet",
+    3 * interval + delayLeft, delayTop1, normalWidth, margin, uiTextSize, "Wet",
     ID::wetMix);
   addKnob<Style::accent>(
-    4.0f * interval + delayLeft, delayTop1, normalWidth, margin, uiTextSize, "Dry",
+    4 * interval + delayLeft, delayTop1, normalWidth, margin, uiTextSize, "Dry",
     ID::dryMix);
 
   const auto delayTop2 = delayTop1 + normalHeight;
@@ -157,15 +145,16 @@ bool Editor::prepareUI()
 
   if (timeTextView) timeTextView->forget();
   timeTextView = addTextView(
-    delayLeft, delayTop2 - 15.0f, checkboxWidth + 15.0f, 40.0f, infoTextSize, "");
+    delayLeft, delayTop2 - int(sc * 15), checkboxWidth + int(sc * 15), int(sc * 40),
+    infoTextSize, "");
   timeTextView->remember();
 
   addCheckbox(
-    delayLeft + 10.0f, delayTop3 - 15.0f, checkboxWidth, labelHeight, uiTextSize, "Sync",
-    ID::tempoSync);
+    delayLeft + int(sc * 10), delayTop3 - int(sc * 15), checkboxWidth, labelHeight,
+    uiTextSize, "Sync", ID::tempoSync);
   addCheckbox(
-    delayLeft + 10.0f, delayTop3 + 15.0f, checkboxWidth, labelHeight, uiTextSize,
-    "Negative", ID::negativeFeedback);
+    delayLeft + int(sc * 10), delayTop3 + int(sc * 15), checkboxWidth, labelHeight,
+    uiTextSize, "Negative", ID::negativeFeedback);
 
   addKnob(
     1.0f * interval + delayLeft, delayTop2, smallWidth, margin, uiTextSize, "In Spread",
@@ -196,41 +185,42 @@ bool Editor::prepareUI()
 
   // LFO.
   // 750 - 520 = 230 / 3 = 66 + 10
-  const auto lfoLeft1 = 520.0f;
-  addGroupLabel(520.0f, 10.0f, 420.0f, labelHeight, midTextSize, "LFO");
+  const auto lfoLeft1 = int(sc * 520);
+  addGroupLabel(lfoLeft1, int(sc * 10), int(sc * 420), labelHeight, midTextSize, "LFO");
   addVSlider(
-    lfoLeft1, 50.0f, sliderWidth, sliderHeight, margin, labelHeight, uiTextSize,
+    lfoLeft1, int(sc * 50), sliderWidth, sliderHeight, margin, labelHeight, uiTextSize,
     "To Time", ID::lfoTimeAmount);
   addVSlider(
-    lfoLeft1 + 75.0f, 50.0f, sliderWidth, sliderHeight, margin, labelHeight, uiTextSize,
-    "To Allpass", ID::lfoToneAmount);
+    lfoLeft1 + int(sc * 75), int(sc * 50), sliderWidth, sliderHeight, margin, labelHeight,
+    uiTextSize, "To Allpass", ID::lfoToneAmount);
   addVSlider<Style::accent>(
-    lfoLeft1 + 150.0f, 50.0f, sliderWidth, sliderHeight, margin, labelHeight, uiTextSize,
-    "Frequency", ID::lfoFrequency);
-  const auto lfoLeft2 = lfoLeft1 + 230.0f;
-  addKnob(lfoLeft2, 50.0f, normalWidth, margin, uiTextSize, "Shape", ID::lfoShape);
+    lfoLeft1 + int(sc * 150), int(sc * 50), sliderWidth, sliderHeight, margin,
+    labelHeight, uiTextSize, "Frequency", ID::lfoFrequency);
+  const auto lfoLeft2 = lfoLeft1 + int(sc * 230);
+  addKnob(lfoLeft2, int(sc * 50), normalWidth, margin, uiTextSize, "Shape", ID::lfoShape);
   addKnob(
-    interval + lfoLeft2, 50.0f, normalWidth, margin, uiTextSize, "Phase",
+    interval + lfoLeft2, int(sc * 50), normalWidth, margin, uiTextSize, "Phase",
     ID::lfoInitialPhase);
 
-  const auto waveViewLeft = 760.0f;
-  const auto waveViewTop = 170.0f;
-  const auto waveViewWidth = 180.0f;
-  const auto waveViewHeight = 110.0f;
+  const auto waveViewLeft = int(sc * 760);
+  const auto waveViewTop = int(sc * 170);
+  const auto waveViewWidth = int(sc * 180);
+  const auto waveViewHeight = int(sc * 110);
   addWaveView(CRect(
     waveViewLeft, waveViewTop, waveViewLeft + waveViewWidth,
     waveViewTop + waveViewHeight));
   addToggleButton(
-    waveViewLeft, waveViewTop + waveViewHeight + 10.0f, waveViewWidth, labelHeight,
+    waveViewLeft, waveViewTop + waveViewHeight + int(sc * 10), waveViewWidth, labelHeight,
     midTextSize, "LFO Hold", ID::lfoHold);
 
   // Plugin name.
   const auto nameLeft = delayLeft;
-  const auto nameTop = defaultHeight - 50.0f;
-  const auto nameWidth = 180.0f;
+  const auto nameTop = defaultHeight - int(sc * 50);
+  const auto nameWidth = int(sc * 180);
   addSplashScreen(
-    nameLeft, nameTop, nameWidth, 40.0f, 200.0f, 20.0f, defaultWidth - 400.0f,
-    defaultHeight - 40.0f, pluginNameTextSize, "SevenDelay");
+    nameLeft, nameTop, nameWidth, int(sc * 40), int(sc * 200), int(sc * 20),
+    defaultWidth - int(sc * 400), defaultHeight - int(sc * 40), pluginNameTextSize,
+    "SevenDelay");
 
   refreshTimeTextView(ID::time);
 

@@ -7,24 +7,6 @@
 #include <algorithm>
 #include <sstream>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float midTextSize = 14.0f;
-constexpr float pluginNameTextSize = 18.0f;
-constexpr float uiMargin = 20.0f;
-constexpr float margin = 5.0f;
-constexpr float checkBoxWidth = 10.0f;
-constexpr float labelWidth = 80.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float labelY = 30.0f;
-constexpr float splashHeight = 40.0f;
-constexpr float barboxWidth = int(64) * int(1 + (7 * labelWidth + 6 * margin) / 64);
-constexpr float barboxHeight = 8 * labelHeight + 14 * margin;
-constexpr float lfoWidthFix = 25.0f;
-constexpr float innerWidth = 6 * labelWidth + 10 * margin + barboxWidth;
-constexpr float innerHeight = 8 * labelY + 2 * barboxHeight + 9 * margin;
-constexpr uint32_t defaultWidth = uint32_t(innerWidth + 2 * uiMargin);
-constexpr uint32_t defaultHeight = uint32_t(innerHeight + 2 * uiMargin);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -33,9 +15,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 bool Editor::prepareUI()
@@ -44,16 +23,16 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  constexpr auto top0 = 20.0f;
-  constexpr auto left0 = 20.0f;
+  const auto top0 = uiMargin;
+  const auto left0 = uiMargin;
 
   // Gain.
-  constexpr auto gainLeft0 = left0;
-  constexpr auto gainLeft1 = gainLeft0 + labelWidth;
-  constexpr auto gainTop0 = top0;
-  constexpr auto gainTop1 = gainTop0 + labelY;
-  constexpr auto gainTop2 = gainTop1 + labelY;
-  constexpr auto gainTop3 = gainTop2 + labelY;
+  const auto gainLeft0 = left0;
+  const auto gainLeft1 = gainLeft0 + labelWidth;
+  const auto gainTop0 = top0;
+  const auto gainTop1 = gainTop0 + labelY;
+  const auto gainTop2 = gainTop1 + labelY;
+  const auto gainTop3 = gainTop2 + labelY;
   addGroupLabel(gainLeft0, gainTop0, 2 * labelWidth, labelHeight, uiTextSize, "Gain");
 
   addLabel(gainLeft0, gainTop1, labelWidth, labelHeight, uiTextSize, "Output [dB]");
@@ -70,15 +49,15 @@ bool Editor::prepareUI()
     Scales::gateReleaseSecond, false, 5);
 
   // Tuning.
-  constexpr auto tuningLeft0 = left0;
-  constexpr auto tuningLeft1 = tuningLeft0 + labelWidth;
-  constexpr auto tuningTop0 = gainTop3 + labelY;
-  constexpr auto tuningTop1 = tuningTop0 + labelY;
-  constexpr auto tuningTop2 = tuningTop1 + labelY;
-  constexpr auto tuningTop3 = tuningTop2 + labelY;
-  constexpr auto tuningTop4 = tuningTop3 + labelY;
-  constexpr auto tuningTop5 = tuningTop4 + labelY;
-  constexpr auto tuningTop6 = tuningTop5 + labelY;
+  const auto tuningLeft0 = left0;
+  const auto tuningLeft1 = tuningLeft0 + labelWidth;
+  const auto tuningTop0 = gainTop3 + labelY;
+  const auto tuningTop1 = tuningTop0 + labelY;
+  const auto tuningTop2 = tuningTop1 + labelY;
+  const auto tuningTop3 = tuningTop2 + labelY;
+  const auto tuningTop4 = tuningTop3 + labelY;
+  const auto tuningTop5 = tuningTop4 + labelY;
+  const auto tuningTop6 = tuningTop5 + labelY;
   addGroupLabel(
     tuningLeft0, tuningTop0, 2 * labelWidth, labelHeight, uiTextSize, "Tuning");
 
@@ -115,16 +94,16 @@ bool Editor::prepareUI()
     Scales::pitchBendRange, false, 5);
 
   // Unison.
-  constexpr auto unisonLeft0 = tuningLeft0;
-  constexpr auto unisonLeft1 = unisonLeft0 + labelWidth;
-  constexpr auto unisonTop0 = tuningTop6 + labelY;
-  constexpr auto unisonTop1 = unisonTop0 + labelY;
-  constexpr auto unisonTop2 = unisonTop1 + labelY;
-  constexpr auto unisonTop3 = unisonTop2 + labelY + 2 * margin;
-  constexpr auto unisonTop4 = unisonTop3 + labelY;
-  constexpr auto unisonTop5 = unisonTop4 + labelY + 2 * margin;
-  constexpr auto unisonTop6 = unisonTop5 + labelY;
-  constexpr auto unisonTop7 = unisonTop6 + labelY + 2 * margin;
+  const auto unisonLeft0 = tuningLeft0;
+  const auto unisonLeft1 = unisonLeft0 + labelWidth;
+  const auto unisonTop0 = tuningTop6 + labelY;
+  const auto unisonTop1 = unisonTop0 + labelY;
+  const auto unisonTop2 = unisonTop1 + labelY;
+  const auto unisonTop3 = unisonTop2 + labelY + 2 * margin;
+  const auto unisonTop4 = unisonTop3 + labelY;
+  const auto unisonTop5 = unisonTop4 + labelY + 2 * margin;
+  const auto unisonTop6 = unisonTop5 + labelY;
+  const auto unisonTop7 = unisonTop6 + labelY + 2 * margin;
   addGroupLabel(
     unisonLeft0, unisonTop0, 2 * labelWidth, labelHeight, uiTextSize, "Unison/Chord");
 
@@ -149,7 +128,7 @@ bool Editor::prepareUI()
   addLabel(
     unisonLeft0, unisonTop5, labelWidth, labelHeight, uiTextSize, "Interval [st.]");
   auto halfLabelWidth = int(labelWidth / 2);
-  for (size_t idx = 0; idx < nUnisonInterval; ++idx) {
+  for (ParamID idx = 0; idx < nUnisonInterval; ++idx) {
     addTextKnob(
       unisonLeft0 + idx * halfLabelWidth, unisonTop6, halfLabelWidth, labelHeight,
       uiTextSize, ID::unisonIntervalSemitone0 + idx, Scales::unisonIntervalSemitone,
@@ -164,11 +143,11 @@ bool Editor::prepareUI()
   }
 
   // Misc.
-  constexpr auto miscLeft0 = tuningLeft0;
-  constexpr auto miscLeft1 = miscLeft0 + labelWidth;
-  constexpr auto miscTop0 = unisonTop7 + labelY;
-  constexpr auto miscTop1 = miscTop0 + labelY;
-  constexpr auto miscTop2 = miscTop1 + labelY;
+  const auto miscLeft0 = tuningLeft0;
+  const auto miscLeft1 = miscLeft0 + labelWidth;
+  const auto miscTop0 = unisonTop7 + labelY;
+  const auto miscTop1 = miscTop0 + labelY;
+  const auto miscTop2 = miscTop1 + labelY;
 
   addGroupLabel(miscLeft0, miscTop0, 2 * labelWidth, labelHeight, uiTextSize, "Misc.");
 
@@ -183,20 +162,20 @@ bool Editor::prepareUI()
     Scales::smoothingTimeSecond, false, 5);
 
   // Oscillator.
-  constexpr auto oscLeft0 = gainLeft0 + 2 * labelWidth + 4 * margin;
-  constexpr auto oscLeft1 = oscLeft0 + labelWidth;
-  constexpr auto oscLeft2 = oscLeft1 + labelWidth + 2 * margin;
-  constexpr auto oscLeft3 = oscLeft2 + labelWidth;
+  const auto oscLeft0 = gainLeft0 + 2 * labelWidth + 4 * margin;
+  const auto oscLeft1 = oscLeft0 + labelWidth;
+  const auto oscLeft2 = oscLeft1 + labelWidth + 2 * margin;
+  const auto oscLeft3 = oscLeft2 + labelWidth;
 
-  constexpr auto oscTop0 = top0;
-  constexpr auto oscTop1 = oscTop0 + labelY;
-  constexpr auto oscTop2 = oscTop1 + labelY;
-  constexpr auto oscTop3 = oscTop2 + labelY;
-  constexpr auto oscTop4 = oscTop3 + labelY;
-  constexpr auto oscTop5 = oscTop4 + labelY;
-  constexpr auto oscTop6 = oscTop5 + labelY;
-  constexpr auto oscTop7 = oscTop6 + labelY + 2 * margin;
-  constexpr auto oscTop8 = oscTop7 + 4 * labelY;
+  const auto oscTop0 = top0;
+  const auto oscTop1 = oscTop0 + labelY;
+  const auto oscTop2 = oscTop1 + labelY;
+  const auto oscTop3 = oscTop2 + labelY;
+  const auto oscTop4 = oscTop3 + labelY;
+  const auto oscTop5 = oscTop4 + labelY;
+  const auto oscTop6 = oscTop5 + labelY;
+  const auto oscTop7 = oscTop6 + labelY + 2 * margin;
+  const auto oscTop8 = oscTop7 + 4 * labelY;
   addGroupLabel(
     oscLeft0, oscTop0, 4 * labelWidth + 2 * margin, labelHeight, uiTextSize,
     "Oscillator");
@@ -269,22 +248,22 @@ bool Editor::prepareUI()
     2 * labelHeight, midTextSize, "Refresh Wavetable", ID::refreshWavetable);
 
   // FDN.
-  constexpr auto fdnLeft0 = oscLeft0;
-  constexpr auto fdnLeft1 = fdnLeft0 + labelWidth;
-  constexpr auto fdnLeft2 = fdnLeft1 + labelWidth + 2 * margin;
-  constexpr auto fdnLeft3 = fdnLeft2 + labelWidth;
+  const auto fdnLeft0 = oscLeft0;
+  const auto fdnLeft1 = fdnLeft0 + labelWidth;
+  const auto fdnLeft2 = fdnLeft1 + labelWidth + 2 * margin;
+  const auto fdnLeft3 = fdnLeft2 + labelWidth;
 
-  constexpr auto fdnTop0 = oscTop8 + 3 * labelHeight + 2 * margin;
-  constexpr auto fdnTop1 = fdnTop0 + labelY;
-  constexpr auto fdnTop2 = fdnTop1 + labelY;
-  constexpr auto fdnTop3 = fdnTop2 + labelY;
-  constexpr auto fdnTop4 = fdnTop3 + labelY;
-  constexpr auto fdnTop5 = fdnTop4 + labelY;
-  constexpr auto fdnTop6 = fdnTop5 + labelY;
-  constexpr auto fdnTop7 = fdnTop6 + labelY + 1 * margin;
-  constexpr auto fdnTop8 = fdnTop7 + labelY;
-  constexpr auto fdnTop9 = fdnTop8 + labelY;
-  constexpr auto fdnTop10 = fdnTop9 + labelY;
+  const auto fdnTop0 = oscTop8 + 3 * labelHeight + 2 * margin;
+  const auto fdnTop1 = fdnTop0 + labelY;
+  const auto fdnTop2 = fdnTop1 + labelY;
+  const auto fdnTop3 = fdnTop2 + labelY;
+  const auto fdnTop4 = fdnTop3 + labelY;
+  const auto fdnTop5 = fdnTop4 + labelY;
+  const auto fdnTop6 = fdnTop5 + labelY;
+  const auto fdnTop7 = fdnTop6 + labelY + 1 * margin;
+  const auto fdnTop8 = fdnTop7 + labelY;
+  const auto fdnTop9 = fdnTop8 + labelY;
+  const auto fdnTop10 = fdnTop9 + labelY;
   addToggleButton(
     fdnLeft0, fdnTop0, 4 * labelWidth + 2 * margin, labelHeight, uiTextSize, "FDN",
     ID::fdnEnable);
@@ -343,9 +322,9 @@ bool Editor::prepareUI()
     fdnLeft2, fdnTop6, 2 * labelWidth, labelHeight, uiTextSize, "Reset at Note On",
     ID::resetAtNoteOn);
 
-  constexpr auto fdnFilterLeft0 = fdnLeft0 + int(labelWidth / 4);
-  constexpr auto fdnFilterLeft1 = fdnFilterLeft0 + labelWidth + 2 * margin;
-  constexpr auto fdnFilterLeft2 = fdnFilterLeft1 + labelWidth + 2 * margin;
+  const auto fdnFilterLeft0 = fdnLeft0 + int(labelWidth / 4);
+  const auto fdnFilterLeft1 = fdnFilterLeft0 + labelWidth + 2 * margin;
+  const auto fdnFilterLeft2 = fdnFilterLeft1 + labelWidth + 2 * margin;
 
   addLabel(fdnFilterLeft1, fdnTop7, labelWidth, labelHeight, uiTextSize, "Lowpass");
   addLabel(fdnFilterLeft2, fdnTop7, labelWidth, labelHeight, uiTextSize, "Highpass");
@@ -375,22 +354,22 @@ bool Editor::prepareUI()
     labelHeight, uiTextSize, "", ID::highpassKeyFollow);
 
   // LFO.
-  constexpr auto lfoTop0 = oscTop0;
-  constexpr auto lfoTop1 = lfoTop0 + labelY;
-  constexpr auto lfoTop2 = lfoTop1 + labelY;
-  constexpr auto lfoTop3 = lfoTop2 + labelY;
-  constexpr auto lfoTop4 = lfoTop3 + labelY + 2 * margin;
+  const auto lfoTop0 = oscTop0;
+  const auto lfoTop1 = lfoTop0 + labelY;
+  const auto lfoTop2 = lfoTop1 + labelY;
+  const auto lfoTop3 = lfoTop2 + labelY;
+  const auto lfoTop4 = lfoTop3 + labelY + 2 * margin;
 
-  constexpr auto lfoTopMid1 = lfoTop1 + int(labelHeight / 2) + margin;
-  constexpr auto lfoTopMid2 = lfoTopMid1 + labelY;
+  const auto lfoTopMid1 = lfoTop1 + int(labelHeight / 2) + margin;
+  const auto lfoTopMid2 = lfoTopMid1 + labelY;
 
-  constexpr auto lfoLeft0 = oscLeft0 + 4 * labelWidth + 6 * margin;
-  constexpr auto lfoLeft1 = lfoLeft0 + labelWidth + margin;
-  constexpr auto lfoLeft2 = lfoLeft1 + labelWidth + margin + lfoWidthFix;
-  constexpr auto lfoLeft3 = lfoLeft2 + labelWidth;
-  constexpr auto lfoLeft4 = lfoLeft3 + labelWidth + +margin + lfoWidthFix;
-  constexpr auto lfoLeft5 = lfoLeft4 + labelWidth + margin;
-  constexpr auto lfoLeft6 = lfoLeft5 + labelWidth + margin;
+  const auto lfoLeft0 = oscLeft0 + 4 * labelWidth + 6 * margin;
+  const auto lfoLeft1 = lfoLeft0 + labelWidth + margin;
+  const auto lfoLeft2 = lfoLeft1 + labelWidth + margin + lfoWidthFix;
+  const auto lfoLeft3 = lfoLeft2 + labelWidth;
+  const auto lfoLeft4 = lfoLeft3 + labelWidth + +margin + lfoWidthFix;
+  const auto lfoLeft5 = lfoLeft4 + labelWidth + margin;
+  const auto lfoLeft6 = lfoLeft5 + labelWidth + margin;
 
   addGroupLabel(lfoLeft0, lfoTop0, barboxWidth, labelHeight, uiTextSize, "LFO");
 
@@ -403,7 +382,7 @@ bool Editor::prepareUI()
     lfoLeft1, lfoTopMid2, labelWidth, labelHeight, uiTextSize, ID::lfoInterpolation,
     modWavetableInterpolationItems);
 
-  constexpr auto lfoSyncTop = lfoTop1 + int(labelHeight / 2) + margin;
+  const auto lfoSyncTop = lfoTop1 + int(labelHeight / 2) + margin;
   addCheckbox<Style::accent>(
     lfoLeft2 + int(labelWidth / 4), lfoSyncTop, int(labelWidth / 2 + 2 * margin),
     labelHeight, uiTextSize, "Sync.", ID::lfoTempoSync);
@@ -455,22 +434,22 @@ bool Editor::prepareUI()
     barboxLfoWavetable->sliderZero = 0.5f;
   }
 
-  constexpr auto modEnvTop0 = lfoTop0 + 4 * labelY + barboxHeight + 7 * margin;
-  constexpr auto modEnvTop1 = modEnvTop0 + labelY;
-  constexpr auto modEnvTop2 = modEnvTop1 + labelY;
-  constexpr auto modEnvTop3 = modEnvTop2 + labelY;
-  constexpr auto modEnvTop4 = modEnvTop3 + labelY + 2 * margin;
+  const auto modEnvTop0 = lfoTop0 + 4 * labelY + barboxHeight + 7 * margin;
+  const auto modEnvTop1 = modEnvTop0 + labelY;
+  const auto modEnvTop2 = modEnvTop1 + labelY;
+  const auto modEnvTop3 = modEnvTop2 + labelY;
+  const auto modEnvTop4 = modEnvTop3 + labelY + 2 * margin;
 
-  constexpr auto modEnvTopMid1 = modEnvTop1 + int(labelHeight / 2) + margin;
-  constexpr auto modEnvTopMid2 = modEnvTopMid1 + labelY;
+  const auto modEnvTopMid1 = modEnvTop1 + int(labelHeight / 2) + margin;
+  const auto modEnvTopMid2 = modEnvTopMid1 + labelY;
 
-  constexpr auto modEnvLeft0 = lfoLeft0;
-  constexpr auto modEnvLeft1 = modEnvLeft0 + labelWidth + margin;
-  constexpr auto modEnvLeft2 = modEnvLeft1 + labelWidth + margin + lfoWidthFix;
-  constexpr auto modEnvLeft3 = modEnvLeft2 + labelWidth;
-  constexpr auto modEnvLeft4 = modEnvLeft3 + labelWidth + margin + lfoWidthFix;
-  constexpr auto modEnvLeft5 = modEnvLeft4 + labelWidth + margin;
-  constexpr auto modEnvLeft6 = modEnvLeft5 + labelWidth + margin;
+  const auto modEnvLeft0 = lfoLeft0;
+  const auto modEnvLeft1 = modEnvLeft0 + labelWidth + margin;
+  const auto modEnvLeft2 = modEnvLeft1 + labelWidth + margin + lfoWidthFix;
+  const auto modEnvLeft3 = modEnvLeft2 + labelWidth;
+  const auto modEnvLeft4 = modEnvLeft3 + labelWidth + margin + lfoWidthFix;
+  const auto modEnvLeft5 = modEnvLeft4 + labelWidth + margin;
+  const auto modEnvLeft6 = modEnvLeft5 + labelWidth + margin;
 
   addGroupLabel(
     modEnvLeft0, modEnvTop0, barboxWidth, labelHeight, uiTextSize, "Envelope");
@@ -528,7 +507,7 @@ bool Editor::prepareUI()
   const auto splashTop = innerHeight - splashHeight + uiMargin;
   const auto splashLeft = uiMargin;
   addSplashScreen(
-    splashLeft, splashTop, 2 * labelWidth, splashHeight, 20.0f, 20.0f,
+    splashLeft, splashTop, 2 * labelWidth, splashHeight, uiMargin, uiMargin,
     defaultWidth - splashHeight, defaultHeight - splashHeight, pluginNameTextSize,
     "ClangSynth");
 

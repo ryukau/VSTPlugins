@@ -7,34 +7,6 @@
 #include <algorithm>
 #include <sstream>
 
-constexpr float uiMargin = 20.0f;
-constexpr float uiTextSize = 12.0f;
-constexpr float midTextSize = 12.0f;
-constexpr float pluginNameTextSize = 18.0f;
-constexpr float margin = 5.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float labelY = 30.0f;
-constexpr float knobWidth = 50.0f;
-constexpr float knobHeight = 40.0f;
-constexpr float knobX = 60.0f; // With margin.
-constexpr float knobY = knobHeight + labelY;
-constexpr float textKnobX = 80.0f;
-constexpr float splashHeight = 40.0f;
-constexpr float scrollBarHeight = 10.0f;
-constexpr float barboxWidth = 2 * nDepth1 * 2;
-constexpr float barboxHeight = 2 * knobY + labelY + scrollBarHeight;
-constexpr float barboxWidthSmall = 4 * nDepth2 * 2;
-
-constexpr float barboxSectionWidth = barboxWidth + barboxWidthSmall + 3 * labelY;
-constexpr float barboxSectionHeight
-  = 3 * scrollBarHeight + 3 * barboxHeight + 2 * labelHeight;
-
-constexpr float leftPanelWidth = 4 * textKnobX + 6 * margin;
-
-constexpr uint32_t defaultWidth
-  = uint32_t(leftPanelWidth + labelY + barboxSectionWidth + 2 * uiMargin);
-constexpr uint32_t defaultHeight = uint32_t(barboxSectionHeight + 2 * uiMargin);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -43,9 +15,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 bool Editor::prepareUI()

@@ -23,6 +23,52 @@ public:
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
 protected:
+  float uiTextSize = 12.0f;
+  float midTextSize = 12.0f;
+  float pluginNameTextSize = 14.0f;
+  float margin = 5.0f;
+  float uiMargin = 3 * margin;
+  float labelHeight = 20.0f;
+  float labelY = 30.0f;
+  float knobWidth = 50.0f;
+  float knobHeight = 40.0f;
+  float knobX = 60.0f;
+  float knobY = knobHeight + labelY;
+  float checkboxWidth = 60.0f;
+  float splashHeight = 20.0f;
+  float indicatorHeight = 120.0f;
+  float infoTextSize = 12.0f;
+  float infoTextCellWidth = 80.0f;
+  int32_t defaultWidth = int32_t(8 * knobX + 30);
+  int32_t defaultHeight = int32_t(30 + indicatorHeight + knobX + labelY + 3 * margin);
+
+  void setDimensions() override
+  {
+    const float sc = palette.guiScale();
+
+    uiTextSize = int(sc * 12);
+    midTextSize = int(sc * 12);
+    pluginNameTextSize = int(sc * 14);
+    margin = int(sc * 5);
+    uiMargin = 3 * margin;
+    labelHeight = int(sc * 20);
+    labelY = int(sc * 30);
+    knobWidth = int(sc * 50);
+    knobHeight = int(sc * 40);
+    knobX = int(sc * 60);
+    knobY = knobHeight + labelY;
+    checkboxWidth = int(sc * 60);
+    splashHeight = int(sc * 20);
+    indicatorHeight = int(sc * 120);
+    infoTextSize = int(sc * 12);
+    infoTextCellWidth = int(sc * 80);
+    defaultWidth = int32_t(8 * knobX + uiMargin);
+    defaultHeight = int32_t(indicatorHeight + knobX + labelY + 2 * uiMargin);
+
+    viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
+    setRect(viewRect);
+  }
+
   CurveView<decltype(Synth::Scales::guiInputGainScale)> *curveView = nullptr;
   TextTableView *infoTextView = nullptr;
 

@@ -7,24 +7,6 @@
 #include <algorithm>
 #include <sstream>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float midTextSize = 12.0f;
-constexpr float pluginNameTextSize = 12.0f;
-constexpr float margin = 5.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float labelY = 30.0f;
-constexpr float knobWidth = 50.0f;
-constexpr float knobHeight = 40.0f;
-constexpr float knobX = 60.0f; // With margin.
-constexpr float knobY = knobHeight + labelY;
-constexpr float barboxWidth = 12.0f * knobX;
-constexpr float barboxHeight = 2.0f * knobY;
-constexpr float barboxY = barboxHeight + 2.0f * margin;
-constexpr float checkboxWidth = 60.0f;
-constexpr float splashHeight = labelHeight;
-constexpr uint32_t defaultWidth = uint32_t(40 + 9.0f * knobX + labelY);
-constexpr uint32_t defaultHeight = uint32_t(40 + labelHeight + knobY);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -33,9 +15,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 bool Editor::prepareUI()

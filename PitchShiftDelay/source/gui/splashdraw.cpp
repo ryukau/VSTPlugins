@@ -17,7 +17,8 @@ void CreditView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
-  const double borderWidth = 2.0;
+  const auto sc = pal.guiScale();
+  const double borderWidth = int(sc * 2);
   const double halfBorderWidth = borderWidth / 2.0;
 
   // Background.
@@ -36,11 +37,13 @@ void CreditView::draw(CDrawContext *pContext)
   // Text.
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("PitchShiftDelay " VERSION_STR, CPoint(20.0, 40.0));
+  pContext->drawString(
+    "PitchShiftDelay " VERSION_STR, CPoint(int(sc * 20), int(sc * 40)));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("© 2022 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0f, 60.0f));
+  pContext->drawString(
+    "© 2022 Takamitsu Endo (ryukau@gmail.com)", CPoint(int(sc * 20), int(sc * 60)));
 
   std::string leftText = R"(- BarBox -
 Ctrl + Left Drag|Reset to Default
@@ -77,11 +80,12 @@ Normalized = (20 * log10(p) + 60) / 120.
 
 Have a nice day!)";
 
-  const float top0 = 100.0f;
-  const float lineHeight = 20.0f;
-  const float blockWidth = 115.0f;
-  drawTextBlock(pContext, 20.0f, top0, lineHeight, blockWidth, leftText);
-  drawTextBlock(pContext, 20.0f + 240.0f, top0, lineHeight, blockWidth, rightText);
+  const float top0 = int(sc * 100);
+  const float lineHeight = int(sc * 20);
+  const float blockWidth = int(sc * 115);
+  drawTextBlock(pContext, int(sc * 20), top0, lineHeight, blockWidth, leftText);
+  drawTextBlock(
+    pContext, int(sc * 20) + int(sc * 240), top0, lineHeight, blockWidth, rightText);
 
   setDirty(false);
 }

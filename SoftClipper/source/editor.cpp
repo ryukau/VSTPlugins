@@ -9,25 +9,6 @@
 #include <iomanip>
 #include <sstream>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float midTextSize = 12.0f;
-constexpr float pluginNameTextSize = 14.0f;
-constexpr float margin = 5.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float labelY = 30.0f;
-constexpr float knobWidth = 50.0f;
-constexpr float knobHeight = 40.0f;
-constexpr float knobX = 60.0f; // With margin.
-constexpr float knobY = knobHeight + labelY;
-constexpr float checkboxWidth = 60.0f;
-constexpr float splashHeight = 20.0f;
-constexpr float indicatorHeight = 120.0f;
-constexpr float infoTextSize = 12.0f;
-constexpr float infoTextCellWidth = 80.0f;
-constexpr uint32_t defaultWidth = uint32_t(8 * knobX + 30);
-constexpr uint32_t defaultHeight
-  = uint32_t(30 + indicatorHeight + knobX + labelY + 3 * margin);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -36,9 +17,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 Editor::~Editor()
@@ -120,8 +98,8 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  const auto top0 = 15.0f;
-  const auto left0 = 15.0f;
+  const auto top0 = uiMargin;
+  const auto left0 = uiMargin;
 
   addKnob(left0 + 0 * knobX, top0, knobX, margin, uiTextSize, "Input", ID::inputGain);
   addKnob(left0 + 1 * knobX, top0, knobX, margin, uiTextSize, "Clip", ID::clip);
@@ -148,28 +126,29 @@ bool Editor::prepareUI()
   const auto left2 = left1 + knobX + 6 * margin;
 
   addLabel(
-    left1, top0, 1.5f * knobX, labelHeight, uiTextSize, "Order Integer", kLeftText);
+    left1, top0, int(1.5 * knobX), labelHeight, uiTextSize, "Order Integer", kLeftText);
   addTextKnob(
     left2, top0, knobX, labelHeight, uiTextSize, ID::orderInteger, Scales::orderInteger);
 
   addLabel(
-    left1, top0 + labelY, 1.5f * knobX, labelHeight, uiTextSize, "Order Fraction",
+    left1, top0 + labelY, int(1.5 * knobX), labelHeight, uiTextSize, "Order Fraction",
     kLeftText);
   addTextKnob(
     left2, top0 + labelY, knobX, labelHeight, uiTextSize, ID::orderFraction,
     Scales::defaultScale, false, 4);
 
   addCheckbox(
-    left1, top0 + 2 * labelY, 1.5f * knobX, labelHeight, uiTextSize, "OverSample",
+    left1, top0 + 2 * labelY, int(1.5 * knobX), labelHeight, uiTextSize, "OverSample",
     ID::oversample);
 
   // Plugin name.
-  const auto splashTop = defaultHeight - splashHeight - 15.0f;
-  const auto splashWidth = 2.0f * knobX - 2 * margin;
-  const auto splashLeft = defaultWidth - splashWidth - 4 * margin;
+  const auto splashTop = defaultHeight - splashHeight - uiMargin;
+  const auto splashWidth = 2 * knobX - 2 * margin;
+  const auto splashLeft = defaultWidth - splashWidth - uiMargin;
   addSplashScreen(
-    splashLeft, splashTop, splashWidth, splashHeight, 15.0f, 15.0f, defaultWidth - 30.0f,
-    defaultHeight - 30.0f, pluginNameTextSize, "SoftClipper");
+    splashLeft, splashTop, splashWidth, splashHeight, uiMargin, uiMargin,
+    defaultWidth - 2 * uiMargin, defaultHeight - 2 * uiMargin, pluginNameTextSize,
+    "SoftClipper");
 
   return true;
 }

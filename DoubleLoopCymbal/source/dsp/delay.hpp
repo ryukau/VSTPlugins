@@ -173,7 +173,7 @@ public:
     const auto x_ = d_ * peakSeconds;
     const auto a_ = Sample(utl::LambertW(-1, x_ * std::exp(x_))) / peakSeconds - d_;
 
-    const auto attackSeconds = -std::log(epsilon) / std::log(-a_);
+    // const auto attackSeconds = -std::log(epsilon) / std::log(-a_); // unused.
     alphaA = std::exp(a_ / sampleRate);
     alphaD = std::exp(d_ / sampleRate);
 

@@ -17,8 +17,10 @@ void CreditView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
-  const double borderWidth = 2.0;
-  const double halfBorderWidth = borderWidth / 2.0;
+  const auto sc = pal.guiScale();
+  const double borderWidth = int(sc * 2);
+  const double halfBorderWidth = int(borderWidth / 2);
+  const auto left0 = int(sc * 20);
 
   // Background.
   pContext->setLineWidth(borderWidth);
@@ -27,19 +29,22 @@ void CreditView::draw(CDrawContext *pContext)
 
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("ModuloShaper " VERSION_STR, CPoint(20.0, 20.0));
+  pContext->drawString("ModuloShaper " VERSION_STR, CPoint(left0, int(sc * 30)));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("© 2020 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0, 45.0));
-
-  pContext->drawString("- Shift + Left Drag: Fine Adjustment", CPoint(20.0f, 70.0f));
-  pContext->drawString("- Ctrl + Left Click: Reset to Default", CPoint(20.0f, 90.0f));
+  pContext->drawString(
+    "© 2020 Takamitsu Endo (ryukau@gmail.com)", CPoint(left0, int(sc * 50)));
 
   pContext->drawString(
-    "Caution! Tuning More* knobs may outputs loud signal.", CPoint(20.0f, 115.0f));
+    "- Shift + Left Drag: Fine Adjustment", CPoint(left0, int(sc * 80)));
+  pContext->drawString(
+    "- Ctrl + Left Click: Reset to Default", CPoint(left0, int(sc * 100)));
 
-  pContext->drawString("Have a nice day!", CPoint(20.0f, 140.0f));
+  pContext->drawString(
+    "Caution! Tuning More* knobs may outputs loud signal.", CPoint(left0, int(sc * 130)));
+
+  pContext->drawString("Have a nice day!", CPoint(left0, int(sc * 160)));
 
   // Border.
   pContext->setFrameColor(isMouseEntered ? pal.highlightMain() : pal.border());

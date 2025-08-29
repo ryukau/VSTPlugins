@@ -17,8 +17,9 @@ void CreditView::draw(CDrawContext *pContext)
 
   const auto width = getWidth();
   const auto height = getHeight();
-  const double borderWidth = 2.0;
-  const double halfBorderWidth = borderWidth / 2.0;
+  const auto sc = pal.guiScale();
+  const double borderWidth = int(sc * 2);
+  const double halfBorderWidth = int(borderWidth / 2);
 
   // Background.
   pContext->setLineWidth(borderWidth);
@@ -36,11 +37,12 @@ void CreditView::draw(CDrawContext *pContext)
   // Text.
   pContext->setFont(fontIdTitle);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("RingModSpacer " VERSION_STR, CPoint(20.0, 30.0));
+  pContext->drawString("RingModSpacer " VERSION_STR, CPoint(int(sc * 20), int(sc * 30)));
 
   pContext->setFont(fontIdText);
   pContext->setFontColor(pal.foreground());
-  pContext->drawString("© 2023 Takamitsu Endo (ryukau@gmail.com)", CPoint(20.0f, 50.0f));
+  pContext->drawString(
+    "© 2023 Takamitsu Endo (ryukau@gmail.com)", CPoint(int(sc * 20), int(sc * 50)));
 
   std::string leftText = R"(This plugin mixes input and side chain signal
 with distortion, while keeping peak amplitude
@@ -55,9 +57,11 @@ Shift + Middle Click|Take Floor
 
 Have a nice day!)";
 
-  const float lineHeight = 20.0f;
-  drawTextBlock(pContext, 20.0f, 90.0f, lineHeight, 200.0f, leftText);
-  drawTextBlock(pContext, 280.0f, 30.0f, lineHeight, 140.0f, rightText);
+  const float lineHeight = int(sc * 20);
+  drawTextBlock(
+    pContext, int(sc * 20), int(sc * 90), lineHeight, int(sc * 200), leftText);
+  drawTextBlock(
+    pContext, int(sc * 280), int(sc * 30), lineHeight, int(sc * 140), rightText);
 
   setDirty(false);
 }

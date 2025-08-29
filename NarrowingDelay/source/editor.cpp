@@ -8,27 +8,6 @@
 #include <algorithm>
 #include <random>
 
-constexpr float uiTextSize = 12.0f;
-constexpr float pluginNameTextSize = 14.0f;
-constexpr float margin = 5.0f;
-constexpr float uiMargin = 20.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float knobWidth = 60.0f;
-constexpr float halfKnobWidth = int(knobWidth / 2);
-constexpr float knobX = knobWidth + 2 * margin;
-constexpr float knobY = knobWidth + labelHeight + 2 * margin;
-constexpr float labelY = labelHeight + 2 * margin;
-constexpr float labelWidth = 100.0f;
-constexpr float labelX = labelWidth + margin;
-
-constexpr float barboxWidth = 512.0f;
-constexpr float barboxHeight = 200.0f;
-
-constexpr int_least32_t defaultWidth
-  = int_least32_t(2 * uiMargin + 4 * knobX - 2 * margin);
-constexpr int_least32_t defaultHeight
-  = int_least32_t(2 * uiMargin + 9 * labelY + 3 * knobY - 4 * margin);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -48,21 +27,21 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  constexpr auto top0 = uiMargin;
-  constexpr auto left0 = uiMargin;
+  const auto top0 = uiMargin;
+  const auto left0 = uiMargin;
 
   // Shifter.
-  constexpr auto psTop0 = top0;
-  constexpr auto psTop1 = psTop0 + labelY;
-  constexpr auto psTop2 = psTop1 + knobY;
-  constexpr auto psTop3 = psTop2 + labelY;
-  constexpr auto psTop4 = psTop3 + labelY;
-  constexpr auto psLeft0 = left0;
-  constexpr auto psLeft1 = psLeft0 + knobX;
-  constexpr auto psLeft2 = psLeft1 + knobX;
-  constexpr auto psLeft3 = psLeft2 + knobX;
-  constexpr auto psLabelWidth = int(1.5 * knobX) - margin;
-  constexpr auto psLabelLeft1 = psLeft0 + psLabelWidth;
+  const auto psTop0 = top0;
+  const auto psTop1 = psTop0 + labelY;
+  const auto psTop2 = psTop1 + knobY;
+  const auto psTop3 = psTop2 + labelY;
+  const auto psTop4 = psTop3 + labelY;
+  const auto psLeft0 = left0;
+  const auto psLeft1 = psLeft0 + knobX;
+  const auto psLeft2 = psLeft1 + knobX;
+  const auto psLeft3 = psLeft2 + knobX;
+  const auto psLabelWidth = int(1.5 * knobX) - margin;
+  const auto psLabelLeft1 = psLeft0 + psLabelWidth;
   addGroupLabel(
     psLeft0, psTop0, 4 * knobX - 2 * margin, labelHeight, uiTextSize, "Shifter");
 
@@ -85,7 +64,7 @@ bool Editor::prepareUI()
     psLabelLeft1, psTop4, psLabelWidth, labelHeight, uiTextSize, ID::shiftHz,
     Scales::shiftHz, false, 5);
 
-  constexpr auto psFilterMargin = int(halfKnobWidth * 1 / 2 - labelHeight / 2);
+  const auto psFilterMargin = int(halfKnobWidth * 1 / 2 - labelHeight / 2);
   addLabel(psLeft3, psTop1, halfKnobWidth, labelHeight, uiTextSize, "HP");
   addSmallKnob(
     psLeft3 + psFilterMargin, psTop1 + labelHeight, labelHeight, labelHeight,
@@ -95,21 +74,20 @@ bool Editor::prepareUI()
     psLeft3 + psFilterMargin + halfKnobWidth, psTop1 + labelHeight, labelHeight,
     labelHeight, ID::lowpassHz);
 
-  constexpr auto psSmallLeft = psLeft3 + int(knobWidth / 2 - labelHeight / 2);
+  const auto psSmallLeft = psLeft3 + int(knobWidth / 2 - labelHeight / 2);
   addLabel(psLeft3, psTop2 - labelY, knobWidth, labelHeight, uiTextSize, "LFO");
   addSmallKnob(psSmallLeft, psTop2, labelHeight, labelHeight, ID::lfoToPrimaryDelayTime);
   addSmallKnob(psSmallLeft, psTop3, labelHeight, labelHeight, ID::lfoToPrimaryShiftPitch);
   addSmallKnob(psSmallLeft, psTop4, labelHeight, labelHeight, ID::lfoToPrimaryShiftHz);
 
   // LFO.
-  constexpr auto lfoTop0 = psTop0 + 4 * labelY + knobY;
-  constexpr auto lfoTop1 = lfoTop0 + labelY;
-  constexpr auto lfoTop2 = lfoTop1 + knobY;
-  constexpr auto lfoLeft0 = psLeft0;
-  constexpr auto lfoLeft1 = lfoLeft0 + knobX;
-  constexpr auto lfoLeft2 = lfoLeft1 + knobX;
-  constexpr auto lfoLeft3 = lfoLeft2 + knobX;
-  constexpr auto lfoLabelLeft1 = lfoLeft0 + psLabelWidth;
+  const auto lfoTop0 = psTop0 + 4 * labelY + knobY;
+  const auto lfoTop1 = lfoTop0 + labelY;
+  const auto lfoTop2 = lfoTop1 + knobY;
+  const auto lfoLeft0 = psLeft0;
+  const auto lfoLeft1 = lfoLeft0 + knobX;
+  const auto lfoLeft2 = lfoLeft1 + knobX;
+  const auto lfoLeft3 = lfoLeft2 + knobX;
   addGroupLabel(
     lfoLeft0, lfoTop0, 4 * knobX - 2 * margin, labelHeight, uiTextSize, "LFO");
 
@@ -120,7 +98,7 @@ bool Editor::prepareUI()
   addKnob(lfoLeft2, lfoTop1, knobWidth, margin, uiTextSize, "Clip", ID::lfoShapeClip);
   addKnob(lfoLeft3, lfoTop1, knobWidth, margin, uiTextSize, "Skew", ID::lfoShapeSkew);
 
-  constexpr auto lfoTopSync = lfoTop2 + labelY;
+  const auto lfoTopSync = lfoTop2 + labelY;
   addCheckbox(
     lfoLeft0 + halfKnobWidth, lfoTopSync, knobWidth, labelHeight, uiTextSize, "Sync.",
     ID::lfoTempoSync);
@@ -135,10 +113,10 @@ bool Editor::prepareUI()
     ID::lfoRate);
 
   // Misc.
-  constexpr auto miscTop0 = lfoTop0 + labelY + 2 * knobY;
-  constexpr auto miscTop1 = miscTop0 + labelY;
-  constexpr auto miscLeft0 = left0;
-  constexpr auto miscLeft1 = miscLeft0 + labelWidth;
+  const auto miscTop0 = lfoTop0 + labelY + 2 * knobY;
+  const auto miscTop1 = miscTop0 + labelY;
+  const auto miscLeft0 = left0;
+  const auto miscLeft1 = miscLeft0 + labelWidth;
   addLabel(miscLeft0, miscTop0, labelWidth, labelHeight, uiTextSize, "Smoothing [s]");
   addTextKnob(
     miscLeft1, miscTop0, labelWidth, labelHeight, uiTextSize,
@@ -151,11 +129,11 @@ bool Editor::prepareUI()
     oversamplingItems);
 
   // Plugin name.
-  constexpr auto splashMargin = uiMargin;
-  constexpr auto splashWidth = 2 * knobX - 2 * margin;
-  constexpr auto splashHeight = labelY;
-  constexpr auto splashTop = miscTop0 + 2 * labelY + 2 * margin;
-  constexpr auto splashLeft = left0 + knobX;
+  const auto splashMargin = uiMargin;
+  const auto splashWidth = 2 * knobX - 2 * margin;
+  const auto splashHeight = labelY;
+  const auto splashTop = miscTop0 + 2 * labelY + 2 * margin;
+  const auto splashLeft = left0 + knobX;
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,

@@ -13,11 +13,11 @@ template<typename EditorType, typename ParameterType>
 tresult PLUGIN_API PlugController<EditorType, ParameterType>::getMidiControllerAssignment(
   int32 busIndex, int16 channel, Vst::CtrlNumber midiControllerNumber, Vst::ParamID &id)
 {
-  switch (midiControllerNumber) {
-    // case Vst::kPitchBend:
-    //   id = ParameterID::pitchBend;
-    //   return kResultOk;
-  }
+  // switch (midiControllerNumber) {
+  //   case Vst::kPitchBend:
+  //     id = ParameterID::pitchBend;
+  //     return kResultOk;
+  // }
   return kResultFalse;
 }
 

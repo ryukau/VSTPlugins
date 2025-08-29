@@ -26,7 +26,6 @@ private:
   static constexpr CCoord controlRadiusHalfOuter = 8.0;
   static constexpr CCoord controlRadiusHalfInner = controlRadiusHalfOuter / 2;
   static constexpr CCoord controlRadiusFull = 2 * controlRadiusHalfOuter;
-  CCoord borderWidth = 1.0;
 
   CPoint mousePosition{-1.0, -1.0};
   bool isMouseDown = false;
@@ -108,6 +107,8 @@ public:
     }
 
     // Transform coordinate.
+    const auto sc = pal.guiScale();
+
     pContext->setDrawMode(CDrawMode(CDrawModeFlags::kAntiAliasing));
     CDrawContext::Transform t(
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
@@ -117,7 +118,7 @@ public:
     pContext->drawRect(CRect(0, 0, getWidth(), getHeight()), kDrawFilled);
 
     // Grid.
-    pContext->setLineWidth(1);
+    pContext->setLineWidth(int(sc));
     pContext->setFrameColor(pal.foregroundInactive());
     constexpr size_t nGrid = 12;
     for (size_t idx = 1; idx < nGrid; ++idx) {
@@ -133,7 +134,7 @@ public:
     // Waveform.
     auto mapPolyToY = [](double v, double h) { return (v + double(0.5)) * h; };
 
-    pContext->setLineWidth(2);
+    pContext->setLineWidth(int(sc * 2));
     pContext->setFrameColor(pal.foreground());
     auto *polyPath = pContext->createGraphicsPath();
 
@@ -148,25 +149,26 @@ public:
     pContext->drawGraphicsPath(polyPath, CDrawContext::PathDrawMode::kPathStroked);
 
     // Control points.
-    pContext->setLineWidth(2);
-    for (int idx = 0; idx < controlPoints.size(); ++idx) {
+    const auto ctrlRadiusOuter = int(sc * controlRadiusHalfOuter);
+    const auto ctrlRadiusHalfInner = int(sc * controlRadiusHalfInner);
+    pContext->setLineWidth(int(sc * 2));
+    for (int idx = 0; idx < int(controlPoints.size()); ++idx) {
       pContext->setFrameColor(focusedPoint == idx ? pal.highlightMain() : pal.overlay());
       const auto &pt = controlPoints[idx];
       pContext->drawEllipse(CRect(
-        pt.x - controlRadiusHalfOuter, pt.y - controlRadiusHalfOuter,
-        pt.x + controlRadiusHalfOuter, pt.y + controlRadiusHalfOuter));
+        pt.x - ctrlRadiusOuter, pt.y - ctrlRadiusOuter, pt.x + ctrlRadiusOuter,
+        pt.y + ctrlRadiusOuter));
       pContext->drawEllipse(CRect(
-        pt.x - controlRadiusHalfInner, pt.y - controlRadiusHalfInner,
-        pt.x + controlRadiusHalfInner, pt.y + controlRadiusHalfInner));
+        pt.x - ctrlRadiusHalfInner, pt.y - ctrlRadiusHalfInner,
+        pt.x + ctrlRadiusHalfInner, pt.y + ctrlRadiusHalfInner));
     }
 
     // Border.
-    const double borderW = isMouseEntered ? 2 * borderWidth : borderWidth;
-    const double halfBorderWidth = int(borderW / 2.0);
+    auto borderW = int(pal.guiScale() * (isMouseEntered ? 2 : 1));
+    borderW += 1 ^ (borderW % 2); // Always odd number.
     pContext->setFrameColor(pal.border());
     pContext->setLineWidth(borderW);
-    pContext->drawRect(
-      CRect(halfBorderWidth, halfBorderWidth, getWidth(), getHeight()), kDrawStroked);
+    pContext->drawRect(CRect(0, 0, getWidth(), getHeight()), kDrawStroked);
   }
 
   void onMouseEnterEvent(MouseEnterEvent &event) override
@@ -228,7 +230,7 @@ public:
       if (lock != AxisLock::x) {
         point.x = std::clamp(mousePosition.x, CCoord(1), getWidth() - 1);
 
-        for (size_t idx = 0; idx < controlPoints.size(); ++idx) {
+        for (int idx = 0; idx < int(controlPoints.size()); ++idx) {
           if (idx == grabbedPoint) continue;
           if (std::abs(controlPoints[idx].x - point.x) > double(1e-5)) continue;
           point.x += 0.1;
@@ -267,10 +269,10 @@ public:
   {
     using ID = Steinberg::Synth::ParameterID::ID;
 
-    for (size_t idx = 0; idx < nControlPoint; ++idx) {
+    for (Steinberg::Vst::ParamID idx = 0; idx < nControlPoint; ++idx) {
       const auto ratio = double(idx + 1) / double(nControlPoint + 1);
-      setValueAt(ID::polynomialPointX0 + idx, fx(ratio));
-      setValueAt(ID::polynomialPointY0 + idx, fy(ratio));
+      setValueAt(ID::polynomialPointX0 + (idx), fx(ratio));
+      setValueAt(ID::polynomialPointY0 + (idx), fy(ratio));
     }
 
     invalid();
@@ -282,7 +284,7 @@ public:
   {
     using ID = Steinberg::Synth::ParameterID::ID;
 
-    for (size_t idx = 0; idx < nControlPoint; ++idx) {
+    for (Steinberg::Vst::ParamID idx = 0; idx < nControlPoint; ++idx) {
       auto &point = controlPoints[idx];
       const auto ratio = double(idx + 1) / double(nControlPoint + 1);
       setValueAt(ID::polynomialPointX0 + idx, fx(ratio) + point.x / getWidth());
@@ -382,8 +384,6 @@ public:
     event.consumed = true;
   }
 
-  void setBorderWidth(CCoord width) { borderWidth = width < 0 ? 0 : width; }
-
   void linkControlFromId(Steinberg::Vst::ParamID id)
   {
     auto iter = idMap.find(id);
@@ -451,10 +451,11 @@ private:
 
   int hitTest(CPoint &point)
   {
-    for (size_t idx = 0; idx < controlPoints.size(); ++idx) {
+    const auto ctrlRadiusFull = int(pal.guiScale() * controlRadiusFull);
+    for (int idx = 0; idx < int(controlPoints.size()); ++idx) {
       const auto dx = controlPoints[idx].x - point.x;
       const auto dy = controlPoints[idx].y - point.y;
-      if (dx * dx + dy * dy > controlRadiusFull * controlRadiusFull) continue;
+      if (dx * dx + dy * dy > ctrlRadiusFull * ctrlRadiusFull) continue;
       return idx;
     }
     return -1;

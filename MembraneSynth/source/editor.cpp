@@ -8,31 +8,6 @@
 #include <algorithm>
 #include <random>
 
-// 480 + 20
-constexpr float uiTextSize = 12.0f;
-constexpr float pluginNameTextSize = 14.0f;
-constexpr float margin = 5.0f;
-constexpr float uiMargin = 20.0f;
-constexpr float labelHeight = 20.0f;
-constexpr float knobWidth = 50.0f;
-constexpr float knobX = knobWidth + 2 * margin;
-constexpr float knobY = knobWidth + labelHeight + 2 * margin;
-constexpr float labelY = labelHeight + 2 * margin;
-constexpr float labelWidth = 2 * knobWidth;
-constexpr float groupLabelWidth = 2 * labelWidth + 2 * margin;
-constexpr float splashWidth = int(labelWidth * 3 / 2) + 2 * margin;
-constexpr float splashHeight = int(labelHeight * 3 / 2);
-
-constexpr float barboxWidth = groupLabelWidth;
-constexpr float barboxHeight = 5 * labelY - 2 * margin;
-constexpr float smallKnobWidth = labelHeight;
-constexpr float smallKnobX = smallKnobWidth + 2 * margin;
-
-constexpr int_least32_t defaultWidth
-  = int_least32_t(2 * uiMargin + 3 * groupLabelWidth + 8 * margin);
-constexpr int_least32_t defaultHeight
-  = int_least32_t(2 * uiMargin + 15 * labelY - 2 * margin);
-
 namespace Steinberg {
 namespace Vst {
 
@@ -41,9 +16,6 @@ using namespace VSTGUI;
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
   param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
-  setRect(viewRect);
 }
 
 bool Editor::prepareUI()
@@ -52,27 +24,27 @@ bool Editor::prepareUI()
   using Scales = Synth::Scales;
   using Style = Uhhyou::Style;
 
-  constexpr auto top0 = uiMargin;
-  constexpr auto top1 = top0 + labelY;
-  constexpr auto top2 = top1 + labelY;
-  constexpr auto top3 = top2 + labelY;
-  constexpr auto top4 = top3 + labelY;
-  constexpr auto top5 = top4 + labelY;
-  constexpr auto top6 = top5 + labelY;
-  constexpr auto top7 = top6 + labelY;
-  constexpr auto top8 = top7 + labelY;
-  constexpr auto top9 = top8 + labelY;
-  constexpr auto top10 = top9 + labelY;
-  constexpr auto top11 = top10 + labelY;
-  constexpr auto top12 = top11 + labelY;
-  constexpr auto top13 = top12 + labelY;
-  constexpr auto top14 = top13 + labelY;
-  constexpr auto left0 = uiMargin;
-  constexpr auto left2 = left0 + labelWidth + 2 * margin;
-  constexpr auto left4 = left2 + labelWidth + 4 * margin;
-  constexpr auto left6 = left4 + labelWidth + 2 * margin;
-  constexpr auto left8 = left6 + labelWidth + 4 * margin;
-  constexpr auto left10 = left8 + labelWidth + 2 * margin;
+  const auto top0 = uiMargin;
+  const auto top1 = top0 + labelY;
+  const auto top2 = top1 + labelY;
+  const auto top3 = top2 + labelY;
+  const auto top4 = top3 + labelY;
+  const auto top5 = top4 + labelY;
+  const auto top6 = top5 + labelY;
+  const auto top7 = top6 + labelY;
+  const auto top8 = top7 + labelY;
+  const auto top9 = top8 + labelY;
+  const auto top10 = top9 + labelY;
+  const auto top11 = top10 + labelY;
+  const auto top12 = top11 + labelY;
+  const auto top13 = top12 + labelY;
+  const auto top14 = top13 + labelY;
+  const auto left0 = uiMargin;
+  const auto left2 = left0 + labelWidth + 2 * margin;
+  const auto left4 = left2 + labelWidth + 4 * margin;
+  const auto left6 = left4 + labelWidth + 2 * margin;
+  const auto left8 = left6 + labelWidth + 4 * margin;
+  const auto left10 = left8 + labelWidth + 2 * margin;
 
   // Gain.
   addGroupLabel(left0, top0, groupLabelWidth, labelHeight, uiTextSize, "Gain");
@@ -205,9 +177,9 @@ bool Editor::prepareUI()
     left2, top13, labelWidth, labelHeight, uiTextSize, ID::noteSlideTimeSecond,
     Scales::noteSlideTimeSecond, false, 5);
 
-  constexpr auto slideAtWidth = int(groupLabelWidth / 3);
-  constexpr auto slideAtLeft1 = left0 + 1 * slideAtWidth;
-  constexpr auto slideAtLeft2 = left0 + 2 * slideAtWidth;
+  const auto slideAtWidth = int(groupLabelWidth / 3);
+  const auto slideAtLeft1 = left0 + 1 * slideAtWidth;
+  const auto slideAtLeft2 = left0 + 2 * slideAtWidth;
   addLabel(left0, top14, slideAtWidth, labelHeight, uiTextSize, "Slide at");
   addCheckbox(
     slideAtLeft1, top14, slideAtWidth, labelHeight, uiTextSize, "Note-on",
@@ -217,9 +189,9 @@ bool Editor::prepareUI()
     ID::slideAtNoteOff);
 
   // Plugin name.
-  constexpr auto splashMargin = uiMargin;
-  constexpr auto splashTop = top13 + int(labelHeight / 4) + 2 * margin;
-  constexpr auto splashLeft = left8 + int(labelWidth / 4);
+  const auto splashMargin = uiMargin;
+  const auto splashTop = top13 + int(labelHeight / 4) + 2 * margin;
+  const auto splashLeft = left8 + int(labelWidth / 4);
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,

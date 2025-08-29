@@ -225,12 +225,13 @@ std::array<double, 2> Voice::processFrame()
 
   // Oscillator.
   auto oscFunc = [&](double phase) {
-    if (phaseCounter > (pwmPoint | ~pwmBitMask)) return double(0);
+    if (phaseCounter > (pwmPoint | ~int_fast32_t(pwmBitMask))) return double(0);
     return computePolynomial<double, PolySolver::nPolynomialPoint>(
       phase, polynomialCoefficients);
   };
 
-  const auto phase = oscSync * double(phaseCounter & pwmBitMask) / double(phasePeriod);
+  const auto phase
+    = oscSync * double(phaseCounter & int_fast32_t(pwmBitMask)) / double(phasePeriod);
   auto sig = oscFunc(phase);
 
   // FM.
@@ -311,7 +312,6 @@ void DSPCore::process(const size_t length, float *out0, float *out1)
 
   SmootherCommon<double>::setBufferSize(double(length));
 
-  const auto beatPerSample = tempo / (double(60) * sampleRate);
   std::array<double, 2> frame{};
   for (size_t i = 0; i < length; ++i) {
     processModifierNote(i);

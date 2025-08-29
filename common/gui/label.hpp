@@ -36,7 +36,6 @@ public:
     // Text.
     pContext->setFont(fontId);
     pContext->setFontColor(pal.foreground());
-    const auto textWidth = pContext->getStringWidth(label.c_str());
     pContext->drawString(
       label.c_str(), CRect(0, 0, getWidth(), getHeight()), align, true);
 
@@ -76,6 +75,7 @@ public:
 
     const auto width = getWidth();
     const auto height = getHeight();
+    const auto sc = pal.guiScale();
 
     // Background.
     pContext->setFillColor(pal.background());
@@ -91,11 +91,11 @@ public:
 
     // Border.
     pContext->setFrameColor(pal.borderLabel());
-    pContext->setLineWidth(lineWidth);
+    pContext->setLineWidth(sc * lineWidth);
     pContext->drawLine(
-      CPoint(0.0, height * 0.5), CPoint(textLeft - margin, height * 0.5));
+      CPoint(0.0, height * 0.5), CPoint(textLeft - sc * margin, height * 0.5));
     pContext->drawLine(
-      CPoint(textRight + margin, height * 0.5), CPoint(width, height * 0.5));
+      CPoint(textRight + sc * margin, height * 0.5), CPoint(width, height * 0.5));
 
     setDirty(false);
   }
