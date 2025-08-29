@@ -357,7 +357,7 @@ public:
       sparseRandomize(index);
     } else if (event.character == 'r') {
       totalRandomize(index);
-    } else if (shift && event.character == 'S') { // Sort ascending order.
+    } else if (shift && event.character == 's') { // Sort ascending order.
       applyAlgorithm(index, [&]() { std::sort(active.begin(), active.end()); });
     } else if (event.character == 's') { // Sort descending order.
       applyAlgorithm(
