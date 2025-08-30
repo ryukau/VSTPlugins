@@ -16,11 +16,11 @@
 #define SUB_VERSION_STR "2"
 #define SUB_VERSION_INT 2
 
-#define RELEASE_NUMBER_STR "19"
-#define RELEASE_NUMBER_INT 19
+#define RELEASE_NUMBER_STR "20"
+#define RELEASE_NUMBER_INT 20
 
-#define BUILD_NUMBER_STR "26"
-#define BUILD_NUMBER_INT 26
+#define BUILD_NUMBER_STR "27"
+#define BUILD_NUMBER_INT 27
 
 #define FULL_VERSION_STR                                                                 \
   MAJOR_VERSION_STR "." SUB_VERSION_STR "." RELEASE_NUMBER_STR "." BUILD_NUMBER_STR

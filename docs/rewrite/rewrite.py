@@ -102,12 +102,14 @@ if __name__ == "__main__":
     with open("../../package/manual.json", "r", encoding="utf-8") as fi:
         alias = json.load(fi)
 
-    release_name = "UhhyouPlugins0.61.0"
+    release_name = "UhhyouPlugins0.66.0"
     changelog_en = [
-        "Fixed GUI on Linux.",
+        "Added GUI scaling.",
+        "Updated the Linux patch for VSTGUI4.",
     ]
     changelog_ja = [
-        "Linux での GUI を修正。",
+        "GUI のサイズを変更するオプションを追加。",
+        "VSTGUI4 の Linux パッチを更新。",
     ]
     for target in targets:
         updateVersion(target, alias, changelog_en, changelog_ja, release_name)

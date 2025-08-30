@@ -1,8 +1,9 @@
 {
   "PitchShiftDelay": {
-    "latest_version": "0.2.11",
+    "latest_version": "0.2.12",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/PitchShiftDelay_0.2.12.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/PitchShiftDelay_0.2.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/PitchShiftDelay_0.2.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/PitchShiftDelay_0.2.9.zip",
@@ -19,13 +20,21 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/PitchShiftDelayPresets.zip"
     },
     "changelog": {
-      "0.2.11": {
+      "0.2.12": {
         "en": [
-          "Fixed GUI on Linux."
+          "Added GUI scaling.",
+          "Fixed a bug on BarBox that the \"ascending sort\" shortcut was disabled.",
+          "Updated the Linux patch for VSTGUI4."
         ],
         "ja": [
-          "Linux での GUI を修正。"
+          "GUI のサイズを変更するオプションを追加。",
+          "BarBox の昇順ソートのショートカットが無効になっていたバグを修正。",
+          "VSTGUI4 の Linux パッチを更新。"
         ]
+      },
+      "0.2.11": {
+        "en": ["Fixed GUI on Linux."    ],
+        "ja": ["Linux での GUI を修正。"]
       },
       "0.2.10": {
         "en": [
@@ -48,12 +57,8 @@
         ]
       },
       "0.2.8": {
-        "en": [
-          "Added note event input to control delay times."
-        ],
-        "ja": [
-          "ディレイ時間を制御するためのノートイベント入力を追加。"
-        ]
+        "en": ["Added note event input to control delay times."        ],
+        "ja": ["ディレイ時間を制御するためのノートイベント入力を追加。"]
       },
       "0.2.7": {
         "en": [
@@ -74,12 +79,8 @@
         ]
       },
       "0.2.5": {
-        "en": [
-          "Updated splash screen text."
-        ],
-        "ja": [
-          "スプラッシュ画面のテキストを更新。"
-        ]
+        "en": ["Updated splash screen text."       ],
+        "ja": ["スプラッシュ画面のテキストを更新。"]
       },
       "0.2.4": {
         "en": [
@@ -119,14 +120,7 @@
           "BarBox がマウス押下でフォーカスを取得、マウスカーソルが範囲外に移動するとフォーカスを開放するように変更。"
         ]
       },
-      "0.2.0": {
-        "en": [
-          "Initial release."
-        ],
-        "ja": [
-          "初期リリース。"
-        ]
-      }
+      "0.2.0": { "en": ["Initial release."], "ja": ["初期リリース。"] }
     }
   }
 }

@@ -1,8 +1,9 @@
 {
   "BasicLimiter": {
-    "latest_version": "0.1.20",
+    "latest_version": "0.1.21",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/BasicLimiter_0.1.21.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/BasicLimiter_0.1.20.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/BasicLimiter_0.1.19.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/BasicLimiter_0.1.18.zip",
@@ -24,6 +25,16 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterPresets.zip"
     },
     "changelog": {
+      "0.1.21": {
+        "en": [
+          "Added GUI scaling.",
+          "Updated the Linux patch for VSTGUI4."
+        ],
+        "ja": [
+          "GUI のサイズを変更するオプションを追加。",
+          "VSTGUI4 の Linux パッチを更新。"
+        ]
+      },
       "0.1.20": {
         "en": [
           "Fixed GUI on Linux."
@@ -177,9 +188,10 @@
     }
   },
   "BasicLimiterAutoMake": {
-    "latest_version": "0.1.20",
+    "latest_version": "0.1.21",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/BasicLimiterAutoMake_0.1.21.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/BasicLimiterAutoMake_0.1.20.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/BasicLimiterAutoMake_0.1.19.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/BasicLimiterAutoMake_0.1.18.zip",
@@ -200,6 +212,16 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.1.21": {
+        "en": [
+          "Added GUI scaling.",
+          "Updated the Linux patch for VSTGUI4."
+        ],
+        "ja": [
+          "GUI のサイズを変更するオプションを追加。",
+          "VSTGUI4 の Linux パッチを更新。"
+        ]
+      },
       "0.1.20": {
         "en": [
           "Fixed GUI on Linux."

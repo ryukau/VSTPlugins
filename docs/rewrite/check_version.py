@@ -106,8 +106,6 @@ if __name__ == "__main__":
     parser.add_argument(
         "rootdir",
         type=Path,
-        nargs=1,
-        required=True,
         help="Set root directory of Uhhyou Plugins repository.",
     )
     parser.add_argument(

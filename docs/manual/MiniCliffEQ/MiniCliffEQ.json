@@ -1,8 +1,9 @@
 {
   "MiniCliffEQ": {
-    "latest_version": "0.1.15",
+    "latest_version": "0.1.16",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/MiniCliffEQ_0.1.16.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/MiniCliffEQ_0.1.15.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/MiniCliffEQ_0.1.14.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/MiniCliffEQ_0.1.13.zip",
@@ -18,6 +19,16 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/MiniCliffEQPresets.zip"
     },
     "changelog": {
+      "0.1.16": {
+        "en": [
+          "Added GUI scaling.",
+          "Updated the Linux patch for VSTGUI4."
+        ],
+        "ja": [
+          "GUI のサイズを変更するオプションを追加。",
+          "VSTGUI4 の Linux パッチを更新。"
+        ]
+      },
       "0.1.15": {
         "en": [
           "Fixed GUI on Linux."

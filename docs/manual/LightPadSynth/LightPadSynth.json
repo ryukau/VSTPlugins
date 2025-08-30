@@ -1,8 +1,9 @@
 {
   "LightPadSynth": {
-    "latest_version": "0.1.25",
+    "latest_version": "0.1.26",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/LightPadSynth_0.1.26.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.65.0/LightPadSynth_0.1.25.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/LightPadSynth_0.1.24.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/LightPadSynth_0.1.23.zip",
@@ -31,6 +32,18 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/LightPadSynth0.1.0/LightPadSynthPresets.zip"
     },
     "changelog": {
+      "0.1.26": {
+        "en": [
+          "Added GUI scaling.",
+          "Fixed a bug on BarBox that the \"ascending sort\" shortcut was disabled.",
+          "Updated the Linux patch for VSTGUI4."
+        ],
+        "ja": [
+          "GUI のサイズを変更するオプションを追加。",
+          "BarBox の昇順ソートのショートカットが無効になっていたバグを修正。",
+          "VSTGUI4 の Linux パッチを更新。"
+        ]
+      },
       "0.1.25": {
         "en": [
           "Changed to reduce click at note-on when a note number is repeatedly played. This happened when proper note IDs are not provided from DAW. Bitwig, Live, REAPER are affected."
@@ -40,12 +53,8 @@
         ]
       },
       "0.1.24": {
-        "en": [
-          "Fixed GUI on Linux."
-        ],
-        "ja": [
-          "Linux での GUI を修正。"
-        ]
+        "en": ["Fixed GUI on Linux."    ],
+        "ja": ["Linux での GUI を修正。"]
       },
       "0.1.23": {
         "en": [
@@ -84,12 +93,8 @@
         ]
       },
       "0.1.19": {
-        "en": [
-          "Updated splash screen text."
-        ],
-        "ja": [
-          "スプラッシュ画面のテキストを更新。"
-        ]
+        "en": ["Updated splash screen text."       ],
+        "ja": ["スプラッシュ画面のテキストを更新。"]
       },
       "0.1.18": {
         "en": [
@@ -128,18 +133,11 @@
         ]
       },
       "0.1.14": {
-        "en": [
-          "Removed dependency to x86_64 specific SIMD instructions."
-        ],
-        "ja": [
-          "x86_64 固有の SIMD 命令への依存を除去。"
-        ]
+        "en": ["Removed dependency to x86_64 specific SIMD instructions."],
+        "ja": ["x86_64 固有の SIMD 命令への依存を除去。"                 ]
       },
       "0.1.13": {
-        "en": [
-          "Fixed crash on Linux.",
-          "Fixed BarBox to receive shift key."
-        ],
+        "en": ["Fixed crash on Linux.", "Fixed BarBox to receive shift key."],
         "ja": [
           "Linux でのクラッシュを修正。",
           "BarBox が <kbd>Shift</kbd> キーを受け取るように修正。"
@@ -154,28 +152,16 @@
         ]
       },
       "0.1.11": {
-        "en": [
-          "Added custom font options for `style.json`."
-        ],
-        "ja": [
-          "`style.json` でカスタムフォントを設定するオプションを追加。"
-        ]
+        "en": ["Added custom font options for `style.json`."                ],
+        "ja": ["`style.json` でカスタムフォントを設定するオプションを追加。"]
       },
       "0.1.10": {
-        "en": [
-          "Updated VSTGUI from 4.10 to 4.11."
-        ],
-        "ja": [
-          "VSTGUI を 4.10 から 4.11 にアップデート。"
-        ]
+        "en": ["Updated VSTGUI from 4.10 to 4.11."        ],
+        "ja": ["VSTGUI を 4.10 から 4.11 にアップデート。"]
       },
       "0.1.9": {
-        "en": [
-          "Changed font to Tinos."
-        ],
-        "ja": [
-          "フォントを Tinos に変更。"
-        ]
+        "en": ["Changed font to Tinos."   ],
+        "ja": ["フォントを Tinos に変更。"]
       },
       "0.1.8": {
         "en": [
@@ -198,12 +184,8 @@
         ]
       },
       "0.1.6": {
-        "en": [
-          "Added check that DSP is initialized or not."
-        ],
-        "ja": [
-          "DSP が初期化されているかどうかのチェックを追加。"
-        ]
+        "en": ["Added check that DSP is initialized or not."     ],
+        "ja": ["DSP が初期化されているかどうかのチェックを追加。"]
       },
       "0.1.5": {
         "en": [
@@ -216,12 +198,8 @@
         ]
       },
       "0.1.4": {
-        "en": [
-          "Added color configuration."
-        ],
-        "ja": [
-          "カラーコンフィグを追加。"
-        ]
+        "en": ["Added color configuration."],
+        "ja": ["カラーコンフィグを追加。"  ]
       },
       "0.1.3": {
         "en": [
@@ -249,14 +227,7 @@
           "Refresh LFO ボタンと Refresh Table ボタンをメッセージからパラメータに修正。"
         ]
       },
-      "0.1.0": {
-        "en": [
-          "Initial release."
-        ],
-        "ja": [
-          "初期リリース。"
-        ]
-      }
+      "0.1.0": { "en": ["Initial release."], "ja": ["初期リリース。"] }
     }
   }
 }

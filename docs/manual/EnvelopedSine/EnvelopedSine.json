@@ -1,8 +1,9 @@
 {
   "EnvelopedSine": {
-    "latest_version": "0.1.26",
+    "latest_version": "0.1.27",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/EnvelopedSine_0.1.27.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.65.0/EnvelopedSine_0.1.26.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/EnvelopedSine_0.1.25.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/EnvelopedSine_0.1.24.zip",
@@ -32,6 +33,18 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/EnvelopedSinePresets.zip"
     },
     "changelog": {
+      "0.1.27": {
+        "en": [
+          "Added GUI scaling.",
+          "Fixed a bug on BarBox that the \"ascending sort\" shortcut was disabled.",
+          "Updated the Linux patch for VSTGUI4."
+        ],
+        "ja": [
+          "GUI のサイズを変更するオプションを追加。",
+          "BarBox の昇順ソートのショートカットが無効になっていたバグを修正。",
+          "VSTGUI4 の Linux パッチを更新。"
+        ]
+      },
       "0.1.26": {
         "en": [
           "Changed to reduce click at note-on when a note number is repeatedly played. This happened when proper note IDs are not provided from DAW. Bitwig, Live, REAPER are affected."
@@ -41,12 +54,8 @@
         ]
       },
       "0.1.25": {
-        "en": [
-          "Fixed GUI on Linux."
-        ],
-        "ja": [
-          "Linux での GUI を修正。"
-        ]
+        "en": ["Fixed GUI on Linux."    ],
+        "ja": ["Linux での GUI を修正。"]
       },
       "0.1.24": {
         "en": [
@@ -77,12 +86,8 @@
         ]
       },
       "0.1.21": {
-        "en": [
-          "Updated splash screen text."
-        ],
-        "ja": [
-          "スプラッシュ画面のテキストを更新。"
-        ]
+        "en": ["Updated splash screen text."       ],
+        "ja": ["スプラッシュ画面のテキストを更新。"]
       },
       "0.1.20": {
         "en": [
@@ -125,10 +130,7 @@
         ]
       },
       "0.1.16": {
-        "en": [
-          "Fixed crash on Linux.",
-          "Fixed BarBox to receive shift key."
-        ],
+        "en": ["Fixed crash on Linux.", "Fixed BarBox to receive shift key."],
         "ja": [
           "Linux でのクラッシュを修正。",
           "BarBox が <kbd>Shift</kbd> キーを受け取るように修正。"
@@ -143,28 +145,16 @@
         ]
       },
       "0.1.14": {
-        "en": [
-          "Added custom font options for `style.json`."
-        ],
-        "ja": [
-          "`style.json` でカスタムフォントを設定するオプションを追加。"
-        ]
+        "en": ["Added custom font options for `style.json`."                ],
+        "ja": ["`style.json` でカスタムフォントを設定するオプションを追加。"]
       },
       "0.1.13": {
-        "en": [
-          "Updated VSTGUI from 4.10 to 4.11."
-        ],
-        "ja": [
-          "VSTGUI を 4.10 から 4.11 にアップデート。"
-        ]
+        "en": ["Updated VSTGUI from 4.10 to 4.11."        ],
+        "ja": ["VSTGUI を 4.10 から 4.11 にアップデート。"]
       },
       "0.1.12": {
-        "en": [
-          "Changed font to Tinos."
-        ],
-        "ja": [
-          "フォントを Tinos に変更。"
-        ]
+        "en": ["Changed font to Tinos."   ],
+        "ja": ["フォントを Tinos に変更。"]
       },
       "0.1.11": {
         "en": [
@@ -187,28 +177,16 @@
         ]
       },
       "0.1.9": {
-        "en": [
-          "Added check that DSP is initialized or not."
-        ],
-        "ja": [
-          "DSP が初期化されているかどうかのチェックを追加。"
-        ]
+        "en": ["Added check that DSP is initialized or not."     ],
+        "ja": ["DSP が初期化されているかどうかのチェックを追加。"]
       },
       "0.1.8": {
-        "en": [
-          "Added undo/redo to BarBox."
-        ],
-        "ja": [
-          "BarBox に アンドゥ・リドゥの機能を追加。"
-        ]
+        "en": ["Added undo/redo to BarBox."              ],
+        "ja": ["BarBox に アンドゥ・リドゥの機能を追加。"]
       },
       "0.1.7": {
-        "en": [
-          "Added color configuration."
-        ],
-        "ja": [
-          "カラーコンフィグを追加。"
-        ]
+        "en": ["Added color configuration."],
+        "ja": ["カラーコンフィグを追加。"  ]
       },
       "0.1.6": {
         "en": [
@@ -227,12 +205,8 @@
         ]
       },
       "0.1.4": {
-        "en": [
-          "Fixed a bug that cause crash when drawing string."
-        ],
-        "ja": [
-          "文字列の描画でクラッシュするバグを修正。"
-        ]
+        "en": ["Fixed a bug that cause crash when drawing string."],
+        "ja": ["文字列の描画でクラッシュするバグを修正。"         ]
       },
       "0.1.3": {
         "en": [
@@ -246,9 +220,7 @@
         "en": [
           "Fixed a bug that was causing noise on PreSonus Studio One 4.6.1."
         ],
-        "ja": [
-          "PreSonus Studio One 4.6.1 で出力にノイズが乗るバグを修正。"
-        ]
+        "ja": ["PreSonus Studio One 4.6.1 で出力にノイズが乗るバグを修正。"]
       },
       "0.1.1": {
         "en": [
@@ -260,14 +232,7 @@
           "スプラッシュスクリーンにショートカット一覧を追加。"
         ]
       },
-      "0.1.0": {
-        "en": [
-          "Initial release."
-        ],
-        "ja": [
-          "初期リリース。"
-        ]
-      }
+      "0.1.0": { "en": ["Initial release."], "ja": ["初期リリース。"] }
     }
   }
 }

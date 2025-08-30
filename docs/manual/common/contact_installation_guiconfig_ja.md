@@ -110,7 +110,7 @@ sudo codesign --force --deep -s - /path/to/PluginName.vst3
   - `$XDG_CONFIG_HOME` が空のときは `$HOME/.config/UhhyouPlugins/style/style.json` 。
 - macOS では `/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json` 。
 
-プラグインのウィンドウを開くたびに `style.json` が読み込まれて更新されます。
+プラグインのウィンドウを閉じて開くたびに `style.json` が読み込まれて更新されます。
 
 既存の色のテーマを次のリンクに掲載しています。 `style.json` にコピペして使ってください。
 
@@ -120,26 +120,34 @@ sudo codesign --force --deep -s - /path/to/PluginName.vst3
 
 ```json
 {
-  "fontFamily": "Tinos",
-  "fontBold": true,
-  "fontItalic": true,
-  "foreground": "#000000",
-  "foregroundButtonOn": "#000000",
-  "foregroundInactive": "#8a8a8a",
-  "background": "#ffffff",
-  "boxBackground": "#ffffff",
-  "border": "#000000",
-  "borderCheckbox": "#000000",
-  "borderLabel": "#000000",
-  "unfocused": "#dddddd",
-  "highlightMain": "#0ba4f1",
-  "highlightAccent": "#13c136",
-  "highlightButton": "#fcc04f",
-  "highlightWarning": "#fc8080",
-  "overlay": "#00000088",
-  "overlayHighlight": "#00ff0033"
+  "guiScale"          : 1          ,
+  "fontFamily"        : "Tinos"    ,
+  "fontBold"          : true       ,
+  "fontItalic"        : true       ,
+  "foreground"        : "#000000"  ,
+  "foregroundButtonOn": "#000000"  ,
+  "foregroundInactive": "#8a8a8a"  ,
+  "background"        : "#ffffff"  ,
+  "boxBackground"     : "#ffffff"  ,
+  "border"            : "#000000"  ,
+  "borderCheckbox"    : "#000000"  ,
+  "borderLabel"       : "#000000"  ,
+  "unfocused"         : "#dddddd"  ,
+  "highlightMain"     : "#0ba4f1"  ,
+  "highlightAccent"   : "#13c136"  ,
+  "highlightButton"   : "#fcc04f"  ,
+  "highlightWarning"  : "#fc8080"  ,
+  "overlay"           : "#00000088",
+  "overlayHighlight"  : "#00ff0033"
 }
 ```
+
+### GUI のサイズ
+- `guiScale`: GUI の表示倍率。例えば `0.75` にすると 75% 、 `2.0` にすると 200% 。
+
+`guiScale` の値の下限は `0.01` です。上限はほぼありません (64-bit float の最大値) 。
+
+**注意**: `guiScale` の倍率を大きくしすぎると、 DAW によってはプラグインウィンドウの閉じるボタンがクリックできない位置に配置されてしまう、などといった問題が起きることがあります。
 
 ### フォントオプション
 以下はフォントオプションの一覧です。

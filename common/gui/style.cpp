@@ -136,6 +136,8 @@ void Uhhyou::Palette::load()
   if (data.is_null()) return;
 
   loadFloat(data, "guiScale", _guiScale);
+  if (_guiScale <= 0.01) _guiScale = 0.01;
+
   loadString(data, "fontFamily", _fontName);
   loadFontFace(data, "fontBold", VSTGUI::CTxtFace::kBoldFace, _fontFace);
   loadFontFace(data, "fontItalic", VSTGUI::CTxtFace::kItalicFace, _fontFace);

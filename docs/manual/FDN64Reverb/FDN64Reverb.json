@@ -1,8 +1,9 @@
 {
   "FDN64Reverb": {
-    "latest_version": "0.1.17",
+    "latest_version": "0.1.18",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/FDN64Reverb_0.1.18.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/FDN64Reverb_0.1.17.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/FDN64Reverb_0.1.16.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/FDN64Reverb_0.1.15.zip",
@@ -24,13 +25,21 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/FDN64ReverbPresets.zip"
     },
     "changelog": {
-      "0.1.17": {
+      "0.1.18": {
         "en": [
-          "Fixed GUI on Linux."
+          "Added GUI scaling.",
+          "Fixed a bug on BarBox that the \"ascending sort\" shortcut was disabled.",
+          "Updated the Linux patch for VSTGUI4."
         ],
         "ja": [
-          "Linux での GUI を修正。"
+          "GUI のサイズを変更するオプションを追加。",
+          "BarBox の昇順ソートのショートカットが無効になっていたバグを修正。",
+          "VSTGUI4 の Linux パッチを更新。"
         ]
+      },
+      "0.1.17": {
+        "en": ["Fixed GUI on Linux."    ],
+        "ja": ["Linux での GUI を修正。"]
       },
       "0.1.16": {
         "en": [
@@ -53,12 +62,8 @@
         ]
       },
       "0.1.14": {
-        "en": [
-          "Added note event input to control delay times."
-        ],
-        "ja": [
-          "ディレイ時間を制御するためのノートイベント入力を追加。"
-        ]
+        "en": ["Added note event input to control delay times."        ],
+        "ja": ["ディレイ時間を制御するためのノートイベント入力を追加。"]
       },
       "0.1.13": {
         "en": [
@@ -77,12 +82,8 @@
         ]
       },
       "0.1.11": {
-        "en": [
-          "Updated splash screen text."
-        ],
-        "ja": [
-          "スプラッシュ画面のテキストを更新。"
-        ]
+        "en": ["Updated splash screen text."       ],
+        "ja": ["スプラッシュ画面のテキストを更新。"]
       },
       "0.1.10": {
         "en": [
@@ -123,18 +124,11 @@
         ]
       },
       "0.1.6": {
-        "en": [
-          "Removed dependency to x86_64 specific SIMD instructions."
-        ],
-        "ja": [
-          "x86_64 固有の SIMD 命令への依存を除去。"
-        ]
+        "en": ["Removed dependency to x86_64 specific SIMD instructions."],
+        "ja": ["x86_64 固有の SIMD 命令への依存を除去。"                 ]
       },
       "0.1.5": {
-        "en": [
-          "Fixed crash on Linux.",
-          "Fixed BarBox to receive shift key."
-        ],
+        "en": ["Fixed crash on Linux.", "Fixed BarBox to receive shift key."],
         "ja": [
           "Linux でのクラッシュを修正。",
           "BarBox が <kbd>Shift</kbd> キーを受け取るように修正。"
@@ -144,9 +138,7 @@
         "en": [
           "Fixed a bug that `Interp. Rate` is shared between all FDN64Reverb instances."
         ],
-        "ja": [
-          "複数のインスタンス間で `Interp. Rate` が共有されるバグを修正。"
-        ]
+        "ja": ["複数のインスタンス間で `Interp. Rate` が共有されるバグを修正。"]
       },
       "0.1.3": {
         "en": [
@@ -157,29 +149,14 @@
         ]
       },
       "0.1.2": {
-        "en": [
-          "Added custom font options for `style.json`."
-        ],
-        "ja": [
-          "`style.json` でカスタムフォントを設定するオプションを追加。"
-        ]
+        "en": ["Added custom font options for `style.json`."                ],
+        "ja": ["`style.json` でカスタムフォントを設定するオプションを追加。"]
       },
       "0.1.1": {
-        "en": [
-          "Updated VSTGUI from 4.10 to 4.11."
-        ],
-        "ja": [
-          "VSTGUI を 4.10 から 4.11 にアップデート。"
-        ]
+        "en": ["Updated VSTGUI from 4.10 to 4.11."        ],
+        "ja": ["VSTGUI を 4.10 から 4.11 にアップデート。"]
       },
-      "0.1.0": {
-        "en": [
-          "Initial release."
-        ],
-        "ja": [
-          "初期リリース。"
-        ]
-      }
+      "0.1.0": { "en": ["Initial release."], "ja": ["初期リリース。"] }
     }
   }
 }

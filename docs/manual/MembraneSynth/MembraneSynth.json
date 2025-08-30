@@ -1,8 +1,9 @@
 {
   "MembraneSynth": {
-    "latest_version": "0.1.9",
+    "latest_version": "0.1.10",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/MembraneSynth_0.1.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/MembraneSynth_0.1.9.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/MembraneSynth_0.1.8.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.55.0/MembraneSynth_0.1.7.zip",
@@ -17,13 +18,21 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/MembraneSynthPresets.zip"
     },
     "changelog": {
-      "0.1.9": {
+      "0.1.10": {
         "en": [
-          "Fixed GUI on Linux."
+          "Added GUI scaling.",
+          "Fixed a bug on BarBox that the \"ascending sort\" shortcut was disabled.",
+          "Updated the Linux patch for VSTGUI4."
         ],
         "ja": [
-          "Linux での GUI を修正。"
+          "GUI のサイズを変更するオプションを追加。",
+          "BarBox の昇順ソートのショートカットが無効になっていたバグを修正。",
+          "VSTGUI4 の Linux パッチを更新。"
         ]
+      },
+      "0.1.9": {
+        "en": ["Fixed GUI on Linux."    ],
+        "ja": ["Linux での GUI を修正。"]
       },
       "0.1.8": {
         "en": [
@@ -66,12 +75,8 @@
         ]
       },
       "0.1.4": {
-        "en": [
-          "Updated splash screen text."
-        ],
-        "ja": [
-          "スプラッシュ画面のテキストを更新。"
-        ]
+        "en": ["Updated splash screen text."       ],
+        "ja": ["スプラッシュ画面のテキストを更新。"]
       },
       "0.1.3": {
         "en": [
@@ -99,14 +104,7 @@
           "`Seed` 変更時に乱数生成器をリセットするように変更。この変更により `Seed` 変更時と、フルリセット時に同じ音が出るようになった。"
         ]
       },
-      "0.1.0": {
-        "en": [
-          "Initial release."
-        ],
-        "ja": [
-          "初期リリース。"
-        ]
-      }
+      "0.1.0": { "en": ["Initial release."], "ja": ["初期リリース。"] }
     }
   }
 }

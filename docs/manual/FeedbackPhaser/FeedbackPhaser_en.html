@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2024-09-28" />
+      <meta name="dcterms.date" content="2025-08-30" />
       <title>FeedbackPhaser_en – Uhhyou Plugins</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
   <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
@@ -285,7 +285,7 @@
     <header>
         <p><a href="../../index.html">Back to Index</a></p>
             <p>
-      Update: 2024-09-28
+      Update: 2025-08-30
     </p>
             <details>
       <summary translate="yes">Table of Contents</summary>
@@ -320,6 +320,7 @@
         <li><a href="#gui-style-configuration"
         id="toc-gui-style-configuration">GUI Style Configuration</a>
         <ul>
+        <li><a href="#gui-scale" id="toc-gui-scale">GUI Scale</a></li>
         <li><a href="#font-options" id="toc-font-options">Font
         Options</a></li>
         <li><a href="#color-options" id="toc-color-options">Color
@@ -369,15 +370,15 @@
   than a phaser most of times.</p>
   <ul>
   <li><a
-  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/FeedbackPhaser_0.1.4.zip">Download
-  FeedbackPhaser 0.1.4 <code>full</code> - VST 3 (github.com)</a> <img
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/FeedbackPhaser_0.1.5.zip">Download
+  FeedbackPhaser 0.1.5 <code>full</code> - VST 3 (github.com)</a> <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="30px"
   style="display: inline-block; vertical-align: middle;"></li>
   <li><a
-  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/FeedbackPhaser_0.1.4_macOS.zip">Download
-  FeedbackPhaser 0.1.4 <code>macOS</code> - VST 3 (github.com)</a> <img
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/FeedbackPhaser_0.1.5_macOS.zip">Download
+  FeedbackPhaser 0.1.5 <code>macOS</code> - VST 3 (github.com)</a> <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="30px"
@@ -593,25 +594,38 @@
   <p>Below is an example of <code>style.json</code>.</p>
   <div class="sourceCode" id="cb5"><pre
   class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontFamily&quot;</span>        <span class="fu">:</span> <span class="st">&quot;Tinos&quot;</span>    <span class="fu">,</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontBold&quot;</span>          <span class="fu">:</span> <span class="kw">true</span>       <span class="fu">,</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontItalic&quot;</span>        <span class="fu">:</span> <span class="kw">true</span>       <span class="fu">,</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foreground&quot;</span>        <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span>  <span class="fu">,</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;background&quot;</span>        <span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span>  <span class="fu">,</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;boxBackground&quot;</span>     <span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span>  <span class="fu">,</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;border&quot;</span>            <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderCheckbox&quot;</span>    <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderLabel&quot;</span>       <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;unfocused&quot;</span>         <span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span>  <span class="fu">,</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightMain&quot;</span>     <span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span>  <span class="fu">,</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightAccent&quot;</span>   <span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span>  <span class="fu">,</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightButton&quot;</span>   <span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span>  <span class="fu">,</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightWarning&quot;</span>  <span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span>  <span class="fu">,</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlay&quot;</span>           <span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlayHighlight&quot;</span>  <span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;guiScale&quot;</span>          <span class="fu">:</span> <span class="dv">1</span>          <span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontFamily&quot;</span>        <span class="fu">:</span> <span class="st">&quot;Tinos&quot;</span>    <span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontBold&quot;</span>          <span class="fu">:</span> <span class="kw">true</span>       <span class="fu">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontItalic&quot;</span>        <span class="fu">:</span> <span class="kw">true</span>       <span class="fu">,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foreground&quot;</span>        <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;background&quot;</span>        <span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;boxBackground&quot;</span>     <span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;border&quot;</span>            <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderCheckbox&quot;</span>    <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderLabel&quot;</span>       <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;unfocused&quot;</span>         <span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightMain&quot;</span>     <span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightAccent&quot;</span>   <span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightButton&quot;</span>   <span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightWarning&quot;</span>  <span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span>  <span class="fu">,</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlay&quot;</span>           <span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlayHighlight&quot;</span>  <span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+  <h3 id="gui-scale"><a href="#gui-scale" class="header-anchor"
+  aria-hidden="true">GUI Scale</a></h3>
+  <ul>
+  <li><code>guiScale</code>: GUI scaling. For example, <code>0.75</code>
+  is 75%, and <code>2.0</code> is 200%.</li>
+  </ul>
+  <p>The minimum of <code>guiScale</code> is <code>0.01</code>. The
+  maximum is practically non-existent (the max value of 64-bit
+  float).</p>
+  <p><strong>Notice</strong>: If <code>guiScale</code> is too large, DAW
+  may place the “close” button on the plugin window out of screen,
+  making it unclickable.</p>
   <h3 id="font-options"><a href="#font-options" class="header-anchor"
   aria-hidden="true">Font Options</a></h3>
   <p>Following is a list of font options.</p>
@@ -928,6 +942,11 @@
   <h2 id="change-log"><a href="#change-log" class="header-anchor"
   aria-hidden="true">Change Log</a></h2>
   <ul>
+  <li>0.1.5
+  <ul>
+  <li>Added GUI scaling.</li>
+  <li>Updated the Linux patch for VSTGUI4.</li>
+  </ul></li>
   <li>0.1.4
   <ul>
   <li>Fixed GUI on Linux.</li>
@@ -958,6 +977,9 @@
   <h2 id="old-versions"><a href="#old-versions" class="header-anchor"
   aria-hidden="true">Old Versions</a></h2>
   <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/FeedbackPhaser_0.1.4.zip">FeedbackPhaser
+  0.1.4 - VST 3 (github.com)</a></li>
   <li><a
   href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/FeedbackPhaser_0.1.3.zip">FeedbackPhaser
   0.1.3 - VST 3 (github.com)</a></li>

@@ -1,8 +1,9 @@
 {
   "GenericDrum": {
-    "latest_version": "0.1.3",
+    "latest_version": "0.1.4",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/GenericDrum_0.1.4.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.63.0/GenericDrum_0.1.3.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/GenericDrum_0.1.2.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/GenericDrum_0.1.1.zip",
@@ -11,6 +12,18 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.57.0/GenericDrumPresets.zip"
     },
     "changelog": {
+      "0.1.4": {
+        "en": [
+          "Added GUI scaling.",
+          "Fixed a bug on BarBox that the \"ascending sort\" shortcut was disabled.",
+          "Updated the Linux patch for VSTGUI4."
+        ],
+        "ja": [
+          "GUI のサイズを変更するオプションを追加。",
+          "BarBox の昇順ソートのショートカットが無効になっていたバグを修正。",
+          "VSTGUI4 の Linux パッチを更新。"
+        ]
+      },
       "0.1.3": {
         "en": ["Added `Consistency` parameter."  ],
         "ja": ["`Consistency` パラメータを追加。"]

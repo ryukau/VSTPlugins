@@ -126,6 +126,7 @@ Below is an example of `style.json`.
 
 ```json
 {
+  "guiScale"          : 1          ,
   "fontFamily"        : "Tinos"    ,
   "fontBold"          : true       ,
   "fontItalic"        : true       ,
@@ -146,6 +147,13 @@ Below is an example of `style.json`.
   "overlayHighlight"  : "#00ff0033"
 }
 ```
+
+### GUI Scale
+- `guiScale`: GUI scaling. For example, `0.75` is 75%, and `2.0` is 200%.
+
+The minimum of `guiScale` is `0.01`. The maximum is practically non-existent (the max value of 64-bit float).
+
+**Notice**: If `guiScale` is too large, DAW may place the "close" button on the plugin window out of screen, making it unclickable.
 
 ### Font Options
 Following is a list of font options.

@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2024-09-28" />
+      <meta name="dcterms.date" content="2025-08-30" />
       <title>FDNCymbal_ja – Uhhyou Plugins</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
   <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
@@ -285,7 +285,7 @@
     <header>
         <p><a href="../../index.html">Back to Index</a></p>
             <p>
-      Update: 2024-09-28
+      Update: 2025-08-30
     </p>
             <details>
       <summary translate="yes">Table of Contents</summary>
@@ -318,6 +318,8 @@
         <li><a href="#gui-の見た目の設定"
         id="toc-gui-の見た目の設定">GUI の見た目の設定</a>
         <ul>
+        <li><a href="#gui-のサイズ" id="toc-gui-のサイズ">GUI
+        のサイズ</a></li>
         <li><a href="#フォントオプション"
         id="toc-フォントオプション">フォントオプション</a></li>
         <li><a href="#色のオプション"
@@ -367,15 +369,15 @@
   の値を小さくすることで、わりとナイスなばちの衝突音が合成できます。シンバルの揺れをシミュレートするためにトレモロもついています。</p>
   <ul>
   <li><a
-  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/FDNCymbal_0.2.19.zip">FDNCymbal
-  0.2.19 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/FDNCymbal_0.2.20.zip">FDNCymbal
+  0.2.20 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="30px"
   style="display: inline-block; vertical-align: middle;"></li>
   <li><a
-  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/FDNCymbal_0.2.19_macOS.zip">FDNCymbal
-  0.2.19 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/FDNCymbal_0.2.20_macOS.zip">FDNCymbal
+  0.2.20 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="30px"
@@ -581,7 +583,7 @@
   <code>/Users/$USERNAME/Library/Preferences/UhhyouPlugins/style/style.json</code>
   。</li>
   </ul>
-  <p>プラグインのウィンドウを開くたびに <code>style.json</code>
+  <p>プラグインのウィンドウを閉じて開くたびに <code>style.json</code>
   が読み込まれて更新されます。</p>
   <p>既存の色のテーマを次のリンクに掲載しています。
   <code>style.json</code> にコピペして使ってください。</p>
@@ -593,25 +595,37 @@
   <p><code>style.json</code> の設定例です。</p>
   <div class="sourceCode" id="cb4"><pre
   class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontFamily&quot;</span><span class="fu">:</span> <span class="st">&quot;Tinos&quot;</span><span class="fu">,</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontBold&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontItalic&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foreground&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span><span class="fu">,</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;background&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;boxBackground&quot;</span><span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span><span class="fu">,</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;border&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderCheckbox&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderLabel&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span><span class="fu">,</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;unfocused&quot;</span><span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span><span class="fu">,</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightMain&quot;</span><span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span><span class="fu">,</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightAccent&quot;</span><span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span><span class="fu">,</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightButton&quot;</span><span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span><span class="fu">,</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightWarning&quot;</span><span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span><span class="fu">,</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlay&quot;</span><span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlayHighlight&quot;</span><span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;guiScale&quot;</span>          <span class="fu">:</span> <span class="dv">1</span>          <span class="fu">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontFamily&quot;</span>        <span class="fu">:</span> <span class="st">&quot;Tinos&quot;</span>    <span class="fu">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontBold&quot;</span>          <span class="fu">:</span> <span class="kw">true</span>       <span class="fu">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fontItalic&quot;</span>        <span class="fu">:</span> <span class="kw">true</span>       <span class="fu">,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foreground&quot;</span>        <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundButtonOn&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;foregroundInactive&quot;</span><span class="fu">:</span> <span class="st">&quot;#8a8a8a&quot;</span>  <span class="fu">,</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;background&quot;</span>        <span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span>  <span class="fu">,</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;boxBackground&quot;</span>     <span class="fu">:</span> <span class="st">&quot;#ffffff&quot;</span>  <span class="fu">,</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;border&quot;</span>            <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderCheckbox&quot;</span>    <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;borderLabel&quot;</span>       <span class="fu">:</span> <span class="st">&quot;#000000&quot;</span>  <span class="fu">,</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;unfocused&quot;</span>         <span class="fu">:</span> <span class="st">&quot;#dddddd&quot;</span>  <span class="fu">,</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightMain&quot;</span>     <span class="fu">:</span> <span class="st">&quot;#0ba4f1&quot;</span>  <span class="fu">,</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightAccent&quot;</span>   <span class="fu">:</span> <span class="st">&quot;#13c136&quot;</span>  <span class="fu">,</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightButton&quot;</span>   <span class="fu">:</span> <span class="st">&quot;#fcc04f&quot;</span>  <span class="fu">,</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;highlightWarning&quot;</span>  <span class="fu">:</span> <span class="st">&quot;#fc8080&quot;</span>  <span class="fu">,</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlay&quot;</span>           <span class="fu">:</span> <span class="st">&quot;#00000088&quot;</span><span class="fu">,</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;overlayHighlight&quot;</span>  <span class="fu">:</span> <span class="st">&quot;#00ff0033&quot;</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+  <h3 id="gui-のサイズ"><a href="#gui-のサイズ" class="header-anchor"
+  aria-hidden="true">GUI のサイズ</a></h3>
+  <ul>
+  <li><code>guiScale</code>: GUI の表示倍率。例えば <code>0.75</code>
+  にすると 75% 、 <code>2.0</code> にすると 200% 。</li>
+  </ul>
+  <p><code>guiScale</code> の値の下限は <code>0.01</code>
+  です。上限はほぼありません (64-bit float の最大値) 。</p>
+  <p><strong>注意</strong>: <code>guiScale</code>
+  の倍率を大きくしすぎると、 DAW
+  によってはプラグインウィンドウの閉じるボタンがクリックできない位置に配置されてしまう、などといった問題が起きることがあります。</p>
   <h3 id="フォントオプション"><a href="#フォントオプション"
   class="header-anchor" aria-hidden="true">フォントオプション</a></h3>
   <p>以下はフォントオプションの一覧です。</p>
@@ -897,6 +911,11 @@
   <h2 id="チェンジログ"><a href="#チェンジログ" class="header-anchor"
   aria-hidden="true">チェンジログ</a></h2>
   <ul>
+  <li>0.2.20
+  <ul>
+  <li>GUI のサイズを変更するオプションを追加。</li>
+  <li>VSTGUI4 の Linux パッチを更新。</li>
+  </ul></li>
   <li>0.2.19
   <ul>
   <li>Linux での GUI を修正。</li>
@@ -1031,6 +1050,9 @@
   <h2 id="旧バージョン"><a href="#旧バージョン" class="header-anchor"
   aria-hidden="true">旧バージョン</a></h2>
   <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/FDNCymbal_0.2.19.zip">FDNCymbal
+  0.2.19 - VST 3 (github.com)</a></li>
   <li><a
   href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/FDNCymbal_0.2.18.zip">FDNCymbal
   0.2.18 - VST 3 (github.com)</a></li>

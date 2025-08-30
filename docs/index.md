@@ -34,7 +34,7 @@ To make a contact, feel free to [post on the discussion page on GitHub repositor
 
 You can fund the development via [paypal.me/ryukau](https://www.paypal.com/paypalme/ryukau).
 
-## GUI の色について | Color Configuration
+## GUI の色とサイズについて | GUI Color and Scale Configuration
 <div style="">
 <figure class="colorThemeThumbnail">
 <img src="img/thumbnail_ArcDark.png"/ class="staySameInDark">
@@ -78,9 +78,9 @@ You can fund the development via [paypal.me/ryukau](https://www.paypal.com/paypa
 </figure>
 </div>
 
-GUI の色は変更できます。マニュアルの「GUI の見た目の設定」を参照してください。上はプリセットのテーマの一覧です。
+GUI の色と表示倍率は変更できます。マニュアルの「GUI の見た目の設定」を参照してください。上はプリセットのテーマの一覧です。
 
-GUI colors can be configured. Refer to "GUI Style Configuration" section in the manual. Above is the list of preset themes.
+GUI colors and scale can be configured. Refer to "GUI Style Configuration" section in the manual. Above is the list of preset themes.
 
 ## プラグイン一覧 | Plugin List
 以下のリリースページからプラグインをまとめてダウンロードできます。プラグイン全部入りを `UhhyouPlugins*.zip` として配布しています。
