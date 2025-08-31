@@ -1,14 +1,22 @@
 {
   "GlitchSprinkler": {
-    "latest_version": "0.1.1",
+    "latest_version": "0.1.2",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/GlitchSprinkler_0.1.2.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.63.0/GlitchSprinkler_0.1.1.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.62.0/GlitchSprinkler_0.0.1.zip"
       ],
       "preset_url": []
     },
     "changelog": {
+      "0.1.2": {
+        "en": ["Added GUI scaling.", "Updated the Linux patch for VSTGUI4."],
+        "ja": [
+          "GUI のサイズを変更するオプションを追加。",
+          "VSTGUI4 の Linux パッチを更新。"
+        ]
+      },
       "0.1.1": {
         "en": [
           "Fixed a bug that first modifier note (MIDI ch. 16) didn't have effect when played at the same time as a voiced note."
