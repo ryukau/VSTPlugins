@@ -225,13 +225,14 @@ std::array<double, 2> Voice::processFrame()
 
   // Oscillator.
   auto oscFunc = [&](double phase) {
-    if (phaseCounter > (pwmPoint | ~int_fast32_t(pwmBitMask))) return double(0);
+    if (uint_fast32_t(phaseCounter) > (uint_fast32_t(pwmPoint) | ~pwmBitMask))
+      return double(0);
     return computePolynomial<double, PolySolver::nPolynomialPoint>(
       phase, polynomialCoefficients);
   };
 
   const auto phase
-    = oscSync * double(phaseCounter & int_fast32_t(pwmBitMask)) / double(phasePeriod);
+    = oscSync * double(uint_fast32_t(phaseCounter) & pwmBitMask) / double(phasePeriod);
   auto sig = oscFunc(phase);
 
   // FM.
