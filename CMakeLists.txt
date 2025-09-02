@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 project(UhhyouPlugins
-  VERSION 0.66.0)
+  VERSION 0.67.0)
 
 if(MSVC)
   # For errors on `lib/vst3sdk/public.sdk/source/vst/hosting/module_win32.cpp`, VST SDK 3.7.14.
