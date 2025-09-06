@@ -9,7 +9,7 @@ This repository is publishing VST 3 plugins under GPLv3.
 
 - [Uhhyou Plugins (Documentation)](https://ryukau.github.io/VSTPlugins/)
 
-The plugins are available at [release page](https://github.com/ryukau/VSTPlugins/releases). To install from a zip package, refer to [a section on the manual](https://ryukau.github.io/VSTPlugins/manual/SevenDelay/SevenDelay_en.html#installation).
+The plugins are available at [release page](https://github.com/ryukau/VSTPlugins/releases). To install from a zip package, refer to [a section in the manual](https://ryukau.github.io/VSTPlugins/manual/SevenDelay/SevenDelay_en.html#installation).
 
 - `UhhyouPlugins*.zip` contains everything. (`*` is a wildcard character.)
 - Other zip files are individual plugins.
@@ -18,8 +18,8 @@ To build from the source code, refer to [./build_instruction.md](https://github.
 
 ## Status
 - Windows: It works.
-- macOS: It worked on Sequoia (version 15). It probably won't work on older OS version as is.
-- Linux: DSP part works, but GUI isn't working.
+- macOS: It worked on Sequoia (macOS 15). It probably won't work on older macOS versions as is.
+- Linux: It worked on Ubuntu 25.04 when built from the source code.
 
 ## Contacts
 To report a bug, open an [issue](https://github.com/ryukau/VSTPlugins/issues).
