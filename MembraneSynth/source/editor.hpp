@@ -4,6 +4,7 @@
 #pragma once
 
 #include "../../common/gui/plugeditor.hpp"
+#include "gui/randomizebutton.hpp"
 #include "parameter.hpp"
 
 #include <algorithm>
@@ -22,27 +23,27 @@ public:
   DELEGATE_REFCOUNT(VSTGUIEditor);
 
 private:
-  float uiTextSize = 12.0f;
-  float pluginNameTextSize = 14.0f;
-  float margin = 5.0f;
-  float uiMargin = 20.0f;
-  float labelHeight = 20.0f;
-  float knobWidth = 50.0f;
-  float knobX = knobWidth + 2 * margin;
-  float knobY = knobWidth + labelHeight + 2 * margin;
-  float labelY = labelHeight + 2 * margin;
-  float labelWidth = 2 * knobWidth;
-  float groupLabelWidth = 2 * labelWidth + 2 * margin;
-  float splashWidth = int(labelWidth * 3 / 2) + 2 * margin;
-  float splashHeight = int(labelHeight * 3 / 2);
+  float uiTextSize{};
+  float pluginNameTextSize{};
+  float margin{};
+  float uiMargin{};
+  float labelHeight{};
+  float knobWidth{};
+  float knobX{};
+  float knobY{};
+  float labelY{};
+  float labelWidth{};
+  float groupLabelWidth{};
+  float splashWidth{};
+  float splashHeight{};
 
-  float barboxWidth = groupLabelWidth;
-  float barboxHeight = 5 * labelY - 2 * margin;
-  float smallKnobWidth = labelHeight;
-  float smallKnobX = smallKnobWidth + 2 * margin;
+  float barboxWidth{};
+  float barboxHeight{};
+  float smallKnobWidth{};
+  float smallKnobX{};
 
-  int32_t defaultWidth = int32_t(2 * uiMargin + 3 * groupLabelWidth + 8 * margin);
-  int32_t defaultHeight = int32_t(2 * uiMargin + 15 * labelY - 2 * margin);
+  int32_t defaultWidth{};
+  int32_t defaultHeight{};
 
   void setDimensions() override
   {
@@ -58,7 +59,7 @@ private:
     knobY = knobWidth + labelHeight + 2 * margin;
     labelY = labelHeight + 2 * margin;
     labelWidth = 2 * knobWidth;
-    groupLabelWidth = 2 * labelWidth + 2 * margin;
+    groupLabelWidth = 2 * labelWidth + labelHeight + 4 * margin;
     splashWidth = int(labelWidth * 3 / 2) + 2 * margin;
     splashHeight = int(labelHeight * 3 / 2);
 
@@ -67,7 +68,7 @@ private:
     smallKnobWidth = labelHeight;
     smallKnobX = smallKnobWidth + 2 * margin;
 
-    defaultWidth = int32_t(2 * uiMargin + 3 * groupLabelWidth + 8 * margin);
+    defaultWidth = int32_t(2 * uiMargin + 3 * groupLabelWidth + 4 * margin);
     defaultHeight = int32_t(2 * uiMargin + 15 * labelY - 2 * margin);
 
     viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
@@ -75,6 +76,18 @@ private:
   }
 
   bool prepareUI() override;
+
+  void addRandomButton(
+    CCoord left,
+    CCoord top,
+    CCoord sideLength,
+    std::vector<Steinberg::Vst::ParamID> targetId)
+  {
+    auto button = new RandomizeButton(
+      CRect(left, top, left + sideLength, top + sideLength), this, 0, palette, this,
+      targetId);
+    frame->addView(button);
+  }
 };
 
 } // namespace Vst
