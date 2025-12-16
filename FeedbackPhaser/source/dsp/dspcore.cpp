@@ -159,13 +159,15 @@ std::array<double, 2> DSPCore::processFrame(
     apCut[0] = std::min(std::exp2(apMod0) * apCenterCut, double(1 - eps));
     apCut[1] = std::min(std::exp2(apMod1) * apCenterCut, double(1 - eps));
   } else if (modType == 1) { // Lin. Mul.
-    auto asym = modAsym >= 0 ? double(1) - modAsym : double(-1) - modAsym;
+    auto clamped = std::clamp(modAsym, eps - double(1), double(1) - eps);
+    auto asym = clamped >= 0 ? double(1) - clamped : double(-1) - clamped;
     auto apMod0 = addAsymmetry(double(1) / double(128) * modAmt * modSig[0], asym);
     auto apMod1 = addAsymmetry(double(1) / double(128) * modAmt * modSig[1], asym);
     apCut[0] = std::min(std::abs(apMod0 * apCenterCut), double(1 - eps));
     apCut[1] = std::min(std::abs(apMod1 * apCenterCut), double(1 - eps));
   } else { // Add.
-    auto asym = modAsym >= 0 ? double(1) - modAsym : double(-1) - modAsym;
+    auto clamped = std::clamp(modAsym, eps - double(1), double(1) - eps);
+    auto asym = clamped >= 0 ? double(1) - clamped : double(-1) - clamped;
     auto apMod0 = addAsymmetry(modAmt * modSig[0], asym);
     auto apMod1 = addAsymmetry(modAmt * modSig[1], asym);
     apCut[0] = std::min(std::abs(apMod0 + apCenterCut), double(1 - eps));
