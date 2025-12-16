@@ -1,8 +1,9 @@
 {
   "FeedbackPhaser": {
-    "latest_version": "0.1.5",
+    "latest_version": "0.1.6",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.68.0/FeedbackPhaser_0.1.6.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/FeedbackPhaser_0.1.5.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/FeedbackPhaser_0.1.4.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/FeedbackPhaser_0.1.3.zip",
@@ -12,23 +13,24 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/FeedbackPhaserPresets.zip"
     },
     "changelog": {
-      "0.1.5": {
+      "0.1.6": {
         "en": [
-          "Added GUI scaling.",
-          "Updated the Linux patch for VSTGUI4."
+          "Fixed a bug that when `Modulation -> Type` is set to `Lin. Mul.` or `Add`, and `Mod. Asym.` is set to ±1, saving and loading the plugin changed the sound."
         ],
+        "ja": [
+          "`Modulation -> Type` が `Lin. Mul.` あるいは `Add` のときに、 `Mod. Asym.` を ±1 とした状態で保存すると、ロード時に音が変わるバグを修正。"
+        ]
+      },
+      "0.1.5": {
+        "en": ["Added GUI scaling.", "Updated the Linux patch for VSTGUI4."],
         "ja": [
           "GUI のサイズを変更するオプションを追加。",
           "VSTGUI4 の Linux パッチを更新。"
         ]
       },
       "0.1.4": {
-        "en": [
-          "Fixed GUI on Linux."
-        ],
-        "ja": [
-          "Linux での GUI を修正。"
-        ]
+        "en": ["Fixed GUI on Linux."    ],
+        "ja": ["Linux での GUI を修正。"]
       },
       "0.1.3": {
         "en": [
@@ -58,14 +60,7 @@
           "Renoise で GUI を開く前に音を入力するとクラッシュするバグを修正。"
         ]
       },
-      "0.1.0": {
-        "en": [
-          "Initial release."
-        ],
-        "ja": [
-          "初期リリース。"
-        ]
-      }
+      "0.1.0": { "en": ["Initial release."], "ja": ["初期リリース。"] }
     }
   }
 }
