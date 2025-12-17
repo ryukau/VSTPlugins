@@ -41,10 +41,13 @@ bool Editor::prepareUI()
   const auto top14 = top13 + labelY;
   const auto left0 = uiMargin;
   const auto left2 = left0 + labelWidth + 2 * margin;
-  const auto left4 = left2 + labelWidth + 4 * margin;
+  const auto left3 = left2 + labelWidth + margin;
+  const auto left4 = left0 + groupLabelWidth + 2 * margin;
   const auto left6 = left4 + labelWidth + 2 * margin;
-  const auto left8 = left6 + labelWidth + 4 * margin;
+  const auto left7 = left6 + labelWidth + margin;
+  const auto left8 = left4 + groupLabelWidth + 2 * margin;
   const auto left10 = left8 + labelWidth + 2 * margin;
+  const auto left11 = left10 + labelWidth + margin;
 
   // Gain.
   addGroupLabel(left0, top0, groupLabelWidth, labelHeight, uiTextSize, "Gain");
@@ -65,14 +68,17 @@ bool Editor::prepareUI()
   addTextKnob(
     left2, top4, labelWidth, labelHeight, uiTextSize, ID::pulseAmplitude,
     Scales::pulseAmplitude, true, 5);
+  addRandomButton(left3, top4, labelHeight, {ID::pulseAmplitude});
   addLabel(left0, top5, labelWidth, labelHeight, uiTextSize, "Decay [s]");
   addTextKnob(
     left2, top5, labelWidth, labelHeight, uiTextSize, ID::pulseDecaySeconds,
     Scales::pulseDecaySeconds, false, 5);
+  addRandomButton(left3, top5, labelHeight, {ID::pulseDecaySeconds});
   addLabel(left0, top6, labelWidth, labelHeight, uiTextSize, "Position");
   addTextKnob(
     left2, top6, labelWidth, labelHeight, uiTextSize, ID::impactCenterRimPosition,
     Scales::defaultScale, false, 5);
+  addRandomButton(left3, top6, labelHeight, {ID::impactCenterRimPosition});
 
   // FDN Misc.
   addGroupLabel(left4, top0, groupLabelWidth, labelHeight, uiTextSize, "Delay");
@@ -81,14 +87,17 @@ bool Editor::prepareUI()
   addTextKnob(
     left6, top1, labelWidth, labelHeight, uiTextSize, ID::fdnMatrixIdentityAmount,
     Scales::fdnMatrixIdentityAmount, false, 5);
+  addRandomButton(left7, top1, labelHeight, {ID::fdnMatrixIdentityAmount});
   addLabel(left4, top2, labelWidth, labelHeight, uiTextSize, "Feedback");
   addTextKnob<Style::warning>(
     left6, top2, labelWidth, labelHeight, uiTextSize, ID::fdnFeedback,
     Scales::fdnFeedback, false, 5);
+  addRandomButton(left7, top2, labelHeight, {ID::fdnFeedback});
   addLabel(left4, top3, labelWidth, labelHeight, uiTextSize, "Shape");
   addTextKnob(
     left6, top3, labelWidth, labelHeight, uiTextSize, ID::fdnShape, Scales::defaultScale,
     false, 5);
+  addRandomButton(left7, top3, labelHeight, {ID::fdnShape});
 
   // FDN Modulation.
   addGroupLabel(left4, top4, groupLabelWidth, labelHeight, uiTextSize, "Modulation");
@@ -97,14 +106,17 @@ bool Editor::prepareUI()
   addTextKnob<Style::warning>(
     left6, top5, labelWidth, labelHeight, uiTextSize, ID::fdnModulationAmount,
     Scales::defaultScale, false, 5);
+  addRandomButton(left7, top5, labelHeight, {ID::fdnModulationAmount});
   addLabel(left4, top6, labelWidth, labelHeight, uiTextSize, "Interp. Rate");
   addTextKnob<Style::warning>(
     left6, top6, labelWidth, labelHeight, uiTextSize, ID::fdnInterpRate,
     Scales::fdnInterpRate, false, 5);
+  addRandomButton(left7, top6, labelHeight, {ID::fdnInterpRate});
   addLabel(left4, top7, labelWidth, labelHeight, uiTextSize, "Max Ratio");
   addTextKnob(
     left6, top7, labelWidth, labelHeight, uiTextSize, ID::fdnMaxModulationRatio,
     Scales::fdnMaxModulationRatio, false, 5);
+  addRandomButton(left7, top7, labelHeight, {ID::fdnMaxModulationRatio});
 
   addToggleButton(
     left4, top8, groupLabelWidth, labelHeight, uiTextSize, "Envelope", ID::enableModEnv);
@@ -112,24 +124,29 @@ bool Editor::prepareUI()
   addTextKnob(
     left6, top9, labelWidth, labelHeight, uiTextSize, ID::modEnvSustainSeconds,
     Scales::envelopeSeconds, false, 5);
+  addRandomButton(left7, top9, labelHeight, {ID::modEnvSustainSeconds});
   addLabel(left4, top10, labelWidth, labelHeight, uiTextSize, "Release [s]");
   addTextKnob(
     left6, top10, labelWidth, labelHeight, uiTextSize, ID::modEnvReleaseSeconds,
     Scales::envelopeSeconds, false, 5);
+  addRandomButton(left7, top10, labelHeight, {ID::modEnvReleaseSeconds});
 
   // FDN Randomization.
   addGroupLabel(left4, top11, groupLabelWidth, labelHeight, uiTextSize, "Random");
   addLabel(left4, top12, labelWidth, labelHeight, uiTextSize, "Seed");
   addTextKnob(
     left6, top12, labelWidth, labelHeight, uiTextSize, ID::fdnSeed, Scales::seed);
+  addRandomButton(left7, top12, labelHeight, {ID::fdnSeed});
   addLabel(left4, top13, labelWidth, labelHeight, uiTextSize, "Matrix Rnd.");
   addTextKnob(
     left6, top13, labelWidth, labelHeight, uiTextSize, ID::fdnRandomMatrix,
     Scales::defaultScale, false, 5);
+  addRandomButton(left7, top13, labelHeight, {ID::fdnRandomMatrix});
   addLabel(left4, top14, labelWidth, labelHeight, uiTextSize, "Overtone Rnd.");
   addTextKnob(
     left6, top14, labelWidth, labelHeight, uiTextSize, ID::fdnRandomOvertone,
     Scales::defaultScale, false, 5);
+  addRandomButton(left7, top14, labelHeight, {ID::fdnRandomOvertone});
 
   // FDN Filter.
   addGroupLabel(left8, top0, groupLabelWidth, labelHeight, uiTextSize, "Filter");
@@ -140,6 +157,7 @@ bool Editor::prepareUI()
   addBarBox(
     left8, top2, barboxWidth, barboxHeight, ID::fdnLowpassQ0, fdnSize, Scales::filterQ,
     "LP Q");
+  addRandomButton(left11, top1, labelHeight, {ID::fdnLowpassCutoffHz});
 
   addLabel(left8, top7, labelWidth, labelHeight, uiTextSize, "HP Cut [Hz]");
   addTextKnob(
@@ -148,6 +166,7 @@ bool Editor::prepareUI()
   addBarBox(
     left8, top8, barboxWidth, barboxHeight, ID::fdnHighpassQ0, fdnSize, Scales::filterQ,
     "HP Q");
+  addRandomButton(left11, top7, labelHeight, {ID::fdnHighpassCutoffHz});
 
   // Tuning.
   addGroupLabel(left0, top7, groupLabelWidth, labelHeight, uiTextSize, "Tuning");
@@ -156,26 +175,32 @@ bool Editor::prepareUI()
   addTextKnob(
     left2, top8, labelWidth, labelHeight, uiTextSize, ID::tuningSemitone,
     Scales::semitone, false, 0, -semitoneOffset);
+  addRandomButton(left3, top8, labelHeight, {ID::tuningSemitone});
   addLabel(left0, top9, labelWidth, labelHeight, uiTextSize, "Cent");
   addTextKnob(
     left2, top9, labelWidth, labelHeight, uiTextSize, ID::tuningCent, Scales::cent, false,
     5);
+  addRandomButton(left3, top9, labelHeight, {ID::tuningCent});
   addLabel(left0, top10, labelWidth, labelHeight, uiTextSize, "Equal Temp.");
   addTextKnob(
     left2, top10, labelWidth, labelHeight, uiTextSize, ID::tuningET,
     Scales::equalTemperament, false, 0, 1);
+  addRandomButton(left3, top10, labelHeight, {ID::tuningET});
   addLabel(left0, top11, labelWidth, labelHeight, uiTextSize, "A4 [Hz]");
   addTextKnob(
     left2, top11, labelWidth, labelHeight, uiTextSize, ID::tuningA4Hz, Scales::a4Hz,
     false, 0, a4HzOffset);
+  addRandomButton(left3, top11, labelHeight, {ID::tuningA4Hz});
   addLabel(left0, top12, labelWidth, labelHeight, uiTextSize, "P.Bend Range [st.]");
   addTextKnob(
     left2, top12, labelWidth, labelHeight, uiTextSize, ID::pitchBendRange,
     Scales::pitchBendRange, false, 5);
+  addRandomButton(left3, top12, labelHeight, {ID::pitchBendRange});
   addLabel(left0, top13, labelWidth, labelHeight, uiTextSize, "Slide Time [s]");
   addTextKnob(
     left2, top13, labelWidth, labelHeight, uiTextSize, ID::noteSlideTimeSecond,
     Scales::noteSlideTimeSecond, false, 5);
+  addRandomButton(left3, top13, labelHeight, {ID::noteSlideTimeSecond});
 
   const auto slideAtWidth = int(groupLabelWidth / 3);
   const auto slideAtLeft1 = left0 + 1 * slideAtWidth;
@@ -191,7 +216,7 @@ bool Editor::prepareUI()
   // Plugin name.
   const auto splashMargin = uiMargin;
   const auto splashTop = top13 + int(labelHeight / 4) + 2 * margin;
-  const auto splashLeft = left8 + int(labelWidth / 4);
+  const auto splashLeft = left8 + int(labelWidth / 4 + labelHeight / 2 + margin);
   addSplashScreen(
     splashLeft, splashTop, splashWidth, splashHeight, splashMargin, splashMargin,
     defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,

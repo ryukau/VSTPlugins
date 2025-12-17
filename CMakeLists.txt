@@ -16,6 +16,7 @@ endif()
 option(SMTG_ADD_VST3_HOSTING_SAMPLES OFF)
 option(SMTG_ENABLE_VST3_PLUGIN_EXAMPLES OFF)
 option(SMTG_ENABLE_VST3_HOSTING_EXAMPLES OFF)
+option(SMTG_CREATE_PLUGIN_LINK OFF)
 
 add_subdirectory(common)
 add_subdirectory(lib/vst3sdk)
