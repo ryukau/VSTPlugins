@@ -20,16 +20,7 @@ Editor::Editor(void *controller) : PlugEditor(controller)
 
 void Editor::valueChanged(CControl *pControl)
 {
-  using ID = Synth::ParameterID::ID;
-
   ParamID id = pControl->getTag();
-
-  switch (id) {
-    case ID::inputLimiterAttackSeconds:
-    case ID::sideLimiterAttackSeconds:
-      controller->getComponentHandler()->restartComponent(kLatencyChanged);
-  }
-
   ParamValue value = pControl->getValueNormalized();
   controller->setParamNormalized(id, value);
   controller->performEdit(id, value);

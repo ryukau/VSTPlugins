@@ -152,9 +152,6 @@ void DSPCore::process(
 {
   ScopedNoDenormals scopedDenormals;
 
-  using ID = ParameterID::ID;
-  const auto &pv = param.value;
-
   SmootherCommon<double>::setBufferSize(double(length));
 
   for (size_t i = 0; i < length; ++i) {

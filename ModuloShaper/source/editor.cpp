@@ -76,14 +76,6 @@ void Editor::refreshCurveView(ParamID id)
 void Editor::valueChanged(CControl *pControl)
 {
   ParamID tag = pControl->getTag();
-
-  switch (tag) {
-    case Synth::ParameterID::ID::type:
-    case Synth::ParameterID::ID::limiter:
-    case Synth::ParameterID::ID::limiterAttack:
-      controller->getComponentHandler()->restartComponent(kLatencyChanged);
-  }
-
   ParamValue value = pControl->getValueNormalized();
   controller->setParamNormalized(tag, value);
   controller->performEdit(tag, value);

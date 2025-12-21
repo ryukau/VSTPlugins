@@ -102,14 +102,12 @@ if __name__ == "__main__":
     with open("../../package/manual.json", "r", encoding="utf-8") as fi:
         alias = json.load(fi)
 
-    release_name = "UhhyouPlugins0.66.0"
+    release_name = "UhhyouPlugins0.69.0"
     changelog_en = [
-        "Added GUI scaling.",
-        "Updated the Linux patch for VSTGUI4.",
+        "Fixed latency reporting. This fix provides proper latency reporting at initialization and at changing relevant parameters, without closing and opening the GUI again.",
     ]
     changelog_ja = [
-        "GUI のサイズを変更するオプションを追加。",
-        "VSTGUI4 の Linux パッチを更新。",
+        "ホストへのレイテンシの報告を修正。初期化や関連パラメータの変更時に GUI を開き直すことなくレイテンシが更新されるようになった。",
     ]
     for target in targets:
         updateVersion(target, alias, changelog_en, changelog_ja, release_name)

@@ -35,13 +35,6 @@ template<typename T> inline T ampToDecibel(T x) { return T(20) * std::log10(x); 
 void Editor::valueChanged(CControl *pControl)
 {
   ParamID id = pControl->getTag();
-
-  switch (id) {
-    case Synth::ParameterID::ID::limiterAttack:
-    case Synth::ParameterID::ID::truePeak:
-      controller->getComponentHandler()->restartComponent(kLatencyChanged);
-  }
-
   ParamValue value = pControl->getValueNormalized();
   controller->setParamNormalized(id, value);
   controller->performEdit(id, value);

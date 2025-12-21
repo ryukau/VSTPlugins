@@ -1,14 +1,23 @@
 {
   "SpectralPhaser": {
-    "latest_version": "0.1.0",
+    "latest_version": "0.1.2",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.69.0/SpectralPhaser_0.1.2.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/SpectralPhaser_0.1.1.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.64.0/SpectralPhaser_0.1.0.zip"
       ],
       "preset_url": []
     },
     "changelog": {
+      "0.1.2": {
+        "en": [
+          "Fixed latency reporting. This fix provides proper latency reporting at initialization and at changing relevant parameters, without closing and opening the GUI again."
+        ],
+        "ja": [
+          "ホストへのレイテンシの報告を修正。初期化や関連パラメータの変更時に GUI を開き直すことなくレイテンシが更新されるようになった。"
+        ]
+      },
       "0.1.1": {
         "en": ["Added GUI scaling.", "Updated the Linux patch for VSTGUI4."],
         "ja": [

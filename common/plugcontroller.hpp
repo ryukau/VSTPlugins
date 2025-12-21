@@ -18,6 +18,7 @@
 #include "public.sdk/source/vst/vstparameters.h"
 
 #include <algorithm>
+#include <string_view>
 #include <vector>
 
 namespace Steinberg::Synth {
@@ -70,12 +71,13 @@ public:
     const Vst::TChar *string,
     Vst::NoteExpressionValue &valueNormalized) SMTG_OVERRIDE;
 
-  OBJ_METHODS(PlugController, EditController)
-  DEFINE_INTERFACES
-  DEF_INTERFACE(IMidiMapping)
-  DEF_INTERFACE(INoteExpressionController)
-  END_DEFINE_INTERFACES(EditController)
-  REFCOUNT_METHODS(EditController)
+  tresult PLUGIN_API notify(Vst::IMessage *message) SMTG_OVERRIDE;
+
+  OBJ_METHODS(PlugController, EditController);
+  DEFINE_INTERFACES DEF_INTERFACE(IMidiMapping);
+  DEF_INTERFACE(INoteExpressionController);
+  END_DEFINE_INTERFACES(EditController);
+  REFCOUNT_METHODS(EditController);
 };
 
 template<typename EditorType, typename ParameterType>
@@ -136,6 +138,18 @@ tresult PLUGIN_API PlugController<EditorType, ParameterType>::setParamNormalized
     return kResultTrue;
   }
   return kResultFalse;
+}
+
+template<typename EditorType, typename ParameterType>
+tresult PLUGIN_API
+PlugController<EditorType, ParameterType>::notify(Vst::IMessage *message)
+{
+  if (message && std::string_view("LatencyChanged") == message->getMessageID()) {
+    if (componentHandler) {
+      componentHandler->restartComponent(Vst::kLatencyChanged);
+    }
+  }
+  return EditController::notify(message);
 }
 
 } // namespace Steinberg::Synth
