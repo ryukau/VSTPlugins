@@ -24,25 +24,7 @@ ParamValue Editor::getPlainValue(ParamID id)
   return controller->normalizedParamToPlain(id, normalized);
 }
 
-void Editor::valueChanged(CControl *pControl)
-{
-  using ID = Synth::ParameterID::ID;
-
-  PlugEditor::valueChanged(pControl);
-
-  ParamID id = pControl->getTag();
-
-  if (id == ID::reportLatency) {
-    controller->getComponentHandler()->restartComponent(kLatencyChanged);
-    return;
-  }
-
-  if (id == ID::frameSize) {
-    if (int(getPlainValue(ID::reportLatency)) == 1) return;
-    controller->getComponentHandler()->restartComponent(kLatencyChanged);
-    return;
-  }
-}
+void Editor::valueChanged(CControl *pControl) { PlugEditor::valueChanged(pControl); }
 
 void Editor::updateUI(ParamID id, ParamValue normalized)
 {

@@ -53,6 +53,8 @@ uint32 PLUGIN_API PlugProcessor::getProcessContextRequirements()
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 {
   dsp.setup(processSetup.sampleRate);
+  dsp.setParameters();
+  notifyLatencyChanged();
   return AudioEffect::setupProcessing(setup);
 }
 
@@ -99,7 +101,10 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
     lastState = state;
   }
 
+  uint32_t oldLatency = uint32_t(dsp.getLatency());
   dsp.setParameters();
+  uint32_t newLatency = uint32_t(dsp.getLatency());
+  if (oldLatency != newLatency) notifyLatencyChanged();
 
   if (data.numInputs == 0) return kResultOk;
   if (data.numOutputs == 0) return kResultOk;

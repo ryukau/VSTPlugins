@@ -65,9 +65,6 @@ void DSPCore::process(
 
   SmootherCommon<float>::setBufferSize(float(length));
 
-  using ID = ParameterID::ID;
-  const auto &pv = param.value;
-
   for (size_t i = 0; i < length; ++i) {
     auto lp0 = convolver[0].process(in0[i]);
     auto lp1 = convolver[1].process(in1[i]);

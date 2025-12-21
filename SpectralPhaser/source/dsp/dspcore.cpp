@@ -191,9 +191,6 @@ void DSPCore::process(
 {
   ScopedNoDenormals scopedDenormals;
 
-  using ID = ParameterID::ID;
-  const auto &pv = param.value;
-
   SmootherCommon<Sample>::setBufferSize(Sample(length));
   lfoTargetFreq = getTempoSyncFrequency();
 
