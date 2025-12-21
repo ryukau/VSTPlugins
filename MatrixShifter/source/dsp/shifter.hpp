@@ -94,7 +94,7 @@ public:
   Sample rFraction = 0.0;
   size_t wptr = 0;
   size_t rptr = 0;
-  std::vector<Sample> buf;
+  std::vector<Sample> buf{4, Sample(0)};
 
   void setup(Sample sampleRate, Sample maxTime)
   {
