@@ -1,8 +1,9 @@
 {
   "MiniCliffEQ": {
-    "latest_version": "0.1.16",
+    "latest_version": "0.1.17",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.69.0/MiniCliffEQ_0.1.17.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/MiniCliffEQ_0.1.16.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/MiniCliffEQ_0.1.15.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/MiniCliffEQ_0.1.14.zip",
@@ -19,6 +20,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.34.0/MiniCliffEQPresets.zip"
     },
     "changelog": {
+      "0.1.17": {
+        "en": [
+          "Fixed latency reporting. This fix provides proper latency reporting at initialization and at changing relevant parameters, without closing and opening the GUI again."
+        ],
+        "ja": [
+          "ホストへのレイテンシの報告を修正。初期化や関連パラメータの変更時に GUI を開き直すことなくレイテンシが更新されるようになった。"
+        ]
+      },
       "0.1.16": {
         "en": [
           "Added GUI scaling.",

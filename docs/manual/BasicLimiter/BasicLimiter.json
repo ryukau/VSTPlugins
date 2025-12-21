@@ -1,8 +1,9 @@
 {
   "BasicLimiter": {
-    "latest_version": "0.1.21",
+    "latest_version": "0.1.22",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.69.0/BasicLimiter_0.1.22.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/BasicLimiter_0.1.21.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/BasicLimiter_0.1.20.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/BasicLimiter_0.1.19.zip",
@@ -25,6 +26,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterPresets.zip"
     },
     "changelog": {
+      "0.1.22": {
+        "en": [
+          "Fixed latency reporting. This fix provides proper latency reporting at initialization and at changing relevant parameters, without closing and opening the GUI again."
+        ],
+        "ja": [
+          "ホストへのレイテンシの報告を修正。初期化や関連パラメータの変更時に GUI を開き直すことなくレイテンシが更新されるようになった。"
+        ]
+      },
       "0.1.21": {
         "en": [
           "Added GUI scaling.",
@@ -188,9 +197,10 @@
     }
   },
   "BasicLimiterAutoMake": {
-    "latest_version": "0.1.21",
+    "latest_version": "0.1.22",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.69.0/BasicLimiterAutoMake_0.1.22.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/BasicLimiterAutoMake_0.1.21.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/BasicLimiterAutoMake_0.1.20.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/BasicLimiterAutoMake_0.1.19.zip",
@@ -212,6 +222,14 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.1.22": {
+        "en": [
+          "Fixed latency reporting. This fix provides proper latency reporting at initialization and at changing relevant parameters, without closing and opening the GUI again."
+        ],
+        "ja": [
+          "ホストへのレイテンシの報告を修正。初期化や関連パラメータの変更時に GUI を開き直すことなくレイテンシが更新されるようになった。"
+        ]
+      },
       "0.1.21": {
         "en": [
           "Added GUI scaling.",
