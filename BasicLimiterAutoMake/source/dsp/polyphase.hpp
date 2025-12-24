@@ -10,60 +10,88 @@ namespace SomeDSP {
 
 template<typename Sample, typename Fir> class NaiveConvolver {
 private:
-  std::array<Sample, 64> buf{};
+  static constexpr size_t length = Fir::fir.size();
+  std::array<Sample, 2 * length> buf{};
+  size_t cursor = 0;
 
 public:
-  void reset() { buf.fill(Sample(0)); }
+  void reset()
+  {
+    buf.fill(Sample(0));
+    cursor = 0;
+  }
 
   Sample process(Sample input)
   {
-    std::rotate(buf.rbegin(), buf.rbegin() + 1, buf.rend());
-    buf[0] = input;
+    cursor = (cursor == 0) ? length - 1 : cursor - 1;
+
+    buf[cursor] = input;
+    buf[cursor + length] = input;
 
     Sample output = 0;
-    for (size_t n = 0; n < Fir::fir.size(); ++n) output += buf[n] * Fir::fir[n];
+    for (size_t n = 0; n < length; ++n) output += buf[cursor + n] * Fir::fir[n];
     return output;
   }
 };
 
 template<typename Sample, typename FractionalDelayFIR> class FirPolyPhaseUpSampler {
-  std::array<Sample, FractionalDelayFIR::bufferSize> buf{};
+  static constexpr size_t length = FractionalDelayFIR::bufferSize;
+  std::array<Sample, 2 * length> buf{};
+  size_t cursor = 0;
 
 public:
   std::array<Sample, FractionalDelayFIR::upfold> output;
 
-  void reset() { buf.fill(Sample(0)); }
+  void reset()
+  {
+    buf.fill(Sample(0));
+    cursor = 0;
+  }
 
   void process(Sample input)
   {
-    std::rotate(buf.rbegin(), buf.rbegin() + 1, buf.rend());
-    buf[0] = input;
+    cursor = (cursor == 0) ? length - 1 : cursor - 1;
 
-    std::fill(output.begin(), output.end(), Sample(0));
+    buf[cursor] = input;
+    buf[cursor + length] = input;
+
     for (size_t i = 0; i < FractionalDelayFIR::coefficient.size(); ++i) {
-      auto &&phase = FractionalDelayFIR::coefficient[i];
-      for (size_t n = 0; n < phase.size(); ++n) output[i] += buf[n] * phase[n];
+      const auto &phase = FractionalDelayFIR::coefficient[i];
+      Sample acc = 0;
+      for (size_t n = 0; n < phase.size(); ++n) acc += buf[cursor + n] * phase[n];
+      output[i] = acc;
     }
   }
 };
 
 template<typename Sample, typename Fir> class FirDownSampler {
-  std::array<std::array<Sample, Fir::bufferSize>, Fir::upfold> buf{{}};
+  static constexpr size_t length = Fir::bufferSize;
+  static constexpr size_t upfold = Fir::upfold;
+
+  std::array<std::array<Sample, 2 * length>, upfold> buf{{}};
+  size_t cursor = 0;
 
 public:
-  void reset() { buf.fill({}); }
+  void reset()
+  {
+    for (auto &b : buf) b.fill(Sample(0));
+    cursor = 0;
+  }
 
   Sample process(const std::array<Sample, Fir::upfold> &input)
   {
-    for (size_t i = 0; i < Fir::upfold; ++i) {
-      std::rotate(buf[i].rbegin(), buf[i].rbegin() + 1, buf[i].rend());
-      buf[i][0] = input[i];
+    cursor = (cursor == 0) ? length - 1 : cursor - 1;
+
+    for (size_t i = 0; i < upfold; ++i) {
+      buf[i][cursor] = input[i];
+      buf[i][cursor + length] = input[i];
     }
 
     Sample output = 0;
     for (size_t i = 0; i < Fir::coefficient.size(); ++i) {
-      auto &&phase = Fir::coefficient[i];
-      for (size_t n = 0; n < phase.size(); ++n) output += buf[i][n] * phase[n];
+      const auto &phase = Fir::coefficient[i];
+      const auto &phaseBuf = buf[i];
+      for (size_t n = 0; n < phase.size(); ++n) output += phaseBuf[cursor + n] * phase[n];
     }
     return output;
   }
