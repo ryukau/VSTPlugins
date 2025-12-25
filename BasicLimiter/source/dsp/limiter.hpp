@@ -4,6 +4,9 @@
 #include "../../../common/dsp/smoother.hpp"
 
 #include <algorithm>
+#include <bit>
+#include <cstdint>
+#include <limits>
 #include <random>
 #include <vector>
 
@@ -199,7 +202,11 @@ public:
 
   /**
   Floating point addition with rounding towards 0 for positive number.
-  It must be that `lhs >= 0` and `rhs >= 0`.
+
+  This is required to apply the filter after taking the inverse of amplitude peak hold:
+  `filter(1 / hold(|x|))`. If the filter is applied before taking the inverse, that is:
+  `1 / filter(hold(|x|))`, it will introduce distortion. In the former case, the filter
+  must not output values that exceed `1 / hold(|x|)`, which is the reason of this `add`.
 
   Assuming IEEE 754. It was only tested where
   `std::numeric_limits<float>::round_style == std::round_to_nearest`. On the platform
@@ -224,7 +231,11 @@ public:
   If `std::numeric_limits<float>::round_style == std::round_to_nearest`, then the number
   will be rounded towards nearest even number. In this case, the answer on above case
   becomes 1100.
-  */
+
+  Below is the initial version of this function before the bit hack optimization.
+
+  ```c++
+  // It must be that `lhs >= 0` and `rhs >= 0`.
   inline Sample add(Sample lhs, Sample rhs)
   {
     if (lhs < rhs) std::swap(lhs, rhs);
@@ -233,6 +244,25 @@ public:
     auto &&cut = std::ldexp(float(1), expL - std::numeric_limits<Sample>::digits);
     auto &&rounded = rhs - std::fmod(rhs, cut);
     return lhs + rounded;
+  }
+  ```
+  */
+  inline Sample add(Sample lhs, Sample rhs)
+  {
+    using Integer = std::conditional_t<sizeof(Sample) == 4, int32_t, int64_t>;
+    constexpr int mantissaBits = std::numeric_limits<Sample>::digits - 1;
+    constexpr int exponentBias = (1 << (sizeof(Sample) * 8 - mantissaBits - 2)) - 1;
+
+    if (std::abs(lhs) < std::abs(rhs)) std::swap(lhs, rhs);
+    if (lhs == 0) return rhs;
+
+    constexpr Integer maxInt = std::numeric_limits<Integer>::max();
+    auto rawExp = (std::bit_cast<Integer>(lhs) & maxInt) >> mantissaBits;
+    auto scaleExp = (2 * exponentBias + mantissaBits) - rawExp;
+    if (scaleExp <= 0 || scaleExp >= 2 * exponentBias) return lhs + rhs;
+
+    auto scale = std::bit_cast<Sample>(Integer(scaleExp) << mantissaBits);
+    return lhs + std::trunc(rhs * scale) / scale;
   }
 
   Sample process(Sample input)

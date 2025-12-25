@@ -4,6 +4,9 @@
 #include "../../../common/dsp/smoother.hpp"
 
 #include <algorithm>
+#include <bit>
+#include <cstdint>
+#include <limits>
 #include <random>
 #include <vector>
 
@@ -197,42 +200,23 @@ public:
     delay2.setFrames(half);
   }
 
-  /**
-  Floating point addition with rounding towards 0 for positive number.
-  It must be that `lhs >= 0` and `rhs >= 0`.
-
-  Assuming IEEE 754. It was only tested where
-  `std::numeric_limits<float>::round_style == std::round_to_nearest`. On the platform
-  using other type of floating point rounding or representation, it may not work, or may
-  be unnecessary. Negative number input is not tested.
-
-  Following explanation uses 4 bit significand. Numbers are binary. Consider addition of
-  significand like following:
-
-  ```
-    1000
-  + 0011 11 // last 11 will be rounded.
-  ---------
-    1???
-  ```
-
-  There are 2 possible answer depending on rounding mode: 1100 or 1011.
-
-  This `add()` method outputs 1011 in cases like above, to prevent smoothed output
-  exceeds decimal +1.0.
-
-  If `std::numeric_limits<float>::round_style == std::round_to_nearest`, then the number
-  will be rounded towards nearest even number. In this case, the answer on above case
-  becomes 1100.
-  */
+  // Refer to `DoubleAverageFilter` in BasicLimiter for the details of this method.
   inline Sample add(Sample lhs, Sample rhs)
   {
-    if (lhs < rhs) std::swap(lhs, rhs);
-    int expL;
-    std::frexp(lhs, &expL);
-    auto &&cut = std::ldexp(float(1), expL - std::numeric_limits<Sample>::digits);
-    auto &&rounded = rhs - std::fmod(rhs, cut);
-    return lhs + rounded;
+    using Integer = std::conditional_t<sizeof(Sample) == 4, int32_t, int64_t>;
+    constexpr int mantissaBits = std::numeric_limits<Sample>::digits - 1;
+    constexpr int exponentBias = (1 << (sizeof(Sample) * 8 - mantissaBits - 2)) - 1;
+
+    if (std::abs(lhs) < std::abs(rhs)) std::swap(lhs, rhs);
+    if (lhs == 0) return rhs;
+
+    constexpr Integer maxInt = std::numeric_limits<Integer>::max();
+    auto rawExp = (std::bit_cast<Integer>(lhs) & maxInt) >> mantissaBits;
+    auto scaleExp = (2 * exponentBias + mantissaBits) - rawExp;
+    if (scaleExp <= 0 || scaleExp >= 2 * exponentBias) return lhs + rhs;
+
+    auto scale = std::bit_cast<Sample>(Integer(scaleExp) << mantissaBits);
+    return lhs + std::trunc(rhs * scale) / scale;
   }
 
   Sample process(Sample input)
