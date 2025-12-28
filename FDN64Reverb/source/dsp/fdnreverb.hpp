@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include <array>
+#include <numbers>
 #include <numeric>
 #include <random>
 #include <set>
@@ -34,20 +35,6 @@ public:
     v1 += kp * (v0 - v1);
     v2 += kp * (v1 - v2);
     return v2;
-  }
-};
-
-template<typename Sample> class EMAHighpass {
-private:
-  Sample v1 = 0;
-
-public:
-  void reset(Sample value = 0) { v1 = value; }
-
-  Sample process(Sample input, Sample kp)
-  {
-    v1 += kp * (input - v1);
-    return input - v1;
   }
 };
 
@@ -272,11 +259,20 @@ If `length` is too long, compiler might silently fail to allocate stack.
 */
 template<typename Sample, size_t length> class FeedbackDelayNetwork {
 private:
-  std::array<std::array<Sample, length>, length> matrix{};
-  std::array<std::array<Sample, length>, 2> buf{};
+  static constexpr Sample pi = std::numbers::pi_v<Sample>;
+  static constexpr Sample twopi = 2 * pi;
+
+  alignas(64) std::array<std::array<Sample, length>, length> matrix{};
+  alignas(64) std::array<std::array<Sample, length>, 2> buf{};
+
+  alignas(64) std::array<Sample, length> lp_v1{};
+  alignas(64) std::array<Sample, length> lp_v2{};
+  alignas(64) std::array<Sample, length> hp_v1{};
+
+  alignas(64) std::array<Sample, length> sinTable{};
+  alignas(64) std::array<Sample, length> cosTable{};
+
   std::array<Delay<Sample>, length> delay;
-  std::array<DoubleEMAFilterKp<Sample>, length> lowpass;
-  std::array<EMAHighpass<Sample>, length> highpass;
 
   std::array<Sample, length> splitGain{};
   size_t cycle = 100000;
@@ -288,6 +284,15 @@ public:
   std::array<RateLimiter<Sample>, length> delayTimeSample;
   std::array<Sample, length> lowpassKp{};
   std::array<Sample, length> highpassKp{};
+
+  FeedbackDelayNetwork()
+  {
+    for (size_t i = 0; i < length; ++i) {
+      Sample phase = Sample(i) / Sample(length);
+      sinTable[i] = std::sin(twopi * phase);
+      cosTable[i] = std::cos(twopi * phase);
+    }
+  }
 
   /**
   Randomize `H` as orthogonal matrix. This algorithm is ported from
@@ -719,7 +724,7 @@ public:
 
   void prepare(Sample sampleRate, Sample splitRotationHz)
   {
-    auto &&inv = Sample(1) / splitRotationHz;
+    auto inv = Sample(1) / splitRotationHz;
     cycle
       = inv >= Sample(std::numeric_limits<size_t>::max()) ? 1 : size_t(sampleRate * inv);
   }
@@ -728,9 +733,9 @@ public:
   {
     buf.fill({});
     for (auto &dl : delay) dl.reset();
-    for (auto &lp : lowpass) lp.reset();
-    for (auto &hp : highpass) hp.reset();
-
+    lp_v1.fill(0);
+    lp_v2.fill(0);
+    hp_v1.fill(0);
     counter = 0;
   }
 
@@ -740,12 +745,21 @@ public:
   */
   void fillSplitGain(Sample offset, Sample skew)
   {
-    for (size_t idx = 0; idx < splitGain.size(); ++idx) {
-      auto phase = offset + Sample(idx) / Sample(splitGain.size());
-      splitGain[idx] = std::exp(skew * std::sin(Sample(twopi) * phase));
+    Sample omegaA = twopi * offset;
+    Sample sinA = std::sin(omegaA);
+    Sample cosA = std::cos(omegaA);
+    Sample sum = 0;
+    for (size_t idx = 0; idx < length; ++idx) {
+      Sample sinB = sinTable[idx];
+      Sample cosB = cosTable[idx];
+      Sample y = std::exp(skew * (sinA * cosB + cosA * sinB));
+      splitGain[idx] = y;
+      sum += y;
     }
-    auto sum = std::accumulate(splitGain.begin(), splitGain.end(), Sample(0));
-    for (auto &value : splitGain) value /= sum;
+    if (sum > Sample(0)) {
+      Sample invSum = Sample(1) / sum;
+      for (auto &value : splitGain) value *= invSum;
+    }
   }
 
   Sample preProcess(Sample splitPhaseOffset, Sample splitSkew)
@@ -756,28 +770,52 @@ public:
 
     bufIndex ^= 1;
     auto &front = buf[bufIndex];
-    auto &back = buf[bufIndex ^ 1];
-    front.fill(0);
+    const auto &back = buf[bufIndex ^ 1];
+
+    Sample totalSum = 0;
     for (size_t i = 0; i < length; ++i) {
-      for (size_t j = 0; j < length; ++j) front[i] += matrix[i][j] * back[j];
+      Sample rowSum = 0;
+      const auto &row = matrix[i];
+      for (size_t j = 0; j < length; ++j) rowSum += row[j] * back[j];
+      front[i] = rowSum;
+      totalSum += rowSum;
     }
-    return std::accumulate(front.begin(), front.end(), Sample(0));
+    return totalSum;
   }
 
   Sample process(Sample input, Sample crossIn, Sample stereoCross, Sample feedback)
   {
     auto &front = buf[bufIndex];
 
-    crossIn /= -Sample(length);
+    Sample crossInScale = crossIn * (Sample(-1) / Sample(length));
+    Sample outputSum = 0;
+
     for (size_t idx = 0; idx < length; ++idx) {
-      auto crossed = front[idx] + stereoCross * (crossIn - front[idx]);
+      auto frontVal = front[idx];
+      auto crossed = frontVal + stereoCross * (crossInScale - frontVal);
       auto sig = splitGain[idx] * input + feedback * crossed;
       auto delayed = delay[idx].process(sig, delayTimeSample[idx].process(rate));
-      auto lowpassed = lowpass[idx].process(delayed, lowpassKp[idx]);
-      front[idx] = highpass[idx].process(lowpassed, highpassKp[idx]);
+
+      Sample lpKp = lowpassKp[idx];
+      Sample lp1 = lp_v1[idx];
+      Sample lp2 = lp_v2[idx];
+      lp1 += lpKp * (delayed - lp1);
+      lp2 += lpKp * (lp1 - lp2);
+      lp_v1[idx] = lp1;
+      lp_v2[idx] = lp2;
+      Sample lowpassed = lp2;
+
+      Sample hpKp = highpassKp[idx];
+      Sample hp1 = hp_v1[idx];
+      hp1 += hpKp * (lowpassed - hp1);
+      hp_v1[idx] = hp1;
+      Sample outSample = lowpassed - hp1;
+
+      front[idx] = outSample;
+      outputSum += outSample;
     }
 
-    return std::accumulate(front.begin(), front.end(), Sample(0));
+    return outputSum;
   }
 };
 
