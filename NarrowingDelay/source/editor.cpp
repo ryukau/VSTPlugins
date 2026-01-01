@@ -15,10 +15,9 @@ using namespace VSTGUI;
 
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
-  param = std::make_unique<Synth::GlobalParameter>();
-
-  viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
+  setDimensions();
   setRect(viewRect);
+  param = std::make_unique<Synth::GlobalParameter>();
 }
 
 bool Editor::prepareUI()

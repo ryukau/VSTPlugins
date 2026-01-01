@@ -40,11 +40,7 @@ using namespace VSTGUI;
 
 class PlugEditor : public VSTGUIEditor, public IControlListener, public IMouseObserver {
 public:
-  PlugEditor(void *controller) : VSTGUIEditor(controller)
-  {
-    setRect(viewRect);
-    loadFont();
-  }
+  PlugEditor(void *controller) : VSTGUIEditor(controller) { loadFont(); }
 
   virtual ~PlugEditor() {}
 
