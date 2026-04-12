@@ -1,8 +1,9 @@
 {
-  "BasicLimiter": {
-    "latest_version": "0.1.22",
-    "urls": {
+  "BasicLimiter"        : {
+    "latest_version": "0.1.23",
+    "urls"          : {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/BasicLimiter_0.1.23.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.69.0/BasicLimiter_0.1.22.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/BasicLimiter_0.1.21.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/BasicLimiter_0.1.20.zip",
@@ -25,7 +26,14 @@
       ],
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BasicLimiterAndFDN64Reverb/BasicLimiterPresets.zip"
     },
-    "changelog": {
+    "changelog"     : {
+      "0.1.23": {
+        "en": [
+          "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization.",
+          "Changed internals to speed up."
+        ],
+        "ja": ["初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。", "高速化のために内部を変更。"]
+      },
       "0.1.22": {
         "en": [
           "Fixed latency reporting. This fix provides proper latency reporting at initialization and at changing relevant parameters, without closing and opening the GUI again."
@@ -35,23 +43,10 @@
         ]
       },
       "0.1.21": {
-        "en": [
-          "Added GUI scaling.",
-          "Updated the Linux patch for VSTGUI4."
-        ],
-        "ja": [
-          "GUI のサイズを変更するオプションを追加。",
-          "VSTGUI4 の Linux パッチを更新。"
-        ]
+        "en": ["Added GUI scaling.",                       "Updated the Linux patch for VSTGUI4."],
+        "ja": ["GUI のサイズを変更するオプションを追加。", "VSTGUI4 の Linux パッチを更新。"     ]
       },
-      "0.1.20": {
-        "en": [
-          "Fixed GUI on Linux."
-        ],
-        "ja": [
-          "Linux での GUI を修正。"
-        ]
-      },
+      "0.1.20": { "en": ["Fixed GUI on Linux."], "ja": ["Linux での GUI を修正。"] },
       "0.1.19": {
         "en": [
           "Changed to include presets in plugin zip package.",
@@ -67,15 +62,10 @@
           "Changed default style color of `foregroundInactive`.",
           "Fixed performance drop caused by subnormal floating point numbers."
         ],
-        "ja": [
-          "デフォルトの `foregroundInactive` の色を変更。",
-          "サブノーマル数によるパフォーマンスの低下を修正。"
-        ]
+        "ja": ["デフォルトの `foregroundInactive` の色を変更。", "サブノーマル数によるパフォーマンスの低下を修正。"]
       },
       "0.1.17": {
-        "en": [
-          "Changed limiter `Attack` number slider to update value at mouse up, instead of mouse move."
-        ],
+        "en": ["Changed limiter `Attack` number slider to update value at mouse up, instead of mouse move."],
         "ja": [
           "`Attack` の数値スライダが値を更新するタイミングを、マウスボタンを押下しながら動かしている間から、マウスボタンの押下を止めた時点に変更。"
         ]
@@ -89,25 +79,12 @@
         ]
       },
       "0.1.15": {
-        "en": [
-          "Fixed stuttering on Audacity where `processContext` is `nullptr`."
-        ],
-        "ja": [
-          "`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"
-        ]
+        "en": ["Fixed stuttering on Audacity where `processContext` is `nullptr`."                           ],
+        "ja": ["`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"]
       },
-      "0.1.14": {
-        "en": [
-          "Updated splash screen text."
-        ],
-        "ja": [
-          "スプラッシュ画面のテキストを更新。"
-        ]
-      },
+      "0.1.14": { "en": ["Updated splash screen text."], "ja": ["スプラッシュ画面のテキストを更新。"] },
       "0.1.13": {
-        "en": [
-          "Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>."
-        ],
+        "en": ["Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>."],
         "ja": [
           "数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> による値の切り捨てのショートカットを追加。"
         ]
@@ -116,9 +93,7 @@
         "en": [
           "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak."
         ],
-        "ja": [
-          "クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。"
-        ]
+        "ja": ["クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。"]
       },
       "0.1.11": {
         "en": [
@@ -136,7 +111,7 @@
           "リリースフィルタのリセットを修正。リリース時間が長めに設定されているとき、リセット直後にフェードインする効果が出なくなった。"
         ]
       },
-      "0.1.9": {
+      "0.1.9" : {
         "en": [
           "Fixed a potential bug that breaks limiter when internal delay buffer length and attack time are set to same value."
         ],
@@ -144,23 +119,12 @@
           "内部で使われているディレイのバッファ長とアタック時間が一致したときに、巻き戻しによってリミッタの動作が壊れる潜在的な不具合を修正。"
         ]
       },
-      "0.1.8": {
-        "en": [
-          "Removed dependency to x86_64 specific SIMD instructions."
-        ],
-        "ja": [
-          "x86_64 固有の SIMD 命令への依存を除去。"
-        ]
+      "0.1.8" : {
+        "en": ["Removed dependency to x86_64 specific SIMD instructions."],
+        "ja": ["x86_64 固有の SIMD 命令への依存を除去。"                 ]
       },
-      "0.1.6": {
-        "en": [
-          "Fixed crash on Linux."
-        ],
-        "ja": [
-          "Linux でのクラッシュを修正。"
-        ]
-      },
-      "0.1.5": {
+      "0.1.6" : { "en": ["Fixed crash on Linux."], "ja": ["Linux でのクラッシュを修正。"] },
+      "0.1.5" : {
         "en": [
           "Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER."
         ],
@@ -168,7 +132,7 @@
           "プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。"
         ]
       },
-      "0.1.4": {
+      "0.1.4" : {
         "en": [
           "Added custom font options for `style.json`.",
           "Changed to disable `Gate` when the value is set to -inf dB."
@@ -178,28 +142,15 @@
           "`Gate` が -inf dB のときにゲートがかからないように変更。"
         ]
       },
-      "0.1.3": {
-        "en": [
-          "Updated VSTGUI from 4.10 to 4.11."
-        ],
-        "ja": [
-          "VSTGUI を 4.10 から 4.11 にアップデート。"
-        ]
-      },
-      "0.1.2": {
-        "en": [
-          "Initial release."
-        ],
-        "ja": [
-          "初期リリース。"
-        ]
-      }
+      "0.1.3" : { "en": ["Updated VSTGUI from 4.10 to 4.11."], "ja": ["VSTGUI を 4.10 から 4.11 にアップデート。"] },
+      "0.1.2" : { "en": ["Initial release."], "ja": ["初期リリース。"] }
     }
   },
   "BasicLimiterAutoMake": {
-    "latest_version": "0.1.22",
-    "urls": {
+    "latest_version": "0.1.23",
+    "urls"          : {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/BasicLimiterAutoMake_0.1.23.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.69.0/BasicLimiterAutoMake_0.1.22.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/BasicLimiterAutoMake_0.1.21.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/BasicLimiterAutoMake_0.1.20.zip",
@@ -221,7 +172,14 @@
       ],
       "preset_url": ""
     },
-    "changelog": {
+    "changelog"     : {
+      "0.1.23": {
+        "en": [
+          "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization.",
+          "Changed internals to speed up."
+        ],
+        "ja": ["初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。", "高速化のために内部を変更。"]
+      },
       "0.1.22": {
         "en": [
           "Fixed latency reporting. This fix provides proper latency reporting at initialization and at changing relevant parameters, without closing and opening the GUI again."
@@ -231,23 +189,10 @@
         ]
       },
       "0.1.21": {
-        "en": [
-          "Added GUI scaling.",
-          "Updated the Linux patch for VSTGUI4."
-        ],
-        "ja": [
-          "GUI のサイズを変更するオプションを追加。",
-          "VSTGUI4 の Linux パッチを更新。"
-        ]
+        "en": ["Added GUI scaling.",                       "Updated the Linux patch for VSTGUI4."],
+        "ja": ["GUI のサイズを変更するオプションを追加。", "VSTGUI4 の Linux パッチを更新。"     ]
       },
-      "0.1.20": {
-        "en": [
-          "Fixed GUI on Linux."
-        ],
-        "ja": [
-          "Linux での GUI を修正。"
-        ]
-      },
+      "0.1.20": { "en": ["Fixed GUI on Linux."], "ja": ["Linux での GUI を修正。"] },
       "0.1.19": {
         "en": [
           "Changed to include presets in plugin zip package.",
@@ -263,10 +208,7 @@
           "Changed default style color of `foregroundInactive`.",
           "Fixed performance drop caused by subnormal floating point numbers."
         ],
-        "ja": [
-          "デフォルトの `foregroundInactive` の色を変更。",
-          "サブノーマル数によるパフォーマンスの低下を修正。"
-        ]
+        "ja": ["デフォルトの `foregroundInactive` の色を変更。", "サブノーマル数によるパフォーマンスの低下を修正。"]
       },
       "0.1.17": {
         "en": [
@@ -287,25 +229,12 @@
         ]
       },
       "0.1.15": {
-        "en": [
-          "Fixed stuttering on Audacity where `processContext` is `nullptr`."
-        ],
-        "ja": [
-          "`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"
-        ]
+        "en": ["Fixed stuttering on Audacity where `processContext` is `nullptr`."                           ],
+        "ja": ["`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"]
       },
-      "0.1.14": {
-        "en": [
-          "Updated splash screen text."
-        ],
-        "ja": [
-          "スプラッシュ画面のテキストを更新。"
-        ]
-      },
+      "0.1.14": { "en": ["Updated splash screen text."], "ja": ["スプラッシュ画面のテキストを更新。"] },
       "0.1.13": {
-        "en": [
-          "Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>."
-        ],
+        "en": ["Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>."],
         "ja": [
           "数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> による値の切り捨てのショートカットを追加。"
         ]
@@ -314,9 +243,7 @@
         "en": [
           "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak."
         ],
-        "ja": [
-          "クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。"
-        ]
+        "ja": ["クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。"]
       },
       "0.1.11": {
         "en": [
@@ -336,7 +263,7 @@
           "リリースフィルタのリセットを修正。リリース時間が長めに設定されているとき、リセット直後にフェードインする効果が出なくなった。"
         ]
       },
-      "0.1.9": {
+      "0.1.9" : {
         "en": [
           "Fixed a potential bug that breaks limiter when internal delay buffer length and attack time are set to same value."
         ],
@@ -344,31 +271,16 @@
           "内部で使われているディレイのバッファ長とアタック時間が一致したときに、巻き戻しによってリミッタの動作が壊れる潜在的な不具合を修正。"
         ]
       },
-      "0.1.8": {
-        "en": [
-          "Removed dependency to x86_64 specific SIMD instructions."
-        ],
-        "ja": [
-          "x86_64 固有の SIMD 命令への依存を除去。"
-        ]
+      "0.1.8" : {
+        "en": ["Removed dependency to x86_64 specific SIMD instructions."],
+        "ja": ["x86_64 固有の SIMD 命令への依存を除去。"                 ]
       },
-      "0.1.7": {
-        "en": [
-          "Fixed crash on Linux."
-        ],
-        "ja": [
-          "Linux でのクラッシュを修正。"
-        ]
+      "0.1.7" : { "en": ["Fixed crash on Linux."], "ja": ["Linux でのクラッシュを修正。"] },
+      "0.1.6" : {
+        "en": ["Added highEliminator for sidechain input to reduce overshoot in true peak mode."                   ],
+        "ja": ["トゥルーピークモードのオーバーシュートを減らすために、サイドチェイン入力の高域除去フィルタを追加。"]
       },
-      "0.1.6": {
-        "en": [
-          "Added highEliminator for sidechain input to reduce overshoot in true peak mode."
-        ],
-        "ja": [
-          "トゥルーピークモードのオーバーシュートを減らすために、サイドチェイン入力の高域除去フィルタを追加。"
-        ]
-      },
-      "0.1.5": {
+      "0.1.5" : {
         "en": [
           "Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER."
         ],
@@ -376,14 +288,7 @@
           "プラグインが許可するチャネル数の条件を修正。この修正は REAPER のサイドチェインで意図しないミュートがかかることを防ぐために行った。"
         ]
       },
-      "0.1.4": {
-        "en": [
-          "Initial release."
-        ],
-        "ja": [
-          "初期リリース。"
-        ]
-      }
+      "0.1.4" : { "en": ["Initial release."], "ja": ["初期リリース。"] }
     }
   }
 }

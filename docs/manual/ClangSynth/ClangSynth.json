@@ -1,8 +1,9 @@
 {
   "ClangSynth": {
-    "latest_version": "0.1.11",
+    "latest_version": "0.1.12",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/ClangSynth_0.1.12.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/ClangSynth_0.1.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.65.0/ClangSynth_0.1.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/ClangSynth_0.1.9.zip",
@@ -19,6 +20,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ClangSynthPresets.zip"
     },
     "changelog": {
+      "0.1.12": {
+        "en": [
+          "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization."
+        ],
+        "ja": [
+          "初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"
+        ]
+      },
       "0.1.11": {
         "en": [
           "Added GUI scaling.",
@@ -40,8 +49,12 @@
         ]
       },
       "0.1.9": {
-        "en": ["Fixed GUI on Linux."    ],
-        "ja": ["Linux での GUI を修正。"]
+        "en": [
+          "Fixed GUI on Linux."
+        ],
+        "ja": [
+          "Linux での GUI を修正。"
+        ]
       },
       "0.1.8": {
         "en": [
@@ -82,8 +95,12 @@
         ]
       },
       "0.1.4": {
-        "en": ["Updated splash screen text."       ],
-        "ja": ["スプラッシュ画面のテキストを更新。"]
+        "en": [
+          "Updated splash screen text."
+        ],
+        "ja": [
+          "スプラッシュ画面のテキストを更新。"
+        ]
       },
       "0.1.3": {
         "en": [
@@ -113,13 +130,21 @@
           "BarBox が変更されたパラメータの値のみをホストに送るように変更。編集中の BarBox 上の変更されていないパラメータのオートメーションが上書きされないようになった。"
         ]
       },
-      "0.0.1": { "en": ["β release."], "ja": ["β リリース。"] }
+      "0.0.1": {
+        "en": [
+          "β release."
+        ],
+        "ja": [
+          "β リリース。"
+        ]
+      }
     }
   },
   "ClangCymbal": {
-    "latest_version": "0.1.11",
+    "latest_version": "0.1.12",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/ClangCymbal_0.1.12.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/ClangCymbal_0.1.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/ClangCymbal_0.1.10.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.59.0/ClangCymbal_0.1.9.zip",
@@ -139,16 +164,31 @@
       "preset_url": ""
     },
     "changelog": {
+      "0.1.12": {
+        "en": [
+          "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization."
+        ],
+        "ja": [
+          "初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"
+        ]
+      },
       "0.1.11": {
-        "en": ["Added GUI scaling.", "Updated the Linux patch for VSTGUI4."],
+        "en": [
+          "Added GUI scaling.",
+          "Updated the Linux patch for VSTGUI4."
+        ],
         "ja": [
           "GUI のサイズを変更するオプションを追加。",
           "VSTGUI4 の Linux パッチを更新。"
         ]
       },
       "0.1.10": {
-        "en": ["Fixed GUI on Linux."    ],
-        "ja": ["Linux での GUI を修正。"]
+        "en": [
+          "Fixed GUI on Linux."
+        ],
+        "ja": [
+          "Linux での GUI を修正。"
+        ]
       },
       "0.1.9": {
         "en": [
@@ -161,7 +201,9 @@
         ]
       },
       "0.1.8": {
-        "en": ["Fixed a bug that invalid `style.json` crashes plugin."],
+        "en": [
+          "Fixed a bug that invalid `style.json` crashes plugin."
+        ],
         "ja": [
           "不正な `style.json` によりプラグインがクラッシュするバグを修正。"
         ]
@@ -193,8 +235,12 @@
         ]
       },
       "0.1.4": {
-        "en": ["Updated splash screen text."       ],
-        "ja": ["スプラッシュ画面のテキストを更新。"]
+        "en": [
+          "Updated splash screen text."
+        ],
+        "ja": [
+          "スプラッシュ画面のテキストを更新。"
+        ]
       },
       "0.1.3": {
         "en": [
@@ -254,7 +300,14 @@
           "Bitwig と Live 11 で初期化に失敗するバグを修正。修正前はサンプリング周波数が変更されたときに `kNotInitialized` が誤って返されていた。"
         ]
       },
-      "0.0.1": { "en": ["β release."], "ja": ["β リリース。"] }
+      "0.0.1": {
+        "en": [
+          "β release."
+        ],
+        "ja": [
+          "β リリース。"
+        ]
+      }
     }
   }
 }

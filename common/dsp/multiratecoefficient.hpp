@@ -24,7 +24,7 @@ template<typename Sample> struct Sos64FoldFirstStage {
   constexpr static size_t upfold = 64;
   static constexpr size_t fold = 32;
 
-  constexpr static std::array<std::array<Sample, 5>, 8> co{{
+  alignas(64) constexpr static std::array<std::array<Sample, 5>, 8> co{{
     {Sample(1.354163914584143e-26), Sample(2.708327829168286e-26),
      Sample(1.354163914584143e-26), Sample(-1.9045872504279573),
      Sample(0.9068841759295282)},
@@ -116,12 +116,12 @@ template<typename Sample> struct Sos8FoldFirstStage {
 };
 
 template<typename T> struct HalfBandCoefficient {
-  static constexpr std::array<T, 9> h0_a{
+  alignas(64) static constexpr std::array<T, 9> h0_a{
     T(0.0765690656031399), T(0.264282270318935),  T(0.47939467893641907),
     T(0.661681722389424),  T(0.7924031566294969), T(0.8776927911111817),
     T(0.9308500986629166), T(0.9640156636878193), T(0.9862978287283355),
   };
-  static constexpr std::array<T, 10> h1_a{
+  alignas(64) static constexpr std::array<T, 10> h1_a{
     T(0.019911761024506557), T(0.16170648261075027), T(0.37320978687920564),
     T(0.5766558985008232),   T(0.7334355636406803),  T(0.8399227128761151),
     T(0.9074601780285125),   T(0.9492937701934973),  T(0.9760539731706528),

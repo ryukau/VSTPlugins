@@ -102,12 +102,12 @@ if __name__ == "__main__":
     with open("../../package/manual.json", "r", encoding="utf-8") as fi:
         alias = json.load(fi)
 
-    release_name = "UhhyouPlugins0.69.0"
+    release_name = "UhhyouPlugins0.70.0"
     changelog_en = [
-        "Fixed latency reporting. This fix provides proper latency reporting at initialization and at changing relevant parameters, without closing and opening the GUI again.",
+        "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization.",
     ]
     changelog_ja = [
-        "ホストへのレイテンシの報告を修正。初期化や関連パラメータの変更時に GUI を開き直すことなくレイテンシが更新されるようになった。",
+        "初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。",
     ]
     for target in targets:
         updateVersion(target, alias, changelog_en, changelog_ja, release_name)
