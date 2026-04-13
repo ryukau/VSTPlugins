@@ -1,8 +1,9 @@
 {
   "GlitchSprinkler": {
-    "latest_version": "0.1.3",
+    "latest_version": "0.1.4",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/GlitchSprinkler_0.1.4.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.67.0/GlitchSprinkler_0.1.3.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/GlitchSprinkler_0.1.2.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.63.0/GlitchSprinkler_0.1.1.zip",
@@ -11,14 +12,27 @@
       "preset_url": []
     },
     "changelog": {
+      "0.1.4": {
+        "en": [
+          "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization."
+        ],
+        "ja": [
+          "初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"
+        ]
+      },
       "0.1.3": {
         "en": [
           "Fixed a bug that GlitchSprinkler output silence when `Bitwise And` parameter was enabled."
         ],
-        "ja": ["`Bitwise And` を有効にすると無音になるバグを修正。"]
+        "ja": [
+          "`Bitwise And` を有効にすると無音になるバグを修正。"
+        ]
       },
       "0.1.2": {
-        "en": ["Added GUI scaling.", "Updated the Linux patch for VSTGUI4."],
+        "en": [
+          "Added GUI scaling.",
+          "Updated the Linux patch for VSTGUI4."
+        ],
         "ja": [
           "GUI のサイズを変更するオプションを追加。",
           "VSTGUI4 の Linux パッチを更新。"
@@ -32,7 +46,14 @@
           "MIDI チャンネル 16 のノートオンと、他のチャンネルのノートオンが同じタイミングで演奏されたとき、音程の変化が起こらなかったバグを修正。"
         ]
       },
-      "0.0.1": { "en": ["Initial release."], "ja": ["初期リリース。"] }
+      "0.0.1": {
+        "en": [
+          "Initial release."
+        ],
+        "ja": [
+          "初期リリース。"
+        ]
+      }
     }
   }
 }

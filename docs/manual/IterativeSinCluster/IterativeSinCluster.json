@@ -1,8 +1,9 @@
 {
   "IterativeSinCluster": {
-    "latest_version": "0.1.29",
+    "latest_version": "0.1.30",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/IterativeSinCluster_0.1.30.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/IterativeSinCluster_0.1.29.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.65.0/IterativeSinCluster_0.1.28.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/IterativeSinCluster_0.1.27.zip",
@@ -35,6 +36,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/IterativeSinClusterPresets.zip"
     },
     "changelog": {
+      "0.1.30": {
+        "en": [
+          "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization."
+        ],
+        "ja": [
+          "初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"
+        ]
+      },
       "0.1.29": {
         "en": [
           "Added GUI scaling.",
@@ -56,8 +65,12 @@
         ]
       },
       "0.1.27": {
-        "en": ["Fixed GUI on Linux."    ],
-        "ja": ["Linux での GUI を修正。"]
+        "en": [
+          "Fixed GUI on Linux."
+        ],
+        "ja": [
+          "Linux での GUI を修正。"
+        ]
       },
       "0.1.26": {
         "en": [
@@ -98,8 +111,12 @@
         ]
       },
       "0.1.22": {
-        "en": ["Updated splash screen text."       ],
-        "ja": ["スプラッシュ画面のテキストを更新。"]
+        "en": [
+          "Updated splash screen text."
+        ],
+        "ja": [
+          "スプラッシュ画面のテキストを更新。"
+        ]
       },
       "0.1.21": {
         "en": [
@@ -162,16 +179,28 @@
         ]
       },
       "0.1.15": {
-        "en": ["Added custom font options for `style.json`."                ],
-        "ja": ["`style.json` でカスタムフォントを設定するオプションを追加。"]
+        "en": [
+          "Added custom font options for `style.json`."
+        ],
+        "ja": [
+          "`style.json` でカスタムフォントを設定するオプションを追加。"
+        ]
       },
       "0.1.14": {
-        "en": ["Updated VSTGUI from 4.10 to 4.11."        ],
-        "ja": ["VSTGUI を 4.10 から 4.11 にアップデート。"]
+        "en": [
+          "Updated VSTGUI from 4.10 to 4.11."
+        ],
+        "ja": [
+          "VSTGUI を 4.10 から 4.11 にアップデート。"
+        ]
       },
       "0.1.13": {
-        "en": ["Changed font to Tinos."   ],
-        "ja": ["フォントを Tinos に変更。"]
+        "en": [
+          "Changed font to Tinos."
+        ],
+        "ja": [
+          "フォントを Tinos に変更。"
+        ]
       },
       "0.1.12": {
         "en": [
@@ -184,20 +213,36 @@
         ]
       },
       "0.1.11": {
-        "en": ["Implemented process context requirements."],
-        "ja": ["Process context requirements を実装。"    ]
+        "en": [
+          "Implemented process context requirements."
+        ],
+        "ja": [
+          "Process context requirements を実装。"
+        ]
       },
       "0.1.10": {
-        "en": ["Added check that DSP is initialized or not."     ],
-        "ja": ["DSP が初期化されているかどうかのチェックを追加。"]
+        "en": [
+          "Added check that DSP is initialized or not."
+        ],
+        "ja": [
+          "DSP が初期化されているかどうかのチェックを追加。"
+        ]
       },
       "0.1.9": {
-        "en": ["Added undo/redo to BarBox."              ],
-        "ja": ["BarBox に アンドゥ・リドゥの機能を追加。"]
+        "en": [
+          "Added undo/redo to BarBox."
+        ],
+        "ja": [
+          "BarBox に アンドゥ・リドゥの機能を追加。"
+        ]
       },
       "0.1.8": {
-        "en": ["Added color configuration."],
-        "ja": ["カラーコンフィグを追加。"  ]
+        "en": [
+          "Added color configuration."
+        ],
+        "ja": [
+          "カラーコンフィグを追加。"
+        ]
       },
       "0.1.7": {
         "en": [
@@ -218,8 +263,12 @@
         ]
       },
       "0.1.5": {
-        "en": ["Fixed a bug that cause crash when drawing string."],
-        "ja": ["文字列の描画でクラッシュするバグを修正。"         ]
+        "en": [
+          "Fixed a bug that cause crash when drawing string."
+        ],
+        "ja": [
+          "文字列の描画でクラッシュするバグを修正。"
+        ]
       },
       "0.1.4": {
         "en": [
@@ -233,11 +282,17 @@
         "en": [
           "Fixed a bug that was causing noise on PreSonus Studio One 4.6.1."
         ],
-        "ja": ["PreSonus Studio One 4.6.1 で出力にノイズが乗るバグを修正。"]
+        "ja": [
+          "PreSonus Studio One 4.6.1 で出力にノイズが乗るバグを修正。"
+        ]
       },
       "0.1.2": {
-        "en": ["Enabled GUI for Linux build." ],
-        "ja": ["Linux ビルドの GUI を有効化。"]
+        "en": [
+          "Enabled GUI for Linux build."
+        ],
+        "ja": [
+          "Linux ビルドの GUI を有効化。"
+        ]
       },
       "0.1.1": {
         "en": [
@@ -251,7 +306,14 @@
           "Ableton Live 10.1.6 で特定のノブが揺れ戻るバグを修正。"
         ]
       },
-      "0.1.0": { "en": ["Initial release."], "ja": ["初期リリース。"] }
+      "0.1.0": {
+        "en": [
+          "Initial release."
+        ],
+        "ja": [
+          "初期リリース。"
+        ]
+      }
     }
   }
 }

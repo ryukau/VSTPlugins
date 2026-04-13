@@ -1,8 +1,9 @@
 {
   "SyncSawSynth": {
-    "latest_version": "0.1.31",
+    "latest_version": "0.1.32",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/SyncSawSynth_0.1.32.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/SyncSawSynth_0.1.31.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.65.0/SyncSawSynth_0.1.30.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/SyncSawSynth_0.1.29.zip",
@@ -29,6 +30,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/EnvelopedSine0.1.0/SyncSawSynthPresets.zip"
     },
     "changelog": {
+      "0.1.32": {
+        "en": [
+          "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization."
+        ],
+        "ja": [
+          "初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"
+        ]
+      },
       "0.1.31": {
         "en": [
           "Added GUI scaling.",

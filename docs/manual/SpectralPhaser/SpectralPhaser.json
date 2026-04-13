@@ -1,15 +1,22 @@
 {
   "SpectralPhaser": {
-    "latest_version": "0.1.2",
-    "urls": {
+    "latest_version": "0.1.4",
+    "urls"          : {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/SpectralPhaser_0.1.4.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.69.0/SpectralPhaser_0.1.2.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/SpectralPhaser_0.1.1.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.64.0/SpectralPhaser_0.1.0.zip"
       ],
       "preset_url": []
     },
-    "changelog": {
+    "changelog"     : {
+      "0.1.4": {
+        "en": [
+          "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization."
+        ],
+        "ja": ["初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"]
+      },
       "0.1.2": {
         "en": [
           "Fixed latency reporting. This fix provides proper latency reporting at initialization and at changing relevant parameters, without closing and opening the GUI again."
@@ -19,11 +26,8 @@
         ]
       },
       "0.1.1": {
-        "en": ["Added GUI scaling.", "Updated the Linux patch for VSTGUI4."],
-        "ja": [
-          "GUI のサイズを変更するオプションを追加。",
-          "VSTGUI4 の Linux パッチを更新。"
-        ]
+        "en": ["Added GUI scaling.",                       "Updated the Linux patch for VSTGUI4."],
+        "ja": ["GUI のサイズを変更するオプションを追加。", "VSTGUI4 の Linux パッチを更新。"     ]
       },
       "0.1.0": { "en": ["Initial release."], "ja": ["初期リリース。"] }
     }

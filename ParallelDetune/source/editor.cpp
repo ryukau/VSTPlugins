@@ -17,6 +17,8 @@ enum tabIndex { tabTuning, tabTime, tabGain, tabHighpass, tabLowpass };
 
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
+  setDimensions();
+  setRect(viewRect);
   param = std::make_unique<Synth::GlobalParameter>();
 }
 

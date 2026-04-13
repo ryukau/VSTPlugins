@@ -16,6 +16,8 @@ using namespace VSTGUI;
 
 Editor::Editor(void *controller) : PlugEditor(controller)
 {
+  setDimensions();
+  setRect(viewRect);
   param = std::make_unique<Synth::GlobalParameter>();
 }
 

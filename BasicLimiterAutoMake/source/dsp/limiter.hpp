@@ -4,6 +4,9 @@
 #include "../../../common/dsp/smoother.hpp"
 
 #include <algorithm>
+#include <bit>
+#include <cstdint>
+#include <limits>
 #include <random>
 #include <vector>
 
@@ -45,102 +48,126 @@ public:
   }
 };
 
-// Replacement of std::deque with reduced memory allocation.
-template<typename T> struct RingQueue {
-  std::vector<T> buf;
-  size_t wptr = 0;
-  size_t rptr = 0;
+template<typename Sample> class PeakHold {
+  static constexpr Sample lowest = std::numeric_limits<Sample>::lowest();
 
-  void resize(size_t size) { buf.resize(size); }
+  std::unique_ptr<Sample[]> buffer;
+  size_t bufferSize = 0;
+  size_t bufferMask = 0;
+  size_t head = 0;
+  size_t tail = 0;
+  size_t splitIndex = 0;
+  Sample frontMax = lowest;
 
-  void reset(T value = 0)
+  // Force inline may trigger auto-vectorization to `process`.
+#if defined(_MSC_VER)
+  #define FORCE_INLINE [[msvc::forceinline]]
+#elif defined(__GNUC__) || defined(__clang__)
+  #define FORCE_INLINE [[gnu::always_inline]] inline
+#else
+  #define FORCE_INLINE inline
+#endif
+  FORCE_INLINE void refillBackStack()
   {
-    std::fill(buf.begin(), buf.end(), value);
-    wptr = 0;
-    rptr = 0;
-  }
+    Sample *const buf = buffer.get();
+    Sample currentMax = lowest;
 
-  inline size_t size()
-  {
-    auto sz = wptr - rptr;
-    if (sz >= buf.size()) sz += buf.size(); // Unsigned overflow case.
-    return sz;
-  }
+    const size_t h = head & bufferMask;
+    const size_t t = tail & bufferMask;
 
-  inline bool empty() { return wptr == rptr; }
-
-  T &front() { return buf[increment(rptr)]; }
-  T &back() { return buf[wptr]; }
-
-  inline size_t increment(size_t idx)
-  {
-    if (++idx >= buf.size()) idx -= buf.size();
-    return idx;
-  }
-
-  inline size_t decrement(size_t idx)
-  {
-    if (--idx >= buf.size()) idx += buf.size(); // Unsigned overflow case.
-    return idx;
-  }
-
-  void push_back(T value)
-  {
-    wptr = increment(wptr);
-    buf[wptr] = value;
-  }
-
-  T pop_front()
-  {
-    rptr = increment(rptr);
-    return buf[rptr];
-  }
-
-  T pop_back()
-  {
-    wptr = decrement(wptr);
-    return buf[wptr];
-  }
-};
-
-/*
-Ideal peak hold.
-- When `setFrames(0)`, all output becomes 0.
-- When `setFrames(1)`, PeakHold will bypass the input.
-*/
-template<typename Sample> struct PeakHold {
-  IntDelay<Sample> delay;
-  RingQueue<Sample> queue;
-
-  PeakHold(size_t size = 65536)
-  {
-    resize(size);
-    setFrames(1);
-  }
-
-  void resize(size_t size)
-  {
-    delay.resize(size);
-    queue.resize(size);
-  }
-
-  void reset()
-  {
-    delay.reset();
-    queue.reset();
-  }
-
-  void setFrames(size_t frames) { delay.setFrames(frames); }
-
-  Sample process(Sample x0)
-  {
-    while (!queue.empty()) {
-      if (queue.back() >= x0) break;
-      queue.pop_back();
+    if (h > t) {
+      for (size_t i = h; i > t; --i) {
+        Sample &val = buf[i - 1];
+        if (val > currentMax) currentMax = val;
+        val = currentMax;
+      }
+    } else {
+      for (size_t i = h; i > 0; --i) {
+        Sample &val = buf[i - 1];
+        if (val > currentMax) currentMax = val;
+        val = currentMax;
+      }
+      for (size_t i = bufferSize; i > t; --i) {
+        Sample &val = buf[i - 1];
+        if (val > currentMax) currentMax = val;
+        val = currentMax;
+      }
     }
-    queue.push_back(x0);
-    if (delay.process(x0) == queue.front()) queue.pop_front();
-    return queue.front();
+    splitIndex = head;
+    frontMax = lowest;
+  }
+#undef FORCE_INLINE
+
+public:
+  PeakHold(size_t maxLength = 65536) { resize(maxLength); }
+
+  size_t size() const { return head - tail; }
+
+  void resize(size_t maxLength)
+  {
+    size_t newSize = 1;
+    while (newSize <= maxLength) newSize *= 2;
+
+    buffer = std::make_unique_for_overwrite<Sample[]>(newSize);
+    bufferSize = newSize;
+    bufferMask = newSize - 1;
+    reset();
+  }
+
+  void reset(Sample fill = lowest)
+  {
+    std::fill(buffer.get(), buffer.get() + bufferSize, fill);
+    head = 0;
+    tail = 0;
+    splitIndex = 0;
+    frontMax = lowest;
+  }
+
+  void setFrames(size_t newSize, bool preserveCurrentPeak = false)
+  {
+    while (size() < newSize) {
+      Sample backPrev = buffer[tail & bufferMask];
+      tail--;
+      Sample &back = buffer[tail & bufferMask];
+      back = preserveCurrentPeak ? backPrev : std::max(back, backPrev);
+    }
+    while (size() > newSize) pop();
+  }
+
+  inline void push(Sample v)
+  {
+    buffer[head & bufferMask] = v;
+    head++;
+    if (v > frontMax) frontMax = v;
+  }
+
+  void pop()
+  {
+    if (tail == splitIndex) {
+      if (head == tail) {
+        frontMax = lowest;
+        splitIndex = head;
+        return;
+      }
+      refillBackStack();
+    }
+    tail++;
+  }
+
+  inline Sample read() const
+  {
+    Sample backMax = buffer[tail & bufferMask];
+    return (backMax > frontMax) ? backMax : frontMax;
+  }
+
+  Sample process(Sample v)
+  {
+    push(v);
+
+    if (tail == splitIndex) refillBackStack();
+    tail++;
+
+    return read();
   }
 };
 
@@ -197,42 +224,23 @@ public:
     delay2.setFrames(half);
   }
 
-  /**
-  Floating point addition with rounding towards 0 for positive number.
-  It must be that `lhs >= 0` and `rhs >= 0`.
-
-  Assuming IEEE 754. It was only tested where
-  `std::numeric_limits<float>::round_style == std::round_to_nearest`. On the platform
-  using other type of floating point rounding or representation, it may not work, or may
-  be unnecessary. Negative number input is not tested.
-
-  Following explanation uses 4 bit significand. Numbers are binary. Consider addition of
-  significand like following:
-
-  ```
-    1000
-  + 0011 11 // last 11 will be rounded.
-  ---------
-    1???
-  ```
-
-  There are 2 possible answer depending on rounding mode: 1100 or 1011.
-
-  This `add()` method outputs 1011 in cases like above, to prevent smoothed output
-  exceeds decimal +1.0.
-
-  If `std::numeric_limits<float>::round_style == std::round_to_nearest`, then the number
-  will be rounded towards nearest even number. In this case, the answer on above case
-  becomes 1100.
-  */
+  // Refer to `DoubleAverageFilter` in BasicLimiter for the details of this method.
   inline Sample add(Sample lhs, Sample rhs)
   {
-    if (lhs < rhs) std::swap(lhs, rhs);
-    int expL;
-    std::frexp(lhs, &expL);
-    auto &&cut = std::ldexp(float(1), expL - std::numeric_limits<Sample>::digits);
-    auto &&rounded = rhs - std::fmod(rhs, cut);
-    return lhs + rounded;
+    using Integer = std::conditional_t<sizeof(Sample) == 4, int32_t, int64_t>;
+    constexpr int mantissaBits = std::numeric_limits<Sample>::digits - 1;
+    constexpr int exponentBias = (1 << (sizeof(Sample) * 8 - mantissaBits - 2)) - 1;
+
+    if (std::abs(lhs) < std::abs(rhs)) std::swap(lhs, rhs);
+    if (lhs == 0) return rhs;
+
+    constexpr Integer maxInt = std::numeric_limits<Integer>::max();
+    auto rawExp = (std::bit_cast<Integer>(lhs) & maxInt) >> mantissaBits;
+    auto scaleExp = (2 * exponentBias + mantissaBits) - rawExp;
+    if (scaleExp <= 0 || scaleExp >= 2 * exponentBias) return lhs + rhs;
+
+    auto scale = std::bit_cast<Sample>(Integer(scaleExp) << mantissaBits);
+    return lhs + std::trunc(rhs * scale) / scale;
   }
 
   Sample process(Sample input)

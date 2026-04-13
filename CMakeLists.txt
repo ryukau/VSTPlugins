@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 project(UhhyouPlugins
-  VERSION 0.69.0)
+  VERSION 0.70.0)
 
 if(MSVC)
   # For errors on `lib/vst3sdk/public.sdk/source/vst/hosting/module_win32.cpp`, VST SDK 3.7.14.
@@ -17,6 +17,7 @@ option(SMTG_ADD_VST3_HOSTING_SAMPLES OFF)
 option(SMTG_ENABLE_VST3_PLUGIN_EXAMPLES OFF)
 option(SMTG_ENABLE_VST3_HOSTING_EXAMPLES OFF)
 option(SMTG_CREATE_PLUGIN_LINK OFF)
+option(SMTG_RUN_VST_VALIDATOR OFF)
 
 add_subdirectory(common)
 add_subdirectory(lib/vst3sdk)
