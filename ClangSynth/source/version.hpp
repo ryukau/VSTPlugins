@@ -27,9 +27,9 @@
 
 #define VERSION_STR MAJOR_VERSION_STR "." SUB_VERSION_STR "." RELEASE_NUMBER_STR
 
-#define stringPluginName "ClangSynth"
+#define stringPluginName "ClangSynth_keytracking"
 
-#define stringOriginalFilename "ClangSynth.vst3"
+#define stringOriginalFilename "ClangSynth_keytracking.vst3"
 #if SMTG_PLATFORM_64
   #define stringFileDescription stringPluginName " VST3-SDK (64Bit)"
 #else

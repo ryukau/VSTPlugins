@@ -9,8 +9,8 @@ namespace Steinberg {
 namespace Synth {
 
 // https://www.guidgenerator.com/
-static const FUID ProcessorUID(0x31D71DE1, 0xC3754F49, 0xBAC9E1EE, 0x064D3A8C);
-static const FUID ControllerUID(0x2497FDCD, 0xF2C24036, 0xB2A47133, 0x142A40A6);
+static const FUID ProcessorUID(0xF082C977, 0x9069461B, 0xA9783AC4, 0x7AF9F790);
+static const FUID ControllerUID(0x4ADEA17B, 0x8ECD4252, 0xA2FFB54C, 0xD5400838);
 
 } // namespace Synth
 } // namespace Steinberg
