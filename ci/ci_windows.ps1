@@ -4,7 +4,7 @@
 
 $ErrorActionPreference = "Stop"
 
-cmake -S . -B build -G"Visual Studio 17 2022" -A x64
+cmake -S . -B build -G "Visual Studio 18 2026" -A x64
 cmake --build build --config Release
 
 # https://gitlab.com/gitlab-org/gitlab-runner/issues/3194#note_196458158

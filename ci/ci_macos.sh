@@ -5,7 +5,8 @@
 
 set -e
 
-cmake -S . -B build -GXcode
+cmake -S . -B build -GXcode \
+  -DCMAKE_CXX_FLAGS="-D_LIBCPP_DISABLE_DEPRECATION_WARNINGS -Wno-deprecated-declarations"
 cmake --build build --config Release
 
 # Only moving `*.vst3`. `*.dSYM` are also generated but the sizes are too large.
