@@ -10,17 +10,17 @@
 
 #include "pluginterfaces/base/fplatform.h"
 
-#define MAJOR_VERSION_STR "0"
-#define MAJOR_VERSION_INT 0
+#define MAJOR_VERSION_STR "10000"
+#define MAJOR_VERSION_INT 10000
 
-#define SUB_VERSION_STR "1"
-#define SUB_VERSION_INT 1
+#define SUB_VERSION_STR "0"
+#define SUB_VERSION_INT 0
 
-#define RELEASE_NUMBER_STR "12"
-#define RELEASE_NUMBER_INT 12
+#define RELEASE_NUMBER_STR "0"
+#define RELEASE_NUMBER_INT 0
 
-#define BUILD_NUMBER_STR "13"
-#define BUILD_NUMBER_INT 13
+#define BUILD_NUMBER_STR "10013"
+#define BUILD_NUMBER_INT 10013
 
 #define FULL_VERSION_STR                                                                 \
   MAJOR_VERSION_STR "." SUB_VERSION_STR "." RELEASE_NUMBER_STR "." BUILD_NUMBER_STR

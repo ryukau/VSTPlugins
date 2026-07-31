@@ -31,7 +31,7 @@ protected:
   float barboxHeight = 8 * labelHeight + 14 * margin;
   float lfoWidthFix = 25.0f;
   float innerWidth = 6 * labelWidth + 10 * margin + barboxWidth;
-  float innerHeight = 8 * labelY + 2 * barboxHeight + 9 * margin;
+  float innerHeight = 9 * labelY + 2 * barboxHeight + 9 * margin;
   uint32_t defaultWidth = uint32_t(innerWidth + 2 * uiMargin);
   uint32_t defaultHeight = uint32_t(innerHeight + 2 * uiMargin);
 
@@ -53,7 +53,7 @@ protected:
     barboxHeight = 8 * labelHeight + 14 * margin;
     lfoWidthFix = int(sc * 25);
     innerWidth = 6 * labelWidth + 10 * margin + barboxWidth;
-    innerHeight = 8 * labelY + 2 * barboxHeight + 9 * margin;
+    innerHeight = 9 * labelY + 2 * barboxHeight + 9 * margin;
     defaultWidth = uint32_t(innerWidth + 2 * uiMargin);
     defaultHeight = uint32_t(innerHeight + 2 * uiMargin);
 

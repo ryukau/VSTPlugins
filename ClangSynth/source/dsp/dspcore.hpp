@@ -64,12 +64,15 @@ enum class NoteState { active, release, rest };
   oscNoteOffset.METHOD(                                                                             \
     float(12)                                                                                       \
     * (centerPitch + oscOctave + octave + (oscFinePitch + semitone + milli + pitchBend) / eqTemp)); \
-  fdnFreqOffset.METHOD(a4Hz *calcNotePitch(                                                         \
-    eqTemp *octave + semitone + milli + pitchBend + float(69), eqTemp));                            \
+  fdnFreqOffset.METHOD(                                                                             \
+    a4Hz *calcNotePitch(                                                                            \
+      eqTemp *octave + semitone + milli + pitchBend + float(69), eqTemp));                          \
                                                                                                     \
   fdnOvertoneOffset.METHOD(pv[ID::fdnOvertoneOffset]->getFloat());                                  \
   fdnOvertoneMul.METHOD(pv[ID::fdnOvertoneMul]->getFloat());                                        \
+  fdnOvertoneMulKeyFollow.METHOD(pv[ID::fdnOvertoneMulKeyFollow]->getFloat());                      \
   fdnOvertoneAdd.METHOD(pv[ID::fdnOvertoneAdd]->getFloat());                                        \
+  fdnOvertoneAddKeyFollow.METHOD(pv[ID::fdnOvertoneAddKeyFollow]->getFloat());                      \
   fdnOvertoneModulo.METHOD(pv[ID::fdnOvertoneModulo]->getFloat());                                  \
   fdnLowpassQ.METHOD(pv[ID::lowpassQ]->getFloat());                                                 \
   fdnHighpassQ.METHOD(pv[ID::highpassQ]->getFloat());                                               \
@@ -110,7 +113,9 @@ struct NoteProcessInfo {
   ExpSmoother<float> fdnFreqOffset;
   ExpSmoother<float> fdnOvertoneOffset;
   ExpSmoother<float> fdnOvertoneMul;
+  ExpSmoother<float> fdnOvertoneMulKeyFollow;
   ExpSmoother<float> fdnOvertoneAdd;
+  ExpSmoother<float> fdnOvertoneAddKeyFollow;
   ExpSmoother<float> fdnOvertoneModulo;
   ExpSmoother<float> fdnLowpassQ;
   ExpSmoother<float> fdnHighpassQ;
@@ -181,7 +186,9 @@ struct NoteProcessInfo {
     fdnFreqOffset.process();
     fdnOvertoneOffset.process();
     fdnOvertoneMul.process();
+    fdnOvertoneMulKeyFollow.process();
     fdnOvertoneAdd.process();
+    fdnOvertoneAddKeyFollow.process();
     fdnOvertoneModulo.process();
     fdnLowpassQ.process();
     fdnHighpassQ.process();
@@ -204,6 +211,7 @@ public:
   float velocity = 0;
   float fdnPitch = 0;
   float oscNote = 0;
+  float notePitch = 69.0f;
   float gain = 0;
   float releaseSwitch = float(1);
 

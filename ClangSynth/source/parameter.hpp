@@ -24,6 +24,9 @@ constexpr size_t nLfoWavetable = 64;
 constexpr size_t nModEnvelopeWavetable = 128;
 constexpr size_t nUnisonInterval = 4;
 
+constexpr size_t nReservedParameter = 64;
+constexpr size_t nReservedGuiParameter = 16;
+
 namespace Steinberg {
 namespace Synth {
 
@@ -77,6 +80,9 @@ enum ID {
   fdnSeed,
   fdnRandomizeRatio,
 
+  fdnOvertoneAddKeyFollow, // Extra parameters added for keytracking.
+  fdnOvertoneMulKeyFollow, // Extra parameters added for keytracking.
+
   lowpassCutoffSemi,
   lowpassQ,
   lowpassKeyFollow,
@@ -113,13 +119,17 @@ enum ID {
   modEnvelopeToFdnPitch,
   modEnvelopeToFdnOvertoneAdd,
 
-  ID_ENUM_LENGTH,
+  reservedParameter0,
+  reservedGuiParameter0 = reservedParameter0 + nReservedParameter,
+
+  ID_ENUM_LENGTH = reservedGuiParameter0 + nReservedGuiParameter,
 };
 } // namespace ParameterID
 
 struct Scales {
   static SomeDSP::UIntScale<double> boolScale;
   static SomeDSP::LinearScale<double> defaultScale;
+  static SomeDSP::LinearScale<double> bipolarScale;
   static SomeDSP::UIntScale<double> seed;
 
   static SomeDSP::DecibelScale<double> gain;
@@ -309,6 +319,13 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::fdnRandomizeRatio] = std::make_unique<LinearValue>(
       0.2, Scales::defaultScale, "fdnRandomizeRatio", Info::kCanAutomate);
 
+    value[ID::fdnOvertoneAddKeyFollow] = std::make_unique<LinearValue>(
+      Scales::bipolarScale.invmap(0.0), Scales::bipolarScale, "fdnOvertoneAddKeyFollow",
+      Info::kCanAutomate);
+    value[ID::fdnOvertoneMulKeyFollow] = std::make_unique<LinearValue>(
+      Scales::bipolarScale.invmap(0.0), Scales::bipolarScale, "fdnOvertoneMulKeyFollow",
+      Info::kCanAutomate);
+
     value[ID::lowpassCutoffSemi] = std::make_unique<LinearValue>(
       1.0, Scales::filterCutoffSemi, "lowpassCutoffSemi", Info::kCanAutomate);
     value[ID::lowpassQ] = std::make_unique<LinearValue>(
@@ -403,6 +420,20 @@ struct GlobalParameter : public ParameterInterface {
       "modEnvelopeToFdnPitch", Info::kCanAutomate);
     value[ID::modEnvelopeToFdnOvertoneAdd] = std::make_unique<DecibelValue>(
       0.0, Scales::fdnOvertoneAdd, "modEnvelopeToFdnOvertoneAdd", Info::kCanAutomate);
+
+    for (size_t idx = 0; idx < nReservedParameter; ++idx) {
+      auto indexStr = std::to_string(idx);
+      value[ID::reservedParameter0 + idx] = std::make_unique<LinearValue>(
+        Scales::defaultScale.invmap(1.0), Scales::defaultScale,
+        ("reservedParameter" + indexStr).c_str(), Info::kIsHidden);
+    }
+
+    for (size_t idx = 0; idx < nReservedGuiParameter; ++idx) {
+      auto indexStr = std::to_string(idx);
+      value[ID::reservedGuiParameter0 + idx] = std::make_unique<LinearValue>(
+        Scales::defaultScale.invmap(1.0), Scales::defaultScale,
+        ("reservedGuiParameter" + indexStr).c_str(), Info::kIsHidden);
+    }
 
     for (size_t id = 0; id < value.size(); ++id) value[id]->setId(Vst::ParamID(id));
   }

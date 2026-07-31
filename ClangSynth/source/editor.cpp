@@ -262,10 +262,11 @@ bool Editor::prepareUI()
   const auto fdnTop4 = fdnTop3 + labelY;
   const auto fdnTop5 = fdnTop4 + labelY;
   const auto fdnTop6 = fdnTop5 + labelY;
-  const auto fdnTop7 = fdnTop6 + labelY + 1 * margin;
-  const auto fdnTop8 = fdnTop7 + labelY;
+  const auto fdnTop7 = fdnTop6 + labelY;
+  const auto fdnTop8 = fdnTop7 + labelY + 1 * margin;
   const auto fdnTop9 = fdnTop8 + labelY;
   const auto fdnTop10 = fdnTop9 + labelY;
+  const auto fdnTop11 = fdnTop10 + labelY;
   addToggleButton(
     fdnLeft0, fdnTop0, 4 * labelWidth + 2 * margin, labelHeight, uiTextSize, "FDN",
     ID::fdnEnable);
@@ -298,8 +299,10 @@ bool Editor::prepareUI()
   addTextKnob(
     fdnLeft1, fdnTop6, labelWidth, labelHeight, uiTextSize, ID::fdnRandomizeRatio,
     Scales::defaultScale, false, 5);
+  addCheckbox(
+    fdnLeft0, fdnTop7, 2 * labelWidth, labelHeight, uiTextSize, "Reset at Note On",
+    ID::resetAtNoteOn);
 
-  // TODO: Better abbreviation for "overtone" to use in labels.
   addLabel(fdnLeft2, fdnTop1, labelWidth, labelHeight, uiTextSize, "OT +");
   addTextKnob<Style::accent>(
     fdnLeft3, fdnTop1, labelWidth, labelHeight, uiTextSize, ID::fdnOvertoneAdd,
@@ -320,39 +323,44 @@ bool Editor::prepareUI()
   addTextKnob(
     fdnLeft3, fdnTop5, labelWidth, labelHeight, uiTextSize, ID::fdnOvertoneRandomness,
     Scales::defaultScale, false, 5);
-  addCheckbox(
-    fdnLeft2, fdnTop6, 2 * labelWidth, labelHeight, uiTextSize, "Reset at Note On",
-    ID::resetAtNoteOn);
+  addLabel(fdnLeft2, fdnTop6, labelWidth, labelHeight, uiTextSize, "Key -> OT +");
+  addTextKnob<Style::accent>(
+    fdnLeft3, fdnTop6, labelWidth, labelHeight, uiTextSize, ID::fdnOvertoneAddKeyFollow,
+    Scales::bipolarScale, false, 5);
+  addLabel(fdnLeft2, fdnTop7, labelWidth, labelHeight, uiTextSize, "Key -> OT *");
+  addTextKnob<Style::accent>(
+    fdnLeft3, fdnTop7, labelWidth, labelHeight, uiTextSize, ID::fdnOvertoneMulKeyFollow,
+    Scales::bipolarScale, false, 5);
 
   const auto fdnFilterLeft0 = fdnLeft0 + int(labelWidth / 4);
   const auto fdnFilterLeft1 = fdnFilterLeft0 + labelWidth + 2 * margin;
   const auto fdnFilterLeft2 = fdnFilterLeft1 + labelWidth + 2 * margin;
 
-  addLabel(fdnFilterLeft1, fdnTop7, labelWidth, labelHeight, uiTextSize, "Lowpass");
-  addLabel(fdnFilterLeft2, fdnTop7, labelWidth, labelHeight, uiTextSize, "Highpass");
+  addLabel(fdnFilterLeft1, fdnTop8, labelWidth, labelHeight, uiTextSize, "Lowpass");
+  addLabel(fdnFilterLeft2, fdnTop8, labelWidth, labelHeight, uiTextSize, "Highpass");
 
-  addLabel(fdnFilterLeft0, fdnTop8, labelWidth, labelHeight, uiTextSize, "Cutoff [st.]");
+  addLabel(fdnFilterLeft0, fdnTop9, labelWidth, labelHeight, uiTextSize, "Cutoff [st.]");
   addTextKnob<Style::accent>(
-    fdnFilterLeft1, fdnTop8, labelWidth, labelHeight, uiTextSize, ID::lowpassCutoffSemi,
+    fdnFilterLeft1, fdnTop9, labelWidth, labelHeight, uiTextSize, ID::lowpassCutoffSemi,
     Scales::filterCutoffSemi, false, 5);
   addTextKnob<Style::accent>(
-    fdnFilterLeft2, fdnTop8, labelWidth, labelHeight, uiTextSize, ID::highpassCutoffSemi,
+    fdnFilterLeft2, fdnTop9, labelWidth, labelHeight, uiTextSize, ID::highpassCutoffSemi,
     Scales::filterCutoffSemi, false, 5);
 
-  addLabel(fdnFilterLeft0, fdnTop9, labelWidth, labelHeight, uiTextSize, "Q");
+  addLabel(fdnFilterLeft0, fdnTop10, labelWidth, labelHeight, uiTextSize, "Q");
   addTextKnob<Style::accent>(
-    fdnFilterLeft1, fdnTop9, labelWidth, labelHeight, uiTextSize, ID::lowpassQ,
+    fdnFilterLeft1, fdnTop10, labelWidth, labelHeight, uiTextSize, ID::lowpassQ,
     Scales::filterQ, false, 5);
   addTextKnob<Style::accent>(
-    fdnFilterLeft2, fdnTop9, labelWidth, labelHeight, uiTextSize, ID::highpassQ,
+    fdnFilterLeft2, fdnTop10, labelWidth, labelHeight, uiTextSize, ID::highpassQ,
     Scales::filterQ, false, 5);
 
-  addLabel(fdnFilterLeft0, fdnTop10, labelWidth, labelHeight, uiTextSize, "Key Follow");
+  addLabel(fdnFilterLeft0, fdnTop11, labelWidth, labelHeight, uiTextSize, "Key Follow");
   addCheckbox(
-    fdnFilterLeft1 + int((labelWidth - checkBoxWidth) / 2), fdnTop10, labelWidth,
+    fdnFilterLeft1 + int((labelWidth - checkBoxWidth) / 2), fdnTop11, labelWidth,
     labelHeight, uiTextSize, "", ID::lowpassKeyFollow);
   addCheckbox(
-    fdnFilterLeft2 + int((labelWidth - checkBoxWidth) / 2), fdnTop10, labelWidth,
+    fdnFilterLeft2 + int((labelWidth - checkBoxWidth) / 2), fdnTop11, labelWidth,
     labelHeight, uiTextSize, "", ID::highpassKeyFollow);
 
   // LFO.

@@ -244,6 +244,12 @@ std::array<float, 2> Note::process(float sampleRate, NoteProcessInfo &info)
 
   if (info.fdnEnable) {
     auto fdnFreq = info.fdnFreqOffset.getValue() * fdnPitch * fdnPitchMod;
+    float keyDeltaOctaves = (this->notePitch - 69.0f) / 12.0f;
+    float otAddKeyTrack = info.fdnOvertoneAddKeyFollow.getValue() * keyDeltaOctaves;
+    float effectiveOtAdd = info.fdnOvertoneAdd.getValue() + otAddKeyTrack;
+    float otMulKeyTrack
+      = std::exp2(info.fdnOvertoneMulKeyFollow.getValue() * keyDeltaOctaves);
+    float effectiveOtMul = info.fdnOvertoneMul.getValue() * otMulKeyTrack;
     float overtone = float(1);
     for (size_t idx = 0; idx < fdnMatrixSize; ++idx) {
       fdn.delay.setDelayTimeAt(
@@ -251,10 +257,10 @@ std::array<float, 2> Note::process(float sampleRate, NoteProcessInfo &info)
         info.fdnOvertoneOffset.getValue()
           + (float(1) + overtoneRandomness[idx]) * overtone,
         fdnFreq);
-      auto ot = overtone * info.fdnOvertoneMul.getValue() + info.fdnOvertoneAdd.getValue()
-        + modEnvelopeToFdnOvertoneAdd;
+
+      auto ot = overtone * effectiveOtMul + effectiveOtAdd + modEnvelopeToFdnOvertoneAdd;
+
       if (info.fdnOvertoneModulo.getValue() >= std::numeric_limits<float>::epsilon()) {
-        // Almost same operation as `std::fmod()`.
         ot /= float(1) + info.fdnOvertoneModulo.getValue();
         ot -= std::floor(ot);
         ot *= float(1) + info.fdnOvertoneModulo.getValue();
@@ -351,6 +357,7 @@ void Note::noteOn(
 
   id = noteId;
 
+  this->notePitch = notePitch;
   this->velocity = velocity;
   gain = float(1);
   releaseSwitch = float(1);
@@ -406,6 +413,11 @@ void Note::noteOn(
 
     fdn.reset();
 
+    float keyDeltaOctaves = (this->notePitch - 69.0f) / 12.0f;
+    float effectiveOtAdd = info.fdnOvertoneAdd.getValue()
+      + info.fdnOvertoneAddKeyFollow.getValue() * keyDeltaOctaves;
+    float effectiveOtMul = info.fdnOvertoneMul.getValue()
+      * std::exp2(info.fdnOvertoneMulKeyFollow.getValue() * keyDeltaOctaves);
     float overtone = 1.0f;
     for (size_t idx = 0; idx < fdnMatrixSize; ++idx) {
       fdn.delay.resetDelayTimeAt(
@@ -413,8 +425,9 @@ void Note::noteOn(
         info.fdnOvertoneOffset.getValue()
           + (float(1) + overtoneRandomness[idx]) * overtone,
         fdnFreq);
-      auto ot
-        = overtone * info.fdnOvertoneMul.getValue() + info.fdnOvertoneAdd.getValue();
+
+      auto ot = overtone * effectiveOtMul + effectiveOtAdd;
+
       if (info.fdnOvertoneModulo.getValue() >= std::numeric_limits<float>::epsilon()) {
         ot /= float(1) + info.fdnOvertoneModulo.getValue();
         ot -= std::floor(ot);
