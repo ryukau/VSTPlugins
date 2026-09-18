@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2026-04-13" />
+      <meta name="dcterms.date" content="2026-09-18" />
       <title>GenericDrum_en – Uhhyou Plugins</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
   <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
@@ -285,7 +285,7 @@
     <header>
         <p><a href="../../index.html">Back to Index</a></p>
             <p>
-      Update: 2026-04-13
+      Update: 2026-09-18
     </p>
             <details>
       <summary translate="yes">Table of Contents</summary>
@@ -340,6 +340,7 @@
         <li><a href="#external-input" id="toc-external-input">External
         Input</a></li>
         <li><a href="#tuning" id="toc-tuning">Tuning</a></li>
+        <li><a href="#random" id="toc-random">Random</a></li>
         <li><a href="#impact" id="toc-impact">Impact</a></li>
         <li><a href="#wire" id="toc-wire">Wire</a></li>
         <li><a href="#membrane-tone" id="toc-membrane-tone">Membrane
@@ -374,15 +375,15 @@
   made, but it’s not as good as lower pitched drum sounds.</p>
   <ul>
   <li><a
-  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/GenericDrum_0.1.5.zip">Download
-  GenericDrum 0.1.5 <code>full</code> - VST 3 (github.com)</a> <img
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.71.0/GenericDrum_0.1.6.zip">Download
+  GenericDrum 0.1.6 <code>full</code> - VST 3 (github.com)</a> <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="30px"
   style="display: inline-block; vertical-align: middle;"></li>
   <li><a
-  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/GenericDrum_0.1.5_macOS.zip">Download
-  GenericDrum 0.1.5 <code>macOS</code> - VST 3 (github.com)</a> <img
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.71.0/GenericDrum_0.1.6_macOS.zip">Download
+  GenericDrum 0.1.6 <code>macOS</code> - VST 3 (github.com)</a> <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="30px"
@@ -970,6 +971,32 @@
   same time.</p>
   </dd>
   </dl>
+  <h3 id="random"><a href="#random" class="header-anchor"
+  aria-hidden="true">Random</a></h3>
+  <p>The Random section contains parameters for randomizing other
+  parameters.</p>
+  <dl>
+  <dt>Recipe</dt>
+  <dd>
+  <p>Type of randomization.</p>
+  <p>Selecting <code>Reserved*</code> falls back to
+  <code>Full</code>.</p>
+  </dd>
+  <dt>Seed</dt>
+  <dd>
+  <p>Sets the seed used for parameter randomization.</p>
+  <p>Automating randomization produces consistent results when playback
+  starts from the same position. However, internal delays and other
+  trailing effects from preceding notes can introduce slight variations.
+  For absolute reproducibility, bounce the track to audio.</p>
+  </dd>
+  <dt>Random</dt>
+  <dd>
+  <p>Randomize button.</p>
+  <p>During automation, randomization is triggered when the state
+  changes from 0 to 1.</p>
+  </dd>
+  </dl>
   <h3 id="impact"><a href="#impact" class="header-anchor"
   aria-hidden="true">Impact</a></h3>
   <p>Impact section contains parameters that imitates the collision
@@ -1217,6 +1244,12 @@
   <h2 id="change-log"><a href="#change-log" class="header-anchor"
   aria-hidden="true">Change Log</a></h2>
   <ul>
+  <li>0.1.6
+  <ul>
+  <li>Fixed resetting on some DAWs. Added <code>setProcessing</code> to
+  reset.</li>
+  <li>Added parameters for randomization.</li>
+  </ul></li>
   <li>0.1.5
   <ul>
   <li>Fixed a bug that plugin to show up with incorrect window size
@@ -1250,6 +1283,9 @@
   <h2 id="old-versions"><a href="#old-versions" class="header-anchor"
   aria-hidden="true">Old Versions</a></h2>
   <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/GenericDrum_0.1.5.zip">GenericDrum
+  0.1.5 - VST 3 (github.com)</a></li>
   <li><a
   href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/GenericDrum_0.1.4.zip">GenericDrum
   0.1.4 - VST 3 (github.com)</a></li>

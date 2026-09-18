@@ -1,8 +1,9 @@
 {
   "SpectralPhaser": {
-    "latest_version": "0.1.4",
+    "latest_version": "0.1.5",
     "urls"          : {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.71.0/SpectralPhaser_0.1.5.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/SpectralPhaser_0.1.4.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.69.0/SpectralPhaser_0.1.2.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/SpectralPhaser_0.1.1.zip",
@@ -11,6 +12,10 @@
       "preset_url": []
     },
     "changelog"     : {
+      "0.1.5": {
+        "en": ["Fixed resetting on some DAWs. Added `setProcessing` to reset."                                ],
+        "ja": ["DAW によってはリセットが効かなかったバグを修正。 `setProcessing` でもリセットするように変更。"]
+      },
       "0.1.4": {
         "en": [
           "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization."

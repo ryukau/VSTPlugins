@@ -1,8 +1,9 @@
 {
   "SevenDelay": {
-    "latest_version": "0.1.32",
-    "urls": {
+    "latest_version": "0.1.33",
+    "urls"          : {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.71.0/SevenDelay_0.1.33.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/SevenDelay_0.1.32.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/SevenDelay_0.1.31.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/SevenDelay_0.1.30.zip",
@@ -33,33 +34,22 @@
       ],
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/SevenDelayPresets.zip"
     },
-    "changelog": {
+    "changelog"     : {
+      "0.1.33": {
+        "en": ["Fixed resetting on some DAWs. Added `setProcessing` to reset."                                ],
+        "ja": ["DAW によってはリセットが効かなかったバグを修正。 `setProcessing` でもリセットするように変更。"]
+      },
       "0.1.32": {
         "en": [
           "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization."
         ],
-        "ja": [
-          "初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"
-        ]
+        "ja": ["初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"]
       },
       "0.1.31": {
-        "en": [
-          "Added GUI scaling.",
-          "Updated the Linux patch for VSTGUI4."
-        ],
-        "ja": [
-          "GUI のサイズを変更するオプションを追加。",
-          "VSTGUI4 の Linux パッチを更新。"
-        ]
+        "en": ["Added GUI scaling.",                       "Updated the Linux patch for VSTGUI4."],
+        "ja": ["GUI のサイズを変更するオプションを追加。", "VSTGUI4 の Linux パッチを更新。"     ]
       },
-      "0.1.30": {
-        "en": [
-          "Fixed GUI on Linux."
-        ],
-        "ja": [
-          "Linux での GUI を修正。"
-        ]
-      },
+      "0.1.30": { "en": ["Fixed GUI on Linux."], "ja": ["Linux での GUI を修正。"] },
       "0.1.29": {
         "en": [
           "Changed to include presets in plugin zip package.",
@@ -75,10 +65,7 @@
           "Changed default style color of `foregroundInactive`.",
           "Fixed performance drop caused by subnormal floating point numbers."
         ],
-        "ja": [
-          "デフォルトの `foregroundInactive` の色を変更。",
-          "サブノーマル数によるパフォーマンスの低下を修正。"
-        ]
+        "ja": ["デフォルトの `foregroundInactive` の色を変更。", "サブノーマル数によるパフォーマンスの低下を修正。"]
       },
       "0.1.27": {
         "en": [
@@ -91,12 +78,8 @@
         ]
       },
       "0.1.26": {
-        "en": [
-          "Added note event input to control delay times."
-        ],
-        "ja": [
-          "ディレイ時間を制御するためのノートイベント入力を追加。"
-        ]
+        "en": ["Added note event input to control delay times."        ],
+        "ja": ["ディレイ時間を制御するためのノートイベント入力を追加。"]
       },
       "0.1.25": {
         "en": [
@@ -107,20 +90,14 @@
         ]
       },
       "0.1.24": {
-        "en": [
-          "Fixed stuttering on Audacity where `processContext` is `nullptr`."
-        ],
-        "ja": [
-          "`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"
-        ]
+        "en": ["Fixed stuttering on Audacity where `processContext` is `nullptr`."                           ],
+        "ja": ["`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"]
       },
       "0.1.23": {
         "en": [
           "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak."
         ],
-        "ja": [
-          "クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。"
-        ]
+        "ja": ["クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。"]
       },
       "0.1.22": {
         "en": [
@@ -130,22 +107,8 @@
           "VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux で同一プラグインの GUI を複数開くとクラッシュするバグを修正。"
         ]
       },
-      "0.1.21": {
-        "en": [
-          "Resume macOS build."
-        ],
-        "ja": [
-          "macOS ビルドを復帰。"
-        ]
-      },
-      "0.1.20": {
-        "en": [
-          "Fixed crash on Linux."
-        ],
-        "ja": [
-          "Linux でのクラッシュを修正。"
-        ]
-      },
+      "0.1.21": { "en": ["Resume macOS build."], "ja": ["macOS ビルドを復帰。"] },
+      "0.1.20": { "en": ["Fixed crash on Linux."], "ja": ["Linux でのクラッシュを修正。"] },
       "0.1.19": {
         "en": [
           "Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER."
@@ -155,30 +118,13 @@
         ]
       },
       "0.1.18": {
-        "en": [
-          "Added custom font options for `style.json`."
-        ],
-        "ja": [
-          "`style.json` でカスタムフォントを設定するオプションを追加。"
-        ]
+        "en": ["Added custom font options for `style.json`."                ],
+        "ja": ["`style.json` でカスタムフォントを設定するオプションを追加。"]
       },
-      "0.1.17": {
-        "en": [
-          "Updated VSTGUI from 4.10 to 4.11."
-        ],
-        "ja": [
-          "VSTGUI を 4.10 から 4.11 にアップデート。"
-        ]
-      },
+      "0.1.17": { "en": ["Updated VSTGUI from 4.10 to 4.11."], "ja": ["VSTGUI を 4.10 から 4.11 にアップデート。"] },
       "0.1.16": {
-        "en": [
-          "Changed font to Tinos.",
-          "Fixed the clipping of knob."
-        ],
-        "ja": [
-          "フォントを Tinos に変更。",
-          "GUI のつまみが正しくレンダリングされるように修正。"
-        ]
+        "en": ["Changed font to Tinos.",    "Fixed the clipping of knob."                       ],
+        "ja": ["フォントを Tinos に変更。", "GUI のつまみが正しくレンダリングされるように修正。"]
       },
       "0.1.15": {
         "en": [
@@ -191,88 +137,37 @@
         ]
       },
       "0.1.14": {
-        "en": [
-          "Changed `In Pan` and `Out Pan` from stereo balance to stereo panning.",
-          "Added time readout display."
-        ],
-        "ja": [
-          "`In Pan` と `Out Pan` をステレオバランスからステレオパンニングに変更。",
-          "時間の値の表示を追加。"
-        ]
+        "en": ["Changed `In Pan` and `Out Pan` from stereo balance to stereo panning.", "Added time readout display."],
+        "ja": ["`In Pan` と `Out Pan` をステレオバランスからステレオパンニングに変更。", "時間の値の表示を追加。"]
       },
       "0.1.13": {
-        "en": [
-          "Implemented process context requirements."
-        ],
-        "ja": [
-          "Process context requirements を実装。"
-        ]
+        "en": ["Implemented process context requirements."],
+        "ja": ["Process context requirements を実装。"    ]
       },
       "0.1.12": {
-        "en": [
-          "Added check that DSP is initialized or not."
-        ],
-        "ja": [
-          "DSP が初期化されているかどうかのチェックを追加。"
-        ]
+        "en": ["Added check that DSP is initialized or not."     ],
+        "ja": ["DSP が初期化されているかどうかのチェックを追加。"]
       },
-      "0.1.11": {
-        "en": [
-          "Added color configuration."
-        ],
-        "ja": [
-          "カラーコンフィグを追加。"
-        ]
-      },
+      "0.1.11": { "en": ["Added color configuration."], "ja": ["カラーコンフィグを追加。"] },
       "0.1.10": {
-        "en": [
-          "Reverted parameter smoother to the old one which works with variable size audio buffer."
-        ],
-        "ja": [
-          "パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。"
-        ]
+        "en": ["Reverted parameter smoother to the old one which works with variable size audio buffer."],
+        "ja": ["パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。"   ]
       },
-      "0.1.9": {
-        "en": [
-          "Fixed a bug that cause crash when drawing string."
-        ],
-        "ja": [
-          "文字列の描画でクラッシュするバグを修正。"
-        ]
+      "0.1.9" : {
+        "en": ["Fixed a bug that cause crash when drawing string."],
+        "ja": ["文字列の描画でクラッシュするバグを修正。"         ]
       },
-      "0.1.8": {
-        "en": [
-          "Changed display method for pop-up which shows up by clicking plugin title."
-        ],
-        "ja": [
-          "プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。"
-        ]
+      "0.1.8" : {
+        "en": ["Changed display method for pop-up which shows up by clicking plugin title."],
+        "ja": ["プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。"]
       },
-      "0.1.7": {
-        "en": [
-          "Fixed to stop sounds when deactivated."
-        ],
-        "ja": [
-          "非アクティブ化で音が止まるように修正。"
-        ]
+      "0.1.7" : { "en": ["Fixed to stop sounds when deactivated."], "ja": ["非アクティブ化で音が止まるように修正。"] },
+      "0.1.6" : { "en": ["Enabled GUI for Linux build."], "ja": ["Linux ビルドの GUI を有効化。"] },
+      "0.1.5" : {
+        "en": ["Fixed wobbling knob bug."                              ],
+        "ja": ["Ableton Live 10.1.6 で特定のノブが揺れ戻るバグを修正。"]
       },
-      "0.1.6": {
-        "en": [
-          "Enabled GUI for Linux build."
-        ],
-        "ja": [
-          "Linux ビルドの GUI を有効化。"
-        ]
-      },
-      "0.1.5": {
-        "en": [
-          "Fixed wobbling knob bug."
-        ],
-        "ja": [
-          "Ableton Live 10.1.6 で特定のノブが揺れ戻るバグを修正。"
-        ]
-      },
-      "0.1.4": {
+      "0.1.4" : {
         "en": [
           "Added support for synchronization between multiple GUI instances.",
           "Fixed a bug that opening splash screen causes crash.",
@@ -286,7 +181,7 @@
           "GUI がホストのオートメーションに応じて更新されるように修正。"
         ]
       },
-      "0.1.3": {
+      "0.1.3" : {
         "en": [
           "Fixed smoothing algorithm to prevent blow up.",
           "Fixed a bug that LFO Hold on/off was inverted.",
@@ -298,17 +193,11 @@
           "オールパスのミキシングにかかっていた LFO による変調を除去。"
         ]
       },
-      "0.1.2": {
-        "en": [
-          "Changed internal parameter structure.",
-          "Changed UI looks."
-        ],
-        "ja": [
-          "内部のパラメータの構造を変更。",
-          "UI の見た目を変更。"
-        ]
+      "0.1.2" : {
+        "en": ["Changed internal parameter structure.", "Changed UI looks."  ],
+        "ja": ["内部のパラメータの構造を変更。",        "UI の見た目を変更。"]
       },
-      "0.1.1": {
+      "0.1.1" : {
         "en": [
           "Disabled GUI for Linux build. This is a makeshift change while tracking down a bug related to VSTGUI.",
           "Changed tuning of `To Allpass` of LFO.",
@@ -320,14 +209,7 @@
           "`DC Kill` の最小値を 5.0 Hz に変更。"
         ]
       },
-      "0.1.0": {
-        "en": [
-          "Initial release."
-        ],
-        "ja": [
-          "初期リリース。"
-        ]
-      }
+      "0.1.0" : { "en": ["Initial release."], "ja": ["初期リリース。"] }
     }
   }
 }

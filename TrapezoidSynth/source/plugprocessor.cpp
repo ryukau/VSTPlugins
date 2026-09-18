@@ -67,6 +67,14 @@ tresult PLUGIN_API PlugProcessor::setActive(TBool state)
   return AudioEffect::setActive(state);
 }
 
+tresult PLUGIN_API PlugProcessor::setProcessing(TBool state) {
+  if (!state) {
+    dsp.free();
+    lastState = 0;
+  }
+  return AudioEffect::setProcessing(state);
+}
+
 tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 {
   // Read inputs parameter changes.

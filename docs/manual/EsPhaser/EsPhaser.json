@@ -1,8 +1,9 @@
 {
   "EsPhaser": {
-    "latest_version": "0.1.22",
-    "urls": {
+    "latest_version": "0.1.23",
+    "urls"          : {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.71.0/EsPhaser_0.1.23.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/EsPhaser_0.1.22.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/EsPhaser_0.1.21.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/EsPhaser_0.1.20.zip",
@@ -27,33 +28,22 @@
       ],
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EsPhaserPresets.zip"
     },
-    "changelog": {
+    "changelog"     : {
+      "0.1.23": {
+        "en": ["Fixed resetting on some DAWs. Added `setProcessing` to reset."                                ],
+        "ja": ["DAW によってはリセットが効かなかったバグを修正。 `setProcessing` でもリセットするように変更。"]
+      },
       "0.1.22": {
         "en": [
           "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization."
         ],
-        "ja": [
-          "初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"
-        ]
+        "ja": ["初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"]
       },
       "0.1.21": {
-        "en": [
-          "Added GUI scaling.",
-          "Updated the Linux patch for VSTGUI4."
-        ],
-        "ja": [
-          "GUI のサイズを変更するオプションを追加。",
-          "VSTGUI4 の Linux パッチを更新。"
-        ]
+        "en": ["Added GUI scaling.",                       "Updated the Linux patch for VSTGUI4."],
+        "ja": ["GUI のサイズを変更するオプションを追加。", "VSTGUI4 の Linux パッチを更新。"     ]
       },
-      "0.1.20": {
-        "en": [
-          "Fixed GUI on Linux."
-        ],
-        "ja": [
-          "Linux での GUI を修正。"
-        ]
-      },
+      "0.1.20": { "en": ["Fixed GUI on Linux."], "ja": ["Linux での GUI を修正。"] },
       "0.1.19": {
         "en": [
           "Changed to include presets in plugin zip package.",
@@ -69,10 +59,7 @@
           "Changed default style color of `foregroundInactive`.",
           "Fixed performance drop caused by subnormal floating point numbers."
         ],
-        "ja": [
-          "デフォルトの `foregroundInactive` の色を変更。",
-          "サブノーマル数によるパフォーマンスの低下を修正。"
-        ]
+        "ja": ["デフォルトの `foregroundInactive` の色を変更。", "サブノーマル数によるパフォーマンスの低下を修正。"]
       },
       "0.1.17": {
         "en": [
@@ -83,17 +70,11 @@
         ]
       },
       "0.1.16": {
-        "en": [
-          "Fixed stuttering on Audacity where `processContext` is `nullptr`."
-        ],
-        "ja": [
-          "`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"
-        ]
+        "en": ["Fixed stuttering on Audacity where `processContext` is `nullptr`."                           ],
+        "ja": ["`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"]
       },
       "0.1.15": {
-        "en": [
-          "Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>."
-        ],
+        "en": ["Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>."],
         "ja": [
           "数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> による値の切り捨てのショートカットを追加。"
         ]
@@ -118,14 +99,7 @@
           "VST 3 SDK をバージョン 3.7.6 に更新。これにより Linux で同一プラグインの GUI を複数開くとクラッシュするバグを修正。"
         ]
       },
-      "0.1.12": {
-        "en": [
-          "Fixed crash on Linux."
-        ],
-        "ja": [
-          "Linux でのクラッシュを修正。"
-        ]
-      },
+      "0.1.12": { "en": ["Fixed crash on Linux."], "ja": ["Linux でのクラッシュを修正。"] },
       "0.1.11": {
         "en": [
           "Fixed the condition of acceptable channel count. This is a fix for unintentional muting on sidechain in REAPER."
@@ -135,30 +109,12 @@
         ]
       },
       "0.1.10": {
-        "en": [
-          "Added custom font options for `style.json`."
-        ],
-        "ja": [
-          "`style.json` でカスタムフォントを設定するオプションを追加。"
-        ]
+        "en": ["Added custom font options for `style.json`."                ],
+        "ja": ["`style.json` でカスタムフォントを設定するオプションを追加。"]
       },
-      "0.1.9": {
-        "en": [
-          "Updated VSTGUI from 4.10 to 4.11."
-        ],
-        "ja": [
-          "VSTGUI を 4.10 から 4.11 にアップデート。"
-        ]
-      },
-      "0.1.8": {
-        "en": [
-          "Changed font to Tinos."
-        ],
-        "ja": [
-          "フォントを Tinos に変更。"
-        ]
-      },
-      "0.1.7": {
+      "0.1.9" : { "en": ["Updated VSTGUI from 4.10 to 4.11."], "ja": ["VSTGUI を 4.10 から 4.11 にアップデート。"] },
+      "0.1.8" : { "en": ["Changed font to Tinos."], "ja": ["フォントを Tinos に変更。"] },
+      "0.1.7" : {
         "en": [
           "Fixed to reset properly.",
           "Fixed `bypass` parameter behavior. This fixes playing all the notes at the moment of unmute, even if host sends note to plugin while muting. This bug was only happening on the hosts which respect VST 3 `bypass` parameter."
@@ -168,62 +124,28 @@
           "`bypass` パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の `bypass` パラメータを正しく実装しているホストでのみ発生していた。"
         ]
       },
-      "0.1.6": {
-        "en": [
-          "Implemented process context requirements."
-        ],
-        "ja": [
-          "Process context requirements を実装。"
-        ]
+      "0.1.6" : {
+        "en": ["Implemented process context requirements."],
+        "ja": ["Process context requirements を実装。"    ]
       },
-      "0.1.5": {
-        "en": [
-          "Added check that DSP is initialized or not."
-        ],
-        "ja": [
-          "DSP が初期化されているかどうかのチェックを追加。"
-        ]
+      "0.1.5" : {
+        "en": ["Added check that DSP is initialized or not."     ],
+        "ja": ["DSP が初期化されているかどうかのチェックを追加。"]
       },
-      "0.1.4": {
-        "en": [
-          "Added color configuration."
-        ],
-        "ja": [
-          "カラーコンフィグを追加。"
-        ]
+      "0.1.4" : { "en": ["Added color configuration."], "ja": ["カラーコンフィグを追加。"] },
+      "0.1.3" : {
+        "en": ["Reverted parameter smoother to the old one which works with variable size audio buffer."],
+        "ja": ["パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。"   ]
       },
-      "0.1.3": {
-        "en": [
-          "Reverted parameter smoother to the old one which works with variable size audio buffer."
-        ],
-        "ja": [
-          "パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。"
-        ]
+      "0.1.2" : {
+        "en": ["Fixed a bug that cause crash when drawing string."],
+        "ja": ["文字列の描画でクラッシュするバグを修正。"         ]
       },
-      "0.1.2": {
-        "en": [
-          "Fixed a bug that cause crash when drawing string."
-        ],
-        "ja": [
-          "文字列の描画でクラッシュするバグを修正。"
-        ]
+      "0.1.1" : {
+        "en": ["Changed display method for pop-up which shows up by clicking plugin title."],
+        "ja": ["プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。"]
       },
-      "0.1.1": {
-        "en": [
-          "Changed display method for pop-up which shows up by clicking plugin title."
-        ],
-        "ja": [
-          "プラグインタイトルをクリックすると表示されるポップアップの表示方法の変更。"
-        ]
-      },
-      "0.1.0": {
-        "en": [
-          "Initial release."
-        ],
-        "ja": [
-          "初期リリース。"
-        ]
-      }
+      "0.1.0" : { "en": ["Initial release."], "ja": ["初期リリース。"] }
     }
   }
 }

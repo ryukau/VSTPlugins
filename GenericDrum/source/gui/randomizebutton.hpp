@@ -11,7 +11,6 @@
 #include "../parameter.hpp"
 
 #include <algorithm>
-#include <random>
 #include <string>
 
 namespace VSTGUI {
@@ -48,12 +47,14 @@ public:
     CDrawContext::Transform t(
       *pContext, CGraphicsTransform().translate(getViewSize().getTopLeft()));
 
+    const bool pressed = isPressed || getValueNormalized() > 0.5f;
+
     // Border.
     auto borderW = int(pal.guiScale() * borderWidth * (isMouseEntered ? 2 : 1));
     borderW += 1 ^ (borderW % 2); // Always odd number.
-    pContext->setFillColor(isPressed ? pal.highlightButton() : pal.boxBackground());
+    pContext->setFillColor(pressed ? pal.highlightButton() : pal.boxBackground());
     pContext->setFrameColor(
-      isMouseEntered && !isPressed ? pal.highlightButton() : pal.border());
+      isMouseEntered && !pressed ? pal.highlightButton() : pal.border());
     pContext->setLineWidth(borderW);
     pContext->drawRect(CRect(0, 0, getWidth(), getHeight()), kDrawFilledAndStroked);
 
@@ -73,10 +74,14 @@ public:
 
   void onMouseExitEvent(MouseExitEvent &event) override
   {
-    if (value == 1.0f) {
+    if (isPressed) {
+      isPressed = false;
       value = 0.0f;
+      if (editor) {
+        editor->valueChanged(getTag(), 0.0);
+        editor->updateUI(getTag(), 0.0);
+      }
     }
-    isPressed = false;
     isMouseEntered = false;
     invalid();
     event.consumed = true;
@@ -84,58 +89,13 @@ public:
 
   void onMouseDownEvent(MouseDownEvent &event) override
   {
-    using ID = Steinberg::Synth::ParameterID::ID;
-
     if (!event.buttonState.isLeft()) return;
     isPressed = true;
     value = 1.0f;
 
     if (editor) {
-      using Rng = std::mt19937_64;
-
-      std::random_device source;
-      std::random_device::result_type
-        random_data[(Rng::state_size - 1) / sizeof(source()) + 1];
-      std::generate(std::begin(random_data), std::end(random_data), std::ref(source));
-      std::seed_seq seeds(std::begin(random_data), std::end(random_data));
-      Rng rng(seeds);
-
-      std::uniform_real_distribution<Steinberg::Vst::ParamValue> uniform{0.0, 1.0};
-      setParam(ID::seed, uniform(rng));
-      setParam(ID::noiseDecaySeconds, uniform(rng));
-      setParam(ID::noiseLowpassHz, uniform(rng));
-      setParam(ID::noiseAllpassMaxTimeHz, uniform(rng));
-
-      setParam(ID::impactWireMix, uniform(rng));
-      setParam(ID::membraneWireMix, uniform(rng));
-      setParam(ID::wireFrequencyHz, uniform(rng));
-      setParam(ID::wireDecaySeconds, uniform(rng));
-      setParam(ID::wireDistance, uniform(rng));
-      setParam(ID::wireCollisionTypeMix, uniform(rng));
-
-      // setParam(ID::crossFeedbackGain, uniform(rng));
-      for (int idx = 0; idx < int(maxFdnSize); ++idx) {
-        setParam(ID::crossFeedbackRatio0 + idx, uniform(rng));
-      }
-
-      setParam(ID::delayTimeSpread, uniform(rng));
-      setParam(ID::bandpassCutSpread, uniform(rng));
-      setParam(ID::pitchRandomCent, uniform(rng));
-
-      setParam(ID::envelopeAttackSeconds, uniform(rng));
-      setParam(ID::envelopeDecaySeconds, uniform(rng));
-      setParam(ID::envelopeModAmount, uniform(rng));
-
-      // setParam(ID::pitchType, uniform(rng));
-      setParam(ID::delayTimeHz, uniform(rng));
-      setParam(ID::delayTimeModAmount, uniform(rng));
-      setParam(ID::bandpassCutRatio, uniform(rng));
-      setParam(ID::bandpassQ, uniform(rng));
-
-      setParam(ID::secondaryFdnMix, uniform(rng));
-      setParam(ID::secondaryPitchOffset, uniform(rng));
-      setParam(ID::secondaryQOffset, uniform(rng));
-      setParam(ID::secondaryDistance, uniform(rng));
+      editor->valueChanged(getTag(), 1.0);
+      editor->updateUI(getTag(), 1.0);
     }
 
     invalid();
@@ -147,6 +107,10 @@ public:
     if (isPressed) {
       isPressed = false;
       value = 0.0f;
+      if (editor) {
+        editor->valueChanged(getTag(), 0.0);
+        editor->updateUI(getTag(), 0.0);
+      }
       invalid();
     }
     event.consumed = true;
@@ -156,7 +120,11 @@ public:
   {
     if (isPressed) {
       isPressed = false;
-      value = 0;
+      value = 0.0f;
+      if (editor) {
+        editor->valueChanged(getTag(), 0.0);
+        editor->updateUI(getTag(), 0.0);
+      }
       invalid();
     }
     isMouseEntered = false;
@@ -168,13 +136,6 @@ public:
   CLASS_METHODS(RandomizeButton, CControl);
 
 private:
-  // Before calling check if `editor` is not nullptr.
-  inline void setParam(Steinberg::Vst::ParamID id, Steinberg::Vst::ParamValue value)
-  {
-    editor->valueChanged(id, value);
-    editor->updateUI(id, value);
-  }
-
   Steinberg::Vst::PlugEditor *editor = nullptr;
 
   SharedPointer<CFontDesc> fontId;

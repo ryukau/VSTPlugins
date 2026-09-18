@@ -42,6 +42,9 @@ public:
   void reset();
   void startup();
   void setParameters();
+  void randomizeParameters();
+  void resetRandomizeRng();
+  void resetRandomizeRng(int64_t beat);
   void process(
     const size_t length, const float *in0, const float *in1, float *out0, float *out1);
   void noteOn(NoteInfo &info);
@@ -138,6 +141,7 @@ private:
   std::minstd_rand noiseRng{0};
   std::minstd_rand paramRng{0};
   std::minstd_rand matrixRng{0};
+  std::mt19937_64 randomizeRng{0x123456789abcdef0ULL};
   double noiseGain = 0;
   double noiseDecay = 0;
   ComplexLowpass<double> noiseLowpass;

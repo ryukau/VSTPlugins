@@ -102,12 +102,12 @@ if __name__ == "__main__":
     with open("../../package/manual.json", "r", encoding="utf-8") as fi:
         alias = json.load(fi)
 
-    release_name = "UhhyouPlugins0.70.0"
+    release_name = "UhhyouPlugins0.71.0"  # Change the version
     changelog_en = [
-        "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization.",
+        "Fixed resetting on some DAWs. Added `setProcessing` to reset.",
     ]
     changelog_ja = [
-        "初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。",
+        "DAW によってはリセットが効かなかったバグを修正。 `setProcessing` でもリセットするように変更。",
     ]
     for target in targets:
         updateVersion(target, alias, changelog_en, changelog_ja, release_name)

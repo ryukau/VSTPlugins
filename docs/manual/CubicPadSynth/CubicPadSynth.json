@@ -1,8 +1,9 @@
 {
   "CubicPadSynth": {
-    "latest_version": "0.1.29",
-    "urls": {
+    "latest_version": "0.1.30",
+    "urls"          : {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.71.0/CubicPadSynth_0.1.30.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/CubicPadSynth_0.1.29.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/CubicPadSynth_0.1.28.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.65.0/CubicPadSynth_0.1.27.zip",
@@ -34,14 +35,16 @@
       ],
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/CubicPadSynthPresets.zip"
     },
-    "changelog": {
+    "changelog"     : {
+      "0.1.30": {
+        "en": ["Fixed resetting on some DAWs. Added `setProcessing` to reset."                                ],
+        "ja": ["DAW によってはリセットが効かなかったバグを修正。 `setProcessing` でもリセットするように変更。"]
+      },
       "0.1.29": {
         "en": [
           "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization."
         ],
-        "ja": [
-          "初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"
-        ]
+        "ja": ["初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"]
       },
       "0.1.28": {
         "en": [
@@ -63,14 +66,7 @@
           "DAW から適切なノート ID が提供されないときに、同音連打するとノートオンで生じていたクリックを低減。 Bitwig, Live, REAPER での使用時に影響あり。"
         ]
       },
-      "0.1.26": {
-        "en": [
-          "Fixed GUI on Linux."
-        ],
-        "ja": [
-          "Linux での GUI を修正。"
-        ]
-      },
+      "0.1.26": { "en": ["Fixed GUI on Linux."], "ja": ["Linux での GUI を修正。"] },
       "0.1.25": {
         "en": [
           "Changed to include presets in plugin zip package.",
@@ -86,10 +82,7 @@
           "Changed default style color of `foregroundInactive`.",
           "Fixed performance drop caused by subnormal floating point numbers."
         ],
-        "ja": [
-          "デフォルトの `foregroundInactive` の色を変更。",
-          "サブノーマル数によるパフォーマンスの低下を修正。"
-        ]
+        "ja": ["デフォルトの `foregroundInactive` の色を変更。", "サブノーマル数によるパフォーマンスの低下を修正。"]
       },
       "0.1.23": {
         "en": [
@@ -100,21 +93,10 @@
         ]
       },
       "0.1.22": {
-        "en": [
-          "Fixed stuttering on Audacity where `processContext` is `nullptr`."
-        ],
-        "ja": [
-          "`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"
-        ]
+        "en": ["Fixed stuttering on Audacity where `processContext` is `nullptr`."                           ],
+        "ja": ["`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"]
       },
-      "0.1.21": {
-        "en": [
-          "Updated splash screen text."
-        ],
-        "ja": [
-          "スプラッシュ画面のテキストを更新。"
-        ]
-      },
+      "0.1.21": { "en": ["Updated splash screen text."], "ja": ["スプラッシュ画面のテキストを更新。"] },
       "0.1.20": {
         "en": [
           "Added decimation by holding shortcut to BarBox. Shortcut is <kbd>5</kbd>-<kbd>9</kbd>.",
@@ -150,9 +132,7 @@
         ]
       },
       "0.1.17": {
-        "en": [
-          "Changed BarBox to get focus on mouse down, and release focus on mouse exit."
-        ],
+        "en": ["Changed BarBox to get focus on mouse down, and release focus on mouse exit."],
         "ja": [
           "BarBox がマウス押下でフォーカスを取得、マウスカーソルが範囲外に移動するとフォーカスを開放するように変更。"
         ]
@@ -166,14 +146,8 @@
         ]
       },
       "0.1.15": {
-        "en": [
-          "Fixed crash on Linux.",
-          "Fixed BarBox to receive shift key."
-        ],
-        "ja": [
-          "Linux でのクラッシュを修正。",
-          "BarBox が <kbd>Shift</kbd> キーを受け取るように修正。"
-        ]
+        "en": ["Fixed crash on Linux.",        "Fixed BarBox to receive shift key."                   ],
+        "ja": ["Linux でのクラッシュを修正。", "BarBox が <kbd>Shift</kbd> キーを受け取るように修正。"]
       },
       "0.1.14": {
         "en": [
@@ -184,29 +158,11 @@
         ]
       },
       "0.1.13": {
-        "en": [
-          "Added custom font options for `style.json`."
-        ],
-        "ja": [
-          "`style.json` でカスタムフォントを設定するオプションを追加。"
-        ]
+        "en": ["Added custom font options for `style.json`."                ],
+        "ja": ["`style.json` でカスタムフォントを設定するオプションを追加。"]
       },
-      "0.1.12": {
-        "en": [
-          "Updated VSTGUI from 4.10 to 4.11."
-        ],
-        "ja": [
-          "VSTGUI を 4.10 から 4.11 にアップデート。"
-        ]
-      },
-      "0.1.11": {
-        "en": [
-          "Changed font to Tinos."
-        ],
-        "ja": [
-          "フォントを Tinos に変更。"
-        ]
-      },
+      "0.1.12": { "en": ["Updated VSTGUI from 4.10 to 4.11."], "ja": ["VSTGUI を 4.10 から 4.11 にアップデート。"] },
+      "0.1.11": { "en": ["Changed font to Tinos."], "ja": ["フォントを Tinos に変更。"] },
       "0.1.10": {
         "en": [
           "Fixed to reset properly.",
@@ -217,7 +173,7 @@
           "`bypass` パラメータの挙動を修正。この修正によって、ホストがミュート中のプラグインにノートを送り続けても、ミュート解除とともにそれまでに送られたノートがすべて再生されなくなった。このバグは VST 3 の `bypass` パラメータを正しく実装しているホストでのみ発生していた。"
         ]
       },
-      "0.1.9": {
+      "0.1.9" : {
         "en": [
           "Implemented process context requirements.",
           "Added/Changed BarBox functionality to match LV2 version.\n    - Edit one bar.\n    - Lock.\n    - Internal mouse wheel sensitivitly.\n    - Snapping (implemented, but not used).\n    - Starting bar of line edit is now fixed to anchor point."
@@ -227,41 +183,20 @@
           "BarBox の機能が LV2 版と同等になるように更新。\n    - 1 つのバーを編集を追加。\n    - ロックを追加。\n    - 内部的なマウスホイールの感度を追加。\n    - スナップを追加 (未使用) 。\n    - 直線の描画での開始点の値をアンカーポイントに固定するように変更。"
         ]
       },
-      "0.1.8": {
-        "en": [
-          "Added check that DSP is initialized or not."
-        ],
-        "ja": [
-          "DSP が初期化されているかどうかのチェックを追加。"
-        ]
+      "0.1.8" : {
+        "en": ["Added check that DSP is initialized or not."     ],
+        "ja": ["DSP が初期化されているかどうかのチェックを追加。"]
       },
-      "0.1.7": {
-        "en": [
-          "Added scroll bar to dense BarBox.",
-          "Added undo/redo to BarBox."
-        ],
-        "ja": [
-          "いくつかの BarBox にスクロールバーを追加。",
-          "BarBox に アンドゥ・リドゥの機能を追加。"
-        ]
+      "0.1.7" : {
+        "en": ["Added scroll bar to dense BarBox.",          "Added undo/redo to BarBox."              ],
+        "ja": ["いくつかの BarBox にスクロールバーを追加。", "BarBox に アンドゥ・リドゥの機能を追加。"]
       },
-      "0.1.6": {
-        "en": [
-          "Added color configuration."
-        ],
-        "ja": [
-          "カラーコンフィグを追加。"
-        ]
+      "0.1.6" : { "en": ["Added color configuration."], "ja": ["カラーコンフィグを追加。"] },
+      "0.1.5" : {
+        "en": ["Reverted parameter smoother to the old one which works with variable size audio buffer."],
+        "ja": ["パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。"   ]
       },
-      "0.1.5": {
-        "en": [
-          "Reverted parameter smoother to the old one which works with variable size audio buffer."
-        ],
-        "ja": [
-          "パラメータの補間を可変サイズのオーディオバッファでも機能する以前の手法に巻き戻した。"
-        ]
-      },
-      "0.1.4": {
+      "0.1.4" : {
         "en": [
           "Fixed a bug that refreshing wavetable before parameters are loaded at launch.",
           "Fixed off by one error in LFO wavetable with cubic interpolation."
@@ -271,15 +206,11 @@
           "LFO ウェーブテーブルの補間が Cubic のときにインデックスが 1 つずれていたバグを修正。"
         ]
       },
-      "0.1.3": {
-        "en": [
-          "Fixed a bug that some shortcuts are disabled for BarBox."
-        ],
-        "ja": [
-          "BarBox のショートカットが効かないバグを修正。"
-        ]
+      "0.1.3" : {
+        "en": ["Fixed a bug that some shortcuts are disabled for BarBox."],
+        "ja": ["BarBox のショートカットが効かないバグを修正。"           ]
       },
-      "0.1.2": {
+      "0.1.2" : {
         "en": [
           "Changed `Refresh Table` and `Refresh LFO` from VST message to parameter. This enables automation and midi mapping.",
           "Changed BarBox shortcuts to be disabled when mouse cursor is on the outside of BarBox."
@@ -289,22 +220,11 @@
           "BarBox にフォーカスした後、マウスカーソルが領域外にあるときはショートカットが無効になるように変更。"
         ]
       },
-      "0.1.1": {
-        "en": [
-          "Fixed a bug that cause crash when drawing string."
-        ],
-        "ja": [
-          "文字列の描画でクラッシュするバグを修正。"
-        ]
+      "0.1.1" : {
+        "en": ["Fixed a bug that cause crash when drawing string."],
+        "ja": ["文字列の描画でクラッシュするバグを修正。"         ]
       },
-      "0.1.0": {
-        "en": [
-          "Initial release."
-        ],
-        "ja": [
-          "初期リリース。"
-        ]
-      }
+      "0.1.0" : { "en": ["Initial release."], "ja": ["初期リリース。"] }
     }
   }
 }

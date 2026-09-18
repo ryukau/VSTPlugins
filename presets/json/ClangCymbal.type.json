@@ -121,6 +121,14 @@
   },
   {
     "id": 15,
+    "name": "overSampling",
+    "type": "I",
+    "default": true,
+    "scale": "Scales::boolScale",
+    "flags": "Info::kCanAutomate"
+  },
+  {
+    "id": 16,
     "name": "impulseGain",
     "type": "d",
     "default": 1.0,
@@ -128,7 +136,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 16,
+    "id": 17,
     "name": "oscGain",
     "type": "d",
     "default": "Scales::impulseGain.invmapDB(0.0)",
@@ -136,7 +144,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 17,
+    "id": 18,
     "name": "oscNoisePulseRatio",
     "type": "d",
     "default": 0.0,
@@ -144,7 +152,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 18,
+    "id": 19,
     "name": "oscAttack",
     "type": "d",
     "default": "Scales::oscAttack.invmap(0.001)",
@@ -152,7 +160,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 19,
+    "id": 20,
     "name": "oscDecay",
     "type": "d",
     "default": "Scales::oscDecay.invmap(1.0)",
@@ -160,7 +168,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 20,
+    "id": 21,
     "name": "oscDensityHz",
     "type": "d",
     "default": "Scales::oscDensityHz.invmap(7000.0)",
@@ -168,7 +176,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 21,
+    "id": 22,
     "name": "oscDensityKeyFollow",
     "type": "d",
     "default": "Scales::oscDensityKeyFollow.invmap(1.0)",
@@ -176,7 +184,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 22,
+    "id": 23,
     "name": "oscNoiseDecay",
     "type": "d",
     "default": "Scales::oscDecay.invmap(1.0)",
@@ -184,7 +192,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 23,
+    "id": 24,
     "name": "oscBounce",
     "type": "d",
     "default": 0.0,
@@ -192,7 +200,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 24,
+    "id": 25,
     "name": "oscBounceCurve",
     "type": "d",
     "default": "Scales::oscBounceCurve.invmap(1.0)",
@@ -200,7 +208,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 25,
+    "id": 26,
     "name": "oscJitter",
     "type": "d",
     "default": 1.0,
@@ -208,15 +216,15 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 26,
-    "name": "oscPulseGainRandomness",
+    "id": 27,
+    "name": "oscPulseAmpRandomness",
     "type": "d",
     "default": 1.0,
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 27,
+    "id": 28,
     "name": "oscLowpassCutoffSemi",
     "type": "d",
     "default": 1.0,
@@ -224,7 +232,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 28,
+    "id": 29,
     "name": "oscLowpassQ",
     "type": "d",
     "default": "Scales::oscLowpassQ.invmap(SomeDSP::halfSqrt2)",
@@ -232,7 +240,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 29,
+    "id": 30,
     "name": "oscLowpassKeyFollow",
     "type": "d",
     "default": 0.0,
@@ -240,7 +248,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 30,
+    "id": 31,
     "name": "fdnEnable",
     "type": "I",
     "default": true,
@@ -248,7 +256,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 31,
+    "id": 32,
     "name": "fdnMatrixIdentityAmount",
     "type": "d",
     "default": "Scales::fdnMatrixIdentityAmount.invmap(0.1)",
@@ -256,7 +264,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 32,
+    "id": 33,
     "name": "fdnFeedback",
     "type": "d",
     "default": 1.0,
@@ -264,7 +272,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 33,
+    "id": 34,
     "name": "fdnOvertoneAdd",
     "type": "d",
     "default": "Scales::fdnOvertoneAdd.invmap(1.0)",
@@ -272,7 +280,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 34,
+    "id": 35,
     "name": "fdnOvertoneMul",
     "type": "d",
     "default": "Scales::fdnOvertoneMul.invmap(1.0)",
@@ -280,7 +288,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 35,
+    "id": 36,
     "name": "fdnOvertoneOffset",
     "type": "d",
     "default": "Scales::fdnOvertoneOffset.invmap(0.0)",
@@ -288,7 +296,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 36,
+    "id": 37,
     "name": "fdnOvertoneModulo",
     "type": "d",
     "default": "Scales::fdnOvertoneModulo.invmap(0.0)",
@@ -296,7 +304,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 37,
+    "id": 38,
     "name": "fdnOvertoneRandomness",
     "type": "d",
     "default": 0.0,
@@ -304,7 +312,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 38,
+    "id": 39,
     "name": "fdnInterpRate",
     "type": "d",
     "default": 1.0,
@@ -312,7 +320,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 39,
+    "id": 40,
     "name": "fdnInterpLowpassSecond",
     "type": "d",
     "default": "Scales::fdnInterpLowpassSecond.invmap(0.005)",
@@ -320,7 +328,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 40,
+    "id": 41,
     "name": "fdnSeed",
     "type": "I",
     "default": 0,
@@ -328,7 +336,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 41,
+    "id": 42,
     "name": "fdnRandomizeRatio",
     "type": "d",
     "default": 0.2,
@@ -336,7 +344,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 42,
+    "id": 43,
     "name": "fdnLowpassCutoffSemiOffset0",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -344,7 +352,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 43,
+    "id": 44,
     "name": "fdnLowpassCutoffSemiOffset1",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -352,7 +360,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 44,
+    "id": 45,
     "name": "fdnLowpassCutoffSemiOffset2",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -360,7 +368,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 45,
+    "id": 46,
     "name": "fdnLowpassCutoffSemiOffset3",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -368,7 +376,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 46,
+    "id": 47,
     "name": "fdnLowpassCutoffSemiOffset4",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -376,7 +384,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 47,
+    "id": 48,
     "name": "fdnLowpassCutoffSemiOffset5",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -384,7 +392,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 48,
+    "id": 49,
     "name": "fdnLowpassCutoffSemiOffset6",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -392,7 +400,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 49,
+    "id": 50,
     "name": "fdnLowpassCutoffSemiOffset7",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -400,7 +408,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 50,
+    "id": 51,
     "name": "fdnLowpassCutoffSemiOffset8",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -408,7 +416,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 51,
+    "id": 52,
     "name": "fdnLowpassCutoffSemiOffset9",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -416,7 +424,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 52,
+    "id": 53,
     "name": "fdnLowpassCutoffSemiOffset10",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -424,7 +432,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 53,
+    "id": 54,
     "name": "fdnLowpassCutoffSemiOffset11",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -432,7 +440,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 54,
+    "id": 55,
     "name": "fdnLowpassCutoffSemiOffset12",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -440,7 +448,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 55,
+    "id": 56,
     "name": "fdnLowpassCutoffSemiOffset13",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -448,7 +456,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 56,
+    "id": 57,
     "name": "fdnLowpassCutoffSemiOffset14",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -456,7 +464,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 57,
+    "id": 58,
     "name": "fdnLowpassCutoffSemiOffset15",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -464,7 +472,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 58,
+    "id": 59,
     "name": "fdnLowpassCutoffSemiOffset16",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -472,7 +480,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 59,
+    "id": 60,
     "name": "fdnLowpassCutoffSemiOffset17",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -480,7 +488,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 60,
+    "id": 61,
     "name": "fdnLowpassCutoffSemiOffset18",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -488,7 +496,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 61,
+    "id": 62,
     "name": "fdnLowpassCutoffSemiOffset19",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -496,7 +504,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 62,
+    "id": 63,
     "name": "fdnLowpassCutoffSemiOffset20",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -504,7 +512,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 63,
+    "id": 64,
     "name": "fdnLowpassCutoffSemiOffset21",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -512,7 +520,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 64,
+    "id": 65,
     "name": "fdnLowpassCutoffSemiOffset22",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -520,7 +528,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 65,
+    "id": 66,
     "name": "fdnLowpassCutoffSemiOffset23",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -528,7 +536,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 66,
+    "id": 67,
     "name": "fdnLowpassCutoffSemiOffset24",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -536,7 +544,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 67,
+    "id": 68,
     "name": "fdnLowpassCutoffSemiOffset25",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -544,7 +552,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 68,
+    "id": 69,
     "name": "fdnLowpassCutoffSemiOffset26",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -552,7 +560,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 69,
+    "id": 70,
     "name": "fdnLowpassCutoffSemiOffset27",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -560,7 +568,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 70,
+    "id": 71,
     "name": "fdnLowpassCutoffSemiOffset28",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -568,7 +576,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 71,
+    "id": 72,
     "name": "fdnLowpassCutoffSemiOffset29",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -576,7 +584,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 72,
+    "id": 73,
     "name": "fdnLowpassCutoffSemiOffset30",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -584,7 +592,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 73,
+    "id": 74,
     "name": "fdnLowpassCutoffSemiOffset31",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -592,7 +600,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 74,
+    "id": 75,
     "name": "fdnLowpassCutoffSemiOffset32",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -600,7 +608,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 75,
+    "id": 76,
     "name": "fdnLowpassCutoffSemiOffset33",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -608,7 +616,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 76,
+    "id": 77,
     "name": "fdnLowpassCutoffSemiOffset34",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -616,7 +624,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 77,
+    "id": 78,
     "name": "fdnLowpassCutoffSemiOffset35",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -624,7 +632,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 78,
+    "id": 79,
     "name": "fdnLowpassCutoffSemiOffset36",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -632,7 +640,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 79,
+    "id": 80,
     "name": "fdnLowpassCutoffSemiOffset37",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -640,7 +648,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 80,
+    "id": 81,
     "name": "fdnLowpassCutoffSemiOffset38",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -648,7 +656,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 81,
+    "id": 82,
     "name": "fdnLowpassCutoffSemiOffset39",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -656,7 +664,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 82,
+    "id": 83,
     "name": "fdnLowpassCutoffSemiOffset40",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -664,7 +672,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 83,
+    "id": 84,
     "name": "fdnLowpassCutoffSemiOffset41",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -672,7 +680,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 84,
+    "id": 85,
     "name": "fdnLowpassCutoffSemiOffset42",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -680,7 +688,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 85,
+    "id": 86,
     "name": "fdnLowpassCutoffSemiOffset43",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -688,7 +696,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 86,
+    "id": 87,
     "name": "fdnLowpassCutoffSemiOffset44",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -696,7 +704,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 87,
+    "id": 88,
     "name": "fdnLowpassCutoffSemiOffset45",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -704,7 +712,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 88,
+    "id": 89,
     "name": "fdnLowpassCutoffSemiOffset46",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -712,7 +720,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 89,
+    "id": 90,
     "name": "fdnLowpassCutoffSemiOffset47",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -720,7 +728,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 90,
+    "id": 91,
     "name": "fdnLowpassCutoffSemiOffset48",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -728,7 +736,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 91,
+    "id": 92,
     "name": "fdnLowpassCutoffSemiOffset49",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -736,7 +744,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 92,
+    "id": 93,
     "name": "fdnLowpassCutoffSemiOffset50",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -744,7 +752,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 93,
+    "id": 94,
     "name": "fdnLowpassCutoffSemiOffset51",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -752,7 +760,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 94,
+    "id": 95,
     "name": "fdnLowpassCutoffSemiOffset52",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -760,7 +768,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 95,
+    "id": 96,
     "name": "fdnLowpassCutoffSemiOffset53",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -768,7 +776,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 96,
+    "id": 97,
     "name": "fdnLowpassCutoffSemiOffset54",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -776,7 +784,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 97,
+    "id": 98,
     "name": "fdnLowpassCutoffSemiOffset55",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -784,7 +792,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 98,
+    "id": 99,
     "name": "fdnLowpassCutoffSemiOffset56",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -792,7 +800,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 99,
+    "id": 100,
     "name": "fdnLowpassCutoffSemiOffset57",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -800,7 +808,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 100,
+    "id": 101,
     "name": "fdnLowpassCutoffSemiOffset58",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -808,7 +816,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 101,
+    "id": 102,
     "name": "fdnLowpassCutoffSemiOffset59",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -816,7 +824,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 102,
+    "id": 103,
     "name": "fdnLowpassCutoffSemiOffset60",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -824,7 +832,7 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 103,
+    "id": 104,
     "name": "fdnLowpassCutoffSemiOffset61",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
@@ -832,16 +840,8 @@
     "flags": "Info::kCanAutomate"
   },
   {
-    "id": 104,
-    "name": "fdnLowpassCutoffSemiOffset62",
-    "type": "d",
-    "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
-    "scale": "Scales::filterCutoffSemiOffset",
-    "flags": "Info::kCanAutomate"
-  },
-  {
     "id": 105,
-    "name": "fdnLowpassCutoffSemiOffset63",
+    "name": "fdnLowpassCutoffSemiOffset62",
     "type": "d",
     "default": "Scales::filterCutoffSemiOffset.invmap(0.0)",
     "scale": "Scales::filterCutoffSemiOffset",
@@ -3563,7 +3563,7 @@
     "id": 445,
     "name": "tremoloDepth",
     "type": "d",
-    "default": "Scales::tremoloDepth.invmap(2.0)",
+    "default": "Scales::tremoloDepth.invmap(0.25)",
     "scale": "Scales::tremoloDepth",
     "flags": "Info::kCanAutomate"
   },
@@ -3579,16 +3579,16 @@
     "id": 447,
     "name": "tremoloModulationToDelayTimeOffset",
     "type": "d",
-    "default": 0.1,
+    "default": 0.06,
     "scale": "Scales::defaultScale",
     "flags": "Info::kCanAutomate"
   },
   {
     "id": 448,
-    "name": "tremoloModulationSmoothingHz",
+    "name": "tremoloModulationRateHz",
     "type": "d",
-    "default": "Scales::tremoloModulationSmoothingHz.invmap(10.0)",
-    "scale": "Scales::tremoloModulationSmoothingHz",
+    "default": "Scales::tremoloModulationRateHz.invmap(3.7)",
+    "scale": "Scales::tremoloModulationRateHz",
     "flags": "Info::kCanAutomate"
   }
 ]

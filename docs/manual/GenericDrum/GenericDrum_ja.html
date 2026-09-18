@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2026-04-13" />
+      <meta name="dcterms.date" content="2026-09-18" />
       <title>GenericDrum_ja – Uhhyou Plugins</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon/favicon.svg">
   <link rel="icon" type="image/png" href="../../img/favicon/favicon.svgindex-relative-path=../../index.html">
@@ -285,7 +285,7 @@
     <header>
         <p><a href="../../index.html">Back to Index</a></p>
             <p>
-      Update: 2026-04-13
+      Update: 2026-09-18
     </p>
             <details>
       <summary translate="yes">Table of Contents</summary>
@@ -339,6 +339,7 @@
         <li><a href="#external-input" id="toc-external-input">External
         Input</a></li>
         <li><a href="#tuning" id="toc-tuning">Tuning</a></li>
+        <li><a href="#random" id="toc-random">Random</a></li>
         <li><a href="#impact" id="toc-impact">Impact</a></li>
         <li><a href="#wire" id="toc-wire">Wire</a></li>
         <li><a href="#membrane-tone" id="toc-membrane-tone">Membrane
@@ -373,15 +374,15 @@
   はディレイを使った汎用ドラムシンセサイザです。バスドラムやスネアドラムについては良い音が出ます。シンバルの音も出せますが、低いドラムの音ほど良くはありません。</p>
   <ul>
   <li><a
-  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/GenericDrum_0.1.5.zip">GenericDrum
-  0.1.5 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.71.0/GenericDrum_0.1.6.zip">GenericDrum
+  0.1.6 <code>full</code> - VST 3 をダウンロード (github.com)</a> <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="30px"
   style="display: inline-block; vertical-align: middle;"></li>
   <li><a
-  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/GenericDrum_0.1.5_macOS.zip">GenericDrum
-  0.1.5 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.71.0/GenericDrum_0.1.6_macOS.zip">GenericDrum
+  0.1.6 <code>macOS</code> - VST 3 をダウンロード (github.com)</a> <img
   src="img/VST_Compatible_Logo_Steinberg_negative.svg"
   alt="VST compatible logo."
   width="30px"
@@ -938,6 +939,29 @@
   つ以上のノートが同時に演奏されたときにピッチをスライドする大まかな時間です。</p>
   </dd>
   </dl>
+  <h3 id="random"><a href="#random" class="header-anchor"
+  aria-hidden="true">Random</a></h3>
+  <p>Random
+  セクションには他のパラメータをランダマイズするパラメータが配置されています。</p>
+  <dl>
+  <dt>Recipe</dt>
+  <dd>
+  <p>ランダマイズの種類です。</p>
+  <p><code>Reserved*</code> を選択すると <code>Full</code>
+  にフォールバックします。</p>
+  </dd>
+  <dt>Seed</dt>
+  <dd>
+  <p>ランダマイズ専用のシードです。</p>
+  <p>再生開始位置が同じであればランダマイズをオートメーションしても、ほぼ同じ音が出力されます。前に続く音があるとディレイなど内部状態が変わるため、完全に同じ音が出力されるとは限らないので注意してください。完全な再現性が必要であれば、フリーズやバウンスなどを行ってファイルに録音することを推奨します。</p>
+  </dd>
+  <dt>Random</dt>
+  <dd>
+  <p>ランダマイズボタンです。</p>
+  <p>オートメーション時は 0 から 1
+  に状態が変わるとランダマイズがトリガされます。</p>
+  </dd>
+  </dl>
   <h3 id="impact"><a href="#impact" class="header-anchor"
   aria-hidden="true">Impact</a></h3>
   <p>Impact
@@ -1171,6 +1195,12 @@
   <h2 id="チェンジログ"><a href="#チェンジログ" class="header-anchor"
   aria-hidden="true">チェンジログ</a></h2>
   <ul>
+  <li>0.1.6
+  <ul>
+  <li>DAW によってはリセットが効かなかったバグを修正。
+  <code>setProcessing</code> でもリセットするように変更。</li>
+  <li>ランダマイズに関するパラメータを追加。</li>
+  </ul></li>
   <li>0.1.5
   <ul>
   <li>初期化にウィンドウの大きさがおかしくなる (512x512 px)
@@ -1204,6 +1234,9 @@
   <h2 id="旧バージョン"><a href="#旧バージョン" class="header-anchor"
   aria-hidden="true">旧バージョン</a></h2>
   <ul>
+  <li><a
+  href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/GenericDrum_0.1.5.zip">GenericDrum
+  0.1.5 - VST 3 (github.com)</a></li>
   <li><a
   href="https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/GenericDrum_0.1.4.zip">GenericDrum
   0.1.4 - VST 3 (github.com)</a></li>
