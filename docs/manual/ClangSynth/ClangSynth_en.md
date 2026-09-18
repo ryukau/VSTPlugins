@@ -57,6 +57,8 @@ FDN may blow up if some parameters change too fast. Use LFO and envelope with ca
 
 `Refresh Wavetable` button refreshes wavetable. Beware that while refreshing, CPU load becomes high and it will most likely stop the DAW output for a moment.
 
+ClangCymbal has a bug that `fdnLowpassCutoffSemiOffset63` is missing. This cannot be fixed in order to keep the backward compatibility.
+
 ## Block Diagram
 If the image is small, use <kbd>Ctrl</kbd> + <kbd>Mouse Wheel</kbd> or "View Image" on right click menu to scale.
 

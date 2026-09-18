@@ -99,7 +99,7 @@ git clone --recursive https://github.com/ryukau/VSTPlugins.git
 
 cd VSTPlugins
 
-cmake -S . -B build -G"Visual Studio 17 2022" -A x64
+cmake -S . -B build
 cmake --build build --config Release
 ```
 
