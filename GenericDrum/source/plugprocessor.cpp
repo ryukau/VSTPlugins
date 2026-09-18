@@ -60,7 +60,10 @@ uint32 PLUGIN_API PlugProcessor::getProcessContextRequirements()
 
 tresult PLUGIN_API PlugProcessor::setupProcessing(Vst::ProcessSetup &setup)
 {
-  dsp.setup(processSetup.sampleRate);
+  dsp.setup(setup.sampleRate);
+  lastRandomize = 0.0;
+  lastBeat = std::numeric_limits<int64_t>::min();
+  lastProjectTimeMusic = 0.0;
   return AudioEffect::setupProcessing(setup);
 }
 
@@ -72,12 +75,29 @@ tresult PLUGIN_API PlugProcessor::setActive(TBool state)
     dsp.reset();
     lastState = 0;
   }
+  lastRandomize = 0.0;
+  lastBeat = std::numeric_limits<int64_t>::min();
+  lastProjectTimeMusic = 0.0;
   return AudioEffect::setActive(state);
+}
+
+tresult PLUGIN_API PlugProcessor::setProcessing(TBool state)
+{
+  if (!state) {
+    dsp.reset();
+    lastState = 0;
+    lastRandomize = 0.0;
+  }
+  lastBeat = std::numeric_limits<int64_t>::min();
+  lastProjectTimeMusic = 0.0;
+  return AudioEffect::setProcessing(state);
 }
 
 tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 {
   using ID = ParameterID::ID;
+
+  bool randomizeTriggered = false;
 
   // Read inputs parameter changes.
   if (data.inputParameterChanges) {
@@ -90,7 +110,23 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
       if (queue->getPoint(queue->getPointCount() - 1, sampleOffset, value) != kResultTrue)
         continue;
       size_t id = queue->getParameterId();
-      if (id < dsp.param.value.size()) dsp.param.value[id]->setFromNormalized(value);
+      if (id < dsp.param.value.size()) {
+        dsp.param.value[id]->setFromNormalized(value);
+
+        if (id == ID::randomize) {
+          int32 pointCount = queue->getPointCount();
+          for (int32 pt = 0; pt < pointCount; ++pt) {
+            Vst::ParamValue ptVal;
+            int32 ptOffset;
+            if (queue->getPoint(pt, ptOffset, ptVal) == kResultTrue) {
+              if (ptVal >= 0.5 && lastRandomize < 0.5) {
+                randomizeTriggered = true;
+              }
+              lastRandomize = ptVal;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -106,10 +142,42 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
       dsp.timeSigLower = data.processContext->timeSigDenominator;
       dsp.timeSigUpper = data.processContext->timeSigNumerator;
     }
-    if (!dsp.isPlaying && (state & Vst::ProcessContext::kPlaying) != 0) {
+
+    const bool isPlaying = (state & Vst::ProcessContext::kPlaying) != 0;
+    const bool isPlaybackStarting = !dsp.isPlaying && isPlaying;
+
+    if (isPlaybackStarting) {
       dsp.startup();
+      if (state & Vst::ProcessContext::kProjectTimeMusicValid) {
+        const double currentMusicTime = data.processContext->projectTimeMusic;
+        const int64_t currentBeat = int64_t(std::floor(currentMusicTime));
+        dsp.resetRandomizeRng(currentBeat);
+        lastBeat = currentBeat;
+        lastProjectTimeMusic = currentMusicTime;
+      } else {
+        // Fallback to Plan 1 behavior (seed at start of playback)
+        dsp.resetRandomizeRng();
+      }
+    } else if (isPlaying) {
+      if (state & Vst::ProcessContext::kProjectTimeMusicValid) {
+        const double currentMusicTime = data.processContext->projectTimeMusic;
+        const int64_t currentBeat = int64_t(std::floor(currentMusicTime));
+        // Re-seed on new beat or when transport scrubs/loops backwards
+        if (currentBeat != lastBeat || currentMusicTime < lastProjectTimeMusic) {
+          dsp.resetRandomizeRng(currentBeat);
+          lastBeat = currentBeat;
+        }
+        lastProjectTimeMusic = currentMusicTime;
+      }
+    } else {
+      lastBeat = std::numeric_limits<int64_t>::min();
+      lastProjectTimeMusic = 0.0;
     }
-    dsp.isPlaying = state & Vst::ProcessContext::kPlaying;
+    dsp.isPlaying = isPlaying;
+  }
+
+  if (randomizeTriggered) {
+    dsp.randomizeParameters();
   }
 
   dsp.setParameters();
@@ -138,6 +206,14 @@ tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
     queue->addPoint(0, dsp.param.value[id]->getNormalized(), index);
   }
 
+  if (randomizeTriggered) {
+    for (auto id : ParameterID::randomizedIDs) {
+      auto queue = data.outputParameterChanges->addParameterData(id, index);
+      if (!queue) continue;
+      queue->addPoint(0, dsp.param.value[id]->getNormalized(), index);
+    }
+  }
+
   return kResultOk;
 }
 
@@ -160,8 +236,6 @@ void PlugProcessor::handleEvent(Vst::ProcessData &data)
           event.noteOff.noteId == -1 ? event.noteOff.pitch : event.noteOff.noteId, 0, 0,
           0);
       } break;
-
-        // Add other event type here.
     }
   }
 }

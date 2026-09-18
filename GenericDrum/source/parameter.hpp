@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <array>
 #include <memory>
 #include <numbers>
 #include <string>
@@ -21,8 +22,9 @@ constexpr int octaveOffset = 8;
 constexpr int semitoneOffset = 96;
 constexpr size_t maxFdnSize = 5;
 
-constexpr size_t nReservedParameter = 63;
+constexpr size_t nReservedParameter = 60;
 constexpr size_t nReservedGuiParameter = 16;
+constexpr uint32_t numRecipes = 64;
 
 namespace Steinberg {
 namespace Synth {
@@ -91,6 +93,10 @@ enum ID {
 
   crossFeedbackConsistency,
 
+  randomize,
+  randomizeRecipe,
+  randomizeSeed,
+
   reservedParameter0,
 
   externalInputAmplitudeMeter = reservedParameter0 + nReservedParameter,
@@ -102,6 +108,49 @@ enum ID {
   ID_ENUM_LENGTH = reservedGuiParameter0 + nReservedGuiParameter,
   ID_ENUM_GUI_START = externalInputAmplitudeMeter,
 };
+
+inline constexpr std::array<ID, 27 + maxFdnSize> randomizedIDs = {
+  preventBlowUp,
+
+  seed,
+  noiseDecaySeconds,
+  noiseLowpassHz,
+  noiseAllpassMaxTimeHz,
+
+  impactWireMix,
+  membraneWireMix,
+  wireFrequencyHz,
+  wireDecaySeconds,
+  wireDistance,
+  wireCollisionTypeMix,
+
+  crossFeedbackGain,
+  crossFeedbackRatio0,
+  ID(crossFeedbackRatio0 + 1),
+  ID(crossFeedbackRatio0 + 2),
+  ID(crossFeedbackRatio0 + 3),
+  ID(crossFeedbackRatio0 + 4),
+
+  delayTimeSpread,
+  bandpassCutSpread,
+  pitchRandomCent,
+
+  envelopeAttackSeconds,
+  envelopeDecaySeconds,
+  envelopeModAmount,
+
+  pitchType,
+  delayTimeHz,
+  delayTimeModAmount,
+  bandpassCutRatio,
+  bandpassQ,
+
+  secondaryFdnMix,
+  secondaryPitchOffset,
+  secondaryQOffset,
+  secondaryDistance,
+};
+
 } // namespace ParameterID
 
 struct Scales {
@@ -140,6 +189,7 @@ struct Scales {
   static SomeDSP::DecibelScale<double> collisionDistance;
 
   static SomeDSP::LinearScale<double> amplitudeMeter;
+  static SomeDSP::UIntScale<double> randomizeRecipe;
 };
 
 struct GlobalParameter : public ParameterInterface {
@@ -300,6 +350,14 @@ struct GlobalParameter : public ParameterInterface {
     value[ID::crossFeedbackConsistency] = std::make_unique<DecibelValue>(
       Scales::crossFeedbackConsistency.invmap(1.0), Scales::crossFeedbackConsistency,
       "crossFeedbackConsistency", Info::kCanAutomate);
+
+    value[ID::randomize] = std::make_unique<LinearValue>(
+      Scales::defaultScale.invmap(0.0), Scales::defaultScale, "randomize",
+      Info::kCanAutomate);
+    value[ID::randomizeRecipe] = std::make_unique<UIntValue>(
+      0, Scales::randomizeRecipe, "randomizeRecipe", Info::kCanAutomate);
+    value[ID::randomizeSeed]
+      = std::make_unique<UIntValue>(0, Scales::seed, "randomizeSeed", Info::kCanAutomate);
 
     for (size_t idx = 0; idx < nReservedParameter; ++idx) {
       auto indexStr = std::to_string(idx);

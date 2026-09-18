@@ -353,5 +353,6 @@ if __name__ == "__main__":
     #     if not path.is_dir():
     #         continue
     #     vstpreset_to_json(path, "little")
-    # vstpreset_to_json(Path("Uhhyou/SpectralPhaser"), "little", debug_print_data=True)
-    json_to_vstpreset("ClangCymbal", endian="little", debug_print_data=True)
+    vstpreset_to_json(Path("Uhhyou/GenericDrum"), "little", debug_print_data=True)
+
+    # json_to_vstpreset("GenericDrum", endian="little", debug_print_data=True)

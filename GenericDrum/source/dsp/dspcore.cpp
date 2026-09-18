@@ -4,6 +4,7 @@
 #include "../../../lib/juce_ScopedNoDenormal.hpp"
 
 #include "dspcore.hpp"
+#include "recipe.hpp"
 
 #include <algorithm>
 #include <limits>
@@ -11,6 +12,16 @@
 #include <numeric>
 
 constexpr double defaultTempo = double(120);
+
+inline uint64_t hashSeed(uint32_t userSeed, int64_t beat)
+{
+  uint64_t x = (uint64_t(userSeed) << 32) ^ uint64_t(beat);
+  x += 0x9e3779b97f4a7c15ULL;
+  x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9ULL;
+  x = (x ^ (x >> 27)) * 0x94d049bb133111ebULL;
+  x ^= x >> 31;
+  return x;
+}
 
 inline double calcOscillatorPitch(double octave, double cent)
 {
@@ -309,6 +320,19 @@ void DSPCore::startup()
   const auto &pv = param.value;
   noiseRng.seed(pv[ID::seed]->getInt());
   matrixRng.seed(pv[ID::seed]->getInt() + 17);
+  resetRandomizeRng();
+}
+
+void DSPCore::resetRandomizeRng()
+{
+  uint32_t userSeed = param.value[ParameterID::ID::randomizeSeed]->getInt();
+  randomizeRng.seed(hashSeed(userSeed, 0));
+}
+
+void DSPCore::resetRandomizeRng(int64_t beat)
+{
+  uint32_t userSeed = param.value[ParameterID::ID::randomizeSeed]->getInt();
+  randomizeRng.seed(hashSeed(userSeed, beat));
 }
 
 void DSPCore::setParameters()
@@ -322,6 +346,12 @@ void DSPCore::setParameters()
 
   isWireCollided = pv[ID::isWireCollided]->getInt();
   isSecondaryCollided = pv[ID::isSecondaryCollided]->getInt();
+}
+
+void DSPCore::randomizeParameters()
+{
+  size_t recipe = param.value[ParameterID::ID::randomizeRecipe]->getInt();
+  applyRecipe(param, recipe, randomizeRng);
 }
 
 // Overwrites `p0` and `p1`.

@@ -50,6 +50,7 @@ DecibelScale<double> Scales::bandpassQ(-40, 40, false);
 DecibelScale<double> Scales::collisionDistance(-80, 40, true);
 
 LinearScale<double> Scales::amplitudeMeter(0.0, 1000.0);
+UIntScale<double> Scales::randomizeRecipe(numRecipes - 1);
 
 } // namespace Synth
 } // namespace Steinberg

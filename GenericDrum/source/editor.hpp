@@ -40,7 +40,7 @@ private:
   float splashHeight = int(2 * labelHeight + 2 * margin);
 
   float barBoxWidth = groupLabelWidth;
-  float barBoxHeight = 5 * labelY - 2 * margin;
+  float barBoxHeight = 6 * labelY - 2 * margin;
   float smallKnobWidth = labelHeight;
   float smallKnobX = smallKnobWidth + 2 * margin;
 
@@ -48,7 +48,7 @@ private:
   float tabViewHeight = 20 * labelY - 2 * margin + 2 * uiMargin;
 
   int32_t defaultWidth = int32_t(4 * uiMargin + 3 * groupLabelWidth);
-  int32_t defaultHeight = int32_t(2 * uiMargin + 21 * labelY - 2 * margin);
+  int32_t defaultHeight = int32_t(2 * uiMargin + 22 * labelY - 2 * margin);
 
   void setDimensions() override
   {
@@ -69,7 +69,7 @@ private:
     splashHeight = int(2 * labelHeight + 2 * margin);
 
     barBoxWidth = groupLabelWidth;
-    barBoxHeight = 5 * labelY - 2 * margin;
+    barBoxHeight = 6 * labelY - 2 * margin;
     smallKnobWidth = labelHeight;
     smallKnobX = smallKnobWidth + 2 * margin;
 
@@ -77,7 +77,7 @@ private:
     tabViewHeight = 20 * labelY - 2 * margin + 2 * uiMargin;
 
     defaultWidth = int32_t(4 * uiMargin + 3 * groupLabelWidth);
-    defaultHeight = int32_t(2 * uiMargin + 21 * labelY - 2 * margin);
+    defaultHeight = int32_t(2 * uiMargin + 22 * labelY - 2 * margin);
 
     viewRect = ViewRect{0, 0, int32(defaultWidth), int32(defaultHeight)};
     setRect(viewRect);

@@ -11,6 +11,7 @@
 #include "public.sdk/source/vst/vstaudioeffect.h"
 
 #include "dsp/dspcore.hpp"
+#include <limits>
 
 namespace Steinberg {
 namespace Synth {
@@ -29,6 +30,7 @@ public:
 
   tresult PLUGIN_API setupProcessing(Vst::ProcessSetup &setup) SMTG_OVERRIDE;
   tresult PLUGIN_API setActive(TBool state) SMTG_OVERRIDE;
+  tresult PLUGIN_API setProcessing(TBool state) SMTG_OVERRIDE;
   tresult PLUGIN_API process(Vst::ProcessData &data) SMTG_OVERRIDE;
 
   tresult PLUGIN_API setState(IBStream *state) SMTG_OVERRIDE;
@@ -48,6 +50,9 @@ protected:
   }
 
   uint64_t lastState = 0;
+  double lastRandomize = 0.0;
+  int64_t lastBeat = std::numeric_limits<int64_t>::min();
+  double lastProjectTimeMusic = 0.0;
   DSPCore dsp;
 };
 

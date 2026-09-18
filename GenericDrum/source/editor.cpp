@@ -7,6 +7,7 @@
 #include "version.hpp"
 
 #include <algorithm>
+#include <cstdio>
 #include <iomanip>
 #include <sstream>
 #include <string>
@@ -197,7 +198,7 @@ bool Editor::prepareUI()
     = addLabel(mixLeft1, mixTop11, labelWidth, labelHeight, uiTextSize, "Initialized.");
 
   // Tuning.
-  const auto tuningTop0 = top0 + 13 * labelY;
+  const auto tuningTop0 = top0 + 12 * labelY;
   const auto tuningTop1 = tuningTop0 + 1 * labelY;
   const auto tuningTop2 = tuningTop0 + 2 * labelY;
   const auto tuningTop3 = tuningTop0 + 3 * labelY;
@@ -231,6 +232,55 @@ bool Editor::prepareUI()
   addTextKnob(
     tuningLeft1, tuningTop5, labelWidth, labelHeight, uiTextSize, ID::noteSlideTimeSecond,
     Scales::noteSlideTimeSecond, false, 5);
+
+  // Random section (bottom-left, below Tuning).
+  const auto randomTop0 = top0 + 18 * labelY;
+  const auto randomTop1 = randomTop0 + 1 * labelY;
+  const auto randomTop2 = randomTop0 + 2 * labelY;
+  const auto randomTop3 = randomTop0 + 3 * labelY;
+  const auto randomLeft0 = left0;
+  const auto randomLeft1 = randomLeft0 + labelWidth + 2 * margin;
+  addGroupLabel(
+    randomLeft0, randomTop0, groupLabelWidth, labelHeight, uiTextSize, "Random");
+
+  addLabel(randomLeft0, randomTop1, labelWidth, labelHeight, uiTextSize, "Recipe");
+
+  std::vector<std::string> recipeNames{
+    "Full",
+    "Bass Drum",
+    "Snare Drum",
+    "Hi-Hat",
+    "Light Percussion",
+    "Echo Drum",
+    "Jaggy Concert Bass Drum",
+    "Muffled",
+    "Synthetic",
+  };
+  recipeNames.reserve(numRecipes);
+  for (size_t i = recipeNames.size(); i < numRecipes; ++i) {
+    char buf[32];
+    std::snprintf(buf, sizeof(buf), "- Reserved %02zu -", i);
+    recipeNames.push_back(buf);
+  }
+  addOptionMenu(
+    randomLeft1, randomTop1, labelWidth, labelHeight, uiTextSize, ID::randomizeRecipe,
+    recipeNames);
+
+  addLabel(randomLeft0, randomTop2, labelWidth, labelHeight, uiTextSize, "Seed");
+  auto randSeedTextKnob = addTextKnob(
+    randomLeft1, randomTop2, labelWidth, labelHeight, uiTextSize, ID::randomizeSeed,
+    Scales::seed, false, 0);
+  if (randSeedTextKnob) {
+    randSeedTextKnob->sensitivity = 2048.0 / double(1 << 24);
+    randSeedTextKnob->lowSensitivity = 1.0 / double(1 << 24);
+  }
+
+  auto randomizeButton = new RandomizeButton(
+    CRect(
+      randomLeft0, randomTop3, randomLeft0 + groupLabelWidth, randomTop3 + labelHeight),
+    this, ID::randomize, "Random", getFont(pluginNameTextSize), palette, this);
+  frame->addView(randomizeButton);
+  addToControlMap(ID::randomize, randomizeButton);
 
   // Impact.
   const auto impactTop0 = top0 + 0 * labelY;
@@ -488,24 +538,14 @@ bool Editor::prepareUI()
     secondaryLeft0, secondaryTop5, groupLabelWidth, labelHeight, uiTextSize,
     "Membrane collision status.");
 
-  // Randomize button.
-  const auto randomButtonTop = top0 + 18 * labelY;
-  const auto randomButtonLeft = left0 + labelWidth + 2 * margin;
-  auto panicButton = new RandomizeButton(
-    CRect(
-      randomButtonLeft, randomButtonTop, randomButtonLeft + labelWidth,
-      randomButtonTop + splashHeight),
-    this, 0, "Random", getFont(pluginNameTextSize), palette, this);
-  frame->addView(panicButton);
-
   // Plugin name.
   const auto splashMargin = uiMargin;
-  const auto splashTop = top0 + 18 * labelY;
-  const auto splashLeft = left0;
+  const auto splashTop = top0 + 20 * labelY + 2 * margin;
+  const auto splashLeft = left8;
   addSplashScreen(
-    splashLeft, splashTop, labelWidth, splashHeight, splashMargin, splashMargin,
-    defaultWidth - 2 * splashMargin, defaultHeight - 2 * splashMargin, pluginNameTextSize,
-    "GenericDrum", false);
+    splashLeft + int(labelWidth / 2), splashTop, labelWidth + 2 * margin, 2 * labelHeight,
+    splashMargin, splashMargin, defaultWidth - 2 * splashMargin,
+    defaultHeight - 2 * splashMargin, pluginNameTextSize, "GenericDrum", false);
 
   return true;
 }
