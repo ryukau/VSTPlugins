@@ -102,7 +102,7 @@ if __name__ == "__main__":
     with open("../../package/manual.json", "r", encoding="utf-8") as fi:
         alias = json.load(fi)
 
-    release_name = "UhhyouPlugins0.70.0"
+    release_name = "UhhyouPlugins0.71.0"  # Change the version
     changelog_en = [
         "Fixed resetting on some DAWs. Added `setProcessing` to reset.",
     ]

@@ -1,9 +1,9 @@
 {
   "RingModSpacer": {
     "latest_version": "0.1.8",
-    "urls": {
+    "urls"          : {
       "plugin_url": [
-        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/RingModSpacer_0.1.8.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.71.0/RingModSpacer_0.1.8.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/RingModSpacer_0.1.7.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.69.0/RingModSpacer_0.1.6.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/RingModSpacer_0.1.5.zip",
@@ -14,22 +14,16 @@
       ],
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.54.2/RingModSpacerPresets.zip"
     },
-    "changelog": {
+    "changelog"     : {
       "0.1.8": {
-        "en": [
-          "Fixed resetting on some DAWs. Added `setProcessing` to reset."
-        ],
-        "ja": [
-          "DAW によってはリセットが効かなかったバグを修正。 `setProcessing` でもリセットするように変更。"
-        ]
+        "en": ["Fixed resetting on some DAWs. Added `setProcessing` to reset."                                ],
+        "ja": ["DAW によってはリセットが効かなかったバグを修正。 `setProcessing` でもリセットするように変更。"]
       },
       "0.1.7": {
         "en": [
           "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization."
         ],
-        "ja": [
-          "初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"
-        ]
+        "ja": ["初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"]
       },
       "0.1.6": {
         "en": [
@@ -40,23 +34,10 @@
         ]
       },
       "0.1.5": {
-        "en": [
-          "Added GUI scaling.",
-          "Updated the Linux patch for VSTGUI4."
-        ],
-        "ja": [
-          "GUI のサイズを変更するオプションを追加。",
-          "VSTGUI4 の Linux パッチを更新。"
-        ]
+        "en": ["Added GUI scaling.",                       "Updated the Linux patch for VSTGUI4."],
+        "ja": ["GUI のサイズを変更するオプションを追加。", "VSTGUI4 の Linux パッチを更新。"     ]
       },
-      "0.1.4": {
-        "en": [
-          "Fixed GUI on Linux."
-        ],
-        "ja": [
-          "Linux での GUI を修正。"
-        ]
-      },
+      "0.1.4": { "en": ["Fixed GUI on Linux."], "ja": ["Linux での GUI を修正。"] },
       "0.1.3": {
         "en": [
           "Changed to include presets in plugin zip package.",
@@ -72,27 +53,13 @@
           "Changed default style color of `foregroundInactive`.",
           "Fixed performance drop caused by subnormal floating point numbers."
         ],
-        "ja": [
-          "デフォルトの `foregroundInactive` の色を変更。",
-          "サブノーマル数によるパフォーマンスの低下を修正。"
-        ]
+        "ja": ["デフォルトの `foregroundInactive` の色を変更。", "サブノーマル数によるパフォーマンスの低下を修正。"]
       },
       "0.1.1": {
-        "en": [
-          "Changed update timing of `Gain` parameters to mouse up."
-        ],
-        "ja": [
-          "`Gain` パラメータの更新タイミングをマウスボタンを上げた時点に変更。"
-        ]
+        "en": ["Changed update timing of `Gain` parameters to mouse up."            ],
+        "ja": ["`Gain` パラメータの更新タイミングをマウスボタンを上げた時点に変更。"]
       },
-      "0.1.0": {
-        "en": [
-          "Initial release."
-        ],
-        "ja": [
-          "初期リリース。"
-        ]
-      }
+      "0.1.0": { "en": ["Initial release."], "ja": ["初期リリース。"] }
     }
   }
 }

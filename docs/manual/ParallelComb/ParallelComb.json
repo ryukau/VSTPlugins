@@ -1,9 +1,9 @@
 {
   "ParallelComb": {
     "latest_version": "0.2.15",
-    "urls": {
+    "urls"          : {
       "plugin_url": [
-        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/ParallelComb_0.2.15.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.71.0/ParallelComb_0.2.15.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/ParallelComb_0.2.14.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/ParallelComb_0.2.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/ParallelComb_0.2.12.zip",
@@ -20,22 +20,16 @@
       ],
       "preset_url": ""
     },
-    "changelog": {
+    "changelog"     : {
       "0.2.15": {
-        "en": [
-          "Fixed resetting on some DAWs. Added `setProcessing` to reset."
-        ],
-        "ja": [
-          "DAW によってはリセットが効かなかったバグを修正。 `setProcessing` でもリセットするように変更。"
-        ]
+        "en": ["Fixed resetting on some DAWs. Added `setProcessing` to reset."                                ],
+        "ja": ["DAW によってはリセットが効かなかったバグを修正。 `setProcessing` でもリセットするように変更。"]
       },
       "0.2.14": {
         "en": [
           "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization."
         ],
-        "ja": [
-          "初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"
-        ]
+        "ja": ["初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"]
       },
       "0.2.13": {
         "en": [
@@ -49,14 +43,7 @@
           "VSTGUI4 の Linux パッチを更新。"
         ]
       },
-      "0.2.12": {
-        "en": [
-          "Fixed GUI on Linux."
-        ],
-        "ja": [
-          "Linux での GUI を修正。"
-        ]
-      },
+      "0.2.12": { "en": ["Fixed GUI on Linux."], "ja": ["Linux での GUI を修正。"] },
       "0.2.11": {
         "en": [
           "Changed to include presets in plugin zip package.",
@@ -72,20 +59,13 @@
           "Changed default style color of `foregroundInactive`.",
           "Fixed performance drop caused by subnormal floating point numbers."
         ],
-        "ja": [
-          "デフォルトの `foregroundInactive` の色を変更。",
-          "サブノーマル数によるパフォーマンスの低下を修正。"
-        ]
+        "ja": ["デフォルトの `foregroundInactive` の色を変更。", "サブノーマル数によるパフォーマンスの低下を修正。"]
       },
-      "0.2.9": {
-        "en": [
-          "Added note event input to control delay times."
-        ],
-        "ja": [
-          "ディレイ時間を制御するためのノートイベント入力を追加。"
-        ]
+      "0.2.9" : {
+        "en": ["Added note event input to control delay times."        ],
+        "ja": ["ディレイ時間を制御するためのノートイベント入力を追加。"]
       },
-      "0.2.8": {
+      "0.2.8" : {
         "en": [
           "Fixed crash on Renoise. Previous code was trying to access freed memory of GUI widgets, and it was causing the crash."
         ],
@@ -93,15 +73,11 @@
           "Renoise で GUI がクラッシュするバグを修正。 GUI 要素のメモリが解放された後にアクセスを行おうとしていたことがクラッシュの原因。"
         ]
       },
-      "0.2.7": {
-        "en": [
-          "Fixed stuttering on Audacity where `processContext` is `nullptr`."
-        ],
-        "ja": [
-          "`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"
-        ]
+      "0.2.7" : {
+        "en": ["Fixed stuttering on Audacity where `processContext` is `nullptr`."                           ],
+        "ja": ["`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"]
       },
-      "0.2.6": {
+      "0.2.6" : {
         "en": [
           "Added decimation by holding shortcut to BarBox. Shortcut is <kbd>5</kbd>-<kbd>9</kbd>.",
           "Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>."
@@ -111,15 +87,13 @@
           "数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> による値の切り捨てのショートカットを追加。"
         ]
       },
-      "0.2.5": {
+      "0.2.5" : {
         "en": [
           "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak."
         ],
-        "ja": [
-          "クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。"
-        ]
+        "ja": ["クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。"]
       },
-      "0.2.4": {
+      "0.2.4" : {
         "en": [
           "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux.",
           "Change BarBox to only send modified parameter values to host. This prevents to overwrite unchanged parameter automation on the same BarBox."
@@ -129,7 +103,7 @@
           "BarBox が変更されたパラメータの値のみをホストに送るように変更。編集中の BarBox 上の変更されていないパラメータのオートメーションが上書きされないようになった。"
         ]
       },
-      "0.2.3": {
+      "0.2.3" : {
         "en": [
           "Changed BarBox to get focus on mouse down, and release focus on mouse exit.",
           "Changed to remove pop noise when gate is activated. Cutoff frequency of the filter of gate is lowered, and the filter coefficient now refreshes when oversampling is turned on."
@@ -139,22 +113,11 @@
           "ゲート有効時のポップノイズを抑えるように変更。フィルタのカットオフを下げて、オーバーサンプリング時に適切に係数が更新されるようにした。"
         ]
       },
-      "0.2.1": {
-        "en": [
-          "Fixed a bug that limiter on feedback path only output silence."
-        ],
-        "ja": [
-          "フィードバック経路のリミッタが動作せず、 wet 信号が無音となるバグを修正。"
-        ]
+      "0.2.1" : {
+        "en": ["Fixed a bug that limiter on feedback path only output silence."           ],
+        "ja": ["フィードバック経路のリミッタが動作せず、 wet 信号が無音となるバグを修正。"]
       },
-      "0.2.0": {
-        "en": [
-          "Initial release."
-        ],
-        "ja": [
-          "初期リリース。"
-        ]
-      }
+      "0.2.0" : { "en": ["Initial release."], "ja": ["初期リリース。"] }
     }
   }
 }

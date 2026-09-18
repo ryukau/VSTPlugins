@@ -1,9 +1,9 @@
 {
-  "ClangSynth": {
+  "ClangSynth" : {
     "latest_version": "0.1.13",
-    "urls": {
+    "urls"          : {
       "plugin_url": [
-        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/ClangSynth_0.1.13.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.71.0/ClangSynth_0.1.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/ClangSynth_0.1.12.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/ClangSynth_0.1.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.65.0/ClangSynth_0.1.10.zip",
@@ -20,22 +20,16 @@
       ],
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/ClangSynthPresets.zip"
     },
-    "changelog": {
+    "changelog"     : {
       "0.1.13": {
-        "en": [
-          "Fixed resetting on some DAWs. Added `setProcessing` to reset."
-        ],
-        "ja": [
-          "DAW によってはリセットが効かなかったバグを修正。 `setProcessing` でもリセットするように変更。"
-        ]
+        "en": ["Fixed resetting on some DAWs. Added `setProcessing` to reset."                                ],
+        "ja": ["DAW によってはリセットが効かなかったバグを修正。 `setProcessing` でもリセットするように変更。"]
       },
       "0.1.12": {
         "en": [
           "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization."
         ],
-        "ja": [
-          "初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"
-        ]
+        "ja": ["初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"]
       },
       "0.1.11": {
         "en": [
@@ -57,15 +51,8 @@
           "DAW から適切なノート ID が提供されないときに、同音連打するとノートオンで生じていたクリックを低減。 Bitwig, Live, REAPER での使用時に影響あり。"
         ]
       },
-      "0.1.9": {
-        "en": [
-          "Fixed GUI on Linux."
-        ],
-        "ja": [
-          "Linux での GUI を修正。"
-        ]
-      },
-      "0.1.8": {
+      "0.1.9" : { "en": ["Fixed GUI on Linux."], "ja": ["Linux での GUI を修正。"] },
+      "0.1.8" : {
         "en": [
           "Changed to include presets in plugin zip package.",
           "Fixed a bug that invalid `style.json` crashes plugin."
@@ -75,17 +62,14 @@
           "不正な `style.json` によりプラグインがクラッシュするバグを修正。"
         ]
       },
-      "0.1.7": {
+      "0.1.7" : {
         "en": [
           "Changed default style color of `foregroundInactive`.",
           "Fixed performance drop caused by subnormal floating point numbers."
         ],
-        "ja": [
-          "デフォルトの `foregroundInactive` の色を変更。",
-          "サブノーマル数によるパフォーマンスの低下を修正。"
-        ]
+        "ja": ["デフォルトの `foregroundInactive` の色を変更。", "サブノーマル数によるパフォーマンスの低下を修正。"]
       },
-      "0.1.6": {
+      "0.1.6" : {
         "en": [
           "Added presets.",
           "Fixed crash on Renoise. Previous code was trying to access freed memory of GUI widgets, and it was causing the crash."
@@ -95,23 +79,12 @@
           "Renoise で GUI がクラッシュするバグを修正。 GUI 要素のメモリが解放された後にアクセスを行おうとしていたことがクラッシュの原因。"
         ]
       },
-      "0.1.5": {
-        "en": [
-          "Fixed stuttering on Audacity where `processContext` is `nullptr`."
-        ],
-        "ja": [
-          "`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"
-        ]
+      "0.1.5" : {
+        "en": ["Fixed stuttering on Audacity where `processContext` is `nullptr`."                           ],
+        "ja": ["`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"]
       },
-      "0.1.4": {
-        "en": [
-          "Updated splash screen text."
-        ],
-        "ja": [
-          "スプラッシュ画面のテキストを更新。"
-        ]
-      },
-      "0.1.3": {
+      "0.1.4" : { "en": ["Updated splash screen text."], "ja": ["スプラッシュ画面のテキストを更新。"] },
+      "0.1.3" : {
         "en": [
           "Added decimation by holding shortcut to BarBox. Shortcut is <kbd>5</kbd>-<kbd>9</kbd>.",
           "Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>."
@@ -121,15 +94,13 @@
           "数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> による値の切り捨てのショートカットを追加。"
         ]
       },
-      "0.0.3": {
+      "0.0.3" : {
         "en": [
           "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak."
         ],
-        "ja": [
-          "クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。"
-        ]
+        "ja": ["クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。"]
       },
-      "0.0.2": {
+      "0.0.2" : {
         "en": [
           "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux.",
           "Change BarBox to only send modified parameter values to host. This prevents to overwrite unchanged parameter automation on the same BarBox."
@@ -139,21 +110,14 @@
           "BarBox が変更されたパラメータの値のみをホストに送るように変更。編集中の BarBox 上の変更されていないパラメータのオートメーションが上書きされないようになった。"
         ]
       },
-      "0.0.1": {
-        "en": [
-          "β release."
-        ],
-        "ja": [
-          "β リリース。"
-        ]
-      }
+      "0.0.1" : { "en": ["β release."], "ja": ["β リリース。"] }
     }
   },
   "ClangCymbal": {
     "latest_version": "0.1.13",
-    "urls": {
+    "urls"          : {
       "plugin_url": [
-        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/ClangCymbal_0.1.13.zip",
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.71.0/ClangCymbal_0.1.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/ClangCymbal_0.1.12.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/ClangCymbal_0.1.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/ClangCymbal_0.1.10.zip",
@@ -173,70 +137,38 @@
       ],
       "preset_url": ""
     },
-    "changelog": {
+    "changelog"     : {
       "0.1.13": {
-        "en": [
-          "Fixed resetting on some DAWs. Added `setProcessing` to reset."
-        ],
-        "ja": [
-          "DAW によってはリセットが効かなかったバグを修正。 `setProcessing` でもリセットするように変更。"
-        ]
+        "en": ["Fixed resetting on some DAWs. Added `setProcessing` to reset."                                ],
+        "ja": ["DAW によってはリセットが効かなかったバグを修正。 `setProcessing` でもリセットするように変更。"]
       },
       "0.1.12": {
         "en": [
           "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization."
         ],
-        "ja": [
-          "初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"
-        ]
+        "ja": ["初期化にウィンドウの大きさがおかしくなる (512x512 px) バグを修正。"]
       },
       "0.1.11": {
-        "en": [
-          "Added GUI scaling.",
-          "Updated the Linux patch for VSTGUI4."
-        ],
-        "ja": [
-          "GUI のサイズを変更するオプションを追加。",
-          "VSTGUI4 の Linux パッチを更新。"
-        ]
+        "en": ["Added GUI scaling.",                       "Updated the Linux patch for VSTGUI4."],
+        "ja": ["GUI のサイズを変更するオプションを追加。", "VSTGUI4 の Linux パッチを更新。"     ]
       },
-      "0.1.10": {
-        "en": [
-          "Fixed GUI on Linux."
-        ],
-        "ja": [
-          "Linux での GUI を修正。"
-        ]
+      "0.1.10": { "en": ["Fixed GUI on Linux."], "ja": ["Linux での GUI を修正。"] },
+      "0.1.9" : {
+        "en": ["Added a button to randomize parameters.",  "Changed to include presets in plugin zip package."],
+        "ja": ["パラメータをランダム化するボタンを追加。", "Zip パッケージにプリセットを同梱するよう変更。"   ]
       },
-      "0.1.9": {
-        "en": [
-          "Added a button to randomize parameters.",
-          "Changed to include presets in plugin zip package."
-        ],
-        "ja": [
-          "パラメータをランダム化するボタンを追加。",
-          "Zip パッケージにプリセットを同梱するよう変更。"
-        ]
+      "0.1.8" : {
+        "en": ["Fixed a bug that invalid `style.json` crashes plugin."           ],
+        "ja": ["不正な `style.json` によりプラグインがクラッシュするバグを修正。"]
       },
-      "0.1.8": {
-        "en": [
-          "Fixed a bug that invalid `style.json` crashes plugin."
-        ],
-        "ja": [
-          "不正な `style.json` によりプラグインがクラッシュするバグを修正。"
-        ]
-      },
-      "0.1.7": {
+      "0.1.7" : {
         "en": [
           "Changed default style color of `foregroundInactive`.",
           "Fixed performance drop caused by subnormal floating point numbers."
         ],
-        "ja": [
-          "デフォルトの `foregroundInactive` の色を変更。",
-          "サブノーマル数によるパフォーマンスの低下を修正。"
-        ]
+        "ja": ["デフォルトの `foregroundInactive` の色を変更。", "サブノーマル数によるパフォーマンスの低下を修正。"]
       },
-      "0.1.6": {
+      "0.1.6" : {
         "en": [
           "Fixed crash on Renoise. Previous code was trying to access freed memory of GUI widgets, and it was causing the crash."
         ],
@@ -244,23 +176,12 @@
           "Renoise で GUI がクラッシュするバグを修正。 GUI 要素のメモリが解放された後にアクセスを行おうとしていたことがクラッシュの原因。"
         ]
       },
-      "0.1.5": {
-        "en": [
-          "Fixed stuttering on Audacity where `processContext` is `nullptr`."
-        ],
-        "ja": [
-          "`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"
-        ]
+      "0.1.5" : {
+        "en": ["Fixed stuttering on Audacity where `processContext` is `nullptr`."                           ],
+        "ja": ["`processContext` が `nullptr` であるために Audacity で音が正しく出力されなかったバグを修正。"]
       },
-      "0.1.4": {
-        "en": [
-          "Updated splash screen text."
-        ],
-        "ja": [
-          "スプラッシュ画面のテキストを更新。"
-        ]
-      },
-      "0.1.3": {
+      "0.1.4" : { "en": ["Updated splash screen text."], "ja": ["スプラッシュ画面のテキストを更新。"] },
+      "0.1.3" : {
         "en": [
           "Added decimation by holding shortcut to BarBox. Shortcut is <kbd>5</kbd>-<kbd>9</kbd>.",
           "Added floor shortcut to number sliders. Shortcut is <kbd>Shift</kbd> + <kbd>Middle Click</kbd>."
@@ -270,15 +191,13 @@
           "数値スライダに <kbd>Shift</kbd> + <kbd>ホイールクリック</kbd> による値の切り捨てのショートカットを追加。"
         ]
       },
-      "0.1.2": {
+      "0.1.2" : {
         "en": [
           "Added to `virtual` to destructor of common components. This may prevent some cause of crash or memory leak."
         ],
-        "ja": [
-          "クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。"
-        ]
+        "ja": ["クラッシュやメモリリークを防ぐため、共通コンポーネントのデストラクタに `virtual` を追加。"]
       },
-      "0.1.1": {
+      "0.1.1" : {
         "en": [
           "Changed to reset random number generator when `Seed` is changed. With this change, the same sound comes out when `Seed` is changed and when full reset is done."
         ],
@@ -286,7 +205,7 @@
           "`Seed` 変更時に乱数生成器をリセットするように変更。この変更により `Seed` 変更時と、フルリセット時に同じ音が出るようになった。"
         ]
       },
-      "0.1.0": {
+      "0.1.0" : {
         "en": [
           "Added \"2x Sampling\" parameter.",
           "Changed tremolo modulation signal from FDN output ot sine wave.",
@@ -300,7 +219,7 @@
           "エンベロープで使用しているソルバが最大反復数に到達しても探索を終了しないバグを修正。"
         ]
       },
-      "0.0.3": {
+      "0.0.3" : {
         "en": [
           "Updated VST 3 SDK to version 3.7.6. This also fixes the crash when opening multiple GUI of same plugin on Linux.",
           "Change BarBox to only send modified parameter values to host. This prevents to overwrite unchanged parameter automation on the same BarBox."
@@ -310,7 +229,7 @@
           "BarBox が変更されたパラメータの値のみをホストに送るように変更。編集中の BarBox 上の変更されていないパラメータのオートメーションが上書きされないようになった。"
         ]
       },
-      "0.0.2": {
+      "0.0.2" : {
         "en": [
           "Fix initialization failure on Bitwig and Live 11. Previously, `kNotInitialized` was incorrectly returned when sampling rate is changed."
         ],
@@ -318,14 +237,7 @@
           "Bitwig と Live 11 で初期化に失敗するバグを修正。修正前はサンプリング周波数が変更されたときに `kNotInitialized` が誤って返されていた。"
         ]
       },
-      "0.0.1": {
-        "en": [
-          "β release."
-        ],
-        "ja": [
-          "β リリース。"
-        ]
-      }
+      "0.0.1" : { "en": ["β release."], "ja": ["β リリース。"] }
     }
   }
 }
