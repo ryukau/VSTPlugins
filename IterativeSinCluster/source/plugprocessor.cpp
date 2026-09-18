@@ -78,6 +78,15 @@ tresult PLUGIN_API PlugProcessor::setActive(TBool state)
   return AudioEffect::setActive(state);
 }
 
+tresult PLUGIN_API PlugProcessor::setProcessing(TBool state) {
+  if (dsp == nullptr) return kResultFalse;
+  if (!state) {
+    dsp->reset();
+    lastState = 0;
+  }
+  return AudioEffect::setProcessing(state);
+}
+
 tresult PLUGIN_API PlugProcessor::process(Vst::ProcessData &data)
 {
   if (dsp == nullptr) return kNotInitialized;

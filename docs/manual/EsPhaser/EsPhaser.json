@@ -1,8 +1,9 @@
 {
   "EsPhaser": {
-    "latest_version": "0.1.22",
+    "latest_version": "0.1.23",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/EsPhaser_0.1.23.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/EsPhaser_0.1.22.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/EsPhaser_0.1.21.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/EsPhaser_0.1.20.zip",
@@ -28,6 +29,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/EsPhaser0.1.0/EsPhaserPresets.zip"
     },
     "changelog": {
+      "0.1.23": {
+        "en": [
+          "Fixed resetting on some DAWs. Added `setProcessing` to reset."
+        ],
+        "ja": [
+          "DAW によってはリセットが効かなかったバグを修正。 `setProcessing` でもリセットするように変更。"
+        ]
+      },
       "0.1.22": {
         "en": [
           "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization."

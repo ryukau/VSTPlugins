@@ -202,6 +202,27 @@ Slide Time \[s\]
 
     The pitch starts sliding when 2 or more notes are played at the same time.
 
+### Random
+The Random section contains parameters for randomizing other parameters.
+
+Recipe
+
+:   Type of randomization.
+
+    Selecting `Reserved*` falls back to `Full`.
+
+Seed
+
+:   Sets the seed used for parameter randomization.
+
+    Automating randomization produces consistent results when playback starts from the same position. However, internal delays and other trailing effects from preceding notes can introduce slight variations. For absolute reproducibility, bounce the track to audio.
+
+Random
+
+:   Randomize button.
+
+    During automation, randomization is triggered when the state changes from 0 to 1.
+
 ### Impact
 Impact section contains parameters that imitates the collision between the a stick and a membrane.
 

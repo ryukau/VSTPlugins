@@ -30,6 +30,7 @@ public:
 
   tresult PLUGIN_API setupProcessing(Vst::ProcessSetup &setup) SMTG_OVERRIDE;
   tresult PLUGIN_API setActive(TBool state) SMTG_OVERRIDE;
+  tresult PLUGIN_API setProcessing(TBool state) SMTG_OVERRIDE;
   tresult PLUGIN_API process(Vst::ProcessData &data) SMTG_OVERRIDE;
 
   tresult PLUGIN_API setState(IBStream *state) SMTG_OVERRIDE;

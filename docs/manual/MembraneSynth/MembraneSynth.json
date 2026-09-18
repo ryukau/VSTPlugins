@@ -1,8 +1,9 @@
 {
   "MembraneSynth": {
-    "latest_version": "0.1.12",
+    "latest_version": "0.1.13",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/MembraneSynth_0.1.13.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/MembraneSynth_0.1.12.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.68.0/MembraneSynth_0.1.11.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/MembraneSynth_0.1.10.zip",
@@ -20,6 +21,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.53.0/MembraneSynthPresets.zip"
     },
     "changelog": {
+      "0.1.13": {
+        "en": [
+          "Fixed resetting on some DAWs. Added `setProcessing` to reset."
+        ],
+        "ja": [
+          "DAW によってはリセットが効かなかったバグを修正。 `setProcessing` でもリセットするように変更。"
+        ]
+      },
       "0.1.12": {
         "en": [
           "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization."

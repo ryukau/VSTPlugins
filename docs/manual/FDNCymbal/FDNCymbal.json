@@ -1,8 +1,9 @@
 {
   "FDNCymbal": {
-    "latest_version": "0.2.21",
+    "latest_version": "0.2.22",
     "urls": {
       "plugin_url": [
+        "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/FDNCymbal_0.2.22.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.70.0/FDNCymbal_0.2.21.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.66.0/FDNCymbal_0.2.20.zip",
         "https://github.com/ryukau/VSTPlugins/releases/download/UhhyouPlugins0.61.0/FDNCymbal_0.2.19.zip",
@@ -31,6 +32,14 @@
       "preset_url": "https://github.com/ryukau/VSTPlugins/releases/download/BarBoxFocusFix/FDNCymbalPresets.zip"
     },
     "changelog": {
+      "0.2.22": {
+        "en": [
+          "Fixed resetting on some DAWs. Added `setProcessing` to reset."
+        ],
+        "ja": [
+          "DAW によってはリセットが効かなかったバグを修正。 `setProcessing` でもリセットするように変更。"
+        ]
+      },
       "0.2.21": {
         "en": [
           "Fixed a bug that plugin to show up with incorrect window size (likely 512x512 pixels) at initialization."
